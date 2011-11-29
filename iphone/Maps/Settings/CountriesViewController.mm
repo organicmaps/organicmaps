@@ -309,7 +309,7 @@ UITableViewCell * g_clickedCell = nil;
         if (FreeDiskSpaceInBytes() < (size + 1024*1024))
         { // display warning dialog about not enough free disk space
           [[[[CustomAlertView alloc] initWithTitle:NSLocalizedString(@"There is not enough free disk space", @"Settings/Downloader - No free space dialog title")
-                                                                   message:[NSString stringWithFormat:NSLocalizedString(@"Please, free some space on your device first to download %@", @"Settings/Downloader - No free space dialog message"), countryName]
+                                                                   message:[NSString stringWithFormat:NSLocalizedString(@"Please free some space on your device first in order to download %@", @"Settings/Downloader - No free space dialog message"), countryName]
                                                                   delegate:nil
                                                          cancelButtonTitle:NSLocalizedString(@"Ok", @"Settings/Downloader - No free space dialog close button")
                                                          otherButtonTitles:nil] autorelease] show];
@@ -320,7 +320,7 @@ UITableViewCell * g_clickedCell = nil;
         if (connType == ENotConnected)
         { // do not initiate any download
           [[[[CustomAlertView alloc] initWithTitle:NSLocalizedString(@"No Internet connection detected", @"Settings/Downloader - No internet connection dialog title")
-                                           message:NSLocalizedString(@"We recommend to use WiFi to download large countries", @"Settings/Downloader - No internet connection dialog message")
+                                           message:NSLocalizedString(@"We recommend using WiFi to download larger countries", @"Settings/Downloader - No internet connection dialog message")
                                           delegate:nil
                                  cancelButtonTitle:NSLocalizedString(@"Ok", @"Settings/Downloader - No internet connection dialog close button")
                                  otherButtonTitles:nil] autorelease] show];
@@ -330,7 +330,7 @@ UITableViewCell * g_clickedCell = nil;
           if (connType == EConnectedBy3G && size > MAX_3G_MEGABYTES * MB)
           { // If user uses 3G, do not allow him to download large countries
             [[[[CustomAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"%@ is too large to download over 3G", @"Settings/Downloader - 3G download warning dialog title"), countryName]
-                                            message:NSLocalizedString(@"Please, use WiFi connection to download large countries", @"Settings/Downloader - 3G download warning dialog message")
+                                            message:NSLocalizedString(@"Please use WiFi connection to download larger countries", @"Settings/Downloader - 3G download warning dialog message")
                                           delegate:nil
                                   cancelButtonTitle:NSLocalizedString(@"Ok", @"Settings/Downloader - 3G download warning dialog close button")
                                   otherButtonTitles:nil] autorelease] show];
@@ -368,8 +368,8 @@ UITableViewCell * g_clickedCell = nil;
     		UIActionSheet * popupQuery = [[UIActionSheet alloc]
       			initWithTitle: countryName
         		delegate: self
-			cancelButtonTitle: NSLocalizedString(@"Do Nothing", @"Settings/Downloader - Cancel active download dialog - Do not cancel button")
-			destructiveButtonTitle: NSLocalizedString(@"Cancel Download", @"Settings/Downloader - Cancel active download dialog - Interrupt country download button")
+			cancelButtonTitle: NSLocalizedString(@"Do nothing", @"Settings/Downloader - Cancel active download dialog - Do not cancel button")
+			destructiveButtonTitle: NSLocalizedString(@"Cancel download", @"Settings/Downloader - Cancel active download dialog - Interrupt country download button")
         		otherButtonTitles: nil];
         [popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
     		[popupQuery release];

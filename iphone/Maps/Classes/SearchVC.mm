@@ -412,7 +412,7 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 //  switch (newStatus)
 //  {
 //  case location::EDisabledByUser:
-//    m_warningViewText = [[NSString alloc] initWithString:NSLocalizedString(@"Please enable location services", @"Search View - Location is disabled by user warning text")];
+//    m_warningViewText = [[NSString alloc] initWithString:NSLocalizedString(@"Please enable Location Services", @"Search View - Location is disabled by user warning text")];
 //    break;
 //  case location::ENotSupported:
 //    m_warningViewText = [[NSString alloc] initWithString:NSLocalizedString(@"Location Services are not supported", @"Search View - Location is not supported on the device warning text")];

@@ -9,16 +9,9 @@
 
 using namespace storage;
 
-// @TODO advertisement banner
-// NSLocalizedString(@"MapsWithMe Pro", @"Banner title")
-// NSLocalizedString(@"One step ahead! Cool search feature! Bla bla bla", @"Banner message")
-// NSLocalizedString(@"Check MapsWithMe Pro", @"Banner Ok button - go to the appstore for paid version")
-// NSLocalizedString(@"Remind me later", @"Banner postpone button - remind later about paid version")
-// NSLocalizedString(@"Don't bother me", @"Banner cancel button - never remind user about paid version")
-
 // @TODO Write Review dialog
-// NSLocalizedString(@"Leave your review", @"Leave Review dialog title")
-// NSLocalizedString(@"If you like MapsWithMe, please support us with your review. If you want to complain - please leave it on our support site", @"Leave Review dialog message")
+// NSLocalizedString(@"Leave a review", @"Leave Review dialog title")
+// NSLocalizedString(@"If you like MapsWithMe, please support us with  a review. If you want to complain then please visit our support site", @"Leave Review dialog message")
 // NSLocalizedString(@"Write a review", @"Leave Review dialog - Review button")
 // NSLocalizedString(@"Complain", @"Leave Review dialog - Complain button (goes to support site)")
 // NSLocalizedString(@"Not now", @"Leave Review dialog - Not now button (remond me later)")
@@ -32,6 +25,19 @@ using namespace storage;
 // NSLocalizedString(@"Travel Guide", @"View and button titles for accessibility")
 // NSLocalizedString(@"Back", @"View and button titles for accessibility")
 // NSLocalizedString(@"Zoom to the country", @"View and button titles for accessibility")
+
+// @TODO Search button banner dialog for free version
+// NSLocalizedString(@"Search feature", @"Search button pressed dialog title in the free version")
+// NSLocalizedString(@"Search is available in the paid version of MapsWithMe. Upgrade now!", @"Search button pressed dialog message in the free version")
+// NSLocalizedString(@"Go to the AppStore", @"Search button pressed dialog Positive button in the free version")
+// NSLocalizedString(@"Cancel", @"Search button pressed dialog Negative button in the free version")
+
+// @TODO Paid version is available one-time banner dialog for free version
+// NSLocalizedString(@"MapsWithMe now with Search capabilities", @"Paid version has become available one-time dialog title in the free version")
+// NSLocalizedString(@"Now you can install MapsWithMe with Search!", @"Paid version has become available one-time dialog message in the free version")
+// NSLocalizedString(@"Visit AppStore", @"Paid version has become available one-time dialog Positive button in the free version")
+// NSLocalizedString(@"Not Now", @"Paid version has become available one-time dialog Negative button in the free version")
+
 
 // Settings are always present globally
 @implementation SettingsManager
@@ -98,7 +104,7 @@ using namespace storage;
   if (framework->NeedToDeleteOldMaps())
   {
     UIActionSheet * dialog = [[UIActionSheet alloc]
-        initWithTitle:NSLocalizedString(@"MapsWithMe uses new, fresh and more compact maps. For example, USA, Germany, France, Canada and Russia are splitted to smaller States/Regions. But to use new maps you should delete all previously downloaded data and download new maps.", @"Downloader/Upgrade dialog message")
+        initWithTitle:NSLocalizedString(@"MapsWithMe have enhanced the map data and made it far more accessible. For example, with larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.", @"Downloader/Upgrade dialog message")
         delegate:self
         cancelButtonTitle:NSLocalizedString(@"Do nothing at the moment", @"Downloader/Upgrade Cancel button")
         destructiveButtonTitle:NSLocalizedString(@"Delete old and download new maps", @"Downloader/Upgrade OK button")

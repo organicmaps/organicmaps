@@ -31,9 +31,9 @@ Framework * m_framework = NULL;
   case location::EDisabledByUser:
     {
       UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Location Services are disabled", @"Location services are disabled by user alert - title")
-                                                       message:NSLocalizedString(@"You currently have all location services for this device or application disabled. Please, enable them in Settings Application->Location Services.", @"Location services are disabled by user alert - message")
+                                                       message:NSLocalizedString(@"You currently have all Location Services for this device or application disabled. Please enable them in Settings.", @"Location services are disabled by user alert - message")
                                                       delegate:nil 
-                                             cancelButtonTitle:NSLocalizedString(@"Ok", @"Location services are disabled by user alert - close alert button")
+                                             cancelButtonTitle:NSLocalizedString(@"Ok", @"Location Services are disabled by user alert - close alert button")
                                              otherButtonTitles:nil];
       [alert show];
       [alert release];
@@ -43,7 +43,7 @@ Framework * m_framework = NULL;
   case location::ENotSupported:
     {
       UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Location Services are not supported", @"Location Services are not available on the device alert - title")
-                                                       message:NSLocalizedString(@"Your device doesn't support location services", @"Location Services are not available on the device alert - message")
+                                                       message:NSLocalizedString(@"Your device doesn't support Location Services", @"Location Services are not available on the device alert - message")
                                                       delegate:nil
                                              cancelButtonTitle:NSLocalizedString(@"Ok", @"Location Services are not available on the device alert - close alert button")
                                              otherButtonTitles:nil];
