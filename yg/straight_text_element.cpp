@@ -84,6 +84,8 @@ namespace yg
   StraightTextElement::StraightTextElement(Params const & p)
     : TextElement(p)
   {
+    ASSERT(p.m_fontDesc.IsValid(), ());
+
     buffer_vector<strings::UniString, 3> res;
     if ((p.m_doSplit) && (!isBidi()))
     {
@@ -109,7 +111,7 @@ namespace yg
 
     buffer_vector<strings::UniString, 3> auxRes;
 
-    if (!auxVisText().empty())
+    if (p.m_auxFontDesc.IsValid() && (!auxVisText().empty()))
     {
       GlyphLayout l(p.m_glyphCache, p.m_auxFontDesc, m2::PointD(0, 0), auxVisText(), yg::EPosCenter);
       if (l.boundRects().back().GetGlobalRect().SizeX() > allElemWidth)

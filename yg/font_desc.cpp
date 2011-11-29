@@ -22,6 +22,11 @@ namespace yg
       m_size += static_cast<int>(rank * m_size);
   }
 
+  bool FontDesc::IsValid() const
+  {
+    return m_size != -1;
+  }
+
   bool FontDesc::operator ==(FontDesc const & src) const
   {
     return (m_size == src.m_size)

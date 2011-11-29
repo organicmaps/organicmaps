@@ -69,6 +69,9 @@ namespace yg
       m_fontDesc(fontDesc),
       m_pivot(pt)
   {
+    if (!m_fontDesc.IsValid())
+      return;
+
     m2::RectD boundRect;
     m2::PointD curPt(0, 0);
 
@@ -141,6 +144,8 @@ namespace yg
       m_metrics(src.m_metrics),
       m_pivot(0, 0)
   {
+    if (!m_fontDesc.IsValid())
+      return;
     m_boundRects.push_back(m2::AnyRectD(m2::RectD(0, 0, 0, 0)));
     m_fullLength = (m2::PointD(src.m_fullLength, 0) * m).Length(m2::PointD(0, 0) * m);
     m_pathOffset = (m2::PointD(src.m_pathOffset, 0) * m).Length(m2::PointD(0, 0) * m);
@@ -165,6 +170,8 @@ namespace yg
       m_fontDesc(fontDesc),
       m_pivot(0, 0)
   {
+    if (!m_fontDesc.IsValid())
+      return;
     m_boundRects.push_back(m2::AnyRectD(m2::RectD(0, 0, 0, 0)));
     for (size_t i = 0; i < m_visText.size(); ++i)
       m_metrics.push_back(glyphCache->getGlyphMetrics(GlyphKey(visText[i], m_fontDesc.m_size, m_fontDesc.m_isMasked, yg::Color(0, 0, 0, 0))));

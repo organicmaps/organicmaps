@@ -75,6 +75,9 @@ namespace yg
                                  FontDesc const & fontDesc,
                                  double depth) const
   {
+    if (!fontDesc.IsValid())
+      return;
+
     m2::PointD pv = layout.pivot();
     double deltaA = 0;
 
@@ -123,6 +126,9 @@ namespace yg
                         StylesCache * stylesCache,
                         FontDesc const & desc) const
   {
+    if (!desc.IsValid())
+      return;
+
     shared_ptr<SkinPage> const & skinPage = stylesCache->cachePage();
     GlyphCache * glyphCache = stylesCache->glyphCache();
 
@@ -152,6 +158,9 @@ namespace yg
 
   bool TextElement::find(GlyphLayout const & layout, StylesCache * stylesCache, FontDesc const & desc) const
   {
+    if (!desc.IsValid())
+      return false;
+
     shared_ptr<SkinPage> const & skinPage = stylesCache->cachePage();
 
     for (unsigned i = layout.firstVisible(); i < layout.lastVisible(); ++i)
@@ -175,6 +184,9 @@ namespace yg
                                  StylesCache * stylesCache,
                                  vector<m2::PointU> & v) const
   {
+    if (!desc.IsValid())
+      return;
+
     shared_ptr<SkinPage> const & skinPage = stylesCache->cachePage();
     GlyphCache * glyphCache = stylesCache->glyphCache();
 
