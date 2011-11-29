@@ -15,14 +15,16 @@ import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.util.Log;
 
-public class MWMActivity extends NvEventQueueActivity
+public class MWMActivity extends NvEventQueueActivity implements LocationService.Observer
 {
   VideoTimer m_timer;
   private static String TAG = "MWMActivity";
   private final static String PACKAGE_NAME = "com.mapswithme.maps";
   
   private boolean m_locationEnabled = false;
+  private LocationService m_locationService = null; 
 
   private String getAppBundlePath() throws NameNotFoundException
   {
@@ -57,6 +59,17 @@ public class MWMActivity extends NvEventQueueActivity
     }
 
     m_timer = new VideoTimer();
+    m_locationService = new LocationService(this);
+  }
+  
+  public void onStatusChanged(long status)
+  {
+    Log.d(TAG, "onStatusChanged");
+  }
+  
+  public void onLocationChanged(long time, double latitude, double longitude, float accuracy)
+  {
+    Log.d(TAG, "onLocationChanged");
   }
 
 /*  @Override
@@ -83,7 +96,7 @@ public class MWMActivity extends NvEventQueueActivity
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.main, menu);
     // temprorarily disable downloader in the menu
-    menu.removeItem(R.id.download_maps);
+    //menu.removeItem(R.id.download_maps);
     return true;
   }
 
@@ -94,10 +107,10 @@ public class MWMActivity extends NvEventQueueActivity
     switch (item.getItemId())
     {
     case R.id.my_position:
-      if (m_locationEnabled)
-        LocationService.stop();
+      if (m_locationService.isActive())
+        m_locationService.stopUpdate();
       else
-        LocationService.start(this);
+        m_locationService.startUpdate(this);
       m_locationEnabled = !m_locationEnabled;
       return true;
     case R.id.download_maps:

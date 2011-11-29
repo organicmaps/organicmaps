@@ -13,10 +13,11 @@
 #include "../../../../../map/window_handle.hpp"
 #include "../../../../../map/feature_vec_model.hpp"
 #include "../../../nv_event/nv_event.hpp"
+#include "../../../../../platform/location_service.hpp"
 
 namespace android
 {
-  class Framework
+  class Framework : public location::LocationObserver
   {
   private:
     ::Framework m_work;
@@ -46,6 +47,9 @@ namespace android
     ~Framework();
 
     storage::Storage & Storage();
+
+    void OnLocationStatusChanged(location::TLocationStatus newStatus);
+    void OnGpsUpdated(location::GpsInfo const & info);
 
     void Invalidate();
 

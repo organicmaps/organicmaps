@@ -16,51 +16,75 @@ import android.view.WindowManager;
 
 public class LocationService implements LocationListener, SensorEventListener
 {
+
+  public interface Observer
+  {
+    public void onLocationChanged(long time, double lat, double lon, float accuracy);
+    public void onStatusChanged(long status);
+  };
+  
+  private boolean m_isActive = false;
   private static String TAG = "Location";
-  private static LocationService m_self;
   private LocationManager m_locationManager;
   private SensorManager m_sensorManager;
   private Sensor m_compassSensor;
-
   // To calculate true north for compass
   private GeomagneticField m_field;
   
-  public static void start(Context c)
+  public LocationService(Context c)
   {
-    if (m_self == null)
+    // Acquire a reference to the system Location Manager
+    m_locationManager = (LocationManager) c.getSystemService(Context.LOCATION_SERVICE);
+    m_sensorManager = (SensorManager) c.getSystemService(Context.SENSOR_SERVICE);
+    m_compassSensor = m_sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+    m_field = null;
+  }
+  
+  public boolean isActive()
+  {
+    return m_isActive;
+  }
+  
+  public void startUpdate(Observer observer)
+  {
+    m_isActive = false;
+
+  /*if (m_locationManager.isProviderEnabled(LocationManager.PASSIVE_PROVIDER))
     {
-      m_self = new LocationService();
-      // Acquire a reference to the system Location Manager
-      m_self.m_locationManager = (LocationManager) c.getSystemService(Context.LOCATION_SERVICE);
-      m_self.m_sensorManager = (SensorManager) c.getSystemService(Context.SENSOR_SERVICE);
-      m_self.m_compassSensor = m_self.m_sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
-//      m_self.m_defaultDisplay = ((WindowManager)c.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-      m_self.m_field = null;
+      m_locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 0, 0, this);
+      m_isActive = true;
+    }*/
+    
+    if (m_locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+    {
+      m_locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+      m_isActive = true;
     }
-    m_self.startUpdate();
+
+    if (m_locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+    {
+      m_locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+      m_isActive = true;
+    }
+    
+    if (m_isActive)
+    {
+      m_sensorManager.registerListener(this, m_compassSensor, SensorManager.SENSOR_DELAY_NORMAL);
+      nativeStartUpdate(observer);
+    }
+    else
+    {
+      Log.d(TAG, "no locationProviders are found");
+      // TODO : callback into gui to show the "providers are not enabled" messagebox      
+    }
   }
   
-  public static void stop()
-  {
-    if (m_self != null)
-      m_self.stopUpdate();
-  }
-  
-  private void startUpdate()
-  {
-    // Register the listener with the Location Manager to receive location updates
-    m_locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 0, 0, this);
-    m_locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
-    m_locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-    m_sensorManager.registerListener(this, m_compassSensor, SensorManager.SENSOR_DELAY_NORMAL);
-    nativeEnableLocationService(true);
-  }
-  
-  private void stopUpdate()
+  public void stopUpdate()
   {
     m_locationManager.removeUpdates(this);
     m_sensorManager.unregisterListener(this);
-    nativeEnableLocationService(false);
+    m_isActive = false;
+    nativeStopUpdate();
   }
   
   //@Override
@@ -77,12 +101,26 @@ public class LocationService implements LocationListener, SensorEventListener
   public void onProviderDisabled(String provider)
   {
     Log.d(TAG, "onProviderDisabled " + provider);
+    if (m_isActive)
+    {
+      m_isActive = m_locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+                || m_locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+      if (!m_isActive)
+      {
+        Log.d(TAG, "to receive a location data please enable some of the location providers");
+        nativeDisable();
+        stopUpdate();
+        /// TODO : callback into GUI to set the button into the "disabled" state
+      }
+    }
   }
 
   //@Override
   public void onProviderEnabled(String provider)
   {
     Log.d(TAG, "onProviderEnabled " + provider);
+    if (m_isActive)
+      m_locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
   }
 
   //@Override
@@ -107,12 +145,9 @@ public class LocationService implements LocationListener, SensorEventListener
       nativeCompassChanged(event.timestamp, event.values[0], event.values[0] + m_field.getDeclination(), m_field.getDeclination());
   }
 
-  private native void nativeEnableLocationService(boolean enable);
+  private native void nativeStartUpdate(Observer observer);
+  private native void nativeStopUpdate();
+  private native void nativeDisable();
   private native void nativeLocationChanged(long time, double lat, double lon, float accuracy);
-  // screenOrientation:
-  // 0 = 0
-  // 1 = 90
-  // 2 = 180
-  // 3 = 270
   private native void nativeCompassChanged(long time, double magneticNorth, double trueNorth, float accuracy);
 }

@@ -57,6 +57,16 @@ namespace android
     delete m_videoTimer;
   }
 
+  void Framework::OnLocationStatusChanged(location::TLocationStatus newStatus)
+  {
+    m_work.OnLocationStatusChanged(newStatus);
+  }
+
+  void Framework::OnGpsUpdated(location::GpsInfo const & info)
+  {
+    m_work.OnGpsUpdate(info);
+  }
+
   void Framework::DeleteRenderPolicy()
   {
     LOG(LINFO, ("clearing current render policy."));
@@ -239,33 +249,6 @@ namespace android
     m_mask = mask;
     m_eventType = eventType;
 
-  }
-
-  void f()
-  {
-    // empty location stub
-  }
-
-  void Framework::EnableLocation(bool enable)
-  {
-//    if (enable)
-//      m_work.StartLocationService(bind(&f));
-//    else
-//      m_work.StopLocationService();
-  }
-
-  void Framework::UpdateLocation(uint64_t timestamp, double lat, double lon, float accuracy)
-  {
-    location::GpsInfo info;
-    info.m_timestamp = static_cast<double>(timestamp);
-    info.m_latitude = lat;
-    info.m_longitude = lon;
-    info.m_horizontalAccuracy = accuracy;
-//    info.m_status = location::EAccurateMode;
-//    info.m_altitude = 0;
-//    info.m_course = 0;
-//    info.m_verticalAccuracy = 0;
-    m_work.OnGpsUpdate(info);
   }
 
   void Framework::UpdateCompass(uint64_t timestamp, double magneticNorth, double trueNorth, float accuracy)

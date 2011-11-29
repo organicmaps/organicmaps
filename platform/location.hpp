@@ -11,7 +11,7 @@ namespace location
 
   enum TLocationStatus
   {
-    EStopped,
+    EStopped = 0,
     EStarted,
     EFirstEvent,    //!< Sent when first valid coorinate is received
     ENotSupported,
@@ -22,6 +22,7 @@ namespace location
   {
     EAppleNative,
     EWindowsNative,
+    EAndroidNative,
     EGoogle
   };
 
