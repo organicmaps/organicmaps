@@ -12,7 +12,7 @@ namespace yg
     yg::Color m_maskColor;
 
     FontDesc(int size = -1, yg::Color const & color = yg::Color(0, 0, 0, 255),
-             bool isMasked = true, yg::Color const & maskColor = yg::Color(255, 255, 255, 255));
+             bool isMasked = false, yg::Color const & maskColor = yg::Color(255, 255, 255, 255));
 
     void SetRank(double rank);
     bool IsValid() const;
