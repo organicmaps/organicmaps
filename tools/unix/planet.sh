@@ -117,9 +117,6 @@ $PV $PLANET_OSM_BZ2 | $BZIP | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
     -use_light_nodes=$LIGHT_NODES \
     -preprocess_xml
 
-# wait until 2nd pass is finished
-#wait
-
 # 4nd pass - paralleled in the code
 $PV $PLANET_OSM_BZ2 | $BZIP | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
   -use_light_nodes=$LIGHT_NODES -split_by_polygons \
@@ -130,7 +127,7 @@ $PV $PLANET_OSM_BZ2 | $BZIP | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
 # but separate exceptions for wolrd files to finish them earlier
 $GENERATOR_TOOL -data_path=$DATA_PATH -generate_geometry -generate_index -output=World &
 $GENERATOR_TOOL -data_path=$DATA_PATH -generate_geometry -generate_index -output=WorldCoasts &
-for file in $DATA_PATH/*.mwm; do
+for file in $DATA_PATH/*.mwm.tmp; do
   if [[ "$file" == *minsk-pass*  ]]; then
     continue
   fi
@@ -139,7 +136,7 @@ for file in $DATA_PATH/*.mwm; do
   fi
   filename=$(basename "$file")
   extension="${filename##*.}"
-  filename="${filename%.*}"
+  filename="${filename%.*.*}"
   $GENERATOR_TOOL -data_path=$DATA_PATH -generate_geometry -generate_index -output="$filename" &
   forky $PROCESSORS
 done
