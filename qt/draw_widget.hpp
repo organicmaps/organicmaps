@@ -73,6 +73,8 @@ namespace qt
     void ScaleTimerElapsed();
     void AnimTimerElapsed();
 
+    void QueryMaxScaleMode();
+
   public:
     DrawWidget(QWidget * pParent);
 

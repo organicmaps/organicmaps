@@ -422,4 +422,9 @@ namespace qt
     m_framework->ShowRect(rect);
     UpdateScaleControl();
   }
+
+  void DrawWidget::QueryMaxScaleMode()
+  {
+    m_framework->XorQueryMaxScaleMode();
+  }
 }

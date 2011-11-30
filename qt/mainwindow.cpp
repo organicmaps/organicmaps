@@ -225,7 +225,8 @@ void MainWindow::CreateNavigationBar()
       { Qt::Key_Minus, SLOT(ScaleMinus()) },
       { Qt::ALT + Qt::Key_Equal, SLOT(ScalePlusLight()) },
       { Qt::ALT + Qt::Key_Minus, SLOT(ScaleMinusLight()) },
-      { Qt::Key_A, SLOT(ShowAll()) }
+      { Qt::Key_A, SLOT(ShowAll()) },
+      { Qt::Key_S, SLOT(QueryMaxScaleMode()) }
     };
 
     for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)

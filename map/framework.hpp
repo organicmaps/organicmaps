@@ -66,8 +66,7 @@ protected:
   Navigator m_navigator;
 
   scoped_ptr<RenderPolicy> m_renderPolicy;
-  bool m_hasPendingInvalidate;
-  bool m_doForceUpdate;
+  bool m_hasPendingInvalidate, m_doForceUpdate, m_queryMaxScaleMode;
 
   InformationDisplay m_informationDisplay;
 
@@ -166,6 +165,12 @@ public:
 
   bool NeedRedraw() const;
   void SetNeedRedraw(bool flag);
+
+  inline void XorQueryMaxScaleMode()
+  {
+    m_queryMaxScaleMode = !m_queryMaxScaleMode;
+    Invalidate(true);
+  }
 
   virtual void BeginPaint(shared_ptr<PaintEvent> const & e);
   /// Function for calling from platform dependent-paint function.

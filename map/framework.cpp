@@ -81,6 +81,7 @@ void Framework::OnCompassUpdate(location::CompassInfo const & info)
 Framework::Framework()
   : m_hasPendingInvalidate(false),
     m_doForceUpdate(false),
+    m_queryMaxScaleMode(false),
     m_metresMinWidth(10),
     m_metresMaxWidth(1000000),
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_WINDOWS) || defined(OMIM_OS_LINUX)
@@ -258,11 +259,13 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
 
   try
   {
+    int const scale = (m_queryMaxScaleMode ? 17 : scaleLevel);
+
     //threads::MutexGuard lock(m_modelSyn);
     if (m_renderPolicy->IsTiling())
-      m_model.ForEachFeature_TileDrawing(selectRect, doDraw, scaleLevel);
+      m_model.ForEachFeature_TileDrawing(selectRect, doDraw, scale);
     else
-      m_model.ForEachFeature(selectRect, doDraw, scaleLevel);
+      m_model.ForEachFeature(selectRect, doDraw, scale);
   }
   catch (redraw_operation_cancelled const &)
   {
