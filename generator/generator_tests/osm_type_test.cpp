@@ -7,6 +7,8 @@
 #include "../../indexer/classificator.hpp"
 #include "../../indexer/classificator_loader.hpp"
 
+#include "../../std/iostream.hpp"
+
 
 namespace
 {
@@ -50,4 +52,61 @@ UNIT_TEST(OsmType_SkipDummy)
 
   TEST_EQUAL ( params.m_Types.size(), 1, () );
   TEST_EQUAL ( params.m_Types[0], GetType(arr[1]), () );
+}
+
+
+namespace
+{
+  struct DoDumpType
+  {
+    void operator() (ClassifObject const * p)
+    {
+      cout << p->GetName() << "-";
+    }
+  };
+
+  template <class ToDo>
+  void ForEachType(uint32_t type, ToDo toDo)
+  {
+    ClassifObject const * p = classif().GetRoot();
+    uint8_t i = 0;
+    uint8_t v;
+
+    // get objects route in hierarchy for type
+    while (ftype::GetValue(type, i, v))
+    {
+      p = p->GetObject(v);
+      toDo(p);
+      ++i;
+    }
+  }
+
+  void DumpTypes(vector<uint32_t> const & v)
+  {
+    for (size_t i = 0; i < v.size(); ++i)
+    {
+      ForEachType(v[i], DoDumpType());
+      cout << endl;
+    }
+  }
+}
+
+UNIT_TEST(OsmType_Check1)
+{
+  classificator::Load();
+
+  char const * arr[][2] = {
+    { "highway", "primary" },
+    { "motorroad", "yes" },
+    { "name", "Каширское шоссе" },
+    { "oneway", "yes" }
+  };
+
+  XMLElement e;
+  FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+  FeatureParams params;
+  ftype::GetNameAndType(&e, params);
+
+  DumpTypes(params.m_Types);
 }
