@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
+import android.text.format.Time;
 
 public class LocationService implements LocationListener, SensorEventListener
 {
@@ -46,7 +47,8 @@ public class LocationService implements LocationListener, SensorEventListener
   private GeomagneticField m_field;
   private boolean m_hasRealProviders;
   private boolean m_reportFirstUpdate;
-  
+  private long m_lastTimeStamp;
+    
   public LocationService(Context c)
   {
     // Acquire a reference to the system Location Manager
@@ -67,6 +69,9 @@ public class LocationService implements LocationListener, SensorEventListener
     m_isActive = false;
     m_hasRealProviders = false;
     m_reportFirstUpdate = true;
+    
+    Time t = new Time();
+    m_lastTimeStamp = t.gmtoff;
 
     if (m_locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
     {
@@ -123,7 +128,20 @@ public class LocationService implements LocationListener, SensorEventListener
   
   public void enterForeground()
   {
-    nativeStopUpdate(false);
+    boolean doChangeState = false;
+    
+    if (m_location != null)
+    {
+      Time t = new Time();
+      if ((t.gmtoff - m_lastTimeStamp) > 300 * 1000)
+      {
+        Log.d(TAG, "last position is too old");
+        doChangeState = true;
+        m_lastTimeStamp = t.gmtoff;
+      }
+    }
+    
+    nativeStopUpdate(doChangeState);
     
     m_isActive = false;
     m_hasRealProviders = false;
@@ -142,11 +160,11 @@ public class LocationService implements LocationListener, SensorEventListener
       m_isActive = true;
     }
 
-    nativeStartUpdate(m_observer, false);
+    nativeStartUpdate(m_observer, doChangeState);
     
     m_sensorManager.registerListener(this, m_compassSensor, SensorManager.SENSOR_DELAY_NORMAL);
     
-    if (m_location != null)
+    if ((m_location != null) && (!doChangeState)) 
       nativeLocationChanged(m_location.getTime(),
                             m_location.getLatitude(),
                             m_location.getLongitude(),
@@ -164,8 +182,14 @@ public class LocationService implements LocationListener, SensorEventListener
     // used for compass updates
     if (m_field == null)
       m_field = new GeomagneticField((float)l.getLatitude(), (float)l.getLongitude(), (float)l.getAltitude(), l.getTime());
-    m_location = l;
-    nativeLocationChanged(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy());
+    {
+      if (m_lastTimeStamp < l.getTime())
+      {
+        m_location = l;
+        m_lastTimeStamp = l.getTime();
+        nativeLocationChanged(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy());
+      }
+    }
     Log.d(TAG, l.toString());
   }
 
