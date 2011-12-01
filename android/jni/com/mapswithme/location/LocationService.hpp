@@ -8,11 +8,12 @@
 
 namespace android
 {
-  class LocationService : public location::LocationService
+  class LocationService
   {
   private:
 
     jobject m_javaObserver;
+    location::LocationObserver & m_observer;
 
     scoped_ptr<jni::Method> m_onLocationChanged;
     scoped_ptr<jni::Method> m_onStatusChanged;
@@ -22,10 +23,11 @@ namespace android
     LocationService(location::LocationObserver & locationObserver,
                     jobject observer);
 
-    void Start();
-    void Stop();
+    void Start(bool doChangeStatus);
+    void Stop(bool doChangeStatus);
     void Disable();
     void OnLocationUpdate(location::GpsInfo const & info);
+    void OnLocationStatusChanged(int status);
   };
 }
 

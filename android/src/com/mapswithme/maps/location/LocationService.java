@@ -16,20 +16,36 @@ import android.view.WindowManager;
 
 public class LocationService implements LocationListener, SensorEventListener
 {
+  private static String TAG = "Location";  
+  
+  /// This constants should correspond to values defined in platform/location.hpp
+  /// @{
+  public static final int STOPPED = 0;
+  public static final int STARTED = 1;
+  public static final int FIRST_EVENT = 2;
+  public static final int NOT_SUPPORTED = 3;
+  public static final int DISABLED_BY_USER = 4;
+  /// @}
 
   public interface Observer
   {
     public void onLocationChanged(long time, double lat, double lon, float accuracy);
-    public void onStatusChanged(long status);
+    public void onStatusChanged(int status);
+    public void onLocationNotAvailable();
   };
   
+  Observer m_observer;
+  
   private boolean m_isActive = false;
-  private static String TAG = "Location";
+  private Location m_location = null;
+
   private LocationManager m_locationManager;
   private SensorManager m_sensorManager;
   private Sensor m_compassSensor;
   // To calculate true north for compass
   private GeomagneticField m_field;
+  private boolean m_hasRealProviders;
+  private boolean m_reportFirstUpdate;
   
   public LocationService(Context c)
   {
@@ -45,54 +61,110 @@ public class LocationService implements LocationListener, SensorEventListener
     return m_isActive;
   }
   
-  public void startUpdate(Observer observer)
+  public void startUpdate(Observer observer, boolean doChangeState)
   {
+    m_observer = observer;
     m_isActive = false;
+    m_hasRealProviders = false;
+    m_reportFirstUpdate = true;
 
-  /*if (m_locationManager.isProviderEnabled(LocationManager.PASSIVE_PROVIDER))
-    {
-      m_locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 0, 0, this);
-      m_isActive = true;
-    }*/
-    
     if (m_locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
     {
       m_locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+      m_hasRealProviders = true;
       m_isActive = true;
     }
 
     if (m_locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
     {
       m_locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+      m_hasRealProviders = true;
       m_isActive = true;
+    }
+
+    if (m_hasRealProviders)
+    {
+      if (m_locationManager.isProviderEnabled(LocationManager.PASSIVE_PROVIDER))
+        m_locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 0, 0, this);
     }
     
     if (m_isActive)
     {
       m_sensorManager.registerListener(this, m_compassSensor, SensorManager.SENSOR_DELAY_NORMAL);
-      nativeStartUpdate(observer);
+      nativeStartUpdate(m_observer, doChangeState);
     }
     else
     {
       Log.d(TAG, "no locationProviders are found");
+      m_observer.onLocationNotAvailable();
       // TODO : callback into gui to show the "providers are not enabled" messagebox      
     }
   }
   
-  public void stopUpdate()
+  public void stopUpdate(boolean doChangeState)
   {
     m_locationManager.removeUpdates(this);
     m_sensorManager.unregisterListener(this);
     m_isActive = false;
-    nativeStopUpdate();
+    nativeStopUpdate(doChangeState);
+  }
+
+  public void enterBackground()
+  {
+    stopUpdate(false);
+
+    /// requesting location updates from the low-power location provider
+    if (m_locationManager.isProviderEnabled(LocationManager.PASSIVE_PROVIDER))
+    {
+      m_locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 0, 0, this);
+      nativeStartUpdate(m_observer, false);
+    }
+  }
+  
+  public void enterForeground()
+  {
+    nativeStopUpdate(false);
+    
+    m_isActive = false;
+    m_hasRealProviders = false;
+
+    if (m_locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+    {
+      m_locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+      m_hasRealProviders = true;
+      m_isActive = true;
+    }
+
+    if (m_locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+    {
+      m_locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+      m_hasRealProviders = true;
+      m_isActive = true;
+    }
+
+    nativeStartUpdate(m_observer, false);
+    
+    m_sensorManager.registerListener(this, m_compassSensor, SensorManager.SENSOR_DELAY_NORMAL);
+    
+    if (m_location != null)
+      nativeLocationChanged(m_location.getTime(),
+                            m_location.getLatitude(),
+                            m_location.getLongitude(),
+                            m_location.getAccuracy());
   }
   
   //@Override
   public void onLocationChanged(Location l)
   {
+    if (m_reportFirstUpdate)
+    {
+      nativeLocationStatusChanged(FIRST_EVENT);
+      m_reportFirstUpdate = false; 
+    }
     // used for compass updates
     if (m_field == null)
       m_field = new GeomagneticField((float)l.getLatitude(), (float)l.getLongitude(), (float)l.getAltitude(), l.getTime());
+    m_location = l;
     nativeLocationChanged(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy());
     Log.d(TAG, l.toString());
   }
@@ -109,8 +181,7 @@ public class LocationService implements LocationListener, SensorEventListener
       {
         Log.d(TAG, "to receive a location data please enable some of the location providers");
         nativeDisable();
-        stopUpdate();
-        /// TODO : callback into GUI to set the button into the "disabled" state
+        stopUpdate(true);
       }
     }
   }
@@ -120,7 +191,7 @@ public class LocationService implements LocationListener, SensorEventListener
   {
     Log.d(TAG, "onProviderEnabled " + provider);
     if (m_isActive)
-      m_locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+      m_locationManager.requestLocationUpdates(provider, 0, 0, this);
   }
 
   //@Override
@@ -145,9 +216,10 @@ public class LocationService implements LocationListener, SensorEventListener
       nativeCompassChanged(event.timestamp, event.values[0], event.values[0] + m_field.getDeclination(), m_field.getDeclination());
   }
 
-  private native void nativeStartUpdate(Observer observer);
-  private native void nativeStopUpdate();
+  private native void nativeStartUpdate(Observer observer, boolean changeState);
+  private native void nativeStopUpdate(boolean changeState);
   private native void nativeDisable();
   private native void nativeLocationChanged(long time, double lat, double lon, float accuracy);
+  private native void nativeLocationStatusChanged(int status);
   private native void nativeCompassChanged(long time, double magneticNorth, double trueNorth, float accuracy);
 }

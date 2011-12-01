@@ -14,26 +14,32 @@ android::LocationService * g_locationService = 0;
 
 namespace android
 {
-  LocationService::LocationService(location::LocationObserver & locationObserver,
-                                   jobject observer)
-    : location::LocationService(locationObserver),
-      m_javaObserver(observer)
+  LocationService::LocationService(location::LocationObserver & observer,
+                                   jobject javaObserver)
+    : m_observer(observer),
+      m_javaObserver(javaObserver)
   {
     jclass k = jni::GetCurrentThreadJNIEnv()->GetObjectClass(m_javaObserver);
     m_onLocationChanged.reset(new jni::Method(k, "onLocationChanged", "(JDDF)V"));
-    m_onStatusChanged.reset(new jni::Method(k, "onStatusChanged", "(J)V"));
+    m_onStatusChanged.reset(new jni::Method(k, "onStatusChanged", "(I)V"));
   }
 
-  void LocationService::Start()
+  void LocationService::Start(bool doChangeStatus)
   {
-    m_observer.OnLocationStatusChanged(location::EStarted);
-    m_onStatusChanged->CallVoid(m_javaObserver, location::EStarted);
+    if (doChangeStatus)
+    {
+      m_observer.OnLocationStatusChanged(location::EStarted);
+      m_onStatusChanged->CallVoid(m_javaObserver, location::EStarted);
+    }
   }
 
-  void LocationService::Stop()
+  void LocationService::Stop(bool doChangeStatus)
   {
-    m_observer.OnLocationStatusChanged(location::EStopped);
-    m_onStatusChanged->CallVoid(m_javaObserver, location::EStopped);
+    if (doChangeStatus)
+    {
+      m_observer.OnLocationStatusChanged(location::EStopped);
+      m_onStatusChanged->CallVoid(m_javaObserver, location::EStopped);
+    }
   }
 
   void LocationService::Disable()
@@ -47,6 +53,12 @@ namespace android
     m_observer.OnGpsUpdated(info);
     m_onLocationChanged->CallVoid(m_javaObserver, info.m_timestamp, info.m_latitude, info.m_longitude, info.m_horizontalAccuracy);
   }
+
+  void LocationService::OnLocationStatusChanged(int status)
+  {
+    m_observer.OnLocationStatusChanged((location::TLocationStatus)status);
+    m_onStatusChanged->CallVoid(m_javaObserver, status);
+  }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -57,17 +69,23 @@ namespace android
 extern "C"
 {
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_location_LocationService_nativeStartUpdate(JNIEnv * env, jobject thiz, jobject observer)
+  Java_com_mapswithme_maps_location_LocationService_nativeStartUpdate(JNIEnv * env, jobject thiz, jobject observer, jboolean changeStatus)
   {
     g_locationService = new android::LocationService(*g_framework, observer);
-    g_locationService->Start();
+    g_locationService->Start(changeStatus);
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_location_LocationService_nativeStopUpdate(JNIEnv * env, jobject thiz)
+  Java_com_mapswithme_maps_location_LocationService_nativeStopUpdate(JNIEnv * env, jobject thiz, jboolean changeStatus)
   {
-    g_locationService->Stop();
+    g_locationService->Stop(changeStatus);
     delete g_locationService;
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_location_LocationService_nativeLocationStatusChanged(JNIEnv * env, jobject thiz, int status)
+  {
+    g_locationService->OnLocationStatusChanged(status);
   }
 
   JNIEXPORT void JNICALL

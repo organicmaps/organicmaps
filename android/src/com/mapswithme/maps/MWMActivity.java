@@ -20,10 +20,14 @@ import android.util.Log;
 public class MWMActivity extends NvEventQueueActivity implements LocationService.Observer
 {
   VideoTimer m_timer;
+  
   private static String TAG = "MWMActivity";
   private final static String PACKAGE_NAME = "com.mapswithme.maps";
   
-  private boolean m_locationEnabled = false;
+  private int m_locationStatus;
+  private int m_locationIconRes;
+  private boolean m_isLocationServicePaused = false;
+  
   private LocationService m_locationService = null; 
 
   private String getAppBundlePath() throws NameNotFoundException
@@ -43,7 +47,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   public void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-
+    
     final String storagePath = getDataStoragePath();
     // create folder if it doesn't exist
     File f = new File(storagePath);
@@ -59,36 +63,68 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     }
 
     m_timer = new VideoTimer();
+    m_locationStatus = (int)LocationService.STOPPED;
+    m_locationIconRes = R.drawable.ic_menu_location;
     m_locationService = new LocationService(this);
+    m_isLocationServicePaused = false;
   }
   
-  public void onStatusChanged(long status)
+  public void onStatusChanged(int status)
   {
-    Log.d(TAG, "onStatusChanged");
+    m_locationStatus = status;
+
+    switch (status)
+    {
+    case LocationService.FIRST_EVENT:
+      m_locationIconRes = R.drawable.ic_menu_location_found;
+      break;
+    case LocationService.STOPPED:
+      m_locationIconRes = R.drawable.ic_menu_location;
+      break;
+    case LocationService.DISABLED_BY_USER:
+      m_locationIconRes = R.drawable.ic_menu_location;
+      break;
+    case LocationService.STARTED:
+      m_locationIconRes = R.drawable.ic_menu_location_search;
+      break;
+    default:
+      m_locationIconRes = R.drawable.ic_menu_location;
+    }
+    
+    Log.d(TAG, "StatusChanged: " + status);
   }
   
   public void onLocationChanged(long time, double latitude, double longitude, float accuracy)
   {
-    Log.d(TAG, "onLocationChanged");
+  }
+  
+  public void onLocationNotAvailable()
+  {
+    Log.d(TAG, "location services is disabled or not available"); 
   }
 
-/*  @Override
+  @Override
   protected void onPause()
   {
+    if (m_locationService.isActive())
+    {
+      m_locationService.enterBackground();
+      m_isLocationServicePaused = true;
+    }
+
     super.onPause();
-    m_view.onPause();
-    if (m_locationEnabled)
-      LocationService.stop();
   }
 
   @Override
   protected void onResume()
   {
-    super.onResume();
-    m_view.onResume();
-    if (m_locationEnabled)
-      LocationService.start(this);
-  }*/
+    if (m_isLocationServicePaused)
+    {
+      m_locationService.enterForeground();
+      m_isLocationServicePaused = false;
+    }
+    super.onResume();    
+  }
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu)
@@ -99,19 +135,28 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     //menu.removeItem(R.id.download_maps);
     return true;
   }
+  
+  @Override 
+  public boolean onPrepareOptionsMenu(Menu menu)
+  {
+    menu.findItem(R.id.my_position).setIcon(m_locationIconRes);
+    return super.onPrepareOptionsMenu(menu);
+  }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item)
   {
     // Handle item selection
+    
     switch (item.getItemId())
     {
     case R.id.my_position:
+
       if (m_locationService.isActive())
-        m_locationService.stopUpdate();
+        m_locationService.stopUpdate(true);
       else
-        m_locationService.startUpdate(this);
-      m_locationEnabled = !m_locationEnabled;
+        m_locationService.startUpdate(this, true);
+      
       return true;
     case R.id.download_maps:
       Intent intent = new Intent(this, DownloadUI.class);
