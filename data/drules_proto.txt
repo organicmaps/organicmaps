@@ -53410,7 +53410,7 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "railway-station-mini"
+      name: "subway-station-s"
       priority: 1358
     }
   }
@@ -53425,7 +53425,7 @@ cont {
       priority: 15567
     }
     symbol {
-      name: "railway-station-mini"
+      name: "subway-station-s"
       priority: 1358
     }
   }
@@ -53440,7 +53440,7 @@ cont {
       priority: 15567
     }
     symbol {
-      name: "railway-station-mini"
+      name: "subway-station-m"
       priority: 1358
     }
   }
@@ -53455,7 +53455,7 @@ cont {
       priority: 15803
     }
     symbol {
-      name: "railway-station"
+      name: "subway-station-l"
       priority: 1358
     }
   }
