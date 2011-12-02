@@ -13,6 +13,7 @@
 #include "../../indexer/classificator.hpp"
 
 #include "../../geometry/rect_intersect.hpp"
+#include "../../geometry/robust_orientation.hpp"
 
 #include "../../base/logging.hpp"
 
@@ -72,6 +73,11 @@ public:
   {
   }
 
+  void TestPoint(m2::PointD const & p)
+  {
+    m_intersect = m_rect.IsPointInside(p);
+  }
+
   void operator() (CoordPointT const & p)
   {
     if (m_intersect) return;
@@ -89,6 +95,37 @@ public:
     m_prev = pt;
   }
 
+  void operator() (m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+  {
+    if (m_intersect) return;
+
+    m2::PointD arrP[] = { p1, p2, p3 };
+
+    // make right-oriented triangle
+    if (m2::robust::OrientedS(arrP[0], arrP[1], arrP[2]) < 0.0)
+      swap(arrP[1], arrP[2]);
+
+    bool isInside = true;
+    m2::PointD const pt = m_rect.LeftTop();
+
+    for (size_t i = 0; i < 3; ++i)
+    {
+      // intersect edge with rect
+      m_intersect = m2::Intersect(m_rect, arrP[i], arrP[(i + 1) % 3]);
+      if (m_intersect)
+        break;
+
+      if (isInside)
+      {
+        // or check if rect inside triangle (any point of rect)
+        double const s = m2::robust::OrientedS(arrP[i], arrP[(i + 1) % 3], pt);
+        isInside = (s >= 0.0);
+      }
+    }
+
+    m_intersect = m_intersect || isInside;
+  }
+
   bool IsIntersect() const { return m_intersect; }
 };
 
@@ -101,7 +138,17 @@ class AccumulatorEtalon : public AccumulatorBase
   bool is_intersect(FeatureType const & f) const
   {
     IntersectCheck check(m_rect);
-    f.ForEachPointRef(check, m_scale);
+
+    using namespace feature;
+    switch (f.GetFeatureType())
+    {
+    case GEOM_POINT: check.TestPoint(f.GetCenter()); break;
+    case GEOM_LINE: f.ForEachPointRef(check, m_scale); break;
+    case GEOM_AREA: f.ForEachTriangleRef(check, m_scale); break;
+    default:
+      CHECK ( false, () );
+    }
+
     return check.IsIntersect();
   }
 
