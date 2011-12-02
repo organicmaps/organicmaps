@@ -71,7 +71,8 @@ void ConvertStyle(CircleRuleProto const * pSrc, double scale, yg::CircleInfo & d
 
 void ConvertStyle(CaptionDefProto const * pSrc, double scale, yg::FontDesc & dest)
 {
-  uint8_t const h = max(static_cast<int>(pSrc->height() * scale), int(12 * scale));
+  uint8_t const h = max(static_cast<int>(pSrc->height() * scale),
+                        static_cast<int>(8 * scale));    // replace 12 to 8 as it defined in drawing rules
 
   dest = yg::FontDesc(h, ConvertColor(pSrc->color()));
 
