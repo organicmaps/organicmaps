@@ -2,6 +2,9 @@
 #include "feature_visibility.hpp"
 #include "feature_loader_base.hpp"
 
+#include "../geometry/distance.hpp"
+#include "../geometry/robust_orientation.hpp"
+
 #include "../platform/preferred_languages.hpp"
 
 #include "../defines.hpp" // just for file extensions
@@ -289,4 +292,82 @@ double FeatureType::GetPopulationDrawRank() const
     double const upperBound = 3.0E6;
     return min(upperBound, static_cast<double>(n)) / upperBound;
   }
+}
+
+namespace
+{
+  class DoCalcDistance
+  {
+    m2::PointD m_prev, m_pt;
+    bool m_hasPrev;
+
+    static double Inf() { return numeric_limits<double>::max(); }
+
+    static double GetDistance(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p)
+    {
+      mn::DistanceToLineSquare<m2::PointD> calc;
+      calc.SetBounds(p1, p2);
+      return sqrt(calc(p));
+    }
+
+  public:
+    DoCalcDistance(m2::PointD const & pt)
+      : m_pt(pt), m_hasPrev(false), m_dist(Inf())
+    {
+    }
+
+    void TestPoint(m2::PointD const & p)
+    {
+      m_dist = m_pt.Length(p);
+    }
+
+    void operator() (CoordPointT const & p)
+    {
+      m2::PointD pt(p.first, p.second);
+
+      if (m_hasPrev)
+        m_dist = min(m_dist, GetDistance(m_prev, pt, m_pt));
+      else
+        m_hasPrev = true;
+
+      m_prev = pt;
+    }
+
+    void operator() (m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+    {
+      m2::PointD arrP[] = { p1, p2, p3 };
+
+      // make right-oriented triangle
+      if (m2::robust::OrientedS(arrP[0], arrP[1], arrP[2]) < 0.0)
+        swap(arrP[1], arrP[2]);
+
+      double d = Inf();
+      for (size_t i = 0; i < 3; ++i)
+      {
+        double const s = m2::robust::OrientedS(arrP[i], arrP[(i + 1) % 3], m_pt);
+        if (s < 0.0)
+          d = min(d, GetDistance(arrP[i], arrP[(i + 1) % 3], m_pt));
+      }
+
+      m_dist = ((d == Inf()) ? 0.0 : min(m_dist, d));
+    }
+
+    double m_dist;
+  };
+}
+
+double FeatureType::GetDistance(m2::PointD const & pt, int scale) const
+{
+  DoCalcDistance calc(pt);
+
+  switch (GetFeatureType())
+  {
+  case GEOM_POINT: calc.TestPoint(GetCenter()); break;
+  case GEOM_LINE: ForEachPointRef(calc, scale); break;
+  case GEOM_AREA: ForEachTriangleRef(calc, scale); break;
+  default:
+    CHECK ( false, () );
+  }
+
+  return calc.m_dist;
 }

@@ -13,19 +13,16 @@
 #include "../search/result.hpp"
 
 #include "../indexer/categories_holder.hpp"
-#include "../indexer/feature_visibility.hpp"
 #include "../indexer/feature.hpp"
 #include "../indexer/scales.hpp"
-#include "../indexer/drawing_rules.hpp"
 
 #include "../base/math.hpp"
 #include "../base/string_utils.hpp"
 
 #include "../std/algorithm.hpp"
-#include "../std/fstream.hpp"
 #include "../std/target_os.hpp"
+#include "../std/vector.hpp"
 
-using namespace feature;
 
 void Framework::AddMap(string const & file)
 {
@@ -250,10 +247,10 @@ RenderPolicy::TRenderFn Framework::DrawModelFn()
 
 /// Actual rendering function.
 void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
-                                  ScreenBase const & screen,
-                                  m2::RectD const & selectRect,
-                                  m2::RectD const & clipRect,
-                                  int scaleLevel)
+                          ScreenBase const & screen,
+                          m2::RectD const & selectRect,
+                          m2::RectD const & clipRect,
+                          int scaleLevel)
 {
   fwork::DrawProcessor doDraw(clipRect, screen, e, scaleLevel);
 
@@ -675,4 +672,113 @@ void Framework::DeleteOldMaps()
     }
   }
   m_lowestMapVersion = MAXIMUM_VERSION_TO_DELETE + 1;
+}
+
+namespace
+{
+  class DoGetFeatureTypes
+  {
+    typedef vector<string> TypesC;
+
+    class DistanceT
+    {
+      double m_dist;
+
+    public:
+      DistanceT(double d, TypesC & types) : m_dist(d)
+      {
+        m_types.swap(types);
+      }
+
+      bool operator<(DistanceT const & rhs) const
+      {
+        return (m_dist < rhs.m_dist);
+      }
+
+      TypesC m_types;
+    };
+
+    class DoParseTypes
+    {
+      Classificator const & m_c;
+
+    public:
+      DoParseTypes() : m_c(classif()) {}
+
+      void operator() (uint32_t t)
+      {
+        m_types.push_back(m_c.GetFullObjectName(t));
+      }
+
+      TypesC m_types;
+    };
+
+    double GetCompareEpsilon(feature::EGeomType type) const
+    {
+      using namespace feature;
+      switch (type)
+      {
+      case GEOM_POINT: return 0.0 * m_eps;
+      case GEOM_LINE: return 1.0 * m_eps;
+      case GEOM_AREA: return 2.0 * m_eps;
+      default:
+        ASSERT ( false, () );
+        return numeric_limits<double>::max();
+      }
+    }
+
+    m2::PointD m_pt;
+    double m_eps;
+    int m_scale;
+
+    vector<DistanceT> m_cont;
+
+  public:
+    DoGetFeatureTypes(m2::PointD const & pt, double eps, int scale)
+      : m_pt(pt), m_eps(eps), m_scale(scale)
+    {
+    }
+
+    void operator() (FeatureType const & f)
+    {
+      double const d = f.GetDistance(m_pt, m_scale);
+      ASSERT_GREATER_OR_EQUAL(d, 0.0, ());
+
+      if (d <= m_eps)
+      {
+        DoParseTypes doParse;
+        f.ForEachTypeRef(doParse);
+
+        m_cont.push_back(DistanceT(d + GetCompareEpsilon(f.GetFeatureType()), doParse.m_types));
+      }
+    }
+
+    void GetFeatureTypes(size_t count, TypesC & types)
+    {
+      sort(m_cont.begin(), m_cont.end());
+
+      for (size_t i = 0; i < min(count, m_cont.size()); ++i)
+        types.insert(types.end(), m_cont[i].m_types.begin(), m_cont[i].m_types.end());
+    }
+  };
+}
+
+void Framework::GetFeatureTypes(m2::PointD pt, vector<string> & types) const
+{
+  pt = m_navigator.ShiftPoint(pt);
+
+  int const sm = 20;
+  m2::RectD pixR(m2::PointD(pt.x - sm, pt.y - sm), m2::PointD(pt.x + sm, pt.y + sm));
+
+  m2::RectD glbR;
+  m_navigator.Screen().PtoG(pixR, glbR);
+
+  int const scale = my::rounds(GetCurrentScale());
+  DoGetFeatureTypes getTypes(m_navigator.Screen().PtoG(pt),
+                             max(glbR.SizeX() / 2.0, glbR.SizeY() / 2.0),
+                             scale);
+
+  m_model.ForEachFeature(glbR, getTypes, scale);
+
+  getTypes.GetFeatureTypes(5, types);
 }

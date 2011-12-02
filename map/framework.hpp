@@ -172,6 +172,8 @@ public:
     Invalidate(true);
   }
 
+  void GetFeatureTypes(m2::PointD pt, vector<string> & types) const;
+
   virtual void BeginPaint(shared_ptr<PaintEvent> const & e);
   /// Function for calling from platform dependent-paint function.
   virtual void DoPaint(shared_ptr<PaintEvent> const & e);

@@ -10,6 +10,7 @@
 #include "../platform/settings.hpp"
 
 #include <QtGui/QMouseEvent>
+#include <QtGui/QMenu>
 
 
 using namespace storage;
@@ -287,19 +288,34 @@ namespace qt
     {
       if (e->modifiers() & Qt::ControlModifier)
       {
-        /// starting rotation
+        // starting rotation
         m_framework->StartRotate(get_rotate_event(e->pos(), this->rect().center()));
+
         setCursor(Qt::CrossCursor);
         m_isRotate = true;
       }
       else
       {
-        /// starting drag
+        // starting drag
         m_framework->StartDrag(get_drag_event(e));
 
         setCursor(Qt::CrossCursor);
         m_isDrag = true;
       }
+    }
+    else if (e->button() == Qt::RightButton)
+    {
+      // show feature types
+      QPoint const & pt = e->pos();
+
+      vector<string> types;
+      m_framework->GetFeatureTypes(m2::PointD(pt.x(), pt.y()), types);
+
+      QMenu menu;
+      for (size_t i = 0; i < types.size(); ++i)
+        menu.addAction(QString::fromAscii(types[i].c_str()));
+
+      menu.exec(pt);
     }
   }
 
@@ -353,6 +369,7 @@ namespace qt
     if (m_isRotate && (e->button() == Qt::LeftButton))
     {
       m_framework->StopRotate(get_rotate_event(e->pos(), this->rect().center()));
+
       setCursor(Qt::ArrowCursor);
       m_isRotate = false;
     }
@@ -389,15 +406,17 @@ namespace qt
 
   void DrawWidget::wheelEvent(QWheelEvent * e)
   {
-    if ((!m_isDrag) && (!m_isRotate))
+    if (!m_isDrag && !m_isRotate)
     {
-      /// if we are inside the timer, cancel it
+      // if we are inside the timer, cancel it
       if (m_timer->isActive())
         m_timer->stop();
 
       m_timer->start(m_redrawInterval);
+
       //m_framework->Scale(exp(e->delta() / 360.0));
       m_framework->ScaleToPoint(ScaleToPointEvent(e->pos().x(), e->pos().y(), exp(e->delta() / 360.0)));
+
       UpdateScaleControl();
       emit ViewportChanged();
     }

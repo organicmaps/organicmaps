@@ -239,6 +239,8 @@ public:
 
   inline string GetRoadNumber() const { return m_Params.ref; }
 
+  double GetDistance(m2::PointD const & pt, int scale) const;
+
   /// @name Statistic functions.
   //@{
   inline void ParseBeforeStatistic() const
