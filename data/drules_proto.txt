@@ -53525,6 +53525,61 @@ cont {
   }
 }
 cont {
+  name: "railway-station"
+  element {
+    scale: 14
+    symbol {
+      name: "railway-station-mini"
+      priority: 11358
+    }
+  }
+  element {
+    scale: 15
+    caption {
+      primary {
+        height: 8
+        color: 0x3050D8
+        stroke_color: 0xF8FCFF
+      }
+      priority: 15567
+    }
+    symbol {
+      name: "railway-station-mini"
+      priority: 11358
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 10
+        color: 0x3050D8
+        stroke_color: 0xF8FCFF
+      }
+      priority: 15567
+    }
+    symbol {
+      name: "subway-station-1"
+      priority: 11358
+    }
+  }
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 10
+        color: 0x3050D8
+        stroke_color: 0xF8FCFF
+      }
+      priority: 15803
+    }
+    symbol {
+      name: "subway-station-1"
+      priority: 11358
+    }
+  }
+}
+cont {
   name: "railway-station-subway"
   element {
     scale: 14
@@ -53584,61 +53639,6 @@ cont {
     symbol {
       name: "subway-station-l"
       priority: 12358
-    }
-  }
-}
-cont {
-  name: "railway-station"
-  element {
-    scale: 14
-    symbol {
-      name: "railway-station-mini"
-      priority: 11358
-    }
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 8
-        color: 0x3050D8
-        stroke_color: 0xF8FCFF
-      }
-      priority: 15567
-    }
-    symbol {
-      name: "railway-station-mini"
-      priority: 11358
-    }
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 10
-        color: 0x3050D8
-        stroke_color: 0xF8FCFF
-      }
-      priority: 15567
-    }
-    symbol {
-      name: "subway-station-1"
-      priority: 11358
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 10
-        color: 0x3050D8
-        stroke_color: 0xF8FCFF
-      }
-      priority: 15803
-    }
-    symbol {
-      name: "subway-station-1"
-      priority: 11358
     }
   }
 }
