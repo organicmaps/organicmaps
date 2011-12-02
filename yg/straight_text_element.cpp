@@ -87,7 +87,7 @@ namespace yg
     ASSERT(p.m_fontDesc.IsValid(), ());
 
     buffer_vector<strings::UniString, 3> res;
-    if ((p.m_doSplit) && (!isBidi()))
+    if (p.m_doSplit && !isBidi())
     {
       res.clear();
       if (!p.m_delimiters.empty())
@@ -117,13 +117,15 @@ namespace yg
       if (l.boundRects().back().GetGlobalRect().SizeX() > allElemWidth)
       {
         // should split
-        if ((p.m_doSplit) && (!isBidi()))
+        if (p.m_doSplit && !isAuxBidi())
         {
           if (!p.m_delimiters.empty())
             visSplit(auxVisText(), auxRes, p.m_delimiters.c_str(), p.m_delimiters.size());
           else
             visSplit(auxVisText(), auxRes, " \n\t", 3);
         }
+        else
+          auxRes.push_back(auxVisText());
       }
       else
         auxRes.push_back(auxVisText());

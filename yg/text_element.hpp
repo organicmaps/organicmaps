@@ -43,6 +43,7 @@ namespace yg
     mutable vector<m2::AnyRectD> m_boundRects;
 
     bool isBidi() const;
+    bool isAuxBidi() const;
 
   protected:
 

@@ -68,6 +68,11 @@ namespace yg
     return m_logText != m_visText;
   }
 
+  bool TextElement::isAuxBidi() const
+  {
+    return m_auxLogText != m_auxVisText;
+  }
+
   void TextElement::drawTextImpl(GlyphLayout const & layout,
                                  gl::OverlayRenderer * screen,
                                  math::Matrix<double, 3, 3> const & m,
