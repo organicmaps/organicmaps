@@ -57,37 +57,11 @@ UNIT_TEST(OsmType_SkipDummy)
 
 namespace
 {
-  struct DoDumpType
-  {
-    void operator() (ClassifObject const * p)
-    {
-      cout << p->GetName() << "-";
-    }
-  };
-
-  template <class ToDo>
-  void ForEachType(uint32_t type, ToDo toDo)
-  {
-    ClassifObject const * p = classif().GetRoot();
-    uint8_t i = 0;
-    uint8_t v;
-
-    // get objects route in hierarchy for type
-    while (ftype::GetValue(type, i, v))
-    {
-      p = p->GetObject(v);
-      toDo(p);
-      ++i;
-    }
-  }
-
   void DumpTypes(vector<uint32_t> const & v)
   {
+    Classificator const & c = classif();
     for (size_t i = 0; i < v.size(); ++i)
-    {
-      ForEachType(v[i], DoDumpType());
-      cout << endl;
-    }
+      cout << c.GetFullObjectName(v[i]) << endl;
   }
 }
 
