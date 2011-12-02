@@ -2,7 +2,7 @@
 
 // buffer objects extensions
 
-DEFINE_GL_PROC("glBindBufferFn", glBindBufferFn)
+DEFINE_GL_PROC("glBindBuffer", glBindBufferFn)
 DEFINE_GL_PROC("glGenBuffers", glGenBuffersFn)
 DEFINE_GL_PROC("glBufferData", glBufferDataFn)
 DEFINE_GL_PROC("glBufferSubData", glBufferSubDataFn)
