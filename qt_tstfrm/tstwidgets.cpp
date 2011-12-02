@@ -8,11 +8,7 @@
 #include "../yg/framebuffer.hpp"
 #include "../yg/renderbuffer.hpp"
 #include "../yg/resource_manager.hpp"
-
 #include "../yg/internal/opengl.hpp"
-/*#ifdef OMIM_OS_WINDOWS
-#include "../yg/internal/opengl_win32.hpp"
-#endif*/
 
 #include "../platform/platform.hpp"
 

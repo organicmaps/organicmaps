@@ -9,9 +9,6 @@
 #include "../yg/rendercontext.hpp"
 #include "../yg/internal/opengl.hpp"
 
-#ifdef OMIM_OS_WINDOWS
-  #include "../yg/internal/opengl_win32.hpp"
-#endif
 
 namespace qt
 {
