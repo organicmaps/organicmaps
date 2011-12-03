@@ -205,7 +205,7 @@ namespace yg
     };
 
     FT_Glyph glyph = 0;
-//    FTC_Node node;
+    FTC_Node node;
 
     GlyphInfo * info = 0;
 
@@ -218,8 +218,7 @@ namespace yg
           FT_LOAD_DEFAULT,
           charIDX.second,
           &glyph,
-          0
-          //&node
+          &node
           ));
 
 //      info = new FTGlyphInfo(node, m_impl->m_manager);
@@ -232,8 +231,7 @@ namespace yg
           FT_LOAD_DEFAULT | FT_LOAD_RENDER,
           charIDX.second,
           &glyph,
-          0
-          //&node
+          &node
           ));
 
 //      info = new FTGlyphInfo(node, m_impl->m_manager);
@@ -264,6 +262,8 @@ namespace yg
 
       memcpy(info->m_bitmapData, bitmapGlyph->bitmap.buffer, info->m_bitmapPitch * info->m_metrics.m_height);
     }
+
+    FTC_Node_Unref(node, m_impl->m_manager);
 
     return make_shared_ptr(info);
   }
