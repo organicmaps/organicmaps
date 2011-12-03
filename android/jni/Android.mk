@@ -53,9 +53,12 @@ LOCAL_LDLIBS := -llog -lGLESv1_CM \
 		-lgeometry -lcoding -lbase -lexpat -lfreetype -lfribidi -lzlib -lbzip2 \
 		-ljansson -ltomcrypt -lprotobuf ./obj/local/armeabi/libstdc++.a
 
-LOCAL_LDLIBS += -L../../omim-android-debug/out/debug
-#LOCAL_LDLIBS += -L../../omim-android-release/out/release
-
 LOCAL_LDLIBS += -Wl,--gc-sections
+
+ifeq ($(NDK_DEBUG),1)
+  LOCAL_LDLIBS += -L../../omim-android-debug/out/debug
+else
+  LOCAL_LDLIBS += -L../../omim-android-release/out/release
+endif
 
 include $(BUILD_SHARED_LIBRARY)
