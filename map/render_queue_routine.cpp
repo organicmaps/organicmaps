@@ -336,7 +336,10 @@ void RenderQueueRoutine::Do()
                 );
         }
         else
+        {
           m_threadDrawer->screen()->infoLayer()->clear();
+          m_renderState->m_isEmptyModelCurrent = true;
+        }
       }
     }
 

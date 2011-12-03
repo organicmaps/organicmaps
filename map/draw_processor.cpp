@@ -216,7 +216,6 @@ namespace fwork
       m_paintEvent(e),
       m_zoom(scaleLevel),
       m_hasNonCoast(false),
-      m_hasAnyFeature(false),
       m_glyphCache(e->drawer()->screen()->glyphCache())
 #ifdef PROFILER_DRAWING
       , m_drawCount(0)
@@ -407,16 +406,13 @@ namespace fwork
     }
 
     if (isExist)
-    {
       pDrawer->Draw(ptr.get(), rules.data(), count);
-      m_hasAnyFeature = true;
-    }
 
     return true;
   }
 
   bool DrawProcessor::IsEmptyDrawing() const
   {
-    return (m_zoom >= feature::g_arrCountryScales[0] && (!m_hasAnyFeature || !m_hasNonCoast));
+    return (m_zoom >= feature::g_arrCountryScales[0] && !m_hasNonCoast);
   }
 }

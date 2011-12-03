@@ -95,6 +95,13 @@ Framework::Framework()
   m_informationDisplay.enableDebugPoints(true);
 #endif
 
+  char const s [] = "Nothing found. Have you tried\n"\
+                    "downloading maps of the countries?\n"\
+                    "Just click the downloader button \n"\
+                    "at the bottom of the screen.";
+
+  m_informationDisplay.setEmptyModelMessage(s);
+
   m_informationDisplay.enableCenter(true);
   m_informationDisplay.enableRuler(true);
   m_informationDisplay.setRulerParams(m_minRulerWidth, m_metresMinWidth, m_metresMaxWidth);

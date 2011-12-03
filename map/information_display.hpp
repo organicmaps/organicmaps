@@ -44,6 +44,7 @@ private:
   double m_frameDuration;
 
   bool m_isEmptyModelMessageEnabled;
+  string m_emptyModelMessage;
 
   bool m_isBenchmarkInfoEnabled;
 
@@ -109,6 +110,7 @@ public:
   void drawLog(DrawerYG * pDrawer);
 
   void enableEmptyModelMessage(bool doEnable);
+  void setEmptyModelMessage(char const * msg);
   void drawEmptyModelMessage(DrawerYG * pDrawer);
 
   static void logMessage(my::LogLevel, my::SrcPoint const &, string const &);

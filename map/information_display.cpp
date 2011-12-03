@@ -318,18 +318,15 @@ void InformationDisplay::enableEmptyModelMessage(bool doEnable)
   m_isEmptyModelMessageEnabled = doEnable;
 }
 
-//#ifdef OMIM_OS_IPHONE
+void InformationDisplay::setEmptyModelMessage(char const * msg)
+{
+  m_emptyModelMessage = msg;
+}
+
 void InformationDisplay::drawEmptyModelMessage(DrawerYG * pDrawer)
 {
   m2::RectD pxRect = m_screen.PixelRect();
   m2::PointD pt = m2::PointD(pxRect.SizeX() / 2, pxRect.SizeY() / 2) - m2::PointD(0, m_bottomShift * m_visualScale);
-
-  char const s [] = "Nothing found. Have you tried\n"\
-                    "downloading maps of the countries?\n"\
-                    "Just click the button at the bottom\n"\
-                    "right corner to download the maps.";
-
-//  yg::FontDesc bigFont(false, 30 * m_visualScale);
 
   yg::StraightTextElement::Params params;
   params.m_depth = yg::maxDepth;
@@ -338,7 +335,7 @@ void InformationDisplay::drawEmptyModelMessage(DrawerYG * pDrawer)
   params.m_pivot = pt;
   params.m_position = yg::EPosCenter;
   params.m_glyphCache = pDrawer->screen()->glyphCache();
-  params.m_logText = strings::MakeUniString(s);
+  params.m_logText = strings::MakeUniString(m_emptyModelMessage);
   params.m_doSplit = true;
   params.m_delimiters = "\n";
   params.m_useAllParts = true;
@@ -347,7 +344,6 @@ void InformationDisplay::drawEmptyModelMessage(DrawerYG * pDrawer)
 
   ste.draw(pDrawer->screen().get(), math::Identity<double, 3>());
 }
-//#endif
 
 void InformationDisplay::enableBenchmarkInfo(bool doEnable)
 {
