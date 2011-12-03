@@ -7,6 +7,7 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import android.util.Log;
 
 public class DownloadUI extends PreferenceActivity
 {
@@ -14,8 +15,12 @@ public class DownloadUI extends PreferenceActivity
   
   private native int countriesCount(int group, int country, int region);
   private native int countryStatus(int group, int country, int region);
-  private native long countrySizeInBytes(int group, int country, int region);
+  private native long countryLocalSizeInBytes(int group, int country, int region);
+  private native long countryRemoteSizeInBytes(int group, int country, int region);
   private native String countryName(int group, int country, int region);
+  private native void nativeCreate();
+  private native void nativeDestroy();
+  private native void downloadCountry(int group, int country, int region);
     
   @Override
   protected void onCreate(Bundle savedInstanceState)
@@ -24,6 +29,28 @@ public class DownloadUI extends PreferenceActivity
     // Root
     PreferenceScreen root = getPreferenceManager().createPreferenceScreen(this);
     setPreferenceScreen(createCountriesHierarchy(root, -1, -1, -1));
+    
+    nativeCreate();
+  }
+  
+  @Override
+  public void onDestroy()
+  {
+    super.onDestroy();
+    
+    nativeDestroy();
+  }
+  
+  public void onChangeCountry(int group, int country, int region)
+  {
+    Log.d(TAG, new StringBuilder("onChangeCountry %1, %2, %3").append(group).append(country).append(region).toString());
+    /// Should post a message onto gui thread as it could be called from the HttpThread
+  }
+  
+  public void onProgress(int group, int country, int region, long p1, long p2)
+  {
+    Log.d(TAG, new StringBuilder("onProgress %1, %2, %3, %4, %5").append(group).append(country).append(region).append(p1).append(p2).toString());
+    /// Should post a message onto gui thread as it could be called from the HttpThread    
   }
 
   private Preference createElement(int group, int country, int region)
@@ -35,8 +62,10 @@ public class DownloadUI extends PreferenceActivity
       CheckBoxPreference c = new CheckBoxPreference(this);
       c.setKey(group + " " + country + " " + region);
       c.setTitle(name);
-      final long s = countrySizeInBytes(group, country, region);
-      final long remoteBytes = (s & 0xffff);
+      
+      final long localBytes = countryLocalSizeInBytes(group, country, region);
+      final long remoteBytes = countryRemoteSizeInBytes(group, country, region);
+      
       final String sizeString;
       if (remoteBytes > 1024 * 1024)
         sizeString = remoteBytes / (1024 * 1024) + "Mb";
@@ -100,10 +129,15 @@ public class DownloadUI extends PreferenceActivity
       final int country = Integer.parseInt(keys[1]);
       final int region = Integer.parseInt(keys[2]);
       
-      if (((CheckBoxPreference)preference).isChecked())
+/*      switch (countryStatus(group, country, region))
       {
-        //
-      }
+      case 0: //EOnDisk
+      {
+        /// Ask about deleting 
+      }*/
+      downloadCountry(group, country, region);
+      
+      Log.d(TAG, "started country download");
     }
     return super.onPreferenceTreeClick(preferenceScreen, preference);
   }

@@ -23,8 +23,12 @@ namespace jni
   public:
 
     Method(jclass klass,
-           const char* name,
-           const char* signature);
+           char const * name,
+           char const * signature);
+
+    Method(jobject obj,
+           char const * name,
+           char const * signature);
 
     void CallVoid(jobject self)
     {
@@ -60,6 +64,8 @@ namespace jni
     {
       GetCurrentThreadJNIEnv()->CallVoidMethod(self, m_index, a1, a2, a3, a4, a5);
     }
+
+    jmethodID GetMethodID() const;
 
     bool CallBoolean(jobject self);
     bool CallInt(jobject self);

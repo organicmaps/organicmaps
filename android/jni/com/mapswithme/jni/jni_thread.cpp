@@ -20,6 +20,8 @@ namespace jni
 
   JavaVM * GetCurrentJVM()
   {
+    if (s_jvm == 0)
+      LOG(LINFO, ("no current JVM"));
     return s_jvm;
   }
 

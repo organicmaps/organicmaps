@@ -17,7 +17,7 @@ namespace storage
   /// Used in GUI
   enum TStatus
   {
-    EOnDisk,
+    EOnDisk = 0,
     ENotDownloaded,
     EDownloadFailed,
     EDownloading,

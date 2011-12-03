@@ -22,6 +22,17 @@ namespace jni
     CHECK(m_index, ("Error: No valid function pointer in ", m_name));
   }
 
+  Method::Method(jobject obj,
+                 char const * name,
+                 char const * signature)
+               : m_name(name),
+                 m_signature(signature)
+  {
+    jclass k = GetCurrentThreadJNIEnv()->GetObjectClass(obj);
+    GetCurrentThreadJNIEnv()->GetMethodID(k, m_name, m_signature);
+    CHECK(m_index, ("Error: No valid function pointer in ", m_name));
+  }
+
   bool Method::CallBoolean(jobject self)
   {
     JNIEnv* jniEnv = GetCurrentThreadJNIEnv();
@@ -38,5 +49,10 @@ namespace jni
     CHECK(jniEnv, ("Error: No valid JNI env in ", m_name));
 
     return (int)jniEnv->CallIntMethod(self, m_index);
+  }
+
+  jmethodID Method::GetMethodID() const
+  {
+    return m_index;
   }
 }
