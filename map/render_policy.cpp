@@ -130,6 +130,11 @@ void RenderPolicy::SetForceUpdate(bool flag)
   m_doForceUpdate = flag;
 }
 
+bool RenderPolicy::IsEmptyModel() const
+{
+  return false;
+}
+
 RenderPolicy * CreateRenderPolicy(VideoTimer * videoTimer,
                                   bool useDefaultFB,
                                   yg::ResourceManager::Params const & rmParams,

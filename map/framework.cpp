@@ -266,8 +266,8 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
   }
   catch (redraw_operation_cancelled const &)
   {
-    //m_renderQueue.renderStatePtr()->m_isEmptyModelCurrent = false;
-    //m_renderQueue.renderStatePtr()->m_isEmptyModelActual = false;
+    e->drawer()->screen()->renderState()->m_isEmptyModelCurrent = false;
+    e->drawer()->screen()->renderState()->m_isEmptyModelActual = false;
   }
 
   if (m_navigator.Update(m_timer.ElapsedSeconds()))
@@ -290,6 +290,8 @@ void Framework::DoPaint(shared_ptr<PaintEvent> const & e)
   DrawerYG * pDrawer = e->drawer();
 
   m_informationDisplay.setScreen(m_navigator.Screen());
+  
+  m_informationDisplay.enableEmptyModelMessage(m_renderPolicy->IsEmptyModel());
 
   m_informationDisplay.setDebugInfo(0/*m_renderQueue.renderState().m_duration*/, my::rounds(GetCurrentScale()));
 

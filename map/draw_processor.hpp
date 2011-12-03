@@ -326,6 +326,7 @@ namespace fwork
 
     int m_zoom;
     bool m_hasNonCoast;
+    bool m_hasAnyFeature;
 
     yg::GlyphCache * m_glyphCache;
 

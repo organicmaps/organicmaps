@@ -36,7 +36,7 @@ InformationDisplay::InformationDisplay()
     m_DebugPts[i] = m2::PointD(0, 0);
 
   m_fontDesc = yg::FontDesc(12);
-  m_emptyMessageFont = yg::FontDesc(14);
+  m_emptyMessageFont = yg::FontDesc(14, yg::Color(0x60, 0x60, 0x60, 0xFF));
 }
 
 void InformationDisplay::setScreen(ScreenBase const & screen)
@@ -318,10 +318,11 @@ void InformationDisplay::enableEmptyModelMessage(bool doEnable)
   m_isEmptyModelMessageEnabled = doEnable;
 }
 
-#ifdef OMIM_OS_IPHONE
+//#ifdef OMIM_OS_IPHONE
 void InformationDisplay::drawEmptyModelMessage(DrawerYG * pDrawer)
 {
-  m2::PointD pt = m_screen.PixelRect().Center() - m2::PointD(0, m_bottomShift * m_visualScale);
+  m2::RectD pxRect = m_screen.PixelRect();
+  m2::PointD pt = m2::PointD(pxRect.SizeX() / 2, pxRect.SizeY() / 2) - m2::PointD(0, m_bottomShift * m_visualScale);
 
   char const s [] = "Nothing found. Have you tried\n"\
                     "downloading maps of the countries?\n"\
@@ -340,12 +341,13 @@ void InformationDisplay::drawEmptyModelMessage(DrawerYG * pDrawer)
   params.m_logText = strings::MakeUniString(s);
   params.m_doSplit = true;
   params.m_delimiters = "\n";
+  params.m_useAllParts = true;
 
   yg::StraightTextElement ste(params);
 
   ste.draw(pDrawer->screen().get(), math::Identity<double, 3>());
 }
-#endif
+//#endif
 
 void InformationDisplay::enableBenchmarkInfo(bool doEnable)
 {
@@ -432,8 +434,6 @@ void InformationDisplay::doDraw(DrawerYG *drawer)
     drawBenchmarkInfo(drawer);
   if (s_isLogEnabled)
     drawLog(drawer);
-#ifdef OMIM_OS_IPHONE
   if (m_isEmptyModelMessageEnabled)
     drawEmptyModelMessage(drawer);
-#endif
 }

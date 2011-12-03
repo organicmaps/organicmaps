@@ -21,6 +21,7 @@ namespace yg
       unsigned m_minSymInRow;
       unsigned m_maxSymInRow;
       bool m_doSplit;
+      bool m_useAllParts;
       string m_delimiters;
       Params();
     };

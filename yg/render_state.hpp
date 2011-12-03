@@ -31,7 +31,7 @@ namespace yg
       shared_ptr<yg::InfoLayer> m_actualInfoLayer;
       /// Screen parameters
       ScreenBase m_actualScreen;
-      /// Empty-model flag
+      /// Empty-model flag of the actual target
       bool m_isEmptyModelActual;
       /// @}
 

@@ -23,6 +23,8 @@ RenderQueue::RenderQueue(
   m_renderState->m_textureWidth = 256;
   m_renderState->m_textureHeight = 256;
   m_renderState->m_duration = 0;
+  m_renderState->m_isEmptyModelCurrent = false;
+  m_renderState->m_isEmptyModelActual = false;
 
   m_routine = new RenderQueueRoutine(
       m_renderState,

@@ -41,6 +41,8 @@ public:
   void StartScale();
   void StopScale();
 
+  bool IsEmptyModel() const;
+
   RenderQueue & GetRenderQueue();
 
   void SetRenderFn(TRenderFn renderFn);

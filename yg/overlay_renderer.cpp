@@ -96,6 +96,7 @@ namespace yg
       params.m_glyphCache = glyphCache();
       params.m_logText = strings::MakeUniString(utf8Text);
       params.m_doSplit = doSplit;
+      params.m_useAllParts = false;
 
       shared_ptr<OverlayElement> oe(new StraightTextElement(params));
 
@@ -131,6 +132,7 @@ namespace yg
       params.m_logText = strings::MakeUniString(text);
       params.m_auxLogText = strings::MakeUniString(secondaryText);
       params.m_doSplit = doSplit;
+      params.m_useAllParts = false;
 
       shared_ptr<OverlayElement> oe(new StraightTextElement(params));
 

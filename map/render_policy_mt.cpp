@@ -213,6 +213,11 @@ void RenderPolicyMT::StopScale()
   RenderPolicy::StartScale();
 }
 
+bool RenderPolicyMT::IsEmptyModel() const
+{
+  return m_renderQueue->renderStatePtr()->m_isEmptyModelActual;
+}
+
 RenderQueue & RenderPolicyMT::GetRenderQueue()
 {
   return *m_renderQueue.get();

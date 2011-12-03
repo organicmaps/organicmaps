@@ -4,47 +4,31 @@
 
 namespace yg
 {
-  void visSplit(strings::UniString const & visText, buffer_vector<strings::UniString, 3> & res, char const * delimiters, size_t delimSize)
+  void visSplit(strings::UniString const & visText,
+                buffer_vector<strings::UniString, 3> & res,
+                char const * delimiters,
+                size_t delimSize,
+                bool splitAllFound)
   {
-    if (visText.size() > 15)
+    if (!splitAllFound)
     {
-      /// split into two
-      size_t rs = visText.size() / 2;
-      size_t ls = visText.size() / 2;
-
-      size_t s;
-
-      while (true)
+      if (visText.size() > 15)
       {
-        if (rs == visText.size() - 1)
-          break;
+        /// split into two
+        size_t rs = visText.size() / 2;
+        size_t ls = visText.size() / 2;
 
-        bool foundDelim = false;
+        size_t s;
 
-        for (int i = 0; i < delimSize; ++i)
-          if (visText[rs] == strings::UniChar(delimiters[i]))
-          {
-            foundDelim = true;
-            break;
-          }
-
-        if (foundDelim)
-          break;
-
-        ++rs;
-      }
-
-      if (rs == visText.size() - 1)
-      {
         while (true)
         {
-          if (ls == 0)
+          if (rs == visText.size() - 1)
             break;
 
           bool foundDelim = false;
 
           for (int i = 0; i < delimSize; ++i)
-            if (visText[ls] == strings::UniChar(delimiters[i]))
+            if (visText[rs] == strings::UniChar(delimiters[i]))
             {
               foundDelim = true;
               break;
@@ -53,32 +37,81 @@ namespace yg
           if (foundDelim)
             break;
 
-          --ls;
+          ++rs;
         }
 
-        if (ls < 5)
-          s = visText.size() - 1;
+        if (rs == visText.size() - 1)
+        {
+          while (true)
+          {
+            if (ls == 0)
+              break;
+
+            bool foundDelim = false;
+
+            for (int i = 0; i < delimSize; ++i)
+              if (visText[ls] == strings::UniChar(delimiters[i]))
+              {
+                foundDelim = true;
+                break;
+              }
+
+            if (foundDelim)
+              break;
+
+            --ls;
+          }
+
+          if (ls < 5)
+            s = visText.size() - 1;
+          else
+            s = ls;
+        }
         else
-          s = ls;
+          s = rs;
+
+        res.push_back(strings::UniString());
+        res.back().resize(s + 1);
+        for (unsigned i = 0; i < s + 1; ++i)
+          res.back()[i] = visText[i];
+
+        if (s != visText.size() - 1)
+        {
+          res.push_back(strings::UniString());
+          res.back().resize(visText.size() - s - 1);
+          for (unsigned i = s + 1; i < visText.size(); ++i)
+            res.back()[i - s - 1] = visText[i];
+        }
       }
       else
-        s = rs;
-
-      res.push_back(strings::UniString());
-      res.back().resize(s + 1);
-      for (unsigned i = 0; i < s + 1; ++i)
-        res.back()[i] = visText[i];
-
-      if (s != visText.size() - 1)
-      {
-        res.push_back(strings::UniString());
-        res.back().resize(visText.size() - s - 1);
-        for (unsigned i = s + 1; i < visText.size(); ++i)
-          res.back()[i - s - 1] = visText[i];
-      }
+        res.push_back(visText);
     }
     else
-      res.push_back(visText);
+    {
+      size_t beg = 0;
+      size_t i = 0;
+      for (;i < visText.size(); ++i)
+      {
+        for (int j = 0; j < delimSize; ++j)
+          if (visText[i] == strings::UniChar(delimiters[j]))
+          {
+            strings::UniString s;
+            s.resize(i - beg);
+            for (unsigned k = beg; k < i; ++k)
+              s[k - beg] = visText[k];
+            res.push_back(s);
+            beg = i + 1;
+          }
+      }
+
+      strings::UniString s;
+
+      s.resize(i - beg);
+      for (unsigned k = beg; k < i; ++k)
+        s[k - beg] = visText[k];
+
+      res.push_back(s);
+    }
   }
 
   StraightTextElement::StraightTextElement(Params const & p)
@@ -91,9 +124,9 @@ namespace yg
     {
       res.clear();
       if (!p.m_delimiters.empty())
-        visSplit(visText(), res, p.m_delimiters.c_str(), p.m_delimiters.size());
+        visSplit(visText(), res, p.m_delimiters.c_str(), p.m_delimiters.size(), p.m_useAllParts);
       else
-        visSplit(visText(), res, " \n\t", 3);
+        visSplit(visText(), res, " \n\t", 3, p.m_useAllParts);
     }
     else
       res.push_back(visText());
@@ -120,9 +153,9 @@ namespace yg
         if (p.m_doSplit && !isAuxBidi())
         {
           if (!p.m_delimiters.empty())
-            visSplit(auxVisText(), auxRes, p.m_delimiters.c_str(), p.m_delimiters.size());
+            visSplit(auxVisText(), auxRes, p.m_delimiters.c_str(), p.m_delimiters.size(), p.m_useAllParts);
           else
-            visSplit(auxVisText(), auxRes, " \n\t", 3);
+            visSplit(auxVisText(), auxRes, " \n\t", 3, p.m_useAllParts);
         }
         else
           auxRes.push_back(auxVisText());
