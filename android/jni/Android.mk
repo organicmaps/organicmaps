@@ -40,7 +40,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/maps/MWMActivity.cpp \
 	com/mapswithme/maps/Lifecycle.cpp \
 	com/mapswithme/platform/Platform.cpp \
-	com/mapswithme/platform/http_thread_android.cpp \
+	com/mapswithme/platform/HttpThread.cpp \
 	com/mapswithme/jni/jni_thread.cpp \
 	com/mapswithme/jni/jni_method.cpp \
 	nv_thread/nv_thread.cpp \

@@ -1,7 +1,5 @@
 package com.mapswithme.maps;
 
-import com.mapswithme.maps.downloader.DownloadManager;
-
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -41,15 +39,70 @@ public class DownloadUI extends PreferenceActivity
     nativeDestroy();
   }
   
+  public void onChangeCountryImpl(int group, int country, int region)
+  {
+    Log.d(TAG, String.format("onChangeCountry %1$d, %2$d, %3$d", group, country, region));
+  }
+    
+  class ChangeCountryFn implements Runnable
+  {
+    int m_group;
+    int m_country;
+    int m_region; 
+    Object m_ui;
+    ChangeCountryFn(Object ui, int group, int country, int region)
+    {
+      m_ui = ui;
+      m_group = group;
+      m_country = country;
+      m_region = region;
+    }
+    public void run()
+    {
+      DownloadUI dui = (DownloadUI)m_ui;
+      dui.onChangeCountryImpl(m_group, m_country, m_region);
+    }
+  };
+
   public void onChangeCountry(int group, int country, int region)
   {
-    Log.d(TAG, new StringBuilder("onChangeCountry %1, %2, %3").append(group).append(country).append(region).toString());
+    runOnUiThread(new ChangeCountryFn(this, group, country, region));
     /// Should post a message onto gui thread as it could be called from the HttpThread
   }
+
+  class ProgressFn implements Runnable
+  {
+    int m_group;
+    int m_country;
+    int m_region;
+    long m_p1;
+    long m_p2;
+    Object m_ui;
+    ProgressFn(Object ui, int group, int country, int region, long p1, long p2)
+    {
+      m_ui = ui;
+      m_group = group;
+      m_country = country;
+      m_region = region;
+      m_p1 = p1;
+      m_p2 = p2;
+    }
+    public void run()
+    {
+      DownloadUI dui = (DownloadUI)m_ui;
+      dui.onProgressImpl(m_group, m_country, m_region, m_p1, m_p2);
+    }
+  };
   
+  public void onProgressImpl(int group, int country, int region, long p1, long p2)
+  {
+    Log.d(TAG, String.format("onProgress %1$d, %2$d, %3$d, %4$d, %5$d", group, country, region, p1, p2));
+  }
+
   public void onProgress(int group, int country, int region, long p1, long p2)
   {
-    Log.d(TAG, new StringBuilder("onProgress %1, %2, %3, %4, %5").append(group).append(country).append(region).append(p1).append(p2).toString());
+    runOnUiThread(new ProgressFn(this, group, country, region, p1, p2));
+
     /// Should post a message onto gui thread as it could be called from the HttpThread    
   }
 

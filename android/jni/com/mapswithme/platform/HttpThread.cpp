@@ -1,4 +1,4 @@
-#include "http_thread_android.hpp"
+#include "HttpThread.hpp"
 
 #include "../../../../../platform/http_thread_callback.hpp"
 
@@ -22,8 +22,6 @@ HttpThread::HttpThread(string const & url,
   /// should create java object here.
   JNIEnv * env = jni::GetCurrentThreadJNIEnv();
 
-  LOG(LINFO, ("env : ", env));
-
   jclass k = env->FindClass("com/mapswithme/maps/downloader/DownloadChunkTask");
 
   jni::Method ctor(k, "<init>", "(JLjava/lang/String;JJJLjava/lang/String;)V");
@@ -37,25 +35,14 @@ HttpThread::HttpThread(string const & url,
 
   m_self = env->NewObject(k, ctor.GetMethodID(), _id, _url, _beg, _end, _size, _pb);
 
-  LOG(LINFO, ("starting a newly created thread", m_self));
-
   jni::Method startFn(k, "start", "()V");
 
   startFn.CallVoid(m_self);
-
-  LOG(LINFO, ("started separate download thread"));
 }
 
 HttpThread::~HttpThread()
 {
   LOG(LINFO, ("destroying http_thread"));
-  JNIEnv * env = jni::GetCurrentThreadJNIEnv();
-
-  jclass k = env->FindClass("com/mapswithme/maps/downloader/DownloadChunkTask");
-  jni::Method cancelFn(k, "cancel", "(Z)V");
-  cancelFn.CallVoid(m_self, true);
-
-  env->DeleteLocalRef(m_self);
 }
 
 namespace downloader
@@ -82,21 +69,19 @@ extern "C"
 {
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_downloader_DownloadChunkTask_onWrite(JNIEnv * env, jobject thiz,
-      jlong httpCallbackID, jlong beg, jcharArray data, jlong size)
+      jlong httpCallbackID, jlong beg, jbyteArray data, jlong size)
   {
-    LOG(LINFO, ("onWrite: ", beg, size));
     downloader::IHttpThreadCallback * cb = reinterpret_cast<downloader::IHttpThreadCallback*>(httpCallbackID);
     JNIEnv * env0 = jni::GetCurrentThreadJNIEnv();
-    jchar * buf = env0->GetCharArrayElements(data, 0);
+    jbyte * buf = env0->GetByteArrayElements(data, 0);
     cb->OnWrite(beg, buf, size);
-    env0->ReleaseCharArrayElements(data, buf, 0);
+    env0->ReleaseByteArrayElements(data, buf, 0);
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_downloader_DownloadChunkTask_onFinish(JNIEnv * env, jobject thiz,
       jlong httpCallbackID, jlong httpCode, jlong beg, jlong end)
   {
-    LOG(LINFO, ("onFinish: ", httpCode, beg, end));
     downloader::IHttpThreadCallback * cb = reinterpret_cast<downloader::IHttpThreadCallback*>(httpCallbackID);
     cb->OnFinish(httpCode, beg, end);
   }
