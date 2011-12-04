@@ -35,3 +35,5 @@
   #define URL_SERVERS_LIST "http://metaserver-dev.mapswithme.com/server_data/active_servers"
   #define DEFAULT_SERVERS_JSON "[\"http://svobodu404popugajam.mapswithme.com:34568/maps/\",\"http://svobodu404popugajam.mapswithme.com:34568/maps/\"]"
 #endif
+
+#define REDBUTTON_SERVER_URL "http://redbutton.mapswithme.com/enable_search_banner"

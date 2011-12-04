@@ -58,6 +58,8 @@
 		FA0660031286168700FEA989 /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0660011286168700FEA989 /* Default-Portrait.png */; };
 		FA0660041286168700FEA989 /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0660021286168700FEA989 /* Default-Landscape.png */; };
 		FA09E01113F71F6C007E69CA /* SearchVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA09E01013F71F6C007E69CA /* SearchVC.mm */; };
+		FA0B7E611487736200CAB3F2 /* SearchBannerChecker.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA0B7E601487736200CAB3F2 /* SearchBannerChecker.mm */; };
+		FA0B7E631487747B00CAB3F2 /* GetActiveConnectionType.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA0B7E621487747B00CAB3F2 /* GetActiveConnectionType.mm */; };
 		FA0E845E138554CF008CEABB /* languages.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA0E845D138554CF008CEABB /* languages.txt */; };
 		FA1FB8A1147E8CA50052848B /* downloader-highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = FA1FB89B147E8CA50052848B /* downloader-highlighted.png */; };
 		FA1FB8A2147E8CA50052848B /* downloader-highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA1FB89C147E8CA50052848B /* downloader-highlighted@2x.png */; };
@@ -613,7 +615,7 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* MapsAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapsAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* MapsAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MapsAppDelegate.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		1D6058910D05DD3D006BFB54 /* MapsWithMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = MapsWithMe.app; path = "MapsWithMe Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* MapsWithMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapsWithMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* Maps_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Maps_Prefix.pch; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -670,6 +672,9 @@
 		FA0660021286168700FEA989 /* Default-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape.png"; sourceTree = SOURCE_ROOT; };
 		FA09E00F13F71F6C007E69CA /* SearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchVC.h; sourceTree = "<group>"; };
 		FA09E01013F71F6C007E69CA /* SearchVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchVC.mm; sourceTree = "<group>"; };
+		FA0B7E5F1487736200CAB3F2 /* SearchBannerChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchBannerChecker.h; sourceTree = "<group>"; };
+		FA0B7E601487736200CAB3F2 /* SearchBannerChecker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchBannerChecker.mm; sourceTree = "<group>"; };
+		FA0B7E621487747B00CAB3F2 /* GetActiveConnectionType.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GetActiveConnectionType.mm; sourceTree = "<group>"; };
 		FA0E845D138554CF008CEABB /* languages.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = languages.txt; path = ../../data/languages.txt; sourceTree = SOURCE_ROOT; };
 		FA1FB89B147E8CA50052848B /* downloader-highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "downloader-highlighted.png"; sourceTree = "<group>"; };
 		FA1FB89C147E8CA50052848B /* downloader-highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "downloader-highlighted@2x.png"; sourceTree = "<group>"; };
@@ -1281,6 +1286,8 @@
 				1D3623250D0F684500981E51 /* MapsAppDelegate.mm */,
 				46F8A2EB10EB63040045521A /* MapViewController.h */,
 				EED10A4411F78D120095FAD4 /* MapViewController.mm */,
+				FA0B7E5F1487736200CAB3F2 /* SearchBannerChecker.h */,
+				FA0B7E601487736200CAB3F2 /* SearchBannerChecker.mm */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1438,11 +1445,12 @@
 		FA34BEC71338D6DB00FFB2A7 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				FAAE8D5D1338FF8B003ECAD5 /* GetActiveConnectionType.h */,
+				FA0B7E621487747B00CAB3F2 /* GetActiveConnectionType.mm */,
 				FAFCB63413366E78001A5C59 /* WebViewController.h */,
 				FAFCB63513366E78001A5C59 /* WebViewController.mm */,
 				FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */,
 				FA34BEC91338D72F00FFB2A7 /* CustomAlertView.h */,
-				FAAE8D5D1338FF8B003ECAD5 /* GetActiveConnectionType.h */,
 				FAA4B13E13EC1C8C00BCAB63 /* DiskFreeSpace.h */,
 			);
 			name = Common;
@@ -2628,6 +2636,8 @@
 				FABF223E13FAA97A003D4D49 /* CompassView.mm in Sources */,
 				FA29FDAA141E77F8004ADF66 /* Preferences.mm in Sources */,
 				FAA5C2A2144F135F005337F6 /* LocationManager.mm in Sources */,
+				FA0B7E611487736200CAB3F2 /* SearchBannerChecker.mm in Sources */,
+				FA0B7E631487747B00CAB3F2 /* GetActiveConnectionType.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -2,6 +2,7 @@
 #import "SearchVC.h"
 #import "MapsAppDelegate.h"
 #import "EAGLView.h"
+#import "SearchBannerChecker.h"
 #import "../Settings/SettingsManager.h"
 
 #include "RenderContext.hpp"
@@ -103,6 +104,7 @@ Framework * m_framework = NULL;
 
 - (void) dealloc
 {
+  [m_searchBannerChecker release];
 	delete m_framework;
   [super dealloc];
 }
@@ -111,6 +113,8 @@ Framework * m_framework = NULL;
 {
 	if ((self = [super initWithCoder:coder]))
 	{
+    m_searchBannerChecker = [[SearchBannerChecker alloc] init];
+
     // cyclic dependence, @TODO refactor.
     // Here we're creating view and window handle in it, and later we should pass framework to the view
     EAGLView * v = (EAGLView *)self.view;
@@ -318,14 +322,12 @@ NSInteger compareAddress(id l, id r, void * context)
   m_framework->EnterForeground();
   if (self.isViewLoaded && self.view.window)
     [self Invalidate]; // only invalidate when map is displayed on the screen
+  // Perform redbutton check
+  [m_searchBannerChecker checkForBannerAndEnableButton:m_myPositionButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-  // needed to correctly handle startup landscape orientation
-  // and orientation changes when mapVC is not visible
-//  [self.view layoutSubviews];
-
   [self Invalidate];
   [self.navigationController setNavigationBarHidden:YES animated:YES];
   [super viewWillAppear:animated];
