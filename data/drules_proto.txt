@@ -4541,22 +4541,14 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xE4D9A4
-      border {
-        width: 0.2
-        color: 0x6A5A8E
-      }
+      color: 0xD8D0A8
       priority: 364
     }
   }
   element {
     scale: 16
     area {
-      color: 0xDCD09C
-      border {
-        width: 1
-        color: 0x6A5A8E
-      }
+      color: 0xD8D0A8
       priority: 679
     }
     symbol {
@@ -4568,11 +4560,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xD4C894
-      border {
-        width: 1.6
-        color: 0x6A5A8E
-      }
+      color: 0xD8C898
       priority: 720
     }
     symbol {
@@ -47499,7 +47487,7 @@ cont {
     caption {
       primary {
         height: 14
-        color: 0xC0C0B0
+        color: 0xB0B0A8
 	stroke_color: 0xEEEEDD
       }
       priority: 70
