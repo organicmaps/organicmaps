@@ -55,7 +55,7 @@ namespace update
         ++m_processedFiles;
         uint64_t size = 0;
         string const fname = c.Value().m_files[i].GetFileWithExt();
-        if (!GetPlatform().GetFileSize(m_dataDir + fname, size))
+        if (!GetPlatform().GetFileSizeByFullPath(m_dataDir + fname, size))
           LOG(LERROR, ("File was not found:", fname));
         CHECK_GREATER(size, 0, ("Zero file size?", fname));
         c.Value().m_files[i].m_remoteSize = size;

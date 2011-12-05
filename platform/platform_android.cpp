@@ -14,15 +14,15 @@ Platform::~Platform()
 {}
 
 /// @warning doesn't work for files inside .apk (zip)!!!
-bool Platform::IsFileExists(string const & file) const
+bool Platform::IsFileExistsByFullPath(string const & filePath)
 {
   struct stat s;
-  return stat(file.c_str(), &s) == 0;
+  return stat(filePath.c_str(), &s) == 0;
 }
 
 ModelReader * Platform::GetReader(string const & file) const
 {
-  if (IsFileExists(m_writableDir + file))
+  if (IsFileExistsByFullPath(m_writableDir + file))
     return new FileReader(ReadPathForFile(file), 10, 12);
   else
   {
@@ -31,7 +31,7 @@ ModelReader * Platform::GetReader(string const & file) const
   }
 }
 
-void Platform::GetFilesInDir(string const & directory, string const & mask, FilesList & res) const
+void Platform::GetFilesInDir(string const & directory, string const & mask, FilesList & res)
 {
   if (ZipFileReader::IsZip(directory))
   { // Get files list inside zip file
@@ -132,17 +132,29 @@ int Platform::VideoMemoryLimit() const
   return 10 * 1024 * 1024;
 }
 
-bool Platform::GetFileSize(string const & file, uint64_t & size) const
+bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
 {
   try
   {
-    size = ReaderPtr<Reader>(GetReader(file)).Size();
+    size = ReaderPtr<Reader>(GetReader(fileName)).Size();
     return true;
   }
   catch (RootException const &)
   {
     return false;
   }
+}
+
+/// @warning doesn't work for files inside .apk (zip)!!!
+bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)
+{
+  struct stat s;
+  if (stat(filePath.c_str(), &s) == 0)
+  {
+    size = s.st_size;
+    return true;
+  }
+  return false;
 }
 
 string Platform::UniqueClientId() const

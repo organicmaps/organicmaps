@@ -36,7 +36,7 @@ Platform::Platform()
 #ifndef OMIM_PRODUCTION
     // developers can have symlink to data folder
     char const * dataPath = "../../../../../data/";
-    if (IsFileExists(m_resourcesDir + dataPath))
+    if (IsFileExistsByFullPath(m_resourcesDir + dataPath))
       m_writableDir = m_resourcesDir + dataPath;
 #endif
 
@@ -59,10 +59,10 @@ Platform::~Platform()
 {
 }
 
-bool Platform::IsFileExists(string const & file) const
+bool Platform::IsFileExistsByFullPath(string const & filePath)
 {
   struct stat s;
-  return stat(file.c_str(), &s) == 0;
+  return stat(filePath.c_str(), &s) == 0;
 }
 
 int Platform::CpuCores() const

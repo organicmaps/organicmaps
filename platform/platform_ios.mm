@@ -91,13 +91,13 @@ Platform::~Platform()
   delete m_impl;
 }
 
-bool Platform::IsFileExists(string const & file) const
+bool Platform::IsFileExistsByFullPath(string const & filePath)
 {
   struct stat s;
-  return stat(file.c_str(), &s) == 0;
+  return stat(filePath.c_str(), &s) == 0;
 }
 
-void Platform::GetFilesInDir(string const & directory, string const & mask, FilesList & res) const
+void Platform::GetFilesInDir(string const & directory, string const & mask, FilesList & res)
 {
   DIR * dir;
   struct dirent * entry;
@@ -133,15 +133,27 @@ void Platform::GetFilesInDir(string const & directory, string const & mask, File
   closedir(dir);
 }
 
-bool Platform::GetFileSize(string const & file, uint64_t & size) const
+bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)
 {
   struct stat s;
-  if (stat(file.c_str(), &s) == 0)
+  if (stat(filePath.c_str(), &s) == 0)
   {
     size = s.st_size;
     return true;
   }
   return false;
+}
+
+bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
+{
+  try
+  {
+    return GetFileSizeByFullPath(ReadPathForFile(fileName), size);
+  }
+  catch (std::exception const &)
+  {
+    return false;
+  }
 }
 
 void Platform::GetFontNames(FilesList & res) const

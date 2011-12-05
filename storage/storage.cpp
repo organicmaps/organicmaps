@@ -121,7 +121,7 @@ namespace storage
     if (m_failedCountries.find(index) != m_failedCountries.end())
       return EDownloadFailed;
 
-    LocalAndRemoteSizeT size = CountryByIndex(index).Size();
+    LocalAndRemoteSizeT const size = CountryByIndex(index).Size();
     if (size.first == size.second)
     {
       if (size.second == 0)

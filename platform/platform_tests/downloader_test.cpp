@@ -306,6 +306,14 @@ UNIT_TEST(DownloadChunks)
 {
   string const FILENAME = "some_downloader_test_file";
 
+  { // remove data from previously failed files
+    Platform::FilesList files;
+    Platform::GetFilesInDir(".", "*.resume", files);
+    Platform::GetFilesInDir(".", "*.downloading", files);
+    for (Platform::FilesList::iterator it = files.begin(); it != files.end(); ++it)
+      FileWriter::DeleteFileX(*it);
+  }
+
   DownloadObserver observer;
   HttpRequest::CallbackT onFinish = bind(&DownloadObserver::OnDownloadFinish, &observer, _1);
   HttpRequest::CallbackT onProgress = bind(&DownloadObserver::OnDownloadProgress, &observer, _1);
@@ -326,6 +334,8 @@ UNIT_TEST(DownloadChunks)
     TEST(ReadFileAsString(FILENAME, s), ());
     TEST_EQUAL(s, "Test1", ());
     FileWriter::DeleteFileX(FILENAME);
+    uint64_t size;
+    TEST(!Platform::GetFileSizeByFullPath(FILENAME + ".resume", size), ("No resume file on success"));
   }
 
   observer.Reset();
@@ -343,6 +353,9 @@ UNIT_TEST(DownloadChunks)
     QCoreApplication::exec();
     observer.TestFailed();
     FileWriter::DeleteFileX(FILENAME);
+    uint64_t size;
+    TEST(Platform::GetFileSizeByFullPath(FILENAME + ".resume", size), ("Resume file should present"));
+    FileWriter::DeleteFileX(FILENAME + ".resume");
   }
 
   string const SHA256 = "EE6AE6A2A3619B2F4A397326BEC32583DE2196D9D575D66786CB3B6F9D04A633";
@@ -365,6 +378,8 @@ UNIT_TEST(DownloadChunks)
     TEST(ReadFileAsString(FILENAME, s), ());
     TEST_EQUAL(sha2::digest256(s), SHA256, ());
     FileWriter::DeleteFileX(FILENAME);
+    uint64_t size;
+    TEST(!Platform::GetFileSizeByFullPath(FILENAME + ".resume", size), ("No resume file on success"));
   }
 
   observer.Reset();
@@ -384,6 +399,8 @@ UNIT_TEST(DownloadChunks)
     TEST(ReadFileAsString(FILENAME, s), ());
     TEST_EQUAL(sha2::digest256(s), SHA256, ());
     FileWriter::DeleteFileX(FILENAME);
+    uint64_t size;
+    TEST(!Platform::GetFileSizeByFullPath(FILENAME + ".resume", size), ("No resume file on success"));
   }
 
   observer.Reset();
@@ -399,6 +416,9 @@ UNIT_TEST(DownloadChunks)
     QCoreApplication::exec();
     observer.TestFailed();
     FileWriter::DeleteFileX(FILENAME);
+    uint64_t size;
+    TEST(Platform::GetFileSizeByFullPath(FILENAME + ".resume", size), ("Resume file should present"));
+    FileWriter::DeleteFileX(FILENAME + ".resume");
   }
 }
 
@@ -438,6 +458,14 @@ UNIT_TEST(DownloadResumeChunks)
   string const FILENAME = "some_test_filename_12345";
   string const RESUME_FILENAME = FILENAME + ".resume";
   string const SHA256 = "EE6AE6A2A3619B2F4A397326BEC32583DE2196D9D575D66786CB3B6F9D04A633";
+
+  { // remove data from previously failed files
+    Platform::FilesList files;
+    Platform::GetFilesInDir(".", "*.resume", files);
+    Platform::GetFilesInDir(".", "*.downloading", files);
+    for (Platform::FilesList::iterator it = files.begin(); it != files.end(); ++it)
+      FileWriter::DeleteFileX(*it);
+  }
 
   vector<string> urls;
   urls.push_back(TEST_URL_BIG_FILE);
@@ -493,7 +521,8 @@ UNIT_TEST(DownloadResumeChunks)
     string s;
     TEST(ReadFileAsString(FILENAME, s), ());
     TEST_EQUAL(sha2::digest256(s), SHA256, ());
-    TEST(!GetPlatform().IsFileExists(RESUME_FILENAME), ());
+    uint64_t size = 0;
+    TEST(!GetPlatform().GetFileSizeByFullPath(RESUME_FILENAME, size), ());
     FileWriter::DeleteFileX(FILENAME);
   }
 }

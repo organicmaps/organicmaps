@@ -81,9 +81,9 @@ Platform::~Platform()
 {
 }
 
-bool Platform::IsFileExists(string const & file) const
+bool Platform::IsFileExistsByFullPath(string const & filePath)
 {
-  return ::GetFileAttributesA(file.c_str()) != INVALID_FILE_ATTRIBUTES;
+  return ::GetFileAttributesA(filePath.c_str()) != INVALID_FILE_ATTRIBUTES;
 }
 
 int Platform::CpuCores() const

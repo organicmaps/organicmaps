@@ -77,27 +77,40 @@ UNIT_TEST(GetFilesInDir)
 UNIT_TEST(GetFileSize)
 {
   Platform & pl = GetPlatform();
+  uint64_t size = 123141;
+  TEST(!pl.GetFileSizeByName("adsmngfuwrbfyfwe", size), ());
+  TEST(!Platform::GetFileSizeByFullPath("adsmngfuwrbfyfwe", size), ());
 
   {
     FileWriter testFile(TEST_FILE_NAME);
     testFile.Write("HOHOHO", 6);
   }
-  uint64_t size = 0;
-  pl.GetFileSize(TEST_FILE_NAME, size);
+  size = 0;
+  TEST(Platform::GetFileSizeByFullPath(TEST_FILE_NAME, size), ());
   TEST_EQUAL(size, 6, ());
 
   FileWriter::DeleteFileX(TEST_FILE_NAME);
+
+  {
+    FileWriter testFile(pl.WritablePathForFile(TEST_FILE_NAME));
+    testFile.Write("HOHOHO", 6);
+  }
+  size = 0;
+  TEST(pl.GetFileSizeByName(TEST_FILE_NAME, size), ());
+  TEST_EQUAL(size, 6, ());
+
+  FileWriter::DeleteFileX(pl.WritablePathForFile(TEST_FILE_NAME));
 }
 
 UNIT_TEST(CpuCores)
 {
-  int coresNum = GetPlatform().CpuCores();
+  int const coresNum = GetPlatform().CpuCores();
   TEST_GREATER(coresNum, 0, ());
   TEST_LESS_OR_EQUAL(coresNum, 128, ());
 }
 
 UNIT_TEST(VisualScale)
 {
-  double visualScale = GetPlatform().VisualScale();
+  double const visualScale = GetPlatform().VisualScale();
   TEST_GREATER_OR_EQUAL(visualScale, 1.0, ());
 }

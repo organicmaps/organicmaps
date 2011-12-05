@@ -50,10 +50,10 @@ Platform::~Platform()
 {
 }
 
-bool Platform::IsFileExists(string const & file) const
+bool Platform::IsFileExistsByFullPath(string const & filePath)
 {
   struct stat s;
-  return stat(file.c_str(), &s) == 0;
+  return stat(filePath.c_str(), &s) == 0;
 }
 
 int Platform::CpuCores() const

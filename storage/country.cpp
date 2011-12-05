@@ -20,7 +20,7 @@ namespace storage
 bool IsFileDownloaded(CountryFile const & file)
 {
   uint64_t size = 0;
-  if (!GetPlatform().GetFileSize(GetPlatform().WritablePathForFile(file.GetFileWithExt()), size))
+  if (!GetPlatform().GetFileSizeByName(file.GetFileWithExt(), size))
     return false;
 
   return true;//tile.second == size;

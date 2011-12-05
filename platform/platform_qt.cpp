@@ -17,14 +17,26 @@ ModelReader * Platform::GetReader(string const & file) const
   return new FileReader(ReadPathForFile(file), 10, 12);
 }
 
-bool Platform::GetFileSize(string const & file, uint64_t & size) const
+bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)
 {
-  QFileInfo f(file.c_str());
+  QFileInfo f(filePath.c_str());
   size = static_cast<uint64_t>(f.size());
   return size != 0;
 }
 
-void Platform::GetFilesInDir(string const & directory, string const & mask, FilesList & outFiles) const
+bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
+{
+  try
+  {
+    return GetFileSizeByFullPath(ReadPathForFile(fileName), size);
+  }
+  catch (std::exception const &)
+  {
+    return false;
+  }
+}
+
+void Platform::GetFilesInDir(string const & directory, string const & mask, FilesList & outFiles)
 {
   QDir dir(directory.c_str(), mask.c_str(), QDir::Unsorted,
            QDir::Files | QDir::Readable | QDir::Dirs | QDir::NoDotAndDotDot);

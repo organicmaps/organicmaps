@@ -19,14 +19,16 @@ protected:
   /// Used only on those platforms where needed
   PlatformImpl * m_impl;
 
+  static bool IsFileExistsByFullPath(string const & filePath);
+
   /// Internal function to use files from writable dir if they override the same in the resources
   string ReadPathForFile(string const & file) const
   {
     string fullPath = m_writableDir + file;
-    if (!IsFileExists(fullPath))
+    if (!IsFileExistsByFullPath(fullPath))
     {
       fullPath = m_resourcesDir + file;
-      if (!IsFileExists(fullPath))
+      if (!IsFileExistsByFullPath(fullPath))
         MYTHROW(FileAbsentException, ("File doesn't exist", fullPath));
     }
     return fullPath;
@@ -56,11 +58,13 @@ public:
   /// @param directory directory path with slash at the end
   /// @param mask files extension to find, like ".map" etc
   /// @return number of files found in outFiles
-  void GetFilesInDir(string const & directory, string const & mask, FilesList & outFiles) const;
+  static void GetFilesInDir(string const & directory, string const & mask, FilesList & outFiles);
   /// @return false if file is not exist
-  bool GetFileSize(string const & file, uint64_t & size) const;
-  /// Simple file existing check
-  bool IsFileExists(string const & file) const;
+  /// @note Check files in Writable dir first, and in ReadDir if not exist in Writable dir
+  bool GetFileSizeByName(string const & fileName, uint64_t & size) const;
+  /// @return false if file is not exist
+  /// @note Try do not use in client production code
+  static bool GetFileSizeByFullPath(string const & filePath, uint64_t & size);
   //@}
 
   int CpuCores() const;
