@@ -348,9 +348,6 @@ namespace storage
       feature::DataHeader header;
       LoadMapHeader(GetPlatform().GetReader(file), header);
       m_updateRect(header.GetBounds());
-
-      /// erasing downloaded map from queue.
-      m_queue.pop_front();
     }
     m_request.reset();
     DownloadNextCountryFromQueue();
