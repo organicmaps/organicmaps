@@ -40,7 +40,7 @@ UNIT_TEST(WritablePathForFile)
 UNIT_TEST(GetReader)
 {
   char const * NON_EXISTING_FILE = "mgbwuerhsnmbui45efhdbn34.tmp";
-  char const * arr[] = { "drules_proto.txt", "basic.skn", "classificator.txt", "minsk-pass.mwm" };
+  char const * arr[] = { "drules_proto.txt", "basic_ldpi.skn", "classificator.txt", "minsk-pass.mwm" };
   Platform & p = GetPlatform();
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
   {
