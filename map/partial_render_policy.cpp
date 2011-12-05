@@ -292,6 +292,11 @@ bool PartialRenderPolicy::NeedRedraw() const
   return RenderPolicy::NeedRedraw() || !m_glQueue.Empty();
 }
 
+bool PartialRenderPolicy::IsEmptyModel() const
+{
+  return m_renderQueue->renderState().m_isEmptyModelActual;
+}
+
 m2::RectI const PartialRenderPolicy::OnSize(int w, int h)
 {
   RenderPolicy::OnSize(w, h);

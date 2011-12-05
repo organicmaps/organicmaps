@@ -50,6 +50,7 @@ public:
   m2::RectI const OnSize(int w, int h);
 
   bool NeedRedraw() const;
+  bool IsEmptyModel() const;
 
   void StartDrag();
   void StopDrag();
