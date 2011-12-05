@@ -151,7 +151,7 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     if (isChunkOk)
     { // save information for download resume
       ++m_goodChunksCount;
-      if (m_goodChunksCount % 10)
+      if (m_status != ECompleted && m_goodChunksCount % 10 == 0)
         SaveRanges(m_filePath + ".resume", m_strategy.ChunksLeft());
     }
 
@@ -189,8 +189,14 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
 
   static void SaveRanges(string const & file, ChunksDownloadStrategy::RangesContainerT const & ranges)
   {
-    FileWriterStream fws(file);
-    fws << ranges;
+    // Delete resume file if ranges are empty
+    if (ranges.empty())
+      FileWriter::DeleteFileX(file);
+    else
+    {
+      FileWriterStream fws(file);
+      fws << ranges;
+    }
   }
 
   struct CalcRanges
