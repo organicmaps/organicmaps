@@ -6,6 +6,7 @@
 #include "../../coding/file_reader_stream.hpp"
 #include "../../coding/file_writer_stream.hpp"
 #include "../../coding/sha2.hpp"
+#include "../../coding/internal/file_data.hpp"
 
 #include "../http_request.hpp"
 #include "../chunks_download_strategy.hpp"
@@ -434,7 +435,7 @@ struct ResumeChecker
   {
     if (m_counter == 0)
     {
-      TEST_EQUAL(request.Progress(), make_pair(beg2 + 1, FILESIZE), ());
+      TEST_EQUAL(request.Progress(), make_pair(beg2, FILESIZE), ());
     }
     else if (m_counter == 1)
     {
@@ -457,6 +458,7 @@ UNIT_TEST(DownloadResumeChunks)
 {
   string const FILENAME = "some_test_filename_12345";
   string const RESUME_FILENAME = FILENAME + ".resume";
+  string const DOWNLOADING_FILENAME = FILENAME + ".downloading";
   string const SHA256 = "EE6AE6A2A3619B2F4A397326BEC32583DE2196D9D575D66786CB3B6F9D04A633";
 
   { // remove data from previously failed files
@@ -482,17 +484,21 @@ UNIT_TEST(DownloadResumeChunks)
     string s;
     TEST(ReadFileAsString(FILENAME, s), ());
     TEST_EQUAL(sha2::digest256(s), SHA256, ());
+    uint64_t size;
+    TEST(!Platform::GetFileSizeByFullPath(RESUME_FILENAME, size), ("No resume file on success"));
+    // to substitute temporary not fully downloaded file
+    my::RenameFileX(FILENAME, DOWNLOADING_FILENAME);
   }
   // 2nd step - mark some file blocks as not downloaded
   {
-    FileWriter f(FILENAME, FileWriter::OP_WRITE_EXISTING);
+    FileWriter f(DOWNLOADING_FILENAME, FileWriter::OP_WRITE_EXISTING);
     f.Seek(beg1);
-    char b1[end1 - beg1];
+    char b1[end1 - beg1 + 1];
     for (size_t i = 0; i < ARRAY_SIZE(b1); ++i) b1[i] = 0;
     f.Write(b1, ARRAY_SIZE(b1));
 
     f.Seek(beg2);
-    char b2[end2 - beg2];
+    char b2[end2 - beg2 + 1];
     for (size_t i = 0; i < ARRAY_SIZE(b2); ++i) b2[i] = 0;
     f.Write(b2, ARRAY_SIZE(b2));
 
@@ -523,6 +529,7 @@ UNIT_TEST(DownloadResumeChunks)
     TEST_EQUAL(sha2::digest256(s), SHA256, ());
     uint64_t size = 0;
     TEST(!GetPlatform().GetFileSizeByFullPath(RESUME_FILENAME, size), ());
+    TEST(!GetPlatform().GetFileSizeByFullPath(DOWNLOADING_FILENAME, size), ());
     FileWriter::DeleteFileX(FILENAME);
   }
 }

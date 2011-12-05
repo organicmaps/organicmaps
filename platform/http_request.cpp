@@ -136,7 +136,7 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     // report progress
     if (isChunkOk)
     {
-      m_progress.first += (endRange - begRange);
+      m_progress.first += (endRange - begRange) + 1;
       if (m_onProgress)
         m_onProgress(*this);
     }
@@ -205,7 +205,7 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     CalcRanges(int64_t & summ) : m_summ(summ) {}
     void operator()(ChunksDownloadStrategy::RangeT const & range)
     {
-      m_summ += (range.second - range.first);
+      m_summ += (range.second - range.first) + 1;
     }
   };
 
