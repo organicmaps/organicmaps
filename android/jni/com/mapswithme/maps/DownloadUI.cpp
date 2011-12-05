@@ -125,5 +125,12 @@ extern "C"
   {
     g_framework->Storage().DownloadCountry(storage::TIndex(group, country, region));
   }
+
+  JNIEXPORT jint JNICALL
+  Java_com_mapswithme_maps_DownloadUI_deleteCountry(JNIEnv * env, jobject thiz,
+      jint group, jint country, jint region)
+  {
+    g_framework->Storage().DeleteCountry(storage::TIndex(group, country, region));
+  }
 }
 

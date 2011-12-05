@@ -18,8 +18,10 @@ public class DownloadUI extends PreferenceActivity
   private native String countryName(int group, int country, int region);
   private native void nativeCreate();
   private native void nativeDestroy();
+  
   private native void downloadCountry(int group, int country, int region);
-    
+  private native void deleteCountry(int group, int country, int region);
+      
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
@@ -41,7 +43,48 @@ public class DownloadUI extends PreferenceActivity
   
   public void onChangeCountryImpl(int group, int country, int region)
   {
-    Log.d(TAG, String.format("onChangeCountry %1$d, %2$d, %3$d", group, country, region));
+    int status = countryStatus(group, country, region);
+    
+    Log.d(TAG, String.format("onChangeCountry %1$d, %2$d, %3$d, status=%4$d", group, country, region, status));
+    
+    final long localBytes = countryLocalSizeInBytes(group, country, region);
+    final long remoteBytes = countryRemoteSizeInBytes(group, country, region);
+      
+    Preference c = findPreference(group + " " + country + " " + region);
+    
+    if (c == null)
+    {
+      Log.d(TAG, String.format("no preference found for %1$d %2$d %3$d", group, country, region));
+      return;
+    }
+    
+    final String sizeString;
+    if (remoteBytes > 1024 * 1024)
+      sizeString = remoteBytes / (1024 * 1024) + "Mb";
+    else
+      sizeString = remoteBytes / 1024 + "Kb";
+        
+    switch (status)
+    {
+    case 0: // EOnDisk
+      c.setSummary("Click to delete " + sizeString);
+      break;
+    case 1: // ENotDownloaded
+      c.setSummary("Click to download " + sizeString);
+      break;
+    case 2: // EDownloadFailed
+      c.setSummary("Download has failed, click again to retry");
+      break;
+    case 3: // EDownloading
+      c.setSummary("Downloading...");
+      break;        
+    case 4: // EInQueue
+      c.setSummary("Marked to download");
+      break;        
+    case 5: // EUnknown
+      c.setSummary("Unknown state :(");
+      break;        
+    }
   }
     
   class ChangeCountryFn implements Runnable
@@ -97,6 +140,12 @@ public class DownloadUI extends PreferenceActivity
   public void onProgressImpl(int group, int country, int region, long p1, long p2)
   {
     Log.d(TAG, String.format("onProgress %1$d, %2$d, %3$d, %4$d, %5$d", group, country, region, p1, p2));
+    Preference c = findPreference(group + " " + country + " " + region);
+    
+    if (c == null)
+      Log.d(TAG, String.format("no preference found for %1$d %2$d %3$d", group, country, region));
+    else
+      c.setSummary("Downloading... " + p1 * 100 / p2 + "%, touch to cancel");
   }
 
   public void onProgress(int group, int country, int region, long p1, long p2)
@@ -124,7 +173,10 @@ public class DownloadUI extends PreferenceActivity
         sizeString = remoteBytes / (1024 * 1024) + "Mb";
       else
         sizeString = remoteBytes / 1024 + "Kb";
-      switch (countryStatus(group, country, region))
+      
+      int status = countryStatus(group, country, region);
+      
+      switch (status)
       {
       case 0: // EOnDisk
         c.setSummary("Click to delete " + sizeString);
@@ -182,15 +234,34 @@ public class DownloadUI extends PreferenceActivity
       final int country = Integer.parseInt(keys[1]);
       final int region = Integer.parseInt(keys[2]);
       
-/*      switch (countryStatus(group, country, region))
-      {
-      case 0: //EOnDisk
-      {
-        /// Ask about deleting 
-      }*/
-      downloadCountry(group, country, region);
+      int status = countryStatus(group, country, region);
       
-      Log.d(TAG, "started country download");
+      switch (status)
+      {
+      case 0: // EOnDisk
+        /// ask to delete country
+        deleteCountry(group, country, region);
+        break;
+      case 1: // ENotDownloaded
+        /// ask to download, and start accordingly
+        downloadCountry(group, country, region);
+        break;
+      case 2: // EDownloadFailed
+        /// ask to download, and start accordingly
+        downloadCountry(group, country, region);
+        break;
+      case 3: // EDownloading
+        /// ask to cancel download and cancell accordingly
+        deleteCountry(group, country, region);
+        break;        
+      case 4: // EInQueue
+        /// remove from queue
+        deleteCountry(group, country, region);
+        break;        
+      case 5: // EUnknown
+        //c.setSummary("Unknown state :(");
+        break;        
+      }
     }
     return super.onPreferenceTreeClick(preferenceScreen, preference);
   }
