@@ -15955,82 +15955,153 @@ cont {
 cont {
   name: "highway-primary-motorroad"
   element {
+    scale: 9
+    lines {
+      width: 2.5
+      color: 0xFFC444
+      priority: 540
+    }
+  }
+  element {
     scale: 10
     lines {
-      width: 4
-      color: 0xf088ff
-      priority: 600
+      width: 2
+      color: 0xFFC444
+      priority: 540
     }
   }
   element {
     scale: 11
     lines {
-      width: 6
-      color: 0xf088ff
-      priority: 600
+      width: 3
+      color: 0xFFC444
+      priority: 540
     }
   }
   element {
     scale: 12
     lines {
-      width: 8
-      color: 0xf088ff
-      priority: 600
+      width: 4
+      color: 0xFFC444
+      priority: 540
+    }
+    lines {
+      width: 6
+      color: 0xD8A050
+      priority: 530
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0x303030
+        stroke_color: 0xFFC444
+      }
+      priority: 1180
     }
   }
   element {
     scale: 13
     lines {
       width: 6
-      color: 0xf088ff
-      priority: 600
+      color: 0xFFC444
+      priority: 540
+    }
+    lines {
+      width: 8
+      color: 0xD8A050
+      priority: 530
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0x303030
+        stroke_color: 0xFFC444
+      }
+      priority: 1180
     }
   }
   element {
     scale: 14
     lines {
-      width: 8
-      color: 0xf08800
-      priority: 570
+      width: 10
+      color: 0xFFC444
+      priority: 540
+    }
+    lines {
+      width: 14
+      color: 0xD8A050
+      priority: 530
+    }
+    path_text {
+      primary {
+        height: 14
+        color: 0x303030
+        stroke_color: 0xFFC444
+      }
+      priority: 11784
     }
   }
   element {
     scale: 15
     lines {
-      width: 13
-      color: 0x707070
-      priority: 270
+      width: 12
+      color: 0xFFC444
+      priority: 540
     }
     lines {
-      width: 12
-      color: 0xf08800
-      priority: 271
+      width: 16
+      color: 0xD8A050
+      priority: 530
+    }
+    path_text {
+      primary {
+        height: 16
+        color: 0x303030
+        stroke_color: 0xFFC444
+      }
+      priority: 1180
     }
   }
   element {
     scale: 16
     lines {
-      width: 16.8
-      color: 0x707070
-      priority: 584
+      width: 14
+      color: 0xFFC444
+      priority: 540
     }
     lines {
-      width: 15.6
-      color: 0xf08800
-      priority: 585
+      width: 18
+      color: 0xD8A050
+      priority: 530
+    }
+    path_text {
+      primary {
+        height: 17
+        color: 0x404040
+        stroke_color: 0xFFC444
+      }
+      priority: 1180
     }
   }
   element {
     scale: 17
     lines {
-      width: 18.4
-      color: 0x707070
-      priority: 575
+      width: 16
+      color: 0xFFC444
+      priority: 540
     }
     lines {
-      width: 17.2
-      color: 0xf08800
-      priority: 622
+      width: 20
+      color: 0xD8A050
+      priority: 530
+    }
+    path_text {
+      primary {
+        height: 17
+        color: 0x404040
+        stroke_color: 0xFFC444
+      }
+      priority: 1180
     }
   }
 }
@@ -28432,66 +28503,153 @@ cont {
 cont {
   name: "highway-trunk-motorroad"
   element {
+    scale: 9
+    lines {
+      width: 2
+      color: 0xFFC444
+      priority: 540
+    }
+  }
+  element {
+    scale: 10
+    lines {
+      width: 2
+      color: 0xFFC444
+      priority: 540
+    }
+  }
+  element {
+    scale: 11
+    lines {
+      width: 3
+      color: 0xFFC444
+      priority: 540
+    }
+  }
+  element {
     scale: 12
     lines {
-      width: 6.25
-      color: 0xf08800
-      priority: 148
+      width: 4
+      color: 0xFFC444
+      priority: 540
+    }
+    lines {
+      width: 6
+      color: 0xD8A050
+      priority: 530
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0x303030
+        stroke_color: 0xFFC444
+      }
+      priority: 1180
     }
   }
   element {
     scale: 13
     lines {
-      width: 9.5
-      color: 0xf08800
-      priority: 158
+      width: 6
+      color: 0xFFC444
+      priority: 540
+    }
+    lines {
+      width: 8
+      color: 0xD8A050
+      priority: 530
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0x303030
+        stroke_color: 0xFFC444
+      }
+      priority: 1180
     }
   }
   element {
     scale: 14
     lines {
-      width: 12
-      color: 0xf08800
-      priority: 202
+      width: 10
+      color: 0xFFC444
+      priority: 540
+    }
+    lines {
+      width: 14
+      color: 0xD8A050
+      priority: 530
+    }
+    path_text {
+      primary {
+        height: 14
+        color: 0x303030
+        stroke_color: 0xFFC444
+      }
+      priority: 11784
     }
   }
   element {
     scale: 15
     lines {
-      width: 13
-      color: 0x707070
-      priority: 294
+      width: 12
+      color: 0xFFC444
+      priority: 540
     }
     lines {
-      width: 12
-      color: 0xf08800
-      priority: 295
+      width: 16
+      color: 0xD8A050
+      priority: 530
+    }
+    path_text {
+      primary {
+        height: 16
+        color: 0x303030
+        stroke_color: 0xFFC444
+      }
+      priority: 1180
     }
   }
   element {
     scale: 16
     lines {
-      width: 16.8
-      color: 0x707070
-      priority: 608
+      width: 14
+      color: 0xFFC444
+      priority: 540
     }
     lines {
-      width: 15.6
-      color: 0xf08800
-      priority: 609
+      width: 18
+      color: 0xD8A050
+      priority: 530
+    }
+    path_text {
+      primary {
+        height: 17
+        color: 0x404040
+        stroke_color: 0xFFC444
+      }
+      priority: 1180
     }
   }
   element {
     scale: 17
     lines {
-      width: 18.4
-      color: 0x707070
-      priority: 586
+      width: 16
+      color: 0xFFC444
+      priority: 540
     }
     lines {
-      width: 17.2
-      color: 0xf08800
-      priority: 631
+      width: 20
+      color: 0xD8A050
+      priority: 530
+    }
+    path_text {
+      primary {
+        height: 17
+        color: 0x404040
+        stroke_color: 0xFFC444
+      }
+      priority: 1180
     }
   }
 }
