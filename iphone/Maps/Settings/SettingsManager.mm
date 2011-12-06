@@ -10,7 +10,7 @@
 using namespace storage;
 
 // @TODO Write Review dialog
-// NSLocalizedString(@"If you like MapsWithMe, please support us by writing a review. If you face any issues, please let us know by filling in a speacial form.", @"Leave Review dialog title")
+// NSLocalizedString(@"If you like MapsWithMe, please support us by writing a review. If you face any issues, please let us know by filling in a special form.", @"Leave Review dialog title")
 // NSLocalizedString(@"Leave a review", @"Leave Review dialog - Review button")
 // NSLocalizedString(@"Report an issue", @"Leave Review dialog - Complain button (goes to support site)")
 // NSLocalizedString(@"Remind me later", @"Leave Review dialog - Not now button (remond me later)")
