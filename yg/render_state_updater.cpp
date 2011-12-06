@@ -56,7 +56,8 @@ namespace yg
       if (m_doSynchronize)
         m_renderState->m_mutex->Lock();
       swap(m_renderState->m_actualTarget, m_renderState->m_backBuffer);
-      m_renderState->m_isEmptyModelActual = m_renderState->m_isEmptyModelCurrent;
+      if (!m_renderState->m_isEmptyModelCurrent)
+        m_renderState->m_isEmptyModelActual = m_renderState->m_isEmptyModelCurrent;
       m_renderState->m_actualScreen = m_currentScreen;
       if (m_doSynchronize)
         m_renderState->m_mutex->Unlock();
