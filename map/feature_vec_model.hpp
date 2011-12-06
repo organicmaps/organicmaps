@@ -39,6 +39,11 @@ namespace model
     void Clean();
     void ClearCaches();
 
+    inline bool IsLoaded(string const & fName) const
+    {
+      return m_multiIndex.IsLoaded(fName);
+    }
+
     /// @name Features enumeration.
     //@{
     template <class ToDo>

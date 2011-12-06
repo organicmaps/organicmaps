@@ -125,10 +125,6 @@ public:
   void SetRenderPolicy(RenderPolicy * renderPolicy);
   RenderPolicy * GetRenderPolicy() const;
 
-  bool IsEmptyModel();
-
-  InformationDisplay & GetInformationDisplay();
-
   // Cleanup.
   void Clean();
 
@@ -220,5 +216,8 @@ public:
   void DoScale(ScaleEvent const & e);
   void StopScale(ScaleEvent const & e);
   //@}
-};
 
+private:
+  //bool IsEmptyModel() const;
+  bool IsEmptyModel(m2::PointD const & pt);
+};

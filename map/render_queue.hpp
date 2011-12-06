@@ -54,6 +54,9 @@ public:
 
   void SetRedrawAll();
 
+  template <class TFn>
+  inline void SetEmptyModelFn(TFn const & fn) { m_routine->SetEmptyModelFn(fn); }
+
   void SetVisualScale(double visualScale);
 
   /// add window handle to notify when rendering operation finishes

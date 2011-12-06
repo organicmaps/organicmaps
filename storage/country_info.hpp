@@ -32,6 +32,7 @@ namespace storage
   public:
     CountryInfoGetter(ModelReaderPtr polyR, ModelReaderPtr countryR);
 
+    string GetRegionFile(m2::PointD const & pt) const;
     string GetRegionName(m2::PointD const & pt) const;
     string GetRegionName(string const & id) const;
   };

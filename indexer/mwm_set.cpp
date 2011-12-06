@@ -153,6 +153,11 @@ void MwmSet::Remove(string const & fileName)
   }
 }
 
+bool MwmSet::IsLoaded(string const & fName) const
+{
+  return (const_cast<MwmSet *>(this)->GetIdByName(fName + DATA_FILE_EXTENSION) != INVALID_MWM_ID);
+}
+
 void MwmSet::GetMwmInfo(vector<MwmInfo> & info) const
 {
   threads::MutexGuard mutexGuard(m_lock);

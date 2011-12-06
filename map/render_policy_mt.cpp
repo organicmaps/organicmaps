@@ -138,6 +138,11 @@ void RenderPolicyMT::SetRenderFn(TRenderFn renderFn)
   m_renderQueue->initializeGL(m_primaryRC, m_resourceManager);
 }
 
+void RenderPolicyMT::SetEmptyModelFn(TEmptyModelFn const & checkFn)
+{
+  m_renderQueue->SetEmptyModelFn(checkFn);
+}
+
 m2::RectI const RenderPolicyMT::OnSize(int w, int h)
 {
   RenderPolicy::OnSize(w, h);

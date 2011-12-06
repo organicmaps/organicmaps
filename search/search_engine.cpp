@@ -100,4 +100,9 @@ void Engine::Search(string const & queryText, function<void (Result const &)> co
   f(Result::GetEndResult());
 }
 
+string Engine::GetCountryFile(m2::PointD const & pt) const
+{
+  return m_pData->m_infoGetter.GetRegionFile(pt);
+}
+
 }  // namespace search

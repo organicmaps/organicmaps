@@ -71,6 +71,8 @@ public:
   // Remove mwm.
   void Remove(string const & fileName);
 
+  bool IsLoaded(string const & fName) const;
+
   // Get ids of all mwms. Some of them may be marked to remove.
   void GetMwmInfo(vector<MwmInfo> & info) const;
 

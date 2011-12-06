@@ -46,4 +46,5 @@ public:
   RenderQueue & GetRenderQueue();
 
   void SetRenderFn(TRenderFn renderFn);
+  void SetEmptyModelFn(TEmptyModelFn const & checkFn);
 };

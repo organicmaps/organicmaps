@@ -53,6 +53,17 @@ namespace storage
     return true;
   }
 
+  string CountryInfoGetter::GetRegionFile(m2::PointD const & pt) const
+  {
+    GetByPoint doGet(*this, pt);
+    ForEachCountry(pt, doGet);
+
+    if (doGet.m_res != -1)
+      return m_countries[doGet.m_res].m_name;
+    else
+      return string();
+  }
+
   string CountryInfoGetter::GetRegionName(m2::PointD const & pt) const
   {
     GetByPoint doGet(*this, pt);

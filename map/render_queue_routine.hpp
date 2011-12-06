@@ -40,6 +40,7 @@ class RenderQueueRoutine : public threads::IRoutine
 public:
 
   typedef function<void(shared_ptr<PaintEvent>, ScreenBase const &, m2::RectD const &, m2::RectD const &, int)> render_fn_t;
+  typedef function<bool (m2::PointD const &)> TEmptyModelFn;
 
 private:
 
@@ -92,6 +93,8 @@ private:
   yg::Color m_bgColor;
   ThreadedList<yg::gl::Renderer::Packet> * m_glQueue;
 
+  TEmptyModelFn m_emptyModelFn;
+
   void waitForRenderCommand(list<shared_ptr<RenderModelCommand> > & cmdList,
                             threads::ConditionGuard & guard);
 
@@ -113,6 +116,8 @@ public:
   void Cancel();
 
   void onSize(int w, int h);
+
+  void SetEmptyModelFn(TEmptyModelFn const checkFn) { m_emptyModelFn = checkFn; }
 
   /// Check, whether the resize command is queued, and resize accordingly.
   void processResize(ScreenBase const & frameScreen);

@@ -36,6 +36,8 @@ public:
   void SetPreferredLanguage(int lang);
   void Search(string const & query, function<void (Result const &)> const & f);
 
+  string GetCountryFile(m2::PointD const & pt) const;
+
 private:
   void InitializeCategoriesAndSuggestStrings(CategoriesHolder const & categories);
 

@@ -140,6 +140,11 @@ void PartialRenderPolicy::SetRenderFn(TRenderFn renderFn)
   m_renderQueue->initializeGL(m_primaryRC, m_resourceManager);
 }
 
+void PartialRenderPolicy::SetEmptyModelFn(TEmptyModelFn const & checkFn)
+{
+  m_renderQueue->SetEmptyModelFn(checkFn);
+}
+
 PartialRenderPolicy::~PartialRenderPolicy()
 {
   LOG(LINFO, ("destroying PartialRenderPolicy"));

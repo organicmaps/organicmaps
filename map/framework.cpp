@@ -155,10 +155,12 @@ void Framework::GetLocalMaps(vector<string> & outMaps)
   outMaps.erase(unique(outMaps.begin(), outMaps.end()), outMaps.end());
 }
 
-bool Framework::IsEmptyModel()
+/*
+bool Framework::IsEmptyModel() const
 {
   return m_model.GetWorldRect() == m2::RectD::GetEmptyRect();
 }
+*/
 
 // Cleanup.
 void Framework::Clean()
@@ -286,6 +288,15 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
     Invalidate();
 }
 
+bool Framework::IsEmptyModel(m2::PointD const & pt)
+{
+  string const fName = GetSearchEngine()->GetCountryFile(pt);
+  if (fName.empty())
+    return false;
+
+  return !m_model.IsLoaded(fName);
+}
+
 void Framework::BeginPaint(shared_ptr<PaintEvent> const & e)
 {
   m_renderPolicy->BeginFrame(e, m_navigator.Screen());
@@ -307,7 +318,7 @@ void Framework::DoPaint(shared_ptr<PaintEvent> const & e)
 
   m_informationDisplay.setDebugInfo(0/*m_renderQueue.renderState().m_duration*/, my::rounds(GetCurrentScale()));
 
-  m_informationDisplay.enableRuler(!IsEmptyModel());
+  m_informationDisplay.enableRuler(true/*!IsEmptyModel()*/);
 
   m2::PointD const center = m_navigator.Screen().GlobalRect().GlobalCenter();
 
@@ -634,6 +645,7 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
   if (m_renderPolicy.get())
   {
     m_renderPolicy->SetRenderFn(DrawModelFn());
+    m_renderPolicy->SetEmptyModelFn(bind(&Framework::IsEmptyModel, this, _1));
 
     m_navigator.SetSupportRotation(m_renderPolicy->DoSupportRotation());
 

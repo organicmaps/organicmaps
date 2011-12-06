@@ -35,6 +35,8 @@ public:
                         m2::RectD const &,
                         int)> TRenderFn;
 
+  typedef function<bool (m2::PointD const &)> TEmptyModelFn;
+
 protected:
 
   yg::Color m_bgColor;
@@ -77,6 +79,7 @@ public:
 
   /// the start point of rendering in renderpolicy.
   virtual void SetRenderFn(TRenderFn renderFn);
+  virtual void SetEmptyModelFn(TEmptyModelFn const &) {}
 
   bool DoSupportRotation() const;
   bool IsTiling() const;
