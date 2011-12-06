@@ -1,5 +1,8 @@
 package com.mapswithme.maps;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -21,6 +24,8 @@ public class DownloadUI extends PreferenceActivity
   
   private native void downloadCountry(int group, int country, int region);
   private native void deleteCountry(int group, int country, int region);
+  
+  private AlertDialog m_alert;
       
   @Override
   protected void onCreate(Bundle savedInstanceState)
@@ -30,6 +35,15 @@ public class DownloadUI extends PreferenceActivity
     PreferenceScreen root = getPreferenceManager().createPreferenceScreen(this);
     setPreferenceScreen(createCountriesHierarchy(root, -1, -1, -1));
     
+    m_alert = new AlertDialog.Builder(this).create();  
+    m_alert.setCancelable(false); 
+
+    m_alert.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener(){
+        public void onClick(DialogInterface dialog, int which){
+          dialog.dismiss();
+          }
+        });
+        
     nativeCreate();
   }
   
@@ -223,7 +237,7 @@ public class DownloadUI extends PreferenceActivity
     }
     return root;
   }
-  
+
   @Override
   public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference)
   {
@@ -235,28 +249,79 @@ public class DownloadUI extends PreferenceActivity
       final int region = Integer.parseInt(keys[2]);
       
       int status = countryStatus(group, country, region);
-      
+
+     
       switch (status)
       {
       case 0: // EOnDisk
-        /// ask to delete country
-        deleteCountry(group, country, region);
+        
+        m_alert.setMessage("Delete " + countryName(group, country, region) + "?");
+        m_alert.setButton(AlertDialog.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener(){
+          public void onClick(DialogInterface dlg, int which){
+            Log.d(TAG, String.format("deleting %1$d, %2$d, %3$d", group, country, region));
+            deleteCountry(group, country, region);
+            dlg.dismiss();
+          }
+        });
+        
+        m_alert.show();
+        
         break;
       case 1: // ENotDownloaded
         /// ask to download, and start accordingly
-        downloadCountry(group, country, region);
+        m_alert.setMessage("Download " + countryName(group, country, region) + "?");
+        m_alert.setButton(AlertDialog.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener(){
+          public void onClick(DialogInterface dlg, int which){
+            Log.d(TAG, String.format("downloading %1$d, %2$d, %3$d", group, country, region));
+            downloadCountry(group, country, region);
+            dlg.dismiss();
+          }
+        });
+        
+        m_alert.show();
+        
         break;
       case 2: // EDownloadFailed
         /// ask to download, and start accordingly
-        downloadCountry(group, country, region);
+        m_alert.setMessage("Download " + countryName(group, country, region) + "?");
+        m_alert.setButton(AlertDialog.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener(){
+          public void onClick(DialogInterface dlg, int which){
+            Log.d(TAG, String.format("downloading %1$d, %2$d, %3$d", group, country, region));
+            downloadCountry(group, country, region);
+            dlg.dismiss();
+          }
+        });
+        
+        m_alert.show();
+        
         break;
       case 3: // EDownloading
-        /// ask to cancel download and cancell accordingly
-        deleteCountry(group, country, region);
+        /// ask to download, and start accordingly
+        m_alert.setMessage("Cancel downloading " + countryName(group, country, region) + "?");
+        m_alert.setButton(AlertDialog.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener(){
+          public void onClick(DialogInterface dlg, int which){
+            Log.d(TAG, String.format("deleting %1$d, %2$d, %3$d", group, country, region));
+            deleteCountry(group, country, region);
+            dlg.dismiss();
+          }
+        });
+        
+        m_alert.show();
+        
         break;        
       case 4: // EInQueue
-        /// remove from queue
-        deleteCountry(group, country, region);
+        /// ask to download, and start accordingly
+        m_alert.setMessage("Remove " + countryName(group, country, region) + " from queue?");
+        m_alert.setButton(AlertDialog.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener(){
+          public void onClick(DialogInterface dlg, int which){
+            Log.d(TAG, String.format("deleting %1$d, %2$d, %3$d", group, country, region));
+            deleteCountry(group, country, region);
+            dlg.dismiss();
+          }
+        });
+        
+        m_alert.show();
+        
         break;        
       case 5: // EUnknown
         //c.setSummary("Unknown state :(");
