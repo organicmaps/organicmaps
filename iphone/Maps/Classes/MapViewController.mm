@@ -4,6 +4,7 @@
 #import "EAGLView.h"
 #import "SearchBannerChecker.h"
 #import "../Settings/SettingsManager.h"
+#import "../../Common/CustomAlertView.h"
 
 #include "RenderContext.hpp"
 
@@ -31,7 +32,7 @@ Framework * m_framework = NULL;
   {
   case location::EDisabledByUser:
     {
-      UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Location Services are disabled", @"Location services are disabled by user alert - title")
+      UIAlertView * alert = [[CustomAlertView alloc] initWithTitle:NSLocalizedString(@"Location Services are disabled", @"Location services are disabled by user alert - title")
                                                        message:NSLocalizedString(@"You currently have all Location Services for this device or application disabled. Please enable them in Settings.", @"Location services are disabled by user alert - message")
                                                       delegate:nil 
                                              cancelButtonTitle:NSLocalizedString(@"OK", @"Location Services are disabled by user alert - close alert button")
@@ -43,7 +44,7 @@ Framework * m_framework = NULL;
     break;
   case location::ENotSupported:
     {
-      UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Location Services are not supported", @"Location Services are not available on the device alert - title")
+      UIAlertView * alert = [[CustomAlertView alloc] initWithTitle:NSLocalizedString(@"Location Services are not supported", @"Location Services are not available on the device alert - title")
                                                        message:NSLocalizedString(@"Your device doesn't support Location Services", @"Location Services are not available on the device alert - message")
                                                       delegate:nil
                                              cancelButtonTitle:NSLocalizedString(@"OK", @"Location Services are not available on the device alert - close alert button")

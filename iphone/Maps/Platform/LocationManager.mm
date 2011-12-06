@@ -1,5 +1,4 @@
 #import "LocationManager.h"
-#import <UIKit/UIAlertView.h>
 
 @implementation LocationManager
 
