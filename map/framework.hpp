@@ -125,6 +125,8 @@ public:
   void SetRenderPolicy(RenderPolicy * renderPolicy);
   RenderPolicy * GetRenderPolicy() const;
 
+  InformationDisplay & GetInformationDisplay();
+
   // Cleanup.
   void Clean();
 
