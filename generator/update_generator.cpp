@@ -40,12 +40,18 @@ namespace update
   {
     size_t m_processedFiles;
     string m_dataDir;
+    Platform::FilesList m_allFiles;
 
   public:
-    SizeUpdater(string const & dataDir) : m_processedFiles(0), m_dataDir(dataDir) {}
+    SizeUpdater(string const & dataDir) : m_processedFiles(0), m_dataDir(dataDir)
+    {
+      Platform::GetFilesInDir(m_dataDir, "*.mwm", m_allFiles);
+    }
     ~SizeUpdater()
     {
       LOG(LINFO, (m_processedFiles, "file sizes were updated in the country list"));
+      if (!m_allFiles.empty())
+        LOG(LINFO, ("Files left unprocessed:", m_allFiles));
     }
     template <class T>
     void operator()(T & c)
@@ -59,6 +65,9 @@ namespace update
           LOG(LERROR, ("File was not found:", fname));
         CHECK_GREATER(size, 0, ("Zero file size?", fname));
         c.Value().m_files[i].m_remoteSize = size;
+        Platform::FilesList::iterator found = find(m_allFiles.begin(), m_allFiles.end(), fname);
+        if (found != m_allFiles.end())
+          m_allFiles.erase(found);
       }
     }
   };
