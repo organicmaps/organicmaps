@@ -3,7 +3,8 @@
 #include "../../../storage/storage.hpp"
 
 @interface CountriesViewController
-: UIViewController <UINavigationBarDelegate, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
+: UIViewController <UINavigationBarDelegate, UITableViewDelegate, UITableViewDataSource,
+  UIActionSheetDelegate, UIAlertViewDelegate>
 {
 	storage::Storage * m_storage;
   storage::TIndex m_index;

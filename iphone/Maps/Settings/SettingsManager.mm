@@ -10,12 +10,11 @@
 using namespace storage;
 
 // @TODO Write Review dialog
-// NSLocalizedString(@"Leave a review", @"Leave Review dialog title")
-// NSLocalizedString(@"If you like MapsWithMe, please support us with  a review. If you want to complain then please visit our support site", @"Leave Review dialog message")
-// NSLocalizedString(@"Write a review", @"Leave Review dialog - Review button")
-// NSLocalizedString(@"Complain", @"Leave Review dialog - Complain button (goes to support site)")
-// NSLocalizedString(@"Not now", @"Leave Review dialog - Not now button (remond me later)")
-// NSLocalizedString(@"Dismiss", @"Leave Review dialog - Dismiss forever button")
+// NSLocalizedString(@"If you like MapsWithMe, please support us by writing a review. If you face any issues, please let us know by filling in a speacial form.", @"Leave Review dialog title")
+// NSLocalizedString(@"Leave a review", @"Leave Review dialog - Review button")
+// NSLocalizedString(@"Report an issue", @"Leave Review dialog - Complain button (goes to support site)")
+// NSLocalizedString(@"Remind me later", @"Leave Review dialog - Not now button (remond me later)")
+// NSLocalizedString(@"Do not ask me again", @"Leave Review dialog - Dismiss forever button")
 
 // @TODO Buttons in main maps view
 // NSLocalizedString(@"Maps", @"View and button titles for accessibility")
@@ -27,17 +26,9 @@ using namespace storage;
 // NSLocalizedString(@"Zoom to the country", @"View and button titles for accessibility")
 
 // @TODO Search button banner dialog for free version
-// NSLocalizedString(@"Search feature", @"Search button pressed dialog title in the free version")
-// NSLocalizedString(@"Search is available in the paid version of MapsWithMe. Upgrade now!", @"Search button pressed dialog message in the free version")
-// NSLocalizedString(@"Go to the AppStore", @"Search button pressed dialog Positive button in the free version")
+// NSLocalizedString(@"Search is only available in the full version of MapsWithMe. Would you like to get it now?", @"Search button pressed dialog title in the free version")
+// NSLocalizedString(@"Get it now", @"Search button pressed dialog Positive button in the free version")
 // NSLocalizedString(@"Cancel", @"Search button pressed dialog Negative button in the free version")
-
-// @TODO Paid version is available one-time banner dialog for free version
-// NSLocalizedString(@"MapsWithMe now with Search capabilities", @"Paid version has become available one-time dialog title in the free version")
-// NSLocalizedString(@"Now you can install MapsWithMe with Search!", @"Paid version has become available one-time dialog message in the free version")
-// NSLocalizedString(@"Visit AppStore", @"Paid version has become available one-time dialog Positive button in the free version")
-// NSLocalizedString(@"Not Now", @"Paid version has become available one-time dialog Negative button in the free version")
-
 
 // Settings are always present globally
 @implementation SettingsManager
@@ -104,10 +95,10 @@ using namespace storage;
   if (framework->NeedToDeleteOldMaps())
   {
     UIActionSheet * dialog = [[UIActionSheet alloc]
-        initWithTitle:NSLocalizedString(@"MapsWithMe have enhanced the map data and made it far more accessible. For example, with larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.", @"Downloader/Upgrade dialog message")
+        initWithTitle:NSLocalizedString(@"We've updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.", @"Downloader/Upgrade dialog title")
         delegate:self
-        cancelButtonTitle:NSLocalizedString(@"Do nothing at the moment", @"Downloader/Upgrade Cancel button")
-        destructiveButtonTitle:NSLocalizedString(@"Delete old and download new maps", @"Downloader/Upgrade OK button")
+        cancelButtonTitle:NSLocalizedString(@"Cancel", @"Downloader/Upgrade Cancel button")
+        destructiveButtonTitle:NSLocalizedString(@"Delete old maps and proceed", @"Downloader/Upgrade OK button")
         otherButtonTitles:nil];
     [dialog showInView:m_navigationController.view];
     [dialog release];

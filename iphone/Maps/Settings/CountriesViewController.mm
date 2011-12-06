@@ -264,6 +264,44 @@ UITableViewCell * g_clickedCell = nil;
   }
 }
 
+- (void) showDownloadCountryConfirmation:(NSString *)countryName withSize:(LocalAndRemoteSizeT::first_type)size fromRect:(CGRect)rect
+{
+  // display confirmation popup with country size
+  // convert size to human readable values
+  NSString * strDownload = nil;
+  if (size > MB)
+  {
+    size /= MB;
+    strDownload = [NSString stringWithFormat:NSLocalizedString(@"Download %qu MB", @"Settings/Downloader - Download confirmation button"), size];
+  }
+  else
+  {
+    size = (size + 999) / 1000;
+    strDownload = [NSString stringWithFormat:NSLocalizedString(@"Download %qu kB", @"Settings/Downloader - Download confirmation button"), size];
+  }
+  
+  UIActionSheet * popupQuery = [[UIActionSheet alloc]
+                                initWithTitle: countryName
+                                delegate: self
+                                cancelButtonTitle: NSLocalizedString(@"Cancel", @"Settings/Downloader - Download confirmation Cancel button")
+                                destructiveButtonTitle: nil
+                                otherButtonTitles: strDownload, nil];
+  [popupQuery showFromRect: rect inView: self.view animated: YES];
+  [popupQuery release];
+}
+
+// 3G warning confirmation handler
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+  if (buttonIndex != alertView.cancelButtonIndex)
+  {
+    LocalAndRemoteSizeT const sizePair = m_storage->CountrySizeInBytes(g_clickedIndex);
+    LocalAndRemoteSizeT::first_type const size = sizePair.second - sizePair.first;
+
+    [self showDownloadCountryConfirmation:[[g_clickedCell textLabel] text] withSize:size fromRect:[g_clickedCell frame]];
+  }
+}
+
 - (void) tableView: (UITableView *) tableView didSelectRowAtIndexPath: (NSIndexPath *) indexPath
 {
 	// deselect the current row (don't keep the table selection persistent)
@@ -281,7 +319,7 @@ UITableViewCell * g_clickedCell = nil;
   {
 		NSString * countryName = [[cell textLabel] text];
 
-    // pass parameters to dialog handler
+    // pass parameters to dialog handlers
     g_clickedIndex = index;
     g_clickedCell = cell;
 
@@ -291,11 +329,11 @@ UITableViewCell * g_clickedCell = nil;
     	{
         // display confirmation popup
     		UIActionSheet * popupQuery = [[[UIActionSheet alloc]
-      			initWithTitle: countryName
-        		delegate: self
-			cancelButtonTitle: NSLocalizedString(@"Cancel", @"Settings/Downloader - Delete country dialog - Cancel deletion button")
-			destructiveButtonTitle: NSLocalizedString(@"Delete", @"Settings/Downloader - Delete country dialog - Confirm deletion button")
-        		otherButtonTitles: nil] autorelease];
+                                       initWithTitle: countryName
+                                       delegate: self
+                                       cancelButtonTitle: NSLocalizedString(@"Cancel", @"Settings/Downloader - Delete country dialog - Cancel deletion button")
+                                       destructiveButtonTitle: NSLocalizedString(@"Delete", @"Settings/Downloader - Delete country dialog - Confirm deletion button")
+                                       otherButtonTitles: nil] autorelease];
         [popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
     	}
   		break;
@@ -303,7 +341,7 @@ UITableViewCell * g_clickedCell = nil;
       case EDownloadFailed:
       {
         LocalAndRemoteSizeT const sizePair = m_storage->CountrySizeInBytes(index);
-        LocalAndRemoteSizeT::first_type size = sizePair.second - sizePair.first;
+        LocalAndRemoteSizeT::first_type const size = sizePair.second - sizePair.first;
 
         // check for disk free space first
         if (FreeDiskSpaceInBytes() < (size + 1024*1024))
@@ -311,7 +349,7 @@ UITableViewCell * g_clickedCell = nil;
           [[[[CustomAlertView alloc] initWithTitle:NSLocalizedString(@"There is not enough free disk space", @"Settings/Downloader - No free space dialog title")
                                                                    message:[NSString stringWithFormat:NSLocalizedString(@"Please free some space on your device first in order to download %@", @"Settings/Downloader - No free space dialog message"), countryName]
                                                                   delegate:nil
-                                                         cancelButtonTitle:NSLocalizedString(@"Ok", @"Settings/Downloader - No free space dialog close button")
+                                                         cancelButtonTitle:NSLocalizedString(@"OK", @"Settings/Downloader - No free space dialog close button")
                                                          otherButtonTitles:nil] autorelease] show];
           break;
         }
@@ -320,46 +358,23 @@ UITableViewCell * g_clickedCell = nil;
         if (connType == ENotConnected)
         { // do not initiate any download
           [[[[CustomAlertView alloc] initWithTitle:NSLocalizedString(@"No Internet connection detected", @"Settings/Downloader - No internet connection dialog title")
-                                           message:NSLocalizedString(@"We recommend using WiFi to download larger countries", @"Settings/Downloader - No internet connection dialog message")
+                                           message:NSLocalizedString(@"We recommend using WiFi to download large maps", @"Settings/Downloader - No internet connection dialog message")
                                           delegate:nil
-                                 cancelButtonTitle:NSLocalizedString(@"Ok", @"Settings/Downloader - No internet connection dialog close button")
+                                 cancelButtonTitle:NSLocalizedString(@"OK", @"Settings/Downloader - No internet connection dialog close button")
                                  otherButtonTitles:nil] autorelease] show];
         }
         else
         {
           if (connType == EConnectedBy3G && size > MAX_3G_MEGABYTES * MB)
-          { // If user uses 3G, do not allow him to download large countries
-            [[[[CustomAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"%@ is too large to download over 3G", @"Settings/Downloader - 3G download warning dialog title"), countryName]
-                                            message:NSLocalizedString(@"Please use WiFi connection to download larger countries", @"Settings/Downloader - 3G download warning dialog message")
-                                          delegate:nil
-                                  cancelButtonTitle:NSLocalizedString(@"Ok", @"Settings/Downloader - 3G download warning dialog close button")
-                                  otherButtonTitles:nil] autorelease] show];
+          { // If user uses 3G, show warning to him before downloading country
+            [[[[CustomAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"No WiFi connection detected. Would you like to use cellular data (GPRS, EDGE or 3G) to download %@?", @"Settings/Downloader - 3G download warning dialog title"), countryName]
+                                            message:nil
+                                           delegate:self
+                                  cancelButtonTitle:NSLocalizedString(@"Cancel", @"Settings/Downloader - 3G download warning dialog cancel button")
+                                  otherButtonTitles:NSLocalizedString(@"Use cellular data", @"Settings/Downloader - 3G download warning dialog confirm button"), nil] autorelease] show];
           }
           else
-          {
-            // display confirmation popup with country size
-            // convert size to human readable values
-            NSString * strDownload = nil;
-            if (size > MB)
-            {
-              size /= MB;
-              strDownload = [NSString stringWithFormat:NSLocalizedString(@"Download %qu MB", @"Settings/Downloader - Download confirmation button"), size];
-            }
-            else
-            {
-              size = (size + 999) / 1000;
-              strDownload = [NSString stringWithFormat:NSLocalizedString(@"Download %qu kB", @"Settings/Downloader - Download confirmation button"), size];
-            }
-
-            UIActionSheet * popupQuery = [[UIActionSheet alloc]
-                                          initWithTitle: countryName
-                                          delegate: self
-                                          cancelButtonTitle: NSLocalizedString(@"Cancel", @"Settings/Downloader - Download confirmation Cancel button")
-                                          destructiveButtonTitle: nil
-                                          otherButtonTitles: strDownload, nil];
-            [popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
-            [popupQuery release];
-          }
+            [self showDownloadCountryConfirmation:countryName withSize:size fromRect:[cell frame]];
         }
 			}
   		break;

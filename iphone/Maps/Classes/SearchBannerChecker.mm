@@ -56,6 +56,10 @@ static bool ShouldCheckAgain()
     {
       searchButton.hidden = NO;
       // Display banner
+      // @TODO Paid version is available one-time banner dialog for free version
+      // NSLocalizedString(@"A paid version of MapsWithMe, featuring search, is available for download. Would you like to get it now?", @"Paid version has become available one-time dialog title in the free version")
+      // NSLocalizedString(@"Get it now", @"Paid version has become available one-time dialog Positive button in the free version")
+      // NSLocalizedString(@"Cancel", @"Paid version has become available one-time dialog Negative button in the free version")
     }
   }
 
