@@ -75,6 +75,11 @@ void Framework::OnCompassUpdate(location::CompassInfo const & info)
   Invalidate();
 }
 
+InformationDisplay & Framework::GetInformationDisplay()
+{
+  return m_informationDisplay;
+}
+
 Framework::Framework()
   : m_hasPendingInvalidate(false),
     m_doForceUpdate(false),

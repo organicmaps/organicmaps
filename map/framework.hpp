@@ -127,6 +127,8 @@ public:
 
   bool IsEmptyModel();
 
+  InformationDisplay & GetInformationDisplay();
+
   // Cleanup.
   void Clean();
 
