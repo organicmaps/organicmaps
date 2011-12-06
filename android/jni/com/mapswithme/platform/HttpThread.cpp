@@ -42,6 +42,14 @@ HttpThread::HttpThread(string const & url,
 
 HttpThread::~HttpThread()
 {
+  jclass k = jni::GetCurrentThreadJNIEnv()->FindClass("com/mapswithme/maps/downloader/DownloadChunkTask");
+
+  jni::Method markAsCancelledFn(k, "markAsCancelled", "()V");
+  markAsCancelledFn.CallVoid(m_self);
+
+  jni::Method cancelFn(k, "cancel", "(Z)Z");
+  cancelFn.CallVoid(m_self, false);
+
   LOG(LINFO, ("destroying http_thread"));
 }
 

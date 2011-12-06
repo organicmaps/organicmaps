@@ -35,6 +35,7 @@ class DownloadChunkTask extends AsyncTask<Void, Long, Void>
   
   private List<byte[]> m_chunks;
   private boolean m_hasError;
+  private boolean m_isCancelled;
   private long m_response;
   private long m_downloadedSize;
     
@@ -52,6 +53,12 @@ class DownloadChunkTask extends AsyncTask<Void, Long, Void>
     m_requestedSize = end - beg + 1;
     m_postBody = postBody;
     m_chunks = new ArrayList<byte[]>();
+    m_isCancelled = false;
+  }
+  
+  protected void markAsCancelled()
+  {
+    m_isCancelled = true;    
   }
 
   @Override
@@ -62,6 +69,12 @@ class DownloadChunkTask extends AsyncTask<Void, Long, Void>
   @Override
   protected void onPostExecute(Void resCode)
   {
+    if (m_isCancelled)
+    {
+      Log.d(TAG, String.format("downloading was cancelled, chunk %1$d, %2$d", m_beg, m_end));
+      return;
+    }
+    
     if (!m_hasError)
     {
       byte [] buf = new byte[(int) m_downloadedSize];
@@ -115,6 +128,12 @@ class DownloadChunkTask extends AsyncTask<Void, Long, Void>
       
       HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
       
+      if (isCancelled())
+      {
+        urlConnection.disconnect();
+        return null;
+      }
+      
       Log.d(TAG, String.format("configuring connection parameter for range %1$d : %2$d", m_beg, m_end));
       
       urlConnection.setDoOutput(true);
@@ -141,6 +160,12 @@ class DownloadChunkTask extends AsyncTask<Void, Long, Void>
         os.writeChars(m_postBody);
       }
       
+      if (isCancelled())
+      {
+        urlConnection.disconnect();
+        return null;
+      }
+      
       Log.d(TAG, ("getting response"));
       
       int response = urlConnection.getResponseCode();
@@ -155,6 +180,12 @@ class DownloadChunkTask extends AsyncTask<Void, Long, Void>
         {
           while (true)
           {
+            if (isCancelled())
+            {
+              urlConnection.disconnect();
+              return null;
+            }
+            
             long readBytes = is.read(tempBuf);
             
             if (readBytes == -1)
@@ -200,7 +231,7 @@ class DownloadChunkTask extends AsyncTask<Void, Long, Void>
       m_hasError = true;
       m_response = -1;
     }
-    
+
     return null;
   }
 }
