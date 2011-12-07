@@ -48,7 +48,7 @@ namespace yg
       return shared_ptr<gl::BaseTexture>(new gl::Texture<yg::RGBA4Traits, true>(m_w, m_h));
     case yg::Data8Bpp:
       return shared_ptr<gl::BaseTexture>(new gl::Texture<yg::RGBA8Traits, true>(m_w, m_h));
-    };
+    }
   }
 
   TStorageFactory::TStorageFactory(size_t vbSize, size_t ibSize, bool useVA, bool useSingleThreadedOGL, char const * resName)
