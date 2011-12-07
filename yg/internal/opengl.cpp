@@ -34,6 +34,7 @@ namespace yg
 
     void DumpGLInformation()
     {
+#ifndef OMIM_PRODUCTION
       LOG(LINFO, ("OpenGL Information"));
       LOG(LINFO, ("--------------------------------------------"));
       LOG(LINFO, ("Vendor     : ", glGetString(GL_VENDOR)));
@@ -53,6 +54,7 @@ namespace yg
       }
 
       LOG(LINFO, ("--------------------------------------------"));
+#endif
     }
 
     bool g_isBufferObjectsSupported = true;

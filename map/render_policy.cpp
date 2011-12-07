@@ -19,7 +19,7 @@
 
 RenderPolicy::~RenderPolicy()
 {
-  LOG(LINFO, ("clearing cached drawing rules"));
+  LOG(LDEBUG, ("clearing cached drawing rules"));
   drule::rules().ClearCaches();
 }
 

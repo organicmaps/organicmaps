@@ -60,11 +60,11 @@ void RenderQueueRoutine::Cancel()
 
     if (m_currentRenderCommand != 0)
     {
-      LOG(LINFO, ("cancelling current renderCommand in progress"));
+      LOG(LDEBUG, ("cancelling current renderCommand in progress"));
       m_currentRenderCommand->m_paintEvent->Cancel();
     }
 
-    LOG(LINFO, ("waking up the sleeping thread..."));
+    LOG(LDEBUG, ("waking up the sleeping thread..."));
 
     m_hasRenderCommands.Signal();
   }
@@ -264,7 +264,7 @@ void RenderQueueRoutine::Do()
 
       if (IsCancelled())
       {
-        LOG(LINFO, ("thread is cancelled while waiting for a render command"));
+        LOG(LDEBUG, ("thread is cancelled while waiting for a render command"));
         break;
       }
 
@@ -351,7 +351,7 @@ void RenderQueueRoutine::Do()
 
     if (IsCancelled())
     {
-      LOG(LINFO, ("cancelled before processing currentRenderCommand"));
+      LOG(LDEBUG, ("cancelled before processing currentRenderCommand"));
     }
     else if (m_currentRenderCommand != 0)
     {
@@ -475,7 +475,7 @@ void RenderQueueRoutine::addWindowHandle(shared_ptr<WindowHandle> window)
 void RenderQueueRoutine::Invalidate::perform()
 {
   if (isDebugging())
-    LOG(LINFO, ("performing Invalidate command"));
+    LOG(LDEBUG, ("performing Invalidate command"));
   for_each(m_windowHandles.begin(),
            m_windowHandles.end(),
            bind(&WindowHandle::invalidate, _1));

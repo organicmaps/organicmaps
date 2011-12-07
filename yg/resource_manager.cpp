@@ -132,9 +132,11 @@ namespace yg
     if (!m_isFixedBufferCount)
       m_storagesCount *= k;
 
-    LOG(LINFO, ("resizing ", m_poolName));
-    LOG(LINFO, (" from : ", oldVBSize / m_vertexSize, " vertices, ", oldIBSize / m_indexSize, " indices, ", oldStoragesCount, " storages, ", oldMemoryUsage, " bytes total"));
-    LOG(LINFO, (" to   : ", m_vbSize / m_vertexSize, " vertices, ", m_ibSize / m_indexSize, " indices, ", m_storagesCount, " storages, ", memoryUsage(), " bytes total"));
+#ifndef OMIM_PRODUCTION
+    LOG(LINFO, ("resizing", m_poolName));
+    LOG(LINFO, ("from:", oldVBSize / m_vertexSize, "vertices,", oldIBSize / m_indexSize, "indices,", oldStoragesCount, "storages,", oldMemoryUsage, "bytes total"));
+    LOG(LINFO, ("to  :", m_vbSize / m_vertexSize, "vertices,", m_ibSize / m_indexSize, "indices,", m_storagesCount, "storages,", memoryUsage(), "bytes total"));
+#endif
   }
 
   void ResourceManager::StoragePoolParams::distributeFreeMemory(int freeVideoMemory)
@@ -146,8 +148,10 @@ namespace yg
     }
     else
     {
+#ifndef OMIM_PRODUCTION
       if (m_vbSize && m_vertexSize && m_ibSize && m_indexSize)
         LOG(LINFO, (m_poolName, " : ", m_vbSize / m_vertexSize, " vertices, ", m_ibSize / m_indexSize, " indices, ", m_storagesCount, " storages, ", memoryUsage(), " bytes total"));
+#endif
     }
   }
 
@@ -218,8 +222,10 @@ namespace yg
     }
     else
     {
+#ifndef OMIM_PRODUCTION
       if (m_texWidth && m_texHeight && m_texCount)
         LOG(LINFO, (m_poolName, " : ", m_texWidth, "x", m_texHeight, ", ", m_texCount, " textures, ", memoryUsage(), " bytes total"));
+#endif
     }
   }
 
@@ -273,10 +279,11 @@ namespace yg
 
     if (!m_isCountFixed)
       m_texCount *= k;
-
+#ifndef OMIM_PRODUCTION
     LOG(LINFO, ("scaling memory usage for ", m_poolName));
     LOG(LINFO, (" from : ", oldTexWidth, "x", oldTexHeight, ", ", oldTexCount, " textures, ", oldMemoryUsage, " bytes total"));
     LOG(LINFO, (" to   : ", m_texWidth, "x", m_texHeight, ", ", m_texCount, " textures, ", memoryUsage(), " bytes total"));
+#endif
   }
 
   ResourceManager::GlyphCacheParams::GlyphCacheParams()
@@ -331,7 +338,7 @@ namespace yg
 
     if (videoMemoryLimit < fixedMemoryUsage())
     {
-      LOG(LINFO, ("videoMemoryLimit ", videoMemoryLimit," is less than an amount of fixed resources ", fixedMemoryUsage()));
+      LOG(LINFO, ("videoMemoryLimit", videoMemoryLimit,"is less than an amount of fixed resources", fixedMemoryUsage()));
       videoMemoryLimit = memoryUsage();
     }
 
@@ -340,7 +347,7 @@ namespace yg
     /// distributing free memory according to the weights
     distributeFreeMemory(freeVideoMemory);
 
-    LOG(LINFO, ("resizing from ", oldMemoryUsage, " bytes to ", memoryUsage(), " bytes of video memory"));
+    LOG(LINFO, ("resizing from", oldMemoryUsage, "bytes to", memoryUsage(), "bytes of video memory"));
   }
 
   int ResourceManager::Params::memoryUsage() const

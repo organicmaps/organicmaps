@@ -129,7 +129,7 @@ namespace yg
         if (!fin)
           break;
 
-        LOG(LINFO, ("whitelisting ", fontName, " for ", ubName));
+        LOG(LDEBUG, ("whitelisting ", fontName, " for ", ubName));
 
         if (ubName == "*")
           for (unicode_blocks_t::iterator it = m_unicodeBlocks.begin(); it != m_unicodeBlocks.end(); ++it)
@@ -164,7 +164,7 @@ namespace yg
         if (!fin)
           break;
 
-        LOG(LINFO, ("blacklisting ", fontName, " for ", ubName));
+        LOG(LDEBUG, ("blacklisting ", fontName, " for ", ubName));
 
         if (ubName == "*")
           for (unicode_blocks_t::iterator it = m_unicodeBlocks.begin(); it != m_unicodeBlocks.end(); ++it)
@@ -262,7 +262,7 @@ namespace yg
         ASSERT ( ccIt != charcodes.end(), () );
         if ((*ccIt > lastUBEnd) && (*ccIt < ubIt->m_start))
         {
-          LOG(LINFO, ("Symbol with code ", (uint16_t)*ccIt, " present in font lies between two unicode blocks!"));
+          LOG(LDEBUG, ("Symbol with code ", (uint16_t)*ccIt, " present in font lies between two unicode blocks!"));
         }
         if (ubIt->hasSymbol(*ccIt))
           break;
@@ -370,7 +370,7 @@ namespace yg
     {
       if (it->m_fonts.empty())
       {
-        LOG(LINFO, ("querying symbol for empty ", it->m_name, " unicode block"));
+        LOG(LDEBUG, ("querying symbol for empty ", it->m_name, " unicode block"));
         it->m_fonts.push_back(m_fonts.front());
       }
 
