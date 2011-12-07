@@ -2765,7 +2765,6 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(DEVELOPER_DIR)/omim/omim-iphonesim-debug/out/debug\"",
 				);
 			};
 			name = "Production Release";
@@ -2866,7 +2865,6 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(DEVELOPER_DIR)/omim/omim-iphonesim-debug/out/debug\"",
 				);
 			};
 			name = "Device Debug";
@@ -2921,7 +2919,6 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(DEVELOPER_DIR)/omim/omim-iphonesim-debug/out/debug\"",
 				);
 			};
 			name = "Device Release";
