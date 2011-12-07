@@ -79,7 +79,8 @@ namespace android
 
     yg::ResourceManager::Params rmParams;
     rmParams.m_videoMemoryLimit = 15 * 1024 * 1024;
-    rmParams.m_rtFormat = yg::Rt8Bpp;
+    rmParams.m_rtFormat = yg::Data8Bpp;
+    rmParams.m_texFormat = yg::Data4Bpp;
 
     try
     {

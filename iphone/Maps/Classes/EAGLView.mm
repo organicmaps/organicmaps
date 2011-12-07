@@ -82,9 +82,10 @@
 - (void)initRenderPolicy
 {
   // to avoid grid bug on 3G device
-  yg::RtFormat fmt = yg::Rt4Bpp;
+  yg::DataFormat rtFmt = yg::Data4Bpp;
+  yg::DataFormat texFmt = yg::Data4Bpp;
   if ([[NSString stringWithFormat:@"%s", glGetString(GL_RENDERER)] hasPrefix:@"PowerVR MBX"])
-    fmt = yg::Rt8Bpp;
+    rtFmt = yg::Data8Bpp;
   
   typedef void (*drawFrameFn)(id, SEL);
   SEL drawFrameSel = @selector(drawFrame);
@@ -94,7 +95,8 @@
   
   yg::ResourceManager::Params rmParams;
   rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();
-  rmParams.m_rtFormat = fmt;
+  rmParams.m_rtFormat = rtFmt;
+  rmParams.m_texFormat = texFmt;
   
   try
   {

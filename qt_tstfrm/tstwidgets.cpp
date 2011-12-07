@@ -85,7 +85,7 @@ void GLDrawWidget::initializeGL()
   rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512,
                                                                        256,
                                                                        10,
-                                                                       rmp.m_rtFormat,
+                                                                       rmp.m_texFormat,
                                                                        true,
                                                                        true,
                                                                        true,
@@ -95,7 +95,7 @@ void GLDrawWidget::initializeGL()
   rmp.m_fontTexturesParams = yg::ResourceManager::TexturePoolParams(512,
                                                                     256,
                                                                     5,
-                                                                    rmp.m_rtFormat,
+                                                                    rmp.m_texFormat,
                                                                     true,
                                                                     true,
                                                                     true,
@@ -111,7 +111,8 @@ void GLDrawWidget::initializeGL()
 
   rmp.m_useSingleThreadedOGL = false;
   rmp.m_useVA = !yg::gl::g_isBufferObjectsSupported;
-  rmp.m_rtFormat = yg::Rt8Bpp;
+  rmp.m_rtFormat = yg::Data8Bpp;
+  rmp.m_texFormat = yg::Data8Bpp;
 
   m_resourceManager.reset(new yg::ResourceManager(rmp));
 

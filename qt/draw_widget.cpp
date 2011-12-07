@@ -206,7 +206,8 @@ namespace qt
       shared_ptr<qt::gl::RenderContext> primaryRC(new qt::gl::RenderContext(this));
 
       yg::ResourceManager::Params rmParams;
-      rmParams.m_rtFormat = yg::Rt8Bpp;
+      rmParams.m_rtFormat = yg::Data8Bpp;
+      rmParams.m_texFormat = yg::Data8Bpp;
       rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();
 
       try

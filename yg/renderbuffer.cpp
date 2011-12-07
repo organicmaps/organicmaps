@@ -36,11 +36,6 @@ namespace yg
                                          internalFormat,
                                          m_width,
                                          m_height));
-
-        OGLCHECK(glRenderbufferStorageFn(target,
-                                         internalFormat,
-                                         m_width,
-                                         m_height));
       }
     }
 

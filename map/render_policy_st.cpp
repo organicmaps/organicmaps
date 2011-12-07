@@ -6,6 +6,7 @@
 #include "window_handle.hpp"
 #include "../yg/info_layer.hpp"
 #include "../yg/internal/opengl.hpp"
+#include "../yg/skin.hpp"
 
 #include "../indexer/scales.hpp"
 #include "../geometry/screenbase.hpp"
@@ -53,7 +54,7 @@ RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
   rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512,
                                                                        256,
                                                                        10,
-                                                                       rmp.m_rtFormat,
+                                                                       rmp.m_texFormat,
                                                                        true,
                                                                        true,
                                                                        true,
@@ -63,7 +64,7 @@ RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
   rmp.m_fontTexturesParams = yg::ResourceManager::TexturePoolParams(512,
                                                                     256,
                                                                     5,
-                                                                    rmp.m_rtFormat,
+                                                                    rmp.m_texFormat,
                                                                     true,
                                                                     true,
                                                                     true,

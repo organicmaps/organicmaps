@@ -24,17 +24,18 @@ namespace yg
 
   struct GlyphInfo;
 
-  enum RtFormat
+  enum DataFormat
   {
-    Rt8Bpp,
-    Rt4Bpp
+    Data8Bpp,
+    Data4Bpp
   };
 
   struct TTextureFactory : BasePoolElemFactory
   {
     size_t m_w;
     size_t m_h;
-    TTextureFactory(size_t w, size_t h, char const * resName);
+    yg::DataFormat m_format;
+    TTextureFactory(size_t w, size_t h, yg::DataFormat format, char const * resName);
     shared_ptr<gl::BaseTexture> const Create();
   };
 
@@ -112,7 +113,7 @@ namespace yg
       size_t m_texWidth;
       size_t m_texHeight;
       size_t m_texCount;
-      yg::RtFormat m_rtFormat;
+      yg::DataFormat m_format;
 
       bool m_isWidthFixed;
       bool m_isHeightFixed;
@@ -126,7 +127,7 @@ namespace yg
       TexturePoolParams(size_t texWidth,
                         size_t texHeight,
                         size_t texCount,
-                        yg::RtFormat rtFormat,
+                        yg::DataFormat format,
                         bool isWidthFixed,
                         bool isHeightFixed,
                         bool isCountFixed,
@@ -163,7 +164,8 @@ namespace yg
 
     struct Params
     {
-      RtFormat m_rtFormat;
+      DataFormat m_rtFormat;
+      DataFormat m_texFormat;
       bool m_useSingleThreadedOGL;
       bool m_useVA;
 

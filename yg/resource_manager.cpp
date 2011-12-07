@@ -21,14 +21,33 @@ namespace yg
 
   DECLARE_EXCEPTION(ResourceManagerException, RootException);
 
-  TTextureFactory::TTextureFactory(size_t w, size_t h, char const * resName)
-    : BasePoolElemFactory(resName, w * h * sizeof(TDynamicTexture::pixel_t)),
-      m_w(w), m_h(h)
+  size_t pixelSize(yg::DataFormat texFormat)
+  {
+    switch (texFormat)
+    {
+    case yg::Data8Bpp:
+      return 4;
+    case yg::Data4Bpp:
+      return 2;
+    default:
+      return 0;
+    }
+  }
+
+  TTextureFactory::TTextureFactory(size_t w, size_t h, yg::DataFormat format, char const * resName)
+    : BasePoolElemFactory(resName, w * h * pixelSize(format)),
+      m_w(w), m_h(h), m_format(format)
   {}
 
   shared_ptr<gl::BaseTexture> const TTextureFactory::Create()
   {
-    return shared_ptr<gl::BaseTexture>(new TDynamicTexture(m_w, m_h));
+    switch (m_format)
+    {
+    case yg::Data4Bpp:
+      return shared_ptr<gl::BaseTexture>(new gl::Texture<yg::RGBA4Traits, true>(m_w, m_h));
+    case yg::Data8Bpp:
+      return shared_ptr<gl::BaseTexture>(new gl::Texture<yg::RGBA8Traits, true>(m_w, m_h));
+    };
   }
 
   TStorageFactory::TStorageFactory(size_t vbSize, size_t ibSize, bool useVA, bool useSingleThreadedOGL, char const * resName)
@@ -159,7 +178,7 @@ namespace yg
     : m_texWidth(0),
       m_texHeight(0),
       m_texCount(0),
-      m_rtFormat(yg::Rt8Bpp),
+      m_format(yg::Data8Bpp),
       m_isWidthFixed(true),
       m_isHeightFixed(true),
       m_isCountFixed(true),
@@ -170,7 +189,7 @@ namespace yg
   ResourceManager::TexturePoolParams::TexturePoolParams(size_t texWidth,
                                                         size_t texHeight,
                                                         size_t texCount,
-                                                        yg::RtFormat rtFormat,
+                                                        yg::DataFormat format,
                                                         bool isWidthFixed,
                                                         bool isHeightFixed,
                                                         bool isCountFixed,
@@ -179,7 +198,7 @@ namespace yg
     : m_texWidth(texWidth),
       m_texHeight(texHeight),
       m_texCount(texCount),
-      m_rtFormat(rtFormat),
+      m_format(format),
       m_isWidthFixed(isWidthFixed),
       m_isHeightFixed(isHeightFixed),
       m_isCountFixed(isCountFixed),
@@ -200,12 +219,12 @@ namespace yg
   size_t ResourceManager::TexturePoolParams::memoryUsage() const
   {
     size_t pixelSize = 0;
-    switch (m_rtFormat)
+    switch (m_format)
     {
-    case yg::Rt4Bpp:
+    case yg::Data4Bpp:
       pixelSize = 2;
       break;
-    case yg::Rt8Bpp:
+    case yg::Data8Bpp:
       pixelSize = 4;
       break;
     }
@@ -307,7 +326,8 @@ namespace yg
   {}
 
   ResourceManager::Params::Params()
-    : m_rtFormat(yg::Rt8Bpp),
+    : m_rtFormat(yg::Data8Bpp),
+      m_texFormat(yg::Data4Bpp),
       m_useSingleThreadedOGL(false),
       m_useVA(true),
       m_videoMemoryLimit(0),
@@ -465,7 +485,7 @@ namespace yg
   void ResourceManager::initTexturePool(TexturePoolParams const & p, auto_ptr<TTexturePool> & pool)
   {
     if (p.isValid())
-      pool.reset(new TTexturePoolImpl(new TTexturePoolTraits(TTextureFactory(p.m_texWidth, p.m_texHeight, p.m_poolName.c_str()), p.m_texCount)));
+      pool.reset(new TTexturePoolImpl(new TTexturePoolTraits(TTextureFactory(p.m_texWidth, p.m_texHeight, p.m_format, p.m_poolName.c_str()), p.m_texCount)));
     else
       LOG(LINFO, ("no ", p.m_poolName, " resource"));
   }
@@ -595,9 +615,9 @@ namespace yg
   {
     switch (m_params.m_rtFormat)
     {
-    case Rt8Bpp:
+    case Data8Bpp:
       return make_shared_ptr(new gl::Texture<RGBA8Traits, false>(w, h));
-    case Rt4Bpp:
+    case Data4Bpp:
       return make_shared_ptr(new gl::Texture<RGBA4Traits, false>(w, h));
     default:
       MYTHROW(ResourceManagerException, ("unknown render target format"));
