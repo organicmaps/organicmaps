@@ -209,11 +209,11 @@ FeatureType::geom_stat_t FeatureType::GetTrianglesSize(int scale) const
 
 struct BestMatchedLangNames
 {
-  string & m_defaultName;
+  string m_defaultName;
   string m_nativeName;
   string m_intName;
   string m_englishName;
-  BestMatchedLangNames(string & defaultName) : m_defaultName(defaultName) {}
+
   bool operator()(int8_t code, string const & name)
   {
     static int8_t defaultCode = StringUtf8Multilang::GetLangIndex("default");
@@ -222,12 +222,16 @@ struct BestMatchedLangNames
     static int8_t const nativeCode = StringUtf8Multilang::GetLangIndex(languages::CurrentLanguage());
     static int8_t const intCode = StringUtf8Multilang::GetLangIndex("int_name");
     static int8_t const englishCode = StringUtf8Multilang::GetLangIndex("en");
+
     if (code == defaultCode)
       m_defaultName = name;
     else if (code == nativeCode)
       m_nativeName = name;
     else if (code == intCode)
-      m_intName = name;
+    {
+      // There are many "junk" names in Arabian island.
+      m_intName = name.substr(0, name.find_first_of(','));
+    }
     else if (code == englishCode)
       m_englishName = name;
     return true;
@@ -241,12 +245,13 @@ void FeatureType::GetPreferredDrawableNames(string & defaultName, string & intNa
   if (GetFeatureType() == GEOM_AREA)
     defaultName = m_Params.house.Get();
 
+  BestMatchedLangNames matcher;
+  ForEachNameRef(matcher);
+
   if (defaultName.empty())
   {
-    BestMatchedLangNames matcher(defaultName);
-    ForEachNameRef(matcher);
+    defaultName.swap(matcher.m_defaultName);
 
-    // match intName
     if (!matcher.m_nativeName.empty())
       intName.swap(matcher.m_nativeName);
     else if (!matcher.m_intName.empty())
@@ -257,15 +262,15 @@ void FeatureType::GetPreferredDrawableNames(string & defaultName, string & intNa
     if (defaultName.empty())
       defaultName.swap(intName);
     else
-    {  // filter out similar intName
+    {
+      // filter out similar intName
       if (!intName.empty() && defaultName.find(intName) != string::npos)
         intName.clear();
     }
   }
   else
   {
-    BestMatchedLangNames matcher(intName);
-    ForEachNameRef(matcher);
+    intName.swap(matcher.m_defaultName);
   }
 }
 
