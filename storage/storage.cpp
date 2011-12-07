@@ -258,6 +258,12 @@ namespace storage
         m_request.reset();
         // remove from the queue
         m_queue.erase(found);
+        // reset progress if the queue is not empty
+        if (!m_queue.empty())
+        {
+          m_countryProgress.first = 0;
+          m_countryProgress.second = CountryByIndex(m_queue.front()).Size().second;
+        }
         // start another download if the queue is not empty
         DownloadNextCountryFromQueue();
       }
