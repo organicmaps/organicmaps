@@ -4541,14 +4541,14 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xD8D0A8
+      color: 0xE0D0A8
       priority: 364
     }
   }
   element {
     scale: 16
     area {
-      color: 0xD8D0A8
+      color: 0xE0D0A8
       priority: 679
     }
     symbol {
