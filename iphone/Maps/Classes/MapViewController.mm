@@ -124,7 +124,7 @@ Framework * m_framework = NULL;
         
     m_framework = FrameworkFactory::CreateFramework();
     
-    char const * str = [NSLocalizedString(@"Nothing found. Have you tried downloading maps of the countries? Just click the downloader button at the bottom of the screen.", @"Message in the center of the screen then user zooms in but country is not downloaded") UTF8String];
+    char const * str = [NSLocalizedString(@"Nothing found. Have you tried downloading maps of the countries? Just click the download button at the bottom of the screen.", @"Message in the center of the screen then user zooms in but country is not downloaded") UTF8String];
     
     m_framework->GetInformationDisplay().setEmptyModelMessage(str);
     
