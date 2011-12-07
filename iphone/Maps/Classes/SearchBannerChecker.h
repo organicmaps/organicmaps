@@ -5,6 +5,8 @@
 @interface SearchBannerChecker : NSObject
 {
   id m_searchButton;
+  id m_downloadButton;
 }
--(void) checkForBannerAndEnableButton:(id)searchButton;
+-(void) checkForBannerAndFixSearchButton:(id)searchButton
+                       andDownloadButton:(id)downloadButton;
 @end

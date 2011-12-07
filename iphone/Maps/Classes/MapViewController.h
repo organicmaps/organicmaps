@@ -39,5 +39,7 @@
 - (IBAction)OnSearchClicked:(id)sender;
 
 @property (nonatomic, retain) IBOutlet UIButton * m_myPositionButton;
+@property (nonatomic, retain) IBOutlet UIButton * m_searchButton;
+@property (nonatomic, retain) IBOutlet UIButton * m_downloadButton;
 
 @end

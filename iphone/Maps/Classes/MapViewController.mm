@@ -13,6 +13,8 @@
 @implementation MapViewController
 
 @synthesize m_myPositionButton;
+@synthesize m_searchButton;
+@synthesize m_downloadButton;
 
 // @TODO Make m_framework and m_storage MapsAppDelegate properties instead of global variables.
 Framework * m_framework = NULL;
@@ -328,12 +330,13 @@ NSInteger compareAddress(id l, id r, void * context)
   m_framework->EnterForeground();
   if (self.isViewLoaded && self.view.window)
     [self Invalidate]; // only invalidate when map is displayed on the screen
-  // Perform redbutton check
-  [m_searchBannerChecker checkForBannerAndEnableButton:m_myPositionButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+  // Perform redbutton check
+  [m_searchBannerChecker checkForBannerAndFixSearchButton:m_searchButton andDownloadButton:m_downloadButton];
+
   [self Invalidate];
   [self.navigationController setNavigationBarHidden:YES animated:YES];
   [super viewWillAppear:animated];

@@ -1,4 +1,6 @@
 #import <UIKit/UIButton.h>
+#import <UIKit/UIAlertView.h>
+#import <UIKit/UIApplication.h>
 #import "SearchBannerChecker.h"
 #import "../../Common/GetActiveConnectionType.h"
 
@@ -41,46 +43,78 @@ static bool ShouldCheckAgain()
 
 @implementation SearchBannerChecker
 
+-(void) enableSearchButton:(id)searchButton andDownloadButton:(id)downloadButton
+{
+  UIButton * sb = (UIButton *)searchButton;
+  UIButton * db = (UIButton *)downloadButton;
+  if (sb.hidden == YES)
+    {
+    // Show Search button and swap them
+    CGRect const sbFrame = sb.frame;
+    CGRect const dbFrame = db.frame;
+    sb.frame = dbFrame;
+    db.frame = sbFrame;
+    sb.hidden = NO;
+    }
+}
+
+// Banner dialog handler
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+  if (buttonIndex != alertView.cancelButtonIndex)
+  {
+    // Launch appstore
+    string bannerUrl;
+    Settings::Get(SETTINGS_REDBUTTON_URL_KEY, bannerUrl);
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithUTF8String:bannerUrl.c_str()]]];
+  }
+}
+
 -(void) onRedbuttonServerReply:(downloader::HttpRequest &) r
 {
   if (r.Status() == downloader::HttpRequest::ECompleted
-      && r.Data().find("http") == 0)
+      && (r.Data().find("itms") == 0 || r.Data().find("http") == 0))
   {
     // Redbutton is activated!!!
     // 1. Always enable search button
     // 2. Search button click displays banner
     // 3. Stop all future requests
     Settings::Set(SETTINGS_REDBUTTON_URL_KEY, r.Data());
-    UIButton * searchButton = (UIButton *)m_searchButton;
-    if (searchButton.hidden == YES)
-    {
-      searchButton.hidden = NO;
-      // Display banner
-      // @TODO Paid version is available one-time banner dialog for free version
-      // NSLocalizedString(@"A paid version of MapsWithMe, featuring search, is available for download. Would you like to get it now?", @"Paid version has become available one-time dialog title in the free version")
-      // NSLocalizedString(@"Get it now", @"Paid version has become available one-time dialog Positive button in the free version")
-      // NSLocalizedString(@"Cancel", @"Paid version has become available one-time dialog Negative button in the free version")
-    }
+    // Display banner
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"A paid version of MapsWithMe, featuring search, is available for download. Would you like to get it now?", @"Paid version has become available one-time dialog title in the free version")
+                                                     message:nil
+                                                    delegate:self
+                                           cancelButtonTitle:NSLocalizedString(@"Cancel", @"Paid version has become available one-time dialog Negative button in the free version")
+                                           otherButtonTitles:NSLocalizedString(@"Get it now", @"Paid version has become available one-time dialog Positive button in the free version"), nil];
+    [alert show];
+    [alert release];
+    // Display search button
+    [self enableSearchButton:m_searchButton andDownloadButton:m_downloadButton];
   }
 
   delete &r;
   // Save timestamp of the last check
   uint64_t const secondsNow = (uint64_t)[[NSDate date] timeIntervalSince1970];
   Settings::Set(SETTINGS_REDBUTTON_LAST_CHECK_TIME, strings::to_string(secondsNow));
+
+  [m_searchButton release];
+  [m_downloadButton release];
 }
 
--(void) checkForBannerAndEnableButton:(id)searchButton
+-(void) checkForBannerAndFixSearchButton:(id)searchButton
+                       andDownloadButton:(id)downloadButton
 {
-  m_searchButton = searchButton;
+  // Avoid all checks if we already enabled search button
+  if (((UIButton *)searchButton).hidden == NO)
+    return;
 
-  // Check if we alredy should display the button
+  // Check if redbutton was alredy activated and we should display the button
   string bannerUrl;
   if (Settings::Get(SETTINGS_REDBUTTON_URL_KEY, bannerUrl)
-      && bannerUrl.find("http") == 0)
+      && (bannerUrl.find("itms") == 0 || bannerUrl.find("http") == 0))
   {
     // Redbutton is activated. Enable Search button in the UI
-    UIButton * button = (UIButton *)searchButton;
-    button.hidden = NO;
+    [self enableSearchButton:searchButton andDownloadButton:downloadButton];
   }
   else // Redbutton still is not activated.
   {
@@ -88,6 +122,10 @@ static bool ShouldCheckAgain()
     // and check if WiFi connection is active
     if (ShouldCheckAgain() && GetActiveConnectionType() == EConnectedByWiFi)
     {
+      // Save buttons until we get server reply
+      m_searchButton = [searchButton retain];
+      m_downloadButton = [downloadButton retain];
+
       // Send request to the server
       // tricky boost::bind for objC class methods
 		  typedef void (*OnResultFuncT)(id, SEL, downloader::HttpRequest &);

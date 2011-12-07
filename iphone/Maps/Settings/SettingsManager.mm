@@ -25,11 +25,6 @@ using namespace storage;
 // NSLocalizedString(@"Back", @"View and button titles for accessibility")
 // NSLocalizedString(@"Zoom to the country", @"View and button titles for accessibility")
 
-// @TODO Search button banner dialog for free version
-// NSLocalizedString(@"Search is only available in the full version of MapsWithMe. Would you like to get it now?", @"Search button pressed dialog title in the free version")
-// NSLocalizedString(@"Get it now", @"Search button pressed dialog Positive button in the free version")
-// NSLocalizedString(@"Cancel", @"Search button pressed dialog Negative button in the free version")
-
 // Settings are always present globally
 @implementation SettingsManager
 

@@ -1,6 +1,7 @@
 #import "SearchVC.h"
 #import "CompassView.h"
 #import "LocationManager.h"
+#import "SearchBannerChecker.h"
 
 #include "../../geometry/angles.hpp"
 #include "../../geometry/distance_on_sphere.hpp"
@@ -228,18 +229,50 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   [super viewDidUnload];
 }
 
+// Banner dialog handler
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+  if (buttonIndex != alertView.cancelButtonIndex)
+  {
+    // Launch appstore
+    string bannerUrl;
+    Settings::Get(SETTINGS_REDBUTTON_URL_KEY, bannerUrl);
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithUTF8String:bannerUrl.c_str()]]];
+  }
+  // Close Search view
+  [self dismissModalViewControllerAnimated:YES];
+}
+
 - (void)viewWillAppear:(BOOL)animated
-{  
-  // load previously saved search mode
-  string searchMode;
-  if (!Settings::Get(SEARCH_MODE_SETTING, searchMode))
-    searchMode = SEARCH_MODE_DEFAULT;
-  [self setSearchMode:searchMode];
+{
+  // Disable search for free version
+  NSString * appID = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
+  if ([appID compare:@"com.mapswithme.travelguide"] == NSOrderedSame)
+  {
+    // Hide scope bar
+    m_searchBar.showsScopeBar = NO;
+    // Display banner for paid version
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Search is only available in the full version of MapsWithMe. Would you like to get it now?", @"Search button pressed dialog title in the free version")
+                                                     message:nil
+                                                    delegate:self
+                                           cancelButtonTitle:NSLocalizedString(@"Cancel", @"Search button pressed dialog Negative button in the free version")
+                                           otherButtonTitles:NSLocalizedString(@"Get it now", @"Search button pressed dialog Positive button in the free version"), nil];
+    [alert show];
+    [alert release];
+  }
+  else
+  {
+    // load previously saved search mode
+    string searchMode;
+    if (!Settings::Get(SEARCH_MODE_SETTING, searchMode))
+      searchMode = SEARCH_MODE_DEFAULT;
+    [self setSearchMode:searchMode];
 
-  [m_locationManager start:self];
+    [m_locationManager start:self];
 
-  // show keyboard
-  [m_searchBar becomeFirstResponder];
+    // show keyboard
+    [m_searchBar becomeFirstResponder];
+  }
   
   [super viewWillAppear:animated];
 }
