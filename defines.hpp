@@ -30,7 +30,7 @@
 
 #ifdef OMIM_PRODUCTION
   #define URL_SERVERS_LIST "http://active.servers.url"
-  #define DEFAULT_SERVERS_JSON "[\"http://1st.default.server/\",\"http://2nd.default.server/\"]"
+  #define DEFAULT_SERVERS_JSON "[\"http://1st.default.server/\",\"http://2nd.default.server/\",\"http://3rd.default.server/\"]"
 #else
   #define URL_SERVERS_LIST "http://metaserver-dev.mapswithme.com/server_data/active_servers"
   #define DEFAULT_SERVERS_JSON "[\"http://svobodu404popugajam.mapswithme.com:34568/maps/\",\"http://svobodu404popugajam.mapswithme.com:34568/maps/\"]"
