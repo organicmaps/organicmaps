@@ -1,3 +1,4 @@
+
 #include "internal/opengl.hpp"
 #include "base_texture.hpp"
 #include "data_formats.hpp"
@@ -362,7 +363,7 @@ namespace yg
       videoMemoryLimit = memoryUsage();
     }
 
-    int freeVideoMemory = m_videoMemoryLimit - oldMemoryUsage;
+    int freeVideoMemory = videoMemoryLimit - oldMemoryUsage;
 
     /// distributing free memory according to the weights
     distributeFreeMemory(freeVideoMemory);
