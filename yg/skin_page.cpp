@@ -377,6 +377,11 @@ namespace yg
                           0x00FFFFFF - 1);
   }
 
+  void SkinPage::resetTexture()
+  {
+    m_texture.reset();
+  }
+
   void SkinPage::freeTexture()
   {
     if (m_texture)

@@ -128,6 +128,7 @@ namespace yg
 
     void reserveTexture() const;
     void freeTexture();
+    void resetTexture();
     void createPacker();
 
     uint32_t findColor(Color const & c) const;
