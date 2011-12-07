@@ -315,6 +315,12 @@ namespace fwork
 
     string defaultName, intName;
     f.GetPreferredDrawableNames(defaultName, intName);
+    if (m_zoom <= 5 && !intName.empty())
+    {
+      defaultName.swap(intName);
+      intName.clear();
+    }
+
     shared_ptr<di::DrawInfo> ptr(new di::DrawInfo(
         defaultName,
         intName,
