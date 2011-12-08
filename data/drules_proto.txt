@@ -18061,33 +18061,9 @@ cont {
 cont {
   name: "highway-residential"
   element {
-    scale: 10
-    lines {
-      width: 0.075
-      color: 0xFFFFFF
-      priority: 460
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.15
-      color: 0xFFFFFF
-      priority: 460
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 0.7
-      color: 0x909090
-      priority: 460
-    }
-  }
-  element {
     scale: 13
     lines {
-      width: 2.75
+      width: 1
       color: 0xFFFFFF
       priority: 460
     }
@@ -18095,12 +18071,12 @@ cont {
   element {
     scale: 14
     lines {
-      width: 3.5
+      width: 3
       color: 0xFFFFFF
       priority: 460
     }
     lines {
-      width: 5.5
+      width: 5
       color: 0xC8C8AF
       priority: 440
     }
@@ -18108,12 +18084,12 @@ cont {
   element {
     scale: 15
     lines {
-      width: 7
+      width: 4
       color: 0xFFFFFF
       priority: 460
     }
     lines {
-      width: 9
+      width: 6
       color: 0xC8C8AF
       priority: 440
     }
@@ -18129,12 +18105,12 @@ cont {
   element {
     scale: 16
     lines {
-      width: 9
+      width: 6
       color: 0xFFFFFF
       priority: 460
     }
     lines {
-      width: 13
+      width: 10
       color: 0xC8C8AF
       priority: 440
     }
@@ -18150,12 +18126,12 @@ cont {
   element {
     scale: 17
     lines {
-      width: 11
+      width: 8
       color: 0xFFFFFF
       priority: 460
     }
     lines {
-      width: 15
+      width: 12
       color: 0xC8C8AF
       priority: 440
     }
@@ -21470,7 +21446,7 @@ cont {
   element {
     scale: 15
     lines {
-      width: 4
+      width: 3
       color: 0xFDFDFD
       priority: 330
     }
@@ -21478,7 +21454,7 @@ cont {
   element {
     scale: 16
     lines {
-      width: 6
+      width: 5
       color: 0xFFFFFF
       priority: 330
     }
@@ -21494,7 +21470,7 @@ cont {
   element {
     scale: 17
     lines {
-      width: 8
+      width: 7
       color: 0xFFFFFF
       priority: 330
     }
@@ -23608,7 +23584,7 @@ cont {
   element {
     scale: 12
     lines {
-      width: 1.5
+      width: 1
       color: 0xFFFF90
       priority: 510
     }
@@ -23616,7 +23592,7 @@ cont {
   element {
     scale: 13
     lines {
-      width: 4
+      width: 2
       color: 0xFFFF90
       priority: 510
     }
@@ -23624,12 +23600,12 @@ cont {
   element {
     scale: 14
     lines {
-      width: 4.5
+      width: 3
       color: 0xFFFF90
       priority: 510
     }
     lines {
-      width: 6.5
+      width: 5
       color: 0xC8C860
       priority: 490
     }
@@ -23645,12 +23621,12 @@ cont {
   element {
     scale: 15
     lines {
-      width: 8
+      width: 4
       color: 0xFFFF90
       priority: 510
     }
     lines {
-      width: 10
+      width: 6
       color: 0xC8C860
       priority: 490
     }
@@ -23666,7 +23642,7 @@ cont {
   element {
     scale: 16
     lines {
-      width: 12
+      width: 6
       color: 0xFFFF90
       priority: 510
     }
@@ -23677,7 +23653,7 @@ cont {
     }
     path_text {
       primary {
-        height: 12
+        height: 10
         color: 0x404040
         stroke_color: 0xFFFF90
       }
@@ -23687,12 +23663,12 @@ cont {
   element {
     scale: 17
     lines {
-      width: 14
+      width: 12
       color: 0xFFFF90
       priority: 510
     }
     lines {
-      width: 18
+      width: 16
       color: 0xC8C860
       priority: 490
     }
@@ -30144,25 +30120,9 @@ cont {
 cont {
   name: "highway-unclassified"
   element {
-    scale: 10
-    lines {
-      width: 0.075
-      color: 0xFFFFFF
-      priority: 460
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.15
-      color: 0xFFFFFF
-      priority: 460
-    }
-  }
-  element {
     scale: 12
     lines {
-      width: 0.7
+      width: 1
       color: 0x909090
       priority: 460
     }
@@ -30170,7 +30130,7 @@ cont {
   element {
     scale: 13
     lines {
-      width: 2.75
+      width: 1
       color: 0xFFFFFF
       priority: 460
     }
@@ -30178,12 +30138,12 @@ cont {
   element {
     scale: 14
     lines {
-      width: 3.5
+      width: 3
       color: 0xFFFFFF
       priority: 460
     }
     lines {
-      width: 5.5
+      width: 5
       color: 0xC8C8AF
       priority: 440
     }
@@ -30191,12 +30151,12 @@ cont {
   element {
     scale: 15
     lines {
-      width: 7
+      width: 4
       color: 0xFFFFFF
       priority: 460
     }
     lines {
-      width: 9
+      width: 6
       color: 0xC8C8AF
       priority: 440
     }
@@ -30212,12 +30172,12 @@ cont {
   element {
     scale: 16
     lines {
-      width: 9
+      width: 6
       color: 0xFFFFFF
       priority: 460
     }
     lines {
-      width: 13
+      width: 10
       color: 0xC8C8AF
       priority: 440
     }
@@ -30233,12 +30193,12 @@ cont {
   element {
     scale: 17
     lines {
-      width: 11
+      width: 8
       color: 0xFFFFFF
       priority: 460
     }
     lines {
-      width: 15
+      width: 12
       color: 0xC8C8AF
       priority: 440
     }
@@ -54427,7 +54387,7 @@ cont {
     scale: 6
     lines {
       width: 0.0078125
-      color: 0x777777
+      color: 0xA8C8D8
       dashdot {
         dd: 0.01171875
         dd: 0.0078125
@@ -54439,7 +54399,7 @@ cont {
     scale: 7
     lines {
       width: 0.015625
-      color: 0x777777
+      color: 0xA8C8D8
       dashdot {
         dd: 0.0234375
         dd: 0.015625
@@ -54451,7 +54411,7 @@ cont {
     scale: 8
     lines {
       width: 0.3125
-      color: 0x777777
+      color: 0xA8C8D8
       dashdot {
         dd: 4.6875
         dd: 3.125
@@ -54463,7 +54423,7 @@ cont {
     scale: 9
     lines {
       width: 0.9375
-      color: 0x777777
+      color: 0xA8C8D8
       dashdot {
         dd: 0.09375
         dd: 0.0625
@@ -54475,7 +54435,7 @@ cont {
     scale: 10
     lines {
       width: 0.125
-      color: 0x777777
+      color: 0xA8C8D8
       dashdot {
         dd: 0.1875
         dd: 0.125
@@ -54487,7 +54447,7 @@ cont {
     scale: 11
     lines {
       width: 0.25
-      color: 0x777777
+      color: 0xA8C8D8
       dashdot {
         dd: 0.375
         dd: 0.25
@@ -54499,7 +54459,7 @@ cont {
     scale: 12
     lines {
       width: 0.5
-      color: 0x707070
+      color: 0xA8C8D8
       dashdot {
         dd: 0.75
         dd: 0.5
@@ -54511,7 +54471,7 @@ cont {
     scale: 13
     lines {
       width: 0.5
-      color: 0x707070
+      color: 0xA8C8D8
       dashdot {
         dd: 1.5
         dd: 1
@@ -54523,7 +54483,7 @@ cont {
     scale: 14
     lines {
       width: 1
-      color: 0x707070
+      color: 0xA8C8D8
       dashdot {
         dd: 6
         dd: 4
@@ -54535,7 +54495,7 @@ cont {
     scale: 15
     lines {
       width: 2
-      color: 0x707070
+      color: 0xA8C8D8
       dashdot {
         dd: 8
         dd: 6
@@ -54547,7 +54507,7 @@ cont {
     scale: 16
     lines {
       width: 2.4
-      color: 0x707070
+      color: 0xA8C8D8
       dashdot {
         dd: 12
         dd: 8
@@ -54559,7 +54519,7 @@ cont {
     scale: 17
     lines {
       width: 2.4
-      color: 0x707070
+      color: 0xA8C8D8
       dashdot {
         dd: 12
         dd: 8
@@ -55575,7 +55535,7 @@ cont {
     path_text {
       primary {
         height: 12
-        color: 0xFFFFFF
+        color: 0x507CEA
       }
       priority: 10602
     }
@@ -55595,7 +55555,7 @@ cont {
     path_text {
       primary {
         height: 12
-        color: 0xFFFFFF
+        color: 0x507CEA
       }
       priority: 10813
     }
@@ -55615,7 +55575,7 @@ cont {
     path_text {
       primary {
         height: 12
-        color: 0xFFFFFF
+        color: 0x507CEA
       }
       priority: 11429
     }
@@ -55635,7 +55595,7 @@ cont {
     path_text {
       primary {
         height: 12
-        color: 0xFFFFFF
+        color: 0x507CEA
       }
       priority: 11707
     }
