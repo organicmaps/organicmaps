@@ -47,6 +47,7 @@ namespace yg
     case yg::Data4Bpp:
       return shared_ptr<gl::BaseTexture>(new gl::Texture<yg::RGBA4Traits, true>(m_w, m_h));
     case yg::Data8Bpp:
+    default:
       return shared_ptr<gl::BaseTexture>(new gl::Texture<yg::RGBA8Traits, true>(m_w, m_h));
     }
   }
