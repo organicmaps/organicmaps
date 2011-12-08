@@ -33,13 +33,14 @@ namespace feature
 
   bool IsHighway(vector<uint32_t> const & types);
 
-  bool IsCountry(uint32_t type);
+  bool UsePopulationRank(uint32_t type);
+
   template <class IterT>
-  inline bool IsCountry(IterT beg, IterT end)
+  inline bool UsePopulationRank(IterT beg, IterT end)
   {
     while (beg != end)
     {
-      if (IsCountry(*beg++))
+      if (UsePopulationRank(*beg++))
         return true;
     }
     return false;

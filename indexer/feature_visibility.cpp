@@ -335,24 +335,42 @@ bool IsHighway(vector<uint32_t> const & types)
   return false;
 }
 
-bool IsCountry(uint32_t type)
+bool UsePopulationRank(uint32_t type)
 {
-  class checker_t
+  class CheckerT
   {
-  public:
-    uint32_t m_type;
+     uint32_t m_types[3];
 
-    checker_t()
+  public:
+    CheckerT()
     {
+      Classificator & c = classif();
+
       vector<string> vec;
       vec.push_back("place");
-      vec.push_back("country");
-      m_type = classif().GetTypeByPath(vec);
+      vec.push_back("city");
+      m_types[0] = c.GetTypeByPath(vec);
+
+      vec.push_back("capital");
+      m_types[1] = c.GetTypeByPath(vec);
+
+      vec.clear();
+      vec.push_back("place");
+      vec.push_back("town");
+      m_types[2] = c.GetTypeByPath(vec);
+    }
+
+    bool IsMyType(uint32_t t) const
+    {
+      for (size_t i = 0; i < ARRAY_SIZE(m_types); ++i)
+        if (t == m_types[i])
+          return true;
+      return false;
     }
   };
 
-  static checker_t checker;
-  return (type == checker.m_type);
+  static CheckerT checker;
+  return (checker.IsMyType(type));
 }
 
 }
