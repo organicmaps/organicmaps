@@ -121,7 +121,19 @@ Framework * m_framework = NULL;
     // cyclic dependence, @TODO refactor.
     // Here we're creating view and window handle in it, and later we should pass framework to the view
     EAGLView * v = (EAGLView *)self.view;
-        
+
+
+    /*
+    NSLocale * curr = [NSLocale currentLocale];
+    NSArray * langs = [NSLocale availableLocaleIdentifiers];
+    for (int i = 0; i < [langs count]; ++i)
+    {
+      NSString * s = [curr displayNameForKey:NSLocaleIdentifier value:[langs objectAtIndex:i]];
+      NSLog(@"%@: %@", [langs objectAtIndex:i], s);
+    }
+    */
+
+
     m_framework = FrameworkFactory::CreateFramework();
     
     char const * str = [NSLocalizedString(@"Nothing found. Have you tried downloading maps of the countries? Just click the download button at the bottom of the screen.", @"Message in the center of the screen then user zooms in but country is not downloaded") UTF8String];
