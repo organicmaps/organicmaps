@@ -2245,6 +2245,14 @@ cont {
       name: "hotel_and_restaurant"
       priority: 1535
     }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
   }
 }
 cont {
@@ -55158,6 +55166,14 @@ cont {
       name: "hostel"
       priority: 1427
     }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
   }
 }
 cont {
@@ -55167,6 +55183,14 @@ cont {
     symbol {
       name: "hotel"
       priority: 1426
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
     }
   }
 }
