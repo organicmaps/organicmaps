@@ -127,11 +127,16 @@ $PV $PLANET_OSM_BZ2 | $BZIP | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
 # but separate exceptions for wolrd files to finish them earlier
 $GENERATOR_TOOL -data_path=$DATA_PATH -generate_geometry -generate_index -output=World &
 $GENERATOR_TOOL -data_path=$DATA_PATH -generate_geometry -generate_index -output=WorldCoasts &
+# additional exceptions for long-generated countries
+$GENERATOR_TOOL -data_path=$DATA_PATH -generate_geometry -generate_index "-output=Russia_Far Eastern" &
 for file in $DATA_PATH/*.mwm.tmp; do
   if [[ "$file" == *minsk-pass*  ]]; then
     continue
   fi
   if [[ "$file" == *World*  ]]; then
+    continue
+  fi
+  if [[ "$file" == *Russia_Far\ Eastern* ]]; then
     continue
   fi
   filename=$(basename "$file")
