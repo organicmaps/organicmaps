@@ -2,6 +2,7 @@
 #include "drawer_yg.hpp"
 
 #include "../platform/location.hpp"
+#include "../platform/platform.hpp"
 
 #include "../indexer/mercator.hpp"
 
@@ -56,18 +57,21 @@ namespace location
                                       yg::Color(0, 0, 255, 32),
                                       yg::maxDepth - 3);
         // display compass only if position is available
+
+        double orientationRadius = max(pxErrorRadius, 30 * GetPlatform().VisualScale());
+
         if (m_flags & State::ECompass)
         {
           drawer.screen()->drawSector(pxPosition,
                 m_headingRad - m_headingAccuracyRad,
                 m_headingRad + m_headingAccuracyRad,
-                pxErrorRadius,
+                orientationRadius,
                 yg::Color(255, 255, 255, 192),
                 yg::maxDepth);
           drawer.screen()->fillSector(pxPosition,
                 m_headingRad - m_headingAccuracyRad,
                 m_headingRad + m_headingAccuracyRad,
-                pxErrorRadius,
+                orientationRadius,
                 yg::Color(255, 255, 255, 96),
                 yg::maxDepth - 1);
         }
