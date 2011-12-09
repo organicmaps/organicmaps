@@ -91,11 +91,11 @@ void Navigator::OnSize(int x0, int y0, int w, int h)
   m_Screen.OnSize(x0, y0, w, h);
   m_Screen = ShrinkAndScaleInto(m_Screen, m_worldRect);
 
-  if (!m_InAction)
-  {
+//  if (!m_InAction)
+//  {
     m_StartScreen.OnSize(x0, y0, w, h);
     m_StartScreen = ShrinkAndScaleInto(m_StartScreen, m_worldRect);
-  }
+//  }
 }
 
 bool Navigator::CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
