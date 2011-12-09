@@ -44,14 +44,14 @@ Platform::Platform()
   // 1. try to use data folder in the same path as executable
   // 2. if not found, try to use ..\..\..\data (for development only)
   path.erase(path.find_last_of('\\'));
-  if (IsFileExists(path + "\\data\\"))
+  if (IsFileExistsByFullPath(path + "\\data\\"))
     m_resourcesDir = path + "\\data\\";
   else
   {
 #ifndef OMIM_PRODUCTION
     path.erase(path.find_last_of('\\'));
     path.erase(path.find_last_of('\\'));
-    if (IsFileExists(path + "\\data\\"))
+    if (IsFileExistsByFullPath(path + "\\data\\"))
       m_resourcesDir = path + "\\data\\";
 #else
     CHECK(false, ("Can't find resources directory"));
