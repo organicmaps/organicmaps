@@ -166,7 +166,7 @@ void ClassifObject::Swap(ClassifObject & r)
 
 ClassifObject const * ClassifObject::GetObject(size_t i) const
 {
-  ASSERT ( i < m_objs.size(), (i) );
+  ASSERT_LESS ( i, m_objs.size(), (m_name) );
   return &(m_objs[i]);
 }
 
@@ -261,13 +261,30 @@ namespace ftype
   void PopValue(uint32_t & type)
   {
     uint8_t const cl = get_control_level(type);
-    ASSERT ( cl > 0, (cl) );
+    ASSERT_GREATER ( cl, 0, () );
 
     // remove control level
     set_value(type, cl, 0);
 
     // set control level
     set_value(type, cl-1, 1);
+  }
+
+  void TruncValue(uint32_t & type, uint8_t level)
+  {
+    ASSERT_GREATER ( level, 0, () );
+    uint8_t cl = get_control_level(type);
+
+    while (cl > level)
+    {
+      // remove control level
+      set_value(type, cl, 0);
+
+      --cl;
+
+      // set control level
+      set_value(type, cl, 1);
+    }
   }
 }
 

@@ -43,9 +43,66 @@ namespace
   public:
     TypeConvertor()
     {
-      char const * arr[][2] = {
-                                { "shop", "convenience" },      // new type
-                                { "shop", "hairdresser" }
+      char const * arr[][3] = {
+                                // first should be the new added type, after which all types should be incremented
+                                { "shop", "convenience", "" },
+                                { "shop", "hairdresser", "" },
+
+                                { "highway", "minor", "oneway" },
+                                { "highway", "minor", "tunnel" },
+                                { "highway", "minor", "turning_circle" },
+
+                                { "highway", "primary", "oneway" },
+                                { "highway", "primary", "tunnel" },
+
+                                { "highway", "primary_link", "oneway" },
+                                { "highway", "primary_link", "tunnel" },
+
+                                { "highway", "residential", "oneway" },
+                                { "highway", "residential", "tunnel" },
+                                { "highway", "residential", "turning_circle" },
+
+                                { "highway", "road", "oneway" },
+                                { "highway", "road", "tunnel" },
+                                { "highway", "road", "turning_circle" },
+
+                                { "highway", "secondary", "oneway" },
+                                { "highway", "secondary", "tunnel" },
+
+                                { "highway", "secondary_link", "oneway" },
+                                { "highway", "secondary_link", "tunnel" },
+
+                                { "highway", "service", "oneway" },
+                                { "highway", "service", "parking_aisle" },
+                                { "highway", "service", "tunnel" },
+
+                                { "highway", "tertiary", "oneway" },
+                                { "highway", "tertiary", "tunnel" },
+
+                                { "highway", "tertiary_link", "oneway" },
+                                { "highway", "tertiary_link", "tunnel" },
+
+                                { "highway", "track", "oneway" },
+                                { "highway", "track", "permissive" },
+                                { "highway", "track", "private" },
+                                { "highway", "track", "race" },
+                                { "highway", "track", "racetrack" },
+                                { "highway", "track", "tunnel" },
+
+                                { "highway", "trunk", "oneway" },
+                                { "highway", "trunk", "tunnel" },
+
+                                { "highway", "trunk_link", "oneway" },
+                                { "highway", "trunk_link", "tunnel" },
+
+                                { "highway", "unclassified", "oneway" },
+                                { "highway", "unclassified", "tunnel" },
+                                { "highway", "unclassified", "turning_circle" },
+
+                                { "highway", "unsurfaced", "oneway" },
+                                { "highway", "unsurfaced", "permissive" },
+                                { "highway", "unsurfaced", "private" },
+                                { "highway", "unsurfaced", "tunnel" }
                               };
 
       Classificator const & c = classif();
@@ -55,12 +112,18 @@ namespace
         vector<string> v;
         v.push_back(arr[i][0]);
         v.push_back(arr[i][1]);
+        if (strlen(arr[i][2]) > 0)
+          v.push_back(arr[i][2]);
+
         m_inc.push_back(c.GetTypeByPath(v));
       }
     }
 
     uint32_t Convert(uint32_t t) const
     {
+      // leave only 3 levels for compare
+      ftype::TruncValue(t, 3);
+
       size_t const count = m_inc.size();
       for (size_t i = 0; i < count; ++i)
         if (m_inc[i] == t)

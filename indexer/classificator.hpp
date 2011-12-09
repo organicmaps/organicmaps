@@ -19,6 +19,7 @@ namespace ftype
   void PushValue(uint32_t & type, uint8_t value);
   bool GetValue(uint32_t type, uint8_t level, uint8_t & value);
   void PopValue(uint32_t & type);
+  void TruncValue(uint32_t & type, uint8_t level);
 }
 
 class ClassifObjectPtr
