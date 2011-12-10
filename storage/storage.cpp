@@ -224,6 +224,8 @@ namespace storage
     /// @TODO do not delete other countries cells
     void operator()(CountryFile const & file)
     {
+      FileWriter::DeleteFileX(m_workingDir + file.m_fileName + DOWNLOADING_FILE_EXTENSION);
+      FileWriter::DeleteFileX(m_workingDir + file.m_fileName + RESUME_FILE_EXTENSION);
       FileWriter::DeleteFileX(m_workingDir + file.GetFileWithExt());
     }
   };

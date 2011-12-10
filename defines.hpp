@@ -10,6 +10,9 @@
 #define HEADER_FILE_TAG "header"
 #define VERSION_FILE_TAG "version"
 
+#define RESUME_FILE_EXTENSION ".resume"
+#define DOWNLOADING_FILE_EXTENSION ".downloading"
+
 #define COUNTRIES_FILE  "countries.txt"
 
 #define WORLD_FILE_NAME "World"

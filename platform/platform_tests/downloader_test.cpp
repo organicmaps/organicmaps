@@ -12,6 +12,8 @@
 #include "../chunks_download_strategy.hpp"
 #include "../platform.hpp"
 
+#include "../../defines.hpp"
+
 #include "../../std/scoped_ptr.hpp"
 #include "../../std/bind.hpp"
 
@@ -309,8 +311,8 @@ UNIT_TEST(DownloadChunks)
 
   { // remove data from previously failed files
     Platform::FilesList files;
-    Platform::GetFilesInDir(".", "*.resume", files);
-    Platform::GetFilesInDir(".", "*.downloading", files);
+    Platform::GetFilesInDir(".", "*" RESUME_FILE_EXTENSION, files);
+    Platform::GetFilesInDir(".", "*" DOWNLOADING_FILE_EXTENSION, files);
     for (Platform::FilesList::iterator it = files.begin(); it != files.end(); ++it)
       FileWriter::DeleteFileX(*it);
   }
@@ -336,7 +338,7 @@ UNIT_TEST(DownloadChunks)
     TEST_EQUAL(s, "Test1", ());
     FileWriter::DeleteFileX(FILENAME);
     uint64_t size;
-    TEST(!Platform::GetFileSizeByFullPath(FILENAME + ".resume", size), ("No resume file on success"));
+    TEST(!Platform::GetFileSizeByFullPath(FILENAME + RESUME_FILE_EXTENSION, size), ("No resume file on success"));
   }
 
   observer.Reset();
@@ -355,8 +357,8 @@ UNIT_TEST(DownloadChunks)
     observer.TestFailed();
     FileWriter::DeleteFileX(FILENAME);
     uint64_t size;
-    TEST(Platform::GetFileSizeByFullPath(FILENAME + ".resume", size), ("Resume file should present"));
-    FileWriter::DeleteFileX(FILENAME + ".resume");
+    TEST(Platform::GetFileSizeByFullPath(FILENAME + RESUME_FILE_EXTENSION, size), ("Resume file should present"));
+    FileWriter::DeleteFileX(FILENAME + RESUME_FILE_EXTENSION);
   }
 
   string const SHA256 = "EE6AE6A2A3619B2F4A397326BEC32583DE2196D9D575D66786CB3B6F9D04A633";
@@ -380,7 +382,7 @@ UNIT_TEST(DownloadChunks)
     TEST_EQUAL(sha2::digest256(s), SHA256, ());
     FileWriter::DeleteFileX(FILENAME);
     uint64_t size;
-    TEST(!Platform::GetFileSizeByFullPath(FILENAME + ".resume", size), ("No resume file on success"));
+    TEST(!Platform::GetFileSizeByFullPath(FILENAME + RESUME_FILE_EXTENSION, size), ("No resume file on success"));
   }
 
   observer.Reset();
@@ -401,7 +403,7 @@ UNIT_TEST(DownloadChunks)
     TEST_EQUAL(sha2::digest256(s), SHA256, ());
     FileWriter::DeleteFileX(FILENAME);
     uint64_t size;
-    TEST(!Platform::GetFileSizeByFullPath(FILENAME + ".resume", size), ("No resume file on success"));
+    TEST(!Platform::GetFileSizeByFullPath(FILENAME + RESUME_FILE_EXTENSION, size), ("No resume file on success"));
   }
 
   observer.Reset();
@@ -418,8 +420,8 @@ UNIT_TEST(DownloadChunks)
     observer.TestFailed();
     FileWriter::DeleteFileX(FILENAME);
     uint64_t size;
-    TEST(Platform::GetFileSizeByFullPath(FILENAME + ".resume", size), ("Resume file should present"));
-    FileWriter::DeleteFileX(FILENAME + ".resume");
+    TEST(Platform::GetFileSizeByFullPath(FILENAME + RESUME_FILE_EXTENSION, size), ("Resume file should present"));
+    FileWriter::DeleteFileX(FILENAME + RESUME_FILE_EXTENSION);
   }
 }
 
@@ -457,14 +459,14 @@ struct ResumeChecker
 UNIT_TEST(DownloadResumeChunks)
 {
   string const FILENAME = "some_test_filename_12345";
-  string const RESUME_FILENAME = FILENAME + ".resume";
-  string const DOWNLOADING_FILENAME = FILENAME + ".downloading";
+  string const RESUME_FILENAME = FILENAME + RESUME_FILE_EXTENSION;
+  string const DOWNLOADING_FILENAME = FILENAME + DOWNLOADING_FILE_EXTENSION;
   string const SHA256 = "EE6AE6A2A3619B2F4A397326BEC32583DE2196D9D575D66786CB3B6F9D04A633";
 
   { // remove data from previously failed files
     Platform::FilesList files;
-    Platform::GetFilesInDir(".", "*.resume", files);
-    Platform::GetFilesInDir(".", "*.downloading", files);
+    Platform::GetFilesInDir(".", "*" RESUME_FILE_EXTENSION, files);
+    Platform::GetFilesInDir(".", "*" DOWNLOADING_FILE_EXTENSION, files);
     for (Platform::FilesList::iterator it = files.begin(); it != files.end(); ++it)
       FileWriter::DeleteFileX(*it);
   }

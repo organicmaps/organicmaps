@@ -2,6 +2,8 @@
 #include "chunks_download_strategy.hpp"
 #include "http_thread_callback.hpp"
 
+#include "../defines.hpp"
+
 #ifdef DEBUG
   #include "../base/thread.hpp"
 #endif
@@ -152,7 +154,7 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     { // save information for download resume
       ++m_goodChunksCount;
       if (m_status != ECompleted && m_goodChunksCount % 10 == 0)
-        SaveRanges(m_filePath + ".resume", m_strategy.ChunksLeft());
+        SaveRanges(m_filePath + RESUME_FILE_EXTENSION, m_strategy.ChunksLeft());
     }
 
     if (m_status != EInProgress)
@@ -161,12 +163,12 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
       // clean up resume file with chunks range on success
       if (m_strategy.ChunksLeft().empty())
       {
-        FileWriter::DeleteFileX(m_filePath + ".resume");
+        FileWriter::DeleteFileX(m_filePath + RESUME_FILE_EXTENSION);
         // rename finished file to it's original name
-        rename((m_filePath + ".downloading").c_str(), m_filePath.c_str());
+        rename((m_filePath + DOWNLOADING_FILE_EXTENSION).c_str(), m_filePath.c_str());
       }
       else // or save "chunks left" otherwise
-        SaveRanges(m_filePath + ".resume", m_strategy.ChunksLeft());
+        SaveRanges(m_filePath + RESUME_FILE_EXTENSION, m_strategy.ChunksLeft());
       m_onFinish(*this);
     }
   }
@@ -214,7 +216,7 @@ public:
                     CallbackT onFinish, CallbackT onProgress, int64_t chunkSize)
     : HttpRequest(onFinish, onProgress), m_strategy(urls, fileSize, chunkSize),
       m_filePath(filePath),
-      m_writer(new FileWriter(filePath + ".downloading", FileWriter::OP_WRITE_EXISTING)),
+      m_writer(new FileWriter(filePath + DOWNLOADING_FILE_EXTENSION, FileWriter::OP_WRITE_EXISTING)),
       m_goodChunksCount(0)
   {
     ASSERT_GREATER(fileSize, 0, ("At the moment only known file sizes are supported"));
@@ -223,7 +225,7 @@ public:
 
     // Resume support - load chunks which should be downloaded (if they're present)
     ChunksDownloadStrategy::RangesContainerT ranges;
-    if (LoadRanges(filePath + ".resume", ranges))
+    if (LoadRanges(filePath + RESUME_FILE_EXTENSION, ranges))
     {
       // fix progress
       int64_t sizeLeft = 0;
@@ -244,8 +246,8 @@ public:
     { // means that client canceled donwload process
       // so delete all temporary files
       m_writer.reset();
-      FileWriter::DeleteFileX(m_filePath + ".downloading");
-      FileWriter::DeleteFileX(m_filePath + ".resume");
+      FileWriter::DeleteFileX(m_filePath + DOWNLOADING_FILE_EXTENSION);
+      FileWriter::DeleteFileX(m_filePath + RESUME_FILE_EXTENSION);
     }
   }
 
