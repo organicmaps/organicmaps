@@ -14,8 +14,8 @@ namespace yg
   PenInfo::PenInfo(Color const & color, double w, double const * pattern, size_t patternSize, double offset)
     : m_color(color), m_w(w), m_offset(offset), m_isSolid(false)
   {
-    if (m_w < 1.25)
-      m_w = 1.25;
+    if (m_w < 1.0)
+      m_w = 1.0;
 
     /// if pattern is solid
     if ((pattern == 0 ) || (patternSize == 0))
