@@ -8,8 +8,11 @@
 
 #include "../defines.hpp"
 
+#include "../platform/platform.hpp"
+
 #include "../coding/trie_builder.hpp"
 #include "../coding/writer.hpp"
+#include "../coding/reader_writer_ops.hpp"
 
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
@@ -150,7 +153,7 @@ bool indexer::BuildSearchIndexFromDatFile(string const & datFile)
 {
   try
   {
-    vector<char> serialTrie;
+    string const tmpFile = GetPlatform().WritablePathForFile(datFile + ".search.tmp");
 
     {
       FilesContainerR readCont(datFile);
@@ -160,13 +163,16 @@ bool indexer::BuildSearchIndexFromDatFile(string const & datFile)
 
       FeaturesVector featuresVector(readCont, header);
 
-      MemWriter<vector<char> > writer(serialTrie);
+      FileWriter writer(tmpFile);
       BuildSearchIndex(featuresVector, writer);
-      reverse(serialTrie.begin(), serialTrie.end());
     }
 
-    FilesContainerW writer(datFile, FileWriter::OP_WRITE_EXISTING);
-    writer.Write(serialTrie, SEARCH_INDEX_FILE_TAG);
+    // Write to container in reversed order.
+    FilesContainerW writeCont(datFile, FileWriter::OP_WRITE_EXISTING);
+    FileWriter writer = writeCont.GetWriter(SEARCH_INDEX_FILE_TAG);
+    rw_ops::Reverse(FileReader(tmpFile), writer);
+
+    FileWriter::DeleteFileX(tmpFile);
   }
   catch (Reader::Exception const & e)
   {
