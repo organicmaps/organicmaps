@@ -36,7 +36,7 @@ uint32_t LangKeywordsScorer::Score(int8_t lang,
       if (m_languagePriorities[i][j] == lang)
         return i * KeywordMatcher::MAX_SCORE * (MAX_LANGS_IN_TIER + 1)
             + keywordScore * (MAX_LANGS_IN_TIER + 1)
-            + min(j, MAX_LANGS_IN_TIER);
+            + min(j, static_cast<uint32_t>(MAX_LANGS_IN_TIER));
   return NUM_LANG_PRIORITY_TIERS * KeywordMatcher::MAX_SCORE * (MAX_LANGS_IN_TIER + 1)
       + keywordScore * (MAX_LANGS_IN_TIER + 1);
 }
