@@ -37,7 +37,9 @@ SOURCES += ../../testing/testingmain.cpp \
     file_data_test.cpp \
     zip_reader_test.cpp \
     trie_test.cpp \
+    reader_writer_ops_test.cpp
 
 HEADERS += \
     reader_test.hpp \
     coder_test.hpp \
+

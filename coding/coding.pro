@@ -27,6 +27,7 @@ SOURCES += \
     zip_reader.cpp \
     mmap_reader.cpp \
     reader_streambuf.cpp \
+    reader_writer_ops.cpp
 
 HEADERS += \
     internal/xmlparser.h \
@@ -81,3 +82,6 @@ HEADERS += \
     file_reader_stream.hpp \
     file_writer_stream.hpp \
     reader_streambuf.hpp \
+    reader_writer_ops.hpp
+
+
