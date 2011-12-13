@@ -40,8 +40,12 @@ struct KeyValuePair
   buffer_vector<trie::TrieChar, 8> m_key;
   uint32_t m_value;
 
+  KeyValuePair() {}
+
   template <class StringT>
-  KeyValuePair(StringT const & key, int value) : m_key(key.begin(), key.end()), m_value(value) {}
+  KeyValuePair(StringT const & key, int value)
+    : m_key(key.begin(), key.end()), m_value(value)
+  {}
 
   uint32_t GetKeySize() const { return m_key.size(); }
   trie::TrieChar const * GetKeyData() const { return m_key.data(); }
@@ -54,14 +58,18 @@ struct KeyValuePair
 
   bool operator == (KeyValuePair const & p) const
   {
-    return m_key == p.m_key && m_value == p.m_value;
+    return (m_key == p.m_key && m_value == p.m_value);
   }
 
   bool operator < (KeyValuePair const & p) const
   {
-    if (m_key != p.m_key)
-      return m_key < p.m_key;
-    return m_value < p.m_value;
+    return ((m_key != p.m_key) ? m_key < p.m_key : m_value < p.m_value);
+  }
+
+  void Swap(KeyValuePair & r)
+  {
+    m_key.swap(r.m_key);
+    swap(m_value, r.m_value);
   }
 };
 

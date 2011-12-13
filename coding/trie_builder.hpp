@@ -243,10 +243,17 @@ void Build(SinkT & sink, IterT const beg, IterT const end, EdgeBuilderT const & 
 
   TrieString prevKey;
   TrieValue value;
+
+  typedef typename IterT::value_type ElementT;
+  ElementT prevE;
+
   for (IterT it = beg; it != end; ++it)
   {
-    TrieChar const * const pKeyData = it->GetKeyData();
-    TrieString key(pKeyData, pKeyData + it->GetKeySize());
+    ElementT e = *it;
+    if (e == prevE) continue;
+
+    TrieChar const * const pKeyData = e.GetKeyData();
+    TrieString key(pKeyData, pKeyData + e.GetKeySize());
     CHECK(!(key < prevKey), (key, prevKey));
     size_t nCommon = 0;
     while (nCommon < min(key.size(), prevKey.size()) && prevKey[nCommon] == key[nCommon])
@@ -258,13 +265,14 @@ void Build(SinkT & sink, IterT const beg, IterT const end, EdgeBuilderT const & 
     for (size_t i = nCommon; i < key.size(); ++i)
       nodes.push_back(builder::NodeInfo<EdgeBuilderT>(pos, key[i], edgeBuilder));
 
-    it->SerializeValue(value);
+    e.SerializeValue(value);
     nodes.back().m_values.insert(nodes.back().m_values.end(),
                                  value.begin(), value.end());
     nodes.back().m_valueCount += 1;
     nodes.back().m_edgeBuilder.AddValue(value.data(), value.size());
 
     prevKey.swap(key);
+    prevE.Swap(e);
   }
 
   // Pop all the nodes from the stack.

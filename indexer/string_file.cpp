@@ -31,7 +31,7 @@ void StringsFile::StringT::Read(IdT id, TReader & reader)
   m_rank = ReadPrimitiveFromSource<uint8_t>(src);
 }
 
-bool StringsFile::StringT::operator<(StringT const & name) const
+bool StringsFile::StringT::operator < (StringT const & name) const
 {
   if (m_name != name.m_name)
     return m_name < name.m_name;
@@ -42,7 +42,7 @@ bool StringsFile::StringT::operator<(StringT const & name) const
   return false;
 }
 
-bool StringsFile::StringT::operator==(StringT const & name) const
+bool StringsFile::StringT::operator == (StringT const & name) const
 {
   return (m_name == name.m_name && m_pos == name.m_pos && m_rank == name.m_rank);
 }

@@ -14,12 +14,13 @@ public:
 
   typedef uint32_t IdT;
 
-  struct StringT
+  class StringT
   {
     strings::UniString m_name;
     uint32_t m_pos;
     uint8_t m_rank;
 
+  public:
     StringT() {}
     StringT(strings::UniString const & name, signed char lang, uint32_t pos, uint8_t rank)
       : m_pos(pos), m_rank(rank)
@@ -43,11 +44,18 @@ public:
     uint8_t GetRank() const { return m_rank; }
     uint32_t GetOffset() const { return m_pos; }
 
-    bool operator<(StringT const & name) const;
-    bool operator==(StringT const & name) const;
+    bool operator < (StringT const & name) const;
+    bool operator == (StringT const & name) const;
 
     template <class TWriter> IdT Write(TWriter & writer) const;
     template <class TReader> void Read(IdT id, TReader & reader);
+
+    void Swap(StringT & r)
+    {
+      m_name.swap(r.m_name);
+      swap(m_pos, r.m_pos);
+      swap(m_rank, r.m_rank);
+    }
   };
 
   class StringCompare
