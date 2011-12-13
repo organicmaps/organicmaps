@@ -184,7 +184,7 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   m_searchBar.placeholder = NSLocalizedString(@"Search map", @"Search box placeholder text");
   m_searchBar.showsCancelButton = YES;
   m_searchBar.showsScopeBar = YES;
-  m_searchBar.scopeButtonTitles = [NSArray arrayWithObjects:NSLocalizedString(@"By popularity", @"Search scope criteria"),
+  m_searchBar.scopeButtonTitles = [NSArray arrayWithObjects:NSLocalizedString(@"All", @"Search scope criteria"),
                                    NSLocalizedString(@"On the screen", @"Search scope criteria"),
                                    NSLocalizedString(@"Near me", @"Search scope criteria"), nil];
   [parentView addSubview:m_searchBar];
