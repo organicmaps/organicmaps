@@ -61,6 +61,9 @@ namespace yg
       glDeleteRenderbuffersFn = &glDeleteRenderbuffersOES;
       glBindRenderbufferFn = &glBindRenderbufferOES;
       glRenderbufferStorageFn = &glRenderbufferStorageOES;
+
+      g_isSeparateBlendFuncSupported = HasExtension("GL_OES_blend_func_separate");
+      glBlendFuncSeparateFn = &glBlendFuncSeparateOES;
     }
   }
 }

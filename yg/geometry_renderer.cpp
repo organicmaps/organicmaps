@@ -100,8 +100,8 @@ namespace yg
 
       OGLCHECK(glEnable(GL_TEXTURE_2D));
 
-//      OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
-//      OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
+      OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+      OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 
       OGLCHECK(glEnable(GL_DEPTH_TEST));
       OGLCHECK(glDepthFunc(GL_LEQUAL));
@@ -110,7 +110,15 @@ namespace yg
       OGLCHECK(glAlphaFunc(GL_GREATER, 0.0));
 
       OGLCHECK(glEnable(GL_BLEND));
-      OGLCHECK(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+
+      if (yg::gl::g_isSeparateBlendFuncSupported)
+        OGLCHECK(glBlendFuncSeparateFn(GL_SRC_ALPHA,
+                                       GL_ONE_MINUS_SRC_ALPHA,
+                                       GL_ZERO,
+                                       GL_ONE));
+      else
+        OGLCHECK(glBlendFunc(GL_SRC_ALPHA,
+                             GL_ONE_MINUS_SRC_ALPHA));
 
       OGLCHECK(glColor4f(1.0f, 1.0f, 1.0f, 1.0f));
     }

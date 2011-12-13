@@ -53,6 +53,7 @@ namespace yg
     extern bool g_isFramebufferSupported;
     extern bool g_isBufferObjectsSupported;
     extern bool g_isRenderbufferSupported;
+    extern bool g_isSeparateBlendFuncSupported;
 
     // buffer objects extensions
 
@@ -92,11 +93,14 @@ namespace yg
 
     // renderbuffer extensions
 
-
     extern void (OPENGL_CALLING_CONVENTION * glGenRenderbuffersFn) (GLsizei n, GLuint *renderbuffers);
     extern void (OPENGL_CALLING_CONVENTION * glDeleteRenderbuffersFn) (GLsizei n, const GLuint *renderbuffers);
     extern void (OPENGL_CALLING_CONVENTION * glBindRenderbufferFn) (GLenum target, GLuint renderbuffer);
     extern void (OPENGL_CALLING_CONVENTION * glRenderbufferStorageFn) (GLenum target, GLenum internalformat, GLsizei width, GLsizei height);
+
+    // separate alpha blending extension
+
+    extern void (OPENGL_CALLING_CONVENTION * glBlendFuncSeparateFn) (GLenum sfactorRGB, GLenum dfactorRGB, GLenum sfactorAlpha, GLenum dfactorAlpha);
 
     /// This flag controls, whether OpenGL resources should delete themselves upon destruction.
     /// Sounds odd, but in EGL there are cases when the only function one should call to finish

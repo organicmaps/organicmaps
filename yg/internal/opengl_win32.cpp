@@ -76,6 +76,8 @@ namespace yg
                                        && glDeleteRenderbuffersFn
                                        && glBindRenderbufferFn
                                        && glRenderbufferStorageFn;
+
+      yg::gl::g_isSeparateBlendFuncSupported = false;
     }
   }
 } // namespace win32

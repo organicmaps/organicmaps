@@ -53,6 +53,10 @@ namespace yg
       glDeleteRenderbuffersFn = &glDeleteRenderbuffersEXT;
       glBindRenderbufferFn = &glBindRenderbufferEXT;
       glRenderbufferStorageFn = &glRenderbufferStorageEXT;
+
+      g_isSeparateBlendFuncSupported = HasExtension("GL_EXT_blend_func_separate");
+
+      glBlendFuncSeparateFn = &glBlendFuncSeparateEXT;
     }
   }
 }

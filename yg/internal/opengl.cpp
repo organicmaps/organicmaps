@@ -60,6 +60,7 @@ namespace yg
     bool g_isBufferObjectsSupported = true;
     bool g_isFramebufferSupported = true;
     bool g_isRenderbufferSupported = true;
+    bool g_isSeparateBlendFuncSupported = false;
 
     void (OPENGL_CALLING_CONVENTION * glBindBufferFn) (GLenum target, GLuint buffer);
     void (OPENGL_CALLING_CONVENTION * glGenBuffersFn) (GLsizei n, GLuint *buffers);
@@ -80,6 +81,8 @@ namespace yg
     void (OPENGL_CALLING_CONVENTION * glDeleteRenderbuffersFn) (GLsizei n, const GLuint *renderbuffers);
     void (OPENGL_CALLING_CONVENTION * glBindRenderbufferFn) (GLenum target, GLuint renderbuffer);
     void (OPENGL_CALLING_CONVENTION * glRenderbufferStorageFn) (GLenum target, GLenum internalformat, GLsizei width, GLsizei height);
+
+    void (OPENGL_CALLING_CONVENTION * glBlendFuncSeparateFn) (GLenum sfactorRGB, GLenum dfactorRGB, GLenum sfactorAlpha, GLenum dfactorAlpha);
 
     bool g_doDeleteOnDestroy = true;
 
