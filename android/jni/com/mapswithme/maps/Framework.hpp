@@ -1,9 +1,3 @@
-/*
- * Framework.hpp
- *
- *  Created on: Oct 13, 2011
- *      Author: siarheirachytski
- */
 #pragma once
 
 #include <jni.h>
@@ -13,11 +7,10 @@
 #include "../../../../../map/window_handle.hpp"
 #include "../../../../../map/feature_vec_model.hpp"
 #include "../../../nv_event/nv_event.hpp"
-#include "../../../../../platform/location_service.hpp"
 
 namespace android
 {
-  class Framework : public location::LocationObserver
+  class Framework
   {
   private:
     ::Framework m_work;
@@ -48,8 +41,9 @@ namespace android
 
     storage::Storage & Storage();
 
-    void OnLocationStatusChanged(location::TLocationStatus newStatus);
-    void OnGpsUpdated(location::GpsInfo const & info);
+    void OnLocationStatusChanged(int/* == location::TLocationStatus*/ newStatus);
+    void OnLocationUpdated(uint64_t time, double lat, double lon, float accuracy);
+    void OnCompassUpdated(uint64_t time, double magneticNorth, double trueNorth, float accuracy);
 
     void Invalidate();
 
@@ -66,10 +60,6 @@ namespace android
 
     void LoadState();
     void SaveState();
-
-    void EnableLocation(bool enable);
-    void UpdateLocation(uint64_t timestamp, double lat, double lon, float accuracy);
-    void UpdateCompass(uint64_t timestamp, double magneticNorth, double trueNorth, float accuracy);
   };
 }
 

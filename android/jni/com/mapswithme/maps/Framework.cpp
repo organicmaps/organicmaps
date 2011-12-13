@@ -1,10 +1,3 @@
-/*
- * Framework.cpp
- *
- *  Created on: Oct 13, 2011
- *      Author: siarheirachytski
- */
-
 #include "Framework.hpp"
 #include "VideoTimer.hpp"
 
@@ -24,6 +17,8 @@
 #include "../../../../../yg/internal/opengl.hpp"
 
 #include "../../../../../platform/platform.hpp"
+#include "../../../../../platform/location.hpp"
+
 #include "../../../../../base/logging.hpp"
 #include "../../../../../base/math.hpp"
 
@@ -57,14 +52,29 @@ namespace android
     delete m_videoTimer;
   }
 
-  void Framework::OnLocationStatusChanged(location::TLocationStatus newStatus)
+  void Framework::OnLocationStatusChanged(int newStatus)
   {
-    m_work.OnLocationStatusChanged(newStatus);
+    m_work.OnLocationStatusChanged(static_cast<location::TLocationStatus>(newStatus));
   }
 
-  void Framework::OnGpsUpdated(location::GpsInfo const & info)
+  void Framework::OnLocationUpdated(uint64_t time, double lat, double lon, float accuracy)
   {
+    location::GpsInfo info;
+    info.m_timestamp = static_cast<double>(time);
+    info.m_latitude = lat;
+    info.m_longitude = lon;
+    info.m_horizontalAccuracy = accuracy;
     m_work.OnGpsUpdate(info);
+  }
+
+  void Framework::OnCompassUpdated(uint64_t timestamp, double magneticNorth, double trueNorth, float accuracy)
+  {
+    location::CompassInfo info;
+    info.m_timestamp = static_cast<double>(timestamp);
+    info.m_magneticHeading = magneticNorth;
+    info.m_trueHeading = trueNorth;
+    info.m_accuracy = accuracy;
+    m_work.OnCompassUpdate(info);
   }
 
   void Framework::DeleteRenderPolicy()
@@ -250,16 +260,6 @@ namespace android
     m_mask = mask;
     m_eventType = eventType;
 
-  }
-
-  void Framework::UpdateCompass(uint64_t timestamp, double magneticNorth, double trueNorth, float accuracy)
-  {
-    location::CompassInfo info;
-    info.m_timestamp = static_cast<double>(timestamp);
-    info.m_magneticHeading = magneticNorth;
-    info.m_trueHeading = trueNorth;
-    info.m_accuracy = accuracy;
-    m_work.OnCompassUpdate(info);
   }
 
   void Framework::LoadState()

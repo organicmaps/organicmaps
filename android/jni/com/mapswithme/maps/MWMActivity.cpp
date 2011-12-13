@@ -50,8 +50,27 @@ extern "C"
       g_framework = new android::Framework(g_jvm);
     }
   }
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMActivity_nativeLocationStatusChanged(JNIEnv * env, jobject thiz,
+      int status)
+  {
+    g_framework->OnLocationStatusChanged(status);
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMActivity_nativeLocationUpdated(JNIEnv * env, jobject thiz,
+      jlong time, jdouble lat, jdouble lon, jfloat accuracy)
+  {
+    g_framework->OnLocationUpdated(time, lat, lon, accuracy);
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMActivity_nativeCompassUpdated(JNIEnv * env, jobject thiz,
+      jlong time, jdouble magneticNorth, jdouble trueNorth, jfloat accuracy)
+  {
+    g_framework->OnCompassUpdated(time, magneticNorth, trueNorth, accuracy);
+  }
 } // extern "C"
-
-
-
-

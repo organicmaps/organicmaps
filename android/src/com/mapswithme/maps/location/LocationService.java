@@ -1,5 +1,9 @@
 package com.mapswithme.maps.location;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+
 import android.content.Context;
 import android.hardware.GeomagneticField;
 import android.hardware.Sensor;
@@ -11,239 +15,165 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Display;
-import android.view.WindowManager;
-import android.text.format.Time;
 
 public class LocationService implements LocationListener, SensorEventListener
 {
-  private static String TAG = "Location";  
+  private static final String TAG = "LocationService";
   
-  /// This constants should correspond to values defined in platform/location.hpp
-  /// @{
+  /// These constants should correspond to values defined in platform/location.hpp
   public static final int STOPPED = 0;
   public static final int STARTED = 1;
   public static final int FIRST_EVENT = 2;
   public static final int NOT_SUPPORTED = 3;
   public static final int DISABLED_BY_USER = 4;
-  /// @}
 
-  public interface Observer
+  public interface Listener
   {
-    public void onLocationChanged(long time, double lat, double lon, float accuracy);
-    public void onStatusChanged(int status);
-    public void onLocationNotAvailable();
+    public void onLocationUpdated(long time, double lat, double lon, float accuracy);
+    public void onCompassUpdated(long time, double magneticNorth, double trueNorth, float accuracy);
+    public void onLocationStatusChanged(int status);
   };
   
-  Observer m_observer;
+  private HashSet<Listener> m_observers = new HashSet<Listener>(2);
   
-  private boolean m_isActive = false;
-  private Location m_location = null;
+  private Location m_lastLocation = null;
 
   private LocationManager m_locationManager;
   private SensorManager m_sensorManager;
   private Sensor m_compassSensor;
   // To calculate true north for compass
-  private GeomagneticField m_field;
-  private boolean m_hasRealProviders;
-  private boolean m_reportFirstUpdate;
-  private long m_lastTimeStamp;
-    
+  private GeomagneticField m_magneticField = null;
+  private boolean m_isActive = false;
+  // @TODO Refactor to deliver separate first update notification to each provider,
+  // or do not use it at all in the location service logic
+  private boolean m_reportFirstUpdate = true;
+
   public LocationService(Context c)
   {
     // Acquire a reference to the system Location Manager
     m_locationManager = (LocationManager) c.getSystemService(Context.LOCATION_SERVICE);
     m_sensorManager = (SensorManager) c.getSystemService(Context.SENSOR_SERVICE);
-    m_compassSensor = m_sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
-    m_field = null;
+    if (m_sensorManager != null)
+      m_compassSensor = m_sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
   }
   
-  public boolean isActive()
+  private void notifyStatusChanged(int newStatus)
   {
-    return m_isActive;
+    Iterator<Listener> it = m_observers.iterator();
+    while (it.hasNext())
+      it.next().onLocationStatusChanged(newStatus);
   }
   
-  public void startUpdate(Observer observer, boolean doChangeState)
+  private void notifyLocationUpdated(long time, double lat, double lon, float accuracy)
   {
-    m_observer = observer;
-    m_isActive = false;
-    m_hasRealProviders = false;
-    m_reportFirstUpdate = true;
-    
-    Time t = new Time();
-    m_lastTimeStamp = t.gmtoff;
-
-    if (m_locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
-    {
-      m_locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
-      m_hasRealProviders = true;
-      m_isActive = true;
-    }
-
-    if (m_locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
-    {
-      m_locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-      m_hasRealProviders = true;
-      m_isActive = true;
-    }
-
-    if (m_hasRealProviders)
-    {
-      if (m_locationManager.isProviderEnabled(LocationManager.PASSIVE_PROVIDER))
-        m_locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 0, 0, this);
-    }
-    
-    if (m_isActive)
-    {
-      m_sensorManager.registerListener(this, m_compassSensor, SensorManager.SENSOR_DELAY_NORMAL);
-      nativeStartUpdate(m_observer, doChangeState);
-    }
-    else
-    {
-      Log.d(TAG, "no locationProviders are found");
-      m_observer.onLocationNotAvailable();
-      // TODO : callback into gui to show the "providers are not enabled" messagebox      
-    }
+    Iterator<Listener> it = m_observers.iterator();
+    while (it.hasNext())
+      it.next().onLocationUpdated(time, lat, lon, accuracy);
   }
   
-  public void stopUpdate(boolean doChangeState)
+  private void notifyCompassUpdated(long time, double magneticNorth, double trueNorth, float accuracy)
   {
-    m_locationManager.removeUpdates(this);
-    m_sensorManager.unregisterListener(this);
-    m_isActive = false;
-    nativeStopUpdate(doChangeState);
+    Iterator<Listener> it = m_observers.iterator();
+    while (it.hasNext())
+      it.next().onCompassUpdated(time, magneticNorth, trueNorth, accuracy);
   }
 
-  public void enterBackground()
+  public boolean isSubscribed(Listener observer)
   {
-    stopUpdate(false);
-
-    /// requesting location updates from the low-power location provider
-    if (m_locationManager.isProviderEnabled(LocationManager.PASSIVE_PROVIDER))
-    {
-      m_locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 0, 0, this);
-      nativeStartUpdate(m_observer, false);
-    }
+    return m_observers.contains(observer);
   }
   
-  public void enterForeground()
+  public void startUpdate(Listener observer)
   {
-    boolean doChangeState = false;
-    
-    if (m_location != null)
+    m_observers.add(observer);
+
+    if (!m_isActive)
     {
-      Time t = new Time();
-      if ((t.gmtoff - m_lastTimeStamp) > 300 * 1000)
+      // @TODO Add WiFi provider
+      final List<String> enabledProviders = m_locationManager.getProviders(true);
+      if (enabledProviders.size() == 0)
       {
-        Log.d(TAG, "last position is too old");
-        doChangeState = true;
-        m_lastTimeStamp = t.gmtoff;
+        observer.onLocationStatusChanged(DISABLED_BY_USER);
+      }
+      else
+      {
+        for (String provider : enabledProviders)
+        {
+          // @TODO change frequency and accuracy to save battery
+          if (m_locationManager.isProviderEnabled(provider))
+            m_locationManager.requestLocationUpdates(provider, 0, 0, this);
+        }
+        if (m_sensorManager != null)
+          m_sensorManager.registerListener(this, m_compassSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        m_isActive = true;
+        observer.onLocationStatusChanged(STARTED);
       }
     }
-    
-    nativeStopUpdate(doChangeState);
-    
-    m_isActive = false;
-    m_hasRealProviders = false;
-
-    if (m_locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
-    {
-      m_locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
-      m_hasRealProviders = true;
-      m_isActive = true;
-    }
-
-    if (m_locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
-    {
-      m_locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-      m_hasRealProviders = true;
-      m_isActive = true;
-    }
-
-    nativeStartUpdate(m_observer, doChangeState);
-    
-    m_sensorManager.registerListener(this, m_compassSensor, SensorManager.SENSOR_DELAY_NORMAL);
-    
-    if ((m_location != null) && (!doChangeState)) 
-      nativeLocationChanged(m_location.getTime(),
-                            m_location.getLatitude(),
-                            m_location.getLongitude(),
-                            m_location.getAccuracy());
+    else
+      observer.onLocationStatusChanged(STARTED);
   }
-  
+
+  public void stopUpdate(Listener observer)
+  {
+    m_observers.remove(observer);
+    // Stop only if no more observers are subscribed
+    if (m_observers.size() == 0)
+    {
+      m_locationManager.removeUpdates(this);
+      if (m_sensorManager != null)
+        m_sensorManager.unregisterListener(this);
+      m_isActive = false;
+      m_reportFirstUpdate = true;
+      m_magneticField = null;
+    }
+    observer.onLocationStatusChanged(STOPPED);
+  }
+
   //@Override
   public void onLocationChanged(Location l)
   {
     if (m_reportFirstUpdate)
     {
-      nativeLocationStatusChanged(FIRST_EVENT);
-      m_reportFirstUpdate = false; 
+      m_reportFirstUpdate = false;
+      notifyStatusChanged(FIRST_EVENT);
     }
-    // used for compass updates
-    if (m_field == null)
-      m_field = new GeomagneticField((float)l.getLatitude(), (float)l.getLongitude(), (float)l.getAltitude(), l.getTime());
-    {
-      if (m_lastTimeStamp < l.getTime())
-      {
-        m_location = l;
-        m_lastTimeStamp = l.getTime();
-        nativeLocationChanged(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy());
-      }
-    }
-    Log.d(TAG, l.toString());
-  }
-
-  //@Override
-  public void onProviderDisabled(String provider)
-  {
-    Log.d(TAG, "onProviderDisabled " + provider);
-    if (m_isActive)
-    {
-      m_isActive = m_locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-                || m_locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-      if (!m_isActive)
-      {
-        Log.d(TAG, "to receive a location data please enable some of the location providers");
-        nativeDisable();
-        stopUpdate(true);
-      }
-    }
-  }
-
-  //@Override
-  public void onProviderEnabled(String provider)
-  {
-    Log.d(TAG, "onProviderEnabled " + provider);
-    if (m_isActive)
-      m_locationManager.requestLocationUpdates(provider, 0, 0, this);
-  }
-
-  //@Override
-  public void onStatusChanged(String provider, int status, Bundle extras)
-  {
-    Log.d(TAG, "onStatusChanged " + provider + " " + status + " " + extras);
-  }
-
-  //@Override
-  public void onAccuracyChanged(Sensor sensor, int accuracy)
-  {
-    Log.d(TAG, "onAccuracyChanged " + sensor + " " + accuracy);
+    // used for more precise compass updates
+    if (m_sensorManager != null && m_magneticField == null)
+      m_magneticField = new GeomagneticField((float)l.getLatitude(), (float)l.getLongitude(), (float)l.getAltitude(), l.getTime());
+    // @TODO insert filtering from different providers
+    notifyLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy());
   }
 
   //@Override
   public void onSensorChanged(SensorEvent event)
   {
-    //Log.d(TAG, "onSensorChanged azimuth:" + event.values[0] + " acc:" + event.accuracy + " time:" + event.timestamp);
-    if (m_field == null)
-      nativeCompassChanged(event.timestamp, event.values[0], 0.0, 1.0f);
+    if (m_magneticField == null)
+      notifyCompassUpdated(event.timestamp, event.values[0], 0.0, 1.0f);
     else
-      nativeCompassChanged(event.timestamp, event.values[0], event.values[0] + m_field.getDeclination(), m_field.getDeclination());
+      notifyCompassUpdated(event.timestamp, event.values[0], event.values[0] + m_magneticField.getDeclination(), m_magneticField.getDeclination());
   }
 
-  private native void nativeStartUpdate(Observer observer, boolean changeState);
-  private native void nativeStopUpdate(boolean changeState);
-  private native void nativeDisable();
-  private native void nativeLocationChanged(long time, double lat, double lon, float accuracy);
-  private native void nativeLocationStatusChanged(int status);
-  private native void nativeCompassChanged(long time, double magneticNorth, double trueNorth, float accuracy);
+  @Override
+  public void onAccuracyChanged(Sensor sensor, int accuracy)
+  {
+    Log.d(TAG, "Compass accuracy changed to " + String.valueOf(accuracy));
+  }
+
+  @Override
+  public void onProviderDisabled(String provider)
+  {
+    Log.d(TAG, "Disabled location provider: " + provider);
+  }
+
+  @Override
+  public void onProviderEnabled(String provider)
+  {
+    Log.d(TAG, "Enabled location provider: " + provider);
+  }
+
+  @Override
+  public void onStatusChanged(String provider, int status, Bundle extras)
+  {
+    Log.d(TAG, String.format("Status changed for location provider: %s to %d", provider, status));
+  }
 }

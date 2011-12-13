@@ -33,7 +33,6 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/core/jni_string.cpp \
 	com/mapswithme/core/logging.cpp \
 	com/mapswithme/core/render_context.cpp \
-	com/mapswithme/location/LocationService.cpp \
 	com/mapswithme/maps/DownloadUI.cpp \
 	com/mapswithme/maps/Framework.cpp \
 	com/mapswithme/maps/VideoTimer.cpp \

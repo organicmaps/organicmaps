@@ -17,16 +17,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.util.Log;
 
-public class MWMActivity extends NvEventQueueActivity implements LocationService.Observer
+public class MWMActivity extends NvEventQueueActivity implements LocationService.Listener
 {
   VideoTimer m_timer;
   
   private static String TAG = "MWMActivity";
   private final static String PACKAGE_NAME = "com.mapswithme.maps";
   
-  private int m_locationStatus;
   private int m_locationIconRes;
-  private boolean m_isLocationServicePaused = false;
+//  private boolean m_isLocationServicePaused = false;
   
   private LocationService m_locationService = null; 
 
@@ -63,26 +62,17 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     }
 
     m_timer = new VideoTimer();
-    m_locationStatus = (int)LocationService.STOPPED;
     m_locationIconRes = R.drawable.ic_menu_location;
     m_locationService = new LocationService(this);
-    m_isLocationServicePaused = false;
+//    m_isLocationServicePaused = false;
   }
   
-  public void onStatusChanged(int status)
+  public void onLocationStatusChanged(int newStatus)
   {
-    m_locationStatus = status;
-
-    switch (status)
+    switch (newStatus)
     {
     case LocationService.FIRST_EVENT:
       m_locationIconRes = R.drawable.ic_menu_location_found;
-      break;
-    case LocationService.STOPPED:
-      m_locationIconRes = R.drawable.ic_menu_location;
-      break;
-    case LocationService.DISABLED_BY_USER:
-      m_locationIconRes = R.drawable.ic_menu_location;
       break;
     case LocationService.STARTED:
       m_locationIconRes = R.drawable.ic_menu_location_search;
@@ -90,27 +80,30 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     default:
       m_locationIconRes = R.drawable.ic_menu_location;
     }
-    
-    Log.d(TAG, "StatusChanged: " + status);
+    nativeLocationStatusChanged(newStatus);
   }
   
-  public void onLocationChanged(long time, double latitude, double longitude, float accuracy)
+  @Override
+  public void onLocationUpdated(long time, double lat, double lon, float accuracy)
   {
+    nativeLocationUpdated(time, lat, lon, accuracy);
   }
-  
-  public void onLocationNotAvailable()
+
+  @Override
+  public void onCompassUpdated(long time, double magneticNorth, double trueNorth, float accuracy)
   {
-    Log.d(TAG, "location services is disabled or not available"); 
+    nativeCompassUpdated(time, magneticNorth, trueNorth, accuracy);
   }
 
   @Override
   protected void onPause()
   {
-    if (m_locationService.isActive())
-    {
-      m_locationService.enterBackground();
-      m_isLocationServicePaused = true;
-    }
+    // @TODO
+//    if (m_locationService.isActive())
+//    {
+//      m_locationService.enterBackground();
+//      m_isLocationServicePaused = true;
+//    }
 
     super.onPause();
   }
@@ -118,11 +111,12 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onResume()
   {
-    if (m_isLocationServicePaused)
-    {
-      m_locationService.enterForeground();
-      m_isLocationServicePaused = false;
-    }
+    // @TODO
+//    if (m_isLocationServicePaused)
+//    {
+//      m_locationService.enterForeground();
+//      m_isLocationServicePaused = false;
+//    }
     super.onResume();    
   }
 
@@ -146,22 +140,20 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   public boolean onOptionsItemSelected(MenuItem item)
   {
-    // Handle item selection
-    
     switch (item.getItemId())
     {
     case R.id.my_position:
-
-      if (m_locationService.isActive())
-        m_locationService.stopUpdate(true);
+      if (m_locationService.isSubscribed(this))
+        m_locationService.stopUpdate(this);
       else
-        m_locationService.startUpdate(this, true);
-      
+        m_locationService.startUpdate(this);
       return true;
+
     case R.id.download_maps:
       Intent intent = new Intent(this, DownloadUI.class);
       startActivity(intent);
       return true;
+
     default:
       return super.onOptionsItemSelected(item);
     }
@@ -173,4 +165,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   }
   
   private native void nativeInit(String apkPath, String storagePath);
+  private native void nativeLocationStatusChanged(int newStatus);
+  private native void nativeLocationUpdated(long time, double lat, double lon, float accuracy);
+  private native void nativeCompassUpdated(long time, double magneticNorth, double trueNorth, float accuracy);
 }
