@@ -5,6 +5,7 @@
 #include "search_delimiters.hpp"
 #include "search_trie.hpp"
 #include "search_string_utils.hpp"
+#include "string_file.hpp"
 
 #include "../defines.hpp"
 
@@ -24,59 +25,13 @@
 namespace
 {
 
-struct FeatureName
-{
-  strings::UniString m_name;
-  char m_Value[5];
-
-  FeatureName(strings::UniString const & name, signed char lang, uint32_t id, uint8_t rank)
-  {
-    m_name.reserve(name.size() + 1);
-    m_name.push_back(static_cast<uint8_t>(lang));
-    m_name.append(name.begin(), name.end());
-
-    m_Value[0] = rank;
-    uint32_t const idToWrite = SwapIfBigEndian(id);
-    memcpy(&m_Value[1], &idToWrite, 4);
-  }
-
-  uint32_t GetKeySize() const { return m_name.size(); }
-  uint32_t const * GetKeyData() const { return m_name.data(); }
-  uint32_t GetValueSize() const { return 5; }
-  void const * GetValueData() const { return &m_Value; }
-
-  uint8_t GetRank() const { return static_cast<uint8_t>(m_Value[0]); }
-  uint32_t GetOffset() const
-  {
-    uint32_t offset;
-    memcpy(&offset, &m_Value[1], 4);
-    return SwapIfBigEndian(offset);
-  }
-
-  inline bool operator < (FeatureName const & name) const
-  {
-    if (m_name != name.m_name)
-      return m_name < name.m_name;
-    if (GetRank() != name.GetRank())
-      return GetRank() > name.GetRank();
-    if (GetOffset() != name.GetOffset())
-      return GetOffset() < name.GetOffset();
-    return false;
-  }
-
-  inline bool operator == (FeatureName const & name) const
-  {
-    return m_name == name.m_name && 0 == memcmp(&m_Value, &name.m_Value, sizeof(m_Value));
-  }
-};
-
 struct FeatureNameInserter
 {
-  vector<FeatureName> & m_names;
+  StringsFile & m_names;
   uint32_t m_pos;
   uint32_t m_rank;
 
-  FeatureNameInserter(vector<FeatureName> & names, uint32_t pos, uint8_t rank)
+  FeatureNameInserter(StringsFile & names, uint32_t pos, uint8_t rank)
     : m_names(names), m_pos(pos), m_rank(rank) {}
 
   void AddToken(signed char lang, strings::UniString const & s) const
@@ -86,12 +41,11 @@ struct FeatureNameInserter
 
   void AddToken(signed char lang, strings::UniString const & s, uint32_t rank) const
   {
-    m_names.push_back(FeatureName(s, lang, m_pos, static_cast<uint8_t>(min(rank, 255U))));
+    m_names.AddString(StringsFile::StringT(s, lang, m_pos, static_cast<uint8_t>(min(rank, 255U))));
   }
 
   bool operator()(signed char lang, string const & name) const
   {
-    // m_names.push_back(FeatureName(, m_pos, m_rank));
     strings::UniString uniName = search::NormalizeAndSimplifyString(name);
     buffer_vector<strings::UniString, 32> tokens;
     SplitUniString(uniName, MakeBackInsertFunctor(tokens), search::Delimiters());
@@ -108,9 +62,9 @@ struct FeatureNameInserter
 
 struct FeatureInserter
 {
-  vector<FeatureName> & m_names;
+  StringsFile & m_names;
 
-  explicit FeatureInserter(vector<FeatureName> & names) : m_names(names) {}
+  explicit FeatureInserter(StringsFile & names) : m_names(names) {}
 
   void operator() (FeatureType const & feature, uint64_t pos) const
   {
@@ -141,19 +95,29 @@ struct MaxValueCalc
 
 void indexer::BuildSearchIndex(FeaturesVector const & featuresVector, Writer & writer)
 {
-  vector<FeatureName> names;
-  featuresVector.ForEachOffset(FeatureInserter(names));
-  sort(names.begin(), names.end());
-  names.erase(unique(names.begin(), names.end()), names.end());
-  trie::Build(writer, names.begin(), names.end(),
+  StringsFile names;
+  string const tmpFile = GetPlatform().WritablePathForFile("search_index_1.tmp");
+
+  {
+    FileWriter writer(tmpFile);
+    names.OpenForWrite(&writer);
+    featuresVector.ForEachOffset(FeatureInserter(names));
+  }
+
+  names.OpenForRead(new FileReader(tmpFile));
+  names.SortStrings();
+
+  trie::Build(writer, names.Begin(), names.End(),
               trie::builder::MaxValueEdgeBuilder<MaxValueCalc>());
+
+  FileWriter::DeleteFileX(tmpFile);
 }
 
 bool indexer::BuildSearchIndexFromDatFile(string const & datFile)
 {
   try
   {
-    string const tmpFile = GetPlatform().WritablePathForFile(datFile + ".search.tmp");
+    string const tmpFile = GetPlatform().WritablePathForFile("search_index_2.tmp");
 
     {
       FilesContainerR readCont(datFile);
@@ -182,6 +146,7 @@ bool indexer::BuildSearchIndexFromDatFile(string const & datFile)
   catch (Writer::Exception const & e)
   {
     LOG(LERROR, ("Error writing index file: ", e.what()));
+    return false;
   }
 
   return true;

@@ -235,9 +235,14 @@ template <typename SinkT, typename IterT, class EdgeBuilderT>
 void Build(SinkT & sink, IterT const beg, IterT const end, EdgeBuilderT const & edgeBuilder)
 {
   typedef buffer_vector<TrieChar, 32> TrieString;
-  buffer_vector<builder::NodeInfo<EdgeBuilderT>, 32> nodes;
-  nodes.push_back(builder::NodeInfo<EdgeBuilderT>(sink.Pos(), DEFAULT_CHAR, edgeBuilder));
+  typedef buffer_vector<uint8_t, 32> TrieValue;
+  typedef builder::NodeInfo<EdgeBuilderT> NodeInfoT;
+
+  buffer_vector<NodeInfoT, 32> nodes;
+  nodes.push_back(NodeInfoT(sink.Pos(), DEFAULT_CHAR, edgeBuilder));
+
   TrieString prevKey;
+  TrieValue value;
   for (IterT it = beg; it != end; ++it)
   {
     TrieChar const * const pKeyData = it->GetKeyData();
@@ -246,14 +251,19 @@ void Build(SinkT & sink, IterT const beg, IterT const end, EdgeBuilderT const & 
     size_t nCommon = 0;
     while (nCommon < min(key.size(), prevKey.size()) && prevKey[nCommon] == key[nCommon])
       ++nCommon;
+
     builder::PopNodes(sink, nodes, nodes.size() - nCommon - 1); // Root is also a common node.
+
     uint64_t const pos = sink.Pos();
     for (size_t i = nCommon; i < key.size(); ++i)
       nodes.push_back(builder::NodeInfo<EdgeBuilderT>(pos, key[i], edgeBuilder));
-    uint8_t const * const pValue = static_cast<uint8_t const *>(it->GetValueData());
-    nodes.back().m_values.insert(nodes.back().m_values.end(), pValue, pValue + it->GetValueSize());
+
+    it->SerializeValue(value);
+    nodes.back().m_values.insert(nodes.back().m_values.end(),
+                                 value.begin(), value.end());
     nodes.back().m_valueCount += 1;
-    nodes.back().m_edgeBuilder.AddValue(pValue, it->GetValueSize());
+    nodes.back().m_edgeBuilder.AddValue(value.data(), value.size());
+
     prevKey.swap(key);
   }
 

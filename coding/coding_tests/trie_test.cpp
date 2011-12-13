@@ -45,8 +45,12 @@ struct KeyValuePair
 
   uint32_t GetKeySize() const { return m_key.size(); }
   trie::TrieChar const * GetKeyData() const { return m_key.data(); }
-  uint32_t GetValueSize() const { return 4; }
-  void const * GetValueData() const { return &m_value; }
+
+  template <class TCont> void SerializeValue(TCont & cont) const
+  {
+    cont.resize(4);
+    memcpy(cont.data(), &m_value, 4);
+  }
 
   bool operator == (KeyValuePair const & p) const
   {
