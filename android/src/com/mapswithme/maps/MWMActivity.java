@@ -25,7 +25,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private final static String PACKAGE_NAME = "com.mapswithme.maps";
   
   private int m_locationIconRes;
-//  private boolean m_isLocationServicePaused = false;
   
   private LocationService m_locationService = null; 
 
@@ -64,7 +63,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     m_timer = new VideoTimer();
     m_locationIconRes = R.drawable.ic_menu_location;
     m_locationService = new LocationService(this);
-//    m_isLocationServicePaused = false;
   }
   
   public void onLocationStatusChanged(int newStatus)
@@ -98,12 +96,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onPause()
   {
-    // @TODO
-//    if (m_locationService.isActive())
-//    {
-//      m_locationService.enterBackground();
-//      m_isLocationServicePaused = true;
-//    }
+    m_locationService.stopUpdate(this);
 
     super.onPause();
   }
@@ -111,12 +104,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onResume()
   {
-    // @TODO
-//    if (m_isLocationServicePaused)
-//    {
-//      m_locationService.enterForeground();
-//      m_isLocationServicePaused = false;
-//    }
+    m_locationService.startUpdate(this);
+
     super.onResume();    
   }
 
