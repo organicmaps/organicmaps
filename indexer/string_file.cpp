@@ -15,7 +15,7 @@ StringsFile::IdT StringsFile::StringT::Write(TWriter & writer) const
 
   rw::Write(writer, m_name);
   WriteVarUint(writer, m_pos);
-  WriteVarUint(writer, m_rank);
+  WriteToSink(writer, m_rank);
 
   return pos;
 }
