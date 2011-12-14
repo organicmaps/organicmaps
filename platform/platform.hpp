@@ -7,6 +7,8 @@
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
 #include "../std/utility.hpp"
+#include "../std/function.hpp"
+
 
 DECLARE_EXCEPTION(FileAbsentException, RootException);
 DECLARE_EXCEPTION(NotImplementedException, RootException);
@@ -65,6 +67,13 @@ public:
   /// @return false if file is not exist
   /// @note Try do not use in client production code
   static bool GetFileSizeByFullPath(string const & filePath, uint64_t & size);
+  //@}
+
+  /// @name Functions for concurrent tasks.
+  //@{
+  typedef function<void()> TFunctor;
+  inline void RunInGuiThread(TFunctor const & fn) { fn(); }
+  inline void RunAsync(TFunctor const & fn) { fn(); }
   //@}
 
   int CpuCores() const;
