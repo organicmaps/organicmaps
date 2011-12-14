@@ -332,8 +332,7 @@ void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
             {
               TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
               ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
-              // TODO: edge.size() > 1 !!
-              if (edge.size() == 1 && edge[0] < 128 && langs.count(static_cast<int8_t>(edge[0])))
+              if (edge.size() >= 1 && edge[0] < 128 && langs.count(static_cast<int8_t>(edge[0])))
               {
                 scoped_ptr<TrieIterator> pLangRoot(pTrieRoot->GoToEdge(i));
 
@@ -345,6 +344,7 @@ void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
                       (h.GetType() == feature::DataHeader::world) ? "" : mwmLock.GetCountryName());
 
                 MatchFeaturesInTrie(tokens, m_prefix, *pLangRoot,
+                                    edge.size() == 1 ? NULL : &edge[1], edge.size() - 1,
                                     &m_offsetsInViewport[mwmId], f, m_results.max_size() * 10);
 
                 LOG(LDEBUG, ("Lang:",

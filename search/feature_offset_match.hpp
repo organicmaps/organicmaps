@@ -1,4 +1,5 @@
 #pragma once
+#include "search_common.hpp"
 #include "../indexer/search_trie.hpp"
 #include "../base/string_utils.hpp"
 #include "../base/base.hpp"
@@ -62,9 +63,19 @@ TrieIterator * MoveTrieIteratorToString(TrieIterator const & trieRoot,
 
 template <typename F>
 void FullMatchInTrie(TrieIterator const & trieRoot,
-                     strings::UniString const & s,
+                     strings::UniChar const * rootPrefix,
+                     size_t rootPrefixSize,
+                     strings::UniString s,
                      F & f)
 {
+  if (rootPrefixSize > 0)
+  {
+    if (s.size() < rootPrefixSize ||
+        !StartsWith(s.begin(), s.end(), rootPrefix, rootPrefix + rootPrefixSize))
+      return;
+    s = strings::UniString(s.begin() + rootPrefixSize, s.end());
+  }
+
   size_t symbolsMatched = 0;
   scoped_ptr<search::TrieIterator> pIter(MoveTrieIteratorToString(trieRoot, s, symbolsMatched));
   if (!pIter || symbolsMatched != s.size())
@@ -75,9 +86,19 @@ void FullMatchInTrie(TrieIterator const & trieRoot,
 
 template <typename F>
 void PrefixMatchInTrie(TrieIterator const & trieRoot,
-                       strings::UniString const & s,
+                       strings::UniChar const * rootPrefix,
+                       size_t rootPrefixSize,
+                       strings::UniString s,
                        F & f)
 {
+  if (rootPrefixSize > 0)
+  {
+    if (s.size() < rootPrefixSize ||
+        !StartsWith(s.begin(), s.end(), rootPrefix, rootPrefix + rootPrefixSize))
+      return;
+    s = strings::UniString(s.begin() + rootPrefixSize, s.end());
+  }
+
   size_t symbolsMatched = 0;
   scoped_ptr<search::TrieIterator> pIter(MoveTrieIteratorToString(trieRoot, s, symbolsMatched));
   if (!pIter)
@@ -147,6 +168,8 @@ template <typename F>
 void MatchFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
                          strings::UniString const & prefix,
                          TrieIterator const & trieRoot,
+                         strings::UniChar const * commonPrefix,
+                         size_t commonPrefixSize,
                          unordered_set<uint32_t> const * pOffsetsFilter,
                          F & f,
                          size_t resultsNeeded)
@@ -157,7 +180,7 @@ void MatchFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
   for (size_t i = 0; i < tokens.size(); ++i)
   {
     for (size_t j = 0; j < tokens[i].size(); ++j)
-      impl::FullMatchInTrie(trieRoot, tokens[i][j], intersecter);
+      impl::FullMatchInTrie(trieRoot, commonPrefix, commonPrefixSize, tokens[i][j], intersecter);
 
     intersecter.NextStep();
   }
@@ -165,7 +188,7 @@ void MatchFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
   // Match prefix.
   if (prefix.size() > 0)
   {
-    impl::PrefixMatchInTrie(trieRoot, prefix, intersecter);
+    impl::PrefixMatchInTrie(trieRoot, commonPrefix, commonPrefixSize, prefix, intersecter);
     intersecter.NextStep();
   }
 
