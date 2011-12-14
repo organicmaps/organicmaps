@@ -6,6 +6,7 @@
 #include "../base/string_utils.hpp"
 
 #include "../indexer/data_factory.hpp"
+#include "../indexer/search_index_builder.hpp"
 
 #include "../platform/platform.hpp"
 #include "../platform/settings.hpp"
@@ -138,7 +139,8 @@ namespace storage
     // check if we already downloading this country
     TQueue::const_iterator found = find(m_queue.begin(), m_queue.end(), index);
     if (found != m_queue.end())
-    { // do nothing
+    {
+      // do nothing
       return;
     }
     // remove it from failed list
@@ -156,7 +158,8 @@ namespace storage
       DownloadNextCountryFromQueue();
     }
     else
-    { // notify about "In Queue" status
+    {
+      // notify about "In Queue" status
       if (m_observerChange)
         m_observerChange(index);
     }
@@ -256,7 +259,8 @@ namespace storage
     if (found != m_queue.end())
     {
       if (found == m_queue.begin())
-      { // stop download
+      {
+        // stop download
         m_request.reset();
         // remove from the queue
         m_queue.erase(found);
@@ -270,7 +274,8 @@ namespace storage
         DownloadNextCountryFromQueue();
       }
       else
-      { // remove from the queue
+      {
+        // remove from the queue
         m_queue.erase(found);
       }
     }
@@ -303,7 +308,8 @@ namespace storage
     }
   }
 
-  void Storage::Subscribe(TObserverChangeCountryFunction change, TObserverProgressFunction progress)
+  void Storage::Subscribe(TObserverChangeCountryFunction change,
+                          TObserverProgressFunction progress)
   {
     m_observerChange = change;
     m_observerProgress = progress;
@@ -349,16 +355,33 @@ namespace storage
       if (i != string::npos)
         file = file.substr(i+1);
 
-      // activate downloaded map piece
-      m_addMap(file);
-
-      // update rect from downloaded file
-      feature::DataHeader header;
-      LoadMapHeader(GetPlatform().GetReader(file), header);
-      m_updateRect(header.GetBounds());
+      GetPlatform().RunAsync(bind(&Storage::GenerateSearchIndex, this, cref(file)));
     }
     m_request.reset();
     DownloadNextCountryFromQueue();
+  }
+
+  void Storage::GenerateSearchIndex(string const & fName) const
+  {
+    if (indexer::BuildSearchIndexFromDatFile(fName))
+    {
+      GetPlatform().RunInGuiThread(bind(&Storage::UpdateAfterSearchIndex, this, cref(fName)));
+    }
+    else
+    {
+      LOG(LERROR, ("Can't build search index for", fName));
+    }
+  }
+
+  void Storage::UpdateAfterSearchIndex(string const & fName) const
+  {
+    // activate downloaded map piece
+    m_addMap(fName);
+
+    // update rect from downloaded file
+    feature::DataHeader header;
+    LoadMapHeader(GetPlatform().GetReader(fName), header);
+    m_updateRect(header.GetBounds());
   }
 
   void Storage::OnMapDownloadProgress(HttpRequest & request)

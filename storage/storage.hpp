@@ -35,7 +35,9 @@ namespace storage
       : m_group(group), m_country(country), m_region(region) {}
     bool operator==(TIndex const & other) const
     {
-      return m_group == other.m_group && m_country == other.m_country && m_region == other.m_region;
+      return (m_group == other.m_group &&
+              m_country == other.m_country &&
+              m_region == other.m_region);
     }
     bool operator<(TIndex const & other) const
     {
@@ -94,12 +96,17 @@ namespace storage
     void DownloadNextCountryFromQueue();
     Country const & CountryByIndex(TIndex const & index) const;
 
+    void GenerateSearchIndex(string const & fName) const;
+    void UpdateAfterSearchIndex(string const & fName) const;
+
   public:
     Storage() {}
     /// @TODO temporarily made public for Android, refactor
     void ReInitCountries(bool forceReload);
 
-    void Init(TAddMapFunction addFunc, TRemoveMapFunction removeFunc, TUpdateRectFunction updateRectFunc);
+    void Init(TAddMapFunction addFunc,
+              TRemoveMapFunction removeFunc,
+              TUpdateRectFunction updateRectFunc);
 
     /// @name Called from DownloadManager
     //@{
