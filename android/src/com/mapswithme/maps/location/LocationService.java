@@ -97,16 +97,22 @@ public class LocationService implements LocationListener, SensorEventListener
       }
       else
       {
+        m_isActive = true;
+        observer.onLocationStatusChanged(STARTED);
+
         for (String provider : enabledProviders)
         {
           // @TODO change frequency and accuracy to save battery
           if (m_locationManager.isProviderEnabled(provider))
+          {
             m_locationManager.requestLocationUpdates(provider, 0, 0, this);
+            // Send last known location for faster startup.
+            // It should pass filter in the handler below.
+            onLocationChanged(m_locationManager.getLastKnownLocation(provider));
+          }
         }
         if (m_sensorManager != null)
           m_sensorManager.registerListener(this, m_compassSensor, SensorManager.SENSOR_DELAY_NORMAL);
-        m_isActive = true;
-        observer.onLocationStatusChanged(STARTED);
       }
     }
     else
@@ -129,19 +135,90 @@ public class LocationService implements LocationListener, SensorEventListener
     observer.onLocationStatusChanged(STOPPED);
   }
 
+  private static final int TWO_MINUTES = 1000 * 60 * 2;
+
+  // Determines whether one Location reading is better than the current Location
+  // @param location The new Location that you want to evaluate
+  // @param currentBestLocation The current Location fix, to which you want to compare the new one
+  protected boolean isBetterLocation(Location newLocation, Location currentBestLocation)
+  {
+    // A new location is better than no location only if it's not too old
+    if (currentBestLocation == null)
+    {
+      if (java.lang.System.currentTimeMillis() - newLocation.getTime() > TWO_MINUTES)
+        return false;
+      return true;
+    }
+
+    // Check whether the new location fix is newer or older
+    final long timeDelta = newLocation.getTime() - currentBestLocation.getTime();
+    final boolean isSignificantlyNewer = timeDelta > TWO_MINUTES;
+    final boolean isSignificantlyOlder = timeDelta < -TWO_MINUTES;
+    final boolean isNewer = timeDelta >= 0;
+
+    // If it's been more than two minutes since the current location, use the
+    // new location because the user has likely moved
+    if (isSignificantlyNewer)
+      return true;
+    else if (isSignificantlyOlder)
+    { // If the new location is more than two minutes older, it must be worse
+      return false;
+    }
+
+    // Check whether the new location fix is more or less accurate
+    final int accuracyDelta = (int) (newLocation.getAccuracy()
+        - currentBestLocation.getAccuracy());
+    final boolean isLessAccurate = accuracyDelta > 0;
+    final boolean isMoreAccurate = accuracyDelta < 0;
+    final boolean isSignificantlyLessAccurate = accuracyDelta > 200;
+
+    // Check if the old and new location are from the same provider
+    final boolean isFromSameProvider = isSameProvider(newLocation.getProvider(),
+        currentBestLocation.getProvider());
+
+    // Determine location quality using a combination of timeliness and accuracy
+    if (isMoreAccurate)
+      return true;
+    else if (isNewer && !isLessAccurate)
+      return true;
+    else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider)
+      return true;
+
+    return false;
+  }
+
+  // Checks whether two providers are the same
+  private static boolean isSameProvider(String provider1, String provider2)
+  {
+    if (provider1 == null)
+      return provider2 == null;
+    return provider1.equals(provider2);
+  }
+
+  // *************** Notification Handlers ******************
+
   //@Override
   public void onLocationChanged(Location l)
   {
-    if (m_reportFirstUpdate)
+    if (isBetterLocation(l, m_lastLocation))
     {
-      m_reportFirstUpdate = false;
-      notifyStatusChanged(FIRST_EVENT);
+      m_lastLocation = l;
+
+      if (m_reportFirstUpdate)
+      {
+        m_reportFirstUpdate = false;
+        notifyStatusChanged(FIRST_EVENT);
+      }
+
+      // Used for more precise compass updates
+      if (m_sensorManager != null)
+      {
+        // Recreate magneticField if location has changed significantly
+        if (m_lastLocation != null && (m_lastLocation == null || l.getTime() - m_lastLocation.getTime() > TWO_MINUTES))
+          m_magneticField = new GeomagneticField((float)l.getLatitude(), (float)l.getLongitude(), (float)l.getAltitude(), l.getTime());
+      }
+      notifyLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy());
     }
-    // used for more precise compass updates
-    if (m_sensorManager != null && m_magneticField == null)
-      m_magneticField = new GeomagneticField((float)l.getLatitude(), (float)l.getLongitude(), (float)l.getAltitude(), l.getTime());
-    // @TODO insert filtering from different providers
-    notifyLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy());
   }
 
   //@Override
