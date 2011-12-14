@@ -197,19 +197,17 @@ int main(int argc, char ** argv)
     if (FLAGS_generate_index)
     {
       LOG(LINFO, ("Generating index for ", datFile));
+
       if (!indexer::BuildIndexFromDatFile(datFile, FLAGS_intermediate_data_path + country))
-      {
         LOG(LCRITICAL, ("Error generating index."));
-      }
     }
 
     if (FLAGS_generate_search_index)
     {
       LOG(LINFO, ("Generating search index for ", datFile));
-      if (!indexer::BuildSearchIndexFromDatFile(datFile))
-      {
+
+      if (!indexer::BuildSearchIndexFromDatFile(country + DATA_FILE_EXTENSION))
         LOG(LCRITICAL, ("Error generating search index."));
-      }
     }
   }
 

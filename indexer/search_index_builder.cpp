@@ -93,31 +93,37 @@ struct MaxValueCalc
 
 }  // unnamed namespace
 
-void indexer::BuildSearchIndex(FeaturesVector const & featuresVector, Writer & writer)
+void indexer::BuildSearchIndex(FeaturesVector const & featuresVector, Writer & writer,
+                               string const & tmpFilePath)
 {
-  StringsFile names;
-  string const tmpFile = GetPlatform().WritablePathForFile("search_index_1.tmp");
-
   {
-    FileWriter writer(tmpFile);
-    names.OpenForWrite(&writer);
-    featuresVector.ForEachOffset(FeatureInserter(names));
+    StringsFile names;
+
+    {
+      FileWriter writer(tmpFilePath);
+      names.OpenForWrite(&writer);
+      featuresVector.ForEachOffset(FeatureInserter(names));
+    }
+
+    names.OpenForRead(new FileReader(tmpFilePath));
+    names.SortStrings();
+
+    trie::Build(writer, names.Begin(), names.End(),
+                trie::builder::MaxValueEdgeBuilder<MaxValueCalc>());
+
+    // at this point all readers should be dead
   }
 
-  names.OpenForRead(new FileReader(tmpFile));
-  names.SortStrings();
-
-  trie::Build(writer, names.Begin(), names.End(),
-              trie::builder::MaxValueEdgeBuilder<MaxValueCalc>());
-
-  FileWriter::DeleteFileX(tmpFile);
+  FileWriter::DeleteFileX(tmpFilePath);
 }
 
-bool indexer::BuildSearchIndexFromDatFile(string const & datFile)
+bool indexer::BuildSearchIndexFromDatFile(string const & fName)
 {
   try
   {
-    string const tmpFile = GetPlatform().WritablePathForFile("search_index_2.tmp");
+    Platform & pl = GetPlatform();
+    string const datFile = pl.WritablePathForFile(fName);
+    string const tmpFile = pl.WritablePathForFile(fName + ".search_index_2.tmp");
 
     {
       FilesContainerR readCont(datFile);
@@ -128,13 +134,15 @@ bool indexer::BuildSearchIndexFromDatFile(string const & datFile)
       FeaturesVector featuresVector(readCont, header);
 
       FileWriter writer(tmpFile);
-      BuildSearchIndex(featuresVector, writer);
+      BuildSearchIndex(featuresVector, writer, pl.WritablePathForFile(fName + ".search_index_1.tmp"));
     }
 
-    // Write to container in reversed order.
-    FilesContainerW writeCont(datFile, FileWriter::OP_WRITE_EXISTING);
-    FileWriter writer = writeCont.GetWriter(SEARCH_INDEX_FILE_TAG);
-    rw_ops::Reverse(FileReader(tmpFile), writer);
+    {
+      // Write to container in reversed order.
+      FilesContainerW writeCont(datFile, FileWriter::OP_WRITE_EXISTING);
+      FileWriter writer = writeCont.GetWriter(SEARCH_INDEX_FILE_TAG);
+      rw_ops::Reverse(FileReader(tmpFile), writer);
+    }
 
     FileWriter::DeleteFileX(tmpFile);
   }

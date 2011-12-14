@@ -6,8 +6,7 @@ class Writer;
 
 namespace indexer
 {
-
-void BuildSearchIndex(FeaturesVector const & featuresVector, Writer & writer);
-bool BuildSearchIndexFromDatFile(string const & datFile);
-
+  void BuildSearchIndex(FeaturesVector const & featuresVector, Writer & writer,
+                        string const & tmpFilePath);
+  bool BuildSearchIndexFromDatFile(string const & fName);
 }  // namespace indexer
