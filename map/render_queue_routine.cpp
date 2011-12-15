@@ -192,7 +192,43 @@ void RenderQueueRoutine::getUpdateAreas(
       areas.push_back(m2::RectI((int)leftBarMinX, (int)bottomBarMinY, (int)rightBarMinX, (int)bottomBarMaxY));
   }
   else
-    areas.push_back(newRect);
+  {
+    if (m_doPeriodicalUpdate)
+      areas.push_back(newRect);
+    else
+    {
+      int sx = newRect.SizeX() / 5;
+      int sy = newRect.SizeY() / 5;
+      m2::RectI r(0, 0, sx, sy);
+
+      areas.push_back(m2::Offset(r, 2 * sx, 2 * sy));
+      areas.push_back(m2::Offset(r, 2 * sx, 1 * sy));
+      areas.push_back(m2::Offset(r, 3 * sx, 1 * sy));
+      areas.push_back(m2::Offset(r, 3 * sx, 2 * sy));
+      areas.push_back(m2::Offset(r, 3 * sx, 3 * sy));
+      areas.push_back(m2::Offset(r, 2 * sx, 3 * sy));
+      areas.push_back(m2::Offset(r, 1 * sx, 3 * sy));
+      areas.push_back(m2::Offset(r, 1 * sx, 2 * sy));
+      areas.push_back(m2::Offset(r, 1 * sx, 1 * sy));
+      areas.push_back(m2::Offset(r, 1 * sx, 0 * sy));
+      areas.push_back(m2::Offset(r, 1 * sx, 0 * sy));
+      areas.push_back(m2::Offset(r, 2 * sx, 0 * sy));
+      areas.push_back(m2::Offset(r, 3 * sx, 0 * sy));
+      areas.push_back(m2::Offset(r, 4 * sx, 0 * sy));
+      areas.push_back(m2::Offset(r, 4 * sx, 1 * sy));
+      areas.push_back(m2::Offset(r, 4 * sx, 2 * sy));
+      areas.push_back(m2::Offset(r, 4 * sx, 3 * sy));
+      areas.push_back(m2::Offset(r, 4 * sx, 4 * sy));
+      areas.push_back(m2::Offset(r, 3 * sx, 4 * sy));
+      areas.push_back(m2::Offset(r, 2 * sx, 4 * sy));
+      areas.push_back(m2::Offset(r, 1 * sx, 4 * sy));
+      areas.push_back(m2::Offset(r, 0 * sx, 4 * sy));
+      areas.push_back(m2::Offset(r, 0 * sx, 3 * sy));
+      areas.push_back(m2::Offset(r, 0 * sx, 2 * sy));
+      areas.push_back(m2::Offset(r, 0 * sx, 1 * sy));
+      areas.push_back(m2::Offset(r, 0 * sx, 0 * sy));
+    }
+  }
 }
 
 void RenderQueueRoutine::setVisualScale(double visualScale)
