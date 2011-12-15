@@ -25,6 +25,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private final static String PACKAGE_NAME = "com.mapswithme.maps";
   
   private int m_locationIconRes;
+  private boolean m_locationStarted = false;
   
   private LocationService m_locationService = null; 
 
@@ -96,7 +97,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onPause()
   {
-    m_locationService.stopUpdate(this);
+    if (m_locationStarted)
+      m_locationService.stopUpdate(this);
 
     super.onPause();
   }
@@ -104,7 +106,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onResume()
   {
-    m_locationService.startUpdate(this);
+    if (m_locationStarted)
+      m_locationService.startUpdate(this, this);
 
     super.onResume();    
   }
@@ -132,10 +135,11 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     switch (item.getItemId())
     {
     case R.id.my_position:
-      if (m_locationService.isSubscribed(this))
+      if (m_locationStarted)
         m_locationService.stopUpdate(this);
       else
-        m_locationService.startUpdate(this);
+        m_locationService.startUpdate(this, this);
+      m_locationStarted = !m_locationStarted;
       return true;
 
     case R.id.download_maps:

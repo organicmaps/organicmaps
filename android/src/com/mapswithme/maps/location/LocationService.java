@@ -13,10 +13,11 @@ import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Bundle;
 import android.util.Log;
 
-public class LocationService implements LocationListener, SensorEventListener
+public class LocationService implements LocationListener, SensorEventListener, WifiLocation.Listener
 {
   private static final String TAG = "LocationService";
   
@@ -36,7 +37,10 @@ public class LocationService implements LocationListener, SensorEventListener
   
   private HashSet<Listener> m_observers = new HashSet<Listener>(2);
   
+  // Used to filter locations from different providers
   private Location m_lastLocation = null;
+
+  private WifiLocation m_wifiScanner = null;
 
   private LocationManager m_locationManager;
   private SensorManager m_sensorManager;
@@ -77,23 +81,34 @@ public class LocationService implements LocationListener, SensorEventListener
     while (it.hasNext())
       it.next().onCompassUpdated(time, magneticNorth, trueNorth, accuracy);
   }
-
-  public boolean isSubscribed(Listener observer)
-  {
-    return m_observers.contains(observer);
-  }
   
-  public void startUpdate(Listener observer)
+  public void startUpdate(Listener observer, Context c)
   {
     m_observers.add(observer);
 
     if (!m_isActive)
     {
-      // @TODO Add WiFi provider
-      final List<String> enabledProviders = m_locationManager.getProviders(true);
+      List<String> enabledProviders = m_locationManager.getProviders(true);
+      // Remove passive provider, we don't use it in the current implementation
+      for (int i = 0; i < enabledProviders.size(); ++i)
+        if (enabledProviders.get(i).equals(LocationManager.PASSIVE_PROVIDER))
+        {
+          enabledProviders.remove(i);
+          break;
+        }
       if (enabledProviders.size() == 0)
       {
-        observer.onLocationStatusChanged(DISABLED_BY_USER);
+        // Use WiFi BSSIDS and Google Internet location service if no other options are available
+        // But only if connection is available
+        if (com.mapswithme.util.ConnectionState.isConnected(c))
+        {
+          observer.onLocationStatusChanged(STARTED);
+          if (m_wifiScanner == null)
+            m_wifiScanner = new WifiLocation();
+          m_wifiScanner.StartScan(c, this);
+        }
+        else
+          observer.onLocationStatusChanged(DISABLED_BY_USER);
       }
       else
       {
@@ -108,7 +123,9 @@ public class LocationService implements LocationListener, SensorEventListener
             m_locationManager.requestLocationUpdates(provider, 0, 0, this);
             // Send last known location for faster startup.
             // It should pass filter in the handler below.
-            onLocationChanged(m_locationManager.getLastKnownLocation(provider));
+            final Location lastKnown = m_locationManager.getLastKnownLocation(provider);
+            if (lastKnown != null)
+              onLocationChanged(lastKnown);
           }
         }
         if (m_sensorManager != null)
@@ -252,5 +269,12 @@ public class LocationService implements LocationListener, SensorEventListener
   public void onStatusChanged(String provider, int status, Bundle extras)
   {
     Log.d(TAG, String.format("Status changed for location provider: %s to %d", provider, status));
+  }
+
+  @Override
+  public void onWifiLocationUpdated(Location l)
+  {
+    if (l != null)
+      onLocationChanged(l);
   }
 }
