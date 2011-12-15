@@ -11,6 +11,8 @@ namespace yg
 {
   namespace gl
   {
+    const yg::Color Renderer::s_bgColor(192, 192, 192, 255);
+
     Renderer::BaseState::BaseState()
       : m_isDebugging(false)
     {}
@@ -271,12 +273,12 @@ namespace yg
       }
     }
 
-    shared_ptr<RenderTarget> const & Renderer::depthBuffer() const
+    shared_ptr<RenderBuffer> const & Renderer::depthBuffer() const
     {
       return m_depthBuffer;
     }
 
-    void Renderer::setDepthBuffer(shared_ptr<RenderTarget> const & rt)
+    void Renderer::setDepthBuffer(shared_ptr<RenderBuffer> const & rt)
     {
       m_depthBuffer = rt;
 
@@ -303,6 +305,8 @@ namespace yg
         mask |= GL_COLOR_BUFFER_BIT;
       if (m_clearDepth)
         mask |= GL_DEPTH_BUFFER_BIT;
+
+      OGLCHECK(glDepthMask(GL_TRUE));
 
       OGLCHECK(glClear(mask));
     }

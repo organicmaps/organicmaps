@@ -2,7 +2,7 @@
 
 namespace yg
 {
-  static const int maxDepth = 12000;
+  static const int maxDepth = 20000;
 
   enum EPosition
   {

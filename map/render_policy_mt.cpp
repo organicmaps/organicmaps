@@ -42,8 +42,8 @@ RenderPolicyMT::RenderPolicyMT(VideoTimer * videoTimer,
                                                                      5,
                                                                      "smallStorage");
 
-  rmp.m_blitStoragesParams = yg::ResourceManager::StoragePoolParams(10 * sizeof(yg::gl::AuxVertex),
-                                                                    sizeof(yg::gl::AuxVertex),
+  rmp.m_blitStoragesParams = yg::ResourceManager::StoragePoolParams(10 * sizeof(yg::gl::Vertex),
+                                                                    sizeof(yg::gl::Vertex),
                                                                     10 * sizeof(unsigned short),
                                                                     sizeof(unsigned short),
                                                                     7,

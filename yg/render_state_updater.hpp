@@ -19,6 +19,7 @@ namespace yg
       typedef GeometryRenderer base_t;
 
       shared_ptr<RenderState> m_renderState;
+      shared_ptr<FrameBuffer> m_auxFrameBuffer;
 
       int m_indicesCount;
       bool m_doPeriodicalUpdate;
@@ -38,6 +39,8 @@ namespace yg
       {
         shared_ptr<RenderState> m_renderState;
         shared_ptr<ResourceManager> m_resourceManager;
+        shared_ptr<FrameBuffer> m_auxFrameBuffer;
+        shared_ptr<FrameBuffer> m_frameBuffer;
         bool m_isClipRectEnabled;
         bool m_doSynchronize;
 
@@ -57,6 +60,7 @@ namespace yg
         bool m_doPeriodicalUpdate;
         double m_updateInterval;
         shared_ptr<RenderState> m_renderState;
+        shared_ptr<FrameBuffer> m_auxFrameBuffer;
         Params();
       };
 

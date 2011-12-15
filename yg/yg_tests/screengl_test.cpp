@@ -383,7 +383,7 @@ namespace
       p->beginFrame();
       p->setClipRect(r);
       p->enableClipRect(true);
-      p->clear();
+      p->clear(yg::gl::Screen::s_bgColor);
     }
   };
 

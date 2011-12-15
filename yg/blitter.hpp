@@ -36,8 +36,6 @@ namespace yg
 
       yg::gl::Storage m_blitStorage;
 
-     static void setupAuxVertexLayout(bool hasColor, bool hasTexture, void * glPtr);
-
     protected:
 
       typedef Clipper base_t;

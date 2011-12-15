@@ -9,6 +9,7 @@
 #include "utils.hpp"
 #include "storage.hpp"
 #include "vertex.hpp"
+#include "defines.hpp"
 #include "texture.hpp"
 
 #include "../geometry/screenbase.hpp"
@@ -49,6 +50,7 @@ namespace yg
       m_texture = texture;
       m_hasTexture = true;
       m_hasColor = false;
+      m_color = yg::Color(255, 255, 255, 255);
       m_resourceManager = rm;
     }
 
@@ -112,24 +114,26 @@ namespace yg
 
       yg::gl::Storage storage = resourceManager()->multiBlitStorages()->Reserve();
 
-      AuxVertex * pointsData = (AuxVertex*)storage.m_vertices->lock();
+      Vertex * pointsData = (Vertex*)storage.m_vertices->lock();
 
       for (size_t i = 0; i < s * 4; ++i)
       {
         pointsData[i].pt.x = geomPts[i].x;
         pointsData[i].pt.y = geomPts[i].y;
-        pointsData[i].texPt.x = texPts[i].x;
-        pointsData[i].texPt.y = texPts[i].y;
-        pointsData[i].color = yg::Color(255, 255, 255, 255);
+        pointsData[i].depth = yg::maxDepth;
+        pointsData[i].tex.x = texPts[i].x;
+        pointsData[i].tex.y = texPts[i].y;
+//        pointsData[i].color = yg::Color(255, 255, 255, 255);
       }
 
       storage.m_vertices->unlock();
       storage.m_vertices->makeCurrent();
 
-      setupAuxVertexLayout(false, true, storage.m_vertices->glPtr());
+      Vertex::setupLayout(storage.m_vertices->glPtr());
 
       OGLCHECK(glDisable(GL_BLEND));
       OGLCHECK(glDisable(GL_DEPTH_TEST));
+      OGLCHECK(glDepthMask(GL_FALSE));
 
       memcpy(storage.m_indices->lock(), &idxData[0], idxData.size() * sizeof(unsigned short));
 
@@ -147,6 +151,7 @@ namespace yg
       OGLCHECK(glEnable(GL_DEPTH_TEST));
       OGLCHECK(glEnable(GL_TEXTURE_2D));
       OGLCHECK(glEnable(GL_BLEND));
+      OGLCHECK(glDepthMask(GL_TRUE));
 //      /// This call is necessary to avoid parasite blitting in updateActualTarget() on IPhone.
 //      OGLCHECK(glFinish());
 
@@ -290,31 +295,6 @@ namespace yg
       processCommand(command);
     }
 
-    void Blitter::setupAuxVertexLayout(bool hasColor, bool hasTexture, void * glPtr)
-    {
-      OGLCHECK(glEnableClientState(GL_VERTEX_ARRAY));
-      OGLCHECK(glVertexPointer(2, GL_FLOAT, sizeof(AuxVertex), (void*)((char*)glPtr + AuxVertex::vertexOffs)));
-
-      if (hasColor)
-      {
-        OGLCHECK(glEnableClientState(GL_COLOR_ARRAY));
-        OGLCHECK(glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(AuxVertex), (void*)((char*)glPtr + AuxVertex::colorOffs)));
-      }
-      else
-        OGLCHECK(glDisableClientState(GL_COLOR_ARRAY));
-
-      if (hasTexture)
-      {
-        OGLCHECK(glEnableClientState(GL_TEXTURE_COORD_ARRAY));
-        OGLCHECK(glTexCoordPointer(2, GL_FLOAT, sizeof(AuxVertex), (void*)((char*)glPtr + AuxVertex::texCoordsOffs)));
-      }
-      else
-      {
-        OGLCHECK(glDisableClientState(GL_TEXTURE_COORD_ARRAY));
-        OGLCHECK(glDisable(GL_TEXTURE_2D));
-      }
-    }
-
     void Blitter::IMMDrawTexturedPrimitives::perform()
     {
       if (isDebugging())
@@ -327,36 +307,43 @@ namespace yg
       if (!blitStorage.m_indices->isLocked())
         blitStorage.m_indices->lock();
 
-      AuxVertex * pointsData = (AuxVertex*)blitStorage.m_vertices->data();
+      Vertex * pointsData = (Vertex*)blitStorage.m_vertices->data();
 
       for (size_t i = 0; i < m_ptsCount; ++i)
       {
         pointsData[i].pt.x = m_pts[i].x;
         pointsData[i].pt.y = m_pts[i].y;
-        pointsData[i].texPt.x = m_texPts[i].x;
-        pointsData[i].texPt.y = m_texPts[i].y;
-        pointsData[i].color = m_color;
+        pointsData[i].depth = yg::maxDepth;
+        pointsData[i].tex.x = m_texPts[i].x;
+        pointsData[i].tex.y = m_texPts[i].y;
       }
 
       blitStorage.m_vertices->unlock();
       blitStorage.m_vertices->makeCurrent();
 
-      Blitter::setupAuxVertexLayout(m_hasColor, m_hasTexture, blitStorage.m_vertices->glPtr());
+      Vertex::setupLayout(blitStorage.m_vertices->glPtr());
 
       if (m_texture)
+      {
+        OGLCHECK(glEnable(GL_TEXTURE_2D));
         m_texture->makeCurrent();
+      }
 
       unsigned short idxData[4] = {0, 1, 2, 3};
       memcpy(blitStorage.m_indices->data(), idxData, sizeof(idxData));
       blitStorage.m_indices->unlock();
       blitStorage.m_indices->makeCurrent();
 
+      OGLCHECK(glDisable(GL_ALPHA_TEST));
       OGLCHECK(glDisable(GL_BLEND));
       OGLCHECK(glDisable(GL_DEPTH_TEST));
+      OGLCHECK(glDepthMask(GL_FALSE));
       OGLCHECK(glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_SHORT, blitStorage.m_indices->glPtr()));
+      OGLCHECK(glDepthMask(GL_TRUE));
       OGLCHECK(glEnable(GL_DEPTH_TEST));
-      OGLCHECK(glEnable(GL_TEXTURE_2D));
       OGLCHECK(glEnable(GL_BLEND));
+      OGLCHECK(glEnable(GL_ALPHA_TEST));
+
 //      /// This call is necessary to avoid parasite blitting in updateActualTarget() on IPhone.
 //      OGLCHECK(glFinish());
 

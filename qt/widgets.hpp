@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../qt_tstfrm/widgets.hpp"
-#include "../map/qgl_render_context.hpp"
+//#include "../qt_tstfrm/widgets.hpp"
+/*#include "../map/qgl_render_context.hpp"
 #include "../yg/resource_manager.hpp"
 
 class DrawerYG;
@@ -42,4 +42,4 @@ namespace qt
   protected:
     virtual void initializeGL();
   };
-}
+}*/

@@ -69,4 +69,3 @@ SOURCES += \
     video_timer.cpp \
     http_request.cpp \
     chunks_download_strategy.cpp \
-    pthread_video_timer.cpp \

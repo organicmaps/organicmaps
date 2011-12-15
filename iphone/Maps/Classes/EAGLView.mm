@@ -131,7 +131,7 @@
   shared_ptr<DrawerYG> drawer = framework->GetRenderPolicy()->GetDrawer();
   
   drawer->screen()->beginFrame();
-  drawer->screen()->clear();
+  drawer->screen()->clear(yg::gl::Screen::s_bgColor);
   drawer->screen()->endFrame();
 }
 

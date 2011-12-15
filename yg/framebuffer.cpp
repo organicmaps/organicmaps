@@ -2,6 +2,7 @@
 
 #include "framebuffer.hpp"
 #include "render_target.hpp"
+#include "renderbuffer.hpp"
 #include "internal/opengl.hpp"
 #include "utils.hpp"
 
@@ -40,20 +41,38 @@ namespace yg
 #ifndef OMIM_OS_ANDROID
       if (m_id != current())
 #endif
-      {
         OGLCHECK(glBindFramebufferFn(GL_FRAMEBUFFER_MWM, m_id));
-//        LOG(LINFO, ("FrameBuffer::makeCurrent", m_id));
-      }
 
       if (m_renderTarget)
         m_renderTarget->attachToFrameBuffer();
       else
+      {
+        if (m_id != 0)
+          OGLCHECK(glFramebufferRenderbufferFn(
+              GL_FRAMEBUFFER_MWM,
+              GL_COLOR_ATTACHMENT0_MWM,
+              GL_RENDERBUFFER_MWM,
+              0));
+
         utils::setupCoordinates(width(), height(), true);
+      }
       if (m_depthBuffer)
         m_depthBuffer->attachToFrameBuffer();
+      else
+      {
+        if (m_id != 0)
+          OGLCHECK(glFramebufferRenderbufferFn(
+              GL_FRAMEBUFFER_MWM,
+              GL_DEPTH_ATTACHMENT_MWM,
+              GL_RENDERBUFFER_MWM,
+              0));
+      }
 
       /// !!! it's a must for a correct work.
-      checkStatus();
+      /// update: it was necessary for multisampling,
+      /// but without it on KindleFire this function produces bug
+/*      if (m_id != 0)
+        checkStatus();*/
     }
 
     void FrameBuffer::setRenderTarget(shared_ptr<RenderTarget> const & renderTarget)
@@ -71,12 +90,12 @@ namespace yg
       m_renderTarget.reset();
     }
 
-    void FrameBuffer::setDepthBuffer(shared_ptr<RenderTarget> const & depthBuffer)
+    void FrameBuffer::setDepthBuffer(shared_ptr<RenderBuffer> const & depthBuffer)
     {
       m_depthBuffer = depthBuffer;
     }
 
-    shared_ptr<RenderTarget> const & FrameBuffer::depthBuffer() const
+    shared_ptr<RenderBuffer> const & FrameBuffer::depthBuffer() const
     {
       return m_depthBuffer;
     }
@@ -110,6 +129,7 @@ namespace yg
     void FrameBuffer::checkStatus()
     {
       GLenum res = glCheckFramebufferStatusFn(GL_FRAMEBUFFER_MWM);
+      OGLCHECKAFTER;
       if (res == GL_FRAMEBUFFER_UNSUPPORTED_MWM)
         LOG(LINFO, ("unsupported combination of attached target formats. could be possibly skipped"));
       else if (res == GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_MWM)

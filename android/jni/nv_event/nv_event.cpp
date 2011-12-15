@@ -860,29 +860,9 @@ void InitNVEvent(JavaVM* vm)
       (void *) onDestroyNative
     },
     {
-      "postUserEvent",
-      "(IIIIZ)Z",
-      (void *) postUserEvent
-    },
-    {
-      "touchEvent",
-      "(IIILandroid/view/MotionEvent;)Z",
-      (void *) NVEventTouchEvent
-    },
-    {
       "multiTouchEvent",
       "(IZZIIIILandroid/view/MotionEvent;)Z",
       (void *) NVEventMultiTouchEvent
-    },
-    {
-      "keyEvent",
-      "(IIILandroid/view/KeyEvent;)Z",
-      (void *) NVEventKeyEvent
-    },
-    {
-      "accelerometerEvent",
-      "(FFF)Z",
-      (void *) NVEventAccelerometerEvent
     },
   };
 

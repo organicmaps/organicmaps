@@ -6,6 +6,7 @@
 
 #include "../yg/internal/opengl.hpp"
 #include "../yg/render_state.hpp"
+#include "../yg/base_texture.hpp"
 
 #include "../geometry/transformations.hpp"
 
@@ -29,7 +30,7 @@ PartialRenderPolicy::PartialRenderPolicy(VideoTimer * videoTimer,
                                                                        4,
                                                                        true,
                                                                        false,
-                                                                       1,
+                                                                       2,
                                                                        "primaryStorage");
 
   rmp.m_smallStoragesParams = yg::ResourceManager::StoragePoolParams(2000 * sizeof(yg::gl::Vertex),
@@ -39,11 +40,11 @@ PartialRenderPolicy::PartialRenderPolicy(VideoTimer * videoTimer,
                                                                      4,
                                                                      true,
                                                                      false,
-                                                                     3,
+                                                                     1,
                                                                      "smallStorage");
 
-  rmp.m_blitStoragesParams = yg::ResourceManager::StoragePoolParams(10 * sizeof(yg::gl::AuxVertex),
-                                                                    sizeof(yg::gl::AuxVertex),
+  rmp.m_blitStoragesParams = yg::ResourceManager::StoragePoolParams(10 * sizeof(yg::gl::Vertex),
+                                                                    sizeof(yg::gl::Vertex),
                                                                     10 * sizeof(unsigned short),
                                                                     sizeof(unsigned short),
                                                                     50,
@@ -122,7 +123,7 @@ PartialRenderPolicy::PartialRenderPolicy(VideoTimer * videoTimer,
 
   m_renderQueue.reset(new RenderQueue(GetPlatform().SkinName(),
                 false,
-                true,
+                false,
                 0.1,
                 false,
                 GetPlatform().ScaleEtalonSize(),
@@ -216,10 +217,12 @@ void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
       {
         m_currentPacket.m_state->m_isDebugging = m_IsDebugging;
         m_currentPacket.m_state->apply(m_curState.get());
+//        OGLCHECK(glFinish());
         m_curState = m_currentPacket.m_state;
       }
       m_currentPacket.m_command->setIsDebugging(m_IsDebugging);
       m_currentPacket.m_command->perform();
+//      OGLCHECK(glFinish());
     }
     else
       break;
@@ -245,11 +248,11 @@ void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
       guard.Signal();
   }
 
-  OGLCHECK(glFinish());
+//  OGLCHECK(glFinish());
 
   m_state->apply(m_curState.get());
 
-  OGLCHECK(glFinish());
+//  OGLCHECK(glFinish());
 
   /// blitting actualTarget
 
@@ -264,6 +267,8 @@ void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   if (m_renderQueue->renderState().m_actualTarget.get() != 0)
   {
+    if (m_IsDebugging)
+      LOG(LINFO, ("actualTarget: ", m_renderQueue->renderState().m_actualTarget->id()));
     m2::PointD const ptShift = m_renderQueue->renderState().coordSystemShift(false);
 
     math::Matrix<double, 3, 3> m = m_renderQueue->renderState().m_actualScreen.PtoGMatrix() * s.GtoPMatrix();
@@ -273,7 +278,6 @@ void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
   }
 
   OGLCHECK(glFinish());
-
 }
 
 void PartialRenderPolicy::BeginFrame(shared_ptr<PaintEvent> const & paintEvent,

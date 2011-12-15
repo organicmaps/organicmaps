@@ -28,7 +28,7 @@ namespace
       for (size_t i = 0; i < 30; ++i)
       {
         m_pScreen->beginFrame();
-        m_pScreen->clear();
+        m_pScreen->clear(yg::gl::Screen::s_bgColor);
         m_pScreen->immDrawRect(
             m2::RectF(i * 15 + 20, 10, i * 15 + 30, 20),
             m2::RectF(),
@@ -59,7 +59,7 @@ namespace
       for (size_t i = 0; i < 30; ++i)
       {
         p->beginFrame();
-        p->clear();
+        p->clear(yg::gl::Screen::s_bgColor);
         p->immDrawSolidRect(
             m2::RectF(i * 15 + 20, 30, i * 15 + 30, 40),
             yg::Color(0, 0, 255, (globalCounter++) * (255 / 60) ));

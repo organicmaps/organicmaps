@@ -222,6 +222,7 @@ void RenderQueueRoutine::Do()
   params.m_frameBuffer = m_frameBuffer;
   params.m_renderState = m_renderState;
   params.m_doPeriodicalUpdate = m_doPeriodicalUpdate;
+  params.m_auxFrameBuffer = m_auxFrameBuffer;
   params.m_updateInterval = m_updateInterval;
   params.m_skinName = m_skinName;
   params.m_visualScale = m_visualScale;

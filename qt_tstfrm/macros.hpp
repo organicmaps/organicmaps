@@ -110,7 +110,7 @@ public:
   virtual void DoDraw(shared_ptr<yg::gl::Screen> p)
   {
     p->beginFrame();
-    p->clear();
+    p->clear(yg::gl::Screen::s_bgColor);
     test.DoDraw(p);
     p->endFrame();
   }

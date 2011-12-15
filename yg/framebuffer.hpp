@@ -17,7 +17,7 @@ namespace yg
       unsigned int m_id;
 
       shared_ptr<RenderTarget> m_renderTarget;
-      shared_ptr<RenderTarget> m_depthBuffer;
+      shared_ptr<RenderBuffer> m_depthBuffer;
 
       unsigned m_width;
       unsigned m_height;
@@ -33,8 +33,8 @@ namespace yg
       shared_ptr<RenderTarget> const & renderTarget() const;
       void resetRenderTarget();
 
-      void setDepthBuffer(shared_ptr<RenderTarget> const & depthBuffer);
-      shared_ptr<RenderTarget> const & depthBuffer() const;
+      void setDepthBuffer(shared_ptr<RenderBuffer> const & depthBuffer);
+      shared_ptr<RenderBuffer> const & depthBuffer() const;
       void resetDepthBuffer();
 
       void makeCurrent();

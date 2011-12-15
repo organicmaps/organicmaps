@@ -2,8 +2,10 @@
 
 #include "render_state_updater.hpp"
 #include "render_state.hpp"
+#include "renderbuffer.hpp"
 #include "framebuffer.hpp"
 #include "base_texture.hpp"
+#include "utils.hpp"
 
 #include "internal/opengl.hpp"
 
@@ -21,9 +23,12 @@ namespace yg
     RenderStateUpdater::RenderStateUpdater(Params const & params)
       : base_t(params),
       m_renderState(params.m_renderState),
+      m_auxFrameBuffer(params.m_auxFrameBuffer),
       m_doPeriodicalUpdate(params.m_doPeriodicalUpdate),
       m_updateInterval(params.m_updateInterval)
     {
+      if ((m_doPeriodicalUpdate) && (!m_auxFrameBuffer))
+        m_auxFrameBuffer.reset(new FrameBuffer());
     }
 
     shared_ptr<RenderState> const & RenderStateUpdater::renderState() const
@@ -51,6 +56,9 @@ namespace yg
 
     void RenderStateUpdater::UpdateActualTarget::perform()
     {
+      if (isDebugging())
+        LOG(LINFO, ("performing UpdateActualTarget command"));
+
       OGLCHECK(glFinish());
 
       if (m_doSynchronize)
@@ -75,7 +83,13 @@ namespace yg
 
       OGLCHECK(glDisable(GL_SCISSOR_TEST));
 
-      OGLCHECK(glClearColor(192 / 255.0, 192 / 255.0, 192 / 255.0, 1.0));
+      m_auxFrameBuffer->setRenderTarget(m_renderState->m_backBuffer);
+      m_auxFrameBuffer->makeCurrent();
+
+      OGLCHECK(glClearColor(s_bgColor.r / 255.0,
+                            s_bgColor.g / 255.0,
+                            s_bgColor.b / 255.0,
+                            s_bgColor.a / 255.0));
 
       OGLCHECK(glClear(GL_COLOR_BUFFER_BIT));
 
@@ -85,7 +99,10 @@ namespace yg
                                     m_renderState->m_actualTarget,
                                     m_resourceManager));
 
+      immDrawTexturedRect->setIsDebugging(isDebugging());
       immDrawTexturedRect->perform();
+
+      m_frameBuffer->makeCurrent();
 
       if (m_isClipRectEnabled)
         OGLCHECK(glEnable(GL_SCISSOR_TEST));
@@ -123,9 +140,9 @@ namespace yg
       command1->m_resourceManager = resourceManager();
       command1->m_isClipRectEnabled = clipRectEnabled();
       command1->m_doSynchronize = renderQueue();
+      command1->m_auxFrameBuffer = m_auxFrameBuffer;
+      command1->m_frameBuffer = frameBuffer();
 
-      /// blitting will be performed through
-      /// non-multisampled framebuffer for the sake of speed
       setRenderTarget(m_renderState->m_shadowBackBuffer);
 
       m_renderState->m_mutex->Unlock();

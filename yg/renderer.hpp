@@ -33,7 +33,7 @@ namespace yg
       {
         shared_ptr<FrameBuffer> m_frameBuffer;
         shared_ptr<RenderTarget> m_renderTarget;
-        shared_ptr<RenderTarget> m_depthBuffer;
+        shared_ptr<RenderBuffer> m_depthBuffer;
         shared_ptr<ResourceManager> m_resourceManager;
 
         void apply(BaseState const * prev);
@@ -96,7 +96,7 @@ namespace yg
 
       shared_ptr<FrameBuffer> m_frameBuffer;
       shared_ptr<RenderTarget> m_renderTarget;
-      shared_ptr<RenderTarget> m_depthBuffer;
+      shared_ptr<RenderBuffer> m_depthBuffer;
       shared_ptr<ResourceManager> m_resourceManager;
 
       ThreadedList<Packet> * m_renderQueue;
@@ -109,6 +109,8 @@ namespace yg
       unsigned int m_height;
 
     public:
+
+      static const yg::Color s_bgColor;
 
       Renderer(Params const & params = Params());
 
@@ -124,15 +126,15 @@ namespace yg
       void setRenderTarget(shared_ptr<RenderTarget> const & rt);
       shared_ptr<RenderTarget> const & renderTarget() const;
 
-      void setDepthBuffer(shared_ptr<RenderTarget> const & rt);
-      shared_ptr<RenderTarget> const & depthBuffer() const;
+      void setDepthBuffer(shared_ptr<RenderBuffer> const & rt);
+      shared_ptr<RenderBuffer> const & depthBuffer() const;
 
       /// @param clearRT - should we clear the renderTarget data (visible pixels)?
       /// @param clearDepth - should we clear depthBuffer data?
       /// @warning this function respects the clipping rect set and enabled(!)
       ///          by the setClipRect/enableClipRect. Whether the clipping is
       ///          not enabled -  the entire currently bound render surface is used.
-      void clear(yg::Color const & c = yg::Color(187, 187, 187, 255), bool clearRT = true, float depth = 1.0, bool clearDepth = true);
+      void clear(yg::Color const & c, bool clearRT = true, float depth = 1.0, bool clearDepth = true);
 
       void onSize(unsigned width, unsigned height);
 

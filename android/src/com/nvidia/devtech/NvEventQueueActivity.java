@@ -275,17 +275,17 @@ public abstract class NvEventQueueActivity
     }
 
     /** The number of bits requested for the red component */
-    protected int redSize     = 8;
+    protected int redSize     = 5;
     /** The number of bits requested for the green component */
-    protected int greenSize   = 8;
+    protected int greenSize   = 6;
     /** The number of bits requested for the blue component */
-    protected int blueSize    = 8;
+    protected int blueSize    = 5;
     /** The number of bits requested for the alpha component */
-    protected int alphaSize   = 8;
+    protected int alphaSize   = 0;
     /** The number of bits requested for the stencil component */
     protected int stencilSize = 8;
     /** The number of bits requested for the depth component */
-    protected int depthSize   = 24;
+    protected int depthSize   = 16;
 
     /** Attributes used when selecting the EGLConfig */
     protected int[] configAttrs = null;
