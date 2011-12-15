@@ -1,10 +1,15 @@
 #include "feature_utils.hpp"
+#include "feature_visibility.hpp"
 #include "classificator.hpp"
 #include "feature.hpp"
+#include "scales.hpp"
 
 #include "../geometry/point2d.hpp"
+
 #include "../base/base.hpp"
+
 #include "../std/vector.hpp"
+
 
 namespace feature
 {
@@ -46,25 +51,43 @@ public:
     m_TypeSmallVillage[2]  = GetType("place", "farm");
   }
 
-  m2::RectD GetViewport(FeatureType const & feature) const
+  void CorrectRectForScales(FeatureType const & f, m2::PointD const & center,
+                            bool forceCorrect, m2::RectD & rect) const
   {
-    m2::RectD limitRect = feature.GetLimitRect(-2);
-    if (feature.GetFeatureType() != feature::GEOM_POINT)
-      return limitRect;
-
-    m2::PointD maxSizeMeters(100, 100);
-    FeatureBase::GetTypesFn types;
-    feature.ForEachTypeRef(types);
-    for (size_t i = 0; i < types.m_size; ++i)
+    pair<int, int> const scaleR = feature::DrawableScaleRangeForText(f);
+    int const scale = scales::GetScaleLevel(rect);
+    if (forceCorrect || (scale < scaleR.first || scale > scaleR.second))
     {
-      m2::PointD const sizeMeters = GetSizeForType(types.m_types[i], feature);
-      maxSizeMeters.x = max(maxSizeMeters.x, sizeMeters.x);
-      maxSizeMeters.y = max(maxSizeMeters.y, sizeMeters.y);
+      rect = scales::GetRectForLevel(scaleR.first, center, 1.0);
+    }
+  }
+
+  m2::RectD GetViewport(FeatureType const & f) const
+  {
+    m2::RectD limitR = f.GetLimitRect(-2);
+    if (f.GetFeatureType() != feature::GEOM_POINT)
+    {
+      CorrectRectForScales(f, limitR.Center(), false, limitR);
+      return limitR;
     }
 
-    m2::PointD const centerXY = limitRect.Center();
-    return MercatorBounds::RectByCenterXYAndSizeInMeters(centerXY.x, centerXY.y,
-                                                         maxSizeMeters.x, maxSizeMeters.y);
+    FeatureBase::GetTypesFn types;
+    f.ForEachTypeRef(types);
+
+    m2::PointD maxSzM(0, 0);
+    for (size_t i = 0; i < types.m_size; ++i)
+    {
+      m2::PointD const szM = GetSizeForType(types.m_types[i], f);
+      maxSzM.x = max(maxSzM.x, szM.x);
+      maxSzM.y = max(maxSzM.y, szM.y);
+    }
+
+    m2::PointD const centerXY = limitR.Center();
+    m2::RectD res = MercatorBounds::RectByCenterXYAndSizeInMeters(
+                                        centerXY.x, centerXY.y, maxSzM.x, maxSzM.y);
+
+    CorrectRectForScales(f, centerXY, maxSzM == m2::PointD(0, 0), res);
+    return res;
   }
 
   uint8_t GetSearchRank(FeatureType const & feature) const
@@ -125,7 +148,7 @@ private:
     if (IsEqual(type, m_TypeVillage))
       return m2::PointD(1.5*km, 1.5*km);
 
-    return m2::PointD(100, 100);
+    return m2::PointD(0, 0);
   }
 
   static uint32_t GetType(string const & s1,
