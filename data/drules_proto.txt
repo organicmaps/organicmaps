@@ -3347,65 +3347,9 @@ cont {
 cont {
   name: "boundary-administrative-4"
   element {
-    scale: 12
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10439
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10466
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10586
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10790
-    }
-  }
-  element {
     scale: 16
     lines {
-      width: 2
+      width: 1
       color: 0xF9574B
       dashdot {
         dd: 12
