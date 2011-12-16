@@ -197,8 +197,8 @@ void RenderQueueRoutine::getUpdateAreas(
       areas.push_back(newRect);
     else
     {
-      int sx = newRect.SizeX() / 5;
-      int sy = newRect.SizeY() / 5;
+      int sx = ( newRect.SizeX() + 4 ) / 5;
+      int sy = ( newRect.SizeY() + 4 ) / 5;
       m2::RectI r(0, 0, sx, sy);
 
       areas.push_back(m2::Offset(r, 2 * sx, 2 * sy));
