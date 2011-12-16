@@ -247,31 +247,31 @@ public class LocationService implements LocationListener, SensorEventListener, W
       notifyCompassUpdated(event.timestamp, event.values[0], event.values[0] + m_magneticField.getDeclination(), m_magneticField.getDeclination());
   }
 
-  @Override
+  //@Override
   public void onAccuracyChanged(Sensor sensor, int accuracy)
   {
     Log.d(TAG, "Compass accuracy changed to " + String.valueOf(accuracy));
   }
 
-  @Override
+  //@Override
   public void onProviderDisabled(String provider)
   {
     Log.d(TAG, "Disabled location provider: " + provider);
   }
 
-  @Override
+  //@Override
   public void onProviderEnabled(String provider)
   {
     Log.d(TAG, "Enabled location provider: " + provider);
   }
 
-  @Override
+  //@Override
   public void onStatusChanged(String provider, int status, Bundle extras)
   {
     Log.d(TAG, String.format("Status changed for location provider: %s to %d", provider, status));
   }
 
-  @Override
+  //@Override
   public void onWifiLocationUpdated(Location l)
   {
     if (l != null)

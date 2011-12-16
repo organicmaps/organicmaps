@@ -82,13 +82,13 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     nativeLocationStatusChanged(newStatus);
   }
   
-  @Override
+  //@Override
   public void onLocationUpdated(long time, double lat, double lon, float accuracy)
   {
     nativeLocationUpdated(time, lat, lon, accuracy);
   }
 
-  @Override
+  //@Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, float accuracy)
   {
     nativeCompassUpdated(time, magneticNorth, trueNorth, accuracy);
