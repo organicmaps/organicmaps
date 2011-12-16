@@ -581,8 +581,13 @@ static jboolean NVEventAccelerometerEvent(JNIEnv* env, jobject thiz, jfloat valu
 ///////////////////////////////////////////////////////////////////////////////
 // Java to Native app lifecycle callback functions
 
+static jboolean onDestroyNative(JNIEnv* env, jobject thiz);
+
 static jboolean onCreateNative(JNIEnv* env, jobject thiz)
 {
+  if (s_globalThiz)
+    onDestroyNative(env, thiz);
+
   ZeroAppFlags();
 
   if (!s_globalThiz)
