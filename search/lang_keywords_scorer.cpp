@@ -23,8 +23,7 @@ uint32_t LangKeywordsScorer::Score(int8_t lang, strings::UniString const & name)
 {
   buffer_vector<strings::UniString, MAX_TOKENS> tokens;
   SplitUniString(name, MakeBackInsertFunctor(tokens), Delimiters());
-  ASSERT_LESS(tokens.size(), size_t(MAX_TOKENS), ());
-  return Score(lang, tokens.data(), static_cast<int>(tokens.size()));
+  return Score(lang, tokens.data(), min(MAX_TOKENS-1, static_cast<int>(tokens.size())));
 }
 
 uint32_t LangKeywordsScorer::Score(int8_t lang,
