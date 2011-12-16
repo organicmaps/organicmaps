@@ -31,13 +31,12 @@ namespace search
 Query::Query(Index const * pIndex,
              CategoriesMapT const * pCategories,
              StringsToSuggestVectorT const * pStringsToSuggest,
-             storage::CountryInfoGetter const * pInfoGetter,
-             int preferredLanguage)
+             storage::CountryInfoGetter const * pInfoGetter)
   : m_pIndex(pIndex),
     m_pCategories(pCategories),
     m_pStringsToSuggest(pStringsToSuggest),
     m_pInfoGetter(pInfoGetter),
-    m_preferredLanguage(preferredLanguage),
+    m_preferredLanguage(StringUtf8Multilang::GetLangIndex("en")),
     m_viewport(m2::RectD::GetEmptyRect()), m_viewportExtended(m2::RectD::GetEmptyRect()),
     m_bOffsetsCacheIsValid(false)
 {
@@ -61,9 +60,9 @@ void Query::SetViewport(m2::RectD const & viewport)
   }
 }
 
-void Query::SetPreferredLanguage(int lang)
+void Query::SetPreferredLanguage(string const & lang)
 {
-  m_preferredLanguage = lang;
+  m_preferredLanguage = StringUtf8Multilang::GetLangIndex(lang);
 }
 
 void Query::ClearCache()
@@ -300,6 +299,7 @@ void Query::SearchFeatures()
   m_pIndex->GetMwmInfo(mwmInfo);
 
   unordered_set<int8_t> langs;
+  langs.insert(m_preferredLanguage);
   langs.insert(StringUtf8Multilang::GetLangIndex("int_name"));
   langs.insert(StringUtf8Multilang::GetLangIndex("en"));
   langs.insert(StringUtf8Multilang::GetLangIndex("default"));

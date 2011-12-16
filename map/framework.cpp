@@ -6,6 +6,7 @@
 #include "../defines.hpp"
 
 #include "../platform/settings.hpp"
+#include "../platform/preferred_languages.hpp"
 
 #include "../yg/rendercontext.hpp"
 
@@ -615,6 +616,7 @@ search::Engine * Framework::GetSearchEngine()
             new search::Engine(&m_model.GetIndex(), new CategoriesHolder(*pReader),
                                pl.GetReader(PACKED_POLYGONS_FILE),
                                pl.GetReader(COUNTRIES_FILE)));
+      m_pSearchEngine->SetPreferredLanguage(languages::CurrentLanguage());
     }
   }
   return m_pSearchEngine.get();
