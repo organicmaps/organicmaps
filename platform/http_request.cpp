@@ -9,11 +9,27 @@
 #endif
 
 #include "../base/std_serialization.hpp"
+#include "../base/logging.hpp"
 
 #include "../coding/file_writer_stream.hpp"
 #include "../coding/file_reader_stream.hpp"
 
 #include "../std/scoped_ptr.hpp"
+
+#ifdef OMIM_OS_IPHONE
+
+#include <sys/xattr.h>
+
+void DisableiCloudBackupForFile(string const & filePath)
+{
+  static char const * attrName = "com.apple.MobileBackup";
+  u_int8_t attrValue = 1;
+  const int result = setxattr(filePath.c_str(), attrName, &attrValue, sizeof(attrValue), 0, 0);
+  if (result != 0)
+    LOG(LWARNING, ("Error while disabling iCloud backup for file", filePath));
+}
+
+#endif // OMIM_OS_IPHONE
 
 class HttpThread;
 
@@ -166,6 +182,11 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
         FileWriter::DeleteFileX(m_filePath + RESUME_FILE_EXTENSION);
         // rename finished file to it's original name
         rename((m_filePath + DOWNLOADING_FILE_EXTENSION).c_str(), m_filePath.c_str());
+#ifdef OMIM_OS_IPHONE
+        // We need to disable iCloud backup for downloaded files.
+        // This is the reason for rejecting from the AppStore
+        DisableiCloudBackupForFile(m_filePath.c_str());
+#endif
       }
       else // or save "chunks left" otherwise
         SaveRanges(m_filePath + RESUME_FILE_EXTENSION, m_strategy.ChunksLeft());
@@ -199,6 +220,9 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
       FileWriterStream fws(file);
       fws << ranges;
     }
+#ifdef OMIM_OS_IPHONE
+    DisableiCloudBackupForFile(file);
+#endif
   }
 
   struct CalcRanges
@@ -234,6 +258,10 @@ public:
       m_strategy.SetChunksToDownload(ranges);
     }
 
+#ifdef OMIM_OS_IPHONE
+    m_writer->Flush();
+    DisableiCloudBackupForFile(filePath + DOWNLOADING_FILE_EXTENSION);
+#endif
     StartThreads();
   }
 
