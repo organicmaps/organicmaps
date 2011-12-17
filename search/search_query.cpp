@@ -152,7 +152,7 @@ void Query::Search(string const & query,
     m_pKeywordsScorer.reset(new LangKeywordsScorer(langPriorities,
                                                    m_tokens.data(), m_tokens.size(), &m_prefix));
 
-    m_results = my::limited_priority_queue<impl::IntermediateResult>(resultsNeeded);
+    m_results = QueueT(resultsNeeded);
   }
 
   // Match (lat, lon).
@@ -175,16 +175,29 @@ void Query::Search(string const & query,
   FlushResults(f);
 }
 
-void Query::AddResult(impl::IntermediateResult const & result)
+void Query::AddResult(ResultT const & result)
 {
-  m_results.push(result);
+  // don't add equal features
+  if (m_results.end() == find_if(m_results.begin(), m_results.end(), ResultT::StrictEqualF(result)))
+    m_results.push(result);
 }
 
 void Query::FlushResults(function<void (Result const &)> const & f)
 {
-  vector<impl::IntermediateResult> v(m_results.begin(), m_results.end());
-  sort_heap(v.begin(), v.end());
-  for (vector<impl::IntermediateResult>::const_iterator it = v.begin(); it != v.end(); ++it)
+  vector<ResultT> v(m_results.begin(), m_results.end());
+
+  // remove duplicating linear objects
+  sort(v.begin(), v.end(), ResultT::LessLinearTypesF());
+  //LOG(LDEBUG, ("After sort: ", v));
+
+  v.erase(unique(v.begin(), v.end(), ResultT::EqualLinearTypesF()), v.end());
+  //LOG(LDEBUG, ("After unique: ", v));
+
+  // sort in rank order
+  sort(v.begin(), v.end(), ResultT::LessOrderF());
+
+  // emit results
+  for (vector<ResultT>::const_iterator it = v.begin(); it != v.end(); ++it)
     f(it->GenerateFinalResult());
 }
 

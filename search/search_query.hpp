@@ -84,7 +84,9 @@ private:
   bool m_bOffsetsCacheIsValid;
   vector<unordered_set<uint32_t> > m_offsetsInViewport;
 
-  my::limited_priority_queue<impl::IntermediateResult> m_results;
+  typedef impl::IntermediateResult ResultT;
+  typedef my::limited_priority_queue<ResultT, ResultT::LessOrderF> QueueT;
+  QueueT m_results;
 };
 
 }  // namespace search

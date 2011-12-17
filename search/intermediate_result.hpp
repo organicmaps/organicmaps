@@ -29,9 +29,37 @@ public:
   // For RESULT_CATEGORY.
   IntermediateResult(string const & name, int penalty);
 
-  bool operator < (IntermediateResult const & o) const;
-
   Result GenerateFinalResult() const;
+
+  /// Results order functor.
+  struct LessOrderF
+  {
+    bool operator() (IntermediateResult const & r1, IntermediateResult const & r2) const;
+  };
+
+  /// Filter equal features for different mwm's.
+  class StrictEqualF
+  {
+    IntermediateResult const & m_r;
+  public:
+    StrictEqualF(IntermediateResult const & r) : m_r(r) {}
+    bool operator() (IntermediateResult const & r) const;
+  };
+
+  /// To filter equal linear objects.
+  //@{
+  struct LessLinearTypesF
+  {
+    bool operator() (IntermediateResult const & r1, IntermediateResult const & r2) const;
+  };
+  class EqualLinearTypesF
+  {
+  public:
+    bool operator() (IntermediateResult const & r1, IntermediateResult const & r2) const;
+  };
+  //@}
+
+  string DebugPrint() const;
 
 private:
   static double ResultDistance(m2::PointD const & viewportCenter,
@@ -47,6 +75,11 @@ private:
   ResultType m_resultType;
   uint8_t m_searchRank;
 };
+
+inline string DebugPrint(IntermediateResult const & t)
+{
+  return t.DebugPrint();
+}
 
 }  // namespace search::impl
 }  // namespace search
