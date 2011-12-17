@@ -152,7 +152,7 @@ class DownloadChunkTask extends AsyncTask<Void, Long, Void>
           urlConnection.setRequestProperty("Range", String.format("bytes=%1$d-", m_beg));
       }
 
-      if (!m_postBody.isEmpty())
+      if (m_postBody.length() != 0)
       {
         Log.d(TAG, ("writing POST body"));
         

@@ -102,11 +102,9 @@ public abstract class NvEventQueueActivity
    {
      System.out.println("**** onCreate");
      super.onCreate(savedInstanceState);
-        
-     System.out.println("**** onCreate: Creating default view");        
-     view3d = new SurfaceView(this);
-     setContentView(view3d);
      
+     view3d = new SurfaceView(this);  
+    
      SurfaceHolder holder = view3d.getHolder();
      holder.setType(SurfaceHolder.SURFACE_TYPE_GPU);
 

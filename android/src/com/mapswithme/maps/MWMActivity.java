@@ -1,6 +1,7 @@
 package com.mapswithme.maps;
 
 import java.io.File;
+import java.util.Locale;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.location.LocationService;
@@ -12,11 +13,18 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 public class MWMActivity extends NvEventQueueActivity implements LocationService.Listener
@@ -27,7 +35,12 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private final static String PACKAGE_NAME = "com.mapswithme.maps";
   
   private int m_locationIconRes;
+  private int m_downloadMapsIconRes;
   private boolean m_locationStarted = false;
+  
+  private BitmapFactory m_bitmapFactory = null;
+  private ImageButton m_btnLocation = null;
+  private ImageButton m_btnDownloadMaps = null;
   
   private LocationService m_locationService = null; 
 
@@ -102,11 +115,107 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private native void setMeasurementSystem(int u);
   private native void setupMeasurementSystem();
   
+  private void updateButtonIcons()
+  {
+    m_btnLocation.setImageBitmap(BitmapFactory.decodeResource(getResources(), m_locationIconRes));
+    m_btnDownloadMaps.setImageBitmap(BitmapFactory.decodeResource(getResources(), m_downloadMapsIconRes));
+  }
+  
+  private void onLocationClicked()
+  {
+    if (m_locationStarted)
+      m_locationService.stopUpdate(this);
+    else
+      m_locationService.startUpdate(this, this);
+    m_locationStarted = !m_locationStarted;
+  }
+  
+  private void onDownloadMapsClicked()
+  {
+    m_downloadMapsIconRes = R.drawable.ic_download_highlighted;
+    updateButtonIcons();
+    Intent intent = new Intent(this, DownloadUI.class);
+    startActivity(intent);
+  }
+  
+  public void setupLayout()
+  {
+    m_bitmapFactory = new BitmapFactory();
+    
+    FrameLayout mapLayout = new FrameLayout(this);
+    LinearLayout mapButtons = new LinearLayout(this);
+    
+    m_btnLocation = new ImageButton(this);
+
+    m_btnLocation.setBackgroundDrawable(null);
+    m_btnLocation.setOnClickListener(new View.OnClickListener(){
+          public void onClick(View view){
+            onLocationClicked();
+          }});
+
+    m_locationIconRes = R.drawable.ic_location;
+    
+    m_btnDownloadMaps = new ImageButton(this);
+    m_btnDownloadMaps.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_download));
+    m_btnDownloadMaps.setBackgroundDrawable(null);
+    m_btnDownloadMaps.setOnClickListener(new View.OnClickListener(){
+          public void onClick(View v){
+            onDownloadMapsClicked();
+        }});
+    
+    m_downloadMapsIconRes = R.drawable.ic_download;
+  
+    DisplayMetrics m = new DisplayMetrics();
+    getWindowManager().getDefaultDisplay().getMetrics(m);
+    
+    Log.d(TAG, "screen density koeff is: " + m.density);
+        
+    LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 
+                                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+    
+    p.setMargins((int)(10 * m.density), 
+                 (int)(10 * m.density), 
+                 (int)(0 * m.density), 
+                 (int)(5 * m.density));
+    
+
+    mapButtons.setGravity(Gravity.BOTTOM);    
+    
+    mapButtons.addView(m_btnLocation, p);
+
+    LinearLayout.LayoutParams p1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 
+                                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+    
+    p1.setMargins((int)(0 * m.density), 
+                 (int)(10 * m.density), 
+                 (int)(0 * m.density), 
+                 (int)(5 * m.density));
+    
+    
+    mapButtons.addView(m_btnDownloadMaps, p1);
+
+    mapLayout.addView(view3d);
+    mapLayout.addView(mapButtons);
+
+    updateButtonIcons();
+    
+    setContentView(mapLayout);     
+  }
+  
+  private void setupLanguages()
+  {
+    /*Log.d(TAG, "Default Language : " + Locale.getDefault().getLanguage());
+    for (Locale l : Locale.getAvailableLocales())
+      Log.d(TAG, l.getLanguage() + " : " + l.getVariant() + " : " + l.toString());*/
+  }
+  
   @Override
   public void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    
+
+    setupLayout();
+        
     final String storagePath = getDataStoragePath();
     // create folder if it doesn't exist
     File f = new File(storagePath);
@@ -121,10 +230,12 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       e.printStackTrace();
     }
 
+    setupLanguages();
+    
     checkMeasurementSystem();
     
     m_timer = new VideoTimer();
-    m_locationIconRes = R.drawable.ic_menu_location;
+
     m_locationService = new LocationService(this);
   }
   
@@ -134,14 +245,17 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     switch (newStatus)
     {
     case LocationService.FIRST_EVENT:
-      m_locationIconRes = R.drawable.ic_menu_location_found;
+      m_locationIconRes = R.drawable.ic_location_found;
       break;
     case LocationService.STARTED:
-      m_locationIconRes = R.drawable.ic_menu_location_search;
+      m_locationIconRes = R.drawable.ic_location_search;
       break;
     default:
-      m_locationIconRes = R.drawable.ic_menu_location;
+      m_locationIconRes = R.drawable.ic_location;
     }
+    
+    updateButtonIcons();
+    
     nativeLocationStatusChanged(newStatus);
   }
   
@@ -160,8 +274,13 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onPause()
   {
+    int m_oldLocationIconRes = m_locationIconRes;
+    
     if (m_locationStarted)
       m_locationService.stopUpdate(this);
+    
+    m_locationIconRes = m_oldLocationIconRes;
+    updateButtonIcons();
 
     super.onPause();
   }
@@ -169,12 +288,16 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onResume()
   {
+    m_downloadMapsIconRes = R.drawable.ic_download;
+    updateButtonIcons();
+    
     if (m_locationStarted)
       m_locationService.startUpdate(this, this);
 
     super.onResume();    
   }
 
+    
   @Override
   public boolean onCreateOptionsMenu(Menu menu)
   {
@@ -198,16 +321,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     switch (item.getItemId())
     {
     case R.id.my_position:
-      if (m_locationStarted)
-        m_locationService.stopUpdate(this);
-      else
-        m_locationService.startUpdate(this, this);
-      m_locationStarted = !m_locationStarted;
       return true;
 
     case R.id.download_maps:
-      Intent intent = new Intent(this, DownloadUI.class);
-      startActivity(intent);
       return true;
 
     default:
