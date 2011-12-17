@@ -39,5 +39,5 @@ namespace Settings
     StringStorage::Instance().SetValue(key, ToString(value));
   }
 
-  enum Units { Metric, Yard, Foot };
+  enum Units { Metric = 0, Yard, Foot };
 }

@@ -95,7 +95,12 @@ void InformationDisplay::drawRuler(DrawerYG * pDrawer)
   m_ruler.setFontDesc(rulerFont);
   m_ruler.setVisualScale(m_visualScale);
 
-#ifdef OMIM_OS_IPHONE
+#if defined(OMIM_OS_IPHONE)
+  m2::PointD pivot(m2::PointD(m_displayRect.maxX(),
+                              m_displayRect.maxY() - 20 * m_visualScale)
+                 + m2::PointD(-10 * m_visualScale, - 10 * m_visualScale));
+  m_ruler.setPosition(yg::EPosAboveLeft);
+#elif defined(OMIM_OS_ANDROID)
   m2::PointD pivot(m2::PointD(m_displayRect.maxX(),
                               m_displayRect.maxY() - 20 * m_visualScale)
                  + m2::PointD(-10 * m_visualScale, - 10 * m_visualScale));
@@ -145,7 +150,11 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
   params.m_fontDesc.m_color = yg::Color(0x44, 0x44, 0x44, 0xD9);
   params.m_log2vis = false;
 
-#ifdef OMIM_OS_IPHONE
+#if defined(OMIM_OS_IPHONE)
+  params.m_pivot = m2::PointD(m_displayRect.maxX() - 10 * m_visualScale,
+                              m_displayRect.maxY() - 10 * m_visualScale);
+  params.m_position = yg::EPosAboveLeft;
+#elif defined(OMIM_OS_ANDROID)
   params.m_pivot = m2::PointD(m_displayRect.maxX() - 10 * m_visualScale,
                               m_displayRect.maxY() - 10 * m_visualScale);
   params.m_position = yg::EPosAboveLeft;

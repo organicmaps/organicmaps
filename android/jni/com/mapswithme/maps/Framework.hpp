@@ -60,6 +60,8 @@ namespace android
 
     void LoadState();
     void SaveState();
+
+    void SetupMeasurementSystem();
   };
 }
 

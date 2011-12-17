@@ -15,6 +15,7 @@
 
 #include "Framework.hpp"
 #include "../platform/Platform.hpp"
+#include "../../../../../platform/settings.hpp"
 #include "../../../nv_event/nv_event.hpp"
 #include "../jni/jni_thread.hpp"
 
@@ -73,4 +74,33 @@ extern "C"
   {
     g_framework->OnCompassUpdated(time, magneticNorth, trueNorth, accuracy);
   }
+
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_MWMActivity_hasMeasurementSystem(JNIEnv * env, jobject thiz)
+  {
+    Settings::Units u;
+    return Settings::Get("Units", u);
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMActivity_setMeasurementSystem(JNIEnv * env, jobject thiz, jint systemIdx)
+  {
+    Settings::Units u = (Settings::Units)systemIdx;
+    Settings::Set("Units", u);
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMActivity_setupMeasurementSystem(JNIEnv * env, jobject thiz)
+  {
+    g_framework->SetupMeasurementSystem();
+  }
+
+  JNIEXPORT jint JNICALL
+  Java_com_mapswithme_maps_MWMActivity_getMeasurementSystem(JNIEnv * env, jobject thiz)
+  {
+    Settings::Units u = Settings::Metric;
+    Settings::Get("Units", u);
+    return u;
+  }
+
 } // extern "C"

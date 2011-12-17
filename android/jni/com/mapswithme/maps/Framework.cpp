@@ -284,4 +284,9 @@ namespace android
   {
     m_work.Invalidate();
   }
+
+  void Framework::SetupMeasurementSystem()
+  {
+    m_work.SetupMeasurementSystem();
+  }
 }

@@ -6,6 +6,8 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.location.LocationService;
 import com.nvidia.devtech.NvEventQueueActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -41,6 +43,64 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
     return storagePath.concat(String.format("/%s/", PACKAGE_NAME));
   }
+
+  private void checkMeasurementSystem()
+  {
+    int u;
+    if (!hasMeasurementSystem())
+    {
+      /// checking system-default measurement system
+      
+      if (UnitLocale.getCurrent() == UnitLocale.Metric)
+      {
+        u = UNITS_METRIC;
+        setupMeasurementSystem();
+      }
+      else
+      {
+        u = UNITS_FOOT;
+
+        /// showing "select measurement system" dialog.
+        AlertDialog alert = new AlertDialog.Builder(this).create();  
+        alert.setCancelable(false); 
+
+        alert.setMessage("Which measurement system do you prefer?");
+      
+        alert.setButton(AlertDialog.BUTTON_NEGATIVE, "Mi", new DialogInterface.OnClickListener(){
+          public void onClick(DialogInterface dialog, int which){
+            setMeasurementSystem(UNITS_FOOT);
+            setupMeasurementSystem();
+            dialog.dismiss();
+            }
+          });
+      
+        alert.setButton(AlertDialog.BUTTON_POSITIVE, "Km", new DialogInterface.OnClickListener(){
+          public void onClick(DialogInterface dlg, int which){
+            setMeasurementSystem(UNITS_METRIC);
+            setupMeasurementSystem();
+            dlg.dismiss();
+            }
+          });
+      
+        alert.show();
+      }
+      
+      setMeasurementSystem(u);
+    }
+    else
+      setupMeasurementSystem();
+  }
+  
+  private native boolean hasMeasurementSystem();
+
+  
+  private final int UNITS_METRIC = 0;
+  private final int UNITS_YARD = 1;
+  private final int UNITS_FOOT = 2;
+
+  private native int getMeasurementSystem();    
+  private native void setMeasurementSystem(int u);
+  private native void setupMeasurementSystem();
   
   @Override
   public void onCreate(Bundle savedInstanceState)
@@ -61,10 +121,13 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       e.printStackTrace();
     }
 
+    checkMeasurementSystem();
+    
     m_timer = new VideoTimer();
     m_locationIconRes = R.drawable.ic_menu_location;
     m_locationService = new LocationService(this);
   }
+  
   
   public void onLocationStatusChanged(int newStatus)
   {
