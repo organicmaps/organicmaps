@@ -114,7 +114,7 @@ namespace
   uint8_t FirstLevelIndex(uint32_t t)
   {
     uint8_t v;
-    CHECK(ftype::GetValue(t, 0, v), (t));
+    VERIFY ( ftype::GetValue(t, 0, v), (t) );
     return v;
   }
 
