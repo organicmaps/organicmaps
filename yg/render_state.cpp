@@ -55,6 +55,9 @@ namespace yg
 
         m_textureWidth = static_cast<uint32_t>(pow(2, ceil(log(double(w)) / log2)));
         m_textureHeight = static_cast<uint32_t>(pow(2, ceil(log(double(h)) / log2)));
+
+        m_textureWidth = max(m_textureWidth, m_textureHeight);
+        m_textureHeight = max(m_textureWidth, m_textureHeight);
       }
     }
 
