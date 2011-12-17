@@ -2,12 +2,14 @@
 
 #include "../defines.hpp"
 
+#include "../coding/file_reader.hpp"
+#include "../coding/file_writer.hpp"
+
 #include "../geometry/rect2d.hpp"
 #include "../geometry/any_rect2d.hpp"
 
 #include "../platform/platform.hpp"
 
-#include "../std/fstream.hpp"
 #include "../std/sstream.hpp"
 
 #define DELIM_CHAR  '='
@@ -16,33 +18,44 @@ namespace Settings
 {
   StringStorage::StringStorage()
   {
-    ifstream stream(GetPlatform().WritablePathForFile(SETTINGS_FILE_NAME).c_str());
-    string line;
-
-    while (stream.good())
+    try
     {
-      std::getline(stream, line);
-      if (line.empty())
-        continue;
+      string str;
+      ReaderPtr<Reader>(GetPlatform().GetReader(SETTINGS_FILE_NAME)).ReadAsString(str);
+      istringstream stream(str);
+      string line;
+      while (stream.good())
+      {
+        std::getline(stream, line);
+        if (line.empty())
+          continue;
 
-      size_t const delimPos = line.find(DELIM_CHAR);
-      if (delimPos == string::npos)
-        continue;
+        size_t const delimPos = line.find(DELIM_CHAR);
+        if (delimPos == string::npos)
+          continue;
 
-      string const key = line.substr(0, delimPos);
-      string const value = line.substr(delimPos + 1);
-      if (!key.empty() && !value.empty())
-        m_values[key] = value;
+        string const key = line.substr(0, delimPos);
+        string const value = line.substr(delimPos + 1);
+        if (!key.empty() && !value.empty())
+          m_values[key] = value;
+      }
     }
+    catch (std::exception const & e)
+    {}
   }
 
   void StringStorage::Save() const
   {
-    ofstream stream(GetPlatform().WritablePathForFile(SETTINGS_FILE_NAME).c_str());
-    // safe file working here
-    if (stream.good())
-      for (ContainerT::const_iterator it = m_values.begin(); it != m_values.end(); ++it)
-        stream << it->first << DELIM_CHAR << it->second << std::endl;
+    // @TODO add mutex
+    FileWriter file(GetPlatform().WritablePathForFile(SETTINGS_FILE_NAME));
+    for (ContainerT::const_iterator it = m_values.begin(); it != m_values.end(); ++it)
+    {
+      string line(it->first);
+      line += DELIM_CHAR;
+      line += it->second;
+      line += "\n";
+      file.Write(line.data(), line.size());
+    }
   }
 
   StringStorage & StringStorage::Instance()
