@@ -355,7 +355,11 @@ namespace storage
       if (i != string::npos)
         file = file.substr(i+1);
 
-      GetPlatform().RunAsync(bind(&Storage::GenerateSearchIndex, this, cref(file)));
+      // Generate search index if it's supported in this build
+      if (GetPlatform().IsFeatureSupported("search"))
+        GetPlatform().RunAsync(bind(&Storage::GenerateSearchIndex, this, cref(file)));
+      else // Or simply activate downloaded map
+        UpdateAfterSearchIndex(file);
     }
     m_request.reset();
     DownloadNextCountryFromQueue();
