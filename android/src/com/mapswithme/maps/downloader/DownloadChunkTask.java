@@ -1,66 +1,48 @@
 package com.mapswithme.maps.downloader;
 
 import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-
-import org.apache.http.util.ByteArrayBuffer;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
-// Checks if incomplete file exists and resumes it's download
-// Downloads from scratch otherwise
-class DownloadChunkTask extends AsyncTask<Void, Long, Void>
+class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
 {
-  private final String TAG = "DownloadFilesTask";
+  private static final String TAG = "DownloadChunkTask";
   
   private long m_httpCallbackID;
   private String m_url;
   private long m_beg;
   private long m_end;
+  private long m_expectedFileSize;
   private String m_postBody;
-  private long m_requestedSize;
   
-  /// results of execution
-  
-  private List<byte[]> m_chunks;
-  private boolean m_hasError;
-  private boolean m_isCancelled;
-  private long m_response;
-  private long m_downloadedSize;
-    
+  private final int NOT_SET = -1;
+  private final int IO_ERROR = -2;
+  private final int INVALID_URL = -3;
+  private int m_httpErrorCode = NOT_SET;
+  private long m_downloadedBytes = 0;
+
   native void onWrite(long httpCallbackID, long beg, byte [] data, long size);
   native void onFinish(long httpCallbackID, long httpCode, long beg, long end);
   
-  public DownloadChunkTask(long httpCallbackID, String url, long beg, long end, long size, String postBody)
+  public DownloadChunkTask(long httpCallbackID, String url, long beg, long end, long expectedFileSize, String postBody)
   {
-    Log.d(TAG, String.format("creating new task: %1$d, %2$s, %3$d, %4$d, %5$d, %6$s", httpCallbackID, url, beg, end, size, postBody));
-    
     m_httpCallbackID = httpCallbackID;
     m_url = url;
     m_beg = beg;
     m_end = end;
-    m_requestedSize = end - beg + 1;
+    m_expectedFileSize = expectedFileSize;
     m_postBody = postBody;
-    m_chunks = new ArrayList<byte[]>();
-    m_isCancelled = false;
   }
   
-  protected void markAsCancelled()
-  {
-    m_isCancelled = true;    
-  }
-
   @Override
   protected void onPreExecute()
   {
@@ -69,46 +51,24 @@ class DownloadChunkTask extends AsyncTask<Void, Long, Void>
   @Override
   protected void onPostExecute(Void resCode)
   {
-    if (m_isCancelled)
-    {
-      Log.d(TAG, String.format("downloading was cancelled, chunk %1$d, %2$d", m_beg, m_end));
-      return;
-    }
-    
-    if (!m_hasError)
-    {
-      byte [] buf = new byte[(int) m_downloadedSize];
-      int offs = 0;
-
-      Iterator<byte[]> it = m_chunks.iterator();
-      
-      while (it.hasNext())
-      {
-        byte [] chunk = it.next();
-        System.arraycopy(chunk, 0, buf, offs, chunk.length);
-        offs += chunk.length;
-      }
-      
-      Log.d(TAG, "merged chunk " + m_downloadedSize + " byte length");
-      
-      if (m_downloadedSize != m_requestedSize)
-        Log.d(TAG, "chunk size mismatch, requested " + m_requestedSize + " bytes, downloaded " + m_downloadedSize + " bytes");
-      
-      onWrite(m_httpCallbackID, m_beg, buf, m_downloadedSize);
-    }
-
-    Log.d(TAG, "finishing download with error code " + m_response);
-    onFinish(m_httpCallbackID, m_response, m_beg, m_end);
+    Log.d(TAG, "Successfully finishing download");
+    onFinish(m_httpCallbackID, 200, m_beg, m_end);
   }
   
   @Override
   protected void onCancelled()
   {
+    // Report error in callback only if we're not forcibly canceled
+    if (m_httpErrorCode != NOT_SET)
+      onFinish(m_httpCallbackID, m_httpErrorCode, m_beg, m_end);
   }
 
   @Override
-  protected void onProgressUpdate(Long... progress)
+  protected void onProgressUpdate(byte []... data)
   {
+    // Use progress event to save downloaded bytes
+    onWrite(m_httpCallbackID, m_beg + m_downloadedBytes, data[0], (long)data[0].length);
+    m_downloadedBytes += data[0].length;
   }
   
   void start()
@@ -134,29 +94,28 @@ class DownloadChunkTask extends AsyncTask<Void, Long, Void>
         return null;
       }
       
-      Log.d(TAG, String.format("configuring connection parameter for range %1$d : %2$d", m_beg, m_end));
+      Log.d(TAG, String.format("configuring connection parameter for range %d : %d", m_beg, m_end));
       
-      urlConnection.setDoOutput(true);
       urlConnection.setChunkedStreamingMode(0);
-      urlConnection.setRequestProperty("Content-Type", "application/json");
       urlConnection.setUseCaches(false);
       urlConnection.setConnectTimeout(15 * 1000);
+      urlConnection.setReadTimeout(15 * 1000);
       
-      if (m_beg != -1)
+      // use Range header only if we don't download whole file from start
+      if (!(m_beg == 0 && m_end < 0))
       {
-        Log.d(TAG, ("setting requested range"));
-
-        if (m_end != -1)
-          urlConnection.setRequestProperty("Range", String.format("bytes=%1$d-%2$d", m_beg, m_end));
+        if (m_end > 0)
+          urlConnection.setRequestProperty("Range", String.format("bytes=%d-%d", m_beg, m_end));
         else
-          urlConnection.setRequestProperty("Range", String.format("bytes=%1$d-", m_beg));
+          urlConnection.setRequestProperty("Range", String.format("bytes=%d-", m_beg));
       }
 
       if (m_postBody.length() != 0)
       {
         Log.d(TAG, ("writing POST body"));
-        
-        DataOutputStream os = new DataOutputStream(urlConnection.getOutputStream());
+        urlConnection.setDoOutput(true);
+        urlConnection.setRequestProperty("Content-Type", "application/json");
+        final DataOutputStream os = new DataOutputStream(urlConnection.getOutputStream());
         os.writeChars(m_postBody);
       }
       
@@ -168,68 +127,46 @@ class DownloadChunkTask extends AsyncTask<Void, Long, Void>
       
       Log.d(TAG, ("getting response"));
       
-      int response = urlConnection.getResponseCode();
-      if (response == HttpURLConnection.HTTP_OK 
-       || response == HttpURLConnection.HTTP_PARTIAL)
+      final int err = urlConnection.getResponseCode();
+      if (err != HttpURLConnection.HTTP_OK && err != HttpURLConnection.HTTP_PARTIAL)
       {
-        InputStream is = urlConnection.getInputStream();
-        
-        byte [] tempBuf = new byte[1024 * 64];
-        
-        try
-        {
-          while (true)
-          {
-            if (isCancelled())
-            {
-              urlConnection.disconnect();
-              return null;
-            }
-            
-            long readBytes = is.read(tempBuf);
-            
-            if (readBytes == -1)
-            {
-              Log.d(TAG, String.format("finished downloading interval %1$d : %2$d with response code %3$d", m_beg, m_end, response));
-              m_hasError = false;
-              m_response = 200;
-              break;
-            }
-            else
-            {
-              byte [] chunk = new byte[(int)readBytes];
-              System.arraycopy(tempBuf, 0, chunk, 0, (int)readBytes);
-              m_chunks.add(chunk);
-              m_downloadedSize += chunk.length;
-            }
-          }
-        }
-        catch (IOException ex)
-        {
-          Log.d(TAG, String.format("error occured while downloading range %1$d : %2$d, terminating chunk download", m_beg, m_end));          
-          
-          m_hasError = true;
-          m_response = -1;
-        }
+        // we've set error code so client should be notified about the error
+        m_httpErrorCode = err;
+        cancel(false);
+        urlConnection.disconnect();
+        return null;
       }
-      else
+
+      final InputStream is = urlConnection.getInputStream();
+
+      byte [] tempBuf = new byte[1024 * 64];
+      long readBytes;
+      while ((readBytes = is.read(tempBuf)) != -1)
       {
-        m_hasError = true;
-        m_response = response;
-        Log.d(TAG, String.format("error downloading interval %1$d : %1$d , response code is %3$d", m_beg, m_end, response));
+        if (isCancelled())
+        {
+          urlConnection.disconnect();
+          return null;
+        }
+
+        byte [] chunk = new byte[(int)readBytes];
+        System.arraycopy(tempBuf, 0, chunk, 0, (int)readBytes);
+        publishProgress(chunk);
       }
     }
     catch (MalformedURLException ex)
     {
-      Log.d(TAG, "invalid url : " + m_url);
-      m_hasError = true;
-      m_response = -1;
+      Log.d(TAG, "invalid url: " + m_url);
+      // Notify the client about error
+      m_httpErrorCode = INVALID_URL;
+      cancel(false);
     }
     catch (IOException ex)
     {
-      Log.d(TAG, "ioexception : " + ex.toString());
-      m_hasError = true;
-      m_response = -1;
+      Log.d(TAG, "ioexception: " + ex.toString());
+      // Notify the client about error
+      m_httpErrorCode = IO_ERROR;
+      cancel(false);
     }
 
     return null;

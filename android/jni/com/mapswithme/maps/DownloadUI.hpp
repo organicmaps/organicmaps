@@ -1,8 +1,7 @@
 #pragma once
 
-#include "Framework.hpp"
 #include "../jni/jni_method.hpp"
-#include "../../../../../base/base.hpp"
+#include "../../../../../storage/storage.hpp"
 #include "../../../../../std/scoped_ptr.hpp"
 
 namespace android
@@ -24,5 +23,3 @@ namespace android
     void OnProgress(storage::TIndex const & idx, pair<int64_t, int64_t> const & p);
   };
 }
-
-extern android::DownloadUI * g_downloadUI;

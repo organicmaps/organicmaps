@@ -1,16 +1,8 @@
-/*
- * DownloadUI.cpp
- *
- *  Created on: Oct 13, 2011
- *      Author: siarheirachytski
- */
-
 #include <jni.h>
 #include "Framework.hpp"
 #include "DownloadUI.hpp"
 #include "../jni/jni_thread.hpp"
 #include "../../../../../std/bind.hpp"
-#include "../../../../../base/logging.hpp"
 
 android::DownloadUI * g_downloadUI = 0;
 
@@ -25,7 +17,7 @@ namespace android
     m_onChangeCountry.reset(new jni::Method(k, "onChangeCountry", "(III)V"));
     m_onProgress.reset(new jni::Method(k, "onProgress", "(IIIJJ)V"));
 
-    ASSERT(!g_downloadUI, ());
+    ASSERT(!g_downloadUI, ("DownloadUI is initialized twice"));
     g_downloadUI = this;
   }
 
@@ -37,26 +29,12 @@ namespace android
 
   void DownloadUI::OnChangeCountry(storage::TIndex const & idx)
   {
-    jint group = idx.m_group;
-    jint country = idx.m_country;
-    jint region = idx.m_region;
-
-    LOG(LINFO, ("Changed Country", group, country, region));
-
-    m_onChangeCountry->CallVoid(m_self, group, country, region);
+    m_onChangeCountry->CallVoid(m_self, idx.m_group, idx.m_country, idx.m_region);
   }
 
   void DownloadUI::OnProgress(storage::TIndex const & idx, pair<int64_t, int64_t> const & p)
   {
-    jint group = idx.m_group;
-    jint country = idx.m_country;
-    jint region = idx.m_region;
-    jlong p1 = p.first;
-    jlong p2 = p.second;
-
-    LOG(LINFO, ("Country Progress", group, country, region, p1, p2));
-
-    m_onProgress->CallVoid(m_self, group, country, region, p1, p2);
+    m_onProgress->CallVoid(m_self, idx.m_group, idx.m_country, idx.m_region, p.first, p.second);
   }
 }
 
