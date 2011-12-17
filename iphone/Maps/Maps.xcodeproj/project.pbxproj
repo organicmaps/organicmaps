@@ -82,7 +82,6 @@
 		FA5005671287BFCE002961F0 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA5005611287BFCE002961F0 /* Icon@2x.png */; };
 		FA500588128907F0002961F0 /* visibility.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA500587128907F0002961F0 /* visibility.txt */; };
 		FA64D9A913F975AD00350ECF /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA64D9A813F975AD00350ECF /* types.txt */; };
-		FA7A0ED01472DA3E00E57AD3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA7A0ECE1472DA3E00E57AD3 /* InfoPlist.strings */; };
 		FA85F633145DDDC20090E1A0 /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA85F632145DDDC20090E1A0 /* packed_polygons.bin */; };
 		FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA87151A12B1518F00592DAF /* SystemConfiguration.framework */; };
 		FA8F8938132D5DB00048E3FE /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8F8937132D5DB00048E3FE /* libtomcrypt.a */; };
@@ -614,7 +613,7 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* MapsAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapsAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* MapsAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MapsAppDelegate.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		1D6058910D05DD3D006BFB54 /* MapsWithMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapsWithMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* MapsWithMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = MapsWithMe.app; path = "MapsWithMeβ.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* Maps_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Maps_Prefix.pch; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -700,7 +699,6 @@
 		FA5005611287BFCE002961F0 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = SOURCE_ROOT; };
 		FA500587128907F0002961F0 /* visibility.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = visibility.txt; path = ../../data/visibility.txt; sourceTree = SOURCE_ROOT; };
 		FA64D9A813F975AD00350ECF /* types.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = types.txt; path = ../../data/types.txt; sourceTree = SOURCE_ROOT; };
-		FA7A0ECF1472DA3E00E57AD3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FA85F632145DDDC20090E1A0 /* packed_polygons.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = packed_polygons.bin; path = ../../data/packed_polygons.bin; sourceTree = SOURCE_ROOT; };
 		FA87151A12B1518F00592DAF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		FA8F8937132D5DB00048E3FE /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtomcrypt.a; sourceTree = SOURCE_ROOT; };
@@ -713,7 +711,6 @@
 		FAAE8D5D1338FF8B003ECAD5 /* GetActiveConnectionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetActiveConnectionType.h; sourceTree = "<group>"; };
 		FAAFD696139D9BE2000AE70C /* categories.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories.txt; path = ../../data/categories.txt; sourceTree = SOURCE_ROOT; };
 		FAAFD698139D9C6B000AE70C /* libsearch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsearch.a; sourceTree = SOURCE_ROOT; };
-		FAB09894148E2F1500892860 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FAB09895148E2F1500892860 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FABF223C13FAA97A003D4D49 /* CompassView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompassView.h; sourceTree = "<group>"; };
 		FABF223D13FAA97A003D4D49 /* CompassView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CompassView.mm; sourceTree = "<group>"; };
@@ -1336,7 +1333,6 @@
 				FA1FB89E147E8CA50052848B /* location-highlighted@2x.png */,
 				FA1FB89F147E8CA50052848B /* search-highlighted.png */,
 				FA1FB8A0147E8CA50052848B /* search-highlighted@2x.png */,
-				FA7A0ECE1472DA3E00E57AD3 /* InfoPlist.strings */,
 				FA99CB71147089B100689A9A /* Localizable.strings */,
 				490830531426B0900088EE84 /* downloader.png */,
 				490830541426B0900088EE84 /* downloader@2x.png */,
@@ -2603,7 +2599,6 @@
 				FA459EB414327AF700B5BB3C /* WorldCoasts.mwm in Resources */,
 				FA85F633145DDDC20090E1A0 /* packed_polygons.bin in Resources */,
 				FA99CB73147089B100689A9A /* Localizable.strings in Resources */,
-				FA7A0ED01472DA3E00E57AD3 /* InfoPlist.strings in Resources */,
 				FA1FB8A1147E8CA50052848B /* downloader-highlighted.png in Resources */,
 				FA1FB8A2147E8CA50052848B /* downloader-highlighted@2x.png in Resources */,
 				FA1FB8A3147E8CA50052848B /* location-highlighted.png in Resources */,
@@ -2659,15 +2654,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		FA7A0ECE1472DA3E00E57AD3 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FA7A0ECF1472DA3E00E57AD3 /* en */,
-				FAB09894148E2F1500892860 /* ru */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		FA99CB71147089B100689A9A /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2680,7 +2666,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		1D6058940D05DD3E006BFB54 /* Simulator Debug */ = {
+		1D6058940D05DD3E006BFB54 /* Simulator Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -2689,17 +2675,18 @@
 					"\"$(DEVELOPER_DIR)/omim/omim-iphonesim-debug/out/debug\"",
 				);
 			};
-			name = "Simulator Debug";
+			name = "Simulator Lite";
 		};
-		C01FCF4F08A954540054247B /* Simulator Debug */ = {
+		C01FCF4F08A954540054247B /* Simulator Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = i386;
+				BUNDLE_IDENTIFIER = com.mapswithme.travelguide.simulator;
 				CODE_SIGN_IDENTITY = "Don't Code Sign";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2.0;
+				CURRENT_PROJECT_VERSION = 2.0.1;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_FAST_MATH = YES;
@@ -2718,16 +2705,16 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				PRODUCT_NAME = "MapsWithMe Debug";
+				PRODUCT_NAME = "MWM ∂ Lite";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = i386;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Simulator Debug";
+			name = "Simulator Lite";
 		};
-		FA0686DE13578E1D004CFF81 /* Production Release */ = {
+		FA0686DE13578E1D004CFF81 /* Production Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -2735,10 +2722,11 @@
 					armv6,
 					armv7,
 				);
+				BUNDLE_IDENTIFIER = com.mapswithme.travelguide;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Yury Melnichek";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 2.0;
+				CURRENT_PROJECT_VERSION = 2.0.1;
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_FAST_MATH = YES;
@@ -2763,72 +2751,24 @@
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = MapsWithMe;
-				PROVISIONING_PROFILE = "4CC44E3D-7EA7-4055-87EA-283C52679800";
+				PROVISIONING_PROFILE = "6F57AA0F-13F9-49C8-A4C6-AD6438C87533";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv6 armv7";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Production Release";
+			name = "Production Lite";
 		};
-		FA0686DF13578E1D004CFF81 /* Production Release */ = {
+		FA0686DF13578E1D004CFF81 /* Production Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 			};
-			name = "Production Release";
+			name = "Production Lite";
 		};
-		FA1DE83111E2205400C6D69A /* Simulator Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = i386;
-				CODE_SIGN_IDENTITY = "Don't Code Sign";
-				COMPRESS_PNG_FILES = NO;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2.0;
-				GCC_DYNAMIC_NO_PIC = YES;
-				GCC_ENABLE_PASCAL_STRINGS = NO;
-				GCC_FAST_MATH = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					NDEBUG,
-					TARGET_OS_IPHONE,
-					RELEASE,
-					_RELEASE,
-				);
-				GCC_UNROLL_LOOPS = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = ../../3party/boost;
-				INFOPLIST_FILE = "MapsWithMe-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphonesim-release/out/release\"";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = "-Wall";
-				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				PRODUCT_NAME = MapsWithMe;
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = i386;
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = "Simulator Release";
-		};
-		FA1DE83211E2205400C6D69A /* Simulator Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(DEVELOPER_DIR)/omim/omim-iphonesim-debug/out/debug\"",
-				);
-			};
-			name = "Simulator Release";
-		};
-		FA1DE85911E2235D00C6D69A /* Device Debug */ = {
+		FA1DE85911E2235D00C6D69A /* Debug Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -2836,10 +2776,11 @@
 					armv6,
 					armv7,
 				);
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				BUNDLE_IDENTIFIER = com.mapswithme.travelguide.debug;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yury Melnichek (EDA9BLAEK7)";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2.0;
+				CURRENT_PROJECT_VERSION = 2.0.1;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_FAST_MATH = YES;
@@ -2860,25 +2801,25 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				PRODUCT_NAME = "MapsWithMe Debug";
-				PROVISIONING_PROFILE = "";
+				PRODUCT_NAME = "MWM ∂ Lite";
+				PROVISIONING_PROFILE = "A8CE67F3-5697-4537-8A5D-D5CAEC5CB420";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv6 armv7";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Device Debug";
+			name = "Debug Lite";
 		};
-		FA1DE85A11E2235D00C6D69A /* Device Debug */ = {
+		FA1DE85A11E2235D00C6D69A /* Debug Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 			};
-			name = "Device Debug";
+			name = "Debug Lite";
 		};
-		FA1DE85B11E2236200C6D69A /* Device Release */ = {
+		FA1DE85B11E2236200C6D69A /* AdHoc Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -2886,10 +2827,11 @@
 					armv6,
 					armv7,
 				);
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				BUNDLE_IDENTIFIER = com.mapswithme.travelguide.beta;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Yury Melnichek";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2.0;
+				CURRENT_PROJECT_VERSION = 2.0.1;
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_FAST_MATH = YES;
@@ -2912,23 +2854,229 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				PRODUCT_NAME = MapsWithMe;
-				PROVISIONING_PROFILE = "";
+				PRODUCT_NAME = "MapsWithMeβ";
+				PROVISIONING_PROFILE = "9EF9DEA9-8BDB-4428-87F4-21B2B5695C7A";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv6 armv7";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Device Release";
+			name = "AdHoc Lite";
 		};
-		FA1DE85C11E2236200C6D69A /* Device Release */ = {
+		FA1DE85C11E2236200C6D69A /* AdHoc Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 			};
-			name = "Device Release";
+			name = "AdHoc Lite";
+		};
+		FAAB4119149BA83500C245B1 /* Simulator Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = i386;
+				BUNDLE_IDENTIFIER = com.mapswithme.full.simulator;
+				CODE_SIGN_IDENTITY = "Don't Code Sign";
+				COMPRESS_PNG_FILES = NO;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 2.1;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_PASCAL_STRINGS = NO;
+				GCC_FAST_MATH = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					TARGET_OS_IPHONE,
+					DEBUG,
+					_DEBUG,
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = ../../3party/boost;
+				INFOPLIST_FILE = "MapsWithMe-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphonesim-debug/out/debug\"";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "-Wall";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				PRODUCT_NAME = "MWM ∂";
+				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = i386;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = "Simulator Full";
+		};
+		FAAB411A149BA83500C245B1 /* Simulator Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/omim/omim-iphonesim-debug/out/debug\"",
+				);
+			};
+			name = "Simulator Full";
+		};
+		FAAB411B149BA84700C245B1 /* Debug Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
+				BUNDLE_IDENTIFIER = com.mapswithme.full.debug;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yury Melnichek (EDA9BLAEK7)";
+				COMPRESS_PNG_FILES = NO;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 2.1;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_PASCAL_STRINGS = NO;
+				GCC_FAST_MATH = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					DEBUG,
+					_DEBUG,
+					TARGET_OS_IPHONE,
+				);
+				GCC_THUMB_SUPPORT = NO;
+				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = ../../3party/boost;
+				INFOPLIST_FILE = "MapsWithMe-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-debug/out/debug\"";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "-Wall";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				PRODUCT_NAME = "MWM ∂";
+				PROVISIONING_PROFILE = "A8CE67F3-5697-4537-8A5D-D5CAEC5CB420";
+				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv6 armv7";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = "Debug Full";
+		};
+		FAAB411C149BA84700C245B1 /* Debug Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+			};
+			name = "Debug Full";
+		};
+		FAAB411D149BA85500C245B1 /* AdHoc Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
+				BUNDLE_IDENTIFIER = com.mapswithme.full.beta;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Yury Melnichek";
+				COMPRESS_PNG_FILES = NO;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 2.1;
+				GCC_DYNAMIC_NO_PIC = YES;
+				GCC_ENABLE_PASCAL_STRINGS = NO;
+				GCC_FAST_MATH = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					NDEBUG,
+					RELEASE,
+					_RELEASE,
+					TARGET_OS_IPHONE,
+				);
+				GCC_THUMB_SUPPORT = NO;
+				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
+				GCC_UNROLL_LOOPS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = ../../3party/boost;
+				INFOPLIST_FILE = "MapsWithMe-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-release/out/release\"";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "-Wall";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				PRODUCT_NAME = "MapsWithMeβ";
+				PROVISIONING_PROFILE = "9EF9DEA9-8BDB-4428-87F4-21B2B5695C7A";
+				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv6 armv7";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = "AdHoc Full";
+		};
+		FAAB411E149BA85500C245B1 /* AdHoc Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+			};
+			name = "AdHoc Full";
+		};
+		FAAB411F149BA86000C245B1 /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
+				BUNDLE_IDENTIFIER = com.mapswithme.full;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Yury Melnichek";
+				COMPRESS_PNG_FILES = NO;
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 2.1;
+				GCC_DYNAMIC_NO_PIC = YES;
+				GCC_ENABLE_PASCAL_STRINGS = NO;
+				GCC_FAST_MATH = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OMIM_PRODUCTION,
+					RELEASE,
+					_RELEASE,
+					NDEBUG,
+					TARGET_OS_IPHONE,
+				);
+				GCC_THUMB_SUPPORT = NO;
+				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
+				GCC_UNROLL_LOOPS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = ../../3party/boost;
+				INFOPLIST_FILE = "MapsWithMe-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production/out/release\"";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "-Wall";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				PRODUCT_NAME = MapsWithMe;
+				PROVISIONING_PROFILE = "B007E808-9B48-409B-A7BA-CF5C2F70067D";
+				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv6 armv7";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = "Production Full";
+		};
+		FAAB4120149BA86000C245B1 /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+			};
+			name = "Production Full";
 		};
 /* End XCBuildConfiguration section */
 
@@ -2936,26 +3084,32 @@
 		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Maps" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1D6058940D05DD3E006BFB54 /* Simulator Debug */,
-				FA1DE85A11E2235D00C6D69A /* Device Debug */,
-				FA1DE83211E2205400C6D69A /* Simulator Release */,
-				FA1DE85C11E2236200C6D69A /* Device Release */,
-				FA0686DF13578E1D004CFF81 /* Production Release */,
+				1D6058940D05DD3E006BFB54 /* Simulator Lite */,
+				FAAB411A149BA83500C245B1 /* Simulator Full */,
+				FA1DE85A11E2235D00C6D69A /* Debug Lite */,
+				FAAB411C149BA84700C245B1 /* Debug Full */,
+				FA1DE85C11E2236200C6D69A /* AdHoc Lite */,
+				FAAB411E149BA85500C245B1 /* AdHoc Full */,
+				FA0686DF13578E1D004CFF81 /* Production Lite */,
+				FAAB4120149BA86000C245B1 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Device Release";
+			defaultConfigurationName = "AdHoc Full";
 		};
 		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Maps" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C01FCF4F08A954540054247B /* Simulator Debug */,
-				FA1DE85911E2235D00C6D69A /* Device Debug */,
-				FA1DE83111E2205400C6D69A /* Simulator Release */,
-				FA1DE85B11E2236200C6D69A /* Device Release */,
-				FA0686DE13578E1D004CFF81 /* Production Release */,
+				C01FCF4F08A954540054247B /* Simulator Lite */,
+				FAAB4119149BA83500C245B1 /* Simulator Full */,
+				FA1DE85911E2235D00C6D69A /* Debug Lite */,
+				FAAB411B149BA84700C245B1 /* Debug Full */,
+				FA1DE85B11E2236200C6D69A /* AdHoc Lite */,
+				FAAB411D149BA85500C245B1 /* AdHoc Full */,
+				FA0686DE13578E1D004CFF81 /* Production Lite */,
+				FAAB411F149BA86000C245B1 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Device Release";
+			defaultConfigurationName = "AdHoc Full";
 		};
 /* End XCConfigurationList section */
 	};
