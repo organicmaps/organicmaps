@@ -2830,14 +2830,15 @@
 				BUNDLE_IDENTIFIER = com.mapswithme.travelguide.beta;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Yury Melnichek";
 				COMPRESS_PNG_FILES = NO;
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 2.0.1;
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_FAST_MATH = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					OMIM_PRODUCTION,
 					NDEBUG,
 					RELEASE,
 					_RELEASE,
@@ -2850,14 +2851,14 @@
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "MapsWithMe-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-release/out/release\"";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production/out/release\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "MWM Beta Lite";
 				PROVISIONING_PROFILE = "9EF9DEA9-8BDB-4428-87F4-21B2B5695C7A";
 				SDKROOT = iphoneos;
-				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv6 armv7";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -2982,14 +2983,15 @@
 				BUNDLE_IDENTIFIER = com.mapswithme.full.beta;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Yury Melnichek";
 				COMPRESS_PNG_FILES = NO;
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 2.1;
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_FAST_MATH = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					OMIM_PRODUCTION,
 					NDEBUG,
 					RELEASE,
 					_RELEASE,
@@ -3002,14 +3004,14 @@
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "MapsWithMe-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-release/out/release\"";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production/out/release\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "MWM Beta";
 				PROVISIONING_PROFILE = "9EF9DEA9-8BDB-4428-87F4-21B2B5695C7A";
 				SDKROOT = iphoneos;
-				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv6 armv7";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -3078,6 +3080,112 @@
 			};
 			name = "Production Full";
 		};
+		FABB561C149CD943006969C0 /* Release Lite */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
+				BUNDLE_IDENTIFIER = com.mapswithme.travelguide.release;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yury Melnichek (EDA9BLAEK7)";
+				COMPRESS_PNG_FILES = NO;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 2.0.1;
+				GCC_DYNAMIC_NO_PIC = YES;
+				GCC_ENABLE_PASCAL_STRINGS = NO;
+				GCC_FAST_MATH = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					NDEBUG,
+					RELEASE,
+					_RELEASE,
+					TARGET_OS_IPHONE,
+				);
+				GCC_THUMB_SUPPORT = NO;
+				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
+				GCC_UNROLL_LOOPS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = ../../3party/boost;
+				INFOPLIST_FILE = "MapsWithMe-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-release/out/release\"";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "-Wall";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				PRODUCT_NAME = "MWM Rel Lite";
+				PROVISIONING_PROFILE = "A8CE67F3-5697-4537-8A5D-D5CAEC5CB420";
+				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv6 armv7";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = "Release Lite";
+		};
+		FABB561D149CD943006969C0 /* Release Lite */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+			};
+			name = "Release Lite";
+		};
+		FABB561E149CD957006969C0 /* Release Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
+				BUNDLE_IDENTIFIER = com.mapswithme.full.release;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yury Melnichek (EDA9BLAEK7)";
+				COMPRESS_PNG_FILES = NO;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 2.1;
+				GCC_DYNAMIC_NO_PIC = YES;
+				GCC_ENABLE_PASCAL_STRINGS = NO;
+				GCC_FAST_MATH = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					NDEBUG,
+					RELEASE,
+					_RELEASE,
+					TARGET_OS_IPHONE,
+				);
+				GCC_THUMB_SUPPORT = NO;
+				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
+				GCC_UNROLL_LOOPS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = ../../3party/boost;
+				INFOPLIST_FILE = "MapsWithMe-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-release/out/release\"";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "-Wall";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				PRODUCT_NAME = "MWM Rel";
+				PROVISIONING_PROFILE = "A8CE67F3-5697-4537-8A5D-D5CAEC5CB420";
+				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv6 armv7";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = "Release Full";
+		};
+		FABB561F149CD957006969C0 /* Release Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+			};
+			name = "Release Full";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3089,7 +3197,9 @@
 				FA1DE85A11E2235D00C6D69A /* Debug Lite */,
 				FAAB411C149BA84700C245B1 /* Debug Full */,
 				FA1DE85C11E2236200C6D69A /* AdHoc Lite */,
+				FABB561D149CD943006969C0 /* Release Lite */,
 				FAAB411E149BA85500C245B1 /* AdHoc Full */,
+				FABB561F149CD957006969C0 /* Release Full */,
 				FA0686DF13578E1D004CFF81 /* Production Lite */,
 				FAAB4120149BA86000C245B1 /* Production Full */,
 			);
@@ -3104,7 +3214,9 @@
 				FA1DE85911E2235D00C6D69A /* Debug Lite */,
 				FAAB411B149BA84700C245B1 /* Debug Full */,
 				FA1DE85B11E2236200C6D69A /* AdHoc Lite */,
+				FABB561C149CD943006969C0 /* Release Lite */,
 				FAAB411D149BA85500C245B1 /* AdHoc Full */,
+				FABB561E149CD957006969C0 /* Release Full */,
 				FA0686DE13578E1D004CFF81 /* Production Lite */,
 				FAAB411F149BA86000C245B1 /* Production Full */,
 			);
