@@ -6,6 +6,7 @@
 
 #include "../../../defines.hpp"
 
+#include "../../../platform/platform.hpp"
 #include "../../../platform/settings.hpp"
 #include "../../../platform/http_request.hpp"
 
@@ -107,6 +108,14 @@ static bool ShouldCheckAgain()
   // Avoid all checks if we already enabled search button
   if (((UIButton *)searchButton).hidden == NO)
     return;
+
+  // Check if it's Full version and Search button should be always enabled,
+  // And no banner checks should be performed
+  if (GetPlatform().IsFeatureSupported("search"))
+  {
+    [self enableSearchButton:searchButton andDownloadButton:downloadButton];
+    return;
+  }
 
   // Check if redbutton was alredy activated and we should display the button
   string bannerUrl;

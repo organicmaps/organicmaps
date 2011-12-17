@@ -6,6 +6,7 @@
 #include "../../geometry/angles.hpp"
 #include "../../geometry/distance_on_sphere.hpp"
 #include "../../platform/settings.hpp"
+#include "../../platform/platform.hpp"
 #include "../../indexer/mercator.hpp"
 #include "../../map/framework.hpp"
 #include "../../search/result.hpp"
@@ -246,8 +247,7 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 - (void)viewWillAppear:(BOOL)animated
 {
   // Disable search for free version
-  NSString * appID = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
-  if ([appID compare:@"com.mapswithme.travelguide"] == NSOrderedSame)
+  if (!GetPlatform().IsFeatureSupported("search"))
   {
     // Hide scope bar
     m_searchBar.showsScopeBar = NO;

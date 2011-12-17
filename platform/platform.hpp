@@ -97,6 +97,10 @@ public:
   int ScaleEtalonSize() const;
 
   string UniqueClientId() const;
+
+  /// @return true for "search" feature on full ios and desktop versions,
+  /// and false for ios lite version
+  bool IsFeatureSupported(string const & feature) const;
 };
 
 extern "C" Platform & GetPlatform();

@@ -260,6 +260,19 @@ string Platform::UniqueClientId() const
   return GetUniqueHashedId();
 }
 
+bool Platform::IsFeatureSupported(string const & feature) const
+{
+  if (feature == "search")
+  {
+    NSString * appID = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
+    // .travelguide corresponds to the Lite version without search
+    if ([appID rangeOfString:@"com.mapswithme.travelguide"].location != NSNotFound)
+      return false;
+    return true;
+  }
+  return false;
+}
+
 ////////////////////////////////////////////////////////////////////////
 extern "C" Platform & GetPlatform()
 {

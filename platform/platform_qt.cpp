@@ -89,6 +89,13 @@ int Platform::VideoMemoryLimit() const
   return 20 * 1024 * 1024;
 }
 
+bool Platform::IsFeatureSupported(string const & feature) const
+{
+  if (feature == "search")
+    return true;
+  return false;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 extern "C" Platform & GetPlatform()
 {

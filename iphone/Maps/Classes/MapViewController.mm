@@ -346,7 +346,7 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void)viewWillAppear:(BOOL)animated
 {
-  // Perform redbutton check
+  // Perform redbutton check if necessary for Lite version
   [m_searchBannerChecker checkForBannerAndFixSearchButton:m_searchButton andDownloadButton:m_downloadButton];
 
   [self Invalidate];
