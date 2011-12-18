@@ -140,7 +140,7 @@ void RenderQueueRoutine::processResize(ScreenBase const & frameScreen)
   }
 }
 
-void RenderQueueRoutine::getUpdateAreas(
+bool RenderQueueRoutine::getUpdateAreas(
     ScreenBase const & oldScreen,
     m2::RectI const & oldRect,
     ScreenBase const & newScreen,
@@ -157,11 +157,11 @@ void RenderQueueRoutine::getUpdateAreas(
 
     /// checking two corner cases
     if (o.IsRectInside(n))
-      return;
+      return false;
     if (!o.IsIntersect(n))
     {
       areas.push_back(newRect);
-      return;
+      return true;
     }
 
     double leftBarMinX = 0;
@@ -190,6 +190,8 @@ void RenderQueueRoutine::getUpdateAreas(
       areas.push_back(m2::RectI((int)rightBarMinX, (int)topBarMaxY, (int)rightBarMaxX, (int)bottomBarMaxY));
     if ((int)bottomBarMinY != (int)bottomBarMaxY)
       areas.push_back(m2::RectI((int)leftBarMinX, (int)bottomBarMinY, (int)rightBarMinX, (int)bottomBarMaxY));
+
+    return false;
   }
   else
   {
@@ -228,6 +230,7 @@ void RenderQueueRoutine::getUpdateAreas(
       areas.push_back(m2::Offset(r, 0 * sx, 1 * sy));
       areas.push_back(m2::Offset(r, 0 * sx, 0 * sy));
     }
+    return true;
   }
 }
 
@@ -346,13 +349,13 @@ void RenderQueueRoutine::Do()
         }
         else
         {
-          getUpdateAreas(prevScreen,
-                         prevRect,
-                         m_currentRenderCommand->m_frameScreen,
-                         curRect,
-                         areas);
-          if ((areas.size() == 1) && (areas[0] == curRect))
-            fullRectRepaint = true;
+          fullRectRepaint = getUpdateAreas(prevScreen,
+                                           prevRect,
+                                           m_currentRenderCommand->m_frameScreen,
+                                           curRect,
+                                           areas);
+/*          if ((areas.size() == 1) && (areas[0] == curRect))
+            fullRectRepaint = true;*/
         }
 
         isPanning = IsPanningAndRotate(prevScreen, m_renderState->m_currentScreen);

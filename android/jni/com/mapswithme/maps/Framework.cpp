@@ -95,11 +95,11 @@ namespace android
 
     try
     {
-      m_work.LoadState();
       m_work.SetRenderPolicy(CreateRenderPolicy(m_videoTimer,
                                                 true,
                                                 rmParams,
                                                 make_shared_ptr(new android::RenderContext())));
+      m_work.LoadState();
     }
     catch (yg::gl::platform_unsupported const & e)
     {

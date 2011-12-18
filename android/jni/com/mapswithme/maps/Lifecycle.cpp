@@ -269,10 +269,7 @@ int32_t NVEventAppMain(int32_t argc, char** argv)
 //          s_glesAutopaused = true;
           /// need to investigate deeper, whether i could call it only once in a sequence of lifecycle events
 /*          if (g_framework)
-          {
-            NVDEBUG("saving state");
-            g_framework->SaveState();
-          }*/
+            g_framework->SaveState();*/
 
           renderFrame(false);
           break;
@@ -280,12 +277,8 @@ int32_t NVEventAppMain(int32_t argc, char** argv)
         case NV_EVENT_PAUSE:
           NVDEBUG("Pause event");
 
-/*          /// need to investigate deeper, whether i could call it only once in a sequence of lifecycle events
-          if (g_framework)
-          {
-            NVDEBUG("saving state");
-            g_framework->SaveState();
-          }*/
+/*          if (g_framework)
+            g_framework->SaveState();*/
 
           //s_glesAutopaused = true;
           renderFrame(false);
@@ -294,12 +287,8 @@ int32_t NVEventAppMain(int32_t argc, char** argv)
         case NV_EVENT_STOP:
           NVDEBUG("Stop event");
 
-/*          /// need to investigate deeper, whether i could call it only once in a sequence of lifecycle events
-          if (g_framework)
-          {
-            NVDEBUG("saving state");
-            g_framework->SaveState();
-          }*/
+/*          if (g_framework)
+            g_framework->SaveState();*/
 
           // As per Google's recommendation, we release GLES resources here
           ShutdownGLESResources();
@@ -307,12 +296,8 @@ int32_t NVEventAppMain(int32_t argc, char** argv)
         case NV_EVENT_QUIT:
           NVDEBUG("Quit event");
 
-/*          /// need to investigate deeper, whether i could call it only once in a sequence of lifecycle events
-          if (g_framework)
-          {
-            NVDEBUG("saving state");
-            g_framework->SaveState();
-          }*/
+/*          if (g_framework)
+            g_framework->SaveState();*/
 
           break;
         case NV_EVENT_ACCEL:
