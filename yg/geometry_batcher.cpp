@@ -42,7 +42,14 @@ namespace yg
     }
 
    GeometryBatcher::~GeometryBatcher()
-   {}
+   {
+     for (size_t i = 0; i < m_pipelines.size(); ++i)
+     {
+       discardPipeline(i);
+       freeStorage(i);
+       freeTexture(i);
+     }
+   }
 
    void GeometryBatcher::reset(int pipelineID)
    {
@@ -361,10 +368,13 @@ namespace yg
    {
      GeometryPipeline & pipeline = m_pipelines[pipelineID];
 
-     shared_ptr<DiscardStorage> command(new DiscardStorage());
-     command->m_storage = pipeline.m_storage;
+     if (pipeline.m_hasStorage)
+     {
+       shared_ptr<DiscardStorage> command(new DiscardStorage());
+       command->m_storage = pipeline.m_storage;
 
-     processCommand(command);
+       processCommand(command);
+     }
    }
 
    void GeometryBatcher::flushPipeline(shared_ptr<SkinPage> const & skinPage,

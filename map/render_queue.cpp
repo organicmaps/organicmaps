@@ -57,6 +57,7 @@ void RenderQueue::initializeGL(shared_ptr<yg::gl::RenderContext> const & primary
 RenderQueue::~RenderQueue()
 {
   m_renderQueueThread.Cancel();
+  delete m_routine;
 }
 
 void RenderQueue::AddCommand(RenderQueueRoutine::render_fn_t const & fn, ScreenBase const & frameScreen)

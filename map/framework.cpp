@@ -180,7 +180,7 @@ void Framework::SetMaxWorldRect()
 
 bool Framework::NeedRedraw() const
 {
-  return m_renderPolicy->NeedRedraw();
+  return m_renderPolicy && m_renderPolicy->NeedRedraw();
 }
 
 void Framework::SetNeedRedraw(bool flag)

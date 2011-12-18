@@ -167,6 +167,7 @@ template <typename TElem>
 class ResourcePool
 {
 public:
+  virtual ~ResourcePool(){}
   virtual TElem const Reserve() = 0;
   virtual void Free(TElem const & elem) = 0;
   virtual size_t Size() const = 0;
