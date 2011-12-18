@@ -213,9 +213,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   public void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-
-    setupLayout();
-        
+    
     final String storagePath = getDataStoragePath();
     // create folder if it doesn't exist
     File f = new File(storagePath);
@@ -230,10 +228,12 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       e.printStackTrace();
     }
 
+    setupLayout();        
+
     setupLanguages();
-    
+
     checkMeasurementSystem();
-    
+
     m_timer = new VideoTimer();
 
     m_locationService = new LocationService(this);

@@ -79,6 +79,7 @@ namespace android
 
   void Framework::DeleteRenderPolicy()
   {
+    m_work.SaveState();
     LOG(LINFO, ("clearing current render policy."));
     m_work.SetRenderPolicy(0);
   }
@@ -94,6 +95,7 @@ namespace android
 
     try
     {
+      m_work.LoadState();
       m_work.SetRenderPolicy(CreateRenderPolicy(m_videoTimer,
                                                 true,
                                                 rmParams,

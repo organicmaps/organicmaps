@@ -60,7 +60,8 @@ namespace Settings
 
   StringStorage & StringStorage::Instance()
   {
-    return m_instance;
+    static StringStorage inst;
+    return inst;
   }
 
   bool StringStorage::GetValue(string const & key, string & outValue)
@@ -78,7 +79,6 @@ namespace Settings
     Save();
   }
 
-  StringStorage StringStorage::m_instance;
 ////////////////////////////////////////////////////////////////////////////////////////////
 
   template <> string ToString<string>(string const & str)

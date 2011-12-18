@@ -10,8 +10,6 @@ namespace Settings
 
   class StringStorage
   {
-    static StringStorage m_instance;
-
     typedef map<string, string> ContainerT;
     ContainerT m_values;
 
