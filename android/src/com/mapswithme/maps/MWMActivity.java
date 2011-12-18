@@ -1,7 +1,6 @@
 package com.mapswithme.maps;
 
 import java.io.File;
-import java.util.Locale;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.location.LocationService;
