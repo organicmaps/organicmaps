@@ -6,9 +6,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -51,7 +48,6 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
   @Override
   protected void onPostExecute(Void resCode)
   {
-    Log.d(TAG, "Successfully finishing download");
     onFinish(m_httpCallbackID, 200, m_beg, m_end);
   }
   
@@ -84,8 +80,6 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
     {
       url = new URL(m_url);
       
-      Log.d(TAG, ("opening connection to " + m_url));
-      
       HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
       
       if (isCancelled())
@@ -93,8 +87,6 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
         urlConnection.disconnect();
         return null;
       }
-      
-      Log.d(TAG, String.format("configuring connection parameter for range %d : %d", m_beg, m_end));
       
       urlConnection.setChunkedStreamingMode(0);
       urlConnection.setUseCaches(false);
@@ -112,7 +104,6 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
 
       if (m_postBody.length() != 0)
       {
-        Log.d(TAG, ("writing POST body"));
         urlConnection.setDoOutput(true);
         urlConnection.setRequestProperty("Content-Type", "application/json");
         final DataOutputStream os = new DataOutputStream(urlConnection.getOutputStream());
@@ -124,8 +115,6 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
         urlConnection.disconnect();
         return null;
       }
-      
-      Log.d(TAG, ("getting response"));
       
       final int err = urlConnection.getResponseCode();
       if (err != HttpURLConnection.HTTP_OK && err != HttpURLConnection.HTTP_PARTIAL)
