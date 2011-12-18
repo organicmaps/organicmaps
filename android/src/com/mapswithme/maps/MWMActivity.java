@@ -34,8 +34,10 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private static String TAG = "MWMActivity";
   private final static String PACKAGE_NAME = "com.mapswithme.maps";
   
-  private int m_locationIconRes;
-  private int m_downloadMapsIconRes;
+  private int m_ic_location;
+  private int m_ic_menu_location;
+  private int m_ic_download;
+  private int m_ic_menu_download;
   private boolean m_locationStarted = false;
   
   private BitmapFactory m_bitmapFactory = null;
@@ -117,8 +119,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   
   private void updateButtonIcons()
   {
-    m_btnLocation.setImageBitmap(BitmapFactory.decodeResource(getResources(), m_locationIconRes));
-    m_btnDownloadMaps.setImageBitmap(BitmapFactory.decodeResource(getResources(), m_downloadMapsIconRes));
+    m_btnLocation.setImageBitmap(BitmapFactory.decodeResource(getResources(), m_ic_location));
+    m_btnDownloadMaps.setImageBitmap(BitmapFactory.decodeResource(getResources(), m_ic_download));
   }
   
   private void onLocationClicked()
@@ -132,7 +134,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   
   private void onDownloadMapsClicked()
   {
-    m_downloadMapsIconRes = R.drawable.ic_download_highlighted;
+    m_ic_download = R.drawable.ic_download_highlighted;
     updateButtonIcons();
     Intent intent = new Intent(this, DownloadUI.class);
     startActivity(intent);
@@ -153,7 +155,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
             onLocationClicked();
           }});
 
-    m_locationIconRes = R.drawable.ic_location;
+    m_ic_location = R.drawable.ic_location;
+    m_ic_menu_location = R.drawable.ic_menu_location;
     
     m_btnDownloadMaps = new ImageButton(this);
     m_btnDownloadMaps.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_download));
@@ -163,7 +166,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
             onDownloadMapsClicked();
         }});
     
-    m_downloadMapsIconRes = R.drawable.ic_download;
+    m_ic_download = R.drawable.ic_download;
+    m_ic_menu_download = R.drawable.ic_menu_download;
   
     DisplayMetrics m = new DisplayMetrics();
     getWindowManager().getDefaultDisplay().getMetrics(m);
@@ -245,13 +249,16 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     switch (newStatus)
     {
     case LocationService.FIRST_EVENT:
-      m_locationIconRes = R.drawable.ic_location_found;
+      m_ic_location = R.drawable.ic_location_found;
+      m_ic_menu_location = R.drawable.ic_menu_location_found;
       break;
     case LocationService.STARTED:
-      m_locationIconRes = R.drawable.ic_location_search;
+      m_ic_location = R.drawable.ic_location_search;
+      m_ic_menu_location = R.drawable.ic_menu_location_search;
       break;
     default:
-      m_locationIconRes = R.drawable.ic_location;
+      m_ic_location = R.drawable.ic_location;
+      m_ic_menu_location = R.drawable.ic_menu_location;
     }
     
     updateButtonIcons();
@@ -274,12 +281,14 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onPause()
   {
-    int m_oldLocationIconRes = m_locationIconRes;
+    int ic_location_old = m_ic_location;
+    int ic_menu_location_old = m_ic_menu_location;
     
     if (m_locationStarted)
       m_locationService.stopUpdate(this);
     
-    m_locationIconRes = m_oldLocationIconRes;
+    m_ic_location = ic_location_old;
+    m_ic_menu_location = ic_menu_location_old;
     updateButtonIcons();
 
     super.onPause();
@@ -288,7 +297,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onResume()
   {
-    m_downloadMapsIconRes = R.drawable.ic_download;
+    m_ic_download = R.drawable.ic_download;
+    m_ic_menu_download = R.drawable.ic_menu_download;
+    
     updateButtonIcons();
     
     if (m_locationStarted)
@@ -311,7 +322,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override 
   public boolean onPrepareOptionsMenu(Menu menu)
   {
-    menu.findItem(R.id.my_position).setIcon(m_locationIconRes);
+    menu.findItem(R.id.my_position).setIcon(m_ic_menu_location);
     return super.onPrepareOptionsMenu(menu);
   }
 
@@ -321,9 +332,11 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     switch (item.getItemId())
     {
     case R.id.my_position:
+      onLocationClicked();
       return true;
 
     case R.id.download_maps:
+      onDownloadMapsClicked();
       return true;
 
     default:
