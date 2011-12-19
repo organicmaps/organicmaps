@@ -63,6 +63,9 @@ void Framework::OnGpsUpdate(location::GpsInfo const & info)
   if (m_centeringMode == ECenterAndScale)
   {
     CenterAndScaleViewport();
+    /// calling function twice to eliminate scaling
+    /// and rounding errors when positioning from 2-3 scale into 16-17
+    CenterAndScaleViewport();
     m_centeringMode = ECenterOnly;
   }
   else if (m_centeringMode == ECenterOnly)
@@ -180,7 +183,7 @@ void Framework::SetMaxWorldRect()
 
 bool Framework::NeedRedraw() const
 {
-  return m_renderPolicy && m_renderPolicy->NeedRedraw();
+  return m_renderPolicy->NeedRedraw();
 }
 
 void Framework::SetNeedRedraw(bool flag)
