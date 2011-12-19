@@ -53,11 +53,11 @@ public class DownloadUI extends PreferenceActivity
   private String formatSizeString(long sizeInBytes)
   {
     if (sizeInBytes > 1024 * 1024)
-      return sizeInBytes / (1024 * 1024) + "Mb";
+      return sizeInBytes / (1024 * 1024) + " Mb";
     else if ((sizeInBytes + 1023) / 1024 > 999)
-      return "1Mb";
+      return "1 Mb";
     else
-      return (sizeInBytes + 1023) / 1024 + "Kb";
+      return (sizeInBytes + 1023) / 1024 + " Kb";
   }
 
   private void updateCountryCell(final Preference cell, int group, int country, int region)
@@ -69,22 +69,33 @@ public class DownloadUI extends PreferenceActivity
     case 0: // EOnDisk
       cell.setSummary("Downloaded (" + formatSizeString(countryLocalSizeInBytes(group, country, region))
           + "), touch to delete");
+//      ((CheckBoxPreference)cell).setChecked(true);
+      cell.setLayoutResource(R.layout.country_on_disk);
       break;
     case 1: // ENotDownloaded
       cell.setSummary("Touch to download");// + formatSizeString(countryRemoteSizeInBytes(group, country, region)));
+//      ((CheckBoxPreference)cell).setChecked(false);
+      cell.setLayoutResource(R.layout.country_not_downloaded);
       break;
     case 2: // EDownloadFailed
       cell.setSummary("Download has failed, touch again for one more try");
+      cell.setLayoutResource(R.layout.country_download_failed);
+//      ((CheckBoxPreference)cell).setChecked(false);
       break;
     case 3: // EDownloading
       cell.setSummary("Downloading...");
-      break;        
+      cell.setLayoutResource(R.layout.country_downloading);
+//      ((CheckBoxPreference)cell).setChecked(true);
+      break;
     case 4: // EInQueue
       cell.setSummary("Marked for downloading, touch to cancel");
-      break;        
+      cell.setLayoutResource(R.layout.country_in_the_queue);
+//      ((CheckBoxPreference)cell).setChecked(true);
+      break;
     case 5: // EUnknown
       cell.setSummary("Unknown state :(");
-      break;        
+//      ((CheckBoxPreference)cell).setChecked(false);
+      break;
     }
   }
 
@@ -114,7 +125,7 @@ public class DownloadUI extends PreferenceActivity
     final String name = countryName(group, country, region);
     if (countriesCount(group, country, region) == 0)
     { // it's downloadable country element
-      final CheckBoxPreference cell = new CheckBoxPreference(this);
+      final Preference cell = new Preference(this);
       cell.setKey(group + " " + country + " " + region);
       cell.setTitle(name);
       
@@ -209,8 +220,9 @@ public class DownloadUI extends PreferenceActivity
         
       case 5: // EUnknown
         Log.d(TAG, "Unknown country state");
-        break;        
+        break;
       }
+      return true;
     }
     return super.onPreferenceTreeClick(preferenceScreen, preference);
   }
