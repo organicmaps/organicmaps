@@ -62,9 +62,12 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
   @Override
   protected void onProgressUpdate(byte []... data)
   {
-    // Use progress event to save downloaded bytes
-    onWrite(m_httpCallbackID, m_beg + m_downloadedBytes, data[0], (long)data[0].length);
-    m_downloadedBytes += data[0].length;
+    if (!isCancelled())
+    {
+      // Use progress event to save downloaded bytes
+      onWrite(m_httpCallbackID, m_beg + m_downloadedBytes, data[0], (long)data[0].length);
+      m_downloadedBytes += data[0].length;
+    }
   }
   
   void start()
