@@ -1,7 +1,6 @@
 #include "../../../../../platform/http_thread_callback.hpp"
 
 #include "../maps/DownloadUI.hpp"
-#include "../jni/jni_thread.hpp"
 
 class HttpThread
 {
@@ -19,26 +18,31 @@ public:
     /// should create java object here.
     JNIEnv * env = jni::GetCurrentThreadJNIEnv();
 
-    jclass k = env->FindClass("com/mapswithme/maps/downloader/DownloadChunkTask");
-    ASSERT(k, ("Can't find java class com/mapswithme/maps/downloader/DownloadChunkTask"));
+    jclass klass = env->FindClass("com/mapswithme/maps/downloader/DownloadChunkTask");
+    ASSERT(klass, ("Can't find java class com/mapswithme/maps/downloader/DownloadChunkTask"));
 
-    jni::Method ctor(k, "<init>", "(JLjava/lang/String;JJJLjava/lang/String;)V");
+    jmethodID methodId = env->GetMethodID(klass, "<init>", "(JLjava/lang/String;JJJLjava/lang/String;)V");
+    ASSERT(methodId, ("Can't find java constructor in com/mapswithme/maps/downloader/DownloadChunkTask"));
 
-    m_self = env->NewObject(k, ctor.GetMethodID(), reinterpret_cast<jlong>(&cb),
+    m_self = env->NewObject(klass, methodId, reinterpret_cast<jlong>(&cb),
         env->NewStringUTF(url.c_str()), beg, end, expectedFileSize, env->NewStringUTF(pb.c_str()));
 
-    jni::Method startFn(k, "start", "()V");
+    methodId = env->GetMethodID(klass, "start", "()V");
+    ASSERT(methodId, ("Can't find java method 'start' in com/mapswithme/maps/downloader/DownloadChunkTask"));
 
-    startFn.CallVoid(m_self);
+    env->CallVoidMethod(m_self, methodId);
   }
 
   ~HttpThread()
   {
-    jclass k = jni::GetCurrentThreadJNIEnv()->FindClass("com/mapswithme/maps/downloader/DownloadChunkTask");
-    ASSERT(k, ("Can't find java class com/mapswithme/maps/downloader/DownloadChunkTask"));
+    JNIEnv * env = jni::GetCurrentThreadJNIEnv();
+    jclass klass = env->FindClass("com/mapswithme/maps/downloader/DownloadChunkTask");
+    ASSERT(klass, ("Can't find java class com/mapswithme/maps/downloader/DownloadChunkTask"));
 
-    jni::Method cancelFn(k, "cancel", "(Z)Z");
-    cancelFn.CallVoid(m_self, false);
+    jmethodID methodId = env->GetMethodID(klass, "cancel", "(Z)Z");
+    ASSERT(methodId, ("Can't find java method 'cancel' in com/mapswithme/maps/downloader/DownloadChunkTask"));
+
+    env->CallBooleanMethod(m_self, methodId, false);
   }
 };
 
