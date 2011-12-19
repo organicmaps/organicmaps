@@ -74,32 +74,18 @@ extern "C"
     return env->NewStringUTF(name.c_str());
   }
 
-  // @TODO Small hack to save time by caching last file size
-  storage::TIndex g_lastCountryIndex(storage::TIndex::INVALID);
-  storage::LocalAndRemoteSizeT g_lastSize(-1, -1);
-
   JNIEXPORT jlong JNICALL
   Java_com_mapswithme_maps_DownloadUI_countryLocalSizeInBytes(JNIEnv * env, jobject thiz,
       jint group, jint country, jint region)
   {
-    storage::TIndex const index(group, country, region);
-    if (index == g_lastCountryIndex)
-      return g_lastSize.first;
-    g_lastCountryIndex = index;
-    g_lastSize = g_framework->Storage().CountrySizeInBytes(index);
-    return g_lastSize.first;
+    return g_framework->Storage().CountrySizeInBytes(storage::TIndex(group, country, region)).first;
   }
 
   JNIEXPORT jlong JNICALL
   Java_com_mapswithme_maps_DownloadUI_countryRemoteSizeInBytes(JNIEnv * env, jobject thiz,
       jint group, jint country, jint region)
   {
-    storage::TIndex const index(group, country, region);
-    if (index == g_lastCountryIndex)
-      return g_lastSize.second;
-    g_lastCountryIndex = index;
-    g_lastSize = g_framework->Storage().CountrySizeInBytes(index);
-    return g_lastSize.second;
+    return g_framework->Storage().CountrySizeInBytes(storage::TIndex(group, country, region)).first;
   }
 
   JNIEXPORT jint JNICALL
