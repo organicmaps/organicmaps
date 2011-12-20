@@ -1,6 +1,7 @@
 #pragma once
 
 #include "condition.hpp"
+#include "logging.hpp"
 #include "../std/list.hpp"
 
 #include "threaded_container.hpp"
@@ -11,6 +12,7 @@ class ThreadedList : public ThreadedContainer
 private:
 
   list<T> m_list;
+  string m_resName;
 
 public:
 
@@ -53,12 +55,24 @@ public:
       m_Cond.Signal();
   }
 
+  void SetName(char const * name)
+  {
+    m_resName = name;
+  }
+
   bool WaitNonEmpty()
   {
     double StartWaitTime = m_Timer.ElapsedSeconds();
 
+    bool firstWait = true;
+
     while (m_list.empty())
     {
+      if (firstWait)
+      {
+        LOG(LINFO, ("waiting for the list of ", m_resName, " to become non-empty"));
+        firstWait = false;
+      }
       if (IsCancelled())
         break;
       m_Cond.Wait();

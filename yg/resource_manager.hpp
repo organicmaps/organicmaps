@@ -177,7 +177,7 @@ namespace yg
       StoragePoolParams m_smallStoragesParams;
       StoragePoolParams m_blitStoragesParams;
       StoragePoolParams m_multiBlitStoragesParams;
-      StoragePoolParams m_tinyStoragesParams;
+      StoragePoolParams m_guiThreadStoragesParams;
 
       /// textures params
 
@@ -185,6 +185,7 @@ namespace yg
       TexturePoolParams m_fontTexturesParams;
       TexturePoolParams m_renderTargetTexturesParams;
       TexturePoolParams m_styleCacheTexturesParams;
+      TexturePoolParams m_guiThreadTexturesParams;
 
       /// glyph caches params
 
@@ -211,12 +212,13 @@ namespace yg
     auto_ptr<TTexturePool> m_fontTextures;
     auto_ptr<TTexturePool> m_styleCacheTextures;
     auto_ptr<TTexturePool> m_renderTargets;
+    auto_ptr<TTexturePool> m_guiThreadTextures;
 
     auto_ptr<TStoragePool> m_primaryStorages;
     auto_ptr<TStoragePool> m_smallStorages;
     auto_ptr<TStoragePool> m_blitStorages;
     auto_ptr<TStoragePool> m_multiBlitStorages;
-    auto_ptr<TStoragePool> m_tinyStorages;
+    auto_ptr<TStoragePool> m_guiThreadStorages;
 
     vector<GlyphCache> m_glyphCaches;
 
@@ -234,7 +236,7 @@ namespace yg
     TStoragePool * smallStorages();
     TStoragePool * blitStorages();
     TStoragePool * multiBlitStorages();
-    TStoragePool * tinyStorages();
+    TStoragePool * guiThreadStorages();
 
     void initTexturePool(TexturePoolParams const & p, auto_ptr<TTexturePool> & pool);
 
@@ -242,6 +244,7 @@ namespace yg
     TTexturePool * fontTextures();
     TTexturePool * renderTargetTextures();
     TTexturePool * styleCacheTextures();
+    TTexturePool * guiThreadTextures();
 
     shared_ptr<gl::BaseTexture> const & getTexture(string const & fileName);
 

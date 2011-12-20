@@ -47,6 +47,14 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_DownloadUI_nativeCreate(JNIEnv * env, jobject thiz)
   {
+    if (g_downloadUI)
+    {
+      /// activity has been killed without onDestroy, destroying manually
+      g_framework->Storage().Unsubscribe();
+      delete g_downloadUI;
+      g_downloadUI = 0;
+    }
+
     g_downloadUI = new android::DownloadUI(thiz);
     g_framework->Storage().Subscribe(bind(&android::DownloadUI::OnChangeCountry, g_downloadUI, _1),
                                      bind(&android::DownloadUI::OnProgress, g_downloadUI, _1, _2));
@@ -57,6 +65,7 @@ extern "C"
   {
     g_framework->Storage().Unsubscribe();
     delete g_downloadUI;
+    g_downloadUI = 0;
   }
 
   JNIEXPORT jint JNICALL

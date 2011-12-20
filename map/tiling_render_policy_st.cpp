@@ -64,7 +64,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                          1,
                                                                          "multiBlitStorage");
 
-  rmp.m_tinyStoragesParams = yg::ResourceManager::StoragePoolParams(300 * sizeof(yg::gl::Vertex),
+  rmp.m_guiThreadStoragesParams = yg::ResourceManager::StoragePoolParams(300 * sizeof(yg::gl::Vertex),
                                                                     sizeof(yg::gl::Vertex),
                                                                     600 * sizeof(unsigned short),
                                                                     sizeof(unsigned short),
@@ -72,7 +72,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                     true,
                                                                     true,
                                                                     1,
-                                                                    "tinyStorage");
+                                                                    "guiThreadStorage");
 
   rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512,
                                                                        256,
@@ -104,6 +104,16 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                             5,
                                                                             "renderTargetTexture");
 
+  rmp.m_guiThreadTexturesParams = yg::ResourceManager::TexturePoolParams(256,
+                                                                    128,
+                                                                    4,
+                                                                    rmp.m_texFormat,
+                                                                    true,
+                                                                    true,
+                                                                    true,
+                                                                    1,
+                                                                    "guiThreadTexture");
+
   rmp.m_glyphCacheParams = yg::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
                                                                  "fonts_whitelist.txt",
                                                                  "fonts_blacklist.txt",
@@ -131,7 +141,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
   p.m_skinName = GetPlatform().SkinName();
   p.m_visualScale = GetPlatform().VisualScale();
   p.m_isSynchronized = true;
-  p.m_useTinyStorage = true;
+  p.m_useGuiResources = true;
 
   m_drawer.reset(new DrawerYG(p));
 

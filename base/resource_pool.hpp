@@ -26,7 +26,9 @@ struct BasePoolTraits
 
   BasePoolTraits(TElemFactory const & factory)
     : m_factory(factory)
-  {}
+  {
+    m_pool.SetName(factory.ResName());
+  }
 
   void Free(TElem const & elem)
   {

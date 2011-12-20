@@ -52,7 +52,7 @@ RenderPolicyMT::RenderPolicyMT(VideoTimer * videoTimer,
                                                                     1,
                                                                     "blitStorage");
 
-  rmp.m_tinyStoragesParams = yg::ResourceManager::StoragePoolParams(300 * sizeof(yg::gl::Vertex),
+  rmp.m_guiThreadStoragesParams = yg::ResourceManager::StoragePoolParams(300 * sizeof(yg::gl::Vertex),
                                                                     sizeof(yg::gl::Vertex),
                                                                     600 * sizeof(unsigned short),
                                                                     sizeof(unsigned short),
@@ -60,7 +60,7 @@ RenderPolicyMT::RenderPolicyMT(VideoTimer * videoTimer,
                                                                     true,
                                                                     true,
                                                                     1,
-                                                                    "tinyStorage");
+                                                                    "guiThreadStorage");
 
   rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512,
                                                                        256,
@@ -81,6 +81,16 @@ RenderPolicyMT::RenderPolicyMT(VideoTimer * videoTimer,
                                                                     true,
                                                                     1,
                                                                     "fontTexture");
+
+  rmp.m_guiThreadTexturesParams = yg::ResourceManager::TexturePoolParams(256,
+                                                                    128,
+                                                                    4,
+                                                                    rmp.m_texFormat,
+                                                                    true,
+                                                                    true,
+                                                                    true,
+                                                                    1,
+                                                                    "guiThreadTexture");
 
   rmp.m_glyphCacheParams = yg::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
                                                                  "fonts_whitelist.txt",
@@ -110,7 +120,7 @@ RenderPolicyMT::RenderPolicyMT(VideoTimer * videoTimer,
   p.m_skinName = GetPlatform().SkinName();
   p.m_visualScale = GetPlatform().VisualScale();
   p.m_isSynchronized = false;
-  p.m_useTinyStorage = true;
+  p.m_useGuiResources = true;
 
   m_drawer.reset(new DrawerYG(p));
 

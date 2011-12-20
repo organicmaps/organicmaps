@@ -62,8 +62,8 @@ namespace yg
         mutable unsigned short * m_indices;
         /// @}
 
-        bool m_useTinyStorage;
-        yg::SkinPage::EUsage m_usage;
+        bool m_useGuiResources;
+        yg::SkinPage::EType m_type;
 
         size_t verticesLeft();
         size_t indicesLeft();
@@ -80,7 +80,7 @@ namespace yg
 
       bool m_isAntiAliased;
       bool m_isSynchronized;
-      bool m_useTinyStorage;
+      bool m_useGuiResources;
 
       int m_aaShift;
 
@@ -125,7 +125,7 @@ namespace yg
       struct Params : public base_t::Params
       {
         bool m_isSynchronized;
-        bool m_useTinyStorage;
+        bool m_useGuiResources;
         Params();
       };
 

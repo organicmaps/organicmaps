@@ -337,11 +337,12 @@ namespace yg
       m_smallStoragesParams("smallStorage"),
       m_blitStoragesParams("blitStorage"),
       m_multiBlitStoragesParams("multiBlitStorage"),
-      m_tinyStoragesParams("tinyStorage"),
+      m_guiThreadStoragesParams("tinyStorage"),
       m_primaryTexturesParams("primaryTexture"),
       m_fontTexturesParams("fontTexture"),
       m_renderTargetTexturesParams("renderTargetTexture"),
-      m_styleCacheTexturesParams("styleCacheTexture")
+      m_styleCacheTexturesParams("styleCacheTexture"),
+      m_guiThreadTexturesParams("guiThreadTexture")
   {}
 
   void ResourceManager::Params::fitIntoLimits()
@@ -378,11 +379,12 @@ namespace yg
         + m_smallStoragesParams.memoryUsage()
         + m_blitStoragesParams.memoryUsage()
         + m_multiBlitStoragesParams.memoryUsage()
-        + m_tinyStoragesParams.memoryUsage()
+        + m_guiThreadStoragesParams.memoryUsage()
         + m_primaryTexturesParams.memoryUsage()
         + m_fontTexturesParams.memoryUsage()
         + m_renderTargetTexturesParams.memoryUsage()
-        + m_styleCacheTexturesParams.memoryUsage();
+        + m_styleCacheTexturesParams.memoryUsage()
+        + m_guiThreadTexturesParams.memoryUsage();
   }
 
   int ResourceManager::Params::fixedMemoryUsage() const
@@ -391,11 +393,12 @@ namespace yg
       + (m_smallStoragesParams.isFixed() ? m_smallStoragesParams.memoryUsage() : 0)
       + (m_blitStoragesParams.isFixed() ? m_blitStoragesParams.memoryUsage() : 0)
       + (m_multiBlitStoragesParams.isFixed() ? m_multiBlitStoragesParams.memoryUsage() : 0)
-      + (m_tinyStoragesParams.isFixed() ? m_tinyStoragesParams.memoryUsage() : 0)
+      + (m_guiThreadStoragesParams.isFixed() ? m_guiThreadStoragesParams.memoryUsage() : 0)
       + (m_primaryTexturesParams.isFixed() ? m_primaryTexturesParams.memoryUsage() : 0)
       + (m_fontTexturesParams.isFixed() ? m_fontTexturesParams.memoryUsage() : 0)
       + (m_renderTargetTexturesParams.isFixed() ? m_renderTargetTexturesParams.memoryUsage() : 0)
-      + (m_styleCacheTexturesParams.isFixed() ? m_styleCacheTexturesParams.memoryUsage() : 0);
+      + (m_styleCacheTexturesParams.isFixed() ? m_styleCacheTexturesParams.memoryUsage() : 0)
+      + (m_guiThreadTexturesParams.isFixed() ? m_guiThreadTexturesParams.memoryUsage() : 0);
   }
 
   void ResourceManager::Params::distributeFreeMemory(int freeVideoMemory)
@@ -404,12 +407,13 @@ namespace yg
     m_smallStoragesParams.distributeFreeMemory(freeVideoMemory);
     m_blitStoragesParams.distributeFreeMemory(freeVideoMemory);
     m_multiBlitStoragesParams.distributeFreeMemory(freeVideoMemory);
-    m_tinyStoragesParams.distributeFreeMemory(freeVideoMemory);
+    m_guiThreadStoragesParams.distributeFreeMemory(freeVideoMemory);
 
     m_primaryTexturesParams.distributeFreeMemory(freeVideoMemory);
     m_fontTexturesParams.distributeFreeMemory(freeVideoMemory);
     m_renderTargetTexturesParams.distributeFreeMemory(freeVideoMemory);
     m_styleCacheTexturesParams.distributeFreeMemory(freeVideoMemory);
+    m_guiThreadTexturesParams.distributeFreeMemory(freeVideoMemory);
   }
 
   ResourceManager::ResourceManager(Params const & p)
@@ -421,12 +425,13 @@ namespace yg
     initStoragePool(p.m_smallStoragesParams, m_smallStorages);
     initStoragePool(p.m_blitStoragesParams, m_blitStorages);
     initStoragePool(p.m_multiBlitStoragesParams, m_multiBlitStorages);
-    initStoragePool(p.m_tinyStoragesParams, m_tinyStorages);
+    initStoragePool(p.m_guiThreadStoragesParams, m_guiThreadStorages);
 
     initTexturePool(p.m_primaryTexturesParams, m_primaryTextures);
     initTexturePool(p.m_fontTexturesParams, m_fontTextures);
     initTexturePool(p.m_renderTargetTexturesParams, m_renderTargets);
     initTexturePool(p.m_styleCacheTexturesParams, m_styleCacheTextures);
+    initTexturePool(p.m_guiThreadTexturesParams, m_guiThreadTextures);
 
     if (p.m_useVA)
       LOG(LINFO, ("buffer objects are unsupported. using client vertex array instead."));
@@ -438,11 +443,12 @@ namespace yg
         + (m_smallStoragesParams.isFixed() ? 0 : m_smallStoragesParams.m_scalePriority)
         + (m_blitStoragesParams.isFixed() ? 0 : m_blitStoragesParams.m_scalePriority)
         + (m_multiBlitStoragesParams.isFixed() ? 0 : m_multiBlitStoragesParams.m_scalePriority)
-        + (m_tinyStoragesParams.isFixed() ? 0 : m_tinyStoragesParams.m_scalePriority)
+        + (m_guiThreadStoragesParams.isFixed() ? 0 : m_guiThreadStoragesParams.m_scalePriority)
         + (m_primaryTexturesParams.isFixed() ? 0 : m_primaryTexturesParams.m_scalePriority)
         + (m_fontTexturesParams.isFixed() ? 0 : m_fontTexturesParams.m_scalePriority)
         + (m_renderTargetTexturesParams.isFixed() ? 0 : m_renderTargetTexturesParams.m_scalePriority)
-        + (m_styleCacheTexturesParams.isFixed() ? 0 : m_styleCacheTexturesParams.m_scalePriority);
+        + (m_styleCacheTexturesParams.isFixed() ? 0 : m_styleCacheTexturesParams.m_scalePriority)
+        + (m_guiThreadTexturesParams.isFixed() ? 0 : m_guiThreadTexturesParams.m_scalePriority);
 
     if (prioritySum == 0)
       return;
@@ -451,11 +457,12 @@ namespace yg
     m_smallStoragesParams.m_scaleFactor = m_smallStoragesParams.m_scalePriority / prioritySum;
     m_blitStoragesParams.m_scaleFactor = m_blitStoragesParams.m_scalePriority / prioritySum;
     m_multiBlitStoragesParams.m_scaleFactor = m_multiBlitStoragesParams.m_scalePriority / prioritySum;
-    m_tinyStoragesParams.m_scaleFactor = m_tinyStoragesParams.m_scalePriority / prioritySum;
+    m_guiThreadStoragesParams.m_scaleFactor = m_guiThreadStoragesParams.m_scalePriority / prioritySum;
     m_primaryTexturesParams.m_scaleFactor = m_primaryTexturesParams.m_scalePriority / prioritySum;
     m_fontTexturesParams.m_scaleFactor = m_fontTexturesParams.m_scalePriority / prioritySum;
     m_renderTargetTexturesParams.m_scaleFactor = m_renderTargetTexturesParams.m_scalePriority / prioritySum;
     m_styleCacheTexturesParams.m_scaleFactor = m_styleCacheTexturesParams.m_scalePriority / prioritySum;
+    m_guiThreadTexturesParams.m_scaleFactor = m_guiThreadTexturesParams.m_scalePriority / prioritySum;
   }
 
   void ResourceManager::initGlyphCaches(GlyphCacheParams const & p)
@@ -565,8 +572,8 @@ namespace yg
     if (m_multiBlitStorages.get())
       m_multiBlitStorages->EnterBackground();
 
-    if (m_tinyStorages.get())
-      m_tinyStorages->EnterBackground();
+    if (m_guiThreadStorages.get())
+      m_guiThreadStorages->EnterBackground();
 
     if (m_primaryTextures.get())
       m_primaryTextures->EnterBackground();
@@ -579,6 +586,9 @@ namespace yg
 
     if (m_styleCacheTextures.get())
       m_styleCacheTextures->EnterBackground();
+
+    if (m_guiThreadTextures.get())
+      m_guiThreadTextures->EnterBackground();
   }
 
   void ResourceManager::enterForeground()
@@ -597,8 +607,8 @@ namespace yg
     if (m_multiBlitStorages.get())
       m_multiBlitStorages->EnterForeground();
 
-    if (m_tinyStorages.get())
-      m_tinyStorages->EnterForeground();
+    if (m_guiThreadStorages.get())
+      m_guiThreadStorages->EnterForeground();
 
     if (m_primaryTextures.get())
       m_primaryTextures->EnterForeground();
@@ -611,6 +621,9 @@ namespace yg
 
     if (m_styleCacheTextures.get())
       m_styleCacheTextures->EnterForeground();
+
+    if (m_guiThreadTextures.get())
+      m_guiThreadTextures->EnterForeground();
   }
 
   shared_ptr<yg::gl::BaseTexture> ResourceManager::createRenderTarget(unsigned w, unsigned h)
@@ -652,9 +665,9 @@ namespace yg
     return m_smallStorages.get();
   }
 
-  ResourceManager::TStoragePool * ResourceManager::tinyStorages()
+  ResourceManager::TStoragePool * ResourceManager::guiThreadStorages()
   {
-    return m_tinyStorages.get();
+    return m_guiThreadStorages.get();
   }
 
   ResourceManager::TStoragePool * ResourceManager::blitStorages()
@@ -687,10 +700,15 @@ namespace yg
     return m_styleCacheTextures.get();
   }
 
+  ResourceManager::TTexturePool * ResourceManager::guiThreadTextures()
+  {
+    return m_guiThreadTextures.get();
+  }
+
   void ResourceManager::mergeFreeResources()
   {
-    if (m_tinyStorages.get())
-      m_tinyStorages->Merge();
+    if (m_guiThreadStorages.get())
+      m_guiThreadStorages->Merge();
     if (m_primaryStorages.get())
       m_primaryStorages->Merge();
     if (m_smallStorages.get())

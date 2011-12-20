@@ -45,7 +45,7 @@ namespace yg
   }
 
   SkinPage::SkinPage()
-    : m_usage(EStaticUsage),
+    : m_type(EStatic),
       m_pipelineID(0)
   {}
 
@@ -55,16 +55,16 @@ namespace yg
                      uint8_t pipelineID)
                    : m_texture(resourceManager->getTexture(name)),
                      m_packer(m_texture->width(), m_texture->height(), 0x00FFFFFF - 1),
-                     m_usage(EStaticUsage),
+                     m_type(EStatic),
                      m_pipelineID(pipelineID)
   {
   }
 
   SkinPage::SkinPage(shared_ptr<ResourceManager> const & resourceManager,
-                     EUsage usage,
+                     EType type,
                      uint8_t pipelineID)
     : m_resourceManager(resourceManager),
-      m_usage(usage),
+      m_type(type),
       m_pipelineID(pipelineID)
   {
     createPacker();
@@ -293,9 +293,17 @@ namespace yg
     return m_packer.hasRoom(p.x, p.y);
   }
 
-  SkinPage::EUsage SkinPage::usage() const
+  void SkinPage::setType(SkinPage::EType type)
   {
-    return m_usage;
+    m_type = type;
+    createPacker();
+    if (m_type != EStatic)
+      m_packer.addOverflowFn(bind(&SkinPage::clearHandles, this), 0);
+  }
+
+  SkinPage::EType SkinPage::type() const
+  {
+    return m_type;
   }
 
   bool SkinPage::hasData()
@@ -310,7 +318,7 @@ namespace yg
 
   void SkinPage::checkTexture() const
   {
-    if ((m_usage != EStaticUsage) && (m_texture == 0))
+    if ((m_type != EStatic) && (m_texture == 0))
       reserveTexture();
   }
 
@@ -386,16 +394,18 @@ namespace yg
   {
     if (m_texture)
     {
-      switch (m_usage)
+      switch (m_type)
       {
-      case EDynamicUsage:
+      case EPrimary:
         m_resourceManager->primaryTextures()->Free(m_texture);
         break;
-      case EFontsUsage:
+      case EFonts:
         m_resourceManager->fontTextures()->Free(m_texture);
         break;
+      case ELightWeight:
+        m_resourceManager->guiThreadTextures()->Free(m_texture);
       default:
-        LOG(LINFO, ("freeTexture call for with invalid usage param"));
+        LOG(LINFO, ("freeTexture call for with invalid type param"));
       }
 
       m_texture.reset();
@@ -404,35 +414,43 @@ namespace yg
 
   void SkinPage::reserveTexture() const
   {
-    switch (m_usage)
+    switch (m_type)
     {
-    case EDynamicUsage:
+    case EPrimary:
       m_texture = m_resourceManager->primaryTextures()->Reserve();
       break;
-    case EFontsUsage:
+    case EFonts:
       m_texture = m_resourceManager->fontTextures()->Reserve();
       break;
+    case ELightWeight:
+      m_texture = m_resourceManager->guiThreadTextures()->Reserve();
+      break;
     default:
-      LOG(LINFO, ("freeTexture call for with invalid usage param"));
+      LOG(LINFO, ("reserveTexture call for with invalid type param"));
     }
   }
 
   void SkinPage::createPacker()
   {
-    switch (m_usage)
+    switch (m_type)
     {
-    case EDynamicUsage:
+    case EPrimary:
       m_packer = m2::Packer(m_resourceManager->params().m_primaryTexturesParams.m_texWidth,
                             m_resourceManager->params().m_primaryTexturesParams.m_texHeight,
                             0x00FFFFFF - 1);
       break;
-    case EFontsUsage:
+    case EFonts:
       m_packer = m2::Packer(m_resourceManager->params().m_fontTexturesParams.m_texWidth,
                             m_resourceManager->params().m_fontTexturesParams.m_texHeight,
                             0x00FFFFFF - 1);
       break;
+    case ELightWeight:
+      m_packer = m2::Packer(m_resourceManager->params().m_guiThreadTexturesParams.m_texWidth,
+                            m_resourceManager->params().m_guiThreadTexturesParams.m_texHeight,
+                            0x00FFFFFF - 1);
+      break;
     default:
-      LOG(LINFO, ("createPacker call for invalid usage param"));
+      LOG(LINFO, ("createPacker call for invalid type param"));
     }
   }
 

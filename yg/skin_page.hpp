@@ -38,11 +38,12 @@ namespace yg
   {
   public:
 
-    enum EUsage
+    enum EType
     {
-      EStaticUsage,
-      EDynamicUsage,
-      EFontsUsage
+      EStatic,
+      EPrimary,
+      EFonts,
+      ELightWeight
     };
 
     typedef m2::Packer::overflowFn overflowFn;
@@ -82,7 +83,7 @@ namespace yg
     typedef vector<FontInfo> TFonts;
     TFonts m_fonts;
 
-    EUsage m_usage;
+    EType m_type;
     uint32_t m_pipelineID;
 
     bool m_fillAlpha;
@@ -123,7 +124,7 @@ namespace yg
 
     /// creation of a dynamic page
     SkinPage(shared_ptr<ResourceManager> const & resourceManager,
-             EUsage usage,
+             EType type,
              uint8_t pipelineID);
 
     void reserveTexture() const;
@@ -152,7 +153,8 @@ namespace yg
 
     ResourceStyle * fromID(uint32_t idx) const;
 
-    EUsage usage() const;
+    void setType(EType type);
+    EType type() const;
     shared_ptr<ResourceManager> const & resourceManager() const;
 
     void addOverflowFn(overflowFn fn, int priority);

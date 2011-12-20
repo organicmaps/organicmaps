@@ -24,14 +24,14 @@ namespace yg
   {
     GeometryBatcher::Params::Params()
       : m_isSynchronized(true),
-        m_useTinyStorage(false)
+        m_useGuiResources(false)
     {}
 
     GeometryBatcher::GeometryBatcher(Params const & params)
       : base_t(params),
         m_isAntiAliased(true),
         m_isSynchronized(params.m_isSynchronized),
-        m_useTinyStorage(params.m_useTinyStorage)
+        m_useGuiResources(params.m_useGuiResources)
     {
       reset(-1);
       base_t::applyStates(m_isAntiAliased);
@@ -47,7 +47,8 @@ namespace yg
      {
        discardPipeline(i);
        freeStorage(i);
-       freeTexture(i);
+       if (m_skin->getPage(i)->type() != SkinPage::EStatic)
+         freeTexture(i);
      }
    }
 
@@ -67,11 +68,25 @@ namespace yg
    {
      if (!m_hasStorage)
      {
-       if (m_useTinyStorage)
-         m_storage = resourceManager->tinyStorages()->Reserve();
+       if (m_useGuiResources)
+         m_storage = resourceManager->guiThreadStorages()->Reserve();
        else
-         m_storage = m_usage != SkinPage::EStaticUsage ? resourceManager->primaryStorages()->Reserve()
-                                                       : resourceManager->smallStorages()->Reserve();
+       {
+         switch (m_type)
+         {
+         case SkinPage::EPrimary:
+           m_storage = resourceManager->primaryStorages()->Reserve();
+           break;
+         case SkinPage::EFonts:
+           m_storage = resourceManager->smallStorages()->Reserve();
+           break;
+         case SkinPage::EStatic:
+           m_storage = resourceManager->smallStorages()->Reserve();
+           break;
+         default:
+           LOG(LERROR, ("invalid storage type in checkStorage"));
+         }
+       }
 
        m_maxVertices = m_storage.m_vertices->size() / sizeof(Vertex);
        m_maxIndices = m_storage.m_indices->size() / sizeof(unsigned short);
@@ -105,13 +120,24 @@ namespace yg
      {
        freeStorage->m_storage = pipeline.m_storage;
 
-       if (pipeline.m_useTinyStorage)
-         freeStorage->m_storagePool = resourceManager()->tinyStorages();
+       if (pipeline.m_useGuiResources)
+         freeStorage->m_storagePool = resourceManager()->guiThreadStorages();
        else
-         if (pipeline.m_usage != SkinPage::EStaticUsage)
+         switch (pipeline.m_type)
+         {
+         case SkinPage::EPrimary:
            freeStorage->m_storagePool = resourceManager()->primaryStorages();
-         else
+           break;
+         case SkinPage::EFonts:
            freeStorage->m_storagePool = resourceManager()->smallStorages();
+           break;
+         case SkinPage::EStatic:
+           freeStorage->m_storagePool = resourceManager()->smallStorages();
+           break;
+         default:
+           LOG(LERROR, ("invalid pipeline type in freeStorage"));
+           break;
+         }
 
        pipeline.m_hasStorage = false;
        pipeline.m_storage = Storage();
@@ -136,12 +162,12 @@ namespace yg
 
        for (size_t i = 0; i < 1; ++i)
        {
-         m_pipelines[i + pagesCount].m_useTinyStorage = m_useTinyStorage;
+         m_pipelines[i + pagesCount].m_useGuiResources = m_useGuiResources;
          m_pipelines[i + pagesCount].m_currentVertex = 0;
          m_pipelines[i + pagesCount].m_currentIndex = 0;
 
          m_pipelines[i + pagesCount].m_hasStorage = false;
-         m_pipelines[i + pagesCount].m_usage = p->usage();
+         m_pipelines[i + pagesCount].m_type = p->type();
 
          m_pipelines[i + pagesCount].m_maxVertices = 0;
          m_pipelines[i + pagesCount].m_maxIndices = 0;
@@ -173,6 +199,12 @@ namespace yg
      m_skin = skin;
      if (m_skin != 0)
      {
+       /// settings proper skin page type according to useGuiResources flag
+       if (m_useGuiResources)
+         for (size_t i = 0; i < m_skin->getPagesCount(); ++i)
+           if (m_skin->getPage(i)->type() != SkinPage::EStatic)
+             m_skin->getPage(i)->setType(SkinPage::ELightWeight);
+
        m_pipelines.resize(m_skin->getPagesCount());
 
        m_skin->addOverflowFn(bind(&GeometryBatcher::flush, this, _1), 100);
@@ -182,12 +214,12 @@ namespace yg
 
        for (size_t i = 0; i < m_pipelines.size(); ++i)
        {
-         m_pipelines[i].m_useTinyStorage = m_useTinyStorage;
+         m_pipelines[i].m_useGuiResources = m_useGuiResources;
          m_pipelines[i].m_currentVertex = 0;
          m_pipelines[i].m_currentIndex = 0;
 
          m_pipelines[i].m_hasStorage = false;
-         m_pipelines[i].m_usage = skin->getPage(i)->usage();
+         m_pipelines[i].m_type = skin->getPage(i)->type();
 
          m_pipelines[i].m_maxVertices = 0;
          m_pipelines[i].m_maxIndices = 0;
@@ -306,16 +338,19 @@ namespace yg
 
      freeTexCmd->m_texture = m_skin->getPage(pipelineID)->texture();
 
-     switch (m_skin->getPage(pipelineID)->usage())
+     switch (m_skin->getPage(pipelineID)->type())
      {
-     case SkinPage::EDynamicUsage:
+     case SkinPage::EPrimary:
        freeTexCmd->m_texturePool = resourceManager()->primaryTextures();
        break;
-     case SkinPage::EFontsUsage:
+     case SkinPage::EFonts:
        freeTexCmd->m_texturePool = resourceManager()->fontTextures();
        break;
-     case SkinPage::EStaticUsage:
-       LOG(LWARNING, ("texture with EStaticUsage can't be freed."));
+     case SkinPage::ELightWeight:
+       freeTexCmd->m_texturePool = resourceManager()->guiThreadTextures();
+       break;
+     case SkinPage::EStatic:
+       LOG(LWARNING, ("texture with EStatic can't be freed."));
        return;
      }
 
