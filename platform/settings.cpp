@@ -2,6 +2,8 @@
 
 #include "../defines.hpp"
 
+#include "../base/logging.hpp"
+
 #include "../coding/file_reader.hpp"
 #include "../coding/file_writer.hpp"
 
@@ -41,20 +43,29 @@ namespace Settings
       }
     }
     catch (std::exception const & e)
-    {}
+    {
+      LOG(LWARNING, ("Can't load", SETTINGS_FILE_NAME));
+    }
   }
 
   void StringStorage::Save() const
   {
     // @TODO add mutex
-    FileWriter file(GetPlatform().WritablePathForFile(SETTINGS_FILE_NAME));
-    for (ContainerT::const_iterator it = m_values.begin(); it != m_values.end(); ++it)
+    try
     {
-      string line(it->first);
-      line += DELIM_CHAR;
-      line += it->second;
-      line += "\n";
-      file.Write(line.data(), line.size());
+      FileWriter file(GetPlatform().WritablePathForFile(SETTINGS_FILE_NAME));
+      for (ContainerT::const_iterator it = m_values.begin(); it != m_values.end(); ++it)
+      {
+        string line(it->first);
+        line += DELIM_CHAR;
+        line += it->second;
+        line += "\n";
+        file.Write(line.data(), line.size());
+      }
+    }
+    catch (std::exception const &)
+    { // Ignore all settings saving exceptions
+      LOG(LWARNING, ("Can't save", SETTINGS_FILE_NAME));
     }
   }
 
