@@ -96,7 +96,7 @@ namespace yg
       void dump(char const * fileName)
       {
         makeCurrent();
-        std::string const fullPath = GetPlatform().WritablePathForFile(fileName);
+//        std::string const fullPath = GetPlatform().WritablePathForFile(fileName);
 
         typename Traits::image_t image(width(), height());
 
@@ -284,7 +284,7 @@ namespace yg
     {
       lock();
       readback();
-      std::string const fullPath = GetPlatform().WritablePathForFile(fileName);
+//      std::string const fullPath = GetPlatform().WritablePathForFile(fileName);
 #ifndef OMIM_GL_ES
 //      boost::gil::lodepng_write_view(fullPath.c_str(), view(width(), height()));
 #endif
