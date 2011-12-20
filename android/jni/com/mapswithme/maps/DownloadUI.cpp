@@ -85,7 +85,7 @@ extern "C"
   Java_com_mapswithme_maps_DownloadUI_countryRemoteSizeInBytes(JNIEnv * env, jobject thiz,
       jint group, jint country, jint region)
   {
-    return g_framework->Storage().CountrySizeInBytes(storage::TIndex(group, country, region)).first;
+    return g_framework->Storage().CountrySizeInBytes(storage::TIndex(group, country, region)).second;
   }
 
   JNIEXPORT jint JNICALL
