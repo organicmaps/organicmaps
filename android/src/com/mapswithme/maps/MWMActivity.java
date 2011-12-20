@@ -54,8 +54,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private String getDataStoragePath()
   {
-    String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-    return storagePath.concat(String.format("/%s/", PACKAGE_NAME));
+    String storagePath = Environment.getExternalStorageDirectory()
+        .getAbsolutePath();
+    return storagePath.concat(String.format("/Android/data/%s/files/", PACKAGE_NAME));
   }
 
   private void checkMeasurementSystem()
