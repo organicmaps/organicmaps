@@ -18,7 +18,9 @@ public:
   uint8_t m_maxScale;       // Max zoom level of mwm.
 
   // Does this MwmInfo represent a valid Mwm?
-  bool isValid() const { return m_status == STATUS_ACTIVE; }
+  inline bool isValid() const { return (m_status == STATUS_ACTIVE); }
+  inline bool isCountry() const { return (m_minScale > 0); }
+
 private:
   friend class MwmSet;
 
@@ -68,8 +70,16 @@ public:
     return (-1 != Add(fileName, dummy));
   }
 
-  // Remove mwm.
+  /// @name Remove mwm.
+  //@{
+private:
+  void RemoveImpl(MwmId id);
+
+public:
   void Remove(string const & fileName);
+  /// Remove all except world boundle mwm's.
+  void RemoveAllCountries();
+  //@}
 
   bool IsLoaded(string const & fName) const;
 
@@ -106,8 +116,8 @@ private:
   // Do the cleaning for [beg, end) without acquiring the mutex.
   void ClearCacheImpl(CacheType::iterator beg, CacheType::iterator end);
 
-  mutable vector<MwmInfo> m_info;
-  mutable vector<string> m_name;
+  mutable vector<MwmInfo> m_info;     // mutable needed for GetMwmInfo
+  /*mutable*/ vector<string> m_name;
   mutable CacheType m_cache;
   size_t m_cacheSize;
   mutable threads::Mutex m_lock;

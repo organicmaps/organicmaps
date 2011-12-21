@@ -53,11 +53,16 @@ void FeaturesFetcher::RemoveMap(string const & fName)
   m_multiIndex.Remove(fName);
 }
 
-void FeaturesFetcher::Clean()
+void FeaturesFetcher::RemoveAllCountries()
 {
-  m_rect.MakeEmpty();
-  // TODO: m_multiIndex.Clear(); - is it needed?
+  m_multiIndex.RemoveAllCountries();
 }
+
+//void FeaturesFetcher::Clean()
+//{
+//  m_rect.MakeEmpty();
+//  // TODO: m_multiIndex.Clear(); - is it needed?
+//}
 
 void FeaturesFetcher::ClearCaches()
 {

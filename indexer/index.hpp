@@ -144,7 +144,7 @@ private:
       {
         /// @todo It's better to avoid hacks with scale comparison.
 
-        if (mwm[id].m_minScale > 0)
+        if (mwm[id].isCountry())
         {
           // process countries first
           ProcessMwm(f, id, cov, scale);

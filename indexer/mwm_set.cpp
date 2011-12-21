@@ -58,6 +58,7 @@ void MwmSet::Cleanup()
 
   ClearCacheImpl(m_cache.begin(), m_cache.end());
 
+#ifdef DEBUG
   for (size_t i = 0; i < m_info.size(); ++i)
   {
     if (m_info[i].m_status == MwmInfo::STATUS_ACTIVE)
@@ -66,9 +67,10 @@ void MwmSet::Cleanup()
       ASSERT_NOT_EQUAL(m_name[i], string(), (i));
     }
   }
+#endif
 }
 
-inline void MwmSet::UpdateMwmInfo(MwmInfo & info)
+void MwmSet::UpdateMwmInfo(MwmInfo & info)
 {
   if (info.m_status == MwmInfo::STATUS_TO_REMOVE && info.m_lockCount == 0)
     info.m_status = MwmInfo::STATUS_REMOVED;
@@ -132,6 +134,15 @@ int MwmSet::Add(string const & fileName, m2::RectD & r)
   return version;
 }
 
+void MwmSet::RemoveImpl(MwmId id)
+{
+  if (m_info[id].m_lockCount == 0)
+    m_info[id].m_status = MwmInfo::STATUS_REMOVED;
+  else
+    m_info[id].m_status = MwmInfo::STATUS_TO_REMOVE;
+  m_name[id].clear();
+}
+
 void MwmSet::Remove(string const & fileName)
 {
   threads::MutexGuard mutexGuard(m_lock);
@@ -142,15 +153,26 @@ void MwmSet::Remove(string const & fileName)
   MwmId const id = GetIdByName(fileName);
   if (id != INVALID_MWM_ID)
   {
-    if (m_info[id].m_lockCount == 0)
-      m_info[id].m_status = MwmInfo::STATUS_REMOVED;
-    else
-      m_info[id].m_status = MwmInfo::STATUS_TO_REMOVE;
-    m_name[id].clear();
+    RemoveImpl(id);
 
     // Update the cache.
     ClearCacheImpl(RemoveIfKeepValid(m_cache.begin(), m_cache.end(), MwmIdIsEqualTo(id)), m_cache.end());
   }
+}
+
+void MwmSet::RemoveAllCountries()
+{
+  threads::MutexGuard mutexGuard(m_lock);
+  UNUSED_VALUE(mutexGuard);
+
+  for (MwmId i = 0; i < m_info.size(); ++i)
+  {
+    if (m_info[i].isCountry())
+      RemoveImpl(i);
+  }
+
+  // do not call ClearCache - it's under mutex lock
+  ClearCacheImpl(m_cache.begin(), m_cache.end());
 }
 
 bool MwmSet::IsLoaded(string const & fName) const

@@ -36,7 +36,9 @@ namespace model
     /// @return MWM format version for file or -1 if error and map was not added
     int AddMap(string const & file);
     void RemoveMap(string const & fName);
-    void Clean();
+    void RemoveAllCountries();
+
+    //void Clean();
     void ClearCaches();
 
     inline bool IsLoaded(string const & fName) const
