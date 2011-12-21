@@ -331,7 +331,7 @@ namespace yg
 
    void GeometryBatcher::freeTexture(int pipelineID)
    {
-     if (!m_skin->getPage(pipelineID)->texture())
+     if (!m_skin->getPage(pipelineID)->hasTexture())
        return;
 
      shared_ptr<FreeTexture> freeTexCmd(new FreeTexture());

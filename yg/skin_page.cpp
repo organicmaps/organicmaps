@@ -377,6 +377,11 @@ namespace yg
     return m_texture;
   }
 
+  bool SkinPage::hasTexture() const
+  {
+    return m_texture != 0;
+  }
+
   void SkinPage::setTexture(shared_ptr<gl::BaseTexture> const & texture)
   {
     m_texture = texture;

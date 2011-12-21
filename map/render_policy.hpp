@@ -84,7 +84,7 @@ public:
   bool DoSupportRotation() const;
   bool IsTiling() const;
 
-  bool NeedRedraw() const;
+  virtual bool NeedRedraw() const;
   virtual bool IsEmptyModel() const;
 
   bool DoForceUpdate() const;

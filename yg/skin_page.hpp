@@ -159,6 +159,7 @@ namespace yg
 
     void addOverflowFn(overflowFn fn, int priority);
 
+    bool hasTexture() const;
     shared_ptr<gl::BaseTexture> const & texture() const;
     void setTexture(shared_ptr<gl::BaseTexture> const & t);
   };

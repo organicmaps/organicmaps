@@ -43,91 +43,91 @@ static bool renderGameplay()
 
 static bool renderPauseScreen()
 {
-    return true;
+  return true;
 }
 
 bool SetupGLESResources()
 {
-    if (s_glesLoaded)
-        return true;
-
-    if (!g_framework->InitRenderPolicy())
-      return false;
-
-    s_glesLoaded = true;
-
+  if (s_glesLoaded)
     return true;
+
+  if (!g_framework->InitRenderPolicy())
+    return false;
+
+  s_glesLoaded = true;
+
+  return true;
 }
 
 bool ShutdownGLESResources()
 {
-    if (!s_glesLoaded)
-        return true;
+  if (!s_glesLoaded)
+    return true;
 
-    // We cannot use GLES calls to release the resources if the context is
-    // not bound.  In that case, we simply shut down EGL, which has code to
-    // explicitly delete the context
-    if (!NVEventStatusEGLIsBound())
-    {
-        NVDEBUG("ShutdownGLESResources: GLES not bound, shutting down EGL to release");
+  // We cannot use GLES calls to release the resources if the context is
+  // not bound.  In that case, we simply shut down EGL, which has code to
+  // explicitly delete the context
+  if (!NVEventStatusEGLIsBound())
+  {
+    NVDEBUG("ShutdownGLESResources: GLES not bound, shutting down EGL to release");
 
-        yg::gl::g_doDeleteOnDestroy = false;
-
-        g_framework->DeleteRenderPolicy();
-
-        yg::gl::g_doDeleteOnDestroy = true;
-
-        NVDEBUG("Cleaning up EGL");
-
-        if (NVEventCleanupEGL())
-        {
-            s_glesLoaded = false;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    NVDEBUG("ShutdownGLESResources event: GLES bound, manually deleting GLES resources");
+    yg::gl::g_doDeleteOnDestroy = false;
 
     g_framework->DeleteRenderPolicy();
 
-    s_glesLoaded = false;
+    yg::gl::g_doDeleteOnDestroy = true;
 
-    return true;
+    NVDEBUG("Cleaning up EGL");
+
+    if (NVEventCleanupEGL())
+    {
+      s_glesLoaded = false;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  NVDEBUG("ShutdownGLESResources event: GLES bound, manually deleting GLES resources");
+
+  g_framework->DeleteRenderPolicy();
+
+  s_glesLoaded = false;
+
+  return true;
 }
 
 bool renderFrame(bool allocateIfNeeded)
 {
-    if (!NVEventReadyToRenderEGL(allocateIfNeeded))
-        return false;
+  if (!NVEventReadyToRenderEGL(allocateIfNeeded))
+    return false;
 
-    // We've gotten this far, so EGL is ready for us.  Have we loaded our assets?
-    // Note that we cannot use APP_STATUS_GLES_LOADED to imply that EGL is
-    // ready to render.  We can have a valid context with all GLES resources loaded
-    // into it but no surface and thus the context not bound.  These are semi-
-    // independent states.
-    if (!s_glesLoaded)
-    {
-        if (!allocateIfNeeded)
-            return false;
+  // We've gotten this far, so EGL is ready for us.  Have we loaded our assets?
+  // Note that we cannot use APP_STATUS_GLES_LOADED to imply that EGL is
+  // ready to render.  We can have a valid context with all GLES resources loaded
+  // into it but no surface and thus the context not bound.  These are semi-
+  // independent states.
+  if (!s_glesLoaded)
+  {
+    if (!allocateIfNeeded)
+      return false;
 
-        if (!SetupGLESResources())
-            return false;
-    }
+    if (!SetupGLESResources())
+      return false;
+  }
 
-    // If we're not paused, "animate" the scene
-    if (!s_glesAutopaused)
-    {
-      // clock ticks, so animate something.
-    }
+  // If we're not paused, "animate" the scene
+  if (!s_glesAutopaused)
+  {
+    // clock ticks, so animate something.
+  }
 
-    // For this simple app, we render the gameplay every time
-    // we render, even if it is paused.  When we are paused, the
-    /// gameplay is not animated and the pause "screen" is on top
-    g_framework->DrawFrame();
+  // For this simple app, we render the gameplay every time
+  // we render, even if it is paused.  When we are paused, the
+  /// gameplay is not animated and the pause "screen" is on top
+  g_framework->DrawFrame();
 
 //    // If we're paused, draw the pause screen on top
 //    if (s_glesAutopaused)
@@ -135,14 +135,14 @@ bool renderFrame(bool allocateIfNeeded)
 
 //    NVEventSwapBuffersEGL();
 
-    // A debug printout every 256 frames so we can see when we're
-    // actively rendering and swapping
-    /*if (!(s_swapCount++ & 0x00ff))
-    {
-      NVDEBUG("Swap count is %d", s_swapCount);
-    }*/
+  // A debug printout every 256 frames so we can see when we're
+  // actively rendering and swapping
+  /*if (!(s_swapCount++ & 0x00ff))
+  {
+    NVDEBUG("Swap count is %d", s_swapCount);
+  }*/
 
-    return true;
+  return true;
 }
 
 // Add any initialization that requires the app Java classes
