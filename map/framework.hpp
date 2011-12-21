@@ -128,7 +128,7 @@ public:
   InformationDisplay & GetInformationDisplay();
 
   // Cleanup.
-  void Clean();
+  //void Clean();
 
   void PrepareToShutdown();
 

@@ -167,10 +167,10 @@ bool Framework::IsEmptyModel() const
 */
 
 // Cleanup.
-void Framework::Clean()
-{
-  m_model.Clean();
-}
+//void Framework::Clean()
+//{
+//  m_model.Clean();
+//}
 
 void Framework::PrepareToShutdown()
 {
