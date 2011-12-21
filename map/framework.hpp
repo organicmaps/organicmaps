@@ -116,6 +116,9 @@ public:
   void DeleteOldMaps();
   //@}
 
+  void AddLocalMaps();
+  void RemoveLocalMaps();
+
   storage::Storage & Storage() { return m_storage; }
 
   void OnLocationStatusChanged(location::TLocationStatus newStatus);

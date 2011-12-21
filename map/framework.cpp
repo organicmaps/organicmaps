@@ -84,6 +84,12 @@ InformationDisplay & Framework::GetInformationDisplay()
   return m_informationDisplay;
 }
 
+static void GetResourcesMaps(vector<string> & outMaps)
+{
+  Platform & pl = GetPlatform();
+  pl.GetFilesInDir(pl.ResourcesDir(), "*" DATA_FILE_EXTENSION, outMaps);
+}
+
 Framework::Framework()
   : m_hasPendingInvalidate(false),
     m_doForceUpdate(false),
@@ -125,6 +131,37 @@ Framework::Framework()
 
   m_model.InitClassificator();
 
+  vector<string> maps;
+  GetResourcesMaps(maps);
+#ifndef OMIM_OS_ANDROID
+  // On Android, local maps are added and removed when external storage
+  // is connected/disconnected
+  GetLocalMaps(maps);
+#endif
+  // Remove duplicate maps if they're both present in resources and in WritableDir
+  sort(maps.begin(), maps.end());
+  maps.erase(unique(maps.begin(), maps.end()), maps.end());
+  try
+  {
+    for_each(maps.begin(), maps.end(), bind(&Framework::AddMap, this, _1));
+  }
+  catch (RootException const & e)
+  {
+    LOG(LERROR, ("Can't add map: ", e.what()));
+  }
+
+
+  m_storage.Init(bind(&Framework::AddMap, this, _1),
+               bind(&Framework::RemoveMap, this, _1),
+               bind(&Framework::InvalidateRect, this, _1, true));
+  LOG(LDEBUG, ("Storage initialized"));
+}
+
+Framework::~Framework()
+{}
+
+void Framework::AddLocalMaps()
+{
   // initializes model with locally downloaded maps
   LOG(LDEBUG, ("Initializing storage"));
   // add maps to the model
@@ -138,25 +175,17 @@ Framework::Framework()
   {
     LOG(LERROR, ("Can't add map: ", e.what()));
   }
-
-  m_storage.Init(bind(&Framework::AddMap, this, _1),
-               bind(&Framework::RemoveMap, this, _1),
-               bind(&Framework::InvalidateRect, this, _1, true));
-  LOG(LDEBUG, ("Storage initialized"));
 }
 
-Framework::~Framework()
-{}
+void Framework::RemoveLocalMaps()
+{
+  m_model.RemoveAllCountries();
+}
 
 void Framework::GetLocalMaps(vector<string> & outMaps)
 {
-  outMaps.clear();
-
   Platform & pl = GetPlatform();
-  pl.GetFilesInDir(pl.ResourcesDir(), "*" DATA_FILE_EXTENSION, outMaps);
   pl.GetFilesInDir(pl.WritableDir(), "*" DATA_FILE_EXTENSION, outMaps);
-  sort(outMaps.begin(), outMaps.end());
-  outMaps.erase(unique(outMaps.begin(), outMaps.end()), outMaps.end());
 }
 
 /*
@@ -317,7 +346,7 @@ void Framework::DoPaint(shared_ptr<PaintEvent> const & e)
   DrawerYG * pDrawer = e->drawer();
 
   m_informationDisplay.setScreen(m_navigator.Screen());
-  
+
   m_informationDisplay.enableEmptyModelMessage(m_renderPolicy->IsEmptyModel());
 
   m_informationDisplay.setDebugInfo(0/*m_renderQueue.renderState().m_duration*/, my::rounds(GetCurrentScale()));

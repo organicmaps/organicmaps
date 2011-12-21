@@ -305,8 +305,6 @@ public class MWMActivity extends NvEventQueueActivity implements
   @Override
   protected void onPause()
   {
-    super.onPause();
-
     int ic_location_old = m_ic_location;
     int ic_menu_location_old = m_ic_menu_location;
 
@@ -318,13 +316,13 @@ public class MWMActivity extends NvEventQueueActivity implements
     updateButtonIcons();
 
     stopWatchingExternalStorage();
+
+    super.onPause();
   }
 
   @Override
   protected void onResume()
   {
-    super.onResume();
-
     m_ic_download = R.drawable.ic_download;
     m_ic_menu_download = R.drawable.ic_menu_download;
 
@@ -334,6 +332,8 @@ public class MWMActivity extends NvEventQueueActivity implements
       m_locationService.startUpdate(this, this);
 
     startWatchingExternalStorage();
+
+    super.onResume();
   }
 
   @Override
@@ -369,11 +369,13 @@ public class MWMActivity extends NvEventQueueActivity implements
     }
   }
 
+  // Initialized to invalid combination to force update on the first check
+  private boolean m_storageAvailable = false;
+  private boolean m_storageWriteable = true;
+
   private void updateExternalStorageState()
   {
-    boolean available = false;
-    boolean writeable = false;
-
+    boolean available, writeable;
     final String state = Environment.getExternalStorageState();
     if (Environment.MEDIA_MOUNTED.equals(state))
     {
@@ -384,23 +386,37 @@ public class MWMActivity extends NvEventQueueActivity implements
       writeable = false;
     } else
       available = writeable = false;
-    handleExternalStorageState(available, writeable);
+
+    if (m_storageAvailable != available || m_storageWriteable != writeable)
+    {
+      m_storageAvailable = available;
+      m_storageWriteable = writeable;
+      handleExternalStorageState(available, writeable);
+    }
   }
 
   private void handleExternalStorageState(boolean available, boolean writeable)
   {
+    Log.d("COUNTRY", "USB State changed:" + available + " " + writeable);
+
     if (available && writeable)
-    { // enable downloader button and dismiss blocking popup
+    { // Add local maps to the model
+      nativeStorageConnected();
+      // enable downloader button and dismiss blocking popup
       m_btnDownloadMaps.setVisibility(View.VISIBLE);
       if (m_storageDisconnectedDialog != null)
         m_storageDisconnectedDialog.dismiss();
     } else if (available)
-    { // disable downloader button and dismiss blocking popup
+    { // Add local maps to the model
+      nativeStorageConnected();
+      // disable downloader button and dismiss blocking popup
       m_btnDownloadMaps.setVisibility(View.INVISIBLE);
       if (m_storageDisconnectedDialog != null)
         m_storageDisconnectedDialog.dismiss();
     } else
-    { // enable downloader button and show blocking popup
+    { // Remove local maps from the model
+      nativeStorageDisconnected();
+      // enable downloader button and show blocking popup
       m_btnDownloadMaps.setVisibility(View.VISIBLE);
       if (m_storageDisconnectedDialog == null)
       {
@@ -429,6 +445,10 @@ public class MWMActivity extends NvEventQueueActivity implements
     filter.addAction(Intent.ACTION_MEDIA_EJECT);
     filter.addAction(Intent.ACTION_MEDIA_SHARED);
     filter.addAction(Intent.ACTION_MEDIA_UNMOUNTED);
+    filter.addAction(Intent.ACTION_MEDIA_BAD_REMOVAL);
+    filter.addAction(Intent.ACTION_MEDIA_UNMOUNTABLE);
+    filter.addAction(Intent.ACTION_MEDIA_CHECKING);
+    filter.addAction(Intent.ACTION_MEDIA_NOFS);
     filter.addDataScheme("file");
     registerReceiver(m_externalStorageReceiver, filter);
     updateExternalStorageState();
@@ -448,13 +468,11 @@ public class MWMActivity extends NvEventQueueActivity implements
     System.loadLibrary("mapswithme");
   }
 
+  private native void nativeStorageConnected();
+  private native void nativeStorageDisconnected();
+
   private native void nativeInit(String apkPath, String storagePath);
-
   private native void nativeLocationStatusChanged(int newStatus);
-
-  private native void nativeLocationUpdated(long time, double lat, double lon,
-      float accuracy);
-
-  private native void nativeCompassUpdated(long time, double magneticNorth,
-      double trueNorth, float accuracy);
+  private native void nativeLocationUpdated(long time, double lat, double lon, float accuracy);
+  private native void nativeCompassUpdated(long time, double magneticNorth, double trueNorth, float accuracy);
 }

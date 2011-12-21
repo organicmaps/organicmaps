@@ -96,4 +96,18 @@ extern "C"
     return u;
   }
 
+  //////////////////////////////////////////////////////////////////////////////
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMActivity_nativeStorageConnected(JNIEnv * env, jobject thiz)
+  {
+    g_framework->AddLocalMaps();
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMActivity_nativeStorageDisconnected(JNIEnv * env, jobject thiz)
+  {
+    g_framework->RemoveLocalMaps();
+  }
+
 } // extern "C"

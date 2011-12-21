@@ -62,6 +62,9 @@ namespace android
     void SaveState();
 
     void SetupMeasurementSystem();
+
+    void AddLocalMaps() { m_work.AddLocalMaps(); }
+    void RemoveLocalMaps() { m_work.RemoveLocalMaps(); }
   };
 }
 
