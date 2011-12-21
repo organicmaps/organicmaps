@@ -36,7 +36,7 @@ public class DownloadUI extends PreferenceActivity
     setPreferenceScreen(createCountriesHierarchy(root, -1, -1, -1));
     
     m_alert = new AlertDialog.Builder(this);
-    m_alert.setCancelable(false); 
+    m_alert.setCancelable(true);
         
     nativeCreate();
   }
