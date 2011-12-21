@@ -52,6 +52,9 @@ public class MWMActivity extends NvEventQueueActivity implements
   private BroadcastReceiver m_externalStorageReceiver = null;
   private AlertDialog m_storageDisconnectedDialog = null;
 
+  private static Context m_context = null;
+  public static Context getCurrentContext() { return m_context; }
+
   private String getAppBundlePath() throws NameNotFoundException
   {
     PackageManager packMgmr = getApplication().getPackageManager();
@@ -236,6 +239,8 @@ public class MWMActivity extends NvEventQueueActivity implements
   public void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
+
+    m_context = this;
 
     final String storagePath = getDataStoragePath();
     // create folder if it doesn't exist

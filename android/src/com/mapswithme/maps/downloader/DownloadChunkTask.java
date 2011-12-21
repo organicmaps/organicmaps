@@ -7,7 +7,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import com.mapswithme.maps.MWMActivity;
+
 import android.os.AsyncTask;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.util.Log;
 
 class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
@@ -27,6 +31,8 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
   private int m_httpErrorCode = NOT_SET;
   private long m_downloadedBytes = 0;
 
+  private WakeLock m_wakeLock = null;
+
   native void onWrite(long httpCallbackID, long beg, byte [] data, long size);
   native void onFinish(long httpCallbackID, long httpCode, long beg, long end);
   
@@ -43,12 +49,17 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
   @Override
   protected void onPreExecute()
   {
+    PowerManager pm = (PowerManager)MWMActivity.getCurrentContext().getSystemService(
+        android.content.Context.POWER_SERVICE);
+    m_wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE, TAG);
+    m_wakeLock.acquire();
   }
 
   @Override
   protected void onPostExecute(Void resCode)
   {
     onFinish(m_httpCallbackID, 200, m_beg, m_end);
+    m_wakeLock.release();
   }
   
   @Override
@@ -57,6 +68,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
     // Report error in callback only if we're not forcibly canceled
     if (m_httpErrorCode != NOT_SET)
       onFinish(m_httpCallbackID, m_httpErrorCode, m_beg, m_end);
+    m_wakeLock.release();
   }
 
   @Override
