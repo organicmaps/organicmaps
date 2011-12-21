@@ -1,12 +1,16 @@
 #pragma once
 #include "intermediate_result.hpp"
+
 #include "../geometry/rect2d.hpp"
+
 #include "../base/buffer_vector.hpp"
 #include "../base/limited_priority_queue.hpp"
 #include "../base/string_utils.hpp"
+
 #include "../std/function.hpp"
 #include "../std/map.hpp"
 #include "../std/scoped_ptr.hpp"
+#include "../std/shared_ptr.hpp"
 #include "../std/string.hpp"
 #include "../std/unordered_set.hpp"
 #include "../std/vector.hpp"
@@ -52,7 +56,10 @@ private:
   friend struct impl::FeatureLoader;
   friend class impl::BestNameFinder;
 
-  void AddResult(impl::IntermediateResult const & result);
+  typedef impl::IntermediateResult ResultT;
+  typedef shared_ptr<ResultT> ValueT;
+
+  void AddResult(ValueT const & result);
   void AddFeatureResult(FeatureType const & f, string const & fName);
   void FlushResults(function<void (Result const &)> const & f);
   void UpdateViewportOffsets();
@@ -84,9 +91,24 @@ private:
   bool m_bOffsetsCacheIsValid;
   vector<unordered_set<uint32_t> > m_offsetsInViewport;
 
-  typedef impl::IntermediateResult ResultT;
-  typedef my::limited_priority_queue<ResultT, ResultT::LessOrderF> QueueT;
-  QueueT m_results;
+  class CompareT
+  {
+    typedef bool (*FunctionT) (ResultT const &, ResultT const &);
+    FunctionT m_fn;
+
+  public:
+    CompareT() : m_fn(0) {}
+    explicit CompareT(FunctionT const & fn) : m_fn(fn) {}
+
+    inline bool operator() (ValueT const & v1, ValueT const & v2) const
+    {
+      return m_fn(*v1, *v2);
+    }
+  };
+
+  typedef my::limited_priority_queue<ValueT, CompareT> QueueT;
+  static const size_t m_qCount = 2;
+  QueueT m_results[m_qCount];
 };
 
 }  // namespace search

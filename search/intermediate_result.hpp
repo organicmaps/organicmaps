@@ -32,10 +32,15 @@ public:
   Result GenerateFinalResult() const;
 
   /// Results order functor.
+  /*
   struct LessOrderF
   {
     bool operator() (IntermediateResult const & r1, IntermediateResult const & r2) const;
   };
+  */
+
+  static bool LessRank(IntermediateResult const & r1, IntermediateResult const & r2);
+  static bool LessDistance(IntermediateResult const & r1, IntermediateResult const & r2);
 
   /// Filter equal features for different mwm's.
   class StrictEqualF

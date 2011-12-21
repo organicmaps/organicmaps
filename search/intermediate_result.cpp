@@ -53,6 +53,7 @@ IntermediateResult::IntermediateResult(string const & name, int penalty)
 {
 }
 
+/*
 bool IntermediateResult::LessOrderF::operator()
           (IntermediateResult const & r1, IntermediateResult const & r2) const
 {
@@ -62,6 +63,17 @@ bool IntermediateResult::LessOrderF::operator()
   if (r1.m_searchRank != r2.m_searchRank)
     return (r1.m_searchRank > r2.m_searchRank);
 
+  return (r1.m_distance < r2.m_distance);
+}
+*/
+
+bool IntermediateResult::LessRank(IntermediateResult const & r1, IntermediateResult const & r2)
+{
+  return (r1.m_searchRank > r2.m_searchRank);
+}
+
+bool IntermediateResult::LessDistance(IntermediateResult const & r1, IntermediateResult const & r2)
+{
   return (r1.m_distance < r2.m_distance);
 }
 

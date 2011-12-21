@@ -122,6 +122,17 @@ void Query::UpdateViewportOffsets()
               "offsets:", offsetsCached));
 }
 
+namespace
+{
+  typedef bool (*CompareFunctionT) (impl::IntermediateResult const &,
+                                    impl::IntermediateResult const &);
+  CompareFunctionT g_arrCompare[] =
+  {
+    &impl::IntermediateResult::LessRank,
+    &impl::IntermediateResult::LessDistance
+  };
+}
+
 void Query::Search(string const & query,
                    function<void (Result const &)> const & f,
                    unsigned int resultsNeeded)
@@ -152,7 +163,11 @@ void Query::Search(string const & query,
     m_pKeywordsScorer.reset(new LangKeywordsScorer(langPriorities,
                                                    m_tokens.data(), m_tokens.size(), &m_prefix));
 
-    m_results = QueueT(resultsNeeded);
+    // Results queue's initialization.
+    STATIC_ASSERT ( m_qCount == ARRAY_SIZE(g_arrCompare) );
+
+    for (size_t i = 0; i < m_qCount; ++i)
+      m_results[i] = QueueT(resultsNeeded, CompareT(g_arrCompare[i]));
   }
 
   // Match (lat, lon).
@@ -164,7 +179,7 @@ void Query::Search(string const & query,
                                                                     MercatorBounds::LatToY(lat)));
       double const precision = 5.0 * max(0.0001, min(latPrec, lonPrec));  // Min 55 meters
 
-      AddResult(impl::IntermediateResult(m_viewport, region, lat, lon, precision));
+      AddResult(ValueT(new impl::IntermediateResult(m_viewport, region, lat, lon, precision)));
     }
   }
 
@@ -175,30 +190,140 @@ void Query::Search(string const & query,
   FlushResults(f);
 }
 
-void Query::AddResult(ResultT const & result)
+namespace
 {
-  // don't add equal features
-  if (m_results.end() == find_if(m_results.begin(), m_results.end(), ResultT::StrictEqualF(result)))
-    m_results.push(result);
+  /// @name Functors to convert pointers to referencies.
+  /// Pass them to stl algorithms.
+  //@{
+  template <class FunctorT> class ProxyFunctor1
+  {
+    FunctorT m_fn;
+  public:
+    template <class T>
+    explicit ProxyFunctor1(shared_ptr<T> const & p) : m_fn(*p) {}
+    template <class T> bool operator() (shared_ptr<T> const & p) { return m_fn(*p); }
+  };
+
+  template <class FunctorT> class ProxyFunctor2
+  {
+    FunctorT m_fn;
+  public:
+    template <class T> bool operator() (shared_ptr<T> const & p1, shared_ptr<T> const & p2)
+    {
+      return m_fn(*p1, *p2);
+    }
+  };
+  //@}
+}
+
+void Query::AddResult(ValueT const & result)
+{
+  for (size_t i = 0; i < m_qCount; ++i)
+  {
+    // don't add equal features
+    if (m_results[i].end() == find_if(m_results[i].begin(), m_results[i].end(),
+                                      ProxyFunctor1<ResultT::StrictEqualF>(result)))
+    {
+      m_results[i].push(result);
+    }
+  }
+}
+
+namespace
+{
+  class IndexedValue
+  {
+    typedef shared_ptr<impl::IntermediateResult> ValueT;
+    static const size_t m_qCount = 2;
+
+    size_t m_ind[m_qCount];
+    ValueT m_val;
+
+  public:
+    ValueT const & get() const { return m_val; }
+
+    void Assign(ValueT const & v)
+    {
+      m_val = v;
+      for (size_t i = 0; i < m_qCount; ++i)
+        m_ind[i] = numeric_limits<size_t>::max();
+    }
+
+    void SetIndex(size_t i, size_t v) { m_ind[i] = v; }
+
+    void SortIndex()
+    {
+      sort(m_ind, m_ind + m_qCount);
+    }
+
+    bool operator<(IndexedValue const & r) const
+    {
+      for (size_t i = 0; i < m_qCount; ++i)
+        if (m_ind[i] < r.m_ind[i])
+          return true;
+
+      return false;
+    }
+  };
 }
 
 void Query::FlushResults(function<void (Result const &)> const & f)
 {
-  vector<ResultT> v(m_results.begin(), m_results.end());
+  vector<ValueT> v[m_qCount];
 
-  // remove duplicating linear objects
-  sort(v.begin(), v.end(), ResultT::LessLinearTypesF());
-  //LOG(LDEBUG, ("After sort: ", v));
+  for (size_t i = 0; i < m_qCount; ++i)
+  {
+    v[i].assign(m_results[i].begin(), m_results[i].end());
 
-  v.erase(unique(v.begin(), v.end(), ResultT::EqualLinearTypesF()), v.end());
-  //LOG(LDEBUG, ("After unique: ", v));
+    /// @todo ??? free queue, no need to store more ???
+    m_results[i].clear();
 
-  // sort in rank order
-  sort(v.begin(), v.end(), ResultT::LessOrderF());
+    // remove duplicating linear objects
+    sort(v[i].begin(), v[i].end(), ProxyFunctor2<ResultT::LessLinearTypesF>());
+    v[i].erase(unique(v[i].begin(), v[i].end(), ProxyFunctor2<ResultT::EqualLinearTypesF>()),
+               v[i].end());
+
+    // sort in rank order
+    sort(v[i].begin(), v[i].end(), CompareT(g_arrCompare[i]));
+  }
+
+  vector<IndexedValue> indV;
+
+  // fill results vector with indexed values (keys - indexes for each criteria)
+  for (size_t i = 0; i < m_qCount; ++i)
+  {
+    for (size_t j = 0; j < v[i].size(); ++j)
+    {
+      IndexedValue * p = 0;
+      for (size_t k = 0; k < indV.size(); ++k)
+      {
+        if (indV[k].get() == v[i][j])
+        {
+          p = &indV[k];
+          break;
+        }
+      }
+
+      if (p == 0)
+      {
+        indV.push_back(IndexedValue());
+        indV.back().Assign(v[i][j]);
+        p = &(indV.back());
+      }
+
+      p->SetIndex(i, j);
+    }
+  }
+
+  // prepare combined criteria
+  for_each(indV.begin(), indV.end(), bind(&IndexedValue::SortIndex, _1));
+
+  // sort results according to combined criteria
+  sort(indV.begin(), indV.end());
 
   // emit results
-  for (vector<ResultT>::const_iterator it = v.begin(); it != v.end(); ++it)
-    f(it->GenerateFinalResult());
+  for (size_t i = 0; i < indV.size(); ++i)
+    f(indV[i].get()->GenerateFinalResult());
 }
 
 void Query::AddFeatureResult(FeatureType const & f, string const & fName)
@@ -206,7 +331,8 @@ void Query::AddFeatureResult(FeatureType const & f, string const & fName)
   uint32_t penalty;
   string name;
   GetBestMatchName(f, penalty, name);
-  AddResult(impl::IntermediateResult(m_viewport, f, name, GetRegionName(f, fName)));
+
+  AddResult(ValueT(new impl::IntermediateResult(m_viewport, f, name, GetRegionName(f, fName))));
 }
 
 namespace impl
@@ -301,9 +427,10 @@ void Query::SearchFeatures()
   {
     for (size_t i = 0; i < m_tokens.size(); ++i)
     {
-      pair<CategoriesMapT::const_iterator, CategoriesMapT::const_iterator> range
-          = m_pCategories->equal_range(m_tokens[i]);
-      for (CategoriesMapT::const_iterator it = range.first; it != range.second; ++it)
+      typedef CategoriesMapT::const_iterator IterT;
+
+      pair<IterT, IterT> const range = m_pCategories->equal_range(m_tokens[i]);
+      for (IterT it = range.first; it != range.second; ++it)
         tokens[i].push_back(FeatureTypeToString(it->second));
     }
   }
@@ -358,7 +485,7 @@ void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
 
                 MatchFeaturesInTrie(tokens, m_prefix, *pLangRoot,
                                     edge.size() == 1 ? NULL : &edge[1], edge.size() - 1,
-                                    &m_offsetsInViewport[mwmId], f, m_results.max_size() * 10);
+                                    &m_offsetsInViewport[mwmId], f, m_results[0].max_size() * 10);
 
                 LOG(LDEBUG, ("Lang:",
                              StringUtf8Multilang::GetLangByCode(static_cast<int8_t>(edge[0])),
@@ -385,7 +512,7 @@ void Query::SuggestStrings()
       for (ItT it = m_pStringsToSuggest->begin(); it != m_pStringsToSuggest->end(); ++it)
         if (it->second <= m_prefix.size() &&
             StartsWith(it->first.begin(), it->first.end(), m_prefix.begin(), m_prefix.end()))
-          AddResult(impl::IntermediateResult(strings::ToUtf8(it->first), it->second));
+          AddResult(ValueT(new impl::IntermediateResult(strings::ToUtf8(it->first), it->second)));
     }
     else if (m_tokens.size() == 1)
     {
@@ -401,7 +528,7 @@ void Query::SuggestStrings()
         strings::UniString const & s = it->first;
         if (it->second <= tokenAndPrefix.size() &&
             StartsWith(s.begin(), s.end(), tokenAndPrefix.begin(), tokenAndPrefix.end()))
-          AddResult(impl::IntermediateResult(strings::ToUtf8(it->first), it->second));
+          AddResult(ValueT(new impl::IntermediateResult(strings::ToUtf8(it->first), it->second)));
       }
     }
   }
