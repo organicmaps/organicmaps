@@ -19,10 +19,12 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -364,9 +366,30 @@ public class MWMActivity extends NvEventQueueActivity implements
       onDownloadMapsClicked();
       return true;
 
+    case R.id.about_dialog:
+      onAboutDialogClicked();
+      return true;
+      
     default:
       return super.onOptionsItemSelected(item);
     }
+  }
+
+  private void onAboutDialogClicked()
+  {
+    LayoutInflater inflater = LayoutInflater.from(this);
+    View alertDialogView = inflater.inflate(R.layout.about, null);
+    WebView myWebView = (WebView) alertDialogView.findViewById(R.id.webview_about);
+    myWebView.loadUrl("file:///android_asset/about-travelguide-iphone.html");
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    builder.setView(alertDialogView);
+    builder.setTitle(R.string.about);
+
+    builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int which) {
+            dialog.cancel();
+        }
+    }).show();
   }
 
   // Initialized to invalid combination to force update on the first check

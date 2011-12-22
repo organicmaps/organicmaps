@@ -7,4 +7,7 @@
     <item android:id="@+id/download_maps"
           android:icon="@drawable/ic_menu_download"
           android:title="@string/download_maps" />
+    
+    <item android:id="@+id/about_dialog"
+          android:title="@string/about"/>
 </menu>
