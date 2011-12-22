@@ -1,8 +1,10 @@
 #pragma once
 #include "result.hpp"
 
-#include "../indexer/feature.hpp"
+#include "../std/shared_ptr.hpp"
 
+
+class FeatureType;
 
 namespace storage { class CountryInfoGetter; }
 

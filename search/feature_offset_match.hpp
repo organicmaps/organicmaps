@@ -124,21 +124,21 @@ void PrefixMatchInTrie(TrieIterator const & trieRoot,
   }
 }
 
-struct OffsetIntersecter
+template <class FilterT> struct OffsetIntersecter
 {
   typedef unordered_map<uint32_t, uint16_t> MapType;
 
-  unordered_set<uint32_t> const * m_pOffsetFilter;
+  FilterT const & m_filter;
   MapType m_prevMap;
   MapType m_map;
   bool m_bFirstStep;
 
-  explicit OffsetIntersecter(unordered_set<uint32_t> const * pOffsetFilter)
-    : m_pOffsetFilter(pOffsetFilter), m_bFirstStep(true) {}
+  explicit OffsetIntersecter(FilterT const & filter)
+    : m_filter(filter), m_bFirstStep(true) {}
 
   void operator() (uint32_t offset, uint8_t rank)
   {
-    if (m_pOffsetFilter && !m_pOffsetFilter->count(offset))
+    if (!m_filter(offset))
       return;
 
     uint16_t prevRankSum = 0;
@@ -164,17 +164,17 @@ struct OffsetIntersecter
 
 }  // namespace search::impl
 
-template <typename F>
+template <class ToDo, class FilterT>
 void MatchFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
                          strings::UniString const & prefix,
                          TrieIterator const & trieRoot,
                          strings::UniChar const * commonPrefix,
                          size_t commonPrefixSize,
-                         unordered_set<uint32_t> const * pOffsetsFilter,
-                         F & f,
+                         FilterT const & filter,
+                         ToDo & toDo,
                          size_t resultsNeeded)
 {
-  impl::OffsetIntersecter intersecter(pOffsetsFilter);
+  impl::OffsetIntersecter<FilterT> intersecter(filter);
 
   // Match tokens.
   for (size_t i = 0; i < tokens.size(); ++i)
@@ -189,6 +189,7 @@ void MatchFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
   if (prefix.size() > 0)
   {
     impl::PrefixMatchInTrie(trieRoot, commonPrefix, commonPrefixSize, prefix, intersecter);
+
     intersecter.NextStep();
   }
 
@@ -203,7 +204,7 @@ void MatchFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
   }
 
   for (ResType::const_iterator it = res.begin(); it != res.end(); ++it)
-    f(it->first);
+    toDo(it->first);
 }
 
 

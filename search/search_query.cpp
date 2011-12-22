@@ -3,7 +3,6 @@
 #include "feature_offset_match.hpp"
 #include "lang_keywords_scorer.hpp"
 #include "latlon_match.hpp"
-#include "result.hpp"
 #include "search_common.hpp"
 
 #include "../indexer/feature_covering.hpp"
@@ -20,7 +19,6 @@
 #include "../base/stl_add.hpp"
 
 #include "../std/algorithm.hpp"
-#include "../std/vector.hpp"
 
 
 namespace search
@@ -102,10 +100,12 @@ void Query::UpdateViewportOffsets()
 
         for (size_t i = 0; i < interval.size(); ++i)
         {
-          index.ForEachInIntervalAndScale(MakeInsertFunctor(m_offsetsInViewport[mwmId]),
+          index.ForEachInIntervalAndScale(MakeBackInsertFunctor(m_offsetsInViewport[mwmId]),
                                           interval[i].first, interval[i].second,
                                           scale);
         }
+
+        sort(m_offsetsInViewport[mwmId].begin(), m_offsetsInViewport[mwmId].end());
       }
     }
   }
@@ -438,6 +438,21 @@ void Query::SearchFeatures()
   SearchFeatures(tokens, mwmInfo, langs, true);
 }
 
+namespace
+{
+  class FeaturesFilter
+  {
+    vector<uint32_t> const & m_offsets;
+  public:
+    FeaturesFilter(vector<uint32_t> const & offsets) : m_offsets(offsets) {}
+
+    bool operator() (uint32_t offset) const
+    {
+      return binary_search(m_offsets.begin(), m_offsets.end(), offset);
+    }
+  };
+}
+
 void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
                            vector<MwmInfo> const & mwmInfo,
                            unordered_set<int8_t> const & langs,
@@ -477,7 +492,8 @@ void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
 
                 MatchFeaturesInTrie(tokens, m_prefix, *pLangRoot,
                                     edge.size() == 1 ? NULL : &edge[1], edge.size() - 1,
-                                    &m_offsetsInViewport[mwmId], f, m_results[0].max_size() * 10);
+                                    FeaturesFilter(m_offsetsInViewport[mwmId]), f,
+                                    m_results[0].max_size() * 10);
 
                 LOG(LDEBUG, ("Lang:",
                              StringUtf8Multilang::GetLangByCode(static_cast<int8_t>(edge[0])),

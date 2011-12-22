@@ -90,7 +90,7 @@ private:
   scoped_ptr<LangKeywordsScorer> m_pKeywordsScorer;
 
   bool m_bOffsetsCacheIsValid;
-  vector<unordered_set<uint32_t> > m_offsetsInViewport;
+  vector<vector<uint32_t> > m_offsetsInViewport;
 
   class CompareT
   {
