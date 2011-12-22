@@ -12,9 +12,14 @@ class ThreadedList : public ThreadedContainer
 private:
 
   list<T> m_list;
+  bool m_isEmpty;
   string m_resName;
 
 public:
+
+  ThreadedList()
+    : m_isEmpty(true)
+  {}
 
   template <typename Fn>
   void ProcessList(Fn const & fn)
@@ -27,6 +32,8 @@ public:
 
     bool hasElements = !m_list.empty();
 
+    m_isEmpty = !hasElements;
+
     if (!hadElements && hasElements)
       m_Cond.Signal();
   }
@@ -36,6 +43,8 @@ public:
     threads::ConditionGuard g(m_Cond);
 
     bool doSignal = m_list.empty();
+
+    m_isEmpty = doSignal;
 
     m_list.push_back(t);
 
@@ -48,6 +57,8 @@ public:
     threads::ConditionGuard g(m_Cond);
 
     bool doSignal = m_list.empty();
+
+    m_isEmpty = doSignal;
 
     m_list.push_front(t);
 
@@ -64,15 +75,8 @@ public:
   {
     double StartWaitTime = m_Timer.ElapsedSeconds();
 
-    bool firstWait = true;
-
-    while (m_list.empty())
+    while ((m_isEmpty = m_list.empty()))
     {
-      if (firstWait)
-      {
-        LOG(LINFO, ("waiting for the list of ", m_resName, " to become non-empty"));
-        firstWait = false;
-      }
       if (IsCancelled())
         break;
       m_Cond.Wait();
@@ -98,6 +102,8 @@ public:
     if (doPop)
       m_list.pop_front();
 
+    m_isEmpty = m_list.empty();
+
     return res;
   }
 
@@ -113,6 +119,8 @@ public:
     if (doPop)
       m_list.pop_back();
 
+    m_isEmpty = m_list.empty();
+
     return res;
   }
 
@@ -124,13 +132,13 @@ public:
 
   bool Empty() const
   {
-    threads::ConditionGuard g(m_Cond);
-    return m_list.empty();
+    return m_isEmpty;
   }
 
   void Clear()
   {
     threads::ConditionGuard g(m_Cond);
     m_list.clear();
+    m_isEmpty = true;
   }
 };
