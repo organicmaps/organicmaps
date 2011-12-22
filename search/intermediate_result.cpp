@@ -31,6 +31,7 @@ IntermediateResult::IntermediateResult(m2::RectD const & viewportRect,
   m_distance = ResultDistance(viewportRect.Center(), m_rect.Center());
   m_direction = ResultDirection(viewportRect.Center(), m_rect.Center());
   m_searchRank = feature::GetSearchRank(f);
+  m_viewportDistance = ViewportDistance(viewportRect, m_rect.Center());
 }
 
 IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, string const & regionName,
@@ -43,11 +44,13 @@ IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, string co
 {
   m_distance = ResultDistance(viewportRect.Center(), m_rect.Center());
   m_direction = ResultDirection(viewportRect.Center(), m_rect.Center());
+  m_viewportDistance = ViewportDistance(viewportRect, m_rect.Center());
 }
 
 IntermediateResult::IntermediateResult(string const & name, int penalty)
   : m_str(name), m_completionString(name + " "),
-    m_distance(0), m_direction(0),
+    /// @todo ??? Maybe we should initialize here by maximum value ???
+    m_distance(0), m_direction(0), m_viewportDistance(0),
     m_resultType(RESULT_CATEGORY),
     m_searchRank(0)
 {
@@ -74,7 +77,18 @@ bool IntermediateResult::LessRank(IntermediateResult const & r1, IntermediateRes
 
 bool IntermediateResult::LessDistance(IntermediateResult const & r1, IntermediateResult const & r2)
 {
-  return (r1.m_distance < r2.m_distance);
+  if (r1.m_distance != r2.m_distance)
+    return (r1.m_distance < r2.m_distance);
+  else
+    return LessRank(r1, r2);
+}
+
+bool IntermediateResult::LessViewportDistance(IntermediateResult const & r1, IntermediateResult const & r2)
+{
+  if (r1.m_viewportDistance != r2.m_viewportDistance)
+    return (r1.m_viewportDistance < r2.m_viewportDistance);
+  else
+    return LessRank(r1, r2);
 }
 
 Result IntermediateResult::GenerateFinalResult() const
@@ -106,6 +120,24 @@ double IntermediateResult::ResultDistance(m2::PointD const & a, m2::PointD const
 double IntermediateResult::ResultDirection(m2::PointD const & a, m2::PointD const & b)
 {
   return ang::AngleTo(a, b);
+}
+
+int IntermediateResult::ViewportDistance(m2::RectD const & viewport, m2::PointD const & p)
+{
+  if (viewport.IsPointInside(p))
+    return 0;
+
+  m2::RectD r = viewport;
+  r.Scale(3);
+  if (r.IsPointInside(p))
+    return 1;
+
+  r = viewport;
+  r.Scale(5);
+  if (r.IsPointInside(p))
+    return 2;
+
+  return 3;
 }
 
 bool IntermediateResult::StrictEqualF::operator()(IntermediateResult const & r) const
@@ -198,7 +230,8 @@ string IntermediateResult::DebugPrint() const
   string res("IntermediateResult: ");
   res += "Name: " + m_str;
   res += "; Type: " + ::DebugPrint(m_type);
-  res += "; Result type: " + ::DebugPrint(m_resultType);
+  res += "; Rank: " + ::DebugPrint(m_searchRank);
+  res += "; Distance: " + ::DebugPrint(m_viewportDistance);
   return res;
 }
 

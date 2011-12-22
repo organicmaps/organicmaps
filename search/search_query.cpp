@@ -132,7 +132,7 @@ namespace
   CompareFunctionT g_arrCompare[] =
   {
     &impl::IntermediateResult::LessRank,
-    &impl::IntermediateResult::LessDistance
+    &impl::IntermediateResult::LessViewportDistance
   };
 }
 
@@ -288,6 +288,8 @@ void Query::FlushResults(function<void (Result const &)> const & f)
 
     // sort in rank order
     sort(v[i].begin(), v[i].end(), CompareT(g_arrCompare[i]));
+
+    //LOG(LDEBUG, (v[i]));
   }
 
   vector<IndexedValue> indV;
@@ -295,8 +297,15 @@ void Query::FlushResults(function<void (Result const &)> const & f)
   // fill results vector with indexed values (keys - indexes for each criteria)
   for (size_t i = 0; i < m_qCount; ++i)
   {
+    CompareT comp(g_arrCompare[i]);
+    size_t rank = 0;
+
     for (size_t j = 0; j < v[i].size(); ++j)
     {
+      // increment rank only if previous element is really less than current
+      if (j > 0 && comp(v[i][j-1], v[i][j]))
+        ++rank;
+
       IndexedValue * p = 0;
       for (size_t k = 0; k < indV.size(); ++k)
       {
@@ -314,7 +323,7 @@ void Query::FlushResults(function<void (Result const &)> const & f)
         p = &(indV.back());
       }
 
-      p->SetIndex(i, j);
+      p->SetIndex(i, rank);
     }
   }
 

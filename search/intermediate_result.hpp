@@ -41,6 +41,7 @@ public:
 
   static bool LessRank(IntermediateResult const & r1, IntermediateResult const & r2);
   static bool LessDistance(IntermediateResult const & r1, IntermediateResult const & r2);
+  static bool LessViewportDistance(IntermediateResult const & r1, IntermediateResult const & r2);
 
   /// Filter equal features for different mwm's.
   class StrictEqualF
@@ -71,12 +72,17 @@ private:
                                m2::PointD const & featureCenter);
   static double ResultDirection(m2::PointD const & viewportCenter,
                                 m2::PointD const & featureCenter);
+  static int ViewportDistance(m2::RectD const & viewport, m2::PointD const & p);
 
   string m_str, m_completionString, m_region;
+
   m2::RectD m_rect;
   uint32_t m_type;
+
   double m_distance;
   double m_direction;
+  int m_viewportDistance;
+
   ResultType m_resultType;
   uint8_t m_searchRank;
 };
@@ -88,3 +94,11 @@ inline string DebugPrint(IntermediateResult const & t)
 
 }  // namespace search::impl
 }  // namespace search
+
+namespace boost
+{
+  inline string DebugPrint(shared_ptr<search::impl::IntermediateResult> const & p)
+  {
+    return DebugPrint(*p);
+  }
+}
