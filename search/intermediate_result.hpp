@@ -1,6 +1,10 @@
 #pragma once
 #include "result.hpp"
+
 #include "../indexer/feature.hpp"
+
+
+namespace storage { class CountryInfoGetter; }
 
 namespace search
 {
@@ -20,16 +24,17 @@ public:
   // For RESULT_FEATURE.
   IntermediateResult(m2::RectD const & viewportRect,
                      FeatureType const & f,
-                     string const & displayName, string const & regionName);
+                     string const & displayName,
+                     string const & fileName);
 
   // For RESULT_LATLON.
-  IntermediateResult(m2::RectD const & viewportRect, string const & regionName,
+  IntermediateResult(m2::RectD const & viewportRect,
                      double lat, double lon, double precision);
 
   // For RESULT_CATEGORY.
   IntermediateResult(string const & name, int penalty);
 
-  Result GenerateFinalResult() const;
+  Result GenerateFinalResult(storage::CountryInfoGetter const * pInfo) const;
 
   /// Results order functor.
   /*
@@ -74,7 +79,26 @@ private:
                                 m2::PointD const & featureCenter);
   static int ViewportDistance(m2::RectD const & viewport, m2::PointD const & p);
 
-  string m_str, m_completionString, m_region;
+  string m_str, m_completionString;
+
+  class RegionInfo
+  {
+    string m_file;
+    m2::PointD m_point;
+    bool m_valid;
+
+  public:
+    RegionInfo() : m_valid(false) {}
+
+    void SetName(string const & s) { m_file = s; }
+    void SetPoint(m2::PointD const & p)
+    {
+      m_point = p;
+      m_valid = true;
+    }
+
+    string GetRegion(storage::CountryInfoGetter const * pInfo) const;
+  } m_region;
 
   m2::RectD m_rect;
   uint32_t m_type;

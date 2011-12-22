@@ -1,5 +1,7 @@
 #include "intermediate_result.hpp"
 
+#include "../storage/country_info.hpp"
+
 #include "../indexer/feature_utils.hpp"
 #include "../indexer/mercator.hpp"
 
@@ -18,33 +20,48 @@ namespace impl
 IntermediateResult::IntermediateResult(m2::RectD const & viewportRect,
                                        FeatureType const & f,
                                        string const & displayName,
-                                       string const & regionName)
-  : m_str(displayName), m_region(regionName),
+                                       string const & fileName)
+  : m_str(displayName),
     m_rect(feature::GetFeatureViewport(f)),
     m_resultType(RESULT_FEATURE)
 {
+  // get feature type
   FeatureType::GetTypesFn types;
   f.ForEachTypeRef(types);
   ASSERT_GREATER(types.m_size, 0, ());
   m_type = types.m_types[0];
 
+  // get region info
+  if (!fileName.empty())
+    m_region.SetName(fileName);
+  else
+  {
+    if (f.GetFeatureType() == feature::GEOM_POINT)
+      m_region.SetPoint(f.GetCenter());
+  }
+
+  // get common params
   m_distance = ResultDistance(viewportRect.Center(), m_rect.Center());
   m_direction = ResultDirection(viewportRect.Center(), m_rect.Center());
   m_searchRank = feature::GetSearchRank(f);
   m_viewportDistance = ViewportDistance(viewportRect, m_rect.Center());
 }
 
-IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, string const & regionName,
+IntermediateResult::IntermediateResult(m2::RectD const & viewportRect,
                                        double lat, double lon, double precision)
   : m_str("(" + strings::to_string(lat) + ", " + strings::to_string(lon) + ")"),
-    m_region(regionName),
     m_rect(MercatorBounds::LonToX(lon - precision), MercatorBounds::LatToY(lat - precision),
            MercatorBounds::LonToX(lon + precision), MercatorBounds::LatToY(lat + precision)),
     m_type(0), m_resultType(RESULT_LATLON), m_searchRank(0)
 {
+  // get common params
   m_distance = ResultDistance(viewportRect.Center(), m_rect.Center());
   m_direction = ResultDirection(viewportRect.Center(), m_rect.Center());
   m_viewportDistance = ViewportDistance(viewportRect, m_rect.Center());
+
+  // get region info
+  m_region.SetPoint(m2::PointD(MercatorBounds::LonToX(lon),
+                               MercatorBounds::LatToY(lat)));
 }
 
 IntermediateResult::IntermediateResult(string const & name, int penalty)
@@ -91,7 +108,7 @@ bool IntermediateResult::LessViewportDistance(IntermediateResult const & r1, Int
     return LessRank(r1, r2);
 }
 
-Result IntermediateResult::GenerateFinalResult() const
+Result IntermediateResult::GenerateFinalResult(storage::CountryInfoGetter const * pInfo) const
 {
   switch (m_resultType)
   {
@@ -100,13 +117,13 @@ Result IntermediateResult::GenerateFinalResult() const
               #ifdef DEBUG
                   + ' ' + strings::to_string(static_cast<int>(m_searchRank))
               #endif
-                  , m_region, m_type, m_rect, m_distance, m_direction);
+                  , m_region.GetRegion(pInfo), m_type, m_rect, m_distance, m_direction);
+
   case RESULT_LATLON:
-    return Result(m_str, m_region, 0, m_rect, m_distance, m_direction);
-  case RESULT_CATEGORY:
-    return Result(m_str, m_completionString);
+    return Result(m_str, m_region.GetRegion(pInfo), 0, m_rect, m_distance, m_direction);
+
   default:
-    ASSERT(false, ());
+    ASSERT_EQUAL ( m_resultType, RESULT_CATEGORY, () );
     return Result(m_str, m_completionString);
   }
 }
@@ -144,8 +161,9 @@ bool IntermediateResult::StrictEqualF::operator()(IntermediateResult const & r) 
 {
   if (m_r.m_resultType == r.m_resultType && m_r.m_resultType == RESULT_FEATURE)
   {
-    if (m_r.m_str == r.m_str && m_r.m_region == r.m_region && m_r.m_type == r.m_type)
+    if (m_r.m_str == r.m_str && m_r.m_type == r.m_type)
     {
+      /// @todo Tune this constant.
       return fabs(m_r.m_distance - r.m_distance) < 500.0;
     }
   }
@@ -233,6 +251,16 @@ string IntermediateResult::DebugPrint() const
   res += "; Rank: " + ::DebugPrint(m_searchRank);
   res += "; Distance: " + ::DebugPrint(m_viewportDistance);
   return res;
+}
+
+string IntermediateResult::RegionInfo::GetRegion(storage::CountryInfoGetter const * pInfo) const
+{
+  if (!m_file.empty())
+    return pInfo->GetRegionName(m_file);
+  else if (m_valid)
+    return pInfo->GetRegionName(m_point);
+  else
+    return string();
 }
 
 }  // namespace search::impl

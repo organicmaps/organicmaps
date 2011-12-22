@@ -6,8 +6,6 @@
 #include "result.hpp"
 #include "search_common.hpp"
 
-#include "../storage/country_info.hpp"
-
 #include "../indexer/feature_covering.hpp"
 #include "../indexer/features_vector.hpp"
 #include "../indexer/index.hpp"
@@ -178,11 +176,8 @@ void Query::Search(string const & query,
     double lat, lon, latPrec, lonPrec;
     if (search::MatchLatLon(m_rawQuery, lat, lon, latPrec, lonPrec))
     {
-      string const region = m_pInfoGetter->GetRegionName(m2::PointD(MercatorBounds::LonToX(lon),
-                                                                    MercatorBounds::LatToY(lat)));
       double const precision = 5.0 * max(0.0001, min(latPrec, lonPrec));  // Min 55 meters
-
-      AddResult(ValueT(new impl::IntermediateResult(m_viewport, region, lat, lon, precision)));
+      AddResult(ValueT(new impl::IntermediateResult(m_viewport, lat, lon, precision)));
     }
   }
 
@@ -335,7 +330,7 @@ void Query::FlushResults(function<void (Result const &)> const & f)
 
   // emit results
   for (size_t i = 0; i < indV.size(); ++i)
-    f(indV[i].get()->GenerateFinalResult());
+    f(indV[i].get()->GenerateFinalResult(m_pInfoGetter));
 }
 
 void Query::AddFeatureResult(FeatureType const & f, string const & fName)
@@ -344,7 +339,7 @@ void Query::AddFeatureResult(FeatureType const & f, string const & fName)
   string name;
   GetBestMatchName(f, penalty, name);
 
-  AddResult(ValueT(new impl::IntermediateResult(m_viewport, f, name, GetRegionName(f, fName))));
+  AddResult(ValueT(new impl::IntermediateResult(m_viewport, f, name, fName)));
 }
 
 namespace impl
@@ -380,21 +375,6 @@ void Query::GetBestMatchName(FeatureType const & f, uint32_t & penalty, string &
 {
   impl::BestNameFinder bestNameFinder(penalty, name, *m_pKeywordsScorer);
   f.ForEachNameRef(bestNameFinder);
-}
-
-string Query::GetRegionName(FeatureType const & f, string const & fName)
-{
-  if (!fName.empty())
-  {
-    return m_pInfoGetter->GetRegionName(fName);
-  }
-  else
-  {
-    if (f.GetFeatureType() == feature::GEOM_POINT)
-      return m_pInfoGetter->GetRegionName(f.GetCenter());
-  }
-
-  return string();
 }
 
 namespace impl

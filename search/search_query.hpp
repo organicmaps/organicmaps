@@ -73,7 +73,6 @@ private:
   void MatchForSuggestions(strings::UniString const & token);
 
   void GetBestMatchName(FeatureType const & f, uint32_t & penalty, string & name);
-  string GetRegionName(FeatureType const & f, string const & fName);
 
   Index const * m_pIndex;
   CategoriesMapT const * m_pCategories;
