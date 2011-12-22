@@ -13,7 +13,7 @@
 namespace storage
 {
   CountryInfoGetter::CountryInfoGetter(ModelReaderPtr polyR, ModelReaderPtr countryR)
-    : m_reader(polyR)
+    : m_reader(polyR), m_cache(2)
   {
     ReaderSource<ModelReaderPtr> src(m_reader.GetReader(PACKED_POLYGONS_INFO_TAG));
     rw::Read(src, m_countries);
@@ -34,16 +34,11 @@ namespace storage
 
   bool CountryInfoGetter::GetByPoint::operator() (size_t id)
   {
-    ReaderSource<ModelReaderPtr> src(m_info.m_reader.GetReader(strings::to_string(id)));
+    vector<m2::RegionD> const & rgnV = m_info.GetRegions(id);
 
-    uint32_t const count = ReadVarUint<uint32_t>(src);
-    for (size_t i = 0; i < count; ++i)
+    for (size_t i = 0; i < rgnV.size(); ++i)
     {
-      vector<m2::PointD> points;
-      serial::LoadOuterPath(src, serial::CodingParams(), points);
-
-      m2::RegionD rgn(points.begin(), points.end());
-      if (rgn.Contains(m_pt))
+      if (rgnV[i].Contains(m_pt))
       {
         m_res = id;
         return false;
@@ -51,6 +46,32 @@ namespace storage
     }
 
     return true;
+  }
+
+  vector<m2::RegionD> const & CountryInfoGetter::GetRegions(size_t id) const
+  {
+    bool isFound = false;
+    vector<m2::RegionD> & rgnV = m_cache.Find(id, isFound);
+
+    if (!isFound)
+    {
+      rgnV.clear();
+
+      // load regions from file
+      ReaderSource<ModelReaderPtr> src(m_reader.GetReader(strings::to_string(id)));
+
+      uint32_t const count = ReadVarUint<uint32_t>(src);
+      for (size_t i = 0; i < count; ++i)
+      {
+        vector<m2::PointD> points;
+        serial::LoadOuterPath(src, serial::CodingParams(), points);
+
+        rgnV.push_back(m2::RegionD());
+        rgnV.back().Assign(points.begin(), points.end());
+      }
+    }
+
+    return rgnV;
   }
 
   string CountryInfoGetter::GetRegionFile(m2::PointD const & pt) const

@@ -1,7 +1,11 @@
 #pragma once
 #include "country_polygon.hpp"
 
+#include "../geometry/region2d.hpp"
+
 #include "../coding/file_container.hpp"
+
+#include "../base/cache.hpp"
 
 
 namespace storage
@@ -12,6 +16,10 @@ namespace storage
 
     vector<CountryDef> m_countries;
     map<string, string> m_id2name;
+
+    mutable my::Cache<uint32_t, vector<m2::RegionD> > m_cache;
+
+    vector<m2::RegionD> const & GetRegions(size_t id) const;
 
     template <class ToDo>
     void ForEachCountry(m2::PointD const & pt, ToDo & toDo) const;
