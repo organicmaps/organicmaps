@@ -54,10 +54,28 @@ LOCAL_LDLIBS := -llog -lGLESv1_CM \
 
 LOCAL_LDLIBS += -Wl,--gc-sections
 
+OMIM_CONFIG := release
+OMIM_SUBFOLDER := release
 ifeq ($(NDK_DEBUG),1)
-  LOCAL_LDLIBS += -L../../omim-android-debug/out/debug
+  OMIM_CONFIG := debug
+  OMIM_SUBFOLDER := debug
 else
-  LOCAL_LDLIBS += -L../../omim-android-release/out/release
+  ifeq ($(PRODUCTION),1)
+    OMIM_CONFIG := production
+    LOCAL_CFLAGS += -O3
+  endif
 endif
+
+# empty means armv5
+OMIM_ABI :=
+ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
+  OMIM_ABI := -armv7
+else
+  ifeq ($(TARGET_ARCH_ABI),x86)
+    OMIM_ABI := -x86
+  endif
+endif
+
+LOCAL_LDLIBS += -L../../omim-android-$(OMIM_CONFIG)$(OMIM_ABI)/out/$(OMIM_SUBFOLDER)
 
 include $(BUILD_SHARED_LIBRARY)

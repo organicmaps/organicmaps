@@ -1,5 +1,5 @@
 APP_PLATFORM := android-5
-APP_ABI := armeabi
+APP_ABI := armeabi armeabi-v7a
 APP_STL := gnustl_static
 APP_CFLAGS += -I../3party/boost
 
@@ -9,4 +9,7 @@ ifeq ($(NDK_DEBUG),1)
 else
   APP_OPTIM := release
   APP_CFLAGS += -DRELEASE -D_RELEASE
+ifeq ($(PRODUCTION),1)
+  APP_CFLAGS += -DOMIM_PRODUCTION
+endif
 endif
