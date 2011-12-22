@@ -114,12 +114,15 @@ void Query::UpdateViewportOffsets()
 
   m_bOffsetsCacheIsValid = true;
 
+#ifdef DEBUG
   size_t offsetsCached = 0;
   for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
     offsetsCached += m_offsetsInViewport[mwmId].size();
+
   LOG(LDEBUG, ("For search in viewport cached ",
               "mwms:", mwmInfo.size(),
               "offsets:", offsetsCached));
+#endif
 }
 
 namespace
