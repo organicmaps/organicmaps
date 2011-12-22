@@ -504,15 +504,10 @@ void Query::SuggestStrings()
 {
   if (m_pStringsToSuggest)
   {
-    typedef StringsToSuggestVectorT::const_iterator ItT;
-
     if (m_tokens.size() == 0 && !m_prefix.empty())
     {
       // Match prefix.
-      for (ItT it = m_pStringsToSuggest->begin(); it != m_pStringsToSuggest->end(); ++it)
-        if (it->second <= m_prefix.size() &&
-            StartsWith(it->first.begin(), it->first.end(), m_prefix.begin(), m_prefix.end()))
-          AddResult(ValueT(new impl::IntermediateResult(strings::ToUtf8(it->first), it->second)));
+      MatchForSuggestions(m_prefix);
     }
     else if (m_tokens.size() == 1)
     {
@@ -523,14 +518,20 @@ void Query::SuggestStrings()
         tokenAndPrefix.push_back(' ');
         tokenAndPrefix.append(m_prefix.begin(), m_prefix.end());
       }
-      for (ItT it = m_pStringsToSuggest->begin(); it != m_pStringsToSuggest->end(); ++it)
-      {
-        strings::UniString const & s = it->first;
-        if (it->second <= tokenAndPrefix.size() &&
-            StartsWith(s.begin(), s.end(), tokenAndPrefix.begin(), tokenAndPrefix.end()))
-          AddResult(ValueT(new impl::IntermediateResult(strings::ToUtf8(it->first), it->second)));
-      }
+
+      MatchForSuggestions(tokenAndPrefix);
     }
+  }
+}
+
+void Query::MatchForSuggestions(strings::UniString const & token)
+{
+  StringsToSuggestVectorT::const_iterator it = m_pStringsToSuggest->begin();
+  for (; it != m_pStringsToSuggest->end(); ++it)
+  {
+    strings::UniString const & s = it->first;
+    if (it->second <= token.size() && StartsWith(s.begin(), s.end(), token.begin(), token.end()))
+      AddResult(ValueT(new impl::IntermediateResult(strings::ToUtf8(s), it->second)));
   }
 }
 

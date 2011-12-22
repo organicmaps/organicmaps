@@ -68,7 +68,9 @@ private:
                       vector<MwmInfo> const & mwmInfo,
                       unordered_set<int8_t> const & langs,
                       bool onlyInViewport);
+
   void SuggestStrings();
+  void MatchForSuggestions(strings::UniString const & token);
 
   void GetBestMatchName(FeatureType const & f, uint32_t & penalty, string & name);
   string GetRegionName(FeatureType const & f, string const & fName);
