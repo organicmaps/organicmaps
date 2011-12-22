@@ -423,6 +423,8 @@ void RenderQueueRoutine::Do()
 //      frameScreen.PtoG(m2::RectD(surfaceRect), glbRect);
       int scaleLevel = scales::GetScaleLevel(glbRect);
 
+      bool cumulativeEmptyModelCurrent = true;
+
       for (size_t i = 0; i < areas.size(); ++i)
       {
         if ((areas[i].SizeX() != 0) && (areas[i].SizeY() != 0))
@@ -440,6 +442,9 @@ void RenderQueueRoutine::Do()
               glbRect,
               scaleLevel);
 
+          if (!m_renderState->m_isEmptyModelCurrent)
+            cumulativeEmptyModelCurrent = m_renderState->m_isEmptyModelCurrent;
+
           if (IsCancelled())
             break;
         }
@@ -449,8 +454,8 @@ void RenderQueueRoutine::Do()
         break;
 
       /// if something were actually drawn, or (exclusive or) we are repainting the whole rect
-      if ((!m_renderState->m_isEmptyModelCurrent) || (fullRectRepaint))
-        m_renderState->m_isEmptyModelActual = m_renderState->m_isEmptyModelCurrent;
+      if ((!cumulativeEmptyModelCurrent) || (fullRectRepaint))
+        m_renderState->m_isEmptyModelActual = cumulativeEmptyModelCurrent;
 
       /// setting the "whole texture" clip rect to render texts opened by panning.
       m_threadDrawer->screen()->setClipRect(textureRect);
