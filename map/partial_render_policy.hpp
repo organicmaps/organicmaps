@@ -13,6 +13,8 @@ class PartialRenderPolicy : public RenderPolicy
 private:
 
   ThreadedList<yg::gl::Renderer::Packet> m_glQueue;
+  list<yg::gl::Renderer::Packet> m_frameGLQueue;
+
   threads::Condition m_glCondition;
 
   yg::gl::Renderer::Packet m_currentPacket;
@@ -25,7 +27,7 @@ private:
   bool m_DoAddCommand;
   bool m_DoSynchronize;
 
-  void ProcessRenderQueue(list<yg::gl::Renderer::Packet> & renderQueue);
+  void ProcessRenderQueue(list<yg::gl::Renderer::Packet> & renderQueue, int maxPackets);
 
   bool m_IsDebugging;
 

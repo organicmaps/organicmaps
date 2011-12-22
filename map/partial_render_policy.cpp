@@ -183,18 +183,30 @@ PartialRenderPolicy::~PartialRenderPolicy()
   LOG(LINFO, ("PartialRenderPolicy destroyed"));
 }
 
-void PartialRenderPolicy::ProcessRenderQueue(list<yg::gl::Renderer::Packet> & renderQueue)
+void PartialRenderPolicy::ProcessRenderQueue(list<yg::gl::Renderer::Packet> & renderQueue, int maxPackets)
 {
-  if (renderQueue.empty())
+  m_frameGLQueue.clear();
+  if (maxPackets == -1)
   {
-    m_hasPacket = false;
-    m_glCondition.Signal();
+    m_frameGLQueue = renderQueue;
+    renderQueue.clear();
   }
   else
   {
-    m_hasPacket = true;
-    m_currentPacket = renderQueue.front();
-    renderQueue.pop_front();
+    if (renderQueue.empty())
+    {
+      m_hasPacket = false;
+      m_glCondition.Signal();
+    }
+    else
+    {
+      m_hasPacket = true;
+      while ((maxPackets != 0) && (!renderQueue.empty()))
+      {
+        m_frameGLQueue.push_back(renderQueue.front());
+        renderQueue.pop_front();
+      }
+    }
   }
 }
 
@@ -218,41 +230,29 @@ void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
   unsigned cmdProcessed = 0;
   unsigned const maxCmdPerFrame = 10000;
 
-  while (true)
-  {
-    m_glQueue.ProcessList(bind(&PartialRenderPolicy::ProcessRenderQueue, this, _1));
+  m_glQueue.ProcessList(bind(&PartialRenderPolicy::ProcessRenderQueue, this, _1, maxCmdPerFrame));
 
-    if ((m_hasPacket) && (cmdProcessed < maxCmdPerFrame))
+  cmdProcessed = m_frameGLQueue.size();
+
+  for (list<yg::gl::Renderer::Packet>::iterator it = m_frameGLQueue.begin(); it != m_frameGLQueue.end(); ++it)
+  {
+    if (it->m_state)
     {
-      cmdProcessed++;
-      if (m_currentPacket.m_state)
-      {
-        m_currentPacket.m_state->m_isDebugging = m_IsDebugging;
-        m_currentPacket.m_state->apply(m_curState.get());
-//        OGLCHECK(glFinish());
-        m_curState = m_currentPacket.m_state;
-      }
-      m_currentPacket.m_command->setIsDebugging(m_IsDebugging);
-      m_currentPacket.m_command->perform();
+      it->m_state->m_isDebugging = m_IsDebugging;
+      it->m_state->apply(m_curState.get());
 //      OGLCHECK(glFinish());
+      m_curState = it->m_state;
     }
-    else
-      break;
+    it->m_command->setIsDebugging(m_IsDebugging);
+    it->m_command->perform();
+//    OGLCHECK(glFinish());
   }
+
+  /// should clear to release resources, refered from the stored commands.
+  m_frameGLQueue.clear();
 
   if (m_IsDebugging)
-  {
-    /// should we continue drawing commands on the next frame
-    if ((cmdProcessed == maxCmdPerFrame) && m_hasPacket)
-    {
-      LOG(LINFO, ("will continue on the next frame(", cmdProcessed, ")"));
-    }
-    else
-    {
-      if (cmdProcessed != 0)
-        LOG(LINFO, ("finished sequence of commands(", cmdProcessed, ")"));
-    }
-  }
+    LOG(LINFO, ("processed", cmdProcessed, "commands"));
 
   {
     threads::ConditionGuard guard(m_glCondition);
