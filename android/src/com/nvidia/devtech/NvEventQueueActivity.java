@@ -4,7 +4,7 @@
 // Email:           tegradev@nvidia.com
 // Web:             http://developer.nvidia.com/category/zone/mobile-development
 //
-// Copyright 2009-2011 NVIDIA® Corporation 
+// Copyright 2009-2011 NVIDIAï¿½ Corporation
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ import android.view.SurfaceView;
 import android.view.SurfaceHolder.Callback;
 
 public abstract class NvEventQueueActivity
-	extends Activity 
+	extends Activity
 {
   protected SurfaceView view3d = null;
 	
@@ -113,7 +113,7 @@ public abstract class NvEventQueueActivity
        // @Override
        public void surfaceCreated(SurfaceHolder holder)
        {
-         System.out.println("systemInit.surfaceCreated");
+         System.out.println("**** systemInit.surfaceCreated");
          cachedSurfaceHolder = holder;
 				
          if (fixedWidth!=0 && fixedHeight!=0)
@@ -130,7 +130,7 @@ public abstract class NvEventQueueActivity
                     			  int width, int height)
        {
          cachedSurfaceHolder = holder;
-         System.out.println("Surface changed: " + width + ", " + height);
+         System.out.println("**** Surface changed: " + width + ", " + height);
          surfaceWidth = width;
          surfaceHeight = height;
          onSurfaceChangedNative(surfaceWidth, surfaceHeight);
@@ -140,7 +140,7 @@ public abstract class NvEventQueueActivity
        public void surfaceDestroyed(SurfaceHolder holder)
        {
     	 cachedSurfaceHolder = null;
-    	 System.out.println("systemInit.surfaceDestroyed");
+	 System.out.println("**** systemInit.surfaceDestroyed");
     	 onSurfaceDestroyedNative();
        }
      });
