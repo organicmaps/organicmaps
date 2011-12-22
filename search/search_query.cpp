@@ -87,25 +87,25 @@ void Query::UpdateViewportOffsets()
       if (MwmValue * pMwm = mwmLock.GetValue())
       {
         feature::DataHeader const & header = pMwm->GetHeader();
-        if (header.GetType() == feature::DataHeader::worldcoasts)
-          continue;
-
-        pair<int, int> const scaleR = header.GetScaleRange();
-        int const scale = min(max(viewScale + 7, scaleR.first), scaleR.second);
-
-        covering::IntervalsT const & interval = cov.Get(header.GetLastScale());
-
-        ScaleIndex<ModelReaderPtr> index(pMwm->m_cont.GetReader(INDEX_FILE_TAG),
-                                         pMwm->m_factory);
-
-        for (size_t i = 0; i < interval.size(); ++i)
+        if (header.GetType() == feature::DataHeader::country)
         {
-          index.ForEachInIntervalAndScale(MakeBackInsertFunctor(m_offsetsInViewport[mwmId]),
-                                          interval[i].first, interval[i].second,
-                                          scale);
-        }
+          pair<int, int> const scaleR = header.GetScaleRange();
+          int const scale = min(max(viewScale + 7, scaleR.first), scaleR.second);
 
-        sort(m_offsetsInViewport[mwmId].begin(), m_offsetsInViewport[mwmId].end());
+          covering::IntervalsT const & interval = cov.Get(header.GetLastScale());
+
+          ScaleIndex<ModelReaderPtr> index(pMwm->m_cont.GetReader(INDEX_FILE_TAG),
+                                           pMwm->m_factory);
+
+          for (size_t i = 0; i < interval.size(); ++i)
+          {
+            index.ForEachInIntervalAndScale(MakeBackInsertFunctor(m_offsetsInViewport[mwmId]),
+                                            interval[i].first, interval[i].second,
+                                            scale);
+          }
+
+          sort(m_offsetsInViewport[mwmId].begin(), m_offsetsInViewport[mwmId].end());
+        }
       }
     }
   }
@@ -399,6 +399,8 @@ struct FeatureLoader
     m_featuresVector.Get(offset, feature);
     m_query.AddFeatureResult(feature, m_fName);
   }
+
+  void Reset() { m_count = 0; }
 };
 
 }  // namespace search::impl
@@ -443,12 +445,16 @@ namespace
   class FeaturesFilter
   {
     vector<uint32_t> const & m_offsets;
+    bool m_alwaysTrue;
   public:
-    FeaturesFilter(vector<uint32_t> const & offsets) : m_offsets(offsets) {}
+    FeaturesFilter(vector<uint32_t> const & offsets, bool alwaysTrue)
+      : m_offsets(offsets), m_alwaysTrue(alwaysTrue)
+    {
+    }
 
     bool operator() (uint32_t offset) const
     {
-      return binary_search(m_offsets.begin(), m_offsets.end(), offset);
+      return (m_alwaysTrue || binary_search(m_offsets.begin(), m_offsets.end(), offset));
     }
   };
 }
@@ -475,30 +481,32 @@ void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
                                                ::search::trie::EdgeValueReader()));
           if (pTrieRoot)
           {
+            feature::DataHeader const & header = pMwm->GetHeader();
+            bool const isWorld = (header.GetType() == feature::DataHeader::world);
+
+            FeaturesVector featuresVector(pMwm->m_cont, header);
+            impl::FeatureLoader emitter(featuresVector, *this, isWorld ? "" : mwmLock.GetCountryName());
+
             for (size_t i = 0; i < pTrieRoot->m_edge.size(); ++i)
             {
               TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
               ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
+
               if (edge.size() >= 1 && edge[0] < 128 && langs.count(static_cast<int8_t>(edge[0])))
               {
                 scoped_ptr<TrieIterator> pLangRoot(pTrieRoot->GoToEdge(i));
 
-                feature::DataHeader const & h = pMwm->GetHeader();
-                FeaturesVector featuresVector(pMwm->m_cont, h);
-                impl::FeatureLoader f(
-                      featuresVector,
-                      *this,
-                      (h.GetType() == feature::DataHeader::world) ? "" : mwmLock.GetCountryName());
-
                 MatchFeaturesInTrie(tokens, m_prefix, *pLangRoot,
                                     edge.size() == 1 ? NULL : &edge[1], edge.size() - 1,
-                                    FeaturesFilter(m_offsetsInViewport[mwmId]), f,
+                                    FeaturesFilter(m_offsetsInViewport[mwmId], isWorld), emitter,
                                     m_results[0].max_size() * 10);
 
                 LOG(LDEBUG, ("Lang:",
                              StringUtf8Multilang::GetLangByCode(static_cast<int8_t>(edge[0])),
                              "Matched: ",
-                             f.m_count));
+                             emitter.m_count));
+
+                emitter.Reset();
               }
             }
           }
