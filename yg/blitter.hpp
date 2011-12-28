@@ -48,6 +48,8 @@ namespace yg
                       m2::PointF * geomPts,
                       m2::PointF * texPts);
 
+    public:
+
       struct IMMDrawTexturedPrimitives : Command
       {
         buffer_vector<m2::PointF, 8> m_pts;
@@ -70,8 +72,6 @@ namespace yg
                             shared_ptr<BaseTexture> const & texture,
                             shared_ptr<ResourceManager> const & rm);
       };
-
-    public:
 
       Blitter(base_t::Params const & params);
       ~Blitter();

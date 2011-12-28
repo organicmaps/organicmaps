@@ -286,6 +286,16 @@ namespace yg
         m_frameBuffer->setDepthBuffer(rt);
     }
 
+    Renderer::ClearCommand::ClearCommand(yg::Color const & color,
+                                         bool clearRT,
+                                         float depth,
+                                         bool clearDepth)
+      : m_color(color),
+        m_clearRT(clearRT),
+        m_depth(depth),
+        m_clearDepth(clearDepth)
+    {}
+
     void Renderer::ClearCommand::perform()
     {
       if (isDebugging())
@@ -313,13 +323,7 @@ namespace yg
 
     void Renderer::clear(yg::Color const & c, bool clearRT, float depth, bool clearDepth)
     {
-      shared_ptr<ClearCommand> command(new ClearCommand());
-
-      command->m_color = c;
-      command->m_clearRT = clearRT;
-      command->m_depth = depth;
-      command->m_clearDepth = clearDepth;
-
+      shared_ptr<ClearCommand> command(new ClearCommand(c, clearRT, depth, clearDepth));
       processCommand(command);
     }
 

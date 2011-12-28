@@ -73,6 +73,11 @@ namespace yg
         float m_depth;
         bool m_clearDepth;
 
+        ClearCommand(yg::Color const & color,
+                     bool clearRT = true,
+                     float depth = 1.0,
+                     bool clearDepth = true);
+
         void perform();
       };
 
