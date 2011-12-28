@@ -15,6 +15,9 @@
 #include <sys/stat.h>
 #include <sys/sysctl.h>
 
+#include <dispatch/dispatch.h>
+
+
 Platform::Platform()
 {
   NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
@@ -120,7 +123,8 @@ void Platform::RunAsync(TFunctor const & fn, Priority p)
   int priority = DISPATCH_QUEUE_PRIORITY_DEFAULT;
   switch (p)
   {
-    case EPriorityBackground: priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND; break;
+    // It seems like this option is not supported in Snow Leopard.
+    //case EPriorityBackground: priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND; break;
     case EPriorityDefault: priority = DISPATCH_QUEUE_PRIORITY_DEFAULT; break;
     case EPriorityHigh: priority = DISPATCH_QUEUE_PRIORITY_HIGH; break;
     case EPriorityLow: priority = DISPATCH_QUEUE_PRIORITY_LOW; break;

@@ -119,6 +119,8 @@ void indexer::BuildSearchIndex(FeaturesVector const & featuresVector, Writer & w
 
 bool indexer::BuildSearchIndexFromDatFile(string const & fName)
 {
+  LOG(LINFO, ("Start building search index ..."));
+
   try
   {
     Platform & pl = GetPlatform();
@@ -157,5 +159,6 @@ bool indexer::BuildSearchIndexFromDatFile(string const & fName)
     return false;
   }
 
+  LOG(LINFO, ("End building search index."));
   return true;
 }

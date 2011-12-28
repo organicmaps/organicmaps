@@ -356,8 +356,9 @@ namespace storage
         file = file.substr(i+1);
 
       // Generate search index if it's supported in this build
-      if (GetPlatform().IsFeatureSupported("search"))
-        GetPlatform().RunAsync(bind(&Storage::GenerateSearchIndex, this, cref(file)));
+      Platform & pl = GetPlatform();
+      if (pl.IsFeatureSupported("search"))
+        pl.RunAsync(bind(&Storage::GenerateSearchIndex, this, file));
       else // Or simply activate downloaded map
         UpdateAfterSearchIndex(file);
     }
@@ -369,7 +370,7 @@ namespace storage
   {
     if (indexer::BuildSearchIndexFromDatFile(fName))
     {
-      GetPlatform().RunOnGuiThread(bind(&Storage::UpdateAfterSearchIndex, this, cref(fName)));
+      GetPlatform().RunOnGuiThread(bind(&Storage::UpdateAfterSearchIndex, this, fName));
     }
     else
     {
