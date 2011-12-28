@@ -43,6 +43,7 @@ HEADERS += \
     measurement_utils.hpp \
     partial_render_policy.hpp \
     proto_to_yg_styles.hpp \
+    test_render_policy.hpp
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -75,9 +76,12 @@ SOURCES += \
     window_handle.cpp \
     partial_render_policy.cpp \
     proto_to_yg_styles.cpp \
+    test_render_policy.cpp
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp
   SOURCES += qgl_render_context.cpp
   QT += opengl
 }
+
+

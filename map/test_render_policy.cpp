@@ -1,0 +1,225 @@
+#include "test_render_policy.hpp"
+#include "events.hpp"
+#include "drawer_yg.hpp"
+#include "../yg/base_texture.hpp"
+#include "../yg/internal/opengl.hpp"
+#include "../yg/utils.hpp"
+
+#include "../geometry/screenbase.hpp"
+#include "../platform/platform.hpp"
+#include "window_handle.hpp"
+#include "../indexer/scales.hpp"
+
+TestRenderPolicy::TestRenderPolicy(VideoTimer * videoTimer,
+                                   bool useDefaultFB,
+                                   yg::ResourceManager::Params const & rmParams,
+                                   shared_ptr<yg::gl::RenderContext> const & primaryRC)
+  : RenderPolicy(primaryRC, false)
+{
+  yg::ResourceManager::Params rmp = rmParams;
+
+  rmp.m_primaryStoragesParams = yg::ResourceManager::StoragePoolParams(50000 * sizeof(yg::gl::Vertex),
+                                                                       sizeof(yg::gl::Vertex),
+                                                                       10000 * sizeof(unsigned short),
+                                                                       sizeof(unsigned short),
+                                                                       15,
+                                                                       false,
+                                                                       true,
+                                                                       1,
+                                                                       "primaryStorage");
+
+  rmp.m_smallStoragesParams = yg::ResourceManager::StoragePoolParams(5000 * sizeof(yg::gl::Vertex),
+                                                                     sizeof(yg::gl::Vertex),
+                                                                     10000 * sizeof(unsigned short),
+                                                                     sizeof(unsigned short),
+                                                                     100,
+                                                                     false,
+                                                                     true,
+                                                                     1,
+                                                                     "smallStorage");
+
+  rmp.m_blitStoragesParams = yg::ResourceManager::StoragePoolParams(10 * sizeof(yg::gl::Vertex),
+                                                                    sizeof(yg::gl::Vertex),
+                                                                    10 * sizeof(unsigned short),
+                                                                    sizeof(unsigned short),
+                                                                    50,
+                                                                    true,
+                                                                    true,
+                                                                    1,
+                                                                    "blitStorage");
+
+  rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512,
+                                                                       256,
+                                                                       10,
+                                                                       rmp.m_texFormat,
+                                                                       true,
+                                                                       true,
+                                                                       true,
+                                                                       1,
+                                                                       "primaryTexture");
+
+  rmp.m_fontTexturesParams = yg::ResourceManager::TexturePoolParams(512,
+                                                                    256,
+                                                                    5,
+                                                                    rmp.m_texFormat,
+                                                                    true,
+                                                                    true,
+                                                                    true,
+                                                                    1,
+                                                                    "fontTexture");
+
+  rmp.m_glyphCacheParams = yg::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
+                                                                 "fonts_whitelist.txt",
+                                                                 "fonts_blacklist.txt",
+                                                                 2 * 1024 * 1024,
+                                                                 1,
+                                                                 0);
+
+
+  rmp.m_useSingleThreadedOGL = false;
+  rmp.m_useVA = !yg::gl::g_isBufferObjectsSupported;
+
+  m_resourceManager.reset(new yg::ResourceManager(rmp));
+
+  Platform::FilesList fonts;
+  GetPlatform().GetFontNames(fonts);
+  m_resourceManager->addFonts(fonts);
+
+  DrawerYG::params_t p;
+
+  m_primaryFrameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(useDefaultFB));
+
+  p.m_frameBuffer = m_primaryFrameBuffer;
+  p.m_resourceManager = m_resourceManager;
+  p.m_dynamicPagesCount = 2;
+  p.m_textPagesCount = 2;
+  p.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
+  p.m_skinName = GetPlatform().SkinName();
+  p.m_visualScale = GetPlatform().VisualScale();
+  p.m_isSynchronized = true;
+
+  m_drawer.reset(new DrawerYG(p));
+
+  m_windowHandle.reset(new WindowHandle());
+
+  m_windowHandle->setUpdatesEnabled(false);
+  m_windowHandle->setVideoTimer(videoTimer);
+  m_windowHandle->setRenderContext(primaryRC);
+
+  m_auxFrameBuffer = make_shared_ptr(new yg::gl::FrameBuffer());
+  m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer());
+
+  m_depthBuffer = make_shared_ptr(new yg::gl::RenderBuffer(512, 512, true));
+  m_backBuffer = m_resourceManager->createRenderTarget(512, 512);
+  m_actualTarget = m_resourceManager->createRenderTarget(512, 512);
+
+  m_auxFrameBuffer->onSize(512, 512);
+  m_frameBuffer->onSize(512, 512);
+  m_hasScreen = false;
+}
+
+void TestRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
+                                 ScreenBase const & s)
+{
+  if (!m_hasScreen)
+  {
+    m_screen = s;
+    m_hasScreen = true;
+  }
+
+  using namespace yg::gl;
+
+/*  OGLCHECK(glBindFramebufferFn(GL_FRAMEBUFFER_MWM, m_auxFrameBuffer->id()));
+  OGLCHECK(glFramebufferTexture2DFn(GL_FRAMEBUFFER_MWM, GL_COLOR_ATTACHMENT0_MWM, GL_TEXTURE_2D, m_backBuffer->id(), 0));
+  utils::setupCoordinates(512, 512, false);
+
+  make_shared_ptr(new Renderer::ClearCommand(m_bgColor))->perform();
+
+  OGLCHECK(glFramebufferTexture2DFn(GL_FRAMEBUFFER_MWM, GL_COLOR_ATTACHMENT0_MWM, GL_TEXTURE_2D, m_actualTarget->id(), 0));
+  utils::setupCoordinates(512, 512, false);
+
+  make_shared_ptr(new Renderer::ClearCommand(m_bgColor))->perform();*/
+
+  OGLCHECK(glBindFramebufferFn(GL_FRAMEBUFFER_MWM, m_frameBuffer->id()));
+  utils::setupCoordinates(512, 512, false);
+
+  OGLCHECK(glFramebufferTexture2DFn(GL_FRAMEBUFFER_MWM, GL_COLOR_ATTACHMENT0_MWM, GL_TEXTURE_2D, m_backBuffer->id(), 0));
+  OGLCHECK(glFramebufferRenderbufferFn(GL_FRAMEBUFFER_MWM, GL_DEPTH_ATTACHMENT_MWM, GL_RENDERBUFFER_MWM, m_depthBuffer->id()));
+
+  make_shared_ptr(new Renderer::ClearCommand(m_bgColor, true, 1.0, true))->perform();
+
+  /// drawing with Z-order
+
+  for (unsigned i = 0; i < 40; ++i)
+    e->drawer()->screen()->drawRectangle(m2::RectD(10 + i, 10 + i, 110 + i, 110 + i),
+                                         yg::Color(255 - (i * 2) % 255, i * 2 % 255, 0, 255),
+                                         200 - i);
+
+  e->drawer()->screen()->drawRectangle(m2::RectD(80, 80, 180, 180), yg::Color(0, 255, 0, 255), 100);
+  e->drawer()->screen()->flush(-1);
+
+  /// performing updateActualTarget
+
+  swap(m_actualTarget, m_backBuffer);
+
+  OGLCHECK(glBindFramebufferFn(GL_FRAMEBUFFER_MWM, m_auxFrameBuffer->id()));
+  utils::setupCoordinates(512, 512, false);
+
+  OGLCHECK(glFramebufferTexture2DFn(GL_FRAMEBUFFER_MWM, GL_COLOR_ATTACHMENT0_MWM, GL_TEXTURE_2D, m_backBuffer->id(), 0));
+
+/*  OGLCHECK(glClearColor(m_bgColor.r / 255.0,
+                        m_bgColor.g / 255.0,
+                        m_bgColor.b / 255.0,
+                        m_bgColor.a / 255.0));
+
+  OGLCHECK(glClear(GL_COLOR_BUFFER_BIT));*/
+
+  shared_ptr<Blitter::IMMDrawTexturedRect> immDrawTexturedRect;
+
+  immDrawTexturedRect.reset(
+        new Blitter::IMMDrawTexturedRect(m2::RectF(0, 0, m_actualTarget->width(), m_actualTarget->height()),
+                                         m2::RectF(0, 0, 1, 1),
+                                         m_actualTarget,
+                                         m_resourceManager));
+
+  immDrawTexturedRect->perform();
+  immDrawTexturedRect.reset();
+
+  OGLCHECK(glBindFramebufferFn(GL_FRAMEBUFFER_MWM, m_frameBuffer->id()));
+  OGLCHECK(glFramebufferTexture2DFn(GL_FRAMEBUFFER_MWM, GL_COLOR_ATTACHMENT0_MWM, GL_TEXTURE_2D, m_backBuffer->id(), 0));
+
+  /// drawing with Z-order
+
+  e->drawer()->screen()->drawRectangle(m2::RectD(110, 110, 210, 210), yg::Color(0, 0, 255, 255), 50);
+  e->drawer()->screen()->drawRectangle(m2::RectD(140, 140, 240, 240), yg::Color(0, 255, 255, 255), 25);
+  e->drawer()->screen()->flush(-1);
+
+  /// performing last updateActualTarget
+
+  swap(m_actualTarget, m_backBuffer);
+
+  OGLCHECK(glBindFramebufferFn(GL_FRAMEBUFFER_MWM, m_auxFrameBuffer->id()));
+  OGLCHECK(glFramebufferTexture2DFn(GL_FRAMEBUFFER_MWM, GL_COLOR_ATTACHMENT0_MWM, GL_TEXTURE_2D, m_backBuffer->id(), 0));
+
+/*  OGLCHECK(glClearColor(m_bgColor.r / 255.0,
+                        m_bgColor.g / 255.0,
+                        m_bgColor.b / 255.0,
+                        m_bgColor.a / 255.0));
+
+  OGLCHECK(glClear(GL_COLOR_BUFFER_BIT));*/
+
+  immDrawTexturedRect.reset(
+        new Blitter::IMMDrawTexturedRect(m2::RectF(0, 0, m_actualTarget->width(), m_actualTarget->height()),
+                                         m2::RectF(0, 0, 1, 1),
+                                         m_actualTarget,
+                                         m_resourceManager));
+
+  immDrawTexturedRect->perform();
+  immDrawTexturedRect.reset();
+
+  m_primaryFrameBuffer->makeCurrent();
+
+  e->drawer()->screen()->clear(m_bgColor);
+
+  e->drawer()->screen()->blit(m_actualTarget, m_screen, s);
+}
