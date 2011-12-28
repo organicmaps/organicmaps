@@ -11,15 +11,17 @@ if [[ $# < 1 ]]; then
 fi
 CONFIGURATION="$1"
 
-
 source "$LOCAL_DIRNAME/build.sh"
+source "$LOCAL_DIRNAME/ndk_helper.sh"
 
 MKSPEC="$LOCAL_DIRNAME/../mkspecs/android-g++"
 QMAKE_PARAMS="CONFIG+=${CONFIGURATION}"
 SHADOW_DIR_BASE="$LOCAL_DIRNAME/../../../omim-android"
 
-export NDK_HOST=darwin-x86
-export NDK_ROOT=/Developer/android-ndk-r7
+# Try to read ndk root path from android/local.properties file
+export NDK_ROOT=$(GetNdkRoot) || ( echo "Can't read NDK root path from android/local.properties"; exit 1 )
+export NDK_HOST=$(GetNdkHost) || ( echo "Can't get your OS type, please check tools/autobuild/ndk_helper.sh script"; exit 1 )
+
 NDK_ABI_TO_BUILD=(armeabi armeabi-v7a)
 
 for abi in "${NDK_ABI_TO_BUILD[@]}"; do
