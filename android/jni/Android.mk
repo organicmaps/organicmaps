@@ -4,10 +4,7 @@ include $(CLEAR_VARS)
 
 #LOCAL_CPP_FEATURES += exceptions rtti
 
-LOCAL_MODULE    := mapswithme
-
-#LOCAL_CFLAGS := -DANDROID_NDK \
-#                -DDISABLE_IMPORTGL
+LOCAL_MODULE := mapswithme
 
 LOCAL_CFLAGS := -ffunction-sections -fdata-sections
 
@@ -55,27 +52,24 @@ LOCAL_LDLIBS := -llog -lGLESv1_CM \
 LOCAL_LDLIBS += -Wl,--gc-sections
 
 OMIM_CONFIG := release
-OMIM_SUBFOLDER := release
 ifeq ($(NDK_DEBUG),1)
   OMIM_CONFIG := debug
-  OMIM_SUBFOLDER := debug
 else
   ifeq ($(PRODUCTION),1)
     OMIM_CONFIG := production
-    LOCAL_CFLAGS += -O3
   endif
+  LOCAL_CFLAGS += -O3
 endif
 
-# empty means armv5
-OMIM_ABI :=
+OMIM_ABI := armeabi
 ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
-  OMIM_ABI := -armv7
+  OMIM_ABI := armeabi-v7a
 else
   ifeq ($(TARGET_ARCH_ABI),x86)
-    OMIM_ABI := -x86
+    OMIM_ABI := x86
   endif
 endif
 
-LOCAL_LDLIBS += -L../../omim-android-$(OMIM_CONFIG)$(OMIM_ABI)/out/$(OMIM_SUBFOLDER)
+LOCAL_LDLIBS += -L../../omim-android-$(OMIM_CONFIG)-$(OMIM_ABI)/out/$(OMIM_CONFIG)
 
 include $(BUILD_SHARED_LIBRARY)

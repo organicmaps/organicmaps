@@ -12,9 +12,18 @@ VERSION = $${VERSION_MAJOR}.$${VERSION_MINOR}
 # Additional include directories, common to most projects.
 INCLUDEPATH *= $$ROOT_DIR/3party/boost
 
+# Automatically enable release config for production
+CONFIG(production) {
+  CONFIG *= release
+}
+
 CONFIG(release, debug|release) {
   DEFINES *= RELEASE _RELEASE NDEBUG
-  CONFIG_NAME = release
+  CONFIG(production) {
+    CONFIG_NAME = production
+  } else {
+    CONFIG_NAME = release
+  }
 } else {
   DEFINES *= DEBUG _DEBUG
   CONFIG_NAME = debug

@@ -613,7 +613,7 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* MapsAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapsAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* MapsAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MapsAppDelegate.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		1D6058910D05DD3D006BFB54 /* MapsWithMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = MapsWithMe.app; path = "MapsWithMeβ.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* MapsWithMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = MapsWithMe.app; path = "MWM Beta.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* Maps_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Maps_Prefix.pch; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -2746,7 +2746,7 @@
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "MapsWithMe-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production/out/release\"";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production/out/production\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
@@ -2851,7 +2851,7 @@
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "MapsWithMe-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production/out/release\"";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production/out/production\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
@@ -3004,7 +3004,7 @@
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "MapsWithMe-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production/out/release\"";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production/out/production\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
@@ -3058,7 +3058,7 @@
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "MapsWithMe-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production/out/release\"";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production/out/production\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
