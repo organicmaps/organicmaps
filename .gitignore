@@ -92,6 +92,7 @@ android/.classpath
 android/.cproject
 android/.project
 android/assets
+android/local.properties
 # local android scripts, such as debugger helper scrips
 android/local
 

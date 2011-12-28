@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="MapsWithMe" default="production">
+
+    <!-- The local.properties file is created and updated by the 'android' tool.
+         It contains the path to the SDK. It should *NOT* be checked into
+         Version Control Systems. -->
+    <property file="local.properties" />
+
+    <!-- The ant.properties file can be created by you. It is only edited by the
+         'android' tool to add properties to it.
+         This is the place to change some Ant specific build properties.
+         Here are some properties you may want to change/update:
+
+         source.dir
+             The name of the source directory. Default is 'src'.
+         out.dir
+             The name of the output directory. Default is 'bin'.
+
+         For other overridable properties, look at the beginning of the rules
+         files in the SDK, at tools/ant/build.xml
+
+         Properties related to the SDK location or the project target should
+         be updated using the 'android' tool with the 'update' action.
+
+         This file is an integral part of the build system for your
+         application and should be checked into Version Control Systems.
+
+         -->
+    <property file="ant.properties" />
+
+    <!-- The project.properties file is created and updated by the 'android'
+         tool, as well as ADT.
+
+         This contains project specific properties such as project target, and library
+         dependencies. Lower level build properties are stored in ant.properties
+         (or in .classpath for Eclipse projects).
+
+         This file is an integral part of the build system for your
+         application and should be checked into Version Control Systems. -->
+    <loadproperties srcFile="project.properties" />
+
+    <!-- quick check on sdk.dir -->
+    <fail
+            message="sdk.dir is missing. Make sure to generate local.properties using 'android update project' or to inject it through an env var"
+            unless="sdk.dir"
+    />
+    <!-- quick check on ndk.dir -->
+    <fail
+            message="ndk.dir is missing. Make sure to put it into the local.properties or to inject it through an env var"
+            unless="ndk.dir"
+    />
+
+<!-- extension targets. Uncomment the ones where you want to do custom work
+     in between standard targets -->
+<!--
+    <target name="-pre-build">
+        <exec executable="${ndk.dir}/ndk-build" failonerror="true"/>
+    </target>
+-->
+    <target name="clean" depends="android_rules.clean">
+        <exec executable="${ndk.dir}/ndk-build" failonerror="true">
+            <arg value="clean"/>
+        </exec>
+    </target>
+
+    <target name="-exclude-text-drules">
+        <exec executable="rm">
+            <arg value="${asset.absolute.dir}/drules_proto.txt"/>
+        </exec>
+    </target>
+
+    <target name="-include-text-drules">
+        <exec executable="ln">
+            <arg value="-s"/>
+            <arg value="../../data/drules_proto.txt"/>
+            <arg value="${asset.absolute.dir}/drules_proto.txt"/>
+        </exec>
+    </target>
+
+    <target name="-ndk-production">
+        <exec executable="bash" failonerror="true">
+            <arg value="../tools/autobuild/android.sh"/>
+            <arg value="production"/>
+        </exec>
+        <exec executable="${ndk.dir}/ndk-build" failonerror="true">
+            <arg value="NDK_DEBUG=0"/>
+            <arg value="PRODUCTION=1"/>
+            <arg value="V=1"/>
+        </exec>
+    </target>
+
+    <target name="-set-production-mode" depends="android_rules.-set-mode-check">
+        <property name="out.packaged.file" location="${out.absolute.dir}/${ant.project.name}-production-unsigned.apk" />
+        <property name="out.final.file" location="${out.absolute.dir}/${ant.project.name}-production.apk" />
+        <property name="build.is.mode.set" value="true" />
+
+        <!-- record the current build target -->
+        <property name="build.target" value="release" />
+
+        <property name="build.is.instrumented" value="false" />
+
+        <!-- production mode is only valid if the manifest does not explicitly
+             set debuggable to true. default is false. -->
+        <xpath input="AndroidManifest.xml" expression="/manifest/application/@android:debuggable"
+                output="build.is.packaging.debug" default="false"/>
+
+        <!-- signing mode: production -->
+        <property name="build.is.signing.debug" value="false" />
+
+        <if condition="${build.is.packaging.debug}">
+            <then>
+                <echo>*************************************************</echo>
+                <echo>****  Android Manifest has debuggable=true   ****</echo>
+                <echo>** Doing DEBUG packaging with PRODUCTION keys ***</echo>
+                <echo>*************************************************</echo>
+            </then>
+            <else>
+                <!-- property only set in release mode.
+                     Useful for if/unless attributes in target node
+                     when using Ant before 1.8 -->
+                <property name="build.is.mode.release" value="true"/>
+            </else>
+        </if>
+    </target>
+
+    <target name="production" depends="-exclude-text-drules, -ndk-production, -set-production-mode,
+        android_rules.-release-obfuscation-check, android_rules.-package, android_rules.-release-prompt-for-password, android_rules.-release-nosign"
+        if="has.keystore" description="Production target - almost the same as release, but with real word config.">
+        <!-- only create apk if *not* a library project -->
+        <do-only-if-not-library elseText="Library project: do not create apk..." >
+            <sequential>
+                <property name="out.unaligned.file" location="${out.absolute.dir}/${ant.project.name}-production-unaligned.apk" />
+
+                <!-- Signs the APK -->
+                <echo>Signing final apk...</echo>
+                <signjar
+                        jar="${out.packaged.file}"
+                        signedjar="${out.unaligned.file}"
+                        keystore="${key.store}"
+                        storepass="${key.store.password}"
+                        alias="${key.alias}"
+                        keypass="${key.alias.password}"
+                        verbose="${verbose}" />
+
+                <!-- Zip aligns the APK -->
+                <zipalign-helper in.package="${out.unaligned.file}"
+                                           out.package="${out.final.file}" />
+                <echo>Release Package: ${out.final.file}</echo>
+            </sequential>
+        </do-only-if-not-library>
+        <record-build-info />
+    </target>
+
+    <target name="-ndk-release">
+        <exec executable="bash" failonerror="true">
+            <arg value="../tools/autobuild/android.sh"/>
+            <arg value="release"/>
+        </exec>
+        <exec executable="${ndk.dir}/ndk-build" failonerror="true">
+            <arg value="NDK_DEBUG=0"/>
+            <arg value="V=1"/>
+        </exec>
+    </target>
+
+    <target name="release" depends="-include-text-drules, -ndk-release, android_rules.release">
+    </target>
+
+    <target name="-ndk-debug">
+        <exec executable="bash" failonerror="true">
+            <arg value="../tools/autobuild/android.sh"/>
+            <arg value="debug"/>
+        </exec>
+        <exec executable="${ndk.dir}/ndk-build" failonerror="true">
+            <arg value="NDK_DEBUG=1"/>
+            <arg value="V=1"/>
+        </exec>
+    </target>
+
+    <target name="debug" depends="-include-text-drules, -ndk-debug, android_rules.debug">
+    </target>
+
+<!--
+    <target name="-pre-compile">
+    </target>
+
+    /* This is typically used for code obfuscation.
+       Compiled code location: ${out.classes.absolute.dir}
+       If this is not done in place, override ${out.dex.input.absolute.dir} */
+    <target name="-post-compile">
+    </target>
+-->
+
+    <!-- Import the actual build file.
+
+         To customize existing targets, there are two options:
+         - Customize only one target:
+             - copy/paste the target into this file, *before* the
+               <import> task.
+             - customize it to your needs.
+         - Customize the whole content of build.xml
+             - copy/paste the content of the rules files (minus the top node)
+               into this file, replacing the <import> task.
+             - customize to your needs.
+
+         ***********************
+         ****** IMPORTANT ******
+         ***********************
+         In all cases you must update the value of version-tag below to read 'custom' instead of an integer,
+         in order to avoid having your file be overridden by tools such as "android update project"
+    -->
+    <!-- version-tag: 1 -->
+    <import file="${sdk.dir}/tools/ant/build.xml" />
+
+</project>
