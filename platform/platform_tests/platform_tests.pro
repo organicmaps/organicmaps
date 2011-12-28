@@ -30,7 +30,6 @@ SOURCES += \
     ../../testing/testingmain.cpp \
     platform_test.cpp \
     jansson_test.cpp \
-    concurrent_runner_test.cpp \
     language_test.cpp \
     downloader_test.cpp \
     video_timer_test.cpp \

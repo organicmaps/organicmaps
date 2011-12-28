@@ -369,7 +369,7 @@ namespace storage
   {
     if (indexer::BuildSearchIndexFromDatFile(fName))
     {
-      GetPlatform().RunInGuiThread(bind(&Storage::UpdateAfterSearchIndex, this, cref(fName)));
+      GetPlatform().RunOnGuiThread(bind(&Storage::UpdateAfterSearchIndex, this, cref(fName)));
     }
     else
     {

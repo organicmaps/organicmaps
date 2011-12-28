@@ -167,3 +167,15 @@ bool Platform::IsFeatureSupported(string const & feature) const
   // @TODO add Search feature support
   return false;
 }
+
+void Platform::RunOnGuiThread(TFunctor const & fn)
+{
+  // @TODO
+  fn();
+}
+
+void Platform::RunAsync(TFunctor const & fn, Priority p)
+{
+  // @TODO
+  fn();
+}

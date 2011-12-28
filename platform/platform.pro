@@ -15,7 +15,6 @@ include($$ROOT_DIR/common.pri)
 
   SOURCES += platform_qt.cpp \
              wifi_location_service.cpp \
-             qt_concurrent_runner.cpp \
              location_service.cpp
   HEADERS += wifi_info.hpp \
              location_service.hpp
@@ -38,7 +37,6 @@ include($$ROOT_DIR/common.pri)
   }
 } else:iphone* {
   OBJECTIVE_SOURCES += ios_video_timer.mm \
-                       ios_concurrent_runner.mm \
                        platform_ios.mm
 } else:android* {
   SOURCES += platform_android.cpp \
@@ -55,7 +53,6 @@ macx*|iphone* {
 HEADERS += \
     platform.hpp \
     location.hpp \
-    concurrent_runner.hpp \
     preferred_languages.hpp \
     settings.hpp \
     video_timer.hpp \

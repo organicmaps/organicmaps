@@ -25,7 +25,6 @@ LOCAL_HEADER_FILES := \
 	nv_event/scoped_profiler.hpp
 
 LOCAL_SRC_FILES := \
-	com/mapswithme/core/concurrent_runner.cpp \
 	com/mapswithme/core/jni_helper.cpp \
 	com/mapswithme/core/jni_string.cpp \
 	com/mapswithme/core/logging.cpp \

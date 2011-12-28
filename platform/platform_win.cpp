@@ -100,3 +100,15 @@ string Platform::UniqueClientId() const
 {
   return "@TODO";
 }
+
+void Platform::RunOnGuiThread(TFunctor const & fn)
+{
+  // @TODO
+  fn();
+}
+
+void Platform::RunAsync(TFunctor const & fn, Priority p)
+{
+  // @TODO
+  fn();
+}

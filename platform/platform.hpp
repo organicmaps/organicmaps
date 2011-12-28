@@ -72,8 +72,15 @@ public:
   /// @name Functions for concurrent tasks.
   //@{
   typedef function<void()> TFunctor;
-  inline void RunInGuiThread(TFunctor const & fn) { fn(); }
-  inline void RunAsync(TFunctor const & fn) { fn(); }
+  void RunOnGuiThread(TFunctor const & fn);
+  enum Priority
+  {
+    EPriorityBackground,
+    EPriorityLow,
+    EPriorityDefault,
+    EPriorityHigh
+  };
+  void RunAsync(TFunctor const & fn, Priority p = EPriorityDefault);
   //@}
 
   int CpuCores() const;

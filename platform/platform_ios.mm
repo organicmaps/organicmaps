@@ -273,6 +273,31 @@ bool Platform::IsFeatureSupported(string const & feature) const
   return false;
 }
 
+static void PerformImpl(void * obj)
+{
+  Platform::TFunctor * f = reinterpret_cast<Platform::TFunctor *>(obj);
+  (*f)();
+  delete f;
+}
+
+void Platform::RunOnGuiThread(TFunctor const & fn)
+{
+  dispatch_async_f(dispatch_get_main_queue(), new TFunctor(fn), &PerformImpl);
+}
+
+void Platform::RunAsync(TFunctor const & fn, Priority p)
+{
+  int priority = DISPATCH_QUEUE_PRIORITY_DEFAULT;
+  switch (p)
+  {
+    case EPriorityBackground: priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND; break;
+    case EPriorityDefault: priority = DISPATCH_QUEUE_PRIORITY_DEFAULT; break;
+    case EPriorityHigh: priority = DISPATCH_QUEUE_PRIORITY_HIGH; break;
+    case EPriorityLow: priority = DISPATCH_QUEUE_PRIORITY_LOW; break;
+  }
+  dispatch_async_f(dispatch_get_global_queue(priority, 0), new TFunctor(fn), &PerformImpl);
+}
+
 ////////////////////////////////////////////////////////////////////////
 extern "C" Platform & GetPlatform()
 {
