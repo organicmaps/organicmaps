@@ -119,8 +119,11 @@ namespace storage
     }
 
     // second, check if this country has failed while downloading
-    if (m_failedCountries.find(index) != m_failedCountries.end())
+    if (m_failedCountries.count(index) > 0)
       return EDownloadFailed;
+
+    if (m_indexGeneration.count(index) > 0)
+      return EGeneratingIndex;
 
     LocalAndRemoteSizeT const size = CountryByIndex(index).Size();
     if (size.first == size.second)
@@ -327,23 +330,23 @@ namespace storage
   {
     if (m_queue.empty())
     {
-      ASSERT(false, ("Invalid url?", request.Data()));
+      ASSERT ( false, ("Invalid url?", request.Data()) );
       return;
     }
 
+    TIndex const index = m_queue.front();
     if (request.Status() == HttpRequest::EFailed)
     {
       // remove failed country from the queue
-      TIndex const failedIndex = m_queue.front();
       m_queue.pop_front();
-      m_failedCountries.insert(failedIndex);
+      m_failedCountries.insert(index);
       // notify GUI about failed country
       if (m_observerChange)
-        m_observerChange(failedIndex);
+        m_observerChange(index);
     }
     else
     {
-      LocalAndRemoteSizeT const size = CountryByIndex(m_queue.front()).Size();
+      LocalAndRemoteSizeT const size = CountryByIndex(index).Size();
       if (size.second != 0)
         m_countryProgress.first = size.first;
 
@@ -355,22 +358,29 @@ namespace storage
       if (i != string::npos)
         file = file.substr(i+1);
 
-      // Generate search index if it's supported in this build
       Platform & pl = GetPlatform();
       if (pl.IsFeatureSupported("search"))
-        pl.RunAsync(bind(&Storage::GenerateSearchIndex, this, file));
-      else // Or simply activate downloaded map
-        UpdateAfterSearchIndex(file);
+      {
+        // Generate search index if it's supported in this build
+        m_indexGeneration.insert(index);
+        pl.RunAsync(bind(&Storage::GenerateSearchIndex, this, index, file));
+      }
+      else
+      {
+        // Or simply activate downloaded map
+        UpdateAfterSearchIndex(index, file);
+      }
     }
+
     m_request.reset();
     DownloadNextCountryFromQueue();
   }
 
-  void Storage::GenerateSearchIndex(string const & fName) const
+  void Storage::GenerateSearchIndex(TIndex const & index, string const & fName)
   {
     if (indexer::BuildSearchIndexFromDatFile(fName))
     {
-      GetPlatform().RunOnGuiThread(bind(&Storage::UpdateAfterSearchIndex, this, fName));
+      GetPlatform().RunOnGuiThread(bind(&Storage::UpdateAfterSearchIndex, this, index, fName));
     }
     else
     {
@@ -378,8 +388,11 @@ namespace storage
     }
   }
 
-  void Storage::UpdateAfterSearchIndex(string const & fName) const
+  void Storage::UpdateAfterSearchIndex(TIndex const & index, string const & fName)
   {
+    // remove from index set
+    m_indexGeneration.erase(index);
+
     // activate downloaded map piece
     m_addMap(fName);
 

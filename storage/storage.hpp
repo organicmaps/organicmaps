@@ -18,6 +18,7 @@ namespace storage
   enum TStatus
   {
     EOnDisk = 0,
+    EGeneratingIndex,
     ENotDownloaded,
     EDownloadFailed,
     EDownloading,
@@ -28,11 +29,14 @@ namespace storage
   struct TIndex
   {
     static int const INVALID;
+
     int m_group;
     int m_country;
     int m_region;
+
     TIndex(int group = INVALID, int country = INVALID, int region = INVALID)
       : m_group(group), m_country(country), m_region(region) {}
+
     bool operator==(TIndex const & other) const
     {
       return (m_group == other.m_group &&
@@ -60,15 +64,20 @@ namespace storage
 
     CountriesContainerT m_countries;
 
+    /// store queue for downloading
     typedef list<TIndex> TQueue;
     TQueue m_queue;
+
+    /// stores countries which download has failed recently
+    typedef set<TIndex> TCountriesSet;
+    TCountriesSet m_failedCountries;
+
+    /// store countries set for which search index is generating
+    TCountriesSet m_indexGeneration;
+
     /// used to correctly calculate total country download progress with more than 1 file
     /// <current, total>
     downloader::HttpRequest::ProgressT m_countryProgress;
-
-    typedef set<TIndex> TFailedCountries;
-    /// stores countries which download has failed recently
-    TFailedCountries m_failedCountries;
 
     /// @name Communicate with GUI
     //@{
@@ -96,8 +105,8 @@ namespace storage
     void DownloadNextCountryFromQueue();
     Country const & CountryByIndex(TIndex const & index) const;
 
-    void GenerateSearchIndex(string const & fName) const;
-    void UpdateAfterSearchIndex(string const & fName) const;
+    void GenerateSearchIndex(TIndex const & index, string const & fName);
+    void UpdateAfterSearchIndex(TIndex const & index, string const & fName);
 
   public:
     Storage() {}

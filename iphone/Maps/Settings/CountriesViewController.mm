@@ -179,14 +179,25 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
                                                    green:43.f/255.f
                                                     blue:182.f/255.f
                                                    alpha:1.f];
-        cell.detailTextLabel.text = NSLocalizedString(@"Downloading...", @"Settings/Downloader - info for country which started downloading");
+        cell.detailTextLabel.text = NSLocalizedString(@"Downloading ...", @"Settings/Downloader - info for country which started downloading");
         UIActivityIndicatorView * indicator = [[UIActivityIndicatorView alloc] 
                                                initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleGray];
         cell.accessoryView = indicator;
         [indicator startAnimating];
         [indicator release];
+        break;
       }
-      break;
+
+    case EGeneratingIndex:
+      {
+        cell.textLabel.textColor = [UIColor colorWithRed:52.f/255.f
+                                                   green:43.f/255.f
+                                                    blue:182.f/255.f
+                                                   alpha:1.f];
+        cell.detailTextLabel.text = NSLocalizedString(@"Generating search index ...",
+                  @"Settings/Downloader - info for country which started downloading");
+        break;
+      }
 
     case EDownloadFailed:
       cell.textLabel.textColor = [UIColor redColor];
@@ -249,7 +260,8 @@ UITableViewCell * g_clickedCell = nil;
 - (void) actionSheet: (UIActionSheet *) actionSheet clickedButtonAtIndex: (NSInteger) buttonIndex
 {
   if (buttonIndex == 0)
-  {	// Delete country
+  {
+    // Delete country
     switch (m_storage->CountryStatus(g_clickedIndex))
     {
     case ENotDownloaded:
@@ -335,8 +347,9 @@ UITableViewCell * g_clickedCell = nil;
                                        destructiveButtonTitle: NSLocalizedString(@"Delete", @"Settings/Downloader - Delete country dialog - Confirm deletion button")
                                        otherButtonTitles: nil] autorelease];
         [popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
+		break;
     	}
-  		break;
+
       case ENotDownloaded:
       case EDownloadFailed:
       {
@@ -345,7 +358,8 @@ UITableViewCell * g_clickedCell = nil;
 
         // check for disk free space first
         if (FreeDiskSpaceInBytes() < (size + 1024*1024))
-        { // display warning dialog about not enough free disk space
+        {
+          // display warning dialog about not enough free disk space
           [[[[CustomAlertView alloc] initWithTitle:NSLocalizedString(@"There is not enough free disk space", @"Settings/Downloader - No free space dialog title")
                                                                    message:[NSString stringWithFormat:NSLocalizedString(@"Please free some space on your device first in order to download %@", @"Settings/Downloader - No free space dialog message"), countryName]
                                                                   delegate:nil
@@ -356,7 +370,8 @@ UITableViewCell * g_clickedCell = nil;
 
         TActiveConnectionType const connType = GetActiveConnectionType();
         if (connType == ENotConnected)
-        { // do not initiate any download
+        {
+          // do not initiate any download
           [[[[CustomAlertView alloc] initWithTitle:NSLocalizedString(@"No Internet connection detected", @"Settings/Downloader - No internet connection dialog title")
                                            message:NSLocalizedString(@"We recommend using WiFi to download large maps", @"Settings/Downloader - No internet connection dialog message")
                                           delegate:nil
@@ -366,7 +381,8 @@ UITableViewCell * g_clickedCell = nil;
         else
         {
           if (connType == EConnectedBy3G && size > MAX_3G_MEGABYTES * MB)
-          { // If user uses 3G, show warning to him before downloading country
+          {
+            // If user uses 3G, show warning to him before downloading country
             [[[[CustomAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"No WiFi connection detected. Would you like to use cellular data (GPRS, EDGE or 3G) to download %@?", @"Settings/Downloader - 3G download warning dialog title"), countryName]
                                             message:nil
                                            delegate:self
@@ -376,10 +392,12 @@ UITableViewCell * g_clickedCell = nil;
           else
             [self showDownloadCountryConfirmation:countryName withSize:size fromRect:[cell frame]];
         }
+		break;
 			}
-  		break;
+
   		case EDownloading:
-    	{ // display confirmation popup
+	{
+        // display confirmation popup
     		UIActionSheet * popupQuery = [[UIActionSheet alloc]
       			initWithTitle: countryName
         		delegate: self
@@ -388,14 +406,17 @@ UITableViewCell * g_clickedCell = nil;
         		otherButtonTitles: nil];
         [popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
     		[popupQuery release];
+	break;
     	}
-    	break;
-  		case EInQueue:
-  		// cancel download
-    	m_storage->DeleteCountry(index);
-			break;
-      default:
-      break;
+
+      case EInQueue:
+        // cancel download
+        m_storage->DeleteCountry(index);
+        break;
+
+      case EGeneratingIndex:
+        // we can't stop index generation at this moment
+        break;
   	}
   }
 }

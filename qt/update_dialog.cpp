@@ -115,7 +115,8 @@ namespace qt
     switch (m_storage.CountryStatus(countryIndex))
     {
     case EOnDisk:
-      { // aha.. map is already downloaded, so ask user about deleting!
+      {
+        // map is already downloaded, so ask user about deleting!
         QMessageBox ask(this);
         ask.setText(tr("Do you want to delete %1?").arg(item->text(KColumnIndexCountry)));
         ask.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -135,7 +136,8 @@ namespace qt
       m_storage.DeleteCountry(countryIndex);
       break;
 
-    default:
+    case EGeneratingIndex:
+      // we can't stop index genertion at this moment
       break;
     }
   }
@@ -206,28 +208,36 @@ namespace qt
         rowColor = COLOR_NOTDOWNLOADED;
         size = m_storage.CountrySizeInBytes(index);
         break;
+
       case EOnDisk:
         statusString = tr("Installed (click to delete)");
         rowColor = COLOR_ONDISK;
         size = m_storage.CountrySizeInBytes(index);
         break;
+
       case EDownloadFailed:
         statusString = tr("Download has failed");
         rowColor = COLOR_DOWNLOADFAILED;
         size = m_storage.CountrySizeInBytes(index);
         break;
+
       case EDownloading:
-        statusString = tr("Downloading...");
+        statusString = tr("Downloading ...");
         rowColor = COLOR_INPROGRESS;
         break;
+
       case EInQueue:
         statusString = tr("Marked for download");
         rowColor = COLOR_INQUEUE;
         size = m_storage.CountrySizeInBytes(index);
         break;
-      default:
+
+      case EGeneratingIndex:
+        statusString = tr("Generatin search index ...");
+        rowColor = COLOR_INPROGRESS;
         break;
       }
+
       if (statusString.size())
         item->setText(KColumnIndexStatus, statusString);
 
