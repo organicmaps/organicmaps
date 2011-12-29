@@ -146,6 +146,7 @@ namespace storage
       // do nothing
       return;
     }
+
     // remove it from failed list
     m_failedCountries.erase(index);
     // add it into the queue
@@ -163,8 +164,7 @@ namespace storage
     else
     {
       // notify about "In Queue" status
-      if (m_observerChange)
-        m_observerChange(index);
+      NotifyStatusChanhed(index);
     }
   }
 
@@ -184,6 +184,12 @@ namespace storage
     }
   };
 
+  void Storage::NotifyStatusChanhed(TIndex const & index) const
+  {
+    if (m_observerChange)
+      m_observerChange(index);
+  }
+
   void Storage::DownloadNextCountryFromQueue()
   {
     while (!m_queue.empty())
@@ -199,12 +205,13 @@ namespace storage
           m_request.reset(HttpRequest::PostJson(URL_SERVERS_LIST,
               postBody,
               bind(&Storage::OnServerListDownloaded, this, _1)));
-          // notify GUI - new status for country, "Downloading"
-          if (m_observerChange)
-            m_observerChange(index);
+
+          // new status for country, "Downloading"
+          NotifyStatusChanhed(index);
           return;
         }
       }
+
       // continue with next country
       m_queue.pop_front();
       // reset total country's download progress
@@ -213,9 +220,9 @@ namespace storage
         m_countryProgress.first = 0;
         m_countryProgress.second = CountryByIndex(m_queue.front()).Size().second;
       }
-      // and notify GUI - new status for country, "OnDisk"
-      if (m_observerChange)
-        m_observerChange(index);
+
+      // new status for country, "OnDisk"
+      NotifyStatusChanhed(index);
     }
   }
 
@@ -289,8 +296,7 @@ namespace storage
     }
 
     DeactivateAndDeleteCountry(country, m_removeMap);
-    if (m_observerChange)
-      m_observerChange(index);
+    NotifyStatusChanhed(index);
 
     if (bounds != m2::RectD::GetEmptyRect())
       m_updateRect(bounds);
@@ -340,9 +346,9 @@ namespace storage
       // remove failed country from the queue
       m_queue.pop_front();
       m_failedCountries.insert(index);
+
       // notify GUI about failed country
-      if (m_observerChange)
-        m_observerChange(index);
+      NotifyStatusChanhed(index);
     }
     else
     {
@@ -392,6 +398,7 @@ namespace storage
   {
     // remove from index set
     m_indexGeneration.erase(index);
+    NotifyStatusChanhed(index);
 
     // activate downloaded map piece
     m_addMap(fName);

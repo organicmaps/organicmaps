@@ -109,7 +109,7 @@ namespace storage
     void UpdateAfterSearchIndex(TIndex const & index, string const & fName);
 
   public:
-    Storage() {}
+
     /// @TODO temporarily made public for Android, refactor
     void ReInitCountries(bool forceReload);
 
@@ -142,5 +142,7 @@ namespace storage
     void DeleteCountry(TIndex const & index);
 
     void CheckForUpdate();
+
+    void NotifyStatusChanhed(TIndex const & index) const;
   };
 }
