@@ -129,17 +129,6 @@ void TestRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   using namespace yg::gl;
 
-/*  OGLCHECK(glBindFramebufferFn(GL_FRAMEBUFFER_MWM, m_auxFrameBuffer->id()));
-  OGLCHECK(glFramebufferTexture2DFn(GL_FRAMEBUFFER_MWM, GL_COLOR_ATTACHMENT0_MWM, GL_TEXTURE_2D, m_backBuffer->id(), 0));
-  utils::setupCoordinates(512, 512, false);
-
-  make_shared_ptr(new Renderer::ClearCommand(m_bgColor))->perform();
-
-  OGLCHECK(glFramebufferTexture2DFn(GL_FRAMEBUFFER_MWM, GL_COLOR_ATTACHMENT0_MWM, GL_TEXTURE_2D, m_actualTarget->id(), 0));
-  utils::setupCoordinates(512, 512, false);
-
-  make_shared_ptr(new Renderer::ClearCommand(m_bgColor))->perform();*/
-
   OGLCHECK(glBindFramebufferFn(GL_FRAMEBUFFER_MWM, m_frameBuffer->id()));
   utils::setupCoordinates(512, 512, false);
 
@@ -160,12 +149,7 @@ void TestRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   /// performing updateActualTarget
 
-  swap(m_actualTarget, m_backBuffer);
-
-  OGLCHECK(glBindFramebufferFn(GL_FRAMEBUFFER_MWM, m_auxFrameBuffer->id()));
-  utils::setupCoordinates(512, 512, false);
-
-  OGLCHECK(glFramebufferTexture2DFn(GL_FRAMEBUFFER_MWM, GL_COLOR_ATTACHMENT0_MWM, GL_TEXTURE_2D, m_backBuffer->id(), 0));
+  OGLCHECK(glFramebufferTexture2DFn(GL_FRAMEBUFFER_MWM, GL_COLOR_ATTACHMENT0_MWM, GL_TEXTURE_2D, m_actualTarget->id(), 0));
 
 /*  OGLCHECK(glClearColor(m_bgColor.r / 255.0,
                         m_bgColor.g / 255.0,
@@ -177,15 +161,15 @@ void TestRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
   shared_ptr<Blitter::IMMDrawTexturedRect> immDrawTexturedRect;
 
   immDrawTexturedRect.reset(
-        new Blitter::IMMDrawTexturedRect(m2::RectF(0, 0, m_actualTarget->width(), m_actualTarget->height()),
+        new Blitter::IMMDrawTexturedRect(m2::RectF(0, 0, m_backBuffer->width(), m_backBuffer->height()),
                                          m2::RectF(0, 0, 1, 1),
-                                         m_actualTarget,
+                                         m_backBuffer,
                                          m_resourceManager));
 
   immDrawTexturedRect->perform();
   immDrawTexturedRect.reset();
 
-  OGLCHECK(glBindFramebufferFn(GL_FRAMEBUFFER_MWM, m_frameBuffer->id()));
+//  OGLCHECK(glBindFramebufferFn(GL_FRAMEBUFFER_MWM, m_frameBuffer->id()));
   OGLCHECK(glFramebufferTexture2DFn(GL_FRAMEBUFFER_MWM, GL_COLOR_ATTACHMENT0_MWM, GL_TEXTURE_2D, m_backBuffer->id(), 0));
 
   /// drawing with Z-order
@@ -196,10 +180,8 @@ void TestRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   /// performing last updateActualTarget
 
-  swap(m_actualTarget, m_backBuffer);
-
-  OGLCHECK(glBindFramebufferFn(GL_FRAMEBUFFER_MWM, m_auxFrameBuffer->id()));
-  OGLCHECK(glFramebufferTexture2DFn(GL_FRAMEBUFFER_MWM, GL_COLOR_ATTACHMENT0_MWM, GL_TEXTURE_2D, m_backBuffer->id(), 0));
+//  OGLCHECK(glBindFramebufferFn(GL_FRAMEBUFFER_MWM, m_auxFrameBuffer->id()));
+  OGLCHECK(glFramebufferTexture2DFn(GL_FRAMEBUFFER_MWM, GL_COLOR_ATTACHMENT0_MWM, GL_TEXTURE_2D, m_actualTarget->id(), 0));
 
 /*  OGLCHECK(glClearColor(m_bgColor.r / 255.0,
                         m_bgColor.g / 255.0,
@@ -209,17 +191,42 @@ void TestRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
   OGLCHECK(glClear(GL_COLOR_BUFFER_BIT));*/
 
   immDrawTexturedRect.reset(
-        new Blitter::IMMDrawTexturedRect(m2::RectF(0, 0, m_actualTarget->width(), m_actualTarget->height()),
+        new Blitter::IMMDrawTexturedRect(m2::RectF(0, 0, m_backBuffer->width(), m_backBuffer->height()),
                                          m2::RectF(0, 0, 1, 1),
-                                         m_actualTarget,
+                                         m_backBuffer,
+                                         m_resourceManager));
+
+  immDrawTexturedRect->perform();
+  immDrawTexturedRect.reset();
+
+  OGLCHECK(glFramebufferTexture2DFn(GL_FRAMEBUFFER_MWM, GL_COLOR_ATTACHMENT0_MWM, GL_TEXTURE_2D, m_backBuffer->id(), 0));
+
+  e->drawer()->screen()->drawRectangle(m2::RectD(90, 150, 190, 250), yg::Color(255, 0, 255, 255), 20);
+  e->drawer()->screen()->drawRectangle(m2::RectD(120, 180, 220, 280), yg::Color(128, 128, 255, 255), 10);
+  e->drawer()->screen()->flush(-1);
+
+  /// performing updateActualTarget
+  OGLCHECK(glFramebufferTexture2DFn(GL_FRAMEBUFFER_MWM, GL_COLOR_ATTACHMENT0_MWM, GL_TEXTURE_2D, m_actualTarget->id(), 0));
+
+  immDrawTexturedRect.reset(
+        new Blitter::IMMDrawTexturedRect(m2::RectF(0, 0, m_backBuffer->width(), m_backBuffer->height()),
+                                         m2::RectF(0, 0, 1, 1),
+                                         m_backBuffer,
                                          m_resourceManager));
 
   immDrawTexturedRect->perform();
   immDrawTexturedRect.reset();
 
   m_primaryFrameBuffer->makeCurrent();
+  utils::setupCoordinates(m_primaryFrameBuffer->width(), m_primaryFrameBuffer->height(), true);
 
   e->drawer()->screen()->clear(m_bgColor);
 
   e->drawer()->screen()->blit(m_actualTarget, m_screen, s);
+}
+
+m2::RectI const TestRenderPolicy::OnSize(int w, int h)
+{
+  m_primaryFrameBuffer->onSize(w, h);
+  return RenderPolicy::OnSize(w, h);
 }

@@ -17,9 +17,7 @@ private:
 
   threads::Condition m_glCondition;
 
-  yg::gl::Renderer::Packet m_currentPacket;
   shared_ptr<yg::gl::Screen::BaseState> m_curState;
-  bool m_hasPacket;
 
   shared_ptr<yg::gl::Renderer::BaseState> m_state;
 

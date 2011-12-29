@@ -155,6 +155,8 @@ namespace yg
       command2->m_renderState = m_renderState;
 
       processCommand(command2);
+
+      markFrameBoundary();
     }
 
     void RenderStateUpdater::beginFrame()
@@ -178,8 +180,11 @@ namespace yg
 
     void RenderStateUpdater::endFrame()
     {
-      if (m_renderState)
+      if ((m_renderState) && (m_indicesCount))
         updateActualTarget();
+      else
+        markFrameBoundary();
+
       m_indicesCount = 0;
       m_updateTimer.Reset();
       base_t::endFrame();

@@ -170,7 +170,8 @@ void TilingRenderPolicyMT::SetRenderFn(TRenderFn renderFn)
                                         renderFn,
                                         m_primaryRC,
                                         m_resourceManager,
-                                        GetPlatform().VisualScale()));
+                                        GetPlatform().VisualScale(),
+                                        0));
 
   m_coverageGenerator.reset(new CoverageGenerator(GetPlatform().TileSize(),
                                                   GetPlatform().ScaleEtalonSize(),

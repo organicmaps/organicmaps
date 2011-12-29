@@ -194,17 +194,33 @@ void PartialRenderPolicy::ProcessRenderQueue(list<yg::gl::Renderer::Packet> & re
   else
   {
     if (renderQueue.empty())
-    {
-      m_hasPacket = false;
       m_glCondition.Signal();
-    }
     else
     {
-      m_hasPacket = true;
-      while ((maxPackets != 0) && (!renderQueue.empty()))
+      /// searching for "frame boundary" markers (empty packets)
+
+      list<yg::gl::Renderer::Packet>::iterator first = renderQueue.begin();
+      list<yg::gl::Renderer::Packet>::iterator last = renderQueue.begin();
+
+      int packetsLeft = maxPackets;
+
+      while ((packetsLeft != 0) && (last != renderQueue.end()))
       {
-        m_frameGLQueue.push_back(renderQueue.front());
-        renderQueue.pop_front();
+        yg::gl::Renderer::Packet p = *last;
+        if ((p.m_command == 0) && (p.m_state == 0))
+        {
+          LOG(LINFO, ("found frame boundary"));
+          /// found frame boundary, copying
+          copy(first, last++, back_inserter(m_frameGLQueue));
+          /// erasing from the main queue
+          renderQueue.erase(first, last);
+          first = renderQueue.begin();
+          last = renderQueue.begin();
+        }
+        else
+          ++last;
+
+        --packetsLeft;
       }
     }
   }
@@ -252,7 +268,10 @@ void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
   m_frameGLQueue.clear();
 
   if (m_IsDebugging)
+  {
     LOG(LINFO, ("processed", cmdProcessed, "commands"));
+    LOG(LINFO, (m_glQueue.Size(), "commands left"));
+  }
 
   {
     threads::ConditionGuard guard(m_glCondition);

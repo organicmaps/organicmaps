@@ -114,7 +114,13 @@ namespace yg
 
       yg::gl::Storage storage = resourceManager()->multiBlitStorages()->Reserve();
 
-      Vertex * pointsData = (Vertex*)storage.m_vertices->lock();
+      /// TODO : Bad lock/unlock checking pattern. Should refactor
+      if (!storage.m_vertices->isLocked())
+        storage.m_vertices->lock();
+      if (!storage.m_indices->isLocked())
+        storage.m_indices->lock();
+
+      Vertex * pointsData = (Vertex*)storage.m_vertices->data();
 
       for (size_t i = 0; i < s * 4; ++i)
       {
@@ -135,7 +141,7 @@ namespace yg
       OGLCHECK(glDisable(GL_DEPTH_TEST));
       OGLCHECK(glDepthMask(GL_FALSE));
 
-      memcpy(storage.m_indices->lock(), &idxData[0], idxData.size() * sizeof(unsigned short));
+      memcpy(storage.m_indices->data(), &idxData[0], idxData.size() * sizeof(unsigned short));
 
       storage.m_indices->unlock();
       storage.m_indices->makeCurrent();

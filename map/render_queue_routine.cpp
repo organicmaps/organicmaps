@@ -271,7 +271,8 @@ void RenderQueueRoutine::Do()
 /*  params.m_isDebugging = true;
   params.m_drawPathes = false;
   params.m_drawAreas = false;
-  params.m_drawTexts = false;*/
+  params.m_drawTexts = false;
+  params.m_drawSymbols = false;*/
 
   m_threadDrawer = make_shared_ptr(new DrawerYG(params));
 
@@ -538,6 +539,9 @@ void RenderQueueRoutine::invalidate()
     command->m_windowHandles = m_windowHandles;
     m_glQueue->PushBack(yg::gl::Renderer::Packet(command));
   }
+
+  if (m_glQueue)
+    m_glQueue->PushBack(yg::gl::Renderer::Packet());
 }
 
 void RenderQueueRoutine::addCommand(render_fn_t const & fn, ScreenBase const & frameScreen)

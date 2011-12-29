@@ -313,8 +313,11 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
   }
   catch (redraw_operation_cancelled const &)
   {
-    e->drawer()->screen()->renderState()->m_isEmptyModelCurrent = false;
-    e->drawer()->screen()->renderState()->m_isEmptyModelActual = false;
+    if (e->drawer()->screen()->renderState())
+    {
+      e->drawer()->screen()->renderState()->m_isEmptyModelCurrent = false;
+      e->drawer()->screen()->renderState()->m_isEmptyModelActual = false;
+    }
   }
 
   if (m_navigator.Update(m_timer.ElapsedSeconds()))

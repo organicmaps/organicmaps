@@ -43,7 +43,8 @@ HEADERS += \
     measurement_utils.hpp \
     partial_render_policy.hpp \
     proto_to_yg_styles.hpp \
-    test_render_policy.hpp
+    test_render_policy.hpp \
+    queued_render_policy.hpp
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -83,5 +84,6 @@ SOURCES += \
   SOURCES += qgl_render_context.cpp
   QT += opengl
 }
+
 
 

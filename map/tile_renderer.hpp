@@ -73,7 +73,8 @@ public:
                RenderPolicy::TRenderFn const & renderFn,
                shared_ptr<yg::gl::RenderContext> const & primaryRC,
                shared_ptr<yg::ResourceManager> const & rm,
-               double visualScale);
+               double visualScale,
+               yg::gl::Renderer::PacketsQueue * packetsQueue);
   /// destructor.
   virtual ~TileRenderer();
   /// add command to the commands queue.

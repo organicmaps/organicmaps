@@ -401,5 +401,11 @@ namespace yg
     {
       return m_renderQueue;
     }
+
+    void Renderer::markFrameBoundary()
+    {
+      if (m_renderQueue)
+        m_renderQueue->PushBack(Packet());
+    }
   }
 }

@@ -66,6 +66,8 @@ namespace yg
                shared_ptr<Command> const & command);
       };
 
+      typedef ThreadedList<Packet> PacketsQueue;
+
       struct ClearCommand : Command
       {
         yg::Color m_color;
@@ -93,7 +95,7 @@ namespace yg
         shared_ptr<ResourceManager> m_resourceManager;
         shared_ptr<FrameBuffer> m_frameBuffer;
         bool m_isDebugging;
-        ThreadedList<Packet> * m_renderQueue;
+        PacketsQueue * m_renderQueue;
         Params();
       };
 
@@ -156,6 +158,9 @@ namespace yg
 
       void processCommand(shared_ptr<Command> const & command);
       ThreadedList<Packet> * renderQueue();
+
+      /// insert empty packet into glQueue to mark the frame boundary
+      void markFrameBoundary();
     };
   }
 }

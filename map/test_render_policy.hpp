@@ -26,4 +26,6 @@ public:
 
   void DrawFrame(shared_ptr<PaintEvent> const & pe,
                  ScreenBase const & screenBase);
+
+  m2::RectI const OnSize(int w, int h);
 };

@@ -20,7 +20,8 @@ TileRenderer::TileRenderer(
     RenderPolicy::TRenderFn const & renderFn,
     shared_ptr<yg::gl::RenderContext> const & primaryRC,
     shared_ptr<yg::ResourceManager> const & rm,
-    double visualScale
+    double visualScale,
+    yg::gl::Renderer::PacketsQueue * packetsQueue
   ) : m_queue(executorsCount),
       m_tileCache(maxTilesCount - executorsCount - 1),
       m_renderFn(renderFn),
@@ -52,6 +53,7 @@ TileRenderer::TileRenderer(
     params.m_threadID = i;
     params.m_visualScale = visualScale;
     params.m_skinName = m_skinName;
+    params.m_renderQueue = packetsQueue;
   /*  params.m_isDebugging = true;
     params.m_drawPathes = false;
     params.m_drawAreas = false;

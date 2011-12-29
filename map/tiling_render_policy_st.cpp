@@ -14,33 +14,47 @@
 
 #include "../platform/platform.hpp"
 
+#include "../base/SRC_FIRST.hpp"
+
+#include "../platform/platform.hpp"
+#include "../std/bind.hpp"
+
+#include "../geometry/screenbase.hpp"
+
+#include "../yg/base_texture.hpp"
+#include "../yg/internal/opengl.hpp"
+
+#include "drawer_yg.hpp"
+#include "events.hpp"
+#include "tiling_render_policy_mt.hpp"
+#include "window_handle.hpp"
+#include "screen_coverage.hpp"
+
 TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                            bool useDefaultFB,
                                            yg::ResourceManager::Params const & rmParams,
                                            shared_ptr<yg::gl::RenderContext> const & primaryRC)
-  : RenderPolicy(primaryRC, true),
-    m_tileCache(GetPlatform().MaxTilesCount() - 1),
-    m_tiler(GetPlatform().TileSize(), GetPlatform().ScaleEtalonSize())
+  : RenderPolicy(primaryRC, true)
 {
   yg::ResourceManager::Params rmp = rmParams;
 
-  rmp.m_primaryStoragesParams = yg::ResourceManager::StoragePoolParams(50000 * sizeof(yg::gl::Vertex),
+  rmp.m_primaryStoragesParams = yg::ResourceManager::StoragePoolParams(5000 * sizeof(yg::gl::Vertex),
                                                                        sizeof(yg::gl::Vertex),
                                                                        10000 * sizeof(unsigned short),
                                                                        sizeof(unsigned short),
-                                                                       15,
-                                                                       false,
+                                                                       4,
                                                                        true,
-                                                                       1,
+                                                                       false,
+                                                                       2,
                                                                        "primaryStorage");
 
-  rmp.m_smallStoragesParams = yg::ResourceManager::StoragePoolParams(5000 * sizeof(yg::gl::Vertex),
+  rmp.m_smallStoragesParams = yg::ResourceManager::StoragePoolParams(2000 * sizeof(yg::gl::Vertex),
                                                                      sizeof(yg::gl::Vertex),
-                                                                     10000 * sizeof(unsigned short),
+                                                                     4000 * sizeof(unsigned short),
                                                                      sizeof(unsigned short),
                                                                      100,
-                                                                     false,
                                                                      true,
+                                                                     false,
                                                                      1,
                                                                      "smallStorage");
 
@@ -54,9 +68,9 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                     1,
                                                                     "blitStorage");
 
-  rmp.m_multiBlitStoragesParams = yg::ResourceManager::StoragePoolParams(500 * sizeof(yg::gl::Vertex),
+  rmp.m_multiBlitStoragesParams = yg::ResourceManager::StoragePoolParams(1500 * sizeof(yg::gl::Vertex),
                                                                          sizeof(yg::gl::Vertex),
-                                                                         500 * sizeof(unsigned short),
+                                                                         3000 * sizeof(unsigned short),
                                                                          sizeof(unsigned short),
                                                                          10,
                                                                          true,
@@ -65,14 +79,14 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                          "multiBlitStorage");
 
   rmp.m_guiThreadStoragesParams = yg::ResourceManager::StoragePoolParams(300 * sizeof(yg::gl::Vertex),
-                                                                    sizeof(yg::gl::Vertex),
-                                                                    600 * sizeof(unsigned short),
-                                                                    sizeof(unsigned short),
-                                                                    20,
-                                                                    true,
-                                                                    true,
-                                                                    1,
-                                                                    "guiThreadStorage");
+                                                                         sizeof(yg::gl::Vertex),
+                                                                         600 * sizeof(unsigned short),
+                                                                         sizeof(unsigned short),
+                                                                         20,
+                                                                         true,
+                                                                         true,
+                                                                         1,
+                                                                         "guiThreadStorage");
 
   rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512,
                                                                        256,
@@ -101,8 +115,18 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                             true,
                                                                             true,
                                                                             false,
-                                                                            5,
+                                                                            4,
                                                                             "renderTargetTexture");
+
+  rmp.m_styleCacheTexturesParams = yg::ResourceManager::TexturePoolParams(rmp.m_fontTexturesParams.m_texWidth,
+                                                                          rmp.m_fontTexturesParams.m_texHeight,
+                                                                          2,
+                                                                          rmp.m_texFormat,
+                                                                          true,
+                                                                          true,
+                                                                          true,
+                                                                          1,
+                                                                          "styleCacheTexture");
 
   rmp.m_guiThreadTexturesParams = yg::ResourceManager::TexturePoolParams(256,
                                                                     128,
@@ -121,9 +145,12 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                  GetPlatform().CpuCores() + 2,
                                                                  GetPlatform().CpuCores());
 
-
-  rmp.m_useSingleThreadedOGL = false;
+  rmp.m_useSingleThreadedOGL = true;
   rmp.m_useVA = !yg::gl::g_isBufferObjectsSupported;
+
+  rmp.fitIntoLimits();
+
+  m_maxTilesCount = rmp.m_renderTargetTexturesParams.m_texCount;
 
   m_resourceManager.reset(new yg::ResourceManager(rmp));
 
@@ -140,8 +167,8 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
   p.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
   p.m_skinName = GetPlatform().SkinName();
   p.m_visualScale = GetPlatform().VisualScale();
-  p.m_isSynchronized = true;
   p.m_useGuiResources = true;
+  p.m_isSynchronized = false;
 
   m_drawer.reset(new DrawerYG(p));
 
@@ -150,132 +177,187 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
   m_windowHandle->setUpdatesEnabled(false);
   m_windowHandle->setVideoTimer(videoTimer);
   m_windowHandle->setRenderContext(primaryRC);
+}
 
-  /// render single tile on the same thread
-  shared_ptr<yg::gl::FrameBuffer> frameBuffer(new yg::gl::FrameBuffer());
+void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
+{
+  RenderPolicy::SetRenderFn(renderFn);
 
-  unsigned tileWidth = m_resourceManager->params().m_renderTargetTexturesParams.m_texWidth;
-  unsigned tileHeight = m_resourceManager->params().m_renderTargetTexturesParams.m_texHeight;
+  m_tileRenderer.reset(new TileRenderer(GetPlatform().SkinName(),
+                                        m_maxTilesCount,
+                                        1, //GetPlatform().CpuCores(),
+                                        m_bgColor,
+                                        renderFn,
+                                        m_primaryRC,
+                                        m_resourceManager,
+                                        GetPlatform().VisualScale(),
+                                        &m_glQueue));
 
-  shared_ptr<yg::gl::RenderBuffer> depthBuffer(new yg::gl::RenderBuffer(tileWidth, tileHeight, true));
-  frameBuffer->setDepthBuffer(depthBuffer);
+  m_coverageGenerator.reset(new CoverageGenerator(GetPlatform().TileSize(),
+                                                  GetPlatform().ScaleEtalonSize(),
+                                                  m_tileRenderer.get(),
+                                                  m_windowHandle,
+                                                  m_primaryRC,
+                                                  m_resourceManager
+                                                  ));
+}
 
-  p = DrawerYG::Params();
+void TilingRenderPolicyST::BeginFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
+{
+  m_IsDebugging = false;
+  if (m_IsDebugging)
+    LOG(LINFO, ("-------BeginFrame-------"));
+}
 
-  p.m_resourceManager = m_resourceManager;
-  p.m_frameBuffer = frameBuffer;
-  p.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
-  p.m_threadID = 0;
-  p.m_skinName = GetPlatform().SkinName();
-  p.m_visualScale = GetPlatform().VisualScale();
+void TilingRenderPolicyST::EndFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
+{
+  ScreenCoverage * curCvg = &m_coverageGenerator->CurrentCoverage();
+  curCvg->EndFrame(e->drawer()->screen().get());
+  m_coverageGenerator->Mutex().Unlock();
 
-  m_tileDrawer = make_shared_ptr(new DrawerYG(p));
-  m_tileDrawer->onSize(tileWidth, tileHeight);
+  if (m_IsDebugging)
+    LOG(LINFO, ("-------EndFrame-------"));
+}
 
-  m2::RectI renderRect(1, 1, tileWidth - 1, tileWidth - 1);
-  m_tileScreen.OnSize(renderRect);
+bool TilingRenderPolicyST::NeedRedraw() const
+{
+  return RenderPolicy::NeedRedraw() || !m_glQueue.Empty();
 }
 
 void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & currentScreen)
 {
+  m_resourceManager->mergeFreeResources();
+
+  RenderQueuedCommands(e->drawer()->screen().get());
+
   DrawerYG * pDrawer = e->drawer();
 
   pDrawer->screen()->clear(m_bgColor);
 
-  m_infoLayer.clear();
+  m_coverageGenerator->AddCoverScreenTask(currentScreen);
 
-  m_tiler.seed(currentScreen,
-               currentScreen.GlobalRect().GetGlobalRect().Center());
+  m_coverageGenerator->Mutex().Lock();
 
-  vector<Tiler::RectInfo> visibleTiles;
-  m_tiler.visibleTiles(visibleTiles);
+  ScreenCoverage * curCvg = &m_coverageGenerator->CurrentCoverage();
 
-  for (unsigned i = 0; i < visibleTiles.size(); ++i)
-  {
-    Tiler::RectInfo ri = visibleTiles[i];
+  curCvg->Draw(pDrawer->screen().get(), currentScreen);
+}
 
-    m_tileCache.readLock();
+TileRenderer & TilingRenderPolicyST::GetTileRenderer()
+{
+  return *m_tileRenderer.get();
+}
 
-    if (m_tileCache.hasTile(ri))
-    {
-      m_tileCache.touchTile(ri);
-      Tile tile = m_tileCache.getTile(ri);
-      m_tileCache.readUnlock();
+void TilingRenderPolicyST::StartScale()
+{
+  m_isScaling = true;
+}
 
-      size_t tileWidth = tile.m_renderTarget->width();
-      size_t tileHeight = tile.m_renderTarget->height();
-
-      pDrawer->screen()->blit(tile.m_renderTarget, tile.m_tileScreen, currentScreen, true,
-                              yg::Color(),
-                              m2::RectI(0, 0, tileWidth - 2, tileHeight - 2),
-                              m2::RectU(1, 1, tileWidth - 1, tileHeight - 1));
-
-      m_infoLayer.merge(*tile.m_infoLayer.get(), tile.m_tileScreen.PtoGMatrix() * currentScreen.GtoPMatrix());
-    }
-    else
-    {
-      m_tileCache.readUnlock();
-      shared_ptr<PaintEvent> paintEvent(new PaintEvent(m_tileDrawer.get()));
-      shared_ptr<yg::gl::BaseTexture> tileTarget = m_resourceManager->renderTargetTextures()->Reserve();
-
-      shared_ptr<yg::InfoLayer> tileInfoLayer(new yg::InfoLayer());
-
-      m_tileDrawer->screen()->setRenderTarget(tileTarget);
-      m_tileDrawer->screen()->setInfoLayer(tileInfoLayer);
-
-      m_tileDrawer->beginFrame();
-
-      yg::Color c = m_bgColor;
-
-      m_tileDrawer->clear(yg::Color(c.r, c.g, c.b, 0));
-
-      unsigned tileWidth = m_resourceManager->params().m_renderTargetTexturesParams.m_texWidth;
-      unsigned tileHeight = m_resourceManager->params().m_renderTargetTexturesParams.m_texHeight;
-
-      m2::RectI renderRect(1, 1, tileWidth - 1, tileHeight - 1);
-      m_tileDrawer->screen()->setClipRect(renderRect);
-      m_tileDrawer->clear(c);
-
-      m_tileScreen.SetFromRect(m2::AnyRectD(ri.m_rect));
-
-      m2::RectD selectRect;
-      m2::RectD clipRect;
-
-      double inflationSize = 24 * GetPlatform().VisualScale();
-
-      m_tileScreen.PtoG(m2::RectD(renderRect), selectRect);
-      m_tileScreen.PtoG(m2::Inflate(m2::RectD(renderRect), inflationSize, inflationSize), clipRect);
-
-      m_renderFn(paintEvent,
-                 m_tileScreen,
-                 selectRect,
-                 clipRect,
-                 ri.m_drawScale);
-
-      m_tileDrawer->endFrame();
-      m_tileDrawer->screen()->resetInfoLayer();
-
-      Tile tile(tileTarget, tileInfoLayer, m_tileScreen, ri, 0);
-      m_tileCache.writeLock();
-      m_tileCache.addTile(ri, TileCache::Entry(tile, m_resourceManager));
-      m_tileCache.writeUnlock();
-
-      m_tileCache.readLock();
-      m_tileCache.touchTile(ri);
-      tile = m_tileCache.getTile(ri);
-      m_tileCache.readUnlock();
-
-      pDrawer->screen()->blit(tile.m_renderTarget, tile.m_tileScreen, currentScreen, true,
-                              yg::Color(),
-                              m2::RectI(0, 0, tileWidth - 2, tileHeight - 2),
-                              m2::RectU(1, 1, tileWidth - 1, tileHeight - 1));
-
-      m_windowHandle->invalidate();
-    }
-  }
+void TilingRenderPolicyST::StopScale()
+{
+  m_isScaling = false;
 }
 
 bool TilingRenderPolicyST::IsTiling() const
 {
   return true;
+}
+
+void TilingRenderPolicyST::RenderQueuedCommands(yg::gl::Screen * screen)
+{
+  if (!m_state)
+  {
+    m_state = screen->createState();
+    m_state->m_isDebugging = m_IsDebugging;
+  }
+
+  screen->getState(m_state.get());
+
+  m_curState = m_state;
+
+  unsigned cmdProcessed = 0;
+  unsigned const maxCmdPerFrame = 10000;
+
+  m_glQueue.ProcessList(bind(&TilingRenderPolicyST::ProcessRenderQueue, this, _1, maxCmdPerFrame));
+
+  cmdProcessed = m_frameGLQueue.size();
+
+  for (list<yg::gl::Renderer::Packet>::iterator it = m_frameGLQueue.begin(); it != m_frameGLQueue.end(); ++it)
+  {
+    if (it->m_state)
+    {
+      it->m_state->m_isDebugging = m_IsDebugging;
+      it->m_state->apply(m_curState.get());
+//      OGLCHECK(glFinish());
+      m_curState = it->m_state;
+    }
+    it->m_command->setIsDebugging(m_IsDebugging);
+    it->m_command->perform();
+//    OGLCHECK(glFinish());
+  }
+
+  /// should clear to release resources, refered from the stored commands.
+  m_frameGLQueue.clear();
+
+  if (m_IsDebugging)
+  {
+    LOG(LINFO, ("processed", cmdProcessed, "commands"));
+    LOG(LINFO, (m_glQueue.Size(), "commands left"));
+  }
+
+  {
+    threads::ConditionGuard guard(m_glCondition);
+    if (m_glQueue.Empty())
+      guard.Signal();
+  }
+
+//  OGLCHECK(glFinish());
+
+  m_state->apply(m_curState.get());
+
+//  OGLCHECK(glFinish());
+}
+
+void TilingRenderPolicyST::ProcessRenderQueue(list<yg::gl::Renderer::Packet> & renderQueue, int maxPackets)
+{
+  m_frameGLQueue.clear();
+  if (maxPackets == -1)
+  {
+    m_frameGLQueue = renderQueue;
+    renderQueue.clear();
+  }
+  else
+  {
+    if (renderQueue.empty())
+      m_glCondition.Signal();
+    else
+    {
+      /// searching for "frame boundary" markers (empty packets)
+
+      list<yg::gl::Renderer::Packet>::iterator first = renderQueue.begin();
+      list<yg::gl::Renderer::Packet>::iterator last = renderQueue.begin();
+
+      int packetsLeft = maxPackets;
+
+      while ((packetsLeft != 0) && (last != renderQueue.end()))
+      {
+        yg::gl::Renderer::Packet p = *last;
+        if ((p.m_command == 0) && (p.m_state == 0))
+        {
+          if (m_IsDebugging)
+            LOG(LINFO, ("found frame boundary"));
+          /// found frame boundary, copying
+          copy(first, last++, back_inserter(m_frameGLQueue));
+          /// erasing from the main queue
+          renderQueue.erase(first, last);
+          first = renderQueue.begin();
+          last = renderQueue.begin();
+        }
+        else
+          ++last;
+
+        --packetsLeft;
+      }
+    }
+  }
 }
