@@ -42,11 +42,11 @@ LOCAL_SRC_FILES := \
 	nv_event/nv_event_queue.cpp \
 	nv_event/nv_event.cpp \
 	nv_time/nv_time.cpp
-	
+
 LOCAL_LDLIBS := -llog -lGLESv1_CM \
 		-lmap -lversion -lsearch -lstorage -lindexer -lyg -lplatform \
 		-lgeometry -lcoding -lbase -lexpat -lfreetype -lfribidi -lzlib -lbzip2 \
-		-ljansson -ltomcrypt -lprotobuf ./obj/local/armeabi/libstdc++.a
+		-ljansson -ltomcrypt -lprotobuf ./obj/local/$(TARGET_ARCH_ABI)/libgnustl_static.a
 
 LOCAL_LDLIBS += -Wl,--gc-sections
 
@@ -60,15 +60,6 @@ else
   LOCAL_CFLAGS += -O3
 endif
 
-OMIM_ABI := armeabi
-ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
-  OMIM_ABI := armeabi-v7a
-else
-  ifeq ($(TARGET_ARCH_ABI),x86)
-    OMIM_ABI := x86
-  endif
-endif
-
-LOCAL_LDLIBS += -L../../omim-android-$(OMIM_CONFIG)-$(OMIM_ABI)/out/$(OMIM_CONFIG)
+LOCAL_LDLIBS += -L../../omim-android-$(OMIM_CONFIG)-$(TARGET_ARCH_ABI)/out/$(OMIM_CONFIG)
 
 include $(BUILD_SHARED_LIBRARY)

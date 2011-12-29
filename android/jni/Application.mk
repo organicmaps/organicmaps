@@ -1,7 +1,8 @@
 APP_PLATFORM := android-5
 APP_ABI := armeabi armeabi-v7a
 APP_STL := gnustl_static
-APP_CFLAGS += -I../3party/boost
+LOCAL_PATH := $(call my-dir)
+APP_CFLAGS += -I$(LOCAL_PATH)/../../3party/boost
 
 ifeq ($(NDK_DEBUG),1)
   APP_OPTIM := debug
