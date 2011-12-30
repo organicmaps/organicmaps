@@ -71,7 +71,7 @@ void Platform::GetFontNames(FilesList & res) const
 
 int Platform::MaxTilesCount() const
 {
-  return 120;
+  return 30;
 }
 
 int Platform::TileSize() const

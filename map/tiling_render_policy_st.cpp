@@ -82,7 +82,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                          sizeof(yg::gl::Vertex),
                                                                          600 * sizeof(unsigned short),
                                                                          sizeof(unsigned short),
-                                                                         20,
+                                                                         200,
                                                                          true,
                                                                          true,
                                                                          1,
@@ -205,7 +205,7 @@ void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
 
 void TilingRenderPolicyST::BeginFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 {
-  m_IsDebugging = true;
+  m_IsDebugging = false;
   if (m_IsDebugging)
     LOG(LINFO, ("-------BeginFrame-------"));
 }
@@ -227,6 +227,8 @@ bool TilingRenderPolicyST::NeedRedraw() const
 
 void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & currentScreen)
 {
+  m_resourceManager->mergeFreeResources();
+
   RenderQueuedCommands(e->drawer()->screen().get());
 
   m_resourceManager->mergeFreeResources();

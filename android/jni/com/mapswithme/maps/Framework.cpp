@@ -89,7 +89,7 @@ namespace android
     LOG(LDEBUG, ("AF::InitRenderer 1"));
 
     yg::ResourceManager::Params rmParams;
-    rmParams.m_videoMemoryLimit = 20 * 1024 * 1024;
+    rmParams.m_videoMemoryLimit = 100 * 1024 * 1024;
     rmParams.m_rtFormat = yg::Data8Bpp;
     rmParams.m_texFormat = yg::Data4Bpp;
 
