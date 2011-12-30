@@ -85,7 +85,7 @@ namespace yg
     return skinPage->findCircleInfo(m_ci) != 0x00FFFFFF;
   }
 
-  void CircleElement::fillUnpacked(StylesCache * stylesCache, vector<m2::PointU> & v) const
+  void CircleElement::getNonPackedRects(StylesCache * stylesCache, vector<m2::PointU> & v) const
   {
     shared_ptr<SkinPage> const & skinPage = stylesCache->cachePage();
 

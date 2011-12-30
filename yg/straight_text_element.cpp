@@ -321,20 +321,20 @@ namespace yg
     return true;
   }
 
-  void StraightTextElement::fillUnpacked(StylesCache * stylesCache, vector<m2::PointU> & v) const
+  void StraightTextElement::getNonPackedRects(StylesCache * stylesCache, vector<m2::PointU> & v) const
   {
     yg::FontDesc desc = m_fontDesc;
 
     if (desc.m_isMasked)
     {
       for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-        TextElement::fillUnpacked(m_glyphLayouts[i], desc, stylesCache, v);
+        TextElement::getNonPackedRects(m_glyphLayouts[i], desc, stylesCache, v);
 
       desc.m_isMasked = false;
     }
 
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-      TextElement::fillUnpacked(m_glyphLayouts[i], desc, stylesCache, v);
+      TextElement::getNonPackedRects(m_glyphLayouts[i], desc, stylesCache, v);
   }
 
   int StraightTextElement::visualRank() const

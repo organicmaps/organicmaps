@@ -9,6 +9,7 @@
 #include "circle_info.hpp"
 #include "color.hpp"
 #include "glyph_cache.hpp"
+#include "packets_queue.hpp"
 
 namespace yg
 {
@@ -96,6 +97,18 @@ namespace yg
 
   public:
 
+    struct UploadData : public yg::gl::Command
+    {
+      SkinPage::TUploadQueue m_uploadQueue;
+      shared_ptr<yg::gl::BaseTexture> m_texture;
+
+      UploadData();
+      UploadData(SkinPage::TUploadQueue const & uploadQueue,
+                 shared_ptr<yg::gl::BaseTexture> const & texture);
+
+      void perform();
+    };
+
     void clearColorHandles();
     void clearPenInfoHandles();
     void clearFontHandles();
@@ -109,7 +122,7 @@ namespace yg
     TUploadQueue const & uploadQueue() const;
     void clearUploadQueue();
 
-    void uploadData();
+    void uploadData(yg::gl::PacketsQueue * glQueue);
 
     void checkTexture() const;
     void setPipelineID(uint8_t pipelineID);

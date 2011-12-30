@@ -21,6 +21,7 @@ namespace yg
   {
     class RenderState;
     class RenderContext;
+    class PacketsQueue;
   }
 }
 
@@ -74,7 +75,7 @@ public:
                shared_ptr<yg::gl::RenderContext> const & primaryRC,
                shared_ptr<yg::ResourceManager> const & rm,
                double visualScale,
-               yg::gl::Renderer::PacketsQueue * packetsQueue);
+               yg::gl::PacketsQueue * packetsQueue);
   /// destructor.
   virtual ~TileRenderer();
   /// add command to the commands queue.

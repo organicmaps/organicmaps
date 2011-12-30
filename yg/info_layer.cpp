@@ -223,7 +223,7 @@ namespace yg
     sizes.reserve(100);
 
     for (unsigned i = 0; i < v.size(); ++i)
-      v[i]->fillUnpacked(stylesCache, sizes);
+      v[i]->getNonPackedRects(stylesCache, sizes);
 
     if (stylesCache->hasRoom(&sizes[0], sizes.size()))
     {
@@ -240,7 +240,7 @@ namespace yg
       for (pos = 0; pos < v.size(); ++pos)
       {
         sizes.clear();
-        v[pos]->fillUnpacked(stylesCache, sizes);
+        v[pos]->getNonPackedRects(stylesCache, sizes);
         if (stylesCache->hasRoom(&sizes[0], sizes.size()))
           v[pos]->map(stylesCache);
         else

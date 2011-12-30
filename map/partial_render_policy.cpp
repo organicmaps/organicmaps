@@ -183,7 +183,7 @@ PartialRenderPolicy::~PartialRenderPolicy()
   LOG(LINFO, ("PartialRenderPolicy destroyed"));
 }
 
-void PartialRenderPolicy::ProcessRenderQueue(list<yg::gl::Renderer::Packet> & renderQueue, int maxPackets)
+void PartialRenderPolicy::ProcessRenderQueue(list<yg::gl::Packet> & renderQueue, int maxPackets)
 {
   m_frameGLQueue.clear();
   if (maxPackets == -1)
@@ -199,19 +199,19 @@ void PartialRenderPolicy::ProcessRenderQueue(list<yg::gl::Renderer::Packet> & re
     {
       /// searching for "frame boundary" markers (empty packets)
 
-      list<yg::gl::Renderer::Packet>::iterator first = renderQueue.begin();
-      list<yg::gl::Renderer::Packet>::iterator last = renderQueue.begin();
+      list<yg::gl::Packet>::iterator first = renderQueue.begin();
+      list<yg::gl::Packet>::iterator last = renderQueue.begin();
 
       int packetsLeft = maxPackets;
 
       while ((packetsLeft != 0) && (last != renderQueue.end()))
       {
-        yg::gl::Renderer::Packet p = *last;
-        if ((p.m_command == 0) && (p.m_state == 0))
+        yg::gl::Packet p = *last;
+        if (p.m_groupBoundary)
         {
           LOG(LINFO, ("found frame boundary"));
           /// found frame boundary, copying
-          copy(first, last++, back_inserter(m_frameGLQueue));
+          copy(first, ++last, back_inserter(m_frameGLQueue));
           /// erasing from the main queue
           renderQueue.erase(first, last);
           first = renderQueue.begin();
@@ -250,7 +250,7 @@ void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   cmdProcessed = m_frameGLQueue.size();
 
-  for (list<yg::gl::Renderer::Packet>::iterator it = m_frameGLQueue.begin(); it != m_frameGLQueue.end(); ++it)
+  for (list<yg::gl::Packet>::iterator it = m_frameGLQueue.begin(); it != m_frameGLQueue.end(); ++it)
   {
     if (it->m_state)
     {
@@ -259,9 +259,12 @@ void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
 //      OGLCHECK(glFinish());
       m_curState = it->m_state;
     }
-    it->m_command->setIsDebugging(m_IsDebugging);
-    it->m_command->perform();
-//    OGLCHECK(glFinish());
+    if (it->m_command)
+    {
+      it->m_command->setIsDebugging(m_IsDebugging);
+      it->m_command->perform();
+//      OGLCHECK(glFinish());
+    }
   }
 
   /// should clear to release resources, refered from the stored commands.

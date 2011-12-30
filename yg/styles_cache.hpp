@@ -5,6 +5,11 @@
 
 namespace yg
 {
+  namespace gl
+  {
+    class PacketsQueue;
+  }
+
   class StraightTextElement;
   class PathTextElement;
   class SkinPage;
@@ -20,13 +25,15 @@ namespace yg
 
     shared_ptr<ResourceManager> m_rm;
     GlyphCache * m_glyphCache;
+    yg::gl::PacketsQueue * m_glQueue;
 
     shared_ptr<SkinPage> m_cachePage;
 
   public:
 
     StylesCache(shared_ptr<ResourceManager> const & rm,
-                int glyphCacheID);
+                int glyphCacheID,
+                yg::gl::PacketsQueue * glQueue);
 
     ~StylesCache();
 

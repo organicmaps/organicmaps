@@ -118,8 +118,8 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                             4,
                                                                             "renderTargetTexture");
 
-  rmp.m_styleCacheTexturesParams = yg::ResourceManager::TexturePoolParams(rmp.m_fontTexturesParams.m_texWidth,
-                                                                          rmp.m_fontTexturesParams.m_texHeight,
+  rmp.m_styleCacheTexturesParams = yg::ResourceManager::TexturePoolParams(rmp.m_fontTexturesParams.m_texWidth * 2,
+                                                                          rmp.m_fontTexturesParams.m_texHeight * 2,
                                                                           2,
                                                                           rmp.m_texFormat,
                                                                           true,
@@ -198,13 +198,14 @@ void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
                                                   m_tileRenderer.get(),
                                                   m_windowHandle,
                                                   m_primaryRC,
-                                                  m_resourceManager
+                                                  m_resourceManager,
+                                                  &m_glQueue
                                                   ));
 }
 
 void TilingRenderPolicyST::BeginFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 {
-  m_IsDebugging = false;
+  m_IsDebugging = true;
   if (m_IsDebugging)
     LOG(LINFO, ("-------BeginFrame-------"));
 }
@@ -226,9 +227,9 @@ bool TilingRenderPolicyST::NeedRedraw() const
 
 void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & currentScreen)
 {
-  m_resourceManager->mergeFreeResources();
-
   RenderQueuedCommands(e->drawer()->screen().get());
+
+  m_resourceManager->mergeFreeResources();
 
   DrawerYG * pDrawer = e->drawer();
 
@@ -282,7 +283,7 @@ void TilingRenderPolicyST::RenderQueuedCommands(yg::gl::Screen * screen)
 
   cmdProcessed = m_frameGLQueue.size();
 
-  for (list<yg::gl::Renderer::Packet>::iterator it = m_frameGLQueue.begin(); it != m_frameGLQueue.end(); ++it)
+  for (list<yg::gl::Packet>::iterator it = m_frameGLQueue.begin(); it != m_frameGLQueue.end(); ++it)
   {
     if (it->m_state)
     {
@@ -291,9 +292,13 @@ void TilingRenderPolicyST::RenderQueuedCommands(yg::gl::Screen * screen)
 //      OGLCHECK(glFinish());
       m_curState = it->m_state;
     }
-    it->m_command->setIsDebugging(m_IsDebugging);
-    it->m_command->perform();
+    if (it->m_command)
+    {
+      it->m_command->setIsDebugging(m_IsDebugging);
+      it->m_command->perform();
 //    OGLCHECK(glFinish());
+    }
+
   }
 
   /// should clear to release resources, refered from the stored commands.
@@ -318,7 +323,7 @@ void TilingRenderPolicyST::RenderQueuedCommands(yg::gl::Screen * screen)
 //  OGLCHECK(glFinish());
 }
 
-void TilingRenderPolicyST::ProcessRenderQueue(list<yg::gl::Renderer::Packet> & renderQueue, int maxPackets)
+void TilingRenderPolicyST::ProcessRenderQueue(list<yg::gl::Packet> & renderQueue, int maxPackets)
 {
   m_frameGLQueue.clear();
   if (maxPackets == -1)
@@ -332,22 +337,22 @@ void TilingRenderPolicyST::ProcessRenderQueue(list<yg::gl::Renderer::Packet> & r
       m_glCondition.Signal();
     else
     {
-      /// searching for "frame boundary" markers (empty packets)
+      /// searching for "group boundary" markers
 
-      list<yg::gl::Renderer::Packet>::iterator first = renderQueue.begin();
-      list<yg::gl::Renderer::Packet>::iterator last = renderQueue.begin();
+      list<yg::gl::Packet>::iterator first = renderQueue.begin();
+      list<yg::gl::Packet>::iterator last = renderQueue.begin();
 
       int packetsLeft = maxPackets;
 
       while ((packetsLeft != 0) && (last != renderQueue.end()))
       {
-        yg::gl::Renderer::Packet p = *last;
-        if ((p.m_command == 0) && (p.m_state == 0))
+        yg::gl::Packet p = *last;
+        if (p.m_groupBoundary)
         {
           if (m_IsDebugging)
             LOG(LINFO, ("found frame boundary"));
           /// found frame boundary, copying
-          copy(first, last++, back_inserter(m_frameGLQueue));
+          copy(first, ++last, back_inserter(m_frameGLQueue));
           /// erasing from the main queue
           renderQueue.erase(first, last);
           first = renderQueue.begin();

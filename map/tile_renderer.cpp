@@ -6,6 +6,7 @@
 #include "../yg/render_state.hpp"
 #include "../yg/rendercontext.hpp"
 #include "../yg/base_texture.hpp"
+#include "../yg/packets_queue.hpp"
 
 #include "../std/bind.hpp"
 
@@ -21,7 +22,7 @@ TileRenderer::TileRenderer(
     shared_ptr<yg::gl::RenderContext> const & primaryRC,
     shared_ptr<yg::ResourceManager> const & rm,
     double visualScale,
-    yg::gl::Renderer::PacketsQueue * packetsQueue
+    yg::gl::PacketsQueue * packetsQueue
   ) : m_queue(executorsCount),
       m_tileCache(maxTilesCount - executorsCount - 1),
       m_renderFn(renderFn),
@@ -170,6 +171,10 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   drawer->endFrame();
 
   drawer->screen()->resetInfoLayer();
+
+  yg::gl::PacketsQueue * glQueue = threadData.m_drawerParams.m_renderQueue;
+  if (glQueue)
+    glQueue->joinFence(glQueue->insertFence());
 
   double duration = timer.ElapsedSeconds();
 

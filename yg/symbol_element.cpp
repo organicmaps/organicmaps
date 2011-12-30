@@ -95,7 +95,7 @@ namespace yg
     return true;
   }
 
-  void SymbolElement::fillUnpacked(StylesCache * stylesCache, vector<m2::PointU> & v) const
+  void SymbolElement::getNonPackedRects(StylesCache * stylesCache, vector<m2::PointU> & v) const
   {
   }
 

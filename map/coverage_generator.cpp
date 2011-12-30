@@ -16,7 +16,8 @@ CoverageGenerator::CoverageGenerator(
     TileRenderer * tileRenderer,
     shared_ptr<WindowHandle> const & windowHandle,
     shared_ptr<yg::gl::RenderContext> const & primaryRC,
-    shared_ptr<yg::ResourceManager> const & rm)
+    shared_ptr<yg::ResourceManager> const & rm,
+    yg::gl::PacketsQueue * glQueue)
   : m_queue(1),
     m_tileRenderer(tileRenderer),
     m_workCoverage(0),
@@ -28,10 +29,12 @@ CoverageGenerator::CoverageGenerator(
   m_renderContext = primaryRC->createShared();
 
   m_currentStylesCache.reset(new yg::StylesCache(rm,
-                                                 rm->cacheThreadGlyphCacheID()));
+                                                 rm->cacheThreadGlyphCacheID(),
+                                                 glQueue));
 
   m_workStylesCache.reset(new yg::StylesCache(rm,
-                                                rm->cacheThreadGlyphCacheID()));
+                                              rm->cacheThreadGlyphCacheID(),
+                                              glQueue));
 
   m_queue.AddInitCommand(bind(&CoverageGenerator::InitializeThreadGL, this));
   m_queue.AddFinCommand(bind(&CoverageGenerator::FinalizeThreadGL, this));

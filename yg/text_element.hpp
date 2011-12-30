@@ -49,7 +49,7 @@ namespace yg
 
     using OverlayElement::map;
     using OverlayElement::find;
-    using OverlayElement::fillUnpacked;
+    using OverlayElement::getNonPackedRects;
 
     void map(GlyphLayout const & layout,
              StylesCache * stylesCache,
@@ -59,10 +59,10 @@ namespace yg
               StylesCache * stylesCache,
               FontDesc const & desc) const;
 
-    void fillUnpacked(GlyphLayout const & layout,
-                      FontDesc const & desc,
-                      StylesCache * stylesCache,
-                      vector<m2::PointU> & v) const;
+    void getNonPackedRects(GlyphLayout const & layout,
+                           FontDesc const & desc,
+                           StylesCache * stylesCache,
+                           vector<m2::PointU> & v) const;
 
   public:
 

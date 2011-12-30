@@ -26,7 +26,7 @@ namespace yg
       double m_updateInterval;
       my::Timer m_updateTimer;
 
-      struct UpdateActualTarget : base_t::Command
+      struct UpdateActualTarget : Command
       {
         bool m_doSynchronize;
         shared_ptr<RenderState> m_renderState;
@@ -35,7 +35,7 @@ namespace yg
         void perform();
       };
 
-      struct UpdateBackBuffer : base_t::Command
+      struct UpdateBackBuffer : Command
       {
         shared_ptr<RenderState> m_renderState;
         shared_ptr<ResourceManager> m_resourceManager;
@@ -47,7 +47,7 @@ namespace yg
         void perform();
       };
 
-      struct Invalidate : base_t::Command
+      struct Invalidate : Command
       {
         shared_ptr<RenderState> m_renderState;
         void perform();

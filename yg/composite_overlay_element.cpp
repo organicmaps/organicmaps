@@ -54,10 +54,10 @@ namespace yg
       m_elements[i]->map(stylesCache);
   }
 
-  void CompositeOverlayElement::fillUnpacked(StylesCache * stylesCache, vector<m2::PointU> & v) const
+  void CompositeOverlayElement::getNonPackedRects(StylesCache * stylesCache, vector<m2::PointU> & v) const
   {
     for (unsigned i = 0; i < m_elements.size(); ++i)
-      m_elements[i]->fillUnpacked(stylesCache, v);
+      m_elements[i]->getNonPackedRects(stylesCache, v);
   }
 
   bool CompositeOverlayElement::find(StylesCache * stylesCache) const

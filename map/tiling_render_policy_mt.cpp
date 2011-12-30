@@ -178,8 +178,8 @@ void TilingRenderPolicyMT::SetRenderFn(TRenderFn renderFn)
                                                   m_tileRenderer.get(),
                                                   m_windowHandle,
                                                   m_primaryRC,
-                                                  m_resourceManager
-                                                  ));
+                                                  m_resourceManager,
+                                                  0));
 }
 
 void TilingRenderPolicyMT::BeginFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)

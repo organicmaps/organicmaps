@@ -23,14 +23,14 @@ namespace yg
 
       typedef Blitter base_t;
 
-      struct UploadData : base_t::Command
+      struct UploadData : Command
       {
         vector<shared_ptr<ResourceStyle> > m_styles;
         shared_ptr<BaseTexture> m_texture;
         void perform();
       };
 
-      struct DrawGeometry : base_t::Command
+      struct DrawGeometry : Command
       {
         shared_ptr<BaseTexture> m_texture;
         shared_ptr<VertexBuffer> m_vertices;

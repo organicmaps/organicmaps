@@ -92,7 +92,7 @@ namespace yg
       return m_clipRect;
     }
 
-    shared_ptr<Clipper::BaseState> const Clipper::createState() const
+    shared_ptr<BaseState> const Clipper::createState() const
     {
       return shared_ptr<BaseState>(new State());
     }

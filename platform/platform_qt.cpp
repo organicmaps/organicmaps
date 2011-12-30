@@ -76,7 +76,7 @@ int Platform::MaxTilesCount() const
 
 int Platform::TileSize() const
 {
-  return 256;
+  return 512;
 }
 
 int Platform::ScaleEtalonSize() const
@@ -86,7 +86,7 @@ int Platform::ScaleEtalonSize() const
 
 int Platform::VideoMemoryLimit() const
 {
-  return 20 * 1024 * 1024;
+  return 100 * 1024 * 1024;
 }
 
 bool Platform::IsFeatureSupported(string const & feature) const

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "color.hpp"
+#include "packets_queue.hpp"
 
 #include "../base/threaded_list.hpp"
 #include "../std/function.hpp"
@@ -21,14 +22,6 @@ namespace yg
     {
     public:
 
-      struct BaseState
-      {
-        bool m_isDebugging;
-        BaseState();
-        virtual ~BaseState();
-        virtual void apply(BaseState const * prev) = 0;
-      };
-
       struct State : BaseState
       {
         shared_ptr<FrameBuffer> m_frameBuffer;
@@ -38,35 +31,6 @@ namespace yg
 
         void apply(BaseState const * prev);
       };
-
-      struct Command
-      {
-      private:
-        bool m_isDebugging;
-      public:
-
-        bool isDebugging() const;
-        void setIsDebugging(bool flag);
-
-        Command();
-
-        virtual ~Command();
-        virtual void perform() = 0;
-
-        friend class Renderer;
-      };
-
-      struct Packet
-      {
-        shared_ptr<BaseState> m_state;
-        shared_ptr<Command> m_command;
-        Packet();
-        Packet(shared_ptr<Command> const & command);
-        Packet(shared_ptr<BaseState> const & state,
-               shared_ptr<Command> const & command);
-      };
-
-      typedef ThreadedList<Packet> PacketsQueue;
 
       struct ClearCommand : Command
       {
@@ -106,7 +70,7 @@ namespace yg
       shared_ptr<RenderBuffer> m_depthBuffer;
       shared_ptr<ResourceManager> m_resourceManager;
 
-      ThreadedList<Packet> * m_renderQueue;
+      PacketsQueue * m_renderQueue;
 
       bool m_isDebugging;
 
@@ -157,7 +121,7 @@ namespace yg
       virtual void getState(BaseState * state);
 
       void processCommand(shared_ptr<Command> const & command);
-      ThreadedList<Packet> * renderQueue();
+      PacketsQueue * renderQueue();
 
       /// insert empty packet into glQueue to mark the frame boundary
       void markFrameBoundary();

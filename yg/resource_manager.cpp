@@ -361,7 +361,13 @@ namespace yg
 
     if (videoMemoryLimit < fixedMemoryUsage())
     {
-      LOG(LINFO, ("videoMemoryLimit", videoMemoryLimit,"is less than an amount of fixed resources", fixedMemoryUsage()));
+      LOG(LINFO, ("videoMemoryLimit", videoMemoryLimit, "is less than an amount of fixed resources", fixedMemoryUsage()));
+      videoMemoryLimit = memoryUsage();
+    }
+
+    if (videoMemoryLimit < memoryUsage())
+    {
+      LOG(LINFO, ("videoMemoryLimit", videoMemoryLimit, "is less than amount of currently allocated resources", memoryUsage()));
       videoMemoryLimit = memoryUsage();
     }
 

@@ -28,7 +28,7 @@ namespace yg
 
     void map(StylesCache * stylesCache) const;
     bool find(StylesCache * stylesCache) const;
-    void fillUnpacked(StylesCache * stylesCache, vector<m2::PointU> & v) const;
+    void getNonPackedRects(StylesCache * stylesCache, vector<m2::PointU> & v) const;
 
     int visualRank() const;
 

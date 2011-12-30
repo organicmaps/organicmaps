@@ -37,16 +37,16 @@ private:
 
   /// --- COPY/PASTE HERE ---
 
-  ThreadedList<yg::gl::Renderer::Packet> m_glQueue;
-  list<yg::gl::Renderer::Packet> m_frameGLQueue;
+  yg::gl::PacketsQueue m_glQueue;
+  list<yg::gl::Packet> m_frameGLQueue;
 
   threads::Condition m_glCondition;
 
-  shared_ptr<yg::gl::Screen::BaseState> m_curState;
+  shared_ptr<yg::gl::BaseState> m_curState;
 
-  shared_ptr<yg::gl::Renderer::BaseState> m_state;
+  shared_ptr<yg::gl::BaseState> m_state;
 
-  void ProcessRenderQueue(list<yg::gl::Renderer::Packet> & renderQueue, int maxPackets);
+  void ProcessRenderQueue(list<yg::gl::Packet> & renderQueue, int maxPackets);
 
   bool m_IsDebugging;
 

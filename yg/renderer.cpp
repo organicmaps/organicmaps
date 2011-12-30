@@ -13,29 +13,6 @@ namespace yg
   {
     const yg::Color Renderer::s_bgColor(192, 192, 192, 255);
 
-    Renderer::BaseState::BaseState()
-      : m_isDebugging(false)
-    {}
-
-    Renderer::BaseState::~BaseState()
-    {}
-
-    bool Renderer::Command::isDebugging() const
-    {
-      return m_isDebugging;
-    }
-
-    void Renderer::Command::setIsDebugging(bool flag)
-    {
-      m_isDebugging = flag;
-    }
-
-    Renderer::Command::Command()
-      : m_isDebugging(false)
-    {}
-
-    Renderer::Command::~Command()
-    {}
 
     void Renderer::State::apply(BaseState const * prevBase)
     {
@@ -187,20 +164,6 @@ namespace yg
         CHECK(false, ());
     }
 
-    Renderer::Packet::Packet()
-    {}
-
-    Renderer::Packet::Packet(shared_ptr<Command> const & command)
-      : m_command(command)
-    {}
-
-    Renderer::Packet::Packet(shared_ptr<BaseState> const & state,
-                             shared_ptr<Command> const & command)
-      : m_state(state), m_command(command)
-    {
-      if (m_state && m_command)
-        m_state->m_isDebugging = m_command->isDebugging();
-    }
 
     Renderer::Params::Params()
       : m_isDebugging(false),
@@ -327,7 +290,7 @@ namespace yg
       processCommand(command);
     }
 
-    shared_ptr<Renderer::BaseState> const Renderer::createState() const
+    shared_ptr<BaseState> const Renderer::createState() const
     {
       return shared_ptr<BaseState>(new State());
     }
@@ -391,13 +354,13 @@ namespace yg
       {
         shared_ptr<BaseState> state = createState();
         getState(state.get());
-        m_renderQueue->PushBack(Packet(state, command));
+        m_renderQueue->PushBack(Packet(state, command, false));
       }
       else
         command->perform();
     }
 
-    ThreadedList<Renderer::Packet> * Renderer::renderQueue()
+    PacketsQueue * Renderer::renderQueue()
     {
       return m_renderQueue;
     }
@@ -405,7 +368,7 @@ namespace yg
     void Renderer::markFrameBoundary()
     {
       if (m_renderQueue)
-        m_renderQueue->PushBack(Packet());
+        m_renderQueue->PushBack(Packet(true));
     }
   }
 }

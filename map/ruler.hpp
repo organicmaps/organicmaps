@@ -75,7 +75,7 @@ public:
 
   void map(yg::StylesCache * stylesCache) const;
   bool find(yg::StylesCache * stylesCache) const;
-  void fillUnpacked(yg::StylesCache * stylesCache, vector<m2::PointU> & v) const;
+  void getNonPackedRects(yg::StylesCache * stylesCache, vector<m2::PointU> & v) const;
 
   int visualRank() const;
   yg::OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;

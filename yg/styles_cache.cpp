@@ -6,15 +6,19 @@
 #include "skin_page.hpp"
 #include "resource_manager.hpp"
 #include "base_texture.hpp"
+#include "packets_queue.hpp"
 #include "internal/opengl.hpp"
+#include "renderer.hpp"
 
 #include "../base/thread.hpp"
 
 namespace yg
 {
   StylesCache::StylesCache(shared_ptr<ResourceManager> const & rm,
-                           int glyphCacheID)
-    : m_rm(rm)
+                           int glyphCacheID,
+                           yg::gl::PacketsQueue * glQueue)
+    : m_rm(rm),
+      m_glQueue(glQueue)
   {
     m_glyphCache = m_rm->glyphCache(glyphCacheID);
     m_cachePage.reset(new SkinPage());
@@ -48,8 +52,15 @@ namespace yg
 
   void StylesCache::upload()
   {
-    m_cachePage->uploadData();
-    OGLCHECK(glFinish());
+    m_cachePage->uploadData(m_glQueue);
+
+    m_glQueue->PushBack(yg::gl::Packet(make_shared_ptr(new yg::gl::Renderer::FinishCommand()), false));
+
+    /// waiting for upload to complete
+    if (m_glQueue)
+      m_glQueue->joinFence(m_glQueue->insertFence());
+    else
+      OGLCHECK(glFinish());
   }
 
   bool StylesCache::hasRoom(m2::PointU const * sizes, size_t cnt) const

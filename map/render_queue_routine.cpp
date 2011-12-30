@@ -537,11 +537,8 @@ void RenderQueueRoutine::invalidate()
   {
     shared_ptr<Invalidate> command(new Invalidate());
     command->m_windowHandles = m_windowHandles;
-    m_glQueue->PushBack(yg::gl::Renderer::Packet(command));
+    m_glQueue->PushBack(yg::gl::Packet(command, true));
   }
-
-  if (m_glQueue)
-    m_glQueue->PushBack(yg::gl::Renderer::Packet());
 }
 
 void RenderQueueRoutine::addCommand(render_fn_t const & fn, ScreenBase const & frameScreen)
@@ -600,7 +597,7 @@ void RenderQueueRoutine::waitForEmptyAndFinished()
     guard.Wait();
 }
 
-void RenderQueueRoutine::setGLQueue(ThreadedList<yg::gl::Renderer::Packet> * glQueue,
+void RenderQueueRoutine::setGLQueue(yg::gl::PacketsQueue * glQueue,
                                     threads::Condition * glCondition)
 {
   m_glQueue = glQueue;

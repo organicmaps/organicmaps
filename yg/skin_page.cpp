@@ -329,30 +329,53 @@ namespace yg
       it->second->m_pipelineID = pipelineID;
   }
 
-  void SkinPage::uploadData()
+  SkinPage::UploadData::UploadData(SkinPage::TUploadQueue const & uploadQueue,
+                                   shared_ptr<yg::gl::BaseTexture> const & texture)
+    : m_uploadQueue(uploadQueue), m_texture(texture)
+  {}
+
+  SkinPage::UploadData::UploadData()
+  {}
+
+  void SkinPage::UploadData::perform()
+  {
+    if (isDebugging())
+      LOG(LINFO, ("performing UploadData command", m_texture->width(), m_texture->height()));
+
+    static_cast<gl::ManagedTexture*>(m_texture.get())->lock();
+
+    TDynamicTexture * dynTexture = static_cast<TDynamicTexture*>(m_texture.get());
+
+    for (size_t i = 0; i < m_uploadQueue.size(); ++i)
+    {
+      shared_ptr<ResourceStyle> const & style = m_uploadQueue[i];
+
+      TDynamicTexture::view_t v = dynTexture->view(style->m_texRect.SizeX(),
+                                                   style->m_texRect.SizeY());
+
+      style->render(&v(0, 0));
+
+      dynTexture->upload(&v(0, 0), style->m_texRect);
+    }
+
+    static_cast<gl::ManagedTexture*>(m_texture.get())->unlock();
+  }
+
+
+  void SkinPage::uploadData(yg::gl::PacketsQueue * glQueue)
   {
     if (hasData())
     {
       checkTexture();
-      static_cast<gl::ManagedTexture*>(m_texture.get())->lock();
 
-      TDynamicTexture * dynTexture = static_cast<TDynamicTexture*>(m_texture.get());
+      shared_ptr<UploadData> cmd(new UploadData(m_uploadQueue, m_texture));
 
-      for (size_t i = 0; i < m_uploadQueue.size(); ++i)
-      {
-        shared_ptr<ResourceStyle> const & style = m_uploadQueue[i];
-
-        TDynamicTexture::view_t v = dynTexture->view(style->m_texRect.SizeX(),
-                                                     style->m_texRect.SizeY());
-
-        style->render(&v(0, 0));
-
-        dynTexture->upload(&v(0, 0), style->m_texRect);
-      }
+      if (glQueue)
+        glQueue->PushBack(yg::gl::Packet(cmd, false));
+      else
+        cmd->perform();
 
       m_uploadQueue.clear();
-
-      static_cast<gl::ManagedTexture*>(m_texture.get())->unlock();
     }
   }
 

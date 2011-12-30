@@ -105,7 +105,7 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
     else
     {
       m_infoLayer.cache(m_stylesCache);
-//      m_stylesCache->upload();
+      m_stylesCache->upload();
     }
   }
 }
@@ -198,7 +198,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   else
   {
     m_infoLayer.cache(m_stylesCache);
-//    m_stylesCache->upload();
+    m_stylesCache->upload();
   }
 
   /// clearing all old commands
@@ -251,10 +251,10 @@ void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)
 
   s->blit(&infos[0], infos.size(), true);
 
-/*  if (m_stylesCache)
+  if (m_stylesCache)
     s->setAdditionalSkinPage(m_stylesCache->cachePage());
 
-  m_infoLayer.draw(s, m_screen.PtoGMatrix() * screen.GtoPMatrix());*/
+ m_infoLayer.draw(s, m_screen.PtoGMatrix() * screen.GtoPMatrix());
 }
 
 void ScreenCoverage::EndFrame(yg::gl::Screen *s)

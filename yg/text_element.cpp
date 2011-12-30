@@ -184,10 +184,10 @@ namespace yg
     return true;
   }
 
-  void TextElement::fillUnpacked(GlyphLayout const & layout,
-                                 FontDesc const & desc,
-                                 StylesCache * stylesCache,
-                                 vector<m2::PointU> & v) const
+  void TextElement::getNonPackedRects(GlyphLayout const & layout,
+                                      FontDesc const & desc,
+                                      StylesCache * stylesCache,
+                                      vector<m2::PointU> & v) const
   {
     if (!desc.IsValid())
       return;

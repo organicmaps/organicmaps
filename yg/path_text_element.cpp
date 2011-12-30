@@ -93,16 +93,16 @@ namespace yg
     return TextElement::find(m_glyphLayout, stylesCache, desc);
   }
 
-  void PathTextElement::fillUnpacked(StylesCache * stylesCache, vector<m2::PointU> & v) const
+  void PathTextElement::getNonPackedRects(StylesCache * stylesCache, vector<m2::PointU> & v) const
   {
     yg::FontDesc desc = m_fontDesc;
     if (desc.m_isMasked)
     {
-      TextElement::fillUnpacked(m_glyphLayout, desc, stylesCache, v);
+      TextElement::getNonPackedRects(m_glyphLayout, desc, stylesCache, v);
       desc.m_isMasked = false;
     }
 
-    return TextElement::fillUnpacked(m_glyphLayout, desc, stylesCache, v);
+    return TextElement::getNonPackedRects(m_glyphLayout, desc, stylesCache, v);
   }
 
   void PathTextElement::map(StylesCache * stylesCache) const

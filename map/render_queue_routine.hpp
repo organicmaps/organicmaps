@@ -8,7 +8,6 @@
 #include "../std/list.hpp"
 #include "../std/function.hpp"
 #include "../yg/color.hpp"
-#include "../yg/renderer.hpp"
 
 class DrawerYG;
 
@@ -32,6 +31,7 @@ namespace yg
     class BaseTexture;
     class RenderState;
     class Screen;
+    class PacketsQueue;
   }
 }
 
@@ -53,7 +53,7 @@ private:
                        render_fn_t renderFn);
   };
 
-  struct Invalidate : public yg::gl::Renderer::Command
+  struct Invalidate : public yg::gl::Command
   {
     list<shared_ptr<WindowHandle> > m_windowHandles;
     void perform();
@@ -91,7 +91,7 @@ private:
   bool m_isBenchmarking;
   unsigned m_scaleEtalonSize;
   yg::Color m_bgColor;
-  ThreadedList<yg::gl::Renderer::Packet> * m_glQueue;
+  yg::gl::PacketsQueue * m_glQueue;
 
   TEmptyModelFn m_emptyModelFn;
 
@@ -144,6 +144,6 @@ public:
   /// wait for all commands are processed.
   void waitForEmptyAndFinished();
 
-  void setGLQueue(ThreadedList<yg::gl::Renderer::Packet> * glQueue,
+  void setGLQueue(yg::gl::PacketsQueue * glQueue,
                   threads::Condition * glCondition);
 };

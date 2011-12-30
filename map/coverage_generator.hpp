@@ -52,7 +52,8 @@ public:
                     TileRenderer * tileRenderer,
                     shared_ptr<WindowHandle> const & windowHandle,
                     shared_ptr<yg::gl::RenderContext> const & primaryRC,
-                    shared_ptr<yg::ResourceManager> const & rm);
+                    shared_ptr<yg::ResourceManager> const & rm,
+                    yg::gl::PacketsQueue * glQueue);
 
   ~CoverageGenerator();
 
