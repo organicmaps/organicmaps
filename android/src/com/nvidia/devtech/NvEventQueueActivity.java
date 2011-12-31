@@ -242,103 +242,37 @@ public abstract class NvEventQueueActivity extends Activity
     }
   }
 
-  private final int INVALID_POINTER_ID = -1;
-  private int mPointer1Id = INVALID_POINTER_ID;
-  private int mPointer2Id = INVALID_POINTER_ID;
+  private int m_lastPointerId = 0;
 
   @Override
   public boolean onTouchEvent(MotionEvent event)
   {
-    if (!nativeLaunched)
+    final int count = event.getPointerCount();
+    if (!nativeLaunched || count == 0)
       return super.onTouchEvent(event);
-    
-    switch (event.getAction() & MotionEvent.ACTION_MASK)
+
+    switch (count)
     {
-    case MotionEvent.ACTION_POINTER_DOWN:
-      if (mPointer2Id == INVALID_POINTER_ID)
+    case 1:
+      m_lastPointerId = event.getPointerId(0);
+      return multiTouchEvent(event.getAction(), true, false,
+          (int)event.getX(), (int)event.getY(), 0, 0, event);
+
+    default:
       {
-        mPointer2Id = event.getPointerId(0);
-        if (mPointer2Id == mPointer1Id)
-          mPointer2Id = event.getPointerId(1);
+        if (event.getPointerId(0) == m_lastPointerId)
+          return multiTouchEvent(event.getAction(), true, true,
+              (int)event.getX(0), (int)event.getY(0),
+              (int)event.getX(1), (int)event.getY(1), event);
+        else
+          return multiTouchEvent(event.getAction(), true, true,
+              (int)event.getX(1), (int)event.getY(1),
+              (int)event.getX(0), (int)event.getY(0), event);
+
       }
-      break;
-    
-    case MotionEvent.ACTION_POINTER_UP:
-      if (event.getPointerCount() == 1)
-        mPointer2Id = INVALID_POINTER_ID;
-      break;
-      
-    case MotionEvent.ACTION_DOWN:
-      mPointer1Id = event.getPointerId(0);
-      break;
-
-    case MotionEvent.ACTION_MOVE:
-      break;
-
-    case MotionEvent.ACTION_UP:
-    case MotionEvent.ACTION_CANCEL:
-      mPointer1Id = INVALID_POINTER_ID;
-      break;
     }
-
-    int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
-    for (int i = 0; i < event.getPointerCount(); ++i)
-    {
-      if (event.getPointerId(i) == mPointer1Id)
-      {
-        x1 = (int)event.getX(i);
-        y1 = (int)event.getY(i);
-      }
-      else if (event.getPointerId(i) == mPointer2Id)
-      {
-        x2 = (int)event.getX(i);
-        y2 = (int)event.getY(i);          
-      }
-    }    
-    return multiTouchEvent(event.getAction() & MotionEvent.ACTION_MASK,
-        mPointer1Id != INVALID_POINTER_ID,
-        mPointer2Id != INVALID_POINTER_ID,
-        x1, y1, x2, y2, event);
   }
   
-//  @Override
-//  public boolean onTouchEvent(MotionEvent event)
-//  {
-//    boolean ret = super.onTouchEvent(event);
-//    if (nativeLaunched && !ret)
-//    {
-//      boolean hasFirst = false;
-//      boolean hasSecond = false;
-//
-//      int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
-//      // marshal up the data.
-//      int numEvents = event.getPointerCount();
-//      for (int i = 0; i < numEvents; i++)
-//      {
-//        // only use pointers 0 and 1...
-//        int index = event.getPointerId(i);
-//        if (index < 2)
-//        {
-//          if (index == 0)
-//          {
-//            hasFirst = true;
-//            x1 = (int) event.getX(i);
-//            y1 = (int) event.getY(i);
-//          } else if (index == 1)
-//          {
-//            hasSecond = true;
-//            x2 = (int) event.getX(i);
-//            y2 = (int) event.getY(i);
-//          }
-//        }
-//      }
-//
-//      ret = multiTouchEvent(event.getAction(), hasFirst, hasSecond, x1, y1, x2,
-//          y2, event);
-//    }
-//    return ret;
-//  }
-
   /** The number of bits requested for the red component */
   protected int redSize = 5;
   /** The number of bits requested for the green component */
