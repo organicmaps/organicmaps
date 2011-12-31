@@ -68,6 +68,10 @@ namespace yg
       void markFrameBoundary();
       int  insertFence();
       void joinFence(int id);
+
+      /// Convenience functions
+
+      void completeCommands();
     };
   }
 }

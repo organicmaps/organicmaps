@@ -41,9 +41,6 @@ namespace yg
 
       GeometryRenderer(base_t::Params const & params);
 
-      void uploadData(vector<shared_ptr<ResourceStyle> > const & v,
-                      shared_ptr<BaseTexture> const & texture);
-
       void applyStates(bool isAntiAliased);
 
       void drawGeometry(shared_ptr<BaseTexture> const & texture,

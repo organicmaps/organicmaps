@@ -138,8 +138,6 @@ namespace yg
       void beginFrame();
       void endFrame();
 
-      void uploadData(shared_ptr<SkinPage> const & skinPage);
-
       void flushPipeline(shared_ptr<SkinPage> const & skinPage, int pipelineID);
       void unlockPipeline(int pipelineID);
       void discardPipeline(int pipelineID);

@@ -54,11 +54,12 @@ namespace yg
   {
     m_cachePage->uploadData(m_glQueue);
 
-    m_glQueue->PushBack(yg::gl::Packet(make_shared_ptr(new yg::gl::Renderer::FinishCommand()), false));
+    if (m_glQueue)
+      m_glQueue->PushBack(yg::gl::Packet(make_shared_ptr(new yg::gl::Renderer::FinishCommand()), false));
 
     /// waiting for upload to complete
     if (m_glQueue)
-      m_glQueue->joinFence(m_glQueue->insertFence());
+      m_glQueue->completeCommands();
     else
       OGLCHECK(glFinish());
   }

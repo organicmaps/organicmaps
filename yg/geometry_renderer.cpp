@@ -83,16 +83,6 @@ namespace yg
       static_cast<gl::ManagedTexture*>(m_texture.get())->unlock();
     }
 
-    void GeometryRenderer::uploadData(vector<shared_ptr<ResourceStyle> > const & v,
-                                      shared_ptr<BaseTexture> const & texture)
-    {
-      shared_ptr<UploadData> uploadData(new UploadData());
-      uploadData->m_styles = v;
-      uploadData->m_texture = texture;
-
-      processCommand(uploadData);
-    }
-
     void GeometryRenderer::applyStates(bool isAntiAliased)
     {
       if (renderQueue())

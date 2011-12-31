@@ -87,5 +87,10 @@ namespace yg
     {
       m_fenceManager.joinFence(id);
     }
+
+    void PacketsQueue::completeCommands()
+    {
+      joinFence(insertFence());
+    }
   }
 }

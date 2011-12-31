@@ -174,7 +174,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   yg::gl::PacketsQueue * glQueue = threadData.m_drawerParams.m_renderQueue;
   if (glQueue)
-    glQueue->joinFence(glQueue->insertFence());
+    glQueue->completeCommands();
 
   double duration = timer.ElapsedSeconds();
 

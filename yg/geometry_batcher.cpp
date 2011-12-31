@@ -363,15 +363,6 @@ namespace yg
      m_skin->getPage(pipelineID)->freeTexture();*/
    }
 
-   void GeometryBatcher::uploadData(shared_ptr<SkinPage> const & skinPage)
-   {
-     if (skinPage->hasData())
-     {
-       base_t::uploadData(skinPage->uploadQueue(), skinPage->texture());
-       skinPage->clearUploadQueue();
-     }
-   }
-
    void GeometryBatcher::UnlockStorage::perform()
    {
      if (isDebugging())
@@ -418,7 +409,7 @@ namespace yg
      GeometryPipeline & pipeline = m_pipelines[pipelineID];
      if (pipeline.m_currentIndex)
      {
-       uploadData(skinPage);
+       skinPage->uploadData(renderQueue());
 
        unlockPipeline(pipelineID);
 
