@@ -23,7 +23,6 @@ package com.nvidia.devtech;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 
 import javax.microedition.khronos.egl.EGL10;
