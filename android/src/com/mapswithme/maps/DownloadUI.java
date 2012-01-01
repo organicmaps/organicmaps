@@ -95,6 +95,9 @@ public class DownloadUI extends PreferenceActivity
       cell.setSummary("Unknown state :(");
 //      ((CheckBoxPreference)cell).setChecked(false);
       break;
+    case 6: // EGeneratingIndex
+      cell.setSummary("Indexing for search...");
+      cell.setLayoutResource(R.layout.country_generating_search_index);
     }
   }
 

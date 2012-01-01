@@ -18,12 +18,12 @@ namespace storage
   enum TStatus
   {
     EOnDisk = 0,
-    EGeneratingIndex,
     ENotDownloaded,
     EDownloadFailed,
     EDownloading,
     EInQueue,
-    EUnknown
+    EUnknown,
+    EGeneratingIndex
   };
 
   struct TIndex
