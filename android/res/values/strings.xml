@@ -2,7 +2,6 @@
 <resources>
     <string name="download_maps">Download Maps</string>
     <string name="my_position">My Position</string>
-    <string name="travel_guide">Travel Guide</string>
     <string name="app_name">MapsWithMe</string>
     <string name="about">About MapsWithMe</string>
 </resources>
