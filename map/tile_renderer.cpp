@@ -74,6 +74,7 @@ TileRenderer::TileRenderer(
 
 TileRenderer::~TileRenderer()
 {
+  LOG(LINFO, ("deleting tile renderer"));
   m_queue.Cancel();
 }
 
@@ -168,13 +169,18 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
         rectInfo.m_drawScale
         );
 
-  drawer->endFrame();
+  if (!env.isCancelled())
+    drawer->endFrame();
 
-  drawer->screen()->resetInfoLayer();
+  if (!env.isCancelled())
+    drawer->screen()->resetInfoLayer();
 
-  yg::gl::PacketsQueue * glQueue = threadData.m_drawerParams.m_renderQueue;
-  if (glQueue)
-    glQueue->completeCommands();
+  if (!env.isCancelled())
+  {
+    yg::gl::PacketsQueue * glQueue = threadData.m_drawerParams.m_renderQueue;
+    if (glQueue)
+      glQueue->completeCommands();
+  }
 
   double duration = timer.ElapsedSeconds();
 

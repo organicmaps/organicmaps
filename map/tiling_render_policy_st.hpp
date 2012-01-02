@@ -1,6 +1,6 @@
 #pragma once
 
-#include "render_policy.hpp"
+#include "queued_render_policy.hpp"
 #include "tile_renderer.hpp"
 #include "coverage_generator.hpp"
 #include "tiler.hpp"
@@ -22,9 +22,11 @@ namespace yg
 
 class WindowHandle;
 
-class TilingRenderPolicyST : public RenderPolicy
+class TilingRenderPolicyST : public QueuedRenderPolicy
 {
 private:
+
+  typedef QueuedRenderPolicy base_t;
 
   scoped_ptr<TileRenderer> m_tileRenderer;
 
@@ -34,23 +36,6 @@ private:
 
   bool m_isScaling;
   int m_maxTilesCount;
-
-  /// --- COPY/PASTE HERE ---
-
-  yg::gl::PacketsQueue m_glQueue;
-  list<yg::gl::Packet> m_frameGLQueue;
-
-  threads::Condition m_glCondition;
-
-  shared_ptr<yg::gl::BaseState> m_curState;
-
-  shared_ptr<yg::gl::BaseState> m_state;
-
-  void ProcessRenderQueue(list<yg::gl::Packet> & renderQueue, int maxPackets);
-
-  bool m_IsDebugging;
-
-  void RenderQueuedCommands(yg::gl::Screen * screen);
 
 protected:
 
@@ -63,14 +48,14 @@ public:
                        yg::ResourceManager::Params const & rmParams,
                        shared_ptr<yg::gl::RenderContext> const & primaryRC);
 
-  void BeginFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);
+  ~TilingRenderPolicyST();
+
   void DrawFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);
   void EndFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);
 
   virtual void StartScale();
   virtual void StopScale();
 
-  bool NeedRedraw() const;
   bool IsTiling() const;
 
   void SetRenderFn(TRenderFn renderFn);

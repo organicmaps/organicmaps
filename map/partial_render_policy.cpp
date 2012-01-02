@@ -18,7 +18,7 @@ PartialRenderPolicy::PartialRenderPolicy(VideoTimer * videoTimer,
                                          bool useDefaultFB,
                                          yg::ResourceManager::Params const & rmParams,
                                          shared_ptr<yg::gl::RenderContext> const & primaryRC)
-  : RenderPolicy(primaryRC, false),
+  : QueuedRenderPolicy(1, primaryRC, false),
     m_DoAddCommand(true)
 {
   yg::ResourceManager::Params rmp = rmParams;
@@ -133,7 +133,7 @@ PartialRenderPolicy::PartialRenderPolicy(VideoTimer * videoTimer,
 
   m_renderQueue.reset(new RenderQueue(GetPlatform().SkinName(),
                 false,
-                false,
+                true,
                 0.1,
                 false,
                 GetPlatform().ScaleEtalonSize(),
@@ -142,9 +142,7 @@ PartialRenderPolicy::PartialRenderPolicy(VideoTimer * videoTimer,
 
   m_renderQueue->AddWindowHandle(m_windowHandle);
 
-  m_glQueue.SetName("glCommands");
-
-  m_renderQueue->SetGLQueue(&m_glQueue, &m_glCondition);
+  m_renderQueue->SetGLQueue(GetPacketsQueue(0));
 }
 
 void PartialRenderPolicy::SetRenderFn(TRenderFn renderFn)
@@ -162,131 +160,19 @@ PartialRenderPolicy::~PartialRenderPolicy()
 {
   LOG(LINFO, ("destroying PartialRenderPolicy"));
 
-  {
-    threads::ConditionGuard guard(m_glCondition);
-    /// unlocking waiting renderThread
-    if (!m_glQueue.Empty())
-    {
-      LOG(LINFO, ("clearing glQueue"));
-      m_glQueue.Clear();
-      guard.Signal();
-    }
-  }
+  base_t::DismissQueuedCommands(0);
 
   LOG(LINFO, ("shutting down renderQueue"));
 
   m_renderQueue.reset();
 
-  m_state.reset();
-  m_curState.reset();
-
   LOG(LINFO, ("PartialRenderPolicy destroyed"));
-}
-
-void PartialRenderPolicy::ProcessRenderQueue(list<yg::gl::Packet> & renderQueue, int maxPackets)
-{
-  m_frameGLQueue.clear();
-  if (maxPackets == -1)
-  {
-    m_frameGLQueue = renderQueue;
-    renderQueue.clear();
-  }
-  else
-  {
-    if (renderQueue.empty())
-      m_glCondition.Signal();
-    else
-    {
-      /// searching for "frame boundary" markers (empty packets)
-
-      list<yg::gl::Packet>::iterator first = renderQueue.begin();
-      list<yg::gl::Packet>::iterator last = renderQueue.begin();
-
-      int packetsLeft = maxPackets;
-
-      while ((packetsLeft != 0) && (last != renderQueue.end()))
-      {
-        yg::gl::Packet p = *last;
-        if (p.m_groupBoundary)
-        {
-          LOG(LINFO, ("found frame boundary"));
-          /// found frame boundary, copying
-          copy(first, ++last, back_inserter(m_frameGLQueue));
-          /// erasing from the main queue
-          renderQueue.erase(first, last);
-          first = renderQueue.begin();
-          last = renderQueue.begin();
-        }
-        else
-          ++last;
-
-        --packetsLeft;
-      }
-    }
-  }
 }
 
 void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
                                     ScreenBase const & s)
 {
-  m_resourceManager->mergeFreeResources();
-
-  yg::gl::Screen * screen = e->drawer()->screen().get();
-
-  if (!m_state)
-  {
-    m_state = screen->createState();
-    m_state->m_isDebugging = m_IsDebugging;
-  }
-
-  screen->getState(m_state.get());
-
-  m_curState = m_state;
-
-  unsigned cmdProcessed = 0;
-  unsigned const maxCmdPerFrame = 10000;
-
-  m_glQueue.ProcessList(bind(&PartialRenderPolicy::ProcessRenderQueue, this, _1, maxCmdPerFrame));
-
-  cmdProcessed = m_frameGLQueue.size();
-
-  for (list<yg::gl::Packet>::iterator it = m_frameGLQueue.begin(); it != m_frameGLQueue.end(); ++it)
-  {
-    if (it->m_state)
-    {
-      it->m_state->m_isDebugging = m_IsDebugging;
-      it->m_state->apply(m_curState.get());
-//      OGLCHECK(glFinish());
-      m_curState = it->m_state;
-    }
-    if (it->m_command)
-    {
-      it->m_command->setIsDebugging(m_IsDebugging);
-      it->m_command->perform();
-//      OGLCHECK(glFinish());
-    }
-  }
-
-  /// should clear to release resources, refered from the stored commands.
-  m_frameGLQueue.clear();
-
-  if (m_IsDebugging)
-  {
-    LOG(LINFO, ("processed", cmdProcessed, "commands"));
-    LOG(LINFO, (m_glQueue.Size(), "commands left"));
-  }
-
-  {
-    threads::ConditionGuard guard(m_glCondition);
-    if (m_glQueue.Empty())
-      guard.Signal();
-  }
-
-//  OGLCHECK(glFinish());
-
-  m_state->apply(m_curState.get());
-
-//  OGLCHECK(glFinish());
+  base_t::DrawFrame(e, s);
 
   /// blitting actualTarget
 
@@ -305,8 +191,6 @@ void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   if (m_renderQueue->renderState().m_actualTarget.get() != 0)
   {
-    if (m_IsDebugging)
-      LOG(LINFO, ("actualTarget: ", m_renderQueue->renderState().m_actualTarget->id()));
     m2::PointD const ptShift = m_renderQueue->renderState().coordSystemShift(false);
 
     math::Matrix<double, 3, 3> m = m_renderQueue->renderState().m_actualScreen.PtoGMatrix() * s.GtoPMatrix();
@@ -314,29 +198,13 @@ void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
 
     pDrawer->screen()->blit(m_renderQueue->renderState().m_actualTarget, m);
   }
-
-  OGLCHECK(glFinish());
 }
 
-void PartialRenderPolicy::BeginFrame(shared_ptr<PaintEvent> const & paintEvent,
-                                     ScreenBase const & screenBase)
-{
-  m_IsDebugging = false;
-  if (m_IsDebugging)
-    LOG(LINFO, ("-------BeginFrame-------"));
-}
-
-void PartialRenderPolicy::EndFrame(shared_ptr<PaintEvent> const & paintEvent,
-                                   ScreenBase const & screenBase)
+void PartialRenderPolicy::EndFrame(shared_ptr<PaintEvent> const & ev,
+                                   ScreenBase const & s)
 {
   m_renderQueue->renderState().m_mutex->Unlock();
-  if (m_IsDebugging)
-    LOG(LINFO, ("-------EndFrame-------"));
-}
-
-bool PartialRenderPolicy::NeedRedraw() const
-{
-  return RenderPolicy::NeedRedraw() || !m_glQueue.Empty();
+  base_t::EndFrame(ev, s);
 }
 
 bool PartialRenderPolicy::IsEmptyModel() const
@@ -377,9 +245,4 @@ void PartialRenderPolicy::StopScale()
 {
   m_DoAddCommand = true;
   RenderPolicy::StartScale();
-}
-
-RenderQueue & PartialRenderPolicy::GetRenderQueue()
-{
-  return *m_renderQueue.get();
 }

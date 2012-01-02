@@ -143,7 +143,5 @@ public:
   void enterForeground();
   /// wait for all commands are processed.
   void waitForEmptyAndFinished();
-
-  void setGLQueue(yg::gl::PacketsQueue * glQueue,
-                  threads::Condition * glCondition);
+  void setGLQueue(yg::gl::PacketsQueue * glQueue);
 };

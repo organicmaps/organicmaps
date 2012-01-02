@@ -82,7 +82,7 @@ public:
   virtual void SetEmptyModelFn(TEmptyModelFn const &) {}
 
   bool DoSupportRotation() const;
-  bool IsTiling() const;
+  virtual bool IsTiling() const;
 
   virtual bool NeedRedraw() const;
   virtual bool IsEmptyModel() const;

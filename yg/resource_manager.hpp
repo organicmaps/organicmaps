@@ -266,6 +266,8 @@ namespace yg
 
     void mergeFreeResources();
 
+    void cancel();
+
     shared_ptr<yg::gl::BaseTexture> createRenderTarget(unsigned w, unsigned h);
   };
 

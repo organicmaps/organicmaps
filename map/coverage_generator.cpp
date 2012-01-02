@@ -54,7 +54,13 @@ void CoverageGenerator::FinalizeThreadGL()
 
 CoverageGenerator::~CoverageGenerator()
 {
+  LOG(LINFO, ("cancelling coverage thread"));
+  Cancel();
+
+  LOG(LINFO, ("deleting workCoverage"));
   delete m_workCoverage;
+
+  LOG(LINFO, ("deleting currentCoverage"));
   delete m_currentCoverage;
 }
 

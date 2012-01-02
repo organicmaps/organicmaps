@@ -724,4 +724,19 @@ namespace yg
     if (m_multiBlitStorages.get())
       m_multiBlitStorages->Merge();
   }
+
+  void ResourceManager::cancel()
+  {
+    m_primaryTextures->Cancel();
+    m_fontTextures->Cancel();
+    m_styleCacheTextures->Cancel();
+    m_renderTargets->Cancel();
+    m_guiThreadTextures->Cancel();
+
+    m_primaryStorages->Cancel();
+    m_smallStorages->Cancel();
+    m_blitStorages->Cancel();
+    m_multiBlitStorages->Cancel();
+    m_guiThreadStorages->Cancel();
+  }
 }

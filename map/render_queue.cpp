@@ -125,9 +125,8 @@ void RenderQueue::WaitForEmptyAndFinished()
   m_routine->waitForEmptyAndFinished();
 }
 
-void RenderQueue::SetGLQueue(yg::gl::PacketsQueue * glQueue,
-                             threads::Condition * glCondition)
+void RenderQueue::SetGLQueue(yg::gl::PacketsQueue * glQueue)
 {
-  m_routine->setGLQueue(glQueue, glCondition);
+  m_routine->setGLQueue(glQueue);
 }
 

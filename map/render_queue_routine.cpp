@@ -488,15 +488,7 @@ void RenderQueueRoutine::Do()
 
       /// waiting for all collected commands to complete.
       if (m_glQueue)
-      {
-        {
-          threads::ConditionGuard guard(*m_glCondition);
-          if (!m_glQueue->Empty())
-          {
-            guard.Wait();
-          }
-        }
-      }
+        m_glQueue->completeCommands();
 
       {
         threads::MutexGuard guard(*m_renderState->m_mutex.get());
@@ -597,9 +589,7 @@ void RenderQueueRoutine::waitForEmptyAndFinished()
     guard.Wait();
 }
 
-void RenderQueueRoutine::setGLQueue(yg::gl::PacketsQueue * glQueue,
-                                    threads::Condition * glCondition)
+void RenderQueueRoutine::setGLQueue(yg::gl::PacketsQueue * glQueue)
 {
   m_glQueue = glQueue;
-  m_glCondition = glCondition;
 }

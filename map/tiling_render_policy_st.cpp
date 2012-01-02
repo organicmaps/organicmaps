@@ -34,7 +34,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                            bool useDefaultFB,
                                            yg::ResourceManager::Params const & rmParams,
                                            shared_ptr<yg::gl::RenderContext> const & primaryRC)
-  : RenderPolicy(primaryRC, true)
+  : QueuedRenderPolicy(2, primaryRC, true)
 {
   yg::ResourceManager::Params rmp = rmParams;
 
@@ -179,6 +179,25 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
   m_windowHandle->setRenderContext(primaryRC);
 }
 
+TilingRenderPolicyST::~TilingRenderPolicyST()
+{
+  LOG(LINFO, ("cancelling pools"));
+
+  m_resourceManager->cancel();
+
+  LOG(LINFO, ("deleting TilingRenderPolicyST"));
+
+  base_t::DismissQueuedCommands(0);
+
+  LOG(LINFO, ("reseting coverageGenerator"));
+  m_coverageGenerator.reset();
+
+  base_t::DismissQueuedCommands(1);
+
+  LOG(LINFO, ("reseting tileRenderer"));
+  m_tileRenderer.reset();
+}
+
 void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
 {
   RenderPolicy::SetRenderFn(renderFn);
@@ -191,7 +210,7 @@ void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
                                         m_primaryRC,
                                         m_resourceManager,
                                         GetPlatform().VisualScale(),
-                                        &m_glQueue));
+                                        base_t::GetPacketsQueue(0)));
 
   m_coverageGenerator.reset(new CoverageGenerator(GetPlatform().TileSize(),
                                                   GetPlatform().ScaleEtalonSize(),
@@ -199,15 +218,8 @@ void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
                                                   m_windowHandle,
                                                   m_primaryRC,
                                                   m_resourceManager,
-                                                  &m_glQueue
+                                                  base_t::GetPacketsQueue(1)
                                                   ));
-}
-
-void TilingRenderPolicyST::BeginFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
-{
-  m_IsDebugging = false;
-  if (m_IsDebugging)
-    LOG(LINFO, ("-------BeginFrame-------"));
 }
 
 void TilingRenderPolicyST::EndFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
@@ -216,22 +228,12 @@ void TilingRenderPolicyST::EndFrame(shared_ptr<PaintEvent> const & e, ScreenBase
   curCvg->EndFrame(e->drawer()->screen().get());
   m_coverageGenerator->Mutex().Unlock();
 
-  if (m_IsDebugging)
-    LOG(LINFO, ("-------EndFrame-------"));
-}
-
-bool TilingRenderPolicyST::NeedRedraw() const
-{
-  return RenderPolicy::NeedRedraw() || !m_glQueue.Empty();
+  base_t::EndFrame(e, s);
 }
 
 void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & currentScreen)
 {
-  m_resourceManager->mergeFreeResources();
-
-  RenderQueuedCommands(e->drawer()->screen().get());
-
-  m_resourceManager->mergeFreeResources();
+  base_t::DrawFrame(e, currentScreen);
 
   DrawerYG * pDrawer = e->drawer();
 
@@ -266,105 +268,3 @@ bool TilingRenderPolicyST::IsTiling() const
   return true;
 }
 
-void TilingRenderPolicyST::RenderQueuedCommands(yg::gl::Screen * screen)
-{
-  if (!m_state)
-  {
-    m_state = screen->createState();
-    m_state->m_isDebugging = m_IsDebugging;
-  }
-
-  screen->getState(m_state.get());
-
-  m_curState = m_state;
-
-  unsigned cmdProcessed = 0;
-  unsigned const maxCmdPerFrame = 10000;
-
-  m_glQueue.ProcessList(bind(&TilingRenderPolicyST::ProcessRenderQueue, this, _1, maxCmdPerFrame));
-
-  cmdProcessed = m_frameGLQueue.size();
-
-  for (list<yg::gl::Packet>::iterator it = m_frameGLQueue.begin(); it != m_frameGLQueue.end(); ++it)
-  {
-    if (it->m_state)
-    {
-      it->m_state->m_isDebugging = m_IsDebugging;
-      it->m_state->apply(m_curState.get());
-//      OGLCHECK(glFinish());
-      m_curState = it->m_state;
-    }
-    if (it->m_command)
-    {
-      it->m_command->setIsDebugging(m_IsDebugging);
-      it->m_command->perform();
-//    OGLCHECK(glFinish());
-    }
-
-  }
-
-  /// should clear to release resources, refered from the stored commands.
-  m_frameGLQueue.clear();
-
-  if (m_IsDebugging)
-  {
-    LOG(LINFO, ("processed", cmdProcessed, "commands"));
-    LOG(LINFO, (m_glQueue.Size(), "commands left"));
-  }
-
-  {
-    threads::ConditionGuard guard(m_glCondition);
-    if (m_glQueue.Empty())
-      guard.Signal();
-  }
-
-//  OGLCHECK(glFinish());
-
-  m_state->apply(m_curState.get());
-
-//  OGLCHECK(glFinish());
-}
-
-void TilingRenderPolicyST::ProcessRenderQueue(list<yg::gl::Packet> & renderQueue, int maxPackets)
-{
-  m_frameGLQueue.clear();
-  if (maxPackets == -1)
-  {
-    m_frameGLQueue = renderQueue;
-    renderQueue.clear();
-  }
-  else
-  {
-    if (renderQueue.empty())
-      m_glCondition.Signal();
-    else
-    {
-      /// searching for "group boundary" markers
-
-      list<yg::gl::Packet>::iterator first = renderQueue.begin();
-      list<yg::gl::Packet>::iterator last = renderQueue.begin();
-
-      int packetsLeft = maxPackets;
-
-      while ((packetsLeft != 0) && (last != renderQueue.end()))
-      {
-        yg::gl::Packet p = *last;
-        if (p.m_groupBoundary)
-        {
-          if (m_IsDebugging)
-            LOG(LINFO, ("found frame boundary"));
-          /// found frame boundary, copying
-          copy(first, ++last, back_inserter(m_frameGLQueue));
-          /// erasing from the main queue
-          renderQueue.erase(first, last);
-          first = renderQueue.begin();
-          last = renderQueue.begin();
-        }
-        else
-          ++last;
-
-        --packetsLeft;
-      }
-    }
-  }
-}

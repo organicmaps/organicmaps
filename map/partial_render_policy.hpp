@@ -1,6 +1,6 @@
 #pragma once
 
-#include "render_policy.hpp"
+#include "queued_render_policy.hpp"
 #include "../yg/screen.hpp"
 #include "../base/threaded_list.hpp"
 #include "../std/scoped_ptr.hpp"
@@ -8,26 +8,15 @@
 class RenderQueue;
 class WindowHandle;
 
-class PartialRenderPolicy : public RenderPolicy
+class PartialRenderPolicy : public QueuedRenderPolicy
 {
 private:
 
-  yg::gl::PacketsQueue m_glQueue;
-  list<yg::gl::Packet> m_frameGLQueue;
-
-  threads::Condition m_glCondition;
-
-  shared_ptr<yg::gl::BaseState> m_curState;
-
-  shared_ptr<yg::gl::BaseState> m_state;
+  typedef QueuedRenderPolicy base_t;
 
   scoped_ptr<RenderQueue> m_renderQueue;
   bool m_DoAddCommand;
   bool m_DoSynchronize;
-
-  void ProcessRenderQueue(list<yg::gl::Packet> & renderQueue, int maxPackets);
-
-  bool m_IsDebugging;
 
 public:
 
@@ -38,9 +27,6 @@ public:
 
   ~PartialRenderPolicy();
 
-  void BeginFrame(shared_ptr<PaintEvent> const & paintEvent,
-                  ScreenBase const & screenBase);
-
   void DrawFrame(shared_ptr<PaintEvent> const & paintEvent,
                  ScreenBase const & screenBase);
 
@@ -49,7 +35,6 @@ public:
 
   m2::RectI const OnSize(int w, int h);
 
-  bool NeedRedraw() const;
   bool IsEmptyModel() const;
 
   void StartDrag();
