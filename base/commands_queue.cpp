@@ -141,6 +141,8 @@ namespace core
   {
     if (m_routine != 0)
       m_thread.Cancel();
+    delete m_routine;
+    m_routine = 0;
   }
 
   void CommandsQueue::Executor::CancelCommand()
