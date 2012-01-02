@@ -1,4 +1,5 @@
 #include "window_handle.hpp"
+#include "render_policy.hpp"
 
 WindowHandle::WindowHandle() :
   m_hasPendingUpdates(false),
@@ -6,6 +7,11 @@ WindowHandle::WindowHandle() :
   m_needRedraw(true),
   m_stallsCount(0)
 {
+}
+
+void WindowHandle::setRenderPolicy(RenderPolicy * renderPolicy)
+{
+  m_renderPolicy = renderPolicy;
 }
 
 void WindowHandle::setVideoTimer(VideoTimer * videoTimer)
@@ -18,7 +24,7 @@ void WindowHandle::setVideoTimer(VideoTimer * videoTimer)
 
 void WindowHandle::checkedFrameFn()
 {
-  if (needRedraw())
+  if (m_renderPolicy->NeedRedraw())
     m_stallsCount = 0;
   else
     ++m_stallsCount;

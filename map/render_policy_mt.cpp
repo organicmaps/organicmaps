@@ -127,6 +127,7 @@ RenderPolicyMT::RenderPolicyMT(VideoTimer * videoTimer,
   m_windowHandle.reset(new WindowHandle());
 
   m_windowHandle->setUpdatesEnabled(false);
+  m_windowHandle->setRenderPolicy(this);
   m_windowHandle->setVideoTimer(videoTimer);
   m_windowHandle->setRenderContext(primaryRC);
 

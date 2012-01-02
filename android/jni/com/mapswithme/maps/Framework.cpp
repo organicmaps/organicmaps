@@ -6,7 +6,6 @@
 
 #include "../../../../../indexer/drawing_rules.hpp"
 
-#include "../../../../../map/partial_render_policy.hpp"
 #include "../../../../../map/framework.hpp"
 
 #include "../../../../../std/shared_ptr.hpp"

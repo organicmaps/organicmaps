@@ -16,9 +16,12 @@ namespace yg
   }
 }
 
+class RenderPolicy;
+
 class WindowHandle
 {
   shared_ptr<yg::gl::RenderContext> m_renderContext;
+  RenderPolicy * m_renderPolicy;
 
   bool m_hasPendingUpdates;
   bool m_isUpdatesEnabled;
@@ -33,6 +36,7 @@ public:
   WindowHandle();
   virtual ~WindowHandle();
 
+  void setRenderPolicy(RenderPolicy * renderPolicy);
   void setVideoTimer(VideoTimer * videoTimer);
 
   void checkedFrameFn();
