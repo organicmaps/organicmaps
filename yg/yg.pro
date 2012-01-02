@@ -63,7 +63,6 @@ SOURCES += \
     glyph_style.cpp \
     circle_element.cpp \
     packets_queue.cpp \
-    fence_manager.cpp
 
 HEADERS += \
     internal/opengl.hpp \
@@ -120,7 +119,6 @@ HEADERS += \
     agg_traits.hpp \
     circle_element.hpp \
     packets_queue.hpp \
-    fence_manager.hpp
 
 win32* {
   SOURCES += internal/opengl_win32.cpp

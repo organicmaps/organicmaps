@@ -7,3 +7,28 @@
 #else
   #include "condition_posix.cpp"
 #endif
+
+namespace threads
+{
+  ConditionGuard::ConditionGuard(Condition & condition)
+    : m_Condition(condition)
+  {
+    m_Condition.Lock();
+  }
+
+  ConditionGuard::~ConditionGuard()
+  {
+    m_Condition.Unlock();
+  }
+
+  void ConditionGuard::Wait()
+  {
+    m_Condition.Wait();
+  }
+
+  void ConditionGuard::Signal(bool broadcast)
+  {
+    m_Condition.Signal(broadcast);
+  }
+}
+

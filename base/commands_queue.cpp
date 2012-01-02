@@ -40,7 +40,7 @@ namespace core
       threads::ConditionGuard g(*m_cond.get());
       m_waitCount++;
       if (!m_isCompleted)
-        m_cond->Wait();
+        g.Wait();
     }
     else
       LOG(LERROR, ("command isn't waitable"));
@@ -54,7 +54,7 @@ namespace core
       m_isCompleted = true;
       CHECK(m_waitCount < 2, ("only one thread could wait for the queued command"));
       if (m_waitCount)
-        m_cond->Signal(true);
+        g.Signal(true);
     }
   }
 
@@ -215,14 +215,14 @@ namespace core
 
     --m_activeCommands;
     if (m_activeCommands == 0)
-      m_cond.Signal();
+      g.Signal();
   }
 
   void CommandsQueue::Join()
   {
     threads::ConditionGuard g(m_cond);
-    if (m_activeCommands != 0)
-      m_cond.Wait();
+    while (m_activeCommands != 0)
+      g.Wait();
   }
 
   void CommandsQueue::Clear()

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "fence_manager.hpp"
+#include "../base/fence_manager.hpp"
 
 #include "../base/threaded_list.hpp"
 #include "../base/mutex.hpp"

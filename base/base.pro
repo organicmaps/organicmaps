@@ -25,6 +25,7 @@ SOURCES += \
     exception.cpp \
     threaded_container.cpp \
     resource_pool.cpp \
+    fence_manager.cpp \
 
 HEADERS += \
     SRC_FIRST.hpp \
@@ -71,3 +72,4 @@ HEADERS += \
     limited_priority_queue.hpp \
     threaded_priority_queue.hpp \
     std_serialization.hpp \
+    fence_manager.hpp \

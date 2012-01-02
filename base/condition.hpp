@@ -28,13 +28,12 @@ namespace threads
   /// ScopeGuard wrapper around mutex
   class ConditionGuard
   {
-  public:
-    ConditionGuard(Condition & condition)
-      : m_Condition(condition) { m_Condition.Lock(); }
-    ~ConditionGuard() { m_Condition.Unlock(); }
-    void Wait() { m_Condition.Wait(); }
-    void Signal(bool broadcast = false) { m_Condition.Signal(broadcast); }
   private:
     Condition & m_Condition;
+  public:
+    ConditionGuard(Condition & condition);
+    ~ConditionGuard();
+    void Wait();
+    void Signal(bool broadcast = false);
   };
 }
