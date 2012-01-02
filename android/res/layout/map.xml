@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="0px"
+    android:layout_weight="1">
+
+    <android.view.SurfaceView android:id="@+id/map_surfaceview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+    <LinearLayout
+        android:id="@+id/map_butons_container"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dip"
+        android:layout_marginBottom="10dip">
+
+        <Button
+            android:id="@+id/map_button_myposition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/myposition_button_normal"
+            android:onClick="onMyPositionClicked"/>
+
+        <Button
+            android:id="@+id/map_button_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/download_button"
+            android:layout_marginLeft="10dip"
+            android:onClick="onDownloadClicked"/>
+
+    </LinearLayout>
+
+</merge>

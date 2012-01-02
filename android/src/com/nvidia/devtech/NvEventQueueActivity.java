@@ -21,6 +21,8 @@
 //----------------------------------------------------------------------------------
 package com.nvidia.devtech;
 
+import com.mapswithme.maps.R;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -38,8 +40,6 @@ import android.view.SurfaceHolder.Callback;
 
 public abstract class NvEventQueueActivity extends Activity
 {
-  protected SurfaceView view3d = null;
-
   // private static final int EGL_RENDERABLE_TYPE = 0x3040;
   // private static final int EGL_OPENGL_ES_BIT = 0x0001;
   // private static final int EGL_OPENGL_ES2_BIT = 0x0004;
@@ -109,9 +109,10 @@ public abstract class NvEventQueueActivity extends Activity
     System.out.println("**** onCreate");
     super.onCreate(savedInstanceState);
 
-    view3d = new SurfaceView(this);
+    setContentView(R.layout.map);
+    final SurfaceView surfaceView = (SurfaceView) findViewById(R.id.map_surfaceview);
 
-    SurfaceHolder holder = view3d.getHolder();
+    SurfaceHolder holder = surfaceView.getHolder();
     holder.setType(SurfaceHolder.SURFACE_TYPE_GPU);
 
     holder.addCallback(new Callback()
