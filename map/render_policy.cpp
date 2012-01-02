@@ -5,11 +5,11 @@
 #include "../indexer/drawing_rules.hpp"
 
 #include "test_render_policy.hpp"
+#include "basic_render_policy.hpp"
 #include "render_policy_st.hpp"
 #include "render_policy_mt.hpp"
 #include "tiling_render_policy_st.hpp"
 #include "tiling_render_policy_mt.hpp"
-#include "partial_render_policy.hpp"
 #include "benchmark_render_policy_mt.hpp"
 #include "benchmark_tiling_render_policy_mt.hpp"
 

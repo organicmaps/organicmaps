@@ -41,7 +41,7 @@ HEADERS += \
     benchmark_render_policy_mt.hpp \
     ruler.hpp \
     measurement_utils.hpp \
-    partial_render_policy.hpp \
+    basic_render_policy.hpp \
     proto_to_yg_styles.hpp \
     test_render_policy.hpp \
     queued_render_policy.hpp
@@ -75,7 +75,7 @@ SOURCES += \
     ruler.cpp \
     measurement_utils.cpp \
     window_handle.cpp \
-    partial_render_policy.cpp \
+    basic_render_policy.cpp \
     proto_to_yg_styles.cpp \
     test_render_policy.cpp \
     queued_render_policy.cpp
