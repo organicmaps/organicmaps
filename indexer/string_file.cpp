@@ -47,14 +47,6 @@ bool StringsFile::StringT::operator == (StringT const & name) const
   return (m_name == name.m_name && m_pos == name.m_pos && m_rank == name.m_rank);
 }
 
-StringsFile::~StringsFile()
-{
-  m_readers.clear();
-
-  for (int i = 0; i < m_index; ++i)
-    FileWriter::DeleteFileX(FormatFilePath(i));
-}
-
 void StringsFile::AddString(StringT const & s)
 {
   if (m_strings.size() >= 30000)
@@ -80,48 +72,65 @@ void StringsFile::IteratorT::increment()
     m_end = m_file.m_queue.empty();
 }
 
-string StringsFile::FormatFilePath(int i) const
+StringsFile::StringsFile(string const & fPath)
 {
-  return m_filePath + string(".") + strings::to_string(i);
+  m_writer.reset(new FileWriter(fPath));
 }
 
 void StringsFile::Flush()
 {
+  // store starting offset
+  uint64_t const pos = m_writer->Pos();
+  m_offsets.push_back(make_pair(pos, pos));
+
+  // sort strings
   sort(m_strings.begin(), m_strings.end());
 
-  FileWriter w(FormatFilePath(m_index++));
-  for_each(m_strings.begin(), m_strings.end(), bind(&StringT::Write<FileWriter>, _1, ref(w)));
+  // write strings to file
+  for_each(m_strings.begin(), m_strings.end(), bind(&StringT::Write<FileWriter>, _1, ref(*m_writer)));
+
+  // store end offset
+  m_offsets.back().second = m_writer->Pos();
 
   m_strings.clear();
 }
 
-bool StringsFile::PushNextValue(int i)
+bool StringsFile::PushNextValue(size_t i)
 {
-  try
-  {
-    StringT s;
-    s.Read(m_readers[i]);
-
-    m_queue.push(QValue(s, i));
-    return true;
-  }
-  catch (SourceOutOfBoundsException const &)
-  {
+  // reach the end of the portion file
+  if (m_offsets[i].first >= m_offsets[i].second)
     return false;
-  }
+
+  // init source to needed offset
+  ReaderSource<FileReader> src(*m_reader);
+  src.Skip(m_offsets[i].first);
+
+  // read string
+  StringT s;
+  s.Read(src);
+
+  // update offset
+  m_offsets[i].first = src.Pos();
+
+  // push value to queue
+  m_queue.push(QValue(s, i));
+  return true;
 }
 
 void StringsFile::EndAdding()
 {
   Flush();
+
+  m_writer->Flush();
 }
 
 void StringsFile::OpenForRead()
 {
-  for (int i = 0; i < m_index; ++i)
-  {
-    m_readers.push_back(ReaderT(new FileReader(FormatFilePath(i), 6, 1)));
+  string const fPath = m_writer->GetName();
+  m_writer.reset();
 
-    CHECK ( PushNextValue(i), () );
-  }
+  m_reader.reset(new FileReader(fPath));
+
+  for (size_t i = 0; i < m_offsets.size(); ++i)
+    PushNextValue(i);
 }

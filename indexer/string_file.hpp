@@ -1,12 +1,14 @@
 #pragma once
 
-#include "../coding/reader.hpp"
+#include "../coding/file_writer.hpp"
+#include "../coding/file_reader.hpp"
 
 #include "../base/string_utils.hpp"
 
 #include "../std/iterator_facade.hpp"
 #include "../std/queue.hpp"
 #include "../std/functional.hpp"
+#include "../std/scoped_ptr.hpp"
 
 
 class StringsFile
@@ -77,8 +79,7 @@ public:
     void increment();
   };
 
-  StringsFile(string const & fPath) : m_filePath(fPath), m_index(0) {}
-  ~StringsFile();
+  StringsFile(string const & fPath);
 
   void EndAdding();
   void OpenForRead();
@@ -90,23 +91,22 @@ public:
   IteratorT End() { return IteratorT(*this, true); }
 
 private:
-  string FormatFilePath(int i) const;
+  scoped_ptr<FileWriter> m_writer;
+  scoped_ptr<FileReader> m_reader;
+
   void Flush();
-  bool PushNextValue(int i);
+  bool PushNextValue(size_t i);
 
   vector<StringT> m_strings;
-  string m_filePath;
-  int m_index;
-
-  typedef ReaderSource<ReaderPtr<Reader> > ReaderT;
-  vector<ReaderT> m_readers;
+  // store start and end offsets of file portions
+  vector<pair<uint64_t, uint64_t> > m_offsets;
 
   struct QValue
   {
     StringT m_string;
-    int m_index;
+    size_t m_index;
 
-    QValue(StringT const & s, int i) : m_string(s), m_index(i) {}
+    QValue(StringT const & s, size_t i) : m_string(s), m_index(i) {}
 
     inline bool operator > (QValue const & rhs) const { return !(m_string < rhs.m_string); }
   };
