@@ -1,11 +1,12 @@
 #pragma once
 
-#include "../coding/writer.hpp"
 #include "../coding/reader.hpp"
 
 #include "../base/string_utils.hpp"
 
 #include "../std/iterator_facade.hpp"
+#include "../std/queue.hpp"
+#include "../std/functional.hpp"
 
 
 class StringsFile
@@ -33,6 +34,8 @@ public:
     uint32_t GetKeySize() const { return m_name.size(); }
     uint32_t const * GetKeyData() const { return m_name.data(); }
 
+    strings::UniString const & GetString() const { return m_name; }
+
     template <class TCont> void SerializeValue(TCont & cont) const
     {
       cont.resize(5);
@@ -48,7 +51,7 @@ public:
     bool operator == (StringT const & name) const;
 
     template <class TWriter> IdT Write(TWriter & writer) const;
-    template <class TReader> void Read(IdT id, TReader & reader);
+    template <class TReader> void Read(TReader & src);
 
     void Swap(StringT & r)
     {
@@ -58,46 +61,55 @@ public:
     }
   };
 
-  class StringCompare
-  {
-    StringsFile & m_file;
-  public:
-    StringCompare(StringsFile & file) : m_file(file) {}
-    bool operator() (IdT const & id1, IdT const & id2) const;
-  };
-
   class IteratorT : public iterator_facade<IteratorT, StringT, forward_traversal_tag, StringT>
   {
-    size_t m_index;
-    StringsFile const * m_file;
+    StringsFile & m_file;
+    bool m_end;
 
   public:
-    IteratorT(size_t index, StringsFile const & file)
-      : m_index(index), m_file(&file) {}
+    IteratorT(StringsFile & file, bool isEnd)
+      : m_file(file), m_end(isEnd)
+    {
+    }
 
     StringT dereference() const;
-    bool equal(IteratorT const & r) const { return m_index == r.m_index; }
-    void increment() { ++m_index; }
+    bool equal(IteratorT const & r) const { return m_end == r.m_end; }
+    void increment();
   };
 
-  StringsFile() : m_writer(0), m_reader(0) {}
+  StringsFile(string const & fPath) : m_filePath(fPath), m_index(0) {}
+  ~StringsFile();
 
-  void OpenForWrite(Writer * w) { m_writer = w; }
-  /// Note! r should be in dynamic memory and this class takes shared ownership of it.
-  void OpenForRead(Reader * r) { m_reader = ReaderPtr<Reader>(r); }
+  void EndAdding();
+  void OpenForRead();
 
   /// @precondition Should be opened for writing.
   void AddString(StringT const & s);
 
-  /// @precondition Should be opened for reading.
-  void SortStrings();
-
-  IteratorT Begin() const { return IteratorT(0, *this); }
-  IteratorT End() const { return IteratorT(m_ids.size(), *this); }
+  IteratorT Begin() { return IteratorT(*this, false); }
+  IteratorT End() { return IteratorT(*this, true); }
 
 private:
-  vector<IdT> m_ids;
+  string FormatFilePath(int i) const;
+  void Flush();
+  bool PushNextValue(int i);
 
-  Writer * m_writer;
-  ReaderPtr<Reader> m_reader;
+  vector<StringT> m_strings;
+  string m_filePath;
+  int m_index;
+
+  typedef ReaderSource<ReaderPtr<Reader> > ReaderT;
+  vector<ReaderT> m_readers;
+
+  struct QValue
+  {
+    StringT m_string;
+    int m_index;
+
+    QValue(StringT const & s, int i) : m_string(s), m_index(i) {}
+
+    inline bool operator > (QValue const & rhs) const { return !(m_string < rhs.m_string); }
+  };
+
+  priority_queue<QValue, vector<QValue>, greater<QValue> > m_queue;
 };

@@ -97,16 +97,11 @@ void indexer::BuildSearchIndex(FeaturesVector const & featuresVector, Writer & w
                                string const & tmpFilePath)
 {
   {
-    StringsFile names;
+    StringsFile names(tmpFilePath);
+    featuresVector.ForEachOffset(FeatureInserter(names));
 
-    {
-      FileWriter writer(tmpFilePath);
-      names.OpenForWrite(&writer);
-      featuresVector.ForEachOffset(FeatureInserter(names));
-    }
-
-    names.OpenForRead(new FileReader(tmpFilePath));
-    names.SortStrings();
+    names.EndAdding();
+    names.OpenForRead();
 
     trie::Build(writer, names.Begin(), names.End(),
                 trie::builder::MaxValueEdgeBuilder<MaxValueCalc>());
