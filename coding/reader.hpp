@@ -118,7 +118,7 @@ protected:
   shared_ptr<ReaderT> m_p;
 
 public:
-  ReaderPtr(ReaderT * p) : m_p(p) {}
+  ReaderPtr(ReaderT * p = 0) : m_p(p) {}
 
   uint64_t Size() const
   {
