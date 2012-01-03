@@ -12,6 +12,7 @@ namespace my
   private:
     Cache(Cache<KeyT, ValueT> const &);                             // Not implemented.
     Cache<KeyT, ValueT> & operator = (Cache<KeyT, ValueT> const &); // Not implemented.
+
   public:
     // Create cache with maximum size @maxCachedObjects.
     explicit Cache(uint32_t logCacheSize)
@@ -19,8 +20,11 @@ namespace my
     {
       STATIC_ASSERT((is_same<KeyT, uint32_t>::value ||
                      is_same<KeyT, uint64_t>::value));
-      CHECK_GREATER(logCacheSize, 1, ());
+
+      CHECK_GREATER ( logCacheSize, 0, () );
+      CHECK_GREATER ( m_HashMask, 0, () );
       CHECK_LESS(logCacheSize, 32, ());
+
       uint32_t const cacheSize = 1 << logCacheSize;
       // Initialize m_Cache such, that (Hash(m_Cache[i].m_Key) & m_HashMask) != i.
       for (uint32_t i = 0; i < cacheSize; ++i)
