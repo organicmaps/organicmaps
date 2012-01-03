@@ -57,6 +57,6 @@ void FileWriter::Flush()
 
 void FileWriter::DeleteFileX(string const & fName)
 {
-    my::DeleteFileX(fName);
+  my::DeleteFileX(fName);
 }
 
