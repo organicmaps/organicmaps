@@ -6,7 +6,7 @@
 #endif
 
 #include <functional>
-using std::greater;
+
 using std::less;
 using std::greater;
 using std::equal_to;
