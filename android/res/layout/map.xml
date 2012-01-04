@@ -23,7 +23,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/myposition_button_normal"
-            android:onClick="onMyPositionClicked"/>
+            android:onClick="onMyPositionClicked"
+            android:contentDescription="@string/my_position"/>
 
         <Button
             android:id="@+id/map_button_download"
@@ -31,7 +32,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/download_button"
             android:layout_marginLeft="10dip"
-            android:onClick="onDownloadClicked"/>
+            android:onClick="onDownloadClicked"
+            android:contentDescription="@string/download_maps"/>
 
     </LinearLayout>
 
