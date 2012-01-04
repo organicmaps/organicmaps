@@ -25,7 +25,7 @@ namespace yg
       base_t::beginFrame();
       m_areasCount = 0;
       m_trianglesCount = 0;
-    };
+    }
 
     void AreaRenderer::endFrame()
     {

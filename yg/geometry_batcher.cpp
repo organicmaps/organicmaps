@@ -110,6 +110,11 @@ namespace yg
      m_storagePool->Free(m_storage);
    }
 
+   void GeometryBatcher::FreeStorage::cancel()
+   {
+     perform();
+   }
+
    void GeometryBatcher::freeStorage(int pipelineID)
    {
      GeometryPipeline & pipeline = m_pipelines[pipelineID];
@@ -329,6 +334,11 @@ namespace yg
      m_texturePool->Free(m_texture);
    }
 
+   void GeometryBatcher::FreeTexture::cancel()
+   {
+     perform();
+   }
+
    void GeometryBatcher::freeTexture(int pipelineID)
    {
      if (!m_skin->getPage(pipelineID)->hasTexture())
@@ -371,6 +381,11 @@ namespace yg
      m_storage.m_indices->unlock();
    }
 
+   void GeometryBatcher::UnlockStorage::cancel()
+   {
+     perform();
+   }
+
    void GeometryBatcher::unlockPipeline(int pipelineID)
    {
      GeometryPipeline & pipeline = m_pipelines[pipelineID];
@@ -388,6 +403,11 @@ namespace yg
 
      m_storage.m_vertices->discard();
      m_storage.m_indices->discard();
+   }
+
+   void GeometryBatcher::DiscardStorage::cancel()
+   {
+     perform();
    }
 
    void GeometryBatcher::discardPipeline(int pipelineID)

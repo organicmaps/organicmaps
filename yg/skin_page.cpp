@@ -361,6 +361,10 @@ namespace yg
     static_cast<gl::ManagedTexture*>(m_texture.get())->unlock();
   }
 
+  void SkinPage::UploadData::cancel()
+  {
+    perform();
+  }
 
   void SkinPage::uploadData(yg::gl::PacketsQueue * glQueue)
   {
@@ -371,7 +375,7 @@ namespace yg
       shared_ptr<UploadData> cmd(new UploadData(m_uploadQueue, m_texture));
 
       if (glQueue)
-        glQueue->PushBack(yg::gl::Packet(cmd, false));
+        glQueue->processPacket(yg::gl::Packet(cmd, yg::gl::Packet::ECommand));
       else
         cmd->perform();
 

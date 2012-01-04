@@ -42,7 +42,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                        sizeof(yg::gl::Vertex),
                                                                        10000 * sizeof(unsigned short),
                                                                        sizeof(unsigned short),
-                                                                       4,
+                                                                       12,
                                                                        true,
                                                                        false,
                                                                        2,
@@ -188,12 +188,12 @@ TilingRenderPolicyST::~TilingRenderPolicyST()
 
   LOG(LINFO, ("deleting TilingRenderPolicyST"));
 
-  base_t::DismissQueuedCommands(0);
+  base_t::DismissQueuedCommands(1);
 
   LOG(LINFO, ("reseting coverageGenerator"));
   m_coverageGenerator.reset();
 
-  base_t::DismissQueuedCommands(1);
+  base_t::DismissQueuedCommands(0);
 
   LOG(LINFO, ("reseting tileRenderer"));
   m_tileRenderer.reset();

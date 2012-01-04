@@ -4,14 +4,14 @@
 #include "../base/mutex.hpp"
 
 #include "../std/map.hpp"
-#include "../std/vector.hpp"
+#include "../std/list.hpp"
 
 class FenceManager
 {
 private:
 
   threads::Mutex m_mutex;
-  vector<threads::Condition *> m_conditionPool;
+  list<threads::Condition *> m_conditionPool;
   map<int, threads::Condition *> m_activeFences;
   int m_currentFence;
 

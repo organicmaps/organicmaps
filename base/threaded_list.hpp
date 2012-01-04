@@ -75,10 +75,20 @@ public:
   {
     double StartWaitTime = m_Timer.ElapsedSeconds();
 
+    bool doFirstWait = true;
+
     while ((m_isEmpty = m_list.empty()))
     {
       if (IsCancelled())
         break;
+
+      if (doFirstWait)
+      {
+        doFirstWait = false;
+        if (!m_resName.empty())
+          LOG(LINFO, ("consumer is waiting for", m_resName));
+      }
+
       m_Cond.Wait();
     }
 

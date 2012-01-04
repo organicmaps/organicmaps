@@ -55,7 +55,7 @@ namespace yg
     m_cachePage->uploadData(m_glQueue);
 
     if (m_glQueue)
-      m_glQueue->PushBack(yg::gl::Packet(make_shared_ptr(new yg::gl::Renderer::FinishCommand()), false));
+      m_glQueue->processPacket(yg::gl::Packet(make_shared_ptr(new yg::gl::Renderer::FinishCommand()), yg::gl::Packet::ECommand));
 
     /// waiting for upload to complete
     if (m_glQueue)

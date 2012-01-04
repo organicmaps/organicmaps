@@ -120,7 +120,7 @@ namespace yg
 
       virtual void getState(BaseState * state);
 
-      void processCommand(shared_ptr<Command> const & command);
+      void processCommand(shared_ptr<Command> const & command, Packet::EType type = Packet::ECommand);
       PacketsQueue * renderQueue();
 
       /// insert empty packet into glQueue to mark the frame boundary

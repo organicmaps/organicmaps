@@ -443,6 +443,10 @@ void RenderQueueRoutine::Do()
               glbRect,
               scaleLevel);
 
+          /// all unprocessed commands should be cancelled
+          if (m_currentRenderCommand->m_paintEvent->isCancelled() && m_glQueue)
+            m_glQueue->insertCancelPoint();
+
           if (!m_renderState->m_isEmptyModelCurrent)
             cumulativeEmptyModelCurrent = m_renderState->m_isEmptyModelCurrent;
 
@@ -519,6 +523,11 @@ void RenderQueueRoutine::Invalidate::perform()
            bind(&WindowHandle::invalidate, _1));
 }
 
+void RenderQueueRoutine::Invalidate::cancel()
+{
+  perform();
+}
+
 void RenderQueueRoutine::invalidate()
 {
   for_each(m_windowHandles.begin(),
@@ -529,7 +538,7 @@ void RenderQueueRoutine::invalidate()
   {
     shared_ptr<Invalidate> command(new Invalidate());
     command->m_windowHandles = m_windowHandles;
-    m_glQueue->PushBack(yg::gl::Packet(command, true));
+    m_glQueue->processPacket(yg::gl::Packet(command, yg::gl::Packet::ECheckPoint));
   }
 }
 

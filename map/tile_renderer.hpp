@@ -53,6 +53,7 @@ protected:
   string m_skinName;
   yg::Color m_bgColor;
   int m_sequenceID;
+  bool m_isExiting;
 
   void InitializeThreadGL(core::CommandsQueue::Environment const & env);
   void FinalizeThreadGL(core::CommandsQueue::Environment const & env);

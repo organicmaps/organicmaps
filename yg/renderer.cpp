@@ -345,7 +345,7 @@ namespace yg
       return m_isDebugging;
     }
 
-    void Renderer::processCommand(shared_ptr<Command> const & command)
+    void Renderer::processCommand(shared_ptr<Command> const & command, Packet::EType type)
     {
 //      command->m_isDebugging = false;
       command->m_isDebugging = renderQueue();
@@ -354,7 +354,7 @@ namespace yg
       {
         shared_ptr<BaseState> state = createState();
         getState(state.get());
-        m_renderQueue->PushBack(Packet(state, command, false));
+        m_renderQueue->processPacket(Packet(state, command, type));
       }
       else
         command->perform();
@@ -368,7 +368,7 @@ namespace yg
     void Renderer::markFrameBoundary()
     {
       if (m_renderQueue)
-        m_renderQueue->PushBack(Packet(true));
+        m_renderQueue->processPacket(Packet(Packet::ECheckPoint));
     }
   }
 }

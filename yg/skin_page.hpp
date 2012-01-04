@@ -107,6 +107,7 @@ namespace yg
                  shared_ptr<yg::gl::BaseTexture> const & texture);
 
       void perform();
+      void cancel();
     };
 
     void clearColorHandles();

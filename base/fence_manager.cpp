@@ -6,9 +6,8 @@
 FenceManager::FenceManager(int conditionPoolSize)
   : m_currentFence(0)
 {
-  m_conditionPool.resize(conditionPoolSize);
-  for (unsigned i = 0; i < m_conditionPool.size(); ++i)
-    m_conditionPool[i] = new threads::Condition();
+  for (unsigned i = 0; i < conditionPoolSize; ++i)
+    m_conditionPool.push_back(new threads::Condition());
 }
 
 FenceManager::~FenceManager()
@@ -21,10 +20,8 @@ FenceManager::~FenceManager()
     delete it->second;
   }
 
-  for (unsigned i = 0; i < m_conditionPool.size(); ++i)
-  {
-    delete m_conditionPool[i];
-  }
+  for (list<threads::Condition*>::iterator it = m_conditionPool.begin(); it != m_conditionPool.end(); ++it)
+    delete *it;
 }
 
 int FenceManager::insertFence()
@@ -34,8 +31,8 @@ int FenceManager::insertFence()
   if (m_conditionPool.empty())
     return -1;
 
-  threads::Condition * cond = m_conditionPool.back();
-  m_conditionPool.pop_back();
+  threads::Condition * cond = m_conditionPool.front();
+  m_conditionPool.pop_front();
 
   int id = m_currentFence++;
 
@@ -52,20 +49,20 @@ void FenceManager::signalFence(int id)
 
   if (it == m_activeFences.end())
   {
-    LOG(LWARNING, ("fence with id", id, "has been already signalled or hasn't been installed yet"));
+    LOG(LINFO, ("fence with id", id, "has been already signalled or hasn't been installed yet"));
     return;
   }
 
   threads::Condition * cond = it->second;
-
-  /// signalling to all waiting fences
-  cond->Signal(true);
 
   /// erasing fence from active fences
   m_activeFences.erase(it);
 
   /// returning condition to the pool
   m_conditionPool.push_back(cond);
+
+  /// signalling to all waiting fences
+  cond->Signal(true);
 }
 
 void FenceManager::joinFence(int id)
@@ -78,7 +75,7 @@ void FenceManager::joinFence(int id)
 
     if (it == m_activeFences.end())
     {
-      LOG(LWARNING, ("fence with id", id, "has been already reached in the past or hasn't been installed yet"));
+      LOG(LINFO, ("fence with id", id, "has been already reached in the past or hasn't been installed yet"));
       return;
     }
 

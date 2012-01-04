@@ -28,7 +28,8 @@ TileRenderer::TileRenderer(
       m_renderFn(renderFn),
       m_skinName(skinName),
       m_bgColor(bgColor),
-      m_sequenceID(0)
+      m_sequenceID(0),
+      m_isExiting(false)
 {
   m_resourceManager = rm;
   m_primaryContext = primaryRC;
@@ -74,7 +75,7 @@ TileRenderer::TileRenderer(
 
 TileRenderer::~TileRenderer()
 {
-  LOG(LINFO, ("deleting tile renderer"));
+  m_isExiting = true;
   m_queue.Cancel();
 }
 
@@ -175,17 +176,35 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   if (!env.isCancelled())
     drawer->screen()->resetInfoLayer();
 
+  yg::gl::PacketsQueue * glQueue = threadData.m_drawerParams.m_renderQueue;
+
   if (!env.isCancelled())
   {
-    yg::gl::PacketsQueue * glQueue = threadData.m_drawerParams.m_renderQueue;
     if (glQueue)
+    {
+      glQueue->insertCheckPoint();
       glQueue->completeCommands();
+    }
+  }
+  else
+  {
+    if (!m_isExiting)
+    {
+      if (glQueue)
+      {
+        glQueue->insertCancelPoint();
+        glQueue->completeCommands();
+      }
+    }
   }
 
   double duration = timer.ElapsedSeconds();
 
   if (env.isCancelled())
-    m_resourceManager->renderTargetTextures()->Free(tileTarget);
+  {
+    if (!m_isExiting)
+      m_resourceManager->renderTargetTextures()->Free(tileTarget);
+  }
   else
     AddTile(rectInfo, Tile(tileTarget, tileInfoLayer, frameScreen, rectInfo, duration));
 }

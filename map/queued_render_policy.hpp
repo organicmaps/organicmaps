@@ -15,6 +15,7 @@ private:
   {
     yg::gl::PacketsQueue m_Queue; //< all enqueued commands
     list<yg::gl::Packet> m_FrameBucket; //< list of commands to execute on current frame
+    yg::gl::Packet::EType m_Type;
 
     void FillFrameBucket(list<yg::gl::Packet> & QueueData);
   };
@@ -28,6 +29,8 @@ private:
   shared_ptr<yg::gl::BaseState> m_state;
 
 protected:
+
+  void CopyQueuedCommands(list<yg::gl::Packet> & l, list<yg::gl::Packet> & r);
 
   void RenderQueuedCommands(int pipelineNum);
   void DismissQueuedCommands(int pipelineNum);

@@ -90,6 +90,7 @@ namespace yg
         Storage m_storage;
 
         void perform();
+        void cancel();
       };
 
       struct FreeTexture : public Command
@@ -98,6 +99,7 @@ namespace yg
         shared_ptr<BaseTexture> m_texture;
 
         void perform();
+        void cancel();
       };
 
       struct UnlockStorage : public Command
@@ -105,6 +107,7 @@ namespace yg
         Storage m_storage;
 
         void perform();
+        void cancel();
       };
 
       struct DiscardStorage : public Command
@@ -112,6 +115,7 @@ namespace yg
         Storage m_storage;
 
         void perform();
+        void cancel();
       };
 
     public:

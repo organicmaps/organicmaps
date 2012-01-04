@@ -57,6 +57,7 @@ private:
   {
     list<shared_ptr<WindowHandle> > m_windowHandles;
     void perform();
+    void cancel();
   };
 
   shared_ptr<yg::gl::RenderContext> m_renderContext;

@@ -23,7 +23,10 @@ namespace yg
     struct Command
     {
     private:
+
       bool m_isDebugging;
+      string m_name;
+
     public:
 
       bool isDebugging() const;
@@ -32,27 +35,36 @@ namespace yg
       Command();
 
       virtual ~Command();
-      virtual void perform() = 0;
+      virtual void perform();
+      virtual void cancel();
 
       friend class Renderer;
     };
 
     struct Packet
     {
-      shared_ptr<BaseState> m_state;
-      shared_ptr<Command> m_command;
-      bool m_groupBoundary;
+      enum EType
+      {
+        ECommand,
+        ECheckPoint,
+        ECancelPoint
+      };
 
-      explicit Packet();
+      shared_ptr<BaseState> m_state;
+      shared_ptr<Command>   m_command;
+      EType m_type;
+
+      Packet();
       /// empty packet act as a frame delimiter
-      explicit Packet(bool groupBoundary);
+      explicit Packet(EType type);
       /// non-opengl command, without any state
-      explicit Packet(shared_ptr<Command> const & command,
-                      bool groupBoundary);
+      Packet(shared_ptr<Command> const & command,
+             EType type);
       /// opengl command with state
-      explicit Packet(shared_ptr<BaseState> const & state,
-                      shared_ptr<Command> const & command,
-                      bool groupBoundary);
+      Packet(shared_ptr<BaseState> const & state,
+             shared_ptr<Command> const & command,
+             EType type);
+
     };
 
     class PacketsQueue : public ThreadedList<Packet>
@@ -65,7 +77,11 @@ namespace yg
 
       PacketsQueue();
 
-      void markFrameBoundary();
+      void processPacket(Packet const & packet);
+      void cancel();
+
+      void insertCheckPoint();
+      void insertCancelPoint();
       int  insertFence();
       void joinFence(int id);
 

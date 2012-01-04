@@ -77,22 +77,33 @@ void QueuedRenderPolicy::RenderQueuedCommands(int pipelineNum)
 
   list<yg::gl::Packet>::iterator it;
 
+  yg::gl::Packet::EType bucketType = m_Pipelines[pipelineNum].m_Type;
+
   for (it = m_Pipelines[pipelineNum].m_FrameBucket.begin();
        it != m_Pipelines[pipelineNum].m_FrameBucket.end();
        ++it)
   {
-    if (it->m_state)
-    {
-      it->m_state->m_isDebugging = m_IsDebugging;
-      it->m_state->apply(curState.get());
-      curState = it->m_state;
-    }
     if (it->m_command)
-    {
       it->m_command->setIsDebugging(m_IsDebugging);
-      it->m_command->perform();
-    }
 
+    if (bucketType == yg::gl::Packet::ECancelPoint)
+    {
+      if (it->m_command)
+        it->m_command->cancel();
+    }
+    else
+    {
+      ASSERT(bucketType == yg::gl::Packet::ECheckPoint, ());
+
+      if (it->m_state)
+      {
+        it->m_state->m_isDebugging = m_IsDebugging;
+        it->m_state->apply(curState.get());
+        curState = it->m_state;
+      }
+      if (it->m_command)
+        it->m_command->perform();
+    }
   }
 
   /// should clear to release resources, refered from the stored commands.
@@ -111,7 +122,7 @@ void QueuedRenderPolicy::PacketsPipeline::FillFrameBucket(list<yg::gl::Packet> &
 {
   m_FrameBucket.clear();
 
-  /// searching for "group boundary" markers
+  /// searching for "delimiter" markers
 
   list<yg::gl::Packet>::iterator first = renderQueue.begin();
   list<yg::gl::Packet>::iterator last = renderQueue.begin();
@@ -121,7 +132,8 @@ void QueuedRenderPolicy::PacketsPipeline::FillFrameBucket(list<yg::gl::Packet> &
   while ((packetsLeft != 0) && (last != renderQueue.end()))
   {
     yg::gl::Packet p = *last;
-    if (p.m_groupBoundary)
+    if ((p.m_type == yg::gl::Packet::ECheckPoint)
+     || (p.m_type == yg::gl::Packet::ECancelPoint))
     {
       /// found frame boundary, copying
       copy(first, ++last, back_inserter(m_FrameBucket));
@@ -129,6 +141,9 @@ void QueuedRenderPolicy::PacketsPipeline::FillFrameBucket(list<yg::gl::Packet> &
       renderQueue.erase(first, last);
       first = renderQueue.begin();
       last = renderQueue.begin();
+      m_Type = p.m_type;
+      if (m_Type == yg::gl::Packet::ECancelPoint)
+        break;
     }
     else
       ++last;
@@ -137,12 +152,28 @@ void QueuedRenderPolicy::PacketsPipeline::FillFrameBucket(list<yg::gl::Packet> &
   }
 }
 
+void QueuedRenderPolicy::CopyQueuedCommands(list<yg::gl::Packet> &l, list<yg::gl::Packet> &r)
+{
+  swap(l, r);
+}
+
 void QueuedRenderPolicy::DismissQueuedCommands(int pipelineNum)
 {
-  while (!m_Pipelines[pipelineNum].m_Queue.Empty())
+  if (m_IsDebugging)
+    LOG(LINFO, ("cancelling packetsQueue for pipeline", pipelineNum));
+
+  m_Pipelines[pipelineNum].m_Queue.cancel();
+
+  list<yg::gl::Packet> l;
+
+  m_Pipelines[pipelineNum].m_Queue.ProcessList(bind(&QueuedRenderPolicy::CopyQueuedCommands, this, _1, ref(l)));
+
+  for (list<yg::gl::Packet>::iterator it = l.begin(); it != l.end(); ++it)
   {
-    yg::gl::Packet p = m_Pipelines[pipelineNum].m_Queue.Back(true);
-    if (p.m_groupBoundary)
+    yg::gl::Packet p = *it;
+
+    if ((p.m_type == yg::gl::Packet::ECheckPoint)
+     || (p.m_type == yg::gl::Packet::ECancelPoint))
     {
       if (p.m_command)
         p.m_command->perform();
