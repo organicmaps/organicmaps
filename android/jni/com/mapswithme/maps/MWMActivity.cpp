@@ -25,7 +25,7 @@ extern "C"
     InitNVEvent(jvm);
     g_jvm = jvm;
     LOG(LDEBUG, ("JNI_OnLoad"));
-    return JNI_VERSION_1_4;
+    return JNI_VERSION_1_6;
   }
 
   JNIEXPORT void JNICALL
