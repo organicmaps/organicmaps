@@ -86,7 +86,7 @@ int Platform::ScaleEtalonSize() const
 
 int Platform::VideoMemoryLimit() const
 {
-  return 100 * 1024 * 1024;
+  return 20 * 1024 * 1024;
 }
 
 bool Platform::IsFeatureSupported(string const & feature) const
