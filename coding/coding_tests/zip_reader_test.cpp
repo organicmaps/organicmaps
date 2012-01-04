@@ -34,7 +34,7 @@ UNIT_TEST(ZipReaderSmoke)
     r.ReadAsString(s);
     TEST_EQUAL(s, "Test\n", ("Invalid zip file contents"));
   }
-  catch (FileReader::Exception const & e)
+  catch (std::exception const & e)
   {
     noException = false;
     LOG(LERROR, (e.what()));
@@ -47,7 +47,7 @@ UNIT_TEST(ZipReaderSmoke)
   {
     ZipFileReader r("some_nonexisting_filename", "test.txt");
   }
-  catch (FileReader::Exception const &)
+  catch (std::exception const &)
   {
     noException = false;
   }
@@ -59,7 +59,7 @@ UNIT_TEST(ZipReaderSmoke)
   {
     ZipFileReader r(ZIPFILE, "test");
   }
-  catch (FileReader::Exception const &)
+  catch (std::exception const &)
   {
     noException = false;
   }
@@ -110,7 +110,7 @@ UNIT_TEST(ZipFilesList)
     TEST_EQUAL(files[1], "2.txt", ());
     TEST_EQUAL(files[2], "3.ttt", ());
   }
-  catch (FileReader::OpenException const & e)
+  catch (std::exception const & e)
   {
     TEST(false, ("Can't get list of files inside zip", e.what()));
   }
@@ -120,7 +120,7 @@ UNIT_TEST(ZipFilesList)
     vector<string> files = ZipFileReader::FilesList(ZIPFILE_INVALID);
     TEST(false, ("This test shouldn't be reached - exception should be thrown"));
   }
-  catch (FileReader::OpenException const &)
+  catch (std::exception const &)
   {
   }
 

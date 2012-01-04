@@ -89,3 +89,10 @@ uint8_t * MmapReader::Data() const
 {
   return m_data->m_memory;
 }
+
+void MmapReader::SetOffsetAndSize(uint64_t offset, uint64_t size)
+{
+  ASSERT_LESS_OR_EQUAL(offset + size, Size(), (offset, size));
+  m_offset = offset;
+  m_size = size;
+}

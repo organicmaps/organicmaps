@@ -25,4 +25,8 @@ public:
 
   /// Direct file/memory access
   uint8_t * Data() const;
+
+protected:
+  // Used in special derived readers.
+  void SetOffsetAndSize(uint64_t offset, uint64_t size);
 };

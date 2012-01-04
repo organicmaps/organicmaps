@@ -1,12 +1,12 @@
 #pragma once
 
-#include "file_reader.hpp"
+#include "mmap_reader.hpp"
 
 #include "../base/exception.hpp"
 
-class ZipFileReader : public FileReader
+class ZipFileReader : public MmapReader
 {
-  typedef FileReader base_type;
+  typedef MmapReader base_type;
 
 public:
   DECLARE_EXCEPTION(OpenZipException, OpenException);
