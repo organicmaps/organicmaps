@@ -417,6 +417,9 @@ UITableViewCell * g_clickedCell = nil;
       case EGeneratingIndex:
         // we can't stop index generation at this moment
         break;
+
+      default:
+        ASSERT(false, ());
   	}
   }
 }
