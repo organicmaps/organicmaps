@@ -65,103 +65,27 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 @implementation CustomView
 - (void)layoutSubviews
 {
-  UISearchBar * searchBar = (UISearchBar *)[self.subviews objectAtIndex:0];
-  [searchBar sizeToFit];
-  UITableView * table = (UITableView *)[self.subviews objectAtIndex:1];
+  UINavigationBar * navBar = (UINavigationBar *)[self.subviews objectAtIndex:0];
+  [navBar sizeToFit];
+  [navBar.topItem.titleView sizeToFit];
+
+  CGFloat const wAndH = navBar.topItem.titleView.frame.size.height - 8;
+  navBar.topItem.leftBarButtonItem.customView.frame = CGRectMake(0, 0, wAndH, wAndH);
+
+  UIView * table = [self.subviews objectAtIndex:1];
   CGRect rTable;
-  rTable.origin = CGPointMake(searchBar.frame.origin.x, searchBar.frame.origin.y + searchBar.frame.size.height);
+  rTable.origin = CGPointMake(navBar.frame.origin.x, navBar.frame.origin.y + navBar.frame.size.height);
   rTable.size = self.bounds.size;
-  rTable.size.height -= searchBar.bounds.size.height;
+  rTable.size.height -= navBar.bounds.size.height;
   table.frame = rTable;
 }
 @end
 
 ////////////////////////////////////////////////////////////////////
 /// Key to store settings
-#define SEARCH_MODE_SETTING     "SearchMode"
-#define SEARCH_MODE_POPULARITY  "ByPopularity"
-#define SEARCH_MODE_ONTHESCREEN "OnTheScreen"
-#define SEARCH_MODE_NEARME      "NearMe"
-#define SEARCH_MODE_DEFAULT     SEARCH_MODE_POPULARITY
+#define RADAR_MODE_SETTINGS_KEY "SearchRadarMode"
 
 @implementation SearchVC
-
-// Controls visibility of information window with GPS location problems
-//- (void)showOrHideGPSWarningIfNeeded
-//{
-//  if (m_searchBar.selectedScopeButtonIndex == 2)
-//  {
-//    if (m_warningViewText)
-//    {
-//      if (!m_warningView)
-//      {
-//        CGRect const rSearch = m_searchBar.frame;
-//        CGFloat const h = rSearch.size.height / 3.0;
-//        CGRect rWarning = CGRectMake(rSearch.origin.x, rSearch.origin.y + rSearch.size.height,
-//                                   rSearch.size.width, 0);
-//        m_warningView = [[UILabel alloc] initWithFrame:rWarning];
-//        m_warningView.textAlignment = UITextAlignmentCenter;
-//        m_warningView.numberOfLines = 0;
-//        m_warningView.backgroundColor = [UIColor yellowColor];
-//      
-//        rWarning.size.height = h;
-//
-//        CGRect rTable = m_table.frame;
-//        rTable.origin.y += h; 
-//
-//        [UIView animateWithDuration:0.5 animations:^{
-//          [self.view addSubview:m_warningView];
-//          m_table.frame = rTable;
-//          m_warningView.frame = rWarning;
-//        }];
-//      }
-//      m_warningView.text = m_warningViewText;
-//      return;
-//    }
-//  }
-//  // in all other cases hide this window
-//  if (m_warningView)
-//  {
-//    CGRect const rSearch = m_searchBar.frame;
-//    CGRect rTable = m_table.frame;
-//    rTable.origin.y = rSearch.origin.y + rSearch.size.height;
-//    [self.view sendSubviewToBack:m_warningView];
-//  
-//    [UIView animateWithDuration:0.5 
-//                     animations:^{
-//                       m_table.frame = rTable;
-//                     }
-//                     completion:^(BOOL finished){
-//                       [m_warningView removeFromSuperview];
-//                       [m_warningView release];
-//                       m_warningView = nil;
-//                     }];
-//  }
-//}
-
-- (void)setSearchMode:(string const &)mode
-{
-  if (mode == SEARCH_MODE_POPULARITY)
-  {
-    m_searchBar.selectedScopeButtonIndex = 0;
-    // @TODO switch search mode
-    //m_framework->SearchEngine()->SetXXXXXX();
-  }
-  else if (mode == SEARCH_MODE_ONTHESCREEN)
-  {
-    m_searchBar.selectedScopeButtonIndex = 1;
-    // @TODO switch search mode
-    //m_framework->SearchEngine()->SetXXXXXX();
-  }
-  else // Search mode "Near me"
-  {
-    m_searchBar.selectedScopeButtonIndex = 2;
-    // @TODO switch search mode
-    //m_framework->SearchEngine()->SetXXXXXX();
-  }
-  Settings::Set(SEARCH_MODE_SETTING, mode);
-//  [self showOrHideGPSWarningIfNeeded];
-}
 
 - (id)initWithFramework:(Framework *)framework andLocationManager:(LocationManager *)lm
 {
@@ -173,22 +97,64 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   return self;
 }
 
+- (void)enableRadarMode
+{
+  m_radarButton.selected = YES;
+  // @TODO add code for search engine
+  // or add additional parameter to query by checking if (m_radarButton.selected)
+  // m_framework->GetSearchEngine()->
+}
+
+- (void)disableRadarMode
+{
+  m_radarButton.selected = NO;
+  // @TODO add code for search engine
+  // or add additional parameter to query by checking if (m_radarButton.selected)
+  // m_framework->GetSearchEngine()->
+}
+
+- (void)onRadarButtonClicked:(id)button
+{
+  UIButton * btn = (UIButton *)button;
+  // Button selected state will be changed inside functions
+  Settings::Set(RADAR_MODE_SETTINGS_KEY, !btn.selected);
+  if (!btn.selected)
+    [self enableRadarMode];
+  else
+    [self disableRadarMode];
+}
+
 - (void)loadView
 {
   // create user interface
-  CustomView * parentView = [[[CustomView alloc] init] autorelease];
+  // Custom view is used to automatically layout all elements
+  UIView * parentView = [[[CustomView alloc] init] autorelease];
   parentView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
 
+  // Button will be resized in CustomView above
+  m_radarButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+  UIImage * image = [UIImage imageNamed:@"location"];
+  [m_radarButton setImage:image forState:UIControlStateNormal];
+  [m_radarButton setImage:[UIImage imageNamed:@"location-highlighted"] forState:UIControlStateHighlighted];
+  [m_radarButton setImage:[UIImage imageNamed:@"location-selected"] forState:UIControlStateSelected];
+  m_radarButton.backgroundColor = [UIColor clearColor];
+  [m_radarButton addTarget:self action:@selector(onRadarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+
+  UINavigationBar * navBar = [[[UINavigationBar alloc] init] autorelease];
+  navBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+  UINavigationItem * item = [[[UINavigationItem alloc] init] autorelease];
+  item.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:m_radarButton] autorelease];
+
   m_searchBar = [[UISearchBar alloc] init];
-  m_searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+  m_searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   m_searchBar.delegate = self;
   m_searchBar.placeholder = NSLocalizedString(@"Search map", @"Search box placeholder text");
   m_searchBar.showsCancelButton = YES;
-  m_searchBar.showsScopeBar = YES;
-  m_searchBar.scopeButtonTitles = [NSArray arrayWithObjects:NSLocalizedString(@"All", @"Search scope criteria"),
-                                   NSLocalizedString(@"On the screen", @"Search scope criteria"),
-                                   NSLocalizedString(@"Near me", @"Search scope criteria"), nil];
-  [parentView addSubview:m_searchBar];
+  item.titleView = m_searchBar;
+
+  [navBar pushNavigationItem:item animated:NO];
+
+  [parentView addSubview:navBar];
 
   m_table = [[UITableView alloc] init];
   m_table.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
@@ -206,8 +172,8 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 
 - (void)dealloc
 {
-//  [m_warningViewText release];
   g_searchVC = nil;
+  [m_radarButton release];
   [m_searchBar release];
   [m_table release];
   [self clearResults];
@@ -223,6 +189,7 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 {
   g_searchVC = nil;
   // to correctly free memory
+  [m_radarButton release]; m_radarButton = nil;
   [m_searchBar release]; m_searchBar = nil;
   [m_table release]; m_table = nil;
   m_results.clear();
@@ -263,10 +230,12 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   else
   {
     // load previously saved search mode
-    string searchMode;
-    if (!Settings::Get(SEARCH_MODE_SETTING, searchMode))
-      searchMode = SEARCH_MODE_DEFAULT;
-    [self setSearchMode:searchMode];
+    bool radarEnabled = false;
+    Settings::Get(RADAR_MODE_SETTINGS_KEY, radarEnabled);
+    if (radarEnabled)
+      [self enableRadarMode];
+    else
+      [self disableRadarMode];
 
     [m_locationManager start:self];
 
@@ -313,18 +282,6 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
   [self dismissModalViewControllerAnimated:YES];
-}
-
-- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
-{
-  string searchMode;
-  switch (selectedScope)
-  {
-    case 0: searchMode = SEARCH_MODE_POPULARITY; break;
-    case 1: searchMode = SEARCH_MODE_ONTHESCREEN; break;
-    default: searchMode = SEARCH_MODE_NEARME; break;
-  }
-  [self setSearchMode:searchMode];
 }
 //*********** End of SearchBar handlers *************************************
 //***************************************************************************
@@ -441,24 +398,7 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 //*********** Location manager callbacks ***************************
 - (void)onLocationStatusChanged:(location::TLocationStatus)newStatus
 {
-//  [m_warningViewText release];
-//  switch (newStatus)
-//  {
-//  case location::EDisabledByUser:
-//    m_warningViewText = [[NSString alloc] initWithString:NSLocalizedString(@"Please enable Location Services", @"Search View - Location is disabled by user warning text")];
-//    break;
-//  case location::ENotSupported:
-//    m_warningViewText = [[NSString alloc] initWithString:NSLocalizedString(@"Location Services are not supported", @"Search View - Location is not supported on the device warning text")];
-//    break;
-//  case location::EStarted:
-//    m_warningViewText = [[NSString alloc] initWithString:NSLocalizedString(@"Determining your location...", @"Search View - Trying to determine location warning text")];
-//    break;
-//  case location::EStopped:
-//  case location::EFirstEvent:
-//    m_warningViewText = nil;
-//    break;
-//  }
-//  [self showOrHideGPSWarningIfNeeded];
+  // Handle location status changes if necessary
 }
 
 - (void)onGpsUpdate:(location::GpsInfo const &)info
