@@ -31,7 +31,7 @@ namespace yg
         makeCurrent();
 
         GLenum target = GL_RENDERBUFFER_MWM;
-        GLenum internalFormat = m_isDepthBuffer ? GL_DEPTH_COMPONENT24_MWM : GL_RGBA8_MWM;
+        GLenum internalFormat = m_isDepthBuffer ? GL_DEPTH_COMPONENT16_MWM : GL_RGBA8_MWM;
 
         OGLCHECK(glRenderbufferStorageFn(target,
                                          internalFormat,
