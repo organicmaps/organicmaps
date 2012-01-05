@@ -1,38 +1,18 @@
-//----------------------------------------------------------------------------------
-// File:            libs\src\com\nvidia\devtech\NvEventQueueActivity.java
-// Samples Version: NVIDIA Android Lifecycle samples 1_0beta 
-// Email:           tegradev@nvidia.com
-// Web:             http://developer.nvidia.com/category/zone/mobile-development
-//
-// Copyright 2009-2011 NVIDIA� Corporation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//   http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-//----------------------------------------------------------------------------------
 package com.nvidia.devtech;
 
 import com.mapswithme.maps.R;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import javax.microedition.khronos.egl.EGL10;
+import javax.microedition.khronos.egl.EGL11;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLContext;
 import javax.microedition.khronos.egl.EGLDisplay;
 import javax.microedition.khronos.egl.EGLSurface;
-import javax.microedition.khronos.opengles.GL11;
 
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -40,42 +20,39 @@ import android.view.SurfaceHolder.Callback;
 
 public abstract class NvEventQueueActivity extends Activity
 {
-  // private static final int EGL_RENDERABLE_TYPE = 0x3040;
-  // private static final int EGL_OPENGL_ES_BIT = 0x0001;
-  // private static final int EGL_OPENGL_ES2_BIT = 0x0004;
+  private static final String TAG = "NvEventQueueActivity";
   private static final int EGL_CONTEXT_CLIENT_VERSION = 0x3098;
-  EGL10 egl = null;
-  GL11 gl = null;
 
-  protected boolean eglInitialized = false;
-  protected EGLSurface eglSurface = null;
-  protected EGLDisplay eglDisplay = null;
-  protected EGLContext eglContext = null;
-  protected EGLConfig eglConfig = null;
+  private EGL10 m_egl = (EGL10) EGLContext.getEGL();
+  protected boolean m_eglInitialized = false;
+  protected EGLSurface m_eglSurface = null;
+  protected EGLDisplay m_eglDisplay = null;
+  protected EGLContext m_eglContext = null;
+  protected EGLConfig m_eglConfig = null;
 
-  protected SurfaceHolder cachedSurfaceHolder = null;
-  private int surfaceWidth = 0;
-  private int surfaceHeight = 0;
+  protected SurfaceHolder m_cachedSurfaceHolder = null;
+  private int m_surfaceWidth = 0;
+  private int m_surfaceHeight = 0;
 
-  private int fixedWidth = 0;
-  private int fixedHeight = 0;
+  private int m_fixedWidth = 0;
+  private int m_fixedHeight = 0;
 
-  private boolean nativeLaunched = false;
+  private boolean m_nativeLaunched = false;
 
   public void setFixedSize(int fw, int fh)
   {
-    fixedWidth = fw;
-    fixedHeight = fh;
+    m_fixedWidth = fw;
+    m_fixedHeight = fh;
   }
 
   public int getSurfaceWidth()
   {
-    return surfaceWidth;
+    return m_surfaceWidth;
   }
 
   public int getSurfaceHeight()
   {
-    return surfaceHeight;
+    return m_surfaceHeight;
   }
 
   protected native boolean onCreateNative();
@@ -121,38 +98,38 @@ public abstract class NvEventQueueActivity extends Activity
       public void surfaceCreated(SurfaceHolder holder)
       {
         System.out.println("**** systemInit.surfaceCreated");
-        cachedSurfaceHolder = holder;
+        m_cachedSurfaceHolder = holder;
 
-        if (fixedWidth != 0 && fixedHeight != 0)
+        if (m_fixedWidth != 0 && m_fixedHeight != 0)
         {
           System.out.println("Setting fixed window size");
-          holder.setFixedSize(fixedWidth, fixedHeight);
+          holder.setFixedSize(m_fixedWidth, m_fixedHeight);
         }
 
-        onSurfaceCreatedNative(surfaceWidth, surfaceHeight);
+        onSurfaceCreatedNative(m_surfaceWidth, m_surfaceHeight);
       }
 
       // @Override
       public void surfaceChanged(SurfaceHolder holder, int format, int width,
           int height)
       {
-        cachedSurfaceHolder = holder;
+        m_cachedSurfaceHolder = holder;
         System.out.println("**** Surface changed: " + width + ", " + height);
-        surfaceWidth = width;
-        surfaceHeight = height;
-        onSurfaceChangedNative(surfaceWidth, surfaceHeight);
+        m_surfaceWidth = width;
+        m_surfaceHeight = height;
+        onSurfaceChangedNative(m_surfaceWidth, m_surfaceHeight);
       }
 
       // @Override
       public void surfaceDestroyed(SurfaceHolder holder)
       {
-        cachedSurfaceHolder = null;
+        m_cachedSurfaceHolder = null;
         System.out.println("**** systemInit.surfaceDestroyed");
         onSurfaceDestroyedNative();
       }
     });
 
-    nativeLaunched = true;
+    m_nativeLaunched = true;
     onCreateNative();
   }
 
@@ -162,7 +139,7 @@ public abstract class NvEventQueueActivity extends Activity
     System.out.println("**** onStart");
     super.onStart();
 
-    if (nativeLaunched)
+    if (m_nativeLaunched)
       onStartNative();
   }
 
@@ -172,7 +149,7 @@ public abstract class NvEventQueueActivity extends Activity
     System.out.println("**** onRestart");
     super.onRestart();
 
-    if (nativeLaunched)
+    if (m_nativeLaunched)
       onRestartNative();
   }
 
@@ -181,7 +158,7 @@ public abstract class NvEventQueueActivity extends Activity
   {
     System.out.println("**** onResume");
     super.onResume();
-    if (nativeLaunched)
+    if (m_nativeLaunched)
       onResumeNative();
   }
 
@@ -197,7 +174,7 @@ public abstract class NvEventQueueActivity extends Activity
   {
     System.out.println("**** onWindowFocusChanged ("
         + ((hasFocus == true) ? "TRUE" : "FALSE") + ")");
-    if (nativeLaunched)
+    if (m_nativeLaunched)
       onFocusChangedNative(hasFocus);
     super.onWindowFocusChanged(hasFocus);
   }
@@ -214,7 +191,7 @@ public abstract class NvEventQueueActivity extends Activity
   {
     System.out.println("**** onPause");
     super.onPause();
-    if (nativeLaunched)
+    if (m_nativeLaunched)
       onPauseNative();
   }
 
@@ -224,7 +201,7 @@ public abstract class NvEventQueueActivity extends Activity
     System.out.println("**** onStop");
     super.onStop();
 
-    if (nativeLaunched)
+    if (m_nativeLaunched)
       onStopNative();
   }
 
@@ -234,7 +211,7 @@ public abstract class NvEventQueueActivity extends Activity
     System.out.println("**** onDestroy");
     super.onDestroy();
 
-    if (nativeLaunched)
+    if (m_nativeLaunched)
     {
       onDestroyNative();
 
@@ -248,7 +225,7 @@ public abstract class NvEventQueueActivity extends Activity
   public boolean onTouchEvent(MotionEvent event)
   {
     final int count = event.getPointerCount();
-    if (!nativeLaunched || count == 0)
+    if (!m_nativeLaunched || count == 0)
       return super.onTouchEvent(event);
 
     switch (count)
@@ -282,14 +259,9 @@ public abstract class NvEventQueueActivity extends Activity
   /** The number of bits requested for the alpha component */
   protected int alphaSize = 0;
   /** The number of bits requested for the stencil component */
-  protected int stencilSize = 8;
+  protected int stencilSize = 0;
   /** The number of bits requested for the depth component */
   protected int depthSize = 16;
-
-  /** Attributes used when selecting the EGLConfig */
-  protected int[] configAttrs = null;
-  /** Attributes used when creating the context */
-  protected int[] contextAttrs = null;
 
   /**
    * Called to initialize EGL. This function should not be called by the
@@ -299,208 +271,146 @@ public abstract class NvEventQueueActivity extends Activity
    */
   protected boolean InitEGL()
   {
-    if (configAttrs == null)
-      configAttrs = new int[]
-      { EGL10.EGL_NONE };
-    int[] oldConf = configAttrs;
+    final int[] configAttrs = new int[] { EGL11.EGL_RED_SIZE, redSize,
+                                          EGL11.EGL_GREEN_SIZE, greenSize,
+                                          EGL11.EGL_BLUE_SIZE, blueSize,
+                                          EGL11.EGL_ALPHA_SIZE, alphaSize,
+                                          EGL11.EGL_STENCIL_SIZE, stencilSize,
+                                          EGL11.EGL_DEPTH_SIZE, depthSize,
+                                          EGL11.EGL_CONFIG_CAVEAT, EGL11.EGL_NONE,
+                                          EGL11.EGL_NONE };
 
-    configAttrs = new int[3 + oldConf.length - 1];
-    int i = 0;
-    for (i = 0; i < oldConf.length - 1; i++)
-      configAttrs[i] = oldConf[i];
-    configAttrs[i++] = EGL10.EGL_RENDERABLE_TYPE;
-    configAttrs[i++] = 1;
-    configAttrs[i++] = EGL10.EGL_NONE;
-
-    contextAttrs = new int[]
-    { EGL_CONTEXT_CLIENT_VERSION, 1, EGL10.EGL_NONE };
-
-    int[] oldConfES = configAttrs;
-
-    configAttrs = new int[13 + oldConfES.length - 1];
-
-    for (i = 0; i < oldConfES.length - 1; i++)
-      configAttrs[i] = oldConfES[i];
-    configAttrs[i++] = EGL10.EGL_RED_SIZE;
-    configAttrs[i++] = redSize;
-    configAttrs[i++] = EGL10.EGL_GREEN_SIZE;
-    configAttrs[i++] = greenSize;
-    configAttrs[i++] = EGL10.EGL_BLUE_SIZE;
-    configAttrs[i++] = blueSize;
-    configAttrs[i++] = EGL10.EGL_ALPHA_SIZE;
-    configAttrs[i++] = alphaSize;
-    configAttrs[i++] = EGL10.EGL_STENCIL_SIZE;
-    configAttrs[i++] = stencilSize;
-    configAttrs[i++] = EGL10.EGL_DEPTH_SIZE;
-    configAttrs[i++] = depthSize;
-    configAttrs[i++] = EGL10.EGL_NONE;
-
-    egl = (EGL10) EGLContext.getEGL();
-    System.out.println("getEGL:" + egl.eglGetError());
-
-    eglDisplay = egl.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
-    System.out.println("eglDisplay: " + eglDisplay + ", err: "
-        + egl.eglGetError());
-
-    int[] version = new int[2];
-    boolean ret = egl.eglInitialize(eglDisplay, version);
-
-    System.out.println("eglInitialize returned: " + ret);
-    if (!ret)
-      return false;
-
-    int eglErr = egl.eglGetError();
-    if (eglErr != EGL10.EGL_SUCCESS)
-      return false;
-
-    System.out.println("eglInitialize err: " + eglErr);
-
-    final EGLConfig[] config = new EGLConfig[20];
-    int num_configs[] = new int[1];
-    egl.eglChooseConfig(eglDisplay, configAttrs, config, config.length,
-        num_configs);
-    System.out.println("eglChooseConfig err: " + egl.eglGetError());
-
-    int score = 1 << 24; // to make sure even worst score is better than this,
-                         // like 8888 when request 565...
-    int val[] = new int[1];
-    for (i = 0; i < num_configs[0]; i++)
+    m_eglDisplay = m_egl.eglGetDisplay(EGL11.EGL_DEFAULT_DISPLAY);
+    if (m_eglDisplay == EGL11.EGL_NO_DISPLAY)
     {
-      boolean cont = true;
-      int currScore = 0;
-      int r, g, b, a, d, s;
-      for (int j = 0; j < (oldConf.length - 1) >> 1; j++)
-      {
-        egl.eglGetConfigAttrib(eglDisplay, config[i], configAttrs[j * 2], val);
-        if ((val[0] & configAttrs[j * 2 + 1]) != configAttrs[j * 2 + 1])
-        {
-          cont = false; // Doesn't match the "must have" configs
-          break;
-        }
-      }
-      if (!cont)
-        continue;
-      egl.eglGetConfigAttrib(eglDisplay, config[i], EGL10.EGL_RED_SIZE, val);
-      r = val[0];
-      egl.eglGetConfigAttrib(eglDisplay, config[i], EGL10.EGL_GREEN_SIZE, val);
-      g = val[0];
-      egl.eglGetConfigAttrib(eglDisplay, config[i], EGL10.EGL_BLUE_SIZE, val);
-      b = val[0];
-      egl.eglGetConfigAttrib(eglDisplay, config[i], EGL10.EGL_ALPHA_SIZE, val);
-      a = val[0];
-      egl.eglGetConfigAttrib(eglDisplay, config[i], EGL10.EGL_DEPTH_SIZE, val);
-      d = val[0];
-      egl.eglGetConfigAttrib(eglDisplay, config[i], EGL10.EGL_STENCIL_SIZE, val);
-      s = val[0];
-
-      System.out.println(">>> EGL Config [" + i + "] R" + r + "G" + g + "B" + b
-          + "A" + a + " D" + d + "S" + s);
-
-      currScore = (Math.abs(r - redSize) + Math.abs(g - greenSize)
-          + Math.abs(b - blueSize) + Math.abs(a - alphaSize)) << 16;
-      currScore += Math.abs(d - depthSize) << 8;
-      currScore += Math.abs(s - stencilSize);
-
-      if (currScore < score)
-      {
-        System.out.println("--------------------------");
-        System.out.println("New config chosen: " + i);
-        for (int j = 0; j < (configAttrs.length - 1) >> 1; j++)
-        {
-          egl.eglGetConfigAttrib(eglDisplay, config[i], configAttrs[j * 2], val);
-          if (val[0] >= configAttrs[j * 2 + 1])
-            System.out.println("setting " + j + ", matches: " + val[0]);
-        }
-
-        score = currScore;
-        eglConfig = config[i];
-      }
+      Log.d(TAG, "eglGetDisplay failed");
+      return false;
+    }
+    
+    int[] version = new int[2];
+    if (!m_egl.eglInitialize(m_eglDisplay, version))
+    {
+      Log.d(TAG, "eglInitialize failed with error " + m_egl.eglGetError());
+      return false;
     }
 
-    eglContext = egl.eglCreateContext(eglDisplay, eglConfig,
-        EGL10.EGL_NO_CONTEXT, contextAttrs);
-    System.out.println("eglCreateContext: " + egl.eglGetError());
+    final EGLConfig[] configs = new EGLConfig[40];
+    final int actualConfigsNumber[] = new int[] {0};
+    if (!m_egl.eglChooseConfig(m_eglDisplay, configAttrs, configs, configs.length, actualConfigsNumber))
+    {
+      Log.d(TAG, "eglChooseConfig failed with error " + m_egl.eglGetError());
+      return false;
+    }
 
-    gl = (GL11) eglContext.getGL();
+    if (actualConfigsNumber[0] == 0)
+    {
+      Log.d(TAG, "eglChooseConfig returned zero configs");
+      return false;
+    }
 
-    eglInitialized = true;
+    
+    m_eglConfig = configs[0];
+    // Simple check - choose first config with matched depth buffer
+    int[] value = new int[1];
+    for (int i = 0; i < actualConfigsNumber[0]; ++i)
+    {
+      m_egl.eglGetConfigAttrib(m_eglDisplay, configs[i], EGL11.EGL_DEPTH_SIZE, value);
+      if (value[0] == depthSize)
+      {
+        m_eglConfig = configs[i];
+        break;
+      }
+    }
+    
+    final int[] contextAttrs = new int[] { EGL_CONTEXT_CLIENT_VERSION, 1, EGL11.EGL_NONE };
+    m_eglContext = m_egl.eglCreateContext(m_eglDisplay, m_eglConfig, EGL11.EGL_NO_CONTEXT, contextAttrs);
+    if (m_eglContext == EGL11.EGL_NO_CONTEXT)
+    {
+      Log.d(TAG, "eglCreateContext failed with error " + m_egl.eglGetError());
+      return false;
+    }
+
+    m_eglInitialized = true;
 
     return true;
   }
 
   /**
-   * Called to clean up egl. This function should not be called by the
+   * Called to clean up m_egl. This function should not be called by the
    * inheriting activity, but can be overridden if needed.
    */
   protected boolean CleanupEGL()
   {
-    System.out.println("cleanupEGL");
+    Log.d(TAG, "CleanupEGL");
 
-    if (!eglInitialized)
+    if (!m_eglInitialized)
       return false;
 
     if (!DestroySurfaceEGL())
       return false;
 
-    if (eglDisplay != null)
-      egl.eglMakeCurrent(eglDisplay, EGL10.EGL_NO_SURFACE,
-          EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_CONTEXT);
-    if (eglContext != null)
+    if (m_eglDisplay != null)
+      m_egl.eglMakeCurrent(m_eglDisplay, EGL11.EGL_NO_SURFACE,
+          EGL11.EGL_NO_SURFACE, EGL11.EGL_NO_CONTEXT);
+    if (m_eglContext != null)
     {
-      System.out.println("Destroy Context");
-      egl.eglDestroyContext(eglDisplay, eglContext);
+      Log.d(TAG, "eglDestroyContext");
+      m_egl.eglDestroyContext(m_eglDisplay, m_eglContext);
     }
-    if (eglDisplay != null)
-      egl.eglTerminate(eglDisplay);
+    if (m_eglDisplay != null)
+      m_egl.eglTerminate(m_eglDisplay);
 
-    eglDisplay = null;
-    eglContext = null;
-    eglSurface = null;
+    m_eglDisplay = null;
+    m_eglContext = null;
+    m_eglSurface = null;
 
-    eglConfig = null;
+    m_eglConfig = null;
 
-    surfaceWidth = 0;
-    surfaceHeight = 0;
+    m_surfaceWidth = 0;
+    m_surfaceHeight = 0;
 
-    eglInitialized = false;
+    m_eglInitialized = false;
 
     return true;
   }
 
   protected boolean CreateSurfaceEGL()
   {
-    if (cachedSurfaceHolder == null)
+    if (m_cachedSurfaceHolder == null)
     {
-      System.out
-          .println("createEGLSurface failed, cachedSurfaceHolder is null");
+      Log.d(TAG, "createEGLSurface failed, m_cachedSurfaceHolder is null");
       return false;
     }
 
-    if (!eglInitialized && (eglInitialized = InitEGL()))
+    if (!m_eglInitialized && (m_eglInitialized = InitEGL()))
     {
-      System.out.println("createEGLSurface failed, cannot initialize EGL");
+      Log.d(TAG, "createEGLSurface failed, cannot initialize EGL");
       return false;
     }
 
-    if (eglDisplay == null)
+    if (m_eglDisplay == null)
     {
-      System.out.println("createEGLSurface: display is null");
-      return false;
-    } else if (eglConfig == null)
-    {
-      System.out.println("createEGLSurface: config is null");
+      Log.d(TAG, "createEGLSurface: display is null");
       return false;
     }
-    eglSurface = egl.eglCreateWindowSurface(eglDisplay, eglConfig,
-        cachedSurfaceHolder, null);
-    System.out.println("eglSurface: " + eglSurface + ", err: "
-        + egl.eglGetError());
+    else if (m_eglConfig == null)
+    {
+      Log.d(TAG, "createEGLSurface: config is null");
+      return false;
+    }
+    
+    m_eglSurface = m_egl.eglCreateWindowSurface(m_eglDisplay, m_eglConfig, m_cachedSurfaceHolder, null);
+    if (m_eglSurface == EGL11.EGL_NO_SURFACE)
+    {
+      Log.d(TAG, "eglCreateWindowSurface failed with error " + m_egl.eglGetError());
+      return false;
+    }
+    
     int sizes[] = new int[1];
-
-    egl.eglQuerySurface(eglDisplay, eglSurface, EGL10.EGL_WIDTH, sizes);
-    surfaceWidth = sizes[0];
-    egl.eglQuerySurface(eglDisplay, eglSurface, EGL10.EGL_HEIGHT, sizes);
-    surfaceHeight = sizes[0];
+    m_egl.eglQuerySurface(m_eglDisplay, m_eglSurface, EGL10.EGL_WIDTH, sizes);
+    m_surfaceWidth = sizes[0];
+    m_egl.eglQuerySurface(m_eglDisplay, m_eglSurface, EGL10.EGL_HEIGHT, sizes);
+    m_surfaceHeight = sizes[0];
 
     return true;
   }
@@ -511,30 +421,30 @@ public abstract class NvEventQueueActivity extends Activity
    */
   protected boolean DestroySurfaceEGL()
   {
-    if (eglDisplay != null && eglSurface != null)
-      egl.eglMakeCurrent(eglDisplay, EGL10.EGL_NO_SURFACE,
-          EGL10.EGL_NO_SURFACE, eglContext);
-    if (eglSurface != null)
-      egl.eglDestroySurface(eglDisplay, eglSurface);
-    eglSurface = null;
+    if (m_eglDisplay != null && m_eglSurface != null)
+      m_egl.eglMakeCurrent(m_eglDisplay, EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_SURFACE, m_eglContext);
+    if (m_eglSurface != null)
+      m_egl.eglDestroySurface(m_eglDisplay, m_eglSurface);
+    m_eglSurface = null;
 
     return true;
   }
 
   public boolean BindSurfaceAndContextEGL()
   {
-    if (eglContext == null)
+    if (m_eglContext == null)
     {
-      System.out.println("eglContext is NULL");
+      Log.d(TAG, "m_eglContext is NULL");
       return false;
-    } else if (eglSurface == null)
+    }
+    else if (m_eglSurface == null)
     {
-      System.out.println("eglSurface is NULL");
+      Log.d(TAG, "m_eglSurface is NULL");
       return false;
-    } else if (!egl.eglMakeCurrent(eglDisplay, eglSurface, eglSurface,
-        eglContext))
+    }
+    else if (!m_egl.eglMakeCurrent(m_eglDisplay, m_eglSurface, m_eglSurface, m_eglContext))
     {
-      System.out.println("eglMakeCurrent err: " + egl.eglGetError());
+      Log.d(TAG, "eglMakeCurrent err: " + m_egl.eglGetError());
       return false;
     }
 
@@ -543,17 +453,17 @@ public abstract class NvEventQueueActivity extends Activity
 
   public boolean UnbindSurfaceAndContextEGL()
   {
-    System.out.println("UnbindSurfaceAndContextEGL");
-    if (eglDisplay == null)
+    Log.d(TAG, "UnbindSurfaceAndContextEGL");
+    if (m_eglDisplay == null)
     {
       System.out.println("UnbindSurfaceAndContextEGL: display is null");
       return false;
     }
 
-    if (!egl.eglMakeCurrent(eglDisplay, EGL10.EGL_NO_SURFACE,
+    if (!m_egl.eglMakeCurrent(m_eglDisplay, EGL10.EGL_NO_SURFACE,
         EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_CONTEXT))
     {
-      System.out.println("egl(Un)MakeCurrent err: " + egl.eglGetError());
+      System.out.println("m_egl(Un)MakeCurrent err: " + m_egl.eglGetError());
       return false;
     }
 
@@ -564,13 +474,14 @@ public abstract class NvEventQueueActivity extends Activity
   {
     // long stopTime;
     // long startTime = nvGetSystemTime();
-    if (eglSurface == null)
+    if (m_eglSurface == null)
     {
-      System.out.println("eglSurface is NULL");
+      Log.d(TAG, "m_eglSurface is NULL");
       return false;
-    } else if (!egl.eglSwapBuffers(eglDisplay, eglSurface))
+    }
+    else if (!m_egl.eglSwapBuffers(m_eglDisplay, m_eglSurface))
     {
-      System.out.println("eglSwapBufferrr: " + egl.eglGetError());
+      Log.d(TAG, "eglSwapBufferrr: " + m_egl.eglGetError());
       return false;
     }
     // stopTime = nvGetSystemTime();
@@ -583,6 +494,6 @@ public abstract class NvEventQueueActivity extends Activity
 
   public int GetErrorEGL()
   {
-    return egl.eglGetError();
+    return m_egl.eglGetError();
   }
 }
