@@ -21,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 public class MWMActivity extends NvEventQueueActivity implements
@@ -163,11 +164,15 @@ public class MWMActivity extends NvEventQueueActivity implements
 
     final String extStoragePath = getDataStoragePath("files");
     final String extTmpPath = getDataStoragePath("caches");
-    // create folders if they don't exist
+    // Create folders if they don't exist
     new File(extStoragePath).mkdirs();
     new File(extTmpPath).mkdirs();
 
-    nativeInit(getAppBundlePath(), extStoragePath, getTmpPath(), extTmpPath, getSettingsPath());
+    // Get screen density
+    DisplayMetrics metrics = new DisplayMetrics();
+    getWindowManager().getDefaultDisplay().getMetrics(metrics);
+    
+    nativeInit(metrics.densityDpi, getAppBundlePath(), extStoragePath, getTmpPath(), extTmpPath, getSettingsPath());
 
     setupLanguages();
 
@@ -362,7 +367,7 @@ public class MWMActivity extends NvEventQueueActivity implements
   private native void nativeStorageConnected();
   private native void nativeStorageDisconnected();
 
-  private native void nativeInit(String apkPath, String storagePath,
+  private native void nativeInit(int densityDpi, String apkPath, String storagePath,
       String tmpPath, String extTmpPath, String settingsPath);
   private native void nativeLocationStatusChanged(int newStatus);
   private native void nativeLocationUpdated(long time, double lat, double lon, float accuracy);

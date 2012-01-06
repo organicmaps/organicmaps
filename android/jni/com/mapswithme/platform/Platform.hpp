@@ -14,7 +14,8 @@ namespace android
     string m_localTmpPath;
 
   public:
-    void Initialize(JNIEnv * env, jstring apkPath, jstring storagePath,
+    ~Platform();
+    void Initialize(JNIEnv * env, jint densityDpi, jstring apkPath, jstring storagePath,
         jstring tmpPath, jstring extTmpPath, jstring settingsPath);
 
     void OnExternalStorageStatusChanged(bool isAvailable);

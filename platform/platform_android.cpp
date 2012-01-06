@@ -96,16 +96,6 @@ string Platform::DeviceName() const
   return "Android";
 }
 
-double Platform::VisualScale() const
-{
-  return 1.5;
-}
-
-string Platform::SkinName() const
-{
-  return "basic_mdpi.skn";
-}
-
 void Platform::GetFontNames(FilesList & res) const
 {
   GetFilesInDir(ResourcesDir(), "*.ttf", res);
