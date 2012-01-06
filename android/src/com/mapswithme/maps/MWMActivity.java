@@ -51,12 +51,12 @@ public class MWMActivity extends NvEventQueueActivity implements
     return "";
   }
 
-  private String getDataStoragePath()
+  private String getDataStoragePath(String folder)
   {
     final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-    return storagePath.concat(String.format("/Android/data/%s/files/", PACKAGE_NAME));
+    return storagePath.concat(String.format("/Android/data/%s/%s/", PACKAGE_NAME, folder));
   }
-
+  // Note: local storage memory is limited on some devices!
   private String getTmpPath()
   {
     return getCacheDir().getAbsolutePath() + "/";
@@ -161,12 +161,13 @@ public class MWMActivity extends NvEventQueueActivity implements
 
     m_context = this;
 
-    final String storagePath = getDataStoragePath();
-    // create folder if it doesn't exist
-    final File f = new File(storagePath);
-    f.mkdirs();
+    final String extStoragePath = getDataStoragePath("files");
+    final String extTmpPath = getDataStoragePath("caches");
+    // create folders if they don't exist
+    new File(extStoragePath).mkdirs();
+    new File(extTmpPath).mkdirs();
 
-    nativeInit(getAppBundlePath(), storagePath, getTmpPath(), getSettingsPath());
+    nativeInit(getAppBundlePath(), extStoragePath, getTmpPath(), extTmpPath, getSettingsPath());
 
     setupLanguages();
 
@@ -287,8 +288,6 @@ public class MWMActivity extends NvEventQueueActivity implements
 
   private void handleExternalStorageState(boolean available, boolean writeable)
   {
-    Log.d("COUNTRY", "USB State changed:" + available + " " + writeable);
-
     if (available && writeable)
     { // Add local maps to the model
       nativeStorageConnected();
@@ -296,14 +295,16 @@ public class MWMActivity extends NvEventQueueActivity implements
       findViewById(R.id.map_button_download).setVisibility(View.VISIBLE);
       if (m_storageDisconnectedDialog != null)
         m_storageDisconnectedDialog.dismiss();
-    } else if (available)
+    }
+    else if (available)
     { // Add local maps to the model
       nativeStorageConnected();
       // disable downloader button and dismiss blocking popup
       findViewById(R.id.map_button_download).setVisibility(View.INVISIBLE);
       if (m_storageDisconnectedDialog != null)
         m_storageDisconnectedDialog.dismiss();
-    } else
+    }
+    else
     { // Remove local maps from the model
       nativeStorageDisconnected();
       // enable downloader button and show blocking popup
@@ -361,7 +362,8 @@ public class MWMActivity extends NvEventQueueActivity implements
   private native void nativeStorageConnected();
   private native void nativeStorageDisconnected();
 
-  private native void nativeInit(String apkPath, String storagePath, String tmpPath, String settingsPath);
+  private native void nativeInit(String apkPath, String storagePath,
+      String tmpPath, String extTmpPath, String settingsPath);
   private native void nativeLocationStatusChanged(int newStatus);
   private native void nativeLocationUpdated(long time, double lat, double lon, float accuracy);
   private native void nativeCompassUpdated(long time, double magneticNorth, double trueNorth, float accuracy);

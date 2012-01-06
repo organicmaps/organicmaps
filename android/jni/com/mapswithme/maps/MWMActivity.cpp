@@ -37,12 +37,12 @@ extern "C"
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MWMActivity_nativeInit(JNIEnv * env, jobject thiz,
-      jstring apkPath, jstring storagePath, jstring tmpPath, jstring settingsPath)
+      jstring apkPath, jstring storagePath, jstring tmpPath, jstring extTmpPath, jstring settingsPath)
   {
     if (!g_framework)
     {
       android::Platform::Instance().Initialize(env, apkPath, storagePath,
-          tmpPath, settingsPath);
+          tmpPath, extTmpPath, settingsPath);
       g_framework = new android::Framework(g_jvm);
     }
   }
@@ -103,12 +103,14 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MWMActivity_nativeStorageConnected(JNIEnv * env, jobject thiz)
   {
+    android::Platform::Instance().OnExternalStorageStatusChanged(true);
     g_framework->AddLocalMaps();
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MWMActivity_nativeStorageDisconnected(JNIEnv * env, jobject thiz)
   {
+    android::Platform::Instance().OnExternalStorageStatusChanged(false);
     g_framework->RemoveLocalMaps();
   }
 
