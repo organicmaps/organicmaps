@@ -36,11 +36,13 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeInit(JNIEnv * env, jobject thiz, jstring apkPath, jstring storagePath)
+  Java_com_mapswithme_maps_MWMActivity_nativeInit(JNIEnv * env, jobject thiz,
+      jstring apkPath, jstring storagePath, jstring tmpPath, jstring settingsPath)
   {
     if (!g_framework)
     {
-      android::Platform::Instance().Initialize(env, apkPath, storagePath);
+      android::Platform::Instance().Initialize(env, apkPath, storagePath,
+          tmpPath, settingsPath);
       g_framework = new android::Framework(g_jvm);
     }
   }

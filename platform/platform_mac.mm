@@ -54,8 +54,18 @@ Platform::Platform()
   }
   [pool release];
 
+  m_settingsDir = m_writableDir;
+
+  NSString * tempDir = NSTemporaryDirectory();
+  if (tempDir == nil)
+      tempDir = @"/tmp";
+  m_tmpDir = [tempDir UTF8String];
+  m_tmpDir += '/';
+
   LOG(LDEBUG, ("Resources Directory:", m_resourcesDir));
   LOG(LDEBUG, ("Writable Directory:", m_writableDir));
+  LOG(LDEBUG, ("Tmp Directory:", m_tmpDir));
+  LOG(LDEBUG, ("Settings Directory:", m_settingsDir));
 }
 
 Platform::~Platform()

@@ -23,7 +23,9 @@ namespace Settings
     try
     {
       string str;
-      ReaderPtr<Reader>(GetPlatform().GetReader(SETTINGS_FILE_NAME)).ReadAsString(str);
+      {
+        FileReader(GetPlatform().SettingsPathForFile(SETTINGS_FILE_NAME)).ReadAsString(str);
+      }
       istringstream stream(str);
       string line;
       while (stream.good())
@@ -53,7 +55,7 @@ namespace Settings
     // @TODO add mutex
     try
     {
-      FileWriter file(GetPlatform().WritablePathForFile(SETTINGS_FILE_NAME));
+      FileWriter file(GetPlatform().SettingsPathForFile(SETTINGS_FILE_NAME));
       for (ContainerT::const_iterator it = m_values.begin(); it != m_values.end(); ++it)
       {
         string line(it->first);

@@ -73,8 +73,15 @@ Platform::Platform()
   }
   FileWriter::DeleteFileX(m_resourcesDir + "mapswithmetmptestfile");
 
+  m_settingsDir = m_writableDir;
+  char pathBuf[MAX_PATH] = {0};
+  GetTempPathA(MAX_PATH, pathBuf);
+  m_tmpDir = pathBuf;
+
   LOG(LDEBUG, ("Resources Directory:", m_resourcesDir));
   LOG(LDEBUG, ("Writable Directory:", m_writableDir));
+  LOG(LDEBUG, ("Tmp Directory:", m_tmpDir));
+  LOG(LDEBUG, ("Settings Directory:", m_settingsDir));
 }
 
 Platform::~Platform()

@@ -16,14 +16,24 @@ DECLARE_EXCEPTION(NotImplementedException, RootException);
 class Platform
 {
 protected:
-  string m_writableDir, m_resourcesDir;
+  /// Usually read-only directory for application resources
+  string m_resourcesDir;
+  /// Writable directory to store downloaded map data
+  /// @note on some systems it can point to external ejectable storage
+  string m_writableDir;
+  /// Temporary directory, can be cleaned up by the system
+  string m_tmpDir;
+  /// Writable directory to store persistent application data
+  string m_settingsDir;
+
   class PlatformImpl;
   /// Used only on those platforms where needed
   PlatformImpl * m_impl;
 
   static bool IsFileExistsByFullPath(string const & filePath);
 
-  /// Internal function to use files from writable dir if they override the same in the resources
+  /// Internal function to use files from writable dir
+  /// if they override the same file in the resources dir
   string ReadPathForFile(string const & file) const
   {
     string fullPath = m_writableDir + file;
@@ -47,6 +57,17 @@ public:
 
   /// @return resource dir (on some platforms it's differ from Writable dir)
   string ResourcesDir() const { return m_resourcesDir; }
+
+  /// @return path for directory with temporary files with slash at the end
+  string TmpDir() const { return m_tmpDir; }
+  /// @return full path to file in the temporary directory
+  string TmpPathForFile(string const & file) const { return TmpDir() + file; }
+
+  /// @return path for directory in the persistent memory, can be the same
+  /// as WritableDir, but on some platforms it's different
+  string SettingsDir() const { return m_settingsDir; }
+  /// @return full path to file in the settings directory
+  string SettingsPathForFile(string const & file) const { return SettingsDir() + file; }
 
   /// @return reader for file decriptor.
   /// @throws FileAbsentException

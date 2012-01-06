@@ -50,6 +50,9 @@ Platform::Platform()
   NSString * docsDir = [dirPaths objectAtIndex:0];
   m_writableDir = [docsDir UTF8String];
   m_writableDir += '/';
+  m_settingsDir = m_writableDir;
+  m_tmpDir = [NSHomeDirectory() UTF8String];
+  m_tmpDir += '/tmp/';
 
   // Hardcoding screen resolution depending on the device we are running.
   m_impl->m_visualScale = 1.0;

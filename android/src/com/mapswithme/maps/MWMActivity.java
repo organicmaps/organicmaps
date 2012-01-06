@@ -53,9 +53,18 @@ public class MWMActivity extends NvEventQueueActivity implements
 
   private String getDataStoragePath()
   {
-    String storagePath = Environment.getExternalStorageDirectory()
-        .getAbsolutePath();
+    final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
     return storagePath.concat(String.format("/Android/data/%s/files/", PACKAGE_NAME));
+  }
+
+  private String getTmpPath()
+  {
+    return getCacheDir().getAbsolutePath() + "/";
+  }
+
+  private String getSettingsPath()
+  {
+    return getFilesDir().getAbsolutePath() + "/";
   }
 
   private void checkMeasurementSystem()
@@ -157,7 +166,7 @@ public class MWMActivity extends NvEventQueueActivity implements
     final File f = new File(storagePath);
     f.mkdirs();
 
-    nativeInit(getAppBundlePath(), storagePath);
+    nativeInit(getAppBundlePath(), storagePath, getTmpPath(), getSettingsPath());
 
     setupLanguages();
 
@@ -352,7 +361,7 @@ public class MWMActivity extends NvEventQueueActivity implements
   private native void nativeStorageConnected();
   private native void nativeStorageDisconnected();
 
-  private native void nativeInit(String apkPath, String storagePath);
+  private native void nativeInit(String apkPath, String storagePath, String tmpPath, String settingsPath);
   private native void nativeLocationStatusChanged(int newStatus);
   private native void nativeLocationUpdated(long time, double lat, double lon, float accuracy);
   private native void nativeCompassUpdated(long time, double magneticNorth, double trueNorth, float accuracy);

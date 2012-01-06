@@ -41,9 +41,17 @@ Platform::Platform()
   // @TODO implement correct resources and writable directories for public releases
   m_resourcesDir = path + "../../data/";
   m_writableDir = m_resourcesDir;
+  m_settingsDir = m_writableDir;
+  char * tmpDir = ::getenv("TMPDIR");
+  if (tmpDir)
+    m_tmpDir = tmpDir;
+  else
+    m_tmpDir = P_tmpdir;
 
   LOG(LDEBUG, ("Resources directory:", m_resourcesDir));
   LOG(LDEBUG, ("Writable directory:", m_writableDir));
+  LOG(LDEBUG, ("Tmp directory:", m_tmpDir));
+  LOG(LDEBUG, ("Settings directory:", m_settingsDir));
 }
 
 Platform::~Platform()
@@ -58,7 +66,7 @@ bool Platform::IsFileExistsByFullPath(string const & filePath)
 
 int Platform::CpuCores() const
 {
-  long numCPU = sysconf(_SC_NPROCESSORS_ONLN);
+  const long numCPU = sysconf(_SC_NPROCESSORS_ONLN);
   if (numCPU >= 1)
     return static_cast<int>(numCPU);
   return 1;
