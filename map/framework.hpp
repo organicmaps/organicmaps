@@ -161,7 +161,8 @@ public:
 
   bool SetUpdatesEnabled(bool doEnable);
 
-  double GetCurrentScale() const;
+//  double GetCurrentScale() const;
+  int GetDrawScale() const;
 
   m2::PointD GetViewportCenter() const;
   void SetViewportCenter(m2::PointD const & pt);

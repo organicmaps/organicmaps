@@ -37,6 +37,8 @@ private:
   bool m_isScaling;
   int m_maxTilesCount;
 
+  int m_drawScale;
+
 protected:
 
   TileRenderer & GetTileRenderer();
@@ -57,6 +59,7 @@ public:
   virtual void StopScale();
 
   bool IsTiling() const;
+  int GetDrawScale(ScreenBase const & s) const;
 
   void SetRenderFn(TRenderFn renderFn);
 };

@@ -428,7 +428,7 @@ namespace qt
     if (m_pScale)
     {
       // don't send ScaleChanged
-      m_pScale->SetPosWithBlockedSignals(m_framework->GetCurrentScale());
+      m_pScale->SetPosWithBlockedSignals(m_framework->GetDrawScale());
     }
   }
 

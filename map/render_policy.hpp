@@ -86,6 +86,7 @@ public:
 
   virtual bool NeedRedraw() const;
   virtual bool IsEmptyModel() const;
+  virtual int  GetDrawScale(ScreenBase const & s) const;
 
   bool DoForceUpdate() const;
   void SetForceUpdate(bool flag);

@@ -45,6 +45,9 @@ private:
   TileSet m_tiles; //< set of tiles, that are visible for the m_screen
   yg::InfoLayer m_infoLayer; //< composite infoLayers for visible tiles
 
+  //< scales, which are used in the tiles, drawn in the current screen.
+  int m_drawScale;
+
   CoverageGenerator * m_coverageGenerator;
   yg::StylesCache * m_stylesCache;
 
@@ -71,5 +74,8 @@ public:
   void SetScreen(ScreenBase const & screen);
   /// draw screen coverage
   void Draw(yg::gl::Screen * s, ScreenBase const & currentScreen);
+  /// perform end frame
   void EndFrame(yg::gl::Screen * s);
+  /// get draw scale for the tiles in the current coverage
+  int GetDrawScale() const;
 };

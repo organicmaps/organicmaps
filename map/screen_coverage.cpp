@@ -37,6 +37,7 @@ ScreenCoverage * ScreenCoverage::Clone()
   res->m_screen = m_screen;
   res->m_coverageGenerator = m_coverageGenerator;
   res->m_tileRects = m_tileRects;
+  res->m_drawScale = m_drawScale;
 
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
 
@@ -142,6 +143,8 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
       drawScale = allRects[i].m_drawScale;
     else
       CHECK(drawScale == allRects[i].m_drawScale, (drawScale, allRects[i].m_drawScale));
+
+  m_drawScale = drawScale;
 
   for (unsigned i = 0; i < allRects.size(); ++i)
   {
@@ -260,4 +263,9 @@ void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)
 void ScreenCoverage::EndFrame(yg::gl::Screen *s)
 {
   s->clearAdditionalSkinPage();
+}
+
+int ScreenCoverage::GetDrawScale() const
+{
+  return m_drawScale;
 }

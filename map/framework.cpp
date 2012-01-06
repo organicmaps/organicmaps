@@ -275,7 +275,15 @@ bool Framework::SetUpdatesEnabled(bool doEnable)
   return m_renderPolicy->GetWindowHandle()->setUpdatesEnabled(doEnable);
 }
 
-double Framework::GetCurrentScale() const
+int Framework::GetDrawScale() const
+{
+  if (m_renderPolicy)
+    return m_renderPolicy->GetDrawScale(m_navigator.Screen());
+  else
+    return 0;
+}
+
+/*double Framework::GetCurrentScale() const
 {
   m2::PointD textureCenter(m_navigator.Screen().PixelRect().Center());
   m2::RectD glbRect;
@@ -285,7 +293,7 @@ double Framework::GetCurrentScale() const
                                       textureCenter + m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2)),
                             glbRect);
   return scales::GetScaleLevelD(glbRect);
-}
+}*/
 
 RenderPolicy::TRenderFn Framework::DrawModelFn()
 {
@@ -348,21 +356,24 @@ void Framework::DoPaint(shared_ptr<PaintEvent> const & e)
 {
   DrawerYG * pDrawer = e->drawer();
 
+  e->drawer()->screen()->beginFrame();
+
+  m_renderPolicy->DrawFrame(e, m_navigator.Screen());
+
+  /// m_informationDisplay is set and drawn after the m_renderPolicy
+
+  m2::PointD const center = m_navigator.Screen().GlobalRect().GlobalCenter();
+
   m_informationDisplay.setScreen(m_navigator.Screen());
 
   m_informationDisplay.enableEmptyModelMessage(m_renderPolicy->IsEmptyModel());
 
-  m_informationDisplay.setDebugInfo(0/*m_renderQueue.renderState().m_duration*/, my::rounds(GetCurrentScale()));
-
-  m_informationDisplay.enableRuler(true/*!IsEmptyModel()*/);
-
-  m2::PointD const center = m_navigator.Screen().GlobalRect().GlobalCenter();
+  m_informationDisplay.setDebugInfo(0/*m_renderQueue.renderState().m_duration*/,
+                                    GetDrawScale());
 
   m_informationDisplay.setCenter(m2::PointD(MercatorBounds::XToLon(center.x), MercatorBounds::YToLat(center.y)));
 
-  e->drawer()->screen()->beginFrame();
-
-  m_renderPolicy->DrawFrame(e, m_navigator.Screen());
+  m_informationDisplay.enableRuler(true/*!IsEmptyModel()*/);
 
   m_informationDisplay.doDraw(pDrawer);
 
@@ -836,7 +847,7 @@ void Framework::GetFeatureTypes(m2::PointD pt, vector<string> & types) const
   m2::RectD glbR;
   m_navigator.Screen().PtoG(pixR, glbR);
 
-  int const scale = my::rounds(GetCurrentScale());
+  int const scale = GetDrawScale();
   DoGetFeatureTypes getTypes(m_navigator.Screen().PtoG(pt),
                              max(glbR.SizeX() / 2.0, glbR.SizeY() / 2.0),
                              scale);

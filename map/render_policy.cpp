@@ -15,8 +15,11 @@
 
 #include "../yg/internal/opengl.hpp"
 
+#include "../indexer/scales.hpp"
+
 #include "../platform/video_timer.hpp"
 #include "../platform/settings.hpp"
+#include "../platform/platform.hpp"
 
 RenderPolicy::~RenderPolicy()
 {
@@ -134,6 +137,18 @@ void RenderPolicy::SetForceUpdate(bool flag)
 bool RenderPolicy::IsEmptyModel() const
 {
   return false;
+}
+
+int RenderPolicy::GetDrawScale(ScreenBase const & s) const
+{
+  m2::PointD textureCenter(s.PixelRect().Center());
+  m2::RectD glbRect;
+
+  unsigned scaleEtalonSize = GetPlatform().ScaleEtalonSize();
+  s.PtoG(m2::RectD(textureCenter - m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2),
+                   textureCenter + m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2)),
+                   glbRect);
+  return scales::GetScaleLevel(glbRect);
 }
 
 RenderPolicy * CreateRenderPolicy(VideoTimer * videoTimer,
