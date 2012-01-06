@@ -71,7 +71,7 @@ void QueuedRenderPolicy::RenderQueuedCommands(int pipelineNum)
 
   unsigned cmdProcessed = 0;
 
-  m_Pipelines[pipelineNum].m_Queue.ProcessList(bind(&QueuedRenderPolicy::PacketsPipeline::FillFrameBucket, &m_Pipelines[pipelineNum], _1));
+  m_Pipelines[pipelineNum].m_Queue.ProcessList(bind(&QueuedRenderPolicy::PacketsPipeline::FillFrameBucket, &m_Pipelines[pipelineNum], _1, 1));
 
   cmdProcessed = m_Pipelines[pipelineNum].m_FrameBucket.size();
 
@@ -118,7 +118,7 @@ void QueuedRenderPolicy::RenderQueuedCommands(int pipelineNum)
   m_state->apply(curState.get());
 }
 
-void QueuedRenderPolicy::PacketsPipeline::FillFrameBucket(list<yg::gl::Packet> & renderQueue)
+void QueuedRenderPolicy::PacketsPipeline::FillFrameBucket(list<yg::gl::Packet> & renderQueue, int maxFrames)
 {
   m_FrameBucket.clear();
 
@@ -127,13 +127,34 @@ void QueuedRenderPolicy::PacketsPipeline::FillFrameBucket(list<yg::gl::Packet> &
   list<yg::gl::Packet>::iterator first = renderQueue.begin();
   list<yg::gl::Packet>::iterator last = renderQueue.begin();
 
-  int packetsLeft = 100000;
+  /// checking whether there are a CancelPoint packet in the queue.
+  /// In this case - fill m_FrameBucket till this packet
 
-  while ((packetsLeft != 0) && (last != renderQueue.end()))
+  for (list<yg::gl::Packet>::iterator it = renderQueue.begin();
+       it != renderQueue.end();
+       ++it)
   {
     yg::gl::Packet p = *last;
-    if ((p.m_type == yg::gl::Packet::ECheckPoint)
-     || (p.m_type == yg::gl::Packet::ECancelPoint))
+    if (p.m_type == yg::gl::Packet::ECancelPoint)
+    {
+      copy(first, ++it, back_inserter(m_FrameBucket));
+      renderQueue.erase(first, it);
+      m_Type = p.m_type;
+      return;
+    }
+  }
+
+  /// we know, that there are no CancelPoint packets in the queue.
+  /// so fill up the m_FrameBucket up to maxFrames frames.
+
+  int packetsLeft = 100000;
+  int framesLeft = maxFrames;
+
+  while ((framesLeft != 0) && (packetsLeft != 0) && (last != renderQueue.end()))
+  {
+    yg::gl::Packet p = *last;
+
+    if (p.m_type == yg::gl::Packet::ECheckPoint)
     {
       /// found frame boundary, copying
       copy(first, ++last, back_inserter(m_FrameBucket));
@@ -141,9 +162,8 @@ void QueuedRenderPolicy::PacketsPipeline::FillFrameBucket(list<yg::gl::Packet> &
       renderQueue.erase(first, last);
       first = renderQueue.begin();
       last = renderQueue.begin();
+      --framesLeft;
       m_Type = p.m_type;
-      if (m_Type == yg::gl::Packet::ECancelPoint)
-        break;
     }
     else
       ++last;

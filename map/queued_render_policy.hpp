@@ -17,7 +17,11 @@ private:
     list<yg::gl::Packet> m_FrameBucket; //< list of commands to execute on current frame
     yg::gl::Packet::EType m_Type;
 
-    void FillFrameBucket(list<yg::gl::Packet> & QueueData);
+    /// - fill m_FrameBucket with the packets from the QueueData
+    /// which corresponds to maxFrames frames, delimited by SimpleDelimiter markers,
+    /// skipping empty frames.
+
+    void FillFrameBucket(list<yg::gl::Packet> & QueueData, int maxFrames);
   };
 
   /// couldn't use vector here as PacketsPipeline holds non-copyable yg::gl::PacketsQueue
