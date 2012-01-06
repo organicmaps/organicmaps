@@ -158,13 +158,13 @@ public class LocationService implements LocationListener, SensorEventListener, W
   // @param currentBestLocation The current Location fix, to which you want to compare the new one
   protected boolean isBetterLocation(Location newLocation, Location currentBestLocation)
   {
-    // A new location is better than no location only if it's not too old
+    // A new location is thrown away if it's too old
+    if (java.lang.System.currentTimeMillis() - newLocation.getTime() > TWO_MINUTES)
+      return false;
+    
+    // A new location is better than no location
     if (currentBestLocation == null)
-    {
-      if (java.lang.System.currentTimeMillis() - newLocation.getTime() > TWO_MINUTES)
-        return false;
       return true;
-    }
 
     // Check whether the new location fix is newer or older
     final long timeDelta = newLocation.getTime() - currentBestLocation.getTime();
@@ -218,8 +218,6 @@ public class LocationService implements LocationListener, SensorEventListener, W
   {
     if (isBetterLocation(l, m_lastLocation))
     {
-      m_lastLocation = l;
-
       if (m_reportFirstUpdate)
       {
         m_reportFirstUpdate = false;
@@ -235,6 +233,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
       }
       notifyLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy());
     }
+    m_lastLocation = l;
   }
 
   //@Override
