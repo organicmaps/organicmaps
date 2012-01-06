@@ -56,7 +56,7 @@ Platform::Platform()
 
   // Hardcoding screen resolution depending on the device we are running.
   m_impl->m_visualScale = 1.0;
-  m_impl->m_skinName = "basic_ldpi.skn";
+  m_impl->m_skinName = "basic_mdpi.skn";
   m_impl->m_videoMemoryLimit = 8 * 1024 * 1024;
 
   // Calculating resolution
@@ -78,7 +78,7 @@ Platform::Platform()
     if ([UIScreen mainScreen].currentMode.size.width == 640)
     {
       m_impl->m_visualScale = 2.0;
-      m_impl->m_skinName = "basic_hdpi.skn";
+      m_impl->m_skinName = "basic_xhdpi.skn";
     }
   }
 
