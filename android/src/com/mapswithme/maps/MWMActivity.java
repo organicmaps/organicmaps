@@ -146,15 +146,6 @@ public class MWMActivity extends NvEventQueueActivity implements
     startActivity(new Intent(this, DownloadUI.class));
   }
 
-  private void setupLanguages()
-  {
-    /*
-     * Log.d(TAG, "Default Language : " + Locale.getDefault().getLanguage());
-     * for (Locale l : Locale.getAvailableLocales()) Log.d(TAG, l.getLanguage()
-     * + " : " + l.getVariant() + " : " + l.toString());
-     */
-  }
-
   @Override
   public void onCreate(Bundle savedInstanceState)
   {
@@ -173,8 +164,6 @@ public class MWMActivity extends NvEventQueueActivity implements
     getWindowManager().getDefaultDisplay().getMetrics(metrics);
     
     nativeInit(metrics.densityDpi, getAppBundlePath(), extStoragePath, getTmpPath(), extTmpPath, getSettingsPath());
-
-    setupLanguages();
 
     checkMeasurementSystem();
 

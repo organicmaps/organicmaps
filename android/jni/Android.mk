@@ -36,6 +36,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/maps/Lifecycle.cpp \
 	com/mapswithme/platform/Platform.cpp \
 	com/mapswithme/platform/HttpThread.cpp \
+	com/mapswithme/platform/Language.cpp \
 	com/mapswithme/jni/jni_thread.cpp \
 	com/mapswithme/jni/jni_method.cpp \
 	nv_thread/nv_thread.cpp \

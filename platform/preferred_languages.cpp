@@ -20,7 +20,8 @@
   #include "../std/cstdlib.hpp"
 
 #elif defined(OMIM_OS_ANDROID)
-  /// @TODO
+  /// Body for this function is inside android/jni sources
+  string GetAndroidSystemLanguage();
 
 #else
   #error "Define language preferences for your platform"
@@ -155,7 +156,7 @@ void SystemPreferredLanguages(vector<string> & languages)
     languages.push_back(p);
 
 #elif defined(OMIM_OS_ANDROID)
-  /// @TODO
+  languages.push_back(GetAndroidSystemLanguage());
 
 #else
   #error "Define language preferences for your platform"
