@@ -170,7 +170,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
     final long timeDelta = newLocation.getTime() - currentBestLocation.getTime();
     final boolean isSignificantlyNewer = timeDelta > TWO_MINUTES;
     final boolean isSignificantlyOlder = timeDelta < -TWO_MINUTES;
-    final boolean isNewer = timeDelta >= 0;
+    final boolean isNewer = timeDelta > 0;
 
     // If it's been more than two minutes since the current location, use the
     // new location because the user has likely moved
@@ -181,16 +181,20 @@ public class LocationService implements LocationListener, SensorEventListener, W
       return false;
     }
 
+    // Check if the old and new location are from the same provider
+    final boolean isFromSameProvider = isSameProvider(newLocation.getProvider(),
+        currentBestLocation.getProvider());
+    
+    // Situation when last known location is equal to the new one
+    if (timeDelta == 0 && isFromSameProvider)
+      return true; // Because new location is at least not too old (< 2mins from now)
+    
     // Check whether the new location fix is more or less accurate
     final int accuracyDelta = (int) (newLocation.getAccuracy()
         - currentBestLocation.getAccuracy());
     final boolean isLessAccurate = accuracyDelta > 0;
     final boolean isMoreAccurate = accuracyDelta < 0;
     final boolean isSignificantlyLessAccurate = accuracyDelta > 200;
-
-    // Check if the old and new location are from the same provider
-    final boolean isFromSameProvider = isSameProvider(newLocation.getProvider(),
-        currentBestLocation.getProvider());
 
     // Determine location quality using a combination of timeliness and accuracy
     if (isMoreAccurate)
@@ -213,6 +217,8 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   // *************** Notification Handlers ******************
 
+  private final static float HUNDRED_METRES = 100.0f;
+  
   //@Override
   public void onLocationChanged(Location l)
   {
@@ -228,12 +234,12 @@ public class LocationService implements LocationListener, SensorEventListener, W
       if (m_sensorManager != null)
       {
         // Recreate magneticField if location has changed significantly
-        if (m_lastLocation != null && (m_lastLocation == null || l.getTime() - m_lastLocation.getTime() > TWO_MINUTES))
+        if (m_lastLocation == null || l.distanceTo(m_lastLocation) > HUNDRED_METRES)
           m_magneticField = new GeomagneticField((float)l.getLatitude(), (float)l.getLongitude(), (float)l.getAltitude(), l.getTime());
       }
       notifyLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy());
+      m_lastLocation = l;
     }
-    m_lastLocation = l;
   }
 
   //@Override
