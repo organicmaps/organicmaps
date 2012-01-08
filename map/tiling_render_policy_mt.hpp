@@ -32,6 +32,8 @@ private:
 
   bool m_isScaling;
 
+  int m_drawScale;
+
 //  ScreenCoverage m_screenCoverage;
 
 protected:
@@ -53,6 +55,7 @@ public:
   virtual void StopScale();
 
   bool IsTiling() const;
+  int GetDrawScale(ScreenBase const & ) const;
 
   void SetRenderFn(TRenderFn renderFn);
 };

@@ -207,6 +207,13 @@ void TilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
   ScreenCoverage * curCvg = &m_coverageGenerator->CurrentCoverage();
 
   curCvg->Draw(pDrawer->screen().get(), currentScreen);
+
+  m_drawScale = curCvg->GetDrawScale();
+}
+
+int TilingRenderPolicyMT::GetDrawScale(ScreenBase const & s) const
+{
+  return m_drawScale;
 }
 
 TileRenderer & TilingRenderPolicyMT::GetTileRenderer()
