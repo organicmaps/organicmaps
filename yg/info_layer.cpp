@@ -255,5 +255,49 @@ namespace yg
         v[pos]->setIsNeedRedraw(false);
     }
   }
+
+  void InfoLayer::clip(m2::RectI const & r)
+  {
+    vector<shared_ptr<OverlayElement> > v;
+    m_tree.ForEach(MakeBackInsertFunctor(v));
+    m_tree.Clear();
+
+    int clippedCnt = 0;
+    int elemCnt = v.size();
+
+    m2::RectD rd(r);
+    m2::AnyRectD ard(rd);
+
+    for (unsigned i = 0; i < v.size(); ++i)
+    {
+      shared_ptr<OverlayElement> const & e = v[i];
+
+      if (!e->isVisible())
+      {
+        clippedCnt++;
+        continue;
+      }
+
+      if (!e->roughBoundRect().IsIntersect(rd))
+        clippedCnt++;
+      else
+      {
+        bool hasIntersection = false;
+        for (unsigned j = 0; j < e->boundRects().size(); ++j)
+        {
+          if (ard.IsIntersect(e->boundRects()[j]))
+          {
+            hasIntersection = true;
+            break;
+          }
+        }
+
+        if (hasIntersection)
+          processOverlayElement(e);
+      }
+    }
+
+    LOG(LINFO, ("clipped out", clippedCnt, "elements,", elemCnt, "elements total"));
+  }
 }
 

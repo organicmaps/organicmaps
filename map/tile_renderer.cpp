@@ -177,6 +177,10 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   if (!env.isCancelled())
     drawer->screen()->resetInfoLayer();
 
+  /// filter out the overlay elements that are out of the bound rect for the tile
+  if (!env.isCancelled())
+    tileInfoLayer->clip(renderRect);
+
   yg::gl::PacketsQueue * glQueue = threadData.m_drawerParams.m_renderQueue;
 
   if (!env.isCancelled())

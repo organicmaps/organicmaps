@@ -51,5 +51,7 @@ namespace yg
     void setCouldOverlap(bool flag);
 
     void merge(InfoLayer const & infoLayer, math::Matrix<double, 3, 3> const & m);
+
+    void clip(m2::RectI const & r);
   };
 }
