@@ -441,7 +441,8 @@ void RenderQueueRoutine::Do()
               m_currentRenderCommand->m_frameScreen,
               glbRect,
               glbRect,
-              scaleLevel);
+              scaleLevel,
+              false);
 
           /// all unprocessed commands should be cancelled
           if (m_currentRenderCommand->m_paintEvent->isCancelled() && m_glQueue)

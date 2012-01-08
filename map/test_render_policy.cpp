@@ -104,6 +104,7 @@ TestRenderPolicy::TestRenderPolicy(VideoTimer * videoTimer,
 
   m_windowHandle->setUpdatesEnabled(false);
   m_windowHandle->setVideoTimer(videoTimer);
+  m_windowHandle->setRenderPolicy(this);
   m_windowHandle->setRenderContext(primaryRC);
 
   m_auxFrameBuffer = make_shared_ptr(new yg::gl::FrameBuffer());

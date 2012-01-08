@@ -297,7 +297,7 @@ int Framework::GetDrawScale() const
 
 RenderPolicy::TRenderFn Framework::DrawModelFn()
 {
-  return bind(&Framework::DrawModel, this, _1, _2, _3, _4, _5);
+  return bind(&Framework::DrawModel, this, _1, _2, _3, _4, _5, _6);
 }
 
 /// Actual rendering function.
@@ -305,7 +305,8 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
                           ScreenBase const & screen,
                           m2::RectD const & selectRect,
                           m2::RectD const & clipRect,
-                          int scaleLevel)
+                          int scaleLevel,
+                          bool isTiling)
 {
   fwork::DrawProcessor doDraw(clipRect, screen, e, scaleLevel);
 
@@ -314,7 +315,7 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
     int const scale = (m_queryMaxScaleMode ? 17 : scaleLevel);
 
     //threads::MutexGuard lock(m_modelSyn);
-    if (m_renderPolicy->IsTiling())
+    if (isTiling)
       m_model.ForEachFeature_TileDrawing(selectRect, doDraw, scale);
     else
       m_model.ForEachFeature(selectRect, doDraw, scale);

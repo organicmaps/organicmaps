@@ -126,7 +126,7 @@ void BasicRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   e->drawer()->screen()->clear(m_bgColor);
 
-  m_renderFn(e, s, s.ClipRect(), s.ClipRect(), scales::GetScaleLevel(glbRect));
+  m_renderFn(e, s, s.ClipRect(), s.ClipRect(), scales::GetScaleLevel(glbRect), false);
 
   infoLayer->draw(e->drawer()->screen().get(), math::Identity<double, 3>());
   e->drawer()->screen()->resetInfoLayer();

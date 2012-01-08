@@ -167,7 +167,8 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
         frameScreen,
         selectRect,
         clipRect,
-        rectInfo.m_drawScale
+        rectInfo.m_drawScale,
+        rectInfo.m_tileScale <= 17
         );
 
   if (!env.isCancelled())

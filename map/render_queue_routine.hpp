@@ -39,7 +39,7 @@ class RenderQueueRoutine : public threads::IRoutine
 {
 public:
 
-  typedef function<void(shared_ptr<PaintEvent>, ScreenBase const &, m2::RectD const &, m2::RectD const &, int)> render_fn_t;
+  typedef function<void(shared_ptr<PaintEvent>, ScreenBase const &, m2::RectD const &, m2::RectD const &, int, bool)> render_fn_t;
   typedef function<bool (m2::PointD const &)> TEmptyModelFn;
 
 private:

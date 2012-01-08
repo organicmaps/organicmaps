@@ -33,7 +33,8 @@ public:
                         ScreenBase const &,
                         m2::RectD const &,
                         m2::RectD const &,
-                        int)> TRenderFn;
+                        int,
+                        bool)> TRenderFn;
 
   typedef function<bool (m2::PointD const &)> TEmptyModelFn;
 
