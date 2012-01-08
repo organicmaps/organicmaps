@@ -250,6 +250,39 @@ public abstract class NvEventQueueActivity extends Activity
     }
   }
   
+  String eglConfigToString(final EGLConfig config)
+  {
+    int[] value = new int[1];
+    m_egl.eglGetConfigAttrib(m_eglDisplay, config, EGL11.EGL_RED_SIZE, value);
+    final int red = value[0];
+    m_egl.eglGetConfigAttrib(m_eglDisplay, config, EGL11.EGL_GREEN_SIZE, value);
+    final int green = value[0];
+    m_egl.eglGetConfigAttrib(m_eglDisplay, config, EGL11.EGL_BLUE_SIZE, value);
+    final int blue = value[0];
+    m_egl.eglGetConfigAttrib(m_eglDisplay, config, EGL11.EGL_ALPHA_SIZE, value);
+    final int alpha = value[0];
+    m_egl.eglGetConfigAttrib(m_eglDisplay, config, EGL11.EGL_STENCIL_SIZE, value);
+    final int stencil = value[0];
+    m_egl.eglGetConfigAttrib(m_eglDisplay, config, EGL11.EGL_DEPTH_SIZE, value);
+    final int depth = value[0];
+    m_egl.eglGetConfigAttrib(m_eglDisplay, config, EGL11.EGL_CONFIG_CAVEAT, value);
+    final String caveat = (value[0] == EGL11.EGL_NONE) ? "EGL_NONE" :
+      (value[0] == EGL11.EGL_SLOW_CONFIG) ? "EGL_SLOW_CONFIG" : "EGL_NON_CONFORMANT_CONFIG";
+    m_egl.eglGetConfigAttrib(m_eglDisplay, config, EGL11.EGL_BUFFER_SIZE, value);
+    final int buffer = value[0];
+    m_egl.eglGetConfigAttrib(m_eglDisplay, config, EGL11.EGL_LEVEL, value);
+    final int level = value[0];
+    m_egl.eglGetConfigAttrib(m_eglDisplay, config, EGL11.EGL_SAMPLE_BUFFERS, value);
+    final int sampleBuffers = value[0];
+    m_egl.eglGetConfigAttrib(m_eglDisplay, config, EGL11.EGL_SAMPLES, value);
+    final int samples = value[0];
+    
+    return "R" + red + "G" + green + "B" + blue + "A" + alpha + 
+        " Stencil:" + stencil + " Depth:" + depth + " Caveat:" + caveat + 
+        " BufferSize:" + buffer + " Level:" + level + " SampleBuffers:" + sampleBuffers +
+        " Samples:" + samples;
+  }
+  
   /** The number of bits requested for the red component */
   protected int redSize = 5;
   /** The number of bits requested for the green component */
@@ -306,10 +339,9 @@ public abstract class NvEventQueueActivity extends Activity
     {
       Log.d(TAG, "eglChooseConfig returned zero configs");
       return false;
-    }
-
+    }    
     
-    m_eglConfig = configs[0];
+    int choosenConfigIndex = 0;
     // Simple check - choose first config with matched depth buffer
     int[] value = new int[1];
     for (int i = 0; i < actualConfigsNumber[0]; ++i)
@@ -317,10 +349,17 @@ public abstract class NvEventQueueActivity extends Activity
       m_egl.eglGetConfigAttrib(m_eglDisplay, configs[i], EGL11.EGL_DEPTH_SIZE, value);
       if (value[0] == depthSize)
       {
-        m_eglConfig = configs[i];
+        choosenConfigIndex = i;
         break;
       }
     }
+
+    m_eglConfig = configs[choosenConfigIndex];
+
+    // Debug print
+    Log.d(TAG, "Matched egl configs:");
+    for (int i = 0; i < actualConfigsNumber[0]; ++i)
+       Log.d(TAG, (i == choosenConfigIndex ? "*" : " ") + i + ": " + eglConfigToString(configs[i]));
     
     final int[] contextAttrs = new int[] { EGL_CONTEXT_CLIENT_VERSION, 1, EGL11.EGL_NONE };
     m_eglContext = m_egl.eglCreateContext(m_eglDisplay, m_eglConfig, EGL11.EGL_NO_CONTEXT, contextAttrs);
