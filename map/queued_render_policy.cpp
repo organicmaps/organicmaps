@@ -17,8 +17,7 @@ QueuedRenderPolicy::~QueuedRenderPolicy()
 
   delete [] m_Pipelines;
 
-  LOG(LINFO, ("resetting state"));
-  m_state.reset();
+  LOG(LINFO, ("deleted QueuedRenderPolicy"));
 }
 
 bool QueuedRenderPolicy::NeedRedraw() const
@@ -50,24 +49,21 @@ void QueuedRenderPolicy::EndFrame(shared_ptr<PaintEvent> const & ev, ScreenBase 
 
 void QueuedRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s)
 {
-  if (!m_state)
-  {
-    m_state = ev->drawer()->screen()->createState();
-    m_state->m_isDebugging = m_IsDebugging;
-  }
+  shared_ptr<yg::gl::BaseState> state = ev->drawer()->screen()->createState();
+  state->m_isDebugging = m_IsDebugging;
 
-  ev->drawer()->screen()->getState(m_state.get());
+  ev->drawer()->screen()->getState(state.get());
 
   for (unsigned i = 0; i < m_PipelinesCount; ++i)
   {
-    RenderQueuedCommands(i);
+    RenderQueuedCommands(i, state);
     m_resourceManager->mergeFreeResources();
   }
 }
 
-void QueuedRenderPolicy::RenderQueuedCommands(int pipelineNum)
+void QueuedRenderPolicy::RenderQueuedCommands(int pipelineNum, shared_ptr<yg::gl::BaseState> const & state)
 {
-  shared_ptr<yg::gl::BaseState> curState = m_state;
+  shared_ptr<yg::gl::BaseState> curState = state;
 
   unsigned cmdProcessed = 0;
 
@@ -115,7 +111,7 @@ void QueuedRenderPolicy::RenderQueuedCommands(int pipelineNum)
     LOG(LINFO, (m_Pipelines[pipelineNum].m_Queue.Size(), "commands left"));
   }
 
-  m_state->apply(curState.get());
+  state->apply(curState.get());
 }
 
 void QueuedRenderPolicy::PacketsPipeline::FillFrameBucket(list<yg::gl::Packet> & renderQueue, int maxFrames)

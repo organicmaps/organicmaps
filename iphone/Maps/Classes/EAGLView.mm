@@ -113,22 +113,22 @@
 
 - (void)onSize:(int)width withHeight:(int)height
 {
-	/// free old video memory
-	frameBuffer->resetRenderTarget();
-  frameBuffer->resetDepthBuffer();
-	renderBuffer.reset();
+  frameBuffer->onSize(width, height);
+  
+  shared_ptr<DrawerYG> drawer = framework->GetRenderPolicy()->GetDrawer();  
+
+  /// free old video memory
+  drawer->screen()->resetRenderTarget();
+  drawer->screen()->resetDepthBuffer();
+  renderBuffer.reset();
 
 	/// allocate the new one
-	renderBuffer = shared_ptr<iphone::RenderBuffer>(new iphone::RenderBuffer(renderContext, (CAEAGLLayer*)self.layer));
-	frameBuffer->setRenderTarget(renderBuffer);
-  frameBuffer->setDepthBuffer(make_shared_ptr(new yg::gl::RenderBuffer(width, height, true)));
-
-  framework->OnSize(width, height);
+	renderBuffer = make_shared_ptr(new iphone::RenderBuffer(renderContext, (CAEAGLLayer*)self.layer));
   
-/*  frameBuffer->onSize(width, height);
-	drawer->onSize(width, height);*/
+  drawer->screen()->setRenderTarget(renderBuffer);
+  drawer->screen()->setDepthBuffer(make_shared_ptr(new yg::gl::RenderBuffer(width, height, true)));
 
-  shared_ptr<DrawerYG> drawer = framework->GetRenderPolicy()->GetDrawer();
+  framework->OnSize(width, height);  
   
   drawer->screen()->beginFrame();
   drawer->screen()->clear(yg::gl::Screen::s_bgColor);

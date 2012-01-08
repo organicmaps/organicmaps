@@ -96,9 +96,11 @@ namespace yg
 
       void setRenderTarget(shared_ptr<RenderTarget> const & rt);
       shared_ptr<RenderTarget> const & renderTarget() const;
+      void resetRenderTarget();
 
       void setDepthBuffer(shared_ptr<RenderBuffer> const & rt);
       shared_ptr<RenderBuffer> const & depthBuffer() const;
+      void resetDepthBuffer();
 
       /// @param clearRT - should we clear the renderTarget data (visible pixels)?
       /// @param clearDepth - should we clear depthBuffer data?

@@ -236,6 +236,13 @@ namespace yg
       }
     }
 
+    void Renderer::resetRenderTarget()
+    {
+      m_renderTarget.reset();
+      if (!m_renderQueue)
+        m_frameBuffer->resetRenderTarget();
+    }
+
     shared_ptr<RenderBuffer> const & Renderer::depthBuffer() const
     {
       return m_depthBuffer;
@@ -247,6 +254,14 @@ namespace yg
 
       if (!m_renderQueue)
         m_frameBuffer->setDepthBuffer(rt);
+    }
+
+    void Renderer::resetDepthBuffer()
+    {
+      m_depthBuffer.reset();
+
+      if (!m_renderQueue)
+        m_frameBuffer->resetDepthBuffer();
     }
 
     Renderer::ClearCommand::ClearCommand(yg::Color const & color,

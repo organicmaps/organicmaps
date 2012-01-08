@@ -30,13 +30,11 @@ private:
 
   bool m_IsDebugging;
 
-  shared_ptr<yg::gl::BaseState> m_state;
-
 protected:
 
   void CopyQueuedCommands(list<yg::gl::Packet> & l, list<yg::gl::Packet> & r);
 
-  void RenderQueuedCommands(int pipelineNum);
+  void RenderQueuedCommands(int pipelineNum, shared_ptr<yg::gl::BaseState> const & state);
   void DismissQueuedCommands(int pipelineNum);
 
 public:
