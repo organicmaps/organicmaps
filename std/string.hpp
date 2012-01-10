@@ -6,7 +6,11 @@
 #undef new
 #endif
 
-#include <string>
+#if defined(DEBUG) && (defined(OMIM_OS_LINUX) || defined(OMIM_OS_MAC))
+  #include <debug/string>
+#else
+  #include <string>
+#endif
 
 using std::basic_string;
 using std::string;
