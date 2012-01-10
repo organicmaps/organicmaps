@@ -92,7 +92,7 @@ public:
 
     string result;
     result.resize(end - begin);
-    ReadFromPos(m_dataReader, begin, &result[0], end - begin);
+    ReadFromPos(m_dataReader, begin, (void *)result.data(), end - begin);
     return result;
   }
 
