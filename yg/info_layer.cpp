@@ -297,7 +297,7 @@ namespace yg
       }
     }
 
-    LOG(LINFO, ("clipped out", clippedCnt, "elements,", elemCnt, "elements total"));
+//    LOG(LINFO, ("clipped out", clippedCnt, "elements,", elemCnt, "elements total"));
   }
 }
 
