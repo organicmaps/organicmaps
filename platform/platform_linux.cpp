@@ -46,7 +46,8 @@ Platform::Platform()
   if (tmpDir)
     m_tmpDir = tmpDir;
   else
-    m_tmpDir = P_tmpdir;
+    m_tmpDir = "/tmp";
+  m_tmpDir += '/';
 
   LOG(LDEBUG, ("Resources directory:", m_resourcesDir));
   LOG(LDEBUG, ("Writable directory:", m_writableDir));
