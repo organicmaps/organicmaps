@@ -244,10 +244,15 @@ namespace yg
       {
         sizes.clear();
         v[pos]->getNonPackedRects(stylesCache, sizes);
-        if (stylesCache->hasRoom(&sizes[0], sizes.size()))
-          v[pos]->map(stylesCache);
-        else
-          break;
+
+        /// @todo Check logic!
+        if (!sizes.empty())
+        {
+          if (stylesCache->hasRoom(&sizes[0], sizes.size()))
+            v[pos]->map(stylesCache);
+          else
+            break;
+        }
       }
 
       if (v.size() - pos > 1)
