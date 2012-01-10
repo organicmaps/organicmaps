@@ -172,7 +172,9 @@ namespace yg
 
     Renderer::Renderer(Params const & params)
       : m_isDebugging(params.m_isDebugging),
-        m_isRendering(false)
+        m_isRendering(false),
+        m_width(0),
+        m_height(0)
     {
       m_frameBuffer = params.m_frameBuffer;
       m_resourceManager = params.m_resourceManager;
