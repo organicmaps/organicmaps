@@ -28,7 +28,11 @@ void WriteVarSerialVector(ItT begin, ItT end, TDstStream & dst)
     WriteToSink(dst, offsets[i]);
 
   for (ItT it = begin; it != end; ++it)
-    dst.Write(&(*it)[0], it->size() * sizeof((*it)[0]));
+  {
+    typename ItT::value_type const & v = *it;
+    if (!v.empty())
+      dst.Write(&v[0], v.size() * sizeof(v[0]));
+  }
 }
 
 template <class WriterT> class VarSerialVectorWriter
