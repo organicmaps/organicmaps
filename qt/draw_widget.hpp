@@ -79,6 +79,7 @@ namespace qt
 
   public:
     DrawWidget(QWidget * pParent);
+    ~DrawWidget();
 
     void SetScaleControl(QScaleSlider * pScale);
 

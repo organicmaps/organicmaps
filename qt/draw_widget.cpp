@@ -17,6 +17,8 @@ using namespace storage;
 
 namespace qt
 {
+  bool s_isExiting = false;
+
   QtVideoTimer::QtVideoTimer(DrawWidget * w, TFrameFn frameFn)
     : ::VideoTimer(frameFn), m_widget(w)
   {}
@@ -62,9 +64,17 @@ namespace qt
     connect(m_timer, SIGNAL(timeout()), this, SLOT(ScaleTimerElapsed()));
   }
 
+  DrawWidget::~DrawWidget()
+  {
+    m_framework.reset();
+  }
+
   void DrawWidget::PrepareShutdown()
   {
+    s_isExiting = true;
+
     m_framework->PrepareToShutdown();
+    m_videoTimer.reset();
   }
 
   void DrawWidget::SetScaleControl(QScaleSlider * pScale)
@@ -249,6 +259,9 @@ namespace qt
 
   void DrawWidget::DrawFrame()
   {
+    if (s_isExiting)
+      return;
+
     if (m_framework->NeedRedraw())
     {
       makeCurrent();
