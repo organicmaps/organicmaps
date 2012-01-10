@@ -225,6 +225,9 @@ namespace yg
     for (unsigned i = 0; i < v.size(); ++i)
       v[i]->getNonPackedRects(stylesCache, sizes);
 
+    if (sizes.empty())
+      return;
+
     if (stylesCache->hasRoom(&sizes[0], sizes.size()))
     {
       for (unsigned i = 0; i < v.size(); ++i)
