@@ -71,6 +71,11 @@ public:
     m_resName = name;
   }
 
+  string const & GetName() const
+  {
+    return m_resName;
+  }
+
   bool WaitNonEmpty()
   {
     double StartWaitTime = m_Timer.ElapsedSeconds();

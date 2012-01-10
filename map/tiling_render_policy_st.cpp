@@ -42,11 +42,12 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                        sizeof(yg::gl::Vertex),
                                                                        10000 * sizeof(unsigned short),
                                                                        sizeof(unsigned short),
-                                                                       12,
+                                                                       60,
                                                                        true,
                                                                        false,
                                                                        2,
-                                                                       "primaryStorage");
+                                                                       "primaryStorage",
+                                                                       true);
 
   rmp.m_smallStoragesParams = yg::ResourceManager::StoragePoolParams(2000 * sizeof(yg::gl::Vertex),
                                                                      sizeof(yg::gl::Vertex),
@@ -169,6 +170,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
   p.m_visualScale = GetPlatform().VisualScale();
   p.m_useGuiResources = true;
   p.m_isSynchronized = false;
+//  p.m_isDebugging = true;
 
   m_drawer.reset(new DrawerYG(p));
 

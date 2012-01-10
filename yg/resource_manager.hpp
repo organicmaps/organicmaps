@@ -89,6 +89,8 @@ namespace yg
 
       string m_poolName;
 
+      bool m_isDebugging;
+
       StoragePoolParams(size_t vbSize,
                         size_t vertexSize,
                         size_t ibSize,
@@ -97,7 +99,8 @@ namespace yg
                         bool isFixedBufferSize,
                         bool isFixedBufferCount,
                         int scalePriority,
-                        string const & poolName);
+                        string const & poolName,
+                        bool isDebugging = false);
 
       StoragePoolParams(string const & poolName);
 

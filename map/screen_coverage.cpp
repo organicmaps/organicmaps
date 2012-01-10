@@ -257,7 +257,7 @@ void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)
   if (m_stylesCache)
     s->setAdditionalSkinPage(m_stylesCache->cachePage());
 
- m_infoLayer.draw(s, m_screen.PtoGMatrix() * screen.GtoPMatrix());
+  m_infoLayer.draw(s, m_screen.PtoGMatrix() * screen.GtoPMatrix());
 }
 
 void ScreenCoverage::EndFrame(yg::gl::Screen *s)

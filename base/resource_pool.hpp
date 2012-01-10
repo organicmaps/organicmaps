@@ -21,11 +21,12 @@ struct BasePoolTraits
 {
   TElemFactory m_factory;
   ThreadedList<TElem> m_pool;
+  bool m_IsDebugging;
 
   typedef TElem elem_t;
 
   BasePoolTraits(TElemFactory const & factory)
-    : m_factory(factory)
+    : m_factory(factory), m_IsDebugging(false)
   {
     m_pool.SetName(factory.ResName());
   }
@@ -68,14 +69,22 @@ struct SeparateFreePoolTraits : TBase
   typedef typename base_t::elem_t elem_t;
 
   ThreadedList<elem_t> m_freePool;
+  int m_maxFreePoolSize;
 
   SeparateFreePoolTraits(TElemFactory const & factory)
-    : base_t(factory)
+    : base_t(factory), m_maxFreePoolSize(0)
   {}
 
   void Free(elem_t const & elem)
   {
     m_freePool.PushBack(elem);
+    if (base_t::m_IsDebugging)
+    {
+      int oldMaxFreePoolSize = m_maxFreePoolSize;
+      m_maxFreePoolSize = max(m_maxFreePoolSize, (int)m_freePool.Size());
+      if (oldMaxFreePoolSize != m_maxFreePoolSize)
+        LOG(LINFO, ("freePool maximum size has reached", m_maxFreePoolSize, "elements"));
+    }
   }
 
   void MergeImpl(list<elem_t> & l)
@@ -87,6 +96,9 @@ struct SeparateFreePoolTraits : TBase
       base_t::m_factory.BeforeMerge(*it);
       base_t::m_pool.PushBack(*it);
     }
+
+//    if ((base_t::m_IsDebugging) && (!base_t::m_pool.GetName().empty()))
+//      LOG(LINFO, ("pool for", base_t::m_pool.GetName(), "has", base_t::m_pool.Size(), "elements"));
 
     l.clear();
   }
@@ -178,6 +190,7 @@ public:
   virtual void Cancel() = 0;
   virtual bool IsCancelled() const = 0;
   virtual void Merge() = 0;
+  virtual void SetIsDebugging(bool flag) = 0;
 };
 
 // This class tracks OpenGL resources allocation in
@@ -235,5 +248,10 @@ public:
   void Merge()
   {
     m_traits->Merge();
+  }
+
+  void SetIsDebugging(bool isDebugging)
+  {
+    m_traits->m_IsDebugging = isDebugging;
   }
 };

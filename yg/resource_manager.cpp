@@ -98,7 +98,8 @@ namespace yg
       m_isFixedBufferSize(true),
       m_isFixedBufferCount(true),
       m_scalePriority(0),
-      m_poolName(poolName)
+      m_poolName(poolName),
+      m_isDebugging(false)
   {}
 
   ResourceManager::StoragePoolParams::StoragePoolParams(size_t vbSize,
@@ -109,7 +110,8 @@ namespace yg
                                                         bool isFixedBufferSize,
                                                         bool isFixedBufferCount,
                                                         int scalePriority,
-                                                        string const & poolName)
+                                                        string const & poolName,
+                                                        bool isDebugging)
     : m_vbSize(vbSize),
       m_vertexSize(vertexSize),
       m_ibSize(ibSize),
@@ -118,7 +120,8 @@ namespace yg
       m_isFixedBufferSize(isFixedBufferSize),
       m_isFixedBufferCount(isFixedBufferCount),
       m_scalePriority(scalePriority),
-      m_poolName(poolName)
+      m_poolName(poolName),
+      m_isDebugging(isDebugging)
   {}
 
   bool ResourceManager::StoragePoolParams::isFixed() const
@@ -492,6 +495,8 @@ namespace yg
         pool.reset(new TMergeableStoragePoolImpl(new TMergeableStoragePoolTraits(TStorageFactory(p.m_vbSize, p.m_ibSize, m_params.m_useVA, m_params.m_useSingleThreadedOGL, p.m_poolName.c_str()), p.m_storagesCount)));
       else
         pool.reset(new TNonMergeableStoragePoolImpl(new TNonMergeableStoragePoolTraits(TStorageFactory(p.m_vbSize, p.m_ibSize, m_params.m_useVA, m_params.m_useSingleThreadedOGL, p.m_poolName.c_str()), p.m_storagesCount)));
+
+      pool->SetIsDebugging(p.m_isDebugging);
     }
     else
       LOG(LINFO, ("no ", p.m_poolName, " resource"));

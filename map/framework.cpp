@@ -203,6 +203,7 @@ bool Framework::IsEmptyModel() const
 
 void Framework::PrepareToShutdown()
 {
+  SetRenderPolicy(0);
 }
 
 void Framework::SetMaxWorldRect()
