@@ -88,8 +88,12 @@ void TileRenderer::InitializeThreadGL(core::CommandsQueue::Environment const & e
 {
   ThreadData & threadData = m_threadData[env.threadNum()];
 
+  int tileWidth = m_resourceManager->params().m_renderTargetTexturesParams.m_texWidth;
+  int tileHeight = m_resourceManager->params().m_renderTargetTexturesParams.m_texHeight;
+
   threadData.m_renderContext->makeCurrent();
   threadData.m_drawer = new DrawerYG(threadData.m_drawerParams);
+  threadData.m_drawer->onSize(tileWidth, tileHeight);
 }
 
 void TileRenderer::FinalizeThreadGL(core::CommandsQueue::Environment const & env)
