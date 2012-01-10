@@ -172,7 +172,7 @@ namespace yg
     {
       res = m_additionalPages[i]->findCircleInfo(circleInfo);
       if (res != invalidPageHandle())
-        return packID(i, res);
+        return packID(i + m_pages.size(), res);
     }
 
     if (!m_pages[m_currentDynamicPage]->hasRoom(circleInfo))

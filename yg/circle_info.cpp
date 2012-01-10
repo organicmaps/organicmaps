@@ -17,7 +17,13 @@ namespace yg
      m_isOutlined(isOutlined),
      m_outlineWidth(my::rounds(outlineWidth)),
      m_outlineColor(outlineColor)
-  {}
+  {
+    if (!m_isOutlined)
+    {
+      m_outlineWidth = 0;
+      m_outlineColor = yg::Color(0, 0, 0, 0);
+    }
+  }
 
   CircleInfo::CircleInfo()
   {}
