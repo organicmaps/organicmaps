@@ -133,11 +133,12 @@ void Platform::RunAsync(TFunctor const & fn, Priority p)
   int priority = DISPATCH_QUEUE_PRIORITY_DEFAULT;
   switch (p)
   {
-    // It seems like this option is not supported in Snow Leopard.
-    //case EPriorityBackground: priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND; break;
     case EPriorityDefault: priority = DISPATCH_QUEUE_PRIORITY_DEFAULT; break;
     case EPriorityHigh: priority = DISPATCH_QUEUE_PRIORITY_HIGH; break;
     case EPriorityLow: priority = DISPATCH_QUEUE_PRIORITY_LOW; break;
+    // It seems like this option is not supported in Snow Leopard.
+    //case EPriorityBackground: priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND; break;
+    default: priority = INT16_MIN;
   }
   dispatch_async_f(dispatch_get_global_queue(priority, 0), new TFunctor(fn), &PerformImpl);
 }
