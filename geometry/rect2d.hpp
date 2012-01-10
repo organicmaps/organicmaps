@@ -82,6 +82,11 @@ namespace m2
       m_maxX = m_maxY = impl::min_max_value<T, IsSigned>().get_max();
     }
 
+    bool IsValid() const
+    {
+      return (m_minX <= m_maxX && m_minY <= m_maxY);
+    }
+
     void Add(m2::Point<T> const & p)
     {
       m_minX = min(p.x, m_minX);

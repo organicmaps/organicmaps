@@ -84,6 +84,7 @@ namespace yg
       if (renderQueue())
         return;
 
+      ASSERT ( m_clipRect.IsValid(), (m_clipRect) );
       OGLCHECK(glScissor(m_clipRect.minX(), m_clipRect.minY(), m_clipRect.SizeX(), m_clipRect.SizeY()));
     }
 
