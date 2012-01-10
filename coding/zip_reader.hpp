@@ -1,13 +1,18 @@
 #pragma once
 
-#include "mmap_reader.hpp"
+#include "../std/target_os.hpp"
+#ifdef OMIM_OS_WINDOWS
+  #include "file_reader.hpp"
+  typedef FileReader BaseZipFileReaderType;
+#else
+  #include "mmap_reader.hpp"
+  typedef MmapReader BaseZipFileReaderType;
+#endif
 
 #include "../base/exception.hpp"
 
-class ZipFileReader : public MmapReader
+class ZipFileReader : public BaseZipFileReaderType
 {
-  typedef MmapReader base_type;
-
 public:
   DECLARE_EXCEPTION(OpenZipException, OpenException);
   DECLARE_EXCEPTION(LocateZipException, OpenException);

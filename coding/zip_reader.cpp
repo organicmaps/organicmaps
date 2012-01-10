@@ -8,7 +8,7 @@
 #include "../3party/zlib/contrib/minizip/unzip.h"
 
 ZipFileReader::ZipFileReader(string const & container, string const & file)
-  : base_type(container)
+  : BaseZipFileReaderType(container)
 {
   unzFile zip = unzOpen64(container.c_str());
   if (!zip)
