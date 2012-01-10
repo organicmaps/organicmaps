@@ -170,8 +170,8 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   TileSet erasedTiles;
   TileSet addedTiles;
 
-  set_difference(m_tiles.begin(), m_tiles.end(), tiles.begin(), tiles.end(), inserter(erasedTiles, erasedTiles.end()));
-  set_difference(tiles.begin(), tiles.end(), m_tiles.begin(), m_tiles.end(), inserter(addedTiles, addedTiles.end()));
+  set_difference(m_tiles.begin(), m_tiles.end(), tiles.begin(), tiles.end(), inserter(erasedTiles, erasedTiles.end()), TileSet::key_compare());
+  set_difference(tiles.begin(), tiles.end(), m_tiles.begin(), m_tiles.end(), inserter(addedTiles, addedTiles.end()), TileSet::key_compare());
 
   tileCache->readLock();
 
