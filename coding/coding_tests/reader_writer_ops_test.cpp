@@ -62,17 +62,18 @@ UNIT_TEST(Reverse_Smoke)
   char const * tmpFile = "random_file.tmp";
 
   {
-    FillRandFile(tmpFile, 10 * 1024 + 527);
-    FileReader reader(tmpFile);
+    {
+      FillRandFile(tmpFile, 10 * 1024 + 527);
+      FileReader reader(tmpFile);
 
-    vector<char> buffer;
-    GetReverseForReaderAndTmpFile(reader, buffer);
+      vector<char> buffer;
+      GetReverseForReaderAndTmpFile(reader, buffer);
 
-    string str;
-    reader.ReadAsString(str);
-    TEST_EQUAL(str.size(), buffer.size(), ());
-    TEST(equal(str.begin(), str.end(), buffer.begin()), ());
-
+      string str;
+      reader.ReadAsString(str);
+      TEST_EQUAL(str.size(), buffer.size(), ());
+      TEST(equal(str.begin(), str.end(), buffer.begin()), ());
+    }
     FileWriter::DeleteFileX(tmpFile);
   }
 }
