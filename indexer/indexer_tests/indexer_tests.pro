@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = indexer platform coding base protobuf
+DEPENDENCIES = indexer platform geometry coding base protobuf
 include($$ROOT_DIR/common.pri)
 
 QT *= core

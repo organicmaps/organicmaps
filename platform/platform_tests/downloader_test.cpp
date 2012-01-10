@@ -437,11 +437,11 @@ struct ResumeChecker
   {
     if (m_counter == 0)
     {
-      TEST_EQUAL(request.Progress(), make_pair(beg2, FILESIZE), ());
+      TEST_EQUAL(request.Progress(), HttpRequest::ProgressT(beg2, FILESIZE), ());
     }
     else if (m_counter == 1)
     {
-      TEST_EQUAL(request.Progress(), make_pair(FILESIZE, FILESIZE), ());
+      TEST_EQUAL(request.Progress(), HttpRequest::ProgressT(FILESIZE, FILESIZE), ());
     }
     else
     {

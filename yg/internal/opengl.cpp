@@ -2,6 +2,7 @@
 
 #include "../../base/logging.hpp"
 #include "../../base/string_utils.hpp"
+#include "../../base/stl_add.hpp"
 
 #include "../../std/bind.hpp"
 
@@ -43,7 +44,7 @@ namespace yg
 
       vector<string> names;
 
-      strings::Tokenize(string(reinterpret_cast<char const *>(glGetString(GL_EXTENSIONS))), " ", bind(&vector<string>::push_back, &names, _1));
+      strings::Tokenize(string(reinterpret_cast<char const *>(glGetString(GL_EXTENSIONS))), " ", MakeBackInsertFunctor(names));
 
       for (unsigned i = 0; i < names.size(); ++i)
       {
