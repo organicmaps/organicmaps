@@ -1,14 +1,18 @@
 #pragma once
 
-#include "../indexer/index.hpp"
+//#include "../indexer/index.hpp"
 
 #include "../geometry/rect2d.hpp"
+
+#include "../coding/reader.hpp"
 
 #include "../base/base.hpp"
 #include "../base/string_utils.hpp"
 
 #include "../std/scoped_ptr.hpp"
 #include "../std/string.hpp"
+#include "../std/function.hpp"
+
 
 class CategoriesHolder;
 class Index;
