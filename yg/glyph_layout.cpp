@@ -147,8 +147,6 @@ namespace yg
     if (!m_fontDesc.IsValid())
       return;
     m_boundRects.push_back(m2::AnyRectD(m2::RectD(0, 0, 0, 0)));
-    m_fullLength = (m2::PointD(src.m_fullLength, 0) * m).Length(m2::PointD(0, 0) * m);
-    m_pathOffset = (m2::PointD(src.m_pathOffset, 0) * m).Length(m2::PointD(0, 0) * m);
     recalcAlongPath();
   }
 
@@ -163,8 +161,6 @@ namespace yg
     : m_firstVisible(0),
       m_lastVisible(0),
       m_path(pts, ptsCount, fullLength, pathOffset),
-      m_fullLength(fullLength),
-      m_pathOffset(pathOffset),
       m_visText(visText),
       m_pos(pos),
       m_fontDesc(fontDesc),
@@ -193,15 +189,15 @@ namespace yg
       strLength += m_metrics[i].m_xAdvance;
     }
 
-    if (m_fullLength < strLength)
+    if (m_path.fullLength() < strLength)
       return;
 
     PathPoint arrPathStart(0, ang::AngleD(ang::AngleTo(m_path.get(0), m_path.get(1))), m_path.get(0));
 
-    m_pivot = m_path.offsetPoint(arrPathStart, m_fullLength / 2.0).m_pt;
+    m_pivot = m_path.offsetPoint(arrPathStart, m_path.fullLength() / 2.0).m_pt;
 
     // offset of the text from path's start
-    double offset = (m_fullLength - strLength) / 2.0;
+    double offset = (m_path.fullLength() - strLength) / 2.0;
 
     if (m_pos & yg::EPosLeft)
     {
@@ -211,7 +207,7 @@ namespace yg
 
     if (m_pos & yg::EPosRight)
     {
-      offset = (m_fullLength - strLength);
+      offset = (m_path.fullLength() - strLength);
       m_pivot = m_path.get(m_path.size() - 1);
     }
 
@@ -225,7 +221,7 @@ namespace yg
     if (m_pos & yg::EPosAbove)
       blOffset = 2;
 
-    offset -= m_pathOffset;
+    offset -= m_path.pathOffset();
     if (-offset >= strLength)
       return;
 

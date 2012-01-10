@@ -16,25 +16,38 @@ namespace yg
     : m_angle(angle), m_pp(pp)
   {}
 
-  TextPath::TextPath() : m_reverse(false)
+  TextPath::TextPath() : m_reverse(false), m_fullLength(0), m_pathOffset(0)
   {}
 
   TextPath::TextPath(TextPath const & src, math::Matrix<double, 3, 3> const & m)
-    : m_arr(src.m_arr),
-      m_reverse(src.m_reverse)
   {
+    m_arr.resize(src.m_arr.size());
     for (unsigned i = 0; i < m_arr.size(); ++i)
-      m_arr[i] = m_arr[i] * m;
+      m_arr[i] = src.m_arr[i] * m;
+
+    m_fullLength = (m2::PointD(src.m_fullLength, 0) * m).Length(m2::PointD(0, 0) * m);
+    m_pathOffset = (m2::PointD(src.m_pathOffset, 0) * m).Length(m2::PointD(0, 0) * m);
+
+    m_reverse = src.m_reverse;
+
+//    checkReverse();
   }
 
-  TextPath::TextPath(m2::PointD const * arr, size_t sz, double fullLength, double & pathOffset)
-    : m_reverse(false)
+  TextPath::TextPath(m2::PointD const * arr, size_t sz, double fullLength, double pathOffset)
+    : m_reverse(false),
+      m_fullLength(fullLength),
+      m_pathOffset(pathOffset)
   {
     ASSERT ( sz > 1, () );
 
     m_arr.resize(sz);
     copy(arr, arr + sz, m_arr.begin());
 
+    checkReverse();
+  }
+
+  void TextPath::checkReverse()
+  {
     /* assume, that readable text in path should be ('o' - start draw point):
      *    /   o
      *   /     \
@@ -50,12 +63,23 @@ namespace yg
       for (size_t i = 1; i < m_arr.size(); ++i)
         len += m_arr[i-1].Length(m_arr[i]);
 
-      pathOffset = fullLength - pathOffset - len;
-      ASSERT ( pathOffset >= -1.0E-6, () );
-      if (pathOffset < 0.0) pathOffset = 0.0;
+      m_pathOffset = m_fullLength - m_pathOffset - len;
+      ASSERT ( m_pathOffset >= -1.0E-6, () );
+      if (m_pathOffset < 0.0)
+        m_pathOffset = 0.0;
 
       m_reverse = true;
     }
+  }
+
+  double TextPath::fullLength() const
+  {
+    return m_fullLength;
+  }
+
+  double TextPath::pathOffset() const
+  {
+    return m_pathOffset;
   }
 
   size_t TextPath::size() const { return m_arr.size(); }

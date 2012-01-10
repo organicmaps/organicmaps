@@ -39,8 +39,6 @@ namespace yg
     size_t m_lastVisible;
 
     TextPath m_path;
-    double m_fullLength;
-    double m_pathOffset;
 
     strings::UniString m_visText;
     yg::EPosition m_pos;
