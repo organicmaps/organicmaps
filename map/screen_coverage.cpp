@@ -252,7 +252,8 @@ void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)
     infos.push_back(bi);
   }
 
-  s->blit(&infos[0], infos.size(), true);
+  if (!infos.empty())
+    s->blit(&infos[0], infos.size(), true);
 
   if (m_stylesCache)
     s->setAdditionalSkinPage(m_stylesCache->cachePage());
