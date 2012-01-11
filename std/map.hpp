@@ -6,7 +6,7 @@
 #undef new
 #endif
 
-#if defined(DEBUG) && (defined(OMIM_OS_LINUX) || defined(OMIM_OS_MAC))
+#ifdef OMIM_HAS_DEBUG_STL
   #include <debug/map>
 #else
   #include <map>

@@ -4,6 +4,7 @@
   #define OMIM_OS_ANDROID
   #define OMIM_OS_NAME "android"
   #define OMIM_OS_MOBILE
+  #define OMIM_HAS_DEBUG_STL 1
 
 #elif defined(_BADA_SIMULATOR) || defined(_BADA_DEVICE)
   #define OMIM_OS_BADA
@@ -27,6 +28,7 @@
     #define OMIM_OS_NAME "mac"
     #define OMIM_OS_DESKTOP
   #endif
+  #define OMIM_HAS_DEBUG_STL 1
 
 #elif defined(_WIN32)
   #define OMIM_OS_WINDOWS
@@ -43,4 +45,6 @@
   #define OMIM_OS_LINUX
   #define OMIM_OS_NAME "linux"
   #define OMIM_OS_DESKTOP
+  #define OMIM_HAS_DEBUG_STL 1
+  
 #endif
