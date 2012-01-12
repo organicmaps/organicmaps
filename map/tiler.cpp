@@ -4,38 +4,17 @@
 #include "../indexer/scales.hpp"
 #include "../base/logging.hpp"
 
-uint64_t Tiler::RectInfo::toUInt64Cell() const
-{
-  /// pack y in 0-23 bits
-  /// pack x in 24-47 bits
-  /// pack tileScale in 48-55 bits
-  /// pack drawScale in 56-63 bits
-
-  ASSERT(m_y <= 0xFFFFFF, ());
-  ASSERT(m_x <= 0xFFFFFF, ());
-  ASSERT(m_tileScale <= 0xFF, ());
-  ASSERT(m_drawScale <= 0xFF, ());
-
-  return (m_y & 0xFFFFFF)
-      | ((m_x & 0xFFFFFF) << 24)
-      | (((uint64_t)m_tileScale & 0xFF) << 48)
-      | (((uint64_t)m_drawScale & 0xFF) << 56);
-}
-
-void Tiler::RectInfo::fromUInt64Cell(uint64_t v)
-{
-  m_y = v & 0xFFFFFF;
-  m_x = (v >> 24) & 0xFFFFFF;
-  m_tileScale = (v >> 48) & 0xFF;
-  m_drawScale = (v >> 56) & 0xFF;
-}
-
 Tiler::RectInfo::RectInfo()
   : m_drawScale(0), m_tileScale(0), m_x(0), m_y(0)
 {}
 
 Tiler::RectInfo::RectInfo(int drawScale, int tileScale, int x, int y)
   : m_drawScale(drawScale), m_tileScale(tileScale), m_x(x), m_y(y)
+{
+  initRect();
+}
+
+void Tiler::RectInfo::initRect()
 {
   int k = 1 << m_tileScale;
 
@@ -60,7 +39,15 @@ bool LessByDistance::operator()(Tiler::RectInfo const & l, Tiler::RectInfo const
 
 bool operator<(Tiler::RectInfo const & l, Tiler::RectInfo const & r)
 {
-  return l.toUInt64Cell() < r.toUInt64Cell();
+  if (l.m_y != r.m_y)
+    return l.m_y < r.m_y;
+  if (l.m_x != r.m_x)
+    return l.m_x < r.m_x;
+  if (l.m_drawScale != r.m_drawScale)
+    return l.m_drawScale < r.m_drawScale;
+  if (l.m_tileScale != r.m_tileScale)
+    return l.m_tileScale < r.m_tileScale;
+  return false;
 }
 
 int Tiler::drawScale(ScreenBase const & s) const

@@ -22,10 +22,7 @@ public:
     RectInfo();
     RectInfo(int drawScale, int tileScale, int x, int y);
 
-    /// pack scale, x, y into 64 bit word to use it as a cache key
-    uint64_t toUInt64Cell() const;
-    /// unpack 64bit integer and compute other parameters
-    void fromUInt64Cell(uint64_t v);
+    void initRect();
   };
 
 private:

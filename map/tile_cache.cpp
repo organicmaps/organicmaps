@@ -13,7 +13,7 @@ TileCache::TileCache(size_t maxCacheSize)
 
 void TileCache::addTile(Tiler::RectInfo const & key, Entry const & entry)
 {
-  m_cache.Add(key.toUInt64Cell(), entry, 1);
+  m_cache.Add(key, entry, 1);
 }
 
 void TileCache::readLock()
@@ -38,7 +38,8 @@ void TileCache::writeUnlock()
 
 set<Tiler::RectInfo> const TileCache::keys() const
 {
-  set<uint64_t> keys = m_cache.Keys();
+  return m_cache.Keys();
+/*  set<uint64_t> keys = m_cache.Keys();
   set<Tiler::RectInfo> rects;
 
   for (set<uint64_t>::const_iterator it = keys.begin(); it != keys.end(); ++it)
@@ -48,35 +49,35 @@ set<Tiler::RectInfo> const TileCache::keys() const
     rects.insert(v);
   }
 
-  return rects;
+  return rects;*/
 }
 
 bool TileCache::hasTile(Tiler::RectInfo const & key)
 {
-  return m_cache.HasElem(key.toUInt64Cell());
+  return m_cache.HasElem(key);
 }
 
 void TileCache::lockTile(Tiler::RectInfo const & key)
 {
-  m_cache.LockElem(key.toUInt64Cell());
+  m_cache.LockElem(key);
 }
 
 size_t TileCache::lockCount(Tiler::RectInfo const & key)
 {
-  return m_cache.LockCount(key.toUInt64Cell());
+  return m_cache.LockCount(key);
 }
 
 void TileCache::unlockTile(Tiler::RectInfo const & key)
 {
-  m_cache.UnlockElem(key.toUInt64Cell());
+  m_cache.UnlockElem(key);
 }
 
 void TileCache::touchTile(Tiler::RectInfo const & key)
 {
-  m_cache.Touch(key.toUInt64Cell());
+  m_cache.Touch(key);
 }
 
 Tile const & TileCache::getTile(Tiler::RectInfo const & key)
 {
-  return m_cache.Find(key.toUInt64Cell()).m_tile;
+  return m_cache.Find(key).m_tile;
 }

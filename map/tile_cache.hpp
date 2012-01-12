@@ -35,7 +35,7 @@ public:
 
 private:
 
-  my::MRUCache<uint64_t, Entry, EntryValueTraits> m_cache;
+  my::MRUCache<Tiler::RectInfo, Entry, EntryValueTraits> m_cache;
   threads::Mutex m_lock;
 
   TileCache(TileCache const & src);

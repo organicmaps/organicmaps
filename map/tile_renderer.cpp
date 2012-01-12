@@ -155,8 +155,13 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   std::stringstream out;
   out << rectInfo.m_y << ", " << rectInfo.m_x << ", " << rectInfo.m_tileScale << ", " << rectInfo.m_drawScale;
 
-  drawer->screen()->drawText(yg::FontDesc(), renderRect.Center(), yg::EPosCenter, out.str().c_str(), 0, false);
-*/
+  drawer->screen()->drawText(yg::FontDesc(12, yg::Color(0, 0, 0, 255), true),
+                             renderRect.Center(),
+                             yg::EPosCenter,
+                             out.str().c_str(),
+                             0,
+                             false);*/
+
   frameScreen.SetFromRect(m2::AnyRectD(rectInfo.m_rect));
 
   m2::RectD selectRect;
