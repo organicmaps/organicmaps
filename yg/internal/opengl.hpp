@@ -1,6 +1,8 @@
 #pragma once
 #include "../../std/target_os.hpp"
 
+#include "../../base/logging.hpp"
+
 #if defined(OMIM_OS_WINDOWS)
   #include "../../std/windows.hpp"
   #include <gl/gl.h>
@@ -138,9 +140,13 @@ namespace yg
 }
 
 #ifdef DEBUG
-#define OGLCHECK(f) do {f; yg::gl::CheckError(SRC()); } while(false)
+#define OGLCHECK(f) do { \
+  LOG(LDEBUG, ("OGLCHECK: "#f ));  \
+  f; yg::gl::CheckError(SRC()); } while(false)
 #define OGLCHECKAFTER yg::gl::CheckError(SRC())
-#define EGLCHECK do {yg::gl::CheckEGLError(SRC());} while(false)
+#define EGLCHECK do { \
+  LOG(LDEBUG, ("EGLCHECK:"#f )); \
+  yg::gl::CheckEGLError(SRC());} while(false)
 #else
 #define OGLCHECK(f) f
 #define OGLCHECKAFTER
