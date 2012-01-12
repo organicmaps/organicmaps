@@ -139,17 +139,22 @@ namespace yg
   }
 }
 
-#ifdef DEBUG
-#define OGLCHECK(f) do { \
-  LOG(LDEBUG, ("OGLCHECK: "#f ));  \
-  f; yg::gl::CheckError(SRC()); } while(false)
-#define OGLCHECKAFTER yg::gl::CheckError(SRC())
-#define EGLCHECK do { \
-  LOG(LDEBUG, ("EGLCHECK:"#f )); \
-  yg::gl::CheckEGLError(SRC());} while(false)
-#else
-#define OGLCHECK(f) f
-#define OGLCHECKAFTER
-#define EGLCHECK
-#endif
+//#define OMIM_GL_ENABLE_TRACE 1
 
+#ifdef DEBUG
+  #ifdef OMIM_GL_ENABLE_TRACE
+    #define OGLCHECK(f) do { LOG(LDEBUG, (#f)); f; yg::gl::CheckError(SRC()); } while(false)
+    #define OGLCHECKAFTER LOG(LDEBUG, ("OGLCHECKAFTER")); yg::gl::CheckError(SRC())
+    #define EGLCHECK do { LOG(LDEBUG, ("EGLCHECK")); yg::gl::CheckEGLError(SRC()); } while(false)
+  #else
+    #define OGLCHECK(f) do { f; yg::gl::CheckError(SRC()); } while(false)
+    #define OGLCHECKAFTER yg::gl::CheckError(SRC())
+    #define EGLCHECK do { yg::gl::CheckEGLError(SRC()); } while(false)
+  #endif
+
+#else
+  #define OGLCHECK(f) f
+  #define OGLCHECKAFTER
+  #define EGLCHECK
+
+#endif
