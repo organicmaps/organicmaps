@@ -95,10 +95,8 @@ namespace yg
 
     void RenderBuffer::makeCurrent() const
     {
-#ifndef OMIM_OS_ANDROID
       if (m_id != current())
-#endif
-      OGLCHECK(glBindRenderbufferFn(GL_RENDERBUFFER_MWM, m_id));
+        OGLCHECK(glBindRenderbufferFn(GL_RENDERBUFFER_MWM, m_id));
     }
 
     bool RenderBuffer::isDepthBuffer() const
