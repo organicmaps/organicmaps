@@ -108,7 +108,7 @@ int Platform::ScaleEtalonSize() const
   return 512 + 256;
 }
 
-int Platform::TileSize() const
+/*int Platform::TileSize() const
 {
   return 256;
 }
@@ -116,7 +116,7 @@ int Platform::TileSize() const
 int Platform::MaxTilesCount() const
 {
   return 120;
-}
+}*/
 
 int Platform::VideoMemoryLimit() const
 {

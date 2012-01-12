@@ -163,7 +163,14 @@ public class MWMActivity extends NvEventQueueActivity implements
     DisplayMetrics metrics = new DisplayMetrics();
     getWindowManager().getDefaultDisplay().getMetrics(metrics);
     
-    nativeInit(metrics.densityDpi, getAppBundlePath(), extStoragePath, getTmpPath(), extTmpPath, getSettingsPath());
+    nativeInit(metrics.densityDpi, 
+               metrics.widthPixels,
+               metrics.heightPixels,
+               getAppBundlePath(), 
+               extStoragePath, 
+               getTmpPath(), 
+               extTmpPath, 
+               getSettingsPath());
 
     checkMeasurementSystem();
 
@@ -356,8 +363,15 @@ public class MWMActivity extends NvEventQueueActivity implements
   private native void nativeStorageConnected();
   private native void nativeStorageDisconnected();
 
-  private native void nativeInit(int densityDpi, String apkPath, String storagePath,
-      String tmpPath, String extTmpPath, String settingsPath);
+  private native void nativeInit(int densityDpi,
+                                 int width,
+                                 int height,
+                                 String apkPath, 
+                                 String storagePath,
+                                 String tmpPath, 
+                                 String extTmpPath, 
+                                 String settingsPath);
+  
   private native void nativeLocationStatusChanged(int newStatus);
   private native void nativeLocationUpdated(long time, double lat, double lon, float accuracy);
   private native void nativeCompassUpdated(long time, double magneticNorth, double trueNorth, float accuracy);

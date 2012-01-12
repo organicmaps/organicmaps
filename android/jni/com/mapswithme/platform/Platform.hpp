@@ -15,8 +15,15 @@ namespace android
 
   public:
     ~Platform();
-    void Initialize(JNIEnv * env, jint densityDpi, jstring apkPath, jstring storagePath,
-        jstring tmpPath, jstring extTmpPath, jstring settingsPath);
+    void Initialize(JNIEnv * env,
+                    jint densityDpi,
+                    jint screenWidth,
+                    jint screenHeight,
+                    jstring apkPath,
+                    jstring storagePath,
+                    jstring tmpPath,
+                    jstring extTmpPath,
+                    jstring settingsPath);
 
     void OnExternalStorageStatusChanged(bool isAvailable);
 

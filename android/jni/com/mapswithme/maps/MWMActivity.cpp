@@ -36,13 +36,29 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeInit(JNIEnv * env, jobject thiz, int densityDpi,
-      jstring apkPath, jstring storagePath, jstring tmpPath, jstring extTmpPath, jstring settingsPath)
+  Java_com_mapswithme_maps_MWMActivity_nativeInit(JNIEnv * env,
+                                                  jobject thiz,
+                                                  jint densityDpi,
+                                                  jint screenWidth,
+                                                  jint screenHeight,
+                                                  jstring apkPath,
+                                                  jstring storagePath,
+                                                  jstring tmpPath,
+                                                  jstring extTmpPath,
+                                                  jstring settingsPath)
   {
     if (!g_framework)
     {
-      android::Platform::Instance().Initialize(env, densityDpi, apkPath, storagePath,
-          tmpPath, extTmpPath, settingsPath);
+      android::Platform::Instance().Initialize(env,
+                                               densityDpi,
+                                               screenWidth,
+                                               screenHeight,
+                                               apkPath,
+                                               storagePath,
+                                               tmpPath,
+                                               extTmpPath,
+                                               settingsPath);
+
       g_framework = new android::Framework(g_jvm);
     }
   }
