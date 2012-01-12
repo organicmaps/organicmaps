@@ -666,68 +666,68 @@ namespace yg
     return 1 + m_params.m_glyphCacheParams.m_renderThreadCount;
   }
 
-  ResourceManager::TStoragePool * ResourceManager::primaryStorages()
+  TStoragePool * ResourceManager::primaryStorages()
   {
     return m_primaryStorages.get();
   }
 
-  ResourceManager::TStoragePool * ResourceManager::smallStorages()
+  TStoragePool * ResourceManager::smallStorages()
   {
     return m_smallStorages.get();
   }
 
-  ResourceManager::TStoragePool * ResourceManager::guiThreadStorages()
+  TStoragePool * ResourceManager::guiThreadStorages()
   {
     return m_guiThreadStorages.get();
   }
 
-  ResourceManager::TStoragePool * ResourceManager::blitStorages()
+  TStoragePool * ResourceManager::blitStorages()
   {
     return m_blitStorages.get();
   }
 
-  ResourceManager::TStoragePool * ResourceManager::multiBlitStorages()
+  TStoragePool * ResourceManager::multiBlitStorages()
   {
     return m_multiBlitStorages.get();
   }
 
-  ResourceManager::TTexturePool * ResourceManager::primaryTextures()
+  TTexturePool * ResourceManager::primaryTextures()
   {
     return m_primaryTextures.get();
   }
 
-  ResourceManager::TTexturePool * ResourceManager::fontTextures()
+  TTexturePool * ResourceManager::fontTextures()
   {
     return m_fontTextures.get();
   }
 
-  ResourceManager::TTexturePool * ResourceManager::renderTargetTextures()
+  TTexturePool * ResourceManager::renderTargetTextures()
   {
     return m_renderTargets.get();
   }
 
-  ResourceManager::TTexturePool * ResourceManager::styleCacheTextures()
+  TTexturePool * ResourceManager::styleCacheTextures()
   {
     return m_styleCacheTextures.get();
   }
 
-  ResourceManager::TTexturePool * ResourceManager::guiThreadTextures()
+  TTexturePool * ResourceManager::guiThreadTextures()
   {
     return m_guiThreadTextures.get();
   }
 
-  void ResourceManager::mergeFreeResources()
+  void ResourceManager::updatePoolState()
   {
     if (m_guiThreadStorages.get())
-      m_guiThreadStorages->Merge();
+      m_guiThreadStorages->UpdateState();
     if (m_primaryStorages.get())
-      m_primaryStorages->Merge();
+      m_primaryStorages->UpdateState();
     if (m_smallStorages.get())
-      m_smallStorages->Merge();
+      m_smallStorages->UpdateState();
     if (m_blitStorages.get())
-      m_blitStorages->Merge();
+      m_blitStorages->UpdateState();
     if (m_multiBlitStorages.get())
-      m_multiBlitStorages->Merge();
+      m_multiBlitStorages->UpdateState();
   }
 
   void ResourceManager::cancel()

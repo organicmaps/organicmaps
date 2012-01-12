@@ -57,7 +57,7 @@ void QueuedRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & ev, ScreenBase
   for (unsigned i = 0; i < m_PipelinesCount; ++i)
   {
     RenderQueuedCommands(i, state);
-    m_resourceManager->mergeFreeResources();
+    m_resourceManager->updatePoolState();
   }
 }
 

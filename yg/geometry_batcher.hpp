@@ -86,7 +86,7 @@ namespace yg
 
       struct FreeStorage : public Command
       {
-        ResourceManager::TStoragePool * m_storagePool;
+        TStoragePool * m_storagePool;
         Storage m_storage;
 
         void perform();
@@ -95,7 +95,7 @@ namespace yg
 
       struct FreeTexture : public Command
       {
-        ResourceManager::TTexturePool * m_texturePool;
+        TTexturePool * m_texturePool;
         shared_ptr<BaseTexture> m_texture;
 
         void perform();

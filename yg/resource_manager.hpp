@@ -50,27 +50,25 @@ namespace yg
     void BeforeMerge(gl::Storage const & e);
   };
 
+  typedef BasePoolTraits<shared_ptr<gl::BaseTexture>, TTextureFactory> TBaseTexturePoolTraits;
+  typedef FixedSizePoolTraits<TTextureFactory, TBaseTexturePoolTraits > TTexturePoolTraits;
+  typedef ResourcePoolImpl<TTexturePoolTraits> TTexturePoolImpl;
+
+  typedef ResourcePool<shared_ptr<gl::BaseTexture> > TTexturePool;
+
+  typedef BasePoolTraits<gl::Storage, TStorageFactory> TBaseStoragePoolTraits;
+  typedef SeparateFreePoolTraits<TStorageFactory, TBaseStoragePoolTraits> TSeparateFreeStoragePoolTraits;
+
+  typedef FixedSizePoolTraits<TStorageFactory, TSeparateFreeStoragePoolTraits> TMergeableStoragePoolTraits;
+  typedef ResourcePoolImpl<TMergeableStoragePoolTraits> TMergeableStoragePoolImpl;
+
+  typedef FixedSizePoolTraits<TStorageFactory, TBaseStoragePoolTraits> TNonMergeableStoragePoolTraits;
+  typedef ResourcePoolImpl<TNonMergeableStoragePoolTraits> TNonMergeableStoragePoolImpl;
+
+  typedef ResourcePool<gl::Storage> TStoragePool;
+
   class ResourceManager
   {
-  public:
-
-    typedef BasePoolTraits<shared_ptr<gl::BaseTexture>, TTextureFactory> TBaseTexturePoolTraits;
-    typedef FixedSizePoolTraits<TTextureFactory, TBaseTexturePoolTraits > TTexturePoolTraits;
-    typedef ResourcePoolImpl<TTexturePoolTraits> TTexturePoolImpl;
-
-    typedef ResourcePool<shared_ptr<gl::BaseTexture> > TTexturePool;
-
-    typedef BasePoolTraits<gl::Storage, TStorageFactory> TBaseStoragePoolTraits;
-    typedef SeparateFreePoolTraits<TStorageFactory, TBaseStoragePoolTraits> TSeparateFreeStoragePoolTraits;
-
-    typedef FixedSizePoolTraits<TStorageFactory, TSeparateFreeStoragePoolTraits> TMergeableStoragePoolTraits;
-    typedef ResourcePoolImpl<TMergeableStoragePoolTraits> TMergeableStoragePoolImpl;
-
-    typedef FixedSizePoolTraits<TStorageFactory, TBaseStoragePoolTraits> TNonMergeableStoragePoolTraits;
-    typedef ResourcePoolImpl<TNonMergeableStoragePoolTraits> TNonMergeableStoragePoolImpl;
-
-    typedef ResourcePool<gl::Storage> TStoragePool;
-
   public:
 
     struct StoragePoolParams
@@ -267,7 +265,7 @@ namespace yg
     void enterBackground();
     void enterForeground();
 
-    void mergeFreeResources();
+    void updatePoolState();
 
     void cancel();
 

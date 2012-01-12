@@ -179,7 +179,7 @@ void RenderPolicyMT::EndFrame(shared_ptr<PaintEvent> const & e,
 void RenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e,
                                ScreenBase const & s)
 {
-  m_resourceManager->mergeFreeResources();
+  m_resourceManager->updatePoolState();
 
   m_renderQueue->renderStatePtr()->m_doRepaintAll = DoForceUpdate();
 

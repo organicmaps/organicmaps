@@ -51,8 +51,7 @@ struct BasePoolTraits
     return m_pool.IsCancelled();
   }
 
-  /// non-intuitive name, should refactor to more meaningfull
-  void Merge()
+  void UpdateState()
   {
   }
 };
@@ -87,7 +86,7 @@ struct SeparateFreePoolTraits : TBase
     }
   }
 
-  void MergeImpl(list<elem_t> & l)
+  void UpdateStateImpl(list<elem_t> & l)
   {
     for (typename list<elem_t>::const_iterator it = l.begin();
          it != l.end();
@@ -103,9 +102,9 @@ struct SeparateFreePoolTraits : TBase
     l.clear();
   }
 
-  void Merge()
+  void UpdateState()
   {
-    m_freePool.ProcessList(bind(&SeparateFreePoolTraits<TElemFactory, TBase>::MergeImpl, this, _1));
+    m_freePool.ProcessList(bind(&SeparateFreePoolTraits<TElemFactory, TBase>::UpdateStateImpl, this, _1));
   }
 };
 
@@ -189,7 +188,7 @@ public:
   virtual void EnterBackground() = 0;
   virtual void Cancel() = 0;
   virtual bool IsCancelled() const = 0;
-  virtual void Merge() = 0;
+  virtual void UpdateState() = 0;
   virtual void SetIsDebugging(bool flag) = 0;
 };
 
@@ -245,9 +244,9 @@ public:
     return m_traits->IsCancelled();
   }
 
-  void Merge()
+  void UpdateState()
   {
-    m_traits->Merge();
+    m_traits->UpdateState();
   }
 
   void SetIsDebugging(bool isDebugging)
