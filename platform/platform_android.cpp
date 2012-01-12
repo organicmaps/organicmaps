@@ -1,6 +1,7 @@
 #include "platform.hpp"
 
-#include "../coding/mmap_reader.hpp"
+#include "../base/logging.hpp"
+
 #include "../coding/zip_reader.hpp"
 
 #include <dirent.h>
@@ -23,7 +24,7 @@ bool Platform::IsFileExistsByFullPath(string const & filePath)
 ModelReader * Platform::GetReader(string const & file) const
 {
   if (IsFileExistsByFullPath(m_writableDir + file))
-    return new MmapReader(ReadPathForFile(file));
+    return new BaseZipFileReaderType(ReadPathForFile(file));
   else
   {
     ASSERT_EQUAL(file.find("assets/"), string::npos, ("Do not use assets/, only file name"));
