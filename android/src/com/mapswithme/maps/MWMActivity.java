@@ -4,7 +4,6 @@ import java.io.File;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.location.LocationService;
-import com.nvidia.devtech.NvEventQueueActivity;
 
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -24,7 +23,7 @@ import android.webkit.WebView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
-public class MWMActivity extends NvEventQueueActivity implements
+public class MWMActivity extends SmartGLActivity implements
     LocationService.Listener
 {
   VideoTimer m_timer;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <android.view.SurfaceView android:id="@+id/map_surfaceview"
+    <com.mapswithme.maps.SmartGLSurfaceView android:id="@+id/map_smartglsurfaceview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"/>
 
