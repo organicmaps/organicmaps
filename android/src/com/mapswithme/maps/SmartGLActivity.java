@@ -1,7 +1,6 @@
 package com.mapswithme.maps;
 
 import android.app.Activity;
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
 

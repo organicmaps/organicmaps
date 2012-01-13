@@ -115,39 +115,57 @@ public class SmartGLSurfaceView extends GLSurfaceView
     }
   }
 
+  private final static int START_CMD = 0;
+  private final static int DO_CMD = 1;
+  private final static int STOP_CMD = 2;
+
   @Override
   public boolean onTouchEvent (MotionEvent event)
   {
     switch (event.getAction() & MotionEvent.ACTION_MASK)
     {
     case MotionEvent.ACTION_DOWN:
-      nativeMove(0, event.getX(), event.getY());
+      nativeMove(START_CMD, event.getX(), event.getY());
       break;
 
     case MotionEvent.ACTION_POINTER_DOWN:
-      nativeZoom(0, event.getX(0), event.getY(0), event.getX(1), event.getY(1));
+      if (event.getPointerId(0) < event.getPointerId(1))
+        nativeZoom(START_CMD, event.getX(0), event.getY(0), event.getX(1), event.getY(1));
+      else
+        nativeZoom(START_CMD, event.getX(1), event.getY(1), event.getX(0), event.getY(0));
       break;
 
     case MotionEvent.ACTION_MOVE:
       if (event.getPointerCount() > 1)
-        nativeZoom(1, event.getX(0), event.getY(0), event.getX(1), event.getY(1));
+      {
+        if (event.getPointerId(0) < event.getPointerId(1))
+          nativeZoom(DO_CMD, event.getX(0), event.getY(0), event.getX(1), event.getY(1));
+        else
+          nativeZoom(DO_CMD, event.getX(1), event.getY(1), event.getX(0), event.getY(0));
+      }
       else
-        nativeMove(1, event.getX(), event.getY());
+        nativeMove(DO_CMD, event.getX(), event.getY());
       break;
 
     case MotionEvent.ACTION_POINTER_UP:
-      nativeZoom(2, event.getX(0), event.getY(0), event.getX(1), event.getY(1));
+      if (event.getPointerId(0) < event.getPointerId(1))
+        nativeZoom(STOP_CMD, event.getX(0), event.getY(0), event.getX(1), event.getY(1));
+      else
+        nativeZoom(STOP_CMD, event.getX(1), event.getY(1), event.getX(0), event.getY(0));
+      final int leftIndex = ((event.getAction() & MotionEvent.ACTION_POINTER_INDEX_MASK)
+          >> MotionEvent.ACTION_POINTER_ID_SHIFT) == 0 ? 1 : 0;
+      nativeMove(START_CMD, event.getX(leftIndex), event.getY(leftIndex));
       break;
 
     case MotionEvent.ACTION_UP:
-      nativeMove(2, event.getX(), event.getY());
+      nativeMove(STOP_CMD, event.getX(), event.getY());
       break;
 
     case MotionEvent.ACTION_CANCEL:
       if (event.getPointerCount() > 1)
-        nativeZoom(2, event.getX(0), event.getY(0), event.getX(1), event.getY(1));
+        nativeZoom(STOP_CMD, event.getX(0), event.getY(0), event.getX(1), event.getY(1));
       else
-        nativeMove(2, event.getX(), event.getY());
+        nativeMove(STOP_CMD, event.getX(), event.getY());
     }
 
     requestRender();
