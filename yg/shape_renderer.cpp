@@ -123,7 +123,7 @@ namespace yg
           m2::PointF(r.minX(), r.minY()),
           m2::PointF(r.maxX(), r.minY()),
           m2::PointF(r.minX(), r.maxY()),
-          m2::PointD(r.maxX(), r.maxY())
+          m2::PointF(r.maxX(), r.maxY())
         };
 
       m2::PointF texPt = skin()->getPage(style->m_pipelineID)->texture()->mapPixel(m2::RectF(style->m_texRect).Center());
