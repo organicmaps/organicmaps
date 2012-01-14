@@ -497,7 +497,7 @@ namespace yg
       LOG(LERROR, ("no params to init glyph caches."));
   }
 
-  void ResourceManager::initStoragePool(StoragePoolParams const & p, auto_ptr<TStoragePool> & pool)
+  void ResourceManager::initStoragePool(StoragePoolParams const & p, scoped_ptr<TStoragePool> & pool)
   {
     if (p.isValid())
     {
@@ -512,7 +512,7 @@ namespace yg
       LOG(LINFO, ("no ", p.m_poolName, " resource"));
   }
 
-  void ResourceManager::initTexturePool(TexturePoolParams const & p, auto_ptr<TTexturePool> & pool)
+  void ResourceManager::initTexturePool(TexturePoolParams const & p, scoped_ptr<TTexturePool> & pool)
   {
     if (p.isValid())
     {

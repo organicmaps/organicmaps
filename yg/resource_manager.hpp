@@ -1,10 +1,10 @@
 #pragma once
 
 #include "../std/shared_ptr.hpp"
+#include "../std/scoped_ptr.hpp"
 #include "../std/map.hpp"
 #include "../std/string.hpp"
 #include "../std/list.hpp"
-#include "../std/auto_ptr.hpp"
 
 #include "../base/mutex.hpp"
 #include "../base/resource_pool.hpp"
@@ -215,17 +215,17 @@ namespace yg
 
     threads::Mutex m_mutex;
 
-    auto_ptr<TTexturePool> m_primaryTextures;
-    auto_ptr<TTexturePool> m_fontTextures;
-    auto_ptr<TTexturePool> m_styleCacheTextures;
-    auto_ptr<TTexturePool> m_renderTargets;
-    auto_ptr<TTexturePool> m_guiThreadTextures;
+    scoped_ptr<TTexturePool> m_primaryTextures;
+    scoped_ptr<TTexturePool> m_fontTextures;
+    scoped_ptr<TTexturePool> m_styleCacheTextures;
+    scoped_ptr<TTexturePool> m_renderTargets;
+    scoped_ptr<TTexturePool> m_guiThreadTextures;
 
-    auto_ptr<TStoragePool> m_primaryStorages;
-    auto_ptr<TStoragePool> m_smallStorages;
-    auto_ptr<TStoragePool> m_blitStorages;
-    auto_ptr<TStoragePool> m_multiBlitStorages;
-    auto_ptr<TStoragePool> m_guiThreadStorages;
+    scoped_ptr<TStoragePool> m_primaryStorages;
+    scoped_ptr<TStoragePool> m_smallStorages;
+    scoped_ptr<TStoragePool> m_blitStorages;
+    scoped_ptr<TStoragePool> m_multiBlitStorages;
+    scoped_ptr<TStoragePool> m_guiThreadStorages;
 
     vector<GlyphCache> m_glyphCaches;
 
@@ -237,7 +237,7 @@ namespace yg
 
     void initGlyphCaches(GlyphCacheParams const & p);
 
-    void initStoragePool(StoragePoolParams const & p, auto_ptr<TStoragePool> & pool);
+    void initStoragePool(StoragePoolParams const & p, scoped_ptr<TStoragePool> & pool);
 
     TStoragePool * primaryStorages();
     TStoragePool * smallStorages();
@@ -245,7 +245,7 @@ namespace yg
     TStoragePool * multiBlitStorages();
     TStoragePool * guiThreadStorages();
 
-    void initTexturePool(TexturePoolParams const & p, auto_ptr<TTexturePool> & pool);
+    void initTexturePool(TexturePoolParams const & p, scoped_ptr<TTexturePool> & pool);
 
     TTexturePool * primaryTextures();
     TTexturePool * fontTextures();
