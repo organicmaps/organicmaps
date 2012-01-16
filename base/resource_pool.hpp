@@ -82,7 +82,7 @@ struct SeparateFreePoolTraits : TBase
       int oldMaxFreePoolSize = m_maxFreePoolSize;
       m_maxFreePoolSize = max(m_maxFreePoolSize, (int)m_freePool.Size());
       if (oldMaxFreePoolSize != m_maxFreePoolSize)
-        LOG(LINFO, ("freePool maximum size has reached", m_maxFreePoolSize, "elements"));
+        LOG(LINFO, (base_t::m_pool.GetName(), "freePool maximum size has reached", m_maxFreePoolSize, "elements"));
     }
   }
 

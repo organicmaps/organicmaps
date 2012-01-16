@@ -69,4 +69,12 @@ namespace iphone
 	  																			m_id));
 		yg::gl::utils::setupCoordinates(width(), height(), true);
 	}
+  
+  void RenderBuffer::detachFromFrameBuffer()
+  {
+    OGLCHECK(glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES,
+																				  GL_COLOR_ATTACHMENT0_OES,
+  																				GL_RENDERBUFFER_OES,
+	  																			0));
+  }
 }

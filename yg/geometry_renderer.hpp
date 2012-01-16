@@ -23,13 +23,6 @@ namespace yg
 
       typedef Blitter base_t;
 
-      struct UploadData : Command
-      {
-        vector<shared_ptr<ResourceStyle> > m_styles;
-        shared_ptr<BaseTexture> m_texture;
-        void perform();
-      };
-
       struct DrawGeometry : Command
       {
         shared_ptr<BaseTexture> m_texture;

@@ -93,6 +93,15 @@ namespace yg
         utils::setupCoordinates(width(), height(), false);
     }
 
+    void RenderBuffer::detachFromFrameBuffer()
+    {
+      OGLCHECK(glFramebufferRenderbufferFn(
+               GL_FRAMEBUFFER_MWM,
+               isDepthBuffer() ? GL_DEPTH_ATTACHMENT_MWM : GL_COLOR_ATTACHMENT0_MWM,
+               GL_RENDERBUFFER_MWM,
+               0));
+    }
+
     void RenderBuffer::makeCurrent() const
     {
       if (m_id != current())

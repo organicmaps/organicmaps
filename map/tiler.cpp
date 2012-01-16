@@ -55,13 +55,19 @@ int Tiler::drawScale(ScreenBase const & s) const
   ScreenBase tmpS = s;
   tmpS.Rotate(-tmpS.GetAngle());
 
+  size_t tileSize = min(static_cast<size_t>(m_tileSize / 1.05), (size_t)512);
+
   m2::RectD glbRect;
   m2::PointD pxCenter = tmpS.PixelRect().Center();
-  tmpS.PtoG(m2::RectD(pxCenter - m2::PointD(m_scaleEtalonSize / 2, m_scaleEtalonSize / 2),
-                      pxCenter + m2::PointD(m_scaleEtalonSize / 2, m_scaleEtalonSize / 2)),
+  tmpS.PtoG(m2::RectD(pxCenter - m2::PointD(tileSize / 2, tileSize / 2),
+                      pxCenter + m2::PointD(tileSize / 2, tileSize / 2)),
             glbRect);
 
-  return scales::GetScaleLevel(glbRect);
+  double glbRectSize = min(glbRect.SizeX(), glbRect.SizeY());
+
+  int res = static_cast<int>(ceil(log((MercatorBounds::maxX - MercatorBounds::minX) / glbRectSize) / log(2.0)));
+
+  return res > scales::GetUpperScale() ? scales::GetUpperScale() : res;
 }
 
 int Tiler::tileScale(ScreenBase const & s) const

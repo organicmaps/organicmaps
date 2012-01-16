@@ -125,6 +125,8 @@ namespace yg
 
       string m_poolName;
 
+      bool m_isDebugging;
+
       TexturePoolParams(size_t texWidth,
                         size_t texHeight,
                         size_t texCount,
@@ -133,7 +135,8 @@ namespace yg
                         bool isHeightFixed,
                         bool isCountFixed,
                         int scalePriority,
-                        string const & poolName);
+                        string const & poolName,
+                        bool isDebugging = false);
 
       TexturePoolParams(string const & poolName);
 

@@ -261,9 +261,9 @@ namespace yg
       for (unsigned i = 0 ; i < boundRects().size(); ++i)
         screen->drawRectangle(boundRects()[i], c, yg::maxDepth - 3);
     }
-    else
-      if (!isNeedRedraw())
-        return;
+
+    if (!isNeedRedraw())
+      return;
 
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
     {
@@ -289,52 +289,54 @@ namespace yg
 
   void StraightTextElement::map(StylesCache * stylesCache) const
   {
-    yg::FontDesc desc = m_fontDesc;
-    if (desc.m_isMasked)
+    for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
     {
-      for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-        TextElement::map(m_glyphLayouts[i], stylesCache, desc);
-      desc.m_isMasked = false;
+      if (m_glyphLayouts[i].fontDesc().m_isMasked)
+        TextElement::map(m_glyphLayouts[i], stylesCache, m_glyphLayouts[i].fontDesc());
     }
 
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-      TextElement::map(m_glyphLayouts[i], stylesCache, desc);
+    {
+      yg::FontDesc fontDesc = m_glyphLayouts[i].fontDesc();
+      fontDesc.m_isMasked = false;
+      TextElement::map(m_glyphLayouts[i], stylesCache, fontDesc);
+    }
   }
 
   bool StraightTextElement::find(StylesCache * stylesCache) const
   {
-    yg::FontDesc desc = m_fontDesc;
-
-    if (desc.m_isMasked)
+    for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
     {
-      for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-        if (!TextElement::find(m_glyphLayouts[i], stylesCache, desc))
+      if (m_glyphLayouts[i].fontDesc().m_isMasked)
+        if (!TextElement::find(m_glyphLayouts[i], stylesCache, m_glyphLayouts[i].fontDesc()))
           return false;
-
-      desc.m_isMasked = false;
     }
 
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-      if (!TextElement::find(m_glyphLayouts[i], stylesCache, desc))
+    {
+      yg::FontDesc fontDesc = m_glyphLayouts[i].fontDesc();
+      fontDesc.m_isMasked = false;
+      if (!TextElement::find(m_glyphLayouts[i], stylesCache, fontDesc))
         return false;
+    }
 
     return true;
   }
 
   void StraightTextElement::getNonPackedRects(StylesCache * stylesCache, vector<m2::PointU> & v) const
   {
-    yg::FontDesc desc = m_fontDesc;
-
-    if (desc.m_isMasked)
+    for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
     {
-      for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-        TextElement::getNonPackedRects(m_glyphLayouts[i], desc, stylesCache, v);
-
-      desc.m_isMasked = false;
+      if (m_glyphLayouts[i].fontDesc().m_isMasked)
+        TextElement::getNonPackedRects(m_glyphLayouts[i], m_glyphLayouts[i].fontDesc(), stylesCache, v);
     }
 
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-      TextElement::getNonPackedRects(m_glyphLayouts[i], desc, stylesCache, v);
+    {
+      yg::FontDesc fontDesc = m_glyphLayouts[i].fontDesc();
+      fontDesc.m_isMasked = false;
+      TextElement::getNonPackedRects(m_glyphLayouts[i], fontDesc, stylesCache, v);
+    }
   }
 
   int StraightTextElement::visualRank() const

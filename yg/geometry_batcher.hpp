@@ -128,7 +128,6 @@ namespace yg
 
       struct Params : public base_t::Params
       {
-        bool m_isSynchronized;
         bool m_useGuiResources;
         Params();
       };

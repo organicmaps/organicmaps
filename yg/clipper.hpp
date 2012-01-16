@@ -19,20 +19,23 @@ namespace yg
       void enableClipRectImpl(bool flag);
       void setClipRectImpl(m2::RectI const & rect);
 
-    public:
-
-      struct State : public base_t::State
+      struct EnableClipRect : public Command
       {
-        bool m_isClippingEnabled;
-        m2::RectI m_clipRect;
-
-        void apply(BaseState const * prev);
+        bool m_flag;
+        EnableClipRect(bool flag);
+        void perform();
       };
 
-      Clipper(base_t::Params const & params);
+      struct SetClipRect : public Command
+      {
+        m2::RectI m_rect;
+        SetClipRect(m2::RectI const & rect);
+        void perform();
+      };
 
-      shared_ptr<BaseState> const createState() const;
-      void getState(BaseState * state);
+    public:
+
+      Clipper(base_t::Params const & params);
 
       void beginFrame();
       void endFrame();

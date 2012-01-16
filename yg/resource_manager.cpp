@@ -188,7 +188,8 @@ namespace yg
       m_isHeightFixed(true),
       m_isCountFixed(true),
       m_scalePriority(0),
-      m_poolName(poolName)
+      m_poolName(poolName),
+      m_isDebugging(false)
   {}
 
   ResourceManager::TexturePoolParams::TexturePoolParams(size_t texWidth,
@@ -199,7 +200,8 @@ namespace yg
                                                         bool isHeightFixed,
                                                         bool isCountFixed,
                                                         int scalePriority,
-                                                        string const & poolName)
+                                                        string const & poolName,
+                                                        bool isDebugging)
     : m_texWidth(texWidth),
       m_texHeight(texHeight),
       m_texCount(texCount),
@@ -208,7 +210,8 @@ namespace yg
       m_isHeightFixed(isHeightFixed),
       m_isCountFixed(isCountFixed),
       m_scalePriority(scalePriority),
-      m_poolName(poolName)
+      m_poolName(poolName),
+      m_isDebugging(isDebugging)
   {}
 
   bool ResourceManager::TexturePoolParams::isFixed() const
@@ -505,7 +508,10 @@ namespace yg
   void ResourceManager::initTexturePool(TexturePoolParams const & p, auto_ptr<TTexturePool> & pool)
   {
     if (p.isValid())
+    {
       pool.reset(new TTexturePoolImpl(new TTexturePoolTraits(TTextureFactory(p.m_texWidth, p.m_texHeight, p.m_format, p.m_poolName.c_str()), p.m_texCount)));
+      pool->SetIsDebugging(p.m_isDebugging);
+    }
     else
       LOG(LINFO, ("no ", p.m_poolName, " resource"));
   }
@@ -732,16 +738,26 @@ namespace yg
 
   void ResourceManager::cancel()
   {
-    m_primaryTextures->Cancel();
-    m_fontTextures->Cancel();
-    m_styleCacheTextures->Cancel();
-    m_renderTargets->Cancel();
-    m_guiThreadTextures->Cancel();
+    if (m_primaryTextures.get())
+      m_primaryTextures->Cancel();
+    if (m_fontTextures.get())
+      m_fontTextures->Cancel();
+    if (m_styleCacheTextures.get())
+      m_styleCacheTextures->Cancel();
+    if (m_renderTargets.get())
+      m_renderTargets->Cancel();
+    if (m_guiThreadTextures.get())
+      m_guiThreadTextures->Cancel();
 
-    m_primaryStorages->Cancel();
-    m_smallStorages->Cancel();
-    m_blitStorages->Cancel();
-    m_multiBlitStorages->Cancel();
-    m_guiThreadStorages->Cancel();
+    if (m_primaryStorages.get())
+      m_primaryStorages->Cancel();
+    if (m_smallStorages.get())
+      m_smallStorages->Cancel();
+    if (m_blitStorages.get())
+      m_blitStorages->Cancel();
+    if (m_multiBlitStorages.get())
+      m_multiBlitStorages->Cancel();
+    if (m_guiThreadStorages.get())
+      m_guiThreadStorages->Cancel();
   }
 }

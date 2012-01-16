@@ -32,5 +32,6 @@ namespace	iphone
 		unsigned height() const;
 
 		void attachToFrameBuffer();
+    void detachFromFrameBuffer();
 	};
 }

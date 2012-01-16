@@ -137,14 +137,16 @@ namespace yg
 
       Vertex::setupLayout(storage.m_vertices->glPtr());
 
-      OGLCHECK(glDisable(GL_BLEND));
-      OGLCHECK(glDisable(GL_DEPTH_TEST));
-      OGLCHECK(glDepthMask(GL_FALSE));
-
       memcpy(storage.m_indices->data(), &idxData[0], idxData.size() * sizeof(unsigned short));
 
       storage.m_indices->unlock();
       storage.m_indices->makeCurrent();
+
+      OGLCHECK(glEnable(GL_TEXTURE_2D));
+
+      OGLCHECK(glDisable(GL_BLEND));
+      OGLCHECK(glDisable(GL_DEPTH_TEST));
+      OGLCHECK(glDepthMask(GL_FALSE));
 
       for (unsigned i = 0; i < s; ++i)
       {
@@ -155,7 +157,6 @@ namespace yg
       }
 
       OGLCHECK(glEnable(GL_DEPTH_TEST));
-      OGLCHECK(glEnable(GL_TEXTURE_2D));
       OGLCHECK(glEnable(GL_BLEND));
       OGLCHECK(glDepthMask(GL_TRUE));
 //      /// This call is necessary to avoid parasite blitting in updateActualTarget() on IPhone.

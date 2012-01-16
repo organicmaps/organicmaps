@@ -3,6 +3,7 @@
 #include "tile_renderer.hpp"
 #include "window_handle.hpp"
 
+#include "../yg/internal/opengl.hpp"
 #include "../yg/render_state.hpp"
 #include "../yg/rendercontext.hpp"
 #include "../yg/base_texture.hpp"
@@ -47,23 +48,24 @@ TileRenderer::TileRenderer(
 
     params.m_resourceManager = m_resourceManager;
     params.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer());
-
-    shared_ptr<yg::gl::RenderBuffer> depthBuffer(new yg::gl::RenderBuffer(tileWidth, tileHeight, true));
-    params.m_frameBuffer->setDepthBuffer(depthBuffer);
+    params.m_frameBuffer->setDepthBuffer(make_shared_ptr(new yg::gl::RenderBuffer(tileWidth, tileHeight, true)));
 
     params.m_glyphCacheID = m_resourceManager->renderThreadGlyphCacheID(i);
     params.m_threadID = i;
     params.m_visualScale = visualScale;
     params.m_skinName = m_skinName;
     params.m_renderQueue = packetsQueue;
+    params.m_doUnbindRT = true;
+    params.m_isSynchronized = true;
   /*  params.m_isDebugging = true;
-    params.m_drawPathes = false;
+    params.m_drawPathes = false ;
     params.m_drawAreas = false;
     params.m_drawTexts = false; */
 
     m_threadData[i].m_drawerParams = params;
     m_threadData[i].m_drawer = 0;
     m_threadData[i].m_renderContext = m_primaryContext->createShared();
+    m_threadData[i].m_dummyRT = m_resourceManager->createRenderTarget(2, 2);
   }
 
   m_queue.AddInitCommand(bind(&TileRenderer::InitializeThreadGL, this, _1));
@@ -119,6 +121,8 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   ThreadData & threadData = m_threadData[env.threadNum()];
 
+  yg::gl::PacketsQueue * glQueue = threadData.m_drawerParams.m_renderQueue;
+
   DrawerYG * drawer = threadData.m_drawer;
 
   ScreenBase frameScreen;
@@ -146,11 +150,15 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   drawer->screen()->setInfoLayer(tileInfoLayer);
 
+  /// ensuring, that the render target is not bound as a texture
+
+  threadData.m_dummyRT->makeCurrent(glQueue);
+
   drawer->beginFrame();
   drawer->clear(yg::Color(m_bgColor.r, m_bgColor.g, m_bgColor.b, 0));
   drawer->screen()->setClipRect(renderRect);
   drawer->clear(m_bgColor);
-/*  drawer->clear(yg::Color(rand() % 255, rand() % 64, rand() % 128, 128));
+/*  drawer->clear(yg::Color(rand() % 32 + 128, rand() % 64 + 128, rand() % 32 + 128, 255));
 
   std::stringstream out;
   out << rectInfo.m_y << ", " << rectInfo.m_x << ", " << rectInfo.m_tileScale << ", " << rectInfo.m_drawScale;
@@ -180,35 +188,25 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
         rectInfo.m_tileScale <= 17
         );
 
-  if (!env.isCancelled())
-    drawer->endFrame();
+  drawer->endFrame();
 
-  if (!env.isCancelled())
-    drawer->screen()->resetInfoLayer();
+  drawer->screen()->resetInfoLayer();
 
   /// filter out the overlay elements that are out of the bound rect for the tile
   if (!env.isCancelled())
     tileInfoLayer->clip(renderRect);
 
-  yg::gl::PacketsQueue * glQueue = threadData.m_drawerParams.m_renderQueue;
-
   if (!env.isCancelled())
   {
     if (glQueue)
-    {
-      glQueue->insertCheckPoint();
       glQueue->completeCommands();
-    }
   }
   else
   {
     if (!m_isExiting)
     {
       if (glQueue)
-      {
-        glQueue->insertCancelPoint();
-        glQueue->completeCommands();
-      }
+        glQueue->cancelCommands();
     }
   }
 

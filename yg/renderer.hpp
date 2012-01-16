@@ -22,16 +22,6 @@ namespace yg
     {
     public:
 
-      struct State : BaseState
-      {
-        shared_ptr<FrameBuffer> m_frameBuffer;
-        shared_ptr<RenderTarget> m_renderTarget;
-        shared_ptr<RenderBuffer> m_depthBuffer;
-        shared_ptr<ResourceManager> m_resourceManager;
-
-        void apply(BaseState const * prev);
-      };
-
       struct ClearCommand : Command
       {
         yg::Color m_color;
@@ -47,6 +37,22 @@ namespace yg
         void perform();
       };
 
+      struct ChangeFrameBuffer : Command
+      {
+        shared_ptr<FrameBuffer> m_frameBuffer;
+
+        ChangeFrameBuffer(shared_ptr<FrameBuffer> const & fb);
+
+        void perform();
+      };
+
+      struct UnbindRenderTarget : Command
+      {
+        shared_ptr<RenderTarget> m_renderTarget;
+        UnbindRenderTarget(shared_ptr<RenderTarget> const & renderTarget);
+        void perform();
+      };
+
       struct FinishCommand : Command
       {
         void perform();
@@ -59,6 +65,8 @@ namespace yg
         shared_ptr<ResourceManager> m_resourceManager;
         shared_ptr<FrameBuffer> m_frameBuffer;
         bool m_isDebugging;
+        bool m_doUnbindRT;
+        bool m_isSynchronized;
         PacketsQueue * m_renderQueue;
         Params();
       };
@@ -73,6 +81,9 @@ namespace yg
       PacketsQueue * m_renderQueue;
 
       bool m_isDebugging;
+
+      bool m_doUnbindRT;
+      bool m_isSynchronized;
 
       bool m_isRendering;
 
@@ -118,15 +129,12 @@ namespace yg
 
       bool isDebugging() const;
 
-      virtual shared_ptr<BaseState> const createState() const;
-
-      virtual void getState(BaseState * state);
-
       void processCommand(shared_ptr<Command> const & command, Packet::EType type = Packet::ECommand);
       PacketsQueue * renderQueue();
 
       /// insert empty packet into glQueue to mark the frame boundary
       void markFrameBoundary();
+      void completeCommands();
     };
   }
 }

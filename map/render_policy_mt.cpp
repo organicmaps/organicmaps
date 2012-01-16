@@ -192,6 +192,8 @@ void RenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   m_renderQueue->renderState().m_mutex->Lock();
 
+  e->drawer()->beginFrame();
+
   e->drawer()->screen()->clear(m_bgColor);
 
   if (m_renderQueue->renderState().m_actualTarget.get() != 0)
@@ -203,6 +205,8 @@ void RenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e,
 
     pDrawer->screen()->blit(m_renderQueue->renderState().m_actualTarget, m);
   }
+
+  e->drawer()->endFrame();
 }
 
 void RenderPolicyMT::StartDrag()

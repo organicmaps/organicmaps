@@ -13,165 +13,17 @@ namespace yg
   {
     const yg::Color Renderer::s_bgColor(192, 192, 192, 255);
 
-
-    void Renderer::State::apply(BaseState const * prevBase)
-    {
-      State const * prevState = static_cast<State const *>(prevBase);
-
-      if (m_frameBuffer)
-      {
-        bool shouldApply = false;
-
-        if (m_frameBuffer == prevState->m_frameBuffer)
-        {
-          if (m_isDebugging)
-          {
-            std::ostringstream out;
-            out << "equal frameBuffers, ";
-            if (m_frameBuffer)
-              out << m_frameBuffer->id() << ", " << prevState->m_frameBuffer->id();
-            else
-              out << "(null), (null)";
-
-            LOG(LINFO, (out.str().c_str()));
-          }
-
-          if (m_renderTarget != prevState->m_renderTarget)
-          {
-            if (m_isDebugging)
-            {
-              std::ostringstream out;
-              out << "non-equal renderBuffers, ";
-
-              if (prevState->m_renderTarget)
-                out << prevState->m_renderTarget->id();
-              else
-                out << "(null)";
-
-              out << " => ";
-
-              if (m_renderTarget)
-                out << m_renderTarget->id();
-              else
-                out << "(null)";
-
-              LOG(LINFO, (out.str().c_str()));
-            }
-
-            m_frameBuffer->setRenderTarget(m_renderTarget);
-            shouldApply = true;
-          }
-          else
-          {
-            if (m_isDebugging)
-            {
-              std::ostringstream out;
-              out << "equal renderBuffers, ";
-
-              if (m_renderTarget)
-                out << m_renderTarget->id() << ", " << m_renderTarget->id();
-              else
-                out << "(null), (null)";
-              LOG(LINFO, (out.str().c_str()));
-            }
-          }
-
-          if (m_depthBuffer != prevState->m_depthBuffer)
-          {
-            if (m_isDebugging)
-            {
-              std::ostringstream out;
-              out << "non-equal depthBuffers, ";
-
-              if (prevState->m_depthBuffer)
-                out << prevState->m_depthBuffer->id();
-              else
-                out << "(null)";
-
-              out << " => ";
-
-              if (m_depthBuffer)
-                out << m_depthBuffer->id();
-              else
-                out << "(null)";
-
-              LOG(LINFO, (out.str().c_str()));
-            }
-
-            m_frameBuffer->setDepthBuffer(m_depthBuffer);
-            shouldApply = true;
-          }
-          else
-          {
-            if (m_isDebugging)
-            {
-              std::ostringstream out;
-              out << "equal depthBuffers, ";
-              if (m_depthBuffer)
-                out << m_depthBuffer->id() << ", " << m_depthBuffer->id();
-              else
-                out << "(null), (null)";
-              LOG(LINFO, (out.str().c_str()));
-            }
-          }
-
-        }
-        else
-        {
-          if (m_isDebugging)
-          {
-            ostringstream out;
-            out << "non-equal frameBuffers, ";
-            if (prevState->m_frameBuffer)
-              out << prevState->m_frameBuffer->id() << ", ";
-            else
-              out << "(null)";
-
-            out << " => ";
-
-            if (m_frameBuffer)
-              out << m_frameBuffer->id() << ", ";
-            else
-              out << "(null)";
-
-            LOG(LINFO, (out.str().c_str()));
-
-            out.str("");
-            out << "renderTarget=";
-            if (m_renderTarget)
-              out << m_renderTarget->id();
-            else
-              out << "(null)";
-
-            out << ", depthBuffer=";
-            if (m_depthBuffer)
-              out << m_depthBuffer->id();
-            else
-              out << "(null)";
-
-            LOG(LINFO, (out.str().c_str()));
-          }
-
-          m_frameBuffer->setRenderTarget(m_renderTarget);
-          m_frameBuffer->setDepthBuffer(m_depthBuffer);
-          shouldApply = true;
-        }
-
-        if (shouldApply)
-          m_frameBuffer->makeCurrent();
-      }
-      else
-        CHECK(false, ());
-    }
-
-
     Renderer::Params::Params()
       : m_isDebugging(false),
+        m_doUnbindRT(false),
+        m_isSynchronized(true),
         m_renderQueue(0)
     {}
 
     Renderer::Renderer(Params const & params)
       : m_isDebugging(params.m_isDebugging),
+        m_doUnbindRT(params.m_doUnbindRT),
+        m_isSynchronized(params.m_isSynchronized),
         m_isRendering(false),
         m_width(0),
         m_height(0)
@@ -200,11 +52,12 @@ namespace yg
     {
       m_isRendering = true;
 
-      if (m_renderQueue)
-        return;
+      m_frameBuffer->setRenderTarget(m_renderTarget);
+      m_frameBuffer->setDepthBuffer(m_depthBuffer);
 
-      if (m_frameBuffer)
-        m_frameBuffer->makeCurrent();
+      processCommand(make_shared_ptr(new ChangeFrameBuffer(m_frameBuffer)));
+
+//      checkStatus();
     }
 
     bool Renderer::isRendering() const
@@ -212,9 +65,24 @@ namespace yg
       return m_isRendering;
     }
 
+    Renderer::UnbindRenderTarget::UnbindRenderTarget(shared_ptr<RenderTarget> const & rt)
+      : m_renderTarget(rt)
+    {}
+
+    void Renderer::UnbindRenderTarget::perform()
+    {
+      m_renderTarget->detachFromFrameBuffer();
+    }
+
     void Renderer::endFrame()
     {
-        m_isRendering = false;
+      if (m_doUnbindRT && m_renderTarget)
+        processCommand(make_shared_ptr(new UnbindRenderTarget(m_renderTarget)));
+
+      if (m_isSynchronized)
+        finish();
+
+      m_isRendering = false;
     }
 
     shared_ptr<FrameBuffer> const & Renderer::frameBuffer() const
@@ -229,20 +97,14 @@ namespace yg
 
     void Renderer::setRenderTarget(shared_ptr<RenderTarget> const & rt)
     {
+      CHECK(!isRendering(), ("should call this function only outside beginFrame/endFrame"));
       m_renderTarget = rt;
-
-      if (!m_renderQueue)
-      {
-        m_frameBuffer->setRenderTarget(rt);
-        m_frameBuffer->makeCurrent(); //< to attach renderTarget
-      }
     }
 
     void Renderer::resetRenderTarget()
     {
+      CHECK(!isRendering(), ("should call this function only outside beginFrame/endFrame"));
       m_renderTarget.reset();
-      if (!m_renderQueue)
-        m_frameBuffer->resetRenderTarget();
     }
 
     shared_ptr<RenderBuffer> const & Renderer::depthBuffer() const
@@ -252,18 +114,14 @@ namespace yg
 
     void Renderer::setDepthBuffer(shared_ptr<RenderBuffer> const & rt)
     {
+      CHECK(!isRendering(), ("should call this function only outside beginFrame/endFrame"));
       m_depthBuffer = rt;
-
-      if (!m_renderQueue)
-        m_frameBuffer->setDepthBuffer(rt);
     }
 
     void Renderer::resetDepthBuffer()
     {
+      CHECK(!isRendering(), ("should call this function only outside beginFrame/endFrame"));
       m_depthBuffer.reset();
-
-      if (!m_renderQueue)
-        m_frameBuffer->resetDepthBuffer();
     }
 
     Renderer::ClearCommand::ClearCommand(yg::Color const & color,
@@ -307,24 +165,9 @@ namespace yg
       processCommand(command);
     }
 
-    shared_ptr<BaseState> const Renderer::createState() const
-    {
-      return shared_ptr<BaseState>(new State());
-    }
-
-    void Renderer::getState(BaseState * baseState)
-    {
-      State * state = static_cast<State *>(baseState);
-
-      state->m_frameBuffer = m_frameBuffer;
-      state->m_renderTarget = m_renderTarget;
-      state->m_depthBuffer = m_depthBuffer;
-      state->m_resourceManager = m_resourceManager;
-    }
-
     void Renderer::FinishCommand::perform()
     {
-      if (m_isDebugging)
+      if (isDebugging())
         LOG(LINFO, ("performing FinishCommand command"));
       OGLCHECK(glFinish());
     }
@@ -333,6 +176,21 @@ namespace yg
     {
       shared_ptr<Command> command(new FinishCommand());
       processCommand(command);
+    }
+
+    Renderer::ChangeFrameBuffer::ChangeFrameBuffer(shared_ptr<FrameBuffer> const & fb)
+      : m_frameBuffer(fb)
+    {}
+
+    void Renderer::ChangeFrameBuffer::perform()
+    {
+      if (isDebugging())
+      {
+        LOG(LINFO, ("performing ChangeFrameBuffer command"));
+        LOG(LINFO, ("frameBufferID=", m_frameBuffer->id()));
+      }
+
+      m_frameBuffer->makeCurrent();
     }
 
     void Renderer::onSize(unsigned int width, unsigned int height)
@@ -368,11 +226,7 @@ namespace yg
       command->m_isDebugging = renderQueue();
 
       if (renderQueue())
-      {
-        shared_ptr<BaseState> state = createState();
-        getState(state.get());
-        m_renderQueue->processPacket(Packet(state, command, type));
-      }
+        renderQueue()->processPacket(Packet(command, type));
       else
         command->perform();
     }
@@ -386,6 +240,12 @@ namespace yg
     {
       if (m_renderQueue)
         m_renderQueue->processPacket(Packet(Packet::ECheckPoint));
+    }
+
+    void Renderer::completeCommands()
+    {
+      if (m_renderQueue)
+        m_renderQueue->completeCommands();
     }
   }
 }

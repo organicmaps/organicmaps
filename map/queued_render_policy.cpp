@@ -1,5 +1,6 @@
 #include "queued_render_policy.hpp"
 #include "events.hpp"
+#include "../yg/internal/opengl.hpp"
 
 QueuedRenderPolicy::QueuedRenderPolicy(int pipelinesCount,
                                        shared_ptr<yg::gl::RenderContext> const & primaryRC,
@@ -13,7 +14,7 @@ QueuedRenderPolicy::QueuedRenderPolicy(int pipelinesCount,
 QueuedRenderPolicy::~QueuedRenderPolicy()
 {
   for (unsigned i = 0; i < m_PipelinesCount; ++i)
-    DismissQueuedCommands(i);
+    CancelQueuedCommands(i);
 
   delete [] m_Pipelines;
 
@@ -26,7 +27,7 @@ bool QueuedRenderPolicy::NeedRedraw() const
     return true;
 
   for (unsigned i = 0; i < m_PipelinesCount; ++i)
-    if (!m_Pipelines[i].m_Queue.Empty())
+    if (!m_Pipelines[i].m_Queue.empty())
       return true;
 
   return false;
@@ -49,34 +50,34 @@ void QueuedRenderPolicy::EndFrame(shared_ptr<PaintEvent> const & ev, ScreenBase 
 
 void QueuedRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s)
 {
-  shared_ptr<yg::gl::BaseState> state = ev->drawer()->screen()->createState();
-  state->m_isDebugging = m_IsDebugging;
-
-  ev->drawer()->screen()->getState(state.get());
-
   for (unsigned i = 0; i < m_PipelinesCount; ++i)
   {
-    RenderQueuedCommands(i, state);
+    RenderQueuedCommands(i);
     m_resourceManager->updatePoolState();
   }
 }
 
-void QueuedRenderPolicy::RenderQueuedCommands(int pipelineNum, shared_ptr<yg::gl::BaseState> const & state)
+void QueuedRenderPolicy::RenderQueuedCommands(int pipelineNum)
 {
-  shared_ptr<yg::gl::BaseState> curState = state;
+  /// logging only calls that is made while rendering tiles.
+//  if ((pipelineNum == 0) && (m_IsDebugging))
+//    yg::gl::g_doLogOGLCalls = true;
+
+  if (m_IsDebugging)
+    LOG(LINFO, ("--- Processing Pipeline #", pipelineNum, " ---"));
 
   unsigned cmdProcessed = 0;
 
-  m_Pipelines[pipelineNum].m_Queue.ProcessList(bind(&QueuedRenderPolicy::PacketsPipeline::FillFrameBucket, &m_Pipelines[pipelineNum], _1, 1));
+  m_Pipelines[pipelineNum].m_Queue.processList(bind(&QueuedRenderPolicy::PacketsPipeline::FillFrameCommands, &m_Pipelines[pipelineNum], _1, 1));
 
-  cmdProcessed = m_Pipelines[pipelineNum].m_FrameBucket.size();
+  cmdProcessed = m_Pipelines[pipelineNum].m_FrameCommands.size();
 
   list<yg::gl::Packet>::iterator it;
 
   yg::gl::Packet::EType bucketType = m_Pipelines[pipelineNum].m_Type;
 
-  for (it = m_Pipelines[pipelineNum].m_FrameBucket.begin();
-       it != m_Pipelines[pipelineNum].m_FrameBucket.end();
+  for (it = m_Pipelines[pipelineNum].m_FrameCommands.begin();
+       it != m_Pipelines[pipelineNum].m_FrameCommands.end();
        ++it)
   {
     if (it->m_command)
@@ -91,32 +92,27 @@ void QueuedRenderPolicy::RenderQueuedCommands(int pipelineNum, shared_ptr<yg::gl
     {
       ASSERT(bucketType == yg::gl::Packet::ECheckPoint, ());
 
-      if (it->m_state)
-      {
-        it->m_state->m_isDebugging = m_IsDebugging;
-        it->m_state->apply(curState.get());
-        curState = it->m_state;
-      }
       if (it->m_command)
         it->m_command->perform();
     }
   }
 
   /// should clear to release resources, refered from the stored commands.
-  m_Pipelines[pipelineNum].m_FrameBucket.clear();
+  m_Pipelines[pipelineNum].m_FrameCommands.clear();
 
   if (m_IsDebugging)
   {
     LOG(LINFO, ("processed", cmdProcessed, "commands"));
-    LOG(LINFO, (m_Pipelines[pipelineNum].m_Queue.Size(), "commands left"));
+    LOG(LINFO, (m_Pipelines[pipelineNum].m_Queue.size(), "commands left"));
   }
 
-  state->apply(curState.get());
+//  if ((pipelineNum == 0) && (m_IsDebugging))
+//    yg::gl::g_doLogOGLCalls = false;
 }
 
-void QueuedRenderPolicy::PacketsPipeline::FillFrameBucket(list<yg::gl::Packet> & renderQueue, int maxFrames)
+void QueuedRenderPolicy::PacketsPipeline::FillFrameCommands(list<yg::gl::Packet> & renderQueue, int maxFrames)
 {
-  m_FrameBucket.clear();
+  m_FrameCommands.clear();
 
   /// searching for "delimiter" markers
 
@@ -124,16 +120,16 @@ void QueuedRenderPolicy::PacketsPipeline::FillFrameBucket(list<yg::gl::Packet> &
   list<yg::gl::Packet>::iterator last = renderQueue.begin();
 
   /// checking whether there are a CancelPoint packet in the queue.
-  /// In this case - fill m_FrameBucket till this packet
+  /// In this case - fill m_FrameCommands till this packet
 
   for (list<yg::gl::Packet>::iterator it = renderQueue.begin();
        it != renderQueue.end();
        ++it)
   {
-    yg::gl::Packet p = *last;
+    yg::gl::Packet p = *it;
     if (p.m_type == yg::gl::Packet::ECancelPoint)
     {
-      copy(first, ++it, back_inserter(m_FrameBucket));
+      copy(first, ++it, back_inserter(m_FrameCommands));
       renderQueue.erase(first, it);
       m_Type = p.m_type;
       return;
@@ -141,7 +137,7 @@ void QueuedRenderPolicy::PacketsPipeline::FillFrameBucket(list<yg::gl::Packet> &
   }
 
   /// we know, that there are no CancelPoint packets in the queue.
-  /// so fill up the m_FrameBucket up to maxFrames frames.
+  /// so fill up the m_FrameCommands up to maxFrames frames.
 
   int packetsLeft = 100000;
   int framesLeft = maxFrames;
@@ -153,7 +149,7 @@ void QueuedRenderPolicy::PacketsPipeline::FillFrameBucket(list<yg::gl::Packet> &
     if (p.m_type == yg::gl::Packet::ECheckPoint)
     {
       /// found frame boundary, copying
-      copy(first, ++last, back_inserter(m_FrameBucket));
+      copy(first, ++last, back_inserter(m_FrameCommands));
       /// erasing from the main queue
       renderQueue.erase(first, last);
       first = renderQueue.begin();
@@ -173,7 +169,7 @@ void QueuedRenderPolicy::CopyQueuedCommands(list<yg::gl::Packet> &l, list<yg::gl
   swap(l, r);
 }
 
-void QueuedRenderPolicy::DismissQueuedCommands(int pipelineNum)
+void QueuedRenderPolicy::CancelQueuedCommands(int pipelineNum)
 {
   if (m_IsDebugging)
     LOG(LINFO, ("cancelling packetsQueue for pipeline", pipelineNum));
@@ -182,18 +178,14 @@ void QueuedRenderPolicy::DismissQueuedCommands(int pipelineNum)
 
   list<yg::gl::Packet> l;
 
-  m_Pipelines[pipelineNum].m_Queue.ProcessList(bind(&QueuedRenderPolicy::CopyQueuedCommands, this, _1, ref(l)));
+  m_Pipelines[pipelineNum].m_Queue.processList(bind(&QueuedRenderPolicy::CopyQueuedCommands, this, _1, ref(l)));
 
   for (list<yg::gl::Packet>::iterator it = l.begin(); it != l.end(); ++it)
   {
     yg::gl::Packet p = *it;
 
-    if ((p.m_type == yg::gl::Packet::ECheckPoint)
-     || (p.m_type == yg::gl::Packet::ECancelPoint))
-    {
-      if (p.m_command)
-        p.m_command->perform();
-    }
+    if (p.m_command)
+      p.m_command->cancel();
   }
 }
 

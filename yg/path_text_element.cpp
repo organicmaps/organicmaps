@@ -57,6 +57,7 @@ namespace yg
       for (unsigned i = 0; i < boundRects().size(); ++i)
         screen->drawRectangle(boundRects()[i], c, yg::maxDepth - 3);
     }
+
     if (!isNeedRedraw())
       return;
 
@@ -102,7 +103,7 @@ namespace yg
       desc.m_isMasked = false;
     }
 
-    return TextElement::getNonPackedRects(m_glyphLayout, desc, stylesCache, v);
+    TextElement::getNonPackedRects(m_glyphLayout, desc, stylesCache, v);
   }
 
   void PathTextElement::map(StylesCache * stylesCache) const

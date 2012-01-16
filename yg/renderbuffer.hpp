@@ -26,6 +26,7 @@ namespace yg
       void makeCurrent() const;
 
       void attachToFrameBuffer();
+      void detachFromFrameBuffer();
 
       bool isDepthBuffer() const;
 

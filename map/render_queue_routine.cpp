@@ -133,9 +133,6 @@ void RenderQueueRoutine::processResize(ScreenBase const & frameScreen)
     /// TODO : make as a command
     m_renderState->m_actualScreen = frameScreen;
 
-    m_renderState->m_shadowActualTarget = m_renderState->m_actualTarget;
-    m_renderState->m_shadowBackBuffer = m_renderState->m_backBuffer;
-
     m_renderState->m_isResized = false;
   }
 }
@@ -414,6 +411,8 @@ void RenderQueueRoutine::Do()
             m_renderState->m_currentScreen);
       }
 
+      m_threadDrawer->endFrame();
+
       //m_threadDrawer->screen()->setNeedTextRedraw(isPanning);
 
       ScreenBase const & frameScreen = m_currentRenderCommand->m_frameScreen;
@@ -435,6 +434,8 @@ void RenderQueueRoutine::Do()
             continue;
 
           m_threadDrawer->screen()->setClipRect(areas[i]);
+          m_threadDrawer->screen()->enableClipRect(true);
+          m_threadDrawer->screen()->beginFrame();
 
           m_currentRenderCommand->m_renderFn(
               m_currentRenderCommand->m_paintEvent,
@@ -446,10 +447,12 @@ void RenderQueueRoutine::Do()
 
           /// all unprocessed commands should be cancelled
           if (m_currentRenderCommand->m_paintEvent->isCancelled() && m_glQueue)
-            m_glQueue->insertCancelPoint();
+            m_glQueue->cancelCommands();
 
           if (!m_renderState->m_isEmptyModelCurrent)
             cumulativeEmptyModelCurrent = m_renderState->m_isEmptyModelCurrent;
+
+          m_threadDrawer->screen()->endFrame();
 
           if (IsCancelled())
             break;
@@ -465,6 +468,8 @@ void RenderQueueRoutine::Do()
 
       /// setting the "whole texture" clip rect to render texts opened by panning.
       m_threadDrawer->screen()->setClipRect(textureRect);
+
+      m_threadDrawer->beginFrame();
 
       m_threadDrawer->screen()->infoLayer()->draw(m_threadDrawer->screen().get(), math::Identity<double, 3>());
 
@@ -490,17 +495,6 @@ void RenderQueueRoutine::Do()
       }
 
       invalidate();
-
-      /// waiting for all collected commands to complete.
-      if (m_glQueue)
-        m_glQueue->completeCommands();
-
-      {
-        threads::MutexGuard guard(*m_renderState->m_mutex.get());
-        /// refreshing shadow parameters from the primary parameters
-        m_renderState->m_shadowActualTarget = m_renderState->m_actualTarget;
-        m_renderState->m_shadowBackBuffer = m_renderState->m_backBuffer;
-      }
     }
   }
 

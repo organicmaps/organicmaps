@@ -1,5 +1,6 @@
 #pragma once
 #include "../../std/target_os.hpp"
+#include "../../base/logging.hpp"
 
 #include "../../base/logging.hpp"
 
@@ -112,6 +113,11 @@ namespace yg
 
     extern bool g_doDeleteOnDestroy;
 
+    /// This flag controls, whether the OGLCHECK macroses should log OGL calls.
+    /// This is for debugging purpose only.
+
+    extern bool g_doLogOGLCalls;
+
     /// each platform should have an implementation of this function
     /// to check extensions support and initialize function pointers.
     void InitExtensions();
@@ -139,12 +145,12 @@ namespace yg
   }
 }
 
-//#define OMIM_GL_ENABLE_TRACE 1
+#define OMIM_GL_ENABLE_TRACE 1
 
 #ifdef DEBUG
   #ifdef OMIM_GL_ENABLE_TRACE
-    #define OGLCHECK(f) do { LOG(LDEBUG, (#f)); f; yg::gl::CheckError(SRC()); } while(false)
-    #define OGLCHECKAFTER LOG(LDEBUG, ("OGLCHECKAFTER")); yg::gl::CheckError(SRC())
+    #define OGLCHECK(f) do { if (yg::gl::g_doLogOGLCalls) LOG(LDEBUG, (#f)); f; yg::gl::CheckError(SRC()); } while(false)
+    #define OGLCHECKAFTER if (yg::gl::g_doLogOGLCalls) LOG(LDEBUG, ("OGLCHECKAFTER")); yg::gl::CheckError(SRC())
     #define EGLCHECK do { LOG(LDEBUG, ("EGLCHECK")); yg::gl::CheckEGLError(SRC()); } while(false)
   #else
     #define OGLCHECK(f) do { f; yg::gl::CheckError(SRC()); } while(false)

@@ -18,7 +18,7 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
                                            bool useDefaultFB,
                                            yg::ResourceManager::Params const & rmParams,
                                            shared_ptr<yg::gl::RenderContext> const & primaryRC)
-  : RenderPolicy(primaryRC, true)
+  : RenderPolicy(primaryRC, false)
 {
   yg::ResourceManager::Params rmp = rmParams;
 
@@ -32,25 +32,6 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
                                                                        1,
                                                                        "primaryStorage");
 
-  rmp.m_smallStoragesParams = yg::ResourceManager::StoragePoolParams(5000 * sizeof(yg::gl::Vertex),
-                                                                     sizeof(yg::gl::Vertex),
-                                                                     10000 * sizeof(unsigned short),
-                                                                     sizeof(unsigned short),
-                                                                     100,
-                                                                     false,
-                                                                     true,
-                                                                     1,
-                                                                     "smallStorage");
-
-  rmp.m_blitStoragesParams = yg::ResourceManager::StoragePoolParams(10 * sizeof(yg::gl::Vertex),
-                                                                    sizeof(yg::gl::Vertex),
-                                                                    10 * sizeof(unsigned short),
-                                                                    sizeof(unsigned short),
-                                                                    50,
-                                                                    true,
-                                                                    true,
-                                                                    1,
-                                                                    "blitStorage");
 
   rmp.m_multiBlitStoragesParams = yg::ResourceManager::StoragePoolParams(500 * sizeof(yg::gl::Vertex),
                                                                          sizeof(yg::gl::Vertex),
@@ -62,15 +43,15 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
                                                                          1,
                                                                          "multiBlitStorage");
 
-  rmp.m_guiThreadStoragesParams = yg::ResourceManager::StoragePoolParams(300 * sizeof(yg::gl::Vertex),
-                                                                         sizeof(yg::gl::Vertex),
-                                                                         600 * sizeof(unsigned short),
-                                                                         sizeof(unsigned short),
-                                                                         20,
-                                                                         true,
-                                                                         true,
-                                                                         1,
-                                                                         "guiThreadStorage");
+  rmp.m_guiThreadStoragesParams = yg::ResourceManager::StoragePoolParams(5000 * sizeof(yg::gl::Vertex),
+                                                                   sizeof(yg::gl::Vertex),
+                                                                   10000 * sizeof(unsigned short),
+                                                                   sizeof(unsigned short),
+                                                                   10,
+                                                                   true,
+                                                                   true,
+                                                                   1,
+                                                                   "guiThreadStorage");
 
   rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512,
                                                                        256,
@@ -84,7 +65,7 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
 
   rmp.m_fontTexturesParams = yg::ResourceManager::TexturePoolParams(512,
                                                                     256,
-                                                                    5,
+                                                                    2,
                                                                     rmp.m_texFormat,
                                                                     true,
                                                                     true,
@@ -95,7 +76,7 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
   rmp.m_renderTargetTexturesParams = yg::ResourceManager::TexturePoolParams(GetPlatform().TileSize(),
                                                                             GetPlatform().TileSize(),
                                                                             GetPlatform().MaxTilesCount(),
-                                                                            rmp.m_rtFormat,
+                                                                            rmp.m_texFormat,
                                                                             true,
                                                                             true,
                                                                             false,
@@ -103,7 +84,7 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
                                                                             "renderTargetTexture");
 
   rmp.m_styleCacheTexturesParams = yg::ResourceManager::TexturePoolParams(rmp.m_fontTexturesParams.m_texWidth,
-                                                                          rmp.m_fontTexturesParams.m_texHeight,
+                                                                          rmp.m_fontTexturesParams.m_texHeight * 4,
                                                                           2,
                                                                           rmp.m_texFormat,
                                                                           true,
@@ -198,6 +179,8 @@ void TilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
 {
   DrawerYG * pDrawer = e->drawer();
 
+  pDrawer->beginFrame();
+
   pDrawer->screen()->clear(m_bgColor);
 
   m_coverageGenerator->AddCoverScreenTask(currentScreen);
@@ -209,6 +192,8 @@ void TilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
   curCvg->Draw(pDrawer->screen().get(), currentScreen);
 
   m_drawScale = curCvg->GetDrawScale();
+
+  pDrawer->endFrame();
 }
 
 int TilingRenderPolicyMT::GetDrawScale(ScreenBase const & s) const

@@ -5,13 +5,6 @@ namespace yg
 {
   namespace gl
   {
-    BaseState::BaseState()
-      : m_isDebugging(false)
-    {}
-
-    BaseState::~BaseState()
-    {}
-
     bool Command::isDebugging() const
     {
       return m_isDebugging;
@@ -30,16 +23,10 @@ namespace yg
     {}
 
     void Command::cancel()
-    {
-      if ((m_isDebugging) && (!m_name.empty()))
-        LOG(LINFO, ("cancelling", m_name, "command"));
-    }
+    {}
 
     void Command::perform()
-    {
-      if ((m_isDebugging) && (!m_name.empty()))
-        LOG(LINFO, ("performing", m_name, "command"));
-    }
+    {}
 
     Packet::Packet()
     {}
@@ -48,34 +35,15 @@ namespace yg
       : m_type(type)
     {}
 
-    Packet::Packet(shared_ptr<Command> const & command, EType type)
+    Packet::Packet(shared_ptr<Command> const & command,
+                   EType type)
       : m_command(command),
         m_type(type)
     {}
 
-    Packet::Packet(shared_ptr<BaseState> const & state,
-                   shared_ptr<Command> const & command,
-                   EType type)
-      : m_state(state),
-        m_command(command),
-        m_type(type)
-    {
-      if (m_state && m_command)
-        m_state->m_isDebugging = m_command->isDebugging();
-    }
-
-    PacketsQueue::PacketsQueue() : m_fenceManager(5)
+    PacketsQueue::PacketsQueue()
+      : m_fenceManager(5)
     {}
-
-    void PacketsQueue::insertCheckPoint()
-    {
-      processPacket(Packet(Packet::ECheckPoint));
-    }
-
-    void PacketsQueue::insertCancelPoint()
-    {
-      processPacket(Packet(Packet::ECancelPoint));
-    }
 
     struct SignalFence : public Command
     {
@@ -97,10 +65,10 @@ namespace yg
       }
     };
 
-    int PacketsQueue::insertFence()
+    int PacketsQueue::insertFence(Packet::EType type)
     {
       int id = m_fenceManager.insertFence();
-      processPacket(Packet(make_shared_ptr(new SignalFence(id, &m_fenceManager)), Packet::ECheckPoint));
+      processPacket(Packet(make_shared_ptr(new SignalFence(id, &m_fenceManager)), type));
       return id;
     }
 
@@ -111,23 +79,38 @@ namespace yg
 
     void PacketsQueue::completeCommands()
     {
-      joinFence(insertFence());
+      joinFence(insertFence(Packet::ECheckPoint));
+    }
+
+    void PacketsQueue::cancelCommands()
+    {
+      joinFence(insertFence(Packet::ECancelPoint));
     }
 
     void PacketsQueue::cancel()
     {
-      Cancel();
+      m_packets.Cancel();
     }
 
     void PacketsQueue::processPacket(Packet const & packet)
     {
-      if (IsCancelled())
+      if (m_packets.IsCancelled())
       {
         if (packet.m_command)
           packet.m_command->cancel();
       }
       else
-        PushBack(packet);
+        m_packets.PushBack(packet);
+    }
+
+    bool PacketsQueue::empty() const
+    {
+      return m_packets.Empty();
+    }
+
+    size_t PacketsQueue::size() const
+    {
+      return m_packets.Size();
     }
   }
 }

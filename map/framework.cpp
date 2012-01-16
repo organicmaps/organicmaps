@@ -359,9 +359,9 @@ void Framework::DoPaint(shared_ptr<PaintEvent> const & e)
 {
   DrawerYG * pDrawer = e->drawer();
 
-  e->drawer()->screen()->beginFrame();
-
   m_renderPolicy->DrawFrame(e, m_navigator.Screen());
+
+  e->drawer()->screen()->beginFrame();
 
   /// m_informationDisplay is set and drawn after the m_renderPolicy
 
@@ -373,7 +373,6 @@ void Framework::DoPaint(shared_ptr<PaintEvent> const & e)
 
   m_informationDisplay.setDebugInfo(0/*m_renderQueue.renderState().m_duration*/,
                                     GetDrawScale());
-
   m_informationDisplay.setCenter(m2::PointD(MercatorBounds::XToLon(center.x), MercatorBounds::YToLat(center.y)));
 
   m_informationDisplay.enableRuler(true/*!IsEmptyModel()*/);

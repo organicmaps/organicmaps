@@ -134,7 +134,7 @@ RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
 
   m_renderQueue.reset(new RenderQueue(GetPlatform().SkinName(),
                 false,
-                true,
+                false,
                 0.1,
                 false,
                 GetPlatform().ScaleEtalonSize(),
@@ -161,7 +161,7 @@ RenderPolicyST::~RenderPolicyST()
 {
   LOG(LINFO, ("destroying RenderPolicyST"));
 
-  base_t::DismissQueuedCommands(0);
+  base_t::CancelQueuedCommands(0);
 
   LOG(LINFO, ("shutting down renderQueue"));
 
@@ -186,6 +186,8 @@ void RenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   DrawerYG * pDrawer = e->drawer();
 
+  pDrawer->beginFrame();
+
   e->drawer()->screen()->clear(m_bgColor);
 
   m_renderQueue->renderState().m_mutex->Lock();
@@ -199,6 +201,8 @@ void RenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e,
 
     pDrawer->screen()->blit(m_renderQueue->renderState().m_actualTarget, m);
   }
+
+  pDrawer->endFrame();
 }
 
 void RenderPolicyST::EndFrame(shared_ptr<PaintEvent> const & ev,

@@ -26,15 +26,6 @@ namespace yg
       double m_updateInterval;
       my::Timer m_updateTimer;
 
-      struct UpdateActualTarget : Command
-      {
-        bool m_doSynchronize;
-        shared_ptr<RenderState> m_renderState;
-        ScreenBase m_currentScreen;
-
-        void perform();
-      };
-
       struct UpdateBackBuffer : Command
       {
         shared_ptr<RenderState> m_renderState;
@@ -42,6 +33,7 @@ namespace yg
         shared_ptr<FrameBuffer> m_auxFrameBuffer;
         shared_ptr<FrameBuffer> m_frameBuffer;
         bool m_isClipRectEnabled;
+        m2::RectI m_clipRect;
         bool m_doSynchronize;
 
         void perform();

@@ -34,7 +34,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                            bool useDefaultFB,
                                            yg::ResourceManager::Params const & rmParams,
                                            shared_ptr<yg::gl::RenderContext> const & primaryRC)
-  : QueuedRenderPolicy(2, primaryRC, true)
+  : QueuedRenderPolicy(2, primaryRC, false)
 {
   yg::ResourceManager::Params rmp = rmParams;
 
@@ -49,7 +49,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                        "primaryStorage",
                                                                        true);
 
-  rmp.m_smallStoragesParams = yg::ResourceManager::StoragePoolParams(2000 * sizeof(yg::gl::Vertex),
+/*  rmp.m_smallStoragesParams = yg::ResourceManager::StoragePoolParams(2000 * sizeof(yg::gl::Vertex),
                                                                      sizeof(yg::gl::Vertex),
                                                                      4000 * sizeof(unsigned short),
                                                                      sizeof(unsigned short),
@@ -68,7 +68,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                     true,
                                                                     1,
                                                                     "blitStorage");
-
+*/
   rmp.m_multiBlitStoragesParams = yg::ResourceManager::StoragePoolParams(1500 * sizeof(yg::gl::Vertex),
                                                                          sizeof(yg::gl::Vertex),
                                                                          3000 * sizeof(unsigned short),
@@ -112,7 +112,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
   rmp.m_renderTargetTexturesParams = yg::ResourceManager::TexturePoolParams(GetPlatform().TileSize(),
                                                                             GetPlatform().TileSize(),
                                                                             GetPlatform().MaxTilesCount(),
-                                                                            rmp.m_rtFormat,
+                                                                            rmp.m_texFormat,
                                                                             true,
                                                                             true,
                                                                             false,
@@ -190,12 +190,12 @@ TilingRenderPolicyST::~TilingRenderPolicyST()
 
   LOG(LINFO, ("deleting TilingRenderPolicyST"));
 
-  base_t::DismissQueuedCommands(1);
+  base_t::CancelQueuedCommands(1);
 
   LOG(LINFO, ("reseting coverageGenerator"));
   m_coverageGenerator.reset();
 
-  base_t::DismissQueuedCommands(0);
+  base_t::CancelQueuedCommands(0);
 
   LOG(LINFO, ("reseting tileRenderer"));
   m_tileRenderer.reset();
@@ -238,7 +238,11 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
 {
   base_t::DrawFrame(e, currentScreen);
 
+//  yg::gl::g_doLogOGLCalls = true;
+
   DrawerYG * pDrawer = e->drawer();
+
+  pDrawer->beginFrame();
 
   pDrawer->screen()->clear(m_bgColor);
 
@@ -251,6 +255,10 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
   curCvg->Draw(pDrawer->screen().get(), currentScreen);
 
   m_drawScale = curCvg->GetDrawScale();
+
+  pDrawer->endFrame();
+
+//  yg::gl::g_doLogOGLCalls = false;
 }
 
 int TilingRenderPolicyST::GetDrawScale(ScreenBase const & s) const

@@ -41,19 +41,6 @@ namespace yg
       if (m_id != current())
         OGLCHECK(glBindFramebufferFn(GL_FRAMEBUFFER_MWM, m_id));
 
-      if (m_renderTarget)
-        m_renderTarget->attachToFrameBuffer();
-      else
-      {
-        if (m_id != 0)
-          OGLCHECK(glFramebufferRenderbufferFn(
-              GL_FRAMEBUFFER_MWM,
-              GL_COLOR_ATTACHMENT0_MWM,
-              GL_RENDERBUFFER_MWM,
-              0));
-
-        utils::setupCoordinates(width(), height(), true);
-      }
       if (m_depthBuffer)
         m_depthBuffer->attachToFrameBuffer();
       else
@@ -64,6 +51,21 @@ namespace yg
               GL_DEPTH_ATTACHMENT_MWM,
               GL_RENDERBUFFER_MWM,
               0));
+      }
+
+      if (m_renderTarget)
+        m_renderTarget->attachToFrameBuffer();
+      else
+      {
+        if (m_id != 0)
+          OGLCHECK(glFramebufferTexture2DFn(
+              GL_FRAMEBUFFER_MWM,
+              GL_COLOR_ATTACHMENT0_MWM,
+              GL_TEXTURE_2D,
+              0,
+              0));
+
+        utils::setupCoordinates(width(), height(), true);
       }
 
       /// !!! it's a must for a correct work.

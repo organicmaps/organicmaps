@@ -4,7 +4,7 @@
 #include "base_texture.hpp"
 #include "utils.hpp"
 #include "../base/logging.hpp"
-
+#include "../std/bind.hpp"
 
 namespace yg
 {
@@ -53,8 +53,20 @@ namespace yg
     void BaseTexture::attachToFrameBuffer()
     {
       OGLCHECK(glFramebufferTexture2DFn(GL_FRAMEBUFFER_MWM,
-                                        GL_COLOR_ATTACHMENT0_MWM, GL_TEXTURE_2D, id(), 0));
+                                        GL_COLOR_ATTACHMENT0_MWM,
+                                        GL_TEXTURE_2D,
+                                        id(),
+                                        0));
       utils::setupCoordinates(width(), height(), false);
+    }
+
+    void BaseTexture::detachFromFrameBuffer()
+    {
+      OGLCHECK(glFramebufferTexture2DFn(GL_FRAMEBUFFER_MWM,
+                                        GL_COLOR_ATTACHMENT0_MWM,
+                                        GL_TEXTURE_2D,
+                                        0,
+                                        0));
     }
 
     unsigned BaseTexture::current()
@@ -64,9 +76,14 @@ namespace yg
       return id;
     }
 
-    void BaseTexture::makeCurrent() const
+    void BaseTexture::makeCurrent(yg::gl::PacketsQueue * queue) const
     {
+      if (queue)
+        queue->processFn(bind(&BaseTexture::makeCurrent, this, (yg::gl::PacketsQueue*)0));
+
+#ifndef OMIM_OS_ANDROID
       if (current() != m_id)
+#endif
         OGLCHECK(glBindTexture(GL_TEXTURE_2D, m_id));
     }
 

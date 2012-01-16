@@ -13,36 +13,6 @@ namespace yg
       m_isClippingEnabled(false)
     {}
 
-    void Clipper::State::apply(BaseState const * prev)
-    {
-      base_t::State::apply(prev);
-
-      State const * state = static_cast<State const *>(prev);
-
-      if (state->m_isClippingEnabled != m_isClippingEnabled)
-      {
-        if (m_isClippingEnabled)
-        {
-          if (m_isDebugging)
-            LOG(LINFO, ("enabling scissors"));
-          OGLCHECK(glEnable(GL_SCISSOR_TEST));
-        }
-        else
-        {
-          if (m_isDebugging)
-            LOG(LINFO, ("disabling scissors"));
-          OGLCHECK(glDisable(GL_SCISSOR_TEST));
-        }
-      }
-
-      if (state->m_clipRect != m_clipRect)
-      {
-        if (m_isDebugging)
-          LOG(LINFO, ("scissor(", m_clipRect.minX(), m_clipRect.minY(), m_clipRect.maxX(), m_clipRect.maxY(), ")"));
-        OGLCHECK(glScissor(m_clipRect.minX(), m_clipRect.minY(), m_clipRect.SizeX(), m_clipRect.SizeY()));
-      }
-    }
-
     void Clipper::beginFrame()
     {
       base_t::beginFrame();
@@ -57,22 +27,53 @@ namespace yg
       base_t::endFrame();
     }
 
+    Clipper::EnableClipRect::EnableClipRect(bool flag)
+      : m_flag(flag)
+    {}
+
+    void Clipper::EnableClipRect::perform()
+    {
+      if (isDebugging())
+        LOG(LINFO, ("performing EnableClipRect command"));
+
+      if (m_flag)
+      {
+        if (isDebugging())
+          LOG(LINFO, ("enabling scissor test"));
+        OGLCHECK(glEnable(GL_SCISSOR_TEST));
+      }
+      else
+      {
+        if (isDebugging())
+        {
+          LOG(LINFO, ("disabling scissor test"));
+          OGLCHECK(glDisable(GL_SCISSOR_TEST));
+        }
+      }
+    }
+
     void Clipper::enableClipRect(bool flag)
     {
       m_isClippingEnabled = flag;
 
-      if (renderQueue())
-        return;
-
-      if (m_isClippingEnabled)
-        OGLCHECK(glEnable(GL_SCISSOR_TEST));
-      else
-        OGLCHECK(glDisable(GL_SCISSOR_TEST));
+      processCommand(make_shared_ptr(new EnableClipRect(flag)));
     }
 
     bool Clipper::clipRectEnabled() const
     {
       return m_isClippingEnabled;
+    }
+
+    Clipper::SetClipRect::SetClipRect(m2::RectI const & rect)
+      : m_rect(rect)
+    {}
+
+    void Clipper::SetClipRect::perform()
+    {
+      if (isDebugging())
+        LOG(LINFO, ("performing SetClipRect command"));
+
+      OGLCHECK(glScissor(m_rect.minX(), m_rect.minY(), m_rect.SizeX(), m_rect.SizeY()));
     }
 
     void Clipper::setClipRect(m2::RectI const & rect)
@@ -81,30 +82,14 @@ namespace yg
       if (!m_clipRect.Intersect(m2::RectI(0, 0, width(), height())))
         m_clipRect = m2::RectI(0, 0, 0, 0);
 
-      if (renderQueue())
-        return;
-
       ASSERT ( m_clipRect.IsValid(), (m_clipRect) );
-      OGLCHECK(glScissor(m_clipRect.minX(), m_clipRect.minY(), m_clipRect.SizeX(), m_clipRect.SizeY()));
+
+      processCommand(make_shared_ptr(new SetClipRect(m_clipRect)));
     }
 
     m2::RectI const & Clipper::clipRect() const
     {
       return m_clipRect;
-    }
-
-    shared_ptr<BaseState> const Clipper::createState() const
-    {
-      return shared_ptr<BaseState>(new State());
-    }
-
-    void Clipper::getState(BaseState * s)
-    {
-      State * state = static_cast<State *>(s);
-      base_t::getState(s);
-
-      state->m_clipRect = m_clipRect;
-      state->m_isClippingEnabled = m_isClippingEnabled;
     }
   }
 }

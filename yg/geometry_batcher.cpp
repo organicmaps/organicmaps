@@ -23,14 +23,12 @@ namespace yg
   namespace gl
   {
     GeometryBatcher::Params::Params()
-      : m_isSynchronized(true),
-        m_useGuiResources(false)
+      : m_useGuiResources(false)
     {}
 
     GeometryBatcher::GeometryBatcher(Params const & params)
       : base_t(params),
         m_isAntiAliased(true),
-        m_isSynchronized(params.m_isSynchronized),
         m_useGuiResources(params.m_useGuiResources)
     {
       reset(-1);
@@ -268,9 +266,6 @@ namespace yg
      flush(-1);
      /// Syncronization point.
      enableClipRect(false);
-
-     if (m_isSynchronized)
-       processCommand(shared_ptr<Command>(new FinishCommand()));
 
      if (isDebugging())
      {

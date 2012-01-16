@@ -3,6 +3,7 @@
 #include "../geometry/rect2d.hpp"
 #include "../geometry/point2d.hpp"
 #include "render_target.hpp"
+#include "packets_queue.hpp"
 
 namespace yg
 {
@@ -33,8 +34,9 @@ namespace yg
         unsigned height() const;
 
         unsigned id() const;
-        void makeCurrent() const;
+        void makeCurrent(yg::gl::PacketsQueue * queue = 0) const;
         void attachToFrameBuffer();
+        void detachFromFrameBuffer();
 
         m2::PointF const mapPixel(m2::PointF const & p) const;
         m2::RectF const mapRect(m2::RectF const & r) const;

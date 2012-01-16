@@ -54,23 +54,6 @@ namespace yg
       }
     }
 
-    void RenderStateUpdater::UpdateActualTarget::perform()
-    {
-      if (isDebugging())
-        LOG(LINFO, ("performing UpdateActualTarget command"));
-
-      OGLCHECK(glFinish());
-
-      if (m_doSynchronize)
-        m_renderState->m_mutex->Lock();
-      swap(m_renderState->m_actualTarget, m_renderState->m_backBuffer);
-      if (!m_renderState->m_isEmptyModelCurrent)
-        m_renderState->m_isEmptyModelActual = m_renderState->m_isEmptyModelCurrent;
-      m_renderState->m_actualScreen = m_currentScreen;
-      if (m_doSynchronize)
-        m_renderState->m_mutex->Unlock();
-    }
-
     void RenderStateUpdater::UpdateBackBuffer::perform()
     {
       if (isDebugging())
@@ -107,6 +90,8 @@ namespace yg
       if (m_isClipRectEnabled)
         OGLCHECK(glEnable(GL_SCISSOR_TEST));
 
+      OGLCHECK(glScissor(m_clipRect.minX(), m_clipRect.minY(), m_clipRect.maxX(), m_clipRect.maxY()));
+
       OGLCHECK(glFinish());
 
       if (m_doSynchronize)
@@ -121,31 +106,38 @@ namespace yg
     void RenderStateUpdater::updateActualTarget()
     {
       /// Carefully synchronizing the access to the m_renderState to minimize wait time.
-      processCommand(shared_ptr<Command>(new FinishCommand()));
+      finish();
+
+      completeCommands();
+
+      /// to re-set the states
+      base_t::endFrame();
+      base_t::beginFrame();
 
       m_renderState->m_mutex->Lock();
 
-      swap(m_renderState->m_shadowActualTarget, m_renderState->m_shadowBackBuffer);
+      swap(m_renderState->m_actualTarget, m_renderState->m_backBuffer);
+      m_renderState->m_actualScreen = m_renderState->m_currentScreen;
+      if (!m_renderState->m_isEmptyModelCurrent)
+        m_renderState->m_isEmptyModelActual = m_renderState->m_isEmptyModelCurrent;
 
-      shared_ptr<UpdateActualTarget> command(new UpdateActualTarget());
-      command->m_renderState = m_renderState;
-      command->m_currentScreen = m_renderState->m_currentScreen;
-      command->m_doSynchronize = (renderQueue() != 0);
+      m_renderState->m_mutex->Unlock();
 
-      processCommand(command);
+      base_t::endFrame();
+
+      setRenderTarget(m_renderState->m_backBuffer);
 
       shared_ptr<UpdateBackBuffer> command1(new UpdateBackBuffer());
 
       command1->m_renderState = m_renderState;
       command1->m_resourceManager = resourceManager();
       command1->m_isClipRectEnabled = clipRectEnabled();
+      command1->m_clipRect = clipRect();
       command1->m_doSynchronize = renderQueue();
       command1->m_auxFrameBuffer = m_auxFrameBuffer;
       command1->m_frameBuffer = frameBuffer();
 
-      setRenderTarget(m_renderState->m_shadowBackBuffer);
-
-      m_renderState->m_mutex->Unlock();
+      base_t::beginFrame();
 
       processCommand(command1);
 
@@ -156,7 +148,11 @@ namespace yg
 
       processCommand(command2);
 
-      markFrameBoundary();
+      base_t::endFrame();
+      completeCommands();
+
+      setRenderTarget(m_renderState->m_backBuffer);
+      base_t::beginFrame();
     }
 
     void RenderStateUpdater::beginFrame()
@@ -182,8 +178,6 @@ namespace yg
     {
       if ((m_renderState) && (m_indicesCount))
         updateActualTarget();
-      else
-        markFrameBoundary();
 
       m_indicesCount = 0;
       m_updateTimer.Reset();

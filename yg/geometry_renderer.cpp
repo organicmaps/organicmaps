@@ -59,30 +59,6 @@ namespace yg
       processCommand(command);
     }
 
-    void GeometryRenderer::UploadData::perform()
-    {
-      if (isDebugging())
-        LOG(LINFO, ("performing UploadData command"));
-
-      static_cast<gl::ManagedTexture*>(m_texture.get())->lock();
-
-      TDynamicTexture * dynTexture = static_cast<TDynamicTexture*>(m_texture.get());
-
-      for (size_t i = 0; i < m_styles.size(); ++i)
-      {
-        shared_ptr<ResourceStyle> const & style = m_styles[i];
-
-        TDynamicTexture::view_t v = dynTexture->view(style->m_texRect.SizeX(),
-                                                     style->m_texRect.SizeY());
-
-        style->render(&v(0, 0));
-
-        dynTexture->upload(&v(0, 0), style->m_texRect);
-      }
-
-      static_cast<gl::ManagedTexture*>(m_texture.get())->unlock();
-    }
-
     void GeometryRenderer::applyStates(bool isAntiAliased)
     {
       if (renderQueue())

@@ -4,24 +4,30 @@
 #include "../base/threaded_list.hpp"
 #include "../yg/renderer.hpp"
 
-/// base class for policy using separate queue of gl commands.
+/// base class for policy used on the devices that do not support
+/// OpenGL context sharing.
 class QueuedRenderPolicy : public RenderPolicy
 {
 private:
 
   typedef RenderPolicy base_t;
 
+  /// separate pipeline for packets, collected on the single thread.
+  /// although it's possible to collect all the packet from all threads
+  /// into single queue it's better to separate them for finer optimization
+  /// of "heavy" commands.
   struct PacketsPipeline
   {
     yg::gl::PacketsQueue m_Queue; //< all enqueued commands
-    list<yg::gl::Packet> m_FrameBucket; //< list of commands to execute on current frame
-    yg::gl::Packet::EType m_Type;
+    list<yg::gl::Packet> m_FrameCommands; //< list of commands to execute on current frame
+    yg::gl::Packet::EType m_Type; //< type of the actions to perform with FrameCommands
 
-    /// - fill m_FrameBucket with the packets from the QueueData
-    /// which corresponds to maxFrames frames, delimited by SimpleDelimiter markers,
+    /// - this function is passed to ThreadedList::ProcessQueue to fill up
+    /// the FrameCommands from the QueueData, taking at maximum maxCheckPoints chunks,
     /// skipping empty frames.
-
-    void FillFrameBucket(list<yg::gl::Packet> & QueueData, int maxFrames);
+    /// - if there are a CancelPoint in the QueueData than the packets are copied up to
+    ///   CancelPoint packet ignoring maxCheckPoints param
+    void FillFrameCommands(list<yg::gl::Packet> & QueueData, int maxCheckPoints);
   };
 
   /// couldn't use vector here as PacketsPipeline holds non-copyable yg::gl::PacketsQueue
@@ -34,8 +40,8 @@ protected:
 
   void CopyQueuedCommands(list<yg::gl::Packet> & l, list<yg::gl::Packet> & r);
 
-  void RenderQueuedCommands(int pipelineNum, shared_ptr<yg::gl::BaseState> const & state);
-  void DismissQueuedCommands(int pipelineNum);
+  void RenderQueuedCommands(int pipelineNum);
+  void CancelQueuedCommands(int pipelineNum);
 
 public:
 
