@@ -7,6 +7,11 @@
   #include "../std/windows.hpp"
 #else
   #include <pthread.h>
+  #if defined (OMIM_OS_ANDROID)
+    /// External implementations are in android/jni code
+    void AndroidThreadAttachToJVM();
+    void AndroidThreadDetachFromJVM();
+  #endif
 #endif
 
 
@@ -99,8 +104,18 @@ namespace threads
 
     static void * PthreadsWrapperThreadProc(void * p)
     {
+#ifdef OMIM_OS_ANDROID
+      // Attach thread to JVM, implemented in android/jni code
+      AndroidThreadAttachToJVM();
+#endif
+
       IRoutine * pRoutine = reinterpret_cast<IRoutine *>(p);
       pRoutine->Do();
+
+#ifdef OMIM_OS_ANDROID
+      // Detach thread from JVM, implemented in android/jni code
+      AndroidThreadDetachFromJVM();
+#endif
 
       ::pthread_exit(NULL);
       return NULL;
@@ -156,7 +171,7 @@ namespace threads
   {
     if (m_routine)
     {
-      int error = m_impl->Join();
+      int const error = m_impl->Join();
       if (0 != error)
       {
         ASSERT ( !"Thread join failed. See error value.", (error) );

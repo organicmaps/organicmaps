@@ -2,6 +2,7 @@
 
 #include <android/log.h>
 
+#include "../../../../../base/logging.hpp"
 #include "../../../../../base/assert.hpp"
 
 namespace jni {

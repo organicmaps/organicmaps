@@ -1,65 +1,32 @@
-#include <jni.h>
-
-#include "../core/logging.hpp"
+#include "../core/jni_helper.hpp"
 
 #include "Framework.hpp"
 #include "../platform/Platform.hpp"
 #include "../../../../../platform/settings.hpp"
-#include "../jni/jni_thread.hpp"
-#include "../../../../../base/logging.hpp"
 
-JavaVM * g_jvm;
+android::Framework * g_framework = 0;
 
 extern "C"
 {
-  JNIEXPORT jint JNICALL
-  JNI_OnLoad(JavaVM * jvm, void * reserved)
-  {
-    jni::InitSystemLog();
-    jni::InitAssertLog();
 
-    LOG(LINFO, ("logging services initialized"));
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_MWMActivity_nativeInit(JNIEnv * env, jobject thiz, int densityDpi,
+    jint screenWidth, jint screenHeight,
+    jstring apkPath, jstring storagePath, jstring tmpPath, jstring extTmpPath, jstring settingsPath)
+{
+  android::Platform::Instance().Initialize(densityDpi, screenWidth, screenHeight,
+      jni::GetString(env, apkPath), jni::GetString(env, storagePath),
+      jni::GetString(env, tmpPath), jni::GetString(env, extTmpPath),
+      jni::GetString(env, settingsPath));
+  g_framework = new android::Framework();
+}
 
-    jni::SetCurrentJVM(jvm);
-    g_jvm = jvm;
-    LOG(LDEBUG, ("JNI_OnLoad"));
-    return JNI_VERSION_1_6;
-  }
-
-  JNIEXPORT void JNICALL
-  JNI_OnUnload(JavaVM * vm, void * reserved)
-  {
-    delete g_framework;
-    jni::SetCurrentJVM(0);
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeInit(JNIEnv * env,
-                                                  jobject thiz,
-                                                  jint densityDpi,
-                                                  jint screenWidth,
-                                                  jint screenHeight,
-                                                  jstring apkPath,
-                                                  jstring storagePath,
-                                                  jstring tmpPath,
-                                                  jstring extTmpPath,
-                                                  jstring settingsPath)
-  {
-    if (!g_framework)
-    {
-      android::Platform::Instance().Initialize(env,
-                                               densityDpi,
-                                               screenWidth,
-                                               screenHeight,
-                                               apkPath,
-                                               storagePath,
-                                               tmpPath,
-                                               extTmpPath,
-                                               settingsPath);
-
-      g_framework = new android::Framework(g_jvm);
-    }
-  }
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_MWMActivity_nativeDestroy(JNIEnv * env, jobject thiz)
+{
+  delete g_framework;
+  g_framework = 0;
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 

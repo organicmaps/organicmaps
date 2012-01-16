@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../jni/jni_method.hpp"
 #include "../../../../../storage/storage.hpp"
-#include "../../../../../std/scoped_ptr.hpp"
+
+#include <jni.h>
 
 namespace android
 {
@@ -11,8 +11,8 @@ namespace android
   private:
     jobject m_self;
 
-    scoped_ptr<jni::Method> m_onChangeCountry;
-    scoped_ptr<jni::Method> m_onProgress;
+    jmethodID m_onChangeCountry;
+    jmethodID m_onProgress;
 
   public:
 

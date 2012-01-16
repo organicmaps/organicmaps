@@ -26,8 +26,6 @@ import android.util.Log;
 public class MWMActivity extends SmartGLActivity implements
     LocationService.Listener
 {
-  VideoTimer m_timer;
-
   private static String TAG = "MWMActivity";
   private final static String PACKAGE_NAME = "com.mapswithme.maps";
 
@@ -173,9 +171,13 @@ public class MWMActivity extends SmartGLActivity implements
 
     checkMeasurementSystem();
 
-    m_timer = new VideoTimer();
-
     m_locationService = new LocationService(this);
+  }
+
+  @Override
+  public void onDestroy()
+  {
+    nativeDestroy();
   }
 
   // From Location interface
@@ -362,15 +364,10 @@ public class MWMActivity extends SmartGLActivity implements
   private native void nativeStorageConnected();
   private native void nativeStorageDisconnected();
 
-  private native void nativeInit(int densityDpi,
-                                 int width,
-                                 int height,
-                                 String apkPath, 
-                                 String storagePath,
-                                 String tmpPath, 
-                                 String extTmpPath, 
-                                 String settingsPath);
-  
+  private native void nativeInit(int densityDpi, int screenWidth, int screenHeight,
+      String apkPath,
+      String storagePath, String tmpPath, String extTmpPath, String settingsPath);
+  private native void nativeDestroy();
   private native void nativeLocationStatusChanged(int newStatus);
   private native void nativeLocationUpdated(long time, double lat, double lon, float accuracy);
   private native void nativeCompassUpdated(long time, double magneticNorth, double trueNorth, float accuracy);
