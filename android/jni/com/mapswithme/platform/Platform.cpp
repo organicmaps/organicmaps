@@ -27,7 +27,7 @@ public:
     /// pure magic ;)
 
     double rotatedScreenCircleDiameter = sqrt(screenWidth * screenWidth + screenHeight * screenHeight);
-    int tilesOnOneSide = ceil(rotatedScreenCircleDiameter / m_tileSize);
+    int tilesOnOneSide = ceil(rotatedScreenCircleDiameter / (m_tileSize / 1.05 / 2));
     int singleScreenTilesCount = tilesOnOneSide * tilesOnOneSide;
     m_maxTilesCount = singleScreenTilesCount * 2;
 
