@@ -1,11 +1,15 @@
 package com.mapswithme.maps;
 
+import com.mapswithme.util.ConnectionState;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import android.provider.Settings;
 import android.util.Log;
 
 public class DownloadUI extends PreferenceActivity
@@ -160,6 +164,19 @@ public class DownloadUI extends PreferenceActivity
     return root;
   }
 
+  private void showNoConnectionDialog()
+  {
+    m_alert.setTitle("Internet connection is not available");
+    m_alert.setPositiveButton("Connection Settings", new DialogInterface.OnClickListener() {
+      public void onClick(DialogInterface dlg, int which) {
+        DownloadUI.this.startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
+        dlg.dismiss();
+      }
+    });
+    m_alert.setNegativeButton("Cancel", m_alertCancelHandler);
+    m_alert.create().show();
+  }
+
   @Override
   public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference)
   {
@@ -185,21 +202,31 @@ public class DownloadUI extends PreferenceActivity
         break;
         
       case 1: // ENotDownloaded
-        m_alert.setTitle(countryName(group, country, region));
-        m_alert.setPositiveButton("Download " + formatSizeString(countryRemoteSizeInBytes(group, country, region)),
-            new DialogInterface.OnClickListener() {
-              public void onClick(DialogInterface dlg, int which) {
-                downloadCountry(group, country, region);
-                dlg.dismiss();
-              }
-            });
-        m_alert.setNegativeButton("Cancel", m_alertCancelHandler);
-        m_alert.create().show();
+        if (!ConnectionState.isConnected(this))
+        { // Show "Connection is not available" dialog if there is no connection
+          showNoConnectionDialog();
+        }
+        else
+        { // Display download comfirmation
+          m_alert.setTitle(countryName(group, country, region));
+          m_alert.setPositiveButton("Download " + formatSizeString(countryRemoteSizeInBytes(group, country, region)),
+              new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dlg, int which) {
+                  downloadCountry(group, country, region);
+                  dlg.dismiss();
+                }
+              });
+          m_alert.setNegativeButton("Cancel", m_alertCancelHandler);
+          m_alert.create().show();
+        }
         break;
         
       case 2: // EDownloadFailed
+        if (!ConnectionState.isConnected(this))
+          showNoConnectionDialog();
+        else
         // Do not confirm download if status is failed, just start it
-        downloadCountry(group, country, region);
+          downloadCountry(group, country, region);
         break;
 
       case 3: // EDownloading
