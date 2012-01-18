@@ -34,7 +34,7 @@
     {
       CLAuthorizationStatus authStatus = kCLAuthorizationStatusNotDetermined;
       // authorizationStatus method is implemented in iOS >= 4.2
-      if ([CLLocationManager instancesRespondToSelector:@selector(authorizationStatus)])
+      if ([CLLocationManager respondsToSelector:@selector(authorizationStatus)])
         authStatus = [CLLocationManager authorizationStatus];
 
       switch(authStatus)
