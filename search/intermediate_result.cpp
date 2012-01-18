@@ -18,7 +18,7 @@ namespace search
 namespace impl
 {
 
-IntermediateResult::IntermediateResult(m2::RectD const & viewportRect,
+IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, m2::PointD const & pos,
                                        FeatureType const & f,
                                        string const & displayName,
                                        string const & fileName)
@@ -42,13 +42,13 @@ IntermediateResult::IntermediateResult(m2::RectD const & viewportRect,
   }
 
   // get common params
-  m_distance = ResultDistance(viewportRect.Center(), m_rect.Center());
-  m_direction = ResultDirection(viewportRect.Center(), m_rect.Center());
+  m_distance = ResultDistance(pos, m_rect.Center());
+  m_direction = ResultDirection(pos, m_rect.Center());
   m_searchRank = feature::GetSearchRank(f);
   m_viewportDistance = ViewportDistance(viewportRect, m_rect.Center());
 }
 
-IntermediateResult::IntermediateResult(m2::RectD const & viewportRect,
+IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, m2::PointD const & pos,
                                        double lat, double lon, double precision)
   : m_str("(" + strings::to_string(lat) + ", " + strings::to_string(lon) + ")"),
     m_rect(MercatorBounds::LonToX(lon - precision), MercatorBounds::LatToY(lat - precision),
@@ -56,8 +56,8 @@ IntermediateResult::IntermediateResult(m2::RectD const & viewportRect,
     m_type(0), m_resultType(RESULT_LATLON), m_searchRank(0)
 {
   // get common params
-  m_distance = ResultDistance(viewportRect.Center(), m_rect.Center());
-  m_direction = ResultDirection(viewportRect.Center(), m_rect.Center());
+  m_distance = ResultDistance(pos, m_rect.Center());
+  m_direction = ResultDirection(pos, m_rect.Center());
   m_viewportDistance = ViewportDistance(viewportRect, m_rect.Center());
 
   // get region info
@@ -67,7 +67,7 @@ IntermediateResult::IntermediateResult(m2::RectD const & viewportRect,
 
 IntermediateResult::IntermediateResult(string const & name, int penalty)
   : m_str(name), m_completionString(name + " "),
-    /// @todo ??? Maybe we should initialize here by maximum value ???
+    // Categories should always be first
     m_distance(0), m_direction(0), m_viewportDistance(0),
     m_resultType(RESULT_CATEGORY),
     m_searchRank(0)
@@ -95,18 +95,26 @@ bool IntermediateResult::LessRank(IntermediateResult const & r1, IntermediateRes
 
 bool IntermediateResult::LessDistance(IntermediateResult const & r1, IntermediateResult const & r2)
 {
+  return (r1.m_distance < r2.m_distance);
+
+  /*
   if (r1.m_distance != r2.m_distance)
     return (r1.m_distance < r2.m_distance);
   else
     return LessRank(r1, r2);
+  */
 }
 
 bool IntermediateResult::LessViewportDistance(IntermediateResult const & r1, IntermediateResult const & r2)
 {
+  return (r1.m_viewportDistance < r2.m_viewportDistance);
+
+  /*
   if (r1.m_viewportDistance != r2.m_viewportDistance)
     return (r1.m_viewportDistance < r2.m_viewportDistance);
   else
     return LessRank(r1, r2);
+  */
 }
 
 Result IntermediateResult::GenerateFinalResult(storage::CountryInfoGetter const * pInfo) const
@@ -250,7 +258,8 @@ string IntermediateResult::DebugPrint() const
   res += "Name: " + m_str;
   res += "; Type: " + ::DebugPrint(m_type);
   res += "; Rank: " + ::DebugPrint(m_searchRank);
-  res += "; Distance: " + ::DebugPrint(m_viewportDistance);
+  res += "; Viewport distance: " + ::DebugPrint(m_viewportDistance);
+  res += "; Distance: " + ::DebugPrint(m_distance);
   return res;
 }
 

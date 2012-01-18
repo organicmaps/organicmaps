@@ -673,7 +673,12 @@ search::Engine * Framework::GetSearchEngine()
 void Framework::Search(string const & text, SearchCallbackT callback)
 {
   search::Engine * pSearchEngine = GetSearchEngine();
-  pSearchEngine->SetViewport(m_navigator.Screen().ClipRect());
+
+  m2::RectD const viewport = m_navigator.Screen().ClipRect();
+  pSearchEngine->SetViewport(viewport);
+  pSearchEngine->SetPosition(m_locationState.IsValidPosition() ?
+                               m_locationState.Position() : viewport.Center());
+
   pSearchEngine->Search(text, callback);
 }
 

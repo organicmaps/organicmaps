@@ -44,7 +44,9 @@ public:
   ~Query();
 
   void SetViewport(m2::RectD const & viewport);
+  void SetPosition(m2::PointD const & pos);
   void SetPreferredLanguage(string const & lang);
+
   void Search(string const & query,
               function<void (Result const &)> const & f,
               unsigned int resultsNeeded = 10);
@@ -84,8 +86,10 @@ private:
   strings::UniString m_uniQuery;
   buffer_vector<strings::UniString, 32> m_tokens;
   strings::UniString m_prefix;
+
   m2::RectD m_viewport;
   m2::RectD m_viewportExtended;
+  m2::PointD m_position;
 
   scoped_ptr<LangKeywordsScorer> m_pKeywordsScorer;
 
@@ -101,14 +105,18 @@ private:
     CompareT() : m_fn(0) {}
     explicit CompareT(FunctionT const & fn) : m_fn(fn) {}
 
-    inline bool operator() (ValueT const & v1, ValueT const & v2) const
+    template <class T> bool operator() (T const & v1, T const & v2) const
     {
       return m_fn(*v1, *v2);
     }
   };
 
   typedef my::limited_priority_queue<ValueT, CompareT> QueueT;
-  static const size_t m_qCount = 2;
+
+public:
+  static const size_t m_qCount = 3;
+
+private:
   QueueT m_results[m_qCount];
 };
 

@@ -33,11 +33,14 @@ namespace location
     /// @return GPS center point in mercator
     m2::PointD Position() const { return m_positionMercator; }
 
+    bool IsValidPosition() const { return ((m_flags & EGps) != 0); }
+
     void TurnOff() { m_flags = ENone; }
     void UpdateGps(GpsInfo const & info);
     void UpdateCompass(CompassInfo const & info);
 
     void DrawMyPosition(DrawerYG & drawer, ScreenBase const & screen);
+
     operator int() const
     {
       return m_flags;

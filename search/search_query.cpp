@@ -19,6 +19,7 @@
 #include "../base/stl_add.hpp"
 
 #include "../std/algorithm.hpp"
+#include "../std/array.hpp"
 
 
 namespace search
@@ -44,7 +45,7 @@ Query::~Query()
 
 void Query::SetViewport(m2::RectD const & viewport)
 {
-  // TODO: Clear m_viewportExtended when mwm index is added or removed!
+  // TODO: Set m_bOffsetsCacheIsValid = false when mwm index is added or removed!
 
   if (m_viewport != viewport || !m_bOffsetsCacheIsValid)
   {
@@ -54,6 +55,13 @@ void Query::SetViewport(m2::RectD const & viewport)
 
     UpdateViewportOffsets();
   }
+}
+
+void Query::SetPosition(m2::PointD const & pos)
+{
+  m_position = pos;
+
+  // TODO: Add search mode and recalc m_viewport for new position with "near me" mode.
 }
 
 void Query::SetPreferredLanguage(string const & lang)
@@ -130,7 +138,8 @@ namespace
   CompareFunctionT g_arrCompare[] =
   {
     &impl::IntermediateResult::LessRank,
-    &impl::IntermediateResult::LessViewportDistance
+    &impl::IntermediateResult::LessViewportDistance,
+    &impl::IntermediateResult::LessDistance
   };
 }
 
@@ -177,7 +186,7 @@ void Query::Search(string const & query,
     if (search::MatchLatLon(m_rawQuery, lat, lon, latPrec, lonPrec))
     {
       double const precision = 5.0 * max(0.0001, min(latPrec, lonPrec));  // Min 55 meters
-      AddResult(ValueT(new impl::IntermediateResult(m_viewport, lat, lon, precision)));
+      AddResult(ValueT(new impl::IntermediateResult(m_viewport, m_position, lat, lon, precision)));
     }
   }
 
@@ -197,16 +206,15 @@ namespace
   {
     FunctorT m_fn;
   public:
-    template <class T>
-    explicit ProxyFunctor1(shared_ptr<T> const & p) : m_fn(*p) {}
-    template <class T> bool operator() (shared_ptr<T> const & p) { return m_fn(*p); }
+    template <class T> explicit ProxyFunctor1(T const & p) : m_fn(*p) {}
+    template <class T> bool operator() (T const & p) { return m_fn(*p); }
   };
 
   template <class FunctorT> class ProxyFunctor2
   {
     FunctorT m_fn;
   public:
-    template <class T> bool operator() (shared_ptr<T> const & p1, shared_ptr<T> const & p2)
+    template <class T> bool operator() (T const & p1, T const & p2)
     {
       return m_fn(*p1, *p2);
     }
@@ -231,94 +239,106 @@ namespace
 {
   class IndexedValue
   {
-    typedef shared_ptr<impl::IntermediateResult> ValueT;
-    static const size_t m_qCount = 2;
+    typedef impl::IntermediateResult ValueT;
+    typedef shared_ptr<ValueT> PointerT;
 
-    size_t m_ind[m_qCount];
-    ValueT m_val;
+    array<size_t, Query::m_qCount> m_ind;
+    PointerT m_val;
 
   public:
-    ValueT const & get() const { return m_val; }
-
-    void Assign(ValueT const & v)
+    IndexedValue(PointerT const & v) : m_val(v)
     {
-      m_val = v;
-      for (size_t i = 0; i < m_qCount; ++i)
+      for (size_t i = 0; i < m_ind.size(); ++i)
         m_ind[i] = numeric_limits<size_t>::max();
     }
+
+    PointerT get() const { return m_val; }
+    ValueT const & operator*() const { return *m_val; }
 
     void SetIndex(size_t i, size_t v) { m_ind[i] = v; }
 
     void SortIndex()
     {
-      sort(m_ind, m_ind + m_qCount);
+      sort(m_ind.begin(), m_ind.end());
     }
 
-    bool operator<(IndexedValue const & r) const
+    string DebugPrint() const
     {
-      for (size_t i = 0; i < m_qCount; ++i)
-        if (m_ind[i] < r.m_ind[i])
-          return true;
+      string index;
+      for (size_t i = 0; i < m_ind.size(); ++i)
+        index = index + " " + strings::to_string(m_ind[i]);
+
+      return boost::DebugPrint(m_val) + "; Index:" + index;
+    }
+
+    bool operator < (IndexedValue const & r) const
+    {
+      for (size_t i = 0; i < m_ind.size(); ++i)
+      {
+        if (m_ind[i] != r.m_ind[i])
+          return (m_ind[i] < r.m_ind[i]);
+      }
 
       return false;
     }
   };
+
+  struct LessPointer
+  {
+    bool operator() (IndexedValue const & r1, IndexedValue const & r2) const
+    {
+      return (r1.get() < r2.get());
+    }
+  };
+  struct EqualPointer
+  {
+    bool operator() (IndexedValue const & r1, IndexedValue const & r2) const
+    {
+      return (r1.get() == r2.get());
+    }
+  };
+
+  inline string DebugPrint(IndexedValue const & v)
+  {
+    return v.DebugPrint();
+  }
 }
 
 void Query::FlushResults(function<void (Result const &)> const & f)
 {
-  vector<ValueT> v[m_qCount];
-
-  for (size_t i = 0; i < m_qCount; ++i)
-  {
-    v[i].assign(m_results[i].begin(), m_results[i].end());
-
-    /// @todo ??? free queue, no need to store more ???
-    m_results[i].clear();
-
-    // remove duplicating linear objects
-    sort(v[i].begin(), v[i].end(), ProxyFunctor2<ResultT::LessLinearTypesF>());
-    v[i].erase(unique(v[i].begin(), v[i].end(), ProxyFunctor2<ResultT::EqualLinearTypesF>()),
-               v[i].end());
-
-    // sort in rank order
-    sort(v[i].begin(), v[i].end(), CompareT(g_arrCompare[i]));
-
-    //LOG(LDEBUG, (v[i]));
-  }
-
   vector<IndexedValue> indV;
 
-  // fill results vector with indexed values (keys - indexes for each criteria)
+  // fill vector with objects in queues
+  for (size_t i = 0; i < m_qCount; ++i)
+  {
+    indV.insert(indV.end(), m_results[i].begin(), m_results[i].end());
+    m_results[i].clear();
+  }
+
+  // remove equal objects
+  sort(indV.begin(), indV.end(), LessPointer());
+  indV.erase(unique(indV.begin(), indV.end(), EqualPointer()), indV.end());
+
+  // remove duplicating linear objects
+  sort(indV.begin(), indV.end(), ProxyFunctor2<ResultT::LessLinearTypesF>());
+  indV.erase(unique(indV.begin(), indV.end(), ProxyFunctor2<ResultT::EqualLinearTypesF>()),
+             indV.end());
+
   for (size_t i = 0; i < m_qCount; ++i)
   {
     CompareT comp(g_arrCompare[i]);
-    size_t rank = 0;
 
-    for (size_t j = 0; j < v[i].size(); ++j)
+    // sort by needed criteria
+    sort(indV.begin(), indV.end(), comp);
+
+    // assign ranks
+    size_t rank = 0;
+    for (size_t j = 0; j < indV.size(); ++j)
     {
-      // increment rank only if previous element is really less than current
-      if (j > 0 && comp(v[i][j-1], v[i][j]))
+      if (j > 0 && comp(indV[j-1], indV[j]))
         ++rank;
 
-      IndexedValue * p = 0;
-      for (size_t k = 0; k < indV.size(); ++k)
-      {
-        if (indV[k].get() == v[i][j])
-        {
-          p = &indV[k];
-          break;
-        }
-      }
-
-      if (p == 0)
-      {
-        indV.push_back(IndexedValue());
-        indV.back().Assign(v[i][j]);
-        p = &(indV.back());
-      }
-
-      p->SetIndex(i, rank);
+      indV[j].SetIndex(i, rank);
     }
   }
 
@@ -330,7 +350,10 @@ void Query::FlushResults(function<void (Result const &)> const & f)
 
   // emit results
   for (size_t i = 0; i < indV.size(); ++i)
+  {
+    LOG(LDEBUG, (indV[i]));
     f(indV[i].get()->GenerateFinalResult(m_pInfoGetter));
+  }
 }
 
 void Query::AddFeatureResult(FeatureType const & f, string const & fName)
@@ -339,7 +362,7 @@ void Query::AddFeatureResult(FeatureType const & f, string const & fName)
   string name;
   GetBestMatchName(f, penalty, name);
 
-  AddResult(ValueT(new impl::IntermediateResult(m_viewport, f, name, fName)));
+  AddResult(ValueT(new impl::IntermediateResult(m_viewport, m_position, f, name, fName)));
 }
 
 namespace impl

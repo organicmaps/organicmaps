@@ -24,13 +24,13 @@ public:
   };
 
   // For RESULT_FEATURE.
-  IntermediateResult(m2::RectD const & viewportRect,
+  IntermediateResult(m2::RectD const & viewportRect, m2::PointD const & pos,
                      FeatureType const & f,
                      string const & displayName,
                      string const & fileName);
 
   // For RESULT_LATLON.
-  IntermediateResult(m2::RectD const & viewportRect,
+  IntermediateResult(m2::RectD const & viewportRect, m2::PointD const & pos,
                      double lat, double lon, double precision);
 
   // For RESULT_CATEGORY.

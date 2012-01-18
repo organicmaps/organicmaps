@@ -86,6 +86,11 @@ void Engine::SetViewport(m2::RectD const & viewport)
   m_pQuery->SetViewport(viewport);
 }
 
+void Engine::SetPosition(m2::PointD const & pos)
+{
+  m_pQuery->SetPosition(pos);
+}
+
 void Engine::SetPreferredLanguage(string const & lang)
 {
   m_pQuery->SetPreferredLanguage(lang);

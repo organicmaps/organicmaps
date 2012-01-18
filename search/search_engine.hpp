@@ -37,7 +37,9 @@ public:
   ~Engine();
 
   void SetViewport(m2::RectD const & viewport);
+  void SetPosition(m2::PointD const & pos);
   void SetPreferredLanguage(string const & lang);
+
   void Search(string const & query, function<void (Result const &)> const & f);
 
   string GetCountryFile(m2::PointD const & pt) const;
