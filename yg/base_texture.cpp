@@ -13,8 +13,10 @@ namespace yg
     void BaseTexture::init() const
     {
       OGLCHECK(glGenTextures(1, &m_id));
+      LOG(LDEBUG, ("glGenTextures", m_id));
 
       OGLCHECK(glBindTexture(GL_TEXTURE_2D, m_id));
+      LOG(LDEBUG, ("glBindTexture", m_id));
 
       OGLCHECK(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
       OGLCHECK(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
@@ -73,6 +75,7 @@ namespace yg
     {
       int id;
       OGLCHECK(glGetIntegerv(GL_TEXTURE_BINDING_2D, &id));
+      LOG(LDEBUG, ("glGetIntegerv", id));
       return id;
     }
 
@@ -81,10 +84,11 @@ namespace yg
       if (queue)
         queue->processFn(bind(&BaseTexture::makeCurrent, this, (yg::gl::PacketsQueue*)0));
 
-#ifndef OMIM_OS_ANDROID
       if (current() != m_id)
-#endif
+      {
         OGLCHECK(glBindTexture(GL_TEXTURE_2D, m_id));
+        LOG(LDEBUG, ("glBindTexture", m_id));
+      }
     }
 
     unsigned BaseTexture::id() const

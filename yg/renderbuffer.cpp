@@ -18,6 +18,7 @@ namespace yg
     {
       int id;
       OGLCHECK(glGetIntegerv(GL_RENDERBUFFER_BINDING_MWM, &id));
+      LOG(LDEBUG, ("glGetIntegerv", id));
       return id;
     }
 
@@ -27,6 +28,7 @@ namespace yg
 //      if (!m_isDepthBuffer)
       {
         OGLCHECK(glGenRenderbuffersFn(1, &m_id));
+        LOG(LDEBUG, ("glGenRenderbuffers", m_id));
 
         makeCurrent();
 
@@ -37,6 +39,8 @@ namespace yg
                                          internalFormat,
                                          m_width,
                                          m_height));
+        LOG(LDEBUG, ("glRenderbufferStorage", m_isDepthBuffer ? "GL_DEPTH_COMPONENT16_MWM" : "GL_RGBA8_MWM",
+                     m_width, m_height));
       }
 /*      else
       {
@@ -105,7 +109,10 @@ namespace yg
     void RenderBuffer::makeCurrent() const
     {
       if (m_id != current())
+      {
         OGLCHECK(glBindRenderbufferFn(GL_RENDERBUFFER_MWM, m_id));
+        LOG(LDEBUG, ("glBindRenderbuffer", m_id));
+      }
     }
 
     bool RenderBuffer::isDepthBuffer() const
