@@ -50,25 +50,24 @@ struct MercatorBounds
 
   static double const degreeInMetres;
 
+  // TODO:
   inline static double ConvertMetresToY(double lat, double metresValue)
   {
     return LatToY(lat + metresValue * degreeInMetres) - LatToY(lat);
   }
 
+  // TODO:
   inline static double ConvertMetresToX(double lon, double metresValue)
   {
     return LonToX(lon + metresValue * degreeInMetres) - LonToX(lon);
   }
 
   /// @return mercator bound points in rect
-  inline static m2::RectD MetresToXY(double lon, double lat, double metresValue)
+  static m2::RectD MetresToXY(double lon, double lat,
+                              double lonMetresR, double latMetresR);
+  inline static m2::RectD MetresToXY(double lon, double lat, double metresR)
   {
-    // We use approximate number of metres per degree
-    double const degreeOffset = metresValue / 2.0 * degreeInMetres;
-    return m2::RectD(LonToX(lon - degreeOffset),
-                     LatToY(lat - degreeOffset),
-                     LonToX(lon + degreeOffset),
-                     LatToY(lat + degreeOffset));
+    return MetresToXY(lon, lat, metresR, metresR);
   }
 
   inline static m2::RectD RectByCenterXYAndSizeInMeters(double centerX, double centerY,
@@ -76,12 +75,8 @@ struct MercatorBounds
   {
     ASSERT_GREATER_OR_EQUAL(sizeX, 0, ());
     ASSERT_GREATER_OR_EQUAL(sizeY, 0, ());
-    double const degreesLon = fabs(sizeX) / 2.0 * degreeInMetres;
-    double const degreesLat = fabs(sizeY) / 2.0 * degreeInMetres;
-    double const lon = XToLon(centerX);
-    double const lat = YToLat(centerY);
-    return m2::RectD(LonToX(lon - degreesLon), LatToY(lat - degreesLat),
-                     LonToX(lon + degreesLon), LatToY(lat + degreesLat));
+
+    return MetresToXY(XToLon(centerX), YToLat(centerY), sizeX, sizeY);
   }
 
   static double GetCellID2PointAbsEpsilon() { return 1.0E-4; }

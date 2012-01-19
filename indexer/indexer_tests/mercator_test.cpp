@@ -53,10 +53,10 @@ UNIT_TEST(MercatorTest)
 
 UNIT_TEST(ErrorToRadius)
 {
-  double const points[] = { -85.0, -45.0, -10.0, -0.003, 0.0, 1.0, 10.0, 45.0, 85.0 };
+  double const points[] = { -85.0, -45.0, -10.0, -1.0, -0.003, 0.0, 0.003, 1.0, 10.0, 45.0, 85.0 };
 
-  double const error1 = 1.0; // 1 metre
-  double const error10 = 10.0; // 10 metres
+  double const error1 = 1.0;    // 1 metre
+  double const error10 = 10.0;  // 10 metres
 
   for (size_t i = 0; i < ARRAY_SIZE(points); ++i)
   {
@@ -67,18 +67,19 @@ UNIT_TEST(ErrorToRadius)
       m2::PointD const mercPoint(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
 
       m2::RectD radius1 = MercatorBounds::MetresToXY(lon, lat, error1);
-      TEST(radius1.IsPointInside(mercPoint), ());
+      TEST(radius1.IsPointInside(mercPoint), (lat, lon));
 
       m2::RectD radius10 = MercatorBounds::MetresToXY(lon, lat, error10);
-      TEST(radius10.IsPointInside(mercPoint), ());
+      TEST(radius10.IsPointInside(mercPoint), (lat, lon));
 
       m2::RectD radius10Added = radius10;
       radius10Added.Add(radius1);
-      TEST_EQUAL(radius10, radius10Added, ());
-      TEST(radius10.IsPointInside(radius1.LeftTop()), ());
-      TEST(radius10.IsPointInside(radius1.LeftBottom()), ());
-      TEST(radius10.IsPointInside(radius1.RightTop()), ());
-      TEST(radius10.IsPointInside(radius1.RightBottom()), ());
+      TEST_EQUAL(radius10, radius10Added, (lat, lon));
+
+      TEST(radius10.IsPointInside(radius1.LeftTop()), (lat, lon));
+      TEST(radius10.IsPointInside(radius1.LeftBottom()), (lat, lon));
+      TEST(radius10.IsPointInside(radius1.RightTop()), (lat, lon));
+      TEST(radius10.IsPointInside(radius1.RightBottom()), (lat, lon));
     }
   }
 }
