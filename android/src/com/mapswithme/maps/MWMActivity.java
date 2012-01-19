@@ -178,6 +178,7 @@ public class MWMActivity extends SmartGLActivity implements
   public void onDestroy()
   {
     nativeDestroy();
+    super.onDestroy();
   }
 
   // From Location interface
