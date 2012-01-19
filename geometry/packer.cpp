@@ -131,7 +131,7 @@ namespace m2
 
   Packer::find_result_t Packer::find(handle_t handle) const
   {
-    unordered_map<handle_t, m2::RectU>::const_iterator it = m_rects.find(handle);
+    rects_t::const_iterator it = m_rects.find(handle);
     std::pair<bool, m2::RectU> res;
     res.first = (it != m_rects.end());
     if (res.first)

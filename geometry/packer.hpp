@@ -3,7 +3,7 @@
 #include "rect2d.hpp"
 
 #include "../std/list.hpp"
-#include "../std/unordered_map.hpp"
+#include "../std/map.hpp"
 #include "../std/function.hpp"
 #include "../std/queue.hpp"
 
@@ -46,7 +46,7 @@ namespace m2
 
     handle_t m_currentHandle;
 
-    typedef unordered_map<handle_t, m2::RectU> rects_t;
+    typedef map<handle_t, m2::RectU> rects_t;
 
     rects_t m_rects;
 
