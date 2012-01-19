@@ -351,9 +351,6 @@ namespace yg
       OGLCHECK(glEnable(GL_BLEND));
       OGLCHECK(glEnable(GL_ALPHA_TEST));
 
-//      /// This call is necessary to avoid parasite blitting in updateActualTarget() on IPhone.
-//      OGLCHECK(glFinish());
-
       blitStorage.m_vertices->discard();
       blitStorage.m_indices->discard();
 

@@ -77,7 +77,7 @@ public:
                shared_ptr<yg::gl::RenderContext> const & primaryRC,
                shared_ptr<yg::ResourceManager> const & rm,
                double visualScale,
-               yg::gl::PacketsQueue * packetsQueue);
+               yg::gl::PacketsQueue ** packetsQueue);
   /// destructor.
   virtual ~TileRenderer();
   /// add command to the commands queue.
