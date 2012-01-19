@@ -1,8 +1,10 @@
 package com.mapswithme.maps;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.WindowManager;
 
 public class SmartGLActivity extends Activity
 {
@@ -15,6 +17,9 @@ public class SmartGLActivity extends Activity
   {
     Log.d(TAG, "onCreate");
     super.onCreate(savedInstanceState);
+
+    if (!Build.MODEL.equals("Kindle Fire"))
+      getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     setContentView(R.layout.map);
     m_view = (SmartGLSurfaceView)findViewById(R.id.map_smartglsurfaceview);
