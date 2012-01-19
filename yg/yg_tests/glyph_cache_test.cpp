@@ -9,7 +9,8 @@ UNIT_TEST(GlyphCacheTest_Main)
     "unicode_blocks.txt",
     "fonts_whitelist.txt",
     "fonts_blacklist.txt",
-    200000));
+    200000,
+    false));
 
   string const path = GetPlatform().WritableDir();
 

@@ -76,7 +76,12 @@ namespace yg
       string m_whiteListFile;
       string m_blackListFile;
       size_t m_maxSize;
-      Params(string const & blocksFile, string const & whiteListFile, string const & blackListFile, size_t maxSize);
+      bool   m_isDebugging;
+      Params(string const & blocksFile,
+             string const & whiteListFile,
+             string const & blackListFile,
+             size_t maxSize,
+             bool isDebugging);
     };
 
     GlyphCache();
@@ -94,7 +99,7 @@ namespace yg
 
     double getTextLength(double fontSize, string const & text);
 
-    strings::UniString log2vis(strings::UniString const & str);
+    static strings::UniString log2vis(strings::UniString const & str);
 
   };
 }

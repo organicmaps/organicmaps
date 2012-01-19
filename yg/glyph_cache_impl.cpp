@@ -12,6 +12,14 @@
 
 namespace yg
 {
+  struct RawGlyphInfo : public GlyphInfo
+  {
+    ~RawGlyphInfo()
+    {
+      delete m_bitmapData;
+    }
+  };
+
   UnicodeBlock::UnicodeBlock(string const & name, strings::UniChar start, strings::UniChar end)
     : m_name(name), m_start(start), m_end(end)
   {}
@@ -186,6 +194,9 @@ namespace yg
 
   void GlyphCacheImpl::addFonts(vector<string> const & fontNames)
   {
+    if (m_isDebugging)
+      return;
+
     for (size_t i = 0; i < fontNames.size(); ++i)
       addFont(fontNames[i].c_str());
 
@@ -226,6 +237,8 @@ namespace yg
 
   void GlyphCacheImpl::addFont(char const * fileName)
   {
+    if (m_isDebugging)
+      return;
     ReaderPtr<Reader> reader = GetPlatform().GetReader(fileName);
     m_fonts.push_back(make_shared_ptr(new Font(reader)));
 
@@ -383,30 +396,248 @@ namespace yg
 
   GlyphCacheImpl::GlyphCacheImpl(GlyphCache::Params const & params)
   {
+    m_isDebugging = params.m_isDebugging;
+
     initBlocks(params.m_blocksFile);
     initFonts(params.m_whiteListFile, params.m_blackListFile);
 
-    FTCHECK(FT_Init_FreeType(&m_lib));
+    if (!m_isDebugging)
+    {
+      FTCHECK(FT_Init_FreeType(&m_lib));
 
-    /// Initializing caches
-    FTCHECK(FTC_Manager_New(m_lib, 3, 10, params.m_maxSize, &RequestFace, 0, &m_manager));
+      /// Initializing caches
+      FTCHECK(FTC_Manager_New(m_lib, 3, 10, params.m_maxSize, &RequestFace, 0, &m_manager));
 
-    FTCHECK(FTC_ImageCache_New(m_manager, &m_normalGlyphCache));
-    FTCHECK(FTC_StrokedImageCache_New(m_manager, &m_strokedGlyphCache));
-    FTCHECK(FTC_ImageCache_New(m_manager, &m_glyphMetricsCache));
+      FTCHECK(FTC_ImageCache_New(m_manager, &m_normalGlyphCache));
+      FTCHECK(FTC_StrokedImageCache_New(m_manager, &m_strokedGlyphCache));
+      FTCHECK(FTC_ImageCache_New(m_manager, &m_glyphMetricsCache));
 
-    /// Initializing stroker
-    FTCHECK(FT_Stroker_New(m_lib, &m_stroker));
-    FT_Stroker_Set(m_stroker, 2 * 64, FT_STROKER_LINECAP_ROUND, FT_STROKER_LINEJOIN_ROUND, 0);
+      /// Initializing stroker
+      FTCHECK(FT_Stroker_New(m_lib, &m_stroker));
+      FT_Stroker_Set(m_stroker, 2 * 64, FT_STROKER_LINECAP_ROUND, FT_STROKER_LINEJOIN_ROUND, 0);
 
-    FTCHECK(FTC_CMapCache_New(m_manager, &m_charMapCache));
+      FTCHECK(FTC_CMapCache_New(m_manager, &m_charMapCache));
+    }
+    else
+    {
+      /// initialize fake bitmap
+    }
   }
 
   GlyphCacheImpl::~GlyphCacheImpl()
   {
-    FTC_Manager_Done(m_manager);
-    FT_Stroker_Done(m_stroker);
-    FT_Done_FreeType(m_lib);
+    if (!m_isDebugging)
+    {
+      FTC_Manager_Done(m_manager);
+      FT_Stroker_Done(m_stroker);
+      FT_Done_FreeType(m_lib);
+    }
+  }
+
+  int GlyphCacheImpl::getCharIDX(shared_ptr<Font> const & font, strings::UniChar symbolCode)
+  {
+    if (m_isDebugging)
+      return 0;
+
+    FTC_FaceID faceID = reinterpret_cast<FTC_FaceID>(font.get());
+
+    return FTC_CMapCache_Lookup(
+        m_charMapCache,
+        faceID,
+        -1,
+        symbolCode
+        );
+  }
+
+  pair<Font*, int> const GlyphCacheImpl::getCharIDX(GlyphKey const & key)
+  {
+    if (m_isDebugging)
+      return make_pair((Font*)0, 0);
+
+    vector<shared_ptr<Font> > & fonts = getFonts(key.m_symbolCode);
+
+    Font * font = 0;
+
+    int charIDX;
+
+    for (size_t i = 0; i < fonts.size(); ++i)
+    {
+      charIDX = getCharIDX(fonts[i], key.m_symbolCode);
+
+      if (charIDX != 0)
+        return make_pair(fonts[i].get(), charIDX);
+    }
+
+#ifdef DEBUG
+
+    for (size_t i = 0; i < m_unicodeBlocks.size(); ++i)
+    {
+      if (m_unicodeBlocks[i].hasSymbol(key.m_symbolCode))
+      {
+        LOG(LINFO, ("Symbol", key.m_symbolCode, "not found, unicodeBlock=", m_unicodeBlocks[i].m_name));
+        break;
+      }
+    }
+
+#endif
+
+    font = fonts.front().get();
+
+    /// taking substitution character from the first font in the list
+    charIDX = getCharIDX(fonts.front(), 65533);
+    if (charIDX == 0)
+      charIDX = getCharIDX(fonts.front(), 32);
+
+    return make_pair(font, charIDX);
+  }
+
+  GlyphMetrics const GlyphCacheImpl::getGlyphMetrics(GlyphKey const & key)
+  {
+    if (m_isDebugging)
+    {
+      GlyphMetrics m =
+      {
+        10,
+        0,
+        0, 0,
+        10, 20
+      };
+      return m;
+    }
+
+    pair<Font*, int> charIDX = getCharIDX(key);
+
+    FTC_ScalerRec fontScaler =
+    {
+      reinterpret_cast<FTC_FaceID>(charIDX.first),
+      key.m_fontSize,
+      key.m_fontSize,
+      1,
+      0,
+      0
+    };
+
+    FT_Glyph glyph = 0;
+
+    FTCHECK(FTC_ImageCache_LookupScaler(
+      m_glyphMetricsCache,
+      &fontScaler,
+      FT_LOAD_DEFAULT,
+      charIDX.second,
+      &glyph,
+      0));
+
+    FT_BBox cbox;
+    FT_Glyph_Get_CBox(glyph, FT_GLYPH_BBOX_PIXELS, &cbox);
+
+    GlyphMetrics m =
+    {
+      glyph->advance.x >> 16,
+      glyph->advance.y >> 16,
+      cbox.xMin, cbox.yMin,
+      cbox.xMax - cbox.xMin, cbox.yMax - cbox.yMin
+    };
+
+    return m;
+  }
+
+  shared_ptr<GlyphInfo> const GlyphCacheImpl::getGlyphInfo(GlyphKey const & key)
+  {
+    if (m_isDebugging)
+    {
+      static bool hasFakeSymbol = false;
+      static shared_ptr<GlyphInfo> fakeSymbol;
+
+      if (!hasFakeSymbol)
+      {
+        fakeSymbol.reset(new RawGlyphInfo());
+        fakeSymbol->m_metrics = getGlyphMetrics(key);
+        fakeSymbol->m_color = yg::Color(0, 0, 255, 255);
+        fakeSymbol->m_bitmapPitch = (fakeSymbol->m_metrics.m_width + 7) / 8 * 8;
+        fakeSymbol->m_bitmapData = new unsigned char[fakeSymbol->m_bitmapPitch * fakeSymbol->m_metrics.m_height];
+        for (unsigned i = 0; i < fakeSymbol->m_bitmapPitch * fakeSymbol->m_metrics.m_height; ++i)
+          fakeSymbol->m_bitmapData[i] = 0xFF;
+
+        hasFakeSymbol = true;
+      }
+
+      return fakeSymbol;
+    }
+
+    pair<Font *, int> charIDX = getCharIDX(key);
+
+    FTC_ScalerRec fontScaler =
+    {
+      reinterpret_cast<FTC_FaceID>(charIDX.first),
+      key.m_fontSize,
+      key.m_fontSize,
+      1,
+      0,
+      0
+    };
+
+    FT_Glyph glyph = 0;
+    FTC_Node node;
+
+    GlyphInfo * info = 0;
+
+    if (key.m_isMask)
+    {
+      FTCHECK(FTC_StrokedImageCache_LookupScaler(
+          m_strokedGlyphCache,
+          &fontScaler,
+          m_stroker,
+          FT_LOAD_DEFAULT,
+          charIDX.second,
+          &glyph,
+          &node
+          ));
+
+//      info = new FTGlyphInfo(node, m_manager);
+    }
+    else
+    {
+      FTCHECK(FTC_ImageCache_LookupScaler(
+          m_normalGlyphCache,
+          &fontScaler,
+          FT_LOAD_DEFAULT | FT_LOAD_RENDER,
+          charIDX.second,
+          &glyph,
+          &node
+          ));
+
+//      info = new FTGlyphInfo(node, m_manager);
+    }
+
+    info = new RawGlyphInfo();
+
+    FT_BitmapGlyph bitmapGlyph = (FT_BitmapGlyph)glyph;
+
+    info->m_metrics.m_height = bitmapGlyph ? bitmapGlyph->bitmap.rows : 0;
+    info->m_metrics.m_width = bitmapGlyph ? bitmapGlyph->bitmap.width : 0;
+    info->m_metrics.m_xOffset = bitmapGlyph ? bitmapGlyph->left : 0;
+    info->m_metrics.m_yOffset = bitmapGlyph ? bitmapGlyph->top - info->m_metrics.m_height : 0;
+    info->m_metrics.m_xAdvance = bitmapGlyph ? int(bitmapGlyph->root.advance.x >> 16) : 0;
+    info->m_metrics.m_yAdvance = bitmapGlyph ? int(bitmapGlyph->root.advance.y >> 16) : 0;
+    info->m_color = key.m_color;
+
+    info->m_bitmapData = 0;
+    info->m_bitmapPitch = 0;
+
+    if ((info->m_metrics.m_width != 0) && (info->m_metrics.m_height != 0))
+    {
+//      info->m_bitmapData = bitmapGlyph->bitmap.buffer;
+//      info->m_bitmapPitch = bitmapGlyph->bitmap.pitch;
+
+      info->m_bitmapPitch = bitmapGlyph->bitmap.pitch;
+      info->m_bitmapData = new unsigned char[info->m_bitmapPitch * info->m_metrics.m_height];
+
+      memcpy(info->m_bitmapData, bitmapGlyph->bitmap.buffer, info->m_bitmapPitch * info->m_metrics.m_height);
+    }
+
+    FTC_Node_Unref(node, m_manager);
+
+    return make_shared_ptr(info);
   }
 
   FT_Error GlyphCacheImpl::RequestFace(FTC_FaceID faceID, FT_Library library, FT_Pointer /*requestData*/, FT_Face * face)

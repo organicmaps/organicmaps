@@ -69,6 +69,7 @@ namespace yg
     typedef vector<UnicodeBlock> unicode_blocks_t;
     unicode_blocks_t m_unicodeBlocks;
     unicode_blocks_t::iterator m_lastUsedBlock;
+    bool m_isDebugging;
 
     typedef vector<shared_ptr<Font> > TFonts;
     TFonts m_fonts;
@@ -81,6 +82,11 @@ namespace yg
     vector<shared_ptr<Font> > & getFonts(strings::UniChar sym);
     void addFont(char const * fileName);
     void addFonts(vector<string> const & fontNames);
+
+    int getCharIDX(shared_ptr<Font> const & font, strings::UniChar symbolCode);
+    pair<Font*, int> const getCharIDX(GlyphKey const & key);
+    GlyphMetrics const getGlyphMetrics(GlyphKey const & key);
+    shared_ptr<GlyphInfo> const getGlyphInfo(GlyphKey const & key);
 
     GlyphCacheImpl(GlyphCache::Params const & params);
     ~GlyphCacheImpl();

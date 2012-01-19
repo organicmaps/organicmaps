@@ -316,7 +316,8 @@ namespace yg
   ResourceManager::GlyphCacheParams::GlyphCacheParams()
     : m_glyphCacheMemoryLimit(0),
       m_glyphCacheCount(0),
-      m_renderThreadCount(0)
+      m_renderThreadCount(0),
+      m_isDebugging(false)
   {}
 
   ResourceManager::GlyphCacheParams::GlyphCacheParams(string const & unicodeBlockFile,
@@ -324,13 +325,15 @@ namespace yg
                                                       string const & blackListFile,
                                                       size_t glyphCacheMemoryLimit,
                                                       size_t glyphCacheCount,
-                                                      size_t renderThreadCount)
+                                                      size_t renderThreadCount,
+                                                      bool isDebugging)
     : m_unicodeBlockFile(unicodeBlockFile),
       m_whiteListFile(whiteListFile),
       m_blackListFile(blackListFile),
       m_glyphCacheMemoryLimit(glyphCacheMemoryLimit),
       m_glyphCacheCount(glyphCacheCount),
-      m_renderThreadCount(renderThreadCount)
+      m_renderThreadCount(renderThreadCount),
+      m_isDebugging(isDebugging)
   {}
 
   ResourceManager::Params::Params()
@@ -484,7 +487,7 @@ namespace yg
       LOG(LDEBUG, ("allocating ", p.m_glyphCacheCount, " glyphCaches, ", p.m_glyphCacheMemoryLimit, " bytes total."));
 
       for (size_t i = 0; i < p.m_glyphCacheCount; ++i)
-        m_glyphCaches.push_back(GlyphCache(GlyphCache::Params(p.m_unicodeBlockFile, p.m_whiteListFile, p.m_blackListFile, p.m_glyphCacheMemoryLimit / p.m_glyphCacheCount)));
+        m_glyphCaches.push_back(GlyphCache(GlyphCache::Params(p.m_unicodeBlockFile, p.m_whiteListFile, p.m_blackListFile, p.m_glyphCacheMemoryLimit / p.m_glyphCacheCount, p.m_isDebugging)));
     }
     else
       LOG(LERROR, ("no params to init glyph caches."));

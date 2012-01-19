@@ -14,6 +14,7 @@
 
 #include "../std/vector.hpp"
 #include "../std/map.hpp"
+#include "../base/mutex.hpp"
 
 #include <boost/gil/gil_all.hpp>
 
@@ -52,14 +53,6 @@ namespace yg
   {
   }
 
-  struct RawGlyphInfo : public GlyphInfo
-  {
-    ~RawGlyphInfo()
-    {
-      delete m_bitmapData;
-    }
-  };
-
   struct FTGlyphInfo : public GlyphInfo
   {
     FTC_Node m_node;
@@ -75,8 +68,8 @@ namespace yg
     }
   };
 
-  GlyphCache::Params::Params(string const & blocksFile, string const & whiteListFile, string const & blackListFile, size_t maxSize)
-    : m_blocksFile(blocksFile), m_whiteListFile(whiteListFile), m_blackListFile(blackListFile), m_maxSize(maxSize)
+  GlyphCache::Params::Params(string const & blocksFile, string const & whiteListFile, string const & blackListFile, size_t maxSize, bool isDebugging)
+    : m_blocksFile(blocksFile), m_whiteListFile(whiteListFile), m_blackListFile(blackListFile), m_maxSize(maxSize), m_isDebugging(isDebugging)
   {}
 
   GlyphCache::GlyphCache()
@@ -98,174 +91,17 @@ namespace yg
 
   pair<Font*, int> GlyphCache::getCharIDX(GlyphKey const & key)
   {
-    vector<shared_ptr<Font> > & fonts = m_impl->getFonts(key.m_symbolCode);
-
-    Font * font = 0;
-
-    int charIDX;
-
-    for (size_t i = 0; i < fonts.size(); ++i)
-    {
-      font = fonts[i].get();
-      FTC_FaceID faceID = reinterpret_cast<FTC_FaceID>(font);
-
-      charIDX = FTC_CMapCache_Lookup(
-          m_impl->m_charMapCache,
-          faceID,
-          -1,
-          key.m_symbolCode
-          );
-      if (charIDX != 0)
-        return make_pair(font, charIDX);
-    }
-
-#ifdef DEBUG
-
-    for (size_t i = 0; i < m_impl->m_unicodeBlocks.size(); ++i)
-    {
-      if (m_impl->m_unicodeBlocks[i].hasSymbol(key.m_symbolCode))
-      {
-        LOG(LINFO, ("Symbol", key.m_symbolCode, "not found, unicodeBlock=", m_impl->m_unicodeBlocks[i].m_name));
-        break;
-      }
-    }
-
-#endif
-
-    font = fonts.front().get();
-
-    /// taking substitution character from the first font in the list
-    charIDX = FTC_CMapCache_Lookup(
-        m_impl->m_charMapCache,
-        reinterpret_cast<FTC_FaceID>(font),
-        -1,
-        65533
-        );
-    if (charIDX == 0)
-      charIDX = FTC_CMapCache_Lookup(
-          m_impl->m_charMapCache,
-          reinterpret_cast<FTC_FaceID>(font),
-          -1,
-          32
-          );
-
-    return make_pair(font, charIDX);
+    return m_impl->getCharIDX(key);
   }
 
   GlyphMetrics const GlyphCache::getGlyphMetrics(GlyphKey const & key)
   {
-    pair<Font*, int> charIDX = getCharIDX(key);
-
-    FTC_ScalerRec fontScaler =
-    {
-      reinterpret_cast<FTC_FaceID>(charIDX.first),
-      key.m_fontSize,
-      key.m_fontSize,
-      1,
-      0,
-      0
-    };
-
-    FT_Glyph glyph = 0;
-
-    FTCHECK(FTC_ImageCache_LookupScaler(
-      m_impl->m_glyphMetricsCache,
-      &fontScaler,
-      FT_LOAD_DEFAULT,
-      charIDX.second,
-      &glyph,
-      0));
-
-    FT_BBox cbox;
-    FT_Glyph_Get_CBox(glyph, FT_GLYPH_BBOX_PIXELS, &cbox);
-
-    GlyphMetrics m =
-    {
-      glyph->advance.x >> 16,
-      glyph->advance.y >> 16,
-      cbox.xMin, cbox.yMin,
-      cbox.xMax - cbox.xMin, cbox.yMax - cbox.yMin
-    };
-
-    return m;
+    return m_impl->getGlyphMetrics(key);
   }
 
   shared_ptr<GlyphInfo> const GlyphCache::getGlyphInfo(GlyphKey const & key)
   {
-    pair<Font *, int> charIDX = getCharIDX(key);
-
-    FTC_ScalerRec fontScaler =
-    {
-      reinterpret_cast<FTC_FaceID>(charIDX.first),
-      key.m_fontSize,
-      key.m_fontSize,
-      1,
-      0,
-      0
-    };
-
-    FT_Glyph glyph = 0;
-    FTC_Node node;
-
-    GlyphInfo * info = 0;
-
-    if (key.m_isMask)
-    {
-      FTCHECK(FTC_StrokedImageCache_LookupScaler(
-          m_impl->m_strokedGlyphCache,
-          &fontScaler,
-          m_impl->m_stroker,
-          FT_LOAD_DEFAULT,
-          charIDX.second,
-          &glyph,
-          &node
-          ));
-
-//      info = new FTGlyphInfo(node, m_impl->m_manager);
-    }
-    else
-    {
-      FTCHECK(FTC_ImageCache_LookupScaler(
-          m_impl->m_normalGlyphCache,
-          &fontScaler,
-          FT_LOAD_DEFAULT | FT_LOAD_RENDER,
-          charIDX.second,
-          &glyph,
-          &node
-          ));
-
-//      info = new FTGlyphInfo(node, m_impl->m_manager);
-    }
-
-    info = new RawGlyphInfo();
-
-    FT_BitmapGlyph bitmapGlyph = (FT_BitmapGlyph)glyph;
-
-    info->m_metrics.m_height = bitmapGlyph ? bitmapGlyph->bitmap.rows : 0;
-    info->m_metrics.m_width = bitmapGlyph ? bitmapGlyph->bitmap.width : 0;
-    info->m_metrics.m_xOffset = bitmapGlyph ? bitmapGlyph->left : 0;
-    info->m_metrics.m_yOffset = bitmapGlyph ? bitmapGlyph->top - info->m_metrics.m_height : 0;
-    info->m_metrics.m_xAdvance = bitmapGlyph ? int(bitmapGlyph->root.advance.x >> 16) : 0;
-    info->m_metrics.m_yAdvance = bitmapGlyph ? int(bitmapGlyph->root.advance.y >> 16) : 0;
-    info->m_color = key.m_color;
-
-    info->m_bitmapData = 0;
-    info->m_bitmapPitch = 0;
-
-    if ((info->m_metrics.m_width != 0) && (info->m_metrics.m_height != 0))
-    {
-//      info->m_bitmapData = bitmapGlyph->bitmap.buffer;
-//      info->m_bitmapPitch = bitmapGlyph->bitmap.pitch;
-
-      info->m_bitmapPitch = bitmapGlyph->bitmap.pitch;
-      info->m_bitmapData = new unsigned char[info->m_bitmapPitch * info->m_metrics.m_height];
-
-      memcpy(info->m_bitmapData, bitmapGlyph->bitmap.buffer, info->m_bitmapPitch * info->m_metrics.m_height);
-    }
-
-    FTC_Node_Unref(node, m_impl->m_manager);
-
-    return make_shared_ptr(info);
+    return m_impl->getGlyphInfo(key);
   }
 
   double GlyphCache::getTextLength(double fontSize, string const & text)
@@ -281,9 +117,12 @@ namespace yg
     return len;
   }
 
+  threads::Mutex m;
+
   strings::UniString GlyphCache::log2vis(strings::UniString const & str)
   {
 //    FriBidiEnv e;
+    threads::MutexGuard g(m);
     size_t const count = str.size();
     strings::UniString res(count);
     FriBidiParType dir = FRIBIDI_PAR_LTR;  // requested base direction
