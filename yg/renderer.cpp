@@ -74,10 +74,15 @@ namespace yg
       m_renderTarget->detachFromFrameBuffer();
     }
 
+    void Renderer::unbindRenderTarget()
+    {
+      processCommand(make_shared_ptr(new UnbindRenderTarget(m_renderTarget)));
+    }
+
     void Renderer::endFrame()
     {
       if (m_doUnbindRT && m_renderTarget)
-        processCommand(make_shared_ptr(new UnbindRenderTarget(m_renderTarget)));
+        unbindRenderTarget();
 
       if (m_isSynchronized)
         finish();

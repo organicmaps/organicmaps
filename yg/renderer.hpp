@@ -109,6 +109,8 @@ namespace yg
       shared_ptr<RenderTarget> const & renderTarget() const;
       void resetRenderTarget();
 
+      void unbindRenderTarget();
+
       void setDepthBuffer(shared_ptr<RenderBuffer> const & rt);
       shared_ptr<RenderBuffer> const & depthBuffer() const;
       void resetDepthBuffer();
