@@ -381,7 +381,8 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
       break;
 
     case search::Result::RESULT_SUGGESTION:
-      [m_searchBar setText: [NSString stringWithFormat:@"%s ", res.GetSuggestionString()]];
+      char const * s = res.GetSuggestionString();
+      [m_searchBar setText: [NSString stringWithUTF8String:s]];
       break;
     }
   }
