@@ -9,9 +9,6 @@ double const MercatorBounds::degreeInMetres = 360.0 / 40008245;
 m2::RectD MercatorBounds::MetresToXY(double lon, double lat,
                                      double lonMetresR, double latMetresR)
 {
-  ASSERT_GREATER ( lonMetresR, 0.0, () );
-  ASSERT_GREATER ( latMetresR, 0.0, () );
-
   double const latDegreeOffset = latMetresR * degreeInMetres;
   double const minLat = max(-90.0, lat - latDegreeOffset);
   double const maxLat = min( 90.0, lat + latDegreeOffset);
