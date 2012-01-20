@@ -105,6 +105,7 @@ RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
 
   rmp.fitIntoLimits();
 
+  m_resourceManager.reset();
   m_resourceManager.reset(new yg::ResourceManager(rmp));
 
   Platform::FilesList fonts;
@@ -123,8 +124,10 @@ RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
   p.m_isSynchronized = false;
   p.m_useGuiResources = true;
 
+  m_drawer.reset();
   m_drawer.reset(new DrawerYG(p));
 
+  m_windowHandle.reset();
   m_windowHandle.reset(new WindowHandle());
 
   m_windowHandle->setUpdatesEnabled(false);
@@ -132,6 +135,7 @@ RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
   m_windowHandle->setVideoTimer(videoTimer);
   m_windowHandle->setRenderContext(primaryRC);
 
+  m_renderQueue.reset();
   m_renderQueue.reset(new RenderQueue(GetPlatform().SkinName(),
                 false,
                 false,

@@ -28,7 +28,10 @@ namespace yg
       m_updateInterval(params.m_updateInterval)
     {
       if ((m_doPeriodicalUpdate) && (!m_auxFrameBuffer))
+      {
+        m_auxFrameBuffer.reset();
         m_auxFrameBuffer.reset(new FrameBuffer());
+      }
     }
 
     shared_ptr<RenderState> const & RenderStateUpdater::renderState() const

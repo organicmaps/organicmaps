@@ -75,6 +75,7 @@ void RenderQueueRoutine::onSize(int w, int h)
   size_t texW = m_renderState->m_textureWidth;
   size_t texH = m_renderState->m_textureHeight;
 
+  m_newDepthBuffer.reset();
   m_newDepthBuffer.reset(new yg::gl::RenderBuffer(texW, texH, true));
   m_newActualTarget = m_resourceManager->createRenderTarget(texW, texH);
   m_newBackBuffer = m_resourceManager->createRenderTarget(texW, texH);
@@ -563,7 +564,9 @@ void RenderQueueRoutine::addCommand(render_fn_t const & fn, ScreenBase const & f
 void RenderQueueRoutine::initializeGL(shared_ptr<yg::gl::RenderContext> const & renderContext,
                                       shared_ptr<yg::ResourceManager> const & resourceManager)
 {
+  m_frameBuffer.reset();
   m_frameBuffer.reset(new yg::gl::FrameBuffer());
+  m_auxFrameBuffer.reset();
   m_auxFrameBuffer.reset(new yg::gl::FrameBuffer());
   m_renderContext = renderContext;
   m_resourceManager = resourceManager;
