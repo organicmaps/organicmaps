@@ -73,11 +73,10 @@ public class SmartGLSurfaceView extends GLSurfaceView
   public void surfaceDestroyed (SurfaceHolder holder)
   {
     Log.d(TAG, "surfaceDestroyed");
+    nativeBind(false);
     m_renderer.m_isBaseSurfaceReady = false;
     m_renderer.m_isLocalSurfaceReady = false;
     super.surfaceDestroyed(holder);
-    queueEvent(m_unloadResources);
-    nativeBind(false);
   }
 
   @Override
@@ -93,14 +92,15 @@ public class SmartGLSurfaceView extends GLSurfaceView
   public void onPause()
   {
     m_renderer.m_isActive = false;
-    super.onPause();
     queueEvent(m_unloadResources);
+    super.onPause();
   }
 
   // Should be called from parent activity
   public void onStop()
   {
-    queueEvent(m_unloadResources);
+    // To avoid releasing OpenGL resources - we've already lost context here
+    nativeBind(false);
   }
 
   @Override
