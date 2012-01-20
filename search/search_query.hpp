@@ -7,7 +7,6 @@
 #include "../base/limited_priority_queue.hpp"
 #include "../base/string_utils.hpp"
 
-#include "../std/function.hpp"
 #include "../std/map.hpp"
 #include "../std/scoped_ptr.hpp"
 #include "../std/shared_ptr.hpp"
@@ -44,12 +43,13 @@ public:
   ~Query();
 
   void SetViewport(m2::RectD const & viewport);
-  void SetPosition(m2::PointD const & pos);
+  inline void SetPosition(m2::PointD const & pos) { m_position = pos; }
   void SetPreferredLanguage(string const & lang);
 
-  void Search(string const & query,
-              function<void (Result const &)> const & f,
-              unsigned int resultsNeeded = 10);
+  inline m2::PointD GetPosition() const { return m_position; }
+  inline m2::RectD GetViewport() const { return m_viewport; }
+
+  void Search(string const & query, Results & res, unsigned int resultsNeeded = 10);
 
   void ClearCache();
 
@@ -63,7 +63,7 @@ private:
 
   void AddResult(ValueT const & result);
   void AddFeatureResult(FeatureType const & f, string const & fName);
-  void FlushResults(function<void (Result const &)> const & f);
+  void FlushResults(Results & res);
   void UpdateViewportOffsets();
   void SearchFeatures();
   void SearchFeatures(vector<vector<strings::UniString> > const & tokens,

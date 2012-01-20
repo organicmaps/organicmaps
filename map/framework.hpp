@@ -52,8 +52,8 @@ namespace search { class Engine; }
 
 struct BenchmarkRectProvider;
 
-namespace search { class Result; }
-typedef function<void (search::Result const &)> SearchCallbackT;
+namespace search { class Results; }
+typedef function<void (search::Results const &)> SearchCallbackT;
 
 class DrawerYG;
 class RenderPolicy;
@@ -146,8 +146,9 @@ public:
                  int scaleLevel,
                  bool isTiling);
 
-  void Search(string const & text, SearchCallbackT callback);
   search::Engine * GetSearchEngine();
+  void Search(string const & text, SearchCallbackT callback);
+  void UpdateGpsInfo(location::GpsInfo const & info);
 
   void SetMaxWorldRect();
 

@@ -35,7 +35,8 @@ Query::Query(Index const * pIndex,
     m_pInfoGetter(pInfoGetter),
     m_preferredLanguage(StringUtf8Multilang::GetLangIndex("en")),
     m_viewport(m2::RectD::GetEmptyRect()), m_viewportExtended(m2::RectD::GetEmptyRect()),
-    m_bOffsetsCacheIsValid(false)
+    m_bOffsetsCacheIsValid(false),
+    m_position(-1000000, -1000000)  // initialize as empty point
 {
 }
 
@@ -55,13 +56,6 @@ void Query::SetViewport(m2::RectD const & viewport)
 
     UpdateViewportOffsets();
   }
-}
-
-void Query::SetPosition(m2::PointD const & pos)
-{
-  m_position = pos;
-
-  // TODO: Add search mode and recalc m_viewport for new position with "near me" mode.
 }
 
 void Query::SetPreferredLanguage(string const & lang)
@@ -143,9 +137,7 @@ namespace
   };
 }
 
-void Query::Search(string const & query,
-                   function<void (Result const &)> const & f,
-                   unsigned int resultsNeeded)
+void Query::Search(string const & query, Results & res, unsigned int resultsNeeded)
 {
   // Initialize.
   {
@@ -194,7 +186,7 @@ void Query::Search(string const & query,
 
   SearchFeatures();
 
-  FlushResults(f);
+  FlushResults(res);
 }
 
 namespace
@@ -304,7 +296,7 @@ namespace
   }
 }
 
-void Query::FlushResults(function<void (Result const &)> const & f)
+void Query::FlushResults(Results & res)
 {
   vector<IndexedValue> indV;
 
@@ -352,7 +344,7 @@ void Query::FlushResults(function<void (Result const &)> const & f)
   for (size_t i = 0; i < indV.size(); ++i)
   {
     LOG(LDEBUG, (indV[i]));
-    f(indV[i].get()->GenerateFinalResult(m_pInfoGetter));
+    res.AddResult(indV[i].get()->GenerateFinalResult(m_pInfoGetter));
   }
 }
 

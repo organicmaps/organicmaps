@@ -8,6 +8,9 @@
 #include "../indexer/categories_holder.hpp"
 #include "../indexer/search_delimiters.hpp"
 #include "../indexer/search_string_utils.hpp"
+#include "../indexer/mercator.hpp"
+
+#include "../geometry/distance_on_sphere.hpp"
 
 #include "../base/logging.hpp"
 
@@ -35,7 +38,7 @@ public:
 
 Engine::Engine(IndexType const * pIndex, CategoriesHolder * pCategories,
                ModelReaderPtr polyR, ModelReaderPtr countryR)
-  : m_pIndex(pIndex), m_pData(new EngineData(polyR, countryR))
+  : m_pIndex(pIndex), m_pData(new EngineData(polyR, countryR)), m_trackEnable(false)
 {
   if (pCategories)
   {
@@ -83,12 +86,51 @@ void Engine::InitializeCategoriesAndSuggestStrings(CategoriesHolder const & cate
 
 void Engine::SetViewport(m2::RectD const & viewport)
 {
-  m_pQuery->SetViewport(viewport);
+  m_savedViewport = viewport;
+
+  if (!m_trackEnable)
+    m_pQuery->SetViewport(viewport);
 }
 
-void Engine::SetPosition(m2::PointD const & pos)
+void Engine::SetPosition(double lat, double lon)
 {
-  m_pQuery->SetPosition(pos);
+  m2::PointD const oldPos = m_pQuery->GetPosition();
+
+  if (m_trackEnable &&
+      ms::DistanceOnEarth(MercatorBounds::YToLat(oldPos.y),
+                          MercatorBounds::XToLon(oldPos.x),
+                          lat, lon) > 10.0)
+  {
+    LOG(LINFO, ("Update after Position: ", oldPos, lon, lat));
+
+    m_pQuery->SetPosition(m2::PointD(MercatorBounds::LonToX(lon),
+                                     MercatorBounds::LatToY(lat)));
+
+    m_pQuery->SetViewport(MercatorBounds::MetresToXY(lon, lat, 25000));
+
+    RepeatSearch();
+  }
+}
+
+void Engine::EnablePositionTrack(bool enable)
+{
+  m_trackEnable = enable;
+
+  if (m_trackEnable)
+  {
+    LOG(LINFO, ("Enable tracking"));
+
+    m_savedViewport = m_pQuery->GetViewport();
+  }
+  else
+  {
+    LOG(LINFO, ("Disable tracking"));
+
+    m_pQuery->SetPosition(m_savedViewport.Center());
+    m_pQuery->SetViewport(m_savedViewport);
+
+    RepeatSearch();
+  }
 }
 
 void Engine::SetPreferredLanguage(string const & lang)
@@ -96,11 +138,23 @@ void Engine::SetPreferredLanguage(string const & lang)
   m_pQuery->SetPreferredLanguage(lang);
 }
 
-void Engine::Search(string const & queryText, function<void (Result const &)> const & f)
+void Engine::Search(string const & queryText, SearchCallbackT const & f)
 {
   LOG(LDEBUG, (queryText));
-  m_pQuery->Search(queryText, f);
-  f(Result::GetEndResult());
+
+  m_callback = f;
+  m_queryText = queryText;
+
+  Results res;
+  m_pQuery->Search(queryText, res);
+
+  f(res);
+}
+
+void Engine::RepeatSearch()
+{
+  if (!m_queryText.empty() && !m_callback.empty())
+    Search(m_queryText, m_callback);
 }
 
 string Engine::GetCountryFile(m2::PointD const & pt) const

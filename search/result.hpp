@@ -21,9 +21,6 @@ public:
          double distanceFromCenter, double directionFromCenter);
   Result(string const & str, string const & suggestionStr);
 
-  static Result GetEndResult();
-  bool IsEndMarker() const { return m_str.empty(); }
-
   // String that is displayed in the GUI.
   char const * GetString() const { return m_str.c_str(); }
   char const * GetRegionString() const { return m_region.c_str(); }
@@ -57,6 +54,18 @@ private:
   double m_distanceFromCenter;
   double m_directionFromCenter;
   string m_suggestionStr;
+};
+
+class Results
+{
+  vector<Result> m_vec;
+
+public:
+  void AddResult(Result const & r) { m_vec.push_back(r); }
+
+  typedef vector<Result>::const_iterator IterT;
+  IterT Begin() const { return m_vec.begin(); }
+  IterT End() const { return m_vec.end(); }
 };
 
 }

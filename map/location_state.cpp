@@ -21,8 +21,7 @@ namespace location
     m2::RectD const errorRectXY =
         MercatorBounds::MetresToXY(info.m_longitude, info.m_latitude,
                                    info.m_horizontalAccuracy);
-    m_errorRadiusMercator = sqrt((errorRectXY.SizeX() * errorRectXY.SizeX()
-                                  + errorRectXY.SizeY() * errorRectXY.SizeY()) / 4);
+    m_errorRadiusMercator = sqrt(my::sq(errorRectXY.SizeX()) + my::sq(errorRectXY.SizeY())) / 4;
   }
 
   void State::UpdateCompass(CompassInfo const & info)

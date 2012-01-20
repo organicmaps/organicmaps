@@ -22,12 +22,14 @@ namespace search
 
 struct CategoryInfo;
 class Query;
-class Result;
+class Results;
 
 class EngineData;
 
 class Engine
 {
+  typedef function<void (Results const &)> SearchCallbackT;
+
 public:
   typedef Index IndexType;
 
@@ -37,15 +39,25 @@ public:
   ~Engine();
 
   void SetViewport(m2::RectD const & viewport);
-  void SetPosition(m2::PointD const & pos);
+  void SetPosition(double lat, double lon);
   void SetPreferredLanguage(string const & lang);
 
-  void Search(string const & query, function<void (Result const &)> const & f);
+  void EnablePositionTrack(bool enable);
+
+  void Search(string const & query, SearchCallbackT const & f);
 
   string GetCountryFile(m2::PointD const & pt) const;
 
 private:
   void InitializeCategoriesAndSuggestStrings(CategoriesHolder const & categories);
+
+  void RepeatSearch();
+
+  SearchCallbackT m_callback;
+  string m_queryText;
+  m2::RectD m_savedViewport;
+
+  bool m_trackEnable;
 
   Index const * m_pIndex;
   scoped_ptr<search::Query> m_pQuery;

@@ -18,6 +18,8 @@ namespace location
     double m_headingRad;
     double m_headingAccuracyRad;
 
+    int m_flags;      ///< stores flags from SymbolType
+
   public:
     enum SymbolType
     {
@@ -33,8 +35,6 @@ namespace location
     /// @return GPS center point in mercator
     m2::PointD Position() const { return m_positionMercator; }
 
-    bool IsValidPosition() const { return ((m_flags & EGps) != 0); }
-
     void TurnOff() { m_flags = ENone; }
     void UpdateGps(GpsInfo const & info);
     void UpdateCompass(CompassInfo const & info);
@@ -45,9 +45,5 @@ namespace location
     {
       return m_flags;
     }
-
-  private:
-    /// stores flags from SymbolType
-    int m_flags;
   };
 }

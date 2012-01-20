@@ -16,17 +16,17 @@ volatile int g_queryId = 0;
 
 @interface Wrapper : NSObject
 {
-  search::Result * m_result;
+  search::Results * m_result;
 }
-- (id)initWithResult:(search::Result const &) res;
-- (search::Result const *)get;
+- (id)initWithResult:(search::Results const &) res;
+- (search::Results const *)get;
 @end
 
 @implementation Wrapper
-- (id)initWithResult:(search::Result const &) res
+- (id)initWithResult:(search::Results const &) res
 {
   if ((self = [super init]))
-    m_result = new search::Result(res);
+    m_result = new search::Results(res);
   return self;
 }
 
@@ -36,25 +36,21 @@ volatile int g_queryId = 0;
   [super dealloc];
 }
 
-- (search::Result const *)get
+- (search::Results const *)get
 {
   return m_result;
 }
 @end
 
-static void OnSearchResultCallback(search::Result const & res, int queryId)
+static void OnSearchResultCallback(search::Results const & res, int queryId)
 {
   if (g_searchVC && queryId == g_queryId)
   {
-    // end marker means that the search is finished
-    if (!res.IsEndMarker())
-    {
-      Wrapper * w = [[Wrapper alloc] initWithResult:res];
-      [g_searchVC performSelectorOnMainThread:@selector(addResult:)
-                                 withObject:w
-                              waitUntilDone:NO];
-      [w release];
-    }
+    Wrapper * w = [[Wrapper alloc] initWithResult:res];
+    [g_searchVC performSelectorOnMainThread:@selector(addResult:)
+                               withObject:w
+                            waitUntilDone:NO];
+    [w release];
   }
 }
 
@@ -100,17 +96,15 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 - (void)enableRadarMode
 {
   m_radarButton.selected = YES;
-  // @TODO add code for search engine
-  // or add additional parameter to query by checking if (m_radarButton.selected)
-  // m_framework->GetSearchEngine()->
+
+  m_framework->GetSearchEngine()->EnablePositionTrack(true);
 }
 
 - (void)disableRadarMode
 {
   m_radarButton.selected = NO;
-  // @TODO add code for search engine
-  // or add additional parameter to query by checking if (m_radarButton.selected)
-  // m_framework->GetSearchEngine()->
+
+  m_framework->GetSearchEngine()->EnablePositionTrack(false);
 }
 
 - (void)onRadarButtonClicked:(id)button
@@ -390,7 +384,11 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 
 - (void)addResult:(id)result
 {
-  m_results.push_back(*[result get]);
+  /// @todo Temporary, for test.
+  m_results.clear();
+
+  search::Results const * r = [result get];
+  m_results.insert(m_results.end(), r->Begin(), r->End());
   [m_table reloadData];
 }
 
@@ -404,6 +402,8 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 
 - (void)onGpsUpdate:(location::GpsInfo const &)info
 {
+  m_framework->UpdateGpsInfo(info);
+
   NSArray * cells = [m_table visibleCells];
   for (NSUInteger i = 0; i < cells.count; ++i)
   {
