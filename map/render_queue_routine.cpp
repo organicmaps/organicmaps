@@ -77,7 +77,9 @@ void RenderQueueRoutine::onSize(int w, int h)
 
   m_newDepthBuffer.reset();
   m_newDepthBuffer.reset(new yg::gl::RenderBuffer(texW, texH, true));
+  m_newActualTarget.reset();
   m_newActualTarget = m_resourceManager->createRenderTarget(texW, texH);
+  m_newBackBuffer.reset();
   m_newBackBuffer = m_resourceManager->createRenderTarget(texW, texH);
 }
 
