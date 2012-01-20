@@ -28,17 +28,18 @@ class SearchPanel : public QWidget
   QPixmap m_busyIcon;
 
   /// Stores current search results
+  typedef search::Results ResultsT;
   typedef search::Result ResultT;
-  vector<ResultT *> m_results;
+  vector<ResultT> m_results;
   int volatile m_queryId;
 
   Q_OBJECT
 
 signals:
-  void SearchResultSignal(ResultT * result, int queryId);
+  void SearchResultSignal(ResultsT * result, int queryId);
 
 private:
-  void SearchResultThreadFunc(ResultT const & result, int queryId);
+  void SearchResultThreadFunc(ResultsT const & result, int queryId);
   virtual void showEvent(QShowEvent *);
   virtual void hideEvent(QHideEvent *);
 
@@ -50,7 +51,7 @@ private slots:
   void OnSearchPanelItemClicked(int row, int column);
   void OnSearchTextChanged(QString const &);
   /// Called via signal to support multithreading
-  void OnSearchResult(ResultT * result, int queryId);
+  void OnSearchResult(ResultsT * result, int queryId);
   void OnViewportChanged();
   void OnAnimationTimer();
   void OnClearButton();

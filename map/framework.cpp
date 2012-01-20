@@ -678,6 +678,12 @@ void Framework::Search(string const & text, SearchCallbackT callback)
   m2::RectD const viewport = m_navigator.Screen().ClipRect();
   pSearchEngine->SetViewport(viewport);
 
+#ifdef OMIM_OS_DESKTOP
+  // Mobile version works with GPS notifications.
+  if (m_locationState.IsValidPosition())
+    pSearchEngine->SetPositionSimple(m_locationState.Position());
+#endif
+
   pSearchEngine->Search(text, callback);
 }
 

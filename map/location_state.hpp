@@ -35,6 +35,8 @@ namespace location
     /// @return GPS center point in mercator
     m2::PointD Position() const { return m_positionMercator; }
 
+    inline bool IsValidPosition() const { return ((m_flags & EGps) != 0); }
+
     void TurnOff() { m_flags = ENone; }
     void UpdateGps(GpsInfo const & info);
     void UpdateCompass(CompassInfo const & info);

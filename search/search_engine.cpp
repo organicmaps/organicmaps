@@ -112,6 +112,11 @@ void Engine::SetPosition(double lat, double lon)
   }
 }
 
+void Engine::SetPositionSimple(m2::PointD const & pt)
+{
+  m_pQuery->SetPosition(pt);
+}
+
 void Engine::EnablePositionTrack(bool enable)
 {
   m_trackEnable = enable;

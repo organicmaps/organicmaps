@@ -52,29 +52,21 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   setLayout(verticalLayout);
 
   // for multithreading support
-  CHECK(connect(this, SIGNAL(SearchResultSignal(ResultT *, int)),
-                this, SLOT(OnSearchResult(ResultT *, int)), Qt::QueuedConnection), ());
+  CHECK(connect(this, SIGNAL(SearchResultSignal(ResultsT *, int)),
+                this, SLOT(OnSearchResult(ResultsT *, int)), Qt::QueuedConnection), ());
 
   setFocusPolicy(Qt::StrongFocus);
   setFocusProxy(m_pEditor);
 }
 
-template<class T> static void ClearVector(vector<T *> & v)
-{
-  for(size_t i = 0; i < v.size(); ++i)
-    delete v[i];
-  v.clear();
-}
-
 SearchPanel::~SearchPanel()
 {
-  ClearVector(m_results);
 }
 
-void SearchPanel::SearchResultThreadFunc(ResultT const & result, int queryId)
+void SearchPanel::SearchResultThreadFunc(ResultsT const & result, int queryId)
 {
   if (queryId == m_queryId)
-    emit SearchResultSignal(new ResultT(result), queryId);
+    emit SearchResultSignal(new ResultsT(result), queryId);
 }
 
 namespace
@@ -119,47 +111,46 @@ namespace
   }
 }
 
-void SearchPanel::OnSearchResult(ResultT * res, int queryId)
+void SearchPanel::OnSearchResult(ResultsT * res, int queryId)
 {
   if (queryId != m_queryId)
     return;
 
-  if (!res->IsEndMarker())
+  for (ResultsT::IterT i = res->Begin(); i != res->End(); ++i)
   {
+    ResultT const & e = *i;
+
     int const rowCount = m_pTable->rowCount();
     m_pTable->insertRow(rowCount);
 
-    m_pTable->setItem(rowCount, 1, create_item(QString::fromUtf8(res->GetString())));
-    m_pTable->setItem(rowCount, 2, create_item(QString::fromUtf8(res->GetRegionString())));
+    m_pTable->setItem(rowCount, 1, create_item(QString::fromUtf8(e.GetString())));
+    m_pTable->setItem(rowCount, 2, create_item(QString::fromUtf8(e.GetRegionString())));
 
-    if (res->GetResultType() == ResultT::RESULT_FEATURE)
+    if (e.GetResultType() == ResultT::RESULT_FEATURE)
     {
       m_pTable->setItem(rowCount, 0,
-                        create_item(QString::fromUtf8(res->GetFetureTypeAsString().c_str())));
+                        create_item(QString::fromUtf8(e.GetFetureTypeAsString().c_str())));
 
       string strDist;
-      bool const drawDir = MeasurementUtils::FormatDistance(res->GetDistanceFromCenter(), strDist);
+      bool const drawDir = MeasurementUtils::FormatDistance(e.GetDistanceFromCenter(), strDist);
       m_pTable->setItem(rowCount, 3, create_item(strDist.c_str()));
 
       if (drawDir)
       {
         QTableWidgetItem * item =
-            new QTableWidgetItem(draw_direction(res->GetDirectionFromCenter()), QString());
+            new QTableWidgetItem(draw_direction(e.GetDirectionFromCenter()), QString());
         item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
         m_pTable->setItem(rowCount, 4, item);
       }
     }
 
-    m_results.push_back(res);
+    m_results.push_back(e);
   }
-  else
-  {
-    // last element
-    delete res;
-    // stop search busy indicator
-    m_pAnimationTimer->stop();
-    m_pClearButton->setIcon(QIcon(":/ui/x.png"));
-  }
+
+  delete res;
+  // stop search busy indicator
+  m_pAnimationTimer->stop();
+  m_pClearButton->setIcon(QIcon(":/ui/x.png"));
 }
 
 void SearchPanel::OnSearchTextChanged(QString const & str)
@@ -167,7 +158,7 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   // clear old results
   m_pTable->clear();
   m_pTable->setRowCount(0);
-  ClearVector(m_results);
+  m_results.clear();
   ++m_queryId;
 
   QString const normalized = str.normalized(QString::NormalizationForm_KC);
@@ -193,15 +184,15 @@ void SearchPanel::OnSearchPanelItemClicked(int row, int)
 {
   disconnect(m_pDrawWidget, SIGNAL(ViewportChanged()), this, SLOT(OnViewportChanged()));
   ASSERT_EQUAL(m_results.size(), static_cast<size_t>(m_pTable->rowCount()), ());
-  if (m_results[row]->GetResultType() == ResultT::RESULT_FEATURE)
+  if (m_results[row].GetResultType() == ResultT::RESULT_FEATURE)
   {
     // center viewport on clicked item
-    m_pDrawWidget->ShowFeature(m_results[row]->GetFeatureRect());
+    m_pDrawWidget->ShowFeature(m_results[row].GetFeatureRect());
   }
   else
   {
     // insert suggestion into the search bar
-    string const suggestion = m_results[row]->GetSuggestionString();
+    string const suggestion = m_results[row].GetSuggestionString();
     m_pEditor->setText(QString::fromUtf8(suggestion.c_str()));
   }
   connect(m_pDrawWidget, SIGNAL(ViewportChanged()), this, SLOT(OnViewportChanged()));

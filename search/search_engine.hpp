@@ -40,6 +40,7 @@ public:
 
   void SetViewport(m2::RectD const & viewport);
   void SetPosition(double lat, double lon);
+  void SetPositionSimple(m2::PointD const & pt);
   void SetPreferredLanguage(string const & lang);
 
   void EnablePositionTrack(bool enable);
