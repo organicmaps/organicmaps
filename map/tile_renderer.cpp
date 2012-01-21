@@ -159,6 +159,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   drawer->clear(yg::Color(m_bgColor.r, m_bgColor.g, m_bgColor.b, 0));
   drawer->screen()->setClipRect(renderRect);
   drawer->clear(m_bgColor);
+
 /*  drawer->clear(yg::Color(rand() % 32 + 128, rand() % 64 + 128, rand() % 32 + 128, 255));
 
   std::stringstream out;
@@ -170,7 +171,6 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
                              out.str().c_str(),
                              0,
                              false);*/
-
   frameScreen.SetFromRect(m2::AnyRectD(rectInfo.m_rect));
 
   m2::RectD selectRect;

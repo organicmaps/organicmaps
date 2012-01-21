@@ -90,6 +90,7 @@ namespace yg
     void PacketsQueue::cancel()
     {
       m_packets.Cancel();
+      m_fenceManager.cancel();
     }
 
     void PacketsQueue::processPacket(Packet const & packet)

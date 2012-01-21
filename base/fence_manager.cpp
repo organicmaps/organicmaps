@@ -4,7 +4,8 @@
 #include "../base/logging.hpp"
 
 FenceManager::FenceManager(int conditionPoolSize)
-  : m_currentFence(0)
+  : m_currentFence(0),
+    m_isCancelled(false)
 {
   for (unsigned i = 0; i < conditionPoolSize; ++i)
     m_conditionPool.push_back(new threads::Condition());
@@ -28,6 +29,9 @@ int FenceManager::insertFence()
 {
   threads::MutexGuard g(m_mutex);
 
+  if (m_isCancelled)
+    return -1;
+
   if (m_conditionPool.empty())
     return -1;
 
@@ -44,6 +48,9 @@ int FenceManager::insertFence()
 void FenceManager::signalFence(int id)
 {
   threads::MutexGuard g(m_mutex);
+
+  if (m_isCancelled)
+    return;
 
   map<int, threads::Condition*>::iterator it = m_activeFences.find(id);
 
@@ -71,6 +78,9 @@ void FenceManager::joinFence(int id)
   {
     threads::MutexGuard g(m_mutex);
 
+    if (m_isCancelled)
+      return;
+
     map<int, threads::Condition*>::iterator it = m_activeFences.find(id);
 
     if (it == m_activeFences.end())
@@ -84,4 +94,16 @@ void FenceManager::joinFence(int id)
 
   threads::ConditionGuard g(*cond);
   g.Wait();
+}
+
+void FenceManager::cancel()
+{
+  threads::MutexGuard g(m_mutex);
+
+  m_isCancelled = true;
+
+  map<int, threads::Condition*>::iterator it = m_activeFences.begin();
+
+  for (; it != m_activeFences.end(); ++it)
+    it->second->Signal(true);
 }

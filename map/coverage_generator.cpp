@@ -10,6 +10,8 @@
 
 #include "../std/bind.hpp"
 
+bool g_coverageGeneratorDestroyed = false;
+
 CoverageGenerator::CoverageGenerator(
     size_t tileSize,
     size_t scaleEtalonSize,
@@ -25,6 +27,8 @@ CoverageGenerator::CoverageGenerator(
     m_sequenceID(0),
     m_windowHandle(windowHandle)
 {
+  g_coverageGeneratorDestroyed = false;
+
   m_resourceManager = rm;
   m_renderContext = primaryRC->createShared();
 
@@ -62,6 +66,8 @@ CoverageGenerator::~CoverageGenerator()
 
   LOG(LINFO, ("deleting currentCoverage"));
   delete m_currentCoverage;
+
+  g_coverageGeneratorDestroyed = true;
 }
 
 void CoverageGenerator::Cancel()
@@ -109,6 +115,9 @@ void CoverageGenerator::CoverScreen(ScreenBase const & screen, int sequenceID)
 
 void CoverageGenerator::AddMergeTileTask(Tiler::RectInfo const & rectInfo)
 {
+  if (g_coverageGeneratorDestroyed)
+    return;
+
   m_queue.AddCommand(bind(&CoverageGenerator::MergeTile, this, rectInfo));
 }
 

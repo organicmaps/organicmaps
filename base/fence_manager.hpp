@@ -14,6 +14,7 @@ private:
   list<threads::Condition *> m_conditionPool;
   map<int, threads::Condition *> m_activeFences;
   int m_currentFence;
+  bool m_isCancelled;
 
 public:
 
@@ -23,4 +24,5 @@ public:
   int  insertFence();
   void joinFence(int id);
   void signalFence(int id);
+  void cancel();
 };
