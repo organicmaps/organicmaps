@@ -65,6 +65,7 @@ protected:
   model::FeaturesFetcher m_model;
   Navigator m_navigator;
 
+  threads::Mutex m_renderMutex;
   scoped_ptr<RenderPolicy> m_renderPolicy;
   bool m_hasPendingInvalidate, m_doForceUpdate, m_queryMaxScaleMode;
 
