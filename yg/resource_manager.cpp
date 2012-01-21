@@ -316,8 +316,7 @@ namespace yg
   ResourceManager::GlyphCacheParams::GlyphCacheParams()
     : m_glyphCacheMemoryLimit(0),
       m_glyphCacheCount(0),
-      m_renderThreadCount(0),
-      m_isDebugging(false)
+      m_renderThreadCount(0)
   {}
 
   ResourceManager::GlyphCacheParams::GlyphCacheParams(string const & unicodeBlockFile,
@@ -326,15 +325,20 @@ namespace yg
                                                       size_t glyphCacheMemoryLimit,
                                                       size_t glyphCacheCount,
                                                       size_t renderThreadCount,
-                                                      bool isDebugging)
+                                                      bool * debuggingFlags)
     : m_unicodeBlockFile(unicodeBlockFile),
       m_whiteListFile(whiteListFile),
       m_blackListFile(blackListFile),
       m_glyphCacheMemoryLimit(glyphCacheMemoryLimit),
       m_glyphCacheCount(glyphCacheCount),
-      m_renderThreadCount(renderThreadCount),
-      m_isDebugging(isDebugging)
-  {}
+      m_renderThreadCount(renderThreadCount)
+  {
+    if (debuggingFlags)
+      copy(debuggingFlags, debuggingFlags + glyphCacheCount, back_inserter(m_debuggingFlags));
+    else
+      for (unsigned i = 0; i < glyphCacheCount; ++i)
+        m_debuggingFlags.push_back(false);
+  }
 
   ResourceManager::Params::Params()
     : m_rtFormat(yg::Data8Bpp),
@@ -487,7 +491,7 @@ namespace yg
       LOG(LDEBUG, ("allocating ", p.m_glyphCacheCount, " glyphCaches, ", p.m_glyphCacheMemoryLimit, " bytes total."));
 
       for (size_t i = 0; i < p.m_glyphCacheCount; ++i)
-        m_glyphCaches.push_back(GlyphCache(GlyphCache::Params(p.m_unicodeBlockFile, p.m_whiteListFile, p.m_blackListFile, p.m_glyphCacheMemoryLimit / p.m_glyphCacheCount, p.m_isDebugging)));
+        m_glyphCaches.push_back(GlyphCache(GlyphCache::Params(p.m_unicodeBlockFile, p.m_whiteListFile, p.m_blackListFile, p.m_glyphCacheMemoryLimit / p.m_glyphCacheCount, p.m_debuggingFlags[i])));
     }
     else
       LOG(LERROR, ("no params to init glyph caches."));

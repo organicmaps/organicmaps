@@ -34,7 +34,8 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                            bool useDefaultFB,
                                            yg::ResourceManager::Params const & rmParams,
                                            shared_ptr<yg::gl::RenderContext> const & primaryRC)
-  : QueuedRenderPolicy(GetPlatform().CpuCores() + 1, primaryRC, false)
+  : QueuedRenderPolicy(GetPlatform().CpuCores() + 1, primaryRC, false),
+    m_drawScale(0)
 {
   yg::ResourceManager::Params rmp = rmParams;
 
@@ -111,13 +112,21 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                     1,
                                                                     "guiThreadTexture");
 
+/*  bool * debuggingFlags = new bool[GetPlatform().CpuCores() + 2];
+  for (unsigned i = 0; i < GetPlatform().CpuCores() + 2; ++i)
+    debuggingFlags[i] = false;
+
+  debuggingFlags[0] = true;*/
+
   rmp.m_glyphCacheParams = yg::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
                                                                  "fonts_whitelist.txt",
                                                                  "fonts_blacklist.txt",
                                                                  2 * 1024 * 1024,
                                                                  GetPlatform().CpuCores() + 2,
                                                                  GetPlatform().CpuCores(),
-                                                                 false);
+                                                                 0);
+
+//  delete [] debuggingFlags;
 
   rmp.m_useSingleThreadedOGL = true;
   rmp.m_useVA = !yg::gl::g_isBufferObjectsSupported;
@@ -157,10 +166,6 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
 
 TilingRenderPolicyST::~TilingRenderPolicyST()
 {
-  LOG(LINFO, ("cancelling pools"));
-
-  m_resourceManager->cancel();
-
   LOG(LINFO, ("deleting TilingRenderPolicyST"));
 
   base_t::CancelQueuedCommands(GetPlatform().CpuCores());
@@ -173,6 +178,7 @@ TilingRenderPolicyST::~TilingRenderPolicyST()
 
   LOG(LINFO, ("reseting tileRenderer"));
   m_tileRenderer.reset();
+  LOG(LINFO, ("done reseting tileRenderer"));
 }
 
 void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)

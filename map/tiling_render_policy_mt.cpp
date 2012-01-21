@@ -98,7 +98,7 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
                                                                  2 * 1024 * 1024,
                                                                  GetPlatform().CpuCores() + 2,
                                                                  GetPlatform().CpuCores(),
-                                                                 false);
+                                                                 0);
 
   rmp.m_useSingleThreadedOGL = false;
   rmp.m_useVA = !yg::gl::g_isBufferObjectsSupported;

@@ -157,7 +157,7 @@ namespace yg
       size_t m_glyphCacheCount;
       size_t m_renderThreadCount;
 
-      bool m_isDebugging;
+      vector<bool> m_debuggingFlags;
 
       GlyphCacheParams();
       GlyphCacheParams(string const & unicodeBlockFile,
@@ -166,7 +166,7 @@ namespace yg
                        size_t glyphCacheMemoryLimit,
                        size_t glyphCacheCount,
                        size_t renderThreadCount,
-                       bool isDebugging = false);
+                       bool * debuggingFlags = 0);
     };
 
     struct Params
