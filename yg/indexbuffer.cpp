@@ -56,7 +56,7 @@ namespace yg
 
     IndexBuffer::~IndexBuffer()
     {
-      if ((!m_useVA) && (g_doDeleteOnDestroy))
+      if ((!m_useVA) && (g_hasContext))
         OGLCHECK(glDeleteBuffersFn(1, &m_id));
     }
 

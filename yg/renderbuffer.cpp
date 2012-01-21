@@ -58,7 +58,7 @@ namespace yg
 
     RenderBuffer::~RenderBuffer()
     {
-      if (g_doDeleteOnDestroy)
+      if (g_hasContext)
       {
 //        if(m_isDepthBuffer)
 //          OGLCHECK(glDeleteTextures(1, &m_id));

@@ -85,7 +85,7 @@ namespace yg
 
     void (OPENGL_CALLING_CONVENTION * glBlendFuncSeparateFn) (GLenum sfactorRGB, GLenum dfactorRGB, GLenum sfactorAlpha, GLenum dfactorAlpha);
 
-    bool g_doDeleteOnDestroy = true;
+    bool g_hasContext = true;
     bool g_doLogOGLCalls = false;
 
     void CheckExtensionSupport()

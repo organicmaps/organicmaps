@@ -32,7 +32,7 @@ namespace yg
 
     FrameBuffer::~FrameBuffer()
     {
-      if ((m_id != 0) && g_doDeleteOnDestroy)
+      if ((m_id != 0) && g_hasContext)
         OGLCHECK(glDeleteFramebuffersFn(1, &m_id));
     }
 

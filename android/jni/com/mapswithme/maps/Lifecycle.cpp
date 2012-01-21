@@ -71,11 +71,11 @@ bool ShutdownGLESResources()
   {
     NVDEBUG("ShutdownGLESResources: GLES not bound, shutting down EGL to release");
 
-    yg::gl::g_doDeleteOnDestroy = false;
+    yg::gl::g_hasContext = false;
 
     g_framework->DeleteRenderPolicy();
 
-    yg::gl::g_doDeleteOnDestroy = true;
+    yg::gl::g_hasContext = true;
 
     NVDEBUG("Cleaning up EGL");
 

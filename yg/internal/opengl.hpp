@@ -111,7 +111,7 @@ namespace yg
     /// In this case we should set this variable to true to correctly deletes all our wrapper
     /// classes without calls to glDeleteXXX.
 
-    extern bool g_doDeleteOnDestroy;
+    extern bool g_hasContext;
 
     /// This flag controls, whether the OGLCHECK macroses should log OGL calls.
     /// This is for debugging purpose only.
@@ -159,8 +159,7 @@ namespace yg
   #endif
 
 #else
-  #define OGLCHECK(f) f
-  #define OGLCHECKAFTER
-  #define EGLCHECK
-
+#define OGLCHECK(f) f
+#define OGLCHECKAFTER
+#define EGLCHECK
 #endif

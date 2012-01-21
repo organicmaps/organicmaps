@@ -36,7 +36,7 @@ namespace yg
 
     BaseTexture::~BaseTexture()
     {
-      if (g_doDeleteOnDestroy)
+      if (g_hasContext)
         OGLCHECK(glDeleteTextures(1, &m_id));
     }
 
