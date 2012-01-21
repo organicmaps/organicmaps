@@ -145,21 +145,21 @@ namespace yg
   }
 }
 
-#define OMIM_GL_ENABLE_TRACE 1
+//#define OMIM_GL_ENABLE_TRACE 1
 
 #ifdef DEBUG
   #ifdef OMIM_GL_ENABLE_TRACE
-    #define OGLCHECK(f) do { if (yg::gl::g_doLogOGLCalls) LOG(LDEBUG, (#f)); f; yg::gl::CheckError(SRC()); } while(false)
+    #define OGLCHECK(f) do { if (yg::gl::g_doLogOGLCalls) LOG(LDEBUG, (#f)); if (yg::gl::g_hasContext) {f; yg::gl::CheckError(SRC());} else LOG(LDEBUG, ("no OGL context. skipping OGL call")); } while(false)
     #define OGLCHECKAFTER if (yg::gl::g_doLogOGLCalls) LOG(LDEBUG, ("OGLCHECKAFTER")); yg::gl::CheckError(SRC())
     #define EGLCHECK do { LOG(LDEBUG, ("EGLCHECK")); yg::gl::CheckEGLError(SRC()); } while(false)
   #else
-    #define OGLCHECK(f) do { f; yg::gl::CheckError(SRC()); } while(false)
+    #define OGLCHECK(f) do { if (yg::gl::g_hasContext) {f; yg::gl::CheckError(SRC());} else LOG(LDEBUG, ("no OGL context. skipping OGL call.")); } while(false)
     #define OGLCHECKAFTER yg::gl::CheckError(SRC())
     #define EGLCHECK do { yg::gl::CheckEGLError(SRC()); } while(false)
   #endif
 
 #else
-#define OGLCHECK(f) f
+#define OGLCHECK(f) do {if (yg::gl::g_hasContext) {f;} else LOG(LDEBUG, ("no OGL context. skipping OGL call."));} while (false)
 #define OGLCHECKAFTER
 #define EGLCHECK
 #endif
