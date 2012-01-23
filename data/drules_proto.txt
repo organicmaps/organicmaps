@@ -1,43 +1,11 @@
 cont {
   name: "addr:interpolation-all"
-  element {
-    scale: 17
-    lines {
-      width: 1
-      color: 0xB0B0B0
-      priority: 93
-    }
-  }
 }
 cont {
   name: "addr:interpolation-even"
-  element {
-    scale: 17
-    lines {
-      width: 1
-      color: 0xB0B0B0
-      dashdot {
-        dd: 4
-        dd: 4
-      }
-      priority: 92
-    }
-  }
 }
 cont {
   name: "addr:interpolation-odd"
-  element {
-    scale: 17
-    lines {
-      width: 1
-      color: 0xB0B0B0
-      dashdot {
-        dd: 1.6
-        dd: 1.6
-      }
-      priority: 91
-    }
-  }
 }
 cont {
   name: "aerialway-cable_car"
