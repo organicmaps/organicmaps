@@ -89,7 +89,10 @@ void Engine::SetViewport(m2::RectD const & viewport)
   m_savedViewport = viewport;
 
   if (!m_trackEnable)
+  {
     m_pQuery->SetViewport(viewport);
+    m_pQuery->SetPosition(viewport.Center());
+  }
 }
 
 void Engine::SetPosition(double lat, double lon)
@@ -124,8 +127,6 @@ void Engine::EnablePositionTrack(bool enable)
   if (m_trackEnable)
   {
     LOG(LINFO, ("Enable tracking"));
-
-    m_savedViewport = m_pQuery->GetViewport();
   }
   else
   {
