@@ -4360,14 +4360,6 @@ cont {
       }
       priority: 10451
     }
-    area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.05
-        color: 0xC8E0B8
-      }
-      priority: 76
-    }
   }
   element {
     scale: 13
@@ -4381,10 +4373,6 @@ cont {
         dd: 4
       }
       priority: 10478
-    }
-    area {
-      color: 0xFFFFFFFF
-      priority: 86
     }
   }
   element {
@@ -4400,10 +4388,6 @@ cont {
       }
       priority: 10600
     }
-    area {
-      color: 0xFFFFFFFF
-      priority: 129
-    }
   }
   element {
     scale: 15
@@ -4417,10 +4401,6 @@ cont {
         dd: 4
       }
       priority: 10807
-    }
-    area {
-      color: 0xFFFFFFFF
-      priority: 134
     }
   }
   element {
@@ -4436,10 +4416,6 @@ cont {
       }
       priority: 11417
     }
-    area {
-      color: 0xFFFFFFFF
-      priority: 136
-    }
   }
   element {
     scale: 17
@@ -4453,10 +4429,6 @@ cont {
         dd: 4
       }
       priority: 11695
-    }
-    area {
-      color: 0xFFFFFFFF
-      priority: 138
     }
   }
 }
@@ -40868,50 +40840,6 @@ cont {
 }
 cont {
   name: "leisure-track"
-  element {
-    scale: 6
-    area {
-      color: 0xBAE29F
-      border {
-        width: 0.00078125
-        color: 0xC8E0B8
-      }
-      priority: 28
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xBAE29F
-      border {
-        width: 0.0015625
-        color: 0xC8E0B8
-      }
-      priority: 29
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xBAE29F
-      border {
-        width: 0.0125
-        color: 0xC8E0B8
-      }
-      priority: 29
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xBAE29F
-      border {
-        width: 0.025
-        color: 0xC8E0B8
-      }
-      priority: 29
-    }
-  }
   element {
     scale: 12
     lines {
