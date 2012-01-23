@@ -38,7 +38,7 @@ public:
 
 Engine::Engine(IndexType const * pIndex, CategoriesHolder * pCategories,
                ModelReaderPtr polyR, ModelReaderPtr countryR)
-  : m_pIndex(pIndex), m_pData(new EngineData(polyR, countryR)), m_trackEnable(false)
+  : m_pIndex(pIndex), m_trackEnable(false), m_pData(new EngineData(polyR, countryR))
 {
   if (pCategories)
   {
