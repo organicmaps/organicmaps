@@ -411,6 +411,28 @@ namespace feature
       return scales::IsGoodForLevel(level, r);
     }
 
+    /*
+    class DoPrintTypes
+    {
+      Classificator const & m_c;
+
+    public:
+      DoPrintTypes() : m_c(classif())
+      {
+        LOG(LINFO, ("Start"));
+      }
+      ~DoPrintTypes()
+      {
+        LOG(LINFO, ("Finish"));
+      }
+
+      void operator() (uint32_t t)
+      {
+        LOG(LINFO, (m_c.GetFullObjectName(t)));
+      }
+    };
+    */
+
   public:
     void operator() (FeatureBuilder2 & fb)
     {
@@ -418,6 +440,15 @@ namespace feature
 
       bool const isLine = fb.IsLine();
       bool const isArea = fb.IsArea();
+
+      // Dump features with linear and area types.
+      /*
+      if (isLine && isArea)
+      {
+        DoPrintTypes doPrint;
+        fb.GetFeatureBase().ForEachTypeRef(doPrint);
+      }
+      */
 
       for (int i = m_header.GetScalesCount()-1; i >= 0; --i)
       {
