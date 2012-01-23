@@ -191,13 +191,14 @@ namespace
 
   class IsLinearChecker
   {
-    static size_t const m_count = 1;
+    static size_t const m_count = 2;
     uint8_t m_index[m_count];
 
   public:
     IsLinearChecker()
     {
-      char const * arr[m_count] = { "highway" };
+      char const * arr[] = { "highway", "waterway" };
+      STATIC_ASSERT ( ARRAY_SIZE(arr) == m_count );
 
       ClassifObject const * c = classif().GetRoot();
       for (size_t i = 0; i < m_count; ++i)
