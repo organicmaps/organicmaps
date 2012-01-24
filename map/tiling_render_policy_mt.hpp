@@ -34,8 +34,6 @@ private:
 
   int m_drawScale;
 
-//  ScreenCoverage m_screenCoverage;
-
 protected:
 
   TileRenderer & GetTileRenderer();

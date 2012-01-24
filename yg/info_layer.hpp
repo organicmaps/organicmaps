@@ -32,8 +32,6 @@ namespace yg
     void addOverlayElement(shared_ptr<OverlayElement> const & oe);
     void replaceOverlayElement(shared_ptr<OverlayElement> const & oe);
 
-    friend class InfoLayer;
-
   public:
 
     InfoLayer();
