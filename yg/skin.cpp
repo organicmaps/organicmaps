@@ -92,18 +92,18 @@ namespace yg
 
   uint32_t Skin::mapSymbol(char const * symbolName)
   {
-    for (uint8_t i = 0; i < m_pages.size(); ++i)
-    {
-      uint32_t res = m_pages[i]->findSymbol(symbolName);
-      if (res != invalidPageHandle())
-        return packID(i, res);
-    }
-
     for (uint8_t i = 0; i < m_additionalPages.size(); ++i)
     {
       uint32_t res = m_additionalPages[i]->findSymbol(symbolName);
       if (res != invalidPageHandle())
         return packID(i + m_pages.size(), res);
+    }
+
+    for (uint8_t i = 0; i < m_pages.size(); ++i)
+    {
+      uint32_t res = m_pages[i]->findSymbol(symbolName);
+      if (res != invalidPageHandle())
+        return packID(i, res);
     }
 
     return invalidHandle();
@@ -113,18 +113,18 @@ namespace yg
   {
     uint32_t res = invalidPageHandle();
 
-    for (uint8_t i = 0; i < m_pages.size(); ++i)
-    {
-      res = m_pages[i]->findColor(c);
-      if (res != invalidPageHandle())
-        return packID(i, res);
-    }
-
     for (uint8_t i = 0; i < m_additionalPages.size(); ++i)
     {
       res = m_additionalPages[i]->findColor(c);
       if (res != invalidPageHandle())
         return packID(i + m_pages.size(), res);
+    }
+
+    for (uint8_t i = 0; i < m_pages.size(); ++i)
+    {
+      res = m_pages[i]->findColor(c);
+      if (res != invalidPageHandle())
+        return packID(i, res);
     }
 
     if (!m_pages[m_currentDynamicPage]->hasRoom(c))
@@ -137,18 +137,18 @@ namespace yg
   {
     uint32_t res = invalidPageHandle();
 
-    for (uint8_t i = 0; i < m_pages.size(); ++i)
-    {
-      res = m_pages[i]->findPenInfo(penInfo);
-      if (res != invalidPageHandle())
-        return packID(i, res);
-    }
-
     for (uint8_t i = 0; i < m_additionalPages.size(); ++i)
     {
       res = m_additionalPages[i]->findPenInfo(penInfo);
       if (res != invalidPageHandle())
         return packID(i + m_pages.size(), res);
+    }
+
+    for (uint8_t i = 0; i < m_pages.size(); ++i)
+    {
+      res = m_pages[i]->findPenInfo(penInfo);
+      if (res != invalidPageHandle())
+        return packID(i, res);
     }
 
     if (!m_pages[m_currentDynamicPage]->hasRoom(penInfo))
@@ -161,18 +161,18 @@ namespace yg
   {
     uint32_t res = invalidPageHandle();
 
-    for (uint8_t i = 0; i < m_pages.size(); ++i)
-    {
-      res = m_pages[i]->findCircleInfo(circleInfo);
-      if (res != invalidPageHandle())
-        return packID(i, res);
-    }
-
     for (uint8_t i = 0; i < m_additionalPages.size(); ++i)
     {
       res = m_additionalPages[i]->findCircleInfo(circleInfo);
       if (res != invalidPageHandle())
         return packID(i + m_pages.size(), res);
+    }
+
+    for (uint8_t i = 0; i < m_pages.size(); ++i)
+    {
+      res = m_pages[i]->findCircleInfo(circleInfo);
+      if (res != invalidPageHandle())
+        return packID(i, res);
     }
 
     if (!m_pages[m_currentDynamicPage]->hasRoom(circleInfo))
@@ -218,18 +218,18 @@ namespace yg
   {
     uint32_t res = invalidPageHandle();
 
-    for (uint8_t i = 0; i < m_pages.size(); ++i)
-    {
-      res = m_pages[i]->findGlyph(gk);
-      if (res != invalidPageHandle())
-        return packID(i, res);
-    }
-
     for (uint8_t i = 0; i < m_additionalPages.size(); ++i)
     {
       res = m_additionalPages[i]->findGlyph(gk);
       if (res != invalidPageHandle())
         return packID(i + m_pages.size(), res);
+    }
+
+    for (uint8_t i = 0; i < m_pages.size(); ++i)
+    {
+      res = m_pages[i]->findGlyph(gk);
+      if (res != invalidPageHandle())
+        return packID(i, res);
     }
 
     if (!m_pages[m_currentTextPage]->hasRoom(gk, glyphCache))
