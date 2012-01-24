@@ -224,6 +224,10 @@ void Query::AddResult(ValueT const & result)
     {
       m_results[i].push(result);
     }
+    //else
+    //{
+    //  LOG(LINFO, ("Skipped feature:", result));
+    //}
   }
 }
 
@@ -395,13 +399,31 @@ void Query::GetBestMatchName(FeatureType const & f, uint32_t & penalty, string &
 namespace impl
 {
 
-struct FeatureLoader
+class FeatureLoader
 {
-  uint32_t m_count;
+  size_t m_count;
   FeaturesVector & m_featuresVector;
   Query & m_query;
   string m_fName;
 
+  /*
+  class DoFindByName
+  {
+    string m_name;
+
+  public:
+    DoFindByName(char const * s) : m_name(s) {}
+
+    bool operator() (uint8_t, string const & s)
+    {
+      if (m_name.find_first_of(s) != string::npos)
+        LOG(LINFO, ("Found name: ", s));
+      return true;
+    }
+  };
+  */
+
+public:
   FeatureLoader(FeaturesVector & featuresVector, Query & query, string const & fName)
     : m_count(0), m_featuresVector(featuresVector), m_query(query), m_fName(fName)
   {
@@ -412,9 +434,16 @@ struct FeatureLoader
     ++m_count;
     FeatureType feature;
     m_featuresVector.Get(offset, feature);
+
+//#ifdef DEBUG
+//    DoFindByName doFind("ул. Карбышева");
+//    feature.ForEachNameRef(doFind);
+//#endif
+
     m_query.AddFeatureResult(feature, m_fName);
   }
 
+  size_t GetCount() const { return m_count; }
   void Reset() { m_count = 0; }
 };
 
@@ -519,7 +548,7 @@ void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
                 LOG(LDEBUG, ("Lang:",
                              StringUtf8Multilang::GetLangByCode(static_cast<int8_t>(edge[0])),
                              "Matched: ",
-                             emitter.m_count));
+                             emitter.GetCount()));
 
                 emitter.Reset();
               }
