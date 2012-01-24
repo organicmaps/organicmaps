@@ -5,8 +5,8 @@
 #include "../base/base.hpp"
 #include "../std/algorithm.hpp"
 #include "../std/bind.hpp"
-#include "../std/queue.hpp"
 #include "../std/scoped_ptr.hpp"
+#include "../std/stack.hpp"
 #include "../std/unordered_map.hpp"
 #include "../std/unordered_set.hpp"
 #include "../std/utility.hpp"
@@ -99,28 +99,23 @@ void PrefixMatchInTrie(TrieIterator const & trieRoot,
     s = strings::UniString(s.begin() + rootPrefixSize, s.end());
   }
 
-  size_t symbolsMatched = 0;
-  scoped_ptr<search::TrieIterator> pIter(MoveTrieIteratorToString(trieRoot, s, symbolsMatched));
-  if (!pIter)
-    return;
-
-  priority_queue<pair<uint8_t, search::TrieIterator *> > trieQueue;
-  trieQueue.push(make_pair(uint8_t(-1), pIter->Clone()));
-
-  uint8_t maxRank = 0;
-  for (size_t i = 0; i < pIter->m_edge.size(); ++i)
-    maxRank = max(maxRank, pIter->m_edge[i].m_value);
-
-  int featuresStillToMatch = 100000;
-  while (!trieQueue.empty() && (featuresStillToMatch > 0 || trieQueue.top().first == maxRank))
+  stack<search::TrieIterator *> trieQueue;
   {
-    scoped_ptr<search::TrieIterator> pIter(trieQueue.top().second);
+    size_t symbolsMatched = 0;
+    search::TrieIterator * const pRootIter = MoveTrieIteratorToString(trieRoot, s, symbolsMatched);
+    if (!pRootIter)
+      return;
+    trieQueue.push(pRootIter);
+  }
+
+  while (!trieQueue.empty())
+  {
+    scoped_ptr<search::TrieIterator> pIter(trieQueue.top());
     trieQueue.pop();
     for (size_t i = 0; i < pIter->m_value.size(); ++i)
       f(pIter->m_value[i].m_featureId, pIter->m_value[i].m_rank);
-    featuresStillToMatch -= pIter->m_value.size();
     for (size_t i = 0; i < pIter->m_edge.size(); ++i)
-        trieQueue.push(make_pair(pIter->m_edge[i].m_value, pIter->GoToEdge(i)));
+        trieQueue.push(pIter->GoToEdge(i));
   }
 }
 
