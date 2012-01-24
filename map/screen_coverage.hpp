@@ -43,7 +43,7 @@ private:
   TileRectSet m_tileRects; //< rects, that forms a set of tiles in current rect.
 
   TileSet m_tiles; //< set of tiles, that are visible for the m_screen
-  yg::InfoLayer m_infoLayer; //< composite infoLayers for visible tiles
+  scoped_ptr<yg::InfoLayer> m_infoLayer; //< composite infoLayers for visible tiles
 
   //< scales, which are used in the tiles, drawn in the current screen.
   int m_drawScale;
@@ -64,7 +64,13 @@ public:
                  size_t scaleEtalonSize);
 
   ScreenCoverage * Clone();
+
   void SetStylesCache(yg::StylesCache * stylesCache);
+  yg::StylesCache * GetStylesCache() const;
+
+  yg::InfoLayer * GetInfoLayer() const;
+
+  void CacheInfoLayer();
 
   /// add rendered tile to coverage. Tile is locked, so make sure to unlock it in case it's not needed.
   void Merge(Tiler::RectInfo const & ri);

@@ -94,20 +94,28 @@ void CoverageGenerator::CoverScreen(ScreenBase const & screen, int sequenceID)
   if (sequenceID < m_sequenceID)
     return;
 
+  ASSERT(m_workCoverage == 0, ());
+
   m_workCoverage = m_currentCoverage->Clone();
   m_workCoverage->SetStylesCache(m_workStylesCache.get());
   m_workCoverage->SetScreen(screen);
-
-  ScreenCoverage * oldCoverage = m_currentCoverage;
+  m_workCoverage->CacheInfoLayer();
 
   {
     threads::MutexGuard g(m_mutex);
-    m_currentCoverage->SetStylesCache(0);
-    m_currentCoverage = m_workCoverage;
+
+    /// test that m_workCoverage->InfoLayer doesn't have
+    /// the same elements as m_currentCoverage->InfoLayer
+    ASSERT(!m_workCoverage->GetInfoLayer()->checkHasEquals(m_currentCoverage->GetInfoLayer()), ());
+    ASSERT(m_workCoverage->GetInfoLayer()->checkCached(m_workStylesCache.get()), ());
+
+    swap(m_currentCoverage, m_workCoverage);
     swap(m_currentStylesCache, m_workStylesCache);
+
+    ASSERT(m_currentCoverage->GetStylesCache() == m_currentStylesCache.get(), ());
   }
 
-  delete oldCoverage;
+  delete m_workCoverage;
   m_workCoverage = 0;
 
   m_windowHandle->invalidate();
@@ -123,21 +131,29 @@ void CoverageGenerator::AddMergeTileTask(Tiler::RectInfo const & rectInfo)
 
 void CoverageGenerator::MergeTile(Tiler::RectInfo const & rectInfo)
 {
+  ASSERT(m_workCoverage == 0, ());
+
   m_workCoverage = m_currentCoverage->Clone();
   m_workCoverage->SetStylesCache(m_workStylesCache.get());
-
   m_workCoverage->Merge(rectInfo);
-
-  ScreenCoverage * oldCoverage = m_currentCoverage;
+  m_workCoverage->CacheInfoLayer();
 
   {
     threads::MutexGuard g(m_mutex);
-    m_currentCoverage->SetStylesCache(0);
-    m_currentCoverage = m_workCoverage;
+
+    /// test that m_workCoverage->InfoLayer doesn't have
+    /// the same elements as m_currentCoverage->InfoLayer
+    ASSERT(!m_workCoverage->GetInfoLayer()->checkHasEquals(m_currentCoverage->GetInfoLayer()), ());
+    ASSERT(m_workCoverage->GetInfoLayer()->checkCached(m_workStylesCache.get()), ());
+
+    swap(m_currentCoverage, m_workCoverage);
     swap(m_currentStylesCache, m_workStylesCache);
+
+    ASSERT(m_currentCoverage->GetStylesCache() == m_currentStylesCache.get(), ());
   }
 
-  delete oldCoverage;
+  /// we should delete workCoverage
+  delete m_workCoverage;
   m_workCoverage = 0;
 
   m_windowHandle->invalidate();

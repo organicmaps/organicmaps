@@ -13,8 +13,13 @@
 #include "coverage_generator.hpp"
 
 ScreenCoverage::ScreenCoverage()
-  : m_tiler(0, 0), m_stylesCache(0)
-{}
+  : m_tiler(0, 0),
+    m_drawScale(0),
+    m_stylesCache(0),
+    m_infoLayer(new yg::InfoLayer())
+{
+  m_infoLayer->setCouldOverlap(false);
+}
 
 ScreenCoverage::ScreenCoverage(TileRenderer * tileRenderer,
                                CoverageGenerator * coverageGenerator,
@@ -23,9 +28,11 @@ ScreenCoverage::ScreenCoverage(TileRenderer * tileRenderer,
   : m_tileRenderer(tileRenderer),
     m_tiler(tileSize, scaleEtalonSize),
     m_coverageGenerator(coverageGenerator),
+    m_infoLayer(new yg::InfoLayer()),
+    m_drawScale(0),
     m_stylesCache(0)
 {
-  m_infoLayer.setCouldOverlap(false);
+  m_infoLayer->setCouldOverlap(false);
 }
 
 ScreenCoverage * ScreenCoverage::Clone()
@@ -53,7 +60,8 @@ ScreenCoverage * ScreenCoverage::Clone()
 
   tileCache->writeUnlock();
 
-  res->m_infoLayer = m_infoLayer;
+  res->m_infoLayer.reset();
+  res->m_infoLayer.reset(m_infoLayer->clone());
   res->m_stylesCache = 0;
 
   return res;
@@ -62,6 +70,11 @@ ScreenCoverage * ScreenCoverage::Clone()
 void ScreenCoverage::SetStylesCache(yg::StylesCache * stylesCache)
 {
   m_stylesCache = stylesCache;
+}
+
+yg::StylesCache * ScreenCoverage::GetStylesCache() const
+{
+  return m_stylesCache;
 }
 
 void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
@@ -98,17 +111,29 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
 
   if (addTile)
   {
-    m_infoLayer.merge(*tile->m_infoLayer.get(),
-                       tile->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
+    yg::InfoLayer * tileInfoLayerCopy = tile->m_infoLayer->clone();
 
-    if (!m_stylesCache)
-      LOG(LWARNING, ("no styles cache"));
-    else
-    {
-      m_infoLayer.cache(m_stylesCache);
-      m_stylesCache->upload();
-    }
+    m_infoLayer->merge(*tileInfoLayerCopy,
+                        tile->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
+
+    delete tileInfoLayerCopy;
   }
+}
+
+void ScreenCoverage::CacheInfoLayer()
+{
+  if (!m_stylesCache)
+  {
+    LOG(LWARNING, ("no styles cache"));
+    return;
+  }
+
+  m_infoLayer->cache(m_stylesCache);
+
+  /// asserting, that all visible elements is cached
+  ASSERT(m_infoLayer->checkCached(m_stylesCache), ());
+
+  m_stylesCache->upload();
 }
 
 void ScreenCoverage::Remove(Tile const *)
@@ -144,7 +169,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
     else
       CHECK(drawScale == allRects[i].m_drawScale, (drawScale, allRects[i].m_drawScale));
 
-  m_drawScale = drawScale;
+  m_drawScale = drawScale == -1 ? 0 : drawScale;
 
   for (unsigned i = 0; i < allRects.size(); ++i)
   {
@@ -192,16 +217,13 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 
   m_tiles = tiles;
 
-  m_infoLayer.clear();
-  for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
-    m_infoLayer.merge(*((*it)->m_infoLayer.get()), (*it)->m_tileScreen.PtoGMatrix() * screen.GtoPMatrix());
+  m_infoLayer->clear();
 
-  if (!m_stylesCache)
-    LOG(LWARNING, ("no styles cache"));
-  else
+  for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
   {
-    m_infoLayer.cache(m_stylesCache);
-    m_stylesCache->upload();
+    yg::InfoLayer * tileInfoLayerCopy = (*it)->m_infoLayer->clone();
+    m_infoLayer->merge(*tileInfoLayerCopy, (*it)->m_tileScreen.PtoGMatrix() * screen.GtoPMatrix());
+    delete tileInfoLayerCopy;
   }
 
   /// clearing all old commands
@@ -256,9 +278,19 @@ void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)
     s->blit(&infos[0], infos.size(), true);
 
   if (m_stylesCache)
+  {
+    ASSERT(m_infoLayer->checkCached(m_stylesCache), ());
     s->setAdditionalSkinPage(m_stylesCache->cachePage());
+  }
+  else
+    LOG(LINFO, ("no styles cache"));
 
-  m_infoLayer.draw(s, m_screen.PtoGMatrix() * screen.GtoPMatrix());
+  m_infoLayer->draw(s, m_screen.PtoGMatrix() * screen.GtoPMatrix());
+}
+
+yg::InfoLayer * ScreenCoverage::GetInfoLayer() const
+{
+  return m_infoLayer.get();
 }
 
 void ScreenCoverage::EndFrame(yg::gl::Screen *s)

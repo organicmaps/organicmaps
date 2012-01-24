@@ -38,6 +38,26 @@ namespace yg
     : m_couldOverlap(true)
   {}
 
+  InfoLayer::InfoLayer(InfoLayer const & src)
+  {
+    m_couldOverlap = src.m_couldOverlap;
+
+    vector<shared_ptr<OverlayElement> > elems;
+    src.m_tree.ForEach(MakeBackInsertFunctor(elems));
+
+    math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
+
+    for (unsigned i = 0; i < elems.size(); ++i)
+    {
+      shared_ptr<OverlayElement> e(elems[i]->clone(id));
+
+      e->setIsVisible(true);
+      e->setIsNeedRedraw(true);
+
+      processOverlayElement(e);
+    }
+  }
+
   void InfoLayer::setCouldOverlap(bool flag)
   {
     m_couldOverlap = flag;
@@ -214,13 +234,18 @@ namespace yg
 
     sort(v.begin(), v.end(), &greater_priority);
 
+    /// making all elements visible
+
     for (unsigned i = 0; i < v.size(); ++i)
       v[i]->setIsNeedRedraw(true);
 
-    /// caching on StylesCache::m_maxPagesCount at most
+    /// collecting all the unpacked rects from all elements
 
     vector<m2::PointU> sizes;
     sizes.reserve(100);
+
+    /// some glyphs will be counted twice(probably a lot of them).
+    /// that way we'll actually waste a lot of texture space.
 
     for (unsigned i = 0; i < v.size(); ++i)
       v[i]->getNonPackedRects(stylesCache, sizes);
@@ -228,8 +253,10 @@ namespace yg
     if (sizes.empty())
       return;
 
+    /// if there are enough room to cache all the elements
     if (stylesCache->hasRoom(&sizes[0], sizes.size()))
     {
+      /// cache them
       for (unsigned i = 0; i < v.size(); ++i)
         v[i]->map(stylesCache);
     }
@@ -255,12 +282,16 @@ namespace yg
         }
       }
 
-      if (v.size() - pos > 1)
+      if (v.size() - pos >= 1)
         LOG(LINFO, ("making ", v.size() - pos, "elements invisible"));
 
-      /// making all uncached elements invisible
+      /// partially uncached elements should be invisible
       for (; pos < v.size(); ++pos)
-        v[pos]->setIsNeedRedraw(false);
+      {
+        sizes.clear();
+        v[pos]->getNonPackedRects(stylesCache, sizes);
+        v[pos]->setIsNeedRedraw(sizes.empty());
+      }
     }
   }
 
@@ -306,6 +337,44 @@ namespace yg
     }
 
 //    LOG(LINFO, ("clipped out", clippedCnt, "elements,", elemCnt, "elements total"));
+  }
+
+  bool InfoLayer::checkHasEquals(InfoLayer const * l) const
+  {
+    vector<shared_ptr<OverlayElement> > v0;
+    m_tree.ForEach(MakeBackInsertFunctor(v0));
+
+    sort(v0.begin(), v0.end());
+
+    vector<shared_ptr<OverlayElement> > v1;
+    l->m_tree.ForEach(MakeBackInsertFunctor(v1));
+
+    sort(v1.begin(), v1.end());
+
+    vector<shared_ptr<OverlayElement> > res;
+
+    set_intersection(v0.begin(), v0.end(), v1.begin(), v1.end(), back_inserter(res));
+
+    return !res.empty();
+  }
+
+  bool InfoLayer::checkCached(StylesCache * s) const
+  {
+    vector<shared_ptr<OverlayElement> > v;
+    m_tree.ForEach(MakeBackInsertFunctor(v));
+
+    for (unsigned i = 0; i < v.size(); ++i)
+      if (v[i]->isNeedRedraw())
+        if (!v[i]->find(s))
+          return false;
+
+    return true;
+  }
+
+  InfoLayer * InfoLayer::clone() const
+  {
+    InfoLayer * res = new InfoLayer(*this);
+    return res;
   }
 }
 

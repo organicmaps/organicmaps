@@ -140,18 +140,18 @@ namespace yg
     {
       GlyphLayoutElem const & elem = layout.entries()[i];
 
-      GlyphKey glyphKey(elem.m_sym,
-                        desc.m_size,
-                        desc.m_isMasked,
-                        desc.m_isMasked ? desc.m_maskColor : desc.m_color);
+      GlyphKey gk(elem.m_sym,
+                  desc.m_size,
+                  desc.m_isMasked,
+                  desc.m_isMasked ? desc.m_maskColor : desc.m_color);
 
-      bool packed = skinPage->findGlyph(glyphKey) != 0x00FFFFFF;
+      bool packed = skinPage->findGlyph(gk) != 0x00FFFFFF;
 
       if (!packed)
       {
-        if (skinPage->hasRoom(glyphKey, glyphCache))
+        if (skinPage->hasRoom(gk, glyphCache))
         {
-          skinPage->mapGlyph(glyphKey, glyphCache);
+          skinPage->mapGlyph(gk, glyphCache);
           packed = true;
         }
       }
@@ -171,12 +171,12 @@ namespace yg
     {
       GlyphLayoutElem const & elem = layout.entries()[i];
 
-      GlyphKey glyphKey(elem.m_sym,
-                        desc.m_size,
-                        desc.m_isMasked,
-                        desc.m_isMasked ? desc.m_maskColor : desc.m_color);
+      GlyphKey gk(elem.m_sym,
+                  desc.m_size,
+                  desc.m_isMasked,
+                  desc.m_isMasked ? desc.m_maskColor : desc.m_color);
 
-      if (skinPage->findGlyph(glyphKey) == 0x00FFFFFF)
+      if (skinPage->findGlyph(gk) == 0x00FFFFFF)
         return false;
     }
 
@@ -198,14 +198,14 @@ namespace yg
     {
       GlyphLayoutElem const & elem = layout.entries()[i];
 
-      GlyphKey glyphKey(elem.m_sym,
-                        desc.m_size,
-                        desc.m_isMasked,
-                        desc.m_isMasked ? desc.m_maskColor : desc.m_color);
+      GlyphKey gk(elem.m_sym,
+                  desc.m_size,
+                  desc.m_isMasked,
+                  desc.m_isMasked ? desc.m_maskColor : desc.m_color);
 
-      if (skinPage->findGlyph(glyphKey) == 0x00FFFFFF)
+      if (skinPage->findGlyph(gk) == 0x00FFFFFF)
       {
-        shared_ptr<GlyphInfo> gi = glyphCache->getGlyphInfo(glyphKey);
+        shared_ptr<GlyphInfo> gi = glyphCache->getGlyphInfo(gk);
         v.push_back(m2::PointU(gi->m_metrics.m_width + 4, gi->m_metrics.m_height + 4));
       }
     }

@@ -32,9 +32,12 @@ namespace yg
     void addOverlayElement(shared_ptr<OverlayElement> const & oe);
     void replaceOverlayElement(shared_ptr<OverlayElement> const & oe);
 
+    friend class InfoLayer;
+
   public:
 
     InfoLayer();
+    InfoLayer(InfoLayer const & src);
 
     void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m);
 
@@ -53,5 +56,10 @@ namespace yg
     void merge(InfoLayer const & infoLayer, math::Matrix<double, 3, 3> const & m);
 
     void clip(m2::RectI const & r);
+
+    bool checkHasEquals(InfoLayer const * l) const;
+    bool checkCached(StylesCache * s) const;
+
+    InfoLayer * clone() const;
   };
 }
