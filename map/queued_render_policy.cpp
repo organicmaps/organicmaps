@@ -13,8 +13,8 @@ QueuedRenderPolicy::QueuedRenderPolicy(int pipelinesCount,
 
 QueuedRenderPolicy::~QueuedRenderPolicy()
 {
-  for (unsigned i = 0; i < m_PipelinesCount; ++i)
-    CancelQueuedCommands(i);
+/*  for (unsigned i = 0; i < m_PipelinesCount; ++i)
+    CancelQueuedCommands(i);*/
 
   delete [] m_Pipelines;
 
