@@ -51,15 +51,21 @@ public:
     m_TypeSmallVillage[2]  = GetType("place", "farm");
   }
 
-  void CorrectRectForScales(FeatureType const & f, m2::PointD const & center,
-                            bool forceCorrect, m2::RectD & rect) const
+  void CorrectScaleForVisibility(FeatureType const & f, int & scale) const
   {
     pair<int, int> const scaleR = feature::DrawableScaleRangeForText(f);
+    if (scale < scaleR.first || scale > scaleR.second)
+      scale = scaleR.first;
+  }
+
+  void CorrectRectForScales(FeatureType const & f, m2::PointD const & center, m2::RectD & rect) const
+  {
     int const scale = scales::GetScaleLevel(rect);
-    if (forceCorrect || (scale < scaleR.first || scale > scaleR.second))
-    {
-      rect = scales::GetRectForLevel(scaleR.first, center, 1.0);
-    }
+    int scaleNew = scale;
+    CorrectScaleForVisibility(f, scaleNew);
+
+    if (scale != scaleNew)
+      rect = scales::GetRectForLevel(scaleNew, center, 1.0);
   }
 
   m2::RectD GetViewport(FeatureType const & f) const
@@ -67,27 +73,22 @@ public:
     m2::RectD limitR = f.GetLimitRect(-2);
     if (f.GetFeatureType() != feature::GEOM_POINT)
     {
-      CorrectRectForScales(f, limitR.Center(), false, limitR);
+      CorrectRectForScales(f, limitR.Center(), limitR);
       return limitR;
     }
 
     FeatureBase::GetTypesFn types;
     f.ForEachTypeRef(types);
 
-    m2::PointD maxSzM(0, 0);
+    int const upperScale = scales::GetUpperScale();
+    int scale = upperScale;
     for (size_t i = 0; i < types.m_size; ++i)
-    {
-      m2::PointD const szM = GetSizeForType(types.m_types[i], f);
-      maxSzM.x = max(maxSzM.x, szM.x);
-      maxSzM.y = max(maxSzM.y, szM.y);
-    }
+      scale = min(scale, GetScaleForType(types.m_types[i], f));
+
+    CorrectScaleForVisibility(f, scale);
 
     m2::PointD const centerXY = limitR.Center();
-    m2::RectD res = MercatorBounds::RectByCenterXYAndSizeInMeters(
-                                        centerXY.x, centerXY.y, maxSzM.x, maxSzM.y);
-
-    CorrectRectForScales(f, centerXY, maxSzM == m2::PointD(0, 0), res);
-    return res;
+    return scales::GetRectForLevel(scale, centerXY, 1.0);
   }
 
   uint8_t GetSearchRank(FeatureType const & feature) const
@@ -120,35 +121,34 @@ public:
 private:
 
   // Returns width and height (lon and lat) for a given type.
-  m2::PointD GetSizeForType(uint32_t const type, FeatureType const & feature) const
+  int GetScaleForType(uint32_t const type, FeatureType const & feature) const
   {
-    static double const km = 1000.0;
     if (type == m_TypeContinent)
-      return m2::PointD(5000*km, 5000*km);
+      return 2;
 
     /// @todo Load countries bounding rects.
     if (type == m_TypeCountry)
-      return m2::PointD(500*km, 500*km);
+      return 4;
 
     if (type == m_TypeState)
-      return m2::PointD(200*km, 200*km);
+      return 6;
 
     if (IsEqual(type, m_TypeCounty))
-      return m2::PointD(40*km, 40*km);
+      return 7;
 
     if (type == m_TypeCity || type == m_TypeCityCapital)
-    {
-      double const radius = sqrt(static_cast<double>(feature.GetPopulation() / 2500));
-      return m2::PointD(radius*km, radius*km);
-    }
+      return 9;
 
     if (type == m_TypeTown)
-      return m2::PointD(6*km, 6*km);
+      return 9;
 
     if (IsEqual(type, m_TypeVillage))
-      return m2::PointD(1.5*km, 1.5*km);
+      return 12;
 
-    return m2::PointD(0, 0);
+    if (IsEqual(type, m_TypeSmallVillage))
+      return 14;
+
+    return scales::GetUpperScale();
   }
 
   static uint32_t GetType(string const & s1,
