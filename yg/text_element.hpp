@@ -38,7 +38,6 @@ namespace yg
     strings::UniString m_auxVisText;
 
     bool m_log2vis;
-    GlyphCache * m_glyphCache;
 
     mutable vector<m2::AnyRectD> m_boundRects;
 

@@ -17,14 +17,13 @@ namespace yg
       m_auxFontDesc(p.m_auxFontDesc),
       m_logText(p.m_logText),
       m_auxLogText(p.m_auxLogText),
-      m_log2vis(p.m_log2vis),
-      m_glyphCache(p.m_glyphCache)
+      m_log2vis(p.m_log2vis)
   {
     if (m_log2vis)
     {
-      m_visText = m_glyphCache->log2vis(m_logText);
+      m_visText = p.m_glyphCache->log2vis(m_logText);
       if (!m_auxLogText.empty())
-        m_auxVisText = m_glyphCache->log2vis(m_auxLogText);
+        m_auxVisText = p.m_glyphCache->log2vis(m_auxLogText);
     }
     else
     {
