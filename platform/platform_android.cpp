@@ -85,11 +85,11 @@ void Platform::GetFilesInDir(string const & directory, string const & mask, File
 
 int Platform::CpuCores() const
 {
-  long const numCPU = sysconf(_SC_NPROCESSORS_ONLN);
-  if (numCPU >= 1)
-    return static_cast<int>(numCPU);
+  // @TODO temporarily commented to avoid crashes
+//  long const numCPU = sysconf(_SC_NPROCESSORS_ONLN);
+//  if (numCPU >= 1)
+//    return static_cast<int>(numCPU);
   return 1;
-
 }
 
 string Platform::DeviceName() const
