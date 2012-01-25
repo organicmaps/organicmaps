@@ -15,7 +15,7 @@ import android.util.Log;
 public class DownloadUI extends PreferenceActivity
 {
   private static String TAG = "DownloadUI";
-  
+
   private native int countriesCount(int group, int country, int region);
   private native int countryStatus(int group, int country, int region);
   private native long countryLocalSizeInBytes(int group, int country, int region);
@@ -23,10 +23,10 @@ public class DownloadUI extends PreferenceActivity
   private native String countryName(int group, int country, int region);
   private native void nativeCreate();
   private native void nativeDestroy();
-  
+
   private native void downloadCountry(int group, int country, int region);
   private native void deleteCountry(int group, int country, int region);
-  
+
   private AlertDialog.Builder m_alert;
   private DialogInterface.OnClickListener m_alertCancelHandler = new DialogInterface.OnClickListener() {
     public void onClick(DialogInterface dlg, int which) { dlg.dismiss(); } };
@@ -38,21 +38,21 @@ public class DownloadUI extends PreferenceActivity
     // Root
     PreferenceScreen root = getPreferenceManager().createPreferenceScreen(this);
     setPreferenceScreen(createCountriesHierarchy(root, -1, -1, -1));
-    
+
     m_alert = new AlertDialog.Builder(this);
     m_alert.setCancelable(true);
-        
+
     nativeCreate();
   }
-  
+
   @Override
   public void onDestroy()
   {
     super.onDestroy();
-    
+
     nativeDestroy();
   }
-  
+
   private String formatSizeString(long sizeInBytes)
   {
     if (sizeInBytes > 1024 * 1024)
@@ -134,9 +134,9 @@ public class DownloadUI extends PreferenceActivity
       final Preference cell = new Preference(this);
       cell.setKey(group + " " + country + " " + region);
       cell.setTitle(name);
-      
+
       updateCountryCell(cell, group, country, region);
-      
+
       return cell;
     }
     else
@@ -148,7 +148,7 @@ public class DownloadUI extends PreferenceActivity
       return createCountriesHierarchy(parent, group, country, region);
     }
   }
-  
+
   private PreferenceScreen createCountriesHierarchy(PreferenceScreen root, int group, int country, int region)
   {
     final int count = countriesCount(group, country, region);
@@ -186,7 +186,7 @@ public class DownloadUI extends PreferenceActivity
       final int group = Integer.parseInt(keys[0]);
       final int country = Integer.parseInt(keys[1]);
       final int region = Integer.parseInt(keys[2]);
-      
+
       switch (countryStatus(group, country, region))
       {
       case 0: // EOnDisk
@@ -200,7 +200,7 @@ public class DownloadUI extends PreferenceActivity
         m_alert.setNegativeButton("Cancel", m_alertCancelHandler);
         m_alert.create().show();
         break;
-        
+
       case 1: // ENotDownloaded
         if (!ConnectionState.isConnected(this))
         { // Show "Connection is not available" dialog if there is no connection
@@ -220,7 +220,7 @@ public class DownloadUI extends PreferenceActivity
           m_alert.create().show();
         }
         break;
-        
+
       case 2: // EDownloadFailed
         if (!ConnectionState.isConnected(this))
           showNoConnectionDialog();
@@ -241,12 +241,12 @@ public class DownloadUI extends PreferenceActivity
         m_alert.setNegativeButton("Do nothing", m_alertCancelHandler);
         m_alert.create().show();
         break;
-        
+
       case 4: // EInQueue
         // Silently discard country from the queue
         deleteCountry(group, country, region);
         break;
-        
+
       case 5: // EUnknown
         Log.d(TAG, "Unknown country state");
         break;
