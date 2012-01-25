@@ -172,7 +172,7 @@ RenderPolicy * CreateRenderPolicy(VideoTimer * videoTimer,
   else
   {
 #ifdef OMIM_OS_ANDROID
-    return new RenderPolicyST(videoTimer, useDefaultFB, rmParams, primaryRC);
+    return new TilingRenderPolicyST(videoTimer, useDefaultFB, rmParams, primaryRC);
 #endif
 #ifdef OMIM_OS_IPHONE
     return new RenderPolicyMT(videoTimer, useDefaultFB, rmParams, primaryRC);
