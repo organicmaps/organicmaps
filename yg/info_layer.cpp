@@ -302,7 +302,7 @@ namespace yg
     m_tree.Clear();
 
     int clippedCnt = 0;
-    int elemCnt = v.size();
+    //int elemCnt = v.size();
 
     m2::RectD rd(r);
     m2::AnyRectD ard(rd);

@@ -35,8 +35,8 @@ Query::Query(Index const * pIndex,
     m_pInfoGetter(pInfoGetter),
     m_preferredLanguage(StringUtf8Multilang::GetLangIndex("en")),
     m_viewport(m2::RectD::GetEmptyRect()), m_viewportExtended(m2::RectD::GetEmptyRect()),
-    m_bOffsetsCacheIsValid(false),
-    m_position(-1000000, -1000000)  // initialize as empty point
+    m_position(-1000000, -1000000),  // initialize as empty point
+    m_bOffsetsCacheIsValid(false)
 {
 }
 
