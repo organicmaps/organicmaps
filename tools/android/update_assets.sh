@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e -x -u
+set -x -u
 
 SRC=../../data
 DST=../../android/assets
