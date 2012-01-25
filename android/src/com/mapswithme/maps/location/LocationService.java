@@ -1,10 +1,5 @@
 package com.mapswithme.maps.location;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -19,7 +14,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 
 public class LocationService implements LocationListener, SensorEventListener, WifiLocation.Listener
@@ -64,17 +58,6 @@ public class LocationService implements LocationListener, SensorEventListener, W
     m_sensorManager = (SensorManager) c.getSystemService(Context.SENSOR_SERVICE);
     if (m_sensorManager != null)
       m_compassSensor = m_sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
-    File extDir = Environment.getExternalStorageDirectory();
-    m_log = new File(extDir, "location_log.txt");
-    try
-    {
-      if (m_log.exists())
-        m_log.createNewFile();
-    } catch (IOException e)
-    {
-      e.printStackTrace();
-    }
-
   }
 
   private void notifyStatusChanged(int newStatus)
@@ -236,12 +219,9 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   private final static float HUNDRED_METRES = 100.0f;
 
-  private File m_log;
-
   //@Override
   public void onLocationChanged(Location l)
   {
-    boolean passed = false;
     if (isBetterLocation(l, m_lastLocation))
     {
       if (m_reportFirstUpdate)
@@ -259,22 +239,6 @@ public class LocationService implements LocationListener, SensorEventListener, W
       }
       notifyLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy());
       m_lastLocation = l;
-      passed = true;
-    }
-    try
-    {
-       BufferedWriter buf = new BufferedWriter(new FileWriter(m_log, true));
-       final long currTime = System.currentTimeMillis();
-       final double diffSeconds = (currTime - l.getTime())/1000.;
-       Date d = new Date(currTime);
-       buf.append((passed ? "+ " : "- ") + d.toLocaleString() + " " + diffSeconds + "sec " + l.getProvider() + " acc:"
-           + l.getAccuracy() + " lat:" + l.getLatitude() + " lon:" + l.getLongitude());
-       buf.newLine();
-       buf.close();
-    }
-    catch (IOException e)
-    {
-       e.printStackTrace();
     }
   }
 
