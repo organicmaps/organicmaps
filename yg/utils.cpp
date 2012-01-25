@@ -14,7 +14,6 @@ namespace yg
       void setupCoordinates(size_t width, size_t height, bool doSwap /*= true*/)
       {
         OGLCHECK(glViewport(0, 0, width, height));
-        LOG(LDEBUG, ("glViewport", width, height));
 
         OGLCHECK(glMatrixMode(GL_MODELVIEW));
         OGLCHECK(glLoadIdentity());
@@ -24,26 +23,14 @@ namespace yg
 
 #ifdef OMIM_GL_ES
         if (!doSwap)
-        {
           OGLCHECK(glOrthof(0, width, 0, height, -yg::maxDepth, yg::maxDepth));
-          LOG(LDEBUG, ("glOrthof", 0, width, 0, height, -yg::maxDepth, yg::maxDepth));
-        }
         else
-        {
           OGLCHECK(glOrthof(0, width, height, 0, -yg::maxDepth, yg::maxDepth));
-          LOG(LDEBUG, ("glOrthof", 0, width, height, 0, -yg::maxDepth, yg::maxDepth));
-        }
 #else
         if (!doSwap)
-        {
           OGLCHECK(glOrtho(0, width, 0, height, -yg::maxDepth, yg::maxDepth));
-          LOG(LDEBUG, ("glOrtho", 0, width, 0, height, -yg::maxDepth, yg::maxDepth));
-        }
         else
-        {
           OGLCHECK(glOrtho(0, width, height, 0, -yg::maxDepth, yg::maxDepth));
-          LOG(LDEBUG, ("glOrtho", 0, width, height, 0, -yg::maxDepth, yg::maxDepth));
-        }
 #endif
       }
     }

@@ -18,7 +18,6 @@ namespace yg
     {
       int id;
       OGLCHECK(glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &id));
-      LOG(LDEBUG, ("glGetIntegerv", id));
       return id;
     }
 

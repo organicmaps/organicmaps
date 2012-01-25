@@ -19,7 +19,6 @@ namespace yg
     {
       int id;
       OGLCHECK(glGetIntegerv(GL_FRAMEBUFFER_BINDING_MWM, &id));
-      LOG(LDEBUG, ("glGetIntegerv", id));
       return id;
     }
 
@@ -28,10 +27,7 @@ namespace yg
       if (defaultFB)
         m_id = 0;
       else
-      {
         OGLCHECK(glGenFramebuffersFn(1, &m_id));
-        LOG(LDEBUG, ("glGenFramebuffers", m_id));
-      }
     }
 
     FrameBuffer::~FrameBuffer()
@@ -43,10 +39,7 @@ namespace yg
     void FrameBuffer::makeCurrent()
     {
       if (m_id != current())
-      {
         OGLCHECK(glBindFramebufferFn(GL_FRAMEBUFFER_MWM, m_id));
-        LOG(LDEBUG, ("glBindFramebuffer", m_id));
-      }
 
       if (m_depthBuffer)
         m_depthBuffer->attachToFrameBuffer();
