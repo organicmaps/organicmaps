@@ -32,11 +32,11 @@ SUBDIRS = 3party \
             base \
             coding \
             geometry \
+            version \
             platform \
             indexer \
             storage \
             yg \
             search \
-            version \
             map
 }
