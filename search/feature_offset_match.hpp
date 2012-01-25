@@ -81,7 +81,7 @@ void FullMatchInTrie(TrieIterator const & trieRoot,
   if (!pIter || symbolsMatched != s.size())
     return;
   for (size_t i = 0; i < pIter->m_value.size(); ++i)
-    f(pIter->m_value[i].m_featureId, pIter->m_value[i].m_rank);
+    f(pIter->m_value[i].m_featureId);
 }
 
 template <typename F>
@@ -113,7 +113,7 @@ void PrefixMatchInTrie(TrieIterator const & trieRoot,
     scoped_ptr<search::TrieIterator> pIter(trieQueue.top());
     trieQueue.pop();
     for (size_t i = 0; i < pIter->m_value.size(); ++i)
-      f(pIter->m_value[i].m_featureId, pIter->m_value[i].m_rank);
+      f(pIter->m_value[i].m_featureId);
     for (size_t i = 0; i < pIter->m_edge.size(); ++i)
         trieQueue.push(pIter->GoToEdge(i));
   }
@@ -131,7 +131,8 @@ template <class FilterT> struct OffsetIntersecter
   explicit OffsetIntersecter(FilterT const & filter)
     : m_filter(filter), m_bFirstStep(true) {}
 
-  void operator() (uint32_t offset, uint8_t rank)
+  // TODO: Remove rank from here.
+  void operator() (uint32_t offset, uint8_t rank = 0)
   {
     if (!m_filter(offset))
       return;

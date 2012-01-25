@@ -39,9 +39,9 @@ struct FeatureNameInserter
     AddToken(lang, s, m_rank);
   }
 
-  void AddToken(signed char lang, strings::UniString const & s, uint32_t rank) const
+  void AddToken(signed char lang, strings::UniString const & s, uint32_t /*rank*/) const
   {
-    m_names.AddString(StringsFile::StringT(s, lang, m_pos, static_cast<uint8_t>(min(rank, 255U))));
+    m_names.AddString(StringsFile::StringT(s, lang, m_pos));
   }
 
   bool operator()(signed char lang, string const & name) const
@@ -80,17 +80,6 @@ struct FeatureInserter
   }
 };
 
-struct MaxValueCalc
-{
-  typedef uint8_t ValueType;
-
-  ValueType operator() (void const * p, uint32_t size) const
-  {
-    ASSERT_EQUAL(size, 5, ());
-    return *static_cast<uint8_t const *>(p);
-  }
-};
-
 }  // unnamed namespace
 
 void indexer::BuildSearchIndex(FeaturesVector const & featuresVector, Writer & writer,
@@ -103,8 +92,7 @@ void indexer::BuildSearchIndex(FeaturesVector const & featuresVector, Writer & w
     names.EndAdding();
     names.OpenForRead();
 
-    trie::Build(writer, names.Begin(), names.End(),
-                trie::builder::MaxValueEdgeBuilder<MaxValueCalc>());
+    trie::Build(writer, names.Begin(), names.End(), trie::builder::EmptyEdgeBuilder());
 
     // at this point all readers should be dead
   }

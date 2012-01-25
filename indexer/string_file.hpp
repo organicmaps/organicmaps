@@ -21,12 +21,11 @@ public:
   {
     strings::UniString m_name;
     uint32_t m_pos;
-    uint8_t m_rank;
 
   public:
     StringT() {}
-    StringT(strings::UniString const & name, signed char lang, uint32_t pos, uint8_t rank)
-      : m_pos(pos), m_rank(rank)
+    StringT(strings::UniString const & name, signed char lang, uint32_t pos)
+      : m_pos(pos)
     {
       m_name.reserve(name.size() + 1);
       m_name.push_back(static_cast<uint8_t>(lang));
@@ -40,13 +39,11 @@ public:
 
     template <class TCont> void SerializeValue(TCont & cont) const
     {
-      cont.resize(5);
-      cont[0] = m_rank;
+      cont.resize(4);
       uint32_t const i = SwapIfBigEndian(m_pos);
-      memcpy(&cont[1], &i, 4);
+      memcpy(&cont[0], &i, 4);
     }
 
-    uint8_t GetRank() const { return m_rank; }
     uint32_t GetOffset() const { return m_pos; }
 
     bool operator < (StringT const & name) const;
@@ -59,7 +56,6 @@ public:
     {
       m_name.swap(r.m_name);
       swap(m_pos, r.m_pos);
-      swap(m_rank, r.m_rank);
     }
   };
 

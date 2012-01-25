@@ -18,7 +18,6 @@ StringsFile::IdT StringsFile::StringT::Write(TWriter & writer) const
 
   rw::Write(writer, m_name);
   WriteVarUint(writer, m_pos);
-  WriteToSink(writer, m_rank);
 
   return pos;
 }
@@ -28,15 +27,12 @@ void StringsFile::StringT::Read(TReader & src)
 {
   rw::Read(src, m_name);
   m_pos = ReadVarUint<uint32_t>(src);
-  m_rank = ReadPrimitiveFromSource<uint8_t>(src);
 }
 
 bool StringsFile::StringT::operator < (StringT const & name) const
 {
   if (m_name != name.m_name)
     return m_name < name.m_name;
-  if (GetRank() != name.GetRank())
-    return GetRank() > name.GetRank();
   if (GetOffset() != name.GetOffset())
     return GetOffset() < name.GetOffset();
   return false;
@@ -44,7 +40,7 @@ bool StringsFile::StringT::operator < (StringT const & name) const
 
 bool StringsFile::StringT::operator == (StringT const & name) const
 {
-  return (m_name == name.m_name && m_pos == name.m_pos && m_rank == name.m_rank);
+  return (m_name == name.m_name && m_pos == name.m_pos);
 }
 
 void StringsFile::AddString(StringT const & s)
