@@ -13,7 +13,7 @@ namespace android
 
   public:
     ~Platform();
-    void Initialize(int densityDpi, jint screenWidth, jint screenHeight,
+    void Initialize(int densityDpi, int screenWidth, int screenHeight,
         string const & apkPath,
         string const & storagePath, string const & tmpPath,
         string const & extTmpPath, string const & settingsPath);
