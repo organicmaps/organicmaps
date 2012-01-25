@@ -55,6 +55,7 @@ public class SmartGLSurfaceView extends GLSurfaceView
   public void surfaceCreated (SurfaceHolder holder)
   {
     Log.d(TAG, "surfaceCreated");
+    nativeBind(true);
     m_renderer.m_isBaseSurfaceReady = false;
     super.surfaceCreated(holder);
   }
@@ -66,7 +67,6 @@ public class SmartGLSurfaceView extends GLSurfaceView
     m_renderer.m_isBaseSurfaceReady = true;
     super.surfaceChanged(holder, format, w, h);
     queueEvent(m_tryToLoadResourcesIfReady);
-    nativeBind(true);
   }
 
   @Override

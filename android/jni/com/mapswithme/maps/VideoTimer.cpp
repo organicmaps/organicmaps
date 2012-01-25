@@ -11,7 +11,7 @@ namespace yg
 {
 namespace gl
 {
-  extern bool g_doDeleteOnDestroy;
+  extern bool g_hasContext;
 }
 }
 
@@ -22,7 +22,7 @@ Java_com_mapswithme_maps_SmartGLSurfaceView_nativeBind(JNIEnv * env, jobject thi
 {
   if (isBound)
   {
-    yg::gl::g_doDeleteOnDestroy = true;
+    yg::gl::g_hasContext = true;
     g_requestRenderMethodID = jni::GetJavaMethodID(env, thiz, "requestRender", "()V");
     ASSERT(g_requestRenderMethodID, ("Can't find method void com/mapswithme/maps/SmartGLSurfaceView.requestRender()"));
 
@@ -30,7 +30,7 @@ Java_com_mapswithme_maps_SmartGLSurfaceView_nativeBind(JNIEnv * env, jobject thi
   }
   else
   {
-    yg::gl::g_doDeleteOnDestroy = false;
+    yg::gl::g_hasContext = false;
     jobject refToDelete = g_smartGLSurfaceView;
     g_smartGLSurfaceView = 0;
     env->DeleteGlobalRef(refToDelete);

@@ -23,6 +23,14 @@
 
 extern android::Framework * g_framework;
 
+namespace yg
+{
+namespace gl
+{
+  extern bool g_hasContext;
+}
+}
+
 namespace android
 {
 
@@ -34,6 +42,7 @@ Framework & GetFramework()
 
 Framework::Framework()
 {
+  yg::gl::g_hasContext = false;
  // @TODO refactor storage
   m_work.Storage().ReInitCountries(false);
 }
