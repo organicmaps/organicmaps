@@ -108,14 +108,14 @@ extern "C"
     return static_cast<jint>(android::GetFramework().Storage().CountryStatus(storage::TIndex(group, country, region)));
   }
 
-  JNIEXPORT jint JNICALL
+  JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_DownloadUI_downloadCountry(JNIEnv * env, jobject thiz,
       jint group, jint country, jint region)
   {
     android::GetFramework().Storage().DownloadCountry(storage::TIndex(group, country, region));
   }
 
-  JNIEXPORT jint JNICALL
+  JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_DownloadUI_deleteCountry(JNIEnv * env, jobject thiz,
       jint group, jint country, jint region)
   {
