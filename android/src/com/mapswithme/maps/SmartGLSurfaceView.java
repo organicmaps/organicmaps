@@ -117,15 +117,15 @@ public class SmartGLSurfaceView extends GLSurfaceView
   @Override
   public boolean onTouchEvent (MotionEvent event)
   {
+    final float x1, y1, x2, y2;
     switch (event.getAction() & MotionEvent.ACTION_MASK)
     {
     case MotionEvent.ACTION_DOWN:
-      nativeMove(START_CMD, event.getX(), event.getY());
+      x1 = event.getX(); y1 = event.getY();
+      queueEvent(new Runnable() {@Override public void run() {nativeMove(START_CMD, x1, y1);}});
       break;
 
     case MotionEvent.ACTION_POINTER_DOWN:
-    {
-      final float x1, y1, x2, y2;
       if (event.getPointerId(0) < event.getPointerId(1))
       {
         x1 = event.getX(0); y1 = event.getY(0); x2 = event.getX(1); y2 = event.getY(1);
@@ -134,14 +134,12 @@ public class SmartGLSurfaceView extends GLSurfaceView
       {
         x1 = event.getX(1); y1 = event.getY(1); x2 = event.getX(0); y2 = event.getY(0);
       }
-      nativeZoom(START_CMD, x1, y1, x2, y2);
-    }
-    break;
+      queueEvent(new Runnable() {@Override public void run() {nativeZoom(START_CMD, x1, y1, x2, y2);}});
+      break;
 
     case MotionEvent.ACTION_MOVE:
       if (event.getPointerCount() > 1)
       {
-        final float x1, y1, x2, y2;
         if (event.getPointerId(0) < event.getPointerId(1))
         {
           x1 = event.getX(0); y1 = event.getY(0); x2 = event.getX(1); y2 = event.getY(1);
@@ -150,17 +148,16 @@ public class SmartGLSurfaceView extends GLSurfaceView
         {
           x1 = event.getX(1); y1 = event.getY(1); x2 = event.getX(0); y2 = event.getY(0);
         }
-        nativeZoom(DO_CMD, x1, y1, x2, y2);
+        queueEvent(new Runnable() {@Override public void run() {nativeZoom(DO_CMD, x1, y1, x2, y2);}});
       }
       else
       {
-        nativeMove(DO_CMD, event.getX(), event.getY());
+        x1 = event.getX(); y1 = event.getY();
+        queueEvent(new Runnable() {@Override public void run() {nativeMove(DO_CMD, x1, y1);}});
       }
       break;
 
     case MotionEvent.ACTION_POINTER_UP:
-    {
-      final float x1, y1, x2, y2;
       if (event.getPointerId(0) < event.getPointerId(1))
       {
         x1 = event.getX(0); y1 = event.getY(0); x2 = event.getX(1); y2 = event.getY(1);
@@ -169,21 +166,21 @@ public class SmartGLSurfaceView extends GLSurfaceView
       {
         x1 = event.getX(1); y1 = event.getY(1); x2 = event.getX(0); y2 = event.getY(0);
       }
-      nativeZoom(STOP_CMD, x1, y1, x2, y2);
+      queueEvent(new Runnable() {@Override public void run() {nativeZoom(STOP_CMD, x1, y1, x2, y2);}});
       final int leftIndex = ((event.getAction() & MotionEvent.ACTION_POINTER_INDEX_MASK)
           >> MotionEvent.ACTION_POINTER_ID_SHIFT) == 0 ? 1 : 0;
-      nativeMove(START_CMD, event.getX(leftIndex), event.getY(leftIndex));
-    }
-    break;
+      final float x = event.getX(leftIndex), y = event.getY(leftIndex);
+      queueEvent(new Runnable() {@Override public void run() {nativeMove(START_CMD, x, y);}});
+      break;
 
     case MotionEvent.ACTION_UP:
-      nativeMove(STOP_CMD, event.getX(), event.getY());
+      x1 = event.getX(); y1 = event.getY();
+      queueEvent(new Runnable() {@Override public void run() {nativeMove(STOP_CMD, x1, y1);}});
       break;
 
     case MotionEvent.ACTION_CANCEL:
       if (event.getPointerCount() > 1)
       {
-        final float x1, y1, x2, y2;
         if (event.getPointerId(0) < event.getPointerId(1))
         {
           x1 = event.getX(0); y1 = event.getY(0); x2 = event.getX(1); y2 = event.getY(1);
@@ -192,13 +189,13 @@ public class SmartGLSurfaceView extends GLSurfaceView
         {
           x1 = event.getX(1); y1 = event.getY(1); x2 = event.getX(0); y2 = event.getY(0);
         }
-        nativeZoom(STOP_CMD, x1, y1, x2, y2);
+        queueEvent(new Runnable() {@Override public void run() {nativeZoom(STOP_CMD, x1, y1, x2, y2);}});
       }
       else
       {
-        nativeMove(STOP_CMD, event.getX(), event.getY());
+        x1 = event.getX(); y1 = event.getY();
+        queueEvent(new Runnable() {@Override public void run() {nativeMove(STOP_CMD, x1, y1);}});
       }
-      break;
     }
 
     return true;
