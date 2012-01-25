@@ -159,26 +159,19 @@ public class MWMActivity extends SmartGLActivity implements
     // Get screen density
     DisplayMetrics metrics = new DisplayMetrics();
     getWindowManager().getDefaultDisplay().getMetrics(metrics);
-    
-    nativeInit(metrics.densityDpi, 
+
+    nativeInit(metrics.densityDpi,
                metrics.widthPixels,
                metrics.heightPixels,
-               getAppBundlePath(), 
-               extStoragePath, 
-               getTmpPath(), 
-               extTmpPath, 
+               getAppBundlePath(),
+               extStoragePath,
+               getTmpPath(),
+               extTmpPath,
                getSettingsPath());
 
     checkMeasurementSystem();
 
     m_locationService = new LocationService(this);
-  }
-
-  @Override
-  public void onDestroy()
-  {
-    nativeDestroy();
-    super.onDestroy();
   }
 
   // From Location interface
@@ -240,7 +233,7 @@ public class MWMActivity extends SmartGLActivity implements
     case R.id.menuitem_about_dialog:
       onAboutDialogClicked();
       return true;
-      
+
     default:
       return super.onOptionsItemSelected(item);
     }
@@ -368,7 +361,6 @@ public class MWMActivity extends SmartGLActivity implements
   private native void nativeInit(int densityDpi, int screenWidth, int screenHeight,
       String apkPath,
       String storagePath, String tmpPath, String extTmpPath, String settingsPath);
-  private native void nativeDestroy();
   private native void nativeLocationStatusChanged(int newStatus);
   private native void nativeLocationUpdated(long time, double lat, double lon, float accuracy);
   private native void nativeCompassUpdated(long time, double magneticNorth, double trueNorth, float accuracy);

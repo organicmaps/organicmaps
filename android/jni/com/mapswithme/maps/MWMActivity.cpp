@@ -18,14 +18,10 @@ Java_com_mapswithme_maps_MWMActivity_nativeInit(JNIEnv * env, jobject thiz, int 
       jni::GetString(env, apkPath), jni::GetString(env, storagePath),
       jni::GetString(env, tmpPath), jni::GetString(env, extTmpPath),
       jni::GetString(env, settingsPath));
-  g_framework = new android::Framework();
-}
 
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_MWMActivity_nativeDestroy(JNIEnv * env, jobject thiz)
-{
-  delete g_framework;
-  g_framework = 0;
+  // @TODO framework is never deleted, it's needed for download activity too
+  if (!g_framework)
+    g_framework = new android::Framework();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////
