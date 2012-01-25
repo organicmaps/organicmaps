@@ -5,7 +5,8 @@ SRC=../../data
 DST=../../android/assets
 
 # Remove old links
-rm $DST/*
+rm -rf $DST
+mkdir $DST
 
 files=(01_dejavusans.ttf 02_wqy-microhei.ttf 03_jomolhari-id-a3d.ttf 04_padauk.ttf \
        05_khmeros.ttf 06_code2000.ttf World.mwm WorldCoasts.mwm about-travelguide-iphone.html \
