@@ -6,7 +6,11 @@
 
 class FeatureType;
 
-namespace storage { class CountryInfoGetter; }
+namespace storage
+{
+  class CountryInfoGetter;
+  struct CountryInfo;
+}
 
 namespace search
 {
@@ -99,7 +103,7 @@ private:
       m_valid = true;
     }
 
-    string GetRegion(storage::CountryInfoGetter const * pInfo) const;
+    void GetRegion(storage::CountryInfoGetter const * pInfo, storage::CountryInfo & info) const;
   } m_region;
 
   m2::RectD m_rect;

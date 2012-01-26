@@ -119,6 +119,9 @@ bool IntermediateResult::LessViewportDistance(IntermediateResult const & r1, Int
 
 Result IntermediateResult::GenerateFinalResult(storage::CountryInfoGetter const * pInfo) const
 {
+  storage::CountryInfo info;
+  m_region.GetRegion(pInfo, info);
+
   switch (m_resultType)
   {
   case RESULT_FEATURE:
@@ -126,10 +129,10 @@ Result IntermediateResult::GenerateFinalResult(storage::CountryInfoGetter const 
               #ifdef DEBUG
                   + ' ' + strings::to_string(static_cast<int>(m_searchRank))
               #endif
-                  , m_region.GetRegion(pInfo), m_type, m_rect, m_distance, m_direction);
+                  , info.m_name, info.m_flag, m_type, m_rect, m_distance, m_direction);
 
   case RESULT_LATLON:
-    return Result(m_str, m_region.GetRegion(pInfo), 0, m_rect, m_distance, m_direction);
+    return Result(m_str, info.m_name, info.m_flag, 0, m_rect, m_distance, m_direction);
 
   default:
     ASSERT_EQUAL ( m_resultType, RESULT_CATEGORY, () );
@@ -259,16 +262,13 @@ string IntermediateResult::DebugPrint() const
   return res;
 }
 
-string IntermediateResult::RegionInfo::GetRegion(storage::CountryInfoGetter const * pInfo) const
+void IntermediateResult::RegionInfo::GetRegion(
+    storage::CountryInfoGetter const * pInfo, storage::CountryInfo & info) const
 {
-  storage::CountryInfo info;
-
   if (!m_file.empty())
     pInfo->GetRegionInfo(m_file, info);
   else if (m_valid)
     pInfo->GetRegionInfo(m_point, info);
-
-  return info.m_name;
 }
 
 }  // namespace search::impl
