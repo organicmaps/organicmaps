@@ -98,7 +98,10 @@ namespace storage
   void CountryInfoGetter::GetRegionInfo(string const & id, CountryInfo & info) const
   {
     map<string, CountryInfo>::const_iterator i = m_id2info.find(id);
-    ASSERT ( i != m_id2info.end(), () );
+
+    // Take into account 'minsk-pass'.
+    if (i == m_id2info.end()) return;
+    //ASSERT ( i != m_id2info.end(), () );
 
     info = i->second;
 
