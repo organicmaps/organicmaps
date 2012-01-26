@@ -12,6 +12,9 @@ Result::Result(string const & str, string const & region,
     m_featureRect(featureRect), m_featureType(featureType),
     m_distanceFromCenter(distanceFromCenter), m_directionFromCenter(directionFromCenter)
 {
+  // Features with empty names can be found after suggestion.
+  if (m_str.empty())
+    m_str = "-";
 }
 
 Result::Result(string const & str, string const & suggestionStr)

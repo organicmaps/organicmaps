@@ -127,11 +127,11 @@ Result IntermediateResult::GenerateFinalResult(
   switch (m_resultType)
   {
   case RESULT_FEATURE:
-    return Result(m_str
+    return Result(m_str, info.m_name, info.m_flag, GetFeatureType(pCat)
               #ifdef DEBUG
                   + ' ' + strings::to_string(static_cast<int>(m_searchRank))
               #endif
-                  , info.m_name, info.m_flag, GetFeatureType(pCat),
+                  ,
                   m_type, m_rect, m_distance, m_direction);
 
   case RESULT_LATLON:
