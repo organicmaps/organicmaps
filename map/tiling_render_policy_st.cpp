@@ -248,6 +248,8 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
   pDrawer->endFrame();
 
 //  yg::gl::g_doLogOGLCalls = false;
+
+  m_resourceManager->updatePoolState();
 }
 
 int TilingRenderPolicyST::GetDrawScale(ScreenBase const & s) const

@@ -665,7 +665,7 @@ namespace yg
 
   int ResourceManager::renderThreadGlyphCacheID(int threadNum) const
   {
-    ASSERT(threadNum < m_params.m_glyphCacheParams.m_renderThreadCount, ());
+    ASSERT(threadNum < m_params.m_glyphCacheParams.m_renderThreadCount, (threadNum, m_params.m_glyphCacheParams.m_renderThreadCount));
     return 1 + threadNum;
   }
 

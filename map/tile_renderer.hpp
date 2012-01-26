@@ -42,6 +42,7 @@ protected:
     DrawerYG::params_t m_drawerParams;
     shared_ptr<yg::gl::BaseTexture> m_dummyRT;
     shared_ptr<yg::gl::RenderContext> m_renderContext;
+    shared_ptr<yg::gl::RenderBuffer> m_depthBuffer;
   };
 
   buffer_vector<ThreadData, 4> m_threadData;
