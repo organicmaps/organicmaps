@@ -121,39 +121,28 @@ void PrefixMatchInTrie(TrieIterator const & trieRoot,
 
 template <class FilterT> struct OffsetIntersecter
 {
-  typedef unordered_map<uint32_t, uint16_t> MapType;
+  typedef unordered_set<uint32_t> SetType;
 
   FilterT const & m_filter;
-  MapType m_prevMap;
-  MapType m_map;
+  SetType m_prevSet;
+  SetType m_set;
   bool m_bFirstStep;
 
   explicit OffsetIntersecter(FilterT const & filter)
     : m_filter(filter), m_bFirstStep(true) {}
 
-  // TODO: Remove rank from here.
-  void operator() (uint32_t offset, uint8_t rank = 0)
+  void operator() (uint32_t offset)
   {
     if (!m_filter(offset))
       return;
 
-    uint16_t prevRankSum = 0;
-    if (!m_bFirstStep)
-    {
-      MapType::const_iterator it = m_prevMap.find(offset);
-      if (it == m_prevMap.end())
-        return;
-      prevRankSum = it->second;
-    }
-
-    uint16_t & mappedRank = m_map[offset];
-    mappedRank = max(mappedRank, static_cast<uint16_t>(prevRankSum + rank));
+    m_set.insert(offset);
   }
 
   void NextStep()
   {
-    m_prevMap.swap(m_map);
-    m_map.clear();
+    m_prevSet.swap(m_set);
+    m_set.clear();
     m_bFirstStep = false;
   }
 };
@@ -189,18 +178,9 @@ void MatchFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
     intersecter.NextStep();
   }
 
-  typedef vector<pair<uint32_t, uint16_t> > ResType;
-  ResType res(intersecter.m_prevMap.begin(), intersecter.m_prevMap.end());
-
-  if (res.size() > resultsNeeded)
-  {
-    partial_sort(res.begin(), res.begin() + resultsNeeded, res.end(),
-                 bind(&ResType::value_type::second, _1) > bind(&ResType::value_type::second, _2));
-    res.resize(resultsNeeded);
-  }
-
-  for (ResType::const_iterator it = res.begin(); it != res.end(); ++it)
-    toDo(it->first);
+  typedef typename impl::OffsetIntersecter<FilterT>::SetType::const_iterator IT;
+  for (IT it = intersecter.m_prevSet.begin(); it != intersecter.m_prevSet.end(); ++it)
+    toDo(*it);
 }
 
 
