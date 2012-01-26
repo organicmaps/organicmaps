@@ -41,24 +41,26 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
 
   rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512,
                                                                        256,
-                                                                       4 * GetPlatform().CpuCores(),
+                                                                       1,
                                                                        rmp.m_texFormat,
                                                                        true,
                                                                        true,
                                                                        true,
                                                                        1,
                                                                        "primaryTexture",
+                                                                       true,
                                                                        true);
 
   rmp.m_primaryStoragesParams = yg::ResourceManager::StoragePoolParams(5000 * sizeof(yg::gl::Vertex),
                                                                        sizeof(yg::gl::Vertex),
                                                                        10000 * sizeof(unsigned short),
                                                                        sizeof(unsigned short),
-                                                                       40 * GetPlatform().CpuCores(),
+                                                                       10,
                                                                        true,
                                                                        true,
                                                                        2,
                                                                        "primaryStorage",
+                                                                       true,
                                                                        true);
 
   rmp.m_multiBlitStoragesParams = yg::ResourceManager::StoragePoolParams(1500 * sizeof(yg::gl::Vertex),
@@ -69,7 +71,9 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                          true,
                                                                          true,
                                                                          1,
-                                                                         "multiBlitStorage");
+                                                                         "multiBlitStorage",
+                                                                         false,
+                                                                         false);
 
   rmp.m_renderTargetTexturesParams = yg::ResourceManager::TexturePoolParams(GetPlatform().TileSize(),
                                                                             GetPlatform().TileSize(),
@@ -79,7 +83,9 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                             true,
                                                                             false,
                                                                             4,
-                                                                            "renderTargetTexture");
+                                                                            "renderTargetTexture",
+                                                                            false,
+                                                                            false);
 
   rmp.m_styleCacheTexturesParams = yg::ResourceManager::TexturePoolParams(1024,
                                                                           512,
@@ -89,7 +95,9 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                           true,
                                                                           true,
                                                                           1,
-                                                                          "styleCacheTexture");
+                                                                          "styleCacheTexture",
+                                                                          false,
+                                                                          false);
 
   rmp.m_guiThreadStoragesParams = yg::ResourceManager::StoragePoolParams(2000 * sizeof(yg::gl::Vertex),
                                                                          sizeof(yg::gl::Vertex),
@@ -100,7 +108,8 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                          true,
                                                                          1,
                                                                          "guiThreadStorage",
-                                                                         true);
+                                                                         true,
+                                                                         false);
 
   rmp.m_guiThreadTexturesParams = yg::ResourceManager::TexturePoolParams(256,
                                                                     128,
@@ -110,7 +119,9 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                     true,
                                                                     true,
                                                                     1,
-                                                                    "guiThreadTexture");
+                                                                    "guiThreadTexture",
+                                                                    false,
+                                                                    false);
 
 /*  bool * debuggingFlags = new bool[GetPlatform().CpuCores() + 2];
   for (unsigned i = 0; i < GetPlatform().CpuCores() + 2; ++i)

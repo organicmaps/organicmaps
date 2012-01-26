@@ -31,7 +31,9 @@ RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
                                                                        true,
                                                                        false,
                                                                        2,
-                                                                       "primaryStorage");
+                                                                       "primaryStorage",
+                                                                       false,
+                                                                       false);
 
   rmp.m_smallStoragesParams = yg::ResourceManager::StoragePoolParams(2000 * sizeof(yg::gl::Vertex),
                                                                      sizeof(yg::gl::Vertex),
@@ -41,7 +43,9 @@ RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
                                                                      true,
                                                                      false,
                                                                      1,
-                                                                     "smallStorage");
+                                                                     "smallStorage",
+                                                                     false,
+                                                                     false);
 
   rmp.m_blitStoragesParams = yg::ResourceManager::StoragePoolParams(10 * sizeof(yg::gl::Vertex),
                                                                     sizeof(yg::gl::Vertex),
@@ -51,7 +55,9 @@ RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
                                                                     true,
                                                                     true,
                                                                     1,
-                                                                    "blitStorage");
+                                                                    "blitStorage",
+                                                                    false,
+                                                                    false);
 
   rmp.m_guiThreadStoragesParams = yg::ResourceManager::StoragePoolParams(300 * sizeof(yg::gl::Vertex),
                                                                          sizeof(yg::gl::Vertex),
@@ -61,7 +67,9 @@ RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
                                                                          true,
                                                                          true,
                                                                          1,
-                                                                         "guiThreadStorage");
+                                                                         "guiThreadStorage",
+                                                                         false,
+                                                                         false);
 
   rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512,
                                                                        256,
@@ -71,7 +79,9 @@ RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
                                                                        true,
                                                                        true,
                                                                        1,
-                                                                       "primaryTexture");
+                                                                       "primaryTexture",
+                                                                       false,
+                                                                       false);
 
   rmp.m_fontTexturesParams = yg::ResourceManager::TexturePoolParams(512,
                                                                     256,
@@ -81,7 +91,9 @@ RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
                                                                     true,
                                                                     true,
                                                                     1,
-                                                                    "fontTextures");
+                                                                    "fontTextures",
+                                                                    false,
+                                                                    false);
 
   rmp.m_guiThreadTexturesParams = yg::ResourceManager::TexturePoolParams(256,
                                                                          128,
@@ -91,7 +103,9 @@ RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
                                                                          true,
                                                                          true,
                                                                          1,
-                                                                         "guiThreadTexture");
+                                                                         "guiThreadTexture",
+                                                                         false,
+                                                                         false);
 
   rmp.m_glyphCacheParams = yg::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
                                                                  "fonts_whitelist.txt",

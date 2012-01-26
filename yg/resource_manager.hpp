@@ -35,7 +35,7 @@ namespace yg
     size_t m_w;
     size_t m_h;
     yg::DataFormat m_format;
-    TTextureFactory(size_t w, size_t h, yg::DataFormat format, char const * resName);
+    TTextureFactory(size_t w, size_t h, yg::DataFormat format, char const * resName, size_t batchSize);
     shared_ptr<gl::BaseTexture> const Create();
   };
 
@@ -45,26 +45,57 @@ namespace yg
     size_t m_ibSize;
     bool m_useVA;
     bool m_useSingleThreadedOGL;
-    TStorageFactory(size_t vbSize, size_t ibSize, bool useVA, bool useSingleThreadedOGL, char const * resName);
+    TStorageFactory(size_t vbSize, size_t ibSize, bool useVA, bool useSingleThreadedOGL, char const * resName, size_t batchSize);
     gl::Storage const Create();
     void BeforeMerge(gl::Storage const & e);
   };
 
-  typedef BasePoolTraits<shared_ptr<gl::BaseTexture>, TTextureFactory> TBaseTexturePoolTraits;
-  typedef FixedSizePoolTraits<TTextureFactory, TBaseTexturePoolTraits > TTexturePoolTraits;
-  typedef ResourcePoolImpl<TTexturePoolTraits> TTexturePoolImpl;
+  /// ---- Texture Pools ----
 
+  /// Basic texture pool traits
+  typedef BasePoolTraits<shared_ptr<gl::BaseTexture>, TTextureFactory> TBaseTexturePoolTraits;
+
+  /// Fixed-Size texture pool
+  typedef FixedSizePoolTraits<TTextureFactory, TBaseTexturePoolTraits > TFixedSizeTexturePoolTraits;
+  typedef ResourcePoolImpl<TFixedSizeTexturePoolTraits> TFixedSizeTexturePoolImpl;
+
+  /// On-Demand multi-threaded texture pool
+
+  typedef AllocateOnDemandMultiThreadedPoolTraits<TTextureFactory, TBaseTexturePoolTraits> TOnDemandMultiThreadedTexturePoolTraits;
+  typedef ResourcePoolImpl<TOnDemandMultiThreadedTexturePoolTraits> TOnDemandMultiThreadedTexturePoolImpl;
+
+  /// On-Demand single-threaded texture pool
+  /// (with postponed resource allocation)
+  typedef AllocateOnDemandSingleThreadedPoolTraits<TTextureFactory, TBaseTexturePoolTraits> TOnDemandSingleThreadedTexturePoolTraits;
+  typedef ResourcePoolImpl<TOnDemandSingleThreadedTexturePoolTraits> TOnDemandSingleThreadedTexturePoolImpl;
+
+  /// Interface for texture pool
   typedef ResourcePool<shared_ptr<gl::BaseTexture> > TTexturePool;
 
+  /// ---- Storage Pools ----
+
+  /// Basic storage traits
   typedef BasePoolTraits<gl::Storage, TStorageFactory> TBaseStoragePoolTraits;
+
+  /// Fixed-Size mergeable storage pool
   typedef SeparateFreePoolTraits<TStorageFactory, TBaseStoragePoolTraits> TSeparateFreeStoragePoolTraits;
+  typedef FixedSizePoolTraits<TStorageFactory, TSeparateFreeStoragePoolTraits> TFixedSizeMergeableStoragePoolTraits;
+  typedef ResourcePoolImpl<TFixedSizeMergeableStoragePoolTraits> TFixedSizeMergeableStoragePoolImpl;
 
-  typedef FixedSizePoolTraits<TStorageFactory, TSeparateFreeStoragePoolTraits> TMergeableStoragePoolTraits;
-  typedef ResourcePoolImpl<TMergeableStoragePoolTraits> TMergeableStoragePoolImpl;
+  /// Fixed-Size non-mergeable storage pool
+  typedef FixedSizePoolTraits<TStorageFactory, TBaseStoragePoolTraits> TFixedSizeNonMergeableStoragePoolTraits;
+  typedef ResourcePoolImpl<TFixedSizeNonMergeableStoragePoolTraits> TFixedSizeNonMergeableStoragePoolImpl;
 
-  typedef FixedSizePoolTraits<TStorageFactory, TBaseStoragePoolTraits> TNonMergeableStoragePoolTraits;
-  typedef ResourcePoolImpl<TNonMergeableStoragePoolTraits> TNonMergeableStoragePoolImpl;
+  /// On-Demand single-threaded storage pool
+  /// (with postponed resource allocation and separate list of freed resources)
+  typedef AllocateOnDemandSingleThreadedPoolTraits<TStorageFactory, TSeparateFreeStoragePoolTraits> TOnDemandSingleThreadedStoragePoolTraits;
+  typedef ResourcePoolImpl<TOnDemandSingleThreadedStoragePoolTraits> TOnDemandSingleThreadedStoragePoolImpl;
 
+  /// On-Demand multi-threaded storage pool
+  typedef AllocateOnDemandMultiThreadedPoolTraits<TStorageFactory, TBaseStoragePoolTraits> TOnDemandMultiThreadedStoragePoolTraits;
+  typedef ResourcePoolImpl<TOnDemandMultiThreadedStoragePoolTraits> TOnDemandMultiThreadedStoragePoolImpl;
+
+  /// Interface for storage pool
   typedef ResourcePool<gl::Storage> TStoragePool;
 
   class ResourceManager
@@ -88,6 +119,7 @@ namespace yg
       string m_poolName;
 
       bool m_isDebugging;
+      bool m_allocateOnDemand;
 
       StoragePoolParams(size_t vbSize,
                         size_t vertexSize,
@@ -98,7 +130,8 @@ namespace yg
                         bool isFixedBufferCount,
                         int scalePriority,
                         string const & poolName,
-                        bool isDebugging = false);
+                        bool isDebugging,
+                        bool allocateOnDemand);
 
       StoragePoolParams(string const & poolName);
 
@@ -126,6 +159,7 @@ namespace yg
       string m_poolName;
 
       bool m_isDebugging;
+      bool m_allocateOnDemand;
 
       TexturePoolParams(size_t texWidth,
                         size_t texHeight,
@@ -136,7 +170,8 @@ namespace yg
                         bool isCountFixed,
                         int scalePriority,
                         string const & poolName,
-                        bool isDebugging = false);
+                        bool isDebugging,
+                        bool allocateOnDemand);
 
       TexturePoolParams(string const & poolName);
 

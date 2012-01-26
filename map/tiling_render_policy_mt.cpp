@@ -30,7 +30,9 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
                                                                        true,
                                                                        true,
                                                                        1,
-                                                                       "primaryTexture");
+                                                                       "primaryTexture",
+                                                                       false,
+                                                                       false);
 
   rmp.m_primaryStoragesParams = yg::ResourceManager::StoragePoolParams(50000 * sizeof(yg::gl::Vertex),
                                                                        sizeof(yg::gl::Vertex),
@@ -40,7 +42,9 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
                                                                        false,
                                                                        true,
                                                                        1,
-                                                                       "primaryStorage");
+                                                                       "primaryStorage",
+                                                                       false,
+                                                                       false);
 
   rmp.m_multiBlitStoragesParams = yg::ResourceManager::StoragePoolParams(500 * sizeof(yg::gl::Vertex),
                                                                          sizeof(yg::gl::Vertex),
@@ -50,7 +54,9 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
                                                                          true,
                                                                          true,
                                                                          1,
-                                                                         "multiBlitStorage");
+                                                                         "multiBlitStorage",
+                                                                         false,
+                                                                         false);
 
   rmp.m_renderTargetTexturesParams = yg::ResourceManager::TexturePoolParams(GetPlatform().TileSize(),
                                                                             GetPlatform().TileSize(),
@@ -60,7 +66,9 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
                                                                             true,
                                                                             false,
                                                                             5,
-                                                                            "renderTargetTexture");
+                                                                            "renderTargetTexture",
+                                                                            false,
+                                                                            false);
 
   rmp.m_styleCacheTexturesParams = yg::ResourceManager::TexturePoolParams(512,
                                                                           1024,
@@ -70,27 +78,33 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
                                                                           true,
                                                                           true,
                                                                           1,
-                                                                          "styleCacheTexture");
+                                                                          "styleCacheTexture",
+                                                                          false,
+                                                                          false);
 
   rmp.m_guiThreadStoragesParams = yg::ResourceManager::StoragePoolParams(5000 * sizeof(yg::gl::Vertex),
-                                                                   sizeof(yg::gl::Vertex),
-                                                                   10000 * sizeof(unsigned short),
-                                                                   sizeof(unsigned short),
-                                                                   10,
-                                                                   true,
-                                                                   true,
-                                                                   1,
-                                                                   "guiThreadStorage");
+                                                                         sizeof(yg::gl::Vertex),
+                                                                         10000 * sizeof(unsigned short),
+                                                                         sizeof(unsigned short),
+                                                                         10,
+                                                                         true,
+                                                                         true,
+                                                                         1,
+                                                                         "guiThreadStorage",
+                                                                         false,
+                                                                         false);
 
   rmp.m_guiThreadTexturesParams = yg::ResourceManager::TexturePoolParams(256,
-                                                                    128,
-                                                                    4,
-                                                                    rmp.m_texFormat,
-                                                                    true,
-                                                                    true,
-                                                                    true,
-                                                                    1,
-                                                                    "guiThreadTexture");
+                                                                         128,
+                                                                         4,
+                                                                         rmp.m_texFormat,
+                                                                         true,
+                                                                         true,
+                                                                         true,
+                                                                         1,
+                                                                         "guiThreadTexture",
+                                                                         false,
+                                                                         false);
 
   rmp.m_glyphCacheParams = yg::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
                                                                  "fonts_whitelist.txt",

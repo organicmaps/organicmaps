@@ -35,8 +35,8 @@ namespace yg
     }
   }
 
-  TTextureFactory::TTextureFactory(size_t w, size_t h, yg::DataFormat format, char const * resName)
-    : BasePoolElemFactory(resName, w * h * pixelSize(format)),
+  TTextureFactory::TTextureFactory(size_t w, size_t h, yg::DataFormat format, char const * resName, size_t batchSize)
+    : BasePoolElemFactory(resName, w * h * pixelSize(format), batchSize),
       m_w(w), m_h(h), m_format(format)
   {}
 
@@ -52,8 +52,8 @@ namespace yg
     }
   }
 
-  TStorageFactory::TStorageFactory(size_t vbSize, size_t ibSize, bool useVA, bool useSingleThreadedOGL, char const * resName)
-    : BasePoolElemFactory(resName, vbSize + ibSize),
+  TStorageFactory::TStorageFactory(size_t vbSize, size_t ibSize, bool useVA, bool useSingleThreadedOGL, char const * resName, size_t batchSize)
+    : BasePoolElemFactory(resName, vbSize + ibSize, batchSize),
       m_vbSize(vbSize),
       m_ibSize(ibSize),
       m_useVA(useVA),
@@ -99,7 +99,8 @@ namespace yg
       m_isFixedBufferCount(true),
       m_scalePriority(0),
       m_poolName(poolName),
-      m_isDebugging(false)
+      m_isDebugging(false),
+      m_allocateOnDemand(false)
   {}
 
   ResourceManager::StoragePoolParams::StoragePoolParams(size_t vbSize,
@@ -111,7 +112,8 @@ namespace yg
                                                         bool isFixedBufferCount,
                                                         int scalePriority,
                                                         string const & poolName,
-                                                        bool isDebugging)
+                                                        bool isDebugging,
+                                                        bool allocateOnDemand)
     : m_vbSize(vbSize),
       m_vertexSize(vertexSize),
       m_ibSize(ibSize),
@@ -121,7 +123,8 @@ namespace yg
       m_isFixedBufferCount(isFixedBufferCount),
       m_scalePriority(scalePriority),
       m_poolName(poolName),
-      m_isDebugging(isDebugging)
+      m_isDebugging(isDebugging),
+      m_allocateOnDemand(allocateOnDemand)
   {}
 
   bool ResourceManager::StoragePoolParams::isFixed() const
@@ -189,7 +192,8 @@ namespace yg
       m_isCountFixed(true),
       m_scalePriority(0),
       m_poolName(poolName),
-      m_isDebugging(false)
+      m_isDebugging(false),
+      m_allocateOnDemand(false)
   {}
 
   ResourceManager::TexturePoolParams::TexturePoolParams(size_t texWidth,
@@ -201,7 +205,8 @@ namespace yg
                                                         bool isCountFixed,
                                                         int scalePriority,
                                                         string const & poolName,
-                                                        bool isDebugging)
+                                                        bool isDebugging,
+                                                        bool allocateOnDemand)
     : m_texWidth(texWidth),
       m_texHeight(texHeight),
       m_texCount(texCount),
@@ -211,7 +216,8 @@ namespace yg
       m_isCountFixed(isCountFixed),
       m_scalePriority(scalePriority),
       m_poolName(poolName),
-      m_isDebugging(isDebugging)
+      m_isDebugging(isDebugging),
+      m_allocateOnDemand(allocateOnDemand)
   {}
 
   bool ResourceManager::TexturePoolParams::isFixed() const
@@ -501,10 +507,22 @@ namespace yg
   {
     if (p.isValid())
     {
+      TStorageFactory storageFactory(p.m_vbSize, p.m_ibSize, m_params.m_useVA, m_params.m_useSingleThreadedOGL, p.m_poolName.c_str(), p.m_allocateOnDemand ? p.m_storagesCount : 0);
+
       if (m_params.m_useSingleThreadedOGL)
-        pool.reset(new TMergeableStoragePoolImpl(new TMergeableStoragePoolTraits(TStorageFactory(p.m_vbSize, p.m_ibSize, m_params.m_useVA, m_params.m_useSingleThreadedOGL, p.m_poolName.c_str()), p.m_storagesCount)));
+      {
+        if (p.m_allocateOnDemand)
+          pool.reset(new TOnDemandSingleThreadedStoragePoolImpl(new TOnDemandSingleThreadedStoragePoolTraits(storageFactory, p.m_storagesCount)));
+        else
+          pool.reset(new TFixedSizeMergeableStoragePoolImpl(new TFixedSizeMergeableStoragePoolTraits(storageFactory, p.m_storagesCount)));
+      }
       else
-        pool.reset(new TNonMergeableStoragePoolImpl(new TNonMergeableStoragePoolTraits(TStorageFactory(p.m_vbSize, p.m_ibSize, m_params.m_useVA, m_params.m_useSingleThreadedOGL, p.m_poolName.c_str()), p.m_storagesCount)));
+      {
+        if (p.m_allocateOnDemand)
+          pool.reset(new TOnDemandMultiThreadedStoragePoolImpl(new TOnDemandMultiThreadedStoragePoolTraits(storageFactory, p.m_storagesCount)));
+        else
+          pool.reset(new TFixedSizeNonMergeableStoragePoolImpl(new TFixedSizeNonMergeableStoragePoolTraits(storageFactory, p.m_storagesCount)));
+      }
 
       pool->SetIsDebugging(p.m_isDebugging);
     }
@@ -516,7 +534,23 @@ namespace yg
   {
     if (p.isValid())
     {
-      pool.reset(new TTexturePoolImpl(new TTexturePoolTraits(TTextureFactory(p.m_texWidth, p.m_texHeight, p.m_format, p.m_poolName.c_str()), p.m_texCount)));
+      TTextureFactory textureFactory(p.m_texWidth, p.m_texHeight, p.m_format, p.m_poolName.c_str(), p.m_allocateOnDemand ? p.m_texCount : 0);
+
+      if (m_params.m_useSingleThreadedOGL)
+      {
+        if (p.m_allocateOnDemand)
+          pool.reset(new TOnDemandSingleThreadedTexturePoolImpl(new TOnDemandSingleThreadedTexturePoolTraits(textureFactory, p.m_texCount)));
+        else
+          pool.reset(new TFixedSizeTexturePoolImpl(new TFixedSizeTexturePoolTraits(textureFactory, p.m_texCount)));
+      }
+      else
+      {
+        if (p.m_allocateOnDemand)
+          pool.reset(new TOnDemandMultiThreadedTexturePoolImpl(new TOnDemandMultiThreadedTexturePoolTraits(textureFactory, p.m_texCount)));
+        else
+          pool.reset(new TFixedSizeTexturePoolImpl(new TFixedSizeTexturePoolTraits(textureFactory, p.m_texCount)));
+      }
+
       pool->SetIsDebugging(p.m_isDebugging);
     }
     else
@@ -731,6 +765,17 @@ namespace yg
 
   void ResourceManager::updatePoolState()
   {
+    if (m_primaryTextures.get())
+      m_primaryTextures->UpdateState();
+    if (m_fontTextures.get())
+      m_fontTextures->UpdateState();
+    if (m_styleCacheTextures.get())
+      m_styleCacheTextures->UpdateState();
+    if (m_renderTargets.get())
+      m_renderTargets->UpdateState();
+    if (m_guiThreadTextures.get())
+      m_guiThreadTextures->UpdateState();
+
     if (m_guiThreadStorages.get())
       m_guiThreadStorages->UpdateState();
     if (m_primaryStorages.get())
