@@ -1,7 +1,10 @@
 #pragma once
 #include "result.hpp"
 
+#include "../base/string_utils.hpp"
+
 #include "../std/shared_ptr.hpp"
+#include "../std/map.hpp"
 
 
 class FeatureType;
@@ -40,7 +43,9 @@ public:
   // For RESULT_CATEGORY.
   IntermediateResult(string const & name, int penalty);
 
-  Result GenerateFinalResult(storage::CountryInfoGetter const * pInfo) const;
+  typedef multimap<strings::UniString, uint32_t> CategoriesT;
+  Result GenerateFinalResult(storage::CountryInfoGetter const * pInfo,
+                             CategoriesT const * pCat) const;
 
   /// Results order functor.
   /*
@@ -84,6 +89,8 @@ private:
   static double ResultDirection(m2::PointD const & viewportCenter,
                                 m2::PointD const & featureCenter);
   static int ViewportDistance(m2::RectD const & viewport, m2::PointD const & p);
+
+  string GetFeatureType(CategoriesT const * pCat) const;
 
   string m_str, m_completionString;
 

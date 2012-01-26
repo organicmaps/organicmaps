@@ -117,7 +117,9 @@ bool IntermediateResult::LessViewportDistance(IntermediateResult const & r1, Int
   */
 }
 
-Result IntermediateResult::GenerateFinalResult(storage::CountryInfoGetter const * pInfo) const
+Result IntermediateResult::GenerateFinalResult(
+    storage::CountryInfoGetter const * pInfo,
+    CategoriesT const * pCat) const
 {
   storage::CountryInfo info;
   m_region.GetRegion(pInfo, info);
@@ -129,10 +131,12 @@ Result IntermediateResult::GenerateFinalResult(storage::CountryInfoGetter const 
               #ifdef DEBUG
                   + ' ' + strings::to_string(static_cast<int>(m_searchRank))
               #endif
-                  , info.m_name, info.m_flag, m_type, m_rect, m_distance, m_direction);
+                  , info.m_name, info.m_flag, GetFeatureType(pCat),
+                  m_type, m_rect, m_distance, m_direction);
 
   case RESULT_LATLON:
-    return Result(m_str, info.m_name, info.m_flag, 0, m_rect, m_distance, m_direction);
+    return Result(m_str, info.m_name, info.m_flag, GetFeatureType(pCat),
+                  0, m_rect, m_distance, m_direction);
 
   default:
     ASSERT_EQUAL ( m_resultType, RESULT_CATEGORY, () );
@@ -260,6 +264,28 @@ string IntermediateResult::DebugPrint() const
   res += "; Viewport distance: " + ::DebugPrint(m_viewportDistance);
   res += "; Distance: " + ::DebugPrint(m_distance);
   return res;
+}
+
+string IntermediateResult::GetFeatureType(CategoriesT const * pCat) const
+{
+  if (pCat)
+  {
+    for (CategoriesT::const_iterator i = pCat->begin(); i != pCat->end(); ++i)
+    {
+      if (i->second == m_type)
+        return strings::ToUtf8(i->first);
+    }
+  }
+
+  string s = classif().GetFullObjectName(m_type);
+
+  // remove ending dummy symbol
+  ASSERT ( !s.empty(), () );
+  s.resize(s.size()-1);
+
+  // replace separator
+  replace(s.begin(), s.end(), '|', '-');
+  return s;
 }
 
 void IntermediateResult::RegionInfo::GetRegion(

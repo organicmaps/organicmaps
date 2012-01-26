@@ -1,16 +1,15 @@
 #include "result.hpp"
 
-#include "../indexer/classificator.hpp"
-
 
 namespace search
 {
 
-Result::Result(string const & str, string const & region, string const & flag,
+Result::Result(string const & str, string const & region,
+               string const & flag, string const & type,
                uint32_t featureType, m2::RectD const & featureRect,
                double distanceFromCenter, double directionFromCenter)
-  : m_str(str), m_region(region), m_flag(flag), m_featureRect(featureRect),
-    m_featureType(featureType),
+  : m_str(str), m_region(region), m_flag(flag), m_type(type),
+    m_featureRect(featureRect), m_featureType(featureType),
     m_distanceFromCenter(distanceFromCenter), m_directionFromCenter(directionFromCenter)
 {
 }
@@ -37,29 +36,6 @@ m2::PointD Result::GetFeatureCenter() const
 {
   ASSERT_EQUAL(GetResultType(), RESULT_FEATURE, ());
   return m_featureRect.Center();
-}
-
-uint32_t Result::GetFetureType() const
-{
-  ASSERT_EQUAL(GetResultType(), RESULT_FEATURE, ());
-  return m_featureType;
-}
-
-string Result::GetFetureTypeAsString() const
-{
-  ASSERT_EQUAL(GetResultType(), RESULT_FEATURE, ());
-
-  ClassifObject const * p = classif().GetRoot();
-
-  uint8_t i = 0;
-  uint8_t v;
-  while (ftype::GetValue(m_featureType, i, v) && i < 2)
-  {
-    p = p->GetObject(v);
-    ++i;
-  }
-
-  return p->GetName();
 }
 
 double Result::GetDistanceFromCenter() const

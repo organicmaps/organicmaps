@@ -16,7 +16,8 @@ public:
     RESULT_SUGGESTION
   };
 
-  Result(string const & str, string const & region, string const & flag,
+  Result(string const & str, string const & region,
+         string const & flag, string const & type,
          uint32_t featureType, m2::RectD const & featureRect,
          double distanceFromCenter, double directionFromCenter);
   Result(string const & str, string const & suggestionStr);
@@ -25,6 +26,7 @@ public:
   char const * GetString() const { return m_str.c_str(); }
   char const * GetRegionString() const { return m_region.c_str(); }
   char const * GetRegionFlag() const { return m_flag.c_str(); }
+  char const * GetFeatureType() const { return m_type.c_str(); }
 
   // Type of the result.
   ResultType GetResultType() const;
@@ -34,10 +36,6 @@ public:
 
   // Center point of a feature, if GetResultType() == RESULT_FEATURE.
   m2::PointD GetFeatureCenter() const;
-
-  // Type of a feature, if GetResultType() == RESULT_FEATURE.
-  uint32_t GetFetureType() const;
-  string GetFetureTypeAsString() const;
 
   // Distance from the center of the screen, if GetResultType() == RESULT_FEATURE.
   double GetDistanceFromCenter() const;
@@ -49,7 +47,7 @@ public:
   char const * GetSuggestionString() const;
 
 private:
-  string m_str, m_region, m_flag;
+  string m_str, m_region, m_flag, m_type;
   m2::RectD m_featureRect;
   uint32_t m_featureType;
   double m_distanceFromCenter;

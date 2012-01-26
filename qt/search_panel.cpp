@@ -129,7 +129,7 @@ void SearchPanel::OnSearchResult(ResultsT * res, int queryId)
     if (e.GetResultType() == ResultT::RESULT_FEATURE)
     {
       m_pTable->setItem(rowCount, 0,
-                        create_item(QString::fromUtf8(e.GetFetureTypeAsString().c_str())));
+                        create_item(QString::fromUtf8(e.GetFeatureType())));
 
       string strDist;
       bool const drawDir = MeasurementUtils::FormatDistance(e.GetDistanceFromCenter(), strDist);
