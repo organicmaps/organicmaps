@@ -1,6 +1,8 @@
 #include "borders_loader.hpp"
 #include "borders_generator.hpp"
 
+#include "../defines.hpp"
+
 #include "../storage/country_polygon.hpp"
 
 #include "../indexer/geometry_serialization.hpp"
