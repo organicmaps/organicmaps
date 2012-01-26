@@ -542,8 +542,7 @@ void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
 
                 MatchFeaturesInTrie(tokens, m_prefix, *pLangRoot,
                                     edge.size() == 1 ? NULL : &edge[1], edge.size() - 1,
-                                    FeaturesFilter(m_offsetsInViewport[mwmId], isWorld), emitter,
-                                    m_results[0].max_size() * 10);
+                                    FeaturesFilter(m_offsetsInViewport[mwmId], isWorld), emitter);
 
                 LOG(LDEBUG, ("Lang:",
                              StringUtf8Multilang::GetLangByCode(static_cast<int8_t>(edge[0])),

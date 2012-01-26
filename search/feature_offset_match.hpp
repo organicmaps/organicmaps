@@ -156,8 +156,7 @@ void MatchFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
                          strings::UniChar const * commonPrefix,
                          size_t commonPrefixSize,
                          FilterT const & filter,
-                         ToDo & toDo,
-                         size_t resultsNeeded)
+                         ToDo & toDo)
 {
   impl::OffsetIntersecter<FilterT> intersecter(filter);
 
