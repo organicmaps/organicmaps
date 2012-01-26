@@ -261,12 +261,14 @@ string IntermediateResult::DebugPrint() const
 
 string IntermediateResult::RegionInfo::GetRegion(storage::CountryInfoGetter const * pInfo) const
 {
+  storage::CountryInfo info;
+
   if (!m_file.empty())
-    return pInfo->GetRegionName(m_file);
+    pInfo->GetRegionInfo(m_file, info);
   else if (m_valid)
-    return pInfo->GetRegionName(m_point);
-  else
-    return string();
+    pInfo->GetRegionInfo(m_point, info);
+
+  return info.m_name;
 }
 
 }  // namespace search::impl

@@ -1,5 +1,6 @@
 #pragma once
-#include "country_polygon.hpp"
+
+#include "country_decl.hpp"
 
 #include "../geometry/region2d.hpp"
 
@@ -15,7 +16,7 @@ namespace storage
     FilesContainerR m_reader;
 
     vector<CountryDef> m_countries;
-    map<string, string> m_id2name;
+    map<string, CountryInfo> m_id2info;
 
     mutable my::Cache<uint32_t, vector<m2::RegionD> > m_cache;
 
@@ -41,7 +42,8 @@ namespace storage
     CountryInfoGetter(ModelReaderPtr polyR, ModelReaderPtr countryR);
 
     string GetRegionFile(m2::PointD const & pt) const;
-    string GetRegionName(m2::PointD const & pt) const;
-    string GetRegionName(string const & id) const;
+
+    void GetRegionInfo(m2::PointD const & pt, CountryInfo & info) const;
+    void GetRegionInfo(string const & id, CountryInfo & info) const;
   };
 }

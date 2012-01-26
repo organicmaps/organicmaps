@@ -1,28 +1,15 @@
 #pragma once
 
-#include "../defines.hpp"
+#include "country_decl.hpp"
 
 #include "../indexer/point_to_int64.hpp"
 #include "../indexer/coding_params.hpp"
 
-#include "../geometry/rect2d.hpp"
-
 #include "../coding/read_write_utils.hpp"
+
 
 namespace storage
 {
-  struct CountryDef
-  {
-    string m_name;
-    m2::RectD m_rect;
-
-    CountryDef() {}
-    CountryDef(string const & name, m2::RectD const & r)
-      : m_name(name), m_rect(r)
-    {
-    }
-  };
-
   template <class TSource> void Read(TSource & src, CountryDef & p)
   {
     rw::Read(src, p.m_name);

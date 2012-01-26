@@ -1,4 +1,5 @@
 #include "country_info.hpp"
+#include "country_polygon.hpp"
 #include "country.hpp"
 
 #include "../indexer/geometry_serialization.hpp"
@@ -20,7 +21,7 @@ namespace storage
 
     string buffer;
     countryR.ReadAsString(buffer);
-    LoadCountryFile2Name(buffer, m_id2name);
+    LoadCountryFile2CountryInfo(buffer, m_id2info);
   }
 
   template <class ToDo>
@@ -85,38 +86,33 @@ namespace storage
       return string();
   }
 
-  string CountryInfoGetter::GetRegionName(m2::PointD const & pt) const
+  void CountryInfoGetter::GetRegionInfo(m2::PointD const & pt, CountryInfo & info) const
   {
     GetByPoint doGet(*this, pt);
     ForEachCountry(pt, doGet);
 
     if (doGet.m_res != -1)
-      return GetRegionName(m_countries[doGet.m_res].m_name);
-
-    return string();
+      GetRegionInfo(m_countries[doGet.m_res].m_name, info);
   }
 
-  string CountryInfoGetter::GetRegionName(string const & id) const
+  void CountryInfoGetter::GetRegionInfo(string const & id, CountryInfo & info) const
   {
-    string name;
+    map<string, CountryInfo>::const_iterator i = m_id2info.find(id);
+    ASSERT ( i != m_id2info.end(), () );
 
-    map<string, string>::const_iterator i = m_id2name.find(id);
-    if (i != m_id2name.end())
-      name = i->second;
-    else
-      name = id;
+    info = i->second;
 
-    /// @todo Correct replace '_' with ", " in name.
+    if (info.m_name.empty())
+      info.m_name = id;
+
     if (id.find_first_of('_') != string::npos)
     {
-      // I don't know how to do it best for UTF8, but this variant will work
-      // correctly for now (utf8-names of compound countries are equal to ascii-names).
+      size_t const i = info.m_name.find_first_of('_');
+      ASSERT ( i != string::npos, () );
 
-      size_t const i = name.find_first_of('_');
-      ASSERT_NOT_EQUAL ( i, string::npos, () );
-      name = name.substr(0, i) + ", " + name.substr(i+1);
+      // replace '_' with ", "
+      info.m_name[i] = ',';
+      info.m_name.insert(i+1, " ");
     }
-
-    return name;
   }
 }

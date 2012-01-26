@@ -142,24 +142,45 @@ namespace
     }
   };
 
-  class DoStoreFile2Name
+  class DoStoreFile2Info
   {
-    map<string, string> & m_file2name;
-  public:
-    DoStoreFile2Name(map<string, string> & file2name) : m_file2name(file2name) {}
+    map<string, CountryInfo> & m_file2info;
+    string m_lastFlag;
 
-    void operator() (string name, string const & file, string const &,
+  public:
+    DoStoreFile2Info(map<string, CountryInfo> & file2info) : m_file2info(file2info) {}
+
+    void operator() (string name, string file, string const & flag,
                      uint32_t size, int64_t, int)
     {
-      // if 'file' is empty - it's equal to name
-      if (size && !file.empty())
-      {
-        size_t const i = file.find_first_of('_');
-        if (i != string::npos)
-          name = file.substr(0, i) + '_' + name;
+      if (!flag.empty())
+        m_lastFlag = flag;
 
-        if (name != file)
-          m_file2name[file] = name;
+      if (size)
+      {
+        CountryInfo info;
+
+        // if 'file' is empty - it's equal to 'name'
+        if (!file.empty())
+        {
+          // make compound name: country_region
+          size_t const i = file.find_first_of('_');
+          if (i != string::npos)
+            name = file.substr(0, i) + '_' + name;
+
+          // fill 'name' only when it differs with 'file'
+          if (name != file)
+            info.m_name.swap(name);
+        }
+        else
+          file.swap(name);
+
+        // Do not use 'name' here! It was swapped!
+
+        ASSERT ( !m_lastFlag.empty(), () );
+        info.m_flag = m_lastFlag;
+
+        m_file2info[file] = info;
       }
     }
   };
@@ -185,10 +206,10 @@ int64_t LoadCountries(string const & jsonBuffer, CountriesContainerT & countries
   return LoadCountriesImpl(jsonBuffer, doStore);
 }
 
-void LoadCountryFile2Name(string const & jsonBuffer, map<string, string> & id2name)
+void LoadCountryFile2CountryInfo(string const & jsonBuffer, map<string, CountryInfo> & id2info)
 {
-  ASSERT ( id2name.empty(), () );
-  DoStoreFile2Name doStore(id2name);
+  ASSERT ( id2info.empty(), () );
+  DoStoreFile2Info doStore(id2info);
   LoadCountriesImpl(jsonBuffer, doStore);
 }
 

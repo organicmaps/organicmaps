@@ -1,6 +1,7 @@
 #pragma once
 
 #include "simple_tree.hpp"
+#include "country_decl.hpp"
 
 #include "../defines.hpp"
 
@@ -40,7 +41,7 @@ namespace storage
   class Country
   {
     friend class update::SizeUpdater;
-    /// Name in the coutry node tree
+    /// Name in the country node tree
     string m_name;
     /// Flag to display
     string m_flag;
@@ -70,7 +71,7 @@ namespace storage
 
   /// @return version of country file or -1 if error was encountered
   int64_t LoadCountries(string const & jsonBuffer, CountriesContainerT & countries);
-  void LoadCountryFile2Name(string const & jsonBuffer, map<string, string> & id2name);
+  void LoadCountryFile2CountryInfo(string const & jsonBuffer, map<string, CountryInfo> & id2info);
   void LoadCountryCode2File(string const & jsonBuffer, multimap<string, string> & code2file);
 
   bool SaveCountries(int64_t version, CountriesContainerT const & countries, string & jsonBuffer);

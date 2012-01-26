@@ -18,6 +18,7 @@ HEADERS += \
   storage.hpp \
   country_polygon.hpp \
   country_info.hpp \
+  country_decl.hpp \
 
 SOURCES += \
   country.cpp \
