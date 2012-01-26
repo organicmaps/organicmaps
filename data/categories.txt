@@ -1,56 +1,52 @@
 amenity-atm
-en:1atm|cash
-ru:2банкомат|наличка
+en:3atm
+ru:3банкомат
 
 amenity-bank
-en:bank
-ru:1банк
+en:3bank
+ru:3банк
 
 amenity-bar|amenity-pub
-en:1bar|pub|beer
-ru:1бар|паб|забегаловка|пиво|выпить
+en:3bar|3pub|beer
+ru:3бар|3паб|пиво
 
 amenity-bench
 en:bench
-ru:лавка|лавочка|скамейка|присесть
+ru:скамейка
 
 amenity-bicycle_rental
-en:bicycle
-ru:велосипед
+en:4bicycle
+ru:4велосипед
 
 amenity-bureau_de_change
-en:change|exchange|currency
-ru:обменник|обмен валюты
+en:4currency-exchange
+ru:4обмен-валюты
 
 amenity-cafe
-en:1cafe|coffee
-ru:1кафе|кофе
+en:3cafe|3restaurant|3food
+ru:3кафе|3ресторан
 
 amenity-car_sharing
-en:car rent|rent car|lend car|car lend
+en:car-sharing|3car
 
 amenity-cinema
-en:cinema
-ru:кино|кинотеатр
+en:3cinema
+ru:кинотеатр|3кино
 
 amenity-college
 en:college
 ru:колледж
 
-amenity-doctors
-en:doctor
-ru:врач
-
 amenity-drinking_water
-en:water|drink water|drinking water
-ru:вода|питьевая вода
+en:drinking-water
+ru:питьевой-фонтан
 
 amenity-fast_food
-en:fast food|mcdonalds
-ru:фастфуд|макдональдс
+en:fast-food|3restaurant|3cafe|3food
+ru:фаст-фуд|3ресторан|3кафе
 
 amenity-fire_station
-en:fire station
+en:fire-station
 ru:пожарные
 
 amenity-fountain
@@ -58,73 +54,75 @@ en:fountain
 ru:фонтан
 
 amenity-fuel
-en:fuel|gas station
-ru:заправка
+en:3gas-station|3fuel
+ru:3заправка
 
 amenity-grave_yard
-en:grave yard
+en:grave-yard
 ru:кладбище
 
-amenity-hospital
-en:hospital
-ru:больница|госпиталь
+amenity-hospital|amenity-doctors
+en:3hospital
+ru:3больница|госпиталь
 
 amenity-hunting_stand
+en:hunting-stand
+ru:охотничья-вышка
 
 amenity-kindergarten
 en:kindergarten
-ru:садик|детсад|детский сад
+ru:детсад
 
 amenity-library
-en:library
-ru:библиотека
+en:3library
+ru:3библиотека
 
 amenity-parking
-en:parking
-ru:парковка
+en:3parking
+ru:3парковка
 
 amenity-pharmacy
-en:chemist|drugstore
-ru:аптека
+en:3pharmacy|dragstore|apothecary|dispensary
+ru:3аптека
 
 amenity-place_of_worship
-en:church|synagogue|temple|sanctuary
-ru:церковь|костел|храм|синагога
+en:place-of-worship
+ru:храм
 
 amenity-post_box
-en:postbox
-ru:почтовый ящик
+en:3postbox
+ru:3почтовый-ящик
 
 amenity-post_office
-en:post
-ru:почта
+en:3post
+ru:3почта
 
 amenity-recycling
-en:trash|bin|garbage
+en:recycling|trash|bin|garbage
 ru:мусорка
 
 amenity-restaurant
-en:0restaurant
-ru:0ресторан
+en:3restaurant|3cafe|3food
+ru:3ресторан|3кафе
 
 amenity-school
-en:school
-ru:школа
+en:3school
+ru:3школа
 
 amenity-shelter
 en:shelter
 ru:укрытие
 
 amenity-telephone
-en:phone|call
-ru:телефон|позвонить
+en:2phone
+ru:2телефон
 
 amenity-theatre
-en:theatre
-ru:театр
+en:3theatre|theater
+ru:3театр
 
 amenity-toilets
-en:toilet|wc
+en:toilet|2wc
 ru:туалет
 
 amenity-university
@@ -139,17 +137,29 @@ place-country
 en:country
 ru:страна
 
-place-city|place-town
+place-city
 en:city|town
+ru:город
+
+place-town
+en:town|city
 ru:город
 
 place-city-capital
 en:capital
 ru:столица
 
-place-county|place-state|place-region
-en:county|state|region
-ru:графство|штат|регион
+place-county
+en:county
+ru:округ|графство
+
+place-state
+en:state
+ru:штат|провинция
+
+place-region
+en:region
+ru:район
 
 place-island|place-islet
 en:island|islet
@@ -160,39 +170,53 @@ en:suburb|district
 ru:район|микрорайон
 
 place-village|place-hamlet
-en:village|hamlet
-ru:деревня|поселок
+en:3village|3hamlet
+ru:3деревня|3поселок
 
 place-locality
+en:locality
+ru:регион
 
 place-farm
-en:farm
-ru:ферма
+en:3farm
+ru:3ферма
 
 waterway-river|waterway-stream
-en:river
-ru:река
+en:3river
+ru:3река
 
 highway-primary|highway-residential|highway-secondary|highway-tertiary|highway-service|highway-road|highway-track
-en:street
-ru:улица
+en:2street
+ru:2улица
 
 highway-bus_stop
-en:2bus stop
-ru:остановка|автобус
+en:3bus-stop
+ru:3остановка|3автобус
 
 amenity-bus_station
-en:2bus station
-ru:автостанция
+en:3bus-station|3bus-stop
+ru:автостанция|3автобус|3остановка
 
 natural-peak
-en:peak|mountain
-ru:гора|вершина
+en:peak|3mountain
+ru:3гора|вершина
 
 leisure-park|leisure-garden
 en:park
 ru:парк
 
 tourism-hotel|tourism-hostel
-en:hotel|hostel
-ru:отель
+en:2hotel|3hostel
+ru:2отель
+
+shop-hairdresser
+en:3hairdresser
+ru:3парикмахерская
+
+shop-bakery
+en:3bakery
+ru:3булочная
+
+shop-convenience|shop-supermarket
+en:2shop
+ru:2магазин
