@@ -129,7 +129,9 @@ namespace yg
       if (m_useVA)
         return;
 
+#ifndef OMIM_OS_ANDROID
       if (m_id != current())
+#endif
         OGLCHECK(glBindBufferFn(GL_ELEMENT_ARRAY_BUFFER, m_id));
     }
 

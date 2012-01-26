@@ -38,7 +38,9 @@ namespace yg
 
     void FrameBuffer::makeCurrent()
     {
+#ifndef OMIM_OS_ANDROID
       if (m_id != current())
+#endif
         OGLCHECK(glBindFramebufferFn(GL_FRAMEBUFFER_MWM, m_id));
 
       if (m_depthBuffer)
