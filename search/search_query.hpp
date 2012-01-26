@@ -26,7 +26,12 @@ namespace search
 
 struct CategoryInfo;
 class LangKeywordsScorer;
-namespace impl { class IntermediateResult; struct FeatureLoader; class BestNameFinder; }
+namespace impl
+{
+  class IntermediateResult;
+  class FeatureLoader;
+  class BestNameFinder;
+}
 
 class Query
 {
@@ -55,7 +60,7 @@ public:
 
 private:
 
-  friend struct impl::FeatureLoader;
+  friend class impl::FeatureLoader;
   friend class impl::BestNameFinder;
 
   typedef impl::IntermediateResult ResultT;
