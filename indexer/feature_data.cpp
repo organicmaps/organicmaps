@@ -8,8 +8,8 @@
 using namespace feature;
 
 TypesHolder::TypesHolder(FeatureBase const & f)
+: m_size(0), m_geoType(f.GetFeatureType())
 {
-  m_geoType = f.GetFeatureType();
   f.ForEachTypeRef(*this);
 }
 
