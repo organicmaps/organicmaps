@@ -62,6 +62,8 @@ void FenceManager::signalFence(int id)
 
   threads::Condition * cond = it->second;
 
+  threads::ConditionGuard fenceGuard(*cond);
+
   /// erasing fence from active fences
   m_activeFences.erase(it);
 
@@ -69,7 +71,7 @@ void FenceManager::signalFence(int id)
   m_conditionPool.push_back(cond);
 
   /// signalling to all waiting fences
-  cond->Signal(true);
+  fenceGuard.Signal(true);
 }
 
 void FenceManager::joinFence(int id)
@@ -92,8 +94,9 @@ void FenceManager::joinFence(int id)
     cond = it->second;
   }
 
-  threads::ConditionGuard g(*cond);
-  g.Wait();
+  threads::ConditionGuard fenceGuard(*cond);
+  if (m_activeFences.find(id) != m_activeFences.end())
+    fenceGuard.Wait();
 }
 
 void FenceManager::cancel()
@@ -102,8 +105,19 @@ void FenceManager::cancel()
 
   m_isCancelled = true;
 
-  map<int, threads::Condition*>::iterator it = m_activeFences.begin();
+  list<pair<int, threads::Condition*> > tempList;
 
-  for (; it != m_activeFences.end(); ++it)
-    it->second->Signal(true);
+  for (map<int, threads::Condition*>::iterator it = m_activeFences.begin();
+       it != m_activeFences.end();
+       ++it)
+       tempList.push_back(make_pair(it->first, it->second));
+
+  for (list<pair<int, threads::Condition*> >::const_iterator it = tempList.begin();
+       it != tempList.end();
+       ++it)
+  {
+    threads::ConditionGuard fenceGuard(*it->second);
+    m_activeFences.erase(it->first);
+    fenceGuard.Signal(true);
+  }
 }
