@@ -191,18 +191,5 @@ namespace yg
     {
       m_infoLayer.reset();
     }
-
-    void OverlayRenderer::endFrame()
-    {
-      if (m_infoLayer != 0)
-      {
-        for (TElements::const_iterator it = m_elements.begin(); it != m_elements.end(); ++it)
-          m_infoLayer->processOverlayElement(it->second);
-      }
-
-      m_elements.clear();
-
-      base_t::endFrame();
-    }
   }
 }

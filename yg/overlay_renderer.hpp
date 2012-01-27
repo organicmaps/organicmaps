@@ -72,8 +72,6 @@ namespace yg
       shared_ptr<InfoLayer> const & infoLayer() const;
 
       void resetInfoLayer();
-
-      void endFrame();
     };
   }
 }
