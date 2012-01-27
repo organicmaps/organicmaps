@@ -101,25 +101,6 @@ public:
     return m_Center;
   }
 
-  class GetTypesFn
-  {
-  public:
-    uint32_t m_types[m_maxTypesCount];
-    size_t m_size;
-
-    GetTypesFn() : m_size(0) {}
-
-    inline void operator() (uint32_t t) { m_types[m_size++] = t; }
-
-    inline bool Has(uint32_t t) const
-    {
-      for (size_t i = 0; i < m_size; ++i)
-        if (m_types[i] == t)
-          return true;
-      return false;
-    }
-  };
-
   template <typename FunctorT>
   void ForEachTypeRef(FunctorT & f) const
   {

@@ -8,6 +8,8 @@
 #include "../std/vector.hpp"
 
 
+class FeatureBase;
+
 namespace feature
 {
   enum EGeomType
@@ -45,6 +47,38 @@ namespace feature
     LAYER_TRANSPARENT_TUNNEL = 11,    // draw transparent road (tunnels)
 
     LAYER_HIGH = 12
+  };
+
+  class TypesHolder
+  {
+    uint32_t m_types[max_types_count];
+    size_t m_size;
+
+    EGeomType m_geoType;
+
+  public:
+    TypesHolder() : m_size(0), m_geoType(GEOM_UNDEFINED) {}
+    TypesHolder(FeatureBase const & f);
+
+    /// Accumulation function.
+    inline void operator() (uint32_t t) { m_types[m_size++] = t; }
+
+    /// @name Selectors.
+    //@{
+    inline EGeomType GetGeoType() const { return m_geoType; }
+
+    inline size_t Size() const { return m_size; }
+    inline uint32_t operator[] (size_t i) const { return m_types[i]; }
+
+    inline bool Has(uint32_t t) const
+    {
+      for (size_t i = 0; i < m_size; ++i)
+        if (t == m_types[i])
+          return true;
+
+      return false;
+    }
+    //@}
   };
 }
 

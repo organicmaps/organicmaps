@@ -23,15 +23,12 @@ IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, m2::Point
                                        FeatureType const & f,
                                        string const & displayName,
                                        string const & fileName)
-  : m_str(displayName),
+  : m_types(f),
+    m_str(displayName),
     m_rect(feature::GetFeatureViewport(f)),
     m_resultType(RESULT_FEATURE)
 {
-  // get feature type
-  FeatureType::GetTypesFn types;
-  f.ForEachTypeRef(types);
-  ASSERT_GREATER(types.m_size, 0, ());
-  m_type = types.m_types[0];
+  ASSERT_GREATER(m_types.Size(), 0, ());
 
   // get region info
   if (!fileName.empty())
@@ -54,7 +51,7 @@ IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, m2::Point
   : m_str("(" + strings::to_string(lat) + ", " + strings::to_string(lon) + ")"),
     m_rect(MercatorBounds::LonToX(lon - precision), MercatorBounds::LatToY(lat - precision),
            MercatorBounds::LonToX(lon + precision), MercatorBounds::LatToY(lat + precision)),
-    m_type(0), m_resultType(RESULT_LATLON), m_searchRank(0)
+    m_resultType(RESULT_LATLON), m_searchRank(0)
 {
   // get common params
   m_distance = ResultDistance(pos, m_rect.Center());
@@ -133,7 +130,7 @@ Result IntermediateResult::GenerateFinalResult(
                   + ' ' + strings::to_string(static_cast<int>(m_searchRank))
               #endif
                   ,
-                  m_type, m_rect, m_distance, m_direction);
+                  GetBestType(), m_rect, m_distance, m_direction);
 
   case RESULT_LATLON:
     return Result(m_str, info.m_name, info.m_flag, GetFeatureType(pCat),
@@ -178,7 +175,7 @@ bool IntermediateResult::StrictEqualF::operator()(IntermediateResult const & r) 
 {
   if (m_r.m_resultType == r.m_resultType && m_r.m_resultType == RESULT_FEATURE)
   {
-    if (m_r.m_str == r.m_str && m_r.m_type == r.m_type)
+    if (m_r.m_str == r.m_str && m_r.GetBestType() == r.GetBestType())
     {
       /// @todo Tune this constant.
       return fabs(m_r.m_distance - r.m_distance) < 500.0;
@@ -233,8 +230,8 @@ bool IntermediateResult::LessLinearTypesF::operator()
   if (r1.m_str != r2.m_str)
     return (r1.m_str < r2.m_str);
 
-  if (r1.m_type != r2.m_type)
-    return (r1.m_type < r2.m_type);
+  if (r1.GetBestType() != r2.GetBestType())
+    return (r1.GetBestType() < r2.GetBestType());
 
   // Should stay the best feature, after unique, so add this criteria:
 
@@ -250,7 +247,8 @@ bool IntermediateResult::EqualLinearTypesF::operator()
   {
     // filter equal linear features
     static IsLinearChecker checker;
-    return (r1.m_type == r2.m_type && checker.IsMy(FirstLevelIndex(r1.m_type)));
+    return (r1.GetBestType() == r2.GetBestType() &&
+            checker.IsMy(FirstLevelIndex(r1.GetBestType())));
   }
 
   return false;
@@ -260,7 +258,7 @@ string IntermediateResult::DebugPrint() const
 {
   string res("IntermediateResult: ");
   res += "Name: " + m_str;
-  res += "; Type: " + ::DebugPrint(m_type);
+  res += "; Type: " + ::DebugPrint(GetBestType());
   res += "; Rank: " + ::DebugPrint(m_searchRank);
   res += "; Viewport distance: " + ::DebugPrint(m_viewportDistance);
   res += "; Distance: " + ::DebugPrint(m_distance);
@@ -269,16 +267,18 @@ string IntermediateResult::DebugPrint() const
 
 string IntermediateResult::GetFeatureType(CategoriesT const * pCat) const
 {
+  uint32_t const type = GetBestType();
+
   if (pCat)
   {
     for (CategoriesT::const_iterator i = pCat->begin(); i != pCat->end(); ++i)
     {
-      if (i->second == m_type)
+      if (i->second == type)
         return strings::ToUtf8(i->first);
     }
   }
 
-  string s = classif().GetFullObjectName(m_type);
+  string s = classif().GetFullObjectName(type);
 
   // remove ending dummy symbol
   ASSERT ( !s.empty(), () );

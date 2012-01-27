@@ -130,19 +130,16 @@ namespace
 pair<int, bool> GetDrawRule(FeatureBase const & f, int level,
                             vector<drule::Key> & keys, string & names)
 {
-  feature::EGeomType const geoType = f.GetFeatureType();
-
-  FeatureBase::GetTypesFn types;
-  f.ForEachTypeRef(types);
+  feature::TypesHolder types(f);
 
   ASSERT ( keys.empty(), () );
   Classificator const & c = classif();
 
-  DrawRuleGetter doRules(level, geoType, keys, names);
-  for (size_t i = 0; i < types.m_size; ++i)
-    (void)c.ProcessObjects(types.m_types[i], doRules);
+  DrawRuleGetter doRules(level, types.GetGeoType(), keys, names);
+  for (size_t i = 0; i < types.Size(); ++i)
+    (void)c.ProcessObjects(types[i], doRules);
 
-  return make_pair(geoType, types.Has(c.GetCoastType()));
+  return make_pair(types.GetGeoType(), types.Has(c.GetCoastType()));
 }
 
 namespace
@@ -243,16 +240,15 @@ bool IsDrawableForIndex(FeatureBase const & f, int level)
 {
   Classificator const & c = classif();
 
-  FeatureBase::GetTypesFn types;
-  f.ForEachTypeRef(types);
+  feature::TypesHolder types(f);
 
-  if (f.GetFeatureType() == feature::GEOM_AREA && !types.Has(c.GetCoastType()))
+  if (types.GetGeoType() == feature::GEOM_AREA && !types.Has(c.GetCoastType()))
     if (!scales::IsGoodForLevel(level, f.GetLimitRect()))
       return false;
 
   IsDrawableChecker doCheck(level);
-  for (size_t i = 0; i < types.m_size; ++i)
-    if (c.ProcessObjects(types.m_types[i], doCheck))
+  for (size_t i = 0; i < types.Size(); ++i)
+    if (c.ProcessObjects(types[i], doCheck))
       return true;
 
   return false;
@@ -271,13 +267,13 @@ int MinDrawableScaleForFeature(FeatureBase const & f)
 
 namespace
 {
-  bool IsDrawable(FeatureBase::GetTypesFn const & types, int level, EGeomType geomType)
+  bool IsDrawable(feature::TypesHolder const & types, int level)
   {
     Classificator const & c = classif();
 
-    TextRulesChecker doCheck(level, geomType);
-    for (size_t i = 0; i < types.m_size; ++i)
-      if (c.ProcessObjects(types.m_types[i], doCheck))
+    TextRulesChecker doCheck(level, types.GetGeoType());
+    for (size_t i = 0; i < types.Size(); ++i)
+      if (c.ProcessObjects(types[i], doCheck))
         return true;
 
     return false;
@@ -286,16 +282,13 @@ namespace
 
 pair<int, int> DrawableScaleRangeForText(FeatureBase const & f)
 {
-  FeatureBase::GetTypesFn types;
-  f.ForEachTypeRef(types);
-
-  feature::EGeomType const geomType = f.GetFeatureType();
+  feature::TypesHolder types(f);
 
   int const upBound = scales::GetUpperScale();
   int lowL = -1;
   for (int level = 0; level <= upBound; ++level)
   {
-    if (IsDrawable(types, level, geomType))
+    if (IsDrawable(types, level))
     {
       lowL = level;
       break;
@@ -308,7 +301,7 @@ pair<int, int> DrawableScaleRangeForText(FeatureBase const & f)
   int highL = lowL;
   for (int level = upBound; level > lowL; --level)
   {
-    if (IsDrawable(types, level, geomType))
+    if (IsDrawable(types, level))
     {
       highL = level;
       break;

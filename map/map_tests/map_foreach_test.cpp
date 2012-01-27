@@ -264,10 +264,9 @@ namespace
 
         cout << "Feature classificator types:\n";
 
-        FeatureType::GetTypesFn getTypes;
-        f.ForEachTypeRef(getTypes);
-        for (size_t i = 0; i < getTypes.m_size; ++i)
-          cout << classif().GetFullObjectName(getTypes.m_types[i]) << endl;
+        feature::TypesHolder types(f);
+        for (size_t i = 0; i < types.Size(); ++i)
+          cout << classif().GetFullObjectName(types[i]) << endl;
       }
     }
   };

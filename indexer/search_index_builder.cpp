@@ -73,10 +73,9 @@ struct FeatureInserter
     feature.ForEachNameRef(f);
 
     // Add names of categories of the feature.
-    FeatureType::GetTypesFn getTypesFn;
-    feature.ForEachTypeRef(getTypesFn);
-    for (size_t i = 0; i < getTypesFn.m_size; ++i)
-      f.AddToken(0, search::FeatureTypeToString(getTypesFn.m_types[i]));
+    feature::TypesHolder types(feature);
+    for (size_t i = 0; i < types.Size(); ++i)
+      f.AddToken(0, search::FeatureTypeToString(types[i]));
   }
 };
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../geometry/rect2d.hpp"
+
 #include "../base/base.hpp"
 
 class FeatureType;

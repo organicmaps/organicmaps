@@ -77,13 +77,12 @@ public:
       return limitR;
     }
 
-    FeatureBase::GetTypesFn types;
-    f.ForEachTypeRef(types);
+    feature::TypesHolder types(f);
 
     int const upperScale = scales::GetUpperScale();
     int scale = upperScale;
-    for (size_t i = 0; i < types.m_size; ++i)
-      scale = min(scale, GetScaleForType(types.m_types[i], f));
+    for (size_t i = 0; i < types.Size(); ++i)
+      scale = min(scale, GetScaleForType(types[i], f));
 
     CorrectScaleForVisibility(f, scale);
 
@@ -95,23 +94,23 @@ public:
   {
     uint32_t population = feature.GetPopulation();
 
-    FeatureBase::GetTypesFn types;
-    feature.ForEachTypeRef(types);
-    for (size_t i = 0; i < types.m_size; ++i)
+    feature::TypesHolder types(feature);
+
+    for (size_t i = 0; i < types.Size(); ++i)
     {
-      if (IsEqual(types.m_types[i], m_TypeSmallVillage))
+      if (IsEqual(types[i], m_TypeSmallVillage))
         population = max(population, static_cast<uint32_t>(100));
-      else if (IsEqual(types.m_types[i], m_TypeVillage))
+      else if (IsEqual(types[i], m_TypeVillage))
         population = max(population, static_cast<uint32_t>(1000));
-      else if (types.m_types[i] == m_TypeTown || IsEqual(types.m_types[i], m_TypeCounty))
+      else if (types[i] == m_TypeTown || IsEqual(types[i], m_TypeCounty))
         population = max(population, static_cast<uint32_t>(10000));
-      else if (types.m_types[i] == m_TypeCity || types.m_types[i] == m_TypeState)
+      else if (types[i] == m_TypeCity || types[i] == m_TypeState)
         population = max(population, static_cast<uint32_t>(100000));
-      else if (types.m_types[i] == m_TypeCityCapital)
+      else if (types[i] == m_TypeCityCapital)
         population = max(population, static_cast<uint32_t>(1000000));
-      else if (types.m_types[i] == m_TypeCountry)
+      else if (types[i] == m_TypeCountry)
         population = max(population, static_cast<uint32_t>(2000000));
-      else if (types.m_types[i] == m_TypeContinent)
+      else if (types[i] == m_TypeContinent)
         population = max(population, static_cast<uint32_t>(20000000));
     }
 

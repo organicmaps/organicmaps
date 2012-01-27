@@ -1,10 +1,17 @@
 #include "feature_data.hpp"
 #include "classificator.hpp"
+#include "feature.hpp"
 
 #include "../std/algorithm.hpp"
 
 
 using namespace feature;
+
+TypesHolder::TypesHolder(FeatureBase const & f)
+{
+  m_geoType = f.GetFeatureType();
+  f.ForEachTypeRef(*this);
+}
 
 void FeatureParamsBase::MakeZero()
 {

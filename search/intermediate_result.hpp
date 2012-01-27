@@ -1,6 +1,8 @@
 #pragma once
 #include "result.hpp"
 
+#include "../indexer/feature_data.hpp"
+
 #include "../base/string_utils.hpp"
 
 #include "../std/shared_ptr.hpp"
@@ -92,6 +94,13 @@ private:
 
   string GetFeatureType(CategoriesT const * pCat) const;
 
+  feature::TypesHolder m_types;
+  inline uint32_t GetBestType() const
+  {
+    /// @todo Select best type for search result!
+    return m_types[0];
+  }
+
   string m_str, m_completionString;
 
   class RegionInfo
@@ -114,7 +123,6 @@ private:
   } m_region;
 
   m2::RectD m_rect;
-  uint32_t m_type;
 
   double m_distance;
   double m_direction;
