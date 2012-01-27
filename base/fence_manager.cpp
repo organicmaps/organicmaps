@@ -47,7 +47,7 @@ int FenceManager::insertFence()
 
 void FenceManager::signalFence(int id)
 {
-  threads::MutexGuard g(m_mutex);
+  threads::MutexGuard mutexGuard(m_mutex);
 
   if (m_isCancelled)
     return;
@@ -62,6 +62,7 @@ void FenceManager::signalFence(int id)
 
   threads::Condition * cond = it->second;
 
+  /// i suppose that this guard will be destroyed after mutexGuard
   threads::ConditionGuard fenceGuard(*cond);
 
   /// erasing fence from active fences
@@ -92,11 +93,17 @@ void FenceManager::joinFence(int id)
     }
 
     cond = it->second;
+
+    /// we should lock condition here, to prevent us from the situation
+    /// when the condition will be signaled before it's been waited for
+    cond->Lock();
   }
 
-  threads::ConditionGuard fenceGuard(*cond);
-  if (m_activeFences.find(id) != m_activeFences.end())
-    fenceGuard.Wait();
+  /// to prevent from "spurious wakeups"
+  while (m_activeFences.find(id) != m_activeFences.end())
+    cond->Wait();
+
+  cond->Unlock();
 }
 
 void FenceManager::cancel()
