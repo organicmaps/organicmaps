@@ -2,6 +2,7 @@
 
 #include "feature_loader_101.hpp"
 
+#include "../classificator.hpp"
 #include "../feature.hpp"
 #include "../scales.hpp"
 #include "../geometry_serialization.hpp"

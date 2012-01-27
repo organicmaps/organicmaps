@@ -2,6 +2,7 @@
 
 #include "../storage/country_info.hpp"
 
+#include "../indexer/classificator.hpp"
 #include "../indexer/feature.hpp"
 #include "../indexer/feature_utils.hpp"
 #include "../indexer/mercator.hpp"

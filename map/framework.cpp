@@ -17,6 +17,7 @@
 #include "../indexer/categories_holder.hpp"
 #include "../indexer/feature.hpp"
 #include "../indexer/scales.hpp"
+#include "../indexer/classificator.hpp"
 
 #include "../base/math.hpp"
 #include "../base/string_utils.hpp"

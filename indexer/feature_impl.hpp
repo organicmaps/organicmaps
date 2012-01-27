@@ -1,6 +1,8 @@
 #pragma once
 
-#include "../geometry/point2d.hpp"
+#include "../base/macros.hpp"
+
+#include "../std/string.hpp"
 
 
 namespace feature

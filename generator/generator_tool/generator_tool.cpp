@@ -11,6 +11,7 @@
 
 #include "../../indexer/drawing_rules.hpp"
 #include "../../indexer/classificator_loader.hpp"
+#include "../../indexer/classificator.hpp"
 #include "../../indexer/data_header.hpp"
 #include "../../indexer/features_vector.hpp"
 #include "../../indexer/index_builder.hpp"

@@ -1,4 +1,5 @@
 #include "feature_data.hpp"
+#include "classificator.hpp"
 
 #include "../std/algorithm.hpp"
 
@@ -142,6 +143,16 @@ uint8_t FeatureParams::GetHeader() const
   }
 
   return header;
+}
+
+uint32_t FeatureParams::GetIndexForType(uint32_t t)
+{
+  return classif().GetIndexForType(t);
+}
+
+uint32_t FeatureParams::GetTypeForIndex(uint32_t i)
+{
+  return classif().GetTypeForIndex(i);
 }
 
 string DebugPrint(FeatureParams const & p)

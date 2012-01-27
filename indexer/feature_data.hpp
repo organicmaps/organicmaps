@@ -1,5 +1,4 @@
 #pragma once
-#include "classificator.hpp"
 
 #include "../coding/multilang_utf8_string.hpp"
 #include "../coding/value_opt_string.hpp"
@@ -182,10 +181,8 @@ public:
 
     WriteToSink(sink, header);
 
-    Classificator & c = classif();
-
     for (size_t i = 0; i < m_Types.size(); ++i)
-      WriteVarUint(sink, c.GetIndexForType(m_Types[i]));
+      WriteVarUint(sink, GetIndexForType(m_Types[i]));
 
     BaseT::Write(sink, header, GetGeomType());
   }
@@ -201,14 +198,16 @@ public:
     if (type & HEADER_GEOM_AREA) SetGeomType(GEOM_AREA);
     if (type == HEADER_GEOM_POINT) SetGeomType(GEOM_POINT);
 
-    Classificator & c = classif();
-
     size_t const count = (header & HEADER_TYPE_MASK) + 1;
     for (size_t i = 0; i < count; ++i)
-      m_Types.push_back(c.GetTypeForIndex(ReadVarUint<uint32_t>(src)));
+      m_Types.push_back(GetTypeForIndex(ReadVarUint<uint32_t>(src)));
 
     BaseT::Read(src, header, GetGeomType());
   }
+
+private:
+  static uint32_t GetIndexForType(uint32_t t);
+  static uint32_t GetTypeForIndex(uint32_t i);
 };
 
 string DebugPrint(FeatureParams const & p);

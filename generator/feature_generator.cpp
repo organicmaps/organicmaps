@@ -12,6 +12,7 @@
 #include "../indexer/data_header.hpp"
 #include "../indexer/mercator.hpp"
 #include "../indexer/cell_id.hpp"
+#include "../indexer/classificator.hpp"
 
 #include "../coding/varint.hpp"
 #include "../coding/mmap_reader.hpp"
