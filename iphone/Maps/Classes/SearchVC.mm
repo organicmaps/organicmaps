@@ -2,6 +2,7 @@
 #import "CompassView.h"
 #import "LocationManager.h"
 #import "SearchBannerChecker.h"
+#import "SearchCell.h"
 
 #include "../../geometry/angles.hpp"
 #include "../../geometry/distance_on_sphere.hpp"
@@ -9,6 +10,7 @@
 #include "../../platform/platform.hpp"
 #include "../../indexer/mercator.hpp"
 #include "../../map/framework.hpp"
+#include "../../map/measurement_utils.hpp"
 #include "../../search/result.hpp"
 
 SearchVC * g_searchVC = nil;
@@ -48,8 +50,8 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   {
     Wrapper * w = [[Wrapper alloc] initWithResult:res];
     [g_searchVC performSelectorOnMainThread:@selector(addResult:)
-                               withObject:w
-                            waitUntilDone:NO];
+                                 withObject:w
+                              waitUntilDone:NO];
     [w release];
   }
 }
@@ -280,49 +282,54 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 //*********** End of SearchBar handlers *************************************
 //***************************************************************************
 
-- (void)updateCellAngle:(UITableViewCell *)cell withIndex:(NSUInteger)index andAngle:(double)northDeg
++ (NSString *)formatDistance:(double)meters
 {
-  CLLocation * loc = [m_locationManager lastLocation];
-  if (loc)
+  if (meters < 0.)
+    return nil;
+
+  uint64_t shortUnits = (uint64_t)meters;
+  double longUnits = meters/1000.0;
+  // @TODO localize measurements
+  static NSString * shortLabel = @"m";
+  static NSString * longLabel = @"km";
+  Settings::Units u = Settings::Metric;
+	Settings::Get("Units", u);
+  switch (u)
   {
-    m2::PointD const center = m_results[index].GetFeatureCenter();
-    double const angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(loc.coordinate.longitude),
-        MercatorBounds::LatToY(loc.coordinate.latitude)), center) + northDeg / 180. * math::pi;
+  case Settings::Foot:
+    shortUnits = (uint64_t)MeasurementUtils::MetersToFeet(meters);
+    longUnits = MeasurementUtils::MetersToMiles(meters);
+    shortLabel = @"ft";
+    longLabel = @"mi";
+    break;
     
-    if (m_results[index].GetResultType() == search::Result::RESULT_FEATURE)
-    {
-      CompassView * cv = (CompassView *)cell.accessoryView;
-      if (!cv)
-      {
-        float const h = m_table.rowHeight * 0.6;
-        cv = [[CompassView alloc] initWithFrame:CGRectMake(0, 0, h, h)];
-        cell.accessoryView = cv;
-        [cv release];
-      }
-      cv.angle = angle;
-    }
-  }
-}
+  case Settings::Yard:
+    shortUnits = (uint64_t)MeasurementUtils::MetersToYards(meters);
+    longUnits = MeasurementUtils::MetersToMiles(meters);
+    shortLabel = @"yd";
+    longLabel = @"mi";
+    break;
 
-- (void)updateCellDistance:(UITableViewCell *)cell withIndex:(NSUInteger)index
-{
-  CLLocation * loc = [m_locationManager lastLocation];
-  if (loc)
-  {
-    m2::PointD const center = m_results[index].GetFeatureCenter();
-    double const centerLat = MercatorBounds::YToLat(center.y);
-    double const centerLon = MercatorBounds::XToLon(center.x);
-    double const distance = ms::DistanceOnEarth(loc.coordinate.latitude, loc.coordinate.longitude, centerLat, centerLon);
-
-    // @TODO use imperial system from the settings if needed
-    // @TODO use meters too
-    // NSLocalizedString(@"%.1lf m", @"Search results - Metres")
-    // NSLocalizedString(@"%.1lf ft", @"Search results - Feet")
-    // NSLocalizedString(@"%.1lf mi", @"Search results - Miles")
-    // NSLocalizedString(@"%.1lf yd", @"Search results - Yards")
-    cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%.1lf km", @"Search results - Kilometres"),
-                                 distance / 1000.0];
+  case Settings::Metric:
+    shortLabel = @"m";
+    longLabel = @"km";
+    break;
   }
+
+  // NSLocalizedString(@"%.1lf m", @"Search results - Metres")
+  // NSLocalizedString(@"%.1lf ft", @"Search results - Feet")
+  // NSLocalizedString(@"%.1lf mi", @"Search results - Miles")
+  // NSLocalizedString(@"%.1lf yd", @"Search results - Yards")
+
+  if (shortUnits < 1000)
+    return [NSString stringWithFormat:@"%qu %@", shortUnits, shortLabel];
+
+  uint64_t const longUnitsRounded = (uint64_t)(longUnits);
+  // reduce precision for big distances and remove zero for x.0-like numbers
+  if (longUnitsRounded > 10 || (longUnitsRounded && (uint64_t)(longUnits * 10.0) == longUnitsRounded * 10))
+    return [NSString stringWithFormat:@"%qu %@", longUnitsRounded, longLabel];
+
+  return [NSString stringWithFormat:@"%.1lf %@", longUnits, longLabel];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -335,30 +342,45 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   return m_results.size();
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"SearchVCTableViewCell"];
-  if (!cell)
+  if (indexPath.row >= m_results.size())
   {
-    cell = [[[UITableViewCell alloc]
-           initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"SearchVCTableViewCell"]
-           autorelease];
+    ASSERT(false, ("Invalid m_results with size", m_results.size()));
+    return nil;
   }
-  
-  cell.accessoryView = nil;
-  if (indexPath.row < m_results.size())
+
+  search::Result const & r = m_results[indexPath.row];
+  switch (r.GetResultType())
   {
-    search::Result const & r = m_results[indexPath.row];
-    cell.textLabel.text = [NSString stringWithUTF8String:r.GetString()];
-    if (r.GetResultType() == search::Result::RESULT_FEATURE)
-      [self updateCellDistance:cell withIndex:indexPath.row];
-    else
-      cell.detailTextLabel.text = nil;
+    case search::Result::RESULT_FEATURE:
+    {
+      SearchCell * cell = (SearchCell *)[tableView dequeueReusableCellWithIdentifier:@"FeatureCell"];
+      if (!cell)
+        cell = [[[SearchCell alloc] initWithReuseIdentifier:@"FeatureCell"] autorelease];
+
+      cell.featureName.text = [NSString stringWithUTF8String:r.GetString()];
+      cell.featureCountry.text = [NSString stringWithUTF8String:r.GetRegionString()];
+      cell.featureType.text = [NSString stringWithUTF8String:r.GetFeatureType()];
+      cell.featureDistance.text = [SearchVC formatDistance:r.GetDistanceFromCenter()];
+      return cell;
+    }
+    break;
+
+    case search::Result::RESULT_SUGGESTION:
+    {
+      UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"SuggestionCell"];
+      if (!cell)
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SuggestionCell"] autorelease];
+      cell.textLabel.text = [NSString stringWithUTF8String:r.GetString()];
+      return cell;
+    }
+    break;
+
+    default:
+      ASSERT(false, ("Unsupported search result type"));
+    return nil;
   }
-  else
-    cell.textLabel.text = @"BUG";
-  return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -393,6 +415,23 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 }
 
 
+- (void)updateCompassFor:(UITableViewCell *)cell withResult:(search::Result const &)res andAngle:(double)angle
+{
+  CompassView * compass = nil;
+  if (cell.accessoryView == nil)
+  {
+    float const h = m_table.rowHeight * 0.6;
+    compass = [[CompassView alloc] initWithFrame:CGRectMake(0, 0, h, h)];
+    cell.accessoryView = compass;
+    [compass release];
+  }
+  else if ([cell.accessoryView isKindOfClass:[CompassView class]])
+    compass = (CompassView *)cell.accessoryView;
+
+  if (compass)
+    compass.angle = angle;
+}
+
 //****************************************************************** 
 //*********** Location manager callbacks ***************************
 - (void)onLocationStatusChanged:(location::TLocationStatus)newStatus
@@ -402,25 +441,28 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 
 - (void)onGpsUpdate:(location::GpsInfo const &)info
 {
-
-  NSArray * cells = [m_table visibleCells];
-  for (NSUInteger i = 0; i < cells.count; ++i)
-  {
-    UITableViewCell * cell = (UITableViewCell *)[cells objectAtIndex:i];
-    [self updateCellDistance:cell withIndex:[m_table indexPathForCell:cell].row];
-  }
   m_framework->GetSearchEngine()->SetPosition(info.m_latitude, info.m_longitude);
 }
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info
 {
+  CLLocation * loc = m_locationManager.lastLocation;
+  if (loc == nil)
+    return;
+
+  double const northDeg = (info.m_trueHeading < 0) ? info.m_magneticHeading : info.m_trueHeading;
   NSArray * cells = [m_table visibleCells];
   for (NSUInteger i = 0; i < cells.count; ++i)
   {
     UITableViewCell * cell = (UITableViewCell *)[cells objectAtIndex:i];
-    NSInteger const index = [m_table indexPathForCell:cell].row;
-    if (m_results[index].GetResultType() == search::Result::RESULT_FEATURE)
-      [self updateCellAngle:cell withIndex:index andAngle:((info.m_trueHeading < 0) ? info.m_magneticHeading : info.m_trueHeading)];
+    search::Result const & res = m_results[[m_table indexPathForCell:cell].row];
+    if (res.GetResultType() == search::Result::RESULT_FEATURE)
+    {
+      m2::PointD const center = res.GetFeatureCenter();
+      double const angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(loc.coordinate.longitude),
+          MercatorBounds::LatToY(loc.coordinate.latitude)), center) + northDeg / 180. * math::pi;
+      [self updateCompassFor:cell withResult:res andAngle:angle];
+    }
   }
 }
 //*********** End of Location manager callbacks ********************
