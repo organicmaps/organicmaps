@@ -4,15 +4,15 @@
 
 #include "../base/base.hpp"
 
-class FeatureType;
 
 namespace feature
 {
+  class TypesHolder;
 
-// Get viewport to show given feature. Used in search.
-m2::RectD GetFeatureViewport(FeatureType const & feature);
+  /// Get viewport to show given feature. Used in search.
+  m2::RectD GetFeatureViewport(TypesHolder const & types, m2::RectD const & limitRect);
 
-// Get search rank for a feature. Roughly, rank + 1 means that feature is 1.x times more popular.
-uint8_t GetSearchRank(FeatureType const & feature);
-
+  /// Get search rank for a feature.
+  /// Roughly, rank + 1 means that feature is 1.x times more popular.
+  uint8_t GetSearchRank(TypesHolder const & types, uint32_t population);
 }  // namespace feature

@@ -68,12 +68,14 @@ struct FeatureInserter
 
   void operator() (FeatureType const & feature, uint64_t pos) const
   {
+    feature::TypesHolder types(feature);
+
     // Add names of the feature.
-    FeatureNameInserter f(m_names, static_cast<uint32_t>(pos), feature::GetSearchRank(feature));
+    FeatureNameInserter f(m_names, static_cast<uint32_t>(pos),
+                          feature::GetSearchRank(types, feature.GetPopulation()));
     feature.ForEachNameRef(f);
 
     // Add names of categories of the feature.
-    feature::TypesHolder types(feature);
     for (size_t i = 0; i < types.Size(); ++i)
       f.AddToken(0, search::FeatureTypeToString(types[i]));
   }

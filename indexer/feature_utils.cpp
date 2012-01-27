@@ -1,7 +1,7 @@
 #include "feature_utils.hpp"
 #include "feature_visibility.hpp"
 #include "classificator.hpp"
-#include "feature.hpp"
+#include "feature_data.hpp"
 #include "scales.hpp"
 
 #include "../geometry/point2d.hpp"
@@ -51,51 +51,40 @@ public:
     m_TypeSmallVillage[2]  = GetType("place", "farm");
   }
 
-  void CorrectScaleForVisibility(FeatureType const & f, int & scale) const
+  void CorrectScaleForVisibility(TypesHolder const & types, int & scale) const
   {
-    pair<int, int> const scaleR = feature::DrawableScaleRangeForText(f);
+    pair<int, int> const scaleR = feature::DrawableScaleRangeForText(types);
     if (scale < scaleR.first || scale > scaleR.second)
       scale = scaleR.first;
   }
 
-  void CorrectRectForScales(FeatureType const & f, m2::PointD const & center, m2::RectD & rect) const
+  m2::RectD CorrectRectForScales(TypesHolder const & types, m2::RectD const & rect) const
   {
     int const scale = scales::GetScaleLevel(rect);
     int scaleNew = scale;
-    CorrectScaleForVisibility(f, scaleNew);
+    CorrectScaleForVisibility(types, scaleNew);
 
-    if (scale != scaleNew)
-      rect = scales::GetRectForLevel(scaleNew, center, 1.0);
+    return ((scale != scaleNew) ? scales::GetRectForLevel(scaleNew, rect.Center(), 1.0) : rect);
   }
 
-  m2::RectD GetViewport(FeatureType const & f) const
+  m2::RectD GetViewport(TypesHolder const & types, m2::RectD const & limitRect) const
   {
-    m2::RectD limitR = f.GetLimitRect(-2);
-    if (f.GetFeatureType() != feature::GEOM_POINT)
-    {
-      CorrectRectForScales(f, limitR.Center(), limitR);
-      return limitR;
-    }
-
-    feature::TypesHolder types(f);
+    if (types.GetGeoType() != feature::GEOM_POINT)
+      return CorrectRectForScales(types, limitRect);
 
     int const upperScale = scales::GetUpperScale();
     int scale = upperScale;
     for (size_t i = 0; i < types.Size(); ++i)
-      scale = min(scale, GetScaleForType(types[i], f));
+      scale = min(scale, GetScaleForType(types[i]));
 
-    CorrectScaleForVisibility(f, scale);
+    CorrectScaleForVisibility(types, scale);
 
-    m2::PointD const centerXY = limitR.Center();
+    m2::PointD const centerXY = limitRect.Center();
     return scales::GetRectForLevel(scale, centerXY, 1.0);
   }
 
-  uint8_t GetSearchRank(FeatureType const & feature) const
+  uint8_t GetSearchRank(TypesHolder const & types, uint32_t population) const
   {
-    uint32_t population = feature.GetPopulation();
-
-    feature::TypesHolder types(feature);
-
     for (size_t i = 0; i < types.Size(); ++i)
     {
       if (IsEqual(types[i], m_TypeSmallVillage))
@@ -120,7 +109,7 @@ public:
 private:
 
   // Returns width and height (lon and lat) for a given type.
-  int GetScaleForType(uint32_t const type, FeatureType const & feature) const
+  int GetScaleForType(uint32_t const type) const
   {
     if (type == m_TypeContinent)
       return 2;
@@ -180,14 +169,14 @@ FeatureEstimator const & GetFeatureEstimator()
 
 }  // namespace feature::impl
 
-m2::RectD GetFeatureViewport(FeatureType const & feature)
+m2::RectD GetFeatureViewport(TypesHolder const & types, m2::RectD const & limitRect)
 {
-  return impl::GetFeatureEstimator().GetViewport(feature);
+  return impl::GetFeatureEstimator().GetViewport(types, limitRect);
 }
 
-uint8_t GetSearchRank(FeatureType const & feature)
+uint8_t GetSearchRank(TypesHolder const & types, uint32_t population)
 {
-  return impl::GetFeatureEstimator().GetSearchRank(feature);
+  return impl::GetFeatureEstimator().GetSearchRank(types, population);
 }
 
 } // namespace feature

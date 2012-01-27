@@ -13,6 +13,8 @@ class FeatureBase;
 
 namespace feature
 {
+  class TypesHolder;
+
   // Note! do not change this values. Should be equal with EGeomType.
   enum FeatureGeoType {
     FEATURE_TYPE_POINT = 0,
@@ -25,6 +27,8 @@ namespace feature
   bool IsDrawableForIndex(FeatureBase const & f, int level);
 
   int MinDrawableScaleForFeature(FeatureBase const & f);
+
+  pair<int, int> DrawableScaleRangeForText(TypesHolder const & types);
   pair<int, int> DrawableScaleRangeForText(FeatureBase const & f);
 
   /// @return (geometry type, is coastline)

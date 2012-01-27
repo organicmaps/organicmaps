@@ -280,10 +280,8 @@ namespace
   }
 }
 
-pair<int, int> DrawableScaleRangeForText(FeatureBase const & f)
+pair<int, int> DrawableScaleRangeForText(feature::TypesHolder const & types)
 {
-  feature::TypesHolder types(f);
-
   int const upBound = scales::GetUpperScale();
   int lowL = -1;
   for (int level = 0; level <= upBound; ++level)
@@ -309,6 +307,11 @@ pair<int, int> DrawableScaleRangeForText(FeatureBase const & f)
   }
 
   return make_pair(lowL, highL);
+}
+
+pair<int, int> DrawableScaleRangeForText(FeatureBase const & f)
+{
+  return DrawableScaleRangeForText(TypesHolder(f));
 }
 
 bool IsHighway(vector<uint32_t> const & types)

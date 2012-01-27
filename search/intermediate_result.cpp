@@ -25,7 +25,7 @@ IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, m2::Point
                                        string const & fileName)
   : m_types(f),
     m_str(displayName),
-    m_rect(feature::GetFeatureViewport(f)),
+    m_rect(f.GetLimitRect(-2)),
     m_resultType(RESULT_FEATURE)
 {
   ASSERT_GREATER(m_types.Size(), 0, ());
@@ -42,7 +42,7 @@ IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, m2::Point
   // get common params
   m_distance = ResultDistance(pos, m_rect.Center());
   m_direction = ResultDirection(pos, m_rect.Center());
-  m_searchRank = feature::GetSearchRank(f);
+  m_searchRank = feature::GetSearchRank(m_types, f.GetPopulation());
   m_viewportDistance = ViewportDistance(viewportRect, m_rect.Center());
 }
 
@@ -130,7 +130,8 @@ Result IntermediateResult::GenerateFinalResult(
                   + ' ' + strings::to_string(static_cast<int>(m_searchRank))
               #endif
                   ,
-                  GetBestType(), m_rect, m_distance, m_direction);
+                  GetBestType(), feature::GetFeatureViewport(m_types, m_rect),
+                  m_distance, m_direction);
 
   case RESULT_LATLON:
     return Result(m_str, info.m_name, info.m_flag, GetFeatureType(pCat),
