@@ -402,7 +402,6 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 
 - (void)onGpsUpdate:(location::GpsInfo const &)info
 {
-  m_framework->UpdateGpsInfo(info);
 
   NSArray * cells = [m_table visibleCells];
   for (NSUInteger i = 0; i < cells.count; ++i)
@@ -410,6 +409,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
     UITableViewCell * cell = (UITableViewCell *)[cells objectAtIndex:i];
     [self updateCellDistance:cell withIndex:[m_table indexPathForCell:cell].row];
   }
+  m_framework->GetSearchEngine()->SetPosition(info.m_latitude, info.m_longitude);
 }
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info

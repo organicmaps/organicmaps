@@ -715,11 +715,6 @@ void Framework::Search(string const & text, SearchCallbackT callback)
   pSearchEngine->Search(text, callback);
 }
 
-void Framework::UpdateGpsInfo(location::GpsInfo const & info)
-{
-  GetSearchEngine()->SetPosition(info.m_latitude, info.m_longitude);
-}
-
 void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 {
   threads::MutexGuard g(m_renderMutex);

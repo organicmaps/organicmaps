@@ -149,7 +149,6 @@ public:
 
   search::Engine * GetSearchEngine();
   void Search(string const & text, SearchCallbackT callback);
-  void UpdateGpsInfo(location::GpsInfo const & info);
 
   void SetMaxWorldRect();
 
