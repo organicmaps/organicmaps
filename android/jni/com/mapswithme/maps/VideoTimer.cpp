@@ -46,12 +46,12 @@ namespace android
 
   void VideoTimer::start()
   {
-//    if (g_smartGLSurfaceView)
-//    {
-//      JNIEnv * env = jni::GetEnv();
-//      ASSERT(env, ("JNIEnv is null"));
-//      env->CallVoidMethod(g_smartGLSurfaceView, g_requestRenderMethodID);
-//    }
+    if (g_smartGLSurfaceView)
+    {
+      JNIEnv * env = jni::GetEnv();
+      ASSERT(env, ("JNIEnv is null"));
+      env->CallVoidMethod(g_smartGLSurfaceView, g_requestRenderMethodID);
+    }
   }
 
   void VideoTimer::resume()

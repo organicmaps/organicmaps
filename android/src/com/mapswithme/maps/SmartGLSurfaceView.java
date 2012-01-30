@@ -34,9 +34,9 @@ public class SmartGLSurfaceView extends GLSurfaceView
   private void init()
   {
     setEGLConfigChooser(true);
-    m_renderer = new SmartRenderer();
+    m_renderer = new SmartRenderer(this);
     setRenderer(m_renderer);
-    //setRenderMode(RENDERMODE_CONTINUOUSLY); enabled by default
+    setRenderMode(RENDERMODE_WHEN_DIRTY);
 
     m_tryToLoadResourcesIfReady = new Runnable()
     {
@@ -85,6 +85,7 @@ public class SmartGLSurfaceView extends GLSurfaceView
     m_renderer.m_isActive = true;
     super.onResume();
     queueEvent(m_tryToLoadResourcesIfReady);
+    requestRender();
   }
 
   @Override
@@ -107,7 +108,10 @@ public class SmartGLSurfaceView extends GLSurfaceView
   {
     m_renderer.m_isFocused = hasFocus;
     if (hasFocus)
+    {
       queueEvent(m_tryToLoadResourcesIfReady);
+      requestRender();
+    }
   }
 
   private final static int START_CMD = 0;
@@ -201,6 +205,7 @@ public class SmartGLSurfaceView extends GLSurfaceView
       break;
     }
 
+    requestRender();
     return true;
   }
 
@@ -223,8 +228,11 @@ class SmartRenderer implements GLSurfaceView.Renderer
 
   private boolean m_areResourcesLoaded = false;
 
-  public SmartRenderer()
+  private SmartGLSurfaceView m_view;
+
+  public SmartRenderer(SmartGLSurfaceView view)
   {
+    m_view = view;
   }
 
   public void loadResources()
@@ -256,7 +264,7 @@ class SmartRenderer implements GLSurfaceView.Renderer
     {
       if (!m_areResourcesLoaded)
         loadResources();
-      else if (m_isFocused)
+      if (m_isFocused)
       {
         Log.d(TAG, "***Draw***");
         nativeDrawFrame();
