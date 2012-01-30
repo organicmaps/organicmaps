@@ -257,11 +257,8 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
 
   m_drawScale = curCvg->GetDrawScale();
 
-  if (!curCvg->IsEmptyDrawingCoverage())
+  if (!curCvg->IsEmptyDrawingCoverage() || !curCvg->IsPartialCoverage())
     m_isEmptyModel = curCvg->IsEmptyDrawingCoverage();
-  else
-    if (!curCvg->IsPartialCoverage())
-      m_isEmptyModel = curCvg->IsEmptyDrawingCoverage();
 
   pDrawer->endFrame();
 
