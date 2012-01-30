@@ -7,21 +7,31 @@
 
 #include "../../platform/platform.hpp"
 
+#include "../../base/logging.hpp"
+
 
 using namespace storage;
 
+namespace
+{
+  typedef storage::CountryInfoGetter CountryInfoT;
+  CountryInfoT * GetCountryInfo()
+  {
+    Platform & pl = GetPlatform();
+    return new CountryInfoT(pl.GetReader(PACKED_POLYGONS_FILE),
+                            pl.GetReader(COUNTRIES_FILE));
+  }
+}
+
 UNIT_TEST(CountryInfo_GetByPoint_Smoke)
 {
-  Platform & pl = GetPlatform();
-
-  storage::CountryInfoGetter getter(pl.GetReader(PACKED_POLYGONS_FILE),
-                                    pl.GetReader(COUNTRIES_FILE));
+  scoped_ptr<CountryInfoT> getter(GetCountryInfo());
 
   // Minsk
   CountryInfo info;
-  getter.GetRegionInfo(m2::PointD(MercatorBounds::LonToX(27.5618818),
-                                  MercatorBounds::LatToY(53.9022651)),
-                       info);
+  getter->GetRegionInfo(m2::PointD(MercatorBounds::LonToX(27.5618818),
+                                   MercatorBounds::LatToY(53.9022651)),
+                        info);
 
   TEST_EQUAL(info.m_name, "Belarus", ());
   TEST_EQUAL(info.m_flag, "by", ());
@@ -50,4 +60,10 @@ UNIT_TEST(CountryInfo_ValidName_Smoke)
 
   TEST(IsEmptyName(id2info, "Russia_Far Eastern"), ());
   TEST(IsEmptyName(id2info, "UK_Northern Ireland"), ());
+}
+
+UNIT_TEST(CountryInfo_USARect)
+{
+  scoped_ptr<CountryInfoT> getter(GetCountryInfo());
+  LOG(LINFO, (getter->CalcUSALimitRect()));
 }

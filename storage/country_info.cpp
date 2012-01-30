@@ -108,14 +108,29 @@ namespace storage
     if (info.m_name.empty())
       info.m_name = id;
 
-    if (id.find_first_of('_') != string::npos)
+    if (id.find('_') != string::npos)
     {
-      size_t const i = info.m_name.find_first_of('_');
+      size_t const i = info.m_name.find('_');
       ASSERT ( i != string::npos, () );
 
       // replace '_' with ", "
       info.m_name[i] = ',';
       info.m_name.insert(i+1, " ");
     }
+  }
+
+  m2::RectD CountryInfoGetter::CalcUSALimitRect() const
+  {
+    m2::RectD r;
+    for (size_t i = 0; i < m_countries.size(); ++i)
+    {
+      if ((m_countries[i].m_name.find("USA_") != string::npos) &&
+          (m_countries[i].m_name != "USA_Alaska") &&
+          (m_countries[i].m_name != "USA_Hawaii"))
+      {
+        r.Add(m_countries[i].m_rect);
+      }
+    }
+    return r;
   }
 }

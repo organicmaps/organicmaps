@@ -45,5 +45,7 @@ namespace storage
 
     void GetRegionInfo(m2::PointD const & pt, CountryInfo & info) const;
     void GetRegionInfo(string const & id, CountryInfo & info) const;
+
+    m2::RectD CalcUSALimitRect() const;
   };
 }
