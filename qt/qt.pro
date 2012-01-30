@@ -50,7 +50,7 @@ macx* {
     CLASSIFICATOR_RES.files += ../data/drules_proto.txt
   }
   SKIN_RES.path = Contents/Resources
-  SKIN_RES.files = ../data/basic_ldpi.skn ../data/symbols_ldpi.png
+  SKIN_RES.files = ../data/basic_mdpi.skn ../data/symbols_mdpi.png
   FONT_RES.path = Contents/Resources
   FONT_RES.files = ../data/01_dejavusans.ttf \
                    ../data/02_wqy-microhei.ttf \
