@@ -93,7 +93,7 @@ int Platform::CpuCores() const
   long const newNumCPU = sysconf(_SC_NPROCESSORS_CONF);
 
   if (newNumCPU != numCPU)
-    LOG(LERROR, ("initially retrived", numCPU, "and now got", newNumCPU, "processors"));
+    LOG(LWARNING, ("initially retrived", numCPU, "and now got", newNumCPU, "processors"));
 
   if (numCPU >= 1)
     return static_cast<int>(numCPU);
