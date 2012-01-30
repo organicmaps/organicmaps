@@ -1,5 +1,3 @@
-#include "../../base/SRC_FIRST.hpp"
-
 #include "../../testing/testing.hpp"
 
 #include "../../platform/platform.hpp"
@@ -37,7 +35,7 @@ protected:
     m_dbgString = f.DebugString(m_scale);
     CHECK(m_dbgString == f.DebugString(m_scale), ());
 
-    // Feature that hasn't any geometry for m_scale returns empty DebugString().
+    // Feature that doesn't have any geometry for m_scale returns empty DebugString().
     return (!f.IsEmptyGeometry(m_scale) && feature::IsDrawableForIndex(f, m_scale));
   }
 
@@ -277,12 +275,10 @@ namespace
     src1.InitClassificator();
     src1.AddMap(file);
 
-    feature::DataHeader mapInfo;
-    ModelReaderPtr reader = GetPlatform().GetReader(file);
-    mapInfo.Load(FilesContainerR(reader).GetReader(HEADER_FILE_TAG));
-
     vector<m2::RectD> rects;
-    rects.push_back(mapInfo.GetBounds());
+    rects.push_back(src1.GetWorldRect());
+
+    ModelReaderPtr reader = GetPlatform().GetReader(file);
 
     while (!rects.empty())
     {
@@ -327,7 +323,7 @@ namespace
   }
 }
 
-UNIT_TEST(IndexForEachTest)
+UNIT_TEST(ForEach_QueryResults)
 {
   RunTestForChoice("minsk-pass");
   //RunTestForChoice("london-center");

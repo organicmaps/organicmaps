@@ -24,3 +24,4 @@ SOURCES += \
   map_foreach_test.cpp \
   debug_features_test.cpp \
   draw_processor_test.cpp \
+  multithread_map_test.cpp \
