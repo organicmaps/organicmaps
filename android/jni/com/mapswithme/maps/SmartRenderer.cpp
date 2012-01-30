@@ -8,25 +8,25 @@ extern "C"
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_SmartRenderer_nativeLoadResources(JNIEnv * env, jobject thiz)
 {
-  android::GetFramework().InitRenderPolicy();
+  g_framework->InitRenderPolicy();
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_SmartRenderer_nativeUnloadResources(JNIEnv * env, jobject thiz)
 {
-  android::GetFramework().DeleteRenderPolicy();
+  g_framework->DeleteRenderPolicy();
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_SmartRenderer_nativeDrawFrame(JNIEnv * env, jobject thiz)
 {
-  android::GetFramework().DrawFrame();
+  g_framework->DrawFrame();
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_SmartRenderer_nativeResize(JNIEnv * env, jobject thiz, jint width, jint height)
 {
-  android::GetFramework().Resize(width, height);
+  g_framework->Resize(width, height);
 }
 
 }

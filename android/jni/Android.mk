@@ -12,14 +12,16 @@ TARGET_PLATFORM := android-5
 
 LOCAL_HEADER_FILES := \
  	com/mapswithme/core/jni_helper.hpp \
+	com/mapswithme/core/jni_string.hpp \
 	com/mapswithme/core/logging.hpp \
 	com/mapswithme/core/render_context.hpp \
 	com/mapswithme/maps/Framework.hpp \
-	com/mapswithme/maps/VideoTimer.hpp \
 	com/mapswithme/platform/Platform.hpp \
+	com/mapswithme/platform/http_thread_android.hpp \
 
 LOCAL_SRC_FILES := \
 	com/mapswithme/core/jni_helper.cpp \
+	com/mapswithme/core/jni_string.cpp \
 	com/mapswithme/core/logging.cpp \
 	com/mapswithme/core/render_context.cpp \
 	com/mapswithme/maps/DownloadUI.cpp \
@@ -31,7 +33,8 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/platform/Platform.cpp \
 	com/mapswithme/platform/HttpThread.cpp \
 	com/mapswithme/platform/Language.cpp \
-	com/mapswithme/platform/PThreadImpl.cpp \
+	com/mapswithme/jni/jni_thread.cpp \
+	com/mapswithme/jni/jni_method.cpp \
 
 LOCAL_LDLIBS := -llog -lGLESv1_CM \
 		-lmap -lversion -lsearch -lstorage -lindexer -lyg -lplatform \

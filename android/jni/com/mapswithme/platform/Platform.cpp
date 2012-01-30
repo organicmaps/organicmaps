@@ -1,5 +1,7 @@
 #include "Platform.hpp"
 
+#include "../core/jni_string.hpp"
+
 #include "../../../../../base/logging.hpp"
 
 #include "../../../../../std/algorithm.hpp"
@@ -11,7 +13,8 @@ public:
   PlatformImpl(int densityDpi, int screenWidth, int screenHeight)
   { // Constants are taken from android.util.DisplayMetrics
 
-    // ceiling screen sizes to the nearest power of two, and taking half of it as a tile size
+    /// ceiling screen sizes to the nearest power of two, and taking half of it as a tile size
+
     double const log2 = log(2.0);
 
     screenWidth = static_cast<int>(pow(2.0, ceil(log(double(screenWidth)) / log2)));
@@ -19,15 +22,15 @@ public:
 
     m_tileSize = min(max(max(screenWidth, screenHeight) / 2, 128), 512);
 
-    int const k = static_cast<int>((256.0 / m_tileSize) * (256.0 / m_tileSize));
+    int k = static_cast<int>((256.0 / m_tileSize) * (256.0 / m_tileSize));
 
-    // calculating how much tiles we need for the screen of such size
+    /// calculating how much tiles we need for the screen of such size
 
-    // pure magic ;)
+    /// pure magic ;)
 
-    double const rotatedScreenCircleDiameter = sqrt(screenWidth * screenWidth + screenHeight * screenHeight);
-    int const tilesOnOneSide = ceil(rotatedScreenCircleDiameter / (m_tileSize / 1.05 / 2));
-    int const singleScreenTilesCount = tilesOnOneSide * tilesOnOneSide;
+    double rotatedScreenCircleDiameter = sqrt(screenWidth * screenWidth + screenHeight * screenHeight);
+    int tilesOnOneSide = ceil(rotatedScreenCircleDiameter / (m_tileSize / 1.05 / 2));
+    int singleScreenTilesCount = tilesOnOneSide * tilesOnOneSide;
     m_maxTilesCount = singleScreenTilesCount * 2;
 
     LOG(LINFO, ("minimum amount of tiles needed is", m_maxTilesCount));
@@ -91,19 +94,24 @@ namespace android
     delete m_impl;
   }
 
-  void Platform::Initialize(int densityDpi, int screenWidth, int screenHeight,
-      string const & apkPath,
-      string const & storagePath, string const & tmpPath,
-      string const & extTmpPath, string const & settingsPath)
+  void Platform::Initialize(JNIEnv * env,
+                            jint densityDpi,
+                            jint screenWidth,
+                            jint screenHeight,
+                            jstring apkPath,
+                            jstring storagePath,
+                            jstring tmpPath,
+                            jstring extTmpPath,
+                            jstring settingsPath)
   {
     m_impl = new PlatformImpl(densityDpi, screenWidth, screenHeight);
 
-    m_resourcesDir = apkPath;
-    m_writableDir = storagePath;
-    m_settingsDir = settingsPath;
+    m_resourcesDir = jni::ToString(env, apkPath);
+    m_writableDir = jni::ToString(env, storagePath);
+    m_settingsDir = jni::ToString(env, settingsPath);
 
-    m_localTmpPath = tmpPath;
-    m_externalTmpPath = extTmpPath;
+    m_localTmpPath = jni::ToString(env, tmpPath);
+    m_externalTmpPath = jni::ToString(env, extTmpPath);
     // By default use external temporary folder
     m_tmpDir = m_externalTmpPath;
 

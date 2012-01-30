@@ -1,6 +1,15 @@
+/*
+ * render_context.hpp
+ *
+ *  Created on: Oct 14, 2011
+ *      Author: siarheirachytski
+ */
+
 #pragma once
 
 #include "../../../../../yg/rendercontext.hpp"
+
+#include "../../../../../std/shared_ptr.hpp"
 
 namespace android
 {
@@ -10,7 +19,9 @@ namespace android
     RenderContext();
 
     virtual void makeCurrent();
+
     virtual shared_ptr<yg::gl::RenderContext> createShared();
+
     virtual void endThreadDrawing();
   };
 }

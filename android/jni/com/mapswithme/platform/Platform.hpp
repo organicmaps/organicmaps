@@ -1,5 +1,7 @@
 #pragma once
 
+#include <jni.h>
+
 #include "../../../../../platform/platform.hpp"
 
 namespace android
@@ -13,10 +15,15 @@ namespace android
 
   public:
     ~Platform();
-    void Initialize(int densityDpi, int screenWidth, int screenHeight,
-        string const & apkPath,
-        string const & storagePath, string const & tmpPath,
-        string const & extTmpPath, string const & settingsPath);
+    void Initialize(JNIEnv * env,
+                    jint densityDpi,
+                    jint screenWidth,
+                    jint screenHeight,
+                    jstring apkPath,
+                    jstring storagePath,
+                    jstring tmpPath,
+                    jstring extTmpPath,
+                    jstring settingsPath);
 
     void OnExternalStorageStatusChanged(bool isAvailable);
 

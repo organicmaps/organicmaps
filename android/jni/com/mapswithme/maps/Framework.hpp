@@ -3,7 +3,6 @@
 #include <jni.h>
 
 #include "../../../../../map/framework.hpp"
-#include "VideoTimer.hpp"
 
 namespace android
 {
@@ -12,7 +11,7 @@ namespace android
   private:
     ::Framework m_work;
 
-    android::VideoTimer m_videoTimer;
+    VideoTimer * m_videoTimer;
 
     void CallRepaint();
 
@@ -20,9 +19,18 @@ namespace android
 
     void CreateResourceManager();
 
+    double m_x1;
+    double m_y1;
+    double m_x2;
+    double m_y2;
+
+    bool m_hasFirst;
+    bool m_hasSecond;
+    int m_mask;
+
   public:
 
-    Framework();
+    Framework(JavaVM * jvm);
     ~Framework();
 
     storage::Storage & Storage();
@@ -51,6 +59,6 @@ namespace android
     void AddLocalMaps() { m_work.AddLocalMaps(); }
     void RemoveLocalMaps() { m_work.RemoveLocalMaps(); }
   };
-
-  Framework & GetFramework();
 }
+
+extern android::Framework * g_framework;

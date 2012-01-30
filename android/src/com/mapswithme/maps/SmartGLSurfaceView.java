@@ -1,12 +1,9 @@
 package com.mapswithme.maps;
 
-import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.egl.EGLContext;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.opengl.GLSurfaceView;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -37,7 +34,7 @@ public class SmartGLSurfaceView extends GLSurfaceView
   private void init()
   {
     setEGLConfigChooser(true);
-    m_renderer = new SmartRenderer(this);
+    m_renderer = new SmartRenderer();
     setRenderer(m_renderer);
     setRenderMode(RENDERMODE_WHEN_DIRTY);
 
@@ -59,6 +56,7 @@ public class SmartGLSurfaceView extends GLSurfaceView
   {
     Log.d(TAG, "surfaceCreated");
     m_renderer.m_isBaseSurfaceReady = false;
+    nativeSetRedraw(false);
     super.surfaceCreated(holder);
   }
 
@@ -67,9 +65,9 @@ public class SmartGLSurfaceView extends GLSurfaceView
   {
     Log.d(TAG, "surfaceChanged " + w + " " + h);
     m_renderer.m_isBaseSurfaceReady = true;
+    nativeSetRedraw(true);
     super.surfaceChanged(holder, format, w, h);
     queueEvent(m_tryToLoadResourcesIfReady);
-    nativeBind(true);
   }
 
   @Override
@@ -78,9 +76,9 @@ public class SmartGLSurfaceView extends GLSurfaceView
     Log.d(TAG, "surfaceDestroyed");
     m_renderer.m_isBaseSurfaceReady = false;
     m_renderer.m_isLocalSurfaceReady = false;
+    nativeSetRedraw(false);
     super.surfaceDestroyed(holder);
     queueEvent(m_unloadResources);
-    nativeBind(false);
   }
 
   @Override
@@ -124,85 +122,50 @@ public class SmartGLSurfaceView extends GLSurfaceView
   @Override
   public boolean onTouchEvent (MotionEvent event)
   {
-    final float x1, y1, x2, y2;
     switch (event.getAction() & MotionEvent.ACTION_MASK)
     {
     case MotionEvent.ACTION_DOWN:
-      x1 = event.getX(); y1 = event.getY();
-      queueEvent(new Runnable() {@Override public void run() {nativeMove(START_CMD, x1, y1);}});
+      nativeMove(START_CMD, event.getX(), event.getY());
       break;
 
     case MotionEvent.ACTION_POINTER_DOWN:
       if (event.getPointerId(0) < event.getPointerId(1))
-      {
-        x1 = event.getX(0); y1 = event.getY(0); x2 = event.getX(1); y2 = event.getY(1);
-      }
+        nativeZoom(START_CMD, event.getX(0), event.getY(0), event.getX(1), event.getY(1));
       else
-      {
-        x1 = event.getX(1); y1 = event.getY(1); x2 = event.getX(0); y2 = event.getY(0);
-      }
-      queueEvent(new Runnable() {@Override public void run() {nativeZoom(START_CMD, x1, y1, x2, y2);}});
+        nativeZoom(START_CMD, event.getX(1), event.getY(1), event.getX(0), event.getY(0));
       break;
 
     case MotionEvent.ACTION_MOVE:
       if (event.getPointerCount() > 1)
       {
         if (event.getPointerId(0) < event.getPointerId(1))
-        {
-          x1 = event.getX(0); y1 = event.getY(0); x2 = event.getX(1); y2 = event.getY(1);
-        }
+          nativeZoom(DO_CMD, event.getX(0), event.getY(0), event.getX(1), event.getY(1));
         else
-        {
-          x1 = event.getX(1); y1 = event.getY(1); x2 = event.getX(0); y2 = event.getY(0);
-        }
-        queueEvent(new Runnable() {@Override public void run() {nativeZoom(DO_CMD, x1, y1, x2, y2);}});
+          nativeZoom(DO_CMD, event.getX(1), event.getY(1), event.getX(0), event.getY(0));
       }
       else
-      {
-        x1 = event.getX(); y1 = event.getY();
-        queueEvent(new Runnable() {@Override public void run() {nativeMove(DO_CMD, x1, y1);}});
-      }
+        nativeMove(DO_CMD, event.getX(), event.getY());
       break;
 
     case MotionEvent.ACTION_POINTER_UP:
       if (event.getPointerId(0) < event.getPointerId(1))
-      {
-        x1 = event.getX(0); y1 = event.getY(0); x2 = event.getX(1); y2 = event.getY(1);
-      }
+        nativeZoom(STOP_CMD, event.getX(0), event.getY(0), event.getX(1), event.getY(1));
       else
-      {
-        x1 = event.getX(1); y1 = event.getY(1); x2 = event.getX(0); y2 = event.getY(0);
-      }
-      queueEvent(new Runnable() {@Override public void run() {nativeZoom(STOP_CMD, x1, y1, x2, y2);}});
+        nativeZoom(STOP_CMD, event.getX(1), event.getY(1), event.getX(0), event.getY(0));
       final int leftIndex = ((event.getAction() & MotionEvent.ACTION_POINTER_INDEX_MASK)
           >> MotionEvent.ACTION_POINTER_ID_SHIFT) == 0 ? 1 : 0;
-      final float x = event.getX(leftIndex), y = event.getY(leftIndex);
-      queueEvent(new Runnable() {@Override public void run() {nativeMove(START_CMD, x, y);}});
+      nativeMove(START_CMD, event.getX(leftIndex), event.getY(leftIndex));
       break;
 
     case MotionEvent.ACTION_UP:
-      x1 = event.getX(); y1 = event.getY();
-      queueEvent(new Runnable() {@Override public void run() {nativeMove(STOP_CMD, x1, y1);}});
+      nativeMove(STOP_CMD, event.getX(), event.getY());
       break;
 
     case MotionEvent.ACTION_CANCEL:
       if (event.getPointerCount() > 1)
-      {
-        if (event.getPointerId(0) < event.getPointerId(1))
-        {
-          x1 = event.getX(0); y1 = event.getY(0); x2 = event.getX(1); y2 = event.getY(1);
-        }
-        else
-        {
-          x1 = event.getX(1); y1 = event.getY(1); x2 = event.getX(0); y2 = event.getY(0);
-        }
-        queueEvent(new Runnable() {@Override public void run() {nativeZoom(STOP_CMD, x1, y1, x2, y2);}});
-      }
+        nativeZoom(STOP_CMD, event.getX(0), event.getY(0), event.getX(1), event.getY(1));
       else
-      {
-        x1 = event.getX(); y1 = event.getY();
-        queueEvent(new Runnable() {@Override public void run() {nativeMove(STOP_CMD, x1, y1);}});
-      }
+        nativeMove(STOP_CMD, event.getX(), event.getY());
     }
 
     requestRender();
@@ -212,7 +175,7 @@ public class SmartGLSurfaceView extends GLSurfaceView
   // Mode 0 - Start, 1 - Do, 2 - Stop
   private native void nativeMove(int mode, float x, float y);
   private native void nativeZoom(int mode, float x1, float y1, float x2, float y2);
-  private native void nativeBind(boolean isBound);
+  private native void nativeSetRedraw(boolean isValid);
 }
 
 class SmartRenderer implements GLSurfaceView.Renderer
@@ -228,11 +191,8 @@ class SmartRenderer implements GLSurfaceView.Renderer
 
   private boolean m_areResourcesLoaded = false;
 
-  private SmartGLSurfaceView m_view;
-
-  public SmartRenderer(SmartGLSurfaceView view)
+  public SmartRenderer()
   {
-    m_view = view;
   }
 
   public void loadResources()
