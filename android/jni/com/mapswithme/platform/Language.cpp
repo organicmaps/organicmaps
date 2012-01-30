@@ -13,17 +13,11 @@ extern JavaVM * g_jvm;
 /// This function is called from native c++ code
 string GetAndroidSystemLanguage()
 {
-  ASSERT(g_jvm, ("g_jvm is NULL"));
   JNIEnv * env = 0;
-  bool wasAttached = false;
-  if (g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6) != JNI_OK)
+  if (!g_jvm || g_jvm->AttachCurrentThread(&env, 0) || !env)
   {
-    if (g_jvm->AttachCurrentThread(&env, 0) != JNI_OK)
-    {
-      LOG(LWARNING, ("Can't attach thread"));
-      return DEFAULT_LANG;
-    }
-    wasAttached = true;
+    LOG(LWARNING, ("Can't attach thread"));
+    return DEFAULT_LANG;
   }
 
   jclass localeClass = env->FindClass("java/util/Locale");
@@ -48,8 +42,6 @@ string GetAndroidSystemLanguage()
     result = langUtf8;
     env->ReleaseStringUTFChars(langString, langUtf8);
   }
-
-  if (wasAttached)
-    g_jvm->DetachCurrentThread();
+  g_jvm->DetachCurrentThread();
   return result;
 }

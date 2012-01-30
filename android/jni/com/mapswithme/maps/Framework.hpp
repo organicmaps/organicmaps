@@ -3,6 +3,10 @@
 #include <jni.h>
 
 #include "../../../../../map/framework.hpp"
+#include "../../../../../map/drawer_yg.hpp"
+#include "../../../../../map/window_handle.hpp"
+#include "../../../../../map/feature_vec_model.hpp"
+#include "../../../nv_event/nv_event.hpp"
 
 namespace android
 {
@@ -18,6 +22,8 @@ namespace android
     void CreateDrawer();
 
     void CreateResourceManager();
+
+    NVMultiTouchEventType m_eventType; //< multitouch action
 
     double m_x1;
     double m_y1;
@@ -50,6 +56,7 @@ namespace android
 
     void Move(int mode, double x, double y);
     void Zoom(int mode, double x1, double y1, double x2, double y2);
+    void Touch(int action, int mask, double x1, double y1, double x2, double y2);
 
     void LoadState();
     void SaveState();

@@ -5,6 +5,7 @@
 #include "Framework.hpp"
 #include "../platform/Platform.hpp"
 #include "../../../../../platform/settings.hpp"
+#include "../../../nv_event/nv_event.hpp"
 #include "../jni/jni_thread.hpp"
 #include "../../../../../base/logging.hpp"
 
@@ -21,6 +22,7 @@ extern "C"
     LOG(LINFO, ("logging services initialized"));
 
     jni::SetCurrentJVM(jvm);
+    InitNVEvent(jvm);
     g_jvm = jvm;
     LOG(LDEBUG, ("JNI_OnLoad"));
     return JNI_VERSION_1_6;
