@@ -125,16 +125,16 @@ void Framework::Resize(int w, int h)
 
 void Framework::DrawFrame()
 {
-//  if (m_work.NeedRedraw())
-//  {
-//    m_work.SetNeedRedraw(false);
+  if (m_work.NeedRedraw())
+  {
+    m_work.SetNeedRedraw(false);
 
     shared_ptr<PaintEvent> paintEvent(new PaintEvent(m_work.GetRenderPolicy()->GetDrawer().get()));
 
     m_work.BeginPaint(paintEvent);
     m_work.DoPaint(paintEvent);
     m_work.EndPaint(paintEvent);
-//  }
+  }
 }
 
 void Framework::Move(int mode, double x, double y)
