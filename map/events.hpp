@@ -56,29 +56,14 @@ class PaintEvent
   DrawerYG * m_drawer;
   core::CommandsQueue::Environment const * m_env;
   bool m_isCancelled;
+  bool m_isEmptyDrawing;
 
 public:
 
-  PaintEvent(DrawerYG * drawer, core::CommandsQueue::Environment const * env = 0)
-    : m_drawer(drawer), m_env(env), m_isCancelled(false)
-  {}
-
-  DrawerYG * drawer() const
-  {
-    return m_drawer;
-  }
-
-  void Cancel()
-  {
-    ASSERT(m_env == 0, ());
-    m_isCancelled = true;
-  }
-
-  bool isCancelled() const
-  {
-    if (m_env)
-      return m_env->isCancelled();
-    else
-      return m_isCancelled;
-  }
+  PaintEvent(DrawerYG * drawer, core::CommandsQueue::Environment const * env = 0);
+  DrawerYG * drawer() const;
+  void cancel();
+  bool isCancelled() const;
+  bool isEmptyDrawing() const;
+  void setIsEmptyDrawing(bool flag);
 };

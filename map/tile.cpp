@@ -8,15 +8,17 @@ Tile::Tile()
 {}
 
 Tile::Tile(shared_ptr<yg::gl::BaseTexture> const & renderTarget,
-     shared_ptr<yg::InfoLayer> const & infoLayer,
-     ScreenBase const & tileScreen,
-     Tiler::RectInfo const & rectInfo,
-     double duration)
+           shared_ptr<yg::InfoLayer> const & infoLayer,
+           ScreenBase const & tileScreen,
+           Tiler::RectInfo const & rectInfo,
+           double duration,
+           bool isEmptyDrawing)
   : m_renderTarget(renderTarget),
     m_infoLayer(infoLayer),
     m_tileScreen(tileScreen),
     m_rectInfo(rectInfo),
-    m_duration(duration)
+    m_duration(duration),
+    m_isEmptyDrawing(isEmptyDrawing)
 {}
 
 Tile::~Tile()

@@ -23,6 +23,7 @@ struct Tile
                            //< is performed on GUI thread.
   Tiler::RectInfo m_rectInfo; //< taken from tiler
   double m_duration; //< how long does it take to render tile
+  bool m_isEmptyDrawing; //< does this tile contains only coasts and oceans
 
   Tile();
 
@@ -30,7 +31,8 @@ struct Tile
        shared_ptr<yg::InfoLayer> const & infoLayer,
        ScreenBase const & tileScreen,
        Tiler::RectInfo const & rectInfo,
-       double duration);
+       double duration,
+       bool isEmptyDrawing);
 
   ~Tile();
 };

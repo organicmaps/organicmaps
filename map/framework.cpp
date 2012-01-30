@@ -339,6 +339,8 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
     }
   }
 
+  e->setIsEmptyDrawing(doDraw.IsEmptyDrawing());
+
   if (m_navigator.Update(m_timer.ElapsedSeconds()))
     Invalidate();
 }

@@ -220,7 +220,12 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
       m_resourceManager->renderTargetTextures()->Free(tileTarget);
   }
   else
-    AddTile(rectInfo, Tile(tileTarget, tileInfoLayer, frameScreen, rectInfo, duration));
+    AddTile(rectInfo, Tile(tileTarget,
+                           tileInfoLayer,
+                           frameScreen,
+                           rectInfo,
+                           duration,
+                           paintEvent->isEmptyDrawing()));
 }
 
 void TileRenderer::AddCommand(Tiler::RectInfo const & rectInfo, int sequenceID, core::CommandsQueue::Chain const & afterTileFns)

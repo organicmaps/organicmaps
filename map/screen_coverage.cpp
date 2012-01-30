@@ -16,6 +16,7 @@ ScreenCoverage::ScreenCoverage()
   : m_tiler(0, 0),
     m_infoLayer(new yg::InfoLayer()),
     m_drawScale(0),
+    m_isEmptyDrawingCoverage(true),
     m_stylesCache(0)
 {
   m_infoLayer->setCouldOverlap(false);
@@ -29,6 +30,7 @@ ScreenCoverage::ScreenCoverage(TileRenderer * tileRenderer,
     m_tiler(tileSize, scaleEtalonSize),
     m_infoLayer(new yg::InfoLayer()),
     m_drawScale(0),
+    m_isEmptyDrawingCoverage(true),
     m_coverageGenerator(coverageGenerator),
     m_stylesCache(0)
 {
@@ -44,7 +46,9 @@ ScreenCoverage * ScreenCoverage::Clone()
   res->m_screen = m_screen;
   res->m_coverageGenerator = m_coverageGenerator;
   res->m_tileRects = m_tileRects;
+  res->m_newTileRects = m_newTileRects;
   res->m_drawScale = m_drawScale;
+  res->m_isEmptyDrawingCoverage = m_isEmptyDrawingCoverage;
 
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
 
@@ -104,6 +108,9 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
        tileCache->lockTile(ri);
        m_tiles.insert(tile);
        m_tileRects.erase(ri);
+       m_newTileRects.erase(ri);
+
+       m_isEmptyDrawingCoverage &= tile->m_isEmptyDrawing;
     }
   }
 
@@ -149,6 +156,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 {
   m_screen = screen;
 
+  m_newTileRects.clear();
   m_tiler.seed(m_screen, m_screen.GlobalRect().GlobalCenter());
 
   vector<Tiler::RectInfo> allRects;
@@ -171,6 +179,8 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 
   m_drawScale = drawScale == -1 ? 0 : drawScale;
 
+  m_isEmptyDrawingCoverage = true;
+
   for (unsigned i = 0; i < allRects.size(); ++i)
   {
     m_tileRects.insert(allRects[i]);
@@ -180,6 +190,9 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
       tileCache->touchTile(ri);
       Tile const * tile = &tileCache->getTile(ri);
       ASSERT(tiles.find(tile) == tiles.end(), ());
+
+      m_isEmptyDrawingCoverage &= tile->m_isEmptyDrawing;
+
       tiles.insert(tile);
     }
     else
@@ -226,6 +239,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
     delete tileInfoLayerCopy;
   }
 
+  copy(newRects.begin(), newRects.end(), inserter(m_newTileRects, m_newTileRects.end()));
   /// clearing all old commands
   m_tileRenderer->ClearCommands();
   /// setting new sequenceID
@@ -301,4 +315,14 @@ void ScreenCoverage::EndFrame(yg::gl::Screen *s)
 int ScreenCoverage::GetDrawScale() const
 {
   return m_drawScale;
+}
+
+bool ScreenCoverage::IsEmptyDrawingCoverage() const
+{
+  return m_isEmptyDrawingCoverage;
+}
+
+bool ScreenCoverage::IsPartialCoverage() const
+{
+  return !m_newTileRects.empty();
 }

@@ -78,7 +78,8 @@ SOURCES += \
     basic_render_policy.cpp \
     proto_to_yg_styles.cpp \
     test_render_policy.cpp \
-    queued_render_policy.cpp
+    queued_render_policy.cpp \
+    events.cpp
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp

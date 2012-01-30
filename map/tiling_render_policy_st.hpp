@@ -38,6 +38,7 @@ private:
   int m_maxTilesCount;
 
   int m_drawScale;
+  bool m_isEmptyModel;
 
 protected:
 
@@ -59,6 +60,7 @@ public:
   virtual void StopScale();
 
   bool IsTiling() const;
+  bool IsEmptyModel() const;
   int GetDrawScale(ScreenBase const & s) const;
 
   void SetRenderFn(TRenderFn renderFn);

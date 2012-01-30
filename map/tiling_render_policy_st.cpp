@@ -35,7 +35,8 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                            yg::ResourceManager::Params const & rmParams,
                                            shared_ptr<yg::gl::RenderContext> const & primaryRC)
   : QueuedRenderPolicy(GetPlatform().CpuCores() + 1, primaryRC, false),
-    m_drawScale(0)
+    m_drawScale(0),
+    m_isEmptyModel(false)
 {
   yg::ResourceManager::Params rmp = rmParams;
 
@@ -256,6 +257,12 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
 
   m_drawScale = curCvg->GetDrawScale();
 
+  if (!curCvg->IsEmptyDrawingCoverage())
+    m_isEmptyModel = curCvg->IsEmptyDrawingCoverage();
+  else
+    if (!curCvg->IsPartialCoverage())
+      m_isEmptyModel = curCvg->IsEmptyDrawingCoverage();
+
   pDrawer->endFrame();
 
 //  yg::gl::g_doLogOGLCalls = false;
@@ -286,5 +293,10 @@ void TilingRenderPolicyST::StopScale()
 bool TilingRenderPolicyST::IsTiling() const
 {
   return true;
+}
+
+bool TilingRenderPolicyST::IsEmptyModel() const
+{
+  return m_isEmptyModel;
 }
 

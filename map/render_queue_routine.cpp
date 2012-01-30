@@ -61,7 +61,7 @@ void RenderQueueRoutine::Cancel()
     if (m_currentRenderCommand != 0)
     {
       LOG(LDEBUG, ("cancelling current renderCommand in progress"));
-      m_currentRenderCommand->m_paintEvent->Cancel();
+      m_currentRenderCommand->m_paintEvent->cancel();
     }
 
     LOG(LDEBUG, ("waking up the sleeping thread..."));
@@ -557,7 +557,7 @@ void RenderQueueRoutine::addCommand(render_fn_t const & fn, ScreenBase const & f
   /// else, if we are not panning, we should cancel the render command in progress to start a new one
   if ((m_currentRenderCommand != 0)
    && (!IsPanningAndRotate(m_currentRenderCommand->m_frameScreen, frameScreen)))
-    m_currentRenderCommand->m_paintEvent->Cancel();
+    m_currentRenderCommand->m_paintEvent->cancel();
 
   if (needToSignal)
     guard.Signal();

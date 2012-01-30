@@ -32,21 +32,30 @@ class ScreenCoverage
 {
 private:
 
-  TileRenderer * m_tileRenderer; //< queue to put new rendering tasks in
-  Tiler m_tiler; //< tiler to compute visible and predicted tiles
-
-  ScreenBase  m_screen; //< last covered screen
-
-  typedef set<Tile const *, LessRectInfo> TileSet;
-
+  /// Queue to put new rendering tasks in
+  TileRenderer * m_tileRenderer;
+  /// Tiler to compute visible and predicted tiles
+  Tiler m_tiler;
+  /// Last covered screen
+  ScreenBase  m_screen;
+  /// Container for a rects, that forms a set of tiles in the m_screen
   typedef set<Tiler::RectInfo> TileRectSet;
-  TileRectSet m_tileRects; //< rects, that forms a set of tiles in current rect.
-
-  TileSet m_tiles; //< set of tiles, that are visible for the m_screen
-  scoped_ptr<yg::InfoLayer> m_infoLayer; //< composite infoLayers for visible tiles
-
-  //< scales, which are used in the tiles, drawn in the current screen.
+  /// All rects, including rects which corresponds to a tiles in m_tiles
+  TileRectSet m_tileRects;
+  /// Only rects, that should be drawn
+  TileRectSet m_newTileRects;
+  /// Typedef for a set of tiles, that are visible for the m_screen
+  typedef set<Tile const *, LessRectInfo> TileSet;
+  TileSet m_tiles;
+  /// InfoLayer composed of infoLayers for visible tiles
+  scoped_ptr<yg::InfoLayer> m_infoLayer;
+  /// Primary scale, which is used to draw tiles in m_screen.
+  /// Not all tiles could correspond to this value, as there could be tiles from
+  /// lower and higher level in the coverage to provide a smooth
+  /// scale transition experience
   int m_drawScale;
+
+  bool m_isEmptyDrawingCoverage;
 
   CoverageGenerator * m_coverageGenerator;
   yg::StylesCache * m_stylesCache;
@@ -64,14 +73,17 @@ public:
                  size_t scaleEtalonSize);
 
   ScreenCoverage * Clone();
-
+  /// Is this screen coverage partial, which means that it contains non-drawn rects
+  bool IsPartialCoverage() const;
+  /// Is this screen coverage contains only empty tiles
+  bool IsEmptyDrawingCoverage() const;
+  /// Setters/Getters for current stylesCache
   void SetStylesCache(yg::StylesCache * stylesCache);
   yg::StylesCache * GetStylesCache() const;
-
+  /// Getter for InfoLayer
   yg::InfoLayer * GetInfoLayer() const;
-
+  /// Cache info layer on current style cache
   void CacheInfoLayer();
-
   /// add rendered tile to coverage. Tile is locked, so make sure to unlock it in case it's not needed.
   void Merge(Tiler::RectInfo const & ri);
   /// remove tile from coverage
