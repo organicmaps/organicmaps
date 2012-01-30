@@ -66,18 +66,18 @@ struct FeatureInserter
 
   explicit FeatureInserter(StringsFile & names) : m_names(names) {}
 
-  void operator() (FeatureType const & feature, uint64_t pos) const
+  void operator() (FeatureType const & f, uint64_t pos) const
   {
-    feature::TypesHolder types(feature);
+    feature::TypesHolder types(f);
 
     // Add names of the feature.
-    FeatureNameInserter f(m_names, static_cast<uint32_t>(pos),
-                          feature::GetSearchRank(types, feature.GetPopulation()));
-    feature.ForEachNameRef(f);
+    uint8_t const rank = feature::GetSearchRank(types, f.GetLimitRect(-2).Center(), f.GetPopulation());
+    FeatureNameInserter toDo(m_names, static_cast<uint32_t>(pos), rank);
+    f.ForEachNameRef(toDo);
 
     // Add names of categories of the feature.
     for (size_t i = 0; i < types.Size(); ++i)
-      f.AddToken(0, search::FeatureTypeToString(types[i]));
+      toDo.AddToken(0, search::FeatureTypeToString(types[i]));
   }
 };
 

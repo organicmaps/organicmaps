@@ -40,10 +40,11 @@ IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, m2::Point
   }
 
   // get common params
-  m_distance = ResultDistance(pos, m_rect.Center());
-  m_direction = ResultDirection(pos, m_rect.Center());
-  m_searchRank = feature::GetSearchRank(m_types, f.GetPopulation());
-  m_viewportDistance = ViewportDistance(viewportRect, m_rect.Center());
+  m2::PointD const center = m_rect.Center();
+  m_distance = ResultDistance(pos, center);
+  m_direction = ResultDirection(pos, center);
+  m_searchRank = feature::GetSearchRank(m_types, center, f.GetPopulation());
+  m_viewportDistance = ViewportDistance(viewportRect, center);
 }
 
 IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, m2::PointD const & pos,
@@ -54,9 +55,10 @@ IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, m2::Point
     m_resultType(RESULT_LATLON), m_searchRank(0)
 {
   // get common params
-  m_distance = ResultDistance(pos, m_rect.Center());
-  m_direction = ResultDirection(pos, m_rect.Center());
-  m_viewportDistance = ViewportDistance(viewportRect, m_rect.Center());
+  m2::PointD const center = m_rect.Center();
+  m_distance = ResultDistance(pos, center);
+  m_direction = ResultDirection(pos, center);
+  m_viewportDistance = ViewportDistance(viewportRect, center);
 
   // get region info
   m_region.SetPoint(m2::PointD(MercatorBounds::LonToX(lon),

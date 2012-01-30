@@ -83,7 +83,7 @@ public:
     return scales::GetRectForLevel(scale, centerXY, 1.0);
   }
 
-  uint8_t GetSearchRank(TypesHolder const & types, uint32_t population) const
+  uint8_t GetSearchRank(TypesHolder const & types, m2::PointD const & pt, uint32_t population) const
   {
     for (size_t i = 0; i < types.Size(); ++i)
     {
@@ -93,8 +93,27 @@ public:
         population = max(population, static_cast<uint32_t>(1000));
       else if (types[i] == m_TypeTown || IsEqual(types[i], m_TypeCounty))
         population = max(population, static_cast<uint32_t>(10000));
-      else if (types[i] == m_TypeCity || types[i] == m_TypeState)
-        population = max(population, static_cast<uint32_t>(100000));
+      else if (types[i] == m_TypeState)
+      {
+        m2::RectD const usaRect(-125.73195962769162293, 25.168771674082393019,
+                                -66.925073086214325713, 56.956377399113392812);
+        if (usaRect.IsPointInside(pt))
+        {
+          //LOG(LINFO, ("USA state population = ", population));
+          // Get rank equal to city for USA's states.
+          population = max(population, static_cast<uint32_t>(500000));
+        }
+        else
+        {
+          //LOG(LINFO, ("Other state population = ", population));
+          // Reduce rank for other states.
+          population = population / 10;
+          population = max(population, static_cast<uint32_t>(10000));
+          population = min(population, static_cast<uint32_t>(500000));
+        }
+      }
+      else if (types[i] == m_TypeCity)
+        population = max(population, static_cast<uint32_t>(500000));
       else if (types[i] == m_TypeCityCapital)
         population = max(population, static_cast<uint32_t>(1000000));
       else if (types[i] == m_TypeCountry)
@@ -174,9 +193,9 @@ m2::RectD GetFeatureViewport(TypesHolder const & types, m2::RectD const & limitR
   return impl::GetFeatureEstimator().GetViewport(types, limitRect);
 }
 
-uint8_t GetSearchRank(TypesHolder const & types, uint32_t population)
+uint8_t GetSearchRank(TypesHolder const & types, m2::PointD const & pt, uint32_t population)
 {
-  return impl::GetFeatureEstimator().GetSearchRank(types, population);
+  return impl::GetFeatureEstimator().GetSearchRank(types, pt, population);
 }
 
 } // namespace feature
