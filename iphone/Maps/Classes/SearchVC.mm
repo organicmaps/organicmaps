@@ -490,4 +490,16 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 // ********** End of hack ******************************************
 // *****************************************************************
 
+// Dismiss virtual keyboard when touching tableview
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+  [m_searchBar resignFirstResponder];
+}
+
+// Dismiss virtual keyboard when "Search" button is pressed
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+  [m_searchBar resignFirstResponder];
+}
+
 @end
