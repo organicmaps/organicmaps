@@ -22,10 +22,10 @@
     featureType = [[[UILabel alloc] init] autorelease];
     featureType.font = small;
     featureType.textColor = [UIColor grayColor];
+    featureType.textAlignment = UITextAlignmentRight;
     featureCountry = [[[UILabel alloc] init] autorelease];
     featureCountry.font = small;
     featureCountry.textColor = [UIColor grayColor];
-    featureCountry.textAlignment = UITextAlignmentRight;
     featureDistance = [[[UILabel alloc] init] autorelease];
     featureDistance.font = small;
     featureDistance.textColor = [UIColor grayColor];
@@ -55,8 +55,8 @@
   CGFloat const xDelim = r.origin.x + w / 3 * 2;
   CGFloat const yDelim = r.origin.y + h / 3 * 2;
   featureName.frame = CGRectMake(r.origin.x, r.origin.y, xDelim - r.origin.x, yDelim - r.origin.y);
-  featureType.frame = CGRectMake(r.origin.x, yDelim, xDelim - r.origin.x, r.origin.y + h - yDelim);
-  featureCountry.frame = CGRectMake(xDelim, r.origin.y, r.origin.x + w - xDelim, yDelim - r.origin.y);
+  featureCountry.frame = CGRectMake(r.origin.x, yDelim, xDelim - r.origin.x, r.origin.y + h - yDelim);
+  featureType.frame = CGRectMake(xDelim, r.origin.y, r.origin.x + w - xDelim, yDelim - r.origin.y);
   featureDistance.frame = CGRectMake(xDelim, yDelim, r.origin.x + w - xDelim, r.origin.y + h - yDelim);
 }
 
