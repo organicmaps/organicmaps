@@ -119,18 +119,19 @@ namespace storage
     }
   }
 
-  m2::RectD CountryInfoGetter::CalcUSALimitRect() const
+  void CountryInfoGetter::CalcUSALimitRect(m2::RectD rects[3]) const
   {
-    m2::RectD r;
     for (size_t i = 0; i < m_countries.size(); ++i)
     {
-      if ((m_countries[i].m_name.find("USA_") != string::npos) &&
-          (m_countries[i].m_name != "USA_Alaska") &&
-          (m_countries[i].m_name != "USA_Hawaii"))
+      if (m_countries[i].m_name.find("USA_") != string::npos)
       {
-        r.Add(m_countries[i].m_rect);
+        if (m_countries[i].m_name == "USA_Alaska")
+          rects[1] = m_countries[i].m_rect;
+        else if (m_countries[i].m_name == "USA_Hawaii")
+          rects[2] = m_countries[i].m_rect;
+        else
+          rects[0].Add(m_countries[i].m_rect);
       }
     }
-    return r;
   }
 }

@@ -65,5 +65,11 @@ UNIT_TEST(CountryInfo_ValidName_Smoke)
 UNIT_TEST(CountryInfo_USARect)
 {
   scoped_ptr<CountryInfoT> getter(GetCountryInfo());
-  LOG(LINFO, (getter->CalcUSALimitRect()));
+
+  m2::RectD rects[3];
+  getter->CalcUSALimitRect(rects);
+
+  LOG(LINFO, ("Continental: ", rects[0]));
+  LOG(LINFO, ("Alaska: ", rects[1]));
+  LOG(LINFO, ("Hawaii: ", rects[2]));
 }

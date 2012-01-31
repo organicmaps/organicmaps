@@ -46,6 +46,10 @@ namespace storage
     void GetRegionInfo(m2::PointD const & pt, CountryInfo & info) const;
     void GetRegionInfo(string const & id, CountryInfo & info) const;
 
-    m2::RectD CalcUSALimitRect() const;
+    /// Return limit rects of USA:\n
+    /// 0 - continental part;\n
+    /// 1 - Alaska;\n
+    /// 2 - Hawaii;\n
+    void CalcUSALimitRect(m2::RectD rects[3]) const;
   };
 }
