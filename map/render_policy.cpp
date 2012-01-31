@@ -178,7 +178,7 @@ RenderPolicy * CreateRenderPolicy(VideoTimer * videoTimer,
     return new RenderPolicyMT(videoTimer, useDefaultFB, rmParams, primaryRC);
 #endif
 #ifdef OMIM_OS_DESKTOP
-    return new RenderPolicyMT(videoTimer, useDefaultFB, rmParams, primaryRC);
+    return new TilingRenderPolicyST(videoTimer, useDefaultFB, rmParams, primaryRC);
 #endif
   }
 }
