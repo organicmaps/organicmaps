@@ -57,6 +57,9 @@ protected:
   int m_sequenceID;
   bool m_isExiting;
 
+  threads::Mutex m_tilesInProgressMutex;
+  set<Tiler::RectInfo> m_tilesInProgress;
+
   void InitializeThreadGL(core::CommandsQueue::Environment const & env);
   void FinalizeThreadGL(core::CommandsQueue::Environment const & env);
   void CancelThread(core::CommandsQueue::Environment const & env);
@@ -98,4 +101,11 @@ public:
 
   bool HasTile(Tiler::RectInfo const & rectInfo);
   void AddTile(Tiler::RectInfo const & rectInfo, Tile const & tile);
+
+  void StartTile(Tiler::RectInfo const & rectInfo);
+  void FinishTile(Tiler::RectInfo const & rectInfo);
+
+  /// checking, whether we should cancell currently rendering tiles,
+  /// or continue with theirs rendering.
+  void CheckCurrentTiles(vector<Tiler::RectInfo> & v);
 };

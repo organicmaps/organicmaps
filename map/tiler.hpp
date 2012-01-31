@@ -60,3 +60,4 @@ struct LessByDistance
 };
 
 bool operator<(Tiler::RectInfo const & l, Tiler::RectInfo const & r);
+bool operator==(Tiler::RectInfo const & l, Tiler::RectInfo const & r);

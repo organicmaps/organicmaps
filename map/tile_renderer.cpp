@@ -145,6 +145,8 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   if (m_resourceManager->renderTargetTextures()->IsCancelled())
     return;
 
+  StartTile(rectInfo);
+
   drawer->screen()->setRenderTarget(tileTarget);
 
   shared_ptr<yg::InfoLayer> tileInfoLayer(new yg::InfoLayer());
@@ -211,6 +213,8 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
         glQueue->cancelCommands();
     }
   }
+
+  FinishTile(rectInfo);
 
   double duration = timer.ElapsedSeconds();
 
@@ -283,6 +287,40 @@ void TileRenderer::AddTile(Tiler::RectInfo const & rectInfo, Tile const & tile)
   else
     m_tileCache.addTile(rectInfo, TileCache::Entry(tile, m_resourceManager));
   m_tileCache.writeUnlock();
+}
+
+void TileRenderer::StartTile(Tiler::RectInfo const & rectInfo)
+{
+  threads::MutexGuard g(m_tilesInProgressMutex);
+  m_tilesInProgress.insert(rectInfo);
+}
+
+void TileRenderer::FinishTile(Tiler::RectInfo const & rectInfo)
+{
+  threads::MutexGuard g(m_tilesInProgressMutex);
+  m_tilesInProgress.erase(rectInfo);
+}
+
+void TileRenderer::CheckCurrentTiles(vector<Tiler::RectInfo> & v)
+{
+  bool shouldCancel = true;
+
+  {
+    threads::MutexGuard g(m_tilesInProgressMutex);
+
+    for (set<Tiler::RectInfo>::const_iterator it = m_tilesInProgress.begin();
+         it != m_tilesInProgress.end();
+         ++it)
+    {
+      /// if the first non-drawn tile in new coverage is
+      /// already rendering do not cancell it.
+      if (!v.empty() && v[0] == *it)
+        shouldCancel = false;
+    }
+  }
+
+  if (shouldCancel)
+    CancelCommands();
 }
 
 

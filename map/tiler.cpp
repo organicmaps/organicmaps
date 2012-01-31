@@ -50,6 +50,15 @@ bool operator<(Tiler::RectInfo const & l, Tiler::RectInfo const & r)
   return false;
 }
 
+bool operator==(Tiler::RectInfo const & l, Tiler::RectInfo const & r)
+{
+  return (l.m_y == r.m_y)
+      && (l.m_x == r.m_x)
+      && (l.m_drawScale == r.m_drawScale)
+      && (l.m_tileScale == r.m_tileScale);
+}
+
+
 int Tiler::drawScale(ScreenBase const & s) const
 {
   ScreenBase tmpS = s;
