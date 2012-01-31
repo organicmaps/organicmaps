@@ -13,6 +13,94 @@
 
 namespace drule {
 
+BaseRule::BaseRule() : m_type(node | way)
+{}
+
+BaseRule::~BaseRule()
+{}
+
+void BaseRule::CheckCacheSize(size_t s)
+{
+  m_id1.resize(s);
+  MakeEmptyID();
+
+  m_id2.resize(s);
+  MakeEmptyID2();
+}
+
+uint32_t BaseRule::GetID(size_t threadID) const
+{
+  ASSERT(m_id1.size() > threadID, ());
+  return m_id1[threadID];
+}
+
+void BaseRule::SetID(size_t threadID, uint32_t id) const
+{
+  ASSERT(m_id1.size() > threadID, ());
+  m_id1[threadID] = id;
+}
+
+void BaseRule::MakeEmptyID(size_t threadID)
+{
+  ASSERT(m_id1.size() > threadID, ());
+  m_id1[threadID] = empty_id;
+}
+
+void BaseRule::MakeEmptyID()
+{
+  for (size_t i = 0; i < m_id1.size(); ++i)
+    MakeEmptyID(i);
+}
+
+uint32_t BaseRule::GetID2(size_t threadID) const
+{
+  ASSERT(m_id2.size() > threadID, ());
+  return m_id2[threadID];
+}
+
+void BaseRule::SetID2(size_t threadID, uint32_t id) const
+{
+  ASSERT(m_id2.size() > threadID, ());
+  m_id2[threadID] = id;
+}
+
+void BaseRule::MakeEmptyID2(size_t threadID)
+{
+  ASSERT(m_id2.size() > threadID, ());
+  m_id2[threadID] = empty_id;
+}
+
+void BaseRule::MakeEmptyID2()
+{
+  for (size_t i = 0; i < m_id2.size(); ++i)
+    MakeEmptyID2(i);
+}
+
+LineDefProto const * BaseRule::GetLine() const
+{
+  return 0;
+}
+
+AreaRuleProto const * BaseRule::GetArea() const
+{
+  return 0;
+}
+
+SymbolRuleProto const * BaseRule::GetSymbol() const
+{
+  return 0;
+}
+
+CaptionDefProto const * BaseRule::GetCaption(int) const
+{
+  return 0;
+}
+
+CircleRuleProto const * BaseRule::GetCircle() const
+{
+  return 0;
+}
+
 RulesHolder::~RulesHolder()
 {
   Clean();
@@ -64,6 +152,11 @@ void RulesHolder::ClearCaches()
 {
   ForEachRule(bind(&BaseRule::MakeEmptyID, _4));
   ForEachRule(bind(&BaseRule::MakeEmptyID2, _4));
+}
+
+void RulesHolder::ResizeCaches(size_t s)
+{
+  ForEachRule(bind(&BaseRule::CheckCacheSize, _4, s));
 }
 
 RulesHolder & rules()

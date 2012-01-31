@@ -18,7 +18,7 @@ RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
                                bool useDefaultFB,
                                yg::ResourceManager::Params const & rmParams,
                                shared_ptr<yg::gl::RenderContext> const & primaryRC)
-  : QueuedRenderPolicy(1, primaryRC, false),
+  : QueuedRenderPolicy(1, primaryRC, false, 1),
     m_DoAddCommand(true)
 {
   yg::ResourceManager::Params rmp = rmParams;

@@ -27,12 +27,14 @@ RenderPolicy::~RenderPolicy()
   drule::rules().ClearCaches();
 }
 
-RenderPolicy::RenderPolicy(shared_ptr<yg::gl::RenderContext> const & primaryRC, bool doSupportRotation)
+RenderPolicy::RenderPolicy(shared_ptr<yg::gl::RenderContext> const & primaryRC, bool doSupportRotation, size_t idCacheSize)
   : m_bgColor(0xEE, 0xEE, 0xDD, 0xFF),
     m_primaryRC(primaryRC),
     m_doSupportRotation(doSupportRotation),
     m_doForceUpdate(false)
 {
+  LOG(LDEBUG, ("each BaseRule will hold up to", idCacheSize, "cached values"));
+  drule::rules().ResizeCaches(idCacheSize);
   yg::gl::InitExtensions();
   yg::gl::CheckExtensionSupport();
 }

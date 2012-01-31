@@ -34,7 +34,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                            bool useDefaultFB,
                                            yg::ResourceManager::Params const & rmParams,
                                            shared_ptr<yg::gl::RenderContext> const & primaryRC)
-  : QueuedRenderPolicy(GetPlatform().CpuCores() + 1, primaryRC, false),
+  : QueuedRenderPolicy(GetPlatform().CpuCores() + 1, primaryRC, false, GetPlatform().CpuCores()),
     m_drawScale(0),
     m_isEmptyModel(false)
 {

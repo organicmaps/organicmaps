@@ -4,8 +4,9 @@
 
 QueuedRenderPolicy::QueuedRenderPolicy(int pipelinesCount,
                                        shared_ptr<yg::gl::RenderContext> const & primaryRC,
-                                       bool doSupportsRotation)
-  : RenderPolicy(primaryRC, doSupportsRotation)
+                                       bool doSupportsRotation,
+                                       size_t idCacheSize)
+  : RenderPolicy(primaryRC, doSupportsRotation, idCacheSize)
 {
   m_Pipelines = new PacketsPipeline[pipelinesCount];
   m_PipelinesCount = pipelinesCount;

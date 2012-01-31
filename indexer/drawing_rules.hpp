@@ -22,79 +22,39 @@ namespace drule
 {
   class BaseRule
   {
-    mutable buffer_vector<uint32_t, 8> m_id1, m_id2;
+    mutable buffer_vector<uint32_t, 4> m_id1, m_id2;
     char m_type;      // obsolete for new styles, can be removed
 
   public:
     static uint32_t const empty_id = 0xFFFFFFFF;
 
-    BaseRule() : m_type(node | way)
-    {
-    }
-    virtual ~BaseRule() {}
+    BaseRule();
+    virtual ~BaseRule();
 
-    void CheckSize(buffer_vector<uint32_t, 8> & v, size_t s) const
-    {
-      if (v.size() < s)
-        v.resize(s, empty_id);
-    }
+    void CheckCacheSize(size_t s);
 
-    uint32_t GetID(size_t threadID) const
-    {
-      CheckSize(m_id1, threadID + 1);
-      return m_id1[threadID];
-    }
+    uint32_t GetID(size_t threadID) const;
+    void SetID(size_t threadID, uint32_t id) const;
 
-    void SetID(size_t threadID, uint32_t id) const
-    {
-      CheckSize(m_id1, threadID + 1);
-      m_id1[threadID] = id;
-    }
+    void MakeEmptyID(size_t threadID);
+    void MakeEmptyID();
 
-    void MakeEmptyID(size_t threadID)
-    {
-      CheckSize(m_id1, threadID + 1);
-      m_id1[threadID] = empty_id;
-    }
+    uint32_t GetID2(size_t threadID) const;
 
-    void MakeEmptyID()
-    {
-      for (size_t i = 0; i < m_id1.size(); ++i)
-        MakeEmptyID(i);
-    }
+    void SetID2(size_t threadID, uint32_t id) const;
 
-    uint32_t GetID2(size_t threadID) const
-    {
-      CheckSize(m_id2, threadID + 1);
-      return m_id2[threadID];
-    }
+    void MakeEmptyID2(size_t threadID);
 
-    void SetID2(size_t threadID, uint32_t id) const
-    {
-      CheckSize(m_id2, threadID + 1);
-      m_id2[threadID] = id;
-    }
-
-    void MakeEmptyID2(size_t threadID)
-    {
-      CheckSize(m_id2, threadID + 1);
-      m_id2[threadID] = empty_id;
-    }
-
-    void MakeEmptyID2()
-    {
-      for (size_t i = 0; i < m_id2.size(); ++i)
-        MakeEmptyID2(i);
-    }
+    void MakeEmptyID2();
 
     void SetType(char type) { m_type = type; }
     inline char GetType() const { return m_type; }
 
-    virtual LineDefProto const * GetLine() const { return 0; }
-    virtual AreaRuleProto const * GetArea() const { return 0; }
-    virtual SymbolRuleProto const * GetSymbol() const { return 0; }
-    virtual CaptionDefProto const * GetCaption(int) const { return 0; }
-    virtual CircleRuleProto const * GetCircle() const { return 0; }
+    virtual LineDefProto const * GetLine() const;
+    virtual AreaRuleProto const * GetArea() const;
+    virtual SymbolRuleProto const * GetSymbol() const;
+    virtual CaptionDefProto const * GetCaption(int) const;
+    virtual CircleRuleProto const * GetCircle() const;
   };
 
   class RulesHolder
@@ -115,6 +75,7 @@ namespace drule
     void Clean();
 
     void ClearCaches();
+    void ResizeCaches(size_t Size);
 
     BaseRule const * Find(Key const & k) const;
 

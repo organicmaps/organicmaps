@@ -47,7 +47,8 @@ public:
 
   QueuedRenderPolicy(int pipelinesCount,
                      shared_ptr<yg::gl::RenderContext> const & primaryRC,
-                     bool doSupportsRotation);
+                     bool doSupportsRotation,
+                     size_t idCacheSize);
 
   ~QueuedRenderPolicy();
 

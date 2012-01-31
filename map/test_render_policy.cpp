@@ -14,7 +14,7 @@ TestRenderPolicy::TestRenderPolicy(VideoTimer * videoTimer,
                                    bool useDefaultFB,
                                    yg::ResourceManager::Params const & rmParams,
                                    shared_ptr<yg::gl::RenderContext> const & primaryRC)
-  : RenderPolicy(primaryRC, false)
+  : RenderPolicy(primaryRC, false, 1)
 {
   yg::ResourceManager::Params rmp = rmParams;
 

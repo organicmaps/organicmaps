@@ -52,7 +52,7 @@ protected:
 public:
 
   /// constructor
-  RenderPolicy(shared_ptr<yg::gl::RenderContext> const & primaryRC, bool doSupportRotation);
+  RenderPolicy(shared_ptr<yg::gl::RenderContext> const & primaryRC, bool doSupportRotation, size_t idCacheSize);
   /// destructor
   virtual ~RenderPolicy();
   /// starting frame
