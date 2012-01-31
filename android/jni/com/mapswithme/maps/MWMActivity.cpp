@@ -28,7 +28,7 @@ extern "C"
     return JNI_VERSION_1_6;
   }
 
-
+  JNIEXPORT void JNICALL
   JNI_OnUnload(JavaVM * vm, void * reserved)
   {
     delete g_framework;
