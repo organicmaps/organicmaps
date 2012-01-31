@@ -16,7 +16,7 @@ ScreenCoverage::ScreenCoverage()
   : m_tiler(0, 0),
     m_infoLayer(new yg::InfoLayer()),
     m_drawScale(0),
-    m_isEmptyDrawingCoverage(true),
+    m_isEmptyDrawingCoverage(false),
     m_stylesCache(0)
 {
   m_infoLayer->setCouldOverlap(false);
@@ -30,7 +30,7 @@ ScreenCoverage::ScreenCoverage(TileRenderer * tileRenderer,
     m_tiler(tileSize, scaleEtalonSize),
     m_infoLayer(new yg::InfoLayer()),
     m_drawScale(0),
-    m_isEmptyDrawingCoverage(true),
+    m_isEmptyDrawingCoverage(false),
     m_coverageGenerator(coverageGenerator),
     m_stylesCache(0)
 {
