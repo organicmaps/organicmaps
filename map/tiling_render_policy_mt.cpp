@@ -145,6 +145,12 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
   m_windowHandle->setRenderContext(primaryRC);
 }
 
+TilingRenderPolicyMT::~TilingRenderPolicyMT()
+{
+  LOG(LINFO, ("cancelling ResourceManager"));
+  m_resourceManager->cancel();
+}
+
 void TilingRenderPolicyMT::SetRenderFn(TRenderFn renderFn)
 {
   RenderPolicy::SetRenderFn(renderFn);

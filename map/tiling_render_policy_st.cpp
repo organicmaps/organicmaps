@@ -178,6 +178,9 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
 
 TilingRenderPolicyST::~TilingRenderPolicyST()
 {
+  LOG(LINFO, ("cancelling ResourceManager"));
+  m_resourceManager->cancel();
+
   LOG(LINFO, ("deleting TilingRenderPolicyST"));
 
   base_t::CancelQueuedCommands(GetPlatform().CpuCores());

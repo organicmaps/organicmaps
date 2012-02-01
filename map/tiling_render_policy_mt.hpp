@@ -45,6 +45,8 @@ public:
                        yg::ResourceManager::Params const & rmParams,
                        shared_ptr<yg::gl::RenderContext> const & primaryRC);
 
+  ~TilingRenderPolicyMT();
+
   void BeginFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);
   void DrawFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);
   void EndFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);

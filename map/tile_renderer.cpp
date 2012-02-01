@@ -71,7 +71,6 @@ TileRenderer::TileRenderer(
 
   m_queue.AddInitCommand(bind(&TileRenderer::InitializeThreadGL, this, _1));
   m_queue.AddFinCommand(bind(&TileRenderer::FinalizeThreadGL, this, _1));
-  m_queue.AddCancelCommand(bind(&TileRenderer::CancelThread, this, _1));
 
   m_queue.Start();
 }
@@ -80,11 +79,6 @@ TileRenderer::~TileRenderer()
 {
   m_isExiting = true;
   m_queue.Cancel();
-}
-
-void TileRenderer::CancelThread(core::CommandsQueue::Environment const & /*env*/)
-{
-  m_resourceManager->renderTargetTextures()->Cancel();
 }
 
 void TileRenderer::InitializeThreadGL(core::CommandsQueue::Environment const & env)

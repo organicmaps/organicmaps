@@ -62,7 +62,6 @@ protected:
 
   void InitializeThreadGL(core::CommandsQueue::Environment const & env);
   void FinalizeThreadGL(core::CommandsQueue::Environment const & env);
-  void CancelThread(core::CommandsQueue::Environment const & env);
 
 protected:
 
