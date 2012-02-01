@@ -93,13 +93,13 @@ struct SeparateFreePoolTraits : TBase
   void Free(elem_t const & elem)
   {
     m_freePool.PushBack(elem);
-    if (base_t::m_IsDebugging)
+/*    if (base_t::m_IsDebugging)
     {
       int oldMaxFreePoolSize = m_maxFreePoolSize;
       m_maxFreePoolSize = max(m_maxFreePoolSize, (int)m_freePool.Size());
       if (oldMaxFreePoolSize != m_maxFreePoolSize)
         LOG(LINFO, (base_t::m_pool.GetName(), "freePool maximum size has reached", m_maxFreePoolSize, "elements"));
-    }
+    }*/
   }
 
   void UpdateStateImpl(list<elem_t> & l)
@@ -175,7 +175,7 @@ struct AllocateOnDemandMultiThreadedPoolTraits : TBase
     if (l.empty())
     {
       m_poolSize += base_t::m_factory.ElemSize() * base_t::m_factory.BatchSize();
-      LOG(LDEBUG, ("allocating ", base_t::m_factory.ElemSize(), "bytes for ", base_t::m_factory.ResName(), " on-demand, poolSize=", m_poolSize / base_t::m_factory.ElemSize()));
+      LOG(LDEBUG, ("allocating ", base_t::m_factory.ElemSize(), "bytes for ", base_t::m_factory.ResName(), " on-demand, poolSize=", m_poolSize / base_t::m_factory.ElemSize(), ", totalMemory=", m_poolSize));
       for (unsigned i = 0; i < base_t::m_factory.BatchSize(); ++i)
         l.push_back(base_t::m_factory.Create());
     }
@@ -209,7 +209,7 @@ struct AllocateOnDemandSingleThreadedPoolTraits : TBase
     if (l.empty())
     {
       m_poolSize += base_t::m_factory.ElemSize() * base_t::m_factory.BatchSize();
-      LOG(LDEBUG, ("allocating", base_t::m_factory.BatchSize(), "elements for ", base_t::m_factory.ResName(), "on-demand, poolSize=", m_poolSize / base_t::m_factory.ElemSize()));
+      LOG(LDEBUG, ("allocating", base_t::m_factory.BatchSize(), "elements for ", base_t::m_factory.ResName(), "on-demand, poolSize=", m_poolSize / base_t::m_factory.ElemSize(), ", totalMemory=", m_poolSize));
       for (unsigned i = 0; i < base_t::m_factory.BatchSize(); ++i)
         l.push_back(base_t::m_factory.Create());
     }
