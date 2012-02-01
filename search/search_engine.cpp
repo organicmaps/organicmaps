@@ -161,12 +161,11 @@ void Engine::SearchAsync()
   m_pQuery->SetPosition(m_viewport.Center());
 
   Results res;
-
-  string query;
   SearchCallbackT callback;
 
   try
   {
+    string query;
     {
       threads::MutexGuard guard(m_updateMutex);
       query = m_query;
@@ -177,9 +176,9 @@ void Engine::SearchAsync()
   }
   catch (Query::CancelException const &)
   {
-    return;
   }
 
+  // emit results in any way, even if search was canceled
   callback(res);
 }
 
