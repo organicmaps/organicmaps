@@ -65,6 +65,8 @@ public:
   typedef vector<Result>::const_iterator IterT;
   IterT Begin() const { return m_vec.begin(); }
   IterT End() const { return m_vec.end(); }
+
+  size_t Count() const { return m_vec.size(); }
 };
 
 }

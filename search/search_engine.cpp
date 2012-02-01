@@ -10,6 +10,8 @@
 #include "../indexer/search_string_utils.hpp"
 #include "../indexer/mercator.hpp"
 
+#include "../platform/platform.hpp"
+
 #include "../geometry/distance_on_sphere.hpp"
 
 #include "../base/logging.hpp"
@@ -21,6 +23,7 @@
 #include "../std/string.hpp"
 #include "../std/utility.hpp"
 #include "../std/vector.hpp"
+#include "../std/bind.hpp"
 
 
 namespace search
@@ -145,16 +148,49 @@ void Engine::SetPreferredLanguage(string const & lang)
   m_pQuery->SetPreferredLanguage(lang);
 }
 
-void Engine::Search(string const & queryText, SearchCallbackT const & f)
+void Engine::Search(string const & query, SearchCallbackT const & callback)
 {
-  LOG(LDEBUG, (queryText));
+  {
+    // Update new search params.
+    threads::MutexGuard guard(m_updateMutex);
+    m_callback = callback;
+    m_queryText = query;
+  }
 
-  m_callback = f;
-  m_queryText = queryText;
+  GetPlatform().RunAsync(bind(&Engine::SearchAsync, this));
+}
 
+void Engine::SearchAsync()
+{
   Results res;
-  m_pQuery->Search(queryText, res);
+  SearchCallbackT f;
 
+  {
+    // Enter to run new search.
+    threads::MutexGuard searchGuard(m_searchMutex);
+
+    {
+      // First - get new search params.
+      threads::MutexGuard updateGuard(m_updateMutex);
+
+      if (m_queryInProgress != m_queryText)
+      {
+        m_queryInProgress = m_queryText;
+        f = m_callback;
+      }
+      else
+      {
+        // If search params don't changed - skip this query.
+        return;
+      }
+    }
+
+    LOG(LINFO, ("Call search for query: ", m_queryInProgress));
+    m_pQuery->Search(m_queryInProgress, res);
+  }
+
+  // emit results without search mutex lock
+  LOG(LINFO, ("Emit search results: ", res.Count()));
   f(res);
 }
 

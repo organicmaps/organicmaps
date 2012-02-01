@@ -8,6 +8,7 @@
 
 #include "../base/base.hpp"
 #include "../base/string_utils.hpp"
+#include "../base/mutex.hpp"
 
 #include "../std/scoped_ptr.hpp"
 #include "../std/string.hpp"
@@ -45,17 +46,20 @@ public:
 
   void EnablePositionTrack(bool enable);
 
-  void Search(string const & query, SearchCallbackT const & f);
+  void Search(string const & query, SearchCallbackT const & callback);
 
   string GetCountryFile(m2::PointD const & pt) const;
 
 private:
   void InitializeCategoriesAndSuggestStrings(CategoriesHolder const & categories);
 
+  void SearchAsync();
   void RepeatSearch();
 
+  threads::Mutex m_searchMutex, m_updateMutex;
+
   SearchCallbackT m_callback;
-  string m_queryText;
+  string m_queryText, m_queryInProgress;
   m2::RectD m_savedViewport;
 
   bool m_trackEnable;

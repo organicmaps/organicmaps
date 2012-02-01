@@ -407,6 +407,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 - (void)addResult:(id)result
 {
   /// @todo Temporary, for test.
+  LOG(LINFO, ("Clear results"));
   m_results.clear();
 
   search::Results const * r = [result get];
