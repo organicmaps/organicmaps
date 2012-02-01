@@ -36,13 +36,12 @@ public:
 
   // Doesn't take ownership of @pIndex. Takes ownership of pCategories
   Engine(IndexType const * pIndex, CategoriesHolder * pCategories,
-         ModelReaderPtr polyR, ModelReaderPtr countryR);
+         ModelReaderPtr polyR, ModelReaderPtr countryR,
+         string const & lang);
   ~Engine();
 
   void SetViewport(m2::RectD const & viewport);
   void SetPosition(double lat, double lon);
-  void SetPositionSimple(m2::PointD const & pt);
-  void SetPreferredLanguage(string const & lang);
 
   void EnablePositionTrack(bool enable);
 
@@ -54,15 +53,13 @@ private:
   void InitializeCategoriesAndSuggestStrings(CategoriesHolder const & categories);
 
   void SearchAsync();
-  void RepeatSearch();
 
   threads::Mutex m_searchMutex, m_updateMutex;
 
+  string m_query;
   SearchCallbackT m_callback;
-  string m_queryText, m_queryInProgress;
-  m2::RectD m_savedViewport;
 
-  bool m_trackEnable;
+  m2::RectD m_viewport;
 
   Index const * m_pIndex;
   scoped_ptr<search::Query> m_pQuery;

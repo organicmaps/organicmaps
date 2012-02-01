@@ -58,6 +58,9 @@ public:
 
   void ClearCache();
 
+  inline void DoCancel() { m_cancel = true; }
+  struct CancelException {};
+
 private:
 
   friend class impl::FeatureLoader;
@@ -86,6 +89,8 @@ private:
   StringsToSuggestVectorT const * m_pStringsToSuggest;
   storage::CountryInfoGetter const * m_pInfoGetter;
   int m_preferredLanguage;
+
+  volatile bool m_cancel;
 
   string m_rawQuery;
   strings::UniString m_uniQuery;

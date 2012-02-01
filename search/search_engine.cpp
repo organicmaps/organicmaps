@@ -41,8 +41,9 @@ public:
 };
 
 Engine::Engine(IndexType const * pIndex, CategoriesHolder * pCategories,
-               ModelReaderPtr polyR, ModelReaderPtr countryR)
-  : m_trackEnable(false), m_pIndex(pIndex), m_pData(new EngineData(polyR, countryR))
+               ModelReaderPtr polyR, ModelReaderPtr countryR,
+               string const & lang)
+  : m_pIndex(pIndex), m_pData(new EngineData(polyR, countryR))
 {
   if (pCategories)
   {
@@ -54,6 +55,7 @@ Engine::Engine(IndexType const * pIndex, CategoriesHolder * pCategories,
                            &m_pData->m_categories,
                            &m_pData->m_stringsToSuggest,
                            &m_pData->m_infoGetter));
+  m_pQuery->SetPreferredLanguage(lang);
 }
 
 Engine::~Engine()
@@ -90,17 +92,12 @@ void Engine::InitializeCategoriesAndSuggestStrings(CategoriesHolder const & cate
 
 void Engine::SetViewport(m2::RectD const & viewport)
 {
-  m_savedViewport = viewport;
-
-  if (!m_trackEnable)
-  {
-    m_pQuery->SetViewport(viewport);
-    m_pQuery->SetPosition(viewport.Center());
-  }
+  m_viewport = viewport;
 }
 
 void Engine::SetPosition(double lat, double lon)
 {
+  /*
   m2::PointD const oldPos = m_pQuery->GetPosition();
 
   if (m_trackEnable &&
@@ -117,15 +114,12 @@ void Engine::SetPosition(double lat, double lon)
 
     RepeatSearch();
   }
-}
-
-void Engine::SetPositionSimple(m2::PointD const & pt)
-{
-  m_pQuery->SetPosition(pt);
+  */
 }
 
 void Engine::EnablePositionTrack(bool enable)
 {
+  /*
   m_trackEnable = enable;
 
   if (m_trackEnable)
@@ -141,63 +135,52 @@ void Engine::EnablePositionTrack(bool enable)
 
     RepeatSearch();
   }
-}
-
-void Engine::SetPreferredLanguage(string const & lang)
-{
-  m_pQuery->SetPreferredLanguage(lang);
+  */
 }
 
 void Engine::Search(string const & query, SearchCallbackT const & callback)
 {
   {
-    // Update new search params.
     threads::MutexGuard guard(m_updateMutex);
+    m_query = query;
     m_callback = callback;
-    m_queryText = query;
   }
 
+  // bind does copy of 'query' and 'callback'
   GetPlatform().RunAsync(bind(&Engine::SearchAsync, this));
 }
 
 void Engine::SearchAsync()
 {
+  m_pQuery->DoCancel();
+
+  // Enter to run new search.
+  threads::MutexGuard guard(m_searchMutex);
+
+  m_pQuery->SetViewport(m_viewport);
+  m_pQuery->SetPosition(m_viewport.Center());
+
   Results res;
-  SearchCallbackT f;
 
+  string query;
+  SearchCallbackT callback;
+
+  try
   {
-    // Enter to run new search.
-    threads::MutexGuard searchGuard(m_searchMutex);
-
     {
-      // First - get new search params.
-      threads::MutexGuard updateGuard(m_updateMutex);
-
-      if (m_queryInProgress != m_queryText)
-      {
-        m_queryInProgress = m_queryText;
-        f = m_callback;
-      }
-      else
-      {
-        // If search params don't changed - skip this query.
-        return;
-      }
+      threads::MutexGuard guard(m_updateMutex);
+      query = m_query;
+      callback = m_callback;
     }
 
-    LOG(LINFO, ("Call search for query: ", m_queryInProgress));
-    m_pQuery->Search(m_queryInProgress, res);
+    m_pQuery->Search(query, res);
+  }
+  catch (Query::CancelException const &)
+  {
+    return;
   }
 
-  // emit results without search mutex lock
-  LOG(LINFO, ("Emit search results: ", res.Count()));
-  f(res);
-}
-
-void Engine::RepeatSearch()
-{
-  if (!m_queryText.empty() && !m_callback.empty())
-    Search(m_queryText, m_callback);
+  callback(res);
 }
 
 string Engine::GetCountryFile(m2::PointD const & pt) const

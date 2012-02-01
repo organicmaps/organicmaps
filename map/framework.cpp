@@ -694,8 +694,8 @@ search::Engine * Framework::GetSearchEngine()
       m_pSearchEngine.reset(
             new search::Engine(&m_model.GetIndex(), new CategoriesHolder(*pReader),
                                pl.GetReader(PACKED_POLYGONS_FILE),
-                               pl.GetReader(COUNTRIES_FILE)));
-      m_pSearchEngine->SetPreferredLanguage(languages::CurrentLanguage());
+                               pl.GetReader(COUNTRIES_FILE),
+                               languages::CurrentLanguage()));
     }
   }
   return m_pSearchEngine.get();
@@ -707,13 +707,6 @@ void Framework::Search(string const & text, SearchCallbackT callback)
 
   m2::RectD const viewport = m_navigator.Screen().ClipRect();
   pSearchEngine->SetViewport(viewport);
-
-#ifdef OMIM_OS_DESKTOP
-  // Mobile version works with GPS notifications.
-  if (m_locationState.IsValidPosition())
-    pSearchEngine->SetPositionSimple(m_locationState.Position());
-#endif
-
   pSearchEngine->Search(text, callback);
 }
 

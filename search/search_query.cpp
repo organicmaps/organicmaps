@@ -141,6 +141,7 @@ void Query::Search(string const & query, Results & res, unsigned int resultsNeed
 {
   // Initialize.
   {
+    m_cancel = false;
     m_rawQuery = query;
     m_uniQuery = NormalizeAndSimplifyString(m_rawQuery);
     m_tokens.clear();
@@ -182,10 +183,13 @@ void Query::Search(string const & query, Results & res, unsigned int resultsNeed
     }
   }
 
+  if (m_cancel) return;
   SuggestStrings();
 
+  if (m_cancel) return;
   SearchFeatures();
 
+  if (m_cancel) return;
   FlushResults(res);
 }
 
@@ -490,14 +494,19 @@ namespace
   {
     vector<uint32_t> const & m_offsets;
     bool m_alwaysTrue;
+
+    volatile bool & m_isCancel;
   public:
-    FeaturesFilter(vector<uint32_t> const & offsets, bool alwaysTrue)
-      : m_offsets(offsets), m_alwaysTrue(alwaysTrue)
+    FeaturesFilter(vector<uint32_t> const & offsets, bool alwaysTrue, volatile bool & isCancel)
+      : m_offsets(offsets), m_alwaysTrue(alwaysTrue), m_isCancel(isCancel)
     {
     }
 
     bool operator() (uint32_t offset) const
     {
+      if (m_isCancel)
+        throw Query::CancelException();
+
       return (m_alwaysTrue || binary_search(m_offsets.begin(), m_offsets.end(), offset));
     }
   };
@@ -542,7 +551,7 @@ void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
 
                 MatchFeaturesInTrie(tokens, m_prefix, *pLangRoot,
                                     edge.size() == 1 ? NULL : &edge[1], edge.size() - 1,
-                                    FeaturesFilter(m_offsetsInViewport[mwmId], isWorld), emitter);
+                                    FeaturesFilter(m_offsetsInViewport[mwmId], isWorld, m_cancel), emitter);
 
                 LOG(LDEBUG, ("Lang:",
                              StringUtf8Multilang::GetLangByCode(static_cast<int8_t>(edge[0])),
