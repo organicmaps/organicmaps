@@ -701,13 +701,10 @@ search::Engine * Framework::GetSearchEngine()
   return m_pSearchEngine.get();
 }
 
-void Framework::Search(string const & text, SearchCallbackT callback)
+void Framework::Search(search::SearchParams const & params)
 {
   search::Engine * pSearchEngine = GetSearchEngine();
-
-  m2::RectD const viewport = m_navigator.Screen().ClipRect();
-  pSearchEngine->SetViewport(viewport);
-  pSearchEngine->Search(text, callback);
+  pSearchEngine->Search(params, m_navigator.Screen().ClipRect());
 }
 
 void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)

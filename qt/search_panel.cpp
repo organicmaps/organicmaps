@@ -116,6 +116,11 @@ void SearchPanel::OnSearchResult(ResultsT * res, int queryId)
   if (queryId != m_queryId)
     return;
 
+  // clear old results
+  m_pTable->clear();
+  m_pTable->setRowCount(0);
+  m_results.clear();
+
   for (ResultsT::IterT i = res->Begin(); i != res->End(); ++i)
   {
     ResultT const & e = *i;
@@ -155,17 +160,16 @@ void SearchPanel::OnSearchResult(ResultsT * res, int queryId)
 
 void SearchPanel::OnSearchTextChanged(QString const & str)
 {
-  // clear old results
-  m_pTable->clear();
-  m_pTable->setRowCount(0);
-  m_results.clear();
   ++m_queryId;
 
   QString const normalized = str.normalized(QString::NormalizationForm_KC);
   if (!normalized.isEmpty())
   {
-    m_pDrawWidget->Search(normalized.toUtf8().constData(),
-                        bind(&SearchPanel::SearchResultThreadFunc, this, _1, m_queryId));
+    m_params.m_query = normalized.toUtf8().constData();
+    m_params.m_callback = bind(&SearchPanel::SearchResultThreadFunc, this, _1, m_queryId);
+
+    m_pDrawWidget->Search(m_params);
+
     // show busy indicator
     if (!m_pAnimationTimer->isActive())
       m_pAnimationTimer->start(200);

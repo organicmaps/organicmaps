@@ -110,15 +110,11 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 - (void)enableRadarMode
 {
   m_radarButton.selected = YES;
-
-  m_framework->GetSearchEngine()->EnablePositionTrack(true);
 }
 
 - (void)disableRadarMode
 {
   m_radarButton.selected = NO;
-
-  m_framework->GetSearchEngine()->EnablePositionTrack(false);
 }
 
 - (void)onRadarButtonClicked:(id)button
@@ -270,6 +266,20 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   return YES;  // All orientations are supported.
 }
 
+- (void)fillSearchParams:(search::SearchParams &)params
+{
+  params.m_query = [[m_searchBar.text precomposedStringWithCompatibilityMapping] UTF8String];
+  params.m_callback = bind(&OnSearchResultCallback, _1, g_queryId);
+  bool radarEnabled = m_radarButton.selected == YES;
+  CLLocation * l = m_locationManager.lastLocation;
+  if (!l)
+    radarEnabled = false;
+  else
+    params.SetPosition(l.coordinate.latitude, l.coordinate.longitude);
+  params.SetNearMeMode(radarEnabled);
+
+}
+
 //**************************************************************************
 //*********** SearchBar handlers *******************************************
 - (void)searchBar:(UISearchBar *)sender textDidChange:(NSString *)searchText
@@ -277,8 +287,11 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   ++g_queryId;
 
   if ([searchText length] > 0)
-    m_framework->Search([[searchText precomposedStringWithCompatibilityMapping] UTF8String],
-              bind(&OnSearchResultCallback, _1, g_queryId));
+  {
+    search::SearchParams params;
+    [self fillSearchParams:params];
+    m_framework->Search(params);
+  }
   else
   {
     [g_lastSearchResults release];
@@ -460,7 +473,9 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 
 - (void)onGpsUpdate:(location::GpsInfo const &)info
 {
-  m_framework->GetSearchEngine()->SetPosition(info.m_latitude, info.m_longitude);
+  search::SearchParams params;
+  [self fillSearchParams:params];
+  m_framework->Search(params);
 }
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info

@@ -1,7 +1,5 @@
 #pragma once
 
-//#include "widgets.hpp"
-
 #include "../map/window_handle.hpp"
 #include "../map/framework.hpp"
 #include "../map/navigator.hpp"
@@ -13,6 +11,7 @@
 
 #include <QtCore/QTimer>
 #include <QtOpenGL/qgl.h>
+
 
 namespace qt
 {
@@ -83,7 +82,7 @@ namespace qt
 
     void SetScaleControl(QScaleSlider * pScale);
 
-    void Search(string const & text, SearchCallbackT callback);
+    void Search(search::SearchParams const & params);
     void ShowFeature(m2::RectD const & rect);
 
     void SaveState();

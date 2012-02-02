@@ -1,6 +1,6 @@
 #pragma once
 
-//#include "../indexer/index.hpp"
+#include "params.hpp"
 
 #include "../geometry/rect2d.hpp"
 
@@ -40,12 +40,7 @@ public:
          string const & lang);
   ~Engine();
 
-  void SetViewport(m2::RectD const & viewport);
-  void SetPosition(double lat, double lon);
-
-  void EnablePositionTrack(bool enable);
-
-  void Search(string const & query, SearchCallbackT const & callback);
+  void Search(SearchParams const & params, m2::RectD const & viewport);
 
   string GetCountryFile(m2::PointD const & pt) const;
 
@@ -56,9 +51,7 @@ private:
 
   threads::Mutex m_searchMutex, m_updateMutex;
 
-  string m_query;
-  SearchCallbackT m_callback;
-
+  SearchParams m_params;
   m2::RectD m_viewport;
 
   Index const * m_pIndex;

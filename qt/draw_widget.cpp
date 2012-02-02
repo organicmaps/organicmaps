@@ -445,9 +445,9 @@ namespace qt
     }
   }
 
-  void DrawWidget::Search(const string & text, SearchCallbackT callback)
+  void DrawWidget::Search(search::SearchParams const & params)
   {
-    m_framework->Search(text, callback);
+    m_framework->Search(params);
   }
 
   void DrawWidget::ShowFeature(m2::RectD const & rect)

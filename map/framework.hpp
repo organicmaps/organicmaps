@@ -38,22 +38,16 @@
 #include "../base/mutex.hpp"
 #include "../base/timer.hpp"
 
-#include "../std/bind.hpp"
-#include "../std/function.hpp"
 #include "../std/vector.hpp"
 #include "../std/shared_ptr.hpp"
+#include "../std/scoped_ptr.hpp"
 #include "../std/target_os.hpp"
 
 #include "../search/search_engine.hpp"
 
+
 //#define DRAW_TOUCH_POINTS
 
-namespace search { class Engine; }
-
-struct BenchmarkRectProvider;
-
-namespace search { class Results; }
-typedef function<void (search::Results const &)> SearchCallbackT;
 
 class DrawerYG;
 class RenderPolicy;
@@ -148,7 +142,7 @@ public:
                  bool isTiling);
 
   search::Engine * GetSearchEngine();
-  void Search(string const & text, SearchCallbackT callback);
+  void Search(search::SearchParams const & params);
 
   void SetMaxWorldRect();
 

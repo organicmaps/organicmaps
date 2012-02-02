@@ -90,14 +90,9 @@ void Engine::InitializeCategoriesAndSuggestStrings(CategoriesHolder const & cate
   m_pData->m_stringsToSuggest.assign(stringsToSuggest.begin(), stringsToSuggest.end());
 }
 
-void Engine::SetViewport(m2::RectD const & viewport)
-{
-  m_viewport = viewport;
-}
-
+/*
 void Engine::SetPosition(double lat, double lon)
 {
-  /*
   m2::PointD const oldPos = m_pQuery->GetPosition();
 
   if (m_trackEnable &&
@@ -114,36 +109,15 @@ void Engine::SetPosition(double lat, double lon)
 
     RepeatSearch();
   }
-  */
 }
+*/
 
-void Engine::EnablePositionTrack(bool enable)
-{
-  /*
-  m_trackEnable = enable;
-
-  if (m_trackEnable)
-  {
-    LOG(LINFO, ("Enable tracking"));
-  }
-  else
-  {
-    LOG(LINFO, ("Disable tracking"));
-
-    m_pQuery->SetPosition(m_savedViewport.Center());
-    m_pQuery->SetViewport(m_savedViewport);
-
-    RepeatSearch();
-  }
-  */
-}
-
-void Engine::Search(string const & query, SearchCallbackT const & callback)
+void Engine::Search(SearchParams const & params, m2::RectD const & viewport)
 {
   {
     threads::MutexGuard guard(m_updateMutex);
-    m_query = query;
-    m_callback = callback;
+    m_params = params;
+    m_viewport = viewport;
   }
 
   // bind does copy of 'query' and 'callback'
@@ -166,10 +140,11 @@ void Engine::SearchAsync()
   try
   {
     string query;
+
     {
       threads::MutexGuard guard(m_updateMutex);
-      query = m_query;
-      callback = m_callback;
+      query = m_params.m_query;
+      callback = m_params.m_callback;
     }
 
     m_pQuery->Search(query, res);

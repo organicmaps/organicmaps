@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../search/result.hpp"
+#include "../search/params.hpp"
 
 #include "../std/vector.hpp"
 
@@ -32,6 +33,8 @@ class SearchPanel : public QWidget
   typedef search::Result ResultT;
   vector<ResultT> m_results;
   int volatile m_queryId;
+
+  search::SearchParams m_params;
 
   Q_OBJECT
 
