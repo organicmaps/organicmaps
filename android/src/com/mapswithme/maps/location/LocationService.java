@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+import com.mapswithme.maps.MWMActivity;
+
 import android.content.Context;
 import android.hardware.GeomagneticField;
 import android.hardware.Sensor;
@@ -14,6 +16,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.util.Log;
 
 public class LocationService implements LocationListener, SensorEventListener, WifiLocation.Listener
@@ -127,6 +131,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
           if (m_wifiScanner == null)
             m_wifiScanner = new WifiLocation();
           m_wifiScanner.StartScan(c, this);
+          disableAutomaticStandby();
         }
         else
           observer.onLocationStatusChanged(DISABLED_BY_USER);
@@ -135,6 +140,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
       {
         m_isActive = true;
         observer.onLocationStatusChanged(STARTED);
+        disableAutomaticStandby();
 
         for (String provider : enabledProviders)
         {
@@ -169,6 +175,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
       m_isActive = false;
       m_reportFirstUpdate = true;
       m_magneticField = null;
+      enableAutomaticStandby();
     }
     observer.onLocationStatusChanged(STOPPED);
   }
