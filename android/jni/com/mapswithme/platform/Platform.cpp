@@ -20,6 +20,8 @@ public:
     screenWidth = static_cast<int>(pow(2.0, ceil(log(double(screenWidth)) / log2)));
     screenHeight = static_cast<int>(pow(2.0, ceil(log(double(screenHeight)) / log2)));
 
+    size_t screenSize = max(screenWidth, screenHeight);
+
     m_tileSize = min(max(max(screenWidth, screenHeight) / 2, 128), 512);
 
     int k = static_cast<int>((256.0 / m_tileSize) * (256.0 / m_tileSize));
@@ -28,8 +30,9 @@ public:
 
     /// pure magic ;)
 
-    double rotatedScreenCircleDiameter = sqrt(screenWidth * screenWidth + screenHeight * screenHeight);
+    double rotatedScreenCircleDiameter = sqrt(screenSize * screenSize + screenSize * screenSize);
     int tilesOnOneSide = ceil(rotatedScreenCircleDiameter / (m_tileSize / 1.05 / 2));
+    tilesOnOneSide += 1;
     int singleScreenTilesCount = tilesOnOneSide * tilesOnOneSide;
     m_maxTilesCount = singleScreenTilesCount * 2;
 
