@@ -351,6 +351,8 @@ void Query::FlushResults(Results & res)
   // emit results
   for (size_t i = 0; i < indV.size(); ++i)
   {
+    if (m_cancel) return;
+
     LOG(LDEBUG, (indV[i]));
     res.AddResult(indV[i].get()->GenerateFinalResult(m_pInfoGetter, m_pCategories));
   }
