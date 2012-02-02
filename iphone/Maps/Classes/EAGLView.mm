@@ -117,10 +117,14 @@
   
   shared_ptr<DrawerYG> drawer = framework->GetRenderPolicy()->GetDrawer();  
 
-  /// free old video memory
+  /// free old render buffer, as we would not create a new one.
   drawer->screen()->resetRenderTarget();
   drawer->screen()->resetDepthBuffer();
   renderBuffer.reset();
+  
+  /// detaching of old render target will occur inside beginFrame
+  drawer->screen()->beginFrame();
+  drawer->screen()->endFrame();
 
 	/// allocate the new one
 	renderBuffer = make_shared_ptr(new iphone::RenderBuffer(renderContext, (CAEAGLLayer*)self.layer));
@@ -128,7 +132,7 @@
   drawer->screen()->setRenderTarget(renderBuffer);
   drawer->screen()->setDepthBuffer(make_shared_ptr(new yg::gl::RenderBuffer(width, height, true)));
 
-  framework->OnSize(width, height);  
+  framework->OnSize(width, height);
   
   drawer->screen()->beginFrame();
   drawer->screen()->clear(yg::gl::Screen::s_bgColor);
