@@ -182,6 +182,14 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   private static final int TWO_MINUTES = 1000 * 60 * 2;
 
+  boolean areLocationsEqualIgnoringTimestamp(Location l1, Location l2)
+  {
+    return l1.getLatitude() == l2.getLatitude()
+        && l1.getLongitude() == l2.getLongitude()
+        && l1.getAccuracy() == l2.getAccuracy()
+        && l1.getProvider().equals(l2.getProvider());
+  }
+
   // Determines whether one Location reading is better than the current Location
   // @param location The new Location that you want to evaluate
   // @param currentBestLocation The current Location fix, to which you want to compare the new one
@@ -200,6 +208,10 @@ public class LocationService implements LocationListener, SensorEventListener, W
     final boolean isSignificantlyNewer = timeDelta > TWO_MINUTES;
     final boolean isSignificantlyOlder = timeDelta < -TWO_MINUTES;
     final boolean isNewer = timeDelta > 0;
+
+    // Sometimes the same old location is returned with newer time stamp
+    if (areLocationsEqualIgnoringTimestamp(newLocation, currentBestLocation))
+      return false;
 
     // If it's been more than two minutes since the current location, use the
     // new location because the user has likely moved
