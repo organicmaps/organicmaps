@@ -3,6 +3,7 @@
 #include "../indexer/mercator.hpp"
 #include "../indexer/scales.hpp"
 #include "../base/logging.hpp"
+#include "../platform/platform.hpp"
 
 Tiler::RectInfo::RectInfo()
   : m_drawScale(0), m_tileScale(0), m_x(0), m_y(0)
@@ -113,8 +114,27 @@ void Tiler::seed(ScreenBase const & screen, m2::PointD const & centerPt)
   double rectSizeX = (MercatorBounds::maxX - MercatorBounds::minX) / (1 << m_tileScale);
   double rectSizeY = (MercatorBounds::maxY - MercatorBounds::minY) / (1 << m_tileScale);
 
-  m2::AnyRectD const globalRect = m_screen.GlobalRect();
-  m2::RectD const clipRect = m_screen.ClipRect();
+  /// calculating coverage on the global rect, which corresponds to the
+  /// pixel rect, which is square with size of nearest power-of-two
+
+  m2::RectD pxRect = m_screen.PixelRect();
+
+  int tileSize = GetPlatform().TileSize();
+
+  int pxWidthInTiles = (pxRect.SizeX() + tileSize - 1) / tileSize;
+  int pxHeightInTiles = (pxRect.SizeY() + tileSize - 1) / tileSize;
+
+  pxWidthInTiles += 1;
+  pxHeightInTiles += 1;
+
+  double glbHalfSizeX = m_screen.PtoG(pxRect.Center() - m2::PointD(pxWidthInTiles * tileSize / 2, 0)).Length(m_screen.PtoG(pxRect.Center()));
+  double glbHalfSizeY = m_screen.PtoG(pxRect.Center() - m2::PointD(0, pxHeightInTiles * tileSize / 2)).Length(m_screen.PtoG(pxRect.Center()));
+
+  m2::AnyRectD globalRect(m_screen.PtoG(m_screen.PixelRect().Center()),
+                          m_screen.GlobalRect().angle(),
+                          m2::RectD(-glbHalfSizeX, -glbHalfSizeY, glbHalfSizeX, glbHalfSizeY));
+
+  m2::RectD const clipRect = globalRect.GetGlobalRect();
 
   int minTileX = static_cast<int>(floor(clipRect.minX() / rectSizeX));
   int maxTileX = static_cast<int>(ceil(clipRect.maxX() / rectSizeX));
