@@ -43,7 +43,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   private LocationManager m_locationManager;
   private SensorManager m_sensorManager;
-  private Sensor m_compassSensor;
+  private Sensor m_compassSensor = null;
   // To calculate true north for compass
   private GeomagneticField m_magneticField = null;
   private boolean m_isActive = false;
@@ -80,6 +80,28 @@ public class LocationService implements LocationListener, SensorEventListener, W
     while (it.hasNext())
       it.next().onCompassUpdated(time, magneticNorth, trueNorth, accuracy);
   }
+
+  private WakeLock m_wakeLock = null;
+
+  private void disableAutomaticStandby()
+  {
+    if (m_wakeLock == null)
+    {
+      PowerManager pm = (PowerManager) MWMActivity.getCurrentContext().getSystemService(
+        android.content.Context.POWER_SERVICE);
+      m_wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, TAG);
+    }
+    m_wakeLock.acquire();
+  }
+
+  private void enableAutomaticStandby()
+  {
+    if (m_wakeLock != null)
+      m_wakeLock.release();
+  }
+
+  // How often compass is updated
+  private final static int COMPASS_REFRESH_MKS = 333 * 1000;
 
   public void startUpdate(Listener observer, Context c)
   {
@@ -127,8 +149,8 @@ public class LocationService implements LocationListener, SensorEventListener, W
               onLocationChanged(lastKnown);
           }
         }
-        if (m_sensorManager != null)
-          m_sensorManager.registerListener(this, m_compassSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        if (m_sensorManager != null && m_compassSensor != null)
+          m_sensorManager.registerListener(this, m_compassSensor, COMPASS_REFRESH_MKS);
       }
     }
     else
@@ -142,7 +164,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
     if (m_observers.size() == 0)
     {
       m_locationManager.removeUpdates(this);
-      if (m_sensorManager != null)
+      if (m_sensorManager != null && m_compassSensor != null)
         m_sensorManager.unregisterListener(this);
       m_isActive = false;
       m_reportFirstUpdate = true;
@@ -234,7 +256,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
       if (m_sensorManager != null)
       {
         // Recreate magneticField if location has changed significantly
-        if (m_lastLocation == null || l.distanceTo(m_lastLocation) > HUNDRED_METRES)
+        if (m_magneticField == null || m_lastLocation == null || l.distanceTo(m_lastLocation) > HUNDRED_METRES)
           m_magneticField = new GeomagneticField((float)l.getLatitude(), (float)l.getLongitude(), (float)l.getAltitude(), l.getTime());
       }
       notifyLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy());
@@ -242,13 +264,20 @@ public class LocationService implements LocationListener, SensorEventListener, W
     }
   }
 
+  // Used when only magnetic north is available
+  private final static double INVALID_TRUE_NORTH = -1.0;
+  private final static float UNKNOWN_COMPASS_ACCURACY = 10.0f;
+
   //@Override
   public void onSensorChanged(SensorEvent event)
   {
     if (m_magneticField == null)
-      notifyCompassUpdated(event.timestamp, event.values[0], 0.0, 1.0f);
+      notifyCompassUpdated(event.timestamp, event.values[0], INVALID_TRUE_NORTH, UNKNOWN_COMPASS_ACCURACY);
     else
-      notifyCompassUpdated(event.timestamp, event.values[0], event.values[0] + m_magneticField.getDeclination(), m_magneticField.getDeclination());
+    {
+      final float offset = m_magneticField.getDeclination();
+      notifyCompassUpdated(event.timestamp, event.values[0], event.values[0] + offset, offset);
+    }
   }
 
   //@Override

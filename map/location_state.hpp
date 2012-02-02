@@ -16,7 +16,8 @@ namespace location
     m2::PointD m_positionMercator;
 
     double m_headingRad;
-    double m_headingAccuracyRad;
+    /// Angle to the left and to the right from the North
+    double m_headingHalfSectorRad;
 
     int m_flags;      ///< stores flags from SymbolType
 

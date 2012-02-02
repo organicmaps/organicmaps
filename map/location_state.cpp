@@ -31,7 +31,10 @@ namespace location
     m_headingRad = ((info.m_trueHeading >= 0.0) ? info.m_trueHeading : info.m_magneticHeading)
         / 180 * math::pi
         - math::pi / 2;  // 0 angle is for North ("up"), but in our coordinates it's to the right.
-    m_headingAccuracyRad = info.m_accuracy / 180 * math::pi;
+    // Avoid situations when offset between magnetic north and true north is too small
+    static double const MIN_SECTOR_DEG = 10.;
+    m_headingHalfSectorRad = (info.m_accuracy < MIN_SECTOR_DEG ? MIN_SECTOR_DEG : info.m_accuracy)
+        / 180 * math::pi;
   }
 
   void State::DrawMyPosition(DrawerYG & drawer, ScreenBase const & screen)
@@ -62,14 +65,14 @@ namespace location
         if (m_flags & State::ECompass)
         {
           drawer.screen()->drawSector(pxPosition,
-                m_headingRad - m_headingAccuracyRad,
-                m_headingRad + m_headingAccuracyRad,
+                m_headingRad - m_headingHalfSectorRad,
+                m_headingRad + m_headingHalfSectorRad,
                 orientationRadius,
                 yg::Color(255, 255, 255, 192),
                 yg::maxDepth);
           drawer.screen()->fillSector(pxPosition,
-                m_headingRad - m_headingAccuracyRad,
-                m_headingRad + m_headingAccuracyRad,
+                m_headingRad - m_headingHalfSectorRad,
+                m_headingRad + m_headingHalfSectorRad,
                 orientationRadius,
                 yg::Color(255, 255, 255, 96),
                 yg::maxDepth - 1);
