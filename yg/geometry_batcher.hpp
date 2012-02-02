@@ -65,8 +65,8 @@ namespace yg
         bool m_useGuiResources;
         yg::SkinPage::EType m_type;
 
-        size_t verticesLeft();
-        size_t indicesLeft();
+        int  verticesLeft();
+        int  indicesLeft();
 
         void checkStorage(shared_ptr<ResourceManager> const & resourceManager) const;
       };
@@ -121,10 +121,13 @@ namespace yg
     public:
 
       /// INTERNAL API! USE WITH CAUTION
+      /// @{
       void flush(int pipelineID);
+      /// @}
+
       bool hasRoom(size_t verticesCount, size_t indicesCount, int pipelineID) const;
-      size_t verticesLeft(int pipelineID) const;
-      size_t indicesLeft(int pipelineID) const;
+      int verticesLeft(int pipelineID) const;
+      int  indicesLeft(int pipelineID) const;
 
       struct Params : public base_t::Params
       {

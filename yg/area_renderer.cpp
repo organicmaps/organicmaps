@@ -60,7 +60,15 @@ namespace yg
       float texX = style->m_texRect.minX() + 1.0f;
       float texY = style->m_texRect.minY() + 1.0f;
 
-      skin()->getPage(style->m_pipelineID)->texture()->mapPixel(texX, texY);
+      shared_ptr<BaseTexture> texture = skin()->getPage(style->m_pipelineID)->texture();
+
+      if (!texture)
+      {
+        LOG(LDEBUG, ("returning as no texture is reserved"));
+        return;
+      }
+
+      texture->mapPixel(texX, texY);
 
       size_t pointsLeft = pointsCount;
       size_t batchOffset = 0;
@@ -69,12 +77,18 @@ namespace yg
       {
         size_t batchSize = pointsLeft;
 
-        if (batchSize > verticesLeft(style->m_pipelineID))
-          /// Rounding to the boundary of 3 vertices
-          batchSize = verticesLeft(style->m_pipelineID) / 3 * 3;
+        int vLeft = verticesLeft(style->m_pipelineID);
+        int iLeft = indicesLeft(style->m_pipelineID);
 
-        if (batchSize > indicesLeft(style->m_pipelineID))
-          batchSize = indicesLeft(style->m_pipelineID) / 3 * 3;
+        if ((vLeft == -1) || (iLeft == -1))
+          return;
+
+        if (batchSize > vLeft)
+          /// Rounding to the boundary of 3 vertices
+          batchSize = vLeft / 3 * 3;
+
+        if (batchSize > iLeft)
+          batchSize = iLeft / 3 * 3;
 
         bool needToFlush = (batchSize < pointsLeft);
 

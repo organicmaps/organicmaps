@@ -86,18 +86,31 @@ namespace yg
          }
        }
 
-       m_maxVertices = m_storage.m_vertices->size() / sizeof(Vertex);
-       m_maxIndices = m_storage.m_indices->size() / sizeof(unsigned short);
+       if (m_storage.m_vertices && m_storage.m_indices)
+       {
+         m_maxVertices = m_storage.m_vertices->size() / sizeof(Vertex);
+         m_maxIndices = m_storage.m_indices->size() / sizeof(unsigned short);
 
-       if (!m_storage.m_vertices->isLocked())
-         m_storage.m_vertices->lock();
-       if (!m_storage.m_indices->isLocked())
-         m_storage.m_indices->lock();
+         if (!m_storage.m_vertices->isLocked())
+           m_storage.m_vertices->lock();
+         if (!m_storage.m_indices->isLocked())
+           m_storage.m_indices->lock();
 
-       m_vertices = (Vertex*)m_storage.m_vertices->data();
-       m_indices = (unsigned short *)m_storage.m_indices->data();
+         m_vertices = (Vertex*)m_storage.m_vertices->data();
+         m_indices = (unsigned short *)m_storage.m_indices->data();
 
-       m_hasStorage = true;
+         m_hasStorage = true;
+       }
+       else
+       {
+         m_maxVertices = 0;
+         m_maxIndices = 0;
+
+         m_vertices = 0;
+         m_indices = 0;
+
+         m_hasStorage = false;
+       }
      }
    }
 
@@ -105,6 +118,10 @@ namespace yg
    {
      if (isDebugging())
        LOG(LINFO, ("performing FreeStorage command"));
+
+     if (m_storagePool->IsCancelled())
+       return;
+
      m_storagePool->Free(m_storage);
    }
 
@@ -284,25 +301,31 @@ namespace yg
      GeometryPipeline const & pipeline = m_pipelines[pipelineID];
 
      pipeline.checkStorage(resourceManager());
+     if (!pipeline.m_hasStorage)
+       return false;
 
      return ((pipeline.m_currentVertex + verticesCount <= pipeline.m_maxVertices)
          &&  (pipeline.m_currentIndex + indicesCount <= pipeline.m_maxIndices));
    }
 
-   size_t GeometryBatcher::verticesLeft(int pipelineID) const
+   int GeometryBatcher::verticesLeft(int pipelineID) const
    {
      GeometryPipeline const & pipeline = m_pipelines[pipelineID];
 
      pipeline.checkStorage(resourceManager());
+     if (!pipeline.m_hasStorage)
+       return -1;
 
      return pipeline.m_maxVertices - pipeline.m_currentVertex;
    }
 
-   size_t GeometryBatcher::indicesLeft(int pipelineID) const
+   int GeometryBatcher::indicesLeft(int pipelineID) const
    {
      GeometryPipeline const & pipeline = m_pipelines[pipelineID];
 
      pipeline.checkStorage(resourceManager());
+     if (!pipeline.m_hasStorage)
+       return -1;
 
      return pipeline.m_maxIndices - pipeline.m_currentIndex;
    }
@@ -326,6 +349,10 @@ namespace yg
    {
      if (isDebugging())
        LOG(LINFO, ("performing FreeTexture command"));
+
+     if (m_texturePool->IsCancelled())
+       return;
+
      m_texturePool->Free(m_texture);
    }
 
@@ -372,8 +399,14 @@ namespace yg
    {
      if (isDebugging())
        LOG(LINFO, ("performing UnlockPipeline command"));
-     m_storage.m_vertices->unlock();
-     m_storage.m_indices->unlock();
+
+     if (m_storage.m_vertices && m_storage.m_indices)
+     {
+       m_storage.m_vertices->unlock();
+       m_storage.m_indices->unlock();
+     }
+     else
+       LOG(LDEBUG, ("no storage to unlock"));
    }
 
    void GeometryBatcher::UnlockStorage::cancel()
@@ -396,8 +429,13 @@ namespace yg
      if (isDebugging())
        LOG(LINFO, ("performing DiscardStorage command"));
 
-     m_storage.m_vertices->discard();
-     m_storage.m_indices->discard();
+     if (m_storage.m_vertices && m_storage.m_indices)
+     {
+       m_storage.m_vertices->discard();
+       m_storage.m_indices->discard();
+     }
+     else
+       LOG(LDEBUG, ("no storage to discard"));
    }
 
    void GeometryBatcher::DiscardStorage::cancel()
@@ -427,8 +465,6 @@ namespace yg
        skinPage->uploadData(renderQueue());
 
        unlockPipeline(pipelineID);
-
-//             base_t::applyStates(m_isAntiAliased);
 
        drawGeometry(skinPage->texture(),
                     pipeline.m_storage.m_vertices,
@@ -467,6 +503,8 @@ namespace yg
        flush(pipelineID);
 
      m_pipelines[pipelineID].checkStorage(resourceManager());
+     if (!m_pipelines[pipelineID].m_hasStorage)
+       return;
 
      float texMinX = tx0;
      float texMaxX = tx1;
@@ -474,6 +512,12 @@ namespace yg
      float texMaxY = ty1;
 
      shared_ptr<BaseTexture> const & texture = m_skin->getPage(pipelineID)->texture();
+
+     if (!texture)
+     {
+       LOG(LDEBUG, ("returning as no texture is reserved"));
+       return;
+     }
 
      texture->mapPixel(texMinX, texMinY);
      texture->mapPixel(texMaxX, texMaxY);
@@ -520,6 +564,8 @@ namespace yg
      GeometryPipeline & pipeline = m_pipelines[pipelineID];
 
      pipeline.checkStorage(resourceManager());
+     if (!pipeline.m_hasStorage)
+       return;
 
      ASSERT(size > 2, ());
 
@@ -571,6 +617,8 @@ namespace yg
      GeometryPipeline & pipeline = m_pipelines[pipelineID];
 
      pipeline.checkStorage(resourceManager());
+     if (!pipeline.m_hasStorage)
+       return;
 
      ASSERT(size > 2, ());
 
@@ -619,6 +667,8 @@ namespace yg
      GeometryPipeline & pipeline = m_pipelines[pipelineID];
 
      pipeline.checkStorage(resourceManager());
+     if (!pipeline.m_hasStorage)
+       return;
 
      ASSERT(size > 2, ());
 
@@ -658,6 +708,8 @@ namespace yg
      GeometryPipeline & pipeline = m_pipelines[pipelineID];
 
      pipeline.checkStorage(resourceManager());
+     if (!pipeline.m_hasStorage)
+       return;
 
      ASSERT(size > 2, ());
 

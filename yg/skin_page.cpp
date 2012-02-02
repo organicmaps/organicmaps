@@ -342,6 +342,12 @@ namespace yg
     if (isDebugging())
       LOG(LINFO, ("performing UploadData command", m_texture->width(), m_texture->height()));
 
+    if (!m_texture)
+    {
+      LOG(LDEBUG, ("no texture on upload"));
+      return;
+    }
+
     static_cast<gl::ManagedTexture*>(m_texture.get())->lock();
 
     TDynamicTexture * dynTexture = static_cast<TDynamicTexture*>(m_texture.get());
@@ -436,6 +442,7 @@ namespace yg
         break;
       case ELightWeight:
         m_resourceManager->guiThreadTextures()->Free(m_texture);
+        break;
       default:
         LOG(LINFO, ("freeTexture call for with invalid type param"));
       }

@@ -97,7 +97,15 @@ namespace yg
       for (int i = 0; i < 4; ++i)
         rectPtsF[i] = m2::PointF(rectPts[i].x, rectPts[i].y);
 
-      m2::PointF texPt = skin()->getPage(style->m_pipelineID)->texture()->mapPixel(m2::RectF(style->m_texRect).Center());
+      shared_ptr<BaseTexture> texture = skin()->getPage(style->m_pipelineID)->texture();
+
+      if (!texture)
+      {
+        LOG(LDEBUG, ("returning as no texture is reserved"));
+        return;
+      }
+
+      m2::PointF texPt = texture->mapPixel(m2::RectF(style->m_texRect).Center());
 
       addTexturedStripStrided(
             rectPtsF,
@@ -126,7 +134,15 @@ namespace yg
           m2::PointF(r.maxX(), r.maxY())
         };
 
-      m2::PointF texPt = skin()->getPage(style->m_pipelineID)->texture()->mapPixel(m2::RectF(style->m_texRect).Center());
+      shared_ptr<BaseTexture> texture = skin()->getPage(style->m_pipelineID)->texture();
+
+      if (!texture)
+      {
+        LOG(LDEBUG, ("returning as no texture is reserved"));
+        return;
+      }
+
+      m2::PointF texPt = texture->mapPixel(m2::RectF(style->m_texRect).Center());
 
       addTexturedStripStrided(
           rectPts,

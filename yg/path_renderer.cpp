@@ -93,6 +93,12 @@ namespace yg
 
         shared_ptr<BaseTexture> texture = skin()->getPage(lineStyle->m_pipelineID)->texture();
 
+        if (!texture)
+        {
+          LOG(LDEBUG, ("returning as no texture is reserved"));
+          return;
+        }
+
         float texMaxY = lineStyle->m_texRect.maxY() - aaShift();
         float texMinY = lineStyle->m_texRect.minY() + aaShift();
 
@@ -170,6 +176,12 @@ namespace yg
 
           shared_ptr<BaseTexture> texture = skin()->getPage(lineStyle->m_pipelineID)->texture();
 
+          if (!texture)
+          {
+            LOG(LDEBUG, ("returning as no texture is reserved"));
+            return;
+          }
+
           m2::PointF joinSegTex[3] =
           {
             texture->mapPixel(lineStyle->m_centerColorPixel),
@@ -246,6 +258,12 @@ namespace yg
         };
 
         shared_ptr<BaseTexture> texture = skin()->getPage(lineStyle->m_pipelineID)->texture();
+
+        if (!texture)
+        {
+          LOG(LDEBUG, ("returning as no texture is reserved"));
+          return;
+        }
 
         m2::PointF texCoords[8] =
         {

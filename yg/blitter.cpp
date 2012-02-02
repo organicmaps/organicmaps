@@ -114,6 +114,12 @@ namespace yg
 
       yg::gl::Storage storage = resourceManager()->multiBlitStorages()->Reserve();
 
+      if (resourceManager()->multiBlitStorages()->IsCancelled())
+      {
+        LOG(LINFO, ("skipping multiBlit on cancelled multiBlitStorages pool"));
+        return;
+      }
+
       /// TODO : Bad lock/unlock checking pattern. Should refactor
       if (!storage.m_vertices->isLocked())
         storage.m_vertices->lock();
@@ -306,7 +312,14 @@ namespace yg
     {
       if (isDebugging())
         LOG(LINFO, ("performing IMMDrawTexturedPrimitives command"));
+
       yg::gl::Storage blitStorage = m_resourceManager->blitStorages()->Reserve();
+
+      if (m_resourceManager->blitStorages()->IsCancelled())
+      {
+        LOG(LDEBUG, ("skipping IMMDrawTexturedPrimitives on cancelled multiBlitStorages pool"));
+        return;
+      }
 
       if (!blitStorage.m_vertices->isLocked())
         blitStorage.m_vertices->lock();
