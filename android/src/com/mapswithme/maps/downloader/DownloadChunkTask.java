@@ -51,7 +51,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
   {
     PowerManager pm = (PowerManager)MWMActivity.getCurrentContext().getSystemService(
         android.content.Context.POWER_SERVICE);
-    m_wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE, TAG);
+    m_wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, TAG);
     m_wakeLock.acquire();
   }
 
