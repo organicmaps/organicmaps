@@ -17,14 +17,14 @@ import android.util.Log;
 class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
 {
   private static final String TAG = "DownloadChunkTask";
-  
+
   private long m_httpCallbackID;
   private String m_url;
   private long m_beg;
   private long m_end;
   private long m_expectedFileSize;
   private String m_postBody;
-  
+
   private final int NOT_SET = -1;
   private final int IO_ERROR = -2;
   private final int INVALID_URL = -3;
@@ -35,7 +35,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
 
   native void onWrite(long httpCallbackID, long beg, byte [] data, long size);
   native void onFinish(long httpCallbackID, long httpCode, long beg, long end);
-  
+
   public DownloadChunkTask(long httpCallbackID, String url, long beg, long end, long expectedFileSize, String postBody)
   {
     m_httpCallbackID = httpCallbackID;
@@ -45,7 +45,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
     m_expectedFileSize = expectedFileSize;
     m_postBody = postBody;
   }
-  
+
   @Override
   protected void onPreExecute()
   {
@@ -61,7 +61,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
     onFinish(m_httpCallbackID, 200, m_beg, m_end);
     m_wakeLock.release();
   }
-  
+
   @Override
   protected void onCancelled()
   {
@@ -77,16 +77,16 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
     if (!isCancelled())
     {
       // Use progress event to save downloaded bytes
-      onWrite(m_httpCallbackID, m_beg + m_downloadedBytes, data[0], (long)data[0].length);
+      onWrite(m_httpCallbackID, m_beg + m_downloadedBytes, data[0], data[0].length);
       m_downloadedBytes += data[0].length;
     }
   }
-  
+
   void start()
   {
     execute();
   }
-  
+
   @Override
   protected Void doInBackground(Void... p)
   {
@@ -94,20 +94,20 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
     try
     {
       url = new URL(m_url);
-      
+
       HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-      
+
       if (isCancelled())
       {
         urlConnection.disconnect();
         return null;
       }
-      
+
       urlConnection.setChunkedStreamingMode(0);
       urlConnection.setUseCaches(false);
       urlConnection.setConnectTimeout(15 * 1000);
       urlConnection.setReadTimeout(15 * 1000);
-      
+
       // use Range header only if we don't download whole file from start
       if (!(m_beg == 0 && m_end < 0))
       {
@@ -124,13 +124,13 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
         final DataOutputStream os = new DataOutputStream(urlConnection.getOutputStream());
         os.writeChars(m_postBody);
       }
-      
+
       if (isCancelled())
       {
         urlConnection.disconnect();
         return null;
       }
-      
+
       final int err = urlConnection.getResponseCode();
       if (err != HttpURLConnection.HTTP_OK && err != HttpURLConnection.HTTP_PARTIAL)
       {
