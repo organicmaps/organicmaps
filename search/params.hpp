@@ -38,6 +38,11 @@ namespace search
       m_validPos = true;
     }
 
+    inline bool IsNearMeMode() const
+    {
+      return (m_mode == NearMe && m_validPos);
+    }
+
   public:
     SearchCallbackT m_callback;
 

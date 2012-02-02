@@ -90,28 +90,6 @@ void Engine::InitializeCategoriesAndSuggestStrings(CategoriesHolder const & cate
   m_pData->m_stringsToSuggest.assign(stringsToSuggest.begin(), stringsToSuggest.end());
 }
 
-/*
-void Engine::SetPosition(double lat, double lon)
-{
-  m2::PointD const oldPos = m_pQuery->GetPosition();
-
-  if (m_trackEnable &&
-      ms::DistanceOnEarth(MercatorBounds::YToLat(oldPos.y),
-                          MercatorBounds::XToLon(oldPos.x),
-                          lat, lon) > 10.0)
-  {
-    LOG(LINFO, ("Update after Position: ", oldPos, lon, lat));
-
-    m_pQuery->SetPosition(m2::PointD(MercatorBounds::LonToX(lon),
-                                     MercatorBounds::LatToY(lat)));
-
-    m_pQuery->SetViewport(MercatorBounds::MetresToXY(lon, lat, 25000));
-
-    RepeatSearch();
-  }
-}
-*/
-
 void Engine::Search(SearchParams const & params, m2::RectD const & viewport)
 {
   {
@@ -124,37 +102,51 @@ void Engine::Search(SearchParams const & params, m2::RectD const & viewport)
   GetPlatform().RunAsync(bind(&Engine::SearchAsync, this));
 }
 
+namespace
+{
+  m2::PointD GetViewportXY(double lat, double lon)
+  {
+    return m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
+  }
+  m2::RectD GetViewportRect(double lat, double lon, double radius)
+  {
+    return MercatorBounds::MetresToXY(lon, lat, radius);
+  }
+}
+
 void Engine::SearchAsync()
 {
+  // First of all - cancel previous query.
   m_pQuery->DoCancel();
 
   // Enter to run new search.
-  threads::MutexGuard guard(m_searchMutex);
+  threads::MutexGuard searchGuard(m_searchMutex);
 
-  m_pQuery->SetViewport(m_viewport);
-  m_pQuery->SetPosition(m_viewport.Center());
+  // Get current search params.
+  m2::RectD viewport;
+  SearchParams params;
+  {
+    threads::MutexGuard updateGuard(m_updateMutex);
+    params = m_params;
+    viewport = m_viewport;
+  }
+
+  // Initialize query.
+  bool const isNearMe = params.IsNearMeMode();
+  m_pQuery->SetViewport(isNearMe ? GetViewportRect(params.m_lat, params.m_lon, 20000) : viewport);
+  m_pQuery->SetPosition(isNearMe ? GetViewportXY(params.m_lat, params.m_lon) : m_viewport.Center());
 
   Results res;
-  SearchCallbackT callback;
-
   try
   {
-    string query;
-
-    {
-      threads::MutexGuard guard(m_updateMutex);
-      query = m_params.m_query;
-      callback = m_params.m_callback;
-    }
-
-    m_pQuery->Search(query, res);
+    m_pQuery->Search(params.m_query, res);
   }
   catch (Query::CancelException const &)
   {
   }
 
-  // emit results in any way, even if search was canceled
-  callback(res);
+  // Emit results in any way, even if search was canceled.
+  params.m_callback(res);
 }
 
 string Engine::GetCountryFile(m2::PointD const & pt) const
