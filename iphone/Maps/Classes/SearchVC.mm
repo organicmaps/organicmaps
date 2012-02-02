@@ -16,39 +16,51 @@
 SearchVC * g_searchVC = nil;
 volatile int g_queryId = 0;
 
-@interface Wrapper : NSObject
+@interface ResultsWrapper : NSObject
 {
-  search::Results * m_result;
+  vector<search::Result> m_results;
+  NSString * m_searchString;
+  int m_queryId;
 }
-- (id)initWithResult:(search::Results const &) res;
-- (search::Results const *)get;
+// Stores search string which corresponds to these results.
+@property(nonatomic,retain) NSString * m_searchString;
+// Used to double-checking and discarding old results in GUI thread
+@property(nonatomic,assign) int m_queryId;
+- (id)initWithResults:(search::Results const &) res andQueryId:(int)qId;
+- (vector<search::Result> const &)get;
 @end
 
-@implementation Wrapper
-- (id)initWithResult:(search::Results const &) res
+@implementation ResultsWrapper
+
+@synthesize m_searchString;
+@synthesize m_queryId;
+
+- (id)initWithResults:(search::Results const &)res andQueryId:(int)qId
 {
   if ((self = [super init]))
-    m_result = new search::Results(res);
+  {
+    m_results.assign(res.Begin(), res.End());
+    m_queryId = qId;
+  }
   return self;
 }
 
-- (void)dealloc
+- (vector<search::Result> const &)get
 {
-  delete m_result;
-  [super dealloc];
-}
-
-- (search::Results const *)get
-{
-  return m_result;
+  return m_results;
 }
 @end
 
+// Last search results are stored betweel SearchVC sessions
+// to appear instantly for the user, they also store last search text query
+ResultsWrapper * g_lastSearchResults = nil;
+
 static void OnSearchResultCallback(search::Results const & res, int queryId)
 {
-  if (g_searchVC && queryId == g_queryId)
+  int currQueryId = g_queryId;
+  if (g_searchVC && queryId == currQueryId)
   {
-    Wrapper * w = [[Wrapper alloc] initWithResult:res];
+    ResultsWrapper * w = [[ResultsWrapper alloc] initWithResults:res andQueryId:currQueryId];
     [g_searchVC performSelectorOnMainThread:@selector(addResult:)
                                  withObject:w
                               waitUntilDone:NO];
@@ -143,6 +155,9 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 
   m_searchBar = [[UISearchBar alloc] init];
   m_searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  // restore previous search query
+  if (g_lastSearchResults)
+    m_searchBar.text = g_lastSearchResults.m_searchString;
   m_searchBar.delegate = self;
   m_searchBar.placeholder = NSLocalizedString(@"Search map", @"Search box placeholder text");
   m_searchBar.showsCancelButton = YES;
@@ -161,18 +176,12 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   self.view = parentView;
 }
 
-- (void)clearResults
-{
-  m_results.clear();
-}
-
 - (void)dealloc
 {
   g_searchVC = nil;
   [m_radarButton release];
   [m_searchBar release];
   [m_table release];
-  [self clearResults];
   [super dealloc];
 }
 
@@ -188,7 +197,6 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   [m_radarButton release]; m_radarButton = nil;
   [m_searchBar release]; m_searchBar = nil;
   [m_table release]; m_table = nil;
-  m_results.clear();
   
   [super viewDidUnload];
 }
@@ -236,7 +244,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
     [m_locationManager start:self];
 
     // show keyboard
-    [m_searchBar becomeFirstResponder];
+    [m_searchBar becomeFirstResponder];    
   }
   
   [super viewWillAppear:animated];
@@ -266,13 +274,18 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 //*********** SearchBar handlers *******************************************
 - (void)searchBar:(UISearchBar *)sender textDidChange:(NSString *)searchText
 {
-  [self clearResults];
-  [m_table reloadData];
   ++g_queryId;
 
   if ([searchText length] > 0)
     m_framework->Search([[searchText precomposedStringWithCompatibilityMapping] UTF8String],
               bind(&OnSearchResultCallback, _1, g_queryId));
+  else
+  {
+    [g_lastSearchResults release];
+    g_lastSearchResults = nil;
+    // Clean the table
+    [m_table reloadData];
+  }
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
@@ -339,18 +352,21 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  return m_results.size();
+  if (g_lastSearchResults)
+    return [g_lastSearchResults get].size();
+  else
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (indexPath.row >= m_results.size())
+  if (g_lastSearchResults == nil || indexPath.row >= [g_lastSearchResults get].size())
   {
-    ASSERT(false, ("Invalid m_results with size", m_results.size()));
+    ASSERT(false, ("Invalid m_results with size", [g_lastSearchResults get].size()));
     return nil;
   }
 
-  search::Result const & r = m_results[indexPath.row];
+  search::Result const & r = [g_lastSearchResults get][indexPath.row];
   switch (r.GetResultType())
   {
     case search::Result::RESULT_FEATURE:
@@ -385,9 +401,9 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (indexPath.row < m_results.size())
+  if (indexPath.row < [g_lastSearchResults get].size())
   {
-    search::Result const & res = m_results[indexPath.row];
+    search::Result const & res = [g_lastSearchResults get][indexPath.row];
     switch(res.GetResultType())
     {
       // Zoom to the feature
@@ -404,15 +420,19 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   }
 }
 
-- (void)addResult:(id)result
+// Called on UI thread from search threads
+- (void)addResult:(id)res
 {
-  m_results.clear();
-
-  search::Results const * r = [result get];
-  m_results.insert(m_results.end(), r->Begin(), r->End());
-  [m_table reloadData];
+  ResultsWrapper * w = (ResultsWrapper *)res;
+  // Additional check to discard old results when user entered new text query
+  if (g_queryId == w.m_queryId)
+  {
+    [g_lastSearchResults release];
+    g_lastSearchResults = [w retain];
+    w.m_searchString = m_searchBar.text;
+    [m_table reloadData];
+  }
 }
-
 
 - (void)updateCompassFor:(UITableViewCell *)cell withResult:(search::Result const &)res andAngle:(double)angle
 {
@@ -454,7 +474,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   for (NSUInteger i = 0; i < cells.count; ++i)
   {
     UITableViewCell * cell = (UITableViewCell *)[cells objectAtIndex:i];
-    search::Result const & res = m_results[[m_table indexPathForCell:cell].row];
+    search::Result const & res = [g_lastSearchResults get][[m_table indexPathForCell:cell].row];
     if (res.GetResultType() == search::Result::RESULT_FEATURE)
     {
       m2::PointD const center = res.GetFeatureCenter();
@@ -475,7 +495,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   {
     if ([subview isKindOfClass:[UIButton class]])
     {
-      [subview setEnabled:TRUE];
+      [subview setEnabled:YES];
       break;
     }
   }
