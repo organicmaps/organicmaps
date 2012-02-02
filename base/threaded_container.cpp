@@ -7,6 +7,7 @@ ThreadedContainer::ThreadedContainer()
 
 void ThreadedContainer::Cancel()
 {
+  threads::ConditionGuard g(m_Cond);
   m_IsCancelled = true;
   m_Cond.Signal(true);
 }
