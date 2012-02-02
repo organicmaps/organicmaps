@@ -181,7 +181,7 @@ bool IntermediateResult::StrictEqualF::operator()(IntermediateResult const & r) 
     if (m_r.m_str == r.m_str && m_r.GetBestType() == r.GetBestType())
     {
       /// @todo Tune this constant.
-      return fabs(m_r.m_distance - r.m_distance) < 500.0;
+      return fabs(m_r.m_distance - r.m_distance) < 100.0;
     }
   }
 
