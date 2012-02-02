@@ -115,22 +115,22 @@ void Tiler::seed(ScreenBase const & screen, m2::PointD const & centerPt)
   double rectSizeY = (MercatorBounds::maxY - MercatorBounds::minY) / (1 << m_tileScale);
 
   /// calculating coverage on the global rect, which corresponds to the
-  /// pixel rect, which is square with size of nearest power-of-two
+  /// pixel rect, which in ceiled to tileSize and enlarged by 1 tile on each side
+  /// to produce an effect of simple precaching.
 
   m2::RectD pxRect = m_screen.PixelRect();
 
   int tileSize = GetPlatform().TileSize();
 
-  int pxWidthInTiles = (pxRect.SizeX() + tileSize - 1) / tileSize;
-  int pxHeightInTiles = (pxRect.SizeY() + tileSize - 1) / tileSize;
+  int pxWidthInTiles = 1 + (pxRect.SizeX() + tileSize - 1) / tileSize;
+  int pxHeightInTiles = 1 + (pxRect.SizeY() + tileSize - 1) / tileSize;
 
-  pxWidthInTiles += 1;
-  pxHeightInTiles += 1;
+  m2::PointD pxCenter = pxRect.Center();
 
-  double glbHalfSizeX = m_screen.PtoG(pxRect.Center() - m2::PointD(pxWidthInTiles * tileSize / 2, 0)).Length(m_screen.PtoG(pxRect.Center()));
-  double glbHalfSizeY = m_screen.PtoG(pxRect.Center() - m2::PointD(0, pxHeightInTiles * tileSize / 2)).Length(m_screen.PtoG(pxRect.Center()));
+  double glbHalfSizeX = m_screen.PtoG(pxCenter - m2::PointD(pxWidthInTiles * tileSize / 2, 0)).Length(m_screen.PtoG(pxCenter));
+  double glbHalfSizeY = m_screen.PtoG(pxCenter - m2::PointD(0, pxHeightInTiles * tileSize / 2)).Length(m_screen.PtoG(pxCenter));
 
-  m2::AnyRectD globalRect(m_screen.PtoG(m_screen.PixelRect().Center()),
+  m2::AnyRectD globalRect(m_screen.PtoG(pxCenter),
                           m_screen.GlobalRect().angle(),
                           m2::RectD(-glbHalfSizeX, -glbHalfSizeY, glbHalfSizeX, glbHalfSizeY));
 

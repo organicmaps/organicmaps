@@ -32,7 +32,9 @@ public:
 
     double rotatedScreenCircleDiameter = sqrt(screenSize * screenSize + screenSize * screenSize);
     int tilesOnOneSide = ceil(rotatedScreenCircleDiameter / (m_tileSize / 1.05 / 2));
-    tilesOnOneSide += 1;
+    /// hardcoding the fact, that we are computing screen coverage
+    /// on slightly enlarged screen rect to produce effect of precaching.
+    ++tilesOnOneSide;
     int singleScreenTilesCount = tilesOnOneSide * tilesOnOneSide;
     m_maxTilesCount = singleScreenTilesCount * 2;
 
