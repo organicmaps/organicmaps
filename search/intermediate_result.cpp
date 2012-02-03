@@ -69,17 +69,21 @@ void IntermediateResult::CalcCommonParams(m2::RectD const & viewportRect, m2::Po
     m_distance = ResultDistance(pos, center);
   }
   else
+  {
+    // empty destance
     m_distance = -1.0;
+  }
 
   m_viewportDistance = ViewportDistance(viewportRect, center);
 }
 
 IntermediateResult::IntermediateResult(string const & name, int penalty)
   : m_str(name), m_completionString(name + " "),
-    // Categories should always be first
-    m_distance(0), m_viewportDistance(0),
+    // Categories should always be first.
+    m_distance(-1000.0),    // smallest distance :)
+    m_viewportDistance(0),  // closest to viewport
     m_resultType(RESULT_CATEGORY),
-    m_searchRank(0)
+    m_searchRank(0)         // best rank
 {
 }
 
