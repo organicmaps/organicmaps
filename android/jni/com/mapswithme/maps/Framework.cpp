@@ -98,7 +98,7 @@ namespace android
                                                 true,
                                                 rmParams,
                                                 make_shared_ptr(new android::RenderContext())));
-      m_work.LoadState();
+      LoadState();
     }
     catch (yg::gl::platform_unsupported const & e)
     {
