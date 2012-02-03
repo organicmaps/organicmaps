@@ -140,6 +140,7 @@ private:
   search::Engine * GetSearchEngine();
 public:
   void Search(search::SearchParams const & params);
+  bool GetCurrentPosition(double & lat, double & lon);
 
   void SetMaxWorldRect();
 

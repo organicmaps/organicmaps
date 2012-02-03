@@ -694,6 +694,18 @@ void Framework::Search(search::SearchParams const & params)
   pSearchEngine->Search(params, m_navigator.Screen().ClipRect());
 }
 
+bool Framework::GetCurrentPosition(double & lat, double & lon)
+{
+  if (m_locationState.IsValidPosition())
+  {
+    m2::PointD const pos = m_locationState.Position();
+    lat = MercatorBounds::YToLat(pos.y);
+    lon = MercatorBounds::XToLon(pos.x);
+    return true;
+  }
+  else return false;
+}
+
 void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 {
   threads::MutexGuard g(m_renderMutex);

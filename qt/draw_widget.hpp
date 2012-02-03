@@ -82,7 +82,7 @@ namespace qt
 
     void SetScaleControl(QScaleSlider * pScale);
 
-    void Search(search::SearchParams const & params);
+    void Search(search::SearchParams params);
     void ShowFeature(m2::RectD const & rect);
 
     void SaveState();

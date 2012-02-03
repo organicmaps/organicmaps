@@ -445,8 +445,14 @@ namespace qt
     }
   }
 
-  void DrawWidget::Search(search::SearchParams const & params)
+  void DrawWidget::Search(search::SearchParams params)
   {
+    if (m_framework->GetCurrentPosition(params.m_lat, params.m_lon))
+    {
+      params.SetNearMeMode(true);
+      params.m_validPos = true;
+    }
+
     m_framework->Search(params);
   }
 
