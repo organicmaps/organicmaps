@@ -214,8 +214,13 @@ public class MWMActivity extends NvEventQueueActivity implements
   @Override
   protected void onResume()
   {
-    if (findViewById(R.id.map_button_myposition).isSelected())
+    View button = findViewById(R.id.map_button_myposition);
+    if (button.isSelected())
+    {
+      // Change button appearance to "looking for position"
+      button.setBackgroundResource(R.drawable.myposition_button_normal);
       m_locationService.startUpdate(this, this);
+    }
 
     startWatchingExternalStorage();
 
