@@ -7,10 +7,10 @@ namespace search
 Result::Result(string const & str, string const & region,
                string const & flag, string const & type,
                uint32_t featureType, m2::RectD const & featureRect,
-               double distanceFromCenter, double directionFromCenter)
+               double distanceFromCenter)
   : m_str(str), m_region(region), m_flag(flag), m_type(type),
     m_featureRect(featureRect), m_featureType(featureType),
-    m_distanceFromCenter(distanceFromCenter), m_directionFromCenter(directionFromCenter)
+    m_distanceFromCenter(distanceFromCenter)
 {
   // Features with empty names can be found after suggestion.
   if (m_str.empty())
@@ -45,12 +45,6 @@ double Result::GetDistanceFromCenter() const
 {
   ASSERT_EQUAL(GetResultType(), RESULT_FEATURE, ());
   return m_distanceFromCenter;
-}
-
-double Result::GetDirectionFromCenter() const
-{
-  ASSERT_EQUAL(GetResultType(), RESULT_FEATURE, ());
-  return m_directionFromCenter;
 }
 
 char const * Result::GetSuggestionString() const

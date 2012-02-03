@@ -78,6 +78,7 @@ namespace
     return item;
   }
 
+  /*
   QIcon draw_direction(double a)
   {
     int const dim = 64;
@@ -109,6 +110,7 @@ namespace
 
     return pm;
   }
+  */
 }
 
 void SearchPanel::OnSearchResult(ResultsT * res, int queryId)
@@ -142,10 +144,12 @@ void SearchPanel::OnSearchResult(ResultsT * res, int queryId)
 
       if (drawDir)
       {
+        /*
         QTableWidgetItem * item =
             new QTableWidgetItem(draw_direction(e.GetDirectionFromCenter()), QString());
         item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
         m_pTable->setItem(rowCount, 4, item);
+        */
       }
     }
 

@@ -127,7 +127,6 @@ private:
   m2::RectD m_rect;
 
   double m_distance;
-  double m_direction;
   int m_viewportDistance;
 
   ResultType m_resultType;

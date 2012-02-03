@@ -67,13 +67,9 @@ void IntermediateResult::CalcCommonParams(m2::RectD const & viewportRect, m2::Po
     ASSERT ( my::between_s(-180.0, 180.0, pos.y), (pos.y) );
 
     m_distance = ResultDistance(pos, center);
-    m_direction = ResultDirection(pos, center);
   }
   else
-  {
     m_distance = -1.0;
-    m_direction = -1.0;
-  }
 
   m_viewportDistance = ViewportDistance(viewportRect, center);
 }
@@ -81,7 +77,7 @@ void IntermediateResult::CalcCommonParams(m2::RectD const & viewportRect, m2::Po
 IntermediateResult::IntermediateResult(string const & name, int penalty)
   : m_str(name), m_completionString(name + " "),
     // Categories should always be first
-    m_distance(0), m_direction(0), m_viewportDistance(0),
+    m_distance(0), m_viewportDistance(0),
     m_resultType(RESULT_CATEGORY),
     m_searchRank(0)
 {
@@ -146,11 +142,11 @@ Result IntermediateResult::GenerateFinalResult(
               #endif
                   ,
                   GetBestType(), feature::GetFeatureViewport(m_types, m_rect),
-                  m_distance, m_direction);
+                  m_distance);
 
   case RESULT_LATLON:
     return Result(m_str, info.m_name, info.m_flag, GetFeatureType(pCat),
-                  0, m_rect, m_distance, m_direction);
+                  0, m_rect, m_distance);
 
   default:
     ASSERT_EQUAL ( m_resultType, RESULT_CATEGORY, () );
@@ -193,7 +189,7 @@ bool IntermediateResult::StrictEqualF::operator()(IntermediateResult const & r) 
   {
     if (m_r.m_str == r.m_str && m_r.GetBestType() == r.GetBestType())
     {
-      /// @todo Tune this constant.
+      // 100.0m - distance between equal features
       return fabs(m_r.m_distance - r.m_distance) < 100.0;
     }
   }

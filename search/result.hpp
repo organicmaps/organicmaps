@@ -19,7 +19,7 @@ public:
   Result(string const & str, string const & region,
          string const & flag, string const & type,
          uint32_t featureType, m2::RectD const & featureRect,
-         double distanceFromCenter, double directionFromCenter);
+         double distanceFromCenter);
   Result(string const & str, string const & suggestionStr);
 
   // String that is displayed in the GUI.
@@ -40,9 +40,6 @@ public:
   // Distance from the center of the screen, if GetResultType() == RESULT_FEATURE.
   double GetDistanceFromCenter() const;
 
-  // Direction from thethe center of the screen in radians, if GetResultType() == RESULT_FEATURE.
-  double GetDirectionFromCenter() const;
-
   // String to write in the search box.
   char const * GetSuggestionString() const;
 
@@ -51,7 +48,6 @@ private:
   m2::RectD m_featureRect;
   uint32_t m_featureType;
   double m_distanceFromCenter;
-  double m_directionFromCenter;
   string m_suggestionStr;
 };
 
