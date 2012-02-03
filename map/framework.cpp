@@ -190,19 +190,6 @@ void Framework::GetLocalMaps(vector<string> & outMaps)
   pl.GetFilesInDir(pl.WritableDir(), "*" DATA_FILE_EXTENSION, outMaps);
 }
 
-/*
-bool Framework::IsEmptyModel() const
-{
-  return m_model.GetWorldRect() == m2::RectD::GetEmptyRect();
-}
-*/
-
-// Cleanup.
-//void Framework::Clean()
-//{
-//  m_model.Clean();
-//}
-
 void Framework::PrepareToShutdown()
 {
   SetRenderPolicy(0);

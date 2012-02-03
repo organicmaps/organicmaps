@@ -92,7 +92,6 @@ protected:
   /// Holds -1 if no maps were added
   /// @see feature::DataHeader::Version
   int m_lowestMapVersion;
-//  typedef typename TModel::ReaderT ReaderT;
 
   void AddMap(string const & file);
   void RemoveMap(string const & datFile);
@@ -100,7 +99,6 @@ protected:
   void GetLocalMaps(vector<string> & outMaps);
 
 public:
-
   Framework();
   virtual ~Framework();
 
@@ -125,9 +123,6 @@ public:
 
   InformationDisplay & GetInformationDisplay();
 
-  // Cleanup.
-  //void Clean();
-
   void PrepareToShutdown();
 
   void SetupMeasurementSystem();
@@ -141,7 +136,9 @@ public:
                  int scaleLevel,
                  bool isTiling);
 
+private:
   search::Engine * GetSearchEngine();
+public:
   void Search(search::SearchParams const & params);
 
   void SetMaxWorldRect();
@@ -157,7 +154,7 @@ public:
 
   bool SetUpdatesEnabled(bool doEnable);
 
-//  double GetCurrentScale() const;
+  //double GetCurrentScale() const;
   int GetDrawScale() const;
 
   m2::PointD GetViewportCenter() const;
