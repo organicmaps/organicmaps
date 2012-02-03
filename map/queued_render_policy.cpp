@@ -59,6 +59,7 @@ void QueuedRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & ev, ScreenBase
 
     if (RenderQueuedCommands(num))
     {
+      /// next DrawFrame should start from another pipeline
       m_CurrentPipeline = (num + 1) % m_PipelinesCount;
       break;
     }
