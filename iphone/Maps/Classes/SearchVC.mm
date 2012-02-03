@@ -117,6 +117,26 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   m_radarButton.selected = NO;
 }
 
++ (BOOL)isTimestampTooOld:(NSDate *)time
+{
+  static NSTimeInterval const SECONDS_TO_EXPIRE = -300.0;
+  return [time timeIntervalSinceNow] < SECONDS_TO_EXPIRE;
+}
+
+- (void)fillSearchParams:(search::SearchParams &)params withText:(NSString *)queryString
+{
+  params.m_query = [[queryString precomposedStringWithCompatibilityMapping] UTF8String];
+  params.m_callback = bind(&OnSearchResultCallback, _1, g_queryId);
+  bool radarEnabled = m_radarButton.selected == YES;
+  CLLocation * l = m_locationManager.lastLocation;
+  // Do not use too old locations
+  if (l == nil || [SearchVC isTimestampTooOld:l.timestamp])
+    radarEnabled = false;
+  else
+    params.SetPosition(l.coordinate.latitude, l.coordinate.longitude);
+  params.SetNearMeMode(radarEnabled);
+}
+
 - (void)onRadarButtonClicked:(id)button
 {
   UIButton * btn = (UIButton *)button;
@@ -126,6 +146,16 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
     [self enableRadarMode];
   else
     [self disableRadarMode];
+
+  // Refresh search results with new mode, but
+  // do not search if text is not entered
+  NSString * queryString = m_searchBar.text;
+  if (queryString.length)
+  {
+    search::SearchParams params;
+    [self fillSearchParams:params withText:queryString];
+    m_framework->Search(params);
+  }
 }
 
 - (void)loadView
@@ -266,30 +296,16 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   return YES;  // All orientations are supported.
 }
 
-- (void)fillSearchParams:(search::SearchParams &)params
-{
-  params.m_query = [[m_searchBar.text precomposedStringWithCompatibilityMapping] UTF8String];
-  params.m_callback = bind(&OnSearchResultCallback, _1, g_queryId);
-  bool radarEnabled = m_radarButton.selected == YES;
-  CLLocation * l = m_locationManager.lastLocation;
-  if (!l)
-    radarEnabled = false;
-  else
-    params.SetPosition(l.coordinate.latitude, l.coordinate.longitude);
-  params.SetNearMeMode(radarEnabled);
-
-}
-
 //**************************************************************************
 //*********** SearchBar handlers *******************************************
 - (void)searchBar:(UISearchBar *)sender textDidChange:(NSString *)searchText
 {
   ++g_queryId;
 
-  if ([searchText length] > 0)
+  if (searchText.length)
   {
     search::SearchParams params;
-    [self fillSearchParams:params];
+    [self fillSearchParams:params withText:searchText];
     m_framework->Search(params);
   }
   else
@@ -473,9 +489,15 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 
 - (void)onGpsUpdate:(location::GpsInfo const &)info
 {
-  search::SearchParams params;
-  [self fillSearchParams:params];
-  m_framework->Search(params);
+  // Refresh search results with newer location, but
+  // do not search if text is not entered
+  NSString * queryString = m_searchBar.text;
+  if (queryString.length)
+  {
+    search::SearchParams params;
+    [self fillSearchParams:params withText:queryString];
+    m_framework->Search(params);
+  }
 }
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info
