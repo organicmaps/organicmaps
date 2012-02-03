@@ -10,6 +10,7 @@ QueuedRenderPolicy::QueuedRenderPolicy(int pipelinesCount,
 {
   m_Pipelines = new PacketsPipeline[pipelinesCount];
   m_PipelinesCount = pipelinesCount;
+  m_CurrentPipeline = 0;
 }
 
 QueuedRenderPolicy::~QueuedRenderPolicy()
@@ -51,14 +52,22 @@ void QueuedRenderPolicy::EndFrame(shared_ptr<PaintEvent> const & ev, ScreenBase 
 
 void QueuedRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s)
 {
+  /// cyclically checking pipelines starting from m_CurrentPipeline
   for (unsigned i = 0; i < m_PipelinesCount; ++i)
   {
-    RenderQueuedCommands(i);
-    m_resourceManager->updatePoolState();
+    int num = (m_CurrentPipeline + i) % m_PipelinesCount;
+
+    if (RenderQueuedCommands(num))
+    {
+      m_CurrentPipeline = (num + 1) % m_PipelinesCount;
+      break;
+    }
   }
+
+  m_resourceManager->updatePoolState();
 }
 
-void QueuedRenderPolicy::RenderQueuedCommands(int pipelineNum)
+bool QueuedRenderPolicy::RenderQueuedCommands(int pipelineNum)
 {
   /// logging only calls that is made while rendering tiles.
 //  if ((pipelineNum == 0) && (m_IsDebugging))
@@ -75,7 +84,10 @@ void QueuedRenderPolicy::RenderQueuedCommands(int pipelineNum)
 
   list<yg::gl::Packet>::iterator it;
 
+  bool res = !m_Pipelines[pipelineNum].m_FrameCommands.empty();
+
   yg::gl::Packet::EType bucketType = m_Pipelines[pipelineNum].m_Type;
+
 
   for (it = m_Pipelines[pipelineNum].m_FrameCommands.begin();
        it != m_Pipelines[pipelineNum].m_FrameCommands.end();
@@ -106,6 +118,8 @@ void QueuedRenderPolicy::RenderQueuedCommands(int pipelineNum)
     LOG(LINFO, ("processed", cmdProcessed, "commands"));
     LOG(LINFO, (m_Pipelines[pipelineNum].m_Queue.size(), "commands left"));
   }
+
+  return res;
 
 //  if ((pipelineNum == 0) && (m_IsDebugging))
 //    yg::gl::g_doLogOGLCalls = false;

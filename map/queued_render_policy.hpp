@@ -34,13 +34,18 @@ private:
   PacketsPipeline * m_Pipelines;
   int m_PipelinesCount;
 
+  /// DrawFrame process only one pipeline at a frame to provide a
+  /// consistent and smooth GUI experience, so to avoid a non-primary
+  /// pipeline starvation we should select them in a cyclic manner
+  int m_CurrentPipeline;
+
   bool m_IsDebugging;
 
 protected:
 
   void CopyQueuedCommands(list<yg::gl::Packet> & l, list<yg::gl::Packet> & r);
 
-  void RenderQueuedCommands(int pipelineNum);
+  bool RenderQueuedCommands(int pipelineNum);
   void CancelQueuedCommands(int pipelineNum);
 
 public:
