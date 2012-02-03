@@ -20,15 +20,7 @@ namespace search
 
     inline void SetNearMeMode(bool b)
     {
-      if (b)
-      {
-        m_mode = NearMe;
-      }
-      else
-      {
-        m_mode = All;
-        m_validPos = false;
-      }
+      m_mode = (b ? NearMe : All);
     }
 
     inline void SetPosition(double lat, double lon)
@@ -40,6 +32,7 @@ namespace search
 
     inline bool IsNearMeMode() const
     {
+      // this mode is valid only with correct My Position
       return (m_mode == NearMe && m_validPos);
     }
 

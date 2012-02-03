@@ -24,6 +24,8 @@ namespace impl
 
 class IntermediateResult
 {
+  void CalcCommonParams(m2::RectD const & viewportRect, m2::PointD const & pos);
+
 public:
   enum ResultType
   {

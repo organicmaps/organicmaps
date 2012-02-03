@@ -21,8 +21,7 @@ namespace impl
 
 IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, m2::PointD const & pos,
                                        FeatureType const & f,
-                                       string const & displayName,
-                                       string const & fileName)
+                                       string const & displayName, string const & fileName)
   : m_types(f),
     m_str(displayName),
     m_rect(f.GetLimitRect(-2)),
@@ -39,12 +38,8 @@ IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, m2::Point
       m_region.SetPoint(f.GetCenter());
   }
 
-  // get common params
-  m2::PointD const center = m_rect.Center();
-  m_distance = ResultDistance(pos, center);
-  m_direction = ResultDirection(pos, center);
-  m_searchRank = feature::GetSearchRank(m_types, center, f.GetPopulation());
-  m_viewportDistance = ViewportDistance(viewportRect, center);
+  CalcCommonParams(viewportRect, pos);
+  m_searchRank = feature::GetSearchRank(m_types, m_rect.Center(), f.GetPopulation());
 }
 
 IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, m2::PointD const & pos,
@@ -54,15 +49,33 @@ IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, m2::Point
            MercatorBounds::LonToX(lon + precision), MercatorBounds::LatToY(lat + precision)),
     m_resultType(RESULT_LATLON), m_searchRank(0)
 {
-  // get common params
-  m2::PointD const center = m_rect.Center();
-  m_distance = ResultDistance(pos, center);
-  m_direction = ResultDirection(pos, center);
-  m_viewportDistance = ViewportDistance(viewportRect, center);
+  CalcCommonParams(viewportRect, pos);
 
   // get region info
   m_region.SetPoint(m2::PointD(MercatorBounds::LonToX(lon),
                                MercatorBounds::LatToY(lat)));
+}
+
+void IntermediateResult::CalcCommonParams(m2::RectD const & viewportRect, m2::PointD const & pos)
+{
+  m2::PointD const center = m_rect.Center();
+
+  // Check if point is valid (see Query::empty_pos_value).
+  if (pos.x > -500 && pos.y > -500)
+  {
+    ASSERT ( my::between_s(-180.0, 180.0, pos.x), (pos.x) );
+    ASSERT ( my::between_s(-180.0, 180.0, pos.y), (pos.y) );
+
+    m_distance = ResultDistance(pos, center);
+    m_direction = ResultDirection(pos, center);
+  }
+  else
+  {
+    m_distance = -1.0;
+    m_direction = -1.0;
+  }
+
+  m_viewportDistance = ViewportDistance(viewportRect, center);
 }
 
 IntermediateResult::IntermediateResult(string const & name, int penalty)

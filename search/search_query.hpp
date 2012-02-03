@@ -48,11 +48,12 @@ public:
   ~Query();
 
   void SetViewport(m2::RectD const & viewport);
-  inline void SetPosition(m2::PointD const & pos) { m_position = pos; }
-  void SetPreferredLanguage(string const & lang);
 
-  inline m2::PointD GetPosition() const { return m_position; }
-  inline m2::RectD GetViewport() const { return m_viewport; }
+  static const int empty_pos_value = -1000;
+  inline void SetPosition(m2::PointD const & pos) { m_position = pos; }
+  inline void NullPosition() { m_position = m2::PointD(empty_pos_value, empty_pos_value); }
+
+  void SetPreferredLanguage(string const & lang);
 
   void Search(string const & query, Results & res, unsigned int resultsNeeded = 10);
 
