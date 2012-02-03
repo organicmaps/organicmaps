@@ -11,7 +11,7 @@
     m_locationManager.purpose = NSLocalizedString(@"Location Services are needed to display your current position on the map.", @"Location purpose text description");
     m_locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     m_locationManager.headingFilter = 3.0;
-    m_locationManager.distanceFilter = 1.0;
+    m_locationManager.distanceFilter = 3.0;
     m_isStarted = NO;
     m_reportFirstUpdate = YES;
     m_observers = [[NSMutableSet alloc] init];
