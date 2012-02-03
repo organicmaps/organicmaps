@@ -123,7 +123,7 @@ namespace storage
   {
     for (size_t i = 0; i < m_countries.size(); ++i)
     {
-      if (m_countries[i].m_name.find("USA_") != string::npos)
+      if (m_countries[i].m_name.find("USA_") == 0)
       {
         if (m_countries[i].m_name == "USA_Alaska")
           rects[1] = m_countries[i].m_rect;
@@ -133,5 +133,16 @@ namespace storage
           rects[0].Add(m_countries[i].m_rect);
       }
     }
+  }
+
+  m2::RectD CountryInfoGetter::CalcLimitRect(string const & prefix) const
+  {
+    m2::RectD r;
+    for (size_t i = 0; i < m_countries.size(); ++i)
+    {
+      if (m_countries[i].m_name.find(prefix) == 0)
+        r.Add(m_countries[i].m_rect);
+    }
+    return r;
   }
 }

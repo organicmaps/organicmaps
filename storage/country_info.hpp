@@ -51,5 +51,7 @@ namespace storage
     /// 1 - Alaska;\n
     /// 2 - Hawaii;\n
     void CalcUSALimitRect(m2::RectD rects[3]) const;
+
+    m2::RectD CalcLimitRect(string const & prefix) const;
   };
 }

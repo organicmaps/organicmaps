@@ -62,14 +62,16 @@ UNIT_TEST(CountryInfo_ValidName_Smoke)
   TEST(IsEmptyName(id2info, "UK_Northern Ireland"), ());
 }
 
-UNIT_TEST(CountryInfo_USARect)
+UNIT_TEST(CountryInfo_SomeRects)
 {
   scoped_ptr<CountryInfoT> getter(GetCountryInfo());
 
   m2::RectD rects[3];
   getter->CalcUSALimitRect(rects);
 
-  LOG(LINFO, ("Continental: ", rects[0]));
+  LOG(LINFO, ("USA Continental: ", rects[0]));
   LOG(LINFO, ("Alaska: ", rects[1]));
   LOG(LINFO, ("Hawaii: ", rects[2]));
+
+  LOG(LINFO, ("Canada: ", getter->CalcLimitRect("Canada_")));
 }
