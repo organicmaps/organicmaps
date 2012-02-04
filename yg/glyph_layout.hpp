@@ -45,10 +45,9 @@ namespace yg
 
     yg::FontDesc m_fontDesc;
 
-    vector<GlyphMetrics> m_metrics;
-    vector<GlyphLayoutElem> m_entries;
-
-    vector<m2::AnyRectD> m_boundRects;
+    buffer_vector<GlyphMetrics, 32> m_metrics;
+    buffer_vector<GlyphLayoutElem, 32> m_entries;
+    buffer_vector<m2::AnyRectD, 16> m_boundRects;
 
     m2::PointD m_pivot;
 
@@ -83,10 +82,9 @@ namespace yg
     size_t firstVisible() const;
     size_t lastVisible() const;
 
-    vector<GlyphLayoutElem> const & entries() const;
-    vector<GlyphMetrics> const & metrics() const;
-
-    vector<m2::AnyRectD> const & boundRects() const;
+    buffer_vector<GlyphLayoutElem, 32> const & entries() const;
+    buffer_vector<GlyphMetrics, 32> const & metrics() const;
+    buffer_vector<m2::AnyRectD, 16> const & boundRects() const;
 
     m2::PointD const & pivot() const;
     yg::FontDesc const & fontDesc() const;

@@ -69,6 +69,9 @@ namespace yg
       m_fontDesc(fontDesc),
       m_pivot(pt)
   {
+    m_entries.reserve(visText.size());
+    m_metrics.reserve(visText.size());
+
     if (!m_fontDesc.IsValid())
       return;
 
@@ -381,17 +384,17 @@ namespace yg
     return m_lastVisible;
   }
 
-  vector<GlyphLayoutElem> const & GlyphLayout::entries() const
+  buffer_vector<GlyphLayoutElem, 32> const & GlyphLayout::entries() const
   {
     return m_entries;
   }
 
-  vector<GlyphMetrics> const & GlyphLayout::metrics() const
+  buffer_vector<GlyphMetrics, 32> const & GlyphLayout::metrics() const
   {
     return m_metrics;
   }
 
-  vector<m2::AnyRectD> const & GlyphLayout::boundRects() const
+  buffer_vector<m2::AnyRectD, 16> const & GlyphLayout::boundRects() const
   {
     return m_boundRects;
   }
