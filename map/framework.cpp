@@ -355,14 +355,8 @@ void Framework::EndPaint(shared_ptr<PaintEvent> const & e)
   m_renderMutex.Unlock();
 }
 
-/// Function for calling from platform dependent-paint function.
-void Framework::DoPaint(shared_ptr<PaintEvent> const & e)
+void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 {
-  DrawerYG * pDrawer = e->drawer();
-
-  if (m_renderPolicy)
-    m_renderPolicy->DrawFrame(e, m_navigator.Screen());
-
   e->drawer()->screen()->beginFrame();
 
   /// m_informationDisplay is set and drawn after the m_renderPolicy
@@ -379,11 +373,20 @@ void Framework::DoPaint(shared_ptr<PaintEvent> const & e)
 
   m_informationDisplay.enableRuler(true/*!IsEmptyModel()*/);
 
-  m_informationDisplay.doDraw(pDrawer);
+  m_informationDisplay.doDraw(e->drawer());
 
-  m_locationState.DrawMyPosition(*pDrawer, m_navigator.Screen());
+  m_locationState.DrawMyPosition(*e->drawer(), m_navigator.Screen());
 
   e->drawer()->screen()->endFrame();
+}
+
+/// Function for calling from platform dependent-paint function.
+void Framework::DoPaint(shared_ptr<PaintEvent> const & e)
+{
+  if (m_renderPolicy)
+    m_renderPolicy->DrawFrame(e, m_navigator.Screen());
+
+  DrawAdditionalInfo(e);
 }
 
 m2::PointD Framework::GetViewportCenter() const

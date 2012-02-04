@@ -98,6 +98,8 @@ protected:
   /// Only file names
   void GetLocalMaps(vector<string> & outMaps);
 
+  void DrawAdditionalInfo(shared_ptr<PaintEvent> const & e);
+
 public:
   Framework();
   virtual ~Framework();
