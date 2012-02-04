@@ -60,4 +60,14 @@ bool Delimiters::operator()(strings::UniChar c) const
   return false;
 }
 
+bool CategoryDelimiters::operator()(strings::UniChar c) const
+{
+  // In categories.txt we use '-' as a delimeter.
+  // Do not skip this.
+  if (c == '-')
+    return false;
+
+  return Delimiters::operator()(c);
+}
+
 }

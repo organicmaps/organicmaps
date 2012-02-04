@@ -80,7 +80,7 @@ void Engine::InitializeCategoriesAndSuggestStrings(CategoriesHolder const & cate
         score = name.m_prefixLengthToSuggest;
 
       vector<strings::UniString> tokens;
-      SplitUniString(uniName, MakeBackInsertFunctor(tokens), Delimiters());
+      SplitUniString(uniName, MakeBackInsertFunctor(tokens), CategoryDelimiters());
       for (size_t j = 0; j < tokens.size(); ++j)
         for (size_t k = 0; k < it->m_types.size(); ++k)
           m_pData->m_categories.insert(make_pair(tokens[j], it->m_types[k]));
