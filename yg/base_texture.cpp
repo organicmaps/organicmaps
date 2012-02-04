@@ -81,7 +81,9 @@ namespace yg
       if (queue)
         queue->processFn(bind(&BaseTexture::makeCurrent, this, (yg::gl::PacketsQueue*)0));
 
+#ifndef OMIM_OS_ANDROID
       if (current() != m_id)
+#endif
         OGLCHECK(glBindTexture(GL_TEXTURE_2D, m_id));
     }
 
