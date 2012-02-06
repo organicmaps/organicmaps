@@ -1,6 +1,7 @@
 package com.mapswithme.maps;
 
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.maps.R;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -31,11 +32,19 @@ public class DownloadUI extends PreferenceActivity
   private DialogInterface.OnClickListener m_alertCancelHandler = new DialogInterface.OnClickListener() {
     public void onClick(DialogInterface dlg, int which) { dlg.dismiss(); } };
 
+  // Cached resources strings
+  private String m_kb;
+  private String m_mb;
+
+
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    // Root
+
+    m_kb = getString(R.string.kb);
+    m_mb = getString(R.string.mb);
+
     PreferenceScreen root = getPreferenceManager().createPreferenceScreen(this);
     setPreferenceScreen(createCountriesHierarchy(root, -1, -1, -1));
 
@@ -56,11 +65,11 @@ public class DownloadUI extends PreferenceActivity
   private String formatSizeString(long sizeInBytes)
   {
     if (sizeInBytes > 1024 * 1024)
-      return sizeInBytes / (1024 * 1024) + " Mb";
+      return sizeInBytes / (1024 * 1024) + " " + m_mb;
     else if ((sizeInBytes + 1023) / 1024 > 999)
-      return "1 Mb";
+      return "1 " + m_mb;
     else
-      return (sizeInBytes + 1023) / 1024 + " Kb";
+      return (sizeInBytes + 1023) / 1024 + " " + m_kb;
   }
 
   private void updateCountryCell(final Preference cell, int group, int country, int region)
@@ -70,34 +79,28 @@ public class DownloadUI extends PreferenceActivity
     switch (status)
     {
     case 0: // EOnDisk
-      cell.setSummary("Downloaded (" + formatSizeString(countryLocalSizeInBytes(group, country, region))
-          + "), touch to delete");
-//      ((CheckBoxPreference)cell).setChecked(true);
+      cell.setSummary(getString(R.string.downloaded_touch_to_delete,
+          formatSizeString(countryLocalSizeInBytes(group, country, region))));
       cell.setLayoutResource(R.layout.country_on_disk);
       break;
     case 1: // ENotDownloaded
-      cell.setSummary("Touch to download");// + formatSizeString(countryRemoteSizeInBytes(group, country, region)));
-//      ((CheckBoxPreference)cell).setChecked(false);
+      cell.setSummary(getString(R.string.touch_to_download));
       cell.setLayoutResource(R.layout.country_not_downloaded);
       break;
     case 2: // EDownloadFailed
-      cell.setSummary("Download has failed, touch again for one more try");
+      cell.setSummary(getString(R.string.download_has_failed));
       cell.setLayoutResource(R.layout.country_download_failed);
-//      ((CheckBoxPreference)cell).setChecked(false);
       break;
     case 3: // EDownloading
-      cell.setSummary("Downloading...");
+      cell.setSummary(getString(R.string.downloading));
       cell.setLayoutResource(R.layout.country_downloading);
-//      ((CheckBoxPreference)cell).setChecked(true);
       break;
     case 4: // EInQueue
-      cell.setSummary("Marked for downloading, touch to cancel");
+      cell.setSummary(getString(R.string.marked_for_downloading));
       cell.setLayoutResource(R.layout.country_in_the_queue);
-//      ((CheckBoxPreference)cell).setChecked(true);
       break;
     case 5: // EUnknown
       cell.setSummary("Unknown state :(");
-//      ((CheckBoxPreference)cell).setChecked(false);
       break;
     case 6: // EGeneratingIndex
       cell.setSummary("Indexing for search...");
@@ -123,7 +126,7 @@ public class DownloadUI extends PreferenceActivity
     if (c == null)
       Log.d(TAG, String.format("no preference found for %d %d %d", group, country, region));
     else
-      c.setSummary("Downloading " + current * 100 / total + "%, touch to cancel");
+      c.setSummary(getString(R.string.downloading_touch_to_cancel, current * 100 / total));
   }
 
   private Preference createElement(int group, int country, int region)
@@ -142,9 +145,7 @@ public class DownloadUI extends PreferenceActivity
     else
     { // it's parent element for downloadable countries
       PreferenceScreen parent = getPreferenceManager().createPreferenceScreen(this);
-//      parent.setKey(group + " " + country + " " + region);
       parent.setTitle(name);
-//      parent.setSummary("");
       return createCountriesHierarchy(parent, group, country, region);
     }
   }
@@ -166,14 +167,14 @@ public class DownloadUI extends PreferenceActivity
 
   private void showNoConnectionDialog()
   {
-    m_alert.setTitle("Internet connection is not available");
-    m_alert.setPositiveButton("Connection Settings", new DialogInterface.OnClickListener() {
+    m_alert.setTitle(getString(R.string.no_internet_connection_detected));
+    m_alert.setPositiveButton(getString(R.string.connection_settings), new DialogInterface.OnClickListener() {
       public void onClick(DialogInterface dlg, int which) {
         DownloadUI.this.startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
         dlg.dismiss();
       }
     });
-    m_alert.setNegativeButton("Cancel", m_alertCancelHandler);
+    m_alert.setNegativeButton(android.R.string.cancel, m_alertCancelHandler);
     m_alert.create().show();
   }
 
@@ -191,13 +192,13 @@ public class DownloadUI extends PreferenceActivity
       {
       case 0: // EOnDisk
         m_alert.setTitle(countryName(group, country, region));
-        m_alert.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+        m_alert.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
           public void onClick(DialogInterface dlg, int which) {
             deleteCountry(group, country, region);
             dlg.dismiss();
           }
         });
-        m_alert.setNegativeButton("Cancel", m_alertCancelHandler);
+        m_alert.setNegativeButton(android.R.string.cancel, m_alertCancelHandler);
         m_alert.create().show();
         break;
 
@@ -209,14 +210,14 @@ public class DownloadUI extends PreferenceActivity
         else
         { // Display download comfirmation
           m_alert.setTitle(countryName(group, country, region));
-          m_alert.setPositiveButton("Download " + formatSizeString(countryRemoteSizeInBytes(group, country, region)),
+          m_alert.setPositiveButton(getString(R.string.download_mb_or_kb, formatSizeString(countryRemoteSizeInBytes(group, country, region))),
               new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dlg, int which) {
                   downloadCountry(group, country, region);
                   dlg.dismiss();
                 }
               });
-          m_alert.setNegativeButton("Cancel", m_alertCancelHandler);
+          m_alert.setNegativeButton(android.R.string.cancel, m_alertCancelHandler);
           m_alert.create().show();
         }
         break;
@@ -232,13 +233,13 @@ public class DownloadUI extends PreferenceActivity
       case 3: // EDownloading
         /// Confirm canceling
         m_alert.setTitle(countryName(group, country, region));
-        m_alert.setPositiveButton("Cancel download", new DialogInterface.OnClickListener() {
+        m_alert.setPositiveButton(R.string.cancel_download, new DialogInterface.OnClickListener() {
           public void onClick(DialogInterface dlg, int which) {
             deleteCountry(group, country, region);
             dlg.dismiss();
           }
         });
-        m_alert.setNegativeButton("Do nothing", m_alertCancelHandler);
+        m_alert.setNegativeButton(R.string.do_nothing, m_alertCancelHandler);
         m_alert.create().show();
         break;
 

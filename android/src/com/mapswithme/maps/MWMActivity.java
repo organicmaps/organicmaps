@@ -86,9 +86,9 @@ public class MWMActivity extends NvEventQueueActivity implements
         AlertDialog alert = new AlertDialog.Builder(this).create();
         alert.setCancelable(false);
 
-        alert.setMessage("Which measurement system do you prefer?");
+        alert.setMessage(getString(R.string.which_measurement_system));
 
-        alert.setButton(AlertDialog.BUTTON_NEGATIVE, "Mi",
+        alert.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.miles),
             new DialogInterface.OnClickListener()
             {
               public void onClick(DialogInterface dialog, int which)
@@ -99,7 +99,7 @@ public class MWMActivity extends NvEventQueueActivity implements
               }
             });
 
-        alert.setButton(AlertDialog.BUTTON_POSITIVE, "Km",
+        alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.kilometres),
             new DialogInterface.OnClickListener()
             {
               public void onClick(DialogInterface dlg, int which)
@@ -259,7 +259,7 @@ public class MWMActivity extends NvEventQueueActivity implements
     builder.setView(alertDialogView);
     builder.setTitle(R.string.about);
 
-    builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+    builder.setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int which) {
             dialog.cancel();
         }
@@ -318,8 +318,8 @@ public class MWMActivity extends NvEventQueueActivity implements
       if (m_storageDisconnectedDialog == null)
       {
         m_storageDisconnectedDialog = new AlertDialog.Builder(this).create();
-        m_storageDisconnectedDialog.setTitle("External storage memory is not available");
-        m_storageDisconnectedDialog.setMessage("Please disconnect USB cable or insert memory card to use MapsWithMe");
+        m_storageDisconnectedDialog.setTitle(R.string.external_storage_is_not_available);
+        m_storageDisconnectedDialog.setMessage(getString(R.string.disconnect_usb_cable));
         m_storageDisconnectedDialog.setCancelable(false);
       }
       m_storageDisconnectedDialog.show();

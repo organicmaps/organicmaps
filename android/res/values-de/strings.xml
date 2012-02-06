@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+    <string name="download_maps">Landkarten herunterladen</string>
+    <string name="my_position">Mein Standort</string>
+    <string name="app_name">Maps With Me</string>
+    <string name="about">Über MapsWithMe</string>
+    <string name="downloading_touch_to_cancel">Heruntergeladen %d%%. Berühren, um abzubrechen</string>
+    <string name="downloading">Wird heruntergeladen...</string>
+    <string name="downloaded_touch_to_delete">Heruntergeladen (%s). Berühren, um zu löschen</string>
+    <string name="touch_to_download">Berühren, um herunterzuladen</string>
+    <string name="download_has_failed">Download fehlgeschlagen. Bitte versuchen Sie es erneut. </string>
+    <string name="marked_for_downloading">Wartet auf Download. Berühren, um abzubrechen</string>
+    <string name="no_internet_connection_detected">Keine Internetverbindung</string>
+    <string name="connection_settings">Verbindungseinstellungen</string>
+    <string name="delete">Löschen</string>
+    <string name="download_mb_or_kb">Herunterladen %s</string>
+    <string name="cancel_download">Download beenden</string>
+    <string name="do_nothing">Download fortsetzen</string>
+    <string name="which_measurement_system">Welches Messsystem ziehen Sie vor?</string>
+    <string name="miles">Meilen</string>
+    <string name="kilometres">Kilometer</string>
+    <string name="close">Schließen</string>
+</resources>

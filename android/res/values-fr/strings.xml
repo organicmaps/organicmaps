@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+    <string name="download_maps">Charger les cartes</string>
+    <string name="my_position">Mon emplacement</string>
+    <string name="app_name">Maps With Me</string>
+    <string name="about">Au sujet des cartes</string>
+    <string name="downloading_touch_to_cancel">Chargement en cours %d%%, toucher pour annuler</string>
+    <string name="downloading">Chargement en cours</string>
+    <string name="downloaded_touch_to_delete">Elle est chargée (%s), Appuyer pour effacer</string>
+    <string name="touch_to_download">Toucher pour charger</string>
+    <string name="download_has_failed">Error durante la descarga, iniciar otra vez</string>
+    <string name="marked_for_downloading">Votre chargement prend la queu, toucher pour annuler</string>
+    <string name="no_internet_connection_detected">Il n´y a pas de liaison</string>
+    <string name="connection_settings">Paramètres de connexion</string>
+    <string name="delete">Effacer</string>
+    <string name="download_mb_or_kb">Charger %s</string>
+    <string name="cancel_download">Annuler le chargement</string>
+    <string name="do_nothing">Continuer de charger</string>
+    <string name="which_measurement_system">Quel système métrique préférer-vous?</string>
+    <string name="miles">Milles</string>
+    <string name="kilometres">Kilomètres</string>
+    <string name="close">Fermer</string>
+</resources>
