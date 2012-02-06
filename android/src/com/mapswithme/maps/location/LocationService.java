@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.mapswithme.maps.MWMActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.hardware.GeomagneticField;
 import android.hardware.Sensor;
@@ -19,6 +20,7 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.util.Log;
+import android.view.Surface;
 
 public class LocationService implements LocationListener, SensorEventListener, WifiLocation.Listener
 {
@@ -294,8 +296,28 @@ public class LocationService implements LocationListener, SensorEventListener, W
       notifyCompassUpdated(event.timestamp, event.values[0], INVALID_TRUE_NORTH, UNKNOWN_COMPASS_ACCURACY);
     else
     {
-      final float offset = m_magneticField.getDeclination();
-      notifyCompassUpdated(event.timestamp, event.values[0], event.values[0] + offset, offset);
+      Activity a = (Activity)MWMActivity.getCurrentContext();
+      int screenRotation = a.getWindowManager().getDefaultDisplay().getRotation();
+
+      float offset = m_magneticField.getDeclination();
+      float north = event.values[0];
+
+      switch (screenRotation)
+      {
+      case Surface.ROTATION_90:
+        north += 90;
+        break;
+      case Surface.ROTATION_180:
+        north += 180;
+        break;
+      case Surface.ROTATION_270:
+        north += 270;
+        break;
+      }
+      
+      north = (float) (north - 360 * Math.floor(north / 360));
+
+      notifyCompassUpdated(event.timestamp, north, north + offset, offset);
     }
   }
 
