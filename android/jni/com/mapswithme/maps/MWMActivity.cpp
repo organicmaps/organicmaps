@@ -62,6 +62,7 @@ extern "C"
 
       g_framework = new android::Framework(g_jvm);
     }
+    g_framework->SetEmptyModelMessage(emptyModelMessage);
   }
 ////////////////////////////////////////////////////////////////////////////////////////////
 

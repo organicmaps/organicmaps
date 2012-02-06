@@ -39,6 +39,8 @@ namespace android
     Framework(JavaVM * jvm);
     ~Framework();
 
+    void SetEmptyModelMessage(jstring emptyModelMsg);
+
     storage::Storage & Storage();
 
     void OnLocationStatusChanged(int/* == location::TLocationStatus*/ newStatus);

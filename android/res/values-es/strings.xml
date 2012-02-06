@@ -20,4 +20,5 @@
     <string name="miles">Milla</string>
     <string name="kilometres">Kilómetros</string>
     <string name="close">Cerrar</string>
+    <string name="empty_model">Para poder ver detalles\n de esta zona debes descargar\nel mapa de este país. Pulse el botón\nbajo la pantalla para descargar.</string>
 </resources>

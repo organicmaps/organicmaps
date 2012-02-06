@@ -123,10 +123,6 @@ Framework::Framework()
   m_informationDisplay.enableRuler(true);
   m_informationDisplay.setRulerParams(m_minRulerWidth, m_metresMinWidth, m_metresMaxWidth);
 
-  double const visScale = GetPlatform().VisualScale();
-  m_navigator.SetMinScreenParams(
-        static_cast<unsigned>(m_minRulerWidth * visScale), m_metresMinWidth);
-
 #ifndef OMIM_PRODUCTION
   m_informationDisplay.enableDebugInfo(true);
 #endif
@@ -719,6 +715,9 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
     Settings::Get("VisualLog", isVisualLogEnabled);
     m_informationDisplay.enableLog(isVisualLogEnabled, renderPolicy->GetWindowHandle().get());
     m_informationDisplay.setVisualScale(GetPlatform().VisualScale());
+
+    m_navigator.SetMinScreenParams(static_cast<unsigned>(m_minRulerWidth * GetPlatform().VisualScale()),
+                                   m_metresMinWidth);
 
     yg::gl::RenderContext::initParams();
   }

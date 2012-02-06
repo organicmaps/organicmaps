@@ -2,7 +2,9 @@
 #include "VideoTimer.hpp"
 
 #include "../core/jni_helper.hpp"
+#include "../core/jni_string.hpp"
 #include "../core/render_context.hpp"
+#include "../jni/jni_thread.hpp"
 
 #include "../../../../../indexer/drawing_rules.hpp"
 
@@ -44,6 +46,12 @@ namespace android
 
    // @TODO refactor storage
     m_work.Storage().ReInitCountries(false);
+  }
+
+  void Framework::SetEmptyModelMessage(jstring s)
+  {
+    std::string emptyModelMsg = jni::ToString(jni::GetCurrentThreadJNIEnv(), s);
+    m_work.GetInformationDisplay().setEmptyModelMessage(emptyModelMsg.c_str());
   }
 
   Framework::~Framework()

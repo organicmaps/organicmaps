@@ -177,7 +177,8 @@ public class MWMActivity extends NvEventQueueActivity implements
                extStoragePath,
                getTmpPath(),
                extTmpPath,
-               getSettingsPath());
+               getSettingsPath(),
+               getString(R.string.empty_model));
 
     checkMeasurementSystem();
 
@@ -375,9 +376,15 @@ public class MWMActivity extends NvEventQueueActivity implements
   private native void nativeStorageConnected();
   private native void nativeStorageDisconnected();
 
-  private native void nativeInit(int densityDpi, int screenWidth, int screenHeight,
-      String apkPath,
-      String storagePath, String tmpPath, String extTmpPath, String settingsPath);
+  private native void nativeInit(int densityDpi, 
+                                 int screenWidth, 
+                                 int screenHeight,
+                                 String apkPath,
+                                 String storagePath, 
+                                 String tmpPath, 
+                                 String extTmpPath, 
+                                 String settingsPath,
+                                 String emptyModelMessage);
   private native void nativeDestroy();
   private native void nativeLocationStatusChanged(int newStatus);
   private native void nativeLocationUpdated(long time, double lat, double lon, float accuracy);

@@ -20,4 +20,5 @@
     <string name="miles">Milles</string>
     <string name="kilometres">Kilomètres</string>
     <string name="close">Fermer</string>
+    <string name="empty_model">Pour scharger cette carte,\ntoucher le bouton au bas de l`écran</string>
 </resources>
