@@ -149,6 +149,13 @@ public class MWMActivity extends NvEventQueueActivity implements
   @Override
   public void onCreate(Bundle savedInstanceState)
   {
+    // Use full-screen on Kindle Fire only
+    if (android.os.Build.MODEL.equals("Kindle Fire"))
+    {
+      getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
+      getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+    }
+
     super.onCreate(savedInstanceState);
 
     m_context = this;
