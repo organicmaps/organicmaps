@@ -296,6 +296,10 @@ public abstract class NvEventQueueActivity extends Activity
   /** The number of bits requested for the depth component */
   protected int depthSize = 16;
 
+  int m_choosenConfigIndex = 0;
+  EGLConfig[] m_configs = new EGLConfig[40];
+  int m_actualConfigsNumber[] = new int[] {0};
+
   /**
    * Called to initialize EGL. This function should not be called by the
    * inheriting activity, but can be overridden if needed.
@@ -327,39 +331,26 @@ public abstract class NvEventQueueActivity extends Activity
       return false;
     }
 
-    final EGLConfig[] configs = new EGLConfig[40];
-    final int actualConfigsNumber[] = new int[] {0};
-    if (!m_egl.eglChooseConfig(m_eglDisplay, configAttrs, configs, configs.length, actualConfigsNumber))
+    if (!m_egl.eglChooseConfig(m_eglDisplay, configAttrs, m_configs, m_configs.length, m_actualConfigsNumber))
     {
       Log.d(TAG, "eglChooseConfig failed with error " + m_egl.eglGetError());
       return false;
     }
 
-    if (actualConfigsNumber[0] == 0)
+    if (m_actualConfigsNumber[0] == 0)
     {
       Log.d(TAG, "eglChooseConfig returned zero configs");
       return false;
     }    
-    
-    int choosenConfigIndex = 0;
-    // Simple check - choose first config with matched depth buffer
-    int[] value = new int[1];
-    for (int i = 0; i < actualConfigsNumber[0]; ++i)
-    {
-      m_egl.eglGetConfigAttrib(m_eglDisplay, configs[i], EGL11.EGL_DEPTH_SIZE, value);
-      if (value[0] == depthSize)
-      {
-        choosenConfigIndex = i;
-        break;
-      }
-    }
 
-    m_eglConfig = configs[choosenConfigIndex];
+    m_choosenConfigIndex = 0;
+    
+    m_eglConfig = m_configs[m_choosenConfigIndex];
 
     // Debug print
     Log.d(TAG, "Matched egl configs:");
-    for (int i = 0; i < actualConfigsNumber[0]; ++i)
-       Log.d(TAG, (i == choosenConfigIndex ? "*" : " ") + i + ": " + eglConfigToString(configs[i]));
+    for (int i = 0; i < m_actualConfigsNumber[0]; ++i)
+       Log.d(TAG, (i == m_choosenConfigIndex ? "*" : " ") + i + ": " + eglConfigToString(m_configs[i]));
     
     final int[] contextAttrs = new int[] { EGL_CONTEXT_CLIENT_VERSION, 1, EGL11.EGL_NONE };
     m_eglContext = m_egl.eglCreateContext(m_eglDisplay, m_eglConfig, EGL11.EGL_NO_CONTEXT, contextAttrs);
@@ -438,11 +429,56 @@ public abstract class NvEventQueueActivity extends Activity
       return false;
     }
     
-    m_eglSurface = m_egl.eglCreateWindowSurface(m_eglDisplay, m_eglConfig, m_cachedSurfaceHolder, null);
-    if (m_eglSurface == EGL11.EGL_NO_SURFACE)
+    int choosenSurfaceConfigIndex = m_choosenConfigIndex;
+    
+    while (true)
     {
-      Log.d(TAG, "eglCreateWindowSurface failed with error " + m_egl.eglGetError());
-      return false;
+      /// trying to create window surface with one of the EGL configs, recreating the m_eglConfig if necessary
+      
+      m_eglSurface = m_egl.eglCreateWindowSurface(m_eglDisplay, m_configs[choosenSurfaceConfigIndex], m_cachedSurfaceHolder, null);
+      if (m_eglSurface == EGL11.EGL_NO_SURFACE)
+      {
+        Log.d(TAG, "eglCreateWindowSurface failed for config : " + eglConfigToString(m_configs[choosenSurfaceConfigIndex]));        
+        choosenSurfaceConfigIndex += 1;
+        if (choosenSurfaceConfigIndex == m_actualConfigsNumber[0])
+        {
+          m_eglSurface = null;
+          Log.d(TAG, "no eglConfigs left");
+          break;
+        }
+        else
+          Log.d(TAG, "trying : " + eglConfigToString(m_configs[choosenSurfaceConfigIndex]));
+      }
+      else
+        break;
+    }
+    
+    if ((choosenSurfaceConfigIndex != m_choosenConfigIndex) && (m_eglSurface != null))
+    {
+      Log.d(TAG, "window surface is created for eglConfig : " + eglConfigToString(m_configs[choosenSurfaceConfigIndex]));
+      
+      // unbinding context
+      if (m_eglDisplay != null)
+        m_egl.eglMakeCurrent(m_eglDisplay, 
+                             EGL11.EGL_NO_SURFACE,
+                             EGL11.EGL_NO_SURFACE, 
+                             EGL11.EGL_NO_CONTEXT);
+
+      // destroying context      
+      if (m_eglContext != null)
+        m_egl.eglDestroyContext(m_eglDisplay, m_eglContext);
+      
+      // recreating context with same eglConfig as eglWindowSurface has 
+      final int[] contextAttrs = new int[] { EGL_CONTEXT_CLIENT_VERSION, 1, EGL11.EGL_NONE };
+      m_eglContext = m_egl.eglCreateContext(m_eglDisplay, m_configs[choosenSurfaceConfigIndex], EGL11.EGL_NO_CONTEXT, contextAttrs);
+      if (m_eglContext == EGL11.EGL_NO_CONTEXT)
+      {
+        Log.d(TAG, "context recreation failed with error " + m_egl.eglGetError());
+        return false;
+      }
+      
+      m_choosenConfigIndex = choosenSurfaceConfigIndex;
+      m_eglConfig = m_configs[m_choosenConfigIndex];
     }
     
     int sizes[] = new int[1];
