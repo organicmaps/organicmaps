@@ -46,10 +46,9 @@ extern "C"
                                                   jstring storagePath,
                                                   jstring tmpPath,
                                                   jstring extTmpPath,
-                                                  jstring settingsPath)
+                                                  jstring settingsPath,
+                                                  jstring emptyModelMessage)
   {
-    if (!g_framework)
-    {
       android::Platform::Instance().Initialize(env,
                                                densityDpi,
                                                screenWidth,
@@ -60,8 +59,9 @@ extern "C"
                                                extTmpPath,
                                                settingsPath);
 
+    if (!g_framework)
       g_framework = new android::Framework(g_jvm);
-    }
+
     g_framework->SetEmptyModelMessage(emptyModelMessage);
   }
 ////////////////////////////////////////////////////////////////////////////////////////////

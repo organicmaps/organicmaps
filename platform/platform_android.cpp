@@ -8,7 +8,7 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
-Platform::Platform()
+Platform::Platform() : m_impl(0)
 {}
 
 Platform::~Platform()

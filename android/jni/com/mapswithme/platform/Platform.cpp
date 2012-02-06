@@ -109,6 +109,9 @@ namespace android
                             jstring extTmpPath,
                             jstring settingsPath)
   {
+    if (m_impl)
+      delete m_impl;
+
     m_impl = new PlatformImpl(densityDpi, screenWidth, screenHeight);
 
     m_resourcesDir = jni::ToString(env, apkPath);
