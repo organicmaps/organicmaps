@@ -1248,7 +1248,7 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       border {
         width: 0.1
         color: 0xE9DD72
@@ -1259,7 +1259,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       border {
         width: 0.4
         color: 0xE9DD72
@@ -1270,7 +1270,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       border {
         width: 0.8
         color: 0xE9DD72
@@ -1281,7 +1281,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       border {
         width: 0.8
         color: 0xE9DD72
@@ -1292,7 +1292,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       border {
         width: 1.6
         color: 0xE9DD72
@@ -1310,7 +1310,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "doctor"
+      name: "pharmacy"
       priority: 1527
     }
     caption {
@@ -1645,7 +1645,7 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       border {
         width: 0.1
         color: 0xE9DD72
@@ -1656,7 +1656,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       border {
         width: 0.4
         color: 0xE9DD72
@@ -1667,7 +1667,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       border {
         width: 0.8
         color: 0xE9DD72
@@ -1678,7 +1678,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       border {
         width: 0.8
         color: 0xE9DD72
@@ -1689,7 +1689,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       border {
         width: 1.6
         color: 0xE9DD72
@@ -1769,7 +1769,7 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xFFFFC0
+      color: 0xF8F8D8
       border {
         width: 0.05
         color: 0xE9DD72
@@ -1780,7 +1780,7 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xFFFFC0
+      color: 0xF8F8D8
       border {
         width: 0.1
         color: 0xE9DD72
@@ -1791,7 +1791,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xFFFFC0
+      color: 0xF8F8D8
       border {
         width: 0.4
         color: 0xE9DD72
@@ -1802,7 +1802,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xFFFFC0
+      color: 0xF8F8D8
       border {
         width: 0.8
         color: 0xE9DD72
@@ -1813,7 +1813,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xFFFFC0
+      color: 0xF8F8D8
       border {
         width: 0.8
         color: 0xE9DD72
@@ -1828,7 +1828,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xFFFFC0
+      color: 0xF8F8D8
       border {
         width: 1.6
         color: 0xE9DD72
@@ -2299,35 +2299,35 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       priority: -9538
     }
   }
   element {
     scale: 14
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       priority: -9420
     }
   }
   element {
     scale: 15
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       priority: -9220
     }
   }
   element {
     scale: 16
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       priority: -8610
     }
   }
   element {
     scale: 17
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       priority: -8332
     }
     symbol {
@@ -2538,7 +2538,7 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       border {
         width: 0.1
         color: 0xE9DD72
@@ -2549,7 +2549,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       border {
         width: 0.4
         color: 0xE9DD72
@@ -2560,7 +2560,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       border {
         width: 0.8
         color: 0xE9DD72
@@ -2571,7 +2571,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       border {
         width: 0.8
         color: 0xE9DD72
@@ -2582,7 +2582,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       border {
         width: 1.6
         color: 0xE9DD72
@@ -4405,14 +4405,14 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xe4e0d0
+      color: 0xdcd7bd
       priority: 364
     }
   }
   element {
     scale: 16
     area {
-      color: 0xded8c8
+      color: 0xd5ceb0
       priority: 679
     }
     symbol {
@@ -4420,11 +4420,22 @@ cont {
       apply_for_type: 1
       priority: 680
     }
+    caption {
+      primary {
+        height: 11
+        color: 0x808070
+      }
+      secondary {
+        height: 11
+        color: 0x808070
+      }
+      priority: 11832
+    }
   }
   element {
     scale: 17
     area {
-      color: 0xd4d0c0
+      color: 0xd5ceb0
       priority: 720
     }
     symbol {
@@ -8224,21 +8235,21 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xD0CCAC
+      color: 0xf8f0e8
       priority: 327
     }
   }
   element {
     scale: 16
     area {
-      color: 0xD0CCAC
+      color: 0xf8f0e8
       priority: 642
     }
   }
   element {
     scale: 17
     area {
-      color: 0xD0CCAC
+      color: 0xf8f0e8
       priority: 682
     }
   }
@@ -32685,56 +32696,56 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xF8F8C8
+      color: 0xF8F8D8
       priority: 5
     }
   }
   element {
     scale: 7
     area {
-      color: 0xF8F8C8
+      color: 0xF8F8D8
       priority: 5
     }
   }
   element {
     scale: 8
     area {
-      color: 0xF8F8C8
+      color: 0xF8F8D8
       priority: 5
     }
   }
   element {
     scale: 9
     area {
-      color: 0xF8F8C8
+      color: 0xF8F8D8
       priority: 5
     }
   }
   element {
     scale: 10
     area {
-      color: 0xF8F8C8
+      color: 0xF8F8D8
       priority: 5
     }
   }
   element {
     scale: 11
     area {
-      color: 0xF8F8C8
+      color: 0xF8F8D8
       priority: 5
     }
   }
   element {
     scale: 12
     area {
-      color: 0xF8F8C8
+      color: 0xF8F8D8
       priority: -9573
     }
   }
   element {
     scale: 13
     area {
-      color: 0xF8F8C8
+      color: 0xF8F8D8
       border {
         width: 0.1
         color: 0xE4E4E4
@@ -32745,7 +32756,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xF8F8C8
+      color: 0xF8F8D8
       border {
         width: 0.4
         color: 0xE4E4E4
@@ -32756,7 +32767,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xF8F8C8
+      color: 0xF8F8D8
       border {
         width: 0.8
         color: 0xE4E4E4
@@ -32774,7 +32785,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xF8F8C8
+      color: 0xF8F8D8
       border {
         width: 0.8
         color: 0xE4E4E4
@@ -32792,7 +32803,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xF8F8C8
+      color: 0xF8F8D8
       border {
         width: 1.6
         color: 0xE4E4E4
@@ -33176,7 +33187,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xD8D8C4
+      color: 0xE0E0D0
       border {
         width: 0.2
         color: 0xE4E4E4
@@ -33187,17 +33198,13 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xD8D8C4
-      border {
-        width: 0.4
-        color: 0xE4E4E4
-      }
+      color: 0xE0E0D0
       priority: -9224
     }
     caption {
       primary {
         height: 12
-        color: 0x202020
+        color: 0x808070
       }
       priority: 10893
     }
@@ -33205,17 +33212,13 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xD8D8C4
-      border {
-        width: 0.8
-        color: 0xE4E4E4
-      }
+      color: 0xE0E0D0
       priority: -8614
     }
     caption {
       primary {
-        height: 16
-        color: 0x202020
+        height: 12
+        color: 0x808070
       }
       priority: 11553
     }
@@ -33223,17 +33226,13 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xD8D8C4
-      border {
-        width: 1.6
-        color: 0xE4E4E4
-      }
+      color: 0xE0E0D0
       priority: -8339
     }
     caption {
       primary {
-        height: 16
-        color: 0x202020
+        height: 14
+        color: 0x404040
       }
       priority: 11787
     }
@@ -34278,7 +34277,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xD6D6E4
+      color: 0xe1e1e5
       priority: -9222
     }
     caption {
@@ -34292,7 +34291,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xD6D6E4
+      color: 0xe1e1e5
       priority: -8612
     }
     caption {
@@ -34306,7 +34305,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xD6D6E4
+      color: 0xe1e1e5
       priority: -8337
     }
     caption {
@@ -36577,84 +36576,84 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xf4f0e0
+      color: 0xede8d2
       priority: 1
     }
   }
   element {
     scale: 7
     area {
-      color: 0xf4f0e0
+      color: 0xede8d2
       priority: 1
     }
   }
   element {
     scale: 8
     area {
-      color: 0xf4f0e0
+      color: 0xede8d2
       priority: 1
     }
   }
   element {
     scale: 9
     area {
-      color: 0xf4f0e0
+      color: 0xede8d2
       priority: 1
     }
   }
   element {
     scale: 10
     area {
-      color: 0xf4f0e0
+      color: 0xede8d2
       priority: 1
     }
   }
   element {
     scale: 11
     area {
-      color: 0xf4f0e0
+      color: 0xede8d2
       priority: 1
     }
   }
   element {
     scale: 12
     area {
-      color: 0xf4f0e0
+      color: 0xede8d2
       priority: -9578
     }
   }
   element {
     scale: 13
     area {
-      color: 0xf4f0e0
+      color: 0xede8d2
       priority: -9548
     }
   }
   element {
     scale: 14
     area {
-      color: 0xf4f0e0
+      color: 0xede8d2
       priority: -9430
     }
   }
   element {
     scale: 15
     area {
-      color: 0xf4f0e0
+      color: 0xede8d2
       priority: -9231
     }
   }
   element {
     scale: 16
     area {
-      color: 0xf4f0e0
+      color: 0xede8d2
       priority: -8621
     }
   }
   element {
     scale: 17
     area {
-      color: 0xf4f0e0
+      color: 0xede8d2
       priority: -8346
     }
   }
@@ -36662,58 +36661,16 @@ cont {
 cont {
   name: "landuse-retail"
   element {
-    scale: 6
-    area {
-      color: 0xE8E4D4
-      priority: 3
-    }
-  }
-  element {
-    scale: 7
-    area {
-      color: 0xE8E4D4
-      priority: 3
-    }
-  }
-  element {
-    scale: 8
-    area {
-      color: 0xE8E4D4
-      priority: 3
-    }
-  }
-  element {
-    scale: 9
-    area {
-      color: 0xE8E4D4
-      priority: 3
-    }
-  }
-  element {
-    scale: 10
-    area {
-      color: 0xE8E4D4
-      priority: 3
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 0xE8E4D4
-      priority: 3
-    }
-  }
-  element {
     scale: 12
     area {
-      color: 0xE8E4D4
+      color: 0xF8ECEC
       priority: -9576
     }
   }
   element {
     scale: 13
     area {
-      color: 0xFFEBEB
+      color: 0xF8ECEC
       border {
         width: 0.1
         color: 0xE4E4E4
@@ -36724,7 +36681,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xFFEBEB
+      color: 0xF8ECEC
       border {
         width: 0.4
         color: 0xE4E4E4
@@ -36735,7 +36692,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xFFEBEB
+      color: 0xF8ECEC
       border {
         width: 0.8
         color: 0xE4E4E4
@@ -36753,7 +36710,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xFFEBEB
+      color: 0xF8ECEC
       border {
         width: 0.8
         color: 0xE4E4E4
@@ -36771,7 +36728,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xFFEBEB
+      color: 0xF8ECEC
       border {
         width: 1.6
         color: 0xE4E4E4
@@ -43478,7 +43435,7 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xFFFFC0
+      color: 0xF8F8D8
       border {
         width: 0.05
         color: 0xFFFF90
@@ -43489,7 +43446,7 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xFFFFC0
+      color: 0xF8F8D8
       border {
         width: 0.1
         color: 0xFFFF90
@@ -43500,7 +43457,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xFFFFC0
+      color: 0xF8F8D8
       border {
         width: 0.2
         color: 0xFFFF90
@@ -43511,7 +43468,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xFFFFC0
+      color: 0xF8F8D8
       border {
         width: 0.4
         color: 0xFFFF90
@@ -43522,7 +43479,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xFFFFC0
+      color: 0xF8F8D8
       border {
         width: 0.8
         color: 0xFFFF90
@@ -43533,7 +43490,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xFFFFC0
+      color: 0xF8F8D8
       border {
         width: 1.6
         color: 0xFFFF90
@@ -46377,7 +46334,7 @@ cont {
     scale: 13
     lines {
       width: 1.25
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       priority: 439
     }
   }
@@ -46385,7 +46342,7 @@ cont {
     scale: 14
     lines {
       width: 2.5
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       priority: 527
     }
   }
@@ -46393,7 +46350,7 @@ cont {
     scale: 15
     lines {
       width: 5
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       priority: 692
     }
   }
@@ -46401,7 +46358,7 @@ cont {
     scale: 16
     lines {
       width: 10
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       priority: 1183
     }
   }
@@ -46409,7 +46366,7 @@ cont {
     scale: 17
     lines {
       width: 20
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       priority: 1336
     }
   }
@@ -54542,42 +54499,42 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       priority: 38
     }
   }
   element {
     scale: 11
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       priority: 38
     }
   }
   element {
     scale: 12
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       priority: -9562
     }
   }
   element {
     scale: 13
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       priority: 55
     }
   }
   element {
     scale: 14
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       priority: 78
     }
   }
   element {
     scale: 15
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       priority: 78
     }
     caption {
@@ -54592,7 +54549,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       priority: 80
     }
     caption {
@@ -54607,7 +54564,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xE8D8D4
+      color: 0xF0E0DC
       priority: 81
     }
     caption {
