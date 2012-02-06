@@ -1,6 +1,11 @@
 #include "proto_to_yg_styles.hpp"
 
-#include "../indexer/drules_struct.pb.h"
+#ifdef OMIM_PRODUCTION
+  #include "../indexer/drules_struct_lite.pb.h"
+#else
+  #include "../indexer/drules_struct.pb.h"
+#endif
+
 
 #include "../std/algorithm.hpp"
 

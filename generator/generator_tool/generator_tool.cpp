@@ -34,7 +34,10 @@ DEFINE_bool(version, false, "Display version");
 DEFINE_bool(generate_update, false,
               "If specified, update.maps file will be generated from cells in the data path");
 
+#ifndef OMIM_PRODUCTION
 DEFINE_bool(generate_classif, false, "Generate classificator.");
+#endif
+
 DEFINE_bool(preprocess_xml, false, "1st pass - create nodes/ways/relations data");
 DEFINE_bool(make_coasts, false, "create intermediate file with coasts data");
 DEFINE_bool(emit_coasts, false, "push coasts features from intermediate file to out files/countries");
@@ -93,6 +96,7 @@ int main(int argc, char ** argv)
     cout << "Built on: " << VERSION_DATE_STRING << endl;
   }
 
+#ifndef OMIM_PRODUCTION
   // Make a classificator
   if (FLAGS_generate_classif)
   {
@@ -106,6 +110,7 @@ int main(int argc, char ** argv)
     ofstream s((path + DRAWING_RULES_BIN_FILE).c_str(), ios::out | ios::binary);
     rules.SaveToBinaryProto(buffer, s);
   }
+#endif
 
   // Generating intermediate files
   if (FLAGS_preprocess_xml)

@@ -3,7 +3,12 @@
 #include "drawing_rules.hpp"
 #include "scales.hpp"
 #include "classificator.hpp"
-#include "drules_struct.pb.h"
+
+#ifdef OMIM_PRODUCTION
+  #include "drules_struct_lite.pb.h"
+#else
+  #include "drules_struct.pb.h"
+#endif
 
 #include "../std/bind.hpp"
 #include "../std/iterator_facade.hpp"
@@ -360,6 +365,7 @@ namespace
   };
 }
 
+#ifndef OMIM_PRODUCTION
 void RulesHolder::LoadFromTextProto(string const & buffer)
 {
   Clean();
@@ -377,14 +383,15 @@ void RulesHolder::SaveToBinaryProto(string const & buffer, ostream & s)
 
   CHECK ( cont.SerializeToOstream(&s), ("Error in proto saving!") );
 }
+#endif
 
-void RulesHolder::LoadFromBinaryProto(istream & s)
+void RulesHolder::LoadFromBinaryProto(string const & s)
 {
   Clean();
 
   DoSetIndex doSet(*this);
 
-  CHECK ( doSet.m_cont.ParseFromIstream(&s), ("Error in proto loading!") );
+  CHECK ( doSet.m_cont.ParseFromString(s), ("Error in proto loading!") );
 
   classif().GetMutableRoot()->ForEachObject(bind<void>(ref(doSet), _1));
 }

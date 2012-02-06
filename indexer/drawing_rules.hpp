@@ -79,10 +79,12 @@ namespace drule
 
     BaseRule const * Find(Key const & k) const;
 
+#ifndef OMIM_PRODUCTION
     void LoadFromTextProto(string const & buffer);
-
     static void SaveToBinaryProto(string const & buffer, ostream & s);
-    void LoadFromBinaryProto(istream & s);
+#endif
+
+    void LoadFromBinaryProto(string const & s);
 
     template <class ToDo> void ForEachRule(ToDo toDo)
     {

@@ -68,10 +68,12 @@ namespace classificator
 
 #if defined(OMIM_PRODUCTION) || defined(USE_BINARY_STYLES)
     // Load from proto buffer binary file.
-    ReaderStreamBuf buffer(p.GetReader(DRAWING_RULES_BIN_FILE));
+    ModelReaderPtr reader(p.GetReader(DRAWING_RULES_BIN_FILE));
 
-    istream s(&buffer);
-    rules.LoadFromBinaryProto(s);
+    string buffer;
+    reader.ReadAsString(buffer);
+
+    rules.LoadFromBinaryProto(buffer);
 #else
     // Load from proto buffer text file.
     string buffer;

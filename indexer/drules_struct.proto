@@ -1,4 +1,4 @@
-// option optimize_for = LITE_RUNTIME;
+option optimize_for = LITE_RUNTIME;
 
 message DashDotProto
 {
