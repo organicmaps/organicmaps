@@ -71,8 +71,7 @@ namespace classificator
     string buffer;
     ModelReaderPtr(p.GetReader(DRAWING_RULES_BIN_FILE)).ReadAsString(buffer);
 
-    istream s(&buffer);
-    rules.LoadFromBinaryProto(s);
+    rules.LoadFromBinaryProto(buffer);
 #else
     // Load from proto buffer text file.
     string buffer;
