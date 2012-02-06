@@ -139,7 +139,7 @@ namespace feature
       {
         if (it->second.first <= MIN_OCCURRENCE)
           break;
-        wcout << it->second.first << " " << std::wstring(it->first.begin(), it->first.end());
+        cout << it->second.first << " " << strings::ToUtf8(it->first);
         cout << " \"" << it->second.second << "\"" << endl;
       }
     }
