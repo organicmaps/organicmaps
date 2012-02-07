@@ -147,12 +147,11 @@ void Engine::SearchAsync()
   }
 
   // Initialize query.
-  bool const isNearMe = params.IsNearMeMode();
-  if (isNearMe)
-  {
+  if (params.IsNearMeMode())
     m_pQuery->SetViewport(GetViewportRect(params.m_lat, params.m_lon));
+
+  if (params.m_validPos)
     m_pQuery->SetPosition(GetViewportXY(params.m_lat, params.m_lon));
-  }
   else
     m_pQuery->NullPosition();
 
