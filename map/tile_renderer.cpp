@@ -64,7 +64,10 @@ TileRenderer::TileRenderer(
 
     m_threadData[i].m_drawerParams = params;
     m_threadData[i].m_drawer = 0;
-    m_threadData[i].m_renderContext = m_primaryContext->createShared();
+
+    if (!packetsQueues)
+      m_threadData[i].m_renderContext = m_primaryContext->createShared();
+
     m_threadData[i].m_dummyRT = m_resourceManager->createRenderTarget(2, 2);
     m_threadData[i].m_depthBuffer = make_shared_ptr(new yg::gl::RenderBuffer(tileWidth, tileHeight, true));
   }
@@ -88,7 +91,8 @@ void TileRenderer::InitializeThreadGL(core::CommandsQueue::Environment const & e
   int tileWidth = m_resourceManager->params().m_renderTargetTexturesParams.m_texWidth;
   int tileHeight = m_resourceManager->params().m_renderTargetTexturesParams.m_texHeight;
 
-  threadData.m_renderContext->makeCurrent();
+  if (threadData.m_renderContext)
+    threadData.m_renderContext->makeCurrent();
   threadData.m_drawer = new DrawerYG(threadData.m_drawerParams);
   threadData.m_drawer->onSize(tileWidth, tileHeight);
   threadData.m_drawer->screen()->setDepthBuffer(threadData.m_depthBuffer);
@@ -98,10 +102,11 @@ void TileRenderer::FinalizeThreadGL(core::CommandsQueue::Environment const & env
 {
   ThreadData & threadData = m_threadData[env.threadNum()];
 
-  threadData.m_renderContext->endThreadDrawing();
 
   if (threadData.m_drawer != 0)
     delete threadData.m_drawer;
+  if (threadData.m_renderContext)
+    threadData.m_renderContext->endThreadDrawing();
 }
 
 void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
