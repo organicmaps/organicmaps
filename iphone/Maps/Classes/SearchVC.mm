@@ -80,7 +80,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   [navBar.topItem.titleView sizeToFit];
 
   CGFloat const wAndH = navBar.topItem.titleView.frame.size.height - 8;
-  navBar.topItem.leftBarButtonItem.customView.frame = CGRectMake(0, 0, wAndH, wAndH);
+  navBar.topItem.leftBarButtonItem.customView.bounds = CGRectMake(0, 0, wAndH, wAndH);
 
   UIView * table = [self.subviews objectAtIndex:1];
   CGRect rTable;
