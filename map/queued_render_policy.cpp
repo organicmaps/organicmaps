@@ -209,3 +209,8 @@ yg::gl::PacketsQueue * QueuedRenderPolicy::GetPacketsQueue(int pipelineNum)
 {
   return &m_Pipelines[pipelineNum].m_Queue;
 }
+
+void QueuedRenderPolicy::PrepareQueueCancellation(int pipelineNum)
+{
+  m_Pipelines[pipelineNum].m_Queue.cancelFences();
+}

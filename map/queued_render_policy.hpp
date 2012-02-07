@@ -47,6 +47,7 @@ protected:
 
   bool RenderQueuedCommands(int pipelineNum);
   void CancelQueuedCommands(int pipelineNum);
+  void PrepareQueueCancellation(int pipelineNum);
 
 public:
 

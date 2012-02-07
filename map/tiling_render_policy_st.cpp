@@ -188,6 +188,18 @@ TilingRenderPolicyST::~TilingRenderPolicyST()
   LOG(LINFO, ("reseting coverageGenerator"));
   m_coverageGenerator.reset();
 
+  /// firstly stop all rendering commands in progress and collect all commands into queues
+
+  for (unsigned i = 0; i < GetPlatform().CpuCores(); ++i)
+    base_t::PrepareQueueCancellation(i);
+
+  m_tileRenderer->ClearCommands();
+  m_tileRenderer->SetSequenceID(numeric_limits<int>::max());
+  m_tileRenderer->CancelCommands();
+  m_tileRenderer->WaitForEmptyAndFinished();
+
+  /// now we should cancell all collected commands
+
   for (unsigned i = 0; i < GetPlatform().CpuCores(); ++i)
     base_t::CancelQueuedCommands(i);
 
