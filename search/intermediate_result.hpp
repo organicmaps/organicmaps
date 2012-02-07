@@ -99,8 +99,8 @@ private:
   feature::TypesHolder m_types;
   inline uint32_t GetBestType() const
   {
-    /// @todo Select best type for search result!
-    return m_types[0];
+    /// @todo Need to process all types.
+    return m_types.GetBestType();
   }
 
   string m_str, m_completionString;

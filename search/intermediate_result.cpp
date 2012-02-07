@@ -149,8 +149,7 @@ Result IntermediateResult::GenerateFinalResult(
                   m_distance);
 
   case RESULT_LATLON:
-    return Result(m_str, info.m_name, info.m_flag, GetFeatureType(pCat),
-                  0, m_rect, m_distance);
+    return Result(m_str, info.m_name, info.m_flag, string(), 0, m_rect, m_distance);
 
   default:
     ASSERT_EQUAL ( m_resultType, RESULT_CATEGORY, () );
@@ -283,7 +282,10 @@ string IntermediateResult::DebugPrint() const
 
 string IntermediateResult::GetFeatureType(CategoriesT const * pCat) const
 {
+  ASSERT_EQUAL(m_resultType, RESULT_FEATURE, ());
+
   uint32_t const type = GetBestType();
+  ASSERT_NOT_EQUAL(type, 0, ());
 
   if (pCat)
   {

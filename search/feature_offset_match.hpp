@@ -119,17 +119,17 @@ void PrefixMatchInTrie(TrieIterator const & trieRoot,
   }
 }
 
-template <class FilterT> struct OffsetIntersecter
+template <class FilterT> class OffsetIntersecter
 {
   typedef unordered_set<uint32_t> SetType;
 
   FilterT const & m_filter;
   scoped_ptr<SetType> m_prevSet;
   scoped_ptr<SetType> m_set;
-  bool m_bFirstStep;
 
+public:
   explicit OffsetIntersecter(FilterT const & filter)
-    : m_filter(filter), m_bFirstStep(true), m_set(new SetType()) {}
+    : m_filter(filter), m_set(new SetType()) {}
 
   void operator() (uint32_t offset)
   {
@@ -149,7 +149,12 @@ template <class FilterT> struct OffsetIntersecter
 
     m_prevSet.swap(m_set);
     m_set->clear();
-    m_bFirstStep = false;
+  }
+
+  template <class ToDo> void ForEachResult(ToDo & toDo) const
+  {
+    for (SetType::const_iterator i = m_prevSet->begin(); i != m_prevSet->end(); ++i)
+      toDo(*i);
   }
 };
 
@@ -183,9 +188,7 @@ void MatchFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
     intersecter.NextStep();
   }
 
-  typedef typename impl::OffsetIntersecter<FilterT>::SetType::const_iterator IT;
-  for (IT it = intersecter.m_prevSet->begin(); it != intersecter.m_prevSet->end(); ++it)
-    toDo(*it);
+  intersecter.ForEachResult(toDo);
 }
 
 
