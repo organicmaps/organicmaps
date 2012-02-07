@@ -25,7 +25,6 @@ TileRenderer::TileRenderer(
     double visualScale,
     yg::gl::PacketsQueue ** packetsQueues
   ) : m_queue(executorsCount),
-      m_executorsCount(executorsCount),
       m_tileCache(maxTilesCount - executorsCount - 1),
       m_renderFn(renderFn),
       m_skinName(skinName),
@@ -43,7 +42,7 @@ TileRenderer::TileRenderer(
   int tileWidth = m_resourceManager->params().m_renderTargetTexturesParams.m_texWidth;
   int tileHeight = m_resourceManager->params().m_renderTargetTexturesParams.m_texHeight;
 
-  for (unsigned i = 0; i < m_executorsCount; ++i)
+  for (unsigned i = 0; i < m_threadData.size(); ++i)
   {
     DrawerYG::params_t params;
 
@@ -85,7 +84,7 @@ TileRenderer::~TileRenderer()
 
   m_queue.Cancel();
 
-  for (size_t i = 0; i < m_executorsCount; ++i)
+  for (size_t i = 0; i < m_threadData.size(); ++i)
     if (m_threadData[i].m_drawer)
       delete m_threadData[i].m_drawer;
 }
