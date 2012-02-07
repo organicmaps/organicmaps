@@ -33,10 +33,7 @@ IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, m2::Point
   if (!fileName.empty())
     m_region.SetName(fileName);
   else
-  {
-    if (f.GetFeatureType() == feature::GEOM_POINT)
-      m_region.SetPoint(f.GetCenter());
-  }
+    m_region.SetPoint(m_rect.Center());
 
   CalcCommonParams(viewportRect, pos);
   m_searchRank = feature::GetSearchRank(m_types, m_rect.Center(), f.GetPopulation());
