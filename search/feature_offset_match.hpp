@@ -124,25 +124,31 @@ template <class FilterT> struct OffsetIntersecter
   typedef unordered_set<uint32_t> SetType;
 
   FilterT const & m_filter;
-  SetType m_prevSet;
-  SetType m_set;
+  scoped_ptr<SetType> m_prevSet;
+  scoped_ptr<SetType> m_set;
   bool m_bFirstStep;
 
   explicit OffsetIntersecter(FilterT const & filter)
-    : m_filter(filter), m_bFirstStep(true) {}
+    : m_filter(filter), m_bFirstStep(true), m_set(new SetType()) {}
 
   void operator() (uint32_t offset)
   {
+    if (m_prevSet && !m_prevSet->count(offset))
+      return;
+
     if (!m_filter(offset))
       return;
 
-    m_set.insert(offset);
+    m_set->insert(offset);
   }
 
   void NextStep()
   {
+    if (!m_prevSet)
+      m_prevSet.reset(new SetType());
+
     m_prevSet.swap(m_set);
-    m_set.clear();
+    m_set->clear();
     m_bFirstStep = false;
   }
 };
@@ -178,7 +184,7 @@ void MatchFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
   }
 
   typedef typename impl::OffsetIntersecter<FilterT>::SetType::const_iterator IT;
-  for (IT it = intersecter.m_prevSet.begin(); it != intersecter.m_prevSet.end(); ++it)
+  for (IT it = intersecter.m_prevSet->begin(); it != intersecter.m_prevSet->end(); ++it)
     toDo(*it);
 }
 
