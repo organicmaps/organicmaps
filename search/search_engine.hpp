@@ -40,19 +40,21 @@ public:
          string const & lang);
   ~Engine();
 
-  void Search(SearchParams const & params, m2::RectD const & viewport);
+  void PrepareSearch(m2::RectD const & viewport, bool nearMe,
+                     double lat, double lon);
+  void Search(SearchParams const & params);
 
   string GetCountryFile(m2::PointD const & pt) const;
 
 private:
   void InitializeCategoriesAndSuggestStrings(CategoriesHolder const & categories);
 
+  void SetViewportAsync(m2::RectD const & viewport);
   void SearchAsync();
 
   threads::Mutex m_searchMutex, m_updateMutex;
 
   SearchParams m_params;
-  m2::RectD m_viewport;
 
   Index const * m_pIndex;
   scoped_ptr<search::Query> m_pQuery;

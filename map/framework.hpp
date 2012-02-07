@@ -141,6 +141,7 @@ public:
 private:
   search::Engine * GetSearchEngine();
 public:
+  void PrepareSearch(bool nearMe, double lat = 0.0, double lon = 0.0);
   void Search(search::SearchParams const & params);
   bool GetCurrentPosition(double & lat, double & lon);
 

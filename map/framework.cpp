@@ -687,10 +687,14 @@ search::Engine * Framework::GetSearchEngine()
   return m_pSearchEngine.get();
 }
 
+void Framework::PrepareSearch(bool nearMe, double lat, double lon)
+{
+  GetSearchEngine()->PrepareSearch(m_navigator.Screen().ClipRect(), nearMe, lat, lon);
+}
+
 void Framework::Search(search::SearchParams const & params)
 {
-  search::Engine * pSearchEngine = GetSearchEngine();
-  pSearchEngine->Search(params, m_navigator.Screen().ClipRect());
+  GetSearchEngine()->Search(params);
 }
 
 bool Framework::GetCurrentPosition(double & lat, double & lon)

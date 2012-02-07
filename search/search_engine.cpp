@@ -90,28 +90,45 @@ void Engine::InitializeCategoriesAndSuggestStrings(CategoriesHolder const & cate
   m_pData->m_stringsToSuggest.assign(stringsToSuggest.begin(), stringsToSuggest.end());
 }
 
-void Engine::Search(SearchParams const & params, m2::RectD const & viewport)
-{
-  {
-    threads::MutexGuard guard(m_updateMutex);
-    m_params = params;
-    m_viewport = viewport;
-  }
-
-  // bind does copy of 'query' and 'callback'
-  GetPlatform().RunAsync(bind(&Engine::SearchAsync, this));
-}
-
 namespace
 {
   m2::PointD GetViewportXY(double lat, double lon)
   {
     return m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
   }
-  m2::RectD GetViewportRect(double lat, double lon, double radius)
+  m2::RectD GetViewportRect(double lat, double lon, double radius = 20000)
   {
     return MercatorBounds::MetresToXY(lon, lat, radius);
   }
+}
+
+void Engine::PrepareSearch(m2::RectD const & viewport, bool nearMe,
+                           double lat, double lon)
+{
+  // bind does copy of viewport
+  m2::RectD const r = (nearMe ? GetViewportRect(lat, lon) : viewport);
+  GetPlatform().RunAsync(bind(&Engine::SetViewportAsync, this, r));
+}
+
+void Engine::Search(SearchParams const & params)
+{
+  {
+    threads::MutexGuard guard(m_updateMutex);
+    m_params = params;
+  }
+
+  GetPlatform().RunAsync(bind(&Engine::SearchAsync, this));
+}
+
+void Engine::SetViewportAsync(m2::RectD const & viewport)
+{
+  // First of all - cancel previous query.
+  m_pQuery->DoCancel();
+
+  // Enter to run new search.
+  threads::MutexGuard searchGuard(m_searchMutex);
+
+  m_pQuery->SetViewport(viewport);
 }
 
 void Engine::SearchAsync()
@@ -123,19 +140,19 @@ void Engine::SearchAsync()
   threads::MutexGuard searchGuard(m_searchMutex);
 
   // Get current search params.
-  m2::RectD viewport;
   SearchParams params;
   {
     threads::MutexGuard updateGuard(m_updateMutex);
     params = m_params;
-    viewport = m_viewport;
   }
 
   // Initialize query.
   bool const isNearMe = params.IsNearMeMode();
-  m_pQuery->SetViewport(isNearMe ? GetViewportRect(params.m_lat, params.m_lon, 20000) : viewport);
   if (isNearMe)
+  {
+    m_pQuery->SetViewport(GetViewportRect(params.m_lat, params.m_lon));
     m_pQuery->SetPosition(GetViewportXY(params.m_lat, params.m_lon));
+  }
   else
     m_pQuery->NullPosition();
 

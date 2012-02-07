@@ -97,12 +97,38 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 
 @implementation SearchVC
 
+
++ (BOOL)isLocationValid:(CLLocation *)l
+{
+  if (l == nil) return false;
+  
+  // do not use too old locations
+  static NSTimeInterval const SECONDS_TO_EXPIRE = 300.0;
+  
+  // timeIntervalSinceNow returns negative value - because of "since now"
+  return [l.timestamp timeIntervalSinceNow] > (-SECONDS_TO_EXPIRE);
+}
+
 - (id)initWithFramework:(Framework *)framework andLocationManager:(LocationManager *)lm
 {
   if ((self = [super initWithNibName:nil bundle:nil]))
   {
     m_framework = framework;
     m_locationManager = lm;
+    
+    // get current location if needed
+    bool radarMode = false;
+    Settings::Get(RADAR_MODE_SETTINGS_KEY, radarMode);
+    CLLocation * l = m_locationManager.lastLocation;
+    
+    double lat, lon;
+    if (radarMode && [SearchVC isLocationValid:l])
+    {
+      lat = l.coordinate.latitude;
+      lon = l.coordinate.longitude;
+    }
+    
+    m_framework->PrepareSearch(radarMode, lat, lon);
   }
   return self;
 }
@@ -117,23 +143,19 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   m_radarButton.selected = NO;
 }
 
-+ (BOOL)isTimestampTooOld:(NSDate *)time
-{
-  static NSTimeInterval const SECONDS_TO_EXPIRE = -300.0;
-  return [time timeIntervalSinceNow] < SECONDS_TO_EXPIRE;
-}
-
 - (void)fillSearchParams:(search::SearchParams &)params withText:(NSString *)queryString
 {
   params.m_query = [[queryString precomposedStringWithCompatibilityMapping] UTF8String];
   params.m_callback = bind(&OnSearchResultCallback, _1, g_queryId);
+  
   bool radarEnabled = m_radarButton.selected == YES;
   CLLocation * l = m_locationManager.lastLocation;
-  // Do not use too old locations
-  if (l == nil || [SearchVC isTimestampTooOld:l.timestamp])
-    radarEnabled = false;
-  else
+  
+  if ([SearchVC isLocationValid:l])
     params.SetPosition(l.coordinate.latitude, l.coordinate.longitude);
+  else
+    radarEnabled = false;
+  
   params.SetNearMeMode(radarEnabled);
 }
 

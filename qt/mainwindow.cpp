@@ -346,6 +346,8 @@ void MainWindow::OnSearchButtonClicked()
 {
   if (m_pSearchAction->isChecked())
   {
+    m_pDrawWidget->GetFramework().PrepareSearch(false);
+
     m_Docks[2]->show();
     m_Docks[2]->widget()->setFocus();
   }
