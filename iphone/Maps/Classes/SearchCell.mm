@@ -43,9 +43,9 @@
 {
   [super layoutSubviews];
   CGRect r = self.contentView.bounds;
-  // Leave some experimentally choosen padding
-  CGFloat const KPaddingX = 6.0;
-  CGFloat const KPaddingBottom = 4.0;
+  // Leave some experimentally choosen paddings
+  CGFloat const KPaddingX = 7.0;
+  CGFloat const KPaddingBottom = 1.0;
 
   r.origin.x += KPaddingX;
   r.size.width -= 2 * KPaddingX;
@@ -53,7 +53,7 @@
   CGFloat const w = r.size.width;
   CGFloat const h = r.size.height;
   CGFloat const xDelim = r.origin.x + w / 3 * 2;
-  CGFloat const yDelim = r.origin.y + h / 3 * 2;
+  CGFloat const yDelim = r.origin.y + h / 5 * 3;
   featureName.frame = CGRectMake(r.origin.x, r.origin.y, xDelim - r.origin.x, yDelim - r.origin.y);
   featureCountry.frame = CGRectMake(r.origin.x, yDelim, xDelim - r.origin.x, r.origin.y + h - yDelim);
   featureType.frame = CGRectMake(xDelim, r.origin.y, r.origin.x + w - xDelim, yDelim - r.origin.y);
