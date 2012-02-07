@@ -58,14 +58,17 @@
       [observer onLocationStatusChanged:location::ENotSupported];
   }
   else
+  {
+    [m_observers addObject:observer];
     [observer onLocationStatusChanged:location::EStarted];
+  }
 }
 
 - (void)stop:(id <LocationObserver>)observer
 {
+  [m_observers removeObject:observer];
   if (m_isStarted)
   {
-    [m_observers removeObject:observer];
     if ([m_observers count] == 0)
     { // stop only if no more observers are subsribed
       m_isStarted = NO;
