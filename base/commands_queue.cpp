@@ -227,7 +227,10 @@ namespace core
 
   void CommandsQueue::Clear()
   {
+    threads::ConditionGuard g(m_cond);
+    size_t s = m_commands.Size();
     m_commands.Clear();
+    m_activeCommands -= s;
   }
 
   int CommandsQueue::ExecutorsCount() const
