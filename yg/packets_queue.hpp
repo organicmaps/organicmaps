@@ -88,6 +88,7 @@ namespace yg
 
       void processPacket(Packet const & packet);
       void cancel();
+      void cancelFences();
       bool empty() const;
       size_t size() const;
 

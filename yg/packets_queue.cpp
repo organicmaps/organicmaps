@@ -93,6 +93,11 @@ namespace yg
       m_fenceManager.cancel();
     }
 
+    void PacketsQueue::cancelFences()
+    {
+      m_fenceManager.cancel();
+    }
+
     void PacketsQueue::processPacket(Packet const & packet)
     {
       if (m_packets.IsCancelled())

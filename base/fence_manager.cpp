@@ -110,6 +110,9 @@ void FenceManager::cancel()
 {
   threads::MutexGuard g(m_mutex);
 
+  if (m_isCancelled)
+    return;
+
   m_isCancelled = true;
 
   list<pair<int, threads::Condition*> > tempList;
