@@ -6,6 +6,7 @@
 #include "../../../../../map/drawer_yg.hpp"
 #include "../../../../../map/window_handle.hpp"
 #include "../../../../../map/feature_vec_model.hpp"
+#include "../../../../../base/timer.hpp"
 #include "../../../nv_event/nv_event.hpp"
 
 namespace android
@@ -33,6 +34,14 @@ namespace android
     bool m_hasFirst;
     bool m_hasSecond;
     int m_mask;
+
+    /// single click processing parameters
+
+    my::Timer m_doubleClickTimer;
+    bool m_isInsideDoubleClick;
+    bool m_isCleanSingleClick;
+    double m_lastX1;
+    double m_lastY1;
 
   public:
 

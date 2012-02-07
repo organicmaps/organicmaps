@@ -37,7 +37,9 @@ namespace android
      m_eventType(NVMultiTouchEventType(0)),
      m_hasFirst(false),
      m_hasSecond(false),
-     m_mask(0)
+     m_mask(0),
+     m_isInsideDoubleClick(false),
+     m_isCleanSingleClick(false)
   {
     ASSERT(g_framework == 0, ());
     g_framework = this;
@@ -173,6 +175,57 @@ namespace android
   void Framework::Touch(int action, int mask, double x1, double y1, double x2, double y2)
   {
     NVMultiTouchEventType eventType = (NVMultiTouchEventType)action;
+
+    /// processing double-click
+    if ((mask != 0x1) || (eventType == NV_MULTITOUCH_CANCEL))
+    {
+      //cancelling double click
+      m_isInsideDoubleClick = false;
+      m_isCleanSingleClick = false;
+    }
+    else
+    {
+      if (eventType == NV_MULTITOUCH_DOWN)
+      {
+        m_isCleanSingleClick = true;
+        m_lastX1 = x1;
+        m_lastY1 = y1;
+      }
+
+      if (eventType == NV_MULTITOUCH_MOVE)
+      {
+        if ((fabs(x1 - m_lastX1) > 10)
+        ||  (fabs(y1 - m_lastY1) > 10))
+          m_isCleanSingleClick = false;
+      }
+
+      if ((eventType == NV_MULTITOUCH_UP) && (m_isCleanSingleClick))
+      {
+        if (m_isInsideDoubleClick)
+        {
+          if (m_doubleClickTimer.ElapsedSeconds() <= 0.5)
+          {
+            // performing double-click
+            m_isInsideDoubleClick = false;
+            m_work.ScaleToPoint(ScaleToPointEvent(x1, y1, 1.5));
+          }
+          else
+          {
+            // restarting double click
+            m_isInsideDoubleClick = true;
+            m_doubleClickTimer.Reset();
+          }
+        }
+        else
+        {
+          // starting double click
+          m_isInsideDoubleClick = true;
+          m_doubleClickTimer.Reset();
+        }
+      }
+    }
+
+    /// general case processing
 
     if (m_mask != mask)
     {
