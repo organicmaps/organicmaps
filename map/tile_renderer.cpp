@@ -25,6 +25,7 @@ TileRenderer::TileRenderer(
     double visualScale,
     yg::gl::PacketsQueue ** packetsQueues
   ) : m_queue(executorsCount),
+      m_executorsCount(executorsCount),
       m_tileCache(maxTilesCount - executorsCount - 1),
       m_renderFn(renderFn),
       m_skinName(skinName),
@@ -42,7 +43,7 @@ TileRenderer::TileRenderer(
   int tileWidth = m_resourceManager->params().m_renderTargetTexturesParams.m_texWidth;
   int tileHeight = m_resourceManager->params().m_renderTargetTexturesParams.m_texHeight;
 
-  for (unsigned i = 0; i < m_queue.ExecutorsCount(); ++i)
+  for (unsigned i = 0; i < m_executorsCount; ++i)
   {
     DrawerYG::params_t params;
 
@@ -81,7 +82,12 @@ TileRenderer::TileRenderer(
 TileRenderer::~TileRenderer()
 {
   m_isExiting = true;
+
   m_queue.Cancel();
+
+  for (size_t i = 0; i < m_executorsCount; ++i)
+    if (m_threadData[i].m_drawer)
+      delete m_threadData[i].m_drawer;
 }
 
 void TileRenderer::InitializeThreadGL(core::CommandsQueue::Environment const & env)
@@ -102,9 +108,6 @@ void TileRenderer::FinalizeThreadGL(core::CommandsQueue::Environment const & env
 {
   ThreadData & threadData = m_threadData[env.threadNum()];
 
-
-  if (threadData.m_drawer != 0)
-    delete threadData.m_drawer;
   if (threadData.m_renderContext)
     threadData.m_renderContext->endThreadDrawing();
 }

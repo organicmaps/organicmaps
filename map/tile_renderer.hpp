@@ -34,6 +34,8 @@ protected:
 
   core::CommandsQueue m_queue;
 
+  size_t m_executorsCount;
+
   shared_ptr<yg::ResourceManager> m_resourceManager;
 
   struct ThreadData
