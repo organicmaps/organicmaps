@@ -200,6 +200,10 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   navBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   UINavigationItem * item = [[[UINavigationItem alloc] init] autorelease];
   item.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:m_radarButton] autorelease];
+  UIBarButtonItem * closeButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"Search Results - Close search button") style: UIBarButtonItemStyleDone
+                                                                   target:self action:@selector(onCloseButton:)] autorelease];
+  item.rightBarButtonItem = closeButton;
+
 
   m_searchBar = [[UISearchBar alloc] init];
   m_searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -208,7 +212,6 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
     m_searchBar.text = g_lastSearchResults.m_searchString;
   m_searchBar.delegate = self;
   m_searchBar.placeholder = NSLocalizedString(@"Search map", @"Search box placeholder text");
-  m_searchBar.showsCancelButton = YES;
   item.titleView = m_searchBar;
 
   [navBar pushNavigationItem:item animated:NO];
@@ -339,7 +342,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   }
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+- (void)onCloseButton:(id)sender
 {
   [self dismissModalViewControllerAnimated:YES];
 }
@@ -460,7 +463,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
       // Zoom to the feature
     case search::Result::RESULT_FEATURE:
       m_framework->ShowRect(res.GetFeatureRect());
-      [self searchBarCancelButtonClicked:m_searchBar];
+      [self onCloseButton:nil];
       break;
 
     case search::Result::RESULT_SUGGESTION:
@@ -545,28 +548,6 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 }
 //*********** End of Location manager callbacks ********************
 //****************************************************************** 
-
-//****************************************************************** 
-//*********** Hack to keep Cancel button always enabled ************
-- (void)enableCancelButton:(UISearchBar *)aSearchBar
-{
-  for (id subview in [aSearchBar subviews])
-  {
-    if ([subview isKindOfClass:[UIButton class]])
-    {
-      [subview setEnabled:YES];
-      break;
-    }
-  }
-}
-
-- (void)searchBarTextDidEndEditing:(UISearchBar *)aSearchBar
-{
-  [aSearchBar resignFirstResponder];
-  [self performSelector:@selector(enableCancelButton:) withObject:aSearchBar afterDelay:0.0];
-}
-// ********** End of hack ******************************************
-// *****************************************************************
 
 // Dismiss virtual keyboard when touching tableview
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
