@@ -79,7 +79,10 @@ namespace yg
     void BaseTexture::makeCurrent(yg::gl::PacketsQueue * queue) const
     {
       if (queue)
+      {
         queue->processFn(bind(&BaseTexture::makeCurrent, this, (yg::gl::PacketsQueue*)0));
+        return;
+      }
 
 #ifndef OMIM_OS_ANDROID
       if (current() != m_id)
