@@ -84,4 +84,29 @@ namespace rw
   {
     impl::ReadCont(src, v);
   }
+
+  template <class TSource, class TCont>
+  void ReadRaw(TSource & src, TCont & v)
+  {
+    STATIC_ASSERT(sizeof(typename TCont::value_type) == 1);
+
+    uint32_t const count = ReadVarUint<uint32_t>(src);
+    if (count > 0)
+    {
+      v.resize(count);
+      src.Read(&v[0], count);
+    }
+  }
+
+  template <class TSink, class TCont>
+  void WriteRaw(TSink & sink, TCont const & v)
+  {
+    STATIC_ASSERT(sizeof(typename TCont::value_type) == 1);
+
+    uint32_t const count = static_cast<uint32_t>(v.size());
+    WriteVarUint(sink, count);
+
+    if (count > 0)
+      sink.Write(&v[0], count);
+  }
 }
