@@ -433,7 +433,7 @@ void Framework::CenterAndScaleViewport()
   m2::PointD const pt = m_locationState.Position();
   m_navigator.CenterViewport(pt);
 
-  m2::RectD clipRect = m_navigator.Screen().ClipRect();
+  m2::RectD clipRect = GetCurrentViewport();
 
   double const xMinSize = theMetersFactor * max(m_locationState.ErrorRadius(),
                             MercatorBounds::ConvertMetresToX(pt.x, m_metresMinWidth));
@@ -689,12 +689,12 @@ search::Engine * Framework::GetSearchEngine()
 
 void Framework::PrepareSearch(bool nearMe, double lat, double lon)
 {
-  GetSearchEngine()->PrepareSearch(m_navigator.Screen().ClipRect(), nearMe, lat, lon);
+  GetSearchEngine()->PrepareSearch(GetCurrentViewport(), nearMe, lat, lon);
 }
 
 void Framework::Search(search::SearchParams const & params)
 {
-  GetSearchEngine()->Search(params);
+  GetSearchEngine()->Search(params, GetCurrentViewport());
 }
 
 bool Framework::GetCurrentPosition(double & lat, double & lon)

@@ -110,14 +110,24 @@ void Engine::PrepareSearch(m2::RectD const & viewport, bool nearMe,
   GetPlatform().RunAsync(bind(&Engine::SetViewportAsync, this, r));
 }
 
-void Engine::Search(SearchParams const & params)
+void Engine::Search(SearchParams const & params, m2::RectD const & viewport)
 {
+  Platform & p = GetPlatform();
+
   {
     threads::MutexGuard guard(m_updateMutex);
+
+    // if we need to restore viewport search ...
+    bool const changed = ((m_params.m_mode != params.m_mode) && !params.IsNearMeMode());
+
     m_params = params;
+
+    // ... so update current viewport
+    if (changed)
+      p.RunAsync(bind(&Engine::SetViewportAsync, this, viewport));
   }
 
-  GetPlatform().RunAsync(bind(&Engine::SearchAsync, this));
+  p.RunAsync(bind(&Engine::SearchAsync, this));
 }
 
 void Engine::SetViewportAsync(m2::RectD const & viewport)

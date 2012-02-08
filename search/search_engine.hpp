@@ -42,7 +42,7 @@ public:
 
   void PrepareSearch(m2::RectD const & viewport, bool nearMe,
                      double lat, double lon);
-  void Search(SearchParams const & params);
+  void Search(SearchParams const & params, m2::RectD const & viewport);
 
   string GetCountryFile(m2::PointD const & pt) const;
 
