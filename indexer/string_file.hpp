@@ -14,18 +14,18 @@
 class StringsFile
 {
 public:
-
+  typedef buffer_vector<uint8_t, 32> ValueT;
   typedef uint32_t IdT;
 
   class StringT
   {
     strings::UniString m_name;
-    uint32_t m_pos;
+    ValueT m_val;
 
   public:
     StringT() {}
-    StringT(strings::UniString const & name, signed char lang, uint32_t pos)
-      : m_pos(pos)
+    StringT(strings::UniString const & name, signed char lang, ValueT const & val)
+      : m_val(val)
     {
       m_name.reserve(name.size() + 1);
       m_name.push_back(static_cast<uint8_t>(lang));
@@ -39,12 +39,8 @@ public:
 
     template <class TCont> void SerializeValue(TCont & cont) const
     {
-      cont.resize(4);
-      uint32_t const i = SwapIfBigEndian(m_pos);
-      memcpy(&cont[0], &i, 4);
+      cont.assign(m_val.begin(), m_val.end());
     }
-
-    uint32_t GetOffset() const { return m_pos; }
 
     bool operator < (StringT const & name) const;
     bool operator == (StringT const & name) const;
@@ -55,7 +51,7 @@ public:
     void Swap(StringT & r)
     {
       m_name.swap(r.m_name);
-      swap(m_pos, r.m_pos);
+      m_val.swap(r.m_val);
     }
   };
 

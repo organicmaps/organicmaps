@@ -28,25 +28,19 @@ namespace
 struct FeatureNameInserter
 {
   StringsFile & m_names;
-  uint32_t m_pos;
-  uint32_t m_rank;
+  StringsFile::ValueT m_val;
 
-  FeatureNameInserter(StringsFile & names, uint32_t pos, uint8_t rank)
-    : m_names(names), m_pos(pos), m_rank(rank) {}
+  FeatureNameInserter(StringsFile & names) : m_names(names) {}
 
   void AddToken(signed char lang, strings::UniString const & s) const
   {
-    AddToken(lang, s, m_rank);
-  }
-
-  void AddToken(signed char lang, strings::UniString const & s, uint32_t /*rank*/) const
-  {
-    m_names.AddString(StringsFile::StringT(s, lang, m_pos));
+    m_names.AddString(StringsFile::StringT(s, lang, m_val));
   }
 
   bool operator()(signed char lang, string const & name) const
   {
-    strings::UniString uniName = search::NormalizeAndSimplifyString(name);
+    strings::UniString const uniName = search::NormalizeAndSimplifyString(name);
+
     buffer_vector<strings::UniString, 32> tokens;
     SplitUniString(uniName, MakeBackInsertFunctor(tokens), search::Delimiters());
     if (tokens.size() > 30)
@@ -54,30 +48,59 @@ struct FeatureNameInserter
       LOG(LWARNING, ("Name has too many tokens:", name));
       tokens.resize(30);
     }
+
     for (size_t i = 0; i < tokens.size(); ++i)
-      AddToken(lang, tokens[i], /*i < 3 ? m_rank + 10 * (3 - i) : */m_rank);
+      AddToken(lang, tokens[i]);
+
     return true;
   }
 };
 
-struct FeatureInserter
+class FeatureInserter
 {
   StringsFile & m_names;
 
-  explicit FeatureInserter(StringsFile & names) : m_names(names) {}
+  typedef StringsFile::ValueT ValueT;
+  typedef search::trie::ValueReader SaverT;
+  SaverT m_valueSaver;
+
+  void MakeValue(FeatureType const & f, feature::TypesHolder const & types,
+                 uint64_t pos, ValueT & value) const
+  {
+    SaverT::ValueType v;
+    v.m_featureId = static_cast<uint32_t>(pos);
+
+    // get BEST geometry rect of feature
+    m2::RectD const rect = f.GetLimitRect(-1);
+    v.m_pt = rect.Center();
+    v.m_rank = feature::GetSearchRank(types, v.m_pt, f.GetPopulation());
+
+    // write to buffer
+    PushBackByteSink<ValueT> sink(value);
+    m_valueSaver.Save(sink, v);
+  }
+
+public:
+  FeatureInserter(StringsFile & names, serial::CodingParams const & cp)
+    : m_names(names), m_valueSaver(cp)
+  {
+  }
 
   void operator() (FeatureType const & f, uint64_t pos) const
   {
     feature::TypesHolder types(f);
 
-    // Add names of the feature.
-    uint8_t const rank = feature::GetSearchRank(types, f.GetLimitRect(-2).Center(), f.GetPopulation());
-    FeatureNameInserter toDo(m_names, static_cast<uint32_t>(pos), rank);
-    f.ForEachNameRef(toDo);
+    // init inserter with serialized value
+    FeatureNameInserter inserter(m_names);
+    MakeValue(f, types, pos, inserter.m_val);
 
-    // Add names of categories of the feature.
+    // add names of the feature
+    f.ForEachNameRef(inserter);
+
+    // add names of categories of the feature
+    inserter.m_val.clear();
     for (size_t i = 0; i < types.Size(); ++i)
-      toDo.AddToken(search::CATEGORIES_LANG, search::FeatureTypeToString(types[i]));
+      inserter.AddToken(search::CATEGORIES_LANG, search::FeatureTypeToString(types[i]));
   }
 };
 
@@ -88,14 +111,17 @@ void indexer::BuildSearchIndex(FeaturesVector const & featuresVector, Writer & w
 {
   {
     StringsFile names(tmpFilePath);
-    featuresVector.ForEachOffset(FeatureInserter(names));
+    serial::CodingParams cp(search::POINT_CODING_BITS,
+                            featuresVector.GetCodingParams().GetBasePointUint64());
+
+    featuresVector.ForEachOffset(FeatureInserter(names, cp));
 
     names.EndAdding();
     names.OpenForRead();
 
     trie::Build(writer, names.Begin(), names.End(), trie::builder::EmptyEdgeBuilder());
 
-    // at this point all readers should be dead
+    // at this point all readers of StringsFile should be dead
   }
 
   FileWriter::DeleteFileX(tmpFilePath);

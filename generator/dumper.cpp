@@ -127,6 +127,7 @@ namespace feature
   {
     typedef pair<strings::UniString, pair<unsigned int, string> > NameElemT;
     typedef vector<NameElemT> VecToSortT;
+
     VecToSortT v(container.begin(), container.end());
     sort(v.begin(), v.end(), &SortFunc<NameElemT>);
 
@@ -164,7 +165,7 @@ namespace feature
 
     SearchTokensCollector() : m_currentS(), m_currentCount(0) {}
 
-    void operator() (strings::UniString const & s, search::trie::ValueReader::ValueType)
+    void operator() (strings::UniString const & s, search::trie::ValueReader::ValueType const &)
     {
       if (m_currentS == s)
       {
@@ -197,12 +198,20 @@ namespace feature
   void DumpSearchTokens(string const & fPath)
   {
     FilesContainerR container(new FileReader(fPath));
+
+    feature::DataHeader header;
+    header.Load(container.GetReader(HEADER_FILE_TAG));
+
+    serial::CodingParams cp(search::POINT_CODING_BITS,
+                            header.GetDefCodingParams().GetBasePointUint64());
+
     scoped_ptr<search::TrieIterator> pTrieRoot(
           ::trie::reader::ReadTrie(container.GetReader(SEARCH_INDEX_FILE_TAG),
-                                   ::search::trie::ValueReader(),
-                                   ::search::trie::EdgeValueReader()));
+                                   search::trie::ValueReader(cp),
+                                   search::trie::EdgeValueReader()));
+
     SearchTokensCollector f;
-    trie::ForEachRef(*pTrieRoot, f, strings::UniString());
+    ::trie::ForEachRef(*pTrieRoot, f, strings::UniString());
     f.Finish();
 
     while (!f.tokens.empty())

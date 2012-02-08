@@ -531,58 +531,59 @@ void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
       {
         if (pMwm->m_cont.IsReaderExist(SEARCH_INDEX_FILE_TAG))
         {
+          feature::DataHeader const & header = pMwm->GetHeader();
+          serial::CodingParams cp(POINT_CODING_BITS,
+                                  header.GetDefCodingParams().GetBasePointUint64());
+
           scoped_ptr<TrieIterator> pTrieRoot(::trie::reader::ReadTrie(
                                                pMwm->m_cont.GetReader(SEARCH_INDEX_FILE_TAG),
-                                               ::search::trie::ValueReader(),
-                                               ::search::trie::EdgeValueReader()));
-          if (pTrieRoot)
+                                               trie::ValueReader(cp),
+                                               trie::EdgeValueReader()));
+
+          bool const isWorld = (header.GetType() == feature::DataHeader::world);
+
+          FeaturesVector featuresVector(pMwm->m_cont, header);
+          impl::FeatureLoader emitter(featuresVector, *this, isWorld ? "" : mwmLock.GetCountryName());
+
+          size_t const count = pTrieRoot->m_edge.size();
+
+          // Get categories edge root.
+          scoped_ptr<TrieIterator> pCategoriesRoot;
+          TrieIterator::Edge::EdgeStrT categoriesEdge;
+
+          for (size_t i = 0; i < count; ++i)
           {
-            feature::DataHeader const & header = pMwm->GetHeader();
-            bool const isWorld = (header.GetType() == feature::DataHeader::world);
+            TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
+            ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
 
-            FeaturesVector featuresVector(pMwm->m_cont, header);
-            impl::FeatureLoader emitter(featuresVector, *this, isWorld ? "" : mwmLock.GetCountryName());
-
-            size_t const count = pTrieRoot->m_edge.size();
-
-            // Get categories edge root.
-            scoped_ptr<TrieIterator> pCategoriesRoot;
-            TrieIterator::Edge::EdgeStrT categoriesEdge;
-
-            for (size_t i = 0; i < count; ++i)
+            if (edge[0] == search::CATEGORIES_LANG)
             {
-              TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
-              ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
-
-              if (edge[0] == search::CATEGORIES_LANG)
-              {
-                categoriesEdge = edge;
-                pCategoriesRoot.reset(pTrieRoot->GoToEdge(i));
-                break;
-              }
+              categoriesEdge = edge;
+              pCategoriesRoot.reset(pTrieRoot->GoToEdge(i));
+              break;
             }
-            ASSERT_NOT_EQUAL(pCategoriesRoot, 0, ());
+          }
+          ASSERT_NOT_EQUAL(pCategoriesRoot, 0, ());
 
-            // Iterate through first language edges.
-            for (size_t i = 0; i < count; ++i)
+          // Iterate through first language edges.
+          for (size_t i = 0; i < count; ++i)
+          {
+            TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
+            if (edge[0] < search::CATEGORIES_LANG && langs.count(static_cast<int8_t>(edge[0])))
             {
-              TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
-              if (edge[0] < search::CATEGORIES_LANG && langs.count(static_cast<int8_t>(edge[0])))
-              {
-                scoped_ptr<TrieIterator> pLangRoot(pTrieRoot->GoToEdge(i));
+              scoped_ptr<TrieIterator> pLangRoot(pTrieRoot->GoToEdge(i));
 
-                MatchFeaturesInTrie(tokens, m_prefix,
-                                    TrieRootPrefix(*pLangRoot, edge),
-                                    TrieRootPrefix(*pCategoriesRoot, categoriesEdge),
-                                    FeaturesFilter(m_offsetsInViewport[mwmId], isWorld, m_cancel), emitter);
+              MatchFeaturesInTrie(tokens, m_prefix,
+                                  TrieRootPrefix(*pLangRoot, edge),
+                                  TrieRootPrefix(*pCategoriesRoot, categoriesEdge),
+                                  FeaturesFilter(m_offsetsInViewport[mwmId], isWorld, m_cancel), emitter);
 
-                LOG(LDEBUG, ("Lang:",
-                             StringUtf8Multilang::GetLangByCode(static_cast<int8_t>(edge[0])),
-                             "Matched: ",
-                             emitter.GetCount()));
+              LOG(LDEBUG, ("Lang:",
+                           StringUtf8Multilang::GetLangByCode(static_cast<int8_t>(edge[0])),
+                           "Matched: ",
+                           emitter.GetCount()));
 
-                emitter.Reset();
-              }
+              emitter.Reset();
             }
           }
         }

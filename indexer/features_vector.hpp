@@ -28,6 +28,8 @@ public:
     m_RecordReader.ForEachRecord(DoGetFeatures<ToDo>(m_LoadInfo, toDo));
   }
 
+  serial::CodingParams const & GetCodingParams() const { return m_LoadInfo.GetDefCodingParams(); }
+
 private:
   template <class ToDo> class DoGetFeatures
   {

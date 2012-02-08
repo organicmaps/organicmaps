@@ -17,7 +17,7 @@ StringsFile::IdT StringsFile::StringT::Write(TWriter & writer) const
   CHECK_EQUAL(static_cast<uint64_t>(pos), writer.Pos(), ());
 
   rw::Write(writer, m_name);
-  WriteVarUint(writer, m_pos);
+  rw::WriteRaw(writer, m_val);
 
   return pos;
 }
@@ -26,21 +26,20 @@ template <class TReader>
 void StringsFile::StringT::Read(TReader & src)
 {
   rw::Read(src, m_name);
-  m_pos = ReadVarUint<uint32_t>(src);
+  rw::ReadRaw(src, m_val);
 }
 
 bool StringsFile::StringT::operator < (StringT const & name) const
 {
   if (m_name != name.m_name)
-    return m_name < name.m_name;
-  if (GetOffset() != name.GetOffset())
-    return GetOffset() < name.GetOffset();
-  return false;
+    return (m_name < name.m_name);
+
+  return (m_val < name.m_val);
 }
 
 bool StringsFile::StringT::operator == (StringT const & name) const
 {
-  return (m_name == name.m_name && m_pos == name.m_pos);
+  return (m_name == name.m_name && m_val == name.m_val);
 }
 
 void StringsFile::AddString(StringT const & s)
