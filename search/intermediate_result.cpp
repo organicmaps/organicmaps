@@ -6,6 +6,7 @@
 #include "../indexer/feature.hpp"
 #include "../indexer/feature_utils.hpp"
 #include "../indexer/mercator.hpp"
+#include "../indexer/scales.hpp"
 
 #include "../geometry/angles.hpp"
 #include "../geometry/distance_on_sphere.hpp"
@@ -20,12 +21,12 @@ namespace impl
 {
 
 IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, m2::PointD const & pos,
-                                       FeatureType const & f,
+                                       FeatureType const & f, m2::PointD const & center, uint8_t rank,
                                        string const & displayName, string const & fileName)
   : m_types(f),
     m_str(displayName),
-    m_rect(f.GetLimitRect(-2)),
-    m_resultType(RESULT_FEATURE)
+    m_resultType(RESULT_FEATURE),
+    m_center(center), m_searchRank(rank)
 {
   ASSERT_GREATER(m_types.Size(), 0, ());
 
@@ -33,45 +34,40 @@ IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, m2::Point
   if (!fileName.empty())
     m_region.SetName(fileName);
   else
-    m_region.SetPoint(m_rect.Center());
+    m_region.SetPoint(m_center);
 
   CalcCommonParams(viewportRect, pos);
-  m_searchRank = feature::GetSearchRank(m_types, m_rect.Center(), f.GetPopulation());
 }
 
 IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, m2::PointD const & pos,
                                        double lat, double lon, double precision)
   : m_str("(" + strings::to_string(lat) + ", " + strings::to_string(lon) + ")"),
-    m_rect(MercatorBounds::LonToX(lon - precision), MercatorBounds::LatToY(lat - precision),
-           MercatorBounds::LonToX(lon + precision), MercatorBounds::LatToY(lat + precision)),
+    m_center(m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat))),
     m_resultType(RESULT_LATLON), m_searchRank(255)
 {
   CalcCommonParams(viewportRect, pos);
 
   // get region info
-  m_region.SetPoint(m2::PointD(MercatorBounds::LonToX(lon),
-                               MercatorBounds::LatToY(lat)));
+  m_region.SetPoint(m_center);
 }
 
 void IntermediateResult::CalcCommonParams(m2::RectD const & viewportRect, m2::PointD const & pos)
 {
-  m2::PointD const center = m_rect.Center();
-
   // Check if point is valid (see Query::empty_pos_value).
   if (pos.x > -500 && pos.y > -500)
   {
     ASSERT ( my::between_s(-180.0, 180.0, pos.x), (pos.x) );
     ASSERT ( my::between_s(-180.0, 180.0, pos.y), (pos.y) );
 
-    m_distance = ResultDistance(pos, center);
+    m_distance = ResultDistance(pos, m_center);
   }
   else
   {
-    // empty destance
+    // empty distance
     m_distance = -1.0;
   }
 
-  m_viewportDistance = ViewportDistance(viewportRect, center);
+  m_viewportDistance = ViewportDistance(viewportRect, m_center);
 }
 
 IntermediateResult::IntermediateResult(string const & name, int penalty)
@@ -142,11 +138,12 @@ Result IntermediateResult::GenerateFinalResult(
                   + ' ' + strings::to_string(static_cast<int>(m_searchRank))
               #endif
                   ,
-                  GetBestType(), feature::GetFeatureViewport(m_types, m_rect),
+                  GetBestType(), feature::GetFeatureViewport(m_types, m_center),
                   m_distance);
 
   case RESULT_LATLON:
-    return Result(m_str, info.m_name, info.m_flag, string(), 0, m_rect, m_distance);
+    return Result(m_str, info.m_name, info.m_flag, string(), 0,
+                  scales::GetRectForLevel(scales::GetUpperScale(), m_center, 1.0), m_distance);
 
   default:
     ASSERT_EQUAL ( m_resultType, RESULT_CATEGORY, () );

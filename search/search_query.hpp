@@ -1,6 +1,8 @@
 #pragma once
 #include "intermediate_result.hpp"
 
+#include "../indexer/search_trie.hpp"
+
 #include "../geometry/rect2d.hpp"
 
 #include "../base/buffer_vector.hpp"
@@ -41,6 +43,8 @@ public:
   // Vector of pairs (string_to_suggest, min_prefix_length_to_suggest).
   typedef vector<pair<strings::UniString, uint8_t> > StringsToSuggestVectorT;
 
+  typedef trie::ValueReader::ValueType TrieValueT;
+
   Query(Index const * pIndex,
         CategoriesMapT const * pCategories,
         StringsToSuggestVectorT const * pStringsToSuggest,
@@ -71,7 +75,7 @@ private:
   typedef shared_ptr<ResultT> ValueT;
 
   void AddResult(ValueT const & result);
-  void AddFeatureResult(FeatureType const & f, string const & fName);
+  void AddFeatureResult(FeatureType const & f, TrieValueT const & val, string const & fName);
   void FlushResults(Results & res);
   void UpdateViewportOffsets();
   void SearchFeatures();

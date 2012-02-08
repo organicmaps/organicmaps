@@ -359,13 +359,14 @@ void Query::FlushResults(Results & res)
   }
 }
 
-void Query::AddFeatureResult(FeatureType const & f, string const & fName)
+void Query::AddFeatureResult(FeatureType const & f, TrieValueT const & val, string const & fName)
 {
   uint32_t penalty;
   string name;
   GetBestMatchName(f, penalty, name);
 
-  AddResult(ValueT(new impl::IntermediateResult(m_viewport, m_position, f, name, fName)));
+  AddResult(ValueT(new impl::IntermediateResult(
+                     m_viewport, m_position, f, val.m_pt, val.m_rank, name, fName)));
 }
 
 namespace impl
@@ -436,18 +437,18 @@ public:
   {
   }
 
-  void operator() (uint32_t offset)
+  void operator() (trie::ValueReader::ValueType const & value)
   {
     ++m_count;
     FeatureType feature;
-    m_featuresVector.Get(offset, feature);
+    m_featuresVector.Get(value.m_featureId, feature);
 
 //#ifdef DEBUG
 //    DoFindByName doFind("ул. Карбышева");
 //    feature.ForEachNameRef(doFind);
 //#endif
 
-    m_query.AddFeatureResult(feature, m_fName);
+    m_query.AddFeatureResult(feature, value, m_fName);
   }
 
   size_t GetCount() const { return m_count; }

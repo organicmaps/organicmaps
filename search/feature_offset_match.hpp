@@ -82,7 +82,7 @@ void FullMatchInTrie(TrieIterator const & trieRoot,
   if (!pIter || symbolsMatched != s.size())
     return;
   for (size_t i = 0; i < pIter->m_value.size(); ++i)
-    f(pIter->m_value[i].m_featureId);
+    f(pIter->m_value[i]);
 }
 
 template <typename F>
@@ -114,7 +114,7 @@ void PrefixMatchInTrie(TrieIterator const & trieRoot,
     scoped_ptr<search::TrieIterator> pIter(trieQueue.top());
     trieQueue.pop();
     for (size_t i = 0; i < pIter->m_value.size(); ++i)
-      f(pIter->m_value[i].m_featureId);
+      f(pIter->m_value[i]);
     for (size_t i = 0; i < pIter->m_edge.size(); ++i)
         trieQueue.push(pIter->GoToEdge(i));
   }
@@ -122,7 +122,24 @@ void PrefixMatchInTrie(TrieIterator const & trieRoot,
 
 template <class FilterT> class OffsetIntersecter
 {
-  typedef unordered_set<uint32_t> SetType;
+  typedef trie::ValueReader::ValueType ValueT;
+
+  struct HashFn
+  {
+    size_t operator() (ValueT const & v) const
+    {
+      return (boost::hash_value(v.m_featureId));
+    }
+  };
+  struct EqualFn
+  {
+    bool operator() (ValueT const & v1, ValueT const & v2) const
+    {
+      return (v1.m_featureId == v2.m_featureId);
+    }
+  };
+
+  typedef unordered_set<ValueT, HashFn, EqualFn> SetType;
 
   FilterT const & m_filter;
   scoped_ptr<SetType> m_prevSet;
@@ -130,17 +147,19 @@ template <class FilterT> class OffsetIntersecter
 
 public:
   explicit OffsetIntersecter(FilterT const & filter)
-    : m_filter(filter), m_set(new SetType()) {}
-
-  void operator() (uint32_t offset)
+    : m_filter(filter), m_set(new SetType())
   {
-    if (m_prevSet && !m_prevSet->count(offset))
+  }
+
+  void operator() (ValueT const & v)
+  {
+    if (m_prevSet && !m_prevSet->count(v))
       return;
 
-    if (!m_filter(offset))
+    if (!m_filter(v.m_featureId))
       return;
 
-    m_set->insert(offset);
+    m_set->insert(v);
   }
 
   void NextStep()
@@ -154,7 +173,7 @@ public:
 
   template <class ToDo> void ForEachResult(ToDo & toDo) const
   {
-    for (SetType::const_iterator i = m_prevSet->begin(); i != m_prevSet->end(); ++i)
+    for (typename SetType::const_iterator i = m_prevSet->begin(); i != m_prevSet->end(); ++i)
       toDo(*i);
   }
 };

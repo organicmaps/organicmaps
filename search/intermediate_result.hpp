@@ -36,9 +36,8 @@ public:
 
   // For RESULT_FEATURE.
   IntermediateResult(m2::RectD const & viewportRect, m2::PointD const & pos,
-                     FeatureType const & f,
-                     string const & displayName,
-                     string const & fileName);
+                     FeatureType const & f, m2::PointD const & center, uint8_t rank,
+                     string const & displayName, string const & fileName);
 
   // For RESULT_LATLON.
   IntermediateResult(m2::RectD const & viewportRect, m2::PointD const & pos,
@@ -124,7 +123,7 @@ private:
     void GetRegion(storage::CountryInfoGetter const * pInfo, storage::CountryInfo & info) const;
   } m_region;
 
-  m2::RectD m_rect;
+  m2::PointD m_center;
 
   double m_distance;
   int m_viewportDistance;
