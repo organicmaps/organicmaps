@@ -28,8 +28,12 @@ namespace feature
 
   int MinDrawableScaleForFeature(FeatureBase const & f);
 
+  /// @name Get scale range when feature's text is visible.
+  /// @return [-1, -1] if no any text exists
+  //@{
   pair<int, int> DrawableScaleRangeForText(TypesHolder const & types);
   pair<int, int> DrawableScaleRangeForText(FeatureBase const & f);
+  //@}
 
   /// @return (geometry type, is coastline)
   pair<int, bool> GetDrawRule(FeatureBase const & f, int level,

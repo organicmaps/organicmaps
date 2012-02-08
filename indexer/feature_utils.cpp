@@ -80,6 +80,10 @@ public:
     {
       // get minimal draw text scale for feature type, that not mentioned in GetScaleForType
       scale = feature::DrawableScaleRangeForText(types).first;
+
+      // if no texts at all - show at maximum zoom
+      if (scale == -1)
+        scale = upperScale;
     }
 
     return scales::GetRectForLevel(scale, center, 1.0);
