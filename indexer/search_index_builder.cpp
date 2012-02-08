@@ -98,7 +98,6 @@ public:
     f.ForEachNameRef(inserter);
 
     // add names of categories of the feature
-    inserter.m_val.clear();
     for (size_t i = 0; i < types.Size(); ++i)
       inserter.AddToken(search::CATEGORIES_LANG, search::FeatureTypeToString(types[i]));
   }
