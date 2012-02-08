@@ -13,7 +13,17 @@ namespace strings
 {
 
 typedef uint32_t UniChar;
-typedef buffer_vector<UniChar, 32> UniString;
+//typedef buffer_vector<UniChar, 32> UniString;
+
+/// Make new type, not typedef. Need to specialize DebugPrint.
+class UniString : public buffer_vector<UniChar, 32>
+{
+  typedef buffer_vector<UniChar, 32> BaseT;
+public:
+  UniString() {}
+  explicit UniString(size_t n, UniChar c = UniChar()) : BaseT(n, c) {}
+  template <class IterT> UniString(IterT b, IterT e) : BaseT(b, e) {}
+};
 
 UniString MakeLowerCase(UniString const & s);
 void MakeLowerCase(UniString & s);
@@ -36,6 +46,11 @@ inline string ToUtf8(UniString const & s)
   string result;
   utf8::unchecked::utf32to8(s.begin(), s.end(), back_inserter(result));
   return result;
+}
+
+inline string DebugPrint(UniString const & s)
+{
+  return ToUtf8(s);
 }
 
 template <typename DelimFuncT, typename UniCharIterT = UniString::const_iterator>
