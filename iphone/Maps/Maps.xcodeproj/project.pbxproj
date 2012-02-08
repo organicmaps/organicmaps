@@ -2729,7 +2729,7 @@
 					armv7,
 				);
 				BUNDLE_IDENTIFIER = com.mapswithme.travelguide;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Yury Melnichek";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 2.0.1;
@@ -2757,7 +2757,7 @@
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = MapsWithMe;
-				PROVISIONING_PROFILE = "6F57AA0F-13F9-49C8-A4C6-AD6438C87533";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2783,7 +2783,7 @@
 					armv7,
 				);
 				BUNDLE_IDENTIFIER = com.mapswithme.travelguide.debug;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yury Melnichek (EDA9BLAEK7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2.0.1;
@@ -2808,7 +2808,7 @@
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "MWM Dbg Lite";
-				PROVISIONING_PROFILE = "A8CE67F3-5697-4537-8A5D-D5CAEC5CB420";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2834,7 +2834,7 @@
 					armv7,
 				);
 				BUNDLE_IDENTIFIER = com.mapswithme.travelguide.beta;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Yury Melnichek";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 2.0.1;
@@ -2862,7 +2862,7 @@
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "MWM Beta Lite";
-				PROVISIONING_PROFILE = "9EF9DEA9-8BDB-4428-87F4-21B2B5695C7A";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2936,7 +2936,7 @@
 					armv7,
 				);
 				BUNDLE_IDENTIFIER = com.mapswithme.full.debug;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yury Melnichek (EDA9BLAEK7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2.1;
@@ -2961,7 +2961,7 @@
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "MWM Dbg";
-				PROVISIONING_PROFILE = "A8CE67F3-5697-4537-8A5D-D5CAEC5CB420";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2987,7 +2987,7 @@
 					armv7,
 				);
 				BUNDLE_IDENTIFIER = com.mapswithme.full.beta;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Yury Melnichek";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 2.1;
@@ -3015,7 +3015,7 @@
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "MWM Beta";
-				PROVISIONING_PROFILE = "9EF9DEA9-8BDB-4428-87F4-21B2B5695C7A";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3041,7 +3041,7 @@
 					armv7,
 				);
 				BUNDLE_IDENTIFIER = com.mapswithme.full;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Yury Melnichek";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 2.1;
@@ -3069,7 +3069,7 @@
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = MapsWithMe;
-				PROVISIONING_PROFILE = "B007E808-9B48-409B-A7BA-CF5C2F70067D";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3095,7 +3095,7 @@
 					armv7,
 				);
 				BUNDLE_IDENTIFIER = com.mapswithme.travelguide.release;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yury Melnichek (EDA9BLAEK7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2.0.1;
@@ -3122,7 +3122,7 @@
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "MWM Rel Lite";
-				PROVISIONING_PROFILE = "A8CE67F3-5697-4537-8A5D-D5CAEC5CB420";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3148,7 +3148,7 @@
 					armv7,
 				);
 				BUNDLE_IDENTIFIER = com.mapswithme.full.release;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yury Melnichek (EDA9BLAEK7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2.1;
@@ -3175,7 +3175,7 @@
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "MWM Rel";
-				PROVISIONING_PROFILE = "A8CE67F3-5697-4537-8A5D-D5CAEC5CB420";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
