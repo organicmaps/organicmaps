@@ -77,7 +77,7 @@ struct FeatureInserter
 
     // Add names of categories of the feature.
     for (size_t i = 0; i < types.Size(); ++i)
-      toDo.AddToken(0, search::FeatureTypeToString(types[i]));
+      toDo.AddToken(search::CATEGORIES_LANG, search::FeatureTypeToString(types[i]));
   }
 };
 

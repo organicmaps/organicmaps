@@ -20,6 +20,7 @@
 
 #include "../std/algorithm.hpp"
 #include "../std/array.hpp"
+#include "../std/bind.hpp"
 
 
 namespace search
@@ -542,17 +543,37 @@ void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
             FeaturesVector featuresVector(pMwm->m_cont, header);
             impl::FeatureLoader emitter(featuresVector, *this, isWorld ? "" : mwmLock.GetCountryName());
 
-            for (size_t i = 0; i < pTrieRoot->m_edge.size(); ++i)
+            size_t const count = pTrieRoot->m_edge.size();
+
+            // Get categories edge root.
+            scoped_ptr<TrieIterator> pCategoriesRoot;
+            TrieIterator::Edge::EdgeStrT categoriesEdge;
+
+            for (size_t i = 0; i < count; ++i)
             {
               TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
               ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
 
-              if (edge.size() >= 1 && edge[0] < 128 && langs.count(static_cast<int8_t>(edge[0])))
+              if (edge[0] == search::CATEGORIES_LANG)
+              {
+                categoriesEdge = edge;
+                pCategoriesRoot.reset(pTrieRoot->GoToEdge(i));
+                break;
+              }
+            }
+            ASSERT_NOT_EQUAL(pCategoriesRoot, 0, ());
+
+            // Iterate through first language edges.
+            for (size_t i = 0; i < count; ++i)
+            {
+              TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
+              if (edge[0] < search::CATEGORIES_LANG && langs.count(static_cast<int8_t>(edge[0])))
               {
                 scoped_ptr<TrieIterator> pLangRoot(pTrieRoot->GoToEdge(i));
 
-                MatchFeaturesInTrie(tokens, m_prefix, *pLangRoot,
-                                    edge.size() == 1 ? NULL : &edge[1], edge.size() - 1,
+                MatchFeaturesInTrie(tokens, m_prefix,
+                                    TrieRootPrefix(*pLangRoot, edge),
+                                    TrieRootPrefix(*pCategoriesRoot, categoriesEdge),
                                     FeaturesFilter(m_offsetsInViewport[mwmId], isWorld, m_cancel), emitter);
 
                 LOG(LDEBUG, ("Lang:",

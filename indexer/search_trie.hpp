@@ -1,13 +1,8 @@
 #pragma once
-#include "../defines.hpp"
-
-#include "../indexer/features_vector.hpp"
 
 #include "../coding/reader.hpp"
 #include "../coding/trie.hpp"
 #include "../coding/trie_reader.hpp"
-
-#include "../base/base.hpp"
 
 
 namespace search
@@ -36,5 +31,7 @@ typedef ::trie::reader::EmptyValueReader EdgeValueReader;
   typedef ::trie::Iterator<
       search::trie::ValueReader::ValueType,
       search::trie::EdgeValueReader::ValueType> TrieIterator;
+
+  static const uint8_t CATEGORIES_LANG = 128;
 
 }  // namespace search
