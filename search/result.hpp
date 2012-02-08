@@ -25,7 +25,7 @@ public:
   // String that is displayed in the GUI.
   char const * GetString() const { return m_str.c_str(); }
   char const * GetRegionString() const { return m_region.c_str(); }
-  char const * GetRegionFlag() const { return m_flag.c_str(); }
+  char const * GetRegionFlag() const { return m_flag.empty() ? 0 : m_flag.c_str(); }
   char const * GetFeatureType() const { return m_type.c_str(); }
 
   // Type of the result.

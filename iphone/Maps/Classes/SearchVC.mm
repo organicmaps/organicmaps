@@ -433,6 +433,19 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
       cell.featureCountry.text = [NSString stringWithUTF8String:r.GetRegionString()];
       cell.featureType.text = [NSString stringWithUTF8String:r.GetFeatureType()];
       cell.featureDistance.text = [SearchVC formatDistance:r.GetDistanceFromCenter()];
+      if (m_radarButton.isSelected)
+        cell.accessoryView = nil;
+      else
+      { // Show flags only when radar mode is disabled
+        char const * flagCode = r.GetRegionFlag();
+        if (flagCode)
+        {
+          UIImage * flagImage = [UIImage imageNamed:[NSString stringWithFormat:@"%s.png", flagCode]];
+          UIImageView * imgView = [[UIImageView alloc] initWithImage:flagImage];
+          cell.accessoryView = imgView;
+          [imgView release];
+        }
+      }
       return cell;
     }
     break;
