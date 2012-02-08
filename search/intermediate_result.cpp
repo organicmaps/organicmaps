@@ -44,7 +44,7 @@ IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, m2::Point
   : m_str("(" + strings::to_string(lat) + ", " + strings::to_string(lon) + ")"),
     m_rect(MercatorBounds::LonToX(lon - precision), MercatorBounds::LatToY(lat - precision),
            MercatorBounds::LonToX(lon + precision), MercatorBounds::LatToY(lat + precision)),
-    m_resultType(RESULT_LATLON), m_searchRank(0)
+    m_resultType(RESULT_LATLON), m_searchRank(255)
 {
   CalcCommonParams(viewportRect, pos);
 
@@ -80,7 +80,7 @@ IntermediateResult::IntermediateResult(string const & name, int penalty)
     m_distance(-1000.0),    // smallest distance :)
     m_viewportDistance(0),  // closest to viewport
     m_resultType(RESULT_CATEGORY),
-    m_searchRank(0)         // best rank
+    m_searchRank(255)       // best rank
 {
 }
 
