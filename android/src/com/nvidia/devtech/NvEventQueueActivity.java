@@ -655,4 +655,9 @@ public abstract class NvEventQueueActivity extends Activity
   {
     return m_egl.eglGetError();
   }
+  
+  public void ReportUnsupported()
+  {
+    Log.i(TAG, "this phone GPU is unsupported");
+  }
 }

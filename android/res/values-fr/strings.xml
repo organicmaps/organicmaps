@@ -21,4 +21,5 @@
     <string name="kilometres">Kilomètres</string>
     <string name="close">Fermer</string>
     <string name="empty_model">Pour scharger cette carte,\ntoucher le bouton au bas de l`écran</string>
+    <string name="unsupported_phone">Le programme a besoin d`OpenGL pour travailler. Votre appareil n`est pas appuyé maleuresement.</string>
 </resources>

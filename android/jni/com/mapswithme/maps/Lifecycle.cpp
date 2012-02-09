@@ -52,7 +52,10 @@ bool SetupGLESResources()
     return true;
 
   if (!g_framework->InitRenderPolicy())
+  {
+    NVEventReportUnsupported();
     return false;
+  }
 
   s_glesLoaded = true;
 

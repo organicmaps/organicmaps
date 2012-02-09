@@ -521,6 +521,8 @@ bool NVEventStatusEGLIsBound();
 
 bool NVEventRepaint();
 
+void NVEventReportUnsupported();
+
 
 /** Returns the platform-specific handle to the application instance, if supported.  This
 function is, by definition platform-specific.

@@ -6,6 +6,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.location.LocationService;
 import com.nvidia.devtech.NvEventQueueActivity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -15,12 +16,14 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.TextView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
@@ -68,6 +71,35 @@ public class MWMActivity extends NvEventQueueActivity implements
     return getFilesDir().getAbsolutePath() + "/";
   }
 
+  public void ReportUnsupported()
+  {
+    runOnUiThread(new Runnable()
+    {
+      public void run()
+      {
+        AlertDialog alert = new AlertDialog.Builder(getCurrentContext()).create();
+        
+        alert.setMessage(getString(R.string.unsupported_phone));
+        
+        alert.setCancelable(false);
+
+        alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.close),
+            new DialogInterface.OnClickListener()
+            {
+              public void onClick(DialogInterface dlg, int which)
+              {
+                Activity a = (Activity)getCurrentContext();
+                a.moveTaskToBack(true);
+                dlg.dismiss();
+              }
+            });
+
+        alert.show();
+      }
+    });
+    
+  }
+  
   private void checkMeasurementSystem()
   {
     int u;

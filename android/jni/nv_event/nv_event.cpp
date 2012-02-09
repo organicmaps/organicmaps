@@ -173,6 +173,25 @@ public:
     return (int)jniEnv->CallIntMethod(s_globalThiz, m_index);
   }
 
+  void CallVoid()
+  {
+    JNIEnv * jniEnv = NVThreadGetCurrentJNIEnv();
+
+    if (!jniEnv || !s_globalThiz)
+    {
+      __android_log_print(ANDROID_LOG_DEBUG, MODULE,  "Error: No valid JNI env in %s", m_name);
+      return;
+    }
+
+    if (!m_index)
+    {
+      __android_log_print(ANDROID_LOG_DEBUG, MODULE,  "Error: No valid function pointer in %s", m_name);
+      return;
+    }
+
+    return jniEnv->CallVoidMethod(s_globalThiz, m_index);
+  }
+
   const char* m_name;
   const char* m_signature;
   jmethodID m_index;
@@ -188,6 +207,7 @@ static MethodRef s_BindSurfaceAndContextEGL("BindSurfaceAndContextEGL", "()Z");
 static MethodRef s_UnbindSurfaceAndContextEGL("UnbindSurfaceAndContextEGL", "()Z");
 static MethodRef s_GetErrorEGL("GetErrorEGL", "()I");
 static MethodRef s_finish("finish", "()V");
+static MethodRef s_ReportUnsupported("ReportUnsupported", "()V");
 
 // True between onCreate and onDestroy
 bool NVEventStatusIsRunning()
@@ -466,6 +486,12 @@ bool NVEventRepaint()
   return true;
 }
 
+void NVEventReportUnsupported()
+{
+  /// to prevent from rendering
+  ClearAppFlag(NVEVENT_STATUS_FOCUSED);
+  s_ReportUnsupported.CallVoid();
+}
 ///////////////////////////////////////////////////////////////////////////////
 // Input event-related Java to Native callback functions
 
@@ -884,5 +910,6 @@ void InitNVEvent(JavaVM* vm)
   s_UnbindSurfaceAndContextEGL.QueryID(env, k);
   s_GetErrorEGL.QueryID(env, k);
   s_finish.QueryID(env, k);
+  s_ReportUnsupported.QueryID(env, k);
 }
 

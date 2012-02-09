@@ -25,4 +25,5 @@
     <string name="external_storage_is_not_available">Загруженные карты недоступны</string>
     <string name="disconnect_usb_cable">Отключите USB кабель или вставьте SD-карту</string>
     <string name="empty_model">Чтобы загрузить карту\nэтого места, нажмите на\nкнопку загрузки внизу экрана</string>
+    <string name="unsupported_phone">Для работы приложения необходим аппаратно ускоренный OpenGL. К сожалению, ваше устройство не поддерживается.</string>
 </resources>
