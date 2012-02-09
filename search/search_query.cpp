@@ -128,13 +128,21 @@ void Query::UpdateViewportOffsets()
 
 namespace
 {
-  typedef bool (*CompareFunctionT) (impl::IntermediateResult const &,
-                                    impl::IntermediateResult const &);
-  CompareFunctionT g_arrCompare[] =
+  typedef bool (*CompareFunctionT1) (impl::PreResult1 const &, impl::PreResult1 const &);
+  typedef bool (*CompareFunctionT2) (impl::PreResult2 const &, impl::PreResult2 const &);
+
+  CompareFunctionT1 g_arrCompare1[] =
   {
-    &impl::IntermediateResult::LessRank,
-    &impl::IntermediateResult::LessViewportDistance,
-    &impl::IntermediateResult::LessDistance
+    &impl::PreResult1::LessRank,
+    &impl::PreResult1::LessViewportDistance,
+    &impl::PreResult1::LessDistance
+  };
+
+  CompareFunctionT2 g_arrCompare2[] =
+  {
+    &impl::PreResult2::LessRank,
+    &impl::PreResult2::LessViewportDistance,
+    &impl::PreResult2::LessDistance
   };
 }
 
@@ -168,10 +176,11 @@ void Query::Search(string const & query, Results & res, unsigned int resultsNeed
                                                    m_tokens.data(), m_tokens.size(), &m_prefix));
 
     // Results queue's initialization.
-    STATIC_ASSERT ( m_qCount == ARRAY_SIZE(g_arrCompare) );
+    STATIC_ASSERT ( m_qCount == ARRAY_SIZE(g_arrCompare1) );
+    STATIC_ASSERT ( m_qCount == ARRAY_SIZE(g_arrCompare2) );
 
     for (size_t i = 0; i < m_qCount; ++i)
-      m_results[i] = QueueT(resultsNeeded, CompareT(g_arrCompare[i]));
+      m_results[i] = QueueT(2 * resultsNeeded, CompareT<impl::PreResult1>(g_arrCompare1[i]));
   }
 
   // Match (lat, lon).
@@ -179,13 +188,14 @@ void Query::Search(string const & query, Results & res, unsigned int resultsNeed
     double lat, lon, latPrec, lonPrec;
     if (search::MatchLatLon(m_rawQuery, lat, lon, latPrec, lonPrec))
     {
-      double const precision = 5.0 * max(0.0001, min(latPrec, lonPrec));  // Min 55 meters
-      AddResult(ValueT(new impl::IntermediateResult(m_viewport, m_position, lat, lon, precision)));
+      //double const precision = 5.0 * max(0.0001, min(latPrec, lonPrec));  // Min 55 meters
+      res.AddResult(impl::PreResult2(m_viewport, m_position, lat, lon).
+                    GenerateFinalResult(m_pInfoGetter, m_pCategories));
     }
   }
 
   if (m_cancel) return;
-  SuggestStrings();
+  SuggestStrings(res);
 
   if (m_cancel) return;
   SearchFeatures();
@@ -217,44 +227,22 @@ namespace
     }
   };
   //@}
-}
 
-void Query::AddResult(ValueT const & result)
-{
-  for (size_t i = 0; i < m_qCount; ++i)
-  {
-    // don't add equal features
-    if (m_results[i].end() == find_if(m_results[i].begin(), m_results[i].end(),
-                                      ProxyFunctor1<ResultT::StrictEqualF>(result)))
-    {
-      m_results[i].push(result);
-    }
-    //else
-    //{
-    //  LOG(LINFO, ("Skipped feature:", result));
-    //}
-  }
-}
-
-namespace
-{
   class IndexedValue
   {
-    typedef impl::IntermediateResult ValueT;
-    typedef shared_ptr<ValueT> PointerT;
-
     array<size_t, Query::m_qCount> m_ind;
-    PointerT m_val;
+
+    // Do not use shared_ptr for optimization issues :).
+    shared_ptr<impl::PreResult2> m_val;
 
   public:
-    IndexedValue(PointerT const & v) : m_val(v)
+    explicit IndexedValue(impl::PreResult2 * v) : m_val(v)
     {
       for (size_t i = 0; i < m_ind.size(); ++i)
         m_ind[i] = numeric_limits<size_t>::max();
     }
 
-    PointerT get() const { return m_val; }
-    ValueT const & operator*() const { return *m_val; }
+    impl::PreResult2 const & operator*() const { return *m_val; }
 
     void SetIndex(size_t i, size_t v) { m_ind[i] = v; }
 
@@ -269,7 +257,7 @@ namespace
       for (size_t i = 0; i < m_ind.size(); ++i)
         index = index + " " + strings::to_string(m_ind[i]);
 
-      return boost::DebugPrint(m_val) + "; Index:" + index;
+      return impl::DebugPrint(*m_val) + "; Index:" + index;
     }
 
     bool operator < (IndexedValue const & r) const
@@ -284,50 +272,148 @@ namespace
     }
   };
 
-  struct LessPointer
+  inline string DebugPrint(IndexedValue const & t)
   {
-    bool operator() (IndexedValue const & r1, IndexedValue const & r2) const
-    {
-      return (r1.get() < r2.get());
-    }
-  };
-  struct EqualPointer
-  {
-    bool operator() (IndexedValue const & r1, IndexedValue const & r2) const
-    {
-      return (r1.get() == r2.get());
-    }
-  };
-
-  inline string DebugPrint(IndexedValue const & v)
-  {
-    return v.DebugPrint();
+    return t.DebugPrint();
   }
+
+  struct LessByFeatureID
+  {
+    typedef shared_ptr<impl::PreResult1> PtrT;
+    bool operator() (PtrT const & r1, PtrT const & r2) const
+    {
+      return (r1->GetID() < r2->GetID());
+    }
+  };
+}
+
+namespace impl
+{
+  class PreResult2Maker
+  {
+    typedef map<size_t, FeaturesVector *> FeaturesMapT;
+    map<size_t, FeaturesVector *> m_features;
+
+    vector<MwmInfo> m_mwmInfo;
+
+    Query & m_query;
+
+  public:
+    PreResult2Maker(Query & q) : m_query(q)
+    {
+      m_query.m_pIndex->GetMwmInfo(m_mwmInfo);
+    }
+    ~PreResult2Maker()
+    {
+      for (FeaturesMapT::iterator i = m_features.begin(); i != m_features.end(); ++i)
+        delete i->second;
+    }
+
+    impl::PreResult2 * operator() (impl::PreResult1 const & r)
+    {
+      // Find or create needed FeaturesVector for result.
+      pair<uint32_t, size_t> const id = r.GetID();
+      string countryName;
+
+      FeaturesMapT::iterator iF = m_features.insert(
+            make_pair(id.second, static_cast<FeaturesVector*>(0))).first;
+      if (iF->second == 0)
+      {
+        for (MwmSet::MwmId mwmId = 0; mwmId < m_mwmInfo.size(); ++mwmId)
+        {
+          if (mwmId == id.second)
+          {
+            Index::MwmLock mwmLock(*m_query.m_pIndex, mwmId);
+            countryName = mwmLock.GetCountryName();
+
+            if (MwmValue * pMwm = mwmLock.GetValue())
+            {
+              feature::DataHeader const & h = pMwm->GetHeader();
+              if (h.GetType() == feature::DataHeader::world)
+                countryName = string();
+
+              iF->second = new FeaturesVector(pMwm->m_cont, h);
+              break;
+            }
+          }
+        }
+      }
+
+      if (iF->second == 0)
+      {
+        LOG(LERROR, ("Valid MWM for search result not found", id));
+        return 0;
+      }
+
+      FeatureType feature;
+      iF->second->Get(id.first, feature);
+
+      uint32_t penalty;
+      string name;
+      m_query.GetBestMatchName(feature, penalty, name);
+
+      return new impl::PreResult2(feature, r, name, countryName);
+    }
+  };
 }
 
 void Query::FlushResults(Results & res)
 {
+  typedef impl::PreResult2 ResultT;
+
   vector<IndexedValue> indV;
 
-  // fill vector with objects in queues
-  for (size_t i = 0; i < m_qCount; ++i)
   {
-    indV.insert(indV.end(), m_results[i].begin(), m_results[i].end());
-    m_results[i].clear();
-  }
+    // make unique set of PreResult1
+    typedef set<shared_ptr<impl::PreResult1>, LessByFeatureID> PreResultSetT;
+    PreResultSetT theSet;
 
-  // remove equal objects
-  sort(indV.begin(), indV.end(), LessPointer());
-  indV.erase(unique(indV.begin(), indV.end(), EqualPointer()), indV.end());
+/*
+#ifdef DEBUG
+    {
+      impl::PreResult2Maker maker(*this);
+      LOG(LDEBUG, ("Dump features for rank:"));
+      for (QueueT::const_iterator i = m_results[0].begin(); i != m_results[0].end(); ++i)
+      {
+        impl::PreResult2 * res = maker(**i);
+        LOG(LDEBUG, (*res));
+        delete res;
+      }
+      LOG(LDEBUG, ("------------------------"));
+    }
+#endif
+*/
+
+    for (size_t i = 0; i < m_qCount; ++i)
+    {
+      theSet.insert(m_results[i].begin(), m_results[i].end());
+      m_results[i].clear();
+    }
+
+    // make PreResult2 vector
+    impl::PreResult2Maker maker(*this);
+    for (PreResultSetT::const_iterator i = theSet.begin(); i != theSet.end(); ++i)
+    {
+      impl::PreResult2 * res = maker(**i);
+      if (res == 0) continue;
+
+      // do not insert duplicating results
+      if (indV.end() == find_if(indV.begin(), indV.end(), ProxyFunctor1<ResultT::StrictEqualF>(res)))
+        indV.push_back(IndexedValue(res));
+      else
+        delete res;
+    }
+  }
 
   // remove duplicating linear objects
   sort(indV.begin(), indV.end(), ProxyFunctor2<ResultT::LessLinearTypesF>());
-  indV.erase(unique(indV.begin(), indV.end(), ProxyFunctor2<ResultT::EqualLinearTypesF>()),
+  indV.erase(unique(indV.begin(), indV.end(),
+                    ProxyFunctor2<ResultT::EqualLinearTypesF>()),
              indV.end());
 
   for (size_t i = 0; i < m_qCount; ++i)
   {
-    CompareT comp(g_arrCompare[i]);
+    CompareT<impl::PreResult2> comp(g_arrCompare2[i]);
 
     // sort by needed criteria
     sort(indV.begin(), indV.end(), comp);
@@ -349,24 +435,44 @@ void Query::FlushResults(Results & res)
   // sort results according to combined criteria
   sort(indV.begin(), indV.end());
 
-  // emit results
+  // emit feature results
   for (size_t i = 0; i < indV.size(); ++i)
   {
-    if (m_cancel) return;
+    if (m_cancel) break;
 
     LOG(LDEBUG, (indV[i]));
-    res.AddResult(indV[i].get()->GenerateFinalResult(m_pInfoGetter, m_pCategories));
+
+    res.AddResult((*(indV[i])).GenerateFinalResult(m_pInfoGetter, m_pCategories));
   }
 }
 
-void Query::AddFeatureResult(FeatureType const & f, TrieValueT const & val, string const & fName)
+namespace
 {
-  uint32_t penalty;
-  string name;
-  GetBestMatchName(f, penalty, name);
+  class EqualFeature
+  {
+    typedef shared_ptr<impl::PreResult1> ValueT;
+    ValueT m_val;
 
-  AddResult(ValueT(new impl::IntermediateResult(
-                     m_viewport, m_position, f, val.m_pt, val.m_rank, name, fName)));
+  public:
+    EqualFeature(ValueT const & v) : m_val(v) {}
+    bool operator() (ValueT const & r) const
+    {
+      return (m_val->GetID() == r->GetID());
+    }
+  };
+}
+
+void Query::AddResultFromTrie(TrieValueT const & val, size_t mwmID)
+{
+  shared_ptr<impl::PreResult1> p(new impl::PreResult1(
+            val.m_featureId, val.m_rank, val.m_pt, mwmID, m_position, m_viewport));
+
+  for (size_t i = 0; i < m_qCount; ++i)
+  {
+    // here can be the duplicates because of different language match (for suggest token)
+    if (m_results[i].end() == find_if(m_results[i].begin(), m_results[i].end(), EqualFeature(p)))
+      m_results[i].push(shared_ptr<impl::PreResult1>(p));
+  }
 }
 
 namespace impl
@@ -401,7 +507,15 @@ public:
 void Query::GetBestMatchName(FeatureType const & f, uint32_t & penalty, string & name)
 {
   impl::BestNameFinder bestNameFinder(penalty, name, *m_pKeywordsScorer);
-  f.ForEachNameRef(bestNameFinder);
+  (void)f.ForEachNameRef(bestNameFinder);
+  /*
+  if (!f.ForEachNameRef(bestNameFinder))
+  {
+    feature::TypesHolder types(f);
+    LOG(LDEBUG, (types));
+    LOG(LDEBUG, (f.GetLimitRect(-1)));
+  }
+  */
 }
 
 namespace impl
@@ -409,46 +523,20 @@ namespace impl
 
 class FeatureLoader
 {
-  size_t m_count;
-  FeaturesVector & m_featuresVector;
   Query & m_query;
-  string m_fName;
-
-  /*
-  class DoFindByName
-  {
-    string m_name;
-
-  public:
-    DoFindByName(char const * s) : m_name(s) {}
-
-    bool operator() (uint8_t, string const & s)
-    {
-      if (m_name.find_first_of(s) != string::npos)
-        LOG(LINFO, ("Found name: ", s));
-      return true;
-    }
-  };
-  */
+  size_t m_mwmID;
+  size_t m_count;
 
 public:
-  FeatureLoader(FeaturesVector & featuresVector, Query & query, string const & fName)
-    : m_count(0), m_featuresVector(featuresVector), m_query(query), m_fName(fName)
+  FeatureLoader(Query & query, size_t mwmID)
+    : m_query(query), m_mwmID(mwmID), m_count(0)
   {
   }
 
-  void operator() (trie::ValueReader::ValueType const & value)
+  void operator() (Query::TrieValueT const & value)
   {
     ++m_count;
-    FeatureType feature;
-    m_featuresVector.Get(value.m_featureId, feature);
-
-//#ifdef DEBUG
-//    DoFindByName doFind("ул. Карбышева");
-//    feature.ForEachNameRef(doFind);
-//#endif
-
-    m_query.AddFeatureResult(feature, value, m_fName);
+    m_query.AddResultFromTrie(value, m_mwmID);
   }
 
   size_t GetCount() const { return m_count; }
@@ -489,6 +577,7 @@ void Query::SearchFeatures()
   langs.insert(StringUtf8Multilang::GetLangIndex("int_name"));
   langs.insert(StringUtf8Multilang::GetLangIndex("en"));
   langs.insert(StringUtf8Multilang::GetLangIndex("default"));
+
   SearchFeatures(tokens, mwmInfo, langs, true);
 }
 
@@ -541,17 +630,11 @@ void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
                                                trie::ValueReader(cp),
                                                trie::EdgeValueReader()));
 
-          bool const isWorld = (header.GetType() == feature::DataHeader::world);
-
-          FeaturesVector featuresVector(pMwm->m_cont, header);
-          impl::FeatureLoader emitter(featuresVector, *this, isWorld ? "" : mwmLock.GetCountryName());
-
-          size_t const count = pTrieRoot->m_edge.size();
-
           // Get categories edge root.
           scoped_ptr<TrieIterator> pCategoriesRoot;
           TrieIterator::Edge::EdgeStrT categoriesEdge;
 
+          size_t const count = pTrieRoot->m_edge.size();
           for (size_t i = 0; i < count; ++i)
           {
             TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
@@ -565,6 +648,10 @@ void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
             }
           }
           ASSERT_NOT_EQUAL(pCategoriesRoot, 0, ());
+
+          bool const isWorld = (header.GetType() == feature::DataHeader::world);
+
+          impl::FeatureLoader emitter(*this, mwmId);
 
           // Iterate through first language edges.
           for (size_t i = 0; i < count; ++i)
@@ -593,14 +680,14 @@ void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
   }
 }
 
-void Query::SuggestStrings()
+void Query::SuggestStrings(Results & res)
 {
   if (m_pStringsToSuggest)
   {
     if (m_tokens.size() == 0 && !m_prefix.empty())
     {
       // Match prefix.
-      MatchForSuggestions(m_prefix);
+      MatchForSuggestions(m_prefix, res);
     }
     else if (m_tokens.size() == 1)
     {
@@ -612,19 +699,20 @@ void Query::SuggestStrings()
         tokenAndPrefix.append(m_prefix.begin(), m_prefix.end());
       }
 
-      MatchForSuggestions(tokenAndPrefix);
+      MatchForSuggestions(tokenAndPrefix, res);
     }
   }
 }
 
-void Query::MatchForSuggestions(strings::UniString const & token)
+void Query::MatchForSuggestions(strings::UniString const & token, Results & res)
 {
   StringsToSuggestVectorT::const_iterator it = m_pStringsToSuggest->begin();
   for (; it != m_pStringsToSuggest->end(); ++it)
   {
     strings::UniString const & s = it->first;
     if (it->second <= token.size() && StartsWith(s.begin(), s.end(), token.begin(), token.end()))
-      AddResult(ValueT(new impl::IntermediateResult(strings::ToUtf8(s), it->second)));
+      res.AddResult(impl::PreResult2(strings::ToUtf8(s), it->second).
+                    GenerateFinalResult(m_pInfoGetter, m_pCategories));
   }
 }
 

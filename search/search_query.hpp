@@ -28,11 +28,12 @@ namespace search
 
 struct CategoryInfo;
 class LangKeywordsScorer;
+
 namespace impl
 {
-  class IntermediateResult;
   class FeatureLoader;
   class BestNameFinder;
+  class PreResult2Maker;
 }
 
 class Query
@@ -42,8 +43,6 @@ public:
   typedef multimap<strings::UniString, uint32_t> CategoriesMapT;
   // Vector of pairs (string_to_suggest, min_prefix_length_to_suggest).
   typedef vector<pair<strings::UniString, uint8_t> > StringsToSuggestVectorT;
-
-  typedef trie::ValueReader::ValueType TrieValueT;
 
   Query(Index const * pIndex,
         CategoriesMapT const * pCategories,
@@ -67,25 +66,25 @@ public:
   struct CancelException {};
 
 private:
-
   friend class impl::FeatureLoader;
   friend class impl::BestNameFinder;
+  friend class impl::PreResult2Maker;
 
-  typedef impl::IntermediateResult ResultT;
-  typedef shared_ptr<ResultT> ValueT;
-
-  void AddResult(ValueT const & result);
-  void AddFeatureResult(FeatureType const & f, TrieValueT const & val, string const & fName);
-  void FlushResults(Results & res);
   void UpdateViewportOffsets();
+
+  typedef trie::ValueReader::ValueType TrieValueT;
+  void AddResultFromTrie(TrieValueT const & val, size_t mwmID);
+
+  void FlushResults(Results & res);
+
   void SearchFeatures();
   void SearchFeatures(vector<vector<strings::UniString> > const & tokens,
                       vector<MwmInfo> const & mwmInfo,
                       unordered_set<int8_t> const & langs,
                       bool onlyInViewport);
 
-  void SuggestStrings();
-  void MatchForSuggestions(strings::UniString const & token);
+  void SuggestStrings(Results & res);
+  void MatchForSuggestions(strings::UniString const & token, Results & res);
 
   void GetBestMatchName(FeatureType const & f, uint32_t & penalty, string & name);
 
@@ -102,8 +101,7 @@ private:
   buffer_vector<strings::UniString, 32> m_tokens;
   strings::UniString m_prefix;
 
-  m2::RectD m_viewport;
-  m2::RectD m_viewportExtended;
+  m2::RectD m_viewport, m_viewportExtended;
   m2::PointD m_position;
 
   scoped_ptr<LangKeywordsScorer> m_pKeywordsScorer;
@@ -111,9 +109,9 @@ private:
   bool m_bOffsetsCacheIsValid;
   vector<vector<uint32_t> > m_offsetsInViewport;
 
-  class CompareT
+  template <class ParamT> class CompareT
   {
-    typedef bool (*FunctionT) (ResultT const &, ResultT const &);
+    typedef bool (*FunctionT) (ParamT const &, ParamT const &);
     FunctionT m_fn;
 
   public:
@@ -126,7 +124,7 @@ private:
     }
   };
 
-  typedef my::limited_priority_queue<ValueT, CompareT> QueueT;
+  typedef my::limited_priority_queue<shared_ptr<impl::PreResult1>, CompareT<impl::PreResult1> > QueueT;
 
 public:
   static const size_t m_qCount = 3;

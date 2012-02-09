@@ -22,10 +22,35 @@ namespace search
 namespace impl
 {
 
-class IntermediateResult
+/// First results class. Objects are creating during search in trie.
+class PreResult1
 {
-  void CalcCommonParams(m2::RectD const & viewportRect, m2::PointD const & pos);
+  friend class PreResult2;
 
+  m2::PointD m_center;
+  double m_distance;
+  size_t m_mwmID;
+  uint32_t m_featureID;
+  uint8_t m_viewportDistance;
+  uint8_t m_rank;
+
+  void CalcParams(m2::RectD const & viewportRect, m2::PointD const & pos);
+
+public:
+  PreResult1(uint32_t fID, uint8_t rank, m2::PointD const & center, size_t mwmID,
+             m2::PointD const & pos, m2::RectD const & viewport);
+
+  static bool LessRank(PreResult1 const & r1, PreResult1 const & r2);
+  static bool LessDistance(PreResult1 const & r1, PreResult1 const & r2);
+  static bool LessViewportDistance(PreResult1 const & r1, PreResult1 const & r2);
+
+  inline pair<uint32_t, size_t> GetID() const { return make_pair(m_featureID, m_mwmID); }
+};
+
+
+/// Second result class. Objects are creating during reading of features.
+class PreResult2
+{
 public:
   enum ResultType
   {
@@ -35,64 +60,49 @@ public:
   };
 
   // For RESULT_FEATURE.
-  IntermediateResult(m2::RectD const & viewportRect, m2::PointD const & pos,
-                     FeatureType const & f, m2::PointD const & center, uint8_t rank,
-                     string const & displayName, string const & fileName);
+  PreResult2(FeatureType const & f, PreResult1 const & res,
+             string const & displayName, string const & fileName);
 
   // For RESULT_LATLON.
-  IntermediateResult(m2::RectD const & viewportRect, m2::PointD const & pos,
-                     double lat, double lon, double precision);
+  PreResult2(m2::RectD const & viewport, m2::PointD const & pos,
+             double lat, double lon);
 
   // For RESULT_CATEGORY.
-  IntermediateResult(string const & name, int penalty);
+  PreResult2(string const & name, int penalty);
 
   typedef multimap<strings::UniString, uint32_t> CategoriesT;
   Result GenerateFinalResult(storage::CountryInfoGetter const * pInfo,
                              CategoriesT const * pCat) const;
 
-  /// Results order functor.
-  /*
-  struct LessOrderF
-  {
-    bool operator() (IntermediateResult const & r1, IntermediateResult const & r2) const;
-  };
-  */
-
-  static bool LessRank(IntermediateResult const & r1, IntermediateResult const & r2);
-  static bool LessDistance(IntermediateResult const & r1, IntermediateResult const & r2);
-  static bool LessViewportDistance(IntermediateResult const & r1, IntermediateResult const & r2);
+  static bool LessRank(PreResult2 const & r1, PreResult2 const & r2);
+  static bool LessDistance(PreResult2 const & r1, PreResult2 const & r2);
+  static bool LessViewportDistance(PreResult2 const & r1, PreResult2 const & r2);
 
   /// Filter equal features for different mwm's.
   class StrictEqualF
   {
-    IntermediateResult const & m_r;
+    PreResult2 const & m_r;
   public:
-    StrictEqualF(IntermediateResult const & r) : m_r(r) {}
-    bool operator() (IntermediateResult const & r) const;
+    StrictEqualF(PreResult2 const & r) : m_r(r) {}
+    bool operator() (PreResult2 const & r) const;
   };
 
   /// To filter equal linear objects.
   //@{
   struct LessLinearTypesF
   {
-    bool operator() (IntermediateResult const & r1, IntermediateResult const & r2) const;
+    bool operator() (PreResult2 const & r1, PreResult2 const & r2) const;
   };
   class EqualLinearTypesF
   {
   public:
-    bool operator() (IntermediateResult const & r1, IntermediateResult const & r2) const;
+    bool operator() (PreResult2 const & r1, PreResult2 const & r2) const;
   };
   //@}
 
   string DebugPrint() const;
 
 private:
-  static double ResultDistance(m2::PointD const & viewportCenter,
-                               m2::PointD const & featureCenter);
-  static double ResultDirection(m2::PointD const & viewportCenter,
-                                m2::PointD const & featureCenter);
-  static int ViewportDistance(m2::RectD const & viewport, m2::PointD const & p);
-
   string GetFeatureType(CategoriesT const * pCat) const;
 
   feature::TypesHolder m_types;
@@ -124,26 +134,16 @@ private:
   } m_region;
 
   m2::PointD m_center;
-
   double m_distance;
-  int m_viewportDistance;
-
   ResultType m_resultType;
   uint8_t m_searchRank;
+  uint8_t m_viewportDistance;
 };
 
-inline string DebugPrint(IntermediateResult const & t)
+inline string DebugPrint(PreResult2 const & t)
 {
   return t.DebugPrint();
 }
 
 }  // namespace search::impl
 }  // namespace search
-
-namespace boost
-{
-  inline string DebugPrint(shared_ptr<search::impl::IntermediateResult> const & p)
-  {
-    return DebugPrint(*p);
-  }
-}

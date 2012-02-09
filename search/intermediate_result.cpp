@@ -20,13 +20,86 @@ namespace search
 namespace impl
 {
 
-IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, m2::PointD const & pos,
-                                       FeatureType const & f, m2::PointD const & center, uint8_t rank,
-                                       string const & displayName, string const & fileName)
+double ResultDistance(m2::PointD const & a, m2::PointD const & b)
+{
+  return ms::DistanceOnEarth(MercatorBounds::YToLat(a.y), MercatorBounds::XToLon(a.x),
+                             MercatorBounds::YToLat(b.y), MercatorBounds::XToLon(b.x));
+}
+
+uint8_t ViewportDistance(m2::RectD const & viewport, m2::PointD const & p)
+{
+  if (viewport.IsPointInside(p))
+    return 0;
+
+  m2::RectD r = viewport;
+  r.Scale(3);
+  if (r.IsPointInside(p))
+    return 1;
+
+  r = viewport;
+  r.Scale(5);
+  if (r.IsPointInside(p))
+    return 2;
+
+  return 3;
+}
+
+
+PreResult1::PreResult1(uint32_t fID, uint8_t rank, m2::PointD const & center, size_t mwmID,
+                       m2::PointD const & pos, m2::RectD const & viewport)
+  : m_center(center),
+    m_mwmID(mwmID),
+    m_featureID(fID),
+    m_rank(rank)
+{
+  CalcParams(viewport, pos);
+}
+
+void PreResult1::CalcParams(m2::RectD const & viewport, m2::PointD const & pos)
+{
+  // Check if point is valid (see Query::empty_pos_value).
+  if (pos.x > -500 && pos.y > -500)
+  {
+    ASSERT ( my::between_s(-180.0, 180.0, pos.x), (pos.x) );
+    ASSERT ( my::between_s(-180.0, 180.0, pos.y), (pos.y) );
+
+    m_distance = ResultDistance(m_center, pos);
+  }
+  else
+  {
+    // empty distance
+    m_distance = -1.0;
+  }
+
+  m_viewportDistance = ViewportDistance(viewport, m_center);
+}
+
+bool PreResult1::LessRank(PreResult1 const & r1, PreResult1 const & r2)
+{
+  return (r1.m_rank > r2.m_rank);
+}
+
+bool PreResult1::LessDistance(PreResult1 const & r1, PreResult1 const & r2)
+{
+  return (r1.m_distance < r2.m_distance);
+}
+
+bool PreResult1::LessViewportDistance(PreResult1 const & r1, PreResult1 const & r2)
+{
+  return (r1.m_viewportDistance < r2.m_viewportDistance);
+}
+
+
+
+PreResult2::PreResult2(FeatureType const & f, PreResult1 const & res,
+                       string const & displayName, string const & fileName)
   : m_types(f),
     m_str(displayName),
+    m_center(res.m_center),
+    m_distance(res.m_distance),
     m_resultType(RESULT_FEATURE),
-    m_center(center), m_searchRank(rank)
+    m_searchRank(res.m_rank),
+    m_viewportDistance(res.m_viewportDistance)
 {
   ASSERT_GREATER(m_types.Size(), 0, ());
 
@@ -35,95 +108,36 @@ IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, m2::Point
     m_region.SetName(fileName);
   else
     m_region.SetPoint(m_center);
-
-  CalcCommonParams(viewportRect, pos);
 }
 
-IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, m2::PointD const & pos,
-                                       double lat, double lon, double precision)
+PreResult2::PreResult2(m2::RectD const & viewport, m2::PointD const & pos,
+                       double lat, double lon)
   : m_str("(" + strings::to_string(lat) + ", " + strings::to_string(lon) + ")"),
-    m_center(m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat))),
     m_resultType(RESULT_LATLON), m_searchRank(255)
 {
-  CalcCommonParams(viewportRect, pos);
+  // dummy object to avoid copy-paste
+  PreResult1 res(0, 0, m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat)),
+                 0, pos, viewport);
+
+  m_center = res.m_center;
+  m_distance = res.m_distance;
+  m_viewportDistance = res.m_viewportDistance;
 
   // get region info
   m_region.SetPoint(m_center);
 }
 
-void IntermediateResult::CalcCommonParams(m2::RectD const & viewportRect, m2::PointD const & pos)
-{
-  // Check if point is valid (see Query::empty_pos_value).
-  if (pos.x > -500 && pos.y > -500)
-  {
-    ASSERT ( my::between_s(-180.0, 180.0, pos.x), (pos.x) );
-    ASSERT ( my::between_s(-180.0, 180.0, pos.y), (pos.y) );
-
-    m_distance = ResultDistance(pos, m_center);
-  }
-  else
-  {
-    // empty distance
-    m_distance = -1.0;
-  }
-
-  m_viewportDistance = ViewportDistance(viewportRect, m_center);
-}
-
-IntermediateResult::IntermediateResult(string const & name, int penalty)
+PreResult2::PreResult2(string const & name, int penalty)
   : m_str(name), m_completionString(name + " "),
     // Categories should always be first.
     m_distance(-1000.0),    // smallest distance :)
-    m_viewportDistance(0),  // closest to viewport
     m_resultType(RESULT_CATEGORY),
-    m_searchRank(255)       // best rank
+    m_searchRank(255),      // best rank
+    m_viewportDistance(0)   // closest to viewport
 {
 }
 
-/*
-bool IntermediateResult::LessOrderF::operator()
-          (IntermediateResult const & r1, IntermediateResult const & r2) const
-{
-  if (r1.m_resultType != r2.m_resultType)
-    return (r1.m_resultType < r2.m_resultType);
-
-  if (r1.m_searchRank != r2.m_searchRank)
-    return (r1.m_searchRank > r2.m_searchRank);
-
-  return (r1.m_distance < r2.m_distance);
-}
-*/
-
-bool IntermediateResult::LessRank(IntermediateResult const & r1, IntermediateResult const & r2)
-{
-  return (r1.m_searchRank > r2.m_searchRank);
-}
-
-bool IntermediateResult::LessDistance(IntermediateResult const & r1, IntermediateResult const & r2)
-{
-  return (r1.m_distance < r2.m_distance);
-
-  /*
-  if (r1.m_distance != r2.m_distance)
-    return (r1.m_distance < r2.m_distance);
-  else
-    return LessRank(r1, r2);
-  */
-}
-
-bool IntermediateResult::LessViewportDistance(IntermediateResult const & r1, IntermediateResult const & r2)
-{
-  return (r1.m_viewportDistance < r2.m_viewportDistance);
-
-  /*
-  if (r1.m_viewportDistance != r2.m_viewportDistance)
-    return (r1.m_viewportDistance < r2.m_viewportDistance);
-  else
-    return LessRank(r1, r2);
-  */
-}
-
-Result IntermediateResult::GenerateFinalResult(
+Result PreResult2::GenerateFinalResult(
     storage::CountryInfoGetter const * pInfo,
     CategoriesT const * pCat) const
 {
@@ -151,36 +165,22 @@ Result IntermediateResult::GenerateFinalResult(
   }
 }
 
-double IntermediateResult::ResultDistance(m2::PointD const & a, m2::PointD const & b)
+bool PreResult2::LessRank(PreResult2 const & r1, PreResult2 const & r2)
 {
-  return ms::DistanceOnEarth(MercatorBounds::YToLat(a.y), MercatorBounds::XToLon(a.x),
-                             MercatorBounds::YToLat(b.y), MercatorBounds::XToLon(b.x));
+  return (r1.m_searchRank > r2.m_searchRank);
 }
 
-double IntermediateResult::ResultDirection(m2::PointD const & a, m2::PointD const & b)
+bool PreResult2::LessDistance(PreResult2 const & r1, PreResult2 const & r2)
 {
-  return ang::AngleTo(a, b);
+  return (r1.m_distance < r2.m_distance);
 }
 
-int IntermediateResult::ViewportDistance(m2::RectD const & viewport, m2::PointD const & p)
+bool PreResult2::LessViewportDistance(PreResult2 const & r1, PreResult2 const & r2)
 {
-  if (viewport.IsPointInside(p))
-    return 0;
-
-  m2::RectD r = viewport;
-  r.Scale(3);
-  if (r.IsPointInside(p))
-    return 1;
-
-  r = viewport;
-  r.Scale(5);
-  if (r.IsPointInside(p))
-    return 2;
-
-  return 3;
+  return (r1.m_viewportDistance < r2.m_viewportDistance);
 }
 
-bool IntermediateResult::StrictEqualF::operator()(IntermediateResult const & r) const
+bool PreResult2::StrictEqualF::operator() (PreResult2 const & r) const
 {
   if (m_r.m_resultType == r.m_resultType && m_r.m_resultType == RESULT_FEATURE)
   {
@@ -230,8 +230,7 @@ namespace
   };
 }
 
-bool IntermediateResult::LessLinearTypesF::operator()
-          (IntermediateResult const & r1, IntermediateResult const & r2) const
+bool PreResult2::LessLinearTypesF::operator() (PreResult2 const & r1, PreResult2 const & r2) const
 {
   if (r1.m_resultType != r2.m_resultType)
     return (r1.m_resultType < r2.m_resultType);
@@ -249,8 +248,7 @@ bool IntermediateResult::LessLinearTypesF::operator()
   return (r1.m_distance < r2.m_distance);
 }
 
-bool IntermediateResult::EqualLinearTypesF::operator()
-          (IntermediateResult const & r1, IntermediateResult const & r2) const
+bool PreResult2::EqualLinearTypesF::operator() (PreResult2 const & r1, PreResult2 const & r2) const
 {
   if (r1.m_resultType == r2.m_resultType && r1.m_str == r2.m_str)
   {
@@ -263,7 +261,7 @@ bool IntermediateResult::EqualLinearTypesF::operator()
   return false;
 }
 
-string IntermediateResult::DebugPrint() const
+string PreResult2::DebugPrint() const
 {
   string res("IntermediateResult: ");
   res += "Name: " + m_str;
@@ -274,7 +272,7 @@ string IntermediateResult::DebugPrint() const
   return res;
 }
 
-string IntermediateResult::GetFeatureType(CategoriesT const * pCat) const
+string PreResult2::GetFeatureType(CategoriesT const * pCat) const
 {
   ASSERT_EQUAL(m_resultType, RESULT_FEATURE, ());
 
@@ -301,7 +299,7 @@ string IntermediateResult::GetFeatureType(CategoriesT const * pCat) const
   return s;
 }
 
-void IntermediateResult::RegionInfo::GetRegion(
+void PreResult2::RegionInfo::GetRegion(
     storage::CountryInfoGetter const * pInfo, storage::CountryInfo & info) const
 {
   if (!m_file.empty())
