@@ -208,6 +208,7 @@ static MethodRef s_UnbindSurfaceAndContextEGL("UnbindSurfaceAndContextEGL", "()Z
 static MethodRef s_GetErrorEGL("GetErrorEGL", "()I");
 static MethodRef s_finish("finish", "()V");
 static MethodRef s_ReportUnsupported("ReportUnsupported", "()V");
+static MethodRef s_OnRenderingInitialized("OnRenderingInitialized", "()V");
 
 // True between onCreate and onDestroy
 bool NVEventStatusIsRunning()
@@ -492,6 +493,12 @@ void NVEventReportUnsupported()
   ClearAppFlag(NVEVENT_STATUS_FOCUSED);
   s_ReportUnsupported.CallVoid();
 }
+
+void NVEventOnRenderingInitialized()
+{
+  s_OnRenderingInitialized.CallVoid();
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // Input event-related Java to Native callback functions
 
@@ -911,5 +918,6 @@ void InitNVEvent(JavaVM* vm)
   s_GetErrorEGL.QueryID(env, k);
   s_finish.QueryID(env, k);
   s_ReportUnsupported.QueryID(env, k);
+  s_OnRenderingInitialized.QueryID(env, k);
 }
 

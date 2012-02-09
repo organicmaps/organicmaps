@@ -95,8 +95,6 @@ namespace android
 
   bool Framework::InitRenderPolicy()
   {
-    LOG(LDEBUG, ("AF::InitRenderer 1"));
-
     yg::ResourceManager::Params rmParams;
     rmParams.m_videoMemoryLimit = 30 * 1024 * 1024;
     rmParams.m_rtFormat = yg::Data8Bpp;
@@ -117,8 +115,6 @@ namespace android
     }
 
     m_work.SetUpdatesEnabled(true);
-
-    LOG(LDEBUG, ("AF::InitRenderer 3"));
 
     return true;
   }

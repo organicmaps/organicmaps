@@ -71,6 +71,17 @@ public class MWMActivity extends NvEventQueueActivity implements
     return getFilesDir().getAbsolutePath() + "/";
   }
 
+  public void OnRenderingInitialized()
+  {
+    runOnUiThread(new Runnable()
+    {
+      public void run()
+      {
+        checkMeasurementSystem();
+      }
+    });
+  }
+  
   public void ReportUnsupported()
   {
     runOnUiThread(new Runnable()
@@ -211,8 +222,6 @@ public class MWMActivity extends NvEventQueueActivity implements
                extTmpPath,
                getSettingsPath(),
                getString(R.string.empty_model));
-
-    checkMeasurementSystem();
 
     m_timer = new VideoTimer();
 

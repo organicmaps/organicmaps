@@ -56,6 +56,8 @@ bool SetupGLESResources()
     NVEventReportUnsupported();
     return false;
   }
+  else
+    NVEventOnRenderingInitialized();
 
   s_glesLoaded = true;
 
