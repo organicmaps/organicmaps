@@ -13,6 +13,16 @@ TypesHolder::TypesHolder(FeatureBase const & f)
   f.ForEachTypeRef(*this);
 }
 
+string TypesHolder::DebugPrint() const
+{
+  Classificator const & c = classif();
+
+  string s;
+  for (size_t i = 0; i < Size(); ++i)
+    s += c.GetFullObjectName(m_types[i]) + "  ";
+  return s;
+}
+
 void FeatureParamsBase::MakeZero()
 {
   layer = 0;

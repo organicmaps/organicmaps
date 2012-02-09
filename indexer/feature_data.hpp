@@ -88,7 +88,14 @@ namespace feature
       return false;
     }
     //@}
+
+    string DebugPrint() const;
   };
+
+  inline string DebugPrint(TypesHolder const & t)
+  {
+    return t.DebugPrint();
+  }
 }
 
 /// Feature description struct.
