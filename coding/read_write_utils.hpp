@@ -6,6 +6,7 @@
 
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
+//#include "../std/type_traits.hpp"
 
 
 namespace rw
@@ -86,27 +87,31 @@ namespace rw
   }
 
   template <class TSource, class TCont>
-  void ReadRaw(TSource & src, TCont & v)
+  void ReadVectorOfPOD(TSource & src, TCont & v)
   {
-    STATIC_ASSERT(sizeof(typename TCont::value_type) == 1);
+    typedef typename TCont::value_type ValueT;
+    // Not every compiler support this.
+    //STATIC_ASSERT(boost::is_pod<ValueT>::value);
 
     uint32_t const count = ReadVarUint<uint32_t>(src);
     if (count > 0)
     {
       v.resize(count);
-      src.Read(&v[0], count);
+      src.Read(&v[0], count * sizeof(ValueT));
     }
   }
 
   template <class TSink, class TCont>
-  void WriteRaw(TSink & sink, TCont const & v)
+  void WriteVectorOfPOD(TSink & sink, TCont const & v)
   {
-    STATIC_ASSERT(sizeof(typename TCont::value_type) == 1);
+    typedef typename TCont::value_type ValueT;
+    // Not every compiler support this.
+    //STATIC_ASSERT(boost::is_pod<ValueT>::value);
 
     uint32_t const count = static_cast<uint32_t>(v.size());
     WriteVarUint(sink, count);
 
     if (count > 0)
-      sink.Write(&v[0], count);
+      sink.Write(&v[0], count * sizeof(ValueT));
   }
 }

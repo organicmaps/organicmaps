@@ -17,7 +17,7 @@ StringsFile::IdT StringsFile::StringT::Write(TWriter & writer) const
   CHECK_EQUAL(static_cast<uint64_t>(pos), writer.Pos(), ());
 
   rw::Write(writer, m_name);
-  rw::WriteRaw(writer, m_val);
+  rw::WriteVectorOfPOD(writer, m_val);
 
   return pos;
 }
@@ -26,7 +26,7 @@ template <class TReader>
 void StringsFile::StringT::Read(TReader & src)
 {
   rw::Read(src, m_name);
-  rw::ReadRaw(src, m_val);
+  rw::ReadVectorOfPOD(src, m_val);
 }
 
 bool StringsFile::StringT::operator < (StringT const & name) const

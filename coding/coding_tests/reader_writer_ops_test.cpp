@@ -5,6 +5,8 @@
 #include "../../coding/reader_writer_ops.hpp"
 #include "../../coding/file_reader.hpp"
 #include "../../coding/file_writer.hpp"
+#include "../../coding/read_write_utils.hpp"
+#include "../../coding/byte_stream.hpp"
 
 #include "../../std/algorithm.hpp"
 
@@ -76,4 +78,41 @@ UNIT_TEST(Reverse_Smoke)
     }
     FileWriter::DeleteFileX(tmpFile);
   }
+}
+
+namespace
+{
+  struct ThePOD
+  {
+    uint32_t m_i;
+    double m_d;
+  };
+
+  bool operator==(ThePOD const & r1, ThePOD const & r2)
+  {
+    return (r1.m_i == r2.m_i && r1.m_d == r2.m_d);
+  }
+}
+
+UNIT_TEST(ReadWrite_POD)
+{
+  srand(666);
+
+  size_t const count = 1000;
+  vector<ThePOD> src(1000);
+  for (size_t i = 0; i < count; ++i)
+  {
+    src[i].m_i = rand();
+    src[i].m_d = double(rand()) / double(rand());
+  }
+
+  vector<char> buffer;
+  PushBackByteSink<vector<char> > sink(buffer);
+  rw::WriteVectorOfPOD(sink, src);
+
+  buffer_vector<ThePOD, 128> dest;
+  ArrayByteSource byteSrc(buffer.data());
+  rw::ReadVectorOfPOD(byteSrc, dest);
+
+  TEST(equal(src.begin(), src.end(), dest.begin()), ());
 }
