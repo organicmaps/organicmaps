@@ -1,5 +1,8 @@
 package com.nvidia.devtech;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 import com.mapswithme.maps.R;
 
 import android.app.Activity;
@@ -283,22 +286,104 @@ public abstract class NvEventQueueActivity extends Activity
         " Samples:" + samples;
   }
   
-  /** The number of bits requested for the red component */
-  protected int redSize = 5;
-  /** The number of bits requested for the green component */
-  protected int greenSize = 6;
-  /** The number of bits requested for the blue component */
-  protected int blueSize = 5;
-  /** The number of bits requested for the alpha component */
-  protected int alphaSize = 0;
-  /** The number of bits requested for the stencil component */
-  protected int stencilSize = 0;
-  /** The number of bits requested for the depth component */
-  protected int depthSize = 16;
+  public class EGLConfigComparator implements Comparator<EGLConfig>
+  {
+    public int compare(EGLConfig l, EGLConfig r)
+    {
+      int [] value = new int[1];
+      
+      /// splitting by EGL_CONFIG_CAVEAT, 
+      /// firstly selecting EGL_NONE, then EGL_SLOW_CONFIG 
+      /// and then EGL_NON_CONFORMANT_CONFIG
+      m_egl.eglGetConfigAttrib(m_eglDisplay, l, EGL11.EGL_CONFIG_CAVEAT, value);
+      int lcav = value[0];
+      
+      m_egl.eglGetConfigAttrib(m_eglDisplay, r, EGL11.EGL_CONFIG_CAVEAT, value);
+      int rcav = value[0];
+      
+      if (lcav != rcav)
+      {
+        int ltemp = 0;
+        int rtemp = 0;
+        
+        switch (lcav)
+        {
+        case EGL11.EGL_NONE:
+          ltemp = 0;
+          break;
+        case EGL11.EGL_SLOW_CONFIG:
+          ltemp = 1;
+          break;
+        case EGL11.EGL_NON_CONFORMANT_CONFIG:
+          ltemp = 2;
+          break;
+        };
+        
+        switch (rcav)
+        {
+        case EGL11.EGL_NONE:
+          rtemp = 0;
+          break;
+        case EGL11.EGL_SLOW_CONFIG:
+          rtemp = 1;
+          break;
+        case EGL11.EGL_NON_CONFORMANT_CONFIG:
+          rtemp = 2;
+        };
+        
+        return ltemp - rtemp;
+      }
 
+      /// then by depth, we don't require it, so choose the smallest depth first
+      
+      m_egl.eglGetConfigAttrib(m_eglDisplay, l, EGL11.EGL_DEPTH_SIZE, value);
+      int ldepth = value[0];
+      
+      m_egl.eglGetConfigAttrib(m_eglDisplay, r, EGL11.EGL_DEPTH_SIZE, value);
+      int rdepth = value[0];
+      
+      if (ldepth != rdepth)
+        return ldepth - rdepth;
+      
+      /// then by stencil - we don't require it, so choose the lowest one
+      m_egl.eglGetConfigAttrib(m_eglDisplay, l, EGL11.EGL_STENCIL_SIZE, value);
+      int lstencil = value[0];
+      
+      m_egl.eglGetConfigAttrib(m_eglDisplay, r, EGL11.EGL_STENCIL_SIZE, value);
+      int rstencil = value[0];
+
+      if (lstencil != rstencil)
+        return lstencil - rstencil;
+      
+      /// then by color values, choose the widest colorspace first
+      
+      m_egl.eglGetConfigAttrib(m_eglDisplay, l, EGL11.EGL_RED_SIZE, value);
+      int lred = value[0];
+      m_egl.eglGetConfigAttrib(m_eglDisplay, l, EGL11.EGL_GREEN_SIZE, value);
+      int lgreen = value[0];
+      m_egl.eglGetConfigAttrib(m_eglDisplay, l, EGL11.EGL_BLUE_SIZE, value);
+      int lblue = value[0];
+
+      m_egl.eglGetConfigAttrib(m_eglDisplay, r, EGL11.EGL_RED_SIZE, value);
+      int rred = value[0];
+      m_egl.eglGetConfigAttrib(m_eglDisplay, r, EGL11.EGL_GREEN_SIZE, value);
+      int rgreen = value[0];
+      m_egl.eglGetConfigAttrib(m_eglDisplay, r, EGL11.EGL_BLUE_SIZE, value);
+      int rblue = value[0];
+      
+      if (lred != rred)
+        return rred - lred;
+      if (lgreen != rgreen)
+        return lgreen - rgreen;
+      if (lblue != rblue)
+        return lblue - rblue;
+      
+      return 0; 
+    }
+  };
+  
   int m_choosenConfigIndex = 0;
-  EGLConfig[] m_configs = new EGLConfig[40];
-  int m_actualConfigsNumber[] = new int[] {0};
+  EGLConfig[] m_configs = null;
 
   /**
    * Called to initialize EGL. This function should not be called by the
@@ -308,15 +393,6 @@ public abstract class NvEventQueueActivity extends Activity
    */
   protected boolean InitEGL()
   {
-    final int[] configAttrs = new int[] { EGL11.EGL_RED_SIZE, redSize,
-                                          EGL11.EGL_GREEN_SIZE, greenSize,
-                                          EGL11.EGL_BLUE_SIZE, blueSize,
-                                          EGL11.EGL_ALPHA_SIZE, alphaSize,
-                                          EGL11.EGL_STENCIL_SIZE, stencilSize,
-                                          EGL11.EGL_DEPTH_SIZE, depthSize,
-                                          EGL11.EGL_CONFIG_CAVEAT, EGL11.EGL_NONE,
-                                          EGL11.EGL_NONE };
-
     m_eglDisplay = m_egl.eglGetDisplay(EGL11.EGL_DEFAULT_DISPLAY);
     if (m_eglDisplay == EGL11.EGL_NO_DISPLAY)
     {
@@ -331,17 +407,25 @@ public abstract class NvEventQueueActivity extends Activity
       return false;
     }
 
-    if (!m_egl.eglChooseConfig(m_eglDisplay, configAttrs, m_configs, m_configs.length, m_actualConfigsNumber))
+    int [] configsSize = new int[1];
+    
+    m_egl.eglChooseConfig(m_eglDisplay, null, null, 0, configsSize);
+    
+    m_configs = new EGLConfig[configsSize[0]];
+    
+    if (!m_egl.eglChooseConfig(m_eglDisplay, null, m_configs, m_configs.length, configsSize))
     {
       Log.d(TAG, "eglChooseConfig failed with error " + m_egl.eglGetError());
       return false;
     }
 
-    if (m_actualConfigsNumber[0] == 0)
+    if (configsSize[0] == 0)
     {
       Log.d(TAG, "eglChooseConfig returned zero configs");
       return false;
-    }    
+    }
+    
+    Arrays.sort(m_configs, new EGLConfigComparator());
 
     m_choosenConfigIndex = 0;
     
@@ -349,7 +433,7 @@ public abstract class NvEventQueueActivity extends Activity
 
     // Debug print
     Log.d(TAG, "Matched egl configs:");
-    for (int i = 0; i < m_actualConfigsNumber[0]; ++i)
+    for (int i = 0; i < m_configs.length; ++i)
        Log.d(TAG, (i == m_choosenConfigIndex ? "*" : " ") + i + ": " + eglConfigToString(m_configs[i]));
     
     final int[] contextAttrs = new int[] { EGL_CONTEXT_CLIENT_VERSION, 1, EGL11.EGL_NONE };
@@ -440,7 +524,7 @@ public abstract class NvEventQueueActivity extends Activity
       {
         Log.d(TAG, "eglCreateWindowSurface failed for config : " + eglConfigToString(m_configs[choosenSurfaceConfigIndex]));        
         choosenSurfaceConfigIndex += 1;
-        if (choosenSurfaceConfigIndex == m_actualConfigsNumber[0])
+        if (choosenSurfaceConfigIndex == m_configs.length)
         {
           m_eglSurface = null;
           Log.d(TAG, "no eglConfigs left");
