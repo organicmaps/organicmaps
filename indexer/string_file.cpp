@@ -44,7 +44,13 @@ bool StringsFile::StringT::operator == (StringT const & name) const
 
 void StringsFile::AddString(StringT const & s)
 {
-  if (m_strings.size() >= 30000)
+#ifdef OMIM_OS_DESKTOP
+  size_t const maxSize = 1000000;
+#else
+  size_t const maxSize = 30000;
+#endif
+
+  if (m_strings.size() >= maxSize)
     Flush();
 
   m_strings.push_back(s);
