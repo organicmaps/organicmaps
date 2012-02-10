@@ -180,7 +180,7 @@ void Query::Search(string const & query, Results & res, unsigned int resultsNeed
     STATIC_ASSERT ( m_qCount == ARRAY_SIZE(g_arrCompare2) );
 
     for (size_t i = 0; i < m_qCount; ++i)
-      m_results[i] = QueueT(2 * resultsNeeded, CompareT<impl::PreResult1>(g_arrCompare1[i]));
+      m_results[i] = QueueT(2 * resultsNeeded, QueueCompareT(g_arrCompare1[i]));
   }
 
   // Match (lat, lon).
@@ -230,19 +230,24 @@ namespace
 
   class IndexedValue
   {
+  public:
+     typedef impl::PreResult2 value_type;
+
+  private:
     array<size_t, Query::m_qCount> m_ind;
 
-    // Do not use shared_ptr for optimization issues :).
-    shared_ptr<impl::PreResult2> m_val;
+    /// @todo Do not use shared_ptr for optimization issues.
+    /// Need to rewrite std::unique algorithm.
+    shared_ptr<value_type> m_val;
 
   public:
-    explicit IndexedValue(impl::PreResult2 * v) : m_val(v)
+    explicit IndexedValue(value_type * v) : m_val(v)
     {
       for (size_t i = 0; i < m_ind.size(); ++i)
         m_ind[i] = numeric_limits<size_t>::max();
     }
 
-    impl::PreResult2 const & operator*() const { return *m_val; }
+    value_type const & operator*() const { return *m_val; }
 
     void SetIndex(size_t i, size_t v) { m_ind[i] = v; }
 
@@ -279,10 +284,10 @@ namespace
 
   struct LessByFeatureID
   {
-    typedef shared_ptr<impl::PreResult1> PtrT;
-    bool operator() (PtrT const & r1, PtrT const & r2) const
+    typedef impl::PreResult1 ValueT;
+    bool operator() (ValueT const & r1, ValueT const & r2) const
     {
-      return (r1->GetID() < r2->GetID());
+      return (r1.GetID() < r2.GetID());
     }
   };
 }
@@ -365,7 +370,7 @@ void Query::FlushResults(Results & res)
 
   {
     // make unique set of PreResult1
-    typedef set<shared_ptr<impl::PreResult1>, LessByFeatureID> PreResultSetT;
+    typedef set<impl::PreResult1, LessByFeatureID> PreResultSetT;
     PreResultSetT theSet;
 
 /*
@@ -375,7 +380,7 @@ void Query::FlushResults(Results & res)
       LOG(LDEBUG, ("Dump features for rank:"));
       for (QueueT::const_iterator i = m_results[0].begin(); i != m_results[0].end(); ++i)
       {
-        impl::PreResult2 * res = maker(**i);
+        ResultT * res = maker(*i);
         LOG(LDEBUG, (*res));
         delete res;
       }
@@ -394,7 +399,7 @@ void Query::FlushResults(Results & res)
     impl::PreResult2Maker maker(*this);
     for (PreResultSetT::const_iterator i = theSet.begin(); i != theSet.end(); ++i)
     {
-      impl::PreResult2 * res = maker(**i);
+      ResultT * res = maker(*i);
       if (res == 0) continue;
 
       // do not insert duplicating results
@@ -413,7 +418,7 @@ void Query::FlushResults(Results & res)
 
   for (size_t i = 0; i < m_qCount; ++i)
   {
-    CompareT<impl::PreResult2> comp(g_arrCompare2[i]);
+    CompareT<ResultT, RefSmartPtr> comp(g_arrCompare2[i]);
 
     // sort by needed criteria
     sort(indV.begin(), indV.end(), comp);
@@ -450,28 +455,27 @@ namespace
 {
   class EqualFeature
   {
-    typedef shared_ptr<impl::PreResult1> ValueT;
-    ValueT m_val;
+    typedef impl::PreResult1 ValueT;
+    ValueT const & m_val;
 
   public:
     EqualFeature(ValueT const & v) : m_val(v) {}
     bool operator() (ValueT const & r) const
     {
-      return (m_val->GetID() == r->GetID());
+      return (m_val.GetID() == r.GetID());
     }
   };
 }
 
 void Query::AddResultFromTrie(TrieValueT const & val, size_t mwmID)
 {
-  shared_ptr<impl::PreResult1> p(new impl::PreResult1(
-            val.m_featureId, val.m_rank, val.m_pt, mwmID, m_position, m_viewport));
+  impl::PreResult1 res(val.m_featureId, val.m_rank, val.m_pt, mwmID, m_position, m_viewport);
 
   for (size_t i = 0; i < m_qCount; ++i)
   {
     // here can be the duplicates because of different language match (for suggest token)
-    if (m_results[i].end() == find_if(m_results[i].begin(), m_results[i].end(), EqualFeature(p)))
-      m_results[i].push(shared_ptr<impl::PreResult1>(p));
+    if (m_results[i].end() == find_if(m_results[i].begin(), m_results[i].end(), EqualFeature(res)))
+      m_results[i].push(res);
   }
 }
 

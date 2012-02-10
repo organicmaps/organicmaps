@@ -109,7 +109,7 @@ private:
   bool m_bOffsetsCacheIsValid;
   vector<vector<uint32_t> > m_offsetsInViewport;
 
-  template <class ParamT> class CompareT
+  template <class ParamT, class RefT> class CompareT
   {
     typedef bool (*FunctionT) (ParamT const &, ParamT const &);
     FunctionT m_fn;
@@ -120,11 +120,22 @@ private:
 
     template <class T> bool operator() (T const & v1, T const & v2) const
     {
-      return m_fn(*v1, *v2);
+      RefT getR;
+      return m_fn(getR(v1), getR(v2));
     }
   };
 
-  typedef my::limited_priority_queue<shared_ptr<impl::PreResult1>, CompareT<impl::PreResult1> > QueueT;
+  struct NothingRef
+  {
+    template <class T> T const & operator() (T const & t) const { return t; }
+  };
+  struct RefSmartPtr
+  {
+    template <class T> typename T::value_type const & operator() (T const & t) const { return *t; }
+  };
+
+  typedef CompareT<impl::PreResult1, NothingRef> QueueCompareT;
+  typedef my::limited_priority_queue<impl::PreResult1, QueueCompareT> QueueT;
 
 public:
   static const size_t m_qCount = 3;
