@@ -629,8 +629,7 @@ void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
         if (pMwm->m_cont.IsReaderExist(SEARCH_INDEX_FILE_TAG))
         {
           feature::DataHeader const & header = pMwm->GetHeader();
-          serial::CodingParams cp(POINT_CODING_BITS,
-                                  header.GetDefCodingParams().GetBasePointUint64());
+          serial::CodingParams cp(GetCPForTrie(header.GetDefCodingParams()));
 
           scoped_ptr<TrieIterator> pTrieRoot(::trie::reader::ReadTrie(
                                                pMwm->m_cont.GetReader(SEARCH_INDEX_FILE_TAG),

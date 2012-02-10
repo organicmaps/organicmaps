@@ -164,8 +164,7 @@ void indexer::BuildSearchIndex(FeaturesVector const & featuresVector, Writer & w
 {
   {
     StringsFile names(tmpFilePath);
-    serial::CodingParams cp(search::POINT_CODING_BITS,
-                            featuresVector.GetCodingParams().GetBasePointUint64());
+    serial::CodingParams cp(search::GetCPForTrie(featuresVector.GetCodingParams()));
 
     featuresVector.ForEachOffset(FeatureInserter(names, cp));
 
@@ -182,7 +181,7 @@ void indexer::BuildSearchIndex(FeaturesVector const & featuresVector, Writer & w
 
 bool indexer::BuildSearchIndexFromDatFile(string const & fName)
 {
-  LOG(LINFO, ("Start building search index ..."));
+  LOG(LINFO, ("Start building search index. Bits = ", search::POINT_CODING_BITS));
 
   try
   {
@@ -200,6 +199,8 @@ bool indexer::BuildSearchIndexFromDatFile(string const & fName)
 
       FileWriter writer(tmpFile);
       BuildSearchIndex(featuresVector, writer, pl.WritablePathForFile(fName + ".search_index_1.tmp"));
+
+      LOG(LINFO, ("Search index size = ", writer.Size()));
     }
 
     {

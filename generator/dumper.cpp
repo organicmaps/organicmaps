@@ -202,8 +202,7 @@ namespace feature
     feature::DataHeader header;
     header.Load(container.GetReader(HEADER_FILE_TAG));
 
-    serial::CodingParams cp(search::POINT_CODING_BITS,
-                            header.GetDefCodingParams().GetBasePointUint64());
+    serial::CodingParams cp(search::GetCPForTrie(header.GetDefCodingParams()));
 
     scoped_ptr<search::TrieIterator> pTrieRoot(
           ::trie::reader::ReadTrie(container.GetReader(SEARCH_INDEX_FILE_TAG),

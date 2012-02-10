@@ -51,6 +51,11 @@ typedef ::trie::reader::EmptyValueReader EdgeValueReader;
       trie::EdgeValueReader::ValueType> TrieIterator;
 
   static const uint8_t CATEGORIES_LANG = 128;
-  static const uint8_t POINT_CODING_BITS = 24;
+  static const uint8_t POINT_CODING_BITS = 20;
 
+  inline serial::CodingParams GetCPForTrie(serial::CodingParams const & orig)
+  {
+    CoordPointT const p = PointU2PointD(orig.GetBasePoint(), orig.GetCoordBits());
+    return serial::CodingParams(POINT_CODING_BITS, m2::PointD(p.first, p.second));
+  }
 }  // namespace search
