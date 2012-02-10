@@ -108,7 +108,10 @@ namespace
 
       Classificator const & c = classif();
 
-      for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+      size_t const count = ARRAY_SIZE(arr);
+      m_inc.reserve(count);
+
+      for (size_t i = 0; i < count; ++i)
       {
         vector<string> v;
         v.push_back(arr[i][0]);
