@@ -76,6 +76,8 @@ public:
     swap(m_compare, queue.m_compare);
   }
 
+  void reserve(size_t n) { m_queue.reserve(n); }
+
 private:
   vector<T> m_queue;
   size_t m_maxSize;
