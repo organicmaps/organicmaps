@@ -180,7 +180,10 @@ void Query::Search(string const & query, Results & res, unsigned int resultsNeed
     STATIC_ASSERT ( m_qCount == ARRAY_SIZE(g_arrCompare2) );
 
     for (size_t i = 0; i < m_qCount; ++i)
+    {
       m_results[i] = QueueT(2 * resultsNeeded, QueueCompareT(g_arrCompare1[i]));
+      m_results[i].reserve(2 * resultsNeeded);
+    }
   }
 
   // Match (lat, lon).
@@ -297,7 +300,7 @@ namespace impl
   class PreResult2Maker
   {
     typedef map<size_t, FeaturesVector *> FeaturesMapT;
-    map<size_t, FeaturesVector *> m_features;
+    FeaturesMapT m_features;
 
     vector<MwmInfo> m_mwmInfo;
 
@@ -366,28 +369,28 @@ void Query::FlushResults(Results & res)
 {
   typedef impl::PreResult2 ResultT;
 
+  /*
+  #ifdef DEBUG
+      {
+        impl::PreResult2Maker maker(*this);
+        LOG(LDEBUG, ("Dump features for rank:"));
+        for (QueueT::const_iterator i = m_results[0].begin(); i != m_results[0].end(); ++i)
+        {
+          ResultT * res = maker(*i);
+          LOG(LDEBUG, (*res));
+          delete res;
+        }
+        LOG(LDEBUG, ("------------------------"));
+      }
+  #endif
+  */
+
   vector<IndexedValue> indV;
 
   {
     // make unique set of PreResult1
     typedef set<impl::PreResult1, LessByFeatureID> PreResultSetT;
     PreResultSetT theSet;
-
-/*
-#ifdef DEBUG
-    {
-      impl::PreResult2Maker maker(*this);
-      LOG(LDEBUG, ("Dump features for rank:"));
-      for (QueueT::const_iterator i = m_results[0].begin(); i != m_results[0].end(); ++i)
-      {
-        ResultT * res = maker(*i);
-        LOG(LDEBUG, (*res));
-        delete res;
-      }
-      LOG(LDEBUG, ("------------------------"));
-    }
-#endif
-*/
 
     for (size_t i = 0; i < m_qCount; ++i)
     {
