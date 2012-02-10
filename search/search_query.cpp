@@ -45,11 +45,27 @@ Query::~Query()
 {
 }
 
+namespace
+{
+  inline bool IsEqual(m2::RectD const & r1, m2::RectD const & r2, double eps)
+  {
+    m2::RectD r = r1;
+    r.Inflate(eps, eps);
+    if (!r.IsRectInside(r2)) return false;
+
+    r = r2;
+    r.Inflate(eps, eps);
+    if (!r.IsRectInside(r1)) return false;
+
+    return true;
+  }
+}
+
 void Query::SetViewport(m2::RectD const & viewport)
 {
-  // TODO: Set m_bOffsetsCacheIsValid = false when mwm index is added or removed!
-
-  if (m_viewport != viewport || !m_bOffsetsCacheIsValid)
+  // Check if viewports are equal.
+  // 10.0 - is 10 meters
+  if (!m_bOffsetsCacheIsValid || !IsEqual(m_viewport, viewport, 10.0))
   {
     m_viewport = viewport;
     m_viewportExtended = m_viewport;

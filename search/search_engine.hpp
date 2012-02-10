@@ -55,6 +55,7 @@ private:
   threads::Mutex m_searchMutex, m_updateMutex;
 
   SearchParams m_params;
+  m2::RectD m_viewport;
 
   Index const * m_pIndex;
   scoped_ptr<search::Query> m_pQuery;
