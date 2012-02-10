@@ -9,9 +9,7 @@
 
 namespace
 {
-
-inline double CoordSize(uint32_t coordBits) { return (1 << coordBits) - 1; }
-
+  inline double CoordSize(uint32_t coordBits) { return (1 << coordBits) - 1; }
 }
 
 m2::PointU PointD2PointU(CoordT x, CoordT y, uint32_t coordBits)
