@@ -11,10 +11,10 @@ SUBDIRS = 3party \
           base base/base_tests \
           coding coding/coding_tests \
           geometry \
+          version \
           indexer \
           platform \
           geometry/geometry_tests \
-          version \
           platform/platform_tests \
           yg \
           storage storage/storage_tests \
