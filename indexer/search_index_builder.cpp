@@ -6,6 +6,7 @@
 #include "search_trie.hpp"
 #include "search_string_utils.hpp"
 #include "string_file.hpp"
+#include "classificator.hpp"
 
 #include "../defines.hpp"
 
@@ -43,6 +44,8 @@ struct FeatureNameInserter
 
     buffer_vector<strings::UniString, 32> tokens;
     SplitUniString(uniName, MakeBackInsertFunctor(tokens), search::Delimiters());
+
+    /// @todo MAX_TOKENS = 32, in Query::Search we use 31 + prefix. Why 30 ???
     if (tokens.size() > 30)
     {
       LOG(LWARNING, ("Name has too many tokens:", name));
@@ -80,6 +83,49 @@ class FeatureInserter
     m_valueSaver.Save(sink, v);
   }
 
+  class AvoidEmptyName
+  {
+    vector<uint32_t> m_vec;
+
+  public:
+    AvoidEmptyName()
+    {
+      char const * arr[][3] = {
+        { "place", "city", ""},
+        { "place", "city", "capital"},
+        { "place", "town", ""},
+        { "place", "county", ""},
+        { "place", "state", ""},
+        { "place", "region", ""}
+      };
+
+      Classificator const & c = classif();
+
+      size_t const count = ARRAY_SIZE(arr);
+      m_vec.reserve(count);
+
+      for (size_t i = 0; i < count; ++i)
+      {
+        vector<string> v;
+        v.push_back(arr[i][0]);
+        v.push_back(arr[i][1]);
+        if (strlen(arr[i][2]) > 0)
+          v.push_back(arr[i][2]);
+
+        m_vec.push_back(c.GetTypeByPath(v));
+      }
+    }
+
+    bool IsExist(feature::TypesHolder const & types) const
+    {
+      for (size_t i = 0; i < m_vec.size(); ++i)
+        if (types.Has(m_vec[i]))
+          return true;
+
+      return false;
+    }
+  };
+
 public:
   FeatureInserter(StringsFile & names, serial::CodingParams const & cp)
     : m_names(names), m_valueSaver(cp)
@@ -95,7 +141,15 @@ public:
     MakeValue(f, types, pos, inserter.m_val);
 
     // add names of the feature
-    f.ForEachNameRef(inserter);
+    if (!f.ForEachNameRef(inserter))
+    {
+      static AvoidEmptyName check;
+      if (check.IsExist(types))
+      {
+        // Do not add such features without names to suggestion list.
+        return;
+      }
+    }
 
     // add names of categories of the feature
     for (size_t i = 0; i < types.Size(); ++i)
