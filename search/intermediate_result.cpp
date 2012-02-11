@@ -187,7 +187,7 @@ bool PreResult2::StrictEqualF::operator() (PreResult2 const & r) const
     if (m_r.m_str == r.m_str && m_r.GetBestType() == r.GetBestType())
     {
       // 100.0m - distance between equal features
-      return fabs(m_r.m_distance - r.m_distance) < 100.0;
+      return (ResultDistance(m_r.m_center, r.m_center) < 100.0);
     }
   }
 
