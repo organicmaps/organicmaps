@@ -1,9 +1,12 @@
 #include "keyword_matcher.hpp"
+
 #include "../indexer/search_delimiters.hpp"
 #include "../indexer/search_string_utils.hpp"
+
 #include "../base/stl_add.hpp"
-#include "../base/string_utils.hpp"
+
 #include "../std/algorithm.hpp"
+
 
 namespace search
 {

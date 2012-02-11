@@ -6,8 +6,6 @@
 
 #include "../coding/reader.hpp"
 
-#include "../base/base.hpp"
-#include "../base/string_utils.hpp"
 #include "../base/mutex.hpp"
 
 #include "../std/scoped_ptr.hpp"
@@ -21,7 +19,6 @@ class Index;
 namespace search
 {
 
-struct CategoryInfo;
 class Query;
 class Results;
 

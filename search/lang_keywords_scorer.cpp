@@ -1,8 +1,12 @@
 #include "lang_keywords_scorer.hpp"
+
 #include "../indexer/search_string_utils.hpp"
 #include "../indexer/search_delimiters.hpp"
+
 #include "../base/stl_add.hpp"
+
 #include "../std/algorithm.hpp"
+
 
 namespace search
 {

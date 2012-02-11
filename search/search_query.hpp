@@ -11,7 +11,6 @@
 
 #include "../std/map.hpp"
 #include "../std/scoped_ptr.hpp"
-#include "../std/shared_ptr.hpp"
 #include "../std/string.hpp"
 #include "../std/unordered_set.hpp"
 #include "../std/vector.hpp"
@@ -26,7 +25,6 @@ namespace storage { class CountryInfoGetter; }
 namespace search
 {
 
-struct CategoryInfo;
 class LangKeywordsScorer;
 
 namespace impl

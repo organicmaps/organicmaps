@@ -1,5 +1,4 @@
 #include "search_query.hpp"
-#include "category_info.hpp"
 #include "feature_offset_match.hpp"
 #include "lang_keywords_scorer.hpp"
 #include "latlon_match.hpp"

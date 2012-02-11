@@ -1,5 +1,4 @@
 #include "search_engine.hpp"
-#include "category_info.hpp"
 #include "result.hpp"
 #include "search_query.hpp"
 
@@ -18,9 +17,7 @@
 #include "../base/stl_add.hpp"
 
 #include "../std/algorithm.hpp"
-#include "../std/function.hpp"
 #include "../std/map.hpp"
-#include "../std/string.hpp"
 #include "../std/utility.hpp"
 #include "../std/vector.hpp"
 #include "../std/bind.hpp"

@@ -19,7 +19,6 @@ HEADERS += \
     latlon_match.hpp \
     approximate_string_match.hpp \
     feature_offset_match.hpp \
-    category_info.hpp \
     lang_keywords_scorer.hpp \
     params.hpp \
 
