@@ -67,6 +67,100 @@ class FeatureInserter
   typedef search::trie::ValueReader SaverT;
   SaverT m_valueSaver;
 
+  class CalcPolyCenter
+  {
+    typedef m2::PointD P;
+
+    struct Value
+    {
+      Value(P const & p, double l) : m_p(p), m_len(l) {}
+
+      bool operator< (Value const & r) const { return (m_len < r.m_len); }
+
+      P m_p;
+      double m_len;
+    };
+
+    vector<Value> m_poly;
+    double m_length;
+
+  public:
+    CalcPolyCenter() : m_length(0.0) {}
+
+    void operator() (CoordPointT const & pt)
+    {
+      m2::PointD p(pt.first, pt.second);
+
+      m_length += (m_poly.empty() ? 0.0 : m_poly.back().m_p.Length(p));
+      m_poly.push_back(Value(p, m_length));
+    }
+
+    P GetCenter() const
+    {
+      typedef vector<Value>::const_iterator IterT;
+
+      double const l = m_length / 2.0;
+
+      IterT e = lower_bound(m_poly.begin(), m_poly.end(), Value(m2::PointD(0, 0), l));
+      if (e == m_poly.begin())
+      {
+        /// @todo It's very strange, but we have linear objects with zero length.
+        LOG(LWARNING, ("Zero length linear object"));
+        return e->m_p;
+      }
+
+      IterT b = e-1;
+
+      double const f = (l - b->m_len) / (e->m_len - b->m_len);
+      ASSERT ( 0.0 <= f && f <= 1.0, (f) );
+      return (b->m_p * (1-f) + e->m_p * f);
+    }
+  };
+
+  class CalcMassCenter
+  {
+    typedef m2::PointD P;
+    P m_center;
+    size_t m_count;
+
+  public:
+    CalcMassCenter() : m_count(0) {}
+
+    void operator() (P const & p1, P const & p2, P const & p3)
+    {
+      ++m_count;
+      m_center += p1;
+      m_center += p2;
+      m_center += p3;
+    }
+    P GetCenter() const { return m_center / (3*m_count); }
+  };
+
+  m2::PointD GetCenter(FeatureType const & f) const
+  {
+    feature::EGeomType const type = f.GetFeatureType();
+    switch (type)
+    {
+    case feature::GEOM_POINT:
+      return f.GetCenter();
+
+    case feature::GEOM_LINE:
+      {
+        CalcPolyCenter doCalc;
+        f.ForEachPointRef(doCalc, -1);
+        return doCalc.GetCenter();
+      }
+
+    default:
+      {
+        ASSERT_EQUAL ( type, feature::GEOM_AREA, () );
+        CalcMassCenter doCalc;
+        f.ForEachTriangleRef(doCalc, -1);
+        return doCalc.GetCenter();
+      }
+    }
+  }
+
   void MakeValue(FeatureType const & f, feature::TypesHolder const & types,
                  uint64_t pos, ValueT & value) const
   {
@@ -74,8 +168,7 @@ class FeatureInserter
     v.m_featureId = static_cast<uint32_t>(pos);
 
     // get BEST geometry rect of feature
-    m2::RectD const rect = f.GetLimitRect(-1);
-    v.m_pt = rect.Center();
+    v.m_pt = GetCenter(f);
     v.m_rank = feature::GetSearchRank(types, v.m_pt, f.GetPopulation());
 
     // write to buffer
