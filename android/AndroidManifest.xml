@@ -4,7 +4,7 @@
       android:versionCode="200"
       android:versionName="2.0.0"
       android:installLocation="preferExternal">
-    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="10"/>
+    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="14"/>
     <uses-feature android:glEsVersion="0x00010001" />
     <uses-feature android:required="true" android:name="android.hardware.touchscreen.multitouch" />
     <uses-feature android:required="true" android:name="android.hardware.wifi" />
