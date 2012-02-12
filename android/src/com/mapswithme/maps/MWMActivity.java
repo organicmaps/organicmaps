@@ -16,14 +16,12 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Environment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.TextView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
@@ -81,7 +79,7 @@ public class MWMActivity extends NvEventQueueActivity implements
       }
     });
   }
-  
+
   public void ReportUnsupported()
   {
     runOnUiThread(new Runnable()
@@ -89,9 +87,9 @@ public class MWMActivity extends NvEventQueueActivity implements
       public void run()
       {
         AlertDialog alert = new AlertDialog.Builder(getCurrentContext()).create();
-        
+
         alert.setMessage(getString(R.string.unsupported_phone));
-        
+
         alert.setCancelable(false);
 
         alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.close),
@@ -108,9 +106,9 @@ public class MWMActivity extends NvEventQueueActivity implements
         alert.show();
       }
     });
-    
+
   }
-  
+
   private void checkMeasurementSystem()
   {
     int u;
@@ -417,13 +415,13 @@ public class MWMActivity extends NvEventQueueActivity implements
   private native void nativeStorageConnected();
   private native void nativeStorageDisconnected();
 
-  private native void nativeInit(int densityDpi, 
-                                 int screenWidth, 
+  private native void nativeInit(int densityDpi,
+                                 int screenWidth,
                                  int screenHeight,
                                  String apkPath,
-                                 String storagePath, 
-                                 String tmpPath, 
-                                 String extTmpPath, 
+                                 String storagePath,
+                                 String tmpPath,
+                                 String extTmpPath,
                                  String settingsPath,
                                  String emptyModelMessage);
   private native void nativeDestroy();
