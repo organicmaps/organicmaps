@@ -3,7 +3,7 @@
       package="com.mapswithme.maps"
       android:versionCode="200"
       android:versionName="2.0.0"
-      android:installLocation="auto">
+      android:installLocation="preferExternal">
     <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="10"/>
     <uses-feature android:glEsVersion="0x00010001" />
     <uses-feature android:required="true" android:name="android.hardware.touchscreen.multitouch" />
