@@ -4405,7 +4405,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xdcd7bd
+      color: 0xe0dac0
       priority: 364
     }
   }
