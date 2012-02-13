@@ -5,7 +5,7 @@
     <string name="app_name">Maps With Me</string>
     <string name="about">Au sujet des cartes</string>
     <string name="downloading_touch_to_cancel">Chargement en cours %d%%, toucher pour annuler</string>
-    <string name="downloading">Chargement en cours</string>
+    <string name="downloading">Chargement en cours…</string>
     <string name="downloaded_touch_to_delete">Elle est chargée (%s), Appuyer pour effacer</string>
     <string name="touch_to_download">Toucher pour charger</string>
     <string name="download_has_failed">Error durante la descarga, iniciar otra vez</string>

@@ -5,7 +5,7 @@
     <string name="app_name">Maps With Me</string>
     <string name="about">Über MapsWithMe</string>
     <string name="downloading_touch_to_cancel">Heruntergeladen %d%%. Berühren, um abzubrechen</string>
-    <string name="downloading">Wird heruntergeladen...</string>
+    <string name="downloading">Wird heruntergeladen…</string>
     <string name="downloaded_touch_to_delete">Heruntergeladen (%s). Berühren, um zu löschen</string>
     <string name="touch_to_download">Berühren, um herunterzuladen</string>
     <string name="download_has_failed">Download fehlgeschlagen. Bitte versuchen Sie es erneut. </string>

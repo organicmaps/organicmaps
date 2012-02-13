@@ -5,7 +5,7 @@
     <string name="app_name">Maps With Me</string>
     <string name="about">About MapsWithMe</string>
     <string name="downloading_touch_to_cancel">Downloading %d%%, touch to cancel</string>
-    <string name="downloading">Downloading...</string>
+    <string name="downloading">Downloading…</string>
     <string name="downloaded_touch_to_delete">Downloaded (%s), touch to delete</string>
     <string name="touch_to_download">Touch to download</string>
     <string name="mb">Mb</string>

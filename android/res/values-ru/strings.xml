@@ -5,7 +5,7 @@
     <string name="app_name">Maps With Me</string>
     <string name="about">О программе</string>
     <string name="downloading_touch_to_cancel">Загружается %d%%, нажмите, чтобы прервать</string>
-    <string name="downloading">Загружается...</string>
+    <string name="downloading">Загружается…</string>
     <string name="downloaded_touch_to_delete">Загружено (%s), нажмите для удаления</string>
     <string name="mb">Мб</string>
     <string name="kb">кб</string>
