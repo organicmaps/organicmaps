@@ -189,9 +189,9 @@ public class LocationService implements LocationListener, SensorEventListener, W
   // @param currentBestLocation The current Location fix, to which you want to compare the new one
   protected boolean isBetterLocation(Location newLocation, Location currentBestLocation)
   {
-    // A new location is thrown away if it's too old
-    if (java.lang.System.currentTimeMillis() - newLocation.getTime() > TWO_MINUTES)
-      return false;
+//    // A new location is thrown away if it's too old
+//    if (java.lang.System.currentTimeMillis() - newLocation.getTime() > TWO_MINUTES)
+//      return false;
 
     // A new location is better than no location
     if (currentBestLocation == null)
