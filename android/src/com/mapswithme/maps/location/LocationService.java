@@ -118,7 +118,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
       List<String> enabledProviders = m_locationManager.getProviders(true);
       // Remove passive provider, we don't use it in the current implementation
       for (int i = 0; i < enabledProviders.size(); ++i)
-        if (enabledProviders.get(i).equals(LocationManager.PASSIVE_PROVIDER))
+        if (enabledProviders.get(i).equals("passive"))
         {
           enabledProviders.remove(i);
           break;
@@ -285,7 +285,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
     else
     {
       Activity a = (Activity)MWMActivity.getCurrentContext();
-      int screenRotation = a.getWindowManager().getDefaultDisplay().getRotation();
+      int screenRotation = a.getWindowManager().getDefaultDisplay().getOrientation();
 
       float offset = m_magneticField.getDeclination();
       float north = event.values[0];
@@ -302,7 +302,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
         north += 270;
         break;
       }
-      
+
       north = (float) (north - 360 * Math.floor(north / 360));
 
       notifyCompassUpdated(event.timestamp, north, north + offset, offset);
