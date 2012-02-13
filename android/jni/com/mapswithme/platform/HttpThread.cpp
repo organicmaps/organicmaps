@@ -24,8 +24,8 @@ public:
     jmethodID methodId = env->GetMethodID(klass, "<init>", "(JLjava/lang/String;JJJLjava/lang/String;)V");
     ASSERT(methodId, ("Can't find java constructor in com/mapswithme/maps/downloader/DownloadChunkTask"));
 
-    m_self = env->NewObject(klass, methodId, reinterpret_cast<jlong>(&cb),
-        env->NewStringUTF(url.c_str()), beg, end, expectedFileSize, env->NewStringUTF(pb.c_str()));
+    m_self = env->NewGlobalRef(env->NewObject(klass, methodId, reinterpret_cast<jlong>(&cb),
+        env->NewStringUTF(url.c_str()), beg, end, expectedFileSize, env->NewStringUTF(pb.c_str())));
 
     methodId = env->GetMethodID(klass, "start", "()V");
     ASSERT(methodId, ("Can't find java method 'start' in com/mapswithme/maps/downloader/DownloadChunkTask"));
@@ -43,6 +43,7 @@ public:
     ASSERT(methodId, ("Can't find java method 'cancel' in com/mapswithme/maps/downloader/DownloadChunkTask"));
 
     env->CallBooleanMethod(m_self, methodId, false);
+    env->DeleteGlobalRef(m_self);
   }
 };
 
