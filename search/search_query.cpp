@@ -49,6 +49,8 @@ namespace
 {
   inline bool IsEqual(m2::RectD const & r1, m2::RectD const & r2, double eps)
   {
+    eps = eps * MercatorBounds::degreeInMetres;
+
     m2::RectD r = r1;
     r.Inflate(eps, eps);
     if (!r.IsRectInside(r2)) return false;
