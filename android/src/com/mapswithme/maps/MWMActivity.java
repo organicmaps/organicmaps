@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Environment;
@@ -171,6 +172,8 @@ public class MWMActivity extends NvEventQueueActivity implements
 
   private native void setupMeasurementSystem();
 
+  private static final String PREFERENCES_MYPOSITION = "isMyPositionEnabled";
+
   public void onMyPositionClicked(View v)
   {
     v.setBackgroundResource(R.drawable.myposition_button_normal);
@@ -180,6 +183,10 @@ public class MWMActivity extends NvEventQueueActivity implements
     else
       m_locationService.startUpdate(this, this);
     v.setSelected(!isLocationActive);
+    // Store active state of My Position
+    SharedPreferences.Editor prefsEdit = getSharedPreferences(PACKAGE_NAME, MODE_PRIVATE).edit();
+    prefsEdit.putBoolean(PREFERENCES_MYPOSITION, !isLocationActive);
+    prefsEdit.commit();
   }
 
   public void onDownloadClicked(View v)
@@ -245,6 +252,16 @@ public class MWMActivity extends NvEventQueueActivity implements
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, float accuracy)
   {
     nativeCompassUpdated(time, magneticNorth, trueNorth, accuracy);
+  }
+
+  @Override
+  protected void onStart()
+  {
+    super.onStart();
+    // Restore My Position state on startup/activity recreation
+    SharedPreferences prefs = getSharedPreferences(PACKAGE_NAME, MODE_PRIVATE);
+    final boolean isMyPositionEnabled = prefs.getBoolean(PREFERENCES_MYPOSITION, true);
+    findViewById(R.id.map_button_myposition).setSelected(isMyPositionEnabled);
   }
 
   @Override
