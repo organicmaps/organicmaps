@@ -260,7 +260,7 @@ public class MWMActivity extends NvEventQueueActivity implements
     super.onStart();
     // Restore My Position state on startup/activity recreation
     SharedPreferences prefs = getSharedPreferences(PACKAGE_NAME, MODE_PRIVATE);
-    final boolean isMyPositionEnabled = prefs.getBoolean(PREFERENCES_MYPOSITION, true);
+    final boolean isMyPositionEnabled = prefs.getBoolean(PREFERENCES_MYPOSITION, false);
     findViewById(R.id.map_button_myposition).setSelected(isMyPositionEnabled);
   }
 
