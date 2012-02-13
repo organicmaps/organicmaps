@@ -50,25 +50,17 @@ struct MercatorBounds
 
   static double const degreeInMetres;
 
-  // TODO:
-  inline static double ConvertMetresToY(double lat, double metresValue)
-  {
-    return LatToY(lat + metresValue * degreeInMetres) - LatToY(lat);
-  }
-
-  // TODO:
-  inline static double ConvertMetresToX(double lon, double metresValue)
-  {
-    return LonToX(lon + metresValue * degreeInMetres) - LonToX(lon);
-  }
-
-  /// @return mercator bound points in rect
+  /// @name Get rect for center point (lon, lat) and dimensions in metres.
+  //@{
+  /// @return mercator rect.
   static m2::RectD MetresToXY(double lon, double lat,
                               double lonMetresR, double latMetresR);
+
   inline static m2::RectD MetresToXY(double lon, double lat, double metresR)
   {
     return MetresToXY(lon, lat, metresR, metresR);
   }
+  //@}
 
   inline static m2::RectD RectByCenterXYAndSizeInMeters(double centerX, double centerY,
                                                         double sizeX, double sizeY)
@@ -77,6 +69,11 @@ struct MercatorBounds
     ASSERT_GREATER_OR_EQUAL(sizeY, 0, ());
 
     return MetresToXY(XToLon(centerX), YToLat(centerY), sizeX, sizeY);
+  }
+
+  inline static m2::RectD RectByCenterXYAndSizeInMeters(m2::PointD const & center, double size)
+  {
+    return RectByCenterXYAndSizeInMeters(center.x, center.y, size, size);
   }
 
   static double GetCellID2PointAbsEpsilon() { return 1.0E-4; }

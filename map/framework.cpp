@@ -400,11 +400,11 @@ static int const theMetersFactor = 6;
 
 void Framework::ShowRect(m2::RectD rect)
 {
-  double const minSizeX = MercatorBounds::ConvertMetresToX(rect.minX(), theMetersFactor * m_metresMinWidth);
-  double const minSizeY = MercatorBounds::ConvertMetresToY(rect.minY(), theMetersFactor * m_metresMinWidth);
+  m2::RectD const minRect = MercatorBounds::RectByCenterXYAndSizeInMeters(
+                                rect.Center(), theMetersFactor * m_metresMinWidth);
 
-  if (rect.SizeX() < minSizeX && rect.SizeY() < minSizeY)
-    rect.SetSizes(minSizeX, minSizeY);
+  if (minRect.IsRectInside(rect))
+    rect = minRect;
 
   m_navigator.SetFromRect(m2::AnyRectD(rect));
   Invalidate();
@@ -433,22 +433,17 @@ void Framework::CenterAndScaleViewport()
   m2::PointD const pt = m_locationState.Position();
   m_navigator.CenterViewport(pt);
 
-  m2::RectD clipRect = GetCurrentViewport();
-
-  double const xMinSize = theMetersFactor * max(m_locationState.ErrorRadius(),
-                            MercatorBounds::ConvertMetresToX(pt.x, m_metresMinWidth));
-  double const yMinSize = theMetersFactor * max(m_locationState.ErrorRadius(),
-                            MercatorBounds::ConvertMetresToY(pt.y, m_metresMinWidth));
+  m2::RectD const minRect = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, m_metresMinWidth);
+  double const xMinSize = theMetersFactor * max(m_locationState.ErrorRadius(), minRect.SizeX());
+  double const yMinSize = theMetersFactor * max(m_locationState.ErrorRadius(), minRect.SizeY());
 
   bool needToScale = false;
 
+  m2::RectD clipRect = GetCurrentViewport();
   if (clipRect.SizeX() < clipRect.SizeY())
     needToScale = clipRect.SizeX() > xMinSize * 3;
   else
     needToScale = clipRect.SizeY() > yMinSize * 3;
-
-  //if ((ClipRect.SizeX() < 3 * errorRadius) || (ClipRect.SizeY() < 3 * errorRadius))
-  //  needToScale = true;
 
   if (needToScale)
   {
