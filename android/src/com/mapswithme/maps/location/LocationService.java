@@ -183,15 +183,16 @@ public class LocationService implements LocationListener, SensorEventListener, W
   }
 
   private static final int TWO_MINUTES = 1000 * 60 * 2;
+  private static final int FIVE_MINUTES = 1000 * 60 * 5;
 
   // Determines whether one Location reading is better than the current Location
   // @param location The new Location that you want to evaluate
   // @param currentBestLocation The current Location fix, to which you want to compare the new one
   protected boolean isBetterLocation(Location newLocation, Location currentBestLocation)
   {
-//    // A new location is thrown away if it's too old
-//    if (java.lang.System.currentTimeMillis() - newLocation.getTime() > TWO_MINUTES)
-//      return false;
+    // A new location is thrown away if it's too old
+    if (java.lang.System.currentTimeMillis() - newLocation.getTime() > FIVE_MINUTES)
+      return false;
 
     // A new location is better than no location
     if (currentBestLocation == null)
