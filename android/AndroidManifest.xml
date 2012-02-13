@@ -27,7 +27,6 @@
         <activity android:name=".MWMActivity"
                   android:label="@string/app_name"
                   android:screenOrientation="behind"
-                  android:configChanges="orientation|keyboardHidden"
                   android:theme="@style/MWMNoTitle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
