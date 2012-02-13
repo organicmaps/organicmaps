@@ -676,9 +676,9 @@ search::Engine * Framework::GetSearchEngine()
     {
       Platform & pl = GetPlatform();
 
-      scoped_ptr<Reader> pReader(pl.GetReader(SEARCH_CATEGORIES_FILE_NAME));
       m_pSearchEngine.reset(
-            new search::Engine(&m_model.GetIndex(), new CategoriesHolder(*pReader),
+            new search::Engine(&m_model.GetIndex(),
+                               new CategoriesHolder(pl.GetReader(SEARCH_CATEGORIES_FILE_NAME)),
                                pl.GetReader(PACKED_POLYGONS_FILE),
                                pl.GetReader(COUNTRIES_FILE),
                                languages::CurrentLanguage()));

@@ -71,11 +71,11 @@ UNIT_TEST(LoadCategories)
   classificator::Load();
 
   CategoriesHolder h;
-  string buffer = TEST_STRING;
+  istringstream buffer(TEST_STRING);
   TEST_GREATER(h.LoadFromStream(buffer), 0, ());
+
   size_t count = 0;
   Checker f(count);
   h.ForEachCategory(f);
   TEST_EQUAL(count, 2, ());
 }
-

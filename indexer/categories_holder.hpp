@@ -3,6 +3,7 @@
 
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
+#include "../std/fstream.hpp"
 #include "../std/algorithm.hpp"
 
 class Reader;
@@ -30,10 +31,11 @@ public:
   typedef ContainerT::const_iterator const_iterator;
 
   CategoriesHolder();
-  explicit CategoriesHolder(Reader const & reader);
+  /// Takes ownership of reader.
+  explicit CategoriesHolder(Reader * reader);
 
-  /// @return number of loaded categories or 0 if something goes wrong
-  size_t LoadFromStream(string const & buffer);
+  /// @return Number of loaded categories or 0 if something goes wrong.
+  size_t LoadFromStream(istream & s);
 
   template <class ToDo>
   void ForEachCategory(ToDo toDo) const

@@ -4,6 +4,7 @@
 
 #include "../coding/multilang_utf8_string.hpp"
 #include "../coding/reader.hpp"
+#include "../coding/reader_streambuf.hpp"
 
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
@@ -29,7 +30,7 @@ enum State {
 
 }  // unnamed namespace
 
-size_t CategoriesHolder::LoadFromStream(string const & buffer)
+size_t CategoriesHolder::LoadFromStream(istream & s)
 {
   m_categories.clear();
 
@@ -40,10 +41,9 @@ size_t CategoriesHolder::LoadFromStream(string const & buffer)
 
   Classificator const & c = classif();
 
-  istringstream stream(buffer);
-  while (stream.good())
+  while (s.good())
   {
-    getline(stream, line);
+    getline(s, line);
     strings::SimpleTokenizer iter(line, ":|");
 
     switch (state)
@@ -123,10 +123,9 @@ CategoriesHolder::CategoriesHolder()
 {
 }
 
-CategoriesHolder::CategoriesHolder(Reader const & reader)
+CategoriesHolder::CategoriesHolder(Reader * reader)
 {
-  string buffer;
-  reader.ReadAsString(buffer);
-  LoadFromStream(buffer);
+  ReaderStreamBuf buffer(reader);
+  istream s(&buffer);
+  LoadFromStream(s);
 }
-
