@@ -137,12 +137,49 @@ PreResult2::PreResult2(string const & name, int penalty)
 {
 }
 
+namespace
+{
+  class SkipRegionInfo
+  {
+    static size_t const m_count = 2;
+    uint32_t m_types[m_count];
+
+  public:
+    SkipRegionInfo()
+    {
+      char const * arr[][2] = {
+        { "place", "continent" },
+        { "place", "country" }
+      };
+      STATIC_ASSERT ( m_count == ARRAY_SIZE(arr) );
+
+      Classificator const & c = classif();
+      for (size_t i = 0; i < m_count; ++i)
+        m_types[i] = c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2));
+    }
+
+    bool Has(uint32_t t) const
+    {
+      for (size_t i = 0; i < m_count; ++i)
+        if (m_types[i] == t)
+          return true;
+
+      return false;
+    }
+  };
+}
+
 Result PreResult2::GenerateFinalResult(
     storage::CountryInfoGetter const * pInfo,
     CategoriesT const * pCat) const
 {
   storage::CountryInfo info;
-  m_region.GetRegion(pInfo, info);
+
+  uint32_t const type = GetBestType();
+
+  static SkipRegionInfo checker;
+  if (type != 0 && !checker.Has(type))
+    m_region.GetRegion(pInfo, info);
 
   switch (m_resultType)
   {
@@ -152,8 +189,7 @@ Result PreResult2::GenerateFinalResult(
                   + ' ' + strings::to_string(static_cast<int>(m_searchRank))
               #endif
                   ,
-                  GetBestType(), feature::GetFeatureViewport(m_types, m_center),
-                  m_distance);
+                  type, feature::GetFeatureViewport(m_types, m_center), m_distance);
 
   case RESULT_LATLON:
     return Result(m_str, info.m_name, info.m_flag, string(), 0,
