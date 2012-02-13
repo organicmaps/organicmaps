@@ -1,43 +1,72 @@
 #include "categories_holder.hpp"
+#include "search_delimiters.hpp"
+#include "search_string_utils.hpp"
+#include "classificator.hpp"
 
-#include "../indexer/classificator.hpp"
-
-#include "../coding/multilang_utf8_string.hpp"
 #include "../coding/reader.hpp"
 #include "../coding/reader_streambuf.hpp"
+#include "../coding/multilang_utf8_string.hpp"
 
-#include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
+#include "../base/stl_add.hpp"
 
 
 namespace
 {
 
-struct Splitter
+enum State
 {
-  vector<string> & m_v;
-  Splitter(vector<string> & v) : m_v(v) {}
-  void operator()(string const & s)
-  {
-    m_v.push_back(s);
-  }
-};
-
-enum State {
   EParseTypes,
   EParseLanguages
 };
 
 }  // unnamed namespace
 
-size_t CategoriesHolder::LoadFromStream(istream & s)
+
+CategoriesHolder::CategoriesHolder(Reader * reader)
 {
-  m_categories.clear();
+  ReaderStreamBuf buffer(reader);
+  istream s(&buffer);
+  LoadFromStream(s);
+}
+
+void CategoriesHolder::AddCategory(Category & cat, vector<uint32_t> & types)
+{
+  if (!cat.m_synonyms.empty() && !types.empty())
+  {
+    shared_ptr<Category> p(new Category());
+    p->Swap(cat);
+
+    for (size_t i = 0; i < types.size(); ++i)
+      m_type2cat.insert(make_pair(types[i], p));
+
+    for (size_t i = 0; i < p->m_synonyms.size(); ++i)
+    {
+      StringT const uniName = search::NormalizeAndSimplifyString(p->m_synonyms[i].m_name);
+
+      vector<StringT> tokens;
+      SplitUniString(uniName, MakeBackInsertFunctor(tokens), search::CategoryDelimiters());
+
+      for (size_t j = 0; j < tokens.size(); ++j)
+        for (size_t k = 0; k < types.size(); ++k)
+          m_name2type.insert(make_pair(tokens[j], types[k]));
+    }
+  }
+
+  cat.m_synonyms.clear();
+  types.clear();
+}
+
+void CategoriesHolder::LoadFromStream(istream & s)
+{
+  m_type2cat.clear();
+  m_name2type.clear();
 
   State state = EParseTypes;
-
   string line;
+
   Category cat;
+  vector<uint32_t> types;
 
   Classificator const & c = classif();
 
@@ -50,20 +79,20 @@ size_t CategoriesHolder::LoadFromStream(istream & s)
     {
     case EParseTypes:
       {
-        if (!cat.m_synonyms.empty() && !cat.m_types.empty())
-          m_categories.push_back(cat);
-        cat.m_synonyms.clear();
-        cat.m_types.clear();
+        AddCategory(cat, types);
+
         while (iter)
         {
           // split category to sub categories for classificator
           vector<string> v;
-          strings::Tokenize(*iter, "-", Splitter(v));
+          strings::Tokenize(*iter, "-", MakeBackInsertFunctor(v));
+
           // get classificator type
-          cat.m_types.push_back(c.GetTypeByPath(v));
+          types.push_back(c.GetTypeByPath(v));
           ++iter;
         }
-        if (!cat.m_types.empty())
+
+        if (!types.empty())
           state = EParseLanguages;
       }
       break;
@@ -75,21 +104,24 @@ size_t CategoriesHolder::LoadFromStream(istream & s)
           state = EParseTypes;
           continue;
         }
-        int8_t langCode = StringUtf8Multilang::GetLangIndex(*iter);
+        int8_t const langCode = StringUtf8Multilang::GetLangIndex(*iter);
         if (langCode == StringUtf8Multilang::UNSUPPORTED_LANGUAGE_CODE)
         {
           LOG(LWARNING, ("Invalid language code:", *iter));
           continue;
         }
+
         while (++iter)
         {
           Category::Name name;
           name.m_lang = langCode;
           name.m_name = *iter;
 
-          // ASSERT(name.m_Name.empty(), ());
           if (name.m_name.empty())
+          {
+            LOG(LWARNING, ("Empty category name"));
             continue;
+          }
 
           if (name.m_name[0] >= '0' && name.m_name[0] <= '9')
           {
@@ -107,25 +139,29 @@ size_t CategoriesHolder::LoadFromStream(istream & s)
   }
 
   // add last category
-  if (!cat.m_synonyms.empty() && !cat.m_types.empty())
-    m_categories.push_back(cat);
-
-  LOG(LINFO, ("Categories loaded: ", m_categories.size()));
-  return m_categories.size();
+  AddCategory(cat, types);
 }
 
-void CategoriesHolder::swap(CategoriesHolder & o)
+bool CategoriesHolder::GetNameByType(uint32_t type, int8_t lang, string & name) const
 {
-  m_categories.swap(o.m_categories);
-}
+  pair<IteratorT, IteratorT> const range = m_type2cat.equal_range(type);
 
-CategoriesHolder::CategoriesHolder()
-{
-}
+  for (IteratorT i = range.first; i != range.second; ++i)
+  {
+    Category const & cat = *i->second;
+    for (size_t j = 0; j < cat.m_synonyms.size(); ++j)
+      if (cat.m_synonyms[j].m_lang == lang)
+      {
+        name = cat.m_synonyms[j].m_name;
+        return true;
+      }
+  }
 
-CategoriesHolder::CategoriesHolder(Reader * reader)
-{
-  ReaderStreamBuf buffer(reader);
-  istream s(&buffer);
-  LoadFromStream(s);
+  if (range.first != range.second)
+  {
+    name = range.first->second->m_synonyms[0].m_name;
+    return true;
+  }
+
+  return false;
 }

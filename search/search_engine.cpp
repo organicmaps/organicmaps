@@ -5,7 +5,6 @@
 #include "../storage/country_info.hpp"
 
 #include "../indexer/categories_holder.hpp"
-#include "../indexer/search_delimiters.hpp"
 #include "../indexer/search_string_utils.hpp"
 #include "../indexer/mercator.hpp"
 
@@ -16,9 +15,7 @@
 #include "../base/logging.hpp"
 #include "../base/stl_add.hpp"
 
-#include "../std/algorithm.hpp"
 #include "../std/map.hpp"
-#include "../std/utility.hpp"
 #include "../std/vector.hpp"
 #include "../std/bind.hpp"
 
@@ -26,27 +23,55 @@
 namespace search
 {
 
+typedef vector<pair<strings::UniString, uint8_t> > SuggestsContainerT;
+
 class EngineData
 {
 public:
-  EngineData(ModelReaderPtr polyR, ModelReaderPtr countryR)
-    : m_infoGetter(polyR, countryR) {}
+  EngineData(Reader * pCategoriesR, ModelReaderPtr polyR, ModelReaderPtr countryR)
+    : m_categories(pCategoriesR), m_infoGetter(polyR, countryR)
+  {
+  }
 
-  multimap<strings::UniString, uint32_t> m_categories;
-  vector<pair<strings::UniString, uint8_t> > m_stringsToSuggest;
+  CategoriesHolder m_categories;
+  SuggestsContainerT m_stringsToSuggest;
   storage::CountryInfoGetter m_infoGetter;
 };
 
-Engine::Engine(IndexType const * pIndex, CategoriesHolder * pCategories,
+namespace
+{
+
+class InitSuggestions
+{
+  map<strings::UniString, uint8_t> m_suggests;
+
+public:
+  void operator() (CategoriesHolder::Category::Name const & name)
+  {
+    strings::UniString const uniName = NormalizeAndSimplifyString(name.m_name);
+
+    uint8_t & score = m_suggests[uniName];
+    if (score == 0 || score > name.m_prefixLengthToSuggest)
+      score = name.m_prefixLengthToSuggest;
+  }
+
+  void GetSuggests(SuggestsContainerT & cont) const
+  {
+    cont.assign(m_suggests.begin(), m_suggests.end());
+  }
+};
+
+}
+
+
+Engine::Engine(IndexType const * pIndex, Reader * pCategoriesR,
                ModelReaderPtr polyR, ModelReaderPtr countryR,
                string const & lang)
-  : m_pIndex(pIndex), m_pData(new EngineData(polyR, countryR))
+  : m_pIndex(pIndex), m_pData(new EngineData(pCategoriesR, polyR, countryR))
 {
-  if (pCategories)
-  {
-    InitializeCategoriesAndSuggestStrings(*pCategories);
-    delete pCategories;
-  }
+  InitSuggestions doInit;
+  m_pData->m_categories.ForEachName(bind<void>(ref(doInit), _1));
+  doInit.GetSuggests(m_pData->m_stringsToSuggest);
 
   m_pQuery.reset(new Query(pIndex,
                            &m_pData->m_categories,
@@ -57,34 +82,6 @@ Engine::Engine(IndexType const * pIndex, CategoriesHolder * pCategories,
 
 Engine::~Engine()
 {
-}
-
-void Engine::InitializeCategoriesAndSuggestStrings(CategoriesHolder const & categories)
-{
-  m_pData->m_categories.clear();
-  m_pData->m_stringsToSuggest.clear();
-
-  map<strings::UniString, uint8_t> stringsToSuggest;
-  for (CategoriesHolder::const_iterator it = categories.begin(); it != categories.end(); ++it)
-  {
-    for (size_t i = 0; i < it->m_synonyms.size(); ++i)
-    {
-      CategoriesHolder::Category::Name const & name = it->m_synonyms[i];
-      strings::UniString const uniName = NormalizeAndSimplifyString(name.m_name);
-
-      uint8_t & score = stringsToSuggest[uniName];
-      if (score == 0 || score > name.m_prefixLengthToSuggest)
-        score = name.m_prefixLengthToSuggest;
-
-      vector<strings::UniString> tokens;
-      SplitUniString(uniName, MakeBackInsertFunctor(tokens), CategoryDelimiters());
-      for (size_t j = 0; j < tokens.size(); ++j)
-        for (size_t k = 0; k < it->m_types.size(); ++k)
-          m_pData->m_categories.insert(make_pair(tokens[j], it->m_types[k]));
-    }
-  }
-
-  m_pData->m_stringsToSuggest.assign(stringsToSuggest.begin(), stringsToSuggest.end());
 }
 
 namespace

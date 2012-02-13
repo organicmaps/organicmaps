@@ -10,6 +10,7 @@
 #include "../indexer/scales.hpp"
 #include "../indexer/search_delimiters.hpp"
 #include "../indexer/search_string_utils.hpp"
+#include "../indexer/categories_holder.hpp"
 
 #include "../coding/multilang_utf8_string.hpp"
 
@@ -26,14 +27,14 @@ namespace search
 {
 
 Query::Query(Index const * pIndex,
-             CategoriesMapT const * pCategories,
+             CategoriesHolder const * pCategories,
              StringsToSuggestVectorT const * pStringsToSuggest,
              storage::CountryInfoGetter const * pInfoGetter)
   : m_pIndex(pIndex),
     m_pCategories(pCategories),
     m_pStringsToSuggest(pStringsToSuggest),
     m_pInfoGetter(pInfoGetter),
-    m_preferredLanguage(StringUtf8Multilang::GetLangIndex("en")),
+    m_currentLang(StringUtf8Multilang::GetLangIndex("en")),
     m_viewport(m2::RectD::GetEmptyRect()), m_viewportExtended(m2::RectD::GetEmptyRect()),
     m_position(empty_pos_value, empty_pos_value),
     m_bOffsetsCacheIsValid(false)
@@ -76,7 +77,7 @@ void Query::SetViewport(m2::RectD const & viewport)
 
 void Query::SetPreferredLanguage(string const & lang)
 {
-  m_preferredLanguage = StringUtf8Multilang::GetLangIndex(lang);
+  m_currentLang = StringUtf8Multilang::GetLangIndex(lang);
 }
 
 void Query::ClearCache()
@@ -183,7 +184,7 @@ void Query::Search(string const & query, Results & res, unsigned int resultsNeed
       m_tokens.resize(31);
 
     vector<vector<int8_t> > langPriorities(3);
-    langPriorities[0].push_back(m_preferredLanguage);
+    langPriorities[0].push_back(m_currentLang);
     langPriorities[1].push_back(StringUtf8Multilang::GetLangIndex("int_name"));
     langPriorities[1].push_back(StringUtf8Multilang::GetLangIndex("en"));
     langPriorities[2].push_back(StringUtf8Multilang::GetLangIndex("default"));
@@ -208,7 +209,7 @@ void Query::Search(string const & query, Results & res, unsigned int resultsNeed
     {
       //double const precision = 5.0 * max(0.0001, min(latPrec, lonPrec));  // Min 55 meters
       res.AddResult(impl::PreResult2(m_viewport, m_position, lat, lon).
-                    GenerateFinalResult(m_pInfoGetter, m_pCategories));
+                    GenerateFinalResult(m_pInfoGetter, m_pCategories, m_currentLang));
     }
   }
 
@@ -465,7 +466,7 @@ void Query::FlushResults(Results & res)
 
     LOG(LDEBUG, (indV[i]));
 
-    res.AddResult((*(indV[i])).GenerateFinalResult(m_pInfoGetter, m_pCategories));
+    res.AddResult((*(indV[i])).GenerateFinalResult(m_pInfoGetter, m_pCategories, m_currentLang));
   }
 }
 
@@ -565,6 +566,18 @@ public:
   void Reset() { m_count = 0; }
 };
 
+class DoInsertTypes
+{
+  vector<strings::UniString> & m_tokens;
+public:
+  DoInsertTypes(vector<strings::UniString> & tokens) : m_tokens(tokens) {}
+
+  void operator() (uint32_t t)
+  {
+    m_tokens.push_back(FeatureTypeToString(t));
+  }
+};
+
 }  // namespace search::impl
 
 void Query::SearchFeatures()
@@ -582,20 +595,14 @@ void Query::SearchFeatures()
   if (m_pCategories)
   {
     for (size_t i = 0; i < m_tokens.size(); ++i)
-    {
-      typedef CategoriesMapT::const_iterator IterT;
-
-      pair<IterT, IterT> const range = m_pCategories->equal_range(m_tokens[i]);
-      for (IterT it = range.first; it != range.second; ++it)
-        tokens[i].push_back(FeatureTypeToString(it->second));
-    }
+      m_pCategories->ForEachTypeByName(m_tokens[i], impl::DoInsertTypes(tokens[i]));
   }
 
   vector<MwmInfo> mwmInfo;
   m_pIndex->GetMwmInfo(mwmInfo);
 
   unordered_set<int8_t> langs;
-  langs.insert(m_preferredLanguage);
+  langs.insert(m_currentLang);
   langs.insert(StringUtf8Multilang::GetLangIndex("int_name"));
   langs.insert(StringUtf8Multilang::GetLangIndex("en"));
   langs.insert(StringUtf8Multilang::GetLangIndex("default"));
@@ -733,7 +740,7 @@ void Query::MatchForSuggestions(strings::UniString const & token, Results & res)
     strings::UniString const & s = it->first;
     if (it->second <= token.size() && StartsWith(s.begin(), s.end(), token.begin(), token.end()))
       res.AddResult(impl::PreResult2(strings::ToUtf8(s), it->second).
-                    GenerateFinalResult(m_pInfoGetter, m_pCategories));
+                    GenerateFinalResult(m_pInfoGetter, m_pCategories, m_currentLang));
   }
 }
 

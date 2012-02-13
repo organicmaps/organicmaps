@@ -28,7 +28,6 @@ struct Checker
     {
     case 0:
       {
-        TEST_EQUAL(cat.m_types.size(), 1, ());
         TEST_EQUAL(cat.m_synonyms.size(), 5, ());
         TEST_EQUAL(cat.m_synonyms[0].m_lang, StringUtf8Multilang::GetLangIndex("en"), ());
         TEST_EQUAL(cat.m_synonyms[0].m_name, "bench", ());
@@ -46,9 +45,8 @@ struct Checker
         ++m_count;
       }
       break;
-    case 1:
+    case 1: case 2:
       {
-        TEST_EQUAL(cat.m_types.size(), 2, ());
         TEST_EQUAL(cat.m_synonyms.size(), 3, ());
         TEST_EQUAL(cat.m_synonyms[0].m_lang, StringUtf8Multilang::GetLangIndex("en"), ());
         TEST_EQUAL(cat.m_synonyms[0].m_name, "village", ());
@@ -61,7 +59,8 @@ struct Checker
         ++m_count;
       }
       break;
-    default: TEST(false, ("Too many categories"));
+    default:
+      TEST(false, ("Too many categories"));
     }
   }
 };
@@ -72,10 +71,10 @@ UNIT_TEST(LoadCategories)
 
   CategoriesHolder h;
   istringstream buffer(TEST_STRING);
-  TEST_GREATER(h.LoadFromStream(buffer), 0, ());
+  h.LoadFromStream(buffer);
 
   size_t count = 0;
   Checker f(count);
   h.ForEachCategory(f);
-  TEST_EQUAL(count, 2, ());
+  TEST_EQUAL(count, 3, ());
 }

@@ -19,6 +19,7 @@
 class FeatureType;
 class Index;
 class MwmInfo;
+class CategoriesHolder;
 
 namespace storage { class CountryInfoGetter; }
 
@@ -37,13 +38,11 @@ namespace impl
 class Query
 {
 public:
-  // Map category_token -> category_type.
-  typedef multimap<strings::UniString, uint32_t> CategoriesMapT;
   // Vector of pairs (string_to_suggest, min_prefix_length_to_suggest).
   typedef vector<pair<strings::UniString, uint8_t> > StringsToSuggestVectorT;
 
   Query(Index const * pIndex,
-        CategoriesMapT const * pCategories,
+        CategoriesHolder const * pCategories,
         StringsToSuggestVectorT const * pStringsToSuggest,
         storage::CountryInfoGetter const * pInfoGetter);
   ~Query();
@@ -87,10 +86,10 @@ private:
   void GetBestMatchName(FeatureType const & f, uint32_t & penalty, string & name);
 
   Index const * m_pIndex;
-  CategoriesMapT const * m_pCategories;
+  CategoriesHolder const * m_pCategories;
   StringsToSuggestVectorT const * m_pStringsToSuggest;
   storage::CountryInfoGetter const * m_pInfoGetter;
-  int m_preferredLanguage;
+  int8_t m_currentLang, m_inputLang;
 
   volatile bool m_cancel;
 

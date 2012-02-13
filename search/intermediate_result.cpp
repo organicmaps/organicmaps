@@ -7,6 +7,7 @@
 #include "../indexer/feature_utils.hpp"
 #include "../indexer/mercator.hpp"
 #include "../indexer/scales.hpp"
+#include "../indexer/categories_holder.hpp"
 
 #include "../geometry/angles.hpp"
 #include "../geometry/distance_on_sphere.hpp"
@@ -170,8 +171,8 @@ namespace
 }
 
 Result PreResult2::GenerateFinalResult(
-    storage::CountryInfoGetter const * pInfo,
-    CategoriesT const * pCat) const
+                        storage::CountryInfoGetter const * pInfo,
+                        CategoriesHolder const * pCat, int8_t lang) const
 {
   storage::CountryInfo info;
 
@@ -184,7 +185,7 @@ Result PreResult2::GenerateFinalResult(
   switch (m_resultType)
   {
   case RESULT_FEATURE:
-    return Result(m_str, info.m_name, info.m_flag, GetFeatureType(pCat)
+    return Result(m_str, info.m_name, info.m_flag, GetFeatureType(pCat, lang)
               #ifdef DEBUG
                   + ' ' + strings::to_string(static_cast<int>(m_searchRank))
               #endif
@@ -308,7 +309,7 @@ string PreResult2::DebugPrint() const
   return res;
 }
 
-string PreResult2::GetFeatureType(CategoriesT const * pCat) const
+string PreResult2::GetFeatureType(CategoriesHolder const * pCat, int8_t lang) const
 {
   ASSERT_EQUAL(m_resultType, RESULT_FEATURE, ());
 
@@ -317,11 +318,9 @@ string PreResult2::GetFeatureType(CategoriesT const * pCat) const
 
   if (pCat)
   {
-    for (CategoriesT::const_iterator i = pCat->begin(); i != pCat->end(); ++i)
-    {
-      if (i->second == type)
-        return strings::ToUtf8(i->first);
-    }
+    string name;
+    if (pCat->GetNameByType(type, lang, name))
+      return name;
   }
 
   string s = classif().GetFullObjectName(type);

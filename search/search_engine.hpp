@@ -13,7 +13,6 @@
 #include "../std/function.hpp"
 
 
-class CategoriesHolder;
 class Index;
 
 namespace search
@@ -32,7 +31,7 @@ public:
   typedef Index IndexType;
 
   // Doesn't take ownership of @pIndex. Takes ownership of pCategories
-  Engine(IndexType const * pIndex, CategoriesHolder * pCategories,
+  Engine(IndexType const * pIndex, Reader * pCategoriesR,
          ModelReaderPtr polyR, ModelReaderPtr countryR,
          string const & lang);
   ~Engine();
@@ -44,8 +43,6 @@ public:
   string GetCountryFile(m2::PointD const & pt) const;
 
 private:
-  void InitializeCategoriesAndSuggestStrings(CategoriesHolder const & categories);
-
   void SetViewportAsync(m2::RectD const & viewport);
   void SearchAsync();
 

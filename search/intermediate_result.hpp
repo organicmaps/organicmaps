@@ -10,6 +10,7 @@
 
 
 class FeatureType;
+class CategoriesHolder;
 
 namespace storage
 {
@@ -70,9 +71,8 @@ public:
   // For RESULT_CATEGORY.
   PreResult2(string const & name, int penalty);
 
-  typedef multimap<strings::UniString, uint32_t> CategoriesT;
   Result GenerateFinalResult(storage::CountryInfoGetter const * pInfo,
-                             CategoriesT const * pCat) const;
+                             CategoriesHolder const * pCat, int8_t lang) const;
 
   static bool LessRank(PreResult2 const & r1, PreResult2 const & r2);
   static bool LessDistance(PreResult2 const & r1, PreResult2 const & r2);
@@ -103,7 +103,7 @@ public:
   string DebugPrint() const;
 
 private:
-  string GetFeatureType(CategoriesT const * pCat) const;
+  string GetFeatureType(CategoriesHolder const * pCat, int8_t lang) const;
 
   feature::TypesHolder m_types;
   inline uint32_t GetBestType() const

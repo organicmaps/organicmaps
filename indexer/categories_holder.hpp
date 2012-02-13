@@ -1,10 +1,12 @@
 #pragma once
-#include "../base/base.hpp"
+#include "../base/string_utils.hpp"
 
 #include "../std/vector.hpp"
+#include "../std/map.hpp"
 #include "../std/string.hpp"
 #include "../std/fstream.hpp"
-#include "../std/algorithm.hpp"
+#include "../std/shared_ptr.hpp"
+
 
 class Reader;
 
@@ -13,9 +15,6 @@ class CategoriesHolder
 public:
   struct Category
   {
-    /// Classificator types
-    vector<uint32_t> m_types;
-
     struct Name
     {
       string m_name;
@@ -23,36 +22,70 @@ public:
       uint8_t m_prefixLengthToSuggest;
     };
 
-    /// <language, synonym>
     vector<Name> m_synonyms;
+
+    inline void Swap(Category & r)
+    {
+      m_synonyms.swap(r.m_synonyms);
+    }
   };
 
-  typedef vector<Category> ContainerT;
-  typedef ContainerT::const_iterator const_iterator;
+private:
+  typedef strings::UniString StringT;
+  typedef multimap<uint32_t, shared_ptr<Category> > ContainerT;
+  typedef ContainerT::const_iterator IteratorT;
 
-  CategoriesHolder();
+  multimap<uint32_t, shared_ptr<Category> > m_type2cat;
+  multimap<StringT, uint32_t> m_name2type;
+
+public:
+  CategoriesHolder() {}
   /// Takes ownership of reader.
   explicit CategoriesHolder(Reader * reader);
 
-  /// @return Number of loaded categories or 0 if something goes wrong.
-  size_t LoadFromStream(istream & s);
+  void LoadFromStream(istream & s);
 
   template <class ToDo>
   void ForEachCategory(ToDo toDo) const
   {
-    for_each(m_categories.begin(), m_categories.end(), toDo);
+    for (IteratorT i = m_type2cat.begin(); i != m_type2cat.end(); ++i)
+      toDo(*i->second);
   }
 
-  const_iterator begin() const { return m_categories.begin(); }
-  const_iterator end() const { return m_categories.end(); }
+  template <class ToDo>
+  void ForEachName(ToDo toDo) const
+  {
+    for (IteratorT i = m_type2cat.begin(); i != m_type2cat.end(); ++i)
+      for (size_t j = 0; j < i->second->m_synonyms.size(); ++j)
+        toDo(i->second->m_synonyms[j]);
+  }
 
-  void swap(CategoriesHolder & o);
+  template <class ToDo>
+  void ForEachTypeByName(StringT const & name, ToDo toDo) const
+  {
+    typedef typename multimap<StringT, uint32_t>::const_iterator IterT;
+
+    pair<IterT, IterT> range = m_name2type.equal_range(name);
+    while (range.first != range.second)
+    {
+      toDo(range.first->second);
+      ++range.first;
+    }
+  }
+
+  bool GetNameByType(uint32_t type, int8_t lang, string & name) const;
+
+  inline void Swap(CategoriesHolder & r)
+  {
+    m_type2cat.swap(r.m_type2cat);
+    m_name2type.swap(r.m_name2type);
+  }
 
 private:
-  ContainerT m_categories;
+  void AddCategory(Category & cat, vector<uint32_t> & types);
 };
 
 inline void swap(CategoriesHolder & a, CategoriesHolder & b)
 {
-  return a.swap(b);
+  return a.Swap(b);
 }
