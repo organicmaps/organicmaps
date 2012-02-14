@@ -145,6 +145,9 @@ public:
   void Search(search::SearchParams const & params);
   bool GetCurrentPosition(double & lat, double & lon);
 
+  /// @return country code in ISO 3166-1 alpha-2 format (two small letters) or empty string
+  string GetCountryCodeByPosition(double lat, double lon) const;
+
   void SetMaxWorldRect();
 
   void Invalidate(bool doForceUpdate = false);

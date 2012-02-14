@@ -19,9 +19,7 @@ namespace search { class Result; }
   UIButton * m_radarButton;
   UISearchBar * m_searchBar;
   UITableView * m_table;
-//  UILabel * m_warningView;
-  /// Warning view shows only if this text is not nil
-//  NSString * m_warningViewText;
+  string m_currentCountryFlagCode;
 }
 
 - (id)initWithFramework:(Framework *)framework andLocationManager:(LocationManager *)lm;

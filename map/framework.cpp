@@ -895,3 +895,9 @@ void Framework::GetFeatureTypes(m2::PointD pt, vector<string> & types) const
 
   getTypes.GetFeatureTypes(5, types);
 }
+
+string Framework::GetCountryCodeByPosition(double lat, double lon) const
+{
+  // @TODO add valid implementation
+  return "by";
+}

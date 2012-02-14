@@ -438,14 +438,19 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
       if (m_radarButton.isSelected)
         cell.accessoryView = nil;
       else
-      { // Show flags only when radar mode is disabled
+      { // Show flags only when radar mode is disabled and feature is not in the same country as the user
         char const * flagCode = r.GetRegionFlag();
-        if (flagCode)
+        if (flagCode && m_currentCountryFlagCode != flagCode)
         {
           UIImage * flagImage = [UIImage imageNamed:[NSString stringWithFormat:@"%s.png", flagCode]];
           UIImageView * imgView = [[UIImageView alloc] initWithImage:flagImage];
           cell.accessoryView = imgView;
           [imgView release];
+        }
+        else
+        {
+          // Reset cached flag for reused cell
+          cell.accessoryView = nil;
         }
       }
       return cell;
@@ -503,23 +508,6 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   }
 }
 
-- (void)updateCompassFor:(UITableViewCell *)cell withResult:(search::Result const &)res andAngle:(double)angle
-{
-  CompassView * compass = nil;
-  if (cell.accessoryView == nil)
-  {
-    float const h = m_table.rowHeight * 0.6;
-    compass = [[CompassView alloc] initWithFrame:CGRectMake(0, 0, h, h)];
-    cell.accessoryView = compass;
-    [compass release];
-  }
-  else if ([cell.accessoryView isKindOfClass:[CompassView class]])
-    compass = (CompassView *)cell.accessoryView;
-
-  if (compass)
-    compass.angle = angle;
-}
-
 //****************************************************************** 
 //*********** Location manager callbacks ***************************
 - (void)onLocationStatusChanged:(location::TLocationStatus)newStatus
@@ -529,6 +517,10 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 
 - (void)onGpsUpdate:(location::GpsInfo const &)info
 {
+  // Update current country code only once after Search View was opened
+  if (m_currentCountryFlagCode.empty())
+    m_currentCountryFlagCode = m_framework->GetCountryCodeByPosition(info.m_latitude, info.m_longitude);
+
   // Refresh search results with newer location, but
   // do not search if text is not entered
   NSString * queryString = m_searchBar.text;
@@ -554,10 +546,25 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
     search::Result const & res = [g_lastSearchResults get][[m_table indexPathForCell:cell].row];
     if (res.GetResultType() == search::Result::RESULT_FEATURE)
     {
-      m2::PointD const center = res.GetFeatureCenter();
-      double const angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(loc.coordinate.longitude),
-          MercatorBounds::LatToY(loc.coordinate.latitude)), center) + northDeg / 180. * math::pi;
-      [self updateCompassFor:cell withResult:res andAngle:angle];
+      // Show compass only for cells without flags
+      CompassView * compass = nil;
+      if (cell.accessoryView == nil)
+      {
+        // Create compass view if it wasn't already created
+        float const h = m_table.rowHeight * 0.6;
+        compass = [[CompassView alloc] initWithFrame:CGRectMake(0, 0, h, h)];
+        cell.accessoryView = compass;
+        [compass release];
+      }
+      else if ([cell.accessoryView isKindOfClass:[CompassView class]])
+        compass = (CompassView *)cell.accessoryView;
+
+      if (compass)
+      {
+        m2::PointD const center = res.GetFeatureCenter();
+        compass.angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(loc.coordinate.longitude),
+                        MercatorBounds::LatToY(loc.coordinate.latitude)), center) + northDeg / 180. * math::pi;
+      }
     }
   }
 }
