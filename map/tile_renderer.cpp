@@ -335,26 +335,6 @@ void TileRenderer::FinishTile(Tiler::RectInfo const & rectInfo)
   m_tilesInProgress.erase(rectInfo);
 }
 
-void TileRenderer::CheckCurrentTiles(vector<Tiler::RectInfo> & v)
 {
-  bool shouldCancel = true;
-
-  {
-    threads::MutexGuard g(m_tilesInProgressMutex);
-
-    for (set<Tiler::RectInfo>::const_iterator it = m_tilesInProgress.begin();
-         it != m_tilesInProgress.end();
-         ++it)
-    {
-      /// if the first non-drawn tile in new coverage is
-      /// already rendering do not cancell it.
-      if (!v.empty() && v[0] == *it)
-        shouldCancel = false;
-    }
-  }
-
-  if (shouldCancel)
-    CancelCommands();
 }
-
 

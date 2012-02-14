@@ -245,8 +245,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   /// setting new sequenceID
   m_tileRenderer->SetSequenceID(m_tiler.sequenceID());
 
-  /// checking, whether we should cancel tile that is currently rendering
-  m_tileRenderer->CheckCurrentTiles(newRects);
+  m_tileRenderer->CancelCommands();
 
   /// adding commands for tiles which aren't in cache
   for (size_t i = 0; i < newRects.size(); ++i)

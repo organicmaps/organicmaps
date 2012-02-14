@@ -106,7 +106,4 @@ public:
   void StartTile(Tiler::RectInfo const & rectInfo);
   void FinishTile(Tiler::RectInfo const & rectInfo);
 
-  /// checking, whether we should cancell currently rendering tiles,
-  /// or continue with theirs rendering.
-  void CheckCurrentTiles(vector<Tiler::RectInfo> & v);
 };
