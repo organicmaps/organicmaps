@@ -193,7 +193,7 @@ void TilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
 
   pDrawer->screen()->clear(m_bgColor);
 
-  m_coverageGenerator->AddCoverScreenTask(currentScreen);
+  m_coverageGenerator->AddCoverScreenTask(currentScreen, false);
 
   m_coverageGenerator->Mutex().Lock();
 
