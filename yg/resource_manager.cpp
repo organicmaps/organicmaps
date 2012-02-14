@@ -30,6 +30,8 @@ namespace yg
       return 4;
     case yg::Data4Bpp:
       return 2;
+    case yg::Data565Bpp:
+      return 2;
     default:
       return 0;
     }
@@ -47,8 +49,11 @@ namespace yg
     case yg::Data4Bpp:
       return shared_ptr<gl::BaseTexture>(new gl::Texture<yg::RGBA4Traits, true>(m_w, m_h));
     case yg::Data8Bpp:
-    default:
       return shared_ptr<gl::BaseTexture>(new gl::Texture<yg::RGBA8Traits, true>(m_w, m_h));
+    case yg::Data565Bpp:
+      return shared_ptr<gl::BaseTexture>(new gl::Texture<yg::RGB565Traits, true>(m_w, m_h));
+    default:
+      return shared_ptr<gl::BaseTexture>();
     }
   }
 
@@ -240,6 +245,9 @@ namespace yg
       break;
     case yg::Data8Bpp:
       pixelSize = 4;
+      break;
+    case yg::Data565Bpp:
+      pixelSize = 2;
       break;
     }
 
@@ -693,6 +701,8 @@ namespace yg
       return make_shared_ptr(new gl::Texture<RGBA8Traits, false>(w, h));
     case Data4Bpp:
       return make_shared_ptr(new gl::Texture<RGBA4Traits, false>(w, h));
+    case Data565Bpp:
+      return make_shared_ptr(new gl::Texture<RGB565Traits, false>(w, h));
     default:
       MYTHROW(ResourceManagerException, ("unknown render target format"));
     };

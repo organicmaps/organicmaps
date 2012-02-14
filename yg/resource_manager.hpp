@@ -27,7 +27,8 @@ namespace yg
   enum DataFormat
   {
     Data8Bpp,
-    Data4Bpp
+    Data4Bpp,
+    Data565Bpp
   };
 
   struct TTextureFactory : BasePoolElemFactory
