@@ -60,6 +60,7 @@ public:
   void ClearCache();
 
   inline void DoCancel() { m_cancel = true; }
+  inline bool IsCanceled() const { return m_cancel; }
   struct CancelException {};
 
 private:

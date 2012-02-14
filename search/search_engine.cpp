@@ -148,7 +148,8 @@ void Engine::SearchAsync()
   }
 
   // Initialize query.
-  if (params.IsNearMeMode())
+  bool const nearMe = params.IsNearMeMode();
+  if (nearMe)
     m_pQuery->SetViewport(GetViewportRect(params.m_lat, params.m_lon));
   else
     m_pQuery->SetViewport(viewport);
@@ -158,13 +159,30 @@ void Engine::SearchAsync()
   else
     m_pQuery->NullPosition();
 
+  unsigned int const resultsNeeded = 10;
   Results res;
+
+  // Run first search with needed params.
   try
   {
-    m_pQuery->Search(params.m_query, res);
+    m_pQuery->Search(params.m_query, res, resultsNeeded);
   }
   catch (Query::CancelException const &)
   {
+  }
+
+  // If not enough results, run second search with "Near Me" viewport.
+  if (!m_pQuery->IsCanceled() && !nearMe && params.m_validPos && (res.Count() < resultsNeeded))
+  {
+    m_pQuery->SetViewport(GetViewportRect(params.m_lat, params.m_lon));
+
+    try
+    {
+      m_pQuery->Search(params.m_query, res, resultsNeeded);
+    }
+    catch (Query::CancelException const &)
+    {
+    }
   }
 
   // Emit results in any way, even if search was canceled.
