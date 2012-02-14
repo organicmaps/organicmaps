@@ -35,6 +35,8 @@ class StringUtf8Multilang
   size_t GetNextIndex(size_t i) const;
 
 public:
+  static int8_t const UNSUPPORTED_LANGUAGE_CODE = -1;
+  /// @return UNSUPPORTED_LANGUAGE_CODE if language is not recognized
   static int8_t GetLangIndex(string const & lang);
   /// @return empty string if langCode is invalid
   static char const * GetLangByCode(int8_t langCode);

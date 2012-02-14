@@ -147,6 +147,8 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 {
   params.m_query = [[queryString precomposedStringWithCompatibilityMapping] UTF8String];
   params.m_callback = bind(&OnSearchResultCallback, _1, g_queryId);
+  // Set current keyboard input mode
+  params.SetInputLanguage([[UITextInputMode currentInputMode].primaryLanguage UTF8String]);
   
   bool radarEnabled = m_radarButton.selected == YES;
   CLLocation * l = m_locationManager.lastLocation;

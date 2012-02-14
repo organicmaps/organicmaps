@@ -76,7 +76,7 @@ size_t CategoriesHolder::LoadFromStream(string const & buffer)
           continue;
         }
         int8_t langCode = StringUtf8Multilang::GetLangIndex(*iter);
-        if (langCode == -1)
+        if (langCode == StringUtf8Multilang::UNSUPPORTED_LANGUAGE_CODE)
         {
           LOG(LWARNING, ("Invalid language code:", *iter));
           continue;

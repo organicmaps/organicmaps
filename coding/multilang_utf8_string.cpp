@@ -18,7 +18,7 @@ int8_t StringUtf8Multilang::GetLangIndex(string const & lang)
     if (lang == gLangs[i])
       return static_cast<int8_t>(i);
 
-  return -1;
+  return UNSUPPORTED_LANGUAGE_CODE;
 }
 
 char const * StringUtf8Multilang::GetLangByCode(int8_t langCode)
