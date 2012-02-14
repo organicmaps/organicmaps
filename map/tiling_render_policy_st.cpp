@@ -36,7 +36,8 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                            shared_ptr<yg::gl::RenderContext> const & primaryRC)
   : QueuedRenderPolicy(GetPlatform().CpuCores() + 1, primaryRC, false, GetPlatform().CpuCores()),
     m_drawScale(0),
-    m_isEmptyModel(false)
+    m_isEmptyModel(false),
+    m_doForce(false)
 {
   yg::ResourceManager::Params rmp = rmParams;
 
@@ -262,7 +263,8 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
 
   pDrawer->screen()->clear(m_bgColor);
 
-  m_coverageGenerator->AddCoverScreenTask(currentScreen);
+  m_coverageGenerator->AddCoverScreenTask(currentScreen, m_doForce);
+  m_doForce = false;
 
   m_coverageGenerator->Mutex().Lock();
 

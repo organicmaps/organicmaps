@@ -40,6 +40,8 @@ private:
   int m_drawScale;
   bool m_isEmptyModel;
 
+  bool m_doForce;
+
 protected:
 
   TileRenderer & GetTileRenderer();
@@ -58,6 +60,12 @@ public:
 
   virtual void StartScale();
   virtual void StopScale();
+
+  virtual void StartDrag();
+  virtual void StopDrag();
+
+  virtual void StartRotate(double a, double timeInSec);
+  virtual void StopRotate(double a, double timeInSec);
 
   bool IsTiling() const;
   bool IsEmptyModel() const;

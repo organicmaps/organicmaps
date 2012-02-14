@@ -60,7 +60,7 @@ public:
   void InitializeThreadGL();
   void FinalizeThreadGL();
 
-  void AddCoverScreenTask(ScreenBase const & screen);
+  void AddCoverScreenTask(ScreenBase const & screen, bool doForce);
   void AddMergeTileTask(Tiler::RectInfo const & rectInfo);
 
   void CoverScreen(ScreenBase const & screen, int sequenceID);

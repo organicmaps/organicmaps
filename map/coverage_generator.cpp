@@ -75,9 +75,9 @@ void CoverageGenerator::Cancel()
   m_queue.Cancel();
 }
 
-void CoverageGenerator::AddCoverScreenTask(ScreenBase const & screen)
+void CoverageGenerator::AddCoverScreenTask(ScreenBase const & screen, bool doForce)
 {
-  if (screen == m_currentScreen)
+  if ((screen == m_currentScreen) && (!doForce))
     return;
 
   m_currentScreen = screen;
