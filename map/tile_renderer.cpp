@@ -13,6 +13,7 @@
 
 #include "../base/logging.hpp"
 #include "../base/condition.hpp"
+#include "../base/shared_buffer_manager.hpp"
 
 TileRenderer::TileRenderer(
     string const & skinName,
@@ -55,8 +56,8 @@ TileRenderer::TileRenderer(
     params.m_skinName = m_skinName;
     if (packetsQueues != 0)
       params.m_renderQueue = packetsQueues[i];
-    params.m_doUnbindRT = true;
-    params.m_isSynchronized = true;
+    params.m_doUnbindRT = false;
+    params.m_isSynchronized = false;
   /*  params.m_isDebugging = true;
     params.m_drawPathes = false ;
     params.m_drawAreas = false;
@@ -109,6 +110,29 @@ void TileRenderer::FinalizeThreadGL(core::CommandsQueue::Environment const & env
 
   if (threadData.m_renderContext)
     threadData.m_renderContext->endThreadDrawing();
+}
+
+void TileRenderer::ReadPixels(yg::gl::PacketsQueue * glQueue, core::CommandsQueue::Environment const & env)
+{
+  ThreadData & threadData = m_threadData[env.threadNum()];
+
+  DrawerYG * drawer = threadData.m_drawer;
+
+  if (glQueue)
+  {
+    glQueue->processFn(bind(&TileRenderer::ReadPixels, this, (yg::gl::PacketsQueue*)0, ref(env)), true);
+    return;
+  }
+
+  if (!env.isCancelled())
+  {
+    unsigned tileWidth = m_resourceManager->params().m_renderTargetTexturesParams.m_texWidth;
+    unsigned tileHeight = m_resourceManager->params().m_renderTargetTexturesParams.m_texHeight;
+
+    shared_ptr<vector<unsigned char> > buf = SharedBufferManager::instance().reserveSharedBuffer(tileWidth * tileHeight * 4);
+    drawer->screen()->readPixels(m2::RectU(0, 0, tileWidth, tileHeight), &(buf->at(0)), true);
+    SharedBufferManager::instance().freeSharedBuffer(tileWidth * tileHeight * 4, buf);
+  }
 }
 
 void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
@@ -197,9 +221,18 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   drawer->screen()->resetInfoLayer();
 
+  // performing some computational task
+  // to give this thread some time to realize
+  // that it could be cancelled
+
   /// filter out the overlay elements that are out of the bound rect for the tile
   if (!env.isCancelled())
     tileInfoLayer->clip(renderRect);
+
+  ReadPixels(glQueue, env);
+  drawer->screen()->finish();
+
+  drawer->screen()->unbindRenderTarget();
 
   if (!env.isCancelled())
   {
