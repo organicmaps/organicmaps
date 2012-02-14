@@ -31,7 +31,8 @@ TileRenderer::TileRenderer(
       m_skinName(skinName),
       m_bgColor(bgColor),
       m_sequenceID(0),
-      m_isExiting(false)
+      m_isExiting(false),
+      m_isPaused(false)
 {
   m_resourceManager = rm;
   m_primaryContext = primaryRC;
@@ -139,6 +140,9 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
                            Tiler::RectInfo const & rectInfo,
                            int sequenceID)
 {
+  if (m_isPaused)
+    return;
+
   /// commands from the previous sequence are ignored
   if (sequenceID < m_sequenceID)
     return;
@@ -250,8 +254,6 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   FinishTile(rectInfo);
 
-  double duration = timer.ElapsedSeconds();
-
   if (env.isCancelled())
   {
     if (!m_isExiting)
@@ -262,7 +264,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
                            tileInfoLayer,
                            frameScreen,
                            rectInfo,
-                           duration,
+                           0,
                            paintEvent->isEmptyDrawing()));
 }
 
@@ -335,6 +337,8 @@ void TileRenderer::FinishTile(Tiler::RectInfo const & rectInfo)
   m_tilesInProgress.erase(rectInfo);
 }
 
+void TileRenderer::SetIsPaused(bool flag)
 {
+  m_isPaused = flag;
 }
 

@@ -57,6 +57,8 @@ protected:
   int m_sequenceID;
   bool m_isExiting;
 
+  bool m_isPaused;
+
   threads::Mutex m_tilesInProgressMutex;
   set<Tiler::RectInfo> m_tilesInProgress;
 
@@ -106,4 +108,5 @@ public:
   void StartTile(Tiler::RectInfo const & rectInfo);
   void FinishTile(Tiler::RectInfo const & rectInfo);
 
+  void SetIsPaused(bool flag);
 };

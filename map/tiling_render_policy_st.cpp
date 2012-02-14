@@ -297,11 +297,42 @@ TileRenderer & TilingRenderPolicyST::GetTileRenderer()
 void TilingRenderPolicyST::StartScale()
 {
   m_isScaling = true;
+  m_tileRenderer->SetIsPaused(true);
+  m_tileRenderer->CancelCommands();
 }
 
 void TilingRenderPolicyST::StopScale()
 {
   m_isScaling = false;
+  m_tileRenderer->SetIsPaused(false);
+  m_doForce = true;
+  RenderPolicy::StopScale();
+}
+
+void TilingRenderPolicyST::StartDrag()
+{
+  m_tileRenderer->SetIsPaused(true);
+  m_tileRenderer->CancelCommands();
+}
+
+void TilingRenderPolicyST::StopDrag()
+{
+  m_tileRenderer->SetIsPaused(false);
+  m_doForce = true;
+  RenderPolicy::StopDrag();
+}
+
+void TilingRenderPolicyST::StartRotate(double a, double timeInSec)
+{
+  m_tileRenderer->SetIsPaused(true);
+  m_tileRenderer->CancelCommands();
+}
+
+void TilingRenderPolicyST::StopRotate(double a, double timeInSec)
+{
+  m_tileRenderer->SetIsPaused(false);
+  m_doForce = true;
+  RenderPolicy::StopRotate(a, timeInSec);
 }
 
 bool TilingRenderPolicyST::IsTiling() const
