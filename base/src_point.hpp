@@ -23,7 +23,7 @@ namespace my
   class SrcPoint
   {
   public:
-    SrcPoint() : m_fileName(""), m_line(-1), m_function("")
+    SrcPoint() : m_fileName(""), m_line(-1), m_function(""), m_postfix("")
     {
       TruncateFileName();
     }

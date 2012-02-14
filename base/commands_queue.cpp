@@ -158,7 +158,8 @@ namespace core
 
   CommandsQueue::~CommandsQueue()
   {
-    // @TODO memory leak in m_executors? call Cancel()?
+    /// @todo memory leak in m_executors? call Cancel()?
+    //CHECK ( m_executors == 0, () );
   }
 
   void CommandsQueue::Cancel()
