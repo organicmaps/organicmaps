@@ -218,6 +218,7 @@ namespace qt
       yg::ResourceManager::Params rmParams;
       rmParams.m_rtFormat = yg::Data8Bpp;
       rmParams.m_texFormat = yg::Data8Bpp;
+      rmParams.m_texRtFormat = yg::Data8Bpp;
       rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();
 
       try

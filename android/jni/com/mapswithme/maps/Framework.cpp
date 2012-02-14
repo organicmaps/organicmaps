@@ -99,6 +99,7 @@ namespace android
     rmParams.m_videoMemoryLimit = 30 * 1024 * 1024;
     rmParams.m_rtFormat = yg::Data8Bpp;
     rmParams.m_texFormat = yg::Data4Bpp;
+    rmParams.m_texRtFormat = yg::Data4Bpp;
 
     try
     {
