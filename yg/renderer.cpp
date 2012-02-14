@@ -1,5 +1,6 @@
 #include "../base/SRC_FIRST.hpp"
 #include "renderer.hpp"
+#include "data_formats.hpp"
 #include "utils.hpp"
 #include "framebuffer.hpp"
 #include "renderbuffer.hpp"
@@ -175,6 +176,30 @@ namespace yg
       if (isDebugging())
         LOG(LINFO, ("performing FinishCommand command"));
       OGLCHECK(glFinish());
+    }
+
+    Renderer::ReadPixels::ReadPixels(m2::RectU const & r, void * data)
+      : m_rect(r), m_data(data)
+    {}
+
+    void Renderer::ReadPixels::perform()
+    {
+      if (isDebugging())
+        LOG(LINFO, ("performing ReadPixels command"));
+
+      OGLCHECK(glReadPixels(m_rect.minX(),
+                            m_rect.minY(),
+                            m_rect.SizeX(),
+                            m_rect.SizeY(),
+                            RT_TRAITS::gl_pixel_format_type,
+                            RT_TRAITS::gl_pixel_data_type,
+                            m_data
+                            ));
+    }
+
+    void Renderer::readPixels(m2::RectU const & r, void * data, bool doForce)
+    {
+      processCommand(make_shared_ptr(new ReadPixels(r, data)), Packet::ECommand, doForce);
     }
 
     void Renderer::finish()

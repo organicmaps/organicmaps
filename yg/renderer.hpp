@@ -6,6 +6,7 @@
 #include "../base/threaded_list.hpp"
 #include "../std/function.hpp"
 #include "../std/shared_ptr.hpp"
+#include "../geometry/rect2d.hpp"
 
 namespace yg
 {
@@ -33,6 +34,16 @@ namespace yg
                      bool clearRT = true,
                      float depth = 1.0,
                      bool clearDepth = true);
+
+        void perform();
+      };
+
+      struct ReadPixels : Command
+      {
+        m2::RectU m_rect;
+        void * m_data;
+
+        ReadPixels(m2::RectU const & r, void * data);
 
         void perform();
       };
@@ -128,6 +139,7 @@ namespace yg
       unsigned int height() const;
 
       void finish();
+      void readPixels(m2::RectU const & r, void * data, bool doForce = false);
 
       bool isDebugging() const;
 
