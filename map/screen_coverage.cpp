@@ -1,5 +1,7 @@
 #include "../base/SRC_FIRST.hpp"
 
+#include "../platform/platform.hpp"
+
 #include "../std/bind.hpp"
 #include "../std/set.hpp"
 #include "../std/algorithm.hpp"
@@ -174,7 +176,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   TileSet prevTiles;
 
   m_tiler.currentLevelTiles(allRects);
-  m_tiler.prevLevelTiles(allPrevRects, 1);
+  m_tiler.prevLevelTiles(allPrevRects, GetPlatform().PreCachingDepth());
 
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
 

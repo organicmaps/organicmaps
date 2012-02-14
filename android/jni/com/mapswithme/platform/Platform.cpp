@@ -17,26 +17,38 @@ public:
 
     double const log2 = log(2.0);
 
-    screenWidth = static_cast<int>(pow(2.0, ceil(log(double(screenWidth)) / log2)));
-    screenHeight = static_cast<int>(pow(2.0, ceil(log(double(screenHeight)) / log2)));
+    size_t ceiledScreenWidth = static_cast<int>(pow(2.0, ceil(log(double(screenWidth)) / log2)));
+    size_t ceiledScreenHeight = static_cast<int>(pow(2.0, ceil(log(double(screenHeight)) / log2)));
 
-    size_t screenSize = max(screenWidth, screenHeight);
+    size_t ceiledScreenSize = max(ceiledScreenWidth, ceiledScreenHeight);
 
-    m_tileSize = min(max(max(screenWidth, screenHeight) / 2, 128), 512);
+    m_tileSize = min(max(ceiledScreenSize / 2, (size_t)128), (size_t)512);
 
     int k = static_cast<int>((256.0 / m_tileSize) * (256.0 / m_tileSize));
 
     /// calculating how much tiles we need for the screen of such size
 
-    /// pure magic ;)
+    m_maxTilesCount = 0;
 
-    double rotatedScreenCircleDiameter = sqrt(screenSize * screenSize + screenSize * screenSize);
-    int tilesOnOneSide = ceil(rotatedScreenCircleDiameter / (m_tileSize / 1.05 / 2));
-    /// hardcoding the fact, that we are computing screen coverage
-    /// on slightly enlarged screen rect to produce effect of precaching.
-    ++tilesOnOneSide;
-    int singleScreenTilesCount = tilesOnOneSide * tilesOnOneSide;
-    m_maxTilesCount = singleScreenTilesCount * 2;
+    m_preCachingDepth = 3;
+
+    /// calculating for non-rotated screen
+
+    for (unsigned i = 0; i < m_preCachingDepth; ++i)
+    {
+      /// minimum size of tile on the screen
+      int minTileSize = floor((m_tileSize << i) / 1.05 / 2.0) - 1;
+      int tilesOnXSide = ceil(screenWidth / minTileSize) + 1;
+      int tilesOnYSide = ceil(screenHeight / minTileSize) + 1;
+      /// tiles in the single screen
+      int singleScreenTilesCount = tilesOnXSide * tilesOnYSide;
+
+      int curLevelTilesCount = singleScreenTilesCount * 2;
+
+      m_maxTilesCount += curLevelTilesCount;
+
+      LOG(LINFO, ("on", i, "depth we need", curLevelTilesCount, "tiles"));
+    }
 
     LOG(LINFO, ("minimum amount of tiles needed is", m_maxTilesCount));
 
@@ -70,6 +82,7 @@ public:
   string m_skinName;
   int m_maxTilesCount;
   size_t m_tileSize;
+  size_t m_preCachingDepth;
 };
 
 double Platform::VisualScale() const
@@ -90,6 +103,11 @@ int Platform::MaxTilesCount() const
 int Platform::TileSize() const
 {
   return m_impl->m_tileSize;
+}
+
+int Platform::PreCachingDepth() const
+{
+  return m_impl->m_preCachingDepth;
 }
 
 namespace android
