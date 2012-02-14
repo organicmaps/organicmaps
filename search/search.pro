@@ -32,3 +32,4 @@ SOURCES += \
     latlon_match.cpp \
     approximate_string_match.cpp \
     lang_keywords_scorer.cpp \
+    params.cpp \
