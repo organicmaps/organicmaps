@@ -143,7 +143,7 @@ namespace yg
 
       bool isDebugging() const;
 
-      void processCommand(shared_ptr<Command> const & command, Packet::EType type = Packet::ECommand);
+      void processCommand(shared_ptr<Command> const & command, Packet::EType type = Packet::ECommand, bool doForce = false);
       PacketsQueue * renderQueue();
 
       /// insert empty packet into glQueue to mark the frame boundary

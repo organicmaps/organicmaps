@@ -250,12 +250,11 @@ namespace yg
       return m_isDebugging;
     }
 
-    void Renderer::processCommand(shared_ptr<Command> const & command, Packet::EType type)
+    void Renderer::processCommand(shared_ptr<Command> const & command, Packet::EType type, bool doForce)
     {
-//      command->m_isDebugging = false;
-      command->m_isDebugging = renderQueue();
+      command->m_isDebugging = renderQueue() && !doForce;
 
-      if (renderQueue())
+      if (renderQueue() && !doForce)
         renderQueue()->processPacket(Packet(command, type));
       else
         command->perform();
