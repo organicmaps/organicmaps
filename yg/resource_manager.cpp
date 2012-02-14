@@ -349,6 +349,7 @@ namespace yg
   ResourceManager::Params::Params()
     : m_rtFormat(yg::Data8Bpp),
       m_texFormat(yg::Data4Bpp),
+      m_texRtFormat(yg::Data4Bpp),
       m_useSingleThreadedOGL(false),
       m_useVA(true),
       m_videoMemoryLimit(0),

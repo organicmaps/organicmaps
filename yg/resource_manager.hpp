@@ -208,6 +208,7 @@ namespace yg
     {
       DataFormat m_rtFormat;
       DataFormat m_texFormat;
+      DataFormat m_texRtFormat;
       bool m_useSingleThreadedOGL;
       bool m_useVA;
 
