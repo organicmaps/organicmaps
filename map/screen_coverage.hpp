@@ -47,6 +47,7 @@ private:
   /// Typedef for a set of tiles, that are visible for the m_screen
   typedef set<Tile const *, LessRectInfo> TileSet;
   TileSet m_tiles;
+  TileSet m_prevTiles;
   /// InfoLayer composed of infoLayers for visible tiles
   scoped_ptr<yg::InfoLayer> m_infoLayer;
   /// Primary scale, which is used to draw tiles in m_screen.

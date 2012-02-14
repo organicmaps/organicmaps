@@ -62,6 +62,14 @@ ScreenCoverage * ScreenCoverage::Clone()
     tileCache->lockTile(ri);
   }
 
+  res->m_prevTiles = m_prevTiles;
+
+  for (TileSet::const_iterator it = res->m_prevTiles.begin(); it != res->m_prevTiles.end(); ++it)
+  {
+    Tiler::RectInfo const & ri = (*it)->m_rectInfo;
+    tileCache->lockTile(ri);
+  }
+
   tileCache->writeUnlock();
 
   res->m_infoLayer.reset();
@@ -160,24 +168,19 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   m_tiler.seed(m_screen, m_screen.GlobalRect().GlobalCenter());
 
   vector<Tiler::RectInfo> allRects;
+  vector<Tiler::RectInfo> allPrevRects;
   vector<Tiler::RectInfo> newRects;
   TileSet tiles;
+  TileSet prevTiles;
 
-  m_tiler.visibleTiles(allRects);
+  m_tiler.currentLevelTiles(allRects);
+  m_tiler.prevLevelTiles(allPrevRects, 1);
 
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
 
   tileCache->writeLock();
 
-  double drawScale = -1;
-
-  for (unsigned i = 0; i < allRects.size(); ++i)
-    if (drawScale == -1)
-      drawScale = allRects[i].m_drawScale;
-    else
-      CHECK(drawScale == allRects[i].m_drawScale, (drawScale, allRects[i].m_drawScale));
-
-  m_drawScale = drawScale == -1 ? 0 : drawScale;
+  m_drawScale = m_tiler.drawScale();
 
   m_isEmptyDrawingCoverage = true;
 
@@ -197,6 +200,27 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
     }
     else
       newRects.push_back(ri);
+  }
+
+  for (TileSet::const_iterator it = m_prevTiles.begin(); it != m_prevTiles.end(); ++it)
+    tileCache->unlockTile((*it)->m_rectInfo);
+
+  m_prevTiles.clear();
+
+  for (unsigned i = 0; i < allPrevRects.size(); ++i)
+  {
+    Tiler::RectInfo ri = allPrevRects[i];
+    if (tileCache->hasTile(ri))
+    {
+      tileCache->touchTile(ri);
+      Tile const * tile = &tileCache->getTile(ri);
+      ASSERT(m_prevTiles.find(tile) == m_prevTiles.end(), ());
+
+      /// here we lock tiles from the previous level to prevent them from the deletion from cache
+      tileCache->lockTile(ri);
+
+      m_prevTiles.insert(tile);
+    }
   }
 
   tileCache->writeUnlock();
@@ -258,8 +282,18 @@ ScreenCoverage::~ScreenCoverage()
 {
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
 
+  /// unlocking tiles from the primary level
+
   tileCache->writeLock();
   for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
+  {
+    Tiler::RectInfo const & ri = (*it)->m_rectInfo;
+    tileCache->unlockTile(ri);
+  }
+
+  /// unlocking tiles from the previous level
+
+  for (TileSet::const_iterator it = m_prevTiles.begin(); it != m_prevTiles.end(); ++it)
   {
     Tiler::RectInfo const & ri = (*it)->m_rectInfo;
     tileCache->unlockTile(ri);
@@ -271,6 +305,24 @@ ScreenCoverage::~ScreenCoverage()
 void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)
 {
   vector<yg::gl::BlitInfo> infos;
+
+  for (TileSet::const_iterator it = m_prevTiles.begin(); it != m_prevTiles.end(); ++it)
+  {
+    Tile const * tile = *it;
+
+    size_t tileWidth = tile->m_renderTarget->width();
+    size_t tileHeight = tile->m_renderTarget->height();
+
+    yg::gl::BlitInfo bi;
+
+    bi.m_matrix = tile->m_tileScreen.PtoGMatrix() * screen.GtoPMatrix();
+
+    bi.m_srcRect = m2::RectI(0, 0, tileWidth - 2, tileHeight - 2);
+    bi.m_texRect = m2::RectU(1, 1, tileWidth - 1, tileHeight - 1);
+    bi.m_srcSurface = tile->m_renderTarget;
+
+    infos.push_back(bi);
+  }
 
   for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
   {
