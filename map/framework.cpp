@@ -891,8 +891,8 @@ void Framework::GetFeatureTypes(m2::PointD pt, vector<string> & types) const
   getTypes.GetFeatureTypes(5, types);
 }
 
-string Framework::GetCountryCodeByPosition(double lat, double lon) const
+string Framework::GetCountryCodeByPosition(double lat, double lon)
 {
-  // @TODO add valid implementation
-  return "by";
+  return GetSearchEngine()->GetCountryCode(m2::PointD(
+                           MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat)));
 }

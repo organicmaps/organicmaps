@@ -147,7 +147,7 @@ public:
   bool GetCurrentPosition(double & lat, double & lon);
 
   /// @return country code in ISO 3166-1 alpha-2 format (two small letters) or empty string
-  string GetCountryCodeByPosition(double lat, double lon) const;
+  string GetCountryCodeByPosition(double lat, double lon);
 
   void SetMaxWorldRect();
 

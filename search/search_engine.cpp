@@ -209,4 +209,11 @@ string Engine::GetCountryFile(m2::PointD const & pt) const
   return m_pData->m_infoGetter.GetRegionFile(pt);
 }
 
+string Engine::GetCountryCode(m2::PointD const & pt) const
+{
+  storage::CountryInfo info;
+  m_pData->m_infoGetter.GetRegionInfo(pt, info);
+  return info.m_flag;
+}
+
 }  // namespace search

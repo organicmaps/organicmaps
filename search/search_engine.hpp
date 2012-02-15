@@ -41,6 +41,7 @@ public:
   void Search(SearchParams const & params, m2::RectD const & viewport);
 
   string GetCountryFile(m2::PointD const & pt) const;
+  string GetCountryCode(m2::PointD const & pt) const;
 
 private:
   void SetViewportAsync(m2::RectD const & viewport, m2::RectD const & nearby);
