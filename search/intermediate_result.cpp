@@ -159,14 +159,8 @@ namespace
         m_types[i] = c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2));
     }
 
-    bool Has(uint32_t t) const
-    {
-      for (size_t i = 0; i < m_count; ++i)
-        if (m_types[i] == t)
-          return true;
-
-      return false;
-    }
+    bool IsContinent(uint32_t t) const { return (m_types[0] == t); }
+    bool IsCountry(uint32_t t) const { return (m_types[1] == t); }
   };
 }
 
@@ -179,8 +173,13 @@ Result PreResult2::GenerateFinalResult(
   uint32_t const type = GetBestType();
 
   static SkipRegionInfo checker;
-  if (type != 0 && !checker.Has(type))
+  if (type != 0 && !checker.IsContinent(type))
+  {
     m_region.GetRegion(pInfo, info);
+
+    if (checker.IsCountry(type))
+      info.m_name.clear();
+  }
 
   switch (m_resultType)
   {
