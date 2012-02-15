@@ -44,19 +44,18 @@ private:
   TileRectSet m_tileRects;
   /// Only rects, that should be drawn
   TileRectSet m_newTileRects;
+  /// Only leaf rects, that should be drawn
+  TileRectSet m_newLeafTileRects;
   /// Typedef for a set of tiles, that are visible for the m_screen
   typedef set<Tile const *, LessRectInfo> TileSet;
   TileSet m_tiles;
   TileSet m_prevTiles;
   /// InfoLayer composed of infoLayers for visible tiles
   scoped_ptr<yg::InfoLayer> m_infoLayer;
-  /// Primary scale, which is used to draw tiles in m_screen.
-  /// Not all tiles could correspond to this value, as there could be tiles from
-  /// lower and higher level in the coverage to provide a smooth
-  /// scale transition experience
-  int m_drawScale;
 
   bool m_isEmptyDrawingCoverage;
+
+  int m_leavesCount;
 
   CoverageGenerator * m_coverageGenerator;
   yg::StylesCache * m_stylesCache;
@@ -96,5 +95,8 @@ public:
   /// perform end frame
   void EndFrame(yg::gl::Screen * s);
   /// get draw scale for the tiles in the current coverage
+  /// Not all tiles in coverage could correspond to this value,
+  /// as there could be tiles from lower and higher level in the
+  /// coverage to provide a smooth scale transition experience
   int GetDrawScale() const;
 };

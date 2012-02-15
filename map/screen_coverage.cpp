@@ -17,8 +17,8 @@
 ScreenCoverage::ScreenCoverage()
   : m_tiler(0, 0),
     m_infoLayer(new yg::InfoLayer()),
-    m_drawScale(0),
     m_isEmptyDrawingCoverage(false),
+    m_leavesCount(0),
     m_stylesCache(0)
 {
   m_infoLayer->setCouldOverlap(false);
@@ -31,8 +31,8 @@ ScreenCoverage::ScreenCoverage(TileRenderer * tileRenderer,
   : m_tileRenderer(tileRenderer),
     m_tiler(tileSize, scaleEtalonSize),
     m_infoLayer(new yg::InfoLayer()),
-    m_drawScale(0),
     m_isEmptyDrawingCoverage(false),
+    m_leavesCount(0),
     m_coverageGenerator(coverageGenerator),
     m_stylesCache(0)
 {
@@ -49,8 +49,9 @@ ScreenCoverage * ScreenCoverage::Clone()
   res->m_coverageGenerator = m_coverageGenerator;
   res->m_tileRects = m_tileRects;
   res->m_newTileRects = m_newTileRects;
-  res->m_drawScale = m_drawScale;
+  res->m_newLeafTileRects = m_newLeafTileRects;
   res->m_isEmptyDrawingCoverage = m_isEmptyDrawingCoverage;
+  res->m_leavesCount = m_leavesCount;
 
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
 
@@ -119,8 +120,13 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
        m_tiles.insert(tile);
        m_tileRects.erase(ri);
        m_newTileRects.erase(ri);
+       m_newLeafTileRects.erase(ri);
 
-       m_isEmptyDrawingCoverage &= tile->m_isEmptyDrawing;
+       if (m_tiler.isLeaf(ri))
+       {
+         m_isEmptyDrawingCoverage &= tile->m_isEmptyDrawing;
+         m_leavesCount--;
+       }
     }
   }
 
@@ -128,12 +134,14 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
 
   if (addTile)
   {
-    yg::InfoLayer * tileInfoLayerCopy = tile->m_infoLayer->clone();
+    if (m_tiler.isLeaf(ri))
+    {
+      yg::InfoLayer * tileInfoLayerCopy = tile->m_infoLayer->clone();
+      m_infoLayer->merge(*tileInfoLayerCopy,
+                          tile->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
 
-    m_infoLayer->merge(*tileInfoLayerCopy,
-                        tile->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
-
-    delete tileInfoLayerCopy;
+      delete tileInfoLayerCopy;
+    }
   }
 }
 
@@ -167,41 +175,45 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   m_screen = screen;
 
   m_newTileRects.clear();
+
   m_tiler.seed(m_screen, m_screen.GlobalRect().GlobalCenter());
 
   vector<Tiler::RectInfo> allRects;
   vector<Tiler::RectInfo> allPrevRects;
   vector<Tiler::RectInfo> newRects;
   TileSet tiles;
-  TileSet prevTiles;
 
-  m_tiler.currentLevelTiles(allRects);
-  m_tiler.prevLevelTiles(allPrevRects, GetPlatform().PreCachingDepth());
+  m_tiler.tiles(allRects, GetPlatform().PreCachingDepth());
 
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
 
   tileCache->writeLock();
 
-  m_drawScale = m_tiler.drawScale();
-
   m_isEmptyDrawingCoverage = true;
+  m_leavesCount = 0;
 
   for (unsigned i = 0; i < allRects.size(); ++i)
   {
     m_tileRects.insert(allRects[i]);
     Tiler::RectInfo ri = allRects[i];
+
     if (tileCache->hasTile(ri))
     {
       tileCache->touchTile(ri);
       Tile const * tile = &tileCache->getTile(ri);
       ASSERT(tiles.find(tile) == tiles.end(), ());
 
-      m_isEmptyDrawingCoverage &= tile->m_isEmptyDrawing;
+      if (m_tiler.isLeaf(allRects[i]))
+        m_isEmptyDrawingCoverage &= tile->m_isEmptyDrawing;
 
       tiles.insert(tile);
     }
     else
+    {
       newRects.push_back(ri);
+      if (m_tiler.isLeaf(ri))
+        ++m_leavesCount;
+    }
   }
 
   for (TileSet::const_iterator it = m_prevTiles.begin(); it != m_prevTiles.end(); ++it)
@@ -260,12 +272,58 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 
   for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
   {
-    yg::InfoLayer * tileInfoLayerCopy = (*it)->m_infoLayer->clone();
-    m_infoLayer->merge(*tileInfoLayerCopy, (*it)->m_tileScreen.PtoGMatrix() * screen.GtoPMatrix());
-    delete tileInfoLayerCopy;
+    Tiler::RectInfo ri = (*it)->m_rectInfo;
+    if (m_tiler.isLeaf(ri))
+    {
+      yg::InfoLayer * tileInfoLayerCopy = (*it)->m_infoLayer->clone();
+      m_infoLayer->merge(*tileInfoLayerCopy, (*it)->m_tileScreen.PtoGMatrix() * screen.GtoPMatrix());
+      delete tileInfoLayerCopy;
+    }
   }
 
+  m_newLeafTileRects.clear();
+
+  for (unsigned i = 0; i < newRects.size(); ++i)
+    if (m_tiler.isLeaf(newRects[i]))
+      m_newLeafTileRects.insert(newRects[i]);
+
   copy(newRects.begin(), newRects.end(), inserter(m_newTileRects, m_newTileRects.end()));
+
+  set<Tiler::RectInfo> drawnTiles;
+
+  for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
+  {
+    Tiler::RectInfo ri = (*it)->m_rectInfo;
+    drawnTiles.insert(Tiler::RectInfo(0, ri.m_tileScale, ri.m_x, ri.m_y));
+  }
+
+  vector<Tiler::RectInfo> firstClassTiles;
+  vector<Tiler::RectInfo> secondClassTiles;
+
+  for (unsigned i = 0; i < newRects.size(); ++i)
+  {
+    Tiler::RectInfo nr = newRects[i];
+
+    Tiler::RectInfo cr[4] =
+    {
+      Tiler::RectInfo(0, nr.m_tileScale + 1, nr.m_x * 2,     nr.m_y * 2),
+      Tiler::RectInfo(0, nr.m_tileScale + 1, nr.m_x * 2 + 1, nr.m_y * 2),
+      Tiler::RectInfo(0, nr.m_tileScale + 1, nr.m_x * 2 + 1, nr.m_y * 2 + 1),
+      Tiler::RectInfo(0, nr.m_tileScale + 1, nr.m_x * 2,     nr.m_y * 2 + 1)
+    };
+
+    int childTilesToDraw = 4;
+
+    for (int i = 0; i < 4; ++i)
+      if (drawnTiles.count(cr[i]) || !m_screen.GlobalRect().IsIntersect(m2::AnyRectD(cr[i].m_rect)))
+        --childTilesToDraw;
+
+    if (childTilesToDraw > 1)
+      firstClassTiles.push_back(nr);
+    else
+      secondClassTiles.push_back(nr);
+  }
+
   /// clearing all old commands
   m_tileRenderer->ClearCommands();
   /// setting new sequenceID
@@ -273,11 +331,16 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 
   m_tileRenderer->CancelCommands();
 
-  /// adding commands for tiles which aren't in cache
-  for (size_t i = 0; i < newRects.size(); ++i)
-    m_tileRenderer->AddCommand(newRects[i], m_tiler.sequenceID(),
-                               bind(&CoverageGenerator::AddMergeTileTask, m_coverageGenerator, newRects[i]));
+  // filtering out rects that are fully covered by its descedants
 
+  // adding commands for tiles which aren't in cache
+  for (size_t i = 0; i < firstClassTiles.size(); ++i)
+    m_tileRenderer->AddCommand(firstClassTiles[i], m_tiler.sequenceID(),
+                               bind(&CoverageGenerator::AddMergeTileTask, m_coverageGenerator,
+                                    firstClassTiles[i]));
+
+  for (size_t i = 0; i < secondClassTiles.size(); ++i)
+    m_tileRenderer->AddCommand(secondClassTiles[i], m_tiler.sequenceID());
 }
 
 ScreenCoverage::~ScreenCoverage()
@@ -308,23 +371,7 @@ void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)
 {
   vector<yg::gl::BlitInfo> infos;
 
-  for (TileSet::const_iterator it = m_prevTiles.begin(); it != m_prevTiles.end(); ++it)
-  {
-    Tile const * tile = *it;
-
-    size_t tileWidth = tile->m_renderTarget->width();
-    size_t tileHeight = tile->m_renderTarget->height();
-
-    yg::gl::BlitInfo bi;
-
-    bi.m_matrix = tile->m_tileScreen.PtoGMatrix() * screen.GtoPMatrix();
-
-    bi.m_srcRect = m2::RectI(0, 0, tileWidth - 2, tileHeight - 2);
-    bi.m_texRect = m2::RectU(1, 1, tileWidth - 1, tileHeight - 1);
-    bi.m_srcSurface = tile->m_renderTarget;
-
-    infos.push_back(bi);
-  }
+//  LOG(LINFO, ("drawing", m_tiles.size(), "tiles"));
 
   for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
   {
@@ -369,12 +416,12 @@ void ScreenCoverage::EndFrame(yg::gl::Screen *s)
 
 int ScreenCoverage::GetDrawScale() const
 {
-  return m_drawScale;
+  return m_tiler.drawScale();
 }
 
 bool ScreenCoverage::IsEmptyDrawingCoverage() const
 {
-  return m_isEmptyDrawingCoverage;
+  return (m_leavesCount <= 0) && m_isEmptyDrawingCoverage;
 }
 
 bool ScreenCoverage::IsPartialCoverage() const

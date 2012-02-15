@@ -76,7 +76,7 @@ int Platform::MaxTilesCount() const
 
 int Platform::PreCachingDepth() const
 {
-  return 3;
+  return 5;
 }
 
 int Platform::TileSize() const

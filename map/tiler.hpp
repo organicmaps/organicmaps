@@ -46,18 +46,19 @@ public:
   /// seed tiler with new screenBase.
   void seed(ScreenBase const & screenBase, m2::PointD const & centerPt);
 
-  void currentLevelTiles(vector<RectInfo> & tiles);
-  void prevLevelTiles(vector<RectInfo> & tiles, int depth);
+  void tiles(vector<RectInfo> & tiles, int depth);
+  bool isLeaf(RectInfo const & ri) const;
 
   size_t sequenceID() const;
 
-  double drawScale() const;
+  int drawScale() const;
+  int tileScale() const;
 };
 
-struct LessByDistance
+struct LessByScaleAndDistance
 {
   m2::PointD m_pt;
-  LessByDistance(m2::PointD const & pt);
+  LessByScaleAndDistance(m2::PointD const & pt);
   bool operator()(Tiler::RectInfo const & l, Tiler::RectInfo const & r);
 };
 

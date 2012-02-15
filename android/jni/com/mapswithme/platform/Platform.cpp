@@ -17,42 +17,51 @@ public:
 
     double const log2 = log(2.0);
 
+//    LOG(LINFO, ("width:", screenWidth, ", height:", screenHeight));
+
     size_t ceiledScreenWidth = static_cast<int>(pow(2.0, ceil(log(double(screenWidth)) / log2)));
     size_t ceiledScreenHeight = static_cast<int>(pow(2.0, ceil(log(double(screenHeight)) / log2)));
 
     size_t ceiledScreenSize = max(ceiledScreenWidth, ceiledScreenHeight);
 
+//    LOG(LINFO, ("ceiledScreenSize=", ceiledScreenSize));
+
     m_tileSize = min(max(ceiledScreenSize / 2, (size_t)128), (size_t)512);
 
-    int k = static_cast<int>((256.0 / m_tileSize) * (256.0 / m_tileSize));
+    double k = (256.0 / m_tileSize) * (256.0 / m_tileSize);
+
+    LOG(LINFO, ("tileSize=", m_tileSize));
 
     /// calculating how much tiles we need for the screen of such size
 
     m_maxTilesCount = 0;
 
-    m_preCachingDepth = 3;
+    m_preCachingDepth = 6;
 
     /// calculating for non-rotated screen
 
     for (unsigned i = 0; i < m_preCachingDepth; ++i)
     {
+//      LOG(LINFO, ("calculating", i, "level"));
       /// minimum size of tile on the screen
-      int minTileSize = floor((m_tileSize << i) / 1.05 / 2.0) - 1;
+      float minTileSize = floor((m_tileSize << i) / 1.05 / 2.0) - 1;
+//      LOG(LINFO, ("minTileSize:", minTileSize));
       int tilesOnXSide = ceil(screenWidth / minTileSize) + 1;
+//      LOG(LINFO, ("tilesOnXSide:", tilesOnXSide));
       int tilesOnYSide = ceil(screenHeight / minTileSize) + 1;
+//      LOG(LINFO, ("tilesOnYSide:", tilesOnYSide));
       /// tiles in the single screen
       int singleScreenTilesCount = tilesOnXSide * tilesOnYSide;
-
-      int curLevelTilesCount = singleScreenTilesCount * 2;
-
+//      LOG(LINFO, ("singleScreenTilesCount:", singleScreenTilesCount));
+      int curLevelTilesCount = singleScreenTilesCount * 3;
+//      LOG(LINFO, ("curLevelTilesCount:", curLevelTilesCount));
       m_maxTilesCount += curLevelTilesCount;
-
-      LOG(LINFO, ("on", i, "depth we need", curLevelTilesCount, "tiles"));
+//      LOG(LINFO, ("on", i, "depth we need", curLevelTilesCount, "tiles"));
     }
 
     LOG(LINFO, ("minimum amount of tiles needed is", m_maxTilesCount));
 
-    m_maxTilesCount = max(120 * k, m_maxTilesCount);
+    m_maxTilesCount = max(static_cast<int>(120 * k), m_maxTilesCount);
 
     switch (densityDpi)
     {
