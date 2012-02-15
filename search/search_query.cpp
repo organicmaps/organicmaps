@@ -35,10 +35,11 @@ Query::Query(Index const * pIndex,
     m_pStringsToSuggest(pStringsToSuggest),
     m_pInfoGetter(pInfoGetter),
     m_currentLang(StringUtf8Multilang::GetLangIndex("en")),
-    m_viewport(m2::RectD::GetEmptyRect()), m_viewportExtended(m2::RectD::GetEmptyRect()),
-    m_position(empty_pos_value, empty_pos_value),
-    m_bOffsetsCacheIsValid(false)
+    m_position(empty_pos_value, empty_pos_value)
 {
+  // m_viewport, m_viewportExtended are initialized as empty rects
+
+  ASSERT ( m_pIndex, () );
 }
 
 Query::~Query()
@@ -47,9 +48,9 @@ Query::~Query()
 
 namespace
 {
-  inline bool IsEqual(m2::RectD const & r1, m2::RectD const & r2, double eps)
+  inline bool IsEqualMercator(m2::RectD const & r1, m2::RectD const & r2, double epsMeters)
   {
-    eps = eps * MercatorBounds::degreeInMetres;
+    double const eps = epsMeters * MercatorBounds::degreeInMetres;
 
     m2::RectD r = r1;
     r.Inflate(eps, eps);
@@ -63,17 +64,26 @@ namespace
   }
 }
 
-void Query::SetViewport(m2::RectD const & viewport)
+void Query::SetViewport(m2::RectD viewport[], size_t count)
 {
-  // Check if viewports are equal.
-  // 10.0 - is 10 meters
-  if (!m_bOffsetsCacheIsValid || !IsEqual(m_viewport, viewport, 10.0))
-  {
-    m_viewport = viewport;
-    m_viewportExtended = m_viewport;
-    m_viewportExtended.Scale(3);
+  ASSERT_LESS_OR_EQUAL(count, m_rectsCount, ());
 
-    UpdateViewportOffsets();
+  for (size_t i = 0; i < count; ++i)
+  {
+    if (viewport[i].IsValid())
+    {
+      // Check if viewports are equal (10 meters).
+      if (!m_viewport[i].IsValid() || !IsEqualMercator(m_viewport[i], viewport[i], 10.0))
+      {
+        m_viewport[i] = viewport[i];
+        m_viewportExtended[i] = m_viewport[i];
+        m_viewportExtended[i].Scale(3);
+
+        UpdateViewportOffsets(i);
+      }
+    }
+    else
+      ClearCache(i);
   }
 }
 
@@ -84,25 +94,32 @@ void Query::SetPreferredLanguage(string const & lang)
 
 void Query::ClearCache()
 {
-  m_offsetsInViewport.clear();
-  m_bOffsetsCacheIsValid = false;
+  for (size_t i = 0; i < m_rectsCount; ++i)
+    ClearCache(i);
 }
 
-void Query::UpdateViewportOffsets()
+void Query::ClearCache(size_t ind)
 {
-  m_offsetsInViewport.clear();
+  m_offsetsInViewport[ind].clear();
+  m_viewport[ind].MakeEmpty();
+  m_viewportExtended[ind].MakeEmpty();
+}
+
+void Query::UpdateViewportOffsets(size_t ind)
+{
+  m_offsetsInViewport[ind].clear();
 
   vector<MwmInfo> mwmInfo;
   m_pIndex->GetMwmInfo(mwmInfo);
-  m_offsetsInViewport.resize(mwmInfo.size());
+  m_offsetsInViewport[ind].resize(mwmInfo.size());
 
-  int const viewScale = scales::GetScaleLevel(m_viewport);
-  covering::CoveringGetter cov(m_viewport, 0);
+  int const viewScale = scales::GetScaleLevel(m_viewport[ind]);
+  covering::CoveringGetter cov(m_viewport[ind], 0);
 
   for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
   {
     // Search only mwms that intersect with viewport (world always does).
-    if (m_viewportExtended.IsIntersect(mwmInfo[mwmId].m_limitRect))
+    if (m_viewportExtended[ind].IsIntersect(mwmInfo[mwmId].m_limitRect))
     {
       Index::MwmLock mwmLock(*m_pIndex, mwmId);
       if (MwmValue * pMwm = mwmLock.GetValue())
@@ -111,7 +128,7 @@ void Query::UpdateViewportOffsets()
         if (header.GetType() == feature::DataHeader::country)
         {
           pair<int, int> const scaleR = header.GetScaleRange();
-          int const scale = min(max(viewScale + 7, scaleR.first), scaleR.second);
+          int const scale = min(max(viewScale + m_scaleDepthSearch, scaleR.first), scaleR.second);
 
           covering::IntervalsT const & interval = cov.Get(header.GetLastScale());
 
@@ -120,23 +137,21 @@ void Query::UpdateViewportOffsets()
 
           for (size_t i = 0; i < interval.size(); ++i)
           {
-            index.ForEachInIntervalAndScale(MakeBackInsertFunctor(m_offsetsInViewport[mwmId]),
+            index.ForEachInIntervalAndScale(MakeBackInsertFunctor(m_offsetsInViewport[ind][mwmId]),
                                             interval[i].first, interval[i].second,
                                             scale);
           }
 
-          sort(m_offsetsInViewport[mwmId].begin(), m_offsetsInViewport[mwmId].end());
+          sort(m_offsetsInViewport[ind][mwmId].begin(), m_offsetsInViewport[ind][mwmId].end());
         }
       }
     }
   }
 
-  m_bOffsetsCacheIsValid = true;
-
 #ifdef DEBUG
   size_t offsetsCached = 0;
   for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
-    offsetsCached += m_offsetsInViewport[mwmId].size();
+    offsetsCached += m_offsetsInViewport[ind][mwmId].size();
 
   LOG(LDEBUG, ("For search in viewport cached ",
               "mwms:", mwmInfo.size(),
@@ -210,7 +225,7 @@ void Query::Search(string const & query, Results & res, unsigned int resultsNeed
     if (search::MatchLatLon(m_rawQuery, lat, lon, latPrec, lonPrec))
     {
       //double const precision = 5.0 * max(0.0001, min(latPrec, lonPrec));  // Min 55 meters
-      res.AddResult(impl::PreResult2(m_viewport, m_position, lat, lon).
+      res.AddResult(impl::PreResult2(GetViewport(), m_position, lat, lon).
                     GenerateFinalResult(m_pInfoGetter, m_pCategories, m_currentLang));
     }
   }
@@ -387,21 +402,21 @@ void Query::FlushResults(Results & res)
 {
   typedef impl::PreResult2 ResultT;
 
-  /*
-  #ifdef DEBUG
-      {
-        impl::PreResult2Maker maker(*this);
-        LOG(LDEBUG, ("Dump features for rank:"));
-        for (QueueT::const_iterator i = m_results[0].begin(); i != m_results[0].end(); ++i)
-        {
-          ResultT * res = maker(*i);
-          LOG(LDEBUG, (*res));
-          delete res;
-        }
-        LOG(LDEBUG, ("------------------------"));
-      }
-  #endif
-  */
+/*
+#ifdef DEBUG
+  {
+    impl::PreResult2Maker maker(*this);
+    LOG(LDEBUG, ("Dump features for rank:"));
+    for (QueueT::const_iterator i = m_results[0].begin(); i != m_results[0].end(); ++i)
+    {
+      ResultT * res = maker(*i);
+      LOG(LDEBUG, (*res));
+      delete res;
+    }
+    LOG(LDEBUG, ("------------------------"));
+  }
+#endif
+*/
 
   vector<IndexedValue> indV;
 
@@ -490,7 +505,7 @@ namespace
 
 void Query::AddResultFromTrie(TrieValueT const & val, size_t mwmID)
 {
-  impl::PreResult1 res(val.m_featureId, val.m_rank, val.m_pt, mwmID, m_position, m_viewport);
+  impl::PreResult1 res(val.m_featureId, val.m_rank, val.m_pt, mwmID, m_position, GetViewport());
 
   for (size_t i = 0; i < m_qCount; ++i)
   {
@@ -584,9 +599,6 @@ public:
 
 void Query::SearchFeatures()
 {
-  if (!m_pIndex)
-    return;
-
   vector<vector<strings::UniString> > tokens(m_tokens.size());
 
   // Add normal tokens.
@@ -609,7 +621,11 @@ void Query::SearchFeatures()
   langs.insert(StringUtf8Multilang::GetLangIndex("en"));
   langs.insert(StringUtf8Multilang::GetLangIndex("default"));
 
-  SearchFeatures(tokens, mwmInfo, langs, true);
+  for (size_t i = 0; i < m_rectsCount; ++i)
+  {
+    if (m_viewportExtended[i].IsValid())
+      SearchFeatures(tokens, mwmInfo, langs, i);
+  }
 }
 
 namespace
@@ -639,13 +655,12 @@ namespace
 void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
                            vector<MwmInfo> const & mwmInfo,
                            unordered_set<int8_t> const & langs,
-                           bool onlyInViewport)
+                           size_t ind)
 {
   for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
   {
     // Search only mwms that intersect with viewport (world always does).
-    if (!onlyInViewport ||
-        m_viewportExtended.IsIntersect(mwmInfo[mwmId].m_limitRect))
+    if (m_viewportExtended[ind].IsIntersect(mwmInfo[mwmId].m_limitRect))
     {
       Index::MwmLock mwmLock(*m_pIndex, mwmId);
       if (MwmValue * pMwm = mwmLock.GetValue())
@@ -653,8 +668,12 @@ void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
         if (pMwm->m_cont.IsReaderExist(SEARCH_INDEX_FILE_TAG))
         {
           feature::DataHeader const & header = pMwm->GetHeader();
-          serial::CodingParams cp(GetCPForTrie(header.GetDefCodingParams()));
+          bool const isWorld = (header.GetType() == feature::DataHeader::world);
 
+          if (isWorld && !m_worldSearch)
+            continue;
+
+          serial::CodingParams cp(GetCPForTrie(header.GetDefCodingParams()));
           scoped_ptr<TrieIterator> pTrieRoot(::trie::reader::ReadTrie(
                                                pMwm->m_cont.GetReader(SEARCH_INDEX_FILE_TAG),
                                                trie::ValueReader(cp),
@@ -679,8 +698,6 @@ void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
           }
           ASSERT_NOT_EQUAL(pCategoriesRoot, 0, ());
 
-          bool const isWorld = (header.GetType() == feature::DataHeader::world);
-
           impl::FeatureLoader emitter(*this, mwmId);
 
           // Iterate through first language edges.
@@ -694,7 +711,8 @@ void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
               MatchFeaturesInTrie(tokens, m_prefix,
                                   TrieRootPrefix(*pLangRoot, edge),
                                   TrieRootPrefix(*pCategoriesRoot, categoriesEdge),
-                                  FeaturesFilter(m_offsetsInViewport[mwmId], isWorld, m_cancel), emitter);
+                                  FeaturesFilter(m_offsetsInViewport[ind][mwmId], isWorld, m_cancel),
+                                  emitter);
 
               LOG(LDEBUG, ("Lang:",
                            StringUtf8Multilang::GetLangByCode(static_cast<int8_t>(edge[0])),
@@ -743,6 +761,17 @@ void Query::MatchForSuggestions(strings::UniString const & token, Results & res)
     if (it->second <= token.size() && StartsWith(s.begin(), s.end(), token.begin(), token.end()))
       res.AddResult(impl::PreResult2(strings::ToUtf8(s), it->second).
                     GenerateFinalResult(m_pInfoGetter, m_pCategories, m_currentLang));
+  }
+}
+
+m2::RectD const & Query::GetViewport() const
+{
+  if (m_viewport[0].IsValid())
+    return m_viewport[0];
+  else
+  {
+    ASSERT ( m_viewport[1].IsValid(), () );
+    return m_viewport[1];
   }
 }
 

@@ -38,6 +38,8 @@ namespace impl
 class Query
 {
 public:
+  static int const m_scaleDepthSearch = 7;
+
   // Vector of pairs (string_to_suggest, min_prefix_length_to_suggest).
   typedef vector<pair<strings::UniString, uint8_t> > StringsToSuggestVectorT;
 
@@ -47,11 +49,13 @@ public:
         storage::CountryInfoGetter const * pInfoGetter);
   ~Query();
 
-  void SetViewport(m2::RectD const & viewport);
+  void SetViewport(m2::RectD viewport[], size_t count);
 
   static const int empty_pos_value = -1000;
   inline void SetPosition(m2::PointD const & pos) { m_position = pos; }
   inline void NullPosition() { m_position = m2::PointD(empty_pos_value, empty_pos_value); }
+
+  inline void SetSearchInWorld(bool b) { m_worldSearch = b; }
 
   void SetPreferredLanguage(string const & lang);
 
@@ -68,7 +72,8 @@ private:
   friend class impl::BestNameFinder;
   friend class impl::PreResult2Maker;
 
-  void UpdateViewportOffsets();
+  void UpdateViewportOffsets(size_t ind);
+  void ClearCache(size_t ind);
 
   typedef trie::ValueReader::ValueType TrieValueT;
   void AddResultFromTrie(TrieValueT const & val, size_t mwmID);
@@ -79,7 +84,7 @@ private:
   void SearchFeatures(vector<vector<strings::UniString> > const & tokens,
                       vector<MwmInfo> const & mwmInfo,
                       unordered_set<int8_t> const & langs,
-                      bool onlyInViewport);
+                      size_t ind);
 
   void SuggestStrings(Results & res);
   void MatchForSuggestions(strings::UniString const & token, Results & res);
@@ -99,13 +104,22 @@ private:
   buffer_vector<strings::UniString, 32> m_tokens;
   strings::UniString m_prefix;
 
-  m2::RectD m_viewport, m_viewportExtended;
+  /// @todo OMG, this static integral constant does't link ???
+  //static size_t const m_rectsCount = 2;
+  enum { m_rectsCount = 2 };
+
+  m2::RectD m_viewport[m_rectsCount];
+  m2::RectD m_viewportExtended[m_rectsCount];
+  bool m_worldSearch;
+
+  /// @return Rect for viewport-distance calculation.
+  m2::RectD const & GetViewport() const;
+
   m2::PointD m_position;
 
   scoped_ptr<LangKeywordsScorer> m_pKeywordsScorer;
 
-  bool m_bOffsetsCacheIsValid;
-  vector<vector<uint32_t> > m_offsetsInViewport;
+  vector<vector<uint32_t> > m_offsetsInViewport[m_rectsCount];
 
   template <class ParamT, class RefT> class CompareT
   {

@@ -36,14 +36,14 @@ public:
          string const & lang);
   ~Engine();
 
-  void PrepareSearch(m2::RectD const & viewport, bool nearMe,
-                     double lat, double lon);
+  void PrepareSearch(m2::RectD const & viewport,
+                     bool hasPt, double lat, double lon);
   void Search(SearchParams const & params, m2::RectD const & viewport);
 
   string GetCountryFile(m2::PointD const & pt) const;
 
 private:
-  void SetViewportAsync(m2::RectD const & viewport);
+  void SetViewportAsync(m2::RectD const & viewport, m2::RectD const & nearby);
   void SearchAsync();
 
   threads::Mutex m_searchMutex, m_updateMutex;

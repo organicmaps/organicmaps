@@ -7,6 +7,7 @@
 #include "../indexer/categories_holder.hpp"
 #include "../indexer/search_string_utils.hpp"
 #include "../indexer/mercator.hpp"
+#include "../indexer/scales.hpp"
 
 #include "../platform/platform.hpp"
 
@@ -94,14 +95,30 @@ namespace
   {
     return MercatorBounds::MetresToXY(lon, lat, radius);
   }
+
+  /// Check rects for optimal search (avoid duplicating).
+  void AnalizeRects(m2::RectD arrRects[2])
+  {
+    if (arrRects[1].IsRectInside(arrRects[0]))
+      arrRects[0].MakeEmpty();
+    else
+    {
+      if (arrRects[0].IsRectInside(arrRects[1]) &&
+          scales::GetScaleLevel(arrRects[0]) + Query::m_scaleDepthSearch >= scales::GetUpperScale())
+      {
+        arrRects[1].MakeEmpty();
+      }
+    }
+  }
 }
 
-void Engine::PrepareSearch(m2::RectD const & viewport, bool nearMe,
-                           double lat, double lon)
+void Engine::PrepareSearch(m2::RectD const & viewport,
+                           bool hasPt, double lat, double lon)
 {
-  // bind does copy of viewport
-  m2::RectD const r = (nearMe ? GetViewportRect(lat, lon) : viewport);
-  GetPlatform().RunAsync(bind(&Engine::SetViewportAsync, this, r));
+  m2::RectD const nearby = (hasPt ? GetViewportRect(lat, lon) : m2::RectD());
+
+  // bind does copy of all rects
+  GetPlatform().RunAsync(bind(&Engine::SetViewportAsync, this, viewport, nearby));
 }
 
 void Engine::Search(SearchParams const & params, m2::RectD const & viewport)
@@ -118,7 +135,7 @@ void Engine::Search(SearchParams const & params, m2::RectD const & viewport)
   p.RunAsync(bind(&Engine::SearchAsync, this));
 }
 
-void Engine::SetViewportAsync(m2::RectD const & viewport)
+void Engine::SetViewportAsync(m2::RectD const & viewport, m2::RectD const & nearby)
 {
   // First of all - cancel previous query.
   m_pQuery->DoCancel();
@@ -126,7 +143,10 @@ void Engine::SetViewportAsync(m2::RectD const & viewport)
   // Enter to run new search.
   threads::MutexGuard searchGuard(m_searchMutex);
 
-  m_pQuery->SetViewport(viewport);
+  m2::RectD arrRects[] = { viewport, nearby };
+  AnalizeRects(arrRects);
+
+  m_pQuery->SetViewport(arrRects, ARRAY_SIZE(arrRects));
 }
 
 void Engine::SearchAsync()
@@ -139,50 +159,45 @@ void Engine::SearchAsync()
 
   // Get current search params.
   SearchParams params;
-  m2::RectD viewport;
+  m2::RectD arrRects[2];
 
   {
     threads::MutexGuard updateGuard(m_updateMutex);
     params = m_params;
-    viewport = m_viewport;
+    arrRects[0] = m_viewport;
   }
 
   // Initialize query.
-  bool const nearMe = params.IsNearMeMode();
-  if (nearMe)
-    m_pQuery->SetViewport(GetViewportRect(params.m_lat, params.m_lon));
-  else
-    m_pQuery->SetViewport(viewport);
-
+  bool worldSearch = true;
   if (params.m_validPos)
+  {
     m_pQuery->SetPosition(GetViewportXY(params.m_lat, params.m_lon));
+
+    arrRects[1] = GetViewportRect(params.m_lat, params.m_lon);
+
+    // Do not search in viewport for "NearMe" mode.
+    if (params.IsNearMeMode())
+    {
+      worldSearch = false;
+      arrRects[0].MakeEmpty();
+    }
+    else
+      AnalizeRects(arrRects);
+  }
   else
     m_pQuery->NullPosition();
 
-  unsigned int const resultsNeeded = 10;
+  m_pQuery->SetViewport(arrRects, 2);
+  m_pQuery->SetSearchInWorld(worldSearch);
+
   Results res;
 
-  // Run first search with needed params.
   try
   {
-    m_pQuery->Search(params.m_query, res, resultsNeeded);
+    m_pQuery->Search(params.m_query, res);
   }
   catch (Query::CancelException const &)
   {
-  }
-
-  // If not enough results, run second search with "Near Me" viewport.
-  if (!m_pQuery->IsCanceled() && !nearMe && params.m_validPos && (res.Count() < resultsNeeded))
-  {
-    m_pQuery->SetViewport(GetViewportRect(params.m_lat, params.m_lon));
-
-    try
-    {
-      m_pQuery->Search(params.m_query, res, resultsNeeded);
-    }
-    catch (Query::CancelException const &)
-    {
-    }
   }
 
   // Emit results in any way, even if search was canceled.

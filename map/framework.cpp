@@ -682,9 +682,9 @@ search::Engine * Framework::GetSearchEngine()
   return m_pSearchEngine.get();
 }
 
-void Framework::PrepareSearch(bool nearMe, double lat, double lon)
+void Framework::PrepareSearch(bool hasPt, double lat, double lon)
 {
-  GetSearchEngine()->PrepareSearch(GetCurrentViewport(), nearMe, lat, lon);
+  GetSearchEngine()->PrepareSearch(GetCurrentViewport(), hasPt, lat, lon);
 }
 
 void Framework::Search(search::SearchParams const & params)

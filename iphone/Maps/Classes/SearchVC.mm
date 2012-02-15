@@ -120,19 +120,18 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
     m_framework = framework;
     m_locationManager = lm;
     
-    // get current location if needed
-    bool radarMode = false;
-    Settings::Get(RADAR_MODE_SETTINGS_KEY, radarMode);
+    // get current location
     CLLocation * l = m_locationManager.lastLocation;
     
     double lat, lon;
-    if (radarMode && [SearchVC isLocationValid:l])
+    bool const hasPt = [SearchVC isLocationValid:l];
+    if (hasPt)
     {
       lat = l.coordinate.latitude;
       lon = l.coordinate.longitude;
     }
     
-    m_framework->PrepareSearch(radarMode, lat, lon);
+    m_framework->PrepareSearch(hasPt, lat, lon);
   }
   return self;
 }

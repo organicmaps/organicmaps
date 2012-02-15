@@ -142,7 +142,7 @@ private:
   inline m2::RectD GetCurrentViewport() const { return m_navigator.Screen().ClipRect(); }
   search::Engine * GetSearchEngine();
 public:
-  void PrepareSearch(bool nearMe, double lat = 0.0, double lon = 0.0);
+  void PrepareSearch(bool hasPt, double lat = 0.0, double lon = 0.0);
   void Search(search::SearchParams const & params);
   bool GetCurrentPosition(double & lat, double & lon);
 
