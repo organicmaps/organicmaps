@@ -202,10 +202,10 @@ namespace yg
       processCommand(make_shared_ptr(new ReadPixels(r, data)), Packet::ECommand, doForce);
     }
 
-    void Renderer::finish()
+    void Renderer::finish(bool doForce)
     {
       shared_ptr<Command> command(new FinishCommand());
-      processCommand(command);
+      processCommand(make_shared_ptr(new FinishCommand()), Packet::ECommand, doForce);
     }
 
     Renderer::ChangeFrameBuffer::ChangeFrameBuffer(shared_ptr<FrameBuffer> const & fb)

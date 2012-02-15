@@ -138,7 +138,7 @@ namespace yg
       unsigned int width() const;
       unsigned int height() const;
 
-      void finish();
+      void finish(bool doForce = false);
       void readPixels(m2::RectU const & r, void * data, bool doForce = false);
 
       bool isDebugging() const;
