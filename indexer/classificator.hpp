@@ -88,6 +88,8 @@ public:
   bool IsDrawableAny() const;
   bool IsDrawableLike(FeatureGeoType ft) const;
 
+  pair<int, int> GetDrawScaleRange() const;
+
   template <class ToDo>
   void ForEachObject(ToDo toDo)
   {

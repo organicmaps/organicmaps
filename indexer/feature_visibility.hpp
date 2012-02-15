@@ -27,6 +27,7 @@ namespace feature
   bool IsDrawableForIndex(FeatureBase const & f, int level);
 
   int MinDrawableScaleForFeature(FeatureBase const & f);
+  pair<int, int> DrawableScaleRangeForType(uint32_t type);
 
   /// @name Get scale range when feature's text is visible.
   /// @return [-1, -1] if no any text exists

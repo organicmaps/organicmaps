@@ -444,6 +444,34 @@ bool ClassifObject::IsDrawableLike(FeatureGeoType ft) const
   return false;
 }
 
+pair<int, int> ClassifObject::GetDrawScaleRange() const
+{
+  if (!IsDrawableAny())
+    return make_pair(-1, -1);
+
+  size_t const count = m_visibility.size();
+
+  int left = -1;
+  for (int i = 0; i < count; ++i)
+    if (m_visibility[i])
+    {
+      left = i;
+      break;
+    }
+
+  ASSERT_NOT_EQUAL ( left, -1, () );
+
+  int right = left;
+  for (int i = count-1; i > left; --i)
+    if (m_visibility[i])
+    {
+      right = i;
+      break;
+    }
+
+  return make_pair(left, right);
+}
+
 void Classificator::ReadClassificator(istream & s)
 {
   m_root.Clear();

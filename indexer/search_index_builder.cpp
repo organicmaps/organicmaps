@@ -7,6 +7,7 @@
 #include "search_string_utils.hpp"
 #include "string_file.hpp"
 #include "classificator.hpp"
+#include "feature_visibility.hpp"
 
 #include "../defines.hpp"
 
@@ -66,6 +67,8 @@ class FeatureInserter
   typedef StringsFile::ValueT ValueT;
   typedef search::trie::ValueReader SaverT;
   SaverT m_valueSaver;
+
+  pair<int, int> m_scales;
 
   class CalcPolyCenter
   {
@@ -220,8 +223,10 @@ class FeatureInserter
   };
 
 public:
-  FeatureInserter(StringsFile & names, serial::CodingParams const & cp)
-    : m_names(names), m_valueSaver(cp)
+  FeatureInserter(StringsFile & names,
+                  serial::CodingParams const & cp,
+                  pair<int, int> const & scales)
+    : m_names(names), m_valueSaver(cp), m_scales(scales)
   {
   }
 
@@ -246,20 +251,28 @@ public:
 
     // add names of categories of the feature
     for (size_t i = 0; i < types.Size(); ++i)
-      inserter.AddToken(search::CATEGORIES_LANG, search::FeatureTypeToString(types[i]));
+    {
+      // Do index only for visible types in mwm.
+      pair<int, int> const r = feature::DrawableScaleRangeForType(types[i]);
+      if (my::between_s(m_scales.first, m_scales.second, r.first) ||
+          my::between_s(m_scales.first, m_scales.second, r.second))
+      {
+        inserter.AddToken(search::CATEGORIES_LANG, search::FeatureTypeToString(types[i]));
+      }
+    }
   }
 };
 
 }  // unnamed namespace
 
-void indexer::BuildSearchIndex(FeaturesVector const & featuresVector, Writer & writer,
+void indexer::BuildSearchIndex(FeaturesVector const & featuresV, Writer & writer,
                                string const & tmpFilePath)
 {
   {
     StringsFile names(tmpFilePath);
-    serial::CodingParams cp(search::GetCPForTrie(featuresVector.GetCodingParams()));
+    serial::CodingParams cp(search::GetCPForTrie(featuresV.GetCodingParams()));
 
-    featuresVector.ForEachOffset(FeatureInserter(names, cp));
+    featuresV.ForEachOffset(FeatureInserter(names, cp, featuresV.GetScaleRange()));
 
     names.EndAdding();
     names.OpenForRead();

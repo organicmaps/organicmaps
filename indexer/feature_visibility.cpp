@@ -267,6 +267,44 @@ int MinDrawableScaleForFeature(FeatureBase const & f)
 
 namespace
 {
+  class DoGetScalesRange
+  {
+    pair<int, int> m_scales;
+  public:
+    DoGetScalesRange() : m_scales(1000, -1000) {}
+    typedef bool ResultType;
+
+    void operator() (ClassifObject const *) {}
+    bool operator() (ClassifObject const * p, bool & res)
+    {
+      res = true;
+
+      pair<int, int> scales = p->GetDrawScaleRange();
+      if (scales.first != -1)
+      {
+        m_scales.first = min(m_scales.first, scales.first);
+        m_scales.second = max(m_scales.second, scales.second);
+      }
+
+      return false;
+    }
+
+    pair<int, int> GetScale() const
+    {
+      return (m_scales.first > m_scales.second ? make_pair(-1, -1) : m_scales);
+    }
+  };
+}
+
+pair<int, int> DrawableScaleRangeForType(uint32_t type)
+{
+  DoGetScalesRange doGet;
+  (void)classif().ProcessObjects(type, doGet);
+  return doGet.GetScale();
+}
+
+namespace
+{
   bool IsDrawable(feature::TypesHolder const & types, int level)
   {
     Classificator const & c = classif();
