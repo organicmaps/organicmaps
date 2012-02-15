@@ -173,7 +173,7 @@ Result PreResult2::GenerateFinalResult(
   uint32_t const type = GetBestType();
 
   static SkipRegionInfo checker;
-  if (type != 0 && !checker.IsContinent(type))
+  if (!checker.IsContinent(type))
   {
     m_region.GetRegion(pInfo, info);
 
