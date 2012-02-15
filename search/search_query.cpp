@@ -34,12 +34,13 @@ Query::Query(Index const * pIndex,
     m_pCategories(pCategories),
     m_pStringsToSuggest(pStringsToSuggest),
     m_pInfoGetter(pInfoGetter),
-    m_currentLang(StringUtf8Multilang::GetLangIndex("en")),
     m_position(empty_pos_value, empty_pos_value)
 {
   // m_viewport, m_viewportExtended are initialized as empty rects
 
   ASSERT ( m_pIndex, () );
+
+  SetPreferredLanguage("en");
 }
 
 Query::~Query()
@@ -90,6 +91,10 @@ void Query::SetViewport(m2::RectD viewport[], size_t count)
 void Query::SetPreferredLanguage(string const & lang)
 {
   m_currentLang = StringUtf8Multilang::GetLangIndex(lang);
+
+  // Default initialization.
+  // If you want to reset input language, call SetInputLanguage before search.
+  m_inputLang = m_currentLang;
 }
 
 void Query::ClearCache()
@@ -200,11 +205,12 @@ void Query::Search(string const & query, Results & res, unsigned int resultsNeed
     if (m_tokens.size() > 31)
       m_tokens.resize(31);
 
-    vector<vector<int8_t> > langPriorities(3);
+    vector<vector<int8_t> > langPriorities(4);
     langPriorities[0].push_back(m_currentLang);
-    langPriorities[1].push_back(StringUtf8Multilang::GetLangIndex("int_name"));
-    langPriorities[1].push_back(StringUtf8Multilang::GetLangIndex("en"));
-    langPriorities[2].push_back(StringUtf8Multilang::GetLangIndex("default"));
+    langPriorities[1].push_back(m_inputLang);
+    langPriorities[2].push_back(StringUtf8Multilang::GetLangIndex("int_name"));
+    langPriorities[2].push_back(StringUtf8Multilang::GetLangIndex("en"));
+    langPriorities[3].push_back(StringUtf8Multilang::GetLangIndex("default"));
     m_pKeywordsScorer.reset(new LangKeywordsScorer(langPriorities,
                                                    m_tokens.data(), m_tokens.size(), &m_prefix));
 
@@ -617,6 +623,7 @@ void Query::SearchFeatures()
 
   unordered_set<int8_t> langs;
   langs.insert(m_currentLang);
+  langs.insert(m_inputLang);
   langs.insert(StringUtf8Multilang::GetLangIndex("int_name"));
   langs.insert(StringUtf8Multilang::GetLangIndex("en"));
   langs.insert(StringUtf8Multilang::GetLangIndex("default"));

@@ -58,6 +58,7 @@ public:
   inline void SetSearchInWorld(bool b) { m_worldSearch = b; }
 
   void SetPreferredLanguage(string const & lang);
+  inline void SetInputLanguage(int8_t lang) { m_inputLang = lang; }
 
   void Search(string const & query, Results & res, unsigned int resultsNeeded = 10);
 

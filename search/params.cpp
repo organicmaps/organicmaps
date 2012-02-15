@@ -30,14 +30,20 @@ void SearchParams::SetInputLanguage(string const & language)
   size_t delimPos = language.find("-");
   if (delimPos == string::npos)
     delimPos = language.find("_");
-  m_inputLanguageCode = StringUtf8Multilang::GetLangIndex(delimPos == string::npos
-                                    ? language: language.substr(0, delimPos));
+
+  m_inputLanguageCode = StringUtf8Multilang::GetLangIndex(
+        delimPos == string::npos ? language: language.substr(0, delimPos));
 }
 
 bool SearchParams::IsNearMeMode() const
 {
   // this mode is valid only with correct My Position
   return (m_mode == NearMe && m_validPos);
+}
+
+bool SearchParams::IsLanguageValid() const
+{
+  return (m_inputLanguageCode != StringUtf8Multilang::UNSUPPORTED_LANGUAGE_CODE);
 }
 
 } // namespace search

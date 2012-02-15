@@ -24,6 +24,7 @@ namespace search
     void SetInputLanguage(string const & language);
 
     bool IsNearMeMode() const;
+    bool IsLanguageValid() const;
 
   public:
     SearchCallbackT m_callback;

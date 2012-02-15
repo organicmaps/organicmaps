@@ -189,6 +189,8 @@ void Engine::SearchAsync()
 
   m_pQuery->SetViewport(arrRects, 2);
   m_pQuery->SetSearchInWorld(worldSearch);
+  if (params.IsLanguageValid())
+    m_pQuery->SetInputLanguage(params.m_inputLanguageCode);
 
   Results res;
 
