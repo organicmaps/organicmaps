@@ -334,7 +334,36 @@ public abstract class NvEventQueueActivity extends Activity
         return ltemp - rtemp;
       }
 
-      /// then by depth, we don't require it, so choose the smallest depth first
+      /// first by color value
+      
+      m_egl.eglGetConfigAttrib(m_eglDisplay, l, EGL11.EGL_RED_SIZE, value);
+      int lred = value[0];
+      m_egl.eglGetConfigAttrib(m_eglDisplay, l, EGL11.EGL_GREEN_SIZE, value);
+      int lgreen = value[0];
+      m_egl.eglGetConfigAttrib(m_eglDisplay, l, EGL11.EGL_BLUE_SIZE, value);
+      int lblue = value[0];
+      m_egl.eglGetConfigAttrib(m_eglDisplay, l, EGL11.EGL_ALPHA_SIZE, value);
+      int lalpha = value[0];
+
+      m_egl.eglGetConfigAttrib(m_eglDisplay, r, EGL11.EGL_RED_SIZE, value);
+      int rred = value[0];
+      m_egl.eglGetConfigAttrib(m_eglDisplay, r, EGL11.EGL_GREEN_SIZE, value);
+      int rgreen = value[0];
+      m_egl.eglGetConfigAttrib(m_eglDisplay, r, EGL11.EGL_BLUE_SIZE, value);
+      int rblue = value[0];
+      m_egl.eglGetConfigAttrib(m_eglDisplay, r, EGL11.EGL_ALPHA_SIZE, value);
+      int ralpha = value[0];
+      
+      if (lred != rred)
+        return lred - rred;
+      if (lgreen != rgreen)
+        return lgreen - rgreen;
+      if (lblue != rblue)
+        return lblue - rblue;
+      if (lalpha != ralpha)
+        return lalpha - ralpha;
+      
+      /// then by depth, choose the widest depth first
       
       m_egl.eglGetConfigAttrib(m_eglDisplay, l, EGL11.EGL_DEPTH_SIZE, value);
       int ldepth = value[0];
@@ -345,7 +374,7 @@ public abstract class NvEventQueueActivity extends Activity
       if (ldepth != rdepth)
         return ldepth - rdepth;
       
-      /// then by stencil - we don't require it, so choose the lowest one
+      /// then by stencil, choose the widest stencil first
       m_egl.eglGetConfigAttrib(m_eglDisplay, l, EGL11.EGL_STENCIL_SIZE, value);
       int lstencil = value[0];
       
@@ -354,29 +383,6 @@ public abstract class NvEventQueueActivity extends Activity
 
       if (lstencil != rstencil)
         return lstencil - rstencil;
-      
-      /// then by color values, choose the widest colorspace first
-      
-      m_egl.eglGetConfigAttrib(m_eglDisplay, l, EGL11.EGL_RED_SIZE, value);
-      int lred = value[0];
-      m_egl.eglGetConfigAttrib(m_eglDisplay, l, EGL11.EGL_GREEN_SIZE, value);
-      int lgreen = value[0];
-      m_egl.eglGetConfigAttrib(m_eglDisplay, l, EGL11.EGL_BLUE_SIZE, value);
-      int lblue = value[0];
-
-      m_egl.eglGetConfigAttrib(m_eglDisplay, r, EGL11.EGL_RED_SIZE, value);
-      int rred = value[0];
-      m_egl.eglGetConfigAttrib(m_eglDisplay, r, EGL11.EGL_GREEN_SIZE, value);
-      int rgreen = value[0];
-      m_egl.eglGetConfigAttrib(m_eglDisplay, r, EGL11.EGL_BLUE_SIZE, value);
-      int rblue = value[0];
-      
-      if (lred != rred)
-        return rred - lred;
-      if (lgreen != rgreen)
-        return lgreen - rgreen;
-      if (lblue != rblue)
-        return lblue - rblue;
       
       return 0; 
     }
