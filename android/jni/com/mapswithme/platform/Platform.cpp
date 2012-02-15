@@ -36,7 +36,7 @@ public:
 
     m_maxTilesCount = 0;
 
-    m_preCachingDepth = 6;
+    m_preCachingDepth = 4;
 
     /// calculating for non-rotated screen
 
@@ -53,7 +53,7 @@ public:
       /// tiles in the single screen
       int singleScreenTilesCount = tilesOnXSide * tilesOnYSide;
 //      LOG(LINFO, ("singleScreenTilesCount:", singleScreenTilesCount));
-      int curLevelTilesCount = singleScreenTilesCount * 3;
+      int curLevelTilesCount = singleScreenTilesCount * 2;
 //      LOG(LINFO, ("curLevelTilesCount:", curLevelTilesCount));
       m_maxTilesCount += curLevelTilesCount;
 //      LOG(LINFO, ("on", i, "depth we need", curLevelTilesCount, "tiles"));
