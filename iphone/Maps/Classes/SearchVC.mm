@@ -478,6 +478,8 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
           }
           else
           {
+            // Reset possibly cached image
+            compass.image = nil;
             double const northDeg = (heading.trueHeading < 0) ? heading.magneticHeading : heading.trueHeading;
             m2::PointD const center = r.GetFeatureCenter();
             compass.angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(loc.coordinate.longitude),
