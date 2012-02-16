@@ -36,7 +36,7 @@ Query::Query(Index const * pIndex,
     m_pInfoGetter(pInfoGetter),
     m_position(empty_pos_value, empty_pos_value)
 {
-  // m_viewport, m_viewportExtended are initialized as empty rects
+  // m_viewport is initialized as empty rects
 
   ASSERT ( m_pIndex, () );
 
@@ -77,9 +77,6 @@ void Query::SetViewport(m2::RectD viewport[], size_t count)
       if (!m_viewport[i].IsValid() || !IsEqualMercator(m_viewport[i], viewport[i], 10.0))
       {
         m_viewport[i] = viewport[i];
-        m_viewportExtended[i] = m_viewport[i];
-        m_viewportExtended[i].Scale(3);
-
         UpdateViewportOffsets(i);
       }
     }
@@ -107,7 +104,6 @@ void Query::ClearCache(size_t ind)
 {
   m_offsetsInViewport[ind].clear();
   m_viewport[ind].MakeEmpty();
-  m_viewportExtended[ind].MakeEmpty();
 }
 
 void Query::UpdateViewportOffsets(size_t ind)
@@ -124,7 +120,7 @@ void Query::UpdateViewportOffsets(size_t ind)
   for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
   {
     // Search only mwms that intersect with viewport (world always does).
-    if (m_viewportExtended[ind].IsIntersect(mwmInfo[mwmId].m_limitRect))
+    if (m_viewport[ind].IsIntersect(mwmInfo[mwmId].m_limitRect))
     {
       Index::MwmLock mwmLock(*m_pIndex, mwmId);
       if (MwmValue * pMwm = mwmLock.GetValue())
@@ -630,7 +626,7 @@ void Query::SearchFeatures()
 
   for (size_t i = 0; i < m_rectsCount; ++i)
   {
-    if (m_viewportExtended[i].IsValid())
+    if (m_viewport[i].IsValid())
       SearchFeatures(tokens, mwmInfo, langs, i);
   }
 }
@@ -667,7 +663,7 @@ void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
   for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
   {
     // Search only mwms that intersect with viewport (world always does).
-    if (m_viewportExtended[ind].IsIntersect(mwmInfo[mwmId].m_limitRect))
+    if (m_viewport[ind].IsIntersect(mwmInfo[mwmId].m_limitRect))
     {
       Index::MwmLock mwmLock(*m_pIndex, mwmId);
       if (MwmValue * pMwm = mwmLock.GetValue())

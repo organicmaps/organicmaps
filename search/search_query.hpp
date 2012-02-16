@@ -110,7 +110,6 @@ private:
   enum { m_rectsCount = 2 };
 
   m2::RectD m_viewport[m_rectsCount];
-  m2::RectD m_viewportExtended[m_rectsCount];
   bool m_worldSearch;
 
   /// @return Rect for viewport-distance calculation.
