@@ -54,9 +54,9 @@
   // Labels on the right should always fit and be visible, but not more than half of the cell
   CGFloat const w = r.size.width;
   CGFloat const h = r.size.height;
-  CGFloat const yDelim = r.origin.y + h / 5 * 3;
+  CGFloat const yDelim = (int)(r.origin.y + h / 5 * 3);
 
-  CGFloat xTopDelim = r.origin.x + w / 2;
+  CGFloat xTopDelim = (int)(r.origin.x + w / 2);
   CGFloat xBottomDelim = xTopDelim;
   if (featureType.text.length)
   {
