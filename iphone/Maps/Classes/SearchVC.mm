@@ -13,6 +13,10 @@
 #include "../../map/measurement_utils.hpp"
 #include "../../search/result.hpp"
 
+
+/// When to display compass instead of country flags
+#define MIN_COMPASS_DISTANCE 25000.0
+
 SearchVC * g_searchVC = nil;
 volatile int g_queryId = 0;
 
@@ -434,23 +438,52 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
       cell.featureName.text = [NSString stringWithUTF8String:r.GetString()];
       cell.featureCountry.text = [NSString stringWithUTF8String:r.GetRegionString()];
       cell.featureType.text = [NSString stringWithUTF8String:r.GetFeatureType()];
-      cell.featureDistance.text = [SearchVC formatDistance:r.GetDistanceFromCenter()];
-      if (m_radarButton.isSelected)
-        cell.accessoryView = nil;
+      double const distance = r.GetDistanceFromCenter();
+      cell.featureDistance.text = [SearchVC formatDistance:distance];
+      // Show flags only if feature is too far away and it has the flag
+      if (r.GetRegionFlag() && (distance < 0. || distance > MIN_COMPASS_DISTANCE))
+      {
+        UIImage * flagImage = [UIImage imageNamed:[NSString stringWithFormat:@"%s.png", r.GetRegionFlag()]];
+        UIImageView * imgView = [[UIImageView alloc] initWithImage:flagImage];
+        cell.accessoryView = imgView;
+        [imgView release];
+      }
       else
-      { // Show flags only when radar mode is disabled and feature is not in the same country as the user
-        char const * flagCode = r.GetRegionFlag();
-        if (flagCode && m_currentCountryFlagCode != flagCode)
+      {
+        CompassView * compass;
+        // Try to reuse existing compass view
+        if ([cell.accessoryView isKindOfClass:[CompassView class]])
+          compass = (CompassView *)cell.accessoryView;
+        else
         {
-          UIImage * flagImage = [UIImage imageNamed:[NSString stringWithFormat:@"%s.png", flagCode]];
-          UIImageView * imgView = [[UIImageView alloc] initWithImage:flagImage];
-          cell.accessoryView = imgView;
-          [imgView release];
+          // Create compass view
+          float const h = (int)(m_table.rowHeight * 0.6);
+          compass = [[CompassView alloc] initWithFrame:CGRectMake(0, 0, h, h)];
+          cell.accessoryView = compass;
+          [compass release];
+        }
+
+        // Separate case for continents
+        if (!r.GetRegionFlag())
+        {
+          // @TODO add valid icon
+          compass.image = [UIImage imageNamed:@"downloader"];
         }
         else
         {
-          // Reset cached flag for reused cell
-          cell.accessoryView = nil;
+          CLLocation * loc = [m_locationManager lastLocation];
+          CLHeading * heading = [m_locationManager lastHeading];
+          if (loc == nil || heading == nil)
+          {
+            compass.image = [UIImage imageNamed:@"location"];
+          }
+          else
+          {
+            double const northDeg = (heading.trueHeading < 0) ? heading.magneticHeading : heading.trueHeading;
+            m2::PointD const center = r.GetFeatureCenter();
+            compass.angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(loc.coordinate.longitude),
+                            MercatorBounds::LatToY(loc.coordinate.latitude)), center) + northDeg / 180. * math::pi;
+          }
         }
       }
       return cell;
@@ -489,6 +522,8 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
     case search::Result::RESULT_SUGGESTION:
       char const * s = res.GetSuggestionString();
       [m_searchBar setText: [NSString stringWithUTF8String:s]];
+      // Remove blue selection from the row
+      [tableView deselectRowAtIndexPath: indexPath animated:YES];
       break;
     }
   }
@@ -517,10 +552,6 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 
 - (void)onGpsUpdate:(location::GpsInfo const &)info
 {
-  // Update current country code only once after Search View was opened
-  if (m_currentCountryFlagCode.empty())
-    m_currentCountryFlagCode = m_framework->GetCountryCodeByPosition(info.m_latitude, info.m_longitude);
-
   // Refresh search results with newer location, but
   // do not search if text is not entered
   NSString * queryString = m_searchBar.text;
@@ -547,20 +578,9 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
     if (res.GetResultType() == search::Result::RESULT_FEATURE)
     {
       // Show compass only for cells without flags
-      CompassView * compass = nil;
-      if (cell.accessoryView == nil)
+      if ([cell.accessoryView isKindOfClass:[CompassView class]])
       {
-        // Create compass view if it wasn't already created
-        float const h = m_table.rowHeight * 0.6;
-        compass = [[CompassView alloc] initWithFrame:CGRectMake(0, 0, h, h)];
-        cell.accessoryView = compass;
-        [compass release];
-      }
-      else if ([cell.accessoryView isKindOfClass:[CompassView class]])
-        compass = (CompassView *)cell.accessoryView;
-
-      if (compass)
-      {
+        CompassView * compass = (CompassView *)cell.accessoryView;
         m2::PointD const center = res.GetFeatureCenter();
         compass.angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(loc.coordinate.longitude),
                         MercatorBounds::LatToY(loc.coordinate.latitude)), center) + northDeg / 180. * math::pi;

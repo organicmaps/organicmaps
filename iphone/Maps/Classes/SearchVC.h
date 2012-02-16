@@ -19,7 +19,6 @@ namespace search { class Result; }
   UIButton * m_radarButton;
   UISearchBar * m_searchBar;
   UITableView * m_table;
-  string m_currentCountryFlagCode;
 }
 
 - (id)initWithFramework:(Framework *)framework andLocationManager:(LocationManager *)lm;

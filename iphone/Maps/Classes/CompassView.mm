@@ -3,6 +3,7 @@
 @implementation CompassView
 
 @synthesize angle;
+@synthesize image;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -21,29 +22,44 @@
   [self setNeedsDisplay];
 }
 
-// Draws an arrow looking to the right like this:
-// =>
-// and rotates it to given angle
+- (void)setImage:(UIImage *)aImage
+{
+  [image release];
+  image = aImage;
+  [image retain];
+  [self setNeedsDisplay];
+}
+
 - (void)drawRect:(CGRect)rect
 {
-  UIBezierPath * aPath = [UIBezierPath bezierPath];
-  
-  float const w = rect.size.width;
-  float const w2 = w / 2.0;
-  float const w3 = w / 3.0;
-  [aPath moveToPoint:CGPointMake(w3, w2)];
-  [aPath addLineToPoint:CGPointMake(0, w2 - w3)];
-  [aPath addLineToPoint:CGPointMake(w, w2)];
-  [aPath addLineToPoint:CGPointMake(0, w2 + w3)];
-  [aPath closePath];
-  
-  CGAffineTransform matrix = CGAffineTransformMakeTranslation(w2, w2);
-  matrix = CGAffineTransformRotate(matrix, -angle);
-  matrix = CGAffineTransformTranslate(matrix, -w2, -w2);
-  [aPath applyTransform:matrix];
-  
-  [[UIColor blueColor] setFill];
-  [aPath fill];
+  if (image)
+  {
+    [image drawInRect:rect];
+  }
+  else
+  {
+    // Draws an arrow looking to the right like this:
+    // =>
+    // and rotates it to given angle
+    UIBezierPath * aPath = [UIBezierPath bezierPath];
+
+    float const w = rect.size.width;
+    float const w2 = w / 2.0;
+    float const w3 = w / 3.0;
+    [aPath moveToPoint:CGPointMake(w3, w2)];
+    [aPath addLineToPoint:CGPointMake(0, w2 - w3)];
+    [aPath addLineToPoint:CGPointMake(w, w2)];
+    [aPath addLineToPoint:CGPointMake(0, w2 + w3)];
+    [aPath closePath];
+
+    CGAffineTransform matrix = CGAffineTransformMakeTranslation(w2, w2);
+    matrix = CGAffineTransformRotate(matrix, -angle);
+    matrix = CGAffineTransformTranslate(matrix, -w2, -w2);
+    [aPath applyTransform:matrix];
+
+    [[UIColor blueColor] setFill];
+    [aPath fill];
+  }
 }
 
 @end

@@ -23,6 +23,7 @@
 - (void)start:(id <LocationObserver>)observer;
 - (void)stop:(id <LocationObserver>)observer;
 - (CLLocation *)lastLocation;
+- (CLHeading *)lastHeading;
 // Fixes compass angle orientation when rotating screen to landscape
 - (void)setOrientation:(UIInterfaceOrientation)orientation;
 @end

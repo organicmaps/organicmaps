@@ -86,6 +86,11 @@
   return m_locationManager.location;
 }
 
+- (CLHeading *)lastHeading
+{
+  return m_locationManager.heading;
+}
+
 - (void)location:(CLLocation *)location toGpsInfo:(location::GpsInfo &)info
 {
   info.m_horizontalAccuracy = location.horizontalAccuracy;
