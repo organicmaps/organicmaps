@@ -396,10 +396,7 @@ bool UsePopulationRank(uint32_t type)
 
     bool IsMyType(uint32_t t) const
     {
-      for (size_t i = 0; i < ARRAY_SIZE(m_types); ++i)
-        if (t == m_types[i])
-          return true;
-      return false;
+      return find(m_types, m_types + ARRAY_SIZE(m_types), t);
     }
   };
 

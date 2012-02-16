@@ -241,27 +241,22 @@ namespace
 
   class IsLinearChecker
   {
-    static size_t const m_count = 2;
-    uint8_t m_index[m_count];
+    uint8_t m_index[2];
 
   public:
     IsLinearChecker()
     {
       char const * arr[] = { "highway", "waterway" };
-      STATIC_ASSERT ( ARRAY_SIZE(arr) == m_count );
+      STATIC_ASSERT ( ARRAY_SIZE(arr) == ARRAY_SIZE(m_index) );
 
       ClassifObject const * c = classif().GetRoot();
-      for (size_t i = 0; i < m_count; ++i)
+      for (size_t i = 0; i < ARRAY_SIZE(m_index); ++i)
         m_index[i] = static_cast<uint8_t>(c->BinaryFind(arr[i]).GetIndex());
     }
 
     bool IsMy(uint8_t ind) const
     {
-      for (size_t i = 0; i < m_count; ++i)
-        if (ind == m_index[i])
-          return true;
-
-      return false;
+      return find(m_index, m_index + ARRAY_SIZE(m_index), ind);
     }
   };
 }

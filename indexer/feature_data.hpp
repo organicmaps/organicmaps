@@ -81,11 +81,7 @@ namespace feature
 
     inline bool Has(uint32_t t) const
     {
-      for (size_t i = 0; i < m_size; ++i)
-        if (t == m_types[i])
-          return true;
-
-      return false;
+      return find(m_types, m_types + m_size, t);
     }
     //@}
 
