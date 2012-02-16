@@ -66,18 +66,18 @@ private:
   m2::RectD m_worldRect;
   unsigned m_pxMinWidth;
   double m_metresMinWidth;
-  bool CheckMinScale(ScreenBase const & screen);
-  bool CheckMaxScale(ScreenBase const & screen);
-  bool CheckBorders(ScreenBase const & screen);
+  bool CheckMinScale(ScreenBase const & screen) const;
+  bool CheckMaxScale(ScreenBase const & screen) const;
+  bool CheckBorders(ScreenBase const & screen) const;
 
-  bool CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect);
-  ScreenBase const ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect);
+  static bool CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect);
+  static ScreenBase const ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect);
 
-  bool CanRotateInto(ScreenBase const & screen, m2::RectD const & boundRect);
-  ScreenBase const RotateInto(ScreenBase const & screen, m2::RectD const & boundRect);
+  static bool CanRotateInto(ScreenBase const & screen, m2::RectD const & boundRect);
+  static ScreenBase const RotateInto(ScreenBase const & screen, m2::RectD const & boundRect);
 
-  ScreenBase const ScaleInto(ScreenBase const & screen, m2::RectD const & boundRect);
-  ScreenBase const ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD const & boundRect);
+  static ScreenBase const ScaleInto(ScreenBase const & screen, m2::RectD boundRect);
+  static ScreenBase const ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD boundRect);
 
   // Internal screen corresponding to the state when navigation began with StartDrag or StartScale.
   ScreenBase m_StartScreen;

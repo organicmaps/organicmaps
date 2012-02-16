@@ -107,6 +107,8 @@ bool Navigator::CanShrinkInto(ScreenBase const & screen, m2::RectD const & bound
 
 ScreenBase const Navigator::ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
+  ASSERT ( CanShrinkInto(screen, boundRect), () );
+
   ScreenBase res = screen;
 
 /*  if (m_doSupportRotation)
@@ -124,6 +126,7 @@ ScreenBase const Navigator::ShrinkInto(ScreenBase const & screen, m2::RectD cons
 
   res.SetOrg(clipRect.Center());
 
+  ASSERT ( boundRect.IsRectInside(res.ClipRect()), () );
   return res;
 }
 
@@ -139,8 +142,20 @@ ScreenBase const Navigator::RotateInto(ScreenBase const & screen, m2::RectD cons
   return screen; //@TODO
 }
 
-ScreenBase const Navigator::ScaleInto(ScreenBase const & screen, m2::RectD const & boundRect)
+namespace
 {
+  /// @todo Review this logic in future.
+  /// Fix bug with floating point calculations (before Android release).
+  void ReduceRectHack(m2::RectD & r)
+  {
+    r.Inflate(-1.0E-9, -1.0E-9);
+  }
+}
+
+ScreenBase const Navigator::ScaleInto(ScreenBase const & screen, m2::RectD boundRect)
+{
+  ReduceRectHack(boundRect);
+
   ScreenBase res = screen;
 
 /*  if (m_doSupportRotation)
@@ -181,8 +196,10 @@ ScreenBase const Navigator::ScaleInto(ScreenBase const & screen, m2::RectD const
   return res;
 }
 
-ScreenBase const Navigator::ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD const & boundRect)
+ScreenBase const Navigator::ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD boundRect)
 {
+  ReduceRectHack(boundRect);
+
   ScreenBase res = screen;
 
 /*  if (m_doSupportRotation)
@@ -298,26 +315,22 @@ void Navigator::DoDrag(m2::PointD const & pt, double /*timeInSec*/)
   //LOG(LDEBUG, (pt.x, pt.y));
   //m_Screen = m_StartScreen;
 
-  ScreenBase tmp = m_StartScreen;
-  tmp = ShrinkInto(tmp, m_worldRect);
+  ScreenBase const s = ShrinkInto(m_StartScreen, m_worldRect);
 
   double dx = pt.x - m_StartPt1.x;
   double dy = pt.y - m_StartPt1.y;
 
+  ScreenBase tmp = s;
   tmp.Move(dx, 0);
   if (!CheckBorders(tmp))
     dx = 0;
 
-  tmp = m_StartScreen;
-  tmp = ShrinkInto(tmp, m_worldRect);
-
+  tmp = s;
   tmp.Move(0, dy);
   if (!CheckBorders(tmp))
     dy = 0;
 
-  tmp = m_StartScreen;
-  tmp = ShrinkInto(tmp, m_worldRect);
-
+  tmp = s;
   tmp.Move(dx, dy);
 
   if (CheckBorders(tmp))
@@ -390,7 +403,7 @@ void Navigator::ScaleToPoint(m2::PointD const & pt, double factor, double /*time
   ScaleImpl(pt, endPt, pt, startPt, factor > 1);
 }
 
-bool Navigator::CheckMaxScale(ScreenBase const & screen)
+bool Navigator::CheckMaxScale(ScreenBase const & screen) const
 {
   m2::RectD r = screen.ClipRect();
   // multiple by 2 to allow scale on zero level
@@ -398,7 +411,7 @@ bool Navigator::CheckMaxScale(ScreenBase const & screen)
   return (r.SizeX() <= maxSize || r.SizeY() <= maxSize);
 }
 
-bool Navigator::CheckMinScale(ScreenBase const & screen)
+bool Navigator::CheckMinScale(ScreenBase const & screen) const
 {
   m2::PointD const pt0 = screen.PtoG(m_Screen.PixelRect().Center() - m2::PointD(m_pxMinWidth / 2, 0));
   m2::PointD const pt1 = screen.PtoG(m_Screen.PixelRect().Center() + m2::PointD(m_pxMinWidth / 2, 0));
@@ -407,9 +420,9 @@ bool Navigator::CheckMinScale(ScreenBase const & screen)
   return metresDiff >= m_metresMinWidth - 1;
 }
 
-bool Navigator::CheckBorders(ScreenBase const & screen)
+bool Navigator::CheckBorders(ScreenBase const & screen) const
 {
-  m2::RectD ScreenBounds = screen.ClipRect();
+  m2::RectD const ScreenBounds = screen.ClipRect();
   return ScreenBounds.IsRectInside(m_worldRect) || m_worldRect.IsRectInside(ScreenBounds);
 }
 
