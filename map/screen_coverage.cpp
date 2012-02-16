@@ -318,7 +318,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
       if (drawnTiles.count(cr[i]) || !m_screen.GlobalRect().IsIntersect(m2::AnyRectD(cr[i].m_rect)))
         --childTilesToDraw;
 
-    if (childTilesToDraw > 1)
+    if (m_tiler.isLeaf(nr) || (childTilesToDraw > 1))
       firstClassTiles.push_back(nr);
     else
       secondClassTiles.push_back(nr);
