@@ -304,6 +304,15 @@ string PreResult2::DebugPrint() const
   return res;
 }
 
+uint32_t PreResult2::GetBestType() const
+{
+  /// @todo Need to process all types.
+
+  uint32_t t = m_types.GetBestType();
+  ftype::TruncValue(t, 2);
+  return t;
+}
+
 string PreResult2::GetFeatureType(CategoriesHolder const * pCat, int8_t lang) const
 {
   ASSERT_EQUAL(m_resultType, RESULT_FEATURE, ());

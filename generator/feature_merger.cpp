@@ -283,14 +283,7 @@ void FeatureTypesProcessor::CorrectType(uint32_t & t) const
 
   // 1. get normalized type:
   // highway-motorway-bridge => highway-motorway
-  uint32_t normal = ftype::GetEmptyValue();
-  uint8_t v;
-  if (!ftype::GetValue(t, 0, v)) return;
-  ftype::PushValue(normal, v);
-  if (!ftype::GetValue(t, 1, v)) return;
-  ftype::PushValue(normal, v);
-
-  t = normal;
+  ftype::TruncValue(t, 2);
 
   // 2. get mapping type:
   map<uint32_t, uint32_t>::const_iterator i = m_mapping.find(t);

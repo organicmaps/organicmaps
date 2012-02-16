@@ -106,11 +106,7 @@ private:
   string GetFeatureType(CategoriesHolder const * pCat, int8_t lang) const;
 
   feature::TypesHolder m_types;
-  inline uint32_t GetBestType() const
-  {
-    /// @todo Need to process all types.
-    return m_types.GetBestType();
-  }
+  uint32_t GetBestType() const;
 
   string m_str, m_completionString;
 

@@ -256,12 +256,18 @@ public:
     // add names of categories of the feature
     for (size_t i = 0; i < types.Size(); ++i)
     {
+      uint32_t type = types[i];
+
+      // Leave only 2 level of type - for example, do not distinguish:
+      // highway-primary-oneway or amenity-parking-fee.
+      ftype::TruncValue(type, 2);
+
       // Do index only for visible types in mwm.
-      pair<int, int> const r = feature::DrawableScaleRangeForType(types[i]);
+      pair<int, int> const r = feature::DrawableScaleRangeForType(type);
       if (my::between_s(m_scales.first, m_scales.second, r.first) ||
           my::between_s(m_scales.first, m_scales.second, r.second))
       {
-        inserter.AddToken(search::CATEGORIES_LANG, search::FeatureTypeToString(types[i]));
+        inserter.AddToken(search::CATEGORIES_LANG, search::FeatureTypeToString(type));
       }
     }
   }
