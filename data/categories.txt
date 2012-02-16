@@ -185,11 +185,11 @@ waterway-river|waterway-stream
 en:river
 ru:река
 
-highway-primary|highway-residential|highway-secondary|highway-tertiary|highway-service|highway-road|highway-track
+highway-primary|highway-residential|highway-secondary|highway-tertiary|highway-service|highway-road|highway-track|highway-trunk
 en:street
 ru:улица
 
-highway-bus_stop
+highway-bus_stop|railway-tram_stop
 en:3bus-stop
 ru:3остановка|3автобус
 
