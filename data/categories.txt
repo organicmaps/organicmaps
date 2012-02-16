@@ -170,24 +170,24 @@ en:suburb|district
 ru:район|микрорайон
 
 place-village|place-hamlet
-en:3village|3hamlet
-ru:3деревня|3поселок
+en:village|hamlet
+ru:деревня|поселок
 
 place-locality
 en:locality
 ru:регион
 
 place-farm
-en:3farm
-ru:3ферма
+en:farm
+ru:ферма
 
 waterway-river|waterway-stream
-en:3river
-ru:3река
+en:river
+ru:река
 
 highway-primary|highway-residential|highway-secondary|highway-tertiary|highway-service|highway-road|highway-track
-en:2street
-ru:2улица
+en:street
+ru:улица
 
 highway-bus_stop
 en:3bus-stop
@@ -198,8 +198,8 @@ en:3bus-station|3bus-stop
 ru:автостанция|3автобус|3остановка
 
 natural-peak
-en:peak|3mountain
-ru:3гора|вершина
+en:peak|mountain
+ru:гора|вершина
 
 leisure-park|leisure-garden
 en:park
