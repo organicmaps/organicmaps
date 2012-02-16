@@ -115,8 +115,12 @@ class FeatureInserter
       IterT b = e-1;
 
       double const f = (l - b->m_len) / (e->m_len - b->m_len);
-      ASSERT ( 0.0 <= f && f <= 1.0, (f) );
-      return (b->m_p * (1-f) + e->m_p * f);
+
+      // For safety reasons (floating point calculations) do comparison instead of ASSERT.
+      if (0.0 <= f && f <= 1.0)
+        return (b->m_p * (1-f) + e->m_p * f);
+      else
+        return ((b->m_p + e->m_p) / 2.0);
     }
   };
 
