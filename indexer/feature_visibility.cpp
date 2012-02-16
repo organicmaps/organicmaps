@@ -396,7 +396,8 @@ bool UsePopulationRank(uint32_t type)
 
     bool IsMyType(uint32_t t) const
     {
-      return find(m_types, m_types + ARRAY_SIZE(m_types), t);
+      uint32_t const * e = m_types + ARRAY_SIZE(m_types);
+      return (find(m_types, e, t) != e);
     }
   };
 

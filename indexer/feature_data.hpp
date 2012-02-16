@@ -81,7 +81,8 @@ namespace feature
 
     inline bool Has(uint32_t t) const
     {
-      return find(m_types, m_types + m_size, t);
+      uint32_t const * e = m_types + m_size;
+      return (find(m_types, e, t) != e);
     }
     //@}
 

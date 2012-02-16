@@ -256,7 +256,8 @@ namespace
 
     bool IsMy(uint8_t ind) const
     {
-      return find(m_index, m_index + ARRAY_SIZE(m_index), ind);
+      uint8_t const * e = m_index + ARRAY_SIZE(m_index);
+      return (find(m_index, e, ind) != e);
     }
   };
 }
