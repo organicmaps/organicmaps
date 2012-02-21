@@ -96,6 +96,7 @@ PreResult2::PreResult2(FeatureType const & f, PreResult1 const & res,
                        string const & displayName, string const & fileName)
   : m_types(f),
     m_str(displayName),
+    m_featureRect(f.GetLimitRect(FeatureType::WORST_GEOMETRY)),
     m_center(res.m_center),
     m_distance(res.m_distance),
     m_resultType(RESULT_FEATURE),
@@ -189,7 +190,7 @@ Result PreResult2::GenerateFinalResult(
                   + ' ' + strings::to_string(static_cast<int>(m_searchRank))
               #endif
                   ,
-                  type, feature::GetFeatureViewport(m_types, m_center), m_distance);
+                  type, feature::GetFeatureViewport(m_types, m_featureRect), m_distance);
 
   case RESULT_LATLON:
     return Result(m_str, info.m_name, info.m_flag, string(), 0,

@@ -129,6 +129,7 @@ private:
     void GetRegion(storage::CountryInfoGetter const * pInfo, storage::CountryInfo & info) const;
   } m_region;
 
+  m2::RectD m_featureRect;
   m2::PointD m_center;
   double m_distance;
   ResultType m_resultType;

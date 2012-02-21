@@ -51,7 +51,6 @@ public:
     m_TypeSmallVillage[2]  = GetType("place", "farm");
   }
 
-  /*
   void CorrectScaleForVisibility(TypesHolder const & types, int & scale) const
   {
     pair<int, int> const scaleR = feature::DrawableScaleRangeForText(types);
@@ -67,26 +66,19 @@ public:
 
     return ((scale != scaleNew) ? scales::GetRectForLevel(scaleNew, rect.Center(), 1.0) : rect);
   }
-  */
 
-  m2::RectD GetViewport(TypesHolder const & types, m2::PointD const & center) const
+  m2::RectD GetViewport(TypesHolder const & types, m2::RectD const & limitRect) const
   {
+    if (types.GetGeoType() != feature::GEOM_POINT)
+      return CorrectRectForScales(types, limitRect);
+
     int const upperScale = scales::GetUpperScale();
     int scale = upperScale;
     for (size_t i = 0; i < types.Size(); ++i)
       scale = min(scale, GetScaleForType(types[i]));
 
-    if (scale == upperScale)
-    {
-      // get minimal draw text scale for feature type, that not mentioned in GetScaleForType
-      scale = feature::DrawableScaleRangeForText(types).first;
-
-      // if no texts at all - show at maximum zoom
-      if (scale == -1)
-        scale = upperScale;
-    }
-
-    return scales::GetRectForLevel(scale, center, 1.0);
+    CorrectScaleForVisibility(types, scale);
+    return scales::GetRectForLevel(scale, limitRect.Center(), 1.0);
   }
 
   uint8_t GetSearchRank(TypesHolder const & types, m2::PointD const & pt, uint32_t population) const
@@ -214,9 +206,9 @@ FeatureEstimator const & GetFeatureEstimator()
 
 }  // namespace feature::impl
 
-m2::RectD GetFeatureViewport(TypesHolder const & types, m2::PointD const & center)
+m2::RectD GetFeatureViewport(TypesHolder const & types, m2::RectD const & limRect)
 {
-  return impl::GetFeatureEstimator().GetViewport(types, center);
+  return impl::GetFeatureEstimator().GetViewport(types, limRect);
 }
 
 uint8_t GetSearchRank(TypesHolder const & types, m2::PointD const & pt, uint32_t population)
