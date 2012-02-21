@@ -105,11 +105,9 @@ private:
   buffer_vector<strings::UniString, 32> m_tokens;
   strings::UniString m_prefix;
 
-  /// @todo OMG, this static integral constant does't link ???
-  //static size_t const m_rectsCount = 2;
-  enum { m_rectsCount = 2 };
+  static size_t const RECTSCOUNT = 2;
 
-  m2::RectD m_viewport[m_rectsCount];
+  m2::RectD m_viewport[RECTSCOUNT];
   bool m_worldSearch;
 
   /// @return Rect for viewport-distance calculation.
@@ -119,7 +117,7 @@ private:
 
   scoped_ptr<LangKeywordsScorer> m_pKeywordsScorer;
 
-  vector<vector<uint32_t> > m_offsetsInViewport[m_rectsCount];
+  vector<vector<uint32_t> > m_offsetsInViewport[RECTSCOUNT];
 
   template <class ParamT, class RefT> class CompareT
   {

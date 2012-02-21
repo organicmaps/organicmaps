@@ -67,7 +67,7 @@ namespace
 
 void Query::SetViewport(m2::RectD viewport[], size_t count)
 {
-  ASSERT_LESS_OR_EQUAL(count, m_rectsCount, ());
+  ASSERT_LESS_OR_EQUAL(count, static_cast<size_t>(RECTSCOUNT), ());
 
   for (size_t i = 0; i < count; ++i)
   {
@@ -96,7 +96,7 @@ void Query::SetPreferredLanguage(string const & lang)
 
 void Query::ClearCache()
 {
-  for (size_t i = 0; i < m_rectsCount; ++i)
+  for (size_t i = 0; i < RECTSCOUNT; ++i)
     ClearCache(i);
 }
 
@@ -624,7 +624,7 @@ void Query::SearchFeatures()
   langs.insert(StringUtf8Multilang::GetLangIndex("en"));
   langs.insert(StringUtf8Multilang::GetLangIndex("default"));
 
-  for (size_t i = 0; i < m_rectsCount; ++i)
+  for (size_t i = 0; i < RECTSCOUNT; ++i)
   {
     if (m_viewport[i].IsValid())
       SearchFeatures(tokens, mwmInfo, langs, i);
