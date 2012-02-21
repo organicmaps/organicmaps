@@ -158,6 +158,9 @@ public:
 
   /// @name Geometry.
   //@{
+  /// This constant values should be equal with feature::LoaderBase implementation.
+  enum { BEST_GEOMETRY = -1, WORST_GEOMETRY = -2 };
+
   m2::RectD GetLimitRect(int scale) const;
 
   bool IsEmptyGeometry(int scale) const;

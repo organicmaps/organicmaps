@@ -99,11 +99,11 @@ namespace covering
 vector<int64_t> CoverFeature(FeatureType const & f, int cellDepth, uint64_t cellPenaltyArea)
 {
   FeatureIntersector featureIntersector;
-  f.ForEachPointRef(featureIntersector, -1);
-  f.ForEachTriangleRef(featureIntersector, -1);
+  f.ForEachPointRef(featureIntersector, FeatureType::BEST_GEOMETRY);
+  f.ForEachTriangleRef(featureIntersector, FeatureType::BEST_GEOMETRY);
 
   CHECK(!featureIntersector.m_Trg.empty() || !featureIntersector.m_Polyline.empty(), \
-        (f.DebugString(-1)));
+        (f.DebugString(FeatureType::BEST_GEOMETRY)));
 
   if (featureIntersector.m_Trg.empty() && featureIntersector.m_Polyline.size() == 1)
   {

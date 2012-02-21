@@ -15,5 +15,5 @@ UNIT_TEST(DebugFeaturesTest_World_6941024)
 //  FeatureType f;
 //  vec.Get(6941024, f);
 
-//  f.GetLimitRect(-1);
+//  f.GetLimitRect(FeatureType::BEST_GEOMETRY);
 }

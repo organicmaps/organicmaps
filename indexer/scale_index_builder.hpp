@@ -2,6 +2,7 @@
 #include "scale_index.hpp"
 #include "feature_covering.hpp"
 #include "feature_visibility.hpp"
+#include "feature.hpp"
 #include "interval_index_builder.hpp"
 #include "cell_id.hpp"
 
@@ -17,6 +18,7 @@
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
 #include "../std/utility.hpp"
+
 
 class CellFeaturePair
 {
@@ -49,8 +51,8 @@ class FeatureCoverer
 {
   int GetGeometryScale() const
   {
-    // Do not pass actual level. We should build index for the best geometry (pass -1).
-    return -1;
+    // Do not pass actual level. We should build index for the best geometry.
+    return FeatureType::BEST_GEOMETRY;
     //return m_ScaleRange.second-1;
   }
 

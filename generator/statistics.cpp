@@ -86,9 +86,9 @@ namespace stats
       m_info.m_inner[1].Add(innerStats.m_Strips);
       m_info.m_inner[2].Add(innerStats.m_Size);
 
-      // get geometry size for the best geometry (-1)
-      FeatureType::geom_stat_t const geom = f.GetGeometrySize(-1);
-      FeatureType::geom_stat_t const trg = f.GetTrianglesSize(-1);
+      // get geometry size for the best geometry
+      FeatureType::geom_stat_t const geom = f.GetGeometrySize(FeatureType::BEST_GEOMETRY);
+      FeatureType::geom_stat_t const trg = f.GetTrianglesSize(FeatureType::BEST_GEOMETRY);
 
       m_info.AddToSet(geom.m_count, geom.m_size, m_info.m_byPointsCount);
       m_info.AddToSet(trg.m_count / 3, trg.m_size, m_info.m_byTrgCount);

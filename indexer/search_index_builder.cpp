@@ -154,7 +154,7 @@ class FeatureInserter
     case feature::GEOM_LINE:
       {
         CalcPolyCenter doCalc;
-        f.ForEachPointRef(doCalc, -1);
+        f.ForEachPointRef(doCalc, FeatureType::BEST_GEOMETRY);
         return doCalc.GetCenter();
       }
 
@@ -162,7 +162,7 @@ class FeatureInserter
       {
         ASSERT_EQUAL ( type, feature::GEOM_AREA, () );
         CalcMassCenter doCalc;
-        f.ForEachTriangleRef(doCalc, -1);
+        f.ForEachTriangleRef(doCalc, FeatureType::BEST_GEOMETRY);
         return doCalc.GetCenter();
       }
     }
