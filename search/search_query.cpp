@@ -227,8 +227,7 @@ void Query::Search(string const & query, Results & res, unsigned int resultsNeed
     if (search::MatchLatLon(m_rawQuery, lat, lon, latPrec, lonPrec))
     {
       //double const precision = 5.0 * max(0.0001, min(latPrec, lonPrec));  // Min 55 meters
-      res.AddResult(impl::PreResult2(GetViewport(), m_position, lat, lon).
-                    GenerateFinalResult(m_pInfoGetter, m_pCategories, m_currentLang));
+      res.AddResult(MakeResult(impl::PreResult2(GetViewport(), m_position, lat, lon)));
     }
   }
 
@@ -485,7 +484,7 @@ void Query::FlushResults(Results & res)
 
     LOG(LDEBUG, (indV[i]));
 
-    res.AddResult((*(indV[i])).GenerateFinalResult(m_pInfoGetter, m_pCategories, m_currentLang));
+    res.AddResult(MakeResult(*(indV[i])));
   }
 }
 
@@ -555,7 +554,7 @@ void Query::GetBestMatchName(FeatureType const & f, uint32_t & penalty, string &
   {
     feature::TypesHolder types(f);
     LOG(LDEBUG, (types));
-    LOG(LDEBUG, (f.GetLimitRect(-1)));
+    LOG(LDEBUG, (f.GetLimitRect(FeatureType::BEST_GEOMETRY)));
   }
   */
 }
@@ -761,9 +760,12 @@ void Query::MatchForSuggestions(strings::UniString const & token, Results & res)
   for (; it != m_pStringsToSuggest->end(); ++it)
   {
     strings::UniString const & s = it->first;
-    if (it->second <= token.size() && StartsWith(s.begin(), s.end(), token.begin(), token.end()))
-      res.AddResult(impl::PreResult2(strings::ToUtf8(s), it->second).
-                    GenerateFinalResult(m_pInfoGetter, m_pCategories, m_currentLang));
+    if ((it->second <= token.size()) &&
+        (token != s) &&   // do not push suggestion if it already equals to token
+        StartsWith(s.begin(), s.end(), token.begin(), token.end()))
+    {
+      res.AddResult(MakeResult(impl::PreResult2(strings::ToUtf8(s), it->second)));
+    }
   }
 }
 

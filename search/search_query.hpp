@@ -92,6 +92,11 @@ private:
 
   void GetBestMatchName(FeatureType const & f, uint32_t & penalty, string & name);
 
+  inline Result MakeResult(impl::PreResult2 const & r) const
+  {
+    return r.GenerateFinalResult(m_pInfoGetter, m_pCategories, m_currentLang);
+  }
+
   Index const * m_pIndex;
   CategoriesHolder const * m_pCategories;
   StringsToSuggestVectorT const * m_pStringsToSuggest;
