@@ -43,9 +43,8 @@ namespace yg
       {
         m2::RectU m_rect;
         void * m_data;
-        yg::DataFormat m_rtFormat;
 
-        ReadPixels(m2::RectU const & r, void * data, yg::DataFormat rtFormat);
+        ReadPixels(m2::RectU const & r, void * data);
 
         void perform();
       };
