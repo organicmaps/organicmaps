@@ -356,29 +356,22 @@ namespace impl
 
     Query & m_query;
 
-    LockedFeaturesVector * m_pFV;
+    scoped_ptr<LockedFeaturesVector> m_pFV;
 
   public:
-    PreResult2Maker(Query & q) : m_query(q), m_pFV(0)
+    PreResult2Maker(Query & q) : m_query(q)
     {
-    }
-    ~PreResult2Maker()
-    {
-      delete m_pFV;
     }
 
     // For the best performance, impl::PreResult1 should be sorted by impl::PreResult1::GetID().
     impl::PreResult2 * operator() (impl::PreResult1 const & r)
     {
-      pair<uint32_t, size_t> const id = r.GetID();
-      if (m_pFV == 0 || m_pFV->GetID() != id.second)
-      {
-        delete m_pFV;
-        m_pFV = new LockedFeaturesVector(*m_query.m_pIndex, id.second);
-      }
+      pair<size_t, uint32_t> const id = r.GetID();
+      if (m_pFV.get() == 0 || m_pFV->GetID() != id.first)
+        m_pFV.reset(new LockedFeaturesVector(*m_query.m_pIndex, id.first));
 
       FeatureType feature;
-      m_pFV->m_vector.Get(id.first, feature);
+      m_pFV->m_vector.Get(id.second, feature);
 
       uint32_t penalty;
       string name;

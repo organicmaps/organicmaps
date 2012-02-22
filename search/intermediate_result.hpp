@@ -45,7 +45,7 @@ public:
   static bool LessDistance(PreResult1 const & r1, PreResult1 const & r2);
   static bool LessViewportDistance(PreResult1 const & r1, PreResult1 const & r2);
 
-  inline pair<uint32_t, size_t> GetID() const { return make_pair(m_featureID, m_mwmID); }
+  inline pair<size_t, uint32_t> GetID() const { return make_pair(m_mwmID, m_featureID); }
 };
 
 
