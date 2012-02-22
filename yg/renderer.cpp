@@ -210,8 +210,8 @@ namespace yg
                             m_rect.minY(),
                             m_rect.SizeX(),
                             m_rect.SizeY(),
-                            pixelDataType,
                             pixelFormatType,
+                            pixelDataType,
                             m_data
                             ));
     }
