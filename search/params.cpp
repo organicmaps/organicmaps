@@ -27,12 +27,10 @@ void SearchParams::SetPosition(double lat, double lon)
 void SearchParams::SetInputLanguage(string const & language)
 {
   // @TODO take into an account zh_pinyin, ko_rm and ja_rm
-  size_t delimPos = language.find("-");
-  if (delimPos == string::npos)
-    delimPos = language.find("_");
+  size_t const delimPos = language.find_first_of("-_");
 
   m_inputLanguageCode = StringUtf8Multilang::GetLangIndex(
-        delimPos == string::npos ? language: language.substr(0, delimPos));
+        delimPos == string::npos ? language : language.substr(0, delimPos));
 }
 
 bool SearchParams::IsNearMeMode() const

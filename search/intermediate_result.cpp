@@ -271,8 +271,10 @@ bool PreResult2::LessLinearTypesF::operator() (PreResult2 const & r1, PreResult2
   if (r1.m_str != r2.m_str)
     return (r1.m_str < r2.m_str);
 
-  if (r1.GetBestType() != r2.GetBestType())
-    return (r1.GetBestType() < r2.GetBestType());
+  uint32_t const t1 = r1.GetBestType();
+  uint32_t const t2 = r2.GetBestType();
+  if (t1 != t2)
+    return (t1 < t2);
 
   // Should stay the best feature, after unique, so add this criteria:
 
@@ -287,8 +289,9 @@ bool PreResult2::EqualLinearTypesF::operator() (PreResult2 const & r1, PreResult
   {
     // filter equal linear features
     static IsLinearChecker checker;
-    return (r1.GetBestType() == r2.GetBestType() &&
-            checker.IsMy(FirstLevelIndex(r1.GetBestType())));
+
+    uint32_t const t1 = r1.GetBestType();
+    return (t1 == r2.GetBestType() && checker.IsMy(FirstLevelIndex(t1)));
   }
 
   return false;

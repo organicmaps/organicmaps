@@ -86,7 +86,7 @@ public:
   explicit FilesContainerR(string const & fName,
                            uint32_t logPageSize = 10,
                            uint32_t logPageCount = 10);
-  FilesContainerR(ReaderT const & file);
+  explicit FilesContainerR(ReaderT const & file);
 
   ReaderT GetReader(Tag const & tag) const;
 
