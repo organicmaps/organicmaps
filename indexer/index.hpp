@@ -50,6 +50,9 @@ public:
     {
       return static_cast<MwmValue *>(MwmSet::MwmLock::GetValue());
     }
+
+    inline FilesContainerR const & GetContainer() const { return GetValue()->m_cont; }
+    inline feature::DataHeader const & GetHeader() const { return GetValue()->GetHeader(); }
   };
 
   template <typename F>

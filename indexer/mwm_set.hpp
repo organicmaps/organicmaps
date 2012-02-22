@@ -52,6 +52,7 @@ public:
 
     inline MwmValueBase * GetValue() const { return m_pValue; }
     string GetCountryName() const;
+    inline MwmId GetID() const { return m_id; }
 
   private:
     MwmSet const & m_mwmSet;

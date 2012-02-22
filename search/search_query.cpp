@@ -333,68 +333,58 @@ namespace impl
 {
   class PreResult2Maker
   {
-    typedef map<size_t, FeaturesVector *> FeaturesMapT;
-    FeaturesMapT m_features;
+    struct LockedFeaturesVector
+    {
+      Index::MwmLock m_lock;
+      FeaturesVector m_vector;
 
-    vector<MwmInfo> m_mwmInfo;
+      // Assume that we didn't remove maps during search, so m_lock.GetValue() != 0.
+      LockedFeaturesVector(Index const & index, MwmSet::MwmId const & id)
+        : m_lock(index, id), m_vector(m_lock.GetContainer(), m_lock.GetHeader())
+      {
+      }
+
+      string GetCountry() const
+      {
+        if (m_lock.GetHeader().GetType() == feature::DataHeader::world)
+          return string();
+        return m_lock.GetCountryName();
+      }
+
+      MwmSet::MwmId GetID() const { return m_lock.GetID(); }
+    };
 
     Query & m_query;
 
+    LockedFeaturesVector * m_pFV;
+
   public:
-    PreResult2Maker(Query & q) : m_query(q)
+    PreResult2Maker(Query & q) : m_query(q), m_pFV(0)
     {
-      m_query.m_pIndex->GetMwmInfo(m_mwmInfo);
     }
     ~PreResult2Maker()
     {
-      for (FeaturesMapT::iterator i = m_features.begin(); i != m_features.end(); ++i)
-        delete i->second;
+      delete m_pFV;
     }
 
+    // For the best performance, impl::PreResult1 should be sorted by impl::PreResult1::GetID().
     impl::PreResult2 * operator() (impl::PreResult1 const & r)
     {
-      // Find or create needed FeaturesVector for result.
       pair<uint32_t, size_t> const id = r.GetID();
-      string countryName;
-
-      FeaturesMapT::iterator iF = m_features.insert(
-            make_pair(id.second, static_cast<FeaturesVector*>(0))).first;
-      if (iF->second == 0)
+      if (m_pFV == 0 || m_pFV->GetID() != id.second)
       {
-        for (MwmSet::MwmId mwmId = 0; mwmId < m_mwmInfo.size(); ++mwmId)
-        {
-          if (mwmId == id.second)
-          {
-            Index::MwmLock mwmLock(*m_query.m_pIndex, mwmId);
-            countryName = mwmLock.GetCountryName();
-
-            if (MwmValue * pMwm = mwmLock.GetValue())
-            {
-              feature::DataHeader const & h = pMwm->GetHeader();
-              if (h.GetType() == feature::DataHeader::world)
-                countryName = string();
-
-              iF->second = new FeaturesVector(pMwm->m_cont, h);
-              break;
-            }
-          }
-        }
-      }
-
-      if (iF->second == 0)
-      {
-        LOG(LERROR, ("Valid MWM for search result not found", id));
-        return 0;
+        delete m_pFV;
+        m_pFV = new LockedFeaturesVector(*m_query.m_pIndex, id.second);
       }
 
       FeatureType feature;
-      iF->second->Get(id.first, feature);
+      m_pFV->m_vector.Get(id.first, feature);
 
       uint32_t penalty;
       string name;
       m_query.GetBestMatchName(feature, penalty, name);
 
-      return new impl::PreResult2(feature, r, name, countryName);
+      return new impl::PreResult2(feature, r, name, m_pFV->GetCountry());
     }
   };
 }
@@ -402,22 +392,6 @@ namespace impl
 void Query::FlushResults(Results & res)
 {
   typedef impl::PreResult2 ResultT;
-
-/*
-#ifdef DEBUG
-  {
-    impl::PreResult2Maker maker(*this);
-    LOG(LDEBUG, ("Dump features for rank:"));
-    for (QueueT::const_iterator i = m_results[0].begin(); i != m_results[0].end(); ++i)
-    {
-      ResultT * res = maker(*i);
-      LOG(LDEBUG, (*res));
-      delete res;
-    }
-    LOG(LDEBUG, ("------------------------"));
-  }
-#endif
-*/
 
   vector<IndexedValue> indV;
 
