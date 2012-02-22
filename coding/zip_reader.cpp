@@ -3,6 +3,8 @@
 #include "../base/scope_guard.hpp"
 #include "../base/logging.hpp"
 
+#include "../coding/file_writer.hpp"
+
 #include "../std/bind.hpp"
 
 #include "../3party/zlib/contrib/minizip/unzip.h"
@@ -72,4 +74,46 @@ bool ZipFileReader::IsZip(string const & zipContainer)
     return false;
   unzClose(zip);
   return true;
+}
+
+void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileInZip,
+                      string const & outFilePath)
+{
+  unzFile zip = unzOpen64(zipContainer.c_str());
+  if (!zip)
+    MYTHROW(OpenZipException, ("Can't get zip file handle", zipContainer));
+  MY_SCOPE_GUARD(zipGuard, bind(&unzClose, zip));
+
+  if (UNZ_OK != unzLocateFile(zip, fileInZip.c_str(), 1))
+    MYTHROW(LocateZipException, ("Can't locate file inside zip", fileInZip));
+
+  if (UNZ_OK != unzOpenCurrentFile(zip))
+      MYTHROW(LocateZipException, ("Can't open file inside zip", fileInZip));
+  MY_SCOPE_GUARD(currentFileGuard, bind(&unzCloseCurrentFile, zip));
+
+  try
+  {
+    FileWriter outFile(outFilePath);
+
+    int readBytes;
+    static size_t const BUF_SIZE = 4096;
+    char buf[BUF_SIZE];
+    while (true)
+    {
+      readBytes = unzReadCurrentFile(zip, buf, BUF_SIZE);
+      if (readBytes > 0)
+        outFile.Write(buf, static_cast<size_t>(readBytes));
+      else if (readBytes < 0)
+        MYTHROW(InvalidZipException, ("Error", readBytes, "while unzipping", fileInZip, "from", zipContainer));
+      else
+        break;
+    }
+  }
+  catch (Exception const & e)
+  {
+    // Delete unfinished output file
+    FileWriter::DeleteFileX(outFilePath);
+    // Rethrow exception - we've failed
+    throw;
+  }
 }

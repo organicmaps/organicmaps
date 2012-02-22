@@ -20,6 +20,10 @@ public:
 
   ZipFileReader(string const & container, string const & file);
 
+  // Can also throw Writer::OpenException and Writer::WriteException
+  static void UnzipFile(string const & zipContainer, string const & fileInZip,
+                        string const & outFilePath);
+
   static vector<string> FilesList(string const & zipContainer);
   /// Quick version without exceptions
   static bool IsZip(string const & zipContainer);
