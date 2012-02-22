@@ -355,7 +355,9 @@ namespace yg
   }
 
   ResourceManager::Params::Params()
-    : m_rtFormat(yg::Data8Bpp),
+    : m_vendorName(reinterpret_cast<char const*>(glGetString(GL_VENDOR))),
+      m_rendererName(reinterpret_cast<char const *>(glGetString(GL_RENDERER))),
+      m_rtFormat(yg::Data8Bpp),
       m_texFormat(yg::Data4Bpp),
       m_texRtFormat(yg::Data4Bpp),
       m_useSingleThreadedOGL(false),
@@ -371,7 +373,29 @@ namespace yg
       m_renderTargetTexturesParams("renderTargetTexture"),
       m_styleCacheTexturesParams("styleCacheTexture"),
       m_guiThreadTexturesParams("guiThreadTexture")
-  {}
+  {
+  }
+
+  bool ResourceManager::Params::isGPU(char const * vendorName, char const * rendererName) const
+  {
+    return (m_vendorName.find(vendorName) != string::npos)
+        && (m_rendererName.find(rendererName) != string::npos);
+  }
+
+  void ResourceManager::Params::selectTexRTFormat()
+  {
+    /// general case
+    m_texRtFormat = yg::Data4Bpp;
+
+    if (isGPU("Broadcom", "VideoCore IV HW"))
+      m_texRtFormat = yg::Data8Bpp;
+
+    if (isGPU("Imagination Technologies", "PowerVR MBX"))
+    {
+      m_rtFormat = yg::Data8Bpp;
+      m_texRtFormat = yg::Data8Bpp;
+    }
+  }
 
   void ResourceManager::Params::fitIntoLimits()
   {

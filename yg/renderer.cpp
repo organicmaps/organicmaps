@@ -178,8 +178,8 @@ namespace yg
       OGLCHECK(glFinish());
     }
 
-    Renderer::ReadPixels::ReadPixels(m2::RectU const & r, void * data)
-      : m_rect(r), m_data(data)
+    Renderer::ReadPixels::ReadPixels(m2::RectU const & r, void * data, yg::DataFormat rtFormat)
+      : m_rect(r), m_data(data), m_rtFormat(rtFormat)
     {}
 
     void Renderer::ReadPixels::perform()
@@ -187,19 +187,38 @@ namespace yg
       if (isDebugging())
         LOG(LINFO, ("performing ReadPixels command"));
 
+      int pixelDataType = 0;
+      int pixelFormatType = 0;
+
+      switch (m_rtFormat)
+      {
+      case yg::Data4Bpp:
+        pixelDataType = GL_UNSIGNED_SHORT_4_4_4_4;
+        pixelFormatType = GL_RGBA;
+        break;
+      case yg::Data565Bpp:
+        pixelDataType = GL_UNSIGNED_SHORT_5_6_5;
+        pixelFormatType = GL_RGB;
+        break;
+      case yg::Data8Bpp:
+        pixelDataType = GL_UNSIGNED_BYTE;
+        pixelFormatType = GL_RGBA;
+        break;
+      }
+
       OGLCHECK(glReadPixels(m_rect.minX(),
                             m_rect.minY(),
                             m_rect.SizeX(),
                             m_rect.SizeY(),
-                            RT_TRAITS::gl_pixel_format_type,
-                            RT_TRAITS::gl_pixel_data_type,
+                            pixelDataType,
+                            pixelFormatType,
                             m_data
                             ));
     }
 
     void Renderer::readPixels(m2::RectU const & r, void * data, bool doForce)
     {
-      processCommand(make_shared_ptr(new ReadPixels(r, data)), Packet::ECommand, doForce);
+      processCommand(make_shared_ptr(new ReadPixels(r, data, m_resourceManager->params().m_texRtFormat)), Packet::ECommand, doForce);
     }
 
     void Renderer::finish(bool doForce)

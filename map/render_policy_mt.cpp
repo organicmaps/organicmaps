@@ -22,6 +22,8 @@ RenderPolicyMT::RenderPolicyMT(VideoTimer * videoTimer,
 {
   yg::ResourceManager::Params rmp = rmParams;
 
+  rmp.selectTexRTFormat();
+
   rmp.m_primaryStoragesParams = yg::ResourceManager::StoragePoolParams(5000 * sizeof(yg::gl::Vertex),
                                                                        sizeof(yg::gl::Vertex),
                                                                        10000 * sizeof(unsigned short),

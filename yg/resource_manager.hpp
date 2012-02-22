@@ -207,6 +207,16 @@ namespace yg
 
     struct Params
     {
+    private:
+
+      string m_vendorName;
+      string m_rendererName;
+
+      /// check non-strict matching upon vendorName and rendererName
+      bool isGPU(char const * vendorName, char const * rendererName) const;
+
+    public:
+
       DataFormat m_rtFormat;
       DataFormat m_texFormat;
       DataFormat m_texRtFormat;
@@ -238,6 +248,7 @@ namespace yg
       Params();
 
       void distributeFreeMemory(int freeVideoMemory);
+      void selectTexRTFormat();
       void fitIntoLimits();
       int memoryUsage() const;
       int fixedMemoryUsage() const;
@@ -273,6 +284,7 @@ namespace yg
     ResourceManager(Params const & p);
 
     void initGlyphCaches(GlyphCacheParams const & p);
+    void selectTexRTFormat();
 
     void initStoragePool(StoragePoolParams const & p, scoped_ptr<TStoragePool> & pool);
 

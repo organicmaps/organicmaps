@@ -2,6 +2,7 @@
 
 #include "color.hpp"
 #include "packets_queue.hpp"
+#include "resource_manager.hpp"
 
 #include "../base/threaded_list.hpp"
 #include "../std/function.hpp"
@@ -42,8 +43,9 @@ namespace yg
       {
         m2::RectU m_rect;
         void * m_data;
+        yg::DataFormat m_rtFormat;
 
-        ReadPixels(m2::RectU const & r, void * data);
+        ReadPixels(m2::RectU const & r, void * data, yg::DataFormat rtFormat);
 
         void perform();
       };

@@ -41,6 +41,8 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
 {
   yg::ResourceManager::Params rmp = rmParams;
 
+  rmp.selectTexRTFormat();
+
   rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512,
                                                                        256,
                                                                        1,
