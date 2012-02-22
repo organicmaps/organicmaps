@@ -13,6 +13,7 @@
 #include "../indexer/categories_holder.hpp"
 
 #include "../coding/multilang_utf8_string.hpp"
+#include "../coding/reader_wrapper.hpp"
 
 #include "../base/logging.hpp"
 #include "../base/string_utils.hpp"
@@ -643,10 +644,12 @@ void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
             continue;
 
           serial::CodingParams cp(GetCPForTrie(header.GetDefCodingParams()));
+
+          ModelReaderPtr searchReader = pMwm->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
           scoped_ptr<TrieIterator> pTrieRoot(::trie::reader::ReadTrie(
-                                               pMwm->m_cont.GetReader(SEARCH_INDEX_FILE_TAG),
-                                               trie::ValueReader(cp),
-                                               trie::EdgeValueReader()));
+                                             SubReaderWrapper<Reader>(searchReader.GetPtr()),
+                                             trie::ValueReader(cp),
+                                             trie::EdgeValueReader()));
 
           // Get categories edge root.
           scoped_ptr<TrieIterator> pCategoriesRoot;

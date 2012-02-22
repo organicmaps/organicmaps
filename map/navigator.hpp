@@ -4,9 +4,6 @@
 
 #include "../base/matrix.hpp"
 
-class FileReader;
-template <class> class ReaderSource;
-class FileWriter;
 
 // Calculates screen parameters in navigation (dragging, scaling, etc.).
 class Navigator

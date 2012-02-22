@@ -134,6 +134,8 @@ public:
   {
     m_p->ReadAsString(s);
   }
+
+  ReaderT * GetPtr() const { return m_p.get(); }
 };
 
 // Model reader store file id as string.
