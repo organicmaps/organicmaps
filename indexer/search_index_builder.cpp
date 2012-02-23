@@ -131,7 +131,7 @@ class FeatureInserter
     size_t m_count;
 
   public:
-    CalcMassCenter() : m_count(0) {}
+    CalcMassCenter() : m_center(0.0, 0.0), m_count(0) {}
 
     void operator() (P const & p1, P const & p2, P const & p3)
     {
