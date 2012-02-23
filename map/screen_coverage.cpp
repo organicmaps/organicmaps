@@ -334,7 +334,8 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   for (size_t i = 0; i < firstClassTiles.size(); ++i)
     m_tileRenderer->AddCommand(firstClassTiles[i], GetSequenceID(),
                                bind(&CoverageGenerator::AddMergeTileTask, m_coverageGenerator,
-                                    firstClassTiles[i]));
+                                    firstClassTiles[i],
+                                    GetSequenceID()));
 
   for (size_t i = 0; i < secondClassTiles.size(); ++i)
     m_tileRenderer->AddCommand(secondClassTiles[i], GetSequenceID());

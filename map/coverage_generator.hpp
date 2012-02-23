@@ -59,10 +59,10 @@ public:
   void FinalizeThreadGL();
 
   void AddCoverScreenTask(ScreenBase const & screen, bool doForce);
-  void AddMergeTileTask(Tiler::RectInfo const & rectInfo);
+  void AddMergeTileTask(Tiler::RectInfo const & rectInfo, int sequenceID);
 
   void CoverScreen(ScreenBase const & screen, int sequenceID);
-  void MergeTile(Tiler::RectInfo const & rectInfo);
+  void MergeTile(Tiler::RectInfo const & rectInfo, int sequenceID);
 
   void Cancel();
 

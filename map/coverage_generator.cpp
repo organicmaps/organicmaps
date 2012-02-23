@@ -120,16 +120,18 @@ void CoverageGenerator::CoverScreen(ScreenBase const & screen, int sequenceID)
   m_windowHandle->invalidate();
 }
 
-void CoverageGenerator::AddMergeTileTask(Tiler::RectInfo const & rectInfo)
+void CoverageGenerator::AddMergeTileTask(Tiler::RectInfo const & rectInfo, int sequenceID)
 {
   if (g_coverageGeneratorDestroyed)
     return;
 
-  m_queue.AddCommand(bind(&CoverageGenerator::MergeTile, this, rectInfo));
+  m_queue.AddCommand(bind(&CoverageGenerator::MergeTile, this, rectInfo, sequenceID));
 }
 
-void CoverageGenerator::MergeTile(Tiler::RectInfo const & rectInfo)
+void CoverageGenerator::MergeTile(Tiler::RectInfo const & rectInfo, int sequenceID)
 {
+  if (sequenceID < m_sequenceID)
+    return;
 
   ASSERT(m_workCoverage == 0, ());
 
