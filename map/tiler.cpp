@@ -107,9 +107,6 @@ int Tiler::getTileScale(ScreenBase const & s, int ts) const
 
 void Tiler::seed(ScreenBase const & screen, m2::PointD const & centerPt)
 {
-  if (screen != m_screen)
-    ++m_sequenceID;
-
   m_screen = screen;
   m_centerPt = centerPt;
 
@@ -174,14 +171,8 @@ void Tiler::tiles(vector<RectInfo> & tiles, int depth)
 
 Tiler::Tiler()
   : m_drawScale(0),
-    m_tileScale(0),
-    m_sequenceID(0)
+    m_tileScale(0)
 {}
-
-size_t Tiler::sequenceID() const
-{
-  return m_sequenceID;
-}
 
 int Tiler::drawScale() const
 {

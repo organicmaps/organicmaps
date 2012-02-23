@@ -31,7 +31,6 @@ private:
   m2::PointD m_centerPt;
   int m_drawScale;
   int m_tileScale;
-  size_t m_sequenceID;
 
   int getDrawScale(ScreenBase const & s, int ts, double k) const;
   int getTileScale(ScreenBase const & s, int ts) const;
@@ -45,8 +44,6 @@ public:
 
   void tiles(vector<RectInfo> & tiles, int depth);
   bool isLeaf(RectInfo const & ri) const;
-
-  size_t sequenceID() const;
 
   int drawScale() const;
   int tileScale() const;

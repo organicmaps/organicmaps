@@ -32,6 +32,8 @@ class ScreenCoverage
 {
 private:
 
+  /// Unique ID of this screen coverage
+  int m_sequenceID;
   /// Queue to put new rendering tasks in
   TileRenderer * m_tileRenderer;
   /// Tiler to compute visible and predicted tiles
@@ -71,6 +73,11 @@ public:
                  CoverageGenerator * coverageGenerator);
 
   ScreenCoverage * Clone();
+
+  /// set unique ID for all actions, used to compute this coverage
+  void SetSequenceID(int id);
+  /// get unique ID for all actions, used to compute this coverage
+  int GetSequenceID() const;
   /// Is this screen coverage partial, which means that it contains non-drawn rects
   bool IsPartialCoverage() const;
   /// Is this screen coverage contains only empty tiles

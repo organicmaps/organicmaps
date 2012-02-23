@@ -324,7 +324,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   /// clearing all old commands
   m_tileRenderer->ClearCommands();
   /// setting new sequenceID
-  m_tileRenderer->SetSequenceID(m_tiler.sequenceID());
+  m_tileRenderer->SetSequenceID(GetSequenceID());
 
   m_tileRenderer->CancelCommands();
 
@@ -332,12 +332,12 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 
   // adding commands for tiles which aren't in cache
   for (size_t i = 0; i < firstClassTiles.size(); ++i)
-    m_tileRenderer->AddCommand(firstClassTiles[i], m_tiler.sequenceID(),
+    m_tileRenderer->AddCommand(firstClassTiles[i], GetSequenceID(),
                                bind(&CoverageGenerator::AddMergeTileTask, m_coverageGenerator,
                                     firstClassTiles[i]));
 
   for (size_t i = 0; i < secondClassTiles.size(); ++i)
-    m_tileRenderer->AddCommand(secondClassTiles[i], m_tiler.sequenceID());
+    m_tileRenderer->AddCommand(secondClassTiles[i], GetSequenceID());
 }
 
 ScreenCoverage::~ScreenCoverage()
@@ -424,4 +424,14 @@ bool ScreenCoverage::IsEmptyDrawingCoverage() const
 bool ScreenCoverage::IsPartialCoverage() const
 {
   return !m_newTileRects.empty();
+}
+
+void ScreenCoverage::SetSequenceID(int id)
+{
+  m_sequenceID = id;
+}
+
+int ScreenCoverage::GetSequenceID() const
+{
+  return m_sequenceID;
 }

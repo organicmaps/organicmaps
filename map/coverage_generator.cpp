@@ -95,6 +95,7 @@ void CoverageGenerator::CoverScreen(ScreenBase const & screen, int sequenceID)
   ASSERT(m_workCoverage == 0, ());
 
   m_workCoverage = m_currentCoverage->Clone();
+  m_workCoverage->SetSequenceID(sequenceID);
   m_workCoverage->SetStylesCache(m_workStylesCache.get());
   m_workCoverage->SetScreen(screen);
   m_workCoverage->CacheInfoLayer();
@@ -129,9 +130,11 @@ void CoverageGenerator::AddMergeTileTask(Tiler::RectInfo const & rectInfo)
 
 void CoverageGenerator::MergeTile(Tiler::RectInfo const & rectInfo)
 {
+
   ASSERT(m_workCoverage == 0, ());
 
   m_workCoverage = m_currentCoverage->Clone();
+  m_workCoverage->SetSequenceID(sequenceID);
   m_workCoverage->SetStylesCache(m_workStylesCache.get());
   m_workCoverage->Merge(rectInfo);
   m_workCoverage->CacheInfoLayer();
