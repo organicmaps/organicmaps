@@ -181,3 +181,30 @@ UNIT_TEST(ZipExtract)
 
   FileWriter::DeleteFileX(ZIPFILE);
 }
+
+UNIT_TEST(ZipFileSizes)
+{
+  string const ZIPFILE = "test.zip";
+  {
+    FileWriter f(ZIPFILE);
+    f.Write(zipBytes3, ARRAY_SIZE(zipBytes3));
+  }
+  TEST(ZipFileReader::IsZip(ZIPFILE), ("Not a zip file"));
+
+  vector<string> files = ZipFileReader::FilesList(ZIPFILE);
+  TEST_EQUAL(files.size(), 2, ());
+
+  {
+    ZipFileReader file(ZIPFILE, files[0]);
+    TEST_EQUAL(file.Size(), 6, ());
+    TEST_EQUAL(file.UncompressedSize(), 11, ());
+  }
+
+  {
+    ZipFileReader file(ZIPFILE, files[1]);
+    TEST_EQUAL(file.Size(), 8, ());
+    TEST_EQUAL(file.UncompressedSize(), 9, ());
+  }
+
+  FileWriter::DeleteFileX(ZIPFILE);
+}

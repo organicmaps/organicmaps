@@ -10,7 +10,7 @@
 #include "../3party/zlib/contrib/minizip/unzip.h"
 
 ZipFileReader::ZipFileReader(string const & container, string const & file)
-  : BaseZipFileReaderType(container)
+  : BaseZipFileReaderType(container), m_uncompressedFileSize(0)
 {
   unzFile zip = unzOpen64(container.c_str());
   if (!zip)
@@ -32,14 +32,10 @@ ZipFileReader::ZipFileReader(string const & container, string const & file)
 
   unz_file_info64 fileInfo;
   if (UNZ_OK != unzGetCurrentFileInfo64(zip, &fileInfo, NULL, 0, NULL, 0, NULL, 0))
-    MYTHROW(LocateZipException, ("Can't get uncompressed file size inside zip", file));
+    MYTHROW(LocateZipException, ("Can't get compressed file size inside zip", file));
 
-  if (fileInfo.compressed_size != fileInfo.uncompressed_size)
-    MYTHROW(InvalidZipException, ("File should be uncompressed inside zip", file));
-
-  LOG(LDEBUG, (file, "offset:", offset, "size:", fileInfo.uncompressed_size));
-
-  SetOffsetAndSize(offset, fileInfo.uncompressed_size);
+  SetOffsetAndSize(offset, fileInfo.compressed_size);
+  m_uncompressedFileSize = fileInfo.uncompressed_size;
 }
 
 vector<string> ZipFileReader::FilesList(string const & zipContainer)

@@ -13,6 +13,9 @@
 
 class ZipFileReader : public BaseZipFileReaderType
 {
+private:
+  uint64_t m_uncompressedFileSize;
+
 public:
   DECLARE_EXCEPTION(OpenZipException, OpenException);
   DECLARE_EXCEPTION(LocateZipException, OpenException);
@@ -20,7 +23,10 @@ public:
 
   ZipFileReader(string const & container, string const & file);
 
-  // Can also throw Writer::OpenException and Writer::WriteException
+  /// @note Size() returns compressed file size inside zip
+  uint64_t UncompressedSize() const { return m_uncompressedFileSize; }
+
+  /// @warning Can also throw Writer::OpenException and Writer::WriteException
   static void UnzipFile(string const & zipContainer, string const & fileInZip,
                         string const & outFilePath);
 
