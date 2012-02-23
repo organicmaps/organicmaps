@@ -593,12 +593,18 @@ public:
   void Reset() { m_count = 0; }
 };
 
-class DoInsertTypes
-{
-  vector<strings::UniString> & m_tokens;
-public:
-  DoInsertTypes(vector<strings::UniString> & tokens) : m_tokens(tokens) {}
+}
 
+namespace
+{
+
+typedef vector<strings::UniString> TokensVectorT;
+
+class DoInsertTypeNames
+{
+  TokensVectorT & m_tokens;
+public:
+  DoInsertTypeNames(TokensVectorT & tokens) : m_tokens(tokens) {}
   void operator() (uint32_t t)
   {
     m_tokens.push_back(FeatureTypeToString(t));
@@ -609,17 +615,25 @@ public:
 
 void Query::SearchFeatures()
 {
-  vector<vector<strings::UniString> > tokens(m_tokens.size());
+  TokensVectorT prefixTokens;
+  if (!m_prefix.empty())
+    prefixTokens.push_back(m_prefix);
+
+  size_t const tokensCount = m_tokens.size();
+  vector<TokensVectorT> tokens(tokensCount);
 
   // Add normal tokens.
-  for (size_t i = 0; i < m_tokens.size(); ++i)
+  for (size_t i = 0; i < tokensCount; ++i)
     tokens[i].push_back(m_tokens[i]);
 
   // Add names of categories.
   if (m_pCategories)
   {
-    for (size_t i = 0; i < m_tokens.size(); ++i)
-      m_pCategories->ForEachTypeByName(m_tokens[i], impl::DoInsertTypes(tokens[i]));
+    for (size_t i = 0; i < tokensCount; ++i)
+      m_pCategories->ForEachTypeByName(m_tokens[i], DoInsertTypeNames(tokens[i]));
+
+    if (!m_prefix.empty())
+      m_pCategories->ForEachTypeByName(m_prefix, DoInsertTypeNames(prefixTokens));
   }
 
   vector<MwmInfo> mwmInfo;
@@ -635,7 +649,7 @@ void Query::SearchFeatures()
   for (size_t i = 0; i < RECTSCOUNT; ++i)
   {
     if (m_viewport[i].IsValid())
-      SearchFeatures(tokens, mwmInfo, langs, i);
+      SearchFeatures(tokens, prefixTokens, mwmInfo, langs, i);
   }
 }
 
@@ -663,7 +677,8 @@ namespace
   };
 }
 
-void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
+void Query::SearchFeatures(vector<TokensVectorT> const & tokens,
+                           TokensVectorT const & prefixTokens,
                            vector<MwmInfo> const & mwmInfo,
                            unordered_set<int8_t> const & langs,
                            size_t ind)
@@ -721,7 +736,7 @@ void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
             {
               scoped_ptr<TrieIterator> pLangRoot(pTrieRoot->GoToEdge(i));
 
-              MatchFeaturesInTrie(tokens, m_prefix,
+              MatchFeaturesInTrie(tokens, prefixTokens,
                                   TrieRootPrefix(*pLangRoot, edge),
                                   TrieRootPrefix(*pCategoriesRoot, categoriesEdge),
                                   FeaturesFilter(m_offsetsInViewport[ind][mwmId], isWorld, m_cancel),

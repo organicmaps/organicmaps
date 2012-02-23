@@ -87,6 +87,7 @@ private:
 
   void SearchFeatures();
   void SearchFeatures(vector<vector<strings::UniString> > const & tokens,
+                      vector<strings::UniString> const & prefixTokens,
                       vector<MwmInfo> const & mwmInfo,
                       unordered_set<int8_t> const & langs,
                       size_t ind);

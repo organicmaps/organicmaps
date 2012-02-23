@@ -204,7 +204,7 @@ struct TrieRootPrefix
 
 template <class ToDo, class FilterT>
 void MatchFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
-                         strings::UniString const & prefix,
+                         vector<strings::UniString> const & prefixTokens,
                          TrieRootPrefix const & trieRoot,
                          TrieRootPrefix const & catRoot,
                          FilterT const & filter,
@@ -217,8 +217,11 @@ void MatchFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
   {
     for (size_t j = 0; j < tokens[i].size(); ++j)
     {
+      ASSERT ( !tokens[i][j].empty(), () );
+
       impl::FullMatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize,
                             tokens[i][j], intersecter);
+
       impl::FullMatchInTrie(catRoot.m_root, catRoot.m_prefix, catRoot.m_prefixSize,
                             tokens[i][j], intersecter);
     }
@@ -227,13 +230,20 @@ void MatchFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
   }
 
   // Match prefix.
-  if (prefix.size() > 0)
+  size_t const prefixCount = prefixTokens.size();
+  for (size_t i = 0; i < prefixCount; ++i)
   {
-    impl::PrefixMatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize,
-                            prefix, intersecter);
+    ASSERT ( !prefixTokens[i].empty(), () );
 
-    intersecter.NextStep();
+    impl::PrefixMatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize,
+                            prefixTokens[i], intersecter);
+
+    impl::FullMatchInTrie(catRoot.m_root, catRoot.m_prefix, catRoot.m_prefixSize,
+                          prefixTokens[i], intersecter);
   }
+
+  if (prefixCount > 0)
+    intersecter.NextStep();
 
   intersecter.ForEachResult(toDo);
 }
