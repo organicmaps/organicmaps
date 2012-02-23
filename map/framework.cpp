@@ -214,11 +214,35 @@ void Framework::Invalidate(bool doForceUpdate)
   {
     m_renderPolicy->SetForceUpdate(doForceUpdate);
     m_renderPolicy->GetWindowHandle()->invalidate();
+    m_renderPolicy->SetInvalidRect(m2::AnyRectD(m2::RectD(MercatorBounds::minX,
+                                                          MercatorBounds::minY,
+                                                          MercatorBounds::maxX,
+                                                          MercatorBounds::maxY)));
   }
   else
   {
     m_hasPendingInvalidate = true;
     m_doForceUpdate = doForceUpdate;
+    m_invalidRect = m2::AnyRectD(m2::RectD(MercatorBounds::minX,
+                                           MercatorBounds::minY,
+                                           MercatorBounds::maxX,
+                                           MercatorBounds::maxY));
+  }
+}
+
+void Framework::InvalidateRect(m2::RectD const & rect, bool doForceUpdate)
+{
+  if (m_renderPolicy)
+  {
+    m_renderPolicy->SetForceUpdate(doForceUpdate);
+    m_renderPolicy->SetInvalidRect(m2::AnyRectD(rect));
+    m_renderPolicy->GetWindowHandle()->invalidate();
+  }
+  else
+  {
+    m_hasPendingInvalidate = true;
+    m_doForceUpdate = doForceUpdate;
+    m_invalidRect = m2::AnyRectD(rect);
   }
 }
 
@@ -459,12 +483,6 @@ void Framework::ShowAll()
 {
   SetMaxWorldRect();
   Invalidate();
-}
-
-void Framework::InvalidateRect(m2::RectD const & rect, bool doForceUpdate)
-{
-  if (m_navigator.Screen().GlobalRect().IsIntersect(m2::AnyRectD(rect)))
-    Invalidate(doForceUpdate);
 }
 
 /// @name Drag implementation.

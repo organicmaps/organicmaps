@@ -48,6 +48,7 @@ protected:
   TRenderFn m_renderFn;
   bool m_doSupportRotation;
   bool m_doForceUpdate;
+  m2::AnyRectD m_invalidRect;
 
 public:
 
@@ -91,6 +92,9 @@ public:
 
   bool DoForceUpdate() const;
   void SetForceUpdate(bool flag);
+
+  void SetInvalidRect(m2::AnyRectD const & glbRect);
+  m2::AnyRectD const & GetInvalidRect() const;
 
   shared_ptr<DrawerYG> const & GetDrawer() const;
   shared_ptr<WindowHandle> const & GetWindowHandle() const;

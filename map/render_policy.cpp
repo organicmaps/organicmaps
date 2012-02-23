@@ -136,6 +136,16 @@ void RenderPolicy::SetForceUpdate(bool flag)
   m_doForceUpdate = flag;
 }
 
+void RenderPolicy::SetInvalidRect(m2::AnyRectD const & glbRect)
+{
+  m_invalidRect = glbRect;
+}
+
+m2::AnyRectD const & RenderPolicy::GetInvalidRect() const
+{
+  return m_invalidRect;
+}
+
 bool RenderPolicy::IsEmptyModel() const
 {
   return false;

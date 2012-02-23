@@ -62,6 +62,8 @@ protected:
   scoped_ptr<RenderPolicy> m_renderPolicy;
   bool m_hasPendingInvalidate, m_doForceUpdate, m_queryMaxScaleMode;
 
+  m2::AnyRectD m_invalidRect;
+
   InformationDisplay m_informationDisplay;
 
   double const m_metresMinWidth;
