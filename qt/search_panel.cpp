@@ -167,7 +167,9 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   ++m_queryId;
 
   QString const normalized = str.normalized(QString::NormalizationForm_KC);
-  if (!normalized.isEmpty())
+
+  // search even with empty query
+  //if (!normalized.isEmpty())
   {
     m_params.m_query = normalized.toUtf8().constData();
     m_params.m_callback = bind(&SearchPanel::SearchResultThreadFunc, this, _1, m_queryId);
@@ -181,11 +183,11 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
     m_pClearButton->setFlat(true);
     m_pClearButton->setVisible(true);
   }
-  else
-  {
-    // hide X button
-    m_pClearButton->setVisible(false);
-  }
+  //else
+  //{
+  //  // hide X button
+  //  m_pClearButton->setVisible(false);
+  //}
 }
 
 void SearchPanel::OnSearchPanelItemClicked(int row, int)
@@ -209,6 +211,7 @@ void SearchPanel::OnSearchPanelItemClicked(int row, int)
 void SearchPanel::showEvent(QShowEvent *)
 {
   connect(m_pDrawWidget, SIGNAL(ViewportChanged()), this, SLOT(OnViewportChanged()));
+  OnSearchTextChanged(QString());
 }
 
 void SearchPanel::hideEvent(QHideEvent *)

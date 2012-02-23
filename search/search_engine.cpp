@@ -96,17 +96,19 @@ namespace
     return MercatorBounds::MetresToXY(lon, lat, radius);
   }
 
+  enum { VIEWPORT_RECT = 0, NEARME_RECT = 1 };
+
   /// Check rects for optimal search (avoid duplicating).
   void AnalizeRects(m2::RectD arrRects[2])
   {
-    if (arrRects[1].IsRectInside(arrRects[0]))
-      arrRects[0].MakeEmpty();
+    if (arrRects[NEARME_RECT].IsRectInside(arrRects[VIEWPORT_RECT]))
+      arrRects[VIEWPORT_RECT].MakeEmpty();
     else
     {
-      if (arrRects[0].IsRectInside(arrRects[1]) &&
-          scales::GetScaleLevel(arrRects[0]) + Query::m_scaleDepthSearch >= scales::GetUpperScale())
+      if (arrRects[VIEWPORT_RECT].IsRectInside(arrRects[NEARME_RECT]) &&
+          (scales::GetScaleLevel(arrRects[VIEWPORT_RECT]) + Query::m_scaleDepthSearch >= scales::GetUpperScale()))
       {
-        arrRects[1].MakeEmpty();
+        arrRects[NEARME_RECT].MakeEmpty();
       }
     }
   }
@@ -164,7 +166,7 @@ void Engine::SearchAsync()
   {
     threads::MutexGuard updateGuard(m_updateMutex);
     params = m_params;
-    arrRects[0] = m_viewport;
+    arrRects[VIEWPORT_RECT] = m_viewport;
   }
 
   // Initialize query.
@@ -173,16 +175,27 @@ void Engine::SearchAsync()
   {
     m_pQuery->SetPosition(GetViewportXY(params.m_lat, params.m_lon));
 
-    arrRects[1] = GetViewportRect(params.m_lat, params.m_lon);
-
-    // Do not search in viewport for "NearMe" mode.
-    if (params.IsNearMeMode())
+    if (!params.m_query.empty())
     {
-      worldSearch = false;
-      arrRects[0].MakeEmpty();
+      arrRects[NEARME_RECT] = GetViewportRect(params.m_lat, params.m_lon);
+
+      // Do not search in viewport for "NearMe" mode.
+      if (params.IsNearMeMode())
+      {
+        worldSearch = false;
+        arrRects[VIEWPORT_RECT].MakeEmpty();
+      }
+      else
+        AnalizeRects(arrRects);
     }
     else
-      AnalizeRects(arrRects);
+    {
+      // For empty query search in small viewport near position.
+      arrRects[NEARME_RECT] = GetViewportRect(params.m_lat, params.m_lon, 2500);
+
+      worldSearch = false;
+      arrRects[VIEWPORT_RECT].MakeEmpty();
+    }
   }
   else
     m_pQuery->NullPosition();
@@ -196,7 +209,13 @@ void Engine::SearchAsync()
 
   try
   {
-    m_pQuery->Search(params.m_query, res);
+    if (params.m_query.empty())
+    {
+      if (params.m_validPos)
+        m_pQuery->SearchAllNearMe(res);
+    }
+    else
+      m_pQuery->Search(params.m_query, res);
   }
   catch (Query::CancelException const &)
   {

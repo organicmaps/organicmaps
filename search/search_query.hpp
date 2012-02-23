@@ -61,6 +61,7 @@ public:
   inline void SetInputLanguage(int8_t lang) { m_inputLang = lang; }
 
   void Search(string const & query, Results & res, unsigned int resultsNeeded = 10);
+  void SearchAllNearMe(Results & res, unsigned int resultsNeeded = 30);
 
   void ClearCache();
 
@@ -72,6 +73,9 @@ private:
   friend class impl::FeatureLoader;
   friend class impl::BestNameFinder;
   friend class impl::PreResult2Maker;
+
+  void InitSearch(string const & query);
+  void InitKeywordsScorer();
 
   void UpdateViewportOffsets(size_t ind);
   void ClearCache(size_t ind);
@@ -144,9 +148,10 @@ private:
   {
     template <class T> T const & operator() (T const & t) const { return t; }
   };
-  struct RefSmartPtr
+  struct RefPointer
   {
     template <class T> typename T::value_type const & operator() (T const & t) const { return *t; }
+    template <class T> T const & operator() (T const * t) const { return *t; }
   };
 
   typedef CompareT<impl::PreResult1, NothingRef> QueueCompareT;

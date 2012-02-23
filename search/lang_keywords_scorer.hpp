@@ -15,9 +15,9 @@ public:
   enum { MAX_SCORE = KeywordMatcher::MAX_SCORE
          * (NUM_LANG_PRIORITY_TIERS + 1) * (MAX_LANGS_IN_TIER + 1) };
 
-  explicit LangKeywordsScorer(vector<vector<int8_t> > const & languagePriorities,
-                              strings::UniString const * keywords, size_t keywordCount,
-                              strings::UniString const * pPrefix);
+  LangKeywordsScorer(vector<vector<int8_t> > const & languagePriorities,
+                     strings::UniString const * keywords, size_t keywordCount,
+                     strings::UniString const * pPrefix);
 
   uint32_t Score(int8_t lang, string const & name) const;
   uint32_t Score(int8_t lang, strings::UniString const & name) const;

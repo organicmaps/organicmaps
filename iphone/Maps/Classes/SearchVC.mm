@@ -174,10 +174,10 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   else
     [self disableRadarMode];
 
-  // Refresh search results with new mode, but
-  // do not search if text is not entered
+  // Refresh search results with new mode.
   NSString * queryString = m_searchBar.text;
-  if (queryString.length)
+  // Search even with empty string.
+  //if (queryString.length)
   {
     search::SearchParams params;
     [self fillSearchParams:params withText:queryString];
@@ -332,19 +332,20 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 {
   ++g_queryId;
 
-  if (searchText.length)
+  // Search even with empty string.
+  //if (searchText.length)
   {
     search::SearchParams params;
     [self fillSearchParams:params withText:searchText];
     m_framework->Search(params);
   }
-  else
-  {
-    [g_lastSearchResults release];
-    g_lastSearchResults = nil;
-    // Clean the table
-    [m_table reloadData];
-  }
+  //else
+  //{
+  //  [g_lastSearchResults release];
+  //  g_lastSearchResults = nil;
+  //  // Clean the table
+  //  [m_table reloadData];
+  //}
 }
 
 - (void)onCloseButton:(id)sender
@@ -553,10 +554,10 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 
 - (void)onGpsUpdate:(location::GpsInfo const &)info
 {
-  // Refresh search results with newer location, but
-  // do not search if text is not entered
+  // Refresh search results with newer location.
   NSString * queryString = m_searchBar.text;
-  if (queryString.length)
+  // Search even with empty string.
+  //if (queryString.length)
   {
     search::SearchParams params;
     [self fillSearchParams:params withText:queryString];

@@ -181,45 +181,54 @@ namespace
   };
 }
 
+void Query::InitSearch(string const & query)
+{
+  m_cancel = false;
+  m_rawQuery = query;
+  m_uniQuery = NormalizeAndSimplifyString(m_rawQuery);
+  m_tokens.clear();
+  m_prefix.clear();
+}
+
+void Query::InitKeywordsScorer()
+{
+  vector<vector<int8_t> > langPriorities(4);
+  langPriorities[0].push_back(m_currentLang);
+  langPriorities[1].push_back(m_inputLang);
+  langPriorities[2].push_back(StringUtf8Multilang::GetLangIndex("int_name"));
+  langPriorities[2].push_back(StringUtf8Multilang::GetLangIndex("en"));
+  langPriorities[3].push_back(StringUtf8Multilang::GetLangIndex("default"));
+  m_pKeywordsScorer.reset(new LangKeywordsScorer(langPriorities,
+                                                 m_tokens.data(), m_tokens.size(), &m_prefix));
+}
+
 void Query::Search(string const & query, Results & res, unsigned int resultsNeeded)
 {
   // Initialize.
+
+  InitSearch(query);
+
+  search::Delimiters delims;
+  SplitUniString(m_uniQuery, MakeBackInsertFunctor(m_tokens), delims);
+
+  if (!m_tokens.empty() && !delims(strings::LastUniChar(m_rawQuery)))
   {
-    m_cancel = false;
-    m_rawQuery = query;
-    m_uniQuery = NormalizeAndSimplifyString(m_rawQuery);
-    m_tokens.clear();
-    m_prefix.clear();
+    m_prefix.swap(m_tokens.back());
+    m_tokens.pop_back();
+  }
+  if (m_tokens.size() > 31)
+    m_tokens.resize(31);
 
-    search::Delimiters delims;
-    SplitUniString(m_uniQuery, MakeBackInsertFunctor(m_tokens), delims);
+  InitKeywordsScorer();
 
-    if (!m_tokens.empty() && !delims(strings::LastUniChar(m_rawQuery)))
-    {
-      m_prefix.swap(m_tokens.back());
-      m_tokens.pop_back();
-    }
-    if (m_tokens.size() > 31)
-      m_tokens.resize(31);
+  // Results queue's initialization.
+  STATIC_ASSERT ( m_qCount == ARRAY_SIZE(g_arrCompare1) );
+  STATIC_ASSERT ( m_qCount == ARRAY_SIZE(g_arrCompare2) );
 
-    vector<vector<int8_t> > langPriorities(4);
-    langPriorities[0].push_back(m_currentLang);
-    langPriorities[1].push_back(m_inputLang);
-    langPriorities[2].push_back(StringUtf8Multilang::GetLangIndex("int_name"));
-    langPriorities[2].push_back(StringUtf8Multilang::GetLangIndex("en"));
-    langPriorities[3].push_back(StringUtf8Multilang::GetLangIndex("default"));
-    m_pKeywordsScorer.reset(new LangKeywordsScorer(langPriorities,
-                                                   m_tokens.data(), m_tokens.size(), &m_prefix));
-
-    // Results queue's initialization.
-    STATIC_ASSERT ( m_qCount == ARRAY_SIZE(g_arrCompare1) );
-    STATIC_ASSERT ( m_qCount == ARRAY_SIZE(g_arrCompare2) );
-
-    for (size_t i = 0; i < m_qCount; ++i)
-    {
-      m_results[i] = QueueT(2 * resultsNeeded, QueueCompareT(g_arrCompare1[i]));
-      m_results[i].reserve(2 * resultsNeeded);
-    }
+  for (size_t i = 0; i < m_qCount; ++i)
+  {
+    m_results[i] = QueueT(2 * resultsNeeded, QueueCompareT(g_arrCompare1[i]));
+    m_results[i].reserve(2 * resultsNeeded);
   }
 
   // Match (lat, lon).
@@ -279,7 +288,7 @@ namespace
     shared_ptr<value_type> m_val;
 
   public:
-    explicit IndexedValue(value_type * v) : m_val(v)
+    IndexedValue(value_type * v) : m_val(v)
     {
       for (size_t i = 0; i < m_ind.size(); ++i)
         m_ind[i] = numeric_limits<size_t>::max();
@@ -328,6 +337,29 @@ namespace
       return (r1.GetID() < r2.GetID());
     }
   };
+
+  template <class T>
+  void RemoveDuplicatingLinear(vector<T> & indV)
+  {
+    sort(indV.begin(), indV.end(), ProxyFunctor2<impl::PreResult2::LessLinearTypesF>());
+    indV.erase(unique(indV.begin(), indV.end(),
+                      ProxyFunctor2<impl::PreResult2::EqualLinearTypesF>()),
+               indV.end());
+  }
+
+  template <class T>
+  void AddPreResult2(impl::PreResult2 * p, vector<T> & indV)
+  {
+    if (p)
+    {
+      // do not insert duplicating results
+      if (indV.end() == find_if(indV.begin(), indV.end(),
+                                ProxyFunctor1<impl::PreResult2::StrictEqualF>(p)))
+        indV.push_back(p);
+      else
+        delete p;
+    }
+  }
 }
 
 namespace impl
@@ -359,34 +391,56 @@ namespace impl
 
     scoped_ptr<LockedFeaturesVector> m_pFV;
 
+    void LoadFeature(pair<size_t, uint32_t> const & id,
+                     FeatureType & f, string & name, string & country)
+    {
+      if (m_pFV.get() == 0 || m_pFV->GetID() != id.first)
+        m_pFV.reset(new LockedFeaturesVector(*m_query.m_pIndex, id.first));
+
+      m_pFV->m_vector.Get(id.second, f);
+
+      uint32_t penalty;
+      m_query.GetBestMatchName(f, penalty, name);
+
+      country = m_pFV->GetCountry();
+    }
+
   public:
     PreResult2Maker(Query & q) : m_query(q)
     {
     }
 
     // For the best performance, impl::PreResult1 should be sorted by impl::PreResult1::GetID().
-    impl::PreResult2 * operator() (impl::PreResult1 const & r)
+    impl::PreResult2 * operator() (impl::PreResult1 const & res)
     {
-      pair<size_t, uint32_t> const id = r.GetID();
-      if (m_pFV.get() == 0 || m_pFV->GetID() != id.first)
-        m_pFV.reset(new LockedFeaturesVector(*m_query.m_pIndex, id.first));
-
       FeatureType feature;
-      m_pFV->m_vector.Get(id.second, feature);
+      string name, country;
+      LoadFeature(res.GetID(), feature, name, country);
 
-      uint32_t penalty;
-      string name;
-      m_query.GetBestMatchName(feature, penalty, name);
+      return new impl::PreResult2(feature, res, name, country);
+    }
 
-      return new impl::PreResult2(feature, r, name, m_pFV->GetCountry());
+    impl::PreResult2 * operator() (pair<size_t, uint32_t> const & id)
+    {
+      FeatureType feature;
+      string name, country;
+      LoadFeature(id, feature, name, country);
+
+      if (!name.empty() && !country.empty())
+      {
+        // this results will be with equal rank
+        impl::PreResult1 res(0, 0, feature.GetLimitRect(FeatureType::WORST_GEOMETRY).Center(),
+                             0, m_query.m_position, m_query.GetViewport());
+        return new impl::PreResult2(feature, res, name, country);
+      }
+      else
+        return 0;
     }
   };
 }
 
 void Query::FlushResults(Results & res)
 {
-  typedef impl::PreResult2 ResultT;
-
   vector<IndexedValue> indV;
 
   {
@@ -403,27 +457,14 @@ void Query::FlushResults(Results & res)
     // make PreResult2 vector
     impl::PreResult2Maker maker(*this);
     for (PreResultSetT::const_iterator i = theSet.begin(); i != theSet.end(); ++i)
-    {
-      ResultT * res = maker(*i);
-      if (res == 0) continue;
-
-      // do not insert duplicating results
-      if (indV.end() == find_if(indV.begin(), indV.end(), ProxyFunctor1<ResultT::StrictEqualF>(res)))
-        indV.push_back(IndexedValue(res));
-      else
-        delete res;
-    }
+      AddPreResult2(maker(*i), indV);
   }
 
-  // remove duplicating linear objects
-  sort(indV.begin(), indV.end(), ProxyFunctor2<ResultT::LessLinearTypesF>());
-  indV.erase(unique(indV.begin(), indV.end(),
-                    ProxyFunctor2<ResultT::EqualLinearTypesF>()),
-             indV.end());
+  RemoveDuplicatingLinear(indV);
 
   for (size_t i = 0; i < m_qCount; ++i)
   {
-    CompareT<ResultT, RefSmartPtr> comp(g_arrCompare2[i]);
+    CompareT<impl::PreResult2, RefPointer> comp(g_arrCompare2[i]);
 
     // sort by needed criteria
     sort(indV.begin(), indV.end(), comp);
@@ -748,6 +789,49 @@ m2::RectD const & Query::GetViewport() const
     ASSERT ( m_viewport[1].IsValid(), () );
     return m_viewport[1];
   }
+}
+
+void Query::SearchAllNearMe(Results & res, unsigned int resultsNeeded)
+{
+  InitSearch(string());
+  InitKeywordsScorer();
+
+  size_t const ind = 1;
+  ASSERT ( m_viewport[ind].IsValid(), () );
+
+  vector<impl::PreResult2*> indV;
+
+  impl::PreResult2Maker maker(*this);
+
+  // load results
+  for (size_t i = 0; i < m_offsetsInViewport[ind].size(); ++i)
+  {
+    if (m_cancel) break;
+
+    for (size_t j = 0; j < m_offsetsInViewport[ind][i].size(); ++j)
+    {
+      if (m_cancel) break;
+
+      AddPreResult2(maker(make_pair(i, m_offsetsInViewport[ind][i][j])), indV);
+    }
+  }
+
+  if (!m_cancel)
+  {
+    RemoveDuplicatingLinear(indV);
+
+    // sort by distance from m_position
+    sort(indV.begin(), indV.end(),
+         CompareT<impl::PreResult2, RefPointer>(&impl::PreResult2::LessDistance));
+
+    indV.resize(resultsNeeded);
+
+    // emit results
+    for (size_t i = 0; i < indV.size(); ++i)
+      res.AddResult(MakeResult(*(indV[i])));
+  }
+
+  for_each(indV.begin(), indV.end(), DeleteFunctor());
 }
 
 }  // namespace search
