@@ -15,7 +15,7 @@
 #include "coverage_generator.hpp"
 
 ScreenCoverage::ScreenCoverage()
-  : m_tiler(0, 0),
+  : m_tiler(),
     m_infoLayer(new yg::InfoLayer()),
     m_isEmptyDrawingCoverage(false),
     m_leavesCount(0),
@@ -25,11 +25,8 @@ ScreenCoverage::ScreenCoverage()
 }
 
 ScreenCoverage::ScreenCoverage(TileRenderer * tileRenderer,
-                               CoverageGenerator * coverageGenerator,
-                               size_t tileSize,
-                               size_t scaleEtalonSize)
+                               CoverageGenerator * coverageGenerator)
   : m_tileRenderer(tileRenderer),
-    m_tiler(tileSize, scaleEtalonSize),
     m_infoLayer(new yg::InfoLayer()),
     m_isEmptyDrawingCoverage(false),
     m_leavesCount(0),

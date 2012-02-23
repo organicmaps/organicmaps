@@ -113,8 +113,8 @@ void Tiler::seed(ScreenBase const & screen, m2::PointD const & centerPt)
   m_screen = screen;
   m_centerPt = centerPt;
 
-  m_drawScale = getDrawScale(screen, m_tileSize, 1);
-  m_tileScale = getTileScale(screen, m_tileSize);
+  m_drawScale = getDrawScale(screen, GetPlatform().TileSize(), 1);
+  m_tileScale = getTileScale(screen, GetPlatform().TileSize());
 }
 
 void Tiler::tiles(vector<RectInfo> & tiles, int depth)
@@ -134,7 +134,7 @@ void Tiler::tiles(vector<RectInfo> & tiles, int depth)
 
     int scale = 1 << pow;
 
-    int tileSize = m_tileSize * scale;
+    int tileSize = GetPlatform().TileSize() * scale;
 
     int tileScale = getTileScale(m_screen, tileSize);
     int drawScale = getDrawScale(m_screen, tileSize, scale);
@@ -172,12 +172,10 @@ void Tiler::tiles(vector<RectInfo> & tiles, int depth)
   sort(tiles.begin(), tiles.end(), LessByScaleAndDistance(m_centerPt));
 }
 
-Tiler::Tiler(size_t tileSize, size_t scaleEtalonSize)
+Tiler::Tiler()
   : m_drawScale(0),
     m_tileScale(0),
-    m_sequenceID(0),
-    m_tileSize(tileSize),
-    m_scaleEtalonSize(scaleEtalonSize)
+    m_sequenceID(0)
 {}
 
 size_t Tiler::sequenceID() const

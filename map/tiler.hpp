@@ -33,15 +33,12 @@ private:
   int m_tileScale;
   size_t m_sequenceID;
 
-  size_t m_tileSize;
-  size_t m_scaleEtalonSize;
-
   int getDrawScale(ScreenBase const & s, int ts, double k) const;
   int getTileScale(ScreenBase const & s, int ts) const;
 
 public:
 
-  Tiler(size_t tileSize, size_t scaleEtalonSize);
+  Tiler();
 
   /// seed tiler with new screenBase.
   void seed(ScreenBase const & screenBase, m2::PointD const & centerPt);

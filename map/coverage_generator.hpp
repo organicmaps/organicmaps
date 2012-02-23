@@ -47,9 +47,7 @@ private:
 
 public:
 
-  CoverageGenerator(size_t tileSize,
-                    size_t scaleEtalonSize,
-                    TileRenderer * tileRenderer,
+  CoverageGenerator(TileRenderer * tileRenderer,
                     shared_ptr<WindowHandle> const & windowHandle,
                     shared_ptr<yg::gl::RenderContext> const & primaryRC,
                     shared_ptr<yg::ResourceManager> const & rm,

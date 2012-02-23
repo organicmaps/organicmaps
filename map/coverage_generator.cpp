@@ -13,8 +13,6 @@
 bool g_coverageGeneratorDestroyed = false;
 
 CoverageGenerator::CoverageGenerator(
-    size_t tileSize,
-    size_t scaleEtalonSize,
     TileRenderer * tileRenderer,
     shared_ptr<WindowHandle> const & windowHandle,
     shared_ptr<yg::gl::RenderContext> const & primaryRC,
@@ -23,7 +21,7 @@ CoverageGenerator::CoverageGenerator(
   : m_queue(1),
     m_tileRenderer(tileRenderer),
     m_workCoverage(0),
-    m_currentCoverage(new ScreenCoverage(tileRenderer, this, tileSize, scaleEtalonSize)),
+    m_currentCoverage(new ScreenCoverage(tileRenderer, this)),
     m_sequenceID(0),
     m_windowHandle(windowHandle)
 {

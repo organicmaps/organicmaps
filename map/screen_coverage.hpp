@@ -68,9 +68,7 @@ public:
   ScreenCoverage();
   ~ScreenCoverage();
   ScreenCoverage(TileRenderer * tileRenderer,
-                 CoverageGenerator * coverageGenerator,
-                 size_t tileSize,
-                 size_t scaleEtalonSize);
+                 CoverageGenerator * coverageGenerator);
 
   ScreenCoverage * Clone();
   /// Is this screen coverage partial, which means that it contains non-drawn rects
