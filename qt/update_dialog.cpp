@@ -233,7 +233,7 @@ namespace qt
         break;
 
       case EGeneratingIndex:
-        statusString = tr("Generatin search index ...");
+        statusString = tr("Generating search index ...");
         rowColor = COLOR_INPROGRESS;
         break;
       }
