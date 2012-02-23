@@ -64,6 +64,8 @@ private:
   ScreenCoverage(ScreenCoverage const & src);
   ScreenCoverage const & operator=(ScreenCoverage const & src);
 
+  void MergeInfoLayer();
+
 public:
 
   ScreenCoverage();

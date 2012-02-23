@@ -235,18 +235,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 
   m_tiles = tiles;
 
-  m_infoLayer->clear();
-
-  for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
-  {
-    Tiler::RectInfo ri = (*it)->m_rectInfo;
-    if (m_tiler.isLeaf(ri))
-    {
-      yg::InfoLayer * tileInfoLayerCopy = (*it)->m_infoLayer->clone();
-      m_infoLayer->merge(*tileInfoLayerCopy, (*it)->m_tileScreen.PtoGMatrix() * screen.GtoPMatrix());
-      delete tileInfoLayerCopy;
-    }
-  }
+  MergeInfoLayer();
 
   m_newLeafTileRects.clear();
 
@@ -397,4 +386,19 @@ void ScreenCoverage::SetSequenceID(int id)
 int ScreenCoverage::GetSequenceID() const
 {
   return m_sequenceID;
+}
+void ScreenCoverage::MergeInfoLayer()
+{
+  m_infoLayer->clear();
+
+  for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
+  {
+    Tiler::RectInfo ri = (*it)->m_rectInfo;
+    if (m_tiler.isLeaf(ri))
+    {
+      yg::InfoLayer * tileInfoLayerCopy = (*it)->m_infoLayer->clone();
+      m_infoLayer->merge(*tileInfoLayerCopy, (*it)->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
+      delete tileInfoLayerCopy;
+    }
+  }
 }
