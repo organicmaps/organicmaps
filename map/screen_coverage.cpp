@@ -387,6 +387,31 @@ int ScreenCoverage::GetSequenceID() const
 {
   return m_sequenceID;
 }
+
+void ScreenCoverage::RemoveTiles(m2::AnyRectD const & r, int startScale)
+{
+  list<Tile const*> toRemove;
+
+  for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
+  {
+    Tiler::RectInfo ri = (*it)->m_rectInfo;
+
+    if (r.IsIntersect(m2::AnyRectD(ri.m_rect)) && (ri.m_tileScale >= startScale))
+      toRemove.push_back(*it);
+  }
+
+  TileCache * tileCache = &m_tileRenderer->GetTileCache();
+
+  for (list<Tile const *>::const_iterator it = toRemove.begin(); it != toRemove.end(); ++it)
+  {
+    tileCache->unlockTile((*it)->m_rectInfo);
+    m_tiles.erase(*it);
+    m_tileRects.erase((*it)->m_rectInfo);
+  }
+
+  MergeInfoLayer();
+}
+
 void ScreenCoverage::MergeInfoLayer()
 {
   m_infoLayer->clear();

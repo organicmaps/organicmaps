@@ -40,7 +40,7 @@ private:
   int m_drawScale;
   bool m_isEmptyModel;
 
-  bool m_doForce;
+  bool m_doRecreateCoverage;
 
 protected:
 

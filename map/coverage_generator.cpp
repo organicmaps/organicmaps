@@ -73,6 +73,40 @@ void CoverageGenerator::Cancel()
   m_queue.Cancel();
 }
 
+void CoverageGenerator::InvalidateTilesImpl(m2::AnyRectD const & r, int startScale)
+{
+  {
+    threads::MutexGuard g(m_mutex);
+    m_currentCoverage->RemoveTiles(r, startScale);
+  }
+
+  TileCache & tileCache = m_tileRenderer->GetTileCache();
+
+  set<Tiler::RectInfo> k = tileCache.keys();
+
+  for (set<Tiler::RectInfo>::const_iterator it = k.begin(); it != k.end(); ++it)
+  {
+    Tiler::RectInfo ri = *it;
+    if ((ri.m_tileScale >= startScale) && r.IsIntersect(m2::AnyRectD(ri.m_rect)))
+    {
+      ASSERT(tileCache.lockCount(ri) == 0, ());
+      tileCache.remove(ri);
+    }
+  }
+}
+
+void CoverageGenerator::InvalidateTiles(m2::AnyRectD const & r, int startScale)
+{
+  m_queue.Clear();
+  m_sequenceID++;
+  m_queue.CancelCommands();
+  m_queue.Join();
+
+  m_queue.AddCommand(bind(&CoverageGenerator::InvalidateTilesImpl, this, r, startScale), true);
+
+  m_queue.Join();
+}
+
 void CoverageGenerator::AddCoverScreenTask(ScreenBase const & screen, bool doForce)
 {
   if ((screen == m_currentScreen) && (!doForce))

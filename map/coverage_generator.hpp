@@ -58,6 +58,9 @@ public:
   void InitializeThreadGL();
   void FinalizeThreadGL();
 
+  void InvalidateTiles(m2::AnyRectD const & rect, int startScale);
+  void InvalidateTilesImpl(m2::AnyRectD const & rect, int startScale);
+
   void AddCoverScreenTask(ScreenBase const & screen, bool doForce);
   void AddMergeTileTask(Tiler::RectInfo const & rectInfo, int sequenceID);
 

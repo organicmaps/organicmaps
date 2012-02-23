@@ -5,6 +5,9 @@
 #include "drawer_yg.hpp"
 #include "window_handle.hpp"
 #include "events.hpp"
+#include "screen_coverage.hpp"
+
+#include "../indexer/scales.hpp"
 
 #include "../yg/framebuffer.hpp"
 #include "../yg/renderbuffer.hpp"
@@ -24,11 +27,6 @@
 #include "../yg/base_texture.hpp"
 #include "../yg/internal/opengl.hpp"
 
-#include "drawer_yg.hpp"
-#include "events.hpp"
-#include "tiling_render_policy_mt.hpp"
-#include "window_handle.hpp"
-#include "screen_coverage.hpp"
 
 TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                            bool useDefaultFB,
@@ -37,7 +35,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
   : QueuedRenderPolicy(GetPlatform().CpuCores() + 1, primaryRC, false, GetPlatform().CpuCores()),
     m_drawScale(0),
     m_isEmptyModel(false),
-    m_doForce(false)
+    m_doRecreateCoverage(false)
 {
   yg::ResourceManager::Params rmp = rmParams;
 
@@ -263,8 +261,14 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
 
   pDrawer->screen()->clear(m_bgColor);
 
-  m_coverageGenerator->AddCoverScreenTask(currentScreen, m_doForce);
-  m_doForce = false;
+  if (DoForceUpdate())
+    m_coverageGenerator->InvalidateTiles(GetInvalidRect(), scales::GetUpperWorldScale() + 1);
+
+  m_coverageGenerator->AddCoverScreenTask(currentScreen,
+                                          m_doRecreateCoverage || (DoForceUpdate() && GetInvalidRect().IsIntersect(currentScreen.GlobalRect())));
+
+  SetForceUpdate(false);
+  m_doRecreateCoverage = false;
 
   m_coverageGenerator->Mutex().Lock();
 
@@ -305,7 +309,7 @@ void TilingRenderPolicyST::StopScale()
 {
   m_isScaling = false;
   m_tileRenderer->SetIsPaused(false);
-  m_doForce = true;
+  m_doRecreateCoverage = true;
   RenderPolicy::StopScale();
 }
 
@@ -318,7 +322,7 @@ void TilingRenderPolicyST::StartDrag()
 void TilingRenderPolicyST::StopDrag()
 {
   m_tileRenderer->SetIsPaused(false);
-  m_doForce = true;
+  m_doRecreateCoverage = true;
   RenderPolicy::StopDrag();
 }
 
@@ -331,7 +335,7 @@ void TilingRenderPolicyST::StartRotate(double a, double timeInSec)
 void TilingRenderPolicyST::StopRotate(double a, double timeInSec)
 {
   m_tileRenderer->SetIsPaused(false);
-  m_doForce = true;
+  m_doRecreateCoverage = true;
   RenderPolicy::StopRotate(a, timeInSec);
 }
 

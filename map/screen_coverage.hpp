@@ -105,4 +105,7 @@ public:
   /// as there could be tiles from lower and higher level in the
   /// coverage to provide a smooth scale transition experience
   int GetDrawScale() const;
+  /// Unlock and remove tiles which intersect the specified rect
+  /// and deeper or equal than specified scale
+  void RemoveTiles(m2::AnyRectD const & r, int startScale);
 };
