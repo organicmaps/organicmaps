@@ -62,14 +62,6 @@ ScreenCoverage * ScreenCoverage::Clone()
     tileCache->lockTile(ri);
   }
 
-  res->m_prevTiles = m_prevTiles;
-
-  for (TileSet::const_iterator it = res->m_prevTiles.begin(); it != res->m_prevTiles.end(); ++it)
-  {
-    Tiler::RectInfo const & ri = (*it)->m_rectInfo;
-    tileCache->lockTile(ri);
-  }
-
   tileCache->writeUnlock();
 
   res->m_infoLayer.reset();
@@ -176,7 +168,6 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   m_tiler.seed(m_screen, m_screen.GlobalRect().GlobalCenter());
 
   vector<Tiler::RectInfo> allRects;
-  vector<Tiler::RectInfo> allPrevRects;
   vector<Tiler::RectInfo> newRects;
   TileSet tiles;
 
@@ -210,27 +201,6 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
       newRects.push_back(ri);
       if (m_tiler.isLeaf(ri))
         ++m_leavesCount;
-    }
-  }
-
-  for (TileSet::const_iterator it = m_prevTiles.begin(); it != m_prevTiles.end(); ++it)
-    tileCache->unlockTile((*it)->m_rectInfo);
-
-  m_prevTiles.clear();
-
-  for (unsigned i = 0; i < allPrevRects.size(); ++i)
-  {
-    Tiler::RectInfo ri = allPrevRects[i];
-    if (tileCache->hasTile(ri))
-    {
-      tileCache->touchTile(ri);
-      Tile const * tile = &tileCache->getTile(ri);
-      ASSERT(m_prevTiles.find(tile) == m_prevTiles.end(), ());
-
-      /// here we lock tiles from the previous level to prevent them from the deletion from cache
-      tileCache->lockTile(ri);
-
-      m_prevTiles.insert(tile);
     }
   }
 
@@ -349,14 +319,6 @@ ScreenCoverage::~ScreenCoverage()
 
   tileCache->writeLock();
   for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
-  {
-    Tiler::RectInfo const & ri = (*it)->m_rectInfo;
-    tileCache->unlockTile(ri);
-  }
-
-  /// unlocking tiles from the previous level
-
-  for (TileSet::const_iterator it = m_prevTiles.begin(); it != m_prevTiles.end(); ++it)
   {
     Tiler::RectInfo const & ri = (*it)->m_rectInfo;
     tileCache->unlockTile(ri);
