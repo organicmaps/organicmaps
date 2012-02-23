@@ -261,7 +261,6 @@ void Framework::OnSize(int w, int h)
 
 bool Framework::SetUpdatesEnabled(bool doEnable)
 {
-  threads::MutexGuard g(m_renderMutex);
   if (m_renderPolicy)
     return m_renderPolicy->GetWindowHandle()->setUpdatesEnabled(doEnable);
   else
@@ -339,7 +338,6 @@ bool Framework::IsEmptyModel(m2::PointD const & pt)
 
 void Framework::BeginPaint(shared_ptr<PaintEvent> const & e)
 {
-  m_renderMutex.Lock();
   if (m_renderPolicy)
     m_renderPolicy->BeginFrame(e, m_navigator.Screen());
 }
@@ -348,7 +346,6 @@ void Framework::EndPaint(shared_ptr<PaintEvent> const & e)
 {
   if (m_renderPolicy)
     m_renderPolicy->EndFrame(e, m_navigator.Screen());
-  m_renderMutex.Unlock();
 }
 
 void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
@@ -481,7 +478,6 @@ void Framework::StartDrag(DragEvent const & e)
 
   m_navigator.StartDrag(pt, 0./*m_timer.ElapsedSeconds()*/);
 
-  threads::MutexGuard g(m_renderMutex);
   if (m_renderPolicy)
     m_renderPolicy->StartDrag();
 //  LOG(LINFO, ("StartDrag", e.Pos()));
@@ -498,7 +494,6 @@ void Framework::DoDrag(DragEvent const & e)
 #endif
 
   m_navigator.DoDrag(pt, 0./*m_timer.ElapsedSeconds()*/);
-  threads::MutexGuard g(m_renderMutex);
   if (m_renderPolicy)
     m_renderPolicy->DoDrag();
 //  LOG(LINFO, ("DoDrag", e.Pos()));
@@ -514,7 +509,6 @@ void Framework::StopDrag(DragEvent const & e)
   m_informationDisplay.setDebugPoint(0, m2::PointD(0, 0));
 #endif
 
-  threads::MutexGuard g(m_renderMutex);
   if (m_renderPolicy)
     m_renderPolicy->StopDrag();
 
@@ -523,7 +517,6 @@ void Framework::StopDrag(DragEvent const & e)
 
 void Framework::StartRotate(RotateEvent const & e)
 {
-  threads::MutexGuard g(m_renderMutex);
   if (m_renderPolicy && m_renderPolicy->DoSupportRotation())
   {
     m_navigator.StartRotate(e.Angle(), m_timer.ElapsedSeconds());
@@ -533,7 +526,6 @@ void Framework::StartRotate(RotateEvent const & e)
 
 void Framework::DoRotate(RotateEvent const & e)
 {
-  threads::MutexGuard g(m_renderMutex);
   if (m_renderPolicy && m_renderPolicy->DoSupportRotation())
   {
     m_navigator.DoRotate(e.Angle(), m_timer.ElapsedSeconds());
@@ -543,7 +535,6 @@ void Framework::DoRotate(RotateEvent const & e)
 
 void Framework::StopRotate(RotateEvent const & e)
 {
-  threads::MutexGuard g(m_renderMutex);
   if (m_renderPolicy && m_renderPolicy->DoSupportRotation())
   {
     m_navigator.StopRotate(e.Angle(), m_timer.ElapsedSeconds());
@@ -604,7 +595,6 @@ void Framework::StartScale(ScaleEvent const & e)
 #endif
 
   m_navigator.StartScale(pt1, pt2, 0./*m_timer.ElapsedSeconds()*/);
-  threads::MutexGuard g(m_renderMutex);
   if (m_renderPolicy)
     m_renderPolicy->StartScale();
 
@@ -630,7 +620,6 @@ void Framework::DoScale(ScaleEvent const & e)
 #endif
 
   m_navigator.DoScale(pt1, pt2, 0./*m_timer.ElapsedSeconds()*/);
-  threads::MutexGuard g(m_renderMutex);
   if (m_renderPolicy)
     m_renderPolicy->DoScale();
 //  LOG(LINFO, ("DoScale", e.Pt1(), e.Pt2()));
@@ -655,7 +644,6 @@ void Framework::StopScale(ScaleEvent const & e)
 #endif
 
   m_navigator.StopScale(pt1, pt2, 0./*m_timer.ElapsedSeconds()*/);
-  threads::MutexGuard g(m_renderMutex);
   if (m_renderPolicy)
     m_renderPolicy->StopScale();
 //  LOG(LINFO, ("StopScale", e.Pt1(), e.Pt2()));
@@ -706,8 +694,6 @@ bool Framework::GetCurrentPosition(double & lat, double & lon)
 
 void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 {
-  threads::MutexGuard g(m_renderMutex);
-
   if (renderPolicy)
   {
     bool isVisualLogEnabled = false;
