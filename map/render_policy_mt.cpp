@@ -199,8 +199,14 @@ void RenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   m_renderQueue->renderStatePtr()->m_doRepaintAll = DoForceUpdate();
 
-  if (m_DoAddCommand && (DoForceUpdate() || (s != m_renderQueue->renderState().m_actualScreen)))
-    m_renderQueue->AddCommand(m_renderFn, s);
+  if (m_DoAddCommand)
+  {
+    if (s != m_renderQueue->renderState().m_actualScreen)
+      m_renderQueue->AddCommand(m_renderFn, s);
+
+    if (DoForceUpdate() && s.GlobalRect().IsIntersect(GetInvalidRect()))
+      m_renderQueue->AddCommand(m_renderFn, s);
+  }
 
   SetForceUpdate(false);
 
