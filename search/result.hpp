@@ -56,13 +56,14 @@ class Results
   vector<Result> m_vec;
 
 public:
-  void AddResult(Result const & r) { m_vec.push_back(r); }
+  inline void AddResult(Result const & r) { m_vec.push_back(r); }
+  inline void Clear() { m_vec.clear(); }
 
   typedef vector<Result>::const_iterator IterT;
-  IterT Begin() const { return m_vec.begin(); }
-  IterT End() const { return m_vec.end(); }
+  inline IterT Begin() const { return m_vec.begin(); }
+  inline IterT End() const { return m_vec.end(); }
 
-  size_t Count() const { return m_vec.size(); }
+  inline size_t Count() const { return m_vec.size(); }
 };
 
 }

@@ -35,6 +35,7 @@ Query::Query(Index const * pIndex,
     m_pCategories(pCategories),
     m_pStringsToSuggest(pStringsToSuggest),
     m_pInfoGetter(pInfoGetter),
+    m_worldSearch(true),
     m_position(empty_pos_value, empty_pos_value)
 {
   // m_viewport is initialized as empty rects
@@ -70,6 +71,9 @@ void Query::SetViewport(m2::RectD viewport[], size_t count)
 {
   ASSERT_LESS_OR_EQUAL(count, static_cast<size_t>(RECTSCOUNT), ());
 
+  MWMVectorT mwmInfo;
+  m_pIndex->GetMwmInfo(mwmInfo);
+
   for (size_t i = 0; i < count; ++i)
   {
     if (viewport[i].IsValid())
@@ -78,7 +82,7 @@ void Query::SetViewport(m2::RectD viewport[], size_t count)
       if (!m_viewport[i].IsValid() || !IsEqualMercator(m_viewport[i], viewport[i], 10.0))
       {
         m_viewport[i] = viewport[i];
-        UpdateViewportOffsets(i);
+        UpdateViewportOffsets(mwmInfo, viewport[i], m_offsetsInViewport[i]);
       }
     }
     else
@@ -107,21 +111,19 @@ void Query::ClearCache(size_t ind)
   m_viewport[ind].MakeEmpty();
 }
 
-void Query::UpdateViewportOffsets(size_t ind)
+void Query::UpdateViewportOffsets(MWMVectorT const & mwmInfo, m2::RectD const & rect,
+                                  OffsetsVectorT & offsets)
 {
-  m_offsetsInViewport[ind].clear();
+  offsets.clear();
+  offsets.resize(mwmInfo.size());
 
-  vector<MwmInfo> mwmInfo;
-  m_pIndex->GetMwmInfo(mwmInfo);
-  m_offsetsInViewport[ind].resize(mwmInfo.size());
-
-  int const viewScale = scales::GetScaleLevel(m_viewport[ind]);
-  covering::CoveringGetter cov(m_viewport[ind], 0);
+  int const viewScale = scales::GetScaleLevel(rect);
+  covering::CoveringGetter cov(rect, 0);
 
   for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
   {
     // Search only mwms that intersect with viewport (world always does).
-    if (m_viewport[ind].IsIntersect(mwmInfo[mwmId].m_limitRect))
+    if (rect.IsIntersect(mwmInfo[mwmId].m_limitRect))
     {
       Index::MwmLock mwmLock(*m_pIndex, mwmId);
       if (MwmValue * pMwm = mwmLock.GetValue())
@@ -139,12 +141,12 @@ void Query::UpdateViewportOffsets(size_t ind)
 
           for (size_t i = 0; i < interval.size(); ++i)
           {
-            index.ForEachInIntervalAndScale(MakeBackInsertFunctor(m_offsetsInViewport[ind][mwmId]),
+            index.ForEachInIntervalAndScale(MakeBackInsertFunctor(offsets[mwmId]),
                                             interval[i].first, interval[i].second,
                                             scale);
           }
 
-          sort(m_offsetsInViewport[ind][mwmId].begin(), m_offsetsInViewport[ind][mwmId].end());
+          sort(offsets[mwmId].begin(), offsets[mwmId].end());
         }
       }
     }
@@ -153,7 +155,7 @@ void Query::UpdateViewportOffsets(size_t ind)
 #ifdef DEBUG
   size_t offsetsCached = 0;
   for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
-    offsetsCached += m_offsetsInViewport[ind][mwmId].size();
+    offsetsCached += offsets[mwmId].size();
 
   LOG(LDEBUG, ("For search in viewport cached ",
               "mwms:", mwmInfo.size(),
@@ -636,7 +638,7 @@ void Query::SearchFeatures()
       m_pCategories->ForEachTypeByName(m_prefix, DoInsertTypeNames(prefixTokens));
   }
 
-  vector<MwmInfo> mwmInfo;
+  MWMVectorT mwmInfo;
   m_pIndex->GetMwmInfo(mwmInfo);
 
   unordered_set<int8_t> langs;
@@ -679,7 +681,7 @@ namespace
 
 void Query::SearchFeatures(vector<TokensVectorT> const & tokens,
                            TokensVectorT const & prefixTokens,
-                           vector<MwmInfo> const & mwmInfo,
+                           MWMVectorT const & mwmInfo,
                            unordered_set<int8_t> const & langs,
                            size_t ind)
 {
@@ -806,28 +808,37 @@ m2::RectD const & Query::GetViewport() const
   }
 }
 
-void Query::SearchAllNearMe(Results & res, unsigned int resultsNeeded)
+void Query::SearchAllInViewport(m2::RectD const & viewport, Results & res, unsigned int resultsNeeded)
 {
+  ASSERT ( viewport.IsValid(), () );
+
+  // Get feature's offsets in viewport.
+  OffsetsVectorT offsets;
+  {
+    MWMVectorT mwmInfo;
+    m_pIndex->GetMwmInfo(mwmInfo);
+
+    UpdateViewportOffsets(mwmInfo, viewport, offsets);
+  }
+
+  // Init search.
   InitSearch(string());
   InitKeywordsScorer();
-
-  size_t const ind = 1;
-  ASSERT ( m_viewport[ind].IsValid(), () );
 
   vector<impl::PreResult2*> indV;
 
   impl::PreResult2Maker maker(*this);
 
   // load results
-  for (size_t i = 0; i < m_offsetsInViewport[ind].size(); ++i)
+  for (size_t i = 0; i < offsets.size(); ++i)
   {
     if (m_cancel) break;
 
-    for (size_t j = 0; j < m_offsetsInViewport[ind][i].size(); ++j)
+    for (size_t j = 0; j < offsets[i].size(); ++j)
     {
       if (m_cancel) break;
 
-      AddPreResult2(maker(make_pair(i, m_offsetsInViewport[ind][i][j])), indV);
+      AddPreResult2(maker(make_pair(i, offsets[i][j])), indV);
     }
   }
 
@@ -843,7 +854,11 @@ void Query::SearchAllNearMe(Results & res, unsigned int resultsNeeded)
 
     // emit results
     for (size_t i = 0; i < indV.size(); ++i)
+    {
+      if (m_cancel) break;
+
       res.AddResult(MakeResult(*(indV[i])));
+    }
   }
 
   for_each(indV.begin(), indV.end(), DeleteFunctor());

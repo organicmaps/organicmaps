@@ -175,27 +175,16 @@ void Engine::SearchAsync()
   {
     m_pQuery->SetPosition(GetViewportXY(params.m_lat, params.m_lon));
 
-    if (!params.m_query.empty())
-    {
-      arrRects[NEARME_RECT] = GetViewportRect(params.m_lat, params.m_lon);
+    arrRects[NEARME_RECT] = GetViewportRect(params.m_lat, params.m_lon);
 
-      // Do not search in viewport for "NearMe" mode.
-      if (params.IsNearMeMode())
-      {
-        worldSearch = false;
-        arrRects[VIEWPORT_RECT].MakeEmpty();
-      }
-      else
-        AnalizeRects(arrRects);
-    }
-    else
+    // Do not search in viewport for "NearMe" mode.
+    if (params.IsNearMeMode())
     {
-      // For empty query search in small viewport near position.
-      arrRects[NEARME_RECT] = GetViewportRect(params.m_lat, params.m_lon, 2500);
-
       worldSearch = false;
       arrRects[VIEWPORT_RECT].MakeEmpty();
     }
+    else
+      AnalizeRects(arrRects);
   }
   else
     m_pQuery->NullPosition();
@@ -212,7 +201,17 @@ void Engine::SearchAsync()
     if (params.m_query.empty())
     {
       if (params.m_validPos)
-        m_pQuery->SearchAllNearMe(res);
+      {
+        double arrR[] = { 500, 1000, 2000 };
+        for (size_t i = 0; i < ARRAY_SIZE(arrR); ++i)
+        {
+          res.Clear();
+          m_pQuery->SearchAllInViewport(GetViewportRect(params.m_lat, params.m_lon, arrR[i]), res, 30);
+
+          if (m_pQuery->IsCanceled() || res.Count() >= 25)
+            break;
+        }
+      }
     }
     else
       m_pQuery->Search(params.m_query, res);

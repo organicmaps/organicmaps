@@ -61,7 +61,7 @@ public:
   inline void SetInputLanguage(int8_t lang) { m_inputLang = lang; }
 
   void Search(string const & query, Results & res, unsigned int resultsNeeded = 10);
-  void SearchAllNearMe(Results & res, unsigned int resultsNeeded = 30);
+  void SearchAllInViewport(m2::RectD const & viewport, Results & res, unsigned int resultsNeeded = 30);
 
   void ClearCache();
 
@@ -77,7 +77,11 @@ private:
   void InitSearch(string const & query);
   void InitKeywordsScorer();
 
-  void UpdateViewportOffsets(size_t ind);
+  typedef vector<MwmInfo> MWMVectorT;
+  typedef vector<vector<uint32_t> > OffsetsVectorT;
+
+  void UpdateViewportOffsets(MWMVectorT const & mwmInfo, m2::RectD const & rect,
+                             OffsetsVectorT & offsets);
   void ClearCache(size_t ind);
 
   typedef trie::ValueReader::ValueType TrieValueT;
@@ -88,7 +92,7 @@ private:
   void SearchFeatures();
   void SearchFeatures(vector<vector<strings::UniString> > const & tokens,
                       vector<strings::UniString> const & prefixTokens,
-                      vector<MwmInfo> const & mwmInfo,
+                      MWMVectorT const & mwmInfo,
                       unordered_set<int8_t> const & langs,
                       size_t ind);
 
@@ -127,7 +131,7 @@ private:
 
   scoped_ptr<LangKeywordsScorer> m_pKeywordsScorer;
 
-  vector<vector<uint32_t> > m_offsetsInViewport[RECTSCOUNT];
+  OffsetsVectorT m_offsetsInViewport[RECTSCOUNT];
 
   template <class ParamT, class RefT> class CompareT
   {
