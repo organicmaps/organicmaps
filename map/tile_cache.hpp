@@ -68,5 +68,6 @@ public:
   void touchTile(Tiler::RectInfo const & key);
   /// get tile from the cache
   Tile const & getTile(Tiler::RectInfo const & key);
-
+  /// remove the specified tile from the cache
+  void remove(Tiler::RectInfo const & key);
 };

@@ -81,3 +81,8 @@ Tile const & TileCache::getTile(Tiler::RectInfo const & key)
 {
   return m_cache.Find(key).m_tile;
 }
+
+void TileCache::remove(Tiler::RectInfo const & key)
+{
+  m_cache.Remove(key);
+}
