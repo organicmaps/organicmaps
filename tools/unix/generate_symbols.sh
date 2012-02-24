@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e -u -x
 MY_PATH=`dirname $0`
-BINARY_PATH="$MY_PATH/../../../tools_only-build-release/out/release/skin_generator"
+BINARY_PATH="$MY_PATH/../../../tools-only-release/out/release/skin_generator"
 DATA_PATH="$MY_PATH/../../data"
 
 "$BINARY_PATH" --symbolWidth 16 --symbolHeight 16 \
