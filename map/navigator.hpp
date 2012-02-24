@@ -71,7 +71,7 @@ private:
   bool CheckBorders(ScreenBase const & screen) const;
 
   static bool CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect);
-  static ScreenBase const ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect);
+  static ScreenBase const ShrinkInto(ScreenBase const & screen, m2::RectD boundRect);
 
   static bool CanRotateInto(ScreenBase const & screen, m2::RectD const & boundRect);
   static ScreenBase const RotateInto(ScreenBase const & screen, m2::RectD const & boundRect);

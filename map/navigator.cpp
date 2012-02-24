@@ -15,6 +15,15 @@
 #include "../base/std_serialization.hpp"
 #include "../base/logging.hpp"
 
+namespace
+{
+  /// @todo Review this logic in future.
+  /// Fix bug with floating point calculations (before Android release).
+  void ReduceRectHack(m2::RectD & r)
+  {
+    r.Inflate(-1.0E-9, -1.0E-9);
+  }
+}
 
 Navigator::Navigator()
   : m_worldRect(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY),
@@ -105,9 +114,11 @@ bool Navigator::CanShrinkInto(ScreenBase const & screen, m2::RectD const & bound
       && (boundRect.SizeY() >= clipRect.SizeY());
 }
 
-ScreenBase const Navigator::ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
+ScreenBase const Navigator::ShrinkInto(ScreenBase const & screen, m2::RectD boundRect)
 {
-  ASSERT ( CanShrinkInto(screen, boundRect), () );
+  ReduceRectHack(boundRect);
+
+//  ASSERT ( CanShrinkInto(screen, boundRect), () );
 
   ScreenBase res = screen;
 
@@ -140,16 +151,6 @@ bool Navigator::CanRotateInto(ScreenBase const & screen, m2::RectD const & bound
 ScreenBase const Navigator::RotateInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
   return screen; //@TODO
-}
-
-namespace
-{
-  /// @todo Review this logic in future.
-  /// Fix bug with floating point calculations (before Android release).
-  void ReduceRectHack(m2::RectD & r)
-  {
-    r.Inflate(-1.0E-9, -1.0E-9);
-  }
 }
 
 ScreenBase const Navigator::ScaleInto(ScreenBase const & screen, m2::RectD boundRect)
