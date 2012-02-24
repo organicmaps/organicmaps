@@ -173,8 +173,11 @@ public:
 
   template <class ToDo> void ForEachResult(ToDo & toDo) const
   {
-    for (typename SetType::const_iterator i = m_prevSet->begin(); i != m_prevSet->end(); ++i)
-      toDo(*i);
+    if (m_prevSet)
+    {
+      for (typename SetType::const_iterator i = m_prevSet->begin(); i != m_prevSet->end(); ++i)
+        toDo(*i);
+    }
   }
 };
 
