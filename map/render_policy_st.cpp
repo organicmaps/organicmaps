@@ -197,15 +197,18 @@ void RenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   /// blitting actualTarget
 
-  m_renderQueue->renderStatePtr()->m_doRepaintAll = DoForceUpdate();
+  bool doForceUpdate = DoForceUpdate();
+  bool doIntersectInvalidRect = s.GlobalRect().IsIntersect(GetInvalidRect());
+
+  m_renderQueue->renderStatePtr()->m_doRepaintAll = doForceUpdate;
 
   if (m_DoAddCommand)
   {
     if (s != m_renderQueue->renderState().m_actualScreen)
       m_renderQueue->AddCommand(m_renderFn, s);
-
-    if (DoForceUpdate() && s.GlobalRect().IsIntersect(GetInvalidRect()))
-      m_renderQueue->AddCommand(m_renderFn, s);
+    else
+      if (doForceUpdate && doIntersectInvalidRect)
+        m_renderQueue->AddCommand(m_renderFn, s);
   }
 
   SetForceUpdate(false);

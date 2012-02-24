@@ -53,7 +53,7 @@ public:
   /// unlock for multithreaded WRITE access
   void writeUnlock();
   /// get keys of values in cache
-  set<Tiler::RectInfo> const keys() const;
+  set<Tiler::RectInfo> const & keys() const;
   /// add tile to cache
   void addTile(Tiler::RectInfo const & key, Entry const & entry);
   /// check, whether we have some tile in the cache

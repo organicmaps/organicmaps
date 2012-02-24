@@ -36,7 +36,7 @@ void TileCache::writeUnlock()
   m_lock.Unlock();
 }
 
-set<Tiler::RectInfo> const TileCache::keys() const
+set<Tiler::RectInfo> const & TileCache::keys() const
 {
   return m_cache.Keys();
 /*  set<uint64_t> keys = m_cache.Keys();

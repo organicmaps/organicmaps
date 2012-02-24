@@ -110,8 +110,10 @@ void Tiler::seed(ScreenBase const & screen, m2::PointD const & centerPt)
   m_screen = screen;
   m_centerPt = centerPt;
 
-  m_drawScale = getDrawScale(screen, GetPlatform().TileSize(), 1);
-  m_tileScale = getTileScale(screen, GetPlatform().TileSize());
+  int tileSize = GetPlatform().TileSize();
+
+  m_drawScale = getDrawScale(screen, tileSize, 1);
+  m_tileScale = getTileScale(screen, tileSize);
 }
 
 void Tiler::tiles(vector<RectInfo> & tiles, int depth)

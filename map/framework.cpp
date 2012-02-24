@@ -741,6 +741,7 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
     if (m_hasPendingInvalidate)
     {
       m_renderPolicy->SetForceUpdate(m_doForceUpdate);
+      m_renderPolicy->SetInvalidRect(m_invalidRect);
       m_renderPolicy->GetWindowHandle()->invalidate();
       m_hasPendingInvalidate = false;
     }

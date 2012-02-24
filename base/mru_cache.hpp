@@ -36,7 +36,9 @@ namespace my
     };
 
     typedef map<KeyT, MapEntry> map_t;
+    typedef set<KeyT> key_set_t;
 
+    key_set_t m_keys;
     map_t m_map;
     list_t m_list;
     int m_curWeight;
@@ -47,17 +49,14 @@ namespace my
       : m_curWeight(0), m_maxWeight(maxWeight)
     {}
 
-    set<KeyT> const Keys() const
+    set<KeyT> const & Keys() const
     {
-      set<KeyT> keys;
-      for (typename map_t::const_iterator it = m_map.begin(); it != m_map.end(); ++it)
-        keys.insert(it->first);
-      return keys;
+      return m_keys;
     }
 
     bool HasElem(KeyT const & key)
     {
-      return m_map.find(key) != m_map.end();
+      return m_keys.find(key) != m_keys.end();
     }
 
     void LockElem(KeyT const & key)
@@ -126,6 +125,7 @@ namespace my
         ValueTraitsT::Evict(it->second.m_value);
 //        LOG(LINFO, ("removing : ", m_curWeight));
         m_map.erase(it);
+        m_keys.erase(key);
       }
     }
 
@@ -154,6 +154,7 @@ namespace my
             ValueTraitsT::Evict(m_map[k].m_value);
 //            LOG(LINFO, ("freeing lru elem : ", m_map[k].m_weight, m_curWeight));
             m_map.erase(k);
+            m_keys.erase(k);
 
             typename list<KeyT>::iterator nextIt = it;
             if (nextIt != m_list.begin())
@@ -185,6 +186,7 @@ namespace my
       m_map[key].m_value = val;
       m_map[key].m_lockCount = 0;
       m_map[key].m_it = m_list.begin();
+      m_keys.insert(key);
 
       m_curWeight += weight;
     }
@@ -195,6 +197,7 @@ namespace my
         ValueTraitsT::Evict(it->second);
 
       m_map.clear();
+      m_keys.clear();
       m_list.clear();
       m_curWeight = 0;
     }

@@ -261,11 +261,14 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
 
   pDrawer->screen()->clear(m_bgColor);
 
-  if (DoForceUpdate())
+  bool doForceUpdate = DoForceUpdate();
+  bool doIntersectInvalidRect = GetInvalidRect().IsIntersect(currentScreen.GlobalRect());
+
+  if (doForceUpdate)
     m_coverageGenerator->InvalidateTiles(GetInvalidRect(), scales::GetUpperWorldScale() + 1);
 
   m_coverageGenerator->AddCoverScreenTask(currentScreen,
-                                          m_doRecreateCoverage || (DoForceUpdate() && GetInvalidRect().IsIntersect(currentScreen.GlobalRect())));
+                                          m_doRecreateCoverage || (doForceUpdate && doIntersectInvalidRect));
 
   SetForceUpdate(false);
   m_doRecreateCoverage = false;

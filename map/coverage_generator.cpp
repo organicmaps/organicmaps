@@ -82,11 +82,12 @@ void CoverageGenerator::InvalidateTilesImpl(m2::AnyRectD const & r, int startSca
 
   TileCache & tileCache = m_tileRenderer->GetTileCache();
 
+  /// here we should copy elements as we've delete some of them later
   set<Tiler::RectInfo> k = tileCache.keys();
 
   for (set<Tiler::RectInfo>::const_iterator it = k.begin(); it != k.end(); ++it)
   {
-    Tiler::RectInfo ri = *it;
+    Tiler::RectInfo const & ri = *it;
     if ((ri.m_tileScale >= startScale) && r.IsIntersect(m2::AnyRectD(ri.m_rect)))
     {
       ASSERT(tileCache.lockCount(ri) == 0, ());
@@ -98,7 +99,7 @@ void CoverageGenerator::InvalidateTilesImpl(m2::AnyRectD const & r, int startSca
 void CoverageGenerator::InvalidateTiles(m2::AnyRectD const & r, int startScale)
 {
   m_queue.Clear();
-  m_sequenceID++;
+  ++m_sequenceID;
   m_queue.CancelCommands();
   m_queue.Join();
 

@@ -390,11 +390,11 @@ int ScreenCoverage::GetSequenceID() const
 
 void ScreenCoverage::RemoveTiles(m2::AnyRectD const & r, int startScale)
 {
-  list<Tile const*> toRemove;
+  vector<Tile const*> toRemove;
 
   for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
   {
-    Tiler::RectInfo ri = (*it)->m_rectInfo;
+    Tiler::RectInfo const & ri = (*it)->m_rectInfo;
 
     if (r.IsIntersect(m2::AnyRectD(ri.m_rect)) && (ri.m_tileScale >= startScale))
       toRemove.push_back(*it);
@@ -402,11 +402,12 @@ void ScreenCoverage::RemoveTiles(m2::AnyRectD const & r, int startScale)
 
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
 
-  for (list<Tile const *>::const_iterator it = toRemove.begin(); it != toRemove.end(); ++it)
+  for (vector<Tile const *>::const_iterator it = toRemove.begin(); it != toRemove.end(); ++it)
   {
-    tileCache->unlockTile((*it)->m_rectInfo);
+    Tiler::RectInfo const & ri = (*it)->m_rectInfo;
+    tileCache->unlockTile(ri);
     m_tiles.erase(*it);
-    m_tileRects.erase((*it)->m_rectInfo);
+    m_tileRects.erase(ri);
   }
 
   MergeInfoLayer();
@@ -418,12 +419,11 @@ void ScreenCoverage::MergeInfoLayer()
 
   for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
   {
-    Tiler::RectInfo ri = (*it)->m_rectInfo;
+    Tiler::RectInfo const & ri = (*it)->m_rectInfo;
     if (m_tiler.isLeaf(ri))
     {
-      yg::InfoLayer * tileInfoLayerCopy = (*it)->m_infoLayer->clone();
-      m_infoLayer->merge(*tileInfoLayerCopy, (*it)->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
-      delete tileInfoLayerCopy;
+      scoped_ptr<yg::InfoLayer> copy((*it)->m_infoLayer->clone());
+      m_infoLayer->merge(*copy.get(), (*it)->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
     }
   }
 }
