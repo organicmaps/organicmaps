@@ -104,6 +104,7 @@ public:
 
 private:
   string GetFeatureType(CategoriesHolder const * pCat, int8_t lang) const;
+  m2::RectD GetFinalViewport() const;
 
   feature::TypesHolder m_types;
   uint32_t GetBestType() const;

@@ -105,6 +105,10 @@ PreResult2::PreResult2(FeatureType const & f, PreResult1 const & res,
 {
   ASSERT_GREATER(m_types.Size(), 0, ());
 
+  // It's better to get exact center for point feature.
+  if (f.GetFeatureType() == feature::GEOM_POINT)
+    m_center = m_featureRect.Center();
+
   // get region info
   if (!fileName.empty())
     m_region.SetName(fileName);
@@ -189,8 +193,7 @@ Result PreResult2::GenerateFinalResult(
               #ifdef DEBUG
                   + ' ' + strings::to_string(static_cast<int>(m_searchRank))
               #endif
-                  ,
-                  type, feature::GetFeatureViewport(m_types, m_featureRect), m_distance);
+                  , type, GetFinalViewport(), m_distance);
 
   case RESULT_LATLON:
     return Result(m_str, info.m_name, info.m_flag, string(), 0,
@@ -340,6 +343,13 @@ string PreResult2::GetFeatureType(CategoriesHolder const * pCat, int8_t lang) co
   // replace separator
   replace(s.begin(), s.end(), '|', '-');
   return s;
+}
+
+m2::RectD PreResult2::GetFinalViewport() const
+{
+  m2::RectD r = feature::GetFeatureViewport(m_types, m_featureRect);
+  r.SetCenter(m_center);
+  return r;
 }
 
 void PreResult2::RegionInfo::GetRegion(
