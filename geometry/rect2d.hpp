@@ -176,6 +176,11 @@ namespace m2
       m_maxY = c.y + dy;
     }
 
+    void SetCenter(m2::Point<T> const & p)
+    {
+      Offset(p - Center());
+    }
+
     T minX() const { return m_minX; }
     T minY() const { return m_minY; }
     T maxX() const { return m_maxX; }
@@ -185,14 +190,6 @@ namespace m2
     void setMinY(T minY) { m_minY = minY; }
     void setMaxX(T maxX) { m_maxX = maxX; }
     void setMaxY(T maxY) { m_maxY = maxY; }
-
-    void Move(Point<T> const & d)
-    {
-      m_minX += d.x;
-      m_minY += d.y;
-      m_maxX += d.x;
-      m_maxY += d.y;
-    }
 
     void Scale(T scale)
     {
