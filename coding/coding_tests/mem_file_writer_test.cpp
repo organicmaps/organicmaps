@@ -2,7 +2,10 @@
 #include "../../testing/testing.hpp"
 
 #include "../writer.hpp"
+#include "../file_writer.hpp"
+
 #include "../../base/macros.hpp"
+
 
 UNIT_TEST(MemWriterEmpty)
 {
@@ -20,7 +23,20 @@ UNIT_TEST(MemWriterSimple)
   writer.Write("Hello", 5);
   writer.Write(",", 1);
   writer.Write("world!", 6);
-  char const expected_string[] = "Hello,world!";
-  vector<char> expected_data(&expected_string[0], &expected_string[ARRAY_SIZE(expected_string)-1]);
-  TEST_EQUAL(data, expected_data, ());
+
+  char const expected[] = "Hello,world!";
+  TEST_EQUAL(data.size(), ARRAY_SIZE(expected)-1, ());
+  TEST(equal(data.begin(), data.end(), &expected[0]), (data));
 }
+
+/*
+UNIT_TEST(FileWriter_NoDiskSpace)
+{
+  FileWriter w("/Volumes/Untitled/file.bin");
+
+  vector<uint8_t> bytes(100000000);
+
+  for (size_t i = 0; i < 10; ++i)
+    w.Write(&bytes[0], bytes.size());
+}
+*/
