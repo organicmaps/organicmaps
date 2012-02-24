@@ -57,7 +57,9 @@
     matrix = CGAffineTransformTranslate(matrix, -w2, -w2);
     [aPath applyTransform:matrix];
 
-    [[UIColor blueColor] setFill];
+    // Set color: a8a8a8.
+    float const c = 168.0/255.0;
+    [[UIColor colorWithRed:c green:c blue:c alpha:1.0] setFill];
     [aPath fill];
   }
 }
