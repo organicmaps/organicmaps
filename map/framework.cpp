@@ -96,6 +96,7 @@ Framework::Framework()
   : m_hasPendingInvalidate(false),
     m_doForceUpdate(false),
     m_queryMaxScaleMode(false),
+    m_drawPlacemark(false),
     m_metresMinWidth(10),
     m_metresMaxWidth(1000000),
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_WINDOWS) || defined(OMIM_OS_LINUX)
@@ -394,6 +395,9 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
   m_locationState.DrawMyPosition(*e->drawer(), m_navigator.Screen());
 
+  if (m_drawPlacemark)
+    m_informationDisplay.drawPlacemark(e->drawer(), m_navigator.GtoP(m_placemark));
+
   e->drawer()->screen()->endFrame();
 }
 
@@ -429,6 +433,12 @@ void Framework::ShowRect(m2::RectD rect)
 
   m_navigator.SetFromRect(m2::AnyRectD(rect));
   Invalidate();
+}
+
+void Framework::DrawPlacemark(m2::PointD const & pt)
+{
+  m_drawPlacemark = true;
+  m_placemark = pt;
 }
 
 void Framework::MemoryWarning()

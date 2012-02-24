@@ -60,9 +60,10 @@ protected:
   Navigator m_navigator;
 
   scoped_ptr<RenderPolicy> m_renderPolicy;
-  bool m_hasPendingInvalidate, m_doForceUpdate, m_queryMaxScaleMode;
+  bool m_hasPendingInvalidate, m_doForceUpdate, m_queryMaxScaleMode, m_drawPlacemark;
 
   m2::AnyRectD m_invalidRect;
+  m2::PointD m_placemark;
 
   InformationDisplay m_informationDisplay;
 
@@ -187,6 +188,7 @@ public:
   virtual void EndPaint(shared_ptr<PaintEvent> const & e);
 
   void ShowRect(m2::RectD rect);
+  void DrawPlacemark(m2::PointD const & pt);
 
   void MemoryWarning();
 

@@ -457,9 +457,11 @@ namespace qt
     m_framework->Search(params);
   }
 
-  void DrawWidget::ShowFeature(m2::RectD const & rect)
+  void DrawWidget::ShowFeature(m2::RectD const & rect, m2::PointD const & pt)
   {
     m_framework->ShowRect(rect);
+    m_framework->DrawPlacemark(pt);
+
     UpdateScaleControl();
   }
 

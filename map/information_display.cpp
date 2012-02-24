@@ -31,7 +31,6 @@ InformationDisplay::InformationDisplay()
   enableMemoryWarning(false);
   enableBenchmarkInfo(false);
   enableEmptyModelMessage(false);
-  enablePlacemark(false);
 
   for (int i = 0; i < sizeof(m_DebugPts) / sizeof(m2::PointD); ++i)
     m_DebugPts[i] = m2::PointD(0, 0);
@@ -244,19 +243,9 @@ void InformationDisplay::drawMemoryWarning(DrawerYG * drawer)
     enableMemoryWarning(false);
 }
 
-void InformationDisplay::enablePlacemark(bool doEnable)
+void InformationDisplay::drawPlacemark(DrawerYG * pDrawer, m2::PointD const & pt)
 {
-  m_isPlacemarkEnabled = doEnable;
-}
-
-void InformationDisplay::setPlacemarkPosition(m2::PointD const & glbPos)
-{
-  m_placemarkPos = glbPos;
-}
-
-void InformationDisplay::drawPlacemark(DrawerYG *pDrawer)
-{
-  pDrawer->drawSymbol(m_screen.GtoP(m_placemarkPos), "placemark", yg::EPosAbove, yg::maxDepth);
+  pDrawer->drawSymbol(pt, "placemark", yg::EPosAbove, yg::maxDepth);
 }
 
 bool InformationDisplay::s_isLogEnabled = false;
@@ -457,6 +446,4 @@ void InformationDisplay::doDraw(DrawerYG *drawer)
     drawLog(drawer);
   if (m_isEmptyModelMessageEnabled)
     drawEmptyModelMessage(drawer);
-  if (m_isPlacemarkEnabled)
-    drawPlacemark(drawer);
 }

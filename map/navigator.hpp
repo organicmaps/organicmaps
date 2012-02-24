@@ -23,9 +23,9 @@ public:
   void OnSize(int x0, int y0, int w, int h);
 
   ScreenBase const & Screen() const { return m_Screen; }
-  ScreenBase const & StartScreen() const {return m_StartScreen; }
-  /// Returns a matrix, which represents a transformation between two screens
-  math::Matrix<float, 3, 3> const ScreenDelta(ScreenBase const & src, ScreenBase const & dst) const;
+  ScreenBase const & StartScreen() const { return m_StartScreen; }
+
+  m2::PointD GtoP(m2::PointD const & pt) const;
 
   void StartDrag(m2::PointD const & pt, double timeInSec);
   void DoDrag(m2::PointD const & pt, double timeInSec);

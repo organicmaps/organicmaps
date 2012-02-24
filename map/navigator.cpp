@@ -107,6 +107,11 @@ void Navigator::OnSize(int x0, int y0, int w, int h)
 //  }
 }
 
+m2::PointD Navigator::GtoP(m2::PointD const & pt) const
+{
+  return m_Screen.GtoP(pt) - ShiftPoint(m2::PointD(0.0, 0.0));
+}
+
 bool Navigator::CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
   m2::RectD clipRect = screen.ClipRect();
@@ -299,7 +304,8 @@ void Navigator::StopRotate(double a, double timeInSec)
 
 m2::PointD Navigator::ShiftPoint(m2::PointD const & pt) const
 {
-  return pt + m2::PointD(m_Screen.PixelRect().minX(), m_Screen.PixelRect().minY());
+  m2::RectD const & pxRect = m_Screen.PixelRect();
+  return pt + m2::PointD(pxRect.minX(), pxRect.minY());
 }
 
 void Navigator::StartDrag(m2::PointD const & pt, double /*timeInSec*/)
@@ -376,30 +382,32 @@ void Navigator::ScaleToPoint(m2::PointD const & pt, double factor, double /*time
   m2::PointD startPt;
   m2::PointD endPt;
 
+  m2::RectD const & pxRect = m_Screen.PixelRect();
+
   // pt is in x0, x0 + width
 
-  if (pt.x != m_Screen.PixelRect().maxX())
+  if (pt.x != pxRect.maxX())
   {
     // start scaling point is 1 / factor way between pt and right border
-    startPt.x = pt.x + ((m_Screen.PixelRect().maxX() - pt.x) / factor);
-    endPt.x = m_Screen.PixelRect().maxX();
+    startPt.x = pt.x + ((pxRect.maxX() - pt.x) / factor);
+    endPt.x = pxRect.maxX();
   }
   else
   {
     // start scaling point is 1 - 1/factor way between left border and pt
-    startPt.x = pt.x + (m_Screen.PixelRect().minX() - pt.x) / factor;
-    endPt.x = m_Screen.PixelRect().minX();
+    startPt.x = pt.x + (pxRect.minX() - pt.x) / factor;
+    endPt.x = pxRect.minX();
   }
 
-  if (pt.y != m_Screen.PixelRect().maxY())
+  if (pt.y != pxRect.maxY())
   {
-    startPt.y = pt.y + ((m_Screen.PixelRect().maxY() - pt.y) / factor);
-    endPt.y = m_Screen.PixelRect().maxY();
+    startPt.y = pt.y + ((pxRect.maxY() - pt.y) / factor);
+    endPt.y = pxRect.maxY();
   }
   else
   {
-    startPt.y = pt.y + (m_Screen.PixelRect().minY() - pt.y) / factor;
-    endPt.y = m_Screen.PixelRect().minY();
+    startPt.y = pt.y + (pxRect.minY() - pt.y) / factor;
+    endPt.y = pxRect.minY();
   }
 
   ScaleImpl(pt, endPt, pt, startPt, factor > 1);

@@ -197,7 +197,7 @@ void SearchPanel::OnSearchPanelItemClicked(int row, int)
   if (m_results[row].GetResultType() == ResultT::RESULT_FEATURE)
   {
     // center viewport on clicked item
-    m_pDrawWidget->ShowFeature(m_results[row].GetFeatureRect());
+    m_pDrawWidget->ShowFeature(m_results[row].GetFeatureRect(), m_results[row].GetFeatureCenter());
   }
   else
   {

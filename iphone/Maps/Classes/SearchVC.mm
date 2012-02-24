@@ -518,6 +518,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
       // Zoom to the feature
     case search::Result::RESULT_FEATURE:
       m_framework->ShowRect(res.GetFeatureRect());
+      m_framework->DrawPlacemark(res.GetFeatureCenter());
       [self onCloseButton:nil];
       break;
 
