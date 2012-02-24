@@ -36,6 +36,9 @@ private:
   bool m_isRulerEnabled;
   Ruler m_ruler;
 
+  bool m_isPlacemarkEnabled;
+  m2::PointD m_placemarkPos;
+
   bool m_isCenterEnabled;
   m2::PointD m_centerPtLonLat;
   int m_currentScale;
@@ -98,6 +101,10 @@ public:
   void enableMemoryWarning(bool doEnable);
   void memoryWarning();
   void drawMemoryWarning(DrawerYG * pDrawer);
+
+  void enablePlacemark(bool doEnable);
+  void setPlacemarkPosition(m2::PointD const & glbPt);
+  void drawPlacemark(DrawerYG * pDrawer);
 
   void enableBenchmarkInfo(bool doEnable);
   bool addBenchmarkInfo(string const & name, m2::RectD const & globalRect, double frameDuration);
