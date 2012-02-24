@@ -237,14 +237,6 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 
   MergeInfoLayer();
 
-  m_newLeafTileRects.clear();
-
-  for (unsigned i = 0; i < newRects.size(); ++i)
-    if (m_tiler.isLeaf(newRects[i]))
-      m_newLeafTileRects.insert(newRects[i]);
-
-  copy(newRects.begin(), newRects.end(), inserter(m_newTileRects, m_newTileRects.end()));
-
   set<Tiler::RectInfo> drawnTiles;
 
   for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
@@ -291,10 +283,19 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 
   // adding commands for tiles which aren't in cache
   for (size_t i = 0; i < firstClassTiles.size(); ++i)
-    m_tileRenderer->AddCommand(firstClassTiles[i], GetSequenceID(),
+  {
+    Tiler::RectInfo const & ri = firstClassTiles[i];
+
+    m_tileRenderer->AddCommand(ri, GetSequenceID(),
                                bind(&CoverageGenerator::AddMergeTileTask, m_coverageGenerator,
-                                    firstClassTiles[i],
+                                    ri,
                                     GetSequenceID()));
+
+    if (m_tiler.isLeaf(ri))
+      m_newLeafTileRects.insert(ri);
+
+    m_newTileRects.insert(ri);
+  }
 
   for (size_t i = 0; i < secondClassTiles.size(); ++i)
     m_tileRenderer->AddCommand(secondClassTiles[i], GetSequenceID());
