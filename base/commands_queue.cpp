@@ -3,6 +3,8 @@
 #include "../base/logging.hpp"
 #include "../base/assert.hpp"
 
+#include "../std/bind.hpp"
+
 #include "commands_queue.hpp"
 
 namespace core
@@ -215,8 +217,9 @@ namespace core
     threads::ConditionGuard g(m_cond);
 
     --m_activeCommands;
+
     if (m_activeCommands == 0)
-      g.Signal();
+      g.Signal(true);
   }
 
   void CommandsQueue::Join()
@@ -226,12 +229,25 @@ namespace core
       g.Wait();
   }
 
-  void CommandsQueue::Clear()
+  void CommandsQueue::ClearImpl(list<shared_ptr<CommandsQueue::Command> > & l)
   {
     threads::ConditionGuard g(m_cond);
-    size_t s = m_commands.Size();
-    m_commands.Clear();
+    size_t s = l.size();
+    l.clear();
     m_activeCommands -= s;
+    if (m_activeCommands == 0)
+      g.Signal(true);
+  }
+
+  void CommandsQueue::Clear()
+  {
+    /// let us assume that decreasing m_activeCommands is an "operation A"
+    /// and clearing the list of commands is an "operation B"
+    /// we should perform them atomically (both or none at the same time)
+    /// to prevent the situation when Executor could start processing some command
+    /// between "operation A" and "operation B" which could lead to underflow of m_activeCommands
+
+    m_commands.ProcessList(bind(&CommandsQueue::ClearImpl, this, _1));
   }
 
   int CommandsQueue::ExecutorsCount() const

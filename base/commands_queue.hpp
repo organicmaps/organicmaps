@@ -166,6 +166,8 @@ namespace core
     CommandsQueue(CommandsQueue const &);
     CommandsQueue const & operator=(CommandsQueue const &);
 
+    void ClearImpl(list<shared_ptr<Command> > & l);
+
   public:
 
     CommandsQueue(size_t executorsCount);
