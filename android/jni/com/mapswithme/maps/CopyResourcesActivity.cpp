@@ -2,6 +2,8 @@
 // To get free disk space
 #include <sys/vfs.h>
 
+#include "../../../../../defines.hpp"
+
 #include "../../../../../base/logging.hpp"
 
 #include "../../../../../coding/zip_reader.hpp"
@@ -114,5 +116,43 @@ extern "C"
     g_copiedBytesProgress += it->m_uncompressedSize;
     g_filesToCopy.erase(it);
     return g_copiedBytesProgress;
+  }
+
+  // Move downloaded maps from /sdcard/Android/data/com.mapswithme.maps/files/ to /sdcard/MapsWithMe
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_CopyResourcesActivity_nativeMoveMaps(JNIEnv * env, jobject thiz,
+      jstring fromPath, jstring toPath)
+  {
+    string from, to;
+    {
+      char const * strFrom = env->GetStringUTFChars(fromPath, 0);
+      if (!strFrom)
+        return;
+      from = strFrom;
+      env->ReleaseStringUTFChars(fromPath, strFrom);
+
+      char const * strTo = env->GetStringUTFChars(toPath, 0);
+      if (!strTo)
+        return;
+      to = strTo;
+      env->ReleaseStringUTFChars(toPath, strTo);
+    }
+
+    Platform & pl = GetPlatform();
+    Platform::FilesList files;
+    // Move *.mwm files
+    pl.GetFilesInDir(from, "*" DATA_FILE_EXTENSION, files);
+    for (size_t i = 0; i < files.size(); ++i)
+    {
+      LOG(LINFO, (from + files[i], to + files[i]));
+      rename((from + files[i]).c_str(), (to + files[i]).c_str());
+    }
+
+    // Delete not finished *.downloading files
+    files.clear();
+    pl.GetFilesInDir(from, "*" DOWNLOADING_FILE_EXTENSION, files);
+    pl.GetFilesInDir(from, "*" RESUME_FILE_EXTENSION, files);
+    for (size_t i = 0; i < files.size(); ++i)
+      remove((from + files[i]).c_str());
   }
 }

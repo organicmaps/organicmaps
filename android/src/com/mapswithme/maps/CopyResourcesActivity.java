@@ -35,8 +35,6 @@ public class CopyResourcesActivity extends Activity
     {
       m_apkPath = apkPath;
       m_sdcardPath = sdcardPath;
-      // Create sdcard folder if it doesn't exist
-      new File(sdcardPath).mkdirs();
     }
 
     @Override
@@ -107,8 +105,13 @@ public class CopyResourcesActivity extends Activity
     View v = new View(this);
     v.setVisibility(View.INVISIBLE);
     setContentView(v);
+    final String extPath = MWMActivity.getDataStoragePath();
+    // Create sdcard folder if it doesn't exist
+    new File(extPath).mkdirs();
+    // Used to migrate from v2.0.0 to 2.0.1
+    nativeMoveMaps(MWMActivity.getExtAppDirectoryPath("files"), extPath);
     // All copy checks are made in the background task
-    new CopyResourcesTask(MWMActivity.getApkPath(this), MWMActivity.getDataStoragePath()).execute();
+    new CopyResourcesTask(MWMActivity.getApkPath(this), extPath).execute();
   }
 
   public void onCopyTaskFinished(int result)
@@ -160,6 +163,7 @@ public class CopyResourcesActivity extends Activity
       m_dialog.setProgress(copiedBytes);
   }
 
+  private native void nativeMoveMaps(String fromFolder, String toFolder);
   private native int nativeGetBytesToCopy(String m_apkPath, String m_sdcardPath);
   private native int nativeCopyNextFile();
 }
