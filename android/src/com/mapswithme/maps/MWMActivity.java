@@ -42,11 +42,11 @@ public class MWMActivity extends NvEventQueueActivity implements
   private static Context m_context = null;
   public static Context getCurrentContext() { return m_context; }
 
-  private String getAppBundlePath()
+  public static String getApkPath(Activity activity)
   {
     try
     {
-      return getApplication().getPackageManager().getApplicationInfo(PACKAGE_NAME, 0).sourceDir;
+      return activity.getApplication().getPackageManager().getApplicationInfo(PACKAGE_NAME, 0).sourceDir;
     } catch (NameNotFoundException e)
     {
       e.printStackTrace();
@@ -54,11 +54,17 @@ public class MWMActivity extends NvEventQueueActivity implements
     return "";
   }
 
-  private String getDataStoragePath(String folder)
+  public static String getDataStoragePath()
+  {
+    return Environment.getExternalStorageDirectory().getAbsolutePath() + "/MapsWithMe/";
+  }
+
+  public static String getExtAppDirectoryPath(String folder)
   {
     final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
     return storagePath.concat(String.format("/Android/data/%s/%s/", PACKAGE_NAME, folder));
   }
+
   // Note: local storage memory is limited on some devices!
   private String getTmpPath()
   {
@@ -208,8 +214,8 @@ public class MWMActivity extends NvEventQueueActivity implements
 
     m_context = this;
 
-    final String extStoragePath = getDataStoragePath("files");
-    final String extTmpPath = getDataStoragePath("caches");
+    final String extStoragePath = getDataStoragePath();
+    final String extTmpPath = getExtAppDirectoryPath("caches");
     // Create folders if they don't exist
     new File(extStoragePath).mkdirs();
     new File(extTmpPath).mkdirs();
@@ -221,7 +227,7 @@ public class MWMActivity extends NvEventQueueActivity implements
     nativeInit(metrics.densityDpi,
                metrics.widthPixels,
                metrics.heightPixels,
-               getAppBundlePath(),
+               getApkPath(this),
                extStoragePath,
                getTmpPath(),
                extTmpPath,

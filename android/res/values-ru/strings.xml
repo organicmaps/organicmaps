@@ -26,4 +26,7 @@
     <string name="disconnect_usb_cable">Отключите USB кабель или вставьте SD-карту</string>
     <string name="empty_model">Чтобы загрузить карту\nэтого места, нажмите на\nкнопку загрузки внизу экрана</string>
     <string name="unsupported_phone">Для работы приложения необходим аппаратно ускоренный OpenGL. К сожалению, ваше устройство не поддерживается.</string>
+    <string name="not_enough_free_space_on_sdcard">Недостаточно свободного места на SD карте/в памяти устройства для использования программы</string>
+    <string name="loading">Запуск %s…</string>
+    <string name="not_enough_memory">Недостаточно памяти для запуска программы</string>
 </resources>

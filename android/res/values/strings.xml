@@ -22,8 +22,11 @@
     <string name="miles">Miles</string>
     <string name="kilometres">Kilometres</string>
     <string name="close">Close</string>
-    <string name="external_storage_is_not_available">External storage memory is not available</string>
+    <string name="external_storage_is_not_available">SD card/USB storage with downloaded maps is not available</string>
     <string name="disconnect_usb_cable">Please disconnect USB cable or insert memory card to use MapsWithMe</string>
     <string name="empty_model">Nothing found. Have you tried\ndownloading maps of the countries?\nJust click the download button\nat the bottom of the screen.</string>
     <string name="unsupported_phone">A hardware accelerated OpenGL is required. Unfortunately, your device is not supported.</string>
+    <string name="not_enough_free_space_on_sdcard">Please free some space on SD card/USB storage first in order to use the app</string>
+    <string name="loading">Loading %s…</string>
+    <string name="not_enough_memory">Not enough memory to launch app</string>
 </resources>
