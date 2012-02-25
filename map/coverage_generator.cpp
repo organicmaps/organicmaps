@@ -82,6 +82,8 @@ void CoverageGenerator::InvalidateTilesImpl(m2::AnyRectD const & r, int startSca
 
   TileCache & tileCache = m_tileRenderer->GetTileCache();
 
+  tileCache.writeLock();
+
   /// here we should copy elements as we've delete some of them later
   set<Tiler::RectInfo> k = tileCache.keys();
 
@@ -94,18 +96,16 @@ void CoverageGenerator::InvalidateTilesImpl(m2::AnyRectD const & r, int startSca
       tileCache.remove(ri);
     }
   }
+
+  tileCache.writeUnlock();
 }
 
 void CoverageGenerator::InvalidateTiles(m2::AnyRectD const & r, int startScale)
 {
-  m_queue.Clear();
+  /// this automatically will skip the previous CoverScreen commands
+  /// and MergeTiles commands from previously generated ScreenCoverages
   ++m_sequenceID;
-  m_queue.CancelCommands();
-  m_queue.Join();
-
-  m_queue.AddCommand(bind(&CoverageGenerator::InvalidateTilesImpl, this, r, startScale), true);
-
-  m_queue.Join();
+  m_queue.AddCommand(bind(&CoverageGenerator::InvalidateTilesImpl, this, r, startScale));
 }
 
 void CoverageGenerator::AddCoverScreenTask(ScreenBase const & screen, bool doForce)
@@ -115,10 +115,7 @@ void CoverageGenerator::AddCoverScreenTask(ScreenBase const & screen, bool doFor
 
   m_currentScreen = screen;
 
-  m_queue.Clear();
-  m_sequenceID++;
-  m_queue.CancelCommands();
-
+  ++m_sequenceID;
   m_queue.AddCommand(bind(&CoverageGenerator::CoverScreen, this, screen, m_sequenceID));
 }
 
