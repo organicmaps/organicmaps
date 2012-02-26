@@ -73,7 +73,7 @@ bool ZipFileReader::IsZip(string const & zipContainer)
 }
 
 void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileInZip,
-                      string const & outFilePath)
+                              string const & outFilePath, ProgressFn progressFn)
 {
   unzFile zip = unzOpen64(zipContainer.c_str());
   if (!zip)
@@ -85,12 +85,18 @@ void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileIn
 
   if (UNZ_OK != unzOpenCurrentFile(zip))
       MYTHROW(LocateZipException, ("Can't open file inside zip", fileInZip));
+
+  unz_file_info64 fileInfo;
+  if (UNZ_OK != unzGetCurrentFileInfo64(zip, &fileInfo, NULL, 0, NULL, 0, NULL, 0))
+    MYTHROW(LocateZipException, ("Can't get uncompressed file size inside zip", fileInZip));
+
   MY_SCOPE_GUARD(currentFileGuard, bind(&unzCloseCurrentFile, zip));
 
   try
   {
     FileWriter outFile(outFilePath);
 
+    int pos = 0;
     int readBytes;
     static size_t const BUF_SIZE = 4096;
     char buf[BUF_SIZE];
@@ -103,6 +109,11 @@ void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileIn
         MYTHROW(InvalidZipException, ("Error", readBytes, "while unzipping", fileInZip, "from", zipContainer));
       else
         break;
+
+      pos += readBytes;
+
+      if (progressFn)
+        progressFn(fileInfo.uncompressed_size, pos);
     }
   }
   catch (Exception const & e)

@@ -17,6 +17,9 @@ private:
   uint64_t m_uncompressedFileSize;
 
 public:
+
+  typedef void (*ProgressFn)(int, int);
+
   DECLARE_EXCEPTION(OpenZipException, OpenException);
   DECLARE_EXCEPTION(LocateZipException, OpenException);
   DECLARE_EXCEPTION(InvalidZipException, OpenException);
@@ -28,7 +31,7 @@ public:
 
   /// @warning Can also throw Writer::OpenException and Writer::WriteException
   static void UnzipFile(string const & zipContainer, string const & fileInZip,
-                        string const & outFilePath);
+                        string const & outFilePath, ProgressFn progressFn = 0);
 
   static vector<string> FilesList(string const & zipContainer);
   /// Quick version without exceptions
