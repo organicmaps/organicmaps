@@ -7,6 +7,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StatFs;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
@@ -178,6 +180,23 @@ public class DownloadUI extends PreferenceActivity
     m_alert.create().show();
   }
 
+  private void showNotEnoughFreeSpaceDialog(String spaceNeeded, String countryName)
+  {
+    new AlertDialog.Builder(this).setMessage(String.format(getString(R.string.free_space_for_country), spaceNeeded, countryName))
+        .setNegativeButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dlg, int which) {
+            dlg.dismiss();
+          }
+        })
+        .create().show();
+  }
+
+  private long getFreeSpace()
+  {
+    StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
+    return (long)stat.getAvailableBlocks() * (long)stat.getBlockSize();
+  }
+
   @Override
   public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference)
   {
@@ -208,17 +227,28 @@ public class DownloadUI extends PreferenceActivity
           showNoConnectionDialog();
         }
         else
-        { // Display download comfirmation
-          m_alert.setTitle(countryName(group, country, region));
-          m_alert.setPositiveButton(getString(R.string.download_mb_or_kb, formatSizeString(countryRemoteSizeInBytes(group, country, region))),
-              new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dlg, int which) {
-                  downloadCountry(group, country, region);
-                  dlg.dismiss();
-                }
-              });
-          m_alert.setNegativeButton(android.R.string.cancel, m_alertCancelHandler);
-          m_alert.create().show();
+        {
+          // Check for available free space
+          final long size = countryRemoteSizeInBytes(group, country, region);
+          final String name = countryName(group, country, region);
+          if (size > getFreeSpace())
+          {
+            showNotEnoughFreeSpaceDialog(formatSizeString(size), name);
+          }
+          else
+          {
+            // Display download confirmation
+            m_alert.setTitle(name);
+            m_alert.setPositiveButton(getString(R.string.download_mb_or_kb, formatSizeString(size)),
+                new DialogInterface.OnClickListener() {
+                  public void onClick(DialogInterface dlg, int which) {
+                    downloadCountry(group, country, region);
+                    dlg.dismiss();
+                  }
+                });
+            m_alert.setNegativeButton(android.R.string.cancel, m_alertCancelHandler);
+            m_alert.create().show();
+          }
         }
         break;
 
@@ -226,8 +256,10 @@ public class DownloadUI extends PreferenceActivity
         if (!ConnectionState.isConnected(this))
           showNoConnectionDialog();
         else
-        // Do not confirm download if status is failed, just start it
+        {
+          // Do not confirm download if status is failed, just start it
           downloadCountry(group, country, region);
+        }
         break;
 
       case 3: // EDownloading

@@ -29,4 +29,5 @@
     <string name="not_enough_free_space_on_sdcard">Недостаточно свободного места на SD карте/в памяти устройства для использования программы</string>
     <string name="loading">Запуск %s…</string>
     <string name="not_enough_memory">Недостаточно памяти для запуска программы</string>
+    <string name="free_space_for_country">Для загрузки %2$s нужно %1$s свободного места</string>
 </resources>
