@@ -101,10 +101,9 @@ public class CopyResourcesActivity extends Activity
   protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    // Create invisible view, only progress dialog will be visible if needed
-    View v = new View(this);
-    v.setVisibility(View.INVISIBLE);
-    setContentView(v);
+    // Set the same layout as for MWMActivity
+    setContentView(R.layout.map);
+
     final String extPath = MWMActivity.getDataStoragePath();
     // Create sdcard folder if it doesn't exist
     new File(extPath).mkdirs();
@@ -119,7 +118,10 @@ public class CopyResourcesActivity extends Activity
     if (result == ERR_COPIED_SUCCESSFULLY)
     {
       // Continue with Main UI initialization (MWMActivity)
-      startActivity(new Intent(this, MWMActivity.class));
+      Intent mwmActivityIntent = new Intent(this, MWMActivity.class);
+      // Disable animation because MWMActivity should appear exactly over this one
+      mwmActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+      startActivity(mwmActivityIntent);
     }
     else
     {
