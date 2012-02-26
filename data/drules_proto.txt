@@ -1441,7 +1441,7 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.1
         color: 0xE4E4E4
@@ -4405,7 +4405,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xe0dac0
+      color: 0xd5ceb0
       priority: 364
     }
   }
@@ -31660,7 +31660,7 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.05
         color: 0x6FC13D
@@ -31671,7 +31671,7 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.1
         color: 0x6FC13D
@@ -31682,7 +31682,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.4
         color: 0x6FC13D
@@ -31693,7 +31693,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.8
         color: 0x6FC13D
@@ -31711,7 +31711,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.8
         color: 0x6FC13D
@@ -31729,7 +31729,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 1.6
         color: 0x6FC13D
@@ -32509,21 +32509,21 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       priority: 2
     }
   }
   element {
     scale: 14
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       priority: 3
     }
   }
   element {
     scale: 15
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       priority: 2
     }
     caption {
@@ -32537,7 +32537,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       priority: 3
     }
     caption {
@@ -32551,7 +32551,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       priority: 3
     }
     caption {
@@ -32617,7 +32617,7 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.1
         color: 0xE4E4E4
@@ -32827,7 +32827,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -32838,7 +32838,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 16
     }
@@ -32849,7 +32849,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 37
     }
@@ -32860,7 +32860,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 37
     }
@@ -32871,7 +32871,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 37
     }
@@ -32882,7 +32882,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 37
     }
@@ -32896,7 +32896,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -32907,7 +32907,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 16
     }
@@ -32918,7 +32918,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 37
     }
@@ -32929,7 +32929,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 37
     }
@@ -32940,7 +32940,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 37
     }
@@ -32951,7 +32951,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 37
     }
@@ -32965,7 +32965,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -32976,7 +32976,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 16
     }
@@ -32987,7 +32987,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 37
     }
@@ -32998,7 +32998,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 37
     }
@@ -33009,7 +33009,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 37
     }
@@ -33020,7 +33020,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 37
     }
@@ -33034,7 +33034,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -33045,7 +33045,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 16
     }
@@ -33056,7 +33056,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 37
     }
@@ -33067,7 +33067,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 37
     }
@@ -33078,7 +33078,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 37
     }
@@ -33089,7 +33089,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 37
     }
@@ -33103,7 +33103,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -33114,7 +33114,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 16
     }
@@ -33125,7 +33125,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 37
     }
@@ -33136,7 +33136,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 37
     }
@@ -33147,7 +33147,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 37
     }
@@ -33158,7 +33158,7 @@ cont {
       color: 0xCFECA8
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 37
     }
@@ -33243,7 +33243,7 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.025
         color: 0x9EE673
@@ -33254,7 +33254,7 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.05
         color: 0x9EE673
@@ -33265,7 +33265,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.2
         color: 0x9EE673
@@ -33276,7 +33276,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.4
         color: 0x9EE673
@@ -33294,7 +33294,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.4
         color: 0x9EE673
@@ -33312,7 +33312,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.8
         color: 0x9EE673
@@ -33333,7 +33333,7 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.025
         color: 0x9EE673
@@ -33344,7 +33344,7 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.05
         color: 0x9EE673
@@ -33355,7 +33355,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.2
         color: 0x9EE673
@@ -33366,7 +33366,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.4
         color: 0x9EE673
@@ -33384,7 +33384,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.4
         color: 0x9EE673
@@ -33402,7 +33402,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.8
         color: 0x9EE673
@@ -33531,7 +33531,7 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.00078125
         color: 0x6FC13D
@@ -33542,7 +33542,7 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.0015625
         color: 0x6FC13D
@@ -33553,7 +33553,7 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.03125
         color: 0x6FC13D
@@ -33564,7 +33564,7 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.0625
         color: 0x6FC13D
@@ -33575,7 +33575,7 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.0125
         color: 0x6FC13D
@@ -33586,7 +33586,7 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.025
         color: 0x6FC13D
@@ -33597,7 +33597,7 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.025
         color: 0x9EE673
@@ -33608,7 +33608,7 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.05
         color: 0x9EE673
@@ -33619,7 +33619,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.2
         color: 0x9EE673
@@ -33630,7 +33630,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.4
         color: 0x9EE673
@@ -33641,7 +33641,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.4
         color: 0x9EE673
@@ -33652,7 +33652,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.8
         color: 0x9EE673
@@ -33666,10 +33666,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 8
     }
@@ -33677,10 +33677,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -33688,10 +33688,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -33699,10 +33699,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -33710,10 +33710,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -33721,10 +33721,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -33732,10 +33732,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 3
     }
@@ -33743,10 +33743,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 8
     }
@@ -33754,10 +33754,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 32
     }
@@ -33765,10 +33765,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 32
     }
@@ -33783,10 +33783,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 32
     }
@@ -33801,10 +33801,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 32
     }
@@ -33822,10 +33822,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 8
     }
@@ -33833,10 +33833,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -33844,10 +33844,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -33855,10 +33855,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -33866,10 +33866,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -33877,10 +33877,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -33888,10 +33888,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 3
     }
@@ -33899,10 +33899,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 8
     }
@@ -33910,10 +33910,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 32
     }
@@ -33921,10 +33921,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 32
     }
@@ -33939,10 +33939,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 32
     }
@@ -33957,10 +33957,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 32
     }
@@ -33978,10 +33978,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 8
     }
@@ -33989,10 +33989,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -34000,10 +34000,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -34011,10 +34011,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -34022,10 +34022,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -34033,10 +34033,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -34044,10 +34044,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 3
     }
@@ -34055,10 +34055,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 8
     }
@@ -34066,10 +34066,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 32
     }
@@ -34077,10 +34077,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 32
     }
@@ -34088,10 +34088,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 32
     }
@@ -34107,10 +34107,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 32
     }
@@ -34121,10 +34121,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 8
     }
@@ -34132,10 +34132,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -34143,10 +34143,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -34154,10 +34154,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -34165,10 +34165,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -34176,10 +34176,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -34187,10 +34187,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 3
     }
@@ -34198,10 +34198,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 8
     }
@@ -34209,10 +34209,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 32
     }
@@ -34220,10 +34220,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 32
     }
@@ -34238,10 +34238,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 32
     }
@@ -34256,10 +34256,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 32
     }
@@ -34322,7 +34322,7 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.025
         color: 0x9EE673
@@ -34333,7 +34333,7 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.05
         color: 0x9EE673
@@ -34344,7 +34344,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.2
         color: 0x9EE673
@@ -34355,7 +34355,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.4
         color: 0x9EE673
@@ -34373,7 +34373,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.4
         color: 0x9EE673
@@ -34391,7 +34391,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.8
         color: 0x9EE673
@@ -34738,7 +34738,7 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.00078125
         color: 0x6FC13D
@@ -34749,7 +34749,7 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.0015625
         color: 0x6FC13D
@@ -34760,7 +34760,7 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.03125
         color: 0x6FC13D
@@ -34771,7 +34771,7 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.0625
         color: 0x6FC13D
@@ -34782,7 +34782,7 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.0125
         color: 0x6FC13D
@@ -34793,7 +34793,7 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.025
         color: 0x6FC13D
@@ -34804,7 +34804,7 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.025
         color: 0x9EE673
@@ -34815,7 +34815,7 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.05
         color: 0x9EE673
@@ -34826,7 +34826,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.2
         color: 0x9EE673
@@ -34837,7 +34837,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.4
         color: 0x9EE673
@@ -34855,7 +34855,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.4
         color: 0x9EE673
@@ -34873,7 +34873,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.8
         color: 0x9EE673
@@ -35550,7 +35550,7 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.05
         color: 0x6FC13D
@@ -35561,7 +35561,7 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.1
         color: 0x6FC13D
@@ -35572,7 +35572,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.4
         color: 0x6FC13D
@@ -35583,7 +35583,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.8
         color: 0x6FC13D
@@ -35601,7 +35601,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.8
         color: 0x6FC13D
@@ -35619,7 +35619,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 1.6
         color: 0x6FC13D
@@ -37121,10 +37121,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 5
     }
@@ -37132,10 +37132,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -37143,10 +37143,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 34
     }
@@ -37154,10 +37154,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 34
     }
@@ -37165,10 +37165,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 34
     }
@@ -37176,10 +37176,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 34
     }
@@ -37190,10 +37190,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 5
     }
@@ -37201,10 +37201,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -37212,10 +37212,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 34
     }
@@ -37223,10 +37223,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 34
     }
@@ -37234,10 +37234,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 34
     }
@@ -37245,10 +37245,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 34
     }
@@ -37259,10 +37259,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 5
     }
@@ -37270,10 +37270,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -37281,10 +37281,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 34
     }
@@ -37292,10 +37292,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 34
     }
@@ -37303,10 +37303,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 34
     }
@@ -37314,10 +37314,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 34
     }
@@ -37328,10 +37328,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 5
     }
@@ -37339,10 +37339,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -37350,10 +37350,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 34
     }
@@ -37361,10 +37361,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 34
     }
@@ -37372,10 +37372,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 34
     }
@@ -37383,10 +37383,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 34
     }
@@ -37430,7 +37430,7 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.00078125
         color: 0x6FC13D
@@ -37441,7 +37441,7 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.0015625
         color: 0x6FC13D
@@ -37452,7 +37452,7 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.03125
         color: 0x6FC13D
@@ -37463,7 +37463,7 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.0625
         color: 0x6FC13D
@@ -37474,7 +37474,7 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.0125
         color: 0x6FC13D
@@ -37485,7 +37485,7 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.025
         color: 0x6FC13D
@@ -37496,7 +37496,7 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.05
         color: 0x6FC13D
@@ -37507,7 +37507,7 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.1
         color: 0x6FC13D
@@ -37518,7 +37518,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.4
         color: 0x6FC13D
@@ -37529,7 +37529,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.8
         color: 0x6FC13D
@@ -37547,7 +37547,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.8
         color: 0x6FC13D
@@ -37565,7 +37565,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 1.6
         color: 0x6FC13D
@@ -37665,10 +37665,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -37676,10 +37676,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -37687,10 +37687,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -37698,10 +37698,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -37709,10 +37709,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -37720,10 +37720,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -37731,10 +37731,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 4
     }
@@ -37742,10 +37742,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -37753,10 +37753,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 33
     }
@@ -37764,10 +37764,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 33
     }
@@ -37775,10 +37775,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 33
     }
@@ -37786,10 +37786,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 33
     }
@@ -37800,10 +37800,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -37811,10 +37811,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -37822,10 +37822,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -37833,10 +37833,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -37844,10 +37844,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -37855,10 +37855,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -37866,10 +37866,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 4
     }
@@ -37877,10 +37877,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -37888,10 +37888,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 33
     }
@@ -37899,10 +37899,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 33
     }
@@ -37910,10 +37910,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 33
     }
@@ -37921,10 +37921,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 33
     }
@@ -37935,10 +37935,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -37946,10 +37946,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -37957,10 +37957,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -37968,10 +37968,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -37979,10 +37979,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -37990,10 +37990,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -38001,10 +38001,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 4
     }
@@ -38012,10 +38012,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -38023,10 +38023,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 33
     }
@@ -38034,10 +38034,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 33
     }
@@ -38045,10 +38045,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 33
     }
@@ -38056,10 +38056,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 33
     }
@@ -38070,10 +38070,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -38081,10 +38081,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -38092,10 +38092,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -38103,10 +38103,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -38114,10 +38114,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -38125,10 +38125,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -38136,10 +38136,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 4
     }
@@ -38147,10 +38147,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 9
     }
@@ -38158,10 +38158,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 33
     }
@@ -38169,10 +38169,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 33
     }
@@ -38180,10 +38180,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 33
     }
@@ -38191,10 +38191,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 33
     }
@@ -38205,10 +38205,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 24
     }
@@ -38216,10 +38216,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 25
     }
@@ -38227,10 +38227,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 25
     }
@@ -38238,10 +38238,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 25
     }
@@ -38249,10 +38249,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 25
     }
@@ -38260,10 +38260,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 25
     }
@@ -38271,10 +38271,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 23
     }
@@ -38282,10 +38282,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 28
     }
@@ -38293,10 +38293,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 49
     }
@@ -38304,10 +38304,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 49
     }
@@ -38315,10 +38315,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 49
     }
@@ -38326,10 +38326,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 49
     }
@@ -38340,10 +38340,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 32
     }
@@ -38351,10 +38351,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 37
     }
@@ -38362,10 +38362,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 58
     }
@@ -38373,10 +38373,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 58
     }
@@ -38384,10 +38384,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 58
     }
@@ -38395,10 +38395,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 62
     }
@@ -38474,10 +38474,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 21
     }
@@ -38485,10 +38485,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 22
     }
@@ -38496,10 +38496,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 22
     }
@@ -38507,10 +38507,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 22
     }
@@ -38518,10 +38518,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 22
     }
@@ -38529,10 +38529,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 22
     }
@@ -38540,10 +38540,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 21
     }
@@ -38551,10 +38551,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 26
     }
@@ -38562,10 +38562,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 47
     }
@@ -38573,10 +38573,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 47
     }
@@ -38584,10 +38584,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 47
     }
@@ -38595,10 +38595,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 47
     }
@@ -38617,10 +38617,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 23
     }
@@ -38628,10 +38628,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 24
     }
@@ -38639,10 +38639,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 24
     }
@@ -38650,10 +38650,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 24
     }
@@ -38661,10 +38661,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 24
     }
@@ -38672,10 +38672,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 24
     }
@@ -38683,10 +38683,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 22
     }
@@ -38694,10 +38694,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 27
     }
@@ -38705,10 +38705,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 48
     }
@@ -38716,10 +38716,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 48
     }
@@ -38727,10 +38727,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 48
     }
@@ -38738,10 +38738,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 48
     }
@@ -38756,10 +38756,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 25
     }
@@ -38767,10 +38767,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 26
     }
@@ -38778,10 +38778,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 26
     }
@@ -38789,10 +38789,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 26
     }
@@ -38800,10 +38800,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 26
     }
@@ -38811,10 +38811,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 26
     }
@@ -38822,10 +38822,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 24
     }
@@ -38833,10 +38833,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 29
     }
@@ -38844,10 +38844,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 50
     }
@@ -38855,10 +38855,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 50
     }
@@ -38866,10 +38866,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 50
     }
@@ -38877,10 +38877,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 50
     }
@@ -38894,7 +38894,7 @@ cont {
       color: 0xFFFFFFFF
       border {
         width: 0.2
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 130
     }
@@ -38905,7 +38905,7 @@ cont {
       color: 0xFFFFFFFF
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 135
     }
@@ -38916,7 +38916,7 @@ cont {
       color: 0xFFFFFFFF
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 137
     }
@@ -38927,7 +38927,7 @@ cont {
       color: 0xFFFFFFFF
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 139
     }
@@ -38941,7 +38941,7 @@ cont {
       color: 0xFFFFFFFF
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 77
     }
@@ -38952,7 +38952,7 @@ cont {
       color: 0xFFFFFFFF
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 87
     }
@@ -38963,7 +38963,7 @@ cont {
       color: 0xFFFFFFFF
       border {
         width: 0.2
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 131
     }
@@ -38974,7 +38974,7 @@ cont {
       color: 0xFFFFFFFF
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 136
     }
@@ -38989,7 +38989,7 @@ cont {
       color: 0xFFFFFFFF
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 138
     }
@@ -39004,7 +39004,7 @@ cont {
       color: 0xFFFFFFFF
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 140
     }
@@ -39019,31 +39019,31 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       priority: 19
     }
   }
   element {
     scale: 7
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       priority: 20
     }
   }
   element {
     scale: 8
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       priority: 20
     }
   }
   element {
     scale: 9
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39051,28 +39051,28 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       priority: 20
     }
   }
   element {
     scale: 11
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       priority: 20
     }
   }
   element {
     scale: 12
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       priority: 20
     }
   }
   element {
     scale: 13
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       priority: 25
     }
     caption {
@@ -39086,7 +39086,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       priority: 46
     }
     caption {
@@ -39100,10 +39100,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 46
     }
@@ -39119,10 +39119,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 46
     }
@@ -39138,10 +39138,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 46
     }
@@ -39160,10 +39160,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 19
     }
@@ -39171,10 +39171,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39182,10 +39182,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39193,10 +39193,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39204,10 +39204,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39215,10 +39215,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39226,10 +39226,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39237,10 +39237,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 25
     }
@@ -39248,10 +39248,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 46
     }
@@ -39259,10 +39259,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 46
     }
@@ -39270,10 +39270,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 46
     }
@@ -39281,10 +39281,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 46
     }
@@ -39303,10 +39303,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 19
     }
@@ -39314,10 +39314,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39325,10 +39325,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39336,10 +39336,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39347,10 +39347,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39358,10 +39358,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39369,10 +39369,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39380,10 +39380,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 25
     }
@@ -39391,10 +39391,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 46
     }
@@ -39402,10 +39402,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 46
     }
@@ -39413,10 +39413,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 46
     }
@@ -39424,10 +39424,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 46
     }
@@ -39446,10 +39446,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 19
     }
@@ -39457,10 +39457,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39468,10 +39468,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39479,10 +39479,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39490,10 +39490,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39501,10 +39501,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39512,10 +39512,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39523,10 +39523,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 25
     }
@@ -39534,10 +39534,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 46
     }
@@ -39545,10 +39545,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 46
     }
@@ -39556,10 +39556,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 46
     }
@@ -39567,10 +39567,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 46
     }
@@ -39589,10 +39589,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 19
     }
@@ -39600,10 +39600,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39611,10 +39611,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39622,10 +39622,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39633,10 +39633,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39644,10 +39644,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39655,10 +39655,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -39666,10 +39666,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 25
     }
@@ -39677,10 +39677,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 46
     }
@@ -39688,10 +39688,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 46
     }
@@ -39699,10 +39699,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 46
     }
@@ -39710,10 +39710,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 46
     }
@@ -39732,10 +39732,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 22
     }
@@ -39743,10 +39743,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 23
     }
@@ -39754,10 +39754,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 23
     }
@@ -39765,10 +39765,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 23
     }
@@ -39776,10 +39776,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 23
     }
@@ -39787,10 +39787,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 23
     }
@@ -39798,10 +39798,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 31
     }
@@ -39809,10 +39809,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 36
     }
@@ -39820,10 +39820,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 57
     }
@@ -39831,10 +39831,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 57
     }
@@ -39842,10 +39842,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 57
     }
@@ -39853,10 +39853,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 61
     }
@@ -39932,10 +39932,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 29
     }
@@ -39943,10 +39943,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 34
     }
@@ -39954,10 +39954,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 55
     }
@@ -39965,10 +39965,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 55
     }
@@ -39976,10 +39976,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 55
     }
@@ -39987,10 +39987,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 59
     }
@@ -40070,10 +40070,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 20
     }
@@ -40081,10 +40081,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 21
     }
@@ -40092,10 +40092,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 21
     }
@@ -40103,10 +40103,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 21
     }
@@ -40114,10 +40114,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 21
     }
@@ -40125,10 +40125,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 21
     }
@@ -40136,10 +40136,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 30
     }
@@ -40147,10 +40147,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 35
     }
@@ -40158,10 +40158,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 56
     }
@@ -40169,10 +40169,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 56
     }
@@ -40180,10 +40180,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 56
     }
@@ -40191,10 +40191,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 60
     }
@@ -40424,10 +40424,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 27
     }
@@ -40435,10 +40435,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 28
     }
@@ -40446,10 +40446,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 28
     }
@@ -40457,10 +40457,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 28
     }
@@ -40468,10 +40468,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 28
     }
@@ -40479,10 +40479,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 28
     }
@@ -40490,10 +40490,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 34
     }
@@ -40501,10 +40501,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 39
     }
@@ -40512,10 +40512,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 60
     }
@@ -40523,10 +40523,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 60
     }
@@ -40534,10 +40534,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 61
     }
@@ -40545,10 +40545,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 65
     }
@@ -40567,10 +40567,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 26
     }
@@ -40578,10 +40578,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 27
     }
@@ -40589,10 +40589,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 27
     }
@@ -40600,10 +40600,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 27
     }
@@ -40611,10 +40611,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 27
     }
@@ -40622,10 +40622,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 27
     }
@@ -40633,10 +40633,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 33
     }
@@ -40644,10 +40644,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 38
     }
@@ -40655,10 +40655,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 59
     }
@@ -40666,10 +40666,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 59
     }
@@ -40677,10 +40677,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 60
     }
@@ -40688,10 +40688,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 64
     }
@@ -40769,12 +40769,12 @@ cont {
     scale: 12
     lines {
       width: 0.7
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       priority: 36
     }
     lines {
       width: 0.625
-      color: 0xBAE29F
+      color: 0xd0e8c4
       priority: 37
     }
   }
@@ -40782,12 +40782,12 @@ cont {
     scale: 13
     lines {
       width: 0.9
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       priority: 42
     }
     lines {
       width: 0.8
-      color: 0xBAE29F
+      color: 0xd0e8c4
       priority: 43
     }
   }
@@ -40795,12 +40795,12 @@ cont {
     scale: 14
     lines {
       width: 1.6
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       priority: 63
     }
     lines {
       width: 1.5
-      color: 0xBAE29F
+      color: 0xd0e8c4
       priority: 64
     }
   }
@@ -40808,12 +40808,12 @@ cont {
     scale: 15
     lines {
       width: 2.9
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       priority: 63
     }
     lines {
       width: 2.8
-      color: 0xBAE29F
+      color: 0xd0e8c4
       priority: 64
     }
   }
@@ -40821,12 +40821,12 @@ cont {
     scale: 16
     lines {
       width: 5.8
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       priority: 64
     }
     lines {
       width: 5.6
-      color: 0xBAE29F
+      color: 0xd0e8c4
       priority: 65
     }
   }
@@ -40834,12 +40834,12 @@ cont {
     scale: 17
     lines {
       width: 6
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       priority: 68
     }
     lines {
       width: 5.6
-      color: 0xBAE29F
+      color: 0xd0e8c4
       priority: 69
     }
   }
@@ -40849,10 +40849,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.0375
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 35
     }
@@ -40860,10 +40860,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 41
     }
@@ -40871,10 +40871,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 62
     }
@@ -40882,10 +40882,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 62
     }
@@ -40893,10 +40893,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 63
     }
@@ -40904,10 +40904,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.2
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 67
     }
@@ -40918,10 +40918,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 40
     }
@@ -40929,10 +40929,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 61
     }
@@ -40940,10 +40940,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 61
     }
@@ -40951,10 +40951,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 62
     }
@@ -40962,10 +40962,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xBAE29F
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 66
     }
@@ -42560,10 +42560,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -42571,10 +42571,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -42582,10 +42582,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -42593,10 +42593,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -42604,10 +42604,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -42615,10 +42615,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -42626,10 +42626,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 6
     }
@@ -42637,10 +42637,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -42648,10 +42648,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 29
     }
@@ -42666,10 +42666,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 29
     }
@@ -42684,10 +42684,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 29
     }
@@ -42702,10 +42702,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 29
     }
@@ -42723,10 +42723,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -42734,10 +42734,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -42745,10 +42745,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -42756,10 +42756,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -42767,10 +42767,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -42778,10 +42778,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -42789,10 +42789,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 6
     }
@@ -42800,10 +42800,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -42811,10 +42811,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 29
     }
@@ -42829,10 +42829,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 29
     }
@@ -42847,10 +42847,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 29
     }
@@ -42865,10 +42865,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 29
     }
@@ -42886,10 +42886,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -42897,10 +42897,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -42908,10 +42908,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -42919,10 +42919,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -42930,10 +42930,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -42941,10 +42941,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -42952,10 +42952,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 6
     }
@@ -42963,10 +42963,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -42974,10 +42974,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 29
     }
@@ -42992,10 +42992,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 29
     }
@@ -43010,10 +43010,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 29
     }
@@ -43028,10 +43028,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 29
     }
@@ -43049,10 +43049,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 10
     }
@@ -43060,10 +43060,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -43071,10 +43071,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -43082,10 +43082,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -43093,10 +43093,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -43104,10 +43104,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -43115,10 +43115,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 6
     }
@@ -43126,10 +43126,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -43137,10 +43137,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 29
     }
@@ -43155,10 +43155,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 29
     }
@@ -43173,10 +43173,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 29
     }
@@ -43191,10 +43191,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 29
     }
@@ -44400,10 +44400,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 8
     }
@@ -44411,10 +44411,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 13
     }
@@ -44422,10 +44422,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 31
     }
@@ -44433,10 +44433,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 31
     }
@@ -44444,10 +44444,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 31
     }
@@ -44455,10 +44455,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 31
     }
@@ -44469,10 +44469,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 8
     }
@@ -44480,10 +44480,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 13
     }
@@ -44491,10 +44491,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 31
     }
@@ -44502,10 +44502,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 31
     }
@@ -44513,10 +44513,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 31
     }
@@ -44524,10 +44524,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 31
     }
@@ -44538,10 +44538,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 8
     }
@@ -44549,10 +44549,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 13
     }
@@ -44560,10 +44560,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 31
     }
@@ -44571,10 +44571,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 31
     }
@@ -44582,10 +44582,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 31
     }
@@ -44593,10 +44593,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 31
     }
@@ -44607,10 +44607,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 8
     }
@@ -44618,10 +44618,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 13
     }
@@ -44629,10 +44629,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 31
     }
@@ -44640,10 +44640,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 31
     }
@@ -44651,10 +44651,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 31
     }
@@ -44662,10 +44662,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 31
     }
@@ -45104,10 +45104,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -45115,10 +45115,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45126,10 +45126,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45137,10 +45137,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45148,10 +45148,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45159,10 +45159,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45170,10 +45170,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 7
     }
@@ -45181,10 +45181,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45192,10 +45192,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 30
     }
@@ -45203,10 +45203,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 30
     }
@@ -45214,10 +45214,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 30
     }
@@ -45225,10 +45225,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 30
     }
@@ -45239,10 +45239,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -45250,10 +45250,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45261,10 +45261,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45272,10 +45272,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45283,10 +45283,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45294,10 +45294,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45305,10 +45305,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 7
     }
@@ -45316,10 +45316,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45327,10 +45327,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 30
     }
@@ -45338,10 +45338,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 30
     }
@@ -45349,10 +45349,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 30
     }
@@ -45360,10 +45360,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 30
     }
@@ -45374,10 +45374,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -45385,10 +45385,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45396,10 +45396,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45407,10 +45407,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45418,10 +45418,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45429,10 +45429,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45440,10 +45440,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 7
     }
@@ -45451,10 +45451,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45462,10 +45462,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 30
     }
@@ -45473,10 +45473,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 30
     }
@@ -45484,10 +45484,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 30
     }
@@ -45495,10 +45495,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 30
     }
@@ -45509,10 +45509,10 @@ cont {
   element {
     scale: 6
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.00078125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 11
     }
@@ -45520,10 +45520,10 @@ cont {
   element {
     scale: 7
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0015625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45531,10 +45531,10 @@ cont {
   element {
     scale: 8
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.03125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45542,10 +45542,10 @@ cont {
   element {
     scale: 9
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0625
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45553,10 +45553,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45564,10 +45564,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xc8e0b8
+      color: 0xd0e8c4
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45575,10 +45575,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 7
     }
@@ -45586,10 +45586,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 12
     }
@@ -45597,10 +45597,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 30
     }
@@ -45608,10 +45608,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 30
     }
@@ -45619,10 +45619,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 30
     }
@@ -45630,10 +45630,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC8E0B8
+      color: 0xd0e8c4
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 30
     }
@@ -54582,10 +54582,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 42
     }
@@ -54593,10 +54593,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 42
     }
@@ -54604,10 +54604,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 51
     }
@@ -54615,10 +54615,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 59
     }
@@ -54626,10 +54626,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.2
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 82
     }
@@ -54641,10 +54641,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 82
     }
@@ -54656,10 +54656,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 84
     }
@@ -54671,10 +54671,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 85
     }
@@ -54697,10 +54697,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 41
     }
@@ -54708,10 +54708,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 41
     }
@@ -54719,10 +54719,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 50
     }
@@ -54730,10 +54730,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 58
     }
@@ -54741,10 +54741,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.2
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 81
     }
@@ -54752,10 +54752,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 81
     }
@@ -54763,10 +54763,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 83
     }
@@ -54774,10 +54774,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 84
     }
@@ -54862,10 +54862,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 40
     }
@@ -54873,10 +54873,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 40
     }
@@ -54884,10 +54884,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 49
     }
@@ -54895,10 +54895,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 57
     }
@@ -54906,10 +54906,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.2
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 80
     }
@@ -54917,10 +54917,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 80
     }
@@ -54928,10 +54928,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 82
     }
@@ -54939,10 +54939,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 83
     }
@@ -55003,10 +55003,10 @@ cont {
   element {
     scale: 10
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.0125
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 39
     }
@@ -55014,10 +55014,10 @@ cont {
   element {
     scale: 11
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.025
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 39
     }
@@ -55025,10 +55025,10 @@ cont {
   element {
     scale: 12
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.05
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 48
     }
@@ -55036,10 +55036,10 @@ cont {
   element {
     scale: 13
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.1
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 56
     }
@@ -55047,10 +55047,10 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.2
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 79
     }
@@ -55058,10 +55058,10 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.4
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 79
     }
@@ -55069,10 +55069,10 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 0.8
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 81
     }
@@ -55080,10 +55080,10 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xC7F1A3
+      color: 0xcfecb7
       border {
         width: 1.6
-        color: 0xC8E0B8
+        color: 0xd0e8c4
       }
       priority: 82
     }
