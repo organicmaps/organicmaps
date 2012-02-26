@@ -27,7 +27,7 @@
     <string name="empty_model">Nothing found. Have you tried\ndownloading maps of the countries?\nJust click the download button\nat the bottom of the screen.</string>
     <string name="unsupported_phone">A hardware accelerated OpenGL is required. Unfortunately, your device is not supported.</string>
     <string name="not_enough_free_space_on_sdcard">Please free some space on SD card/USB storage first in order to use the app</string>
-    <string name="loading">Loading %s…</string>
+    <string name="loading">Loading %s</string>
     <string name="not_enough_memory">Not enough memory to launch app</string>
     <string name="free_space_for_country">Please free %1$s on your device first in order to download %2$s</string>
 </resources>

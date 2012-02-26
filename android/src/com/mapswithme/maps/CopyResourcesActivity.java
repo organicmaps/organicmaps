@@ -147,14 +147,24 @@ public class CopyResourcesActivity extends Activity
     }
   }
 
+  private String getProgressString(int current, int total)
+  {
+    final String str = getString(R.string.app_name);
+    int len = current * str.length() / total;
+    if (len <= 0)
+      len = 1;
+    else if (len > str.length())
+      len = str.length();
+    return String.format(getString(R.string.loading), str.substring(0, len));
+  }
+
   @Override
   protected Dialog onCreateDialog(int totalBytesToCopy)
   {
     m_dialog = new ProgressDialog(this);
-    m_dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-    m_dialog.setMessage(String.format(getString(R.string.loading), getString(R.string.app_name)));
+    m_dialog.setMessage(getProgressString(0, totalBytesToCopy));
     m_dialog.setCancelable(false);
-    m_dialog.setIndeterminate(false);
+    m_dialog.setIndeterminate(true);
     m_dialog.setMax(totalBytesToCopy);
     return m_dialog;
   }
@@ -162,7 +172,10 @@ public class CopyResourcesActivity extends Activity
   public void onCopyResourcesProgress(int copiedBytes)
   {
     if (m_dialog != null)
+    {
+      m_dialog.setMessage(getProgressString(copiedBytes, m_dialog.getMax()));
       m_dialog.setProgress(copiedBytes);
+    }
   }
 
   private native void nativeMoveMaps(String fromFolder, String toFolder);

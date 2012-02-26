@@ -22,5 +22,5 @@
     <string name="close">Cerrar</string>
     <string name="empty_model">Para poder ver detalles\n de esta zona debes descargar\nel mapa de este país. Pulse el botón\nbajo la pantalla para descargar.</string>
     <string name="unsupported_phone">Un hardware aceleró OpenGL se requiere. Desgraciadamente, el dispositivo móvil no es compatible.</string>
-    <string name="loading">Carga de %s...</string>
+    <string name="loading">Carga de %s</string>
 </resources>
