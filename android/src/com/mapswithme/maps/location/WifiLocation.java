@@ -1,15 +1,12 @@
 package com.mapswithme.maps.location;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.BroadcastReceiver;
@@ -46,8 +43,17 @@ public class WifiLocation extends BroadcastReceiver
     {
       m_wifi = (WifiManager) c.getSystemService(Context.WIFI_SERVICE);
       c.registerReceiver(this, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
-      return m_wifi.startScan();
+      if (m_wifi.startScan())
+        return true;
+      else
+      {
+        // onReceive() will never be called on fail
+        c.unregisterReceiver(this);
+        m_wifi = null;
+        return false;
+      }
     }
+    // Already in progress
     return true;
   }
 
@@ -123,18 +129,13 @@ public class WifiLocation extends BroadcastReceiver
 
       wr.close();
       rd.close();
-    } catch (MalformedURLException e)
-    {
-      e.printStackTrace();
-    } catch (IOException e)
-    {
-      e.printStackTrace();
-    } catch (JSONException e)
+    }
+    catch (Exception e)
     {
       e.printStackTrace();
     }
 
-    if (m_observer != null)
+    if (m_observer != null && location != null)
       m_observer.onWifiLocationUpdated(location);
     m_wifi = null;
   }
