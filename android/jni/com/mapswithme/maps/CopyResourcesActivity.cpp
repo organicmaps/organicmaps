@@ -54,29 +54,36 @@ extern "C"
     }
 
     jint totalSizeToCopy = 0;
-    // Get files to copy from apk assets folder
-    string const ASSETS_PREFIX = "assets/";
     Platform::FilesList zipFiles = ZipFileReader::FilesList(g_apkPath);
-    // Leave only assets/* files and check that all files from apk are copied on the sdcard
-    for (Platform::FilesList::iterator it = zipFiles.begin(); it != zipFiles.end();)
+    // Check which assets/* files are compressed and copy only these files
+    string const ASSETS_PREFIX = "assets/";
+    for (Platform::FilesList::iterator it = zipFiles.begin(); it != zipFiles.end(); ++it)
     {
+      // Ignore non-assets files
       if (it->find(ASSETS_PREFIX) != 0)
-        it = zipFiles.erase(it);
-      else
-      {
-        FileToCopy f;
-        f.m_pathInZip = *it;
-        f.m_pathInSdcard = g_sdcardPath + it->substr(ASSETS_PREFIX.size());
-        f.m_uncompressedSize = ZipFileReader(g_apkPath, *it).UncompressedSize();
+        continue;
 
-        uint64_t realSizeInSdcard = 0;
-        Platform::GetFileSizeByFullPath(f.m_pathInSdcard, realSizeInSdcard);
-        if (f.m_uncompressedSize != realSizeInSdcard)
-        {
-          g_filesToCopy.push_back(f);
-          totalSizeToCopy += f.m_uncompressedSize;
-        }
-        ++it;
+      uint64_t compressed, uncompressed;
+      {
+        ZipFileReader fileInZip(g_apkPath, *it);
+        compressed = fileInZip.Size();
+        uncompressed = fileInZip.UncompressedSize();
+        // Skip files which are not compressed inside zip
+        if (compressed == uncompressed)
+          continue;
+      }
+
+      FileToCopy f;
+      f.m_pathInSdcard = g_sdcardPath + it->substr(ASSETS_PREFIX.size());
+
+      uint64_t realSizeInSdcard = 0;
+      Platform::GetFileSizeByFullPath(f.m_pathInSdcard, realSizeInSdcard);
+      if (uncompressed != realSizeInSdcard)
+      {
+        f.m_pathInZip = *it;
+        f.m_uncompressedSize = uncompressed;
+        g_filesToCopy.push_back(f);
+        totalSizeToCopy += uncompressed;
       }
     }
 
