@@ -30,7 +30,7 @@ public class CopyResourcesActivity extends Activity
   {
     private final String m_apkPath;
     private final String m_sdcardPath;
-
+    
     CopyResourcesTask(String apkPath, String sdcardPath)
     {
       m_apkPath = apkPath;
@@ -79,6 +79,11 @@ public class CopyResourcesActivity extends Activity
       CopyResourcesActivity.this.onCopyResourcesProgress(copiedBytes[0]);
     }
 
+    protected void onFileProgress(int size, int pos)
+    {
+      publishProgress(nativeGetCopiedBytes() + pos);
+    }
+    
     @Override
     protected Integer doInBackground(Void... p)
     {
@@ -86,7 +91,7 @@ public class CopyResourcesActivity extends Activity
       int bytesCopied;
       do
       {
-        bytesCopied = nativeCopyNextFile();
+        bytesCopied = nativeCopyNextFile(this);
         if (bytesCopied > 0)
           publishProgress(new Integer(bytesCopied));
         else if (bytesCopied < 0)
@@ -152,7 +157,7 @@ public class CopyResourcesActivity extends Activity
     final String str = getString(R.string.app_name);
     int len = current * str.length() / total;
     if (len <= 0)
-      len = 1;
+      len = 0;
     else if (len > str.length())
       len = str.length();
     return String.format(getString(R.string.loading), str.substring(0, len));
@@ -180,5 +185,6 @@ public class CopyResourcesActivity extends Activity
 
   private native void nativeMoveMaps(String fromFolder, String toFolder);
   private native int nativeGetBytesToCopy(String m_apkPath, String m_sdcardPath);
-  private native int nativeCopyNextFile();
+  private native int nativeGetCopiedBytes();
+  private native int nativeCopyNextFile(Object observer);
 }

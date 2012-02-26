@@ -13,6 +13,9 @@
 #include "../../../../../std/vector.hpp"
 #include "../../../../../std/string.hpp"
 
+#include "../jni/jni_thread.hpp"
+#include "../jni/jni_method.hpp"
+
 // Special error codes to notify GUI about free space
 //@{
 #define ERR_COPIED_SUCCESSFULLY   0
@@ -35,6 +38,12 @@ static jint g_copiedBytesProgress = 0;
 
 extern "C"
 {
+  JNIEXPORT jint JNICALL
+  Java_com_mapswithme_maps_CopyResourcesActivity_nativeGetCopiedBytes(JNIEnv * env, jobject thiz)
+  {
+    return g_copiedBytesProgress;
+  }
+
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_CopyResourcesActivity_nativeGetBytesToCopy(JNIEnv * env, jobject thiz,
       jstring apkPath, jstring sdcardPath)
@@ -90,8 +99,21 @@ extern "C"
     return totalSizeToCopy;
   }
 
+  jobject g_observer = 0;
+  jni::Method * g_progressFn = 0;
+  int g_cycles = 0;
+
+  void CopyFileProgress(int size, int pos)
+  {
+    g_cycles++;
+    /// calling JNI method only once in 5 cycles, as there
+    /// are an overhead on frequent calls.
+    if ((g_cycles %=5) == 0)
+      g_progressFn->CallVoid(g_observer, size, pos);
+  }
+
   JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_CopyResourcesActivity_nativeCopyNextFile(JNIEnv * env, jobject thiz)
+  Java_com_mapswithme_maps_CopyResourcesActivity_nativeCopyNextFile(JNIEnv * env, jobject thiz, jobject observer)
   {
     if (g_filesToCopy.empty())
       return ERR_COPIED_SUCCESSFULLY;
@@ -110,16 +132,27 @@ extern "C"
       return ERR_NOT_ENOUGH_FREE_SPACE;
     }
 
+    jclass k = jni::GetCurrentThreadJNIEnv()->GetObjectClass(observer);
+    g_progressFn = new jni::Method(k, "onFileProgress", "(II)V");
+    g_observer = observer;
+    g_cycles = 0;
+
     // Perform copying
     try
     {
-      ZipFileReader::UnzipFile(g_apkPath, it->m_pathInZip, it->m_pathInSdcard);
+      ZipFileReader::UnzipFile(g_apkPath, it->m_pathInZip, it->m_pathInSdcard, &CopyFileProgress);
     }
     catch (std::exception const & e)
     {
       LOG(LERROR, ("Error while extracting", it->m_pathInZip, "from apk to", it->m_pathInSdcard));
+      delete g_progressFn;
+      g_observer = 0;
       return ERR_NOT_ENOUGH_FREE_SPACE;
     }
+
+    g_observer = 0;
+    delete g_progressFn;
+
     g_copiedBytesProgress += it->m_uncompressedSize;
     g_filesToCopy.erase(it);
     return g_copiedBytesProgress;
