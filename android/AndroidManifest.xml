@@ -11,6 +11,8 @@
     <uses-feature android:required="true" android:name="android.hardware.touchscreen.multitouch" />
     <uses-feature android:required="false" android:name="android.hardware.wifi" />
     <uses-feature android:required="false" android:name="android.hardware.location" />
+    <uses-feature android:required="false" android:name="android.hardware.location.network" />
+    <uses-feature android:required="false" android:name="android.hardware.location.gps" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
