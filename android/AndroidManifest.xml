@@ -29,7 +29,8 @@
         <activity android:name="com.mapswithme.maps.CopyResourcesActivity"
                   android:label="@string/app_name"
                   android:screenOrientation="behind"
-                  android:theme="@android:style/Theme.Translucent.NoTitleBar">
+                  android:theme="@android:style/Theme.Translucent.NoTitleBar"
+                  android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
