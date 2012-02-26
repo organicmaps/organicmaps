@@ -36,7 +36,7 @@ AboutDialog::AboutDialog(QWidget * parent)
   string aboutText;
   try
   {
-    ReaderPtr<Reader> reader = GetPlatform().GetReader("about-travelguide-desktop.html");
+    ReaderPtr<Reader> reader = GetPlatform().GetReader("about.html");
     reader.ReadAsString(aboutText);
   }
   catch (...)

@@ -57,7 +57,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   // display WebView with About text
   NSString * text;
   {
-    ReaderPtr<Reader> r = GetPlatform().GetReader("about-travelguide-iphone.html");
+    ReaderPtr<Reader> r = GetPlatform().GetReader("about.html");
     string s;
     r.ReadAsString(s);
     text = [NSString stringWithUTF8String:s.c_str()];

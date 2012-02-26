@@ -324,7 +324,7 @@ public class MWMActivity extends NvEventQueueActivity implements
     LayoutInflater inflater = LayoutInflater.from(this);
     View alertDialogView = inflater.inflate(R.layout.about, null);
     WebView myWebView = (WebView) alertDialogView.findViewById(R.id.webview_about);
-    myWebView.loadUrl("file:///android_asset/about-travelguide-iphone.html");
+    myWebView.loadUrl("file:///android_asset/about.html");
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
     builder.setView(alertDialogView);
     builder.setTitle(R.string.about);

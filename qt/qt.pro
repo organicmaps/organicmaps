@@ -37,7 +37,7 @@ macx* {
 
   # Bundle Resouces
   OTHER_RES.path = Contents/Resources
-  OTHER_RES.files = ../data/about-travelguide-desktop.html ../data/eula.html ../data/welcome.html \
+  OTHER_RES.files = ../data/about.html ../data/eula.html ../data/welcome.html \
                     ../data/countries.txt  \
                     ../data/languages.txt ../data/categories.txt \
                     ../data/packed_polygons.bin
