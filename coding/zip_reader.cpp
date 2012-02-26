@@ -92,14 +92,15 @@ void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileIn
 
   MY_SCOPE_GUARD(currentFileGuard, bind(&unzCloseCurrentFile, zip));
 
+  static size_t const BUF_SIZE = 1024 * 50;
+  char * buf = new char[BUF_SIZE];
   try
   {
     FileWriter outFile(outFilePath);
 
     int pos = 0;
     int readBytes;
-    static size_t const BUF_SIZE = 4096;
-    char buf[BUF_SIZE];
+
     while (true)
     {
       readBytes = unzReadCurrentFile(zip, buf, BUF_SIZE);
@@ -118,9 +119,12 @@ void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileIn
   }
   catch (Exception const & e)
   {
+    delete[] buf;
     // Delete unfinished output file
     FileWriter::DeleteFileX(outFilePath);
     // Rethrow exception - we've failed
     throw;
   }
+
+  delete[] buf;
 }

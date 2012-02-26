@@ -11,6 +11,8 @@
 
 #include "../base/exception.hpp"
 
+#include "../std/function.hpp"
+
 class ZipFileReader : public BaseZipFileReaderType
 {
 private:
@@ -18,7 +20,7 @@ private:
 
 public:
 
-  typedef void (*ProgressFn)(int, int);
+  typedef function<void(int, int)> ProgressFn;
 
   DECLARE_EXCEPTION(OpenZipException, OpenException);
   DECLARE_EXCEPTION(LocateZipException, OpenException);
@@ -31,7 +33,7 @@ public:
 
   /// @warning Can also throw Writer::OpenException and Writer::WriteException
   static void UnzipFile(string const & zipContainer, string const & fileInZip,
-                        string const & outFilePath, ProgressFn progressFn = 0);
+                        string const & outFilePath, ProgressFn progressFn = ProgressFn());
 
   static vector<string> FilesList(string const & zipContainer);
   /// Quick version without exceptions

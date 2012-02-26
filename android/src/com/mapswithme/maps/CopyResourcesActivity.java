@@ -10,7 +10,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
 
 // MWM resources are zipped in the apk inside /assets folder.
 // MWM code currently can't randomly read zip files, so they're copied
@@ -30,7 +29,7 @@ public class CopyResourcesActivity extends Activity
   {
     private final String m_apkPath;
     private final String m_sdcardPath;
-    
+
     CopyResourcesTask(String apkPath, String sdcardPath)
     {
       m_apkPath = apkPath;
@@ -79,26 +78,28 @@ public class CopyResourcesActivity extends Activity
       CopyResourcesActivity.this.onCopyResourcesProgress(copiedBytes[0]);
     }
 
+    // If negative, stores error code
+    // Total number of copied bytes
+    int m_bytesCopied = 0;
+
     protected void onFileProgress(int size, int pos)
     {
-      publishProgress(nativeGetCopiedBytes() + pos);
+      publishProgress(m_bytesCopied + pos);
     }
-    
+
     @Override
     protected Integer doInBackground(Void... p)
     {
-      // If negative, stores error code
-      int bytesCopied;
       do
       {
-        bytesCopied = nativeCopyNextFile(this);
-        if (bytesCopied > 0)
-          publishProgress(new Integer(bytesCopied));
-        else if (bytesCopied < 0)
-          return new Integer(bytesCopied);
-      } while (bytesCopied != 0);
+        m_bytesCopied = nativeCopyNextFile(this);
+        if (m_bytesCopied > 0)
+          publishProgress(m_bytesCopied);
+        else if (m_bytesCopied < 0)
+          return m_bytesCopied;
+      } while (m_bytesCopied != 0);
 
-      return new Integer(ERR_COPIED_SUCCESSFULLY);
+      return ERR_COPIED_SUCCESSFULLY;
     }
   }
 
@@ -152,22 +153,25 @@ public class CopyResourcesActivity extends Activity
     }
   }
 
-  private String getProgressString(int current, int total)
+  private String cutProgressString(final String str, int current, int total)
   {
-    final String str = getString(R.string.app_name);
     int len = current * str.length() / total;
     if (len <= 0)
       len = 0;
     else if (len > str.length())
       len = str.length();
-    return String.format(getString(R.string.loading), str.substring(0, len));
+    return str.substring(0, len);
   }
+
+  private String m_progressString;
 
   @Override
   protected Dialog onCreateDialog(int totalBytesToCopy)
   {
+    m_progressString = getString(R.string.loading);
+
     m_dialog = new ProgressDialog(this);
-    m_dialog.setMessage(getProgressString(0, totalBytesToCopy));
+    m_dialog.setMessage(cutProgressString(m_progressString, 0, totalBytesToCopy));
     m_dialog.setCancelable(false);
     m_dialog.setIndeterminate(true);
     m_dialog.setMax(totalBytesToCopy);
@@ -178,13 +182,12 @@ public class CopyResourcesActivity extends Activity
   {
     if (m_dialog != null)
     {
-      m_dialog.setMessage(getProgressString(copiedBytes, m_dialog.getMax()));
+      m_dialog.setMessage(cutProgressString(m_progressString, copiedBytes, m_dialog.getMax()));
       m_dialog.setProgress(copiedBytes);
     }
   }
 
   private native void nativeMoveMaps(String fromFolder, String toFolder);
   private native int nativeGetBytesToCopy(String m_apkPath, String m_sdcardPath);
-  private native int nativeGetCopiedBytes();
   private native int nativeCopyNextFile(Object observer);
 }
