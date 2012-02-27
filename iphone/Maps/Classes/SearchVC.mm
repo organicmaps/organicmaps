@@ -83,9 +83,6 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   [navBar sizeToFit];
   [navBar.topItem.titleView sizeToFit];
 
-  CGFloat const wAndH = navBar.topItem.titleView.frame.size.height - 8;
-  navBar.topItem.leftBarButtonItem.customView.bounds = CGRectMake(0, 0, wAndH, wAndH);
-
   UIView * table = [self.subviews objectAtIndex:1];
   CGRect rTable;
   rTable.origin = CGPointMake(navBar.frame.origin.x, navBar.frame.origin.y + navBar.frame.size.height);
@@ -96,8 +93,6 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 @end
 
 ////////////////////////////////////////////////////////////////////
-/// Key to store settings
-#define RADAR_MODE_SETTINGS_KEY "SearchRadarMode"
 
 @implementation SearchVC
 
@@ -136,16 +131,6 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   return self;
 }
 
-- (void)enableRadarMode
-{
-  m_radarButton.selected = YES;
-}
-
-- (void)disableRadarMode
-{
-  m_radarButton.selected = NO;
-}
-
 - (void)fillSearchParams:(search::SearchParams &)params withText:(NSString *)queryString
 {
   params.m_query = [[queryString precomposedStringWithCompatibilityMapping] UTF8String];
@@ -153,36 +138,12 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   // Set current keyboard input mode
   params.SetInputLanguage([[UITextInputMode currentInputMode].primaryLanguage UTF8String]);
   
-  bool radarEnabled = m_radarButton.selected == YES;
   CLLocation * l = m_locationManager.lastLocation;
   
   if ([SearchVC isLocationValid:l])
     params.SetPosition(l.coordinate.latitude, l.coordinate.longitude);
-  else
-    radarEnabled = false;
-  
-  params.SetNearMeMode(radarEnabled);
-}
 
-- (void)onRadarButtonClicked:(id)button
-{
-  UIButton * btn = (UIButton *)button;
-  // Button selected state will be changed inside functions
-  Settings::Set(RADAR_MODE_SETTINGS_KEY, !btn.selected);
-  if (!btn.selected)
-    [self enableRadarMode];
-  else
-    [self disableRadarMode];
-
-  // Refresh search results with new mode.
-  NSString * queryString = m_searchBar.text;
-  // Search even with empty string.
-  //if (queryString.length)
-  {
-    search::SearchParams params;
-    [self fillSearchParams:params withText:queryString];
-    m_framework->Search(params);
-  }
+  params.SetNearMeMode(false);
 }
 
 - (void)loadView
@@ -192,23 +153,12 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   UIView * parentView = [[[CustomView alloc] init] autorelease];
   parentView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
 
-  // Button will be resized in CustomView above
-  m_radarButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-  UIImage * image = [UIImage imageNamed:@"location"];
-  [m_radarButton setImage:image forState:UIControlStateNormal];
-  [m_radarButton setImage:[UIImage imageNamed:@"location-highlighted"] forState:UIControlStateHighlighted];
-  [m_radarButton setImage:[UIImage imageNamed:@"location-selected"] forState:UIControlStateSelected];
-  m_radarButton.backgroundColor = [UIColor clearColor];
-  [m_radarButton addTarget:self action:@selector(onRadarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-
   UINavigationBar * navBar = [[[UINavigationBar alloc] init] autorelease];
   navBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   UINavigationItem * item = [[[UINavigationItem alloc] init] autorelease];
-  item.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:m_radarButton] autorelease];
   UIBarButtonItem * closeButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"Search Results - Close search button") style: UIBarButtonItemStyleDone
                                                                    target:self action:@selector(onCloseButton:)] autorelease];
   item.rightBarButtonItem = closeButton;
-
 
   m_searchBar = [[UISearchBar alloc] init];
   m_searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -235,7 +185,6 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 - (void)dealloc
 {
   g_searchVC = nil;
-  [m_radarButton release];
   [m_searchBar release];
   [m_table release];
   [super dealloc];
@@ -250,7 +199,6 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 {
   g_searchVC = nil;
   // to correctly free memory
-  [m_radarButton release]; m_radarButton = nil;
   [m_searchBar release]; m_searchBar = nil;
   [m_table release]; m_table = nil;
   
@@ -289,14 +237,6 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   }
   else
   {
-    // load previously saved search mode
-    bool radarEnabled = false;
-    Settings::Get(RADAR_MODE_SETTINGS_KEY, radarEnabled);
-    if (radarEnabled)
-      [self enableRadarMode];
-    else
-      [self disableRadarMode];
-
     [m_locationManager start:self];
 
     // show keyboard
@@ -420,7 +360,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (g_lastSearchResults == nil || indexPath.row >= [g_lastSearchResults get].size())
+  if (g_lastSearchResults == nil || indexPath.row >= (NSInteger)[g_lastSearchResults get].size())
   {
     ASSERT(false, ("Invalid m_results with size", [g_lastSearchResults get].size()));
     return nil;
@@ -510,7 +450,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (indexPath.row < [g_lastSearchResults get].size())
+  if (indexPath.row < (NSInteger)[g_lastSearchResults get].size())
   {
     search::Result const & res = [g_lastSearchResults get][indexPath.row];
     switch(res.GetResultType())

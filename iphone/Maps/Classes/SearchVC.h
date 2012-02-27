@@ -16,7 +16,6 @@ namespace search { class Result; }
 {
   Framework * m_framework;
   LocationManager * m_locationManager;
-  UIButton * m_radarButton;
   UISearchBar * m_searchBar;
   UITableView * m_table;
 }
