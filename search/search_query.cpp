@@ -850,11 +850,9 @@ void Query::SearchAllInViewport(m2::RectD const & viewport, Results & res, unsig
     sort(indV.begin(), indV.end(),
          CompareT<impl::PreResult2, RefPointer>(&impl::PreResult2::LessDistance));
 
-    if (indV.size() > resultsNeeded)
-      indV.resize(resultsNeeded);
-
     // emit results
-    for (size_t i = 0; i < indV.size(); ++i)
+    size_t const count = min(indV.size(), static_cast<size_t>(resultsNeeded));
+    for (size_t i = 0; i < count; ++i)
     {
       if (m_cancel) break;
 
