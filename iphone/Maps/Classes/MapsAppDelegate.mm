@@ -39,7 +39,7 @@
 
     // Delete ".downloading" and ".resume" files and disable iCloud backup for downloaded ".mwm" maps
     NSArray * files = [fileManager contentsOfDirectoryAtPath:documentsDirectoryPath error:nil];
-    for (NSInteger i = 0; i < [files count]; ++i)
+    for (NSUInteger i = 0; i < [files count]; ++i)
     {
       NSString * fileName = [files objectAtIndex:i];
 

@@ -210,13 +210,13 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
                                                    green:148.f/255.f
                                                     blue:222.f/255.f
                                                    alpha:1.f];
-        cell.detailTextLabel.text = [NSString stringWithFormat: NSLocalizedString(@"Marked for downloading, touch to cancel", @"Settings/Downloader - info for country in the download queue")];
+        cell.detailTextLabel.text = NSLocalizedString(@"Marked for downloading, touch to cancel", @"Settings/Downloader - info for country in the download queue");
       }
       break;
 
     case ENotDownloaded:
       cell.textLabel.textColor = [UIColor blackColor];
-      cell.detailTextLabel.text = [NSString stringWithFormat: NSLocalizedString(@"Touch to download", @"Settings/Downloader - info for not downloaded country")];
+      cell.detailTextLabel.text = NSLocalizedString(@"Touch to download", @"Settings/Downloader - info for not downloaded country");
       break;
 
     case EUnknown:

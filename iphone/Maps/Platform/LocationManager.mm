@@ -4,7 +4,7 @@
 
 - (id)init
 {
-  if (self = [super init])
+  if ((self = [super init]))
   {
     m_locationManager = [[CLLocationManager alloc] init];
     m_locationManager.delegate = self;
