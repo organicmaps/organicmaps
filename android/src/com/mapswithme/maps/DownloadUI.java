@@ -38,6 +38,12 @@ public class DownloadUI extends PreferenceActivity
   private String m_kb;
   private String m_mb;
 
+  static
+  {
+    // Used to avoid crash when ndk library is not loaded.
+    // We just "touch" MWMActivity which should load it automatically
+    MWMActivity.getCurrentContext();
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
