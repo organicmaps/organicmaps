@@ -4405,14 +4405,14 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xd5ceb0
+      color: 0xcdcdb4
       priority: 364
     }
   }
   element {
     scale: 16
     area {
-      color: 0xd5ceb0
+      color: 0xcdcdb4
       priority: 679
     }
     symbol {
@@ -4435,7 +4435,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xd5ceb0
+      color: 0xcdcdb4
       priority: 720
     }
     symbol {
