@@ -662,6 +662,9 @@
 		EEF5745412DE1AD50082F472 /* libfribidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfribidi.a; sourceTree = SOURCE_ROOT; };
 		EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fonts_blacklist.txt; path = ../../data/fonts_blacklist.txt; sourceTree = "<group>"; };
 		EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fonts_whitelist.txt; path = ../../data/fonts_whitelist.txt; sourceTree = "<group>"; };
+		F7DD848414FE77F8005695E1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F7DD848514FE7C7F005695E1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F7DD848614FE7FE0005695E1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F7FDD822147F30CC005900FA /* drules_proto.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto.bin; path = ../../data/drules_proto.bin; sourceTree = "<group>"; };
 		FA04373112CAB83F00017494 /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libstorage.a; sourceTree = SOURCE_ROOT; };
 		FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "Resources-iPad/MainWindow-iPad.xib"; sourceTree = SOURCE_ROOT; };
@@ -1231,7 +1234,7 @@
 		FAF8FFFF1417D7E50024E8C1 /* sb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sb.png; path = ../../data/flags/sb.png; sourceTree = SOURCE_ROOT; };
 		FAFCB63413366E78001A5C59 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		FAFCB63513366E78001A5C59 /* WebViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebViewController.mm; sourceTree = "<group>"; };
-		FAFCB63713367AD1001A5C59 /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "about.html"; path = "../../data/about.html"; sourceTree = SOURCE_ROOT; };
+		FAFCB63713367AD1001A5C59 /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = about.html; path = ../../data/about.html; sourceTree = SOURCE_ROOT; };
 		FAFF42291347F101009BBB14 /* World.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = World.mwm; path = ../../data/World.mwm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -2035,6 +2038,9 @@
 				German,
 				en,
 				ru,
+				de,
+				fr,
+				es,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			projectDirPath = "";
@@ -2665,6 +2671,9 @@
 			children = (
 				FA99CB72147089B100689A9A /* en */,
 				FAB09895148E2F1500892860 /* ru */,
+				F7DD848414FE77F8005695E1 /* de */,
+				F7DD848514FE7C7F005695E1 /* fr */,
+				F7DD848614FE7FE0005695E1 /* es */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
