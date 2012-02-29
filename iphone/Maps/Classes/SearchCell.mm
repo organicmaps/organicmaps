@@ -44,7 +44,7 @@
   [super layoutSubviews];
   CGRect r = self.contentView.bounds;
   // Leave some experimentally choosen paddings
-  CGFloat const KPaddingX = 7.0;
+  CGFloat const KPaddingX = 10.0;
   CGFloat const KPaddingBottom = 1.0;
 
   r.origin.x += KPaddingX;
