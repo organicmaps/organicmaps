@@ -36,7 +36,7 @@
   {
     [image drawInRect:rect];
   }
-  else
+  else if (angle > 0.)
   {
     // Draws an arrow looking to the right like this:
     // =>
@@ -62,6 +62,7 @@
     [[UIColor colorWithRed:c green:c blue:c alpha:1.0] setFill];
     [aPath fill];
   }
+  // Do not draw anything if angle is <0 or image wasn't set
 }
 
 @end

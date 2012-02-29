@@ -406,8 +406,8 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
         // Separate case for continents
         if (!r.GetRegionFlag())
         {
-          // @TODO add valid icon
-          compass.image = [UIImage imageNamed:@"downloader"];
+          compass.angle = -1.0;
+          //compass.image = [UIImage imageNamed:@"downloader"];
         }
         else
         {
@@ -415,7 +415,8 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
           CLHeading * heading = [m_locationManager lastHeading];
           if (loc == nil || heading == nil)
           {
-            compass.image = [UIImage imageNamed:@"location"];
+            compass.angle = -1.0;
+            //compass.image = [UIImage imageNamed:@"location"];
           }
           else
           {
