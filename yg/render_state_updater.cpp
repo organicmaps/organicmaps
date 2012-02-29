@@ -179,7 +179,7 @@ namespace yg
 
     void RenderStateUpdater::endFrame()
     {
-      if ((m_renderState) && (m_indicesCount))
+      if (m_renderState)
         updateActualTarget();
 
       m_indicesCount = 0;
