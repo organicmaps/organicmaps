@@ -50,13 +50,13 @@ namespace scales
     return my::rounds(GetScaleLevelD(r));
   }
 
-  double GetRationForLevel(int level)
+  double GetRationForLevel(double level)
   {
     if (level < initial_level) level = initial_level;
     return pow(2.0, level - initial_level);
   }
 
-  m2::RectD GetRectForLevel(int level, m2::PointD const & center, double X2YRatio)
+  m2::RectD GetRectForLevel(double level, m2::PointD const & center, double X2YRatio)
   {
     double const dy = 2.0*GetRationForLevel(level) / (1.0 + X2YRatio);
     double const dx = X2YRatio * dy;
