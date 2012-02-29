@@ -202,7 +202,7 @@ namespace storage
         {
           // send Country name for statistics
           string const postBody = it->m_fileName;
-          m_request.reset(HttpRequest::PostJson(URL_SERVERS_LIST,
+          m_request.reset(HttpRequest::PostJson(GetPlatform().MetaServerUrl(),
               postBody,
               bind(&Storage::OnServerListDownloaded, this, _1)));
 
@@ -465,7 +465,7 @@ namespace storage
     {
       string serverList;
       if (!Settings::Get(SETTINGS_SERVERS_KEY, serverList))
-        serverList = DEFAULT_SERVERS_JSON;
+        serverList = GetPlatform().DefaultUrlsJSON();
       VERIFY(ParseServerList(serverList, urls), ());
     }
 

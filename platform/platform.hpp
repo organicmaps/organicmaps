@@ -9,6 +9,7 @@
 #include "../std/utility.hpp"
 #include "../std/function.hpp"
 
+#include "../defines.hpp"
 
 DECLARE_EXCEPTION(FileAbsentException, RootException);
 DECLARE_EXCEPTION(NotImplementedException, RootException);
@@ -128,9 +129,27 @@ public:
 
   string UniqueClientId() const;
 
-  /// @return true for "search" feature on full ios and desktop versions,
-  /// and false for ios lite version
+  /// @return true for "search" feature if app needs search functionality
   bool IsFeatureSupported(string const & feature) const;
+
+  /// @return url for clients to download maps
+  /// Different urls are returned for versions with and without search support
+  inline string MetaServerUrl() const
+  {
+    if (IsFeatureSupported("search"))
+      return "http://active.servers.url";
+    else
+      return "http://active.servers.url";
+  }
+
+  /// @return JSON-encoded list of urls if metaserver is unreachable
+  inline string DefaultUrlsJSON() const
+  {
+    if (IsFeatureSupported("search"))
+      return "[\"http://1st.default.server/\",\"http://2nd.default.server/\",\"http://3rd.default.server/\"]";
+    else
+      return "[\"http://1st.default.server/\",\"http://2nd.default.server/\",\"http://3rd.default.server/\"]";
+  }
 };
 
 extern "C" Platform & GetPlatform();
