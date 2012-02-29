@@ -212,7 +212,7 @@ int main(int argc, char ** argv)
     {
       LOG(LINFO, ("Generating search index for ", datFile));
 
-      if (!indexer::BuildSearchIndexFromDatFile(country + DATA_FILE_EXTENSION))
+      if (!indexer::BuildSearchIndexFromDatFile(country + DATA_FILE_EXTENSION, true))
         LOG(LCRITICAL, ("Error generating search index."));
     }
   }

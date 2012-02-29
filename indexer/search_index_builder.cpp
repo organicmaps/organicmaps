@@ -295,7 +295,7 @@ void indexer::BuildSearchIndex(FeaturesVector const & featuresV, Writer & writer
   FileWriter::DeleteFileX(tmpFilePath);
 }
 
-bool indexer::BuildSearchIndexFromDatFile(string const & fName)
+bool indexer::BuildSearchIndexFromDatFile(string const & fName, bool forceRebuild)
 {
   LOG(LINFO, ("Start building search index. Bits = ", search::POINT_CODING_BITS));
 
@@ -307,6 +307,9 @@ bool indexer::BuildSearchIndexFromDatFile(string const & fName)
 
     {
       FilesContainerR readCont(datFile);
+
+      if (!forceRebuild && readCont.IsReaderExist(SEARCH_INDEX_FILE_TAG))
+        return true;
 
       feature::DataHeader header;
       header.Load(readCont.GetReader(HEADER_FILE_TAG));
