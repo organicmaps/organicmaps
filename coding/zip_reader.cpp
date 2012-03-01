@@ -93,38 +93,27 @@ void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileIn
   MY_SCOPE_GUARD(currentFileGuard, bind(&unzCloseCurrentFile, zip));
 
   static size_t const BUF_SIZE = 1024 * 50;
-  char * buf = new char[BUF_SIZE];
-  try
+  vector<char> buf(BUF_SIZE);
+
+  FileWriter outFile(outFilePath);
+  MY_SCOPE_GUARD(outFileGuard, bind(&FileWriter::DeleteFileX, cref(outFilePath)));
+
+  int pos = 0;
+  while (true)
   {
-    FileWriter outFile(outFilePath);
+    int const readBytes = unzReadCurrentFile(zip, &buf[0], BUF_SIZE);
+    if (readBytes > 0)
+      outFile.Write(&buf[0], static_cast<size_t>(readBytes));
+    else if (readBytes < 0)
+      MYTHROW(InvalidZipException, ("Error", readBytes, "while unzipping", fileInZip, "from", zipContainer));
+    else
+      break;
 
-    int pos = 0;
-    int readBytes;
+    pos += readBytes;
 
-    while (true)
-    {
-      readBytes = unzReadCurrentFile(zip, buf, BUF_SIZE);
-      if (readBytes > 0)
-        outFile.Write(buf, static_cast<size_t>(readBytes));
-      else if (readBytes < 0)
-        MYTHROW(InvalidZipException, ("Error", readBytes, "while unzipping", fileInZip, "from", zipContainer));
-      else
-        break;
-
-      pos += readBytes;
-
-      if (progressFn)
-        progressFn(fileInfo.uncompressed_size, pos);
-    }
-  }
-  catch (Exception const & e)
-  {
-    delete[] buf;
-    // Delete unfinished output file
-    FileWriter::DeleteFileX(outFilePath);
-    // Rethrow exception - we've failed
-    throw;
+    if (progressFn)
+      progressFn(fileInfo.uncompressed_size, pos);
   }
 
-  delete[] buf;
+  outFileGuard.release();
 }
