@@ -6,6 +6,8 @@
 #include "../std/set.hpp"
 #include "../std/algorithm.hpp"
 
+#include "../indexer/scales.hpp"
+
 #include "../yg/screen.hpp"
 #include "../yg/base_texture.hpp"
 
@@ -242,7 +244,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
   {
     Tiler::RectInfo ri = (*it)->m_rectInfo;
-    drawnTiles.insert(Tiler::RectInfo(0, ri.m_tileScale, ri.m_x, ri.m_y));
+    drawnTiles.insert(Tiler::RectInfo(ri.m_tileScale, ri.m_x, ri.m_y));
   }
 
   vector<Tiler::RectInfo> firstClassTiles;
@@ -254,10 +256,10 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 
     Tiler::RectInfo cr[4] =
     {
-      Tiler::RectInfo(0, nr.m_tileScale + 1, nr.m_x * 2,     nr.m_y * 2),
-      Tiler::RectInfo(0, nr.m_tileScale + 1, nr.m_x * 2 + 1, nr.m_y * 2),
-      Tiler::RectInfo(0, nr.m_tileScale + 1, nr.m_x * 2 + 1, nr.m_y * 2 + 1),
-      Tiler::RectInfo(0, nr.m_tileScale + 1, nr.m_x * 2,     nr.m_y * 2 + 1)
+      Tiler::RectInfo(nr.m_tileScale + 1, nr.m_x * 2,     nr.m_y * 2),
+      Tiler::RectInfo(nr.m_tileScale + 1, nr.m_x * 2 + 1, nr.m_y * 2),
+      Tiler::RectInfo(nr.m_tileScale + 1, nr.m_x * 2 + 1, nr.m_y * 2 + 1),
+      Tiler::RectInfo(nr.m_tileScale + 1, nr.m_x * 2,     nr.m_y * 2 + 1)
     };
 
     int childTilesToDraw = 4;
@@ -366,7 +368,7 @@ void ScreenCoverage::EndFrame(yg::gl::Screen *s)
 
 int ScreenCoverage::GetDrawScale() const
 {
-  return m_tiler.drawScale();
+  return min(m_tiler.tileScale(), scales::GetUpperScale());
 }
 
 bool ScreenCoverage::IsEmptyDrawingCoverage() const

@@ -11,6 +11,8 @@
 
 #include "../std/bind.hpp"
 
+#include "../indexer/scales.hpp"
+
 #include "../base/logging.hpp"
 #include "../base/condition.hpp"
 #include "../base/shared_buffer_manager.hpp"
@@ -196,7 +198,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 /*  drawer->clear(yg::Color(rand() % 32 + 128, rand() % 64 + 128, rand() % 32 + 128, 255));
 
   std::stringstream out;
-  out << rectInfo.m_y << ", " << rectInfo.m_x << ", " << rectInfo.m_tileScale << ", " << rectInfo.m_drawScale;
+  out << rectInfo.m_y << ", " << rectInfo.m_x << ", " << rectInfo.m_tileScale;
 
   drawer->screen()->drawText(yg::FontDesc(12, yg::Color(0, 0, 0, 255), true),
                              renderRect.Center(),
@@ -218,8 +220,8 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
         frameScreen,
         selectRect,
         clipRect,
-        rectInfo.m_drawScale,
-        rectInfo.m_tileScale <= 17
+        min(scales::GetUpperScale(), rectInfo.m_tileScale),
+        rectInfo.m_tileScale <= scales::GetUpperScale()
         );
 
   drawer->endFrame();
