@@ -248,6 +248,7 @@ void InformationDisplay::drawPlacemark(DrawerYG * pDrawer, m2::PointD const & pt
   pDrawer->drawSymbol(pt, "placemark", yg::EPosAbove, yg::maxDepth);
 }
 
+/*
 bool InformationDisplay::s_isLogEnabled = false;
 list<string> InformationDisplay::s_log;
 size_t InformationDisplay::s_logSize = 10;
@@ -256,8 +257,7 @@ threads::Mutex s_logMutex;
 WindowHandle * InformationDisplay::s_windowHandle = 0;
 size_t s_msgNum = 0;
 
-void InformationDisplay::logMessage(my::LogLevel level, my::SrcPoint const & /*srcPoint*/,
-                                    string const & msg)
+void InformationDisplay::logMessage(my::LogLevel level, my::SrcPoint const &, string const & msg)
 {
   {
     threads::MutexGuard guard(s_logMutex);
@@ -326,6 +326,7 @@ void InformationDisplay::drawLog(DrawerYG * drawer)
     ste.draw(drawer->screen().get(), math::Identity<double, 3>());
   }
 }
+*/
 
 void InformationDisplay::enableEmptyModelMessage(bool doEnable)
 {
@@ -442,8 +443,8 @@ void InformationDisplay::doDraw(DrawerYG *drawer)
     drawMemoryWarning(drawer);
   if (m_isBenchmarkInfoEnabled)
     drawBenchmarkInfo(drawer);
-  if (s_isLogEnabled)
-    drawLog(drawer);
+  //if (s_isLogEnabled)
+  //  drawLog(drawer);
   if (m_isEmptyModelMessageEnabled)
     drawEmptyModelMessage(drawer);
 }

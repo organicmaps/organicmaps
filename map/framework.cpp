@@ -724,9 +724,10 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 {
   if (renderPolicy)
   {
-    bool isVisualLogEnabled = false;
-    Settings::Get("VisualLog", isVisualLogEnabled);
-    m_informationDisplay.enableLog(isVisualLogEnabled, renderPolicy->GetWindowHandle().get());
+    //bool isVisualLogEnabled = false;
+    //Settings::Get("VisualLog", isVisualLogEnabled);
+    //m_informationDisplay.enableLog(isVisualLogEnabled, renderPolicy->GetWindowHandle().get());
+
     m_informationDisplay.setVisualScale(GetPlatform().VisualScale());
 
     m_navigator.SetMinScreenParams(static_cast<unsigned>(m_minRulerWidth * GetPlatform().VisualScale()),

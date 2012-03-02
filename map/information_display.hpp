@@ -63,11 +63,13 @@ private:
   my::Timer m_lastMemoryWarning;
   bool m_isMemoryWarningEnabled;
 
+  /*
   static bool s_isLogEnabled;
   static my::LogMessageFn s_oldLogFn;
   static list<string> s_log;
   static size_t s_logSize;
   static WindowHandle * s_windowHandle;
+  */
 
 public:
 
