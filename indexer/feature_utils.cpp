@@ -54,8 +54,13 @@ public:
   void CorrectScaleForVisibility(TypesHolder const & types, int & scale) const
   {
     pair<int, int> const scaleR = feature::DrawableScaleRangeForText(types);
-    if (scale < scaleR.first || scale > scaleR.second)
-      scale = scaleR.first;
+
+    // Result types can be without visible texts (matched by category).
+    if (scaleR.first != -1)
+    {
+      if (scale < scaleR.first || scale > scaleR.second)
+        scale = scaleR.first;
+    }
   }
 
   m2::RectD CorrectRectForScales(TypesHolder const & types, m2::RectD const & rect) const
