@@ -355,9 +355,7 @@ namespace yg
   }
 
   ResourceManager::Params::Params()
-    : m_vendorName(reinterpret_cast<char const*>(glGetString(GL_VENDOR))),
-      m_rendererName(reinterpret_cast<char const *>(glGetString(GL_RENDERER))),
-      m_rtFormat(yg::Data8Bpp),
+    : m_rtFormat(yg::Data8Bpp),
       m_texFormat(yg::Data4Bpp),
       m_texRtFormat(yg::Data4Bpp),
       m_useSingleThreadedOGL(false),
@@ -374,6 +372,23 @@ namespace yg
       m_styleCacheTexturesParams("styleCacheTexture"),
       m_guiThreadTexturesParams("guiThreadTexture")
   {
+    char const * s = reinterpret_cast<char const*>(glGetString(GL_VENDOR));
+    if (s)
+      m_vendorName = s;
+    else
+    {
+      OGLCHECKAFTER;
+      LOG(LWARNING, ("Can't get vendor name from OpenGL"));
+    }
+
+    s = reinterpret_cast<char const *>(glGetString(GL_RENDERER));
+    if (s)
+      m_rendererName = s;
+    else
+    {
+      OGLCHECKAFTER;
+      LOG(LWARNING, ("Can't get renderer name from OpenGL"));
+    }
   }
 
   bool ResourceManager::Params::isGPU(char const * vendorName, char const * rendererName) const

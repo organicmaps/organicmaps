@@ -284,7 +284,6 @@ namespace yg
     ResourceManager(Params const & p);
 
     void initGlyphCaches(GlyphCacheParams const & p);
-    void selectTexRTFormat();
 
     void initStoragePool(StoragePoolParams const & p, scoped_ptr<TStoragePool> & pool);
 
