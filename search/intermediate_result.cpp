@@ -18,7 +18,7 @@
 
 namespace search
 {
-namespace impl
+namespace
 {
 
 double ResultDistance(m2::PointD const & a, m2::PointD const & b)
@@ -43,6 +43,23 @@ uint8_t ViewportDistance(m2::RectD const & viewport, m2::PointD const & p)
     return 2;
 
   return 3;
+}
+
+}
+
+
+namespace impl
+{
+
+template <class T> bool LessViewportDistanceT(T const & r1, T const & r2)
+{
+  if (r1.m_viewportDistance != r2.m_viewportDistance)
+    return (r1.m_viewportDistance < r2.m_viewportDistance);
+
+  if (r1.m_rank != r2.m_rank)
+    return (r1.m_rank > r2.m_rank);
+
+  return (r1.m_distanceFromViewportCenter < r2.m_distanceFromViewportCenter);
 }
 
 
@@ -73,6 +90,7 @@ void PreResult1::CalcParams(m2::RectD const & viewport, m2::PointD const & pos)
   }
 
   m_viewportDistance = ViewportDistance(viewport, m_center);
+  m_distanceFromViewportCenter = ResultDistance(m_center, viewport.Center());
 }
 
 bool PreResult1::LessRank(PreResult1 const & r1, PreResult1 const & r2)
@@ -87,7 +105,7 @@ bool PreResult1::LessDistance(PreResult1 const & r1, PreResult1 const & r2)
 
 bool PreResult1::LessViewportDistance(PreResult1 const & r1, PreResult1 const & r2)
 {
-  return (r1.m_viewportDistance < r2.m_viewportDistance);
+  return LessViewportDistanceT(r1, r2);
 }
 
 
@@ -99,8 +117,9 @@ PreResult2::PreResult2(FeatureType const & f, PreResult1 const & res,
     m_featureRect(f.GetLimitRect(FeatureType::WORST_GEOMETRY)),
     m_center(res.m_center),
     m_distance(res.m_distance),
+    m_distanceFromViewportCenter(res.m_distanceFromViewportCenter),
     m_resultType(RESULT_FEATURE),
-    m_searchRank(res.m_rank),
+    m_rank(res.m_rank),
     m_viewportDistance(res.m_viewportDistance)
 {
   ASSERT_GREATER(m_types.Size(), 0, ());
@@ -119,7 +138,7 @@ PreResult2::PreResult2(FeatureType const & f, PreResult1 const & res,
 PreResult2::PreResult2(m2::RectD const & viewport, m2::PointD const & pos,
                        double lat, double lon)
   : m_str("(" + strings::to_string(lat) + ", " + strings::to_string(lon) + ")"),
-    m_resultType(RESULT_LATLON), m_searchRank(255)
+    m_resultType(RESULT_LATLON), m_rank(255)
 {
   // dummy object to avoid copy-paste
   PreResult1 res(0, 0, m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat)),
@@ -127,6 +146,7 @@ PreResult2::PreResult2(m2::RectD const & viewport, m2::PointD const & pos,
 
   m_center = res.m_center;
   m_distance = res.m_distance;
+  m_distanceFromViewportCenter = res.m_distanceFromViewportCenter;
   m_viewportDistance = res.m_viewportDistance;
 
   // get region info
@@ -135,10 +155,12 @@ PreResult2::PreResult2(m2::RectD const & viewport, m2::PointD const & pos,
 
 PreResult2::PreResult2(string const & name, int penalty)
   : m_str(name), m_completionString(name + " "),
-    // Categories should always be first.
+
+    // Categories should always be the first:
     m_distance(-1000.0),    // smallest distance :)
+    m_distanceFromViewportCenter(-1000.0),
     m_resultType(RESULT_CATEGORY),
-    m_searchRank(255),      // best rank
+    m_rank(255),            // best rank
     m_viewportDistance(0)   // closest to viewport
 {
 }
@@ -191,7 +213,7 @@ Result PreResult2::GenerateFinalResult(
   case RESULT_FEATURE:
     return Result(m_str, info.m_name, info.m_flag, GetFeatureType(pCat, lang)
               #ifdef DEBUG
-                  + ' ' + strings::to_string(static_cast<int>(m_searchRank))
+                  + ' ' + strings::to_string(static_cast<int>(m_rank))
               #endif
                   , type, GetFinalViewport(), m_distance);
 
@@ -207,7 +229,7 @@ Result PreResult2::GenerateFinalResult(
 
 bool PreResult2::LessRank(PreResult2 const & r1, PreResult2 const & r2)
 {
-  return (r1.m_searchRank > r2.m_searchRank);
+  return (r1.m_rank > r2.m_rank);
 }
 
 bool PreResult2::LessDistance(PreResult2 const & r1, PreResult2 const & r2)
@@ -217,7 +239,7 @@ bool PreResult2::LessDistance(PreResult2 const & r1, PreResult2 const & r2)
 
 bool PreResult2::LessViewportDistance(PreResult2 const & r1, PreResult2 const & r2)
 {
-  return (r1.m_viewportDistance < r2.m_viewportDistance);
+  return LessViewportDistanceT(r1, r2);
 }
 
 bool PreResult2::StrictEqualF::operator() (PreResult2 const & r) const
@@ -281,8 +303,8 @@ bool PreResult2::LessLinearTypesF::operator() (PreResult2 const & r1, PreResult2
 
   // Should stay the best feature, after unique, so add this criteria:
 
-  if (r1.m_searchRank != r2.m_searchRank)
-    return (r1.m_searchRank > r2.m_searchRank);
+  if (r1.m_rank != r2.m_rank)
+    return (r1.m_rank > r2.m_rank);
   return (r1.m_distance < r2.m_distance);
 }
 
@@ -305,7 +327,7 @@ string PreResult2::DebugPrint() const
   string res("IntermediateResult: ");
   res += "Name: " + m_str;
   res += "; Type: " + ::DebugPrint(GetBestType());
-  res += "; Rank: " + ::DebugPrint(m_searchRank);
+  res += "; Rank: " + ::DebugPrint(m_rank);
   res += "; Viewport distance: " + ::DebugPrint(m_viewportDistance);
   res += "; Distance: " + ::DebugPrint(m_distance);
   return res;
