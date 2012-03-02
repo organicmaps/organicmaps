@@ -98,6 +98,12 @@ namespace tools
                           string const & skinName,
                           vector<QSize> const & symbolSizes,
                           vector<string> const & suffix);
+
+      void processSearchIcons(string const & symbolsDir,
+                              string const & searchCategories,
+                              string const & searchIconsPath,
+                              int searchIconWidth,
+                              int searchIconHeight);
       void renderPages();
       bool writeToFile(string const & skinName);
     };

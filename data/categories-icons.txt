@@ -1,0 +1,6 @@
+food restaurant
+money atm
+fuel petrolStation
+shop supermarket
+transport bus_sta
+turism museum

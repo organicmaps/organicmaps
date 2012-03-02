@@ -205,6 +205,72 @@ namespace tools
     }
   };
 
+  void SkinGenerator::processSearchIcons(string const & symbolsDir,
+                                         string const & searchCategories,
+                                         string const & searchIconsPath,
+                                         int searchIconWidth,
+                                         int searchIconHeight)
+  {
+    ifstream fin(searchCategories.c_str());
+    QDir().mkpath(QString(searchIconsPath.c_str()));
+
+    while (true)
+    {
+      string category;
+      string icon;
+      fin >> category;
+      fin >> icon;
+      if (!fin)
+        break;
+
+      QString fullFileName((symbolsDir + "/" + icon + ".svg").c_str());
+
+      if (m_svgRenderer.load(fullFileName))
+      {
+        QRect viewBox = m_svgRenderer.viewBox();
+        QSize defaultSize = m_svgRenderer.defaultSize();
+
+        QSize size = defaultSize * (searchIconWidth / 24.0);
+
+        /// fitting symbol into symbolSize, saving aspect ratio
+
+        if (size.width() > searchIconWidth)
+        {
+          size.setHeight((float)size.height() * searchIconWidth / (float)size.width());
+          size.setWidth(searchIconWidth);
+        }
+
+        if (size.height() > searchIconHeight)
+        {
+          size.setWidth((float)size.width() * searchIconHeight / (float)size.height());
+          size.setHeight(searchIconHeight);
+        }
+
+        gil::bgra8_image_t gilImage(size.width(), size.height());
+        gil::fill_pixels(gil::view(gilImage), gil::rgba8_pixel_t(0, 0, 0, 0));
+        QImage img((uchar*)&gil::view(gilImage)(0, 0), size.width(), size.height(), QImage::Format_ARGB32);
+        QPainter painter(&img);
+
+        m_svgRenderer.render(&painter, QRect(0, 0, size.width(), size.height()));
+
+        img.save((searchIconsPath + "/" + category + ".png").c_str());
+
+        {
+          size *= 2;
+          gil::bgra8_image_t gilImage(size.width(), size.height());
+          gil::fill_pixels(gil::view(gilImage), gil::rgba8_pixel_t(0, 0, 0, 0));
+          QImage img((uchar*)&gil::view(gilImage)(0, 0), size.width(), size.height(), QImage::Format_ARGB32);
+          QPainter painter(&img);
+
+          m_svgRenderer.render(&painter, QRect(0, 0, size.width(), size.height()));
+          img.save((searchIconsPath + "/" + category + "@2x.png").c_str());
+        }
+      }
+      else
+        LOG(LERROR, ("hasn't found icon", icon, "for category", category));
+    };
+  }
+
   void SkinGenerator::processSymbols(string const & svgDataDir,
                                      string const & skinName,
                                      vector<QSize> const & symbolSizes,
