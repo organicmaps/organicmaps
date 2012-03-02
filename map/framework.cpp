@@ -264,24 +264,22 @@ void Framework::OnSize(int w, int h)
   if (w < 2) w = 2;
   if (h < 2) h = 2;
 
+
+  if (m_renderPolicy)
   {
-    if (m_renderPolicy)
-    {
-      m_informationDisplay.setDisplayRect(m2::RectI(m2::PointI(0, 0), m2::PointU(w, h)));
+    m_informationDisplay.setDisplayRect(m2::RectI(m2::PointI(0, 0), m2::PointU(w, h)));
 
-      m2::RectI const & viewPort = m_renderPolicy->OnSize(w, h);
+    m2::RectI const & viewPort = m_renderPolicy->OnSize(w, h);
 
-      m_navigator.OnSize(
-            viewPort.minX(),
-            viewPort.minY(),
-            viewPort.SizeX(),
-            viewPort.SizeY());
-    }
-
-    m_width = w;
-    m_height = h;
+    m_navigator.OnSize(
+          viewPort.minX(),
+          viewPort.minY(),
+          viewPort.SizeX(),
+          viewPort.SizeY());
   }
 
+  m_width = w;
+  m_height = h;
 }
 
 bool Framework::SetUpdatesEnabled(bool doEnable)
@@ -375,6 +373,8 @@ void Framework::EndPaint(shared_ptr<PaintEvent> const & e)
 
 void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 {
+  ASSERT ( m_renderPolicy, () );
+
   e->drawer()->screen()->beginFrame();
 
   /// m_informationDisplay is set and drawn after the m_renderPolicy
@@ -405,9 +405,11 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 void Framework::DoPaint(shared_ptr<PaintEvent> const & e)
 {
   if (m_renderPolicy)
+  {
     m_renderPolicy->DrawFrame(e, m_navigator.Screen());
 
-  DrawAdditionalInfo(e);
+    DrawAdditionalInfo(e);
+  }
 }
 
 m2::PointD Framework::GetViewportCenter() const
