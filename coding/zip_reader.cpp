@@ -95,8 +95,10 @@ void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileIn
   static size_t const BUF_SIZE = 1024 * 50;
   vector<char> buf(BUF_SIZE);
 
-  FileWriter outFile(outFilePath);
+  // First outFile should be closed, then FileWriter::DeleteFileX is called,
+  // so make correct order of guards.
   MY_SCOPE_GUARD(outFileGuard, bind(&FileWriter::DeleteFileX, cref(outFilePath)));
+  FileWriter outFile(outFilePath);
 
   int pos = 0;
   while (true)
