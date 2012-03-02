@@ -3,7 +3,7 @@
 @implementation CompassView
 
 @synthesize angle;
-@synthesize image;
+@synthesize showArrow;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -12,6 +12,7 @@
   {
     self.opaque = NO;
     self.clearsContextBeforeDrawing = YES;
+    self.showArrow = NO;
   }
   return self;
 }
@@ -22,21 +23,15 @@
   [self setNeedsDisplay];
 }
 
-- (void)setImage:(UIImage *)aImage
+- (void)setShowArrow:(BOOL)showOrNot
 {
-  [image release];
-  image = aImage;
-  [image retain];
+  showArrow = showOrNot;
   [self setNeedsDisplay];
 }
 
 - (void)drawRect:(CGRect)rect
 {
-  if (image)
-  {
-    [image drawInRect:rect];
-  }
-  else if (angle > 0.)
+  if (showArrow)
   {
     // Draws an arrow looking to the right like this:
     // =>
@@ -62,7 +57,7 @@
     [[UIColor colorWithRed:c green:c blue:c alpha:1.0] setFill];
     [aPath fill];
   }
-  // Do not draw anything if angle is <0 or image wasn't set
+  // Do not draw anything if showArrow property is not set
 }
 
 @end

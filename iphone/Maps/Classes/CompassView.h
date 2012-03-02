@@ -4,6 +4,7 @@
 @interface CompassView : UIView
 // Rotation angle in radians (decart system)
 @property (nonatomic, assign) float angle;
-// Image to display instead of compass arrow
-@property (nonatomic, retain) UIImage * image;
+// NO by default - do not display anything
+// If set to YES - use angle to display the arrow
+@property (nonatomic, assign) BOOL showArrow;
 @end

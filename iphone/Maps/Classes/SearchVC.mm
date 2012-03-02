@@ -406,8 +406,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
         // Separate case for continents
         if (!r.GetRegionFlag())
         {
-          compass.angle = -1.0;
-          //compass.image = [UIImage imageNamed:@"downloader"];
+          compass.showArrow = NO;
         }
         else
         {
@@ -415,17 +414,15 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
           CLHeading * heading = [m_locationManager lastHeading];
           if (loc == nil || heading == nil)
           {
-            compass.angle = -1.0;
-            //compass.image = [UIImage imageNamed:@"location"];
+            compass.showArrow = NO;
           }
           else
           {
-            // Reset possibly cached image
-            compass.image = nil;
             double const northDeg = (heading.trueHeading < 0) ? heading.magneticHeading : heading.trueHeading;
             m2::PointD const center = r.GetFeatureCenter();
             compass.angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(loc.coordinate.longitude),
                             MercatorBounds::LatToY(loc.coordinate.latitude)), center) + northDeg / 180. * math::pi;
+            compass.showArrow = YES;
           }
         }
       }
