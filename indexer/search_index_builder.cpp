@@ -8,6 +8,7 @@
 #include "string_file.hpp"
 #include "classificator.hpp"
 #include "feature_visibility.hpp"
+#include "categories_holder.hpp"
 
 #include "../defines.hpp"
 
@@ -63,6 +64,8 @@ struct FeatureNameInserter
 class FeatureInserter
 {
   StringsFile & m_names;
+
+  CategoriesHolder const & m_categories;
 
   typedef StringsFile::ValueT ValueT;
   typedef search::trie::ValueReader SaverT;
@@ -185,42 +188,52 @@ class FeatureInserter
 
   class AvoidEmptyName
   {
-    vector<uint32_t> m_vec;
+    vector<uint32_t> m_match[2];
+
+    template <size_t count, size_t ind>
+    void FillMatch(char const * (& arr)[count][ind])
+    {
+      STATIC_ASSERT ( count > 0 );
+      STATIC_ASSERT ( ind > 0 );
+
+      Classificator const & c = classif();
+
+      m_match[ind-1].reserve(count);
+      for (size_t i = 0; i < count; ++i)
+      {
+        vector<string> v(arr[i], arr[i] + ind);
+        m_match[ind-1].push_back(c.GetTypeByPath(v));
+      }
+    }
 
   public:
     AvoidEmptyName()
     {
-      char const * arr[][3] = {
-        { "place", "city", ""},
-        { "place", "city", "capital"},
-        { "place", "town", ""},
-        { "place", "county", ""},
-        { "place", "state", ""},
-        { "place", "region", ""}
+      char const * arr1[][1] = { { "highway" }, { "natural" }, { "waterway"} };
+
+      char const * arr2[][2] = {
+        { "place", "city" },
+        { "place", "town" },
+        { "place", "county" },
+        { "place", "state" },
+        { "place", "region" }
       };
 
-      Classificator const & c = classif();
-
-      size_t const count = ARRAY_SIZE(arr);
-      m_vec.reserve(count);
-
-      for (size_t i = 0; i < count; ++i)
-      {
-        vector<string> v;
-        v.push_back(arr[i][0]);
-        v.push_back(arr[i][1]);
-        if (strlen(arr[i][2]) > 0)
-          v.push_back(arr[i][2]);
-
-        m_vec.push_back(c.GetTypeByPath(v));
-      }
+      FillMatch(arr1);
+      FillMatch(arr2);
     }
 
     bool IsExist(feature::TypesHolder const & types) const
     {
-      for (size_t i = 0; i < m_vec.size(); ++i)
-        if (types.Has(m_vec[i]))
-          return true;
+      for (size_t i = 0; i < types.Size(); ++i)
+        for (size_t j = 0; j < ARRAY_SIZE(m_match); ++j)
+        {
+          uint32_t type = types[i];
+          ftype::TruncValue(type, j+1);
+
+          if (find(m_match[j].begin(), m_match[j].end(), type) != m_match[j].end())
+            return true;
+        }
 
       return false;
     }
@@ -228,9 +241,10 @@ class FeatureInserter
 
 public:
   FeatureInserter(StringsFile & names,
+                  CategoriesHolder const & catHolder,
                   serial::CodingParams const & cp,
                   pair<int, int> const & scales)
-    : m_names(names), m_valueSaver(cp), m_scales(scales)
+    : m_names(names), m_categories(catHolder), m_valueSaver(cp), m_scales(scales)
   {
   }
 
@@ -262,6 +276,10 @@ public:
       // highway-primary-oneway or amenity-parking-fee.
       ftype::TruncValue(type, 2);
 
+      // Push to index only categorized types.
+      if (!m_categories.IsTypeExist(type))
+        continue;
+
       // Do index only for visible types in mwm.
       pair<int, int> const r = feature::DrawableScaleRangeForType(type);
       if (my::between_s(m_scales.first, m_scales.second, r.first) ||
@@ -273,16 +291,19 @@ public:
   }
 };
 
-}  // unnamed namespace
-
-void indexer::BuildSearchIndex(FeaturesVector const & featuresV, Writer & writer,
-                               string const & tmpFilePath)
+void BuildSearchIndex(FilesContainerR const & cont, CategoriesHolder const & catHolder,
+                      Writer & writer, string const & tmpFilePath)
 {
   {
-    StringsFile names(tmpFilePath);
-    serial::CodingParams cp(search::GetCPForTrie(featuresV.GetCodingParams()));
+    feature::DataHeader header;
+    header.Load(cont.GetReader(HEADER_FILE_TAG));
+    FeaturesVector featuresV(cont, header);
 
-    featuresV.ForEachOffset(FeatureInserter(names, cp, featuresV.GetScaleRange()));
+    serial::CodingParams cp(search::GetCPForTrie(header.GetDefCodingParams()));
+
+    StringsFile names(tmpFilePath);
+
+    featuresV.ForEachOffset(FeatureInserter(names, catHolder, cp, header.GetScaleRange()));
 
     names.EndAdding();
     names.OpenForRead();
@@ -293,6 +314,8 @@ void indexer::BuildSearchIndex(FeaturesVector const & featuresV, Writer & writer
   }
 
   FileWriter::DeleteFileX(tmpFilePath);
+}
+
 }
 
 bool indexer::BuildSearchIndexFromDatFile(string const & fName, bool forceRebuild)
@@ -311,13 +334,12 @@ bool indexer::BuildSearchIndexFromDatFile(string const & fName, bool forceRebuil
       if (!forceRebuild && readCont.IsReaderExist(SEARCH_INDEX_FILE_TAG))
         return true;
 
-      feature::DataHeader header;
-      header.Load(readCont.GetReader(HEADER_FILE_TAG));
-
-      FeaturesVector featuresVector(readCont, header);
-
       FileWriter writer(tmpFile);
-      BuildSearchIndex(featuresVector, writer, pl.WritablePathForFile(fName + ".search_index_1.tmp"));
+
+      CategoriesHolder catHolder(pl.GetReader(SEARCH_CATEGORIES_FILE_NAME));
+
+      BuildSearchIndex(readCont, catHolder, writer,
+                       pl.WritablePathForFile(fName + ".search_index_1.tmp"));
 
       LOG(LINFO, ("Search index size = ", writer.Size()));
     }

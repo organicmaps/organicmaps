@@ -73,7 +73,17 @@ public:
     }
   }
 
+  /// Search name for type with preffered language.
+  /// If no name for this language, return first (en) name.
+  /// @return false if no categories for type.
   bool GetNameByType(uint32_t type, int8_t lang, string & name) const;
+
+  inline bool IsTypeExist(uint32_t type) const
+  {
+    // pass any language
+    string dummy;
+    return GetNameByType(type, 0, dummy);
+  }
 
   inline void Swap(CategoriesHolder & r)
   {
