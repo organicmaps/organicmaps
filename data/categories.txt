@@ -328,7 +328,7 @@ waterway-canal
 en:canal
 ru:канал
 
-highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-service_link|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-pedestrian
+highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-pedestrian
 en:street
 ru:улица|переулок|проезд|тракт|проспект
 de:strasse|weg|avenue|gasse
@@ -336,15 +336,15 @@ fr:rue|avenue|reulle
 it:via|strada|corso|vicolo
 
 highway-bus_stop|railway-tram_stop
-en:3bus-stop
-ru:3остановка|3автобус
+en:3bus-stop|transport
+ru:3остановка|3автобус|транспорт
 de:haltestelle|bus|autobus
 fr:arrêt|station|bus|autobus
 it:fermata|autobus
 
 amenity-bus_station
-en:3bus-station|3bus-stop
-ru:автостанция|3автобус|3остановка
+en:3bus-station|3bus-stop|3transport
+ru:автостанция|3автобус|3остановка|3транспорт
 de:bahnhof|haltestelle|bus|autobus
 fr:gare|terminus|arrêt|station|bus|autobus
 it:autostazione|fermata|autobus
@@ -372,14 +372,6 @@ natural-forest|natural-wood|landuse-forest|landuse-wood
 en:forest
 ru:лес
 
-natural-bay
-en:bay
-ru:залив
-
-natural-spring
-en:spring
-ru:источник
-
 leisure-park|leisure-garden|leisure-park
 en:park|garden
 ru:парк|сад
@@ -402,8 +394,8 @@ fr:3coiffeure|salon-de-coiffeure
 it:parrucchiera
 
 shop-bakery
-en:3bakery
-ru:3булочная
+en:3bakery|shop
+ru:3булочная|магазин
 de:bäckerei|bäckerladen
 fr:boulangerie
 it:panetteria
@@ -420,8 +412,8 @@ en:3airport|3plane
 ru:3аэропорт|4самолёт
 
 railway-station
-en:railway-station|3train
-ru:ж/д-станция|3поезд
+en:railway-station|3train|transport
+ru:ж/д-станция|3поезд|транспорт
 
 railway-rail
 en:railway
@@ -432,9 +424,9 @@ en:subway
 ru:метро
 
 tourism-attraction|tourism-viewpoint|tourism-information
-en:4sightseeing
-ru:4достопримечательность
+en:3tourism|4sightseeing
+ru:3туризм|4достопримечательность
 
-leisure-sport|leisure-stadium|leisure-playground|leisure-sports_centre|leisure-golf_course|leisure-pitch|leisure-swimming_pool|sport-soccer|sport-tennis|sport-baseball|sport-swimming|sport-basketball|sport-athletics
-en:4playground
+leisure-stadium|leisure-playground|leisure-sports_centre|leisure-golf_course|leisure-pitch|leisure-swimming_pool|sport-soccer|sport-tennis|sport-baseball|sport-swimming|sport-basketball|sport-athletics
+en:4sport
 ru:4спортплощадка
