@@ -352,21 +352,47 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+  m_suggestionsCount = [m_searchBar.text length] ? 0 : 1;
   if (g_lastSearchResults)
-    return [g_lastSearchResults get].size();
+    return [g_lastSearchResults get].size() + m_suggestionsCount;
   else
-    return 0;
+    return 0 + m_suggestionsCount;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (g_lastSearchResults == nil || indexPath.row >= (NSInteger)[g_lastSearchResults get].size())
+  NSInteger realRowIndex = indexPath.row;
+
+  if (m_suggestionsCount)
+  {
+    // Return cell with suggestion icons
+    if (indexPath.row == 0)
+    {
+      SearchSuggestionsCell * cell = (SearchSuggestionsCell *)[tableView dequeueReusableCellWithIdentifier:@"SuggestionsCell"];
+      if (!cell)
+      {
+        cell = [[[SearchSuggestionsCell alloc] initWithReuseIdentifier:@"SuggestionsCell"] autorelease];
+        cell.delegate = self;
+        [cell addIcon:[UIImage imageNamed:@"food.png"] withSuggestion:@"food"];
+        [cell addIcon:[UIImage imageNamed:@"money.png"] withSuggestion:@"money"];
+        [cell addIcon:[UIImage imageNamed:@"fuel.png"] withSuggestion:@"fuel"];
+        [cell addIcon:[UIImage imageNamed:@"shop.png"] withSuggestion:@"shop"];
+        [cell addIcon:[UIImage imageNamed:@"transport.png"] withSuggestion:@"transport"];
+        [cell addIcon:[UIImage imageNamed:@"tourism.png"] withSuggestion:@"tourism"];
+      }
+      return cell;
+    }
+    // We're displaying one additional row with suggestions, fix results array indexing
+    realRowIndex -= m_suggestionsCount;
+  }
+
+  if (g_lastSearchResults == nil || realRowIndex >= (NSInteger)[g_lastSearchResults get].size())
   {
     ASSERT(false, ("Invalid m_results with size", [g_lastSearchResults get].size()));
     return nil;
   }
 
-  search::Result const & r = [g_lastSearchResults get][indexPath.row];
+  search::Result const & r = [g_lastSearchResults get][realRowIndex];
   switch (r.GetResultType())
   {
     case search::Result::RESULT_FEATURE:
@@ -448,9 +474,18 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (indexPath.row < (NSInteger)[g_lastSearchResults get].size())
+  NSInteger realRowIndex = indexPath.row;
+  // Suggestion cell was clicked
+  if (m_suggestionsCount)
   {
-    search::Result const & res = [g_lastSearchResults get][indexPath.row];
+    if (realRowIndex == 0)
+      return;
+    realRowIndex -= m_suggestionsCount;
+  }
+
+  if (realRowIndex < (NSInteger)[g_lastSearchResults get].size())
+  {
+    search::Result const & res = [g_lastSearchResults get][realRowIndex];
     switch(res.GetResultType())
     {
       // Zoom to the feature
@@ -515,7 +550,16 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   for (NSUInteger i = 0; i < cells.count; ++i)
   {
     UITableViewCell * cell = (UITableViewCell *)[cells objectAtIndex:i];
-    search::Result const & res = [g_lastSearchResults get][[m_table indexPathForCell:cell].row];
+    NSInteger realRowIndex = [m_table indexPathForCell:cell].row;
+    if (m_suggestionsCount)
+    {
+      // Take into an account additional suggestions cell
+      if (realRowIndex == 0)
+        continue;
+      realRowIndex -= m_suggestionsCount;
+    }
+
+    search::Result const & res = [g_lastSearchResults get][realRowIndex];
     if (res.GetResultType() == search::Result::RESULT_FEATURE)
     {
       // Show compass only for cells without flags
@@ -542,6 +586,13 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
   [m_searchBar resignFirstResponder];
+}
+
+// Callback from suggestion cell, called when icon is selected
+- (void)onSuggestionSelected:(NSString *)suggestion
+{
+  m_searchBar.text = [suggestion stringByAppendingString:@" "];
+  [m_table reloadData];
 }
 
 @end

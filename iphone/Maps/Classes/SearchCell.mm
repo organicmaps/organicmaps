@@ -1,5 +1,4 @@
 #import "SearchCell.h"
-#import "CompassView.h"
 
 @implementation SearchCell
 
