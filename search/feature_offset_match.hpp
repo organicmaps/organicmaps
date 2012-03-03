@@ -4,6 +4,7 @@
 #include "../indexer/search_trie.hpp"
 
 #include "../base/string_utils.hpp"
+//#include "../base/logging.hpp"
 
 #include "../std/algorithm.hpp"
 #include "../std/scoped_ptr.hpp"
@@ -29,10 +30,14 @@ size_t CalcEqualLength(SrcIterT b, SrcIterT e, CompIterT bC, CompIterT eC)
 
 TrieIterator * MoveTrieIteratorToString(TrieIterator const & trieRoot,
                                         strings::UniString const & queryS,
-                                        size_t & symbolsMatched)
+                                        size_t & symbolsMatched,
+                                        bool & bFullEdgeMatched)
 {
-  scoped_ptr<search::TrieIterator> pIter(trieRoot.Clone());
   symbolsMatched = 0;
+  bFullEdgeMatched = false;
+
+  scoped_ptr<search::TrieIterator> pIter(trieRoot.Clone());
+
   size_t const szQuery = queryS.size();
   while (symbolsMatched < szQuery)
   {
@@ -42,14 +47,17 @@ TrieIterator * MoveTrieIteratorToString(TrieIterator const & trieRoot,
     {
       size_t const szEdge = pIter->m_edge[i].m_str.size();
 
-      size_t const count = CalcEqualLength(pIter->m_edge[i].m_str.begin(),
-                                           pIter->m_edge[i].m_str.end(),
-                                           queryS.begin() + symbolsMatched,
-                                           queryS.end());
+      size_t const count = CalcEqualLength(
+                                        pIter->m_edge[i].m_str.begin(),
+                                        pIter->m_edge[i].m_str.end(),
+                                        queryS.begin() + symbolsMatched,
+                                        queryS.end());
 
       if ((count > 0) && (count == szEdge || szQuery == count + symbolsMatched))
       {
         scoped_ptr<search::TrieIterator>(pIter->GoToEdge(i)).swap(pIter);
+
+        bFullEdgeMatched = (count == szEdge);
         symbolsMatched += count;
         bMatched = true;
         break;
@@ -62,6 +70,25 @@ TrieIterator * MoveTrieIteratorToString(TrieIterator const & trieRoot,
   return pIter->Clone();
 }
 
+namespace
+{
+  bool CheckMatchString(strings::UniChar const * rootPrefix,
+                        size_t rootPrefixSize,
+                        strings::UniString & s)
+  {
+    if (rootPrefixSize > 0)
+    {
+      if (s.size() < rootPrefixSize ||
+          !StartsWith(s.begin(), s.end(), rootPrefix, rootPrefix + rootPrefixSize))
+        return false;
+
+      s = strings::UniString(s.begin() + rootPrefixSize, s.end());
+    }
+
+    return true;
+  }
+}
+
 template <typename F>
 void FullMatchInTrie(TrieIterator const & trieRoot,
                      strings::UniChar const * rootPrefix,
@@ -69,18 +96,18 @@ void FullMatchInTrie(TrieIterator const & trieRoot,
                      strings::UniString s,
                      F & f)
 {
-  if (rootPrefixSize > 0)
-  {
-    if (s.size() < rootPrefixSize ||
-        !StartsWith(s.begin(), s.end(), rootPrefix, rootPrefix + rootPrefixSize))
+  if (!CheckMatchString(rootPrefix, rootPrefixSize, s))
       return;
-    s = strings::UniString(s.begin() + rootPrefixSize, s.end());
-  }
 
   size_t symbolsMatched = 0;
-  scoped_ptr<search::TrieIterator> pIter(MoveTrieIteratorToString(trieRoot, s, symbolsMatched));
-  if (!pIter || symbolsMatched != s.size())
+  bool bFullEdgeMatched;
+  scoped_ptr<search::TrieIterator> pIter(
+        MoveTrieIteratorToString(trieRoot, s, symbolsMatched, bFullEdgeMatched));
+
+  if (!pIter || !bFullEdgeMatched || symbolsMatched != s.size())
     return;
+
+  ASSERT_EQUAL ( symbolsMatched, s.size(), () );
   for (size_t i = 0; i < pIter->m_value.size(); ++i)
     f(pIter->m_value[i]);
 }
@@ -92,20 +119,22 @@ void PrefixMatchInTrie(TrieIterator const & trieRoot,
                        strings::UniString s,
                        F & f)
 {
-  if (rootPrefixSize > 0)
-  {
-    if (s.size() < rootPrefixSize ||
-        !StartsWith(s.begin(), s.end(), rootPrefix, rootPrefix + rootPrefixSize))
+  if (!CheckMatchString(rootPrefix, rootPrefixSize, s))
       return;
-    s = strings::UniString(s.begin() + rootPrefixSize, s.end());
-  }
 
   stack<search::TrieIterator *> trieQueue;
   {
     size_t symbolsMatched = 0;
-    search::TrieIterator * const pRootIter = MoveTrieIteratorToString(trieRoot, s, symbolsMatched);
+    bool bFullEdgeMatched;
+    search::TrieIterator * const pRootIter =
+        MoveTrieIteratorToString(trieRoot, s, symbolsMatched, bFullEdgeMatched);
+
+    UNUSED_VALUE(symbolsMatched);
+    UNUSED_VALUE(bFullEdgeMatched);
+
     if (!pRootIter)
       return;
+
     trieQueue.push(pRootIter);
   }
 
@@ -113,8 +142,10 @@ void PrefixMatchInTrie(TrieIterator const & trieRoot,
   {
     scoped_ptr<search::TrieIterator> pIter(trieQueue.top());
     trieQueue.pop();
+
     for (size_t i = 0; i < pIter->m_value.size(); ++i)
       f(pIter->m_value[i]);
+
     for (size_t i = 0; i < pIter->m_edge.size(); ++i)
         trieQueue.push(pIter->GoToEdge(i));
   }
@@ -213,6 +244,9 @@ void MatchFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
                          FilterT const & filter,
                          ToDo & toDo)
 {
+  //LOG(LDEBUG, ("Tokens: ", tokens));
+  //LOG(LDEBUG, ("Prefix: ", prefixTokens));
+
   impl::OffsetIntersecter<FilterT> intersecter(filter);
 
   // Match tokens.
@@ -250,6 +284,5 @@ void MatchFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
 
   intersecter.ForEachResult(toDo);
 }
-
 
 }  // namespace search
