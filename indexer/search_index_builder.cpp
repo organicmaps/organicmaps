@@ -209,14 +209,15 @@ class FeatureInserter
   public:
     AvoidEmptyName()
     {
-      char const * arr1[][1] = { { "highway" }, { "natural" }, { "waterway"} };
+      char const * arr1[][1] = { { "highway" }, { "natural" }, { "waterway"}, { "landuse" } };
 
       char const * arr2[][2] = {
         { "place", "city" },
         { "place", "town" },
         { "place", "county" },
         { "place", "state" },
-        { "place", "region" }
+        { "place", "region" },
+        { "railway", "rail" }
       };
 
       FillMatch(arr1);

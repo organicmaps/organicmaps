@@ -103,7 +103,7 @@ de:tankstelle|tankstation
 fr:station-service
 it:aree-di-servizio
 
-amenity-grave_yard
+amenity-grave_yard|natural-cemetery
 en:grave-yard
 ru:кладбище
 de:friedhof
@@ -310,7 +310,6 @@ de:region|raum
 fr:région
 it:regione|area
 
-
 place-farm
 en:farm
 ru:ферма
@@ -318,14 +317,18 @@ de:bauernhof
 fr:ferme
 it:fattoria|allevamento
 
-waterway-river|waterway-stream
+waterway-river|waterway-stream|waterway-riverbank
 en:river
 ru:река
 de:fluss|strom
 fr:rivière|fleuve
 it:fiume
 
-highway-primary|highway-residential|highway-secondary|highway-tertiary|highway-service|highway-road|highway-track|highway-trunk|highway-living_street|highway-pedestrian
+waterway-canal
+en:canal
+ru:канал
+
+highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-service_link|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-pedestrian
 en:street
 ru:улица|переулок|проезд|тракт|проспект
 de:strasse|weg|avenue|gasse
@@ -353,11 +356,31 @@ de:berg|gebirge|gipfel|spitze|pik
 fr:mont|montagne|sommet|pic
 it:monte|montagna|cima|picco
 
-natural-water|natural-pond|natural-lake
+natural-water|landuse-basin|landuse-reservoir
 en:water
-ru:водоем
+ru:водоём
 
-leisure-park|leisure-garden
+natural-pond
+en:pond|water
+ru:пруд|водоём
+
+natural-lake
+en:lake|water
+ru:озеро|водоём
+
+natural-forest|natural-wood|landuse-forest|landuse-wood
+en:forest
+ru:лес
+
+natural-bay
+en:bay
+ru:залив
+
+natural-spring
+en:spring
+ru:источник
+
+leisure-park|leisure-garden|leisure-park
 en:park|garden
 ru:парк|сад
 de:park|garten
@@ -394,12 +417,24 @@ it:negozio
 
 aeroway-airport|aeroway-aerodrome
 en:3airport|3plane
-ru:3аэропорт
+ru:3аэропорт|4самолёт
 
 railway-station
 en:railway-station|3train
 ru:ж/д-станция|3поезд
 
+railway-rail
+en:railway
+ru:ж/д
+
+railway-subway_entrance
+en:subway
+ru:метро
+
 tourism-attraction|tourism-viewpoint|tourism-information
 en:4sightseeing
 ru:4достопримечательность
+
+leisure-sport|leisure-stadium|leisure-playground|leisure-sports_centre|leisure-golf_course|leisure-pitch|leisure-swimming_pool|sport-soccer|sport-tennis|sport-baseball|sport-swimming|sport-basketball|sport-athletics
+en:4playground
+ru:4спортплощадка
