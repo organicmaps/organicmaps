@@ -90,6 +90,8 @@ namespace tools
       bool m_overflowDetected;
       void markOverflow();
 
+      void renderIcon(string const & svgFile, string const & pngFile, QSize const & size);
+
   public:
 
       SkinGenerator();

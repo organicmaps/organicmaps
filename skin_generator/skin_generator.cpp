@@ -246,29 +246,33 @@ namespace tools
           size.setHeight(searchIconHeight);
         }
 
-        gil::bgra8_image_t gilImage(size.width(), size.height());
-        gil::fill_pixels(gil::view(gilImage), gil::rgba8_pixel_t(0, 0, 0, 0));
-        QImage img((uchar*)&gil::view(gilImage)(0, 0), size.width(), size.height(), QImage::Format_ARGB32);
-        QPainter painter(&img);
+        renderIcon(symbolsDir + "/" + icon + ".svg",
+                   searchIconsPath + "/" + category + ".png",
+                   size);
 
-        m_svgRenderer.render(&painter, QRect(0, 0, size.width(), size.height()));
-
-        img.save((searchIconsPath + "/" + category + ".png").c_str());
-
-        {
-          size *= 2;
-          gil::bgra8_image_t gilImage(size.width(), size.height());
-          gil::fill_pixels(gil::view(gilImage), gil::rgba8_pixel_t(0, 0, 0, 0));
-          QImage img((uchar*)&gil::view(gilImage)(0, 0), size.width(), size.height(), QImage::Format_ARGB32);
-          QPainter painter(&img);
-
-          m_svgRenderer.render(&painter, QRect(0, 0, size.width(), size.height()));
-          img.save((searchIconsPath + "/" + category + "@2x.png").c_str());
-        }
+        renderIcon(symbolsDir + "/" + icon + ".svg",
+                   searchIconsPath + "/" + category + "@2x.png",
+                   size * 2);
       }
       else
         LOG(LERROR, ("hasn't found icon", icon, "for category", category));
     };
+  }
+
+  void SkinGenerator::renderIcon(string const & svgFile,
+                                 string const & pngFile,
+                                 QSize const & size)
+  {
+    if (m_svgRenderer.load(QString(svgFile.c_str())))
+    {
+      gil::bgra8_image_t gilImage(size.width(), size.height());
+      gil::fill_pixels(gil::view(gilImage), gil::rgba8_pixel_t(0, 0, 0, 0));
+      QImage img((uchar*)&gil::view(gilImage)(0, 0), size.width(), size.height(), QImage::Format_ARGB32);
+      QPainter painter(&img);
+
+      m_svgRenderer.render(&painter, QRect(0, 0, size.width(), size.height()));
+      img.save(pngFile.c_str());
+    }
   }
 
   void SkinGenerator::processSymbols(string const & svgDataDir,
