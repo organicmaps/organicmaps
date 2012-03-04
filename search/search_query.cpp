@@ -4,6 +4,8 @@
 #include "latlon_match.hpp"
 #include "search_common.hpp"
 
+#include "../storage/country_info.hpp"
+
 #include "../indexer/feature_covering.hpp"
 #include "../indexer/features_vector.hpp"
 #include "../indexer/index.hpp"
@@ -27,10 +29,32 @@
 namespace search
 {
 
+namespace
+{
+  typedef bool (*CompareFunctionT1) (impl::PreResult1 const &, impl::PreResult1 const &);
+  typedef bool (*CompareFunctionT2) (impl::PreResult2 const &, impl::PreResult2 const &);
+
+  CompareFunctionT1 g_arrCompare1[] =
+  {
+    &impl::PreResult1::LessRank,
+    &impl::PreResult1::LessViewportDistance,
+    &impl::PreResult1::LessDistance
+  };
+
+  CompareFunctionT2 g_arrCompare2[] =
+  {
+    &impl::PreResult2::LessRank,
+    &impl::PreResult2::LessViewportDistance,
+    &impl::PreResult2::LessDistance
+  };
+}
+
+
 Query::Query(Index const * pIndex,
              CategoriesHolder const * pCategories,
              StringsToSuggestVectorT const * pStringsToSuggest,
-             storage::CountryInfoGetter const * pInfoGetter)
+             storage::CountryInfoGetter const * pInfoGetter,
+             size_t resultsNeeded /*= 10*/)
   : m_pIndex(pIndex),
     m_pCategories(pCategories),
     m_pStringsToSuggest(pStringsToSuggest),
@@ -43,6 +67,16 @@ Query::Query(Index const * pIndex,
   ASSERT ( m_pIndex, () );
 
   SetPreferredLanguage("en");
+
+  // Results queue's initialization.
+  STATIC_ASSERT ( m_qCount == ARRAY_SIZE(g_arrCompare1) );
+  STATIC_ASSERT ( m_qCount == ARRAY_SIZE(g_arrCompare2) );
+
+  for (size_t i = 0; i < m_qCount; ++i)
+  {
+    m_results[i] = QueueT(2 * resultsNeeded, QueueCompareT(g_arrCompare1[i]));
+    m_results[i].reserve(2 * resultsNeeded);
+  }
 }
 
 Query::~Query()
@@ -163,26 +197,6 @@ void Query::UpdateViewportOffsets(MWMVectorT const & mwmInfo, m2::RectD const & 
 #endif
 }
 
-namespace
-{
-  typedef bool (*CompareFunctionT1) (impl::PreResult1 const &, impl::PreResult1 const &);
-  typedef bool (*CompareFunctionT2) (impl::PreResult2 const &, impl::PreResult2 const &);
-
-  CompareFunctionT1 g_arrCompare1[] =
-  {
-    &impl::PreResult1::LessRank,
-    &impl::PreResult1::LessViewportDistance,
-    &impl::PreResult1::LessDistance
-  };
-
-  CompareFunctionT2 g_arrCompare2[] =
-  {
-    &impl::PreResult2::LessRank,
-    &impl::PreResult2::LessViewportDistance,
-    &impl::PreResult2::LessDistance
-  };
-}
-
 void Query::InitSearch(string const & query)
 {
   m_cancel = false;
@@ -204,6 +218,12 @@ void Query::InitKeywordsScorer()
                                                  m_tokens.data(), m_tokens.size(), &m_prefix));
 }
 
+void Query::ClearQueues()
+{
+  for (size_t i = 0; i < m_qCount; ++i)
+    m_results[i].clear();
+}
+
 void Query::Search(string const & query, Results & res, unsigned int resultsNeeded)
 {
   // Initialize.
@@ -223,15 +243,7 @@ void Query::Search(string const & query, Results & res, unsigned int resultsNeed
 
   InitKeywordsScorer();
 
-  // Results queue's initialization.
-  STATIC_ASSERT ( m_qCount == ARRAY_SIZE(g_arrCompare1) );
-  STATIC_ASSERT ( m_qCount == ARRAY_SIZE(g_arrCompare2) );
-
-  for (size_t i = 0; i < m_qCount; ++i)
-  {
-    m_results[i] = QueueT(2 * resultsNeeded, QueueCompareT(g_arrCompare1[i]));
-    m_results[i].reserve(2 * resultsNeeded);
-  }
+  ClearQueues();
 
   // Match (lat, lon).
   {
@@ -605,6 +617,7 @@ typedef vector<strings::UniString> TokensVectorT;
 class DoInsertTypeNames
 {
   TokensVectorT & m_tokens;
+
 public:
   DoInsertTypeNames(TokensVectorT & tokens) : m_tokens(tokens) {}
   void operator() (uint32_t t)
@@ -615,43 +628,45 @@ public:
 
 }  // namespace search::impl
 
-void Query::SearchFeatures()
+Query::Params::Params(Query & q)
 {
-  TokensVectorT prefixTokens;
-  if (!m_prefix.empty())
-    prefixTokens.push_back(m_prefix);
+  if (!q.m_prefix.empty())
+    m_prefixTokens.push_back(q.m_prefix);
 
-  size_t const tokensCount = m_tokens.size();
-  vector<TokensVectorT> tokens(tokensCount);
+  size_t const tokensCount = q.m_tokens.size();
+  m_tokens.resize(tokensCount);
 
   // Add normal tokens.
   for (size_t i = 0; i < tokensCount; ++i)
-    tokens[i].push_back(m_tokens[i]);
+    m_tokens[i].push_back(q.m_tokens[i]);
 
   // Add names of categories.
-  if (m_pCategories)
+  if (q.m_pCategories)
   {
     for (size_t i = 0; i < tokensCount; ++i)
-      m_pCategories->ForEachTypeByName(m_tokens[i], DoInsertTypeNames(tokens[i]));
+      q.m_pCategories->ForEachTypeByName(q.m_tokens[i], DoInsertTypeNames(m_tokens[i]));
 
-    if (!m_prefix.empty())
-      m_pCategories->ForEachTypeByName(m_prefix, DoInsertTypeNames(prefixTokens));
+    if (!q.m_prefix.empty())
+      q.m_pCategories->ForEachTypeByName(q.m_prefix, DoInsertTypeNames(m_prefixTokens));
   }
 
+  m_langs.insert(q.m_currentLang);
+  m_langs.insert(q.m_inputLang);
+  m_langs.insert(StringUtf8Multilang::GetLangIndex("int_name"));
+  m_langs.insert(StringUtf8Multilang::GetLangIndex("en"));
+  m_langs.insert(StringUtf8Multilang::GetLangIndex("default"));
+}
+
+void Query::SearchFeatures()
+{
   MWMVectorT mwmInfo;
   m_pIndex->GetMwmInfo(mwmInfo);
 
-  unordered_set<int8_t> langs;
-  langs.insert(m_currentLang);
-  langs.insert(m_inputLang);
-  langs.insert(StringUtf8Multilang::GetLangIndex("int_name"));
-  langs.insert(StringUtf8Multilang::GetLangIndex("en"));
-  langs.insert(StringUtf8Multilang::GetLangIndex("default"));
-
+  Params params(*this);
   for (size_t i = 0; i < RECTSCOUNT; ++i)
   {
     if (m_viewport[i].IsValid())
-      SearchFeatures(tokens, prefixTokens, mwmInfo, langs, i);
+      SearchFeatures(params, mwmInfo, i);
   }
 }
 
@@ -659,30 +674,28 @@ namespace
 {
   class FeaturesFilter
   {
-    vector<uint32_t> const & m_offsets;
-    bool m_alwaysTrue;
+    vector<uint32_t> const * m_offsets;
 
-    volatile bool & m_isCancel;
+    volatile bool & m_isCancelled;
   public:
-    FeaturesFilter(vector<uint32_t> const & offsets, bool alwaysTrue, volatile bool & isCancel)
-      : m_offsets(offsets), m_alwaysTrue(alwaysTrue), m_isCancel(isCancel)
+    FeaturesFilter(vector<uint32_t> const * offsets, volatile bool & isCancelled)
+      : m_offsets(offsets), m_isCancelled(isCancelled)
     {
     }
 
     bool operator() (uint32_t offset) const
     {
-      if (m_isCancel)
+      if (m_isCancelled)
         throw Query::CancelException();
 
-      return (m_alwaysTrue || binary_search(m_offsets.begin(), m_offsets.end(), offset));
+      return (m_offsets == 0 ||
+              binary_search(m_offsets->begin(), m_offsets->end(), offset));
     }
   };
 }
 
-void Query::SearchFeatures(vector<TokensVectorT> const & tokens,
-                           TokensVectorT const & prefixTokens,
+void Query::SearchFeatures(Params const & params,
                            MWMVectorT const & mwmInfo,
-                           unordered_set<int8_t> const & langs,
                            size_t ind)
 {
   for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
@@ -691,67 +704,75 @@ void Query::SearchFeatures(vector<TokensVectorT> const & tokens,
     if (m_viewport[ind].IsIntersect(mwmInfo[mwmId].m_limitRect))
     {
       Index::MwmLock mwmLock(*m_pIndex, mwmId);
-      if (MwmValue * pMwm = mwmLock.GetValue())
+      SearchInMWM(mwmLock, params, &m_offsetsInViewport[ind]);
+    }
+  }
+}
+
+void Query::SearchInMWM(Index::MwmLock const & mwmLock, Params const & params,
+                        OffsetsVectorT const * offsets)
+{
+  if (MwmValue * pMwm = mwmLock.GetValue())
+  {
+    if (pMwm->m_cont.IsReaderExist(SEARCH_INDEX_FILE_TAG))
+    {
+      feature::DataHeader const & header = pMwm->GetHeader();
+      bool const isWorld = (header.GetType() == feature::DataHeader::world);
+
+      if (isWorld && !m_worldSearch)
+        return;
+
+      serial::CodingParams cp(GetCPForTrie(header.GetDefCodingParams()));
+
+      ModelReaderPtr searchReader = pMwm->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
+      scoped_ptr<TrieIterator> pTrieRoot(::trie::reader::ReadTrie(
+                                         SubReaderWrapper<Reader>(searchReader.GetPtr()),
+                                         trie::ValueReader(cp),
+                                         trie::EdgeValueReader()));
+
+      // Get categories edge root.
+      scoped_ptr<TrieIterator> pCategoriesRoot;
+      TrieIterator::Edge::EdgeStrT categoriesEdge;
+
+      size_t const count = pTrieRoot->m_edge.size();
+      for (size_t i = 0; i < count; ++i)
       {
-        if (pMwm->m_cont.IsReaderExist(SEARCH_INDEX_FILE_TAG))
+        TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
+        ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
+
+        if (edge[0] == search::CATEGORIES_LANG)
         {
-          feature::DataHeader const & header = pMwm->GetHeader();
-          bool const isWorld = (header.GetType() == feature::DataHeader::world);
+          categoriesEdge = edge;
+          pCategoriesRoot.reset(pTrieRoot->GoToEdge(i));
+          break;
+        }
+      }
+      ASSERT_NOT_EQUAL(pCategoriesRoot, 0, ());
 
-          if (isWorld && !m_worldSearch)
-            continue;
+      MwmSet::MwmId const mwmId = mwmLock.GetID();
+      impl::FeatureLoader emitter(*this, mwmId);
 
-          serial::CodingParams cp(GetCPForTrie(header.GetDefCodingParams()));
+      // Iterate through first language edges.
+      for (size_t i = 0; i < count; ++i)
+      {
+        TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
+        if (edge[0] < search::CATEGORIES_LANG && params.m_langs.count(static_cast<int8_t>(edge[0])))
+        {
+          scoped_ptr<TrieIterator> pLangRoot(pTrieRoot->GoToEdge(i));
 
-          ModelReaderPtr searchReader = pMwm->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
-          scoped_ptr<TrieIterator> pTrieRoot(::trie::reader::ReadTrie(
-                                             SubReaderWrapper<Reader>(searchReader.GetPtr()),
-                                             trie::ValueReader(cp),
-                                             trie::EdgeValueReader()));
+          MatchFeaturesInTrie(params.m_tokens, params.m_prefixTokens,
+                              TrieRootPrefix(*pLangRoot, edge),
+                              TrieRootPrefix(*pCategoriesRoot, categoriesEdge),
+                              FeaturesFilter((isWorld || offsets == 0) ? 0 : &((*offsets)[mwmId]),
+                                             m_cancel),
+                              emitter);
 
-          // Get categories edge root.
-          scoped_ptr<TrieIterator> pCategoriesRoot;
-          TrieIterator::Edge::EdgeStrT categoriesEdge;
+          LOG(LDEBUG, ("Lang:",
+                       StringUtf8Multilang::GetLangByCode(static_cast<int8_t>(edge[0])),
+                       "Matched: ",
+                       emitter.GetCount()));
 
-          size_t const count = pTrieRoot->m_edge.size();
-          for (size_t i = 0; i < count; ++i)
-          {
-            TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
-            ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
-
-            if (edge[0] == search::CATEGORIES_LANG)
-            {
-              categoriesEdge = edge;
-              pCategoriesRoot.reset(pTrieRoot->GoToEdge(i));
-              break;
-            }
-          }
-          ASSERT_NOT_EQUAL(pCategoriesRoot, 0, ());
-
-          impl::FeatureLoader emitter(*this, mwmId);
-
-          // Iterate through first language edges.
-          for (size_t i = 0; i < count; ++i)
-          {
-            TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
-            if (edge[0] < search::CATEGORIES_LANG && langs.count(static_cast<int8_t>(edge[0])))
-            {
-              scoped_ptr<TrieIterator> pLangRoot(pTrieRoot->GoToEdge(i));
-
-              MatchFeaturesInTrie(tokens, prefixTokens,
-                                  TrieRootPrefix(*pLangRoot, edge),
-                                  TrieRootPrefix(*pCategoriesRoot, categoriesEdge),
-                                  FeaturesFilter(m_offsetsInViewport[ind][mwmId], isWorld, m_cancel),
-                                  emitter);
-
-              LOG(LDEBUG, ("Lang:",
-                           StringUtf8Multilang::GetLangByCode(static_cast<int8_t>(edge[0])),
-                           "Matched: ",
-                           emitter.GetCount()));
-
-              emitter.Reset();
-            }
-          }
+          emitter.Reset();
         }
       }
     }
@@ -861,6 +882,42 @@ void Query::SearchAllInViewport(m2::RectD const & viewport, Results & res, unsig
   }
 
   for_each(indV.begin(), indV.end(), DeleteFunctor());
+}
+
+void Query::SearchAdditional(Results & res)
+{
+  string name[2];
+
+  // search in mwm with position ...
+  if (m_position.x > empty_pos_value && m_position.y > empty_pos_value)
+    name[0] = m_pInfoGetter->GetRegionFile(m_position);
+
+  // ... and in mwm with viewport
+  name[1] = m_pInfoGetter->GetRegionFile(GetViewport().Center());
+
+  LOG(LDEBUG, ("Additional MWM search: ", name[0], name[1]));
+
+  if (!(name[0].empty() && name[1].empty()))
+  {
+    MWMVectorT mwmInfo;
+    m_pIndex->GetMwmInfo(mwmInfo);
+
+    Params params(*this);
+
+    for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
+    {
+      Index::MwmLock mwmLock(*m_pIndex, mwmId);
+      string const s = mwmLock.GetCountryName();
+
+      if (s == name[0] || s == name[1])
+      {
+        ClearQueues();
+        SearchInMWM(mwmLock, params, 0);
+      }
+    }
+
+    FlushResults(res);
+  }
 }
 
 }  // namespace search

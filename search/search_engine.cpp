@@ -77,7 +77,8 @@ Engine::Engine(IndexType const * pIndex, Reader * pCategoriesR,
   m_pQuery.reset(new Query(pIndex,
                            &m_pData->m_categories,
                            &m_pData->m_stringsToSuggest,
-                           &m_pData->m_infoGetter));
+                           &m_pData->m_infoGetter,
+                           RESULTS_COUNT));
   m_pQuery->SetPreferredLanguage(lang);
 }
 
@@ -218,9 +219,9 @@ void Engine::SearchAsync()
         for (size_t i = 0; i < ARRAY_SIZE(arrR); ++i)
         {
           res.Clear();
-          m_pQuery->SearchAllInViewport(GetViewportRect(params.m_lat, params.m_lon, arrR[i]), res, 30);
+          m_pQuery->SearchAllInViewport(GetViewportRect(params.m_lat, params.m_lon, arrR[i]), res, 3*RESULTS_COUNT);
 
-          if (m_pQuery->IsCanceled() || res.Count() >= 25)
+          if (m_pQuery->IsCanceled() || res.Count() >= 2*RESULTS_COUNT)
             break;
         }
       }
@@ -234,6 +235,20 @@ void Engine::SearchAsync()
 
   // Emit results in any way, even if search was canceled.
   params.m_callback(res);
+
+  // Make additional search in whole mwm when not enough results.
+  if (!m_pQuery->IsCanceled() && res.Count() < RESULTS_COUNT)
+  {
+    try
+    {
+      m_pQuery->SearchAdditional(res);
+    }
+    catch (Query::CancelException const &)
+    {
+    }
+
+    params.m_callback(res);
+  }
 }
 
 string Engine::GetCountryFile(m2::PointD const & pt) const

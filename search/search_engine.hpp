@@ -44,6 +44,8 @@ public:
   string GetCountryCode(m2::PointD const & pt) const;
 
 private:
+  static const int RESULTS_COUNT = 10;
+
   void SetViewportAsync(m2::RectD const & viewport, m2::RectD const & nearby);
   void SearchAsync();
 

@@ -2,6 +2,7 @@
 #include "intermediate_result.hpp"
 
 #include "../indexer/search_trie.hpp"
+#include "../indexer/index.hpp"   // for Index::MwmLock
 
 #include "../geometry/rect2d.hpp"
 
@@ -17,8 +18,8 @@
 
 
 class FeatureType;
-class Index;
-class MwmInfo;
+//class Index;
+//class MwmInfo;
 class CategoriesHolder;
 
 namespace storage { class CountryInfoGetter; }
@@ -46,7 +47,8 @@ public:
   Query(Index const * pIndex,
         CategoriesHolder const * pCategories,
         StringsToSuggestVectorT const * pStringsToSuggest,
-        storage::CountryInfoGetter const * pInfoGetter);
+        storage::CountryInfoGetter const * pInfoGetter,
+        size_t resultsNeeded = 10);
   ~Query();
 
   void SetViewport(m2::RectD viewport[], size_t count);
@@ -62,6 +64,7 @@ public:
 
   void Search(string const & query, Results & res, unsigned int resultsNeeded = 10);
   void SearchAllInViewport(m2::RectD const & viewport, Results & res, unsigned int resultsNeeded = 30);
+  void SearchAdditional(Results & res);
 
   void ClearCache();
 
@@ -76,6 +79,7 @@ private:
 
   void InitSearch(string const & query);
   void InitKeywordsScorer();
+  void ClearQueues();
 
   typedef vector<MwmInfo> MWMVectorT;
   typedef vector<vector<uint32_t> > OffsetsVectorT;
@@ -89,12 +93,25 @@ private:
 
   void FlushResults(Results & res);
 
+  struct Params
+  {
+    typedef vector<strings::UniString> TokensVectorT;
+    typedef unordered_set<int8_t> LangsSetT;
+
+    vector<TokensVectorT> m_tokens;
+    TokensVectorT m_prefixTokens;
+    LangsSetT m_langs;
+
+    Params(Query & q);
+  };
+
   void SearchFeatures();
-  void SearchFeatures(vector<vector<strings::UniString> > const & tokens,
-                      vector<strings::UniString> const & prefixTokens,
+  void SearchFeatures(Params const & params,
                       MWMVectorT const & mwmInfo,
-                      unordered_set<int8_t> const & langs,
                       size_t ind);
+  void SearchInMWM(Index::MwmLock const & mwmLock,
+                   Params const & params,
+                   OffsetsVectorT const * offsets);
 
   void SuggestStrings(Results & res);
   void MatchForSuggestions(strings::UniString const & token, Results & res);
