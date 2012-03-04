@@ -450,7 +450,7 @@ namespace qt
   {
     if (m_framework->GetCurrentPosition(params.m_lat, params.m_lon))
     {
-      params.SetNearMeMode(true);
+      //params.SetNearMeMode(true);
       params.m_validPos = true;
     }
 
