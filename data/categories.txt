@@ -49,7 +49,7 @@ it:caffè|ristorante|mangiare|pasto
 
 amenity-car_sharing
 en:car-sharing|3car
-ru:прокат-автомобилей|аренда-машин
+ru:прокат-автомобилей|3машина
 de:autoverleih|auto-mieten|farzeug-mieten
 fr:louage
 it:noleggio-di-automobili
@@ -335,16 +335,20 @@ de:strasse|weg|avenue|gasse
 fr:rue|avenue|reulle
 it:via|strada|corso|vicolo
 
-highway-bus_stop|railway-tram_stop
-en:3bus-stop|transport
-ru:3остановка|3автобус|транспорт
+highway-bus_stop
+en:bus-stop|2bus|stop|4transport
+ru:4остановка|4автобус|4транспорт
 de:haltestelle|bus|autobus
 fr:arrêt|station|bus|autobus
 it:fermata|autobus
 
+railway-tram_stop
+en:tram-stop|3tram|stop|4transport
+ru:4остановка|4трамвай|4транспорт
+
 amenity-bus_station
-en:3bus-station|3bus-stop|3transport
-ru:автостанция|3автобус|3остановка|3транспорт
+en:bus-station|2bus|station|4transport
+ru:автостанция|4автобус|4остановка|4транспорт
 de:bahnhof|haltestelle|bus|autobus
 fr:gare|terminus|arrêt|station|bus|autobus
 it:autostazione|fermata|autobus
@@ -412,8 +416,8 @@ en:3airport|3plane
 ru:3аэропорт|4самолёт
 
 railway-station
-en:railway-station|3train|transport
-ru:ж/д-станция|3поезд|транспорт
+en:railway-station|3train|station|4transport
+ru:ж/д-станция|3поезд|станция|4транспорт
 
 railway-rail
 en:railway
