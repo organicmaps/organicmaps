@@ -465,6 +465,12 @@ namespace qt
     UpdateScaleControl();
   }
 
+  void DrawWidget::CloseSearch()
+  {
+    m_framework->DisablePlacemark();
+    setFocus();
+  }
+
   void DrawWidget::QueryMaxScaleMode()
   {
     m_framework->XorQueryMaxScaleMode();

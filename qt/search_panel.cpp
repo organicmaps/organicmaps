@@ -217,6 +217,7 @@ void SearchPanel::showEvent(QShowEvent *)
 void SearchPanel::hideEvent(QHideEvent *)
 {
   disconnect(m_pDrawWidget, SIGNAL(ViewportChanged()), this, SLOT(OnViewportChanged()));
+  m_pDrawWidget->CloseSearch();
 }
 
 void SearchPanel::OnViewportChanged()

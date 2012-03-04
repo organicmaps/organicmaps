@@ -443,6 +443,11 @@ void Framework::DrawPlacemark(m2::PointD const & pt)
   m_placemark = pt;
 }
 
+void Framework::DisablePlacemark()
+{
+  m_drawPlacemark = false;
+}
+
 void Framework::MemoryWarning()
 {
   // clearing caches on memory warning.

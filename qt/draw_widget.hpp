@@ -84,6 +84,7 @@ namespace qt
 
     void Search(search::SearchParams params);
     void ShowFeature(m2::RectD const & rect, m2::PointD const & pt);
+    void CloseSearch();
 
     void SaveState();
     /// @return false if can't load previously saved values
