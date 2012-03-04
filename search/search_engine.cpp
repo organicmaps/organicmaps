@@ -68,7 +68,9 @@ public:
 Engine::Engine(IndexType const * pIndex, Reader * pCategoriesR,
                ModelReaderPtr polyR, ModelReaderPtr countryR,
                string const & lang)
-  : m_pIndex(pIndex), m_pData(new EngineData(pCategoriesR, polyR, countryR))
+  : m_readyThread(false),
+    m_pIndex(pIndex),
+    m_pData(new EngineData(pCategoriesR, polyR, countryR))
 {
   InitSuggestions doInit;
   m_pData->m_categories.ForEachName(bind<void>(ref(doInit), _1));
