@@ -62,6 +62,30 @@ template <class T> bool LessViewportDistanceT(T const & r1, T const & r2)
   return (r1.m_distanceFromViewportCenter < r2.m_distanceFromViewportCenter);
 }
 
+template <class T> bool LessRankT(T const & r1, T const & r2)
+{
+  if (r1.m_rank != r2.m_rank)
+    return (r1.m_rank > r2.m_rank);
+
+  if (r1.m_viewportDistance != r2.m_viewportDistance)
+    return (r1.m_viewportDistance < r2.m_viewportDistance);
+
+  if (r1.m_distance != r2.m_distance)
+    return (r1.m_distance < r2.m_distance);
+
+  return (r1.m_distanceFromViewportCenter < r2.m_distanceFromViewportCenter);
+}
+
+template <class T> bool LessDistanceT(T const & r1, T const & r2)
+{
+  if (r1.m_distance != r2.m_distance)
+    return (r1.m_distance < r2.m_distance);
+
+  if (r1.m_rank != r2.m_rank)
+    return (r1.m_rank > r2.m_rank);
+
+  return (r1.m_distanceFromViewportCenter < r2.m_distanceFromViewportCenter);
+}
 
 PreResult1::PreResult1(uint32_t fID, uint8_t rank, m2::PointD const & center, size_t mwmID,
                        m2::PointD const & pos, m2::RectD const & viewport)
@@ -95,12 +119,12 @@ void PreResult1::CalcParams(m2::RectD const & viewport, m2::PointD const & pos)
 
 bool PreResult1::LessRank(PreResult1 const & r1, PreResult1 const & r2)
 {
-  return (r1.m_rank > r2.m_rank);
+  return LessRankT(r1, r2);
 }
 
 bool PreResult1::LessDistance(PreResult1 const & r1, PreResult1 const & r2)
 {
-  return (r1.m_distance < r2.m_distance);
+  return LessDistanceT(r1, r2);
 }
 
 bool PreResult1::LessViewportDistance(PreResult1 const & r1, PreResult1 const & r2)
@@ -229,12 +253,12 @@ Result PreResult2::GenerateFinalResult(
 
 bool PreResult2::LessRank(PreResult2 const & r1, PreResult2 const & r2)
 {
-  return (r1.m_rank > r2.m_rank);
+  return LessRankT(r1, r2);
 }
 
 bool PreResult2::LessDistance(PreResult2 const & r1, PreResult2 const & r2)
 {
-  return (r1.m_distance < r2.m_distance);
+  return LessDistanceT(r1, r2);
 }
 
 bool PreResult2::LessViewportDistance(PreResult2 const & r1, PreResult2 const & r2)

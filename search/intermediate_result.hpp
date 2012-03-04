@@ -23,13 +23,17 @@ namespace search
 namespace impl
 {
 
+template <class T> bool LessRankT(T const & r1, T const & r2);
 template <class T> bool LessViewportDistanceT(T const & r1, T const & r2);
+template <class T> bool LessDistanceT(T const & r1, T const & r2);
 
 /// First results class. Objects are creating during search in trie.
 class PreResult1
 {
   friend class PreResult2;
+  template <class T> friend bool LessRankT(T const & r1, T const & r2);
   template <class T> friend bool LessViewportDistanceT(T const & r1, T const & r2);
+  template <class T> friend bool LessDistanceT(T const & r1, T const & r2);
 
   m2::PointD m_center;
   double m_distance, m_distanceFromViewportCenter;
@@ -106,7 +110,9 @@ public:
   string DebugPrint() const;
 
 private:
+  template <class T> friend bool LessRankT(T const & r1, T const & r2);
   template <class T> friend bool LessViewportDistanceT(T const & r1, T const & r2);
+  template <class T> friend bool LessDistanceT(T const & r1, T const & r2);
 
   string GetFeatureType(CategoriesHolder const * pCat, int8_t lang) const;
   m2::RectD GetFinalViewport() const;
