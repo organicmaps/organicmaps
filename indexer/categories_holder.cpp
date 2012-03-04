@@ -45,7 +45,7 @@ void CategoriesHolder::AddCategory(Category & cat, vector<uint32_t> & types)
       StringT const uniName = search::NormalizeAndSimplifyString(p->m_synonyms[i].m_name);
 
       vector<StringT> tokens;
-      SplitUniString(uniName, MakeBackInsertFunctor(tokens), search::CategoryDelimiters());
+      SplitUniString(uniName, MakeBackInsertFunctor(tokens), search::Delimiters());
 
       for (size_t j = 0; j < tokens.size(); ++j)
         for (size_t k = 0; k < types.size(); ++k)

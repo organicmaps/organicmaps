@@ -9,10 +9,4 @@ namespace search
   public:
     bool operator()(strings::UniChar c) const;
   };
-
-  class CategoryDelimiters : public Delimiters
-  {
-  public:
-    bool operator()(strings::UniChar c) const;
-  };
 }
