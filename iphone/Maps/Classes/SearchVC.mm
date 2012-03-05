@@ -290,6 +290,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 
 - (void)onCloseButton:(id)sender
 {
+  m_framework->DisablePlacemark();
   [self dismissModalViewControllerAnimated:YES];
 }
 //*********** End of SearchBar handlers *************************************
@@ -492,7 +493,8 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
     case search::Result::RESULT_FEATURE:
       m_framework->ShowRect(res.GetFeatureRect());
       m_framework->DrawPlacemark(res.GetFeatureCenter());
-      [self onCloseButton:nil];
+      // Same as "Close" button but do not disable placemark
+      [self dismissModalViewControllerAnimated:YES];
       break;
 
     case search::Result::RESULT_SUGGESTION:
