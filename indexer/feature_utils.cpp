@@ -86,7 +86,9 @@ public:
       scale = min(scale, GetScaleForType(types[i]));
 
     CorrectScaleForVisibility(types, scale);
-    return scales::GetRectForLevel(scale - 0.5, limitRect.Center(), 1.0);
+
+    /// @todo 0.15 - is dummy constant to fix bug in iPad viewport.
+    return scales::GetRectForLevel(scale - 0.15, limitRect.Center(), 1.0);
   }
 
   uint8_t GetSearchRank(TypesHolder const & types, m2::PointD const & pt, uint32_t population) const
