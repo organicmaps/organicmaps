@@ -206,9 +206,12 @@ class FeatureInserter
       }
     }
 
+    vector<uint32_t> m_skip;
+
   public:
     AvoidEmptyName()
     {
+      // Get types which not shoud be indexed without names.
       char const * arr1[][1] = { { "highway" }, { "natural" }, { "waterway"}, { "landuse" } };
 
       char const * arr2[][2] = {
@@ -222,9 +225,19 @@ class FeatureInserter
 
       FillMatch(arr1);
       FillMatch(arr2);
+
+      // Get types which shoud be skipped for features without names.
+      char const * arrSkip1[][1] = { { "building" } };
+
+      Classificator const & c = classif();
+      for (size_t i = 0; i < ARRAY_SIZE(arrSkip1); ++i)
+      {
+        vector<string> v(arrSkip1[i], arrSkip1[i] + 1);
+        m_skip.push_back(c.GetTypeByPath(v));
+      }
     }
 
-    bool IsExist(feature::TypesHolder const & types) const
+    bool IsMatch(feature::TypesHolder const & types) const
     {
       for (size_t i = 0; i < types.Size(); ++i)
         for (size_t j = 0; j < ARRAY_SIZE(m_match); ++j)
@@ -237,6 +250,12 @@ class FeatureInserter
         }
 
       return false;
+    }
+
+    void SkipTypes(feature::TypesHolder & types)
+    {
+      for (size_t i = 0; i < m_skip.size(); ++i)
+        types.Remove(m_skip[i]);
     }
   };
 
@@ -261,12 +280,17 @@ public:
     if (!f.ForEachNameRef(inserter))
     {
       static AvoidEmptyName check;
-      if (check.IsExist(types))
+      if (check.IsMatch(types))
       {
-        // Do not add such features without names to suggestion list.
+        // Do not add features without names to index.
         return;
       }
+
+      // Skip types for features without names.
+      check.SkipTypes(types);
     }
+
+    if (types.Empty()) return;
 
     // add names of categories of the feature
     for (size_t i = 0; i < types.Size(); ++i)

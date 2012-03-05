@@ -23,6 +23,16 @@ string TypesHolder::DebugPrint() const
   return s;
 }
 
+void TypesHolder::Remove(uint32_t t)
+{
+  if (m_size > 0)
+  {
+    uint32_t * e = m_types + m_size;
+    if (std::remove(m_types, e, t) != e)
+      --m_size;
+  }
+}
+
 void FeatureParamsBase::MakeZero()
 {
   layer = 0;

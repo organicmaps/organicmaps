@@ -67,6 +67,7 @@ namespace feature
     //@{
     inline EGeomType GetGeoType() const { return m_geoType; }
 
+    inline bool Empty() const { return (m_size == 0); }
     inline size_t Size() const { return m_size; }
     inline uint32_t operator[] (size_t i) const
     {
@@ -84,6 +85,8 @@ namespace feature
       uint32_t const * e = m_types + m_size;
       return (find(m_types, e, t) != e);
     }
+
+    void Remove(uint32_t t);
     //@}
 
     string DebugPrint() const;
