@@ -2,6 +2,8 @@
 
 #include "robust_orientation.hpp"
 
+#include "../base/macros.hpp"
+
 extern "C"
 {
   #include "../3party/robust/predicates.c"
@@ -19,6 +21,7 @@ namespace m2 { namespace robust
   {
     static bool res = Init();
     ASSERT_EQUAL ( res, true, () );
+    UNUSED_VALUE(res);
 
     double a[] = { p1.x, p1.y };
     double b[] = { p2.x, p2.y };
