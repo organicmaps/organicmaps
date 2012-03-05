@@ -373,12 +373,12 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
       {
         cell = [[[SearchSuggestionsCell alloc] initWithReuseIdentifier:@"SuggestionsCell"] autorelease];
         cell.delegate = self;
-        [cell addIcon:[UIImage imageNamed:@"food.png"] withSuggestion:@"food"];
-        [cell addIcon:[UIImage imageNamed:@"money.png"] withSuggestion:@"money"];
-        [cell addIcon:[UIImage imageNamed:@"fuel.png"] withSuggestion:@"fuel"];
-        [cell addIcon:[UIImage imageNamed:@"shop.png"] withSuggestion:@"shop"];
-        [cell addIcon:[UIImage imageNamed:@"transport.png"] withSuggestion:@"transport"];
-        [cell addIcon:[UIImage imageNamed:@"tourism.png"] withSuggestion:@"tourism"];
+        [cell addIcon:[UIImage imageNamed:@"food.png"] withSuggestion:NSLocalizedString(@"food", @"Search Suggestion")];
+        [cell addIcon:[UIImage imageNamed:@"money.png"] withSuggestion:NSLocalizedString(@"money", @"Search Suggestion")];
+        [cell addIcon:[UIImage imageNamed:@"fuel.png"] withSuggestion:NSLocalizedString(@"fuel", @"Search Suggestion")];
+        [cell addIcon:[UIImage imageNamed:@"shop.png"] withSuggestion:NSLocalizedString(@"shop", @"Search Suggestion")];
+        [cell addIcon:[UIImage imageNamed:@"transport.png"] withSuggestion:NSLocalizedString(@"transport", @"Search Suggestion")];
+        [cell addIcon:[UIImage imageNamed:@"tourism.png"] withSuggestion:NSLocalizedString(@"tourism", @"Search Suggestion")];
       }
       return cell;
     }
