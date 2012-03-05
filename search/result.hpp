@@ -43,6 +43,8 @@ public:
   // String to write in the search box.
   char const * GetSuggestionString() const;
 
+  bool operator== (Result const & r) const;
+
 private:
   string m_str, m_region, m_flag, m_type;
   m2::RectD m_featureRect;
@@ -57,6 +59,8 @@ class Results
 
 public:
   inline void AddResult(Result const & r) { m_vec.push_back(r); }
+  void AddResultCheckExisting(Result const & r);
+
   inline void Clear() { m_vec.clear(); }
 
   typedef vector<Result>::const_iterator IterT;

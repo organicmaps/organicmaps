@@ -91,7 +91,7 @@ private:
   typedef trie::ValueReader::ValueType TrieValueT;
   void AddResultFromTrie(TrieValueT const & val, size_t mwmID);
 
-  void FlushResults(Results & res);
+  void FlushResults(Results & res, void (Results::*pAddFn)(Result const &));
 
   struct Params
   {

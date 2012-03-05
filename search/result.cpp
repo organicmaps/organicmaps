@@ -53,4 +53,17 @@ char const * Result::GetSuggestionString() const
   return m_suggestionStr.c_str();
 }
 
+bool Result::operator== (Result const & r) const
+{
+  return (m_str == r.m_str && m_region == r.m_region && m_featureType == r.m_featureType &&
+          GetResultType() == r.GetResultType() &&
+          my::AlmostEqual(m_distanceFromCenter, r.m_distanceFromCenter));
+}
+
+void Results::AddResultCheckExisting(Result const & r)
+{
+  if (find(m_vec.begin(), m_vec.end(), r) == m_vec.end())
+    AddResult(r);
+}
+
 }  // namespace search

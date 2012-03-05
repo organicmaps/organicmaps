@@ -262,7 +262,7 @@ void Query::Search(string const & query, Results & res, unsigned int resultsNeed
   SearchFeatures();
 
   if (m_cancel) return;
-  FlushResults(res);
+  FlushResults(res, &Results::AddResult);
 }
 
 namespace
@@ -453,7 +453,7 @@ namespace impl
   };
 }
 
-void Query::FlushResults(Results & res)
+void Query::FlushResults(Results & res, void (Results::*pAddFn)(Result const &))
 {
   vector<IndexedValue> indV;
 
@@ -507,7 +507,7 @@ void Query::FlushResults(Results & res)
 
     LOG(LDEBUG, (indV[i]));
 
-    res.AddResult(MakeResult(*(indV[i])));
+    (res.*pAddFn)(MakeResult(*(indV[i])));
   }
 }
 
@@ -916,7 +916,7 @@ void Query::SearchAdditional(Results & res)
       }
     }
 
-    FlushResults(res);
+    FlushResults(res, &Results::AddResultCheckExisting);
   }
 }
 
