@@ -14,6 +14,7 @@
 }
 
 @property(nonatomic, assign) id <SearchSuggestionDelegate> delegate;
+@property(nonatomic, retain) UIColor * separatorColor;
 
 - (id)initWithReuseIdentifier:(NSString *)identifier;
 - (void)addIcon:(UIImage *)icon withSuggestion:(NSString *)suggestion;

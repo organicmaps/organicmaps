@@ -3,8 +3,9 @@
 @implementation SearchSuggestionsCell
 
 @synthesize delegate;
+@synthesize separatorColor;
 
-- (CGRect)imageRect:(NSUInteger)imageIndex
+- (CGRect)touchRect:(NSUInteger)imageIndex
 {
   NSUInteger const count = [images count];
   if (imageIndex >= count)
@@ -12,10 +13,7 @@
 
   CGRect const r = self.bounds;
   CGFloat const wBlock = r.size.width/count;
-  CGFloat const yOffset = 10;
-  CGFloat const wIcon = r.size.height - 2 * yOffset;
-  CGFloat const x = r.origin.x + (wBlock - wIcon)/2 + imageIndex * wBlock;
-  return CGRectMake(x, r.origin.y + yOffset, wIcon, wIcon);
+  return CGRectMake(r.origin.x + imageIndex * wBlock, r.origin.y, wBlock, r.size.height);
 }
 
 - (void)gestureTapEvent:(UITapGestureRecognizer *)gesture
@@ -24,7 +22,7 @@
 
   CGPoint pt = [gesture locationInView:gesture.view];
   for (NSUInteger i = 0; i < [images count]; ++i)
-    if (CGRectContainsPoint([self imageRect:i], pt))
+    if (CGRectContainsPoint([self touchRect:i], pt))
     {
       [delegate onSuggestionSelected:[suggestions objectAtIndex:i]];
       break;
@@ -41,6 +39,7 @@
     UITapGestureRecognizer * tapG = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureTapEvent:)] autorelease];
     tapG.delaysTouchesBegan = YES;
     self.userInteractionEnabled = YES;
+    self.separatorColor = [UIColor colorWithRed:224./255. green:224./255. blue:224./255. alpha:1.0];
     [self addGestureRecognizer:tapG];
   }
   return self;
@@ -48,6 +47,7 @@
 
 - (void)dealloc
 {
+  [separatorColor release];
   [images release];
   [suggestions release];
 
@@ -64,9 +64,18 @@
 {
   for (NSUInteger i = 0; i < [images count]; ++i)
   {
-    CGRect const r = [self imageRect:i];
+    CGRect const r = [self touchRect:i];
+    // Draw frame
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetLineWidth(context, 1.0);
+    CGContextSetStrokeColorWithColor(context, separatorColor.CGColor);    
+    CGContextAddRect(context, r);
+    CGContextStrokePath(context);
+    // Draw icon
     UIImage * img = (UIImage *)[images objectAtIndex:i];
-    [img drawInRect:r];
+    CGPoint const pt = CGPointMake(r.origin.x + (r.size.width - img.size.width)/2,
+                                   r.origin.y + (r.size.height - img.size.height)/2);
+    [img drawAtPoint:pt];
   }
 }
 
