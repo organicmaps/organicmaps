@@ -593,7 +593,13 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 // Callback from suggestion cell, called when icon is selected
 - (void)onSuggestionSelected:(NSString *)suggestion
 {
-  m_searchBar.text = [suggestion stringByAppendingString:@" "];
+  NSString * newText = [suggestion stringByAppendingString:@" "];
+  m_searchBar.text = newText;
+  if (![m_searchBar isFirstResponder])
+  {
+    // Manually send text change notification, control has no focus
+    [self searchBar:m_searchBar textDidChange:newText];
+  }
   [m_table reloadData];
 }
 
