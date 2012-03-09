@@ -131,6 +131,18 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   return self;
 }
 
+- (void)hideIndicator
+{
+  [m_indicator stopAnimating];
+  m_searchTextField.leftView = m_originalIndicatorView;
+}
+
+- (void)showIndicator
+{
+  m_searchTextField.leftView = m_indicator;
+  [m_indicator startAnimating];
+}
+
 - (void)fillSearchParams:(search::SearchParams &)params withText:(NSString *)queryString
 {
   params.m_query = [[queryString precomposedStringWithCompatibilityMapping] UTF8String];
@@ -168,6 +180,19 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   m_searchBar.delegate = self;
   m_searchBar.placeholder = NSLocalizedString(@"Search map", @"Search box placeholder text");
   item.titleView = m_searchBar;
+  // Add search in progress indicator
+  for(UIView * v in m_searchBar.subviews)
+  {
+    if ([v isKindOfClass:[UITextField class]])
+    {
+      // Save textField to show/hide activity indicator in it
+      m_searchTextField = (UITextField *)v;
+      m_originalIndicatorView = [m_searchTextField.leftView retain];
+      m_indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+      m_indicator.bounds = m_originalIndicatorView.bounds;
+      break;
+    }
+  }
 
   [navBar pushNavigationItem:item animated:NO];
 
@@ -199,6 +224,8 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 {
   g_searchVC = nil;
   // to correctly free memory
+  [m_indicator release]; m_indicator = nil;
+  [m_originalIndicatorView release]; m_originalIndicatorView = nil;
   [m_searchBar release]; m_searchBar = nil;
   [m_table release]; m_table = nil;
   
@@ -277,6 +304,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   {
     search::SearchParams params;
     [self fillSearchParams:params withText:searchText];
+    [self showIndicator];
     m_framework->Search(params);
   }
   //else
@@ -517,6 +545,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
     [g_lastSearchResults release];
     g_lastSearchResults = [w retain];
     w.m_searchString = m_searchBar.text;
+    [self hideIndicator];
     [m_table reloadData];
   }
 }
@@ -537,6 +566,8 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   {
     search::SearchParams params;
     [self fillSearchParams:params withText:queryString];
+
+    [self showIndicator];
     m_framework->Search(params);
   }
 }
