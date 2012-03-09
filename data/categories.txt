@@ -1,65 +1,200 @@
 amenity-atm
-en:3atm
-ru:3банкомат
-de:geldautomat|bankomat
-fr:bancomat
-it:bancomat
+en:3atm|money
+ru:3банкомат|деньги
+de:3geldautomat|bankomat|Geld
+fr:3bancomat|argent
+it:3bancomat|soldi
+es:3atm|dinero
 
 amenity-bank
-en:3bank
-ru:3банк
-de:bank
-fr:banque
-it:banca
+en:3bank|money
+ru:3банк|деньги
+de:3bank|Geld
+fr:3banque|argent
+it:3banca|soldi
+es:3banco|dinero
+
+amenity-bureau_de_change
+en:3currency exchange|3exchange|money
+ru:4обмен валюты|обменник|4валюта|деньги
+de:3geldwechselstelle|Geld
+fr:3change|devises|argent
+it:3cambio valute|valuta|soldi
+es:3cambio de devisas|dinero
 
 amenity-bar|amenity-pub
-en:3bar|3pub|beer
-ru:3бар|3паб|пиво
-de:bar|pub|bier
-fr:bar|bière|pub
-it:bar|birra|pub
+en:3bar|3pub|beer|drink|food
+ru:3бар|3паб|пиво|выпить|еда
+de:3bar|3pub|bier|essen
+fr:3bar|3bière|pub|repas
+it:3bar|3birra|pub|mangiare
+es:3bar|3pub|comer
+
+amenity-cafe
+en:3cafe|3restaurant|3food
+ru:3кафе|3ресторан|3еда
+de:3cafe|3restautant|essen
+fr:3café|3restaurant|manger|repas
+it:3caffè|3ristorante|pasto|mangiare
+es:3café|3restaurante|comer
+
+amenity-fast_food
+en:4fast food|3restaurant|3cafe|takeaway|3food
+ru:3фастфуд|3ресторан|3кафе|eда
+de:4fast food|takeaway|restaurant|cafe|pizzeria|essen
+fr:4fast food|takeaway|café|restaurant|manger|repas
+it:4fast food|takeaway|caffè|ristorante|pasto|mangiare
+es:4comida rápida|restaurante|café|comer
+
+amenity-restaurant
+en:3restaurant|3cafe|3food
+ru:3ресторан|3кафе|еда
+de:3restaurant|3cafe|gasthaus|3essen
+fr:3restaurant|3café|manger|repas
+it:3ristorante|3caffè|mangiare
+es:3restaurante|3café|comer
+
+amenity-fuel
+en:3gas station|3fuel|gas
+ru:3заправка|бензин|топливо
+de:3tankstelle|tankstation
+fr:3station-service|poste d’essence
+it:3stazione di rifornimento
+es:3gasolinera
+
+shop-bakery
+en:3bakery|shop
+ru:3булочная|магазин
+de:3bäckerei|bäckerladen|laden
+fr:3boulangerie|magasin
+it:3panetteria|negozio
+es:3panadería|tienda
+
+shop-convenience
+en:2shop
+ru:2магазин
+de:3einkaufenladen|geschäft|2laden
+fr:2magasin
+it:2negozio
+es:2tienda
+
+shop-supermarket
+en:3supermarket|shop
+ru:3универсам|3супермаркет|магазин
+de:3supermarkt|laden
+fr:3supermarché|magasin
+it:3supermercato|negozio
+es:3supermercado|tienda
+
+highway-bus_stop
+en:bus stop|2bus|stop|4transport
+ru:4остановка|4автобус|4транспорт
+de:bushaltestelle|haltestelle|2bus|autobus|verkehr
+fr:arrêt de bus|station|2bus|autobus|4transport
+it:fermata|autobus|4trasporto
+es:parada|4transporte
+
+railway-tram_stop
+en:tram stop|3tram|stop|4transport
+ru:4остановка|4трамвай|4транспорт
+de:haltestelle|tram|verkehr
+fr:arrêt|station|tram|4transport
+it:fermata|tram|4trasporto
+es:parada|4transporte
+
+amenity-bus_station
+en:bus station|2bus|station|4transport
+ru:автостанция|4автобус|4остановка|4транспорт
+de:bahnhof|haltestelle|bus|autobus|verkehr
+fr:gare|terminus|arrêt|station|bus|autobus|4transport
+it:autostazione|fermata|autobus|4trasporto
+es:estación de autobuses|4transporte
+
+railway-station
+en:3train station|4railway|railroad|3train|4station|4transport
+ru:ж/д станция|3поезд|3станция|4транспорт
+de:3haltestelle|3station|zug|verkehr
+fr:3gare|station|train|transport
+it:3stazione ferroviaria|3treno|transporto
+es:3estación de tren|3tren|transporte
+
+railway-subway_entrance
+en:3subway|3tube|3metro|3underground|transport
+ru:3метро|транспорт
+de:2U-Bahn|metro|verkehr
+fr:3métro|3rame|transport
+it:3metrò|transporto
+es:3metro|3subte|transporte
+
+tourism-attraction
+en:3attraction|3tourism|3sights
+ru:4достопримечательность|3туризм|3аттракцион
+de:3attraktion|3sehenswürdigkeit
+fr:3atraction|3curiosités
+it:3attrattiva|3turistico
+es:3atracción turística|3turismo
+
+tourism-viewpoint
+en:4viewpoint|tourism|sights
+ru:4обзорная площадка|туризм|достопримечательность
+de:3panorama|sehenswürdigkeit
+fr:3panorama|curiosités
+it:3panorama|turistico
+es:3vista panorámica|turismo
+
+tourism-information
+en:4tourist information|4information|sights
+ru:4туринформация|информация|достопримечательность
+de:4information|sehenswürdigkeit
+fr:4information|curiosités
+it:4informazione|turistico
+es:4información|turismo
+
+tourism-picnic_site
+en:picnic site|sights
+ru:пикник|достопримечательность
+de:picknick|sehenswürdigkeit
+fr:pique-nique|curiosités
+it:picnic|turistico
+es:picnic|turismo
+
+amenity-place_of_worship
+en:place of worship|temple|sights
+ru:храм|церковь|достопримечательность
+de:tempel|kirche|dom|sehenswürdigkeit
+fr:temple|église|cathédrale|curiosités
+it:tempio|cattedrale|duomo|turistico
+es:templo|lugar de culto|turismo
 
 amenity-bench
 en:bench
-ru:скамейка
-de:bank
+ru:скамейка|лавка
 fr:banc
 it:panchina|panca
 
 amenity-bicycle_rental
 en:4bicycle
 ru:4велосипед
-de:fahrrad|velo rad
-fr:vélo|bicyclette 
-it:bicicletta|bici
-
-amenity-bureau_de_change
-en:4currency-exchange
-ru:4обмен-валюты
-de:geldwechselstelle
-fr:change
-it:ufficio-di-cambio
-
-amenity-cafe
-en:3cafe|3restaurant|3food
-ru:3кафе|3ресторан|еда
-de:cafe|restautant|essen
-fr:café|restaurant|manger|repas
-it:caffè|ristorante|mangiare|pasto
+de:4fahrrad|velo rad
+fr:4vélo|bicyclette 
+it:4bicicletta|bici
+es:4bicicleta
 
 amenity-car_sharing
-en:car-sharing|3car
-ru:прокат-автомобилей|3машина
-de:autoverleih|auto-mieten|farzeug-mieten
-fr:louage
-it:noleggio-di-automobili
+en:3car sharing|car
+ru:4прокат авто|3авто|3машина
+de:3autoverleih|auto mieten|farzeug mieten
+fr:3louage
+it:3noleggio di automobili
+es:3coche compartido
 
 amenity-cinema
 en:3cinema
 ru:кинотеатр|3кино
-de:kino|cinema|filmtheater
-fr:cinéma|ciné
-it:cinema|cinemateatro
+de:3kino|cinema|filmtheater
+fr:3cinéma|ciné
+it:3cinema|teatro
+es:3cine
 
 amenity-college
 en:college
@@ -67,108 +202,102 @@ ru:колледж
 de:college|fachschule
 fr:collège
 it:collegio
+es:colegio
 
 amenity-drinking_water
-en:drinking-water
-ru:питьевой-фонтан
-de:trinkwasser|brunnen
-fr:eau-potable
-it:acqua-potabile
-
-amenity-fast_food
-en:fast-food|3restaurant|3cafe|3food|takeaway
-ru:фаст-фуд|3ресторан|3кафе
-de:fast-food|takeaway|restaurant|cafe|pizzeria|essen
-fr:fast-food|takeaway|café|restaurant|manger|repas
-it:fast-food|takeaway|caffè|ristorante|mangiare|pasto
+en:4drinking water
+ru:4питьевой фонтан
+de:4trinkwasser|brunnen
+fr:3eau potable
+it:4acqua potabile
+es:4agua potable
 
 amenity-fire_station
-en:fire-station
+en:fire station
 ru:пожарные
 de:feuerwehr
-fr:corps-de-saveurs-pompiers
-it:scuadra-antincendio
+fr:corps de saveurs pompiers
+it:scuadra antincendio
+es:parque de bomberos
 
 amenity-fountain
 en:fountain
 ru:фонтан
 de:brunnen|fontäne
-fr:fontaine|jet-d`eau
-it:fontana|zampillo|getto
-
-amenity-fuel
-en:3gas-station|3fuel
-ru:3заправка
-de:tankstelle|tankstation
-fr:station-service
-it:aree-di-servizio
+fr:fontaine
+it:fontana|zampillo
+es:fuente
 
 amenity-grave_yard|natural-cemetery
-en:grave-yard
+en:graveyard
 ru:кладбище
 de:friedhof
 fr:cimetière
 it:cimitero
+es:cementerio
 
 amenity-hospital|amenity-doctors
-en:3hospital
-ru:3больница|госпиталь
-de:spital|krankenhaus
-fr:hôpital
-it:ospedale
+en:3hospital|clinic|doctor
+ru:3больница|3госпиталь|врач|доктор
+de:3spital|krankenhaus
+fr:3hôpital|clinique
+it:3ospedale
+es:3hospital
 
 amenity-hunting_stand
-en:hunting-stand
-ru:охотничья-вышка
+en:hunting stand
+ru:охотничья вышка
 de:hochsitz
-fr:tour-de-chasse
-it:
+fr:tour de chasse
+it:torre di caccio
 
 amenity-kindergarten
 en:kindergarten
 ru:детсад|ясли
 de:kindergarten|kinderkrippe|krippe
 fr:jardin d'enfants|garderie d'enfants|pouponnière
-it:scuola-materna
+it:scuola materna
+es:guarderia
 
 amenity-library
 en:3library
 ru:3библиотека
-de:bibliothek|bücherei
-fr:bibliothèque
-it:biblioteca
+de:3bibliothek|bücherei
+fr:3bibliothèque
+it:3biblioteca
+es:3biblioteca
 
 amenity-parking
 en:3parking
 ru:3парковка
-de:parkplatz|parking
-fr:parking
+de:3parkplatz|parking
+fr:3parking
+it:3parcheggio
+es:3estationamiento|3aparcamiento
 
 amenity-pharmacy
-en:3pharmacy|dragstore|apothecary|dispensary
+en:3pharmacy|3drugstore|apothecary|dispensary
 ru:3аптека
-de:apotheke|droguerie
-fr:pharmacie|droguerie
-
-amenity-place_of_worship
-en:place-of-worship
-ru:храм
-de:kirche|dom
-fr:église|cathédrale
-it:cattedrale|duomo
+de:3apotheke|3droguerie
+fr:3pharmacie|3droguerie
+it:3farmacia
+es:3farmacia
 
 amenity-post_box
-en:3postbox
-ru:3почтовый-ящик
-de:briefkasten|postfach
-fr:boîte aux lettres
+en:3postbox|post
+ru:3почтовый ящик
+de:3briefkasten|3postfach
+fr:3boîte aux lettres
+it:3casella
+es:3buzón
 
 amenity-post_office
 en:3post
 ru:3почта
-de:post|postamt
-fr:poste
-it:posta
+de:3post|postamt
+fr:3poste
+it:3posta
+es:4oficina de correos|3post
 
 amenity-recycling
 en:recycling|trash|bin|garbage
@@ -176,55 +305,55 @@ ru:мусорка
 de:abfälle|recycling|müll
 fr:déchet
 it:rifiuti
-
-amenity-restaurant
-en:3restaurant|3cafe|3food
-ru:3ресторан|3кафе|еда
-de:3restaurant|3cafe|3essen|gasthaus
-fr:3restaurant|3café
-it:ristorante
+es:papelera de reciclaje
 
 amenity-school
 en:3school
 ru:3школа
-de:schule|schulgebäude
-fr:école
-it:scuola
+de:3schule|schulgebäude
+fr:3école
+it:3scuola
+es:3escuela|colegio
 
 amenity-shelter
 en:shelter
 ru:укрытие
 de:schutz|zivilschutz
 fr:couvert
+it:riparo
+es:abrigo
 
 amenity-telephone
 en:2phone
 ru:2телефон
-de:telefon|fernsprecher
-fr:téléphone
-it:telefono
+de:2telefon|fernsprecher
+fr:2téléphone
+it:2telefono
+es:2teléfono
 
 amenity-theatre
 en:3theatre|theater
 ru:3театр
-de:theater
-fr:théâtre
-it:teatro
+de:3theater
+fr:3théâtre
+it:3teatro
+es:3teatro
 
 amenity-toilets
 en:3toilet|wc
 ru:3туалет
-de:wc|toilette
-fr:wc|toilette
-it:wc|toilette
+de:wc|3toilette
+fr:wc|3toilette
+it:wc|3toilette
+es:3servicios|3lavabo
 
 amenity-university
-en:university
-ru:университет|вуз|институт
-de:universität|uni|hochschule|institut
-fr:université|institut
-it:università|istituto
-
+en:4university
+ru:4университет|вуз|институт
+de:4universität|uni|hochschule|institut
+fr:4université|institut
+it:4università|istituto
+es:4universidad
 
 place-continent
 en:continent
@@ -232,13 +361,15 @@ ru:континент|материк
 de:kontinent|festland
 fr:continent
 it:continente|terraferma
+es:continente
 
 place-country
 en:country
 ru:страна
-de:land|staat
+de:land
 fr:pays
-it:paese|terra
+it:paese
+es:país
 
 place-city
 en:city|town
@@ -246,6 +377,7 @@ ru:город
 de:stadt
 fr:ville|cité
 it:città
+es:ciudad
 
 place-town
 en:town|city
@@ -253,13 +385,15 @@ ru:город
 de:stadt
 fr:ville|cité
 it:città
+es:ciudad
 
 place-city-capital
-en:capital
-ru:столица
-de:hauptstadt|metropole
-fr:capitale
-it:capitale
+en:capital|city
+ru:столица|город
+de:hauptstadt|metropole|stadt
+fr:capitale|ville|cité
+it:capitale|città
+es:capital|ciudad
 
 place-county
 en:county
@@ -267,20 +401,23 @@ ru:округ|графство
 de:kreis|bezirk
 fr:comté
 it:contea
+es:condado
 
 place-state
-en:state
+en:state|province
 ru:штат|провинция
-de:staat
-fr:etat
-it:stato
+de:land|staat|kanton|provinz
+fr:province|état
+it:provincia|stato
+es:estado|provincia
 
 place-region
 en:region
 ru:район
-de:region|raum
+de:region
 fr:région
-it:regione|area
+it:regione
+es:región
 
 place-island|place-islet
 en:island|islet
@@ -288,34 +425,47 @@ ru:остров
 de:insel
 fr:île
 it:isola
+es:isla
 
 place-suburb
 en:suburb|district
-ru:район|микрорайон
-de:region|raum
-fr:région
-it:regione|area
+ru:район|микрорайон|округ|квартал
+de:kreis|wohnbezirk|wohnviertel
+fr:arrondissement|quartier
+it:quartiere
+es:barrio
 
-place-village|place-hamlet
+place-hamlet
+en:hamlet|village
+ru:посёлок|деревня
+de:weiler|dorf
+fr:hameau|village
+it:piccolo villaggio
+es:aldea|pueblo
+
+place-village
 en:village|hamlet
 ru:деревня|поселок
-de:dorf|land
-fr:village|campagne
-it:villaggio|campagna
+de:dorf|weiler
+fr:village|hameau
+it:villaggio
+es:pueblo|aldea
 
 place-locality
 en:locality
-ru:регион
-de:region|raum
-fr:région
-it:regione|area
+ru:местность|регион
+de:lokal|region|raum
+fr:endroit|région
+it:località|luogo|regione|area
+es:localidad
 
 place-farm
 en:farm
 ru:ферма
-de:bauernhof
+de:bauernhof|farm
 fr:ferme
 it:fattoria|allevamento
+es:granja|hacienda
 
 waterway-river|waterway-stream|waterway-riverbank
 en:river
@@ -323,114 +473,180 @@ ru:река
 de:fluss|strom
 fr:rivière|fleuve
 it:fiume
+es:río
 
 waterway-canal
 en:canal
 ru:канал
+de:kanal
+fr:canal
+it:canale
+es:canal
 
-highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-pedestrian
-en:street
-ru:улица|переулок|проезд|тракт|проспект
+highway-raceway
+en:racetrack
+ru:гоночный трек
+de:rennbahn
+fr:course
+it:pista
+es:circuito
+
+highway-path
+en:path
+ru:тропа
+de:weg|bahn
+fr:chemin
+it:sentiero|viottolo
+es:sendero
+
+highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-pedestrian|highway-unclassified|highway-minor|highway-motorway_link|highway-motorway|highway-motorway_junction
+en:street|st|str|ave
+ru:улица|переулок|проезд|тракт|проспект|ул
 de:strasse|weg|avenue|gasse
 fr:rue|avenue|reulle
 it:via|strada|corso|vicolo
-
-highway-bus_stop
-en:bus-stop|2bus|stop|4transport
-ru:4остановка|4автобус|4транспорт
-de:haltestelle|bus|autobus
-fr:arrêt|station|bus|autobus
-it:fermata|autobus
-
-railway-tram_stop
-en:tram-stop|3tram|stop|4transport
-ru:4остановка|4трамвай|4транспорт
-
-amenity-bus_station
-en:bus-station|2bus|station|4transport
-ru:автостанция|4автобус|4остановка|4транспорт
-de:bahnhof|haltestelle|bus|autobus
-fr:gare|terminus|arrêt|station|bus|autobus
-it:autostazione|fermata|autobus
+es:calle|avenue|camino
 
 natural-peak
 en:peak|mountain
-ru:гора|вершина
+ru:гора|вершина|пик
 de:berg|gebirge|gipfel|spitze|pik
 fr:mont|montagne|sommet|pic
 it:monte|montagna|cima|picco
+es:cima|pico
 
 natural-water|landuse-basin|landuse-reservoir
 en:water
 ru:водоём
+de:wasserbecken
+fr:bassin
+it:bacino
+es:aljibe
 
 natural-pond
 en:pond|water
 ru:пруд|водоём
+de:teich|wasserbecken
+fr:étang|bassin
+it:stagno|bacino
+es:estanque|aljibe
 
 natural-lake
 en:lake|water
 ru:озеро|водоём
+de:see|wasserbecken
+fr:lac|bassin
+it:lago|bacino
+es:lago|aljibe
 
 natural-forest|natural-wood|landuse-forest|landuse-wood
 en:forest
 ru:лес
+de:wald
+fr:forêt
+it:foresta
+es:bosque
 
-leisure-park|leisure-garden|leisure-park
-en:park|garden
-ru:парк|сад
-de:park|garten
-fr:parc|jardin
-it:parco|giardino
+leisure-garden
+en:garden
+ru:сад
+de:garten
+fr:jardin
+it:giardino
+es:jardín
 
-tourism-hotel|tourism-hostel
-en:2hotel
-ru:2отель
-de:hotel|gasthaus
-fr:hôtel
-it:hôtel|albergo
+leisure-park
+en:park
+ru:парк
+de:park
+fr:parc
+it:parco
+es:parque
+
+tourism-hostel
+en:3hostel
+ru:3хостел
+de:3wohnheim
+fr:3foyer
+it:3ostello
+es:3albergue juvenil|4residencia
+
+tourism-hotel
+en:2hotel|hostel
+ru:2гостиница|2отель|хостел
+de:2hotel|gasthaus|wohnheim
+fr:2hôtel|foyer
+it:2hôtel|albergo|ostello
+es:2hotel|albergue juvenil|residencia
 
 shop-hairdresser
 en:3hairdresser
 ru:3парикмахерская
-de:friseur|frisiersalon|coiffeure
-fr:3coiffeure|salon-de-coiffeure
-it:parrucchiera
-
-shop-bakery
-en:3bakery|shop
-ru:3булочная|магазин
-de:bäckerei|bäckerladen
-fr:boulangerie
-it:panetteria
-
-shop-convenience|shop-supermarket
-en:2shop
-ru:2магазин
-de:einkaufenladen|supermarkt|geschäft
-fr:magasin
-it:negozio
+de:3friseur|frisiersalon|coiffeure
+fr:3coiffeure|salon
+it:4parrucchiera
+es:4peluquero
 
 aeroway-airport|aeroway-aerodrome
 en:3airport|3plane
 ru:3аэропорт|4самолёт
+de:3flughafen|4Flugzeug
+fr:3aéroport|3avion
+it:3aeroporto|4aeroplano
+es:3aeropuerto|3avión
 
-railway-station
-en:railway-station|3train|station|4transport
-ru:ж/д-станция|3поезд|станция|4транспорт
+leisure-stadium
+en:stadium|sport
+ru:стадион|спорт
+de:stadion|sport
+fr:stade|sport
+it:stadio|sport
+es:estadio|deporte
 
-railway-rail
-en:railway
-ru:ж/д
+leisure-playground
+en:playground
+ru:детская площадка
+de:spielplatz
+fr:aire de jeu
+it:campo giochi
+es:patio de recreo
 
-railway-subway_entrance
-en:subway
-ru:метро
+leisure-sports_centre
+en:sports center|sport
+ru:спорткомплекс|спорт
+de:sportzentrum|sport
+fr:centre sportif|sport
+it:centro sportivo|sport
+es:centro deportivo|deporte
 
-tourism-attraction|tourism-viewpoint|tourism-information
-en:3tourism|4sightseeing
-ru:3туризм|4достопримечательность
+leisure-golf_course
+en:golf course|sport
+ru:площадка для гольфа|спорт
+de:golfplatz|sport
+fr:terrain de golf|sport
+it:campo da golf|sport
+es:campo de golf|deporte
 
-leisure-stadium|leisure-playground|leisure-sports_centre|leisure-golf_course|leisure-pitch|leisure-swimming_pool|sport-soccer|sport-tennis|sport-baseball|sport-swimming|sport-basketball|sport-athletics
-en:4sport
-ru:4спортплощадка
+leisure-pitch
+en:pitch|sport
+ru:спортплощадка|спорт
+de:feld|sport
+fr:terrain de sport|sport
+it:campo|sport
+es:terreno|deporte
+
+leisure-swimming_pool
+en:swimming pool|sport
+ru:бассейн|спорт
+de:schwimmbad|sport
+fr:piscine|sport
+it:piscina|sport
+es:piscina|deporte
+
+building
+en:building
+ru:здание
+de:gebäude
+fr:bâtiment
+it:edificio
+es:edificio
