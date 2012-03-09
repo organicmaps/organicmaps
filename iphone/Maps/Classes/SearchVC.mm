@@ -81,7 +81,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 {
   UINavigationBar * navBar = (UINavigationBar *)[self.subviews objectAtIndex:0];
   [navBar sizeToFit];
-  [navBar.topItem.titleView sizeToFit];
+  [navBar setNeedsDisplay];
 
   UIView * table = [self.subviews objectAtIndex:1];
   CGRect rTable;
