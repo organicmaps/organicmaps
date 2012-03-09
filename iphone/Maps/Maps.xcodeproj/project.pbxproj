@@ -708,7 +708,6 @@
 		FA4135E7120A263C0062D5B4 /* SettingsManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = SettingsManager.mm; path = Settings/SettingsManager.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = WorldCoasts.mwm; path = ../../data/WorldCoasts.mwm; sourceTree = "<group>"; };
 		FA46DA2B12D4166E00968C36 /* countries.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = countries.txt; path = ../../data/countries.txt; sourceTree = SOURCE_ROOT; };
-		FA47778F1503ED7900F67904 /* en-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-US"; path = "en-US.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		FA50055C1287BFCE002961F0 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = SOURCE_ROOT; };
 		FA50055D1287BFCE002961F0 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = SOURCE_ROOT; };
 		FA50055E1287BFCE002961F0 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = SOURCE_ROOT; };
@@ -734,6 +733,7 @@
 		FA8F932E150218F10057B215 /* tourism@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tourism@2x.png"; sourceTree = "<group>"; };
 		FA8F932F150218F10057B215 /* transport.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transport.png; sourceTree = "<group>"; };
 		FA8F9330150218F10057B215 /* transport@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "transport@2x.png"; sourceTree = "<group>"; };
+		FA971562150920C600916690 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA99CB72147089B100689A9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FAA4B13E13EC1C8C00BCAB63 /* DiskFreeSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiskFreeSpace.h; sourceTree = "<group>"; };
 		FAA5C2A0144F135F005337F6 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationManager.h; path = Platform/LocationManager.h; sourceTree = "<group>"; };
@@ -2092,6 +2092,7 @@
 				fr,
 				es,
 				"en-US",
+				it,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			projectDirPath = "";
@@ -2738,7 +2739,7 @@
 				F7DD848414FE77F8005695E1 /* de */,
 				F7DD848514FE7C7F005695E1 /* fr */,
 				F7DD848614FE7FE0005695E1 /* es */,
-				FA47778F1503ED7900F67904 /* en-US */,
+				FA971562150920C600916690 /* it */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
