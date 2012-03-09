@@ -4,8 +4,6 @@
 #include "../../geometry/point2d.hpp"
 #include "../../geometry/rect2d.hpp"
 
-@class SearchBannerChecker;
-
 @interface MapViewController : UIViewController <LocationObserver>
 {
   enum Action
@@ -22,7 +20,6 @@
 	m2::PointD m_Pt1, m_Pt2;
   
   NSTimer * m_iconTimer;
-  SearchBannerChecker * m_searchBannerChecker;
 }
 
 - (void) ZoomToRect: (m2::RectD const &) rect;

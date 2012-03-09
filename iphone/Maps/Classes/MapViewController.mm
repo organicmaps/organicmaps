@@ -2,7 +2,6 @@
 #import "SearchVC.h"
 #import "MapsAppDelegate.h"
 #import "EAGLView.h"
-#import "SearchBannerChecker.h"
 #import "../Settings/SettingsManager.h"
 #import "../../Common/CustomAlertView.h"
 
@@ -107,7 +106,6 @@ Framework * m_framework = NULL;
 
 - (void) dealloc
 {
-  [m_searchBannerChecker release];
 	delete m_framework;
   [super dealloc];
 }
@@ -116,8 +114,6 @@ Framework * m_framework = NULL;
 {
 	if ((self = [super initWithCoder:coder]))
 	{
-    m_searchBannerChecker = [[SearchBannerChecker alloc] init];
-
     // cyclic dependence, @TODO refactor.
     // Here we're creating view and window handle in it, and later we should pass framework to the view
     EAGLView * v = (EAGLView *)self.view;
@@ -346,9 +342,6 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void)viewWillAppear:(BOOL)animated
 {
-  // Perform redbutton check if necessary for Lite version
-  [m_searchBannerChecker checkForBannerAndFixSearchButton:m_searchButton andDownloadButton:m_downloadButton];
-
   [self Invalidate];
   [self.navigationController setNavigationBarHidden:YES animated:YES];
   [super viewWillAppear:animated];

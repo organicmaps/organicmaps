@@ -1,7 +1,6 @@
 #import "SearchVC.h"
 #import "CompassView.h"
 #import "LocationManager.h"
-#import "SearchBannerChecker.h"
 #import "SearchCell.h"
 
 #include "../../geometry/angles.hpp"
@@ -13,6 +12,8 @@
 #include "../../map/measurement_utils.hpp"
 #include "../../search/result.hpp"
 
+// @TODO FIX THIS URL before next Lite version release
+#define MAPSWITHME_PREMIUM_APPSTORE_URL @"http://www.mapswithme.com"
 
 /// When to display compass instead of country flags
 #define MIN_COMPASS_DISTANCE 25000.0
@@ -238,9 +239,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   if (buttonIndex != alertView.cancelButtonIndex)
   {
     // Launch appstore
-    string bannerUrl;
-    Settings::Get(SETTINGS_REDBUTTON_URL_KEY, bannerUrl);
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithUTF8String:bannerUrl.c_str()]]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
   }
   // Close Search view
   [self dismissModalViewControllerAnimated:YES];
@@ -251,8 +250,6 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   // Disable search for free version
   if (!GetPlatform().IsFeatureSupported("search"))
   {
-    // Hide scope bar
-    m_searchBar.showsScopeBar = NO;
     // Display banner for paid version
     UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Search is only available in the full version of MapsWithMe. Would you like to get it now?", @"Search button pressed dialog title in the free version")
                                                      message:nil
