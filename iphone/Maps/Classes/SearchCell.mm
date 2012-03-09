@@ -57,23 +57,23 @@
 
   CGFloat xTopDelim = (int)(r.origin.x + w / 2);
   CGFloat xBottomDelim = xTopDelim;
-  if (featureType.text.length)
-  {
-    CGSize const typeTextSize = [featureType.text sizeWithFont:featureType.font];
-    if (xTopDelim + typeTextSize.width < r.origin.x + w)
-      xTopDelim = r.origin.x + w - typeTextSize.width - KPaddingX;
-  }
-  featureName.frame = CGRectMake(r.origin.x, r.origin.y, xTopDelim - r.origin.x, yDelim - r.origin.y);
-  featureType.frame = CGRectMake(xTopDelim, r.origin.y, r.origin.x + w - xTopDelim, yDelim - r.origin.y);
-
   if (featureDistance.text.length)
   {
     CGSize const distanceTextSize = [featureDistance.text sizeWithFont:featureDistance.font];
-    if (xBottomDelim + distanceTextSize.width < r.origin.x + w)
-      xBottomDelim = r.origin.x + w - distanceTextSize.width - KPaddingX;
+    if (xTopDelim + distanceTextSize.width < r.origin.x + w)
+      xTopDelim = r.origin.x + w - distanceTextSize.width - KPaddingX;
+  }
+  featureName.frame = CGRectMake(r.origin.x, r.origin.y, xTopDelim - r.origin.x, yDelim - r.origin.y);
+  featureDistance.frame = CGRectMake(xTopDelim, r.origin.y, r.origin.x + w - xTopDelim, yDelim - r.origin.y);
+
+  if (featureType.text.length)
+  {
+    CGSize const typeTextSize = [featureType.text sizeWithFont:featureType.font];
+    if (xBottomDelim + typeTextSize.width < r.origin.x + w)
+      xBottomDelim = r.origin.x + w - typeTextSize.width - KPaddingX;
   }
   featureCountry.frame = CGRectMake(r.origin.x, yDelim, xBottomDelim - r.origin.x, r.origin.y + h - yDelim);
-  featureDistance.frame = CGRectMake(xBottomDelim, yDelim, r.origin.x + w - xBottomDelim, r.origin.y + h - yDelim);
+  featureType.frame = CGRectMake(xBottomDelim, yDelim, r.origin.x + w - xBottomDelim, r.origin.y + h - yDelim);
 }
 
 @end
