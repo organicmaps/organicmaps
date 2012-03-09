@@ -324,6 +324,14 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 //*********** End of SearchBar handlers *************************************
 //***************************************************************************
 
+- (void)setSearchBoxText:(NSString *)text
+{
+  m_searchBar.text = text;
+  // Manually send text change notification if control has no focus
+  if (![m_searchBar isFirstResponder])
+    [self searchBar:m_searchBar textDidChange:text];
+}
+
 + (NSString *)formatDistance:(double)meters
 {
   if (meters < 0.)
@@ -526,8 +534,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
       break;
 
     case search::Result::RESULT_SUGGESTION:
-      char const * s = res.GetSuggestionString();
-      [m_searchBar setText: [NSString stringWithUTF8String:s]];
+      [self setSearchBoxText:[NSString stringWithUTF8String:res.GetSuggestionString()]];
       // Remove blue selection from the row
       [tableView deselectRowAtIndexPath: indexPath animated:YES];
       break;
@@ -624,13 +631,8 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 // Callback from suggestion cell, called when icon is selected
 - (void)onSuggestionSelected:(NSString *)suggestion
 {
-  NSString * newText = [suggestion stringByAppendingString:@" "];
-  m_searchBar.text = newText;
-  if (![m_searchBar isFirstResponder])
-  {
-    // Manually send text change notification, control has no focus
-    [self searchBar:m_searchBar textDidChange:newText];
-  }
+  [self setSearchBoxText:[suggestion stringByAppendingString:@" "]];
+  // Clear old results immediately after click
   [m_table reloadData];
 }
 
