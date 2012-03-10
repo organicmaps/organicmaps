@@ -184,11 +184,14 @@ namespace qt
 
   VideoTimer * DrawWidget::CreateVideoTimer()
   {
-#ifdef OMIM_OS_MAC
-    return CreateAppleVideoTimer(bind(&DrawWidget::DrawFrame, this));
-#else
+//#ifdef OMIM_OS_MAC
+//    return CreateAppleVideoTimer(bind(&DrawWidget::DrawFrame, this));
+//#else
+    /// Using timer, which doesn't use the separate thread
+    /// for performing an action. This avoids race conditions in Framework.
+    /// see issue #717
     return new QtVideoTimer(this, bind(&DrawWidget::DrawFrame, this));
-#endif
+//#endif
   }
 
   void DrawWidget::ScaleChanged(int action)
