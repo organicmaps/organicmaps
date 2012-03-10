@@ -15,10 +15,11 @@ DEFINE_int32(symbolWidth, 24, "width of the rendered symbol");
 DEFINE_int32(symbolHeight, 24, "height of the rendered symbol");
 DEFINE_string(skinName, "../../data/basic", "prefix for the skin and skinImage file name");
 DEFINE_string(skinSuffix, "ldpi", "suffix for skinName<suffix>.skn and symbols<suffix>.png");
-DEFINE_string(searchIconsPath, "../../data/search-icons", "output path for search category icons");
-DEFINE_string(searchCategories, "../../data/categories-icons.txt", "path to file that contains mapping between category and icon names");
-DEFINE_int32(searchIconWidth, 42, "width of the search category icon");
-DEFINE_int32(searchIconHeight, 42, "height of the search category icon");
+DEFINE_string(searchIconsOutPath, "../../data/search-icons/png", "output path for search category icons");
+DEFINE_string(searchCategories, "../../data/search-icons/categories-icons.txt", "path to file that contains mapping between category and icon names");
+DEFINE_string(searchIconsSrcPath, "../../data/search-icons/svg", "input path for search category icons");
+DEFINE_int32(searchIconWidth, 24, "width of the search category icon");
+DEFINE_int32(searchIconHeight, 24, "height of the search category icon");
 
 int main(int argc, char *argv[])
 {
@@ -33,9 +34,9 @@ int main(int argc, char *argv[])
   std::vector<std::string> suffixes;
   suffixes.push_back(FLAGS_skinSuffix);
 
-  gen.processSearchIcons(FLAGS_symbolsDir,
+  gen.processSearchIcons(FLAGS_searchIconsSrcPath,
                          FLAGS_searchCategories,
-                         FLAGS_searchIconsPath,
+                         FLAGS_searchIconsOutPath,
                          FLAGS_searchIconWidth,
                          FLAGS_searchIconHeight);
 
