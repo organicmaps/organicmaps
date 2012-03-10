@@ -14,9 +14,90 @@
 
 namespace yg
 {
+
+  struct ResourceStyleCacheContext::Impl
+  {
+    /// the following sets are used to see, whether
+    /// in the current InfoLayer::cache process we've already
+    /// caching some resource (glyph, color, penInfo, e.t.c.)
+    /// to avoid caching it twice.
+    /// @{
+
+    typedef set<PenInfo> TPenInfoSet;
+    TPenInfoSet m_penInfoSet;
+
+    typedef set<CircleInfo> TCircleInfoSet;
+    TCircleInfoSet m_circleInfoSet;
+
+    typedef set<Color> TColorSet;
+    TColorSet m_colorSet;
+
+    typedef set<GlyphKey> TGlyphSet;
+    TGlyphSet m_glyphSet;
+
+    /// @}
+  };
+
+  ResourceStyleCacheContext::ResourceStyleCacheContext()
+  {
+    m_impl = new Impl();
+  }
+
+  ResourceStyleCacheContext::~ResourceStyleCacheContext()
+  {
+    delete m_impl;
+  }
+
+  bool ResourceStyleCacheContext::hasColor(Color const & c) const
+  {
+    return m_impl->m_colorSet.count(c);
+  }
+
+  void ResourceStyleCacheContext::addColor(Color const & c)
+  {
+    m_impl->m_colorSet.insert(c);
+  }
+
+  bool ResourceStyleCacheContext::hasPenInfo(PenInfo const & pi) const
+  {
+    return m_impl->m_penInfoSet.count(pi);
+  }
+
+  void ResourceStyleCacheContext::addPenInfo(PenInfo const & pi)
+  {
+    m_impl->m_penInfoSet.insert(pi);
+  }
+
+  bool ResourceStyleCacheContext::hasCircleInfo(CircleInfo const & ci) const
+  {
+    return m_impl->m_circleInfoSet.count(ci);
+  }
+
+  void ResourceStyleCacheContext::addCircleInfo(CircleInfo const & ci)
+  {
+    m_impl->m_circleInfoSet.insert(ci);
+  }
+
+  bool ResourceStyleCacheContext::hasGlyph(GlyphKey const & gk) const
+  {
+    return m_impl->m_glyphSet.count(gk);
+  }
+
+  void ResourceStyleCacheContext::addGlyph(GlyphKey const & gk)
+  {
+    m_impl->m_glyphSet.insert(gk);
+  }
+
+  void ResourceStyleCacheContext::clear()
+  {
+    m_impl->m_circleInfoSet.clear();
+    m_impl->m_colorSet.clear();
+    m_impl->m_glyphSet.clear();
+    m_impl->m_penInfoSet.clear();
+  }
   ResourceStyleCache::ResourceStyleCache(shared_ptr<ResourceManager> const & rm,
-                                           int glyphCacheID,
-                                           yg::gl::PacketsQueue * glQueue)
+                                         int glyphCacheID,
+                                         yg::gl::PacketsQueue * glQueue)
     : m_rm(rm),
       m_glQueue(glQueue)
   {
