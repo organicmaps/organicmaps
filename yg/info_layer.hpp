@@ -14,7 +14,7 @@
 
 namespace yg
 {
-  class StylesCache;
+  class ResourceStyleCache;
 
   struct OverlayElementTraits
   {
@@ -47,7 +47,7 @@ namespace yg
 
     void clear();
 
-    void cache(StylesCache * cache);
+    void cache(ResourceStyleCache * cache);
 
     void setCouldOverlap(bool flag);
 
@@ -56,7 +56,7 @@ namespace yg
     void clip(m2::RectI const & r);
 
     bool checkHasEquals(InfoLayer const * l) const;
-    bool checkCached(StylesCache * s) const;
+    bool checkCached(ResourceStyleCache * s) const;
 
     InfoLayer * clone() const;
   };

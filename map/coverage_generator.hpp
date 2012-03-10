@@ -21,6 +21,11 @@ class TileRenderer;
 class TileCache;
 class ScreenCoverage;
 
+namespace yg
+{
+  class ResourceStyleCache;
+}
+
 class CoverageGenerator
 {
 private:
@@ -35,8 +40,8 @@ private:
   ScreenCoverage * m_workCoverage;
   ScreenCoverage * m_currentCoverage;
 
-  shared_ptr<yg::StylesCache> m_workStylesCache;
-  shared_ptr<yg::StylesCache> m_currentStylesCache;
+  shared_ptr<yg::ResourceStyleCache> m_workStylesCache;
+  shared_ptr<yg::ResourceStyleCache> m_currentStylesCache;
 
   ScreenBase m_currentScreen;
   int m_sequenceID;

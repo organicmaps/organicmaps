@@ -5,7 +5,7 @@
 #include "../geometry/screenbase.hpp"
 
 #include "../yg/info_layer.hpp"
-#include "../yg/styles_cache.hpp"
+#include "../yg/resource_style_cache.hpp"
 
 #include "tile.hpp"
 #include "tiler.hpp"
@@ -59,7 +59,7 @@ private:
   int m_leavesCount;
 
   CoverageGenerator * m_coverageGenerator;
-  yg::StylesCache * m_stylesCache;
+  yg::ResourceStyleCache * m_stylesCache;
 
   ScreenCoverage(ScreenCoverage const & src);
   ScreenCoverage const & operator=(ScreenCoverage const & src);
@@ -84,8 +84,8 @@ public:
   /// Is this screen coverage contains only empty tiles
   bool IsEmptyDrawingCoverage() const;
   /// Setters/Getters for current stylesCache
-  void SetStylesCache(yg::StylesCache * stylesCache);
-  yg::StylesCache * GetStylesCache() const;
+  void SetResourceStyleCache(yg::ResourceStyleCache * stylesCache);
+  yg::ResourceStyleCache * GetResourceStyleCache() const;
   /// Getter for InfoLayer
   yg::InfoLayer * GetInfoLayer() const;
   /// Cache info layer on current style cache

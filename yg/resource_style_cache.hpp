@@ -19,7 +19,7 @@ namespace yg
   /// - cache of potentially all yg::ResourceStyle's
   /// - cache is build on the separate thread (CoverageGenerator thread)
   /// - it is used to remove texture uploading code from the GUI-thread
-  class StylesCache
+  class ResourceStyleCache
   {
   private:
 
@@ -31,11 +31,12 @@ namespace yg
 
   public:
 
-    StylesCache(shared_ptr<ResourceManager> const & rm,
-                int glyphCacheID,
-                yg::gl::PacketsQueue * glQueue);
 
-    ~StylesCache();
+    ResourceStyleCache(shared_ptr<ResourceManager> const & rm,
+                        int glyphCacheID,
+                        yg::gl::PacketsQueue * glQueue);
+
+    ~ResourceStyleCache();
 
     shared_ptr<SkinPage> const & cachePage();
 

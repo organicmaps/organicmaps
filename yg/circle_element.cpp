@@ -1,6 +1,6 @@
 #include "circle_element.hpp"
 
-#include "styles_cache.hpp"
+#include "resource_style_cache.hpp"
 #include "overlay_renderer.hpp"
 #include "resource_style.hpp"
 #include "skin.hpp"
@@ -69,7 +69,7 @@ namespace yg
     return 500;
   }
 
-  void CircleElement::map(StylesCache * stylesCache) const
+  void CircleElement::map(ResourceStyleCache * stylesCache) const
   {
     shared_ptr<SkinPage> const & skinPage = stylesCache->cachePage();
 
@@ -78,14 +78,14 @@ namespace yg
     skinPage->mapCircleInfo(m_ci);
   }
 
-  bool CircleElement::find(StylesCache * stylesCache) const
+  bool CircleElement::find(ResourceStyleCache * stylesCache) const
   {
     shared_ptr<SkinPage> const & skinPage = stylesCache->cachePage();
 
     return skinPage->findCircleInfo(m_ci) != 0x00FFFFFF;
   }
 
-  void CircleElement::getNonPackedRects(StylesCache * stylesCache, vector<m2::PointU> & v) const
+  void CircleElement::getNonPackedRects(ResourceStyleCache * stylesCache, vector<m2::PointU> & v) const
   {
     shared_ptr<SkinPage> const & skinPage = stylesCache->cachePage();
 

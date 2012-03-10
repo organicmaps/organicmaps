@@ -2,7 +2,7 @@
 
 #include "info_layer.hpp"
 #include "text_element.hpp"
-#include "styles_cache.hpp"
+#include "resource_style_cache.hpp"
 
 #include "../base/logging.hpp"
 #include "../base/stl_add.hpp"
@@ -225,7 +225,7 @@ namespace yg
     return l->visualRank() > r->visualRank();
   }
 
-  void InfoLayer::cache(StylesCache * stylesCache)
+  void InfoLayer::cache(ResourceStyleCache * stylesCache)
   {
     /// collecting elements into vector sorted by visualPriority
 
@@ -358,7 +358,7 @@ namespace yg
     return !res.empty();
   }
 
-  bool InfoLayer::checkCached(StylesCache * s) const
+  bool InfoLayer::checkCached(ResourceStyleCache * s) const
   {
     vector<shared_ptr<OverlayElement> > v;
     m_tree.ForEach(MakeBackInsertFunctor(v));

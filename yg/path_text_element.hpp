@@ -27,9 +27,9 @@ namespace yg
 
     void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
-    void getNonPackedRects(StylesCache * stylesCache, vector<m2::PointU> & v) const;
-    bool find(StylesCache * stylesCache) const;
-    void map(StylesCache * stylesCache) const;
+    void getNonPackedRects(ResourceStyleCache * stylesCache, vector<m2::PointU> & v) const;
+    bool find(ResourceStyleCache * stylesCache) const;
+    void map(ResourceStyleCache * stylesCache) const;
 
     int visualRank() const;
 

@@ -30,11 +30,11 @@ CoverageGenerator::CoverageGenerator(
   m_resourceManager = rm;
   m_renderContext = primaryRC->createShared();
 
-  m_currentStylesCache.reset(new yg::StylesCache(rm,
+  m_currentStylesCache.reset(new yg::ResourceStyleCache(rm,
                                                  rm->cacheThreadGlyphCacheID(),
                                                  glQueue));
 
-  m_workStylesCache.reset(new yg::StylesCache(rm,
+  m_workStylesCache.reset(new yg::ResourceStyleCache(rm,
                                               rm->cacheThreadGlyphCacheID(),
                                               glQueue));
 
@@ -128,7 +128,7 @@ void CoverageGenerator::CoverScreen(ScreenBase const & screen, int sequenceID)
 
   m_workCoverage = m_currentCoverage->Clone();
   m_workCoverage->SetSequenceID(sequenceID);
-  m_workCoverage->SetStylesCache(m_workStylesCache.get());
+  m_workCoverage->SetResourceStyleCache(m_workStylesCache.get());
   m_workCoverage->SetScreen(screen);
   m_workCoverage->CacheInfoLayer();
 
@@ -143,7 +143,7 @@ void CoverageGenerator::CoverScreen(ScreenBase const & screen, int sequenceID)
     swap(m_currentCoverage, m_workCoverage);
     swap(m_currentStylesCache, m_workStylesCache);
 
-    ASSERT(m_currentCoverage->GetStylesCache() == m_currentStylesCache.get(), ());
+    ASSERT(m_currentCoverage->GetResourceStyleCache() == m_currentStylesCache.get(), ());
   }
 
   delete m_workCoverage;
@@ -169,7 +169,7 @@ void CoverageGenerator::MergeTile(Tiler::RectInfo const & rectInfo, int sequence
 
   m_workCoverage = m_currentCoverage->Clone();
   m_workCoverage->SetSequenceID(sequenceID);
-  m_workCoverage->SetStylesCache(m_workStylesCache.get());
+  m_workCoverage->SetResourceStyleCache(m_workStylesCache.get());
   m_workCoverage->Merge(rectInfo);
   m_workCoverage->CacheInfoLayer();
 
@@ -184,7 +184,7 @@ void CoverageGenerator::MergeTile(Tiler::RectInfo const & rectInfo, int sequence
     swap(m_currentCoverage, m_workCoverage);
     swap(m_currentStylesCache, m_workStylesCache);
 
-    ASSERT(m_currentCoverage->GetStylesCache() == m_currentStylesCache.get(), ());
+    ASSERT(m_currentCoverage->GetResourceStyleCache() == m_currentStylesCache.get(), ());
   }
 
   /// we should delete workCoverage

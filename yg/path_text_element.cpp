@@ -86,7 +86,7 @@ namespace yg
     m_glyphLayout.setPivot(pivot());
   }
 
-  bool PathTextElement::find(StylesCache * stylesCache) const
+  bool PathTextElement::find(ResourceStyleCache * stylesCache) const
   {
     yg::FontDesc desc = m_fontDesc;
     if (desc.m_isMasked)
@@ -99,7 +99,7 @@ namespace yg
     return TextElement::find(m_glyphLayout, stylesCache, desc);
   }
 
-  void PathTextElement::getNonPackedRects(StylesCache * stylesCache, vector<m2::PointU> & v) const
+  void PathTextElement::getNonPackedRects(ResourceStyleCache * stylesCache, vector<m2::PointU> & v) const
   {
     yg::FontDesc desc = m_fontDesc;
     if (desc.m_isMasked)
@@ -111,7 +111,7 @@ namespace yg
     TextElement::getNonPackedRects(m_glyphLayout, desc, stylesCache, v);
   }
 
-  void PathTextElement::map(StylesCache * stylesCache) const
+  void PathTextElement::map(ResourceStyleCache * stylesCache) const
   {
     yg::FontDesc desc = m_fontDesc;
 

@@ -8,7 +8,7 @@
 
 namespace yg
 {
-  class StylesCache;
+  class ResourceStyleCache;
 
   namespace gl
   {
@@ -73,9 +73,9 @@ public:
 
   void draw(yg::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
-  void map(yg::StylesCache * stylesCache) const;
-  bool find(yg::StylesCache * stylesCache) const;
-  void getNonPackedRects(yg::StylesCache * stylesCache, vector<m2::PointU> & v) const;
+  void map(yg::ResourceStyleCache * stylesCache) const;
+  bool find(yg::ResourceStyleCache * stylesCache) const;
+  void getNonPackedRects(yg::ResourceStyleCache * stylesCache, vector<m2::PointU> & v) const;
 
   int visualRank() const;
   yg::OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;

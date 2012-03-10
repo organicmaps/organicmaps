@@ -287,7 +287,7 @@ namespace yg
       m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + offs);
   }
 
-  void StraightTextElement::map(StylesCache * stylesCache) const
+  void StraightTextElement::map(ResourceStyleCache * stylesCache) const
   {
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
     {
@@ -303,7 +303,7 @@ namespace yg
     }
   }
 
-  bool StraightTextElement::find(StylesCache * stylesCache) const
+  bool StraightTextElement::find(ResourceStyleCache * stylesCache) const
   {
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
     {
@@ -323,7 +323,7 @@ namespace yg
     return true;
   }
 
-  void StraightTextElement::getNonPackedRects(StylesCache * stylesCache, vector<m2::PointU> & v) const
+  void StraightTextElement::getNonPackedRects(ResourceStyleCache * stylesCache, vector<m2::PointU> & v) const
   {
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
     {

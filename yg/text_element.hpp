@@ -51,16 +51,16 @@ namespace yg
     using OverlayElement::getNonPackedRects;
 
     void map(GlyphLayout const & layout,
-             StylesCache * stylesCache,
+             ResourceStyleCache * stylesCache,
              FontDesc const & desc) const;
 
     bool find(GlyphLayout const & layout,
-              StylesCache * stylesCache,
+              ResourceStyleCache * stylesCache,
               FontDesc const & desc) const;
 
     void getNonPackedRects(GlyphLayout const & layout,
                            FontDesc const & desc,
-                           StylesCache * stylesCache,
+                           ResourceStyleCache * stylesCache,
                            vector<m2::PointU> & v) const;
 
   public:

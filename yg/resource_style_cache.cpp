@@ -1,6 +1,6 @@
 #include "../base/SRC_FIRST.hpp"
 
-#include "styles_cache.hpp"
+#include "resource_style_cache.hpp"
 #include "text_element.hpp"
 #include "glyph_cache.hpp"
 #include "skin_page.hpp"
@@ -14,9 +14,9 @@
 
 namespace yg
 {
-  StylesCache::StylesCache(shared_ptr<ResourceManager> const & rm,
-                           int glyphCacheID,
-                           yg::gl::PacketsQueue * glQueue)
+  ResourceStyleCache::ResourceStyleCache(shared_ptr<ResourceManager> const & rm,
+                                           int glyphCacheID,
+                                           yg::gl::PacketsQueue * glQueue)
     : m_rm(rm),
       m_glQueue(glQueue)
   {
@@ -25,32 +25,32 @@ namespace yg
     m_cachePage->setTexture(m_rm->styleCacheTextures()->Reserve());
   }
 
-  StylesCache::~StylesCache()
+  ResourceStyleCache::~ResourceStyleCache()
   {
     m_rm->styleCacheTextures()->Free(m_cachePage->texture());
   }
 
-  shared_ptr<SkinPage> const & StylesCache::cachePage()
+  shared_ptr<SkinPage> const & ResourceStyleCache::cachePage()
   {
     return m_cachePage;
   }
 
-  shared_ptr<ResourceManager> const & StylesCache::resourceManager()
+  shared_ptr<ResourceManager> const & ResourceStyleCache::resourceManager()
   {
     return m_rm;
   }
 
-  GlyphCache * StylesCache::glyphCache()
+  GlyphCache * ResourceStyleCache::glyphCache()
   {
     return m_glyphCache;
   }
 
-  void StylesCache::clear()
+  void ResourceStyleCache::clear()
   {
     m_cachePage->clear();
   }
 
-  void StylesCache::upload()
+  void ResourceStyleCache::upload()
   {
     m_cachePage->uploadData(m_glQueue);
 
@@ -64,7 +64,7 @@ namespace yg
       OGLCHECK(glFinish());
   }
 
-  bool StylesCache::hasRoom(m2::PointU const * sizes, size_t cnt) const
+  bool ResourceStyleCache::hasRoom(m2::PointU const * sizes, size_t cnt) const
   {
     return m_cachePage->hasRoom(sizes, cnt);
   }

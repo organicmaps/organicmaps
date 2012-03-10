@@ -1,7 +1,7 @@
 #include "../base/logging.hpp"
 
 #include "symbol_element.hpp"
-#include "styles_cache.hpp"
+#include "resource_style_cache.hpp"
 #include "resource_style.hpp"
 #include "overlay_renderer.hpp"
 #include "skin.hpp"
@@ -86,16 +86,16 @@ namespace yg
                           style->m_pipelineID);
   }
 
-  void SymbolElement::map(StylesCache * stylesCache) const
+  void SymbolElement::map(ResourceStyleCache * stylesCache) const
   {
   }
 
-  bool SymbolElement::find(StylesCache * stylesCache) const
+  bool SymbolElement::find(ResourceStyleCache * stylesCache) const
   {
     return true;
   }
 
-  void SymbolElement::getNonPackedRects(StylesCache * stylesCache, vector<m2::PointU> & v) const
+  void SymbolElement::getNonPackedRects(ResourceStyleCache * stylesCache, vector<m2::PointU> & v) const
   {
   }
 

@@ -2,7 +2,7 @@
 #include "screen.hpp"
 #include "skin.hpp"
 #include "skin_page.hpp"
-#include "styles_cache.hpp"
+#include "resource_style_cache.hpp"
 #include "resource_manager.hpp"
 #include "overlay_renderer.hpp"
 #include "resource_style.hpp"
@@ -127,7 +127,7 @@ namespace yg
   }
 
   void TextElement::map(GlyphLayout const & layout,
-                        StylesCache * stylesCache,
+                        ResourceStyleCache * stylesCache,
                         FontDesc const & desc) const
   {
     if (!desc.IsValid())
@@ -160,7 +160,7 @@ namespace yg
     }
   }
 
-  bool TextElement::find(GlyphLayout const & layout, StylesCache * stylesCache, FontDesc const & desc) const
+  bool TextElement::find(GlyphLayout const & layout, ResourceStyleCache * stylesCache, FontDesc const & desc) const
   {
     if (!desc.IsValid())
       return false;
@@ -185,7 +185,7 @@ namespace yg
 
   void TextElement::getNonPackedRects(GlyphLayout const & layout,
                                       FontDesc const & desc,
-                                      StylesCache * stylesCache,
+                                      ResourceStyleCache * stylesCache,
                                       vector<m2::PointU> & v) const
   {
     if (!desc.IsValid())

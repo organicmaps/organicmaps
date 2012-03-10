@@ -73,12 +73,12 @@ ScreenCoverage * ScreenCoverage::Clone()
   return res;
 }
 
-void ScreenCoverage::SetStylesCache(yg::StylesCache * stylesCache)
+void ScreenCoverage::SetResourceStyleCache(yg::ResourceStyleCache * stylesCache)
 {
   m_stylesCache = stylesCache;
 }
 
-yg::StylesCache * ScreenCoverage::GetStylesCache() const
+yg::ResourceStyleCache * ScreenCoverage::GetResourceStyleCache() const
 {
   return m_stylesCache;
 }
