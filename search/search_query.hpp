@@ -126,6 +126,7 @@ private:
                    OffsetsVectorT const * offsets);
 
   void SuggestStrings(Results & res);
+  bool MatchForSuggestionsImpl(strings::UniString const & token, int8_t lang, Results & res);
   void MatchForSuggestions(strings::UniString const & token, Results & res);
 
   void GetBestMatchName(FeatureType const & f, uint32_t & penalty, string & name);

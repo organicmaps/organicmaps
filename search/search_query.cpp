@@ -803,20 +803,31 @@ void Query::SuggestStrings(Results & res)
   }
 }
 
-void Query::MatchForSuggestions(strings::UniString const & token, Results & res)
+bool Query::MatchForSuggestionsImpl(strings::UniString const & token, int8_t lang, Results & res)
 {
+  bool ret = false;
+
   StringsToSuggestVectorT::const_iterator it = m_pStringsToSuggest->begin();
   for (; it != m_pStringsToSuggest->end(); ++it)
   {
     strings::UniString const & s = it->m_name;
     if ((it->m_prefixLength <= token.size()) &&
-        (token != s) &&                 // do not push suggestion if it already equals to token
-        (it->m_lang == m_inputLang) &&  // push suggestions only for input language
+        (token != s) &&          // do not push suggestion if it already equals to token
+        (it->m_lang == lang) &&  // push suggestions only for needed language
         StartsWith(s.begin(), s.end(), token.begin(), token.end()))
     {
       res.AddResult(MakeResult(impl::PreResult2(strings::ToUtf8(s), it->m_prefixLength)));
+      ret = true;
     }
   }
+
+  return ret;
+}
+
+void Query::MatchForSuggestions(strings::UniString const & token, Results & res)
+{
+  if (!MatchForSuggestionsImpl(token, m_inputLang, res))
+    MatchForSuggestionsImpl(token, StringUtf8Multilang::GetLangIndex("en"), res);
 }
 
 m2::RectD const & Query::GetViewport() const
