@@ -41,8 +41,20 @@ class Query
 public:
   static int const m_scaleDepthSearch = 7;
 
-  // Vector of pairs (string_to_suggest, min_prefix_length_to_suggest).
-  typedef vector<pair<strings::UniString, uint8_t> > StringsToSuggestVectorT;
+  struct SuggestT
+  {
+    strings::UniString m_name;
+    uint8_t m_prefixLength;
+    int8_t m_lang;
+
+    SuggestT(strings::UniString const & name, uint8_t len, int8_t lang)
+      : m_name(name), m_prefixLength(len), m_lang(lang)
+    {
+    }
+  };
+
+  // Vector of suggests.
+  typedef vector<SuggestT> StringsToSuggestVectorT;
 
   Query(Index const * pIndex,
         CategoriesHolder const * pCategories,

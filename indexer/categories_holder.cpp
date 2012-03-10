@@ -129,7 +129,7 @@ void CategoriesHolder::LoadFromStream(istream & s)
             name.m_name = name.m_name.substr(1);
           }
           else
-            name.m_prefixLengthToSuggest = 10;
+            name.m_prefixLengthToSuggest = Category::EMPTY_PREFIX_LENGTH;
 
           cat.m_synonyms.push_back(name);
         }

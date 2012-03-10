@@ -15,6 +15,8 @@ class CategoriesHolder
 public:
   struct Category
   {
+    static const uint8_t EMPTY_PREFIX_LENGTH = 10;
+
     struct Name
     {
       string m_name;

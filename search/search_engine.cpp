@@ -24,7 +24,7 @@
 namespace search
 {
 
-typedef vector<pair<strings::UniString, uint8_t> > SuggestsContainerT;
+typedef vector<Query::SuggestT> SuggestsContainerT;
 
 class EngineData
 {
@@ -44,21 +44,28 @@ namespace
 
 class InitSuggestions
 {
-  map<strings::UniString, uint8_t> m_suggests;
+  // Key - is a string with language.
+  typedef map<pair<strings::UniString, int8_t>, uint8_t> SuggestMapT;
+  SuggestMapT m_suggests;
 
 public:
   void operator() (CategoriesHolder::Category::Name const & name)
   {
-    strings::UniString const uniName = NormalizeAndSimplifyString(name.m_name);
+    if (name.m_prefixLengthToSuggest != CategoriesHolder::Category::EMPTY_PREFIX_LENGTH)
+    {
+      strings::UniString const uniName = NormalizeAndSimplifyString(name.m_name);
 
-    uint8_t & score = m_suggests[uniName];
-    if (score == 0 || score > name.m_prefixLengthToSuggest)
-      score = name.m_prefixLengthToSuggest;
+      uint8_t & score = m_suggests[make_pair(uniName, name.m_lang)];
+      if (score == 0 || score > name.m_prefixLengthToSuggest)
+        score = name.m_prefixLengthToSuggest;
+    }
   }
 
   void GetSuggests(SuggestsContainerT & cont) const
   {
-    cont.assign(m_suggests.begin(), m_suggests.end());
+    cont.reserve(m_suggests.size());
+    for (SuggestMapT::const_iterator i = m_suggests.begin(); i != m_suggests.end(); ++i)
+      cont.push_back(Query::SuggestT(i->first.first, i->second, i->first.second));
   }
 };
 

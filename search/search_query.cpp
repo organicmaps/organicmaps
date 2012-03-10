@@ -808,12 +808,13 @@ void Query::MatchForSuggestions(strings::UniString const & token, Results & res)
   StringsToSuggestVectorT::const_iterator it = m_pStringsToSuggest->begin();
   for (; it != m_pStringsToSuggest->end(); ++it)
   {
-    strings::UniString const & s = it->first;
-    if ((it->second <= token.size()) &&
-        (token != s) &&   // do not push suggestion if it already equals to token
+    strings::UniString const & s = it->m_name;
+    if ((it->m_prefixLength <= token.size()) &&
+        (token != s) &&                 // do not push suggestion if it already equals to token
+        (it->m_lang == m_inputLang) &&  // push suggestions only for input language
         StartsWith(s.begin(), s.end(), token.begin(), token.end()))
     {
-      res.AddResult(MakeResult(impl::PreResult2(strings::ToUtf8(s), it->second)));
+      res.AddResult(MakeResult(impl::PreResult2(strings::ToUtf8(s), it->m_prefixLength)));
     }
   }
 }
