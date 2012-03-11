@@ -313,7 +313,9 @@ bool Ruler::find(yg::ResourceStyleCache * stylesCache) const
   return true;
 }
 
-void Ruler::getNonPackedRects(yg::ResourceStyleCache * stylesCache, vector<m2::PointU> & v) const
+void Ruler::getNonPackedRects(yg::ResourceStyleCache * stylesCache,
+                              yg::ResourceStyleCacheContext * cacheContext,
+                              vector<m2::PointU> & v) const
 {
 }
 

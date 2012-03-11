@@ -9,6 +9,7 @@
 namespace yg
 {
   class ResourceStyleCache;
+  class ResourceStyleCacheContext;
 
   namespace gl
   {
@@ -75,7 +76,7 @@ public:
 
   void map(yg::ResourceStyleCache * stylesCache) const;
   bool find(yg::ResourceStyleCache * stylesCache) const;
-  void getNonPackedRects(yg::ResourceStyleCache * stylesCache, vector<m2::PointU> & v) const;
+  void getNonPackedRects(yg::ResourceStyleCache * stylesCache, yg::ResourceStyleCacheContext * context, vector<m2::PointU> & v) const;
 
   int visualRank() const;
   yg::OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;

@@ -14,6 +14,7 @@ namespace yg
   }
 
   class ResourceStyleCache;
+  class ResourceStyleCacheContext;
 
   class OverlayElement
   {
@@ -57,7 +58,9 @@ namespace yg
 
     /// caching-related functions.
     /// @{
-    virtual void getNonPackedRects(ResourceStyleCache * stylesCache, vector<m2::PointU> & sizes) const = 0;
+    virtual void getNonPackedRects(ResourceStyleCache * stylesCache,
+                                   ResourceStyleCacheContext * cacheContext,
+                                   vector<m2::PointU> & sizes) const = 0;
     virtual bool find(ResourceStyleCache * stylesCache) const = 0;
     virtual void map(ResourceStyleCache * stylesCache) const = 0;
     /// @}

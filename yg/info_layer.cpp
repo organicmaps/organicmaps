@@ -244,11 +244,10 @@ namespace yg
     vector<m2::PointU> sizes;
     sizes.reserve(100);
 
-    /// some glyphs will be counted twice(probably a lot of them).
-    /// that way we'll actually waste a lot of texture space.
+    ResourceStyleCacheContext ctx;
 
     for (unsigned i = 0; i < v.size(); ++i)
-      v[i]->getNonPackedRects(stylesCache, sizes);
+      v[i]->getNonPackedRects(stylesCache, &ctx, sizes);
 
     if (sizes.empty())
       return;
@@ -270,7 +269,9 @@ namespace yg
       for (pos = 0; pos < v.size(); ++pos)
       {
         sizes.clear();
-        v[pos]->getNonPackedRects(stylesCache, sizes);
+        ctx.clear();
+
+        v[pos]->getNonPackedRects(stylesCache, &ctx, sizes);
 
         /// @todo Check logic!
         if (!sizes.empty())
@@ -289,7 +290,7 @@ namespace yg
       for (; pos < v.size(); ++pos)
       {
         sizes.clear();
-        v[pos]->getNonPackedRects(stylesCache, sizes);
+        v[pos]->getNonPackedRects(stylesCache, 0, sizes);
         v[pos]->setIsNeedRedraw(sizes.empty());
       }
     }

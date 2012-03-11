@@ -323,19 +323,21 @@ namespace yg
     return true;
   }
 
-  void StraightTextElement::getNonPackedRects(ResourceStyleCache * stylesCache, vector<m2::PointU> & v) const
+  void StraightTextElement::getNonPackedRects(ResourceStyleCache * stylesCache,
+                                              ResourceStyleCacheContext * context,
+                                              vector<m2::PointU> & v) const
   {
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
     {
       if (m_glyphLayouts[i].fontDesc().m_isMasked)
-        TextElement::getNonPackedRects(m_glyphLayouts[i], m_glyphLayouts[i].fontDesc(), stylesCache, v);
+        TextElement::getNonPackedRects(m_glyphLayouts[i], m_glyphLayouts[i].fontDesc(), stylesCache, context, v);
     }
 
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
     {
       yg::FontDesc fontDesc = m_glyphLayouts[i].fontDesc();
       fontDesc.m_isMasked = false;
-      TextElement::getNonPackedRects(m_glyphLayouts[i], fontDesc, stylesCache, v);
+      TextElement::getNonPackedRects(m_glyphLayouts[i], fontDesc, stylesCache, context, v);
     }
   }
 

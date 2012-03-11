@@ -61,6 +61,7 @@ namespace yg
     void getNonPackedRects(GlyphLayout const & layout,
                            FontDesc const & desc,
                            ResourceStyleCache * stylesCache,
+                           ResourceStyleCacheContext * context,
                            vector<m2::PointU> & v) const;
 
   public:

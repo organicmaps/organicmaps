@@ -186,6 +186,7 @@ namespace yg
   void TextElement::getNonPackedRects(GlyphLayout const & layout,
                                       FontDesc const & desc,
                                       ResourceStyleCache * stylesCache,
+                                      ResourceStyleCacheContext * context,
                                       vector<m2::PointU> & v) const
   {
     if (!desc.IsValid())
@@ -203,8 +204,13 @@ namespace yg
                   desc.m_isMasked,
                   desc.m_isMasked ? desc.m_maskColor : desc.m_color);
 
+      if (context && context->hasGlyph(gk))
+        continue;
+
       if (skinPage->findGlyph(gk) == 0x00FFFFFF)
       {
+        if (context)
+          context->addGlyph(gk);
         shared_ptr<GlyphInfo> gi = glyphCache->getGlyphInfo(gk);
         v.push_back(m2::PointU(gi->m_metrics.m_width + 4, gi->m_metrics.m_height + 4));
       }

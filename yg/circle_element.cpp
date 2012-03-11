@@ -85,12 +85,22 @@ namespace yg
     return skinPage->findCircleInfo(m_ci) != 0x00FFFFFF;
   }
 
-  void CircleElement::getNonPackedRects(ResourceStyleCache * stylesCache, vector<m2::PointU> & v) const
+  void CircleElement::getNonPackedRects(ResourceStyleCache * stylesCache,
+                                        ResourceStyleCacheContext * context,
+                                        vector<m2::PointU> & v) const
   {
     shared_ptr<SkinPage> const & skinPage = stylesCache->cachePage();
 
+    if (context && context->hasCircleInfo(m_ci))
+      return;
+
     if (skinPage->findCircleInfo(m_ci) == 0x00FFFFFF)
+    {
+      if (context)
+        context->addCircleInfo(m_ci);
+
       v.push_back(m_ci.patternSize());
+    }
   }
 
   OverlayElement * CircleElement::clone(math::Matrix<double, 3, 3> const & m) const
