@@ -214,15 +214,25 @@ namespace yg
     }
   }
 
-  void InfoLayer::merge(InfoLayer const & layer, math::Matrix<double, 3, 3> const & m)
-  {
-    layer.m_tree.ForEach(bind(&InfoLayer::processOverlayElement, this, _1, cref(m)));
-  }
-
   bool greater_priority(shared_ptr<OverlayElement> const & l,
                         shared_ptr<OverlayElement> const & r)
   {
     return l->visualRank() > r->visualRank();
+  }
+
+  void InfoLayer::merge(InfoLayer const & layer, math::Matrix<double, 3, 3> const & m)
+  {
+    vector<shared_ptr<OverlayElement> > v;
+
+    /// 1. collecting all elements from tree
+    layer.m_tree.ForEach(MakeBackInsertFunctor(v));
+
+    /// 2. sorting by priority, so the more important ones comes first
+    sort(v.begin(), v.end(), &greater_priority);
+
+    /// 3. merging them into the infoLayer starting from most
+    /// important one to optimize the space usage.
+    for_each(v.begin(), v.end(), bind(&InfoLayer::processOverlayElement, this, _1, cref(m)));
   }
 
   void InfoLayer::cache(ResourceStyleCache * stylesCache)
