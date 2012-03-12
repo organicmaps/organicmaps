@@ -104,6 +104,12 @@ Framework * m_framework = NULL;
   [searchVC release];
 }
 
+- (void)onShowDownloaderTimer:(NSTimer *)timer
+{
+  [self OnSettingsClicked:nil];
+  [timer invalidate];
+}
+
 - (void) dealloc
 {
 	delete m_framework;
@@ -151,6 +157,17 @@ Framework * m_framework = NULL;
     [v initRenderPolicy];
 
     m_framework->Invalidate();
+
+    // Display download countries dialog if no countries are downloaded
+    // Use 2 seconds timer delay after map is loaded
+    Platform::FilesList mwms;
+    GetPlatform().GetFilesInDir(GetPlatform().WritableDir(), "*" DATA_FILE_EXTENSION, mwms);
+    if (mwms.empty())
+      [NSTimer scheduledTimerWithTimeInterval:2
+                                       target:self
+                                     selector:@selector(onShowDownloaderTimer:)
+                                     userInfo:nil
+                                      repeats:NO];
 	}
 
 	return self;
