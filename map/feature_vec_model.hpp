@@ -46,6 +46,8 @@ namespace model
       return m_multiIndex.IsLoaded(fName);
     }
 
+    bool IsCountryLoaded(m2::PointD const & pt) const;
+
     /// @name Features enumeration.
     //@{
     template <class ToDo>

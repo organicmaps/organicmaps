@@ -69,6 +69,21 @@ void FeaturesFetcher::ClearCaches()
   m_multiIndex.ClearCache();
 }
 
+bool FeaturesFetcher::IsCountryLoaded(m2::PointD const & pt) const
+{
+  vector<MwmInfo> info;
+  m_multiIndex.GetMwmInfo(info);
+
+  for (size_t i = 0; i < info.size(); ++i)
+    if (info[i].isValid() && info[i].isCountry() &&
+        info[i].m_limitRect.IsPointInside(pt))
+    {
+      return true;
+    }
+
+  return false;
+}
+
 m2::RectD FeaturesFetcher::GetWorldRect() const
 {
   if (m_rect == m2::RectD())

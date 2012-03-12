@@ -48,9 +48,9 @@
 
 //#define DRAW_TOUCH_POINTS
 
-
 class DrawerYG;
 class RenderPolicy;
+namespace search { class Result; }
 
 class Framework
 {
@@ -147,6 +147,7 @@ public:
   void PrepareSearch(bool hasPt, double lat = 0.0, double lon = 0.0);
   void Search(search::SearchParams const & params);
   bool GetCurrentPosition(double & lat, double & lon);
+  void ShowSearchResult(search::Result const & res);
 
   /// @return country code in ISO 3166-1 alpha-2 format (two small letters) or empty string
   string GetCountryCodeByPosition(double lat, double lon);

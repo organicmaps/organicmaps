@@ -727,6 +727,20 @@ bool Framework::GetCurrentPosition(double & lat, double & lon)
   else return false;
 }
 
+void Framework::ShowSearchResult(search::Result const & res)
+{
+  m2::RectD r = res.GetFeatureRect();
+  if (scales::GetScaleLevel(r) > scales::GetUpperWorldScale())
+  {
+    m2::PointD const c = r.Center();
+    if (!m_model.IsCountryLoaded(c))
+      r = scales::GetRectForLevelFix(9, c);
+  }
+
+  ShowRect(r);
+  DrawPlacemark(res.GetFeatureCenter());
+}
+
 void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 {
   if (renderPolicy)
