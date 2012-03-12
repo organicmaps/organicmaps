@@ -55,7 +55,7 @@ it:3ristorante|3caffè|mangiare
 es:3restaurante|3café|comer
 
 amenity-fuel
-en:3gas station|3fuel|gas
+en:gas station|3fuel|2gas
 ru:3заправка|бензин|топливо
 de:3tankstelle|tankstation
 fr:3station-service|poste d’essence
