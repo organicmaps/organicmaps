@@ -781,24 +781,23 @@ void Query::SearchInMWM(Index::MwmLock const & mwmLock, Params const & params,
 
 void Query::SuggestStrings(Results & res)
 {
-  if (m_pStringsToSuggest)
+  if (m_pStringsToSuggest && !m_prefix.empty())
   {
-    if (m_tokens.size() == 0 && !m_prefix.empty())
+    switch (m_tokens.size())
     {
+    case 0:
       // Match prefix.
       MatchForSuggestions(m_prefix, res);
-    }
-    else if (m_tokens.size() == 1)
-    {
+      break;
+
+    case 1:
       // Match token + prefix.
       strings::UniString tokenAndPrefix = m_tokens[0];
-      if (!m_prefix.empty())
-      {
-        tokenAndPrefix.push_back(' ');
-        tokenAndPrefix.append(m_prefix.begin(), m_prefix.end());
-      }
+      tokenAndPrefix.push_back(' ');
+      tokenAndPrefix.append(m_prefix.begin(), m_prefix.end());
 
       MatchForSuggestions(tokenAndPrefix, res);
+      break;
     }
   }
 }
