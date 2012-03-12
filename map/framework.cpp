@@ -352,11 +352,14 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
 
 bool Framework::IsEmptyModel(m2::PointD const & pt)
 {
+  /*
   string const fName = GetSearchEngine()->GetCountryFile(pt);
   if (fName.empty())
     return false;
 
   return !m_model.IsLoaded(fName);
+  */
+  return !m_model.IsCountryLoaded(pt);
 }
 
 void Framework::BeginPaint(shared_ptr<PaintEvent> const & e)
@@ -762,8 +765,8 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 
   if (m_renderPolicy.get())
   {
-    m_renderPolicy->SetRenderFn(DrawModelFn());
     m_renderPolicy->SetEmptyModelFn(bind(&Framework::IsEmptyModel, this, _1));
+    m_renderPolicy->SetRenderFn(DrawModelFn());
 
     m_navigator.SetSupportRotation(m_renderPolicy->DoSupportRotation());
 

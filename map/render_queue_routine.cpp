@@ -464,8 +464,11 @@ void RenderQueueRoutine::Do()
         break;
 
       /// if something were actually drawn, or (exclusive or) we are repainting the whole rect
-      if ((!cumulativeEmptyModelCurrent) || (fullRectRepaint))
-        m_renderState->m_isEmptyModelActual = cumulativeEmptyModelCurrent;
+      if (!cumulativeEmptyModelCurrent || fullRectRepaint)
+      {
+        m_renderState->m_isEmptyModelActual = cumulativeEmptyModelCurrent &&
+            m_emptyModelFn(m_currentRenderCommand->m_frameScreen.GlobalRect().GetGlobalRect().Center());
+      }
 
       /// setting the "whole texture" clip rect to render texts opened by panning.
       m_threadDrawer->screen()->setClipRect(textureRect);
