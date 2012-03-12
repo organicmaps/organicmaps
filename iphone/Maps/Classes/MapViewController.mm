@@ -106,7 +106,9 @@ Framework * m_framework = NULL;
 
 - (void)onShowDownloaderTimer:(NSTimer *)timer
 {
-  [self OnSettingsClicked:nil];
+  // Only display downloader if no more modal controllers are already displayed
+  if (self.modalViewController == nil)
+    [self OnSettingsClicked:nil];
   [timer invalidate];
 }
 
