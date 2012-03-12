@@ -91,7 +91,7 @@ en:bus stop|2bus|stop|4transport
 ru:4остановка|4автобус|4транспорт
 de:bushaltestelle|haltestelle|2bus|autobus|verkehr
 fr:arrêt de bus|station|2bus|autobus|4transport
-it:fermata|autobus|4trasporto
+it:fermata|autobus|4transporto
 es:parada|4transporte
 
 railway-tram_stop
@@ -99,7 +99,7 @@ en:tram stop|3tram|stop|4transport
 ru:4остановка|4трамвай|4транспорт
 de:haltestelle|tram|verkehr
 fr:arrêt|station|tram|4transport
-it:fermata|tram|4trasporto
+it:fermata|tram|4transporto
 es:parada|4transporte
 
 amenity-bus_station
@@ -107,7 +107,7 @@ en:bus station|2bus|station|4transport
 ru:автостанция|4автобус|4остановка|4транспорт
 de:bahnhof|haltestelle|bus|autobus|verkehr
 fr:gare|terminus|arrêt|station|bus|autobus|4transport
-it:autostazione|fermata|autobus|4trasporto
+it:autostazione|fermata|autobus|4transporto
 es:estación de autobuses|4transporte
 
 railway-station
