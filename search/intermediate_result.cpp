@@ -217,7 +217,9 @@ namespace
 
 Result PreResult2::GenerateFinalResult(
                         storage::CountryInfoGetter const * pInfo,
-                        CategoriesHolder const * pCat, int8_t lang) const
+                        CategoriesHolder const * pCat,
+                        set<uint32_t> const * pTypes,
+                        int8_t lang) const
 {
   storage::CountryInfo info;
 
@@ -235,7 +237,7 @@ Result PreResult2::GenerateFinalResult(
   switch (m_resultType)
   {
   case RESULT_FEATURE:
-    return Result(m_str, info.m_name, info.m_flag, GetFeatureType(pCat, lang)
+    return Result(m_str, info.m_name, info.m_flag, GetFeatureType(pCat, pTypes, lang)
               #ifdef DEBUG
                   + ' ' + strings::to_string(static_cast<int>(m_rank))
               #endif
@@ -357,20 +359,34 @@ string PreResult2::DebugPrint() const
   return res;
 }
 
-uint32_t PreResult2::GetBestType() const
+uint32_t PreResult2::GetBestType(set<uint32_t> const * pPrefferedTypes) const
 {
-  /// @todo Need to process all types.
+  uint32_t t = 0;
 
-  uint32_t t = m_types.GetBestType();
+  if (pPrefferedTypes)
+  {
+    for (size_t i = 0; i < m_types.Size(); ++i)
+      if (pPrefferedTypes->count(m_types[i]) > 0)
+      {
+        t = m_types[i];
+        break;
+      }
+  }
+
+  if (t == 0)
+    t = m_types.GetBestType();
+
   ftype::TruncValue(t, 2);
   return t;
 }
 
-string PreResult2::GetFeatureType(CategoriesHolder const * pCat, int8_t lang) const
+string PreResult2::GetFeatureType(CategoriesHolder const * pCat,
+                                  set<uint32_t> const * pTypes,
+                                  int8_t lang) const
 {
   ASSERT_EQUAL(m_resultType, RESULT_FEATURE, ());
 
-  uint32_t const type = GetBestType();
+  uint32_t const type = GetBestType(pTypes);
   ASSERT_NOT_EQUAL(type, 0, ());
 
   if (pCat)

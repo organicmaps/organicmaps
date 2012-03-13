@@ -474,6 +474,9 @@ void Query::FlushResults(Results & res, void (Results::*pAddFn)(Result const &))
       AddPreResult2(maker(*i), indV);
   }
 
+  if (indV.empty())
+    return;
+
   RemoveDuplicatingLinear(indV);
 
   for (size_t i = 0; i < m_qCount; ++i)
@@ -500,6 +503,17 @@ void Query::FlushResults(Results & res, void (Results::*pAddFn)(Result const &))
   // sort results according to combined criteria
   sort(indV.begin(), indV.end());
 
+  // get preffered types to show in results
+  set<uint32_t> prefferedTypes;
+  if (m_pCategories)
+  {
+    for (size_t i = 0; i < m_tokens.size(); ++i)
+      m_pCategories->ForEachTypeByName(m_tokens[i], MakeInsertFunctor(prefferedTypes));
+
+    if (!m_prefix.empty())
+      m_pCategories->ForEachTypeByName(m_prefix, MakeInsertFunctor(prefferedTypes));
+  }
+
   // emit feature results
   for (size_t i = 0; i < indV.size(); ++i)
   {
@@ -507,7 +521,7 @@ void Query::FlushResults(Results & res, void (Results::*pAddFn)(Result const &))
 
     LOG(LDEBUG, (indV[i]));
 
-    (res.*pAddFn)(MakeResult(*(indV[i])));
+    (res.*pAddFn)(MakeResult(*(indV[i]), &prefferedTypes));
   }
 }
 

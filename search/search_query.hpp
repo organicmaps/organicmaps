@@ -131,9 +131,9 @@ private:
 
   void GetBestMatchName(FeatureType const & f, uint32_t & penalty, string & name);
 
-  inline Result MakeResult(impl::PreResult2 const & r) const
+  inline Result MakeResult(impl::PreResult2 const & r, set<uint32_t> const * pPrefferedTypes = 0) const
   {
-    return r.GenerateFinalResult(m_pInfoGetter, m_pCategories, m_currentLang);
+    return r.GenerateFinalResult(m_pInfoGetter, m_pCategories, pPrefferedTypes, m_currentLang);
   }
 
   Index const * m_pIndex;

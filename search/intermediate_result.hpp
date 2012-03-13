@@ -78,8 +78,14 @@ public:
   // For RESULT_CATEGORY.
   PreResult2(string const & name, int penalty);
 
+  /// @param[in]  pInfo   Need to get region for result.
+  /// @param[in]  pCat    Categories need to display readable type string.
+  /// @param[in]  pTypes  Set of preffered types that match input tokens by categories.
+  /// @param[in]  lang    Current system language.
   Result GenerateFinalResult(storage::CountryInfoGetter const * pInfo,
-                             CategoriesHolder const * pCat, int8_t lang) const;
+                             CategoriesHolder const * pCat,
+                             set<uint32_t> const * pTypes,
+                             int8_t lang) const;
 
   static bool LessRank(PreResult2 const & r1, PreResult2 const & r2);
   static bool LessDistance(PreResult2 const & r1, PreResult2 const & r2);
@@ -114,11 +120,13 @@ private:
   template <class T> friend bool LessViewportDistanceT(T const & r1, T const & r2);
   template <class T> friend bool LessDistanceT(T const & r1, T const & r2);
 
-  string GetFeatureType(CategoriesHolder const * pCat, int8_t lang) const;
+  string GetFeatureType(CategoriesHolder const * pCat,
+                        set<uint32_t> const * pTypes,
+                        int8_t lang) const;
   m2::RectD GetFinalViewport() const;
 
   feature::TypesHolder m_types;
-  uint32_t GetBestType() const;
+  uint32_t GetBestType(set<uint32_t> const * pPrefferedTypes = 0) const;
 
   string m_str, m_completionString;
 
