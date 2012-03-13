@@ -1,24 +1,20 @@
-#include "../base/SRC_FIRST.hpp"
+#include "tiling_render_policy_mt.hpp"
 
 #include "../platform/platform.hpp"
-#include "../std/bind.hpp"
 
-#include "../geometry/screenbase.hpp"
-
-#include "../yg/base_texture.hpp"
 #include "../yg/internal/opengl.hpp"
 
-#include "drawer_yg.hpp"
-#include "events.hpp"
-#include "tiling_render_policy_mt.hpp"
 #include "window_handle.hpp"
-#include "screen_coverage.hpp"
+#include "tile_renderer.hpp"
+#include "coverage_generator.hpp"
 
 TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
                                            bool useDefaultFB,
                                            yg::ResourceManager::Params const & rmParams,
                                            shared_ptr<yg::gl::RenderContext> const & primaryRC)
-  : RenderPolicy(primaryRC, false, GetPlatform().CpuCores())
+  : BasicTilingRenderPolicy(primaryRC,
+                            false,
+                            GetPlatform().CpuCores())
 {
   yg::ResourceManager::Params rmp = rmParams;
 
@@ -151,13 +147,20 @@ TilingRenderPolicyMT::~TilingRenderPolicyMT()
 {
   LOG(LINFO, ("cancelling ResourceManager"));
   m_resourceManager->cancel();
+
+  m_CoverageGenerator.reset();
+
+  m_TileRenderer->ClearCommands();
+  m_TileRenderer->SetSequenceID(numeric_limits<int>::max());
+  m_TileRenderer->CancelCommands();
+  m_TileRenderer->WaitForEmptyAndFinished();
+
+  m_TileRenderer.reset();
 }
 
 void TilingRenderPolicyMT::SetRenderFn(TRenderFn renderFn)
 {
-  RenderPolicy::SetRenderFn(renderFn);
-
-  m_tileRenderer.reset(new TileRenderer(GetPlatform().SkinName(),
+  m_TileRenderer.reset(new TileRenderer(GetPlatform().SkinName(),
                                         GetPlatform().MaxTilesCount(),
                                         GetPlatform().CpuCores(),
                                         m_bgColor,
@@ -167,66 +170,9 @@ void TilingRenderPolicyMT::SetRenderFn(TRenderFn renderFn)
                                         GetPlatform().VisualScale(),
                                         0));
 
-  m_coverageGenerator.reset(new CoverageGenerator(m_tileRenderer.get(),
+  m_CoverageGenerator.reset(new CoverageGenerator(m_TileRenderer.get(),
                                                   m_windowHandle,
                                                   m_primaryRC,
                                                   m_resourceManager,
                                                   0));
-}
-
-void TilingRenderPolicyMT::BeginFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
-{
-}
-
-void TilingRenderPolicyMT::EndFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
-{
-  ScreenCoverage * curCvg = &m_coverageGenerator->CurrentCoverage();
-  curCvg->EndFrame(e->drawer()->screen().get());
-  m_coverageGenerator->Mutex().Unlock();
-}
-
-void TilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & currentScreen)
-{
-  DrawerYG * pDrawer = e->drawer();
-
-  pDrawer->beginFrame();
-
-  pDrawer->screen()->clear(m_bgColor);
-
-  m_coverageGenerator->AddCoverScreenTask(currentScreen, false);
-
-  m_coverageGenerator->Mutex().Lock();
-
-  ScreenCoverage * curCvg = &m_coverageGenerator->CurrentCoverage();
-
-  curCvg->Draw(pDrawer->screen().get(), currentScreen);
-
-  m_drawScale = curCvg->GetDrawScale();
-
-  pDrawer->endFrame();
-}
-
-int TilingRenderPolicyMT::GetDrawScale(ScreenBase const & s) const
-{
-  return m_drawScale;
-}
-
-TileRenderer & TilingRenderPolicyMT::GetTileRenderer()
-{
-  return *m_tileRenderer.get();
-}
-
-void TilingRenderPolicyMT::StartScale()
-{
-  m_isScaling = true;
-}
-
-void TilingRenderPolicyMT::StopScale()
-{
-  m_isScaling = false;
-}
-
-bool TilingRenderPolicyMT::IsTiling() const
-{
-  return true;
 }

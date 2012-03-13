@@ -1,13 +1,6 @@
 #pragma once
 
-#include "render_policy.hpp"
-#include "tile_renderer.hpp"
-#include "coverage_generator.hpp"
-#include "tiler.hpp"
-#include "screen_coverage.hpp"
-
-#include "../yg/info_layer.hpp"
-#include "../std/scoped_ptr.hpp"
+#include "basic_tiling_render_policy.hpp"
 
 namespace yg
 {
@@ -20,24 +13,8 @@ namespace yg
 
 class WindowHandle;
 
-class TilingRenderPolicyMT : public RenderPolicy
+class TilingRenderPolicyMT : public BasicTilingRenderPolicy
 {
-private:
-
-  scoped_ptr<TileRenderer> m_tileRenderer;
-
-  scoped_ptr<CoverageGenerator> m_coverageGenerator;
-
-  ScreenBase m_currentScreen;
-
-  bool m_isScaling;
-
-  int m_drawScale;
-
-protected:
-
-  TileRenderer & GetTileRenderer();
-
 public:
 
   TilingRenderPolicyMT(VideoTimer * videoTimer,
@@ -46,16 +23,6 @@ public:
                        shared_ptr<yg::gl::RenderContext> const & primaryRC);
 
   ~TilingRenderPolicyMT();
-
-  void BeginFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);
-  void DrawFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);
-  void EndFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);
-
-  virtual void StartScale();
-  virtual void StopScale();
-
-  bool IsTiling() const;
-  int GetDrawScale(ScreenBase const & ) const;
 
   void SetRenderFn(TRenderFn renderFn);
 };

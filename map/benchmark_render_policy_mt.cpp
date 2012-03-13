@@ -2,6 +2,8 @@
 
 #include "benchmark_render_policy_mt.hpp"
 
+#include "render_queue.hpp"
+
 #include "../base/logging.hpp"
 
 BenchmarkRenderPolicyMT::BenchmarkRenderPolicyMT(VideoTimer * videoTimer,

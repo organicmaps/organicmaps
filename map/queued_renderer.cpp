@@ -1,19 +1,14 @@
-#include "queued_render_policy.hpp"
-#include "events.hpp"
+#include "queued_renderer.hpp"
 #include "../yg/internal/opengl.hpp"
 
-QueuedRenderPolicy::QueuedRenderPolicy(int pipelinesCount,
-                                       shared_ptr<yg::gl::RenderContext> const & primaryRC,
-                                       bool doSupportsRotation,
-                                       size_t idCacheSize)
-  : RenderPolicy(primaryRC, doSupportsRotation, idCacheSize)
+QueuedRenderer::QueuedRenderer(int pipelinesCount)
 {
   m_Pipelines = new PacketsPipeline[pipelinesCount];
   m_PipelinesCount = pipelinesCount;
   m_CurrentPipeline = 0;
 }
 
-QueuedRenderPolicy::~QueuedRenderPolicy()
+QueuedRenderer::~QueuedRenderer()
 {
 /*  for (unsigned i = 0; i < m_PipelinesCount; ++i)
     CancelQueuedCommands(i);*/
@@ -23,11 +18,8 @@ QueuedRenderPolicy::~QueuedRenderPolicy()
   LOG(LINFO, ("deleted QueuedRenderPolicy"));
 }
 
-bool QueuedRenderPolicy::NeedRedraw() const
+bool QueuedRenderer::NeedRedraw() const
 {
-  if (RenderPolicy::NeedRedraw())
-    return true;
-
   for (unsigned i = 0; i < m_PipelinesCount; ++i)
     if (!m_Pipelines[i].m_Queue.empty())
       return true;
@@ -35,22 +27,20 @@ bool QueuedRenderPolicy::NeedRedraw() const
   return false;
 }
 
-void QueuedRenderPolicy::BeginFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s)
+void QueuedRenderer::BeginFrame()
 {
   m_IsDebugging = false;
   if (m_IsDebugging)
     LOG(LINFO, ("-------BeginFrame-------"));
-  base_t::BeginFrame(ev, s);
 }
 
-void QueuedRenderPolicy::EndFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s)
+void QueuedRenderer::EndFrame()
 {
-  base_t::EndFrame(ev, s);
   if (m_IsDebugging)
     LOG(LINFO, ("-------EndFrame-------"));
 }
 
-void QueuedRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s)
+void QueuedRenderer::DrawFrame()
 {
   /// cyclically checking pipelines starting from m_CurrentPipeline
   for (unsigned i = 0; i < m_PipelinesCount; ++i)
@@ -64,11 +54,9 @@ void QueuedRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & ev, ScreenBase
       break;
     }
   }
-
-  m_resourceManager->updatePoolState();
 }
 
-bool QueuedRenderPolicy::RenderQueuedCommands(int pipelineNum)
+bool QueuedRenderer::RenderQueuedCommands(int pipelineNum)
 {
   /// logging only calls that is made while rendering tiles.
 //  if ((pipelineNum == 0) && (m_IsDebugging))
@@ -79,7 +67,7 @@ bool QueuedRenderPolicy::RenderQueuedCommands(int pipelineNum)
 
   unsigned cmdProcessed = 0;
 
-  m_Pipelines[pipelineNum].m_Queue.processList(bind(&QueuedRenderPolicy::PacketsPipeline::FillFrameCommands, &m_Pipelines[pipelineNum], _1, 1));
+  m_Pipelines[pipelineNum].m_Queue.processList(bind(&QueuedRenderer::PacketsPipeline::FillFrameCommands, &m_Pipelines[pipelineNum], _1, 1));
 
   cmdProcessed = m_Pipelines[pipelineNum].m_FrameCommands.size();
 
@@ -126,7 +114,7 @@ bool QueuedRenderPolicy::RenderQueuedCommands(int pipelineNum)
 //    yg::gl::g_doLogOGLCalls = false;
 }
 
-void QueuedRenderPolicy::PacketsPipeline::FillFrameCommands(list<yg::gl::Packet> & renderQueue, int maxFrames)
+void QueuedRenderer::PacketsPipeline::FillFrameCommands(list<yg::gl::Packet> & renderQueue, int maxFrames)
 {
   m_FrameCommands.clear();
 
@@ -180,12 +168,12 @@ void QueuedRenderPolicy::PacketsPipeline::FillFrameCommands(list<yg::gl::Packet>
   }
 }
 
-void QueuedRenderPolicy::CopyQueuedCommands(list<yg::gl::Packet> &l, list<yg::gl::Packet> &r)
+void QueuedRenderer::CopyQueuedCommands(list<yg::gl::Packet> &l, list<yg::gl::Packet> &r)
 {
   swap(l, r);
 }
 
-void QueuedRenderPolicy::CancelQueuedCommands(int pipelineNum)
+void QueuedRenderer::CancelQueuedCommands(int pipelineNum)
 {
   if (m_IsDebugging)
     LOG(LINFO, ("cancelling packetsQueue for pipeline", pipelineNum));
@@ -194,7 +182,7 @@ void QueuedRenderPolicy::CancelQueuedCommands(int pipelineNum)
 
   list<yg::gl::Packet> l;
 
-  m_Pipelines[pipelineNum].m_Queue.processList(bind(&QueuedRenderPolicy::CopyQueuedCommands, this, _1, ref(l)));
+  m_Pipelines[pipelineNum].m_Queue.processList(bind(&QueuedRenderer::CopyQueuedCommands, this, _1, ref(l)));
 
   for (list<yg::gl::Packet>::iterator it = l.begin(); it != l.end(); ++it)
   {
@@ -205,12 +193,12 @@ void QueuedRenderPolicy::CancelQueuedCommands(int pipelineNum)
   }
 }
 
-yg::gl::PacketsQueue * QueuedRenderPolicy::GetPacketsQueue(int pipelineNum)
+yg::gl::PacketsQueue * QueuedRenderer::GetPacketsQueue(int pipelineNum)
 {
   return &m_Pipelines[pipelineNum].m_Queue;
 }
 
-void QueuedRenderPolicy::PrepareQueueCancellation(int pipelineNum)
+void QueuedRenderer::PrepareQueueCancellation(int pipelineNum)
 {
   m_Pipelines[pipelineNum].m_Queue.cancelFences();
 }

@@ -1,5 +1,6 @@
 #include "../base/SRC_FIRST.hpp"
 #include "benchmark_tiling_render_policy_mt.hpp"
+#include "tile_renderer.hpp"
 
 BenchmarkTilingRenderPolicyMT::BenchmarkTilingRenderPolicyMT(
     VideoTimer * videoTimer,

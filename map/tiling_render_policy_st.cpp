@@ -1,41 +1,22 @@
-#include "../base/SRC_FIRST.hpp"
-
 #include "tiling_render_policy_st.hpp"
 
-#include "drawer_yg.hpp"
+#include "../platform/platform.hpp"
+
+#include "../yg/internal/opengl.hpp"
+
 #include "window_handle.hpp"
-#include "events.hpp"
-#include "screen_coverage.hpp"
-
-#include "../indexer/scales.hpp"
-
-#include "../yg/framebuffer.hpp"
-#include "../yg/renderbuffer.hpp"
-#include "../yg/resource_manager.hpp"
-#include "../yg/base_texture.hpp"
-#include "../yg/internal/opengl.hpp"
-
-#include "../platform/platform.hpp"
-
-#include "../base/SRC_FIRST.hpp"
-
-#include "../platform/platform.hpp"
-#include "../std/bind.hpp"
-
-#include "../geometry/screenbase.hpp"
-
-#include "../yg/base_texture.hpp"
-#include "../yg/internal/opengl.hpp"
-
+#include "queued_renderer.hpp"
+#include "tile_renderer.hpp"
+#include "coverage_generator.hpp"
 
 TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                            bool useDefaultFB,
                                            yg::ResourceManager::Params const & rmParams,
                                            shared_ptr<yg::gl::RenderContext> const & primaryRC)
-  : QueuedRenderPolicy(GetPlatform().CpuCores() + 1, primaryRC, false, GetPlatform().CpuCores()),
-    m_drawScale(0),
-    m_isEmptyModel(false),
-    m_doRecreateCoverage(false)
+  : BasicTilingRenderPolicy(primaryRC,
+                            false,
+                            GetPlatform().CpuCores(),
+                            make_shared_ptr(new QueuedRenderer(GetPlatform().CpuCores() + 1)))
 {
   yg::ResourceManager::Params rmp = rmParams;
 
@@ -89,8 +70,8 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                             false,
                                                                             false);
 
-  rmp.m_styleCacheTexturesParams = yg::ResourceManager::TexturePoolParams(1024,
-                                                                          512,
+  rmp.m_styleCacheTexturesParams = yg::ResourceManager::TexturePoolParams(512,
+                                                                          512 * int(ceil(GetPlatform().VisualScale())),
                                                                           2,
                                                                           rmp.m_texFormat,
                                                                           true,
@@ -184,41 +165,39 @@ TilingRenderPolicyST::~TilingRenderPolicyST()
 
   LOG(LINFO, ("deleting TilingRenderPolicyST"));
 
-  base_t::CancelQueuedCommands(GetPlatform().CpuCores());
+  m_QueuedRenderer->CancelQueuedCommands(GetPlatform().CpuCores());
 
   LOG(LINFO, ("reseting coverageGenerator"));
-  m_coverageGenerator.reset();
+  m_CoverageGenerator.reset();
 
   /// firstly stop all rendering commands in progress and collect all commands into queues
 
   for (unsigned i = 0; i < GetPlatform().CpuCores(); ++i)
-    base_t::PrepareQueueCancellation(i);
+    m_QueuedRenderer->PrepareQueueCancellation(i);
 
-  m_tileRenderer->ClearCommands();
-  m_tileRenderer->SetSequenceID(numeric_limits<int>::max());
-  m_tileRenderer->CancelCommands();
-  m_tileRenderer->WaitForEmptyAndFinished();
+  m_TileRenderer->ClearCommands();
+  m_TileRenderer->SetSequenceID(numeric_limits<int>::max());
+  m_TileRenderer->CancelCommands();
+  m_TileRenderer->WaitForEmptyAndFinished();
 
-  /// now we should cancell all collected commands
+  /// now we should cancel all collected commands
 
   for (unsigned i = 0; i < GetPlatform().CpuCores(); ++i)
-    base_t::CancelQueuedCommands(i);
+    m_QueuedRenderer->CancelQueuedCommands(i);
 
   LOG(LINFO, ("reseting tileRenderer"));
-  m_tileRenderer.reset();
+  m_TileRenderer.reset();
   LOG(LINFO, ("done reseting tileRenderer"));
 }
 
 void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
 {
-  RenderPolicy::SetRenderFn(renderFn);
-
   yg::gl::PacketsQueue ** queues = new yg::gl::PacketsQueue*[GetPlatform().CpuCores()];
 
   for (unsigned i = 0; i < GetPlatform().CpuCores(); ++i)
-    queues[i] = base_t::GetPacketsQueue(i);
+    queues[i] = m_QueuedRenderer->GetPacketsQueue(i);
 
-  m_tileRenderer.reset(new TileRenderer(GetPlatform().SkinName(),
+  m_TileRenderer.reset(new TileRenderer(GetPlatform().SkinName(),
                                         m_maxTilesCount,
                                         GetPlatform().CpuCores(),
                                         m_bgColor,
@@ -230,125 +209,13 @@ void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
 
   delete [] queues;
 
-  m_coverageGenerator.reset(new CoverageGenerator(m_tileRenderer.get(),
+  m_CoverageGenerator.reset(new CoverageGenerator(m_TileRenderer.get(),
                                                   m_windowHandle,
                                                   m_primaryRC,
                                                   m_resourceManager,
-                                                  base_t::GetPacketsQueue(GetPlatform().CpuCores())
+                                                  m_QueuedRenderer->GetPacketsQueue(GetPlatform().CpuCores())
                                                   ));
 
 
-}
-
-void TilingRenderPolicyST::EndFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
-{
-  ScreenCoverage * curCvg = &m_coverageGenerator->CurrentCoverage();
-  curCvg->EndFrame(e->drawer()->screen().get());
-  m_coverageGenerator->Mutex().Unlock();
-
-  base_t::EndFrame(e, s);
-}
-
-void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & currentScreen)
-{
-  base_t::DrawFrame(e, currentScreen);
-
-//  yg::gl::g_doLogOGLCalls = true;
-
-  DrawerYG * pDrawer = e->drawer();
-
-  pDrawer->beginFrame();
-
-  pDrawer->screen()->clear(m_bgColor);
-
-  bool doForceUpdate = DoForceUpdate();
-  bool doIntersectInvalidRect = GetInvalidRect().IsIntersect(currentScreen.GlobalRect());
-
-  if (doForceUpdate)
-    m_coverageGenerator->InvalidateTiles(GetInvalidRect(), scales::GetUpperWorldScale() + 1);
-
-  m_coverageGenerator->AddCoverScreenTask(currentScreen,
-                                          m_doRecreateCoverage || (doForceUpdate && doIntersectInvalidRect));
-
-  SetForceUpdate(false);
-  m_doRecreateCoverage = false;
-
-  m_coverageGenerator->Mutex().Lock();
-
-  ScreenCoverage * curCvg = &m_coverageGenerator->CurrentCoverage();
-
-  curCvg->Draw(pDrawer->screen().get(), currentScreen);
-
-  m_drawScale = curCvg->GetDrawScale();
-
-  if (!curCvg->IsEmptyDrawingCoverage() || !curCvg->IsPartialCoverage())
-    m_isEmptyModel = curCvg->IsEmptyDrawingCoverage();
-
-  pDrawer->endFrame();
-
-//  yg::gl::g_doLogOGLCalls = false;
-
-  m_resourceManager->updatePoolState();
-}
-
-int TilingRenderPolicyST::GetDrawScale(ScreenBase const & s) const
-{
-  return m_drawScale;
-}
-
-TileRenderer & TilingRenderPolicyST::GetTileRenderer()
-{
-  return *m_tileRenderer.get();
-}
-
-void TilingRenderPolicyST::StartScale()
-{
-  m_isScaling = true;
-  m_tileRenderer->SetIsPaused(true);
-  m_tileRenderer->CancelCommands();
-}
-
-void TilingRenderPolicyST::StopScale()
-{
-  m_isScaling = false;
-  m_tileRenderer->SetIsPaused(false);
-  m_doRecreateCoverage = true;
-  RenderPolicy::StopScale();
-}
-
-void TilingRenderPolicyST::StartDrag()
-{
-  m_tileRenderer->SetIsPaused(true);
-  m_tileRenderer->CancelCommands();
-}
-
-void TilingRenderPolicyST::StopDrag()
-{
-  m_tileRenderer->SetIsPaused(false);
-  m_doRecreateCoverage = true;
-  RenderPolicy::StopDrag();
-}
-
-void TilingRenderPolicyST::StartRotate(double a, double timeInSec)
-{
-  m_tileRenderer->SetIsPaused(true);
-  m_tileRenderer->CancelCommands();
-}
-
-void TilingRenderPolicyST::StopRotate(double a, double timeInSec)
-{
-  m_tileRenderer->SetIsPaused(false);
-  m_doRecreateCoverage = true;
-  RenderPolicy::StopRotate(a, timeInSec);
-}
-
-bool TilingRenderPolicyST::IsTiling() const
-{
-  return true;
-}
-
-bool TilingRenderPolicyST::IsEmptyModel() const
-{
-  return m_isEmptyModel;
 }
 

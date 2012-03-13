@@ -35,16 +35,18 @@ HEADERS += \
     tile.hpp \
     tile_cache.hpp \
     screen_coverage.hpp \
-    render_policy_mt.hpp \
+    basic_render_policy.hpp \
     render_queue.hpp \
     render_queue_routine.hpp \
     benchmark_render_policy_mt.hpp \
     ruler.hpp \
     measurement_utils.hpp \
-    basic_render_policy.hpp \
+    simple_render_policy.hpp \
     proto_to_yg_styles.hpp \
     test_render_policy.hpp \
-    queued_render_policy.hpp \
+    queued_renderer.hpp \
+    basic_tiling_render_policy.hpp \
+    render_policy_mt.hpp \
     bookmark.hpp
 
 SOURCES += \
@@ -69,18 +71,20 @@ SOURCES += \
     tile_cache.cpp \
     tile.cpp \
     screen_coverage.cpp \
-    render_policy_mt.cpp \
+    basic_render_policy.cpp \
     render_queue_routine.cpp \
     render_queue.cpp \
     benchmark_render_policy_mt.cpp \
     ruler.cpp \
     measurement_utils.cpp \
     window_handle.cpp \
-    basic_render_policy.cpp \
+    simple_render_policy.cpp \
     proto_to_yg_styles.cpp \
     test_render_policy.cpp \
-    queued_render_policy.cpp \
-    events.cpp
+    queued_renderer.cpp \
+    events.cpp \
+    basic_tiling_render_policy.cpp \
+    render_policy_mt.cpp
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp

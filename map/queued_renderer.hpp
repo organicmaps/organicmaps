@@ -1,16 +1,13 @@
 #pragma once
 
-#include "render_policy.hpp"
 #include "../base/threaded_list.hpp"
 #include "../yg/renderer.hpp"
 
-/// base class for policy used on the devices that do not support
-/// OpenGL context sharing.
-class QueuedRenderPolicy : public RenderPolicy
+/// Mixture-class for rendering policies, used on the
+/// devices that do not support OpenGL context sharing
+class QueuedRenderer
 {
 private:
-
-  typedef RenderPolicy base_t;
 
   /// separate pipeline for packets, collected on the single thread.
   /// although it's possible to collect all the packet from all threads
@@ -41,7 +38,10 @@ private:
 
   bool m_IsDebugging;
 
-protected:
+public:
+
+  QueuedRenderer(int pipelinesCount);
+  ~QueuedRenderer();
 
   void CopyQueuedCommands(list<yg::gl::Packet> & l, list<yg::gl::Packet> & r);
 
@@ -49,18 +49,9 @@ protected:
   void CancelQueuedCommands(int pipelineNum);
   void PrepareQueueCancellation(int pipelineNum);
 
-public:
-
-  QueuedRenderPolicy(int pipelinesCount,
-                     shared_ptr<yg::gl::RenderContext> const & primaryRC,
-                     bool doSupportsRotation,
-                     size_t idCacheSize);
-
-  ~QueuedRenderPolicy();
-
-  void BeginFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);
-  void DrawFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);
-  void EndFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);
+  void BeginFrame();
+  void DrawFrame();
+  void EndFrame();
 
   bool NeedRedraw() const;
 

@@ -1,149 +1,149 @@
-#include "../base/SRC_FIRST.hpp"
-
 #include "basic_render_policy.hpp"
-#include "events.hpp"
+
+#include "queued_renderer.hpp"
+#include "render_queue.hpp"
 #include "drawer_yg.hpp"
-#include "window_handle.hpp"
-#include "../yg/info_layer.hpp"
-#include "../yg/internal/opengl.hpp"
-#include "../yg/skin.hpp"
+#include "events.hpp"
 
-#include "../indexer/scales.hpp"
-#include "../geometry/screenbase.hpp"
+#include "../yg/render_state.hpp"
 
-#include "../platform/platform.hpp"
+#include "../geometry/transformations.hpp"
 
-BasicRenderPolicy::BasicRenderPolicy(VideoTimer * videoTimer,
-                                     bool useDefaultFB,
-                                     yg::ResourceManager::Params const & rmParams,
-                                     shared_ptr<yg::gl::RenderContext> const & primaryRC)
-  : RenderPolicy(primaryRC, false, 1)
+BasicRenderPolicy::BasicRenderPolicy(shared_ptr<yg::gl::RenderContext> const & primaryRC,
+                                     bool doSupportRotation,
+                                     size_t idCacheSize,
+                                     shared_ptr<QueuedRenderer> const & queuedRenderer)
+  : RenderPolicy(primaryRC, doSupportRotation, idCacheSize),
+    m_QueuedRenderer(queuedRenderer),
+    m_DoAddCommand(true)
 {
-  yg::ResourceManager::Params rmp = rmParams;
+}
 
-  rmp.selectTexRTFormat();
+void BasicRenderPolicy::SetRenderFn(TRenderFn renderFn)
+{
+  RenderPolicy::SetRenderFn(renderFn);
+  m_RenderQueue->initializeGL(m_primaryRC, m_resourceManager);
+}
 
-  rmp.m_primaryStoragesParams = yg::ResourceManager::StoragePoolParams(50000 * sizeof(yg::gl::Vertex),
-                                                                       sizeof(yg::gl::Vertex),
-                                                                       10000 * sizeof(unsigned short),
-                                                                       sizeof(unsigned short),
-                                                                       15,
-                                                                       false,
-                                                                       true,
-                                                                       1,
-                                                                       "primaryStorage",
-                                                                       false,
-                                                                       false);
+void BasicRenderPolicy::SetEmptyModelFn(TEmptyModelFn const & checkFn)
+{
+  m_RenderQueue->SetEmptyModelFn(checkFn);
+}
 
-  rmp.m_smallStoragesParams = yg::ResourceManager::StoragePoolParams(5000 * sizeof(yg::gl::Vertex),
-                                                                     sizeof(yg::gl::Vertex),
-                                                                     10000 * sizeof(unsigned short),
-                                                                     sizeof(unsigned short),
-                                                                     100,
-                                                                     false,
-                                                                     true,
-                                                                     1,
-                                                                     "smallStorage",
-                                                                     false,
-                                                                     false);
+m2::RectI const BasicRenderPolicy::OnSize(int w, int h)
+{
+  RenderPolicy::OnSize(w, h);
 
-  rmp.m_blitStoragesParams = yg::ResourceManager::StoragePoolParams(10 * sizeof(yg::gl::Vertex),
-                                                                    sizeof(yg::gl::Vertex),
-                                                                    10 * sizeof(unsigned short),
-                                                                    sizeof(unsigned short),
-                                                                    50,
-                                                                    true,
-                                                                    true,
-                                                                    1,
-                                                                    "blitStorage",
-                                                                    false,
-                                                                    false);
+  m_RenderQueue->OnSize(w, h);
 
-  rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512,
-                                                                       256,
-                                                                       10,
-                                                                       rmp.m_texFormat,
-                                                                       true,
-                                                                       true,
-                                                                       true,
-                                                                       1,
-                                                                       "primaryTexture",
-                                                                       false,
-                                                                       false);
+  m2::PointU pt = m_RenderQueue->renderState().coordSystemShift();
 
-  rmp.m_fontTexturesParams = yg::ResourceManager::TexturePoolParams(512,
-                                                                    256,
-                                                                    5,
-                                                                    rmp.m_texFormat,
-                                                                    true,
-                                                                    true,
-                                                                    true,
-                                                                    1,
-                                                                    "fontTexture",
-                                                                    false,
-                                                                    false);
+  return m2::RectI(pt.x, pt.y, pt.x + w, pt.y + h);
+}
 
-  rmp.m_glyphCacheParams = yg::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
-                                                                 "fonts_whitelist.txt",
-                                                                 "fonts_blacklist.txt",
-                                                                 2 * 1024 * 1024,
-                                                                 1,
-                                                                 0);
+void BasicRenderPolicy::BeginFrame(shared_ptr<PaintEvent> const & e,
+                                   ScreenBase const & s)
+{
+  if (m_QueuedRenderer)
+    m_QueuedRenderer->BeginFrame();
+}
 
+void BasicRenderPolicy::EndFrame(shared_ptr<PaintEvent> const & e,
+                                 ScreenBase const & s)
+{
+  m_RenderQueue->renderState().m_mutex->Unlock();
 
-  rmp.m_useSingleThreadedOGL = false;
-  rmp.m_useVA = !yg::gl::g_isBufferObjectsSupported;
-
-  m_resourceManager.reset(new yg::ResourceManager(rmp));
-
-  Platform::FilesList fonts;
-  GetPlatform().GetFontNames(fonts);
-  m_resourceManager->addFonts(fonts);
-
-  DrawerYG::params_t p;
-
-  p.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(useDefaultFB));
-  p.m_resourceManager = m_resourceManager;
-  p.m_dynamicPagesCount = 2;
-  p.m_textPagesCount = 2;
-  p.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
-  p.m_skinName = GetPlatform().SkinName();
-  p.m_visualScale = GetPlatform().VisualScale();
-  p.m_isSynchronized = true;
-
-  m_drawer.reset(new DrawerYG(p));
-
-  m_windowHandle.reset(new WindowHandle());
-
-  m_windowHandle->setUpdatesEnabled(false);
-  m_windowHandle->setRenderPolicy(this);
-  m_windowHandle->setVideoTimer(videoTimer);
-  m_windowHandle->setRenderContext(primaryRC);
+  if (m_QueuedRenderer)
+    m_QueuedRenderer->EndFrame();
 }
 
 void BasicRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
                                ScreenBase const & s)
 {
-  int scaleEtalonSize = GetPlatform().ScaleEtalonSize();
+  if (m_QueuedRenderer)
+  {
+    m_QueuedRenderer->DrawFrame();
+    m_resourceManager->updatePoolState();
+  }
 
-  m2::RectD glbRect;
-  m2::PointD const pxCenter = s.PixelRect().Center();
-  s.PtoG(m2::RectD(pxCenter - m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2),
-                   pxCenter + m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2)),
-         glbRect);
+  bool doForceUpdate = DoForceUpdate();
+  bool doIntersectInvalidRect = s.GlobalRect().IsIntersect(GetInvalidRect());
 
-  shared_ptr<yg::InfoLayer> infoLayer(new yg::InfoLayer());
+  m_RenderQueue->renderStatePtr()->m_doRepaintAll = doForceUpdate;
 
-  e->drawer()->screen()->setInfoLayer(infoLayer);
+  if (m_DoAddCommand)
+  {
+    if (s != m_RenderQueue->renderState().m_actualScreen)
+      m_RenderQueue->AddCommand(m_renderFn, s);
+    else
+      if (doForceUpdate && doIntersectInvalidRect)
+        m_RenderQueue->AddCommand(m_renderFn, s);
+  }
 
-  e->drawer()->screen()->beginFrame();
+  SetForceUpdate(false);
+
+  DrawerYG * pDrawer = e->drawer();
+
+  e->drawer()->beginFrame();
 
   e->drawer()->screen()->clear(m_bgColor);
 
-  m_renderFn(e, s, s.ClipRect(), s.ClipRect(), scales::GetScaleLevel(glbRect), false);
+  m_RenderQueue->renderState().m_mutex->Lock();
 
-  infoLayer->draw(e->drawer()->screen().get(), math::Identity<double, 3>());
-  e->drawer()->screen()->resetInfoLayer();
+  if (m_RenderQueue->renderState().m_actualTarget.get() != 0)
+  {
+    m2::PointD const ptShift = m_RenderQueue->renderState().coordSystemShift(false);
 
-  e->drawer()->screen()->endFrame();
+    math::Matrix<double, 3, 3> m = m_RenderQueue->renderState().m_actualScreen.PtoGMatrix() * s.GtoPMatrix();
+    m = math::Shift(m, -ptShift);
+
+    pDrawer->screen()->blit(m_RenderQueue->renderState().m_actualTarget, m);
+  }
+
+  e->drawer()->endFrame();
+}
+
+void BasicRenderPolicy::StartDrag()
+{
+  m_DoAddCommand = false;
+  RenderPolicy::StartDrag();
+}
+
+void BasicRenderPolicy::StopDrag()
+{
+  m_DoAddCommand = true;
+  RenderPolicy::StopDrag();
+}
+
+void BasicRenderPolicy::StartScale()
+{
+  m_DoAddCommand = false;
+  RenderPolicy::StartScale();
+}
+
+void BasicRenderPolicy::StopScale()
+{
+  m_DoAddCommand = true;
+  RenderPolicy::StartScale();
+}
+
+bool BasicRenderPolicy::IsEmptyModel() const
+{
+  return m_RenderQueue->renderStatePtr()->m_isEmptyModelActual;
+}
+
+RenderQueue & BasicRenderPolicy::GetRenderQueue()
+{
+  return *m_RenderQueue.get();
+}
+
+bool BasicRenderPolicy::NeedRedraw() const
+{
+  if (RenderPolicy::NeedRedraw())
+    return true;
+
+  if (m_QueuedRenderer && m_QueuedRenderer->NeedRedraw())
+    return true;
+
+  return false;
 }

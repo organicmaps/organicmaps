@@ -1,42 +1,46 @@
-#include "render_policy_mt.hpp"
-
+#include "simple_render_policy.hpp"
+#include "events.hpp"
+#include "drawer_yg.hpp"
+#include "window_handle.hpp"
+#include "../yg/info_layer.hpp"
 #include "../yg/internal/opengl.hpp"
+#include "../yg/skin.hpp"
+
+#include "../indexer/scales.hpp"
+#include "../geometry/screenbase.hpp"
 
 #include "../platform/platform.hpp"
 
-#include "window_handle.hpp"
-#include "render_queue.hpp"
-
-RenderPolicyMT::RenderPolicyMT(VideoTimer * videoTimer,
-                               bool useDefaultFB,
-                               yg::ResourceManager::Params const & rmParams,
-                               shared_ptr<yg::gl::RenderContext> const & primaryRC)
-  : BasicRenderPolicy(primaryRC, false, 1)
+SimpleRenderPolicy::SimpleRenderPolicy(VideoTimer * videoTimer,
+                                       bool useDefaultFB,
+                                       yg::ResourceManager::Params const & rmParams,
+                                       shared_ptr<yg::gl::RenderContext> const & primaryRC)
+  : RenderPolicy(primaryRC, false, 1)
 {
   yg::ResourceManager::Params rmp = rmParams;
 
   rmp.selectTexRTFormat();
 
-  rmp.m_primaryStoragesParams = yg::ResourceManager::StoragePoolParams(5000 * sizeof(yg::gl::Vertex),
+  rmp.m_primaryStoragesParams = yg::ResourceManager::StoragePoolParams(50000 * sizeof(yg::gl::Vertex),
                                                                        sizeof(yg::gl::Vertex),
                                                                        10000 * sizeof(unsigned short),
                                                                        sizeof(unsigned short),
-                                                                       7,
+                                                                       15,
                                                                        false,
                                                                        true,
-                                                                       10,
+                                                                       1,
                                                                        "primaryStorage",
                                                                        false,
                                                                        false);
 
-  rmp.m_smallStoragesParams = yg::ResourceManager::StoragePoolParams(500 * sizeof(yg::gl::Vertex),
+  rmp.m_smallStoragesParams = yg::ResourceManager::StoragePoolParams(5000 * sizeof(yg::gl::Vertex),
                                                                      sizeof(yg::gl::Vertex),
-                                                                     1000 * sizeof(unsigned short),
+                                                                     10000 * sizeof(unsigned short),
                                                                      sizeof(unsigned short),
-                                                                     7,
+                                                                     100,
                                                                      false,
                                                                      true,
-                                                                     5,
+                                                                     1,
                                                                      "smallStorage",
                                                                      false,
                                                                      false);
@@ -45,7 +49,7 @@ RenderPolicyMT::RenderPolicyMT(VideoTimer * videoTimer,
                                                                     sizeof(yg::gl::Vertex),
                                                                     10 * sizeof(unsigned short),
                                                                     sizeof(unsigned short),
-                                                                    7,
+                                                                    50,
                                                                     true,
                                                                     true,
                                                                     1,
@@ -53,21 +57,9 @@ RenderPolicyMT::RenderPolicyMT(VideoTimer * videoTimer,
                                                                     false,
                                                                     false);
 
-  rmp.m_guiThreadStoragesParams = yg::ResourceManager::StoragePoolParams(300 * sizeof(yg::gl::Vertex),
-                                                                    sizeof(yg::gl::Vertex),
-                                                                    600 * sizeof(unsigned short),
-                                                                    sizeof(unsigned short),
-                                                                    7,
-                                                                    true,
-                                                                    true,
-                                                                    1,
-                                                                    "guiThreadStorage",
-                                                                    false,
-                                                                    false);
-
   rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512,
                                                                        256,
-                                                                       7,
+                                                                       10,
                                                                        rmp.m_texFormat,
                                                                        true,
                                                                        true,
@@ -79,7 +71,7 @@ RenderPolicyMT::RenderPolicyMT(VideoTimer * videoTimer,
 
   rmp.m_fontTexturesParams = yg::ResourceManager::TexturePoolParams(512,
                                                                     256,
-                                                                    7,
+                                                                    5,
                                                                     rmp.m_texFormat,
                                                                     true,
                                                                     true,
@@ -89,29 +81,16 @@ RenderPolicyMT::RenderPolicyMT(VideoTimer * videoTimer,
                                                                     false,
                                                                     false);
 
-  rmp.m_guiThreadTexturesParams = yg::ResourceManager::TexturePoolParams(256,
-                                                                         128,
-                                                                         4,
-                                                                         rmp.m_texFormat,
-                                                                         true,
-                                                                         true,
-                                                                         true,
-                                                                         1,
-                                                                         "guiThreadTexture",
-                                                                         false,
-                                                                         false);
-
   rmp.m_glyphCacheParams = yg::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
                                                                  "fonts_whitelist.txt",
                                                                  "fonts_blacklist.txt",
                                                                  2 * 1024 * 1024,
-                                                                 3,
-                                                                 1);
+                                                                 1,
+                                                                 0);
+
 
   rmp.m_useSingleThreadedOGL = false;
   rmp.m_useVA = !yg::gl::g_isBufferObjectsSupported;
-
-  rmp.fitIntoLimits();
 
   m_resourceManager.reset(new yg::ResourceManager(rmp));
 
@@ -128,8 +107,7 @@ RenderPolicyMT::RenderPolicyMT(VideoTimer * videoTimer,
   p.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
   p.m_skinName = GetPlatform().SkinName();
   p.m_visualScale = GetPlatform().VisualScale();
-  p.m_isSynchronized = false;
-  p.m_useGuiResources = true;
+  p.m_isSynchronized = true;
 
   m_drawer.reset(new DrawerYG(p));
 
@@ -139,15 +117,31 @@ RenderPolicyMT::RenderPolicyMT(VideoTimer * videoTimer,
   m_windowHandle->setRenderPolicy(this);
   m_windowHandle->setVideoTimer(videoTimer);
   m_windowHandle->setRenderContext(primaryRC);
+}
 
-  m_RenderQueue.reset(new RenderQueue(GetPlatform().SkinName(),
-                false,
-                true,
-                0.1,
-                false,
-                GetPlatform().ScaleEtalonSize(),
-                GetPlatform().VisualScale(),
-                m_bgColor));
+void SimpleRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
+                               ScreenBase const & s)
+{
+  int scaleEtalonSize = GetPlatform().ScaleEtalonSize();
 
-  m_RenderQueue->AddWindowHandle(m_windowHandle);
+  m2::RectD glbRect;
+  m2::PointD const pxCenter = s.PixelRect().Center();
+  s.PtoG(m2::RectD(pxCenter - m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2),
+                   pxCenter + m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2)),
+         glbRect);
+
+  shared_ptr<yg::InfoLayer> infoLayer(new yg::InfoLayer());
+
+  e->drawer()->screen()->setInfoLayer(infoLayer);
+
+  e->drawer()->screen()->beginFrame();
+
+  e->drawer()->screen()->clear(m_bgColor);
+
+  m_renderFn(e, s, s.ClipRect(), s.ClipRect(), scales::GetScaleLevel(glbRect), false);
+
+  infoLayer->draw(e->drawer()->screen().get(), math::Identity<double, 3>());
+  e->drawer()->screen()->resetInfoLayer();
+
+  e->drawer()->screen()->endFrame();
 }

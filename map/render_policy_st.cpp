@@ -1,25 +1,18 @@
 #include "render_policy_st.hpp"
-#include "events.hpp"
-#include "window_handle.hpp"
-#include "drawer_yg.hpp"
-#include "render_queue.hpp"
-
-#include "../yg/internal/opengl.hpp"
-#include "../yg/render_state.hpp"
-#include "../yg/base_texture.hpp"
-
-#include "../geometry/transformations.hpp"
 
 #include "../platform/platform.hpp"
 
-#include "../std/bind.hpp"
+#include "../yg/internal/opengl.hpp"
+
+#include "queued_renderer.hpp"
+#include "window_handle.hpp"
+#include "render_queue.hpp"
 
 RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
                                bool useDefaultFB,
                                yg::ResourceManager::Params const & rmParams,
                                shared_ptr<yg::gl::RenderContext> const & primaryRC)
-  : QueuedRenderPolicy(1, primaryRC, false, 1),
-    m_DoAddCommand(true)
+  : BasicRenderPolicy(primaryRC, false, 1, make_shared_ptr(new QueuedRenderer(1)))
 {
   yg::ResourceManager::Params rmp = rmParams;
 
@@ -151,8 +144,8 @@ RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
   m_windowHandle->setVideoTimer(videoTimer);
   m_windowHandle->setRenderContext(primaryRC);
 
-  m_renderQueue.reset();
-  m_renderQueue.reset(new RenderQueue(GetPlatform().SkinName(),
+  m_RenderQueue.reset();
+  m_RenderQueue.reset(new RenderQueue(GetPlatform().SkinName(),
                 false,
                 false,
                 0.1,
@@ -161,122 +154,20 @@ RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
                 GetPlatform().VisualScale(),
                 m_bgColor));
 
-  m_renderQueue->AddWindowHandle(m_windowHandle);
+  m_RenderQueue->AddWindowHandle(m_windowHandle);
 
-  m_renderQueue->SetGLQueue(GetPacketsQueue(0));
-}
-
-void RenderPolicyST::SetRenderFn(TRenderFn renderFn)
-{
-  QueuedRenderPolicy::SetRenderFn(renderFn);
-  m_renderQueue->initializeGL(m_primaryRC, m_resourceManager);
-}
-
-void RenderPolicyST::SetEmptyModelFn(TEmptyModelFn const & checkFn)
-{
-  m_renderQueue->SetEmptyModelFn(checkFn);
+  m_RenderQueue->SetGLQueue(m_QueuedRenderer->GetPacketsQueue(0));
 }
 
 RenderPolicyST::~RenderPolicyST()
 {
   LOG(LINFO, ("destroying RenderPolicyST"));
 
-  base_t::CancelQueuedCommands(0);
+  m_QueuedRenderer->CancelQueuedCommands(0);
 
   LOG(LINFO, ("shutting down renderQueue"));
 
-  m_renderQueue.reset();
+  m_RenderQueue.reset();
 
   LOG(LINFO, ("PartialRenderPolicy destroyed"));
-}
-
-void RenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e,
-                               ScreenBase const & s)
-{
-  base_t::DrawFrame(e, s);
-
-  /// blitting actualTarget
-
-  bool doForceUpdate = DoForceUpdate();
-  bool doIntersectInvalidRect = s.GlobalRect().IsIntersect(GetInvalidRect());
-
-  m_renderQueue->renderStatePtr()->m_doRepaintAll = doForceUpdate;
-
-  if (m_DoAddCommand)
-  {
-    if (s != m_renderQueue->renderState().m_actualScreen)
-      m_renderQueue->AddCommand(m_renderFn, s);
-    else
-      if (doForceUpdate && doIntersectInvalidRect)
-        m_renderQueue->AddCommand(m_renderFn, s);
-  }
-
-  SetForceUpdate(false);
-
-  DrawerYG * pDrawer = e->drawer();
-
-  pDrawer->beginFrame();
-
-  e->drawer()->screen()->clear(m_bgColor);
-
-  m_renderQueue->renderState().m_mutex->Lock();
-
-  if (m_renderQueue->renderState().m_actualTarget.get() != 0)
-  {
-    m2::PointD const ptShift = m_renderQueue->renderState().coordSystemShift(false);
-
-    math::Matrix<double, 3, 3> m = m_renderQueue->renderState().m_actualScreen.PtoGMatrix() * s.GtoPMatrix();
-    m = math::Shift(m, -ptShift);
-
-    pDrawer->screen()->blit(m_renderQueue->renderState().m_actualTarget, m);
-  }
-
-  pDrawer->endFrame();
-}
-
-void RenderPolicyST::EndFrame(shared_ptr<PaintEvent> const & ev,
-                            ScreenBase const & s)
-{
-  m_renderQueue->renderState().m_mutex->Unlock();
-  base_t::EndFrame(ev, s);
-}
-
-bool RenderPolicyST::IsEmptyModel() const
-{
-  return m_renderQueue->renderState().m_isEmptyModelActual;
-}
-
-m2::RectI const RenderPolicyST::OnSize(int w, int h)
-{
-  QueuedRenderPolicy::OnSize(w, h);
-
-  m_renderQueue->OnSize(w, h);
-
-  m2::PointU pt = m_renderQueue->renderState().coordSystemShift();
-
-  return m2::RectI(pt.x, pt.y, pt.x + w, pt.y + h);
-}
-
-void RenderPolicyST::StartDrag()
-{
-  m_DoAddCommand = false;
-  base_t::StartDrag();
-}
-
-void RenderPolicyST::StopDrag()
-{
-  m_DoAddCommand = true;
-  base_t::StopDrag();
-}
-
-void RenderPolicyST::StartScale()
-{
-  m_DoAddCommand = false;
-  base_t::StartScale();
-}
-
-void RenderPolicyST::StopScale()
-{
-  m_DoAddCommand = true;
-  base_t::StartScale();
 }

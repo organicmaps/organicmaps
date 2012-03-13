@@ -4,6 +4,7 @@
 
 #include "../indexer/drawing_rules.hpp"
 
+#include "window_handle.hpp"
 #include "test_render_policy.hpp"
 #include "basic_render_policy.hpp"
 #include "render_policy_st.hpp"
