@@ -88,7 +88,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
                                     target:self action:@selector(onAboutButton:)] autorelease];
       self.navigationItem.leftBarButtonItem = aboutButton;
     }
-    UIBarButtonItem * closeButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"Settings/Downloader - Close downloader button") style: UIBarButtonItemStyleDone
+    UIBarButtonItem * closeButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Maps", @"Settings/Downloader - Close downloader button") style: UIBarButtonItemStyleDone
                                                                      target:self action:@selector(onCloseButton:)] autorelease];
     self.navigationItem.rightBarButtonItem = closeButton;
   }

@@ -169,7 +169,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   UINavigationBar * navBar = [[[UINavigationBar alloc] init] autorelease];
   navBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   UINavigationItem * item = [[[UINavigationItem alloc] init] autorelease];
-  UIBarButtonItem * closeButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"Search Results - Close search button") style: UIBarButtonItemStyleDone
+  UIBarButtonItem * closeButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Maps", @"Search Results - Close search button") style: UIBarButtonItemStyleDone
                                                                    target:self action:@selector(onCloseButton:)] autorelease];
   item.rightBarButtonItem = closeButton;
 
