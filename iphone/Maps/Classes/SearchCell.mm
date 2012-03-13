@@ -63,6 +63,11 @@
     if (xTopDelim + distanceTextSize.width < r.origin.x + w)
       xTopDelim = r.origin.x + w - distanceTextSize.width - KPaddingX;
   }
+  else // Sometimes distance is not available, so use full cell length for the name
+  {
+    xTopDelim = r.origin.x + w - KPaddingX;
+  }
+
   featureName.frame = CGRectMake(r.origin.x, r.origin.y, xTopDelim - r.origin.x, yDelim - r.origin.y);
   featureDistance.frame = CGRectMake(xTopDelim, r.origin.y, r.origin.x + w - xTopDelim, yDelim - r.origin.y);
 
