@@ -81,16 +81,16 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   if ((self = [super initWithNibName:nil bundle:nil]))
   {
     self.navigationItem.title = header;
-    // Show About button only on the first page
+    // Show Close button only on the first page
     if ([header compare:NSLocalizedString(@"Download", @"Settings/Downloader - Main downloader window title")] == NSOrderedSame)
     {
-      UIBarButtonItem * aboutButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"About", @"Settings/Downloader - About the program button") style: UIBarButtonItemStylePlain
-                                    target:self action:@selector(onAboutButton:)] autorelease];
-      self.navigationItem.leftBarButtonItem = aboutButton;
+      UIBarButtonItem * closeButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Maps", @"Settings/Downloader - Close downloader button") style: UIBarButtonItemStyleDone
+                                      target:self action:@selector(onCloseButton:)] autorelease];
+      self.navigationItem.leftBarButtonItem = closeButton;
     }
-    UIBarButtonItem * closeButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Maps", @"Settings/Downloader - Close downloader button") style: UIBarButtonItemStyleDone
-                                                                     target:self action:@selector(onCloseButton:)] autorelease];
-    self.navigationItem.rightBarButtonItem = closeButton;
+  UIBarButtonItem * aboutButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"About", @"Settings/Downloader - About the program button") style: UIBarButtonItemStylePlain
+                                                                   target:self action:@selector(onAboutButton:)] autorelease];
+    self.navigationItem.rightBarButtonItem = aboutButton;
   }
 	return self;
 }
