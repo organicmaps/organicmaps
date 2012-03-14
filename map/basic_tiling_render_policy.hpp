@@ -29,10 +29,14 @@ protected:
   int  m_DrawScale;
   bool m_IsEmptyModel;
   bool m_DoRecreateCoverage;
+  bool m_IsNavigating;
 
 protected:
 
   TileRenderer & GetTileRenderer();
+
+  void StartNavigation();
+  void StopNavigation();
 
 public:
 

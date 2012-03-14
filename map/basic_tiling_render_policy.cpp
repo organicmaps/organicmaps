@@ -15,7 +15,8 @@ BasicTilingRenderPolicy::BasicTilingRenderPolicy(shared_ptr<yg::gl::RenderContex
   : RenderPolicy(primaryRC, doSupportRotation, GetPlatform().CpuCores()),
     m_DrawScale(0),
     m_IsEmptyModel(false),
-    m_DoRecreateCoverage(false)
+    m_DoRecreateCoverage(false),
+    m_IsNavigating(false)
 {
   if (doUseQueuedRenderer)
     m_QueuedRenderer.reset(new QueuedRenderer(GetPlatform().CpuCores() + 1));
@@ -43,8 +44,9 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
   if (doForceUpdate)
     m_CoverageGenerator->InvalidateTiles(GetInvalidRect(), scales::GetUpperWorldScale() + 1);
 
-  m_CoverageGenerator->AddCoverScreenTask(s,
-                                          m_DoRecreateCoverage || (doForceUpdate && doIntersectInvalidRect));
+  if (!m_IsNavigating)
+    m_CoverageGenerator->AddCoverScreenTask(s,
+                                            m_DoRecreateCoverage || (doForceUpdate && doIntersectInvalidRect));
 
   SetForceUpdate(false);
   m_DoRecreateCoverage = false;
@@ -89,42 +91,50 @@ TileRenderer & BasicTilingRenderPolicy::GetTileRenderer()
   return *m_TileRenderer.get();
 }
 
-void BasicTilingRenderPolicy::StartScale()
+void BasicTilingRenderPolicy::StartNavigation()
 {
   m_TileRenderer->SetIsPaused(true);
+  m_IsNavigating = true;
   m_TileRenderer->CancelCommands();
+}
+
+void BasicTilingRenderPolicy::StopNavigation()
+{
+  m_TileRenderer->SetIsPaused(false);
+  m_IsNavigating = false;
+  m_DoRecreateCoverage = true;
+}
+
+void BasicTilingRenderPolicy::StartScale()
+{
+  StartNavigation();
 }
 
 void BasicTilingRenderPolicy::StopScale()
 {
-  m_TileRenderer->SetIsPaused(false);
-  m_DoRecreateCoverage = true;
+  StopNavigation();
   RenderPolicy::StopScale();
 }
 
 void BasicTilingRenderPolicy::StartDrag()
 {
-  m_TileRenderer->SetIsPaused(true);
-  m_TileRenderer->CancelCommands();
+  StartNavigation();
 }
 
 void BasicTilingRenderPolicy::StopDrag()
 {
-  m_TileRenderer->SetIsPaused(false);
-  m_DoRecreateCoverage = true;
+  StopNavigation();
   RenderPolicy::StopDrag();
 }
 
 void BasicTilingRenderPolicy::StartRotate(double a, double timeInSec)
 {
-  m_TileRenderer->SetIsPaused(true);
-  m_TileRenderer->CancelCommands();
+  StartNavigation();
 }
 
 void BasicTilingRenderPolicy::StopRotate(double a, double timeInSec)
 {
-  m_TileRenderer->SetIsPaused(false);
-  m_DoRecreateCoverage = true;
+  StopNavigation();
   RenderPolicy::StopRotate(a, timeInSec);
 }
 
