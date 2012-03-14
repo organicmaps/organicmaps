@@ -97,17 +97,6 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 @implementation SearchVC
 
 
-+ (BOOL)isLocationValid:(CLLocation *)l
-{
-  if (l == nil) return false;
-  
-  // do not use too old locations
-  static NSTimeInterval const SECONDS_TO_EXPIRE = 300.0;
-  
-  // timeIntervalSinceNow returns negative value - because of "since now"
-  return [l.timestamp timeIntervalSinceNow] > (-SECONDS_TO_EXPIRE);
-}
-
 - (id)initWithFramework:(Framework *)framework andLocationManager:(LocationManager *)lm
 {
   if ((self = [super initWithNibName:nil bundle:nil]))
@@ -115,17 +104,8 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
     m_framework = framework;
     m_locationManager = lm;
     
-    // get current location
-    CLLocation * l = m_locationManager.lastLocation;
-    
     double lat, lon;
-    bool const hasPt = [SearchVC isLocationValid:l];
-    if (hasPt)
-    {
-      lat = l.coordinate.latitude;
-      lon = l.coordinate.longitude;
-    }
-    
+    bool const hasPt = [m_locationManager getLat:lat Lon:lon];
     m_framework->PrepareSearch(hasPt, lat, lon);
   }
   return self;
@@ -149,11 +129,10 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   params.m_callback = bind(&OnSearchResultCallback, _1, g_queryId);
   // Set current keyboard input mode
   params.SetInputLanguage([[UITextInputMode currentInputMode].primaryLanguage UTF8String]);
-  
-  CLLocation * l = m_locationManager.lastLocation;
-  
-  if ([SearchVC isLocationValid:l])
-    params.SetPosition(l.coordinate.latitude, l.coordinate.longitude);
+
+  double lat, lon;
+  if ([m_locationManager getLat:lat Lon:lon])
+    params.SetPosition(lat, lon);
 
   params.SetNearMeMode(false);
 }
@@ -469,20 +448,17 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
         }
         else
         {
-          CLLocation * loc = [m_locationManager lastLocation];
-          CLHeading * heading = [m_locationManager lastHeading];
-          if (loc == nil || heading == nil)
+          double lat, lon, northR;
+          if ([m_locationManager getLat:lat Lon:lon] && [m_locationManager getNorthRad:northR])
           {
-            compass.showArrow = NO;
-          }
-          else
-          {
-            double const northDeg = (heading.trueHeading < 0) ? heading.magneticHeading : heading.trueHeading;
             m2::PointD const center = r.GetFeatureCenter();
-            compass.angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(loc.coordinate.longitude),
-                            MercatorBounds::LatToY(loc.coordinate.latitude)), center) + northDeg / 180. * math::pi;
+            compass.angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(lon),
+                                                    MercatorBounds::LatToY(lat)), center) +
+                            northR;
             compass.showArrow = YES;
           }
+          else
+            compass.showArrow = NO;
         }
       }
       return cell;
@@ -576,8 +552,8 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info
 {
-  CLLocation * loc = m_locationManager.lastLocation;
-  if (loc == nil)
+  double lat, lon;
+  if (![m_locationManager getLat:lat Lon:lon])
     return;
 
   double const northDeg = (info.m_trueHeading < 0) ? info.m_magneticHeading : info.m_trueHeading;
@@ -602,8 +578,9 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
       {
         CompassView * compass = (CompassView *)cell.accessoryView;
         m2::PointD const center = res.GetFeatureCenter();
-        compass.angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(loc.coordinate.longitude),
-                        MercatorBounds::LatToY(loc.coordinate.latitude)), center) + northDeg / 180. * math::pi;
+        compass.angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(lon),
+                                                MercatorBounds::LatToY(lat)), center) +
+                        northDeg / 180. * math::pi;
       }
     }
   }

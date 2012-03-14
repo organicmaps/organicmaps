@@ -1,5 +1,8 @@
 #import "LocationManager.h"
 
+#import "../../base/math.hpp"   // for math::pi constant
+
+
 @implementation LocationManager
 
 - (id)init
@@ -70,7 +73,8 @@
   if (m_isStarted)
   {
     if ([m_observers count] == 0)
-    { // stop only if no more observers are subsribed
+    {
+      // stop only if no more observers are subsribed
       m_isStarted = NO;
       m_reportFirstUpdate = YES;
       if ([CLLocationManager headingAvailable])
@@ -98,16 +102,17 @@
   info.m_longitude = location.coordinate.longitude;
   info.m_timestamp = [location.timestamp timeIntervalSince1970];
   info.m_source = location::EAppleNative;
-//  info.m_verticalAccuracy = location.verticalAccuracy;
-//  info.m_altitude = location.altitude;
-//  info.m_course = location.course;
-//  info.m_speed = location.speed;
+
+  //info.m_verticalAccuracy = location.verticalAccuracy;
+  //info.m_altitude = location.altitude;
+  //info.m_course = location.course;
+  //info.m_speed = location.speed;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-  if (location::IsLatValid(newLocation.coordinate.latitude)
-    && location::IsLonValid(newLocation.coordinate.longitude))
+  if (location::IsLatValid(newLocation.coordinate.latitude) &&
+      location::IsLonValid(newLocation.coordinate.longitude))
   {
     if (m_reportFirstUpdate)
     {
@@ -129,9 +134,9 @@
   newInfo.m_magneticHeading = newHeading.magneticHeading;
   newInfo.m_trueHeading = newHeading.trueHeading;
   newInfo.m_accuracy = newHeading.headingAccuracy;
-//  newInfo.m_x = newHeading.x;
-//  newInfo.m_y = newHeading.y;
-//  newInfo.m_z = newHeading.z;
+  //newInfo.m_x = newHeading.x;
+  //newInfo.m_y = newHeading.y;
+  //newInfo.m_z = newHeading.z;
   newInfo.m_timestamp = [newHeading.timestamp timeIntervalSince1970];
   for (id observer in m_observers)
     [observer onCompassUpdate:newInfo];
@@ -168,6 +173,78 @@
 - (void)setOrientation:(UIInterfaceOrientation)orientation
 {
   m_locationManager.headingOrientation = (CLDeviceOrientation)orientation;
+}
+
+- (bool)getLat:(double &)lat Lon:(double &)lon
+{
+  CLLocation * l = [self lastLocation];
+
+  static NSTimeInterval const SECONDS_TO_EXPIRE = 300.0;
+
+  // timeIntervalSinceNow returns negative value - because of "since now"
+  if ((l != nil) && ([l.timestamp timeIntervalSinceNow] > (-SECONDS_TO_EXPIRE)))
+  {
+    lat = l.coordinate.latitude;
+    lon = l.coordinate.longitude;
+    return true;
+  }
+
+  return false;
+
+  // New York
+  //lat = 40.7306;
+  //lon = -73.9866;
+
+  // San Francisco
+  //lat = 37.779;
+  //lon = -122.4192;
+
+  // Paris
+  //lat = 48.858261;
+  //lon = 2.294499;
+
+  // Rome
+  //lat = 41.8933;
+  //lon = 12.4831;
+
+  // Moscow
+  //lat = 55.7516;
+  //lon = 37.6187;
+
+  // Madrid
+  //lat = 40.4167;
+  //lon = -3.7036;
+
+  // Barselona
+  //lat = 41.3857;
+  //lon = 2.1702;
+
+  // Berlin
+  //lat = 52.517;
+  //lon = 13.3889;
+
+  // Minsk
+  //lat = 53.9023;
+  //lon = 27.5619;
+
+  //return true;
+}
+
+- (bool)getNorthRad:(double &)rad
+{
+  CLHeading * h = [self lastHeading];
+
+  if (h != nil)
+  {
+    rad = (h.trueHeading < 0) ? h.magneticHeading : h.trueHeading;
+    rad = rad / 180.0 * math::pi;
+    return true;
+  }
+
+  return false;
+
+  //rad = 0.0;
+  //return true;
 }
 
 @end
