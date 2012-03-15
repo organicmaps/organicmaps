@@ -31,7 +31,7 @@ void Framework::AddMap(string const & file)
 {
   LOG(LDEBUG, ("Loading map:", file));
 
-  threads::MutexGuard lock(m_modelSyn);
+  //threads::MutexGuard lock(m_modelSyn);
   int const version = m_model.AddMap(file);
   if (m_lowestMapVersion == -1 || (version != -1 && m_lowestMapVersion > version))
     m_lowestMapVersion = version;
@@ -39,7 +39,7 @@ void Framework::AddMap(string const & file)
 
 void Framework::RemoveMap(string const & datFile)
 {
-  threads::MutexGuard lock(m_modelSyn);
+  //threads::MutexGuard lock(m_modelSyn);
   m_model.RemoveMap(datFile);
 }
 
@@ -356,7 +356,7 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
 
   e->setIsEmptyDrawing(doDraw.IsEmptyDrawing());
 
-  if (m_navigator.Update(m_timer.ElapsedSeconds()))
+  if (m_navigator.Update(ElapsedSeconds()))
     Invalidate();
 }
 
@@ -532,7 +532,7 @@ void Framework::StartDrag(DragEvent const & e)
   m_informationDisplay.setDebugPoint(0, pt);
 #endif
 
-  m_navigator.StartDrag(pt, 0./*m_timer.ElapsedSeconds()*/);
+  m_navigator.StartDrag(pt, ElapsedSeconds());
 
   if (m_renderPolicy)
     m_renderPolicy->StartDrag();
@@ -549,7 +549,7 @@ void Framework::DoDrag(DragEvent const & e)
   m_informationDisplay.setDebugPoint(0, pt);
 #endif
 
-  m_navigator.DoDrag(pt, 0./*m_timer.ElapsedSeconds()*/);
+  m_navigator.DoDrag(pt, ElapsedSeconds());
   if (m_renderPolicy)
     m_renderPolicy->DoDrag();
 //  LOG(LINFO, ("DoDrag", e.Pos()));
@@ -575,8 +575,8 @@ void Framework::StartRotate(RotateEvent const & e)
 {
   if (m_renderPolicy && m_renderPolicy->DoSupportRotation())
   {
-    m_navigator.StartRotate(e.Angle(), m_timer.ElapsedSeconds());
-    m_renderPolicy->StartRotate(e.Angle(), m_timer.ElapsedSeconds());
+    m_navigator.StartRotate(e.Angle(), ElapsedSeconds());
+    m_renderPolicy->StartRotate(e.Angle(), ElapsedSeconds());
   }
 }
 
@@ -584,8 +584,8 @@ void Framework::DoRotate(RotateEvent const & e)
 {
   if (m_renderPolicy && m_renderPolicy->DoSupportRotation())
   {
-    m_navigator.DoRotate(e.Angle(), m_timer.ElapsedSeconds());
-    m_renderPolicy->DoRotate(e.Angle(), m_timer.ElapsedSeconds());
+    m_navigator.DoRotate(e.Angle(), ElapsedSeconds());
+    m_renderPolicy->DoRotate(e.Angle(), ElapsedSeconds());
   }
 }
 
@@ -593,8 +593,8 @@ void Framework::StopRotate(RotateEvent const & e)
 {
   if (m_renderPolicy && m_renderPolicy->DoSupportRotation())
   {
-    m_navigator.StopRotate(e.Angle(), m_timer.ElapsedSeconds());
-    m_renderPolicy->StopRotate(e.Angle(), m_timer.ElapsedSeconds());
+    m_navigator.StopRotate(e.Angle(), ElapsedSeconds());
+    m_renderPolicy->StopRotate(e.Angle(), ElapsedSeconds());
   }
 }
 
@@ -614,7 +614,7 @@ void Framework::ScaleToPoint(ScaleToPointEvent const & e)
   m2::PointD const pt = (m_centeringMode == EDoNothing)
       ? m_navigator.ShiftPoint(e.Pt()) : m_navigator.Screen().PixelRect().Center();
 
-  m_navigator.ScaleToPoint(pt, e.ScaleFactor(), 0./*m_timer.ElapsedSeconds()*/);
+  m_navigator.ScaleToPoint(pt, e.ScaleFactor(), ElapsedSeconds());
 
   Invalidate();
 }
@@ -650,7 +650,7 @@ void Framework::StartScale(ScaleEvent const & e)
   m_informationDisplay.setDebugPoint(1, pt2);
 #endif
 
-  m_navigator.StartScale(pt1, pt2, 0./*m_timer.ElapsedSeconds()*/);
+  m_navigator.StartScale(pt1, pt2, ElapsedSeconds());
   if (m_renderPolicy)
     m_renderPolicy->StartScale();
 
@@ -675,7 +675,7 @@ void Framework::DoScale(ScaleEvent const & e)
   m_informationDisplay.setDebugPoint(1, pt2);
 #endif
 
-  m_navigator.DoScale(pt1, pt2, 0./*m_timer.ElapsedSeconds()*/);
+  m_navigator.DoScale(pt1, pt2, ElapsedSeconds());
   if (m_renderPolicy)
     m_renderPolicy->DoScale();
 //  LOG(LINFO, ("DoScale", e.Pt1(), e.Pt2()));
@@ -699,7 +699,7 @@ void Framework::StopScale(ScaleEvent const & e)
   m_informationDisplay.setDebugPoint(0, m2::PointD(0, 0));
 #endif
 
-  m_navigator.StopScale(pt1, pt2, 0./*m_timer.ElapsedSeconds()*/);
+  m_navigator.StopScale(pt1, pt2, ElapsedSeconds());
   if (m_renderPolicy)
     m_renderPolicy->StopScale();
 //  LOG(LINFO, ("StopScale", e.Pt1(), e.Pt2()));
@@ -710,7 +710,7 @@ search::Engine * Framework::GetSearchEngine()
   // Classical "double check" synchronization pattern.
   if (!m_pSearchEngine)
   {
-    threads::MutexGuard lock(m_modelSyn);
+    //threads::MutexGuard lock(m_modelSyn);
     if (!m_pSearchEngine)
     {
       Platform & pl = GetPlatform();

@@ -38,7 +38,7 @@
 #include "../geometry/screenbase.hpp"
 
 #include "../base/logging.hpp"
-#include "../base/mutex.hpp"
+//#include "../base/mutex.hpp"
 #include "../base/timer.hpp"
 
 #include "../std/vector.hpp"
@@ -87,11 +87,16 @@ protected:
   TGpsCenteringMode m_centeringMode;
   location::State m_locationState;
 
-  mutable threads::Mutex m_modelSyn;
+  //mutable threads::Mutex m_modelSyn;
 
   storage::Storage m_storage;
 
-  my::Timer m_timer;
+  //my::Timer m_timer;
+  inline double ElapsedSeconds() const
+  {
+    //return m_timer.ElapsedSeconds();
+    return 0.0;
+  }
 
   /// Stores lowest loaded map version
   /// Holds -1 if no maps were added
