@@ -1,7 +1,7 @@
 amenity-atm
 en:3atm|money
 ru:3банкомат|деньги
-de:3geldautomat|bankomat|Geld
+de:3Geldautomat|Bankomat|Geld
 fr:3bancomat|argent
 it:3bancomat|soldi
 es:3atm|dinero
@@ -9,7 +9,7 @@ es:3atm|dinero
 amenity-bank
 en:3bank|money
 ru:3банк|деньги
-de:3bank|Geld
+de:3Bank|Geld
 fr:3banque|argent
 it:3banca|soldi
 es:3banco|dinero
@@ -17,7 +17,7 @@ es:3banco|dinero
 amenity-bureau_de_change
 en:3currency exchange|3exchange|money
 ru:4обмен валюты|обменник|4валюта|деньги
-de:3geldwechselstelle|Geld
+de:3Geldwechselstelle|Geld
 fr:3change|devises|argent
 it:3cambio valute|valuta|soldi
 es:3cambio de devisas|dinero
@@ -25,7 +25,7 @@ es:3cambio de devisas|dinero
 amenity-bar|amenity-pub
 en:3bar|3pub|beer|drink|food
 ru:3бар|3паб|пиво|выпить|еда
-de:3bar|3pub|bier|essen
+de:3Bar|3Pub|Bier|essen
 fr:3bar|3bière|pub|repas
 it:3bar|3birra|pub|mangiare
 es:3bar|3pub|comer
@@ -33,7 +33,7 @@ es:3bar|3pub|comer
 amenity-cafe
 en:3cafe|3restaurant|3food
 ru:3кафе|3ресторан|3еда
-de:3cafe|3restautant|essen
+de:3Cafe|3Restautant|essen
 fr:3café|3restaurant|manger|repas
 it:3caffè|3ristorante|pasto|mangiare
 es:3café|3restaurante|comer
@@ -41,7 +41,7 @@ es:3café|3restaurante|comer
 amenity-fast_food
 en:4fast food|3restaurant|3cafe|takeaway|3food
 ru:3фастфуд|3ресторан|3кафе|eда
-de:4fast food|takeaway|restaurant|cafe|pizzeria|essen
+de:4Fast food|takeaway|Restaurant|Cafe|Pizzeria|essen
 fr:4fast food|takeaway|café|restaurant|manger|repas
 it:4fast food|takeaway|caffè|ristorante|pasto|mangiare
 es:4comida rápida|restaurante|café|comer
@@ -49,7 +49,7 @@ es:4comida rápida|restaurante|café|comer
 amenity-restaurant
 en:3restaurant|3cafe|3food
 ru:3ресторан|3кафе|еда
-de:3restaurant|3cafe|gasthaus|3essen
+de:3Restaurant|3Cafe|Gasthaus|3essen
 fr:3restaurant|3café|manger|repas
 it:3ristorante|3caffè|mangiare
 es:3restaurante|3café|comer
@@ -57,7 +57,7 @@ es:3restaurante|3café|comer
 amenity-fuel
 en:gas station|3fuel|2gas
 ru:3заправка|бензин|топливо
-de:3tankstelle|tankstation
+de:3Tankstelle|Tankstation
 fr:3station-service|poste d’essence
 it:3stazione di rifornimento
 es:3gasolinera
@@ -65,7 +65,7 @@ es:3gasolinera
 shop-bakery
 en:3bakery|shop
 ru:3булочная|магазин
-de:3bäckerei|bäckerladen|laden
+de:3Bäckerei|Bäckerladen|Laden
 fr:3boulangerie|magasin
 it:3panetteria|negozio
 es:3panadería|tienda
@@ -73,7 +73,7 @@ es:3panadería|tienda
 shop-convenience
 en:2shop
 ru:2магазин
-de:3einkaufenladen|geschäft|2laden
+de:3Einkaufenladen|Geschäft|2Laden
 fr:2magasin
 it:2negozio
 es:2tienda
@@ -81,7 +81,7 @@ es:2tienda
 shop-supermarket
 en:3supermarket|shop
 ru:3универсам|3супермаркет|магазин
-de:3supermarkt|laden
+de:3Supermarkt|Laden
 fr:3supermarché|magasin
 it:3supermercato|negozio
 es:3supermercado|tienda
@@ -89,7 +89,7 @@ es:3supermercado|tienda
 highway-bus_stop
 en:bus stop|2bus|stop|4transport
 ru:4остановка|4автобус|4транспорт
-de:bushaltestelle|haltestelle|2bus|autobus|verkehr
+de:Bushaltestelle|Haltestelle|2Bus|Autobus|Verkehr
 fr:arrêt de bus|station|2bus|autobus|4transport
 it:fermata|autobus|4transporto
 es:parada|4transporte
@@ -97,7 +97,7 @@ es:parada|4transporte
 railway-tram_stop
 en:tram stop|3tram|stop|4transport
 ru:4остановка|4трамвай|4транспорт
-de:haltestelle|tram|verkehr
+de:4Haltestelle|Tram|Verkehr
 fr:arrêt|station|tram|4transport
 it:fermata|tram|4transporto
 es:parada|4transporte
@@ -105,7 +105,7 @@ es:parada|4transporte
 amenity-bus_station
 en:bus station|2bus|station|4transport
 ru:автостанция|4автобус|4остановка|4транспорт
-de:bahnhof|haltestelle|bus|autobus|verkehr
+de:4Bahnhof|Haltestelle|Bus|Autobus|Verkehr
 fr:gare|terminus|arrêt|station|bus|autobus|4transport
 it:autostazione|fermata|autobus|4transporto
 es:estación de autobuses|4transporte
@@ -113,7 +113,7 @@ es:estación de autobuses|4transporte
 railway-station
 en:3train station|4railway|railroad|3train|4station|4transport
 ru:ж/д станция|3поезд|3станция|4транспорт
-de:3haltestelle|3station|zug|verkehr
+de:3Haltestelle|3Station|Zug|Verkehr
 fr:3gare|station|train|transport
 it:3stazione ferroviaria|3treno|transporto
 es:3estación de tren|3tren|transporte
@@ -121,7 +121,7 @@ es:3estación de tren|3tren|transporte
 railway-subway_entrance
 en:3subway|3tube|3metro|3underground|transport
 ru:3метро|транспорт
-de:2U-Bahn|metro|verkehr
+de:2U-Bahn|Metro|Verkehr
 fr:3métro|3rame|transport
 it:3metrò|transporto
 es:3metro|3subte|transporte
@@ -129,7 +129,7 @@ es:3metro|3subte|transporte
 tourism-attraction
 en:3attraction|3tourism|3sights
 ru:4достопримечательность|3туризм|3аттракцион
-de:3attraktion|3sehenswürdigkeit
+de:3Attraktion|3Sehenswürdigkeit
 fr:3atraction|3curiosités
 it:3attrattiva|3turistico
 es:3atracción turística|3turismo
@@ -137,7 +137,7 @@ es:3atracción turística|3turismo
 tourism-viewpoint
 en:4viewpoint|tourism|sights
 ru:4обзорная площадка|туризм|достопримечательность
-de:3panorama|sehenswürdigkeit
+de:3Panorama|Sehenswürdigkeit
 fr:3panorama|curiosités
 it:3panorama|turistico
 es:3vista panorámica|turismo
@@ -145,7 +145,7 @@ es:3vista panorámica|turismo
 tourism-information
 en:4tourist information|4information|sights
 ru:4туринформация|информация|достопримечательность
-de:4information|sehenswürdigkeit
+de:4Information|Sehenswürdigkeit
 fr:4information|curiosités
 it:4informazione|turistico
 es:4información|turismo
@@ -153,7 +153,7 @@ es:4información|turismo
 tourism-picnic_site
 en:picnic site|sights
 ru:пикник|достопримечательность
-de:picknick|sehenswürdigkeit
+de:Picknick|Sehenswürdigkeit
 fr:pique-nique|curiosités
 it:picnic|turistico
 es:picnic|turismo
@@ -161,7 +161,7 @@ es:picnic|turismo
 amenity-place_of_worship
 en:place of worship|temple|sights
 ru:храм|церковь|достопримечательность
-de:tempel|kirche|dom|sehenswürdigkeit
+de:Tempel|Kirche|Dom|Sehenswürdigkeit
 fr:temple|église|cathédrale|curiosités
 it:tempio|cattedrale|duomo|turistico
 es:templo|lugar de culto|turismo
@@ -175,7 +175,7 @@ it:panchina|panca
 amenity-bicycle_rental
 en:4bicycle
 ru:4велосипед
-de:4fahrrad|velo rad
+de:4Fahrrad|Velo
 fr:4vélo|bicyclette 
 it:4bicicletta|bici
 es:4bicicleta
@@ -183,7 +183,7 @@ es:4bicicleta
 amenity-car_sharing
 en:3car sharing|car
 ru:4прокат авто|3авто|3машина
-de:3autoverleih|auto mieten|farzeug mieten
+de:3Autoverleih|Auto|Farzeug Mieten
 fr:3louage
 it:3noleggio di automobili
 es:3coche compartido
@@ -191,7 +191,7 @@ es:3coche compartido
 amenity-cinema
 en:3cinema
 ru:кинотеатр|3кино
-de:3kino|cinema|filmtheater
+de:3Kino|Cinema|Filmtheater
 fr:3cinéma|ciné
 it:3cinema|teatro
 es:3cine
@@ -199,7 +199,7 @@ es:3cine
 amenity-college
 en:college
 ru:колледж
-de:college|fachschule
+de:College|Fachschule
 fr:collège
 it:collegio
 es:colegio
@@ -207,7 +207,7 @@ es:colegio
 amenity-drinking_water
 en:4drinking water
 ru:4питьевой фонтан
-de:4trinkwasser|brunnen
+de:4Trinkwasser|Brunnen
 fr:3eau potable
 it:4acqua potabile
 es:4agua potable
@@ -215,7 +215,7 @@ es:4agua potable
 amenity-fire_station
 en:fire station
 ru:пожарные
-de:feuerwehr
+de:Feuerwehr
 fr:corps de saveurs pompiers
 it:scuadra antincendio
 es:parque de bomberos
@@ -223,7 +223,7 @@ es:parque de bomberos
 amenity-fountain
 en:fountain
 ru:фонтан
-de:brunnen|fontäne
+de:Brunnen|Fontäne
 fr:fontaine
 it:fontana|zampillo
 es:fuente
@@ -231,7 +231,7 @@ es:fuente
 amenity-grave_yard|natural-cemetery
 en:graveyard
 ru:кладбище
-de:friedhof
+de:Friedhof
 fr:cimetière
 it:cimitero
 es:cementerio
@@ -239,7 +239,7 @@ es:cementerio
 amenity-hospital|amenity-doctors
 en:3hospital|clinic|doctor
 ru:3больница|3госпиталь|врач|доктор
-de:3spital|krankenhaus
+de:3Spital|Krankenhaus
 fr:3hôpital|clinique
 it:3ospedale
 es:3hospital
@@ -247,14 +247,14 @@ es:3hospital
 amenity-hunting_stand
 en:hunting stand
 ru:охотничья вышка
-de:hochsitz
+de:Hochsitz
 fr:tour de chasse
 it:torre di caccio
 
 amenity-kindergarten
 en:kindergarten
 ru:детсад|ясли
-de:kindergarten|kinderkrippe|krippe
+de:Kindergarten|Kinderkrippe|Krippe
 fr:jardin d'enfants|garderie d'enfants|pouponnière
 it:scuola materna
 es:guarderia
@@ -262,7 +262,7 @@ es:guarderia
 amenity-library
 en:3library
 ru:3библиотека
-de:3bibliothek|bücherei
+de:3Bibliothek|Bücherei
 fr:3bibliothèque
 it:3biblioteca
 es:3biblioteca
@@ -270,7 +270,7 @@ es:3biblioteca
 amenity-parking
 en:3parking
 ru:3парковка
-de:3parkplatz|parking
+de:3Parkplatz|Parking
 fr:3parking
 it:3parcheggio
 es:3estationamiento|3aparcamiento
@@ -278,7 +278,7 @@ es:3estationamiento|3aparcamiento
 amenity-pharmacy
 en:3pharmacy|3drugstore|apothecary|dispensary
 ru:3аптека
-de:3apotheke|3droguerie
+de:3Apotheke|3Droguerie
 fr:3pharmacie|3droguerie
 it:3farmacia
 es:3farmacia
@@ -286,7 +286,7 @@ es:3farmacia
 amenity-post_box
 en:3postbox|post
 ru:3почтовый ящик
-de:3briefkasten|3postfach
+de:3Briefkasten|3Postfach
 fr:3boîte aux lettres
 it:3casella
 es:3buzón
@@ -294,7 +294,7 @@ es:3buzón
 amenity-post_office
 en:3post
 ru:3почта
-de:3post|postamt
+de:3Post|Postamt
 fr:3poste
 it:3posta
 es:4oficina de correos|3post
@@ -302,7 +302,7 @@ es:4oficina de correos|3post
 amenity-recycling
 en:recycling|trash|bin|garbage
 ru:мусорка
-de:abfälle|recycling|müll
+de:Abfälle|Recycling|Müll
 fr:déchet
 it:rifiuti
 es:papelera de reciclaje
@@ -310,7 +310,7 @@ es:papelera de reciclaje
 amenity-school
 en:3school
 ru:3школа
-de:3schule|schulgebäude
+de:3Schule|Schulgebäude
 fr:3école
 it:3scuola
 es:3escuela|colegio
@@ -318,7 +318,7 @@ es:3escuela|colegio
 amenity-shelter
 en:shelter
 ru:укрытие
-de:schutz|zivilschutz
+de:Schutz|Zivilschutz
 fr:couvert
 it:riparo
 es:abrigo
@@ -326,7 +326,7 @@ es:abrigo
 amenity-telephone
 en:2phone
 ru:2телефон
-de:2telefon|fernsprecher
+de:2Telefon|Fernsprecher
 fr:2téléphone
 it:2telefono
 es:2teléfono
@@ -334,7 +334,7 @@ es:2teléfono
 amenity-theatre
 en:3theatre|theater
 ru:3театр
-de:3theater
+de:3Theater
 fr:3théâtre
 it:3teatro
 es:3teatro
@@ -342,7 +342,7 @@ es:3teatro
 amenity-toilets
 en:3toilet|wc
 ru:3туалет
-de:wc|3toilette
+de:WC|3Toilette
 fr:wc|3toilette
 it:wc|3toilette
 es:3servicios|3lavabo
@@ -350,7 +350,7 @@ es:3servicios|3lavabo
 amenity-university
 en:4university
 ru:4университет|вуз|институт
-de:4universität|uni|hochschule|institut
+de:4Universität|Uni|Hochschule|Institut
 fr:4université|institut
 it:4università|istituto
 es:4universidad
@@ -358,7 +358,7 @@ es:4universidad
 place-continent
 en:continent
 ru:континент|материк
-de:kontinent|festland
+de:Kontinent|Festland
 fr:continent
 it:continente|terraferma
 es:continente
@@ -366,7 +366,7 @@ es:continente
 place-country
 en:country
 ru:страна
-de:land
+de:Land
 fr:pays
 it:paese
 es:país
@@ -374,7 +374,7 @@ es:país
 place-city
 en:city|town
 ru:город
-de:stadt
+de:Stadt
 fr:ville|cité
 it:città
 es:ciudad
@@ -382,7 +382,7 @@ es:ciudad
 place-town
 en:town|city
 ru:город
-de:stadt
+de:Stadt
 fr:ville|cité
 it:città
 es:ciudad
@@ -390,7 +390,7 @@ es:ciudad
 place-city-capital
 en:capital|city
 ru:столица|город
-de:hauptstadt|metropole|stadt
+de:Hauptstadt|Metropole|Stadt
 fr:capitale|ville|cité
 it:capitale|città
 es:capital|ciudad
@@ -398,7 +398,7 @@ es:capital|ciudad
 place-county
 en:county
 ru:округ|графство
-de:kreis|bezirk
+de:Kreis|Bezirk
 fr:comté
 it:contea
 es:condado
@@ -406,7 +406,7 @@ es:condado
 place-state
 en:state|province
 ru:штат|провинция
-de:land|staat|kanton|provinz
+de:Land|Staat|Kanton|Provinz
 fr:province|état
 it:provincia|stato
 es:estado|provincia
@@ -414,7 +414,7 @@ es:estado|provincia
 place-region
 en:region
 ru:район
-de:region
+de:Region
 fr:région
 it:regione
 es:región
@@ -422,7 +422,7 @@ es:región
 place-island|place-islet
 en:island|islet
 ru:остров
-de:insel
+de:Insel
 fr:île
 it:isola
 es:isla
@@ -430,7 +430,7 @@ es:isla
 place-suburb
 en:suburb|district
 ru:район|микрорайон|округ|квартал
-de:kreis|wohnbezirk|wohnviertel
+de:Kreis|Wohnbezirk|Wohnviertel
 fr:arrondissement|quartier
 it:quartiere
 es:barrio
@@ -438,7 +438,7 @@ es:barrio
 place-hamlet
 en:hamlet|village
 ru:посёлок|деревня
-de:weiler|dorf
+de:Weiler|Dorf
 fr:hameau|village
 it:piccolo villaggio
 es:aldea|pueblo
@@ -446,7 +446,7 @@ es:aldea|pueblo
 place-village
 en:village|hamlet
 ru:деревня|поселок
-de:dorf|weiler
+de:Dorf|Weiler
 fr:village|hameau
 it:villaggio
 es:pueblo|aldea
@@ -454,7 +454,7 @@ es:pueblo|aldea
 place-locality
 en:locality
 ru:местность|регион
-de:lokal|region|raum
+de:Lokal|Region|Raum
 fr:endroit|région
 it:località|luogo|regione|area
 es:localidad
@@ -462,7 +462,7 @@ es:localidad
 place-farm
 en:farm
 ru:ферма
-de:bauernhof|farm
+de:Bauernhof|Farm
 fr:ferme
 it:fattoria|allevamento
 es:granja|hacienda
@@ -470,7 +470,7 @@ es:granja|hacienda
 waterway-river|waterway-stream|waterway-riverbank
 en:river
 ru:река
-de:fluss|strom
+de:Fluss|Strom
 fr:rivière|fleuve
 it:fiume
 es:río
@@ -478,7 +478,7 @@ es:río
 waterway-canal
 en:canal
 ru:канал
-de:kanal
+de:Kanal
 fr:canal
 it:canale
 es:canal
@@ -486,7 +486,7 @@ es:canal
 highway-raceway
 en:racetrack
 ru:гоночный трек
-de:rennbahn
+de:Rennbahn
 fr:course
 it:pista
 es:circuito
@@ -494,7 +494,7 @@ es:circuito
 highway-path
 en:path
 ru:тропа
-de:weg|bahn
+de:Weg|Bahn
 fr:chemin
 it:sentiero|viottolo
 es:sendero
@@ -502,7 +502,7 @@ es:sendero
 highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-pedestrian|highway-unclassified|highway-minor|highway-motorway_link|highway-motorway|highway-motorway_junction
 en:street|st|str|ave
 ru:улица|переулок|проезд|тракт|проспект|ул
-de:strasse|weg|avenue|gasse
+de:Strasse|Weg|Avenue|Gasse
 fr:rue|avenue|reulle
 it:via|strada|corso|vicolo
 es:calle|avenue|camino
@@ -510,7 +510,7 @@ es:calle|avenue|camino
 natural-peak
 en:peak|mountain
 ru:гора|вершина|пик
-de:berg|gebirge|gipfel|spitze|pik
+de:Berg|Gebirge|Gipfel|Spitze|Pik
 fr:mont|montagne|sommet|pic
 it:monte|montagna|cima|picco
 es:cima|pico
@@ -518,7 +518,7 @@ es:cima|pico
 natural-water|landuse-basin|landuse-reservoir
 en:water
 ru:водоём
-de:wasserbecken
+de:Wasserbecken
 fr:bassin
 it:bacino
 es:aljibe
@@ -526,7 +526,7 @@ es:aljibe
 natural-pond
 en:pond|water
 ru:пруд|водоём
-de:teich|wasserbecken
+de:Teich|Wasserbecken
 fr:étang|bassin
 it:stagno|bacino
 es:estanque|aljibe
@@ -534,7 +534,7 @@ es:estanque|aljibe
 natural-lake
 en:lake|water
 ru:озеро|водоём
-de:see|wasserbecken
+de:See|Wasserbecken
 fr:lac|bassin
 it:lago|bacino
 es:lago|aljibe
@@ -542,7 +542,7 @@ es:lago|aljibe
 natural-forest|natural-wood|landuse-forest|landuse-wood
 en:forest
 ru:лес
-de:wald
+de:Wald
 fr:forêt
 it:foresta
 es:bosque
@@ -550,7 +550,7 @@ es:bosque
 leisure-garden
 en:garden
 ru:сад
-de:garten
+de:Garten
 fr:jardin
 it:giardino
 es:jardín
@@ -558,7 +558,7 @@ es:jardín
 leisure-park
 en:park
 ru:парк
-de:park
+de:Park
 fr:parc
 it:parco
 es:parque
@@ -566,7 +566,7 @@ es:parque
 tourism-hostel
 en:3hostel
 ru:3хостел
-de:3wohnheim
+de:3Wohnheim
 fr:3foyer
 it:3ostello
 es:3albergue juvenil|4residencia
@@ -574,7 +574,7 @@ es:3albergue juvenil|4residencia
 tourism-hotel
 en:2hotel|hostel
 ru:2гостиница|2отель|хостел
-de:2hotel|gasthaus|wohnheim
+de:2Hotel|Gasthaus|Wohnheim
 fr:2hôtel|foyer
 it:2hôtel|albergo|ostello
 es:2hotel|albergue juvenil|residencia
@@ -582,7 +582,7 @@ es:2hotel|albergue juvenil|residencia
 shop-hairdresser
 en:3hairdresser
 ru:3парикмахерская
-de:3friseur|frisiersalon|coiffeure
+de:3Friseur|Frisiersalon|Coiffeure
 fr:3coiffeure|salon
 it:4parrucchiera
 es:4peluquero
@@ -590,7 +590,7 @@ es:4peluquero
 aeroway-airport|aeroway-aerodrome
 en:3airport|3plane
 ru:3аэропорт|4самолёт
-de:3flughafen|4Flugzeug
+de:3Flughafen|4Flugzeug
 fr:3aéroport|3avion
 it:3aeroporto|4aeroplano
 es:3aeropuerto|3avión
@@ -598,7 +598,7 @@ es:3aeropuerto|3avión
 leisure-stadium
 en:stadium|sport
 ru:стадион|спорт
-de:stadion|sport
+de:Stadion|Sport
 fr:stade|sport
 it:stadio|sport
 es:estadio|deporte
@@ -606,7 +606,7 @@ es:estadio|deporte
 leisure-playground
 en:playground
 ru:детская площадка
-de:spielplatz
+de:Spielplatz
 fr:aire de jeu
 it:campo giochi
 es:patio de recreo
@@ -614,7 +614,7 @@ es:patio de recreo
 leisure-sports_centre
 en:sports center|sport
 ru:спорткомплекс|спорт
-de:sportzentrum|sport
+de:Sportzentrum|Sport
 fr:centre sportif|sport
 it:centro sportivo|sport
 es:centro deportivo|deporte
@@ -622,7 +622,7 @@ es:centro deportivo|deporte
 leisure-golf_course
 en:golf course|sport
 ru:площадка для гольфа|спорт
-de:golfplatz|sport
+de:Golfplatz|Sport
 fr:terrain de golf|sport
 it:campo da golf|sport
 es:campo de golf|deporte
@@ -630,7 +630,7 @@ es:campo de golf|deporte
 leisure-pitch
 en:pitch|sport
 ru:спортплощадка|спорт
-de:feld|sport
+de:Feld|Sport
 fr:terrain de sport|sport
 it:campo|sport
 es:terreno|deporte
@@ -638,7 +638,7 @@ es:terreno|deporte
 leisure-swimming_pool
 en:swimming pool|sport
 ru:бассейн|спорт
-de:schwimmbad|sport
+de:Schwimmbad|Sport
 fr:piscine|sport
 it:piscina|sport
 es:piscina|deporte
@@ -646,7 +646,7 @@ es:piscina|deporte
 building
 en:building
 ru:здание
-de:gebäude
+de:Gebäude
 fr:bâtiment
 it:edificio
 es:edificio
