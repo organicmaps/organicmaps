@@ -10,12 +10,14 @@
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>Icon.png</string>
-		<string>Icon-72.png</string>
-		<string>Icon@2x.png</string>
-		<string>Icon-Small.png</string>
-		<string>Icon-Small-50.png</string>
-		<string>Icon-Small@2x.png</string>
+		<string>29-lite.png</string>
+		<string>50-lite.png</string>
+		<string>57-lite.png</string>
+		<string>58-lite.png</string>
+		<string>72-lite.png</string>
+		<string>100-lite.png</string>
+		<string>114-lite.png</string>
+		<string>144-lite.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>${BUNDLE_IDENTIFIER}</string>
