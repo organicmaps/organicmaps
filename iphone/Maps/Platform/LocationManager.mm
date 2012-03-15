@@ -1,6 +1,8 @@
 #import "LocationManager.h"
 
-#import "../../base/math.hpp"   // for math::pi constant
+#include "../../platform/settings.hpp"
+
+#include "../../base/math.hpp"
 
 
 @implementation LocationManager
@@ -9,6 +11,10 @@
 {
   if ((self = [super init]))
   {
+    // Read fixed location from settings.
+    m_fixedLatLon = Settings::Get("FixPosition", m_latlon);
+    m_fixedDir = Settings::Get("FixDirection", m_dirFromNorth);
+
     m_locationManager = [[CLLocationManager alloc] init];
     m_locationManager.delegate = self;
     m_locationManager.purpose = NSLocalizedString(@"Location Services are needed to display your current position on the map.", @"Location purpose text description");
@@ -177,6 +183,13 @@
 
 - (bool)getLat:(double &)lat Lon:(double &)lon
 {
+  if (m_fixedLatLon)
+  {
+    lat = m_latlon.first;
+    lon = m_latlon.second;
+    return true;
+  }
+
   CLLocation * l = [self lastLocation];
 
   static NSTimeInterval const SECONDS_TO_EXPIRE = 300.0;
@@ -190,61 +203,26 @@
   }
 
   return false;
-
-  // New York
-  //lat = 40.7306;
-  //lon = -73.9866;
-
-  // San Francisco
-  //lat = 37.779;
-  //lon = -122.4192;
-
-  // Paris
-  //lat = 48.858261;
-  //lon = 2.294499;
-
-  // Rome
-  //lat = 41.8933;
-  //lon = 12.4831;
-
-  // Moscow
-  //lat = 55.7516;
-  //lon = 37.6187;
-
-  // Madrid
-  //lat = 40.4167;
-  //lon = -3.7036;
-
-  // Barselona
-  //lat = 41.3857;
-  //lon = 2.1702;
-
-  // Berlin
-  //lat = 52.517;
-  //lon = 13.3889;
-
-  // Minsk
-  //lat = 53.9023;
-  //lon = 27.5619;
-
-  //return true;
 }
 
 - (bool)getNorthRad:(double &)rad
 {
+  if (m_fixedDir)
+  {
+    rad = m_dirFromNorth;
+    return true;
+  }
+
   CLHeading * h = [self lastHeading];
 
   if (h != nil)
   {
     rad = (h.trueHeading < 0) ? h.magneticHeading : h.trueHeading;
-    rad = rad / 180.0 * math::pi;
+    rad = my::DegToRad(rad);
     return true;
   }
 
   return false;
-
-  //rad = 0.0;
-  //return true;
 }
 
 @end
