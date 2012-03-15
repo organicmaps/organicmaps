@@ -41,7 +41,7 @@
     eaglLayer.opaque = YES;
 
     renderContext = shared_ptr<iphone::RenderContext>(new iphone::RenderContext());
-    
+
     if (!renderContext.get())
     {
       [self release];
@@ -50,30 +50,16 @@
     
     renderContext->makeCurrent();
     
-    /// ColorFormat : RGB565
-    /// Backbuffer : YES, (to prevent from loosing content when mixing with ordinary layers).
+    // ColorFormat : RGB565
+    // Backbuffer : YES, (to prevent from loosing content when mixing with ordinary layers).
     eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
                                     [NSNumber numberWithBool:NO],
                                     kEAGLDrawablePropertyRetainedBacking,
                                     kEAGLColorFormatRGB565,
                                     kEAGLDrawablePropertyColorFormat,
                                     nil];
-
-    int etalonW = 320;
-    int scrW = etalonW;
-
-    UIDevice * device = [UIDevice currentDevice];
-
-    float ver = [device.systemVersion floatValue];
-    NSLog(@"%@", device.systemVersion);
-    /// rounding problems
-    if (ver >= 3.199)
-    {
-      UIScreen * mainScr = [UIScreen mainScreen];
-      scrW = mainScr.currentMode.size.width;
-      if (scrW == 640)
-        self.contentScaleFactor = 2.0;
-    }
+    // Correct retina display support in opengl renderbuffer
+    self.contentScaleFactor = [[UIScreen mainScreen] scale];
   }
   
   return self;
