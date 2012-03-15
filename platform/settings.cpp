@@ -4,7 +4,7 @@
 
 #include "../base/logging.hpp"
 
-#include "../coding/file_reader.hpp"
+#include "../coding/reader_streambuf.hpp"
 #include "../coding/file_writer.hpp"
 
 #include "../geometry/rect2d.hpp"
@@ -13,6 +13,8 @@
 #include "../platform/platform.hpp"
 
 #include "../std/sstream.hpp"
+#include "../std/fstream.hpp"
+
 
 #define DELIM_CHAR  '='
 
@@ -22,11 +24,9 @@ namespace Settings
   {
     try
     {
-      string str;
-      {
-        FileReader(GetPlatform().SettingsPathForFile(SETTINGS_FILE_NAME)).ReadAsString(str);
-      }
-      istringstream stream(str);
+      ReaderStreamBuf buffer(GetPlatform().GetReader(SETTINGS_FILE_NAME));
+      istream stream(&buffer);
+
       string line;
       while (stream.good())
       {
@@ -44,7 +44,7 @@ namespace Settings
           m_values[key] = value;
       }
     }
-    catch (std::exception const & e)
+    catch (Reader::Exception const & e)
     {
       LOG(LWARNING, ("Can't load", SETTINGS_FILE_NAME));
     }
@@ -65,8 +65,9 @@ namespace Settings
         file.Write(line.data(), line.size());
       }
     }
-    catch (std::exception const &)
-    { // Ignore all settings saving exceptions
+    catch (Writer::Exception const &)
+    {
+      // Ignore all settings saving exceptions
       LOG(LWARNING, ("Can't save", SETTINGS_FILE_NAME));
     }
   }
@@ -82,6 +83,7 @@ namespace Settings
     ContainerT::const_iterator found = m_values.find(key);
     if (found == m_values.end())
       return false;
+
     outValue = found->second;
     return true;
   }
@@ -105,6 +107,19 @@ namespace Settings
     return true;
   }
 
+  namespace impl
+  {
+    template <class T, size_t N> bool FromStringArray(string const & s, T (&arr)[N])
+    {
+      istringstream in(s);
+      size_t count = 0;
+      while (in.good() && count < N)
+        in >> arr[count++];
+
+      return (!in.fail() && count == N);
+    }
+  }
+
   template <> string ToString<m2::AnyRectD>(m2::AnyRectD const & rect)
   {
     ostringstream out;
@@ -119,13 +134,8 @@ namespace Settings
 
   template <> bool FromString<m2::AnyRectD>(string const & str, m2::AnyRectD & rect)
   {
-    istringstream in(str);
     double val[7];
-    size_t count = 0;
-    while (in.good() && count < 7)
-      in >> val[count++];
-
-    if (count != 7)
+    if (!impl::FromStringArray(str, val))
       return false;
 
     rect = m2::AnyRectD(m2::PointD(val[0], val[1]),
@@ -144,58 +154,94 @@ namespace Settings
   }
   template <> bool FromString<m2::RectD>(string const & str, m2::RectD & rect)
   {
-    istringstream stream(str);
-    m2::RectD::value_type values[4];
-    size_t count = 0;
-    while (stream.good() && count < 4)
-      stream >> values[count++];
-
-    if (count != 4)
+    double val[4];
+    if (!impl::FromStringArray(str, val))
       return false;
 
-    rect.setMinX(values[0]);
-    rect.setMinY(values[1]);
-    rect.setMaxX(values[2]);
-    rect.setMaxY(values[3]);
+    rect.setMinX(val[0]);
+    rect.setMinY(val[1]);
+    rect.setMaxX(val[2]);
+    rect.setMaxY(val[3]);
     return true;
   }
 
-  template <> string ToString(bool const & value)
+  template <> string ToString<bool>(bool const & v)
   {
-    return value ? "true" : "false";
+    return v ? "true" : "false";
   }
-  template <> bool FromString(string const & str, bool & outValue)
+  template <> bool FromString<bool>(string const & str, bool & v)
   {
     if (str == "true")
-      outValue = true;
+      v = true;
     else if (str == "false")
-      outValue = false;
+      v = false;
     else
       return false;
     return true;
   }
 
-  typedef std::pair<int, int> UPairT;
-  template <> string ToString<UPairT>(UPairT const & value)
+  template <> string ToString<double>(double const & v)
   {
     ostringstream stream;
     stream.precision(12);
-    stream << value.first << " " << value.second;
+    stream << v;
     return stream.str();
   }
-  template <> bool FromString<UPairT>(string const & str, UPairT & value)
+  template <> bool FromString<double>(string const & str, double & v)
   {
     istringstream stream(str);
     if (stream.good())
     {
-      stream >> value.first;
+      stream >> v;
+      return !stream.fail();
+    }
+    else return false;
+  }
+
+  namespace impl
+  {
+    template <class TPair> string ToStringPair(TPair const & value)
+    {
+      ostringstream stream;
+      stream.precision(12);
+      stream << value.first << " " << value.second;
+      return stream.str();
+    }
+    template <class TPair> bool FromStringPair(string const & str, TPair & value)
+    {
+      istringstream stream(str);
       if (stream.good())
       {
-        stream >> value.second;
-        return true;
+        stream >> value.first;
+        if (stream.good())
+        {
+          stream >> value.second;
+          return !stream.fail();
+        }
       }
+      return false;
     }
-    return false;
+  }
+
+  typedef pair<int, int> IPairT;
+  typedef pair<double, double> DPairT;
+
+  template <> string ToString<IPairT>(IPairT const & v)
+  {
+    return impl::ToStringPair(v);
+  }
+  template <> bool FromString<IPairT>(string const & s, IPairT & v)
+  {
+    return impl::FromStringPair(s, v);
+  }
+
+  template <> string ToString<DPairT>(DPairT const & v)
+  {
+    return impl::ToStringPair(v);
+  }
+  template <> bool FromString<DPairT>(string const & s, DPairT & v)
+  {
+    return impl::FromStringPair(s, v);
   }
 
   template <> string ToString<Units>(Units const & v)
