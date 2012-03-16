@@ -10,9 +10,9 @@
 
 #include "../../platform/platform.hpp"
 
-#define MAX_3G_MEGABYTES 20
+#define MAX_3G_MEGABYTES 50
 
-#define MB 1000*1000
+#define MB 1024*1024
 
 using namespace storage;
 
