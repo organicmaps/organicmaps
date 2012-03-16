@@ -79,8 +79,8 @@ namespace update
 
     // remove some files from list
     char const * filesToRemove[] = {"minsk-pass"DATA_FILE_EXTENSION,
-                                    "World"DATA_FILE_EXTENSION,
-                                    "WorldCoasts"DATA_FILE_EXTENSION};
+                                    WORLD_FILE_NAME DATA_FILE_EXTENSION,
+                                    WORLD_COASTS_FILE_NAME DATA_FILE_EXTENSION};
     for (size_t i = 0; i < ARRAY_SIZE(filesToRemove); ++i)
     {
       Platform::FilesList::iterator found = std::find(mwmFiles.begin(), mwmFiles.end(),

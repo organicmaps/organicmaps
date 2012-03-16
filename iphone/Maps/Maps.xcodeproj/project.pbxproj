@@ -73,6 +73,8 @@
 		FA4135ED120A263C0062D5B4 /* SettingsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4135E7120A263C0062D5B4 /* SettingsManager.mm */; };
 		FA459EB414327AF700B5BB3C /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */; };
 		FA46DA2C12D4166E00968C36 /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA2B12D4166E00968C36 /* countries.txt */; };
+		FA4B0A1415136C4C00758203 /* World.mwm.nosearch in Resources */ = {isa = PBXBuildFile; fileRef = FA4B0A1315136C4C00758203 /* World.mwm.nosearch */; };
+		FA4B0A16151372BA00758203 /* countries.txt.nosearch in Resources */ = {isa = PBXBuildFile; fileRef = FA4B0A15151372BA00758203 /* countries.txt.nosearch */; };
 		FA500588128907F0002961F0 /* visibility.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA500587128907F0002961F0 /* visibility.txt */; };
 		FA64D9A913F975AD00350ECF /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA64D9A813F975AD00350ECF /* types.txt */; };
 		FA81AE3314D061BF00A0D70D /* SearchCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA81AE3214D061BF00A0D70D /* SearchCell.mm */; };
@@ -639,14 +641,12 @@
 		FAFB06BA151215EE0041901D /* symbols_mdpi.png in Resources */ = {isa = PBXBuildFile; fileRef = EEE4C93D1298A2F3007231A9 /* symbols_mdpi.png */; };
 		FAFB06BB151215EE0041901D /* symbols_xhdpi.png in Resources */ = {isa = PBXBuildFile; fileRef = EEE4C93F1298A303007231A9 /* symbols_xhdpi.png */; };
 		FAFB06BC151215EE0041901D /* basic_xhdpi.skn in Resources */ = {isa = PBXBuildFile; fileRef = EEE4C9411298A31B007231A9 /* basic_xhdpi.skn */; };
-		FAFB06BD151215EE0041901D /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA2B12D4166E00968C36 /* countries.txt */; };
 		FAFB06BE151215EE0041901D /* unicode_blocks.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */; };
 		FAFB06BF151215EE0041901D /* fonts_blacklist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */; };
 		FAFB06C0151215EE0041901D /* fonts_whitelist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */; };
 		FAFB06C1151215EE0041901D /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B3FB8B132FA43E00057053 /* location.png */; };
 		FAFB06C2151215EE0041901D /* location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B3FB8C132FA43E00057053 /* location@2x.png */; };
 		FAFB06C3151215EE0041901D /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = FAFCB63713367AD1001A5C59 /* about.html */; };
-		FAFB06C4151215EE0041901D /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FAFF42291347F101009BBB14 /* World.mwm */; };
 		FAFB06C5151215EE0041901D /* location-search.png in Resources */ = {isa = PBXBuildFile; fileRef = EEAF65E3134BCBD500A81C82 /* location-search.png */; };
 		FAFB06C6151215EE0041901D /* location-search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EEAF65E4134BCBD500A81C82 /* location-search@2x.png */; };
 		FAFB06C7151215EE0041901D /* 01_dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */; };
@@ -1322,6 +1322,8 @@
 		FA4135E7120A263C0062D5B4 /* SettingsManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = SettingsManager.mm; path = Settings/SettingsManager.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = WorldCoasts.mwm; path = ../../data/WorldCoasts.mwm; sourceTree = "<group>"; };
 		FA46DA2B12D4166E00968C36 /* countries.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = countries.txt; path = ../../data/countries.txt; sourceTree = SOURCE_ROOT; };
+		FA4B0A1315136C4C00758203 /* World.mwm.nosearch */ = {isa = PBXFileReference; lastKnownFileType = file; name = World.mwm.nosearch; path = ../../data/World.mwm.nosearch; sourceTree = "<group>"; };
+		FA4B0A15151372BA00758203 /* countries.txt.nosearch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = countries.txt.nosearch; path = ../../data/countries.txt.nosearch; sourceTree = "<group>"; };
 		FA500587128907F0002961F0 /* visibility.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = visibility.txt; path = ../../data/visibility.txt; sourceTree = SOURCE_ROOT; };
 		FA64D9A813F975AD00350ECF /* types.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = types.txt; path = ../../data/types.txt; sourceTree = SOURCE_ROOT; };
 		FA81AE3114D061BF00A0D70D /* SearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCell.h; sourceTree = "<group>"; };
@@ -2092,12 +2094,14 @@
 				EEA615E9134C4968003A9827 /* 05_khmeros.ttf */,
 				EE164810135CEE49003B8A3E /* 06_code2000.ttf */,
 				FAFF42291347F101009BBB14 /* World.mwm */,
+				FA4B0A1315136C4C00758203 /* World.mwm.nosearch */,
 				FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */,
 				FAFCB63713367AD1001A5C59 /* about.html */,
 				EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */,
 				EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */,
 				EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */,
 				FA46DA2B12D4166E00968C36 /* countries.txt */,
+				FA4B0A15151372BA00758203 /* countries.txt.nosearch */,
 				EEE4C9411298A31B007231A9 /* basic_xhdpi.skn */,
 				FA85F632145DDDC20090E1A0 /* packed_polygons.bin */,
 				EEE4C93F1298A303007231A9 /* symbols_xhdpi.png */,
@@ -3387,14 +3391,12 @@
 				FAFB06BA151215EE0041901D /* symbols_mdpi.png in Resources */,
 				FAFB06BB151215EE0041901D /* symbols_xhdpi.png in Resources */,
 				FAFB06BC151215EE0041901D /* basic_xhdpi.skn in Resources */,
-				FAFB06BD151215EE0041901D /* countries.txt in Resources */,
 				FAFB06BE151215EE0041901D /* unicode_blocks.txt in Resources */,
 				FAFB06BF151215EE0041901D /* fonts_blacklist.txt in Resources */,
 				FAFB06C0151215EE0041901D /* fonts_whitelist.txt in Resources */,
 				FAFB06C1151215EE0041901D /* location.png in Resources */,
 				FAFB06C2151215EE0041901D /* location@2x.png in Resources */,
 				FAFB06C3151215EE0041901D /* about.html in Resources */,
-				FAFB06C4151215EE0041901D /* World.mwm in Resources */,
 				FAFB06C5151215EE0041901D /* location-search.png in Resources */,
 				FAFB06C6151215EE0041901D /* location-search@2x.png in Resources */,
 				FAFB06C7151215EE0041901D /* 01_dejavusans.ttf in Resources */,
@@ -3950,6 +3952,8 @@
 				FAA3A878151279DE00C7904C /* 100-lite.png in Resources */,
 				FAA3A879151279DE00C7904C /* 114-lite.png in Resources */,
 				FAA3A87A151279DE00C7904C /* 144-lite.png in Resources */,
+				FA4B0A1415136C4C00758203 /* World.mwm.nosearch in Resources */,
+				FA4B0A16151372BA00758203 /* countries.txt.nosearch in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3980,7 +3984,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nif [[ \"$LOWERED_CONFIG\" != *production* ]]; then\n  echo \"Copy drules_proto.txt in non-production build\"\n  cp \"$SRCROOT/../../data/drules_proto.txt\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/\"\nfi";
+			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nif [[ \"$LOWERED_CONFIG\" != *production* ]]; then\n  echo \"Copy drules_proto.txt in non-production build\"\n  cp \"$SRCROOT/../../data/drules_proto.txt\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/\"\nfi\nif [[ \"$LOWERED_CONFIG\" == *lite* ]]; then\n  echo \"Using World file without search index\"\n  mv \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/World.mwm.nosearch\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/World.mwm\"\n  echo \"Using countries.txt without search support\"\n  mv \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/countries.txt.nosearch\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/countries.txt\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
