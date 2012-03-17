@@ -25,10 +25,14 @@ PRE_TARGETDEPS += $$VERSION_HEADER
 CONFIG(production) {
   QMAKE_EXTRA_TARGETS += versiontarget
 }
+# also regenerate if file doesn't exist
+!exists( $$VERSION_HEADER ) {
+  QMAKE_EXTRA_TARGETS += versiontarget
+}
 
 HEADERS += \
   version.hpp \
   ver_serialization.hpp \
-  
+
 SOURCES += \
   empty_stub.cpp \
