@@ -111,7 +111,7 @@ UNIT_TEST(ReadWrite_POD)
   rw::WriteVectorOfPOD(sink, src);
 
   buffer_vector<ThePOD, 128> dest;
-  ArrayByteSource byteSrc(buffer.data());
+  ArrayByteSource byteSrc(&buffer.at(0));
   rw::ReadVectorOfPOD(byteSrc, dest);
 
   TEST(equal(src.begin(), src.end(), dest.begin()), ());
