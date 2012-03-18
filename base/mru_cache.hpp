@@ -45,6 +45,11 @@ namespace my
     int m_maxWeight;
 
   public:
+
+    MRUCache()
+      : m_curWeight(0), m_maxWeight(0)
+    {}
+
     explicit MRUCache(int maxWeight)
       : m_curWeight(0), m_maxWeight(maxWeight)
     {}
@@ -52,6 +57,86 @@ namespace my
     set<KeyT> const & Keys() const
     {
       return m_keys;
+    }
+
+    bool HasRoom(int weight)
+    {
+      return m_curWeight + weight <= m_maxWeight;
+    }
+
+    /// how much elements we can fit in this cache, considering unlocked
+    /// elements, that could be popped out on request
+    int CanFit() const
+    {
+      int lockedWeight = 0;
+
+      for (typename map_t::const_iterator it = m_map.begin(); it != m_map.end(); ++it)
+      {
+        if (it->second.m_lockCount != 0)
+          lockedWeight += it->second.m_weight;
+      }
+
+      return m_maxWeight - lockedWeight;
+    }
+
+    int MaxWeight() const
+    {
+      return m_maxWeight;
+    }
+
+    void Resize(int maxWeight)
+    {
+      m_maxWeight = maxWeight;
+      // in case of making cache smaller this
+      // function pops out some unlocked elements
+      FreeRoom(0);
+    }
+
+    void FreeRoom(int weight)
+    {
+      if (HasRoom(weight))
+        return;
+
+      if (!m_list.empty())
+      {
+        typename list<KeyT>::iterator it = (++m_list.rbegin()).base();
+
+        while (m_curWeight + weight > m_maxWeight)
+        {
+          KeyT k = *it;
+
+          /// erasing only unlocked elements
+          if (m_map[k].m_lockCount == 0)
+          {
+            m_curWeight -= m_map[k].m_weight;
+            ValueTraitsT::Evict(m_map[k].m_value);
+            m_map.erase(k);
+            m_keys.erase(k);
+
+            typename list<KeyT>::iterator nextIt = it;
+            if (nextIt != m_list.begin())
+            {
+              --nextIt;
+              m_list.erase(it);
+              it = nextIt;
+            }
+            else
+            {
+              m_list.erase(it);
+              break;
+            }
+          }
+          else
+          {
+            if (it == m_list.begin())
+              break;
+
+            --it;
+          }
+        }
+      }
+
+      ASSERT(m_curWeight + weight <= m_maxWeight, ());
     }
 
     bool HasElem(KeyT const & key)
@@ -85,13 +170,7 @@ namespace my
       ASSERT(it != m_map.end(), ());
 
       if (DoTouch)
-      {
-        typename list_t::iterator listIt = it->second.m_it;
-        KeyT k = *listIt;
-        m_list.erase(listIt);
-        m_list.push_front(k);
-        it->second.m_it = m_list.begin();
-      }
+        Touch(key);
 
       return it->second.m_value;
     }
@@ -123,7 +202,6 @@ namespace my
         m_curWeight -= it->second.m_weight;
         m_list.erase(it->second.m_it);
         ValueTraitsT::Evict(it->second.m_value);
-//        LOG(LINFO, ("removing : ", m_curWeight));
         m_map.erase(it);
         m_keys.erase(key);
       }
@@ -134,52 +212,7 @@ namespace my
       if (HasElem(key))
         Remove(key);
 
-      if (!m_list.empty())
-      {
-        typename list<KeyT>::iterator it = (++m_list.rbegin()).base();
-
-        bool needToFree = false;
-
-        while (m_curWeight + weight > m_maxWeight)
-        {
-/*          if (!needToFree)
-            LOG(LINFO, ("freeing elements from ", m_curWeight));*/
-          needToFree = true;
-          KeyT k = *it;
-
-          /// erasing only unlocked elements
-          if (m_map[k].m_lockCount == 0)
-          {
-            m_curWeight -= m_map[k].m_weight;
-            ValueTraitsT::Evict(m_map[k].m_value);
-//            LOG(LINFO, ("freeing lru elem : ", m_map[k].m_weight, m_curWeight));
-            m_map.erase(k);
-            m_keys.erase(k);
-
-            typename list<KeyT>::iterator nextIt = it;
-            if (nextIt != m_list.begin())
-            {
-              --nextIt;
-              m_list.erase(it);
-              it = nextIt;
-            }
-            else
-            {
-              m_list.erase(it);
-              break;
-            }
-          }
-          else
-          {
-            if (it == m_list.begin())
-              break;
-
-            --it;
-          }
-        }
-      }
-
-      ASSERT(m_curWeight + weight <= m_maxWeight, ());
+      FreeRoom(weight);
 
       m_list.push_front(key);
       m_map[key].m_weight = weight;
