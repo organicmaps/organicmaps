@@ -16,19 +16,19 @@ es:3banco|dinero
 
 amenity-bureau_de_change
 en:3currency exchange|3exchange|money
-ru:4обмен валюты|обменник|4валюта|деньги
+ru:3обмен валюты|обменник|4валюта|деньги
 de:3Geldwechselstelle|Geld
 fr:3change|devises|argent
 it:3cambio valute|valuta|soldi
 es:3cambio de devisas|dinero
 
 amenity-bar|amenity-pub
-en:3bar|3pub|beer|drink|food
-ru:3бар|3паб|пиво|выпить|еда
-de:3Bar|3Pub|Bier|essen
-fr:3bar|3bière|pub|repas
-it:3bar|3birra|pub|mangiare
-es:3bar|3pub|comer
+en:2bar|2pub|beer|drink|food
+ru:2бар|2паб|пиво|выпить|еда
+de:2Bar|2Pub|Bier|essen
+fr:2bar|2bière|pub|repas
+it:2bar|2birra|pub|mangiare
+es:2bar|2pub|comer
 
 amenity-cafe
 en:3cafe|3restaurant|3food
