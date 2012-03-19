@@ -12,8 +12,7 @@
 #include "../../map/measurement_utils.hpp"
 #include "../../search/result.hpp"
 
-// @TODO FIX THIS URL before next Lite version release
-#define MAPSWITHME_PREMIUM_APPSTORE_URL @"http://www.mapswithme.com"
+#define MAPSWITHME_PREMIUM_APPSTORE_URL @"itms://itunes.com/apps/mapswithmepro"
 
 /// When to display compass instead of country flags
 #define MIN_COMPASS_DISTANCE 25000.0
