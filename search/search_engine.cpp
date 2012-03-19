@@ -109,10 +109,15 @@ namespace
   enum { VIEWPORT_RECT = 0, NEARME_RECT = 1 };
 
   /// Check rects for optimal search (avoid duplicating).
-  void AnalizeRects(m2::RectD arrRects[2])
+  void AnalyzeRects(m2::RectD arrRects[2])
   {
-    if (arrRects[NEARME_RECT].IsRectInside(arrRects[VIEWPORT_RECT]))
+    static double const eps = 100.0 * MercatorBounds::degreeInMetres;
+
+    if (arrRects[NEARME_RECT].IsRectInside(arrRects[VIEWPORT_RECT]) &&
+        arrRects[NEARME_RECT].Center().EqualDxDy(arrRects[VIEWPORT_RECT].Center(), eps))
+    {
       arrRects[VIEWPORT_RECT].MakeEmpty();
+    }
     else
     {
       if (arrRects[VIEWPORT_RECT].IsRectInside(arrRects[NEARME_RECT]) &&
@@ -155,7 +160,7 @@ void Engine::SetViewportAsync(m2::RectD const & viewport, m2::RectD const & near
   threads::MutexGuard searchGuard(m_searchMutex);
 
   m2::RectD arrRects[] = { viewport, nearby };
-  AnalizeRects(arrRects);
+  AnalyzeRects(arrRects);
 
   m_pQuery->SetViewport(arrRects, ARRAY_SIZE(arrRects));
 }
@@ -205,10 +210,8 @@ void Engine::SearchAsync()
       worldSearch = false;
       arrRects[VIEWPORT_RECT].MakeEmpty();
     }
-// Commented out to always get mixed viewport/my position results,
-// even when you're looking close to my position
-//    else
-//      AnalizeRects(arrRects);
+    else
+      AnalyzeRects(arrRects);
   }
   else
     m_pQuery->NullPosition();
