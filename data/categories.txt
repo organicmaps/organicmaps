@@ -40,7 +40,7 @@ es:3café|3restaurante|comer
 
 amenity-fast_food
 en:4fast food|3restaurant|3cafe|takeaway|3food
-ru:3фастфуд|3ресторан|3кафе|eда
+ru:3фастфуд|3ресторан|3кафе|еда
 de:4Fast food|takeaway|Restaurant|Cafe|Pizzeria|essen
 fr:4fast food|takeaway|café|restaurant|manger|repas
 it:4fast food|takeaway|caffè|ristorante|pasto|mangiare
