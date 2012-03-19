@@ -205,8 +205,10 @@ void Engine::SearchAsync()
       worldSearch = false;
       arrRects[VIEWPORT_RECT].MakeEmpty();
     }
-    else
-      AnalizeRects(arrRects);
+// Commented out to always get mixed viewport/my position results,
+// even when you're looking close to my position
+//    else
+//      AnalizeRects(arrRects);
   }
   else
     m_pQuery->NullPosition();
