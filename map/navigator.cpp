@@ -172,6 +172,8 @@ ScreenBase const Navigator::ScaleInto(ScreenBase const & screen, m2::RectD bound
 
   m2::RectD clipRect = res.ClipRect();
 
+  ASSERT(boundRect.IsPointInside(clipRect.Center()), ("center point should be inside boundRect"));
+
   if (clipRect.minX() < boundRect.minX())
   {
     double k = (boundRect.minX() - clipRect.Center().x) / (clipRect.minX() - clipRect.Center().x);
@@ -226,9 +228,12 @@ ScreenBase const Navigator::ShrinkAndScaleInto(ScreenBase const & screen, m2::Re
 
     if (globalRect.maxX() > boundRect.maxX())
     {
-      double k = (globalRect.Center().x - boundRect.maxX()) / (globalRect.Center().x - globalRect.maxX());
+      double k = boundRect.SizeX() / globalRect.SizeX();
       scale /= k;
+      /// scaling always occur pinpointed to the rect center...
       globalRect.Scale(k);
+      /// ...so we should shift a rect after scale
+      globalRect.Offset(boundRect.minX() - globalRect.minX(), 0);
     }
   }
 
@@ -240,9 +245,10 @@ ScreenBase const Navigator::ShrinkAndScaleInto(ScreenBase const & screen, m2::Re
 
     if (globalRect.minX() < boundRect.minX())
     {
-      double k = (globalRect.Center().x - boundRect.minX()) / (globalRect.Center().x - globalRect.minX());
+      double k = boundRect.SizeX() / globalRect.SizeX();
       scale /= k;
       globalRect.Scale(k);
+      globalRect.Offset(boundRect.maxX() - globalRect.maxX(), 0);
     }
   }
 
@@ -254,9 +260,10 @@ ScreenBase const Navigator::ShrinkAndScaleInto(ScreenBase const & screen, m2::Re
 
     if (globalRect.maxY() > boundRect.maxY())
     {
-      double k = (globalRect.Center().y - boundRect.maxY()) / (globalRect.Center().y - globalRect.maxY());
+      double k = boundRect.SizeY() / globalRect.SizeY();
       scale /= k;
       globalRect.Scale(k);
+      globalRect.Offset(0, boundRect.minY() - globalRect.minY());
     }
   }
 
@@ -268,9 +275,10 @@ ScreenBase const Navigator::ShrinkAndScaleInto(ScreenBase const & screen, m2::Re
 
     if (globalRect.minY() < boundRect.minY())
     {
-      double k = (globalRect.Center().y - boundRect.minY()) / (globalRect.Center().y - globalRect.minY());
+      double k = boundRect.SizeY() / globalRect.SizeY();
       scale /= k;
       globalRect.Scale(k);
+      globalRect.Offset(0, boundRect.maxY() - globalRect.maxY());
     }
   }
 
