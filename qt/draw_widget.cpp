@@ -57,11 +57,11 @@ namespace qt
       m_framework(FrameworkFactory::CreateFramework()),
       m_isDrag(false),
       m_isRotate(false),
-      m_redrawInterval(100),
+      //m_redrawInterval(100),
       m_pScale(0)
   {
-    m_timer = new QTimer(this);
-    connect(m_timer, SIGNAL(timeout()), this, SLOT(ScaleTimerElapsed()));
+    //m_timer = new QTimer(this);
+    //connect(m_timer, SIGNAL(timeout()), this, SLOT(ScaleTimerElapsed()));
   }
 
   DrawWidget::~DrawWidget()
@@ -250,7 +250,7 @@ namespace qt
 
   void DrawWidget::paintGL()
   {
-    if ((m_isInitialized) && (!m_isTimerStarted))
+    if (m_isInitialized && !m_isTimerStarted)
     {
       /// timer should be started upon the first repaint
       /// request to fully initialized GLWidget.
@@ -412,10 +412,10 @@ namespace qt
     }
   }
 
-  void DrawWidget::ScaleTimerElapsed()
-  {
-    m_timer->stop();
-  }
+  //void DrawWidget::ScaleTimerElapsed()
+  //{
+  //  m_timer->stop();
+  //}
 
   void DrawWidget::AnimTimerElapsed()
   {
@@ -427,10 +427,10 @@ namespace qt
     if (!m_isDrag && !m_isRotate)
     {
       // if we are inside the timer, cancel it
-      if (m_timer->isActive())
-        m_timer->stop();
+      //if (m_timer->isActive())
+      //  m_timer->stop();
 
-      m_timer->start(m_redrawInterval);
+      //m_timer->start(m_redrawInterval);
 
       //m_framework->Scale(exp(e->delta() / 360.0));
       m_framework->ScaleToPoint(ScaleToPointEvent(e->pos().x(), e->pos().y(), exp(e->delta() / 360.0)));

@@ -48,9 +48,9 @@ namespace qt
     bool m_isDrag;
     bool m_isRotate;
 
-    QTimer * m_timer;
-    QTimer * m_animTimer;
-    size_t m_redrawInterval;
+    //QTimer * m_timer;
+    //QTimer * m_animTimer;
+    //size_t m_redrawInterval;
 
     Q_OBJECT
 
@@ -71,7 +71,7 @@ namespace qt
     void ShowAll();
     void Repaint();
     void ScaleChanged(int action);
-    void ScaleTimerElapsed();
+    //void ScaleTimerElapsed();
     void AnimTimerElapsed();
 
     void QueryMaxScaleMode();
