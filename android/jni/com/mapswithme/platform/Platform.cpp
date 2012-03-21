@@ -36,7 +36,7 @@ public:
 
     m_maxTilesCount = 0;
 
-    m_preCachingDepth = 4;
+    m_preCachingDepth = 3;
 
     /// calculating for non-rotated screen
 
