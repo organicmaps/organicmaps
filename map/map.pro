@@ -44,7 +44,8 @@ HEADERS += \
     basic_render_policy.hpp \
     proto_to_yg_styles.hpp \
     test_render_policy.hpp \
-    queued_render_policy.hpp
+    queued_render_policy.hpp \
+    bookmark.hpp
 
 SOURCES += \
     feature_vec_model.cpp \

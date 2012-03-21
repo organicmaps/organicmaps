@@ -8,8 +8,11 @@
 #include "location_state.hpp"
 #include "navigator.hpp"
 #include "feature_vec_model.hpp"
+#include "bookmark.hpp"
 
 #include "../defines.hpp"
+
+#include "../search/search_engine.hpp"
 
 #include "../storage/storage.hpp"
 
@@ -43,8 +46,6 @@
 #include "../std/scoped_ptr.hpp"
 #include "../std/target_os.hpp"
 
-#include "../search/search_engine.hpp"
-
 
 //#define DRAW_TOUCH_POINTS
 
@@ -58,6 +59,8 @@ protected:
   scoped_ptr<search::Engine> m_pSearchEngine;
   model::FeaturesFetcher m_model;
   Navigator m_navigator;
+
+  list<Bookmark> m_bookmarks;
 
   scoped_ptr<RenderPolicy> m_renderPolicy;
   bool m_hasPendingInvalidate, m_doForceUpdate, m_queryMaxScaleMode, m_drawPlacemark;
@@ -115,6 +118,9 @@ public:
 
   void AddLocalMaps();
   void RemoveLocalMaps();
+
+  void AddBookmark(m2::PointD const & pt, string const & name);
+  void ClearBookmarks();
 
   storage::Storage & Storage() { return m_storage; }
 

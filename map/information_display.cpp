@@ -243,9 +243,9 @@ void InformationDisplay::drawMemoryWarning(DrawerYG * drawer)
     enableMemoryWarning(false);
 }
 
-void InformationDisplay::drawPlacemark(DrawerYG * pDrawer, m2::PointD const & pt)
+void InformationDisplay::drawPlacemark(DrawerYG * pDrawer, char const * symbol, m2::PointD const & pt)
 {
-  pDrawer->drawSymbol(pt, "placemark", yg::EPosAbove, yg::maxDepth);
+  pDrawer->drawSymbol(pt, symbol, yg::EPosAbove, yg::maxDepth);
 }
 
 /*

@@ -181,6 +181,16 @@ void Framework::RemoveLocalMaps()
   m_model.RemoveAllCountries();
 }
 
+void Framework::AddBookmark(m2::PointD const & pt, string const & name)
+{
+  m_bookmarks.push_back(Bookmark(pt, name));
+}
+
+void Framework::ClearBookmarks()
+{
+  m_bookmarks.clear();
+}
+
 void Framework::GetLocalMaps(vector<string> & outMaps)
 {
   Platform & pl = GetPlatform();
@@ -378,7 +388,9 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 {
   ASSERT ( m_renderPolicy, () );
 
-  e->drawer()->screen()->beginFrame();
+  DrawerYG * pDrawer = e->drawer();
+
+  pDrawer->screen()->beginFrame();
 
   /// m_informationDisplay is set and drawn after the m_renderPolicy
 
@@ -394,14 +406,20 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
   m_informationDisplay.enableRuler(true/*!IsEmptyModel()*/);
 
-  m_informationDisplay.doDraw(e->drawer());
+  m_informationDisplay.doDraw(pDrawer);
 
-  m_locationState.DrawMyPosition(*e->drawer(), m_navigator.Screen());
+  m_locationState.DrawMyPosition(*pDrawer, m_navigator.Screen());
 
   if (m_drawPlacemark)
-    m_informationDisplay.drawPlacemark(e->drawer(), m_navigator.GtoP(m_placemark));
+    m_informationDisplay.drawPlacemark(pDrawer, "placemark", m_navigator.GtoP(m_placemark));
 
-  e->drawer()->screen()->endFrame();
+  for (list<Bookmark>::const_iterator i = m_bookmarks.begin(); i != m_bookmarks.end(); ++i)
+  {
+    /// @todo Pass different symbol.
+    m_informationDisplay.drawPlacemark(pDrawer, "placemark", m_navigator.GtoP(i->GetOrg()));
+  }
+
+  pDrawer->screen()->endFrame();
 }
 
 /// Function for calling from platform dependent-paint function.

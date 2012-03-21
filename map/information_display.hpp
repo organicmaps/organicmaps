@@ -101,7 +101,7 @@ public:
   void memoryWarning();
   void drawMemoryWarning(DrawerYG * pDrawer);
 
-  void drawPlacemark(DrawerYG * pDrawer, m2::PointD const & pt);
+  void drawPlacemark(DrawerYG * pDrawer, char const * symbol, m2::PointD const & pt);
 
   void enableBenchmarkInfo(bool doEnable);
   bool addBenchmarkInfo(string const & name, m2::RectD const & globalRect, double frameDuration);

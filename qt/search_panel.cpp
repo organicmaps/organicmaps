@@ -123,6 +123,9 @@ void SearchPanel::OnSearchResult(ResultsT * res, int queryId)
   m_pTable->setRowCount(0);
   m_results.clear();
 
+  Framework & frm = m_pDrawWidget->GetFramework();
+  frm.ClearBookmarks();
+
   for (ResultsT::IterT i = res->Begin(); i != res->End(); ++i)
   {
     ResultT const & e = *i;
@@ -135,6 +138,8 @@ void SearchPanel::OnSearchResult(ResultsT * res, int queryId)
 
     if (e.GetResultType() == ResultT::RESULT_FEATURE)
     {
+      frm.AddBookmark(e.GetFeatureCenter(), e.GetString());
+
       m_pTable->setItem(rowCount, 0,
                         create_item(QString::fromUtf8(e.GetFeatureType())));
 
