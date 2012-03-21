@@ -54,7 +54,7 @@ ScreenCoverage * ScreenCoverage::Clone()
 
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
 
-  tileCache->writeLock();
+  tileCache->lock();
 
   res->m_tiles = m_tiles;
 
@@ -64,7 +64,7 @@ ScreenCoverage * ScreenCoverage::Clone()
     tileCache->lockTile(ri);
   }
 
-  tileCache->writeUnlock();
+  tileCache->unlock();
 
   res->m_infoLayer.reset();
   res->m_infoLayer.reset(m_infoLayer->clone());
@@ -93,7 +93,7 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
   Tile const * tile = 0;
   bool hasTile = false;
 
-  tileCache->readLock();
+  tileCache->lock();
 
   hasTile = tileCache->hasTile(ri);
   if (hasTile)
@@ -121,7 +121,7 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
     }
   }
 
-  tileCache->readUnlock();
+  tileCache->unlock();
 
   if (addTile)
   {
@@ -177,7 +177,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
 
-  tileCache->writeLock();
+  tileCache->lock();
 
   m_isEmptyDrawingCoverage = true;
   m_leavesCount = 0;
@@ -206,8 +206,6 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
     }
   }
 
-  tileCache->writeUnlock();
-
   /// computing difference between current and previous coverage
   /// tiles, that aren't in current coverage are unlocked to allow their deletion from TileCache
   /// tiles, that are new to the current coverage are added into m_tiles and locked in TileCache
@@ -217,8 +215,6 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 
   set_difference(m_tiles.begin(), m_tiles.end(), tiles.begin(), tiles.end(), inserter(erasedTiles, erasedTiles.end()), TileSet::key_compare());
   set_difference(tiles.begin(), tiles.end(), m_tiles.begin(), m_tiles.end(), inserter(addedTiles, addedTiles.end()), TileSet::key_compare());
-
-  tileCache->readLock();
 
   for (TileSet::const_iterator it = erasedTiles.begin(); it != erasedTiles.end(); ++it)
   {
@@ -233,7 +229,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
     tileCache->lockTile((*it)->m_rectInfo);
   }
 
-  tileCache->readUnlock();
+  tileCache->unlock();
 
   m_tiles = tiles;
 
@@ -309,14 +305,14 @@ ScreenCoverage::~ScreenCoverage()
 
   /// unlocking tiles from the primary level
 
-  tileCache->writeLock();
+  tileCache->lock();
   for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
   {
     Tiler::RectInfo const & ri = (*it)->m_rectInfo;
     tileCache->unlockTile(ri);
   }
 
-  tileCache->writeUnlock();
+  tileCache->unlock();
 }
 
 void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)

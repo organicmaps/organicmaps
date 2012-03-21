@@ -16,22 +16,12 @@ void TileCache::addTile(Tiler::RectInfo const & key, Entry const & entry)
   m_cache.Add(key, entry, 1);
 }
 
-void TileCache::readLock()
+void TileCache::lock()
 {
   m_lock.Lock();
 }
 
-void TileCache::readUnlock()
-{
-  m_lock.Unlock();
-}
-
-void TileCache::writeLock()
-{
-  m_lock.Lock();
-}
-
-void TileCache::writeUnlock()
+void TileCache::unlock()
 {
   m_lock.Unlock();
 }

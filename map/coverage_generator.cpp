@@ -82,7 +82,7 @@ void CoverageGenerator::InvalidateTilesImpl(m2::AnyRectD const & r, int startSca
 
   TileCache & tileCache = m_tileRenderer->GetTileCache();
 
-  tileCache.writeLock();
+  tileCache.lock();
 
   /// here we should copy elements as we've delete some of them later
   set<Tiler::RectInfo> k = tileCache.keys();
@@ -97,7 +97,7 @@ void CoverageGenerator::InvalidateTilesImpl(m2::AnyRectD const & r, int startSca
     }
   }
 
-  tileCache.writeUnlock();
+  tileCache.unlock();
 }
 
 void CoverageGenerator::InvalidateTiles(m2::AnyRectD const & r, int startScale)

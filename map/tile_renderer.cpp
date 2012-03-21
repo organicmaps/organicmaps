@@ -309,9 +309,10 @@ void TileRenderer::WaitForEmptyAndFinished()
 
 bool TileRenderer::HasTile(Tiler::RectInfo const & rectInfo)
 {
-  m_tileCache.readLock();
-  bool res = m_tileCache.hasTile(rectInfo);
-  m_tileCache.readUnlock();
+  TileCache & tileCache = GetTileCache();
+  tileCache.lock();
+  bool res = tileCache.hasTile(rectInfo);
+  tileCache.unlock();
   return res;
 }
 

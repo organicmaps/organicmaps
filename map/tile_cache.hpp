@@ -44,14 +44,10 @@ private:
 public:
 
   TileCache(size_t maxCacheSize);
-  /// lock for multithreaded READ access
-  void readLock();
-  /// unlock for multithreaded READ access
-  void readUnlock();
-  /// lock for multithreaded WRITE access
-  void writeLock();
-  /// unlock for multithreaded WRITE access
-  void writeUnlock();
+  /// lock for multithreaded access
+  void lock();
+  /// unlock for multithreaded access
+  void unlock();
   /// get keys of values in cache
   set<Tiler::RectInfo> const & keys() const;
   /// add tile to cache
