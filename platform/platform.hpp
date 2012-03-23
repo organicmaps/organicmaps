@@ -117,8 +117,6 @@ public:
 
   int TileSize() const;
 
-  int MaxTilesCount() const;
-
   int VideoMemoryLimit() const;
 
   int PreCachingDepth() const;

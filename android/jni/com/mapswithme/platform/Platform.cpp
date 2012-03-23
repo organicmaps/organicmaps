@@ -34,34 +34,7 @@ public:
 
     /// calculating how much tiles we need for the screen of such size
 
-    m_maxTilesCount = 0;
-
     m_preCachingDepth = 3;
-
-    /// calculating for non-rotated screen
-
-    for (unsigned i = 0; i < m_preCachingDepth; ++i)
-    {
-//      LOG(LINFO, ("calculating", i, "level"));
-      /// minimum size of tile on the screen
-      float minTileSize = floor((m_tileSize << i) / 1.05 / 2.0) - 1;
-//      LOG(LINFO, ("minTileSize:", minTileSize));
-      int tilesOnXSide = ceil(screenWidth / minTileSize) + 1;
-//      LOG(LINFO, ("tilesOnXSide:", tilesOnXSide));
-      int tilesOnYSide = ceil(screenHeight / minTileSize) + 1;
-//      LOG(LINFO, ("tilesOnYSide:", tilesOnYSide));
-      /// tiles in the single screen
-      int singleScreenTilesCount = tilesOnXSide * tilesOnYSide;
-//      LOG(LINFO, ("singleScreenTilesCount:", singleScreenTilesCount));
-      int curLevelTilesCount = singleScreenTilesCount * 2;
-//      LOG(LINFO, ("curLevelTilesCount:", curLevelTilesCount));
-      m_maxTilesCount += curLevelTilesCount;
-//      LOG(LINFO, ("on", i, "depth we need", curLevelTilesCount, "tiles"));
-    }
-
-    LOG(LINFO, ("minimum amount of tiles needed is", m_maxTilesCount));
-
-    m_maxTilesCount = max(static_cast<int>(120 * k), m_maxTilesCount);
 
     switch (densityDpi)
     {
@@ -102,11 +75,6 @@ double Platform::VisualScale() const
 string Platform::SkinName() const
 {
   return m_impl->m_skinName;
-}
-
-int Platform::MaxTilesCount() const
-{
-  return m_impl->m_maxTilesCount;
 }
 
 int Platform::TileSize() const

@@ -69,11 +69,6 @@ void Platform::GetFontNames(FilesList & res) const
   CHECK(!res.empty(), ("Can't find any valid font in", ResourcesDir(), WritableDir()));
 }
 
-int Platform::MaxTilesCount() const
-{
-  return 200;
-}
-
 int Platform::PreCachingDepth() const
 {
   return 5;

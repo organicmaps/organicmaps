@@ -122,10 +122,7 @@ int Platform::ScaleEtalonSize() const
   return 256;
 }
 
-int Platform::MaxTilesCount() const
-{
-  return 120;
-}*/
+*/
 
 int Platform::VideoMemoryLimit() const
 {

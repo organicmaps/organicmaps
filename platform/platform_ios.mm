@@ -191,11 +191,6 @@ int Platform::VideoMemoryLimit() const
   return m_impl->m_videoMemoryLimit;
 }
 
-int Platform::MaxTilesCount() const
-{
-  return 60;
-}
-
 int Platform::PreCachingDepth() const
 {
   return 2;
