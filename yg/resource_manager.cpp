@@ -391,10 +391,16 @@ namespace
     GetGLStringSafe(GL_RENDERER, m_rendererName);
   }
 
-  bool ResourceManager::Params::isGPU(char const * vendorName, char const * rendererName) const
+  bool ResourceManager::Params::isGPU(char const * vendorName, char const * rendererName, bool strictMatch) const
   {
-    return (m_vendorName.find(vendorName) != string::npos)
-        && (m_rendererName.find(rendererName) != string::npos);
+    if (strictMatch)
+    {
+      return (m_vendorName == string(vendorName))
+          && (m_rendererName == string(rendererName));
+    }
+    else
+      return (m_vendorName.find(vendorName) != string::npos)
+          && (m_rendererName.find(rendererName) != string::npos);
   }
 
   void ResourceManager::Params::selectTexRTFormat()
@@ -402,10 +408,13 @@ namespace
     /// general case
     m_texRtFormat = yg::Data4Bpp;
 
-    if (isGPU("Broadcom", "VideoCore IV HW"))
+    if (isGPU("Qualcomm", "Adreno", true))
       m_texRtFormat = yg::Data8Bpp;
 
-    if (isGPU("Imagination Technologies", "PowerVR MBX"))
+    if (isGPU("Broadcom", "VideoCore IV HW", false))
+      m_texRtFormat = yg::Data8Bpp;
+
+    if (isGPU("Imagination Technologies", "PowerVR MBX", false))
     {
       m_rtFormat = yg::Data8Bpp;
       m_texRtFormat = yg::Data8Bpp;

@@ -213,7 +213,7 @@ namespace yg
       string m_rendererName;
 
       /// check non-strict matching upon vendorName and rendererName
-      bool isGPU(char const * vendorName, char const * rendererName) const;
+      bool isGPU(char const * vendorName, char const * rendererName, bool strictMatch) const;
 
     public:
 
