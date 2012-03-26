@@ -304,7 +304,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
         break;
       }
 
-      north = (float) (north - 360 * Math.floor(north / 360));
+      north = (north - 360 * android.util.FloatMath.floor(north / 360));
 
       notifyCompassUpdated(event.timestamp, north, north + offset, offset);
     }
