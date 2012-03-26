@@ -30,4 +30,5 @@
     <string name="loading">Запуск MapsWithMe...</string>
     <string name="not_enough_memory">Недостаточно памяти для запуска программы</string>
     <string name="free_space_for_country">Для загрузки %2$s нужно %1$s свободного места</string>
+    <string name="map">Карта</string>
 </resources>

@@ -30,4 +30,5 @@
     <string name="loading">Loading MapsWithMe...</string>
     <string name="not_enough_memory">Not enough memory to launch app</string>
     <string name="free_space_for_country">Please free %1$s on your device first in order to download %2$s</string>
+    <string name="map">Map</string>
 </resources>

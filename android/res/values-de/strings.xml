@@ -22,4 +22,5 @@
     <string name="close">Schließen</string>
     <string name="empty_model">Um die Karte dieses Ortes\nherunterzuladen, berühren Sie\n bitte die Taste in der unteren\n Hälfte des Bildschirms</string>
     <string name="unsupported_phone">Das Programm braucht OpenGL um funktionnieren zu können. Leider wird ihr Gerät nicht unterschtüzt.</string>
+    <string name="map">Karte</string>
 </resources>
