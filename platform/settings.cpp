@@ -44,7 +44,7 @@ namespace Settings
           m_values[key] = value;
       }
     }
-    catch (Reader::Exception const & e)
+    catch (RootException const & e)
     {
       LOG(LWARNING, ("Can't load", SETTINGS_FILE_NAME));
     }
@@ -65,7 +65,7 @@ namespace Settings
         file.Write(line.data(), line.size());
       }
     }
-    catch (Writer::Exception const &)
+    catch (RootException const &)
     {
       // Ignore all settings saving exceptions
       LOG(LWARNING, ("Can't save", SETTINGS_FILE_NAME));
