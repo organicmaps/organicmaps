@@ -2,6 +2,8 @@
 #import "CompassView.h"
 #import "LocationManager.h"
 #import "SearchCell.h"
+#import "BookmarksVC.h"
+#import "CustomNavigationView.h"
 
 #include "../../geometry/angles.hpp"
 #include "../../geometry/distance_on_sphere.hpp"
@@ -74,26 +76,6 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 
 /////////////////////////////////////////////////////////////////////
 
-@interface CustomView : UIView
-@end
-@implementation CustomView
-- (void)layoutSubviews
-{
-  UINavigationBar * navBar = (UINavigationBar *)[self.subviews objectAtIndex:0];
-  [navBar sizeToFit];
-  [navBar setNeedsDisplay];
-
-  UIView * table = [self.subviews objectAtIndex:1];
-  CGRect rTable;
-  rTable.origin = CGPointMake(navBar.frame.origin.x, navBar.frame.origin.y + navBar.frame.size.height);
-  rTable.size = self.bounds.size;
-  rTable.size.height -= navBar.bounds.size.height;
-  table.frame = rTable;
-}
-@end
-
-////////////////////////////////////////////////////////////////////
-
 @implementation SearchVC
 
 
@@ -141,7 +123,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 {
   // create user interface
   // Custom view is used to automatically layout all elements
-  UIView * parentView = [[[CustomView alloc] init] autorelease];
+  UIView * parentView = [[[CustomNavigationView alloc] init] autorelease];
   parentView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
 
   UINavigationBar * navBar = [[[UINavigationBar alloc] init] autorelease];
@@ -158,7 +140,9 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
     m_searchBar.text = g_lastSearchResults.m_searchString;
   m_searchBar.delegate = self;
   m_searchBar.placeholder = NSLocalizedString(@"Search map", @"Search box placeholder text");
+  m_searchBar.showsBookmarkButton = YES;
   item.titleView = m_searchBar;
+
   // Add search in progress indicator
   for(UIView * v in m_searchBar.subviews)
   {
@@ -499,7 +483,9 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
     {
       // Zoom to the feature
     case search::Result::RESULT_FEATURE:
+      m_framework->AddBookmark(res.GetFeatureCenter(), res.GetString());
       m_framework->ShowSearchResult(res);
+
       // Same as "Close" button but do not disable placemark
       [self dismissModalViewControllerAnimated:YES];
       break;
@@ -606,6 +592,12 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   [self setSearchBoxText:[suggestion stringByAppendingString:@" "]];
   // Clear old results immediately after click
   [m_table reloadData];
+}
+
+- (void)searchBarBookmarkButtonClicked:(UISearchBar *)searchBar
+{
+  BookmarksVC * vc = [[[BookmarksVC alloc] initWithFramework:m_framework] autorelease];
+  [self presentModalViewController:vc animated:YES];
 }
 
 @end

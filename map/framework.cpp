@@ -186,6 +186,16 @@ void Framework::AddBookmark(m2::PointD const & pt, string const & name)
   m_bookmarks.push_back(Bookmark(pt, name));
 }
 
+void Framework::GetBookmark(size_t i, Bookmark & bm) const
+{
+  ASSERT_LESS(i, BookmarksCount(), ());
+
+  list<Bookmark>::const_iterator it = m_bookmarks.begin();
+  advance(it, i); // not so fast ...
+
+  bm = *it;
+}
+
 void Framework::ClearBookmarks()
 {
   m_bookmarks.clear();
