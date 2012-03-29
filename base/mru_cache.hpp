@@ -105,11 +105,13 @@ namespace my
         {
           KeyT k = *it;
 
+          MapEntry & e = m_map[k];
+
           /// erasing only unlocked elements
-          if (m_map[k].m_lockCount == 0)
+          if (e.m_lockCount == 0)
           {
-            m_curWeight -= m_map[k].m_weight;
-            ValueTraitsT::Evict(m_map[k].m_value);
+            m_curWeight -= e.m_weight;
+            ValueTraitsT::Evict(e.m_value);
             m_map.erase(k);
             m_keys.erase(k);
 

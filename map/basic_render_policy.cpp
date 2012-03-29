@@ -124,7 +124,7 @@ void BasicRenderPolicy::StartScale()
 void BasicRenderPolicy::StopScale()
 {
   m_DoAddCommand = true;
-  RenderPolicy::StartScale();
+  RenderPolicy::StopScale();
 }
 
 bool BasicRenderPolicy::IsEmptyModel() const
