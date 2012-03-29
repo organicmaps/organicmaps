@@ -457,15 +457,37 @@ void Framework::SetViewportCenter(m2::PointD const & pt)
 
 static int const theMetersFactor = 6;
 
-void Framework::ShowRect(m2::RectD rect)
+void Framework::CheckMinGlobalRect(m2::RectD & rect)
 {
   m2::RectD const minRect = MercatorBounds::RectByCenterXYAndSizeInMeters(
                                 rect.Center(), theMetersFactor * m_metresMinWidth);
 
   if (minRect.IsRectInside(rect))
     rect = minRect;
+}
+
+void Framework::ShowRect(m2::RectD const & r)
+{
+  m2::RectD rect(r);
+  CheckMinGlobalRect(rect);
 
   m_navigator.SetFromRect(m2::AnyRectD(rect));
+  Invalidate();
+}
+
+void Framework::ShowRectFixed(m2::RectD const & r)
+{
+  m2::RectD rect(r);
+  CheckMinGlobalRect(rect);
+
+  m2::RectD etalonRect(0, 0, m_renderPolicy->ScaleEtalonSize(), m_renderPolicy->ScaleEtalonSize());
+  etalonRect.Offset(-etalonRect.SizeX() / 2, -etalonRect.SizeY());
+
+  m2::PointD pxCenter = m_navigator.Screen().PixelRect().Center();
+
+  etalonRect.Offset(pxCenter);
+
+  m_navigator.SetFromRects(m2::AnyRectD(rect), etalonRect);
   Invalidate();
 }
 
@@ -766,10 +788,10 @@ void Framework::ShowSearchResult(search::Result const & res)
   {
     m2::PointD const c = r.Center();
     if (!m_model.IsCountryLoaded(c))
-      r = scales::GetRectForLevelFix(9, c);
+      r = scales::GetRectForLevel(scales::GetUpperWorldScale(), c, 1.0);
   }
 
-  ShowRect(r);
+  ShowRectFixed(r);
   DrawPlacemark(res.GetFeatureCenter());
 }
 

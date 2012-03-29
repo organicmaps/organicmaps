@@ -45,6 +45,7 @@ public:
   ScreenBase(m2::RectI const & pxRect, m2::AnyRectD const & glbRect);
 
   void SetFromRect(m2::AnyRectD const & rect);
+  void SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & pxRect);
   void SetOrg(m2::PointD const & p);
 
   void Move(double dx, double dy);

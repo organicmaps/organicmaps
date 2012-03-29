@@ -47,6 +47,18 @@ void Navigator::SetMinScreenParams(unsigned pxMinWidth, double metresMinWidth)
   m_metresMinWidth = metresMinWidth;
 }
 
+void Navigator::SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & pxRect)
+{
+  m_Screen.SetFromRects(glbRect, pxRect);
+  m_Screen = ScaleInto(m_Screen, m_worldRect);
+
+  if (!m_InAction)
+  {
+    m_StartScreen.SetFromRects(glbRect, pxRect);
+    m_StartScreen = ScaleInto(m_StartScreen, m_worldRect);
+  }
+}
+
 void Navigator::SetFromRect(m2::AnyRectD const & r)
 {
   m_Screen.SetFromRect(r);

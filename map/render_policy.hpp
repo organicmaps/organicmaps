@@ -99,6 +99,7 @@ public:
   shared_ptr<DrawerYG> const & GetDrawer() const;
   shared_ptr<WindowHandle> const & GetWindowHandle() const;
 
+  virtual size_t ScaleEtalonSize() const;
 };
 
 RenderPolicy * CreateRenderPolicy(VideoTimer * videoTimer,

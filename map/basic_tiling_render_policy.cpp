@@ -152,3 +152,8 @@ bool BasicTilingRenderPolicy::NeedRedraw() const
   return false;
 }
 
+size_t BasicTilingRenderPolicy::ScaleEtalonSize() const
+{
+  return m_resourceManager->params().m_renderTargetTexturesParams.m_texWidth;
+}
+

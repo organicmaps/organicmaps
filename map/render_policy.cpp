@@ -164,6 +164,11 @@ int RenderPolicy::GetDrawScale(ScreenBase const & s) const
   return scales::GetScaleLevel(glbRect);
 }
 
+size_t RenderPolicy::ScaleEtalonSize() const
+{
+  return GetPlatform().ScaleEtalonSize();
+}
+
 RenderPolicy * CreateRenderPolicy(VideoTimer * videoTimer,
                                   bool useDefaultFB,
                                   yg::ResourceManager::Params const & rmParams,

@@ -48,4 +48,6 @@ public:
   void SetEmptyModelFn(TEmptyModelFn const & checkFn);
 
   bool NeedRedraw() const;
+
+  m2::RectD const ScaleEtalonRect() const;
 };

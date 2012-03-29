@@ -15,6 +15,7 @@ public:
   void SetMinScreenParams(unsigned pxMinWidth, double metresMinWidth);
   void SetFromRect(m2::AnyRectD const & r);
   void CenterViewport(m2::PointD const & p);
+  void SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & pxRect);
 
   void SaveState();
   /// @return false if can't load previously saved values

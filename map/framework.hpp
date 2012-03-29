@@ -156,6 +156,9 @@ public:
 private:
   inline m2::RectD GetCurrentViewport() const { return m_navigator.Screen().ClipRect(); }
   search::Engine * GetSearchEngine();
+
+  void CheckMinGlobalRect(m2::RectD & r);
+
 public:
   void PrepareSearch(bool hasPt, double lat = 0.0, double lon = 0.0);
   void Search(search::SearchParams const & params);
@@ -201,7 +204,8 @@ public:
 
   virtual void EndPaint(shared_ptr<PaintEvent> const & e);
 
-  void ShowRect(m2::RectD rect);
+  void ShowRect(m2::RectD const & rect);
+  void ShowRectFixed(m2::RectD const & rect);
 
   void DrawPlacemark(m2::PointD const & pt);
   void DisablePlacemark();

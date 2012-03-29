@@ -58,4 +58,5 @@ public:
   bool IsTiling() const;
   bool IsEmptyModel() const;
   int  GetDrawScale(ScreenBase const & s) const;
+  size_t ScaleEtalonSize() const;
 };
