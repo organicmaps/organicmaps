@@ -408,7 +408,7 @@ namespace
     /// general case
     m_texRtFormat = yg::Data4Bpp;
 
-    if (isGPU("Qualcomm", "Adreno", true))
+    if (isGPU("Qualcomm", "Adreno", false))
       m_texRtFormat = yg::Data8Bpp;
 
     if (isGPU("Broadcom", "VideoCore IV HW", false))
