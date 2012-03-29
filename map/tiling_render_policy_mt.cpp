@@ -58,7 +58,7 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
 
   rmp.m_renderTargetTexturesParams = yg::ResourceManager::TexturePoolParams(GetPlatform().TileSize(),
                                                                             GetPlatform().TileSize(),
-                                                                            GetPlatform().MaxTilesCount(),
+                                                                            1,
                                                                             rmp.m_texRtFormat,
                                                                             true,
                                                                             true,
@@ -66,10 +66,10 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
                                                                             5,
                                                                             "renderTargetTexture",
                                                                             false,
-                                                                            false);
+                                                                            true);
 
   rmp.m_styleCacheTexturesParams = yg::ResourceManager::TexturePoolParams(512,
-                                                                          1024,
+                                                                          512 * int(ceil(GetPlatform().VisualScale())),
                                                                           2,
                                                                           rmp.m_texFormat,
                                                                           true,
@@ -80,16 +80,16 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
                                                                           false,
                                                                           false);
 
-  rmp.m_guiThreadStoragesParams = yg::ResourceManager::StoragePoolParams(5000 * sizeof(yg::gl::Vertex),
+  rmp.m_guiThreadStoragesParams = yg::ResourceManager::StoragePoolParams(2000 * sizeof(yg::gl::Vertex),
                                                                          sizeof(yg::gl::Vertex),
-                                                                         10000 * sizeof(unsigned short),
+                                                                         4000 * sizeof(unsigned short),
                                                                          sizeof(unsigned short),
-                                                                         10,
+                                                                         20,
                                                                          true,
                                                                          true,
                                                                          1,
                                                                          "guiThreadStorage",
-                                                                         false,
+                                                                         true,
                                                                          false);
 
   rmp.m_guiThreadTexturesParams = yg::ResourceManager::TexturePoolParams(256,
@@ -161,7 +161,6 @@ TilingRenderPolicyMT::~TilingRenderPolicyMT()
 void TilingRenderPolicyMT::SetRenderFn(TRenderFn renderFn)
 {
   m_TileRenderer.reset(new TileRenderer(GetPlatform().SkinName(),
-                                        GetPlatform().MaxTilesCount(),
                                         GetPlatform().CpuCores(),
                                         m_bgColor,
                                         renderFn,

@@ -19,7 +19,6 @@
 
 TileRenderer::TileRenderer(
     string const & skinName,
-    unsigned maxTilesCount,
     unsigned executorsCount,
     yg::Color const & bgColor,
     RenderPolicy::TRenderFn const & renderFn,

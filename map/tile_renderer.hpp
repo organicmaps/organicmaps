@@ -77,7 +77,6 @@ public:
 
   /// constructor.
   TileRenderer(string const & skinName,
-               unsigned maxTilesCount,
                unsigned tasksCount,
                yg::Color const & bgColor,
                RenderPolicy::TRenderFn const & renderFn,

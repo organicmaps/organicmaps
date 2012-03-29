@@ -60,15 +60,15 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
 
   rmp.m_renderTargetTexturesParams = yg::ResourceManager::TexturePoolParams(GetPlatform().TileSize(),
                                                                             GetPlatform().TileSize(),
-                                                                            GetPlatform().MaxTilesCount(),
+                                                                            GetPlatform().CpuCores(),
                                                                             rmp.m_texRtFormat,
                                                                             true,
                                                                             true,
-                                                                            false,
+                                                                            true,
                                                                             4,
                                                                             "renderTargetTexture",
                                                                             false,
-                                                                            false);
+                                                                            true);
 
   rmp.m_styleCacheTexturesParams = yg::ResourceManager::TexturePoolParams(512,
                                                                           512 * int(ceil(GetPlatform().VisualScale())),
@@ -198,7 +198,6 @@ void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
     queues[i] = m_QueuedRenderer->GetPacketsQueue(i);
 
   m_TileRenderer.reset(new TileRenderer(GetPlatform().SkinName(),
-                                        m_maxTilesCount,
                                         GetPlatform().CpuCores(),
                                         m_bgColor,
                                         renderFn,
