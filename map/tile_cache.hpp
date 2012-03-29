@@ -43,7 +43,7 @@ private:
 
 public:
 
-  TileCache(size_t maxCacheSize);
+  TileCache();
   /// lock for multithreaded access
   void lock();
   /// unlock for multithreaded access
@@ -66,4 +66,12 @@ public:
   Tile const & getTile(Tiler::RectInfo const & key);
   /// remove the specified tile from the cache
   void remove(Tiler::RectInfo const & key);
+  /// how much elements can fit in the tileCache
+  int canFit() const;
+  /// the size of the cache
+  int cacheSize() const;
+  /// resize the cache
+  void resize(int maxWeight);
+  /// free up to weight spaces evicting unlocked elements from cache
+  void freeRoom(int weight);
 };

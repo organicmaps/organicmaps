@@ -7,8 +7,7 @@ TileCache::Entry::Entry(Tile const & tile, shared_ptr<yg::ResourceManager> const
   : m_tile(tile), m_rm(rm)
 {}
 
-TileCache::TileCache(size_t maxCacheSize)
-  : m_cache(maxCacheSize)
+TileCache::TileCache()
 {}
 
 void TileCache::addTile(Tiler::RectInfo const & key, Entry const & entry)
@@ -75,4 +74,24 @@ Tile const & TileCache::getTile(Tiler::RectInfo const & key)
 void TileCache::remove(Tiler::RectInfo const & key)
 {
   m_cache.Remove(key);
+}
+
+int TileCache::canFit() const
+{
+  return m_cache.CanFit();
+}
+
+int TileCache::cacheSize() const
+{
+  return m_cache.MaxWeight();
+}
+
+void TileCache::resize(int maxWeight)
+{
+  m_cache.Resize(maxWeight);
+}
+
+void TileCache::freeRoom(int weight)
+{
+  m_cache.FreeRoom(weight);
 }

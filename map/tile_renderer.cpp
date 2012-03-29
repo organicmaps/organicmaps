@@ -27,7 +27,6 @@ TileRenderer::TileRenderer(
     double visualScale,
     yg::gl::PacketsQueue ** packetsQueues
   ) : m_queue(executorsCount),
-      m_tileCache(maxTilesCount - executorsCount - 1),
       m_renderFn(renderFn),
       m_skinName(skinName),
       m_bgColor(bgColor),
@@ -317,15 +316,23 @@ bool TileRenderer::HasTile(Tiler::RectInfo const & rectInfo)
 
 void TileRenderer::AddTile(Tiler::RectInfo const & rectInfo, Tile const & tile)
 {
-  m_tileCache.writeLock();
+  m_tileCache.lock();
   if (m_tileCache.hasTile(rectInfo))
   {
     m_resourceManager->renderTargetTextures()->Free(tile.m_renderTarget);
     m_tileCache.touchTile(rectInfo);
   }
   else
+  {
+    if (m_tileCache.canFit() == 0)
+    {
+      LOG(LINFO, ("resizing tileCache to", m_tileCache.cacheSize() + 1, "elements"));
+      m_tileCache.resize(m_tileCache.cacheSize() + 1);
+    }
+
     m_tileCache.addTile(rectInfo, TileCache::Entry(tile, m_resourceManager));
-  m_tileCache.writeUnlock();
+  }
+  m_tileCache.unlock();
 }
 
 void TileRenderer::StartTile(Tiler::RectInfo const & rectInfo)
