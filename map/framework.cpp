@@ -357,10 +357,11 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
   }
   catch (redraw_operation_cancelled const &)
   {
-    if (e->drawer()->screen()->renderState())
+    DrawerYG * pDrawer = e->drawer();
+    if (pDrawer->screen()->renderState())
     {
-      e->drawer()->screen()->renderState()->m_isEmptyModelCurrent = false;
-      e->drawer()->screen()->renderState()->m_isEmptyModelActual = false;
+      pDrawer->screen()->renderState()->m_isEmptyModelCurrent = false;
+      pDrawer->screen()->renderState()->m_isEmptyModelActual = false;
     }
   }
 

@@ -132,16 +132,16 @@ void SimpleRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   shared_ptr<yg::InfoLayer> infoLayer(new yg::InfoLayer());
 
-  e->drawer()->screen()->setInfoLayer(infoLayer);
+  DrawerYG * pDrawer = e->drawer();
 
-  e->drawer()->screen()->beginFrame();
-
-  e->drawer()->screen()->clear(m_bgColor);
+  pDrawer->screen()->setInfoLayer(infoLayer);
+  pDrawer->screen()->beginFrame();
+  pDrawer->screen()->clear(m_bgColor);
 
   m_renderFn(e, s, s.ClipRect(), s.ClipRect(), scales::GetScaleLevel(glbRect), false);
 
-  infoLayer->draw(e->drawer()->screen().get(), math::Identity<double, 3>());
-  e->drawer()->screen()->resetInfoLayer();
+  infoLayer->draw(pDrawer->screen().get(), math::Identity<double, 3>());
+  pDrawer->screen()->resetInfoLayer();
 
-  e->drawer()->screen()->endFrame();
+  pDrawer->screen()->endFrame();
 }

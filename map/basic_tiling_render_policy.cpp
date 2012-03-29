@@ -72,7 +72,10 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
 void BasicTilingRenderPolicy::EndFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 {
   ScreenCoverage * curCvg = &m_CoverageGenerator->CurrentCoverage();
-  curCvg->EndFrame(e->drawer()->screen().get());
+
+  DrawerYG * pDrawer = e->drawer();
+
+  curCvg->EndFrame(pDrawer->screen().get());
   m_CoverageGenerator->Mutex().Unlock();
 
   if (m_QueuedRenderer)

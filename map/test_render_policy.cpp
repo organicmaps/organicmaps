@@ -150,13 +150,15 @@ void TestRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   /// drawing with Z-order
 
+  DrawerYG * pDrawer = e->drawer();
+
   for (unsigned i = 0; i < 40; ++i)
-    e->drawer()->screen()->drawRectangle(m2::RectD(10 + i, 10 + i, 110 + i, 110 + i),
+    pDrawer->screen()->drawRectangle(m2::RectD(10 + i, 10 + i, 110 + i, 110 + i),
                                          yg::Color(255 - (i * 2) % 255, i * 2 % 255, 0, 255),
                                          200 - i);
 
-  e->drawer()->screen()->drawRectangle(m2::RectD(80, 80, 180, 180), yg::Color(0, 255, 0, 255), 100);
-  e->drawer()->screen()->flush(-1);
+  pDrawer->screen()->drawRectangle(m2::RectD(80, 80, 180, 180), yg::Color(0, 255, 0, 255), 100);
+  pDrawer->screen()->flush(-1);
 
   /// performing updateActualTarget
 
@@ -185,9 +187,9 @@ void TestRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   /// drawing with Z-order
 
-  e->drawer()->screen()->drawRectangle(m2::RectD(110, 110, 210, 210), yg::Color(0, 0, 255, 255), 50);
-  e->drawer()->screen()->drawRectangle(m2::RectD(140, 140, 240, 240), yg::Color(0, 255, 255, 255), 25);
-  e->drawer()->screen()->flush(-1);
+  pDrawer->screen()->drawRectangle(m2::RectD(110, 110, 210, 210), yg::Color(0, 0, 255, 255), 50);
+  pDrawer->screen()->drawRectangle(m2::RectD(140, 140, 240, 240), yg::Color(0, 255, 255, 255), 25);
+  pDrawer->screen()->flush(-1);
 
   /// performing last updateActualTarget
 
@@ -212,9 +214,9 @@ void TestRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   OGLCHECK(glFramebufferTexture2DFn(GL_FRAMEBUFFER_MWM, GL_COLOR_ATTACHMENT0_MWM, GL_TEXTURE_2D, m_backBuffer->id(), 0));
 
-  e->drawer()->screen()->drawRectangle(m2::RectD(90, 150, 190, 250), yg::Color(255, 0, 255, 255), 20);
-  e->drawer()->screen()->drawRectangle(m2::RectD(120, 180, 220, 280), yg::Color(128, 128, 255, 255), 10);
-  e->drawer()->screen()->flush(-1);
+  pDrawer->screen()->drawRectangle(m2::RectD(90, 150, 190, 250), yg::Color(255, 0, 255, 255), 20);
+  pDrawer->screen()->drawRectangle(m2::RectD(120, 180, 220, 280), yg::Color(128, 128, 255, 255), 10);
+  pDrawer->screen()->flush(-1);
 
   /// performing updateActualTarget
   OGLCHECK(glFramebufferTexture2DFn(GL_FRAMEBUFFER_MWM, GL_COLOR_ATTACHMENT0_MWM, GL_TEXTURE_2D, m_actualTarget->id(), 0));
@@ -231,9 +233,9 @@ void TestRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
   m_primaryFrameBuffer->makeCurrent();
   utils::setupCoordinates(m_primaryFrameBuffer->width(), m_primaryFrameBuffer->height(), true);
 
-  e->drawer()->screen()->clear(m_bgColor);
+  pDrawer->screen()->clear(m_bgColor);
 
-  e->drawer()->screen()->blit(m_actualTarget, m_screen, s);
+  pDrawer->screen()->blit(m_actualTarget, m_screen, s);
 }
 
 m2::RectI const TestRenderPolicy::OnSize(int w, int h)
