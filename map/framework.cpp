@@ -19,6 +19,8 @@
 #include "../indexer/scales.hpp"
 #include "../indexer/classificator.hpp"
 
+#include "../coding/parse_xml.hpp"  // LoadFromKML
+
 #include "../base/math.hpp"
 #include "../base/string_utils.hpp"
 
@@ -201,6 +203,111 @@ void Framework::ClearBookmarks()
   m_bookmarks.clear();
 }
 
+namespace
+{
+  class KMLParser
+  {
+    Framework & m_framework;
+
+    int m_level;
+
+    string m_name;
+    m2::PointD m_org;
+
+    void Reset()
+    {
+      m_name.clear();
+      m_org = m2::PointD(-1000, -1000);
+    }
+
+    void SetOrigin(string const & s)
+    {
+      // order in string is: lon, lat, z
+
+      strings::SimpleTokenizer iter(s, ", ");
+      if (iter)
+      {
+        double lon;
+        if (strings::to_double(*iter, lon) && MercatorBounds::ValidLon(lon) && ++iter)
+        {
+          double lat;
+          if (strings::to_double(*iter, lat) && MercatorBounds::ValidLat(lat))
+            m_org = m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
+        }
+      }
+    }
+
+    bool IsValid() const
+    {
+      return (!m_name.empty() &&
+              MercatorBounds::ValidX(m_org.x) && MercatorBounds::ValidY(m_org.y));
+    }
+
+  public:
+    KMLParser(Framework & f) : m_framework(f), m_level(0)
+    {
+      Reset();
+    }
+
+    bool Push(string const & name)
+    {
+      switch (m_level)
+      {
+      case 0:
+        if (name != "kml") return false;
+        break;
+
+      case 1:
+        if (name != "Document") return false;
+        break;
+
+      case 2:
+        if (name != "Placemark") return false;
+        break;
+
+      case 3:
+        if (name != "Point" && name != "name") return false;
+        break;
+
+      case 4:
+        if (name != "coordinates") return false;
+      }
+
+      ++m_level;
+      return true;
+    }
+
+    void AddAttr(string const &, string const &) {}
+
+    void Pop(string const &)
+    {
+      --m_level;
+
+      if (m_level == 2 && IsValid())
+      {
+        m_framework.AddBookmark(m_org, m_name);
+        Reset();
+      }
+    }
+
+    void CharData(string const & value)
+    {
+      switch (m_level)
+      {
+      case 4: m_name = value; break;
+      case 5: SetOrigin(value); break;
+      }
+    }
+  };
+}
+
+void Framework::LoadFromKML(ReaderPtr<Reader> const & reader)
+{
+  ReaderSource<ReaderPtr<Reader> > src(reader);
+  KMLParser parser(*this);
+  ParseXML(src, parser, true);
+}
+
 void Framework::GetLocalMaps(vector<string> & outMaps)
 {
   Platform & pl = GetPlatform();
@@ -284,7 +391,6 @@ void Framework::OnSize(int w, int h)
   if (w < 2) w = 2;
   if (h < 2) h = 2;
 
-
   if (m_renderPolicy)
   {
     m_informationDisplay.setDisplayRect(m2::RectI(m2::PointI(0, 0), m2::PointU(w, h)));
@@ -347,7 +453,7 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
 
   try
   {
-    int const scale = (m_queryMaxScaleMode ? 17 : scaleLevel);
+    int const scale = (m_queryMaxScaleMode ? scales::GetUpperScale() : scaleLevel);
 
     //threads::MutexGuard lock(m_modelSyn);
     if (isTiling)
@@ -357,11 +463,11 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
   }
   catch (redraw_operation_cancelled const &)
   {
-    DrawerYG * pDrawer = e->drawer();
-    if (pDrawer->screen()->renderState())
+    shared_ptr<yg::gl::RenderState> pState = e->drawer()->screen()->renderState();
+    if (pState)
     {
-      pDrawer->screen()->renderState()->m_isEmptyModelCurrent = false;
-      pDrawer->screen()->renderState()->m_isEmptyModelActual = false;
+      pState->m_isEmptyModelCurrent = false;
+      pState->m_isEmptyModelActual = false;
     }
   }
 

@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = map yg indexer platform geometry coding base freetype fribidi expat protobuf
+DEPENDENCIES = map storage search yg indexer platform geometry coding base freetype fribidi expat protobuf tomcrypt
 
 include($$ROOT_DIR/common.pri)
 
@@ -16,7 +16,7 @@ win32* {
   LIBS *= -lShell32 -lOpengl32
   win32-g++: LIBS *= -lpthread
 }
-macx*: LIBS *= "-framework Foundation"
+macx*: LIBS *= "-framework Foundation" "-framework IOKit"
 
 SOURCES += \
   ../../testing/testingmain.cpp \
@@ -25,3 +25,4 @@ SOURCES += \
   debug_features_test.cpp \
   draw_processor_test.cpp \
   multithread_map_test.cpp \
+    bookmarks_test.cpp

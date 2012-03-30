@@ -129,6 +129,8 @@ public:
   void GetBookmark(size_t i, Bookmark & bm) const;
   void ClearBookmarks();
 
+  void LoadFromKML(ReaderPtr<Reader> const & reader);
+
   storage::Storage & Storage() { return m_storage; }
 
   void OnLocationStatusChanged(location::TLocationStatus newStatus);
