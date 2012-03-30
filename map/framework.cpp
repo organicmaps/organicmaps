@@ -466,24 +466,23 @@ void Framework::CheckMinGlobalRect(m2::RectD & rect)
     rect = minRect;
 }
 
-void Framework::ShowRect(m2::RectD const & r)
+void Framework::ShowRect(m2::RectD rect)
 {
-  m2::RectD rect(r);
   CheckMinGlobalRect(rect);
 
   m_navigator.SetFromRect(m2::AnyRectD(rect));
   Invalidate();
 }
 
-void Framework::ShowRectFixed(m2::RectD const & r)
+void Framework::ShowRectFixed(m2::RectD rect)
 {
-  m2::RectD rect(r);
   CheckMinGlobalRect(rect);
 
-  m2::RectD etalonRect(0, 0, m_renderPolicy->ScaleEtalonSize(), m_renderPolicy->ScaleEtalonSize());
+  size_t const sz = m_renderPolicy->ScaleEtalonSize();
+  m2::RectD etalonRect(0, 0, sz, sz);
   etalonRect.Offset(-etalonRect.SizeX() / 2, -etalonRect.SizeY());
 
-  m2::PointD pxCenter = m_navigator.Screen().PixelRect().Center();
+  m2::PointD const pxCenter = m_navigator.Screen().PixelRect().Center();
 
   etalonRect.Offset(pxCenter);
 

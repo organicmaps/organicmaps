@@ -204,8 +204,8 @@ public:
 
   virtual void EndPaint(shared_ptr<PaintEvent> const & e);
 
-  void ShowRect(m2::RectD const & rect);
-  void ShowRectFixed(m2::RectD const & rect);
+  void ShowRect(m2::RectD rect);
+  void ShowRectFixed(m2::RectD rect);
 
   void DrawPlacemark(m2::PointD const & pt);
   void DisablePlacemark();
