@@ -12,18 +12,31 @@ struct MercatorBounds
   static double minY;
   static double maxY;
 
-  inline static double ClampX(double d)
+  inline static bool ValidLon(double d)
   {
-    if (d < MercatorBounds::minX) return MercatorBounds::minX;
-    if (d > MercatorBounds::maxX) return MercatorBounds::maxX;
-    return d;
+    return my::between_s(-180.0, 180.0, d);
+  }
+  inline static bool ValidLat(double d)
+  {
+    return my::between_s(-90.0, 90.0, d);
   }
 
+  inline static bool ValidX(double d)
+  {
+    return my::between_s(minX, maxX, d);
+  }
+  inline static bool ValidY(double d)
+  {
+    return my::between_s(minY, maxY, d);
+  }
+
+  inline static double ClampX(double d)
+  {
+    return my::clamp(d, minX, maxX);
+  }
   inline static double ClampY(double d)
   {
-    if (d < MercatorBounds::minY) return MercatorBounds::minY;
-    if (d > MercatorBounds::maxY) return MercatorBounds::maxY;
-    return d;
+    return my::clamp(d, minY, maxY);
   }
 
   inline static double YToLat(double y)
