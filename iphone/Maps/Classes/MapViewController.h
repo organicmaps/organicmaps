@@ -15,11 +15,8 @@
 
 	bool m_isSticking;
 	size_t m_StickyThreshold;
-  int m_iconSequenceNumber;
-
 	m2::PointD m_Pt1, m_Pt2;
   
-  NSTimer * m_iconTimer;
 }
 
 - (void) ZoomToRect: (m2::RectD const &) rect;

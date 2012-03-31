@@ -118,18 +118,6 @@ Framework * m_framework = NULL;
     // Here we're creating view and window handle in it, and later we should pass framework to the view
     EAGLView * v = (EAGLView *)self.view;
 
-
-    /*
-    NSLocale * curr = [NSLocale currentLocale];
-    NSArray * langs = [NSLocale availableLocaleIdentifiers];
-    for (int i = 0; i < [langs count]; ++i)
-    {
-      NSString * s = [curr displayNameForKey:NSLocaleIdentifier value:[langs objectAtIndex:i]];
-      NSLog(@"%@: %@", [langs objectAtIndex:i], s);
-    }
-    */
-
-
     m_framework = FrameworkFactory::CreateFramework();
     
     char const * str = [NSLocalizedString(@"Nothing found. Have you tried downloading maps of the countries? Just click the download button at the bottom of the screen.", @"Message in the center of the screen then user zooms in but country is not downloaded") UTF8String];
@@ -265,13 +253,14 @@ NSInteger compareAddress(id l, id r, void * context)
 	[self updatePointsFromEvent:event];
 	[self stopCurrentAction];
 
-  int const tapCount = ((UITouch*)[touches anyObject]).tapCount;
+  UITouch * theTouch = (UITouch*)[touches anyObject];
+  int const tapCount = theTouch.tapCount;
   int const touchesCount = [[event allTouches] count];
-  
-  if (tapCount == 2 && (touchesCount == 1) && m_isSticking)
+
+  if (tapCount == 2 && touchesCount == 1 && m_isSticking)
     m_framework->ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2.0));
-  
-  if ((touchesCount == 2) && (tapCount == 1) && m_isSticking)
+
+  if (touchesCount == 2 && tapCount == 1 && m_isSticking)
     m_framework->Scale(0.5);
 }
 
@@ -279,15 +268,6 @@ NSInteger compareAddress(id l, id r, void * context)
 {
 	[self updatePointsFromEvent:event];
 	[self stopCurrentAction];
-
-  int const tapCount = ((UITouch*)[touches anyObject]).tapCount;
-  int const touchesCount = [[event allTouches] count];
-  
-  if (tapCount == 2 && (touchesCount == 1) && m_isSticking)
-    m_framework->ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2.0));
-  
-  if ((touchesCount == 2) && (tapCount == 1) && m_isSticking)
-    m_framework->Scale(0.5);
 }
 
 - (BOOL) shouldAutorotateToInterfaceOrientation: (UIInterfaceOrientation) interfaceOrientation
