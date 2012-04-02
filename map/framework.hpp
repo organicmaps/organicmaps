@@ -130,6 +130,7 @@ public:
   void ClearBookmarks();
 
   void LoadFromKML(ReaderPtr<Reader> const & reader);
+  void SaveToKML(std::ostream & s);
 
   storage::Storage & Storage() { return m_storage; }
 

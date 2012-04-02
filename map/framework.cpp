@@ -28,6 +28,8 @@
 #include "../std/target_os.hpp"
 #include "../std/vector.hpp"
 
+#include <boost/algorithm/string.hpp>
+
 
 void Framework::AddMap(string const & file)
 {
@@ -290,13 +292,25 @@ namespace
       }
     }
 
-    void CharData(string const & value)
+    class IsSpace
     {
-      switch (m_level)
+    public:
+      bool operator() (char c) const
       {
-      case 4: m_name = value; break;
-      case 5: SetOrigin(value); break;
+        return ::isspace(c);
       }
+    };
+
+    void CharData(string value)
+    {
+      boost::trim(value);
+
+      if (!value.empty())
+        switch (m_level)
+        {
+        case 4: m_name = value; break;
+        case 5: SetOrigin(value); break;
+        }
     }
   };
 }
@@ -306,6 +320,49 @@ void Framework::LoadFromKML(ReaderPtr<Reader> const & reader)
   ReaderSource<ReaderPtr<Reader> > src(reader);
   KMLParser parser(*this);
   ParseXML(src, parser, true);
+}
+
+namespace
+{
+char const * kmlHeader =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "<kml xmlns=\"http://earth.google.com/kml/2.2\">\n"
+    "<Document>\n"
+    "  <name>MapsWithMe</name>\n";
+
+char const * kmlFooter =
+    "</Document>\n"
+    "</kml>\n";
+
+string PointToString(m2::PointD const & org)
+{
+  double const lon = MercatorBounds::XToLon(org.x);
+  double const lat = MercatorBounds::YToLat(org.y);
+
+  ostringstream ss;
+  ss.precision(8);
+
+  ss << lon << "," << lat;
+  return ss.str();
+}
+
+}
+
+void Framework::SaveToKML(std::ostream & s)
+{
+  s << kmlHeader;
+
+  for (list<Bookmark>::const_iterator i = m_bookmarks.begin(); i != m_bookmarks.end(); ++i)
+  {
+    s << "  <Placemark>\n"
+      << "    <name>" << i->GetName() << "</name>\n"
+      << "    <Point>\n"
+      << "      <coordinates>" << PointToString(i->GetOrg()) << "</coordinates>\n"
+      << "    </Point>\n"
+      << "  </Placemark>\n";
+  }
+
+  s << kmlFooter;
 }
 
 void Framework::GetLocalMaps(vector<string> & outMaps)
