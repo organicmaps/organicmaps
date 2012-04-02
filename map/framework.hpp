@@ -124,6 +124,7 @@ public:
   void AddLocalMaps();
   void RemoveLocalMaps();
 
+  void AddBookmark(m2::PointD const & pixelCoords);
   void AddBookmark(m2::PointD const & pt, string const & name);
   inline size_t BookmarksCount() const { return m_bookmarks.size(); }
   void GetBookmark(size_t i, Bookmark & bm) const;

@@ -184,6 +184,13 @@ void Framework::RemoveLocalMaps()
   m_model.RemoveAllCountries();
 }
 
+void Framework::AddBookmark(m2::PointD const & pixelCoords)
+{
+  // @TODO automatically get bookmark name from the data
+  string const name = "Best offline maps!";
+  m_bookmarks.push_back(Bookmark(m_navigator.Screen().PtoG(m_navigator.ShiftPoint(pixelCoords)), name));
+}
+
 void Framework::AddBookmark(m2::PointD const & pt, string const & name)
 {
   m_bookmarks.push_back(Bookmark(pt, name));

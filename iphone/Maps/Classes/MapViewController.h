@@ -4,6 +4,8 @@
 #include "../../geometry/point2d.hpp"
 #include "../../geometry/rect2d.hpp"
 
+@class BalloonView;
+
 @interface MapViewController : UIViewController <LocationObserver>
 {
   enum Action
@@ -17,6 +19,7 @@
 	size_t m_StickyThreshold;
 	m2::PointD m_Pt1, m_Pt2;
   
+  BalloonView * m_bookmark;
 }
 
 - (void) ZoomToRect: (m2::RectD const &) rect;

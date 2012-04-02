@@ -2,6 +2,7 @@
 #import "SearchVC.h"
 #import "MapsAppDelegate.h"
 #import "EAGLView.h"
+#import "BalloonView.h"
 #import "../Settings/SettingsManager.h"
 #import "../../Common/CustomAlertView.h"
 
@@ -104,8 +105,24 @@ Framework * m_framework = NULL;
   [searchVC release];
 }
 
+- (void)onBookmarkClicked
+{
+  m_framework->AddBookmark(m_Pt1);
+  [m_bookmark hide];
+  m_framework->Invalidate();
+}
+
+- (void)onSingleTap:(NSValue *)point
+{
+  if (m_bookmark.isDisplayed)
+    [m_bookmark hide];
+  else
+    [m_bookmark showInView:self.view atPoint:[point CGPointValue]];
+}
+
 - (void) dealloc
 {
+  [m_bookmark release];
 	delete m_framework;
   [super dealloc];
 }
@@ -114,6 +131,9 @@ Framework * m_framework = NULL;
 {
 	if ((self = [super initWithCoder:coder]))
 	{
+    // Helper to display/hide pin on screen tap
+    m_bookmark = [[BalloonView alloc] initWithTarget:self andSelector:@selector(onBookmarkClicked)];
+
     // cyclic dependence, @TODO refactor.
     // Here we're creating view and window handle in it, and later we should pass framework to the view
     EAGLView * v = (EAGLView *)self.view;
@@ -190,6 +210,10 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
 {
+  // To cancel single tap timer
+  if (((UITouch *)[touches anyObject]).tapCount > 1)
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+
 	[self updatePointsFromEvent:event];
 
 	if ([[event allTouches] count] == 1)
@@ -218,7 +242,11 @@ NSInteger compareAddress(id l, id r, void * context)
 	if (m_isSticking)
 	{
 		if ((TempPt1.Length(m_Pt1) > m_StickyThreshold) || (TempPt2.Length(m_Pt2) > m_StickyThreshold))
+    {
 			m_isSticking = false;
+      // Hide bookmark icon, if finger has moved
+      [m_bookmark hide];
+    }
 		else
 		{
 			/// Still stickying. Restoring old points and return.
@@ -258,10 +286,22 @@ NSInteger compareAddress(id l, id r, void * context)
   int const touchesCount = [[event allTouches] count];
 
   if (tapCount == 2 && touchesCount == 1 && m_isSticking)
+  {
+    // Hide bookmarks icon if it was displayed
+    [m_bookmark hide];
     m_framework->ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2.0));
+  }
 
   if (touchesCount == 2 && tapCount == 1 && m_isSticking)
+  {
+    // Hide bookmarks icon if it was displayed
+    [m_bookmark hide];
     m_framework->Scale(0.5);
+  }
+
+  // Launch single tap timer
+  if (touchesCount == 1 && tapCount == 1 && m_isSticking)
+    [self performSelector:@selector(onSingleTap:) withObject:[NSValue valueWithCGPoint:[theTouch locationInView:self.view]] afterDelay:0.3];
 }
 
 - (void)touchesCancelled:(NSSet*)touches withEvent:(UIEvent*)event
