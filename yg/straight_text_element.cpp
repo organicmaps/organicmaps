@@ -226,7 +226,10 @@ namespace yg
     setPivot(pivot() * m);
 
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-      m_glyphLayouts[i].setPivot(pivot() + m_offsets[i]);
+    {
+      m_glyphLayouts[i].setPivot(pivot());
+      m_glyphLayouts[i].setOffset(m_offsets[i]);
+    }
   }
 
   vector<m2::AnyRectD> const & StraightTextElement::boundRects() const

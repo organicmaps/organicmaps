@@ -50,6 +50,7 @@ namespace yg
     buffer_vector<m2::AnyRectD, 16> m_boundRects;
 
     m2::PointD m_pivot;
+    m2::PointD m_offset;
 
     double getKerning(GlyphLayoutElem const & prevElem, GlyphMetrics const & prevMetrics, GlyphLayoutElem const & curElem, GlyphMetrics const & curMetrics);
     void computeBoundRects();
@@ -86,9 +87,12 @@ namespace yg
     buffer_vector<GlyphMetrics, 32> const & metrics() const;
     buffer_vector<m2::AnyRectD, 16> const & boundRects() const;
 
-    m2::PointD const & pivot() const;
     yg::FontDesc const & fontDesc() const;
 
+    m2::PointD const & pivot() const;
     void setPivot(m2::PointD const & pv);
+
+    m2::PointD const & offset() const;
+    void setOffset(m2::PointD const & offs);
   };
 }

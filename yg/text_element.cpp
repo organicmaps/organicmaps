@@ -83,6 +83,7 @@ namespace yg
       return;
 
     m2::PointD pv = layout.pivot();
+    m2::PointD offs = layout.offset();
     double deltaA = 0;
 
     if (doTransformPivotOnly)
@@ -113,12 +114,12 @@ namespace yg
 
       if (doTransformPivotOnly)
       {
-        glyphPt = pv + elem.m_pt;
+        glyphPt = pv + offs + elem.m_pt;
         glyphAngle = elem.m_angle;
       }
       else
       {
-        glyphPt = (pv + elem.m_pt) * m;
+        glyphPt = (pv + offs + elem.m_pt) * m;
         glyphAngle = ang::AngleD(elem.m_angle.val() + deltaA);
       }
 

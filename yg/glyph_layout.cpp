@@ -67,7 +67,8 @@ namespace yg
     : m_firstVisible(0),
       m_lastVisible(visText.size()),
       m_fontDesc(fontDesc),
-      m_pivot(pt)
+      m_pivot(pt),
+      m_offset(0, 0)
   {
     m_entries.reserve(visText.size());
     m_metrics.reserve(visText.size());
@@ -145,7 +146,8 @@ namespace yg
       m_pos(src.m_pos),
       m_fontDesc(src.m_fontDesc),
       m_metrics(src.m_metrics),
-      m_pivot(0, 0)
+      m_pivot(0, 0),
+      m_offset(0, 0)
   {
     if (!m_fontDesc.IsValid())
       return;
@@ -167,7 +169,8 @@ namespace yg
       m_visText(visText),
       m_pos(pos),
       m_fontDesc(fontDesc),
-      m_pivot(0, 0)
+      m_pivot(0, 0),
+      m_offset(0, 0)
   {
     if (!m_fontDesc.IsValid())
       return;
@@ -410,6 +413,19 @@ namespace yg
       m_boundRects[i].Offset(pivot - m_pivot);
 
     m_pivot = pivot;
+  }
+
+  m2::PointD const & GlyphLayout::offset() const
+  {
+    return m_offset;
+  }
+
+  void GlyphLayout::setOffset(m2::PointD const & offset)
+  {
+    for (unsigned i = 0; i < m_boundRects.size(); ++i)
+      m_boundRects[i].Offset(offset - m_offset);
+
+    m_offset = offset;
   }
 
   yg::FontDesc const & GlyphLayout::fontDesc() const
