@@ -84,7 +84,8 @@ SOURCES += \
     queued_renderer.cpp \
     events.cpp \
     basic_tiling_render_policy.cpp \
-    render_policy_mt.cpp
+    render_policy_mt.cpp \
+    address_finder.cpp
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp

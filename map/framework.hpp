@@ -56,7 +56,7 @@ namespace search { class Result; }
 class Framework
 {
 protected:
-  scoped_ptr<search::Engine> m_pSearchEngine;
+  mutable scoped_ptr<search::Engine> m_pSearchEngine;
   model::FeaturesFetcher m_model;
   Navigator m_navigator;
 
@@ -158,18 +158,20 @@ public:
 
 private:
   inline m2::RectD GetCurrentViewport() const { return m_navigator.Screen().ClipRect(); }
-  search::Engine * GetSearchEngine();
+  search::Engine * GetSearchEngine() const;
 
-  void CheckMinGlobalRect(m2::RectD & r);
+  void CheckMinGlobalRect(m2::RectD & r) const;
 
 public:
   void PrepareSearch(bool hasPt, double lat = 0.0, double lon = 0.0);
   void Search(search::SearchParams const & params);
-  bool GetCurrentPosition(double & lat, double & lon);
+  bool GetCurrentPosition(double & lat, double & lon) const;
   void ShowSearchResult(search::Result const & res);
 
+  string GetCountryName(m2::PointD const & pt) const;
+
   /// @return country code in ISO 3166-1 alpha-2 format (two small letters) or empty string
-  string GetCountryCodeByPosition(double lat, double lon);
+  string GetCountryCodeByPosition(double lat, double lon) const;
 
   void SetMaxWorldRect();
 
@@ -199,7 +201,17 @@ public:
     Invalidate(true);
   }
 
+  /// @name
+  /// @param[in] pt Current touch point in device pixel coordinates.
+  //@{
   void GetFeatureTypes(m2::PointD pt, vector<string> & types) const;
+
+  struct AddressInfo
+  {
+    string m_country, m_city, m_street, m_house, m_name;
+  };
+  void GetAddressInfo(m2::PointD pt, AddressInfo & info) const;
+  //@}
 
   virtual void BeginPaint(shared_ptr<PaintEvent> const & e);
   /// Function for calling from platform dependent-paint function.

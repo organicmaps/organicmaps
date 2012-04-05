@@ -42,6 +42,7 @@ public:
 
   string GetCountryFile(m2::PointD const & pt) const;
   string GetCountryCode(m2::PointD const & pt) const;
+  string GetCountryName(m2::PointD const & pt) const;
 
 private:
   static const int RESULTS_COUNT = 15;

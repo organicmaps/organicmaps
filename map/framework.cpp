@@ -17,7 +17,6 @@
 #include "../indexer/categories_holder.hpp"
 #include "../indexer/feature.hpp"
 #include "../indexer/scales.hpp"
-#include "../indexer/classificator.hpp"
 
 #include "../coding/parse_xml.hpp"  // LoadFromKML
 
@@ -395,24 +394,8 @@ void Framework::SetNeedRedraw(bool flag)
 
 void Framework::Invalidate(bool doForceUpdate)
 {
-  if (m_renderPolicy)
-  {
-    m_renderPolicy->SetForceUpdate(doForceUpdate);
-    m_renderPolicy->GetWindowHandle()->invalidate();
-    m_renderPolicy->SetInvalidRect(m2::AnyRectD(m2::RectD(MercatorBounds::minX,
-                                                          MercatorBounds::minY,
-                                                          MercatorBounds::maxX,
-                                                          MercatorBounds::maxY)));
-  }
-  else
-  {
-    m_hasPendingInvalidate = true;
-    m_doForceUpdate = doForceUpdate;
-    m_invalidRect = m2::AnyRectD(m2::RectD(MercatorBounds::minX,
-                                           MercatorBounds::minY,
-                                           MercatorBounds::maxX,
-                                           MercatorBounds::maxY));
-  }
+  InvalidateRect(m2::RectD(MercatorBounds::minX, MercatorBounds::minY,
+                           MercatorBounds::maxX, MercatorBounds::maxY), doForceUpdate);
 }
 
 void Framework::InvalidateRect(m2::RectD const & rect, bool doForceUpdate)
@@ -481,7 +464,8 @@ int Framework::GetDrawScale() const
     return 0;
 }
 
-/*double Framework::GetCurrentScale() const
+/*
+double Framework::GetCurrentScale() const
 {
   m2::PointD textureCenter(m_navigator.Screen().PixelRect().Center());
   m2::RectD glbRect;
@@ -491,7 +475,8 @@ int Framework::GetDrawScale() const
                                       textureCenter + m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2)),
                             glbRect);
   return scales::GetScaleLevelD(glbRect);
-}*/
+}
+*/
 
 RenderPolicy::TRenderFn Framework::DrawModelFn()
 {
@@ -620,7 +605,7 @@ void Framework::SetViewportCenter(m2::PointD const & pt)
 
 static int const theMetersFactor = 6;
 
-void Framework::CheckMinGlobalRect(m2::RectD & rect)
+void Framework::CheckMinGlobalRect(m2::RectD & rect) const
 {
   m2::RectD const minRect = MercatorBounds::RectByCenterXYAndSizeInMeters(
                                 rect.Center(), theMetersFactor * m_metresMinWidth);
@@ -754,7 +739,7 @@ void Framework::StopDrag(DragEvent const & e)
 {
   m2::PointD const pt = m_navigator.ShiftPoint(e.Pos());
 
-  m_navigator.StopDrag(pt, 0./*m_timer.ElapsedSeconds()*/, true);
+  m_navigator.StopDrag(pt, ElapsedSeconds(), true);
 
 #ifdef DRAW_TOUCH_POINTS
   m_informationDisplay.setDebugPoint(0, m2::PointD(0, 0));
@@ -900,7 +885,7 @@ void Framework::StopScale(ScaleEvent const & e)
 //  LOG(LINFO, ("StopScale", e.Pt1(), e.Pt2()));
 }
 
-search::Engine * Framework::GetSearchEngine()
+search::Engine * Framework::GetSearchEngine() const
 {
   // Classical "double check" synchronization pattern.
   if (!m_pSearchEngine)
@@ -921,6 +906,11 @@ search::Engine * Framework::GetSearchEngine()
   return m_pSearchEngine.get();
 }
 
+string Framework::GetCountryName(m2::PointD const & pt) const
+{
+  return GetSearchEngine()->GetCountryName(pt);
+}
+
 void Framework::PrepareSearch(bool hasPt, double lat, double lon)
 {
   GetSearchEngine()->PrepareSearch(GetCurrentViewport(), hasPt, lat, lon);
@@ -931,7 +921,7 @@ void Framework::Search(search::SearchParams const & params)
   GetSearchEngine()->Search(params, GetCurrentViewport());
 }
 
-bool Framework::GetCurrentPosition(double & lat, double & lon)
+bool Framework::GetCurrentPosition(double & lat, double & lon) const
 {
   if (m_locationState.IsValidPosition())
   {
@@ -1035,116 +1025,7 @@ void Framework::DeleteOldMaps()
   m_lowestMapVersion = MAXIMUM_VERSION_TO_DELETE + 1;
 }
 
-namespace
-{
-  class DoGetFeatureTypes
-  {
-    typedef vector<string> TypesC;
-
-    class DistanceT
-    {
-      double m_dist;
-
-    public:
-      DistanceT(double d, TypesC & types) : m_dist(d)
-      {
-        m_types.swap(types);
-      }
-
-      bool operator<(DistanceT const & rhs) const
-      {
-        return (m_dist < rhs.m_dist);
-      }
-
-      TypesC m_types;
-    };
-
-    class DoParseTypes
-    {
-      Classificator const & m_c;
-
-    public:
-      DoParseTypes() : m_c(classif()) {}
-
-      void operator() (uint32_t t)
-      {
-        m_types.push_back(m_c.GetFullObjectName(t));
-      }
-
-      TypesC m_types;
-    };
-
-    double GetCompareEpsilon(feature::EGeomType type) const
-    {
-      using namespace feature;
-      switch (type)
-      {
-      case GEOM_POINT: return 0.0 * m_eps;
-      case GEOM_LINE: return 1.0 * m_eps;
-      case GEOM_AREA: return 2.0 * m_eps;
-      default:
-        ASSERT ( false, () );
-        return numeric_limits<double>::max();
-      }
-    }
-
-    m2::PointD m_pt;
-    double m_eps;
-    int m_scale;
-
-    vector<DistanceT> m_cont;
-
-  public:
-    DoGetFeatureTypes(m2::PointD const & pt, double eps, int scale)
-      : m_pt(pt), m_eps(eps), m_scale(scale)
-    {
-    }
-
-    void operator() (FeatureType const & f)
-    {
-      double const d = f.GetDistance(m_pt, m_scale);
-      ASSERT_GREATER_OR_EQUAL(d, 0.0, ());
-
-      if (d <= m_eps)
-      {
-        DoParseTypes doParse;
-        f.ForEachTypeRef(doParse);
-
-        m_cont.push_back(DistanceT(d + GetCompareEpsilon(f.GetFeatureType()), doParse.m_types));
-      }
-    }
-
-    void GetFeatureTypes(size_t count, TypesC & types)
-    {
-      sort(m_cont.begin(), m_cont.end());
-
-      for (size_t i = 0; i < min(count, m_cont.size()); ++i)
-        types.insert(types.end(), m_cont[i].m_types.begin(), m_cont[i].m_types.end());
-    }
-  };
-}
-
-void Framework::GetFeatureTypes(m2::PointD pt, vector<string> & types) const
-{
-  pt = m_navigator.ShiftPoint(pt);
-
-  int const sm = 20;
-  m2::RectD pixR(m2::PointD(pt.x - sm, pt.y - sm), m2::PointD(pt.x + sm, pt.y + sm));
-
-  m2::RectD glbR;
-  m_navigator.Screen().PtoG(pixR, glbR);
-
-  int const scale = GetDrawScale();
-  DoGetFeatureTypes getTypes(m_navigator.Screen().PtoG(pt),
-                             max(glbR.SizeX() / 2.0, glbR.SizeY() / 2.0),
-                             scale);
-
-  m_model.ForEachFeature(glbR, getTypes, scale);
-
-  getTypes.GetFeatureTypes(5, types);
-}
-
-string Framework::GetCountryCodeByPosition(double lat, double lon)
+string Framework::GetCountryCodeByPosition(double lat, double lon) const
 {
   return GetSearchEngine()->GetCountryCode(m2::PointD(
                            MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat)));
