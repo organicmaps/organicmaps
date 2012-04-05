@@ -296,6 +296,11 @@ namespace qt
     {
       return RotateEvent(centerPt.x(), centerPt.y(), pt.x(), pt.y());
     }
+
+    void add_string(QMenu & menu, string const & s)
+    {
+      menu.addAction(QString::fromUtf8(s.c_str()));
+    }
   }
 
   void DrawWidget::mousePressEvent(QMouseEvent * e)
@@ -325,13 +330,23 @@ namespace qt
     {
       // show feature types
       QPoint const & pt = e->pos();
+      QMenu menu;
 
+      /*
       vector<string> types;
       m_framework->GetFeatureTypes(m2::PointD(pt.x(), pt.y()), types);
 
-      QMenu menu;
       for (size_t i = 0; i < types.size(); ++i)
-        menu.addAction(QString::fromAscii(types[i].c_str()));
+        add_string(menu, types[i]);
+      */
+
+      Framework::AddressInfo info;
+      m_framework->GetAddressInfo(m2::PointD(pt.x(), pt.y()), info);
+
+      add_string(menu, info.m_country);
+      add_string(menu, info.m_city);
+      add_string(menu, info.m_street);
+      add_string(menu, info.m_name);
 
       menu.exec(pt);
     }
