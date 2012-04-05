@@ -315,7 +315,10 @@ namespace fwork
 
     string defaultName, intName;
     f.GetPreferredDrawableNames(defaultName, intName);
-    if (m_zoom <= 5 && !intName.empty())
+
+    // draw country names and capitals on native language only
+    int const worldZoom = 5;
+    if (m_zoom <= worldZoom && !intName.empty())
     {
       defaultName.swap(intName);
       intName.clear();
@@ -325,7 +328,7 @@ namespace fwork
         defaultName,
         intName,
         f.GetRoadNumber(),
-        (m_zoom > 5) ? f.GetPopulationDrawRank() : 0.0));
+        (m_zoom > worldZoom) ? f.GetPopulationDrawRank() : 0.0));
 
     DrawerYG * pDrawer = GetDrawer();
 
