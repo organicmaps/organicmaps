@@ -33,6 +33,7 @@ void TypesHolder::Remove(uint32_t t)
   }
 }
 
+
 void FeatureParamsBase::MakeZero()
 {
   layer = 0;

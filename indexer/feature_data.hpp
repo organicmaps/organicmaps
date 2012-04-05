@@ -85,10 +85,9 @@ namespace feature
       uint32_t const * e = m_types + m_size;
       return (find(m_types, e, t) != e);
     }
-
-    void Remove(uint32_t t);
     //@}
 
+    void Remove(uint32_t t);
     string DebugPrint() const;
   };
 
