@@ -18,6 +18,10 @@ wc -l wikitravel-pages.json
 
 cat wikitravel-pages.json | python $MY_PATH/wikitravel-download-pages.py
 
+cat wikitravel-pages.json | python $MY_PATH/wikitravel-geocode-yahoo.py
+
+cat wikitravel-pages.json | python $MY_PATH/wikitravel-geocode-google.py
+
 cat wikitravel-pages.json | python $MY_PATH/wikitravel-process-articles.py
 
 cat wikitravel-pages.json | python $MY_PATH/wikitravel-optimize-articles.py
