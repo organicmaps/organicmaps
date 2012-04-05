@@ -63,24 +63,51 @@ namespace
     for (size_t i = 0; i < v.size(); ++i)
       cout << c.GetFullObjectName(v[i]) << endl;
   }
+
+  void DumpParsedTypes(char const * arr[][2], size_t count)
+  {
+    XMLElement e;
+    FillXmlElement(arr, count, &e);
+
+    FeatureParams params;
+    ftype::GetNameAndType(&e, params);
+
+    DumpTypes(params.m_Types);
+  }
 }
 
-UNIT_TEST(OsmType_Check1)
+UNIT_TEST(OsmType_Check)
 {
   classificator::Load();
 
-  char const * arr[][2] = {
+  char const * arr1[][2] = {
     { "highway", "primary" },
     { "motorroad", "yes" },
     { "name", "Каширское шоссе" },
     { "oneway", "yes" }
   };
 
-  XMLElement e;
-  FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+  char const * arr2[][2] = {
+    { "highway", "primary" },
+    { "name", "Каширское шоссе" },
+    { "oneway", "yes" },
+    { "motorroad", "yes" }
+  };
 
-  FeatureParams params;
-  ftype::GetNameAndType(&e, params);
+  char const * arr3[][2] = {
+    { "admin_level", "4" },
+    { "border_type", "state" },
+    { "boundary", "administrative" }
+  };
 
-  DumpTypes(params.m_Types);
+  char const * arr4[][2] = {
+    { "border_type", "state" },
+    { "admin_level", "4" },
+    { "boundary", "administrative" }
+  };
+
+  DumpParsedTypes(arr1, ARRAY_SIZE(arr1));
+  DumpParsedTypes(arr2, ARRAY_SIZE(arr2));
+  DumpParsedTypes(arr3, ARRAY_SIZE(arr3));
+  DumpParsedTypes(arr4, ARRAY_SIZE(arr4));
 }
