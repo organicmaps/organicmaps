@@ -31,15 +31,14 @@ namespace location
 
     State();
 
-    /// @return GPS error radius in mercator
-    double ErrorRadius() const { return m_errorRadiusMercator; }
     /// @return GPS center point in mercator
     m2::PointD Position() const { return m_positionMercator; }
 
     inline bool IsValidPosition() const { return ((m_flags & EGps) != 0); }
+    inline void TurnOff() { m_flags = ENone; }
 
-    void TurnOff() { m_flags = ENone; }
-    void UpdateGps(GpsInfo const & info);
+    /// @param[in] rect Bound rect for circle with position center and error radius.
+    void UpdateGps(m2::RectD const & rect);
     void UpdateCompass(CompassInfo const & info);
 
     void DrawMyPosition(DrawerYG & drawer, ScreenBase const & screen);

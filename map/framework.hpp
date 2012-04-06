@@ -231,7 +231,7 @@ public:
   void EnterForeground();
 
   /// @TODO refactor to accept point and min visible length
-  void CenterAndScaleViewport();
+  //void CenterAndScaleViewport();
 
   /// Show all model by it's world rect.
   void ShowAll();

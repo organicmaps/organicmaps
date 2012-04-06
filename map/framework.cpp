@@ -64,18 +64,24 @@ void Framework::OnLocationStatusChanged(location::TLocationStatus newStatus)
 
 void Framework::OnGpsUpdate(location::GpsInfo const & info)
 {
-  m_locationState.UpdateGps(info);
+  m2::RectD rect = MercatorBounds::MetresToXY(
+        info.m_longitude, info.m_latitude, info.m_horizontalAccuracy);
+  m2::PointD const center = rect.Center();
+
+  m_locationState.UpdateGps(rect);
+
   if (m_centeringMode == ECenterAndScale)
   {
-    CenterAndScaleViewport();
-    /// calling function twice to eliminate scaling
-    /// and rounding errors when positioning from 2-3 scale into 16-17
-    CenterAndScaleViewport();
+    int const upperScale = scales::GetUpperWorldScale();
+    if (scales::GetScaleLevel(rect) > upperScale && IsEmptyModel(center))
+      rect = scales::GetRectForLevel(upperScale, center, 1.0);
+
+    ShowRectFixed(rect);
+
     m_centeringMode = ECenterOnly;
   }
   else if (m_centeringMode == ECenterOnly)
-    SetViewportCenter(m_locationState.Position());
-  Invalidate();
+    SetViewportCenter(center);
 }
 
 void Framework::OnCompassUpdate(location::CompassInfo const & info)
@@ -528,6 +534,7 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
 
 bool Framework::IsEmptyModel(m2::PointD const & pt)
 {
+  // Correct, but slow version (check country polygon).
   /*
   string const fName = GetSearchEngine()->GetCountryFile(pt);
   if (fName.empty())
@@ -535,6 +542,8 @@ bool Framework::IsEmptyModel(m2::PointD const & pt)
 
   return !m_model.IsLoaded(fName);
   */
+
+  // Fast, but not strict-correct version (just check limit rect).
   return !m_model.IsCountryLoaded(pt);
 }
 
@@ -608,7 +617,7 @@ void Framework::SetViewportCenter(m2::PointD const & pt)
 {
   m_navigator.CenterViewport(pt);
   Invalidate();
- }
+}
 
 static int const theMetersFactor = 6;
 
@@ -673,6 +682,7 @@ void Framework::EnterForeground()
 {
 }
 
+/*
 /// @TODO refactor to accept point and min visible length
 void Framework::CenterAndScaleViewport()
 {
@@ -702,6 +712,7 @@ void Framework::CenterAndScaleViewport()
 
   Invalidate();
 }
+*/
 
 /// Show all model by it's world rect.
 void Framework::ShowAll()

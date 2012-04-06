@@ -13,15 +13,14 @@ namespace location
   {
   }
 
-  void State::UpdateGps(GpsInfo const & info)
+  void State::UpdateGps(m2::RectD const & rect)
   {
     m_flags |= EGps;
-    m_positionMercator = m2::PointD(MercatorBounds::LonToX(info.m_longitude),
-                                    MercatorBounds::LatToY(info.m_latitude));
-    m2::RectD const errorRectXY =
-        MercatorBounds::MetresToXY(info.m_longitude, info.m_latitude,
-                                   info.m_horizontalAccuracy);
-    m_errorRadiusMercator = sqrt(my::sq(errorRectXY.SizeX()) + my::sq(errorRectXY.SizeY())) / 4;
+
+    m_positionMercator = rect.Center();
+
+    //m_errorRadiusMercator = sqrt(my::sq(rect.SizeX()) + my::sq(rect.SizeY())) / 2;
+    m_errorRadiusMercator = rect.SizeX() / 2.0;
   }
 
   void State::UpdateCompass(CompassInfo const & info)
@@ -46,7 +45,7 @@ namespace location
     if ((m_flags & State::EGps) || (m_flags & State::ECompass))
     {
       pxPosition = screen.GtoP(Position());
-      pxErrorRadius = pxPosition.Length(screen.GtoP(Position() + m2::PointD(ErrorRadius(), 0)));
+      pxErrorRadius = pxPosition.Length(screen.GtoP(Position() + m2::PointD(m_errorRadiusMercator, 0.0)));
 
       pxPosition -= pxShift;
 

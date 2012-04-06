@@ -104,7 +104,8 @@ public:
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error
 {
-  LOG(LWARNING, ("locationManager failed with error", error.code, error.description));
+  LOG(LWARNING, ("locationManager failed with error", error.code, [error.description UTF8String]));
+
   if (error.code == kCLErrorDenied)
     m_service->OnDeniedError();
 }
