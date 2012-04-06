@@ -60,7 +60,7 @@ namespace
 
   public:
     DoGetFeatureInfoBase(m2::PointD const & pt, double eps, int scale)
-      : m_pt(pt), m_eps(eps), m_scale(scale)
+      : m_pt(pt), m_scale(scale), m_eps(eps)
     {
       m_coastType = classif().GetCoastType();
     }
