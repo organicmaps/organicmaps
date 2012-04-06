@@ -19,11 +19,17 @@ ARGS = argParser.parse_args()
 for i, line in enumerate(sys.stdin):
   (itemId, lat, lon, itemType, title) = json.loads(line)
   
-  if lat >= ARGS.minlat and lat <= ARGS.maxlat and lon >= ARGS.minlon and lon <= ARGS.maxlon:
-    fileName = urllib2.quote(title.encode("utf-8"), " ()") + ".html"
-    url = "http://{0}.wikipedia.org/w/index.php?curid={1}&useformat=mobile".format(ARGS.locale, itemId)
+  if lat < ARGS.minlat or lat > ARGS.maxlat or lon < ARGS.minlon or lon > ARGS.maxlon:
+    continue
 
-    if title.find('_') != -1:
-      sys.stderr.write('WARNING! Title contains "_". It will not be found!\n')
+  if itemType == 'country' and (int(lat) == lat or int(lon) == lon):
+    sys.stderr.write('Ignoring country {0} {1} - probably parallel or meridian\n')
+    continue
 
-    scrapelib.ScrapeUrl(url, fileName, 1, i)
+  fileName = urllib2.quote(title.encode("utf-8"), " ()") + ".html"
+  url = "http://{0}.wikipedia.org/w/index.php?curid={1}&useformat=mobile".format(ARGS.locale, itemId)
+
+  if title.find('_') != -1:
+    sys.stderr.write('WARNING! Title contains "_". It will not be found!\n')
+
+  scrapelib.ScrapeUrl(url, fileName, 1, i)
