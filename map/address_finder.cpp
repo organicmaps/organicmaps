@@ -41,7 +41,7 @@ namespace
   class DoGetFeatureInfoBase
   {
   protected:
-    virtual double GetCompareEpsilon(feature::EGeomType type) const = 0;
+    virtual double GetResultDistance(double d, feature::TypesHolder const & types) const = 0;
     virtual double NeedProcess(feature::TypesHolder const & types) const = 0;
 
     static double GetCompareEpsilonImpl(feature::EGeomType type, double eps)
@@ -62,12 +62,13 @@ namespace
     DoGetFeatureInfoBase(m2::PointD const & pt, double eps, int scale)
       : m_pt(pt), m_eps(eps), m_scale(scale)
     {
+      m_coastType = classif().GetCoastType();
     }
 
     void operator() (FeatureType const & f)
     {
       feature::TypesHolder types(f);
-      if (NeedProcess(types))
+      if (!types.Has(m_coastType) && NeedProcess(types))
       {
         double const d = f.GetDistance(m_pt, m_scale);
         ASSERT_GREATER_OR_EQUAL(d, 0.0, ());
@@ -77,10 +78,11 @@ namespace
           string defName, intName;
           f.GetPreferredDrawableNames(defName, intName);
 
-          feature::EGeomType const geomType = types.GetGeoType();
-          m2::PointD const pt = (geomType == feature::GEOM_POINT) ? f.GetCenter() : m2::PointD();
+          // if geom type is not GEOM_POINT, result center point doesn't matter in future use
+          m2::PointD const pt = (types.GetGeoType() == feature::GEOM_POINT) ?
+                f.GetCenter() : m2::PointD();
 
-          m_cont.push_back(FeatureInfoT(d + GetCompareEpsilon(geomType), types, defName, pt));
+          m_cont.push_back(FeatureInfoT(GetResultDistance(d, types), types, defName, pt));
         }
       }
     }
@@ -90,20 +92,22 @@ namespace
       sort(m_cont.begin(), m_cont.end());
     }
 
-  protected:
+  private:
     m2::PointD m_pt;
-    double m_eps;
     int m_scale;
+    uint32_t m_coastType;
 
+  protected:
+    double m_eps;
     vector<FeatureInfoT> m_cont;
   };
 
   class DoGetFeatureTypes : public DoGetFeatureInfoBase
   {
   protected:
-    virtual double GetCompareEpsilon(feature::EGeomType type) const
+    virtual double GetResultDistance(double d, feature::TypesHolder const & types) const
     {
-      return GetCompareEpsilonImpl(type, m_eps);
+      return (d + GetCompareEpsilonImpl(types.GetGeoType(), m_eps));
     }
     virtual double NeedProcess(feature::TypesHolder const &) const
     {
@@ -195,8 +199,8 @@ namespace
         char const * arrLocalities[][2] = {
           { "place", "city" },
           { "place", "town" },
-          { "place", "village" }
-          //{ "place", "hamlet" }
+          { "place", "village" },
+          { "place", "hamlet" }
         };
 
         char const * arrStreet[][2] = {
@@ -229,15 +233,41 @@ namespace
       {
         return IsMatchImpl(m_buildings, types);
       }
+
+      double GetLocalityDivideFactor(feature::TypesHolder const & types) const
+      {
+        double arrF[] = { 10.0, 10.0, 1.0, 1.0 };
+        ASSERT_EQUAL ( ARRAY_SIZE(arrF), m_localities.size(), () );
+
+        for (size_t i = 0; i < types.Size(); ++i)
+        {
+          uint32_t type = types[i];
+          ftype::TruncValue(type, 2);
+
+          vector<uint32_t>::const_iterator j = find(m_localities.begin(), m_localities.end(), type);
+          if (j != m_localities.end())
+            return arrF[distance(m_localities.begin(), j)];
+        }
+
+        return 1.0;
+      }
     };
 
     TypeChecker const & m_checker;
     bool m_doLocalities;
 
   protected:
-    virtual double GetCompareEpsilon(feature::EGeomType type) const
+    virtual double GetResultDistance(double d, feature::TypesHolder const & types) const
     {
-      return GetCompareEpsilonImpl(type, 5.0 * MercatorBounds::degreeInMetres);
+      if (!m_doLocalities)
+        return (d + GetCompareEpsilonImpl(types.GetGeoType(), 5.0 * MercatorBounds::degreeInMetres));
+      else
+      {
+        // This routine is needed for quality of locality prediction.
+        // Hamlet may be the nearest point, but it's a part of a City. So use the divide factor
+        // for distance, according to feature type.
+        return (d / m_checker.GetLocalityDivideFactor(types));
+      }
     }
     virtual double NeedProcess(feature::TypesHolder const & types) const
     {
