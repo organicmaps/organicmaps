@@ -299,7 +299,7 @@ namespace qt
 
     void add_string(QMenu & menu, string const & s)
     {
-      menu.addAction(QString::fromUtf8(s.c_str()));
+      (void)menu.addAction(QString::fromUtf8(s.c_str()));
     }
   }
 
@@ -332,13 +332,13 @@ namespace qt
       QPoint const & pt = e->pos();
       QMenu menu;
 
-      /*
       vector<string> types;
       m_framework->GetFeatureTypes(m2::PointD(pt.x(), pt.y()), types);
 
       for (size_t i = 0; i < types.size(); ++i)
         add_string(menu, types[i]);
-      */
+
+      (void)menu.addSeparator();
 
       Framework::AddressInfo info;
       m_framework->GetAddressInfo(m2::PointD(pt.x(), pt.y()), info);
