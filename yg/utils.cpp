@@ -15,23 +15,16 @@ namespace yg
       {
         OGLCHECK(glViewport(0, 0, width, height));
 
-        OGLCHECK(glMatrixMode(GL_MODELVIEW));
-        OGLCHECK(glLoadIdentity());
+        OGLCHECK(glMatrixModeFn(GL_MODELVIEW_MWM));
+        OGLCHECK(glLoadIdentityFn());
 
-        OGLCHECK(glMatrixMode(GL_PROJECTION));
-        OGLCHECK(glLoadIdentity());
+        OGLCHECK(glMatrixModeFn(GL_PROJECTION_MWM));
+        OGLCHECK(glLoadIdentityFn());
 
-#ifdef OMIM_GL_ES
         if (!doSwap)
-          OGLCHECK(glOrthof(0, width, 0, height, -yg::maxDepth, yg::maxDepth));
+          OGLCHECK(glOrthoFn(0, width, 0, height, -yg::maxDepth, yg::maxDepth));
         else
-          OGLCHECK(glOrthof(0, width, height, 0, -yg::maxDepth, yg::maxDepth));
-#else
-        if (!doSwap)
-          OGLCHECK(glOrtho(0, width, 0, height, -yg::maxDepth, yg::maxDepth));
-        else
-          OGLCHECK(glOrtho(0, width, height, 0, -yg::maxDepth, yg::maxDepth));
-#endif
+          OGLCHECK(glOrthoFn(0, width, height, 0, -yg::maxDepth, yg::maxDepth));
       }
     }
   }

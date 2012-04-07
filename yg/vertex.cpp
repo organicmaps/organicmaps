@@ -30,12 +30,11 @@ namespace yg
 
     void Vertex::setupLayout(void * glPtr)
     {
-      OGLCHECK(glDisableClientState(GL_COLOR_ARRAY));
-      OGLCHECK(glEnableClientState(GL_VERTEX_ARRAY));
-      OGLCHECK(glVertexPointer(3, GL_FLOAT, sizeof(Vertex), (void*)((char*)glPtr + Vertex::vertexOffset)));
-      OGLCHECK(glEnable(GL_TEXTURE_2D));
-      OGLCHECK(glEnableClientState(GL_TEXTURE_COORD_ARRAY));
-      OGLCHECK(glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), (void*)((char*)glPtr + Vertex::texCoordOffset)));
+      OGLCHECK(glEnableClientStateFn(GL_VERTEX_ARRAY_MWM));
+      OGLCHECK(glVertexPointerFn(3, GL_FLOAT, sizeof(Vertex), (void*)((char*)glPtr + Vertex::vertexOffset)));
+
+      OGLCHECK(glEnableClientStateFn(GL_TEXTURE_COORD_ARRAY_MWM));
+      OGLCHECK(glTexCoordPointerFn(2, GL_FLOAT, sizeof(Vertex), (void*)((char*)glPtr + Vertex::texCoordOffset)));
     }
   }
 }

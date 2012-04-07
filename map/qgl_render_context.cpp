@@ -40,6 +40,7 @@ namespace qt
     void RenderContext::endThreadDrawing()
     {
       m_context.reset();
+      yg::gl::RenderContext::endThreadDrawing();
     }
 
     RenderContext::RenderContext(RenderContext * renderContext)

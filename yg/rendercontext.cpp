@@ -10,6 +10,12 @@ namespace yg
     {
       OGLCHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
       OGLCHECK(glPixelStorei(GL_PACK_ALIGNMENT, 1));
+      yg::gl::InitializeThread();
+    }
+
+    void RenderContext::endThreadDrawing()
+    {
+      yg::gl::FinalizeThread();
     }
   }
 }

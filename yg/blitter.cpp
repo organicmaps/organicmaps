@@ -148,10 +148,13 @@ namespace yg
       storage.m_indices->unlock();
       storage.m_indices->makeCurrent();
 
+#ifndef USING_GLSL
       OGLCHECK(glEnable(GL_TEXTURE_2D));
+#endif
 
-      OGLCHECK(glDisable(GL_BLEND));
-      OGLCHECK(glDisable(GL_DEPTH_TEST));
+      OGLCHECK(glDisableFn(GL_ALPHA_TEST_MWM));
+      OGLCHECK(glDisableFn(GL_BLEND));
+      OGLCHECK(glDisableFn(GL_DEPTH_TEST));
       OGLCHECK(glDepthMask(GL_FALSE));
 
       for (unsigned i = 0; i < s; ++i)
@@ -159,11 +162,12 @@ namespace yg
         if (blitInfo[i].m_srcSurface)
           blitInfo[i].m_srcSurface->makeCurrent();
 
-        OGLCHECK(glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_SHORT, (unsigned short *)storage.m_indices->glPtr() + i * 4));
+        OGLCHECK(glDrawElementsFn(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_SHORT, (unsigned short *)storage.m_indices->glPtr() + i * 4));
       }
 
-      OGLCHECK(glEnable(GL_DEPTH_TEST));
-      OGLCHECK(glEnable(GL_BLEND));
+      OGLCHECK(glEnableFn(GL_ALPHA_TEST_MWM));
+      OGLCHECK(glEnableFn(GL_DEPTH_TEST));
+      OGLCHECK(glEnableFn(GL_BLEND));
       OGLCHECK(glDepthMask(GL_TRUE));
 //      /// This call is necessary to avoid parasite blitting in updateActualTarget() on IPhone.
 //      OGLCHECK(glFinish());
@@ -345,7 +349,9 @@ namespace yg
 
       if (m_texture)
       {
+#ifndef USING_GLSL
         OGLCHECK(glEnable(GL_TEXTURE_2D));
+#endif
         m_texture->makeCurrent();
       }
 
@@ -354,15 +360,15 @@ namespace yg
       blitStorage.m_indices->unlock();
       blitStorage.m_indices->makeCurrent();
 
-      OGLCHECK(glDisable(GL_ALPHA_TEST));
-      OGLCHECK(glDisable(GL_BLEND));
-      OGLCHECK(glDisable(GL_DEPTH_TEST));
+      OGLCHECK(glDisableFn(GL_ALPHA_TEST_MWM));
+      OGLCHECK(glDisableFn(GL_BLEND));
+      OGLCHECK(glDisableFn(GL_DEPTH_TEST));
       OGLCHECK(glDepthMask(GL_FALSE));
-      OGLCHECK(glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_SHORT, blitStorage.m_indices->glPtr()));
+      OGLCHECK(glDrawElementsFn(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_SHORT, blitStorage.m_indices->glPtr()));
       OGLCHECK(glDepthMask(GL_TRUE));
-      OGLCHECK(glEnable(GL_DEPTH_TEST));
-      OGLCHECK(glEnable(GL_BLEND));
-      OGLCHECK(glEnable(GL_ALPHA_TEST));
+      OGLCHECK(glEnableFn(GL_DEPTH_TEST));
+      OGLCHECK(glEnableFn(GL_BLEND));
+      OGLCHECK(glEnableFn(GL_ALPHA_TEST_MWM));
 
       blitStorage.m_vertices->discard();
       blitStorage.m_indices->discard();

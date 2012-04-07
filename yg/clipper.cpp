@@ -40,14 +40,14 @@ namespace yg
       {
         if (isDebugging())
           LOG(LINFO, ("enabling scissor test"));
-        OGLCHECK(glEnable(GL_SCISSOR_TEST));
+        OGLCHECK(glEnableFn(GL_SCISSOR_TEST));
       }
       else
       {
         if (isDebugging())
         {
           LOG(LINFO, ("disabling scissor test"));
-          OGLCHECK(glDisable(GL_SCISSOR_TEST));
+          OGLCHECK(glDisableFn(GL_SCISSOR_TEST));
         }
       }
     }

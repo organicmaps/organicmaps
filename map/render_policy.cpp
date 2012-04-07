@@ -7,6 +7,7 @@
 #include "window_handle.hpp"
 #include "test_render_policy.hpp"
 #include "basic_render_policy.hpp"
+#include "simple_render_policy.hpp"
 #include "render_policy_st.hpp"
 #include "render_policy_mt.hpp"
 #include "tiling_render_policy_st.hpp"
@@ -26,6 +27,7 @@ RenderPolicy::~RenderPolicy()
 {
   LOG(LDEBUG, ("clearing cached drawing rules"));
   drule::rules().ClearCaches();
+  yg::gl::FinalizeThread();
 }
 
 RenderPolicy::RenderPolicy(shared_ptr<yg::gl::RenderContext> const & primaryRC, bool doSupportRotation, size_t idCacheSize)
@@ -37,6 +39,7 @@ RenderPolicy::RenderPolicy(shared_ptr<yg::gl::RenderContext> const & primaryRC, 
   LOG(LDEBUG, ("each BaseRule will hold up to", idCacheSize, "cached values"));
   drule::rules().ResizeCaches(idCacheSize);
   yg::gl::InitExtensions();
+  yg::gl::InitializeThread();
   yg::gl::CheckExtensionSupport();
 }
 

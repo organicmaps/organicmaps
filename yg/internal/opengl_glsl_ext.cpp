@@ -1,5 +1,9 @@
 #include "opengl.hpp"
 
+#include "opengl_glsl_impl.hpp"
+
+#include "../../base/matrix.hpp"
+#include "../../platform/platform.hpp"
 
 namespace yg
 {
@@ -23,43 +27,24 @@ namespace yg
 
     const int GL_WRITE_ONLY_MWM = GL_WRITE_ONLY;
 
-    const GLenum GL_MODELVIEW_MWM = GL_MODELVIEW;
-    const GLenum GL_PROJECTION_MWM = GL_PROJECTION;
-    const GLenum GL_ALPHA_TEST_MWM = GL_ALPHA_TEST;
-
-    const GLenum GL_VERTEX_ARRAY_MWM = GL_VERTEX_ARRAY;
-    const GLenum GL_TEXTURE_COORD_ARRAY_MWM = GL_TEXTURE_COORD_ARRAY;
-
-    void glOrthoImpl (GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat zNear, GLfloat zFar)
-    {
-      glOrtho(left, right, bottom, top, zNear, zFar);
-    }
-
-    void InitializeThread()
-    {}
-
-    void FinalizeThread()
-    {}
-
     void InitExtensions()
     {
       DumpGLInformation();
 
-      glEnableFn = &glEnable;
-      glDisableFn = &glDisable;
-      glAlphaFuncFn = &glAlphaFunc;
+      glEnableFn = &glsl::glEnable;
+      glDisableFn = &glsl::glDisable;
+      glAlphaFuncFn = &glsl::glAlphaFunc;
 
-      glVertexPointerFn = &glVertexPointer;
-      glTexCoordPointerFn = &glTexCoordPointer;
-      glEnableClientStateFn = &glEnableClientState;
+      glVertexPointerFn = &glsl::glVertexPointer;
+      glTexCoordPointerFn = &glsl::glTexCoordPointer;
+      glEnableClientStateFn = &glsl::glEnableClientState;
 
-      glMatrixModeFn = &glMatrixMode;
-      glLoadIdentityFn = &glLoadIdentity;
-      glOrthoFn = &glOrthoImpl;
-      glDrawElementsFn = &glDrawElements;
+      glMatrixModeFn = &glsl::glMatrixMode;
+      glLoadIdentityFn = &glsl::glLoadIdentity;
+      glOrthoFn = &glsl::glOrtho;
+      glDrawElementsFn = &glsl::glDrawElements;
 
-      g_isBufferObjectsSupported = HasExtension("GL_ARB_vertex_buffer_object")
-                                || HasExtension("GLX_ARB_vertex_buffer_object");
+      g_isBufferObjectsSupported = HasExtension("GL_OES_mapbuffer");
 
       glBindBufferFn = &glBindBuffer;
       glGenBuffersFn = &glGenBuffers;
@@ -86,9 +71,9 @@ namespace yg
       glRenderbufferStorageFn = &glRenderbufferStorageEXT;
 
       g_isSeparateBlendFuncSupported = HasExtension("GL_EXT_blend_func_separate");
-
       glBlendFuncSeparateFn = &glBlendFuncSeparateEXT;
     }
   }
 }
+
 

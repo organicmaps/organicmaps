@@ -28,7 +28,8 @@ CoverageGenerator::CoverageGenerator(
   g_coverageGeneratorDestroyed = false;
 
   m_resourceManager = rm;
-  m_renderContext = primaryRC->createShared();
+  if (!glQueue)
+    m_renderContext = primaryRC->createShared();
 
   m_currentStylesCache.reset(new yg::ResourceStyleCache(rm,
                                                  rm->cacheThreadGlyphCacheID(),
@@ -46,12 +47,14 @@ CoverageGenerator::CoverageGenerator(
 
 void CoverageGenerator::InitializeThreadGL()
 {
-  m_renderContext->makeCurrent();
+  if (m_renderContext)
+    m_renderContext->makeCurrent();
 }
 
 void CoverageGenerator::FinalizeThreadGL()
 {
-  m_renderContext->endThreadDrawing();
+  if (m_renderContext)
+    m_renderContext->endThreadDrawing();
 }
 
 CoverageGenerator::~CoverageGenerator()

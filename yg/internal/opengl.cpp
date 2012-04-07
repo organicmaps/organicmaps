@@ -56,6 +56,20 @@ namespace yg
       LOG(LINFO, ("--------------------------------------------"));
     }
 
+    // basic opengl functions and constants
+    void (OPENGL_CALLING_CONVENTION * glEnableFn)(GLenum cap);
+    void (OPENGL_CALLING_CONVENTION * glDisableFn)(GLenum cap);
+    void (OPENGL_CALLING_CONVENTION * glAlphaFuncFn)(GLenum func, GLclampf ref);
+
+    void (OPENGL_CALLING_CONVENTION * glEnableClientStateFn) (GLenum array);
+    void (OPENGL_CALLING_CONVENTION * glVertexPointerFn) (GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
+    void (OPENGL_CALLING_CONVENTION * glTexCoordPointerFn) (GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
+
+    void (OPENGL_CALLING_CONVENTION * glMatrixModeFn) (GLenum mode);
+    void (OPENGL_CALLING_CONVENTION * glLoadIdentityFn)();
+    void (OPENGL_CALLING_CONVENTION * glOrthoFn) (GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat zNear, GLfloat zFar);
+    void (OPENGL_CALLING_CONVENTION * glDrawElementsFn) (GLenum mode, GLsizei count, GLenum type, const GLvoid *indices);
+
     bool g_isBufferObjectsSupported = true;
     bool g_isFramebufferSupported = true;
     bool g_isRenderbufferSupported = true;
@@ -113,8 +127,8 @@ namespace yg
       case GL_INVALID_ENUM: return "GL_INVALID_ENUM";
       case GL_INVALID_VALUE: return "GL_INVALID_VALUE";
       case GL_INVALID_OPERATION: return "GL_INVALID_OPERATION";
-      case GL_STACK_OVERFLOW: return "GL_STACK_OVERFLOW";
-      case GL_STACK_UNDERFLOW: return "GL_STACK_UNDERFLOW";
+//      case GL_STACK_OVERFLOW: return "GL_STACK_OVERFLOW"; //< not supported in OpenGL ES2.0
+//      case GL_STACK_UNDERFLOW: return "GL_STACK_UNDERFLOW"; //< not supported in OpenGL ES2.0
       case GL_OUT_OF_MEMORY: return "GL_OUT_OF_MEMORY";
 #ifdef OMIM_OS_BADA        /* Errors / GetError return values */
       case EGL_SUCCESS : return 0;

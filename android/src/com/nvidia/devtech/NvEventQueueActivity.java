@@ -24,6 +24,8 @@ import android.view.SurfaceHolder.Callback;
 public abstract class NvEventQueueActivity extends Activity
 {
   private static final String TAG = "NvEventQueueActivity";
+  private static final int EGL_RENDERABLE_TYPE = 0x3040;
+  private static final int EGL_OPENGL_ES2_BIT = 0x0004;  
   private static final int EGL_CONTEXT_CLIENT_VERSION = 0x3098;
 
   private EGL10 m_egl = (EGL10) EGLContext.getEGL();
@@ -414,6 +416,7 @@ public abstract class NvEventQueueActivity extends Activity
                                           EGL11.EGL_ALPHA_SIZE, alphaSize,
                                           EGL11.EGL_STENCIL_SIZE, stencilSize,
                                           EGL11.EGL_DEPTH_SIZE, depthSize,
+                                          EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
                                           EGL11.EGL_NONE };
 
     m_eglDisplay = m_egl.eglGetDisplay(EGL11.EGL_DEFAULT_DISPLAY);
@@ -446,19 +449,30 @@ public abstract class NvEventQueueActivity extends Activity
 
     m_choosenConfigIndex = 0;
     
-    m_eglConfig = m_configs[m_choosenConfigIndex];
-
-    // Debug print
-    Log.d(TAG, "Matched egl configs:");
-    for (int i = 0; i < m_actualConfigsNumber[0]; ++i)
-       Log.d(TAG, (i == m_choosenConfigIndex ? "*" : " ") + i + ": " + eglConfigToString(m_configs[i]));
-    
-    final int[] contextAttrs = new int[] { EGL_CONTEXT_CLIENT_VERSION, 1, EGL11.EGL_NONE };
-    m_eglContext = m_egl.eglCreateContext(m_eglDisplay, m_eglConfig, EGL11.EGL_NO_CONTEXT, contextAttrs);
-    if (m_eglContext == EGL11.EGL_NO_CONTEXT)
+    while (true)
     {
-      Log.d(TAG, "eglCreateContext failed with error " + m_egl.eglGetError());
-      return false;
+      m_eglConfig = m_configs[m_choosenConfigIndex];
+
+      // Debug print
+      Log.d(TAG, "Matched egl configs:");
+      for (int i = 0; i < m_actualConfigsNumber[0]; ++i)
+         Log.d(TAG, (i == m_choosenConfigIndex ? "*" : " ") + i + ": " + eglConfigToString(m_configs[i]));
+    
+      final int[] contextAttrs = new int[] { EGL_CONTEXT_CLIENT_VERSION, 2, EGL11.EGL_NONE };
+      m_eglContext = m_egl.eglCreateContext(m_eglDisplay, m_eglConfig, EGL11.EGL_NO_CONTEXT, contextAttrs);
+      if (m_eglContext == EGL11.EGL_NO_CONTEXT)
+      {
+        Log.d(TAG, "eglCreateContext failed with error " + m_egl.eglGetError());
+        m_choosenConfigIndex++;
+      }
+      else
+        break;
+      
+      if (m_choosenConfigIndex == m_configs.length)
+      {
+        Log.d(TAG, "No more configs left to choose");
+        return false;
+      }
     }
 
     m_eglInitialized = true;
@@ -570,7 +584,7 @@ public abstract class NvEventQueueActivity extends Activity
         m_egl.eglDestroyContext(m_eglDisplay, m_eglContext);
       
       // recreating context with same eglConfig as eglWindowSurface has 
-      final int[] contextAttrs = new int[] { EGL_CONTEXT_CLIENT_VERSION, 1, EGL11.EGL_NONE };
+      final int[] contextAttrs = new int[] { EGL_CONTEXT_CLIENT_VERSION, 2, EGL11.EGL_NONE };
       m_eglContext = m_egl.eglCreateContext(m_eglDisplay, m_configs[choosenSurfaceConfigIndex], EGL11.EGL_NO_CONTEXT, contextAttrs);
       if (m_eglContext == EGL11.EGL_NO_CONTEXT)
       {

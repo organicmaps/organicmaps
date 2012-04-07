@@ -28,11 +28,7 @@ public:
 
     m_tileSize = min(max(ceiledScreenSize / 2, (size_t)128), (size_t)512);
 
-    double k = (256.0 / m_tileSize) * (256.0 / m_tileSize);
-
     LOG(LINFO, ("tileSize=", m_tileSize));
-
-    /// calculating how much tiles we need for the screen of such size
 
     m_preCachingDepth = 3;
 

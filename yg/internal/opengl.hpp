@@ -4,6 +4,9 @@
 
 #include "../../base/logging.hpp"
 
+// This define is set in yg.pro
+// #define USING_GLSL
+
 #if defined(OMIM_OS_WINDOWS)
   #include "../../std/windows.hpp"
   #include <gl/gl.h>
@@ -19,16 +22,28 @@
   #include <TargetConditionals.h>
 
   #ifdef OMIM_OS_IPHONE
-    #define USE_OPENGLES20_IF_AVAILABLE 0
-    #include <OpenGLES/ES1/gl.h>
-    #define OMIM_GL_ES
+    #ifdef USING_GLSL
+      #define USE_OPENGLES20_IF_AVAILABLE 1
+      #include <OpenGLES/ES2/gl.h>
+      #define OMIM_GL_ES
+    #else
+      #define USE_OPENGLES20_IF_AVAILABLE 0
+      #include <OpenGLES/ES1/gl.h>
+      #define OMIM_GL_ES
+    #endif
   #else
     #include <OpenGL/gl.h>
     #include <OpenGL/glext.h>
   #endif
 
 #elif defined(OMIM_OS_ANDROID)
-  #include <GLES/gl.h>
+
+  #ifdef USING_GLSL
+    #include <GLES2/gl2.h>
+  #else
+    #include <GLES/gl.h>
+  #endif
+
   #define OMIM_GL_ES
 
 #else
@@ -53,6 +68,29 @@ namespace yg
 {
   namespace gl
   {
+    // basic opengl functions and constants
+    extern void (OPENGL_CALLING_CONVENTION * glEnableFn)(GLenum cap);
+    extern void (OPENGL_CALLING_CONVENTION * glDisableFn)(GLenum cap);
+    extern void (OPENGL_CALLING_CONVENTION * glAlphaFuncFn)(GLenum func, GLclampf ref);
+    extern void (OPENGL_CALLING_CONVENTION * glEnableClientStateFn) (GLenum array);
+    extern void (OPENGL_CALLING_CONVENTION * glVertexPointerFn) (GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
+    extern void (OPENGL_CALLING_CONVENTION * glTexCoordPointerFn) (GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
+
+    extern const GLenum GL_VERTEX_ARRAY_MWM;
+    extern const GLenum GL_TEXTURE_COORD_ARRAY_MWM;
+
+    extern void (OPENGL_CALLING_CONVENTION * glMatrixModeFn) (GLenum mode);
+    extern void (OPENGL_CALLING_CONVENTION * glLoadIdentityFn)();
+    extern void (OPENGL_CALLING_CONVENTION * glOrthoFn) (GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat zNear, GLfloat zFar);
+    extern void (OPENGL_CALLING_CONVENTION * glDrawElementsFn) (GLenum mode, GLsizei count, GLenum type, const GLvoid *indices);
+
+    extern const GLenum GL_MODELVIEW_MWM;
+    extern const GLenum GL_PROJECTION_MWM;
+
+    extern const GLenum GL_ALPHA_TEST_MWM;
+
+    /// information about supported extensions
+
     extern bool g_isFramebufferSupported;
     extern bool g_isBufferObjectsSupported;
     extern bool g_isRenderbufferSupported;
@@ -121,6 +159,12 @@ namespace yg
     /// each platform should have an implementation of this function
     /// to check extensions support and initialize function pointers.
     void InitExtensions();
+
+    /// Initialize per-thread OpenGL
+    void InitializeThread();
+
+    /// Finalize per-thread OpenGL
+    void FinalizeThread();
 
     /// Does we have an extension with the specified name?
     bool HasExtension(char const * name);

@@ -36,7 +36,7 @@ namespace yg
 
 //      OGLCHECK(glPolygonMode( GL_FRONT_AND_BACK, GL_LINE ));
 
-      OGLCHECK(glDrawElements(
+      OGLCHECK(glDrawElementsFn(
         GL_TRIANGLES,
         m_indicesCount,
         GL_UNSIGNED_SHORT,
@@ -64,18 +64,22 @@ namespace yg
       if (renderQueue())
         return;
 
-      OGLCHECK(glEnable(GL_TEXTURE_2D));
+      OGLCHECK(glActiveTexture(GL_TEXTURE0));
+
+#ifndef USING_GLSL
+      OGLCHECK(glEnableFn(GL_TEXTURE_2D));
+#endif
 
       OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
       OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 
-      OGLCHECK(glEnable(GL_DEPTH_TEST));
+      OGLCHECK(glEnableFn(GL_DEPTH_TEST));
       OGLCHECK(glDepthFunc(GL_LEQUAL));
 
-      OGLCHECK(glEnable(GL_ALPHA_TEST));
-      OGLCHECK(glAlphaFunc(GL_GREATER, 0.0));
+      OGLCHECK(glEnableFn(GL_ALPHA_TEST_MWM));
+      OGLCHECK(glAlphaFuncFn(GL_NOTEQUAL, 0.0));
 
-      OGLCHECK(glEnable(GL_BLEND));
+      OGLCHECK(glEnableFn(GL_BLEND));
 
       if (yg::gl::g_isSeparateBlendFuncSupported)
         OGLCHECK(glBlendFuncSeparateFn(GL_SRC_ALPHA,
@@ -86,7 +90,9 @@ namespace yg
         OGLCHECK(glBlendFunc(GL_SRC_ALPHA,
                              GL_ONE_MINUS_SRC_ALPHA));
 
+#ifndef USING_GLSL
       OGLCHECK(glColor4f(1.0f, 1.0f, 1.0f, 1.0f));
+#endif
     }
   }
 }

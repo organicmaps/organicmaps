@@ -32,9 +32,35 @@ namespace yg
 
     const int GL_WRITE_ONLY_MWM = GL_WRITE_ONLY_OES;
 
+    const GLenum GL_MODELVIEW_MWM = GL_MODELVIEW;
+    const GLenum GL_PROJECTION_MWM = GL_PROJECTION;
+    const GLenum GL_ALPHA_TEST_MWM = GL_ALPHA_TEST;
+
+    const GLenum GL_VERTEX_ARRAY_MWM = GL_VERTEX_ARRAY;
+    const GLenum GL_TEXTURE_COORD_ARRAY_MWM = GL_TEXTURE_COORD_ARRAY;
+
+    void InitializeThread()
+    {}
+
+    void FinalizeThread()
+    {}
+
     void InitExtensions()
     {
       DumpGLInformation();
+
+      glEnableFn = &glEnable;
+      glDisableFn = &glDisable;
+      glAlphaFuncFn = &glAlphaFunc;
+
+      glVertexPointerFn = &glVertexPointer;
+      glTexCoordPointerFn = &glTexCoordPointer;
+      glEnableClientStateFn = &glEnableClientState;
+
+      glMatrixModeFn = &glMatrixMode;
+      glLoadIdentityFn = &glLoadIdentity;
+      glOrthoFn = &glOrthof;
+      glDrawElementsFn = &glDrawElements;
 
       g_isBufferObjectsSupported = HasExtension("GL_OES_mapbuffer");
 

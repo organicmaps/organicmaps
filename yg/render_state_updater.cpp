@@ -67,7 +67,7 @@ namespace yg
 
       OGLCHECK(glFinish());
 
-      OGLCHECK(glDisable(GL_SCISSOR_TEST));
+      OGLCHECK(glDisableFn(GL_SCISSOR_TEST));
 
       m_auxFrameBuffer->setRenderTarget(m_renderState->m_backBuffer);
       m_auxFrameBuffer->makeCurrent();
@@ -91,7 +91,7 @@ namespace yg
       m_frameBuffer->makeCurrent();
 
       if (m_isClipRectEnabled)
-        OGLCHECK(glEnable(GL_SCISSOR_TEST));
+        OGLCHECK(glEnableFn(GL_SCISSOR_TEST));
 
       OGLCHECK(glScissor(m_clipRect.minX(), m_clipRect.minY(), m_clipRect.maxX(), m_clipRect.maxY()));
 
