@@ -14,7 +14,7 @@ Mac OS X:
 
 - Unzip NDK
 - Create android-debug configuration in the QtCreator and set it's properties:
---- Shadow dir omim-android-debug
+--- Shadow dir omim-android-<configuration>-armeabi
 --- Override qmake parameters: -spec /path/to/omim/tools/mkspecs/android-g++
 --- Set Environment variables
     NDK_ROOT=/path/to/android-ndk-<version>
@@ -24,6 +24,9 @@ Mac OS X:
 
 !!!!! For any system !!!!!
 - See additional scripts and follow their instructions in <omim>/tools/android
+--- Rename originat aapt file (<SDK>/platform_tools/aapt) to aapt2
+--- Copy <omim>/tools/android/aapt to <SDK>/platform_tools/
+--- Run <omim>/tools/android/update_assets.sh
 
 How to configure Debug/Release configurations in Eclipse:
 
