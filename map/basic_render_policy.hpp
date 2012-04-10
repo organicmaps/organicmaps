@@ -45,7 +45,7 @@ public:
   RenderQueue & GetRenderQueue();
 
   void SetRenderFn(TRenderFn renderFn);
-  void SetEmptyModelFn(TEmptyModelFn const & checkFn);
+  void SetEmptyModelFn(TEmptyModelFn checkFn);
 
   bool NeedRedraw() const;
 };

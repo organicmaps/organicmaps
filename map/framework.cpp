@@ -535,16 +535,15 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
 bool Framework::IsEmptyModel(m2::PointD const & pt)
 {
   // Correct, but slow version (check country polygon).
-  /*
   string const fName = GetSearchEngine()->GetCountryFile(pt);
   if (fName.empty())
     return false;
 
   return !m_model.IsLoaded(fName);
-  */
-
   // Fast, but not strict-correct version (just check limit rect).
-  return !m_model.IsCountryLoaded(pt);
+  // *Upd* Doesn't work in many cases, as there are a lot of countries which has limit rect
+  // that even roughly doesn't correspond to the shape of the country.
+  //  return !m_model.IsCountryLoaded(pt);
 }
 
 void Framework::BeginPaint(shared_ptr<PaintEvent> const & e)

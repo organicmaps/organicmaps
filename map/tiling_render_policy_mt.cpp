@@ -173,5 +173,6 @@ void TilingRenderPolicyMT::SetRenderFn(TRenderFn renderFn)
                                                   m_windowHandle,
                                                   m_primaryRC,
                                                   m_resourceManager,
-                                                  0));
+                                                  0,
+                                                  m_emptyModelFn));
 }

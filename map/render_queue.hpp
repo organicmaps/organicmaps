@@ -54,8 +54,7 @@ public:
 
   void SetRedrawAll();
 
-  template <class TFn>
-  inline void SetEmptyModelFn(TFn const & fn) { m_routine->SetEmptyModelFn(fn); }
+  void SetEmptyModelFn(RenderQueueRoutine::TEmptyModelFn fn);
 
   void SetVisualScale(double visualScale);
 

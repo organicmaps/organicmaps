@@ -64,7 +64,7 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
   m_DrawScale = curCvg->GetDrawScale();
 
   if (!curCvg->IsEmptyDrawingCoverage() || !curCvg->IsPartialCoverage())
-    m_IsEmptyModel = curCvg->IsEmptyDrawingCoverage();
+    m_IsEmptyModel = curCvg->IsEmptyDrawingCoverage() && curCvg->IsEmptyModelAtCoverageCenter();
 
   pDrawer->endFrame();
 }

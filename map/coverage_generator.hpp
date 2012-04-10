@@ -50,13 +50,16 @@ private:
 
   threads::Mutex m_mutex;
 
+  RenderPolicy::TEmptyModelFn m_emptyModelFn;
+
 public:
 
   CoverageGenerator(TileRenderer * tileRenderer,
                     shared_ptr<WindowHandle> const & windowHandle,
                     shared_ptr<yg::gl::RenderContext> const & primaryRC,
                     shared_ptr<yg::ResourceManager> const & rm,
-                    yg::gl::PacketsQueue * glQueue);
+                    yg::gl::PacketsQueue * glQueue,
+                    RenderPolicy::TEmptyModelFn emptyModelFn);
 
   ~CoverageGenerator();
 
@@ -68,13 +71,17 @@ public:
 
   void AddCoverScreenTask(ScreenBase const & screen, bool doForce);
   void AddMergeTileTask(Tiler::RectInfo const & rectInfo, int sequenceID);
+  void AddCheckEmptyModelTask(int sequenceID);
 
   void CoverScreen(ScreenBase const & screen, int sequenceID);
   void MergeTile(Tiler::RectInfo const & rectInfo, int sequenceID);
+  void CheckEmptyModel(int sequenceID);
 
   void Cancel();
 
   void WaitForEmptyAndFinished();
+
+  bool IsEmptyModelAtPoint(m2::PointD const & pt) const;
 
   ScreenCoverage & CurrentCoverage();
 

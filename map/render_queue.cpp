@@ -70,6 +70,11 @@ void RenderQueue::SetRedrawAll()
   m_renderState->m_doRepaintAll = true;
 }
 
+void RenderQueue::SetEmptyModelFn(RenderQueueRoutine::TEmptyModelFn fn)
+{
+  m_routine->SetEmptyModelFn(fn);
+}
+
 void RenderQueue::AddWindowHandle(shared_ptr<WindowHandle> const & windowHandle)
 {
   m_routine->addWindowHandle(windowHandle);

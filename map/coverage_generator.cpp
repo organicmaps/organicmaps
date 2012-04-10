@@ -17,13 +17,15 @@ CoverageGenerator::CoverageGenerator(
     shared_ptr<WindowHandle> const & windowHandle,
     shared_ptr<yg::gl::RenderContext> const & primaryRC,
     shared_ptr<yg::ResourceManager> const & rm,
-    yg::gl::PacketsQueue * glQueue)
+    yg::gl::PacketsQueue * glQueue,
+    RenderPolicy::TEmptyModelFn emptyModelFn)
   : m_queue(1),
     m_tileRenderer(tileRenderer),
     m_workCoverage(0),
     m_currentCoverage(new ScreenCoverage(tileRenderer, this)),
     m_sequenceID(0),
-    m_windowHandle(windowHandle)
+    m_windowHandle(windowHandle),
+    m_emptyModelFn(emptyModelFn)
 {
   g_coverageGeneratorDestroyed = false;
 
@@ -133,6 +135,10 @@ void CoverageGenerator::CoverScreen(ScreenBase const & screen, int sequenceID)
   m_workCoverage->SetSequenceID(sequenceID);
   m_workCoverage->SetResourceStyleCache(m_workStylesCache.get());
   m_workCoverage->SetScreen(screen);
+
+  if (!m_workCoverage->IsPartialCoverage() && m_workCoverage->IsEmptyDrawingCoverage())
+    AddCheckEmptyModelTask(sequenceID);
+
   m_workCoverage->CacheInfoLayer();
 
   {
@@ -174,6 +180,10 @@ void CoverageGenerator::MergeTile(Tiler::RectInfo const & rectInfo, int sequence
   m_workCoverage->SetSequenceID(sequenceID);
   m_workCoverage->SetResourceStyleCache(m_workStylesCache.get());
   m_workCoverage->Merge(rectInfo);
+
+  if (!m_workCoverage->IsPartialCoverage() && m_workCoverage->IsEmptyDrawingCoverage())
+    AddCheckEmptyModelTask(sequenceID);
+
   m_workCoverage->CacheInfoLayer();
 
   {
@@ -197,6 +207,21 @@ void CoverageGenerator::MergeTile(Tiler::RectInfo const & rectInfo, int sequence
   m_windowHandle->invalidate();
 }
 
+void CoverageGenerator::AddCheckEmptyModelTask(int sequenceID)
+{
+  m_queue.AddCommand(bind(&CoverageGenerator::CheckEmptyModel, this, sequenceID));
+}
+
+void CoverageGenerator::CheckEmptyModel(int sequenceID)
+{
+  if (sequenceID < m_sequenceID)
+    return;
+
+  m_currentCoverage->CheckEmptyModelAtCoverageCenter();
+
+  m_windowHandle->invalidate();
+}
+
 void CoverageGenerator::WaitForEmptyAndFinished()
 {
   m_queue.Join();
@@ -215,4 +240,9 @@ threads::Mutex & CoverageGenerator::Mutex()
 shared_ptr<yg::ResourceManager> const & CoverageGenerator::resourceManager() const
 {
   return m_resourceManager;
+}
+
+bool CoverageGenerator::IsEmptyModelAtPoint(m2::PointD const & pt) const
+{
+  return m_emptyModelFn(pt);
 }

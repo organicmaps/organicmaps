@@ -118,7 +118,7 @@ public:
 
   void onSize(int w, int h);
 
-  void SetEmptyModelFn(TEmptyModelFn const checkFn) { m_emptyModelFn = checkFn; }
+  void SetEmptyModelFn(TEmptyModelFn checkFn);
 
   /// Check, whether the resize command is queued, and resize accordingly.
   void processResize(ScreenBase const & frameScreen);

@@ -53,10 +53,12 @@ private:
   TileSet m_tiles;
   /// InfoLayer composed of infoLayers for visible tiles
   scoped_ptr<yg::InfoLayer> m_infoLayer;
-
+  /// Does this coverage holds only tiles that are empty
   bool m_isEmptyDrawingCoverage;
-
-  int m_leavesCount;
+  /// Does the model empty at the screen center?
+  bool m_isEmptyModelAtCoverageCenter;
+  /// How many "leaf" tiles we should render to cover the screen
+  int m_leafTilesToRender;
 
   CoverageGenerator * m_coverageGenerator;
   yg::ResourceStyleCache * m_stylesCache;
@@ -83,6 +85,10 @@ public:
   bool IsPartialCoverage() const;
   /// Is this screen coverage contains only empty tiles
   bool IsEmptyDrawingCoverage() const;
+  /// Is the model empty at the screen center
+  bool IsEmptyModelAtCoverageCenter() const;
+  /// Check, whether the model is empty at the center of the coverage.
+  void CheckEmptyModelAtCoverageCenter();
   /// Setters/Getters for current stylesCache
   void SetResourceStyleCache(yg::ResourceStyleCache * stylesCache);
   yg::ResourceStyleCache * GetResourceStyleCache() const;

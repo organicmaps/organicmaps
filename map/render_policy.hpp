@@ -46,6 +46,7 @@ protected:
   shared_ptr<WindowHandle> m_windowHandle;
   shared_ptr<DrawerYG> m_drawer;
   TRenderFn m_renderFn;
+  TEmptyModelFn m_emptyModelFn;
   bool m_doSupportRotation;
   bool m_doForceUpdate;
   m2::AnyRectD m_invalidRect;
@@ -81,7 +82,7 @@ public:
 
   /// the start point of rendering in renderpolicy.
   virtual void SetRenderFn(TRenderFn renderFn);
-  virtual void SetEmptyModelFn(TEmptyModelFn const &) {}
+  virtual void SetEmptyModelFn(TEmptyModelFn emptyModelFn);
 
   bool DoSupportRotation() const;
   virtual bool IsTiling() const;

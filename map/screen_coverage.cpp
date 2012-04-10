@@ -20,7 +20,8 @@ ScreenCoverage::ScreenCoverage()
   : m_tiler(),
     m_infoLayer(new yg::InfoLayer()),
     m_isEmptyDrawingCoverage(false),
-    m_leavesCount(0),
+    m_isEmptyModelAtCoverageCenter(true),
+    m_leafTilesToRender(0),
     m_stylesCache(0)
 {
   m_infoLayer->setCouldOverlap(false);
@@ -31,7 +32,8 @@ ScreenCoverage::ScreenCoverage(TileRenderer * tileRenderer,
   : m_tileRenderer(tileRenderer),
     m_infoLayer(new yg::InfoLayer()),
     m_isEmptyDrawingCoverage(false),
-    m_leavesCount(0),
+    m_isEmptyModelAtCoverageCenter(true),
+    m_leafTilesToRender(0),
     m_coverageGenerator(coverageGenerator),
     m_stylesCache(0)
 {
@@ -50,7 +52,8 @@ ScreenCoverage * ScreenCoverage::Clone()
   res->m_newTileRects = m_newTileRects;
   res->m_newLeafTileRects = m_newLeafTileRects;
   res->m_isEmptyDrawingCoverage = m_isEmptyDrawingCoverage;
-  res->m_leavesCount = m_leavesCount;
+  res->m_isEmptyModelAtCoverageCenter = m_isEmptyModelAtCoverageCenter;
+  res->m_leafTilesToRender = m_leafTilesToRender;
 
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
 
@@ -116,7 +119,7 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
        if (m_tiler.isLeaf(ri))
        {
          m_isEmptyDrawingCoverage &= tile->m_isEmptyDrawing;
-         m_leavesCount--;
+         m_leafTilesToRender--;
        }
     }
   }
@@ -180,7 +183,8 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   tileCache->lock();
 
   m_isEmptyDrawingCoverage = true;
-  m_leavesCount = 0;
+  m_isEmptyModelAtCoverageCenter = true;
+  m_leafTilesToRender = 0;
 
   for (unsigned i = 0; i < allRects.size(); ++i)
   {
@@ -202,7 +206,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
     {
       newRects.push_back(ri);
       if (m_tiler.isLeaf(ri))
-        ++m_leavesCount;
+        ++m_leafTilesToRender;
     }
   }
 
@@ -369,7 +373,18 @@ int ScreenCoverage::GetDrawScale() const
 
 bool ScreenCoverage::IsEmptyDrawingCoverage() const
 {
-  return (m_leavesCount <= 0) && m_isEmptyDrawingCoverage;
+  return (m_leafTilesToRender <= 0) && m_isEmptyDrawingCoverage;
+}
+
+bool ScreenCoverage::IsEmptyModelAtCoverageCenter() const
+{
+  return m_isEmptyModelAtCoverageCenter;
+}
+
+void ScreenCoverage::CheckEmptyModelAtCoverageCenter()
+{
+  if (!IsPartialCoverage() && IsEmptyDrawingCoverage())
+    m_isEmptyModelAtCoverageCenter = m_coverageGenerator->IsEmptyModelAtPoint(m_screen.GlobalRect().GetGlobalRect().Center());
 }
 
 bool ScreenCoverage::IsPartialCoverage() const

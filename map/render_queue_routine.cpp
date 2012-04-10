@@ -81,6 +81,11 @@ void RenderQueueRoutine::onSize(int w, int h)
   m_newBackBuffer = m_resourceManager->createRenderTarget(texW, texH);
 }
 
+void RenderQueueRoutine::SetEmptyModelFn(TEmptyModelFn checkFn)
+{
+  m_emptyModelFn = checkFn;
+}
+
 void RenderQueueRoutine::processResize(ScreenBase const & frameScreen)
 {
   if (m_renderState->m_isResized)

@@ -130,6 +130,11 @@ void RenderPolicy::SetRenderFn(TRenderFn renderFn)
   m_renderFn = renderFn;
 }
 
+void RenderPolicy::SetEmptyModelFn(TEmptyModelFn emptyModelFn)
+{
+  m_emptyModelFn = emptyModelFn;
+}
+
 bool RenderPolicy::DoForceUpdate() const
 {
   return m_doForceUpdate;

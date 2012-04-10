@@ -210,7 +210,8 @@ void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
                                                   m_windowHandle,
                                                   m_primaryRC,
                                                   m_resourceManager,
-                                                  m_QueuedRenderer->GetPacketsQueue(GetPlatform().CpuCores())
+                                                  m_QueuedRenderer->GetPacketsQueue(GetPlatform().CpuCores()),
+                                                  m_emptyModelFn
                                                   ));
 
 
