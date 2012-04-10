@@ -265,23 +265,35 @@ void Engine::SearchAsync()
   }
 }
 
-string Engine::GetCountryFile(m2::PointD const & pt) const
+string Engine::GetCountryFile(m2::PointD const & pt)
 {
+  threads::MutexGuard searchGuard(m_searchMutex);
+
   return m_pData->m_infoGetter.GetRegionFile(pt);
 }
 
-string Engine::GetCountryCode(m2::PointD const & pt) const
+string Engine::GetCountryCode(m2::PointD const & pt)
 {
+  threads::MutexGuard searchGuard(m_searchMutex);
+
   storage::CountryInfo info;
   m_pData->m_infoGetter.GetRegionInfo(pt, info);
   return info.m_flag;
 }
 
-string Engine::GetCountryName(m2::PointD const & pt) const
+string Engine::GetCountryName(m2::PointD const & pt)
 {
+  threads::MutexGuard searchGuard(m_searchMutex);
+
   storage::CountryInfo info;
   m_pData->m_infoGetter.GetRegionInfo(pt, info);
   return info.m_name;
+}
+
+void Engine::ClearCaches()
+{
+  /// @todo Add m_pData->m_infoGetter clearing routine.
+  /// Now we have prereserved cache size.
 }
 
 }  // namespace search

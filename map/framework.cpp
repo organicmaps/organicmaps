@@ -668,6 +668,9 @@ void Framework::MemoryWarning()
 {
   // clearing caches on memory warning.
   m_model.ClearCaches();
+
+  GetSearchEngine()->ClearCaches();
+
   LOG(LINFO, ("MemoryWarning"));
 }
 

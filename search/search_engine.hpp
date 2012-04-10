@@ -40,9 +40,11 @@ public:
                      bool hasPt, double lat, double lon);
   void Search(SearchParams const & params, m2::RectD const & viewport);
 
-  string GetCountryFile(m2::PointD const & pt) const;
-  string GetCountryCode(m2::PointD const & pt) const;
-  string GetCountryName(m2::PointD const & pt) const;
+  string GetCountryFile(m2::PointD const & pt);
+  string GetCountryCode(m2::PointD const & pt);
+  string GetCountryName(m2::PointD const & pt);
+
+  void ClearCaches();
 
 private:
   static const int RESULTS_COUNT = 15;
