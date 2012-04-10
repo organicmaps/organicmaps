@@ -18,7 +18,7 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
 {
   yg::ResourceManager::Params rmp = rmParams;
 
-  rmp.selectTexRTFormat();
+  rmp.checkDeviceCaps();
 
   rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512,
                                                                        256,
@@ -113,7 +113,7 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
                                                                  0);
 
   rmp.m_useSingleThreadedOGL = false;
-  rmp.m_useVA = !yg::gl::g_isBufferObjectsSupported;
+  rmp.fitIntoLimits();
 
   m_resourceManager.reset(new yg::ResourceManager(rmp));
 

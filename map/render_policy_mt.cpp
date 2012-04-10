@@ -15,7 +15,7 @@ RenderPolicyMT::RenderPolicyMT(VideoTimer * videoTimer,
 {
   yg::ResourceManager::Params rmp = rmParams;
 
-  rmp.selectTexRTFormat();
+  rmp.checkDeviceCaps();
 
   rmp.m_primaryStoragesParams = yg::ResourceManager::StoragePoolParams(5000 * sizeof(yg::gl::Vertex),
                                                                        sizeof(yg::gl::Vertex),
@@ -109,7 +109,6 @@ RenderPolicyMT::RenderPolicyMT(VideoTimer * videoTimer,
                                                                  1);
 
   rmp.m_useSingleThreadedOGL = false;
-  rmp.m_useVA = !yg::gl::g_isBufferObjectsSupported;
 
   rmp.fitIntoLimits();
 

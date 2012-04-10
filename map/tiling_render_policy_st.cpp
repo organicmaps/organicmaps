@@ -20,7 +20,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
 {
   yg::ResourceManager::Params rmp = rmParams;
 
-  rmp.selectTexRTFormat();
+  rmp.checkDeviceCaps();
 
   rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512,
                                                                        256,
@@ -123,8 +123,6 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
 //  delete [] debuggingFlags;
 
   rmp.m_useSingleThreadedOGL = true;
-  rmp.m_useVA = !yg::gl::g_isBufferObjectsSupported;
-
   rmp.fitIntoLimits();
 
   m_maxTilesCount = rmp.m_renderTargetTexturesParams.m_texCount;

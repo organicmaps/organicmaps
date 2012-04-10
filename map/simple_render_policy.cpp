@@ -19,7 +19,7 @@ SimpleRenderPolicy::SimpleRenderPolicy(VideoTimer * videoTimer,
 {
   yg::ResourceManager::Params rmp = rmParams;
 
-  rmp.selectTexRTFormat();
+  rmp.checkDeviceCaps();
 
   rmp.m_primaryStoragesParams = yg::ResourceManager::StoragePoolParams(50000 * sizeof(yg::gl::Vertex),
                                                                        sizeof(yg::gl::Vertex),
@@ -90,7 +90,7 @@ SimpleRenderPolicy::SimpleRenderPolicy(VideoTimer * videoTimer,
 
 
   rmp.m_useSingleThreadedOGL = false;
-  rmp.m_useVA = !yg::gl::g_isBufferObjectsSupported;
+  rmp.fitIntoLimits();
 
   m_resourceManager.reset(new yg::ResourceManager(rmp));
 

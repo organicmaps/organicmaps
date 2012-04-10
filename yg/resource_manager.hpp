@@ -248,7 +248,7 @@ namespace yg
       Params();
 
       void distributeFreeMemory(int freeVideoMemory);
-      void selectTexRTFormat();
+      void checkDeviceCaps();
       void fitIntoLimits();
       int memoryUsage() const;
       int fixedMemoryUsage() const;

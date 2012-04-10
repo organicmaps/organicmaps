@@ -403,10 +403,11 @@ namespace
           && (m_rendererName.find(rendererName) != string::npos);
   }
 
-  void ResourceManager::Params::selectTexRTFormat()
+  void ResourceManager::Params::checkDeviceCaps()
   {
     /// general case
     m_texRtFormat = yg::Data4Bpp;
+    m_useVA = !yg::gl::g_isBufferObjectsSupported;
 
     if (isGPU("Qualcomm", "Adreno", false))
       m_texRtFormat = yg::Data8Bpp;
@@ -419,6 +420,11 @@ namespace
       m_rtFormat = yg::Data8Bpp;
       m_texRtFormat = yg::Data8Bpp;
     }
+
+    /// filtering all devices from Vivante Corporation
+    /// to use vertex arrays
+    if (isGPU("Vivante Corporation", "", false))
+      m_useVA = true;
   }
 
   void ResourceManager::Params::fitIntoLimits()

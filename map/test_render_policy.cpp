@@ -18,6 +18,8 @@ TestRenderPolicy::TestRenderPolicy(VideoTimer * videoTimer,
 {
   yg::ResourceManager::Params rmp = rmParams;
 
+  rmp.checkDeviceCaps();
+
   rmp.m_primaryStoragesParams = yg::ResourceManager::StoragePoolParams(50000 * sizeof(yg::gl::Vertex),
                                                                        sizeof(yg::gl::Vertex),
                                                                        10000 * sizeof(unsigned short),
@@ -87,7 +89,7 @@ TestRenderPolicy::TestRenderPolicy(VideoTimer * videoTimer,
 
 
   rmp.m_useSingleThreadedOGL = false;
-  rmp.m_useVA = !yg::gl::g_isBufferObjectsSupported;
+  rmp.fitIntoLimits();
 
   m_resourceManager.reset(new yg::ResourceManager(rmp));
 
