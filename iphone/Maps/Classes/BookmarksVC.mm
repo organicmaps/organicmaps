@@ -7,6 +7,20 @@
 
 @implementation BookmarksVC
 
+- (void)onCancelEdit
+{
+  [self setEditing:NO animated:NO];
+  [m_table setEditing:NO animated:NO];
+  m_navItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(onEdit)] autorelease];
+}
+
+- (void)onEdit
+{
+  [self setEditing:YES animated:YES];
+  [m_table setEditing:YES animated:YES];
+  m_navItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onCancelEdit)] autorelease];
+}
+
 - (id)initWithFramework:(Framework *)f
 {
   if ((self = [super initWithNibName:nil bundle:nil]))
@@ -21,15 +35,16 @@
   UIView * parentView = [[[CustomNavigationView alloc] init] autorelease];
   parentView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
 
-  UINavigationBar * navBar = [[[UINavigationBar alloc] init] autorelease];
-  UINavigationItem * item = [[[UINavigationItem alloc] init] autorelease];
+  m_navItem = [[[UINavigationItem alloc] init] autorelease];
 
-  UIBarButtonItem * closeButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"Bookmarks - Close bookmarks button") style: UIBarButtonItemStyleDone
+  m_navItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Maps", @"Bookmarks - Close bookmarks button") style: UIBarButtonItemStyleDone
                                                                    target:self action:@selector(onCloseButton:)] autorelease];
-  item.leftBarButtonItem = closeButton;
+  // Display Edit button only if table is not empty
+  if (m_framework->BookmarksCount())
+    m_navItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(onEdit)] autorelease];
 
-
-  [navBar pushNavigationItem:item animated:NO];
+  UINavigationBar * navBar = [[[UINavigationBar alloc] init] autorelease];
+  [navBar pushNavigationItem:m_navItem animated:NO];
 
   [parentView addSubview:navBar];
 
@@ -102,19 +117,17 @@
 }
 */
 
-/*
-// Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }
+  if (editingStyle == UITableViewCellEditingStyleDelete)
+  {
+    m_framework->RemoveBookmark(indexPath.row);
+    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+  }
+//  else if (editingStyle == UITableViewCellEditingStyleInsert)
+//  {
+//  }
 }
-*/
 
 /*
 // Override to support rearranging the table view.
