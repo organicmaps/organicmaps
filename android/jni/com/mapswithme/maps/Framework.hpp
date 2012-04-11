@@ -45,10 +45,10 @@ namespace android
 
   public:
 
-    Framework(JavaVM * jvm);
+    Framework();
     ~Framework();
 
-    void SetEmptyModelMessage(jstring emptyModelMsg);
+    void SetEmptyModelMessage(string const & emptyModelMsg);
 
     storage::Storage & Storage();
 

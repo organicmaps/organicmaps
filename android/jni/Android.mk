@@ -12,7 +12,6 @@ TARGET_PLATFORM := android-5
 
 LOCAL_HEADER_FILES := \
  	com/mapswithme/core/jni_helper.hpp \
-	com/mapswithme/core/jni_string.hpp \
 	com/mapswithme/core/logging.hpp \
 	com/mapswithme/core/render_context.hpp \
 	com/mapswithme/maps/Framework.hpp \
@@ -26,7 +25,6 @@ LOCAL_HEADER_FILES := \
 
 LOCAL_SRC_FILES := \
 	com/mapswithme/core/jni_helper.cpp \
-	com/mapswithme/core/jni_string.cpp \
 	com/mapswithme/core/logging.cpp \
 	com/mapswithme/core/render_context.cpp \
 	com/mapswithme/maps/DownloadUI.cpp \
@@ -38,8 +36,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/platform/Platform.cpp \
 	com/mapswithme/platform/HttpThread.cpp \
 	com/mapswithme/platform/Language.cpp \
-	com/mapswithme/jni/jni_thread.cpp \
-	com/mapswithme/jni/jni_method.cpp \
+  com/mapswithme/platform/PThreadImpl.cpp \
 	nv_thread/nv_thread.cpp \
 	nv_event/nv_event_queue.cpp \
 	nv_event/nv_event.cpp \

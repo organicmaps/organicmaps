@@ -3,8 +3,10 @@
 #include <android/log.h>
 
 #include "../../../../../base/assert.hpp"
+#include "../../../../../base/logging.hpp"
 
-namespace jni {
+namespace jni
+{
 
 using namespace my;
 

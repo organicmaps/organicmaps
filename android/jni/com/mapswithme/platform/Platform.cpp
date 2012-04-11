@@ -1,6 +1,6 @@
 #include "Platform.hpp"
 
-#include "../core/jni_string.hpp"
+#include "../core/jni_helper.hpp"
 
 #include "../../../../../base/logging.hpp"
 

@@ -2,9 +2,7 @@
 #include "VideoTimer.hpp"
 
 #include "../core/jni_helper.hpp"
-#include "../core/jni_string.hpp"
 #include "../core/render_context.hpp"
-#include "../jni/jni_thread.hpp"
 
 #include "../../../../../indexer/drawing_rules.hpp"
 
@@ -23,8 +21,6 @@
 #include "../../../../../base/logging.hpp"
 #include "../../../../../base/math.hpp"
 
-android::Framework * g_framework = 0;
-
 namespace android
 {
   void Framework::CallRepaint()
@@ -32,7 +28,7 @@ namespace android
     //LOG(LINFO, ("Calling Repaint"));
   }
 
-  Framework::Framework(JavaVM * jvm)
+  Framework::Framework()
    : m_work(),
      m_eventType(NVMultiTouchEventType(0)),
      m_hasFirst(false),
@@ -44,15 +40,14 @@ namespace android
     ASSERT(g_framework == 0, ());
     g_framework = this;
 
-    m_videoTimer = new VideoTimer(jvm, bind(&Framework::CallRepaint, this));
+    m_videoTimer = new VideoTimer(bind(&Framework::CallRepaint, this));
 
    // @TODO refactor storage
     m_work.Storage().ReInitCountries(false);
   }
 
-  void Framework::SetEmptyModelMessage(jstring s)
+  void Framework::SetEmptyModelMessage(string const & emptyModelMsg)
   {
-    std::string emptyModelMsg = jni::ToString(jni::GetCurrentThreadJNIEnv(), s);
     m_work.GetInformationDisplay().setEmptyModelMessage(emptyModelMsg.c_str());
   }
 

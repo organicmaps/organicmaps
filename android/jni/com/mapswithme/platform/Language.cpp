@@ -1,22 +1,19 @@
-#include <jni.h>
+#include "../core/jni_helper.hpp"
 
 #include "../../../../../base/assert.hpp"
 #include "../../../../../base/logging.hpp"
 
 #include "../../../../../std/string.hpp"
 
-/// Defined and initialized in MWMActivity.cpp
-extern JavaVM * g_jvm;
-
 #define DEFAULT_LANG "en"
 
 /// This function is called from native c++ code
 string GetAndroidSystemLanguage()
 {
-  JNIEnv * env = 0;
-  if (!g_jvm || g_jvm->AttachCurrentThread(&env, 0) || !env)
+  JNIEnv * env = jni::GetEnv();
+  if (!env)
   {
-    LOG(LWARNING, ("Can't attach thread"));
+    LOG(LWARNING, ("Can't get JNIEnv"));
     return DEFAULT_LANG;
   }
 
@@ -42,6 +39,6 @@ string GetAndroidSystemLanguage()
     result = langUtf8;
     env->ReleaseStringUTFChars(langString, langUtf8);
   }
-  g_jvm->DetachCurrentThread();
+
   return result;
 }

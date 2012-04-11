@@ -1,7 +1,8 @@
-#include <jni.h>
+#include "../core/jni_helper.hpp"
+
 #include "Framework.hpp"
 #include "DownloadUI.hpp"
-#include "../jni/jni_thread.hpp"
+
 #include "../../../../../std/bind.hpp"
 
 android::DownloadUI * g_downloadUI = 0;
@@ -10,12 +11,15 @@ namespace android
 {
   DownloadUI::DownloadUI(jobject self)
   {
-    m_self = jni::GetCurrentThreadJNIEnv()->NewGlobalRef(self);
+    JNIEnv * env = jni::GetEnv();
+    m_self = env->NewGlobalRef(self);
 
-    jclass k = jni::GetCurrentThreadJNIEnv()->GetObjectClass(m_self);
-
-    m_onChangeCountry.reset(new jni::Method(k, "onChangeCountry", "(III)V"));
-    m_onProgress.reset(new jni::Method(k, "onProgress", "(IIIJJ)V"));
+    jclass k = env->GetObjectClass(m_self);
+    ASSERT(k, ("Can't get java class"));
+    m_onChangeCountry = env->GetMethodID(k, "onChangeCountry", "(III)V");
+    ASSERT(m_onChangeCountry, ("Can't get onChangeCountry methodID"));
+    m_onProgress = env->GetMethodID(k, "onProgress", "(IIIJJ)V");
+    ASSERT(m_onProgress, ("Can't get onProgress methodID"));
 
     ASSERT(!g_downloadUI, ("DownloadUI is initialized twice"));
     g_downloadUI = this;
@@ -23,18 +27,18 @@ namespace android
 
   DownloadUI::~DownloadUI()
   {
-    jni::GetCurrentThreadJNIEnv()->DeleteGlobalRef(m_self);
     g_downloadUI = 0;
+    jni::GetEnv()->DeleteGlobalRef(m_self);
   }
 
   void DownloadUI::OnChangeCountry(storage::TIndex const & idx)
   {
-    m_onChangeCountry->CallVoid(m_self, idx.m_group, idx.m_country, idx.m_region);
+    jni::GetEnv()->CallVoidMethod(m_self, m_onChangeCountry, idx.m_group, idx.m_country, idx.m_region);
   }
 
   void DownloadUI::OnProgress(storage::TIndex const & idx, pair<int64_t, int64_t> const & p)
   {
-    m_onProgress->CallVoid(m_self, idx.m_group, idx.m_country, idx.m_region, p.first, p.second);
+    jni::GetEnv()->CallVoidMethod(m_self, m_onProgress, idx.m_group, idx.m_country, idx.m_region, p.first, p.second);
   }
 }
 

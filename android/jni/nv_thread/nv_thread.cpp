@@ -4,7 +4,7 @@
 // Email:           tegradev@nvidia.com
 // Web:             http://developer.nvidia.com/category/zone/mobile-development
 //
-// Copyright 2009-2011 NVIDIA® Corporation 
+// Copyright 2009-2011 NVIDIAï¿½ Corporation 
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@ static pthread_key_t s_jniEnvKey = 0;
 #define MODULE "NVThread"
 
 #include "../nv_debug/nv_debug.hpp"
+#include "../com/mapswithme/core/jni_helper.hpp"
 
 void NVThreadInit(JavaVM* vm)
 {
@@ -40,38 +41,40 @@ void NVThreadInit(JavaVM* vm)
 
 JNIEnv* NVThreadGetCurrentJNIEnv()
 {
-  JNIEnv* env = NULL;
-  if (s_jniEnvKey)
-  {
-    env = (JNIEnv*)pthread_getspecific(s_jniEnvKey);
-  }
-  else
-  {
-    pthread_key_create(&s_jniEnvKey, NULL);
-  }
+  return jni::GetEnv();
 
-  if (!env)
-  {
-    // do we have a VM cached?
-    if (!s_vm)
-    {
-      __android_log_print(ANDROID_LOG_DEBUG, MODULE,  "Error - could not find JVM!");
-      return NULL;
-    }
-
-    // Hmm - no env for this thread cached yet
-    int error = s_vm->AttachCurrentThread(&env, NULL);
-    __android_log_print(ANDROID_LOG_DEBUG, MODULE,  "AttachCurrentThread: %d, 0x%p", error, env);
-    if (error || !env)
-    {
-      __android_log_print(ANDROID_LOG_DEBUG, MODULE,  "Error - could not attach thread to JVM!");
-      return NULL;
-    }
-
-    pthread_setspecific(s_jniEnvKey, env);
-  }
-
-  return env;
+//  JNIEnv* env = NULL;
+//  if (s_jniEnvKey)
+//  {
+//    env = (JNIEnv*)pthread_getspecific(s_jniEnvKey);
+//  }
+//  else
+//  {
+//    pthread_key_create(&s_jniEnvKey, NULL);
+//  }
+//
+//  if (!env)
+//  {
+//    // do we have a VM cached?
+//    if (!s_vm)
+//    {
+//      __android_log_print(ANDROID_LOG_DEBUG, MODULE,  "Error - could not find JVM!");
+//      return NULL;
+//    }
+//
+//    // Hmm - no env for this thread cached yet
+//    int error = s_vm->AttachCurrentThread(&env, NULL);
+//    __android_log_print(ANDROID_LOG_DEBUG, MODULE,  "AttachCurrentThread: %d, 0x%p", error, env);
+//    if (error || !env)
+//    {
+//      __android_log_print(ANDROID_LOG_DEBUG, MODULE,  "Error - could not attach thread to JVM!");
+//      return NULL;
+//    }
+//
+//    pthread_setspecific(s_jniEnvKey, env);
+//  }
+//
+//  return env;
 }
 
 typedef struct NVThreadInitStruct
@@ -79,6 +82,12 @@ typedef struct NVThreadInitStruct
   void* m_arg;
   void *(*m_startRoutine)(void *);
 } NVThreadInitStruct;
+
+// Implementations are in PThreadImpl.cpp
+// They're used automatically if thread is created with base/thread.hpp
+// @TODO: refactor and remove
+void AndroidThreadAttachToJVM();
+void AndroidThreadDetachFromJVM();
 
 static void* NVThreadSpawnProc(void* arg)
 {
@@ -89,12 +98,11 @@ static void* NVThreadSpawnProc(void* arg)
 
   free(arg);
 
-  NVThreadGetCurrentJNIEnv();
+  AndroidThreadAttachToJVM();
 
   ret = start_routine(data);
 
-  if (s_vm)
-    s_vm->DetachCurrentThread();
+  AndroidThreadDetachFromJVM();
 
   return ret;
 }

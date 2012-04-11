@@ -1,41 +1,17 @@
-#include <jni.h>
-
-#include "../core/logging.hpp"
-
 #include "Framework.hpp"
-#include "../platform/Platform.hpp"
-#include "../../../../../platform/settings.hpp"
-#include "../../../nv_event/nv_event.hpp"
-#include "../jni/jni_thread.hpp"
-#include "../../../../../base/logging.hpp"
 
-JavaVM * g_jvm;
+#include "../core/jni_helper.hpp"
+
+#include "../platform/Platform.hpp"
+
+#include "../../../nv_event/nv_event.hpp"
+
+#include "../../../../../platform/settings.hpp"
+
+android::Framework * g_framework = 0;
 
 extern "C"
 {
-  JNIEXPORT jint JNICALL
-  JNI_OnLoad(JavaVM * jvm, void * reserved)
-  {
-    jni::InitSystemLog();
-    jni::InitAssertLog();
-
-    LOG(LINFO, ("logging services initialized"));
-
-    jni::SetCurrentJVM(jvm);
-    InitNVEvent(jvm);
-    g_jvm = jvm;
-    LOG(LDEBUG, ("JNI_OnLoad"));
-    return JNI_VERSION_1_6;
-  }
-
-  JNIEXPORT void JNICALL
-  JNI_OnUnload(JavaVM * vm, void * reserved)
-  {
-    delete g_framework;
-    jni::SetCurrentJVM(0);
-  }
-
-
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MWMActivity_nativeInit(JNIEnv * env,
                                                   jobject thiz,
@@ -60,10 +36,11 @@ extern "C"
                                                settingsPath);
 
     if (!g_framework)
-      g_framework = new android::Framework(g_jvm);
+      g_framework = new android::Framework();
 
-    g_framework->SetEmptyModelMessage(emptyModelMessage);
+    g_framework->SetEmptyModelMessage(jni::ToString(env, emptyModelMessage));
   }
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 
   JNIEXPORT void JNICALL

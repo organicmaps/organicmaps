@@ -15,13 +15,11 @@ namespace android
   class VideoTimer : public ::VideoTimer
   {
   private:
-    JavaVM * m_javaVM;
-
     jobject m_videoTimer;
 
   public:
 
-    VideoTimer(JavaVM * jvm, TFrameFn frameFn);
+    VideoTimer(TFrameFn frameFn);
     ~VideoTimer();
 
     void SetParentObject(jobject videoTimer);

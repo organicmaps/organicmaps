@@ -1,10 +1,3 @@
-/*
- * VideoTimer.cpp
- *
- *  Created on: Nov 5, 2011
- *      Author: siarheirachytski
- */
-
 #include "../core/jni_helper.hpp"
 #include "VideoTimer.hpp"
 #include "../../../../../base/assert.hpp"
@@ -14,8 +7,8 @@ android::VideoTimer * g_timer = 0;
 
 namespace android
 {
-  VideoTimer::VideoTimer(JavaVM * javaVM, TFrameFn frameFn)
-    : m_javaVM(javaVM), ::VideoTimer(frameFn)
+  VideoTimer::VideoTimer(TFrameFn frameFn)
+    : ::VideoTimer(frameFn)
   {
     ASSERT(g_timer == 0, ());
     g_timer = this;

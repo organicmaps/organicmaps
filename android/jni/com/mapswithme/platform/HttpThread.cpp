@@ -1,5 +1,7 @@
 #include "../../../../../platform/http_thread_callback.hpp"
 
+#include "../core/jni_helper.hpp"
+
 #include "../maps/DownloadUI.hpp"
 
 class HttpThread
@@ -16,7 +18,7 @@ public:
              string const & pb)
   {
     /// should create java object here.
-    JNIEnv * env = jni::GetCurrentThreadJNIEnv();
+    JNIEnv * env = jni::GetEnv();
 
     jclass klass = env->FindClass("com/mapswithme/maps/downloader/DownloadChunkTask");
     ASSERT(klass, ("Can't find java class com/mapswithme/maps/downloader/DownloadChunkTask"));
@@ -35,11 +37,8 @@ public:
 
   ~HttpThread()
   {
-    JNIEnv * env = jni::GetCurrentThreadJNIEnv();
-    jclass klass = env->FindClass("com/mapswithme/maps/downloader/DownloadChunkTask");
-    ASSERT(klass, ("Can't find java class com/mapswithme/maps/downloader/DownloadChunkTask"));
-
-    jmethodID methodId = env->GetMethodID(klass, "cancel", "(Z)Z");
+    JNIEnv * env = jni::GetEnv();
+    jmethodID methodId = jni::GetJavaMethodID(env, m_self, "cancel", "(Z)Z");
     ASSERT(methodId, ("Can't find java method 'cancel' in com/mapswithme/maps/downloader/DownloadChunkTask"));
 
     env->CallBooleanMethod(m_self, methodId, false);
@@ -73,10 +72,9 @@ extern "C"
       jlong httpCallbackID, jlong beg, jbyteArray data, jlong size)
   {
     downloader::IHttpThreadCallback * cb = reinterpret_cast<downloader::IHttpThreadCallback*>(httpCallbackID);
-    JNIEnv * env0 = jni::GetCurrentThreadJNIEnv();
-    jbyte * buf = env0->GetByteArrayElements(data, 0);
+    jbyte * buf = env->GetByteArrayElements(data, 0);
     cb->OnWrite(beg, buf, size);
-    env0->ReleaseByteArrayElements(data, buf, 0);
+    env->ReleaseByteArrayElements(data, buf, 0);
   }
 
   JNIEXPORT void JNICALL
