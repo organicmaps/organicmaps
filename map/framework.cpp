@@ -653,6 +653,8 @@ void Framework::ShowRectFixed(m2::RectD rect)
 {
   CheckMinGlobalRect(rect);
 
+  CHECK(m_renderPolicy, ("should have renderPolicy here"));
+
   size_t const sz = m_renderPolicy->ScaleEtalonSize();
   m2::RectD etalonRect(0, 0, sz, sz);
   etalonRect.Offset(-etalonRect.SizeX() / 2, -etalonRect.SizeY());

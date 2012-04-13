@@ -38,6 +38,7 @@ public class MWMActivity extends NvEventQueueActivity implements
 
   private BroadcastReceiver m_externalStorageReceiver = null;
   private AlertDialog m_storageDisconnectedDialog = null;
+  private boolean m_shouldStartLocationService = false;
 
   private static Context m_context = null;
   public static Context getCurrentContext() { return m_context; }
@@ -76,8 +77,25 @@ public class MWMActivity extends NvEventQueueActivity implements
     return getFilesDir().getAbsolutePath() + "/";
   }
 
+  public void checkShouldStartLocationService()
+  {
+    if (m_shouldStartLocationService)
+    {
+      m_locationService.startUpdate(this, this);
+      m_shouldStartLocationService = false;
+    }
+  }
+  
   public void OnRenderingInitialized()
   {
+    runOnUiThread(new Runnable()
+    {
+      public void run()
+      {
+        checkShouldStartLocationService();
+      }
+    });
+
     runOnUiThread(new Runnable()
     {
       public void run()
@@ -273,8 +291,10 @@ public class MWMActivity extends NvEventQueueActivity implements
   @Override
   protected void onPause()
   {
-    if (findViewById(R.id.map_button_myposition).isSelected())
-      m_locationService.stopUpdate(this);
+    //< stop update only if it's started in OnRenderingInitialized    
+    if (!m_shouldStartLocationService) 
+      if (findViewById(R.id.map_button_myposition).isSelected())
+        m_locationService.stopUpdate(this);
 
     stopWatchingExternalStorage();
 
@@ -289,7 +309,8 @@ public class MWMActivity extends NvEventQueueActivity implements
     {
       // Change button appearance to "looking for position"
       button.setBackgroundResource(R.drawable.myposition_button_normal);
-      m_locationService.startUpdate(this, this);
+      /// and remember to start locationService updates in OnRenderingInitialized
+      m_shouldStartLocationService = true;
     }
 
     startWatchingExternalStorage();
