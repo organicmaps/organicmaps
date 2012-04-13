@@ -66,12 +66,7 @@ namespace core
   void CommandsQueue::Chain::operator()(CommandsQueue::Environment const & env)
   {
     for (list<function_t>::const_iterator it = m_fns.begin(); it != m_fns.end(); ++it)
-    {
       (*it)(env);
-
-      if (env.isCancelled())
-        break;
-    }
   }
 
   CommandsQueue::Command::Command(bool isWaitable)
