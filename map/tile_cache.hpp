@@ -41,33 +41,37 @@ public:
 
   TileCache();
   /// lock for multithreaded access
-  void lock();
+  void Lock();
   /// unlock for multithreaded access
-  void unlock();
+  void Unlock();
   /// get keys of values in cache
-  set<Tiler::RectInfo> const & keys() const;
+  set<Tiler::RectInfo> const & Keys() const;
   /// add tile to cache
-  void addTile(Tiler::RectInfo const & key, Entry const & entry);
+  void AddTile(Tiler::RectInfo const & key, Entry const & entry);
   /// check, whether we have some tile in the cache
-  bool hasTile(Tiler::RectInfo const & key);
+  bool HasTile(Tiler::RectInfo const & key);
   /// lock tile
-  void lockTile(Tiler::RectInfo const & key);
+  void LockTile(Tiler::RectInfo const & key);
   /// unlock tile
-  void unlockTile(Tiler::RectInfo const & key);
+  void UnlockTile(Tiler::RectInfo const & key);
   /// lock count
-  size_t lockCount(Tiler::RectInfo const & key);
+  size_t LockCount(Tiler::RectInfo const & key);
   /// touch tile
-  void touchTile(Tiler::RectInfo const & key);
+  void TouchTile(Tiler::RectInfo const & key);
   /// get tile from the cache
-  Tile const & getTile(Tiler::RectInfo const & key);
+  Tile const & GetTile(Tiler::RectInfo const & key);
   /// remove the specified tile from the cache
-  void remove(Tiler::RectInfo const & key);
+  void Remove(Tiler::RectInfo const & key);
   /// how much elements can fit in the tileCache
-  int canFit() const;
+  int CanFit() const;
+  /// how many unlocked elements do we have in tileCache
+  int UnlockedWeight() const;
+  /// how many locked elements do we have in tileCache
+  int LockedWeight() const;
   /// the size of the cache
-  int cacheSize() const;
+  int CacheSize() const;
   /// resize the cache
-  void resize(int maxWeight);
+  void Resize(int maxWeight);
   /// free up to weight spaces evicting unlocked elements from cache
-  void freeRoom(int weight);
+  void FreeRoom(int weight);
 };

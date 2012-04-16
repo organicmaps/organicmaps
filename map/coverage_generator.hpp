@@ -70,7 +70,9 @@ public:
   void InvalidateTilesImpl(m2::AnyRectD const & rect, int startScale);
 
   void AddCoverScreenTask(ScreenBase const & screen, bool doForce);
-  void AddMergeTileTask(Tiler::RectInfo const & rectInfo, int sequenceID);
+  void AddMergeTileTask(Tiler::RectInfo const & rectInfo,
+                        int sequenceID);
+
   void AddCheckEmptyModelTask(int sequenceID);
 
   void CoverScreen(ScreenBase const & screen, int sequenceID);

@@ -175,8 +175,6 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   if (m_resourceManager->renderTargetTextures()->IsCancelled())
     return;
 
-  StartTile(rectInfo);
-
   drawer->screen()->setRenderTarget(tileTarget);
 
   shared_ptr<yg::InfoLayer> tileInfoLayer(new yg::InfoLayer());
@@ -226,10 +224,6 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   drawer->screen()->resetInfoLayer();
 
-  // performing some computational task
-  // to give this thread some time to realize
-  // that it could be cancelled
-
   /// filter out the overlay elements that are out of the bound rect for the tile
   if (!env.isCancelled())
     tileInfoLayer->clip(renderRect);
@@ -253,20 +247,20 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
     }
   }
 
-  FinishTile(rectInfo);
-
   if (env.isCancelled())
   {
     if (!m_isExiting)
       m_resourceManager->renderTargetTextures()->Free(tileTarget);
   }
   else
-    AddTile(rectInfo, Tile(tileTarget,
-                           tileInfoLayer,
-                           frameScreen,
-                           rectInfo,
-                           0,
-                           paintEvent->isEmptyDrawing()));
+  {
+    AddActiveTile(Tile(tileTarget,
+                 tileInfoLayer,
+                 frameScreen,
+                 rectInfo,
+                 0,
+                 paintEvent->isEmptyDrawing()));
+  }
 }
 
 void TileRenderer::AddCommand(Tiler::RectInfo const & rectInfo, int sequenceID, core::CommandsQueue::Chain const & afterTileFns)
@@ -300,6 +294,11 @@ TileCache & TileRenderer::GetTileCache()
   return m_tileCache;
 }
 
+TileSet & TileRenderer::GetTileSet()
+{
+  return m_tileSet;
+}
+
 void TileRenderer::WaitForEmptyAndFinished()
 {
   m_queue.Join();
@@ -308,43 +307,10 @@ void TileRenderer::WaitForEmptyAndFinished()
 bool TileRenderer::HasTile(Tiler::RectInfo const & rectInfo)
 {
   TileCache & tileCache = GetTileCache();
-  tileCache.lock();
-  bool res = tileCache.hasTile(rectInfo);
-  tileCache.unlock();
+  tileCache.Lock();
+  bool res = tileCache.HasTile(rectInfo);
+  tileCache.Unlock();
   return res;
-}
-
-void TileRenderer::AddTile(Tiler::RectInfo const & rectInfo, Tile const & tile)
-{
-  m_tileCache.lock();
-  if (m_tileCache.hasTile(rectInfo))
-  {
-    m_resourceManager->renderTargetTextures()->Free(tile.m_renderTarget);
-    m_tileCache.touchTile(rectInfo);
-  }
-  else
-  {
-    if (m_tileCache.canFit() == 0)
-    {
-      LOG(LINFO, ("resizing tileCache to", m_tileCache.cacheSize() + 1, "elements"));
-      m_tileCache.resize(m_tileCache.cacheSize() + 1);
-    }
-
-    m_tileCache.addTile(rectInfo, TileCache::Entry(tile, m_resourceManager));
-  }
-  m_tileCache.unlock();
-}
-
-void TileRenderer::StartTile(Tiler::RectInfo const & rectInfo)
-{
-  threads::MutexGuard g(m_tilesInProgressMutex);
-  m_tilesInProgress.insert(rectInfo);
-}
-
-void TileRenderer::FinishTile(Tiler::RectInfo const & rectInfo)
-{
-  threads::MutexGuard g(m_tilesInProgressMutex);
-  m_tilesInProgress.erase(rectInfo);
 }
 
 void TileRenderer::SetIsPaused(bool flag)
@@ -352,3 +318,45 @@ void TileRenderer::SetIsPaused(bool flag)
   m_isPaused = flag;
 }
 
+void TileRenderer::AddActiveTile(Tile const & tile)
+{
+  m_tileSet.Lock();
+  m_tileCache.Lock();
+
+  Tiler::RectInfo const & key = tile.m_rectInfo;
+
+  if (m_tileSet.HasTile(key) || m_tileCache.HasTile(key))
+    m_resourceManager->renderTargetTextures()->Free(tile.m_renderTarget);
+  else
+  {
+    m_tileSet.AddTile(tile);
+
+    if (m_tileCache.CanFit() == 0)
+    {
+      LOG(LINFO, ("resizing tileCache to", m_tileCache.CacheSize() + 1, "elements"));
+      m_tileCache.Resize(m_tileCache.CacheSize() + 1);
+    }
+
+    m_tileCache.AddTile(key, TileCache::Entry(tile, m_resourceManager));
+    m_tileCache.LockTile(key);
+  }
+
+  m_tileCache.Unlock();
+  m_tileSet.Unlock();
+}
+
+void TileRenderer::RemoveActiveTile(Tiler::RectInfo const & rectInfo)
+{
+  m_tileSet.Lock();
+  m_tileCache.Lock();
+
+  if (m_tileSet.HasTile(rectInfo))
+  {
+    ASSERT(m_tileCache.HasTile(rectInfo), ());
+    m_tileCache.UnlockTile(rectInfo);
+    m_tileSet.RemoveTile(rectInfo);
+  }
+
+  m_tileCache.Unlock();
+  m_tileSet.Unlock();
+}

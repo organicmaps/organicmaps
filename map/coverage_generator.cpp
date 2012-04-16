@@ -3,6 +3,7 @@
 #include "coverage_generator.hpp"
 #include "screen_coverage.hpp"
 #include "tile_renderer.hpp"
+#include "tile_set.hpp"
 
 #include "../yg/rendercontext.hpp"
 
@@ -87,22 +88,22 @@ void CoverageGenerator::InvalidateTilesImpl(m2::AnyRectD const & r, int startSca
 
   TileCache & tileCache = m_tileRenderer->GetTileCache();
 
-  tileCache.lock();
+  tileCache.Lock();
 
   /// here we should copy elements as we've delete some of them later
-  set<Tiler::RectInfo> k = tileCache.keys();
+  set<Tiler::RectInfo> k = tileCache.Keys();
 
   for (set<Tiler::RectInfo>::const_iterator it = k.begin(); it != k.end(); ++it)
   {
     Tiler::RectInfo const & ri = *it;
     if ((ri.m_tileScale >= startScale) && r.IsIntersect(m2::AnyRectD(ri.m_rect)))
     {
-      ASSERT(tileCache.lockCount(ri) == 0, ());
-      tileCache.remove(ri);
+      ASSERT(tileCache.LockCount(ri) == 0, ());
+      tileCache.Remove(ri);
     }
   }
 
-  tileCache.unlock();
+  tileCache.Unlock();
 }
 
 void CoverageGenerator::InvalidateTiles(m2::AnyRectD const & r, int startScale)
@@ -161,7 +162,8 @@ void CoverageGenerator::CoverScreen(ScreenBase const & screen, int sequenceID)
   m_windowHandle->invalidate();
 }
 
-void CoverageGenerator::AddMergeTileTask(Tiler::RectInfo const & rectInfo, int sequenceID)
+void CoverageGenerator::AddMergeTileTask(Tiler::RectInfo const & rectInfo,
+                                         int sequenceID)
 {
   if (g_coverageGeneratorDestroyed)
     return;
@@ -172,7 +174,10 @@ void CoverageGenerator::AddMergeTileTask(Tiler::RectInfo const & rectInfo, int s
 void CoverageGenerator::MergeTile(Tiler::RectInfo const & rectInfo, int sequenceID)
 {
   if (sequenceID < m_sequenceID)
+  {
+    m_tileRenderer->RemoveActiveTile(rectInfo);
     return;
+  }
 
   ASSERT(m_workCoverage == 0, ());
 

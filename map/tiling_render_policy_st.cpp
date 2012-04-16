@@ -60,7 +60,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
 
   rmp.m_renderTargetTexturesParams = yg::ResourceManager::TexturePoolParams(GetPlatform().TileSize(),
                                                                             GetPlatform().TileSize(),
-                                                                            GetPlatform().CpuCores(),
+                                                                            1,
                                                                             rmp.m_texRtFormat,
                                                                             true,
                                                                             true,

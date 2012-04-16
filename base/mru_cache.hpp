@@ -64,9 +64,22 @@ namespace my
       return m_curWeight + weight <= m_maxWeight;
     }
 
-    /// how much elements we can fit in this cache, considering unlocked
-    /// elements, that could be popped out on request
-    int CanFit() const
+    /// how many elements in unlocked state do we have in cache
+    int UnlockedWeight() const
+    {
+      int unlockedWeight = 0;
+
+      for (typename map_t::const_iterator it = m_map.begin(); it != m_map.end(); ++it)
+      {
+        if (it->second.m_lockCount == 0)
+          unlockedWeight += it->second.m_weight;
+      }
+
+      return unlockedWeight;
+    }
+
+    /// how many elements in locked state do we have in cache
+    int LockedWeight() const
     {
       int lockedWeight = 0;
 
@@ -76,7 +89,14 @@ namespace my
           lockedWeight += it->second.m_weight;
       }
 
-      return m_maxWeight - lockedWeight;
+      return lockedWeight;
+    }
+
+    /// how much elements we can fit in this cache, considering unlocked
+    /// elements, that could be popped out on request
+    int CanFit() const
+    {
+      return m_maxWeight - LockedWeight();
     }
 
     int MaxWeight() const
@@ -161,7 +181,7 @@ namespace my
     void UnlockElem(KeyT const & key)
     {
       ASSERT(HasElem(key), ());
-      ASSERT(m_map[key].m_lockCount > 0, ());
+      ASSERT(m_map[key].m_lockCount > 0, (m_map[key].m_lockCount));
       m_map[key].m_lockCount -= 1;
     }
 

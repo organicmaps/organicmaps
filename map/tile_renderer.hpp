@@ -3,6 +3,7 @@
 #include "render_policy.hpp"
 #include "tiler.hpp"
 #include "tile_cache.hpp"
+#include "tile_set.hpp"
 #include "drawer_yg.hpp"
 
 #include "../geometry/screenbase.hpp"
@@ -51,6 +52,10 @@ protected:
 
   TileCache m_tileCache;
 
+  /// set of already rendered tiles, which are waiting
+  /// for the CoverageGenerator to process them
+  TileSet m_tileSet;
+
   RenderPolicy::TRenderFn m_renderFn;
   string m_skinName;
   yg::Color m_bgColor;
@@ -92,6 +97,8 @@ public:
                   core::CommandsQueue::Chain const & afterTileFns = core::CommandsQueue::Chain());
   /// get tile cache.
   TileCache & GetTileCache();
+  /// get tile set
+  TileSet & GetTileSet();
   /// wait on a condition variable for an empty queue.
   void WaitForEmptyAndFinished();
 
@@ -102,10 +109,14 @@ public:
   void ClearCommands();
 
   bool HasTile(Tiler::RectInfo const & rectInfo);
-  void AddTile(Tiler::RectInfo const & rectInfo, Tile const & tile);
 
-  void StartTile(Tiler::RectInfo const & rectInfo);
-  void FinishTile(Tiler::RectInfo const & rectInfo);
+  /// add tile to the temporary set of rendered tiles, cache it and lock it in the cache.
+  /// temporary set is necessary to carry the state between corresponding Tile rendering
+  /// commands and MergeTile commands.
+  void AddActiveTile(Tile const & tile);
+  /// remove tile from the TileSet.
+  /// @param doUpdateCache shows, whether we should
+  void RemoveActiveTile(Tiler::RectInfo const & rectInfo);
 
   void SetIsPaused(bool flag);
 };

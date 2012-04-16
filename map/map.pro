@@ -47,7 +47,8 @@ HEADERS += \
     queued_renderer.hpp \
     basic_tiling_render_policy.hpp \
     render_policy_mt.hpp \
-    bookmark.hpp
+    bookmark.hpp \
+    tile_set.hpp
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -85,13 +86,16 @@ SOURCES += \
     events.cpp \
     basic_tiling_render_policy.cpp \
     render_policy_mt.cpp \
-    address_finder.cpp
+    address_finder.cpp \
+    tile_set.cpp
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp
   SOURCES += qgl_render_context.cpp
   QT += opengl
 }
+
+
 
 
 

@@ -57,17 +57,17 @@ ScreenCoverage * ScreenCoverage::Clone()
 
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
 
-  tileCache->lock();
+  tileCache->Lock();
 
   res->m_tiles = m_tiles;
 
-  for (TileSet::const_iterator it = res->m_tiles.begin(); it != res->m_tiles.end(); ++it)
+  for (TTileSet::const_iterator it = res->m_tiles.begin(); it != res->m_tiles.end(); ++it)
   {
     Tiler::RectInfo const & ri = (*it)->m_rectInfo;
-    tileCache->lockTile(ri);
+    tileCache->LockTile(ri);
   }
 
-  tileCache->unlock();
+  tileCache->Unlock();
 
   res->m_infoLayer.reset();
   res->m_infoLayer.reset(m_infoLayer->clone());
@@ -88,45 +88,46 @@ yg::ResourceStyleCache * ScreenCoverage::GetResourceStyleCache() const
 
 void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
 {
-  if (m_tileRects.find(ri) == m_tileRects.end())
-    return;
+  ASSERT(m_tileRects.find(ri) != m_tileRects.end(), ());
 
-  TileCache * tileCache = &m_tileRenderer->GetTileCache();
+  TileCache & tileCache = m_tileRenderer->GetTileCache();
+  TileSet & tileSet = m_tileRenderer->GetTileSet();
 
   Tile const * tile = 0;
   bool hasTile = false;
 
-  tileCache->lock();
+  tileCache.Lock();
+  tileSet.Lock();
 
-  hasTile = tileCache->hasTile(ri);
-  if (hasTile)
-    tile = &tileCache->getTile(ri);
-
-  bool addTile = false;
+  hasTile = tileSet.HasTile(ri);
 
   if (hasTile)
   {
-    addTile = (m_tiles.find(tile) == m_tiles.end());
+    ASSERT(tileCache.HasTile(ri), ());
 
-    if (addTile)
+    tile = &tileCache.GetTile(ri);
+    ASSERT(m_tiles.find(tile) == m_tiles.end(), ());
+
+    /// while in the TileSet, the tile is assumed to be locked
+
+    m_tiles.insert(tile);
+    m_tileRects.erase(ri);
+    m_newTileRects.erase(ri);
+    m_newLeafTileRects.erase(ri);
+
+    if (m_tiler.isLeaf(ri))
     {
-       tileCache->lockTile(ri);
-       m_tiles.insert(tile);
-       m_tileRects.erase(ri);
-       m_newTileRects.erase(ri);
-       m_newLeafTileRects.erase(ri);
-
-       if (m_tiler.isLeaf(ri))
-       {
-         m_isEmptyDrawingCoverage &= tile->m_isEmptyDrawing;
-         m_leafTilesToRender--;
-       }
+      m_isEmptyDrawingCoverage &= tile->m_isEmptyDrawing;
+      m_leafTilesToRender--;
     }
+
+    tileSet.RemoveTile(ri);
   }
 
-  tileCache->unlock();
+  tileSet.Unlock();
+  tileCache.Unlock();
 
-  if (addTile)
+  if (hasTile)
   {
     if (m_tiler.isLeaf(ri))
     {
@@ -169,13 +170,13 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 
   vector<Tiler::RectInfo> allRects;
   vector<Tiler::RectInfo> newRects;
-  TileSet tiles;
+  TTileSet tiles;
 
   m_tiler.tiles(allRects, GetPlatform().PreCachingDepth());
 
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
 
-  tileCache->lock();
+  tileCache->Lock();
 
   m_isEmptyDrawingCoverage = true;
   m_isEmptyModelAtCoverageCenter = true;
@@ -186,10 +187,10 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
     m_tileRects.insert(allRects[i]);
     Tiler::RectInfo ri = allRects[i];
 
-    if (tileCache->hasTile(ri))
+    if (tileCache->HasTile(ri))
     {
-      tileCache->touchTile(ri);
-      Tile const * tile = &tileCache->getTile(ri);
+      tileCache->TouchTile(ri);
+      Tile const * tile = &tileCache->GetTile(ri);
       ASSERT(tiles.find(tile) == tiles.end(), ());
 
       if (m_tiler.isLeaf(allRects[i]))
@@ -209,26 +210,26 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   /// tiles, that aren't in current coverage are unlocked to allow their deletion from TileCache
   /// tiles, that are new to the current coverage are added into m_tiles and locked in TileCache
 
-  TileSet erasedTiles;
-  TileSet addedTiles;
+  TTileSet erasedTiles;
+  TTileSet addedTiles;
 
-  set_difference(m_tiles.begin(), m_tiles.end(), tiles.begin(), tiles.end(), inserter(erasedTiles, erasedTiles.end()), TileSet::key_compare());
-  set_difference(tiles.begin(), tiles.end(), m_tiles.begin(), m_tiles.end(), inserter(addedTiles, addedTiles.end()), TileSet::key_compare());
+  set_difference(m_tiles.begin(), m_tiles.end(), tiles.begin(), tiles.end(), inserter(erasedTiles, erasedTiles.end()), TTileSet::key_compare());
+  set_difference(tiles.begin(), tiles.end(), m_tiles.begin(), m_tiles.end(), inserter(addedTiles, addedTiles.end()), TTileSet::key_compare());
 
-  for (TileSet::const_iterator it = erasedTiles.begin(); it != erasedTiles.end(); ++it)
+  for (TTileSet::const_iterator it = erasedTiles.begin(); it != erasedTiles.end(); ++it)
   {
     Tiler::RectInfo ri = (*it)->m_rectInfo;
-    tileCache->unlockTile((*it)->m_rectInfo);
+    tileCache->UnlockTile((*it)->m_rectInfo);
     /// here we should "unmerge" erasedTiles[i].m_infoLayer from m_infoLayer
   }
 
-  for (TileSet::const_iterator it = addedTiles.begin(); it != addedTiles.end(); ++it)
+  for (TTileSet::const_iterator it = addedTiles.begin(); it != addedTiles.end(); ++it)
   {
     Tiler::RectInfo ri = (*it)->m_rectInfo;
-    tileCache->lockTile((*it)->m_rectInfo);
+    tileCache->LockTile((*it)->m_rectInfo);
   }
 
-  tileCache->unlock();
+  tileCache->Unlock();
 
   m_tiles = tiles;
 
@@ -236,9 +237,9 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 
   set<Tiler::RectInfo> drawnTiles;
 
-  for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
+  for (TTileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
   {
-    Tiler::RectInfo ri = (*it)->m_rectInfo;
+    Tiler::RectInfo const & ri = (*it)->m_rectInfo;
     drawnTiles.insert(Tiler::RectInfo(ri.m_tileScale, ri.m_x, ri.m_y));
   }
 
@@ -283,10 +284,15 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   {
     Tiler::RectInfo const & ri = firstClassTiles[i];
 
+    core::CommandsQueue::Chain chain;
+
+    chain.addCommand(bind(&CoverageGenerator::AddMergeTileTask,
+                          m_coverageGenerator,
+                          ri,
+                          GetSequenceID()));
+
     m_tileRenderer->AddCommand(ri, GetSequenceID(),
-                               bind(&CoverageGenerator::AddMergeTileTask, m_coverageGenerator,
-                                    ri,
-                                    GetSequenceID()));
+                               chain);
 
     if (m_tiler.isLeaf(ri))
       m_newLeafTileRects.insert(ri);
@@ -295,23 +301,32 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   }
 
   for (size_t i = 0; i < secondClassTiles.size(); ++i)
-    m_tileRenderer->AddCommand(secondClassTiles[i], GetSequenceID());
+  {
+    Tiler::RectInfo const & ri = secondClassTiles[i];
+
+    core::CommandsQueue::Chain chain;
+
+    chain.addCommand(bind(&TileRenderer::RemoveActiveTile,
+                          m_tileRenderer,
+                          ri));
+
+    m_tileRenderer->AddCommand(ri, GetSequenceID(), chain);
+  }
 }
 
 ScreenCoverage::~ScreenCoverage()
 {
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
 
-  /// unlocking tiles from the primary level
+  tileCache->Lock();
 
-  tileCache->lock();
-  for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
+  for (TTileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
   {
     Tiler::RectInfo const & ri = (*it)->m_rectInfo;
-    tileCache->unlockTile(ri);
+    tileCache->UnlockTile(ri);
   }
 
-  tileCache->unlock();
+  tileCache->Unlock();
 }
 
 void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)
@@ -320,7 +335,7 @@ void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)
 
 //  LOG(LINFO, ("drawing", m_tiles.size(), "tiles"));
 
-  for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
+  for (TTileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
   {
     Tile const * tile = *it;
 
@@ -401,7 +416,7 @@ void ScreenCoverage::RemoveTiles(m2::AnyRectD const & r, int startScale)
 {
   vector<Tile const*> toRemove;
 
-  for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
+  for (TTileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
   {
     Tiler::RectInfo const & ri = (*it)->m_rectInfo;
 
@@ -414,7 +429,7 @@ void ScreenCoverage::RemoveTiles(m2::AnyRectD const & r, int startScale)
   for (vector<Tile const *>::const_iterator it = toRemove.begin(); it != toRemove.end(); ++it)
   {
     Tiler::RectInfo const & ri = (*it)->m_rectInfo;
-    tileCache->unlockTile(ri);
+    tileCache->UnlockTile(ri);
     m_tiles.erase(*it);
     m_tileRects.erase(ri);
   }
@@ -426,7 +441,7 @@ void ScreenCoverage::MergeInfoLayer()
 {
   m_infoLayer->clear();
 
-  for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
+  for (TTileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
   {
     Tiler::RectInfo const & ri = (*it)->m_rectInfo;
     if (m_tiler.isLeaf(ri))

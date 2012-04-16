@@ -16,22 +16,22 @@ TileCache::Entry::Entry(Tile const & tile, shared_ptr<yg::ResourceManager> const
 TileCache::TileCache()
 {}
 
-void TileCache::addTile(Tiler::RectInfo const & key, Entry const & entry)
+void TileCache::AddTile(Tiler::RectInfo const & key, Entry const & entry)
 {
   m_cache.Add(key, entry, 1);
 }
 
-void TileCache::lock()
+void TileCache::Lock()
 {
   m_lock.Lock();
 }
 
-void TileCache::unlock()
+void TileCache::Unlock()
 {
   m_lock.Unlock();
 }
 
-set<Tiler::RectInfo> const & TileCache::keys() const
+set<Tiler::RectInfo> const & TileCache::Keys() const
 {
   return m_cache.Keys();
 /*  set<uint64_t> keys = m_cache.Keys();
@@ -47,57 +47,67 @@ set<Tiler::RectInfo> const & TileCache::keys() const
   return rects;*/
 }
 
-bool TileCache::hasTile(Tiler::RectInfo const & key)
+bool TileCache::HasTile(Tiler::RectInfo const & key)
 {
   return m_cache.HasElem(key);
 }
 
-void TileCache::lockTile(Tiler::RectInfo const & key)
+void TileCache::LockTile(Tiler::RectInfo const & key)
 {
   m_cache.LockElem(key);
 }
 
-size_t TileCache::lockCount(Tiler::RectInfo const & key)
+size_t TileCache::LockCount(Tiler::RectInfo const & key)
 {
   return m_cache.LockCount(key);
 }
 
-void TileCache::unlockTile(Tiler::RectInfo const & key)
+void TileCache::UnlockTile(Tiler::RectInfo const & key)
 {
   m_cache.UnlockElem(key);
 }
 
-void TileCache::touchTile(Tiler::RectInfo const & key)
+void TileCache::TouchTile(Tiler::RectInfo const & key)
 {
   m_cache.Touch(key);
 }
 
-Tile const & TileCache::getTile(Tiler::RectInfo const & key)
+Tile const & TileCache::GetTile(Tiler::RectInfo const & key)
 {
   return m_cache.Find(key).m_tile;
 }
 
-void TileCache::remove(Tiler::RectInfo const & key)
+void TileCache::Remove(Tiler::RectInfo const & key)
 {
   m_cache.Remove(key);
 }
 
-int TileCache::canFit() const
+int TileCache::CanFit() const
 {
   return m_cache.CanFit();
 }
 
-int TileCache::cacheSize() const
+int TileCache::UnlockedWeight() const
+{
+  return m_cache.UnlockedWeight();
+}
+
+int TileCache::LockedWeight() const
+{
+  return m_cache.LockedWeight();
+}
+
+int TileCache::CacheSize() const
 {
   return m_cache.MaxWeight();
 }
 
-void TileCache::resize(int maxWeight)
+void TileCache::Resize(int maxWeight)
 {
   m_cache.Resize(maxWeight);
 }
 
-void TileCache::freeRoom(int weight)
+void TileCache::FreeRoom(int weight)
 {
   m_cache.FreeRoom(weight);
 }

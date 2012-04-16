@@ -36,16 +36,16 @@ private:
   /// Last covered screen
   ScreenBase  m_screen;
   /// Container for a rects, that forms a set of tiles in the m_screen
-  typedef set<Tiler::RectInfo> TileRectSet;
+  typedef set<Tiler::RectInfo> TTileRectSet;
   /// All rects, including rects which corresponds to a tiles in m_tiles
-  TileRectSet m_tileRects;
+  TTileRectSet m_tileRects;
   /// Only rects, that should be drawn
-  TileRectSet m_newTileRects;
+  TTileRectSet m_newTileRects;
   /// Only leaf rects, that should be drawn
-  TileRectSet m_newLeafTileRects;
+  TTileRectSet m_newLeafTileRects;
   /// Typedef for a set of tiles, that are visible for the m_screen
-  typedef set<Tile const *, LessRectInfo> TileSet;
-  TileSet m_tiles;
+  typedef set<Tile const *, LessRectInfo> TTileSet;
+  TTileSet m_tiles;
   /// InfoLayer composed of infoLayers for visible tiles
   scoped_ptr<yg::InfoLayer> m_infoLayer;
   /// Does this coverage holds only tiles that are empty
