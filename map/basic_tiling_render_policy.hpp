@@ -38,8 +38,7 @@ public:
 
   BasicTilingRenderPolicy(shared_ptr<yg::gl::RenderContext> const & primaryRC,
                           bool doSupportRotation,
-                          size_t idCacheSize,
-                          shared_ptr<QueuedRenderer> const & queuedRenderer = shared_ptr<QueuedRenderer>());
+                          bool doUseQueuedRenderer);
 
   void BeginFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);
   void DrawFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);

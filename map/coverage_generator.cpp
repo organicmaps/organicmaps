@@ -110,6 +110,9 @@ void CoverageGenerator::InvalidateTiles(m2::AnyRectD const & r, int startScale)
 {
   /// this automatically will skip the previous CoverScreen commands
   /// and MergeTiles commands from previously generated ScreenCoverages
+  if (m_sequenceID == numeric_limits<int>::max())
+    return;
+
   ++m_sequenceID;
   m_queue.AddCommand(bind(&CoverageGenerator::InvalidateTilesImpl, this, r, startScale));
 }
@@ -117,6 +120,9 @@ void CoverageGenerator::InvalidateTiles(m2::AnyRectD const & r, int startScale)
 void CoverageGenerator::AddCoverScreenTask(ScreenBase const & screen, bool doForce)
 {
   if ((screen == m_currentScreen) && (!doForce))
+    return;
+
+  if (m_sequenceID == numeric_limits<int>::max())
     return;
 
   m_currentScreen = screen;
@@ -240,6 +246,11 @@ ScreenCoverage & CoverageGenerator::CurrentCoverage()
 threads::Mutex & CoverageGenerator::Mutex()
 {
   return m_mutex;
+}
+
+void CoverageGenerator::SetSequenceID(int sequenceID)
+{
+  m_sequenceID = sequenceID;
 }
 
 shared_ptr<yg::ResourceManager> const & CoverageGenerator::resourceManager() const

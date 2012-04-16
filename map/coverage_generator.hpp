@@ -87,6 +87,8 @@ public:
 
   ScreenCoverage & CurrentCoverage();
 
+  void SetSequenceID(int sequenceID);
+
   threads::Mutex & Mutex();
 
   shared_ptr<yg::ResourceManager> const & resourceManager() const;

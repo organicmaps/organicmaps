@@ -15,9 +15,10 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                            shared_ptr<yg::gl::RenderContext> const & primaryRC)
   : BasicTilingRenderPolicy(primaryRC,
                             false,
-                            GetPlatform().CpuCores(),
-                            make_shared_ptr(new QueuedRenderer(GetPlatform().CpuCores() + 1)))
+                            true)
 {
+  int cpuCores = GetPlatform().CpuCores();
+
   yg::ResourceManager::Params rmp = rmParams;
 
   rmp.checkDeviceCaps();
@@ -106,8 +107,8 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                     false,
                                                                     false);
 
-/*  bool * debuggingFlags = new bool[GetPlatform().CpuCores() + 2];
-  for (unsigned i = 0; i < GetPlatform().CpuCores() + 2; ++i)
+/*  bool * debuggingFlags = new bool[cpuCores + 2];
+  for (unsigned i = 0; i < cpuCores + 2; ++i)
     debuggingFlags[i] = false;
 
   debuggingFlags[0] = true;*/
@@ -116,8 +117,8 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                  "fonts_whitelist.txt",
                                                                  "fonts_blacklist.txt",
                                                                  2 * 1024 * 1024,
-                                                                 GetPlatform().CpuCores() + 2,
-                                                                 GetPlatform().CpuCores(),
+                                                                 cpuCores + 2,
+                                                                 cpuCores,
                                                                  0);
 
 //  delete [] debuggingFlags;
@@ -161,16 +162,24 @@ TilingRenderPolicyST::~TilingRenderPolicyST()
   LOG(LINFO, ("cancelling ResourceManager"));
   m_resourceManager->cancel();
 
+  int cpuCores = GetPlatform().CpuCores();
+
   LOG(LINFO, ("deleting TilingRenderPolicyST"));
 
-  m_QueuedRenderer->CancelQueuedCommands(GetPlatform().CpuCores());
+  m_QueuedRenderer->PrepareQueueCancellation(cpuCores);
+
+  /// now we should process all commands to collect them into queues
+  m_CoverageGenerator->SetSequenceID(numeric_limits<int>::max());
+  m_CoverageGenerator->WaitForEmptyAndFinished();
+
+  m_QueuedRenderer->CancelQueuedCommands(cpuCores);
 
   LOG(LINFO, ("reseting coverageGenerator"));
   m_CoverageGenerator.reset();
 
   /// firstly stop all rendering commands in progress and collect all commands into queues
 
-  for (unsigned i = 0; i < GetPlatform().CpuCores(); ++i)
+  for (unsigned i = 0; i < cpuCores; ++i)
     m_QueuedRenderer->PrepareQueueCancellation(i);
 
   m_TileRenderer->ClearCommands();
@@ -180,7 +189,7 @@ TilingRenderPolicyST::~TilingRenderPolicyST()
 
   /// now we should cancel all collected commands
 
-  for (unsigned i = 0; i < GetPlatform().CpuCores(); ++i)
+  for (unsigned i = 0; i < cpuCores; ++i)
     m_QueuedRenderer->CancelQueuedCommands(i);
 
   LOG(LINFO, ("reseting tileRenderer"));
@@ -190,13 +199,14 @@ TilingRenderPolicyST::~TilingRenderPolicyST()
 
 void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
 {
-  yg::gl::PacketsQueue ** queues = new yg::gl::PacketsQueue*[GetPlatform().CpuCores()];
+  int cpuCores = GetPlatform().CpuCores();
+  yg::gl::PacketsQueue ** queues = new yg::gl::PacketsQueue*[cpuCores];
 
-  for (unsigned i = 0; i < GetPlatform().CpuCores(); ++i)
+  for (unsigned i = 0; i < cpuCores; ++i)
     queues[i] = m_QueuedRenderer->GetPacketsQueue(i);
 
   m_TileRenderer.reset(new TileRenderer(GetPlatform().SkinName(),
-                                        GetPlatform().CpuCores(),
+                                        cpuCores,
                                         m_bgColor,
                                         renderFn,
                                         m_primaryRC,
@@ -210,10 +220,8 @@ void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
                                                   m_windowHandle,
                                                   m_primaryRC,
                                                   m_resourceManager,
-                                                  m_QueuedRenderer->GetPacketsQueue(GetPlatform().CpuCores()),
+                                                  m_QueuedRenderer->GetPacketsQueue(cpuCores),
                                                   m_emptyModelFn
                                                   ));
-
-
 }
 

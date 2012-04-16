@@ -14,7 +14,7 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
                                            shared_ptr<yg::gl::RenderContext> const & primaryRC)
   : BasicTilingRenderPolicy(primaryRC,
                             false,
-                            GetPlatform().CpuCores())
+                            false)
 {
   yg::ResourceManager::Params rmp = rmParams;
 

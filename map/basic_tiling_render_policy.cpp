@@ -1,5 +1,7 @@
 #include "basic_tiling_render_policy.hpp"
 
+#include "../platform/platform.hpp"
+
 #include "../indexer/scales.hpp"
 
 #include "tile_renderer.hpp"
@@ -9,14 +11,14 @@
 
 BasicTilingRenderPolicy::BasicTilingRenderPolicy(shared_ptr<yg::gl::RenderContext> const & primaryRC,
                                                  bool doSupportRotation,
-                                                 size_t idCacheSize,
-                                                 shared_ptr<QueuedRenderer> const & queuedRenderer)
-  : RenderPolicy(primaryRC, doSupportRotation, idCacheSize),
-    m_QueuedRenderer(queuedRenderer),
+                                                 bool doUseQueuedRenderer)
+  : RenderPolicy(primaryRC, doSupportRotation, GetPlatform().CpuCores()),
     m_DrawScale(0),
     m_IsEmptyModel(false),
     m_DoRecreateCoverage(false)
 {
+  if (doUseQueuedRenderer)
+    m_QueuedRenderer.reset(new QueuedRenderer(GetPlatform().CpuCores() + 1));
 }
 
 void BasicTilingRenderPolicy::BeginFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
