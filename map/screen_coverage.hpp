@@ -23,11 +23,6 @@ namespace yg
 
 class CoverageGenerator;
 
-struct LessRectInfo
-{
-  bool operator()(Tile const * l, Tile const * r) const;
-};
-
 class ScreenCoverage
 {
 private:

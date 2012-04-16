@@ -23,3 +23,8 @@ Tile::Tile(shared_ptr<yg::gl::BaseTexture> const & renderTarget,
 
 Tile::~Tile()
 {}
+
+bool LessRectInfo::operator()(Tile const * l, Tile const * r) const
+{
+  return l->m_rectInfo < r->m_rectInfo;
+}

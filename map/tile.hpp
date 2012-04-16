@@ -36,3 +36,9 @@ struct Tile
 
   ~Tile();
 };
+
+struct LessRectInfo
+{
+  bool operator()(Tile const * l, Tile const * r) const;
+};
+
