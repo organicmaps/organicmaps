@@ -425,6 +425,24 @@ namespace
     /// to use vertex arrays
     if (isGPU("Vivante Corporation", "", false))
       m_useVA = true;
+
+    string name;
+    switch (m_texRtFormat)
+    {
+    case yg::Data4Bpp:
+      name = "Data4Bpp";
+      break;
+    case yg::Data8Bpp:
+      name = "Data8Bpp";
+      break;
+    case yg::Data565Bpp:
+      name = "Data565Bpp";
+      break;
+    default:
+      name = "Unknown";
+    };
+
+    LOG(LINFO, ("selected", name, "format for tile textures"));
   }
 
   void ResourceManager::Params::fitIntoLimits()
