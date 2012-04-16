@@ -26,11 +26,7 @@ public:
 
   struct EntryValueTraits
   {
-    static void Evict(Entry & val)
-    {
-      if (val.m_rm)
-        val.m_rm->renderTargetTextures()->Free(val.m_tile.m_renderTarget);
-    }
+    static void Evict(Entry & val);
   };
 
 private:
