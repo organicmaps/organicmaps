@@ -124,12 +124,14 @@ public:
   void AddLocalMaps();
   void RemoveLocalMaps();
 
-  void AddBookmark(m2::PointD const & pixelCoords);
   void AddBookmark(m2::PointD const & pt, string const & name);
   inline size_t BookmarksCount() const { return m_bookmarks.size(); }
   void GetBookmark(size_t index, Bookmark & bm) const;
   void RemoveBookmark(size_t index);
   void ClearBookmarks();
+
+  inline m2::PointD PtoG(m2::PointD const & p) const { return m_navigator.PtoG(p); }
+  inline m2::PointD GtoP(m2::PointD const & p) const { return m_navigator.GtoP(p); }
 
   void LoadFromKML(ReaderPtr<Reader> const & reader);
   void SaveToKML(std::ostream & s);
@@ -203,17 +205,18 @@ public:
     Invalidate(true);
   }
 
-  /// @name
-  /// @param[in] pt Current touch point in device pixel coordinates.
-  //@{
-  void GetFeatureTypes(m2::PointD pt, vector<string> & types) const;
+  /// Get classificator types for nearest features.
+  /// @param[in] pixPt Current touch point in device pixel coordinates.
+  void GetFeatureTypes(m2::PointD pixPt, vector<string> & types) const;
 
   struct AddressInfo
   {
     string m_country, m_city, m_street, m_house, m_name;
   };
-  void GetAddressInfo(m2::PointD pt, AddressInfo & info) const;
-  //@}
+
+  /// Get address information for point on map.
+  /// @param[in] pt Point in mercator coordinates.
+  void GetAddressInfo(m2::PointD const & pt, AddressInfo & info) const;
 
   virtual void BeginPaint(shared_ptr<PaintEvent> const & e);
   /// Function for calling from platform dependent-paint function.

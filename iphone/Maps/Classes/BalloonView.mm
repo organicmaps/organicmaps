@@ -1,9 +1,14 @@
 #import "BalloonView.h"
 #import <QuartzCore/CALayer.h>
 
+//#include "../../base/logging.hpp"
+
+
 @implementation BalloonView
 
 @synthesize isDisplayed;
+@synthesize glbPos;
+
 
 - (id) initWithTarget:(id)target andSelector:(SEL)selector;
 {
@@ -31,7 +36,8 @@
   m_buttonsView.frame = CGRectMake(pt.x - w/2, pt.y, w, 0);
 
   m_buttonsView.userInteractionEnabled = YES;
-  UITapGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc] initWithTarget:m_target action:m_selector];
+  UITapGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc]
+                                         initWithTarget:m_target action:m_selector];
   recognizer.numberOfTapsRequired = 1;
   recognizer.numberOfTouchesRequired = 1;
   recognizer.delaysTouchesBegan = YES;
@@ -39,6 +45,7 @@
   [recognizer release];
 
   [view addSubview:m_buttonsView];
+
   // Animate buttons view to appear up from the pin
   [UIView transitionWithView:m_buttonsView duration:0.1 options:UIViewAnimationOptionCurveEaseIn
                   animations:^{
@@ -58,16 +65,30 @@
   m_pinView = [[UIImageView alloc ]initWithImage:[UIImage imageNamed:@"marker"]];
   CGFloat const w = m_pinView.bounds.size.width;
   CGFloat const h = m_pinView.bounds.size.height;
-  // Set initial frame at the top outside of the view
   m_pinView.frame = CGRectMake(pt.x - w/2, 0 - h, w, h);
-  //pinView.userInteractionEnabled = YES;
+
   [view addSubview:m_pinView];
+
   // Animate pin to the touched point
   [UIView transitionWithView:m_pinView duration:0.1 options:UIViewAnimationOptionCurveEaseIn
                   animations:^{ m_pinView.frame = CGRectMake(pt.x - w/2, pt.y - h, w, h); }
                   completion:^(BOOL){
                     [self showButtonsInView:view atPoint:CGPointMake(pt.x, pt.y - h)];
                   }];
+}
+
+- (void) updatePosition:(UIView *)view atPoint:(CGPoint)pt
+{
+  if (isDisplayed)
+  {
+    CGFloat const w1 = m_pinView.bounds.size.width;
+    CGFloat const h1 = m_pinView.bounds.size.height;
+    m_pinView.frame = CGRectMake(pt.x - w1/2, pt.y - h1, w1, h1);
+
+    CGFloat const w2 = m_buttonsView.bounds.size.width;
+    CGFloat const h2 = m_buttonsView.bounds.size.height;
+    m_buttonsView.frame = CGRectMake(pt.x - w2/2, pt.y - h1 - h2, w2, h2);
+  }
 }
 
 - (void) hide

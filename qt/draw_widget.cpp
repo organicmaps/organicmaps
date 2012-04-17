@@ -341,7 +341,7 @@ namespace qt
       (void)menu.addSeparator();
 
       Framework::AddressInfo info;
-      m_framework->GetAddressInfo(m2::PointD(pt.x(), pt.y()), info);
+      m_framework->GetAddressInfo(m_framework->PtoG(m2::PointD(pt.x(), pt.y())), info);
 
       add_string(menu, info.m_country);
       add_string(menu, info.m_city);

@@ -190,13 +190,6 @@ void Framework::RemoveLocalMaps()
   m_model.RemoveAllCountries();
 }
 
-void Framework::AddBookmark(m2::PointD const & pixelCoords)
-{
-  // @TODO automatically get bookmark name from the data
-  string const name = "Best offline maps!";
-  m_bookmarks.push_back(Bookmark(m_navigator.Screen().PtoG(m_navigator.ShiftPoint(pixelCoords)), name));
-}
-
 void Framework::AddBookmark(m2::PointD const & pt, string const & name)
 {
   m_bookmarks.push_back(Bookmark(pt, name));
@@ -586,11 +579,12 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
   m_informationDisplay.enableEmptyModelMessage(m_renderPolicy->IsEmptyModel());
 
-  m_informationDisplay.setDebugInfo(0/*m_renderQueue.renderState().m_duration*/,
-                                    GetDrawScale());
-  m_informationDisplay.setCenter(m2::PointD(MercatorBounds::XToLon(center.x), MercatorBounds::YToLat(center.y)));
+  m_informationDisplay.setDebugInfo(0/*m_renderQueue.renderState().m_duration*/, GetDrawScale());
 
-  m_informationDisplay.enableRuler(true/*!IsEmptyModel()*/);
+  m_informationDisplay.setCenter(m2::PointD(MercatorBounds::XToLon(center.x),
+                                            MercatorBounds::YToLat(center.y)));
+
+  m_informationDisplay.enableRuler(true);
 
   m_informationDisplay.doDraw(pDrawer);
 

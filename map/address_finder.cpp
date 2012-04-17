@@ -331,10 +331,8 @@ namespace
   };
 }
 
-void Framework::GetAddressInfo(m2::PointD pt, AddressInfo & info) const
+void Framework::GetAddressInfo(m2::PointD const & pt, AddressInfo & info) const
 {
-  pt = m_navigator.Screen().PtoG(m_navigator.ShiftPoint(pt));
-
   info.m_country = GetCountryName(pt);
   if (info.m_country.empty())
   {

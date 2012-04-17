@@ -107,8 +107,13 @@ Framework * m_framework = NULL;
 
 - (void)onBookmarkClicked
 {
-  m_framework->AddBookmark(m_Pt1);
+  Framework::AddressInfo info;
+  m_framework->GetAddressInfo(m_bookmark.glbPos, info);
+
+  m_framework->AddBookmark(m_bookmark.glbPos, info.m_name);
+
   [m_bookmark hide];
+
   m_framework->Invalidate();
 }
 
@@ -116,8 +121,13 @@ Framework * m_framework = NULL;
 {
   if (m_bookmark.isDisplayed)
     [m_bookmark hide];
-  else
-    [m_bookmark showInView:self.view atPoint:[point CGPointValue]];
+
+  //else
+  //{
+    CGPoint const pt = [point CGPointValue];
+    m_bookmark.glbPos = m_framework->PtoG(m2::PointD(pt.x, pt.y));
+    [m_bookmark showInView:self.view atPoint:pt];
+  //}
 }
 
 - (void) dealloc
@@ -192,6 +202,12 @@ NSInteger compareAddress(id l, id r, void * context)
 	}
 }
 
+- (void)updateDataAfterScreenChanged
+{
+  m2::PointD const p = m_framework->GtoP(m_bookmark.glbPos);
+  [m_bookmark updatePosition:self.view atPoint:CGPointMake(p.x, p.y)];
+}
+
 - (void)stopCurrentAction
 {
 	switch (m_CurrentAction)
@@ -205,7 +221,10 @@ NSInteger compareAddress(id l, id r, void * context)
 			m_framework->StopScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
 			break;
 	}
+
 	m_CurrentAction = NOTHING;
+
+  [self updateDataAfterScreenChanged];
 }
 
 - (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
@@ -228,6 +247,8 @@ NSInteger compareAddress(id l, id r, void * context)
 	}
 
 	m_isSticking = true;
+
+  [self updateDataAfterScreenChanged];
 }
 
 - (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
@@ -244,12 +265,10 @@ NSInteger compareAddress(id l, id r, void * context)
 		if ((TempPt1.Length(m_Pt1) > m_StickyThreshold) || (TempPt2.Length(m_Pt2) > m_StickyThreshold))
     {
 			m_isSticking = false;
-      // Hide bookmark icon, if finger has moved
-      [m_bookmark hide];
     }
 		else
 		{
-			/// Still stickying. Restoring old points and return.
+			// Still stickying. Restoring old points and return.
 			m_Pt1 = TempPt1;
 			m_Pt2 = TempPt2;
 			return;
@@ -274,6 +293,8 @@ NSInteger compareAddress(id l, id r, void * context)
 	case NOTHING:
 		return;
 	}
+
+  [self updateDataAfterScreenChanged];
 }
 
 - (void)touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event
@@ -287,21 +308,19 @@ NSInteger compareAddress(id l, id r, void * context)
 
   if (tapCount == 2 && touchesCount == 1 && m_isSticking)
   {
-    // Hide bookmarks icon if it was displayed
-    [m_bookmark hide];
     m_framework->ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2.0));
   }
 
   if (touchesCount == 2 && tapCount == 1 && m_isSticking)
   {
-    // Hide bookmarks icon if it was displayed
-    [m_bookmark hide];
     m_framework->Scale(0.5);
   }
 
   // Launch single tap timer
   if (touchesCount == 1 && tapCount == 1 && m_isSticking)
     [self performSelector:@selector(onSingleTap:) withObject:[NSValue valueWithCGPoint:[theTouch locationInView:self.view]] afterDelay:0.3];
+
+  [self updateDataAfterScreenChanged];
 }
 
 - (void)touchesCancelled:(NSSet*)touches withEvent:(UIEvent*)event
