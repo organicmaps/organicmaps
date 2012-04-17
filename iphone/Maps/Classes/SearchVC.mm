@@ -9,6 +9,7 @@
 #include "../../geometry/distance_on_sphere.hpp"
 #include "../../platform/settings.hpp"
 #include "../../platform/platform.hpp"
+#include "../../platform/preferred_languages.hpp"
 #include "../../indexer/mercator.hpp"
 #include "../../map/framework.hpp"
 #include "../../map/measurement_utils.hpp"
@@ -109,8 +110,16 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 {
   params.m_query = [[queryString precomposedStringWithCompatibilityMapping] UTF8String];
   params.m_callback = bind(&OnSearchResultCallback, _1, g_queryId);
+
   // Set current keyboard input mode
-  params.SetInputLanguage([[UITextInputMode currentInputMode].primaryLanguage UTF8String]);
+  string lang;
+  // UITextInputMode appeared only in iOS >= 4.2
+  if (NSClassFromString(@"UITextInputMode") != nil 
+      && [UITextInputMode respondsToSelector:@selector(currentInputMode)])
+    lang = [[UITextInputMode currentInputMode].primaryLanguage UTF8String];
+  else
+    lang = languages::CurrentLanguage(); // Use current UI language instead
+  params.SetInputLanguage(lang);
 
   double lat, lon;
   if ([m_locationManager getLat:lat Lon:lon])
