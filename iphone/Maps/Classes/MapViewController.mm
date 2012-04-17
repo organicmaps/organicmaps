@@ -3,6 +3,7 @@
 #import "MapsAppDelegate.h"
 #import "EAGLView.h"
 #import "BalloonView.h"
+#import "BookmarksVC.h"
 #import "../Settings/SettingsManager.h"
 #import "../../Common/CustomAlertView.h"
 
@@ -15,6 +16,7 @@
 @synthesize m_myPositionButton;
 @synthesize m_searchButton;
 @synthesize m_downloadButton;
+@synthesize m_bookmarksButton;
 
 // @TODO Make m_framework and m_storage MapsAppDelegate properties instead of global variables.
 Framework * m_framework = NULL;
@@ -104,6 +106,14 @@ Framework * m_framework = NULL;
   [self presentModalViewController:searchVC animated:YES];
   [searchVC release];
 }
+
+- (IBAction)OnBookmarksClicked:(id)sender
+{
+  BookmarksVC * bVC = [[BookmarksVC alloc] initWithFramework:m_framework];
+  [self presentModalViewController:bVC animated:YES];
+  [bVC release];
+}
+
 
 - (void)onBookmarkClicked
 {

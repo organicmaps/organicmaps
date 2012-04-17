@@ -34,11 +34,13 @@
 - (IBAction)OnMyPositionClicked:(id)sender;
 - (IBAction)OnSettingsClicked:(id)sender;
 - (IBAction)OnSearchClicked:(id)sender;
+- (IBAction)OnBookmarksClicked:(id)sender;
 
 -(BOOL)OnProcessURL:(NSString*)url;
 
 @property (nonatomic, retain) IBOutlet UIButton * m_myPositionButton;
 @property (nonatomic, retain) IBOutlet UIButton * m_searchButton;
 @property (nonatomic, retain) IBOutlet UIButton * m_downloadButton;
+@property (nonatomic, retain) IBOutlet UIButton * m_bookmarksButton;
 
 @end
