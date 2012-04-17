@@ -113,20 +113,16 @@ string Platform::UniqueClientId() const
 
     char const * uuidUtf8 = env->GetStringUTFChars(uuidString, 0);
 
-    string result("en");
-
     if (uuidUtf8 != 0)
     {
-      result = uuidUtf8;
+      res = uuidUtf8;
       env->ReleaseStringUTFChars(uuidString, uuidUtf8);
     }
 
-    result = HashUniqueID(result);
+    res = HashUniqueID(res);
 
-    Settings::Set("UniqueClientID", result);
+    Settings::Set("UniqueClientID", res);
   }
-
-  Settings::Get("UniqueClientID", res);
 
   return res;
 }
