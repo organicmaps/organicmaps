@@ -6,6 +6,7 @@
 
 #include "../coding/reader_streambuf.hpp"
 #include "../coding/file_writer.hpp"
+#include "../coding/file_reader.hpp"
 
 #include "../geometry/rect2d.hpp"
 #include "../geometry/any_rect2d.hpp"
@@ -24,7 +25,7 @@ namespace Settings
   {
     try
     {
-      ReaderStreamBuf buffer(GetPlatform().GetReader(SETTINGS_FILE_NAME));
+      ReaderStreamBuf buffer(new FileReader(GetPlatform().SettingsPathForFile(SETTINGS_FILE_NAME)));
       istream stream(&buffer);
 
       string line;
