@@ -27,6 +27,7 @@ public:
   ScreenBase const & StartScreen() const { return m_StartScreen; }
 
   m2::PointD GtoP(m2::PointD const & pt) const;
+  m2::PointD PtoG(m2::PointD const & pt) const;
 
   void StartDrag(m2::PointD const & pt, double timeInSec);
   void DoDrag(m2::PointD const & pt, double timeInSec);

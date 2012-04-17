@@ -124,6 +124,11 @@ m2::PointD Navigator::GtoP(m2::PointD const & pt) const
   return m_Screen.GtoP(pt) - ShiftPoint(m2::PointD(0.0, 0.0));
 }
 
+m2::PointD Navigator::PtoG(m2::PointD const & pt) const
+{
+  return m_Screen.PtoG(ShiftPoint(pt));
+}
+
 bool Navigator::CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
   m2::RectD clipRect = screen.ClipRect();
