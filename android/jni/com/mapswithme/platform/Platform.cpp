@@ -2,6 +2,7 @@
 
 #include "../core/jni_helper.hpp"
 
+#include "../../../../../platform/settings.hpp"
 #include "../../../../../base/logging.hpp"
 
 #include "../../../../../std/algorithm.hpp"
@@ -81,6 +82,53 @@ int Platform::TileSize() const
 int Platform::PreCachingDepth() const
 {
   return m_impl->m_preCachingDepth;
+}
+
+string Platform::UniqueClientId() const
+{
+  string res;
+  if (!Settings::Get("UniqueClientID", res))
+  {
+    JNIEnv * env = jni::GetEnv();
+    if (!env)
+    {
+      LOG(LWARNING, ("Can't get JNIEnv"));
+      return "";
+    }
+
+    jclass uuidClass = env->FindClass("java/util/UUID");
+    ASSERT(uuidClass, ("Can't find java class java/util/UUID"));
+
+    jmethodID randomUUIDId = env->GetStaticMethodID(uuidClass, "randomUUID", "()Ljava/util/UUID;");
+    ASSERT(randomUUIDId, ("Can't find static java/util/UUID.randomUUIDId() method"));
+
+    jobject uuidInstance = env->CallStaticObjectMethod(uuidClass, randomUUIDId);
+    ASSERT(uuidInstance, ("UUID.randomUUID() returned NULL"));
+
+    jmethodID toStringId = env->GetMethodID(uuidClass, "toString", "()Ljava/lang/String;");
+    ASSERT(toStringId, ("Can't find java/util/UUID.toString() method"));
+
+    jstring uuidString = (jstring)env->CallObjectMethod(uuidInstance, toStringId);
+    ASSERT(uuidString, ("UUID.toString() returned NULL"));
+
+    char const * uuidUtf8 = env->GetStringUTFChars(uuidString, 0);
+
+    string result("en");
+
+    if (uuidUtf8 != 0)
+    {
+      result = uuidUtf8;
+      env->ReleaseStringUTFChars(uuidString, uuidUtf8);
+    }
+
+    result = HashUniqueID(result);
+
+    Settings::Set("UniqueClientID", result);
+  }
+
+  Settings::Get("UniqueClientID", res);
+
+  return res;
 }
 
 namespace android

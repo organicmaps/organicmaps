@@ -66,3 +66,5 @@ SOURCES += \
     video_timer.cpp \
     http_request.cpp \
     chunks_download_strategy.cpp \
+    platform.cpp
+

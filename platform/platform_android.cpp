@@ -154,11 +154,6 @@ bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)
   return false;
 }
 
-string Platform::UniqueClientId() const
-{
-  return "@TODO";
-}
-
 bool Platform::IsFeatureSupported(string const & feature) const
 {
   // @TODO add Search feature support

@@ -2,9 +2,6 @@
 
 #include "../base/logging.hpp"
 
-#include "../coding/sha2.hpp"
-#include "../coding/base64.hpp"
-
 #include "../std/target_os.hpp"
 
 #include <IOKit/IOKitLib.h>
@@ -105,15 +102,7 @@ string Platform::UniqueClientId() const
   CFStringGetCString(uuidCf, buf, 512, kCFStringEncodingUTF8);
   CFRelease(uuidCf);
 
-  // generate sha2 hash for UUID
-  string const hash = sha2::digest256(buf, false);
-  // xor it
-  size_t const offset = hash.size() / 4;
-  string xoredHash;
-  for (size_t i = 0; i < offset; ++i)
-    xoredHash.push_back(hash[i] ^ hash[i + offset] ^ hash[i + offset * 2] ^ hash[i + offset * 3]);
-  // and use base64 encoding
-  return base64::encode(xoredHash);
+  return HashUniqueID(buf);
 }
 
 static void PerformImpl(void * obj)

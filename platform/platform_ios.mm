@@ -238,22 +238,9 @@ static string GetMacAddress()
   return result;
 }
 
-static string GetUniqueHashedId()
-{
-  // generate sha2 hash for mac address
-  string const hash = sha2::digest256(GetMacAddress() + GetDeviceUid(), false);
-  // xor it
-  size_t const offset = hash.size() / 4;
-  string xoredHash;
-  for (size_t i = 0; i < offset; ++i)
-    xoredHash.push_back(hash[i] ^ hash[i + offset] ^ hash[i + offset * 2] ^ hash[i + offset * 3]);
-  // and use base64 encoding
-  return base64::encode(xoredHash);
-}
-
 string Platform::UniqueClientId() const
 {
-  return GetUniqueHashedId();
+  return HashUniqueID(GetMacAddress() + GetDeviceUid());
 }
 
 bool Platform::IsFeatureSupported(string const & feature) const

@@ -35,17 +35,10 @@ protected:
 
   /// Internal function to use files from writable dir
   /// if they override the same file in the resources dir
-  string ReadPathForFile(string const & file) const
-  {
-    string fullPath = m_writableDir + file;
-    if (!IsFileExistsByFullPath(fullPath))
-    {
-      fullPath = m_resourcesDir + file;
-      if (!IsFileExistsByFullPath(fullPath))
-        MYTHROW(FileAbsentException, ("File doesn't exist", fullPath));
-    }
-    return fullPath;
-  }
+  string ReadPathForFile(string const & file) const;
+
+  /// Hash some unique string into uniform format.
+  static string HashUniqueID(string const & s);
 
 public:
   Platform();
