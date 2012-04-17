@@ -111,3 +111,31 @@ UNIT_TEST(OsmType_Check)
   DumpParsedTypes(arr3, ARRAY_SIZE(arr3));
   DumpParsedTypes(arr4, ARRAY_SIZE(arr4));
 }
+
+UNIT_TEST(OsmType_Combined)
+{
+  char const * arr[][2] = {
+    { "addr:housenumber", "84" },
+    { "addr:postcode", "220100" },
+    { "addr:street", "ул. Максима Богдановича" },
+    { "amenity", "school" },
+    { "building", "yes" },
+    { "name", "Гимназия 15" }
+  };
+
+  XMLElement e;
+  FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+  FeatureParams params;
+  ftype::GetNameAndType(&e, params);
+
+  Classificator & c = classif();
+  TEST(params.IsTypeExist(c.GetTypeByPath(vector<string>(arr[3], arr[3] + 2))), ());
+  TEST(params.IsTypeExist(c.GetTypeByPath(vector<string>(arr[4], arr[4] + 1))), ());
+
+  string s;
+  params.name.GetString(0, s);
+  TEST_EQUAL(s, arr[5][1], ());
+
+  TEST_EQUAL(params.house.Get(), "84", ());
+}
