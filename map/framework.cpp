@@ -614,7 +614,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
   m_informationDisplay.doDraw(pDrawer);
 
-  m_locationState.DrawMyPosition(*pDrawer, m_navigator.Screen());
+  m_locationState.DrawMyPosition(*pDrawer, m_navigator);
 
   if (m_drawPlacemark)
     m_informationDisplay.drawPlacemark(pDrawer, "placemark", m_navigator.GtoP(m_placemark));
