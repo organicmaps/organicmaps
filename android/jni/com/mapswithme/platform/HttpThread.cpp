@@ -4,6 +4,8 @@
 
 #include "../maps/DownloadUI.hpp"
 
+#include "Platform.hpp"
+
 class HttpThread
 {
 private:
@@ -23,11 +25,15 @@ public:
     jclass klass = env->FindClass("com/mapswithme/maps/downloader/DownloadChunkTask");
     ASSERT(klass, ("Can't find java class com/mapswithme/maps/downloader/DownloadChunkTask"));
 
-    jmethodID methodId = env->GetMethodID(klass, "<init>", "(JLjava/lang/String;JJJLjava/lang/String;)V");
+    jmethodID methodId = env->GetMethodID(klass, "<init>", "(JLjava/lang/String;JJJLjava/lang/String;Ljava/lang/String;)V");
     ASSERT(methodId, ("Can't find java constructor in com/mapswithme/maps/downloader/DownloadChunkTask"));
 
+    // User id is always the same, so do not waste time on every chunk call
+    static string uniqueUserId = GetPlatform().UniqueClientId();
+
     m_self = env->NewGlobalRef(env->NewObject(klass, methodId, reinterpret_cast<jlong>(&cb),
-        env->NewStringUTF(url.c_str()), beg, end, expectedFileSize, env->NewStringUTF(pb.c_str())));
+        env->NewStringUTF(url.c_str()), beg, end, expectedFileSize, env->NewStringUTF(pb.c_str()),
+        env->NewStringUTF(uniqueUserId.c_str())));
 
     methodId = env->GetMethodID(klass, "start", "()V");
     ASSERT(methodId, ("Can't find java method 'start' in com/mapswithme/maps/downloader/DownloadChunkTask"));

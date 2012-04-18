@@ -7,8 +7,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import com.mapswithme.maps.MWMActivity;
-
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -22,6 +20,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
   private long m_end;
   private long m_expectedFileSize;
   private String m_postBody;
+  private String m_userAgent;
 
   private final int NOT_SET = -1;
   private final int IO_ERROR = -2;
@@ -32,7 +31,8 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
   native void onWrite(long httpCallbackID, long beg, byte [] data, long size);
   native void onFinish(long httpCallbackID, long httpCode, long beg, long end);
 
-  public DownloadChunkTask(long httpCallbackID, String url, long beg, long end, long expectedFileSize, String postBody)
+  public DownloadChunkTask(long httpCallbackID, String url, long beg, long end, long expectedFileSize,
+      String postBody, String userAgent)
   {
     m_httpCallbackID = httpCallbackID;
     m_url = url;
@@ -40,6 +40,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
     m_end = end;
     m_expectedFileSize = expectedFileSize;
     m_postBody = postBody;
+    m_userAgent = userAgent;
   }
 
   @Override
@@ -93,10 +94,12 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
         return null;
       }
 
-      urlConnection.setChunkedStreamingMode(0);
       urlConnection.setUseCaches(false);
       urlConnection.setConnectTimeout(15 * 1000);
       urlConnection.setReadTimeout(15 * 1000);
+
+      // Set user agent with unique client id
+      urlConnection.setRequestProperty("User-Agent", m_userAgent);
 
       // use Range header only if we don't download whole file from start
       if (!(m_beg == 0 && m_end < 0))
@@ -107,12 +110,14 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
           urlConnection.setRequestProperty("Range", String.format("bytes=%d-", m_beg));
       }
 
-      if (m_postBody.length() != 0)
+      if (m_postBody.length() > 0)
       {
         urlConnection.setDoOutput(true);
-        urlConnection.setRequestProperty("Content-Type", "application/json");
+        byte[] utf8 = m_postBody.getBytes("UTF-8");
+        urlConnection.setFixedLengthStreamingMode(utf8.length);
         final DataOutputStream os = new DataOutputStream(urlConnection.getOutputStream());
-        os.writeChars(m_postBody);
+        os.write(utf8);
+        os.flush();
       }
 
       if (isCancelled())
