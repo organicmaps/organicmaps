@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:baselineAligned="false"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:gravity="center_vertical"
+    android:paddingRight="?android:attr/scrollbarSize">
+    
+<Button
+    android:id="@+id/downloader_button_showmap"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/map"
+    android:lines="1"
+    android:gravity="center"
+    android:onClick="onShowMapClicked"
+    android:layout_margin="5dip"
+    android:layout_weight="1" >
+
+</Button>
+
+<Button
+    android:id="@+id/downloader_button_shownetworksettings"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/connection_settings"
+    android:lines="1"
+    android:gravity="center"
+    android:onClick="onShowNetSettingsClicked"
+    android:layout_margin="5dip"
+    android:layout_weight="1" >
+
+</Button>
+</LinearLayout>

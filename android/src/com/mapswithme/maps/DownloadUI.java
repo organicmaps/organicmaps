@@ -160,6 +160,14 @@ public class DownloadUI extends PreferenceActivity
 
   private PreferenceScreen createCountriesHierarchy(PreferenceScreen root, int group, int country, int region)
   {
+    // Add "header" with "Map" and "Connection Settings" buttons
+    final Preference cell = new Preference(this);
+    if (!ConnectionState.isConnected(this))
+      cell.setLayoutResource(R.layout.downloader_header_map_connection);
+    else
+      cell.setLayoutResource(R.layout.downloader_header_map);
+    root.addPreference(cell);
+
     final int count = countriesCount(group, country, region);
     for (int i = 0; i < count; ++i)
     {
@@ -171,19 +179,6 @@ public class DownloadUI extends PreferenceActivity
         root.addPreference(createElement(group, country, i));
     }
     return root;
-  }
-
-  private void showNoConnectionDialog()
-  {
-    m_alert.setTitle(getString(R.string.no_internet_connection_detected));
-    m_alert.setPositiveButton(getString(R.string.connection_settings), new DialogInterface.OnClickListener() {
-      public void onClick(DialogInterface dlg, int which) {
-        DownloadUI.this.startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
-        dlg.dismiss();
-      }
-    });
-    m_alert.setNegativeButton(android.R.string.cancel, m_alertCancelHandler);
-    m_alert.create().show();
   }
 
   private void showNotEnoughFreeSpaceDialog(String spaceNeeded, String countryName)
@@ -228,44 +223,32 @@ public class DownloadUI extends PreferenceActivity
         break;
 
       case 1: // ENotDownloaded
-        if (!ConnectionState.isConnected(this))
-        { // Show "Connection is not available" dialog if there is no connection
-          showNoConnectionDialog();
+        // Check for available free space
+        final long size = countryRemoteSizeInBytes(group, country, region);
+        final String name = countryName(group, country, region);
+        if (size > getFreeSpace())
+        {
+          showNotEnoughFreeSpaceDialog(formatSizeString(size), name);
         }
         else
         {
-          // Check for available free space
-          final long size = countryRemoteSizeInBytes(group, country, region);
-          final String name = countryName(group, country, region);
-          if (size > getFreeSpace())
-          {
-            showNotEnoughFreeSpaceDialog(formatSizeString(size), name);
-          }
-          else
-          {
-            // Display download confirmation
-            m_alert.setTitle(name);
-            m_alert.setPositiveButton(getString(R.string.download_mb_or_kb, formatSizeString(size)),
-                new DialogInterface.OnClickListener() {
-                  public void onClick(DialogInterface dlg, int which) {
-                    downloadCountry(group, country, region);
-                    dlg.dismiss();
-                  }
-                });
-            m_alert.setNegativeButton(android.R.string.cancel, m_alertCancelHandler);
-            m_alert.create().show();
-          }
+          // Display download confirmation
+          m_alert.setTitle(name);
+          m_alert.setPositiveButton(getString(R.string.download_mb_or_kb, formatSizeString(size)),
+              new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dlg, int which) {
+                  downloadCountry(group, country, region);
+                  dlg.dismiss();
+                }
+              });
+          m_alert.setNegativeButton(android.R.string.cancel, m_alertCancelHandler);
+          m_alert.create().show();
         }
         break;
 
       case 2: // EDownloadFailed
-        if (!ConnectionState.isConnected(this))
-          showNoConnectionDialog();
-        else
-        {
-          // Do not confirm download if status is failed, just start it
-          downloadCountry(group, country, region);
-        }
+        // Do not confirm download if status is failed, just start it
+        downloadCountry(group, country, region);
         break;
 
       case 3: // EDownloading
@@ -293,5 +276,18 @@ public class DownloadUI extends PreferenceActivity
       return true;
     }
     return super.onPreferenceTreeClick(preferenceScreen, preference);
+  }
+
+  public void onShowNetSettingsClicked(android.view.View v)
+  {
+    startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
+  }
+
+  public void onShowMapClicked(android.view.View v)
+  {
+    Intent mwmActivityIntent = new Intent(this, MWMActivity.class);
+    // Disable animation because MWMActivity should appear exactly over this one
+    mwmActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+    startActivity(mwmActivityIntent);
   }
 }
