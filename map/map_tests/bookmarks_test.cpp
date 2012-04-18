@@ -99,3 +99,23 @@ UNIT_TEST(Bookmarks_ExportKML)
 
   CheckBookmarks(fm);
 }
+
+UNIT_TEST(Bookmarks_Getting)
+{
+  Framework fm;
+  fm.OnSize(800, 400);
+  fm.ShowRect(m2::RectD(0, 0, 80, 40));
+
+  m2::PointD const pixC = fm.GtoP(m2::PointD(40, 20));
+
+  // This is not correct because Framework::OnSize doesn't work until SetRenderPolicy is called.
+  //TEST(m2::AlmostEqual(m2::PointD(400, 200), pixC), (pixC));
+
+  fm.AddBookmark(m2::PointD(38, 20), "1");
+  fm.AddBookmark(m2::PointD(41, 20), "2");
+  fm.AddBookmark(m2::PointD(41, 40), "3");
+
+  Bookmark bm;
+  TEST_EQUAL(fm.GetBookmark(pixC, bm), 1, ());
+  TEST_EQUAL(bm.GetName(), "2", ());
+}

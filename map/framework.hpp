@@ -127,6 +127,12 @@ public:
   void AddBookmark(m2::PointD const & pt, string const & name);
   inline size_t BookmarksCount() const { return m_bookmarks.size(); }
   void GetBookmark(size_t index, Bookmark & bm) const;
+
+  /// Get bookmark by touch.
+  /// @param[in]  pixPt   Coordinates of touch point in pixels.
+  /// @return Index of bookmark (-1, if bookmark wasn't found).
+  size_t GetBookmark(m2::PointD pixPt, Bookmark & bm) const;
+
   void RemoveBookmark(size_t index);
   void ClearBookmarks();
 

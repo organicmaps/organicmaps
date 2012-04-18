@@ -205,6 +205,32 @@ void Framework::GetBookmark(size_t index, Bookmark & bm) const
   bm = *it;
 }
 
+size_t Framework::GetBookmark(m2::PointD pt, Bookmark & bm) const
+{
+  // Get the global rect of touching area.
+  int const sm = 20 * GetPlatform().VisualScale();
+  m2::RectD rect(PtoG(m2::PointD(pt.x - sm, pt.y - sm)), PtoG(m2::PointD(pt.x + sm, pt.y + sm)));
+
+  size_t bestInd = static_cast<size_t>(-1);
+  double minD = numeric_limits<double>::max();
+
+  size_t ind = 0;
+  for (list<Bookmark>::const_iterator it = m_bookmarks.begin(); it != m_bookmarks.end(); ++it, ++ind)
+  {
+    if (rect.IsPointInside(it->GetOrg()))
+    {
+      double const d = rect.Center().SquareLength(it->GetOrg());
+      if (d < minD)
+      {
+        bm = *it;
+        bestInd = ind;
+      }
+    }
+  }
+
+  return bestInd;
+}
+
 void Framework::RemoveBookmark(size_t index)
 {
   if (index >= m_bookmarks.size())
