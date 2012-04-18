@@ -373,7 +373,7 @@ public:
 
 }
 
-template <class TNodesHolder, template <class, class> class TParser>
+template <class TNodesHolder>
 bool GenerateImpl(GenerateInfo & info)
 {
   try
@@ -385,7 +385,8 @@ bool GenerateImpl(GenerateInfo & info)
     holder.LoadIndex();
 
     MainFeaturesEmitter bucketer(info);
-    TParser<MainFeaturesEmitter, holder_t> parser(bucketer, holder);
+    SecondPassParserUsual<MainFeaturesEmitter, holder_t> parser(
+          bucketer, holder, info.m_makeCoasts ? classif().GetCoastType() : 0);
     ParseXMLFromStdIn(parser);
 
     bucketer.Finish();
@@ -403,9 +404,9 @@ bool GenerateImpl(GenerateInfo & info)
 bool GenerateFeatures(GenerateInfo & info, bool lightNodes)
 {
   if (lightNodes)
-    return GenerateImpl<points_in_map, SecondPassParserUsual>(info);
+    return GenerateImpl<points_in_map>(info);
   else
-    return GenerateImpl<points_in_file, SecondPassParserUsual>(info);
+    return GenerateImpl<points_in_file>(info);
 }
 
 }

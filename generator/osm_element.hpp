@@ -310,6 +310,8 @@ class SecondPassParserUsual : public SecondPassParserBase<TEmitter, THolder>
     ft.SetParams(fValue);
   }
 
+  uint32_t m_coastType;
+
 protected:
   virtual void EmitElement(XMLElement * p)
   {
@@ -334,7 +336,10 @@ protected:
     }
     else if (p->name == "way")
     {
-      bool const isLine = feature::IsDrawableLike(fValue.m_Types, feature::FEATURE_TYPE_LINE);
+      bool const isLine = feature::IsDrawableLike(fValue.m_Types, feature::FEATURE_TYPE_LINE) ||
+      // this is important fix: we need to process all coastlines even without linear drawing rules
+          (m_coastType != 0 && fValue.IsTypeExist(m_coastType));
+
       bool const isArea = feature::IsDrawableLike(fValue.m_Types, feature::FEATURE_TYPE_AREA);
 
       if (!isLine && !isArea)
@@ -448,8 +453,8 @@ protected:
   }
 
 public:
-  SecondPassParserUsual(TEmitter & emitter, THolder & holder)
-    : base_type(emitter, holder)
+  SecondPassParserUsual(TEmitter & emitter, THolder & holder, uint32_t coastType)
+    : base_type(emitter, holder), m_coastType(coastType)
   {
   }
 };
