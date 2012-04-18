@@ -103,14 +103,17 @@ public class LocationService implements LocationListener, SensorEventListener, W
       PowerManager pm = (PowerManager) MWMActivity.getCurrentContext().getSystemService(
         android.content.Context.POWER_SERVICE);
       m_wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, TAG);
+      m_wakeLock.acquire();
     }
-    m_wakeLock.acquire();
   }
 
   private void enableAutomaticStandby()
   {
     if (m_wakeLock != null)
+    {
       m_wakeLock.release();
+      m_wakeLock = null;
+    }
   }
 
   public void startUpdate(Listener observer, Context c)
