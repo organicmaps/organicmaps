@@ -8,10 +8,6 @@
 
 #include "../../../../../map/framework.hpp"
 
-#include "../../../../../std/shared_ptr.hpp"
-#include "../../../../../std/bind.hpp"
-
-
 #include "../../../../../yg/framebuffer.hpp"
 #include "../../../../../yg/internal/opengl.hpp"
 
@@ -20,6 +16,10 @@
 
 #include "../../../../../base/logging.hpp"
 #include "../../../../../base/math.hpp"
+
+#include "../../../../../std/shared_ptr.hpp"
+#include "../../../../../std/bind.hpp"
+
 
 namespace android
 {
