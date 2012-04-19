@@ -79,10 +79,6 @@
 		FA36B81015403A4F004560CC /* marker.png in Resources */ = {isa = PBXBuildFile; fileRef = FA36B80715403A4F004560CC /* marker.png */; };
 		FA36B81115403A4F004560CC /* marker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA36B80815403A4F004560CC /* marker@2x.png */; };
 		FA36B81215403A4F004560CC /* marker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA36B80815403A4F004560CC /* marker@2x.png */; };
-		FA36B81315403A4F004560CC /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = FA36B80915403A4F004560CC /* star.png */; };
-		FA36B81415403A4F004560CC /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = FA36B80915403A4F004560CC /* star.png */; };
-		FA36B81515403A4F004560CC /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA36B80A15403A4F004560CC /* star@2x.png */; };
-		FA36B81615403A4F004560CC /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA36B80A15403A4F004560CC /* star@2x.png */; };
 		FA4135EA120A263C0062D5B4 /* CountriesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4135E2120A263C0062D5B4 /* CountriesViewController.mm */; };
 		FA4135ED120A263C0062D5B4 /* SettingsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4135E7120A263C0062D5B4 /* SettingsManager.mm */; };
 		FA459EB414327AF700B5BB3C /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */; };
@@ -1350,8 +1346,6 @@
 		FA36B80615403A4F004560CC /* BookmarksVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BookmarksVC.mm; path = Bookmarks/BookmarksVC.mm; sourceTree = SOURCE_ROOT; };
 		FA36B80715403A4F004560CC /* marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = marker.png; path = Bookmarks/marker.png; sourceTree = SOURCE_ROOT; };
 		FA36B80815403A4F004560CC /* marker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "marker@2x.png"; path = "Bookmarks/marker@2x.png"; sourceTree = SOURCE_ROOT; };
-		FA36B80915403A4F004560CC /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = star.png; path = Bookmarks/star.png; sourceTree = SOURCE_ROOT; };
-		FA36B80A15403A4F004560CC /* star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "star@2x.png"; path = "Bookmarks/star@2x.png"; sourceTree = SOURCE_ROOT; };
 		FA4135E1120A263C0062D5B4 /* CountriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = CountriesViewController.h; path = Settings/CountriesViewController.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FA4135E2120A263C0062D5B4 /* CountriesViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = CountriesViewController.mm; path = Settings/CountriesViewController.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FA4135E6120A263C0062D5B4 /* SettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsManager.h; path = Settings/SettingsManager.h; sourceTree = SOURCE_ROOT; };
@@ -2230,8 +2224,6 @@
 			children = (
 				FA36B80715403A4F004560CC /* marker.png */,
 				FA36B80815403A4F004560CC /* marker@2x.png */,
-				FA36B80915403A4F004560CC /* star.png */,
-				FA36B80A15403A4F004560CC /* star@2x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -3455,8 +3447,6 @@
 				FA8A71DA153D83C8005D9795 /* bookmarks@2x.png in Resources */,
 				FA36B80F15403A4F004560CC /* marker.png in Resources */,
 				FA36B81115403A4F004560CC /* marker@2x.png in Resources */,
-				FA36B81315403A4F004560CC /* star.png in Resources */,
-				FA36B81515403A4F004560CC /* star@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4047,8 +4037,6 @@
 				FA8A71DB153D83C8005D9795 /* bookmarks@2x.png in Resources */,
 				FA36B81015403A4F004560CC /* marker.png in Resources */,
 				FA36B81215403A4F004560CC /* marker@2x.png in Resources */,
-				FA36B81415403A4F004560CC /* star.png in Resources */,
-				FA36B81615403A4F004560CC /* star@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

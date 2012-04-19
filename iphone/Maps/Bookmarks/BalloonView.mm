@@ -1,9 +1,6 @@
 #import "BalloonView.h"
 #import <QuartzCore/CALayer.h>
 
-//#include "../../base/logging.hpp"
-
-
 @implementation BalloonView
 
 @synthesize isDisplayed;
@@ -23,34 +20,38 @@
 
 - (void) dealloc
 {
-  [m_buttonsView release];
+  [m_titleView release];
   [m_pinView release];
   [super dealloc];
 }
 
 - (void) showButtonsInView:(UIView *)view atPoint:(CGPoint)pt
 {
-  m_buttonsView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star"]];
-  CGFloat const w = m_buttonsView.bounds.size.width;
-  CGFloat const h = m_buttonsView.bounds.size.height;
-  m_buttonsView.frame = CGRectMake(pt.x - w/2, pt.y, w, 0);
+  m_titleView = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"BookmarkTitle"];
+  m_titleView.textLabel.text = @"Bookmark Name";
+  m_titleView.textLabel.textColor = [UIColor whiteColor];
+  m_titleView.detailTextLabel.text = @"Belarus, Minsk, Kirova 3";
+  m_titleView.detailTextLabel.textColor = [UIColor whiteColor];
+  m_titleView.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+  m_titleView.backgroundColor = [UIColor blackColor];
+  m_titleView.layer.cornerRadius = 5;
+  m_titleView.alpha = 0.8;
+  m_titleView.textLabel.backgroundColor = [UIColor clearColor];
+  m_titleView.detailTextLabel.backgroundColor = [UIColor clearColor];
+  CGFloat const w = m_titleView.bounds.size.width / 3 * 2;
+  CGFloat const h = m_titleView.bounds.size.height;
+  m_titleView.frame = CGRectMake(pt.x - w/2, pt.y - h, w, h);
 
-  m_buttonsView.userInteractionEnabled = YES;
+  m_titleView.userInteractionEnabled = YES;
   UITapGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc]
                                          initWithTarget:m_target action:m_selector];
   recognizer.numberOfTapsRequired = 1;
   recognizer.numberOfTouchesRequired = 1;
   recognizer.delaysTouchesBegan = YES;
-  [m_buttonsView addGestureRecognizer:recognizer];
+  [m_titleView addGestureRecognizer:recognizer];
   [recognizer release];
 
-  [view addSubview:m_buttonsView];
-
-  // Animate buttons view to appear up from the pin
-  [UIView transitionWithView:m_buttonsView duration:0.1 options:UIViewAnimationOptionCurveEaseIn
-                  animations:^{
-                    m_buttonsView.frame = CGRectMake(pt.x - w/2, pt.y - h, w, h);
-                  } completion:nil];
+  [view addSubview:m_titleView];
 }
 
 - (void) showInView:(UIView *)view atPoint:(CGPoint)pt
@@ -85,17 +86,17 @@
     CGFloat const h1 = m_pinView.bounds.size.height;
     m_pinView.frame = CGRectMake(pt.x - w1/2, pt.y - h1, w1, h1);
 
-    CGFloat const w2 = m_buttonsView.bounds.size.width;
-    CGFloat const h2 = m_buttonsView.bounds.size.height;
-    m_buttonsView.frame = CGRectMake(pt.x - w2/2, pt.y - h1 - h2, w2, h2);
+    CGFloat const w2 = m_titleView.bounds.size.width;
+    CGFloat const h2 = m_titleView.bounds.size.height;
+    m_titleView.frame = CGRectMake(pt.x - w2/2, pt.y - h1 - h2, w2, h2);
   }
 }
 
 - (void) hide
 {
-  [m_buttonsView removeFromSuperview];
-  [m_buttonsView release];
-  m_buttonsView = nil;
+  [m_titleView removeFromSuperview];
+  [m_titleView release];
+  m_titleView = nil;
 
   [m_pinView removeFromSuperview];
   [m_pinView release];

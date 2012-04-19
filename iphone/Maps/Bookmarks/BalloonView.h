@@ -6,7 +6,7 @@
 @interface BalloonView : NSObject
 {
   UIImageView * m_pinView;
-  UIImageView * m_buttonsView;
+  UITableViewCell * m_titleView;
   id m_target;
   SEL m_selector;
 }
