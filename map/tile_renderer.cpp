@@ -320,6 +320,9 @@ void TileRenderer::SetIsPaused(bool flag)
 
 void TileRenderer::AddActiveTile(Tile const & tile)
 {
+  /// every code that works both with tileSet and tileCache
+  /// should lock them in the same order to avoid deadlocks
+  /// (unlocking should be done in reverse order)
   m_tileSet.Lock();
   m_tileCache.Lock();
 
@@ -347,6 +350,9 @@ void TileRenderer::AddActiveTile(Tile const & tile)
 
 void TileRenderer::RemoveActiveTile(Tiler::RectInfo const & rectInfo)
 {
+  /// every code that works both with tileSet and tileCache
+  /// should lock them in the same order to avoid deadlocks
+  /// (unlocking should be done in reverse order)
   m_tileSet.Lock();
   m_tileCache.Lock();
 

@@ -96,8 +96,11 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
   Tile const * tile = 0;
   bool hasTile = false;
 
-  tileCache.Lock();
+  /// every code that works both with tileSet and tileCache
+  /// should lock them in the same order to avoid deadlocks
+  /// (unlocking should be done in reverse order)
   tileSet.Lock();
+  tileCache.Lock();
 
   hasTile = tileSet.HasTile(ri);
 
@@ -124,8 +127,8 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
     tileSet.RemoveTile(ri);
   }
 
-  tileSet.Unlock();
   tileCache.Unlock();
+  tileSet.Unlock();
 
   if (hasTile)
   {
