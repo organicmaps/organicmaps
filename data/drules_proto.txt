@@ -3097,7 +3097,7 @@ cont {
         dd: 3.125
         dd: 3.125
       }
-      priority: 3
+      priority: 120
     }
   }
   element {
@@ -3109,7 +3109,7 @@ cont {
         dd: 3.125
         dd: 3.125
       }
-      priority: 3
+      priority: 120
     }
   }
   element {
@@ -3121,7 +3121,7 @@ cont {
         dd: 3.125
         dd: 3.125
       }
-      priority: 3
+      priority: 120
     }
   }
   element {
@@ -3129,7 +3129,7 @@ cont {
     lines {
       width: 2.734375
       color: 0xFFFF00
-      priority: 2
+      priority: 120
     }
     lines {
       width: 1.953125
@@ -3138,7 +3138,7 @@ cont {
         dd: 4.6875
         dd: 4.6875
       }
-      priority: 3
+      priority: 121
     }
   }
   element {
@@ -3146,7 +3146,7 @@ cont {
     lines {
       width: 3.125
       color: 0xFFFF00
-      priority: 2
+      priority: 120
     }
     lines {
       width: 2.34375
@@ -3155,7 +3155,7 @@ cont {
         dd: 3.125
         dd: 3.125
       }
-      priority: 3
+      priority: 121
     }
   }
   element {
@@ -3268,7 +3268,7 @@ cont {
     lines {
       width: 0.3125
       color: 0xFFFF00
-      priority: 55
+      priority: 122
     }
     lines {
       width: 0.0625
@@ -3279,7 +3279,7 @@ cont {
         dd: 0.0625
         dd: 0.0625
       }
-      priority: 56
+      priority: 123
     }
   }
   element {
@@ -3287,7 +3287,7 @@ cont {
     lines {
       width: 0.625
       color: 0xFFFF00
-      priority: 56
+      priority: 122
     }
     lines {
       width: 0.125
@@ -3298,7 +3298,7 @@ cont {
         dd: 0.125
         dd: 0.125
       }
-      priority: 57
+      priority: 123
     }
   }
   element {
@@ -3306,7 +3306,7 @@ cont {
     lines {
       width: 1.25
       color: 0xFFFF00
-      priority: 63
+      priority: 122
     }
     lines {
       width: 0.25
@@ -3317,7 +3317,7 @@ cont {
         dd: 0.25
         dd: 0.25
       }
-      priority: 64
+      priority: 123
     }
   }
   element {
@@ -3325,7 +3325,7 @@ cont {
     lines {
       width: 1
       color: 0xFFFF00
-      priority: 63
+      priority: 122
     }
     lines {
       width: 0.5
@@ -3336,7 +3336,7 @@ cont {
         dd: 0.5
         dd: 0.5
       }
-      priority: 64
+      priority: 123
     }
   }
   element {
@@ -3469,7 +3469,7 @@ cont {
     lines {
       width: 0.3125
       color: 0xFFFF00
-      priority: 55
+      priority: 124
     }
     lines {
       width: 0.0625
@@ -3480,7 +3480,7 @@ cont {
         dd: 0.0625
         dd: 0.0625
       }
-      priority: 56
+      priority: 125
     }
   }
   element {
@@ -3488,7 +3488,7 @@ cont {
     lines {
       width: 0.625
       color: 0xFFFF00
-      priority: 56
+      priority: 124
     }
     lines {
       width: 0.125
@@ -3499,7 +3499,7 @@ cont {
         dd: 0.125
         dd: 0.125
       }
-      priority: 57
+      priority: 125
     }
   }
   element {
@@ -3507,7 +3507,7 @@ cont {
     lines {
       width: 1.25
       color: 0xFFFF00
-      priority: 63
+      priority: 124
     }
     lines {
       width: 0.25
@@ -3518,7 +3518,7 @@ cont {
         dd: 0.25
         dd: 0.25
       }
-      priority: 64
+      priority: 125
     }
   }
   element {
@@ -3526,7 +3526,7 @@ cont {
     lines {
       width: 1
       color: 0xFFFF00
-      priority: 63
+      priority: 124
     }
     lines {
       width: 0.5
@@ -3537,7 +3537,7 @@ cont {
         dd: 0.5
         dd: 0.5
       }
-      priority: 64
+      priority: 125
     }
   }
   element {
