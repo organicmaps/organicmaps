@@ -4,7 +4,7 @@
 #include "../geometry/screenbase.hpp"
 #include "../base/timer.hpp"
 
-#include "geometry_renderer.hpp"
+#include "blitter.hpp"
 
 namespace yg
 {
@@ -12,11 +12,11 @@ namespace yg
   {
     class RenderState;
 
-    class RenderStateUpdater : public GeometryRenderer
+    class RenderStateUpdater : public Blitter
     {
     private:
 
-      typedef GeometryRenderer base_t;
+      typedef Blitter base_t;
 
       shared_ptr<RenderState> m_renderState;
       shared_ptr<FrameBuffer> m_auxFrameBuffer;
@@ -63,7 +63,9 @@ namespace yg
       void drawGeometry(shared_ptr<BaseTexture> const & texture,
                         shared_ptr<VertexBuffer> const & vertices,
                         shared_ptr<IndexBuffer> const & indices,
-                        size_t indicesCount);
+                        size_t indicesCount,
+                        size_t indicesOffs,
+                        unsigned primType);
 
       void beginFrame();
       void endFrame();

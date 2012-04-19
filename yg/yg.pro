@@ -63,6 +63,7 @@ SOURCES += \
     glyph_style.cpp \
     circle_element.cpp \
     packets_queue.cpp \
+    display_list.cpp
 
 HEADERS += \
     internal/opengl.hpp \
@@ -119,6 +120,7 @@ HEADERS += \
     agg_traits.hpp \
     circle_element.hpp \
     packets_queue.hpp \
+    display_list.hpp
 
 # uncomment to enable GLSL support
 CONFIG += glsl
@@ -144,6 +146,8 @@ win32* {
     SOURCES += internal/opengl_ext.cpp
   }
 }
+
+
 
 
 

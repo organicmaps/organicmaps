@@ -75,7 +75,7 @@ namespace yg
 
       void reset(int pipelineID);
 
-      void freeStorage(int pipelineID);
+      void freePipeline(int pipelineID);
       void freeTexture(int pipelineID);
 
       bool m_isAntiAliased;
@@ -83,40 +83,6 @@ namespace yg
       bool m_useGuiResources;
 
       int m_aaShift;
-
-      struct FreeStorage : public Command
-      {
-        TStoragePool * m_storagePool;
-        Storage m_storage;
-
-        void perform();
-        void cancel();
-      };
-
-      struct FreeTexture : public Command
-      {
-        TTexturePool * m_texturePool;
-        shared_ptr<BaseTexture> m_texture;
-
-        void perform();
-        void cancel();
-      };
-
-      struct UnlockStorage : public Command
-      {
-        Storage m_storage;
-
-        void perform();
-        void cancel();
-      };
-
-      struct DiscardStorage : public Command
-      {
-        Storage m_storage;
-
-        void perform();
-        void cancel();
-      };
 
     public:
 
@@ -222,6 +188,8 @@ namespace yg
 
       void setAdditionalSkinPage(shared_ptr<SkinPage> const & v);
       void clearAdditionalSkinPage();
+
+      void setDisplayList(DisplayList * displayList);
     };
   }
 }

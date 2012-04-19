@@ -1,6 +1,6 @@
 #pragma once
 
-#include "clipper.hpp"
+#include "geometry_renderer.hpp"
 #include "storage.hpp"
 
 #include "../geometry/point2d.hpp"
@@ -30,7 +30,7 @@ namespace yg
       m2::RectU m_texRect;
     };
 
-    class Blitter : public Clipper
+    class Blitter : public GeometryRenderer
     {
     private:
 
@@ -38,7 +38,7 @@ namespace yg
 
     protected:
 
-      typedef Clipper base_t;
+      typedef GeometryRenderer base_t;
 
       void calcPoints(m2::RectI const & srcRect,
                       m2::RectU const & texRect,

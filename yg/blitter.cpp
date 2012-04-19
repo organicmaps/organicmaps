@@ -138,44 +138,23 @@ namespace yg
 //        pointsData[i].color = yg::Color(255, 255, 255, 255);
       }
 
-      storage.m_vertices->unlock();
-      storage.m_vertices->makeCurrent();
-
-      Vertex::setupLayout(storage.m_vertices->glPtr());
-
       memcpy(storage.m_indices->data(), &idxData[0], idxData.size() * sizeof(unsigned short));
 
-      storage.m_indices->unlock();
-      storage.m_indices->makeCurrent();
-
-#ifndef USING_GLSL
-      OGLCHECK(glEnable(GL_TEXTURE_2D));
-#endif
-
-      OGLCHECK(glDisableFn(GL_ALPHA_TEST_MWM));
-      OGLCHECK(glDisableFn(GL_BLEND));
-      OGLCHECK(glDisableFn(GL_DEPTH_TEST));
-      OGLCHECK(glDepthMask(GL_FALSE));
+      base_t::unlockStorage(storage);
+      base_t::applyBlitStates();
 
       for (unsigned i = 0; i < s; ++i)
-      {
-        if (blitInfo[i].m_srcSurface)
-          blitInfo[i].m_srcSurface->makeCurrent();
+        base_t::drawGeometry(blitInfo[i].m_srcSurface,
+                             storage.m_vertices,
+                             storage.m_indices,
+                             4,
+                             sizeof(unsigned short) * i * 4,
+                             GL_TRIANGLE_FAN);
 
-        OGLCHECK(glDrawElementsFn(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_SHORT, (unsigned short *)storage.m_indices->glPtr() + i * 4));
-      }
+      base_t::applyStates();
+      base_t::discardStorage(storage);
 
-      OGLCHECK(glEnableFn(GL_ALPHA_TEST_MWM));
-      OGLCHECK(glEnableFn(GL_DEPTH_TEST));
-      OGLCHECK(glEnableFn(GL_BLEND));
-      OGLCHECK(glDepthMask(GL_TRUE));
-//      /// This call is necessary to avoid parasite blitting in updateActualTarget() on IPhone.
-//      OGLCHECK(glFinish());
-
-      storage.m_vertices->discard();
-      storage.m_indices->discard();
-
-      resourceManager()->multiBlitStorages()->Free(storage);
+      base_t::freeStorage(storage, resourceManager()->multiBlitStorages());
     }
 
     void Blitter::blit(shared_ptr<yg::gl::BaseTexture> const & srcSurface,

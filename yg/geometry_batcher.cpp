@@ -32,7 +32,7 @@ namespace yg
         m_useGuiResources(params.m_useGuiResources)
     {
       reset(-1);
-      base_t::applyStates(m_isAntiAliased);
+      base_t::applyStates();
 
       /// 1 to turn antialiasing on
       /// 2 to switch it off
@@ -44,7 +44,7 @@ namespace yg
      for (size_t i = 0; i < m_pipelines.size(); ++i)
      {
        discardPipeline(i);
-       freeStorage(i);
+       freePipeline(i);
        if (m_skin->getPage(i)->type() != SkinPage::EStatic)
          freeTexture(i);
      }
@@ -114,55 +114,36 @@ namespace yg
      }
    }
 
-   void GeometryBatcher::FreeStorage::perform()
-   {
-     if (isDebugging())
-       LOG(LINFO, ("performing FreeStorage command"));
-
-     if (m_storagePool->IsCancelled())
-       return;
-
-     m_storagePool->Free(m_storage);
-   }
-
-   void GeometryBatcher::FreeStorage::cancel()
-   {
-     perform();
-   }
-
-   void GeometryBatcher::freeStorage(int pipelineID)
+   void GeometryBatcher::freePipeline(int pipelineID)
    {
      GeometryPipeline & pipeline = m_pipelines[pipelineID];
 
-     shared_ptr<FreeStorage> freeStorage(new FreeStorage());
-
      if (pipeline.m_hasStorage)
      {
-       freeStorage->m_storage = pipeline.m_storage;
-
+       TStoragePool * storagePool = 0;
        if (pipeline.m_useGuiResources)
-         freeStorage->m_storagePool = resourceManager()->guiThreadStorages();
+         storagePool = resourceManager()->guiThreadStorages();
        else
          switch (pipeline.m_type)
          {
          case SkinPage::EPrimary:
-           freeStorage->m_storagePool = resourceManager()->primaryStorages();
+           storagePool = resourceManager()->primaryStorages();
            break;
          case SkinPage::EFonts:
-           freeStorage->m_storagePool = resourceManager()->smallStorages();
+           storagePool = resourceManager()->smallStorages();
            break;
          case SkinPage::EStatic:
-           freeStorage->m_storagePool = resourceManager()->smallStorages();
+           storagePool = resourceManager()->smallStorages();
            break;
          default:
-           LOG(LERROR, ("invalid pipeline type in freeStorage"));
+           LOG(LERROR, ("invalid pipeline type in freePipeline"));
            break;
          }
 
+       base_t::freeStorage(pipeline.m_storage, storagePool);
+
        pipeline.m_hasStorage = false;
        pipeline.m_storage = Storage();
-
-       processCommand(freeStorage);
      }
    }
 
@@ -208,7 +189,7 @@ namespace yg
        m_skin->clearAdditionalPage();
 
        for (unsigned i = pagesCount; i < pagesCount + additionalPagesCount; ++i)
-         freeStorage(i);
+         freePipeline(i);
 
        m_pipelines.resize(m_skin->getPagesCount());
      }
@@ -345,102 +326,39 @@ namespace yg
      }
    }
 
-   void GeometryBatcher::FreeTexture::perform()
-   {
-     if (isDebugging())
-       LOG(LINFO, ("performing FreeTexture command"));
-
-     if (m_texturePool->IsCancelled())
-       return;
-
-     m_texturePool->Free(m_texture);
-   }
-
-   void GeometryBatcher::FreeTexture::cancel()
-   {
-     perform();
-   }
-
    void GeometryBatcher::freeTexture(int pipelineID)
    {
      if (!m_skin->getPage(pipelineID)->hasTexture())
        return;
 
-     shared_ptr<FreeTexture> freeTexCmd(new FreeTexture());
-
-     freeTexCmd->m_texture = m_skin->getPage(pipelineID)->texture();
+     shared_ptr<BaseTexture> texture = m_skin->getPage(pipelineID)->texture();
+     TTexturePool * texturePool = 0;
 
      switch (m_skin->getPage(pipelineID)->type())
      {
      case SkinPage::EPrimary:
-       freeTexCmd->m_texturePool = resourceManager()->primaryTextures();
+       texturePool = resourceManager()->primaryTextures();
        break;
      case SkinPage::EFonts:
-       freeTexCmd->m_texturePool = resourceManager()->fontTextures();
+       texturePool = resourceManager()->fontTextures();
        break;
      case SkinPage::ELightWeight:
-       freeTexCmd->m_texturePool = resourceManager()->guiThreadTextures();
+       texturePool = resourceManager()->guiThreadTextures();
        break;
      case SkinPage::EStatic:
        LOG(LWARNING, ("texture with EStatic can't be freed."));
        return;
      }
 
-     if (freeTexCmd->m_texture)
-       processCommand(freeTexCmd);
+     base_t::freeTexture(texture, texturePool);
 
      m_skin->getPage(pipelineID)->resetTexture();
-
-/*
-     m_skin->getPage(pipelineID)->freeTexture();*/
-   }
-
-   void GeometryBatcher::UnlockStorage::perform()
-   {
-     if (isDebugging())
-       LOG(LINFO, ("performing UnlockPipeline command"));
-
-     if (m_storage.m_vertices && m_storage.m_indices)
-     {
-       m_storage.m_vertices->unlock();
-       m_storage.m_indices->unlock();
-     }
-     else
-       LOG(LDEBUG, ("no storage to unlock"));
-   }
-
-   void GeometryBatcher::UnlockStorage::cancel()
-   {
-     perform();
    }
 
    void GeometryBatcher::unlockPipeline(int pipelineID)
    {
      GeometryPipeline & pipeline = m_pipelines[pipelineID];
-
-     shared_ptr<UnlockStorage> command(new UnlockStorage());
-     command->m_storage = pipeline.m_storage;
-
-     processCommand(command);
-   }
-
-   void GeometryBatcher::DiscardStorage::perform()
-   {
-     if (isDebugging())
-       LOG(LINFO, ("performing DiscardStorage command"));
-
-     if (m_storage.m_vertices && m_storage.m_indices)
-     {
-       m_storage.m_vertices->discard();
-       m_storage.m_indices->discard();
-     }
-     else
-       LOG(LDEBUG, ("no storage to discard"));
-   }
-
-   void GeometryBatcher::DiscardStorage::cancel()
-   {
-     perform();
+     base_t::unlockStorage(pipeline.m_storage);
    }
 
    void GeometryBatcher::discardPipeline(int pipelineID)
@@ -448,12 +366,7 @@ namespace yg
      GeometryPipeline & pipeline = m_pipelines[pipelineID];
 
      if (pipeline.m_hasStorage)
-     {
-       shared_ptr<DiscardStorage> command(new DiscardStorage());
-       command->m_storage = pipeline.m_storage;
-
-       processCommand(command);
-     }
+       base_t::discardStorage(pipeline.m_storage);
    }
 
    void GeometryBatcher::flushPipeline(shared_ptr<SkinPage> const & skinPage,
@@ -469,7 +382,9 @@ namespace yg
        drawGeometry(skinPage->texture(),
                     pipeline.m_storage.m_vertices,
                     pipeline.m_storage.m_indices,
-                    pipeline.m_currentIndex);
+                    pipeline.m_currentIndex,
+                    0,
+                    GL_TRIANGLES);
 
        discardPipeline(pipelineID);
 
@@ -481,13 +396,14 @@ namespace yg
 //               LOG(LINFO, ("Pipeline #", i - 1, "draws ", pipeline.m_currentIndex / 3, "/", pipeline.m_maxIndices / 3," triangles"));
        }
 
-       freeStorage(pipelineID);
+       freePipeline(pipelineID);
 
        pipeline.m_maxIndices = 0;
        pipeline.m_maxVertices = 0;
        pipeline.m_vertices = 0;
        pipeline.m_indices = 0;
-
+       pipeline.m_currentIndex = 0;
+       pipeline.m_currentVertex = 0;
      }
    }
 
@@ -771,6 +687,12 @@ namespace yg
    {
      if (m_skin)
        m_skin->enterForeground();
+   }
+
+   void GeometryBatcher::setDisplayList(DisplayList * displayList)
+   {
+     flush(-1);
+     base_t::setDisplayList(displayList);
    }
  } // namespace gl
 } // namespace yg
