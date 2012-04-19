@@ -4,8 +4,16 @@
 @implementation BalloonView
 
 @synthesize isDisplayed;
-@synthesize glbPos;
 
+- (void) setGlobalPos:(m2::PointD const &)pt
+{
+  m_globalPos = pt;
+}
+
+- (m2::PointD) getGlobalPos
+{
+  return m_globalPos;
+}
 
 - (id) initWithTarget:(id)target andSelector:(SEL)selector;
 {
