@@ -1,6 +1,7 @@
 #include "framework.hpp"
 
 #include "../indexer/classificator.hpp"
+#include "../indexer/feature_visibility.hpp"
 
 
 namespace
@@ -42,7 +43,11 @@ namespace
   {
   protected:
     virtual double GetResultDistance(double d, feature::TypesHolder const & types) const = 0;
-    virtual double NeedProcess(feature::TypesHolder const & types) const = 0;
+    virtual double NeedProcess(feature::TypesHolder const & types) const
+    {
+      pair<int, int> const r = feature::GetDrawableScaleRange(types);
+      return my::between_s(r.first, r.second, m_scale);
+    }
 
     static double GetCompareEpsilonImpl(feature::EGeomType type, double eps)
     {
@@ -108,10 +113,6 @@ namespace
     virtual double GetResultDistance(double d, feature::TypesHolder const & types) const
     {
       return (d + GetCompareEpsilonImpl(types.GetGeoType(), m_eps));
-    }
-    virtual double NeedProcess(feature::TypesHolder const &) const
-    {
-      return true;
     }
 
   public:
@@ -271,6 +272,9 @@ namespace
     }
     virtual double NeedProcess(feature::TypesHolder const & types) const
     {
+      if (!DoGetFeatureInfoBase::NeedProcess(types))
+        return false;
+
       return (!m_doLocalities ||
               (types.GetGeoType() == feature::GEOM_POINT && m_checker.IsLocality(types)));
     }

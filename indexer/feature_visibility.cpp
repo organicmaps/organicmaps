@@ -254,7 +254,7 @@ bool IsDrawableForIndex(FeatureBase const & f, int level)
   return false;
 }
 
-int MinDrawableScaleForFeature(FeatureBase const & f)
+int GetMinDrawableScale(FeatureBase const & f)
 {
   int const upBound = scales::GetUpperScale();
 
@@ -267,6 +267,21 @@ int MinDrawableScaleForFeature(FeatureBase const & f)
 
 namespace
 {
+  void AddRange(pair<int, int> & dest, pair<int, int> const & src)
+  {
+    if (src.first != -1)
+    {
+      ASSERT_GREATER(src.first, -1, ());
+      ASSERT_GREATER(src.second, -1, ());
+
+      dest.first = min(dest.first, src.first);
+      dest.second = max(dest.second, src.second);
+
+      ASSERT_GREATER(dest.first, -1, ());
+      ASSERT_GREATER(dest.second, -1, ());
+    }
+  }
+
   class DoGetScalesRange
   {
     pair<int, int> m_scales;
@@ -278,14 +293,7 @@ namespace
     bool operator() (ClassifObject const * p, bool & res)
     {
       res = true;
-
-      pair<int, int> scales = p->GetDrawScaleRange();
-      if (scales.first != -1)
-      {
-        m_scales.first = min(m_scales.first, scales.first);
-        m_scales.second = max(m_scales.second, scales.second);
-      }
-
+      AddRange(m_scales, p->GetDrawScaleRange());
       return false;
     }
 
@@ -296,11 +304,21 @@ namespace
   };
 }
 
-pair<int, int> DrawableScaleRangeForType(uint32_t type)
+pair<int, int> GetDrawableScaleRange(uint32_t type)
 {
   DoGetScalesRange doGet;
   (void)classif().ProcessObjects(type, doGet);
   return doGet.GetScale();
+}
+
+pair<int, int> GetDrawableScaleRange(TypesHolder const & types)
+{
+  pair<int, int> res(1000, -1000);
+
+  for (size_t i = 0; i < types.Size(); ++i)
+    AddRange(res, GetDrawableScaleRange(types[i]));
+
+  return (res.first > res.second ? make_pair(-1, -1) : res);
 }
 
 namespace
@@ -318,7 +336,7 @@ namespace
   }
 }
 
-pair<int, int> DrawableScaleRangeForText(feature::TypesHolder const & types)
+pair<int, int> GetDrawableScaleRangeForText(feature::TypesHolder const & types)
 {
   int const upBound = scales::GetUpperScale();
   int lowL = -1;
@@ -347,9 +365,9 @@ pair<int, int> DrawableScaleRangeForText(feature::TypesHolder const & types)
   return make_pair(lowL, highL);
 }
 
-pair<int, int> DrawableScaleRangeForText(FeatureBase const & f)
+pair<int, int> GetDrawableScaleRangeForText(FeatureBase const & f)
 {
-  return DrawableScaleRangeForText(TypesHolder(f));
+  return GetDrawableScaleRangeForText(TypesHolder(f));
 }
 
 bool IsHighway(vector<uint32_t> const & types)

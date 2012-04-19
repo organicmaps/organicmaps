@@ -306,7 +306,7 @@ public:
         continue;
 
       // Do index only for visible types in mwm.
-      pair<int, int> const r = feature::DrawableScaleRangeForType(type);
+      pair<int, int> const r = feature::GetDrawableScaleRange(type);
       if (my::between_s(m_scales.first, m_scales.second, r.first) ||
           my::between_s(m_scales.first, m_scales.second, r.second))
       {

@@ -51,7 +51,7 @@ namespace
       m_midLoc = m_midLoc / m_locCount;
 
       uint64_t const pointAsInt64 = PointToInt64(m_midLoc.x, m_midLoc.y, m_coordBits);
-      uint64_t const minScale = feature::MinDrawableScaleForFeature(ft.GetFeatureBase());
+      uint64_t const minScale = feature::GetMinDrawableScale(ft.GetFeatureBase());
       CHECK(minScale <= scales::GetUpperScale(), ("Dat file contain invisible feature"));
 
       uint64_t const order = (minScale << 59) | (pointAsInt64 >> 5);

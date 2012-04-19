@@ -26,14 +26,17 @@ namespace feature
   bool IsDrawableLike(vector<uint32_t> const & type, FeatureGeoType ft);
   bool IsDrawableForIndex(FeatureBase const & f, int level);
 
-  int MinDrawableScaleForFeature(FeatureBase const & f);
-  pair<int, int> DrawableScaleRangeForType(uint32_t type);
+  int GetMinDrawableScale(FeatureBase const & f);
 
-  /// @name Get scale range when feature's text is visible.
   /// @return [-1, -1] if no any text exists
   //@{
-  pair<int, int> DrawableScaleRangeForText(TypesHolder const & types);
-  pair<int, int> DrawableScaleRangeForText(FeatureBase const & f);
+  /// @name Get scale range when feature is visible.
+  pair<int, int> GetDrawableScaleRange(uint32_t type);
+  pair<int, int> GetDrawableScaleRange(TypesHolder const & types);
+
+  /// @name Get scale range when feature's text is visible.
+  pair<int, int> GetDrawableScaleRangeForText(TypesHolder const & types);
+  pair<int, int> GetDrawableScaleRangeForText(FeatureBase const & f);
   //@}
 
   /// @return (geometry type, is coastline)

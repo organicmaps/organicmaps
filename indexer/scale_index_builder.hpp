@@ -88,7 +88,7 @@ public:
     if (f.IsEmptyGeometry(GetGeometryScale()))
       return false;
 
-    uint32_t const minScale = feature::MinDrawableScaleForFeature(f);
+    uint32_t const minScale = feature::GetMinDrawableScale(f);
     return (m_ScaleRange.first <= minScale && minScale < m_ScaleRange.second);
   }
 

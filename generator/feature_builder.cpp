@@ -188,7 +188,7 @@ bool FeatureBuilder1::PreSerialize()
   // Clear name for features with invisible texts.
   int64_t dummy;
   if (!m_Params.name.IsEmpty() && !GetCoastCell(dummy) &&
-      (feature::DrawableScaleRangeForText(GetFeatureBase()).first == -1))
+      (feature::GetDrawableScaleRangeForText(GetFeatureBase()).first == -1))
   {
     m_Params.name.Clear();
   }
@@ -331,7 +331,7 @@ void FeatureBuilder1::AddOsmId(string const & type, uint64_t osmId)
 
 int FeatureBuilder1::GetMinFeatureDrawScale() const
 {
-  int const minScale = feature::MinDrawableScaleForFeature(GetFeatureBase());
+  int const minScale = feature::GetMinDrawableScale(GetFeatureBase());
 
   // some features become invisible after merge processing, so -1 is possible
   return (minScale == -1 ? 1000 : minScale);

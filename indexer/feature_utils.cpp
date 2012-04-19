@@ -53,7 +53,7 @@ public:
 
   void CorrectScaleForVisibility(TypesHolder const & types, int & scale) const
   {
-    pair<int, int> const scaleR = feature::DrawableScaleRangeForText(types);
+    pair<int, int> const scaleR = feature::GetDrawableScaleRangeForText(types);
     ASSERT_LESS_OR_EQUAL ( scaleR.first, scaleR.second, () );
 
     // Result types can be without visible texts (matched by category).
