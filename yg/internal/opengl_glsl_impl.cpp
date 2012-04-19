@@ -36,7 +36,7 @@ namespace yg
         "uniform mat4 ModelViewM;\n"
         "varying vec2 TexCoordOut;\n"
         "void main(void) {\n"
-        "   gl_Position = ProjM * Position;\n"
+        "   gl_Position = Position * ModelViewM * ProjM;\n"
         "   TexCoordOut = TexCoordIn;\n"
         "}\n";
 
@@ -68,6 +68,7 @@ namespace yg
         GLuint m_positionHandle;
         GLuint m_texCoordHandle;
         GLuint m_projectionUniform;
+        GLuint m_modelViewUniform;
         GLuint m_textureUniform;
 
         bool createProgram(GLuint vertexShader, GLuint fragmentShader)
@@ -107,6 +108,12 @@ namespace yg
         void attachProjection(char const * name)
         {
           m_projectionUniform = ::glGetUniformLocation(m_program, name);
+          OGLCHECKAFTER;
+        }
+
+        void attachModelView(char const * name)
+        {
+          m_modelViewUniform = ::glGetUniformLocation(m_program, name);
           OGLCHECKAFTER;
         }
 
@@ -202,11 +209,13 @@ namespace yg
           m_noAlphaTestProgram.createProgram(m_vertexShader, m_noAlphaTestFrgSh);
 
           m_alphaTestProgram.attachProjection("ProjM");
+          m_alphaTestProgram.attachModelView("ModelViewM");
           m_alphaTestProgram.attachTexture("Texture");
           m_alphaTestProgram.attachPosition("Position");
           m_alphaTestProgram.attachTexCoord("TexCoordIn");
 
           m_noAlphaTestProgram.attachProjection("ProjM");
+          m_noAlphaTestProgram.attachModelView("ModelViewM");
           m_noAlphaTestProgram.attachTexture("Texture");
           m_noAlphaTestProgram.attachPosition("Position");
           m_noAlphaTestProgram.attachTexCoord("TexCoordIn");
@@ -304,18 +313,30 @@ namespace yg
         threadData.m_matrices[threadData.m_matrixMode] = math::Identity<float, 4>();
       }
 
+      void glLoadMatrixf(GLfloat const * d)
+      {
+        ThreadData & threadData = g_threadData[threads::GetCurrentThreadID()];
+
+        math::Matrix<float, 4, 4> m;
+
+        m(0, 0) = d[0]; m(0, 1) = d[1]; m(0, 2) = d[2]; m(0, 3) = d[3];
+        m(1, 0) = d[4]; m(1, 1) = d[5]; m(1, 2) = d[6]; m(1, 3) = d[7];
+        m(2, 0) = d[8]; m(2, 1) = d[9]; m(2, 2) = d[10]; m(2, 3) = d[11];
+        m(3, 0) = d[12]; m(3, 1) = d[13]; m(3, 2) = d[14]; m(3, 3) = d[15];
+
+        threadData.m_matrices[threadData.m_matrixMode] = m * threadData.m_matrices[threadData.m_matrixMode];
+      }
+
       void glOrtho(GLfloat l, GLfloat r, GLfloat b, GLfloat t, GLfloat n, GLfloat f)
       {
         ThreadData & threadData = g_threadData[threads::GetCurrentThreadID()];
 
         math::Matrix<float, 4, 4> m = math::Identity<float, 4>();
 
-        /// matrices are stored in column-major order
-
-        m(0, 0) = 2 / (r - l); m(1, 0) = 0;          m(2, 0) = 0;            m(3, 0) = -(r + l) / (r - l);
-        m(0, 1) = 0;           m(1, 1) = 2 / (t - b);m(2, 1) = 0;            m(3, 1) = -(t + b) / (t - b);
-        m(0, 2) = 0;           m(1, 2) = 0;          m(2, 2) = -2 / (f - n); m(3, 2) = - (f + n) / (f - n);
-        m(0, 3) = 0;           m(1, 3) = 0;          m(2, 3) = 0;            m(3, 3) = 1;
+        m(0, 0) = 2 / (r - l); m(0, 1) = 0;          m(0, 2) = 0;            m(0, 3) = -(r + l) / (r - l);
+        m(1, 0) = 0;           m(1, 1) = 2 / (t - b);m(1, 2) = 0;            m(1, 3) = -(t + b) / (t - b);
+        m(2, 0) = 0;           m(2, 1) = 0;          m(2, 2) = -2 / (f - n); m(2, 3) = - (f + n) / (f - n);
+        m(3, 0) = 0;           m(3, 1) = 0;          m(3, 2) = 0;            m(3, 3) = 1;
 
         threadData.m_matrices[threadData.m_matrixMode] = m * threadData.m_matrices[threadData.m_matrixMode];
       }
@@ -329,6 +350,7 @@ namespace yg
 
         // applying shader parameters
         OGLCHECK(::glUniformMatrix4fv(threadData.m_currentProgram->m_projectionUniform, 1, 0, &projM(0, 0)));
+        OGLCHECK(::glUniformMatrix4fv(threadData.m_currentProgram->m_modelViewUniform, 1, 0, &modelViewM(0, 0)));
         OGLCHECK(::glUniform1i(threadData.m_currentProgram->m_textureUniform, 0));
 
         // drawing elements

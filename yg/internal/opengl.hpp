@@ -81,6 +81,8 @@ namespace yg
 
     extern void (OPENGL_CALLING_CONVENTION * glMatrixModeFn) (GLenum mode);
     extern void (OPENGL_CALLING_CONVENTION * glLoadIdentityFn)();
+    extern void (OPENGL_CALLING_CONVENTION * glLoadMatrixfFn) (const GLfloat *m);
+
     extern void (OPENGL_CALLING_CONVENTION * glOrthoFn) (GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat zNear, GLfloat zFar);
     extern void (OPENGL_CALLING_CONVENTION * glDrawElementsFn) (GLenum mode, GLsizei count, GLenum type, const GLvoid *indices);
 

@@ -55,6 +55,7 @@ namespace yg
 
       glMatrixModeFn = &glMatrixMode;
       glLoadIdentityFn = &glLoadIdentity;
+      glLoadMatrixfFn = &glLoadMatrixf;
       glOrthoFn = &glOrthoImpl;
       glDrawElementsFn = &glDrawElements;
 

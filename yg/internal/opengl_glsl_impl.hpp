@@ -19,6 +19,7 @@ namespace yg
       void glDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *indices);
       void glOrtho(GLfloat l, GLfloat r, GLfloat b, GLfloat t, GLfloat n, GLfloat f);
       void glLoadIdentity();
+      void glLoadMatrixf(GLfloat const * data);
       void glMatrixMode(GLenum mode);
     }
   }
