@@ -8,5 +8,5 @@ struct XMLElement;
 namespace ftype
 {
   /// Get the types, name and layer for feature with the tree of tags.
-  bool GetNameAndType(XMLElement * p, FeatureParams & params);
+  void GetNameAndType(XMLElement * p, FeatureParams & params);
 }

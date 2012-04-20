@@ -306,7 +306,7 @@ namespace ftype
 //  };
 //#endif
 
-  bool GetNameAndType(XMLElement * p, FeatureParams & params)
+  void GetNameAndType(XMLElement * p, FeatureParams & params)
   {
 //#ifdef DEBUG
 //    // code to set a breakpoint
@@ -318,7 +318,7 @@ namespace ftype
 
     // maybe an empty feature
     if (process_common_params(p, params) == 0)
-      return false;
+      return;
 
     set<string> skipRootKeys;
 
@@ -365,7 +365,5 @@ namespace ftype
       skipRootKeys.insert(path[0]->GetName());
 
     } while (true);
-
-    return params.IsValid();
   }
 }
