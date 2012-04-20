@@ -5,6 +5,7 @@
 #include "tile_renderer.hpp"
 #include "tile_set.hpp"
 
+#include "../yg/skin.hpp"
 #include "../yg/rendercontext.hpp"
 
 #include "../base/logging.hpp"
@@ -14,6 +15,7 @@
 bool g_coverageGeneratorDestroyed = false;
 
 CoverageGenerator::CoverageGenerator(
+    string const & skinName,
     TileRenderer * tileRenderer,
     shared_ptr<WindowHandle> const & windowHandle,
     shared_ptr<yg::gl::RenderContext> const & primaryRC,
@@ -42,6 +44,21 @@ CoverageGenerator::CoverageGenerator(
                                               rm->cacheThreadGlyphCacheID(),
                                               glQueue));
 
+  m_cacheParams.m_resourceManager = m_resourceManager;
+  m_cacheParams.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer());
+
+  if (glQueue)
+    m_cacheParams.m_renderQueue = glQueue;
+
+  m_cacheParams.m_doUnbindRT = false;
+  m_cacheParams.m_isSynchronized = false;
+  m_cacheParams.m_glyphCacheID = m_resourceManager->cacheThreadGlyphCacheID();
+
+  m_cacheSkin.reset(loadSkin(m_resourceManager,
+                    skinName,
+                    2,
+                    2));
+
   m_queue.AddInitCommand(bind(&CoverageGenerator::InitializeThreadGL, this));
   m_queue.AddFinCommand(bind(&CoverageGenerator::FinalizeThreadGL, this));
 
@@ -52,6 +69,9 @@ void CoverageGenerator::InitializeThreadGL()
 {
   if (m_renderContext)
     m_renderContext->makeCurrent();
+
+  m_cacheScreen.reset(new yg::gl::Screen(m_cacheParams));
+  m_cacheScreen->setSkin(m_cacheSkin);
 }
 
 void CoverageGenerator::FinalizeThreadGL()
@@ -64,6 +84,9 @@ CoverageGenerator::~CoverageGenerator()
 {
   LOG(LINFO, ("cancelling coverage thread"));
   Cancel();
+
+  LOG(LINFO, ("deleting cacheScreen"));
+  m_cacheScreen.reset();
 
   LOG(LINFO, ("deleting workCoverage"));
   delete m_workCoverage;
@@ -146,7 +169,7 @@ void CoverageGenerator::CoverScreen(ScreenBase const & screen, int sequenceID)
   if (!m_workCoverage->IsPartialCoverage() && m_workCoverage->IsEmptyDrawingCoverage())
     AddCheckEmptyModelTask(sequenceID);
 
-  m_workCoverage->CacheInfoLayer();
+  m_workCoverage->Cache(m_cacheScreen.get());
 
   {
     threads::MutexGuard g(m_mutex);
@@ -195,7 +218,7 @@ void CoverageGenerator::MergeTile(Tiler::RectInfo const & rectInfo, int sequence
   if (!m_workCoverage->IsPartialCoverage() && m_workCoverage->IsEmptyDrawingCoverage())
     AddCheckEmptyModelTask(sequenceID);
 
-  m_workCoverage->CacheInfoLayer();
+  m_workCoverage->Cache(m_cacheScreen.get());
 
   {
     threads::MutexGuard g(m_mutex);

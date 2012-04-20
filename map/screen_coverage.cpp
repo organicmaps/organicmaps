@@ -9,6 +9,7 @@
 #include "../indexer/scales.hpp"
 
 #include "../yg/screen.hpp"
+#include "../yg/display_list.hpp"
 #include "../yg/base_texture.hpp"
 
 #include "screen_coverage.hpp"
@@ -72,6 +73,7 @@ ScreenCoverage * ScreenCoverage::Clone()
   res->m_infoLayer.reset();
   res->m_infoLayer.reset(m_infoLayer->clone());
   res->m_stylesCache = 0;
+  res->m_displayList.reset();
 
   return res;
 }
@@ -143,8 +145,43 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
   }
 }
 
-void ScreenCoverage::CacheInfoLayer()
+void ScreenCoverage::Cache(yg::gl::Screen *screen)
 {
+  /// caching tiles blitting commands.
+
+  m_displayList.reset();
+  m_displayList.reset(screen->createDisplayList());
+
+  screen->beginFrame();
+  screen->setDisplayList(m_displayList.get());
+
+  vector<yg::gl::BlitInfo> infos;
+
+  for (TTileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
+  {
+    Tile const * tile = *it;
+
+    size_t tileWidth = tile->m_renderTarget->width();
+    size_t tileHeight = tile->m_renderTarget->height();
+
+    yg::gl::BlitInfo bi;
+
+    bi.m_matrix = tile->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix();
+    bi.m_srcRect = m2::RectI(0, 0, tileWidth - 2, tileHeight - 2);
+    bi.m_texRect = m2::RectU(1, 1, tileWidth - 1, tileHeight - 1);
+    bi.m_srcSurface = tile->m_renderTarget;
+
+    infos.push_back(bi);
+  }
+
+  if (!infos.empty())
+    screen->blit(&infos[0], infos.size(), true);
+
+  screen->setDisplayList(0);
+  screen->endFrame();
+
+  /// caching InfoLayer into texture
+
   if (!m_stylesCache)
   {
     LOG(LWARNING, ("no styles cache"));
@@ -157,6 +194,23 @@ void ScreenCoverage::CacheInfoLayer()
   ASSERT(m_infoLayer->checkCached(m_stylesCache), ());
 
   m_stylesCache->upload();
+
+  /// and then into display list
+
+  screen->beginFrame();
+  screen->setAdditionalSkinPage(m_stylesCache->cachePage());
+  screen->setDisplayList(m_displayList.get());
+
+  m_infoLayer->draw(screen, math::Identity<double, 3>());
+
+  screen->setDisplayList(0);
+  screen->clearAdditionalSkinPage();
+  screen->endFrame();
+
+  /// completing commands that was immediately executed
+  /// while recording of displayList(for example UnlockStorage)
+
+  screen->completeCommands();
 }
 
 void ScreenCoverage::Remove(Tile const *)
@@ -337,39 +391,8 @@ ScreenCoverage::~ScreenCoverage()
 
 void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)
 {
-  vector<yg::gl::BlitInfo> infos;
-
-//  LOG(LINFO, ("drawing", m_tiles.size(), "tiles"));
-
-  for (TTileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
-  {
-    Tile const * tile = *it;
-
-    size_t tileWidth = tile->m_renderTarget->width();
-    size_t tileHeight = tile->m_renderTarget->height();
-
-    yg::gl::BlitInfo bi;
-
-    bi.m_matrix = tile->m_tileScreen.PtoGMatrix() * screen.GtoPMatrix();
-    bi.m_srcRect = m2::RectI(0, 0, tileWidth - 2, tileHeight - 2);
-    bi.m_texRect = m2::RectU(1, 1, tileWidth - 1, tileHeight - 1);
-    bi.m_srcSurface = tile->m_renderTarget;
-
-    infos.push_back(bi);
-  }
-
-  if (!infos.empty())
-    s->blit(&infos[0], infos.size(), true);
-
-  if (m_stylesCache)
-  {
-    ASSERT(m_infoLayer->checkCached(m_stylesCache), ());
-    s->setAdditionalSkinPage(m_stylesCache->cachePage());
-  }
-  else
-    LOG(LINFO, ("no styles cache"));
-
-  m_infoLayer->draw(s, m_screen.PtoGMatrix() * screen.GtoPMatrix());
+  if (m_displayList)
+    m_displayList->draw(m_screen.PtoGMatrix() * screen.GtoPMatrix());
 }
 
 yg::InfoLayer * ScreenCoverage::GetInfoLayer() const

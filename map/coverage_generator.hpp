@@ -23,6 +23,12 @@ class ScreenCoverage;
 
 namespace yg
 {
+  class Skin;
+
+  namespace gl
+  {
+    class Screen;
+  }
   class ResourceStyleCache;
 }
 
@@ -52,9 +58,15 @@ private:
 
   RenderPolicy::TEmptyModelFn m_emptyModelFn;
 
+  /// screen for caching ScreenCoverage
+  yg::gl::Screen::Params m_cacheParams;
+  shared_ptr<yg::gl::Screen> m_cacheScreen;
+  shared_ptr<yg::Skin> m_cacheSkin;
+
 public:
 
-  CoverageGenerator(TileRenderer * tileRenderer,
+  CoverageGenerator(string const & skinName,
+                    TileRenderer * tileRenderer,
                     shared_ptr<WindowHandle> const & windowHandle,
                     shared_ptr<yg::gl::RenderContext> const & primaryRC,
                     shared_ptr<yg::ResourceManager> const & rm,

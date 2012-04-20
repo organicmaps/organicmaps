@@ -58,6 +58,8 @@ private:
   CoverageGenerator * m_coverageGenerator;
   yg::ResourceStyleCache * m_stylesCache;
 
+  shared_ptr<yg::gl::DisplayList> m_displayList;
+
   ScreenCoverage(ScreenCoverage const & src);
   ScreenCoverage const & operator=(ScreenCoverage const & src);
 
@@ -89,8 +91,8 @@ public:
   yg::ResourceStyleCache * GetResourceStyleCache() const;
   /// Getter for InfoLayer
   yg::InfoLayer * GetInfoLayer() const;
-  /// Cache info layer on current style cache
-  void CacheInfoLayer();
+  /// Cache entire coverage in display list
+  void Cache(yg::gl::Screen * screen);
   /// add rendered tile to coverage. Tile is locked, so make sure to unlock it in case it's not needed.
   void Merge(Tiler::RectInfo const & ri);
   /// remove tile from coverage
