@@ -8,11 +8,9 @@ namespace
 {
   class FeatureInfoT
   {
-    double m_dist;
-
   public:
     FeatureInfoT(double d, feature::TypesHolder & types, string & name, m2::PointD const & pt)
-      : m_dist(d), m_types(types), m_pt(pt)
+      : m_types(types), m_pt(pt), m_dist(d)
     {
       m_name.swap(name);
     }
@@ -32,11 +30,17 @@ namespace
     string m_name;
     feature::TypesHolder m_types;
     m2::PointD m_pt;
+    double m_dist;
   };
 
   void swap(FeatureInfoT & i1, FeatureInfoT & i2)
   {
     i1.Swap(i2);
+  }
+
+  string DebugPrint(FeatureInfoT const & info)
+  {
+    return ("Name = " + info.m_name + " Distance = " + strings::to_string(info.m_dist));
   }
 
   class DoGetFeatureInfoBase
@@ -272,11 +276,10 @@ namespace
     }
     virtual double NeedProcess(feature::TypesHolder const & types) const
     {
-      if (!DoGetFeatureInfoBase::NeedProcess(types))
-        return false;
-
-      return (!m_doLocalities ||
-              (types.GetGeoType() == feature::GEOM_POINT && m_checker.IsLocality(types)));
+      if (m_doLocalities)
+        return (types.GetGeoType() == feature::GEOM_POINT && m_checker.IsLocality(types));
+      else
+        return DoGetFeatureInfoBase::NeedProcess(types);
     }
 
   public:
@@ -322,6 +325,7 @@ namespace
     void FillLocality(Framework::AddressInfo & info, Framework const & fm)
     {
       SortResults();
+      //LOG(LDEBUG, (m_cont));
 
       for (size_t i = 0; i < m_cont.size(); ++i)
       {
