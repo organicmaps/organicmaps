@@ -193,7 +193,7 @@ int Platform::VideoMemoryLimit() const
 
 int Platform::PreCachingDepth() const
 {
-  return 2;
+  return 3;
 }
 
 int Platform::TileSize() const
