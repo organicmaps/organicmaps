@@ -207,9 +207,34 @@ protected:
     FeatureParams * m_val;
 
     /// Cache: relation id -> feature value (for fast feature parsing)
-    unordered_map<uint64_t, FeatureParams> m_typeCache;
+    struct RelationValue
+    {
+      FeatureParams m_p;
+      RelationElement * m_e;
+
+      RelationValue() : m_e(0) {}
+    };
+
+    typedef unordered_map<uint64_t, RelationValue> RelationCacheT;
+    RelationCacheT m_typeCache;
+
+    bool IsAcceptTypes(RelationElement const & rel) const
+    {
+      string role;
+      VERIFY ( rel.FindWay(m_featureID, role), (id, m_featureID) );
+
+      // Do not accumulate border types (boundary-administrative-*) for inner polygons.
+      // Example: Minsk city border (admin_level=8) is inner for Minsk area border (admin_level=4).
+      return (role != "inner");
+    }
 
   public:
+    ~type_processor()
+    {
+      for (typename RelationCacheT::iterator i = m_typeCache.begin(); i != m_typeCache.end(); ++i)
+        delete i->second.m_e;
+    }
+
     /// Start process new feature.
     void Reset(uint64_t fID, FeatureParams * val)
     {
@@ -220,38 +245,49 @@ protected:
     /// 1. "initial relation" process
     int operator() (uint64_t id)
     {
-      typename unordered_map<uint64_t, FeatureParams>::const_iterator i = m_typeCache.find(id);
+      typename RelationCacheT::const_iterator i = m_typeCache.find(id);
       if (i != m_typeCache.end())
       {
-        m_val->AddTypes(i->second);
+        if (i->second.m_e == 0 || IsAcceptTypes(*(i->second.m_e)))
+          m_val->AddTypes(i->second.m_p);
+
         return -1;  // continue process relations
       }
       return 0;     // read relation from file (see next operator)
     }
 
     /// 2. "relation from file" process
-    bool operator() (uint64_t id, RelationElement const & rel)
+    /// param[in] rel Get non-const reference to Swap inner data
+    bool operator() (uint64_t id, RelationElement & rel)
     {
+      string const type = rel.GetType();
+      if (type == "multipolygon")
+      {
+        // we will process multipolygons later
+        return false;
+      }
+      bool const isBoundary = (type == "boundary");
+
       // make XMLElement struct from relation's tags for GetNameAndType function.
       XMLElement e;
       make_xml_element(rel, e);
 
-      if (rel.GetType() == "multipolygon")
+      // process types of relation and add them to m_val
+      RelationValue val;
+      ftype::GetNameAndType(&e, val.m_p);
+      if (val.m_p.IsValid())
       {
-        // we will process multipolygons later
-      }
-      else
-      {
-        // process types of relation and add them to m_val
-        FeatureParams val;
-        if (ftype::GetNameAndType(&e, val))
+        if (!isBoundary || IsAcceptTypes(rel))
+          m_val->AddTypes(val.m_p);
+
+        if (isBoundary)
         {
-          m_typeCache[id] = val;
-          m_val->AddTypes(val);
+          val.m_e = new RelationElement();
+          val.m_e->Swap(rel);
         }
-        else
-          m_typeCache[id] = FeatureParams();
       }
+
+      m_typeCache[id] = val;
 
       // continue process relations
       return false;

@@ -99,6 +99,13 @@ struct RelationElement
     for (size_t i = 0; i < ways.size(); ++i)
       toDo(ways[i].first, ways[i].second);
   }
+
+  void Swap(RelationElement & rhs)
+  {
+    nodes.swap(rhs.nodes);
+    ways.swap(rhs.ways);
+    tags.swap(rhs.tags);
+  }
 };
 
 template <class TArchive> TArchive & operator << (TArchive & ar, WayElement const & e)
