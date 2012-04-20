@@ -3264,131 +3264,11 @@ cont {
 cont {
   name: "boundary-administrative-3"
   element {
-    scale: 6
-    lines {
-      width: 0.3125
-      color: 0xFFFF00
-      priority: 55
-    }
-    lines {
-      width: 0.0625
-      color: 0xF9574B
-      dashdot {
-        dd: 0.3125
-        dd: 0.0625
-        dd: 0.0625
-        dd: 0.0625
-      }
-      priority: 56
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.625
-      color: 0xFFFF00
-      priority: 56
-    }
-    lines {
-      width: 0.125
-      color: 0xF9574B
-      dashdot {
-        dd: 0.625
-        dd: 0.125
-        dd: 0.125
-        dd: 0.125
-      }
-      priority: 57
-    }
-  }
-  element {
-    scale: 8
-    lines {
-      width: 1.25
-      color: 0xFFFF00
-      priority: 63
-    }
-    lines {
-      width: 0.25
-      color: 0xF9574B
-      dashdot {
-        dd: 1.25
-        dd: 0.25
-        dd: 0.25
-        dd: 0.25
-      }
-      priority: 64
-    }
-  }
-  element {
-    scale: 9
-    lines {
-      width: 1
-      color: 0xFFFF00
-      priority: 63
-    }
-    lines {
-      width: 0.5
-      color: 0xF9574B
-      dashdot {
-        dd: 2.5
-        dd: 0.5
-        dd: 0.5
-        dd: 0.5
-      }
-      priority: 64
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 5
-      color: 0xFFFF00
-      priority: 157
-    }
-    lines {
-      width: 1
-      color: 0xF9574B
-      dashdot {
-        dd: 5
-        dd: 1
-        dd: 1
-        dd: 1
-      }
-      priority: 158
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 10
-      color: 0xFFFF00
-      priority: 157
-    }
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 10
-        dd: 2
-        dd: 2
-        dd: 2
-      }
-      priority: 158
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 2
       color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10446
+      priority: 10440
     }
   }
   element {
@@ -3396,13 +3276,7 @@ cont {
     lines {
       width: 2
       color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10473
+      priority: 10467
     }
   }
   element {
@@ -3410,13 +3284,7 @@ cont {
     lines {
       width: 2
       color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10595
+      priority: 10587
     }
   }
   element {
@@ -3424,13 +3292,7 @@ cont {
     lines {
       width: 2
       color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10802
+      priority: 10791
     }
   }
   element {
@@ -3438,13 +3300,7 @@ cont {
     lines {
       width: 2
       color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 11412
+      priority: 11401
     }
   }
   element {
@@ -3452,192 +3308,16 @@ cont {
     lines {
       width: 2
       color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 11690
+      priority: 11679
     }
   }
 }
 cont {
   name: "boundary-administrative-4"
   element {
-    scale: 6
-    lines {
-      width: 0.3125
-      color: 0xFFFF00
-      priority: 55
-    }
-    lines {
-      width: 0.0625
-      color: 0xF9574B
-      dashdot {
-        dd: 0.3125
-        dd: 0.0625
-        dd: 0.0625
-        dd: 0.0625
-      }
-      priority: 56
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.625
-      color: 0xFFFF00
-      priority: 56
-    }
-    lines {
-      width: 0.125
-      color: 0xF9574B
-      dashdot {
-        dd: 0.625
-        dd: 0.125
-        dd: 0.125
-        dd: 0.125
-      }
-      priority: 57
-    }
-  }
-  element {
-    scale: 8
-    lines {
-      width: 1.25
-      color: 0xFFFF00
-      priority: 63
-    }
-    lines {
-      width: 0.25
-      color: 0xF9574B
-      dashdot {
-        dd: 1.25
-        dd: 0.25
-        dd: 0.25
-        dd: 0.25
-      }
-      priority: 64
-    }
-  }
-  element {
-    scale: 9
-    lines {
-      width: 1
-      color: 0xFFFF00
-      priority: 63
-    }
-    lines {
-      width: 0.5
-      color: 0xF9574B
-      dashdot {
-        dd: 2.5
-        dd: 0.5
-        dd: 0.5
-        dd: 0.5
-      }
-      priority: 64
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 5
-      color: 0xFFFF00
-      priority: 157
-    }
-    lines {
-      width: 1
-      color: 0xF9574B
-      dashdot {
-        dd: 5
-        dd: 1
-        dd: 1
-        dd: 1
-      }
-      priority: 158
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 10
-      color: 0xFFFF00
-      priority: 157
-    }
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 10
-        dd: 2
-        dd: 2
-        dd: 2
-      }
-      priority: 158
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10446
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10473
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10595
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10802
-    }
-  }
-  element {
     scale: 16
     lines {
-      width: 2
+      width: 1
       color: 0xF9574B
       dashdot {
         dd: 12
@@ -3645,7 +3325,7 @@ cont {
         dd: 4
         dd: 4
       }
-      priority: 11412
+      priority: 11400
     }
   }
   element {
@@ -3659,7 +3339,7 @@ cont {
         dd: 4
         dd: 4
       }
-      priority: 11690
+      priority: 11678
     }
   }
 }
