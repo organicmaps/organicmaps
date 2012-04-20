@@ -287,7 +287,7 @@ public class DownloadUI extends PreferenceActivity
   {
     Intent mwmActivityIntent = new Intent(this, MWMActivity.class);
     // Disable animation because MWMActivity should appear exactly over this one
-    mwmActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+    mwmActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
     startActivity(mwmActivityIntent);
   }
 }

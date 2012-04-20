@@ -43,7 +43,8 @@
         </activity>
         <activity android:name="com.mapswithme.maps.DownloadUI"
                   android:label="@string/download_maps"
-                  android:screenOrientation="behind">
+                  android:screenOrientation="behind"
+                  android:noHistory="true">
         </activity>
     </application>
 </manifest>
