@@ -280,164 +280,185 @@
   <symbolStyle id="93" name="picnic">
    <resourceStyle width="16" x="462" y="112" height="16"/>
   </symbolStyle>
-  <symbolStyle id="94" name="placemark">
-   <resourceStyle width="28" x="478" y="112" height="28"/>
+  <symbolStyle id="94" name="placemark-blue">
+   <resourceStyle width="22" x="478" y="112" height="28"/>
   </symbolStyle>
-  <symbolStyle id="95" name="playground">
-   <resourceStyle width="28" x="0" y="140" height="28"/>
+  <symbolStyle id="95" name="placemark-brown">
+   <resourceStyle width="22" x="0" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="96" name="postbox">
-   <resourceStyle width="28" x="28" y="140" height="28"/>
+  <symbolStyle id="96" name="placemark-green">
+   <resourceStyle width="22" x="22" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="97" name="postoffice">
-   <resourceStyle width="28" x="56" y="140" height="28"/>
+  <symbolStyle id="97" name="placemark-orange">
+   <resourceStyle width="22" x="44" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="98" name="power-pole">
-   <resourceStyle width="9" x="84" y="140" height="9"/>
+  <symbolStyle id="98" name="placemark-pink">
+   <resourceStyle width="22" x="66" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="99" name="power-tower">
-   <resourceStyle width="13" x="93" y="140" height="13"/>
+  <symbolStyle id="99" name="placemark-purple">
+   <resourceStyle width="22" x="88" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="100" name="power_generic">
-   <resourceStyle width="20" x="106" y="140" height="20"/>
+  <symbolStyle id="100" name="placemark-red">
+   <resourceStyle width="22" x="110" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="101" name="power_hydro">
-   <resourceStyle width="20" x="126" y="140" height="20"/>
+  <symbolStyle id="101" name="placemark">
+   <resourceStyle width="28" x="132" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="102" name="power_photovoltaic">
-   <resourceStyle width="20" x="146" y="140" height="20"/>
+  <symbolStyle id="102" name="playground">
+   <resourceStyle width="28" x="160" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="103" name="power_wind">
-   <resourceStyle width="20" x="166" y="140" height="20"/>
+  <symbolStyle id="103" name="postbox">
+   <resourceStyle width="28" x="188" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="104" name="pub">
-   <resourceStyle width="28" x="186" y="140" height="28"/>
+  <symbolStyle id="104" name="postoffice">
+   <resourceStyle width="28" x="216" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="105" name="pubx">
-   <resourceStyle width="28" x="214" y="140" height="28"/>
+  <symbolStyle id="105" name="power-pole">
+   <resourceStyle width="9" x="244" y="140" height="9"/>
   </symbolStyle>
-  <symbolStyle id="106" name="railway-crossing-small">
-   <resourceStyle width="28" x="242" y="140" height="28"/>
+  <symbolStyle id="106" name="power-tower">
+   <resourceStyle width="13" x="253" y="140" height="13"/>
   </symbolStyle>
-  <symbolStyle id="107" name="railway-crossing">
-   <resourceStyle width="28" x="270" y="140" height="28"/>
+  <symbolStyle id="107" name="power_generic">
+   <resourceStyle width="20" x="266" y="140" height="20"/>
   </symbolStyle>
-  <symbolStyle id="108" name="railway-station-mini">
-   <resourceStyle width="28" x="298" y="140" height="28"/>
+  <symbolStyle id="108" name="power_hydro">
+   <resourceStyle width="20" x="286" y="140" height="20"/>
   </symbolStyle>
-  <symbolStyle id="109" name="railway-station">
-   <resourceStyle width="28" x="326" y="140" height="28"/>
+  <symbolStyle id="109" name="power_photovoltaic">
+   <resourceStyle width="20" x="306" y="140" height="20"/>
   </symbolStyle>
-  <symbolStyle id="110" name="recycling">
-   <resourceStyle width="28" x="354" y="140" height="28"/>
+  <symbolStyle id="110" name="power_wind">
+   <resourceStyle width="20" x="326" y="140" height="20"/>
   </symbolStyle>
-  <symbolStyle id="111" name="religion">
-   <resourceStyle width="28" x="382" y="140" height="28"/>
+  <symbolStyle id="111" name="pub">
+   <resourceStyle width="28" x="346" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="112" name="restaurant">
-   <resourceStyle width="28" x="410" y="140" height="28"/>
+  <symbolStyle id="112" name="pubx">
+   <resourceStyle width="28" x="374" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="113" name="roundabout_left">
-   <resourceStyle width="22" x="438" y="140" height="22"/>
+  <symbolStyle id="113" name="railway-crossing-small">
+   <resourceStyle width="28" x="402" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="114" name="roundabout_right">
-   <resourceStyle width="22" x="460" y="140" height="22"/>
+  <symbolStyle id="114" name="railway-crossing">
+   <resourceStyle width="28" x="430" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="115" name="school">
-   <resourceStyle width="28" x="482" y="140" height="28"/>
+  <symbolStyle id="115" name="railway-station-mini">
+   <resourceStyle width="28" x="458" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="116" name="shelter-fireplace">
+  <symbolStyle id="116" name="railway-station">
    <resourceStyle width="28" x="0" y="168" height="28"/>
   </symbolStyle>
-  <symbolStyle id="117" name="shelter">
+  <symbolStyle id="117" name="recycling">
    <resourceStyle width="28" x="28" y="168" height="28"/>
   </symbolStyle>
-  <symbolStyle id="118" name="shooting-borderless">
+  <symbolStyle id="118" name="religion">
    <resourceStyle width="28" x="56" y="168" height="28"/>
   </symbolStyle>
-  <symbolStyle id="119" name="shooting">
+  <symbolStyle id="119" name="restaurant">
    <resourceStyle width="28" x="84" y="168" height="28"/>
   </symbolStyle>
-  <symbolStyle id="120" name="slipway">
-   <resourceStyle width="28" x="112" y="168" height="28"/>
+  <symbolStyle id="120" name="roundabout_left">
+   <resourceStyle width="22" x="112" y="168" height="22"/>
   </symbolStyle>
-  <symbolStyle id="121" name="soccer-borderless">
-   <resourceStyle width="28" x="140" y="168" height="28"/>
+  <symbolStyle id="121" name="roundabout_right">
+   <resourceStyle width="22" x="134" y="168" height="22"/>
   </symbolStyle>
-  <symbolStyle id="122" name="soccer">
-   <resourceStyle width="28" x="168" y="168" height="28"/>
+  <symbolStyle id="122" name="school">
+   <resourceStyle width="28" x="156" y="168" height="28"/>
   </symbolStyle>
-  <symbolStyle id="123" name="speed_trap">
-   <resourceStyle width="22" x="196" y="168" height="22"/>
+  <symbolStyle id="123" name="shelter-fireplace">
+   <resourceStyle width="28" x="184" y="168" height="28"/>
   </symbolStyle>
-  <symbolStyle id="124" name="subway-station-l">
-   <resourceStyle width="28" x="218" y="168" height="28"/>
+  <symbolStyle id="124" name="shelter">
+   <resourceStyle width="28" x="212" y="168" height="28"/>
   </symbolStyle>
-  <symbolStyle id="125" name="subway-station-m">
-   <resourceStyle width="28" x="246" y="168" height="28"/>
+  <symbolStyle id="125" name="shooting-borderless">
+   <resourceStyle width="28" x="240" y="168" height="28"/>
   </symbolStyle>
-  <symbolStyle id="126" name="subway-station-s">
-   <resourceStyle width="28" x="274" y="168" height="28"/>
+  <symbolStyle id="126" name="shooting">
+   <resourceStyle width="28" x="268" y="168" height="28"/>
   </symbolStyle>
-  <symbolStyle id="127" name="subway">
-   <resourceStyle width="28" x="302" y="168" height="28"/>
+  <symbolStyle id="127" name="slipway">
+   <resourceStyle width="28" x="296" y="168" height="28"/>
   </symbolStyle>
-  <symbolStyle id="128" name="supermarket">
-   <resourceStyle width="28" x="330" y="168" height="28"/>
+  <symbolStyle id="128" name="soccer-borderless">
+   <resourceStyle width="28" x="324" y="168" height="28"/>
   </symbolStyle>
-  <symbolStyle id="129" name="survey_point">
-   <resourceStyle width="12" x="358" y="168" height="12"/>
+  <symbolStyle id="129" name="soccer">
+   <resourceStyle width="28" x="352" y="168" height="28"/>
   </symbolStyle>
-  <symbolStyle id="130" name="swimming-borderless">
-   <resourceStyle width="28" x="370" y="168" height="28"/>
+  <symbolStyle id="130" name="speed_trap">
+   <resourceStyle width="22" x="380" y="168" height="22"/>
   </symbolStyle>
-  <symbolStyle id="131" name="swimming">
-   <resourceStyle width="28" x="398" y="168" height="28"/>
+  <symbolStyle id="131" name="subway-station-l">
+   <resourceStyle width="28" x="402" y="168" height="28"/>
   </symbolStyle>
-  <symbolStyle id="132" name="synagogue">
-   <resourceStyle width="28" x="426" y="168" height="28"/>
+  <symbolStyle id="132" name="subway-station-m">
+   <resourceStyle width="28" x="430" y="168" height="28"/>
   </symbolStyle>
-  <symbolStyle id="133" name="telephone">
-   <resourceStyle width="28" x="454" y="168" height="28"/>
+  <symbolStyle id="133" name="subway-station-s">
+   <resourceStyle width="28" x="458" y="168" height="28"/>
   </symbolStyle>
-  <symbolStyle id="134" name="tennis-borderless">
-   <resourceStyle width="28" x="482" y="168" height="28"/>
-  </symbolStyle>
-  <symbolStyle id="135" name="tennis">
+  <symbolStyle id="134" name="subway">
    <resourceStyle width="28" x="0" y="196" height="28"/>
   </symbolStyle>
-  <symbolStyle id="136" name="theatre">
+  <symbolStyle id="135" name="supermarket">
    <resourceStyle width="28" x="28" y="196" height="28"/>
   </symbolStyle>
-  <symbolStyle id="137" name="toilets">
-   <resourceStyle width="28" x="56" y="196" height="28"/>
+  <symbolStyle id="136" name="survey_point">
+   <resourceStyle width="12" x="56" y="196" height="12"/>
   </symbolStyle>
-  <symbolStyle id="138" name="traffic_signal">
-   <resourceStyle width="22" x="84" y="196" height="22"/>
+  <symbolStyle id="137" name="swimming-borderless">
+   <resourceStyle width="28" x="68" y="196" height="28"/>
   </symbolStyle>
-  <symbolStyle id="139" name="tramway-mini">
-   <resourceStyle width="28" x="106" y="196" height="28"/>
+  <symbolStyle id="138" name="swimming">
+   <resourceStyle width="28" x="96" y="196" height="28"/>
   </symbolStyle>
-  <symbolStyle id="140" name="tramway">
-   <resourceStyle width="28" x="134" y="196" height="28"/>
+  <symbolStyle id="139" name="synagogue">
+   <resourceStyle width="28" x="124" y="196" height="28"/>
   </symbolStyle>
-  <symbolStyle id="141" name="tree">
-   <resourceStyle width="8" x="162" y="196" height="8"/>
+  <symbolStyle id="140" name="telephone">
+   <resourceStyle width="28" x="152" y="196" height="28"/>
   </symbolStyle>
-  <symbolStyle id="142" name="university">
-   <resourceStyle width="28" x="170" y="196" height="28"/>
+  <symbolStyle id="141" name="tennis-borderless">
+   <resourceStyle width="28" x="180" y="196" height="28"/>
   </symbolStyle>
-  <symbolStyle id="143" name="viewpoint">
-   <resourceStyle width="20" x="198" y="196" height="20"/>
+  <symbolStyle id="142" name="tennis">
+   <resourceStyle width="28" x="208" y="196" height="28"/>
   </symbolStyle>
-  <symbolStyle id="144" name="vulcan">
-   <resourceStyle width="13" x="218" y="196" height="13"/>
+  <symbolStyle id="143" name="theatre">
+   <resourceStyle width="28" x="236" y="196" height="28"/>
   </symbolStyle>
-  <symbolStyle id="145" name="wastewater">
-   <resourceStyle width="20" x="231" y="196" height="20"/>
+  <symbolStyle id="144" name="toilets">
+   <resourceStyle width="28" x="264" y="196" height="28"/>
   </symbolStyle>
-  <symbolStyle id="146" name="windmill">
-   <resourceStyle width="22" x="251" y="196" height="22"/>
+  <symbolStyle id="145" name="traffic_signal">
+   <resourceStyle width="22" x="292" y="196" height="22"/>
+  </symbolStyle>
+  <symbolStyle id="146" name="tramway-mini">
+   <resourceStyle width="28" x="314" y="196" height="28"/>
+  </symbolStyle>
+  <symbolStyle id="147" name="tramway">
+   <resourceStyle width="28" x="342" y="196" height="28"/>
+  </symbolStyle>
+  <symbolStyle id="148" name="tree">
+   <resourceStyle width="8" x="370" y="196" height="8"/>
+  </symbolStyle>
+  <symbolStyle id="149" name="university">
+   <resourceStyle width="28" x="378" y="196" height="28"/>
+  </symbolStyle>
+  <symbolStyle id="150" name="viewpoint">
+   <resourceStyle width="20" x="406" y="196" height="20"/>
+  </symbolStyle>
+  <symbolStyle id="151" name="vulcan">
+   <resourceStyle width="13" x="426" y="196" height="13"/>
+  </symbolStyle>
+  <symbolStyle id="152" name="wastewater">
+   <resourceStyle width="20" x="439" y="196" height="20"/>
+  </symbolStyle>
+  <symbolStyle id="153" name="windmill">
+   <resourceStyle width="22" x="459" y="196" height="22"/>
   </symbolStyle>
  </page>
 </skin>
