@@ -44,6 +44,18 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
                                                                        false,
                                                                        true);
 
+  rmp.m_smallStoragesParams = yg::ResourceManager::StoragePoolParams(6000 * sizeof(yg::gl::Vertex),
+                                                                     sizeof(yg::gl::Vertex),
+                                                                     9000 * sizeof(unsigned short),
+                                                                     sizeof(unsigned short),
+                                                                     1,
+                                                                     true,
+                                                                     true,
+                                                                     1,
+                                                                     "smallStorage",
+                                                                     true,
+                                                                     true);
+
   rmp.m_multiBlitStoragesParams = yg::ResourceManager::StoragePoolParams(500 * sizeof(yg::gl::Vertex),
                                                                          sizeof(yg::gl::Vertex),
                                                                          500 * sizeof(unsigned short),
@@ -160,7 +172,9 @@ TilingRenderPolicyMT::~TilingRenderPolicyMT()
 
 void TilingRenderPolicyMT::SetRenderFn(TRenderFn renderFn)
 {
-  m_TileRenderer.reset(new TileRenderer(GetPlatform().SkinName(),
+  string skinName = GetPlatform().SkinName();
+
+  m_TileRenderer.reset(new TileRenderer(skinName,
                                         GetPlatform().CpuCores(),
                                         m_bgColor,
                                         renderFn,
@@ -169,7 +183,8 @@ void TilingRenderPolicyMT::SetRenderFn(TRenderFn renderFn)
                                         GetPlatform().VisualScale(),
                                         0));
 
-  m_CoverageGenerator.reset(new CoverageGenerator(m_TileRenderer.get(),
+  m_CoverageGenerator.reset(new CoverageGenerator(skinName,
+                                                  m_TileRenderer.get(),
                                                   m_windowHandle,
                                                   m_primaryRC,
                                                   m_resourceManager,

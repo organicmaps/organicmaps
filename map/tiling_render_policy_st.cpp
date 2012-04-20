@@ -35,9 +35,9 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                        true,
                                                                        true);
 
-  rmp.m_primaryStoragesParams = yg::ResourceManager::StoragePoolParams(5000 * sizeof(yg::gl::Vertex),
+  rmp.m_primaryStoragesParams = yg::ResourceManager::StoragePoolParams(6000 * sizeof(yg::gl::Vertex),
                                                                        sizeof(yg::gl::Vertex),
-                                                                       10000 * sizeof(unsigned short),
+                                                                       9000 * sizeof(unsigned short),
                                                                        sizeof(unsigned short),
                                                                        10,
                                                                        true,
@@ -46,6 +46,18 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                        "primaryStorage",
                                                                        true,
                                                                        true);
+
+  rmp.m_smallStoragesParams = yg::ResourceManager::StoragePoolParams(6000 * sizeof(yg::gl::Vertex),
+                                                                     sizeof(yg::gl::Vertex),
+                                                                     9000 * sizeof(unsigned short),
+                                                                     sizeof(unsigned short),
+                                                                     1,
+                                                                     true,
+                                                                     true,
+                                                                     1,
+                                                                     "smallStorage",
+                                                                     true,
+                                                                     true);
 
   rmp.m_multiBlitStoragesParams = yg::ResourceManager::StoragePoolParams(1500 * sizeof(yg::gl::Vertex),
                                                                          sizeof(yg::gl::Vertex),
@@ -200,12 +212,14 @@ TilingRenderPolicyST::~TilingRenderPolicyST()
 void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
 {
   int cpuCores = GetPlatform().CpuCores();
+  string skinName = GetPlatform().SkinName();
+
   yg::gl::PacketsQueue ** queues = new yg::gl::PacketsQueue*[cpuCores];
 
   for (unsigned i = 0; i < cpuCores; ++i)
     queues[i] = m_QueuedRenderer->GetPacketsQueue(i);
 
-  m_TileRenderer.reset(new TileRenderer(GetPlatform().SkinName(),
+  m_TileRenderer.reset(new TileRenderer(skinName,
                                         cpuCores,
                                         m_bgColor,
                                         renderFn,
@@ -216,7 +230,8 @@ void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
 
   delete [] queues;
 
-  m_CoverageGenerator.reset(new CoverageGenerator(m_TileRenderer.get(),
+  m_CoverageGenerator.reset(new CoverageGenerator(skinName,
+                                                  m_TileRenderer.get(),
                                                   m_windowHandle,
                                                   m_primaryRC,
                                                   m_resourceManager,
@@ -224,4 +239,3 @@ void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
                                                   m_emptyModelFn
                                                   ));
 }
-
