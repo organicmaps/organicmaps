@@ -46,9 +46,6 @@ private:
   ScreenCoverage * m_workCoverage;
   ScreenCoverage * m_currentCoverage;
 
-  shared_ptr<yg::ResourceStyleCache> m_workStylesCache;
-  shared_ptr<yg::ResourceStyleCache> m_currentStylesCache;
-
   ScreenBase m_currentScreen;
   int m_sequenceID;
 
@@ -58,10 +55,10 @@ private:
 
   RenderPolicy::TEmptyModelFn m_emptyModelFn;
 
-  /// screen for caching ScreenCoverage
-  yg::gl::Screen::Params m_cacheParams;
-  shared_ptr<yg::gl::Screen> m_cacheScreen;
-  shared_ptr<yg::Skin> m_cacheSkin;
+  yg::gl::PacketsQueue * m_glQueue;
+  string m_skinName;
+
+  ScreenCoverage * CreateCoverage();
 
 public:
 

@@ -53,10 +53,13 @@ namespace yg
     {
       m_isRendering = true;
 
-      m_frameBuffer->setRenderTarget(m_renderTarget);
-      m_frameBuffer->setDepthBuffer(m_depthBuffer);
+      if (m_frameBuffer)
+      {
+        m_frameBuffer->setRenderTarget(m_renderTarget);
+        m_frameBuffer->setDepthBuffer(m_depthBuffer);
 
-      processCommand(make_shared_ptr(new ChangeFrameBuffer(m_frameBuffer)));
+        processCommand(make_shared_ptr(new ChangeFrameBuffer(m_frameBuffer)));
+      }
 
 //      checkStatus();
     }

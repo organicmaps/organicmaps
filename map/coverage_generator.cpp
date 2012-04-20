@@ -24,40 +24,18 @@ CoverageGenerator::CoverageGenerator(
     RenderPolicy::TEmptyModelFn emptyModelFn)
   : m_queue(1),
     m_tileRenderer(tileRenderer),
-    m_workCoverage(0),
-    m_currentCoverage(new ScreenCoverage(tileRenderer, this)),
     m_sequenceID(0),
     m_windowHandle(windowHandle),
-    m_emptyModelFn(emptyModelFn)
+    m_emptyModelFn(emptyModelFn),
+    m_glQueue(glQueue),
+    m_skinName(skinName)
 {
   g_coverageGeneratorDestroyed = false;
 
   m_resourceManager = rm;
-  if (!glQueue)
+
+  if (!m_glQueue)
     m_renderContext = primaryRC->createShared();
-
-  m_currentStylesCache.reset(new yg::ResourceStyleCache(rm,
-                                                 rm->cacheThreadGlyphCacheID(),
-                                                 glQueue));
-
-  m_workStylesCache.reset(new yg::ResourceStyleCache(rm,
-                                              rm->cacheThreadGlyphCacheID(),
-                                              glQueue));
-
-  m_params.m_resourceManager = m_resourceManager;
-  m_params.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer());
-
-  if (glQueue)
-    m_params.m_renderQueue = glQueue;
-
-  m_params.m_doUnbindRT = false;
-  m_params.m_isSynchronized = false;
-  m_params.m_glyphCacheID = m_resourceManager->cacheThreadGlyphCacheID();
-
-  m_cacheSkin.reset(loadSkin(m_resourceManager,
-                    skinName,
-                    2,
-                    2));
 
   m_queue.AddInitCommand(bind(&CoverageGenerator::InitializeThreadGL, this));
   m_queue.AddFinCommand(bind(&CoverageGenerator::FinalizeThreadGL, this));
@@ -65,13 +43,32 @@ CoverageGenerator::CoverageGenerator(
   m_queue.Start();
 }
 
+ScreenCoverage * CoverageGenerator::CreateCoverage()
+{
+  yg::gl::Screen::Params params;
+
+  params.m_resourceManager = m_resourceManager;
+  params.m_renderQueue = m_glQueue;
+
+  params.m_doUnbindRT = false;
+  params.m_isSynchronized = false;
+  params.m_glyphCacheID = m_resourceManager->cacheThreadGlyphCacheID();
+
+  shared_ptr<yg::gl::Screen> screen(new yg::gl::Screen(params));
+  shared_ptr<yg::Skin> skin(loadSkin(m_resourceManager, m_skinName, 2, 2));
+
+  screen->setSkin(skin);
+
+  return new ScreenCoverage(m_tileRenderer, this, screen);
+}
+
 void CoverageGenerator::InitializeThreadGL()
 {
   if (m_renderContext)
     m_renderContext->makeCurrent();
 
-  m_cacheScreen.reset(new yg::gl::Screen(m_params));
-  m_cacheScreen->setSkin(m_cacheSkin);
+  m_workCoverage = CreateCoverage();
+  m_currentCoverage = CreateCoverage();
 }
 
 void CoverageGenerator::FinalizeThreadGL()
@@ -85,14 +82,13 @@ CoverageGenerator::~CoverageGenerator()
   LOG(LINFO, ("cancelling coverage thread"));
   Cancel();
 
-  LOG(LINFO, ("deleting cacheScreen"));
-  m_cacheScreen.reset();
-
   LOG(LINFO, ("deleting workCoverage"));
   delete m_workCoverage;
+  m_workCoverage = 0;
 
   LOG(LINFO, ("deleting currentCoverage"));
   delete m_currentCoverage;
+  m_currentCoverage = 0;
 
   g_coverageGeneratorDestroyed = true;
 }
@@ -159,34 +155,22 @@ void CoverageGenerator::CoverScreen(ScreenBase const & screen, int sequenceID)
   if (sequenceID < m_sequenceID)
     return;
 
-  ASSERT(m_workCoverage == 0, ());
+  m_currentCoverage->CopyInto(*m_workCoverage);
 
-  m_workCoverage = m_currentCoverage->Clone();
   m_workCoverage->SetSequenceID(sequenceID);
-  m_workCoverage->SetResourceStyleCache(m_workStylesCache.get());
   m_workCoverage->SetScreen(screen);
 
   if (!m_workCoverage->IsPartialCoverage() && m_workCoverage->IsEmptyDrawingCoverage())
     AddCheckEmptyModelTask(sequenceID);
 
-  m_workCoverage->Cache(m_cacheScreen.get());
+  m_workCoverage->Cache();
 
   {
     threads::MutexGuard g(m_mutex);
-
-    /// test that m_workCoverage->InfoLayer doesn't have
-    /// the same elements as m_currentCoverage->InfoLayer
-    ASSERT(!m_workCoverage->GetInfoLayer()->checkHasEquals(m_currentCoverage->GetInfoLayer()), ());
-    ASSERT(m_workCoverage->GetInfoLayer()->checkCached(m_workStylesCache.get()), ());
-
     swap(m_currentCoverage, m_workCoverage);
-    swap(m_currentStylesCache, m_workStylesCache);
-
-    ASSERT(m_currentCoverage->GetResourceStyleCache() == m_currentStylesCache.get(), ());
   }
 
-  delete m_workCoverage;
-  m_workCoverage = 0;
+  m_workCoverage->Clear();
 
   m_windowHandle->invalidate();
 }
@@ -208,35 +192,21 @@ void CoverageGenerator::MergeTile(Tiler::RectInfo const & rectInfo, int sequence
     return;
   }
 
-  ASSERT(m_workCoverage == 0, ());
-
-  m_workCoverage = m_currentCoverage->Clone();
+  m_currentCoverage->CopyInto(*m_workCoverage);
   m_workCoverage->SetSequenceID(sequenceID);
-  m_workCoverage->SetResourceStyleCache(m_workStylesCache.get());
   m_workCoverage->Merge(rectInfo);
 
   if (!m_workCoverage->IsPartialCoverage() && m_workCoverage->IsEmptyDrawingCoverage())
     AddCheckEmptyModelTask(sequenceID);
 
-  m_workCoverage->Cache(m_cacheScreen.get());
+  m_workCoverage->Cache();
 
   {
     threads::MutexGuard g(m_mutex);
-
-    /// test that m_workCoverage->InfoLayer doesn't have
-    /// the same elements as m_currentCoverage->InfoLayer
-    ASSERT(!m_workCoverage->GetInfoLayer()->checkHasEquals(m_currentCoverage->GetInfoLayer()), ());
-    ASSERT(m_workCoverage->GetInfoLayer()->checkCached(m_workStylesCache.get()), ());
-
     swap(m_currentCoverage, m_workCoverage);
-    swap(m_currentStylesCache, m_workStylesCache);
-
-    ASSERT(m_currentCoverage->GetResourceStyleCache() == m_currentStylesCache.get(), ());
   }
 
-  /// we should delete workCoverage
-  delete m_workCoverage;
-  m_workCoverage = 0;
+  m_workCoverage->Clear();
 
   m_windowHandle->invalidate();
 }

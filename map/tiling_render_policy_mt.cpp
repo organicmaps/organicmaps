@@ -32,6 +32,18 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
                                                                        false,
                                                                        true);
 
+  rmp.m_fontTexturesParams = yg::ResourceManager::TexturePoolParams(256,
+                                                                    256,
+                                                                    1,
+                                                                    rmp.m_texFormat,
+                                                                    true,
+                                                                    true,
+                                                                    true,
+                                                                    1,
+                                                                    "primaryTexture",
+                                                                    true,
+                                                                    true);
+
   rmp.m_primaryStoragesParams = yg::ResourceManager::StoragePoolParams(50000 * sizeof(yg::gl::Vertex),
                                                                        sizeof(yg::gl::Vertex),
                                                                        100000 * sizeof(unsigned short),

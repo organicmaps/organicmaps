@@ -22,47 +22,45 @@ ScreenCoverage::ScreenCoverage()
     m_infoLayer(new yg::InfoLayer()),
     m_isEmptyDrawingCoverage(false),
     m_isEmptyModelAtCoverageCenter(true),
-    m_leafTilesToRender(0),
-    m_stylesCache(0)
+    m_leafTilesToRender(0)
 {
   m_infoLayer->setCouldOverlap(false);
 }
 
 ScreenCoverage::ScreenCoverage(TileRenderer * tileRenderer,
-                               CoverageGenerator * coverageGenerator)
+                               CoverageGenerator * coverageGenerator,
+                               shared_ptr<yg::gl::Screen> const & cacheScreen)
   : m_tileRenderer(tileRenderer),
+    m_coverageGenerator(coverageGenerator),
     m_infoLayer(new yg::InfoLayer()),
     m_isEmptyDrawingCoverage(false),
     m_isEmptyModelAtCoverageCenter(true),
     m_leafTilesToRender(0),
-    m_coverageGenerator(coverageGenerator),
-    m_stylesCache(0)
+    m_cacheScreen(cacheScreen)
 {
   m_infoLayer->setCouldOverlap(false);
 }
 
-ScreenCoverage * ScreenCoverage::Clone()
+void ScreenCoverage::CopyInto(ScreenCoverage & cvg)
 {
-  ScreenCoverage * res = new ScreenCoverage();
-
-  res->m_tileRenderer = m_tileRenderer;
-  res->m_tiler = m_tiler;
-  res->m_screen = m_screen;
-  res->m_coverageGenerator = m_coverageGenerator;
-  res->m_tileRects = m_tileRects;
-  res->m_newTileRects = m_newTileRects;
-  res->m_newLeafTileRects = m_newLeafTileRects;
-  res->m_isEmptyDrawingCoverage = m_isEmptyDrawingCoverage;
-  res->m_isEmptyModelAtCoverageCenter = m_isEmptyModelAtCoverageCenter;
-  res->m_leafTilesToRender = m_leafTilesToRender;
+  cvg.m_tileRenderer = m_tileRenderer;
+  cvg.m_tiler = m_tiler;
+  cvg.m_screen = m_screen;
+  cvg.m_coverageGenerator = m_coverageGenerator;
+  cvg.m_tileRects = m_tileRects;
+  cvg.m_newTileRects = m_newTileRects;
+  cvg.m_newLeafTileRects = m_newLeafTileRects;
+  cvg.m_isEmptyDrawingCoverage = m_isEmptyDrawingCoverage;
+  cvg.m_isEmptyModelAtCoverageCenter = m_isEmptyModelAtCoverageCenter;
+  cvg.m_leafTilesToRender = m_leafTilesToRender;
 
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
 
   tileCache->Lock();
 
-  res->m_tiles = m_tiles;
+  cvg.m_tiles = m_tiles;
 
-  for (TTileSet::const_iterator it = res->m_tiles.begin(); it != res->m_tiles.end(); ++it)
+  for (TTileSet::const_iterator it = cvg.m_tiles.begin(); it != cvg.m_tiles.end(); ++it)
   {
     Tiler::RectInfo const & ri = (*it)->m_rectInfo;
     tileCache->LockTile(ri);
@@ -70,22 +68,32 @@ ScreenCoverage * ScreenCoverage::Clone()
 
   tileCache->Unlock();
 
-  res->m_infoLayer.reset();
-  res->m_infoLayer.reset(m_infoLayer->clone());
-  res->m_stylesCache = 0;
-  res->m_displayList.reset();
-
-  return res;
+  cvg.m_infoLayer.reset(m_infoLayer->clone());
 }
 
-void ScreenCoverage::SetResourceStyleCache(yg::ResourceStyleCache * stylesCache)
+void ScreenCoverage::Clear()
 {
-  m_stylesCache = stylesCache;
-}
+  m_tileRects.clear();
+  m_newTileRects.clear();
+  m_newLeafTileRects.clear();
+  m_infoLayer->clear();
+  m_isEmptyDrawingCoverage = false;
+  m_isEmptyModelAtCoverageCenter = true;
+  m_leafTilesToRender = 0;
 
-yg::ResourceStyleCache * ScreenCoverage::GetResourceStyleCache() const
-{
-  return m_stylesCache;
+  TileCache * tileCache = &m_tileRenderer->GetTileCache();
+
+  tileCache->Lock();
+
+  for (TTileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
+  {
+    Tiler::RectInfo const & ri = (*it)->m_rectInfo;
+    tileCache->UnlockTile(ri);
+  }
+
+  tileCache->Unlock();
+
+  m_tiles.clear();
 }
 
 void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
@@ -145,15 +153,15 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
   }
 }
 
-void ScreenCoverage::Cache(yg::gl::Screen *screen)
+void ScreenCoverage::Cache()
 {
   /// caching tiles blitting commands.
 
   m_displayList.reset();
-  m_displayList.reset(screen->createDisplayList());
+  m_displayList.reset(m_cacheScreen->createDisplayList());
 
-  screen->beginFrame();
-  screen->setDisplayList(m_displayList.get());
+  m_cacheScreen->beginFrame();
+  m_cacheScreen->setDisplayList(m_displayList.get());
 
   vector<yg::gl::BlitInfo> infos;
 
@@ -175,46 +183,17 @@ void ScreenCoverage::Cache(yg::gl::Screen *screen)
   }
 
   if (!infos.empty())
-    screen->blit(&infos[0], infos.size(), true);
+    m_cacheScreen->blit(&infos[0], infos.size(), true);
 
-  screen->setDisplayList(0);
-  screen->endFrame();
+  m_infoLayer->draw(m_cacheScreen.get(), math::Identity<double, 3>());
 
-  /// caching InfoLayer into texture
-
-  if (!m_stylesCache)
-  {
-    LOG(LWARNING, ("no styles cache"));
-    return;
-  }
-
-  m_infoLayer->cache(m_stylesCache);
-
-  /// asserting, that all visible elements is cached
-  ASSERT(m_infoLayer->checkCached(m_stylesCache), ());
-
-  m_stylesCache->upload();
-
-  /// and then into display list
-
-  screen->beginFrame();
-  screen->setAdditionalSkinPage(m_stylesCache->cachePage());
-  screen->setDisplayList(m_displayList.get());
-
-  m_infoLayer->draw(screen, math::Identity<double, 3>());
-
-  screen->setDisplayList(0);
-  screen->clearAdditionalSkinPage();
-  screen->endFrame();
+  m_cacheScreen->setDisplayList(0);
+  m_cacheScreen->endFrame();
 
   /// completing commands that was immediately executed
   /// while recording of displayList(for example UnlockStorage)
 
-  screen->completeCommands();
-}
-
-void ScreenCoverage::Remove(Tile const *)
-{
+  m_cacheScreen->completeCommands();
 }
 
 void ScreenCoverage::SetScreen(ScreenBase const & screen)
@@ -376,17 +355,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 
 ScreenCoverage::~ScreenCoverage()
 {
-  TileCache * tileCache = &m_tileRenderer->GetTileCache();
-
-  tileCache->Lock();
-
-  for (TTileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
-  {
-    Tiler::RectInfo const & ri = (*it)->m_rectInfo;
-    tileCache->UnlockTile(ri);
-  }
-
-  tileCache->Unlock();
+  Clear();
 }
 
 void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)
@@ -398,11 +367,6 @@ void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)
 yg::InfoLayer * ScreenCoverage::GetInfoLayer() const
 {
   return m_infoLayer.get();
-}
-
-void ScreenCoverage::EndFrame(yg::gl::Screen *s)
-{
-  s->clearAdditionalSkinPage();
 }
 
 int ScreenCoverage::GetDrawScale() const
