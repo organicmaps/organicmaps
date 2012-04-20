@@ -35,3 +35,4 @@ SOURCES += \
     geometry_serialization_test.cpp \
     mwm_set_test.cpp \
     categories_test.cpp \
+    visibility_test.cpp
