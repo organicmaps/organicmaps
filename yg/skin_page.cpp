@@ -348,6 +348,9 @@ namespace yg
       return;
     }
 
+    if (isDebugging())
+      LOG(LINFO, ("uploading to", m_texture->id(), "texture"));
+
     static_cast<gl::ManagedTexture*>(m_texture.get())->lock();
 
     TDynamicTexture * dynTexture = static_cast<TDynamicTexture*>(m_texture.get());
@@ -426,29 +429,6 @@ namespace yg
   void SkinPage::resetTexture()
   {
     m_texture.reset();
-  }
-
-  void SkinPage::freeTexture()
-  {
-    if (m_texture)
-    {
-      switch (m_type)
-      {
-      case EPrimary:
-        m_resourceManager->primaryTextures()->Free(m_texture);
-        break;
-      case EFonts:
-        m_resourceManager->fontTextures()->Free(m_texture);
-        break;
-      case ELightWeight:
-        m_resourceManager->guiThreadTextures()->Free(m_texture);
-        break;
-      default:
-        LOG(LINFO, ("freeTexture call for with invalid type param"));
-      }
-
-      m_texture.reset();
-    }
   }
 
   void SkinPage::reserveTexture() const

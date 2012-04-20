@@ -44,15 +44,15 @@ CoverageGenerator::CoverageGenerator(
                                               rm->cacheThreadGlyphCacheID(),
                                               glQueue));
 
-  m_cacheParams.m_resourceManager = m_resourceManager;
-  m_cacheParams.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer());
+  m_params.m_resourceManager = m_resourceManager;
+  m_params.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer());
 
   if (glQueue)
-    m_cacheParams.m_renderQueue = glQueue;
+    m_params.m_renderQueue = glQueue;
 
-  m_cacheParams.m_doUnbindRT = false;
-  m_cacheParams.m_isSynchronized = false;
-  m_cacheParams.m_glyphCacheID = m_resourceManager->cacheThreadGlyphCacheID();
+  m_params.m_doUnbindRT = false;
+  m_params.m_isSynchronized = false;
+  m_params.m_glyphCacheID = m_resourceManager->cacheThreadGlyphCacheID();
 
   m_cacheSkin.reset(loadSkin(m_resourceManager,
                     skinName,
@@ -70,7 +70,7 @@ void CoverageGenerator::InitializeThreadGL()
   if (m_renderContext)
     m_renderContext->makeCurrent();
 
-  m_cacheScreen.reset(new yg::gl::Screen(m_cacheParams));
+  m_cacheScreen.reset(new yg::gl::Screen(m_params));
   m_cacheScreen->setSkin(m_cacheSkin);
 }
 

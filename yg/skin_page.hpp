@@ -142,7 +142,6 @@ namespace yg
              uint8_t pipelineID);
 
     void reserveTexture() const;
-    void freeTexture();
     void resetTexture();
     void createPacker();
 
