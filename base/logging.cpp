@@ -2,6 +2,8 @@
 #include "logging.hpp"
 #include "macros.hpp"
 #include "timer.hpp"
+#include "thread.hpp"
+#include "mutex.hpp"
 
 #include "../std/iostream.hpp"
 #include "../std/iomanip.hpp"
@@ -33,12 +35,25 @@ namespace my
   void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, string const & msg)
   {
     // TODO: Make LogMessageDefault() thread-safe?
+    static threads::Mutex m;
+    threads::MutexGuard g(m);
+
+    static int threadsCount = 1;
+    static map<threads::ThreadID, int> m_shortThreadID;
+    threads::ThreadID id = threads::GetCurrentThreadID();
+    if (m_shortThreadID[id] == 0)
+      m_shortThreadID[id] = threadsCount++;
+
+    ostringstream out;
+    out << "LOG";
+
+    out << " TID(" << m_shortThreadID[id] << ")";
+
     static Timer s_Timer;
     static char const * names[] = { "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL" };
     static size_t const len[] =   {    5,      4,        7,        5,         8     };
-    ostringstream out;
-    out << "LOG ";
-    out << names[level];
+
+    out << " " << names[level];
 
     //int64_t const milliseconds = static_cast<int64_t>(s_Timer.ElapsedSeconds() * 1000 + 0.5);
     //std::cerr << " " << std::setw(6) << milliseconds / 1000 << "." << std::setw(4) << std::setiosflags(std::ios::left) << (milliseconds % 1000) << std::resetiosflags(std::ios::left);
