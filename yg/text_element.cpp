@@ -2,7 +2,6 @@
 #include "screen.hpp"
 #include "skin.hpp"
 #include "skin_page.hpp"
-#include "resource_style_cache.hpp"
 #include "resource_manager.hpp"
 #include "overlay_renderer.hpp"
 #include "resource_style.hpp"
@@ -124,97 +123,6 @@ namespace yg
       }
 
       screen->drawGlyph(glyphPt, m2::PointD(0.0, 0.0), glyphAngle, 0, glyphStyle, depth);
-    }
-  }
-
-  void TextElement::map(GlyphLayout const & layout,
-                        ResourceStyleCache * stylesCache,
-                        FontDesc const & desc) const
-  {
-    if (!desc.IsValid())
-      return;
-
-    shared_ptr<SkinPage> const & skinPage = stylesCache->cachePage();
-    GlyphCache * glyphCache = stylesCache->glyphCache();
-
-    for (unsigned i = layout.firstVisible(); i < layout.lastVisible(); ++i)
-    {
-      GlyphLayoutElem const & elem = layout.entries()[i];
-
-      GlyphKey gk(elem.m_sym,
-                  desc.m_size,
-                  desc.m_isMasked,
-                  desc.m_isMasked ? desc.m_maskColor : desc.m_color);
-
-      bool packed = skinPage->findGlyph(gk) != 0x00FFFFFF;
-
-      if (!packed)
-      {
-        if (skinPage->hasRoom(gk, glyphCache))
-        {
-          skinPage->mapGlyph(gk, glyphCache);
-          packed = true;
-        }
-      }
-
-      CHECK(packed, ("couldn't pack"));
-    }
-  }
-
-  bool TextElement::find(GlyphLayout const & layout, ResourceStyleCache * stylesCache, FontDesc const & desc) const
-  {
-    if (!desc.IsValid())
-      return false;
-
-    shared_ptr<SkinPage> const & skinPage = stylesCache->cachePage();
-
-    for (unsigned i = layout.firstVisible(); i < layout.lastVisible(); ++i)
-    {
-      GlyphLayoutElem const & elem = layout.entries()[i];
-
-      GlyphKey gk(elem.m_sym,
-                  desc.m_size,
-                  desc.m_isMasked,
-                  desc.m_isMasked ? desc.m_maskColor : desc.m_color);
-
-      if (skinPage->findGlyph(gk) == 0x00FFFFFF)
-        return false;
-    }
-
-    return true;
-  }
-
-  void TextElement::getNonPackedRects(GlyphLayout const & layout,
-                                      FontDesc const & desc,
-                                      ResourceStyleCache * stylesCache,
-                                      ResourceStyleCacheContext * context,
-                                      vector<m2::PointU> & v) const
-  {
-    if (!desc.IsValid())
-      return;
-
-    shared_ptr<SkinPage> const & skinPage = stylesCache->cachePage();
-    GlyphCache * glyphCache = stylesCache->glyphCache();
-
-    for (unsigned i = layout.firstVisible(); i < layout.lastVisible(); ++i)
-    {
-      GlyphLayoutElem const & elem = layout.entries()[i];
-
-      GlyphKey gk(elem.m_sym,
-                  desc.m_size,
-                  desc.m_isMasked,
-                  desc.m_isMasked ? desc.m_maskColor : desc.m_color);
-
-      if (context && context->hasGlyph(gk))
-        continue;
-
-      if (skinPage->findGlyph(gk) == 0x00FFFFFF)
-      {
-        if (context)
-          context->addGlyph(gk);
-        shared_ptr<GlyphInfo> gi = glyphCache->getGlyphInfo(gk);
-        v.push_back(m2::PointU(gi->m_metrics.m_width + 4, gi->m_metrics.m_height + 4));
-      }
     }
   }
 }

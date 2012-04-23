@@ -31,12 +31,6 @@ namespace yg
 
     void draw(gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const & m) const;
 
-    void map(ResourceStyleCache * stylesCache) const;
-    void getNonPackedRects(ResourceStyleCache * stylesCache,
-                           ResourceStyleCacheContext * context,
-                           vector<m2::PointU> & v) const;
-    bool find(ResourceStyleCache * stylesCache) const;
-
     int visualRank() const;
 
     OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;

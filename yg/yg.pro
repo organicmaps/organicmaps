@@ -53,7 +53,6 @@ SOURCES += \
     symbol_element.cpp \
     overlay_renderer.cpp \
     render_state_updater.cpp \
-    resource_style_cache.cpp \
     composite_overlay_element.cpp \
     path_text_element.cpp \
     straight_text_element.cpp \
@@ -113,7 +112,6 @@ HEADERS += \
     symbol_element.hpp \
     overlay_renderer.hpp \
     render_state_updater.hpp \
-    resource_style_cache.hpp \
     composite_overlay_element.hpp \
     path_text_element.hpp \
     straight_text_element.hpp \

@@ -304,21 +304,6 @@ void Ruler::draw(yg::gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const &
   }
 }
 
-void Ruler::map(yg::ResourceStyleCache * stylesCache) const
-{
-}
-
-bool Ruler::find(yg::ResourceStyleCache * stylesCache) const
-{
-  return true;
-}
-
-void Ruler::getNonPackedRects(yg::ResourceStyleCache * stylesCache,
-                              yg::ResourceStyleCacheContext * cacheContext,
-                              vector<m2::PointU> & v) const
-{
-}
-
 int Ruler::visualRank() const
 {
   return 0;

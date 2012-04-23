@@ -290,60 +290,6 @@ namespace yg
       m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + offs);
   }
 
-  void StraightTextElement::map(ResourceStyleCache * stylesCache) const
-  {
-    for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-    {
-      if (m_glyphLayouts[i].fontDesc().m_isMasked)
-        TextElement::map(m_glyphLayouts[i], stylesCache, m_glyphLayouts[i].fontDesc());
-    }
-
-    for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-    {
-      yg::FontDesc fontDesc = m_glyphLayouts[i].fontDesc();
-      fontDesc.m_isMasked = false;
-      TextElement::map(m_glyphLayouts[i], stylesCache, fontDesc);
-    }
-  }
-
-  bool StraightTextElement::find(ResourceStyleCache * stylesCache) const
-  {
-    for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-    {
-      if (m_glyphLayouts[i].fontDesc().m_isMasked)
-        if (!TextElement::find(m_glyphLayouts[i], stylesCache, m_glyphLayouts[i].fontDesc()))
-          return false;
-    }
-
-    for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-    {
-      yg::FontDesc fontDesc = m_glyphLayouts[i].fontDesc();
-      fontDesc.m_isMasked = false;
-      if (!TextElement::find(m_glyphLayouts[i], stylesCache, fontDesc))
-        return false;
-    }
-
-    return true;
-  }
-
-  void StraightTextElement::getNonPackedRects(ResourceStyleCache * stylesCache,
-                                              ResourceStyleCacheContext * context,
-                                              vector<m2::PointU> & v) const
-  {
-    for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-    {
-      if (m_glyphLayouts[i].fontDesc().m_isMasked)
-        TextElement::getNonPackedRects(m_glyphLayouts[i], m_glyphLayouts[i].fontDesc(), stylesCache, context, v);
-    }
-
-    for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-    {
-      yg::FontDesc fontDesc = m_glyphLayouts[i].fontDesc();
-      fontDesc.m_isMasked = false;
-      TextElement::getNonPackedRects(m_glyphLayouts[i], fontDesc, stylesCache, context, v);
-    }
-  }
-
   int StraightTextElement::visualRank() const
   {
     return 1000 + m_fontDesc.m_size;

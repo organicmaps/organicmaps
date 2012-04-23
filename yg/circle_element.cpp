@@ -1,6 +1,5 @@
 #include "circle_element.hpp"
 
-#include "resource_style_cache.hpp"
 #include "overlay_renderer.hpp"
 #include "resource_style.hpp"
 #include "skin.hpp"
@@ -67,40 +66,6 @@ namespace yg
   int CircleElement::visualRank() const
   {
     return 500;
-  }
-
-  void CircleElement::map(ResourceStyleCache * stylesCache) const
-  {
-    shared_ptr<SkinPage> const & skinPage = stylesCache->cachePage();
-
-    ASSERT(skinPage->hasRoom(m_ci), ());
-
-    skinPage->mapCircleInfo(m_ci);
-  }
-
-  bool CircleElement::find(ResourceStyleCache * stylesCache) const
-  {
-    shared_ptr<SkinPage> const & skinPage = stylesCache->cachePage();
-
-    return skinPage->findCircleInfo(m_ci) != 0x00FFFFFF;
-  }
-
-  void CircleElement::getNonPackedRects(ResourceStyleCache * stylesCache,
-                                        ResourceStyleCacheContext * context,
-                                        vector<m2::PointU> & v) const
-  {
-    shared_ptr<SkinPage> const & skinPage = stylesCache->cachePage();
-
-    if (context && context->hasCircleInfo(m_ci))
-      return;
-
-    if (skinPage->findCircleInfo(m_ci) == 0x00FFFFFF)
-    {
-      if (context)
-        context->addCircleInfo(m_ci);
-
-      v.push_back(m_ci.patternSize());
-    }
   }
 
   OverlayElement * CircleElement::clone(math::Matrix<double, 3, 3> const & m) const

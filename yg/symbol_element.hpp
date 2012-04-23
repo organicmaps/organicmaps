@@ -35,12 +35,6 @@ namespace yg
     vector<m2::AnyRectD> const & boundRects() const;
     void draw(gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const & m) const;
 
-    void map(ResourceStyleCache * stylesCache) const;
-    void getNonPackedRects(ResourceStyleCache * stylesCache,
-                           ResourceStyleCacheContext * context,
-                           vector<m2::PointU> & v) const;
-    bool find(ResourceStyleCache * stylesCache) const;
-
     uint32_t styleID() const;
 
     int visualRank() const;

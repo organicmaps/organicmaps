@@ -14,8 +14,6 @@
 
 namespace yg
 {
-  class ResourceStyleCache;
-
   struct OverlayElementTraits
   {
     static m2::RectD const LimitRect(shared_ptr<OverlayElement> const & elem);
@@ -47,8 +45,6 @@ namespace yg
 
     void clear();
 
-    void cache(ResourceStyleCache * cache);
-
     void setCouldOverlap(bool flag);
 
     void merge(InfoLayer const & infoLayer, math::Matrix<double, 3, 3> const & m);
@@ -56,7 +52,6 @@ namespace yg
     void clip(m2::RectI const & r);
 
     bool checkHasEquals(InfoLayer const * l) const;
-    bool checkCached(ResourceStyleCache * s) const;
 
     InfoLayer * clone() const;
   };

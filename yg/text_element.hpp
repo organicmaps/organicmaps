@@ -44,26 +44,6 @@ namespace yg
     bool isBidi() const;
     bool isAuxBidi() const;
 
-  protected:
-
-    using OverlayElement::map;
-    using OverlayElement::find;
-    using OverlayElement::getNonPackedRects;
-
-    void map(GlyphLayout const & layout,
-             ResourceStyleCache * stylesCache,
-             FontDesc const & desc) const;
-
-    bool find(GlyphLayout const & layout,
-              ResourceStyleCache * stylesCache,
-              FontDesc const & desc) const;
-
-    void getNonPackedRects(GlyphLayout const & layout,
-                           FontDesc const & desc,
-                           ResourceStyleCache * stylesCache,
-                           ResourceStyleCacheContext * context,
-                           vector<m2::PointU> & v) const;
-
   public:
 
     struct Params : OverlayElement::Params

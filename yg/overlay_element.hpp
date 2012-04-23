@@ -13,9 +13,6 @@ namespace yg
     class OverlayRenderer;
   }
 
-  class ResourceStyleCache;
-  class ResourceStyleCacheContext;
-
   class OverlayElement
   {
   private:
@@ -55,15 +52,6 @@ namespace yg
     virtual vector<m2::AnyRectD> const & boundRects() const = 0;
     virtual void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const = 0;
     virtual int visualRank() const = 0;
-
-    /// caching-related functions.
-    /// @{
-    virtual void getNonPackedRects(ResourceStyleCache * stylesCache,
-                                   ResourceStyleCacheContext * cacheContext,
-                                   vector<m2::PointU> & sizes) const = 0;
-    virtual bool find(ResourceStyleCache * stylesCache) const = 0;
-    virtual void map(ResourceStyleCache * stylesCache) const = 0;
-    /// @}
 
     m2::PointD const & pivot() const;
     void setPivot(m2::PointD const & pv);

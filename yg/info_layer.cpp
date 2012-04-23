@@ -2,7 +2,6 @@
 
 #include "info_layer.hpp"
 #include "text_element.hpp"
-#include "resource_style_cache.hpp"
 
 #include "../base/logging.hpp"
 #include "../base/stl_add.hpp"
@@ -235,77 +234,6 @@ namespace yg
     for_each(v.begin(), v.end(), bind(&InfoLayer::processOverlayElement, this, _1, cref(m)));
   }
 
-  void InfoLayer::cache(ResourceStyleCache * stylesCache)
-  {
-    /// collecting elements into vector sorted by visualPriority
-
-    vector<shared_ptr<OverlayElement> > v;
-    m_tree.ForEach(MakeBackInsertFunctor(v));
-
-    sort(v.begin(), v.end(), &greater_priority);
-
-    /// making all elements visible
-
-    for (unsigned i = 0; i < v.size(); ++i)
-      v[i]->setIsNeedRedraw(true);
-
-    /// collecting all the unpacked rects from all elements
-
-    vector<m2::PointU> sizes;
-    sizes.reserve(100);
-
-    ResourceStyleCacheContext ctx;
-
-    for (unsigned i = 0; i < v.size(); ++i)
-      v[i]->getNonPackedRects(stylesCache, &ctx, sizes);
-
-    if (sizes.empty())
-      return;
-
-    /// if there are enough room to cache all the elements
-    if (stylesCache->hasRoom(&sizes[0], sizes.size()))
-    {
-      /// cache them
-      for (unsigned i = 0; i < v.size(); ++i)
-        v[i]->map(stylesCache);
-    }
-    else
-    {
-      /// no room to cache, so clear all pages and re-cache from the beginning
-      stylesCache->clear();
-
-      int pos = 0;
-
-      for (pos = 0; pos < v.size(); ++pos)
-      {
-        sizes.clear();
-        ctx.clear();
-
-        v[pos]->getNonPackedRects(stylesCache, &ctx, sizes);
-
-        /// @todo Check logic!
-        if (!sizes.empty())
-        {
-          if (stylesCache->hasRoom(&sizes[0], sizes.size()))
-            v[pos]->map(stylesCache);
-          else
-            break;
-        }
-      }
-
-      if (v.size() - pos >= 1)
-        LOG(LINFO, ("making ", v.size() - pos, "elements invisible"));
-
-      /// partially uncached elements should be invisible
-      for (; pos < v.size(); ++pos)
-      {
-        sizes.clear();
-        v[pos]->getNonPackedRects(stylesCache, 0, sizes);
-        v[pos]->setIsNeedRedraw(sizes.empty());
-      }
-    }
-  }
-
   void InfoLayer::clip(m2::RectI const & r)
   {
     vector<shared_ptr<OverlayElement> > v;
@@ -367,19 +295,6 @@ namespace yg
     set_intersection(v0.begin(), v0.end(), v1.begin(), v1.end(), back_inserter(res));
 
     return !res.empty();
-  }
-
-  bool InfoLayer::checkCached(ResourceStyleCache * s) const
-  {
-    vector<shared_ptr<OverlayElement> > v;
-    m_tree.ForEach(MakeBackInsertFunctor(v));
-
-    for (unsigned i = 0; i < v.size(); ++i)
-      if (v[i]->isNeedRedraw())
-        if (!v[i]->find(s))
-          return false;
-
-    return true;
   }
 
   InfoLayer * InfoLayer::clone() const
