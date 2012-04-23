@@ -384,8 +384,7 @@ namespace yg
        unlockPipeline(pipelineID);
 
        drawGeometry(skinPage->texture(),
-                    pipeline.m_storage.m_vertices,
-                    pipeline.m_storage.m_indices,
+                    pipeline.m_storage,
                     pipeline.m_currentIndex,
                     0,
                     GL_TRIANGLES);

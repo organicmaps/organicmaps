@@ -145,8 +145,7 @@ namespace yg
 
       for (unsigned i = 0; i < s; ++i)
         base_t::drawGeometry(blitInfo[i].m_srcSurface,
-                             storage.m_vertices,
-                             storage.m_indices,
+                             storage,
                              4,
                              sizeof(unsigned short) * i * 4,
                              GL_TRIANGLE_FAN);

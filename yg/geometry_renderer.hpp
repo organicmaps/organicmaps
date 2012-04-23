@@ -46,8 +46,7 @@ namespace yg
       struct DrawGeometry : Command
       {
         shared_ptr<BaseTexture> m_texture;
-        shared_ptr<VertexBuffer> m_vertices;
-        shared_ptr<IndexBuffer> m_indices;
+        Storage m_storage;
         size_t m_indicesCount;
         size_t m_indicesOffs;
         unsigned m_primitiveType;
@@ -107,8 +106,7 @@ namespace yg
       void applyStates();
 
       void drawGeometry(shared_ptr<BaseTexture> const & texture,
-                        shared_ptr<VertexBuffer> const & vertices,
-                        shared_ptr<IndexBuffer> const & indices,
+                        Storage const & storage,
                         size_t indicesCount,
                         size_t indicesOffs,
                         unsigned primType);

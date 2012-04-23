@@ -99,10 +99,10 @@ namespace yg
       if (isDebugging())
         LOG(LINFO, ("performing DrawGeometry command"));
 
-      m_vertices->makeCurrent();
+      m_storage.m_vertices->makeCurrent();
       /// it's crucial to setupLayout after vertices->makeCurrent
-      Vertex::setupLayout(m_vertices->glPtr());
-      m_indices->makeCurrent();
+      Vertex::setupLayout(m_storage.m_vertices->glPtr());
+      m_storage.m_indices->makeCurrent();
 
       if (isDebugging())
         LOG(LINFO, ("using", m_texture->id(), "texture"));
@@ -121,14 +121,13 @@ namespace yg
         m_primitiveType,
         m_indicesCount,
         GL_UNSIGNED_SHORT,
-        ((unsigned char*)m_indices->glPtr()) + m_indicesOffs));
+        ((unsigned char*)m_storage.m_indices->glPtr()) + m_indicesOffs));
 
 //      OGLCHECK(glPolygonMode( GL_FRONT_AND_BACK, GL_FILL ));
     }
 
     void GeometryRenderer::drawGeometry(shared_ptr<BaseTexture> const & texture,
-                                        shared_ptr<VertexBuffer> const & vertices,
-                                        shared_ptr<IndexBuffer> const & indices,
+                                        Storage const & storage,
                                         size_t indicesCount,
                                         size_t indicesOffs,
                                         unsigned primType)
@@ -136,8 +135,7 @@ namespace yg
       shared_ptr<DrawGeometry> command(new DrawGeometry());
 
       command->m_texture = texture;
-      command->m_indices = indices;
-      command->m_vertices = vertices;
+      command->m_storage = storage;
       command->m_indicesCount = indicesCount;
       command->m_indicesOffs = indicesOffs;
       command->m_primitiveType = primType;

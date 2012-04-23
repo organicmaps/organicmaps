@@ -40,13 +40,12 @@ namespace yg
     }
 
     void RenderStateUpdater::drawGeometry(shared_ptr<BaseTexture> const & texture,
-                                          shared_ptr<VertexBuffer> const & vertices,
-                                          shared_ptr<IndexBuffer> const & indices,
+                                          Storage const & storage,
                                           size_t indicesCount,
                                           size_t indicesOffs,
                                           unsigned primType)
     {
-      base_t::drawGeometry(texture, vertices, indices, indicesCount, indicesOffs, primType);
+      base_t::drawGeometry(texture, storage, indicesCount, indicesOffs, primType);
       m_indicesCount += indicesCount;
       if (m_doPeriodicalUpdate
        && m_renderState
