@@ -5,6 +5,8 @@
 #include "../../base/matrix.hpp"
 #include "../../base/thread.hpp"
 
+#include "../../std/memcpy.hpp"
+
 namespace yg
 {
   namespace gl
