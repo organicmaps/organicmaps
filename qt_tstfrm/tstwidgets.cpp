@@ -143,7 +143,7 @@ void GLDrawWidget::initializeGL()
 
   m_primaryFrameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(true));
 
-  m_skin = shared_ptr<yg::Skin>(loadSkin(m_resourceManager, GetPlatform().SkinName(), params.m_dynamicPagesCount, params.m_textPagesCount));
+  m_skin = shared_ptr<yg::Skin>(loadSkin(m_resourceManager, GetPlatform().SkinName()));
   m_p->setSkin(m_skin);
 
   params.m_frameBuffer = m_primaryFrameBuffer;

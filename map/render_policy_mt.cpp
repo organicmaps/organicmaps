@@ -122,8 +122,6 @@ RenderPolicyMT::RenderPolicyMT(VideoTimer * videoTimer,
 
   p.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(useDefaultFB));
   p.m_resourceManager = m_resourceManager;
-  p.m_dynamicPagesCount = 2;
-  p.m_textPagesCount = 2;
   p.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
   p.m_skinName = GetPlatform().SkinName();
   p.m_visualScale = GetPlatform().VisualScale();

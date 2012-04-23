@@ -652,12 +652,12 @@ namespace
     return m_staticTextures[fileName];
   }
 
-  Skin * loadSkin(shared_ptr<ResourceManager> const & resourceManager, string const & fileName, size_t dynamicPagesCount, size_t textPagesCount)
+  Skin * loadSkin(shared_ptr<ResourceManager> const & resourceManager, string const & fileName)
   {
     if (fileName.empty())
       return 0;
 
-    SkinLoader loader(resourceManager, dynamicPagesCount, textPagesCount);
+    SkinLoader loader(resourceManager);
 
     try
     {

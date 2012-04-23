@@ -11,7 +11,7 @@ UNIT_TEST(SkinTest_Main)
   GL_TEST_START;
 
   shared_ptr<yg::ResourceManager> rm(new yg::ResourceManager(yg::ResourceManager::Params()));
-  yg::Skin * skin = loadSkin(rm, "basic.skn", 2, 2);
+  yg::Skin * skin = loadSkin(rm, "basic.skn");
 
   double p0 [] = {1, 1};
   yg::PenInfo penInfo0(yg::Color(0xFF, 0, 0, 0xFF), 1, p0, 2, 0);

@@ -48,13 +48,8 @@ namespace yg
     TSkinPages m_pages;
     TSkinPages m_additionalPages;
 
-    uint8_t m_startDynamicPage;
-    uint8_t m_currentDynamicPage;
-    uint8_t m_dynamicPagesCount;
-
-    uint8_t m_startTextPage;
-    uint8_t m_currentTextPage;
-    uint8_t m_textPagesCount;
+    uint8_t m_dynamicPage;
+    uint8_t m_textPage;
 
     uint8_t m_startStaticPage;
     uint8_t m_currentStaticPage;
@@ -67,9 +62,7 @@ namespace yg
     void clearHandles();
 
     Skin(shared_ptr<ResourceManager> const & resourceManager,
-         TSkinPages const & pages,
-         size_t dynamicPagesCount,
-         size_t textPagesCount);
+         TSkinPages const & pages);
 
     friend class SkinLoader;
 
@@ -100,8 +93,8 @@ namespace yg
     void onDynamicOverflow(uint8_t pipelineID);
     void onTextOverflow(uint8_t pipelineID);
 
-    void changeCurrentDynamicPage();
-    void changeCurrentTextPage();
+    void flushDynamicPage();
+    void flushTextPage();
 
   public:
 
@@ -146,8 +139,8 @@ namespace yg
     uint32_t invalidHandle() const;
     uint32_t invalidPageHandle() const;
 
-    uint8_t currentTextPage() const;
-    uint8_t currentDynamicPage() const;
+    uint8_t textPage() const;
+    uint8_t dynamicPage() const;
 
     void setAdditionalPage(shared_ptr<SkinPage> const & pages);
     void clearAdditionalPage();

@@ -18,9 +18,7 @@
 
 
 DrawerYG::Params::Params()
-  : m_dynamicPagesCount(2),
-    m_textPagesCount(2),
-    m_threadID(0),
+  : m_threadID(0),
     m_visualScale(1)
 {
 }
@@ -58,9 +56,7 @@ DrawerYG::DrawerYG(params_t const & params)
 {
   m_pScreen = shared_ptr<yg::gl::Screen>(new yg::gl::Screen(params));
   m_pSkin = shared_ptr<yg::Skin>(loadSkin(params.m_resourceManager,
-                                          params.m_skinName,
-                                          params.m_dynamicPagesCount,
-                                          params.m_textPagesCount));
+                                          params.m_skinName));
   m_pScreen->setSkin(m_pSkin);
 
   if (m_pSkin)

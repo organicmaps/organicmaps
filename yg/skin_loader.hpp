@@ -90,14 +90,10 @@ namespace yg
 
     shared_ptr<ResourceManager> m_resourceManager;
     Skin * m_skin;
-    size_t m_dynamicPagesCount;
-    size_t m_textPagesCount;
 
   public:
 
-    SkinLoader(shared_ptr<ResourceManager> const & resourceManager,
-               size_t dynamicPagesCount,
-               size_t textPagesCount);
+    SkinLoader(shared_ptr<ResourceManager> const & resourceManager);
 
     bool Push(string const & element);
     void Pop(string const & element);

@@ -96,8 +96,6 @@ public:
 
   struct Params : screen_t::Params
   {
-    size_t m_dynamicPagesCount;
-    size_t m_textPagesCount;
     size_t m_threadID;
     string m_skinName;
     double m_visualScale;

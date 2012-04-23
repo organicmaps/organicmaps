@@ -5,7 +5,6 @@
 #include "../geometry/screenbase.hpp"
 
 #include "../yg/info_layer.hpp"
-#include "../yg/resource_style_cache.hpp"
 
 #include "tile.hpp"
 #include "tiler.hpp"

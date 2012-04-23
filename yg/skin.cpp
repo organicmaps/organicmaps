@@ -17,20 +17,16 @@
 namespace yg
 {
   Skin::Skin(shared_ptr<ResourceManager> const & resourceManager,
-             Skin::TSkinPages const & pages,
-             size_t dynamicPagesCount,
-             size_t textPagesCount)
+             Skin::TSkinPages const & pages)
     : m_pages(pages),
-      m_dynamicPagesCount(dynamicPagesCount),
-      m_textPagesCount(textPagesCount),
       m_staticPagesCount(pages.size()),
       m_resourceManager(resourceManager)
   {
-    m_startTextPage = m_currentTextPage = m_pages.size();
-    addTextPages(m_textPagesCount);
+    m_textPage = m_pages.size();
+    addTextPages(1);
 
-    m_startDynamicPage = m_currentDynamicPage = m_pages.size();
-    addDynamicPages(m_dynamicPagesCount);
+    m_dynamicPage = m_pages.size();
+    addDynamicPages(1);
   }
 
   void Skin::addTextPages(int count)
@@ -127,10 +123,10 @@ namespace yg
         return packID(i, res);
     }
 
-    if (!m_pages[m_currentDynamicPage]->hasRoom(c))
-      changeCurrentDynamicPage();
+    if (!m_pages[m_dynamicPage]->hasRoom(c))
+      flushDynamicPage();
 
-    return packID(m_currentDynamicPage, m_pages[m_currentDynamicPage]->mapColor(c));
+    return packID(m_dynamicPage, m_pages[m_dynamicPage]->mapColor(c));
   }
 
   uint32_t Skin::mapPenInfo(PenInfo const & penInfo)
@@ -151,10 +147,10 @@ namespace yg
         return packID(i, res);
     }
 
-    if (!m_pages[m_currentDynamicPage]->hasRoom(penInfo))
-      changeCurrentDynamicPage();
+    if (!m_pages[m_dynamicPage]->hasRoom(penInfo))
+      flushDynamicPage();
 
-    return packID(m_currentDynamicPage, m_pages[m_currentDynamicPage]->mapPenInfo(penInfo));
+    return packID(m_dynamicPage, m_pages[m_dynamicPage]->mapPenInfo(penInfo));
   }
 
   uint32_t Skin::mapCircleInfo(CircleInfo const & circleInfo)
@@ -175,36 +171,38 @@ namespace yg
         return packID(i, res);
     }
 
-    if (!m_pages[m_currentDynamicPage]->hasRoom(circleInfo))
-      changeCurrentDynamicPage();
+    if (!m_pages[m_dynamicPage]->hasRoom(circleInfo))
+      flushDynamicPage();
 
-    return packID(m_currentDynamicPage, m_pages[m_currentDynamicPage]->mapCircleInfo(circleInfo));
+    return packID(m_dynamicPage, m_pages[m_dynamicPage]->mapCircleInfo(circleInfo));
   }
 
   bool Skin::mapPenInfo(PenInfo const * penInfos, uint32_t * styleIDS, size_t count)
   {
-    uint8_t savedDynamicPage = m_currentDynamicPage;
+    bool alreadyFlushed = false;
 
     int i = 0;
 
     do
     {
-      styleIDS[i] = m_pages[m_currentDynamicPage]->findPenInfo(penInfos[i]);
+      styleIDS[i] = m_pages[m_dynamicPage]->findPenInfo(penInfos[i]);
 
-      if ((styleIDS[i] == invalidPageHandle()) || (unpackID(styleIDS[i]).first != m_currentDynamicPage))
+      if ((styleIDS[i] == invalidPageHandle()) || (unpackID(styleIDS[i]).first != m_dynamicPage))
       {
         /// try to pack on the currentDynamicPage
-        while (!m_pages[m_currentDynamicPage]->hasRoom(penInfos[i]))
+        while (!m_pages[m_dynamicPage]->hasRoom(penInfos[i]))
         {
-          /// no room - switch the page
-          changeCurrentDynamicPage();
-          if (savedDynamicPage == m_currentDynamicPage)
+          /// no room - flush the page
+          flushDynamicPage();
+          if (alreadyFlushed)
             return false; //<cycling
+
+          alreadyFlushed = true;
           /// re-start packing
           i = 0;
         }
 
-        styleIDS[i] = packID(m_currentDynamicPage, m_pages[m_currentDynamicPage]->mapPenInfo(penInfos[i]));
+        styleIDS[i] = packID(m_dynamicPage, m_pages[m_dynamicPage]->mapPenInfo(penInfos[i]));
       }
 
       ++i;
@@ -232,16 +230,11 @@ namespace yg
         return packID(i, res);
     }
 
-    if (!m_pages[m_currentTextPage]->hasRoom(gk, glyphCache))
-      changeCurrentTextPage();
+    if (!m_pages[m_textPage]->hasRoom(gk, glyphCache))
+      flushTextPage();
 
-    return packID(m_currentTextPage, m_pages[m_currentTextPage]->mapGlyph(gk, glyphCache));
+    return packID(m_textPage, m_pages[m_textPage]->mapGlyph(gk, glyphCache));
   }
-
-/*  Skin::TSkinPages const & Skin::pages() const
-  {
-    return m_pages;
-  }*/
 
   shared_ptr<SkinPage> const & Skin::getPage(int i) const
   {
@@ -301,45 +294,25 @@ namespace yg
   /// is explicitly checked in the mapXXX() functions.
   void Skin::onDynamicOverflow(uint8_t pipelineID)
   {
-    LOG(LINFO, ("DynamicPage switching, pipelineID=", (uint32_t)pipelineID));
-    changeCurrentDynamicPage();
+    LOG(LINFO, ("DynamicPage flushing, pipelineID=", (uint32_t)pipelineID));
+    flushDynamicPage();
   }
 
   void Skin::onTextOverflow(uint8_t pipelineID)
   {
-    LOG(LINFO, ("TextPage switching, pipelineID=", (uint32_t)pipelineID));
-    changeCurrentTextPage();
+    LOG(LINFO, ("TextPage flushing, pipelineID=", (uint32_t)pipelineID));
+    flushTextPage();
   }
 
-  void Skin::changeCurrentDynamicPage()
+  void Skin::flushDynamicPage()
   {
-    /// flush screen(through overflowFns)
-    /// callOverflowFns(m_currentDynamicPage);
-    /// 1. clear currentDynamicPage
-    callClearPageFns(m_currentDynamicPage);
-    /// page should be frozen after flushing(activeCommands > 0)
-
-    /// 2. choose next dynamic page
-    if (m_currentDynamicPage == m_startDynamicPage + m_dynamicPagesCount - 1)
-      m_currentDynamicPage = m_startDynamicPage;
-    else
-      ++m_currentDynamicPage;
-
-    /// 3. clear new currentDynamicPage
-    callClearPageFns(m_currentDynamicPage);
+    callClearPageFns(m_dynamicPage);
   }
 
-  void Skin::changeCurrentTextPage()
+  void Skin::flushTextPage()
   {
     //callOverflowFns(m_currentTextPage);
-    callClearPageFns(m_currentTextPage);
-
-    if (m_currentTextPage == m_startTextPage + m_textPagesCount - 1)
-      m_currentTextPage = m_startTextPage;
-    else
-      ++m_currentTextPage;
-
-    callClearPageFns(m_currentTextPage);
+    callClearPageFns(m_textPage);
   }
 
   uint32_t Skin::invalidHandle() const
@@ -352,14 +325,14 @@ namespace yg
     return 0x00FFFFFF;
   }
 
-  uint8_t Skin::currentTextPage() const
+  uint8_t Skin::textPage() const
   {
-    return m_currentTextPage;
+    return m_textPage;
   }
 
-  uint8_t Skin::currentDynamicPage() const
+  uint8_t Skin::dynamicPage() const
   {
-    return m_currentDynamicPage;
+    return m_dynamicPage;
   }
 
   void Skin::memoryWarning()

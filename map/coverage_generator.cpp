@@ -55,7 +55,7 @@ ScreenCoverage * CoverageGenerator::CreateCoverage()
   params.m_glyphCacheID = m_resourceManager->cacheThreadGlyphCacheID();
 
   shared_ptr<yg::gl::Screen> screen(new yg::gl::Screen(params));
-  shared_ptr<yg::Skin> skin(loadSkin(m_resourceManager, m_skinName, 2, 2));
+  shared_ptr<yg::Skin> skin(loadSkin(m_resourceManager, m_skinName));
 
   screen->setSkin(skin);
 
