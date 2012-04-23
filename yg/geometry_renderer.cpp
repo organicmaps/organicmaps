@@ -24,6 +24,76 @@ namespace yg
         m_displayList(0)
     {}
 
+    GeometryRenderer::UploadData::UploadData(SkinPage::TUploadQueue const & uploadQueue,
+                                             shared_ptr<BaseTexture> const & texture)
+      : m_uploadQueue(uploadQueue), m_texture(texture)
+    {}
+
+    GeometryRenderer::UploadData::UploadData()
+    {}
+
+    void GeometryRenderer::UploadData::perform()
+    {
+      if (isDebugging())
+        LOG(LINFO, ("performing UploadData command", m_texture->width(), m_texture->height()));
+
+      if (!m_texture)
+      {
+        LOG(LDEBUG, ("no texture on upload"));
+        return;
+      }
+
+      if (isDebugging())
+        LOG(LINFO, ("uploading to", m_texture->id(), "texture"));
+
+      static_cast<ManagedTexture*>(m_texture.get())->lock();
+
+      TDynamicTexture * dynTexture = static_cast<TDynamicTexture*>(m_texture.get());
+
+      for (size_t i = 0; i < m_uploadQueue.size(); ++i)
+      {
+        shared_ptr<ResourceStyle> const & style = m_uploadQueue[i];
+
+        TDynamicTexture::view_t v = dynTexture->view(style->m_texRect.SizeX(),
+                                                     style->m_texRect.SizeY());
+
+        style->render(&v(0, 0));
+
+        dynTexture->upload(&v(0, 0), style->m_texRect);
+      }
+
+      /// Should call glFlush here and rebind in all
+      /// renderContexts that's using it.
+      /// But for simplification just calling glFinish
+      OGLCHECK(glFinish());
+
+      static_cast<ManagedTexture*>(m_texture.get())->unlock();
+    }
+
+    void GeometryRenderer::UploadData::cancel()
+    {
+      perform();
+    }
+
+    void GeometryRenderer::UploadData::dump()
+    {
+      m2::RectU r(0, 0, 0, 0);
+      if (!m_uploadQueue.empty())
+        r = m_uploadQueue[0]->m_texRect;
+      LOG(LINFO, ("UploadData: texture", m_texture->id(), ", count=", m_uploadQueue.size(), ", first=", r));
+    }
+
+    void GeometryRenderer::uploadTexture(SkinPage::TUploadQueue const & uploadQueue,
+                                         shared_ptr<BaseTexture> const & texture)
+    {
+      shared_ptr<UploadData> command(new UploadData(uploadQueue, texture));
+
+      if (m_displayList)
+        m_displayList->uploadData(command);
+      else
+        processCommand(command);
+    }
+
     void GeometryRenderer::DrawGeometry::perform()
     {
       if (isDebugging())

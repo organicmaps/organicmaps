@@ -98,8 +98,6 @@ namespace yg
 
   public:
 
-    void uploadData();
-
     /// clean and destroy
     ~Skin();
     /// obtain ResourceStyle from id

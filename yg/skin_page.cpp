@@ -329,69 +329,6 @@ namespace yg
       it->second->m_pipelineID = pipelineID;
   }
 
-  SkinPage::UploadData::UploadData(SkinPage::TUploadQueue const & uploadQueue,
-                                   shared_ptr<yg::gl::BaseTexture> const & texture)
-    : m_uploadQueue(uploadQueue), m_texture(texture)
-  {}
-
-  SkinPage::UploadData::UploadData()
-  {}
-
-  void SkinPage::UploadData::perform()
-  {
-    if (isDebugging())
-      LOG(LINFO, ("performing UploadData command", m_texture->width(), m_texture->height()));
-
-    if (!m_texture)
-    {
-      LOG(LDEBUG, ("no texture on upload"));
-      return;
-    }
-
-    if (isDebugging())
-      LOG(LINFO, ("uploading to", m_texture->id(), "texture"));
-
-    static_cast<gl::ManagedTexture*>(m_texture.get())->lock();
-
-    TDynamicTexture * dynTexture = static_cast<TDynamicTexture*>(m_texture.get());
-
-    for (size_t i = 0; i < m_uploadQueue.size(); ++i)
-    {
-      shared_ptr<ResourceStyle> const & style = m_uploadQueue[i];
-
-      TDynamicTexture::view_t v = dynTexture->view(style->m_texRect.SizeX(),
-                                                   style->m_texRect.SizeY());
-
-      style->render(&v(0, 0));
-
-      dynTexture->upload(&v(0, 0), style->m_texRect);
-    }
-
-    static_cast<gl::ManagedTexture*>(m_texture.get())->unlock();
-  }
-
-  void SkinPage::UploadData::cancel()
-  {
-    perform();
-  }
-
-  void SkinPage::uploadData(yg::gl::PacketsQueue * glQueue)
-  {
-    if (hasData())
-    {
-      checkTexture();
-
-      shared_ptr<UploadData> cmd(new UploadData(m_uploadQueue, m_texture));
-
-      if (glQueue)
-        glQueue->processPacket(yg::gl::Packet(cmd, yg::gl::Packet::ECommand));
-      else
-        cmd->perform();
-
-      m_uploadQueue.clear();
-    }
-  }
-
   ResourceStyle * SkinPage::fromID(uint32_t idx) const
   {
     TStyles::const_iterator it = m_styles.find(idx);

@@ -97,19 +97,6 @@ namespace yg
 
   public:
 
-    struct UploadData : public yg::gl::Command
-    {
-      SkinPage::TUploadQueue m_uploadQueue;
-      shared_ptr<yg::gl::BaseTexture> m_texture;
-
-      UploadData();
-      UploadData(SkinPage::TUploadQueue const & uploadQueue,
-                 shared_ptr<yg::gl::BaseTexture> const & texture);
-
-      void perform();
-      void cancel();
-    };
-
     void clearColorHandles();
     void clearPenInfoHandles();
     void clearFontHandles();
@@ -122,8 +109,6 @@ namespace yg
     bool hasData();
     TUploadQueue const & uploadQueue() const;
     void clearUploadQueue();
-
-    void uploadData(yg::gl::PacketsQueue * glQueue);
 
     void checkTexture() const;
     void setPipelineID(uint8_t pipelineID);

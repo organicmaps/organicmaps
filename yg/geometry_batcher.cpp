@@ -375,7 +375,11 @@ namespace yg
      GeometryPipeline & pipeline = m_pipelines[pipelineID];
      if (pipeline.m_currentIndex)
      {
-       skinPage->uploadData(renderQueue());
+       if (skinPage->hasData())
+       {
+         uploadTexture(skinPage->uploadQueue(), skinPage->texture());
+         skinPage->clearUploadQueue();
+       }
 
        unlockPipeline(pipelineID);
 

@@ -133,7 +133,7 @@ namespace yg
 
   void ResourceStyleCache::upload()
   {
-    m_cachePage->uploadData(m_glQueue);
+//    m_cachePage->uploadData(m_glQueue);
 
     if (m_glQueue)
       m_glQueue->processPacket(yg::gl::Packet(make_shared_ptr(new yg::gl::Renderer::FinishCommand()), yg::gl::Packet::ECommand));

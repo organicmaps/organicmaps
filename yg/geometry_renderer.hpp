@@ -1,6 +1,7 @@
 #pragma once
 
 #include "clipper.hpp"
+#include "skin_page.hpp"
 
 #include "../base/threaded_list.hpp"
 
@@ -27,6 +28,20 @@ namespace yg
     public:
 
       typedef Clipper base_t;
+
+      struct UploadData : public Command
+      {
+        SkinPage::TUploadQueue m_uploadQueue;
+        shared_ptr<BaseTexture> m_texture;
+
+        UploadData();
+        UploadData(SkinPage::TUploadQueue const & uploadQueue,
+                   shared_ptr<BaseTexture> const & texture);
+
+        void perform();
+        void cancel();
+        void dump();
+      };
 
       struct DrawGeometry : Command
       {
@@ -98,6 +113,7 @@ namespace yg
                         size_t indicesOffs,
                         unsigned primType);
 
+      void uploadTexture(SkinPage::TUploadQueue const & uploadQueue, shared_ptr<BaseTexture> const & texture);
       void freeTexture(shared_ptr<BaseTexture> const & texture, TTexturePool * texturePool);
       void freeStorage(Storage const & storage, TStoragePool * storagePool);
       void unlockStorage(Storage const & storage);
