@@ -17,6 +17,7 @@ namespace yg
       typedef GeometryRenderer::FreeStorage FreeStorageCmd;
       typedef GeometryRenderer::ApplyBlitStates ApplyBlitStatesCmd;
       typedef GeometryRenderer::ApplyStates ApplyStatesCmd;
+      typedef GeometryRenderer::UploadData UploadDataCmd;
 
       list<shared_ptr<Command> > m_commands;
 
@@ -41,6 +42,7 @@ namespace yg
       void discardStorage(shared_ptr<DiscardStorageCmd> const & cmd);
       void freeTexture(shared_ptr<FreeTextureCmd> const & cmd);
       void freeStorage(shared_ptr<FreeStorageCmd> const & cmd);
+      void uploadData(shared_ptr<UploadDataCmd> const & cmd);
 
       void draw(math::Matrix<double, 3, 3> const & m);
     };

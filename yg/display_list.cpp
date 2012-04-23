@@ -78,6 +78,12 @@ namespace yg
       m_discardStorageCmd.push_back(cmd);
     }
 
+    void DisplayList::uploadData(shared_ptr<UploadDataCmd> const & cmd)
+    {
+      cmd->setIsDebugging(m_isDebugging);
+      m_parent->processCommand(cmd);
+    }
+
     void DisplayList::draw(math::Matrix<double, 3, 3> const & m)
     {
       math::Matrix<float, 4, 4> mv;
