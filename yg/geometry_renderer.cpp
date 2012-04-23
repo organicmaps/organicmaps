@@ -126,6 +126,11 @@ namespace yg
 //      OGLCHECK(glPolygonMode( GL_FRONT_AND_BACK, GL_FILL ));
     }
 
+    void GeometryRenderer::DrawGeometry::dump()
+    {
+      LOG(LINFO, ("DrawGeometry, texture=", m_texture->id(), ", indicesCount=", m_indicesCount));
+    }
+
     void GeometryRenderer::drawGeometry(shared_ptr<BaseTexture> const & texture,
                                         Storage const & storage,
                                         size_t indicesCount,
@@ -187,6 +192,11 @@ namespace yg
         return;
 
       m_texturePool->Free(m_texture);
+    }
+
+    void GeometryRenderer::FreeTexture::dump()
+    {
+      LOG(LINFO, ("FreeTexture, texture=", m_texture->id(), ", pool=", m_texturePool->ResName()));
     }
 
     void GeometryRenderer::FreeTexture::cancel()

@@ -28,6 +28,18 @@ namespace yg
     void Command::perform()
     {}
 
+    void Command::dump()
+    {}
+
+    DumpCommand::DumpCommand(shared_ptr<Command> const & cmd)
+      : m_cmd(cmd)
+    {}
+
+    void DumpCommand::perform()
+    {
+      m_cmd->dump();
+    }
+
     Packet::Packet()
     {}
 

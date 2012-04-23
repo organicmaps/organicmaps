@@ -52,6 +52,7 @@ namespace yg
         unsigned m_primitiveType;
 
         void perform();
+        void dump();
       };
 
       struct FreeStorage : public Command
@@ -70,6 +71,7 @@ namespace yg
 
         void perform();
         void cancel();
+        void dump();
       };
 
       struct UnlockStorage : public Command

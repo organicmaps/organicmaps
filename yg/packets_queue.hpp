@@ -29,8 +29,18 @@ namespace yg
       virtual ~Command();
       virtual void perform();
       virtual void cancel();
+      virtual void dump();
 
       friend class Renderer;
+    };
+
+    struct DumpCommand : Command
+    {
+      shared_ptr<Command> m_cmd;
+
+      DumpCommand(shared_ptr<Command> const & cmd);
+
+      void perform();
     };
 
     template <typename Fn>
