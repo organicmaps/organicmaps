@@ -33,6 +33,7 @@ public:
   string m_skinName;
   string m_deviceName;
   int m_videoMemoryLimit;
+  int m_tileSize;
 };
 
 Platform::Platform()
@@ -60,12 +61,17 @@ Platform::Platform()
   else
     m_impl->m_skinName = "basic_mdpi.skn";
 
+  m_impl->m_tileSize = 512;
   m_impl->m_videoMemoryLimit = 8 * 1024 * 1024;
 
   UIDevice * device = [UIDevice currentDevice];
   NSRange range = [device.model rangeOfString:@"iPad"];
   if (range.location != NSNotFound)
+  {
     m_impl->m_deviceName = "iPad";
+    if (m_impl->m_visualScale > 1.0)
+      m_impl->m_tileSize = 1024;
+  }
   else
   {
     range = [device.model rangeOfString:@"iPod"];
@@ -77,6 +83,7 @@ Platform::Platform()
 
   m_impl->m_scaleEtalonSize = 256 * 1.5 * m_impl->m_visualScale;
 
+  NSLog(@"TileSize: %d, VisualScale: %f", m_impl->m_tileSize, m_impl->m_visualScale);
   NSLog(@"Device: %@, SystemName: %@, SystemVersion: %@", device.model, device.systemName, device.systemVersion);
 
   [pool release];
@@ -198,7 +205,7 @@ int Platform::PreCachingDepth() const
 
 int Platform::TileSize() const
 {
-  return 512;
+  return m_impl->m_tileSize;
 }
 
 string Platform::DeviceName() const
