@@ -70,6 +70,11 @@ struct BasePoolTraits
   virtual void UpdateState()
   {
   }
+
+  char const * ResName() const
+  {
+    return m_factory.ResName();
+  }
 };
 
 /// This traits stores the free elements in a separate pool and has
@@ -237,6 +242,7 @@ public:
   virtual bool IsCancelled() const = 0;
   virtual void UpdateState() = 0;
   virtual void SetIsDebugging(bool flag) = 0;
+  virtual char const * ResName() const = 0;
 };
 
 // This class tracks OpenGL resources allocation in
@@ -299,5 +305,10 @@ public:
   void SetIsDebugging(bool isDebugging)
   {
     m_traits->m_IsDebugging = isDebugging;
+  }
+
+  char const * ResName() const
+  {
+    return m_traits->ResName();
   }
 };
