@@ -221,7 +221,7 @@ protected:
     bool IsAcceptTypes(RelationElement const & rel) const
     {
       string role;
-      VERIFY ( rel.FindWay(m_featureID, role), (id, m_featureID) );
+      VERIFY ( rel.FindWay(m_featureID, role), (m_featureID) );
 
       // Do not accumulate border types (boundary-administrative-*) for inner polygons.
       // Example: Minsk city border (admin_level=8) is inner for Minsk area border (admin_level=4).
