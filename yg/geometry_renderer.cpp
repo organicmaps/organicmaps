@@ -62,10 +62,11 @@ namespace yg
         dynTexture->upload(&v(0, 0), style->m_texRect);
       }
 
-      /// Should call glFlush here and rebind in all
-      /// renderContexts that's using it.
-      /// But for simplification just calling glFinish
-      OGLCHECK(glFinish());
+      /// In multithreaded resource usage scenarios the suggested way to see
+      /// resource update made in one thread to the another thread is
+      /// to call the glFlush in thread, which modifies resource and then rebind
+      /// resource in another threads that is using this resource, if any.
+      OGLCHECK(glFlush());
 
       static_cast<ManagedTexture*>(m_texture.get())->unlock();
     }
@@ -226,6 +227,12 @@ namespace yg
       {
         m_storage.m_vertices->unlock();
         m_storage.m_indices->unlock();
+
+        /// In multithreaded resource usage scenarios the suggested way to see
+        /// resource update made in one thread to the another thread is
+        /// to call the glFlush in thread, which modifies resource and then rebind
+        /// resource in another threads that is using this resource, if any.
+        OGLCHECK(glFlush());
       }
       else
         LOG(LDEBUG, ("no storage to unlock"));
