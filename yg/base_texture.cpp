@@ -84,9 +84,9 @@ namespace yg
         return;
       }
 
-#ifndef OMIM_OS_ANDROID
+/*#ifndef OMIM_OS_ANDROID
       if (current() != m_id)
-#endif
+#endif*/
         OGLCHECK(glBindTexture(GL_TEXTURE_2D, m_id));
     }
 
