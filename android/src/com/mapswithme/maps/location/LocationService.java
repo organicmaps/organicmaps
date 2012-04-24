@@ -291,6 +291,28 @@ public class LocationService implements LocationListener, SensorEventListener, W
     }
   }
 
+  private native float[] nativeUpdateCompassSensor(int ind, float[] arr);
+  private float[] UpdateCompassSensor(int ind, float[] arr)
+  {
+    /*
+    Log.d(TAG, "Sensor before, Java: " +
+        String.valueOf(arr[0]) + ", " +
+        String.valueOf(arr[1]) + ", " +
+        String.valueOf(arr[2]));
+        */
+
+    float[] ret = nativeUpdateCompassSensor(ind, arr);
+
+    /*
+    Log.d(TAG, "Sensor after, Java: " +
+        String.valueOf(ret[0]) + ", " +
+        String.valueOf(ret[1]) + ", " +
+        String.valueOf(ret[2]));
+        */
+
+    return ret;
+  }
+
   private float[] m_gravity = null;
   private float[] m_geomagnetic = null;
   
@@ -298,12 +320,17 @@ public class LocationService implements LocationListener, SensorEventListener, W
   public void onSensorChanged(SensorEvent event)
   {
     // Get the magnetic north (orientation contains azimut, pitch and roll).
-    float orientation[] = null;
+    float[] orientation = null;
     
     if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
-      m_gravity = event.values;
+    {
+      m_gravity = UpdateCompassSensor(0, event.values);
+    }
     if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
-      m_geomagnetic = event.values;
+    {
+      m_geomagnetic = UpdateCompassSensor(1, event.values);
+    }
+
     if (m_gravity != null && m_geomagnetic != null)
     {
       float R[] = new float[9];

@@ -64,6 +64,25 @@ extern "C"
     g_framework->OnCompassUpdated(time, magneticNorth, trueNorth, accuracy);
   }
 
+  JNIEXPORT jfloatArray JNICALL
+  Java_com_mapswithme_maps_location_LocationService_nativeUpdateCompassSensor(
+      JNIEnv * env, jobject thiz, jint ind, jfloatArray arr)
+  {
+    int const count = 3;
+
+    // get Java array
+    jfloat buffer[3];
+    env->GetFloatArrayRegion(arr, 0, count, buffer);
+
+    // get the result
+    g_framework->UpdateCompassSensor(ind, buffer);
+
+    // pass result back to Java
+    jfloatArray ret = (jfloatArray)env->NewFloatArray(count);
+    env->SetFloatArrayRegion(ret, 0, count, buffer);
+    return ret;
+  }
+
   JNIEXPORT jboolean JNICALL
   Java_com_mapswithme_maps_MWMActivity_hasMeasurementSystem(JNIEnv * env, jobject thiz)
   {

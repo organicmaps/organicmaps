@@ -42,6 +42,10 @@ namespace android
 
     m_videoTimer = new VideoTimer(bind(&Framework::CallRepaint, this));
 
+    size_t const measurementsCount = 5;
+    m_sensors[0].SetCount(measurementsCount);
+    m_sensors[1].SetCount(measurementsCount);
+
    // @TODO refactor storage
     m_work.Storage().ReInitCountries(false);
   }
@@ -79,6 +83,13 @@ namespace android
     info.m_trueHeading = trueNorth;
     info.m_accuracy = accuracy;
     m_work.OnCompassUpdate(info);
+  }
+
+  void Framework::UpdateCompassSensor(int ind, float * arr)
+  {
+    //LOG ( LINFO, ("Sensors before, C++: ", arr[0], arr[1], arr[2]) );
+    m_sensors[ind].Next(arr);
+    //LOG ( LINFO, ("Sensors after, C++: ", arr[0], arr[1], arr[2]) );
   }
 
   void Framework::DeleteRenderPolicy()

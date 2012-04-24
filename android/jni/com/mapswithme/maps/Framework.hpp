@@ -6,8 +6,13 @@
 #include "../../../../../map/drawer_yg.hpp"
 #include "../../../../../map/window_handle.hpp"
 #include "../../../../../map/feature_vec_model.hpp"
+
+#include "../../../../../geometry/avg_vector.hpp"
+
 #include "../../../../../base/timer.hpp"
+
 #include "../../../nv_event/nv_event.hpp"
+
 
 namespace android
 {
@@ -43,6 +48,8 @@ namespace android
     double m_lastX1;
     double m_lastY1;
 
+    math::AvgVector<float, 3> m_sensors[2];
+
   public:
 
     Framework();
@@ -55,6 +62,7 @@ namespace android
     void OnLocationStatusChanged(int/* == location::TLocationStatus*/ newStatus);
     void OnLocationUpdated(uint64_t time, double lat, double lon, float accuracy);
     void OnCompassUpdated(uint64_t time, double magneticNorth, double trueNorth, float accuracy);
+    void UpdateCompassSensor(int ind, float * arr);
 
     void Invalidate();
 
