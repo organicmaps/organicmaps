@@ -38,3 +38,4 @@ SOURCES += \
   robust_test.cpp \
   anyrect_test.cpp \
   region2d_binary_op_test.cpp \
+  vector_test.cpp \

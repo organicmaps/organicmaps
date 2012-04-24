@@ -38,3 +38,4 @@ HEADERS += \
   any_rect2d.hpp \
   region2d/binary_operators.hpp \
   region2d/boost_concept.hpp \
+  avg_vector.hpp \
