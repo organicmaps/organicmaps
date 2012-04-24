@@ -29,7 +29,7 @@ import android.util.Log;
 public class MWMActivity extends NvEventQueueActivity implements
     LocationService.Listener
 {
-  VideoTimer m_timer;
+  //VideoTimer m_timer;
 
   private static String TAG = "MWMActivity";
   private final static String PACKAGE_NAME = "com.mapswithme.maps";
@@ -252,7 +252,7 @@ public class MWMActivity extends NvEventQueueActivity implements
                getSettingsPath(),
                getString(R.string.empty_model));
 
-    m_timer = new VideoTimer();
+    //m_timer = new VideoTimer();
 
     m_locationService = new LocationService(this);
   }

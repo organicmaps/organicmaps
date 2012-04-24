@@ -1,13 +1,7 @@
-/*
- * VideoTimer.hpp
- *
- *  Created on: Nov 5, 2011
- *      Author: siarheirachytski
- */
-
 #pragma once
 
 #include <jni.h>
+
 #include "../../../../../platform/video_timer.hpp"
 
 namespace android
