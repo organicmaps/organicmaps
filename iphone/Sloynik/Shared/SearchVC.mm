@@ -32,6 +32,7 @@ struct SloynikData
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self)
   {
+    SetSloynikEngine(CreateSloynikEngine());
     self.articleVC = [[[ArticleVC alloc] initWithParent:self] autorelease];
   }
   return self;
