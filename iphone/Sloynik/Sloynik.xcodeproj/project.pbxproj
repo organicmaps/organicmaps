@@ -37,6 +37,16 @@
 		499A290F120CDF4000E14B47 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 499A290E120CDF4000E14B47 /* AppDelegate.mm */; };
 		499F013212344F3C00EB6964 /* ArticleVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 499F013112344F3C00EB6964 /* ArticleVC.mm */; };
 		49A67547132EE7C2005189E6 /* timsort.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49A67546132EE7C2005189E6 /* timsort.cpp */; };
+		49B637AF154EF0B600529889 /* message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49B637AE154EF0B600529889 /* message.cpp */; };
+		49B637B3154EF0F900529889 /* platform_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 49B637B1154EF0F900529889 /* platform_ios.mm */; };
+		49B637B4154EF0F900529889 /* platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49B637B2154EF0F900529889 /* platform.cpp */; };
+		49B637B6154EF12600529889 /* file_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49B637B5154EF12600529889 /* file_data.cpp */; };
+		49B637B8154EF15000529889 /* sha2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49B637B7154EF15000529889 /* sha2.cpp */; };
+		49B637BA154EF16C00529889 /* sha256.c in Sources */ = {isa = PBXBuildFile; fileRef = 49B637B9154EF16C00529889 /* sha256.c */; };
+		49B637BD154EF19D00529889 /* exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49B637BC154EF19D00529889 /* exception.cpp */; };
+		49B637BF154EF1A900529889 /* timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49B637BE154EF1A900529889 /* timer.cpp */; };
+		49B637C2154EF1DD00529889 /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49B637C0154EF1DD00529889 /* base64.cpp */; };
+		49B637C3154EF1DD00529889 /* hex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49B637C1154EF1DD00529889 /* hex.cpp */; };
 		49EEF3AB120C4044005CE706 /* PerfCount.mm in Sources */ = {isa = PBXBuildFile; fileRef = 49EEF3AA120C4044005CE706 /* PerfCount.mm */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +93,16 @@
 		499F013012344F3C00EB6964 /* ArticleVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArticleVC.h; path = Shared/ArticleVC.h; sourceTree = "<group>"; };
 		499F013112344F3C00EB6964 /* ArticleVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ArticleVC.mm; path = Shared/ArticleVC.mm; sourceTree = "<group>"; };
 		49A67546132EE7C2005189E6 /* timsort.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = timsort.cpp; path = ../../coding/timsort/timsort.cpp; sourceTree = "<group>"; };
+		49B637AE154EF0B600529889 /* message.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = message.cpp; path = ../../base/internal/message.cpp; sourceTree = "<group>"; };
+		49B637B1154EF0F900529889 /* platform_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = platform_ios.mm; path = ../../platform/platform_ios.mm; sourceTree = "<group>"; };
+		49B637B2154EF0F900529889 /* platform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = platform.cpp; path = ../../platform/platform.cpp; sourceTree = "<group>"; };
+		49B637B5154EF12600529889 /* file_data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = file_data.cpp; path = ../../coding/internal/file_data.cpp; sourceTree = "<group>"; };
+		49B637B7154EF15000529889 /* sha2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sha2.cpp; path = ../../coding/sha2.cpp; sourceTree = "<group>"; };
+		49B637B9154EF16C00529889 /* sha256.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sha256.c; path = ../../3party/tomcrypt/src/hashes/sha2/sha256.c; sourceTree = "<group>"; };
+		49B637BC154EF19D00529889 /* exception.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = exception.cpp; path = ../../base/exception.cpp; sourceTree = "<group>"; };
+		49B637BE154EF1A900529889 /* timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = timer.cpp; path = ../../base/timer.cpp; sourceTree = "<group>"; };
+		49B637C0154EF1DD00529889 /* base64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = base64.cpp; path = ../../coding/base64.cpp; sourceTree = "<group>"; };
+		49B637C1154EF1DD00529889 /* hex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hex.cpp; path = ../../coding/hex.cpp; sourceTree = "<group>"; };
 		49EEF3A9120C4044005CE706 /* PerfCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerfCount.h; path = Shared/PerfCount.h; sourceTree = "<group>"; };
 		49EEF3AA120C4044005CE706 /* PerfCount.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PerfCount.mm; path = Shared/PerfCount.mm; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* sloynik-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "sloynik-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -190,6 +210,7 @@
 				496983D2121E859A00048CF1 /* base */,
 				496983D5121E85D900048CF1 /* coding */,
 				496983DB121E862E00048CF1 /* words */,
+				49B637B0154EF0C600529889 /* platform */,
 			);
 			name = "C++ Sources";
 			sourceTree = "<group>";
@@ -197,8 +218,11 @@
 		496983D2121E859A00048CF1 /* base */ = {
 			isa = PBXGroup;
 			children = (
-				496983F6121E875200048CF1 /* logging.cpp */,
 				496983D3121E85D300048CF1 /* base.cpp */,
+				49B637BC154EF19D00529889 /* exception.cpp */,
+				496983F6121E875200048CF1 /* logging.cpp */,
+				49B637AE154EF0B600529889 /* message.cpp */,
+				49B637BE154EF1A900529889 /* timer.cpp */,
 			);
 			name = base;
 			sourceTree = "<group>";
@@ -206,10 +230,14 @@
 		496983D5121E85D900048CF1 /* coding */ = {
 			isa = PBXGroup;
 			children = (
-				49A67546132EE7C2005189E6 /* timsort.cpp */,
+				49B637C0154EF1DD00529889 /* base64.cpp */,
 				496983DE121E866100048CF1 /* bzip2_compressor.cpp */,
+				49B637B5154EF12600529889 /* file_data.cpp */,
 				496983D6121E85FC00048CF1 /* file_reader.cpp */,
 				496983D7121E85FC00048CF1 /* file_writer.cpp */,
+				49B637C1154EF1DD00529889 /* hex.cpp */,
+				49B637B7154EF15000529889 /* sha2.cpp */,
+				49A67546132EE7C2005189E6 /* timsort.cpp */,
 			);
 			name = coding;
 			sourceTree = "<group>";
@@ -233,6 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				496983EB121E869B00048CF1 /* bzip2 */,
+				49B637AD154EF08100529889 /* tomcrypt */,
 			);
 			name = 3party;
 			sourceTree = "<group>";
@@ -249,6 +278,23 @@
 				496983EC121E86D300048CF1 /* bzlib.c */,
 			);
 			name = bzip2;
+			sourceTree = "<group>";
+		};
+		49B637AD154EF08100529889 /* tomcrypt */ = {
+			isa = PBXGroup;
+			children = (
+				49B637B9154EF16C00529889 /* sha256.c */,
+			);
+			name = tomcrypt;
+			sourceTree = "<group>";
+		};
+		49B637B0154EF0C600529889 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				49B637B2154EF0F900529889 /* platform.cpp */,
+				49B637B1154EF0F900529889 /* platform_ios.mm */,
+			);
+			name = platform;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -337,6 +383,16 @@
 				491F5E5712E8F4AB0072775A /* global.mm in Sources */,
 				49A67547132EE7C2005189E6 /* timsort.cpp in Sources */,
 				4983ADC8134618AE00C82DB7 /* SloynikSearchVC.m in Sources */,
+				49B637AF154EF0B600529889 /* message.cpp in Sources */,
+				49B637B3154EF0F900529889 /* platform_ios.mm in Sources */,
+				49B637B4154EF0F900529889 /* platform.cpp in Sources */,
+				49B637B6154EF12600529889 /* file_data.cpp in Sources */,
+				49B637B8154EF15000529889 /* sha2.cpp in Sources */,
+				49B637BA154EF16C00529889 /* sha256.c in Sources */,
+				49B637BD154EF19D00529889 /* exception.cpp in Sources */,
+				49B637BF154EF1A900529889 /* timer.cpp in Sources */,
+				49B637C2154EF1DD00529889 /* base64.cpp in Sources */,
+				49B637C3154EF1DD00529889 /* hex.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,6 +441,7 @@
 				HEADER_SEARCH_PATHS = (
 					../../3party/bzip2,
 					../../3party/boost,
+					../../3party/tomcrypt/src/headers,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PREBINDING = NO;
@@ -422,6 +479,7 @@
 				HEADER_SEARCH_PATHS = (
 					../../3party/bzip2,
 					../../3party/boost,
+					../../3party/tomcrypt/src/headers,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
