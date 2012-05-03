@@ -3,6 +3,8 @@
 
 @implementation BalloonView
 
+@synthesize title;
+@synthesize description;
 @synthesize isDisplayed;
 
 - (void) setGlobalPos:(m2::PointD const &)pt
@@ -36,9 +38,9 @@
 - (void) showButtonsInView:(UIView *)view atPoint:(CGPoint)pt
 {
   m_titleView = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"BookmarkTitle"];
-  m_titleView.textLabel.text = @"Bookmark Name";
+  m_titleView.textLabel.text = title;
   m_titleView.textLabel.textColor = [UIColor whiteColor];
-  m_titleView.detailTextLabel.text = @"Belarus, Minsk, Kirova 3";
+  m_titleView.detailTextLabel.text = description;
   m_titleView.detailTextLabel.textColor = [UIColor whiteColor];
   m_titleView.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
   m_titleView.backgroundColor = [UIColor blackColor];

@@ -11,6 +11,31 @@
 
 #include "../../map/framework_factory.hpp"
 
+static string formatAddress(string const & house, string const & street,
+                            string const & city, string const & country)
+{
+  string result = house;
+  if (!street.empty())
+  {
+    if (!result.empty())
+      result += ' ';
+    result += street;
+  }
+  if (!city.empty())
+  {
+    if (!result.empty())
+      result += ' ';
+    result += city;
+  }
+  if (!country.empty())
+  {
+    if (!result.empty())
+      result += ' ';
+    result += country;
+  }
+  return result;
+}
+
 @implementation MapViewController
 
 @synthesize m_myPositionButton;
@@ -147,9 +172,14 @@ Framework * m_framework = NULL;
   if (m_bookmark.isDisplayed)
     [m_bookmark hide];
 
-  CGPoint const pt = [point CGPointValue];
-  m_bookmark.glbPos = [self viewPoint2GlobalPoint:pt];
-  [m_bookmark showInView:self.view atPoint:pt];
+  CGPoint const pixelPos = [point CGPointValue];
+  m2::PointD const globalPos = [self viewPoint2GlobalPoint:pixelPos];
+  Framework::AddressInfo addr;
+  m_framework->GetAddressInfo(globalPos, addr);
+  m_bookmark.title = [NSString stringWithUTF8String:addr.m_name.c_str()];
+  m_bookmark.description = [NSString stringWithUTF8String:formatAddress(addr.m_house, addr.m_street, addr.m_city, addr.m_country).c_str()];
+  [m_bookmark setGlobalPos:globalPos];
+  [m_bookmark showInView:self.view atPoint:pixelPos];
 }
 
 - (void) dealloc
@@ -268,8 +298,6 @@ NSInteger compareAddress(id l, id r, void * context)
 	}
 
 	m_isSticking = true;
-
-  [self updateDataAfterScreenChanged];
 }
 
 - (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event

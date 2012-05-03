@@ -11,6 +11,8 @@
   SEL m_selector;
 }
 
+@property(nonatomic, retain) NSString * title;
+@property(nonatomic, retain) NSString * description;
 @property(nonatomic, assign, readonly) BOOL isDisplayed;
 @property(nonatomic, assign) CGPoint glbPos;
 
