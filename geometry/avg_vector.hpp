@@ -14,6 +14,7 @@ namespace math
   {
     typedef deque<array<T, Dim> > ContT;
     typedef typename ContT::value_type ValueT;
+
     ContT m_vectors;
     size_t m_count;
 
@@ -26,7 +27,7 @@ namespace math
       return sqrt(res);
     }
 
-    void Average(ValueT const & a1, ValueT const & a2, T * res) const
+    static void Average(ValueT const & a1, ValueT const & a2, T * res)
     {
       for (size_t i = 0; i < Dim; ++i)
         res[i] = (a1[i] + a2[i]) / 2.0;
