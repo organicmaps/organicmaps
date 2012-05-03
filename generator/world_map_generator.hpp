@@ -48,9 +48,11 @@ public:
     : m_worldBucket(info), m_merger(POINT_COORD_BITS)
   {
     // Do not strip last types for given tags,
-    // for example, do not cut "-2" in  "boundary-administrative-2"
+    // for example, do not cut 'admin_level' in  'boundary-administrative-XXX'.
     char const * arrDontNormalize[][3] = {
-      { "boundary", "administrative", "2" }
+      { "boundary", "administrative", "2" },
+      { "boundary", "administrative", "3" },
+      { "boundary", "administrative", "4" }
     };
 
     for (size_t i = 0; i < ARRAY_SIZE(arrDontNormalize); ++i)
