@@ -61,8 +61,9 @@ namespace yg
                                         && glGenBuffersFn
                                         && glBufferDataFn
                                         && glBufferSubDataFn
-                                        && glDeleteBuffersFn
-                                        && glMapBufferFn
+                                        && glDeleteBuffersFn;
+
+      yg::gl::g_isMapBufferSupported =  glMapBufferFn
                                         && glUnmapBufferFn;
 
       yg::gl::g_isFramebufferSupported = glBindFramebufferFn

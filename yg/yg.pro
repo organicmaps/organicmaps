@@ -22,8 +22,7 @@ SOURCES += \
     color.cpp \
     skin_loader.cpp \
     framebuffer.cpp \
-    vertexbuffer.cpp \
-    indexbuffer.cpp \
+    buffer_object.cpp \
     utils.cpp \
     renderbuffer.cpp \
     base_texture.cpp \
@@ -76,8 +75,7 @@ HEADERS += \
     resource_style.hpp \
     color.hpp \
     framebuffer.hpp \
-    vertexbuffer.hpp \
-    indexbuffer.hpp \
+    buffer_object.hpp \
     utils.hpp \
     renderbuffer.hpp \
     base_texture.hpp \

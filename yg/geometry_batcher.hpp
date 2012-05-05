@@ -1,8 +1,7 @@
 #pragma once
 
 #include "vertex.hpp"
-#include "vertexbuffer.hpp"
-#include "indexbuffer.hpp"
+#include "buffer_object.hpp"
 #include "renderbuffer.hpp"
 #include "framebuffer.hpp"
 #include "render_state_updater.hpp"

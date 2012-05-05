@@ -60,13 +60,16 @@ namespace yg
       glDrawElementsFn = &glDrawElements;
 
       g_isBufferObjectsSupported = HasExtension("GL_ARB_vertex_buffer_object")
-                                || HasExtension("GLX_ARB_vertex_buffer_object");
+                               || HasExtension("GLX_ARB_vertex_buffer_object");
 
       glBindBufferFn = &glBindBuffer;
       glGenBuffersFn = &glGenBuffers;
       glBufferDataFn = &glBufferData;
       glBufferSubDataFn = &glBufferSubData;
       glDeleteBuffersFn = &glDeleteBuffers;
+
+      g_isMapBufferSupported = g_isBufferObjectsSupported;
+
       glMapBufferFn = &glMapBuffer;
       glUnmapBufferFn = &glUnmapBuffer;
 

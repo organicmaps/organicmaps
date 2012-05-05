@@ -21,8 +21,6 @@ namespace yg
   namespace gl
   {
     class BaseTexture;
-    class VertexBuffer;
-    class IndexBuffer;
   }
 
   class SkinPage;

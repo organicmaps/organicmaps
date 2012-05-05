@@ -122,7 +122,6 @@ void GLDrawWidget::initializeGL()
                                                                  0);
 
   rmp.m_useSingleThreadedOGL = false;
-  rmp.m_useVA = !yg::gl::g_isBufferObjectsSupported;
   rmp.m_rtFormat = yg::Data8Bpp;
   rmp.m_texFormat = yg::Data8Bpp;
 

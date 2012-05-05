@@ -14,8 +14,6 @@ namespace yg
 
   namespace gl
   {
-    class VertexBuffer;
-    class IndexBuffer;
     class BaseTexture;
     class DisplayList;
 

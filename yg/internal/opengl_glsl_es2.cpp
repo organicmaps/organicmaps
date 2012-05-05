@@ -51,13 +51,16 @@ namespace yg
       glOrthoFn = &glsl::glOrtho;
       glDrawElementsFn = &glsl::glDrawElements;
 
-      g_isBufferObjectsSupported = HasExtension("GL_OES_mapbuffer");
+      g_isBufferObjectsSupported = true;
 
       glBindBufferFn = &glBindBuffer;
       glGenBuffersFn = &glGenBuffers;
       glBufferDataFn = &glBufferData;
       glBufferSubDataFn = &glBufferSubData;
       glDeleteBuffersFn = &glDeleteBuffers;
+
+      g_isMapBufferSupported = HasExtension("GL_OES_mapbuffer");
+
       glMapBufferFn = &glMapBufferOES;
       glUnmapBufferFn = &glUnmapBufferOES;
 

@@ -44,9 +44,8 @@ namespace yg
   {
     size_t m_vbSize;
     size_t m_ibSize;
-    bool m_useVA;
     bool m_useSingleThreadedOGL;
-    TStorageFactory(size_t vbSize, size_t ibSize, bool useVA, bool useSingleThreadedOGL, char const * resName, size_t batchSize);
+    TStorageFactory(size_t vbSize, size_t ibSize, bool useSingleThreadedOGL, char const * resName, size_t batchSize);
     gl::Storage const Create();
     void BeforeMerge(gl::Storage const & e);
   };
@@ -221,7 +220,6 @@ namespace yg
       DataFormat m_texFormat;
       DataFormat m_texRtFormat;
       bool m_useSingleThreadedOGL;
-      bool m_useVA;
 
       size_t m_videoMemoryLimit;
 

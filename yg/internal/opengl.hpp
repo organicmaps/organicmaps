@@ -93,8 +93,9 @@ namespace yg
 
     /// information about supported extensions
 
-    extern bool g_isFramebufferSupported;
+    extern bool g_isMapBufferSupported;
     extern bool g_isBufferObjectsSupported;
+    extern bool g_isFramebufferSupported;
     extern bool g_isRenderbufferSupported;
     extern bool g_isSeparateBlendFuncSupported;
 

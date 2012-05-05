@@ -7,22 +7,22 @@ namespace yg
 {
   namespace gl
   {
-    class IndexBuffer
+    class BufferObject
     {
     private:
 
+      unsigned m_target;
       unsigned int m_id;
       unsigned int m_size;
       void * m_gpuData;
-      bool m_useVA;
       bool m_isLocked;
       shared_ptr<vector<unsigned char> > m_sharedBuffer;
 
     public:
 
-      IndexBuffer(bool useVA);
-      IndexBuffer(size_t size, bool useVA);
-      ~IndexBuffer();
+      BufferObject(unsigned target);
+      BufferObject(size_t size, unsigned target);
+      ~BufferObject();
 
       void resize(size_t size);
       size_t size() const;
@@ -36,8 +36,6 @@ namespace yg
       void * glPtr();
       void * data();
       bool isLocked() const;
-
-      static int current();
     };
   }
 }

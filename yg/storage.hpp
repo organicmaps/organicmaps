@@ -6,17 +6,16 @@ namespace yg
 {
   namespace gl
   {
-    class VertexBuffer;
-    class IndexBuffer;
+    class BufferObject;
 
     class Storage
     {
     public:
-      shared_ptr<VertexBuffer> m_vertices;
-      shared_ptr<IndexBuffer> m_indices;
+      shared_ptr<BufferObject> m_vertices;
+      shared_ptr<BufferObject> m_indices;
 
       Storage();
-      Storage(size_t vbSize, size_t ibSize, bool useVA);
+      Storage(size_t vbSize, size_t ibSize);
     };
   }
 }

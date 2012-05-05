@@ -63,15 +63,19 @@ namespace yg
       glOrthoFn = &glOrthof;
       glDrawElementsFn = &glDrawElements;
 
-      g_isBufferObjectsSupported = HasExtension("GL_OES_mapbuffer");
+      g_isMapBufferSupported = HasExtension("GL_OES_mapbuffer");
+
+      glMapBufferFn = &glMapBufferOES;
+      glUnmapBufferFn = &glUnmapBufferOES;
+
+      /// generally speaking we should check for ARB_vertex_buffer extension
+      g_isBufferObjectsSupported = g_isMapBufferSupported;
 
       glBindBufferFn = &glBindBuffer;
       glGenBuffersFn = &glGenBuffers;
       glBufferDataFn = &glBufferData;
       glBufferSubDataFn = &glBufferSubData;
       glDeleteBuffersFn = &glDeleteBuffers;
-      glMapBufferFn = &glMapBufferOES;
-      glUnmapBufferFn = &glUnmapBufferOES;
 
       g_isFramebufferSupported = HasExtension("GL_OES_framebuffer_object");
 

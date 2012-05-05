@@ -6,8 +6,7 @@
 #include "skin_loader.hpp"
 #include "storage.hpp"
 #include "texture.hpp"
-#include "vertexbuffer.hpp"
-#include "indexbuffer.hpp"
+#include "buffer_object.hpp"
 
 #include "../coding/file_reader.hpp"
 #include "../coding/parse_xml.hpp"
@@ -57,17 +56,16 @@ namespace yg
     }
   }
 
-  TStorageFactory::TStorageFactory(size_t vbSize, size_t ibSize, bool useVA, bool useSingleThreadedOGL, char const * resName, size_t batchSize)
+  TStorageFactory::TStorageFactory(size_t vbSize, size_t ibSize, bool useSingleThreadedOGL, char const * resName, size_t batchSize)
     : BasePoolElemFactory(resName, vbSize + ibSize, batchSize),
       m_vbSize(vbSize),
       m_ibSize(ibSize),
-      m_useVA(useVA),
       m_useSingleThreadedOGL(useSingleThreadedOGL)
   {}
 
   gl::Storage const TStorageFactory::Create()
   {
-    gl::Storage res(m_vbSize, m_ibSize, m_useVA);
+    gl::Storage res(m_vbSize, m_ibSize);
 
     if (m_useSingleThreadedOGL)
     {
@@ -374,7 +372,6 @@ namespace
       m_texFormat(yg::Data4Bpp),
       m_texRtFormat(yg::Data4Bpp),
       m_useSingleThreadedOGL(false),
-      m_useVA(true),
       m_videoMemoryLimit(0),
       m_primaryStoragesParams("primaryStorage"),
       m_smallStoragesParams("smallStorage"),
@@ -407,7 +404,6 @@ namespace
   {
     /// general case
     m_texRtFormat = yg::Data4Bpp;
-    m_useVA = !yg::gl::g_isBufferObjectsSupported;
 
     if (isGPU("Qualcomm", "Adreno", false))
       m_texRtFormat = yg::Data8Bpp;
@@ -421,10 +417,10 @@ namespace
       m_texRtFormat = yg::Data8Bpp;
     }
 
-    /// filtering all devices from Vivante Corporation
+/*    /// filtering all devices from Vivante Corporation
     /// to use vertex arrays
     if (isGPU("Vivante Corporation", "", false))
-      m_useVA = true;
+      m_useVA = true;*/
 
     string name;
     switch (m_texRtFormat)
@@ -539,7 +535,7 @@ namespace
     initTexturePool(p.m_styleCacheTexturesParams, m_styleCacheTextures);
     initTexturePool(p.m_guiThreadTexturesParams, m_guiThreadTextures);
 
-    if (p.m_useVA)
+    if (!yg::gl::g_isBufferObjectsSupported)
       LOG(LINFO, ("buffer objects are unsupported. using client vertex array instead."));
   }
 
@@ -588,7 +584,7 @@ namespace
   {
     if (p.isValid())
     {
-      TStorageFactory storageFactory(p.m_vbSize, p.m_ibSize, m_params.m_useVA, m_params.m_useSingleThreadedOGL, p.m_poolName.c_str(), p.m_allocateOnDemand ? p.m_storagesCount : 0);
+      TStorageFactory storageFactory(p.m_vbSize, p.m_ibSize, m_params.m_useSingleThreadedOGL, p.m_poolName.c_str(), p.m_allocateOnDemand ? p.m_storagesCount : 0);
 
       if (m_params.m_useSingleThreadedOGL)
       {
