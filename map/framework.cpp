@@ -1084,3 +1084,9 @@ string Framework::GetCountryCodeByPosition(double lat, double lon) const
   return GetSearchEngine()->GetCountryCode(m2::PointD(
                            MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat)));
 }
+
+bool Framework::SetViewportByURL(string const & url)
+{
+  Invalidate();
+  return true;
+}

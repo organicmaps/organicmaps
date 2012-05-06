@@ -398,4 +398,11 @@ NSInteger compareAddress(id l, id r, void * context)
   m_framework->SetupMeasurementSystem();
 }
 
+-(BOOL) OnProcessURL:(NSString*)url
+{
+  NSLog(@"Process url %@", url);
+  m_framework->SetViewportByURL([url UTF8String]);
+  return TRUE;
+}
+
 @end
