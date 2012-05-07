@@ -107,10 +107,11 @@ Framework * m_framework = NULL;
 
 - (void)onBookmarkClicked
 {
+  m2::PointD const ptG = m2::PointD(m_bookmark.glbPos.x, m_bookmark.glbPos.y);
+  
   Framework::AddressInfo info;
-  m_framework->GetAddressInfo(m_bookmark.glbPos, info);
-
-  m_framework->AddBookmark(m_bookmark.glbPos, info.m_name);
+  m_framework->GetAddressInfo(ptG, info);
+  m_framework->AddBookmark(ptG, info.m_name);
 
   [m_bookmark hide];
 
@@ -122,12 +123,10 @@ Framework * m_framework = NULL;
   if (m_bookmark.isDisplayed)
     [m_bookmark hide];
 
-  //else
-  //{
-    CGPoint const pt = [point CGPointValue];
-    m_bookmark.glbPos = m_framework->PtoG(m2::PointD(pt.x, pt.y));
-    [m_bookmark showInView:self.view atPoint:pt];
-  //}
+  CGPoint const pt = [point CGPointValue];
+  m2::PointD const ptG = m_framework->PtoG(m2::PointD(pt.x, pt.y)); 
+  m_bookmark.glbPos = CGPointMake(ptG.x, ptG.y);
+  [m_bookmark showInView:self.view atPoint:pt];
 }
 
 - (void) dealloc
@@ -204,7 +203,7 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void)updateDataAfterScreenChanged
 {
-  m2::PointD const p = m_framework->GtoP(m_bookmark.glbPos);
+  m2::PointD const p = m_framework->GtoP(m2::PointD(m_bookmark.glbPos.x, m_bookmark.glbPos.y));
   [m_bookmark updatePosition:self.view atPoint:CGPointMake(p.x, p.y)];
 }
 
@@ -400,7 +399,7 @@ NSInteger compareAddress(id l, id r, void * context)
 
 -(BOOL) OnProcessURL:(NSString*)url
 {
-  NSLog(@"Process url %@", url);
+  //NSLog(@"Process url %@", url);
   m_framework->SetViewportByURL([url UTF8String]);
   return TRUE;
 }

@@ -12,7 +12,7 @@
 }
 
 @property(nonatomic, assign, readonly) BOOL isDisplayed;
-@property(nonatomic, assign) m2::PointD glbPos;
+@property(nonatomic, assign) CGPoint glbPos;
 
 - (id) initWithTarget:(id)target andSelector:(SEL)selector;
 - (void) showInView:(UIView *)view atPoint:(CGPoint)pt;
