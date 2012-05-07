@@ -108,7 +108,7 @@ Framework * m_framework = NULL;
 - (void)onBookmarkClicked
 {
   m2::PointD const ptG = m2::PointD(m_bookmark.glbPos.x, m_bookmark.glbPos.y);
-  
+
   Framework::AddressInfo info;
   m_framework->GetAddressInfo(ptG, info);
   m_framework->AddBookmark(ptG, info.m_name);
