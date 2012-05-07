@@ -47,10 +47,20 @@ namespace
 {
   void CheckNavigator(Navigator const & nav)
   {
-    m2::PointD const pxP = nav.Screen().ClipRect().Center();
-    m2::PointD const gP = nav.PtoG(pxP);
-    m2::PointD const pxP2 = nav.GtoP(gP);
-    TEST(m2::AlmostEqual(pxP, pxP2), (pxP, pxP2));
+    typedef m2::PointD P;
+    m2::RectD clipR = nav.Screen().ClipRect();
+
+    P arr[] = { clipR.LeftTop(), clipR.RightTop(),
+                clipR.RightBottom(), clipR.LeftBottom(),
+                clipR.Center() };
+
+    for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+    {
+      P const & pxP = arr[i];
+      P const gP = nav.PtoG(pxP);
+      P const pxP2 = nav.GtoP(gP);
+      TEST(m2::AlmostEqual(pxP, pxP2), (pxP, pxP2));
+    }
   }
 }
 
@@ -70,5 +80,8 @@ UNIT_TEST(Navigator_G2P_P2G)
   CheckNavigator(nav);
 
   nav.Move(math::pi / 4.0, 3.0);
+  CheckNavigator(nav);
+
+  nav.Scale(1/3.0);
   CheckNavigator(nav);
 }
