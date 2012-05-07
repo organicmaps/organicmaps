@@ -2,6 +2,7 @@
 #include "draw_processor.hpp"
 #include "drawer_yg.hpp"
 #include "benchmark_provider.hpp"
+#include "geourl_process.hpp"
 
 #include "../defines.hpp"
 
@@ -861,7 +862,6 @@ void Framework::ScaleDefault(bool enlarge)
 void Framework::Scale(double scale)
 {
   m_navigator.Scale(scale);
-  //m_tiler.seed(m_navigator.Screen(), m_tileSize);
 
   Invalidate();
 }
@@ -1087,6 +1087,17 @@ string Framework::GetCountryCodeByPosition(double lat, double lon) const
 
 bool Framework::SetViewportByURL(string const & url)
 {
-  Invalidate();
-  return true;
+  using namespace url_scheme;
+
+  Info info;
+  ParseURL(url, info);
+
+  if (info.IsValid())
+  {
+    ShowRectFixed(info.GetViewport());
+    Invalidate();
+    return true;
+  }
+
+  return false;
 }

@@ -25,3 +25,4 @@ SOURCES += \
   draw_processor_test.cpp \
   multithread_map_test.cpp \
   bookmarks_test.cpp \
+  geourl_test.cpp \

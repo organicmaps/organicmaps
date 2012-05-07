@@ -48,7 +48,8 @@ HEADERS += \
     basic_tiling_render_policy.hpp \
     render_policy_mt.hpp \
     bookmark.hpp \
-    tile_set.hpp
+    tile_set.hpp \
+    geourl_process.hpp \
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -87,16 +88,11 @@ SOURCES += \
     basic_tiling_render_policy.cpp \
     render_policy_mt.cpp \
     address_finder.cpp \
-    tile_set.cpp
+    tile_set.cpp \
+    geourl_process.cpp \
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp
   SOURCES += qgl_render_context.cpp
   QT += opengl
 }
-
-
-
-
-
-
