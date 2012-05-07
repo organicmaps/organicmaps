@@ -118,14 +118,27 @@ Framework * m_framework = NULL;
   m_framework->Invalidate();
 }
 
+- (CGPoint) viewPoint2GlobalPoint:(CGPoint)pt
+{
+  CGFloat const scaleFactor = self.view.contentScaleFactor;
+  m2::PointD const ptG = m_framework->PtoG(m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor));
+  return CGPointMake(ptG.x, ptG.y);
+}
+
+- (CGPoint) globalPoint2ViewPoint:(CGPoint)pt
+{
+  CGFloat const scaleFactor = self.view.contentScaleFactor;
+  m2::PointD const ptP = m_framework->GtoP(m2::PointD(pt.x, pt.y));
+  return CGPointMake(ptP.x / scaleFactor, ptP.y / scaleFactor);
+}
+
 - (void)onSingleTap:(NSValue *)point
 {
   if (m_bookmark.isDisplayed)
     [m_bookmark hide];
 
   CGPoint const pt = [point CGPointValue];
-  m2::PointD const ptG = m_framework->PtoG(m2::PointD(pt.x, pt.y)); 
-  m_bookmark.glbPos = CGPointMake(ptG.x, ptG.y);
+  m_bookmark.glbPos = [self viewPoint2GlobalPoint:pt];
   [m_bookmark showInView:self.view atPoint:pt];
 }
 
@@ -203,8 +216,7 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void)updateDataAfterScreenChanged
 {
-  m2::PointD const p = m_framework->GtoP(m2::PointD(m_bookmark.glbPos.x, m_bookmark.glbPos.y));
-  [m_bookmark updatePosition:self.view atPoint:CGPointMake(p.x, p.y)];
+  [m_bookmark updatePosition:self.view atPoint:[self globalPoint2ViewPoint:m_bookmark.glbPos]];
 }
 
 - (void)stopCurrentAction
