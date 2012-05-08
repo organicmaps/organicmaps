@@ -114,4 +114,21 @@ namespace rw
     if (count > 0)
       sink.Write(&v[0], count * sizeof(ValueT));
   }
+
+  template <class ReaderT, class WriterT>
+  void ReadAndWrite(ReaderT & reader, WriterT & writer, size_t bufferSize = 4*1024)
+  {
+    uint64_t size = reader.Size();
+    vector<char> buffer(min(bufferSize, static_cast<size_t>(size)));
+
+    while (size > 0)
+    {
+      size_t const curr = min(bufferSize, static_cast<size_t>(size));
+
+      reader.Read(&buffer[0], curr);
+      writer.Write(&buffer[0], curr);
+
+      size -= curr;
+    }
+  }
 }

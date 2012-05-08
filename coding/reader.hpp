@@ -182,7 +182,7 @@ public:
   {
     if (m_pos + size > m_reader.Size())
     {
-      size_t remainingSize = static_cast<size_t>(m_reader.Size() - m_pos);
+      size_t const remainingSize = static_cast<size_t>(Size());
       m_reader.Read(m_pos, p, remainingSize);
       m_pos = m_reader.Size();
       MYTHROW1(SourceOutOfBoundsException, remainingSize, ());
@@ -202,6 +202,11 @@ public:
   uint64_t Pos() const
   {
     return m_pos;
+  }
+
+  uint64_t Size() const
+  {
+    return (m_reader.Size() - m_pos);
   }
 
   ReaderT const & Reader() const
