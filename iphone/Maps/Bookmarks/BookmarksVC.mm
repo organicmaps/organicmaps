@@ -11,7 +11,7 @@
 {
   [self setEditing:NO animated:NO];
   [m_table setEditing:NO animated:NO];
-  m_navItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(onEdit)] autorelease];
+  m_navItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)onEdit
@@ -41,7 +41,11 @@
                                                                    target:self action:@selector(onCloseButton:)] autorelease];
   // Display Edit button only if table is not empty
   if (m_framework->BookmarksCount())
-    m_navItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(onEdit)] autorelease];
+  {
+    [self.editButtonItem setTarget:self];
+    [self.editButtonItem setAction:@selector(onEdit)];
+    m_navItem.rightBarButtonItem = self.editButtonItem;
+  }
 
   UINavigationBar * navBar = [[[UINavigationBar alloc] init] autorelease];
   [navBar pushNavigationItem:m_navItem animated:NO];
@@ -124,9 +128,6 @@
     m_framework->RemoveBookmark(indexPath.row);
     [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
   }
-//  else if (editingStyle == UITableViewCellEditingStyleInsert)
-//  {
-//  }
 }
 
 /*
