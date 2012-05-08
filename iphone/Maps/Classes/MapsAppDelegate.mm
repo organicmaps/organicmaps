@@ -78,17 +78,6 @@
   [m_mapViewController OnEnterForeground];
 }
 
-- (void) applicationDidFinishLaunching: (UIApplication *) application
-{
-  [self onFirstLaunchCheck];
-
-  [Preferences setup:m_mapViewController];
-  m_locationManager = [[LocationManager alloc] init];
-
-  [m_window addSubview:m_mapViewController.view];
-  [m_window makeKeyAndVisible];
-}
-
 - (SettingsManager *)settingsManager
 {
   if (!m_settingsManager)
@@ -144,14 +133,25 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  // Override point for customization after application launch.
-  return YES;
+  [self onFirstLaunchCheck];
+
+  [Preferences setup:m_mapViewController];
+  m_locationManager = [[LocationManager alloc] init];
+
+  m_navController = [[UINavigationController alloc] initWithRootViewController:m_mapViewController];
+  m_navController.navigationBarHidden = YES;
+  m_window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+  m_window.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  m_window.clearsContextBeforeDrawing = NO;
+  m_window.multipleTouchEnabled = YES;
+  [m_window setRootViewController:m_navController];
+  [m_window makeKeyAndVisible];
+
+  return [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] != nil;
 }
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
-  if (url == NULL) return NO;
-
   NSString * text = [[url absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
   return [m_mapViewController OnProcessURL:text];
 }
