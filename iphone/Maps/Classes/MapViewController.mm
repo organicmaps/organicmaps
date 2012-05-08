@@ -4,6 +4,7 @@
 #import "EAGLView.h"
 #import "BalloonView.h"
 #import "BookmarksVC.h"
+#import "PlacePageVC.h"
 #import "../Settings/SettingsManager.h"
 #import "../../Common/CustomAlertView.h"
 
@@ -142,15 +143,19 @@ Framework * m_framework = NULL;
 
 - (void)onBookmarkClicked
 {
-  m2::PointD const ptG = m2::PointD(m_bookmark.glbPos.x, m_bookmark.glbPos.y);
+  PlacePageVC * placePageVC = [[PlacePageVC alloc] initWithStyle:UITableViewStyleGrouped];
+  [self.navigationController pushViewController:placePageVC animated:YES];
+  [placePageVC release];
 
-  Framework::AddressInfo info;
-  m_framework->GetAddressInfo(ptG, info);
-  m_framework->AddBookmark(ptG, info.m_name);
-
-  [m_bookmark hide];
-
-  m_framework->Invalidate();
+//  m2::PointD const ptG = m2::PointD(m_bookmark.globalPosition.x, m_bookmark.globalPosition.y);
+//
+//  Framework::AddressInfo info;
+//  m_framework->GetAddressInfo(ptG, info);
+//  m_framework->AddBookmark(ptG, info.m_name);
+//
+//  [m_bookmark hide];
+//
+//  m_framework->Invalidate();
 }
 
 - (CGPoint) viewPoint2GlobalPoint:(CGPoint)pt
@@ -193,6 +198,8 @@ Framework * m_framework = NULL;
 {
 	if ((self = [super initWithCoder:coder]))
 	{
+    self.title = NSLocalizedString(@"Map", @"Back button in nav bar to show the map");
+
     // Helper to display/hide pin on screen tap
     m_bookmark = [[BalloonView alloc] initWithTarget:self andSelector:@selector(onBookmarkClicked)];
 
@@ -431,14 +438,12 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void)viewWillAppear:(BOOL)animated
 {
   [self Invalidate];
-  [self.navigationController setNavigationBarHidden:YES animated:YES];
   [super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
   m_framework->SetUpdatesEnabled(false);
-  [self.navigationController setNavigationBarHidden:NO animated:YES];
   [super viewWillDisappear:animated];
 }
 

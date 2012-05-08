@@ -10,7 +10,6 @@
 
 @implementation MapsAppDelegate
 
-@synthesize m_window;
 @synthesize m_mapViewController;
 @synthesize m_locationManager;
 
@@ -90,7 +89,8 @@
   [m_locationManager release];
   [m_settingsManager release];
   m_mapViewController = nil;
-  m_window = nil;
+  [m_navController release];
+  [m_window release];
   [super dealloc];
 }
 

@@ -86,6 +86,10 @@
 		FA4B0A1415136C4C00758203 /* World.mwm.nosearch in Resources */ = {isa = PBXBuildFile; fileRef = FA4B0A1315136C4C00758203 /* World.mwm.nosearch */; };
 		FA4B0A16151372BA00758203 /* countries.txt.nosearch in Resources */ = {isa = PBXBuildFile; fileRef = FA4B0A15151372BA00758203 /* countries.txt.nosearch */; };
 		FA500588128907F0002961F0 /* visibility.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA500587128907F0002961F0 /* visibility.txt */; };
+		FA5D4F171557F79900E7D8BB /* AddBookmarkVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA5D4F141557F79900E7D8BB /* AddBookmarkVC.mm */; };
+		FA5D4F181557F79900E7D8BB /* AddBookmarkVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA5D4F141557F79900E7D8BB /* AddBookmarkVC.mm */; };
+		FA5D4F191557F79900E7D8BB /* PlacePageVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */; };
+		FA5D4F1A1557F79900E7D8BB /* PlacePageVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */; };
 		FA64D9A913F975AD00350ECF /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA64D9A813F975AD00350ECF /* types.txt */; };
 		FA68E1671525F92700077B9E /* Default-Landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA68E1651525F92700077B9E /* Default-Landscape@2x.png */; };
 		FA68E1681525F92700077B9E /* Default-Landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA68E1651525F92700077B9E /* Default-Landscape@2x.png */; };
@@ -1355,6 +1359,10 @@
 		FA4B0A1315136C4C00758203 /* World.mwm.nosearch */ = {isa = PBXFileReference; lastKnownFileType = file; name = World.mwm.nosearch; path = ../../data/World.mwm.nosearch; sourceTree = "<group>"; };
 		FA4B0A15151372BA00758203 /* countries.txt.nosearch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = countries.txt.nosearch; path = ../../data/countries.txt.nosearch; sourceTree = "<group>"; };
 		FA500587128907F0002961F0 /* visibility.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = visibility.txt; path = ../../data/visibility.txt; sourceTree = SOURCE_ROOT; };
+		FA5D4F131557F79900E7D8BB /* AddBookmarkVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddBookmarkVC.h; path = Bookmarks/AddBookmarkVC.h; sourceTree = SOURCE_ROOT; };
+		FA5D4F141557F79900E7D8BB /* AddBookmarkVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AddBookmarkVC.mm; path = Bookmarks/AddBookmarkVC.mm; sourceTree = SOURCE_ROOT; };
+		FA5D4F151557F79900E7D8BB /* PlacePageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlacePageVC.h; path = Bookmarks/PlacePageVC.h; sourceTree = SOURCE_ROOT; };
+		FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PlacePageVC.mm; path = Bookmarks/PlacePageVC.mm; sourceTree = SOURCE_ROOT; };
 		FA64D9A813F975AD00350ECF /* types.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = types.txt; path = ../../data/types.txt; sourceTree = SOURCE_ROOT; };
 		FA68E1651525F92700077B9E /* Default-Landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x.png"; sourceTree = "<group>"; };
 		FA68E1661525F92700077B9E /* Default-Portrait@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x.png"; sourceTree = "<group>"; };
@@ -2210,6 +2218,10 @@
 			isa = PBXGroup;
 			children = (
 				FA36B8171540466A004560CC /* Images */,
+				FA5D4F131557F79900E7D8BB /* AddBookmarkVC.h */,
+				FA5D4F141557F79900E7D8BB /* AddBookmarkVC.mm */,
+				FA5D4F151557F79900E7D8BB /* PlacePageVC.h */,
+				FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */,
 				FA36B80315403A4F004560CC /* BalloonView.h */,
 				FA36B80415403A4F004560CC /* BalloonView.mm */,
 				FA36B80515403A4F004560CC /* BookmarksVC.h */,
@@ -4096,6 +4108,8 @@
 				F7B90CD31521E6D200C054EE /* CustomNavigationView.mm in Sources */,
 				FA36B80B15403A4F004560CC /* BalloonView.mm in Sources */,
 				FA36B80D15403A4F004560CC /* BookmarksVC.mm in Sources */,
+				FA5D4F171557F79900E7D8BB /* AddBookmarkVC.mm in Sources */,
+				FA5D4F191557F79900E7D8BB /* PlacePageVC.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4123,6 +4137,8 @@
 				F7B90CD41521E6D200C054EE /* CustomNavigationView.mm in Sources */,
 				FA36B80C15403A4F004560CC /* BalloonView.mm in Sources */,
 				FA36B80E15403A4F004560CC /* BookmarksVC.mm in Sources */,
+				FA5D4F181557F79900E7D8BB /* AddBookmarkVC.mm in Sources */,
+				FA5D4F1A1557F79900E7D8BB /* PlacePageVC.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

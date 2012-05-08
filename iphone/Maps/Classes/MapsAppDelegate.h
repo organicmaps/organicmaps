@@ -9,9 +9,10 @@
   SettingsManager * m_settingsManager;
   NSInteger m_standbyCounter;
   NSInteger m_activeDownloadsCounter;
+  UINavigationController * m_navController;
+  UIWindow * m_window;
 }
 
-@property (nonatomic, retain) IBOutlet UIWindow * m_window;
 @property (nonatomic, retain) IBOutlet MapViewController * m_mapViewController;
 
 @property (nonatomic, readonly) LocationManager * m_locationManager;
