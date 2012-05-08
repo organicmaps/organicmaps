@@ -137,6 +137,28 @@ uint64_t FilesContainerW::SaveCurrentSize()
   return curr;
 }
 
+void FilesContainerW::DeleteSection(Tag const & tag)
+{
+  {
+    // rewrite files on disk
+    FilesContainerR contR(m_name);
+    FilesContainerW contW(m_name + ".tmp");
+
+    for (size_t i = 0; i < m_info.size(); ++i)
+    {
+      if (m_info[i].m_tag != tag)
+        contW.Write(contR.GetReader(m_info[i].m_tag), m_info[i].m_tag);
+    }
+  }
+
+  // swap files
+  if (!my::DeleteFileX(m_name) || !my::RenameFileX(m_name + ".tmp", m_name))
+    MYTHROW(RootException, ("Can't rename file", m_name, "Sharing violation or disk error!"));
+
+  // do open to update m_info
+  Open(FileWriter::OP_WRITE_EXISTING);
+}
+
 FileWriter FilesContainerW::GetWriter(Tag const & tag)
 {
   ASSERT(!m_bFinished, ());
@@ -155,22 +177,7 @@ FileWriter FilesContainerW::GetWriter(Tag const & tag)
     }
     else
     {
-      {
-        FilesContainerR contR(m_name);
-        FilesContainerW contW(m_name + ".tmp");
-
-        for (size_t i = 0; i < m_info.size(); ++i)
-        {
-          if (m_info[i].m_tag != it->m_tag)
-            contW.Write(contR.GetReader(m_info[i].m_tag), m_info[i].m_tag);
-        }
-      }
-
-      my::DeleteFileX(m_name);
-      if (!my::RenameFileX(m_name + ".tmp", m_name))
-        MYTHROW(RootException, ("Can't rename file", m_name, "Sharing violation or disk error!"));
-
-      Open(FileWriter::OP_WRITE_EXISTING);
+      DeleteSection(it->m_tag);
     }
   }
 
@@ -201,22 +208,10 @@ void FilesContainerW::Write(string const & fPath, Tag const & tag)
 
 void FilesContainerW::Write(ModelReaderPtr reader, Tag const & tag)
 {
-  uint64_t const bufferSize = 4*1024;
-  char buffer[bufferSize];
-
   ReaderSource<ModelReaderPtr> src(reader);
   FileWriter writer = GetWriter(tag);
 
-  uint64_t size = reader.Size();
-  while (size > 0)
-  {
-    size_t const curr = static_cast<size_t>(min(bufferSize, size));
-
-    src.Read(&buffer[0], curr);
-    writer.Write(&buffer[0], curr);
-
-    size -= curr;
-  }
+  rw::ReadAndWrite(src, writer, 4*1024);
 }
 
 void FilesContainerW::Write(vector<char> const & buffer, Tag const & tag)

@@ -61,7 +61,8 @@ DEFINE_bool(dump_types, false, "If defined, prints all types combinations and th
 DEFINE_bool(dump_prefixes, false, "If defined, prints statistics on feature name prefixes");
 DEFINE_bool(dump_search_tokens, false, "Print statistics on search tokens.");
 DEFINE_bool(unpack_mwm, false, "Unpack each section of mwm into a separate file with name filePath.sectionName.");
-DEFINE_bool(generate_packed_borders, false, "Generate packed file with country polygons");
+DEFINE_bool(generate_packed_borders, false, "Generate packed file with country polygons.");
+DEFINE_string(delete_section, "", "Delete specified section (defines.hpp) from container.");
 
 string AddSlashIfNeeded(string const & str)
 {
@@ -262,6 +263,9 @@ int main(int argc, char ** argv)
 
   if (FLAGS_unpack_mwm)
     UnpackMwm(datFile);
+
+  if (!FLAGS_delete_section.empty())
+    DeleteSection(datFile, FLAGS_delete_section);
 
   if (FLAGS_generate_packed_borders)
     borders::GeneratePackedBorders(path);

@@ -120,6 +120,10 @@ public:
 
   void Finish();
 
+  /// Delete section with rewriting file.
+  /// @precondition Container should be opened with FileWriter::OP_WRITE_EXISTING.
+  void DeleteSection(Tag const & tag);
+
 private:
   uint64_t SaveCurrentSize();
 
