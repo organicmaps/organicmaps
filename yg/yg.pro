@@ -118,8 +118,11 @@ HEADERS += \
     packets_queue.hpp \
     display_list.hpp
 
-# uncomment to enable GLSL support
-CONFIG += glsl
+# At the moment do not use OpenGL 2.0 on iOS.
+!iphone* {
+  # uncomment to enable GLSL support
+  CONFIG += glsl
+}
 
 win32* {
   SOURCES += internal/opengl_win32.cpp

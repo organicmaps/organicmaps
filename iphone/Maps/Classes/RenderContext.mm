@@ -13,12 +13,14 @@ namespace iphone
 {
 	RenderContext::RenderContext()
 	{
-    m_context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+    m_context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
+    //m_context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
 	}
 
 	RenderContext::RenderContext(RenderContext * renderContext)
 	{
-		m_context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2 sharegroup:renderContext->m_context.sharegroup];
+    m_context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1 sharegroup:renderContext->m_context.sharegroup];
+		//m_context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2 sharegroup:renderContext->m_context.sharegroup];
 	}
 
 	RenderContext::~RenderContext()
