@@ -32,7 +32,7 @@ UNIT_TEST(FileData_Api_Smoke)
   TEST_EQUAL(my::GetFileSize(newName, sz), true, ());
   TEST_EQUAL(sz, 0, ());
 
-  my::DeleteFileX(newName);
+  TEST_EQUAL(my::DeleteFileX(newName), true, ());
 
   TEST_EQUAL(my::GetFileSize(newName, sz), false, ());
 }

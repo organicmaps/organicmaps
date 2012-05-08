@@ -45,7 +45,7 @@ private:
 };
 
 bool GetFileSize(string const & fName, uint64_t & sz);
-void DeleteFileX(string const & fName);
+bool DeleteFileX(string const & fName);
 bool RenameFileX(string const & fOld, string const & fNew);
 
 }

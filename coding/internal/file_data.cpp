@@ -182,33 +182,50 @@ bool GetFileSize(string const & fName, uint64_t & sz)
   }
 }
 
-void DeleteFileX(string const & fName)
+namespace
 {
-#ifdef OMIM_OS_BADA
-  Osp::Io::File::Remove(fName.c_str());
-#else
-
-  // Erase file.
-  if (0 != remove(fName.c_str()))
+  bool CheckRemoveResult(int res, string const & fName)
   {
-    // additional check if file really was removed correctly
-    FILE * f = fopen(fName.c_str(), "r");
-    if (f)
+    if (0 != res)
     {
-      fclose(f);
-      LOG(LERROR, ("File exists but can't be deleted. Sharing violation?", fName));
+      // additional check if file really was removed correctly
+      uint64_t dummy;
+      if (GetFileSize(fName, dummy))
+      {
+        LOG(LERROR, ("File exists but can't be deleted. Sharing violation?", fName));
+      }
+
+      return false;
     }
+    else
+      return true;
   }
+}
+
+bool DeleteFileX(string const & fName)
+{
+  int res;
+
+#ifdef OMIM_OS_BADA
+  res = IsFailed(Osp::Io::File::Remove(fName.c_str())) ? -1 : 0;
+#else
+  res = remove(fName.c_str());
 #endif
+
+  return CheckRemoveResult(res, fName);
 }
 
 bool RenameFileX(string const & fOld, string const & fNew)
 {
+  int res;
+
 #ifdef OMIM_OS_BADA
-  return Osp::Io::File::Rename(fOld.c_str(), fNew.c_str());
+  res = IsFailed(Osp::Io::File::Rename(fOld.c_str(), fNew.c_str())) ? -1 : 0;
 #else
-  return (0 == rename(fOld.c_str(), fNew.c_str()));
+  res = rename(fOld.c_str(), fNew.c_str());
 #endif
+
+  return CheckRemoveResult(res, fOld);
 }
 
 }
