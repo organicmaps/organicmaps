@@ -173,12 +173,12 @@ Framework * m_framework = NULL;
     [m_bookmark hide];
 
   CGPoint const pixelPos = [point CGPointValue];
-  m2::PointD const globalPos = [self viewPoint2GlobalPoint:pixelPos];
+  CGPoint const globalPos = [self viewPoint2GlobalPoint:pixelPos];
   Framework::AddressInfo addr;
-  m_framework->GetAddressInfo(globalPos, addr);
+  m_framework->GetAddressInfo(m2::PointD(globalPos.x, globalPos.y), addr);
   m_bookmark.title = [NSString stringWithUTF8String:addr.m_name.c_str()];
   m_bookmark.description = [NSString stringWithUTF8String:formatAddress(addr.m_house, addr.m_street, addr.m_city, addr.m_country).c_str()];
-  [m_bookmark setGlobalPos:globalPos];
+  m_bookmark.globalPosition = globalPos;
   [m_bookmark showInView:self.view atPoint:pixelPos];
 }
 
@@ -256,7 +256,7 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void)updateDataAfterScreenChanged
 {
-  [m_bookmark updatePosition:self.view atPoint:[self globalPoint2ViewPoint:m_bookmark.glbPos]];
+  [m_bookmark updatePosition:self.view atPoint:[self globalPoint2ViewPoint:m_bookmark.globalPosition]];
 }
 
 - (void)stopCurrentAction

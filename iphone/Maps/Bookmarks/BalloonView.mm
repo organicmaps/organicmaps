@@ -3,19 +3,10 @@
 
 @implementation BalloonView
 
+@synthesize globalPosition;
 @synthesize title;
 @synthesize description;
 @synthesize isDisplayed;
-
-- (void) setGlobalPos:(m2::PointD const &)pt
-{
-  m_globalPos = pt;
-}
-
-- (m2::PointD) getGlobalPos
-{
-  return m_globalPos;
-}
 
 - (id) initWithTarget:(id)target andSelector:(SEL)selector;
 {
@@ -45,9 +36,11 @@
   m_titleView.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
   m_titleView.backgroundColor = [UIColor blackColor];
   m_titleView.layer.cornerRadius = 5;
-  m_titleView.alpha = 0.8;
-  m_titleView.textLabel.backgroundColor = [UIColor clearColor];
-  m_titleView.detailTextLabel.backgroundColor = [UIColor clearColor];
+//  m_titleView.alpha = 0.8;
+//  m_titleView.textLabel.backgroundColor = [UIColor clearColor];
+//  m_titleView.detailTextLabel.backgroundColor = [UIColor clearColor];
+  m_titleView.textLabel.textColor = [UIColor whiteColor];
+  m_titleView.detailTextLabel.textColor = [UIColor whiteColor];
   CGFloat const w = m_titleView.bounds.size.width / 3 * 2;
   CGFloat const h = m_titleView.bounds.size.height;
   m_titleView.frame = CGRectMake(pt.x - w/2, pt.y - h, w, h);
