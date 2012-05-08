@@ -5,13 +5,13 @@
 #import "BookmarksVC.h"
 #import "CustomNavigationView.h"
 
+#include "Framework.h"
 #include "../../geometry/angles.hpp"
 #include "../../geometry/distance_on_sphere.hpp"
 #include "../../platform/settings.hpp"
 #include "../../platform/platform.hpp"
 #include "../../platform/preferred_languages.hpp"
 #include "../../indexer/mercator.hpp"
-#include "../../map/framework.hpp"
 #include "../../map/measurement_utils.hpp"
 #include "../../search/result.hpp"
 
@@ -80,11 +80,11 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 @implementation SearchVC
 
 
-- (id)initWithFramework:(Framework *)framework andLocationManager:(LocationManager *)lm
+- (id)initWithLocationManager:(LocationManager *)lm
 {
   if ((self = [super initWithNibName:nil bundle:nil]))
   {
-    m_framework = framework;
+    m_framework = &GetFramework();
     m_locationManager = lm;
     
     double lat, lon;
@@ -605,7 +605,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 
 - (void)searchBarBookmarkButtonClicked:(UISearchBar *)searchBar
 {
-  BookmarksVC * vc = [[[BookmarksVC alloc] initWithFramework:m_framework] autorelease];
+  BookmarksVC * vc = [[[BookmarksVC alloc] init] autorelease];
   [self presentModalViewController:vc animated:YES];
 }
 

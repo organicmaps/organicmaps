@@ -30,6 +30,6 @@ namespace search { class Result; }
   NSInteger m_suggestionsCount;
 }
 
-- (id)initWithFramework:(Framework *)framework andLocationManager:(LocationManager *)lm;
+- (id)initWithLocationManager:(LocationManager *)lm;
 
 @end

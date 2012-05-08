@@ -3,7 +3,7 @@
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 
-#include "../../../map/framework.hpp"
+#include "Framework.h"
 
 #include "../../../std/bind.hpp"
 
@@ -62,14 +62,13 @@ using namespace storage;
     [(CountriesViewController *)controller OnDownload: index withProgress: progress];
 }
 
-- (void) show:(UIViewController *)prevController withFramework:(Framework *)framework
+- (void) show:(UIViewController *)prevController
 {
-  m_framework = framework;
-
   CountriesViewController * countriesController = [[[CountriesViewController alloc]
-      initWithStorage:framework->Storage() andIndex:TIndex() andHeader:NSLocalizedString(@"Download", @"Settings/Downloader - Main downloader window title")] autorelease];
+      initWithIndex:TIndex() andHeader:NSLocalizedString(@"Download", @"Settings/Downloader - Main downloader window title")] autorelease];
   m_navigationController = [[UINavigationController alloc] initWithRootViewController:countriesController];
 
+  Framework & f = GetFramework();
   // Subscribe to storage callbacks AND load country names after calling Storage::Subscribe()
   {
     // tricky boost::bind for objC class methods
@@ -81,13 +80,13 @@ using namespace storage;
 		SEL progressSel = @selector(OnCountryDownload:withProgress:);
 		TProgressFunc progressImpl = (TProgressFunc)[self methodForSelector:progressSel];
 
-		framework->Storage().Subscribe(bind(changeImpl, self, changeSel, _1), bind(progressImpl, self, progressSel, _1, _2));
+		f.Storage().Subscribe(bind(changeImpl, self, changeSel, _1), bind(progressImpl, self, progressSel, _1, _2));
   }
   // display controller only when countries are loaded
   [prevController presentModalViewController:m_navigationController animated:YES];
 
   // display upgrade/delete old maps dialog if necessary
-  if (framework->NeedToDeleteOldMaps())
+  if (f.NeedToDeleteOldMaps())
   {
     UIActionSheet * dialog = [[UIActionSheet alloc]
         initWithTitle:NSLocalizedString(@"We've updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.", @"Downloader/Upgrade dialog title")
@@ -103,12 +102,10 @@ using namespace storage;
 // Hides all opened settings windows
 - (void) hide
 {
-  m_framework->Storage().Unsubscribe();
+  GetFramework().Storage().Unsubscribe();
 
   [m_navigationController dismissModalViewControllerAnimated:YES];
   [m_navigationController release], m_navigationController = nil;
-
-  m_framework = nil;
 }
 
 // Called from Upgrade/Delete old maps dialog
@@ -116,7 +113,7 @@ using namespace storage;
 {
   if (buttonIndex == 0)
   { // delete old maps and show downloader
-    m_framework->DeleteOldMaps();
+    GetFramework().DeleteOldMaps();
   }
   else
   { // User don't want to upgrade at the moment - so be it.

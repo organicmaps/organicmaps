@@ -6,6 +6,7 @@
 #import "CustomAlertView.h"
 #import "DiskFreeSpace.h"
 
+#include "Framework.h"
 #include "GetActiveConnectionType.h"
 
 #include "../../platform/platform.hpp"
@@ -74,9 +75,8 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   [[[MapsAppDelegate theApp] settingsManager] hide];
 }
 
-- (id) initWithStorage: (Storage &)storage andIndex: (TIndex const &) index andHeader: (NSString *)header
+- (id) initWithIndex: (TIndex const &) index andHeader: (NSString *)header
 {
-	m_storage = &storage;
   m_index = index;
   if ((self = [super initWithNibName:nil bundle:nil]))
   {
@@ -115,9 +115,10 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
   TIndex const index = CalculateIndex(m_index, indexPath);
-  if (m_storage->CountryStatus(index) == EOnDisk)
+  storage::Storage & s = GetFramework().Storage();
+  if (s.CountryStatus(index) == EOnDisk)
   {
-    m2::RectD const bounds = m_storage->CountryBounds(index);
+    m2::RectD const bounds = s.CountryBounds(index);
     [[[MapsAppDelegate theApp] settingsManager] hide];
     [[MapsAppDelegate theApp].m_mapViewController ZoomToRect:bounds];
   }
@@ -125,25 +126,26 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 
 - (NSInteger) tableView: (UITableView *)tableView numberOfRowsInSection: (NSInteger)section
 {
-	return m_storage->CountriesCount(m_index);
+	return GetFramework().Storage().CountriesCount(m_index);
 }
 
 - (void) UpdateCell: (UITableViewCell *) cell forCountry: (TIndex const &) countryIndex
 {
   cell.accessoryView = nil;
 
-  string const & flag = m_storage->CountryFlag(countryIndex);
+  storage::Storage & s = GetFramework().Storage();
+  string const & flag = s.CountryFlag(countryIndex);
   if (!flag.empty())
     cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%s.png", flag.c_str()]];
 
   // do not show status for parent categories
   if (cell.reuseIdentifier != @"ParentCell")
   {
-    switch (m_storage->CountryStatus(countryIndex))
+    switch (s.CountryStatus(countryIndex))
     {
     case EOnDisk:
       {
-        LocalAndRemoteSizeT::first_type size = m_storage->CountrySizeInBytes(countryIndex).first;
+        LocalAndRemoteSizeT::first_type size = s.CountrySizeInBytes(countryIndex).first;
         // convert size to human readable values
         // @TODO fix localization
         // NSLocalizedString(@"kB", @"Settings/Downloader - size string")
@@ -229,7 +231,8 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 - (UITableViewCell *) tableView: (UITableView *)tableView cellForRowAtIndexPath: (NSIndexPath *)indexPath
 {
   TIndex index = CalculateIndex(m_index, indexPath);
-	bool const hasChildren = m_storage->CountriesCount(index) != 0;
+  storage::Storage & s = GetFramework().Storage();
+	bool const hasChildren = s.CountriesCount(index) != 0;
 
 	NSString * cellId = hasChildren ? @"ParentCell" : @"DetailCell";
   UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier: cellId];
@@ -246,7 +249,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   else
     cell.accessoryType = UITableViewCellAccessoryNone;
 
-  cell.textLabel.text = [NSString stringWithUTF8String:m_storage->CountryName(index).c_str()];
+  cell.textLabel.text = [NSString stringWithUTF8String:s.CountryName(index).c_str()];
 
   [self UpdateCell: cell forCountry: index];
   return cell;
@@ -262,14 +265,15 @@ UITableViewCell * g_clickedCell = nil;
   if (buttonIndex == 0)
   {
     // Delete country
-    switch (m_storage->CountryStatus(g_clickedIndex))
+    storage::Storage & s = GetFramework().Storage();
+    switch (s.CountryStatus(g_clickedIndex))
     {
     case ENotDownloaded:
     case EDownloadFailed:
-      m_storage->DownloadCountry(g_clickedIndex);
+      s.DownloadCountry(g_clickedIndex);
       break;
     default:
-      m_storage->DeleteCountry(g_clickedIndex);
+      s.DeleteCountry(g_clickedIndex);
       // remove "zoom to country" icon
       g_clickedCell.accessoryType = UITableViewCellAccessoryNone;
     }
@@ -307,7 +311,7 @@ UITableViewCell * g_clickedCell = nil;
 {
   if (buttonIndex != alertView.cancelButtonIndex)
   {
-    LocalAndRemoteSizeT const sizePair = m_storage->CountrySizeInBytes(g_clickedIndex);
+    LocalAndRemoteSizeT const sizePair = GetFramework().Storage().CountrySizeInBytes(g_clickedIndex);
     LocalAndRemoteSizeT::first_type const size = sizePair.second - sizePair.first;
 
     [self showDownloadCountryConfirmation:[[g_clickedCell textLabel] text] withSize:size fromRect:[g_clickedCell frame]];
@@ -321,10 +325,10 @@ UITableViewCell * g_clickedCell = nil;
   UITableViewCell * cell = [tableView cellForRowAtIndexPath: indexPath];
   // Push the new table view on the stack
 	TIndex const index = CalculateIndex(m_index, indexPath);
-  if (m_storage->CountriesCount(index))
+  storage::Storage & s = GetFramework().Storage();
+  if (s.CountriesCount(index))
   {
-		CountriesViewController * newController = [[CountriesViewController alloc] initWithStorage:*m_storage
-  			andIndex: index andHeader: cell.textLabel.text];
+		CountriesViewController * newController = [[CountriesViewController alloc] initWithIndex: index andHeader: cell.textLabel.text];
 		[self.navigationController pushViewController:newController animated:YES];
   }
   else
@@ -335,7 +339,7 @@ UITableViewCell * g_clickedCell = nil;
     g_clickedIndex = index;
     g_clickedCell = cell;
 
-		switch (m_storage->CountryStatus(index))
+		switch (s.CountryStatus(index))
   	{
   		case EOnDisk:
     	{
@@ -347,13 +351,13 @@ UITableViewCell * g_clickedCell = nil;
                                        destructiveButtonTitle: NSLocalizedString(@"Delete", @"Settings/Downloader - Delete country dialog - Confirm deletion button")
                                        otherButtonTitles: nil] autorelease];
         [popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
-		break;
     	}
+      break;
 
       case ENotDownloaded:
       case EDownloadFailed:
       {
-        LocalAndRemoteSizeT const sizePair = m_storage->CountrySizeInBytes(index);
+        LocalAndRemoteSizeT const sizePair = s.CountrySizeInBytes(index);
         LocalAndRemoteSizeT::first_type const size = sizePair.second - sizePair.first;
 
         // check for disk free space first
@@ -392,11 +396,11 @@ UITableViewCell * g_clickedCell = nil;
           else
             [self showDownloadCountryConfirmation:countryName withSize:size fromRect:[cell frame]];
         }
-		break;
 			}
+      break;
 
   		case EDownloading:
-	{
+	    {
         // display confirmation popup
     		UIActionSheet * popupQuery = [[UIActionSheet alloc]
       			initWithTitle: countryName
@@ -406,12 +410,12 @@ UITableViewCell * g_clickedCell = nil;
         		otherButtonTitles: nil];
         [popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
     		[popupQuery release];
-	break;
     	}
+      break;
 
       case EInQueue:
         // cancel download
-        m_storage->DeleteCountry(index);
+        s.DeleteCountry(index);
         break;
 
       case EGeneratingIndex:

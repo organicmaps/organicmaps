@@ -2,7 +2,7 @@
 #import "SearchCell.h"
 #import "CustomNavigationView.h"
 
-#include "../../map/Framework.hpp"
+#include "Framework.h"
 
 
 @implementation BookmarksVC
@@ -25,7 +25,6 @@
 {
   if ((self = [super initWithNibName:nil bundle:nil]))
   {
-    m_framework = f;
   }
   return self;
 }
@@ -40,7 +39,7 @@
   m_navItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Maps", @"Bookmarks - Close bookmarks button") style: UIBarButtonItemStyleDone
                                                                    target:self action:@selector(onCloseButton:)] autorelease];
   // Display Edit button only if table is not empty
-  if (m_framework->BookmarksCount())
+  if (GetFramework().BookmarksCount())
   {
     [self.editButtonItem setTarget:self];
     [self.editButtonItem setAction:@selector(onEdit)];
@@ -79,7 +78,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
   // Return the number of rows in the section.
-  return m_framework->BookmarksCount();
+  return GetFramework().BookmarksCount();
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -89,7 +88,7 @@
     cell = [[[SearchCell alloc] initWithReuseIdentifier:@"FeatureCell"] autorelease];
 
   Bookmark bm;
-  m_framework->GetBookmark(indexPath.row, bm);
+  GetFramework().GetBookmark(indexPath.row, bm);
 
   cell.featureName.text = [NSString stringWithUTF8String:bm.GetName().c_str()];
   cell.featureCountry.text = [NSString stringWithUTF8String:"Region"];
@@ -101,11 +100,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (indexPath.row < (NSInteger)m_framework->BookmarksCount())
+  Framework & f = GetFramework();
+  if (indexPath.row < (NSInteger)f.BookmarksCount())
   {
     Bookmark bm;
-    m_framework->GetBookmark(indexPath.row, bm);
-    m_framework->ShowRect(bm.GetViewport());
+    f.GetBookmark(indexPath.row, bm);
+    f.ShowRect(bm.GetViewport());
 
     // Same as "Close".
     [self dismissModalViewControllerAnimated:YES];
@@ -125,7 +125,7 @@
 {
   if (editingStyle == UITableViewCellEditingStyleDelete)
   {
-    m_framework->RemoveBookmark(indexPath.row);
+    GetFramework().RemoveBookmark(indexPath.row);
     [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
   }
 }

@@ -6,6 +6,7 @@
 
 #include <sys/xattr.h>
 
+#include "Framework.h"
 #include "../../../platform/settings.hpp"
 
 @implementation MapsAppDelegate
@@ -92,6 +93,9 @@
   [m_navController release];
   [m_window release];
   [super dealloc];
+
+  // Global cleanup
+  DeleteFramework();
 }
 
 - (void) disableStandby

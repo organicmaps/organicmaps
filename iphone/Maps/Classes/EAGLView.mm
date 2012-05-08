@@ -9,15 +9,14 @@
 #include "../../yg/internal/opengl.hpp"
 #include "../../yg/skin.hpp"
 #include "../../map/render_policy.hpp"
-#include "../../map/framework.hpp"
 #include "../../platform/platform.hpp"
 #include "../../platform/video_timer.hpp"
 #include "RenderBuffer.hpp"
 #include "RenderContext.hpp"
+#include "Framework.h"
 
 @implementation EAGLView
 
-@synthesize framework;
 @synthesize videoTimer;
 @synthesize frameBuffer;
 @synthesize renderContext;
@@ -94,50 +93,49 @@
   }
   
   frameBuffer = renderPolicy->GetDrawer()->screen()->frameBuffer();
-  framework->SetRenderPolicy(renderPolicy);
+  GetFramework().SetRenderPolicy(renderPolicy);
 }
 
 - (void)onSize:(int)width withHeight:(int)height
 {
   frameBuffer->onSize(width, height);
   
-  shared_ptr<DrawerYG> drawer = framework->GetRenderPolicy()->GetDrawer();  
+  shared_ptr<yg::gl::Screen> screen = renderPolicy->GetDrawer()->screen();
 
   /// free old render buffer, as we would not create a new one.
-  drawer->screen()->resetRenderTarget();
-  drawer->screen()->resetDepthBuffer();
+  screen->resetRenderTarget();
+  screen->resetDepthBuffer();
   renderBuffer.reset();
   
   /// detaching of old render target will occur inside beginFrame
-  drawer->screen()->beginFrame();
-  drawer->screen()->endFrame();
+  screen->beginFrame();
+  screen->endFrame();
 
 	/// allocate the new one
 	renderBuffer = make_shared_ptr(new iphone::RenderBuffer(renderContext, (CAEAGLLayer*)self.layer));
   
-  drawer->screen()->setRenderTarget(renderBuffer);
-  drawer->screen()->setDepthBuffer(make_shared_ptr(new yg::gl::RenderBuffer(width, height, true)));
+  screen->setRenderTarget(renderBuffer);
+  screen->setDepthBuffer(make_shared_ptr(new yg::gl::RenderBuffer(width, height, true)));
 
-  framework->OnSize(width, height);
+  GetFramework().OnSize(width, height);
   
-  drawer->screen()->beginFrame();
-  drawer->screen()->clear(yg::gl::Screen::s_bgColor);
-  drawer->screen()->endFrame();
+  screen->beginFrame();
+  screen->clear(yg::gl::Screen::s_bgColor);
+  screen->endFrame();
 }
 
 - (void)drawFrame
 {
-  shared_ptr<DrawerYG> drawer = framework->GetRenderPolicy()->GetDrawer();
-
-	shared_ptr<PaintEvent> pe(new PaintEvent(drawer.get()));
+	shared_ptr<PaintEvent> pe(new PaintEvent(renderPolicy->GetDrawer().get()));
   
-  if (framework->NeedRedraw())
+  Framework & f = GetFramework();
+  if (f.NeedRedraw())
   {
-    framework->SetNeedRedraw(false);
-    framework->BeginPaint(pe);
-    framework->DoPaint(pe);
+    f.SetNeedRedraw(false);
+    f.BeginPaint(pe);
+    f.DoPaint(pe);
     renderBuffer->present();
-    framework->EndPaint(pe);
+    f.EndPaint(pe);
   }
 }
 
@@ -155,6 +153,5 @@
   [EAGLContext setCurrentContext:nil];
   [super dealloc];
 }
-
 
 @end

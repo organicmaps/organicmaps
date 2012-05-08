@@ -5,7 +5,6 @@
 #include "../../std/shared_ptr.hpp"
 #include "RenderBuffer.hpp"
 
-class Framework;
 class VideoTimer;
 class RenderPolicy;
 
@@ -28,9 +27,6 @@ namespace yg
 // Note that setting the view non-opaque will only work if the EAGL surface has an alpha channel.
 @interface EAGLView : UIView
 {
-@public
-
-  Framework * framework;
   VideoTimer * videoTimer;
 	shared_ptr<iphone::RenderContext> renderContext;
 	shared_ptr<yg::gl::FrameBuffer> frameBuffer;
@@ -40,7 +36,6 @@ namespace yg
 
 - (void) initRenderPolicy;
 
-@property (nonatomic, assign) Framework * framework;
 @property (nonatomic, assign) VideoTimer * videoTimer;
 @property (nonatomic, assign) shared_ptr<iphone::RenderContext> renderContext;
 @property (nonatomic, assign) shared_ptr<iphone::RenderBuffer> renderBuffer;

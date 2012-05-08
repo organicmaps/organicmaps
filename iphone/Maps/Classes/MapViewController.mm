@@ -8,9 +8,8 @@
 #import "../Settings/SettingsManager.h"
 #import "../../Common/CustomAlertView.h"
 
+#include "Framework.h"
 #include "RenderContext.hpp"
-
-#include "../../map/framework_factory.hpp"
 
 static string formatAddress(string const & house, string const & street,
                             string const & city, string const & country)
@@ -44,20 +43,16 @@ static string formatAddress(string const & house, string const & street,
 @synthesize m_downloadButton;
 @synthesize m_bookmarksButton;
 
-// @TODO Make m_framework and m_storage MapsAppDelegate properties instead of global variables.
-Framework * m_framework = NULL;
-
 - (void) ZoomToRect: (m2::RectD const &) rect
 {
-  if (m_framework)
-    m_framework->ShowRect(rect);
+  GetFramework().ShowRect(rect);
 }
 
 //********************************************************************************************
 //*********************** Callbacks from LocationManager *************************************
 - (void)onLocationStatusChanged:(location::TLocationStatus)newStatus
 {
-  m_framework->OnLocationStatusChanged(newStatus);
+  GetFramework().OnLocationStatusChanged(newStatus);
   switch (newStatus)
   {
   case location::EDisabledByUser:
@@ -94,12 +89,12 @@ Framework * m_framework = NULL;
 
 - (void)onGpsUpdate:(location::GpsInfo const &)info
 {
-  m_framework->OnGpsUpdate(info);
+  GetFramework().OnGpsUpdate(info);
 }
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info
 {
-  m_framework->OnCompassUpdate(info);
+  GetFramework().OnCompassUpdate(info);
 }
 //********************************************************************************************
 //********************************************************************************************
@@ -123,19 +118,19 @@ Framework * m_framework = NULL;
 
 - (IBAction)OnSettingsClicked:(id)sender
 {
-  [[[MapsAppDelegate theApp] settingsManager] show:self withFramework:m_framework];
+  [[[MapsAppDelegate theApp] settingsManager] show:self];
 }
 
 - (IBAction)OnSearchClicked:(id)sender
 {
-  SearchVC * searchVC = [[SearchVC alloc] initWithFramework:m_framework andLocationManager:[MapsAppDelegate theApp].m_locationManager];
+  SearchVC * searchVC = [[SearchVC alloc] initWithLocationManager:[MapsAppDelegate theApp].m_locationManager];
   [self presentModalViewController:searchVC animated:YES];
   [searchVC release];
 }
 
 - (IBAction)OnBookmarksClicked:(id)sender
 {
-  BookmarksVC * bVC = [[BookmarksVC alloc] initWithFramework:m_framework];
+  BookmarksVC * bVC = [[BookmarksVC alloc] init];
   [self presentModalViewController:bVC animated:YES];
   [bVC release];
 }
@@ -161,14 +156,14 @@ Framework * m_framework = NULL;
 - (CGPoint) viewPoint2GlobalPoint:(CGPoint)pt
 {
   CGFloat const scaleFactor = self.view.contentScaleFactor;
-  m2::PointD const ptG = m_framework->PtoG(m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor));
+  m2::PointD const ptG = GetFramework().PtoG(m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor));
   return CGPointMake(ptG.x, ptG.y);
 }
 
 - (CGPoint) globalPoint2ViewPoint:(CGPoint)pt
 {
   CGFloat const scaleFactor = self.view.contentScaleFactor;
-  m2::PointD const ptP = m_framework->GtoP(m2::PointD(pt.x, pt.y));
+  m2::PointD const ptP = GetFramework().GtoP(m2::PointD(pt.x, pt.y));
   return CGPointMake(ptP.x / scaleFactor, ptP.y / scaleFactor);
 }
 
@@ -180,7 +175,7 @@ Framework * m_framework = NULL;
   CGPoint const pixelPos = [point CGPointValue];
   CGPoint const globalPos = [self viewPoint2GlobalPoint:pixelPos];
   Framework::AddressInfo addr;
-  m_framework->GetAddressInfo(m2::PointD(globalPos.x, globalPos.y), addr);
+  GetFramework().GetAddressInfo(m2::PointD(globalPos.x, globalPos.y), addr);
   m_bookmark.title = [NSString stringWithUTF8String:addr.m_name.c_str()];
   m_bookmark.description = [NSString stringWithUTF8String:formatAddress(addr.m_house, addr.m_street, addr.m_city, addr.m_country).c_str()];
   m_bookmark.globalPosition = globalPos;
@@ -190,7 +185,6 @@ Framework * m_framework = NULL;
 - (void) dealloc
 {
   [m_bookmark release];
-	delete m_framework;
   [super dealloc];
 }
 
@@ -207,27 +201,21 @@ Framework * m_framework = NULL;
     // Here we're creating view and window handle in it, and later we should pass framework to the view
     EAGLView * v = (EAGLView *)self.view;
 
-    m_framework = FrameworkFactory::CreateFramework();
-    
+    Framework & f = GetFramework();
     char const * str = [NSLocalizedString(@"Nothing found. Have you tried downloading maps of the countries? Just click the download button at the bottom of the screen.", @"Message in the center of the screen then user zooms in but country is not downloaded") UTF8String];
+    f.GetInformationDisplay().setEmptyModelMessage(str);
     
-    m_framework->GetInformationDisplay().setEmptyModelMessage(str);
-    
-    v.framework = m_framework;
-
 		m_StickyThreshold = 10;
 
 		m_CurrentAction = NOTHING;
 
     // restore previous screen position
-    bool res = m_framework->LoadState();
-
-    if (!res)
-      m_framework->SetMaxWorldRect();
+    if (!f.LoadState())
+      f.SetMaxWorldRect();
 
     [v initRenderPolicy];
 
-    m_framework->Invalidate();
+    f.Invalidate();
 	}
 
 	return self;
@@ -263,7 +251,8 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void)updateDataAfterScreenChanged
 {
-  [m_bookmark updatePosition:self.view atPoint:[self globalPoint2ViewPoint:m_bookmark.globalPosition]];
+  if (m_bookmark.isDisplayed)
+    [m_bookmark updatePosition:self.view atPoint:[self globalPoint2ViewPoint:m_bookmark.globalPosition]];
 }
 
 - (void)stopCurrentAction
@@ -273,10 +262,10 @@ NSInteger compareAddress(id l, id r, void * context)
 		case NOTHING:
 			break;
 		case DRAGGING:
-			m_framework->StopDrag(DragEvent(m_Pt1.x, m_Pt1.y));
+			GetFramework().StopDrag(DragEvent(m_Pt1.x, m_Pt1.y));
 			break;
 		case SCALING:
-			m_framework->StopScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
+			GetFramework().StopScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
 			break;
 	}
 
@@ -295,12 +284,12 @@ NSInteger compareAddress(id l, id r, void * context)
 
 	if ([[event allTouches] count] == 1)
 	{
-		m_framework->StartDrag(DragEvent(m_Pt1.x, m_Pt1.y));
+		GetFramework().StartDrag(DragEvent(m_Pt1.x, m_Pt1.y));
 		m_CurrentAction = DRAGGING;
 	}
 	else
 	{
-		m_framework->StartScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
+		GetFramework().StartScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
 		m_CurrentAction = SCALING;
 	}
 
@@ -334,7 +323,7 @@ NSInteger compareAddress(id l, id r, void * context)
 	switch (m_CurrentAction)
 	{
 	case DRAGGING:
-		m_framework->DoDrag(DragEvent(m_Pt1.x, m_Pt1.y));
+		GetFramework().DoDrag(DragEvent(m_Pt1.x, m_Pt1.y));
 		needRedraw = true;
 		break;
 	case SCALING:
@@ -342,7 +331,7 @@ NSInteger compareAddress(id l, id r, void * context)
 			[self stopCurrentAction];
 		else
 		{
-			m_framework->DoScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
+			GetFramework().DoScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
 			needRedraw = true;
 		}
 		break;
@@ -363,14 +352,10 @@ NSInteger compareAddress(id l, id r, void * context)
   int const touchesCount = [[event allTouches] count];
 
   if (tapCount == 2 && touchesCount == 1 && m_isSticking)
-  {
-    m_framework->ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2.0));
-  }
+    GetFramework().ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2.0));
 
   if (touchesCount == 2 && tapCount == 1 && m_isSticking)
-  {
-    m_framework->Scale(0.5);
-  }
+    GetFramework().Scale(0.5);
 
   // Launch single tap timer
   if (touchesCount == 1 && tapCount == 1 && m_isSticking)
@@ -392,7 +377,7 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void)didReceiveMemoryWarning
 {
-	m_framework->MemoryWarning();
+	GetFramework().MemoryWarning();
   [super didReceiveMemoryWarning];
 }
 
@@ -405,13 +390,14 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void) OnTerminate
 {
-  m_framework->SaveState();
+  GetFramework().SaveState();
 }
 
 - (void) Invalidate
 {
-  if (!m_framework->SetUpdatesEnabled(true))
-    m_framework->Invalidate();
+  Framework & f = GetFramework();
+  if (!f.SetUpdatesEnabled(true))
+    f.Invalidate();
 }
 
 - (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
@@ -423,14 +409,15 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void) OnEnterBackground
 {
   // save world rect for next launch
-  m_framework->SaveState();
-  m_framework->SetUpdatesEnabled(false);
-  m_framework->EnterBackground();
+  Framework & f = GetFramework();
+  f.SaveState();
+  f.SetUpdatesEnabled(false);
+  f.EnterBackground();
 }
 
 - (void) OnEnterForeground
 {
-  m_framework->EnterForeground();
+  GetFramework().EnterForeground();
   if (self.isViewLoaded && self.view.window)
     [self Invalidate]; // only invalidate when map is displayed on the screen
 }
@@ -443,19 +430,18 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-  m_framework->SetUpdatesEnabled(false);
+  GetFramework().SetUpdatesEnabled(false);
   [super viewWillDisappear:animated];
 }
 
 - (void) SetupMeasurementSystem
 {
-  m_framework->SetupMeasurementSystem();
+  GetFramework().SetupMeasurementSystem();
 }
 
 -(BOOL) OnProcessURL:(NSString*)url
 {
-  //NSLog(@"Process url %@", url);
-  m_framework->SetViewportByURL([url UTF8String]);
+  GetFramework().SetViewportByURL([url UTF8String]);
   return TRUE;
 }
 
