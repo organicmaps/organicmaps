@@ -6,7 +6,7 @@
 
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
-#include "../std/fstream.hpp"
+#include "../std/iostream.hpp"
 #include "../std/bitset.hpp"
 
 

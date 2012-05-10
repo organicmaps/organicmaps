@@ -8,7 +8,7 @@
 #include "../buffer_reader.hpp"
 #include "../reader_streambuf.hpp"
 
-#include "../../std/fstream.hpp"
+#include "../../std/iostream.hpp"
 
 
 namespace

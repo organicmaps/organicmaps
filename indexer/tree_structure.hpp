@@ -2,7 +2,7 @@
 
 #include "../base/assert.hpp"
 
-#include "../std/fstream.hpp"
+#include "../std/iostream.hpp"
 
 
 namespace tree

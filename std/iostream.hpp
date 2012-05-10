@@ -7,20 +7,24 @@
 #endif
 
 #ifdef OMIM_OS_BADA
-#include <istream>
-#include <ostream>
+  #include <istream>
+  #include <ostream>
 
 #else   // OMIM_OS_BADA
-#include <iostream>
+  #include <iostream>
 
-using std::cin;
-using std::cout;
-using std::cerr;
-#ifndef OMIM_OS_ANDROID
-using std::wcin;
-using std::wcout;
-using std::wcerr;
-#endif
+  using std::cin;
+  using std::cout;
+  using std::cerr;
+
+  using std::istream;
+  using std::ostream;
+
+  #ifndef OMIM_OS_ANDROID
+    using std::wcin;
+    using std::wcout;
+    using std::wcerr;
+  #endif
 #endif  // OMIM_OS_BADA
 
 using std::endl;

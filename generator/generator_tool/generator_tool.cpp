@@ -24,6 +24,7 @@
 #include "../../3party/gflags/src/gflags/gflags.h"
 
 #include "../../std/iostream.hpp"
+#include "../../std/fstream.hpp"
 #include "../../std/iomanip.hpp"
 #include "../../std/numeric.hpp"
 

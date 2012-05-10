@@ -3,7 +3,7 @@
 
 #include "../std/vector.hpp"
 #include "../std/map.hpp"
-#include "../std/fstream.hpp"
+#include "../std/iostream.hpp"
 
 
 class IndexAndTypeMapping

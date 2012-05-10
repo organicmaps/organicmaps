@@ -4,7 +4,7 @@
 #include "../std/vector.hpp"
 #include "../std/map.hpp"
 #include "../std/string.hpp"
-#include "../std/fstream.hpp"
+#include "../std/iostream.hpp"
 #include "../std/shared_ptr.hpp"
 
 

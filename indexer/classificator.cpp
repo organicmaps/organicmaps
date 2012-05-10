@@ -1,4 +1,3 @@
-#include "../base/SRC_FIRST.hpp"
 #include "classificator.hpp"
 #include "tree_structure.hpp"
 
@@ -10,6 +9,7 @@
 #include "../std/bind.hpp"
 #include "../std/algorithm.hpp"
 #include "../std/iterator.hpp"
+#include "../std/fstream.hpp"
 
 
 /////////////////////////////////////////////////////////////////////////////////////////

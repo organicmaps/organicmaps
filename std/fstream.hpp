@@ -10,12 +10,11 @@
   #include <ios>
 #else
   #include <fstream>
+
+  using std::ofstream;
+  using std::ifstream;
 #endif
 
-using std::ofstream;
-using std::ostream;
-using std::ifstream;
-using std::istream;
 using std::ios;
 
 #ifdef DEBUG_NEW

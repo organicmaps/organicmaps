@@ -14,7 +14,7 @@
 #include "../platform/platform.hpp"
 
 #include "../std/sstream.hpp"
-#include "../std/fstream.hpp"
+#include "../std/iostream.hpp"
 
 
 #define DELIM_CHAR  '='
