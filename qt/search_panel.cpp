@@ -138,7 +138,8 @@ void SearchPanel::OnSearchResult(ResultsT * res, int queryId)
 
     if (e.GetResultType() == ResultT::RESULT_FEATURE)
     {
-      frm.AddBookmark(e.GetFeatureCenter(), e.GetString());
+      // For debug purposes: add bookmarks for search results
+      frm.AddBookmark("Search", Bookmark(e.GetFeatureCenter(), e.GetString()));
 
       m_pTable->setItem(rowCount, 0,
                         create_item(QString::fromUtf8(e.GetFeatureType())));

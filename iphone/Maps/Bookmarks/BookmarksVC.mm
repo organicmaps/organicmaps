@@ -21,16 +21,10 @@
   m_navItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onCancelEdit)] autorelease];
 }
 
-- (id)initWithFramework:(Framework *)f
-{
-  if ((self = [super initWithNibName:nil bundle:nil]))
-  {
-  }
-  return self;
-}
-
 - (void)loadView
 {
+  // TODO Initialize and change m_category.
+
   UIView * parentView = [[[CustomNavigationView alloc] init] autorelease];
   parentView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
 
@@ -39,7 +33,7 @@
   m_navItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Maps", @"Bookmarks - Close bookmarks button") style: UIBarButtonItemStyleDone
                                                                    target:self action:@selector(onCloseButton:)] autorelease];
   // Display Edit button only if table is not empty
-  if (GetFramework().BookmarksCount())
+  if (m_category->GetBookmarksCount() > 0)
   {
     [self.editButtonItem setTarget:self];
     [self.editButtonItem setAction:@selector(onEdit)];
@@ -78,7 +72,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
   // Return the number of rows in the section.
-  return GetFramework().BookmarksCount();
+  return m_category->GetBookmarksCount();
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -87,10 +81,9 @@
   if (!cell)
     cell = [[[SearchCell alloc] initWithReuseIdentifier:@"FeatureCell"] autorelease];
 
-  Bookmark bm;
-  GetFramework().GetBookmark(indexPath.row, bm);
+  Bookmark const * bm = m_category->GetBookmark(indexPath.row);
 
-  cell.featureName.text = [NSString stringWithUTF8String:bm.GetName().c_str()];
+  cell.featureName.text = [NSString stringWithUTF8String:bm->GetName().c_str()];
   cell.featureCountry.text = [NSString stringWithUTF8String:"Region"];
   cell.featureType.text = [NSString stringWithUTF8String:"Type"];
   cell.featureDistance.text = [NSString stringWithFormat:@"%f", 0.0];
@@ -100,12 +93,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  Framework & f = GetFramework();
-  if (indexPath.row < (NSInteger)f.BookmarksCount())
+  if (indexPath.row < (NSInteger)m_category->GetBookmarksCount())
   {
-    Bookmark bm;
-    f.GetBookmark(indexPath.row, bm);
-    f.ShowRect(bm.GetViewport());
+    Bookmark const * bm = m_category->GetBookmark(indexPath.row);
+    GetFramework().ShowRect(bm->GetViewport());
 
     // Same as "Close".
     [self dismissModalViewControllerAnimated:YES];
@@ -125,7 +116,7 @@
 {
   if (editingStyle == UITableViewCellEditingStyleDelete)
   {
-    GetFramework().RemoveBookmark(indexPath.row);
+    m_category->RemoveBookmark(indexPath.row);
     [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
   }
 }

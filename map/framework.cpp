@@ -19,16 +19,11 @@
 #include "../indexer/feature.hpp"
 #include "../indexer/scales.hpp"
 
-#include "../coding/parse_xml.hpp"  // LoadFromKML
-
 #include "../base/math.hpp"
-#include "../base/string_utils.hpp"
 
 #include "../std/algorithm.hpp"
 #include "../std/target_os.hpp"
 #include "../std/vector.hpp"
-
-#include <boost/algorithm/string.hpp>
 
 
 void Framework::AddMap(string const & file)
@@ -147,18 +142,12 @@ Framework::Framework()
   // is connected/disconnected
   GetLocalMaps(maps);
 #endif
+
   // Remove duplicate maps if they're both present in resources and in WritableDir
   sort(maps.begin(), maps.end());
   maps.erase(unique(maps.begin(), maps.end()), maps.end());
-  try
-  {
-    for_each(maps.begin(), maps.end(), bind(&Framework::AddMap, this, _1));
-  }
-  catch (RootException const & e)
-  {
-    LOG(LERROR, ("Can't add map: ", e.what()));
-  }
 
+  for_each(maps.begin(), maps.end(), bind(&Framework::AddMap, this, _1));
 
   m_storage.Init(bind(&Framework::AddMap, this, _1),
                bind(&Framework::RemoveMap, this, _1),
@@ -167,7 +156,9 @@ Framework::Framework()
 }
 
 Framework::~Framework()
-{}
+{
+  ClearBookmarks();
+}
 
 void Framework::AddLocalMaps()
 {
@@ -191,222 +182,81 @@ void Framework::RemoveLocalMaps()
   m_model.RemoveAllCountries();
 }
 
-void Framework::AddBookmark(m2::PointD const & pt, string const & name)
+void Framework::AddBookmark(string const & category, Bookmark const & bm)
 {
-  m_bookmarks.push_back(Bookmark(pt, name));
+  GetBmCategory(category)->AddBookmark(bm);
 }
 
-void Framework::GetBookmark(size_t index, Bookmark & bm) const
+namespace
 {
-  ASSERT_LESS(index, BookmarksCount(), ());
-
-  list<Bookmark>::const_iterator it = m_bookmarks.begin();
-  advance(it, index); // not so fast ...
-
-  bm = *it;
+  class EqualCategoryName
+  {
+    string const & m_name;
+  public:
+    EqualCategoryName(string const & name) : m_name(name) {}
+    bool operator() (BookmarkCategory const * cat) const
+    {
+      return (cat->GetName() == m_name);
+    }
+  };
 }
 
-size_t Framework::GetBookmark(m2::PointD pt, Bookmark & bm) const
+BookmarkCategory * Framework::GetBmCategory(size_t index) const
+{
+  return (index < m_bookmarks.size() ? m_bookmarks[index] : 0);
+}
+
+BookmarkCategory * Framework::GetBmCategory(string const & name)
+{
+  vector<BookmarkCategory *>::iterator i =
+      find_if(m_bookmarks.begin(), m_bookmarks.end(), EqualCategoryName(name));
+
+  if (i != m_bookmarks.end())
+    return (*i);
+  else
+  {
+    BookmarkCategory * cat = new BookmarkCategory(name);
+    m_bookmarks.push_back(cat);
+    return cat;
+  }
+}
+
+Bookmark const * Framework::GetBookmark(m2::PointD pt) const
 {
   // Get the global rect of touching area.
   int const sm = 20 * GetPlatform().VisualScale();
   m2::RectD rect(PtoG(m2::PointD(pt.x - sm, pt.y - sm)), PtoG(m2::PointD(pt.x + sm, pt.y + sm)));
 
-  size_t bestInd = static_cast<size_t>(-1);
+  Bookmark const * ret = 0;
   double minD = numeric_limits<double>::max();
 
-  size_t ind = 0;
-  for (list<Bookmark>::const_iterator it = m_bookmarks.begin(); it != m_bookmarks.end(); ++it, ++ind)
+  for (size_t i = 0; i < m_bookmarks.size(); ++i)
   {
-    if (rect.IsPointInside(it->GetOrg()))
+    size_t const count = m_bookmarks[i]->GetBookmarksCount();
+    for (size_t j = 0; j < count; ++j)
     {
-      double const d = rect.Center().SquareLength(it->GetOrg());
-      if (d < minD)
+      Bookmark const * bm = m_bookmarks[i]->GetBookmark(j);
+      m2::PointD const pt = bm->GetOrg();
+
+      if (rect.IsPointInside(pt))
       {
-        bm = *it;
-        bestInd = ind;
+        double const d = rect.Center().SquareLength(pt);
+        if (d < minD)
+        {
+          ret = bm;
+          minD = d;
+        }
       }
     }
   }
 
-  return bestInd;
-}
-
-void Framework::RemoveBookmark(size_t index)
-{
-  if (index >= m_bookmarks.size())
-  {
-    LOG(LWARNING, ("Trying to delete invalid bookmark with index", index));
-    return;
-  }
-  list<Bookmark>::iterator it = m_bookmarks.begin();
-  advance(it, index); // not so fast ...
-  m_bookmarks.erase(it);
+  return ret;
 }
 
 void Framework::ClearBookmarks()
 {
+  for_each(m_bookmarks.begin(), m_bookmarks.end(), DeleteFunctor());
   m_bookmarks.clear();
-}
-
-namespace
-{
-  class KMLParser
-  {
-    Framework & m_framework;
-
-    int m_level;
-
-    string m_name;
-    m2::PointD m_org;
-
-    void Reset()
-    {
-      m_name.clear();
-      m_org = m2::PointD(-1000, -1000);
-    }
-
-    void SetOrigin(string const & s)
-    {
-      // order in string is: lon, lat, z
-
-      strings::SimpleTokenizer iter(s, ", ");
-      if (iter)
-      {
-        double lon;
-        if (strings::to_double(*iter, lon) && MercatorBounds::ValidLon(lon) && ++iter)
-        {
-          double lat;
-          if (strings::to_double(*iter, lat) && MercatorBounds::ValidLat(lat))
-            m_org = m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
-        }
-      }
-    }
-
-    bool IsValid() const
-    {
-      return (!m_name.empty() &&
-              MercatorBounds::ValidX(m_org.x) && MercatorBounds::ValidY(m_org.y));
-    }
-
-  public:
-    KMLParser(Framework & f) : m_framework(f), m_level(0)
-    {
-      Reset();
-    }
-
-    bool Push(string const & name)
-    {
-      switch (m_level)
-      {
-      case 0:
-        if (name != "kml") return false;
-        break;
-
-      case 1:
-        if (name != "Document") return false;
-        break;
-
-      case 2:
-        if (name != "Placemark") return false;
-        break;
-
-      case 3:
-        if (name != "Point" && name != "name") return false;
-        break;
-
-      case 4:
-        if (name != "coordinates") return false;
-      }
-
-      ++m_level;
-      return true;
-    }
-
-    void AddAttr(string const &, string const &) {}
-
-    void Pop(string const &)
-    {
-      --m_level;
-
-      if (m_level == 2 && IsValid())
-      {
-        m_framework.AddBookmark(m_org, m_name);
-        Reset();
-      }
-    }
-
-    class IsSpace
-    {
-    public:
-      bool operator() (char c) const
-      {
-        return ::isspace(c);
-      }
-    };
-
-    void CharData(string value)
-    {
-      boost::trim(value);
-
-      if (!value.empty())
-        switch (m_level)
-        {
-        case 4: m_name = value; break;
-        case 5: SetOrigin(value); break;
-        }
-    }
-  };
-}
-
-void Framework::LoadFromKML(ReaderPtr<Reader> const & reader)
-{
-  ReaderSource<ReaderPtr<Reader> > src(reader);
-  KMLParser parser(*this);
-  ParseXML(src, parser, true);
-}
-
-namespace
-{
-char const * kmlHeader =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<kml xmlns=\"http://earth.google.com/kml/2.2\">\n"
-    "<Document>\n"
-    "  <name>MapsWithMe</name>\n";
-
-char const * kmlFooter =
-    "</Document>\n"
-    "</kml>\n";
-
-string PointToString(m2::PointD const & org)
-{
-  double const lon = MercatorBounds::XToLon(org.x);
-  double const lat = MercatorBounds::YToLat(org.y);
-
-  ostringstream ss;
-  ss.precision(8);
-
-  ss << lon << "," << lat;
-  return ss.str();
-}
-
-}
-
-void Framework::SaveToKML(std::ostream & s)
-{
-  s << kmlHeader;
-
-  for (list<Bookmark>::const_iterator i = m_bookmarks.begin(); i != m_bookmarks.end(); ++i)
-  {
-    s << "  <Placemark>\n"
-      << "    <name>" << i->GetName() << "</name>\n"
-      << "    <Point>\n"
-      << "      <coordinates>" << PointToString(i->GetOrg()) << "</coordinates>\n"
-      << "    </Point>\n"
-      << "  </Placemark>\n";
-  }
-
-  s << kmlFooter;
 }
 
 void Framework::GetLocalMaps(vector<string> & outMaps)
@@ -620,11 +470,17 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   if (m_drawPlacemark)
     m_informationDisplay.drawPlacemark(pDrawer, "placemark", m_navigator.GtoP(m_placemark));
 
-  for (list<Bookmark>::const_iterator i = m_bookmarks.begin(); i != m_bookmarks.end(); ++i)
-  {
-    /// @todo Pass different symbol.
-    m_informationDisplay.drawPlacemark(pDrawer, "placemark", m_navigator.GtoP(i->GetOrg()));
-  }
+  for (size_t i = 0; i < m_bookmarks.size(); ++i)
+    if (m_bookmarks[i]->IsVisible())
+    {
+      size_t const count = m_bookmarks[i]->GetBookmarksCount();
+      for (size_t j = 0; j < count; ++j)
+      {
+        Bookmark const * bm = m_bookmarks[i]->GetBookmark(j);
+        /// @todo Pass different symbol.
+        m_informationDisplay.drawPlacemark(pDrawer, "placemark", m_navigator.GtoP(bm->GetOrg()));
+      }
+    }
 
   pDrawer->screen()->endFrame();
 }

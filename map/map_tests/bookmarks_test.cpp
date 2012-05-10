@@ -54,18 +54,17 @@ char const * kmlString =
     "</Document>"
     "</kml>";
 
-  void CheckBookmarks(Framework const & fm)
+  void CheckBookmarks(BookmarkCategory const & cat)
   {
-    TEST_EQUAL(fm.BookmarksCount(), 3, ());
+    TEST_EQUAL(cat.GetBookmarksCount(), 3, ());
 
-    Bookmark bm;
-    fm.GetBookmark(0, bm);
-    TEST_EQUAL(bm.GetName(), "Nebraska", ());
-    fm.GetBookmark(1, bm);
-    TEST_EQUAL(bm.GetName(), "Monongahela National Forest", ());
+    Bookmark const * bm = cat.GetBookmark(0);
+    TEST_EQUAL(bm->GetName(), "Nebraska", ());
+    bm = cat.GetBookmark(1);
+    TEST_EQUAL(bm->GetName(), "Monongahela National Forest", ());
 
-    fm.GetBookmark(2, bm);
-    m2::PointD const org = bm.GetOrg();
+    bm = cat.GetBookmark(2);
+    m2::PointD const org = bm->GetOrg();
     TEST_ALMOST_EQUAL(MercatorBounds::XToLon(org.x), 27.566765, ());
     TEST_ALMOST_EQUAL(MercatorBounds::YToLat(org.y), 53.900047, ());
   }
@@ -73,31 +72,31 @@ char const * kmlString =
 
 UNIT_TEST(Bookmarks_ImportKML)
 {
-  Framework fm;
-  fm.LoadFromKML(new MemReader(kmlString, strlen(kmlString)));
+  BookmarkCategory cat("Default");
+  cat.LoadFromKML(new MemReader(kmlString, strlen(kmlString)));
 
-  CheckBookmarks(fm);
+  CheckBookmarks(cat);
 }
 
 UNIT_TEST(Bookmarks_ExportKML)
 {
-  Framework fm;
-  fm.LoadFromKML(new MemReader(kmlString, strlen(kmlString)));
+  BookmarkCategory cat("Default");
+  cat.LoadFromKML(new MemReader(kmlString, strlen(kmlString)));
 
-  CheckBookmarks(fm);
+  CheckBookmarks(cat);
 
   {
     ofstream of("Bookmarks.kml");
-    fm.SaveToKML(of);
+    cat.SaveToKML(of);
   }
 
-  fm.ClearBookmarks();
+  cat.ClearBookmarks();
 
-  TEST_EQUAL(fm.BookmarksCount(), 0, ());
+  TEST_EQUAL(cat.GetBookmarksCount(), 0, ());
 
-  fm.LoadFromKML(new FileReader("Bookmarks.kml"));
+  cat.LoadFromKML(new FileReader("Bookmarks.kml"));
 
-  CheckBookmarks(fm);
+  CheckBookmarks(cat);
 }
 
 UNIT_TEST(Bookmarks_Getting)
@@ -111,11 +110,14 @@ UNIT_TEST(Bookmarks_Getting)
   // This is not correct because Framework::OnSize doesn't work until SetRenderPolicy is called.
   //TEST(m2::AlmostEqual(m2::PointD(400, 200), pixC), (pixC));
 
-  fm.AddBookmark(m2::PointD(38, 20), "1");
-  fm.AddBookmark(m2::PointD(41, 20), "2");
-  fm.AddBookmark(m2::PointD(41, 40), "3");
+  fm.AddBookmark("cat1", Bookmark(m2::PointD(38, 20), "1"));
+  fm.AddBookmark("cat2", Bookmark(m2::PointD(41, 20), "2"));
+  fm.AddBookmark("cat3", Bookmark(m2::PointD(41, 40), "3"));
 
-  Bookmark bm;
-  TEST_EQUAL(fm.GetBookmark(pixC, bm), 1, ());
-  TEST_EQUAL(bm.GetName(), "2", ());
+  Bookmark const * bm = fm.GetBookmark(pixC);
+  TEST(bm != 0, ());
+  TEST_EQUAL(bm->GetName(), "2", ());
+
+  TEST(fm.GetBookmark(m2::PointD(0, 0)) == 0, ());
+  TEST(fm.GetBookmark(m2::PointD(800, 400)) == 0, ());
 }

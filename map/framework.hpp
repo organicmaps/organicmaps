@@ -60,7 +60,7 @@ protected:
   model::FeaturesFetcher m_model;
   Navigator m_navigator;
 
-  list<Bookmark> m_bookmarks;
+  vector<BookmarkCategory *> m_bookmarks;
 
   scoped_ptr<RenderPolicy> m_renderPolicy;
   bool m_hasPendingInvalidate, m_doForceUpdate, m_queryMaxScaleMode, m_drawPlacemark;
@@ -124,23 +124,22 @@ public:
   void AddLocalMaps();
   void RemoveLocalMaps();
 
-  void AddBookmark(m2::PointD const & pt, string const & name);
-  inline size_t BookmarksCount() const { return m_bookmarks.size(); }
-  void GetBookmark(size_t index, Bookmark & bm) const;
+  void AddBookmark(string const & category, Bookmark const & bm);
+  inline size_t GetBmCategoriesCount() const { return m_bookmarks.size(); }
+  BookmarkCategory * GetBmCategory(size_t index) const;
+
+  /// Find or create new category by name.
+  BookmarkCategory * GetBmCategory(string const & name);
 
   /// Get bookmark by touch.
   /// @param[in]  pixPt   Coordinates of touch point in pixels.
-  /// @return Index of bookmark (-1, if bookmark wasn't found).
-  size_t GetBookmark(m2::PointD pixPt, Bookmark & bm) const;
+  /// @return     NULL    If not biikmark near the point.
+  Bookmark const * GetBookmark(m2::PointD pixPt) const;
 
-  void RemoveBookmark(size_t index);
   void ClearBookmarks();
 
   inline m2::PointD PtoG(m2::PointD const & p) const { return m_navigator.PtoG(p); }
   inline m2::PointD GtoP(m2::PointD const & p) const { return m_navigator.GtoP(p); }
-
-  void LoadFromKML(ReaderPtr<Reader> const & reader);
-  void SaveToKML(std::ostream & s);
 
   storage::Storage & Storage() { return m_storage; }
 

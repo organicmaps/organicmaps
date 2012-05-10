@@ -90,6 +90,7 @@ SOURCES += \
     address_finder.cpp \
     tile_set.cpp \
     geourl_process.cpp \
+    bookmark.cpp \
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp

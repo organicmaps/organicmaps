@@ -43,8 +43,13 @@ int FeaturesFetcher::AddMap(string const & file)
   }
   catch (Reader::Exception const & e)
   {
-    LOG(LERROR, ("Data file adding error: ", e.what()));
+    LOG(LERROR, ("IO error while adding ", file, " map. ", e.what()));
   }
+  catch (RootException const & e)
+  {
+    LOG(LERROR, ("Can't find map ", file, ". ", e.what()));
+  }
+
   return version;
 }
 
