@@ -347,6 +347,11 @@ void Framework::GetAddressInfo(m2::PointD const & pt, AddressInfo & info) const
     LOG(LINFO, ("Can't find region for point ", pt));
     return;
   }
+  // Clear all other fields
+  info.m_city.clear();
+  info.m_street.clear();
+  info.m_house.clear();
+  info.m_name.clear();
 
   int const scale = scales::GetUpperScale();
   double const addressR = 200.0;
