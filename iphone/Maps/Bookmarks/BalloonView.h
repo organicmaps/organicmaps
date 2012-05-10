@@ -1,18 +1,22 @@
 #import <UIKit/UIKit.h>
 
-#include "../../geometry/point2d.hpp"
-
+#include "Framework.h"
 
 @interface BalloonView : NSObject
 {
-  UIImageView * m_pinView;
   UITableViewCell * m_titleView;
   id m_target;
   SEL m_selector;
+
+  Framework::AddressInfo m_addressInfo;
 }
 
 @property(nonatomic, retain) NSString * title;
+// Currently contains automatically updated address info
 @property(nonatomic, retain) NSString * description;
+@property(nonatomic, retain) UIImageView * pinImage;
+// Stores displayed bookmark icon name
+@property(nonatomic, retain) NSString * color;
 @property(nonatomic, assign, readonly) BOOL isDisplayed;
 @property(nonatomic, assign) CGPoint globalPosition;
 

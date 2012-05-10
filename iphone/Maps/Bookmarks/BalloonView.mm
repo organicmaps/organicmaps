@@ -1,17 +1,49 @@
 #import "BalloonView.h"
 #import <QuartzCore/CALayer.h>
 
+static string formatAddress(string const & house, string const & street,
+                            string const & city, string const & country)
+{
+  string result = house;
+  if (!street.empty())
+  {
+    if (!result.empty())
+      result += ' ';
+    result += street;
+  }
+  if (!city.empty())
+  {
+    if (!result.empty())
+      result += ", ";
+    result += city;
+  }
+  if (!country.empty())
+  {
+    if (!result.empty())
+      result += ", ";
+    result += country;
+  }
+  return result;
+}
+
+
 @implementation BalloonView
 
 @synthesize globalPosition;
 @synthesize title;
 @synthesize description;
+@synthesize pinImage;
+@synthesize color;
 @synthesize isDisplayed;
 
 - (id) initWithTarget:(id)target andSelector:(SEL)selector;
 {
   if ((self = [super init]))
   {
+    // Default bookmark pin color
+    color = [[NSString alloc] initWithString:@"purple"];
+    pinImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.color]];
+    m_titleView = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"BookmarkTitle"];
     isDisplayed = NO;
     m_target = target;
     m_selector = selector;
@@ -22,20 +54,22 @@
 - (void) dealloc
 {
   [m_titleView release];
-  [m_pinView release];
+  self.pinImage = nil;
+  self.color = nil;
+  self.title = nil;
+  self.description = nil;
   [super dealloc];
 }
 
 - (void) showButtonsInView:(UIView *)view atPoint:(CGPoint)pt
 {
-  m_titleView = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"BookmarkTitle"];
-  m_titleView.textLabel.text = title;
+  m_titleView.textLabel.text = self.title;
   m_titleView.textLabel.textColor = [UIColor whiteColor];
-  m_titleView.detailTextLabel.text = description;
+  m_titleView.detailTextLabel.text = self.description;
   m_titleView.detailTextLabel.textColor = [UIColor whiteColor];
   m_titleView.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
   m_titleView.backgroundColor = [UIColor blackColor];
-  m_titleView.layer.cornerRadius = 5;
+  m_titleView.layer.cornerRadius = 10;
 //  m_titleView.alpha = 0.8;
 //  m_titleView.textLabel.backgroundColor = [UIColor clearColor];
 //  m_titleView.detailTextLabel.backgroundColor = [UIColor clearColor];
@@ -66,16 +100,15 @@
   }
   isDisplayed = YES;
 
-  m_pinView = [[UIImageView alloc ]initWithImage:[UIImage imageNamed:@"marker"]];
-  CGFloat const w = m_pinView.bounds.size.width;
-  CGFloat const h = m_pinView.bounds.size.height;
-  m_pinView.frame = CGRectMake(pt.x - w/2, 0 - h, w, h);
+  CGFloat const w = self.pinImage.bounds.size.width;
+  CGFloat const h = self.pinImage.bounds.size.height;
+  self.pinImage.frame = CGRectMake(pt.x - w/2, 0 - h, w, h);
 
-  [view addSubview:m_pinView];
+  [view addSubview:self.pinImage];
 
   // Animate pin to the touched point
-  [UIView transitionWithView:m_pinView duration:0.1 options:UIViewAnimationOptionCurveEaseIn
-                  animations:^{ m_pinView.frame = CGRectMake(pt.x - w/2, pt.y - h, w, h); }
+  [UIView transitionWithView:self.pinImage duration:0.1 options:UIViewAnimationOptionCurveEaseIn
+                  animations:^{ self.pinImage.frame = CGRectMake(pt.x - w/2, pt.y - h, w, h); }
                   completion:^(BOOL){
                     [self showButtonsInView:view atPoint:CGPointMake(pt.x, pt.y - h)];
                   }];
@@ -85,9 +118,9 @@
 {
   if (isDisplayed)
   {
-    CGFloat const w1 = m_pinView.bounds.size.width;
-    CGFloat const h1 = m_pinView.bounds.size.height;
-    m_pinView.frame = CGRectMake(pt.x - w1/2, pt.y - h1, w1, h1);
+    CGFloat const w1 = self.pinImage.bounds.size.width;
+    CGFloat const h1 = self.pinImage.bounds.size.height;
+    self.pinImage.frame = CGRectMake(pt.x - w1/2, pt.y - h1, w1, h1);
 
     CGFloat const w2 = m_titleView.bounds.size.width;
     CGFloat const h2 = m_titleView.bounds.size.height;
@@ -98,14 +131,29 @@
 - (void) hide
 {
   [m_titleView removeFromSuperview];
-  [m_titleView release];
-  m_titleView = nil;
-
-  [m_pinView removeFromSuperview];
-  [m_pinView release];
-  m_pinView = nil;
-
+  [self.pinImage removeFromSuperview];
   isDisplayed = NO;
 }
 
+// Overrided property setter to update address and displayed information
+- (void) setGlobalPosition:(CGPoint)pos
+{
+  globalPosition = pos;
+  GetFramework().GetAddressInfo(m2::PointD(pos.x, pos.y), m_addressInfo);
+  if (m_addressInfo.m_name.empty())
+    self.title = NSLocalizedString(@"Dropped Pin", @"Unknown Dropped Pin title, when name can't be determined");
+  else
+    self.title = [NSString stringWithUTF8String:m_addressInfo.m_name.c_str()];
+  self.description = [NSString stringWithUTF8String:formatAddress(m_addressInfo.m_house,
+                                                             m_addressInfo.m_street,
+                                                             m_addressInfo.m_city,
+                                                             m_addressInfo.m_country).c_str()];
+}
+
+// Overrided property setter to reload another pin image
+- (void) setColor:(NSString *)newColor
+{
+  color = newColor;
+  self.pinImage.image = [UIImage imageNamed:newColor];
+}
 @end

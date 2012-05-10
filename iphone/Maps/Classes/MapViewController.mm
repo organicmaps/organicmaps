@@ -11,31 +11,6 @@
 #include "Framework.h"
 #include "RenderContext.hpp"
 
-static string formatAddress(string const & house, string const & street,
-                            string const & city, string const & country)
-{
-  string result = house;
-  if (!street.empty())
-  {
-    if (!result.empty())
-      result += ' ';
-    result += street;
-  }
-  if (!city.empty())
-  {
-    if (!result.empty())
-      result += ' ';
-    result += city;
-  }
-  if (!country.empty())
-  {
-    if (!result.empty())
-      result += ' ';
-    result += country;
-  }
-  return result;
-}
-
 @implementation MapViewController
 
 @synthesize m_myPositionButton;
@@ -135,22 +110,11 @@ static string formatAddress(string const & house, string const & street,
   [bVC release];
 }
 
-
 - (void)onBookmarkClicked
 {
-  PlacePageVC * placePageVC = [[PlacePageVC alloc] initWithStyle:UITableViewStyleGrouped];
+  PlacePageVC * placePageVC = [[PlacePageVC alloc] initWithBalloonView:m_bookmark];
   [self.navigationController pushViewController:placePageVC animated:YES];
   [placePageVC release];
-
-//  m2::PointD const ptG = m2::PointD(m_bookmark.globalPosition.x, m_bookmark.globalPosition.y);
-//
-//  Framework::AddressInfo info;
-//  m_framework->GetAddressInfo(ptG, info);
-//  m_framework->AddBookmark(ptG, info.m_name);
-//
-//  [m_bookmark hide];
-//
-//  m_framework->Invalidate();
 }
 
 - (CGPoint) viewPoint2GlobalPoint:(CGPoint)pt
@@ -174,10 +138,6 @@ static string formatAddress(string const & house, string const & street,
 
   CGPoint const pixelPos = [point CGPointValue];
   CGPoint const globalPos = [self viewPoint2GlobalPoint:pixelPos];
-  Framework::AddressInfo addr;
-  GetFramework().GetAddressInfo(m2::PointD(globalPos.x, globalPos.y), addr);
-  m_bookmark.title = [NSString stringWithUTF8String:addr.m_name.c_str()];
-  m_bookmark.description = [NSString stringWithUTF8String:formatAddress(addr.m_house, addr.m_street, addr.m_city, addr.m_country).c_str()];
   m_bookmark.globalPosition = globalPos;
   [m_bookmark showInView:self.view atPoint:pixelPos];
 }

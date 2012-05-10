@@ -1,14 +1,17 @@
 #import "PlacePageVC.h"
 #import "AddBookmarkVC.h"
+#import "BalloonView.h"
 
 @implementation PlacePageVC
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id) initWithBalloonView:(BalloonView *)view
 {
-  self = [super initWithStyle:style];
+  self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
   {
-    self.title = NSLocalizedString(@"Place Page", @"Add bookmark dialog title");
+    m_balloon = view;
+
+    self.title = m_balloon.title;
   }
   return self;
 }
@@ -34,7 +37,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return 2;
+  return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -44,12 +47,24 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell * cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"] autorelease];
-  cell.textLabel.textAlignment = UITextAlignmentCenter;
+  UITableViewCell * cell;
   if (indexPath.section == 0)
-    cell.textLabel.text = NSLocalizedString(@"Add To Bookmarks", @"Place Page - Add To Bookmarks button");
+  {
+    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"AddressCell"] autorelease];
+    cell.textLabel.text = NSLocalizedString(@"Address", @"Place Page - Address cell");
+    cell.detailTextLabel.numberOfLines = 0;
+    cell.detailTextLabel.textAlignment = UITextAlignmentLeft;
+    cell.detailTextLabel.text = m_balloon.description;
+  }
   else
-    cell.textLabel.text = NSLocalizedString(@"Remove Pin", @"Place Page - Remove Pin button");
+  {
+    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"] autorelease];
+    cell.textLabel.textAlignment = UITextAlignmentCenter;
+    if (indexPath.section == 1)
+      cell.textLabel.text = NSLocalizedString(@"Add To Bookmarks", @"Place Page - Add To Bookmarks button");
+    else
+      cell.textLabel.text = NSLocalizedString(@"Remove Pin", @"Place Page - Remove Pin button");
+  }
   return cell;
 }
 
@@ -57,16 +72,23 @@
 {
   [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
 
-  if (indexPath.section == 0)
+  switch (indexPath.section)
   {
-    AddBookmarkVC * addVC = [[AddBookmarkVC alloc] initWithStyle:UITableViewStyleGrouped];
-    m_hideNavBar = NO;
-    [self.navigationController pushViewController:addVC animated:YES];
-    [addVC release];
-  }
-  else
-  {
-    [self.navigationController popViewControllerAnimated:YES];
+    case 1:
+    {
+      AddBookmarkVC * addVC = [[AddBookmarkVC alloc] initWithBalloonView:m_balloon];
+      m_hideNavBar = NO;
+      [self.navigationController pushViewController:addVC animated:YES];
+      [addVC release];
+    }
+    break;
+
+    case 2:
+    {
+      [m_balloon hide];
+      [self.navigationController popViewControllerAnimated:YES];
+    }
+    break;
   }
 }
 
