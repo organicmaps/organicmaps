@@ -38,7 +38,7 @@ public:
 
   inline void Clear() { m_s.clear(); }
   inline bool IsEmpty() const { return m_s.empty(); }
-  inline string Get() const { return m_s; }
+  inline string const & Get() const { return m_s; }
 
   template <class TSink> void Write(TSink & sink) const
   {
