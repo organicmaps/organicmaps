@@ -9,6 +9,7 @@
 
 using std::equal;
 using std::find;
+using std::find_if;
 using std::lexicographical_compare;
 using std::lower_bound;
 using std::max;
