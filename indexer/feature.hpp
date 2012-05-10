@@ -213,10 +213,17 @@ public:
   /// For test cases only.
   string DebugString(int scale) const;
 
+  string GetHouseNumber() const;
+
+  /// @name Get names for feature.
   /// @param[out] defaultName corresponds to osm tag "name"
   /// @param[out] intName optionally choosen from tags "name:<lang_code>" by the algorithm
-  /// @return true if at least defaultName is filled
+  //@{
+  /// Just get feature names.
+  void GetPrefferedNames(string & defaultName, string & intName) const;
+  /// Additional - take into account house number for defaultName
   void GetPreferredDrawableNames(string & defaultName, string & intName) const;
+  //@}
 
   uint32_t GetPopulation() const;
   double GetPopulationDrawRank() const;

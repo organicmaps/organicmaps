@@ -121,3 +121,16 @@ UNIT_TEST(Bookmarks_Getting)
   TEST(fm.GetBookmark(m2::PointD(0, 0)) == 0, ());
   TEST(fm.GetBookmark(m2::PointD(800, 400)) == 0, ());
 }
+
+UNIT_TEST(Bookmarks_AddressInfo)
+{
+  // Maps added in constructor (we need minsk-pass.mwm)
+  Framework fm;
+
+  Framework::AddressInfo info;
+  fm.GetAddressInfo(m2::PointD(MercatorBounds::LonToX(27.5556), MercatorBounds::LatToY(53.8963)), info);
+
+  TEST_EQUAL(info.m_street, "ул. Карла Маркса", ());
+  TEST_EQUAL(info.m_house, "10", ());
+  TEST_EQUAL(info.m_name, "Библос", ());
+}

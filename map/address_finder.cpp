@@ -9,10 +9,12 @@ namespace
   class FeatureInfoT
   {
   public:
-    FeatureInfoT(double d, feature::TypesHolder & types, string & name, m2::PointD const & pt)
+    FeatureInfoT(double d, feature::TypesHolder & types,
+                 string & name, string & house, m2::PointD const & pt)
       : m_types(types), m_pt(pt), m_dist(d)
     {
       m_name.swap(name);
+      m_house.swap(house);
     }
 
     bool operator<(FeatureInfoT const & rhs) const
@@ -24,10 +26,11 @@ namespace
     {
       swap(m_dist, rhs.m_dist);
       m_name.swap(rhs.m_name);
+      m_house.swap(rhs.m_house);
       swap(m_types, rhs.m_types);
     }
 
-    string m_name;
+    string m_name, m_house;
     feature::TypesHolder m_types;
     m2::PointD m_pt;
     double m_dist;
@@ -40,7 +43,9 @@ namespace
 
   string DebugPrint(FeatureInfoT const & info)
   {
-    return ("Name = " + info.m_name + " Distance = " + strings::to_string(info.m_dist));
+    return ("Name = " + info.m_name +
+            " House = " + info.m_house +
+            " Distance = " + strings::to_string(info.m_dist));
   }
 
   class DoGetFeatureInfoBase
@@ -84,14 +89,16 @@ namespace
 
         if (d <= m_eps)
         {
-          string defName, intName;
-          f.GetPreferredDrawableNames(defName, intName);
+          string name, house;
+          f.GetPrefferedNames(name, house /*dummy parameter*/);
+          house = f.GetHouseNumber();
 
           // if geom type is not GEOM_POINT, result center point doesn't matter in future use
           m2::PointD const pt = (types.GetGeoType() == feature::GEOM_POINT) ?
                 f.GetCenter() : m2::PointD();
 
-          m_cont.push_back(FeatureInfoT(GetResultDistance(d, types), types, defName, pt));
+          // name, house are assigned like move semantics
+          m_cont.push_back(FeatureInfoT(GetResultDistance(d, types), types, name, house, pt));
         }
       }
     }
@@ -234,10 +241,12 @@ namespace
       {
         return IsMatchImpl(m_streets, types);
       }
+      /*
       bool IsBuilding(feature::TypesHolder const & types) const
       {
         return IsMatchImpl(m_buildings, types);
       }
+      */
 
       double GetLocalityDivideFactor(feature::TypesHolder const & types) const
       {
@@ -303,13 +312,12 @@ namespace
       for (size_t i = 0; i < m_cont.size(); ++i)
       {
         bool const isStreet = m_checker.IsStreet(m_cont[i].m_types);
-        //bool const isBuilding = m_checker.IsBuilding(m_cont[i].m_types);
 
         if (info.m_street.empty() && isStreet)
           info.m_street = m_cont[i].m_name;
 
-        //if (info.m_house.empty() && isBuilding)
-        //  info.m_house = m_cont[i].m_house;
+        if (info.m_house.empty())
+          info.m_house = m_cont[i].m_house;
 
         if (info.m_name.empty())
         {

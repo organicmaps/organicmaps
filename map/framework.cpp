@@ -164,17 +164,12 @@ void Framework::AddLocalMaps()
 {
   // initializes model with locally downloaded maps
   LOG(LDEBUG, ("Initializing storage"));
+
   // add maps to the model
   Platform::FilesList maps;
   GetLocalMaps(maps);
-  try
-  {
-    for_each(maps.begin(), maps.end(), bind(&Framework::AddMap, this, _1));
-  }
-  catch (RootException const & e)
-  {
-    LOG(LERROR, ("Can't add map: ", e.what()));
-  }
+
+  for_each(maps.begin(), maps.end(), bind(&Framework::AddMap, this, _1));
 }
 
 void Framework::RemoveLocalMaps()

@@ -238,39 +238,55 @@ struct BestMatchedLangNames
   }
 };
 
-void FeatureType::GetPreferredDrawableNames(string & defaultName, string & intName) const
+void FeatureType::GetPrefferedNames(string & defaultName, string & intName) const
 {
   ParseCommon();
-
-  if (GetFeatureType() == GEOM_AREA)
-    defaultName = m_Params.house.Get();
 
   BestMatchedLangNames matcher;
   ForEachNameRef(matcher);
 
+  defaultName.swap(matcher.m_defaultName);
+
+  if (!matcher.m_nativeName.empty())
+    intName.swap(matcher.m_nativeName);
+  else if (!matcher.m_intName.empty())
+    intName.swap(matcher.m_intName);
+  else
+    intName.swap(matcher.m_englishName);
+
+  if (defaultName.empty())
+    defaultName.swap(intName);
+  else
+  {
+    // filter out similar intName
+    if (!intName.empty() && defaultName.find(intName) != string::npos)
+      intName.clear();
+  }
+}
+
+string FeatureType::GetHouseNumber() const
+{
+  ParseCommon();
+  return (GetFeatureType() == GEOM_AREA ? m_Params.house.Get() : string());
+}
+
+void FeatureType::GetPreferredDrawableNames(string & defaultName, string & intName) const
+{
+  // ParseCommon is called behind:
+  string name;
+  GetPrefferedNames(name, intName);
+
+  // Get house number if feature has one.
+  defaultName = GetHouseNumber();
+
   if (defaultName.empty())
   {
-    defaultName.swap(matcher.m_defaultName);
-
-    if (!matcher.m_nativeName.empty())
-      intName.swap(matcher.m_nativeName);
-    else if (!matcher.m_intName.empty())
-      intName.swap(matcher.m_intName);
-    else
-      intName.swap(matcher.m_englishName);
-
-    if (defaultName.empty())
-      defaultName.swap(intName);
-    else
-    {
-      // filter out similar intName
-      if (!intName.empty() && defaultName.find(intName) != string::npos)
-        intName.clear();
-    }
+    defaultName.swap(name);
   }
   else
   {
-    intName.swap(matcher.m_defaultName);
+    // Draw main feature name as second name after house number.
+    intName.swap(name);
   }
 }
 
