@@ -3,6 +3,8 @@
 #include "../indexer/classificator.hpp"
 #include "../indexer/feature_visibility.hpp"
 
+#include "../platform/preferred_languages.hpp"
+
 
 namespace
 {
@@ -305,8 +307,10 @@ namespace
       m_cont.clear();
     }
 
-    void FillAddress(Framework::AddressInfo & info)
+    void FillAddress(search::Engine const * eng, Framework::AddressInfo & info)
     {
+      int8_t const lang = StringUtf8Multilang::GetLangIndex(languages::CurrentLanguage());
+
       SortResults();
 
       for (size_t i = 0; i < m_cont.size(); ++i)
@@ -322,7 +326,17 @@ namespace
         if (info.m_name.empty())
         {
           if (m_cont[i].m_types.GetGeoType() != feature::GEOM_LINE)
+          {
             info.m_name = m_cont[i].m_name;
+
+            // add types for POI
+            size_t const count = m_cont[i].m_types.Size();
+            info.m_types.resize(count);
+            for (size_t j = 0; j < count; ++j)
+            {
+              eng->GetNameByType(m_cont[i].m_types[j], lang, info.m_types[j]);
+            }
+          }
         }
 
         if (!(info.m_street.empty() || info.m_name.empty()))
@@ -374,7 +388,7 @@ void Framework::GetAddressInfo(m2::PointD const & pt, AddressInfo & info) const
     m_model.ForEachFeature(
           MercatorBounds::RectByCenterXYAndSizeInMeters(pt, addressR), getAddress, scale);
 
-    getAddress.FillAddress(info);
+    getAddress.FillAddress(GetSearchEngine(), info);
   }
 
   // now - get the locality

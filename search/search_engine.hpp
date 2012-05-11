@@ -44,6 +44,8 @@ public:
   string GetCountryCode(m2::PointD const & pt);
   string GetCountryName(m2::PointD const & pt);
 
+  bool GetNameByType(uint32_t type, int8_t lang, string & name) const;
+
   void ClearCaches();
 
 private:

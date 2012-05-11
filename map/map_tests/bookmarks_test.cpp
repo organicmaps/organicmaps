@@ -133,4 +133,8 @@ UNIT_TEST(Bookmarks_AddressInfo)
   TEST_EQUAL(info.m_street, "ул. Карла Маркса", ());
   TEST_EQUAL(info.m_house, "10", ());
   TEST_EQUAL(info.m_name, "Библос", ());
+  TEST_EQUAL(info.m_types.size(), 1, ());
+
+  // assume that developers have English or Russian system language :)
+  TEST(info.m_types[0] == "cafe" || info.m_types[0] == "кафе", (info.m_types[0]));
 }

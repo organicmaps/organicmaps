@@ -219,6 +219,7 @@ public:
   struct AddressInfo
   {
     string m_country, m_city, m_street, m_house, m_name;
+    vector<string> m_types;
   };
 
   /// Get address information for point on map.

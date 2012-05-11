@@ -290,6 +290,11 @@ string Engine::GetCountryName(m2::PointD const & pt)
   return info.m_name;
 }
 
+bool Engine::GetNameByType(uint32_t type, int8_t lang, string & name) const
+{
+  return m_pData->m_categories.GetNameByType(type, lang, name);
+}
+
 void Engine::ClearCaches()
 {
   /// @todo Add m_pData->m_infoGetter clearing routine.
