@@ -402,3 +402,27 @@ void Framework::GetAddressInfo(m2::PointD const & pt, AddressInfo & info) const
     getLocality.FillLocality(info, *this);
   }
 }
+
+string Framework::AddressInfo::FormatAddress() const
+{
+  string result = m_house;
+  if (!m_street.empty())
+  {
+    if (!result.empty())
+      result += ' ';
+    result += m_street;
+  }
+  if (!m_city.empty())
+  {
+    if (!result.empty())
+      result += ", ";
+    result += m_city;
+  }
+  if (!m_country.empty())
+  {
+    if (!result.empty())
+      result += ", ";
+    result += m_country;
+  }
+  return result;
+}

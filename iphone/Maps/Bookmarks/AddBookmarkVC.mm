@@ -2,6 +2,7 @@
 #import "BalloonView.h"
 #import "Framework.h"
 
+
 @implementation AddBookmarkVC
 
 - (id) initWithBalloonView:(BalloonView *)view
@@ -19,7 +20,9 @@
 
 - (void)onAddClicked
 {
-  GetFramework().AddBookmark(m2::PointD(m_balloon.globalPosition.x, m_balloon.globalPosition.y), [m_balloon.title UTF8String]);
+  // TODO Get correct bookmark category.
+  GetFramework().AddBookmark("Default",
+                      Bookmark(m2::PointD(m_balloon.globalPosition.x, m_balloon.globalPosition.y), [m_balloon.title UTF8String]));
   [m_balloon hide];
   // Don't forget to hide navbar
   [self.navigationController setNavigationBarHidden:YES animated:YES];
@@ -69,6 +72,7 @@
     break;
 
     case 1:
+      // TODO Get correct bookmark category.
       cell.textLabel.text = NSLocalizedString(@"Set", @"Add bookmark dialog - bookmark set");
       cell.detailTextLabel.text = @"Default";
     break;

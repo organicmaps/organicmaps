@@ -1,31 +1,6 @@
 #import "BalloonView.h"
 #import <QuartzCore/CALayer.h>
 
-static string formatAddress(string const & house, string const & street,
-                            string const & city, string const & country)
-{
-  string result = house;
-  if (!street.empty())
-  {
-    if (!result.empty())
-      result += ' ';
-    result += street;
-  }
-  if (!city.empty())
-  {
-    if (!result.empty())
-      result += ", ";
-    result += city;
-  }
-  if (!country.empty())
-  {
-    if (!result.empty())
-      result += ", ";
-    result += country;
-  }
-  return result;
-}
-
 
 @implementation BalloonView
 
@@ -144,10 +119,7 @@ static string formatAddress(string const & house, string const & street,
     self.title = NSLocalizedString(@"Dropped Pin", @"Unknown Dropped Pin title, when name can't be determined");
   else
     self.title = [NSString stringWithUTF8String:m_addressInfo.m_name.c_str()];
-  self.description = [NSString stringWithUTF8String:formatAddress(m_addressInfo.m_house,
-                                                             m_addressInfo.m_street,
-                                                             m_addressInfo.m_city,
-                                                             m_addressInfo.m_country).c_str()];
+  self.description = [NSString stringWithUTF8String:m_addressInfo.FormatAddress().c_str()];
 }
 
 // Overrided property setter to reload another pin image

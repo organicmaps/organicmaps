@@ -220,6 +220,8 @@ public:
   {
     string m_country, m_city, m_street, m_house, m_name;
     vector<string> m_types;
+
+    string FormatAddress() const;
   };
 
   /// Get address information for point on map.
