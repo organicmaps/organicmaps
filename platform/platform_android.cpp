@@ -108,7 +108,8 @@ string Platform::DeviceName() const
 
 void Platform::GetFontNames(FilesList & res) const
 {
-  GetFilesInDir(ResourcesDir(), "*.ttf", res);
+  LOG(LINFO, ("searching for font in", WritableDir()));
+  GetFilesInDir(WritableDir(), "*.ttf", res);
   sort(res.begin(), res.end());
 }
 
