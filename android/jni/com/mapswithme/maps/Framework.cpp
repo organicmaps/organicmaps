@@ -46,9 +46,6 @@ namespace android
     size_t const measurementsCount = 5;
     m_sensors[0].SetCount(measurementsCount);
     m_sensors[1].SetCount(measurementsCount);
-
-   // @TODO refactor storage
-    m_work.Storage().ReInitCountries(false);
   }
 
   void Framework::SetEmptyModelMessage(string const & emptyModelMsg)

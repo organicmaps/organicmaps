@@ -56,11 +56,14 @@ namespace storage
 //    return "Unknown error";
 //  }
 
+  Storage::Storage()
+  {
+    LoadCountriesFile(false);
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   void Storage::Init(TAddMapFunction addFunc, TRemoveMapFunction removeFunc, TUpdateRectFunction updateRectFunc)
   {
-    m_currentVersion = static_cast<uint32_t>(Version::BUILD);
-
     m_addMap = addFunc;
     m_removeMap = removeFunc;
     m_updateRect = updateRectFunc;
@@ -302,7 +305,7 @@ namespace storage
       m_updateRect(bounds);
   }
 
-  void Storage::ReInitCountries(bool forceReload)
+  void Storage::LoadCountriesFile(bool forceReload)
   {
     if (forceReload)
       m_countries.Clear();
@@ -322,8 +325,6 @@ namespace storage
   {
     m_observerChange = change;
     m_observerProgress = progress;
-
-    ReInitCountries(false);
   }
 
   void Storage::Unsubscribe()

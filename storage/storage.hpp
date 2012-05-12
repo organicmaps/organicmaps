@@ -108,10 +108,12 @@ namespace storage
     void GenerateSearchIndex(TIndex const & index, string const & fName);
     void UpdateAfterSearchIndex(TIndex const & index, string const & fName);
 
+    /// @TODO temporarily made public for Android, refactor
+    void LoadCountriesFile(bool forceReload);
+
   public:
 
-    /// @TODO temporarily made public for Android, refactor
-    void ReInitCountries(bool forceReload);
+    Storage();
 
     void Init(TAddMapFunction addFunc,
               TRemoveMapFunction removeFunc,
@@ -145,4 +147,6 @@ namespace storage
 
     void NotifyStatusChanhed(TIndex const & index) const;
   };
+
+
 }
