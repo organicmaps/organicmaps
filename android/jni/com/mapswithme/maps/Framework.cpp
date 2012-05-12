@@ -383,4 +383,19 @@ namespace android
   {
     m_work.SetupMeasurementSystem();
   }
+
+  void Framework::AddLocalMaps()
+  {
+    m_work.AddLocalMaps();
+  }
+
+  void Framework::RemoveLocalMaps()
+  {
+    m_work.RemoveLocalMaps();
+  }
+
+  void Framework::AddMap(string const & fileName)
+  {
+    m_work.AddMap(fileName);
+  }
 }

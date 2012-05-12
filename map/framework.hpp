@@ -103,11 +103,6 @@ protected:
   /// @see feature::DataHeader::Version
   int m_lowestMapVersion;
 
-  void AddMap(string const & file);
-  void RemoveMap(string const & datFile);
-  /// Only file names
-  void GetLocalMaps(vector<string> & outMaps);
-
   void DrawAdditionalInfo(shared_ptr<PaintEvent> const & e);
 
 public:
@@ -120,6 +115,11 @@ public:
   bool NeedToDeleteOldMaps() const;
   void DeleteOldMaps();
   //@}
+
+  void AddMap(string const & file);
+  void RemoveMap(string const & datFile);
+  /// Only file names
+  void GetLocalMaps(vector<string> & outMaps);
 
   void AddLocalMaps();
   void RemoveLocalMaps();

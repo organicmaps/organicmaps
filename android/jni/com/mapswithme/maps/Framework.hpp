@@ -66,7 +66,7 @@ namespace android
 
     void Invalidate();
 
-    bool InitRenderPolicy();
+    bool InitRenderPolicy(int densityDpi, int screenWidth, int screenHeight);
     void DeleteRenderPolicy();
 
     void Resize(int w, int h);
@@ -82,8 +82,9 @@ namespace android
 
     void SetupMeasurementSystem();
 
-    void AddLocalMaps() { m_work.AddLocalMaps(); }
-    void RemoveLocalMaps() { m_work.RemoveLocalMaps(); }
+    void AddLocalMaps();
+    void RemoveLocalMaps();
+    void AddMap(string const & fileName);
   };
 }
 
