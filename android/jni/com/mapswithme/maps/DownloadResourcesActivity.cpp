@@ -228,7 +228,8 @@ extern "C"
           curFile.m_pathOnSdcard,
           curFile.m_fileSize,
           onFinish,
-          onProgress);
+          onProgress,
+          64 * 1024);
     }
   }
 
