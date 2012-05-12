@@ -32,7 +32,6 @@ public class MWMActivity extends NvEventQueueActivity implements
   //VideoTimer m_timer;
 
   private static String TAG = "MWMActivity";
-  private final static String PACKAGE_NAME = "com.mapswithme.maps";
 
   private LocationService m_locationService = null;
 
@@ -42,40 +41,6 @@ public class MWMActivity extends NvEventQueueActivity implements
 
   private static Context m_context = null;
   public static Context getCurrentContext() { return m_context; }
-
-  public static String getApkPath(Activity activity)
-  {
-    try
-    {
-      return activity.getApplication().getPackageManager().getApplicationInfo(PACKAGE_NAME, 0).sourceDir;
-    } catch (NameNotFoundException e)
-    {
-      e.printStackTrace();
-    }
-    return "";
-  }
-
-  public static String getDataStoragePath()
-  {
-    return Environment.getExternalStorageDirectory().getAbsolutePath() + "/MapsWithMe/";
-  }
-
-  public static String getExtAppDirectoryPath(String folder)
-  {
-    final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-    return storagePath.concat(String.format("/Android/data/%s/%s/", PACKAGE_NAME, folder));
-  }
-
-  // Note: local storage memory is limited on some devices!
-  private String getTmpPath()
-  {
-    return getCacheDir().getAbsolutePath() + "/";
-  }
-
-  private String getSettingsPath()
-  {
-    return getFilesDir().getAbsolutePath() + "/";
-  }
 
   public void checkShouldStartLocationService()
   {
@@ -208,7 +173,7 @@ public class MWMActivity extends NvEventQueueActivity implements
       m_locationService.startUpdate(this, this);
     v.setSelected(!isLocationActive);
     // Store active state of My Position
-    SharedPreferences.Editor prefsEdit = getSharedPreferences(PACKAGE_NAME, MODE_PRIVATE).edit();
+    SharedPreferences.Editor prefsEdit = getSharedPreferences(mApplication.getPackageName(), MODE_PRIVATE).edit();
     prefsEdit.putBoolean(PREFERENCES_MYPOSITION, !isLocationActive);
     prefsEdit.commit();
   }
@@ -217,6 +182,8 @@ public class MWMActivity extends NvEventQueueActivity implements
   {
     startActivity(new Intent(this, DownloadUI.class));
   }
+  
+  private MWMApplication mApplication;
 
   @Override
   public void onCreate(Bundle savedInstanceState)
@@ -231,26 +198,12 @@ public class MWMActivity extends NvEventQueueActivity implements
     super.onCreate(savedInstanceState);
 
     m_context = this;
-
-    final String extStoragePath = getDataStoragePath();
-    final String extTmpPath = getExtAppDirectoryPath("caches");
-    // Create folders if they don't exist
-    new File(extStoragePath).mkdirs();
-    new File(extTmpPath).mkdirs();
+    
+    mApplication = (MWMApplication)getApplication();
 
     // Get screen density
     DisplayMetrics metrics = new DisplayMetrics();
     getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
-    nativeInit(metrics.densityDpi,
-               metrics.widthPixels,
-               metrics.heightPixels,
-               getApkPath(this),
-               extStoragePath,
-               getTmpPath(),
-               extTmpPath,
-               getSettingsPath(),
-               getString(R.string.empty_model));
 
     //m_timer = new VideoTimer();
 
@@ -283,7 +236,7 @@ public class MWMActivity extends NvEventQueueActivity implements
   {
     super.onStart();
     // Restore My Position state on startup/activity recreation
-    SharedPreferences prefs = getSharedPreferences(PACKAGE_NAME, MODE_PRIVATE);
+    SharedPreferences prefs = getSharedPreferences(mApplication.getPackageName(), MODE_PRIVATE);
     final boolean isMyPositionEnabled = prefs.getBoolean(PREFERENCES_MYPOSITION, false);
     findViewById(R.id.map_button_myposition).setSelected(isMyPositionEnabled);
   }
@@ -451,23 +404,9 @@ public class MWMActivity extends NvEventQueueActivity implements
     }
   }
 
-  static
-  {
-    System.loadLibrary("mapswithme");
-  }
-
   private native void nativeStorageConnected();
   private native void nativeStorageDisconnected();
 
-  private native void nativeInit(int densityDpi,
-                                 int screenWidth,
-                                 int screenHeight,
-                                 String apkPath,
-                                 String storagePath,
-                                 String tmpPath,
-                                 String extTmpPath,
-                                 String settingsPath,
-                                 String emptyModelMessage);
   private native void nativeDestroy();
   private native void nativeLocationStatusChanged(int newStatus);
   private native void nativeLocationUpdated(long time, double lat, double lon, float accuracy);

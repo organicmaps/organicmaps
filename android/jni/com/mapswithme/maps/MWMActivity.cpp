@@ -8,41 +8,9 @@
 
 #include "../../../../../platform/settings.hpp"
 
-android::Framework * g_framework = 0;
-
+////////////////////////////////////////////////////////////////////////////////////////////
 extern "C"
 {
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeInit(JNIEnv * env,
-                                                  jobject thiz,
-                                                  jint densityDpi,
-                                                  jint screenWidth,
-                                                  jint screenHeight,
-                                                  jstring apkPath,
-                                                  jstring storagePath,
-                                                  jstring tmpPath,
-                                                  jstring extTmpPath,
-                                                  jstring settingsPath,
-                                                  jstring emptyModelMessage)
-  {
-      android::Platform::Instance().Initialize(env,
-                                               densityDpi,
-                                               screenWidth,
-                                               screenHeight,
-                                               apkPath,
-                                               storagePath,
-                                               tmpPath,
-                                               extTmpPath,
-                                               settingsPath);
-
-    if (!g_framework)
-      g_framework = new android::Framework();
-
-    g_framework->SetEmptyModelMessage(jni::ToString(env, emptyModelMessage));
-  }
-
-////////////////////////////////////////////////////////////////////////////////////////////
-
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MWMActivity_nativeLocationStatusChanged(JNIEnv * env, jobject thiz,
       int status)
