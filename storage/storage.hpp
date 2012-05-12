@@ -146,6 +146,8 @@ namespace storage
     void CheckForUpdate();
 
     void NotifyStatusChanhed(TIndex const & index) const;
+
+    int64_t GetCurrentVersion() const;
   };
 
 

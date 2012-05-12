@@ -1,0 +1,9 @@
+World.mwm 21694121
+WorldCoasts.mwm 6315418
+01_dejavusans.ttf 633604
+02_wqy-microhei.ttf 5177387
+03_jomolhari-id-a3d.ttf 1817160 
+04_padauk.ttf 248076
+05_khmeros.ttf 265552 
+06_code2000.ttf 3155104
+packed_polygons.bin 1854515

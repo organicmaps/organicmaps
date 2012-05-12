@@ -461,4 +461,9 @@ namespace storage
                                          bind(&Storage::OnMapDownloadFinished, this, _1),
                                          bind(&Storage::OnMapDownloadProgress, this, _1)));
   }
+
+  int64_t Storage::GetCurrentVersion() const
+  {
+    return m_currentVersion;
+  }
 }
