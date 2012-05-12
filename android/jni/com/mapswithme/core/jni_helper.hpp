@@ -3,6 +3,7 @@
 #include <jni.h>
 
 #include "../../../../../std/string.hpp"
+#include "../../../../../std/shared_ptr.hpp"
 
 namespace jni
 {
@@ -13,4 +14,6 @@ namespace jni
   string ToString(JNIEnv * env, jstring str);
   JNIEnv * GetEnv();
   JavaVM * GetJVM();
+
+  shared_ptr<jobject> make_global_ref(jobject obj);
 }

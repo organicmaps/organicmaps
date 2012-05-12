@@ -73,4 +73,20 @@ namespace jni
     return g_jvm;
   }
 
+  struct global_ref_deleter
+  {
+    void operator()(jobject * ref)
+    {
+      jni::GetEnv()->DeleteGlobalRef(*ref);
+      delete ref;
+    }
+  };
+
+  shared_ptr<jobject> make_global_ref(jobject obj)
+  {
+    jobject * ref = new jobject;
+    *ref = jni::GetEnv()->NewGlobalRef(obj);
+    return shared_ptr<jobject>(ref, global_ref_deleter());
+  }
+
 } // namespace jni
