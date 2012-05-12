@@ -52,4 +52,6 @@ public:
                                int64_t chunkSize = 512 * 1024);
 };
 
+bool ParseServerList(string const & jsonStr, vector<string> & outUrls);
+
 } // namespace downloader

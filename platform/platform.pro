@@ -9,9 +9,10 @@ DEPENDENCIES = coding base jansson
 
 include($$ROOT_DIR/common.pri)
 
+INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
+
 !iphone*:!android*:!bada {
   QT *= core
-  INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
 
   SOURCES += platform_qt.cpp \
              wifi_location_service.cpp \

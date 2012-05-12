@@ -427,26 +427,6 @@ namespace storage
     }
   }
 
-  static bool ParseServerList(string const & jsonStr, vector<string> & outUrls)
-  {
-    outUrls.clear();
-    try
-    {
-      my::Json root(jsonStr.c_str());
-      for (size_t i = 0; i < json_array_size(root); ++i)
-      {
-        char const * url = json_string_value(json_array_get(root, i));
-        if (url)
-          outUrls.push_back(url);
-      }
-    }
-    catch (std::exception const & e)
-    {
-      LOG(LERROR, ("Can't parse server list json", e.what(), jsonStr));
-    }
-    return !outUrls.empty();
-  }
-
   void Storage::OnServerListDownloaded(HttpRequest & request)
   {
     if (m_queue.empty())
