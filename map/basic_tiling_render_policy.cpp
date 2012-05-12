@@ -9,15 +9,28 @@
 #include "screen_coverage.hpp"
 #include "queued_renderer.hpp"
 
-BasicTilingRenderPolicy::BasicTilingRenderPolicy(shared_ptr<yg::gl::RenderContext> const & primaryRC,
+BasicTilingRenderPolicy::BasicTilingRenderPolicy(Params const & p,
                                                  bool doSupportRotation,
                                                  bool doUseQueuedRenderer)
-  : RenderPolicy(primaryRC, doSupportRotation, GetPlatform().CpuCores()),
+  : RenderPolicy(p, doSupportRotation, GetPlatform().CpuCores()),
     m_DrawScale(0),
     m_IsEmptyModel(false),
     m_DoRecreateCoverage(false),
     m_IsNavigating(false)
 {
+  /// calculating TileSize based on p.m_screenWidth and p.m_screenHeight
+  /// ceiling screen sizes to the nearest power of two, and taking half of it as a tile size
+  double const log2 = log(2.0);
+
+  size_t ceiledScreenWidth = static_cast<int>(pow(2.0, ceil(log(double(p.m_screenWidth)) / log2)));
+  size_t ceiledScreenHeight = static_cast<int>(pow(2.0, ceil(log(double(p.m_screenHeight)) / log2)));
+
+  size_t ceiledScreenSize = max(ceiledScreenWidth, ceiledScreenHeight);
+
+  m_TileSize = min(max(ceiledScreenSize / 2, (size_t)128), (size_t)512);
+
+  LOG(LINFO, ("ScreenSize=", p.m_screenWidth, "x", p.m_screenHeight, ", TileSize=", m_TileSize));
+
   if (doUseQueuedRenderer)
     m_QueuedRenderer.reset(new QueuedRenderer(GetPlatform().CpuCores() + 1));
 }
@@ -161,6 +174,11 @@ bool BasicTilingRenderPolicy::NeedRedraw() const
 
 size_t BasicTilingRenderPolicy::ScaleEtalonSize() const
 {
-  return m_resourceManager->params().m_renderTargetTexturesParams.m_texWidth;
+  return m_TileSize;
+}
+
+size_t BasicTilingRenderPolicy::TileSize() const
+{
+  return m_TileSize;
 }
 

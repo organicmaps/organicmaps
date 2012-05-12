@@ -23,7 +23,7 @@ protected:
 
 public:
 
-  BasicRenderPolicy(shared_ptr<yg::gl::RenderContext> const & primaryRC,
+  BasicRenderPolicy(Params const & p,
                     bool doSupportRotation,
                     size_t idCacheSize,
                     shared_ptr<QueuedRenderer> const & queuedRenderer = shared_ptr<QueuedRenderer>());

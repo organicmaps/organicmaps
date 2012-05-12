@@ -9,11 +9,11 @@
 
 #include "../geometry/transformations.hpp"
 
-BasicRenderPolicy::BasicRenderPolicy(shared_ptr<yg::gl::RenderContext> const & primaryRC,
+BasicRenderPolicy::BasicRenderPolicy(Params const & p,
                                      bool doSupportRotation,
                                      size_t idCacheSize,
                                      shared_ptr<QueuedRenderer> const & queuedRenderer)
-  : RenderPolicy(primaryRC, doSupportRotation, idCacheSize),
+  : RenderPolicy(p, doSupportRotation, idCacheSize),
     m_QueuedRenderer(queuedRenderer),
     m_DoAddCommand(true)
 {

@@ -229,8 +229,10 @@ bool Framework::DeleteBmCategory(size_t index)
 
 Bookmark const * Framework::GetBookmark(m2::PointD pt) const
 {
+  if (m_renderPolicy == 0)
+    return 0;  
   // Get the global rect of touching area.
-  int const sm = 20 * GetPlatform().VisualScale();
+  int const sm = 20 * m_renderPolicy->VisualScale();
   m2::RectD rect(PtoG(m2::PointD(pt.x - sm, pt.y - sm)), PtoG(m2::PointD(pt.x + sm, pt.y + sm)));
 
   Bookmark const * ret = 0;
@@ -872,9 +874,9 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
     //Settings::Get("VisualLog", isVisualLogEnabled);
     //m_informationDisplay.enableLog(isVisualLogEnabled, renderPolicy->GetWindowHandle().get());
 
-    m_informationDisplay.setVisualScale(GetPlatform().VisualScale());
+    m_informationDisplay.setVisualScale(renderPolicy->VisualScale());
 
-    m_navigator.SetMinScreenParams(static_cast<unsigned>(m_minRulerWidth * GetPlatform().VisualScale()),
+    m_navigator.SetMinScreenParams(static_cast<unsigned>(m_minRulerWidth * renderPolicy->VisualScale()),
                                    m_metresMinWidth);
 
     yg::gl::RenderContext::initParams();

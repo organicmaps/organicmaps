@@ -108,9 +108,3 @@ UNIT_TEST(CpuCores)
   TEST_GREATER(coresNum, 0, ());
   TEST_LESS_OR_EQUAL(coresNum, 128, ());
 }
-
-UNIT_TEST(VisualScale)
-{
-  double const visualScale = GetPlatform().VisualScale();
-  TEST_GREATER_OR_EQUAL(visualScale, 1.0, ());
-}

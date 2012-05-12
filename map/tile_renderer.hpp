@@ -56,6 +56,8 @@ protected:
   /// for the CoverageGenerator to process them
   TileSet m_tileSet;
 
+  size_t m_tileSize;
+
   RenderPolicy::TRenderFn m_renderFn;
   string m_skinName;
   yg::Color m_bgColor;
@@ -81,7 +83,8 @@ protected:
 public:
 
   /// constructor.
-  TileRenderer(string const & skinName,
+  TileRenderer(size_t tileSize,
+               string const & skinName,
                unsigned tasksCount,
                yg::Color const & bgColor,
                RenderPolicy::TRenderFn const & renderFn,
@@ -119,4 +122,6 @@ public:
   void RemoveActiveTile(Tiler::RectInfo const & rectInfo);
 
   void SetIsPaused(bool flag);
+
+  size_t TileSize() const;
 };

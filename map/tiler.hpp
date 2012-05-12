@@ -29,6 +29,7 @@ private:
   ScreenBase m_screen;
   m2::PointD m_centerPt;
   int m_tileScale;
+  size_t m_tileSize;
 
   int getTileScale(ScreenBase const & s, int ts) const;
 
@@ -37,7 +38,7 @@ public:
   Tiler();
 
   /// seed tiler with new screenBase.
-  void seed(ScreenBase const & screenBase, m2::PointD const & centerPt);
+  void seed(ScreenBase const & screenBase, m2::PointD const & centerPt, size_t tileSize);
 
   void tiles(vector<RectInfo> & tiles, int depth);
   bool isLeaf(RectInfo const & ri) const;

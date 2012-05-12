@@ -57,7 +57,7 @@ namespace location
                                       yg::maxDepth - 3);
 
         // display compass only if position is available
-        double orientationRadius = max(pxErrorRadius, 30.0 * GetPlatform().VisualScale());
+        double orientationRadius = max(pxErrorRadius, 30.0 * drawer.VisualScale());
 
         if (m_flags & State::ECompass)
         {

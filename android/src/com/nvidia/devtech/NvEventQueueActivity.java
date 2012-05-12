@@ -7,6 +7,7 @@ import com.mapswithme.maps.R;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 
@@ -38,6 +39,8 @@ public abstract class NvEventQueueActivity extends Activity
   protected SurfaceHolder m_cachedSurfaceHolder = null;
   private int m_surfaceWidth = 0;
   private int m_surfaceHeight = 0;
+  
+  private int m_displayDensity = 0;
 
   private int m_fixedWidth = 0;
   private int m_fixedHeight = 0;
@@ -48,6 +51,11 @@ public abstract class NvEventQueueActivity extends Activity
   {
     m_fixedWidth = fw;
     m_fixedHeight = fh;
+  }
+  
+  public int getDisplayDensity()
+  {
+    return m_displayDensity;
   }
 
   public int getSurfaceWidth()
@@ -68,11 +76,11 @@ public abstract class NvEventQueueActivity extends Activity
 
   protected native boolean onResumeNative();
 
-  protected native boolean onSurfaceCreatedNative(int w, int h);
+  protected native boolean onSurfaceCreatedNative(int w, int h, int density);
 
   protected native boolean onFocusChangedNative(boolean focused);
 
-  protected native boolean onSurfaceChangedNative(int w, int h);
+  protected native boolean onSurfaceChangedNative(int w, int h, int density);
 
   protected native boolean onSurfaceDestroyedNative();
 
@@ -96,6 +104,10 @@ public abstract class NvEventQueueActivity extends Activity
 
     SurfaceHolder holder = surfaceView.getHolder();
     holder.setType(SurfaceHolder.SURFACE_TYPE_GPU);
+    
+    DisplayMetrics metrics = new DisplayMetrics();
+    getWindowManager().getDefaultDisplay().getMetrics(metrics);
+    m_displayDensity = metrics.densityDpi; 
 
     holder.addCallback(new Callback()
     {
@@ -111,7 +123,7 @@ public abstract class NvEventQueueActivity extends Activity
           holder.setFixedSize(m_fixedWidth, m_fixedHeight);
         }
 
-        onSurfaceCreatedNative(m_surfaceWidth, m_surfaceHeight);
+        onSurfaceCreatedNative(m_surfaceWidth, m_surfaceHeight, getDisplayDensity());
       }
 
       // @Override
@@ -122,7 +134,7 @@ public abstract class NvEventQueueActivity extends Activity
         System.out.println("**** Surface changed: " + width + ", " + height);
         m_surfaceWidth = width;
         m_surfaceHeight = height;
-        onSurfaceChangedNative(m_surfaceWidth, m_surfaceHeight);
+        onSurfaceChangedNative(m_surfaceWidth, m_surfaceHeight, getDisplayDensity());
       }
 
       // @Override

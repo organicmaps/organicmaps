@@ -6,10 +6,7 @@ class BenchmarkTilingRenderPolicyMT : public TilingRenderPolicyMT
 {
 public:
 
-  BenchmarkTilingRenderPolicyMT(VideoTimer * videoTimer,
-                                bool useDefaultFB,
-                                yg::ResourceManager::Params const & rmParams,
-                                shared_ptr<yg::gl::RenderContext> const & primaryRC);
+  BenchmarkTilingRenderPolicyMT(Params const & p);
 
   void DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s);
 };

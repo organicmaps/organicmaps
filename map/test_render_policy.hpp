@@ -19,10 +19,7 @@ private:
   bool m_hasScreen;
   ScreenBase m_screen;
 public:
-  TestRenderPolicy(VideoTimer * videoTimer,
-                   bool useDefaultFB,
-                   yg::ResourceManager::Params const & rmParams,
-                   shared_ptr<yg::gl::RenderContext> const & primaryRC);
+  TestRenderPolicy(Params const & p);
 
   void DrawFrame(shared_ptr<PaintEvent> const & pe,
                  ScreenBase const & screenBase);

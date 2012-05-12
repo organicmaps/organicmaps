@@ -9,17 +9,14 @@
 #include "tile_renderer.hpp"
 #include "coverage_generator.hpp"
 
-TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
-                                           bool useDefaultFB,
-                                           yg::ResourceManager::Params const & rmParams,
-                                           shared_ptr<yg::gl::RenderContext> const & primaryRC)
-  : BasicTilingRenderPolicy(primaryRC,
+TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
+  : BasicTilingRenderPolicy(p,
                             false,
                             true)
 {
   int cpuCores = GetPlatform().CpuCores();
 
-  yg::ResourceManager::Params rmp = rmParams;
+  yg::ResourceManager::Params rmp = p.m_rmParams;
 
   rmp.checkDeviceCaps();
 
@@ -83,8 +80,8 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                          false,
                                                                          true);
 
-  rmp.m_renderTargetTexturesParams = yg::ResourceManager::TexturePoolParams(GetPlatform().TileSize(),
-                                                                            GetPlatform().TileSize(),
+  rmp.m_renderTargetTexturesParams = yg::ResourceManager::TexturePoolParams(TileSize(),
+                                                                            TileSize(),
                                                                             1,
                                                                             rmp.m_texRtFormat,
                                                                             true,
@@ -146,25 +143,25 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
   GetPlatform().GetFontNames(fonts);
   m_resourceManager->addFonts(fonts);
 
-  DrawerYG::params_t p;
+  DrawerYG::params_t dp;
 
-  p.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(useDefaultFB));
-  p.m_resourceManager = m_resourceManager;
-  p.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
-  p.m_skinName = GetPlatform().SkinName();
-  p.m_visualScale = GetPlatform().VisualScale();
-  p.m_useGuiResources = true;
-  p.m_isSynchronized = false;
+  dp.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(p.m_useDefaultFB));
+  dp.m_resourceManager = m_resourceManager;
+  dp.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
+  dp.m_skinName = SkinName();
+  dp.m_visualScale = VisualScale();
+  dp.m_useGuiResources = true;
+  dp.m_isSynchronized = false;
 //  p.m_isDebugging = true;
 
-  m_drawer.reset(new DrawerYG(p));
+  m_drawer.reset(new DrawerYG(dp));
 
   m_windowHandle.reset(new WindowHandle());
 
   m_windowHandle->setUpdatesEnabled(false);
   m_windowHandle->setRenderPolicy(this);
-  m_windowHandle->setVideoTimer(videoTimer);
-  m_windowHandle->setRenderContext(primaryRC);
+  m_windowHandle->setVideoTimer(p.m_videoTimer);
+  m_windowHandle->setRenderContext(p.m_primaryRC);
 }
 
 TilingRenderPolicyST::~TilingRenderPolicyST()
@@ -210,20 +207,21 @@ TilingRenderPolicyST::~TilingRenderPolicyST()
 void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
 {
   int cpuCores = GetPlatform().CpuCores();
-  string skinName = GetPlatform().SkinName();
+  string skinName = SkinName();
 
   yg::gl::PacketsQueue ** queues = new yg::gl::PacketsQueue*[cpuCores];
 
   for (unsigned i = 0; i < cpuCores; ++i)
     queues[i] = m_QueuedRenderer->GetPacketsQueue(i);
 
-  m_TileRenderer.reset(new TileRenderer(skinName,
+  m_TileRenderer.reset(new TileRenderer(TileSize(),
+                                        skinName,
                                         cpuCores,
                                         m_bgColor,
                                         renderFn,
                                         m_primaryRC,
                                         m_resourceManager,
-                                        GetPlatform().VisualScale(),
+                                        VisualScale(),
                                         queues));
 
   delete [] queues;

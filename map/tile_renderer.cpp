@@ -18,6 +18,7 @@
 #include "../base/shared_buffer_manager.hpp"
 
 TileRenderer::TileRenderer(
+    size_t tileSize,
     string const & skinName,
     unsigned executorsCount,
     yg::Color const & bgColor,
@@ -27,6 +28,7 @@ TileRenderer::TileRenderer(
     double visualScale,
     yg::gl::PacketsQueue ** packetsQueues
   ) : m_queue(executorsCount),
+      m_tileSize(tileSize),
       m_renderFn(renderFn),
       m_skinName(skinName),
       m_bgColor(bgColor),
@@ -365,4 +367,9 @@ void TileRenderer::RemoveActiveTile(Tiler::RectInfo const & rectInfo)
 
   m_tileCache.Unlock();
   m_tileSet.Unlock();
+}
+
+size_t TileRenderer::TileSize() const
+{
+  return m_tileSize;
 }

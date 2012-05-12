@@ -11,7 +11,8 @@
 
 #include <QtGui/QMouseEvent>
 #include <QtGui/QMenu>
-
+#include <QtGui/QApplication>
+#include <QtGui/QDesktopWidget>
 
 using namespace storage;
 
@@ -220,9 +221,21 @@ namespace qt
       rmParams.m_texRtFormat = yg::Data4Bpp;
       rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();
 
+      RenderPolicy::Params rpParams;
+
+      rpParams.m_screenWidth = QApplication::desktop()->geometry().width();
+      rpParams.m_screenHeight = QApplication::desktop()->geometry().height();
+
+      rpParams.m_videoTimer = m_videoTimer.get();
+      rpParams.m_useDefaultFB = true;
+      rpParams.m_rmParams = rmParams;
+      rpParams.m_primaryRC = primaryRC;
+      rpParams.m_visualScale = 1.0;
+      rpParams.m_skinName = "basic_mdpi.skn";
+
       try
       {
-        m_framework->SetRenderPolicy(CreateRenderPolicy(m_videoTimer.get(), true, rmParams, primaryRC));
+        m_framework->SetRenderPolicy(CreateRenderPolicy(rpParams));
       }
       catch (yg::gl::platform_unsupported const & e)
       {

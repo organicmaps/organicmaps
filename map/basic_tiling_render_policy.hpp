@@ -30,6 +30,7 @@ protected:
   bool m_IsEmptyModel;
   bool m_DoRecreateCoverage;
   bool m_IsNavigating;
+  size_t m_TileSize;
 
 protected:
 
@@ -40,7 +41,7 @@ protected:
 
 public:
 
-  BasicTilingRenderPolicy(shared_ptr<yg::gl::RenderContext> const & primaryRC,
+  BasicTilingRenderPolicy(Params const & p,
                           bool doSupportRotation,
                           bool doUseQueuedRenderer);
 
@@ -62,4 +63,5 @@ public:
   bool IsEmptyModel() const;
   int  GetDrawScale(ScreenBase const & s) const;
   size_t ScaleEtalonSize() const;
+  size_t TileSize() const;
 };

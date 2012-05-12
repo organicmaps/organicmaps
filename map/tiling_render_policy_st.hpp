@@ -10,10 +10,7 @@ private:
 
 public:
 
-  TilingRenderPolicyST(VideoTimer * videoTimer,
-                       bool useDefaultFB,
-                       yg::ResourceManager::Params const & rmParams,
-                       shared_ptr<yg::gl::RenderContext> const & primaryRC);
+  TilingRenderPolicyST(Params const & p);
 
   ~TilingRenderPolicyST();
 

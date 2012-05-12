@@ -14,11 +14,10 @@ namespace android
     string m_localTmpPath;
 
   public:
+
     ~Platform();
+
     void Initialize(JNIEnv * env,
-                    jint densityDpi,
-                    jint screenWidth,
-                    jint screenHeight,
                     jstring apkPath,
                     jstring storagePath,
                     jstring tmpPath,

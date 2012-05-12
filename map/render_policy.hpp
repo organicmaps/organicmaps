@@ -50,11 +50,27 @@ protected:
   bool m_doSupportRotation;
   bool m_doForceUpdate;
   m2::AnyRectD m_invalidRect;
+  double m_visualScale;
+  string m_skinName;
 
 public:
 
+  struct Params
+  {
+    VideoTimer * m_videoTimer;
+    bool m_useDefaultFB;
+    yg::ResourceManager::Params m_rmParams;
+    shared_ptr<yg::gl::RenderContext> m_primaryRC;
+    double m_visualScale;
+    string m_skinName;
+    size_t m_screenWidth;
+    size_t m_screenHeight;
+  };
+
   /// constructor
-  RenderPolicy(shared_ptr<yg::gl::RenderContext> const & primaryRC, bool doSupportRotation, size_t idCacheSize);
+  RenderPolicy(Params const & p,
+               bool doSupportRotation,
+               size_t idCacheSize);
   /// destructor
   virtual ~RenderPolicy();
   /// starting frame
@@ -101,10 +117,9 @@ public:
   shared_ptr<WindowHandle> const & GetWindowHandle() const;
 
   virtual size_t ScaleEtalonSize() const;
+
+  double VisualScale() const;
+  string const & SkinName() const;
 };
 
-RenderPolicy * CreateRenderPolicy(VideoTimer * videoTimer,
-                                  bool useDefaultFB,
-                                  yg::ResourceManager::Params const & rmParams,
-                                  shared_ptr<yg::gl::RenderContext> const & primaryRC);
-
+RenderPolicy * CreateRenderPolicy(RenderPolicy::Params const & params);

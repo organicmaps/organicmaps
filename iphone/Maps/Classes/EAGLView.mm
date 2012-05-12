@@ -83,9 +83,27 @@
   rmParams.m_rtFormat = rtFmt;
   rmParams.m_texFormat = texFmt;
   
+  RenderPolicy::Params rpParams;
+  
+  CGRect screenRect = [[UIScreen mainScreen] bounds];
+    
+  rpParams.m_screenWidth = screenRect.size.width;
+  rpParams.m_screenHeight = screenRect.size.height;
+    
+  rpParams.m_visualScale = [[UIScreen mainScreen] scale];
+  if (rpParams.m_visualScale > 1.0)
+    rpParams.m_skinName = "basic_xhdpi.skn";
+  else
+    rpParams.m_skinName = "basic_mdpi.skn";
+  
+  rpParams.m_videoTimer = videoTimer;
+  rpParams.m_useDefaultFB = false;
+  rpParams.m_rmParams = rmParams;
+  rpParams.m_primaryRC = renderContext;
+  
   try
   {
-    renderPolicy = CreateRenderPolicy(videoTimer, false, rmParams, renderContext);
+    renderPolicy = CreateRenderPolicy(rpParams);
   }
   catch (yg::gl::platform_unsupported const & )
   {

@@ -2,12 +2,8 @@
 #include "benchmark_tiling_render_policy_mt.hpp"
 #include "tile_renderer.hpp"
 
-BenchmarkTilingRenderPolicyMT::BenchmarkTilingRenderPolicyMT(
-    VideoTimer * videoTimer,
-    bool useDefaultFB,
-    yg::ResourceManager::Params const & rmParams,
-    shared_ptr<yg::gl::RenderContext> const & primaryRC)
-  : TilingRenderPolicyMT(videoTimer, useDefaultFB, rmParams, primaryRC)
+BenchmarkTilingRenderPolicyMT::BenchmarkTilingRenderPolicyMT(Params const & p)
+  : TilingRenderPolicyMT(p)
 {}
 
 void BenchmarkTilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e,

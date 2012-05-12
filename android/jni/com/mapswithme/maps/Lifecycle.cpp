@@ -28,6 +28,7 @@
 static float s_aspect = 1.0f;
 static int32_t s_winWidth = 1;
 static int32_t s_winHeight = 1;
+static int32_t s_densityDpi = 1;
 static unsigned int s_swapCount = 0;
 
 static bool s_glesLoaded = false;
@@ -51,7 +52,7 @@ bool SetupGLESResources()
   if (s_glesLoaded)
     return true;
 
-  if (!g_framework->InitRenderPolicy())
+  if (!g_framework->InitRenderPolicy(s_densityDpi, s_winWidth, s_winHeight))
   {
     NVEventReportUnsupported();
     return false;
@@ -250,6 +251,7 @@ int32_t NVEventAppMain(int32_t argc, char** argv)
         case NV_EVENT_SURFACE_SIZE:
           s_winWidth = ev->m_data.m_size.m_w;
           s_winHeight = ev->m_data.m_size.m_h;
+          s_densityDpi = ev->m_data.m_size.m_density;
 
           g_framework->Resize(s_winWidth, s_winHeight);
 	  /*          if (shouldLoadState)

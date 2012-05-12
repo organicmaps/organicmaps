@@ -50,16 +50,6 @@ string Platform::DeviceName() const
   return OMIM_OS_NAME;
 }
 
-double Platform::VisualScale() const
-{
-  return 1.0;
-}
-
-string Platform::SkinName() const
-{
-  return "basic_mdpi.skn";
-}
-
 void Platform::GetFontNames(FilesList & res) const
 {
   GetFilesInDir(ResourcesDir(), "*.ttf", res);
@@ -72,11 +62,6 @@ void Platform::GetFontNames(FilesList & res) const
 int Platform::PreCachingDepth() const
 {
   return 3;
-}
-
-int Platform::TileSize() const
-{
-  return 512;
 }
 
 int Platform::ScaleEtalonSize() const

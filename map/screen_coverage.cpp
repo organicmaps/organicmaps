@@ -202,7 +202,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 
   m_newTileRects.clear();
 
-  m_tiler.seed(m_screen, m_screen.GlobalRect().GlobalCenter());
+  m_tiler.seed(m_screen, m_screen.GlobalRect().GlobalCenter(), m_tileRenderer->TileSize());
 
   vector<Tiler::RectInfo> allRects;
   vector<Tiler::RectInfo> newRects;

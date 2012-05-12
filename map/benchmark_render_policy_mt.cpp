@@ -6,11 +6,8 @@
 
 #include "../base/logging.hpp"
 
-BenchmarkRenderPolicyMT::BenchmarkRenderPolicyMT(VideoTimer * videoTimer,
-                                                 bool useDefaultFB,
-                                                 yg::ResourceManager::Params const & rmParams,
-                                                 shared_ptr<yg::gl::RenderContext> const & primaryRC)
-  : RenderPolicyMT(videoTimer, useDefaultFB, rmParams, primaryRC)
+BenchmarkRenderPolicyMT::BenchmarkRenderPolicyMT(Params const & p)
+  : RenderPolicyMT(p)
 {}
 
 void BenchmarkRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e,

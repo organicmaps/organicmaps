@@ -20,6 +20,7 @@
 #include "../../../../../std/shared_ptr.hpp"
 #include "../../../../../std/bind.hpp"
 
+android::Framework * g_framework = 0;
 
 namespace android
 {
@@ -99,19 +100,51 @@ namespace android
     m_work.SetRenderPolicy(0);
   }
 
-  bool Framework::InitRenderPolicy()
+  bool Framework::InitRenderPolicy(int densityDpi, int screenWidth, int screenHeight)
   {
     yg::ResourceManager::Params rmParams;
+
     rmParams.m_videoMemoryLimit = 30 * 1024 * 1024;
     rmParams.m_rtFormat = yg::Data8Bpp;
     rmParams.m_texFormat = yg::Data4Bpp;
 
+    RenderPolicy::Params rpParams;
+
+    rpParams.m_videoTimer = m_videoTimer;
+    rpParams.m_useDefaultFB = true;
+    rpParams.m_rmParams = rmParams;
+    rpParams.m_primaryRC = make_shared_ptr(new android::RenderContext());
+
+    switch (densityDpi)
+    {
+    case 120:
+      rpParams.m_visualScale = 0.75;
+      rpParams.m_skinName = "basic_ldpi.skn";
+      LOG(LINFO, ("using LDPI resources"));
+      break;
+    case 160:
+      rpParams.m_visualScale = 1.0;
+      rpParams.m_skinName = "basic_mdpi.skn";
+      LOG(LINFO, ("using MDPI resources"));
+      break;
+    case 240:
+      rpParams.m_visualScale = 1.5;
+      rpParams.m_skinName = "basic_hdpi.skn";
+      LOG(LINFO, ("using HDPI resources"));
+      break;
+    default:
+      rpParams.m_visualScale = 2.0;
+      rpParams.m_skinName = "basic_xhdpi.skn";
+      LOG(LINFO, ("using XHDPI resources"));
+      break;
+    }
+
+    rpParams.m_screenWidth = screenWidth;
+    rpParams.m_screenHeight = screenHeight;
+
     try
     {
-      m_work.SetRenderPolicy(CreateRenderPolicy(m_videoTimer,
-                                                true,
-                                                rmParams,
-                                                make_shared_ptr(new android::RenderContext())));
+      m_work.SetRenderPolicy(CreateRenderPolicy(rpParams));
       LoadState();
     }
     catch (yg::gl::platform_unsupported const & e)

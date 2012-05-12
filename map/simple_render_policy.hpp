@@ -5,10 +5,7 @@
 class SimpleRenderPolicy : public RenderPolicy
 {
 public:
-  SimpleRenderPolicy(VideoTimer * videoTimer,
-                   bool useDefaultFB,
-                    yg::ResourceManager::Params const & rmParams,
-                    shared_ptr<yg::gl::RenderContext> const & primaryRC);
+  SimpleRenderPolicy(Params const & p);
 
   void DrawFrame(shared_ptr<PaintEvent> const & paintEvent,
                  ScreenBase const & screenBase);

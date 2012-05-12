@@ -17,10 +17,7 @@ class TilingRenderPolicyMT : public BasicTilingRenderPolicy
 {
 public:
 
-  TilingRenderPolicyMT(VideoTimer * videoTimer,
-                       bool useDefaultFB,
-                       yg::ResourceManager::Params const & rmParams,
-                       shared_ptr<yg::gl::RenderContext> const & primaryRC);
+  TilingRenderPolicyMT(Params const & p);
 
   ~TilingRenderPolicyMT();
 

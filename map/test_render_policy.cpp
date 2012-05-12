@@ -10,13 +10,10 @@
 #include "window_handle.hpp"
 #include "../indexer/scales.hpp"
 
-TestRenderPolicy::TestRenderPolicy(VideoTimer * videoTimer,
-                                   bool useDefaultFB,
-                                   yg::ResourceManager::Params const & rmParams,
-                                   shared_ptr<yg::gl::RenderContext> const & primaryRC)
-  : RenderPolicy(primaryRC, false, 1)
+TestRenderPolicy::TestRenderPolicy(Params const & p)
+  : RenderPolicy(p, false, 1)
 {
-  yg::ResourceManager::Params rmp = rmParams;
+  yg::ResourceManager::Params rmp = p.m_rmParams;
 
   rmp.checkDeviceCaps();
 
@@ -97,25 +94,25 @@ TestRenderPolicy::TestRenderPolicy(VideoTimer * videoTimer,
   GetPlatform().GetFontNames(fonts);
   m_resourceManager->addFonts(fonts);
 
-  DrawerYG::params_t p;
+  DrawerYG::params_t dp;
 
-  m_primaryFrameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(useDefaultFB));
+  m_primaryFrameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(p.m_useDefaultFB));
 
-  p.m_frameBuffer = m_primaryFrameBuffer;
-  p.m_resourceManager = m_resourceManager;
-  p.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
-  p.m_skinName = GetPlatform().SkinName();
-  p.m_visualScale = GetPlatform().VisualScale();
-  p.m_isSynchronized = true;
+  dp.m_frameBuffer = m_primaryFrameBuffer;
+  dp.m_resourceManager = m_resourceManager;
+  dp.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
+  dp.m_skinName = SkinName();
+  dp.m_visualScale = VisualScale();
+  dp.m_isSynchronized = true;
 
-  m_drawer.reset(new DrawerYG(p));
+  m_drawer.reset(new DrawerYG(dp));
 
   m_windowHandle.reset(new WindowHandle());
 
   m_windowHandle->setUpdatesEnabled(false);
-  m_windowHandle->setVideoTimer(videoTimer);
+  m_windowHandle->setVideoTimer(p.m_videoTimer);
   m_windowHandle->setRenderPolicy(this);
-  m_windowHandle->setRenderContext(primaryRC);
+  m_windowHandle->setRenderContext(p.m_primaryRC);
 
   m_auxFrameBuffer = make_shared_ptr(new yg::gl::FrameBuffer());
   m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer());

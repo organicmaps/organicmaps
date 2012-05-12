@@ -310,6 +310,8 @@ typedef struct NVEventSurfaceSize
   int32_t m_w;
   /** New surface client area height (in pixels) */
   int32_t m_h;
+  /** Screen density for the screen at which this surface was created*/
+  int32_t m_density;
 } NVEventSurfaceSize;
 
 /** User/App-specific event data

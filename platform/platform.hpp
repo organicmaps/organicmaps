@@ -100,15 +100,9 @@ public:
 
   int CpuCores() const;
 
-  double VisualScale() const;
-
-  string SkinName() const;
-
   void GetFontNames(FilesList & res) const;
 
   bool IsMultiThreadedRendering() const;
-
-  int TileSize() const;
 
   int VideoMemoryLimit() const;
 

@@ -30,11 +30,15 @@ RenderPolicy::~RenderPolicy()
   yg::gl::FinalizeThread();
 }
 
-RenderPolicy::RenderPolicy(shared_ptr<yg::gl::RenderContext> const & primaryRC, bool doSupportRotation, size_t idCacheSize)
+RenderPolicy::RenderPolicy(Params const & p,
+                           bool doSupportRotation,
+                           size_t idCacheSize)
   : m_bgColor(0xEE, 0xEE, 0xDD, 0xFF),
-    m_primaryRC(primaryRC),
+    m_primaryRC(p.m_primaryRC),
     m_doSupportRotation(doSupportRotation),
-    m_doForceUpdate(false)
+    m_doForceUpdate(false),
+    m_visualScale(p.m_visualScale),
+    m_skinName(p.m_skinName)
 {
   LOG(LDEBUG, ("each BaseRule will hold up to", idCacheSize, "cached values"));
   drule::rules().ResizeCaches(idCacheSize);
@@ -177,10 +181,17 @@ size_t RenderPolicy::ScaleEtalonSize() const
   return GetPlatform().ScaleEtalonSize();
 }
 
-RenderPolicy * CreateRenderPolicy(VideoTimer * videoTimer,
-                                  bool useDefaultFB,
-                                  yg::ResourceManager::Params const & rmParams,
-                                  shared_ptr<yg::gl::RenderContext> const & primaryRC)
+double RenderPolicy::VisualScale() const
+{
+  return m_visualScale;
+}
+
+string const & RenderPolicy::SkinName() const
+{
+  return m_skinName;
+}
+
+RenderPolicy * CreateRenderPolicy(RenderPolicy::Params const & params)
 {
   bool benchmarkingEnabled = false;
   Settings::Get("IsBenchmarking", benchmarkingEnabled);
@@ -191,20 +202,20 @@ RenderPolicy * CreateRenderPolicy(VideoTimer * videoTimer,
     Settings::Get("IsBenchmarkingMT", isBenchmarkingMT);
 
     if (isBenchmarkingMT)
-      return new BenchmarkTilingRenderPolicyMT(videoTimer, useDefaultFB, rmParams, primaryRC);
+      return new BenchmarkTilingRenderPolicyMT(params);
     else
-      return new BenchmarkRenderPolicyMT(videoTimer, useDefaultFB, rmParams, primaryRC);
+      return new BenchmarkRenderPolicyMT(params);
   }
   else
   {
 #ifdef OMIM_OS_ANDROID
-    return new TilingRenderPolicyST(videoTimer, useDefaultFB, rmParams, primaryRC);
+    return new TilingRenderPolicyST(params);
 #endif
 #ifdef OMIM_OS_IPHONE
-    return new RenderPolicyMT(videoTimer, useDefaultFB, rmParams, primaryRC);
+    return new RenderPolicyMT(params);
 #endif
 #ifdef OMIM_OS_DESKTOP
-    return new TilingRenderPolicyST(videoTimer, useDefaultFB, rmParams, primaryRC);
+    return new TilingRenderPolicyST(params);
 #endif
   }
 }

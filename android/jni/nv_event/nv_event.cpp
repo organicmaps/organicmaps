@@ -686,12 +686,13 @@ static jboolean onResumeNative(JNIEnv* env, jobject thiz)
   return NVEventInsertBlocking(&ev);
 }
 
-static jboolean onSurfaceCreatedNative(JNIEnv* env, jobject thiz, int w, int h)
+static jboolean onSurfaceCreatedNative(JNIEnv* env, jobject thiz, int w, int h, int density)
 {
   NVEvent ev;
   ev.m_type = NV_EVENT_SURFACE_CREATED;
   ev.m_data.m_size.m_w = w;
   ev.m_data.m_size.m_h = h;
+  ev.m_data.m_size.m_density = density;
   if ((w > 0) &&  (h > 0))
     SetAppFlag(NVEVENT_STATUS_HAS_REAL_SURFACE);
   else
@@ -710,12 +711,13 @@ static jboolean onFocusChangedNative(JNIEnv* env, jobject thiz, jboolean focused
   return NVEventInsertBlocking(&ev);
 }
 
-static jboolean onSurfaceChangedNative(JNIEnv* env, jobject thiz, int w, int h)
+static jboolean onSurfaceChangedNative(JNIEnv* env, jobject thiz, int w, int h, int density)
 {
   NVEvent ev;
   ev.m_type = NV_EVENT_SURFACE_SIZE;
   ev.m_data.m_size.m_w = w;
   ev.m_data.m_size.m_h = h;
+  ev.m_data.m_size.m_density = density;
   if (w * h)
     SetAppFlag(NVEVENT_STATUS_HAS_REAL_SURFACE);
   else
@@ -864,7 +866,7 @@ void InitNVEvent(JavaVM* vm)
     },
     {
       "onSurfaceCreatedNative",
-      "(II)Z",
+      "(III)Z",
       (void *) onSurfaceCreatedNative
     },
     {
@@ -874,7 +876,7 @@ void InitNVEvent(JavaVM* vm)
     },
     {
       "onSurfaceChangedNative",
-      "(II)Z",
+      "(III)Z",
       (void *) onSurfaceChangedNative
     },
     {
