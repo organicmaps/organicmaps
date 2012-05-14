@@ -162,7 +162,7 @@
       BookmarkCategory * cat = GetFramework().GetBmCategory([m_balloon.setName UTF8String]);
       if (cat)
       {
-        cat->RemoveBookmark(indexPath.row);
+        cat->DeleteBookmark(indexPath.row);
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         // Disable edit mode if no bookmarks are left
         if (cat->GetBookmarksCount() == 0)

@@ -47,7 +47,7 @@ public:
 
   inline size_t GetBookmarksCount() const { return m_bookmarks.size(); }
   Bookmark const * GetBookmark(size_t index) const;
-  void RemoveBookmark(size_t index);
+  void DeleteBookmark(size_t index);
 
   void LoadFromKML(ReaderPtr<Reader> const & reader);
   void SaveToKML(ostream & s);

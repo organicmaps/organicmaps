@@ -218,16 +218,13 @@ BookmarkCategory * Framework::GetBmCategory(string const & name)
 
 bool Framework::DeleteBmCategory(size_t index)
 {
-  for (vector<BookmarkCategory *>::iterator it = m_bookmarks.begin(); it != m_bookmarks.end(); ++it)
+  if (index < m_bookmarks.size())
   {
-    if (index-- == 0)
-    {
-      delete *it;
-      m_bookmarks.erase(it);
-      return true;
-    }
+    delete m_bookmarks[index];
+    m_bookmarks.erase(m_bookmarks.begin() + index);
+    return true;
   }
-  return false;
+  else return false;
 }
 
 Bookmark const * Framework::GetBookmark(m2::PointD pt) const

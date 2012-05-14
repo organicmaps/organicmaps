@@ -28,10 +28,13 @@ void BookmarkCategory::ClearBookmarks()
   m_bookmarks.clear();
 }
 
-void BookmarkCategory::RemoveBookmark(size_t index)
+void BookmarkCategory::DeleteBookmark(size_t index)
 {
   if (index < m_bookmarks.size())
+  {
+    delete m_bookmarks[index];
     m_bookmarks.erase(m_bookmarks.begin() + index);
+  }
 }
 
 Bookmark const * BookmarkCategory::GetBookmark(size_t index) const
