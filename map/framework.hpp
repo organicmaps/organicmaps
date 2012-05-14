@@ -222,6 +222,7 @@ public:
     vector<string> m_types;
 
     string FormatAddress() const;
+    string FormatTypes() const;
   };
 
   /// Get address information for point on map.

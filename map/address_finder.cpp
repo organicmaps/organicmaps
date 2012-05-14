@@ -426,3 +426,15 @@ string Framework::AddressInfo::FormatAddress() const
   }
   return result;
 }
+
+string Framework::AddressInfo::FormatTypes() const
+{
+  string result;
+  for (size_t i = 0; i < m_types.size(); ++i)
+  {
+    if (!result.empty())
+      result += ' ';
+    result += m_types[i];
+  }
+  return result;
+}
