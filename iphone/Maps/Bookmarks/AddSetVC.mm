@@ -24,7 +24,8 @@
   if (text.length)
   {
     m_balloon.setName = text;
-    GetFramework().GetBmCategory([text UTF8String]);
+    // Create category if it doesn't exist
+    (void)GetFramework().GetBmCategory([text UTF8String]);
     
     // Display "Add Bookmark" dialog
     NSArray * vcs = self.navigationController.viewControllers;

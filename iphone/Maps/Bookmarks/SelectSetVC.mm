@@ -129,9 +129,9 @@
       if (cat && cat->GetName() == [m_balloon.setName UTF8String])
         moveCheckMark = true;
 
-      if (GetFramework().DeleteBmCategory(indexPath.row))
+      if (f.DeleteBmCategory(indexPath.row))
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-      if (GetFramework().GetBmCategoriesCount() == 1)
+      if (f.GetBmCategoriesCount() == 1)
       {
         // Disable edit mode to leave at least one bookmarks category
         [self setEditing:NO animated:YES];
