@@ -216,6 +216,20 @@ BookmarkCategory * Framework::GetBmCategory(string const & name)
   }
 }
 
+bool Framework::DeleteBmCategory(size_t index)
+{
+  for (vector<BookmarkCategory *>::iterator it = m_bookmarks.begin(); it != m_bookmarks.end(); ++it)
+  {
+    if (index-- == 0)
+    {
+      delete *it;
+      m_bookmarks.erase(it);
+      return true;
+    }
+  }
+  return false;
+}
+
 Bookmark const * Framework::GetBookmark(m2::PointD pt) const
 {
   // Get the global rect of touching area.

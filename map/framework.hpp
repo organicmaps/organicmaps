@@ -130,6 +130,9 @@ public:
 
   /// Find or create new category by name.
   BookmarkCategory * GetBmCategory(string const & name);
+  /// Delete bookmarks category with all bookmarks
+  /// @return true if category was deleted
+  bool DeleteBmCategory(size_t index);
 
   /// Get bookmark by touch.
   /// @param[in]  pixPt   Coordinates of touch point in pixels.
