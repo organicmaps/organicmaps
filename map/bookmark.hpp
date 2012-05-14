@@ -41,6 +41,7 @@ public:
 
   void AddBookmark(Bookmark const & bm);
 
+  void SetVisible(bool isVisible) { m_visible = isVisible; }
   bool IsVisible() const { return m_visible; }
   string GetName() const { return m_name; }
 
