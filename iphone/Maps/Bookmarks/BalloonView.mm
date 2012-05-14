@@ -9,6 +9,7 @@
 @synthesize description;
 @synthesize pinImage;
 @synthesize color;
+@synthesize setName;
 @synthesize isDisplayed;
 
 - (id) initWithTarget:(id)target andSelector:(SEL)selector;
@@ -17,6 +18,7 @@
   {
     // Default bookmark pin color
     color = [[NSString alloc] initWithString:@"purple"];
+    setName = [[NSString alloc] initWithString:NSLocalizedString(@"My Places", @"Default bookmarks set name")];
     pinImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.color]];
     m_titleView = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"BookmarkTitle"];
     isDisplayed = NO;
@@ -31,6 +33,7 @@
   [m_titleView release];
   self.pinImage = nil;
   self.color = nil;
+  self.setName = nil;
   self.title = nil;
   self.description = nil;
   [super dealloc];

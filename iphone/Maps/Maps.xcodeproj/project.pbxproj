@@ -86,6 +86,8 @@
 		FA05460D155C22D4001F4E37 /* yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545EE155C22D4001F4E37 /* yellow.png */; };
 		FA05460E155C22D4001F4E37 /* yellow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545EF155C22D4001F4E37 /* yellow@2x.png */; };
 		FA05460F155C22D4001F4E37 /* yellow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0545EF155C22D4001F4E37 /* yellow@2x.png */; };
+		FA054612155C465E001F4E37 /* SelectSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA054611155C465E001F4E37 /* SelectSetVC.mm */; };
+		FA054613155C465E001F4E37 /* SelectSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA054611155C465E001F4E37 /* SelectSetVC.mm */; };
 		FA065FED128614C400FEA989 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */; };
 		FA065FFF1286167A00FEA989 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA065FFD1286167A00FEA989 /* Default@2x.png */; };
 		FA0660001286167A00FEA989 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FA065FFE1286167A00FEA989 /* Default.png */; };
@@ -165,6 +167,8 @@
 		FAA3A879151279DE00C7904C /* 114-lite.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA3A871151279DC00C7904C /* 114-lite.png */; };
 		FAA3A87A151279DE00C7904C /* 144-lite.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA3A872151279DD00C7904C /* 144-lite.png */; };
 		FAA5C2A2144F135F005337F6 /* LocationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAA5C2A1144F135F005337F6 /* LocationManager.mm */; };
+		FAA614B8155F16950031C345 /* AddSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAA614B7155F16950031C345 /* AddSetVC.mm */; };
+		FAA614B9155F16950031C345 /* AddSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAA614B7155F16950031C345 /* AddSetVC.mm */; };
 		FAA7A73414055351009F76D8 /* location-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA7A73214055351009F76D8 /* location-selected.png */; };
 		FAA7A73514055351009F76D8 /* location-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA7A73314055351009F76D8 /* location-selected@2x.png */; };
 		FAAFD697139D9BE2000AE70C /* categories.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAFD696139D9BE2000AE70C /* categories.txt */; };
@@ -1370,6 +1374,8 @@
 		FA0545ED155C22D4001F4E37 /* red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "red@2x.png"; path = "Bookmarks/red@2x.png"; sourceTree = SOURCE_ROOT; };
 		FA0545EE155C22D4001F4E37 /* yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = yellow.png; path = Bookmarks/yellow.png; sourceTree = SOURCE_ROOT; };
 		FA0545EF155C22D4001F4E37 /* yellow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yellow@2x.png"; path = "Bookmarks/yellow@2x.png"; sourceTree = SOURCE_ROOT; };
+		FA054610155C465E001F4E37 /* SelectSetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectSetVC.h; path = Bookmarks/SelectSetVC.h; sourceTree = SOURCE_ROOT; };
+		FA054611155C465E001F4E37 /* SelectSetVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SelectSetVC.mm; path = Bookmarks/SelectSetVC.mm; sourceTree = SOURCE_ROOT; };
 		FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "Resources-iPad/MainWindow-iPad.xib"; sourceTree = SOURCE_ROOT; };
 		FA065FFD1286167A00FEA989 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = SOURCE_ROOT; };
 		FA065FFE1286167A00FEA989 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = SOURCE_ROOT; };
@@ -1452,6 +1458,8 @@
 		FAA4B13E13EC1C8C00BCAB63 /* DiskFreeSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiskFreeSpace.h; sourceTree = "<group>"; };
 		FAA5C2A0144F135F005337F6 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationManager.h; path = Platform/LocationManager.h; sourceTree = "<group>"; };
 		FAA5C2A1144F135F005337F6 /* LocationManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = LocationManager.mm; path = Platform/LocationManager.mm; sourceTree = "<group>"; };
+		FAA614B6155F16950031C345 /* AddSetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddSetVC.h; path = Bookmarks/AddSetVC.h; sourceTree = SOURCE_ROOT; };
+		FAA614B7155F16950031C345 /* AddSetVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AddSetVC.mm; path = Bookmarks/AddSetVC.mm; sourceTree = SOURCE_ROOT; };
 		FAA7A73214055351009F76D8 /* location-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-selected.png"; sourceTree = "<group>"; };
 		FAA7A73314055351009F76D8 /* location-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-selected@2x.png"; sourceTree = "<group>"; };
 		FAAE8D5D1338FF8B003ECAD5 /* GetActiveConnectionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetActiveConnectionType.h; sourceTree = "<group>"; };
@@ -2266,6 +2274,10 @@
 			isa = PBXGroup;
 			children = (
 				FA36B8171540466A004560CC /* Images */,
+				FAA614B6155F16950031C345 /* AddSetVC.h */,
+				FAA614B7155F16950031C345 /* AddSetVC.mm */,
+				FA054610155C465E001F4E37 /* SelectSetVC.h */,
+				FA054611155C465E001F4E37 /* SelectSetVC.mm */,
 				FA5D4F131557F79900E7D8BB /* AddBookmarkVC.h */,
 				FA5D4F141557F79900E7D8BB /* AddBookmarkVC.mm */,
 				FA5D4F151557F79900E7D8BB /* PlacePageVC.h */,
@@ -4201,6 +4213,8 @@
 				FA5D4F171557F79900E7D8BB /* AddBookmarkVC.mm in Sources */,
 				FA5D4F191557F79900E7D8BB /* PlacePageVC.mm in Sources */,
 				FAF457E715597D4600DCCC49 /* Framework.cpp in Sources */,
+				FA054612155C465E001F4E37 /* SelectSetVC.mm in Sources */,
+				FAA614B8155F16950031C345 /* AddSetVC.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4231,6 +4245,8 @@
 				FA5D4F181557F79900E7D8BB /* AddBookmarkVC.mm in Sources */,
 				FA5D4F1A1557F79900E7D8BB /* PlacePageVC.mm in Sources */,
 				FAF457E815597D4600DCCC49 /* Framework.cpp in Sources */,
+				FA054613155C465E001F4E37 /* SelectSetVC.mm in Sources */,
+				FAA614B9155F16950031C345 /* AddSetVC.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

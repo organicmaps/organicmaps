@@ -1,57 +1,31 @@
 #import "BookmarksVC.h"
 #import "SearchCell.h"
 #import "CustomNavigationView.h"
+#import "BalloonView.h"
+#import "MapsAppDelegate.h"
+#import "SelectSetVC.h"
 
 #include "Framework.h"
 
 
 @implementation BookmarksVC
 
-- (void)onCancelEdit
+- (id) initWithBalloonView:(BalloonView *)view
 {
-  [self setEditing:NO animated:NO];
-  [m_table setEditing:NO animated:NO];
-  m_navItem.rightBarButtonItem = self.editButtonItem;
-}
-
-- (void)onEdit
-{
-  [self setEditing:YES animated:YES];
-  [m_table setEditing:YES animated:YES];
-  m_navItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onCancelEdit)] autorelease];
-}
-
-- (void)loadView
-{
-  // TODO Initialize and change m_category.
-
-  UIView * parentView = [[[CustomNavigationView alloc] init] autorelease];
-  parentView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-
-  m_navItem = [[[UINavigationItem alloc] init] autorelease];
-
-  m_navItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Maps", @"Bookmarks - Close bookmarks button") style: UIBarButtonItemStyleDone
-                                                                   target:self action:@selector(onCloseButton:)] autorelease];
-  // Display Edit button only if table is not empty
-  if (m_category->GetBookmarksCount() > 0)
+  self = [super initWithStyle:UITableViewStyleGrouped];
+  if (self)
   {
-    [self.editButtonItem setTarget:self];
-    [self.editButtonItem setAction:@selector(onEdit)];
-    m_navItem.rightBarButtonItem = self.editButtonItem;
+    m_balloon = view;
+    self.title = NSLocalizedString(@"Bookmarks", @"Boormarks - dialog title");
+    
+    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Maps", @"Bookmarks - Close bookmarks button") style: UIBarButtonItemStyleDone
+                                                                           target:self action:@selector(onCloseButton:)] autorelease];
+    // Display Edit button only if table is not empty
+    BookmarkCategory * cat = GetFramework().GetBmCategory([m_balloon.setName UTF8String]);
+    if (cat && cat->GetBookmarksCount())
+      self.navigationItem.rightBarButtonItem = self.editButtonItem;
   }
-
-  UINavigationBar * navBar = [[[UINavigationBar alloc] init] autorelease];
-  [navBar pushNavigationItem:m_navItem animated:NO];
-
-  [parentView addSubview:navBar];
-
-  m_table = [[UITableView alloc] init];
-  m_table.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-  m_table.delegate = self;
-  m_table.dataSource = self;
-  [parentView addSubview:m_table];
-
-  self.view = parentView;
+  return self;
 }
 
 - (void)onCloseButton:(id)sender
@@ -66,58 +40,109 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return 1;
+  return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  // Return the number of rows in the section.
-  return m_category->GetBookmarksCount();
+  if (section == 0)
+    return 1;
+  BookmarkCategory * cat = GetFramework().GetBmCategory([m_balloon.setName UTF8String]);
+  if (cat)
+    return cat->GetBookmarksCount();
+  return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  SearchCell * cell = (SearchCell *)[tableView dequeueReusableCellWithIdentifier:@"FeatureCell"];
-  if (!cell)
-    cell = [[[SearchCell alloc] initWithReuseIdentifier:@"FeatureCell"] autorelease];
+  if (indexPath.section == 0)
+  {
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"CategoryCell"];
+    if (!cell)
+    {
+      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CategoryCell"] autorelease];
+      cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+      cell.textLabel.text = NSLocalizedString(@"Set", @"Bookmarks dialog - Bookmark set cell");
+    }
+    cell.detailTextLabel.text = m_balloon.setName;
+    return cell;
+  }
+  else
+  {
+    SearchCell * cell = (SearchCell *)[tableView dequeueReusableCellWithIdentifier:@"FeatureCell"];
+    if (!cell)
+      cell = [[[SearchCell alloc] initWithReuseIdentifier:@"FeatureCell"] autorelease];
 
-  Bookmark const * bm = m_category->GetBookmark(indexPath.row);
-
-  cell.featureName.text = [NSString stringWithUTF8String:bm->GetName().c_str()];
-  cell.featureCountry.text = [NSString stringWithUTF8String:"Region"];
-  cell.featureType.text = [NSString stringWithUTF8String:"Type"];
-  cell.featureDistance.text = [NSString stringWithFormat:@"%f", 0.0];
-
-  return cell;
+    BookmarkCategory * cat = GetFramework().GetBmCategory([m_balloon.setName UTF8String]);
+    if (cat)
+    {
+      Bookmark const * bm = cat->GetBookmark(indexPath.row);
+      if (bm)
+      {
+        cell.featureName.text = [NSString stringWithUTF8String:bm->GetName().c_str()];
+        Framework::AddressInfo info;
+        GetFramework().GetAddressInfo(bm->GetOrg(), info);
+        cell.featureCountry.text = [NSString stringWithUTF8String:info.FormatAddress().c_str()];
+        cell.featureType.text = [NSString stringWithUTF8String:info.FormatTypes().c_str()];
+        cell.featureDistance.text = @"@TODO";
+      }
+    }
+    return cell;
+  }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (indexPath.row < (NSInteger)m_category->GetBookmarksCount())
+  if (indexPath.section == 0)
   {
-    Bookmark const * bm = m_category->GetBookmark(indexPath.row);
-    GetFramework().ShowRect(bm->GetViewport());
-
-    // Same as "Close".
-    [self dismissModalViewControllerAnimated:YES];
+    SelectSetVC * ssVC = [[SelectSetVC alloc] initWithBalloonView:m_balloon andEditMode:NO];
+    [self.navigationController pushViewController:ssVC animated:YES];
+    [ssVC release];
+  }
+  else
+  {
+    BookmarkCategory * cat = GetFramework().GetBmCategory([m_balloon.setName UTF8String]);
+    if (cat)
+    {
+      Bookmark const * bm = cat->GetBookmark(indexPath.row);
+      if (bm)
+      {
+        // Same as "Close".
+        [self dismissModalViewControllerAnimated:YES];
+        GetFramework().ShowRect(bm->GetViewport());
+      }
+    }
   }
 }
 
-/*
-// Override to support conditional editing of the table view.
+
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+  // Return NO if you do not want the specified item to be editable.
+  if (indexPath.section == 0)
+    return NO;
+  return YES;
 }
-*/
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (editingStyle == UITableViewCellEditingStyleDelete)
+  if (indexPath.section == 1)
   {
-    m_category->RemoveBookmark(indexPath.row);
-    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+      BookmarkCategory * cat = GetFramework().GetBmCategory([m_balloon.setName UTF8String]);
+      if (cat)
+      {
+        cat->RemoveBookmark(indexPath.row);
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        // Disable edit mode if no bookmarks are left
+        if (cat->GetBookmarksCount() == 0)
+        {
+          self.navigationItem.rightBarButtonItem = nil;
+          [self setEditing:NO animated:YES];
+        }
+      }
+    }
   }
 }
 

@@ -1,5 +1,7 @@
 #import "LocationManager.h"
 
+#include "../../map/measurement_utils.hpp"
+
 #include "../../platform/settings.hpp"
 
 #include "../../base/math.hpp"
@@ -223,6 +225,56 @@
   }
 
   return false;
+}
+
++ (NSString *)formatDistance:(double)meters
+{
+  if (meters < 0.)
+    return nil;
+  
+  uint64_t shortUnits = (uint64_t)meters;
+  double longUnits = meters/1000.0;
+  // @TODO localize measurements
+  static NSString * shortLabel = @"m";
+  static NSString * longLabel = @"km";
+  Settings::Units u = Settings::Metric;
+	Settings::Get("Units", u);
+  switch (u)
+  {
+    case Settings::Foot:
+    shortUnits = (uint64_t)MeasurementUtils::MetersToFeet(meters);
+    longUnits = MeasurementUtils::MetersToMiles(meters);
+    shortLabel = @"ft";
+    longLabel = @"mi";
+    break;
+    
+    case Settings::Yard:
+    shortUnits = (uint64_t)MeasurementUtils::MetersToYards(meters);
+    longUnits = MeasurementUtils::MetersToMiles(meters);
+    shortLabel = @"yd";
+    longLabel = @"mi";
+    break;
+    
+    case Settings::Metric:
+    shortLabel = @"m";
+    longLabel = @"km";
+    break;
+  }
+  
+  // NSLocalizedString(@"%.1lf m", @"Search results - Metres")
+  // NSLocalizedString(@"%.1lf ft", @"Search results - Feet")
+  // NSLocalizedString(@"%.1lf mi", @"Search results - Miles")
+  // NSLocalizedString(@"%.1lf yd", @"Search results - Yards")
+  
+  if (shortUnits < 1000)
+    return [NSString stringWithFormat:@"%qu %@", shortUnits, shortLabel];
+  
+  uint64_t const longUnitsRounded = (uint64_t)(longUnits);
+  // reduce precision for big distances and remove zero for x.0-like numbers
+  if (longUnitsRounded > 10 || (longUnitsRounded && (uint64_t)(longUnits * 10.0) == longUnitsRounded * 10))
+    return [NSString stringWithFormat:@"%qu %@", longUnitsRounded, longLabel];
+  
+  return [NSString stringWithFormat:@"%.1lf %@", longUnits, longLabel];
 }
 
 @end

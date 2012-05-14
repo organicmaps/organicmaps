@@ -15,8 +15,10 @@
 // Currently contains automatically updated address info
 @property(nonatomic, retain) NSString * description;
 @property(nonatomic, retain) UIImageView * pinImage;
-// Stores displayed bookmark icon name
+// Stores displayed bookmark icon file name
 @property(nonatomic, retain) NSString * color;
+// Stores last used bookmark Set name
+@property(nonatomic, retain) NSString * setName;
 @property(nonatomic, assign, readonly) BOOL isDisplayed;
 @property(nonatomic, assign) CGPoint globalPosition;
 

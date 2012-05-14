@@ -98,16 +98,18 @@
 
 - (IBAction)OnSearchClicked:(id)sender
 {
-  SearchVC * searchVC = [[SearchVC alloc] initWithLocationManager:[MapsAppDelegate theApp].m_locationManager];
+  SearchVC * searchVC = [[SearchVC alloc] init];
   [self presentModalViewController:searchVC animated:YES];
   [searchVC release];
 }
 
 - (IBAction)OnBookmarksClicked:(id)sender
 {
-  BookmarksVC * bVC = [[BookmarksVC alloc] init];
-  [self presentModalViewController:bVC animated:YES];
+  BookmarksVC * bVC = [[BookmarksVC alloc] initWithBalloonView:m_bookmark];
+  UINavigationController * navC = [[UINavigationController alloc] initWithRootViewController:bVC];
+  [self presentModalViewController:navC animated:YES];
   [bVC release];
+  [navC release];
 }
 
 - (void)onBookmarkClicked

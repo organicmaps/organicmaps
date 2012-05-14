@@ -4,15 +4,14 @@
 #import "SearchCell.h"
 #import "BookmarksVC.h"
 #import "CustomNavigationView.h"
+#import "MapsAppDelegate.h"
 
 #include "Framework.h"
 #include "../../geometry/angles.hpp"
 #include "../../geometry/distance_on_sphere.hpp"
-#include "../../platform/settings.hpp"
 #include "../../platform/platform.hpp"
 #include "../../platform/preferred_languages.hpp"
 #include "../../indexer/mercator.hpp"
-#include "../../map/measurement_utils.hpp"
 #include "../../search/result.hpp"
 
 #define MAPSWITHME_PREMIUM_APPSTORE_URL @"itms://itunes.com/apps/mapswithmepro"
@@ -80,12 +79,12 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 @implementation SearchVC
 
 
-- (id)initWithLocationManager:(LocationManager *)lm
+- (id)init
 {
   if ((self = [super initWithNibName:nil bundle:nil]))
   {
     m_framework = &GetFramework();
-    m_locationManager = lm;
+    m_locationManager = [MapsAppDelegate theApp].m_locationManager;
     
     double lat, lon;
     bool const hasPt = [m_locationManager getLat:lat Lon:lon];
@@ -300,56 +299,6 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
     [self searchBar:m_searchBar textDidChange:text];
 }
 
-+ (NSString *)formatDistance:(double)meters
-{
-  if (meters < 0.)
-    return nil;
-
-  uint64_t shortUnits = (uint64_t)meters;
-  double longUnits = meters/1000.0;
-  // @TODO localize measurements
-  static NSString * shortLabel = @"m";
-  static NSString * longLabel = @"km";
-  Settings::Units u = Settings::Metric;
-	Settings::Get("Units", u);
-  switch (u)
-  {
-  case Settings::Foot:
-    shortUnits = (uint64_t)MeasurementUtils::MetersToFeet(meters);
-    longUnits = MeasurementUtils::MetersToMiles(meters);
-    shortLabel = @"ft";
-    longLabel = @"mi";
-    break;
-    
-  case Settings::Yard:
-    shortUnits = (uint64_t)MeasurementUtils::MetersToYards(meters);
-    longUnits = MeasurementUtils::MetersToMiles(meters);
-    shortLabel = @"yd";
-    longLabel = @"mi";
-    break;
-
-  case Settings::Metric:
-    shortLabel = @"m";
-    longLabel = @"km";
-    break;
-  }
-
-  // NSLocalizedString(@"%.1lf m", @"Search results - Metres")
-  // NSLocalizedString(@"%.1lf ft", @"Search results - Feet")
-  // NSLocalizedString(@"%.1lf mi", @"Search results - Miles")
-  // NSLocalizedString(@"%.1lf yd", @"Search results - Yards")
-
-  if (shortUnits < 1000)
-    return [NSString stringWithFormat:@"%qu %@", shortUnits, shortLabel];
-
-  uint64_t const longUnitsRounded = (uint64_t)(longUnits);
-  // reduce precision for big distances and remove zero for x.0-like numbers
-  if (longUnitsRounded > 10 || (longUnitsRounded && (uint64_t)(longUnits * 10.0) == longUnitsRounded * 10))
-    return [NSString stringWithFormat:@"%qu %@", longUnitsRounded, longLabel];
-
-  return [NSString stringWithFormat:@"%.1lf %@", longUnits, longLabel];
-}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
   return 1;
@@ -410,7 +359,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
       cell.featureCountry.text = [NSString stringWithUTF8String:r.GetRegionString()];
       cell.featureType.text = [NSString stringWithUTF8String:r.GetFeatureType()];
       double const distance = r.GetDistanceFromCenter();
-      cell.featureDistance.text = [SearchVC formatDistance:distance];
+      cell.featureDistance.text = [LocationManager formatDistance:distance];
       // Show flags only if feature is too far away and it has the flag
       if (r.GetRegionFlag() && (distance < 0. || distance > MIN_COMPASS_DISTANCE))
       {

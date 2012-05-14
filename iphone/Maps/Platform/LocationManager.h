@@ -40,4 +40,6 @@
 
 - (bool)getLat:(double &)lat Lon:(double &)lon;
 - (bool)getNorthRad:(double &)rad;
+
++ (NSString *)formatDistance:(double)meters;
 @end
