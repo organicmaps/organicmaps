@@ -2,7 +2,7 @@
 #import "BalloonView.h"
 #import "Framework.h"
 #import "SelectSetVC.h"
-
+#import "SelectColorVC.h"
 
 @implementation AddBookmarkVC
 
@@ -116,11 +116,23 @@
 {
   [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
   
-  if (indexPath.row == 1)
+  switch (indexPath.row)
   {
-    SelectSetVC * vc = [[SelectSetVC alloc] initWithBalloonView:m_balloon andEditMode:YES];
-    [self.navigationController pushViewController:vc animated:YES];
-    [vc release];
+    case 1:
+    {
+      SelectSetVC * vc = [[SelectSetVC alloc] initWithBalloonView:m_balloon andEditMode:YES];
+      [self.navigationController pushViewController:vc animated:YES];
+      [vc release];
+    }
+    break;
+    
+    case 2:
+    {
+      SelectColorVC * vc = [[SelectColorVC alloc] initWithBalloonView:m_balloon];
+      [self.navigationController pushViewController:vc animated:YES];
+      [vc release];
+    }
+    break;
   }
 }
 
