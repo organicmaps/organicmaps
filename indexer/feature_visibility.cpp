@@ -323,7 +323,7 @@ pair<int, int> GetDrawableScaleRange(TypesHolder const & types)
 
 namespace
 {
-  bool IsDrawable(feature::TypesHolder const & types, int level)
+  bool IsDrawableText(feature::TypesHolder const & types, int level)
   {
     Classificator const & c = classif();
 
@@ -342,7 +342,7 @@ pair<int, int> GetDrawableScaleRangeForText(feature::TypesHolder const & types)
   int lowL = -1;
   for (int level = 0; level <= upBound; ++level)
   {
-    if (IsDrawable(types, level))
+    if (IsDrawableText(types, level))
     {
       lowL = level;
       break;
@@ -355,7 +355,7 @@ pair<int, int> GetDrawableScaleRangeForText(feature::TypesHolder const & types)
   int highL = lowL;
   for (int level = upBound; level > lowL; --level)
   {
-    if (IsDrawable(types, level))
+    if (IsDrawableText(types, level))
     {
       highL = level;
       break;

@@ -56,10 +56,13 @@ namespace
     virtual double GetResultDistance(double d, feature::TypesHolder const & types) const = 0;
     virtual double NeedProcess(feature::TypesHolder const & types) const
     {
+      // feature should be visible in needed scale
       pair<int, int> const r = feature::GetDrawableScaleRange(types);
       return my::between_s(r.first, r.second, m_scale);
     }
 
+    /// @return epsilon value for distance compare according to priority:
+    /// point feature is better than linear, that is better than area.
     static double GetCompareEpsilonImpl(feature::EGeomType type, double eps)
     {
       using namespace feature;
@@ -298,9 +301,15 @@ namespace
     virtual double NeedProcess(feature::TypesHolder const & types) const
     {
       if (m_doLocalities)
+      {
         return (types.GetGeoType() == feature::GEOM_POINT && m_checker.IsLocality(types));
+      }
       else
-        return DoGetFeatureInfoBase::NeedProcess(types);
+      {
+        // we need features with texts for address lookup
+        pair<int, int> const r = feature::GetDrawableScaleRangeForText(types);
+        return my::between_s(r.first, r.second, m_scale);
+      }
     }
 
   public:
