@@ -112,10 +112,10 @@ namespace
 
   private:
     m2::PointD m_pt;
-    int m_scale;
     uint32_t m_coastType;
 
   protected:
+    int m_scale;
     double m_eps;
     vector<FeatureInfoT> m_cont;
   };
@@ -176,6 +176,7 @@ namespace
     class TypeChecker
     {
       vector<uint32_t> m_localities, m_streets, m_buildings;
+      int m_localityScale;
 
       template <size_t count, size_t ind>
       void FillMatch(char const * (& arr)[count][ind], vector<uint32_t> & vec)
@@ -231,9 +232,18 @@ namespace
         };
 
         FillMatch(arrLocalities, m_localities);
+        m_localityScale = 0;
+        for (size_t i = 0; i < m_localities.size(); ++i)
+        {
+          m_localityScale = max(m_localityScale,
+                                feature::GetDrawableScaleRange(m_localities[i]).first);
+        }
+
         FillMatch(arrStreet, m_streets);
         FillMatch(arrBuilding, m_buildings);
       }
+
+      int GetLocalitySearchScale() const { return m_localityScale; }
 
       bool IsLocality(feature::TypesHolder const & types) const
       {
@@ -363,21 +373,18 @@ namespace
 
 void Framework::GetAddressInfo(m2::PointD const & pt, AddressInfo & info) const
 {
+  info.Clear();
+
   info.m_country = GetCountryName(pt);
   if (info.m_country.empty())
   {
     LOG(LINFO, ("Can't find region for point ", pt));
     return;
   }
-  // Clear all other fields
-  info.m_city.clear();
-  info.m_street.clear();
-  info.m_house.clear();
-  info.m_name.clear();
 
-  int const scale = scales::GetUpperScale();
+  int scale = scales::GetUpperScale();
   double const addressR = 200.0;
-  double const localityR = 20000;
+  double const localityR = 20000.0;
 
   static DoGetAddressInfo::TypeChecker checker;
 
@@ -393,6 +400,9 @@ void Framework::GetAddressInfo(m2::PointD const & pt, AddressInfo & info) const
 
   // now - get the locality
   {
+    scale = checker.GetLocalitySearchScale();
+    LOG(LDEBUG, ("Locality scale = ", scale));
+
     DoGetAddressInfo getLocality(pt, localityR, scale, checker);
     getLocality.PrepareForLocalities();
 
@@ -437,4 +447,13 @@ string Framework::AddressInfo::FormatTypes() const
     result += m_types[i];
   }
   return result;
+}
+
+void Framework::AddressInfo::Clear()
+{
+  m_country.clear();
+  m_city.clear();
+  m_street.clear();
+  m_house.clear();
+  m_name.clear();
 }

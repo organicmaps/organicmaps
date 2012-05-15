@@ -226,6 +226,8 @@ public:
 
     string FormatAddress() const;
     string FormatTypes() const;
+
+    void Clear();
   };
 
   /// Get address information for point on map.

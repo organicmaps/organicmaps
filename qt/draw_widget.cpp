@@ -337,10 +337,10 @@ namespace qt
       Framework::AddressInfo info;
       m_framework->GetAddressInfo(m_framework->PtoG(m2::PointD(pt.x(), pt.y())), info);
 
-      add_string(menu, info.m_country);
-      add_string(menu, info.m_city);
-      add_string(menu, info.m_street);
-      add_string(menu, info.m_name);
+      if (!info.m_name.empty())
+        add_string(menu, info.m_name);
+      add_string(menu, info.FormatAddress());
+      add_string(menu, info.FormatTypes());
 
       menu.exec(pt);
     }
