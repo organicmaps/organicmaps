@@ -146,6 +146,8 @@ namespace storage
     void Unsubscribe(int slotId);
     //@}
 
+    TIndex const FindIndexByName(string const & name) const;
+
     size_t CountriesCount(TIndex const & index) const;
     string const & CountryName(TIndex const & index) const;
     string const & CountryFlag(TIndex const & index) const;

@@ -488,4 +488,15 @@ namespace storage
   {
     return m_currentVersion;
   }
+
+  TIndex const Storage::FindIndexByName(string const & name) const
+  {
+    for (unsigned i = 0; i < m_countries.SiblingsCount(); ++i)
+      for (unsigned j = 0; j < m_countries[i].SiblingsCount(); ++j)
+        for (unsigned k = 0; k < m_countries[i][j].SiblingsCount(); ++k)
+          if (m_countries[i][j][k].Value().Name() == name)
+            return TIndex(i, j, k);
+
+    return TIndex();
+  }
 }
