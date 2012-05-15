@@ -81,10 +81,19 @@ namespace storage
 
     /// @name Communicate with GUI
     //@{
-    typedef function<void (TIndex const &)> TObserverChangeCountryFunction;
-    typedef function<void (TIndex const &, pair<int64_t, int64_t> const &)> TObserverProgressFunction;
-    TObserverChangeCountryFunction m_observerChange;
-    TObserverProgressFunction m_observerProgress;
+    typedef function<void (TIndex const &)> TChangeCountryFunction;
+    typedef function<void (TIndex const &, pair<int64_t, int64_t> const &)> TProgressFunction;
+
+    int m_currentSlotId;
+
+    struct CountryObservers
+    {
+      TChangeCountryFunction m_changeCountryFn;
+      TProgressFunction m_progressFn;
+      int m_slotId;
+    };
+
+    list<CountryObservers> m_observers;
     //@}
 
     /// @name Communicate with Framework
@@ -111,6 +120,8 @@ namespace storage
     /// @TODO temporarily made public for Android, refactor
     void LoadCountriesFile(bool forceReload);
 
+    void ReportProgress(TIndex const & index, pair<int64_t, int64_t> const & p);
+
   public:
 
     Storage();
@@ -128,9 +139,11 @@ namespace storage
 
     /// @name Current impl supports only one observer
     //@{
-    void Subscribe(TObserverChangeCountryFunction change,
-                   TObserverProgressFunction progress);
-    void Unsubscribe();
+
+    /// @return unique identifier that should be used with Unsubscribe function
+    int Subscribe(TChangeCountryFunction change,
+                  TProgressFunction progress);
+    void Unsubscribe(int slotId);
     //@}
 
     size_t CountriesCount(TIndex const & index) const;
@@ -145,7 +158,7 @@ namespace storage
 
     void CheckForUpdate();
 
-    void NotifyStatusChanhed(TIndex const & index) const;
+    void NotifyStatusChanged(TIndex const & index) const;
 
     int64_t GetCurrentVersion() const;
   };

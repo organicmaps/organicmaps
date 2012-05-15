@@ -56,7 +56,7 @@ namespace storage
 //    return "Unknown error";
 //  }
 
-  Storage::Storage()
+  Storage::Storage() : m_currentSlotId(0)
   {
     LoadCountriesFile(false);
   }
@@ -167,7 +167,7 @@ namespace storage
     else
     {
       // notify about "In Queue" status
-      NotifyStatusChanhed(index);
+      NotifyStatusChanged(index);
     }
   }
 
@@ -187,10 +187,10 @@ namespace storage
     }
   };
 
-  void Storage::NotifyStatusChanhed(TIndex const & index) const
+  void Storage::NotifyStatusChanged(TIndex const & index) const
   {
-    if (m_observerChange)
-      m_observerChange(index);
+    for (list<CountryObservers>::const_iterator it = m_observers.begin(); it != m_observers.end(); ++it)
+      it->m_changeCountryFn(index);
   }
 
   void Storage::DownloadNextCountryFromQueue()
@@ -210,7 +210,7 @@ namespace storage
               bind(&Storage::OnServerListDownloaded, this, _1)));
 
           // new status for country, "Downloading"
-          NotifyStatusChanhed(index);
+          NotifyStatusChanged(index);
           return;
         }
       }
@@ -225,7 +225,7 @@ namespace storage
       }
 
       // new status for country, "OnDisk"
-      NotifyStatusChanhed(index);
+      NotifyStatusChanged(index);
     }
   }
 
@@ -299,7 +299,7 @@ namespace storage
     }
 
     DeactivateAndDeleteCountry(country, m_removeMap);
-    NotifyStatusChanhed(index);
+    NotifyStatusChanged(index);
 
     if (bounds != m2::RectD::GetEmptyRect())
       m_updateRect(bounds);
@@ -320,17 +320,32 @@ namespace storage
     }
   }
 
-  void Storage::Subscribe(TObserverChangeCountryFunction change,
-                          TObserverProgressFunction progress)
+  int Storage::Subscribe(TChangeCountryFunction change,
+                         TProgressFunction progress)
   {
-    m_observerChange = change;
-    m_observerProgress = progress;
+    CountryObservers obs;
+
+    obs.m_changeCountryFn = change;
+    obs.m_progressFn = progress;
+    obs.m_slotId = m_currentSlotId++;
+
+    m_observers.push_back(obs);
+
+    return obs.m_slotId;
   }
 
-  void Storage::Unsubscribe()
+  void Storage::Unsubscribe(int slotId)
   {
-    m_observerChange.clear();
-    m_observerProgress.clear();
+    for (list<CountryObservers>::iterator it = m_observers.begin();
+         it != m_observers.end();
+         ++it)
+    {
+      if (it->m_slotId == slotId)
+      {
+        m_observers.erase(it);
+        return;
+      }
+    }
   }
 
   void Storage::OnMapDownloadFinished(HttpRequest & request)
@@ -349,7 +364,7 @@ namespace storage
       m_failedCountries.insert(index);
 
       // notify GUI about failed country
-      NotifyStatusChanhed(index);
+      NotifyStatusChanged(index);
     }
     else
     {
@@ -399,7 +414,7 @@ namespace storage
   {
     // remove from index set
     m_indexGeneration.erase(index);
-    NotifyStatusChanhed(index);
+    NotifyStatusChanged(index);
 
     // activate downloaded map piece
     m_addMap(fName);
@@ -410,6 +425,12 @@ namespace storage
     m_updateRect(header.GetBounds());
   }
 
+  void Storage::ReportProgress(TIndex const & idx, pair<int64_t, int64_t> const & p)
+  {
+    for (list<CountryObservers>::const_iterator it = m_observers.begin(); it != m_observers.end(); ++it)
+      it->m_progressFn(idx, p);
+  }
+
   void Storage::OnMapDownloadProgress(HttpRequest & request)
   {
     if (m_queue.empty())
@@ -418,12 +439,13 @@ namespace storage
       return;
     }
 
-    if (m_observerProgress)
+    if (!m_observers.empty())
     {
       HttpRequest::ProgressT p = request.Progress();
       p.first += m_countryProgress.first;
       p.second = m_countryProgress.second;
-      m_observerProgress(m_queue.front(), p);
+
+      ReportProgress(m_queue.front(), p);
     }
   }
 
