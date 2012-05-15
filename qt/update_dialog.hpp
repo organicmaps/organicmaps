@@ -39,5 +39,6 @@ namespace qt
   private:
     QTreeWidget * m_tree;
     storage::Storage & m_storage;
+    int m_observerSlotId;
   };
 } // namespace qt

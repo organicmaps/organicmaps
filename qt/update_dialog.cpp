@@ -57,7 +57,9 @@ namespace qt
 ////////////////////////////////////////////////////////////////////////////////
 
   UpdateDialog::UpdateDialog(QWidget * parent, Storage & storage)
-    : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint), m_storage(storage)
+    : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint),
+      m_storage(storage),
+      m_observerSlotId(0)
   {
     setWindowModality(Qt::WindowModal);
 
@@ -85,14 +87,14 @@ namespace qt
     resize(600, 500);
 
     // we want to receive all download progress and result events
-    m_storage.Subscribe(bind(&UpdateDialog::OnCountryChanged, this, _1),
-                        bind(&UpdateDialog::OnCountryDownloadProgress, this, _1, _2));
+    m_observerSlotId = m_storage.Subscribe(bind(&UpdateDialog::OnCountryChanged, this, _1),
+                                            bind(&UpdateDialog::OnCountryDownloadProgress, this, _1, _2));
   }
 
   UpdateDialog::~UpdateDialog()
   {
     // tell download manager that we're gone...
-    m_storage.Unsubscribe();
+    m_storage.Unsubscribe(m_observerSlotId);
   }
 
   /// when user clicks on any map row in the table
