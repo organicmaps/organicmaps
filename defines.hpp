@@ -25,6 +25,8 @@
 #define PACKED_POLYGONS_FILE "packed_polygons.bin"
 #define PACKED_POLYGONS_INFO_TAG "info"
 
+#define EXTERNAL_RESOURCES_FILE "external_resources.txt"
+
 #define DRAWING_RULES_TXT_FILE "drules_proto.txt"
 #define DRAWING_RULES_BIN_FILE "drules_proto.bin"
 
