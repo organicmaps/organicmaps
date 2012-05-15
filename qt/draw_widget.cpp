@@ -17,8 +17,6 @@ using namespace storage;
 
 namespace qt
 {
-  bool s_isExiting = false;
-
   QtVideoTimer::QtVideoTimer(DrawWidget * w, TFrameFn frameFn)
     : ::VideoTimer(frameFn), m_widget(w)
   {}
@@ -71,8 +69,6 @@ namespace qt
 
   void DrawWidget::PrepareShutdown()
   {
-    s_isExiting = true;
-
     m_framework->PrepareToShutdown();
     m_videoTimer.reset();
   }
@@ -209,7 +205,7 @@ namespace qt
 
   void DrawWidget::initializeGL()
   {
-    /// we'll perform swap by ourselves, see issue #333
+    // we'll perform swap by ourselves, see issue #333
     setAutoBufferSwap(false);
 
     if (!m_isInitialized)
@@ -231,7 +227,7 @@ namespace qt
       catch (yg::gl::platform_unsupported const & e)
       {
         LOG(LERROR, ("OpenGL platform is unsupported, reason: ", e.what()));
-        /// TODO: Show "Please Update Drivers" dialog and close the program.
+        /// @todo Show "Please Update Drivers" dialog and close the program.
       }
 
       m_isInitialized = true;
@@ -242,8 +238,10 @@ namespace qt
   {
     m_framework->OnSize(w, h);
     m_framework->Invalidate();
+
     if (m_isInitialized && m_isTimerStarted)
       DrawFrame();
+
     UpdateScaleControl();
     emit ViewportChanged();
   }
@@ -252,10 +250,9 @@ namespace qt
   {
     if (m_isInitialized && !m_isTimerStarted)
     {
-      /// timer should be started upon the first repaint
-      /// request to fully initialized GLWidget.
+      // timer should be started upon the first repaint request to fully initialized GLWidget.
       m_isTimerStarted = true;
-      m_framework->SetUpdatesEnabled(true);
+      (void)m_framework->SetUpdatesEnabled(true);
     }
 
     m_framework->Invalidate();
@@ -263,9 +260,6 @@ namespace qt
 
   void DrawWidget::DrawFrame()
   {
-    if (s_isExiting)
-      return;
-
     if (m_framework->NeedRedraw())
     {
       makeCurrent();
@@ -276,7 +270,7 @@ namespace qt
       m_framework->BeginPaint(paintEvent);
       m_framework->DoPaint(paintEvent);
 
-      /// swapping buffers before ending the frame, see issue #333
+      // swapping buffers before ending the frame, see issue #333
       swapBuffers();
 
       m_framework->EndPaint(paintEvent);

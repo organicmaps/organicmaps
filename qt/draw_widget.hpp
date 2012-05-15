@@ -22,12 +22,10 @@ namespace qt
   class QtVideoTimer : public ::VideoTimer
   {
   private:
-
     QTimer * m_timer;
     DrawWidget * m_widget;
 
   public:
-
     QtVideoTimer(DrawWidget * w, ::VideoTimer::TFrameFn frameFn);
 
     void resume();
@@ -98,13 +96,9 @@ namespace qt
     Framework & GetFramework() { return *m_framework.get(); }
 
   protected:
-
     VideoTimer * CreateVideoTimer();
 
-    static const uint32_t ini_file_version = 0;
-
   protected:
-
     /// @name Overriden from base_type.
     //@{
     virtual void initializeGL();

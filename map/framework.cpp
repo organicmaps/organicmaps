@@ -283,7 +283,8 @@ void Framework::SetMaxWorldRect()
 
 bool Framework::NeedRedraw() const
 {
-  return m_renderPolicy->NeedRedraw();
+  // Checking this here allows to avoid many dummy "IsInitialized" flags in client code.
+  return (m_renderPolicy && m_renderPolicy->NeedRedraw());
 }
 
 void Framework::SetNeedRedraw(bool flag)
