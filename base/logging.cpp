@@ -40,14 +40,15 @@ namespace my
 
     static int threadsCount = 1;
     static map<threads::ThreadID, int> m_shortThreadID;
-    threads::ThreadID id = threads::GetCurrentThreadID();
-    if (m_shortThreadID[id] == 0)
-      m_shortThreadID[id] = threadsCount++;
+
+    int & threadNumber = m_shortThreadID[threads::GetCurrentThreadID()];
+    if (threadNumber == 0)
+      threadNumber = threadsCount++;
 
     ostringstream out;
     out << "LOG";
 
-    out << " TID(" << m_shortThreadID[id] << ")";
+    out << " TID(" << threadNumber << ")";
 
     static Timer s_Timer;
     static char const * names[] = { "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL" };
