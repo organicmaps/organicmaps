@@ -2,8 +2,6 @@
 
 #include "../core/jni_helper.hpp"
 
-#include "../maps/DownloadUI.hpp"
-
 #include "Platform.hpp"
 
 class HttpThread
