@@ -15,21 +15,12 @@ import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.util.Log;
 
-public class DownloadUI extends PreferenceActivity
+public class DownloadUI extends PreferenceActivity implements MapStorage.Listener
 {
   private static String TAG = "DownloadUI";
 
-  private native int countriesCount(int group, int country, int region);
-  private native int countryStatus(int group, int country, int region);
-  private native long countryLocalSizeInBytes(int group, int country, int region);
-  private native long countryRemoteSizeInBytes(int group, int country, int region);
-  private native String countryName(int group, int country, int region);
-  private native void nativeCreate();
-  private native void nativeDestroy();
-
-  private native void downloadCountry(int group, int country, int region);
-  private native void deleteCountry(int group, int country, int region);
-
+  private int mSlotId = 0;
+  
   private AlertDialog.Builder m_alert;
   private DialogInterface.OnClickListener m_alertCancelHandler = new DialogInterface.OnClickListener() {
     public void onClick(DialogInterface dlg, int which) { dlg.dismiss(); } };
@@ -38,38 +29,45 @@ public class DownloadUI extends PreferenceActivity
   private String m_kb;
   private String m_mb;
 
-  static
-  {
-    // Used to avoid crash when ndk library is not loaded.
-    // We just "touch" MWMActivity which should load it automatically
-    MWMActivity.getCurrentContext();
-  }
-
+  private MapStorage mMapStorage;
+  
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
+    mMapStorage = MapStorage.getInstance();
+    
     super.onCreate(savedInstanceState);
 
     m_kb = getString(R.string.kb);
     m_mb = getString(R.string.mb);
 
     PreferenceScreen root = getPreferenceManager().createPreferenceScreen(this);
-    setPreferenceScreen(createCountriesHierarchy(root, -1, -1, -1));
+    setPreferenceScreen(createCountriesHierarchy(root, new MapStorage.Index()));
 
     m_alert = new AlertDialog.Builder(this);
     m_alert.setCancelable(true);
-
-    nativeCreate();
   }
-
+  
   @Override
-  public void onDestroy()
+  protected void onResume()
   {
-    super.onDestroy();
-
-    nativeDestroy();
+    super.onResume();
+    
+    if (mSlotId == 0)
+      mSlotId = mMapStorage.subscribe(this);
   }
-
+  
+  protected void onPause()
+  {
+    super.onPause();
+    
+    if (mSlotId != 0)
+    {
+      mMapStorage.unsubscribe(mSlotId);
+      mSlotId = 0;
+    }
+  }
+  
   private String formatSizeString(long sizeInBytes)
   {
     if (sizeInBytes > 1024 * 1024)
@@ -80,73 +78,73 @@ public class DownloadUI extends PreferenceActivity
       return (sizeInBytes + 1023) / 1024 + " " + m_kb;
   }
 
-  private void updateCountryCell(final Preference cell, int group, int country, int region)
+  private void updateCountryCell(final Preference cell, MapStorage.Index idx)
   {
-    final int status = countryStatus(group, country, region);
+    final int status = mMapStorage.countryStatus(idx);
 
     switch (status)
     {
-    case 0: // EOnDisk
+    case MapStorage.ON_DISK:
       cell.setSummary(getString(R.string.downloaded_touch_to_delete,
-          formatSizeString(countryLocalSizeInBytes(group, country, region))));
+          formatSizeString(mMapStorage.countryLocalSizeInBytes(idx))));
       cell.setLayoutResource(R.layout.country_on_disk);
       break;
-    case 1: // ENotDownloaded
+    case MapStorage.NOT_DOWNLOADED:
       cell.setSummary(getString(R.string.touch_to_download));
       cell.setLayoutResource(R.layout.country_not_downloaded);
       break;
-    case 2: // EDownloadFailed
+    case MapStorage.DOWNLOAD_FAILED:
       cell.setSummary(getString(R.string.download_has_failed));
       cell.setLayoutResource(R.layout.country_download_failed);
       break;
-    case 3: // EDownloading
+    case MapStorage.DOWNLOADING:
       cell.setSummary(getString(R.string.downloading));
       cell.setLayoutResource(R.layout.country_downloading);
       break;
-    case 4: // EInQueue
+    case MapStorage.IN_QUEUE:
       cell.setSummary(getString(R.string.marked_for_downloading));
       cell.setLayoutResource(R.layout.country_in_the_queue);
       break;
-    case 5: // EUnknown
+    case MapStorage.UNKNOWN:
       cell.setSummary("Unknown state :(");
       break;
-    case 6: // EGeneratingIndex
+    case MapStorage.GENERATING_INDEX:
       cell.setSummary("Indexing for search...");
       cell.setLayoutResource(R.layout.country_generating_search_index);
     }
   }
 
-  public void onChangeCountry(int group, int country, int region)
+  public void onCountryStatusChanged(MapStorage.Index idx)
   {
-    final Preference cell = findPreference(group + " " + country + " " + region);
+    final Preference cell = findPreference(idx.mGroup + " " + idx.mCountry + " " + idx.mRegion);
     if (cell == null)
     {
-      Log.d(TAG, String.format("no preference found for %d %d %d", group, country, region));
+      Log.d(TAG, String.format("no preference found for %d %d %d", idx.mGroup, idx.mCountry, idx.mRegion));
       return;
     }
-    updateCountryCell(cell, group, country, region);
+    updateCountryCell(cell, idx);
   }
 
-  public void onProgress(int group, int country, int region, long current, long total)
+  public void onCountryProgress(MapStorage.Index idx, long current, long total)
   {
-    final Preference c = findPreference(group + " " + country + " " + region);
+    final Preference c = findPreference(idx.mGroup + " " + idx.mCountry + " " + idx.mRegion);
 
     if (c == null)
-      Log.d(TAG, String.format("no preference found for %d %d %d", group, country, region));
+      Log.d(TAG, String.format("no preference found for %d %d %d", idx.mGroup, idx.mCountry, idx.mRegion));
     else
       c.setSummary(getString(R.string.downloading_touch_to_cancel, current * 100 / total));
   }
 
-  private Preference createElement(int group, int country, int region)
+  private Preference createElement(MapStorage.Index idx)
   {
-    final String name = countryName(group, country, region);
-    if (countriesCount(group, country, region) == 0)
+    final String name = mMapStorage.countryName(idx);
+    if (mMapStorage.countriesCount(idx) == 0)
     { // it's downloadable country element
       final Preference cell = new Preference(this);
-      cell.setKey(group + " " + country + " " + region);
+      cell.setKey(idx.mGroup + " " + idx.mCountry + " " + idx.mRegion);
       cell.setTitle(name);
 
-      updateCountryCell(cell, group, country, region);
+      updateCountryCell(cell, idx);
 
       return cell;
     }
@@ -154,11 +152,11 @@ public class DownloadUI extends PreferenceActivity
     { // it's parent element for downloadable countries
       PreferenceScreen parent = getPreferenceManager().createPreferenceScreen(this);
       parent.setTitle(name);
-      return createCountriesHierarchy(parent, group, country, region);
+      return createCountriesHierarchy(parent, idx);
     }
   }
 
-  private PreferenceScreen createCountriesHierarchy(PreferenceScreen root, int group, int country, int region)
+  private PreferenceScreen createCountriesHierarchy(PreferenceScreen root, MapStorage.Index idx)
   {
     // Add "header" with "Map" and "Connection Settings" buttons
     final Preference cell = new Preference(this);
@@ -168,15 +166,15 @@ public class DownloadUI extends PreferenceActivity
       cell.setLayoutResource(R.layout.downloader_header_map);
     root.addPreference(cell);
 
-    final int count = countriesCount(group, country, region);
+    final int count = mMapStorage.countriesCount(idx);
     for (int i = 0; i < count; ++i)
     {
-      if (group == -1)
-        root.addPreference(createElement(i, country, region));
-      else if (country == -1)
-        root.addPreference(createElement(group, i, region));
-      else if (region == -1)
-        root.addPreference(createElement(group, country, i));
+      if (idx.mGroup == -1)
+        root.addPreference(createElement(new MapStorage.Index(i, idx.mCountry, idx.mRegion)));
+      else if (idx.mCountry == -1)
+        root.addPreference(createElement(new MapStorage.Index(idx.mGroup, i, idx.mRegion)));
+      else if (idx.mRegion == -1)
+        root.addPreference(createElement(new MapStorage.Index(idx.mGroup, idx.mCountry, i)));
     }
     return root;
   }
@@ -208,13 +206,13 @@ public class DownloadUI extends PreferenceActivity
       final int country = Integer.parseInt(keys[1]);
       final int region = Integer.parseInt(keys[2]);
 
-      switch (countryStatus(group, country, region))
+      switch (mMapStorage.countryStatus(new MapStorage.Index(group, country, region)))
       {
-      case 0: // EOnDisk
-        m_alert.setTitle(countryName(group, country, region));
+      case MapStorage.ON_DISK:
+        m_alert.setTitle(mMapStorage.countryName(new MapStorage.Index(group, country, region)));
         m_alert.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
           public void onClick(DialogInterface dlg, int which) {
-            deleteCountry(group, country, region);
+            mMapStorage.deleteCountry(new MapStorage.Index(group, country, region));
             dlg.dismiss();
           }
         });
@@ -222,10 +220,10 @@ public class DownloadUI extends PreferenceActivity
         m_alert.create().show();
         break;
 
-      case 1: // ENotDownloaded
+      case MapStorage.NOT_DOWNLOADED:
         // Check for available free space
-        final long size = countryRemoteSizeInBytes(group, country, region);
-        final String name = countryName(group, country, region);
+        final long size = mMapStorage.countryRemoteSizeInBytes(new MapStorage.Index(group, country, region));
+        final String name = mMapStorage.countryName(new MapStorage.Index(group, country, region));
         if (size > getFreeSpace())
         {
           showNotEnoughFreeSpaceDialog(formatSizeString(size), name);
@@ -237,7 +235,7 @@ public class DownloadUI extends PreferenceActivity
           m_alert.setPositiveButton(getString(R.string.download_mb_or_kb, formatSizeString(size)),
               new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dlg, int which) {
-                  downloadCountry(group, country, region);
+                  mMapStorage.downloadCountry(new MapStorage.Index(group, country, region));
                   dlg.dismiss();
                 }
               });
@@ -246,17 +244,17 @@ public class DownloadUI extends PreferenceActivity
         }
         break;
 
-      case 2: // EDownloadFailed
+      case MapStorage.DOWNLOAD_FAILED:
         // Do not confirm download if status is failed, just start it
-        downloadCountry(group, country, region);
+        mMapStorage.downloadCountry(new MapStorage.Index(group, country, region));
         break;
 
-      case 3: // EDownloading
+      case MapStorage.DOWNLOADING:
         /// Confirm canceling
-        m_alert.setTitle(countryName(group, country, region));
+        m_alert.setTitle(mMapStorage.countryName(new MapStorage.Index(group, country, region)));
         m_alert.setPositiveButton(R.string.cancel_download, new DialogInterface.OnClickListener() {
           public void onClick(DialogInterface dlg, int which) {
-            deleteCountry(group, country, region);
+            mMapStorage.deleteCountry(new MapStorage.Index(group, country, region));
             dlg.dismiss();
           }
         });
@@ -264,12 +262,12 @@ public class DownloadUI extends PreferenceActivity
         m_alert.create().show();
         break;
 
-      case 4: // EInQueue
+      case MapStorage.IN_QUEUE:
         // Silently discard country from the queue
-        deleteCountry(group, country, region);
+        mMapStorage.deleteCountry(new MapStorage.Index(group, country, region));
         break;
 
-      case 5: // EUnknown
+      case MapStorage.UNKNOWN:
         Log.d(TAG, "Unknown country state");
         break;
       }

@@ -327,7 +327,7 @@ namespace storage
 
     obs.m_changeCountryFn = change;
     obs.m_progressFn = progress;
-    obs.m_slotId = m_currentSlotId++;
+    obs.m_slotId = ++m_currentSlotId;
 
     m_observers.push_back(obs);
 
@@ -492,10 +492,22 @@ namespace storage
   TIndex const Storage::FindIndexByName(string const & name) const
   {
     for (unsigned i = 0; i < m_countries.SiblingsCount(); ++i)
+    {
+      if (m_countries[i].Value().Name() == name)
+        return TIndex(i);
+
       for (unsigned j = 0; j < m_countries[i].SiblingsCount(); ++j)
+      {
+        if (m_countries[i][j].Value().Name() == name)
+          return TIndex(i, j);
+
         for (unsigned k = 0; k < m_countries[i][j].SiblingsCount(); ++k)
+        {
           if (m_countries[i][j][k].Value().Name() == name)
             return TIndex(i, j, k);
+        }
+      }
+    }
 
     return TIndex();
   }

@@ -27,12 +27,12 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/core/jni_helper.cpp \
 	com/mapswithme/core/logging.cpp \
 	com/mapswithme/core/render_context.cpp \
-	com/mapswithme/maps/DownloadUI.cpp \
 	com/mapswithme/maps/Framework.cpp \
 	com/mapswithme/maps/VideoTimer.cpp \
 	com/mapswithme/maps/MWMActivity.cpp \
 	com/mapswithme/maps/MWMApplication.cpp \
 	com/mapswithme/maps/Lifecycle.cpp \
+	com/mapswithme/maps/MapStorage.cpp \
 	com/mapswithme/maps/DownloadResourcesActivity.cpp \
 	com/mapswithme/platform/Platform.cpp \
 	com/mapswithme/platform/HttpThread.cpp \
