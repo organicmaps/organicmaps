@@ -69,6 +69,21 @@ android/gen
 android/libs
 android/obj
 android/.settings
+android/.classpath
+android/.cproject
+android/.project
+android/assets
+android/local.properties
+android/ant.properties
+# local android scripts, such as debugger helper scrips
+android/local
+# ignore flags symlinks
+android/res/drawable-xhdpi/??.png
+android/res/drawable-xhdpi/do_hack.png
+android/res/drawable-xhdpi/uk_england.png
+android/res/drawable-xhdpi/uk_northern_ireland.png
+android/res/drawable-xhdpi/uk_scotland.png
+android/res/drawable-xhdpi/uk_wales.png
 
 # data
 data/intermediate_data
@@ -90,15 +105,6 @@ data/benchmarks/iphone3g/*
 data/benchmarks/ipod4/*
 data/benchmarks/ipad/*
 data/benchmarks/mac/*
-
-android/.classpath
-android/.cproject
-android/.project
-android/assets
-android/local.properties
-android/ant.properties
-# local android scripts, such as debugger helper scrips
-android/local
 
 qtc_packaging
 

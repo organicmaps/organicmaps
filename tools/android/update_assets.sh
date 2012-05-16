@@ -20,3 +20,6 @@ done
 
 # Separate case for World and countries list files without search support
 ln -s $SRC/countries.txt.nosearch $DST/countries.txt
+
+# Call flag symlinks generation
+./update_flags.sh
