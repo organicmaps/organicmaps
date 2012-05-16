@@ -2,18 +2,26 @@ package com.mapswithme.maps;
 
 import java.io.File;
 
+import com.mapswithme.maps.location.LocationService;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-public class DownloadResourcesActivity extends Activity
+public class DownloadResourcesActivity extends Activity implements LocationService.Listener, MapStorage.Listener
 {
   private static final String TAG = "DownloadResourcesActivity";
   
@@ -29,41 +37,28 @@ public class DownloadResourcesActivity extends Activity
   private static final int ERR_NO_MORE_FILES = -5;
   private static final int ERR_FILE_IN_PROGRESS = -6;
 
-  MWMApplication mApplication;
-  
-  protected void prepareFilesDownload()
-  {
-    // Check if we need to perform any downloading
-    final int bytes = nativeGetBytesToDownload(
-        mApplication.getApkPath(), 
-        mApplication.getDataStoragePath());
-
-    /// disabling screen
-    disableAutomaticStandby();
-    
-    if (bytes > 0)
-    {
-      // Display copy progress dialog
-      Log.w(TAG, "prepareFilesDownload, bytesToDownload:" + bytes);
-      
-      showDialog(bytes);
-      
-      if (nativeDownloadNextFile(this) == ERR_NO_MORE_FILES)
-        finishFilesDownload(ERR_NO_MORE_FILES);
-    }
-    else if (bytes == 0)
-    {
-      // All files are in place, continue with UI initialization
-      finishFilesDownload(ERR_DOWNLOAD_SUCCESS);
-    }
-    else
-    {
-      // Display error dialog in UI, very rare case
-      finishFilesDownload(ERR_NOT_ENOUGH_MEMORY);
-    }
-  }
-
+  private MWMApplication mApplication = null;
+  private MapStorage mMapStorage = null;
+  private int mBytesToDownload = 0;
+  private int mSlotId = 0;
+  private TextView mMsgView = null;
+  private ProgressBar mProgress = null;
+  private Button mDownloadButton = null;
+  private Button mCancelButton = null;
+  private Button mProceedButton = null;
+  private Button mTryAgainButton = null;
+  private CheckBox mDownloadCountryCheckBox = null;
+  private LocationService mLocationService = null;
+  private String mCountryName = null;
+  private boolean mHasLocation = false;
   private WakeLock mWakeLock = null;
+  
+  private int getBytesToDownload()
+  {
+    return nativeGetBytesToDownload(
+              mApplication.getApkPath(), 
+              mApplication.getDataStoragePath());
+  }
   
   private void disableAutomaticStandby()
   {
@@ -85,25 +80,102 @@ public class DownloadResourcesActivity extends Activity
     }
   }
   
-  
-  @Override
-  protected void onCreate(Bundle savedInstanceState)
+  private void setDownloadMessage(int bytesToDownload)
   {
-    super.onCreate(savedInstanceState);
-    // Set the same layout as for MWMActivity
-    setContentView(R.layout.map);
+    Log.w(TAG, "prepareFilesDownload, bytesToDownload:" + bytesToDownload);
 
-    mApplication = (MWMApplication)getApplication();
-
-    // Create sdcard folder if it doesn't exist
-    new File(mApplication.getDataStoragePath()).mkdirs();
-    // Used to migrate from v2.0.0 to 2.0.1
-    nativeMoveMaps(mApplication.getExtAppDirectoryPath("files"), 
-                   mApplication.getDataStoragePath());
-
-    prepareFilesDownload();
-  }
+    if (bytesToDownload < 1024 * 1024)
+      mMsgView.setText(String.format(getString(R.string.download_resources), 
+                                    bytesToDownload * 1.0f / 1024, 
+                                    getString(R.string.kb)));
+    else
+      mMsgView.setText(String.format(getString(R.string.download_resources,
+                                    bytesToDownload * 1.0f / 1024 / 1024,
+                                    getString(R.string.mb))));
     
+    /// set normal text color
+    mMsgView.setTextColor(Color.WHITE);
+  }
+  
+  protected void prepareFilesDownload()
+  {
+    if (mBytesToDownload > 0)
+    {
+      setDownloadMessage(mBytesToDownload);
+     
+      findViewById(R.id.download_resources_location_progress).setVisibility(View.VISIBLE);
+      findViewById(R.id.download_resources_location_message).setVisibility(View.VISIBLE);
+      
+      mLocationService = mApplication.getLocationService();
+      mLocationService.startUpdate(this);
+    }
+    else
+    {
+      disableAutomaticStandby();
+      finishFilesDownload(mBytesToDownload);
+    }
+  }
+
+  public void onDownloadClicked(View v)
+  {
+    disableAutomaticStandby();
+
+    mProgress.setVisibility(View.VISIBLE);
+    mProgress.setMax(mBytesToDownload);
+    
+    mDownloadButton.setVisibility(View.GONE);
+    mCancelButton.setVisibility(View.VISIBLE);
+    
+    nativeDownloadNextFile(this);
+  }
+
+  public void onCancelClicked(View v)
+  {
+    mDownloadButton.setVisibility(View.VISIBLE);
+    mCancelButton.setVisibility(View.GONE);
+  }
+  
+  public void onTryAgainClicked(View v)
+  {
+    mTryAgainButton.setVisibility(View.GONE);
+    mCancelButton.setVisibility(View.VISIBLE);
+    
+    mBytesToDownload = getBytesToDownload();
+    
+    setDownloadMessage(mBytesToDownload);
+    
+    nativeDownloadNextFile(this);
+  }
+  
+  public void onProceedToMapClicked(View v)
+  {
+    showMapView(); 
+  }
+  
+  
+  public String getErrorMessage(int res)
+  {
+    int id;
+    switch (res)
+    {
+      case ERR_NOT_ENOUGH_FREE_SPACE: id = R.string.not_enough_free_space_on_sdcard; break;
+      case ERR_STORAGE_DISCONNECTED: id = R.string.disconnect_usb_cable; break;
+      case ERR_DOWNLOAD_ERROR: id = R.string.download_has_failed; break;
+      default: id = R.string.not_enough_memory;
+    }
+    
+    return getString(id);
+  }
+  
+  public void showMapView()
+  {
+    // Continue with Main UI initialization (MWMActivity)
+    Intent mwmActivityIntent = new Intent(this, MWMActivity.class);
+    // Disable animation because MWMActivity should appear exactly over this one
+    mwmActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+    startActivity(mwmActivityIntent);
+  }
+  
   public void finishFilesDownload(int result)
   {
     enableAutomaticStandby();
@@ -111,61 +183,109 @@ public class DownloadResourcesActivity extends Activity
     {
       Log.w(TAG, "finished files download");
       
-      // Continue with Main UI initialization (MWMActivity)
-      Intent mwmActivityIntent = new Intent(this, MWMActivity.class);
-      // Disable animation because MWMActivity should appear exactly over this one
-      mwmActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-      startActivity(mwmActivityIntent);
+      if (mHasLocation && mDownloadCountryCheckBox.isChecked())
+      {
+        mDownloadCountryCheckBox.setVisibility(View.GONE);
+        mMsgView.setText("Downloading " + mCountryName + ". You can now\n" +
+                         "proceed to the map");
+        
+        MapStorage.Index idx = mMapStorage.findIndexByName(mCountryName);
+        
+        if (idx.isValid())
+        {
+          mProgress.setMax((int)mMapStorage.countryRemoteSizeInBytes(idx));
+          mProgress.setProgress(0);
+          
+          mMapStorage.downloadCountry(idx);
+          mProceedButton.setVisibility(View.VISIBLE);
+          mCancelButton.setVisibility(View.GONE);
+        }
+        else
+          showMapView();
+      }
+      else
+        showMapView();
     }
     else
     {
-      // Hide loading progress
-      if (mDialog != null)
-        mDialog.dismiss();
-
-      int errMsgId;
-      switch (result)
-      {
-      case ERR_NOT_ENOUGH_FREE_SPACE: errMsgId = R.string.not_enough_free_space_on_sdcard; break;
-      case ERR_STORAGE_DISCONNECTED: errMsgId = R.string.disconnect_usb_cable; break;
-      case ERR_DOWNLOAD_ERROR: errMsgId = R.string.download_has_failed; break;
-      default: errMsgId = R.string.not_enough_memory;
-      }
-      // Display Error dialog with close button
-      new AlertDialog.Builder(this).setMessage(errMsgId)
-        .setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
-          public void onClick(DialogInterface dialog, int whichButton) {
-              finish();
-              moveTaskToBack(true);
-          }})
-        .create().show();
+      mMsgView.setText(getErrorMessage(result));
+      mMsgView.setTextColor(Color.RED);
+      
+      mCancelButton.setVisibility(View.GONE);
+      mDownloadButton.setVisibility(View.GONE);
+      mTryAgainButton.setVisibility(View.VISIBLE);
     }
   }
-
-  @Override
-  protected Dialog onCreateDialog(int totalBytesToDownload)
+  
+  public void onCountryStatusChanged(MapStorage.Index idx)
   {
-    mDialog = new ProgressDialog(this);
-
-    mDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-    mDialog.setMessage(getString(R.string.loading));
-    mDialog.setCancelable(true);
-    mDialog.setIndeterminate(false);
+    final int status = mMapStorage.countryStatus(idx);
     
-    Log.w(TAG, "progressMax:" + totalBytesToDownload);
-    
-    mDialog.setMax(totalBytesToDownload);
-    
-    return mDialog;
+    if (status == MapStorage.ON_DISK)
+      showMapView();
   }
+  
+  public void onCountryProgress(MapStorage.Index idx, long current, long total)
+  {
+    mProgress.setProgress((int)current);
+  }
+  
+  @Override
+  protected void onCreate(Bundle savedInstanceState)
+  {
+    super.onCreate(savedInstanceState);
+    // Set the same layout as for MWMActivity
+    setContentView(R.layout.download_resources);
 
+    mApplication = (MWMApplication)getApplication();
+    mMapStorage = MapStorage.getInstance();
+    
+    mSlotId = mMapStorage.subscribe(this);
+
+    // Create sdcard folder if it doesn't exist
+    new File(mApplication.getDataStoragePath()).mkdirs();
+    // Used to migrate from v2.0.0 to 2.0.1
+    nativeMoveMaps(mApplication.getExtAppDirectoryPath("files"), 
+                   mApplication.getDataStoragePath());
+
+    mBytesToDownload = getBytesToDownload();
+    
+    if (mBytesToDownload == 0)
+      showMapView();
+    else 
+    {
+      mMsgView = (TextView)findViewById(R.id.download_resources_message);
+      mProgress = (ProgressBar)findViewById(R.id.download_resources_progress);
+      mDownloadButton = (Button)findViewById(R.id.download_resources_button_download);
+      mCancelButton = (Button)findViewById(R.id.download_resources_button_cancel);
+      mProceedButton = (Button)findViewById(R.id.download_resources_button_continue);
+      mTryAgainButton = (Button)findViewById(R.id.download_resources_button_tryagain);
+      mDownloadCountryCheckBox = (CheckBox)findViewById(R.id.download_country_checkbox);
+      prepareFilesDownload();
+    }
+  }
+  
+  @Override
+  protected void onDestroy()
+  {
+    if (mLocationService != null)
+    {
+      mLocationService.stopUpdate(this);
+      mLocationService = null; 
+    }
+    
+    mMapStorage.unsubscribe(mSlotId);
+    
+    super.onDestroy();
+  }
+   
   public void onDownloadProgress(int currentTotal, int currentProgress, int globalTotal, int globalProgress)
   {
     Log.w(TAG, "curTotal:" + currentTotal + ", curProgress:" + currentProgress 
              + ", glbTotal:" + globalTotal + ", glbProgress:" + globalProgress);
     
-    if (mDialog != null)
-      mDialog.setProgress(globalProgress);
+    if (mProgress != null)
+      mProgress.setProgress(globalProgress);
   }
   
   public void onDownloadFinished(int errorCode)  
@@ -182,5 +302,49 @@ public class DownloadResourcesActivity extends Activity
   
   private native void nativeMoveMaps(String fromFolder, String toFolder);
   private native int nativeGetBytesToDownload(String m_apkPath, String m_sdcardPath);
+  private native void nativeAddCountryToDownload(String countryName, Object observer);
   private native int nativeDownloadNextFile(Object observer);
+  private native String nativeGetCountryName(double lat, double lon);
+  
+  private boolean mReceivedFirstEvent = false;
+
+  private int mLocationsCount = 0;
+  private final int mLocationsTryCount = 0;
+  
+  public void onLocationUpdated(long time, double lat, double lon, float accuracy)
+  {
+    if (mReceivedFirstEvent)
+    {
+      if (mLocationsCount == mLocationsTryCount)
+      {
+        findViewById(R.id.download_resources_location_progress).setVisibility(View.GONE);
+        findViewById(R.id.download_resources_location_message).setVisibility(View.GONE);
+      
+        CheckBox checkBox = (CheckBox)findViewById(R.id.download_country_checkbox);
+              
+        Log.w(TAG, "Location : " + lat + ", " + lon);
+        
+        checkBox.setVisibility(View.VISIBLE);
+        mCountryName = nativeGetCountryName(lat, lon);
+        mHasLocation = true;
+        checkBox.setText(String.format(getString(R.string.download_country), mCountryName));
+      
+        mLocationService.stopUpdate(this);
+        mLocationService = null;
+      }
+      
+      Log.w(TAG, "tryCount:" + mLocationsCount);
+      ++mLocationsCount;
+    }
+  }
+
+  public void onCompassUpdated(long time, double magneticNorth,
+      double trueNorth, float accuracy)
+  {}
+
+  public void onLocationStatusChanged(int status)
+  {
+    if (status == LocationService.FIRST_EVENT)
+      mReceivedFirstEvent = true;    
+  }
 }

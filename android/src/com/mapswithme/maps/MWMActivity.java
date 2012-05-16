@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.Surface;
 import android.view.View;
 import android.webkit.WebView;
 import android.util.DisplayMetrics;
@@ -33,8 +34,6 @@ public class MWMActivity extends NvEventQueueActivity implements
 
   private static String TAG = "MWMActivity";
 
-  private LocationService m_locationService = null;
-
   private BroadcastReceiver m_externalStorageReceiver = null;
   private AlertDialog m_storageDisconnectedDialog = null;
   private boolean m_shouldStartLocationService = false;
@@ -46,7 +45,7 @@ public class MWMActivity extends NvEventQueueActivity implements
   {
     if (m_shouldStartLocationService)
     {
-      m_locationService.startUpdate(this, this);
+      mApplication.getLocationService().startUpdate(this);
       m_shouldStartLocationService = false;
     }
   }
@@ -168,9 +167,9 @@ public class MWMActivity extends NvEventQueueActivity implements
     v.setBackgroundResource(R.drawable.myposition_button_normal);
     final boolean isLocationActive = v.isSelected();
     if (isLocationActive)
-      m_locationService.stopUpdate(this);
+      mApplication.getLocationService().stopUpdate(this);
     else
-      m_locationService.startUpdate(this, this);
+      mApplication.getLocationService().startUpdate(this);
     v.setSelected(!isLocationActive);
     // Store active state of My Position
     SharedPreferences.Editor prefsEdit = getSharedPreferences(mApplication.getPackageName(), MODE_PRIVATE).edit();
@@ -206,8 +205,6 @@ public class MWMActivity extends NvEventQueueActivity implements
     getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
     //m_timer = new VideoTimer();
-
-    m_locationService = new LocationService(this);
   }
 
   // From Location interface
@@ -225,9 +222,45 @@ public class MWMActivity extends NvEventQueueActivity implements
     nativeLocationUpdated(time, lat, lon, accuracy);
   }
 
+  public double normalizeAngle(double a)
+  {
+    // normalize magneticNorth into [0, 2PI] and convert to degrees
+    if (a < 0.0) 
+      a += (2.0*Math.PI);
+    a = a % (2.0*Math.PI);
+    a = a * 180.0 / Math.PI;
+    return a;
+  }
+  
   // From Location interface
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, float accuracy)
   {
+    // correct direction 
+    final int screenRotation = getWindowManager().getDefaultDisplay().getOrientation();
+    
+    double correction = 0;
+    
+    // correct due to orientation
+    switch (screenRotation)
+    {
+    case Surface.ROTATION_90:
+      correction = Math.PI / 2.0;
+      break;
+    case Surface.ROTATION_180:
+      correction = Math.PI;
+      break;
+    case Surface.ROTATION_270:
+      correction = (3.0 * Math.PI / 2.0);
+      break;
+    }
+    
+    magneticNorth += correction;
+    trueNorth += correction;
+
+    magneticNorth = normalizeAngle(magneticNorth);
+    trueNorth = normalizeAngle(trueNorth); 
+    
+           
     nativeCompassUpdated(time, magneticNorth, trueNorth, accuracy);
   }
 
@@ -247,7 +280,7 @@ public class MWMActivity extends NvEventQueueActivity implements
     //< stop update only if it's started in OnRenderingInitialized    
     if (!m_shouldStartLocationService) 
       if (findViewById(R.id.map_button_myposition).isSelected())
-        m_locationService.stopUpdate(this);
+        mApplication.getLocationService().stopUpdate(this);
 
     stopWatchingExternalStorage();
 

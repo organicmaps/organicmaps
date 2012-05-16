@@ -31,4 +31,8 @@
     <string name="not_enough_memory">Недостаточно памяти для запуска программы</string>
     <string name="free_space_for_country">Для загрузки %2$s нужно %1$s свободного места</string>
     <string name="map">Карта</string>
+    <string name="download_resources">Для запуска программы нужно загрузить\n %1$.3f%2$s необходимых ресурсов.</string>
+    <string name="download_country">Загрузить ?</string>
+    <string name="getting_position">Получаем местоположение</string>
+    <string name="download_resources_continue">Перейти на карту</string>
 </resources>

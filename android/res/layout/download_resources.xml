@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/download_resources_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_launcher" 
+            />
+
+        <TextView
+            android:layout_marginTop="20dip"
+            android:id="@+id/download_resources_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/download_resources"
+            android:textSize="16sp"
+            />
+        
+        <ProgressBar
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_marginTop="20dip"
+            android:id="@+id/download_resources_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="false"
+            android:minWidth="200dip"
+            android:visibility="gone"
+            />
+        
+        <Button 
+            android:layout_marginTop="20dip"
+	          android:width="120dip"
+  	        android:id="@+id/download_resources_button_download"
+  	        android:textSize="12sp"
+	          android:gravity="center"
+	          android:layout_gravity="center"
+	          android:layout_width="wrap_content"
+	          android:layout_height="wrap_content"
+          	android:text="Download"
+           	android:onClick="onDownloadClicked"
+           	/>
+        
+        <Button
+            android:layout_marginTop="20dip"            
+            android:width="120dip"
+            android:id="@+id/download_resources_button_cancel"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:onClick="onCancelClicked"
+        		android:visibility="gone"
+        		/>
+        
+        <Button 
+            android:layout_marginTop="20dip"            
+            android:width="120dip"
+            android:id="@+id/download_resources_button_continue"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/download_resources_continue"
+            android:onClick="onProceedToMapClicked"
+            android:visibility="gone"
+            />
+
+        <Button 
+            android:layout_marginTop="20dip"            
+            android:width="120dip"
+            android:id="@+id/download_resources_button_tryagain"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Try Again"
+            android:onClick="onTryAgainClicked"
+            android:visibility="gone"
+            />
+        
+        <TextView 
+            android:id="@+id/download_resources_location_message"
+            android:layout_marginTop="20dip"
+            android:layout_width="fill_parent"
+						android:layout_height="wrap_content"            
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/getting_position"
+            android:visibility="gone"
+            />
+
+        <ProgressBar
+            android:layout_marginTop="20dip"
+            android:id="@+id/download_resources_location_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:visibility="gone"
+            />
+        
+        <CheckBox
+            android:layout_marginTop="20dip"
+            android:id="@+id/download_country_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/download_country" 
+            android:visibility="gone"
+            />
+        
+    </LinearLayout>
+
+</LinearLayout>

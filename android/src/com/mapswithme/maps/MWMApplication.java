@@ -2,6 +2,8 @@ package com.mapswithme.maps;
 
 import java.io.File;
 
+import com.mapswithme.maps.location.LocationService;
+
 import android.app.Application;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Environment;
@@ -10,8 +12,12 @@ public class MWMApplication extends Application
 {
   public final static String PACKAGE_NAME = "com.mapswithme.maps";
   
+  private LocationService mLocationService = null;
+  
   public void onCreate()
   {
+    super.onCreate();    
+    
     final String extStoragePath = getDataStoragePath();
     final String extTmpPath = getExtAppDirectoryPath("caches");
     // Create folders if they don't exist
@@ -24,10 +30,16 @@ public class MWMApplication extends Application
                extTmpPath,
                getSettingsPath(),
                getString(R.string.empty_model));
-        
-    super.onCreate();    
   }
 
+  public LocationService getLocationService()
+  {
+    if (mLocationService == null)
+      mLocationService = new LocationService(this);
+      
+    return mLocationService; 
+  }
+  
   public String getApkPath()
   {
     try

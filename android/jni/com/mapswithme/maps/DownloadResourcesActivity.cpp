@@ -294,4 +294,16 @@ extern "C"
     for (size_t i = 0; i < files.size(); ++i)
       remove((from + files[i]).c_str());
   }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_DownloadResourcesActivity_nativeGetCountryName(JNIEnv * env, jobject thiz,
+      jdouble lat, jdouble lon)
+  {
+    double x = MercatorBounds::LonToX(lon);
+    double y = MercatorBounds::LatToY(lat);
+
+    string name = g_framework->GetCountryName(x, y);
+
+    return env->NewStringUTF(name.c_str());
+  }
 }

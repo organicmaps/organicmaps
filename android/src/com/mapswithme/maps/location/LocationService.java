@@ -4,9 +4,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-import com.mapswithme.maps.MWMActivity;
+import com.mapswithme.maps.MWMApplication;
 
-import android.app.Activity;
 import android.content.Context;
 import android.hardware.GeomagneticField;
 import android.hardware.Sensor;
@@ -20,7 +19,6 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.util.Log;
-import android.view.Surface;
 
 public class LocationService implements LocationListener, SensorEventListener, WifiLocation.Listener
 {
@@ -40,7 +38,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
     public void onLocationStatusChanged(int status);
   };
 
-  private HashSet<Listener> m_observers = new HashSet<Listener>(2);
+  private HashSet<Listener> m_observers = new HashSet<Listener>(10);
 
   // Used to filter locations from different providers
   private Location m_lastLocation = null;
@@ -59,12 +57,16 @@ public class LocationService implements LocationListener, SensorEventListener, W
   // @TODO Refactor to deliver separate first update notification to each provider,
   // or do not use it at all in the location service logic
   private boolean m_reportFirstUpdate = true;
+  
+  private WakeLock m_wakeLock = null;
+  private MWMApplication mApplication = null;
 
-  public LocationService(Context c)
+  public LocationService(MWMApplication application)
   {
+    mApplication = application;
     // Acquire a reference to the system Location Manager
-    m_locationManager = (LocationManager) c.getSystemService(Context.LOCATION_SERVICE);
-    m_sensorManager = (SensorManager) c.getSystemService(Context.SENSOR_SERVICE);
+    m_locationManager = (LocationManager) mApplication.getSystemService(Context.LOCATION_SERVICE);
+    m_sensorManager = (SensorManager) mApplication.getSystemService(Context.SENSOR_SERVICE);
 
     if (m_sensorManager != null)
     {
@@ -94,14 +96,12 @@ public class LocationService implements LocationListener, SensorEventListener, W
       it.next().onCompassUpdated(time, magneticNorth, trueNorth, accuracy);
   }
 
-  private WakeLock m_wakeLock = null;
-
+ 
   private void disableAutomaticStandby()
   {
     if (m_wakeLock == null)
     {
-      PowerManager pm = (PowerManager) MWMActivity.getCurrentContext().getSystemService(
-        android.content.Context.POWER_SERVICE);
+      PowerManager pm = (PowerManager) mApplication.getSystemService(Context.POWER_SERVICE);
       m_wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, TAG);
       m_wakeLock.acquire();
     }
@@ -116,7 +116,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
     }
   }
 
-  public void startUpdate(Listener observer, Context c)
+  public void startUpdate(Listener observer)
   {
     m_observers.add(observer);
 
@@ -134,12 +134,12 @@ public class LocationService implements LocationListener, SensorEventListener, W
       {
         // Use WiFi BSSIDS and Google Internet location service if no other options are available
         // But only if connection is available
-        if (com.mapswithme.util.ConnectionState.isConnected(c))
+        if (com.mapswithme.util.ConnectionState.isConnected(mApplication))
         {
           observer.onLocationStatusChanged(STARTED);
           if (m_wifiScanner == null)
             m_wifiScanner = new WifiLocation();
-          m_wifiScanner.StartScan(c, this);
+          m_wifiScanner.StartScan(mApplication, this);
           disableAutomaticStandby();
         }
         else
@@ -344,39 +344,18 @@ public class LocationService implements LocationListener, SensorEventListener, W
     
     if (orientation != null)
     {
-      final Activity a = (Activity)MWMActivity.getCurrentContext();
-      final int screenRotation = a.getWindowManager().getDefaultDisplay().getOrientation();
       double north = orientation[0];
 
-      // correct due to orientation
-      switch (screenRotation)
-      {
-      case Surface.ROTATION_90:
-        north += (Math.PI / 2.0);
-        break;
-      case Surface.ROTATION_180:
-        north += Math.PI;
-        break;
-      case Surface.ROTATION_270:
-        north += (3.0 * Math.PI / 2.0);
-        break;
-      }
-      
-      // normalize [0, 2PI] and convert to degrees
-      if (north < 0.0) north += (2.0*Math.PI);
-      north = north % (2.0*Math.PI);
-      north = north * 180.0 / Math.PI;
-      
       if (m_magneticField == null)
-      {
         notifyCompassUpdated(event.timestamp, north, -1.0, 10.0f);
-      }
       else
       {
         // positive 'offset' means the magnetic field is rotated east that much from true north
         final float offset = m_magneticField.getDeclination();
         double trueNorth = north - offset;
-        if (trueNorth < 0.0) trueNorth += 360.0;
+        
+        if (trueNorth < 0.0) 
+          trueNorth += 360.0;
         
         notifyCompassUpdated(event.timestamp, north, trueNorth, offset);
       }

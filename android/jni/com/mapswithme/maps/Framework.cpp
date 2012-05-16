@@ -398,4 +398,9 @@ namespace android
   {
     m_work.AddMap(fileName);
   }
+
+  string const Framework::GetCountryName(double x, double y) const
+  {
+    return m_work.GetCountryName(m2::PointD(x, y));
+  }
 }

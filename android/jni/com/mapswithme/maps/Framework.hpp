@@ -85,6 +85,8 @@ namespace android
     void AddLocalMaps();
     void RemoveLocalMaps();
     void AddMap(string const & fileName);
+
+    string const GetCountryName(double x, double y) const;
   };
 }
 
