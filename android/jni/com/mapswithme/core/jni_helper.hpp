@@ -7,7 +7,7 @@
 
 namespace jni
 {
-  // Some examples of sig:
+  // Some examples of signature:
   // "()V" - void function returning void;
   // "(Ljava/lang/String;)V" - String function returning void;
   jmethodID GetJavaMethodID(JNIEnv * env, jobject obj, char const * fn, char const * sig);

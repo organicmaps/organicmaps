@@ -1,291 +1,584 @@
 package com.mapswithme.maps;
 
-import com.mapswithme.util.ConnectionState;
-import com.mapswithme.maps.R;
-
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ListActivity;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StatFs;
-import android.preference.Preference;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceScreen;
-import android.provider.Settings;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
-public class DownloadUI extends PreferenceActivity implements MapStorage.Listener
+
+public class DownloadUI extends ListActivity
 {
-  private static String TAG = "DownloadUI";
+	private static String TAG = "DownloadUI";
 
-  private int mSlotId = 0;
-  
-  private AlertDialog.Builder m_alert;
-  private DialogInterface.OnClickListener m_alertCancelHandler = new DialogInterface.OnClickListener() {
-    public void onClick(DialogInterface dlg, int which) { dlg.dismiss(); } };
+	/// @name JNI functions set for countries manipulation.
+	//@{
+  private static native int countriesCount(int group, int country, int region);
+  private static native int countryStatus(int group, int country, int region);
+  private static native long countryLocalSizeInBytes(int group, int country, int region);
+  private static native long countryRemoteSizeInBytes(int group, int country, int region);
+  private static native String countryName(int group, int country, int region);
+  private static native void showCountry(int group, int country, int region);
 
-  // Cached resources strings
-  private String m_kb;
-  private String m_mb;
+  private native void nativeCreate();
+  private native void nativeDestroy();
 
-  private MapStorage mMapStorage;
-  
-  @Override
-  protected void onCreate(Bundle savedInstanceState)
-  {
-    mMapStorage = MapStorage.getInstance();
-    
-    super.onCreate(savedInstanceState);
+  private static native void downloadCountry(int group, int country, int region);
+  private static native void deleteCountry(int group, int country, int region);
+  //@}
 
-    m_kb = getString(R.string.kb);
-    m_mb = getString(R.string.mb);
+  /// ListView adapter
+	private static class DownloadAdapter extends BaseAdapter
+	{
+		/// @name Different row types.
+		//@{
+		private static final int TYPE_GROUP = 0;
+		private static final int TYPE_COUNTRY_GROUP = 1;
+		private static final int TYPE_COUNTRY_IN_PROCESS = 2;
+		private static final int TYPE_COUNTRY_READY = 3;
+		private static final int TYPES_COUNT = 4;
+		//@}
 
-    PreferenceScreen root = getPreferenceManager().createPreferenceScreen(this);
-    setPreferenceScreen(createCountriesHierarchy(root, new MapStorage.Index()));
+		private LayoutInflater m_inflater;
+		private Activity m_context;
 
-    m_alert = new AlertDialog.Builder(this);
-    m_alert.setCancelable(true);
-  }
-  
-  @Override
-  protected void onResume()
-  {
-    super.onResume();
-    
-    if (mSlotId == 0)
-      mSlotId = mMapStorage.subscribe(this);
-  }
-  
-  protected void onPause()
-  {
-    super.onPause();
-    
-    if (mSlotId != 0)
-    {
-      mMapStorage.unsubscribe(mSlotId);
-      mSlotId = 0;
-    }
-  }
-  
-  private String formatSizeString(long sizeInBytes)
-  {
-    if (sizeInBytes > 1024 * 1024)
-      return sizeInBytes / (1024 * 1024) + " " + m_mb;
-    else if ((sizeInBytes + 1023) / 1024 > 999)
-      return "1 " + m_mb;
-    else
-      return (sizeInBytes + 1023) / 1024 + " " + m_kb;
-  }
+		private static class CountryItem
+		{
+			public String m_name;
 
-  private void updateCountryCell(final Preference cell, MapStorage.Index idx)
-  {
-    final int status = mMapStorage.countryStatus(idx);
+			// -2 = Group item
+			// -1 = Group item for country
+			// 0 = EOnDisk
+	// 1 = ENotDownloaded
+	// 2 = EDownloadFailed
+	// 3 = EDownloading
+	// 4 = EInQueue
+	// 5 = EUnknown
+			// 6 = EGeneratingIndex
+			public int m_status;
 
-    switch (status)
-    {
-    case MapStorage.ON_DISK:
-      cell.setSummary(getString(R.string.downloaded_touch_to_delete,
-          formatSizeString(mMapStorage.countryLocalSizeInBytes(idx))));
-      cell.setLayoutResource(R.layout.country_on_disk);
-      break;
-    case MapStorage.NOT_DOWNLOADED:
-      cell.setSummary(getString(R.string.touch_to_download));
-      cell.setLayoutResource(R.layout.country_not_downloaded);
-      break;
-    case MapStorage.DOWNLOAD_FAILED:
-      cell.setSummary(getString(R.string.download_has_failed));
-      cell.setLayoutResource(R.layout.country_download_failed);
-      break;
-    case MapStorage.DOWNLOADING:
-      cell.setSummary(getString(R.string.downloading));
-      cell.setLayoutResource(R.layout.country_downloading);
-      break;
-    case MapStorage.IN_QUEUE:
-      cell.setSummary(getString(R.string.marked_for_downloading));
-      cell.setLayoutResource(R.layout.country_in_the_queue);
-      break;
-    case MapStorage.UNKNOWN:
-      cell.setSummary("Unknown state :(");
-      break;
-    case MapStorage.GENERATING_INDEX:
-      cell.setSummary("Indexing for search...");
-      cell.setLayoutResource(R.layout.country_generating_search_index);
-    }
-  }
+			public CountryItem(int group, int country, int region)
+			{
+				m_name = countryName(group, country, region);
+				updateStatus(group, country, region);
+			}
 
-  public void onCountryStatusChanged(MapStorage.Index idx)
-  {
-    final Preference cell = findPreference(idx.mGroup + " " + idx.mCountry + " " + idx.mRegion);
-    if (cell == null)
-    {
-      Log.d(TAG, String.format("no preference found for %d %d %d", idx.mGroup, idx.mCountry, idx.mRegion));
-      return;
-    }
-    updateCountryCell(cell, idx);
-  }
+			public void updateStatus(int group, int country, int region)
+			{
+				if (country == -1)
+					m_status = -2;
+				else if (region == -1 && countriesCount(group, country, -1) > 0)
+					m_status = -1;
+				else
+					m_status = countryStatus(group, country, region);
+			}
 
-  public void onCountryProgress(MapStorage.Index idx, long current, long total)
-  {
-    final Preference c = findPreference(idx.mGroup + " " + idx.mCountry + " " + idx.mRegion);
+			public int getTextColor()
+			{
+				switch (m_status)
+				{
+				case 0: return 0xFF00A144;
+				case 1: return 0xFFFFFFFF;
+				case 2: return 0xFFFF0000;
+				case 3: return 0xFF342BB6;
+				case 4: return 0xFF5B94DE;
+				default: return 0xFFFFFFFF;
+				}
+			}
 
-    if (c == null)
-      Log.d(TAG, String.format("no preference found for %d %d %d", idx.mGroup, idx.mCountry, idx.mRegion));
-    else
-      c.setSummary(getString(R.string.downloading_touch_to_cancel, current * 100 / total));
-  }
+			/// Get item type for list view representation;
+			public int getType()
+			{
+				switch (m_status)
+				{
+				case -2: return TYPE_GROUP;
+				case -1: return TYPE_COUNTRY_GROUP;
+				case 0: return TYPE_COUNTRY_READY;
+				default : return TYPE_COUNTRY_IN_PROCESS;
+				}
+			}
+		}
 
-  private Preference createElement(MapStorage.Index idx)
-  {
-    final String name = mMapStorage.countryName(idx);
-    if (mMapStorage.countriesCount(idx) == 0)
-    { // it's downloadable country element
-      final Preference cell = new Preference(this);
-      cell.setKey(idx.mGroup + " " + idx.mCountry + " " + idx.mRegion);
-      cell.setTitle(name);
+		private int m_group = -1;
+		private int m_country = -1;
+		private CountryItem[] m_items = null;
 
-      updateCountryCell(cell, idx);
+		private String m_kb;
+		private String m_mb;
 
-      return cell;
-    }
-    else
-    { // it's parent element for downloadable countries
-      PreferenceScreen parent = getPreferenceManager().createPreferenceScreen(this);
-      parent.setTitle(name);
-      return createCountriesHierarchy(parent, idx);
-    }
-  }
+		private AlertDialog.Builder m_alert;
+		private DialogInterface.OnClickListener m_alertCancelHandler =
+			new DialogInterface.OnClickListener()
+			{
+		@Override
+        public void onClick(DialogInterface dlg, int which)
+		{
+			dlg.dismiss();
+		}
+	    };
 
-  private PreferenceScreen createCountriesHierarchy(PreferenceScreen root, MapStorage.Index idx)
-  {
-    // Add "header" with "Map" and "Connection Settings" buttons
-    final Preference cell = new Preference(this);
-    if (!ConnectionState.isConnected(this))
-      cell.setLayoutResource(R.layout.downloader_header_map_connection);
-    else
-      cell.setLayoutResource(R.layout.downloader_header_map);
-    root.addPreference(cell);
+	  static
+	  {
+		// TODO: Delete this if possible.
+	    // Used to avoid crash when ndk library is not loaded.
+	    // We just "touch" MWMActivity which should load it automatically
+	    MWMActivity.getCurrentContext();
+	  }
 
-    final int count = mMapStorage.countriesCount(idx);
-    for (int i = 0; i < count; ++i)
-    {
-      if (idx.mGroup == -1)
-        root.addPreference(createElement(new MapStorage.Index(i, idx.mCountry, idx.mRegion)));
-      else if (idx.mCountry == -1)
-        root.addPreference(createElement(new MapStorage.Index(idx.mGroup, i, idx.mRegion)));
-      else if (idx.mRegion == -1)
-        root.addPreference(createElement(new MapStorage.Index(idx.mGroup, idx.mCountry, i)));
-    }
-    return root;
-  }
+		public DownloadAdapter(Activity context)
+		{
+			m_context = context;
+			m_inflater = (LayoutInflater) m_context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-  private void showNotEnoughFreeSpaceDialog(String spaceNeeded, String countryName)
-  {
-    new AlertDialog.Builder(this).setMessage(String.format(getString(R.string.free_space_for_country), spaceNeeded, countryName))
-        .setNegativeButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dlg, int which) {
-            dlg.dismiss();
-          }
-        })
-        .create().show();
-  }
+			m_kb = context.getString(R.string.kb);
+			m_mb = context.getString(R.string.mb);
 
-  private long getFreeSpace()
-  {
-    StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
-    return (long)stat.getAvailableBlocks() * (long)stat.getBlockSize();
-  }
+	    m_alert = new AlertDialog.Builder(m_context);
+	    m_alert.setCancelable(true);
 
-  @Override
-  public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference)
-  {
-    if (preference.hasKey())
-    {
-      final String[] keys = preference.getKey().split(" ");
-      final int group = Integer.parseInt(keys[0]);
-      final int country = Integer.parseInt(keys[1]);
-      final int region = Integer.parseInt(keys[2]);
+			fillList();
+		}
 
-      switch (mMapStorage.countryStatus(new MapStorage.Index(group, country, region)))
+		private String getSizeString(long size)
+		{
+	    if (size > 1024 * 1024)
+	      return size / (1024 * 1024) + " " + m_mb;
+	    else if ((size + 1023) / 1024 > 999)
+	      return "1 " + m_mb;
+	    else
+	      return (size + 1023) / 1024 + " " + m_kb;
+		}
+
+		private void fillList()
+		{
+			final int count = countriesCount(m_group, m_country, -1);
+			if (count > 0)
+			{
+				m_items = new CountryItem[count];
+				for (int i = 0; i < count; ++i)
+				{
+					int g = m_group;
+					int c = m_country;
+					int r = -1;
+
+					if (g == -1) g = i;
+					else if (c == -1) c = i;
+					else r = i;
+
+					m_items[i] = new CountryItem(g, c, r);
+				}
+			}
+
+			notifyDataSetChanged();
+		}
+
+		/// Process list item click.
+		private class ItemClickListener implements OnClickListener
+		{
+			private int m_position;
+
+			public ItemClickListener(int position) { m_position = position; }
+
+			@Override
+      public void onClick(View v)
+			{
+				if (m_items[m_position].m_status < 0)
+				{
+					// expand next level
+					if (m_group == -1)
+						m_group = m_position;
+					else
+					{
+						assert(m_country == -1);
+						m_country = m_position;
+					}
+
+					fillList();
+				}
+				else
+					processCountry(m_position);
+      }
+		}
+
+	  private void showNotEnoughFreeSpaceDialog(String spaceNeeded, String countryName)
+	  {
+	    new AlertDialog.Builder(m_context)
+		.setMessage(String.format(m_context.getString(R.string.free_space_for_country), spaceNeeded, countryName))
+	      .setNegativeButton(m_context.getString(R.string.close), m_alertCancelHandler)
+	      .create()
+	      .show();
+	  }
+
+	  private long getFreeSpace()
+	  {
+	    StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
+	    return (long)stat.getAvailableBlocks() * (long)stat.getBlockSize();
+	  }
+
+		private void processCountry(int position)
+		{
+	assert(m_group != -1);
+	final int c = (m_country == -1 ? position : m_country);
+	final int r = (m_country == -1 ? -1 : position);
+
+	final String name = m_items[position].m_name;
+
+	// Get actual status here
+	switch (countryStatus(m_group, c, r))
       {
-      case MapStorage.ON_DISK:
-        m_alert.setTitle(mMapStorage.countryName(new MapStorage.Index(group, country, region)));
-        m_alert.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-          public void onClick(DialogInterface dlg, int which) {
-            mMapStorage.deleteCountry(new MapStorage.Index(group, country, region));
-            dlg.dismiss();
-          }
-        });
-        m_alert.setNegativeButton(android.R.string.cancel, m_alertCancelHandler);
-        m_alert.create().show();
+      case 0: // EOnDisk
+	// Confirm deleting
+        m_alert
+		.setTitle(name)
+		.setPositiveButton(R.string.delete,
+				new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dlg, int which)
+					{
+						deleteCountry(m_group, c, r);
+						dlg.dismiss();
+					}
+				})
+		.setNegativeButton(android.R.string.cancel, m_alertCancelHandler)
+		.create()
+		.show();
         break;
 
-      case MapStorage.NOT_DOWNLOADED:
+      case 1: // ENotDownloaded
         // Check for available free space
-        final long size = mMapStorage.countryRemoteSizeInBytes(new MapStorage.Index(group, country, region));
-        final String name = mMapStorage.countryName(new MapStorage.Index(group, country, region));
+        final long size = countryRemoteSizeInBytes(m_group, c, r);
         if (size > getFreeSpace())
         {
-          showNotEnoughFreeSpaceDialog(formatSizeString(size), name);
+          showNotEnoughFreeSpaceDialog(getSizeString(size), name);
         }
         else
         {
-          // Display download confirmation
-          m_alert.setTitle(name);
-          m_alert.setPositiveButton(getString(R.string.download_mb_or_kb, formatSizeString(size)),
-              new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dlg, int which) {
-                  mMapStorage.downloadCountry(new MapStorage.Index(group, country, region));
-                  dlg.dismiss();
-                }
-              });
-          m_alert.setNegativeButton(android.R.string.cancel, m_alertCancelHandler);
-          m_alert.create().show();
+          // Confirm downloading
+          m_alert
+		.setTitle(name)
+		.setPositiveButton(m_context.getString(R.string.download_mb_or_kb, getSizeString(size)),
+				new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dlg, int which)
+					{
+						downloadCountry(m_group, c, r);
+						dlg.dismiss();
+					}
+			          })
+			      .setNegativeButton(android.R.string.cancel, m_alertCancelHandler)
+			      .create()
+			      .show();
         }
         break;
 
-      case MapStorage.DOWNLOAD_FAILED:
-        // Do not confirm download if status is failed, just start it
-        mMapStorage.downloadCountry(new MapStorage.Index(group, country, region));
+      case 2: // EDownloadFailed
+        // Do not confirm downloading if status is failed, just start it
+        downloadCountry(m_group, c, r);
         break;
 
-      case MapStorage.DOWNLOADING:
-        /// Confirm canceling
-        m_alert.setTitle(mMapStorage.countryName(new MapStorage.Index(group, country, region)));
-        m_alert.setPositiveButton(R.string.cancel_download, new DialogInterface.OnClickListener() {
-          public void onClick(DialogInterface dlg, int which) {
-            mMapStorage.deleteCountry(new MapStorage.Index(group, country, region));
-            dlg.dismiss();
-          }
-        });
-        m_alert.setNegativeButton(R.string.do_nothing, m_alertCancelHandler);
-        m_alert.create().show();
+      case 3: // EDownloading
+        // Confirm canceling
+        m_alert
+		.setTitle(name)
+		.setPositiveButton(R.string.cancel_download,
+				new DialogInterface.OnClickListener()
+			        {
+			          @Override
+			          public void onClick(DialogInterface dlg, int which)
+			          {
+			            deleteCountry(m_group, c, r);
+			            dlg.dismiss();
+			          }
+			        })
+			    .setNegativeButton(R.string.do_nothing, m_alertCancelHandler)
+		.create()
+		.show();
         break;
 
-      case MapStorage.IN_QUEUE:
+      case 4: // EInQueue
         // Silently discard country from the queue
-        mMapStorage.deleteCountry(new MapStorage.Index(group, country, region));
-        break;
-
-      case MapStorage.UNKNOWN:
-        Log.d(TAG, "Unknown country state");
+        deleteCountry(m_group, c, r);
         break;
       }
-      return true;
+
+	// Actual status will be updated in "updateStatus" callback.
+		}
+
+		/// @return true If "back" was processed.
+		public boolean onBackPressed()
+		{
+			// go to the parent level
+			if (m_country != -1)
+				m_country = -1;
+			else if (m_group != -1)
+				m_group = -1;
+			else
+				return false;
+
+			fillList();
+			return true;
+		}
+
+		@Override
+    public int getItemViewType(int position)
+		{
+			return m_items[position].getType();
     }
-    return super.onPreferenceTreeClick(preferenceScreen, preference);
+
+    @Override
+    public int getViewTypeCount()
+    {
+	return TYPES_COUNT;
+    }
+
+    @Override
+    public int getCount()
+    {
+	return (m_items != null ? m_items.length : 0);
+    }
+
+    @Override
+    public CountryItem getItem(int position)
+    {
+	return m_items[position];
+    }
+
+    @Override
+    public long getItemId(int position)
+    {
+	return position;
+    }
+
+    private static class ViewHolder
+    {
+      public TextView m_name = null;
+      public TextView m_summary = null;
+      public ImageView m_flag = null;
+      public Button m_map = null;
+
+      void initFromView(View v)
+      {
+			m_name = (TextView) v.findViewById(R.id.title);
+			m_summary = (TextView) v.findViewById(R.id.summary);
+			m_flag = (ImageView) v.findViewById(R.id.country_flag);
+			m_map = (Button) v.findViewById(R.id.show_country);
+      }
+    }
+
+    /// Process "Map" button click in list view.
+    private class MapClickListener implements OnClickListener
+    {
+	private int m_position;
+
+	public MapClickListener(int position) { m_position = position; }
+
+	@Override
+	public void onClick(View v)
+	{
+		assert(m_group != -1);
+		int c = m_country;
+		int r = -1;
+		if (c == -1) c = m_position;
+		else r = m_position;
+
+		showCountry(m_group, c, r);
+
+		// close parent activity
+		m_context.finish();
+	}
+    }
+
+		private String getSummary(int position)
+		{
+			int res = 0;
+
+			switch (m_items[position].m_status)
+			{
+			case 0:
+			assert(m_group != -1);
+		int c = m_country;
+		int r = -1;
+		if (c == -1) c = position;
+		else r = position;
+
+				return String.format(m_context.getString(R.string.downloaded_touch_to_delete),
+														 getSizeString(countryLocalSizeInBytes(m_group, c, r)));
+
+			case 1: res = R.string.touch_to_download; break;
+			case 2: res = R.string.download_has_failed; break;
+
+			// print 1%; this value will be updated soon
+			case 3: return String.format(m_context.getString(R.string.downloading_touch_to_cancel), 1);
+
+			case 4: res = R.string.marked_for_downloading; break;
+			default:
+				return "An unknown error occured!";
+			}
+
+			return m_context.getString(res);
+		}
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent)
+    {
+	ViewHolder holder = null;
+
+	if (convertView == null)
+	{
+		holder = new ViewHolder();
+		switch (getItemViewType(position))
+		{
+		case TYPE_GROUP:
+			convertView = m_inflater.inflate(R.layout.download_item_group, null);
+			holder.initFromView(convertView);
+			holder.m_flag.setVisibility(ImageView.INVISIBLE);
+			break;
+
+		case TYPE_COUNTRY_GROUP:
+			convertView = m_inflater.inflate(R.layout.download_item_group, null);
+			holder.initFromView(convertView);
+			break;
+
+		case TYPE_COUNTRY_IN_PROCESS:
+			convertView = m_inflater.inflate(R.layout.download_item_country, null);
+			holder.initFromView(convertView);
+			holder.m_map.setVisibility(Button.INVISIBLE);
+			break;
+
+		case TYPE_COUNTRY_READY:
+			convertView = m_inflater.inflate(R.layout.download_item_country, null);
+			holder.initFromView(convertView);
+			break;
+		}
+
+		convertView.setTag(holder);
+      }
+	else
+	{
+		holder = (ViewHolder) convertView.getTag();
+	}
+
+	holder.m_name.setText(m_items[position].m_name);
+	holder.m_name.setTextColor(m_items[position].getTextColor());
+	if (holder.m_summary != null)
+		holder.m_summary.setText(getSummary(position));
+
+	if (holder.m_map != null)
+				holder.m_map.setOnClickListener(new MapClickListener(position));
+
+		// Important: Process item click like this, because of:
+		// http://stackoverflow.com/questions/1821871/android-how-to-fire-onlistitemclick-in-listactivity-with-buttons-in-list
+		convertView.setOnClickListener(new ItemClickListener(position));
+
+	return convertView;
+    }
+
+    /// Get list item position by index(g, c, r).
+    /// @return -1 If no such item in display list.
+    private int getItemPosition(int group, int country, int region)
+    {
+	if (group == m_group && (m_country == -1 || m_country == country))
+	{
+		final int position = (m_country == -1) ? country : region;
+		if (position >= 0 && position < m_items.length)
+			return position;
+		else
+			Log.e(TAG, "Incorrect item position for: " + group + ", " + country + ", " + region);
+	}
+	return -1;
+    }
+
+    /// @name Callbacks from native code.
+    //@{
+    public void updateStatus(int group, int country, int region)
+    {
+	final int position = getItemPosition(group, country, region);
+	if (position != -1)
+	{
+		m_items[position].updateStatus(group, country, region);
+
+	// use this hard reset, because of caching different ViewHolders according to item's type
+		notifyDataSetChanged();
+	}
+    }
+
+    public void updatePercent(ListView list,
+													int group, int country, int region,
+													long current, long total)
+    {
+	final int position = getItemPosition(group, country, region);
+	if (position != -1)
+	{
+		assert(m_items[position].m_status == 3);
+
+		View v = list.getChildAt(position);
+		ViewHolder holder = (ViewHolder) v.getTag();
+		holder.m_summary.setText(String.format(m_context.getString(R.string.downloading_touch_to_cancel),
+																																		 current * 100 / total));
+		v.invalidate();
+	}
+    }
+    //@}
+	}
+
+	@Override
+  protected void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+
+		setContentView(R.layout.downloader_list_view);
+
+		nativeCreate();
+
+		setListAdapter(new DownloadAdapter(this));
+	}
+
+	@Override
+  public void onDestroy()
+  {
+    super.onDestroy();
+
+    nativeDestroy();
   }
 
-  public void onShowNetSettingsClicked(android.view.View v)
+	private DownloadAdapter getDA()
+	{
+		return (DownloadAdapter) getListView().getAdapter();
+	}
+
+	@Override
+  public void onBackPressed()
+	{
+		if (!getDA().onBackPressed())
+			super.onBackPressed();
+	}
+
+	/// @name Callbacks from native code.
+	//@{
+  public void onChangeCountry(int group, int country, int region)
   {
-    startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
+	getDA().updateStatus(group, country, region);
   }
 
-  public void onShowMapClicked(android.view.View v)
+  public void onProgress(int group, int country, int region, long current, long total)
   {
-    Intent mwmActivityIntent = new Intent(this, MWMActivity.class);
-    // Disable animation because MWMActivity should appear exactly over this one
-    mwmActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-    startActivity(mwmActivityIntent);
+	// try to update only specified item's text
+	getDA().updatePercent(getListView(), group, country, region, current, total);
   }
+  //@}
 }

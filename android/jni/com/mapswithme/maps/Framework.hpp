@@ -51,7 +51,6 @@ namespace android
     math::AvgVector<float, 3> m_sensors[2];
 
   public:
-
     Framework();
     ~Framework();
 
@@ -76,6 +75,8 @@ namespace android
     void Move(int mode, double x, double y);
     void Zoom(int mode, double x1, double y1, double x2, double y2);
     void Touch(int action, int mask, double x1, double y1, double x2, double y2);
+
+    void ShowCountry(m2::RectD const & r);
 
     void LoadState();
     void SaveState();

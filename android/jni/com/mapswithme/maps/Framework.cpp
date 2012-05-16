@@ -353,7 +353,12 @@ namespace android
     m_y2 = y2;
     m_mask = mask;
     m_eventType = eventType;
+  }
 
+  void Framework::ShowCountry(m2::RectD const & r)
+  {
+    // TODO: due to activity recreation, we need to set rect in saved state here
+    //m_work.ShowRect(r);
   }
 
   void Framework::LoadState()
