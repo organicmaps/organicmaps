@@ -24,4 +24,5 @@
     <string name="unsupported_phone">Un hardware aceleró OpenGL se requiere. Desgraciadamente, el dispositivo móvil no es compatible.</string>
     <string name="loading">Carga de MapsWithMe...</string>
     <string name="map">Mapa</string>
+    <string name="download">Descargar</string>
 </resources>

@@ -12,10 +12,8 @@ class Platform::PlatformImpl
 {
 public:
 
-  PlatformImpl()
-  {
-    m_preCachingDepth = 3;
-  }
+  PlatformImpl() : m_preCachingDepth(3)
+  {}
 
   size_t m_preCachingDepth;
 };
@@ -87,12 +85,12 @@ namespace android
 
     m_impl = new PlatformImpl();
 
-    m_resourcesDir = jni::ToString(env, apkPath);
-    m_writableDir = jni::ToString(env, storagePath);
-    m_settingsDir = jni::ToString(env, settingsPath);
+    m_resourcesDir = jni::ToString(apkPath);
+    m_writableDir = jni::ToString(storagePath);
+    m_settingsDir = jni::ToString(settingsPath);
 
-    m_localTmpPath = jni::ToString(env, tmpPath);
-    m_externalTmpPath = jni::ToString(env, extTmpPath);
+    m_localTmpPath = jni::ToString(tmpPath);
+    m_externalTmpPath = jni::ToString(extTmpPath);
     // By default use external temporary folder
     m_tmpDir = m_externalTmpPath;
 

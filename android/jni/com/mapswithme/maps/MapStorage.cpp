@@ -35,12 +35,12 @@ extern "C"
 
     int country() const
     {
-      return jni::GetEnv()->GetIntField(*m_self.get(), m_groupID);
+      return jni::GetEnv()->GetIntField(*m_self.get(), m_countryID);
     }
 
     int region() const
     {
-      return jni::GetEnv()->GetIntField(*m_self.get(), m_groupID);
+      return jni::GetEnv()->GetIntField(*m_self.get(), m_regionID);
     }
 
     storage::TIndex const toNative() const
@@ -50,15 +50,15 @@ extern "C"
 
     static jobject toJava(storage::TIndex const & idx)
     {
-      LOG(LINFO, ("constructing Java Index object from ", idx.m_group, idx.m_country, idx.m_region));
+      LOG(LDEBUG, ("constructing Java Index object from ", idx.m_group, idx.m_country, idx.m_region));
 
       JNIEnv * env = jni::GetEnv();
 
       jclass klass = env->FindClass("com/mapswithme/maps/MapStorage$Index");
-      CHECK(klass, ("Can't find java class com/mapswithme/maps/MapStorage$Index"));
+      ASSERT(klass, ("Can't find java class com/mapswithme/maps/MapStorage$Index"));
 
       jmethodID methodId = env->GetMethodID(klass, "<init>", "(III)V");
-      CHECK(methodId, ("Can't find java constructor in com/mapswithme/maps/MapStorage$Index"));
+      ASSERT(methodId, ("Can't find java constructor in com/mapswithme/maps/MapStorage$Index"));
 
       return env->NewObject(klass, methodId, idx.m_group, idx.m_country, idx.m_region);
     }

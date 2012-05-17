@@ -32,7 +32,11 @@
     <string name="free_space_for_country">Для загрузки %2$s нужно %1$s свободного места</string>
     <string name="map">Карта</string>
     <string name="download_resources">Для запуска программы нужно загрузить\n %1$.3f%2$s необходимых ресурсов.</string>
-    <string name="download_country">Загрузить ?</string>
     <string name="getting_position">Получаем местоположение</string>
     <string name="download_resources_continue">Перейти на карту</string>
+    <string name="downloading_country_can_proceed">Пока загружается %s \nвы можете пользоваться приложением.</string>
+    <string name="download_country_ask">Загрузить %d?</string>
+    <string name="download">Загрузить</string>
+    <string name="cancel">Отменить</string>
+    <string name="try_again">Попробовать еще раз</string>
 </resources>

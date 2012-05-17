@@ -82,7 +82,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   
   private void setDownloadMessage(int bytesToDownload)
   {
-    Log.w(TAG, "prepareFilesDownload, bytesToDownload:" + bytesToDownload);
+    Log.d(TAG, "prepareFilesDownload, bytesToDownload:" + bytesToDownload);
 
     if (bytesToDownload < 1024 * 1024)
       mMsgView.setText(String.format(getString(R.string.download_resources), 
@@ -181,13 +181,13 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     enableAutomaticStandby();
     if (result == ERR_NO_MORE_FILES)
     {
-      Log.w(TAG, "finished files download");
+      Log.i(TAG, "finished files download");
       
       if (mHasLocation && mDownloadCountryCheckBox.isChecked())
       {
         mDownloadCountryCheckBox.setVisibility(View.GONE);
-        mMsgView.setText("Downloading " + mCountryName + ". You can now\n" +
-                         "proceed to the map");
+        mMsgView.setText(String.format(getString(R.string.downloading_country_can_proceed),
+                                       mCountryName));
         
         MapStorage.Index idx = mMapStorage.findIndexByName(mCountryName);
         
@@ -281,7 +281,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
    
   public void onDownloadProgress(int currentTotal, int currentProgress, int globalTotal, int globalProgress)
   {
-    Log.w(TAG, "curTotal:" + currentTotal + ", curProgress:" + currentProgress 
+    Log.d(TAG, "curTotal:" + currentTotal + ", curProgress:" + currentProgress 
              + ", glbTotal:" + globalTotal + ", glbProgress:" + globalProgress);
     
     if (mProgress != null)
@@ -322,18 +322,18 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
       
         CheckBox checkBox = (CheckBox)findViewById(R.id.download_country_checkbox);
               
-        Log.w(TAG, "Location : " + lat + ", " + lon);
+        Log.i(TAG, "Searching for country name at location lat=" + lat + ", lon=" + lon);
         
         checkBox.setVisibility(View.VISIBLE);
         mCountryName = nativeGetCountryName(lat, lon);
         mHasLocation = true;
-        checkBox.setText(String.format(getString(R.string.download_country), mCountryName));
+        checkBox.setText(String.format(getString(R.string.download_country_ask), mCountryName));
       
         mLocationService.stopUpdate(this);
         mLocationService = null;
       }
       
-      Log.w(TAG, "tryCount:" + mLocationsCount);
+      Log.d(TAG, "tryCount:" + mLocationsCount);
       ++mLocationsCount;
     }
   }

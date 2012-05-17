@@ -24,4 +24,5 @@
     <string name="unsupported_phone">Le programme a besoin d`OpenGL pour travailler. Votre appareil n`est pas appuyé maleuresement.</string>
     <string name="loading">Chargement MapsWithMe...</string>
     <string name="map">Carte</string>
+    <string name="download">Charger</string>
 </resources>

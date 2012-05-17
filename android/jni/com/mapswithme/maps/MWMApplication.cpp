@@ -33,6 +33,6 @@ extern "C"
     if (!g_framework)
       g_framework = new android::Framework();
 
-    g_framework->SetEmptyModelMessage(jni::ToString(env, emptyModelMessage));
+    g_framework->SetEmptyModelMessage(jni::ToString(emptyModelMessage));
   }
 }

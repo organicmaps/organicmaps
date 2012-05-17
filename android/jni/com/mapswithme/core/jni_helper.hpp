@@ -11,7 +11,7 @@ namespace jni
   // "()V" - void function returning void;
   // "(Ljava/lang/String;)V" - String function returning void;
   jmethodID GetJavaMethodID(JNIEnv * env, jobject obj, char const * fn, char const * sig);
-  string ToString(JNIEnv * env, jstring str);
+  string ToString(jstring str);
   JNIEnv * GetEnv();
   JavaVM * GetJVM();
 

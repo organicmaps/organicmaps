@@ -51,7 +51,7 @@
 	          android:layout_gravity="center"
 	          android:layout_width="wrap_content"
 	          android:layout_height="wrap_content"
-          	android:text="Download"
+          	android:text="@string/download"
            	android:onClick="onDownloadClicked"
            	/>
         
@@ -64,7 +64,7 @@
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:text="@string/cancel"
             android:onClick="onCancelClicked"
         		android:visibility="gone"
         		/>
@@ -88,7 +88,7 @@
             android:textSize="12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Try Again"
+            android:text="@string/try_again"
             android:onClick="onTryAgainClicked"
             android:visibility="gone"
             />
@@ -119,7 +119,7 @@
             android:id="@+id/download_country_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/download_country" 
+            android:text="@string/download_country_ask"
             android:visibility="gone"
             />
         

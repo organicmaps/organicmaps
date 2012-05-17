@@ -10,7 +10,6 @@ void InitNVEvent(JavaVM * jvm);
 
 extern "C"
 {
-
   JNIEXPORT jint JNICALL
   JNI_OnLoad(JavaVM * jvm, void *)
   {
@@ -27,7 +26,6 @@ extern "C"
   {
     g_jvm = 0;
   }
-
 } // extern "C"
 
 
@@ -44,8 +42,9 @@ namespace jni
     return mid;
   }
 
-  string ToString(JNIEnv * env, jstring str)
+  string ToString(jstring str)
   {
+    JNIEnv * env = GetEnv();
     string result;
     char const * utfBuffer = env->GetStringUTFChars(str, 0);
     if (utfBuffer)

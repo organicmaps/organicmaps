@@ -11,6 +11,8 @@
 
 #include "../../../../../coding/zip_reader.hpp"
 #include "../../../../../coding/url_encode.hpp"
+#include "../../../../../coding/reader_streambuf.hpp"
+#include "../../../../../coding/internal/file_data.hpp"
 
 #include "../../../../../platform/platform.hpp"
 #include "../../../../../platform/http_request.hpp"
@@ -68,26 +70,14 @@ extern "C"
   Java_com_mapswithme_maps_DownloadResourcesActivity_nativeGetBytesToDownload(JNIEnv * env, jobject thiz,
       jstring apkPath, jstring sdcardPath)
   {
-    {
-      char const * strApkPath = env->GetStringUTFChars(apkPath, 0);
-      if (!strApkPath)
-        return ERR_NOT_ENOUGH_MEMORY;
-      g_apkPath = strApkPath;
-      env->ReleaseStringUTFChars(apkPath, strApkPath);
-
-      char const * strSdcardPath = env->GetStringUTFChars(sdcardPath, 0);
-      if (!strSdcardPath)
-        return ERR_NOT_ENOUGH_MEMORY;
-      g_sdcardPath = strSdcardPath;
-      env->ReleaseStringUTFChars(sdcardPath, strSdcardPath);
-    }
+    g_apkPath = jni::ToString(apkPath);
+    g_sdcardPath = jni::ToString(sdcardPath);
 
     jint totalBytesToDownload = 0;
 
-    string buffer;
-    ReaderPtr<Reader>(GetPlatform().GetReader("external_resources.txt")).ReadAsString(buffer);
+    ReaderStreamBuf buffer(GetPlatform().GetReader("external_resources.txt"));
 
-    stringstream in(buffer);
+    istream in(&buffer);
 
     string name;
     int size;
@@ -144,7 +134,7 @@ extern "C"
   {
     int errorCode = 0;
 
-    CHECK(req.Status() != downloader::HttpRequest::EInProgress, ("should be either Completed or Failed"));
+    ASSERT(req.Status() != downloader::HttpRequest::EInProgress, ("should be either Completed or Failed"));
 
     switch (req.Status())
     {
@@ -158,7 +148,7 @@ extern "C"
 
     FileToDownload & curFile = g_filesToDownload.back();
 
-    LOG(LINFO, ("finished downloading", curFile.m_fileName, "sized", curFile.m_fileSize, "bytes"));
+    LOG(LDEBUG, ("finished downloading", curFile.m_fileName, "sized", curFile.m_fileSize, "bytes"));
 
     /// slight hack, check manually for Maps extension and AddMap accordingly
     if (curFile.m_fileName.find(".mwm") != string::npos)
@@ -169,26 +159,26 @@ extern "C"
 
     g_totalDownloadedBytes += curFile.m_fileSize;
 
-    LOG(LINFO, ("totalDownloadedBytes:", g_totalDownloadedBytes));
+    LOG(LDEBUG, ("totalDownloadedBytes:", g_totalDownloadedBytes));
 
     g_filesToDownload.pop_back();
 
     JNIEnv * env = jni::GetEnv();
 
     jmethodID onFinishMethod = env->GetMethodID(env->GetObjectClass(*obj.get()), "onDownloadFinished", "(I)V");
-    CHECK(onFinishMethod, ("Not existing method: void onDownloadFinished(int)"));
+    ASSERT(onFinishMethod, ("Not existing method: void onDownloadFinished(int)"));
 
     env->CallVoidMethod(*obj.get(), onFinishMethod, errorCode);
   }
 
   void DownloadFileProgress(shared_ptr<jobject> obj, downloader::HttpRequest & req)
   {
-    LOG(LINFO, (req.Progress().first, "bytes for", g_filesToDownload.back().m_fileName, "was downloaded"));
+    LOG(LDEBUG, (req.Progress().first, "bytes for", g_filesToDownload.back().m_fileName, "was downloaded"));
 
     JNIEnv * env = jni::GetEnv();
 
     jmethodID onProgressMethod = env->GetMethodID(env->GetObjectClass(*obj.get()), "onDownloadProgress", "(IIII)V");
-    CHECK(onProgressMethod, ("Not existing method: void onDownloadProgress(int, int, int, int)"));
+    ASSERT(onProgressMethod, ("Not existing method: void onDownloadProgress(int, int, int, int)"));
 
     FileToDownload & curFile = g_filesToDownload.back();
 
@@ -212,7 +202,7 @@ extern "C"
     {
       FileToDownload & curFile = g_filesToDownload.back();
 
-      LOG(LINFO, ("finished URL list download for", curFile.m_fileName));
+      LOG(LDEBUG, ("finished URL list download for", curFile.m_fileName));
 
       downloader::ParseServerList(req.Data(), curFile.m_urls);
 
@@ -221,7 +211,7 @@ extern "C"
         curFile.m_urls[i] = curFile.m_urls[i] + OMIM_OS_NAME "/"
                           + strings::to_string(g_framework->Storage().GetCurrentVersion()) + "/"
                           + UrlEncode(curFile.m_fileName);
-        LOG(LINFO, (curFile.m_urls[i]));
+        LOG(LDEBUG, (curFile.m_urls[i]));
       }
 
       downloader::HttpRequest::GetFile(curFile.m_urls,
@@ -262,20 +252,8 @@ extern "C"
   Java_com_mapswithme_maps_DownloadResourcesActivity_nativeMoveMaps(JNIEnv * env, jobject thiz,
       jstring fromPath, jstring toPath)
   {
-    string from, to;
-    {
-      char const * strFrom = env->GetStringUTFChars(fromPath, 0);
-      if (!strFrom)
-        return;
-      from = strFrom;
-      env->ReleaseStringUTFChars(fromPath, strFrom);
-
-      char const * strTo = env->GetStringUTFChars(toPath, 0);
-      if (!strTo)
-        return;
-      to = strTo;
-      env->ReleaseStringUTFChars(toPath, strTo);
-    }
+    string from = jni::ToString(fromPath);
+    string to = jni::ToString(toPath);
 
     Platform & pl = GetPlatform();
     Platform::FilesList files;
@@ -283,8 +261,8 @@ extern "C"
     pl.GetFilesInDir(from, "*" DATA_FILE_EXTENSION, files);
     for (size_t i = 0; i < files.size(); ++i)
     {
-      LOG(LINFO, (from + files[i], to + files[i]));
-      rename((from + files[i]).c_str(), (to + files[i]).c_str());
+      LOG(LDEBUG, ("moving map from:", from + files[i], ", to:", to + files[i]));
+      my::RenameFileX((from + files[i]).c_str(), (to + files[i]).c_str());
     }
 
     // Delete not finished *.downloading files
@@ -292,7 +270,7 @@ extern "C"
     pl.GetFilesInDir(from, "*" DOWNLOADING_FILE_EXTENSION, files);
     pl.GetFilesInDir(from, "*" RESUME_FILE_EXTENSION, files);
     for (size_t i = 0; i < files.size(); ++i)
-      remove((from + files[i]).c_str());
+      my::DeleteFileX((from + files[i]).c_str());
   }
 
   JNIEXPORT jstring JNICALL
