@@ -35,7 +35,7 @@
     <string name="getting_position">Получаем местоположение</string>
     <string name="download_resources_continue">Перейти на карту</string>
     <string name="downloading_country_can_proceed">Пока загружается %s \nвы можете пользоваться приложением.</string>
-    <string name="download_country_ask">Загрузить %d?</string>
+    <string name="download_country_ask">Загрузить %s?</string>
     <string name="download">Загрузить</string>
     <string name="cancel">Отменить</string>
     <string name="try_again">Попробовать еще раз</string>

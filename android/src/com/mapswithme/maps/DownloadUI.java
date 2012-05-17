@@ -20,27 +20,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.mapswithme.maps.MapStorage.Index;
 
-public class DownloadUI extends ListActivity
+
+public class DownloadUI extends ListActivity implements MapStorage.Listener
 {
   private static String TAG = "DownloadUI";
-
-  /// @name JNI functions set for countries manipulation.
-  //@{
-  private static native int countriesCount(int group, int country, int region);
-  private static native int countryStatus(int group, int country, int region);
-  private static native long countryLocalSizeInBytes(int group, int country, int region);
-  private static native long countryRemoteSizeInBytes(int group, int country, int region);
-  private static native String countryName(int group, int country, int region);
-  private static native String countryFlag(int group, int country, int region);
-  private static native void showCountry(int group, int country, int region);
-
-  private native void nativeCreate();
-  private native void nativeDestroy();
-
-  private static native void downloadCountry(int group, int country, int region);
-  private static native void deleteCountry(int group, int country, int region);
-  //@}
 
   /// ListView adapter
   private static class DownloadAdapter extends BaseAdapter
@@ -56,6 +41,9 @@ public class DownloadUI extends ListActivity
 
     private LayoutInflater m_inflater;
     private Activity m_context;
+
+    private int m_slotID = 0;
+    private MapStorage m_storage;
 
     private static class CountryItem
     {
@@ -73,26 +61,26 @@ public class DownloadUI extends ListActivity
       // 6 = EGeneratingIndex
       public int m_status;
 
-      public CountryItem(int group, int country, int region)
+      public CountryItem(MapStorage storage, Index idx)
       {
-        m_name = countryName(group, country, region);
+        m_name = storage.countryName(idx);
 
-        m_flag = countryFlag(group, country, region);
+        m_flag = storage.countryFlag(idx);
         // The aapt can't process resources with name "do". Hack with renaming.
         if (m_flag.equals("do"))
           m_flag = "do_hack";
 
-        updateStatus(group, country, region);
+        updateStatus(storage, idx);
       }
 
-      public void updateStatus(int group, int country, int region)
+      public void updateStatus(MapStorage storage, Index idx)
       {
-        if (country == -1 || (region == -1 && m_flag.length() == 0))
+        if (idx.mCountry == -1 || (idx.mRegion == -1 && m_flag.length() == 0))
         {
           // group and not a country
           m_status = -2;
         }
-        else if (region == -1 && countriesCount(group, country, -1) > 0)
+        else if (idx.mRegion == -1 && storage.countriesCount(idx) > 0)
         {
           // country with grouping
           m_status = -1;
@@ -100,7 +88,7 @@ public class DownloadUI extends ListActivity
         else
         {
           // country or region without grouping
-          m_status = countryStatus(group, country, region);
+          m_status = storage.countryStatus(idx);
         }
       }
 
@@ -130,8 +118,7 @@ public class DownloadUI extends ListActivity
       }
     }
 
-    private int m_group = -1;
-    private int m_country = -1;
+    private Index m_idx = new Index();
     private CountryItem[] m_items = null;
 
     private String m_kb;
@@ -148,16 +135,10 @@ public class DownloadUI extends ListActivity
       }
     };
 
-    static
-    {
-      // TODO: Delete this if possible.
-      // Used to avoid crash when ndk library is not loaded.
-      // We just "touch" MWMActivity which should load it automatically
-      MWMActivity.getCurrentContext();
-    }
-
     public DownloadAdapter(Activity context)
     {
+      m_storage = MapStorage.getInstance();
+
       m_context = context;
       m_inflater = (LayoutInflater) m_context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -183,22 +164,12 @@ public class DownloadUI extends ListActivity
     /// Fill list for current m_group and m_country.
     private void fillList()
     {
-      final int count = countriesCount(m_group, m_country, -1);
+      final int count = m_storage.countriesCount(m_idx);
       if (count > 0)
       {
         m_items = new CountryItem[count];
         for (int i = 0; i < count; ++i)
-        {
-          int g = m_group;
-          int c = m_country;
-          int r = -1;
-
-          if (g == -1) g = i;
-          else if (c == -1) c = i;
-          else r = i;
-
-          m_items[i] = new CountryItem(g, c, r);
-        }
+          m_items[i] = new CountryItem(m_storage, m_idx.getChild(i));
       }
 
       notifyDataSetChanged();
@@ -217,13 +188,7 @@ public class DownloadUI extends ListActivity
         if (m_items[m_position].m_status < 0)
         {
           // expand next level
-          if (m_group == -1)
-            m_group = m_position;
-          else
-          {
-            assert(m_country == -1);
-            m_country = m_position;
-          }
+          m_idx = m_idx.getChild(m_position);
 
           fillList();
         }
@@ -249,14 +214,12 @@ public class DownloadUI extends ListActivity
 
     private void processCountry(int position)
     {
-      assert(m_group != -1);
-      final int c = (m_country == -1 ? position : m_country);
-      final int r = (m_country == -1 ? -1 : position);
+      final Index idx = m_idx.getChild(position);
 
       final String name = m_items[position].m_name;
 
       // Get actual status here
-      switch (countryStatus(m_group, c, r))
+      switch (m_storage.countryStatus(idx))
       {
       case 0: // EOnDisk
         // Confirm deleting
@@ -267,7 +230,7 @@ public class DownloadUI extends ListActivity
           @Override
           public void onClick(DialogInterface dlg, int which)
           {
-            deleteCountry(m_group, c, r);
+            m_storage.deleteCountry(idx);
             dlg.dismiss();
           }
         })
@@ -278,7 +241,7 @@ public class DownloadUI extends ListActivity
 
       case 1: // ENotDownloaded
         // Check for available free space
-        final long size = countryRemoteSizeInBytes(m_group, c, r);
+        final long size = m_storage.countryRemoteSizeInBytes(idx);
         if (size > getFreeSpace())
         {
           showNotEnoughFreeSpaceDialog(getSizeString(size), name);
@@ -294,7 +257,7 @@ public class DownloadUI extends ListActivity
             @Override
             public void onClick(DialogInterface dlg, int which)
             {
-              downloadCountry(m_group, c, r);
+              m_storage.downloadCountry(idx);
               dlg.dismiss();
             }
           })
@@ -306,7 +269,7 @@ public class DownloadUI extends ListActivity
 
       case 2: // EDownloadFailed
         // Do not confirm downloading if status is failed, just start it
-        downloadCountry(m_group, c, r);
+        m_storage.downloadCountry(idx);
         break;
 
       case 3: // EDownloading
@@ -318,7 +281,7 @@ public class DownloadUI extends ListActivity
           @Override
           public void onClick(DialogInterface dlg, int which)
           {
-            deleteCountry(m_group, c, r);
+            m_storage.deleteCountry(idx);
             dlg.dismiss();
           }
         })
@@ -329,27 +292,44 @@ public class DownloadUI extends ListActivity
 
       case 4: // EInQueue
         // Silently discard country from the queue
-        deleteCountry(m_group, c, r);
+        m_storage.deleteCountry(idx);
         break;
       }
 
       // Actual status will be updated in "updateStatus" callback.
     }
 
+    /// @name Process routine from parent Activity.
+    //@{
     /// @return true If "back" was processed.
     public boolean onBackPressed()
     {
-      // go to the parent level
-      if (m_country != -1)
-        m_country = -1;
-      else if (m_group != -1)
-        m_group = -1;
-      else
+      // we are on the root level already - return
+      if (m_idx.isRoot())
         return false;
+
+      // go to the parent level
+      m_idx = m_idx.getParent();
 
       fillList();
       return true;
     }
+
+    public void onResume(MapStorage.Listener listener)
+    {
+      if (m_slotID == 0)
+        m_slotID = m_storage.subscribe(listener);
+    }
+
+    public void onPause()
+    {
+      if (m_slotID != 0)
+      {
+        m_storage.unsubscribe(m_slotID);
+        m_slotID = 0;
+      }
+    }
+    //@}
 
     @Override
     public int getItemViewType(int position)
@@ -407,11 +387,7 @@ public class DownloadUI extends ListActivity
       @Override
       public void onClick(View v)
       {
-        assert(m_group != -1);
-        final int c = (m_country == -1 ? m_position : m_country);
-        final int r = (m_country == -1 ? -1 : m_position);
-
-        showCountry(m_group, c, r);
+        m_storage.showCountry(m_idx.getChild(m_position));
 
         // close parent activity
         m_context.finish();
@@ -425,12 +401,8 @@ public class DownloadUI extends ListActivity
       switch (m_items[position].m_status)
       {
       case 0:
-        assert(m_group != -1);
-        final int c = (m_country == -1 ? position : m_country);
-        final int r = (m_country == -1 ? -1 : position);
-
         return String.format(m_context.getString(R.string.downloaded_touch_to_delete),
-            getSizeString(countryLocalSizeInBytes(m_group, c, r)));
+            getSizeString(m_storage.countryLocalSizeInBytes(m_idx.getChild(position))));
 
       case 1: res = R.string.touch_to_download; break;
       case 2: res = R.string.download_has_failed; break;
@@ -519,38 +491,34 @@ public class DownloadUI extends ListActivity
 
     /// Get list item position by index(g, c, r).
     /// @return -1 If no such item in display list.
-    private int getItemPosition(int group, int country, int region)
+    private int getItemPosition(Index idx)
     {
-      if (group == m_group && (m_country == -1 || m_country == country))
+      if (m_idx.isChild(idx))
       {
-        final int position = (m_country == -1) ? country : region;
+        final int position = idx.getPosition();
         if (position >= 0 && position < m_items.length)
           return position;
         else
-          Log.e(TAG, "Incorrect item position for: " + group + ", " + country + ", " + region);
+          Log.e(TAG, "Incorrect item position for: " + idx.toString());
       }
       return -1;
     }
 
-    /// @name Callbacks from native code.
-    //@{
-    public void updateStatus(int group, int country, int region)
+    public void onCountryStatusChanged(Index idx)
     {
-      final int position = getItemPosition(group, country, region);
+      final int position = getItemPosition(idx);
       if (position != -1)
       {
-        m_items[position].updateStatus(group, country, region);
+        m_items[position].updateStatus(m_storage, idx);
 
         // use this hard reset, because of caching different ViewHolders according to item's type
         notifyDataSetChanged();
       }
     }
 
-    public void updatePercent(ListView list,
-        int group, int country, int region,
-        long current, long total)
+    public void onCountryProgress(ListView list, Index idx, long current, long total)
     {
-      final int position = getItemPosition(group, country, region);
+      final int position = getItemPosition(idx);
       if (position != -1)
       {
         assert(m_items[position].m_status == 3);
@@ -566,7 +534,6 @@ public class DownloadUI extends ListActivity
         }
       }
     }
-    //@}
   }
 
   @Override
@@ -576,22 +543,26 @@ public class DownloadUI extends ListActivity
 
     setContentView(R.layout.downloader_list_view);
 
-    nativeCreate();
-
     setListAdapter(new DownloadAdapter(this));
-  }
-
-  @Override
-  public void onDestroy()
-  {
-    super.onDestroy();
-
-    nativeDestroy();
   }
 
   private DownloadAdapter getDA()
   {
     return (DownloadAdapter) getListView().getAdapter();
+  }
+
+  @Override
+  protected void onResume()
+  {
+    super.onResume();
+    getDA().onResume(this);
+  }
+
+  @Override
+  protected void onPause()
+  {
+    super.onPause();
+    getDA().onPause();
   }
 
   @Override
@@ -601,17 +572,15 @@ public class DownloadUI extends ListActivity
       super.onBackPressed();
   }
 
-  /// @name Callbacks from native code.
-  //@{
-  public void onChangeCountry(int group, int country, int region)
+  @Override
+  public void onCountryStatusChanged(Index idx)
   {
-    getDA().updateStatus(group, country, region);
+    getDA().onCountryStatusChanged(idx);
   }
 
-  public void onProgress(int group, int country, int region, long current, long total)
+  @Override
+  public void onCountryProgress(Index idx, long current, long total)
   {
-    // try to update only specified item's text
-    getDA().updatePercent(getListView(), group, country, region, current, total);
+    getDA().onCountryProgress(getListView(), idx, current, total);
   }
-  //@}
 }

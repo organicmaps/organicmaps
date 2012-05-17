@@ -77,6 +77,13 @@ extern "C"
     return env->NewStringUTF(name.c_str());
   }
 
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_MapStorage_countryFlag(JNIEnv * env, jobject thiz, jobject idx)
+  {
+    string const name = g_framework->Storage().CountryFlag(IndexBinding(idx).toNative());
+    return env->NewStringUTF(name.c_str());
+  }
+
   JNIEXPORT jlong JNICALL
   Java_com_mapswithme_maps_MapStorage_countryLocalSizeInBytes(JNIEnv * env, jobject thiz, jobject idx)
   {
@@ -116,6 +123,13 @@ extern "C"
       return IndexBinding::toJava(storage::TIndex());
 
     return IndexBinding::toJava(g_framework->Storage().FindIndexByName(strCountry));
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MapStorage_showCountry(JNIEnv * env, jobject thiz, jobject idx)
+  {
+    m2::RectD const rect = g_framework->Storage().CountryBounds(IndexBinding(idx).toNative());
+    g_framework->ShowCountry(rect);
   }
 
   void ReportChangeCountryStatus(shared_ptr<jobject> const & obj, storage::TIndex const & idx)
