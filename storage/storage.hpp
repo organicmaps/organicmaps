@@ -53,6 +53,8 @@ namespace storage
     }
   };
 
+  string DebugPrint(TIndex const & r);
+
   /// Can be used to store local maps and/or maps available for download
   class Storage
   {

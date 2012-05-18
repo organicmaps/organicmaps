@@ -7,10 +7,16 @@
 
 namespace jni
 {
-  // Some examples of signature:
-  // "()V" - void function returning void;
-  // "(Ljava/lang/String;)V" - String function returning void;
+  /// @name Some examples of signature:
+  /// "()V" - void function returning void;
+  /// "(Ljava/lang/String;)V" - String function returning void;
+  /// "com/mapswithme/maps/MapStorage$Index" - class MapStorage.Index
+  //@{
   jmethodID GetJavaMethodID(JNIEnv * env, jobject obj, char const * fn, char const * sig);
+
+  //jobject CreateJavaObject(JNIEnv * env, char const * klass, char const * sig, ...);
+  //@}
+
   string ToString(jstring str);
   JNIEnv * GetEnv();
   JavaVM * GetJVM();

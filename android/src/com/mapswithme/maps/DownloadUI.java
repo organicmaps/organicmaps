@@ -506,6 +506,8 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
 
     public void onCountryStatusChanged(Index idx)
     {
+      Log.d(TAG, "onCountryStatusChanged for index: " + idx.toString());
+
       final int position = getItemPosition(idx);
       if (position != -1)
       {

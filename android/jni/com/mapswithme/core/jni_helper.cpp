@@ -35,12 +35,33 @@ namespace jni
   {
     ASSERT(env, ("JNIEnv can't be 0"));
     ASSERT(obj, ("jobject can't be 0"));
+
     jclass cls = env->GetObjectClass(obj);
     ASSERT(cls, ("Can't get java class"));
+
     jmethodID mid = env->GetMethodID(cls, fn, sig);
     ASSERT(mid, ("Can't find java method", fn, sig));
     return mid;
   }
+
+  /*
+  jobject CreateJavaObject(JNIEnv * env, char const * klassName, char const * sig, ...)
+  {
+    jclass klass = env->FindClass(klassName);
+    ASSERT(klass, ("Can't find java class", klassName));
+
+    jmethodID methodId = env->GetMethodID(klass, "<init>", sig);
+    ASSERT(methodId, ("Can't find java constructor", sig));
+
+    va_list args;
+    va_start(args, sig);
+    jobject res = env->NewObject(klass, methodId, args);
+    ASSERT(res, ());
+    va_end(args);
+
+    return res;
+  }
+  */
 
   string ToString(jstring str)
   {

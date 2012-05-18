@@ -165,20 +165,13 @@ extern "C"
 
     JNIEnv * env = jni::GetEnv();
 
-    jmethodID onFinishMethod = env->GetMethodID(env->GetObjectClass(*obj.get()), "onDownloadFinished", "(I)V");
-    ASSERT(onFinishMethod, ("Not existing method: void onDownloadFinished(int)"));
-
-    env->CallVoidMethod(*obj.get(), onFinishMethod, errorCode);
+    jmethodID methodID = jni::GetJavaMethodID(env, *obj.get(), "onDownloadFinished", "(I)V");
+    env->CallVoidMethod(*obj.get(), methodID, errorCode);
   }
 
   void DownloadFileProgress(shared_ptr<jobject> obj, downloader::HttpRequest & req)
   {
     LOG(LDEBUG, (req.Progress().first, "bytes for", g_filesToDownload.back().m_fileName, "was downloaded"));
-
-    JNIEnv * env = jni::GetEnv();
-
-    jmethodID onProgressMethod = env->GetMethodID(env->GetObjectClass(*obj.get()), "onDownloadProgress", "(IIII)V");
-    ASSERT(onProgressMethod, ("Not existing method: void onDownloadProgress(int, int, int, int)"));
 
     FileToDownload & curFile = g_filesToDownload.back();
 
@@ -187,7 +180,10 @@ extern "C"
     jint glbTotal = g_totalBytesToDownload;
     jint glbProgress = g_totalDownloadedBytes + req.Progress().first;
 
-    env->CallVoidMethod(*obj.get(), onProgressMethod,
+    JNIEnv * env = jni::GetEnv();
+
+    jmethodID methodID = jni::GetJavaMethodID(env, *obj.get(), "onDownloadProgress", "(IIII)V");
+    env->CallVoidMethod(*obj.get(), methodID,
                          curTotal, curProgress,
                          glbTotal, glbProgress);
   }

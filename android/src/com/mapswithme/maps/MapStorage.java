@@ -76,9 +76,14 @@ public class MapStorage
       return ret;
     }
 
+    public boolean isEqual(Index idx)
+    {
+      return (mGroup == idx.mGroup && mCountry == idx.mCountry && mRegion == idx.mRegion);
+    }
+
     public boolean isChild(Index idx)
     {
-      return (idx.getParent().equals(this));
+      return (idx.getParent().isEqual(this));
     }
 
     public int getPosition()
@@ -86,6 +91,12 @@ public class MapStorage
       if (mRegion != -1) return mRegion;
       else if (mCountry != -1) return mCountry;
       else return mGroup;
+    }
+
+    @Override
+    public String toString()
+    {
+      return ("Index(" + mGroup + ", " + mCountry + ", " + mRegion + ")");
     }
   }
 
@@ -103,6 +114,10 @@ public class MapStorage
 
   public native void showCountry(Index idx);
 
+  public native int subscribe(Listener l);
+  public native void unsubscribe(int slotId);
+
+
   private MapStorage()
   {
   }
@@ -117,6 +132,8 @@ public class MapStorage
     return mInstance;
   }
 
-  public native int subscribe(Listener l);
-  public native void unsubscribe(int slotId);
+  public static Index createIndex(int group, int country, int region)
+  {
+    return new Index(group, country, region);
+  }
 }

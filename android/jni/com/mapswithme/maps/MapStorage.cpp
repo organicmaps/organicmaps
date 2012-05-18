@@ -3,44 +3,46 @@
 ///////////////////////////////////////////////////////////////////////////////////
 
 #include "Framework.hpp"
+
 #include "../core/jni_helper.hpp"
+
 
 extern "C"
 {
   class IndexBinding
   {
   private:
-
     shared_ptr<jobject> m_self;
 
     jfieldID m_groupID;
     jfieldID m_countryID;
     jfieldID m_regionID;
 
-  public:
+    jobject object() const { return *m_self.get(); }
 
+  public:
     IndexBinding(jobject self) : m_self(jni::make_global_ref(self))
     {
-      jclass cls = jni::GetEnv()->GetObjectClass(*m_self.get());
+      jclass klass = jni::GetEnv()->GetObjectClass(object());
 
-      m_groupID = jni::GetEnv()->GetFieldID(cls, "mGroup", "I");
-      m_countryID = jni::GetEnv()->GetFieldID(cls, "mCountry", "I");
-      m_regionID = jni::GetEnv()->GetFieldID(cls, "mRegion", "I");
+      m_groupID = jni::GetEnv()->GetFieldID(klass, "mGroup", "I");
+      m_countryID = jni::GetEnv()->GetFieldID(klass, "mCountry", "I");
+      m_regionID = jni::GetEnv()->GetFieldID(klass, "mRegion", "I");
     }
 
     int group() const
     {
-      return jni::GetEnv()->GetIntField(*m_self.get(), m_groupID);
+      return jni::GetEnv()->GetIntField(object(), m_groupID);
     }
 
     int country() const
     {
-      return jni::GetEnv()->GetIntField(*m_self.get(), m_countryID);
+      return jni::GetEnv()->GetIntField(object(), m_countryID);
     }
 
     int region() const
     {
-      return jni::GetEnv()->GetIntField(*m_self.get(), m_regionID);
+      return jni::GetEnv()->GetIntField(object(), m_regionID);
     }
 
     storage::TIndex const toNative() const
@@ -50,17 +52,16 @@ extern "C"
 
     static jobject toJava(storage::TIndex const & idx)
     {
-      LOG(LDEBUG, ("constructing Java Index object from ", idx.m_group, idx.m_country, idx.m_region));
-
       JNIEnv * env = jni::GetEnv();
 
-      jclass klass = env->FindClass("com/mapswithme/maps/MapStorage$Index");
-      ASSERT(klass, ("Can't find java class com/mapswithme/maps/MapStorage$Index"));
+      jclass klass = env->FindClass("com/mapswithme/maps/MapStorage");
+      ASSERT(klass, ());
 
-      jmethodID methodId = env->GetMethodID(klass, "<init>", "(III)V");
-      ASSERT(methodId, ("Can't find java constructor in com/mapswithme/maps/MapStorage$Index"));
+      jmethodID methodId = env->GetStaticMethodID(klass,
+          "createIndex", "(III)Lcom/mapswithme/maps/MapStorage$Index;");
+      ASSERT(methodId, ());
 
-      return env->NewObject(klass, methodId, idx.m_group, idx.m_country, idx.m_region);
+      return env->CallStaticObjectMethod(klass, methodId, idx.m_group, idx.m_country, idx.m_region);
     }
   };
 
@@ -136,37 +137,35 @@ extern "C"
   {
     JNIEnv * env = jni::GetEnv();
 
-    jclass klass = env->GetObjectClass(*obj.get());
-
-    jmethodID methodID = env->GetMethodID(klass, "onCountryStatusChanged", "(Lcom/mapswithme/maps/MapStorage$Index;)V");
-
+    jmethodID methodID = jni::GetJavaMethodID(env, *obj.get(), "onCountryStatusChanged", "(Lcom/mapswithme/maps/MapStorage$Index;)V");
     env->CallVoidMethod(*obj.get(), methodID, IndexBinding::toJava(idx));
   }
 
   void ReportCountryProgress(shared_ptr<jobject> const & obj, storage::TIndex const & idx, pair<int64_t, int64_t> const & p)
   {
+    jlong const current = p.first;
+    jlong const total = p.second;
+
     JNIEnv * env = jni::GetEnv();
-    jclass klass = env->GetObjectClass(*obj.get());
 
-    jmethodID methodID = env->GetMethodID(klass, "onCountryProgress", "(Lcom/mapswithme/maps/MapStorage$Index;JJ)V");
-
-    jlong current = p.first;
-    jlong total = p.second;
-
+    jmethodID methodID = jni::GetJavaMethodID(env, *obj.get(), "onCountryProgress", "(Lcom/mapswithme/maps/MapStorage$Index;JJ)V");
     env->CallVoidMethod(*obj.get(), methodID, IndexBinding::toJava(idx), current, total);
   }
 
   JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_MapStorage_subscribe(JNIEnv * env, jobject thiz, jobject obs)
+  Java_com_mapswithme_maps_MapStorage_subscribe(JNIEnv * env, jobject thiz, jobject obj)
   {
-    jint res = g_framework->Storage().Subscribe(bind(&ReportChangeCountryStatus, jni::make_global_ref(obs), _1),
-                                                bind(&ReportCountryProgress, jni::make_global_ref(obs), _1, _2));
-    return res;
+    LOG(LDEBUG, ("Subscribe on storage"));
+
+    return g_framework->Storage().Subscribe(bind(&ReportChangeCountryStatus, jni::make_global_ref(obj), _1),
+                                            bind(&ReportCountryProgress, jni::make_global_ref(obj), _1, _2));
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MapStorage_unsubscribe(JNIEnv * env, jobject thiz, jint slotID)
   {
+    LOG(LDEBUG, ("UnSubscribe from storage"));
+
     g_framework->Storage().Unsubscribe(slotID);
   }
 }
