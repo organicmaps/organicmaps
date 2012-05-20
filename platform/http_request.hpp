@@ -49,7 +49,8 @@ public:
   static HttpRequest * GetFile(vector<string> const & urls, string const & filePath,
                                int64_t projectedFileSize,
                                CallbackT onFinish, CallbackT onProgress = CallbackT(),
-                               int64_t chunkSize = 512 * 1024);
+                               int64_t chunkSize = 512 * 1024,
+                               bool doCleanProgressFiles = true);
 };
 
 bool ParseServerList(string const & jsonStr, vector<string> & outUrls);
