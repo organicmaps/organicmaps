@@ -52,8 +52,9 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
   private int getBytesToDownload()
   {
-    return nativeGetBytesToDownload(mApplication.getApkPath(),
-                                    mApplication.getDataStoragePath());
+    return getBytesToDownload(
+              mApplication.getApkPath(), 
+              mApplication.getDataStoragePath());
   }
 
   private void disableAutomaticStandby()
@@ -120,8 +121,8 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
     mDownloadButton.setVisibility(View.GONE);
     mCancelButton.setVisibility(View.VISIBLE);
-
-    nativeDownloadNextFile(this);
+    
+    startNextFileDownload(this);
   }
 
   public void onCancelClicked(View v)
@@ -138,8 +139,9 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     mBytesToDownload = getBytesToDownload();
 
     setDownloadMessage(mBytesToDownload);
-
-    nativeDownloadNextFile(this);
+    
+    if (startNextFileDownload(this) == ERR_NO_MORE_FILES)
+      finishFilesDownload(ERR_NO_MORE_FILES);
   }
 
   public void onProceedToMapClicked(View v)
@@ -242,8 +244,8 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     // Create sdcard folder if it doesn't exist
     new File(mApplication.getDataStoragePath()).mkdirs();
     // Used to migrate from v2.0.0 to 2.0.1
-    nativeMoveMaps(mApplication.getExtAppDirectoryPath("files"),
-                   mApplication.getDataStoragePath());
+    moveMaps(mApplication.getExtAppDirectoryPath("files"), 
+             mApplication.getDataStoragePath());
 
     mBytesToDownload = getBytesToDownload();
 
@@ -289,20 +291,13 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   {
     if (errorCode == ERR_DOWNLOAD_SUCCESS)
     {
-      int res = nativeDownloadNextFile(this);
+      int res = startNextFileDownload(this);
       if (res == ERR_NO_MORE_FILES)
         finishFilesDownload(res);
     }
     else
       finishFilesDownload(errorCode);
   }
-
-  private native void nativeMoveMaps(String fromFolder, String toFolder);
-  private native int nativeGetBytesToDownload(String m_apkPath, String m_sdcardPath);
-  private native void nativeAddCountryToDownload(String countryName, Object observer);
-  private native int nativeDownloadNextFile(Object observer);
-  private native String nativeGetCountryName(double lat, double lon);
-
   private boolean mReceivedFirstEvent = false;
 
   private int mLocationsCount = 0;
@@ -347,4 +342,9 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     if (status == LocationService.FIRST_EVENT)
       mReceivedFirstEvent = true;
   }
+  
+  private native void moveMaps(String fromFolder, String toFolder);
+  private native int getBytesToDownload(String m_apkPath, String m_sdcardPath);
+  private native int startNextFileDownload(Object observer);
+  private native String findCountryByPos(double lat, double lon);
 }

@@ -67,7 +67,7 @@ extern "C"
   }
 
   JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_DownloadResourcesActivity_nativeGetBytesToDownload(JNIEnv * env, jobject thiz,
+  Java_com_mapswithme_maps_DownloadResourcesActivity_getBytesToDownload(JNIEnv * env, jobject thiz,
       jstring apkPath, jstring sdcardPath)
   {
     g_apkPath = jni::ToString(apkPath);
@@ -220,7 +220,7 @@ extern "C"
   }
 
   JNIEXPORT int JNICALL
-  Java_com_mapswithme_maps_DownloadResourcesActivity_nativeDownloadNextFile(JNIEnv * env,
+  Java_com_mapswithme_maps_DownloadResourcesActivity_startNextFileDownload(JNIEnv * env,
       jobject thiz, jobject observer)
   {
     if (g_filesToDownload.empty())
@@ -245,7 +245,7 @@ extern "C"
   // Move downloaded maps from /sdcard/Android/data/com.mapswithme.maps/files/
   // to /sdcard/MapsWithMe
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_DownloadResourcesActivity_nativeMoveMaps(JNIEnv * env, jobject thiz,
+  Java_com_mapswithme_maps_DownloadResourcesActivity_moveMaps(JNIEnv * env, jobject thiz,
       jstring fromPath, jstring toPath)
   {
     string from = jni::ToString(fromPath);
@@ -270,7 +270,7 @@ extern "C"
   }
 
   JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_DownloadResourcesActivity_nativeGetCountryName(JNIEnv * env, jobject thiz,
+  Java_com_mapswithme_maps_DownloadResourcesActivity_findCountryByPos(JNIEnv * env, jobject thiz,
       jdouble lat, jdouble lon)
   {
     double x = MercatorBounds::LonToX(lon);
