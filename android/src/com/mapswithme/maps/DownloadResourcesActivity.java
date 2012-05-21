@@ -39,6 +39,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   private int mBytesToDownload = 0;
   private int mSlotId = 0;
   private TextView mMsgView = null;
+  private TextView mLocationMsgView = null;
   private ProgressBar mProgress = null;
   private Button mDownloadButton = null;
   private Button mPauseButton = null;
@@ -279,6 +280,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
       mProceedButton = (Button)findViewById(R.id.download_resources_button_proceed_to_map);
       mTryAgainButton = (Button)findViewById(R.id.download_resources_button_tryagain);
       mDownloadCountryCheckBox = (CheckBox)findViewById(R.id.download_country_checkbox);
+      mLocationMsgView = (TextView)findViewById(R.id.download_resources_location_message);
       prepareFilesDownload();
     }
   }
@@ -330,17 +332,22 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
       if (mLocationsCount == mLocationsTryCount)
       {
         findViewById(R.id.download_resources_location_progress).setVisibility(View.GONE);
-        findViewById(R.id.download_resources_location_message).setVisibility(View.GONE);
-
         CheckBox checkBox = (CheckBox)findViewById(R.id.download_country_checkbox);
-
+              
         Log.i(TAG, "Searching for country name at location lat=" + lat + ", lon=" + lon);
-
-        checkBox.setVisibility(View.VISIBLE);
-        mCountryName = nativeGetCountryName(lat, lon);
+        
+        mCountryName = findCountryByPos(lat, lon);
         mHasLocation = true;
-        checkBox.setText(String.format(getString(R.string.download_country_ask), mCountryName));
-
+        if (mMapStorage.countryStatus(mMapStorage.findIndexByName(mCountryName)) == MapStorage.ON_DISK)
+          mLocationMsgView.setText(String.format(getString(R.string.download_location_map_up_to_date), mCountryName));
+        else
+        {
+          mLocationMsgView.setText(getString(R.string.download_location_map_proposal));
+          CheckBox checkBox = (CheckBox)findViewById(R.id.download_country_checkbox);
+          checkBox.setVisibility(View.VISIBLE);        
+          checkBox.setText(String.format(getString(R.string.download_country_ask), mCountryName));
+        }
+      
         mLocationService.stopUpdate(this);
         mLocationService = null;
       }
