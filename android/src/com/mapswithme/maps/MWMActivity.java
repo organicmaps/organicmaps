@@ -1,4 +1,5 @@
-package com.mapswithme.m
+package com.mapswithme.maps;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.location.LocationService;
 import com.nvidia.devtech.NvEventQueueActivity;

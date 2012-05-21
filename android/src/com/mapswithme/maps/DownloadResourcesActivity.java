@@ -332,8 +332,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
       if (mLocationsCount == mLocationsTryCount)
       {
         findViewById(R.id.download_resources_location_progress).setVisibility(View.GONE);
-        CheckBox checkBox = (CheckBox)findViewById(R.id.download_country_checkbox);
-              
+        
         Log.i(TAG, "Searching for country name at location lat=" + lat + ", lon=" + lon);
         
         mCountryName = findCountryByPos(lat, lon);
