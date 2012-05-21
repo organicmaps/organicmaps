@@ -17,11 +17,12 @@ do
 
     rm "$DST/drawable-xhdpi/${prefixName}.png"
 	ln -s "../$SRC/$filename" "$DST/drawable-xhdpi/${prefixName}.png"
-  #else
-  #  rm "$DST/drawable-mdpi/$filename"
-  #  ln -s "../$SRC/$filename" "$DST/drawable-mdpi/$filename"
+  else
+    rm "$DST/drawable-mdpi/$filename"
+    ln -s "../$SRC/$filename" "$DST/drawable-mdpi/$filename"
   fi
 done
 
 # rename do.png because of aapt - it doesn't support resource name "do"
 mv "$DST/drawable-xhdpi/do.png" "$DST/drawable-xhdpi/do_hack.png"
+mv "$DST/drawable-mdpi/do.png" "$DST/drawable-mdpi/do_hack.png"

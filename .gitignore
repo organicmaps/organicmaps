@@ -84,6 +84,13 @@ android/res/drawable-xhdpi/uk_england.png
 android/res/drawable-xhdpi/uk_northern_ireland.png
 android/res/drawable-xhdpi/uk_scotland.png
 android/res/drawable-xhdpi/uk_wales.png
+android/res/drawable-mdpi/??.png
+android/res/drawable-mdpi/do_hack.png
+android/res/drawable-mdpi/uk_england.png
+android/res/drawable-mdpi/uk_northern_ireland.png
+android/res/drawable-mdpi/uk_scotland.png
+android/res/drawable-mdpi/uk_wales.png
+
 
 # data
 data/intermediate_data
