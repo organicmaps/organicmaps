@@ -139,13 +139,12 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
 {
   location::CompassInfo newInfo;
-  newInfo.m_magneticHeading = newHeading.magneticHeading;
-  newInfo.m_trueHeading = newHeading.trueHeading;
-  newInfo.m_accuracy = newHeading.headingAccuracy;
-  //newInfo.m_x = newHeading.x;
-  //newInfo.m_y = newHeading.y;
-  //newInfo.m_z = newHeading.z;
+  newInfo.m_magneticHeading = my::DegToRad(newHeading.magneticHeading);
+  newInfo.m_trueHeading = my::DegToRad(newHeading.trueHeading);
+  newInfo.m_accuracy = my::DegToRad(newHeading.headingAccuracy);
+
   newInfo.m_timestamp = [newHeading.timestamp timeIntervalSince1970];
+
   for (id observer in m_observers)
     [observer onCompassUpdate:newInfo];
 }

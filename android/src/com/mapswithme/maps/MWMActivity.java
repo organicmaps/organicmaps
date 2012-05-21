@@ -1,11 +1,5 @@
 package com.mapswithme.maps;
 
-import java.io.File;
-
-import com.mapswithme.maps.R;
-import com.mapswithme.maps.location.LocationService;
-import com.nvidia.devtech.NvEventQueueActivity;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -14,9 +8,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,11 +19,12 @@ import android.view.MenuItem;
 import android.view.Surface;
 import android.view.View;
 import android.webkit.WebView;
-import android.util.DisplayMetrics;
-import android.util.Log;
+
+import com.mapswithme.maps.location.LocationService;
+import com.nvidia.devtech.NvEventQueueActivity;
 
 public class MWMActivity extends NvEventQueueActivity implements
-    LocationService.Listener
+LocationService.Listener
 {
   //VideoTimer m_timer;
 
@@ -49,11 +45,13 @@ public class MWMActivity extends NvEventQueueActivity implements
       m_shouldStartLocationService = false;
     }
   }
-  
+
+  @Override
   public void OnRenderingInitialized()
   {
     runOnUiThread(new Runnable()
     {
+      @Override
       public void run()
       {
         checkShouldStartLocationService();
@@ -62,6 +60,7 @@ public class MWMActivity extends NvEventQueueActivity implements
 
     runOnUiThread(new Runnable()
     {
+      @Override
       public void run()
       {
         checkMeasurementSystem();
@@ -69,10 +68,12 @@ public class MWMActivity extends NvEventQueueActivity implements
     });
   }
 
+  @Override
   public void ReportUnsupported()
   {
     runOnUiThread(new Runnable()
     {
+      @Override
       public void run()
       {
         AlertDialog alert = new AlertDialog.Builder(getCurrentContext()).create();
@@ -82,15 +83,16 @@ public class MWMActivity extends NvEventQueueActivity implements
         alert.setCancelable(false);
 
         alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.close),
-            new DialogInterface.OnClickListener()
-            {
-              public void onClick(DialogInterface dlg, int which)
-              {
-                Activity a = (Activity)getCurrentContext();
-                a.moveTaskToBack(true);
-                dlg.dismiss();
-              }
-            });
+                        new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            Activity a = (Activity)getCurrentContext();
+            a.moveTaskToBack(true);
+            dlg.dismiss();
+          }
+        });
 
         alert.show();
       }
@@ -119,26 +121,28 @@ public class MWMActivity extends NvEventQueueActivity implements
         alert.setMessage(getString(R.string.which_measurement_system));
 
         alert.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.miles),
-            new DialogInterface.OnClickListener()
-            {
-              public void onClick(DialogInterface dialog, int which)
-              {
-                setMeasurementSystem(UNITS_FOOT);
-                setupMeasurementSystem();
-                dialog.dismiss();
-              }
-            });
+                        new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dialog, int which)
+          {
+            setMeasurementSystem(UNITS_FOOT);
+            setupMeasurementSystem();
+            dialog.dismiss();
+          }
+        });
 
         alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.kilometres),
-            new DialogInterface.OnClickListener()
-            {
-              public void onClick(DialogInterface dlg, int which)
-              {
-                setMeasurementSystem(UNITS_METRIC);
-                setupMeasurementSystem();
-                dlg.dismiss();
-              }
-            });
+                        new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            setMeasurementSystem(UNITS_METRIC);
+            setupMeasurementSystem();
+            dlg.dismiss();
+          }
+        });
 
         alert.show();
       }
@@ -181,7 +185,7 @@ public class MWMActivity extends NvEventQueueActivity implements
   {
     startActivity(new Intent(this, DownloadUI.class));
   }
-  
+
   private MWMApplication mApplication;
 
   @Override
@@ -197,7 +201,7 @@ public class MWMActivity extends NvEventQueueActivity implements
     super.onCreate(savedInstanceState);
 
     m_context = this;
-    
+
     mApplication = (MWMApplication)getApplication();
 
     // Get screen density
@@ -208,6 +212,7 @@ public class MWMActivity extends NvEventQueueActivity implements
   }
 
   // From Location interface
+  @Override
   public void onLocationStatusChanged(int newStatus)
   {
     Log.d("LOCATION", "status: " + newStatus);
@@ -217,29 +222,30 @@ public class MWMActivity extends NvEventQueueActivity implements
   }
 
   // From Location interface
+  @Override
   public void onLocationUpdated(long time, double lat, double lon, float accuracy)
   {
     nativeLocationUpdated(time, lat, lon, accuracy);
   }
 
-  public double normalizeAngle(double a)
+  private double normalizeAngle(double a)
   {
-    // normalize magneticNorth into [0, 2PI] and convert to degrees
-    if (a < 0.0) 
+    // normalize magneticNorth into [0, 2PI]
+    if (a < 0.0)
       a += (2.0*Math.PI);
     a = a % (2.0*Math.PI);
-    a = a * 180.0 / Math.PI;
     return a;
   }
-  
+
   // From Location interface
-  public void onCompassUpdated(long time, double magneticNorth, double trueNorth, float accuracy)
+  @Override
+  public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
-    // correct direction 
+    // correct direction
     final int screenRotation = getWindowManager().getDefaultDisplay().getOrientation();
-    
+
     double correction = 0;
-    
+
     // correct due to orientation
     switch (screenRotation)
     {
@@ -253,14 +259,13 @@ public class MWMActivity extends NvEventQueueActivity implements
       correction = (3.0 * Math.PI / 2.0);
       break;
     }
-    
+
     magneticNorth += correction;
     trueNorth += correction;
 
     magneticNorth = normalizeAngle(magneticNorth);
-    trueNorth = normalizeAngle(trueNorth); 
-    
-           
+    trueNorth = normalizeAngle(trueNorth);
+
     nativeCompassUpdated(time, magneticNorth, trueNorth, accuracy);
   }
 
@@ -277,8 +282,8 @@ public class MWMActivity extends NvEventQueueActivity implements
   @Override
   protected void onPause()
   {
-    //< stop update only if it's started in OnRenderingInitialized    
-    if (!m_shouldStartLocationService) 
+    //< stop update only if it's started in OnRenderingInitialized
+    if (!m_shouldStartLocationService)
       if (findViewById(R.id.map_button_myposition).isSelected())
         mApplication.getLocationService().stopUpdate(this);
 
@@ -337,9 +342,10 @@ public class MWMActivity extends NvEventQueueActivity implements
     builder.setTitle(R.string.about);
 
     builder.setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface dialog, int which) {
-            dialog.cancel();
-        }
+      @Override
+      public void onClick(DialogInterface dialog, int which) {
+        dialog.cancel();
+      }
     }).show();
   }
 
@@ -443,5 +449,5 @@ public class MWMActivity extends NvEventQueueActivity implements
   private native void nativeDestroy();
   private native void nativeLocationStatusChanged(int newStatus);
   private native void nativeLocationUpdated(long time, double lat, double lon, float accuracy);
-  private native void nativeCompassUpdated(long time, double magneticNorth, double trueNorth, float accuracy);
+  private native void nativeCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy);
 }

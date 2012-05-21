@@ -31,12 +31,11 @@ namespace location
 
     m_headingRad = ((info.m_trueHeading >= 0.0) ? info.m_trueHeading : info.m_magneticHeading);
     // 0 angle is for North ("up"), but in our coordinates it's to the right.
-    m_headingRad = my::DegToRad(m_headingRad) - math::pi / 2.0;
+    m_headingRad = m_headingRad - math::pi / 2.0;
 
     // Avoid situations when offset between magnetic north and true north is too small
-    static double const MIN_SECTOR_DEG = 10.0;
-    m_headingHalfSectorRad = (info.m_accuracy < MIN_SECTOR_DEG ? MIN_SECTOR_DEG : info.m_accuracy);
-    m_headingHalfSectorRad = my::DegToRad(m_headingHalfSectorRad);
+    static double const MIN_SECTOR_RAD = math::pi / 18.0;
+    m_headingHalfSectorRad = (info.m_accuracy < MIN_SECTOR_RAD ? MIN_SECTOR_RAD : info.m_accuracy);
   }
 
   void State::DrawMyPosition(DrawerYG & drawer, Navigator const & nav)

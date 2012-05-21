@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-import com.mapswithme.maps.MWMApplication;
-
 import android.content.Context;
 import android.hardware.GeomagneticField;
 import android.hardware.Sensor;
@@ -19,6 +17,8 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.util.Log;
+
+import com.mapswithme.maps.MWMApplication;
 
 public class LocationService implements LocationListener, SensorEventListener, WifiLocation.Listener
 {
@@ -34,7 +34,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
   public interface Listener
   {
     public void onLocationUpdated(long time, double lat, double lon, float accuracy);
-    public void onCompassUpdated(long time, double magneticNorth, double trueNorth, float accuracy);
+    public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy);
     public void onLocationStatusChanged(int status);
   };
 
@@ -46,18 +46,18 @@ public class LocationService implements LocationListener, SensorEventListener, W
   private WifiLocation m_wifiScanner = null;
 
   private LocationManager m_locationManager;
-  
+
   private SensorManager m_sensorManager;
   private Sensor m_accelerometer = null;
   private Sensor m_magnetometer = null;
   /// To calculate true north for compass
   private GeomagneticField m_magneticField = null;
-  
+
   private boolean m_isActive = false;
   // @TODO Refactor to deliver separate first update notification to each provider,
   // or do not use it at all in the location service logic
   private boolean m_reportFirstUpdate = true;
-  
+
   private WakeLock m_wakeLock = null;
   private MWMApplication mApplication = null;
 
@@ -89,14 +89,14 @@ public class LocationService implements LocationListener, SensorEventListener, W
       it.next().onLocationUpdated(time, lat, lon, accuracy);
   }
 
-  private void notifyCompassUpdated(long time, double magneticNorth, double trueNorth, float accuracy)
+  private void notifyCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
     Iterator<Listener> it = m_observers.iterator();
     while (it.hasNext())
       it.next().onCompassUpdated(time, magneticNorth, trueNorth, accuracy);
   }
 
- 
+
   private void disableAutomaticStandby()
   {
     if (m_wakeLock == null)
@@ -190,7 +190,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
       m_locationManager.removeUpdates(this);
       if (m_sensorManager != null)
         m_sensorManager.unregisterListener(this);
-      
+
       m_isActive = false;
       m_reportFirstUpdate = true;
       m_magneticField = null;
@@ -232,7 +232,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
     // Check if the old and new location are from the same provider
     final boolean isFromSameProvider = isSameProvider(newLocation.getProvider(),
-        currentBestLocation.getProvider());
+                                                      currentBestLocation.getProvider());
 
     // Situation when last known location is equal to the new one
     if (timeDelta == 0 && isFromSameProvider)
@@ -269,6 +269,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
   private final static float HUNDRED_METRES = 100.0f;
 
   //@Override
+  @Override
   public void onLocationChanged(Location l)
   {
     if (isBetterLocation(l, m_lastLocation))
@@ -292,14 +293,14 @@ public class LocationService implements LocationListener, SensorEventListener, W
   }
 
   private native float[] nativeUpdateCompassSensor(int ind, float[] arr);
-  private float[] UpdateCompassSensor(int ind, float[] arr)
+  private float[] updateCompassSensor(int ind, float[] arr)
   {
     /*
     Log.d(TAG, "Sensor before, Java: " +
         String.valueOf(arr[0]) + ", " +
         String.valueOf(arr[1]) + ", " +
         String.valueOf(arr[2]));
-        */
+     */
 
     float[] ret = nativeUpdateCompassSensor(ind, arr);
 
@@ -308,27 +309,28 @@ public class LocationService implements LocationListener, SensorEventListener, W
         String.valueOf(ret[0]) + ", " +
         String.valueOf(ret[1]) + ", " +
         String.valueOf(ret[2]));
-        */
+     */
 
     return ret;
   }
 
   private float[] m_gravity = null;
   private float[] m_geomagnetic = null;
-  
+
   //@Override
+  @Override
   public void onSensorChanged(SensorEvent event)
   {
     // Get the magnetic north (orientation contains azimut, pitch and roll).
     float[] orientation = null;
-    
+
     if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
     {
-      m_gravity = UpdateCompassSensor(0, event.values);
+      m_gravity = updateCompassSensor(0, event.values);
     }
     if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
     {
-      m_geomagnetic = UpdateCompassSensor(1, event.values);
+      m_geomagnetic = updateCompassSensor(1, event.values);
     }
 
     if (m_gravity != null && m_geomagnetic != null)
@@ -341,52 +343,60 @@ public class LocationService implements LocationListener, SensorEventListener, W
         SensorManager.getOrientation(R, orientation);
       }
     }
-    
+
     if (orientation != null)
     {
       double north = orientation[0];
 
       if (m_magneticField == null)
-        notifyCompassUpdated(event.timestamp, north, -1.0, 10.0f);
+      {
+        // -1.0 - as default parameters
+        notifyCompassUpdated(event.timestamp, north, -1.0, -1.0);
+      }
       else
       {
         // positive 'offset' means the magnetic field is rotated east that much from true north
-        final float offset = m_magneticField.getDeclination();
+        final double offset = m_magneticField.getDeclination() * Math.PI / 180.0;
         double trueNorth = north - offset;
-        
-        if (trueNorth < 0.0) 
-          trueNorth += 360.0;
-        
+
+        if (trueNorth < 0.0)
+          trueNorth += (2.0 * Math.PI);
+
         notifyCompassUpdated(event.timestamp, north, trueNorth, offset);
       }
     }
   }
 
   //@Override
+  @Override
   public void onAccuracyChanged(Sensor sensor, int accuracy)
   {
     //Log.d(TAG, "Compass accuracy changed to " + String.valueOf(accuracy));
   }
 
   //@Override
+  @Override
   public void onProviderDisabled(String provider)
   {
     Log.d(TAG, "Disabled location provider: " + provider);
   }
 
   //@Override
+  @Override
   public void onProviderEnabled(String provider)
   {
     Log.d(TAG, "Enabled location provider: " + provider);
   }
 
   //@Override
+  @Override
   public void onStatusChanged(String provider, int status, Bundle extras)
   {
     Log.d(TAG, String.format("Status changed for location provider: %s to %d", provider, status));
   }
 
   //@Override
+  @Override
   public void onWifiLocationUpdated(Location l)
   {
     if (l != null)

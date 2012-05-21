@@ -27,7 +27,7 @@ extern "C"
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MWMActivity_nativeCompassUpdated(JNIEnv * env, jobject thiz,
-      jlong time, jdouble magneticNorth, jdouble trueNorth, jfloat accuracy)
+      jlong time, jdouble magneticNorth, jdouble trueNorth, jdouble accuracy)
   {
     g_framework->OnCompassUpdated(time, magneticNorth, trueNorth, accuracy);
   }

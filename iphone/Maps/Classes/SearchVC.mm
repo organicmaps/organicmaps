@@ -499,7 +499,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   if (![m_locationManager getLat:lat Lon:lon])
     return;
 
-  double const northDeg = (info.m_trueHeading < 0) ? info.m_magneticHeading : info.m_trueHeading;
+  double const northRad = (info.m_trueHeading < 0) ? info.m_magneticHeading : info.m_trueHeading;
   NSArray * cells = [m_table visibleCells];
   for (NSUInteger i = 0; i < cells.count; ++i)
   {
@@ -522,8 +522,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
         CompassView * compass = (CompassView *)cell.accessoryView;
         m2::PointD const center = res.GetFeatureCenter();
         compass.angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(lon),
-                                                MercatorBounds::LatToY(lat)), center) +
-                        northDeg / 180. * math::pi;
+                                                MercatorBounds::LatToY(lat)), center) + northRad;
       }
     }
   }

@@ -46,12 +46,9 @@ namespace location
   {
   public:
     double m_timestamp;           //!< how many seconds ago the heading was retrieved
-    double m_magneticHeading;     //!< positive degrees from the magnetic North
-    double m_trueHeading;         //!< positive degrees from the true North
-    double m_accuracy;            //!< offset from magnetic to true North
-//    int m_x;
-//    int m_y;
-//    int m_z;
+    double m_magneticHeading;     //!< positive radians from the magnetic North
+    double m_trueHeading;         //!< positive radians from the true North
+    double m_accuracy;            //!< offset from the magnetic to the true North in radians
   };
 
   static inline bool IsLatValid(double lat)
