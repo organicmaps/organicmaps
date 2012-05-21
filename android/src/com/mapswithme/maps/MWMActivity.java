@@ -1,4 +1,7 @@
-package com.mapswithme.maps;
+package com.mapswithme.m
+import com.mapswithme.maps.R;
+import com.mapswithme.maps.location.LocationService;
+import com.nvidia.devtech.NvEventQueueActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;

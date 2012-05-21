@@ -4,11 +4,10 @@ import java.io.File;
 
 import com.mapswithme.maps.location.LocationService;
 
-import android.app.Application;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Environment;
 
-public class MWMApplication extends Application
+public class MWMApplication extends android.app.Application
 {
   public final static String PACKAGE_NAME = "com.mapswithme.maps";
   
