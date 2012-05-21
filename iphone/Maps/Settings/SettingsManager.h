@@ -5,6 +5,7 @@
 @interface SettingsManager : NSObject <UIActionSheetDelegate>
 {
   UINavigationController * m_navigationController;
+  int m_slotID;
 }
 
 - (void) show:(UIViewController *)prevController;

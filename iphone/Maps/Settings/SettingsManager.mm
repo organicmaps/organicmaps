@@ -80,7 +80,8 @@ using namespace storage;
 		SEL progressSel = @selector(OnCountryDownload:withProgress:);
 		TProgressFunc progressImpl = (TProgressFunc)[self methodForSelector:progressSel];
 
-		f.Storage().Subscribe(bind(changeImpl, self, changeSel, _1), bind(progressImpl, self, progressSel, _1, _2));
+		m_slotID = f.Storage().Subscribe(bind(changeImpl, self, changeSel, _1),
+                                     bind(progressImpl, self, progressSel, _1, _2));
   }
   // display controller only when countries are loaded
   [prevController presentModalViewController:m_navigationController animated:YES];
@@ -102,7 +103,7 @@ using namespace storage;
 // Hides all opened settings windows
 - (void) hide
 {
-  GetFramework().Storage().Unsubscribe();
+  GetFramework().Storage().Unsubscribe(m_slotID);
 
   [m_navigationController dismissModalViewControllerAnimated:YES];
   [m_navigationController release], m_navigationController = nil;
