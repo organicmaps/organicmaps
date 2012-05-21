@@ -347,4 +347,5 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   private native int getBytesToDownload(String m_apkPath, String m_sdcardPath);
   private native int startNextFileDownload(Object observer);
   private native String findCountryByPos(double lat, double lon);
+  private native void cancelCurrentFile();
 }
