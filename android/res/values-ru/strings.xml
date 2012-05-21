@@ -37,6 +37,9 @@
     <string name="downloading_country_can_proceed">Пока загружается %s \nвы можете пользоваться приложением.</string>
     <string name="download_country_ask">Загрузить %s?</string>
     <string name="download">Загрузить</string>
-    <string name="cancel">Отменить</string>
     <string name="try_again">Попробовать еще раз</string>
+    <string name="download_location_map_proposal">Вы можете загрузить карту\nвашего текущего местоположения.</string>
+    <string name="download_location_map_up_to_date">Карта местности, в которой\nвы находитесь (%s) уже загружена.</string>
+    <string name="pause">Приостановить</string>
+    <string name="continue_download">Продолжить</string>
 </resources>

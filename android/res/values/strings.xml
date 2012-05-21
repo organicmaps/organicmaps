@@ -37,6 +37,9 @@
     <string name="downloading_country_can_proceed">Downloading %s. You can now\n"proceed to the map.</string>
     <string name="download_country_ask">Download %s?</string>
     <string name="download">Download</string>
-    <string name="cancel">Cancel</string>
     <string name="try_again">Try again</string>
+    <string name="download_location_map_proposal">You can download the map\nof your current location.</string>
+    <string name="download_location_map_up_to_date">The map at your current\nlocation (%s) is up-to-date</string>
+    <string name="pause">Pause</string>
+    <string name="continue_download">Continue</string>
 </resources>

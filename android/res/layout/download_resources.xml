@@ -56,23 +56,36 @@
            	/>
         
         <Button
-            android:layout_marginTop="20dip"            
+            android:layout_marginTop="20dip"
             android:width="120dip"
-            android:id="@+id/download_resources_button_cancel"
+            android:id="@+id/download_resources_button_pause"
             android:textSize="12sp"
             android:gravity="center"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cancel"
-            android:onClick="onCancelClicked"
+            android:text="@string/pause"
+            android:onClick="onPauseClicked"
+            android:visibility="gone"/>
+        
+        <Button
+            android:layout_marginTop="20dip"            
+            android:width="120dip"
+            android:id="@+id/download_resources_button_resume"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/continue_download"
+            android:onClick="onResumeClicked"
         		android:visibility="gone"
         		/>
         
         <Button 
             android:layout_marginTop="20dip"            
             android:width="120dip"
-            android:id="@+id/download_resources_button_continue"
+            android:id="@+id/download_resources_button_proceed_to_map"
             android:textSize="12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -102,6 +115,7 @@
             android:layout_gravity="center"
             android:text="@string/getting_position"
             android:visibility="gone"
+            android:textSize="16sp"
             />
 
         <ProgressBar

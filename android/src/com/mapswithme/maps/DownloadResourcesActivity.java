@@ -41,7 +41,8 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   private TextView mMsgView = null;
   private ProgressBar mProgress = null;
   private Button mDownloadButton = null;
-  private Button mCancelButton = null;
+  private Button mPauseButton = null;
+  private Button mResumeButton = null;
   private Button mProceedButton = null;
   private Button mTryAgainButton = null;
   private CheckBox mDownloadCountryCheckBox = null;
@@ -120,22 +121,38 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     mProgress.setMax(mBytesToDownload);
 
     mDownloadButton.setVisibility(View.GONE);
-    mCancelButton.setVisibility(View.VISIBLE);
+    mPauseButton.setVisibility(View.VISIBLE);
     
     startNextFileDownload(this);
   }
 
-  public void onCancelClicked(View v)
+  public void onPauseClicked(View v)
   {
-    mDownloadButton.setVisibility(View.VISIBLE);
-    mCancelButton.setVisibility(View.GONE);
+    enableAutomaticStandby();
+    
+    mResumeButton.setVisibility(View.VISIBLE);
+    mPauseButton.setVisibility(View.GONE);
+    
+    cancelCurrentFile();
+  }
+
+  public void onResumeClicked(View v)
+  {
+    disableAutomaticStandby();
+    
+    mPauseButton.setVisibility(View.VISIBLE);
+    mResumeButton.setVisibility(View.GONE);
+    
+    if (startNextFileDownload(this) == ERR_NO_MORE_FILES)
+      finishFilesDownload(ERR_NO_MORE_FILES);
   }
 
   public void onTryAgainClicked(View v)
   {
+    mProgress.setVisibility(View.VISIBLE);
     mTryAgainButton.setVisibility(View.GONE);
-    mCancelButton.setVisibility(View.VISIBLE);
-
+    mPauseButton.setVisibility(View.VISIBLE);
+    
     mBytesToDownload = getBytesToDownload();
 
     setDownloadMessage(mBytesToDownload);
@@ -196,7 +213,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
           mMapStorage.downloadCountry(idx);
           mProceedButton.setVisibility(View.VISIBLE);
-          mCancelButton.setVisibility(View.GONE);
+          mPauseButton.setVisibility(View.GONE);
         }
         else
           showMapView();
@@ -208,8 +225,8 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     {
       mMsgView.setText(getErrorMessage(result));
       mMsgView.setTextColor(Color.RED);
-
-      mCancelButton.setVisibility(View.GONE);
+      
+      mPauseButton.setVisibility(View.GONE);
       mDownloadButton.setVisibility(View.GONE);
       mTryAgainButton.setVisibility(View.VISIBLE);
     }
@@ -257,8 +274,9 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
       mMsgView = (TextView)findViewById(R.id.download_resources_message);
       mProgress = (ProgressBar)findViewById(R.id.download_resources_progress);
       mDownloadButton = (Button)findViewById(R.id.download_resources_button_download);
-      mCancelButton = (Button)findViewById(R.id.download_resources_button_cancel);
-      mProceedButton = (Button)findViewById(R.id.download_resources_button_continue);
+      mPauseButton = (Button)findViewById(R.id.download_resources_button_pause);
+      mResumeButton = (Button)findViewById(R.id.download_resources_button_resume);
+      mProceedButton = (Button)findViewById(R.id.download_resources_button_proceed_to_map);
       mTryAgainButton = (Button)findViewById(R.id.download_resources_button_tryagain);
       mDownloadCountryCheckBox = (CheckBox)findViewById(R.id.download_country_checkbox);
       prepareFilesDownload();
