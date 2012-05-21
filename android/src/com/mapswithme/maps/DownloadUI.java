@@ -231,7 +231,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
         .show();
         break;
 
-      case MapStorage.NOT_DOWNLOADED: 
+      case MapStorage.NOT_DOWNLOADED:
         // Check for available free space
         final long size = m_storage.countryRemoteSizeInBytes(idx);
         if (size > getFreeSpace())
@@ -282,7 +282,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
         .show();
         break;
 
-      case MapStorage.IN_QUEUE: 
+      case MapStorage.IN_QUEUE:
         // Silently discard country from the queue
         m_storage.deleteCountry(idx);
         break;
