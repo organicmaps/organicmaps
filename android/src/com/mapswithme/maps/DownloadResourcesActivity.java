@@ -171,6 +171,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     // Disable animation because MWMActivity should appear exactly over this one
     mwmActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
     startActivity(mwmActivityIntent);
+    finish();
   }
 
   public void finishFilesDownload(int result)
