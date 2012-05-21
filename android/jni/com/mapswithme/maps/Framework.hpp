@@ -40,13 +40,16 @@ namespace android
     bool m_hasSecond;
     int m_mask;
 
-    /// single click processing parameters
+    bool m_doLoadState;
 
+    /// @name Single click processing parameters.
+    //@{
     my::Timer m_doubleClickTimer;
     bool m_isInsideDoubleClick;
     bool m_isCleanSingleClick;
     double m_lastX1;
     double m_lastY1;
+    //@}
 
     math::AvgVector<float, 3> m_sensors[2];
 
@@ -60,7 +63,7 @@ namespace android
 
     void OnLocationStatusChanged(int/* == location::TLocationStatus*/ newStatus);
     void OnLocationUpdated(uint64_t time, double lat, double lon, float accuracy);
-    void OnCompassUpdated(uint64_t time, double magneticNorth, double trueNorth, float accuracy);
+    void OnCompassUpdated(uint64_t time, double magneticNorth, double trueNorth, double accuracy);
     void UpdateCompassSensor(int ind, float * arr);
 
     void Invalidate();
@@ -76,6 +79,8 @@ namespace android
     void Zoom(int mode, double x1, double y1, double x2, double y2);
     void Touch(int action, int mask, double x1, double y1, double x2, double y2);
 
+    /// Show rect from another activity. Ensure that no LoadState will be called,
+    /// when maim map activity will become active.
     void ShowCountry(m2::RectD const & r);
 
     void LoadState();

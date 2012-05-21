@@ -36,7 +36,8 @@ namespace android
      m_hasSecond(false),
      m_mask(0),
      m_isInsideDoubleClick(false),
-     m_isCleanSingleClick(false)
+     m_isCleanSingleClick(false),
+     m_doLoadState(true)
   {
     ASSERT(g_framework == 0, ());
     g_framework = this;
@@ -73,7 +74,7 @@ namespace android
     m_work.OnGpsUpdate(info);
   }
 
-  void Framework::OnCompassUpdated(uint64_t timestamp, double magneticNorth, double trueNorth, float accuracy)
+  void Framework::OnCompassUpdated(uint64_t timestamp, double magneticNorth, double trueNorth, double accuracy)
   {
     location::CompassInfo info;
     info.m_timestamp = static_cast<double>(timestamp);
@@ -142,7 +143,10 @@ namespace android
     try
     {
       m_work.SetRenderPolicy(CreateRenderPolicy(rpParams));
-      LoadState();
+      if (m_doLoadState)
+        LoadState();
+      else
+        m_doLoadState = true;
     }
     catch (yg::gl::platform_unsupported const & e)
     {
@@ -357,8 +361,8 @@ namespace android
 
   void Framework::ShowCountry(m2::RectD const & r)
   {
-    // TODO: due to activity recreation, we need to set rect in saved state here
-    //m_work.ShowRect(r);
+    m_doLoadState = false;
+    m_work.ShowRect(r);
   }
 
   void Framework::LoadState()
