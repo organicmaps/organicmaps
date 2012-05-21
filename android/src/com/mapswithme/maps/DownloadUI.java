@@ -50,15 +50,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
       public String m_name;
       public String m_flag;
 
-      // -2 = Group item
-      // -1 = Group item for country
-      // 0 = EOnDisk
-      // 1 = ENotDownloaded
-      // 2 = EDownloadFailed
-      // 3 = EDownloading
-      // 4 = EInQueue
-      // 5 = EUnknown
-      // 6 = EGeneratingIndex
+      /// @see constants in MapStorage
       public int m_status;
 
       public CountryItem(MapStorage storage, Index idx)
@@ -78,12 +70,12 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
         if (idx.mCountry == -1 || (idx.mRegion == -1 && m_flag.length() == 0))
         {
           // group and not a country
-          m_status = -2;
+          m_status = MapStorage.GROUP;
         }
         else if (idx.mRegion == -1 && storage.countriesCount(idx) > 0)
         {
           // country with grouping
-          m_status = -1;
+          m_status = MapStorage.COUNTRY;
         }
         else
         {
@@ -110,9 +102,9 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
       {
         switch (m_status)
         {
-        case -2: return TYPE_GROUP;
-        case -1: return TYPE_COUNTRY_GROUP;
-        case 0: return TYPE_COUNTRY_READY;
+        case MapStorage.GROUP: return TYPE_GROUP;
+        case MapStorage.COUNTRY: return TYPE_COUNTRY_GROUP;
+        case MapStorage.ON_DISK: return TYPE_COUNTRY_READY;
         default : return TYPE_COUNTRY_IN_PROCESS;
         }
       }
@@ -221,7 +213,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
       // Get actual status here
       switch (m_storage.countryStatus(idx))
       {
-      case 0: // EOnDisk
+      case MapStorage.ON_DISK:
         // Confirm deleting
         m_alert
         .setTitle(name)
@@ -239,7 +231,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
         .show();
         break;
 
-      case 1: // ENotDownloaded
+      case MapStorage.NOT_DOWNLOADED: 
         // Check for available free space
         final long size = m_storage.countryRemoteSizeInBytes(idx);
         if (size > getFreeSpace())
@@ -267,12 +259,12 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
         }
         break;
 
-      case 2: // EDownloadFailed
+      case MapStorage.DOWNLOAD_FAILED:
         // Do not confirm downloading if status is failed, just start it
         m_storage.downloadCountry(idx);
         break;
 
-      case 3: // EDownloading
+      case MapStorage.DOWNLOADING:
         // Confirm canceling
         m_alert
         .setTitle(name)
@@ -290,7 +282,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
         .show();
         break;
 
-      case 4: // EInQueue
+      case MapStorage.IN_QUEUE: 
         // Silently discard country from the queue
         m_storage.deleteCountry(idx);
         break;
@@ -400,17 +392,17 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
 
       switch (m_items[position].m_status)
       {
-      case 0:
+      case MapStorage.ON_DISK:
         return String.format(m_context.getString(R.string.downloaded_touch_to_delete),
             getSizeString(m_storage.countryLocalSizeInBytes(m_idx.getChild(position))));
 
-      case 1: res = R.string.touch_to_download; break;
-      case 2: res = R.string.download_has_failed; break;
+      case MapStorage.NOT_DOWNLOADED: res = R.string.touch_to_download; break;
+      case MapStorage.DOWNLOAD_FAILED: res = R.string.download_has_failed; break;
 
       // print 0%; this value will be updated soon
-      case 3: return String.format(m_context.getString(R.string.downloading_touch_to_cancel), 0);
+      case MapStorage.DOWNLOADING: return String.format(m_context.getString(R.string.downloading_touch_to_cancel), 0);
 
-      case 4: res = R.string.marked_for_downloading; break;
+      case MapStorage.IN_QUEUE: res = R.string.marked_for_downloading; break;
       default:
         return "An unknown error occured!";
       }

@@ -2,6 +2,8 @@ package com.mapswithme.maps;
 
 public class MapStorage
 {
+  public static final int GROUP = -2;
+  public static final int COUNTRY = -1;
   public static final int ON_DISK = 0;
   public static final int NOT_DOWNLOADED = 1;
   public static final int DOWNLOAD_FAILED = 2;
