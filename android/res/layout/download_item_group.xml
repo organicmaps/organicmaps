@@ -10,6 +10,7 @@
         android:layout_width="?android:attr/listPreferredItemHeight"
         android:layout_height="?android:attr/listPreferredItemHeight"
         android:padding="5dip"
+        android:scaleType="center"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"/>
 
