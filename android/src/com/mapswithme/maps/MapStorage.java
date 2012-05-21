@@ -133,9 +133,4 @@ public class MapStorage
 
     return mInstance;
   }
-
-  public static Index createIndex(int group, int country, int region)
-  {
-    return new Index(group, country, region);
-  }
 }

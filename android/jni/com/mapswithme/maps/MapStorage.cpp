@@ -54,14 +54,17 @@ extern "C"
     {
       JNIEnv * env = jni::GetEnv();
 
-      jclass klass = env->FindClass("com/mapswithme/maps/MapStorage");
+      jclass klass = env->FindClass("com/mapswithme/maps/MapStorage$Index");
       ASSERT(klass, ());
 
-      jmethodID methodId = env->GetStaticMethodID(klass,
-          "createIndex", "(III)Lcom/mapswithme/maps/MapStorage$Index;");
+      jint group = idx.m_group;
+      jint country = idx.m_country;
+      jint region = idx.m_region;
+
+      jmethodID methodID = env->GetMethodID(klass, "<init>", "(III)V")
       ASSERT(methodId, ());
 
-      return env->CallStaticObjectMethod(klass, methodId, idx.m_group, idx.m_country, idx.m_region);
+      return env->NewObject(klass, methodID, group, country, region);
     }
   };
 
