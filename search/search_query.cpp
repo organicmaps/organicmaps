@@ -405,6 +405,7 @@ namespace impl
 
     scoped_ptr<LockedFeaturesVector> m_pFV;
 
+    // For the best performance, incoming id's should be sorted by id.first (mwm file id).
     void LoadFeature(pair<size_t, uint32_t> const & id,
                      FeatureType & f, string & name, string & country)
     {
@@ -424,7 +425,6 @@ namespace impl
     {
     }
 
-    // For the best performance, impl::PreResult1 should be sorted by impl::PreResult1::GetID().
     impl::PreResult2 * operator() (impl::PreResult1 const & res)
     {
       FeatureType feature;

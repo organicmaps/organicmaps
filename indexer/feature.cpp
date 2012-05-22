@@ -18,8 +18,8 @@ using namespace feature;
 
 void FeatureBase::Deserialize(feature::LoaderBase * pLoader, BufferT buffer)
 {
-  m_pLoader.reset(pLoader);
-  m_pLoader->Deserialize(buffer);
+  m_pLoader = pLoader;
+  m_pLoader->Init(buffer);
 
   m_LimitRect = m2::RectD::GetEmptyRect();
   m_bTypesParsed = m_bCommonParsed = false;
@@ -87,7 +87,7 @@ void FeatureType::Deserialize(feature::LoaderBase * pLoader, BufferT buffer)
 {
   base_type::Deserialize(pLoader, buffer);
 
-  m_pLoader->AssignFeature(this);
+  m_pLoader->InitFeature(this);
 
   m_bHeader2Parsed = m_bPointsParsed = m_bTrianglesParsed = false;
 

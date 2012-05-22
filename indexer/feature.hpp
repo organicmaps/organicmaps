@@ -8,7 +8,6 @@
 #include "../base/buffer_vector.hpp"
 
 #include "../std/string.hpp"
-#include "../std/shared_ptr.hpp"
 
 
 namespace feature
@@ -123,7 +122,7 @@ protected:
   inline uint8_t Header() const { return m_Header; }
 
 protected:
-  shared_ptr<feature::LoaderBase> m_pLoader;
+  feature::LoaderBase * m_pLoader;
 
   uint8_t m_Header;
 

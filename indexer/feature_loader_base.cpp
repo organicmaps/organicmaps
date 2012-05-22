@@ -21,6 +21,12 @@ namespace feature
 SharedLoadInfo::SharedLoadInfo(FilesContainerR const & cont, DataHeader const & header)
   : m_cont(cont), m_header(header)
 {
+  CreateLoader();
+}
+
+SharedLoadInfo::~SharedLoadInfo()
+{
+  delete m_pLoader;
 }
 
 SharedLoadInfo::ReaderT SharedLoadInfo::GetDataReader() const
@@ -38,22 +44,18 @@ SharedLoadInfo::ReaderT SharedLoadInfo::GetTrianglesReader(int ind) const
   return m_cont.GetReader(GetTagForIndex(TRIANGLE_FILE_TAG, ind));
 }
 
-LoaderBase * SharedLoadInfo::CreateLoader() const
+void SharedLoadInfo::CreateLoader()
 {
-  LoaderBase * p;
-
   switch (m_header.GetVersion())
   {
   case DataHeader::v1:
-    p = new old_101::feature::LoaderImpl(*this);
+    m_pLoader = new old_101::feature::LoaderImpl(*this);
     break;
 
   default:
-    p = new LoaderCurrent(*this);
+    m_pLoader = new LoaderCurrent(*this);
     break;
   }
-
-  return p;
 }
 
 
@@ -66,11 +68,16 @@ LoaderBase::LoaderBase(SharedLoadInfo const & info)
 {
 }
 
-void LoaderBase::Deserialize(BufferT data)
+void LoaderBase::Init(BufferT data)
 {
   m_Data = data;
+  m_pF = 0;
+
   m_CommonOffset = m_Header2Offset = 0;
   m_ptsSimpMask = 0;
+
+  m_ptsOffsets.clear();
+  m_trgOffsets.clear();
 }
 
 uint32_t LoaderBase::CalcOffset(ArrayByteSource const & source) const

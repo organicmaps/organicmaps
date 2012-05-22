@@ -4,6 +4,8 @@
 
 #include "../coding/file_container.hpp"
 
+#include "../std/noncopyable.hpp"
+
 
 class FeatureType;
 class ArrayByteSource;
@@ -13,21 +15,25 @@ namespace feature
   class LoaderBase;
 
   /// This info is created once.
-  class SharedLoadInfo
+  class SharedLoadInfo : private noncopyable
   {
     FilesContainerR const & m_cont;
     DataHeader const & m_header;
 
     typedef FilesContainerR::ReaderT ReaderT;
 
+    LoaderBase * m_pLoader;
+    void CreateLoader();
+
   public:
     SharedLoadInfo(FilesContainerR const & cont, DataHeader const & header);
+    ~SharedLoadInfo();
 
     ReaderT GetDataReader() const;
     ReaderT GetGeometryReader(int ind) const;
     ReaderT GetTrianglesReader(int ind) const;
 
-    LoaderBase * CreateLoader() const;
+    LoaderBase * GetLoader() const { return m_pLoader; }
 
     inline serial::CodingParams const & GetDefCodingParams() const
     {
@@ -49,10 +55,14 @@ namespace feature
     LoaderBase(SharedLoadInfo const & info);
     virtual ~LoaderBase() {}
 
-    inline void AssignFeature(FeatureType * p) { m_pF = p; }
-
     // It seems like no need to store a copy of buffer (see FeaturesVector).
     typedef char const * BufferT;
+
+    /// @name Initialize functions.
+    //@{
+    void Init(BufferT data);
+    inline void InitFeature(FeatureType * p) { m_pF = p; }
+    //@}
 
     virtual uint8_t GetHeader() = 0;
 
@@ -61,8 +71,6 @@ namespace feature
     virtual void ParseHeader2() = 0;
     virtual uint32_t ParseGeometry(int scale) = 0;
     virtual uint32_t ParseTriangles(int scale) = 0;
-
-    void Deserialize(BufferT data);
 
     inline uint32_t GetTypesSize() const { return m_CommonOffset - m_TypesOffset; }
 

@@ -20,7 +20,7 @@ public:
     uint32_t offset;
     m_RecordReader.ReadRecord(pos, m_buffer, offset);
 
-    ft.Deserialize(m_LoadInfo.CreateLoader(), &m_buffer[offset]);
+    ft.Deserialize(m_LoadInfo.GetLoader(), &m_buffer[offset]);
   }
 
   template <class ToDo> void ForEachOffset(ToDo toDo) const
@@ -43,7 +43,7 @@ private:
     void operator() (uint32_t pos, char const * data, uint32_t /*size*/) const
     {
       FeatureType ft;
-      ft.Deserialize(m_loadInfo.CreateLoader(), data);
+      ft.Deserialize(m_loadInfo.GetLoader(), data);
 
       m_toDo(ft, pos);
     }
