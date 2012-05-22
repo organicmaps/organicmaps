@@ -233,9 +233,14 @@ bool Framework::DeleteBmCategory(size_t index)
 Bookmark const * Framework::GetBookmark(m2::PointD pt) const
 {
   if (m_renderPolicy == 0)
-    return 0;  
+    return 0;
+  return GetBookmark(pt, m_renderPolicy->VisualScale());
+}
+
+Bookmark const * Framework::GetBookmark(m2::PointD pt, double visualScale) const
+{
   // Get the global rect of touching area.
-  int const sm = 20 * m_renderPolicy->VisualScale();
+  int const sm = 20 * visualScale;
   m2::RectD rect(PtoG(m2::PointD(pt.x - sm, pt.y - sm)), PtoG(m2::PointD(pt.x + sm, pt.y + sm)));
 
   Bookmark const * ret = 0;

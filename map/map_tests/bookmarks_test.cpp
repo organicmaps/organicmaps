@@ -114,7 +114,7 @@ UNIT_TEST(Bookmarks_Getting)
   fm.AddBookmark("cat2", Bookmark(m2::PointD(41, 20), "2"));
   fm.AddBookmark("cat3", Bookmark(m2::PointD(41, 40), "3"));
 
-  Bookmark const * bm = fm.GetBookmark(pixC);
+  Bookmark const * bm = fm.GetBookmark(pixC, 1.0);
   TEST(bm != 0, ());
   TEST_EQUAL(bm->GetName(), "2", ());
 
