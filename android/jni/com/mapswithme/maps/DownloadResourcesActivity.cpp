@@ -155,10 +155,6 @@ extern "C"
     {
       FileToDownload & curFile = g_filesToDownload.back();
 
-      /// cleaning up by ourselves
-      FileWriter::DeleteFileX(curFile.m_pathOnSdcard + DOWNLOADING_FILE_EXTENSION);
-      FileWriter::DeleteFileX(curFile.m_pathOnSdcard + RESUME_FILE_EXTENSION);
-
       LOG(LDEBUG, ("finished downloading", curFile.m_fileName, "sized", curFile.m_fileSize, "bytes"));
 
       g_totalDownloadedBytes += curFile.m_fileSize;
