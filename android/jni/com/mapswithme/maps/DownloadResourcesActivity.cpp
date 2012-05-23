@@ -20,6 +20,7 @@
 #include "../../../../../std/vector.hpp"
 #include "../../../../../std/string.hpp"
 #include "../../../../../std/bind.hpp"
+#include "../../../../../std/shared_ptr.hpp"
 
 #include "../core/jni_helper.hpp"
 
@@ -50,7 +51,7 @@ static string g_sdcardPath;
 static vector<FileToDownload> g_filesToDownload;
 static int g_totalDownloadedBytes;
 static int g_totalBytesToDownload;
-static downloader::HttpRequest * g_currentRequest;
+static shared_ptr<downloader::HttpRequest> g_currentRequest;
 
 extern "C"
 {
@@ -127,7 +128,7 @@ extern "C"
     };
 
     g_totalBytesToDownload = totalBytesToDownload;
-    g_currentRequest = 0;
+    g_currentRequest.reset();
 
     return res;
   }
@@ -147,6 +148,8 @@ extern "C"
       errorCode = ERR_DOWNLOAD_ERROR;
       break;
     };
+
+    g_currentRequest.reset();
 
     if (errorCode == ERR_DOWNLOAD_SUCCESS)
     {
@@ -219,13 +222,13 @@ extern "C"
         LOG(LDEBUG, (curFile.m_urls[i]));
       }
 
-      g_currentRequest = downloader::HttpRequest::GetFile(curFile.m_urls,
+      g_currentRequest.reset(downloader::HttpRequest::GetFile(curFile.m_urls,
                                                           curFile.m_pathOnSdcard,
                                                           curFile.m_fileSize,
                                                           onFinish,
                                                           onProgress,
                                                           64 * 1024,
-                                                          false);
+                                                          false));
     }
   }
 
@@ -233,8 +236,7 @@ extern "C"
   Java_com_mapswithme_maps_DownloadResourcesActivity_cancelCurrentFile(JNIEnv * env, jobject thiz)
   {
     LOG(LINFO, ("pauseDownload, currentRequest=", g_currentRequest));
-    delete g_currentRequest;
-    g_currentRequest = 0;
+    g_currentRequest.reset();
   }
 
   JNIEXPORT int JNICALL
@@ -251,11 +253,11 @@ extern "C"
     downloader::HttpRequest::CallbackT onFinish(bind(&DownloadFileFinished, jni::make_global_ref(observer), _1));
     downloader::HttpRequest::CallbackT onProgress(bind(&DownloadFileProgress, jni::make_global_ref(observer), _1));
 
-    g_currentRequest = downloader::HttpRequest::PostJson(GetPlatform().MetaServerUrl(),
+    g_currentRequest.reset(downloader::HttpRequest::PostJson(GetPlatform().MetaServerUrl(),
                                                          curFile.m_fileName,
                                                          bind(&DownloadURLListFinished, _1,
                                                              onFinish,
-                                                             onProgress));
+                                                             onProgress)));
 
     return ERR_FILE_IN_PROGRESS;
   }
