@@ -106,7 +106,7 @@ extern "C"
 
       if (size != sizeOnSdcard)
       {
-        LOG(LINFO, ("should check : ", name, "sized", size, "bytes"));
+        LOG(LDEBUG, ("should download : ", name, "sized", size, "bytes"));
         f.m_fileSize = size;
         g_filesToDownload.push_back(f);
         totalBytesToDownload += size;
@@ -235,7 +235,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_DownloadResourcesActivity_cancelCurrentFile(JNIEnv * env, jobject thiz)
   {
-    LOG(LINFO, ("pauseDownload, currentRequest=", g_currentRequest));
+    LOG(LDEBUG, ("cancelCurrentFile, currentRequest=", g_currentRequest.get()));
     g_currentRequest.reset();
   }
 
@@ -248,7 +248,7 @@ extern "C"
 
     FileToDownload & curFile = g_filesToDownload.back();
 
-    LOG(LINFO, ("downloading", curFile.m_fileName, "sized", curFile.m_fileSize, "bytes"));
+    LOG(LDEBUG, ("downloading", curFile.m_fileName, "sized", curFile.m_fileSize, "bytes"));
 
     downloader::HttpRequest::CallbackT onFinish(bind(&DownloadFileFinished, jni::make_global_ref(observer), _1));
     downloader::HttpRequest::CallbackT onProgress(bind(&DownloadFileProgress, jni::make_global_ref(observer), _1));
