@@ -51,7 +51,8 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
   @Override
   protected void onPostExecute(Void resCode)
   {
-    onFinish(m_httpCallbackID, 200, m_beg, m_end);
+    if (!mIsCancelled)
+      onFinish(m_httpCallbackID, 200, m_beg, m_end);
   }
 
   @Override
@@ -65,7 +66,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
   @Override
   protected void onProgressUpdate(byte []... data)
   {
-    if (!isCancelled())
+    if (!mIsCancelled)
     {
       // Use progress event to save downloaded bytes
       onWrite(m_httpCallbackID, m_beg + m_downloadedBytes, data[0], data[0].length);
@@ -88,7 +89,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
 
       HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
-      if (isCancelled())
+      if (mIsCancelled)
       {
         urlConnection.disconnect();
         return null;
@@ -120,7 +121,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
         os.flush();
       }
 
-      if (isCancelled())
+      if (mIsCancelled)
       {
         urlConnection.disconnect();
         return null;
@@ -142,7 +143,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
       long readBytes;
       while ((readBytes = is.read(tempBuf)) != -1)
       {
-        if (isCancelled())
+        if (mIsCancelled)
         {
           urlConnection.disconnect();
           return null;
@@ -169,5 +170,13 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
     }
 
     return null;
+  }
+
+  private boolean mIsCancelled = false;
+
+  void safeCancel()
+  {
+    mIsCancelled = true;
+    cancel(false);
   }
 }

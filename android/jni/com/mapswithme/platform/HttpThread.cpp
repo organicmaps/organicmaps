@@ -42,8 +42,8 @@ public:
   ~HttpThread()
   {
     JNIEnv * env = jni::GetEnv();
-    jmethodID methodId = jni::GetJavaMethodID(env, m_self, "cancel", "(Z)Z");
-    ASSERT(methodId, ("Can't find java method 'cancel' in com/mapswithme/maps/downloader/DownloadChunkTask"));
+    jmethodID methodId = jni::GetJavaMethodID(env, m_self, "safeCancel", "()V");
+    ASSERT(methodId, ("Can't find java method 'safeCancel' in com/mapswithme/maps/downloader/DownloadChunkTask"));
 
     env->CallBooleanMethod(m_self, methodId, false);
     env->DeleteGlobalRef(m_self);
