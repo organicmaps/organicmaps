@@ -161,13 +161,6 @@ extern "C"
 
       LOG(LDEBUG, ("finished downloading", curFile.m_fileName, "sized", curFile.m_fileSize, "bytes"));
 
-      /// slight hack, check manually for Maps extension and AddMap accordingly
-      if (curFile.m_fileName.find(".mwm") != string::npos)
-      {
-        LOG(LINFO, ("adding it as a map"));
-        g_framework->AddMap(curFile.m_fileName);
-      }
-
       g_totalDownloadedBytes += curFile.m_fileSize;
 
       LOG(LDEBUG, ("totalDownloadedBytes:", g_totalDownloadedBytes));
