@@ -55,7 +55,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   private int getBytesToDownload()
   {
     return getBytesToDownload(
-              mApplication.getApkPath(), 
+              mApplication.getApkPath(),
               mApplication.getDataStoragePath());
   }
 
@@ -123,27 +123,27 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
     mDownloadButton.setVisibility(View.GONE);
     mPauseButton.setVisibility(View.VISIBLE);
-    
+
     startNextFileDownload(this);
   }
 
   public void onPauseClicked(View v)
   {
     enableAutomaticStandby();
-    
+
     mResumeButton.setVisibility(View.VISIBLE);
     mPauseButton.setVisibility(View.GONE);
-    
+
     cancelCurrentFile();
   }
 
   public void onResumeClicked(View v)
   {
     disableAutomaticStandby();
-    
+
     mPauseButton.setVisibility(View.VISIBLE);
     mResumeButton.setVisibility(View.GONE);
-    
+
     if (startNextFileDownload(this) == ERR_NO_MORE_FILES)
       finishFilesDownload(ERR_NO_MORE_FILES);
   }
@@ -153,11 +153,11 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     mProgress.setVisibility(View.VISIBLE);
     mTryAgainButton.setVisibility(View.GONE);
     mPauseButton.setVisibility(View.VISIBLE);
-    
+
     mBytesToDownload = getBytesToDownload();
 
     setDownloadMessage(mBytesToDownload);
-    
+
     if (startNextFileDownload(this) == ERR_NO_MORE_FILES)
       finishFilesDownload(ERR_NO_MORE_FILES);
   }
@@ -197,8 +197,6 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     enableAutomaticStandby();
     if (result == ERR_NO_MORE_FILES)
     {
-      Log.i(TAG, "finished files download");
-
       if (mHasLocation && mDownloadCountryCheckBox.isChecked())
       {
         mDownloadCountryCheckBox.setVisibility(View.GONE);
@@ -226,7 +224,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     {
       mMsgView.setText(getErrorMessage(result));
       mMsgView.setTextColor(Color.RED);
-      
+
       mPauseButton.setVisibility(View.GONE);
       mDownloadButton.setVisibility(View.GONE);
       mTryAgainButton.setVisibility(View.VISIBLE);
@@ -263,7 +261,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     // Create sdcard folder if it doesn't exist
     new File(mApplication.getDataStoragePath()).mkdirs();
     // Used to migrate from v2.0.0 to 2.0.1
-    moveMaps(mApplication.getExtAppDirectoryPath("files"), 
+    moveMaps(mApplication.getExtAppDirectoryPath("files"),
              mApplication.getDataStoragePath());
 
     mBytesToDownload = getBytesToDownload();
@@ -301,9 +299,6 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
   public void onDownloadProgress(int currentTotal, int currentProgress, int globalTotal, int globalProgress)
   {
-    Log.d(TAG, "curTotal:" + currentTotal + ", curProgress:" + currentProgress
-          + ", glbTotal:" + globalTotal + ", glbProgress:" + globalProgress);
-
     if (mProgress != null)
       mProgress.setProgress(globalProgress);
   }
@@ -332,9 +327,9 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
       if (mLocationsCount == mLocationsTryCount)
       {
         findViewById(R.id.download_resources_location_progress).setVisibility(View.GONE);
-        
+
         Log.i(TAG, "Searching for country name at location lat=" + lat + ", lon=" + lon);
-        
+
         mCountryName = findCountryByPos(lat, lon);
         mHasLocation = true;
         if (mMapStorage.countryStatus(mMapStorage.findIndexByName(mCountryName)) == MapStorage.ON_DISK)
@@ -343,10 +338,10 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
         {
           mLocationMsgView.setText(getString(R.string.download_location_map_proposal));
           CheckBox checkBox = (CheckBox)findViewById(R.id.download_country_checkbox);
-          checkBox.setVisibility(View.VISIBLE);        
+          checkBox.setVisibility(View.VISIBLE);
           checkBox.setText(String.format(getString(R.string.download_country_ask), mCountryName));
         }
-      
+
         mLocationService.stopUpdate(this);
         mLocationService = null;
       }
@@ -367,7 +362,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     if (status == LocationService.FIRST_EVENT)
       mReceivedFirstEvent = true;
   }
-  
+
   private native void moveMaps(String fromFolder, String toFolder);
   private native int getBytesToDownload(String m_apkPath, String m_sdcardPath);
   private native int startNextFileDownload(Object observer);

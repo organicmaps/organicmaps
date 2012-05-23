@@ -29,9 +29,15 @@ public:
     // User id is always the same, so do not waste time on every chunk call
     static string uniqueUserId = GetPlatform().UniqueClientId();
 
-    m_self = env->NewGlobalRef(env->NewObject(klass, methodId, reinterpret_cast<jlong>(&cb),
-        env->NewStringUTF(url.c_str()), beg, end, expectedFileSize, env->NewStringUTF(pb.c_str()),
-        env->NewStringUTF(uniqueUserId.c_str())));
+    m_self = env->NewGlobalRef(env->NewObject(klass,
+                                              methodId,
+                                              reinterpret_cast<jlong>(&cb),
+                                              env->NewStringUTF(url.c_str()),
+                                              beg,
+                                              end,
+                                              expectedFileSize,
+                                              env->NewStringUTF(pb.c_str()),
+                                              env->NewStringUTF(uniqueUserId.c_str())));
 
     methodId = env->GetMethodID(klass, "start", "()V");
     ASSERT(methodId, ("Can't find java method 'start' in com/mapswithme/maps/downloader/DownloadChunkTask"));
