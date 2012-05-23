@@ -150,6 +150,8 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
   public void onTryAgainClicked(View v)
   {
+    disableAutomaticStandby();
+
     mProgress.setVisibility(View.VISIBLE);
     mTryAgainButton.setVisibility(View.GONE);
     mPauseButton.setVisibility(View.VISIBLE);
@@ -200,6 +202,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
       if (mHasLocation && mDownloadCountryCheckBox.isChecked())
       {
         mDownloadCountryCheckBox.setVisibility(View.GONE);
+        mLocationMsgView.setVisibility(View.GONE);
         mMsgView.setText(String.format(getString(R.string.downloading_country_can_proceed),
                                        mCountryName));
 
