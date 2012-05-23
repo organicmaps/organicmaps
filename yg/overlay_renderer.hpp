@@ -2,7 +2,7 @@
 
 #include "text_renderer.hpp"
 #include "../std/shared_ptr.hpp"
-#include "info_layer.hpp"
+#include "overlay.hpp"
 
 namespace yg
 {
@@ -14,7 +14,7 @@ namespace yg
 
       bool m_drawTexts;
       bool m_drawSymbols;
-      shared_ptr<yg::InfoLayer> m_infoLayer;
+      shared_ptr<yg::Overlay> m_overlay;
 
       typedef map<m2::PointI, shared_ptr<OverlayElement> > TElements;
 
@@ -26,7 +26,7 @@ namespace yg
       {
         bool m_drawTexts;
         bool m_drawSymbols;
-        shared_ptr<yg::InfoLayer> m_infoLayer;
+        shared_ptr<yg::Overlay> m_overlay;
         Params();
       };
 
@@ -67,11 +67,11 @@ namespace yg
                         yg::EPosition pos,
                         double depth);
 
-      void setInfoLayer(shared_ptr<InfoLayer> const & infoLayer);
+      void setOverlay(shared_ptr<Overlay> const & overlay);
 
-      shared_ptr<InfoLayer> const & infoLayer() const;
+      shared_ptr<Overlay> const & overlay() const;
 
-      void resetInfoLayer();
+      void resetOverlay();
     };
   }
 }

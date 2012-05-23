@@ -7,7 +7,7 @@
 
 #include "../geometry/screenbase.hpp"
 
-#include "../yg/info_layer.hpp"
+#include "../yg/overlay.hpp"
 
 #include "../base/thread.hpp"
 #include "../base/threaded_list.hpp"

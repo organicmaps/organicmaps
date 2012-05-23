@@ -3,16 +3,16 @@
 
 #include "render_state.hpp"
 #include "renderbuffer.hpp"
-#include "info_layer.hpp"
+#include "overlay.hpp"
 
 namespace yg
 {
   namespace gl
   {
     RenderState::RenderState()
-    : m_actualInfoLayer(new yg::InfoLayer()),
+    : m_actualOverlay(new yg::Overlay()),
       m_isEmptyModelActual(false),
-      m_currentInfoLayer(new yg::InfoLayer()),
+      m_currentOverlay(new yg::Overlay()),
       m_isEmptyModelCurrent(false),
       m_isResized(false),
       m_doRepaintAll(false),

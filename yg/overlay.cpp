@@ -1,6 +1,6 @@
 #include "../base/SRC_FIRST.hpp"
 
-#include "info_layer.hpp"
+#include "overlay.hpp"
 #include "text_element.hpp"
 
 #include "../base/logging.hpp"
@@ -28,16 +28,16 @@ namespace yg
     return elem->roughBoundRect();
   }
 
-  void InfoLayer::draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m)
+  void Overlay::draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m)
   {
     m_tree.ForEach(bind(&OverlayElement::draw, _1, r, cref(m)));
   }
 
-  InfoLayer::InfoLayer()
+  Overlay::Overlay()
     : m_couldOverlap(true)
   {}
 
-  InfoLayer::InfoLayer(InfoLayer const & src)
+  Overlay::Overlay(Overlay const & src)
   {
     m_couldOverlap = src.m_couldOverlap;
 
@@ -57,7 +57,7 @@ namespace yg
     }
   }
 
-  void InfoLayer::setCouldOverlap(bool flag)
+  void Overlay::setCouldOverlap(bool flag)
   {
     m_couldOverlap = flag;
   }
@@ -138,17 +138,17 @@ namespace yg
     }
   }
 
-  void InfoLayer::offset(m2::PointD const & offs, m2::RectD const & rect)
+  void Overlay::offset(m2::PointD const & offs, m2::RectD const & rect)
   {
     offsetTree(m_tree, offs, rect);
   }
 
-  void InfoLayer::clear()
+  void Overlay::clear()
   {
     m_tree.Clear();
   }
 
-  void InfoLayer::addOverlayElement(shared_ptr<OverlayElement> const & oe)
+  void Overlay::addOverlayElement(shared_ptr<OverlayElement> const & oe)
   {
     m_tree.Add(oe);
   }
@@ -183,7 +183,7 @@ namespace yg
     }
   };
 
-  void InfoLayer::replaceOverlayElement(shared_ptr<OverlayElement> const & oe)
+  void Overlay::replaceOverlayElement(shared_ptr<OverlayElement> const & oe)
   {
     bool isIntersect = false;
     DoPreciseIntersect fn(oe, &isIntersect);
@@ -194,7 +194,7 @@ namespace yg
       m_tree.Add(oe);
   }
 
-  void InfoLayer::processOverlayElement(shared_ptr<OverlayElement> const & oe, math::Matrix<double, 3, 3> const & m)
+  void Overlay::processOverlayElement(shared_ptr<OverlayElement> const & oe, math::Matrix<double, 3, 3> const & m)
   {
     if (m != math::Identity<double, 3>())
       processOverlayElement(make_shared_ptr(oe->clone(m)));
@@ -202,7 +202,7 @@ namespace yg
       processOverlayElement(oe);
   }
 
-  void InfoLayer::processOverlayElement(shared_ptr<OverlayElement> const & oe)
+  void Overlay::processOverlayElement(shared_ptr<OverlayElement> const & oe)
   {
     if (oe->isVisible())
     {
@@ -219,7 +219,7 @@ namespace yg
     return l->visualRank() > r->visualRank();
   }
 
-  void InfoLayer::merge(InfoLayer const & layer, math::Matrix<double, 3, 3> const & m)
+  void Overlay::merge(Overlay const & layer, math::Matrix<double, 3, 3> const & m)
   {
     vector<shared_ptr<OverlayElement> > v;
 
@@ -231,10 +231,10 @@ namespace yg
 
     /// 3. merging them into the infoLayer starting from most
     /// important one to optimize the space usage.
-    for_each(v.begin(), v.end(), bind(&InfoLayer::processOverlayElement, this, _1, cref(m)));
+    for_each(v.begin(), v.end(), bind(&Overlay::processOverlayElement, this, _1, cref(m)));
   }
 
-  void InfoLayer::clip(m2::RectI const & r)
+  void Overlay::clip(m2::RectI const & r)
   {
     vector<shared_ptr<OverlayElement> > v;
     m_tree.ForEach(MakeBackInsertFunctor(v));
@@ -278,7 +278,7 @@ namespace yg
 //    LOG(LINFO, ("clipped out", clippedCnt, "elements,", elemCnt, "elements total"));
   }
 
-  bool InfoLayer::checkHasEquals(InfoLayer const * l) const
+  bool Overlay::checkHasEquals(Overlay const * l) const
   {
     vector<shared_ptr<OverlayElement> > v0;
     m_tree.ForEach(MakeBackInsertFunctor(v0));
@@ -297,9 +297,9 @@ namespace yg
     return !res.empty();
   }
 
-  InfoLayer * InfoLayer::clone() const
+  Overlay * Overlay::clone() const
   {
-    InfoLayer * res = new InfoLayer(*this);
+    Overlay * res = new Overlay(*this);
     return res;
   }
 }

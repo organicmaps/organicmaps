@@ -47,7 +47,7 @@ SOURCES += \
     glyph_layout.cpp \
     text_element.cpp \
     text_path.cpp \
-    info_layer.cpp \
+    overlay.cpp \
     overlay_element.cpp \
     symbol_element.cpp \
     overlay_renderer.cpp \
@@ -105,7 +105,7 @@ HEADERS += \
     glyph_layout.hpp \
     text_element.hpp \
     text_path.hpp \
-    info_layer.hpp \
+    overlay.hpp \
     overlay_element.hpp \
     symbol_element.hpp \
     overlay_renderer.hpp \

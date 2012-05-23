@@ -10,7 +10,7 @@
 
 namespace yg
 {
-  class InfoLayer;
+  class Overlay;
 
   namespace gl
   {
@@ -28,7 +28,7 @@ namespace yg
       /// Bitmap
       shared_ptr<BaseTexture> m_actualTarget;
       /// Information layer
-      shared_ptr<yg::InfoLayer> m_actualInfoLayer;
+      shared_ptr<yg::Overlay> m_actualOverlay;
       /// Screen parameters
       ScreenBase m_actualScreen;
       /// Empty-model flag of the actual target
@@ -40,7 +40,7 @@ namespace yg
       /// Screen of the rendering operation in progress.
       ScreenBase m_currentScreen;
       /// information layer
-      shared_ptr<yg::InfoLayer> m_currentInfoLayer;
+      shared_ptr<yg::Overlay> m_currentOverlay;
       /// at least one backBuffer layer
       shared_ptr<BaseTexture> m_backBuffer;
       /// depth buffer used for rendering

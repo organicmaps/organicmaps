@@ -19,7 +19,7 @@ namespace yg
     static m2::RectD const LimitRect(shared_ptr<OverlayElement> const & elem);
   };
 
-  class InfoLayer
+  class Overlay
   {
   private:
 
@@ -32,8 +32,8 @@ namespace yg
 
   public:
 
-    InfoLayer();
-    InfoLayer(InfoLayer const & src);
+    Overlay();
+    Overlay(Overlay const & src);
 
     void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m);
 
@@ -47,12 +47,12 @@ namespace yg
 
     void setCouldOverlap(bool flag);
 
-    void merge(InfoLayer const & infoLayer, math::Matrix<double, 3, 3> const & m);
+    void merge(Overlay const & infoLayer, math::Matrix<double, 3, 3> const & m);
 
     void clip(m2::RectI const & r);
 
-    bool checkHasEquals(InfoLayer const * l) const;
+    bool checkHasEquals(Overlay const * l) const;
 
-    InfoLayer * clone() const;
+    Overlay * clone() const;
   };
 }

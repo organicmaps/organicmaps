@@ -7,7 +7,7 @@
 #include "symbol_element.hpp"
 #include "circle_element.hpp"
 #include "render_state.hpp"
-#include "info_layer.hpp"
+#include "overlay.hpp"
 #include "resource_manager.hpp"
 #include "skin.hpp"
 
@@ -25,7 +25,7 @@ namespace yg
       : TextRenderer(p),
         m_drawTexts(p.m_drawTexts),
         m_drawSymbols(p.m_drawSymbols),
-        m_infoLayer(p.m_infoLayer)
+        m_overlay(p.m_overlay)
     {
     }
 
@@ -48,10 +48,10 @@ namespace yg
 
       math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
 
-      if (!m_infoLayer.get())
+      if (!m_overlay.get())
         oe->draw(this, id);
       else
-        m_infoLayer->processOverlayElement(oe);
+        m_overlay->processOverlayElement(oe);
     }
 
     void OverlayRenderer::drawCircle(m2::PointD const & pt,
@@ -70,10 +70,10 @@ namespace yg
 
       math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
 
-      if (!m_infoLayer.get())
+      if (!m_overlay.get())
         oe->draw(this, id);
       else
-        m_infoLayer->processOverlayElement(oe);
+        m_overlay->processOverlayElement(oe);
     }
 
     void OverlayRenderer::drawText(FontDesc const & fontDesc,
@@ -102,10 +102,10 @@ namespace yg
 
       math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
 
-      if (!m_infoLayer.get())
+      if (!m_overlay.get())
         oe->draw(this, id);
       else
-        m_infoLayer->processOverlayElement(oe);
+        m_overlay->processOverlayElement(oe);
     }
 
     void OverlayRenderer::drawTextEx(FontDesc const & primaryFont,
@@ -138,10 +138,10 @@ namespace yg
 
       math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
 
-      if (!m_infoLayer.get())
+      if (!m_overlay.get())
         oe->draw(this, id);
       else
-        m_infoLayer->processOverlayElement(oe);
+        m_overlay->processOverlayElement(oe);
     }
 
     bool OverlayRenderer::drawPathText(
@@ -169,27 +169,27 @@ namespace yg
 
       math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
 
-      if (!m_infoLayer.get())
+      if (!m_overlay.get())
         pte->draw(this, id);
       else
-        m_infoLayer->processOverlayElement(pte);
+        m_overlay->processOverlayElement(pte);
 
       return true;
     }
 
-    void OverlayRenderer::setInfoLayer(shared_ptr<InfoLayer> const & infoLayer)
+    void OverlayRenderer::setOverlay(shared_ptr<Overlay> const & overlay)
     {
-      m_infoLayer = infoLayer;
+      m_overlay = overlay;
     }
 
-    shared_ptr<InfoLayer> const & OverlayRenderer::infoLayer() const
+    shared_ptr<Overlay> const & OverlayRenderer::overlay() const
     {
-      return m_infoLayer;
+      return m_overlay;
     }
 
-    void OverlayRenderer::resetInfoLayer()
+    void OverlayRenderer::resetOverlay()
     {
-      m_infoLayer.reset();
+      m_overlay.reset();
     }
   }
 }

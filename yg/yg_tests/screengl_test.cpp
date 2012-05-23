@@ -1131,8 +1131,8 @@ namespace
   public:
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      p->setInfoLayer(make_shared_ptr(new yg::InfoLayer()));
-      p->infoLayer()->setCouldOverlap(false);
+      p->setOverlay(make_shared_ptr(new yg::Overlay()));
+      p->overlay()->setCouldOverlap(false);
 
       p->drawSymbol(m2::PointD(200, 200), "current-position", yg::EPosUnder, yg::maxDepth);
       p->drawText(yg::FontDesc(), m2::PointD(200, 200), yg::EPosAbove, "Test Text", yg::maxDepth, true);
@@ -1143,8 +1143,8 @@ namespace
       p->endFrame();
       p->beginFrame();
 
-      p->infoLayer()->draw(p.get(), math::Identity<double, 3>());
-      p->resetInfoLayer();
+      p->overlay()->draw(p.get(), math::Identity<double, 3>());
+      p->resetOverlay();
     }
   };
 

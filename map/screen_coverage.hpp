@@ -4,7 +4,7 @@
 
 #include "../geometry/screenbase.hpp"
 
-#include "../yg/info_layer.hpp"
+#include "../yg/overlay.hpp"
 
 #include "tile.hpp"
 #include "tiler.hpp"
@@ -51,8 +51,8 @@ private:
   /// Tiles in this set are locked to prevent their deletion
   /// from TileCache while drawing them
   TTileSet m_tiles;
-  /// InfoLayer composed of infoLayers for visible tiles
-  scoped_ptr<yg::InfoLayer> m_infoLayer;
+  /// Overlay composed of overlays for visible tiles
+  scoped_ptr<yg::Overlay> m_overlay;
 
   /// State flags
 
@@ -73,8 +73,8 @@ private:
   ScreenCoverage(ScreenCoverage const & src);
   ScreenCoverage const & operator=(ScreenCoverage const & src);
 
-  /// For each tile in m_tiles merge it's infoLayer into the big one.
-  void MergeInfoLayer();
+  /// For each tile in m_tiles merge it's overlay into the big one.
+  void MergeOverlay();
 
 public:
 
@@ -102,8 +102,8 @@ public:
   bool IsEmptyModelAtCoverageCenter() const;
   /// Check, whether the model is empty at the center of the coverage.
   void CheckEmptyModelAtCoverageCenter();
-  /// Getter for InfoLayer
-  yg::InfoLayer * GetInfoLayer() const;
+  /// Getter for Overlay
+  yg::Overlay * GetOverlay() const;
   /// Cache coverage in display list
   void Cache();
   /// add rendered tile to coverage. Tile is locked, so make sure to unlock it in case it's not needed.

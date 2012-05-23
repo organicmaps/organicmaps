@@ -179,10 +179,10 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   drawer->screen()->setRenderTarget(tileTarget);
 
-  shared_ptr<yg::InfoLayer> tileInfoLayer(new yg::InfoLayer());
-  tileInfoLayer->setCouldOverlap(true);
+  shared_ptr<yg::Overlay> tileOverlay(new yg::Overlay());
+  tileOverlay->setCouldOverlap(true);
 
-  drawer->screen()->setInfoLayer(tileInfoLayer);
+  drawer->screen()->setOverlay(tileOverlay);
 
   /// ensuring, that the render target is not bound as a texture
 
@@ -224,11 +224,11 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   drawer->endFrame();
 
-  drawer->screen()->resetInfoLayer();
+  drawer->screen()->resetOverlay();
 
   /// filter out the overlay elements that are out of the bound rect for the tile
   if (!env.isCancelled())
-    tileInfoLayer->clip(renderRect);
+    tileOverlay->clip(renderRect);
 
   ReadPixels(glQueue, env);
   drawer->screen()->finish();
@@ -257,7 +257,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   else
   {
     AddActiveTile(Tile(tileTarget,
-                 tileInfoLayer,
+                 tileOverlay,
                  frameScreen,
                  rectInfo,
                  0,

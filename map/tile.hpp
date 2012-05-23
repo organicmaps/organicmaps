@@ -12,13 +12,13 @@ namespace yg
   {
     class BaseTexture;
   }
-  class InfoLayer;
+  class Overlay;
 }
 
 struct Tile
 {
   shared_ptr<yg::gl::BaseTexture> m_renderTarget; //< taken from resource manager
-  shared_ptr<yg::InfoLayer> m_infoLayer;  //< text and POI's
+  shared_ptr<yg::Overlay> m_overlay;  //< text and POI's
   ScreenBase m_tileScreen; //< cached to calculate it once, cause tile blitting
                            //< is performed on GUI thread.
   Tiler::RectInfo m_rectInfo; //< taken from tiler
@@ -28,7 +28,7 @@ struct Tile
   Tile();
 
   Tile(shared_ptr<yg::gl::BaseTexture> const & renderTarget,
-       shared_ptr<yg::InfoLayer> const & infoLayer,
+       shared_ptr<yg::Overlay> const & overlay,
        ScreenBase const & tileScreen,
        Tiler::RectInfo const & rectInfo,
        double duration,

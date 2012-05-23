@@ -3,7 +3,7 @@
 #include "render_policy.hpp"
 
 #include "../std/shared_ptr.hpp"
-#include "../yg/info_layer.hpp"
+#include "../yg/overlay.hpp"
 
 class TileRenderer;
 class CoverageGenerator;

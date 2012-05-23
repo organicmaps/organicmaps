@@ -295,9 +295,9 @@ void RenderQueueRoutine::Do()
   m2::RectI  surfaceRect;
   m2::RectI  textureRect;
 
-  shared_ptr<yg::InfoLayer> infoLayer(new yg::InfoLayer());
-  infoLayer->setCouldOverlap(false);
-  m_threadDrawer->screen()->setInfoLayer(infoLayer);
+  shared_ptr<yg::Overlay> overlay(new yg::Overlay());
+  overlay->setCouldOverlap(false);
+  m_threadDrawer->screen()->setOverlay(overlay);
 
   while (!IsCancelled())
   {
@@ -348,7 +348,7 @@ void RenderQueueRoutine::Do()
           areas.clear();
           areas.push_back(curRect);
           fullRectRepaint = true;
-          m_threadDrawer->screen()->infoLayer()->clear();
+          m_threadDrawer->screen()->overlay()->clear();
           m_renderState->m_doRepaintAll = false;
         }
         else
@@ -374,14 +374,14 @@ void RenderQueueRoutine::Do()
           if (!redrawTextRect.Intersect(oldRect))
             redrawTextRect = m2::RectD(0, 0, 0, 0);
 
-          m_threadDrawer->screen()->infoLayer()->offset(
+          m_threadDrawer->screen()->overlay()->offset(
                 m2::PointD(0, 0) * offsetM,
                 redrawTextRect
                 );
         }
         else
         {
-          m_threadDrawer->screen()->infoLayer()->clear();
+          m_threadDrawer->screen()->overlay()->clear();
           m_renderState->m_isEmptyModelCurrent = true;
         }
       }
@@ -480,7 +480,7 @@ void RenderQueueRoutine::Do()
 
       m_threadDrawer->beginFrame();
 
-      m_threadDrawer->screen()->infoLayer()->draw(m_threadDrawer->screen().get(), math::Identity<double, 3>());
+      m_threadDrawer->screen()->overlay()->draw(m_threadDrawer->screen().get(), math::Identity<double, 3>());
 
       m_threadDrawer->endFrame();
     }

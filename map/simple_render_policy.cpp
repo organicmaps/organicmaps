@@ -2,7 +2,7 @@
 #include "events.hpp"
 #include "drawer_yg.hpp"
 #include "window_handle.hpp"
-#include "../yg/info_layer.hpp"
+#include "../yg/overlay.hpp"
 #include "../yg/internal/opengl.hpp"
 #include "../yg/skin.hpp"
 
@@ -125,18 +125,18 @@ void SimpleRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
                    pxCenter + m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2)),
          glbRect);
 
-  shared_ptr<yg::InfoLayer> infoLayer(new yg::InfoLayer());
+  shared_ptr<yg::Overlay> overlay(new yg::Overlay());
 
   DrawerYG * pDrawer = e->drawer();
 
-  pDrawer->screen()->setInfoLayer(infoLayer);
+  pDrawer->screen()->setOverlay(overlay);
   pDrawer->screen()->beginFrame();
   pDrawer->screen()->clear(m_bgColor);
 
   m_renderFn(e, s, s.ClipRect(), s.ClipRect(), scales::GetScaleLevel(glbRect), false);
 
-  infoLayer->draw(pDrawer->screen().get(), math::Identity<double, 3>());
-  pDrawer->screen()->resetInfoLayer();
+  overlay->draw(pDrawer->screen().get(), math::Identity<double, 3>());
+  pDrawer->screen()->resetOverlay();
 
   pDrawer->screen()->endFrame();
 }

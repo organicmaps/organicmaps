@@ -19,12 +19,12 @@
 
 ScreenCoverage::ScreenCoverage()
   : m_tiler(),
-    m_infoLayer(new yg::InfoLayer()),
+    m_overlay(new yg::Overlay()),
     m_isEmptyDrawingCoverage(false),
     m_isEmptyModelAtCoverageCenter(true),
     m_leafTilesToRender(0)
 {
-  m_infoLayer->setCouldOverlap(false);
+  m_overlay->setCouldOverlap(false);
 }
 
 ScreenCoverage::ScreenCoverage(TileRenderer * tileRenderer,
@@ -32,13 +32,13 @@ ScreenCoverage::ScreenCoverage(TileRenderer * tileRenderer,
                                shared_ptr<yg::gl::Screen> const & cacheScreen)
   : m_tileRenderer(tileRenderer),
     m_coverageGenerator(coverageGenerator),
-    m_infoLayer(new yg::InfoLayer()),
+    m_overlay(new yg::Overlay()),
     m_isEmptyDrawingCoverage(false),
     m_isEmptyModelAtCoverageCenter(true),
     m_leafTilesToRender(0),
     m_cacheScreen(cacheScreen)
 {
-  m_infoLayer->setCouldOverlap(false);
+  m_overlay->setCouldOverlap(false);
 }
 
 void ScreenCoverage::CopyInto(ScreenCoverage & cvg)
@@ -68,7 +68,7 @@ void ScreenCoverage::CopyInto(ScreenCoverage & cvg)
 
   tileCache->Unlock();
 
-  cvg.m_infoLayer.reset(m_infoLayer->clone());
+  cvg.m_overlay.reset(m_overlay->clone());
 }
 
 void ScreenCoverage::Clear()
@@ -76,7 +76,7 @@ void ScreenCoverage::Clear()
   m_tileRects.clear();
   m_newTileRects.clear();
   m_newLeafTileRects.clear();
-  m_infoLayer->clear();
+  m_overlay->clear();
   m_isEmptyDrawingCoverage = false;
   m_isEmptyModelAtCoverageCenter = true;
   m_leafTilesToRender = 0;
@@ -144,11 +144,11 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
   {
     if (m_tiler.isLeaf(ri))
     {
-      yg::InfoLayer * tileInfoLayerCopy = tile->m_infoLayer->clone();
-      m_infoLayer->merge(*tileInfoLayerCopy,
-                          tile->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
+      yg::Overlay * tileOverlayCopy = tile->m_overlay->clone();
+      m_overlay->merge(*tileOverlayCopy,
+                        tile->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
 
-      delete tileInfoLayerCopy;
+      delete tileOverlayCopy;
     }
   }
 }
@@ -185,7 +185,7 @@ void ScreenCoverage::Cache()
   if (!infos.empty())
     m_cacheScreen->blit(&infos[0], infos.size(), true);
 
-  m_infoLayer->draw(m_cacheScreen.get(), math::Identity<double, 3>());
+  m_overlay->draw(m_cacheScreen.get(), math::Identity<double, 3>());
 
   m_cacheScreen->setDisplayList(0);
   m_cacheScreen->endFrame();
@@ -256,7 +256,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   {
     Tiler::RectInfo ri = (*it)->m_rectInfo;
     tileCache->UnlockTile((*it)->m_rectInfo);
-    /// here we should "unmerge" erasedTiles[i].m_infoLayer from m_infoLayer
+    /// here we should "unmerge" erasedTiles[i].m_overlay from m_overlay
   }
 
   for (TTileSet::const_iterator it = addedTiles.begin(); it != addedTiles.end(); ++it)
@@ -269,7 +269,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 
   m_tiles = tiles;
 
-  MergeInfoLayer();
+  MergeOverlay();
 
   set<Tiler::RectInfo> drawnTiles;
 
@@ -364,9 +364,9 @@ void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)
     m_displayList->draw(m_screen.PtoGMatrix() * screen.GtoPMatrix());
 }
 
-yg::InfoLayer * ScreenCoverage::GetInfoLayer() const
+yg::Overlay * ScreenCoverage::GetOverlay() const
 {
-  return m_infoLayer.get();
+  return m_overlay.get();
 }
 
 int ScreenCoverage::GetDrawScale() const
@@ -427,20 +427,20 @@ void ScreenCoverage::RemoveTiles(m2::AnyRectD const & r, int startScale)
     m_tileRects.erase(ri);
   }
 
-  MergeInfoLayer();
+  MergeOverlay();
 }
 
-void ScreenCoverage::MergeInfoLayer()
+void ScreenCoverage::MergeOverlay()
 {
-  m_infoLayer->clear();
+  m_overlay->clear();
 
   for (TTileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
   {
     Tiler::RectInfo const & ri = (*it)->m_rectInfo;
     if (m_tiler.isLeaf(ri))
     {
-      scoped_ptr<yg::InfoLayer> copy((*it)->m_infoLayer->clone());
-      m_infoLayer->merge(*copy.get(), (*it)->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
+      scoped_ptr<yg::Overlay> copy((*it)->m_overlay->clone());
+      m_overlay->merge(*copy.get(), (*it)->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
     }
   }
 }

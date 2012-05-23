@@ -1,6 +1,6 @@
 #include "text_renderer.hpp"
 #include "render_state.hpp"
-#include "info_layer.hpp"
+#include "overlay.hpp"
 #include "resource_style.hpp"
 #include "resource_manager.hpp"
 
