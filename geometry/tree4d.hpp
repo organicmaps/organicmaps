@@ -152,6 +152,13 @@ namespace m4
       Add(obj, rect);
     }
 
+    void Erase(T const & obj)
+    {
+      for (typename tree_t::const_iterator i = m_tree.begin(); i != m_tree.end(); ++i)
+        if ((*i).m_val == obj)
+          m_tree.erase(*i);
+    }
+
     template <class TCompare>
     void ReplaceIf(T const & obj, TCompare comp)
     {
