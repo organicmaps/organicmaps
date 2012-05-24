@@ -1159,6 +1159,24 @@ cont {
   }
 }
 cont {
+  name: "amenity-car_rental"
+  element {
+    scale: 17
+    symbol {
+      name: "car_sharing"
+      priority: 1592
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+}
+cont {
   name: "amenity-car_sharing"
   element {
     scale: 17
@@ -1331,6 +1349,20 @@ cont {
       name: "drinking_water"
       priority: 1588
     }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+}
+cont {
+  name: "amenity-embassy"
+  element {
+    scale: 17
     caption {
       primary {
         height: 12
@@ -1721,6 +1753,38 @@ cont {
   }
 }
 cont {
+  name: "amenity-marketplace"
+  element {
+    scale: 17
+    symbol {
+      name: "supermarket"
+      priority: 1581
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+}
+cont {
+  name: "amenity-nightclub"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+}
+cont {
   name: "amenity-parking"
   element {
     scale: 6
@@ -2086,6 +2150,20 @@ cont {
   }
 }
 cont {
+  name: "amenity-police"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+}
+cont {
   name: "amenity-post_box"
   element {
     scale: 17
@@ -2401,6 +2479,20 @@ cont {
   }
 }
 cont {
+  name: "amenity-taxi"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+}
+cont {
   name: "amenity-telephone"
   element {
     scale: 17
@@ -2474,6 +2566,20 @@ cont {
       name: "toilets"
       priority: 1586
     }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+}
+cont {
+  name: "amenity-townhall"
+  element {
+    scale: 17
     caption {
       primary {
         height: 12
@@ -2596,6 +2702,25 @@ cont {
   }
 }
 cont {
+  name: "barrier-block"
+  element {
+    scale: 16
+    circle {
+      radius: 1.2
+      color: 0x707070
+      priority: 1355
+    }
+  }
+  element {
+    scale: 17
+    circle {
+      radius: 1.6
+      color: 0x707070
+      priority: 1516
+    }
+  }
+}
+cont {
   name: "barrier-bollard"
   element {
     scale: 16
@@ -2713,6 +2838,43 @@ cont {
   }
 }
 cont {
+  name: "barrier-gate"
+  element {
+    scale: 16
+    lines {
+      width: 1
+      color: 0xB0B0B0
+      priority: 1298
+    }
+    lines {
+      width: 1
+      color: 0xB0B0B0
+      dashdot {
+        dd: 0.0004
+        dd: 1.9996
+      }
+      priority: 1304
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 1
+      color: 0xB0B0B0
+      priority: 1459
+    }
+    lines {
+      width: 1
+      color: 0xB0B0B0
+      dashdot {
+        dd: 0.0008
+        dd: 3.9992
+      }
+      priority: 1465
+    }
+  }
+}
+cont {
   name: "barrier-hedge"
   element {
     scale: 16
@@ -2750,6 +2912,43 @@ cont {
   }
 }
 cont {
+  name: "barrier-lift_gate"
+  element {
+    scale: 16
+    lines {
+      width: 1
+      color: 0xB0B0B0
+      priority: 1298
+    }
+    lines {
+      width: 1
+      color: 0xB0B0B0
+      dashdot {
+        dd: 0.0004
+        dd: 1.9996
+      }
+      priority: 1304
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 1
+      color: 0xB0B0B0
+      priority: 1459
+    }
+    lines {
+      width: 1
+      color: 0xB0B0B0
+      dashdot {
+        dd: 0.0008
+        dd: 3.9992
+      }
+      priority: 1465
+    }
+  }
+}
+cont {
   name: "barrier-retaining_wall"
   element {
     scale: 16
@@ -2783,6 +2982,44 @@ cont {
         dd: 3.9992
       }
       priority: 1483
+    }
+  }
+}
+cont {
+  name: "barrier-stile"
+  element {
+    scale: 16
+    circle {
+      radius: 1.2
+      color: 0x707070
+      priority: 1355
+    }
+  }
+  element {
+    scale: 17
+    circle {
+      radius: 1.6
+      color: 0x707070
+      priority: 1516
+    }
+  }
+}
+cont {
+  name: "barrier-toll_booth"
+  element {
+    scale: 16
+    circle {
+      radius: 1.2
+      color: 0x707070
+      priority: 1355
+    }
+  }
+  element {
+    scale: 17
+    circle {
+      radius: 1.6
+      color: 0x707070
+      priority: 1516
     }
   }
 }
@@ -18785,6 +19022,93 @@ cont {
   }
 }
 cont {
+  name: "highway-residential-private"
+  element {
+    scale: 13
+    lines {
+      width: 1
+      color: 0xFFFFFF
+      priority: 460
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 3
+      color: 0xFFFFFF
+      priority: 460
+    }
+    lines {
+      width: 5
+      color: 0xC8C8AF
+      priority: 440
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 4
+      color: 0xFFFFFF
+      priority: 460
+    }
+    lines {
+      width: 6
+      color: 0xC8C8AF
+      priority: 440
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0x505050
+        stroke_color: 0xFFFFFF
+      }
+      priority: 1100
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 6
+      color: 0xFFFFFF
+      priority: 460
+    }
+    lines {
+      width: 10
+      color: 0xC8C8AF
+      priority: 440
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0x505050
+        stroke_color: 0xFFFFFF
+      }
+      priority: 1100
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 8
+      color: 0xFFFFFF
+      priority: 460
+    }
+    lines {
+      width: 12
+      color: 0xC8C8AF
+      priority: 440
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0x505050
+        stroke_color: 0xFFFFFF
+      }
+      priority: 1100
+    }
+  }
+}
+cont {
   name: "highway-residential-tunnel"
   element {
     scale: 6
@@ -31936,6 +32260,28 @@ cont {
   }
 }
 cont {
+  name: "historic-archaeological_site"
+  element {
+    scale: 17
+    area {
+      color: 0xFFFFFFFF
+      priority: 1637
+    }
+    symbol {
+      name: "museum"
+      priority: 1638
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+}
+cont {
   name: "historic-battlefield"
   element {
     scale: 17
@@ -31954,7 +32300,79 @@ cont {
   }
 }
 cont {
+  name: "historic-castle"
+  element {
+    scale: 17
+    area {
+      color: 0xFFFFFFFF
+      priority: 1637
+    }
+    symbol {
+      name: "museum"
+      priority: 1638
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+}
+cont {
+  name: "historic-memorial"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+}
+cont {
+  name: "historic-monument"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+}
+cont {
   name: "historic-museum"
+  element {
+    scale: 17
+    area {
+      color: 0xFFFFFFFF
+      priority: 1637
+    }
+    symbol {
+      name: "museum"
+      priority: 1638
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+}
+cont {
+  name: "historic-ruins"
   element {
     scale: 17
     area {
@@ -41330,6 +41748,85 @@ cont {
   }
 }
 cont {
+  name: "man_made-cutline"
+  element {
+    scale: 12
+    lines {
+      width: 1
+      color: 0xC0BC9C
+      dashdot {
+        dd: 2.25
+        dd: 3
+      }
+      priority: 195
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 1
+      color: 0xC0BC9C
+      dashdot {
+        dd: 2.25
+        dd: 3
+      }
+      priority: 206
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1
+      color: 0xC0BC9C
+      dashdot {
+        dd: 3
+        dd: 4
+      }
+      priority: 268
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1
+      color: 0xC0BC9C
+      priority: 300
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 1
+      color: 0xB0AC8C
+      priority: 300
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0x606060
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11529
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 3
+      color: 0xB0AC8C
+      priority: 300
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0x606060
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11762
+    }
+  }
+}
+cont {
   name: "man_made-lighthouse"
   element {
     scale: 17
@@ -42416,6 +42913,81 @@ cont {
   }
   element {
     scale: 17
+    caption {
+      primary {
+        height: 16
+        color: 0x202020
+      }
+      priority: 11787
+    }
+  }
+}
+cont {
+  name: "natural-bay"
+  element {
+    scale: 14
+    area {
+      color: 0xcde5ea
+      border {
+        width: 0
+        color: 0xB0B0B0
+      }
+      priority: 107
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x202020
+      }
+      priority: 10629
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 0xcde5ea
+      border {
+        width: 0
+        color: 0xB0B0B0
+      }
+      priority: 112
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x202020
+      }
+      priority: 10893
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 0xcde5ea
+      border {
+        width: 0
+        color: 0xB0B0B0
+      }
+      priority: 114
+    }
+    caption {
+      primary {
+        height: 16
+        color: 0x202020
+      }
+      priority: 11553
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 0xcde5ea
+      border {
+        width: 0
+        color: 0xB0B0B0
+      }
+      priority: 116
+    }
     caption {
       primary {
         height: 16
@@ -44988,6 +45560,89 @@ cont {
         color: 0xd0e8c4
       }
       priority: 31
+    }
+  }
+}
+cont {
+  name: "natural-spring"
+  element {
+    scale: 14
+    lines {
+      width: 4
+      color: 0xB0B0B0
+      priority: 89
+    }
+    lines {
+      width: 4
+      color: 0xcde5ea
+      priority: 99
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0x507CEA
+      }
+      priority: 10604
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 5
+      color: 0xB0B0B0
+      priority: 94
+    }
+    lines {
+      width: 5
+      color: 0xcde5ea
+      priority: 104
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0x507CEA
+      }
+      priority: 10815
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 8
+      color: 0xB0B0B0
+      priority: 96
+    }
+    lines {
+      width: 8
+      color: 0xcde5ea
+      priority: 106
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0x507CEA
+      }
+      priority: 11433
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 16
+      color: 0xB0B0B0
+      priority: 98
+    }
+    lines {
+      width: 16
+      color: 0xcde5ea
+      priority: 108
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 0x507CEA
+      }
+      priority: 11711
     }
   }
 }
@@ -51673,6 +52328,30 @@ cont {
   }
 }
 cont {
+  name: "railway-platform"
+  element {
+    scale: 15
+    area {
+      color: 0xcdcdb4
+      priority: 364
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 0xcdcdb4
+      priority: 679
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 0xcdcdb4
+      priority: 720
+    }
+  }
+}
+cont {
   name: "railway-preserved"
   element {
     scale: 6
@@ -54540,6 +55219,60 @@ cont {
   }
 }
 cont {
+  name: "shop-car"
+  element {
+    scale: 17
+    symbol {
+      name: "supermarket"
+      priority: 1572
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+}
+cont {
+  name: "shop-car_repair"
+  element {
+    scale: 17
+    symbol {
+      name: "supermarket"
+      priority: 1572
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+}
+cont {
+  name: "shop-closes"
+  element {
+    scale: 17
+    symbol {
+      name: "supermarket"
+      priority: 1572
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+}
+cont {
   name: "shop-convenience"
   element {
     scale: 17
@@ -54564,6 +55297,24 @@ cont {
     symbol {
       name: "hairdresser"
       priority: 1574
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+}
+cont {
+  name: "shop-kiosk"
+  element {
+    scale: 17
+    symbol {
+      name: "supermarket"
+      priority: 1572
     }
     caption {
       primary {
@@ -54714,6 +55465,16 @@ cont {
   }
 }
 cont {
+  name: "sport-golf"
+  element {
+    scale: 17
+    symbol {
+      name: "gymnastics-borderless"
+      priority: 1630
+    }
+  }
+}
+cont {
   name: "sport-gymnastics"
   element {
     scale: 17
@@ -54734,6 +55495,16 @@ cont {
   }
 }
 cont {
+  name: "sport-multi"
+  element {
+    scale: 17
+    symbol {
+      name: "gymnastics-borderless"
+      priority: 1630
+    }
+  }
+}
+cont {
   name: "sport-scuba_diving"
   element {
     scale: 17
@@ -54750,6 +55521,16 @@ cont {
     symbol {
       name: "shooting-borderless"
       priority: 1632
+    }
+  }
+}
+cont {
+  name: "sport-skiing"
+  element {
+    scale: 17
+    symbol {
+      name: "gymnastics-borderless"
+      priority: 1630
     }
   }
 }
@@ -55112,6 +55893,24 @@ cont {
   }
 }
 cont {
+  name: "tourism-guest_house"
+  element {
+    scale: 17
+    symbol {
+      name: "hostel"
+      priority: 1427
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+}
+cont {
   name: "tourism-hostel"
   element {
     scale: 17
@@ -55174,6 +55973,46 @@ cont {
     symbol {
       name: "information-office"
       priority: 1432
+    }
+  }
+}
+cont {
+  name: "tourism-motel"
+  element {
+    scale: 17
+    symbol {
+      name: "hostel"
+      priority: 1427
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+}
+cont {
+  name: "tourism-museum"
+  element {
+    scale: 17
+    area {
+      color: 0xFFFFFFFF
+      priority: 1637
+    }
+    symbol {
+      name: "museum"
+      priority: 1638
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
     }
   }
 }
