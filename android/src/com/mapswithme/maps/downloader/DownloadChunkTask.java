@@ -10,7 +10,7 @@ import java.net.URL;
 import android.os.AsyncTask;
 import android.util.Log;
 
-class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
+class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
 {
   private static final String TAG = "DownloadChunkTask";
 
@@ -49,9 +49,10 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
   }
 
   @Override
-  protected void onPostExecute(Void resCode)
+  protected void onPostExecute(Boolean success)
   {
-    onFinish(m_httpCallbackID, 200, m_beg, m_end);
+    if (success)
+      onFinish(m_httpCallbackID, 200, m_beg, m_end);
   }
 
   @Override
@@ -79,20 +80,18 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
   }
 
   @Override
-  protected Void doInBackground(Void... p)
+  protected Boolean doInBackground(Void... p)
   {
     URL url;
+    HttpURLConnection urlConnection = null;
     try
     {
       url = new URL(m_url);
 
-      HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+      urlConnection = (HttpURLConnection) url.openConnection();
 
       if (isCancelled())
-      {
-        urlConnection.disconnect();
-        return null;
-      }
+        return false;
 
       urlConnection.setUseCaches(false);
       urlConnection.setConnectTimeout(15 * 1000);
@@ -121,10 +120,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
       }
 
       if (isCancelled())
-      {
-        urlConnection.disconnect();
-        return null;
-      }
+        return false;
 
       final int err = urlConnection.getResponseCode();
       if (err != HttpURLConnection.HTTP_OK && err != HttpURLConnection.HTTP_PARTIAL)
@@ -132,8 +128,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
         // we've set error code so client should be notified about the error
         m_httpErrorCode = err;
         cancel(false);
-        urlConnection.disconnect();
-        return null;
+        return false;
       }
 
       final InputStream is = urlConnection.getInputStream();
@@ -143,10 +138,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
       while ((readBytes = is.read(tempBuf)) != -1)
       {
         if (isCancelled())
-        {
-          urlConnection.disconnect();
-          return null;
-        }
+          return false;
 
         byte [] chunk = new byte[(int)readBytes];
         System.arraycopy(tempBuf, 0, chunk, 0, (int)readBytes);
@@ -167,7 +159,12 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Void>
       m_httpErrorCode = IO_ERROR;
       cancel(false);
     }
+    finally
+    {
+      if (urlConnection != null)
+        urlConnection.disconnect();
+    }
 
-    return null;
+    return true;
   }
 }
