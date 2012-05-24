@@ -732,7 +732,7 @@ natural|spring
 
 railway|platform
 
-shop|closes
+shop|clothes
 shop|car_repair
 shop|car
 shop|kiosk

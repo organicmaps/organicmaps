@@ -55258,7 +55258,7 @@ cont {
   }
 }
 cont {
-  name: "shop-closes"
+  name: "shop-clothes"
   element {
     scale: 17
     symbol {

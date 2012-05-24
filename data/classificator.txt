@@ -1049,7 +1049,7 @@ world  +
         hairdresser  17|2|63|1574  17|3|19|11829  -
         convenience 17|2|122|1572  17|3|19|11829  -
         supermarket 17|2|122|1572  17|3|19|11829  -
-		closes -
+		clothes -
 		car_repair -
 		car -
 		kiosk -
