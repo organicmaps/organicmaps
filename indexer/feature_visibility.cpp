@@ -387,6 +387,20 @@ bool IsHighway(vector<uint32_t> const & types)
   return false;
 }
 
+/*
+bool IsJunction(vector<uint32_t> const & types)
+{
+  char const * arr[] = { "highway", "motorway_junction" };
+  static const uint32_t type = classif().GetTypeByPath(vector<string>(arr, arr + 2));
+
+  for (size_t i = 0; i < types.size(); ++i)
+    if (types[i] == type)
+      return true;
+
+  return false;
+}
+*/
+
 bool UsePopulationRank(uint32_t type)
 {
   class CheckerT

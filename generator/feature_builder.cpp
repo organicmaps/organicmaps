@@ -163,12 +163,17 @@ bool FeatureBuilder1::PreSerialize()
     if (m_Params.name.IsEmpty() && !m_Params.house.IsEmpty())
       m_Params.name.AddString(0, m_Params.house.Get());
 
-    m_Params.ref = string();
+    // We need refs for motorway's junctions. Try to update name always, not only for junctions.
+    // if (feature::IsJunction(m_Params.m_Types)) { ... }
+    if (m_Params.name.IsEmpty() && !m_Params.ref.empty())
+      m_Params.name.AddString(0, m_Params.ref);
+
     m_Params.house.Clear();
+    m_Params.ref.clear();
     break;
 
   case GEOM_LINE:
-    // We need refs only for road numbers.
+    // We need refs for road's numbers.
     if (!feature::IsHighway(m_Params.m_Types))
       m_Params.ref = string();
 
@@ -178,7 +183,7 @@ bool FeatureBuilder1::PreSerialize()
 
   case GEOM_AREA:
     m_Params.rank = 0;
-    m_Params.ref = string();
+    m_Params.ref.clear();
     break;
 
   default:

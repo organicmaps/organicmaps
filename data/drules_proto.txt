@@ -12624,6 +12624,7 @@ cont {
       primary {
         height: 12
         color: 0x404040
+        stroke_color: 0xFFFFFF
       }
       priority: 594
     }
@@ -12634,6 +12635,7 @@ cont {
       primary {
         height: 12
         color: 0x404040
+        stroke_color: 0xFFFFFF
       }
       priority: 594
     }
@@ -12644,6 +12646,7 @@ cont {
       primary {
         height: 12
         color: 0x404040
+        stroke_color: 0xFFFFFF
       }
       priority: 594
     }
@@ -12654,7 +12657,7 @@ cont {
       primary {
         height: 12
         color: 0x202020
-        stroke_color: 0xf08800
+        stroke_color: 0xFFFFFF
       }
       priority: 914
     }
@@ -12665,7 +12668,7 @@ cont {
       primary {
         height: 12
         color: 0x202020
-        stroke_color: 0xf08800
+        stroke_color: 0xFFFFFF
       }
       priority: 1524
     }

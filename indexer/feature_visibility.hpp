@@ -44,6 +44,7 @@ namespace feature
                               vector<drule::Key> & keys, string & names);
 
   bool IsHighway(vector<uint32_t> const & types);
+  //bool IsJunction(vector<uint32_t> const & types);
 
   bool UsePopulationRank(uint32_t type);
 
