@@ -61,10 +61,10 @@ extern "C"
       jint country = idx.m_country;
       jint region = idx.m_region;
 
-      jmethodID methodID = env->GetMethodID(klass, "<init>", "(III)V")
+      jmethodID methodId = env->GetMethodID(klass, "<init>", "(III)V");
       ASSERT(methodId, ());
 
-      return env->NewObject(klass, methodID, group, country, region);
+      return env->NewObject(klass, methodId, group, country, region);
     }
   };
 
