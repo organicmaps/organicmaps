@@ -210,29 +210,34 @@ UNIT_TEST(ChunksDownloadStrategy)
   string const S1 = "UrlOfServer1";
   string const S2 = "UrlOfServer2";
   string const S3 = "UrlOfServer3";
-  ChunksDownloadStrategy::RangeT const R1(0, 249), R2(250, 499), R3(500, 749), R4(750, 800);
+
+  typedef pair<int64_t, int64_t> RangeT;
+  RangeT const R1(0, 249), R2(250, 499), R3(500, 749), R4(750, 800);
+
   vector<string> servers;
   servers.push_back(S1);
   servers.push_back(S2);
   servers.push_back(S3);
+
   int64_t const FILE_SIZE = 800;
   int64_t const CHUNK_SIZE = 250;
-  ChunksDownloadStrategy strategy(servers, FILE_SIZE, CHUNK_SIZE);
+  ChunksDownloadStrategy strategy(servers);
+  strategy.InitChunks(FILE_SIZE, CHUNK_SIZE);
 
   string s1;
-  ChunksDownloadStrategy::RangeT r1;
+  RangeT r1;
   TEST_EQUAL(strategy.NextChunk(s1, r1), ChunksDownloadStrategy::ENextChunk, ());
 
   string s2;
-  ChunksDownloadStrategy::RangeT r2;
+  RangeT r2;
   TEST_EQUAL(strategy.NextChunk(s2, r2), ChunksDownloadStrategy::ENextChunk, ());
 
   string s3;
-  ChunksDownloadStrategy::RangeT r3;
+  RangeT r3;
   TEST_EQUAL(strategy.NextChunk(s3, r3), ChunksDownloadStrategy::ENextChunk, ());
 
   string sEmpty;
-  ChunksDownloadStrategy::RangeT rEmpty;
+  RangeT rEmpty;
   TEST_EQUAL(strategy.NextChunk(sEmpty, rEmpty), ChunksDownloadStrategy::ENoFreeServers, ());
   TEST_EQUAL(strategy.NextChunk(sEmpty, rEmpty), ChunksDownloadStrategy::ENoFreeServers, ());
 
@@ -246,7 +251,7 @@ UNIT_TEST(ChunksDownloadStrategy)
   strategy.ChunkFinished(true, r1);
 
   string s4;
-  ChunksDownloadStrategy::RangeT r4;
+  RangeT r4;
   TEST_EQUAL(strategy.NextChunk(s4, r4), ChunksDownloadStrategy::ENextChunk, ());
   TEST_EQUAL(s4, s1, ());
   TEST(r4 != r1 && r4 != r2 && r4 != r3, (r4));
@@ -261,7 +266,7 @@ UNIT_TEST(ChunksDownloadStrategy)
   strategy.ChunkFinished(true, r4);
 
   string s5;
-  ChunksDownloadStrategy::RangeT r5;
+  RangeT r5;
   TEST_EQUAL(strategy.NextChunk(s5, r5), ChunksDownloadStrategy::ENextChunk, ());
   TEST_EQUAL(s5, s4, (s5, s4));
   TEST_EQUAL(r5, r2, ());
@@ -285,19 +290,25 @@ UNIT_TEST(ChunksDownloadStrategyFAIL)
 {
   string const S1 = "UrlOfServer1";
   string const S2 = "UrlOfServer2";
-  ChunksDownloadStrategy::RangeT const R1(0, 249), R2(250, 499), R3(500, 749), R4(750, 800);
+
+  typedef pair<int64_t, int64_t> RangeT;
+  RangeT const R1(0, 249), R2(250, 499), R3(500, 749), R4(750, 800);
+
   vector<string> servers;
   servers.push_back(S1);
   servers.push_back(S2);
+
   int64_t const FILE_SIZE = 800;
   int64_t const CHUNK_SIZE = 250;
-  ChunksDownloadStrategy strategy(servers, FILE_SIZE, CHUNK_SIZE);
+  ChunksDownloadStrategy strategy(servers);
+  strategy.InitChunks(FILE_SIZE, CHUNK_SIZE);
 
   string s1;
-  ChunksDownloadStrategy::RangeT r1;
+  RangeT r1;
   TEST_EQUAL(strategy.NextChunk(s1, r1), ChunksDownloadStrategy::ENextChunk, ());
+
   string s2;
-  ChunksDownloadStrategy::RangeT r2;
+  RangeT r2;
   TEST_EQUAL(strategy.NextChunk(s2, r2), ChunksDownloadStrategy::ENextChunk, ());
   TEST_EQUAL(strategy.NextChunk(s2, r2), ChunksDownloadStrategy::ENoFreeServers, ());
 
@@ -507,11 +518,13 @@ UNIT_TEST(DownloadResumeChunks)
     TEST_EQUAL(sha2::digest256(s), SHA256, ());
     uint64_t size;
     TEST(!Platform::GetFileSizeByFullPath(RESUME_FILENAME, size), ("No resume file on success"));
-    // to substitute temporary not fully downloaded file
-    my::RenameFileX(FILENAME, DOWNLOADING_FILENAME);
   }
+
   // 2nd step - mark some file blocks as not downloaded
   {
+    // to substitute temporary not fully downloaded file
+    my::RenameFileX(FILENAME, DOWNLOADING_FILENAME);
+
     FileWriter f(DOWNLOADING_FILENAME, FileWriter::OP_WRITE_EXISTING);
     f.Seek(beg1);
     char b1[end1 - beg1 + 1];
@@ -523,21 +536,15 @@ UNIT_TEST(DownloadResumeChunks)
     for (size_t i = 0; i < ARRAY_SIZE(b2); ++i) b2[i] = 0;
     f.Write(b2, ARRAY_SIZE(b2));
 
-    vector<pair<int64_t, int64_t> > originalRanges;
-    originalRanges.push_back(make_pair(beg1, end1));
-    originalRanges.push_back(make_pair(beg2, end2));
-    {
-      FileWriterStream fws(RESUME_FILENAME);
-      fws << originalRanges;
-    }
-    // check if ranges are stored correctly
-    vector<pair<int64_t, int64_t> > loadedRanges;
-    {
-      FileReaderStream frs(RESUME_FILENAME);
-      frs >> loadedRanges;
-    }
-    TEST_EQUAL(originalRanges, loadedRanges, ());
+    ChunksDownloadStrategy strategy((vector<string>()));
+    strategy.AddChunk(make_pair(int64_t(0), beg1-1), ChunksDownloadStrategy::CHUNK_COMPLETE);
+    strategy.AddChunk(make_pair(beg1, end1), ChunksDownloadStrategy::CHUNK_FREE);
+    strategy.AddChunk(make_pair(end1+1, beg2-1), ChunksDownloadStrategy::CHUNK_COMPLETE);
+    strategy.AddChunk(make_pair(beg2, end2), ChunksDownloadStrategy::CHUNK_FREE);
+
+    strategy.SaveChunks(FILENAME);
   }
+
   // 3rd step - check that resume works
   {
     ResumeChecker checker;

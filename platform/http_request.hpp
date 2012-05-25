@@ -30,7 +30,7 @@ protected:
   CallbackT m_onFinish;
   CallbackT m_onProgress;
 
-  explicit HttpRequest(CallbackT onFinish, CallbackT onProgress);
+  explicit HttpRequest(CallbackT const & onFinish, CallbackT const & onProgress);
 
 public:
   virtual ~HttpRequest() = 0;
@@ -41,14 +41,17 @@ public:
   virtual string const & Data() const = 0;
 
   /// Response saved to memory buffer and retrieved with Data()
-  static HttpRequest * Get(string const & url, CallbackT onFinish,
-                           CallbackT onProgress = CallbackT());
+  static HttpRequest * Get(string const & url,
+                           CallbackT const & onFinish,
+                           CallbackT const & onProgress = CallbackT());
   /// Content-type for request is always "application/json"
   static HttpRequest * PostJson(string const & url, string const & postData,
-                                CallbackT onFinish, CallbackT onProgress = CallbackT());
+                                CallbackT const & onFinish,
+                                CallbackT const & onProgress = CallbackT());
   static HttpRequest * GetFile(vector<string> const & urls, string const & filePath,
                                int64_t projectedFileSize,
-                               CallbackT onFinish, CallbackT onProgress = CallbackT(),
+                               CallbackT const & onFinish,
+                               CallbackT const & onProgress = CallbackT(),
                                int64_t chunkSize = 512 * 1024,
                                bool doCleanProgressFiles = true);
 };

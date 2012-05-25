@@ -1,92 +1,199 @@
 #include "chunks_download_strategy.hpp"
 
-#include "../std/algorithm.hpp"
+#include "../defines.hpp"
 
-#define INVALID_CHUNK -1
+#include "../coding/file_writer.hpp"
+#include "../coding/file_reader.hpp"
+
+#include "../base/logging.hpp"
+
+#include "../std/algorithm.hpp"
 
 
 namespace downloader
 {
 
-ChunksDownloadStrategy::RangeT const ChunksDownloadStrategy::INVALID_RANGE = RangeT(INVALID_CHUNK, INVALID_CHUNK);
-
-ChunksDownloadStrategy::ChunksDownloadStrategy(vector<string> const & urls, int64_t fileSize,
-                                               int64_t chunkSize)
-  : m_chunkSize(chunkSize)
+ChunksDownloadStrategy::ChunksDownloadStrategy(vector<string> const & urls)
 {
   // init servers list
   for (size_t i = 0; i < urls.size(); ++i)
-    m_servers.push_back(make_pair(urls[i], INVALID_RANGE));
-
-  // init chunks which should be downloaded
-  for (int64_t i = 0; i < fileSize; i += chunkSize)
-    m_chunksToDownload.insert(RangeT(i, min(i + chunkSize - 1, fileSize - 1)));
+    m_servers.push_back(ServerT(urls[i], SERVER_READY));
 }
 
-void ChunksDownloadStrategy::SetChunksToDownload(RangesContainerT & chunks)
+pair<ChunksDownloadStrategy::ChunkT *, int>
+ChunksDownloadStrategy::GetChunk(RangeT const & range)
 {
-  m_chunksToDownload.swap(chunks);
-}
+  vector<ChunkT>::iterator i = lower_bound(m_chunks.begin(), m_chunks.end(), range.first, LessChunks());
 
-void ChunksDownloadStrategy::ChunkFinished(bool successfully, RangeT const & range)
-{
   // find server which was downloading this chunk
-  for (ServersT::iterator it = m_servers.begin(); it != m_servers.end(); ++it)
+  if (i != m_chunks.end() && i->m_pos == range.first)
   {
-    if (it->second == range)
-    {
-      if (successfully)
-        it->second = INVALID_RANGE;
-      else
-      {
-        // @TODO implement connection retry
-        // remove failed server and mark chunk as not downloaded
-        m_servers.erase(it);
-        m_chunksToDownload.insert(range);
-      }
-      break;
-    }
-  }
-}
-
-ChunksDownloadStrategy::ResultT ChunksDownloadStrategy::NextChunk(string & outUrl,
-                                                                  RangeT & range)
-{
-  if (m_servers.empty())
-    return EDownloadFailed;
-
-  if (m_chunksToDownload.empty())
-  {
-    // no more chunks to download
-    bool allChunksAreFinished = true;
-    for (size_t i = 0; i < m_servers.size(); ++i)
-    {
-      if (m_servers[i].second != INVALID_RANGE)
-        allChunksAreFinished = false;
-    }
-    if (allChunksAreFinished)
-      return EDownloadSucceeded;
-    else
-      return ENoFreeServers;
+    ASSERT_EQUAL ( (i+1)->m_pos, range.second + 1, () );
+    return pair<ChunkT *, int>(&(*i), distance(m_chunks.begin(), i));
   }
   else
   {
-    RangeT const nextChunk = *m_chunksToDownload.begin();
-    for (size_t i = 0; i < m_servers.size(); ++i)
+    LOG(LERROR, ("Downloader error. Invalid chunk range: ", range));
+    return pair<ChunkT *, int>(0, -1);
+  }
+}
+
+void ChunksDownloadStrategy::InitChunks(int64_t fileSize, int64_t chunkSize, ChunkStatusT status)
+{
+  // init chunks which should be downloaded
+  m_chunks.reserve(fileSize / chunkSize + 2);
+  for (int64_t i = 0; i < fileSize; i += chunkSize)
+    m_chunks.push_back(ChunkT(i, status));
+  m_chunks.push_back(ChunkT(fileSize, CHUNK_AUX));
+}
+
+void ChunksDownloadStrategy::AddChunk(RangeT const & range, ChunkStatusT status)
+{
+  ASSERT_LESS_OR_EQUAL ( range.first, range.second, () );
+  if (m_chunks.empty())
+  {
+    ASSERT_EQUAL ( range.first, 0, () );
+    m_chunks.push_back(ChunkT(range.first, status));
+  }
+  else
+  {
+    ASSERT_EQUAL ( m_chunks.back().m_pos, range.first, () );
+    m_chunks.back().m_status = status;
+  }
+
+  m_chunks.push_back(ChunkT(range.second + 1, CHUNK_AUX));
+}
+
+void ChunksDownloadStrategy::SaveChunks(string const & fName)
+{
+  if (!m_chunks.empty())
+  {
+    try
     {
-      if (m_servers[i].second == INVALID_RANGE)
+      FileWriter w(fName + RESUME_FILE_EXTENSION);
+      w.Write(&m_chunks[0], sizeof(ChunkT) * m_chunks.size());
+      return;
+    }
+    catch(FileWriter::Exception const & e)
+    {
+      LOG(LERROR, (e.Msg()));
+    }
+  }
+
+  // Delete if no chunks or some error occured.
+  (void)FileWriter::DeleteFileX(fName + RESUME_FILE_EXTENSION);
+}
+
+int64_t ChunksDownloadStrategy::LoadOrInitChunks( string const & fName,
+                                                  int64_t fileSize, int64_t chunkSize)
+{
+  ASSERT ( fileSize > 0, () );
+  ASSERT ( chunkSize > 0, () );
+
+  try
+  {
+    FileReader r(fName + RESUME_FILE_EXTENSION);
+
+    // Load chunks.
+    size_t const count = r.Size() / sizeof(ChunkT);
+    m_chunks.resize(count);
+    r.Read(0, &m_chunks[0], sizeof(ChunkT) * count);
+
+    // Reset status "downloading" to "free".
+    int64_t downloadedSize = 0;
+    for (size_t i = 0; i < count-1; ++i)
+    {
+      if (m_chunks[i].m_status != CHUNK_COMPLETE)
+        m_chunks[i].m_status = CHUNK_FREE;
+      else
+        downloadedSize += m_chunks[i+1].m_pos - m_chunks[i].m_pos;
+    }
+
+    return downloadedSize;
+  }
+  catch(FileReader::Exception const & e)
+  {
+    // Usually - file not exists.
+    LOG(LDEBUG, (e.Msg()));
+  }
+
+  InitChunks(fileSize, chunkSize);
+  return 0;
+}
+
+void ChunksDownloadStrategy::ChunkFinished(bool success, RangeT const & range)
+{
+  pair<ChunkT *, int> res = GetChunk(range);
+
+  // find server which was downloading this chunk
+  if (res.first)
+  {
+    for (size_t s = 0; s < m_servers.size(); ++s)
+    {
+      if (m_servers[s].m_chunkIndex == res.second)
       {
-        // found not used server
-        m_servers[i].second = nextChunk;
-        outUrl = m_servers[i].first;
-        range = nextChunk;
-        m_chunksToDownload.erase(m_chunksToDownload.begin());
-        return ENextChunk;
+        if (success)
+        {
+          // mark server as free and chunk as ready
+          m_servers[s].m_chunkIndex = SERVER_READY;
+          res.first->m_status = CHUNK_COMPLETE;
+        }
+        else
+        {
+          // remove failed server and mark chunk as free
+          m_servers.erase(m_servers.begin() + s);
+          res.first->m_status = CHUNK_FREE;
+        }
+        break;
       }
     }
-    // if we're here, all servers are busy downloading
-    return ENoFreeServers;
   }
+}
+
+ChunksDownloadStrategy::ResultT
+ChunksDownloadStrategy::NextChunk(string & outUrl, RangeT & range)
+{
+  // If no servers at all.
+  if (m_servers.empty())
+    return EDownloadFailed;
+
+  // Find first free server.
+  ServerT * server = 0;
+  for (size_t i = 0; i < m_servers.size(); ++i)
+  {
+    if (m_servers[i].m_chunkIndex == SERVER_READY)
+    {
+      server = &m_servers[i];
+      break;
+    }
+  }
+  if (server == 0)
+    return ENoFreeServers;
+
+  bool allChunksDownloaded = true;
+
+  // Find first free chunk.
+  for (size_t i = 0; i < m_chunks.size()-1; ++i)
+  {
+    switch (m_chunks[i].m_status)
+    {
+    case CHUNK_FREE:
+      server->m_chunkIndex = i;
+      outUrl = server->m_url;
+
+      range.first = m_chunks[i].m_pos;
+      range.second = m_chunks[i+1].m_pos - 1;
+
+      m_chunks[i].m_status = CHUNK_DOWNLOADING;
+      return ENextChunk;
+
+    case CHUNK_DOWNLOADING:
+      allChunksDownloaded = false;
+      break;
+    }
+  }
+
+  return (allChunksDownloaded ? EDownloadSucceeded : ENoFreeServers);
 }
 
 } // namespace downloader
