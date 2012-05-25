@@ -7,6 +7,7 @@
 @synthesize globalPosition;
 @synthesize title;
 @synthesize description;
+@synthesize type;
 @synthesize pinImage;
 @synthesize color;
 @synthesize setName;
@@ -36,6 +37,7 @@
   self.setName = nil;
   self.title = nil;
   self.description = nil;
+  self.type = nil;
   [super dealloc];
 }
 
@@ -121,6 +123,7 @@
   else
     self.title = [NSString stringWithUTF8String:m_addressInfo.m_name.c_str()];
   self.description = [NSString stringWithUTF8String:m_addressInfo.FormatAddress().c_str()];
+  self.type = [NSString stringWithUTF8String:m_addressInfo.FormatTypes().c_str()];
 }
 
 // Overrided property setter to reload another pin image

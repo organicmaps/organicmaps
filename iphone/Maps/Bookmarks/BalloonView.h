@@ -14,6 +14,8 @@
 @property(nonatomic, retain) NSString * title;
 // Currently contains automatically updated address info
 @property(nonatomic, retain) NSString * description;
+// Contains feature type(s)
+@property(nonatomic, retain) NSString * type;
 @property(nonatomic, retain) UIImageView * pinImage;
 // Stores displayed bookmark icon file name
 @property(nonatomic, retain) NSString * color;

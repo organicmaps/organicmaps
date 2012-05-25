@@ -42,7 +42,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+  if (section == 0)
+    return 2;
   return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  if (indexPath.section == 0 && indexPath.row == 1)
+    return tableView.rowHeight * 1.5;
+  return tableView.rowHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -51,10 +60,20 @@
   if (indexPath.section == 0)
   {
     cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"AddressCell"] autorelease];
-    cell.textLabel.text = NSLocalizedString(@"Address", @"Place Page - Address cell");
-    cell.detailTextLabel.numberOfLines = 0;
-    cell.detailTextLabel.textAlignment = UITextAlignmentLeft;
-    cell.detailTextLabel.text = m_balloon.description;
+    if (indexPath.row == 0)
+    {
+      cell.textLabel.text = NSLocalizedString(@"Type", @"Place Page - Type cell");
+      cell.detailTextLabel.numberOfLines = 0;
+      cell.detailTextLabel.textAlignment = UITextAlignmentRight;
+      cell.detailTextLabel.text = m_balloon.type;
+    }
+    else
+    {
+      cell.textLabel.text = NSLocalizedString(@"Address", @"Place Page - Address cell");
+      cell.detailTextLabel.numberOfLines = 0;
+      cell.detailTextLabel.textAlignment = UITextAlignmentRight;
+      cell.detailTextLabel.text = m_balloon.description;
+    }
   }
   else
   {
