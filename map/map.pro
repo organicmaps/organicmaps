@@ -6,7 +6,7 @@ CONFIG += staticlib
 INCLUDEPATH += ../3party/protobuf/src
 
 ROOT_DIR = ..
-DEPENDENCIES = search yg indexer geometry coding base expat
+DEPENDENCIES = search gui yg indexer geometry coding base expat
 
 include($$ROOT_DIR/common.pri)
 

@@ -29,11 +29,9 @@ namespace yg
     mutable bool m_isDirtyRoughRect;
     mutable m2::RectD m_roughBoundRect;
 
-  protected:
+  public:
 
     m2::PointD const tieRect(m2::RectD const & r, math::Matrix<double, 3, 3> const & m) const;
-
-  public:
 
     struct Params
     {
@@ -54,10 +52,9 @@ namespace yg
     virtual int visualRank() const = 0;
 
     m2::PointD const & pivot() const;
-    void setPivot(m2::PointD const & pv);
+    virtual void setPivot(m2::PointD const & pv);
 
-    m2::PointD const & offset() const;
-    void setOffset(m2::PointD const & offs);
+    virtual void offset(m2::PointD const & offs);
 
     yg::EPosition position() const;
     void setPosition(yg::EPosition pos);
@@ -77,11 +74,10 @@ namespace yg
     bool isVisible() const;
     void setIsVisible(bool flag);
 
-    m2::RectD const & roughBoundRect() const;
     bool hitTest(m2::PointD const & pt) const;
     bool roughHitTest(m2::PointD const & pt) const;
 
-    virtual void offset(m2::PointD const & offs);
+    m2::RectD const & roughBoundRect() const;
   };
 
 }

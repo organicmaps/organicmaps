@@ -32,6 +32,8 @@
 		EE12021211CD464100ABDD5D /* libyg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020811CD464100ABDD5D /* libyg.a */; };
 		EE164811135CEE4A003B8A3E /* 06_code2000.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE164810135CEE49003B8A3E /* 06_code2000.ttf */; };
 		EE583CBB12F773F00042CBE3 /* unicode_blocks.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */; };
+		EE5A34E6156FCB9500E34FFE /* libgui.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5A34E5156FCB9500E34FFE /* libgui.a */; };
+		EE5A34E7156FCBD800E34FFE /* libgui.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5A34E5156FCB9500E34FFE /* libgui.a */; };
 		EE7F29811219ECA300EB67A9 /* RenderBuffer.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297D1219ECA300EB67A9 /* RenderBuffer.mm */; };
 		EE7F29821219ECA300EB67A9 /* RenderContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297E1219ECA300EB67A9 /* RenderContext.mm */; };
 		EEA61601134C496A003A9827 /* 01_dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */; };
@@ -1335,6 +1337,7 @@
 		EE16192B126E374500622BD0 /* RenderContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RenderContext.hpp; path = Classes/RenderContext.hpp; sourceTree = SOURCE_ROOT; };
 		EE164810135CEE49003B8A3E /* 06_code2000.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 06_code2000.ttf; path = ../../data/06_code2000.ttf; sourceTree = SOURCE_ROOT; };
 		EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = unicode_blocks.txt; path = ../../data/unicode_blocks.txt; sourceTree = "<group>"; };
+		EE5A34E5156FCB9500E34FFE /* libgui.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libgui.a"; sourceTree = SOURCE_ROOT; };
 		EE7F297C1219ECA300EB67A9 /* RenderBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RenderBuffer.hpp; path = Classes/RenderBuffer.hpp; sourceTree = SOURCE_ROOT; };
 		EE7F297D1219ECA300EB67A9 /* RenderBuffer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = RenderBuffer.mm; path = Classes/RenderBuffer.mm; sourceTree = SOURCE_ROOT; };
 		EE7F297E1219ECA300EB67A9 /* RenderContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = RenderContext.mm; path = Classes/RenderContext.mm; sourceTree = SOURCE_ROOT; };
@@ -2024,6 +2027,7 @@
 				FAAFD699139D9C6B000AE70C /* libsearch.a in Frameworks */,
 				FAEA8B2A1437CA80002A6737 /* libjansson.a in Frameworks */,
 				FAF29847146EEF4A00FF0057 /* libprotobuf.a in Frameworks */,
+				EE5A34E6156FCB9500E34FFE /* libgui.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2054,6 +2058,7 @@
 				FAFB090F151215EE0041901D /* libsearch.a in Frameworks */,
 				FAFB0910151215EE0041901D /* libjansson.a in Frameworks */,
 				FAFB0911151215EE0041901D /* libprotobuf.a in Frameworks */,
+				EE5A34E7156FCBD800E34FFE /* libgui.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2239,6 +2244,7 @@
 		FA1DE68411E15D4E00C6D69A /* Static Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				EE5A34E5156FCB9500E34FFE /* libgui.a */,
 				FAF29846146EEF4A00FF0057 /* libprotobuf.a */,
 				FAEA8B291437CA80002A6737 /* libjansson.a */,
 				FAAFD698139D9C6B000AE70C /* libsearch.a */,

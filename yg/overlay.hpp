@@ -37,6 +37,12 @@ namespace yg
 
     void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m);
 
+    void selectOverlayElements(m2::PointD const & pt, list<shared_ptr<OverlayElement> > & res);
+
+    void removeOverlayElement(shared_ptr<OverlayElement> const & oe);
+
+    void updateOverlayElement(OverlayElement * oe);
+
     void processOverlayElement(shared_ptr<OverlayElement> const & oe);
 
     void processOverlayElement(shared_ptr<OverlayElement> const & oe, math::Matrix<double, 3, 3> const & m);
@@ -52,6 +58,12 @@ namespace yg
     void clip(m2::RectI const & r);
 
     bool checkHasEquals(Overlay const * l) const;
+
+    template <typename Fn>
+    void forEach(Fn fn)
+    {
+      m_tree.ForEach(fn);
+    }
 
     Overlay * clone() const;
   };

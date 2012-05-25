@@ -153,6 +153,22 @@ namespace yg
     m_tree.Add(oe);
   }
 
+  struct DoPreciseSelect
+  {
+    m2::PointD m_pt;
+    list<shared_ptr<OverlayElement> > * m_elements;
+
+    DoPreciseSelect(m2::PointD const & pt, list<shared_ptr<OverlayElement> > * elements)
+      : m_pt(pt), m_elements(elements)
+    {}
+
+    void operator()(shared_ptr<OverlayElement> const & e)
+    {
+      if (e->hitTest(m_pt))
+        m_elements->push_back(e);
+    }
+  };
+
   struct DoPreciseIntersect
   {
     shared_ptr<OverlayElement> m_oe;
@@ -183,6 +199,12 @@ namespace yg
     }
   };
 
+  void Overlay::selectOverlayElements(m2::PointD const & pt, list<shared_ptr<OverlayElement> > & res)
+  {
+    DoPreciseSelect fn(pt, &res);
+    m_tree.ForEachInRect(m2::RectD(pt - m2::PointD(1, 1), pt + m2::PointD(1, 1)), fn);
+  }
+
   void Overlay::replaceOverlayElement(shared_ptr<OverlayElement> const & oe)
   {
     bool isIntersect = false;
@@ -192,6 +214,39 @@ namespace yg
       m_tree.ReplaceIf(oe, &betterOverlayElement);
     else
       m_tree.Add(oe);
+  }
+
+  void Overlay::removeOverlayElement(shared_ptr<OverlayElement> const & oe)
+  {
+    m_tree.Erase(oe);
+  }
+
+  struct FindByPointer
+  {
+    OverlayElement * m_e;
+    shared_ptr<OverlayElement> * m_res;
+    FindByPointer(OverlayElement * e, shared_ptr<OverlayElement> * res) : m_e(e), m_res(res)
+    {}
+
+    void operator()(shared_ptr<OverlayElement> const & oe)
+    {
+      if (m_e == oe.get())
+        *m_res = oe;
+    }
+  };
+
+  void Overlay::updateOverlayElement(OverlayElement *oe)
+  {
+    shared_ptr<OverlayElement> res;
+    FindByPointer fn(oe, &res);
+
+    m_tree.ForEach(fn);
+
+    if (res)
+    {
+      m_tree.Erase(res);
+      m_tree.Add(res);
+    }
   }
 
   void Overlay::processOverlayElement(shared_ptr<OverlayElement> const & oe, math::Matrix<double, 3, 3> const & m)
@@ -204,13 +259,10 @@ namespace yg
 
   void Overlay::processOverlayElement(shared_ptr<OverlayElement> const & oe)
   {
-    if (oe->isVisible())
-    {
-      if (m_couldOverlap)
-        addOverlayElement(oe);
-      else
-        replaceOverlayElement(oe);
-    }
+    if (m_couldOverlap)
+      addOverlayElement(oe);
+    else
+      replaceOverlayElement(oe);
   }
 
   bool greater_priority(shared_ptr<OverlayElement> const & l,

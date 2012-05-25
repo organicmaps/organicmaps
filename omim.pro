@@ -17,6 +17,7 @@ SUBDIRS = 3party \
           geometry/geometry_tests \
           platform/platform_tests \
           yg \
+          gui \
           storage storage/storage_tests \
           search search/search_tests \
           map map/map_tests map/benchmark_tool \
@@ -37,6 +38,7 @@ SUBDIRS = 3party \
             indexer \
             storage \
             yg \
+            gui \
             search \
-            map
+            map \
 }
