@@ -151,6 +151,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
       // Notify the client about error
       m_httpErrorCode = INVALID_URL;
       cancel(false);
+      return false;
     }
     catch (IOException ex)
     {
@@ -158,13 +159,19 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
       // Notify the client about error
       m_httpErrorCode = IO_ERROR;
       cancel(false);
+      return false;
     }
     finally
     {
       if (urlConnection != null)
         urlConnection.disconnect();
+      else
+      {
+        cancel(false);
+        return false;
+      }
     }
-
+    // Download has finished
     return true;
   }
 }
