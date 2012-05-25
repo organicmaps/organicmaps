@@ -139,4 +139,20 @@ namespace yg
     }
     return m_roughBoundRect;
   }
+
+  bool OverlayElement::hitTest(m2::PointD const & pt) const
+  {
+    vector<m2::AnyRectD> const & rects = boundRects();
+
+    for (vector<m2::AnyRectD>::const_iterator it = rects.begin(); it != rects.end(); ++it)
+      if (it->IsPointInside(pt))
+        return true;
+
+    return false;
+  }
+
+  bool OverlayElement::roughHitTest(m2::PointD const & pt) const
+  {
+    return roughBoundRect().IsPointInside(pt);
+  }
 }

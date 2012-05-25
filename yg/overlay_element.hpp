@@ -78,6 +78,8 @@ namespace yg
     void setIsVisible(bool flag);
 
     m2::RectD const & roughBoundRect() const;
+    bool hitTest(m2::PointD const & pt) const;
+    bool roughHitTest(m2::PointD const & pt) const;
 
     virtual void offset(m2::PointD const & offs);
   };
