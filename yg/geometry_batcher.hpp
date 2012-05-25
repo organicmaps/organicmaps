@@ -132,6 +132,14 @@ namespace yg
                           double depth,
                           int pipelineID);
 
+      void addTexturedFanStrided(m2::PointF const * coords,
+                                 size_t coordsStride,
+                                 m2::PointF const * texCoords,
+                                 size_t texCoordsStride,
+                                 unsigned size,
+                                 double depth,
+                                 int pipelineID);
+
       void addTexturedStripStrided(m2::PointF const * coords,
                                    size_t coordsStride,
                                    m2::PointF const * texCoords,

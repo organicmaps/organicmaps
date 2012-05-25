@@ -475,7 +475,22 @@ namespace yg
      addTexturedFan(coords, texCoords, 4, depth, pipelineID);
    }
 
-   void GeometryBatcher::addTexturedFan(m2::PointF const * coords, m2::PointF const * texCoords, unsigned size, double depth, int pipelineID)
+   void GeometryBatcher::addTexturedFan(m2::PointF const * coords,
+                                        m2::PointF const * texCoords,
+                                        unsigned size,
+                                        double depth,
+                                        int pipelineID)
+   {
+     addTexturedFanStrided(coords, sizeof(m2::PointF), texCoords, sizeof(m2::PointF), size, depth, pipelineID);
+   }
+
+   void GeometryBatcher::addTexturedFanStrided(m2::PointF const * coords,
+                                               size_t coordsStride,
+                                               m2::PointF const * texCoords,
+                                               size_t texCoordsStride,
+                                               unsigned size,
+                                               double depth,
+                                               int pipelineID)
    {
      if (!hasRoom(size, (size - 2) * 3, pipelineID))
        flush(pipelineID);
@@ -493,9 +508,11 @@ namespace yg
 
      for (unsigned i = 0; i < size; ++i)
      {
-       pipeline.m_vertices[vOffset + i].pt = coords[i];
-       pipeline.m_vertices[vOffset + i].tex = texCoords[i];
+       pipeline.m_vertices[vOffset + i].pt = *coords;
+       pipeline.m_vertices[vOffset + i].tex = *texCoords;
        pipeline.m_vertices[vOffset + i].depth = depth;
+       coords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(coords) + coordsStride);
+       texCoords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(texCoords) + texCoordsStride);
      }
 
      pipeline.m_currentVertex += size;
