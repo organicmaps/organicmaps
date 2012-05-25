@@ -5,6 +5,7 @@
 
 #include "../std/deque.hpp"
 #include "../std/array.hpp"
+#include "../std/memcpy.hpp"
 
 
 namespace math
