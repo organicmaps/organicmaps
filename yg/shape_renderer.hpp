@@ -23,6 +23,7 @@ namespace yg
 
       void drawRectangle(m2::AnyRectD const & r, yg::Color const & c, double depth);
       void drawRectangle(m2::RectD const & r, yg::Color const & c, double depth);
+      void drawRoundedRectangle(m2::RectD const & r, double rad, yg::Color const & c, double depth);
     };
   }
 }

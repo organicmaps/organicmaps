@@ -154,5 +154,80 @@ namespace yg
           style->m_pipelineID
           );
     }
+
+    void ShapeRenderer::drawRoundedRectangle(m2::RectD const & r, double rad, yg::Color const & c, double depth)
+    {
+      ResourceStyle const * style = skin()->fromID(skin()->mapColor(c));
+
+      if (style == 0)
+      {
+        LOG(LINFO, ("cannot map color"));
+        return;
+      }
+
+      shared_ptr<BaseTexture> texture = skin()->getPage(style->m_pipelineID)->texture();
+
+      if (!texture)
+      {
+        LOG(LDEBUG, ("returning as no texture is reserved"));
+        return;
+      }
+
+      m2::PointF texPt = texture->mapPixel(m2::RectF(style->m_texRect).Center());
+
+      vector<m2::PointD> seg00;
+      vector<m2::PointD> seg10;
+      vector<m2::PointD> seg11;
+      vector<m2::PointD> seg01;
+
+      approximateArc(m2::PointD(r.minX() + rad, r.minY() + rad),
+                     math::pi,
+                     3 * math::pi / 2,
+                     rad,
+                     seg00);
+
+      approximateArc(m2::PointD(r.minX() + rad, r.maxY() - rad),
+                     math::pi / 2,
+                     math::pi,
+                     rad,
+                     seg01);
+
+      approximateArc(m2::PointD(r.maxX() - rad, r.maxY() - rad),
+                     0,
+                     math::pi / 2,
+                     rad,
+                     seg11);
+
+      approximateArc(m2::PointD(r.maxX() - rad, r.minY() + rad),
+                     3 * math::pi / 2,
+                     math::pi * 2,
+                     rad,
+                     seg10);
+
+      vector<m2::PointF> pts;
+
+      for (unsigned i = 0; i < seg11.size(); ++i)
+        pts.push_back(m2::PointF(seg11[i]));
+
+      for (unsigned i = 0; i < seg01.size(); ++i)
+        pts.push_back(m2::PointF(seg01[i]));
+
+      for (unsigned i = 0; i < seg00.size(); ++i)
+        pts.push_back(m2::PointF(seg00[i]));
+
+      for (unsigned i = 0; i < seg10.size(); ++i)
+        pts.push_back(m2::PointF(seg10[i]));
+
+      addTexturedFanStrided(
+          &pts[0],
+          sizeof(m2::PointF),
+          &texPt,
+          0,
+          pts.size(),
+          depth,
+          style->m_pipelineID
+          );
+    }
+
   }
 }
