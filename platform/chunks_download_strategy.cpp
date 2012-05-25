@@ -1,7 +1,5 @@
 #include "chunks_download_strategy.hpp"
 
-#include "../defines.hpp"
-
 #include "../coding/file_writer.hpp"
 #include "../coding/file_reader.hpp"
 
@@ -40,7 +38,6 @@ ChunksDownloadStrategy::GetChunk(RangeT const & range)
 
 void ChunksDownloadStrategy::InitChunks(int64_t fileSize, int64_t chunkSize, ChunkStatusT status)
 {
-  // init chunks which should be downloaded
   m_chunks.reserve(fileSize / chunkSize + 2);
   for (int64_t i = 0; i < fileSize; i += chunkSize)
     m_chunks.push_back(ChunkT(i, status));
@@ -70,7 +67,7 @@ void ChunksDownloadStrategy::SaveChunks(string const & fName)
   {
     try
     {
-      FileWriter w(fName + RESUME_FILE_EXTENSION);
+      FileWriter w(fName);
       w.Write(&m_chunks[0], sizeof(ChunkT) * m_chunks.size());
       return;
     }
@@ -81,7 +78,7 @@ void ChunksDownloadStrategy::SaveChunks(string const & fName)
   }
 
   // Delete if no chunks or some error occured.
-  (void)FileWriter::DeleteFileX(fName + RESUME_FILE_EXTENSION);
+  (void)FileWriter::DeleteFileX(fName);
 }
 
 int64_t ChunksDownloadStrategy::LoadOrInitChunks( string const & fName,
@@ -92,7 +89,7 @@ int64_t ChunksDownloadStrategy::LoadOrInitChunks( string const & fName,
 
   try
   {
-    FileReader r(fName + RESUME_FILE_EXTENSION);
+    FileReader r(fName);
 
     // Load chunks.
     size_t const count = r.Size() / sizeof(ChunkT);
@@ -106,7 +103,7 @@ int64_t ChunksDownloadStrategy::LoadOrInitChunks( string const & fName,
       if (m_chunks[i].m_status != CHUNK_COMPLETE)
         m_chunks[i].m_status = CHUNK_FREE;
       else
-        downloadedSize += m_chunks[i+1].m_pos - m_chunks[i].m_pos;
+        downloadedSize += (m_chunks[i+1].m_pos - m_chunks[i].m_pos);
     }
 
     return downloadedSize;

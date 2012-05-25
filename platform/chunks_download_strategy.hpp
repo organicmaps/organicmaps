@@ -54,13 +54,17 @@ private:
 public:
   ChunksDownloadStrategy(vector<string> const & urls);
 
+  /// Init chunks vector for fileSize.
   void InitChunks(int64_t fileSize, int64_t chunkSize, ChunkStatusT status = CHUNK_FREE);
+
+  /// Used in unit tests only!
   void AddChunk(RangeT const & range, ChunkStatusT status);
 
   void SaveChunks(string const & fName);
   /// @return Already downloaded size.
   int64_t LoadOrInitChunks(string const & fName, int64_t fileSize, int64_t chunkSize);
 
+  /// Should be called for every completed chunk (no matter successful or not).
   void ChunkFinished(bool success, RangeT const & range);
 
   enum ResultT

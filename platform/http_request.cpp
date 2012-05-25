@@ -182,7 +182,7 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
       // save information for download resume
       ++m_goodChunksCount;
       if (m_status != ECompleted && m_goodChunksCount % 10 == 0)
-        m_strategy.SaveChunks(m_filePath);
+        m_strategy.SaveChunks(m_filePath + RESUME_FILE_EXTENSION);
     }
 
     if (m_status != EInProgress)
@@ -195,12 +195,12 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
         my::DeleteFileX(m_filePath + RESUME_FILE_EXTENSION);
 
         // Rename finished file to it's original name.
-        CHECK(my::RenameFileX((m_filePath + DOWNLOADING_FILE_EXTENSION).c_str(), m_filePath.c_str()), ());
+        CHECK(my::RenameFileX(m_filePath + DOWNLOADING_FILE_EXTENSION, m_filePath), ());
 
-        DisableBackupForFile(m_filePath.c_str());
+        DisableBackupForFile(m_filePath);
       }
       else // or save "chunks left" otherwise
-        m_strategy.SaveChunks(m_filePath);
+        m_strategy.SaveChunks(m_filePath + RESUME_FILE_EXTENSION);
 
       m_onFinish(*this);
     }
@@ -216,7 +216,8 @@ public:
   {
     ASSERT ( !urls.empty(), () );
 
-    m_progress.first = m_strategy.LoadOrInitChunks(m_filePath, fileSize, chunkSize);
+    m_progress.first = m_strategy.LoadOrInitChunks(m_filePath + RESUME_FILE_EXTENSION,
+                                                   fileSize, chunkSize);
     m_progress.second = fileSize;
 
 #ifdef OMIM_OS_IPHONE
@@ -239,7 +240,7 @@ public:
 
       if (m_doCleanProgressFiles)
       {
-        CHECK(my::DeleteFileX(m_filePath + DOWNLOADING_FILE_EXTENSION), ());
+        my::DeleteFileX(m_filePath + DOWNLOADING_FILE_EXTENSION);
         my::DeleteFileX(m_filePath + RESUME_FILE_EXTENSION);
       }
     }
