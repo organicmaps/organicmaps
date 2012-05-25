@@ -154,9 +154,13 @@ namespace m4
 
     void Erase(T const & obj)
     {
+      vector<value_t> v;
       for (typename tree_t::const_iterator i = m_tree.begin(); i != m_tree.end(); ++i)
         if ((*i).m_val == obj)
-          m_tree.erase(*i);
+          v.push_back(*i);
+
+      for (unsigned i = 0; i < v.size(); ++i)
+        m_tree.erase(v[i]);
     }
 
     template <class TCompare>
