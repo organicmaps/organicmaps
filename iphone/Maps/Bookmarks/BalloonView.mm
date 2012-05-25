@@ -51,9 +51,7 @@
 //  m_titleView.alpha = 0.8;
 //  m_titleView.textLabel.backgroundColor = [UIColor clearColor];
 //  m_titleView.detailTextLabel.backgroundColor = [UIColor clearColor];
-  m_titleView.textLabel.textColor = [UIColor whiteColor];
-  m_titleView.detailTextLabel.textColor = [UIColor whiteColor];
-  CGFloat const w = m_titleView.bounds.size.width / 3 * 2;
+  CGFloat const w = view.bounds.size.width - 30;
   CGFloat const h = m_titleView.bounds.size.height;
   m_titleView.frame = CGRectMake(pt.x - w/2, pt.y - h, w, h);
 
