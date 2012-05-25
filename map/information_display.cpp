@@ -2,6 +2,10 @@
 #include "drawer_yg.hpp"
 
 #include "../indexer/mercator.hpp"
+
+#include "../gui/controller.hpp"
+#include "../gui/button.hpp"
+
 #include "../yg/defines.hpp"
 #include "../yg/skin.hpp"
 #include "../yg/pen_info.hpp"
@@ -24,6 +28,18 @@ InformationDisplay::InformationDisplay()
   : m_ruler(Ruler::Params()),
     m_bottomShift(0)
 {
+  gui::Button::Params p;
+
+  p.m_pivot = m2::PointD(0, 0);
+  p.m_position = yg::EPosCenter;
+  p.m_depth = yg::maxDepth;
+  p.m_text = "Download";
+  p.m_width = 200;
+  p.m_height = 40;
+
+  m_downloadButton.reset(new gui::Button(p));
+  m_downloadButton->setIsVisible(false);
+
   enableDebugPoints(false);
   enableRuler(false);
   enableCenter(false);
@@ -37,6 +53,12 @@ InformationDisplay::InformationDisplay()
 
   m_fontDesc = yg::FontDesc(12);
   m_emptyMessageFont = yg::FontDesc(14, yg::Color(0x60, 0x60, 0x60, 0xFF));
+}
+
+void InformationDisplay::setController(gui::Controller *controller)
+{
+  m_controller = controller;
+  m_controller->AddElement(m_downloadButton);
 }
 
 void InformationDisplay::setScreen(ScreenBase const & screen)
@@ -331,11 +353,17 @@ void InformationDisplay::drawLog(DrawerYG * drawer)
 void InformationDisplay::enableEmptyModelMessage(bool doEnable)
 {
   m_isEmptyModelMessageEnabled = doEnable;
+//  m_downloadButton->setIsVisible(doEnable);
 }
 
 void InformationDisplay::setEmptyModelMessage(char const * msg)
 {
   m_emptyModelMessage = msg;
+}
+
+void InformationDisplay::setDownloadListener(gui::Button::TOnClickListener l)
+{
+  m_downloadButton->setOnClickListener(l);
 }
 
 void InformationDisplay::drawEmptyModelMessage(DrawerYG * pDrawer)
@@ -358,6 +386,10 @@ void InformationDisplay::drawEmptyModelMessage(DrawerYG * pDrawer)
   yg::StraightTextElement ste(params);
 
   ste.draw(pDrawer->screen().get(), math::Identity<double, 3>());
+
+  m2::PointD pv(pt.x, ste.roughBoundRect().maxY() + m_downloadButton->roughBoundRect().SizeY() / 2 + 10 * m_visualScale);
+
+  m_downloadButton->setPivot(pv);
 }
 
 void InformationDisplay::enableBenchmarkInfo(bool doEnable)

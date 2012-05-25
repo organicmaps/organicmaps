@@ -7,6 +7,7 @@
 #include "../geometry/screenbase.hpp"
 #include "../base/timer.hpp"
 #include "../base/logging.hpp"
+#include "../gui/button.hpp"
 
 namespace location
 {
@@ -14,6 +15,12 @@ namespace location
 }
 
 class DrawerYG;
+
+namespace gui
+{
+  class Button;
+  class Controller;
+}
 
 /// Class, which displays additional information on the primary layer.
 /// like rules, coordinates, GPS position and heading
@@ -44,7 +51,10 @@ private:
   double m_frameDuration;
 
   bool m_isEmptyModelMessageEnabled;
+
   string m_emptyModelMessage;
+  shared_ptr<gui::Button> m_downloadButton;
+  gui::Controller * m_controller;
 
   bool m_isBenchmarkInfoEnabled;
 
@@ -74,6 +84,8 @@ private:
 public:
 
   InformationDisplay();
+
+  void setController(gui::Controller * controller);
 
   void setScreen(ScreenBase const & screen);
   void setDisplayRect(m2::RectI const & rect);
@@ -115,6 +127,7 @@ public:
 
   void enableEmptyModelMessage(bool doEnable);
   void setEmptyModelMessage(char const * msg);
+  void setDownloadListener(gui::Button::TOnClickListener l);
   void drawEmptyModelMessage(DrawerYG * pDrawer);
 
   static void logMessage(my::LogLevel, my::SrcPoint const &, string const &);

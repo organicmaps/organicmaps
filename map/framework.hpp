@@ -52,6 +52,11 @@
 class DrawerYG;
 class RenderPolicy;
 namespace search { class Result; }
+namespace gui
+{
+  class Controller;
+  class Button;
+}
 
 class Framework
 {
@@ -59,6 +64,10 @@ protected:
   mutable scoped_ptr<search::Engine> m_pSearchEngine;
   model::FeaturesFetcher m_model;
   Navigator m_navigator;
+
+  scoped_ptr<gui::Controller> m_guiController;
+
+  shared_ptr<gui::Button> m_btnDownload;
 
   vector<BookmarkCategory *> m_bookmarks;
 
@@ -280,6 +289,8 @@ public:
   void DoScale(ScaleEvent const & e);
   void StopScale(ScaleEvent const & e);
   //@}
+
+  gui::Controller * GetGuiController() const;
 
 private:
   //bool IsEmptyModel() const;

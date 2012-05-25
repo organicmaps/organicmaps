@@ -3,7 +3,7 @@
 #include "drawer_yg.hpp"
 #include "benchmark_provider.hpp"
 #include "geourl_process.hpp"
-
+#include "../gui/controller.hpp"
 #include "../defines.hpp"
 
 #include "../platform/settings.hpp"
@@ -24,7 +24,6 @@
 #include "../std/algorithm.hpp"
 #include "../std/target_os.hpp"
 #include "../std/vector.hpp"
-
 
 void Framework::AddMap(string const & file)
 {
@@ -114,6 +113,10 @@ Framework::Framework()
     m_centeringMode(EDoNothing),
     m_lowestMapVersion(-1)
 {
+  m_guiController.reset(new gui::Controller());
+
+  m_informationDisplay.setController(m_guiController.get());
+
 #ifdef DRAW_TOUCH_POINTS
   m_informationDisplay.enableDebugPoints(true);
 #endif
@@ -492,6 +495,8 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
     }
 
   pDrawer->screen()->endFrame();
+
+  m_guiController->DrawFrame(pDrawer->screen().get());
 }
 
 /// Function for calling from platform dependent-paint function.
@@ -698,7 +703,6 @@ void Framework::StopRotate(RotateEvent const & e)
   }
 }
 
-
 void Framework::Move(double azDir, double factor)
 {
   m_navigator.Move(azDir, factor);
@@ -870,10 +874,6 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 {
   if (renderPolicy)
   {
-    //bool isVisualLogEnabled = false;
-    //Settings::Get("VisualLog", isVisualLogEnabled);
-    //m_informationDisplay.enableLog(isVisualLogEnabled, renderPolicy->GetWindowHandle().get());
-
     m_informationDisplay.setVisualScale(renderPolicy->VisualScale());
 
     m_navigator.SetMinScreenParams(static_cast<unsigned>(m_minRulerWidth * renderPolicy->VisualScale()),
@@ -883,10 +883,14 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
   }
 
   m_renderPolicy.reset();
+  m_guiController->ResetInvalidateFn();
   m_renderPolicy.reset(renderPolicy);
 
   if (m_renderPolicy.get())
   {
+    m_guiController->SetVisualScale(renderPolicy->VisualScale());
+    m_guiController->SetInvalidateFn(bind(&WindowHandle::invalidate, renderPolicy->GetWindowHandle().get()));
+
     m_renderPolicy->SetEmptyModelFn(bind(&Framework::IsEmptyModel, this, _1));
     m_renderPolicy->SetRenderFn(DrawModelFn());
 
@@ -948,6 +952,11 @@ string Framework::GetCountryCodeByPosition(double lat, double lon) const
 {
   return GetSearchEngine()->GetCountryCode(m2::PointD(
                            MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat)));
+}
+
+gui::Controller * Framework::GetGuiController() const
+{
+  return m_guiController.get();
 }
 
 bool Framework::SetViewportByURL(string const & url)
