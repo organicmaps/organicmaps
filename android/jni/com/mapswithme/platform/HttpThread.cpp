@@ -21,10 +21,10 @@ public:
     JNIEnv * env = jni::GetEnv();
 
     jclass klass = env->FindClass("com/mapswithme/maps/downloader/DownloadChunkTask");
-    ASSERT(klass, ("Can't find java class com/mapswithme/maps/downloader/DownloadChunkTask"));
+    ASSERT(klass, ());
 
     jmethodID methodId = env->GetMethodID(klass, "<init>", "(JLjava/lang/String;JJJLjava/lang/String;Ljava/lang/String;)V");
-    ASSERT(methodId, ("Can't find java constructor in com/mapswithme/maps/downloader/DownloadChunkTask"));
+    ASSERT(methodId, ());
 
     // User id is always the same, so do not waste time on every chunk call
     static string uniqueUserId = GetPlatform().UniqueClientId();
@@ -33,14 +33,14 @@ public:
                                               methodId,
                                               reinterpret_cast<jlong>(&cb),
                                               env->NewStringUTF(url.c_str()),
-                                              beg,
-                                              end,
-                                              expectedFileSize,
+                                              (jlong)beg,
+                                              (jlong)end,
+                                              (jlong)expectedFileSize,
                                               env->NewStringUTF(pb.c_str()),
                                               env->NewStringUTF(uniqueUserId.c_str())));
 
     methodId = env->GetMethodID(klass, "start", "()V");
-    ASSERT(methodId, ("Can't find java method 'start' in com/mapswithme/maps/downloader/DownloadChunkTask"));
+    ASSERT(methodId, ());
 
     env->CallVoidMethod(m_self, methodId);
   }
@@ -48,10 +48,9 @@ public:
   ~HttpThread()
   {
     JNIEnv * env = jni::GetEnv();
-    jmethodID methodId = jni::GetJavaMethodID(env, m_self, "cancel", "(Z)Z");
-    ASSERT(methodId, ("Can't find java method 'cancel' in com/mapswithme/maps/downloader/DownloadChunkTask"));
+    jmethodID methodId = jni::GetJavaMethodID(env, m_self, "stop", "(V)V");
+    env->CallVoidMethod(m_self, methodId);
 
-    env->CallBooleanMethod(m_self, methodId, false);
     env->DeleteGlobalRef(m_self);
   }
 };

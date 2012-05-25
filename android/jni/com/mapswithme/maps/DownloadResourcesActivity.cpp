@@ -4,18 +4,15 @@
 
 #include "../../../../../defines.hpp"
 
-#include "../../../../../platform/http_request.hpp"
-
-#include "../../../../../base/logging.hpp"
-#include "../../../../../base/string_utils.hpp"
-
-#include "../../../../../coding/zip_reader.hpp"
 #include "../../../../../coding/url_encode.hpp"
 #include "../../../../../coding/reader_streambuf.hpp"
 #include "../../../../../coding/internal/file_data.hpp"
 
 #include "../../../../../platform/platform.hpp"
 #include "../../../../../platform/http_request.hpp"
+
+#include "../../../../../base/logging.hpp"
+#include "../../../../../base/string_utils.hpp"
 
 #include "../../../../../std/vector.hpp"
 #include "../../../../../std/string.hpp"
@@ -172,7 +169,7 @@ extern "C"
 
   void DownloadFileProgress(shared_ptr<jobject> obj, downloader::HttpRequest & req)
   {
-    LOG(LDEBUG, (req.Progress().first, "bytes for", g_filesToDownload.back().m_fileName, "was downloaded"));
+    //LOG(LDEBUG, (req.Progress().first, "bytes for", g_filesToDownload.back().m_fileName, "was downloaded"));
 
     FileToDownload & curFile = g_filesToDownload.back();
 
@@ -190,8 +187,8 @@ extern "C"
   }
 
   void DownloadURLListFinished(downloader::HttpRequest & req,
-      downloader::HttpRequest::CallbackT onFinish,
-      downloader::HttpRequest::CallbackT onProgress)
+      downloader::HttpRequest::CallbackT const & onFinish,
+      downloader::HttpRequest::CallbackT const & onProgress)
   {
     if (req.Status() == downloader::HttpRequest::EFailed)
       onFinish(req);
@@ -245,8 +242,8 @@ extern "C"
     g_currentRequest.reset(downloader::HttpRequest::PostJson(GetPlatform().MetaServerUrl(),
                                                          curFile.m_fileName,
                                                          bind(&DownloadURLListFinished, _1,
-                                                             onFinish,
-                                                             onProgress)));
+                                                              onFinish,
+                                                              onProgress)));
 
     return ERR_FILE_IN_PROGRESS;
   }

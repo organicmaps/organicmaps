@@ -32,7 +32,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
   native void onFinish(long httpCallbackID, long httpCode, long beg, long end);
 
   public DownloadChunkTask(long httpCallbackID, String url, long beg, long end, long expectedFileSize,
-      String postBody, String userAgent)
+                           String postBody, String userAgent)
   {
     m_httpCallbackID = httpCallbackID;
     m_url = url;
@@ -52,14 +52,19 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
   protected void onPostExecute(Boolean success)
   {
     if (success)
+    {
+      assert(!isCancelled());
+      assert(m_httpCallbackID != 0);
+
       onFinish(m_httpCallbackID, 200, m_beg, m_end);
+    }
   }
 
   @Override
   protected void onCancelled()
   {
-    // Report error in callback only if we're not forcibly canceled
-    if (m_httpErrorCode != NOT_SET)
+    // Report error in callback only if we're not forcibly canceled.
+    if (m_httpCallbackID != 0 && m_httpErrorCode != NOT_SET)
       onFinish(m_httpCallbackID, m_httpErrorCode, m_beg, m_end);
   }
 
@@ -68,7 +73,9 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
   {
     if (!isCancelled())
     {
-      // Use progress event to save downloaded bytes
+      assert(m_httpCallbackID != 0);
+
+      // Use progress event to save downloaded bytes.
       onWrite(m_httpCallbackID, m_beg + m_downloadedBytes, data[0], data[0].length);
       m_downloadedBytes += data[0].length;
     }
@@ -173,5 +180,13 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
     }
     // Download has finished
     return true;
+  }
+
+  void stop()
+  {
+    // Mark that native http thread is not valid any more.
+    m_httpCallbackID = 0;
+
+    cancel(false);
   }
 }
