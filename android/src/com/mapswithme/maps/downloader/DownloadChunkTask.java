@@ -51,21 +51,9 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
   @Override
   protected void onPostExecute(Boolean success)
   {
-    if (success)
-    {
-      assert(!isCancelled());
-      assert(m_httpCallbackID != 0);
+    assert(!isCancelled());
 
-      onFinish(m_httpCallbackID, 200, m_beg, m_end);
-    }
-  }
-
-  @Override
-  protected void onCancelled()
-  {
-    // Report error in callback only if we're not forcibly canceled.
-    if (m_httpCallbackID != 0 && m_httpErrorCode != NOT_SET)
-      onFinish(m_httpCallbackID, m_httpErrorCode, m_beg, m_end);
+    onFinish(m_httpCallbackID, success ? 200 : m_httpErrorCode, m_beg, m_end);
   }
 
   @Override
@@ -73,8 +61,6 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
   {
     if (!isCancelled())
     {
-      assert(m_httpCallbackID != 0);
-
       // Use progress event to save downloaded bytes.
       onWrite(m_httpCallbackID, m_beg + m_downloadedBytes, data[0], data[0].length);
       m_downloadedBytes += data[0].length;
@@ -134,7 +120,6 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
       {
         // we've set error code so client should be notified about the error
         m_httpErrorCode = err;
-        cancel(false);
         return false;
       }
 
@@ -157,7 +142,6 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
       Log.d(TAG, "invalid url: " + m_url);
       // Notify the client about error
       m_httpErrorCode = INVALID_URL;
-      cancel(false);
       return false;
     }
     catch (IOException ex)
@@ -165,7 +149,6 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
       Log.d(TAG, "ioexception: " + ex.toString());
       // Notify the client about error
       m_httpErrorCode = IO_ERROR;
-      cancel(false);
       return false;
     }
     finally
@@ -174,19 +157,12 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
         urlConnection.disconnect();
       else
       {
-        cancel(false);
+        m_httpErrorCode = IO_ERROR;
         return false;
       }
     }
+
     // Download has finished
     return true;
-  }
-
-  void stop()
-  {
-    // Mark that native http thread is not valid any more.
-    m_httpCallbackID = 0;
-
-    cancel(false);
   }
 }

@@ -48,8 +48,8 @@ public:
   ~HttpThread()
   {
     JNIEnv * env = jni::GetEnv();
-    jmethodID methodId = jni::GetJavaMethodID(env, m_self, "stop", "(V)V");
-    env->CallVoidMethod(m_self, methodId);
+    jmethodID methodId = jni::GetJavaMethodID(env, m_self, "cancel", "(Z)Z");
+    env->CallBooleanMethod(m_self, methodId, false);
 
     env->DeleteGlobalRef(m_self);
   }
