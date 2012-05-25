@@ -34,12 +34,19 @@ class DownloadObserver
 {
   bool m_progressWasCalled;
   HttpRequest::StatusT * m_status;
+  // Interrupt download after this number of chunks
+  int m_chunksToFail;
 
 public:
-  DownloadObserver() : m_status(0)
+  DownloadObserver() : m_status(0), m_chunksToFail(-1)
   {
     Reset();
     my::g_LogLevel = LDEBUG;
+  }
+
+  void CancelDownloadOnGivenChunk(int chunksToFail)
+  {
+    m_chunksToFail = chunksToFail;
   }
 
   void Reset()
@@ -67,6 +74,18 @@ public:
   {
     m_progressWasCalled = true;
     TEST_EQUAL(request.Status(), HttpRequest::EInProgress, ());
+
+    // Cancel download if needed
+    if (m_chunksToFail != -1)
+    {
+      --m_chunksToFail;
+      if (m_chunksToFail == 0)
+      {
+        m_chunksToFail = -1;
+        LOG(LINFO, ("Download canceled"));
+        QCoreApplication::quit();
+      }
+    }
   }
 
   void OnDownloadFinish(HttpRequest & request)
@@ -532,6 +551,59 @@ UNIT_TEST(DownloadResumeChunks)
     uint64_t size = 0;
     TEST(!GetPlatform().GetFileSizeByFullPath(RESUME_FILENAME, size), ());
     TEST(!GetPlatform().GetFileSizeByFullPath(DOWNLOADING_FILENAME, size), ());
+    FileWriter::DeleteFileX(FILENAME);
+  }
+}
+
+// Unit test with forcible canceling of http request
+UNIT_TEST(DownloadResumeChunksWithCancel)
+{
+  string const FILENAME = "some_test_filename_12345";
+  string const RESUME_FILENAME = FILENAME + RESUME_FILE_EXTENSION;
+  string const DOWNLOADING_FILENAME = FILENAME + DOWNLOADING_FILE_EXTENSION;
+  string const SHA256 = "EE6AE6A2A3619B2F4A397326BEC32583DE2196D9D575D66786CB3B6F9D04A633";
+
+  { // remove data from previously failed files
+    Platform::FilesList files;
+    Platform::GetFilesInDir(".", "*" RESUME_FILE_EXTENSION, files);
+    Platform::GetFilesInDir(".", "*" DOWNLOADING_FILE_EXTENSION, files);
+    for (Platform::FilesList::iterator it = files.begin(); it != files.end(); ++it)
+      FileWriter::DeleteFileX(*it);
+  }
+
+  vector<string> urls;
+  urls.push_back(TEST_URL_BIG_FILE);
+
+  // 1st step - download full file with canceling
+  {
+    DownloadObserver observer;
+    observer.CancelDownloadOnGivenChunk(1);
+
+    scoped_ptr<HttpRequest> request(HttpRequest::GetFile(urls, FILENAME, FILESIZE,
+                            bind(&DownloadObserver::OnDownloadFinish, &observer, _1),
+                            bind(&DownloadObserver::OnDownloadProgress, &observer, _1), 1024, false));
+    QCoreApplication::exec();
+
+    request.reset();
+    observer.CancelDownloadOnGivenChunk(20);
+    request.reset(HttpRequest::GetFile(urls, FILENAME, FILESIZE,
+                                bind(&DownloadObserver::OnDownloadFinish, &observer, _1),
+                                bind(&DownloadObserver::OnDownloadProgress, &observer, _1), 1024, false));
+    QCoreApplication::exec();
+
+    request.reset();
+    request.reset(HttpRequest::GetFile(urls, FILENAME, FILESIZE,
+                                bind(&DownloadObserver::OnDownloadFinish, &observer, _1),
+                                bind(&DownloadObserver::OnDownloadProgress, &observer, _1), 1024, false));
+    QCoreApplication::exec();
+
+    observer.TestOk();
+    string s;
+    TEST(ReadFileAsString(FILENAME, s), ());
+    TEST_EQUAL(sha2::digest256(s), SHA256, ());
+    uint64_t size;
+    TEST(!Platform::GetFileSizeByFullPath(RESUME_FILENAME, size), ("No resume file on success"));
+
     FileWriter::DeleteFileX(FILENAME);
   }
 }
