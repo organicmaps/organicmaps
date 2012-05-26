@@ -6,6 +6,7 @@
 
 #include <QtGui/QMainWindow>
 
+
 class QDockWidget;
 
 namespace search { class Result; }
@@ -13,7 +14,6 @@ namespace search { class Result; }
 namespace qt
 {
   class DrawWidget;
-  class UpdateDialog;
 
   class MainWindow : public QMainWindow, location::LocationObserver
   {
@@ -22,10 +22,6 @@ namespace qt
     DrawWidget * m_pDrawWidget;
 
     QDockWidget * m_Docks[3];
-
-#ifndef NO_DOWNLOADER
-    UpdateDialog * m_updateDialog;
-#endif // NO_DOWNLOADER
 
     scoped_ptr<location::LocationService> m_locationService;
 
@@ -66,6 +62,7 @@ namespace qt
     void ShowClassifPanel();
     void ShowGuidePanel();
 #endif // NO_DOWNLOADER
+
     void OnPreferences();
     void OnAbout();
     void OnMyPosition();

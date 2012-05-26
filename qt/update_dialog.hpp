@@ -26,7 +26,7 @@ namespace qt
                                    pair<int64_t, int64_t> const & progress);
     //@}
 
-    void ShowDialog();
+    void ShowModal();
 
   private slots:
     void OnItemClick(QTreeWidgetItem * item, int column);

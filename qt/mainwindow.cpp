@@ -37,9 +37,6 @@ namespace qt
 {
 
 MainWindow::MainWindow()
-#ifndef NO_DOWNLOADER
-  : m_updateDialog(0)
-#endif // NO_DOWNLOADER
 {
   m_pDrawWidget = new DrawWidget(this);
   m_locationService.reset(CreateDesktopLocationService(*this));
@@ -368,9 +365,8 @@ void MainWindow::OnPreferences()
 #ifndef NO_DOWNLOADER
 void MainWindow::ShowUpdateDialog()
 {
-  if (!m_updateDialog)
-    m_updateDialog = new UpdateDialog(this, m_pDrawWidget->GetFramework().Storage());
-  m_updateDialog->ShowDialog();
+  UpdateDialog dlg(this, m_pDrawWidget->GetFramework().Storage());
+  dlg.ShowModal();
 }
 
 void MainWindow::ShowClassifPanel()

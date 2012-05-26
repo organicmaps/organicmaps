@@ -42,9 +42,6 @@ enum
 
 namespace qt
 {
-///////////////////////////////////////////////////////////////////////////////
-// Helpers
-///////////////////////////////////////////////////////////////////////////////
   /// adds custom sorting for "Size" column
   class QTreeWidgetItemWithCustomSorting : public QTreeWidgetItem
   {
@@ -54,7 +51,7 @@ namespace qt
       return data(KColumnIndexSize, Qt::UserRole).toULongLong() < other.data(KColumnIndexSize, Qt::UserRole).toULongLong();
     }
   };
-////////////////////////////////////////////////////////////////////////////////
+
 
   UpdateDialog::UpdateDialog(QWidget * parent, Storage & storage)
     : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint),
@@ -335,7 +332,7 @@ namespace qt
     }
   }
 
-  void UpdateDialog::ShowDialog()
+  void UpdateDialog::ShowModal()
   {
     // if called for first time
     if (!m_tree->topLevelItemCount())
@@ -343,5 +340,4 @@ namespace qt
 
     exec();
   }
-
 }
