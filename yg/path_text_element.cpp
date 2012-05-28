@@ -16,7 +16,7 @@ namespace yg
         p.m_position)
   {
     setPivot(m_glyphLayout.pivot());
-    setIsVisible((m_glyphLayout.firstVisible() == 0) && (m_glyphLayout.lastVisible() == visText().size()));
+    setIsValid((m_glyphLayout.firstVisible() == 0) && (m_glyphLayout.lastVisible() == visText().size()));
   }
 
   PathTextElement::PathTextElement(PathTextElement const & src, math::Matrix<double, 3, 3> const & m)
@@ -24,7 +24,7 @@ namespace yg
       m_glyphLayout(src.m_glyphLayout, m)
   {
     setPivot(m_glyphLayout.pivot());
-    setIsVisible((m_glyphLayout.firstVisible() == 0) && (m_glyphLayout.lastVisible() == visText().size()));
+    setIsValid((m_glyphLayout.firstVisible() == 0) && (m_glyphLayout.lastVisible() == visText().size()));
   }
 
   vector<m2::AnyRectD> const & PathTextElement::boundRects() const
@@ -63,16 +63,13 @@ namespace yg
         screen->drawRectangle(boundRects()[i], c, yg::maxDepth - 3);
     }
 
-    if (!isNeedRedraw())
+    if (!isNeedRedraw() || !isVisible() || !isValid())
       return;
 
     yg::FontDesc desc = m_fontDesc;
 
     if (desc.m_isMasked)
     {
-      if (!isVisible())
-        return;
-
       drawTextImpl(m_glyphLayout, screen, m, false, desc, yg::maxDepth - 1);
       desc.m_isMasked = false;
     }

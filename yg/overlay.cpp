@@ -259,10 +259,13 @@ namespace yg
 
   void Overlay::processOverlayElement(shared_ptr<OverlayElement> const & oe)
   {
-    if (m_couldOverlap)
-      addOverlayElement(oe);
-    else
-      replaceOverlayElement(oe);
+    if (oe->isValid())
+    {
+      if (m_couldOverlap)
+        addOverlayElement(oe);
+      else
+        replaceOverlayElement(oe);
+    }
   }
 
   bool greater_priority(shared_ptr<OverlayElement> const & l,

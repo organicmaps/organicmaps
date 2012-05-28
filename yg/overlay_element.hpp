@@ -24,6 +24,7 @@ namespace yg
     bool m_isNeedRedraw;
     bool m_isFrozen;
     bool m_isVisible;
+    bool m_isValid;
     mutable bool m_isDirtyRect;
 
     mutable bool m_isDirtyRoughRect;
@@ -73,6 +74,9 @@ namespace yg
 
     bool isVisible() const;
     void setIsVisible(bool flag);
+
+    bool isValid() const;
+    void setIsValid(bool flag);
 
     bool hitTest(m2::PointD const & pt) const;
     bool roughHitTest(m2::PointD const & pt) const;

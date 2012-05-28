@@ -17,6 +17,7 @@ namespace yg
       m_isNeedRedraw(true),
       m_isFrozen(false),
       m_isVisible(true),
+      m_isValid(true),
       m_isDirtyRect(true),
       m_isDirtyRoughRect(true)
   {}
@@ -149,6 +150,16 @@ namespace yg
         return true;
 
     return false;
+  }
+
+  bool OverlayElement::isValid() const
+  {
+    return m_isValid;
+  }
+
+  void OverlayElement::setIsValid(bool flag)
+  {
+    m_isValid = flag;
   }
 
   bool OverlayElement::roughHitTest(m2::PointD const & pt) const
