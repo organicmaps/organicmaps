@@ -5,6 +5,8 @@ de:3Geldautomat|Bankomat|Geld
 fr:3bancomat|argent
 it:3bancomat|soldi
 es:3atm|dinero
+ko:atm|돈
+jp:atm|お金|マネー
 
 amenity-bank
 en:3bank|money
@@ -13,6 +15,8 @@ de:3Bank|Geld
 fr:3banque|argent
 it:3banca|soldi
 es:3banco|dinero
+ko:은행|돈
+jp:銀行|土手|バンク|お金|マネー
 
 amenity-bureau_de_change
 en:3currency exchange|3exchange|money
@@ -21,6 +25,8 @@ de:3Geldwechselstelle|Geld
 fr:3change|devises|argent
 it:3cambio valute|valuta|soldi
 es:3cambio de devisas|dinero
+ko:환전|돈|교환을
+jp:為替|マネー|お金|通貨
 
 amenity-bar|amenity-pub
 en:2bar|2pub|beer|drink|food
@@ -29,6 +35,8 @@ de:2Bar|2Pub|Bier|essen
 fr:2bar|2bière|pub|repas
 it:2bar|2birra|pub|mangiare
 es:2bar|2pub|comer
+ko:바|술집|맥주|음료|음식
+jp:バー|パブ|ビール|ドリンク|フード
 
 amenity-cafe
 en:3cafe|3restaurant|3food
@@ -37,6 +45,8 @@ de:3Cafe|3Restautant|essen
 fr:3café|3restaurant|manger|repas
 it:3caffè|3ristorante|pasto|mangiare
 es:3café|3restaurante|comer
+ko:카페|레스토랑|음식
+jp:カフェ|レストラン|食べ物
 
 amenity-fast_food
 en:4fast food|3restaurant|3cafe|takeaway|3food
@@ -45,6 +55,8 @@ de:4Fast food|takeaway|Restaurant|Cafe|Pizzeria|essen
 fr:4fast food|takeaway|café|restaurant|manger|repas
 it:4fast food|takeaway|caffè|ristorante|pasto|mangiare
 es:4comida rápida|restaurante|café|comer
+ko:패스트 푸드|레스토랑|카페|테이크 아웃|푸드
+jp:ファストフード|レストラン|カフェ|テイクアウト|フード
 
 amenity-restaurant
 en:3restaurant|3cafe|3food
@@ -53,6 +65,8 @@ de:3Restaurant|3Cafe|Gasthaus|3essen
 fr:3restaurant|3café|manger|repas
 it:3ristorante|3caffè|mangiare
 es:3restaurante|3café|comer
+ko:레스토랑|카페|음식
+jp:レストラン|カフェ|食べ物
 
 amenity-fuel
 en:gas station|3fuel|2gas
@@ -61,6 +75,8 @@ de:3Tankstelle|Tankstation
 fr:3station-service|poste d’essence
 it:3stazione di rifornimento
 es:3gasolinera
+ko:가스가 역|연료|가스
+jp:ガスステーション|燃料|ガス
 
 shop-bakery
 en:3bakery|shop
@@ -69,6 +85,8 @@ de:3Bäckerei|Bäckerladen|Laden
 fr:3boulangerie|magasin
 it:3panetteria|negozio
 es:3panadería|tienda
+ko:베이커리|쇼핑
+jp:ベーカリー|ショップ
 
 shop-convenience
 en:2shop
@@ -77,6 +95,8 @@ de:3Einkaufenladen|Geschäft|2Laden
 fr:2magasin
 it:2negozio
 es:2tienda
+ko:쇼핑|가게
+jp:お買い物|店|ショップ
 
 shop-supermarket
 en:3supermarket|shop
@@ -85,6 +105,8 @@ de:3Supermarkt|Laden
 fr:3supermarché|magasin
 it:3supermercato|negozio
 es:3supermercado|tienda
+ko:슈퍼마켓|쇼핑|가게
+jp:スーパーマーケット|ショップ|お買い物|店
 
 highway-bus_stop
 en:bus stop|2bus|stop|4transport
@@ -93,6 +115,8 @@ de:Bushaltestelle|Haltestelle|2Bus|Autobus|Verkehr
 fr:arrêt de bus|station|2bus|autobus|4transport
 it:fermata|autobus|4transporto
 es:parada|4transporte
+ko:수송|운송선|황홀|버스 정류장|버스|모선
+jp:バス停は|交通|停留所|トランスポート|バス|乗合
 
 railway-tram_stop
 en:tram stop|3tram|stop|4transport
@@ -101,6 +125,8 @@ de:4Haltestelle|Tram|Verkehr
 fr:arrêt|station|tram|4transport
 it:fermata|tram|4transporto
 es:parada|4transporte
+ko:트램|트램 정류장|교통|전차|수송|운송선|황홀
+jp:トラム|トラムの停留所|交通|市電|トランスポート|移送|輸送
 
 amenity-bus_station
 en:bus station|2bus|station|4transport
@@ -109,6 +135,8 @@ de:4Bahnhof|Haltestelle|Bus|Autobus|Verkehr
 fr:gare|terminus|arrêt|station|bus|autobus|4transport
 it:autostazione|fermata|autobus|4transporto
 es:estación de autobuses|4transporte
+ko:버스 정류장|버스|역|교통|모선|역|위치|수송|운송선|황홀
+jp:駅|バス|輸送|持ち場|駅頭|バスステーション|バス|乗合|トランスポート|移送
 
 railway-station
 en:3train station|4railway|railroad|3train|4station|4transport
@@ -117,6 +145,8 @@ de:3Haltestelle|3Station|Zug|Verkehr
 fr:3gare|station|train|transport
 it:3stazione ferroviaria|3treno|transporto
 es:3estación de tren|3tren|transporte
+ko:기차역|철도|철도|철도|역|교통
+jp:駅|鉄道|鉄道|電車|駅|輸送
 
 railway-subway_entrance
 en:3subway|3tube|3metro|3underground|transport
@@ -125,6 +155,8 @@ de:2U-Bahn|Metro|Verkehr
 fr:3métro|3rame|transport
 it:3metrò|transporto
 es:3metro|3subte|transporte
+ko:지하철|교통
+jp:地下鉄|交通
 
 tourism-attraction
 en:3attraction|3tourism|3sights
@@ -133,6 +165,8 @@ de:3Attraktion|3Sehenswürdigkeit
 fr:3atraction|3curiosités
 it:3attrattiva|3turistico
 es:3atracción turística|3turismo
+ko:관광 명소|관 광|명소
+jp:観光スポット|観光|観光スポット
 
 tourism-viewpoint
 en:4viewpoint|tourism|sights
@@ -141,6 +175,8 @@ de:3Panorama|Sehenswürdigkeit
 fr:3panorama|curiosités
 it:3panorama|turistico
 es:3vista panorámica|turismo
+ko:관점|관 광|명소
+jp:視点|観光|観光スポット
 
 tourism-information
 en:4tourist information|4information|sights
@@ -149,6 +185,8 @@ de:4Information|Sehenswürdigkeit
 fr:4information|curiosités
 it:4informazione|turistico
 es:4información|turismo
+ko:관광 정보|정보|명소
+jp:観光情報|情報|観光スポット
 
 tourism-picnic_site
 en:picnic site|sights
@@ -157,6 +195,8 @@ de:Picknick|Sehenswürdigkeit
 fr:pique-nique|curiosités
 it:picnic|turistico
 es:picnic|turismo
+ko:소풍 사이트|명소|피크닉
+jp:ピクニックサイトが|スポット|ピクニック
 
 amenity-place_of_worship
 en:place of worship|temple|sights
@@ -165,12 +205,16 @@ de:Tempel|Kirche|Dom|Sehenswürdigkeit
 fr:temple|église|cathédrale|curiosités
 it:tempio|cattedrale|duomo|turistico
 es:templo|lugar de culto|turismo
+ko:예배 장소|사찰|볼거리
+jp:礼拝の場所|寺院|観光スポット
 
 amenity-bench
 en:bench
 ru:скамейка|лавка
 fr:banc
 it:panchina|panca
+ko:벤치|작업대
+jp:ベンチ|縁台
 
 amenity-bicycle_rental
 en:4bicycle
@@ -179,6 +223,8 @@ de:4Fahrrad|Velo
 fr:4vélo|bicyclette 
 it:4bicicletta|bici
 es:4bicicleta
+ko:자전거
+jp:自転車
 
 amenity-car_sharing
 en:3car sharing|car
@@ -187,6 +233,8 @@ de:3Autoverleih|Auto|Farzeug Mieten
 fr:3louage
 it:3noleggio di automobili
 es:3coche compartido
+ko:자동차 공유|자동차|자동차 임대
+jp:カーシェアリング|車|レンタカー
 
 amenity-cinema
 en:3cinema
@@ -195,6 +243,8 @@ de:3Kino|Cinema|Filmtheater
 fr:3cinéma|ciné
 it:3cinema|teatro
 es:3cine
+ko:영화
+jp:シネマ
 
 amenity-college
 en:college
@@ -203,6 +253,8 @@ de:College|Fachschule
 fr:collège
 it:collegio
 es:colegio
+ko:칼리지|대학
+jp:大学|カレッジ
 
 amenity-drinking_water
 en:4drinking water
@@ -211,6 +263,8 @@ de:4Trinkwasser|Brunnen
 fr:3eau potable
 it:4acqua potabile
 es:4agua potable
+ko:식수|분수식 물마시는 곳
+jp:飲料水|噴水式水飲み場
 
 amenity-fire_station
 en:fire station
@@ -219,6 +273,8 @@ de:Feuerwehr
 fr:corps de saveurs pompiers
 it:scuadra antincendio
 es:parque de bomberos
+ko:소방서
+jp:消防署
 
 amenity-fountain
 en:fountain
@@ -227,6 +283,8 @@ de:Brunnen|Fontäne
 fr:fontaine
 it:fontana|zampillo
 es:fuente
+ko:분수|샘
+jp:噴水|泉|泉水
 
 amenity-grave_yard|natural-cemetery
 en:graveyard
@@ -235,6 +293,8 @@ de:Friedhof
 fr:cimetière
 it:cimitero
 es:cementerio
+ko:묘소
+jp:墓地
 
 amenity-hospital|amenity-doctors
 en:3hospital|clinic|doctor
@@ -243,6 +303,8 @@ de:3Spital|Krankenhaus
 fr:3hôpital|clinique
 it:3ospedale
 es:3hospital
+ko:병원|병원|의사|의사가
+jp:病院|クリニック|医師|医者
 
 amenity-hunting_stand
 en:hunting stand
@@ -250,6 +312,8 @@ ru:охотничья вышка
 de:Hochsitz
 fr:tour de chasse
 it:torre di caccio
+ko:사냥 스탠드
+jp:狩猟スタンド
 
 amenity-kindergarten
 en:kindergarten
@@ -258,6 +322,8 @@ de:Kindergarten|Kinderkrippe|Krippe
 fr:jardin d'enfants|garderie d'enfants|pouponnière
 it:scuola materna
 es:guarderia
+ko:유치원
+jp:幼稚園
 
 amenity-library
 en:3library
@@ -266,6 +332,8 @@ de:3Bibliothek|Bücherei
 fr:3bibliothèque
 it:3biblioteca
 es:3biblioteca
+ko:도서관
+jp:図書館
 
 amenity-parking
 en:3parking
@@ -274,6 +342,8 @@ de:3Parkplatz|Parking
 fr:3parking
 it:3parcheggio
 es:3estationamiento|3aparcamiento
+ko:주차
+jp:駐車場
 
 amenity-pharmacy
 en:3pharmacy|3drugstore|apothecary|dispensary
@@ -282,6 +352,8 @@ de:3Apotheke|3Droguerie
 fr:3pharmacie|3droguerie
 it:3farmacia
 es:3farmacia
+ko:약국|약물 매장|약종상
+jp:薬局|ドラッグストア|薬剤師|調剤|薬局の
 
 amenity-post_box
 en:3postbox|post
@@ -290,6 +362,8 @@ de:3Briefkasten|3Postfach
 fr:3boîte aux lettres
 it:3casella
 es:3buzón
+ko:포스트 박스
+jp:メールボックス
 
 amenity-post_office
 en:3post
@@ -298,6 +372,8 @@ de:3Post|Postamt
 fr:3poste
 it:3posta
 es:4oficina de correos|3post
+ko:우편
+jp:電子メール
 
 amenity-recycling
 en:recycling|trash|bin|garbage
@@ -306,6 +382,8 @@ de:Abfälle|Recycling|Müll
 fr:déchet
 it:rifiuti
 es:papelera de reciclaje
+ko:휴지통|휴지통|쓰레기
+jp:ごみ箱|ゴミ|ごみ
 
 amenity-school
 en:3school
@@ -314,6 +392,8 @@ de:3Schule|Schulgebäude
 fr:3école
 it:3scuola
 es:3escuela|colegio
+ko:학교
+jp:学校
 
 amenity-shelter
 en:shelter
@@ -322,6 +402,8 @@ de:Schutz|Zivilschutz
 fr:couvert
 it:riparo
 es:abrigo
+ko:피난처
+jp:避難所
 
 amenity-telephone
 en:2phone
@@ -330,6 +412,8 @@ de:2Telefon|Fernsprecher
 fr:2téléphone
 it:2telefono
 es:2teléfono
+ko:전화
+jp:電話
 
 amenity-theatre
 en:3theatre|theater
@@ -338,6 +422,8 @@ de:3Theater
 fr:3théâtre
 it:3teatro
 es:3teatro
+ko:연극
+jp:劇場
 
 amenity-toilets
 en:3toilet|wc
@@ -346,6 +432,8 @@ de:WC|3Toilette
 fr:wc|3toilette
 it:wc|3toilette
 es:3servicios|3lavabo
+ko:화장실
+jp:トイレ
 
 amenity-university
 en:4university
@@ -354,6 +442,8 @@ de:4Universität|Uni|Hochschule|Institut
 fr:4université|institut
 it:4università|istituto
 es:4universidad
+ko:대학
+jp:大学
 
 place-continent
 en:continent
@@ -362,6 +452,8 @@ de:Kontinent|Festland
 fr:continent
 it:continente|terraferma
 es:continente
+ko:대륙
+jp:大陸
 
 place-country
 en:country
@@ -370,6 +462,8 @@ de:Land
 fr:pays
 it:paese
 es:país
+ko:나라
+jp:国
 
 place-city
 en:city|town
@@ -378,6 +472,8 @@ de:Stadt
 fr:ville|cité
 it:città
 es:ciudad
+ko:도시|타운
+jp:市|町
 
 place-town
 en:town|city
@@ -386,6 +482,8 @@ de:Stadt
 fr:ville|cité
 it:città
 es:ciudad
+ko:타운|도시
+jp:町|市
 
 place-city-capital
 en:capital|city
@@ -394,6 +492,8 @@ de:Hauptstadt|Metropole|Stadt
 fr:capitale|ville|cité
 it:capitale|città
 es:capital|ciudad
+ko:자본|시|도시
+jp:首都|市
 
 place-county
 en:county
@@ -402,6 +502,8 @@ de:Kreis|Bezirk
 fr:comté
 it:contea
 es:condado
+ko:군
+jp:郡
 
 place-state
 en:state|province
@@ -410,6 +512,8 @@ de:Land|Staat|Kanton|Provinz
 fr:province|état
 it:provincia|stato
 es:estado|provincia
+ko:상태|지역
+jp:状態|州
 
 place-region
 en:region
@@ -418,6 +522,8 @@ de:Region
 fr:région
 it:regione
 es:región
+ko:지방
+jp:地域
 
 place-island|place-islet
 en:island|islet
@@ -426,6 +532,8 @@ de:Insel
 fr:île
 it:isola
 es:isla
+ko:섬
+jp:島|小島
 
 place-suburb
 en:suburb|district
@@ -434,6 +542,8 @@ de:Kreis|Wohnbezirk|Wohnviertel
 fr:arrondissement|quartier
 it:quartiere
 es:barrio
+ko:교외|지역
+jp:郊外|地区
 
 place-hamlet
 en:hamlet|village
@@ -442,6 +552,8 @@ de:Weiler|Dorf
 fr:hameau|village
 it:piccolo villaggio
 es:aldea|pueblo
+ko:햄릿|마을
+jp:村
 
 place-village
 en:village|hamlet
@@ -450,6 +562,8 @@ de:Dorf|Weiler
 fr:village|hameau
 it:villaggio
 es:pueblo|aldea
+ko:마을|햄릿
+jp:村
 
 place-locality
 en:locality
@@ -458,6 +572,8 @@ de:Lokal|Region|Raum
 fr:endroit|région
 it:località|luogo|regione|area
 es:localidad
+ko:장소
+jp:地域
 
 place-farm
 en:farm
@@ -466,6 +582,8 @@ de:Bauernhof|Farm
 fr:ferme
 it:fattoria|allevamento
 es:granja|hacienda
+ko:농장
+jp:農場
 
 waterway-river|waterway-stream|waterway-riverbank
 en:river
@@ -474,6 +592,8 @@ de:Fluss|Strom
 fr:rivière|fleuve
 it:fiume
 es:río
+ko:강
+jp:川
 
 waterway-canal
 en:canal
@@ -482,6 +602,8 @@ de:Kanal
 fr:canal
 it:canale
 es:canal
+ko:운하
+jp:運河
 
 highway-raceway
 en:racetrack
@@ -490,6 +612,8 @@ de:Rennbahn
 fr:course
 it:pista
 es:circuito
+ko:경마장
+jp:配線管
 
 highway-path
 en:path
@@ -498,6 +622,8 @@ de:Weg|Bahn
 fr:chemin
 it:sentiero|viottolo
 es:sendero
+ko:경로
+jp:パス
 
 highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-pedestrian|highway-unclassified|highway-minor|highway-motorway_link|highway-motorway|highway-motorway_junction
 en:street|st|str|ave
@@ -506,6 +632,8 @@ de:Strasse|Weg|Avenue|Gasse
 fr:rue|avenue|reulle
 it:via|strada|corso|vicolo
 es:calle|avenue|camino
+ko:거리|가도
+jp:ストリート|通り|街
 
 natural-peak
 en:peak|mountain
@@ -514,6 +642,8 @@ de:Berg|Gebirge|Gipfel|Spitze|Pik
 fr:mont|montagne|sommet|pic
 it:monte|montagna|cima|picco
 es:cima|pico
+ko:피크|산
+jp:ピーク|山
 
 natural-water|landuse-basin|landuse-reservoir
 en:water
@@ -522,6 +652,8 @@ de:Wasserbecken
 fr:bassin
 it:bacino
 es:aljibe
+ko:연못
+jp:池
 
 natural-pond
 en:pond|water
@@ -530,6 +662,8 @@ de:Teich|Wasserbecken
 fr:étang|bassin
 it:stagno|bacino
 es:estanque|aljibe
+ko:연못이|연못
+jp:池
 
 natural-lake
 en:lake|water
@@ -538,6 +672,8 @@ de:See|Wasserbecken
 fr:lac|bassin
 it:lago|bacino
 es:lago|aljibe
+ko:호수|연못
+jp:湖|池
 
 natural-forest|natural-wood|landuse-forest|landuse-wood
 en:forest
@@ -546,6 +682,8 @@ de:Wald
 fr:forêt
 it:foresta
 es:bosque
+ko:숲
+jp:森
 
 leisure-garden
 en:garden
@@ -554,6 +692,8 @@ de:Garten
 fr:jardin
 it:giardino
 es:jardín
+ko:정원
+jp:庭
 
 leisure-park
 en:park
@@ -562,6 +702,8 @@ de:Park
 fr:parc
 it:parco
 es:parque
+ko:공원
+jp:公園
 
 tourism-hostel
 en:3hostel
@@ -570,6 +712,8 @@ de:3Wohnheim
 fr:3foyer
 it:3ostello
 es:3albergue juvenil|4residencia
+ko:호스텔
+jp:ホステル
 
 tourism-hotel
 en:2hotel|hostel
@@ -578,6 +722,8 @@ de:2Hotel|Gasthaus|Wohnheim
 fr:2hôtel|foyer
 it:2hôtel|albergo|ostello
 es:2hotel|albergue juvenil|residencia
+ko:호텔|호스텔
+jp:ホテル|ホステル
 
 shop-hairdresser
 en:3hairdresser
@@ -586,6 +732,8 @@ de:3Friseur|Frisiersalon|Coiffeure
 fr:3coiffeure|salon
 it:4parrucchiera
 es:4peluquero
+ko:이발사
+jp:美容師
 
 aeroway-airport|aeroway-aerodrome
 en:3airport|3plane
@@ -594,6 +742,8 @@ de:3Flughafen|4Flugzeug
 fr:3aéroport|3avion
 it:3aeroporto|4aeroplano
 es:3aeropuerto|3avión
+ko:공항|비행기
+jp:空港|飛行機
 
 leisure-stadium
 en:stadium|sport
@@ -602,6 +752,8 @@ de:Stadion|Sport
 fr:stade|sport
 it:stadio|sport
 es:estadio|deporte
+ko:경기장|스포츠
+jp:スタジアム|スポーツ
 
 leisure-playground
 en:playground
@@ -610,6 +762,8 @@ de:Spielplatz
 fr:aire de jeu
 it:campo giochi
 es:patio de recreo
+ko:운동장
+jp:遊び場
 
 leisure-sports_centre
 en:sports center|sport
@@ -618,6 +772,8 @@ de:Sportzentrum|Sport
 fr:centre sportif|sport
 it:centro sportivo|sport
 es:centro deportivo|deporte
+ko:스포츠 센터|스포츠
+jp:スポーツセンター|スポーツ
 
 leisure-golf_course
 en:golf course|sport
@@ -626,6 +782,8 @@ de:Golfplatz|Sport
 fr:terrain de golf|sport
 it:campo da golf|sport
 es:campo de golf|deporte
+ko:골프장|스포츠
+jp:ゴルフ場|スポーツ
 
 leisure-pitch
 en:pitch|sport
@@ -634,6 +792,8 @@ de:Feld|Sport
 fr:terrain de sport|sport
 it:campo|sport
 es:terreno|deporte
+ko:스포츠 경내|스포츠
+jp:ピッチ|スポーツ
 
 leisure-swimming_pool
 en:swimming pool|sport
@@ -642,6 +802,8 @@ de:Schwimmbad|Sport
 fr:piscine|sport
 it:piscina|sport
 es:piscina|deporte
+ko:수영장|스포츠
+jp:プール|スポーツ
 
 building
 en:building
@@ -650,3 +812,6 @@ de:Gebäude
 fr:bâtiment
 it:edificio
 es:edificio
+ko:건물
+jp:建物
+
