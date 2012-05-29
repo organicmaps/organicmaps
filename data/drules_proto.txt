@@ -3358,7 +3358,12 @@ cont {
         dd: 3.125
         dd: 3.125
       }
-      priority: 120
+      priority: 125
+    }
+    lines {
+      width: 1
+      color: 0xeeeedd
+      priority: 124
     }
   }
   element {
@@ -3366,7 +3371,7 @@ cont {
     lines {
       width: 2.734375
       color: 0xFFFF00
-      priority: 120
+      priority: 125
     }
     lines {
       width: 1.953125
@@ -3375,7 +3380,7 @@ cont {
         dd: 4.6875
         dd: 4.6875
       }
-      priority: 121
+      priority: 126
     }
   }
   element {
@@ -3383,7 +3388,7 @@ cont {
     lines {
       width: 3.125
       color: 0xFFFF00
-      priority: 120
+      priority: 125
     }
     lines {
       width: 2.34375
@@ -3392,7 +3397,7 @@ cont {
         dd: 3.125
         dd: 3.125
       }
-      priority: 121
+      priority: 126
     }
   }
   element {
@@ -3503,199 +3508,18 @@ cont {
   element {
     scale: 6
     lines {
-      width: 0.3125
-      color: 0xFFFF00
-      priority: 122
-    }
-    lines {
-      width: 0.0625
-      color: 0xF9574B
+      width: 0.2
+      color: 0xA0A0A0
       dashdot {
-        dd: 0.3125
-        dd: 0.0625
-        dd: 0.0625
-        dd: 0.0625
+        dd: 0.3
+        dd: 0.6
       }
-      priority: 123
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.625
-      color: 0xFFFF00
-      priority: 122
-    }
-    lines {
-      width: 0.125
-      color: 0xF9574B
-      dashdot {
-        dd: 0.625
-        dd: 0.125
-        dd: 0.125
-        dd: 0.125
-      }
-      priority: 123
-    }
-  }
-  element {
-    scale: 8
-    lines {
-      width: 1.25
-      color: 0xFFFF00
-      priority: 122
-    }
-    lines {
-      width: 0.25
-      color: 0xF9574B
-      dashdot {
-        dd: 1.25
-        dd: 0.25
-        dd: 0.25
-        dd: 0.25
-      }
-      priority: 123
-    }
-  }
-  element {
-    scale: 9
-    lines {
-      width: 1
-      color: 0xFFFF00
-      priority: 122
-    }
-    lines {
-      width: 0.5
-      color: 0xF9574B
-      dashdot {
-        dd: 2.5
-        dd: 0.5
-        dd: 0.5
-        dd: 0.5
-      }
-      priority: 123
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 5
-      color: 0xFFFF00
-      priority: 157
+      priority: 124
     }
     lines {
       width: 1
-      color: 0xF9574B
-      dashdot {
-        dd: 5
-        dd: 1
-        dd: 1
-        dd: 1
-      }
-      priority: 158
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 10
-      color: 0xFFFF00
-      priority: 157
-    }
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 10
-        dd: 2
-        dd: 2
-        dd: 2
-      }
-      priority: 158
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10446
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10473
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10595
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10802
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 11412
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 11690
+      color: 0xeeeedd
+      priority: 123
     }
   }
 }
@@ -3704,199 +3528,69 @@ cont {
   element {
     scale: 6
     lines {
-      width: 0.3125
-      color: 0xFFFF00
-      priority: 124
+      width: 0.2
+      color: 0xA0A0A0
+      dashdot {
+        dd: 0.3
+        dd: 0.6
+      }
+      priority: 122
     }
     lines {
-      width: 0.0625
-      color: 0xF9574B
-      dashdot {
-        dd: 0.3125
-        dd: 0.0625
-        dd: 0.0625
-        dd: 0.0625
-      }
-      priority: 125
+      width: 1
+      color: 0xeeeedd
+      priority: 121
     }
   }
   element {
     scale: 7
     lines {
-      width: 0.625
-      color: 0xFFFF00
-      priority: 124
-    }
-    lines {
-      width: 0.125
-      color: 0xF9574B
+      width: 0.7
+      color: 0x909090
       dashdot {
-        dd: 0.625
-        dd: 0.125
-        dd: 0.125
-        dd: 0.125
+        dd: 0.3
+        dd: 0.6
       }
-      priority: 125
-    }
-  }
-  element {
-    scale: 8
-    lines {
-      width: 1.25
-      color: 0xFFFF00
-      priority: 124
+      priority: 122
     }
     lines {
-      width: 0.25
-      color: 0xF9574B
-      dashdot {
-        dd: 1.25
-        dd: 0.25
-        dd: 0.25
-        dd: 0.25
-      }
-      priority: 125
+      width: 1
+      color: 0xeeeedd
+      priority: 121
     }
   }
   element {
     scale: 9
     lines {
       width: 1
-      color: 0xFFFF00
-      priority: 124
+      color: 0x909090
+      dashdot {
+        dd: 0.3
+        dd: 0.6
+      }
+      priority: 122
     }
     lines {
-      width: 0.5
-      color: 0xF9574B
-      dashdot {
-        dd: 2.5
-        dd: 0.5
-        dd: 0.5
-        dd: 0.5
-      }
-      priority: 125
+      width: 1.2
+      color: 0xeeeedd
+      priority: 121
     }
   }
   element {
     scale: 10
     lines {
-      width: 5
-      color: 0xFFFF00
-      priority: 157
-    }
-    lines {
-      width: 1
-      color: 0xF9574B
+      width: 1.5
+      color: 0x909090
       dashdot {
-        dd: 5
-        dd: 1
-        dd: 1
-        dd: 1
+        dd: 0.3
+        dd: 0.6
       }
-      priority: 158
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 10
-      color: 0xFFFF00
-      priority: 157
+      priority: 10434
     }
     lines {
       width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 10
-        dd: 2
-        dd: 2
-        dd: 2
-      }
-      priority: 158
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10446
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10473
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10595
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 10802
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 11412
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 2
-      color: 0xF9574B
-      dashdot {
-        dd: 12
-        dd: 4
-        dd: 4
-        dd: 4
-      }
-      priority: 11690
+      color: 0xeeeedd
+      priority: 10433
     }
   }
 }
@@ -52333,24 +52027,27 @@ cont {
 cont {
   name: "railway-platform"
   element {
-    scale: 15
-    area {
-      color: 0xcdcdb4
-      priority: 364
-    }
-  }
-  element {
     scale: 16
+    lines {
+      width: 4
+      color: 0xbbbbbb
+      priority: 675
+    }
     area {
-      color: 0xcdcdb4
-      priority: 679
+      color: 0xbbbbbb
+      priority: 675
     }
   }
   element {
     scale: 17
+    lines {
+      width: 8
+      color: 0xbbbbbb
+      priority: 715
+    }
     area {
-      color: 0xcdcdb4
-      priority: 720
+      color: 0xbbbbbb
+      priority: 715
     }
   }
 }
