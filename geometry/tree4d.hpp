@@ -155,8 +155,8 @@ namespace m4
         if (!comp(obj, isect[i]->m_val))
           return;
 
-      for (typename store_vec_t::const_iterator i = isect.begin(); i != isect.end(); ++i)
-        m_tree.erase(**i);
+      for (size_t i = 0; i < isect.size(); ++i)
+        m_tree.erase(*isect[i]);
 
       Add(obj, rect);
     }
