@@ -41,8 +41,6 @@ namespace yg
 
     void removeOverlayElement(shared_ptr<OverlayElement> const & oe);
 
-    void updateOverlayElement(OverlayElement * oe);
-
     void processOverlayElement(shared_ptr<OverlayElement> const & oe);
 
     void processOverlayElement(shared_ptr<OverlayElement> const & oe, math::Matrix<double, 3, 3> const & m);

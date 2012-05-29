@@ -60,13 +60,19 @@ namespace gui
 
   void Element::setPivot(m2::PointD const & pv)
   {
+    shared_ptr<Element> e = m_controller->FindElement(this);
+    Controller * controller = m_controller;
+    controller->RemoveElement(e);
     OverlayElement::setPivot(pv);
-    m_controller->UpdateElement(this);
+    controller->AddElement(e);
   }
 
   void Element::offset(m2::PointD const & offs)
   {
+    shared_ptr<Element> e = m_controller->FindElement(this);
+    Controller * controller = m_controller;
+    controller->RemoveElement(e);
     OverlayElement::offset(offs);
-    m_controller->UpdateElement(this);
+    controller->AddElement(e);
   }
 }

@@ -82,15 +82,45 @@ namespace gui
     return false;
   }
 
+  struct FindByPointer
+  {
+    yg::OverlayElement const * m_e;
+    shared_ptr<yg::OverlayElement> * m_res;
+    FindByPointer(yg::OverlayElement const * e,
+                  shared_ptr<yg::OverlayElement> * res) : m_e(e), m_res(res)
+    {}
+
+    void operator()(shared_ptr<yg::OverlayElement> const & oe)
+    {
+      if (m_e == oe.get())
+        *m_res = oe;
+    }
+  };
+
+  shared_ptr<Element> const Controller::FindElement(Element const * e)
+  {
+    shared_ptr<Element> res;
+    shared_ptr<yg::OverlayElement> resBase;
+    FindByPointer fn(e, &resBase);
+
+    m_Overlay.forEach(fn);
+
+    if (fn.m_res)
+      res = boost::static_pointer_cast<Element>(resBase);
+
+    return res;
+  }
+
+  void Controller::RemoveElement(shared_ptr<Element> const & e)
+  {
+    m_Overlay.removeOverlayElement(e);
+    e->m_controller = 0;
+  }
+
   void Controller::AddElement(shared_ptr<Element> const & e)
   {
     m_Overlay.processOverlayElement(e);
     e->m_controller = this;
-  }
-
-  void Controller::UpdateElement(Element * e)
-  {
-    m_Overlay.updateOverlayElement(e);
   }
 
   double Controller::VisualScale() const

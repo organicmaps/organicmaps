@@ -43,6 +43,15 @@ namespace m4
                  (m_pts[3] <= r.minY()) || (m_pts[1] >= r.maxY()));
       }
 
+      bool operator ==(value_t const & r) const
+      {
+        return ((m_val == r.m_val)
+            && (m_pts[0] == r.m_pts[0])
+            && (m_pts[1] == r.m_pts[1])
+            && (m_pts[2] == r.m_pts[2])
+            && (m_pts[3] == r.m_pts[3]));
+      }
+
       double operator[](size_t i) const { return m_pts[i]; }
 
       m2::RectD GetRect() const { return m2::RectD(m_pts[0], m_pts[1], m_pts[2], m_pts[3]); }
@@ -154,13 +163,7 @@ namespace m4
 
     void Erase(T const & obj)
     {
-      vector<value_t> v;
-      for (typename tree_t::const_iterator i = m_tree.begin(); i != m_tree.end(); ++i)
-        if ((*i).m_val == obj)
-          v.push_back(*i);
-
-      for (unsigned i = 0; i < v.size(); ++i)
-        m_tree.erase(v[i]);
+      m_tree.erase_exact(value_t(obj, Traits::LimitRect(obj)));
     }
 
     template <class TCompare>

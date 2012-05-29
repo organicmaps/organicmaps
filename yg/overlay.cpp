@@ -221,34 +221,6 @@ namespace yg
     m_tree.Erase(oe);
   }
 
-  struct FindByPointer
-  {
-    OverlayElement * m_e;
-    shared_ptr<OverlayElement> * m_res;
-    FindByPointer(OverlayElement * e, shared_ptr<OverlayElement> * res) : m_e(e), m_res(res)
-    {}
-
-    void operator()(shared_ptr<OverlayElement> const & oe)
-    {
-      if (m_e == oe.get())
-        *m_res = oe;
-    }
-  };
-
-  void Overlay::updateOverlayElement(OverlayElement *oe)
-  {
-    shared_ptr<OverlayElement> res;
-    FindByPointer fn(oe, &res);
-
-    m_tree.ForEach(fn);
-
-    if (res)
-    {
-      m_tree.Erase(res);
-      m_tree.Add(res);
-    }
-  }
-
   void Overlay::processOverlayElement(shared_ptr<OverlayElement> const & oe, math::Matrix<double, 3, 3> const & m)
   {
     if (m != math::Identity<double, 3>())

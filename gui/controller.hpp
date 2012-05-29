@@ -68,10 +68,12 @@ namespace gui
     void SetVisualScale(double val);
     /// Invalidate the scene
     void Invalidate();
+    /// Find shared_ptr from the pointer in m_Overlay
+    shared_ptr<Element> const FindElement(Element const * e);
+    /// Remove GUI element by pointer
+    void RemoveElement(shared_ptr<Element> const & e);
     /// Add GUI element to the controller
     void AddElement(shared_ptr<Element> const & e);
-    /// Update element position in the Overlay, as it's coordinates might have changed.
-    void UpdateElement(Element * e);
     /// Get VisualScale parameter
     double VisualScale() const;
     /// Redraw GUI
