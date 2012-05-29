@@ -81,6 +81,7 @@ namespace osm
       relationIds = osmData.RelationsByKey(searchKey);
     else
       relationIds = osmData.RelationsByTag(OsmTag(searchKey, searchValue));
+
     CHECK(!relationIds.empty(), ("No relation found with tag", searchKey, searchValue));
     CHECK_EQUAL(relationIds.size(), 1, ("Found more than one relation with tag",
                                         searchKey, searchValue));

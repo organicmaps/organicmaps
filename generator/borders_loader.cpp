@@ -83,6 +83,7 @@ namespace borders
       if (line.empty())
         continue;
 
+      /// @todo no need to tokenize by '|'
       strings::Tokenize(line, "|", bind<void>(ref(toDo), _1));
       toDo.Finish();
     }
