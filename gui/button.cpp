@@ -92,9 +92,10 @@ namespace gui
     if (isDirtyRect())
     {
       m_boundRects.clear();
-      m2::RectD rc(0, 0, width() * visualScale(), height() * visualScale());
+      double k = visualScale();
+      m2::RectD rc(0, 0, width() * k, height() * k);
       rc.Offset(tieRect(rc, math::Identity<double, 3>()));
-      m_boundRects.push_back(m2::AnyRectD(m2::RectD(rc)));
+      m_boundRects.push_back(m2::AnyRectD(rc));
       setIsDirtyRect(false);
     }
 
@@ -106,12 +107,14 @@ namespace gui
     if (!isVisible())
       return;
 
-    m2::RectD rc(0, 0, width() * visualScale(), height() * visualScale());
+    double k = visualScale();
+
+    m2::RectD rc(0, 0, width() * k, height() * k);
     rc.Offset(tieRect(rc, m));
-    r->drawRoundedRectangle(rc, 10 * visualScale(), color(state()), depth());
+    r->drawRoundedRectangle(rc, 10 * k, color(state()), depth());
 
     yg::FontDesc desc = font(state());
-    desc.m_size *= visualScale();
+    desc.m_size *= k;
 
     r->drawText(desc, pivot(), position(), text(), depth(), false, false);
   }

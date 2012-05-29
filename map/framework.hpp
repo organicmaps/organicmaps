@@ -55,7 +55,6 @@ namespace search { class Result; }
 namespace gui
 {
   class Controller;
-  class Button;
 }
 
 class Framework
@@ -66,8 +65,6 @@ protected:
   Navigator m_navigator;
 
   scoped_ptr<gui::Controller> m_guiController;
-
-  shared_ptr<gui::Button> m_btnDownload;
 
   vector<BookmarkCategory *> m_bookmarks;
 

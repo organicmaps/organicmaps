@@ -3,7 +3,6 @@
 #include "element.hpp"
 
 #include "../std/function.hpp"
-#include "../std/shared_ptr.hpp"
 #include "../std/string.hpp"
 
 namespace yg
