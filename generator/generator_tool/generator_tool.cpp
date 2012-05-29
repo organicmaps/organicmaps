@@ -48,22 +48,22 @@ DEFINE_bool(generate_geometry, false, "3rd pass - split and simplify geometry an
 DEFINE_bool(generate_index, false, "4rd pass - generate index");
 DEFINE_bool(generate_search_index, false, "5th pass - generate search index");
 DEFINE_bool(calc_statistics, false, "Calculate feature statistics for specified mwm bucket files");
-DEFINE_bool(use_light_nodes, false,
-            "If true, use temporary vector of nodes, instead of huge temp file");
+DEFINE_bool(use_light_nodes, false, "Use temporary vector of nodes, instead of huge temp file");
 DEFINE_string(data_path, "", "Working directory, 'path_to_exe/../../data' if empty.");
-DEFINE_string(output, "", "Prefix of filenames of outputted .dat and .idx files.");
-DEFINE_string(intermediate_data_path, "", "Path to store nodes, ways, relations.");
+DEFINE_string(output, "", "File name for process (without 'mwm' ext).");
+DEFINE_string(intermediate_data_path, "", "Path to stored nodes, ways, relations.");
 DEFINE_bool(generate_world, false, "Generate separate world file");
 DEFINE_bool(split_by_polygons, false, "Use countries borders to split planet by regions and countries");
 DEFINE_string(generate_borders, "",
             "Create binary country .borders file for osm xml file given in 'output' parameter,"
             "specify tag name and optional value: ISO3166-1 or admin_level=4");
-DEFINE_bool(dump_types, false, "If defined, prints all types combinations and their total count");
-DEFINE_bool(dump_prefixes, false, "If defined, prints statistics on feature name prefixes");
+DEFINE_bool(dump_types, false, "Prints all types combinations and their total count");
+DEFINE_bool(dump_prefixes, false, "Prints statistics on feature's' name prefixes");
 DEFINE_bool(dump_search_tokens, false, "Print statistics on search tokens.");
 DEFINE_bool(unpack_mwm, false, "Unpack each section of mwm into a separate file with name filePath.sectionName.");
 DEFINE_bool(generate_packed_borders, false, "Generate packed file with country polygons.");
 DEFINE_string(delete_section, "", "Delete specified section (defines.hpp) from container.");
+
 
 string AddSlashIfNeeded(string const & str)
 {
