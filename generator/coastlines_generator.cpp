@@ -176,7 +176,7 @@ namespace
   };
 }
 
-bool CoastlineFeaturesGenerator::GetFeature(CellIdT const & cell, FeatureBuilder1 & fb)
+bool CoastlineFeaturesGenerator::GetFeature(CellIdT const & cell, FeatureBuilder1 & fb) const
 {
   // get rect cell
   double minX, minY, maxX, maxY;
@@ -211,7 +211,7 @@ bool CoastlineFeaturesGenerator::GetFeature(CellIdT const & cell, FeatureBuilder
   return true;
 }
 
-void CoastlineFeaturesGenerator::GetFeatures(size_t i, vector<FeatureBuilder1> & vecFb)
+void CoastlineFeaturesGenerator::GetFeatures(size_t i, vector<FeatureBuilder1> & vecFb) const
 {
   vector<CellIdT> stCells;
   stCells.push_back(CellIdT::FromBitsAndLevel(i, m_lowLevel));

@@ -2,39 +2,19 @@
 
 #include "borders_loader.hpp"
 #include "feature_builder.hpp"
-
-#include "../indexer/feature_visibility.hpp"
-#include "../indexer/cell_id.hpp"
+#include "multiproducer_oneconsumer.hpp"
 
 #include "../geometry/rect2d.hpp"
 
-#include "../coding/file_writer.hpp"
-
-#include "../base/base.hpp"
 #include "../base/buffer_vector.hpp"
-#include "../base/macros.hpp"
 
-#include "../std/scoped_ptr.hpp"
 #include "../std/string.hpp"
-
-
-#ifndef PARALLEL_POLYGONIZER
-#define PARALLEL_POLYGONIZER 1
-#endif
-
-#if PARALLEL_POLYGONIZER
-#include <QSemaphore>
-#include <QThreadPool>
-#include <QMutex>
-#include <QMutexLocker>
-#endif
 
 
 namespace feature
 {
   // Groups features according to country polygons
-  template <class FeatureOutT>
-  class Polygonizer
+  template <class FeatureOutT> class Polygonizer
   {
     string m_prefix;
     string m_suffix;
@@ -43,24 +23,13 @@ namespace feature
     vector<string> m_Names;
     borders::CountriesContainerT m_countries;
 
-#if PARALLEL_POLYGONIZER
-    QThreadPool m_ThreadPool;
-    QSemaphore m_ThreadPoolSemaphore;
-    QMutex m_EmitFeatureMutex;
-#endif
+    MultiProducerOneConsumer m_impl;
 
   public:
     template <class TInfo>
     explicit Polygonizer(TInfo const & info)
-      : m_prefix(info.m_datFilePrefix), m_suffix(info.m_datFileSuffix)
-#if PARALLEL_POLYGONIZER
-    , m_ThreadPoolSemaphore(m_ThreadPool.maxThreadCount() * 8)
-#endif
+      : m_prefix(info.m_datFilePrefix), m_suffix(info.m_datFileSuffix), m_impl(8)
     {
-#if PARALLEL_POLYGONIZER
-      LOG(LINFO, ("Polygonizer thread pool threads:", m_ThreadPool.maxThreadCount()));
-#endif
-
       if (info.m_splitByPolygons)
       {
         CHECK(borders::LoadCountriesList(info.m_datFilePrefix, m_countries),
@@ -77,7 +46,7 @@ namespace feature
     }
     ~Polygonizer()
     {
-      Finish();
+      m_impl.Finish();
       for_each(m_Buckets.begin(), m_Buckets.end(), DeleteFunctor());
     }
 
@@ -102,14 +71,16 @@ namespace feature
       }
     };
 
+    typedef borders::CountryPolygons PolygonsT;
+    typedef buffer_vector<PolygonsT const *, 32> PolygonsVectorT;
+
     class InsertCountriesPtr
     {
-      typedef buffer_vector<borders::CountryPolygons const *, 32> vec_type;
-      vec_type & m_vec;
+      PolygonsVectorT & m_vec;
 
     public:
-      InsertCountriesPtr(vec_type & vec) : m_vec(vec) {}
-      void operator() (borders::CountryPolygons const & c)
+      InsertCountriesPtr(PolygonsVectorT & vec) : m_vec(vec) {}
+      void operator() (PolygonsT const & c)
       {
         m_vec.push_back(&c);
       }
@@ -117,7 +88,7 @@ namespace feature
 
     void operator () (FeatureBuilder1 const & fb)
     {
-      buffer_vector<borders::CountryPolygons const *, 32> vec;
+      PolygonsVectorT vec;
       m_countries.ForEachInRect(fb.GetLimitRect(), InsertCountriesPtr(vec));
 
       switch (vec.size())
@@ -128,31 +99,13 @@ namespace feature
         EmitFeature(vec[0], fb);
         break;
       default:
-        {
-#if PARALLEL_POLYGONIZER
-          m_ThreadPoolSemaphore.acquire();
-          m_ThreadPool.start(new PolygonizerTask(this, vec, fb));
-#else
-          PolygonizerTask task(this, vec, fb);
-          task.RunBase();
-#endif
-        }
+        m_impl.RunTask(new PolygonizerTask(*this, vec, fb));
+        break;
       }
     }
 
-    void Finish()
+    void EmitFeature(PolygonsT const * country, FeatureBuilder1 const & fb)
     {
-#if PARALLEL_POLYGONIZER
-      m_ThreadPool.waitForDone();
-#endif
-    }
-
-    void EmitFeature(borders::CountryPolygons const * country, FeatureBuilder1 const & fb)
-    {
-#if PARALLEL_POLYGONIZER
-      QMutexLocker mutexLocker(&m_EmitFeatureMutex);
-      UNUSED_VALUE(mutexLocker);
-#endif
       if (country->m_index == -1)
       {
         m_Names.push_back(country->m_name);
@@ -163,26 +116,20 @@ namespace feature
       (*(m_Buckets[country->m_index]))(fb);
     }
 
-    vector<string> const & Names() const
-    {
-      return m_Names;
-    }
+    inline vector<string> const & Names() const { return m_Names; }
 
   private:
-    friend class PolygonizerTask;
 
-    class PolygonizerTask
-#if PARALLEL_POLYGONIZER
-      : public QRunnable
-#endif
+    class PolygonizerTask : public MultiProducerOneConsumer::ITask
     {
     public:
-      PolygonizerTask(Polygonizer * pPolygonizer,
-                      buffer_vector<borders::CountryPolygons const *, 32> const & countries,
+      PolygonizerTask(Polygonizer & polygonizer,
+                      PolygonsVectorT const & countries,
                       FeatureBuilder1 const & fb)
-        : m_pPolygonizer(pPolygonizer), m_Countries(countries), m_FB(fb) {}
+        : m_polygonizer(polygonizer), m_Countries(countries), m_FB(fb) {}
 
-      void RunBase()
+      // Override
+      virtual void RunBase()
       {
         for (size_t i = 0; i < m_Countries.size(); ++i)
         {
@@ -190,23 +137,24 @@ namespace feature
           m_FB.ForEachGeometryPoint(doCheck);
 
           if (doCheck.m_belongs)
-            m_pPolygonizer->EmitFeature(m_Countries[i], m_FB);
+            Emit(const_cast<PolygonsT *>(m_Countries[i]));
         }
       }
 
-#if PARALLEL_POLYGONIZER
-      void run()
+      // Override
+      virtual void EmitBase(void * p)
       {
-        RunBase();
-
-        m_pPolygonizer->m_ThreadPoolSemaphore.release();
+        m_polygonizer.EmitFeature(reinterpret_cast<PolygonsT const *>(p), m_FB);
       }
-#endif
 
     private:
-      Polygonizer * m_pPolygonizer;
-      buffer_vector<borders::CountryPolygons const *, 32> m_Countries;
+      Polygonizer & m_polygonizer;
+
+      /// @name Do copy of all input parameters.
+      //@{
+      PolygonsVectorT m_Countries;
       FeatureBuilder1 m_FB;
+      //@}
     };
   };
 }
