@@ -16,6 +16,7 @@
 #include "../std/set.hpp"
 #include "../std/vector.hpp"
 
+
 /// @param  TEmitter  Feature accumulating policy
 /// @param  THolder   Nodes, ways, relations holder
 template <class TEmitter, class THolder>
@@ -218,17 +219,27 @@ protected:
     typedef unordered_map<uint64_t, RelationValue> RelationCacheT;
     RelationCacheT m_typeCache;
 
-    bool IsAcceptTypes(RelationElement const & rel) const
+    bool IsAcceptBoundaryTypes(RelationElement const & rel) const
     {
       string role;
       VERIFY ( rel.FindWay(m_featureID, role), (m_featureID) );
 
-      // Do not accumulate border types (boundary-administrative-*) for inner polygons.
+      // Do not accumulate boundary types (boundary-administrative-*) for inner polygons.
       // Example: Minsk city border (admin_level=8) is inner for Minsk area border (admin_level=4).
       return (role != "inner");
     }
 
+    uint32_t const m_boundaryType;
+    uint32_t GetSkipBoundaryType(RelationElement const * rel) const
+    {
+      return ((rel == 0 || IsAcceptBoundaryTypes(*rel)) ? 0 : m_boundaryType);
+    }
+
   public:
+    type_processor() : m_boundaryType(ftype::GetBoundaryType2())
+    {
+    }
+
     ~type_processor()
     {
       for (typename RelationCacheT::iterator i = m_typeCache.begin(); i != m_typeCache.end(); ++i)
@@ -248,9 +259,7 @@ protected:
       typename RelationCacheT::const_iterator i = m_typeCache.find(id);
       if (i != m_typeCache.end())
       {
-        if (i->second.m_e == 0 || IsAcceptTypes(*(i->second.m_e)))
-          m_val->AddTypes(i->second.m_p);
-
+        m_val->AddTypes(i->second.m_p, GetSkipBoundaryType(i->second.m_e));
         return -1;  // continue process relations
       }
       return 0;     // read relation from file (see next operator)
@@ -277,8 +286,7 @@ protected:
       ftype::GetNameAndType(&e, val.m_p);
       if (val.m_p.IsValid())
       {
-        if (!isBoundary || IsAcceptTypes(rel))
-          m_val->AddTypes(val.m_p);
+        m_val->AddTypes(val.m_p, GetSkipBoundaryType(isBoundary ? &rel : 0));
 
         if (isBoundary)
         {

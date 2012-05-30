@@ -205,7 +205,11 @@ public:
   uint8_t GetTypeMask() const;
 
   inline void AddType(uint32_t t) { m_Types.push_back(t); }
-  void AddTypes(FeatureParams const & rhs);
+
+  /// @param skipType2  Do not accumulate this type if skipType2 != 0.
+  /// '2' means 2-level type in classificator tree (also skip child types).
+  void AddTypes(FeatureParams const & rhs, uint32_t skipType2);
+
   template <class TIter> void AssignTypes(TIter b, TIter e)
   {
     m_Types.assign(b, e);

@@ -366,4 +366,10 @@ namespace ftype
 
     } while (true);
   }
+
+  uint32_t GetBoundaryType2()
+  {
+    char const * arr[] = { "boundary", "administrative" };
+    return classif().GetTypeByPath(vector<string>(arr, arr + 2));
+  }
 }

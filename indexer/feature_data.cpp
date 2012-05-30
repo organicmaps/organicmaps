@@ -96,9 +96,22 @@ uint8_t FeatureParams::GetTypeMask() const
   return h;
 }
 
-void FeatureParams::AddTypes(FeatureParams const & rhs)
+void FeatureParams::AddTypes(FeatureParams const & rhs, uint32_t skipType2)
 {
-  m_Types.insert(m_Types.end(), rhs.m_Types.begin(), rhs.m_Types.end());
+  if (skipType2 == 0)
+  {
+    m_Types.insert(m_Types.end(), rhs.m_Types.begin(), rhs.m_Types.end());
+  }
+  else
+  {
+    for (size_t i = 0; i < rhs.m_Types.size(); ++i)
+    {
+      uint32_t t = rhs.m_Types[i];
+      ftype::TruncValue(t, 2);
+      if (t != skipType2)
+        m_Types.push_back(t);
+    }
+  }
 }
 
 void FeatureParams::FinishAddingTypes()
