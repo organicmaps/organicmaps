@@ -22916,7 +22916,7 @@ cont {
         dd: 1.2
         dd: 0.4
       }
-      priority: 280
+      priority: 800
     }
   }
   element {
@@ -22928,7 +22928,7 @@ cont {
         dd: 2.4
         dd: 0.8
       }
-      priority: 280
+      priority: 800
     }
     path_text {
       primary {
@@ -22948,12 +22948,12 @@ cont {
         dd: 2.4
         dd: 0.8
       }
-      priority: 285
+      priority: 805
     }
     lines {
       width: 6
       color: 0xA0A090
-      priority: 280
+      priority: 800
     }
     path_text {
       primary {
