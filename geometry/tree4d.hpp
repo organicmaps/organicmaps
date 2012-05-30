@@ -4,7 +4,9 @@
 #include "point2d.hpp"
 
 #include "../base/stl_add.hpp"
+#include "../base/logging.hpp"
 
+#include "../std/sstream.hpp"
 #include "../std/kdtree.hpp"
 
 namespace m4
@@ -45,6 +47,19 @@ namespace m4
       bool operator ==(value_t const & r) const
       {
         return (m_val == r.m_val);
+      }
+
+      string DebugPrint() const
+      {
+        ostringstream out;
+
+        out << m_val.get() << ", ("
+            << m_pts[0] << ", "
+            << m_pts[1] << ", "
+            << m_pts[2] << ", "
+            << m_pts[3] << ")";
+
+        return out.str();
       }
 
       double operator[](size_t i) const { return m_pts[i]; }
@@ -193,5 +208,21 @@ namespace m4
     size_t GetSize() const { return m_tree.size(); }
 
     void Clear() { m_tree.clear(); }
+
+    string DebugPrint() const
+    {
+      ostringstream out;
+      for (typename tree_t::const_iterator it = m_tree.begin();
+           it != m_tree.end();
+           ++it)
+        out << it->DebugPrint() << ", ";
+      return out.str();
+    }
   };
+
+  template <typename T, typename Traits>
+  string DebugPrint(Tree<T, Traits> const & t)
+  {
+    return t.DebugPrint();
+  }
 }
