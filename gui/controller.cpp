@@ -131,7 +131,18 @@ namespace gui
   void Controller::SetVisualScale(double val)
   {
     m_VisualScale = val;
-    m_Overlay.forEach(bind(&yg::OverlayElement::setIsDirtyRect, _1, true));
+    vector<shared_ptr<yg::OverlayElement> > v;
+    m_Overlay.forEach(MakeBackInsertFunctor(v));
+
+    m_Overlay.clear();
+
+    for (vector<shared_ptr<yg::OverlayElement> >::const_iterator it = v.begin();
+         it != v.end();
+         ++it)
+    {
+      (*it)->setIsDirtyRect(true);
+      m_Overlay.processOverlayElement(*it);
+    }
   }
 
   void Controller::DrawFrame(yg::gl::Screen * screen)

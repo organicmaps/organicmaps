@@ -65,6 +65,7 @@ namespace gui
     shared_ptr<Element> e = m_controller->FindElement(this);
     Controller * controller = m_controller;
     controller->RemoveElement(e);
+    m_controller = controller;
     OverlayElement::setPivot(pv);
     controller->AddElement(e);
   }

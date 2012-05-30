@@ -7,7 +7,6 @@
 
 #include "../std/kdtree.hpp"
 
-
 namespace m4
 {
   template <typename T>
@@ -45,11 +44,7 @@ namespace m4
 
       bool operator ==(value_t const & r) const
       {
-        return ((m_val == r.m_val)
-            && (m_pts[0] == r.m_pts[0])
-            && (m_pts[1] == r.m_pts[1])
-            && (m_pts[2] == r.m_pts[2])
-            && (m_pts[3] == r.m_pts[3]));
+        return (m_val == r.m_val);
       }
 
       double operator[](size_t i) const { return m_pts[i]; }
@@ -163,7 +158,8 @@ namespace m4
 
     void Erase(T const & obj)
     {
-      m_tree.erase_exact(value_t(obj, Traits::LimitRect(obj)));
+      value_t val(obj, Traits::LimitRect(obj));
+      m_tree.erase_exact(val);
     }
 
     template <class TCompare>
