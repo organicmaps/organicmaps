@@ -8,6 +8,14 @@
 
 #include "../std/map.hpp"
 
+namespace yg
+{
+  namespace gl
+  {
+    class OverlayRenderer;
+  }
+}
+
 namespace gui
 {
   class Controller;
@@ -61,7 +69,10 @@ namespace gui
     void invalidate();
     double visualScale() const;
 
-    void offset(m2::PointD const & offs);
     void setPivot(m2::PointD const & pv);
+
+    void draw(yg::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
+
+    int visualRank() const;
   };
 }

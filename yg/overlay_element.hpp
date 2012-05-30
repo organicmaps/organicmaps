@@ -55,7 +55,7 @@ namespace yg
     m2::PointD const & pivot() const;
     virtual void setPivot(m2::PointD const & pv);
 
-    virtual void offset(m2::PointD const & offs);
+    void offset(m2::PointD const & offs);
 
     yg::EPosition position() const;
     void setPosition(yg::EPosition pos);

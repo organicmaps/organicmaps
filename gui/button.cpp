@@ -118,9 +118,4 @@ namespace gui
 
     r->drawText(desc, pivot(), position(), text(), depth(), false, false);
   }
-
-  int Button::visualRank() const
-  {
-    return 0;
-  }
 }

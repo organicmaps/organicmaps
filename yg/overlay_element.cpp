@@ -48,7 +48,7 @@ namespace yg
 
   void OverlayElement::offset(m2::PointD const & offs)
   {
-    m_pivot += offs;
+    setPivot(pivot() + offs);
     setIsDirtyRect(true);
   }
 

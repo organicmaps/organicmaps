@@ -66,7 +66,6 @@ namespace gui
     yg::OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
     vector<m2::AnyRectD> const & boundRects() const;
     void draw(yg::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
-    int visualRank() const;
 
     /// @}
   };

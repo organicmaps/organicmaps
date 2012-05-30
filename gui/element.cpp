@@ -1,6 +1,8 @@
 #include "element.hpp"
 #include "controller.hpp"
 
+#include "../yg/overlay_renderer.hpp"
+
 #include "../base/logging.hpp"
 
 namespace gui
@@ -67,12 +69,14 @@ namespace gui
     controller->AddElement(e);
   }
 
-  void Element::offset(m2::PointD const & offs)
+  void Element::draw(yg::gl::OverlayRenderer *r, const math::Matrix<double, 3, 3> & m) const
   {
-    shared_ptr<Element> e = m_controller->FindElement(this);
-    Controller * controller = m_controller;
-    controller->RemoveElement(e);
-    OverlayElement::offset(offs);
-    controller->AddElement(e);
+    for (unsigned i = 0; i < boundRects.size(); ++i)
+      r->drawRectangle(boundRects()[i], color(state()), depth());
+  }
+
+  int Element::visualRank() const
+  {
+    return 0;
   }
 }
