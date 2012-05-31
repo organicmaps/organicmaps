@@ -14,8 +14,6 @@
 
 class MultiProducerOneConsumer
 {
-  size_t m_tasksCount;
-
 #if PARALLEL_POLYGONIZER
   QThreadPool m_ThreadPool;
   QSemaphore m_ThreadPoolSemaphore;
@@ -24,8 +22,6 @@ class MultiProducerOneConsumer
 
 public:
   MultiProducerOneConsumer(size_t tasksPerThread);
-
-  size_t GetTasksCount() const { return m_tasksCount; }
 
   class ITask
 #if PARALLEL_POLYGONIZER

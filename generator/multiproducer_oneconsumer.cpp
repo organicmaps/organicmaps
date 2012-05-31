@@ -7,10 +7,7 @@
 
 MultiProducerOneConsumer::MultiProducerOneConsumer(size_t tasksPerThread)
 #if PARALLEL_POLYGONIZER
-  : m_tasksCount(m_ThreadPool.maxThreadCount() * tasksPerThread),
-    m_ThreadPoolSemaphore(m_tasksCount)
-#else
-  : m_tasksCount(1)
+  : m_ThreadPoolSemaphore(m_ThreadPool.maxThreadCount() * tasksPerThread)
 #endif
 {
 #if PARALLEL_POLYGONIZER
