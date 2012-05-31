@@ -471,7 +471,9 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
   m_informationDisplay.setScreen(m_navigator.Screen());
 
-  m_informationDisplay.enableEmptyModelMessage(m_renderPolicy->IsEmptyModel());
+  bool isEmptyModel = m_renderPolicy->IsEmptyModel();
+
+  m_informationDisplay.enableEmptyModelMessage(isEmptyModel);
 
   m_informationDisplay.setDebugInfo(0/*m_renderQueue.renderState().m_duration*/, GetDrawScale());
 
@@ -897,6 +899,7 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
     m_guiController->SetInvalidateFn(bind(&WindowHandle::invalidate, renderPolicy->GetWindowHandle().get()));
 
     m_renderPolicy->SetEmptyModelFn(bind(&Framework::IsEmptyModel, this, _1));
+    m_renderPolicy->SetCountryNameFn(bind(&Framework::GetCountryName, this, _1));
     m_renderPolicy->SetRenderFn(DrawModelFn());
 
     m_navigator.SetSupportRotation(m_renderPolicy->DoSupportRotation());

@@ -139,6 +139,11 @@ void RenderPolicy::SetEmptyModelFn(TEmptyModelFn emptyModelFn)
   m_emptyModelFn = emptyModelFn;
 }
 
+void RenderPolicy::SetCountryNameFn(TCountryNameFn countryNameFn)
+{
+  m_countryNameFn = countryNameFn;
+}
+
 bool RenderPolicy::DoForceUpdate() const
 {
   return m_doForceUpdate;
@@ -162,6 +167,11 @@ m2::AnyRectD const & RenderPolicy::GetInvalidRect() const
 bool RenderPolicy::IsEmptyModel() const
 {
   return false;
+}
+
+string const RenderPolicy::GetCountryName() const
+{
+  return string();
 }
 
 int RenderPolicy::GetDrawScale(ScreenBase const & s) const

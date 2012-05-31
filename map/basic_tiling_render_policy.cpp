@@ -81,7 +81,11 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
   m_DrawScale = curCvg->GetDrawScale();
 
   if (!curCvg->IsEmptyDrawingCoverage() || !curCvg->IsPartialCoverage())
+  {
     m_IsEmptyModel = curCvg->IsEmptyDrawingCoverage() && curCvg->IsEmptyModelAtCoverageCenter();
+    if (m_IsEmptyModel)
+      m_CountryName = curCvg->GetCountryNameAtCoverageCenter();
+  }
 
   pDrawer->endFrame();
 }
@@ -159,6 +163,11 @@ int BasicTilingRenderPolicy::GetDrawScale(ScreenBase const & s) const
 bool BasicTilingRenderPolicy::IsEmptyModel() const
 {
   return m_IsEmptyModel;
+}
+
+string const BasicTilingRenderPolicy::GetCountryName() const
+{
+  return m_CountryName;
 }
 
 bool BasicTilingRenderPolicy::NeedRedraw() const

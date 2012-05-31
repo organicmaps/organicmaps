@@ -33,6 +33,8 @@ namespace yg
       ScreenBase m_actualScreen;
       /// Empty-model flag of the actual target
       bool m_isEmptyModelActual;
+      /// Name of the country at the center of the actualScreen
+      string m_countryNameActual;
       /// @}
 
       /// In-Progress rendering operation params

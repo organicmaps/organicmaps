@@ -75,6 +75,11 @@ void RenderQueue::SetEmptyModelFn(RenderQueueRoutine::TEmptyModelFn fn)
   m_routine->SetEmptyModelFn(fn);
 }
 
+void RenderQueue::SetCountryNameFn(RenderQueueRoutine::TCountryNameFn fn)
+{
+  m_routine->SetCountryNameFn(fn);
+}
+
 void RenderQueue::AddWindowHandle(shared_ptr<WindowHandle> const & windowHandle)
 {
   m_routine->addWindowHandle(windowHandle);

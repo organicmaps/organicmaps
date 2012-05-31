@@ -31,6 +31,12 @@ void BasicRenderPolicy::SetEmptyModelFn(TEmptyModelFn checkFn)
   m_RenderQueue->SetEmptyModelFn(checkFn);
 }
 
+void BasicRenderPolicy::SetCountryNameFn(TCountryNameFn countryNameFn)
+{
+  RenderPolicy::SetCountryNameFn(countryNameFn);
+  m_RenderQueue->SetCountryNameFn(countryNameFn);
+}
+
 m2::RectI const BasicRenderPolicy::OnSize(int w, int h)
 {
   RenderPolicy::OnSize(w, h);
@@ -131,6 +137,11 @@ void BasicRenderPolicy::StopScale()
 bool BasicRenderPolicy::IsEmptyModel() const
 {
   return m_RenderQueue->renderStatePtr()->m_isEmptyModelActual;
+}
+
+string const BasicRenderPolicy::GetCountryName() const
+{
+  return m_RenderQueue->renderStatePtr()->m_countryNameActual;
 }
 
 RenderQueue & BasicRenderPolicy::GetRenderQueue()

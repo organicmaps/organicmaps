@@ -81,9 +81,14 @@ void RenderQueueRoutine::onSize(int w, int h)
   m_newBackBuffer = m_resourceManager->createRenderTarget(texW, texH);
 }
 
-void RenderQueueRoutine::SetEmptyModelFn(TEmptyModelFn checkFn)
+void RenderQueueRoutine::SetEmptyModelFn(TEmptyModelFn emptyModelFn)
 {
-  m_emptyModelFn = checkFn;
+  m_emptyModelFn = emptyModelFn;
+}
+
+void RenderQueueRoutine::SetCountryNameFn(TCountryNameFn countryNameFn)
+{
+  m_countryNameFn = countryNameFn;
 }
 
 void RenderQueueRoutine::processResize(ScreenBase const & frameScreen)
@@ -471,8 +476,9 @@ void RenderQueueRoutine::Do()
       /// if something were actually drawn, or (exclusive or) we are repainting the whole rect
       if (!cumulativeEmptyModelCurrent || fullRectRepaint)
       {
-        m_renderState->m_isEmptyModelActual = cumulativeEmptyModelCurrent &&
-            m_emptyModelFn(m_currentRenderCommand->m_frameScreen.GlobalRect().GetGlobalRect().Center());
+        m2::PointD centerPt = m_currentRenderCommand->m_frameScreen.GlobalRect().GetGlobalRect().Center();
+        m_renderState->m_isEmptyModelActual = cumulativeEmptyModelCurrent && m_emptyModelFn(centerPt);
+        m_renderState->m_countryNameActual = m_countryNameFn(centerPt);
       }
 
       /// setting the "whole texture" clip rect to render texts opened by panning.

@@ -41,11 +41,13 @@ public:
   void StopScale();
 
   bool IsEmptyModel() const;
+  string const GetCountryName() const;
 
   RenderQueue & GetRenderQueue();
 
   void SetRenderFn(TRenderFn renderFn);
   void SetEmptyModelFn(TEmptyModelFn checkFn);
+  void SetCountryNameFn(TCountryNameFn countryNameFn);
 
   bool NeedRedraw() const;
 };

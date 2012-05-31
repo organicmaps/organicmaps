@@ -37,6 +37,7 @@ public:
                         bool)> TRenderFn;
 
   typedef function<bool (m2::PointD const &)> TEmptyModelFn;
+  typedef function<string (m2::PointD const &)> TCountryNameFn;
 
 protected:
 
@@ -47,6 +48,7 @@ protected:
   shared_ptr<DrawerYG> m_drawer;
   TRenderFn m_renderFn;
   TEmptyModelFn m_emptyModelFn;
+  TCountryNameFn m_countryNameFn;
   bool m_doSupportRotation;
   bool m_doForceUpdate;
   m2::AnyRectD m_invalidRect;
@@ -99,12 +101,14 @@ public:
   /// the start point of rendering in renderpolicy.
   virtual void SetRenderFn(TRenderFn renderFn);
   virtual void SetEmptyModelFn(TEmptyModelFn emptyModelFn);
+  virtual void SetCountryNameFn(TCountryNameFn countryNameFn);
 
   bool DoSupportRotation() const;
   virtual bool IsTiling() const;
 
   virtual bool NeedRedraw() const;
   virtual bool IsEmptyModel() const;
+  virtual string const GetCountryName() const;
   virtual int  GetDrawScale(ScreenBase const & s) const;
 
   bool DoForceUpdate() const;

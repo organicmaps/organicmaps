@@ -72,7 +72,7 @@ namespace gui
 
   void Element::draw(yg::gl::OverlayRenderer *r, const math::Matrix<double, 3, 3> & m) const
   {
-    for (unsigned i = 0; i < boundRects.size(); ++i)
+    for (unsigned i = 0; i < boundRects().size(); ++i)
       r->drawRectangle(boundRects()[i], color(state()), depth());
   }
 

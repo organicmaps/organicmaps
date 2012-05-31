@@ -28,6 +28,7 @@ protected:
   ScreenBase m_CurrentScreen;
   int  m_DrawScale;
   bool m_IsEmptyModel;
+  string m_CountryName;
   bool m_DoRecreateCoverage;
   bool m_IsNavigating;
   size_t m_TileSize;
@@ -61,6 +62,7 @@ public:
   bool NeedRedraw() const;
   bool IsTiling() const;
   bool IsEmptyModel() const;
+  string const GetCountryName() const;
   int  GetDrawScale(ScreenBase const & s) const;
   size_t ScaleEtalonSize() const;
   size_t TileSize() const;

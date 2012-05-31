@@ -56,6 +56,8 @@ public:
 
   void SetEmptyModelFn(RenderQueueRoutine::TEmptyModelFn fn);
 
+  void SetCountryNameFn(RenderQueueRoutine::TCountryNameFn fn);
+
   void SetVisualScale(double visualScale);
 
   /// add window handle to notify when rendering operation finishes

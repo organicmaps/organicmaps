@@ -53,6 +53,7 @@ void ScreenCoverage::CopyInto(ScreenCoverage & cvg)
   cvg.m_isEmptyDrawingCoverage = m_isEmptyDrawingCoverage;
   cvg.m_isEmptyModelAtCoverageCenter = m_isEmptyModelAtCoverageCenter;
   cvg.m_leafTilesToRender = m_leafTilesToRender;
+  cvg.m_countryNameAtCoverageCenter = m_countryNameAtCoverageCenter;
 
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
 
@@ -384,10 +385,20 @@ bool ScreenCoverage::IsEmptyModelAtCoverageCenter() const
   return m_isEmptyModelAtCoverageCenter;
 }
 
+string ScreenCoverage::GetCountryNameAtCoverageCenter() const
+{
+  return m_countryNameAtCoverageCenter;
+}
+
 void ScreenCoverage::CheckEmptyModelAtCoverageCenter()
 {
   if (!IsPartialCoverage() && IsEmptyDrawingCoverage())
-    m_isEmptyModelAtCoverageCenter = m_coverageGenerator->IsEmptyModelAtPoint(m_screen.GlobalRect().GetGlobalRect().Center());
+  {
+    m2::PointD centerPt = m_screen.GlobalRect().GetGlobalRect().Center();
+    m_isEmptyModelAtCoverageCenter = m_coverageGenerator->IsEmptyModelAtPoint(centerPt);
+    if (m_isEmptyModelAtCoverageCenter)
+      m_countryNameAtCoverageCenter = m_coverageGenerator->GetCountryName(centerPt);
+  }
 }
 
 bool ScreenCoverage::IsPartialCoverage() const
