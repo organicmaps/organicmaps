@@ -150,7 +150,7 @@ public:
 
   /// Get bookmark by touch.
   /// @param[in]  pixPt   Coordinates of touch point in pixels.
-  /// @return     NULL    If not biikmark near the point.
+  /// @return     NULL    If there is no bookmark found
   Bookmark const * GetBookmark(m2::PointD pixPt) const;
   Bookmark const * GetBookmark(m2::PointD pixPt, double visualScale) const;
 

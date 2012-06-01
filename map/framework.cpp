@@ -551,8 +551,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
       for (size_t j = 0; j < count; ++j)
       {
         Bookmark const * bm = m_bookmarks[i]->GetBookmark(j);
-        /// @todo Pass different symbol.
-        m_informationDisplay.drawPlacemark(pDrawer, "placemark", m_navigator.GtoP(bm->GetOrg()));
+        m_informationDisplay.drawPlacemark(pDrawer, bm->GetType().c_str(), m_navigator.GtoP(bm->GetOrg()));
       }
     }
 

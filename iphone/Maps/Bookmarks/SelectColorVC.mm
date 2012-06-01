@@ -2,14 +2,14 @@
 #import "BalloonView.h"
 
 static NSString * g_colors [] = {
-  @"blue",
-  @"brown",
-  @"green",
-  @"orange",
-  @"pink",
-  @"purple",
-  @"red",
-  @"yellow"
+  @"placemark-blue",
+  @"placemark-brown",
+  @"placemark-green",
+  @"placemark-orange",
+  @"placemark-pink",
+  @"placemark-purple",
+  @"placemark-red",
+  @"placemark-yellow"
 };
 
 @implementation SelectColorVC
@@ -61,6 +61,7 @@ static NSString * g_colors [] = {
   UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
   [cell setSelected:NO animated:YES];
   m_balloon.pinImage = cell.imageView;
+  m_balloon.color = g_colors[indexPath.row];
   [self.navigationController popViewControllerAnimated:YES];
 }
 

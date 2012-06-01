@@ -51,12 +51,15 @@ namespace
     int m_level;
 
     string m_name;
+    string m_type;
     m2::PointD m_org;
 
     void Reset()
     {
       m_name.clear();
       m_org = m2::PointD(-1000, -1000);
+      // @TODO Load type from xml
+      m_type = "placemark-blue";
     }
 
     void SetOrigin(string const & s)
@@ -124,7 +127,7 @@ namespace
 
       if (m_level == 2 && IsValid())
       {
-        m_category.AddBookmark(Bookmark(m_org, m_name));
+        m_category.AddBookmark(Bookmark(m_org, m_name, m_type));
         Reset();
       }
     }

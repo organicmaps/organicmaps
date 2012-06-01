@@ -23,7 +23,7 @@
 {
   GetFramework().AddBookmark([m_balloon.setName UTF8String],
                       Bookmark(m2::PointD(m_balloon.globalPosition.x, m_balloon.globalPosition.y),
-                      [m_balloon.title UTF8String]));
+                      [m_balloon.title UTF8String], [m_balloon.color UTF8String]));
   [m_balloon hide];
   // Don't forget to hide navbar
   [self.navigationController setNavigationBarHidden:YES animated:YES];

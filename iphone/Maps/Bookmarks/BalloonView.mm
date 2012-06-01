@@ -18,7 +18,7 @@
   if ((self = [super init]))
   {
     // Default bookmark pin color
-    color = [[NSString alloc] initWithString:@"purple"];
+    color = [[NSString alloc] initWithString:@"placemark-purple"];
     setName = [[NSString alloc] initWithString:NSLocalizedString(@"My Places", @"Default bookmarks set name")];
     pinImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.color]];
     m_titleView = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"BookmarkTitle"];

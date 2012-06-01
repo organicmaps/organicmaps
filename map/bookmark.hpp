@@ -14,16 +14,20 @@ class Bookmark
 {
   m2::PointD m_org;
   string m_name;
+  /// Now it stores bookmark color
+  string m_type;
 
 public:
   Bookmark() {}
-  Bookmark(m2::PointD const & org, string const & name)
-    : m_org(org), m_name(name)
+  Bookmark(m2::PointD const & org, string const & name, string const & type)
+    : m_org(org), m_name(name), m_type(type)
   {
   }
 
   m2::PointD GetOrg() const { return m_org; }
   string const & GetName() const { return m_name; }
+  /// Now it returns bookmark color
+  string const & GetType() const { return m_type; }
   m2::RectD GetViewport() const { return m2::RectD(m_org, m_org); }
 };
 
