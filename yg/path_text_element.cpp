@@ -77,10 +77,10 @@ namespace yg
     drawTextImpl(m_glyphLayout, screen, m, false, desc, yg::maxDepth);
   }
 
-  void PathTextElement::offset(m2::PointD const & offs)
+  void PathTextElement::setPivot(m2::PointD const & pivot)
   {
-    TextElement::offset(offs);
-    m_glyphLayout.setPivot(pivot());
+    TextElement::setPivot(pivot);
+    m_glyphLayout.setPivot(pivot);
   }
 
   int PathTextElement::visualRank() const

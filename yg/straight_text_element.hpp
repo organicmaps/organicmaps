@@ -35,7 +35,7 @@ namespace yg
 
     int visualRank() const;
 
-    void offset(m2::PointD const & offs);
+    void setPivot(m2::PointD const & pv);
 
     OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
   };

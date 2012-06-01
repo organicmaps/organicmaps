@@ -282,9 +282,12 @@ namespace yg
     }
   }
 
-  void StraightTextElement::offset(m2::PointD const & offs)
+  void StraightTextElement::setPivot(m2::PointD const & pv)
   {
-    TextElement::offset(offs);
+    m2::PointD oldPv = pivot();
+    m2::PointD offs = pv - oldPv;
+
+    TextElement::setPivot(pv);
 
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
       m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + offs);
