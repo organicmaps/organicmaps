@@ -93,6 +93,11 @@ namespace gui
     }
   }
 
+  yg::OverlayElement * Element::clone(math::Matrix<double, 3, 3> const & m) const
+  {
+    return 0;
+  }
+
   void Element::draw(yg::gl::OverlayRenderer *r, math::Matrix<double, 3, 3> const & m) const
   {
     for (unsigned i = 0; i < boundRects().size(); ++i)
@@ -103,4 +108,30 @@ namespace gui
   {
     return 0;
   }
+
+  bool Element::onTapStarted(m2::PointD const & pt)
+  {
+    return false;
+  }
+
+  bool Element::onTapMoved(m2::PointD const & pt)
+  {
+    return false;
+  }
+
+  bool Element::onTapEnded(m2::PointD const & pt)
+  {
+    return false;
+  }
+
+  bool Element::onTapCancelled(m2::PointD const & pt)
+  {
+    return false;
+  }
+
+  void Element::setController(Controller * controller)
+  {
+    m_controller = controller;
+  }
+
 }

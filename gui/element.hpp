@@ -59,18 +59,17 @@ namespace gui
     yg::Color const & color(EState state) const;
 
     /// Implement this method to handle single tap on the GUI element.
-    virtual bool onTapStarted(m2::PointD const & pt) = 0;
-    virtual bool onTapMoved(m2::PointD const & pt) = 0;
-    virtual bool onTapEnded(m2::PointD const & pt) = 0;
-    virtual bool onTapCancelled(m2::PointD const & pt) = 0;
+    virtual bool onTapStarted(m2::PointD const & pt);
+    virtual bool onTapMoved(m2::PointD const & pt);
+    virtual bool onTapEnded(m2::PointD const & pt);
+    virtual bool onTapCancelled(m2::PointD const & pt);
 
     void invalidate();
     double visualScale() const;
 
     void setPivot(m2::PointD const & pv);
-
+    yg::OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
     void draw(yg::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
-
     int visualRank() const;
 
     virtual void cache();
