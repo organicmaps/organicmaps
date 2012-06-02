@@ -73,6 +73,10 @@ namespace gui
 
     int visualRank() const;
 
+    virtual void cache();
+
     virtual void setController(Controller * controller);
+
+    void checkDirtyDrawing() const;
   };
 }

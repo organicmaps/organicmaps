@@ -114,6 +114,16 @@ namespace yg
     m_isVisible = flag;
   }
 
+  bool OverlayElement::isDirtyDrawing() const
+  {
+    return m_isDirtyDrawing;
+  }
+
+  void OverlayElement::setIsDirtyDrawing(bool flag) const
+  {
+    m_isDirtyDrawing = flag;
+  }
+
   bool OverlayElement::isDirtyRect() const
   {
     return m_isDirtyRect;
