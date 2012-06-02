@@ -111,7 +111,7 @@ namespace gui
 
     m2::RectD rc(0, 0, width() * k, height() * k);
     rc.Offset(tieRect(rc, m));
-    r->drawRoundedRectangle(rc, 10 * k, color(state()), depth());
+    r->drawRoundedRectangle(rc, 10 * k, color(state()), depth() - 1);
 
     yg::FontDesc desc = font(state());
     desc.m_size *= k;
