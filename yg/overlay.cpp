@@ -216,9 +216,9 @@ namespace yg
       m_tree.Add(oe);
   }
 
-  void Overlay::removeOverlayElement(shared_ptr<OverlayElement> const & oe)
+  void Overlay::removeOverlayElement(shared_ptr<OverlayElement> const & oe, m2::RectD const & r)
   {
-    m_tree.Erase(oe);
+    m_tree.Erase(oe, r);
   }
 
   void Overlay::processOverlayElement(shared_ptr<OverlayElement> const & oe, math::Matrix<double, 3, 3> const & m)

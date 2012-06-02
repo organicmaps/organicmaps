@@ -171,9 +171,9 @@ namespace m4
       Add(obj, rect);
     }
 
-    void Erase(T const & obj)
+    void Erase(T const & obj, m2::RectD const & r)
     {
-      value_t val(obj, Traits::LimitRect(obj));
+      value_t val(obj, r);
       m_tree.erase_exact(val);
     }
 

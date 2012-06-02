@@ -39,7 +39,7 @@ namespace yg
 
     void selectOverlayElements(m2::PointD const & pt, list<shared_ptr<OverlayElement> > & res);
 
-    void removeOverlayElement(shared_ptr<OverlayElement> const & oe);
+    void removeOverlayElement(shared_ptr<OverlayElement> const & oe, m2::RectD const & r);
 
     void processOverlayElement(shared_ptr<OverlayElement> const & oe);
 

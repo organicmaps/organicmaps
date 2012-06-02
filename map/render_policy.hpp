@@ -20,6 +20,7 @@ namespace yg
     class RenderContext;
   }
 
+  class GlyphCache;
   class ResourceManager;
 }
 
@@ -119,6 +120,7 @@ public:
 
   shared_ptr<DrawerYG> const & GetDrawer() const;
   shared_ptr<WindowHandle> const & GetWindowHandle() const;
+  yg::GlyphCache * GetGlyphCache() const;
 
   virtual size_t ScaleEtalonSize() const;
 

@@ -35,8 +35,16 @@ namespace gui
     /// Overlay, which holds all GUI elements.
     yg::Overlay m_Overlay;
 
-    /// container for gui::Element's
     typedef list<shared_ptr<Element> > elem_list_t;
+
+    /// Temporary list to store gui::Element's before the AttachRenderer call.
+    /// As the gui::Elements could use the Controller::RendererParams in the bounding
+    /// rects calculation (for example GlyphCache for gui::TextView or VisualScale
+    /// for almost every element), we shouldn't call boundRects() function
+    /// before AttachRenderer. This implies that we couldn't add gui::Element to the
+    /// yg::Overlay correctly, as the m4::Tree::Add function use gui::Element::roughBoundRect
+    /// We'll add this elements into yg::Overlay in AttachRenderer function.
+    elem_list_t m_RawElements;
 
     /// select elements under specified point
     void SelectElements(m2::PointD const & pt, elem_list_t & l);
@@ -46,6 +54,16 @@ namespace gui
 
     /// VisualScale to multiply all Device-Independent-Pixels dimensions.
     double m_VisualScale;
+
+    /// GlyphCache for text rendering by GUI elements.
+    yg::GlyphCache * m_GlyphCache;
+
+    /// Is this controller attached to the renderer?
+    bool m_IsAttached;
+
+    /// For fast removing of gui::Element's upon element geometry change
+    typedef map<shared_ptr<yg::OverlayElement>, m2::RectD> TElementRects;
+    TElementRects m_ElementRects;
 
   public:
 
@@ -60,12 +78,30 @@ namespace gui
     bool OnTapEnded(m2::PointD const & pt);
     bool OnTapCancelled(m2::PointD const & pt);
     /// @}
-    /// Set Invalidate functor
-    void SetInvalidateFn(TInvalidateFn fn);
-    /// Reset Invalidate functor
-    void ResetInvalidateFn();
-    /// Set VisualScale
-    void SetVisualScale(double val);
+
+    /// Controller should be attached to the renderer before
+    /// rendering GUI elements. Usually it's done after
+    /// Framework::SetRenderPolicy
+    void AttachToRenderer();
+    /// Controller should be detached from the renderer
+    /// when we are about to finish all rendering.
+    void DetachFromRenderer();
+
+    struct RenderParams
+    {
+      double m_VisualScale;
+      TInvalidateFn m_InvalidateFn;
+      yg::GlyphCache * m_GlyphCache;
+      RenderParams();
+      RenderParams(double visualScale,
+                   TInvalidateFn invalidateFn,
+                   yg::GlyphCache * glyphCache);
+    };
+
+    /// Attach GUI Controller to the renderer
+    void SetRenderParams(RenderParams const & p);
+    /// Detach GUI Controller from the renderer
+    void ResetRenderParams();
     /// Invalidate the scene
     void Invalidate();
     /// Find shared_ptr from the pointer in m_Overlay
@@ -75,7 +111,9 @@ namespace gui
     /// Add GUI element to the controller
     void AddElement(shared_ptr<Element> const & e);
     /// Get VisualScale parameter
-    double VisualScale() const;
+    double GetVisualScale() const;
+    /// Get GLyphCache
+    yg::GlyphCache * GetGlyphCache() const;
     /// Redraw GUI
     void DrawFrame(yg::gl::Screen * screen);
   };

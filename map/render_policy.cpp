@@ -129,6 +129,11 @@ shared_ptr<WindowHandle> const & RenderPolicy::GetWindowHandle() const
   return m_windowHandle;
 }
 
+yg::GlyphCache * RenderPolicy::GetGlyphCache() const
+{
+  return m_resourceManager->glyphCache(m_resourceManager->guiThreadGlyphCacheID());
+}
+
 void RenderPolicy::SetRenderFn(TRenderFn renderFn)
 {
   m_renderFn = renderFn;

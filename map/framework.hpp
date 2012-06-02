@@ -64,8 +64,6 @@ protected:
   model::FeaturesFetcher m_model;
   Navigator m_navigator;
 
-  scoped_ptr<gui::Controller> m_guiController;
-
   vector<BookmarkCategory *> m_bookmarks;
 
   scoped_ptr<RenderPolicy> m_renderPolicy;
@@ -96,6 +94,7 @@ protected:
   //mutable threads::Mutex m_modelSyn;
 
   storage::Storage m_storage;
+  scoped_ptr<gui::Controller> m_guiController;
 
   //my::Timer m_timer;
   inline double ElapsedSeconds() const

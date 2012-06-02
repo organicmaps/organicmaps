@@ -55,19 +55,30 @@ namespace gui
   double Element::visualScale() const
   {
     if (m_controller)
-      return m_controller->VisualScale();
+      return m_controller->GetVisualScale();
     else
-      return 1.0;
+    {
+      LOG(LWARNING, ("unattached gui::Elements shouldn't call gui::Element::visualScale function"));
+      return 0.0;
+    }
   }
 
   void Element::setPivot(m2::PointD const & pv)
   {
     shared_ptr<Element> e = m_controller->FindElement(this);
+
     Controller * controller = m_controller;
-    controller->RemoveElement(e);
-    m_controller = controller;
+
+    if (e)
+    {
+      controller->RemoveElement(e);
+      m_controller = controller;
+    }
+
     OverlayElement::setPivot(pv);
-    controller->AddElement(e);
+
+    if (e)
+      controller->AddElement(e);
   }
 
   void Element::draw(yg::gl::OverlayRenderer *r, const math::Matrix<double, 3, 3> & m) const

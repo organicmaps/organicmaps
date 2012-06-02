@@ -890,13 +890,16 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
   }
 
   m_renderPolicy.reset();
-  m_guiController->ResetInvalidateFn();
+  m_guiController->ResetRenderParams();
   m_renderPolicy.reset(renderPolicy);
 
   if (m_renderPolicy.get())
   {
-    m_guiController->SetVisualScale(renderPolicy->VisualScale());
-    m_guiController->SetInvalidateFn(bind(&WindowHandle::invalidate, renderPolicy->GetWindowHandle().get()));
+    gui::Controller::RenderParams rp(renderPolicy->VisualScale(),
+                                     bind(&WindowHandle::invalidate, renderPolicy->GetWindowHandle().get()),
+                                     renderPolicy->GetGlyphCache());
+
+    m_guiController->SetRenderParams(rp);
 
     m_renderPolicy->SetEmptyModelFn(bind(&Framework::IsEmptyModel, this, _1));
     m_renderPolicy->SetCountryNameFn(bind(&Framework::GetCountryName, this, _1));

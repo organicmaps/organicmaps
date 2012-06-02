@@ -38,8 +38,6 @@ namespace gui
 
   private:
 
-    friend class Controller;
-
     EState m_state;
 
     mutable map<EState, yg::FontDesc> m_fonts;
@@ -74,5 +72,7 @@ namespace gui
     void draw(yg::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
     int visualRank() const;
+
+    virtual void setController(Controller * controller);
   };
 }
