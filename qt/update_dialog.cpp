@@ -88,7 +88,7 @@ namespace qt
                                             bind(&UpdateDialog::OnCountryDownloadProgress, this, _1, _2));
   }
 
-  UpdateDialog::~UpdateDialog()
+  void UpdateDialog::DetachFromStorage()
   {
     // tell download manager that we're gone...
     m_storage.Unsubscribe(m_observerSlotId);

@@ -17,7 +17,6 @@ namespace qt
 
   public:
     explicit UpdateDialog(QWidget * parent, storage::Storage & storage);
-    ~UpdateDialog();
 
     /// @name Called from downloader to notify GUI
     //@{
@@ -27,6 +26,8 @@ namespace qt
     //@}
 
     void ShowModal();
+
+    void DetachFromStorage();
 
   private slots:
     void OnItemClick(QTreeWidgetItem * item, int column);
