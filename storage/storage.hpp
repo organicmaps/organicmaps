@@ -43,6 +43,12 @@ namespace storage
               m_country == other.m_country &&
               m_region == other.m_region);
     }
+
+    bool operator!=(TIndex const & other) const
+    {
+      return !(*this == other);
+    }
+
     bool operator<(TIndex const & other) const
     {
       if (m_group != other.m_group)

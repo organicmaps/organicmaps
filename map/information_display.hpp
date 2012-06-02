@@ -22,6 +22,13 @@ namespace gui
   class Controller;
 }
 
+namespace storage
+{
+  class Storage;
+}
+
+class CountryStatusDisplay;
+
 /// Class, which displays additional information on the primary layer.
 /// like rules, coordinates, GPS position and heading
 class InformationDisplay
@@ -50,7 +57,7 @@ private:
   bool m_isDebugInfoEnabled;
   double m_frameDuration;
 
-  bool m_isEmptyModelMessageEnabled;
+  string m_emptyCountryName;
 
   string m_emptyModelMessage;
   shared_ptr<gui::Button> m_downloadButton;
@@ -80,10 +87,11 @@ private:
   static size_t s_logSize;
   static WindowHandle * s_windowHandle;
   */
+  shared_ptr<CountryStatusDisplay> m_countryStatusDisplay;
 
 public:
 
-  InformationDisplay();
+  InformationDisplay(storage::Storage * storage);
 
   void setController(gui::Controller * controller);
 
@@ -125,10 +133,9 @@ public:
   void setLogSize(size_t logSize);
   void drawLog(DrawerYG * pDrawer);
 
-  void enableEmptyModelMessage(bool doEnable);
-  void setEmptyModelMessage(char const * msg);
+  void enableCountryStatusDisplay(bool doEnable);
   void setDownloadListener(gui::Button::TOnClickListener l);
-  void drawEmptyModelMessage(DrawerYG * pDrawer);
+  void setEmptyCountryName(char const * country);
 
   static void logMessage(my::LogLevel, my::SrcPoint const &, string const &);
 };

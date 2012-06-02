@@ -111,6 +111,7 @@ Framework::Framework()
     m_width(0),
     m_height(0),
     m_centeringMode(EDoNothing),
+    m_informationDisplay(&m_storage),
     m_lowestMapVersion(-1)
 {
   m_guiController.reset(new gui::Controller());
@@ -125,8 +126,6 @@ Framework::Framework()
                     "downloading maps of the countries?\n"\
                     "Just click the downloader button \n"\
                     "at the bottom of the screen.";
-
-  m_informationDisplay.setEmptyModelMessage(s);
 
   m_informationDisplay.enableCenter(true);
   m_informationDisplay.enableRuler(true);
@@ -469,11 +468,14 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
   m2::PointD const center = m_navigator.Screen().GlobalRect().GlobalCenter();
 
-  m_informationDisplay.setScreen(m_navigator.Screen());
-
   bool isEmptyModel = m_renderPolicy->IsEmptyModel();
 
-  m_informationDisplay.enableEmptyModelMessage(isEmptyModel);
+  if (isEmptyModel)
+    m_informationDisplay.setEmptyCountryName(m_renderPolicy->GetCountryName().c_str());
+
+  m_informationDisplay.enableCountryStatusDisplay(isEmptyModel);
+
+  m_informationDisplay.setScreen(m_navigator.Screen());
 
   m_informationDisplay.setDebugInfo(0/*m_renderQueue.renderState().m_duration*/, GetDrawScale());
 

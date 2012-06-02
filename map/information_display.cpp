@@ -1,5 +1,6 @@
 #include "information_display.hpp"
 #include "drawer_yg.hpp"
+#include "country_status_display.hpp"
 
 #include "../indexer/mercator.hpp"
 
@@ -24,21 +25,18 @@
 #include "../std/iomanip.hpp"
 #include "../std/target_os.hpp"
 
-InformationDisplay::InformationDisplay()
+InformationDisplay::InformationDisplay(storage::Storage * storage)
   : m_ruler(Ruler::Params()),
     m_bottomShift(0)
 {
-  gui::Button::Params p;
+  CountryStatusDisplay::Params p;
 
   p.m_pivot = m2::PointD(0, 0);
   p.m_position = yg::EPosCenter;
   p.m_depth = yg::maxDepth;
-  p.m_text = "Download";
-  p.m_width = 200;
-  p.m_height = 40;
+  p.m_storage = storage;
 
-  m_downloadButton.reset(new gui::Button(p));
-  m_downloadButton->setIsVisible(false);
+  m_countryStatusDisplay.reset(new CountryStatusDisplay(p));
 
   enableDebugPoints(false);
   enableRuler(false);
@@ -46,7 +44,7 @@ InformationDisplay::InformationDisplay()
   enableDebugInfo(false);
   enableMemoryWarning(false);
   enableBenchmarkInfo(false);
-  enableEmptyModelMessage(false);
+  enableCountryStatusDisplay(false);
 
   for (int i = 0; i < sizeof(m_DebugPts) / sizeof(m2::PointD); ++i)
     m_DebugPts[i] = m2::PointD(0, 0);
@@ -58,13 +56,20 @@ InformationDisplay::InformationDisplay()
 void InformationDisplay::setController(gui::Controller *controller)
 {
   m_controller = controller;
-  m_controller->AddElement(m_downloadButton);
+  m_controller->AddElement(m_countryStatusDisplay);
 }
 
 void InformationDisplay::setScreen(ScreenBase const & screen)
 {
   m_screen = screen;
   m_ruler.setScreen(screen);
+
+  if (m_countryStatusDisplay->isVisible())
+  {
+    m2::RectD pxRect = m_screen.PixelRect();
+    m2::PointD pt = m2::PointD(pxRect.SizeX() / 2, pxRect.SizeY() / 2) - m2::PointD(0, m_bottomShift * m_visualScale);
+    m_countryStatusDisplay->setPivot(pt);
+  }
 }
 
 void InformationDisplay::setBottomShift(double bottomShift)
@@ -280,6 +285,7 @@ WindowHandle * InformationDisplay::s_windowHandle = 0;
 size_t s_msgNum = 0;
 
 void InformationDisplay::logMessage(my::LogLevel level, my::SrcPoint const &, string const & msg)
+void InformationDisplay::setEmptyCountryName(const char * country)
 {
   {
     threads::MutexGuard guard(s_logMutex);
@@ -298,6 +304,7 @@ void InformationDisplay::logMessage(my::LogLevel level, my::SrcPoint const &, st
 
   /// call redisplay
   s_windowHandle->invalidate();
+  m_countryStatusDisplay->setCountryName(country);
 }
 
 void InformationDisplay::enableLog(bool doEnable, WindowHandle * windowHandle)
@@ -350,46 +357,19 @@ void InformationDisplay::drawLog(DrawerYG * drawer)
 }
 */
 
-void InformationDisplay::enableEmptyModelMessage(bool doEnable)
+void InformationDisplay::enableCountryStatusDisplay(bool doEnable)
 {
-  m_isEmptyModelMessageEnabled = doEnable;
-//  m_downloadButton->setIsVisible(doEnable);
+  m_countryStatusDisplay->setIsVisible(doEnable);
 }
 
-void InformationDisplay::setEmptyModelMessage(char const * msg)
+void InformationDisplay::setEmptyCountryName(const char *country)
 {
-  m_emptyModelMessage = msg;
+  m_countryStatusDisplay->setCountryName(country);
 }
 
 void InformationDisplay::setDownloadListener(gui::Button::TOnClickListener l)
 {
   m_downloadButton->setOnClickListener(l);
-}
-
-void InformationDisplay::drawEmptyModelMessage(DrawerYG * pDrawer)
-{
-  m2::RectD pxRect = m_screen.PixelRect();
-  m2::PointD pt = m2::PointD(pxRect.SizeX() / 2, pxRect.SizeY() / 2) - m2::PointD(0, m_bottomShift * m_visualScale);
-
-  yg::StraightTextElement::Params params;
-  params.m_depth = yg::maxDepth;
-  params.m_fontDesc = m_emptyMessageFont;
-  params.m_log2vis = false;
-  params.m_pivot = pt;
-  params.m_position = yg::EPosCenter;
-  params.m_glyphCache = pDrawer->screen()->glyphCache();
-  params.m_logText = strings::MakeUniString(m_emptyModelMessage);
-  params.m_doSplit = true;
-  params.m_delimiters = "\n";
-  params.m_useAllParts = true;
-
-  yg::StraightTextElement ste(params);
-
-  ste.draw(pDrawer->screen().get(), math::Identity<double, 3>());
-
-  m2::PointD pv(pt.x, ste.roughBoundRect().maxY() + m_downloadButton->roughBoundRect().SizeY() / 2 + 10 * m_visualScale);
-
-  m_downloadButton->setPivot(pv);
 }
 
 void InformationDisplay::enableBenchmarkInfo(bool doEnable)
@@ -477,6 +457,4 @@ void InformationDisplay::doDraw(DrawerYG *drawer)
     drawBenchmarkInfo(drawer);
   //if (s_isLogEnabled)
   //  drawLog(drawer);
-  if (m_isEmptyModelMessageEnabled)
-    drawEmptyModelMessage(drawer);
 }

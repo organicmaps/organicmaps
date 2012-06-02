@@ -72,8 +72,6 @@ protected:
   m2::AnyRectD m_invalidRect;
   m2::PointD m_placemark;
 
-  InformationDisplay m_informationDisplay;
-
   double const m_metresMinWidth;
   double const m_metresMaxWidth;
   int const m_minRulerWidth;
@@ -95,6 +93,7 @@ protected:
 
   storage::Storage m_storage;
   scoped_ptr<gui::Controller> m_guiController;
+  InformationDisplay m_informationDisplay;
 
   //my::Timer m_timer;
   inline double ElapsedSeconds() const

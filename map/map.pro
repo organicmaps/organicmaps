@@ -50,6 +50,7 @@ HEADERS += \
     bookmark.hpp \
     tile_set.hpp \
     geourl_process.hpp \
+    country_status_display.hpp \
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -91,6 +92,7 @@ SOURCES += \
     tile_set.cpp \
     geourl_process.cpp \
     bookmark.cpp \
+    country_status_display.cpp \
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp
