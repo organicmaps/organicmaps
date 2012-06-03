@@ -109,7 +109,7 @@ void FeatureParams::AddTypes(FeatureParams const & rhs, uint32_t skipType2)
       uint32_t t = rhs.m_Types[i];
       ftype::TruncValue(t, 2);
       if (t != skipType2)
-        m_Types.push_back(t);
+        m_Types.push_back(rhs.m_Types[i]);
     }
   }
 }
