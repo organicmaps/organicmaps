@@ -3595,6 +3595,77 @@ cont {
   }
 }
 cont {
+  name: "boundary-administrative-4-state"
+  element {
+    scale: 6
+    lines {
+      width: 0.2
+      color: 0xA0A0A0
+      dashdot {
+        dd: 0.3
+        dd: 0.6
+      }
+      priority: 122
+    }
+    lines {
+      width: 1
+      color: 0xeeeedd
+      priority: 121
+    }
+  }
+  element {
+    scale: 7
+    lines {
+      width: 0.7
+      color: 0x909090
+      dashdot {
+        dd: 0.3
+        dd: 0.6
+      }
+      priority: 122
+    }
+    lines {
+      width: 1
+      color: 0xeeeedd
+      priority: 121
+    }
+  }
+  element {
+    scale: 9
+    lines {
+      width: 1
+      color: 0x909090
+      dashdot {
+        dd: 0.3
+        dd: 0.6
+      }
+      priority: 122
+    }
+    lines {
+      width: 1.2
+      color: 0xeeeedd
+      priority: 121
+    }
+  }
+  element {
+    scale: 10
+    lines {
+      width: 1.5
+      color: 0x909090
+      dashdot {
+        dd: 0.3
+        dd: 0.6
+      }
+      priority: 10434
+    }
+    lines {
+      width: 2
+      color: 0xeeeedd
+      priority: 10433
+    }
+  }
+}
+cont {
   name: "boundary-administrative-5"
   element {
     scale: 14

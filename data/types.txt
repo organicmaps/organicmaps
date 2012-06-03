@@ -744,3 +744,5 @@ sport|skiing
 tourism|museum
 tourism|guest_house
 tourism|motel
+
+boundary|administrative|4|state
