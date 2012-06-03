@@ -5,6 +5,8 @@
 #include "../map/framework_factory.hpp"
 #include "../map/render_policy.hpp"
 
+#include "../gui/controller.hpp"
+
 #include "../yg/internal/opengl.hpp"
 
 #include "../platform/settings.hpp"
@@ -316,6 +318,9 @@ namespace qt
 
     if (e->button() == Qt::LeftButton)
     {
+      if (m_framework->GetGuiController()->OnTapStarted(m2::PointU(e->pos().x(), e->pos().y())))
+        return;
+
       if (e->modifiers() & Qt::ControlModifier)
       {
         // starting rotation
@@ -378,6 +383,8 @@ namespace qt
   {
     QGLWidget::mouseMoveEvent(e);
 
+    m_framework->GetGuiController()->OnTapMoved(m2::PointU(e->pos().x(), e->pos().y()));
+
     if (m_isDrag)
       m_framework->DoDrag(get_drag_event(e));
 
@@ -388,6 +395,8 @@ namespace qt
   void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
   {
     QGLWidget::mouseReleaseEvent(e);
+
+    m_framework->GetGuiController()->OnTapEnded(m2::PointU(e->pos().x(), e->pos().y()));
 
     StopDragging(e);
     StopRotating(e);

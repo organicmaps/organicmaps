@@ -8,6 +8,8 @@
 
 #include "../../../../../map/framework.hpp"
 
+#include "../../../../../gui/controller.hpp"
+
 #include "../../../../../yg/framebuffer.hpp"
 #include "../../../../../yg/internal/opengl.hpp"
 
@@ -215,6 +217,8 @@ namespace android
     /// processing double-click
     if ((mask != 0x1) || (eventType == NV_MULTITOUCH_CANCEL))
     {
+      if (mask == 0x1)
+        m_work.GetGuiController()->OnTapCancelled(m2::PointD(x1, y1));
       //cancelling double click
       m_isInsideDoubleClick = false;
       m_isCleanSingleClick = false;
@@ -226,6 +230,8 @@ namespace android
         m_isCleanSingleClick = true;
         m_lastX1 = x1;
         m_lastY1 = y1;
+
+        m_work.GetGuiController()->OnTapStarted(m2::PointD(x1, y1));
       }
 
       if (eventType == NV_MULTITOUCH_MOVE)
@@ -233,10 +239,15 @@ namespace android
         if ((fabs(x1 - m_lastX1) > 10)
         ||  (fabs(y1 - m_lastY1) > 10))
           m_isCleanSingleClick = false;
+
+        m_work.GetGuiController()->OnTapMoved(m2::PointD(x1, y1));
       }
 
       if ((eventType == NV_MULTITOUCH_UP) && (m_isCleanSingleClick))
       {
+        if (m_work.GetGuiController()->OnTapEnded(m2::PointD(x1, y1)))
+          return;
+
         if (m_isInsideDoubleClick)
         {
           if (m_doubleClickTimer.ElapsedSeconds() <= 0.5)

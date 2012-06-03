@@ -8,6 +8,8 @@
 #import "../Settings/SettingsManager.h"
 #import "../../Common/CustomAlertView.h"
 
+#include "../../../gui/controller.hpp"
+
 #include "Framework.h"
 #include "RenderContext.hpp"
 
@@ -165,7 +167,10 @@
 
     Framework & f = GetFramework();
     char const * str = [NSLocalizedString(@"Nothing found. Have you tried downloading maps of the countries? Just click the download button at the bottom of the screen.", @"Message in the center of the screen then user zooms in but country is not downloaded") UTF8String];
-    f.GetInformationDisplay().setEmptyModelMessage(str);
+    f.GetInformationDisplay().setEmptyModelString(str);
+    
+    char const * downloadStr = [NSLocalizedString(@"Download", @"Settings/Downloader - Main downloader window title") UTF8String];
+    f.GetInformationDisplay().setDownloadString(downloadStr);
     
 		m_StickyThreshold = 10;
 
@@ -246,6 +251,9 @@ NSInteger compareAddress(id l, id r, void * context)
 
 	if ([[event allTouches] count] == 1)
 	{
+    if (GetFramework().GetGuiController()->OnTapStarted(m_Pt1))
+      return;
+    
 		GetFramework().StartDrag(DragEvent(m_Pt1.x, m_Pt1.y));
 		m_CurrentAction = DRAGGING;
 	}
@@ -267,6 +275,9 @@ NSInteger compareAddress(id l, id r, void * context)
 
 	bool needRedraw = false;
 
+  if (GetFramework().GetGuiController()->OnTapMoved(m_Pt1))
+    return;
+  
 	if (m_isSticking)
 	{
 		if ((TempPt1.Length(m_Pt1) > m_StickyThreshold) || (TempPt2.Length(m_Pt2) > m_StickyThreshold))
@@ -310,9 +321,13 @@ NSInteger compareAddress(id l, id r, void * context)
 	[self stopCurrentAction];
 
   UITouch * theTouch = (UITouch*)[touches anyObject];
-  int const tapCount = theTouch.tapCount;
-  int const touchesCount = [[event allTouches] count];
+  int tapCount = theTouch.tapCount;
+  int touchesCount = [[event allTouches] count];
 
+  if (touchesCount == 1 && tapCount == 1)
+    if (GetFramework().GetGuiController()->OnTapEnded(m_Pt1))
+      return;
+  
   if (tapCount == 2 && touchesCount == 1 && m_isSticking)
     GetFramework().ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2.0));
 
