@@ -8,6 +8,7 @@
 
 #include "../std/string.hpp"
 
+
 namespace feature
 {
   /// Final generation of data from input feature-dat-file.
@@ -26,6 +27,34 @@ namespace feature
   {
     return AlmostEqual(p1, p2);
   }
+
+  class BoundsDistance : public mn::DistanceToLineSquare<m2::PointD>
+  {
+    m2::RectD const & m_rect;
+    double m_eps;
+
+  public:
+    BoundsDistance(m2::RectD const & rect)
+      : m_rect(rect), m_eps(5.0E-7)
+    {
+      // 5.0E-7 is near with minimal epsilon when integer points are different
+      // PointD2PointU(x, y) != PointD2PointU(x + m_eps, y + m_eps)
+    }
+
+    double GetEpsilon() const { return m_eps; }
+
+    double operator() (m2::PointD const & p) const
+    {
+      if (fabs(p.x - m_rect.minX()) <= m_eps || fabs(p.x - m_rect.maxX()) <= m_eps ||
+          fabs(p.y - m_rect.minY()) <= m_eps || fabs(p.y - m_rect.maxY()) <= m_eps)
+      {
+        // points near rect should be in a result simplified vector
+        return std::numeric_limits<double>::max();
+      }
+
+      return mn::DistanceToLineSquare<m2::PointD>::operator()(p);
+    }
+  };
 
   template <class DistanceT, class PointsContainerT>
   void SimplifyPoints(DistanceT dist, PointsContainerT const & in, PointsContainerT & out, int level)

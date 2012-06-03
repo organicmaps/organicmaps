@@ -346,32 +346,6 @@ namespace feature
       }
     };
 
-    class BoundsDistance : public mn::DistanceToLineSquare<m2::PointD>
-    {
-      m2::RectD const & m_rect;
-      double m_eps;
-
-    public:
-      BoundsDistance(m2::RectD const & rect)
-        : m_rect(rect), m_eps(5.0E-7)
-      {
-        // 5.0E-7 is near with minimal epsilon when integer points are different
-        // PointD2PointU(x, y) != PointD2PointU(x + m_eps, y + m_eps)
-      }
-
-      double operator() (m2::PointD const & p) const
-      {
-        if (fabs(p.x - m_rect.minX()) <= m_eps || fabs(p.x - m_rect.maxX()) <= m_eps ||
-            fabs(p.y - m_rect.minY()) <= m_eps || fabs(p.y - m_rect.maxY()) <= m_eps)
-        {
-          // points near rect should be in a result simplified vector
-          return std::numeric_limits<double>::max();
-        }
-
-        return mn::DistanceToLineSquare<m2::PointD>::operator()(p);
-      }
-    };
-
     void SimplifyPoints(points_t const & in, points_t & out, int level,
                         bool isCoast, m2::RectD const & rect)
     {

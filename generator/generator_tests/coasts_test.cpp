@@ -1,9 +1,11 @@
 #include "../../testing/testing.hpp"
 
 #include "../feature_builder.hpp"
+#include "../feature_sorter.hpp"
 
 #include "../../indexer/mercator.hpp"
 #include "../../indexer/cell_id.hpp"
+#include "../../indexer/scales.hpp"
 
 #include "../../geometry/cellid.hpp"
 
@@ -91,10 +93,9 @@ UNIT_TEST(CellID_CheckRectPoints)
   }
 }
 
-/*
 namespace
 {
-  class DoGetCoasts
+  class DoPrintCoasts
   {
     vector<string> const & m_vID;
 
@@ -103,67 +104,66 @@ namespace
       return (find(m_vID.begin(), m_vID.end(), id) != m_vID.end());
     }
 
-    list<m2::RectD> m_rects;
-
-    typedef list<vector<m2::PointD> > polygons_t;
-    polygons_t m_maxPoly;
-
   public:
-    DoGetCoasts(vector<string> const & vID) : m_vID(vID) {}
+    DoPrintCoasts(vector<string> const & vID) : m_vID(vID) {}
 
-    void operator() (FeatureBuilder1 const & fb, uint64_t)
+    void operator() (FeatureBuilder1 const & fb1, uint64_t)
     {
       int64_t dummy;
-      CHECK(fb.GetCoastCell(dummy), ());
+      TEST(fb1.GetCoastCell(dummy), ());
 
-      string const id = fb.GetName();
+      string const id = fb1.GetName();
       if (Has(id))
       {
-        LOG(LINFO, ("ID = ", id, "Rect = ", fb.GetLimitRect(),
-                    "Polygons = ", fb.GetPolygonsCount()));
+        FeatureBuilder2 const & fb2 = reinterpret_cast<FeatureBuilder2 const &>(fb1);
 
-        m_rects.push_back(fb.GetLimitRect());
+        // Check common params.
+        TEST(fb2.IsArea(), ());
+        int const upperScale = scales::GetUpperScale();
+        TEST(fb2.IsDrawableInRange(0, upperScale), ());
 
-        polygons_t const & poly = reinterpret_cast<FeatureBuilder2 const &>(fb).GetPolygons();
+        m2::RectD const rect = fb2.GetLimitRect();
+        LOG(LINFO, ("ID = ", id, "Rect = ", rect, "Polygons = ", fb2.GetPolygons()));
 
-        // get polygon with max points count
-        size_t maxCount = 0;
-        m_maxPoly.push_back(vector<m2::PointD>());
-        for (polygons_t::const_iterator i = poly.begin(); i != poly.end(); ++i)
-          if (i->size() > maxCount)
+        // Make bound rect inflated a little.
+        feature::BoundsDistance dist(rect);
+        m2::RectD const boundRect = m2::Inflate(rect, dist.GetEpsilon(), dist.GetEpsilon());
+
+        typedef vector<m2::PointD> PointsT;
+        typedef list<PointsT> PolygonsT;
+
+        PolygonsT const & poly = fb2.GetPolygons();
+
+        // Check that all simplifications are inside bound rect.
+        for (int level = 0; level <= upperScale; ++level)
+        {
+          for (PolygonsT::const_iterator i = poly.begin(); i != poly.end(); ++i)
           {
-            maxCount = i->size();
-            m_maxPoly.back() = *i;
+            PointsT pts;
+            feature::SimplifyPoints(dist, *i, pts, level);
+
+            LOG(LINFO, ("Simplified. Level = ", level, "Points = ", pts));
+
+            for (size_t j = 0; j < pts.size(); ++j)
+              TEST(boundRect.IsPointInside(pts[j]), (pts[j]));
           }
+        }
       }
-    }
-
-    void DumpMaxPolygons()
-    {
-      LOG(LINFO, ("Original"));
-      for (polygons_t::const_iterator i = m_maxPoly.begin(); i != m_maxPoly.end(); ++i)
-      {
-        m2::RectD r;
-        feature::CalcRect(*i, r);
-        LOG(LINFO, ("Polygon points count = ", i->size(), "Polygon rect = ", r));
-      }
-
-      LOG(LINFO, ("Simplified"));
-      /// @todo Check simplified polygons
     }
   };
 }
 
+/*
 UNIT_TEST(WorldCoasts_CheckBounds)
 {
   vector<string> vID;
-  vID.push_back("2213023");
-  vID.push_back("2213021");
+  vID.push_back("1231");
+  vID.push_back("123203");
+  vID.push_back("12323");
+  vID.push_back("03321");
 
-  DoGetCoasts doGet(vID);
+  DoPrintCoasts doGet(vID);
   feature::ForEachFromDatRawFormat(
-        "/Users/alena/omim/omim-indexer-tmp/WorldCoasts.mwm", doGet);
-
-  doGet.DumpMaxPolygons();
+        "/Users/alena/omim/omim-indexer-tmp/WorldCoasts.mwm.tmp", doGet);
 }
 */
