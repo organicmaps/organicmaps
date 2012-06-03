@@ -21,5 +21,7 @@ namespace jni
   JNIEnv * GetEnv();
   JavaVM * GetJVM();
 
+  string DescribeException();
+
   shared_ptr<jobject> make_global_ref(jobject obj);
 }

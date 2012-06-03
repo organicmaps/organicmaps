@@ -109,4 +109,27 @@ namespace jni
     return shared_ptr<jobject>(ref, global_ref_deleter());
   }
 
+  string DescribeException()
+  {
+    JNIEnv * env = jni::GetEnv();
+
+    if (env->ExceptionCheck())
+    {
+      jthrowable e = env->ExceptionOccurred();
+
+      // have to clear the exception before JNI will work again.
+      env->ExceptionClear();
+
+      jclass eclass = env->GetObjectClass(e);
+
+      jmethodID mid = env->GetMethodID(eclass, "toString", "()Ljava/lang/String;");
+
+      jstring jErrorMsg = (jstring) env->CallObjectMethod(e, mid);
+
+      return ToString(jErrorMsg);
+    }
+
+    return "";
+  }
+
 } // namespace jni
