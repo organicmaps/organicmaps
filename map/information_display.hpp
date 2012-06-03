@@ -137,5 +137,7 @@ public:
   void setDownloadListener(gui::Button::TOnClickListener l);
   void setEmptyCountryName(char const * country);
 
+  shared_ptr<CountryStatusDisplay> const & countryStatusDisplay() const;
+
   static void logMessage(my::LogLevel, my::SrcPoint const &, string const &);
 };

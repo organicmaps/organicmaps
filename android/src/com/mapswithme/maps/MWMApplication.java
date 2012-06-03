@@ -2,21 +2,23 @@ package com.mapswithme.maps;
 
 import java.io.File;
 
-import com.mapswithme.maps.location.LocationService;
-
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Environment;
+
+import com.mapswithme.maps.location.LocationService;
+
 
 public class MWMApplication extends android.app.Application
 {
   public final static String PACKAGE_NAME = "com.mapswithme.maps";
-  
+
   private LocationService mLocationService = null;
-  
+
+  @Override
   public void onCreate()
   {
-    super.onCreate();    
-    
+    super.onCreate();
+
     final String extStoragePath = getDataStoragePath();
     final String extTmpPath = getExtAppDirectoryPath("caches");
     // Create folders if they don't exist
@@ -24,39 +26,38 @@ public class MWMApplication extends android.app.Application
     new File(extTmpPath).mkdirs();
 
     nativeInit(getApkPath(),
-               extStoragePath, 
+               extStoragePath,
                getTmpPath(),
                extTmpPath,
-               getSettingsPath(),
-               getString(R.string.empty_model));
+               getSettingsPath());
   }
 
   public LocationService getLocationService()
   {
     if (mLocationService == null)
       mLocationService = new LocationService(this);
-      
-    return mLocationService; 
+
+    return mLocationService;
   }
-  
+
   public String getApkPath()
   {
     try
     {
       return getPackageManager().getApplicationInfo(PACKAGE_NAME, 0).sourceDir;
-    } 
+    }
     catch (NameNotFoundException e)
     {
       e.printStackTrace();
       return "";
     }
   }
-  
+
   public String getDataStoragePath()
   {
     return Environment.getExternalStorageDirectory().getAbsolutePath() + "/MapsWithMe/";
   }
-  
+
   public String getExtAppDirectoryPath(String folder)
   {
     final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
@@ -71,22 +72,22 @@ public class MWMApplication extends android.app.Application
   private String getSettingsPath()
   {
     return getFilesDir().getAbsolutePath() + "/";
-  }  
-  
+  }
+
+  @Override
   public String getPackageName()
   {
     return PACKAGE_NAME;
   }
-  
+
   static
   {
     System.loadLibrary("mapswithme");
   }
-  
+
   private native void nativeInit(String apkPath,
                                  String storagePath,
                                  String tmpPath,
                                  String extTmpPath,
-                                 String settingsPath,
-                                 String emptyModelMessage);
+                                 String settingsPath);
 }

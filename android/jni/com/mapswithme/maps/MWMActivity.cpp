@@ -7,6 +7,7 @@
 #include "../../../nv_event/nv_event.hpp"
 
 #include "../../../../../platform/settings.hpp"
+#include "../../../../../map/country_status_display.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 extern "C"
@@ -77,6 +78,35 @@ extern "C"
     Settings::Units u = Settings::Metric;
     Settings::Get("Units", u);
     return u;
+  }
+
+  void CallOnDownloadCountryClicked(shared_ptr<jobject> const & obj,
+                                    jmethodID methodID)
+  {
+    JNIEnv * env = jni::GetEnv();
+    env->CallVoidMethod(*obj.get(), methodID);
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMActivity_nativeConnectDownloadButton(JNIEnv * env, jobject thiz)
+  {
+    shared_ptr<CountryStatusDisplay> display = g_framework->GetFramework().GetInformationDisplay().countryStatusDisplay();
+
+    jclass k = env->GetObjectClass(thiz);
+    ASSERT(k, (jni::DescribeException()));
+    jmethodID methodID = env->GetMethodID(k, "OnDownloadCountryClicked", "()V");
+    ASSERT(methodID, (jni::DescribeException()));
+
+    display->setDownloadListener(bind(&CallOnDownloadCountryClicked,
+                                       jni::make_global_ref(thiz),
+                                       methodID));
+
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMActivity_nativeDownloadCountry(JNIEnv * env, jobject thiz)
+  {
+    g_framework->GetFramework().GetInformationDisplay().countryStatusDisplay()->downloadCountry();
   }
 
   //////////////////////////////////////////////////////////////////////////////

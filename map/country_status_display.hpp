@@ -44,9 +44,6 @@ private:
   /// caching resources for fast rendering.
   void cache();
 
-  /// callback for button click to download country
-  void DownloadCountry();
-
 public:
 
   struct Params : public gui::Element::Params
@@ -57,6 +54,10 @@ public:
   CountryStatusDisplay(Params const & p);
   ~CountryStatusDisplay();
 
+  /// start country download
+  void downloadCountry();
+  /// set download button listener
+  void setDownloadListener(gui::Button::TOnClickListener const & l);
   /// set current country name
   void setCountryName(string const & name);
   /// reposition element

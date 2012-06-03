@@ -458,3 +458,8 @@ void InformationDisplay::doDraw(DrawerYG *drawer)
   //if (s_isLogEnabled)
   //  drawLog(drawer);
 }
+
+shared_ptr<CountryStatusDisplay> const & InformationDisplay::countryStatusDisplay() const
+{
+  return m_countryStatusDisplay;
+}

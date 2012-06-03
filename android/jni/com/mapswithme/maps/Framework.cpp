@@ -49,11 +49,6 @@ namespace android
     m_sensors[1].SetCount(measurementsCount);
   }
 
-  void Framework::SetEmptyModelMessage(string const & emptyModelMsg)
-  {
-    m_work.GetInformationDisplay().setEmptyModelMessage(emptyModelMsg.c_str());
-  }
-
   Framework::~Framework()
   {
     delete m_videoTimer;
@@ -162,6 +157,11 @@ namespace android
   storage::Storage & Framework::Storage()
   {
     return m_work.Storage();
+  }
+
+  ::Framework & Framework::GetFramework()
+  {
+    return m_work;
   }
 
   void Framework::Resize(int w, int h)

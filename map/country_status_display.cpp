@@ -105,7 +105,7 @@ CountryStatusDisplay::CountryStatusDisplay(Params const & p)
   bp.m_text = "Download";
 
   m_downloadButton.reset(new gui::Button(bp));
-  m_downloadButton->setOnClickListener(bind(&CountryStatusDisplay::DownloadCountry, this));
+  m_downloadButton->setOnClickListener(bind(&CountryStatusDisplay::downloadCountry, this));
   m_downloadButton->setIsVisible(false);
   m_downloadButton->setPosition(yg::EPosCenter);
   m_downloadButton->setFont(gui::Element::EActive, yg::FontDesc(16));
@@ -132,9 +132,14 @@ CountryStatusDisplay::~CountryStatusDisplay()
   m_storage->Unsubscribe(m_slotID);
 }
 
-void CountryStatusDisplay::DownloadCountry()
+void CountryStatusDisplay::downloadCountry()
 {
   m_storage->DownloadCountry(m_countryIdx);
+}
+
+void CountryStatusDisplay::setDownloadListener(gui::Button::TOnClickListener const & l)
+{
+  m_downloadButton->setOnClickListener(l);
 }
 
 void CountryStatusDisplay::setCountryName(string const & name)

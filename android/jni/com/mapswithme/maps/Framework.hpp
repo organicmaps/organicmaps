@@ -57,9 +57,8 @@ namespace android
     Framework();
     ~Framework();
 
-    void SetEmptyModelMessage(string const & emptyModelMsg);
-
     storage::Storage & Storage();
+    ::Framework & GetFramework();
 
     void OnLocationStatusChanged(int/* == location::TLocationStatus*/ newStatus);
     void OnLocationUpdated(uint64_t time, double lat, double lon, float accuracy);

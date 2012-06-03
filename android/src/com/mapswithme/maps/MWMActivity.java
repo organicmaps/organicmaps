@@ -46,6 +46,18 @@ LocationService.Listener
     }
   }
 
+  public void OnDownloadCountryClicked()
+  {
+    runOnUiThread(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        nativeDownloadCountry();
+      }
+    });
+  }
+
   @Override
   public void OnRenderingInitialized()
   {
@@ -277,6 +289,8 @@ LocationService.Listener
     SharedPreferences prefs = getSharedPreferences(mApplication.getPackageName(), MODE_PRIVATE);
     final boolean isMyPositionEnabled = prefs.getBoolean(PREFERENCES_MYPOSITION, false);
     findViewById(R.id.map_button_myposition).setSelected(isMyPositionEnabled);
+
+    nativeConnectDownloadButton();
   }
 
   @Override
@@ -445,6 +459,9 @@ LocationService.Listener
 
   private native void nativeStorageConnected();
   private native void nativeStorageDisconnected();
+
+  private native void nativeConnectDownloadButton();
+  private native void nativeDownloadCountry();
 
   private native void nativeDestroy();
   private native void nativeLocationStatusChanged(int newStatus);

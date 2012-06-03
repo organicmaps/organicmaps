@@ -20,8 +20,7 @@ extern "C"
                                                     jstring storagePath,
                                                     jstring tmpPath,
                                                     jstring extTmpPath,
-                                                    jstring settingsPath,
-                                                    jstring emptyModelMessage)
+                                                    jstring settingsPath)
   {
     android::Platform::Instance().Initialize(env,
                                              apkPath,
@@ -32,7 +31,5 @@ extern "C"
 
     if (!g_framework)
       g_framework = new android::Framework();
-
-    g_framework->SetEmptyModelMessage(jni::ToString(emptyModelMessage));
   }
 }
