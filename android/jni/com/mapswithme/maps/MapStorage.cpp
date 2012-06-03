@@ -57,8 +57,8 @@ extern "C"
       jclass klass = env->FindClass("com/mapswithme/maps/MapStorage$Index");
       ASSERT(klass, ());
 
-      jmethodID methodID = env->GetMethodID(klass, "<init>", "(III)V")
-      ASSERT(methodId, ());
+      jmethodID methodID = env->GetMethodID(klass, "<init>", "(III)V");
+      ASSERT(methodID, ());
 
       return env->NewObject(klass, methodID,
                             (jint)idx.m_group, (jint)idx.m_country, (jint)idx.m_region);
