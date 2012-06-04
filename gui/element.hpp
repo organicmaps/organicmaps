@@ -67,7 +67,6 @@ namespace gui
     void invalidate();
     double visualScale() const;
 
-    void setPivot(m2::PointD const & pv);
     yg::OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
     void draw(yg::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
     int visualRank() const;

@@ -63,24 +63,6 @@ namespace gui
     }
   }
 
-  void Element::setPivot(m2::PointD const & pv)
-  {
-    shared_ptr<Element> e = m_controller->FindElement(this);
-
-    Controller * controller = m_controller;
-
-    if (e)
-    {
-      controller->RemoveElement(e);
-      m_controller = controller;
-    }
-
-    OverlayElement::setPivot(pv);
-
-    if (e)
-      controller->AddElement(e);
-  }
-
   void Element::cache()
   {}
 
