@@ -1,9 +1,11 @@
 #pragma once
 
 #include "element.hpp"
+#include "text_view.hpp"
 
 #include "../std/function.hpp"
 #include "../std/string.hpp"
+#include "../std/scoped_ptr.hpp"
 
 namespace yg
 {
@@ -27,18 +29,19 @@ namespace gui
 
     TOnClickListener m_OnClickListener;
 
-    unsigned m_widthInDIP;
-    unsigned m_heightInDIP;
+    unsigned m_minWidth;
+    unsigned m_minHeight;
 
-    string m_text;
+    scoped_ptr<TextView> m_textView;
+
     mutable vector<m2::AnyRectD> m_boundRects;
 
   public:
 
     struct Params : Element::Params
     {
-      unsigned m_width;
-      unsigned m_height;
+      unsigned m_minWidth;
+      unsigned m_minHeight;
       string m_text;
     };
 
@@ -51,19 +54,24 @@ namespace gui
 
     void setOnClickListener(TOnClickListener const & l);
 
+    void setPivot(m2::PointD const & pv);
+    void setFont(EState state, yg::FontDesc const & font);
+    void setColor(EState state, yg::Color const & c);
+
     void setText(string const & text);
     string const & text() const;
 
-    void setWidth(unsigned widthInDIP);
-    unsigned width() const;
+    void setMinWidth(unsigned minWidthInDIP);
+    unsigned minWidth() const;
 
-    void setHeight(unsigned heightInDIP);
-    unsigned height() const;
+    void setMinHeight(unsigned minHeightInDIP);
+    unsigned minHeight() const;
+
+    void setController(Controller * controller);
 
     /// Inherited from OverlayElement
     /// @{
 
-    yg::OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
     vector<m2::AnyRectD> const & boundRects() const;
     void draw(yg::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 

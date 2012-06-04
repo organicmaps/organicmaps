@@ -35,9 +35,8 @@ namespace gui
     void setText(string const & text);
     string const & text() const;
 
-    yg::OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
     vector<m2::AnyRectD> const & boundRects() const;
-    void draw(yg::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m);
+    void draw(yg::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
     bool onTapStarted(m2::PointD const & pt);
     bool onTapMoved(m2::PointD const & pt);

@@ -52,10 +52,10 @@ namespace gui
     void setState(EState state);
     EState state() const;
 
-    void setFont(EState state, yg::FontDesc const & font);
+    virtual void setFont(EState state, yg::FontDesc const & font);
     yg::FontDesc const & font(EState state) const;
 
-    void setColor(EState state, yg::Color const & c);
+    virtual void setColor(EState state, yg::Color const & c);
     yg::Color const & color(EState state) const;
 
     /// Implement this method to handle single tap on the GUI element.

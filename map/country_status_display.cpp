@@ -120,8 +120,8 @@ CountryStatusDisplay::CountryStatusDisplay(Params const & p)
   gui::Button::Params bp;
 
   bp.m_depth = yg::maxDepth;
-  bp.m_width = 200;
-  bp.m_height = 40;
+  bp.m_minWidth = 200;
+  bp.m_minHeight = 40;
   bp.m_pivot = m2::PointD(0, 0);
   bp.m_position = yg::EPosCenter;
   bp.m_text = "Download";

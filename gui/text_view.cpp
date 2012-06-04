@@ -17,8 +17,12 @@ namespace gui
 
   void TextView::setText(string const & text)
   {
-    m_text = text;
-    setIsDirtyDrawing(true);
+    if (m_text != text)
+    {
+      m_text = text;
+      setIsDirtyDrawing(true);
+      setIsDirtyRect(true);
+    }
   }
 
   string const & TextView::text() const
@@ -44,12 +48,7 @@ namespace gui
     m_elem.reset(new yg::StraightTextElement(params));
   }
 
-  yg::OverlayElement * TextView::clone(math::Matrix<double, 3, 3> const & m) const
-  {
-    return new TextView(*this);
-  }
-
-  void TextView::draw(yg::gl::OverlayRenderer *r, const math::Matrix<double, 3, 3> &m)
+  void TextView::draw(yg::gl::OverlayRenderer *r, math::Matrix<double, 3, 3> const & m) const
   {
     checkDirtyDrawing();
     m_elem->draw(r, m);
