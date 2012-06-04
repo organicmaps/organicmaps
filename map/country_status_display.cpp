@@ -24,7 +24,12 @@ void CountryStatusDisplay::cache()
         m_statusMsg->setIsVisible(true);
 
         ostringstream out;
-        out << m_countryName << " is added to the\ndownloading queue";
+        out << m_mapName;
+
+        if (!m_mapGroupName.empty())
+          out << "(" << m_mapGroupName << ")";
+
+        out << " is added to the\ndownloading queue";
 
         m_statusMsg->setText(out.str());
       }
@@ -35,7 +40,13 @@ void CountryStatusDisplay::cache()
         m_statusMsg->setIsVisible(true);
 
         ostringstream out;
-        out << "Downloading " << m_countryName << "(" << m_countryProgress.first * 100 / m_countryProgress.second << "%)";
+
+        out << "Downloading " << m_mapName;
+
+        if (!m_mapGroupName.empty())
+          out << "(" << m_mapGroupName << ")";
+
+        out << "(" << m_countryProgress.first * 100 / m_countryProgress.second << "%)";
 
         m_statusMsg->setText(out.str());
       }
@@ -43,7 +54,12 @@ void CountryStatusDisplay::cache()
     case storage::ENotDownloaded:
       {
         m_downloadButton->setIsVisible(true);
-        m_downloadButton->setText("Download " + m_countryName);
+
+        string buttonText = "Download " + m_mapName;
+        if (!m_mapGroupName.empty())
+          buttonText += "(" + m_mapGroupName + ")";
+
+        m_downloadButton->setText(buttonText);
       }
       break;
     case storage::EDownloadFailed:
@@ -52,7 +68,13 @@ void CountryStatusDisplay::cache()
         m_downloadButton->setText("Try again");
 
         ostringstream out;
-        out << "Downloading " << m_countryName << "\nhas failed.";
+
+        out << "Downloading " << m_mapName;
+
+        if (!m_mapGroupName.empty())
+          out << "(" << m_mapGroupName << ")";
+
+        out << "\nhas failed.";
 
         m_statusMsg->setIsVisible(true);
         m_statusMsg->setText(out.str());
@@ -144,12 +166,26 @@ void CountryStatusDisplay::setDownloadListener(gui::Button::TOnClickListener con
 
 void CountryStatusDisplay::setCountryName(string const & name)
 {
-  if (m_countryName != name)
+  if (m_fullName != name)
   {
-    m_countryIdx = m_storage->FindIndexByName(name);
+    size_t pos = name.find(",");
+    if (pos == string::npos)
+    {
+      m_mapName = name;
+      m_mapGroupName.clear();
+    }
+    else
+    {
+      m_mapName = name.substr(pos + 2);
+      m_mapGroupName = name.substr(0, pos);
+    }
+
+    LOG(LINFO, (m_mapName, m_mapGroupName));
+
+    m_countryIdx = m_storage->FindIndexByName(m_mapName);
     m_countryStatus = m_storage->CountryStatus(m_countryIdx);
     m_countryProgress = m_storage->CountrySizeInBytes(m_countryIdx);
-    m_countryName = name;
+    m_fullName = name;
     setIsDirtyDrawing(true);
     invalidate();
   }

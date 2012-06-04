@@ -29,8 +29,12 @@ private:
   shared_ptr<gui::Button> m_downloadButton;
   /// country status message
   shared_ptr<gui::TextView> m_statusMsg;
-  /// current country name
-  string m_countryName;
+  /// full name, could be in the form "Country, Province"
+  string m_fullName;
+  /// current map name, "Province" part of the fullName
+  string m_mapName;
+  /// current map group name, "Country" part of the fullName
+  string m_mapGroupName;
   /// current country status
   storage::TStatus m_countryStatus;
   /// index of the country in Storage
