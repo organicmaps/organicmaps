@@ -40,7 +40,6 @@ class RenderQueueRoutine : public threads::IRoutine
 public:
 
   typedef function<void(shared_ptr<PaintEvent>, ScreenBase const &, m2::RectD const &, m2::RectD const &, int, bool)> render_fn_t;
-  typedef function<bool (m2::PointD const &)> TEmptyModelFn;
   typedef function<string (m2::PointD const &)> TCountryNameFn;
 
 private:
@@ -95,7 +94,6 @@ private:
   yg::Color m_bgColor;
   yg::gl::PacketsQueue * m_glQueue;
 
-  TEmptyModelFn m_emptyModelFn;
   TCountryNameFn m_countryNameFn;
 
   void waitForRenderCommand(list<shared_ptr<RenderModelCommand> > & cmdList,
@@ -120,7 +118,6 @@ public:
 
   void onSize(int w, int h);
 
-  void SetEmptyModelFn(TEmptyModelFn emptyModelFn);
   void SetCountryNameFn(TCountryNameFn countryNameFn);
 
   /// Check, whether the resize command is queued, and resize accordingly.

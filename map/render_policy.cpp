@@ -139,11 +139,6 @@ void RenderPolicy::SetRenderFn(TRenderFn renderFn)
   m_renderFn = renderFn;
 }
 
-void RenderPolicy::SetEmptyModelFn(TEmptyModelFn emptyModelFn)
-{
-  m_emptyModelFn = emptyModelFn;
-}
-
 void RenderPolicy::SetCountryNameFn(TCountryNameFn countryNameFn)
 {
   m_countryNameFn = countryNameFn;

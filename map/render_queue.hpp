@@ -54,8 +54,6 @@ public:
 
   void SetRedrawAll();
 
-  void SetEmptyModelFn(RenderQueueRoutine::TEmptyModelFn fn);
-
   void SetCountryNameFn(RenderQueueRoutine::TCountryNameFn fn);
 
   void SetVisualScale(double visualScale);

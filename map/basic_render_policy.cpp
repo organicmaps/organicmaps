@@ -25,12 +25,6 @@ void BasicRenderPolicy::SetRenderFn(TRenderFn renderFn)
   m_RenderQueue->initializeGL(m_primaryRC, m_resourceManager);
 }
 
-void BasicRenderPolicy::SetEmptyModelFn(TEmptyModelFn checkFn)
-{
-  RenderPolicy::SetEmptyModelFn(checkFn);
-  m_RenderQueue->SetEmptyModelFn(checkFn);
-}
-
 void BasicRenderPolicy::SetCountryNameFn(TCountryNameFn countryNameFn)
 {
   RenderPolicy::SetCountryNameFn(countryNameFn);

@@ -903,7 +903,6 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 
     m_guiController->SetRenderParams(rp);
 
-    m_renderPolicy->SetEmptyModelFn(bind(&Framework::IsEmptyModel, this, _1));
     m_renderPolicy->SetCountryNameFn(bind(&Framework::GetCountryName, this, _1));
     m_renderPolicy->SetRenderFn(DrawModelFn());
 

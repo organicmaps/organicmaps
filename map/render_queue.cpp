@@ -70,11 +70,6 @@ void RenderQueue::SetRedrawAll()
   m_renderState->m_doRepaintAll = true;
 }
 
-void RenderQueue::SetEmptyModelFn(RenderQueueRoutine::TEmptyModelFn fn)
-{
-  m_routine->SetEmptyModelFn(fn);
-}
-
 void RenderQueue::SetCountryNameFn(RenderQueueRoutine::TCountryNameFn fn)
 {
   m_routine->SetCountryNameFn(fn);

@@ -101,7 +101,6 @@ public:
 
   /// the start point of rendering in renderpolicy.
   virtual void SetRenderFn(TRenderFn renderFn);
-  virtual void SetEmptyModelFn(TEmptyModelFn emptyModelFn);
   virtual void SetCountryNameFn(TCountryNameFn countryNameFn);
 
   bool DoSupportRotation() const;

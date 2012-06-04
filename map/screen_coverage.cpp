@@ -395,9 +395,8 @@ void ScreenCoverage::CheckEmptyModelAtCoverageCenter()
   if (!IsPartialCoverage() && IsEmptyDrawingCoverage())
   {
     m2::PointD centerPt = m_screen.GlobalRect().GetGlobalRect().Center();
-    m_isEmptyModelAtCoverageCenter = m_coverageGenerator->IsEmptyModelAtPoint(centerPt);
-    if (m_isEmptyModelAtCoverageCenter)
-      m_countryNameAtCoverageCenter = m_coverageGenerator->GetCountryName(centerPt);
+    m_countryNameAtCoverageCenter = m_coverageGenerator->GetCountryName(centerPt);
+    m_isEmptyModelAtCoverageCenter = !m_countryNameAtCoverageCenter.empty();
   }
 }
 

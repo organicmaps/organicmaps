@@ -46,7 +46,6 @@ public:
   RenderQueue & GetRenderQueue();
 
   void SetRenderFn(TRenderFn renderFn);
-  void SetEmptyModelFn(TEmptyModelFn checkFn);
   void SetCountryNameFn(TCountryNameFn countryNameFn);
 
   bool NeedRedraw() const;
