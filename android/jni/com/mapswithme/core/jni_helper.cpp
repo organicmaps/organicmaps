@@ -37,10 +37,10 @@ namespace jni
     ASSERT(obj, ("jobject can't be 0"));
 
     jclass cls = env->GetObjectClass(obj);
-    ASSERT(cls, ("Can't get java class"));
+    ASSERT(cls, ("Can't get class: ", DescribeException()));
 
     jmethodID mid = env->GetMethodID(cls, fn, sig);
-    ASSERT(mid, ("Can't find java method", fn, sig));
+    ASSERT(mid, ("Can't get methodID", fn, sig, DescribeException()));
     return mid;
   }
 

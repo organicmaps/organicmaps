@@ -13,6 +13,7 @@
 
 #include "../../../nv_event/nv_event.hpp"
 
+class CountryStatusDisplay;
 
 namespace android
 {
@@ -58,7 +59,7 @@ namespace android
     ~Framework();
 
     storage::Storage & Storage();
-    ::Framework & GetFramework();
+    CountryStatusDisplay * GetCountryStatusDisplay();
 
     void OnLocationStatusChanged(int/* == location::TLocationStatus*/ newStatus);
     void OnLocationUpdated(uint64_t time, double lat, double lon, float accuracy);

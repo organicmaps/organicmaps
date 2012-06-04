@@ -90,23 +90,19 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MWMActivity_nativeConnectDownloadButton(JNIEnv * env, jobject thiz)
   {
-    shared_ptr<CountryStatusDisplay> display = g_framework->GetFramework().GetInformationDisplay().countryStatusDisplay();
+    CountryStatusDisplay * display = g_framework->GetCountryStatusDisplay();
 
-    jclass k = env->GetObjectClass(thiz);
-    ASSERT(k, (jni::DescribeException()));
-    jmethodID methodID = env->GetMethodID(k, "OnDownloadCountryClicked", "()V");
-    ASSERT(methodID, (jni::DescribeException()));
+    jmethodID methodID = jni::GetJavaMethodID(env, thiz, "OnDownloadCountryClicked", "()V");
 
     display->setDownloadListener(bind(&CallOnDownloadCountryClicked,
                                        jni::make_global_ref(thiz),
                                        methodID));
-
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MWMActivity_nativeDownloadCountry(JNIEnv * env, jobject thiz)
   {
-    g_framework->GetFramework().GetInformationDisplay().countryStatusDisplay()->downloadCountry();
+    g_framework->GetCountryStatusDisplay()->downloadCountry();
   }
 
   //////////////////////////////////////////////////////////////////////////////

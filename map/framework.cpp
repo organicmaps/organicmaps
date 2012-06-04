@@ -90,6 +90,11 @@ InformationDisplay & Framework::GetInformationDisplay()
   return m_informationDisplay;
 }
 
+CountryStatusDisplay * Framework::GetCountryStatusDisplay() const
+{
+  return m_informationDisplay.countryStatusDisplay().get();
+}
+
 static void GetResourcesMaps(vector<string> & outMaps)
 {
   Platform & pl = GetPlatform();
@@ -121,11 +126,6 @@ Framework::Framework()
 #ifdef DRAW_TOUCH_POINTS
   m_informationDisplay.enableDebugPoints(true);
 #endif
-
-  char const s [] = "Nothing found. Have you tried\n"\
-                    "downloading maps of the countries?\n"\
-                    "Just click the downloader button \n"\
-                    "at the bottom of the screen.";
 
   m_informationDisplay.enableCenter(true);
   m_informationDisplay.enableRuler(true);

@@ -161,9 +161,9 @@ namespace android
     return m_work.Storage();
   }
 
-  ::Framework & Framework::GetFramework()
+  CountryStatusDisplay * Framework::GetCountryStatusDisplay()
   {
-    return m_work;
+    return m_work.GetCountryStatusDisplay();
   }
 
   void Framework::Resize(int w, int h)

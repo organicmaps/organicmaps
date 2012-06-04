@@ -57,6 +57,8 @@ namespace gui
   class Controller;
 }
 
+class CountryStatusDisplay;
+
 class Framework
 {
 protected:
@@ -159,6 +161,7 @@ public:
   RenderPolicy * GetRenderPolicy() const;
 
   InformationDisplay & GetInformationDisplay();
+  CountryStatusDisplay * GetCountryStatusDisplay() const;
 
   void PrepareToShutdown();
 
