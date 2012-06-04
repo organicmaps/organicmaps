@@ -143,10 +143,6 @@ bool MainWindow::winEvent(MSG * msg, long * result)
 MainWindow::~MainWindow()
 {
   SaveState();
-#ifndef NO_DOWNLOADER
-  if (m_updateDialog)
-    m_updateDialog->DetachFromStorage();
-#endif
 }
 
 void MainWindow::SaveState()
