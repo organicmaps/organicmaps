@@ -48,7 +48,6 @@ protected:
   shared_ptr<WindowHandle> m_windowHandle;
   shared_ptr<DrawerYG> m_drawer;
   TRenderFn m_renderFn;
-  TEmptyModelFn m_emptyModelFn;
   TCountryNameFn m_countryNameFn;
   bool m_doSupportRotation;
   bool m_doForceUpdate;

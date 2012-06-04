@@ -50,7 +50,6 @@ InformationDisplay::InformationDisplay(storage::Storage * storage)
     m_DebugPts[i] = m2::PointD(0, 0);
 
   m_fontDesc = yg::FontDesc(12);
-  m_emptyMessageFont = yg::FontDesc(14, yg::Color(0x60, 0x60, 0x60, 0xFF));
 }
 
 void InformationDisplay::setController(gui::Controller *controller)
@@ -150,7 +149,6 @@ void InformationDisplay::setVisualScale(double visualScale)
   m_visualScale = visualScale;
 
   m_fontDesc.m_size = static_cast<uint32_t>(12 * visualScale);
-  m_emptyMessageFont.m_size = static_cast<uint32_t>(14 * visualScale);
 }
 
 void InformationDisplay::enableCenter(bool doEnable)

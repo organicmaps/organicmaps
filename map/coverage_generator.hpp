@@ -53,7 +53,6 @@ private:
 
   threads::Mutex m_mutex;
 
-  RenderPolicy::TEmptyModelFn m_emptyModelFn;
   RenderPolicy::TCountryNameFn m_countryNameFn;
 
   yg::gl::PacketsQueue * m_glQueue;
@@ -69,7 +68,6 @@ public:
                     shared_ptr<yg::gl::RenderContext> const & primaryRC,
                     shared_ptr<yg::ResourceManager> const & rm,
                     yg::gl::PacketsQueue * glQueue,
-                    RenderPolicy::TEmptyModelFn emptyModelFn,
                     RenderPolicy::TCountryNameFn countryNameFn);
 
   ~CoverageGenerator();
@@ -94,7 +92,6 @@ public:
 
   void WaitForEmptyAndFinished();
 
-  bool IsEmptyModelAtPoint(m2::PointD const & pt) const;
   string GetCountryName(m2::PointD const & pt) const;
 
   ScreenCoverage & CurrentCoverage();

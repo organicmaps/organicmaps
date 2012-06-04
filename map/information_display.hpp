@@ -36,7 +36,6 @@ class InformationDisplay
 private:
 
   yg::FontDesc m_fontDesc;
-  yg::FontDesc m_emptyMessageFont;
 
   ScreenBase m_screen;
   m2::RectI m_displayRect;
@@ -57,9 +56,6 @@ private:
   bool m_isDebugInfoEnabled;
   double m_frameDuration;
 
-  string m_emptyCountryName;
-
-  string m_emptyModelMessage;
   shared_ptr<gui::Button> m_downloadButton;
   gui::Controller * m_controller;
 

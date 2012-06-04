@@ -21,13 +21,11 @@ CoverageGenerator::CoverageGenerator(
     shared_ptr<yg::gl::RenderContext> const & primaryRC,
     shared_ptr<yg::ResourceManager> const & rm,
     yg::gl::PacketsQueue * glQueue,
-    RenderPolicy::TEmptyModelFn emptyModelFn,
     RenderPolicy::TCountryNameFn countryNameFn)
   : m_queue(1),
     m_tileRenderer(tileRenderer),
     m_sequenceID(0),
     m_windowHandle(windowHandle),
-    m_emptyModelFn(emptyModelFn),
     m_countryNameFn(countryNameFn),
     m_glQueue(glQueue),
     m_skinName(skinName)
@@ -251,11 +249,6 @@ void CoverageGenerator::SetSequenceID(int sequenceID)
 shared_ptr<yg::ResourceManager> const & CoverageGenerator::resourceManager() const
 {
   return m_resourceManager;
-}
-
-bool CoverageGenerator::IsEmptyModelAtPoint(m2::PointD const & pt) const
-{
-  return m_emptyModelFn(pt);
 }
 
 string CoverageGenerator::GetCountryName(m2::PointD const & pt) const

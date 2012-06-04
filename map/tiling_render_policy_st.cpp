@@ -232,6 +232,5 @@ void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
                                                   m_primaryRC,
                                                   m_resourceManager,
                                                   m_QueuedRenderer->GetPacketsQueue(cpuCores),
-                                                  m_emptyModelFn,
                                                   m_countryNameFn));
 }
