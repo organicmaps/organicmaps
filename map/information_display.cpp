@@ -360,7 +360,7 @@ void InformationDisplay::enableCountryStatusDisplay(bool doEnable)
   m_countryStatusDisplay->setIsVisible(doEnable);
 }
 
-void InformationDisplay::setEmptyCountryName(const char *country)
+void InformationDisplay::setEmptyCountryName(string const & country)
 {
   m_countryStatusDisplay->setCountryName(country);
 }

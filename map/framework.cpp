@@ -471,7 +471,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   bool isEmptyModel = m_renderPolicy->IsEmptyModel();
 
   if (isEmptyModel)
-    m_informationDisplay.setEmptyCountryName(m_renderPolicy->GetCountryName().c_str());
+    m_informationDisplay.setEmptyCountryName(m_renderPolicy->GetCountryName());
 
   m_informationDisplay.enableCountryStatusDisplay(isEmptyModel);
 

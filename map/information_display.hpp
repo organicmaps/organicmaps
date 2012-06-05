@@ -131,7 +131,7 @@ public:
 
   void enableCountryStatusDisplay(bool doEnable);
   void setDownloadListener(gui::Button::TOnClickListener l);
-  void setEmptyCountryName(char const * country);
+  void setEmptyCountryName(string const & country);
 
   shared_ptr<CountryStatusDisplay> const & countryStatusDisplay() const;
 
