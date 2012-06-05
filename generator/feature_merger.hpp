@@ -108,7 +108,10 @@ public:
   void SetMappingTypes(char const * arr1[2], char const * arr2[2]);
 
   /// Leave original types, for example: boundary-administrative-2.
-  void SetDontNormalizeType(char const * arr[3]);
+  template <size_t N> void SetDontNormalizeType(char const * (&arr)[N])
+  {
+    m_dontNormalize.insert(GetType(arr, N));
+  }
 
   MergedFeatureBuilder1 * operator() (FeatureBuilder1 const & fb);
 };

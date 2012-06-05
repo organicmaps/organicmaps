@@ -295,11 +295,6 @@ void FeatureTypesProcessor::SetMappingTypes(char const * arr1[2], char const * a
   m_mapping[GetType(arr1, 2)] = GetType(arr2, 2);
 }
 
-void FeatureTypesProcessor::SetDontNormalizeType(char const * arr[3])
-{
-  m_dontNormalize.insert(GetType(arr, 3));
-}
-
 MergedFeatureBuilder1 * FeatureTypesProcessor::operator() (FeatureBuilder1 const & fb)
 {
   MergedFeatureBuilder1 * p = new MergedFeatureBuilder1(fb);

@@ -49,14 +49,17 @@ public:
   {
     // Do not strip last types for given tags,
     // for example, do not cut 'admin_level' in  'boundary-administrative-XXX'.
-    char const * arrDontNormalize[][3] = {
+    char const * arr3[][3] = {
       { "boundary", "administrative", "2" },
       { "boundary", "administrative", "3" },
       { "boundary", "administrative", "4" }
     };
 
-    for (size_t i = 0; i < ARRAY_SIZE(arrDontNormalize); ++i)
-      m_typesCorrector.SetDontNormalizeType(arrDontNormalize[i]);
+    for (size_t i = 0; i < ARRAY_SIZE(arr3); ++i)
+      m_typesCorrector.SetDontNormalizeType(arr3[i]);
+
+    char const * arr4[]  = { "boundary", "administrative", "4", "state" };
+    m_typesCorrector.SetDontNormalizeType(arr4);
   }
 
   void operator()(FeatureBuilder1 const & fb)
