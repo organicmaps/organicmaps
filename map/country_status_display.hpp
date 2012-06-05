@@ -48,6 +48,8 @@ private:
   /// caching resources for fast rendering.
   void cache();
 
+  string const displayName() const;
+
 public:
 
   struct Params : public gui::Element::Params

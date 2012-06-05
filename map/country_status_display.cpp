@@ -9,11 +9,22 @@
 
 #include "../yg/overlay_renderer.hpp"
 
+string const CountryStatusDisplay::displayName() const
+{
+  if (!m_mapGroupName.empty())
+    return m_mapName + "(" + m_mapGroupName + ")";
+  else
+    return m_mapName;
+}
+
 void CountryStatusDisplay::cache()
 {
   m_downloadButton->setIsVisible(false);
 
   m_statusMsg->setIsVisible(false);
+
+  string const dn = displayName();
+  strings::UniString s(strings::MakeUniString(dn));
 
   if (m_countryIdx != storage::TIndex())
   {
@@ -24,12 +35,11 @@ void CountryStatusDisplay::cache()
         m_statusMsg->setIsVisible(true);
 
         ostringstream out;
-        out << m_mapName;
 
-        if (!m_mapGroupName.empty())
-          out << "(" << m_mapGroupName << ")";
-
-        out << " is added to the\ndownloading queue";
+        if (s.size() > 13)
+          out << dn << "\nis added to the\ndownloading queue";
+        else
+          out << dn << " is added to the\ndownloading queue";
 
         m_statusMsg->setText(out.str());
       }
@@ -41,10 +51,10 @@ void CountryStatusDisplay::cache()
 
         ostringstream out;
 
-        out << "Downloading " << m_mapName;
-
-        if (!m_mapGroupName.empty())
-          out << "(" << m_mapGroupName << ")";
+        if (s.size() > 13)
+          out << "Downloading\n" << dn;
+        else
+          out << "Downloading " << dn;
 
         out << "(" << m_countryProgress.first * 100 / m_countryProgress.second << "%)";
 
@@ -55,11 +65,10 @@ void CountryStatusDisplay::cache()
       {
         m_downloadButton->setIsVisible(true);
 
-        string buttonText = "Download " + m_mapName;
-        if (!m_mapGroupName.empty())
-          buttonText += "(" + m_mapGroupName + ")";
-
-        m_downloadButton->setText(buttonText);
+        if (s.size() > 13)
+          m_downloadButton->setText("Download\n" + dn);
+        else
+          m_downloadButton->setText("Download " + dn);
       }
       break;
     case storage::EDownloadFailed:
@@ -69,10 +78,10 @@ void CountryStatusDisplay::cache()
 
         ostringstream out;
 
-        out << "Downloading " << m_mapName;
-
-        if (!m_mapGroupName.empty())
-          out << "(" << m_mapGroupName << ")";
+        if (s.size() > 13)
+          out << "Downloading\n" << dn;
+        else
+          out << "Downloading " << dn;
 
         out << "\nhas failed.";
 
