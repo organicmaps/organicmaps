@@ -10,6 +10,7 @@
 #include "../../../../../geometry/avg_vector.hpp"
 
 #include "../../../../../base/timer.hpp"
+#include "../../../../../base/strings_bundle.hpp"
 
 #include "../../../nv_event/nv_event.hpp"
 
@@ -93,6 +94,9 @@ namespace android
     void AddMap(string const & fileName);
 
     string const GetCountryName(double x, double y) const;
+
+    StringsBundle const GetDefaultStringsBundle() const;
+    void SetStringsBundle(StringsBundle const & bundle);
   };
 }
 

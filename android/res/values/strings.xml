@@ -42,4 +42,8 @@
     <string name="download_location_map_up_to_date">The map at your current\nlocation (%s) is up-to-date</string>
     <string name="pause">Pause</string>
     <string name="continue_download">Continue</string>
+    <string name="country_status_added_to_queue">%is added to the\ndownloading queue.</string>
+    <string formatted="false" name="country_status_download">Downloading%(%\\%)</string>
+    <string name="country_status_downloading">Download%</string>
+    <string name="country_status_download_failed">Downloading%\nhas failed</string>
 </resources>

@@ -42,4 +42,8 @@
     <string name="download_location_map_up_to_date">Карта местности, в которой\nвы находитесь (%s) уже загружена.</string>
     <string name="pause">Приостановить</string>
     <string name="continue_download">Продолжить</string>
+    <string name="country_status_added_to_queue">%добавлено в очередь\nзагрузки.</string>
+    <string name="country_status_download">Загрузить%</string>
+    <string name="country_status_downloading" formatted="false">Загружается%(%\\%)</string>    
+    <string name="country_status_download_failed">Ошибка загрузки%.</string>
 </resources>

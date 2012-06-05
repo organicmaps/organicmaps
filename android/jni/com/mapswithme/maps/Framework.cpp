@@ -423,4 +423,14 @@ namespace android
   {
     return m_work.GetCountryName(m2::PointD(x, y));
   }
+
+  StringsBundle const Framework::GetDefaultStringsBundle() const
+  {
+    return m_work.GetDefaultStringsBundle();
+  }
+
+  void Framework::SetStringsBundle(StringsBundle const & bundle)
+  {
+    m_work.SetStringsBundle(bundle);
+  }
 }

@@ -290,6 +290,16 @@ LocationService.Listener
     final boolean isMyPositionEnabled = prefs.getBoolean(PREFERENCES_MYPOSITION, false);
     findViewById(R.id.map_button_myposition).setSelected(isMyPositionEnabled);
 
+    nativeInitStringsBundle();
+
+    nativeSetString("country_status_added_to_queue", getString(R.string.country_status_added_to_queue));
+    nativeSetString("country_status_downloading", getString(R.string.country_status_downloading));
+    nativeSetString("country_status_download", getString(R.string.country_status_download));
+    nativeSetString("country_status_download_failed", getString(R.string.country_status_download_failed));
+    nativeSetString("try_again", getString(R.string.try_again));
+
+    nativeApplyStringsBundle();
+
     nativeConnectDownloadButton();
   }
 
@@ -456,6 +466,10 @@ LocationService.Listener
       m_externalStorageReceiver = null;
     }
   }
+
+  private native void nativeInitStringsBundle();
+  private native void nativeSetString(String name, String value);
+  private native void nativeApplyStringsBundle();
 
   private native void nativeStorageConnected();
   private native void nativeStorageDisconnected();
