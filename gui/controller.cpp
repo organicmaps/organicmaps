@@ -157,4 +157,22 @@ namespace gui
   {
     return m_GlyphCache;
   }
+
+  void Controller::SetStringsBundle(StringsBundle const * bundle)
+  {
+    m_bundle = bundle;
+
+    for (elem_list_t::const_iterator it = m_Elements.begin();
+         it != m_Elements.end();
+         ++it)
+    {
+      (*it)->setIsDirtyRect(true);
+      (*it)->setIsDirtyDrawing(true);
+    }
+  }
+
+  StringsBundle const * Controller::GetStringsBundle() const
+  {
+    return m_bundle;
+  }
 }

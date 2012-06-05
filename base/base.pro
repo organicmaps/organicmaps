@@ -26,6 +26,8 @@ SOURCES += \
     threaded_container.cpp \
     resource_pool.cpp \
     fence_manager.cpp \
+    strings_bundle.cpp \
+    string_format.cpp \
 
 HEADERS += \
     SRC_FIRST.hpp \
@@ -73,3 +75,5 @@ HEADERS += \
     threaded_priority_queue.hpp \
     std_serialization.hpp \
     fence_manager.hpp \
+    strings_bundle.hpp \
+    string_format.hpp \

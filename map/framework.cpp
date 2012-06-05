@@ -121,6 +121,10 @@ Framework::Framework()
 {
   m_guiController.reset(new gui::Controller());
 
+  SetStringsBundle(GetDefaultStringsBundle());
+
+  m_guiController->SetStringsBundle(&m_stringsBundle);
+
   m_informationDisplay.setController(m_guiController.get());
 
 #ifdef DRAW_TOUCH_POINTS
@@ -969,6 +973,25 @@ string Framework::GetCountryCodeByPosition(double lat, double lon) const
 gui::Controller * Framework::GetGuiController() const
 {
   return m_guiController.get();
+}
+
+StringsBundle const Framework::GetDefaultStringsBundle() const
+{
+  StringsBundle res;
+
+  res.SetDefaultString("country_status_added_to_queue", "%is added to the\ndownloading queue.");
+  res.SetDefaultString("country_status_downloading", "Downloading%(%\\%)");
+  res.SetDefaultString("country_status_download", "Download%");
+  res.SetDefaultString("country_status_download_failed", "Downloading%\nhas failed");
+  res.SetDefaultString("try_again", "Try Again");
+
+  return res;
+}
+
+void Framework::SetStringsBundle(StringsBundle const & bundle)
+{
+  m_stringsBundle = bundle;
+  m_guiController->SetStringsBundle(&m_stringsBundle);
 }
 
 bool Framework::SetViewportByURL(string const & url)

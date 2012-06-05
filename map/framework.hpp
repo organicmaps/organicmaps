@@ -40,6 +40,7 @@
 #include "../base/logging.hpp"
 //#include "../base/mutex.hpp"
 #include "../base/timer.hpp"
+#include "../base/strings_bundle.hpp"
 
 #include "../std/vector.hpp"
 #include "../std/shared_ptr.hpp"
@@ -62,6 +63,9 @@ class CountryStatusDisplay;
 class Framework
 {
 protected:
+
+  StringsBundle m_stringsBundle;
+
   mutable scoped_ptr<search::Engine> m_pSearchEngine;
   model::FeaturesFetcher m_model;
   Navigator m_navigator;
@@ -290,6 +294,10 @@ public:
   //@}
 
   gui::Controller * GetGuiController() const;
+
+  /// Set the localized strings bundle
+  void SetStringsBundle(StringsBundle const & bundle);
+  StringsBundle const GetDefaultStringsBundle() const;
 
 private:
   //bool IsEmptyModel() const;

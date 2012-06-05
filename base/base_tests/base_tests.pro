@@ -33,9 +33,10 @@ SOURCES += \
   threaded_list_test.cpp \
   condition_test.cpp \
   containers_test.cpp \
-    fence_manager_test.cpp
-
+  fence_manager_test.cpp \
+  string_format_test.cpp \
 
 HEADERS +=
+
 
 

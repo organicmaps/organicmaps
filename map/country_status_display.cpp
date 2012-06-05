@@ -5,6 +5,8 @@
 #include "../std/bind.hpp"
 #include "../std/sstream.hpp"
 
+#include "../base/string_format.hpp"
+
 #include "../storage/storage.hpp"
 
 #include "../yg/overlay_renderer.hpp"
@@ -23,8 +25,27 @@ void CountryStatusDisplay::cache()
 
   m_statusMsg->setIsVisible(false);
 
-  string const dn = displayName();
-  strings::UniString s(strings::MakeUniString(dn));
+  string dn = displayName();
+  strings::UniString udn(strings::MakeUniString(dn));
+
+  StringsBundle const * stringsBundle = m_controller->GetStringsBundle();
+
+  string prefixedName;
+  string postfixedName;
+
+  if (udn.size() > 13)
+  {
+    if (strings::MakeUniString(m_mapName).size() > 13)
+      dn = m_mapName + "\n" + "(" + m_mapGroupName + ")";
+
+    prefixedName = "\n" + dn;
+    postfixedName = dn + "\n";
+  }
+  else
+  {
+    prefixedName = " " + dn;
+    postfixedName = dn + " ";
+  }
 
   if (m_countryIdx != storage::TIndex())
   {
@@ -33,15 +54,9 @@ void CountryStatusDisplay::cache()
     case storage::EInQueue:
       {
         m_statusMsg->setIsVisible(true);
+        string countryStatusAddedToQueue = stringsBundle->GetString("country_status_added_to_queue");
 
-        ostringstream out;
-
-        if (s.size() > 13)
-          out << dn << "\nis added to the\ndownloading queue";
-        else
-          out << dn << " is added to the\ndownloading queue";
-
-        m_statusMsg->setText(out.str());
+        m_statusMsg->setText(strings::Format(countryStatusAddedToQueue, postfixedName));
       }
 
       break;
@@ -49,44 +64,29 @@ void CountryStatusDisplay::cache()
       {
         m_statusMsg->setIsVisible(true);
 
-        ostringstream out;
+        int percent = m_countryProgress.first * 100 / m_countryProgress.second;
 
-        if (s.size() > 13)
-          out << "Downloading\n" << dn;
-        else
-          out << "Downloading " << dn;
-
-        out << "(" << m_countryProgress.first * 100 / m_countryProgress.second << "%)";
-
-        m_statusMsg->setText(out.str());
+        string countryStatusDownloading = stringsBundle->GetString("country_status_downloading");
+        m_statusMsg->setText(strings::Format(countryStatusDownloading, prefixedName, percent));
       }
       break;
     case storage::ENotDownloaded:
       {
         m_downloadButton->setIsVisible(true);
 
-        if (s.size() > 13)
-          m_downloadButton->setText("Download\n" + dn);
-        else
-          m_downloadButton->setText("Download " + dn);
+        string countryStatusDownload = stringsBundle->GetString("country_status_download");
+        m_downloadButton->setText(strings::Format(countryStatusDownload, prefixedName));
       }
       break;
     case storage::EDownloadFailed:
       {
         m_downloadButton->setIsVisible(true);
-        m_downloadButton->setText("Try again");
+        m_downloadButton->setText(stringsBundle->GetString("try_again"));
 
-        ostringstream out;
-
-        if (s.size() > 13)
-          out << "Downloading\n" << dn;
-        else
-          out << "Downloading " << dn;
-
-        out << "\nhas failed.";
+        string countryStatusDownloadFailed = stringsBundle->GetString("country_status_download_failed");
+        m_statusMsg->setText(strings::Format(countryStatusDownloadFailed, prefixedName));
 
         m_statusMsg->setIsVisible(true);
-        m_statusMsg->setText(out.str());
 
         setPivot(pivot());
       }

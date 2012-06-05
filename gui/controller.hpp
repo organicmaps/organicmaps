@@ -3,10 +3,16 @@
 #include "../std/shared_ptr.hpp"
 #include "../std/function.hpp"
 #include "../std/list.hpp"
-#include "../yg/overlay.hpp"
+
+#include "../geometry/point2d.hpp"
+
+#include "../base/strings_bundle.hpp"
 
 namespace yg
 {
+  class GlyphCache;
+  class OverlayElement;
+
   namespace gl
   {
     class Screen;
@@ -48,6 +54,9 @@ namespace gui
     /// GlyphCache for text rendering by GUI elements.
     yg::GlyphCache * m_GlyphCache;
 
+    /// Localized strings for GUI.
+    StringsBundle const * m_bundle;
+
   public:
 
     /// Constructor with GestureDetector to route events from.
@@ -76,6 +85,8 @@ namespace gui
 
     /// Attach GUI Controller to the renderer
     void SetRenderParams(RenderParams const & p);
+    /// Set the bundle with localized strings
+    void SetStringsBundle(StringsBundle const * bundle);
     /// Detach GUI Controller from the renderer
     void ResetRenderParams();
     /// Invalidate the scene
@@ -86,6 +97,8 @@ namespace gui
     void AddElement(shared_ptr<Element> const & e);
     /// Get VisualScale parameter
     double GetVisualScale() const;
+    /// Get localized strings bundle
+    StringsBundle const * GetStringsBundle() const;
     /// Get GLyphCache
     yg::GlyphCache * GetGlyphCache() const;
     /// Redraw GUI
