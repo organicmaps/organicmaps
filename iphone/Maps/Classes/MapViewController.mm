@@ -166,11 +166,16 @@
     EAGLView * v = (EAGLView *)self.view;
 
     Framework & f = GetFramework();
-    char const * str = [NSLocalizedString(@"Nothing found. Have you tried downloading maps of the countries? Just click the download button at the bottom of the screen.", @"Message in the center of the screen then user zooms in but country is not downloaded") UTF8String];
-    f.GetInformationDisplay().setEmptyModelString(str);
+
+    StringsBundle b = f.GetDefaultStringsBundle();
     
-    char const * downloadStr = [NSLocalizedString(@"Download", @"Settings/Downloader - Main downloader window title") UTF8String];
-    f.GetInformationDisplay().setDownloadString(downloadStr);
+    b.SetString("country_status_added_to_queue", [NSLocalizedString(@"%is added to the\ndownloading queue.", @"Message to display at the center of the screen when the country is added to the downloading queue") UTF8String]);
+    b.SetString("country_status_downloading", [NSLocalizedString(@"Downloading%(%\\%)", @"Message to display at the center of the screen when the country is downloading") UTF8String]);
+    b.SetString("country_status_download", [NSLocalizedString(@"Download%", @"Button text for the button at the center of the screen when the country is not downloaded") UTF8String]);
+    b.SetString("country_status_download_failed", [NSLocalizedString(@"Downloading%\nhas failed", @"Message to display at the center of the screen when the country download has failed") UTF8String]);
+    b.SetString("try_again", [NSLocalizedString(@"Try Again", @"Button text for the button under the country_status_download_failed message") UTF8String]);
+    
+    f.SetStringsBundle(b);
     
 		m_StickyThreshold = 10;
 

@@ -10,8 +10,6 @@ namespace strings
 
     string temp = s;
 
-    LOG(LINFO, (s));
-
     while (true)
     {
       offs = temp.find("%", offs);
@@ -45,8 +43,6 @@ namespace strings
       res.replace(*offsIt + offs, 1, *strIt);
       offs += strIt->size() - 1;
     }
-
-    LOG(LINFO, (res));
 
     return res;
   }
