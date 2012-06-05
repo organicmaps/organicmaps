@@ -2,6 +2,7 @@
 
 #include "../feature_builder.hpp"
 #include "../feature_sorter.hpp"
+#include "../feature_generator.hpp"
 
 #include "../../indexer/mercator.hpp"
 #include "../../indexer/cell_id.hpp"
@@ -95,25 +96,31 @@ UNIT_TEST(CellID_CheckRectPoints)
 
 namespace
 {
-  class DoPrintCoasts
+  class ProcessCoastsBase
   {
     vector<string> const & m_vID;
 
-    bool Has(string const & id) const
+  protected:
+    bool HasID(FeatureBuilder1 const & fb) const
     {
-      return (find(m_vID.begin(), m_vID.end(), id) != m_vID.end());
+      int64_t dummy;
+      TEST(fb.GetCoastCell(dummy), ());
+
+      return (find(m_vID.begin(), m_vID.end(), fb.GetName()) != m_vID.end());
     }
 
   public:
-    DoPrintCoasts(vector<string> const & vID) : m_vID(vID) {}
+    ProcessCoastsBase(vector<string> const & vID) : m_vID(vID) {}
+  };
+
+  class DoPrintCoasts : public ProcessCoastsBase
+  {
+  public:
+    DoPrintCoasts(vector<string> const & vID) : ProcessCoastsBase(vID) {}
 
     void operator() (FeatureBuilder1 const & fb1, uint64_t)
     {
-      int64_t dummy;
-      TEST(fb1.GetCoastCell(dummy), ());
-
-      string const id = fb1.GetName();
-      if (Has(id))
+      if (HasID(fb1))
       {
         FeatureBuilder2 const & fb2 = reinterpret_cast<FeatureBuilder2 const &>(fb1);
 
@@ -123,7 +130,7 @@ namespace
         TEST(fb2.IsDrawableInRange(0, upperScale), ());
 
         m2::RectD const rect = fb2.GetLimitRect();
-        LOG(LINFO, ("ID = ", id, "Rect = ", rect, "Polygons = ", fb2.GetPolygons()));
+        LOG(LINFO, ("ID = ", fb1.GetName(), "Rect = ", rect, "Polygons = ", fb2.GetPolygons()));
 
         // Make bound rect inflated a little.
         feature::BoundsDistance dist(rect);
@@ -137,6 +144,8 @@ namespace
         // Check that all simplifications are inside bound rect.
         for (int level = 0; level <= upperScale; ++level)
         {
+          TEST(fb2.IsDrawableInRange(level, level), ());
+
           for (PolygonsT::const_iterator i = poly.begin(); i != poly.end(); ++i)
           {
             PointsT pts;
@@ -151,19 +160,50 @@ namespace
       }
     }
   };
+
+  class DoCopyCoasts : public ProcessCoastsBase
+  {
+    feature::FeaturesCollector m_collector;
+  public:
+    DoCopyCoasts(string const & fName, vector<string> const & vID)
+      : ProcessCoastsBase(vID), m_collector(fName)
+    {
+    }
+
+    void operator() (FeatureBuilder1 const & fb1, uint64_t)
+    {
+      if (HasID(fb1))
+        m_collector(fb1);
+    }
+  };
 }
 
 /*
 UNIT_TEST(WorldCoasts_CheckBounds)
 {
   vector<string> vID;
-  vID.push_back("1231");
-  vID.push_back("123203");
-  vID.push_back("12323");
-  vID.push_back("03321");
 
-  DoPrintCoasts doGet(vID);
-  feature::ForEachFromDatRawFormat(
-        "/Users/alena/omim/omim-indexer-tmp/WorldCoasts.mwm.tmp", doGet);
+  // bounds
+  vID.push_back("2222");
+  vID.push_back("3333");
+  vID.push_back("0000");
+  vID.push_back("1111");
+
+  // bad cells
+  vID.push_back("2021");
+  vID.push_back("2333");
+  vID.push_back("3313");
+  vID.push_back("1231");
+  vID.push_back("32003");
+  vID.push_back("21330");
+  vID.push_back("20110");
+  vID.push_back("03321");
+  vID.push_back("12323");
+  vID.push_back("1231");
+  vID.push_back("1311");
+
+  //DoPrintCoasts doProcess(vID);
+  DoCopyCoasts doProcess("/Users/alena/omim/omim/data/WorldCoasts.mwm.tmp", vID);
+  feature::ForEachFromDatRawFormat("/Users/alena/omim/omim-indexer-tmp/WorldCoasts.mwm.tmp", doProcess);
 }
 */

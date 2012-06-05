@@ -158,6 +158,7 @@ void FeaturesCollector::WriteFeatureBase(vector<char> const & bytes, FeatureBuil
 
 void FeaturesCollector::operator() (FeatureBuilder1 const & fb)
 {
+  // Just to ensure that file size is less than 4Gb.
   (void)GetFileSize(m_datFile);
 
   FeatureBuilder1::buffer_t bytes;
