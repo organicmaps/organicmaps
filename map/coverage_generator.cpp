@@ -161,7 +161,10 @@ void CoverageGenerator::CoverScreen(ScreenBase const & screen, int sequenceID)
   m_workCoverage->SetScreen(screen);
 
   if (!m_workCoverage->IsPartialCoverage() && m_workCoverage->IsEmptyDrawingCoverage())
+  {
+    m_workCoverage->ResetEmptyModelAtCoverageCenter();
     AddCheckEmptyModelTask(sequenceID);
+  }
 
   m_workCoverage->Cache();
 
@@ -197,7 +200,10 @@ void CoverageGenerator::MergeTile(Tiler::RectInfo const & rectInfo, int sequence
   m_workCoverage->Merge(rectInfo);
 
   if (!m_workCoverage->IsPartialCoverage() && m_workCoverage->IsEmptyDrawingCoverage())
+  {
+    m_workCoverage->ResetEmptyModelAtCoverageCenter();
     AddCheckEmptyModelTask(sequenceID);
+  }
 
   m_workCoverage->Cache();
 

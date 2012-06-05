@@ -385,6 +385,11 @@ bool ScreenCoverage::IsEmptyModelAtCoverageCenter() const
   return m_isEmptyModelAtCoverageCenter;
 }
 
+void ScreenCoverage::ResetEmptyModelAtCoverageCenter()
+{
+  m_isEmptyModelAtCoverageCenter = false;
+}
+
 string ScreenCoverage::GetCountryNameAtCoverageCenter() const
 {
   return m_countryNameAtCoverageCenter;

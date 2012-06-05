@@ -103,6 +103,8 @@ public:
   bool IsEmptyDrawingCoverage() const;
   /// Is the model empty at the screen center
   bool IsEmptyModelAtCoverageCenter() const;
+  /// Reset IsEmptyModelAtCoverageCenter flag
+  void ResetEmptyModelAtCoverageCenter();
   /// What country is at this coverage center.
   /// @warning check this flag only if IsEmptyModelAtCoverageCenter is true
   string GetCountryNameAtCoverageCenter() const;
