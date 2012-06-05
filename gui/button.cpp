@@ -107,7 +107,7 @@ namespace gui
       m2::RectD tr(m_textView->roughBoundRect());
       m2::RectD rc(0, 0, tr.SizeX(), tr.SizeY());
 
-      rc.Inflate(20 * k, 10 * k);
+      rc.Inflate(15 * k, 5 * k);
 
       double dx = 0;
       double dy = 0;
