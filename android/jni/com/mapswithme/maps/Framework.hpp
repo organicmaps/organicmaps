@@ -95,8 +95,7 @@ namespace android
 
     string const GetCountryName(double x, double y) const;
 
-    StringsBundle const GetDefaultStringsBundle() const;
-    void SetStringsBundle(StringsBundle const & bundle);
+    void AddString(string const & name, string const & value);
   };
 }
 

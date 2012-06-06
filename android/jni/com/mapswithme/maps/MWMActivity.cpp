@@ -6,12 +6,10 @@
 
 #include "../../../nv_event/nv_event.hpp"
 
-#include "../../../../../platform/settings.hpp"
 #include "../../../../../map/country_status_display.hpp"
 
-#include "../../../../../base/strings_bundle.hpp"
+#include "../../../../../platform/settings.hpp"
 
-StringsBundle g_stringsBundle;
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 extern "C"
@@ -110,24 +108,10 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeInitStringsBundle(JNIEnv * env, jobject thiz)
-  {
-    g_stringsBundle = g_framework->GetDefaultStringsBundle();
-  }
-
-  JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MWMActivity_nativeSetString(JNIEnv * env, jobject thiz, jstring name, jstring value)
   {
-    g_stringsBundle.SetString(jni::ToString(name), jni::ToString(value));
+    g_framework->AddString(jni::ToString(name), jni::ToString(value));
   }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeApplyStringsBundle(JNIEnv * env, jobject thiz)
-  {
-    g_framework->SetStringsBundle(g_stringsBundle);
-  }
-
-  //////////////////////////////////////////////////////////////////////////////
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MWMActivity_nativeStorageConnected(JNIEnv * env, jobject thiz)

@@ -23,8 +23,7 @@ import android.webkit.WebView;
 import com.mapswithme.maps.location.LocationService;
 import com.nvidia.devtech.NvEventQueueActivity;
 
-public class MWMActivity extends NvEventQueueActivity implements
-LocationService.Listener
+public class MWMActivity extends NvEventQueueActivity implements LocationService.Listener
 {
   //VideoTimer m_timer;
 
@@ -290,15 +289,11 @@ LocationService.Listener
     final boolean isMyPositionEnabled = prefs.getBoolean(PREFERENCES_MYPOSITION, false);
     findViewById(R.id.map_button_myposition).setSelected(isMyPositionEnabled);
 
-    nativeInitStringsBundle();
-
     nativeSetString("country_status_added_to_queue", getString(R.string.country_status_added_to_queue));
     nativeSetString("country_status_downloading", getString(R.string.country_status_downloading));
     nativeSetString("country_status_download", getString(R.string.country_status_download));
     nativeSetString("country_status_download_failed", getString(R.string.country_status_download_failed));
     nativeSetString("try_again", getString(R.string.try_again));
-
-    nativeApplyStringsBundle();
 
     nativeConnectDownloadButton();
   }
@@ -402,7 +397,8 @@ LocationService.Listener
   private void handleExternalStorageState(boolean available, boolean writeable)
   {
     if (available && writeable)
-    { // Add local maps to the model
+    {
+      // Add local maps to the model
       nativeStorageConnected();
       // enable downloader button and dismiss blocking popup
       findViewById(R.id.map_button_download).setVisibility(View.VISIBLE);
@@ -410,7 +406,8 @@ LocationService.Listener
         m_storageDisconnectedDialog.dismiss();
     }
     else if (available)
-    { // Add local maps to the model
+    {
+      // Add local maps to the model
       nativeStorageConnected();
       // disable downloader button and dismiss blocking popup
       findViewById(R.id.map_button_download).setVisibility(View.INVISIBLE);
@@ -418,7 +415,8 @@ LocationService.Listener
         m_storageDisconnectedDialog.dismiss();
     }
     else
-    { // Remove local maps from the model
+    {
+      // Remove local maps from the model
       nativeStorageDisconnected();
       // enable downloader button and show blocking popup
       findViewById(R.id.map_button_download).setVisibility(View.VISIBLE);
@@ -467,9 +465,7 @@ LocationService.Listener
     }
   }
 
-  private native void nativeInitStringsBundle();
   private native void nativeSetString(String name, String value);
-  private native void nativeApplyStringsBundle();
 
   private native void nativeStorageConnected();
   private native void nativeStorageDisconnected();

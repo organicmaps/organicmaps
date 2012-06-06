@@ -296,8 +296,10 @@ public:
   gui::Controller * GetGuiController() const;
 
   /// Set the localized strings bundle
-  void SetStringsBundle(StringsBundle const & bundle);
-  StringsBundle const GetDefaultStringsBundle() const;
+  inline void AddString(string const & name, string const & value)
+  {
+    m_stringsBundle.SetString(name, value);
+  }
 
 private:
   //bool IsEmptyModel() const;

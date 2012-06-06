@@ -167,16 +167,12 @@
 
     Framework & f = GetFramework();
 
-    StringsBundle b = f.GetDefaultStringsBundle();
-    
-    b.SetString("country_status_added_to_queue", [NSLocalizedString(@"%is added to the\ndownloading queue.", @"Message to display at the center of the screen when the country is added to the downloading queue") UTF8String]);
-    b.SetString("country_status_downloading", [NSLocalizedString(@"Downloading%(%\\%)", @"Message to display at the center of the screen when the country is downloading") UTF8String]);
-    b.SetString("country_status_download", [NSLocalizedString(@"Download%", @"Button text for the button at the center of the screen when the country is not downloaded") UTF8String]);
-    b.SetString("country_status_download_failed", [NSLocalizedString(@"Downloading%\nhas failed", @"Message to display at the center of the screen when the country download has failed") UTF8String]);
-    b.SetString("try_again", [NSLocalizedString(@"Try Again", @"Button text for the button under the country_status_download_failed message") UTF8String]);
-    
-    f.SetStringsBundle(b);
-    
+    f.AddString("country_status_added_to_queue", [NSLocalizedString(@"%is added to the\ndownloading queue.", @"Message to display at the center of the screen when the country is added to the downloading queue") UTF8String]);
+    f.AddString("country_status_downloading", [NSLocalizedString(@"Downloading%(%\\%)", @"Message to display at the center of the screen when the country is downloading") UTF8String]);
+    f.AddString("country_status_download", [NSLocalizedString(@"Download%", @"Button text for the button at the center of the screen when the country is not downloaded") UTF8String]);
+    f.AddString("country_status_download_failed", [NSLocalizedString(@"Downloading%\nhas failed", @"Message to display at the center of the screen when the country download has failed") UTF8String]);
+    f.AddString("try_again", [NSLocalizedString(@"Try Again", @"Button text for the button under the country_status_download_failed message") UTF8String]);
+
 		m_StickyThreshold = 10;
 
 		m_CurrentAction = NOTHING;

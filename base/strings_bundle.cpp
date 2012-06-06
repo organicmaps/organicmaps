@@ -1,5 +1,6 @@
 #include "strings_bundle.hpp"
 
+
 void StringsBundle::SetDefaultString(string const & name, string const & value)
 {
   m_defValues[name] = value;
@@ -21,10 +22,5 @@ string const StringsBundle::GetString(string const & name) const
     if (it != m_defValues.end())
       return it->second;
   }
-  return "";
-}
-
-string const FormatString(char const * msg, ...)
-{
   return "";
 }
