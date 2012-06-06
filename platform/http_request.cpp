@@ -8,16 +8,12 @@
 #include "../base/thread.hpp"
 #endif
 
-#include "../base/std_serialization.hpp"
+#include "../coding/internal/file_data.hpp"
+#include "../coding/file_writer.hpp"
+
 #include "../base/logging.hpp"
 
-#include "../coding/file_writer_stream.hpp"
-#include "../coding/file_reader_stream.hpp"
-#include "../coding/internal/file_data.hpp"
-
 #include "../std/scoped_ptr.hpp"
-
-#include "../3party/jansson/myjansson.hpp"
 
 
 #ifdef OMIM_OS_IPHONE
@@ -169,6 +165,8 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
       if (m_onProgress)
         m_onProgress(*this);
     }
+    else
+      LOG(LWARNING, (m_filePath, "HttpRequest error:", httpCode));
 
     ChunksDownloadStrategy::ResultT const result = StartThreads();
 
@@ -280,26 +278,5 @@ HttpRequest * HttpRequest::GetFile(vector<string> const & urls, string const & f
 {
   return new FileHttpRequest(urls, filePath, fileSize, onFinish, onProgress, chunkSize, doCleanProgressFiles);
 }
-
-bool ParseServerList(string const & jsonStr, vector<string> & outUrls)
-{
-  outUrls.clear();
-  try
-  {
-    my::Json root(jsonStr.c_str());
-    for (size_t i = 0; i < json_array_size(root); ++i)
-    {
-      char const * url = json_string_value(json_array_get(root, i));
-      if (url)
-        outUrls.push_back(url);
-    }
-  }
-  catch (std::exception const & e)
-  {
-    LOG(LERROR, ("Can't parse server list json", e.what(), jsonStr));
-  }
-  return !outUrls.empty();
-}
-
 
 } // namespace downloader

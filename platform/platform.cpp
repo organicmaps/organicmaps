@@ -3,6 +3,7 @@
 #include "../coding/sha2.hpp"
 #include "../coding/base64.hpp"
 
+
 string Platform::ReadPathForFile(string const & file) const
 {
   string fullPath = m_writableDir + file;
@@ -28,3 +29,18 @@ string Platform::HashUniqueID(string const & s)
   return base64::encode(xoredHash);
 }
 
+string Platform::MetaServerUrl() const
+{
+  if (IsFeatureSupported("search"))
+    return "http://active.servers.url";
+  else
+    return "http://active.servers.url";
+}
+
+string Platform::DefaultUrlsJSON() const
+{
+  if (IsFeatureSupported("search"))
+    return "[\"http://1st.default.server/\",\"http://2nd.default.server/\",\"http://3rd.default.server/\"]";
+  else
+    return "[\"http://1st.default.server/\",\"http://2nd.default.server/\",\"http://3rd.default.server/\"]";
+}

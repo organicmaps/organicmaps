@@ -2,19 +2,19 @@
 
 #include "../defines.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/string_utils.hpp"
-
 #include "../indexer/data_factory.hpp"
 #include "../indexer/search_index_builder.hpp"
 
 #include "../platform/platform.hpp"
-#include "../platform/settings.hpp"
+#include "../platform/servers_list.hpp"
 
 #include "../coding/file_writer.hpp"
 #include "../coding/file_reader.hpp"
 #include "../coding/file_container.hpp"
 #include "../coding/url_encode.hpp"
+
+#include "../base/logging.hpp"
+#include "../base/string_utils.hpp"
 
 #include "../version/version.hpp"
 
@@ -23,9 +23,6 @@
 #include "../std/bind.hpp"
 #include "../std/sstream.hpp"
 
-#include "../3party/jansson/myjansson.hpp"
-
-#define SETTINGS_SERVERS_KEY "LastBaseUrls"
 
 using namespace downloader;
 
@@ -468,21 +465,11 @@ namespace storage
     CountryFile const & file = CountryByIndex(m_queue.front()).Files().front();
 
     vector<string> urls;
-    if (request.Status() == HttpRequest::ECompleted
-        && ParseServerList(request.Data(), urls))
-      Settings::Set(SETTINGS_SERVERS_KEY, request.Data());
-    else
-    {
-      string serverList;
-      if (!Settings::Get(SETTINGS_SERVERS_KEY, serverList))
-        serverList = GetPlatform().DefaultUrlsJSON();
-      VERIFY(ParseServerList(serverList, urls), ());
-    }
+    GetServerListFromRequest(request, urls);
 
     // append actual version and file name
     for (size_t i = 0; i < urls.size(); ++i)
-      urls[i] = urls[i] + OMIM_OS_NAME "/"
-          + strings::to_string(m_currentVersion)  + "/" + UrlEncode(file.GetFileWithExt());
+      urls[i] = GetFileDownloadUrl(urls[i], file.GetFileWithExt());
 
     m_request.reset(HttpRequest::GetFile(urls,
                                          GetPlatform().WritablePathForFile(file.GetFileWithExt()),
@@ -491,9 +478,9 @@ namespace storage
                                          bind(&Storage::OnMapDownloadProgress, this, _1)));
   }
 
-  int64_t Storage::GetCurrentVersion() const
+  string Storage::GetFileDownloadUrl(string const & baseUrl, string const & fName) const
   {
-    return m_currentVersion;
+    return baseUrl + OMIM_OS_NAME "/" + strings::to_string(m_currentVersion)  + "/" + UrlEncode(fName);
   }
 
   TIndex const Storage::FindIndexByName(string const & name) const

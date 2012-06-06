@@ -56,6 +56,4 @@ public:
                                bool doCleanProgressFiles = true);
 };
 
-bool ParseServerList(string const & jsonStr, vector<string> & outUrls);
-
 } // namespace downloader

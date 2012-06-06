@@ -131,7 +131,6 @@ namespace storage
     void ReportProgress(TIndex const & index, pair<int64_t, int64_t> const & p);
 
   public:
-
     Storage();
 
     void Init(TAddMapFunction addFunc,
@@ -170,8 +169,6 @@ namespace storage
 
     void NotifyStatusChanged(TIndex const & index) const;
 
-    int64_t GetCurrentVersion() const;
+    string GetFileDownloadUrl(string const & baseUrl, string const & fName) const;
   };
-
-
 }

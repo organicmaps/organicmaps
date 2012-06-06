@@ -10,6 +10,7 @@
 
 #include "../../../../../platform/platform.hpp"
 #include "../../../../../platform/http_request.hpp"
+#include "../../../../../platform/servers_list.hpp"
 
 #include "../../../../../base/logging.hpp"
 #include "../../../../../base/string_utils.hpp"
@@ -186,36 +187,28 @@ extern "C"
                          glbTotal, glbProgress);
   }
 
+  typedef downloader::HttpRequest::CallbackT CallbackT;
+
   void DownloadURLListFinished(downloader::HttpRequest & req,
-      downloader::HttpRequest::CallbackT const & onFinish,
-      downloader::HttpRequest::CallbackT const & onProgress)
+                               CallbackT const & onFinish, CallbackT const & onProgress)
   {
-    if (req.Status() == downloader::HttpRequest::EFailed)
-      onFinish(req);
-    else
+    FileToDownload & curFile = g_filesToDownload.back();
+
+    LOG(LINFO, ("Finished URL list download for", curFile.m_fileName));
+
+    downloader::GetServerListFromRequest(req, curFile.m_urls);
+
+    storage::Storage const & storage = g_framework->Storage();
+    for (size_t i = 0; i < curFile.m_urls.size(); ++i)
     {
-      FileToDownload & curFile = g_filesToDownload.back();
-
-      LOG(LDEBUG, ("finished URL list download for", curFile.m_fileName));
-
-      downloader::ParseServerList(req.Data(), curFile.m_urls);
-
-      for (size_t i = 0; i < curFile.m_urls.size(); ++i)
-      {
-        curFile.m_urls[i] = curFile.m_urls[i] + OMIM_OS_NAME "/"
-                          + strings::to_string(g_framework->Storage().GetCurrentVersion()) + "/"
-                          + UrlEncode(curFile.m_fileName);
-        LOG(LDEBUG, (curFile.m_urls[i]));
-      }
-
-      g_currentRequest.reset(downloader::HttpRequest::GetFile(curFile.m_urls,
-                                                          curFile.m_pathOnSdcard,
-                                                          curFile.m_fileSize,
-                                                          onFinish,
-                                                          onProgress,
-                                                          64 * 1024,
-                                                          false));
+      curFile.m_urls[i] = storage.GetFileDownloadUrl(curFile.m_urls[i], curFile.m_fileName);
+      LOG(LINFO, (curFile.m_urls[i]));
     }
+
+    g_currentRequest.reset(downloader::HttpRequest::GetFile(
+        curFile.m_urls, curFile.m_pathOnSdcard, curFile.m_fileSize,
+        onFinish, onProgress,
+        64 * 1024, false));
   }
 
   JNIEXPORT void JNICALL
@@ -236,14 +229,12 @@ extern "C"
 
     LOG(LDEBUG, ("downloading", curFile.m_fileName, "sized", curFile.m_fileSize, "bytes"));
 
-    downloader::HttpRequest::CallbackT onFinish(bind(&DownloadFileFinished, jni::make_global_ref(observer), _1));
-    downloader::HttpRequest::CallbackT onProgress(bind(&DownloadFileProgress, jni::make_global_ref(observer), _1));
+    CallbackT onFinish(bind(&DownloadFileFinished, jni::make_global_ref(observer), _1));
+    CallbackT onProgress(bind(&DownloadFileProgress, jni::make_global_ref(observer), _1));
 
-    g_currentRequest.reset(downloader::HttpRequest::PostJson(GetPlatform().MetaServerUrl(),
-                                                         curFile.m_fileName,
-                                                         bind(&DownloadURLListFinished, _1,
-                                                              onFinish,
-                                                              onProgress)));
+    g_currentRequest.reset(downloader::HttpRequest::PostJson(
+        GetPlatform().MetaServerUrl(), curFile.m_fileName,
+        bind(&DownloadURLListFinished, _1, onFinish, onProgress)));
 
     return ERR_FILE_IN_PROGRESS;
   }

@@ -60,6 +60,7 @@ HEADERS += \
     http_request.hpp \
     http_thread_callback.hpp \
     chunks_download_strategy.hpp \
+    servers_list.hpp \
 
 SOURCES += \
     preferred_languages.cpp \
@@ -67,5 +68,5 @@ SOURCES += \
     video_timer.cpp \
     http_request.cpp \
     chunks_download_strategy.cpp \
-    platform.cpp
-
+    platform.cpp \
+    servers_list.cpp \

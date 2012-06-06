@@ -119,22 +119,10 @@ public:
 
   /// @return url for clients to download maps
   /// Different urls are returned for versions with and without search support
-  inline string MetaServerUrl() const
-  {
-    if (IsFeatureSupported("search"))
-      return "http://active.servers.url";
-    else
-      return "http://active.servers.url";
-  }
+  string MetaServerUrl() const;
 
   /// @return JSON-encoded list of urls if metaserver is unreachable
-  inline string DefaultUrlsJSON() const
-  {
-    if (IsFeatureSupported("search"))
-      return "[\"http://1st.default.server/\",\"http://2nd.default.server/\",\"http://3rd.default.server/\"]";
-    else
-      return "[\"http://1st.default.server/\",\"http://2nd.default.server/\",\"http://3rd.default.server/\"]";
-  }
+  string DefaultUrlsJSON() const;
 };
 
 extern "C" Platform & GetPlatform();
