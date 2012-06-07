@@ -5,31 +5,21 @@
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:paddingRight="?android:attr/scrollbarSize">
 
-    <ImageView
-        android:id="@+id/country_flag"
-        android:layout_width="?android:attr/listPreferredItemHeight"
-        android:layout_height="?android:attr/listPreferredItemHeight"
-        android:padding="5dip"
-        android:scaleType="center"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"/>
-
-    <ImageView
-        android:id="@+id/disclosure_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:src="@drawable/cell_arrow_white"/>
-
     <TextView
         android:id="@+id/title"
         android:text="XXXX"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/disclosure_image"
-        android:layout_toRightOf="@+id/country_flag"
         android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
         android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    <ImageView
+        android:id="@+id/disclosure_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/cell_arrow_white"/>
 
 </RelativeLayout>

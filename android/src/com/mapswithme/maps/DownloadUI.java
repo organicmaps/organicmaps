@@ -168,25 +168,17 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
     }
 
     /// Process list item click.
-    private class ItemClickListener implements OnClickListener
+    public void onItemClick(int position)
     {
-      private int m_position;
-
-      public ItemClickListener(int position) { m_position = position; }
-
-      @Override
-      public void onClick(View v)
+      if (m_items[position].m_status < 0)
       {
-        if (m_items[m_position].m_status < 0)
-        {
-          // expand next level
-          m_idx = m_idx.getChild(m_position);
+        // expand next level
+        m_idx = m_idx.getChild(position);
 
-          fillList();
-        }
-        else
-          processCountry(m_position);
+        fillList();
       }
+      else
+        processCountry(position);
     }
 
     private void showNotEnoughFreeSpaceDialog(String spaceNeeded, String countryName)
@@ -244,7 +236,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
           m_alert
           .setTitle(name)
           .setPositiveButton(m_context.getString(R.string.download_mb_or_kb, getSizeString(size)),
-              new DialogInterface.OnClickListener()
+                             new DialogInterface.OnClickListener()
           {
             @Override
             public void onClick(DialogInterface dlg, int which)
@@ -358,14 +350,14 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
       public TextView m_name = null;
       public TextView m_summary = null;
       public ImageView m_flag = null;
-      public Button m_map = null;
+      public ImageView m_map = null;
 
       void initFromView(View v)
       {
         m_name = (TextView) v.findViewById(R.id.title);
         m_summary = (TextView) v.findViewById(R.id.summary);
         m_flag = (ImageView) v.findViewById(R.id.country_flag);
-        m_map = (Button) v.findViewById(R.id.show_country);
+        m_map = (ImageView) v.findViewById(R.id.show_country);
       }
     }
 
@@ -394,14 +386,11 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
       {
       case MapStorage.ON_DISK:
         return String.format(m_context.getString(R.string.downloaded_touch_to_delete),
-            getSizeString(m_storage.countryLocalSizeInBytes(m_idx.getChild(position))));
+                             getSizeString(m_storage.countryLocalSizeInBytes(m_idx.getChild(position))));
 
       case MapStorage.NOT_DOWNLOADED: res = R.string.touch_to_download; break;
       case MapStorage.DOWNLOAD_FAILED: res = R.string.download_has_failed; break;
-
-      // print 0%; this value will be updated soon
-      case MapStorage.DOWNLOADING: return String.format(m_context.getString(R.string.downloading_touch_to_cancel), 0);
-
+      case MapStorage.DOWNLOADING: res = R.string.downloading; break;
       case MapStorage.IN_QUEUE: res = R.string.marked_for_downloading; break;
       default:
         return "An unknown error occured!";
@@ -433,11 +422,10 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
         case TYPE_GROUP:
           convertView = m_inflater.inflate(R.layout.download_item_group, null);
           holder.initFromView(convertView);
-          holder.m_flag.setVisibility(ImageView.INVISIBLE);
           break;
 
         case TYPE_COUNTRY_GROUP:
-          convertView = m_inflater.inflate(R.layout.download_item_group, null);
+          convertView = m_inflater.inflate(R.layout.download_item_country_group, null);
           holder.initFromView(convertView);
           break;
 
@@ -470,12 +458,8 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
       if (holder.m_map != null && holder.m_map.getVisibility() == Button.VISIBLE)
         holder.m_map.setOnClickListener(new MapClickListener(position));
 
-      // Important: Process item click like this, because of:
-      // http://stackoverflow.com/questions/1821871/android-how-to-fire-onlistitemclick-in-listactivity-with-buttons-in-list
-      convertView.setOnClickListener(new ItemClickListener(position));
-
       // show flag if needed
-      if (holder.m_flag.getVisibility() == ImageView.VISIBLE)
+      if (holder.m_flag != null && holder.m_flag.getVisibility() == ImageView.VISIBLE)
         setFlag(position, holder.m_flag);
 
       return convertView;
@@ -523,7 +507,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
         {
           ViewHolder holder = (ViewHolder) v.getTag();
           holder.m_summary.setText(String.format(m_context.getString(R.string.downloading_touch_to_cancel),
-              current * 100 / total));
+                                                 current * 100 / total));
           v.invalidate();
         }
       }
@@ -564,6 +548,14 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
   {
     if (!getDA().onBackPressed())
       super.onBackPressed();
+  }
+
+  @Override
+  protected void onListItemClick(ListView l, View v, int position, long id)
+  {
+    super.onListItemClick(l, v, position, id);
+
+    getDA().onItemClick(position);
   }
 
   @Override

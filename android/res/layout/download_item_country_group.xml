@@ -15,36 +15,21 @@
         android:layout_centerVertical="true"/>
 
     <ImageView
-        android:id="@+id/show_country"
-        android:layout_width="?android:attr/listPreferredItemHeight"
-        android:layout_height="?android:attr/listPreferredItemHeight"
-        android:scaleType="center"
+        android:id="@+id/disclosure_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:src="@drawable/cell_arrow_white"/>
 
-    <LinearLayout
-        android:orientation="vertical"
+    <TextView
+        android:id="@+id/title"
+        android:text="XXXX"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/disclosure_image"
+        android:layout_toRightOf="@+id/country_flag"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/show_country"
-        android:layout_toRightOf="@+id/country_flag">
-
-        <TextView
-            android:id="@+id/title"
-            android:text="XXXX"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
-
-        <TextView
-            android:id="@+id/summary"
-            android:text="YYYY"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"/>
-
-    </LinearLayout>
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
 
 </RelativeLayout>
