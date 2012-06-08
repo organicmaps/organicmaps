@@ -70,8 +70,8 @@ extern "C"
   Java_com_mapswithme_maps_DownloadResourcesActivity_getBytesToDownload(JNIEnv * env, jobject thiz,
       jstring apkPath, jstring sdcardPath)
   {
-    g_apkPath = jni::ToString(apkPath);
-    g_sdcardPath = jni::ToString(sdcardPath);
+    g_apkPath = jni::ToNativeString(apkPath);
+    g_sdcardPath = jni::ToNativeString(sdcardPath);
 
     jint totalBytesToDownload = 0;
 
@@ -245,8 +245,8 @@ extern "C"
   Java_com_mapswithme_maps_DownloadResourcesActivity_moveMaps(JNIEnv * env, jobject thiz,
       jstring fromPath, jstring toPath)
   {
-    string from = jni::ToString(fromPath);
-    string to = jni::ToString(toPath);
+    string from = jni::ToNativeString(fromPath);
+    string to = jni::ToNativeString(toPath);
 
     Platform & pl = GetPlatform();
     Platform::FilesList files;

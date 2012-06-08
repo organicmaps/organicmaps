@@ -113,6 +113,97 @@ extern "C"
     g_framework->AddString(jni::ToString(name), jni::ToString(value));
   }
 
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_MWMActivity_nativeIsProVersion(JNIEnv * env, jobject thiz)
+  {
+    return GetPlatform().IsFeatureSupported("search");
+  }
+
+#define SETTINGS_PRO_VERSION_URL_KEY "ProVersionURL"
+#define SETTINGS_PRO_VERSION_LAST_CHECK_TIME "ProVersionLastCheck"
+
+#define PRO_VERSION_CHECK_INTERVAL 2 * 60 * 60
+//#define PRO_VERSION_CHECK_INTERVAL 10
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_MWMActivity_nativeGetProVersionURL(JNIEnv * env, jobject thiz)
+  {
+    string res;
+    Settings::Get(SETTINGS_PRO_VERSION_URL_KEY, res);
+    return jni::ToJavaString(res);
+  }
+
+  void OnProVersionServerReply(downloader::HttpRequest & r, shared_ptr<jobject> obj)
+  {
+    if (r.Status() == downloader::HttpRequest::ECompleted)
+    {
+      string url = r.Data();
+
+      LOG(LDEBUG, ("got response: ", url));
+
+      if ((url.find("market://") == 0) || (url.find("http://") == 0))
+      {
+        LOG(LDEBUG, ("got PRO Version URL: ", url));
+        Settings::Set(SETTINGS_PRO_VERSION_URL_KEY, url);
+
+        JNIEnv * env = jni::GetEnv();
+
+        jmethodID methodID = jni::GetJavaMethodID(jni::GetEnv(), *obj.get(), "onProVersionAvailable", "()V");
+
+        env->CallVoidMethod(*obj.get(), methodID);
+      }
+      else
+      {
+        uint64_t curTime = time(0);
+        Settings::Set(SETTINGS_PRO_VERSION_LAST_CHECK_TIME, strings::to_string(curTime));
+        LOG(LDEBUG, ("ProVersion is not available, checkTime=", curTime));
+      }
+    }
+    else
+      LOG(LDEBUG, ("response finished with error"));
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMActivity_nativeCheckForProVersion(JNIEnv * env, jobject thiz, jstring proVersionServerURL)
+  {
+    string strLastCheckTime;
+
+    bool shouldCheck = false;
+
+    LOG(LDEBUG, ("figuring out whether we should check for pro version"));
+
+    if (Settings::Get(SETTINGS_PRO_VERSION_LAST_CHECK_TIME, strLastCheckTime))
+    {
+      uint64_t lastCheckTime;
+      if (!strings::to_uint64(strLastCheckTime, lastCheckTime))
+        shouldCheck = true; //< value is corrupted or invalid, should re-check
+      else
+      {
+        uint64_t curTime = time(0);
+        if (curTime - lastCheckTime > PRO_VERSION_CHECK_INTERVAL)
+          shouldCheck = true; //< last check was too long ago
+        else
+          LOG(LDEBUG, ("PRO_VERSION_CHECK_INTERVAL hasn't elapsed yet."));
+      }
+    }
+    else
+      shouldCheck = true; //< we haven't checked for PRO version yet
+
+    if (shouldCheck)
+    {
+      LOG(LDEBUG, ("checking for Pro version"));
+      downloader::HttpRequest::Get(jni::ToNativeString(proVersionServerURL), bind(&OnProVersionServerReply, _1, jni::make_global_ref(thiz)));
+    }
+  }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_MWMActivity_nativeProVersionUrl(JNIEnv * env, jobject thiz)
+  {
+    string res;
+    Settings::Get(SETTINGS_PRO_VERSION_URL_KEY, res);
+    return jni::ToJavaString(res);
+  }
+
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MWMActivity_nativeStorageConnected(JNIEnv * env, jobject thiz)
   {

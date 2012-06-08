@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.DisplayMetrics;
@@ -121,6 +122,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       {
         u = UNITS_METRIC;
         setupMeasurementSystem();
+        checkProVersionAvailable();
       } else
       {
         u = UNITS_FOOT;
@@ -140,6 +142,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
             setMeasurementSystem(UNITS_FOOT);
             setupMeasurementSystem();
             dialog.dismiss();
+            checkProVersionAvailable();
           }
         });
 
@@ -152,6 +155,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
             setMeasurementSystem(UNITS_METRIC);
             setupMeasurementSystem();
             dlg.dismiss();
+            checkProVersionAvailable();
           }
         });
 
@@ -160,7 +164,10 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
       setMeasurementSystem(u);
     } else
+    {
       setupMeasurementSystem();
+      checkProVersionAvailable();
+    }
   }
 
   private native boolean hasMeasurementSystem();
@@ -190,6 +197,71 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     SharedPreferences.Editor prefsEdit = getSharedPreferences(mApplication.getPackageName(), MODE_PRIVATE).edit();
     prefsEdit.putBoolean(PREFERENCES_MYPOSITION, !isLocationActive);
     prefsEdit.commit();
+  }
+
+  void checkProVersionAvailable()
+  {
+    if (nativeIsProVersion() || (nativeGetProVersionURL().length() != 0))
+      findViewById(R.id.map_button_search).setVisibility(View.VISIBLE);
+
+    if (!nativeIsProVersion() && (nativeGetProVersionURL().length() == 0))
+    {
+      String commonServerURL = "http://redbutton.mapswithme.com/enable_search_banner_google_play";
+      String kindleServerURL = "http://redbutton.mapswithme.com/enable_search_banner_amazon_appstore";
+      if (android.os.Build.MODEL.equals("Kindle Fire"))
+        nativeCheckForProVersion(kindleServerURL);
+      else
+        nativeCheckForProVersion(commonServerURL);
+    }
+  }
+
+  void onProVersionAvailable()
+  {
+    findViewById(R.id.map_button_search).setVisibility(View.VISIBLE);
+    showProVersionBanner(getString(R.string.pro_version_available));
+  }
+
+  void showProVersionBanner(String message)
+  {
+    AlertDialog alert = new AlertDialog.Builder(getCurrentContext()).create();
+
+    final Activity a = this;
+
+    alert.setMessage(message);
+
+    alert.setCancelable(false);
+
+    alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.buy_now),
+                    new DialogInterface.OnClickListener()
+    {
+      @Override
+      public void onClick(DialogInterface dlg, int which)
+      {
+        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(nativeGetProVersionURL()));
+        startActivity(i);
+        a.moveTaskToBack(true);
+        dlg.dismiss();
+      }
+    });
+
+    alert.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.later),
+                    new DialogInterface.OnClickListener()
+    {
+      @Override
+      public void onClick(DialogInterface dlg, int which)
+      {
+        dlg.dismiss();
+      }
+    });
+
+    alert.show();
+
+  }
+
+  public void onSearchClicked(View v)
+  {
+    if (!nativeIsProVersion())
+      showProVersionBanner(getString(R.string.search_available_in_pro_version));
   }
 
   public void onDownloadClicked(View v)
@@ -477,4 +549,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private native void nativeLocationStatusChanged(int newStatus);
   private native void nativeLocationUpdated(long time, double lat, double lon, float accuracy);
   private native void nativeCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy);
+  private native boolean nativeIsProVersion();
+  private native String nativeGetProVersionURL();
+  private native void nativeCheckForProVersion(String serverURL);
 }

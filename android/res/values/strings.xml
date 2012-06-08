@@ -46,4 +46,9 @@
     <string formatted="false" name="country_status_download">Downloading%(%\\%)</string>
     <string name="country_status_downloading">Download%</string>
     <string name="country_status_download_failed">Downloading%\nhas failed</string>
+    <string name="search_maps">Search maps offline</string>
+    <string name="search_available_in_pro_version">Offline search is only available in MapsWithMe Pro version. Would you like to buy it now?</string>
+    <string name="buy_now">Buy now</string>
+    <string name="pro_version_available">Pro version of MapsWithMe featuring offline search is available for purchase.</string>
+    <string name="later">Later</string>
 </resources>

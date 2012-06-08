@@ -17,7 +17,8 @@ namespace jni
   //jobject CreateJavaObject(JNIEnv * env, char const * klass, char const * sig, ...);
   //@}
 
-  string ToString(jstring str);
+  string ToNativeString(jstring str);
+  jstring ToJavaString(string const & s);
   JNIEnv * GetEnv();
   JavaVM * GetJVM();
 

@@ -85,12 +85,12 @@ namespace android
 
     m_impl = new PlatformImpl();
 
-    m_resourcesDir = jni::ToString(apkPath);
-    m_writableDir = jni::ToString(storagePath);
-    m_settingsDir = jni::ToString(settingsPath);
+    m_resourcesDir = jni::ToNativeString(apkPath);
+    m_writableDir = jni::ToNativeString(storagePath);
+    m_settingsDir = jni::ToNativeString(settingsPath);
 
-    m_localTmpPath = jni::ToString(tmpPath);
-    m_externalTmpPath = jni::ToString(extTmpPath);
+    m_localTmpPath = jni::ToNativeString(tmpPath);
+    m_externalTmpPath = jni::ToNativeString(extTmpPath);
     // By default use external temporary folder
     m_tmpDir = m_externalTmpPath;
 
