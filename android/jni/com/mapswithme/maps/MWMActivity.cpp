@@ -110,13 +110,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MWMActivity_nativeSetString(JNIEnv * env, jobject thiz, jstring name, jstring value)
   {
-    g_framework->AddString(jni::ToString(name), jni::ToString(value));
-  }
-
-  JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeIsProVersion(JNIEnv * env, jobject thiz)
-  {
-    return GetPlatform().IsFeatureSupported("search");
+    g_framework->AddString(jni::ToNativeString(name), jni::ToNativeString(value));
   }
 
 #define SETTINGS_PRO_VERSION_URL_KEY "ProVersionURL"
@@ -124,6 +118,12 @@ extern "C"
 
 #define PRO_VERSION_CHECK_INTERVAL 2 * 60 * 60
 //#define PRO_VERSION_CHECK_INTERVAL 10
+
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_MWMActivity_nativeIsProVersion(JNIEnv * env, jobject thiz)
+  {
+    return GetPlatform().IsFeatureSupported("search");
+  }
 
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_MWMActivity_nativeGetProVersionURL(JNIEnv * env, jobject thiz)
