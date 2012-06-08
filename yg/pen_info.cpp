@@ -71,7 +71,7 @@ namespace yg
           curLen += tmpV[i++];
       }
 
-      int periods = max(int(256 / length), 1);
+      int periods = max(int((256 - 4) / length), 1);
       m_pat.reserve(periods * vec.size());
       for (int i = 0; i < periods; ++i)
         copy(vec.begin(), vec.end(), back_inserter(m_pat));
