@@ -139,8 +139,12 @@ CountryStatusDisplay::CountryStatusDisplay(Params const & p)
   m_downloadButton->setOnClickListener(bind(&CountryStatusDisplay::downloadCountry, this));
   m_downloadButton->setIsVisible(false);
   m_downloadButton->setPosition(yg::EPosCenter);
-  m_downloadButton->setFont(gui::Element::EActive, yg::FontDesc(16));
-  m_downloadButton->setFont(gui::Element::EPressed, yg::FontDesc(16));
+
+  m_downloadButton->setFont(EActive, yg::FontDesc(16, yg::Color(255, 255, 255, 255)));
+  m_downloadButton->setFont(EPressed, yg::FontDesc(16, yg::Color(255, 255, 255, 255)));
+
+  m_downloadButton->setColor(EActive, yg::Color(yg::Color(0, 0, 0, 0.6 * 255)));
+  m_downloadButton->setColor(EPressed, yg::Color(yg::Color(0, 0, 0, 0.4 * 255)));
 
   gui::TextView::Params tp;
   tp.m_depth = yg::maxDepth;
