@@ -12,8 +12,10 @@ namespace
     vector<unsigned char> data;
     PushBackByteSink<vector<unsigned char> > dst(data);
     WriteVarUint(dst, x);
+
     ArrayByteSource src(&data[0]);
     TEST_EQUAL(ReadVarUint<T>(src), x, ());
+
     size_t const bytesRead = src.PtrUC() - &data[0];
     TEST_EQUAL(bytesRead, data.size(), (x));
   }
@@ -23,8 +25,10 @@ namespace
     vector<unsigned char> data;
     PushBackByteSink<vector<unsigned char> > dst(data);
     WriteVarInt(dst, x);
+
     ArrayByteSource src(&data[0]);
     TEST_EQUAL(ReadVarInt<T>(src), x, ());
+
     size_t const bytesRead = src.PtrUC() - &data[0];
     TEST_EQUAL(bytesRead, data.size(), (x));
   }
@@ -63,11 +67,13 @@ UNIT_TEST(VarInt32)
       TestVarInt(static_cast<int32_t>(-i));
     }
   }
-  for (int i = -300; i <= 300; ++i)
-  {
+
+  int const bound = 10000;
+  for (int i = -bound; i <= bound; ++i)
     TestVarInt(static_cast<int32_t>(i));
-    TestVarInt(static_cast<int32_t>(-i));
-  }
+
+  for (int i = 0; i <= bound; ++i)
+    TestVarUint(static_cast<uint32_t>(i));
 }
 
 UNIT_TEST(VarIntSize)
