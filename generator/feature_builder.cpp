@@ -359,7 +359,7 @@ string DebugPrint(FeatureBuilder1 const & f)
 
   switch (f.GetGeomType())
   {
-  case GEOM_POINT: out << "(" << f.m_Center << ")"; break;
+  case GEOM_POINT: out << DebugPrint(f.m_Center); break;
   case GEOM_LINE: out << "line with " << f.GetPointsCount() << " points"; break;
   case GEOM_AREA: out << "area with " << f.GetPointsCount() << " points"; break;
   default:

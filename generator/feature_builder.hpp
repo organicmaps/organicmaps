@@ -141,16 +141,16 @@ public:
     return s;
   }
 
-protected:
-  /// Used for feature debugging
-  vector<osm::OsmId> m_osmIds;
-
   /// @name For diagnostic use only.
   //@{
   bool operator== (FeatureBuilder1 const &) const;
 
   bool CheckValid() const;
   //@}
+
+protected:
+  /// Used for feature debugging
+  vector<osm::OsmId> m_osmIds;
 
   FeatureParams m_Params;
 

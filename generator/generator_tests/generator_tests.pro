@@ -28,3 +28,4 @@ SOURCES += \
     triangles_tree_coding_test.cpp \
     coasts_test.cpp \
     concurrent_tests.cpp \
+    feature_builder_test.cpp \
