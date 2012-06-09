@@ -72,6 +72,11 @@ namespace my
   }
 }
 
+template <typename T, size_t N> inline string DebugPrint(T (&arr) [N])
+{
+  return ::my::impl::DebugPrintSequence(arr, arr + N);
+}
+
 template <typename T> inline string DebugPrint(vector<T> const & v)
 {
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
