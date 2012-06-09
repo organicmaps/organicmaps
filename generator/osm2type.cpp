@@ -198,8 +198,8 @@ namespace ftype
         // get population rank
         if (k == "population")
         {
-          int n;
-          if (strings::to_int(v, n))
+          uint64_t n;
+          if (strings::to_uint64(v, n))
             m_params.rank = static_cast<uint8_t>(log(double(n)) / log(1.1));
         }
 
@@ -221,8 +221,8 @@ namespace ftype
         if (is_name_tag(k))
           return false;
 
-        int dummy;
-        if (!m_isKey && strings::to_int(v, dummy))
+        uint64_t dummy;
+        if (!m_isKey && strings::to_uint64(v, dummy))
           return (k == "admin_level");
 
         return true;
