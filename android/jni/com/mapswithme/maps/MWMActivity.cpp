@@ -141,26 +141,29 @@ extern "C"
 
       LOG(LDEBUG, ("got response: ", url));
 
-      if ((url.find("market://") == 0) || (url.find("http://") == 0))
+      if ((url.find("https://") == 0)
+       || (url.find("market://") == 0)
+       || (url.find("http://") == 0))
       {
-        LOG(LDEBUG, ("got PRO Version URL: ", url));
+        LOG(LDEBUG, ("ProVersion URL is available: ", url));
         Settings::Set(SETTINGS_PRO_VERSION_URL_KEY, url);
 
         JNIEnv * env = jni::GetEnv();
 
-        jmethodID methodID = jni::GetJavaMethodID(jni::GetEnv(), *obj.get(), "onProVersionAvailable", "()V");
+        jmethodID methodID = jni::GetJavaMethodID(env, *obj.get(), "onProVersionAvailable", "()V");
 
         env->CallVoidMethod(*obj.get(), methodID);
+
+        return;
       }
       else
-      {
-        uint64_t curTime = time(0);
-        Settings::Set(SETTINGS_PRO_VERSION_LAST_CHECK_TIME, strings::to_string(curTime));
         LOG(LDEBUG, ("ProVersion is not available, checkTime=", curTime));
-      }
     }
     else
-      LOG(LDEBUG, ("response finished with error"));
+      LOG(LDEBUG, ("ProVersion check response finished with error"));
+
+    uint64_t curTime = time(0);
+    Settings::Set(SETTINGS_PRO_VERSION_LAST_CHECK_TIME, strings::to_string(curTime));
   }
 
   JNIEXPORT void JNICALL
