@@ -108,9 +108,18 @@ string Platform::DeviceName() const
 
 void Platform::GetFontNames(FilesList & res) const
 {
-  LOG(LDEBUG, ("searching for fonts in:", WritableDir()));
-  GetFilesInDir(WritableDir(), "*.ttf", res);
+  string arr[] = { WritableDir(), ResourcesDir() };
+
+  for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+  {
+    LOG(LDEBUG, ("Searching for fonts in", arr[i]));
+    GetFilesInDir(arr[i], "*.ttf", res);
+  }
+
   sort(res.begin(), res.end());
+  res.erase(unique(res.begin(), res.end()), res.end());
+
+  LOG(LDEBUG, ("Font files:", (res)));
 }
 
 int Platform::ScaleEtalonSize() const

@@ -200,7 +200,8 @@ namespace yg
     for (size_t i = 0; i < fontNames.size(); ++i)
       addFont(fontNames[i].c_str());
 
-/*    LOG(LINFO, ("----------------------------"));
+    /*
+    LOG(LINFO, ("----------------------------"));
     LOG(LINFO, ("-- Coverage Info -----------"));
     LOG(LINFO, ("----------------------------"));
 
@@ -232,13 +233,14 @@ namespace yg
     for (unicode_blocks_t::const_iterator it = m_unicodeBlocks.begin(); it != m_unicodeBlocks.end(); ++it)
       if (it->m_fonts.empty())
         LOG(LINFO, (it->m_name, " unicode block of ", it->m_end + 1 - it->m_start, " symbols is empty"));
-*/
+    */
   }
 
   void GlyphCacheImpl::addFont(char const * fileName)
   {
     if (m_isDebugging)
       return;
+
     ReaderPtr<Reader> reader = GetPlatform().GetReader(fileName);
     m_fonts.push_back(make_shared_ptr(new Font(reader)));
 
@@ -384,6 +386,8 @@ namespace yg
       if (it->m_fonts.empty())
       {
         LOG(LDEBUG, ("querying symbol for empty ", it->m_name, " unicode block"));
+        ASSERT(!m_fonts.empty(), ("Empty fonts container"));
+
         it->m_fonts.push_back(m_fonts.front());
       }
 
