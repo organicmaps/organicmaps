@@ -238,9 +238,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       public void onClick(DialogInterface dlg, int which)
       {
         Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(nativeGetProVersionURL()));
-        startActivity(i);
-        a.moveTaskToBack(true);
         dlg.dismiss();
+        startActivity(i);
       }
     });
 

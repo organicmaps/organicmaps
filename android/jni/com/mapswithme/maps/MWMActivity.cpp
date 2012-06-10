@@ -135,6 +135,8 @@ extern "C"
 
   void OnProVersionServerReply(downloader::HttpRequest & r, shared_ptr<jobject> obj)
   {
+    uint64_t curTime = time(0);
+
     if (r.Status() == downloader::HttpRequest::ECompleted)
     {
       string url = r.Data();
@@ -162,7 +164,6 @@ extern "C"
     else
       LOG(LDEBUG, ("ProVersion check response finished with error"));
 
-    uint64_t curTime = time(0);
     Settings::Set(SETTINGS_PRO_VERSION_LAST_CHECK_TIME, strings::to_string(curTime));
   }
 
