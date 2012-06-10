@@ -201,17 +201,19 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   void checkProVersionAvailable()
   {
-    if (nativeIsProVersion() || (nativeGetProVersionURL().length() != 0))
+    final boolean isPro = nativeIsProVersion();
+    // get pro-version url only for lite-version
+    final String url = isPro ? "" : nativeGetProVersionURL();
+
+    if (isPro || (url.length() != 0))
       findViewById(R.id.map_button_search).setVisibility(View.VISIBLE);
 
-    if (!nativeIsProVersion() && (nativeGetProVersionURL().length() == 0))
+    if (!isPro && (url.length() == 0))
     {
-      String commonServerURL = "http://redbutton.mapswithme.com/enable_search_banner_google_play";
-      String kindleServerURL = "http://redbutton.mapswithme.com/enable_search_banner_amazon_appstore";
       if (android.os.Build.MODEL.equals("Kindle Fire"))
-        nativeCheckForProVersion(kindleServerURL);
+        nativeCheckForProVersion("http://redbutton.mapswithme.com/enable_search_banner_amazon_appstore");
       else
-        nativeCheckForProVersion(commonServerURL);
+        nativeCheckForProVersion("http://redbutton.mapswithme.com/enable_search_banner_google_play");
     }
   }
 
@@ -224,8 +226,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   void showProVersionBanner(String message)
   {
     AlertDialog alert = new AlertDialog.Builder(getCurrentContext()).create();
-
-    final Activity a = this;
 
     alert.setMessage(message);
 

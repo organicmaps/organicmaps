@@ -44,8 +44,8 @@ struct FileToDownload
   uint64_t m_fileSize;
 };
 
-static string g_apkPath;
-static string g_sdcardPath;
+//static string g_apkPath;
+//static string g_sdcardPath;
 static vector<FileToDownload> g_filesToDownload;
 static int g_totalDownloadedBytes;
 static int g_totalBytesToDownload;
@@ -53,11 +53,11 @@ static shared_ptr<downloader::HttpRequest> g_currentRequest;
 
 extern "C"
 {
-  int HasSpaceForFiles(size_t fileSize)
+  int HasSpaceForFiles(string const & sdcardPath, size_t fileSize)
   {
     struct statfs st;
 
-    if (statfs(g_sdcardPath.c_str(), &st) != 0)
+    if (statfs(sdcardPath.c_str(), &st) != 0)
       return ERR_STORAGE_DISCONNECTED;
 
     if (st.f_bsize * st.f_bavail <= fileSize)
@@ -70,12 +70,13 @@ extern "C"
   Java_com_mapswithme_maps_DownloadResourcesActivity_getBytesToDownload(JNIEnv * env, jobject thiz,
       jstring apkPath, jstring sdcardPath)
   {
-    g_apkPath = jni::ToNativeString(apkPath);
-    g_sdcardPath = jni::ToNativeString(sdcardPath);
+    //g_apkPath = jni::ToNativeString(apkPath);
+    string const path = jni::ToNativeString(sdcardPath);
 
-    jint totalBytesToDownload = 0;
+    int totalBytesToDownload = 0;
 
-    ReaderStreamBuf buffer(GetPlatform().GetReader("external_resources.txt"));
+    Platform & pl = GetPlatform();
+    ReaderStreamBuf buffer(pl.GetReader("external_resources.txt"));
 
     istream in(&buffer);
 
@@ -94,18 +95,16 @@ extern "C"
       if (!in.good())
         break;
 
-      FileToDownload f;
-
-      f.m_pathOnSdcard = g_sdcardPath + name;
-      f.m_fileName = name;
-
-      uint64_t sizeOnSdcard = 0;
-      Platform::GetFileSizeByFullPath(f.m_pathOnSdcard, sizeOnSdcard);
-
-      if (size != sizeOnSdcard)
+      uint64_t originSize = 0;
+      if (!pl.GetFileSizeByName(name, originSize) || size != originSize)
       {
-        LOG(LDEBUG, ("should download : ", name, "sized", size, "bytes"));
+        LOG(LDEBUG, ("Should download", name, "sized", size, "bytes"));
+
+        FileToDownload f;
+        f.m_pathOnSdcard = path + name;
+        f.m_fileName = name;
         f.m_fileSize = size;
+
         g_filesToDownload.push_back(f);
         totalBytesToDownload += size;
       }
@@ -113,7 +112,7 @@ extern "C"
 
     g_totalDownloadedBytes = 0;
 
-    int res = HasSpaceForFiles(totalBytesToDownload);
+    int res = HasSpaceForFiles(path, totalBytesToDownload);
 
     switch (res)
     {

@@ -135,7 +135,7 @@ extern "C"
 
   void OnProVersionServerReply(downloader::HttpRequest & r, shared_ptr<jobject> obj)
   {
-    uint64_t curTime = time(0);
+    uint64_t const curTime = time(0);
 
     if (r.Status() == downloader::HttpRequest::ECompleted)
     {
@@ -155,8 +155,6 @@ extern "C"
         jmethodID methodID = jni::GetJavaMethodID(env, *obj.get(), "onProVersionAvailable", "()V");
 
         env->CallVoidMethod(*obj.get(), methodID);
-
-        return;
       }
       else
         LOG(LDEBUG, ("ProVersion is not available, checkTime=", curTime));
