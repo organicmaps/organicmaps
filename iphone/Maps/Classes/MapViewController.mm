@@ -139,11 +139,13 @@
 {
   if (m_bookmark.isDisplayed)
     [m_bookmark hide];
-
-  CGPoint const pixelPos = [point CGPointValue];
-  CGPoint const globalPos = [self viewPoint2GlobalPoint:pixelPos];
-  m_bookmark.globalPosition = globalPos;
-  [m_bookmark showInView:self.view atPoint:pixelPos];
+  else
+  {
+    CGPoint const pixelPos = [point CGPointValue];
+    CGPoint const globalPos = [self viewPoint2GlobalPoint:pixelPos];
+    m_bookmark.globalPosition = globalPos;
+    [m_bookmark showInView:self.view atPoint:pixelPos];
+  }
 }
 
 - (void) dealloc
