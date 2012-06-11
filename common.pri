@@ -132,6 +132,8 @@ linux-g++* {
   QMAKE_CFLAGS *= -fdata-sections -ffunction-sections
   QMAKE_CXXFLAGS *= -fdata-sections -ffunction-sections
   QMAKE_LFLAGS *= -Wl,--gc-sections
+  QMAKE_CFLAGS_RELEASE *= -ffloat-store
+  QMAKE_CXXFLAGS_RELEASE *= -ffloat-store
 }
 
 android-g++ {
