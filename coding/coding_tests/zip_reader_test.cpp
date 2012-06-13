@@ -104,7 +104,9 @@ UNIT_TEST(ZipFilesList)
 
   try
   {
-    vector<string> files = ZipFileReader::FilesList(ZIPFILE);
+    vector<string> files;
+    ZipFileReader::FilesList(ZIPFILE, files);
+
     TEST_EQUAL(files.size(), 3, ());
     TEST_EQUAL(files[0], "1.txt", ());
     TEST_EQUAL(files[1], "2.txt", ());
@@ -117,7 +119,8 @@ UNIT_TEST(ZipFilesList)
 
   try
   {
-    vector<string> files = ZipFileReader::FilesList(ZIPFILE_INVALID);
+    vector<string> files;
+    ZipFileReader::FilesList(ZIPFILE_INVALID, files);
     TEST(false, ("This test shouldn't be reached - exception should be thrown"));
   }
   catch (std::exception const &)
@@ -161,7 +164,8 @@ UNIT_TEST(ZipExtract)
   }
   TEST(ZipFileReader::IsZip(ZIPFILE), ("Not a zip file"));
 
-  vector<string> files = ZipFileReader::FilesList(ZIPFILE);
+  vector<string> files;
+  ZipFileReader::FilesList(ZIPFILE, files);
   TEST_EQUAL(files.size(), 2, ());
 
   string const OUTFILE = "out.tmp";
@@ -191,7 +195,8 @@ UNIT_TEST(ZipFileSizes)
   }
   TEST(ZipFileReader::IsZip(ZIPFILE), ("Not a zip file"));
 
-  vector<string> files = ZipFileReader::FilesList(ZIPFILE);
+  vector<string> files;
+  ZipFileReader::FilesList(ZIPFILE, files);
   TEST_EQUAL(files.size(), 2, ());
 
   {
