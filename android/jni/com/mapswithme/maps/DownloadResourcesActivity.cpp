@@ -70,10 +70,13 @@ extern "C"
   Java_com_mapswithme_maps_DownloadResourcesActivity_getBytesToDownload(JNIEnv * env, jobject thiz,
       jstring apkPath, jstring sdcardPath)
   {
+    // clear all
+    g_filesToDownload.clear();
+    g_totalBytesToDownload = 0;
+    g_totalDownloadedBytes = 0;
+
     //g_apkPath = jni::ToNativeString(apkPath);
     string const path = jni::ToNativeString(sdcardPath);
-
-    int totalBytesToDownload = 0;
 
     Platform & pl = GetPlatform();
     ReaderStreamBuf buffer(pl.GetReader("external_resources.txt"));
@@ -106,13 +109,11 @@ extern "C"
         f.m_fileSize = size;
 
         g_filesToDownload.push_back(f);
-        totalBytesToDownload += size;
+        g_totalBytesToDownload += size;
       }
     }
 
-    g_totalDownloadedBytes = 0;
-
-    int res = HasSpaceForFiles(path, totalBytesToDownload);
+    int res = HasSpaceForFiles(path, g_totalBytesToDownload);
 
     switch (res)
     {
@@ -124,7 +125,6 @@ extern "C"
       break;
     };
 
-    g_totalBytesToDownload = totalBytesToDownload;
     g_currentRequest.reset();
 
     return res;
@@ -269,11 +269,8 @@ extern "C"
   Java_com_mapswithme_maps_DownloadResourcesActivity_findCountryByPos(JNIEnv * env, jobject thiz,
       jdouble lat, jdouble lon)
   {
-    double x = MercatorBounds::LonToX(lon);
-    double y = MercatorBounds::LatToY(lat);
-
-    string name = g_framework->GetCountryName(x, y);
-
+    string const name = g_framework->GetCountryName(MercatorBounds::LonToX(lon),
+                                                    MercatorBounds::LatToY(lat));
     return env->NewStringUTF(name.c_str());
   }
 }
