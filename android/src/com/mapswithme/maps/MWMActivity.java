@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -187,12 +186,14 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   public void onMyPositionClicked(View v)
   {
     v.setBackgroundResource(R.drawable.myposition_button_normal);
+
     final boolean isLocationActive = v.isSelected();
     if (isLocationActive)
       mApplication.getLocationService().stopUpdate(this);
     else
       mApplication.getLocationService().startUpdate(this);
     v.setSelected(!isLocationActive);
+
     // Store active state of My Position
     SharedPreferences.Editor prefsEdit = getSharedPreferences(mApplication.getPackageName(), MODE_PRIVATE).edit();
     prefsEdit.putBoolean(PREFERENCES_MYPOSITION, !isLocationActive);
@@ -297,9 +298,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   public void onLocationStatusChanged(int newStatus)
   {
-    Log.d("LOCATION", "status: " + newStatus);
     if (newStatus == LocationService.FIRST_EVENT)
       findViewById(R.id.map_button_myposition).setBackgroundResource(R.drawable.myposition_button_found);
+
     nativeLocationStatusChanged(newStatus);
   }
 
@@ -355,6 +356,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   protected void onStart()
   {
     super.onStart();
+
     // Restore My Position state on startup/activity recreation
     SharedPreferences prefs = getSharedPreferences(mApplication.getPackageName(), MODE_PRIVATE);
     final boolean isMyPositionEnabled = prefs.getBoolean(PREFERENCES_MYPOSITION, false);
@@ -372,7 +374,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onPause()
   {
-    //< stop update only if it's started in OnRenderingInitialized
+    // stop update only if it's started in OnRenderingInitialized
     if (!m_shouldStartLocationService)
       if (findViewById(R.id.map_button_myposition).isSelected())
         mApplication.getLocationService().stopUpdate(this);
@@ -424,19 +426,23 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private void onAboutDialogClicked()
   {
     LayoutInflater inflater = LayoutInflater.from(this);
+
     View alertDialogView = inflater.inflate(R.layout.about, null);
     WebView myWebView = (WebView) alertDialogView.findViewById(R.id.webview_about);
     myWebView.loadUrl("file:///android_asset/about.html");
-    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    builder.setView(alertDialogView);
-    builder.setTitle(R.string.about);
 
-    builder.setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
+    new AlertDialog.Builder(this)
+    .setView(alertDialogView)
+    .setTitle(R.string.about)
+    .setPositiveButton(R.string.close, new DialogInterface.OnClickListener()
+    {
       @Override
-      public void onClick(DialogInterface dialog, int which) {
+      public void onClick(DialogInterface dialog, int which)
+      {
         dialog.cancel();
       }
-    }).show();
+    })
+    .show();
   }
 
   // Initialized to invalid combination to force update on the first check
@@ -450,11 +456,13 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     if (Environment.MEDIA_MOUNTED.equals(state))
     {
       available = writeable = true;
-    } else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
+    }
+    else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
     {
       available = true;
       writeable = false;
-    } else
+    }
+    else
       available = writeable = false;
 
     if (m_storageAvailable != available || m_storageWriteable != writeable)
@@ -471,6 +479,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     {
       // Add local maps to the model
       nativeStorageConnected();
+
       // enable downloader button and dismiss blocking popup
       findViewById(R.id.map_button_download).setVisibility(View.VISIBLE);
       if (m_storageDisconnectedDialog != null)
@@ -480,6 +489,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     {
       // Add local maps to the model
       nativeStorageConnected();
+
       // disable downloader button and dismiss blocking popup
       findViewById(R.id.map_button_download).setVisibility(View.INVISIBLE);
       if (m_storageDisconnectedDialog != null)
@@ -489,14 +499,16 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     {
       // Remove local maps from the model
       nativeStorageDisconnected();
+
       // enable downloader button and show blocking popup
       findViewById(R.id.map_button_download).setVisibility(View.VISIBLE);
       if (m_storageDisconnectedDialog == null)
       {
-        m_storageDisconnectedDialog = new AlertDialog.Builder(this).create();
-        m_storageDisconnectedDialog.setTitle(R.string.external_storage_is_not_available);
-        m_storageDisconnectedDialog.setMessage(getString(R.string.disconnect_usb_cable));
-        m_storageDisconnectedDialog.setCancelable(false);
+        m_storageDisconnectedDialog = new AlertDialog.Builder(this)
+        .setTitle(R.string.external_storage_is_not_available)
+        .setMessage(getString(R.string.disconnect_usb_cable))
+        .setCancelable(false)
+        .create();
       }
       m_storageDisconnectedDialog.show();
     }
@@ -512,6 +524,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         updateExternalStorageState();
       }
     };
+
     IntentFilter filter = new IntentFilter();
     filter.addAction(Intent.ACTION_MEDIA_MOUNTED);
     filter.addAction(Intent.ACTION_MEDIA_REMOVED);
@@ -524,6 +537,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     filter.addAction(Intent.ACTION_MEDIA_NOFS);
     filter.addDataScheme("file");
     registerReceiver(m_externalStorageReceiver, filter);
+
     updateExternalStorageState();
   }
 

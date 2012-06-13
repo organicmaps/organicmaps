@@ -49,14 +49,13 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   private CheckBox mDownloadCountryCheckBox = null;
   private LocationService mLocationService = null;
   private String mCountryName = null;
-  private boolean mHasLocation = false;
+
   private WakeLock mWakeLock = null;
 
   private int getBytesToDownload()
   {
-    return getBytesToDownload(
-              mApplication.getApkPath(),
-              mApplication.getDataStoragePath());
+    return getBytesToDownload(mApplication.getApkPath(),
+                              mApplication.getDataStoragePath());
   }
 
   private void disableAutomaticStandby()
@@ -84,14 +83,14 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
     if (bytesToDownload < 1024 * 1024)
       mMsgView.setText(String.format(getString(R.string.download_resources),
-                                     bytesToDownload * 1.0f / 1024,
+                                     (float)bytesToDownload / 1024,
                                      getString(R.string.kb)));
     else
       mMsgView.setText(String.format(getString(R.string.download_resources,
-                                               bytesToDownload * 1.0f / 1024 / 1024,
+                                               (float)bytesToDownload / 1024 / 1024,
                                                getString(R.string.mb))));
 
-    /// set normal text color
+    // set normal text color
     mMsgView.setTextColor(Color.WHITE);
   }
 
@@ -169,7 +168,6 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     showMapView();
   }
 
-
   public String getErrorMessage(int res)
   {
     int id;
@@ -188,9 +186,11 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   {
     // Continue with Main UI initialization (MWMActivity)
     Intent mwmActivityIntent = new Intent(this, MWMActivity.class);
+
     // Disable animation because MWMActivity should appear exactly over this one
     mwmActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
     startActivity(mwmActivityIntent);
+
     finish();
   }
 
@@ -199,7 +199,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     enableAutomaticStandby();
     if (result == ERR_NO_MORE_FILES)
     {
-      if (mHasLocation && mDownloadCountryCheckBox.isChecked())
+      if (mCountryName != null && mDownloadCountryCheckBox.isChecked())
       {
         mDownloadCountryCheckBox.setVisibility(View.GONE);
         mLocationMsgView.setVisibility(View.GONE);
@@ -282,6 +282,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
       mTryAgainButton = (Button)findViewById(R.id.download_resources_button_tryagain);
       mDownloadCountryCheckBox = (CheckBox)findViewById(R.id.download_country_checkbox);
       mLocationMsgView = (TextView)findViewById(R.id.download_resources_location_message);
+
       prepareFilesDownload();
     }
   }
@@ -289,6 +290,8 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   @Override
   protected void onDestroy()
   {
+    super.onDestroy();
+
     if (mLocationService != null)
     {
       mLocationService.stopUpdate(this);
@@ -296,8 +299,24 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     }
 
     mMapStorage.unsubscribe(mSlotId);
+  }
 
-    super.onDestroy();
+  @Override
+  protected void onPause()
+  {
+    super.onPause();
+
+    if (mLocationService != null)
+      mLocationService.stopUpdate(this);
+  }
+
+  @Override
+  protected void onResume()
+  {
+    super.onResume();
+
+    if (mLocationService != null)
+      mLocationService.startUpdate(this);
   }
 
   public void onDownloadProgress(int currentTotal, int currentProgress, int globalTotal, int globalProgress)
@@ -317,24 +336,19 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     else
       finishFilesDownload(errorCode);
   }
-  private boolean mReceivedFirstEvent = false;
-
-  private int mLocationsCount = 0;
-  private final int mLocationsTryCount = 0;
 
   @Override
   public void onLocationUpdated(long time, double lat, double lon, float accuracy)
   {
-    if (mReceivedFirstEvent)
+    if (mCountryName == null)
     {
-      if (mLocationsCount == mLocationsTryCount)
+      findViewById(R.id.download_resources_location_progress).setVisibility(View.GONE);
+
+      Log.i(TAG, "Searching for country name at location lat=" + lat + ", lon=" + lon);
+
+      mCountryName = findCountryByPos(lat, lon);
+      if (mCountryName != null)
       {
-        findViewById(R.id.download_resources_location_progress).setVisibility(View.GONE);
-
-        Log.i(TAG, "Searching for country name at location lat=" + lat + ", lon=" + lon);
-
-        mCountryName = findCountryByPos(lat, lon);
-        mHasLocation = true;
         if (mMapStorage.countryStatus(mMapStorage.findIndexByName(mCountryName)) == MapStorage.ON_DISK)
           mLocationMsgView.setText(String.format(getString(R.string.download_location_map_up_to_date), mCountryName));
         else
@@ -348,9 +362,6 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
         mLocationService.stopUpdate(this);
         mLocationService = null;
       }
-
-      Log.d(TAG, "tryCount:" + mLocationsCount);
-      ++mLocationsCount;
     }
   }
 
@@ -362,8 +373,6 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   @Override
   public void onLocationStatusChanged(int status)
   {
-    if (status == LocationService.FIRST_EVENT)
-      mReceivedFirstEvent = true;
   }
 
   private native void moveMaps(String fromFolder, String toFolder);

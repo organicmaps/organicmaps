@@ -53,10 +53,8 @@ public class LocationService implements LocationListener, SensorEventListener, W
   /// To calculate true north for compass
   private GeomagneticField m_magneticField = null;
 
+  /// true when GPS is on
   private boolean m_isActive = false;
-  // @TODO Refactor to deliver separate first update notification to each provider,
-  // or do not use it at all in the location service logic
-  private boolean m_reportFirstUpdate = true;
 
   private WakeLock m_wakeLock = null;
   private MWMApplication mApplication = null;
@@ -64,7 +62,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
   public LocationService(MWMApplication application)
   {
     mApplication = application;
-    // Acquire a reference to the system Location Manager
+
     m_locationManager = (LocationManager) mApplication.getSystemService(Context.LOCATION_SERVICE);
     m_sensorManager = (SensorManager) mApplication.getSystemService(Context.SENSOR_SERVICE);
 
@@ -123,6 +121,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
     if (!m_isActive)
     {
       List<String> enabledProviders = m_locationManager.getProviders(true);
+
       // Remove passive provider, we don't use it in the current implementation
       for (int i = 0; i < enabledProviders.size(); ++i)
         if (enabledProviders.get(i).equals("passive"))
@@ -130,6 +129,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
           enabledProviders.remove(i);
           break;
         }
+
       if (enabledProviders.size() == 0)
       {
         // Use WiFi BSSIDS and Google Internet location service if no other options are available
@@ -137,9 +137,11 @@ public class LocationService implements LocationListener, SensorEventListener, W
         if (com.mapswithme.util.ConnectionState.isConnected(mApplication))
         {
           observer.onLocationStatusChanged(STARTED);
+
           if (m_wifiScanner == null)
             m_wifiScanner = new WifiLocation();
           m_wifiScanner.StartScan(mApplication, this);
+
           disableAutomaticStandby();
         }
         else
@@ -148,8 +150,11 @@ public class LocationService implements LocationListener, SensorEventListener, W
       else
       {
         m_isActive = true;
+
         observer.onLocationStatusChanged(STARTED);
         disableAutomaticStandby();
+
+        Location lastKnown = null;
 
         for (String provider : enabledProviders)
         {
@@ -157,24 +162,31 @@ public class LocationService implements LocationListener, SensorEventListener, W
           if (m_locationManager.isProviderEnabled(provider))
           {
             m_locationManager.requestLocationUpdates(provider, 0, 0, this);
-            // Send last known location for faster startup.
-            // It should pass filter in the handler below.
-            final Location lastKnown = m_locationManager.getLastKnownLocation(provider);
-            if (lastKnown != null)
-              onLocationChanged(lastKnown);
+
+            // Remember last known location
+            final Location l = m_locationManager.getLastKnownLocation(provider);
+            if (l != null)
+            {
+              if (lastKnown == null || isBetterLocation(l, lastKnown))
+                lastKnown = l;
+            }
           }
         }
 
         if (m_sensorManager != null)
         {
-          // How often compass is updated
-          final int COMPASS_REFRESH_MKS = SensorManager.SENSOR_DELAY_NORMAL;//SensorManager.SENSOR_DELAY_UI;
+          // How often compass is updated (may be SensorManager.SENSOR_DELAY_UI)
+          final int COMPASS_REFRESH_MKS = SensorManager.SENSOR_DELAY_NORMAL;
 
           if (m_accelerometer != null)
             m_sensorManager.registerListener(this, m_accelerometer, COMPASS_REFRESH_MKS);
           if (m_magnetometer != null)
             m_sensorManager.registerListener(this, m_magnetometer, COMPASS_REFRESH_MKS);
         }
+
+        // Pass last known location only in the end of all registerListener
+        // in case, when we want to disconnect in listener.
+        onLocationChanged(lastKnown);
       }
     }
     else
@@ -184,18 +196,21 @@ public class LocationService implements LocationListener, SensorEventListener, W
   public void stopUpdate(Listener observer)
   {
     m_observers.remove(observer);
+
     // Stop only if no more observers are subscribed
     if (m_observers.size() == 0)
     {
       m_locationManager.removeUpdates(this);
       if (m_sensorManager != null)
         m_sensorManager.unregisterListener(this);
+      m_magneticField = null;
+
+      m_lastLocation = null;
 
       m_isActive = false;
-      m_reportFirstUpdate = true;
-      m_magneticField = null;
       enableAutomaticStandby();
     }
+
     observer.onLocationStatusChanged(STOPPED);
   }
 
@@ -226,7 +241,8 @@ public class LocationService implements LocationListener, SensorEventListener, W
     if (isSignificantlyNewer)
       return true;
     else if (isSignificantlyOlder)
-    { // If the new location is more than two minutes older, it must be worse
+    {
+      // If the new location is more than two minutes older, it must be worse
       return false;
     }
 
@@ -239,8 +255,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
       return true; // Because new location is at least not too old (< 2mins from now)
 
     // Check whether the new location fix is more or less accurate
-    final int accuracyDelta = (int) (newLocation.getAccuracy()
-        - currentBestLocation.getAccuracy());
+    final int accuracyDelta = (int) (newLocation.getAccuracy() - currentBestLocation.getAccuracy());
     final boolean isLessAccurate = accuracyDelta > 0;
     final boolean isMoreAccurate = accuracyDelta < 0;
     final boolean isSignificantlyLessAccurate = accuracyDelta > 200;
@@ -264,29 +279,28 @@ public class LocationService implements LocationListener, SensorEventListener, W
     return provider1.equals(provider2);
   }
 
-  // *************** Notification Handlers ******************
-
   private final static float HUNDRED_METRES = 100.0f;
 
-  //@Override
   @Override
   public void onLocationChanged(Location l)
   {
     if (isBetterLocation(l, m_lastLocation))
     {
-      if (m_reportFirstUpdate)
-      {
-        m_reportFirstUpdate = false;
+      if (m_lastLocation == null)
         notifyStatusChanged(FIRST_EVENT);
-      }
 
       // Used for more precise compass updates
       if (m_sensorManager != null)
       {
         // Recreate magneticField if location has changed significantly
-        if (m_magneticField == null || (m_lastLocation == null || l.distanceTo(m_lastLocation) > HUNDRED_METRES))
-          m_magneticField = new GeomagneticField((float)l.getLatitude(), (float)l.getLongitude(), (float)l.getAltitude(), l.getTime());
+        if (m_magneticField == null ||
+            (m_lastLocation == null || l.distanceTo(m_lastLocation) > HUNDRED_METRES))
+        {
+          m_magneticField = new GeomagneticField((float)l.getLatitude(), (float)l.getLongitude(),
+                                                 (float)l.getAltitude(), l.getTime());
+        }
       }
+
       notifyLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy());
       m_lastLocation = l;
     }
@@ -317,7 +331,6 @@ public class LocationService implements LocationListener, SensorEventListener, W
   private float[] m_gravity = null;
   private float[] m_geomagnetic = null;
 
-  //@Override
   @Override
   public void onSensorChanged(SensorEvent event)
   {
@@ -367,35 +380,30 @@ public class LocationService implements LocationListener, SensorEventListener, W
     }
   }
 
-  //@Override
   @Override
   public void onAccuracyChanged(Sensor sensor, int accuracy)
   {
     //Log.d(TAG, "Compass accuracy changed to " + String.valueOf(accuracy));
   }
 
-  //@Override
   @Override
   public void onProviderDisabled(String provider)
   {
     Log.d(TAG, "Disabled location provider: " + provider);
   }
 
-  //@Override
   @Override
   public void onProviderEnabled(String provider)
   {
     Log.d(TAG, "Enabled location provider: " + provider);
   }
 
-  //@Override
   @Override
   public void onStatusChanged(String provider, int status, Bundle extras)
   {
     Log.d(TAG, String.format("Status changed for location provider: %s to %d", provider, status));
   }
 
-  //@Override
   @Override
   public void onWifiLocationUpdated(Location l)
   {
