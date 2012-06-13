@@ -2,14 +2,13 @@
 
 #include "../gui/controller.hpp"
 
-#include "../std/bind.hpp"
-#include "../std/sstream.hpp"
+#include "../yg/overlay_renderer.hpp"
 
 #include "../base/string_format.hpp"
 
-#include "../storage/storage.hpp"
+#include "../std/bind.hpp"
+#include "../std/sstream.hpp"
 
-#include "../yg/overlay_renderer.hpp"
 
 string const CountryStatusDisplay::displayName() const
 {
@@ -181,18 +180,7 @@ void CountryStatusDisplay::setCountryName(string const & name)
 {
   if (m_fullName != name)
   {
-    size_t pos = name.find(",");
-    if (pos == string::npos)
-    {
-      m_mapName = name;
-      m_mapGroupName.clear();
-    }
-    else
-    {
-      m_mapName = name.substr(pos + 2);
-      m_mapGroupName = name.substr(0, pos);
-    }
-
+    storage::CountryInfo::FullName2GroupAndMap(name, m_mapGroupName, m_mapName);
     LOG(LINFO, (m_mapName, m_mapGroupName));
 
     m_countryIdx = m_storage->FindIndexByName(m_mapName);

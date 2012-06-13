@@ -24,3 +24,4 @@ SOURCES += \
   country.cpp \
   storage.cpp \
   country_info.cpp \
+  country_decl.cpp \

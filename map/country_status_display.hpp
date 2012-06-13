@@ -2,11 +2,12 @@
 
 #include "../storage/storage.hpp"
 
-#include "../std/shared_ptr.hpp"
-
 #include "../gui/element.hpp"
 #include "../gui/button.hpp"
 #include "../gui/text_view.hpp"
+
+#include "../std/shared_ptr.hpp"
+
 
 /// This class is a composite GUI element to display
 /// an on-screen GUI for the country, which is not downloaded yet.

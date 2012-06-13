@@ -123,7 +123,11 @@ extern "C"
     if (!strCountry)
       return IndexBinding::toJava(storage::TIndex());
 
-    return IndexBinding::toJava(g_framework->Storage().FindIndexByName(strCountry));
+    // In case of countries, splitted on regions.
+    string group, map;
+    storage::CountryInfo::FullName2GroupAndMap(strCountry, group, map);
+
+    return IndexBinding::toJava(g_framework->Storage().FindIndexByName(map));
   }
 
   JNIEXPORT void JNICALL
