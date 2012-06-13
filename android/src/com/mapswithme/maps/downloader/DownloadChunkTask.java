@@ -1,5 +1,6 @@
 package com.mapswithme.maps.downloader;
 
+import java.io.BufferedInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -75,12 +76,11 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
   @Override
   protected Boolean doInBackground(Void... p)
   {
-    URL url;
     HttpURLConnection urlConnection = null;
+
     try
     {
-      url = new URL(m_url);
-
+      URL url = new URL(m_url);
       urlConnection = (HttpURLConnection) url.openConnection();
 
       if (isCancelled())
@@ -123,30 +123,20 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
         return false;
       }
 
-      final InputStream is = urlConnection.getInputStream();
-
-      byte [] tempBuf = new byte[1024 * 64];
-      long readBytes;
-      while ((readBytes = is.read(tempBuf)) != -1)
-      {
-        if (isCancelled())
-          return false;
-
-        byte [] chunk = new byte[(int)readBytes];
-        System.arraycopy(tempBuf, 0, chunk, 0, (int)readBytes);
-        publishProgress(chunk);
-      }
+      return downloadFromStream(new BufferedInputStream(urlConnection.getInputStream()));
     }
     catch (MalformedURLException ex)
     {
-      Log.d(TAG, "invalid url: " + m_url);
+      Log.d(TAG, "Invalid url: " + m_url);
+
       // Notify the client about error
       m_httpErrorCode = INVALID_URL;
       return false;
     }
     catch (IOException ex)
     {
-      Log.d(TAG, "ioexception: " + ex.toString());
+      Log.d(TAG, "IOException: " + ex.toString());
+
       // Notify the client about error
       m_httpErrorCode = IO_ERROR;
       return false;
@@ -161,8 +151,53 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
         return false;
       }
     }
+  }
 
-    // Download has finished
+  /// Because of timeouts in InpetStream.read (for bad connection),
+  /// try to introduce dynamic buffer size to read in one query.
+  private boolean downloadFromStream(InputStream stream)
+  {
+    int bufferSize = 64;
+    while (true)
+    {
+      try
+      {
+        // download chunk from stream
+        return downloadFromStreamImpl(stream, bufferSize * 1024);
+      }
+      catch (IOException ex)
+      {
+        // If exception is thrown, try to reduce buffer size or throw it up, if it's a last try.
+        bufferSize /= 32;
+
+        if (bufferSize == 0)
+        {
+          Log.d(TAG, "IOException in downloadFromStream: " + ex.toString());
+
+          // Notify the client about error
+          m_httpErrorCode = IO_ERROR;
+          return false;
+        }
+      }
+    }
+  }
+
+  private boolean downloadFromStreamImpl(InputStream stream, int bufferSize) throws IOException
+  {
+    byte[] tempBuf = new byte[bufferSize];
+
+    int readBytes;
+    while ((readBytes = stream.read(tempBuf)) != -1)
+    {
+      if (isCancelled())
+        return false;
+
+      byte[] chunk = new byte[readBytes];
+      System.arraycopy(tempBuf, 0, chunk, 0, readBytes);
+
+      publishProgress(chunk);
+    }
+
     return true;
   }
 }
