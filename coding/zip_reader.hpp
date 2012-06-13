@@ -13,14 +13,15 @@
 
 #include "../std/function.hpp"
 
+
 class ZipFileReader : public BaseZipFileReaderType
 {
 private:
   uint64_t m_uncompressedFileSize;
 
 public:
-
   typedef function<void(int, int)> ProgressFn;
+  typedef vector<string> FileListT;
 
   DECLARE_EXCEPTION(OpenZipException, OpenException);
   DECLARE_EXCEPTION(LocateZipException, OpenException);
@@ -35,7 +36,8 @@ public:
   static void UnzipFile(string const & zipContainer, string const & fileInZip,
                         string const & outFilePath, ProgressFn progressFn = ProgressFn());
 
-  static vector<string> FilesList(string const & zipContainer);
+  static void FilesList(string const & zipContainer, FileListT & filesList);
+
   /// Quick version without exceptions
   static bool IsZip(string const & zipContainer);
 };

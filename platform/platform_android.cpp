@@ -32,27 +32,39 @@ ModelReader * Platform::GetReader(string const & file) const
   }
 }
 
+namespace
+{
+  string GetFixedMask(string const & mask)
+  {
+    // Filter out according to the mask.
+    // @TODO we don't support wildcards at the moment
+    if (!mask.empty() && mask[0] == '*')
+      return string(mask.c_str() + 1);
+    else
+      return mask;
+  }
+}
+
 void Platform::GetFilesInDir(string const & directory, string const & mask, FilesList & res)
 {
   if (ZipFileReader::IsZip(directory))
-  { // Get files list inside zip file
-    res = ZipFileReader::FilesList(directory);
-    // filter out according to the mask
-    // @TODO we don't support wildcards at the moment
-    string fixedMask = mask;
-    if (fixedMask.size() && fixedMask[0] == '*')
-      fixedMask.erase(0, 1);
-    for (FilesList::iterator it = res.begin(); it != res.end();)
+  {
+    // Get files list inside zip file
+    FilesList fList;
+    ZipFileReader::FilesList(directory, fList);
+
+    string const fixedMask = GetFixedMask(mask);
+
+    for (FilesList::iterator it = fList.begin(); it != fList.end(); ++it)
     {
-      if (it->find(fixedMask) == string::npos)
-        it = res.erase(it);
-      else
+      if (it->find(fixedMask) != string::npos)
       {
         // Remove assets/ prefix - clean files are needed for fonts white/blacklisting logic
         static size_t const ASSETS_LENGTH = 7;
         if (it->find("assets/") == 0)
           it->erase(0, ASSETS_LENGTH);
-        ++it;
+
+        res.push_back(*it);
       }
     }
   }
@@ -62,22 +74,16 @@ void Platform::GetFilesInDir(string const & directory, string const & mask, File
     struct dirent * entry;
     if ((dir = opendir(directory.c_str())) == NULL)
       return;
-    // TODO: take wildcards into account...
-    string mask_fixed = mask;
-    if (mask_fixed.size() && mask_fixed[0] == '*')
-      mask_fixed.erase(0, 1);
-    do
+
+    string const fixedMask = GetFixedMask(mask);
+
+    while ((entry = readdir(dir)) != 0)
     {
-      if ((entry = readdir(dir)) != NULL)
-      {
-        string fname(entry->d_name);
-        size_t index = fname.rfind(mask_fixed);
-        if (index != string::npos && index == fname.size() - mask_fixed.size())
-        {
-            res.push_back(fname);
-        }
-      }
-    } while (entry != NULL);
+      string const fname(entry->d_name);
+      size_t const index = fname.rfind(fixedMask);
+      if ((index != string::npos) && (index == fname.size() - fixedMask.size()))
+        res.push_back(fname);
+    }
 
     closedir(dir);
   }

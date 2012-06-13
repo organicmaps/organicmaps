@@ -38,9 +38,9 @@ ZipFileReader::ZipFileReader(string const & container, string const & file)
   m_uncompressedFileSize = fileInfo.uncompressed_size;
 }
 
-vector<string> ZipFileReader::FilesList(string const & zipContainer)
+void ZipFileReader::FilesList(string const & zipContainer, FileListT & filesList)
 {
-  unzFile zip = unzOpen64(zipContainer.c_str());
+  unzFile const zip = unzOpen64(zipContainer.c_str());
   if (!zip)
     MYTHROW(OpenZipException, ("Can't get zip file handle", zipContainer));
 
@@ -49,7 +49,6 @@ vector<string> ZipFileReader::FilesList(string const & zipContainer)
   if (UNZ_OK != unzGoToFirstFile(zip))
     MYTHROW(LocateZipException, ("Can't find first file inside zip", zipContainer));
 
-  vector<string> filesList;
   do
   {
     char fileName[256];
@@ -59,8 +58,6 @@ vector<string> ZipFileReader::FilesList(string const & zipContainer)
     filesList.push_back(fileName);
 
   } while (UNZ_OK == unzGoToNextFile(zip));
-
-  return filesList;
 }
 
 bool ZipFileReader::IsZip(string const & zipContainer)
