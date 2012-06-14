@@ -186,7 +186,8 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
         // Pass last known location only in the end of all registerListener
         // in case, when we want to disconnect in listener.
-        onLocationChanged(lastKnown);
+        if (lastKnown != null)
+          onLocationChanged(lastKnown);
       }
     }
     else
