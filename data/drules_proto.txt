@@ -4779,6 +4779,37 @@ cont {
   }
 }
 cont {
+  name: "building-address"
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 0x808070
+      }
+      secondary {
+        height: 11
+        color: 0x808070
+      }
+      priority: 11832
+    }
+  }
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0x404040
+      }
+      secondary {
+        height: 11
+        color: 0x404040
+      }
+      priority: 11832
+    }
+  }
+}
+cont {
   name: "communication-line"
   element {
     scale: 16

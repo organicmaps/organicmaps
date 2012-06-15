@@ -306,6 +306,13 @@ namespace ftype
 //  };
 //#endif
 
+  uint32_t GetAddressType()
+  {
+    static char const * arr[] = { "building", "address" };
+    static uint32_t const res = classif().GetTypeByPath(vector<string>(arr, arr + 2));
+    return res;
+  }
+
   void GetNameAndType(XMLElement * p, FeatureParams & params)
   {
 //#ifdef DEBUG
@@ -365,6 +372,14 @@ namespace ftype
       skipRootKeys.insert(path[0]->GetName());
 
     } while (true);
+
+    if (!params.IsValid() && !params.house.IsEmpty())
+    {
+      params.name.Clear();
+      // If we have address (house name or number), we should assign valid type.
+      // There are a lot of features like this in Czech Republic.
+      params.AddType(GetAddressType());
+    }
   }
 
   uint32_t GetBoundaryType2()
