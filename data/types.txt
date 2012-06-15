@@ -746,5 +746,6 @@ tourism|guest_house
 tourism|motel
 
 boundary|administrative|4|state
+place|state|USA
 
 building|address

@@ -47985,6 +47985,41 @@ cont {
   }
 }
 cont {
+  name: "place-state-USA"
+  element {
+    scale: 7
+    caption {
+      primary {
+        height: 14
+        color: 0xC0C0B0
+      }
+      priority: 70
+    }
+  }
+  element {
+    scale: 8
+    caption {
+      primary {
+        height: 14
+        color: 0xB0B0A8
+	stroke_color: 0xEEEEDD
+      }
+      priority: 70
+    }
+  }
+  element {
+    scale: 9
+    caption {
+      primary {
+        height: 14
+        color: 0xC0C0B0
+	stroke_color: 0xEEEEDD
+      }
+      priority: 70
+    }
+  }
+}
+cont {
   name: "place-suburb"
   element {
     scale: 12
