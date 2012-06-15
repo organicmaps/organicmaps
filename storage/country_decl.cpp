@@ -19,6 +19,7 @@ void storage::CountryInfo::FullName2GroupAndMap(string const & fName, string & g
   if (pos == string::npos)
   {
     map = fName;
+    group.clear();
   }
   else
   {
