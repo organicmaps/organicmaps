@@ -139,3 +139,58 @@ UNIT_TEST(OsmType_Combined)
 
   TEST_EQUAL(params.house.Get(), "84", ());
 }
+
+UNIT_TEST(OsmType_Address)
+{
+  char const * arr[][2] = {
+    { "addr:conscriptionnumber", "223" },
+    { "addr:housenumber", "223/5" },
+    { "addr:postcode", "11000" },
+    { "addr:street", "Řetězová" },
+    { "addr:streetnumber", "5" },
+    { "source:addr", "uir_adr" },
+    { "uir_adr:ADRESA_KOD", "21717036" }
+  };
+
+  XMLElement e;
+  FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+  FeatureParams params;
+  ftype::GetNameAndType(&e, params);
+
+  Classificator & c = classif();
+  char const * arrT[] = { "building", "address" };
+  TEST(params.IsTypeExist(c.GetTypeByPath(vector<string>(arrT, arrT + 2))), ());
+
+  TEST_EQUAL(params.house.Get(), "223/5", ());
+}
+
+UNIT_TEST(OsmType_PlaceState)
+{
+  char const * arr[][2] = {
+    { "alt_name:vi", "California" },
+    { "is_in", "USA" },
+    { "is_in:continent", "North America" },
+    { "is_in:country", "USA" },
+    { "is_in:country_code", "us" },
+    { "name", "California" },
+    { "place", "state" },
+    { "population", "37253956" },
+    { "ref", "CA" }
+  };
+
+  XMLElement e;
+  FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+  FeatureParams params;
+  ftype::GetNameAndType(&e, params);
+
+  Classificator & c = classif();
+  char const * arrT[] = { "place", "state", "USA" };
+  TEST(params.IsTypeExist(c.GetTypeByPath(vector<string>(arrT, arrT + 3))), ());
+
+  string s;
+  TEST(params.name.GetString(0, s), ());
+  TEST_EQUAL(s, "California", ());
+  TEST_GREATER(params.rank, 1, ());
+}
