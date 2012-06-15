@@ -297,7 +297,7 @@ uint32_t FeatureType::GetPopulation() const
   if (m_Params.rank == 0)
     return 1;
 
-  return static_cast<uint32_t>(min(double(uint32_t(-1)), pow(1.1, m_Params.rank)));
+  return static_cast<uint32_t>(pow(1.1, m_Params.rank));
 }
 
 double FeatureType::GetPopulationDrawRank() const
