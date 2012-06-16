@@ -83,6 +83,9 @@ namespace android
     /// Show rect from another activity. Ensure that no LoadState will be called,
     /// when maim map activity will become active.
     void ShowCountry(m2::RectD const & r);
+    void ShowSearchResult(search::Result const & r);
+
+    void Search(search::SearchParams const & params);
 
     void LoadState();
     void SaveState();

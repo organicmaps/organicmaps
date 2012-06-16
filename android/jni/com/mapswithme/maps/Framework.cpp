@@ -376,6 +376,17 @@ namespace android
     m_work.ShowRect(r);
   }
 
+  void Framework::ShowSearchResult(search::Result const & r)
+  {
+    m_doLoadState = false;
+    m_work.ShowSearchResult(r);
+  }
+
+  void Framework::Search(search::SearchParams const & params)
+  {
+    m_work.Search(params);
+  }
+
   void Framework::LoadState()
   {
     if (!m_work.LoadState())

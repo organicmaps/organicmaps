@@ -34,6 +34,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/maps/Lifecycle.cpp \
 	com/mapswithme/maps/MapStorage.cpp \
 	com/mapswithme/maps/DownloadResourcesActivity.cpp \
+	com/mapswithme/maps/SearchActivity.cpp \
 	com/mapswithme/platform/Platform.cpp \
 	com/mapswithme/platform/HttpThread.cpp \
 	com/mapswithme/platform/Language.cpp \

@@ -262,6 +262,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   {
     if (!nativeIsProVersion())
       showProVersionBanner(getString(R.string.search_available_in_pro_version));
+    else
+      startActivity(new Intent(this, SearchActivity.class));
   }
 
   public void onDownloadClicked(View v)
