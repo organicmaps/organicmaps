@@ -14,13 +14,17 @@ namespace threads
   {
   private:
     bool m_isCancelled;
+
   protected:
-    bool IsCancelled() { return m_isCancelled; }
+    inline bool IsCancelled() const { return m_isCancelled; }
+
   public:
     IRoutine() : m_isCancelled(false) {}
     virtual ~IRoutine() {}
+
     /// Performing the main task
     virtual void Do() = 0;
+
     /// Implement this function to respond to the cancellation event.
     /// Cancellation means that IRoutine should exit as fast as possible.
     virtual void Cancel() { m_isCancelled = true; }

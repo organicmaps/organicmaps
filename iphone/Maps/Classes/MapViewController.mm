@@ -161,8 +161,8 @@
     // Helper to display/hide pin on screen tap
     m_bookmark = [[BalloonView alloc] initWithTarget:self andSelector:@selector(onBookmarkClicked)];
 
-    // cyclic dependence, @TODO refactor.
-    // Here we're creating view and window handle in it, and later we should pass framework to the view
+    /// @TODO refactor cyclic dependence.
+    /// Here we're creating view and window handle in it, and later we should pass framework to the view.
     EAGLView * v = (EAGLView *)self.view;
 
     Framework & f = GetFramework();
