@@ -17,10 +17,20 @@ namespace jni
   //jobject CreateJavaObject(JNIEnv * env, char const * klass, char const * sig, ...);
   //@}
 
-  string ToNativeString(jstring str);
-  jstring ToJavaString(string const & s);
   JNIEnv * GetEnv();
   JavaVM * GetJVM();
+
+  string ToNativeString(JNIEnv * env, jstring str);
+  inline string ToNativeString(jstring str)
+  {
+    return ToNativeString(GetEnv(), str);
+  }
+
+  jstring ToJavaString(JNIEnv * env, char const * s);
+  inline jstring ToJavaString(JNIEnv * env, string const & s)
+  {
+    return ToJavaString(env, s.c_str());
+  }
 
   string DescribeException();
 

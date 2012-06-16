@@ -110,7 +110,8 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MWMActivity_nativeSetString(JNIEnv * env, jobject thiz, jstring name, jstring value)
   {
-    g_framework->AddString(jni::ToNativeString(name), jni::ToNativeString(value));
+    g_framework->AddString(jni::ToNativeString(env, name),
+                           jni::ToNativeString(env, value));
   }
 
 #define SETTINGS_PRO_VERSION_URL_KEY "ProVersionURL"
@@ -130,7 +131,7 @@ extern "C"
   {
     string res;
     Settings::Get(SETTINGS_PRO_VERSION_URL_KEY, res);
-    return jni::ToJavaString(res);
+    return jni::ToJavaString(env, res);
   }
 
   void OnProVersionServerReply(downloader::HttpRequest & r, shared_ptr<jobject> obj)
@@ -181,7 +182,7 @@ extern "C"
         shouldCheck = true; //< value is corrupted or invalid, should re-check
       else
       {
-        uint64_t curTime = time(0);
+        uint64_t const curTime = time(0);
         if (curTime - lastCheckTime > PRO_VERSION_CHECK_INTERVAL)
           shouldCheck = true; //< last check was too long ago
         else
@@ -194,7 +195,8 @@ extern "C"
     if (shouldCheck)
     {
       LOG(LDEBUG, ("checking for Pro version"));
-      downloader::HttpRequest::Get(jni::ToNativeString(proVersionServerURL), bind(&OnProVersionServerReply, _1, jni::make_global_ref(thiz)));
+      downloader::HttpRequest::Get(jni::ToNativeString(env, proVersionServerURL),
+                                   bind(&OnProVersionServerReply, _1, jni::make_global_ref(thiz)));
     }
   }
 
@@ -203,7 +205,7 @@ extern "C"
   {
     string res;
     Settings::Get(SETTINGS_PRO_VERSION_URL_KEY, res);
-    return jni::ToJavaString(res);
+    return jni::ToJavaString(env, res);
   }
 
   JNIEXPORT void JNICALL

@@ -63,9 +63,8 @@ namespace jni
   }
   */
 
-  string ToNativeString(jstring str)
+  string ToNativeString(JNIEnv * env, jstring str)
   {
-    JNIEnv * env = GetEnv();
     string result;
     char const * utfBuffer = env->GetStringUTFChars(str, 0);
     if (utfBuffer)
@@ -76,9 +75,9 @@ namespace jni
     return result;
   }
 
-  jstring ToJavaString(string const & s)
+  jstring ToJavaString(JNIEnv * env, char const * s)
   {
-    return GetEnv()->NewStringUTF(s.c_str());
+    return env->NewStringUTF(s);
   }
 
   JNIEnv * GetEnv()
@@ -131,10 +130,9 @@ namespace jni
 
       jstring jErrorMsg = (jstring) env->CallObjectMethod(e, mid);
 
-      return ToNativeString(jErrorMsg);
+      return ToNativeString(env, jErrorMsg);
     }
 
     return "";
   }
-
 } // namespace jni

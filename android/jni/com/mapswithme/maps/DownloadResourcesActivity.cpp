@@ -75,8 +75,8 @@ extern "C"
     g_totalBytesToDownload = 0;
     g_totalDownloadedBytes = 0;
 
-    //g_apkPath = jni::ToNativeString(apkPath);
-    string const path = jni::ToNativeString(sdcardPath);
+    //g_apkPath = jni::ToNativeString(env, apkPath);
+    string const path = jni::ToNativeString(env, sdcardPath);
 
     Platform & pl = GetPlatform();
     ReaderStreamBuf buffer(pl.GetReader("external_resources.txt"));
@@ -113,8 +113,7 @@ extern "C"
       }
     }
 
-    int res = HasSpaceForFiles(path, g_totalBytesToDownload);
-
+    int const res = HasSpaceForFiles(path, g_totalBytesToDownload);
     switch (res)
     {
     case ERR_STORAGE_DISCONNECTED:
@@ -244,8 +243,8 @@ extern "C"
   Java_com_mapswithme_maps_DownloadResourcesActivity_moveMaps(JNIEnv * env, jobject thiz,
       jstring fromPath, jstring toPath)
   {
-    string from = jni::ToNativeString(fromPath);
-    string to = jni::ToNativeString(toPath);
+    string const from = jni::ToNativeString(env, fromPath);
+    string const to = jni::ToNativeString(env, toPath);
 
     Platform & pl = GetPlatform();
     Platform::FilesList files;
