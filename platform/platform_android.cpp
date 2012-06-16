@@ -1,12 +1,14 @@
 #include "platform.hpp"
 
-#include "../base/logging.hpp"
-
 #include "../coding/zip_reader.hpp"
+
+#include "../base/logging.hpp"
+#include "../base/thread.hpp"
 
 #include <dirent.h>
 #include <unistd.h>
 #include <sys/stat.h>
+
 
 Platform::Platform() : m_impl(0)
 {}
@@ -93,18 +95,15 @@ int Platform::CpuCores() const
 {
   static long const numCPU = sysconf(_SC_NPROCESSORS_CONF);
 
-  /// for debugging only. _SC_NPROCESSORS_ONLN could change, so
-  /// we should test whether _SC_NPROCESSORS_CONF could change too
+  // for debugging only. _SC_NPROCESSORS_ONLN could change, so
+  // we should test whether _SC_NPROCESSORS_CONF could change too
 
   long const newNumCPU = sysconf(_SC_NPROCESSORS_CONF);
 
   if (newNumCPU != numCPU)
     LOG(LWARNING, ("initially retrived", numCPU, "and now got", newNumCPU, "processors"));
 
-  if (numCPU >= 1)
-    return static_cast<int>(numCPU);
-
-  return 1;
+  return (numCPU > 1 ? static_cast<int>(numCPU) : 1);
 }
 
 string Platform::DeviceName() const
@@ -165,18 +164,42 @@ bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)
 
 bool Platform::IsFeatureSupported(string const & feature) const
 {
-  // @TODO add Search feature support
+  if (feature == "search")
+  {
+    /// @todo add additional checks for apk, protection, etc ...
+    return true;
+  }
   return false;
 }
 
 void Platform::RunOnGuiThread(TFunctor const & fn)
 {
-  // @TODO
+  /// @todo
   fn();
+}
+
+namespace
+{
+  class SelfDeleteRoutine : public threads::IRoutine
+  {
+    typedef Platform::TFunctor FnT;
+    FnT m_fn;
+
+  public:
+    SelfDeleteRoutine(FnT const & fn) : m_fn(fn) {}
+
+    virtual void Do()
+    {
+      m_fn();
+      delete this;
+    }
+  };
 }
 
 void Platform::RunAsync(TFunctor const & fn, Priority p)
 {
-  // @TODO
-  fn();
+  UNUSED_VALUE(p);
+
+  // We don't need to store thread handler in POSIX. Just create and run.
+  threads::Thread().Create(new SelfDeleteRoutine(fn));
 }
