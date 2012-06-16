@@ -7,15 +7,17 @@
     android:paddingRight="?android:attr/scrollbarSize">
 
     <LinearLayout
+        android:id="@+id/search_layout_1"
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/search_layout_2"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true">
 
         <TextView
             android:id="@+id/name"
-            android:text="Name"
+            android:text="Long Feature Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
@@ -30,6 +32,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/search_layout_2"
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

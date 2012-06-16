@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/country_flag"
-        android:layout_width="?android:attr/listPreferredItemHeight"
-        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:padding="5dip"
         android:scaleType="center"
         android:layout_alignParentLeft="true"
@@ -24,7 +24,7 @@
 
     <TextView
         android:id="@+id/title"
-        android:text="XXXX"
+        android:text="Xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@id/disclosure_image"

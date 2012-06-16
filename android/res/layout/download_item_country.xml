@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/country_flag"
-        android:layout_width="?android:attr/listPreferredItemHeight"
-        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:padding="5dip"
         android:scaleType="center"
         android:layout_alignParentLeft="true"
@@ -17,7 +17,7 @@
     <ImageView
         android:id="@+id/show_country"
         android:layout_width="?android:attr/listPreferredItemHeight"
-        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:layout_height="wrap_content"
         android:scaleType="center"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
@@ -33,14 +33,14 @@
 
         <TextView
             android:id="@+id/title"
-            android:text="XXXX"
+            android:text="Xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
 
         <TextView
             android:id="@+id/summary"
-            android:text="YYYY"
+            android:text="Yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"/>
