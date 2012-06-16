@@ -885,7 +885,10 @@ void Framework::ShowSearchResult(search::Result const & res)
       r = scales::GetRectForLevel(scales::GetUpperWorldScale(), c, 1.0);
   }
 
-  ShowRectFixed(r);
+  /// @todo We can't call this fucntion in android because of invalid m_renderPolicy.
+  //ShowRectFixed(r);
+  ShowRect(r);
+
   DrawPlacemark(res.GetFeatureCenter());
 }
 
