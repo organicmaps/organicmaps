@@ -1,4 +1,5 @@
 #include "platform.hpp"
+#include "constants.hpp"
 
 #include "../coding/zip_reader.hpp"
 
@@ -26,10 +27,16 @@ bool Platform::IsFileExistsByFullPath(string const & filePath)
 ModelReader * Platform::GetReader(string const & file) const
 {
   if (IsFileExistsByFullPath(m_writableDir + file))
-    return new BaseZipFileReaderType(ReadPathForFile(file));
+  {
+    return new FileReader(ReadPathForFile(file),
+                          READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
+  }
   else
   {
-    ASSERT_EQUAL(file.find("assets/"), string::npos, ("Do not use assets/, only file name"));
+    ASSERT_EQUAL ( file.find("assets/"), string::npos, () );
+
+    /// @note If you push some maps to the bundle, it's better to set
+    /// better values for chunk size and chunks count. @see constants.hpp
     return new ZipFileReader(m_resourcesDir, "assets/" + file);
   }
 }

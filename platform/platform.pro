@@ -61,6 +61,7 @@ HEADERS += \
     http_thread_callback.hpp \
     chunks_download_strategy.hpp \
     servers_list.hpp \
+    constants.hpp \
 
 SOURCES += \
     preferred_languages.cpp \

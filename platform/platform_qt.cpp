@@ -1,6 +1,5 @@
 #include "platform.hpp"
-
-#include "../base/logging.hpp"
+#include "constants.hpp"
 
 #include "../coding/file_reader.hpp"
 
@@ -9,12 +8,13 @@
 
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
-#include <QtCore/QTemporaryFile>
+
 
 ////////////////////////////////////////////////////////////////////////////////////////
 ModelReader * Platform::GetReader(string const & file) const
 {
-  return new FileReader(ReadPathForFile(file), 10, 12);
+  return new FileReader(ReadPathForFile(file),
+                        READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
 }
 
 bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)

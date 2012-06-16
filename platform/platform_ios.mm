@@ -1,4 +1,5 @@
 #include "platform.hpp"
+#include "constants.hpp"
 
 #include "../coding/file_reader.hpp"
 #include "../coding/base64.hpp"
@@ -24,6 +25,7 @@
 #import <UIKit/UIDevice.h>
 #import <UIKit/UIScreen.h>
 #import <UIKit/UIScreenMode.h>
+
 
 class Platform::PlatformImpl
 {
@@ -152,7 +154,8 @@ void Platform::GetFontNames(FilesList & res) const
 
 ModelReader * Platform::GetReader(string const & file) const
 {
-  return new FileReader(ReadPathForFile(file), 10, 12);
+  return new FileReader(ReadPathForFile(file),
+                        READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
 }
 
 int Platform::CpuCores() const

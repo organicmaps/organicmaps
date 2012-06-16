@@ -13,7 +13,7 @@ class FileReader : public ModelReader
 public:
   explicit FileReader(string const & fileName,
                       uint32_t logPageSize = 10,
-                      uint32_t logPageCount = 8);
+                      uint32_t logPageCount = 4);
 
   class FileReaderData;
 
