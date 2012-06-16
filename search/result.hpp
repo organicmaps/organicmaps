@@ -67,7 +67,18 @@ public:
   inline IterT Begin() const { return m_vec.begin(); }
   inline IterT End() const { return m_vec.end(); }
 
-  inline size_t Count() const { return m_vec.size(); }
+  inline size_t GetCount() const { return m_vec.size(); }
+
+  inline Result const & GetResult(size_t i) const
+  {
+    ASSERT_LESS(i, m_vec.size(), ());
+    return m_vec[i];
+  }
+
+  inline void Swap(Results & rhs)
+  {
+    m_vec.swap(rhs.m_vec);
+  }
 };
 
 }

@@ -235,7 +235,7 @@ void Engine::SearchAsync()
           res.Clear();
           m_pQuery->SearchAllInViewport(GetViewportRect(params.m_lat, params.m_lon, arrR[i]), res, 3*RESULTS_COUNT);
 
-          if (m_pQuery->IsCanceled() || res.Count() >= 2*RESULTS_COUNT)
+          if (m_pQuery->IsCanceled() || res.GetCount() >= 2*RESULTS_COUNT)
             break;
         }
       }
@@ -251,7 +251,7 @@ void Engine::SearchAsync()
   params.m_callback(res);
 
   // Make additional search in whole mwm when not enough results.
-  if (!m_pQuery->IsCanceled() && res.Count() < RESULTS_COUNT)
+  if (!m_pQuery->IsCanceled() && res.GetCount() < RESULTS_COUNT)
   {
     try
     {
