@@ -1,13 +1,24 @@
 #include "measurement_utils.hpp"
 
-#include "../base/string_utils.hpp"
 #include "../platform/settings.hpp"
+
+#include "../base/string_utils.hpp"
+
 
 namespace MeasurementUtils
 {
 
+string ToStringPrecision(double d, int pr)
+{
+  stringstream ss;
+  ss.precision(pr);
+  ss << std::fixed << d;
+  return ss.str();
+}
+
 bool FormatDistanceImpl(double m, string & res,
-                          char const * high, char const * low, double highF, double lowF)
+                        char const * high, char const * low,
+                        double highF, double lowF)
 {
   double const lowV = m / lowF;
   if (lowV < 1.0)
@@ -17,9 +28,12 @@ bool FormatDistanceImpl(double m, string & res,
   }
 
   if (m >= highF)
-    res = strings::to_string(m / highF) + high;
+  {
+    double const v = m / highF;
+    res = ToStringPrecision(v, v >= 10.0 ? 0 : 1) + high;
+  }
   else
-    res = strings::to_string(lowV) + low;
+    res = ToStringPrecision(lowV, 0) + low;
 
   return true;
 }
@@ -30,6 +44,7 @@ bool FormatDistance(double m, string & res)
   Units u = Metric;
   Settings::Get("Units", u);
 
+  /// @todo Put string units resources.
   switch (u)
   {
   case Yard: return FormatDistanceImpl(m, res, " mi", " yd", 1609.344, 0.9144);

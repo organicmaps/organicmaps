@@ -27,3 +27,4 @@ SOURCES += \
   multithread_map_test.cpp \
   bookmarks_test.cpp \
   geourl_test.cpp \
+  measurement_tests.cpp \
