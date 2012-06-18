@@ -615,7 +615,7 @@ es:circuito
 ko:경마장
 ja:配線管
 
-highway-path
+highway-path|highway-footway
 en:path
 ru:тропа
 de:Weg|Bahn
@@ -625,7 +625,7 @@ es:sendero
 ko:경로
 ja:パス
 
-highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-pedestrian|highway-unclassified|highway-minor|highway-motorway_link|highway-motorway|highway-motorway_junction
+highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-pedestrian|highway-unclassified|highway-minor|highway-motorway_link|highway-motorway
 en:street|st|str|ave
 ru:улица|переулок|проезд|тракт|проспект|ул
 de:Strasse|Weg|Avenue|Gasse
@@ -634,6 +634,10 @@ it:via|strada|corso|vicolo
 es:calle|avenue|camino
 ko:거리|가도
 ja:ストリート|通り|街
+
+highway-motorway_junction
+en:3exit|3junction
+ru:3съезд
 
 natural-peak
 en:peak|mountain
