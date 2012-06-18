@@ -186,35 +186,64 @@ class FeatureInserter
     m_valueSaver.Save(sink, v);
   }
 
-  class AvoidEmptyName
+  /// There are 3 different ways of search index skipping: \n
+  /// - skip features in any case (m_skipFeatures) \n
+  /// - skip features with empty names (m_enFeature) \n
+  /// - skip specified types for features with empty names (m_enTypes) \n
+  class SkipIndexing
   {
-    vector<uint32_t> m_match[2];
+    /// Array index (0, 1) means type level for checking (1, 2).
+    vector<uint32_t> m_enFeature[2];
 
     template <size_t count, size_t ind>
-    void FillMatch(char const * (& arr)[count][ind])
+    void FillEnFeature(char const * (& arr)[count][ind])
     {
       STATIC_ASSERT ( count > 0 );
       STATIC_ASSERT ( ind > 0 );
 
       Classificator const & c = classif();
 
-      m_match[ind-1].reserve(count);
+      m_enFeature[ind-1].reserve(count);
       for (size_t i = 0; i < count; ++i)
       {
         vector<string> v(arr[i], arr[i] + ind);
-        m_match[ind-1].push_back(c.GetTypeByPath(v));
+        m_enFeature[ind-1].push_back(c.GetTypeByPath(v));
       }
     }
 
-    vector<uint32_t> m_skip;
+    vector<uint32_t> m_skipFeatures, m_enTypes;
+
+    template <size_t count, size_t ind>
+    static void FillTypes(char const * (& arr)[count][ind], vector<uint32_t> & dest)
+    {
+      STATIC_ASSERT ( count > 0 );
+      STATIC_ASSERT ( ind > 0 );
+
+      Classificator const & c = classif();
+
+      for (size_t i = 0; i < count; ++i)
+      {
+        vector<string> v(arr[i], arr[i] + ind);
+        dest.push_back(c.GetTypeByPath(v));
+      }
+    }
 
   public:
-    AvoidEmptyName()
+    SkipIndexing()
     {
-      // Get types which not shoud be indexed without names.
-      char const * arr1[][1] = { { "highway" }, { "natural" }, { "waterway"}, { "landuse" } };
+      // Get features which shoud be skipped in any case.
+      char const * arrSkip2[][2] = {
+        { "building", "address" }
+      };
 
-      char const * arr2[][2] = {
+      FillTypes(arrSkip2, m_skipFeatures);
+
+      // Get features which shoud be skipped without names.
+      char const * arrEnFeature1[][1] = {
+        { "highway" }, { "natural" }, { "waterway"}, { "landuse" }
+      };
+
+      char const * arrEnFeature2[][2] = {
         { "place", "city" },
         { "place", "town" },
         { "place", "county" },
@@ -223,39 +252,42 @@ class FeatureInserter
         { "railway", "rail" }
       };
 
-      FillMatch(arr1);
-      FillMatch(arr2);
+      FillEnFeature(arrEnFeature1);
+      FillEnFeature(arrEnFeature2);
 
       // Get types which shoud be skipped for features without names.
-      char const * arrSkip1[][1] = { { "building" } };
+      char const * arrEnTypes1[][1] = { { "building" } };
 
-      Classificator const & c = classif();
-      for (size_t i = 0; i < ARRAY_SIZE(arrSkip1); ++i)
-      {
-        vector<string> v(arrSkip1[i], arrSkip1[i] + 1);
-        m_skip.push_back(c.GetTypeByPath(v));
-      }
+      FillTypes(arrEnTypes1, m_enTypes);
     }
 
-    bool IsMatch(feature::TypesHolder const & types) const
+    bool SkipFeature(feature::TypesHolder const & types) const
+    {
+      for (size_t i = 0; i < m_skipFeatures.size(); ++i)
+        if (types.Has(m_skipFeatures[i]))
+          return true;
+      return false;
+    }
+
+    bool SkipEmptyNameFeature(feature::TypesHolder const & types) const
     {
       for (size_t i = 0; i < types.Size(); ++i)
-        for (size_t j = 0; j < ARRAY_SIZE(m_match); ++j)
+        for (size_t j = 0; j < ARRAY_SIZE(m_enFeature); ++j)
         {
           uint32_t type = types[i];
           ftype::TruncValue(type, j+1);
 
-          if (find(m_match[j].begin(), m_match[j].end(), type) != m_match[j].end())
+          if (find(m_enFeature[j].begin(), m_enFeature[j].end(), type) != m_enFeature[j].end())
             return true;
         }
 
       return false;
     }
 
-    void SkipTypes(feature::TypesHolder & types)
+    void SkipEmptyNameTypes(feature::TypesHolder & types)
     {
-      for (size_t i = 0; i < m_skip.size(); ++i)
-        types.Remove(m_skip[i]);
+      for (size_t i = 0; i < m_enTypes.size(); ++i)
+        types.Remove(m_enTypes[i]);
     }
   };
 
@@ -269,8 +301,15 @@ public:
   }
 
   void operator() (FeatureType const & f, uint64_t pos) const
-  {
+  {       
     feature::TypesHolder types(f);
+
+    static SkipIndexing skipIndex;
+    if (skipIndex.SkipFeature(types))
+    {
+      // Do not add this features in any case.
+      return;
+    }
 
     // init inserter with serialized value
     FeatureNameInserter inserter(m_names);
@@ -279,15 +318,14 @@ public:
     // add names of the feature
     if (!f.ForEachNameRef(inserter))
     {
-      static AvoidEmptyName check;
-      if (check.IsMatch(types))
+      if (skipIndex.SkipEmptyNameFeature(types))
       {
         // Do not add features without names to index.
         return;
       }
 
       // Skip types for features without names.
-      check.SkipTypes(types);
+      skipIndex.SkipEmptyNameTypes(types);
     }
 
     if (types.Empty()) return;
