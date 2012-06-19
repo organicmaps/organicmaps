@@ -328,7 +328,12 @@ public class SearchActivity extends ListActivity implements LocationService.List
         if (resultID >= m_queryID && resultID < m_queryID + QUERY_STEP)
         {
           Log.d(TAG, "Show " + count + " results for id = " + resultID);
+
+          // update list view content
           getSA().updateData(count, resultID);
+
+          // scroll list view to the top
+          setSelection(0);
         }
       }
     });

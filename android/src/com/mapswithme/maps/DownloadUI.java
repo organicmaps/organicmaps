@@ -145,12 +145,17 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
 
     private String getSizeString(long size)
     {
-      if (size > 1024 * 1024)
-        return size / (1024 * 1024) + " " + m_mb;
-      else if ((size + 1023) / 1024 > 999)
-        return "1 " + m_mb;
+      final long Mb = 1024 * 1024;
+      if (size > Mb)
+      {
+        // do the correct rounding of Mb
+        return (size + 512 * 1024) / Mb + " " + m_mb;
+      }
       else
+      {
+        // get upper bound size for Kb
         return (size + 1023) / 1024 + " " + m_kb;
+      }
     }
 
     /// Fill list for current m_group and m_country.
@@ -168,7 +173,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
     }
 
     /// Process list item click.
-    public void onItemClick(int position)
+    public boolean onItemClick(int position)
     {
       if (m_items[position].m_status < 0)
       {
@@ -176,9 +181,13 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
         m_idx = m_idx.getChild(position);
 
         fillList();
+        return true;
       }
       else
+      {
         processCountry(position);
+        return false;
+      }
     }
 
     private void showNotEnoughFreeSpaceDialog(String spaceNeeded, String countryName)
@@ -546,7 +555,12 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
   @Override
   public void onBackPressed()
   {
-    if (!getDA().onBackPressed())
+    if (getDA().onBackPressed())
+    {
+      // scroll list view to the top
+      setSelection(0);
+    }
+    else
       super.onBackPressed();
   }
 
@@ -555,7 +569,11 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
   {
     super.onListItemClick(l, v, position, id);
 
-    getDA().onItemClick(position);
+    if (getDA().onItemClick(position))
+    {
+      // scroll list view to the top
+      setSelection(0);
+    }
   }
 
   @Override
