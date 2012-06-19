@@ -32,29 +32,30 @@ class SearchPanel : public QWidget
   typedef search::Results ResultsT;
   typedef search::Result ResultT;
   vector<ResultT> m_results;
-  int volatile m_queryId;
 
   search::SearchParams m_params;
 
   Q_OBJECT
 
-signals:
-  void SearchResultSignal(ResultsT * result, int queryId);
+public:
+  SearchPanel(DrawWidget * drawWidget, QWidget * parent);
 
 private:
-  void SearchResultThreadFunc(ResultsT const & result, int queryId);
   virtual void showEvent(QShowEvent *);
   virtual void hideEvent(QHideEvent *);
 
-public:
-  explicit SearchPanel(DrawWidget * drawWidget, QWidget * parent);
-  ~SearchPanel();
+  void SearchResultThreadFunc(ResultsT const & result);
+
+signals:
+  void SearchResultSignal(ResultsT * result);
 
 private slots:
   void OnSearchPanelItemClicked(int row, int column);
   void OnSearchTextChanged(QString const &);
+
   /// Called via signal to support multithreading
-  void OnSearchResult(ResultsT * result, int queryId);
+  void OnSearchResult(ResultsT * result);
+
   void OnViewportChanged();
   void OnAnimationTimer();
   void OnClearButton();

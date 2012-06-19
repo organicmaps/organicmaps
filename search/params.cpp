@@ -6,9 +6,10 @@
 namespace search
 {
 
-SearchParams::SearchParams() : m_mode(All),
-    m_inputLanguageCode(StringUtf8Multilang::UNSUPPORTED_LANGUAGE_CODE),
-    m_validPos(false)
+SearchParams::SearchParams()
+: m_mode(All),
+  m_inputLanguageCode(StringUtf8Multilang::UNSUPPORTED_LANGUAGE_CODE),
+  m_validPos(false)
 {
 }
 

@@ -245,6 +245,8 @@ public class SearchActivity extends ListActivity implements LocationService.List
   {
     super.onResume();
 
+    // reset current location flag
+    m_mode = 0;
     m_location.startUpdate(this);
 
     // do the search immediately after resume
@@ -277,9 +279,8 @@ public class SearchActivity extends ListActivity implements LocationService.List
     }
     else
     {
-      // set suggestion string and run search
+      // set suggestion string and run search (this call invokes runSearch)
       getSearchBox().setText(suggestion);
-      runSearch();
     }
   }
 
@@ -324,17 +325,13 @@ public class SearchActivity extends ListActivity implements LocationService.List
       @Override
       public void run()
       {
-        // emit only last query
-        if (resultID >= m_queryID && resultID < m_queryID + QUERY_STEP)
-        {
-          Log.d(TAG, "Show " + count + " results for id = " + resultID);
+        Log.d(TAG, "Show " + count + " results for id = " + resultID);
 
-          // update list view content
-          getSA().updateData(count, resultID);
+        // update list view content
+        getSA().updateData(count, resultID);
 
-          // scroll list view to the top
-          setSelection(0);
-        }
+        // scroll list view to the top
+        setSelection(0);
       }
     });
   }

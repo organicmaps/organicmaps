@@ -14,39 +14,37 @@
 #include "../../indexer/mercator.hpp"
 #include "../../search/result.hpp"
 
+
 #define MAPSWITHME_PREMIUM_APPSTORE_URL @"itms://itunes.com/apps/mapswithmepro"
 
 /// When to display compass instead of country flags
 #define MIN_COMPASS_DISTANCE 25000.0
 
+
 SearchVC * g_searchVC = nil;
-volatile int g_queryId = 0;
 
 @interface ResultsWrapper : NSObject
 {
   vector<search::Result> m_results;
   NSString * m_searchString;
-  int m_queryId;
 }
+
 // Stores search string which corresponds to these results.
-@property(nonatomic,retain) NSString * m_searchString;
-// Used to double-checking and discarding old results in GUI thread
-@property(nonatomic,assign) int m_queryId;
-- (id)initWithResults:(search::Results const &) res andQueryId:(int)qId;
+@property(nonatomic, retain) NSString * m_searchString;
+
+- (id)initWithResults:(search::Results const &)res;
 - (vector<search::Result> const &)get;
 @end
 
 @implementation ResultsWrapper
 
 @synthesize m_searchString;
-@synthesize m_queryId;
 
-- (id)initWithResults:(search::Results const &)res andQueryId:(int)qId
+- (id)initWithResults:(search::Results const &)res
 {
   if ((self = [super init]))
   {
     m_results.assign(res.Begin(), res.End());
-    m_queryId = qId;
   }
   return self;
 }
@@ -57,19 +55,18 @@ volatile int g_queryId = 0;
 }
 @end
 
+
 // Last search results are stored betweel SearchVC sessions
 // to appear instantly for the user, they also store last search text query
 ResultsWrapper * g_lastSearchResults = nil;
 
-static void OnSearchResultCallback(search::Results const & res, int queryId)
+static void OnSearchResultCallback(search::Results const & res)
 {
-  int currQueryId = g_queryId;
-  if (g_searchVC && queryId == currQueryId)
+  if (g_searchVC)
   {
-    ResultsWrapper * w = [[ResultsWrapper alloc] initWithResults:res andQueryId:currQueryId];
+    ResultsWrapper * w = [[ResultsWrapper alloc] initWithResults:res];
     [g_searchVC performSelectorOnMainThread:@selector(addResult:)
-                                 withObject:w
-                              waitUntilDone:NO];
+                                 withObject:w waitUntilDone:NO];
     [w release];
   }
 }
@@ -108,7 +105,7 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 - (void)fillSearchParams:(search::SearchParams &)params withText:(NSString *)queryString
 {
   params.m_query = [[queryString precomposedStringWithCompatibilityMapping] UTF8String];
-  params.m_callback = bind(&OnSearchResultCallback, _1, g_queryId);
+  params.m_callback = bind(&OnSearchResultCallback, _1);
 
   // Set current keyboard input mode
   string lang;
@@ -123,8 +120,6 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
   double lat, lon;
   if ([m_locationManager getLat:lat Lon:lon])
     params.SetPosition(lat, lon);
-
-  params.SetNearMeMode(false);
 }
 
 - (void)loadView
@@ -264,8 +259,6 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 //*********** SearchBar handlers *******************************************
 - (void)searchBar:(UISearchBar *)sender textDidChange:(NSString *)searchText
 {
-  ++g_queryId;
-
   // Search even with empty string.
   //if (searchText.length)
   {
@@ -460,15 +453,14 @@ static void OnSearchResultCallback(search::Results const & res, int queryId)
 - (void)addResult:(id)res
 {
   ResultsWrapper * w = (ResultsWrapper *)res;
-  // Additional check to discard old results when user entered new text query
-  if (g_queryId == w.m_queryId)
-  {
-    [g_lastSearchResults release];
-    g_lastSearchResults = [w retain];
-    w.m_searchString = m_searchBar.text;
-    [self hideIndicator];
-    [m_table reloadData];
-  }
+  
+  [g_lastSearchResults release];
+  g_lastSearchResults = [w retain];
+
+  w.m_searchString = m_searchBar.text;
+
+  [self hideIndicator];
+  [m_table reloadData];
 }
 
 //****************************************************************** 

@@ -20,7 +20,7 @@ namespace qt
 {
 
 SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
-  : QWidget(parent), m_pDrawWidget(drawWidget), m_busyIcon(":/ui/busy.png"), m_queryId(0)
+  : QWidget(parent), m_pDrawWidget(drawWidget), m_busyIcon(":/ui/busy.png")
 {
   m_pEditor = new QLineEdit(this);
   connect(m_pEditor, SIGNAL(textChanged(QString const &)),
@@ -52,21 +52,16 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   setLayout(verticalLayout);
 
   // for multithreading support
-  CHECK(connect(this, SIGNAL(SearchResultSignal(ResultsT *, int)),
-                this, SLOT(OnSearchResult(ResultsT *, int)), Qt::QueuedConnection), ());
+  CHECK(connect(this, SIGNAL(SearchResultSignal(ResultsT *)),
+                this, SLOT(OnSearchResult(ResultsT *)), Qt::QueuedConnection), ());
 
   setFocusPolicy(Qt::StrongFocus);
   setFocusProxy(m_pEditor);
 }
 
-SearchPanel::~SearchPanel()
+void SearchPanel::SearchResultThreadFunc(ResultsT const & result)
 {
-}
-
-void SearchPanel::SearchResultThreadFunc(ResultsT const & result, int queryId)
-{
-  if (queryId == m_queryId)
-    emit SearchResultSignal(new ResultsT(result), queryId);
+  emit SearchResultSignal(new ResultsT(result));
 }
 
 namespace
@@ -113,11 +108,8 @@ namespace
   */
 }
 
-void SearchPanel::OnSearchResult(ResultsT * res, int queryId)
+void SearchPanel::OnSearchResult(ResultsT * res)
 {
-  if (queryId != m_queryId)
-    return;
-
   // clear old results
   m_pTable->clear();
   m_pTable->setRowCount(0);
@@ -170,15 +162,13 @@ void SearchPanel::OnSearchResult(ResultsT * res, int queryId)
 
 void SearchPanel::OnSearchTextChanged(QString const & str)
 {
-  ++m_queryId;
-
   QString const normalized = str.normalized(QString::NormalizationForm_KC);
 
   // search even with empty query
   //if (!normalized.isEmpty())
   {
     m_params.m_query = normalized.toUtf8().constData();
-    m_params.m_callback = bind(&SearchPanel::SearchResultThreadFunc, this, _1, m_queryId);
+    m_params.m_callback = bind(&SearchPanel::SearchResultThreadFunc, this, _1);
 
     m_pDrawWidget->Search(m_params);
 
