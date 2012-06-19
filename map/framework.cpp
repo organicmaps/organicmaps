@@ -3,8 +3,10 @@
 #include "drawer_yg.hpp"
 #include "benchmark_provider.hpp"
 #include "geourl_process.hpp"
-#include "../gui/controller.hpp"
+
 #include "../defines.hpp"
+
+#include "../gui/controller.hpp"
 
 #include "../platform/settings.hpp"
 #include "../platform/preferred_languages.hpp"
@@ -24,6 +26,7 @@
 #include "../std/algorithm.hpp"
 #include "../std/target_os.hpp"
 #include "../std/vector.hpp"
+
 
 void Framework::AddMap(string const & file)
 {
@@ -886,8 +889,10 @@ void Framework::ShowSearchResult(search::Result const & res)
   }
 
   /// @todo We can't call this fucntion in android because of invalid m_renderPolicy.
-  //ShowRectFixed(r);
-  ShowRect(r);
+  if (m_renderPolicy)
+    ShowRectFixed(r);
+  else
+    ShowRect(r);
 
   DrawPlacemark(res.GetFeatureCenter());
 }
