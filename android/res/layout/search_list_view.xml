@@ -1,18 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-         android:orientation="vertical"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:paddingLeft="8dp"
-         android:paddingRight="8dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
 
-     <EditText android:id="@+id/search_string"
-               android:inputType="text"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"/>
+    <EditText android:id="@+id/search_string"
+              android:inputType="text"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"/>
 
-     <ListView android:id="@android:id/list"
-               android:layout_width="match_parent"
-               android:layout_height="0dp"
-               android:layout_weight="1"/>
- </LinearLayout>
+    <LinearLayout android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="40dp">
+
+        <Button android:id="@+id/search_food"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/food"
+                android:onClick="onSearchFood"/>
+
+        <Button android:id="@+id/search_money"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/money"
+                android:onClick="onSearchMoney"/>
+
+        <Button android:id="@+id/search_fuel"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/fuel"
+                android:onClick="onSearchFuel"/>
+
+        <Button android:id="@+id/search_shop"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/shop"
+                android:onClick="onSearchShop"/>
+
+        <Button android:id="@+id/search_transport"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/transport"
+                android:onClick="onSearchTransport"/>
+
+        <Button android:id="@+id/search_tourism"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/tourism"
+                android:onClick="onSearchTourism"/>
+
+    </LinearLayout>
+
+    <ListView android:id="@android:id/list"
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:layout_weight="1"/>
+</LinearLayout>

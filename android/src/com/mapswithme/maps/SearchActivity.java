@@ -339,6 +339,22 @@ public class SearchActivity extends ListActivity implements LocationService.List
     });
   }
 
+  /// @name Amenity buttons listeners
+  //@{
+  public void onSearchFood(View v) { runSearchForButton("food"); }
+  public void onSearchMoney(View v) { runSearchForButton("money"); }
+  public void onSearchFuel(View v) { runSearchForButton("fuel"); }
+  public void onSearchShop(View v) { runSearchForButton("shop"); }
+  public void onSearchTransport(View v) { runSearchForButton("transport"); }
+  public void onSearchTourism(View v) { runSearchForButton("tourism"); }
+  //@}
+
+  private void runSearchForButton(String s)
+  {
+    // this call invokes runSearch
+    getSearchBox().setText(s + " ");
+  }
+
   private void runSearch()
   {
     // TODO Need to get input language
