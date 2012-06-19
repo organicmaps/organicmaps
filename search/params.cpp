@@ -44,4 +44,11 @@ bool SearchParams::IsLanguageValid() const
   return (m_inputLanguageCode != StringUtf8Multilang::UNSUPPORTED_LANGUAGE_CODE);
 }
 
+bool SearchParams::IsEqualCommon(SearchParams const & rhs) const
+{
+  return (m_query == rhs.m_query && m_mode == rhs.m_mode &&
+          m_inputLanguageCode == rhs.m_inputLanguageCode &&
+          m_validPos == rhs.m_validPos);
+}
+
 } // namespace search

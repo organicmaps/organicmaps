@@ -88,16 +88,7 @@ namespace
   inline bool IsEqualMercator(m2::RectD const & r1, m2::RectD const & r2, double epsMeters)
   {
     double const eps = epsMeters * MercatorBounds::degreeInMetres;
-
-    m2::RectD r = r1;
-    r.Inflate(eps, eps);
-    if (!r.IsRectInside(r2)) return false;
-
-    r = r2;
-    r.Inflate(eps, eps);
-    if (!r.IsRectInside(r1)) return false;
-
-    return true;
+    return m2::IsEqual(r1, r2, eps, eps);
   }
 }
 

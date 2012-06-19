@@ -26,6 +26,8 @@ namespace search
     bool IsNearMeMode() const;
     bool IsLanguageValid() const;
 
+    bool IsEqualCommon(SearchParams const & rhs) const;
+
   public:
     SearchCallbackT m_callback;
 

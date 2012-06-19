@@ -108,13 +108,15 @@ namespace
 
   enum { VIEWPORT_RECT = 0, NEARME_RECT = 1 };
 
+  // X metres in mercator (lon, lat) units.
+  double const epsEqualRects = 100.0 * MercatorBounds::degreeInMetres;
+  double const epsEqualPoints = 500.0 * MercatorBounds::degreeInMetres;
+
   /// Check rects for optimal search (avoid duplicating).
   void AnalyzeRects(m2::RectD arrRects[2])
   {
-    static double const eps = 100.0 * MercatorBounds::degreeInMetres;
-
     if (arrRects[NEARME_RECT].IsRectInside(arrRects[VIEWPORT_RECT]) &&
-        arrRects[NEARME_RECT].Center().EqualDxDy(arrRects[VIEWPORT_RECT].Center(), eps))
+        arrRects[NEARME_RECT].Center().EqualDxDy(arrRects[VIEWPORT_RECT].Center(), epsEqualRects))
     {
       arrRects[VIEWPORT_RECT].MakeEmpty();
     }
@@ -140,15 +142,29 @@ void Engine::PrepareSearch(m2::RectD const & viewport,
 
 void Engine::Search(SearchParams const & params, m2::RectD const & viewport)
 {
-  Platform & p = GetPlatform();
+  // Check for equal query.
+  if (m_params.IsEqualCommon(params) &&
+      m2::IsEqual(m_viewport, viewport, epsEqualRects, epsEqualRects))
+  {
+    if (!m_params.m_validPos)
+      return;
+
+    m2::PointD const p1 = GetViewportXY(m_params.m_lat, m_params.m_lon);
+    m2::PointD const p2 = GetViewportXY(params.m_lat, params.m_lon);
+
+    if (p1.EqualDxDy(p2, epsEqualPoints))
+      return;
+  }
 
   {
+    // Assign new search params.
     threads::MutexGuard guard(m_updateMutex);
     m_params = params;
     m_viewport = viewport;
   }
 
-  p.RunAsync(bind(&Engine::SearchAsync, this));
+  // Run task.
+  GetPlatform().RunAsync(bind(&Engine::SearchAsync, this));
 }
 
 void Engine::SetViewportAsync(m2::RectD const & viewport, m2::RectD const & nearby)
