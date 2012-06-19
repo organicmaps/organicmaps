@@ -615,9 +615,9 @@ es:circuito
 ko:경마장
 ja:配線管
 
-highway-path|highway-footway
+highway-path|highway-footway|highway-steps
 en:path
-ru:тропа
+ru:дорожка
 de:Weg|Bahn
 fr:chemin
 it:sentiero|viottolo
