@@ -13,8 +13,6 @@ namespace m2
   template <typename T>
   class AnyRect
   {
-  private:
-
     ang::Angle<T> m_angle;
     Point<T> m_i;
     Point<T> m_j;
@@ -36,15 +34,22 @@ namespace m2
     }
 
   public:
-
-    AnyRect() : m_i(1, 0), m_j(0, 1), m_zero(0, 0), m_rect(){}
+    AnyRect() : m_i(1, 0), m_j(0, 1), m_zero(0, 0), m_rect() {}
 
     /// creating from regular rect
     explicit AnyRect(Rect<T> const & r)
-      : m_angle(0), m_i(m_angle.cos(), m_angle.sin()), m_j(-m_angle.sin(), m_angle.cos()),
-        m_zero(r == Rect<T>() ? Point<T>(0, 0) : Point<T>(r.minX(), r.minY())),
-        m_rect(r == Rect<T>() ? Rect<T>() : Rect<T>(0, 0, r.SizeX(), r.SizeY()))
+      : m_angle(0), m_i(m_angle.cos(), m_angle.sin()), m_j(-m_angle.sin(), m_angle.cos())
     {
+      if (r.IsValid())
+      {
+        m_zero = Point<T>(r.minX(), r.minY());
+        m_rect = Rect<T>(0, 0, r.SizeX(), r.SizeY());
+      }
+      else
+      {
+        m_zero = Point<T>(0, 0);
+        m_rect = r;
+      }
     }
 
     AnyRect(Point<T> const & zero, ang::Angle<T> const & angle, Rect<T> const & r)

@@ -89,8 +89,8 @@ public:
 
   inline m2::RectD GetLimitRect() const
   {
-    ASSERT ( m_LimitRect != m2::RectD::GetEmptyRect(), () );
-    return m_LimitRect ;
+    ASSERT ( m_LimitRect.IsValid(), () );
+    return m_LimitRect;
   }
 
   inline m2::PointD GetCenter() const

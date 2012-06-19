@@ -232,6 +232,7 @@ namespace m2
       return true;
     }
 
+    /*
     bool operator < (m2::Rect<T> const & r) const
     {
       if (m_minX != r.m_minX)
@@ -245,6 +246,7 @@ namespace m2
 
       return false;
     }
+    */
 
     bool operator == (m2::Rect<T> const & r) const
     {
@@ -256,6 +258,20 @@ namespace m2
       return !(*this == r);
     }
   };
+
+  template <typename T>
+  inline bool IsEqual(Rect<T> const & r1, Rect<T> const & r2, double epsX, double epsY)
+  {
+    Rect<T> r = r1;
+    r.Inflate(epsX, epsY);
+    if (!r.IsRectInside(r2)) return false;
+
+    r = r2;
+    r.Inflate(epsX, epsY);
+    if (!r.IsRectInside(r1)) return false;
+
+    return true;
+  }
 
   template <typename T>
   inline m2::Rect<T> const Add(m2::Rect<T> const & r, m2::Point<T> const & p)

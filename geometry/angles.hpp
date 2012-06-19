@@ -1,9 +1,10 @@
 #pragma once
 
-#include <cmath>
 #include "point2d.hpp"
 
 #include "../base/matrix.hpp"
+
+#include "../std/cmath.hpp"
 
 
 namespace ang
@@ -11,17 +12,14 @@ namespace ang
   template <typename T>
   struct Angle
   {
-  private:
     T m_val;
     T m_sin;
     T m_cos;
+
   public:
-    Angle() : m_val(0), m_sin(0), m_cos(1)
-    {}
-    Angle(T const & val) : m_val(val), m_sin(::sin(val)), m_cos(::cos(val))
-    {}
-    Angle(T const & sin, T const & cos) : m_val(::atan2(sin, cos)), m_sin(sin), m_cos(cos)
-    {}
+    Angle() : m_val(0), m_sin(0), m_cos(1) {}
+    Angle(T const & val) : m_val(val), m_sin(::sin(val)), m_cos(::cos(val)) {}
+    Angle(T const & sin, T const & cos) : m_val(::atan2(sin, cos)), m_sin(sin), m_cos(cos) {}
 
     T const & val() const
     {
