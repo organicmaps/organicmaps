@@ -3,7 +3,7 @@
 #include "../defines.hpp"
 
 #include "../indexer/data_factory.hpp"
-#include "../indexer/search_index_builder.hpp"
+//#include "../indexer/search_index_builder.hpp"
 
 #include "../platform/platform.hpp"
 #include "../platform/servers_list.hpp"
@@ -37,28 +37,30 @@ namespace storage
     return out.str();
   }
 
-//  static string ErrorString(DownloadResultT res)
-//  {
-//    switch (res)
-//    {
-//    case EHttpDownloadCantCreateFile:
-//      return "File can't be created. Probably, you have no disk space available or "
-//                         "using read-only file system.";
-//    case EHttpDownloadFailed:
-//      return "Download failed due to missing or poor connection. "
-//                         "Please, try again later.";
-//    case EHttpDownloadFileIsLocked:
-//      return "Download can't be finished because file is locked. "
-//                         "Please, try again after restarting application.";
-//    case EHttpDownloadFileNotFound:
-//      return "Requested file is absent on the server.";
-//    case EHttpDownloadNoConnectionAvailable:
-//      return "No network connection is available.";
-//    case EHttpDownloadOk:
-//      return "Download finished successfully.";
-//    }
-//    return "Unknown error";
-//  }
+  /*
+  static string ErrorString(DownloadResultT res)
+  {
+    switch (res)
+    {
+    case EHttpDownloadCantCreateFile:
+      return "File can't be created. Probably, you have no disk space available or "
+                         "using read-only file system.";
+    case EHttpDownloadFailed:
+      return "Download failed due to missing or poor connection. "
+                         "Please, try again later.";
+    case EHttpDownloadFileIsLocked:
+      return "Download can't be finished because file is locked. "
+                         "Please, try again after restarting application.";
+    case EHttpDownloadFileNotFound:
+      return "Requested file is absent on the server.";
+    case EHttpDownloadNoConnectionAvailable:
+      return "No network connection is available.";
+    case EHttpDownloadOk:
+      return "Download finished successfully.";
+    }
+    return "Unknown error";
+  }
+  */
 
   Storage::Storage() : m_currentSlotId(0)
   {
@@ -384,6 +386,9 @@ namespace storage
       if (i != string::npos)
         file = file.substr(i+1);
 
+      /// @todo By the way - this code os obsolete.
+      /// It doesn't supported properly in android now (because of Platform::RunOnGuiThread).
+      /*
       Platform & pl = GetPlatform();
       if (pl.IsFeatureSupported("search"))
       {
@@ -392,6 +397,7 @@ namespace storage
         pl.RunAsync(bind(&Storage::GenerateSearchIndex, this, index, file));
       }
       else
+      */
       {
         // Or simply activate downloaded map
         UpdateAfterSearchIndex(index, file);
@@ -402,6 +408,7 @@ namespace storage
     DownloadNextCountryFromQueue();
   }
 
+  /*
   void Storage::GenerateSearchIndex(TIndex const & index, string const & fName)
   {
     if (indexer::BuildSearchIndexFromDatFile(fName))
@@ -413,6 +420,7 @@ namespace storage
       LOG(LERROR, ("Can't build search index for", fName));
     }
   }
+  */
 
   void Storage::UpdateAfterSearchIndex(TIndex const & index, string const & fName)
   {

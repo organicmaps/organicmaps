@@ -122,7 +122,7 @@ namespace storage
     void DownloadNextCountryFromQueue();
     Country const & CountryByIndex(TIndex const & index) const;
 
-    void GenerateSearchIndex(TIndex const & index, string const & fName);
+    //void GenerateSearchIndex(TIndex const & index, string const & fName);
     void UpdateAfterSearchIndex(TIndex const & index, string const & fName);
 
     /// @TODO temporarily made public for Android, refactor
