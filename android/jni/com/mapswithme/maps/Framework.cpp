@@ -382,9 +382,9 @@ namespace android
     m_work.ShowSearchResult(r);
   }
 
-  void Framework::Search(search::SearchParams const & params)
+  bool Framework::Search(search::SearchParams const & params)
   {
-    m_work.Search(params);
+    return m_work.Search(params);
   }
 
   void Framework::LoadState()

@@ -85,7 +85,7 @@ namespace android
     void ShowCountry(m2::RectD const & r);
     void ShowSearchResult(search::Result const & r);
 
-    void Search(search::SearchParams const & params);
+    bool Search(search::SearchParams const & params);
 
     void LoadState();
     void SaveState();

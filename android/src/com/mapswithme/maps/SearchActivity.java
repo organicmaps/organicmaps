@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -189,6 +190,11 @@ public class SearchActivity extends ListActivity implements LocationService.List
     return (EditText) findViewById(R.id.search_string);
   }
 
+  private LinearLayout getSearchToolbar()
+  {
+    return (LinearLayout) findViewById(R.id.search_toolbar);
+  }
+
   private String getSearchString()
   {
     final String s = getSearchBox().getText().toString();
@@ -245,7 +251,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
   {
     super.onResume();
 
-    // reset current location flag
+    // Reset current mode flag - start first search.
     m_mode = 0;
     m_location.startUpdate(this);
 
@@ -280,7 +286,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
     else
     {
       // set suggestion string and run search (this call invokes runSearch)
-      getSearchBox().setText(suggestion);
+      runSearch(suggestion);
     }
   }
 
@@ -289,13 +295,16 @@ public class SearchActivity extends ListActivity implements LocationService.List
   private double m_lon;
 
   /// It's should be equal to search::SearchParams::ModeT
-  /// Now it's just a flag to ensure that current position exists (!= 0).
-  int m_mode = 0;
+  /// Possible values:\n
+  /// m_mode % 2 == 0 - first search query;\n
+  int m_mode;
 
   @Override
   public void onLocationUpdated(long time, double lat, double lon, float accuracy)
   {
-    m_mode = 1;
+    if (m_mode < 2)
+      m_mode += 2;
+
     m_lat = lat;
     m_lon = lon;
 
@@ -338,18 +347,23 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
   /// @name Amenity buttons listeners
   //@{
-  public void onSearchFood(View v) { runSearchForButton("food"); }
-  public void onSearchMoney(View v) { runSearchForButton("money"); }
-  public void onSearchFuel(View v) { runSearchForButton("fuel"); }
-  public void onSearchShop(View v) { runSearchForButton("shop"); }
-  public void onSearchTransport(View v) { runSearchForButton("transport"); }
-  public void onSearchTourism(View v) { runSearchForButton("tourism"); }
+  public void onSearchFood(View v) { runSearch("food "); }
+  public void onSearchMoney(View v) { runSearch("money "); }
+  public void onSearchFuel(View v) { runSearch("fuel "); }
+  public void onSearchShop(View v) { runSearch("shop "); }
+  public void onSearchTransport(View v) { runSearch("transport "); }
+  public void onSearchTourism(View v) { runSearch("tourism "); }
   //@}
 
-  private void runSearchForButton(String s)
+  private void runSearch(String s)
   {
+    EditText box = getSearchBox();
+
     // this call invokes runSearch
-    getSearchBox().setText(s + " ");
+    box.setText(s);
+
+    // put cursor to the end of string
+    box.setSelection(s.length());
   }
 
   private void runSearch()
@@ -358,8 +372,18 @@ public class SearchActivity extends ListActivity implements LocationService.List
     final String lang = Locale.getDefault().getLanguage();
     Log.d(TAG, "Current language = " + lang);
 
+    final String s = getSearchString();
+
     m_queryID += QUERY_STEP;
-    nativeRunSearch(getSearchString(), lang, m_lat, m_lon, m_mode, m_queryID);
+    if (nativeRunSearch(s, lang, m_lat, m_lon, m_mode, m_queryID))
+    {
+      // mark that it's not the first query already
+      if (m_mode % 2 == 0) ++m_mode;
+
+      // set toolbar visible only for empty search string
+      LinearLayout bar = getSearchToolbar();
+      bar.setVisibility(s.length() == 0 ? View.VISIBLE : View.GONE);
+    }
   }
 
   private native void nativeInitSearch();
@@ -367,7 +391,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
   private static native SearchAdapter.SearchResult nativeGetResult(int position, int queryID);
 
-  private native void nativeRunSearch(String s, String lang,
-                                      double lat, double lon, int mode, int queryID);
+  private native boolean nativeRunSearch(String s, String lang,
+                                         double lat, double lon, int mode, int queryID);
   private static native void nativeShowItem(int position);
 }

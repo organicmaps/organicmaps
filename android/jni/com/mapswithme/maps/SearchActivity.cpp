@@ -96,27 +96,40 @@ class SearchAdapter
     return (position < count);
   }
 
-  SearchAdapter(jobject activity) : m_ID(0), m_storeID(0), m_activity(activity)
+  SearchAdapter(JNIEnv * env, jobject activity)
+    : m_ID(0), m_storeID(0)
   {
+    m_activity = env->NewGlobalRef(activity);
+  }
+
+  void Delete(JNIEnv * env)
+  {
+    env->DeleteGlobalRef(m_activity);
   }
 
   static SearchAdapter * s_pInstance;
 
 public:
   /// @name Instance lifetime functions.
-  /// TODO May be we should increment/deincrement global reference for m_activity
   //@{
-  static void CreateInstance(jobject activity)
+  static void CreateInstance(JNIEnv * env, jobject activity)
   {
     ASSERT ( s_pInstance == 0, () );
-    s_pInstance = new SearchAdapter(activity);
+    if (s_pInstance)
+      delete s_pInstance;
+
+    s_pInstance = new SearchAdapter(env, activity);
   }
 
-  static void DestroyInstance()
+  static void DestroyInstance(JNIEnv * env)
   {
     ASSERT ( s_pInstance, () );
-    delete s_pInstance;
-    s_pInstance = 0;
+    if (s_pInstance)
+    {
+      s_pInstance->Delete(env);
+      delete s_pInstance;
+      s_pInstance = 0;
+    }
   }
 
   static SearchAdapter & Instance()
@@ -126,11 +139,11 @@ public:
   }
   //@}
 
-  void RunSearch(JNIEnv * env, search::SearchParams & params, int queryID)
+  bool RunSearch(JNIEnv * env, search::SearchParams & params, int queryID)
   {
     params.m_callback = bind(&SearchAdapter::OnResults, this, _1, queryID);
 
-    g_framework->Search(params);
+    return g_framework->Search(params);
   }
 
   void ShowItem(int position)
@@ -155,16 +168,16 @@ extern "C"
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_SearchActivity_nativeInitSearch(JNIEnv * env, jobject thiz)
 {
-  SearchAdapter::CreateInstance(thiz);
+  SearchAdapter::CreateInstance(env, thiz);
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_SearchActivity_nativeFinishSearch(JNIEnv * env, jobject thiz)
 {
-  SearchAdapter::DestroyInstance();
+  SearchAdapter::DestroyInstance(env);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_SearchActivity_nativeRunSearch(
     JNIEnv * env, jobject thiz,
     jstring s, jstring lang, jdouble lat, jdouble lon, jint mode, jint queryID)
@@ -172,10 +185,11 @@ Java_com_mapswithme_maps_SearchActivity_nativeRunSearch(
   search::SearchParams params;
   params.m_query = jni::ToNativeString(env, s);
   params.SetInputLanguage(jni::ToNativeString(env, lang));
-  if (mode != 0)
-    params.SetPosition(lat, lon);
 
-  SearchAdapter::Instance().RunSearch(env, params, queryID);
+  if (mode % 2 == 0) params.SetResetMode(true);
+  if (mode >= 2) params.SetPosition(lat, lon);
+
+  return SearchAdapter::Instance().RunSearch(env, params, queryID);
 }
 
 JNIEXPORT void JNICALL
