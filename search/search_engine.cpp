@@ -140,20 +140,21 @@ void Engine::PrepareSearch(m2::RectD const & viewport,
   GetPlatform().RunAsync(bind(&Engine::SetViewportAsync, this, viewport, nearby));
 }
 
-void Engine::Search(SearchParams const & params, m2::RectD const & viewport)
+bool Engine::Search(SearchParams const & params, m2::RectD const & viewport)
 {
   // Check for equal query.
-  if (m_params.IsEqualCommon(params) &&
+  if (!params.IsResetMode() &&
+      m_params.IsEqualCommon(params) &&
       m2::IsEqual(m_viewport, viewport, epsEqualRects, epsEqualRects))
   {
     if (!m_params.m_validPos)
-      return;
+      return false;
 
     m2::PointD const p1 = GetViewportXY(m_params.m_lat, m_params.m_lon);
     m2::PointD const p2 = GetViewportXY(params.m_lat, params.m_lon);
 
     if (p1.EqualDxDy(p2, epsEqualPoints))
-      return;
+      return false;
   }
 
   {
@@ -165,6 +166,8 @@ void Engine::Search(SearchParams const & params, m2::RectD const & viewport)
 
   // Run task.
   GetPlatform().RunAsync(bind(&Engine::SearchAsync, this));
+
+  return true;
 }
 
 void Engine::SetViewportAsync(m2::RectD const & viewport, m2::RectD const & nearby)

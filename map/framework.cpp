@@ -861,9 +861,9 @@ void Framework::PrepareSearch(bool hasPt, double lat, double lon)
   GetSearchEngine()->PrepareSearch(GetCurrentViewport(), hasPt, lat, lon);
 }
 
-void Framework::Search(search::SearchParams const & params)
+bool Framework::Search(search::SearchParams const & params)
 {
-  GetSearchEngine()->Search(params, GetCurrentViewport());
+  return GetSearchEngine()->Search(params, GetCurrentViewport());
 }
 
 bool Framework::GetCurrentPosition(double & lat, double & lon) const

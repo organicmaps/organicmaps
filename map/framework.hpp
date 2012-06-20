@@ -192,7 +192,7 @@ public:
   /// @param[in] hasPt Are (lat, lon) valid
   /// @param[in] (lat, lon) Current user's position
   void PrepareSearch(bool hasPt, double lat = 0.0, double lon = 0.0);
-  void Search(search::SearchParams const & params);
+  bool Search(search::SearchParams const & params);
   bool GetCurrentPosition(double & lat, double & lon) const;
   void ShowSearchResult(search::Result const & res);
 

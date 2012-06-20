@@ -38,7 +38,7 @@ public:
 
   void PrepareSearch(m2::RectD const & viewport,
                      bool hasPt, double lat, double lon);
-  void Search(SearchParams const & params, m2::RectD const & viewport);
+  bool Search(SearchParams const & params, m2::RectD const & viewport);
 
   string GetCountryFile(m2::PointD const & pt);
   string GetCountryCode(m2::PointD const & pt);
