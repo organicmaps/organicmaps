@@ -11,45 +11,53 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"/>
 
-    <LinearLayout android:orientation="horizontal"
+    <LinearLayout android:id="@+id/search_toolbar" 
+                  android:orientation="horizontal"
                   android:layout_width="match_parent"
-                  android:layout_height="40dp">
+                  android:layout_height="wrap_content"
+                  android:weightSum="6.0">
 
-        <Button android:id="@+id/search_food"
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/food"
-                android:onClick="onSearchFood"/>
+        <ImageButton  android:id="@+id/search_food"
+			                android:layout_weight="1.0"
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:src="@drawable/food"
+			                android:onClick="onSearchFood"/>
 
-        <Button android:id="@+id/search_money"
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/money"
-                android:onClick="onSearchMoney"/>
+        <ImageButton  android:id="@+id/search_money"
+			                android:layout_weight="1.0"
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:src="@drawable/money"
+			                android:onClick="onSearchMoney"/>
 
-        <Button android:id="@+id/search_fuel"
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/fuel"
-                android:onClick="onSearchFuel"/>
+        <ImageButton  android:id="@+id/search_fuel"
+			                android:layout_weight="1.0"
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:src="@drawable/fuel"
+			                android:onClick="onSearchFuel"/>
 
-        <Button android:id="@+id/search_shop"
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/shop"
-                android:onClick="onSearchShop"/>
+        <ImageButton  android:id="@+id/search_shop"
+			                android:layout_weight="1.0"
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:src="@drawable/shop"
+			                android:onClick="onSearchShop"/>
 
-        <Button android:id="@+id/search_transport"
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/transport"
-                android:onClick="onSearchTransport"/>
+        <ImageButton  android:id="@+id/search_transport"
+			                android:layout_weight="1.0"
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:src="@drawable/transport"
+			                android:onClick="onSearchTransport"/>
 
-        <Button android:id="@+id/search_tourism"
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/tourism"
-                android:onClick="onSearchTourism"/>
+        <ImageButton  android:id="@+id/search_tourism"
+			                android:layout_weight="1.0"
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:src="@drawable/tourism"
+			                android:onClick="onSearchTourism"/>
 
     </LinearLayout>
 
