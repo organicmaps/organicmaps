@@ -88,11 +88,12 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
       {
         switch (m_status)
         {
-        case 0: return 0xFF00A144;
-        case 1: return 0xFFFFFFFF;
-        case 2: return 0xFFFF0000;
-        case 3: return 0xFF342BB6;
-        case 4: return 0xFF5B94DE;
+        case MapStorage.ON_DISK: return 0xFF00A144;
+        case MapStorage.ON_DISK_OUT_OF_DATE: return 0xFFFF69B4;
+        case MapStorage.NOT_DOWNLOADED: return 0xFFFFFFFF;
+        case MapStorage.DOWNLOAD_FAILED: return 0xFFFF0000;
+        case MapStorage.DOWNLOADING: return 0xFF342BB6;
+        case MapStorage.IN_QUEUE: return 0xFF5B94DE;
         default: return 0xFFFFFFFF;
         }
       }
@@ -104,7 +105,9 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
         {
         case MapStorage.GROUP: return TYPE_GROUP;
         case MapStorage.COUNTRY: return TYPE_COUNTRY_GROUP;
-        case MapStorage.ON_DISK: return TYPE_COUNTRY_READY;
+        case MapStorage.ON_DISK:
+        case MapStorage.ON_DISK_OUT_OF_DATE:
+          return TYPE_COUNTRY_READY;
         default : return TYPE_COUNTRY_IN_PROCESS;
         }
       }
@@ -219,6 +222,38 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
         m_alert
         .setTitle(name)
         .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            m_storage.deleteCountry(idx);
+            dlg.dismiss();
+          }
+        })
+        .setNegativeButton(android.R.string.cancel, m_alertCancelHandler)
+        .create()
+        .show();
+        break;
+
+      case MapStorage.ON_DISK_OUT_OF_DATE:
+        // Update or delete
+        m_alert
+        .setTitle(name)
+        .setPositiveButton(R.string.update, new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            final long size = m_storage.countryRemoteSizeInBytes(idx);
+            if (size > getFreeSpace())
+              showNotEnoughFreeSpaceDialog(getSizeString(size), name);
+            else
+              m_storage.downloadCountry(idx);
+
+            dlg.dismiss();
+          }
+        })
+        .setNeutralButton(R.string.delete, new DialogInterface.OnClickListener()
         {
           @Override
           public void onClick(DialogInterface dlg, int which)
@@ -387,6 +422,11 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
       }
     }
 
+    private String formatStringWithSize(int strID, int position)
+    {
+      return m_context.getString(strID, getSizeString(m_storage.countryLocalSizeInBytes(m_idx.getChild(position))));
+    }
+
     private String getSummary(int position)
     {
       int res = 0;
@@ -394,8 +434,10 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
       switch (m_items[position].m_status)
       {
       case MapStorage.ON_DISK:
-        return String.format(m_context.getString(R.string.downloaded_touch_to_delete),
-                             getSizeString(m_storage.countryLocalSizeInBytes(m_idx.getChild(position))));
+        return formatStringWithSize(R.string.downloaded_touch_to_delete, position);
+
+      case MapStorage.ON_DISK_OUT_OF_DATE:
+        return formatStringWithSize(R.string.downloaded_touch_to_update, position);
 
       case MapStorage.NOT_DOWNLOADED: res = R.string.touch_to_download; break;
       case MapStorage.DOWNLOAD_FAILED: res = R.string.download_has_failed; break;

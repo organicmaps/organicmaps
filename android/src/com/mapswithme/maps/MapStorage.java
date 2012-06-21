@@ -11,6 +11,7 @@ public class MapStorage
   public static final int IN_QUEUE = 4;
   public static final int UNKNOWN = 5;
   public static final int GENERATING_INDEX = 6;
+  public static final int ON_DISK_OUT_OF_DATE = 7;
 
   public interface Listener
   {

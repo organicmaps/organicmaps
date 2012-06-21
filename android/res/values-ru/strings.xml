@@ -44,6 +44,8 @@
     <string name="continue_download">Продолжить</string>
     <string name="country_status_added_to_queue">%добавлено в очередь\nзагрузки.</string>
     <string name="country_status_download">Загрузить%</string>
-    <string name="country_status_downloading" formatted="false">Загружается%(%\\%)</string>    
+    <string formatted="false" name="country_status_downloading">Загружается%(%\\%)</string>
     <string name="country_status_download_failed">Ошибка загрузки%.</string>
+    <string name="downloaded_touch_to_update">Загружено (%s), нажмите для обновления</string>
+    <string name="update">Обновить</string>
 </resources>
