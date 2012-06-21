@@ -32062,10 +32062,6 @@ cont {
   name: "historic-archaeological_site"
   element {
     scale: 17
-    area {
-      color: 0xFFFFFFFF
-      priority: 1637
-    }
     symbol {
       name: "museum"
       priority: 1638
@@ -32102,10 +32098,6 @@ cont {
   name: "historic-castle"
   element {
     scale: 17
-    area {
-      color: 0xFFFFFFFF
-      priority: 1637
-    }
     symbol {
       name: "museum"
       priority: 1638
@@ -32152,10 +32144,6 @@ cont {
   name: "historic-museum"
   element {
     scale: 17
-    area {
-      color: 0xFFFFFFFF
-      priority: 1637
-    }
     symbol {
       name: "museum"
       priority: 1638
@@ -32174,10 +32162,6 @@ cont {
   name: "historic-ruins"
   element {
     scale: 17
-    area {
-      color: 0xFFFFFFFF
-      priority: 1637
-    }
     symbol {
       name: "museum"
       priority: 1638
@@ -55835,10 +55819,6 @@ cont {
   name: "tourism-museum"
   element {
     scale: 17
-    area {
-      color: 0xFFFFFFFF
-      priority: 1637
-    }
     symbol {
       name: "museum"
       priority: 1638
