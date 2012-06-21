@@ -246,6 +246,7 @@ void Engine::SearchAsync()
   {
     if (params.m_query.empty())
     {
+      // Search for empty query only around viewport.
       if (params.m_validPos)
       {
         double arrR[] = { 500, 1000, 2000 };
@@ -266,11 +267,13 @@ void Engine::SearchAsync()
   {
   }
 
-  // Emit results in any way, even if search was canceled.
-  params.m_callback(res);
+  // Emit results even if search was canceled and we have something.
+  size_t const count = res.GetCount();
+  if (!m_pQuery->IsCanceled() || count > 0)
+    params.m_callback(res);
 
-  // Make additional search in whole mwm when not enough results.
-  if (!m_pQuery->IsCanceled() && res.GetCount() < RESULTS_COUNT)
+  // Make additional search in whole mwm when not enough results (only for non-empty query).
+  if (!params.m_query.empty() && !m_pQuery->IsCanceled() && count < RESULTS_COUNT)
   {
     try
     {
@@ -280,7 +283,9 @@ void Engine::SearchAsync()
     {
     }
 
-    params.m_callback(res);
+    // Emit if we have more results.
+    if (res.GetCount() > count)
+      params.m_callback(res);
   }
 }
 

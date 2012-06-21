@@ -96,6 +96,8 @@ void Query::SetViewport(m2::RectD viewport[], size_t count)
 {
   ASSERT_LESS_OR_EQUAL(count, static_cast<size_t>(RECTSCOUNT), ());
 
+  m_cancel = false;
+
   MWMVectorT mwmInfo;
   m_pIndex->GetMwmInfo(mwmInfo);
 
