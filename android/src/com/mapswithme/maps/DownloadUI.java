@@ -332,6 +332,16 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
       // Actual status will be updated in "updateStatus" callback.
     }
 
+    private void updateStatuses()
+    {
+      for (int i = 0; i < m_items.length; ++i)
+      {
+        final Index idx = m_idx.getChild(i);
+        if (idx.isValid())
+          m_items[i].updateStatus(m_storage, idx);
+      }
+    }
+
     /// @name Process routine from parent Activity.
     //@{
     /// @return true If "back" was processed.
@@ -352,6 +362,9 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
     {
       if (m_slotID == 0)
         m_slotID = m_storage.subscribe(listener);
+
+      // update actual statuses for items after resuming activity
+      updateStatuses();
     }
 
     public void onPause()
