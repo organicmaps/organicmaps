@@ -210,10 +210,13 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
         if (idx.isValid())
         {
+          mMapStorage.deleteCountry(idx);
+
           mProgress.setMax((int)mMapStorage.countryRemoteSizeInBytes(idx));
           mProgress.setProgress(0);
 
           mMapStorage.downloadCountry(idx);
+
           mProceedButton.setVisibility(View.VISIBLE);
           mPauseButton.setVisibility(View.GONE);
         }

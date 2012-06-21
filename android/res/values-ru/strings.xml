@@ -47,5 +47,5 @@
     <string formatted="false" name="country_status_downloading">Загружается%(%\\%)</string>
     <string name="country_status_download_failed">Ошибка загрузки%.</string>
     <string name="downloaded_touch_to_update">Загружено (%s), нажмите для обновления</string>
-    <string name="update">Обновить</string>
+    <string name="update_mb_or_kb">Обновить %s</string>
 </resources>

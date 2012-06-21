@@ -52,5 +52,5 @@
     <string name="pro_version_available">Pro version of MapsWithMe featuring offline search is available for purchase.</string>
     <string name="later">Later</string>
     <string name="downloaded_touch_to_update">Downloaded (%s), touch to update</string>
-    <string name="update">Update</string>
+    <string name="update_mb_or_kb">Update %s</string>
 </resources>

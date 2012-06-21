@@ -141,7 +141,6 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
       m_mb = context.getString(R.string.mb);
 
       m_alert = new AlertDialog.Builder(m_context);
-      m_alert.setCancelable(true);
 
       fillList();
     }
@@ -202,7 +201,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
       .show();
     }
 
-    private long getFreeSpace()
+    static private long getFreeSpace()
     {
       StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
       return (long)stat.getAvailableBlocks() * (long)stat.getBlockSize();
@@ -236,19 +235,25 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
         break;
 
       case MapStorage.ON_DISK_OUT_OF_DATE:
+        final long remoteSize = m_storage.countryRemoteSizeInBytes(idx);
+
         // Update or delete
-        m_alert
+        new AlertDialog.Builder(m_context)
         .setTitle(name)
-        .setPositiveButton(R.string.update, new DialogInterface.OnClickListener()
+        .setPositiveButton(m_context.getString(R.string.update_mb_or_kb, getSizeString(remoteSize)),
+                           new DialogInterface.OnClickListener()
         {
           @Override
           public void onClick(DialogInterface dlg, int which)
           {
-            final long size = m_storage.countryRemoteSizeInBytes(idx);
+            final long size = remoteSize - m_storage.countryLocalSizeInBytes(idx);
             if (size > getFreeSpace())
               showNotEnoughFreeSpaceDialog(getSizeString(size), name);
             else
+            {
+              m_storage.deleteCountry(idx);
               m_storage.downloadCountry(idx);
+            }
 
             dlg.dismiss();
           }
