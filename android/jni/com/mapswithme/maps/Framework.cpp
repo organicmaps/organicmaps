@@ -373,12 +373,16 @@ namespace android
   void Framework::ShowCountry(m2::RectD const & r)
   {
     m_doLoadState = false;
+
+    m_work.SkipLocationCentering();
     m_work.ShowRect(r);
   }
 
   void Framework::ShowSearchResult(search::Result const & r)
   {
     m_doLoadState = false;
+
+    m_work.SkipLocationCentering();
     m_work.ShowSearchResult(r);
   }
 

@@ -54,32 +54,19 @@ extern "C"
     return ret;
   }
 
-  JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_MWMActivity_hasMeasurementSystem(JNIEnv * env, jobject thiz)
-  {
-    Settings::Units u;
-    return Settings::Get("Units", u);
-  }
-
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_setMeasurementSystem(JNIEnv * env, jobject thiz, jint systemIdx)
+  Java_com_mapswithme_maps_MWMActivity_nativeSetMS(JNIEnv * env, jobject thiz, jint systemIdx)
   {
-    Settings::Units u = (Settings::Units)systemIdx;
+    Settings::Units const u = static_cast<Settings::Units>(systemIdx);
     Settings::Set("Units", u);
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_setupMeasurementSystem(JNIEnv * env, jobject thiz)
-  {
     g_framework->SetupMeasurementSystem();
   }
 
   JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_MWMActivity_getMeasurementSystem(JNIEnv * env, jobject thiz)
+  Java_com_mapswithme_maps_MWMActivity_nativeGetMS(JNIEnv * env, jobject thiz)
   {
     Settings::Units u = Settings::Metric;
-    Settings::Get("Units", u);
-    return u;
+    return (Settings::Get("Units", u) ? u : -1);
   }
 
   void CallOnDownloadCountryClicked(shared_ptr<jobject> const & obj,

@@ -102,6 +102,8 @@ public:
   m2::AnyRectD const & GlobalRect() const;
   m2::RectD const & ClipRect() const;
 
+  double GetMinPixelRectSize() const;
+
   /// Compute arbitrary pixel transformation, that translates the (oldPt1, oldPt2) -> (newPt1, newPt2)
   static math::Matrix<double, 3, 3> const CalcTransform(m2::PointD const & oldPt1, m2::PointD const & oldPt2,
                                                         m2::PointD const & newPt1, m2::PointD const & newPt2);

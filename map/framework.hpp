@@ -89,7 +89,8 @@ protected:
   {
     EDoNothing,
     ECenterAndScale,
-    ECenterOnly
+    ECenterOnly,
+    ESkipLocationCentering
   };
 
   TGpsCenteringMode m_centeringMode;
@@ -157,9 +158,13 @@ public:
 
   storage::Storage & Storage() { return m_storage; }
 
+  /// @name GPS location updates routine.
+  //@{
+  void SkipLocationCentering();
   void OnLocationStatusChanged(location::TLocationStatus newStatus);
   void OnGpsUpdate(location::GpsInfo const & info);
   void OnCompassUpdate(location::CompassInfo const & info);
+  //@}
 
   void SetRenderPolicy(RenderPolicy * renderPolicy);
   RenderPolicy * GetRenderPolicy() const;
@@ -274,6 +279,9 @@ public:
 
   /// @name Drag implementation.
   //@{
+private:
+  m2::PointD GetPixelCenter() const;
+public:
   void StartDrag(DragEvent const & e);
   void DoDrag(DragEvent const & e);
   void StopDrag(DragEvent const & e);
@@ -292,6 +300,10 @@ public:
   void ScaleToPoint(ScaleToPointEvent const & e);
   void ScaleDefault(bool enlarge);
   void Scale(double scale);
+
+private:
+  void CalcScalePoints(ScaleEvent const & e, m2::PointD & pt1, m2::PointD & pt2) const;
+public:
   void StartScale(ScaleEvent const & e);
   void DoScale(ScaleEvent const & e);
   void StopScale(ScaleEvent const & e);

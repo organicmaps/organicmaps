@@ -44,15 +44,24 @@ void Framework::RemoveMap(string const & datFile)
   m_model.RemoveMap(datFile);
 }
 
+void Framework::SkipLocationCentering()
+{
+  m_centeringMode = ESkipLocationCentering;
+}
+
 void Framework::OnLocationStatusChanged(location::TLocationStatus newStatus)
 {
   switch (newStatus)
   {
   case location::EStarted:
   case location::EFirstEvent:
-    // reset centering mode
-    m_centeringMode = ECenterAndScale;
+    if (m_centeringMode != ESkipLocationCentering)
+    {
+      // set centering mode for the first location
+      m_centeringMode = ECenterAndScale;
+    }
     break;
+
   default:
     m_centeringMode = EDoNothing;
     m_locationState.TurnOff();
@@ -68,18 +77,40 @@ void Framework::OnGpsUpdate(location::GpsInfo const & info)
 
   m_locationState.UpdateGps(rect);
 
-  if (m_centeringMode == ECenterAndScale)
+  switch (m_centeringMode)
   {
+  case ECenterAndScale:
+  {
+    int const rectScale = scales::GetScaleLevel(rect);
+    int setScale = -1;
+
+    // correct rect scale if country isn't downloaded
     int const upperScale = scales::GetUpperWorldScale();
-    if (scales::GetScaleLevel(rect) > upperScale && IsEmptyModel(center))
-      rect = scales::GetRectForLevel(upperScale, center, 1.0);
+    if (rectScale > upperScale && IsEmptyModel(center))
+      setScale = upperScale;
+
+    // correct rect scale for best user experience
+    int const bestScale = scales::GetUpperScale() - 1;
+    if (rectScale > bestScale)
+      setScale = bestScale;
+
+    if (setScale != -1)
+      rect = scales::GetRectForLevel(setScale, center, 1.0);
 
     ShowRectFixed(rect);
 
     m_centeringMode = ECenterOnly;
+    break;
   }
-  else if (m_centeringMode == ECenterOnly)
+
+  case ECenterOnly:
     SetViewportCenter(center);
+    break;
+
+  case ESkipLocationCentering:
+    m_centeringMode = EDoNothing;
+    break;
+  }
 }
 
 void Framework::OnCompassUpdate(location::CompassInfo const & info)
@@ -651,7 +682,12 @@ void Framework::ShowAll()
 }
 
 /// @name Drag implementation.
-///@{
+//@{
+m2::PointD Framework::GetPixelCenter() const
+{
+  return m_navigator.Screen().PixelRect().Center();
+}
+
 void Framework::StartDrag(DragEvent const & e)
 {
   m2::PointD const pt = m_navigator.ShiftPoint(e.Pos());
@@ -663,14 +699,11 @@ void Framework::StartDrag(DragEvent const & e)
 
   if (m_renderPolicy)
     m_renderPolicy->StartDrag();
-//  LOG(LINFO, ("StartDrag", e.Pos()));
 }
 
 void Framework::DoDrag(DragEvent const & e)
 {
   m2::PointD const pt = m_navigator.ShiftPoint(e.Pos());
-
-  m_centeringMode = EDoNothing;
 
 #ifdef DRAW_TOUCH_POINTS
   m_informationDisplay.setDebugPoint(0, pt);
@@ -679,7 +712,6 @@ void Framework::DoDrag(DragEvent const & e)
   m_navigator.DoDrag(pt, ElapsedSeconds());
   if (m_renderPolicy)
     m_renderPolicy->DoDrag();
-//  LOG(LINFO, ("DoDrag", e.Pos()));
 }
 
 void Framework::StopDrag(DragEvent const & e)
@@ -689,13 +721,19 @@ void Framework::StopDrag(DragEvent const & e)
   m_navigator.StopDrag(pt, ElapsedSeconds(), true);
 
 #ifdef DRAW_TOUCH_POINTS
-  m_informationDisplay.setDebugPoint(0, m2::PointD(0, 0));
+  m_informationDisplay.setDebugPoint(0, pt);
 #endif
+
+  if (m_centeringMode != EDoNothing)
+  {
+    // reset GPS centering mode if we have dragged far from current location
+    ScreenBase const & s = m_navigator.Screen();
+    if (GetPixelCenter().Length(s.GtoP(m_locationState.Position())) >= s.GetMinPixelRectSize() / 2.0)
+      m_centeringMode = EDoNothing;
+  }
 
   if (m_renderPolicy)
     m_renderPolicy->StopDrag();
-
-//  LOG(LINFO, ("StopDrag", e.Pos()));
 }
 
 void Framework::StartRotate(RotateEvent const & e)
@@ -737,8 +775,8 @@ void Framework::Move(double azDir, double factor)
 //@{
 void Framework::ScaleToPoint(ScaleToPointEvent const & e)
 {
-  m2::PointD const pt = (m_centeringMode == EDoNothing)
-      ? m_navigator.ShiftPoint(e.Pt()) : m_navigator.Screen().PixelRect().Center();
+  m2::PointD const pt = (m_centeringMode == EDoNothing) ?
+        m_navigator.ShiftPoint(e.Pt()) : GetPixelCenter();
 
   m_navigator.ScaleToPoint(pt, e.ScaleFactor(), ElapsedSeconds());
 
@@ -757,15 +795,15 @@ void Framework::Scale(double scale)
   Invalidate();
 }
 
-void Framework::StartScale(ScaleEvent const & e)
+void Framework::CalcScalePoints(ScaleEvent const & e, m2::PointD & pt1, m2::PointD & pt2) const
 {
-  m2::PointD pt1 = m_navigator.ShiftPoint(e.Pt1());
-  m2::PointD pt2 = m_navigator.ShiftPoint(e.Pt2());
+  pt1 = m_navigator.ShiftPoint(e.Pt1());
+  pt2 = m_navigator.ShiftPoint(e.Pt2());
 
   if ((m_locationState & location::State::EGps) && (m_centeringMode == ECenterOnly))
   {
-    m2::PointD ptC = (pt1 + pt2) / 2;
-    m2::PointD ptDiff = m_navigator.Screen().PixelRect().Center() - ptC;
+    m2::PointD const ptC = (pt1 + pt2) / 2;
+    m2::PointD const ptDiff = GetPixelCenter() - ptC;
     pt1 += ptDiff;
     pt2 += ptDiff;
   }
@@ -774,61 +812,38 @@ void Framework::StartScale(ScaleEvent const & e)
   m_informationDisplay.setDebugPoint(0, pt1);
   m_informationDisplay.setDebugPoint(1, pt2);
 #endif
+}
+
+void Framework::StartScale(ScaleEvent const & e)
+{
+  m2::PointD pt1, pt2;
+  CalcScalePoints(e, pt1, pt2);
 
   m_navigator.StartScale(pt1, pt2, ElapsedSeconds());
   if (m_renderPolicy)
     m_renderPolicy->StartScale();
-
-//  LOG(LINFO, ("StartScale", e.Pt1(), e.Pt2()));
 }
 
 void Framework::DoScale(ScaleEvent const & e)
 {
-  m2::PointD pt1 = m_navigator.ShiftPoint(e.Pt1());
-  m2::PointD pt2 = m_navigator.ShiftPoint(e.Pt2());
-
-  if ((m_locationState & location::State::EGps) && (m_centeringMode == ECenterOnly))
-  {
-    m2::PointD ptC = (pt1 + pt2) / 2;
-    m2::PointD ptDiff = m_navigator.Screen().PixelRect().Center() - ptC;
-    pt1 += ptDiff;
-    pt2 += ptDiff;
-  }
-
-#ifdef DRAW_TOUCH_POINTS
-  m_informationDisplay.setDebugPoint(0, pt1);
-  m_informationDisplay.setDebugPoint(1, pt2);
-#endif
+  m2::PointD pt1, pt2;
+  CalcScalePoints(e, pt1, pt2);
 
   m_navigator.DoScale(pt1, pt2, ElapsedSeconds());
   if (m_renderPolicy)
     m_renderPolicy->DoScale();
-//  LOG(LINFO, ("DoScale", e.Pt1(), e.Pt2()));
 }
 
 void Framework::StopScale(ScaleEvent const & e)
 {
-  m2::PointD pt1 = m_navigator.ShiftPoint(e.Pt1());
-  m2::PointD pt2 = m_navigator.ShiftPoint(e.Pt2());
-
-  if ((m_locationState & location::State::EGps) && (m_centeringMode == ECenterOnly))
-  {
-    m2::PointD ptC = (pt1 + pt2) / 2;
-    m2::PointD ptDiff = m_navigator.Screen().PixelRect().Center() - ptC;
-    pt1 += ptDiff;
-    pt2 += ptDiff;
-  }
-
-#ifdef DRAW_TOUCH_POINTS
-  m_informationDisplay.setDebugPoint(0, m2::PointD(0, 0));
-  m_informationDisplay.setDebugPoint(0, m2::PointD(0, 0));
-#endif
+  m2::PointD pt1, pt2;
+  CalcScalePoints(e, pt1, pt2);
 
   m_navigator.StopScale(pt1, pt2, ElapsedSeconds());
   if (m_renderPolicy)
     m_renderPolicy->StopScale();
-//  LOG(LINFO, ("StopScale", e.Pt1(), e.Pt2()));
 }
+//@}
 
 search::Engine * Framework::GetSearchEngine() const
 {

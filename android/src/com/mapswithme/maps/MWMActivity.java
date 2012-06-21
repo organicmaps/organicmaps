@@ -29,18 +29,21 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private static String TAG = "MWMActivity";
 
+  private MWMApplication mApplication = null;
   private BroadcastReceiver m_externalStorageReceiver = null;
   private AlertDialog m_storageDisconnectedDialog = null;
   private boolean m_shouldStartLocationService = false;
 
-  private static Context m_context = null;
-  public static Context getCurrentContext() { return m_context; }
+  private LocationService getLocationService()
+  {
+    return mApplication.getLocationService();
+  }
 
   public void checkShouldStartLocationService()
   {
     if (m_shouldStartLocationService)
     {
-      mApplication.getLocationService().startUpdate(this);
+      getLocationService().startUpdate(this);
       m_shouldStartLocationService = false;
     }
   }
@@ -79,6 +82,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     });
   }
 
+  private Activity getActivity() { return this; }
+
   @Override
   public void ReportUnsupported()
   {
@@ -87,101 +92,85 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       @Override
       public void run()
       {
-        AlertDialog alert = new AlertDialog.Builder(getCurrentContext()).create();
-
-        alert.setMessage(getString(R.string.unsupported_phone));
-
-        alert.setCancelable(false);
-
-        alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.close),
-                        new DialogInterface.OnClickListener()
+        new AlertDialog.Builder(getActivity())
+        .setMessage(getString(R.string.unsupported_phone))
+        .setCancelable(false)
+        .setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener()
         {
           @Override
           public void onClick(DialogInterface dlg, int which)
           {
-            Activity a = (Activity)getCurrentContext();
-            a.moveTaskToBack(true);
+            getActivity().moveTaskToBack(true);
             dlg.dismiss();
           }
-        });
-
-        alert.show();
+        })
+        .create()
+        .show();
       }
     });
+  }
 
+  private void setMeasurementSystem(int u)
+  {
+    nativeSetMS(u);
+    checkProVersionAvailable();
   }
 
   private void checkMeasurementSystem()
   {
-    int u;
-    if (!hasMeasurementSystem())
+    final int u = nativeGetMS();
+    if (u == UNITS_UNDEFINED)
     {
       // Checking system-default measurement system
       if (UnitLocale.getCurrent() == UnitLocale.Metric)
       {
-        u = UNITS_METRIC;
-        setupMeasurementSystem();
-        checkProVersionAvailable();
-      } else
+        setMeasurementSystem(UNITS_METRIC);
+      }
+      else
       {
-        u = UNITS_FOOT;
-
         // showing "select measurement system" dialog.
-        AlertDialog alert = new AlertDialog.Builder(this).create();
-        alert.setCancelable(false);
-
-        alert.setMessage(getString(R.string.which_measurement_system));
-
-        alert.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.miles),
-                        new DialogInterface.OnClickListener()
+        new AlertDialog.Builder(this)
+        .setCancelable(false)
+        .setMessage(getString(R.string.which_measurement_system))
+        .setNegativeButton(getString(R.string.miles), new DialogInterface.OnClickListener()
         {
           @Override
           public void onClick(DialogInterface dialog, int which)
           {
-            setMeasurementSystem(UNITS_FOOT);
-            setupMeasurementSystem();
             dialog.dismiss();
-            checkProVersionAvailable();
+            setMeasurementSystem(UNITS_FOOT);
           }
-        });
-
-        alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.kilometres),
-                        new DialogInterface.OnClickListener()
+        })
+        .setPositiveButton(getString(R.string.kilometres), new DialogInterface.OnClickListener()
         {
           @Override
           public void onClick(DialogInterface dlg, int which)
           {
-            setMeasurementSystem(UNITS_METRIC);
-            setupMeasurementSystem();
             dlg.dismiss();
-            checkProVersionAvailable();
+            setMeasurementSystem(UNITS_METRIC);
           }
-        });
-
-        alert.show();
+        })
+        .create()
+        .show();
       }
-
-      setMeasurementSystem(u);
-    } else
+    }
+    else
     {
-      setupMeasurementSystem();
-      checkProVersionAvailable();
+      setMeasurementSystem(u);
     }
   }
 
-  private native boolean hasMeasurementSystem();
-
+  /// This constants should be equal with Settings::Units in settings.hpp
+  private final int UNITS_UNDEFINED = -1;
   private final int UNITS_METRIC = 0;
   private final int UNITS_YARD = 1;
   private final int UNITS_FOOT = 2;
 
-  private native int getMeasurementSystem();
-
-  private native void setMeasurementSystem(int u);
-
-  private native void setupMeasurementSystem();
+  private native int nativeGetMS();
+  private native void nativeSetMS(int u);
 
   private static final String PREFERENCES_MYPOSITION = "isMyPositionEnabled";
+
 
   public void onMyPositionClicked(View v)
   {
@@ -189,9 +178,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     final boolean isLocationActive = v.isSelected();
     if (isLocationActive)
-      mApplication.getLocationService().stopUpdate(this);
+      getLocationService().stopUpdate(this);
     else
-      mApplication.getLocationService().startUpdate(this);
+      getLocationService().startUpdate(this);
     v.setSelected(!isLocationActive);
 
     // Store active state of My Position
@@ -226,14 +215,10 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   void showProVersionBanner(String message)
   {
-    AlertDialog alert = new AlertDialog.Builder(getCurrentContext()).create();
-
-    alert.setMessage(message);
-
-    alert.setCancelable(false);
-
-    alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.buy_now),
-                    new DialogInterface.OnClickListener()
+    new AlertDialog.Builder(getActivity())
+    .setMessage(message)
+    .setCancelable(false)
+    .setPositiveButton(getString(R.string.buy_now), new DialogInterface.OnClickListener()
     {
       @Override
       public void onClick(DialogInterface dlg, int which)
@@ -242,20 +227,17 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         dlg.dismiss();
         startActivity(i);
       }
-    });
-
-    alert.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.later),
-                    new DialogInterface.OnClickListener()
+    })
+    .setNegativeButton(getString(R.string.later), new DialogInterface.OnClickListener()
     {
       @Override
       public void onClick(DialogInterface dlg, int which)
       {
         dlg.dismiss();
       }
-    });
-
-    alert.show();
-
+    })
+    .create()
+    .show();
   }
 
   public void onSearchClicked(View v)
@@ -271,8 +253,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     startActivity(new Intent(this, DownloadUI.class));
   }
 
-  private MWMApplication mApplication;
-
   @Override
   public void onCreate(Bundle savedInstanceState)
   {
@@ -284,8 +264,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     }
 
     super.onCreate(savedInstanceState);
-
-    m_context = this;
 
     mApplication = (MWMApplication)getApplication();
 
@@ -376,10 +354,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onPause()
   {
-    // stop update only if it's started in OnRenderingInitialized
-    if (!m_shouldStartLocationService)
-      if (findViewById(R.id.map_button_myposition).isSelected())
-        mApplication.getLocationService().stopUpdate(this);
+    getLocationService().stopUpdate(this);
 
     stopWatchingExternalStorage();
 
@@ -394,7 +369,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     {
       // Change button appearance to "looking for position"
       button.setBackgroundResource(R.drawable.myposition_button_normal);
-      /// and remember to start locationService updates in OnRenderingInitialized
+
+      // and remember to start locationService updates in OnRenderingInitialized
       m_shouldStartLocationService = true;
     }
 

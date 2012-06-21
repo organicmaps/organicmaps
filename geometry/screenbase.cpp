@@ -146,6 +146,11 @@ m2::RectD const & ScreenBase::ClipRect() const
   return m_ClipRect;
 }
 
+double ScreenBase::GetMinPixelRectSize() const
+{
+  return min(m_PixelRect.SizeX(), m_PixelRect.SizeY());
+}
+
 double ScreenBase::GetScale() const
 {
   return m_Scale;
