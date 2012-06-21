@@ -131,19 +131,17 @@ namespace storage
     if (m_failedCountries.count(index) > 0)
       return EDownloadFailed;
 
-    if (m_indexGeneration.count(index) > 0)
-      return EGeneratingIndex;
+    //if (m_indexGeneration.count(index) > 0)
+    //  return EGeneratingIndex;
 
     LocalAndRemoteSizeT const size = CountryByIndex(index).Size();
-    if (size.first == size.second)
-    {
-      if (size.second == 0)
-        return EUnknown;
-      else
-        return EOnDisk;
-    }
+    if (size.first == 0)
+      return ENotDownloaded;
 
-    return ENotDownloaded;
+    if (size.second == 0)
+      return EUnknown;
+
+    return (size.first == size.second ? EOnDisk : EOnDiskOutOfDate);
   }
 
   void Storage::DownloadCountry(TIndex const & index)
@@ -207,7 +205,7 @@ namespace storage
       FilesContainerT const & tiles = CountryByIndex(index).Files();
       for (FilesContainerT::const_iterator it = tiles.begin(); it != tiles.end(); ++it)
       {
-        if (!IsFileDownloaded(*it))
+        if (it->GetFileSize() == 0)
         {
           // send Country name for statistics
           string const postBody = it->m_fileName;
@@ -223,6 +221,7 @@ namespace storage
 
       // continue with next country
       m_queue.pop_front();
+
       // reset total country's download progress
       if (!m_queue.empty())
       {
@@ -425,7 +424,7 @@ namespace storage
   void Storage::UpdateAfterSearchIndex(TIndex const & index, string const & fName)
   {
     // remove from index set
-    m_indexGeneration.erase(index);
+    //m_indexGeneration.erase(index);
     NotifyStatusChanged(index);
 
     // activate downloaded map piece

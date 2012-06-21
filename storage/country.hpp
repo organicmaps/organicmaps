@@ -28,14 +28,15 @@ namespace storage
 
     string GetFileWithExt() const { return m_fileName + DATA_FILE_EXTENSION; }
 
+    uint32_t GetFileSize() const;
+
     string m_fileName;    /// Same as id of country\region.
     uint32_t m_remoteSize;
     int64_t m_price;
   };
+
   typedef buffer_vector<CountryFile, 1> FilesContainerT;
   typedef pair<uint64_t, uint64_t> LocalAndRemoteSizeT;
-
-  bool IsFileDownloaded(CountryFile const & file);
 
   /// Serves as a proxy between GUI and downloaded files
   class Country

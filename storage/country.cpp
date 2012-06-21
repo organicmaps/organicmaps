@@ -16,14 +16,17 @@
 namespace storage
 {
 
-/// Simple check - if file is present on disk. Incomplete download has different file name.
-bool IsFileDownloaded(CountryFile const & file)
+uint32_t CountryFile::GetFileSize() const
 {
   uint64_t size = 0;
-  if (!GetPlatform().GetFileSizeByName(file.GetFileWithExt(), size))
-    return false;
-
-  return true;//tile.second == size;
+  if (GetPlatform().GetFileSizeByName(GetFileWithExt(), size))
+  {
+    uint32_t const ret = static_cast<uint32_t>(size);
+    ASSERT_EQUAL ( ret, size, () );
+    return ret;
+  }
+  else
+    return 0;
 }
 
 struct CountryBoundsCalculator
@@ -50,8 +53,7 @@ LocalAndRemoteSizeT Country::Size() const
   uint64_t localSize = 0, remoteSize = 0;
   for (FilesContainerT::const_iterator it = m_files.begin(); it != m_files.end(); ++it)
   {
-    if (IsFileDownloaded(*it))
-      localSize += it->m_remoteSize;
+    localSize += it->GetFileSize();
     remoteSize += it->m_remoteSize;
   }
   return LocalAndRemoteSizeT(localSize, remoteSize);

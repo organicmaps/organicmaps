@@ -23,7 +23,8 @@ namespace storage
     EDownloading,
     EInQueue,
     EUnknown,
-    EGeneratingIndex
+    EGeneratingIndex,
+    EOnDiskOutOfDate
   };
 
   struct TIndex
@@ -81,7 +82,7 @@ namespace storage
     TCountriesSet m_failedCountries;
 
     /// store countries set for which search index is generating
-    TCountriesSet m_indexGeneration;
+    //TCountriesSet m_indexGeneration;
 
     /// used to correctly calculate total country download progress with more than 1 file
     /// <current, total>
