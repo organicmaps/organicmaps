@@ -87,12 +87,16 @@ void Framework::OnGpsUpdate(location::GpsInfo const & info)
     // correct rect scale if country isn't downloaded
     int const upperScale = scales::GetUpperWorldScale();
     if (rectScale > upperScale && IsEmptyModel(center))
+    {
       setScale = upperScale;
-
-    // correct rect scale for best user experience
-    int const bestScale = scales::GetUpperScale() - 1;
-    if (rectScale > bestScale)
-      setScale = bestScale;
+    }
+    else
+    {
+      // correct rect scale for best user experience
+      int const bestScale = scales::GetUpperScale() - 1;
+      if (rectScale > bestScale)
+        setScale = bestScale;
+    }
 
     if (setScale != -1)
       rect = scales::GetRectForLevel(setScale, center, 1.0);
