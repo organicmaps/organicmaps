@@ -809,7 +809,7 @@ es:piscina|deporte
 ko:수영장|스포츠
 ja:プール|スポーツ
 
-building
+building|building-address
 en:building
 ru:здание
 de:Gebäude
