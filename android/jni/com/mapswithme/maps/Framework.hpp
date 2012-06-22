@@ -96,6 +96,8 @@ namespace android
     void RemoveLocalMaps();
     void AddMap(string const & fileName);
 
+    void GetMapsWithoutSearch(vector<string> & out) const;
+
     string const GetCountryName(double x, double y) const;
 
     void AddString(string const & name, string const & value);

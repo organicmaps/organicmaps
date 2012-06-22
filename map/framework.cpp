@@ -322,7 +322,7 @@ void Framework::ClearBookmarks()
   m_bookmarks.clear();
 }
 
-void Framework::GetLocalMaps(vector<string> & outMaps)
+void Framework::GetLocalMaps(vector<string> & outMaps) const
 {
   Platform & pl = GetPlatform();
   pl.GetFilesInDir(pl.WritableDir(), "*" DATA_FILE_EXTENSION, outMaps);

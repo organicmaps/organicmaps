@@ -53,4 +53,5 @@
     <string name="later">Later</string>
     <string name="downloaded_touch_to_update">Downloaded (%s), touch to update</string>
     <string name="update_mb_or_kb">Update %s</string>
+    <string name="search_update_maps">To use search function, you need to update maps</string>
 </resources>

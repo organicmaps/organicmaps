@@ -4,11 +4,13 @@
 #include "../core/jni_helper.hpp"
 #include "../core/render_context.hpp"
 
-#include "../../../../../indexer/drawing_rules.hpp"
-
 #include "../../../../../map/framework.hpp"
 
 #include "../../../../../gui/controller.hpp"
+
+#include "../../../../../indexer/drawing_rules.hpp"
+
+#include "../../../../../coding/file_container.hpp"
 
 #include "../../../../../yg/framebuffer.hpp"
 #include "../../../../../yg/internal/opengl.hpp"
@@ -21,6 +23,7 @@
 
 #include "../../../../../std/shared_ptr.hpp"
 #include "../../../../../std/bind.hpp"
+
 
 android::Framework * g_framework = 0;
 
@@ -41,7 +44,7 @@ namespace android
      m_isCleanSingleClick(false),
      m_doLoadState(true)
   {
-    ASSERT(g_framework == 0, ());
+    ASSERT_EQUAL ( g_framework, 0, () );
     g_framework = this;
 
     m_videoTimer = new VideoTimer(bind(&Framework::CallRepaint, this));
@@ -91,7 +94,7 @@ namespace android
   void Framework::DeleteRenderPolicy()
   {
     m_work.SaveState();
-    LOG(LINFO, ("clearing current render policy."));
+    LOG(LINFO, ("Clearing current render policy."));
     m_work.SetRenderPolicy(0);
   }
 
@@ -110,29 +113,32 @@ namespace android
     rpParams.m_rmParams = rmParams;
     rpParams.m_primaryRC = make_shared_ptr(new android::RenderContext());
 
+    char const * suffix = 0;
     switch (densityDpi)
     {
     case 120:
       rpParams.m_visualScale = 0.75;
-      rpParams.m_skinName = "basic_ldpi.skn";
-      LOG(LINFO, ("using LDPI resources"));
+      suffix = "ldpi";
       break;
+
     case 160:
       rpParams.m_visualScale = 1.0;
-      rpParams.m_skinName = "basic_mdpi.skn";
-      LOG(LINFO, ("using MDPI resources"));
+      suffix = "mdpi";
       break;
+
     case 240:
       rpParams.m_visualScale = 1.5;
-      rpParams.m_skinName = "basic_hdpi.skn";
-      LOG(LINFO, ("using HDPI resources"));
+      suffix = "hdpi";
       break;
+
     default:
       rpParams.m_visualScale = 2.0;
-      rpParams.m_skinName = "basic_xhdpi.skn";
-      LOG(LINFO, ("using XHDPI resources"));
+      suffix = "xhdpi";
       break;
     }
+
+    rpParams.m_skinName = string("basic_") + suffix + ".skn";
+    LOG(LINFO, ("Using", suffix, "resources"));
 
     rpParams.m_screenWidth = screenWidth;
     rpParams.m_screenHeight = screenHeight;
@@ -147,12 +153,11 @@ namespace android
     }
     catch (yg::gl::platform_unsupported const & e)
     {
-      LOG(LINFO, ("this android platform is unsupported, reason=", e.what()));
+      LOG(LINFO, ("This android platform is unsupported, reason:", e.what()));
       return false;
     }
 
     m_work.SetUpdatesEnabled(true);
-
     return true;
   }
 
@@ -214,12 +219,13 @@ namespace android
   {
     NVMultiTouchEventType eventType = (NVMultiTouchEventType)action;
 
-    /// processing double-click
+    // processing double-click
     if ((mask != 0x1) || (eventType == NV_MULTITOUCH_CANCEL))
     {
       if (mask == 0x1)
         m_work.GetGuiController()->OnTapCancelled(m2::PointD(x1, y1));
-      //cancelling double click
+
+      // cancelling double click
       m_isInsideDoubleClick = false;
       m_isCleanSingleClick = false;
     }
@@ -272,8 +278,7 @@ namespace android
       }
     }
 
-    /// general case processing
-
+    // general case processing
     if (m_mask != mask)
     {
       if (m_mask == 0x0)
@@ -394,14 +399,7 @@ namespace android
   void Framework::LoadState()
   {
     if (!m_work.LoadState())
-    {
-      LOG(LINFO, ("no saved state, showing all world"));
       m_work.ShowAll();
-    }
-    else
-    {
-      LOG(LINFO, ("state loaded successfully"));
-    }
   }
 
   void Framework::SaveState()
@@ -432,6 +430,28 @@ namespace android
   void Framework::AddMap(string const & fileName)
   {
     m_work.AddMap(fileName);
+  }
+
+  void Framework::GetMapsWithoutSearch(vector<string> & out) const
+  {
+    ASSERT ( out.empty(), () );
+
+    Platform const & pl = GetPlatform();
+
+    vector<string> v;
+    m_work.GetLocalMaps(v);
+
+    for (size_t i = 0; i < v.size(); ++i)
+    {
+      // skip World and WorldCoast
+      if (v[i].find(WORLD_FILE_NAME) == string::npos &&
+          v[i].find(WORLD_COASTS_FILE_NAME) == string::npos)
+      {
+        FilesContainerR cont(pl.GetReader(v[i]));
+        if (!cont.IsReaderExist(SEARCH_INDEX_FILE_TAG))
+          out.push_back(v[i]);
+      }
+    }
   }
 
   string const Framework::GetCountryName(double x, double y) const

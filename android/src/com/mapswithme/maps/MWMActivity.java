@@ -189,7 +189,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     prefsEdit.commit();
   }
 
-  void checkProVersionAvailable()
+  private void checkProVersionAvailable()
   {
     final boolean isPro = nativeIsProVersion();
     // get pro-version url only for lite-version
@@ -207,13 +207,14 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     }
   }
 
-  void onProVersionAvailable()
+  /// Invoked from native code - asynchronous server check.
+  public void onProVersionAvailable()
   {
     findViewById(R.id.map_button_search).setVisibility(View.VISIBLE);
     showProVersionBanner(getString(R.string.pro_version_available));
   }
 
-  void showProVersionBanner(String message)
+  private void showProVersionBanner(String message)
   {
     new AlertDialog.Builder(getActivity())
     .setMessage(message)
@@ -243,9 +244,33 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   public void onSearchClicked(View v)
   {
     if (!nativeIsProVersion())
+    {
       showProVersionBanner(getString(R.string.search_available_in_pro_version));
+    }
     else
+    {
+      /*
+      final String[] maps = nativeGetMapsWithoutSearch();
+      if (maps.length != 0)
+      {
+        new AlertDialog.Builder(getActivity())
+        .setMessage(R.string.search_update_maps)
+        .setCancelable(false)
+        .setPositiveButton(getString(R.string.later), new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            dlg.dismiss();
+          }
+        })
+        .create()
+        .show();
+      }
+       */
+
       startActivity(new Intent(this, SearchActivity.class));
+    }
   }
 
   public void onDownloadClicked(View v)
@@ -274,7 +299,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     //m_timer = new VideoTimer();
   }
 
-  // From Location interface
+  /// @name From Location interface
+  //@{
   @Override
   public void onLocationStatusChanged(int newStatus)
   {
@@ -284,7 +310,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     nativeLocationStatusChanged(newStatus);
   }
 
-  // From Location interface
   @Override
   public void onLocationUpdated(long time, double lat, double lon, float accuracy)
   {
@@ -300,7 +325,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     return a;
   }
 
-  // From Location interface
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
@@ -331,6 +355,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     nativeCompassUpdated(time, magneticNorth, trueNorth, accuracy);
   }
+  //@}
 
   @Override
   protected void onStart()
@@ -537,10 +562,14 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private native void nativeDownloadCountry();
 
   private native void nativeDestroy();
+
   private native void nativeLocationStatusChanged(int newStatus);
   private native void nativeLocationUpdated(long time, double lat, double lon, float accuracy);
   private native void nativeCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy);
+
   private native boolean nativeIsProVersion();
   private native String nativeGetProVersionURL();
   private native void nativeCheckForProVersion(String serverURL);
+
+  private native String[] nativeGetMapsWithoutSearch();
 }

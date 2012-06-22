@@ -130,7 +130,7 @@ public:
   void AddMap(string const & file);
   void RemoveMap(string const & datFile);
   /// Only file names
-  void GetLocalMaps(vector<string> & outMaps);
+  void GetLocalMaps(vector<string> & outMaps) const;
 
   void AddLocalMaps();
   void RemoveLocalMaps();
