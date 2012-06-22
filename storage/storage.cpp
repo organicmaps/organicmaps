@@ -242,7 +242,7 @@ namespace storage
     {
       m_workingDir = GetPlatform().WritableDir();
     }
-    /// @TODO do not delete other countries cells
+
     void operator()(CountryFile const & file)
     {
       FileWriter::DeleteFileX(m_workingDir + file.m_fileName + DOWNLOADING_FILE_EXTENSION);
@@ -264,6 +264,12 @@ namespace storage
   {
     Country const & country = CountryByIndex(index);
     return country.Bounds();
+  }
+
+  void Storage::DeleteCountryFiles(TIndex const & index)
+  {
+    Country const & country = CountryByIndex(index);
+    for_each(country.Files().begin(), country.Files().end(), DeleteMap());
   }
 
   void Storage::DeleteCountry(TIndex const & index)

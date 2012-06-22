@@ -126,7 +126,6 @@ namespace storage
     //void GenerateSearchIndex(TIndex const & index, string const & fName);
     void UpdateAfterSearchIndex(TIndex const & index, string const & fName);
 
-    /// @TODO temporarily made public for Android, refactor
     void LoadCountriesFile(bool forceReload);
 
     void ReportProgress(TIndex const & index, pair<int64_t, int64_t> const & p);
@@ -165,6 +164,7 @@ namespace storage
 
     void DownloadCountry(TIndex const & index);
     void DeleteCountry(TIndex const & index);
+    void DeleteCountryFiles(TIndex const & index);
 
     void CheckForUpdate();
 

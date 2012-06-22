@@ -115,6 +115,13 @@ extern "C"
     g_framework->Storage().DeleteCountry(IndexBinding(idx).toNative());
   }
 
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MapStorage_deleteCountryFiles(JNIEnv * env, jobject thiz, jobject idx)
+  {
+    g_framework->Storage().DeleteCountryFiles(IndexBinding(idx).toNative());
+  }
+
+
   JNIEXPORT jobject JNICALL
   Java_com_mapswithme_maps_MapStorage_findIndexByName(JNIEnv * env, jobject thiz, jstring name)
   {

@@ -112,6 +112,7 @@ public class MapStorage
 
   public native void downloadCountry(Index idx);
   public native void deleteCountry(Index idx);
+  public native void deleteCountryFiles(Index idx);
 
   public native Index findIndexByName(String name);
 
