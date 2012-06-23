@@ -875,6 +875,11 @@ string Framework::GetCountryName(m2::PointD const & pt) const
   return GetSearchEngine()->GetCountryName(pt);
 }
 
+string Framework::GetCountryName(string const & id) const
+{
+  return GetSearchEngine()->GetCountryName(id);
+}
+
 void Framework::PrepareSearch(bool hasPt, double lat, double lon)
 {
   GetSearchEngine()->PrepareSearch(GetCurrentViewport(), hasPt, lat, lon);
@@ -940,12 +945,14 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 
     m_guiController->SetRenderParams(rp);
 
-    m_renderPolicy->SetCountryNameFn(bind(&Framework::GetCountryName, this, _1));
+    string (Framework::*pFn)(m2::PointD const &) const = &Framework::GetCountryName;
+    m_renderPolicy->SetCountryNameFn(bind(pFn, this, _1));
+
     m_renderPolicy->SetRenderFn(DrawModelFn());
 
     m_navigator.SetSupportRotation(m_renderPolicy->DoSupportRotation());
 
-    if ((m_width != 0) && (m_height != 0))
+    if (m_width != 0 && m_height != 0)
       OnSize(m_width, m_height);
 
     if (m_hasPendingInvalidate)

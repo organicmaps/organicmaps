@@ -42,7 +42,12 @@ public:
 
   string GetCountryFile(m2::PointD const & pt);
   string GetCountryCode(m2::PointD const & pt);
+
+private:
+  template <class T> string GetCountryNameT(T const & t);
+public:
   string GetCountryName(m2::PointD const & pt);
+  string GetCountryName(string const & id);
 
   bool GetNameByType(uint32_t type, int8_t lang, string & name) const;
 

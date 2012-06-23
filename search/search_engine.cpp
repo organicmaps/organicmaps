@@ -305,13 +305,23 @@ string Engine::GetCountryCode(m2::PointD const & pt)
   return info.m_flag;
 }
 
-string Engine::GetCountryName(m2::PointD const & pt)
+template <class T> string Engine::GetCountryNameT(T const & t)
 {
   threads::MutexGuard searchGuard(m_searchMutex);
 
   storage::CountryInfo info;
-  m_pData->m_infoGetter.GetRegionInfo(pt, info);
+  m_pData->m_infoGetter.GetRegionInfo(t, info);
   return info.m_name;
+}
+
+string Engine::GetCountryName(m2::PointD const & pt)
+{
+  return GetCountryNameT(pt);
+}
+
+string Engine::GetCountryName(string const & id)
+{
+  return GetCountryNameT(id);
 }
 
 bool Engine::GetNameByType(uint32_t type, int8_t lang, string & name) const
