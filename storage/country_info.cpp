@@ -108,7 +108,7 @@ namespace storage
     if (info.m_name.empty())
       info.m_name = id;
 
-    info.m_name = CountryInfo::FileName2FullName(info.m_name);
+    CountryInfo::FileName2FullName(info.m_name);
   }
 
   void CountryInfoGetter::CalcUSALimitRect(m2::RectD rects[3]) const

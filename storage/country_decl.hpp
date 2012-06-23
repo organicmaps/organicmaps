@@ -30,7 +30,7 @@ namespace storage
 
     bool IsNotEmpty() const { return !m_flag.empty(); }
 
-    static string FileName2FullName(string fName);
+    static void FileName2FullName(string & fName);
     static void FullName2GroupAndMap(string const & fName, string & group, string & map);
   };
 }

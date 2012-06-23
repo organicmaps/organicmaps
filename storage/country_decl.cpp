@@ -1,7 +1,7 @@
 #include "country_decl.hpp"
 
 
-string storage::CountryInfo::FileName2FullName(string fName)
+void storage::CountryInfo::FileName2FullName(string & fName)
 {
   size_t const i = fName.find('_');
   if (i != string::npos)
@@ -10,7 +10,6 @@ string storage::CountryInfo::FileName2FullName(string fName)
     fName[i] = ',';
     fName.insert(i+1, " ");
   }
-  return fName;
 }
 
 void storage::CountryInfo::FullName2GroupAndMap(string const & fName, string & group, string & map)

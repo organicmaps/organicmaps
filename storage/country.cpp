@@ -29,14 +29,21 @@ uint32_t CountryFile::GetFileSize() const
     return 0;
 }
 
-struct CountryBoundsCalculator
+class CountryBoundsCalculator
 {
   m2::RectD & m_bounds;
-  CountryBoundsCalculator(m2::RectD & bounds) : m_bounds(bounds) {}
+  Platform & m_platform;
+
+public:
+  CountryBoundsCalculator(m2::RectD & bounds)
+    : m_bounds(bounds), m_platform(GetPlatform())
+  {
+  }
+
   void operator()(CountryFile const & file)
   {
     feature::DataHeader h;
-    LoadMapHeader(GetPlatform().GetReader(file.GetFileWithExt()), h);
+    LoadMapHeader(m_platform.GetReader(file.GetFileWithExt()), h);
     m_bounds.Add(h.GetBounds());
   }
 };
