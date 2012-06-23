@@ -241,6 +241,11 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     .show();
   }
 
+  private void runSearchActivity()
+  {
+    startActivity(new Intent(this, SearchActivity.class));
+  }
+
   public void onSearchClicked(View v)
   {
     if (!nativeIsProVersion())
@@ -249,33 +254,49 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     }
     else
     {
-      /*
       final String[] maps = nativeGetMapsWithoutSearch();
       if (maps.length != 0)
       {
+        String msg = this.getString(R.string.search_update_maps) + ": ";
+        for (int i = 0; i < maps.length; ++i)
+          msg = msg + "\n" + maps[i];
+
         new AlertDialog.Builder(getActivity())
-        .setMessage(R.string.search_update_maps)
-        .setCancelable(false)
-        .setPositiveButton(getString(R.string.later), new DialogInterface.OnClickListener()
+        .setMessage(msg)
+        .setPositiveButton(getString(R.string.download), new DialogInterface.OnClickListener()
         {
           @Override
           public void onClick(DialogInterface dlg, int which)
           {
             dlg.dismiss();
+            runDownloadActivity();
+          }
+        })
+        .setNegativeButton(getString(R.string.later), new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            dlg.dismiss();
+            runSearchActivity();
           }
         })
         .create()
         .show();
       }
-       */
-
-      startActivity(new Intent(this, SearchActivity.class));
+      else
+        runSearchActivity();
     }
+  }
+
+  private void runDownloadActivity()
+  {
+    startActivity(new Intent(this, DownloadUI.class));
   }
 
   public void onDownloadClicked(View v)
   {
-    startActivity(new Intent(this, DownloadUI.class));
+    runDownloadActivity();
   }
 
   @Override

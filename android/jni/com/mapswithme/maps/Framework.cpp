@@ -17,6 +17,7 @@
 
 #include "../../../../../platform/platform.hpp"
 #include "../../../../../platform/location.hpp"
+#include "../../../../../platform/file_name_utils.hpp"
 
 #include "../../../../../base/logging.hpp"
 #include "../../../../../base/math.hpp"
@@ -447,9 +448,20 @@ namespace android
       if (v[i].find(WORLD_FILE_NAME) == string::npos &&
           v[i].find(WORLD_COASTS_FILE_NAME) == string::npos)
       {
-        FilesContainerR cont(pl.GetReader(v[i]));
-        if (!cont.IsReaderExist(SEARCH_INDEX_FILE_TAG))
-          out.push_back(v[i]);
+        try
+        {
+          FilesContainerR cont(pl.GetReader(v[i]));
+          if (!cont.IsReaderExist(SEARCH_INDEX_FILE_TAG))
+          {
+            pl::GetNameWithoutExt(v[i]);
+            out.push_back(m_work.GetCountryName(v[i]));
+          }
+        }
+        catch (Reader::Exception const & ex)
+        {
+          // sdcard can contain dummy _*.mwm files. Supress this errors.
+          LOG(LWARNING, ("Bad mwm file:", v[i], "Error:", ex.Msg()));
+        }
       }
     }
   }
