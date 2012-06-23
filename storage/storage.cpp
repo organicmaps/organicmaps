@@ -7,6 +7,7 @@
 
 #include "../platform/platform.hpp"
 #include "../platform/servers_list.hpp"
+#include "../platform/file_name_utils.hpp"
 
 #include "../coding/file_writer.hpp"
 #include "../coding/file_reader.hpp"
@@ -347,13 +348,11 @@ namespace storage
 
   void Storage::Unsubscribe(int slotId)
   {
-    for (list<CountryObservers>::iterator it = m_observers.begin();
-         it != m_observers.end();
-         ++it)
+    for (ObserversContT::iterator i = m_observers.begin(); i != m_observers.end(); ++i)
     {
-      if (it->m_slotId == slotId)
+      if (i->m_slotId == slotId)
       {
-        m_observers.erase(it);
+        m_observers.erase(i);
         return;
       }
     }
@@ -385,11 +384,7 @@ namespace storage
 
       // get file descriptor
       string file = request.Data();
-
-      // FIXME
-      string::size_type const i = file.find_last_of("/\\");
-      if (i != string::npos)
-        file = file.substr(i+1);
+      pl::GetNameFromURLRequest(file);
 
       /// @todo By the way - this code os obsolete.
       /// It doesn't supported properly in android now (because of Platform::RunOnGuiThread).
@@ -444,8 +439,8 @@ namespace storage
 
   void Storage::ReportProgress(TIndex const & idx, pair<int64_t, int64_t> const & p)
   {
-    for (list<CountryObservers>::const_iterator it = m_observers.begin(); it != m_observers.end(); ++it)
-      it->m_progressFn(idx, p);
+    for (ObserversContT::const_iterator i = m_observers.begin(); i != m_observers.end(); ++i)
+      i->m_progressFn(idx, p);
   }
 
   void Storage::OnMapDownloadProgress(HttpRequest & request)

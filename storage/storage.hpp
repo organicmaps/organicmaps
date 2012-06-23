@@ -102,7 +102,8 @@ namespace storage
       int m_slotId;
     };
 
-    list<CountryObservers> m_observers;
+    typedef list<CountryObservers> ObserversContT;
+    ObserversContT m_observers;
     //@}
 
     /// @name Communicate with Framework
