@@ -23,6 +23,12 @@ namespace
   };
 }  // unnamed namespace
 
+MwmInfo::MwmInfo() : m_lockCount(0), m_status(STATUS_REMOVED)
+{
+  // Important: STATUS_REMOVED - is the default value.
+  // Apply STATUS_ACTIVE before adding to maps container.
+}
+
 MwmSet::MwmLock::MwmLock(MwmSet const & mwmSet, MwmId mwmId)
   : m_mwmSet(mwmSet), m_id(mwmId), m_pValue(mwmSet.LockValue(mwmId))
 {
@@ -84,9 +90,8 @@ MwmSet::MwmId MwmSet::GetFreeId()
     if (m_info[i].m_status == MwmInfo::STATUS_REMOVED)
       return i;
   }
+
   m_info.push_back(MwmInfo());
-  m_info.back().m_status = MwmInfo::STATUS_REMOVED;
-  m_info.back().m_lockCount = 0;
   m_name.push_back(string());
   return size;
 }
@@ -123,14 +128,18 @@ int MwmSet::Add(string const & fileName, m2::RectD & r)
     return -1;
   }
 
+  // this function can throw an exception for bad mwm file
+  MwmInfo info;
+  int const version = GetInfo(fileName, info);
+
+  info.m_status = MwmInfo::STATUS_ACTIVE;
+
   MwmId const id = GetFreeId();
   m_name[id] = fileName;
-  memset(&m_info[id], 0, sizeof(MwmInfo));
-  int const version = GetInfo(fileName, m_info[id]);
-  m_info[id].m_lockCount = 0;
-  m_info[id].m_status = MwmInfo::STATUS_ACTIVE;
+  m_info[id] = info;
 
-  r = m_info[id].m_limitRect;
+  r = info.m_limitRect;
+  ASSERT ( r.IsValid(), () );
   return version;
 }
 

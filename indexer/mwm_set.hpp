@@ -9,13 +9,15 @@
 #include "../std/vector.hpp"
 
 
-// Information about stored mwm.
+/// Information about stored mwm.
 class MwmInfo
 {
 public:
-  m2::RectD m_limitRect;    // Limit rect of mwm.
-  uint8_t m_minScale;       // Min zoom level of mwm.
-  uint8_t m_maxScale;       // Max zoom level of mwm.
+  MwmInfo();
+
+  m2::RectD m_limitRect;    ///< Limit rect of mwm.
+  uint8_t m_minScale;       ///< Min zoom level of mwm.
+  uint8_t m_maxScale;       ///< Max zoom level of mwm.
 
   // Does this MwmInfo represent a valid Mwm?
   inline bool isValid() const { return (m_status == STATUS_ACTIVE); }
@@ -25,8 +27,8 @@ private:
   friend class MwmSet;
 
   enum Status { STATUS_ACTIVE = 0, STATUS_TO_REMOVE = 1, STATUS_REMOVED = 2 };
-  uint8_t m_lockCount;      // Number of locks.
-  uint8_t m_status;         //
+  uint8_t m_lockCount;      ///< Number of locks.
+  uint8_t m_status;         ///< Current country status.
 };
 
 class MwmSet
