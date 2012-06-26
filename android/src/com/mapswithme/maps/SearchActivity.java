@@ -2,7 +2,6 @@ package com.mapswithme.maps;
 
 import java.util.Locale;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
 import android.os.Bundle;
@@ -27,13 +26,13 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
   private static class SearchAdapter extends BaseAdapter
   {
-    private Activity m_context;
+    private SearchActivity m_context;
     private LayoutInflater m_inflater;
 
     int m_count = 0;
     int m_resultID = 0;
 
-    public SearchAdapter(Activity context)
+    public SearchAdapter(SearchActivity context)
     {
       m_context = context;
       m_inflater = (LayoutInflater) m_context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -75,6 +74,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
       public TextView m_country = null;
       public TextView m_distance = null;
       public TextView m_amenity = null;
+      public ArrowImage m_flag = null;
 
       void initFromView(View v)
       {
@@ -82,6 +82,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
         m_country = (TextView) v.findViewById(R.id.country);
         m_distance = (TextView) v.findViewById(R.id.distance);
         m_amenity = (TextView) v.findViewById(R.id.amenity);
+        m_flag = (ArrowImage) v.findViewById(R.id.country_flag);
       }
     }
 
@@ -91,8 +92,10 @@ public class SearchActivity extends ListActivity implements LocationService.List
       public String m_name;
       public String m_country;
       public String m_amenity;
-      public String m_distance;
+
       public String m_flag;
+      public String m_distance;
+      public double m_azimut;
 
       /// 0 - suggestion result
       /// 1 - feature result
@@ -105,13 +108,15 @@ public class SearchActivity extends ListActivity implements LocationService.List
         m_type = 0;
       }
       public SearchResult(String name, String country, String amenity,
-                          String distance, String flag)
+                          String flag, String distance, double azimut)
       {
         m_name = name;
         m_country = country;
         m_amenity = amenity;
-        m_distance = distance;
+
         m_flag = flag;
+        m_distance = distance;
+        m_azimut = azimut;
 
         m_type = 1;
       }
@@ -141,13 +146,25 @@ public class SearchActivity extends ListActivity implements LocationService.List
         holder = (ViewHolder) convertView.getTag();
       }
 
-      final SearchResult r = SearchActivity.nativeGetResult(position, m_resultID);
+      final SearchResult r = m_context.getResult(position, m_resultID);
       if (r != null)
       {
         holder.m_name.setText(r.m_name);
         holder.m_country.setText(r.m_country);
         holder.m_amenity.setText(r.m_amenity);
         holder.m_distance.setText(r.m_distance);
+
+        if (r.m_type == 1)
+        {
+          holder.m_flag.setVisibility(View.VISIBLE);
+
+          if (r.m_flag.length() > 0 && r.m_azimut < 0.0)
+            holder.m_flag.setFlag(m_context.getResources(), r.m_flag);
+          else
+            holder.m_flag.setAzimut(r.m_azimut);
+        }
+        else
+          holder.m_flag.setVisibility(View.INVISIBLE);
       }
 
       return convertView;
@@ -161,10 +178,15 @@ public class SearchActivity extends ListActivity implements LocationService.List
       notifyDataSetChanged();
     }
 
+    public void updateDistance()
+    {
+      notifyDataSetChanged();
+    }
+
     /// Show tapped country or get suggestion.
     public String showCountry(int position)
     {
-      final SearchResult r = SearchActivity.nativeGetResult(position, m_resultID);
+      final SearchResult r = m_context.getResult(position, m_resultID);
       if (r != null)
       {
         if (r.m_type == 1)
@@ -253,6 +275,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
     // Reset current mode flag - start first search.
     m_mode = 0;
+    m_north = -1.0;
     m_location.startUpdate(this);
 
     // do the search immediately after resume
@@ -293,11 +316,13 @@ public class SearchActivity extends ListActivity implements LocationService.List
   /// Current position.
   private double m_lat;
   private double m_lon;
+  private double m_north = -1.0;
 
   /// It's should be equal to search::SearchParams::ModeT
   /// Possible values:\n
   /// m_mode % 2 == 0 - first search query;\n
-  int m_mode;
+  /// m_mode >= 2 - position exists;\n
+  int m_mode = 0;
 
   @Override
   public void onLocationUpdated(long time, double lat, double lon, float accuracy)
@@ -314,6 +339,12 @@ public class SearchActivity extends ListActivity implements LocationService.List
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
+    final int orientation = getWindowManager().getDefaultDisplay().getOrientation();
+    final double correction = LocationService.getAngleCorrection(orientation);
+
+    m_north = LocationService.correctAngle(trueNorth, correction);
+
+    getSA().updateDistance();
   }
 
   @Override
@@ -386,10 +417,16 @@ public class SearchActivity extends ListActivity implements LocationService.List
     }
   }
 
+  public SearchAdapter.SearchResult getResult(int position, int queryID)
+  {
+    return nativeGetResult(position, queryID, m_lat, m_lon, m_mode, m_north);
+  }
+
   private native void nativeInitSearch();
   private native void nativeFinishSearch();
 
-  private static native SearchAdapter.SearchResult nativeGetResult(int position, int queryID);
+  private static native SearchAdapter.SearchResult
+  nativeGetResult(int position, int queryID, double lat, double lon, int mode, double north);
 
   private native boolean nativeRunSearch(String s, String lang,
                                          double lat, double lon, int mode, int queryID);

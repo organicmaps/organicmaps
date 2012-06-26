@@ -6,6 +6,38 @@
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:paddingRight="?android:attr/scrollbarSize">
 
+    <com.mapswithme.maps.ArrowImage
+        android:id="@+id/country_flag"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
+        android:scaleType="center"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"/>
+    
+    <LinearLayout
+        android:id="@+id/search_layout_2"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/country_flag">
+
+        <TextView
+            android:id="@+id/distance"
+            android:text="Long Distance Value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+        <TextView
+            android:id="@+id/amenity"
+            android:text="Amenity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+    </LinearLayout>
+    
     <LinearLayout
         android:id="@+id/search_layout_1"
         android:orientation="vertical"
@@ -25,30 +57,6 @@
         <TextView
             android:id="@+id/country"
             android:text="Long Country Name xxxxxxxxxxxxxxxxxxxxxxxx"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/search_layout_2"
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true">
-
-        <TextView
-            android:id="@+id/distance"
-            android:text="Long Distance Value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"/>
-
-        <TextView
-            android:id="@+id/amenity"
-            android:text="Amenity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"/>

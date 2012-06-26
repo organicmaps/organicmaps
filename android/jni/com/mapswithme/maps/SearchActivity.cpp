@@ -4,6 +4,9 @@
 
 #include "../../../../../map/measurement_utils.hpp"
 
+#include "../../../../../geometry/angles.hpp"
+#include "../../../../../geometry/distance_on_sphere.hpp"
+
 #include "../../../../../base/thread.hpp"
 
 #include "../core/jni_helper.hpp"
@@ -200,7 +203,8 @@ Java_com_mapswithme_maps_SearchActivity_nativeShowItem(JNIEnv * env, jobject thi
 
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_SearchActivity_nativeGetResult(
-    JNIEnv * env, jobject thiz, jint position, jint queryID)
+    JNIEnv * env, jobject thiz, jint position, jint queryID,
+    jdouble lat, jdouble lon, jint mode, jdouble north)
 {
   search::Result const * res = SearchAdapter::Instance().GetResult(position, queryID);
   if (res == 0) return 0;
@@ -212,20 +216,42 @@ Java_com_mapswithme_maps_SearchActivity_nativeGetResult(
   {
     jmethodID methodID = env->GetMethodID(
         klass, "<init>",
-        "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+        "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;D)V");
     ASSERT ( methodID, () );
 
     string distance;
-    double const d = res->GetDistanceFromCenter();
-    if (d >= 0.0)
+    double azimut = -1.0;
+    if (mode >= 2)
+    {
+      m2::PointD const center = res->GetFeatureCenter();
+
+      double const d = ms::DistanceOnEarth(lat, lon,
+                                           MercatorBounds::YToLat(center.y),
+                                           MercatorBounds::XToLon(center.x));
+
       CHECK ( MeasurementUtils::FormatDistance(d, distance), () );
+
+      if (north >= 0.0 && d < 25000.0)
+      {
+        azimut = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(lon),
+                                         MercatorBounds::LatToY(lat)),
+                              center) + north;
+
+        double const pi2 = 2.0*math::pi;
+        if (azimut < 0.0)
+          azimut += pi2;
+        else if (azimut > pi2)
+          azimut -= pi2;
+      }
+    }
 
     return env->NewObject(klass, methodID,
                           jni::ToJavaString(env, res->GetString()),
                           jni::ToJavaString(env, res->GetRegionString()),
                           jni::ToJavaString(env, res->GetFeatureType()),
+                          jni::ToJavaString(env, res->GetRegionFlag()),
                           jni::ToJavaString(env, distance.c_str()),
-                          jni::ToJavaString(env, res->GetRegionFlag()));
+                          static_cast<jdouble>(azimut));
   }
   else
   {
