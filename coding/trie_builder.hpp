@@ -250,7 +250,8 @@ void Build(SinkT & sink, IterT const beg, IterT const end, EdgeBuilderT const & 
   for (IterT it = beg; it != end; ++it)
   {
     ElementT e = *it;
-    if (e == prevE) continue;
+    if (e == prevE && it != beg)
+      continue;
 
     TrieChar const * const pKeyData = e.GetKeyData();
     TrieString key(pKeyData, pKeyData + e.GetKeySize());
