@@ -107,12 +107,6 @@ extern "C"
 #define PRO_VERSION_CHECK_INTERVAL 2 * 60 * 60
 //#define PRO_VERSION_CHECK_INTERVAL 10
 
-  JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeIsProVersion(JNIEnv * env, jobject thiz)
-  {
-    return GetPlatform().IsFeatureSupported("search");
-  }
-
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_MWMActivity_nativeGetProVersionURL(JNIEnv * env, jobject thiz)
   {

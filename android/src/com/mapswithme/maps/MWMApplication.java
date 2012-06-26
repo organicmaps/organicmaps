@@ -64,6 +64,11 @@ public class MWMApplication extends android.app.Application
     return storagePath.concat(String.format("/Android/data/%s/%s/", PACKAGE_NAME, folder));
   }
 
+  public boolean isProVersion()
+  {
+    return true;
+  }
+
   private String getTmpPath()
   {
     return getCacheDir().getAbsolutePath() + "/";

@@ -7,12 +7,16 @@
 #import "MapsAppDelegate.h"
 
 #include "Framework.h"
-#include "../../geometry/angles.hpp"
-#include "../../geometry/distance_on_sphere.hpp"
+
+#include "../../search/result.hpp"
+
+#include "../../indexer/mercator.hpp"
+
 #include "../../platform/platform.hpp"
 #include "../../platform/preferred_languages.hpp"
-#include "../../indexer/mercator.hpp"
-#include "../../search/result.hpp"
+
+#include "../../geometry/angles.hpp"
+#include "../../geometry/distance_on_sphere.hpp"
 
 
 #define MAPSWITHME_PREMIUM_APPSTORE_URL @"itms://itunes.com/apps/mapswithmepro"
@@ -210,10 +214,19 @@ static void OnSearchResultCallback(search::Results const & res)
   [self dismissModalViewControllerAnimated:YES];
 }
 
+- (BOOL)IsProVersion
+{
+  NSString * appID = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
+  // .travelguide corresponds to the Lite version without search
+  if ([appID rangeOfString:@"com.mapswithme.travelguide"].location != NSNotFound)
+    return FALSE;
+  return TRUE;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
   // Disable search for free version
-  if (!GetPlatform().IsFeatureSupported("search"))
+  if (![self IsProVersion])
   {
     // Display banner for paid version
     UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Search is only available in the full version of MapsWithMe. Would you like to get it now?", @"Search button pressed dialog title in the free version")

@@ -169,16 +169,6 @@ bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)
   return false;
 }
 
-bool Platform::IsFeatureSupported(string const & feature) const
-{
-  if (feature == "search")
-  {
-    /// @todo add additional checks for apk, protection, etc ...
-    return true;
-  }
-  return false;
-}
-
 void Platform::RunOnGuiThread(TFunctor const & fn)
 {
   /// @todo

@@ -31,16 +31,10 @@ string Platform::HashUniqueID(string const & s)
 
 string Platform::MetaServerUrl() const
 {
-  if (IsFeatureSupported("search"))
-    return "http://active.servers.url";
-  else
-    return "http://active.servers.url";
+  return "http://active.servers.url";
 }
 
 string Platform::DefaultUrlsJSON() const
 {
-  if (IsFeatureSupported("search"))
-    return "[\"http://1st.default.server/\",\"http://2nd.default.server/\",\"http://3rd.default.server/\"]";
-  else
-    return "[\"http://1st.default.server/\",\"http://2nd.default.server/\",\"http://3rd.default.server/\"]";
+  return "[\"http://1st.default.server/\",\"http://2nd.default.server/\",\"http://3rd.default.server/\"]";
 }

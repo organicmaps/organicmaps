@@ -223,19 +223,6 @@ string Platform::UniqueClientId() const
   return HashUniqueID(GetMacAddress() + GetDeviceUid());
 }
 
-bool Platform::IsFeatureSupported(string const & feature) const
-{
-  if (feature == "search")
-  {
-    NSString * appID = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
-    // .travelguide corresponds to the Lite version without search
-    if ([appID rangeOfString:@"com.mapswithme.travelguide"].location != NSNotFound)
-      return false;
-    return true;
-  }
-  return false;
-}
-
 static void PerformImpl(void * obj)
 {
   Platform::TFunctor * f = reinterpret_cast<Platform::TFunctor *>(obj);

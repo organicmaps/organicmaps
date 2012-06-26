@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.Surface;
 import android.view.View;
 import android.webkit.WebView;
 
@@ -68,16 +67,10 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       @Override
       public void run()
       {
+        // Run all checks in main thread after rendering is initialized.
         checkShouldStartLocationService();
-      }
-    });
-
-    runOnUiThread(new Runnable()
-    {
-      @Override
-      public void run()
-      {
         checkMeasurementSystem();
+        checkProVersionAvailable();
       }
     });
   }
@@ -113,7 +106,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private void setMeasurementSystem(int u)
   {
     nativeSetMS(u);
-    checkProVersionAvailable();
   }
 
   private void checkMeasurementSystem()
@@ -191,14 +183,12 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private void checkProVersionAvailable()
   {
-    final boolean isPro = nativeIsProVersion();
-    // get pro-version url only for lite-version
-    final String url = isPro ? "" : nativeGetProVersionURL();
-
-    if (isPro || (url.length() != 0))
+    if (mApplication.isProVersion() ||
+        (nativeGetProVersionURL().length() != 0))
+    {
       findViewById(R.id.map_button_search).setVisibility(View.VISIBLE);
-
-    if (!isPro && (url.length() == 0))
+    }
+    else
     {
       if (android.os.Build.MODEL.equals("Kindle Fire"))
         nativeCheckForProVersion("http://redbutton.mapswithme.com/enable_search_banner_amazon_appstore");
@@ -248,7 +238,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   public void onSearchClicked(View v)
   {
-    if (!nativeIsProVersion())
+    if (!mApplication.isProVersion())
     {
       showProVersionBanner(getString(R.string.search_available_in_pro_version));
     }
@@ -588,7 +578,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private native void nativeLocationUpdated(long time, double lat, double lon, float accuracy);
   private native void nativeCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy);
 
-  private native boolean nativeIsProVersion();
   private native String nativeGetProVersionURL();
   private native void nativeCheckForProVersion(String serverURL);
 

@@ -114,11 +114,7 @@ public:
 
   string UniqueClientId() const;
 
-  /// @return true for "search" feature if app needs search functionality
-  bool IsFeatureSupported(string const & feature) const;
-
   /// @return url for clients to download maps
-  /// Different urls are returned for versions with and without search support
   string MetaServerUrl() const;
 
   /// @return JSON-encoded list of urls if metaserver is unreachable
