@@ -187,8 +187,8 @@ UNIT_TEST(TrieBuilder_Build)
   {
     vector<KeyValuePair> v;
     if (i0 >= 0) v.push_back(KeyValuePair(possibleStrings[i0], i0));
-    if (i1 >= 0) v.push_back(KeyValuePair(possibleStrings[i1], i1));
-    if (i2 >= 0) v.push_back(KeyValuePair(possibleStrings[i2], i2));
+    if (i1 >= 0) v.push_back(KeyValuePair(possibleStrings[i1], i1 + 10));
+    if (i2 >= 0) v.push_back(KeyValuePair(possibleStrings[i2], i2 + 100));
     vector<string> vs;
     for (size_t i = 0; i < v.size(); ++i)
       vs.push_back(string(v[i].m_key.begin(), v[i].m_key.end()));
@@ -213,9 +213,12 @@ UNIT_TEST(TrieBuilder_Build)
     sort(f.m_v.begin(), f.m_v.end());
     TEST_EQUAL(v, f.m_v, ());
 
-    int maxEdgeValue = 0;
+    uint32_t expectedMaxEdgeValue = 0;
+    for (size_t i = 0; i < v.size(); ++i)
+      expectedMaxEdgeValue = max(expectedMaxEdgeValue, v[i].m_value);
+    uint32_t maxEdgeValue = 0;
     for (uint32_t i = 0; i < root->m_edge.size(); ++i)
-      maxEdgeValue = max(maxEdgeValue, static_cast<int>(root->m_edge[i].m_value.m_data[0]));
-    TEST_EQUAL(maxEdgeValue, max(max(0, i0), max(i1, i2)), ());
+      maxEdgeValue = max(maxEdgeValue, static_cast<uint32_t>(root->m_edge[i].m_value.m_data[0]));
+    TEST_EQUAL(maxEdgeValue, expectedMaxEdgeValue, (v, f.m_v));
   }
 }
