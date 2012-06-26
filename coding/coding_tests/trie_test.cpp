@@ -215,7 +215,8 @@ UNIT_TEST(TrieBuilder_Build)
 
     uint32_t expectedMaxEdgeValue = 0;
     for (size_t i = 0; i < v.size(); ++i)
-      expectedMaxEdgeValue = max(expectedMaxEdgeValue, v[i].m_value);
+      if (!v[i].m_key.empty())
+        expectedMaxEdgeValue = max(expectedMaxEdgeValue, v[i].m_value);
     uint32_t maxEdgeValue = 0;
     for (uint32_t i = 0; i < root->m_edge.size(); ++i)
       maxEdgeValue = max(maxEdgeValue, static_cast<uint32_t>(root->m_edge[i].m_value.m_data[0]));
