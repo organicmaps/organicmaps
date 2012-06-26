@@ -327,42 +327,14 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     nativeLocationUpdated(time, lat, lon, accuracy);
   }
 
-  private double normalizeAngle(double a)
-  {
-    // normalize magneticNorth into [0, 2PI]
-    if (a < 0.0)
-      a += (2.0*Math.PI);
-    a = a % (2.0*Math.PI);
-    return a;
-  }
-
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
-    // correct direction
-    final int screenRotation = getWindowManager().getDefaultDisplay().getOrientation();
+    final int orientation = getWindowManager().getDefaultDisplay().getOrientation();
+    final double correction = LocationService.getAngleCorrection(orientation);
 
-    double correction = 0;
-
-    // correct due to orientation
-    switch (screenRotation)
-    {
-    case Surface.ROTATION_90:
-      correction = Math.PI / 2.0;
-      break;
-    case Surface.ROTATION_180:
-      correction = Math.PI;
-      break;
-    case Surface.ROTATION_270:
-      correction = (3.0 * Math.PI / 2.0);
-      break;
-    }
-
-    magneticNorth += correction;
-    trueNorth += correction;
-
-    magneticNorth = normalizeAngle(magneticNorth);
-    trueNorth = normalizeAngle(trueNorth);
+    magneticNorth = LocationService.correctAngle(magneticNorth, correction);
+    trueNorth = LocationService.correctAngle(trueNorth, correction);
 
     nativeCompassUpdated(time, magneticNorth, trueNorth, accuracy);
   }

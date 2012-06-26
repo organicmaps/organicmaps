@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.util.Log;
+import android.view.Surface;
 
 import com.mapswithme.maps.MWMApplication;
 
@@ -380,6 +381,41 @@ public class LocationService implements LocationListener, SensorEventListener, W
       }
     }
   }
+
+  /// @name Angle correct functions.
+  //@{
+  static public double getAngleCorrection(int screenRotation)
+  {
+    double correction = 0;
+
+    // correct due to orientation
+    switch (screenRotation)
+    {
+    case Surface.ROTATION_90:
+      correction = Math.PI / 2.0;
+      break;
+    case Surface.ROTATION_180:
+      correction = Math.PI;
+      break;
+    case Surface.ROTATION_270:
+      correction = (3.0 * Math.PI / 2.0);
+      break;
+    }
+
+    return correction;
+  }
+
+  static public double correctAngle(double angle, double correction)
+  {
+    angle += correction;
+
+    // normalize angle into [0, 2PI]
+    if (angle < 0.0)
+      angle += (2.0*Math.PI);
+    angle = angle % (2.0*Math.PI);
+    return angle;
+  }
+  //@}
 
   @Override
   public void onAccuracyChanged(Sensor sensor, int accuracy)
