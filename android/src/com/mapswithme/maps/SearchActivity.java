@@ -158,7 +158,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
         {
           holder.m_flag.setVisibility(View.VISIBLE);
 
-          if (r.m_flag.length() > 0 && r.m_azimut < 0.0)
+          if (r.m_flag != null && r.m_flag.length() > 0 && r.m_azimut < 0.0)
             holder.m_flag.setFlag(m_context.getResources(), r.m_flag);
           else
             holder.m_flag.setAzimut(r.m_azimut);

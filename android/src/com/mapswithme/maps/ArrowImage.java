@@ -63,7 +63,7 @@ public class ArrowImage extends ImageView
 
       if (m_angle < 0.0)
       {
-        canvas.drawCircle(w/2, h/2, Math.min(w/2, h/2), m_paint);
+        canvas.drawCircle(w/2, h/2, Math.min(w/2, h/2) - 5, m_paint);
       }
       else
       {
