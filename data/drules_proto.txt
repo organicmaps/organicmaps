@@ -48277,11 +48277,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.05
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 558
     }
     symbol {
@@ -48292,11 +48288,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.1
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 745
     }
     symbol {
@@ -48307,11 +48299,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.2
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 1242
     }
     symbol {
@@ -48322,11 +48310,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.4
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 1394
     }
     symbol {
@@ -48340,11 +48324,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.05
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 556
     }
     symbol {
@@ -48355,11 +48335,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.1
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 743
     }
     symbol {
@@ -48370,11 +48346,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.2
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 1240
     }
     symbol {
@@ -48385,11 +48357,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.4
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 1392
     }
     symbol {
@@ -48403,11 +48371,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.05
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 557
     }
     symbol {
@@ -48418,11 +48382,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.1
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 744
     }
     symbol {
@@ -48433,11 +48393,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.2
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 1241
     }
     symbol {
@@ -48448,11 +48404,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.4
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 1393
     }
     symbol {
@@ -48466,11 +48418,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.05
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 555
     }
     symbol {
@@ -48481,11 +48429,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.1
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 742
     }
     symbol {
@@ -48496,11 +48440,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.2
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 1239
     }
     symbol {
@@ -48511,11 +48451,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.4
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 1391
     }
     symbol {
@@ -48750,44 +48686,28 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.05
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 559
     }
   }
   element {
     scale: 15
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.1
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 746
     }
   }
   element {
     scale: 16
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.2
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 1243
     }
   }
   element {
     scale: 17
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.4
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 1395
     }
   }
@@ -48797,44 +48717,28 @@ cont {
   element {
     scale: 14
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.05
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 560
     }
   }
   element {
     scale: 15
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.1
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 747
     }
   }
   element {
     scale: 16
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.2
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 1244
     }
   }
   element {
     scale: 17
     area {
-      color: 0xFFFFFFFF
-      border {
-        width: 0.4
-        color: 0x333333
-      }
+      color: 0xBEBEBE
       priority: 1396
     }
   }
