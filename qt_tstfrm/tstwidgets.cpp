@@ -23,6 +23,7 @@ GLDrawWidget::GLDrawWidget() : base_type(0)
 
 GLDrawWidget::~GLDrawWidget()
 {
+  yg::gl::FinalizeThread();
 }
 
 void GLDrawWidget::initializeGL()
@@ -31,6 +32,7 @@ void GLDrawWidget::initializeGL()
   {
     yg::gl::InitExtensions();
     yg::gl::CheckExtensionSupport();
+    yg::gl::InitializeThread();
   }
   catch (yg::gl::platform_unsupported & e)
   {
@@ -163,14 +165,17 @@ void GLDrawWidget::resizeGL(int w, int h)
 
   m_renderTarget.reset();
   m_renderTarget = make_shared_ptr(new yg::gl::RGBA8Texture(w, h));
-  m_frameBuffer->setRenderTarget(m_renderTarget);
+  m_p->setRenderTarget(m_renderTarget);
 }
 
 void GLDrawWidget::paintGL()
 {
-  base_type::paintGL();
-
 //  m_renderTarget->dump("renderTarget.png");
+
+  m_p->beginFrame();
+  m_p->clear(yg::Color(182, 182, 182, 255));
+  DoDraw(m_p);
+  m_p->endFrame();
 
   m_primaryScreen->beginFrame();
 

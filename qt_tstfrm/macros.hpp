@@ -105,6 +105,8 @@ class GLTestWidget : public tst::GLDrawWidget
 {
   TTest test;
 
+  typedef tst::GLDrawWidget base_type;
+
 public:
 
   virtual void DoDraw(shared_ptr<yg::gl::Screen> p)
