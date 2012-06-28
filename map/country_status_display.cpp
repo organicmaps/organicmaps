@@ -35,7 +35,11 @@ void CountryStatusDisplay::cache()
   if (udn.size() > 13)
   {
     if (strings::MakeUniString(m_mapName).size() > 13)
-      dn = m_mapName + "\n" + "(" + m_mapGroupName + ")";
+    {
+      dn = m_mapName;
+      if (!m_mapGroupName.empty())
+        dn = dn + "\n"+ "(" + m_mapGroupName + ")";
+    }
 
     prefixedName = "\n" + dn;
     postfixedName = dn + "\n";
