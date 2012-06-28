@@ -73,8 +73,9 @@ protected:
   vector<BookmarkCategory *> m_bookmarks;
 
   scoped_ptr<RenderPolicy> m_renderPolicy;
-  bool m_hasPendingInvalidate, m_doForceUpdate, m_queryMaxScaleMode, m_drawPlacemark;
+  bool m_hasPendingInvalidate, m_doForceUpdate, m_queryMaxScaleMode, m_drawPlacemark, m_hasPendingShowRectFixed;
 
+  m2::RectD m_pendingFixedRect;
   m2::AnyRectD m_invalidRect;
   m2::PointD m_placemark;
 

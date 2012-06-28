@@ -144,6 +144,7 @@ Framework::Framework()
     m_doForceUpdate(false),
     m_queryMaxScaleMode(false),
     m_drawPlacemark(false),
+    m_hasPendingShowRectFixed(false),
     m_metresMinWidth(10),
     m_metresMaxWidth(1000000),
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_WINDOWS) || defined(OMIM_OS_LINUX)
@@ -601,7 +602,12 @@ void Framework::ShowRectFixed(m2::RectD rect)
 {
   CheckMinGlobalRect(rect);
 
-  CHECK(m_renderPolicy, ("should have renderPolicy here"));
+  if (!m_renderPolicy)
+  {
+    m_pendingFixedRect = rect;
+    m_hasPendingShowRectFixed = true;
+    return;
+  }
 
   size_t const sz = m_renderPolicy->ScaleEtalonSize();
   m2::RectD etalonRect(0, 0, sz, sz);
@@ -913,10 +919,7 @@ void Framework::ShowSearchResult(search::Result const & res)
   }
 
   /// @todo We can't call this fucntion in android because of invalid m_renderPolicy.
-  if (m_renderPolicy)
-    ShowRectFixed(r);
-  else
-    ShowRect(r);
+  ShowRectFixed(r);
 
   DrawPlacemark(res.GetFeatureCenter());
 }
@@ -961,6 +964,12 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
       m_renderPolicy->SetInvalidRect(m_invalidRect);
       m_renderPolicy->GetWindowHandle()->invalidate();
       m_hasPendingInvalidate = false;
+    }
+
+    if (m_hasPendingShowRectFixed)
+    {
+      ShowRectFixed(m_pendingFixedRect);
+      m_hasPendingShowRectFixed = false;
     }
   }
 }
