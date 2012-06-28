@@ -1,13 +1,16 @@
 #include "test_render_policy.hpp"
 #include "events.hpp"
 #include "drawer_yg.hpp"
+#include "window_handle.hpp"
+
 #include "../yg/base_texture.hpp"
 #include "../yg/internal/opengl.hpp"
 #include "../yg/utils.hpp"
+#include "../yg/skin.hpp"
 
 #include "../geometry/screenbase.hpp"
 #include "../platform/platform.hpp"
-#include "window_handle.hpp"
+
 #include "../indexer/scales.hpp"
 
 TestRenderPolicy::TestRenderPolicy(Params const & p)
@@ -101,7 +104,7 @@ TestRenderPolicy::TestRenderPolicy(Params const & p)
   dp.m_frameBuffer = m_primaryFrameBuffer;
   dp.m_resourceManager = m_resourceManager;
   dp.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
-  dp.m_skinName = SkinName();
+  dp.m_skin = make_shared_ptr(yg::loadSkin(m_resourceManager, SkinName()));
   dp.m_visualScale = VisualScale();
   dp.m_isSynchronized = true;
 

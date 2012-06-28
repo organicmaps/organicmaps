@@ -97,8 +97,8 @@ public:
   struct Params : screen_t::Params
   {
     size_t m_threadID;
-    string m_skinName;
     double m_visualScale;
+    shared_ptr<yg::Skin> m_skin;
     Params();
   };
 

@@ -55,8 +55,8 @@ DrawerYG::DrawerYG(params_t const & params)
   : m_visualScale(params.m_visualScale), m_threadID(params.m_threadID)
 {
   m_pScreen = shared_ptr<yg::gl::Screen>(new yg::gl::Screen(params));
-  m_pSkin = shared_ptr<yg::Skin>(loadSkin(params.m_resourceManager,
-                                          params.m_skinName));
+
+  m_pSkin = params.m_skin;
   m_pScreen->setSkin(m_pSkin);
 
   if (m_pSkin)

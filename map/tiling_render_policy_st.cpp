@@ -3,6 +3,7 @@
 #include "../platform/platform.hpp"
 
 #include "../yg/internal/opengl.hpp"
+#include "../yg/skin.hpp"
 
 #include "window_handle.hpp"
 #include "queued_renderer.hpp"
@@ -148,7 +149,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
   dp.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(p.m_useDefaultFB));
   dp.m_resourceManager = m_resourceManager;
   dp.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
-  dp.m_skinName = SkinName();
+  dp.m_skin = make_shared_ptr(yg::loadSkin(m_resourceManager, SkinName()));
   dp.m_visualScale = VisualScale();
   dp.m_useGuiResources = true;
   dp.m_isSynchronized = false;

@@ -8,6 +8,7 @@
 #include "../yg/rendercontext.hpp"
 #include "../yg/base_texture.hpp"
 #include "../yg/packets_queue.hpp"
+#include "../yg/skin.hpp"
 
 #include "../std/bind.hpp"
 
@@ -56,11 +57,11 @@ TileRenderer::TileRenderer(
     params.m_glyphCacheID = m_resourceManager->renderThreadGlyphCacheID(i);
     params.m_threadID = i;
     params.m_visualScale = visualScale;
-    params.m_skinName = m_skinName;
     if (packetsQueues != 0)
       params.m_renderQueue = packetsQueues[i];
     params.m_doUnbindRT = false;
     params.m_isSynchronized = false;
+    params.m_skin = make_shared_ptr(yg::loadSkin(m_resourceManager, m_skinName));
   /*  params.m_isDebugging = true;
     params.m_drawPathes = false ;
     params.m_drawAreas = false;

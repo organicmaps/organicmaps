@@ -100,7 +100,7 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
   dp.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(p.m_useDefaultFB));
   dp.m_resourceManager = m_resourceManager;
   dp.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
-  dp.m_skinName = SkinName();
+  dp.m_skin = make_shared_ptr(yg::loadSkin(m_resourceManager, SkinName()));
   dp.m_visualScale = VisualScale();
   dp.m_isSynchronized = true;
 

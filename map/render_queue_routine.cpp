@@ -266,7 +266,7 @@ void RenderQueueRoutine::Do()
   params.m_doPeriodicalUpdate = m_doPeriodicalUpdate;
   params.m_auxFrameBuffer = m_auxFrameBuffer;
   params.m_updateInterval = m_updateInterval;
-  params.m_skinName = m_skinName;
+  params.m_skin = make_shared_ptr(yg::loadSkin(m_resourceManager, m_skinName));
   params.m_visualScale = m_visualScale;
   params.m_threadID = 0;
   params.m_glyphCacheID = m_resourceManager->renderThreadGlyphCacheID(0);
