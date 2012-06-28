@@ -131,7 +131,7 @@ CountryStatusDisplay::CountryStatusDisplay(Params const & p)
 
   gui::Button::Params bp;
 
-  bp.m_depth = yg::maxDepth;
+  bp.m_depth = yg::maxDepth - 10;
   bp.m_minWidth = 200;
   bp.m_minHeight = 40;
   bp.m_pivot = m2::PointD(0, 0);
@@ -150,7 +150,7 @@ CountryStatusDisplay::CountryStatusDisplay(Params const & p)
   m_downloadButton->setColor(EPressed, yg::Color(yg::Color(0, 0, 0, 0.4 * 255)));
 
   gui::TextView::Params tp;
-  tp.m_depth = yg::maxDepth;
+  tp.m_depth = yg::maxDepth - 10;
   tp.m_pivot = m2::PointD(0, 0);
   tp.m_text = "Downloading";
 
