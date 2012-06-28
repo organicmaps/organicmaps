@@ -2,7 +2,7 @@
 
 @class BalloonView;
 
-@interface PlacePageVC : UITableViewController
+@interface PlacePageVC : UITableViewController <UITextFieldDelegate>
 {
   BOOL m_hideNavBar;
   // @TODO store as a property to retain reference

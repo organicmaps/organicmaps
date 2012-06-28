@@ -1,6 +1,7 @@
 #import "PlacePageVC.h"
-#import "AddBookmarkVC.h"
 #import "BalloonView.h"
+#import "SelectSetVC.h"
+#import "SelectColorVC.h"
 
 @implementation PlacePageVC
 
@@ -20,6 +21,8 @@
 {
   m_hideNavBar = YES;
   [self.navigationController setNavigationBarHidden:NO animated:YES];
+  // Update the table - we can display it after changing set or color
+  [self.tableView reloadData];
   [super viewWillAppear:animated];
 }
 
@@ -42,16 +45,35 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  if (section == 0)
-    return 2;
-  return 1;
+  switch (section)
+  {
+  case 0: return 3;
+  case 1: return 2;
+  default: return 0;
+  }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-  if (indexPath.section == 0 && indexPath.row == 1)
-    return tableView.rowHeight * 1.5;
-  return tableView.rowHeight;
+  if (section != 0)
+    return nil;
+  // Address and type text
+  UILabel * label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 40)] autorelease];
+  label.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+  label.numberOfLines = 0;
+  label.lineBreakMode = UILineBreakModeWordWrap;
+  label.backgroundColor = [UIColor clearColor];
+  label.textColor = [UIColor darkGrayColor];
+  label.textAlignment = UITextAlignmentCenter;
+  label.text = [NSString stringWithFormat:@"%@\n%@", m_balloon.type, m_balloon.description];
+  return label;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+  if (section != 0)
+    return 0;
+  return 40;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -59,27 +81,68 @@
   UITableViewCell * cell;
   if (indexPath.section == 0)
   {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"AddressCell"] autorelease];
-    if (indexPath.row == 0)
+    NSString * cellId = @"DefaultCell";
+    switch (indexPath.row)
     {
-      cell.textLabel.text = NSLocalizedString(@"Type", @"Place Page - Type cell");
-      cell.detailTextLabel.numberOfLines = 0;
-      cell.detailTextLabel.textAlignment = UITextAlignmentRight;
-      cell.detailTextLabel.text = m_balloon.type;
+      case 0: cellId = @"NameCell"; break;
+      case 1: cellId = @"SetCell"; break;
+      case 2: cellId = @"ColorCell"; break;
     }
-    else
+
+    cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    if (!cell)
     {
-      cell.textLabel.text = NSLocalizedString(@"Address", @"Place Page - Address cell");
-      cell.detailTextLabel.numberOfLines = 0;
-      cell.detailTextLabel.textAlignment = UITextAlignmentRight;
-      cell.detailTextLabel.text = m_balloon.description;
+      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellId] autorelease];
+      switch (indexPath.row)
+      {
+        case 0:
+        {
+          UITextField * f = [[[UITextField alloc] initWithFrame:CGRectMake(0, 0, 200, 21)] autorelease];
+          f.textAlignment = UITextAlignmentRight;
+          f.returnKeyType = UIReturnKeyDone;
+          f.clearButtonMode = UITextFieldViewModeWhileEditing;
+          f.autocorrectionType = UITextAutocorrectionTypeNo;
+          f.delegate = self;
+          f.placeholder = NSLocalizedString(@"Name", @"Add bookmark dialog - bookmark name");
+          f.textColor = cell.detailTextLabel.textColor;
+          cell.accessoryView = f;
+          cell.textLabel.text = NSLocalizedString(@"Name", @"Add bookmark dialog - bookmark name");
+          cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        break;
+
+        case 1:
+          cell.textLabel.text = NSLocalizedString(@"Set", @"Add bookmark dialog - bookmark set");
+        break;
+
+        case 2:
+          cell.textLabel.text = NSLocalizedString(@"Color", @"Add bookmark dialog - bookmark color");
+        break;
+      }
+    }
+    // Update variable cell values
+    switch (indexPath.row)
+    {
+      case 0:
+        ((UITextField *)(cell.accessoryView)).text = m_balloon.title;
+      break;
+
+      case 1:
+        cell.detailTextLabel.text = m_balloon.setName;
+      break;
+
+      case 2:
+        // Create a copy of view here because it can't be subview in map view and in cell simultaneously
+        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:m_balloon.color]] autorelease];
+      break;
     }
   }
   else
   {
+    // 2nd section with add/remove pin buttons
     cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"] autorelease];
     cell.textLabel.textAlignment = UITextAlignmentCenter;
-    if (indexPath.section == 1)
+    if (indexPath.row == 0)
       cell.textLabel.text = NSLocalizedString(@"Add To Bookmarks", @"Place Page - Add To Bookmarks button");
     else
       cell.textLabel.text = NSLocalizedString(@"Remove Pin", @"Place Page - Remove Pin button");
@@ -87,28 +150,64 @@
   return cell;
 }
 
+- (void)onAddClicked
+{
+  GetFramework().AddBookmark([m_balloon.setName UTF8String],
+                             Bookmark(m2::PointD(m_balloon.globalPosition.x, m_balloon.globalPosition.y),
+                                      [m_balloon.title UTF8String], [m_balloon.color UTF8String]));
+  [m_balloon hide];
+//  // Don't forget to hide navbar
+//  [self.navigationController setNavigationBarHidden:YES animated:YES];
+//  [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
 
-  switch (indexPath.section)
+  if (indexPath.section == 0)
   {
-    case 1:
+    switch (indexPath.row)
     {
-      AddBookmarkVC * addVC = [[AddBookmarkVC alloc] initWithBalloonView:m_balloon];
-      m_hideNavBar = NO;
-      [self.navigationController pushViewController:addVC animated:YES];
-      [addVC release];
-    }
-    break;
+      case 1:
+      {
+        m_hideNavBar = NO;
+        SelectSetVC * vc = [[SelectSetVC alloc] initWithBalloonView:m_balloon andEditMode:YES];
+        [self.navigationController pushViewController:vc animated:YES];
+        [vc release];
+      }
+      break;
 
-    case 2:
-    {
-      [m_balloon hide];
-      [self.navigationController popViewControllerAnimated:YES];
+      case 2:
+      {
+        m_hideNavBar = NO;
+        SelectColorVC * vc = [[SelectColorVC alloc] initWithBalloonView:m_balloon];
+        [self.navigationController pushViewController:vc animated:YES];
+        [vc release];
+      }
+      break;
     }
-    break;
+  }
+  else
+  {
+    if (indexPath.row == 0)
+    {
+      // Add to bookmarks
+      [self onAddClicked];
+    }
+    else
+    {
+      // Remove pin
+      [m_balloon hide];
+    }
+    // Close place page
+    [self.navigationController popViewControllerAnimated:YES];
   }
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+  [textField resignFirstResponder];
+  return NO;
+}
 @end

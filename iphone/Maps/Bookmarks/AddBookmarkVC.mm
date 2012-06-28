@@ -102,11 +102,11 @@
     break;
 
     case 1:
-      cell.detailTextLabel.text = [m_balloon setName];
+      cell.detailTextLabel.text = m_balloon.setName;
     break;
 
     case 2:
-      cell.accessoryView = [m_balloon pinImage];
+      cell.accessoryView = m_balloon.pinImage;
     break;
   }
   return cell;

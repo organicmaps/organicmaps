@@ -60,7 +60,7 @@ static NSString * g_colors [] = {
 {
   UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
   [cell setSelected:NO animated:YES];
-  m_balloon.pinImage = cell.imageView;
+  m_balloon.pinImage.image = cell.imageView.image;
   m_balloon.color = g_colors[indexPath.row];
   [self.navigationController popViewControllerAnimated:YES];
 }

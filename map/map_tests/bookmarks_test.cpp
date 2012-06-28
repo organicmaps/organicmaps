@@ -110,9 +110,9 @@ UNIT_TEST(Bookmarks_Getting)
   // This is not correct because Framework::OnSize doesn't work until SetRenderPolicy is called.
   //TEST(m2::AlmostEqual(m2::PointD(400, 200), pixC), (pixC));
 
-  fm.AddBookmark("cat1", Bookmark(m2::PointD(38, 20), "1"));
-  fm.AddBookmark("cat2", Bookmark(m2::PointD(41, 20), "2"));
-  fm.AddBookmark("cat3", Bookmark(m2::PointD(41, 40), "3"));
+  fm.AddBookmark("cat1", Bookmark(m2::PointD(38, 20), "1", "red"));
+  fm.AddBookmark("cat2", Bookmark(m2::PointD(41, 20), "2", "red"));
+  fm.AddBookmark("cat3", Bookmark(m2::PointD(41, 40), "3", "red"));
 
   Bookmark const * bm = fm.GetBookmark(pixC, 1.0);
   TEST(bm != 0, ());
