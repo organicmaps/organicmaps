@@ -43,7 +43,7 @@ namespace gui
     elem_list_t m_Elements;
 
     /// select elements under specified point
-    void SelectElements(m2::PointD const & pt, elem_list_t & l);
+    void SelectElements(m2::PointD const & pt, elem_list_t & l, bool onlyVisible);
 
     /// Invalidate GUI function
     TInvalidateFn m_InvalidateFn;

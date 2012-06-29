@@ -28,14 +28,14 @@ namespace gui
   Controller::~Controller()
   {}
 
-  void Controller::SelectElements(m2::PointD const & pt, elem_list_t & l)
+  void Controller::SelectElements(m2::PointD const & pt, elem_list_t & l, bool onlyVisible)
   {
     for (elem_list_t::const_iterator it = m_Elements.begin();
          it != m_Elements.end();
          ++it)
     {
       shared_ptr<gui::Element> const & e = *it;
-      if (e->roughHitTest(pt) && e->hitTest(pt))
+      if ((!onlyVisible || e->isVisible()) && e->roughHitTest(pt) && e->hitTest(pt))
         l.push_back(e);
     }
   }
@@ -44,7 +44,7 @@ namespace gui
   {
     elem_list_t l;
 
-    SelectElements(pt, l);
+    SelectElements(pt, l, true);
 
     /// selecting first hit-tested element from the list
     if (!l.empty())
