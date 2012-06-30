@@ -58,12 +58,13 @@ class MemoryHttpRequest : public HttpRequest, public IHttpThreadCallback
   string m_downloadedData;
   MemWriter<string> m_writer;
 
-  virtual void OnWrite(int64_t, void const * buffer, size_t size)
+  virtual bool OnWrite(int64_t, void const * buffer, size_t size)
   {
     m_writer.Write(buffer, size);
     m_progress.first += size;
     if (m_onProgress)
       m_onProgress(*this);
+    return true;
   }
 
   virtual void OnFinish(long httpCode, int64_t, int64_t)
@@ -77,6 +78,7 @@ public:
     : HttpRequest(onFinish, onProgress), m_writer(m_downloadedData)
   {
     m_thread = CreateNativeHttpThread(url, *this);
+    ASSERT ( m_thread, () );
   }
 
   MemoryHttpRequest(string const & url, string const & postData,
@@ -84,6 +86,7 @@ public:
     : HttpRequest(onFinish, onProgress), m_writer(m_downloadedData)
   {
     m_thread = CreateNativeHttpThread(url, *this, 0, -1, -1, postData);
+    ASSERT ( m_thread, () );
   }
 
   virtual ~MemoryHttpRequest()
@@ -116,8 +119,11 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     pair<int64_t, int64_t> range;
     ChunksDownloadStrategy::ResultT result;
     while ((result = m_strategy.NextChunk(url, range)) == ChunksDownloadStrategy::ENextChunk)
-      m_threads.push_back(make_pair(CreateNativeHttpThread(url, *this, range.first, range.second,
-                                                           m_progress.second), range.first));
+    {
+      HttpThread * p = CreateNativeHttpThread(url, *this, range.first, range.second, m_progress.second);
+      ASSERT ( p, () );
+      m_threads.push_back(make_pair(p, range.first));
+    }
     return result;
   }
 
@@ -130,18 +136,27 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
         m_threads.erase(it);
         return;
       }
-    ASSERT(false, ("Tried to remove invalid thread?"));
+    ASSERT ( false, ("Tried to remove invalid thread?") );
   }
 
-  virtual void OnWrite(int64_t offset, void const * buffer, size_t size)
+  virtual bool OnWrite(int64_t offset, void const * buffer, size_t size)
   {
 #ifdef DEBUG
     static threads::ThreadID const id = threads::GetCurrentThreadID();
     ASSERT_EQUAL(id, threads::GetCurrentThreadID(), ("OnWrite called from different threads"));
 #endif
 
-    m_writer->Seek(offset);
-    m_writer->Write(buffer, size);
+    try
+    {
+      m_writer->Seek(offset);
+      m_writer->Write(buffer, size);
+      return true;
+    }
+    catch (Writer::Exception const & ex)
+    {
+      LOG(LWARNING, ("Can't write buffer for size = ", size));
+      return false;
+    }
   }
 
   /// Called for each chunk by one main (GUI) thread.
@@ -185,7 +200,17 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
 
     if (m_status != EInProgress)
     {
-      m_writer.reset();
+      try
+      {
+        m_writer.reset();
+      }
+      catch (Writer::Exception const & ex)
+      {
+        LOG(LWARNING, ("Can't close file correctly. There is not enough space, possibly."));
+
+        ASSERT_EQUAL ( m_status, EFailed, () );
+        m_status = EFailed;
+      }
 
       // clean up resume file with chunks range on success
       if (m_status == ECompleted)

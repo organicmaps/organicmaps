@@ -484,6 +484,7 @@ namespace storage
                                          file.m_remoteSize,
                                          bind(&Storage::OnMapDownloadFinished, this, _1),
                                          bind(&Storage::OnMapDownloadProgress, this, _1)));
+    ASSERT ( m_request, () );
   }
 
   string Storage::GetFileDownloadUrl(string const & baseUrl, string const & fName) const

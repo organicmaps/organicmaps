@@ -26,10 +26,11 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
   private final int NOT_SET = -1;
   private final int IO_ERROR = -2;
   private final int INVALID_URL = -3;
+  private final int WRITE_ERROR = -4;
   private int m_httpErrorCode = NOT_SET;
   private long m_downloadedBytes = 0;
 
-  native void onWrite(long httpCallbackID, long beg, byte [] data, long size);
+  native boolean onWrite(long httpCallbackID, long beg, byte [] data, long size);
   native void onFinish(long httpCallbackID, long httpCode, long beg, long end);
 
   public DownloadChunkTask(long httpCallbackID, String url, long beg, long end, long expectedFileSize,
@@ -63,8 +64,14 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
     if (!isCancelled())
     {
       // Use progress event to save downloaded bytes.
-      onWrite(m_httpCallbackID, m_beg + m_downloadedBytes, data[0], data[0].length);
-      m_downloadedBytes += data[0].length;
+      if (onWrite(m_httpCallbackID, m_beg + m_downloadedBytes, data[0], data[0].length))
+        m_downloadedBytes += data[0].length;
+      else
+      {
+        // Cancel downloading and notify about error.
+        cancel(false);
+        onFinish(m_httpCallbackID, WRITE_ERROR, m_beg, m_end);
+      }
     }
   }
 
@@ -187,7 +194,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
     byte[] tempBuf = new byte[bufferSize];
 
     int readBytes;
-    while ((readBytes = stream.read(tempBuf)) != -1)
+    while ((readBytes = stream.read(tempBuf)) > 0)
     {
       if (isCancelled())
         return false;
@@ -198,6 +205,8 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
       publishProgress(chunk);
     }
 
-    return true;
+    // -1 - means the end of the stream (success).
+    // 0 - some error occurred.
+    return (readBytes == -1 ? true : false);
   }
 }

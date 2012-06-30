@@ -23,7 +23,6 @@ ChunksDownloadStrategy::GetChunk(RangeT const & range)
 {
   vector<ChunkT>::iterator i = lower_bound(m_chunks.begin(), m_chunks.end(), range.first, LessChunks());
 
-  // find server which was downloading this chunk
   if (i != m_chunks.end() && i->m_pos == range.first)
   {
     ASSERT_EQUAL ( (i+1)->m_pos, range.second + 1, () );

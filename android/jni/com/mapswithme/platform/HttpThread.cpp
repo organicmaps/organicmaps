@@ -21,10 +21,10 @@ public:
     JNIEnv * env = jni::GetEnv();
 
     jclass klass = env->FindClass("com/mapswithme/maps/downloader/DownloadChunkTask");
-    ASSERT(klass, ());
+    ASSERT ( klass, () );
 
     jmethodID methodId = env->GetMethodID(klass, "<init>", "(JLjava/lang/String;JJJLjava/lang/String;Ljava/lang/String;)V");
-    ASSERT(methodId, ());
+    ASSERT ( methodId, () );
 
     // User id is always the same, so do not waste time on every chunk call
     static string uniqueUserId = GetPlatform().UniqueClientId();
@@ -38,9 +38,10 @@ public:
                                               (jlong)expectedFileSize,
                                               env->NewStringUTF(pb.c_str()),
                                               env->NewStringUTF(uniqueUserId.c_str())));
+    ASSERT ( m_self, () );
 
     methodId = env->GetMethodID(klass, "start", "()V");
-    ASSERT(methodId, ());
+    ASSERT ( methodId, () );
 
     env->CallVoidMethod(m_self, methodId);
   }
@@ -76,14 +77,17 @@ namespace downloader
 
 extern "C"
 {
-  JNIEXPORT void JNICALL
+  JNIEXPORT jboolean JNICALL
   Java_com_mapswithme_maps_downloader_DownloadChunkTask_onWrite(JNIEnv * env, jobject thiz,
       jlong httpCallbackID, jlong beg, jbyteArray data, jlong size)
   {
     downloader::IHttpThreadCallback * cb = reinterpret_cast<downloader::IHttpThreadCallback*>(httpCallbackID);
     jbyte * buf = env->GetByteArrayElements(data, 0);
-    cb->OnWrite(beg, buf, size);
+    ASSERT ( buf, () );
+
+    bool const ret = cb->OnWrite(beg, buf, size);
     env->ReleaseByteArrayElements(data, buf, 0);
+    return ret;
   }
 
   JNIEXPORT void JNICALL

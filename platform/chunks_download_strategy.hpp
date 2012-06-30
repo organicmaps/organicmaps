@@ -48,6 +48,8 @@ private:
   };
 
   typedef pair<int64_t, int64_t> RangeT;
+
+  /// @return Chunk pointer and it's index for given file offsets range.
   pair<ChunkT *, int> GetChunk(RangeT const & range);
 
 public:
