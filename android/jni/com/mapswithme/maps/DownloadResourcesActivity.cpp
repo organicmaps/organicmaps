@@ -1,6 +1,4 @@
 #include <jni.h>
-// To get free disk space
-#include <sys/vfs.h>
 
 #include "../../../../../defines.hpp"
 
@@ -25,15 +23,15 @@
 #include "Framework.hpp"
 
 
-// Special error codes to notify GUI about free space
+/// Special error codes to notify GUI about free space
 //@{
-#define ERR_DOWNLOAD_SUCCESS   0
-#define ERR_NOT_ENOUGH_MEMORY     -1
-#define ERR_NOT_ENOUGH_FREE_SPACE -2
-#define ERR_STORAGE_DISCONNECTED  -3
-#define ERR_DOWNLOAD_ERROR -4
-#define ERR_NO_MORE_FILES -5
-#define ERR_FILE_IN_PROGRESS -6
+#define ERR_DOWNLOAD_SUCCESS         0
+#define ERR_NOT_ENOUGH_MEMORY       -1
+#define ERR_NOT_ENOUGH_FREE_SPACE   -2
+#define ERR_STORAGE_DISCONNECTED    -3
+#define ERR_DOWNLOAD_ERROR          -4
+#define ERR_NO_MORE_FILES           -5
+#define ERR_FILE_IN_PROGRESS        -6
 //@}
 
 struct FileToDownload
@@ -55,15 +53,12 @@ extern "C"
 {
   int HasSpaceForFiles(string const & sdcardPath, size_t fileSize)
   {
-    struct statfs st;
-
-    if (statfs(sdcardPath.c_str(), &st) != 0)
-      return ERR_STORAGE_DISCONNECTED;
-
-    if (st.f_bsize * st.f_bavail <= fileSize)
-      return ERR_NOT_ENOUGH_FREE_SPACE;
-
-    return fileSize;
+    switch (GetPlatform().GetWritableStorageStatus(fileSize))
+    {
+    case Platform::STORAGE_DISCONNECTED: return ERR_STORAGE_DISCONNECTED;
+    case Platform::NOT_ENOUGH_SPACE: return ERR_NOT_ENOUGH_FREE_SPACE;
+    default: return fileSize;
+    }
   }
 
   JNIEXPORT jint JNICALL

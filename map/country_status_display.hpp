@@ -43,6 +43,8 @@ private:
   /// downloading progress of the country
   pair<int64_t, int64_t> m_countryProgress;
 
+  bool m_notEnoughSpace;
+
   /// bounding rects
   mutable vector<m2::AnyRectD> m_boundRects;
 
@@ -50,6 +52,9 @@ private:
   void cache();
 
   string const displayName() const;
+
+  template <class T1, class T2>
+  void SetStatusMessage(string const & msgID, T1 const * t1 = 0, T2 const * t2 = 0);
 
 public:
 

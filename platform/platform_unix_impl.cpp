@@ -1,8 +1,11 @@
 #include "platform.hpp"
 #include "platform_unix_impl.hpp"
 
+#include "../base/logging.hpp"
+
 #include <dirent.h>
 #include <sys/stat.h>
+#include <sys/vfs.h>
 
 
 bool Platform::IsFileExistsByFullPath(string const & filePath)
@@ -20,6 +23,25 @@ bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)
     return true;
   }
   else return false;
+}
+
+Platform::TStorageStatus Platform::GetWritableStorageStatus(uint64_t neededSize)
+{
+  struct statfs st;
+  int const ret = statfs(m_writableDir.c_str(), &st);
+
+  LOG(LDEBUG, ("statfs return = ", ret,
+               "; block size = ", st.f_bsize,
+               "; blocks available = ", st.f_bavail));
+
+  if (ret != 0)
+    return STORAGE_DISCONNECTED;
+
+  /// @todo May be add additional storage space.
+  if (st.f_bsize * st.f_bavail < neededSize)
+    return NOT_ENOUGH_SPACE;
+
+  return STORAGE_OK;
 }
 
 namespace pl

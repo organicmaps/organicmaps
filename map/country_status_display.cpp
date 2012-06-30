@@ -4,6 +4,8 @@
 
 #include "../yg/overlay_renderer.hpp"
 
+#include "../platform/platform.hpp"
+
 #include "../base/string_format.hpp"
 
 #include "../std/bind.hpp"
@@ -18,16 +20,30 @@ string const CountryStatusDisplay::displayName() const
     return m_mapName;
 }
 
+template <class T1, class T2>
+void CountryStatusDisplay::SetStatusMessage(string const & msgID, T1 const * t1, T2 const * t2)
+{
+  m_statusMsg->setIsVisible(true);
+
+  string msg = m_controller->GetStringsBundle()->GetString(msgID);
+  if (t1)
+  {
+    if (t2)
+      msg = strings::Format(msg, *t1, *t2);
+    else
+      msg = strings::Format(msg, *t1);
+  }
+
+  m_statusMsg->setText(msg);
+}
+
 void CountryStatusDisplay::cache()
 {
   m_downloadButton->setIsVisible(false);
-
   m_statusMsg->setIsVisible(false);
 
   string dn = displayName();
   strings::UniString udn(strings::MakeUniString(dn));
-
-  StringsBundle const * stringsBundle = m_controller->GetStringsBundle();
 
   string prefixedName;
   string postfixedName;
@@ -55,51 +71,42 @@ void CountryStatusDisplay::cache()
     switch (m_countryStatus)
     {
     case storage::EInQueue:
-      {
-        m_statusMsg->setIsVisible(true);
-        string countryStatusAddedToQueue = stringsBundle->GetString("country_status_added_to_queue");
-
-        m_statusMsg->setText(strings::Format(countryStatusAddedToQueue, postfixedName));
-      }
-
+      SetStatusMessage<string, int>("country_status_added_to_queue", &postfixedName);
       break;
+
     case storage::EDownloading:
-      {
-        m_statusMsg->setIsVisible(true);
-
-        int percent = m_countryProgress.first * 100 / m_countryProgress.second;
-
-        string countryStatusDownloading = stringsBundle->GetString("country_status_downloading");
-        m_statusMsg->setText(strings::Format(countryStatusDownloading, prefixedName, percent));
-      }
+    {
+      int percent = m_countryProgress.first * 100 / m_countryProgress.second;
+      SetStatusMessage<string, int>("country_status_downloading", &prefixedName, &percent);
       break;
+    }
+
     case storage::ENotDownloaded:
+      if (m_notEnoughSpace)
+        SetStatusMessage<int, int>("not_enough_free_space_on_sdcard");
+      else
       {
         m_downloadButton->setIsVisible(true);
-
-        string countryStatusDownload = stringsBundle->GetString("country_status_download");
-        m_downloadButton->setText(strings::Format(countryStatusDownload, prefixedName));
+        string const msg = m_controller->GetStringsBundle()->GetString("country_status_download");
+        m_downloadButton->setText(strings::Format(msg, prefixedName));
       }
       break;
+
     case storage::EDownloadFailed:
-      {
-        m_downloadButton->setIsVisible(true);
-        m_downloadButton->setText(stringsBundle->GetString("try_again"));
+      m_downloadButton->setIsVisible(true);
+      m_downloadButton->setText(m_controller->GetStringsBundle()->GetString("try_again"));
 
-        string countryStatusDownloadFailed = stringsBundle->GetString("country_status_download_failed");
-        m_statusMsg->setText(strings::Format(countryStatusDownloadFailed, prefixedName));
+      SetStatusMessage<string, int>("country_status_download_failed", &prefixedName);
 
-        m_statusMsg->setIsVisible(true);
-
-        setPivot(pivot());
-      }
+      setPivot(pivot());
       break;
+
     default:
       return;
     }
   }
 
-  /// element bound rect is possibly changed
+  // element bound rect is possibly changed
   setIsDirtyRect(true);
 }
 
@@ -163,6 +170,7 @@ CountryStatusDisplay::CountryStatusDisplay(Params const & p)
 
   m_countryIdx = storage::TIndex();
   m_countryStatus = storage::EUnknown;
+  m_notEnoughSpace = false;
 }
 
 CountryStatusDisplay::~CountryStatusDisplay()
@@ -172,7 +180,17 @@ CountryStatusDisplay::~CountryStatusDisplay()
 
 void CountryStatusDisplay::downloadCountry()
 {
-  m_storage->DownloadCountry(m_countryIdx);
+  uint64_t const sz = m_storage->CountrySizeInBytes(m_countryIdx).second;
+
+  if (GetPlatform().GetWritableStorageStatus(sz) != Platform::STORAGE_OK)
+  {
+    m_notEnoughSpace = true;
+
+    setIsDirtyDrawing(true);
+    invalidate();
+  }
+  else
+    m_storage->DownloadCountry(m_countryIdx);
 }
 
 void CountryStatusDisplay::setDownloadListener(gui::Button::TOnClickListener const & l)
@@ -185,12 +203,14 @@ void CountryStatusDisplay::setCountryName(string const & name)
   if (m_fullName != name)
   {
     storage::CountryInfo::FullName2GroupAndMap(name, m_mapGroupName, m_mapName);
-    LOG(LINFO, (m_mapName, m_mapGroupName));
+    LOG(LDEBUG, (m_mapName, m_mapGroupName));
 
     m_countryIdx = m_storage->FindIndexByName(m_mapName);
     m_countryStatus = m_storage->CountryStatus(m_countryIdx);
     m_countryProgress = m_storage->CountrySizeInBytes(m_countryIdx);
     m_fullName = name;
+    m_notEnoughSpace = false;
+
     setIsDirtyDrawing(true);
     invalidate();
   }
@@ -204,7 +224,7 @@ void CountryStatusDisplay::draw(yg::gl::OverlayRenderer *r,
 
   checkDirtyDrawing();
 
-//  r->drawRectangle(roughBoundRect(), yg::Color(0, 0, 255, 64), yg::maxDepth);
+  //r->drawRectangle(roughBoundRect(), yg::Color(0, 0, 255, 64), yg::maxDepth);
 
   if (m_downloadButton->isVisible())
     m_downloadButton->draw(r, m);
@@ -234,6 +254,7 @@ void CountryStatusDisplay::setController(gui::Controller *controller)
   m_statusMsg->setController(controller);
   m_downloadButton->setController(controller);
 }
+
 void CountryStatusDisplay::setPivot(m2::PointD const & pv)
 {
   if (m_countryStatus == storage::EDownloadFailed)

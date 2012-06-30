@@ -355,6 +355,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     nativeSetString("country_status_download", getString(R.string.country_status_download));
     nativeSetString("country_status_download_failed", getString(R.string.country_status_download_failed));
     nativeSetString("try_again", getString(R.string.try_again));
+    nativeSetString("not_enough_free_space_on_sdcard", getString(R.string.not_enough_free_space_on_sdcard));
 
     nativeConnectDownloadButton();
   }

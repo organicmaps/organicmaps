@@ -84,6 +84,15 @@ public:
   static bool GetFileSizeByFullPath(string const & filePath, uint64_t & size);
   //@}
 
+  /// Used to check available free storage space for downloading.
+  enum TStorageStatus
+  {
+    STORAGE_OK = 0,
+    STORAGE_DISCONNECTED,
+    NOT_ENOUGH_SPACE
+  };
+  TStorageStatus GetWritableStorageStatus(uint64_t neededSize);
+
   /// @name Functions for concurrent tasks.
   //@{
   typedef function<void()> TFunctor;
@@ -101,8 +110,6 @@ public:
   int CpuCores() const;
 
   void GetFontNames(FilesList & res) const;
-
-  bool IsMultiThreadedRendering() const;
 
   int VideoMemoryLimit() const;
 
