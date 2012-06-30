@@ -4,20 +4,7 @@
 
 #include <stdlib.h>
 #include <unistd.h>
-#include <sys/stat.h>
 
-//static bool GetUserWritableDir(string & outDir)
-//{
-//  char * path = ::getenv("HOME");
-//  if (path)
-//  {
-//    outDir = path;
-//    outDir += "/.MapsWithMe/";
-//    ::mkdir(outDir.c_str(), 0755);
-//    return true;
-//  }
-//  return false;
-//}
 
 /// @return directory where binary resides, including slash at the end
 static bool GetBinaryFolder(string & outPath)
@@ -59,12 +46,6 @@ Platform::~Platform()
 {
 }
 
-bool Platform::IsFileExistsByFullPath(string const & filePath)
-{
-  struct stat s;
-  return stat(filePath.c_str(), &s) == 0;
-}
-
 int Platform::CpuCores() const
 {
   const long numCPU = sysconf(_SC_NPROCESSORS_ONLN);
@@ -80,12 +61,12 @@ string Platform::UniqueClientId() const
 
 void Platform::RunOnGuiThread(TFunctor const & fn)
 {
-  // @TODO
+  /// @todo
   fn();
 }
 
 void Platform::RunAsync(TFunctor const & fn, Priority p)
 {
-  // @TODO
+  /// @todo
   fn();
 }

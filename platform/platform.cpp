@@ -3,6 +3,8 @@
 #include "../coding/sha2.hpp"
 #include "../coding/base64.hpp"
 
+#include "../base/logging.hpp"
+
 
 string Platform::ReadPathForFile(string const & file) const
 {
@@ -37,4 +39,20 @@ string Platform::MetaServerUrl() const
 string Platform::DefaultUrlsJSON() const
 {
   return "[\"http://1st.default.server/\",\"http://2nd.default.server/\",\"http://3rd.default.server/\"]";
+}
+
+void Platform::GetFontNames(FilesList & res) const
+{
+  string arr[] = { WritableDir(), ResourcesDir() };
+
+  for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+  {
+    LOG(LDEBUG, ("Searching for fonts in", arr[i]));
+    GetFilesInDir(arr[i], "*.ttf", res);
+  }
+
+  sort(res.begin(), res.end());
+  res.erase(unique(res.begin(), res.end()), res.end());
+
+  LOG(LDEBUG, ("Font files:", (res)));
 }

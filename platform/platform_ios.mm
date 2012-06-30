@@ -1,12 +1,11 @@
 #include "platform.hpp"
+#include "platform_unix_impl.hpp"
 #include "constants.hpp"
 
 #include "../coding/file_reader.hpp"
 #include "../coding/base64.hpp"
 #include "../coding/sha2.hpp"
 
-#include <dirent.h>
-#include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <ifaddrs.h>
@@ -81,57 +80,9 @@ Platform::~Platform()
   delete m_impl;
 }
 
-bool Platform::IsFileExistsByFullPath(string const & filePath)
-{
-  struct stat s;
-  return stat(filePath.c_str(), &s) == 0;
-}
-
 void Platform::GetFilesInDir(string const & directory, string const & mask, FilesList & res)
 {
-  DIR * dir;
-  struct dirent * entry;
-
-  if ((dir = opendir(directory.c_str())) == NULL)
-    return;
-
-  // TODO: take wildcards into account...
-  string mask_fixed = mask;
-  if (mask_fixed.size() && mask_fixed[0] == '*')
-    mask_fixed.erase(0, 1);
-
-  do
-  {
-    if ((entry = readdir(dir)) != NULL)
-    {
-      string fname(entry->d_name);
-      size_t index = fname.rfind(mask_fixed);
-      if (index != string::npos && index == fname.size() - mask_fixed.size())
-      {
-        // TODO: By some strange reason under simulator stat returns -1,
-        // may be because of symbolic links?..
-        //struct stat fileStatus;
-        //if (stat(string(directory + fname).c_str(), &fileStatus) == 0 &&
-        //    (fileStatus.st_mode & S_IFDIR) == 0)
-        //{
-          res.push_back(fname);
-        //}
-      }
-    }
-  } while (entry != NULL);
-
-  closedir(dir);
-}
-
-bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)
-{
-  struct stat s;
-  if (stat(filePath.c_str(), &s) == 0)
-  {
-    size = s.st_size;
-    return true;
-  }
-  return false;
+  pl::EnumerateFilesInDir(directory, mask, res);
 }
 
 bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
@@ -140,16 +91,10 @@ bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
   {
     return GetFileSizeByFullPath(ReadPathForFile(fileName), size);
   }
-  catch (std::exception const &)
+  catch (RootException const &)
   {
     return false;
   }
-}
-
-void Platform::GetFontNames(FilesList & res) const
-{
-  GetFilesInDir(ResourcesDir(), "*.ttf", res);
-  sort(res.begin(), res.end());
 }
 
 ModelReader * Platform::GetReader(string const & file) const

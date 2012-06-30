@@ -30,7 +30,7 @@ bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
   {
     return GetFileSizeByFullPath(ReadPathForFile(fileName), size);
   }
-  catch (std::exception const &)
+  catch (RootException const &)
   {
     return false;
   }
@@ -48,15 +48,6 @@ void Platform::GetFilesInDir(string const & directory, string const & mask, File
 string Platform::DeviceName() const
 {
   return OMIM_OS_NAME;
-}
-
-void Platform::GetFontNames(FilesList & res) const
-{
-  GetFilesInDir(ResourcesDir(), "*.ttf", res);
-  GetFilesInDir(WritableDir(), "*.ttf", res);
-  sort(res.begin(), res.end());
-  res.erase(unique(res.begin(), res.end()), res.end());
-  CHECK(!res.empty(), ("Can't find any valid font in", ResourcesDir(), WritableDir()));
 }
 
 int Platform::PreCachingDepth() const

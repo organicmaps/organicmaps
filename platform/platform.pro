@@ -49,6 +49,11 @@ macx*|iphone* {
   OBJECTIVE_SOURCES += http_thread_apple.mm
 }
 
+!win32* {
+  HEADERS += platform_unix_impl.hpp
+  SOURCES += platform_unix_impl.cpp
+}
+
 # common sources for all platforms
 
 HEADERS += \
@@ -62,7 +67,7 @@ HEADERS += \
     chunks_download_strategy.hpp \
     servers_list.hpp \
     constants.hpp \
-    file_name_utils.hpp
+    file_name_utils.hpp \
 
 SOURCES += \
     preferred_languages.cpp \
@@ -72,4 +77,4 @@ SOURCES += \
     chunks_download_strategy.cpp \
     platform.cpp \
     servers_list.cpp \
-    file_name_utils.cpp
+    file_name_utils.cpp \

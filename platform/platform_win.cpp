@@ -110,12 +110,12 @@ string Platform::UniqueClientId() const
 
 void Platform::RunOnGuiThread(TFunctor const & fn)
 {
-  // @TODO
+  /// @todo
   fn();
 }
 
 void Platform::RunAsync(TFunctor const & fn, Priority p)
 {
-  // @TODO
+  /// @todo
   fn();
 }
