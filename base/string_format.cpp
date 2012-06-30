@@ -1,25 +1,27 @@
 #include "string_format.hpp"
-#include "logging.hpp"
+
+#include "../std/list.hpp"
+
 
 namespace strings
 {
-  string const FormatImpl(string const & s, list<string> const & l)
+  string const FormatImpl(string const & s, string arr[], size_t count)
   {
     size_t offs = 0;
     list<size_t> fieldOffs;
 
-    string temp = s;
+    string res = s;
 
     while (true)
     {
-      offs = temp.find("%", offs);
+      offs = res.find("%", offs);
       if (offs == string::npos)
         break;
       else
       {
-        if ((offs != 0) && (temp[offs - 1] == '\\'))
+        if ((offs != 0) && (res[offs - 1] == '\\'))
         {
-          temp = temp.erase(offs - 1, 1);
+          res = res.erase(offs - 1, 1);
           --offs;
         }
         else
@@ -30,18 +32,14 @@ namespace strings
     }
 
     offs = 0;
+    size_t i = 0;
 
-    string res = temp;
-
-    list<size_t>::const_iterator offsIt;
-    list<string>::const_iterator strIt;
-
-    for (offsIt = fieldOffs.begin(), strIt = l.begin();
-        (offsIt != fieldOffs.end()) && (strIt != l.end());
-        ++offsIt, ++strIt)
+    for (list<size_t>::const_iterator offsIt = fieldOffs.begin();
+        (offsIt != fieldOffs.end()) && (i < count);
+        ++offsIt, ++i)
     {
-      res.replace(*offsIt + offs, 1, *strIt);
-      offs += strIt->size() - 1;
+      res.replace(*offsIt + offs, 1, arr[i]);
+      offs += (arr[i].size() - 1);
     }
 
     return res;
