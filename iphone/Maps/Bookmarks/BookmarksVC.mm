@@ -18,7 +18,7 @@
     m_balloon = view;
     self.title = NSLocalizedString(@"Bookmarks", @"Boormarks - dialog title");
     
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Maps", @"Bookmarks - Close bookmarks button") style: UIBarButtonItemStyleDone
+    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"maps", @"Bookmarks - Close bookmarks button") style: UIBarButtonItemStyleDone
                                                                            target:self action:@selector(onCloseButton:)] autorelease];
     // Display Edit button only if table is not empty
     BookmarkCategory * cat = GetFramework().GetBmCategory([m_balloon.setName UTF8String]);

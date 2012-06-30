@@ -39,7 +39,7 @@
             android:background="@drawable/search_button"
             android:layout_marginLeft="10dip"
             android:onClick="onSearchClicked"
-            android:contentDescription="@string/search_maps"
+            android:contentDescription="@string/search_map"
             android:visibility="gone"/>
 
     </LinearLayout>

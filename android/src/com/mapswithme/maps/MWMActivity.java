@@ -209,7 +209,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     new AlertDialog.Builder(getActivity())
     .setMessage(message)
     .setCancelable(false)
-    .setPositiveButton(getString(R.string.buy_now), new DialogInterface.OnClickListener()
+    .setPositiveButton(getString(R.string.get_it_now), new DialogInterface.OnClickListener()
     {
       @Override
       public void onClick(DialogInterface dlg, int which)
@@ -219,7 +219,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         startActivity(i);
       }
     })
-    .setNegativeButton(getString(R.string.later), new DialogInterface.OnClickListener()
+    .setNegativeButton(getString(android.R.string.cancel), new DialogInterface.OnClickListener()
     {
       @Override
       public void onClick(DialogInterface dlg, int which)

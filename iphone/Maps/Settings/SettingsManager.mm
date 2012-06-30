@@ -9,22 +9,6 @@
 
 using namespace storage;
 
-// @TODO Write Review dialog
-// NSLocalizedString(@"If you like MapsWithMe, please support us by writing a review. If you face any issues, please let us know by filling in a special form.", @"Leave Review dialog title")
-// NSLocalizedString(@"Leave a review", @"Leave Review dialog - Review button")
-// NSLocalizedString(@"Report an issue", @"Leave Review dialog - Complain button (goes to support site)")
-// NSLocalizedString(@"Remind me later", @"Leave Review dialog - Not now button (remond me later)")
-// NSLocalizedString(@"Do not ask me again", @"Leave Review dialog - Dismiss forever button")
-
-// @TODO Buttons in main maps view
-// NSLocalizedString(@"Maps", @"View and button titles for accessibility")
-// NSLocalizedString(@"Download Maps", @"View and button titles for accessibility")
-// NSLocalizedString(@"Search", @"View and button titles for accessibility")
-// NSLocalizedString(@"My Position", @"View and button titles for accessibility")
-// NSLocalizedString(@"Travel Guide", @"View and button titles for accessibility")
-// NSLocalizedString(@"Back", @"View and button titles for accessibility")
-// NSLocalizedString(@"Zoom to the country", @"View and button titles for accessibility")
-
 // Settings are always present globally
 @implementation SettingsManager
 
@@ -65,7 +49,7 @@ using namespace storage;
 - (void) show:(UIViewController *)prevController
 {
   CountriesViewController * countriesController = [[[CountriesViewController alloc]
-      initWithIndex:TIndex() andHeader:NSLocalizedString(@"Download", @"Settings/Downloader - Main downloader window title")] autorelease];
+      initWithIndex:TIndex() andHeader:NSLocalizedString(@"download_maps", @"Settings/Downloader - Main downloader window title")] autorelease];
   m_navigationController = [[UINavigationController alloc] initWithRootViewController:countriesController];
 
   Framework & f = GetFramework();
@@ -90,10 +74,10 @@ using namespace storage;
   if (f.NeedToDeleteOldMaps())
   {
     UIActionSheet * dialog = [[UIActionSheet alloc]
-        initWithTitle:NSLocalizedString(@"We've updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.", @"Downloader/Upgrade dialog title")
+        initWithTitle:NSLocalizedString(@"new_map_data_format_upgrade_dialog", @"Downloader/Upgrade dialog title")
         delegate:self
-        cancelButtonTitle:NSLocalizedString(@"Cancel", @"Downloader/Upgrade Cancel button")
-        destructiveButtonTitle:NSLocalizedString(@"Delete old maps and proceed", @"Downloader/Upgrade OK button")
+        cancelButtonTitle:NSLocalizedString(@"cancel", @"Downloader/Upgrade Cancel button")
+        destructiveButtonTitle:NSLocalizedString(@"delete_old_maps", @"Downloader/Upgrade OK button")
         otherButtonTitles:nil];
     [dialog showInView:m_navigationController.view];
     [dialog release];

@@ -51,7 +51,7 @@
                   android:configChanges="orientation">
         </activity>
         <activity android:name="com.mapswithme.maps.SearchActivity"
-                  android:label="@string/search_maps"
+                  android:label="@string/search_map"
                   android:screenOrientation="behind"
                   android:noHistory="true"
                   android:configChanges="orientation">

@@ -1,0 +1,585 @@
+[[Strings]]
+	[pro_version_available]
+		en = A paid version of MapsWithMe, featuring search, is available for download. Would you like to get it now?
+		comment = Dialog text when paid version become available on the market. Showed only once.
+		de = Die neue kostenpflichtige Version von MapsWithMe mit Suchfunktion ist erhältlich. Möchten Sie sie jetzt herunterladen?
+		es = Salió una nueva versión de pago, ¿quieres descargala ahora?
+		fr = La nouvelle version payante de MapsWithMe est accessible. Voulez vous l'installer maintenant?
+		ru = Вышла платная версия MapsWithMe с поиском. Хотите установить её прямо сейчас?
+		ja = MapsWithMe完全版ならオフラインサーチでさらにナビゲートが簡単です。今すぐご入手下さい！
+		ko = 오프라인 검색 기능의 MapsWithMe의 풀버젼으로 보다 쉽게 검색하세요. 지금 구매하세요!
+	[about]
+		en = About
+	  comment = About button text (should be short! @todo - fix french)
+		de = Über Karten
+		es = Sobre
+		fr = Au sujet des cartes
+		ru = О картах
+		ja = 情報
+		ko = 소개
+	[back]
+		en = Back
+		comment = Button text (should be short)
+		de = Zurück
+		es = Atrás
+		fr = Retour
+		ru = Назад
+		ja = 戻る
+		ko = 뒤로
+	[cancel]
+		en = Cancel
+	  comment = Button text (should be short)
+		de = Abbrechen
+		es = Cancelar
+		fr = Annuler
+		ru = Отмена
+		ja = キャンセル
+		ko = 취소하기
+	[cancel_download]
+		en = Cancel download
+		comment = Button which interrupts country download
+		de = Download beenden
+		es = Cancelar descarga
+		fr = Annuler le téléchargement
+		ru = Отменить загрузку
+		ja = ダウンロードをキャンセル
+		ko = 다운로드 취소하기
+	[delete]
+		en = Delete
+    comment = Button which deletes downloaded country
+		de = Löschen
+		es = Eliminar
+		fr = Effacer
+		ru = Удалить
+		ja = 削除
+		ko = 삭제하기
+	[delete_old_maps]
+		en = Delete old maps and proceed
+		comment = Button in iOS Downloader, displayed only when upgrading from v1 to v2
+		de = Alte Karten löschen und fortsetzen
+		es = Eliminar todas mapas y seguir
+		fr = Effacer les anciennes cartes et continuer
+		ru = Удалить старые карты и продолжить
+		ja = 古いマップを削除して次へ進む
+		ko = 이전의 지도를 삭제하고 진행하기
+	[do_not_ask_me_again]
+		en = Do not ask me again
+		comment = Button to dismiss dialog forever
+		de = Nicht mehr fragen
+		es = No volver a preguntar
+		fr = Ne poser plus de questions
+		ru = Больше не спрашивать
+		ja = 以後、このメッセージを表示しない
+		ko = 또 묻지 마세요.
+	[do_nothing]
+		en = Do nothing
+		comment = Button "do not interrupt download" if user touched actively downloading country
+		de = Download fortsetzen
+		es = Seguir descarga
+		fr = Continuer de télécharger
+		ru = Продолжить загрузку
+		ja = 何もしない
+		ko = 아무것도 하지 마세요
+	[download_maps]
+		en = Download Maps
+		de = Landkarten herunterladen
+		es = Descargar mapas
+		fr = Télécharger les cartes
+		ru = Загрузить карты
+		ja = マップをダウンロード
+		ko = 지도 다운로드받기
+	[download_x_kb]
+		en = Download %qu kB
+		comment = Settings/Downloader - Download confirmation button
+		de = Herunterladen %qu kB
+		es = Descargar %qu kB
+		fr = Télécharger %qu kB
+		ru = Загрузить %qu КБ
+		ja = %quをダウンロード
+		ko = %qu 다운로드하기
+	[download_x_mb]
+		en = Download %qu MB
+		comment = Settings/Downloader - Download confirmation button
+		de = Herunterladen %qu MB
+		es = Descargar %qu MB
+		fr = Télécharger %qu MB
+		ru = Загрузить %qu МБ
+		ja = %quをダウンロード
+		ko = %qu 다운로드하기
+	[download_has_failed]
+		en = Download has failed, touch again for one more try
+		comment = Settings/Downloader - info for country when download fails
+		de = Download fehlgeschlagen. Bitte versuchen Sie es erneut.
+		es = Error durante la descarga, iniciar otra vez
+		fr = Erreur de téléchargement. Merci de recommencer.
+		ru = Ошибка загрузки. Нажмите, чтобы повоторить попытку
+		ja = ダウンロードに失敗しました。もう一度試すにはタッチして下さい。
+		ko = 다운로드에 실패하였습니다. 다시 두드려 시도하여 주십시요.
+	[downloaded_x_y_touch_to_delete]
+		en = Downloaded (%1$qu %2$@), touch to delete
+		comment = Settings/Downloader - info for downloaded country
+		de = Heruntergeladen (%1$qu %2$@). Drücken, um zu löschen
+		es = Descargado (%1$qu %2$@), apreté para eliminar
+		fr = Téléchargé (%1$qu %2$@), appuyez pour effacer
+		ru = Загружено (%1$qu %2$@), нажмите для удаления
+		ja = (%1$qu %2$@)をダウンロードしました。削除するにはタッチして下さい。
+		ko = (%1$qu %2$@)가 다운로드 되었습니다, 두드려 삭제하십시요.
+	[downloading_x_touch_to_cancel]
+		en = Downloading %qu%%, touch to cancel
+		comment = Settings/Downloader - country info current download progress
+		de = Heruntergeladen %qu%%. Drücken, um abzubrechen
+		es = Descarga %qu%%, apreté para cancelar
+		fr = Téléchargement en cours %qu%%, touchez pour stopper
+		ru = Загружается %qu%%, нажмите, чтобы прервать
+		ja = %qu%%をダウンロード中です。キャンセルするにはタッチして下さい。
+		ko = %qu%%를 다운로드 중, 두드려 취소하십시요
+	[downloading]
+		en = Downloading…
+		comment = Settings/Downloader - info for country which started downloading
+		de = Wird heruntergeladen…
+		es = Descarga…
+		fr = Téléchargement en cours…
+		ru = Загружается…
+		ja = ダウンロード中…
+		ko = 다운로드 중…
+	[get_it_now]
+		en = Get it now
+		de = Installieren
+		es = Instalar
+		fr = Installer
+		ru = Установить
+		ja = 今すぐ入手
+		ko = 지금 가져오기
+	[leave_review_text]
+		en = If you like MapsWithMe, please support us by writing a review. If you face any issues, please let us know by filling in a special form.
+		comment = Leave Review dialog title
+		de = Wenn Ihnen MapsWithMe gefällt, unterstützen Sie uns bitte, indem Sie Ihre Meinung hinterlassen. Wenn Sie Probleme bei der Benutzung des Programms haben, melden Sie uns diese bitte, indem Sie das entsprechende Formular ausfüllen.
+		es = Si te gusta MapsWithMe, por favor apoyanos a nosotros en escribir una reseña. Si tienes cualquier problema, por favor completa un formulario especial, para que podamos contactar contigo.
+		fr = Si Maps With Me vous plait, merci de nous soutenir en donnant votre avis. Si vous rencontrez des problèmes avec ce programme, merci de nous le faire savoir en remplissant le formulaire adéquat.
+		ru = Если вам нравится MapsWithMe, пожалуйста, поддержите нас, написав отзыв. Если у вас возникли проблемы при использовании программы, пожалуйста, сообщите нам, заполнив специальную форму, чтобы мы могли связаться с вами для уточнения деталей.
+		ja = MapsWithMeを気に入って頂けた場合には評価をしてサポートして頂きますようお願いします。問題等がありましたら、特定のフォームを使って当社までご報告ください。
+		ko = MapsWithMe를 좋아하시면 평을 작성하여 주시기 바랍니다. 안건의 발생의 경우 특정 양식서를 작성하여 주시기 바랍니다.
+	[kb]
+		en = kB
+		comment = Settings/Downloader - size string
+		ru = КБ
+	[kilometres]
+		en = Kilometres
+		comment = Choose measurement on first launch alert - choose metric system button
+		de = Kilometer
+		es = Kilómetros
+		fr = Kilomètres
+		ru = Километры
+		ja = キロメートル
+		ko = 킬로미터
+	[leave_a_review]
+		en = Leave a review
+		comment = Leave Review dialog - Review button
+		de = Meinung hinterlassen
+		es = Escribir referencias
+		fr = Donner mon opinion
+		ru = Написать отзыв
+		ja = 評価する
+		ko = 평 남기기
+	[location_services_are_needed_desc]
+		en = Location Services are needed to display your current position on the map.
+		comment = Location purpose text description
+		de = Ortungsdienste sind notwendig, um Ihren Standort zu bestimmen.
+		es = Los servicios de localización son necesarios para mostrar su posición actual en el mapa.
+		fr = Vous avez besoin des services de localisation pour déterminer votre position sur la carte.
+		ru = Геолокация нужна для определения вашего местоположения на карте.
+		ja = あなたの現在地をマップに表示するには位置情報サービスが必要です。
+		ko = 위치 서비스가 귀하의 현재의 지도상의 위치를 표시하기 위해 필요합니다.
+	[maps]
+		en = Maps
+		comment = View and button titles for accessibility
+		de = Karte
+		es = Mapa
+		fr = Carte
+		ru = Карта
+		ja = マップ
+		ko = 지도
+	[marked_for_downloading]
+		en = Marked for downloading, touch to cancel
+		comment = Settings/Downloader - info for country in the download queue
+		de = Wartet auf Download. Drücken, um abzubrechen
+		es = Marcado para descarga, apreté para cancelar
+		fr = Attendez avant de télécharger, touchez pour annuler
+		ru = Поставлено в очередь на загрузку, нажмите для отмены
+		ja = ダウンロードを始めます。キャンセルするにはタッチして下さい。
+		ko = 다운로드로 표시하였습니다. 두드려 취소하십시요.
+	[mb]
+		en = MB
+		comment = Settings/Downloader - size string
+		ru = МБ
+	[miles]
+		en = Miles
+		comment = Choose measurement on first launch alert - choose imperial system button
+		de = Meilen
+		es = Milla
+		ru = Мили
+		ja = マイル
+		ko = 마일
+	[my_position]
+		en = My Position
+		comment = View and button titles for accessibility
+		de = Mein Standort
+		es = Mi posicion
+		fr = Ma position
+		ru = Моё местоположение
+		ja = 現在地
+		ko = 나의 위치
+	[no_internet_connection_detected]
+		en = No Internet connection detected
+		comment = Settings/Downloader - No internet connection dialog title
+		de = Keine Internetverbindung
+		es = No hay conexión al Internet
+		fr = Pas de branchement internet
+		ru = Отсутствует подключение к Интернету
+		ja = インターネット接続が見つかりません
+		ko = 인터넷이 연결되지 않았습니다.
+	[no_wifi_ask_cellular_download]
+		en = No WiFi connection detected. Would you like to use cellular data (GPRS, EDGE or 3G) to download %@?
+		comment = Settings/Downloader - 3G download warning dialog title
+		de = Keine WLAN-Verbindung. Möchten Sie %@ über das Mobilnetz (GPRS, EDGE oder 3G) herunterladen?
+		es = No hay conexión WiFi. ¿Quieres descargar con el %@ operador (GPRS, EDGE or 3G)?
+		fr = Pas de connection WiFi. Désirez vous télécharger par le réseau de téléphone mobile (GPRS, EDGE ou 3G)?
+		ru = Нет WiFi соединения. Вы хотите скачать %@ через сотового оператора (GPRS, EDGE или 3G)?
+		ja = WiFi接続が見つかりません。GPRS、EDGE又は3G等のセルラーデータを使って%@をダウンロードしますか?
+		ko = WiFi 연결이 감지되지 않았습니다. %@를 다운로드하기 위해 휴대 자료(GPRS, EDGE 혹은 3G)를 사용하시겠습니까?
+	[ok]
+		en = OK
+		es = Vale
+		ru = ОК
+		ko = 확인
+	[enable_location_services]
+		en = Please enable Location Services
+		comment = not used? Search View - Location is disabled by user warning text
+		de = Aktivieren Sie bitte Ortungsdienste in den Einstellungen Ihres Geräts
+		es = Por favor, permite los servicios de localización
+		fr = Paramétrez les services de localisation de votre appareil, s'il vous plaît
+		ru = Пожалуйста, включите геолокацию в настройках телефона
+		ja = 位置情報サービスを有効にして下さい。
+		ko = 위치 서비스를 작동시켜 주십시요.
+	[free_disk_space_for_country_x]
+		en = Please free some space on your device first in order to download %@
+		comment = Settings/Downloader - No free space dialog message
+		de = Kein Speicherplatz vorhanden. Löschen Sie bitte unnötige Karten oder Apps, um den Download durchführen zu können.
+		es = No hay espacio suficiente para realizar la descarga
+		fr = Le disque est plein, merci de faire de la place pour permettre le téléchargement
+		ru = Нет свободного места. Пожалуйста, удалите ненужные карты или приложения, чтобы загрузить %@
+		ja = 位置情報サービスを有効にして下さい。
+		ko = 먼저 귀하의 장치에 어느 정도의 공간을 확보하여 %@를 다운로드하여 주십시요.
+	[remind_me_later]
+		en = Remind me later
+		comment = Leave Review dialog - Not now button (remind me later)
+		de = Errinern Sie mich später
+		es = Recordar mas tarde
+		fr = Rappelez moi plus tard
+		ru = Напомнить позже
+		ja = 後でリマインド
+		ko = 이후에 기억시키기
+	[later]
+		en = Later
+		comment = Update maps later/Buy pro version later button text
+		ru = Не сейчас
+	[report_an_issue]
+		en = Report an issue
+		comment = Leave Review dialog - Complain button (goes to support site)
+		de = Problem melden
+		es = Informar de un problema
+		fr = Signalez un problème
+		ru = Сообщить о проблеме
+		ja = 問題を報告
+		ko = 문제 보고하기
+	[search]
+		en = Search
+		comment = View and button titles for accessibility
+		de = Suche
+		es = Busca
+		fr = Recherche
+		ru = Поиск
+		ja = 検索
+		ko = 검색하기
+	[search_available_in_pro_version]
+		en = Search is only available in the Pro version of MapsWithMe. Would you like to get it now?
+		comment = Search button pressed dialog title in the free version
+		de = Die Suche ist nur in der Pro Version vorhanden. Möchten Sie sie jetzt installieren?
+		es = Busca esta accesible solo en versión MapWithMe Pro. ¿Instalar ahora mismo?
+		fr = Seule la version Pro permet une recherche. Voulez-vous l'installer maintenant?
+		ru = Поиск доступен только в Pro версии MapsWithMe. Установить ее прямо сейчас?
+		ja = サーチ機能はMapsWithMeのプロ版でのみご使用頂けます。今すぐご入手になりますか？
+		ko = 검색은 MapsWithMe의 프로 버젼에만 제공됩니다. 지금 받으시겠습니까?
+	[search_map]
+		en = Search map
+		comment = Search box placeholder text
+		de = Auf der Karte suchen
+		es = Busca en el mapa
+		fr = Rechercher sur la carte
+		ru = Поиск на карте
+		ja = マップから検索
+		ko = 지도 검색하기
+	[not_enough_disk_space]
+		en = There is not enough free disk space
+		comment = Settings/Downloader - No free space dialog title
+		de = Kein Speicherplatz vorhanden
+		es = No hay espacio
+		fr = Le disque est plein
+		ru = Нет свободного места
+		ja = ディスクに十分な空き領域がありません
+		ko = 디스크 공간이 부족합니다.
+	[touch_to_download]
+		en = Touch to download
+		comment = Settings/Downloader - info for not downloaded country
+		de = Berühren, um herunterzuladen
+		es = Pulse para descargar
+		fr = Pressez pour télécharger
+		ru = Нажмите для загрузки
+		ja = タッチしてダウンロード
+		ko = 두드려 다운로드하세요
+	[use_cellular_data]
+		en = Yes
+		comment = Settings/Downloader - 3G download warning dialog confirm button
+		de = Ja
+		es = Sí
+		fr = Oui
+		ru = Да
+		ja = はい
+		ko = 네
+	[use_wifi_recommendation_text]
+		en = We recommend using WiFi to download large maps
+		comment = Settings/Downloader - No internet connection dialog message
+		de = Wir empfehlen Ihnen, grosse Länder über eine WLAN-Verbindung herunterzuladen
+		es = Recomendamos usar WiFi para descarga de los países grandes
+		fr = Nous vous recommandons d'utiliser le WiFi pour télécharger les grandes cartes
+		ru = Мы рекомендуем загружать большие страны через WiFi
+		ja = 大きなマップをダウンロードするにはWiFiの使用をお勧めします。
+		ko = WiFi를 이용하여 큰 지도를 다운로드하는 것을 권하여 드립니다.
+	[new_map_data_format_upgrade_dialog]
+		en = We've updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.
+		comment = NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2
+		de = Wir haben die Karten aktualisiert und kleiner gemacht. Für grosse Länder können Sie ausgewälte Regionen einzeln herunterladen. Um die neuen Karten zu benutzen, löschen Sie bitte die alten.
+		es = Hemos actualizado los datos de los mapas. Ahora puede seleccionar descargarse solo las regiones que necesites, pero para utilizar los nuevos mapas deberás antes borrar los anteriormente descargados.
+		fr = Nous avons mis à jour les cartes en les réduisant. Vous pouvez maintenant ne télécharger que la région ou le pays qui vous intéresse, cependant pour avoir les nouvelles cartes, il vous faut effacer toutes les anciennes cartes.
+		ru = Мы обновили карты и уменьшили их размер. Для больших стран вы сможете выборочно загружать нужные вам штаты или регионы. Однако, чтобы воспользоваться новыми картами, необходимо предварительно удалить старыe.
+	[which_measurement_system]
+		en = Which measurement system do you prefer?
+		comment = Choose measurement on first launch alert - title
+		de = Welches Messsystem ziehen Sie vor?
+		es = ¿Cual sistema de medición prefieres?
+		fr = Quel système de mesure préférez vous?
+		ru = Какую систему измерения вы предпочитаете?
+		ja = どちらの測定システムを使いますか?
+		ko = 어느 측정 시스템을 선호하십니까?
+	[location_is_disabled_long_text]
+		en = You currently have all Location Services for this device or application disabled. Please enable them in Settings.
+		comment = Location services are disabled by user alert - message
+		de = Ortungsdienste sind inactiv. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.
+		es = No se puede acceder a los servicios de localización. Por favor, activelo en los ajustes.
+		fr = Tous les services de repérage sont désactivés. Veuillez s'il vous plaît la mettre en prise pour la commode utilisation du programme.
+		ru = Геолокация выключена в настройках устройства. Пожалуйста, включите ее для удобного использования программы.
+		ja = このデバイス、またはアプリケーションの位置情報サービスが全て無効になっています。設定画面から有効にして下さい。
+		ko = 현재 이 장치나 애플리케이션을 위한 전 위치 서비스를 불능시키셨습니다. 설정에서 이를 작동시켜 주시기 바랍니다.
+	[device_doesnot_support_location_services]
+		en = Your device doesn't support Location Services
+		comment = Location Services are not available on the device alert - message
+		de = Ihr Gerät unterstützt keine Ortungsdienste
+		es = Su dispositivo no es compatible con los servicios de localización
+		fr = Votre appareil n'est pas compatible pour les services de repérage
+		ru = Ваше устройство не поддерживает геолокацию
+		ja = ご使用のデバイスは位置情報サービスをサポートしていません。
+		ko = 귀하의장치가 위치 서비스를 지원하지 않습니다.
+	[zoom_to_country]
+		en = Zoom to the country
+		comment = View and button titles for accessibility
+		de = Das Land auf der Karte anzeigen
+		es = Ver el país en el mapa
+		fr = Zoomer sur le pays désiré
+		ru = Показать страну на карте
+		ja = 国へズーム
+		ko = 국가로 확대하여 주세요
+	[food]
+		en = food
+		comment = Search Suggestion
+		de = essen
+		es = comer
+		fr = repas
+		ru = еда
+		it = mangiare
+		ja = 飯
+		ko = 음식
+	[money]
+		en = money
+		comment = Search Suggestion
+		de = Geld
+		es = dinero
+		fr = argent
+		ru = деньги
+		it = soldi
+		ja = 金
+		ko = 돈
+	[fuel]
+		en = gas
+		comment = Search Suggestion
+		de = Tankstelle
+		es = gasolinera
+		fr = station-service
+		ru = заправка
+		it = stazione di rifornimento
+		ja = 燃料
+		ko = 연료
+	[shop]
+		en = shop
+		comment = Search Suggestion
+		de = Laden
+		es = tienda
+		fr = magasin
+		ru = магазин
+		it = negozio
+		ja = 店
+		ko = 쇼핑
+	[transport]
+		en = transport
+		comment = Search Suggestion
+		de = Verkehr
+		es = transporte
+		ru = транспорт
+		it = transporto
+		ja = 輸送
+		ko = 수송
+	[tourism]
+		en = sights
+		comment = Search Suggestion
+		de = Sehenswürdigkeit
+		es = turismo
+		fr = curiosités
+		ru = достопримечательность
+		it = turistico
+		ja = 観光
+		ko = 관광
+	[country_status_added_to_queue]
+		en = %is added to the\ndownloading queue.
+		comment = Message to display at the center of the screen when the country is added to the downloading queue
+		ru = %добавлено в очередь\nзагрузки.
+	[country_status_downloading]
+		en = Downloading%(%\\%)
+		comment = Message to display at the center of the screen when the country is downloading
+		ru = Загружается%(%\\%)
+	[country_status_download]
+		en = Download%
+		comment = Button text for the button at the center of the screen when the country is not downloaded
+		ru = Загрузить%
+	[country_status_download_failed]
+		en = Downloading%\nhas failed
+		comment = Message to display at the center of the screen when the country download has failed
+		ru = Ошибка загрузки%.
+	[try_again]
+		en = Try Again
+		comment = Button text for the button under the country_status_download_failed message
+		ru = Попробуйте еще раз
+	[app_name]
+		en = Maps With Me
+	[about_menu_title]
+		en = About MapsWithMe
+		de = Über MapsWithMe
+		es = Sobre MapsWithMe
+		fr = Au sujet des cartes
+		ru = О программе
+	[downloading_touch_to_cancel]
+		en = Downloading %d%%, touch to cancel
+		de = Heruntergeladen %d%%. Berühren, um abzubrechen
+		es = Descarga %d%%, apreté para cancelar
+		fr = Chargement en cours %d%%, toucher pour annuler
+		ru = Загружается %d%%, нажмите, чтобы прервать
+	[downloaded_touch_to_delete]
+		en = Downloaded (%@), touch to delete
+		de = Heruntergeladen (%@). Berühren, um zu löschen
+		es = Descargado (%@), apreté para eliminar
+		fr = Elle est chargée (%@), Appuyer pour effacer
+		ru = Загружено (%@), нажмите для удаления
+	[connection_settings]
+		en = Connection Settings
+		de = Verbindungseinstellungen
+		es = Ajustes de conexión
+		fr = Paramètres de connexion
+		ru = Настройки подключения
+	[download_mb_or_kb]
+		en = Download %@
+		de = Herunterladen %@
+		es = Descargar %@
+		fr = Charger %@
+		ru = Загрузить %@
+	[close]
+		en = Close
+		de = Schließen
+		es = Cerrar
+		fr = Fermer
+		ru = Закрыть
+	[unsupported_phone]
+		en = A hardware accelerated OpenGL is required. Unfortunately, your device is not supported.
+		de = Das Programm braucht OpenGL um funktionnieren zu können. Leider wird ihr Gerät nicht unterschtüzt.
+		es = Un hardware aceleró OpenGL se requiere. Desgraciadamente, el dispositivo móvil no es compatible.
+		fr = Le programme a besoin d`OpenGL pour travailler. Votre appareil n`est pas appuyé maleuresement.
+		ru = Для работы приложения необходим аппаратно ускоренный OpenGL. К сожалению, ваше устройство не поддерживается.
+	[download]
+		en = Download
+		de = Herunterladen
+		es = Descargar
+		fr = Télécharger
+		ru = Загрузить
+	[external_storage_is_not_available]
+		en = SD card/USB storage with downloaded maps is not available
+		ru = Загруженные карты недоступны
+	[disconnect_usb_cable]
+		en = Please disconnect USB cable or insert memory card to use MapsWithMe
+		ru = Отключите USB кабель или вставьте SD-карту
+	[not_enough_free_space_on_sdcard]
+		en = Please free some space on SD card/USB storage first in order to use the app
+		ru = Недостаточно свободного места на SD карте/в памяти устройства для использования программы
+	[not_enough_memory]
+		en = Not enough memory to launch app
+		ru = Недостаточно памяти для запуска программы
+	[free_space_for_country]
+		en = Please free %1$@ on your device first in order to download %2$@
+		ru = Для загрузки %2$@ нужно %1$@ свободного места
+	[download_resources]
+		en = Program needs to download \n%.1f%@ of mandatory resources.
+		comment = REMOVE THIS STRING AFTER REFACTORING
+		ru = Для запуска программы нужно загрузить\n %.3f%@ необходимых ресурсов.
+	[getting_position]
+		en = Getting current position
+		ru = Получаем местоположение
+	[download_resources_continue]
+		en = Go to map
+		ru = Перейти на карту
+	[downloading_country_can_proceed]
+		en = Downloading %@. You can now\n"proceed to the map.
+		ru = Пока загружается %@ \nвы можете пользоваться приложением.
+	[download_country_ask]
+		en = Download %@?
+		ru = Загрузить %@?
+	[download_location_map_proposal]
+		en = You can download the map\nof your current location.
+		comment = REMOVE THIS STRING AFTER REFACTORING
+		ru = Вы можете загрузить карту\nвашего текущего местоположения.
+	[download_location_map_up_to_date]
+		en = The map at your current\nlocation (%@) is up-to-date
+		comment = REMOVE THIS STRING AFTER REFACTORING
+		ru = Карта местности, в которой\nвы находитесь (%@) уже загружена.
+	[pause]
+		en = Pause
+		comment = REMOVE THIS STRING AFTER REFACTORING
+		ru = Приостановить
+	[continue_download]
+		en = Continue
+		comment = REMOVE THIS STRING AFTER REFACTORING
+		ru = Продолжить
+	[downloaded_touch_to_update]
+		en = Downloaded (%@), touch to update or delete
+		ru = Загружено (%@), нажмите для обновления или удаления
+	[update_mb_or_kb]
+		en = Update %@
+		ru = Обновить %@
+	[search_update_maps]
+		en = You need updated maps for search function
+		ru = Для функции поиска необходимо обновить устаревшие карты

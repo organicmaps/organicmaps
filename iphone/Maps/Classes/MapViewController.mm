@@ -34,10 +34,10 @@
   {
   case location::EDisabledByUser:
     {
-      UIAlertView * alert = [[CustomAlertView alloc] initWithTitle:NSLocalizedString(@"Location Services are disabled", @"Location services are disabled by user alert - title")
-                                                       message:NSLocalizedString(@"You currently have all Location Services for this device or application disabled. Please enable them in Settings.", @"Location services are disabled by user alert - message")
+      UIAlertView * alert = [[CustomAlertView alloc] initWithTitle:nil
+                                                       message:NSLocalizedString(@"location_is_disabled_long_text", @"Location services are disabled by user alert - message")
                                                       delegate:nil 
-                                             cancelButtonTitle:NSLocalizedString(@"OK", @"Location Services are disabled by user alert - close alert button")
+                                             cancelButtonTitle:NSLocalizedString(@"ok", @"Location Services are disabled by user alert - close alert button")
                                              otherButtonTitles:nil];
       [alert show];
       [alert release];
@@ -46,10 +46,10 @@
     break;
   case location::ENotSupported:
     {
-      UIAlertView * alert = [[CustomAlertView alloc] initWithTitle:NSLocalizedString(@"Location Services are not supported", @"Location Services are not available on the device alert - title")
-                                                       message:NSLocalizedString(@"Your device doesn't support Location Services", @"Location Services are not available on the device alert - message")
+      UIAlertView * alert = [[CustomAlertView alloc] initWithTitle:nil
+                                                       message:NSLocalizedString(@"device_doesnot_support_location_services", @"Location Services are not available on the device alert - message")
                                                       delegate:nil
-                                             cancelButtonTitle:NSLocalizedString(@"OK", @"Location Services are not available on the device alert - close alert button")
+                                             cancelButtonTitle:NSLocalizedString(@"ok", @"Location Services are not available on the device alert - close alert button")
                                              otherButtonTitles:nil];
       [alert show];
       [alert release];
@@ -156,7 +156,7 @@
 {
 	if ((self = [super initWithCoder:coder]))
 	{
-    self.title = NSLocalizedString(@"Map", @"Back button in nav bar to show the map");
+    self.title = NSLocalizedString(@"back", @"Back button in nav bar to show the map");
 
     // Helper to display/hide pin on screen tap
     m_bookmark = [[BalloonView alloc] initWithTarget:self andSelector:@selector(onBookmarkClicked)];
@@ -167,11 +167,11 @@
 
     Framework & f = GetFramework();
 
-    f.AddString("country_status_added_to_queue", [NSLocalizedString(@"%is added to the\ndownloading queue.", @"Message to display at the center of the screen when the country is added to the downloading queue") UTF8String]);
-    f.AddString("country_status_downloading", [NSLocalizedString(@"Downloading%(%\\%)", @"Message to display at the center of the screen when the country is downloading") UTF8String]);
-    f.AddString("country_status_download", [NSLocalizedString(@"Download%", @"Button text for the button at the center of the screen when the country is not downloaded") UTF8String]);
-    f.AddString("country_status_download_failed", [NSLocalizedString(@"Downloading%\nhas failed", @"Message to display at the center of the screen when the country download has failed") UTF8String]);
-    f.AddString("try_again", [NSLocalizedString(@"Try Again", @"Button text for the button under the country_status_download_failed message") UTF8String]);
+    f.AddString("country_status_added_to_queue", [NSLocalizedString(@"country_status_added_to_queue", @"Message to display at the center of the screen when the country is added to the downloading queue") UTF8String]);
+    f.AddString("country_status_downloading", [NSLocalizedString(@"country_status_downloading", @"Message to display at the center of the screen when the country is downloading") UTF8String]);
+    f.AddString("country_status_download", [NSLocalizedString(@"country_status_download", @"Button text for the button at the center of the screen when the country is not downloaded") UTF8String]);
+    f.AddString("country_status_download_failed", [NSLocalizedString(@"country_status_download_failed", @"Message to display at the center of the screen when the country download has failed") UTF8String]);
+    f.AddString("try_again", [NSLocalizedString(@"try_again", @"Button text for the button under the country_status_download_failed message") UTF8String]);
 
 		m_StickyThreshold = 10;
 

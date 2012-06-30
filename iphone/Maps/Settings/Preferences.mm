@@ -44,11 +44,11 @@
       u = Settings::Foot;
       PrefDelegate * d = [[PrefDelegate alloc] init];
       d.m_controller = controller;
-      UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Which measurement system do you prefer?", @"Choose measurement on first launch alert - title")
+      UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"which_measurement_system", @"Choose measurement on first launch alert - title")
                                                    message:nil
                                                   delegate:d cancelButtonTitle:nil 
-                                         otherButtonTitles:NSLocalizedString(@"Miles", @"Choose measurement on first launch alert - choose imperial system button"),
-                                         NSLocalizedString(@"Kilometres", @"Choose measurement on first launch alert - choose metric system button"), nil];
+                                         otherButtonTitles:NSLocalizedString(@"miles", @"Choose measurement on first launch alert - choose imperial system button"),
+                                         NSLocalizedString(@"kilometres", @"Choose measurement on first launch alert - choose metric system button"), nil];
       [alert show];
       [alert release];
     }

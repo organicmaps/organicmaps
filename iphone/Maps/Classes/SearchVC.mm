@@ -136,7 +136,7 @@ static void OnSearchResultCallback(search::Results const & res)
   UINavigationBar * navBar = [[[UINavigationBar alloc] init] autorelease];
   navBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   UINavigationItem * item = [[[UINavigationItem alloc] init] autorelease];
-  UIBarButtonItem * closeButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Maps", @"Search Results - Close search button") style: UIBarButtonItemStyleDone
+  UIBarButtonItem * closeButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"maps", @"Search Results - Close search button") style: UIBarButtonItemStyleDone
                                                                    target:self action:@selector(onCloseButton:)] autorelease];
   item.leftBarButtonItem = closeButton;
 
@@ -146,7 +146,7 @@ static void OnSearchResultCallback(search::Results const & res)
   if (g_lastSearchResults)
     m_searchBar.text = g_lastSearchResults.m_searchString;
   m_searchBar.delegate = self;
-  m_searchBar.placeholder = NSLocalizedString(@"Search map", @"Search box placeholder text");
+  m_searchBar.placeholder = NSLocalizedString(@"search_map", @"Search box placeholder text");
   m_searchBar.showsBookmarkButton = YES;
   item.titleView = m_searchBar;
 
@@ -229,11 +229,11 @@ static void OnSearchResultCallback(search::Results const & res)
   if (![self IsProVersion])
   {
     // Display banner for paid version
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Search is only available in the full version of MapsWithMe. Would you like to get it now?", @"Search button pressed dialog title in the free version")
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"search_available_in_pro_version", @"Search button pressed dialog title in the free version")
                                                      message:nil
                                                     delegate:self
-                                           cancelButtonTitle:NSLocalizedString(@"Cancel", @"Search button pressed dialog Negative button in the free version")
-                                           otherButtonTitles:NSLocalizedString(@"Get it now", @"Search button pressed dialog Positive button in the free version"), nil];
+                                           cancelButtonTitle:NSLocalizedString(@"cancel", @"Search button pressed dialog Negative button in the free version")
+                                           otherButtonTitles:NSLocalizedString(@"get_it_now", @"Search button pressed dialog Positive button in the free version"), nil];
     [alert show];
     [alert release];
   }
