@@ -144,6 +144,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
     switch (s.CountryStatus(countryIndex))
     {
     case EOnDisk:
+    case EOnDiskOutOfDate:
       {
         LocalAndRemoteSizeT::first_type size = s.CountrySizeInBytes(countryIndex).first;
         // convert size to human readable values
@@ -268,10 +269,15 @@ UITableViewCell * g_clickedCell = nil;
     storage::Storage & s = GetFramework().Storage();
     switch (s.CountryStatus(g_clickedIndex))
     {
+    case EOnDiskOutOfDate:
+      s.DeleteCountry(g_clickedIndex);
+      // no break here!
+
     case ENotDownloaded:
     case EDownloadFailed:
       s.DownloadCountry(g_clickedIndex);
       break;
+
     default:
       s.DeleteCountry(g_clickedIndex);
       // remove "zoom to country" icon
@@ -356,6 +362,7 @@ UITableViewCell * g_clickedCell = nil;
 
       case ENotDownloaded:
       case EDownloadFailed:
+      case EOnDiskOutOfDate:
       {
         LocalAndRemoteSizeT const sizePair = s.CountrySizeInBytes(index);
         LocalAndRemoteSizeT::first_type const size = sizePair.second - sizePair.first;
