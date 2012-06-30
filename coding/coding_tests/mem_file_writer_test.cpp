@@ -28,15 +28,3 @@ UNIT_TEST(MemWriterSimple)
   TEST_EQUAL(data.size(), ARRAY_SIZE(expected)-1, ());
   TEST(equal(data.begin(), data.end(), &expected[0]), (data));
 }
-
-/*
-UNIT_TEST(FileWriter_NoDiskSpace)
-{
-  FileWriter w("/Volumes/Untitled/file.bin");
-
-  vector<uint8_t> bytes(100000000);
-
-  for (size_t i = 0; i < 10; ++i)
-    w.Write(&bytes[0], bytes.size());
-}
-*/
