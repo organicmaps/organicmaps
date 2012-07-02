@@ -1,0 +1,3 @@
+#!/bin/sh
+BASEDIR=$(dirname $0)
+ruby -rubygems -I $BASEDIR/lib $BASEDIR/bin/twine $@
