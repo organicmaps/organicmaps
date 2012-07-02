@@ -5,7 +5,12 @@
 
 #include <dirent.h>
 #include <sys/stat.h>
-#include <sys/vfs.h>
+
+#ifdef OMIM_OS_ANDROID
+  #include <sys/vfs.h>
+#else
+  #include <sys/mount.h>
+#endif
 
 
 bool Platform::IsFileExistsByFullPath(string const & filePath)
