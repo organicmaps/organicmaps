@@ -39,6 +39,7 @@ enum
 #define COLOR_INPROGRESS      Qt::blue
 #define COLOR_DOWNLOADFAILED  Qt::red
 #define COLOR_INQUEUE         Qt::gray
+#define COLOR_OUTOFDATE       Qt::magenta
 
 namespace qt
 {
@@ -113,13 +114,38 @@ namespace qt
     TIndex const countryIndex(treeIndex[0], treeIndex[1], treeIndex[2]);
     switch (m_storage.CountryStatus(countryIndex))
     {
+    case EOnDiskOutOfDate:
+      {
+        // map is already downloaded, so ask user about deleting!
+        QMessageBox ask(this);
+        ask.setIcon(QMessageBox::Question);
+        ask.setText(tr("Do you want to update or delete %1?").arg(item->text(KColumnIndexCountry)));
+
+        QPushButton * btns[3];
+        btns[0] = ask.addButton(tr("Update"), QMessageBox::ActionRole);
+        btns[1] = ask.addButton(tr("Delete"), QMessageBox::ActionRole);
+        btns[2] = ask.addButton(tr("Cancel"), QMessageBox::NoRole);
+
+        (void)ask.exec();
+
+        QAbstractButton * res = ask.clickedButton();
+        if (res == btns[0] || res == btns[1])
+          m_storage.DeleteCountry(countryIndex);
+
+        if (res == btns[0])
+          m_storage.DownloadCountry(countryIndex);
+      }
+      break;
+
     case EOnDisk:
       {
         // map is already downloaded, so ask user about deleting!
         QMessageBox ask(this);
+        ask.setIcon(QMessageBox::Question);
         ask.setText(tr("Do you want to delete %1?").arg(item->text(KColumnIndexCountry)));
         ask.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
         ask.setDefaultButton(QMessageBox::No);
+
         if (ask.exec() == QMessageBox::Yes)
           m_storage.DeleteCountry(countryIndex);
       }
@@ -200,6 +226,7 @@ namespace qt
       QColor rowColor;
       QString statusString;
       LocalAndRemoteSizeT size(0, 0);
+
       switch (m_storage.CountryStatus(index))
       {
       case ENotDownloaded:
@@ -211,6 +238,12 @@ namespace qt
       case EOnDisk:
         statusString = tr("Installed (click to delete)");
         rowColor = COLOR_ONDISK;
+        size = m_storage.CountrySizeInBytes(index);
+        break;
+
+      case EOnDiskOutOfDate:
+        statusString = tr("Out of date (click to update or delete)");
+        rowColor = COLOR_OUTOFDATE;
         size = m_storage.CountrySizeInBytes(index);
         break;
 
@@ -237,10 +270,10 @@ namespace qt
         break;
       }
 
-      if (statusString.size())
+      if (!statusString.isEmpty())
         item->setText(KColumnIndexStatus, statusString);
 
-      if (size.second)
+      if (size.second > 0)
       {
         if (size.second > 1000 * 1000 * 1000)
           item->setText(KColumnIndexSize, QString("%1/%2 GB").arg(
@@ -255,7 +288,7 @@ namespace qt
         item->setData(KColumnIndexSize, Qt::UserRole, QVariant(qint64(size.second)));
       }
 
-      if (statusString.size())
+      if (!statusString.isEmpty())
         SetRowColor(*item, rowColor);
     }
   }
