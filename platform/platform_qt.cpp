@@ -17,13 +17,6 @@ ModelReader * Platform::GetReader(string const & file) const
                         READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
 }
 
-bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)
-{
-  QFileInfo f(filePath.c_str());
-  size = static_cast<uint64_t>(f.size());
-  return size != 0;
-}
-
 bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
 {
   try

@@ -69,12 +69,6 @@ Platform::~Platform()
 {
 }
 
-bool Platform::IsFileExistsByFullPath(string const & filePath)
-{
-  struct stat s;
-  return stat(filePath.c_str(), &s) == 0;
-}
-
 int Platform::CpuCores() const
 {
   int mib[2], numCPU = 0;

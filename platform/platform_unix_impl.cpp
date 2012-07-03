@@ -6,10 +6,10 @@
 #include <dirent.h>
 #include <sys/stat.h>
 
-#ifdef OMIM_OS_ANDROID
-  #include <sys/vfs.h>
-#else
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE)
   #include <sys/mount.h>
+#else
+  #include <sys/vfs.h>
 #endif
 
 
