@@ -91,6 +91,62 @@ android/res/drawable-mdpi/uk_northern_ireland.png
 android/res/drawable-mdpi/uk_scotland.png
 android/res/drawable-mdpi/uk_wales.png
 
+# android MapsWithMeLite
+android/MapsWithMeLite/bin
+android/MapsWithMeLite/gen
+android/MapsWithMeLite/libs
+android/MapsWithMeLite/obj
+android/MapsWithMeLite/.settings
+android/MapsWithMeLite/.classpath
+android/MapsWithMeLite/.cproject
+android/MapsWithMeLite/.project
+android/MapsWithMeLite/assets
+android/MapsWithMeLite/local.properties
+android/MapsWithMeLite/ant.properties
+# local android scripts, such as debugger helper scrips
+android/MapsWithMeLite/local
+# ignore flags symlinks
+android/MapsWithMeLite/res/drawable-xhdpi/??.png
+android/MapsWithMeLite/res/drawable-xhdpi/do_hack.png
+android/MapsWithMeLite/res/drawable-xhdpi/uk_england.png
+android/MapsWithMeLite/res/drawable-xhdpi/uk_northern_ireland.png
+android/MapsWithMeLite/res/drawable-xhdpi/uk_scotland.png
+android/MapsWithMeLite/res/drawable-xhdpi/uk_wales.png
+android/MapsWithMeLite/res/drawable-mdpi/??.png
+android/MapsWithMeLite/res/drawable-mdpi/do_hack.png
+android/MapsWithMeLite/res/drawable-mdpi/uk_england.png
+android/MapsWithMeLite/res/drawable-mdpi/uk_northern_ireland.png
+android/MapsWithMeLite/res/drawable-mdpi/uk_scotland.png
+android/MapsWithMeLite/res/drawable-mdpi/uk_wales.png
+
+# android MapsWithMePro
+android/MapsWithMePro/bin
+android/MapsWithMePro/gen
+android/MapsWithMePro/libs
+android/MapsWithMePro/obj
+android/MapsWithMePro/.settings
+android/MapsWithMePro/.classpath
+android/MapsWithMePro/.cproject
+android/MapsWithMePro/.project
+android/MapsWithMePro/assets
+android/MapsWithMePro/local.properties
+android/MapsWithMePro/ant.properties
+# local android scripts, such as debugger helper scrips
+android/MapsWithMePro/local
+# ignore flags symlinks
+android/MapsWithMePro/res/drawable-xhdpi/??.png
+android/MapsWithMePro/res/drawable-xhdpi/do_hack.png
+android/MapsWithMePro/res/drawable-xhdpi/uk_england.png
+android/MapsWithMePro/res/drawable-xhdpi/uk_northern_ireland.png
+android/MapsWithMePro/res/drawable-xhdpi/uk_scotland.png
+android/MapsWithMePro/res/drawable-xhdpi/uk_wales.png
+android/MapsWithMePro/res/drawable-mdpi/??.png
+android/MapsWithMePro/res/drawable-mdpi/do_hack.png
+android/MapsWithMePro/res/drawable-mdpi/uk_england.png
+android/MapsWithMePro/res/drawable-mdpi/uk_northern_ireland.png
+android/MapsWithMePro/res/drawable-mdpi/uk_scotland.png
+android/MapsWithMeLite/res/drawable-mdpi/uk_wales.png
+
 
 # data
 data/intermediate_data

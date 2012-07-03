@@ -399,13 +399,12 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   public boolean onOptionsItemSelected(MenuItem item)
   {
-    switch (item.getItemId())
+    if (item.getItemId() == R.id.menuitem_about_dialog)
     {
-    case R.id.menuitem_about_dialog:
       onAboutDialogClicked();
       return true;
-
-    default:
+    } else
+    {
       return super.onOptionsItemSelected(item);
     }
   }

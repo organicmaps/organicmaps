@@ -10,8 +10,6 @@ import com.mapswithme.maps.location.LocationService;
 
 public class MWMApplication extends android.app.Application
 {
-  public final static String PACKAGE_NAME = "com.mapswithme.maps";
-
   private LocationService mLocationService = null;
 
   @Override
@@ -44,7 +42,7 @@ public class MWMApplication extends android.app.Application
   {
     try
     {
-      return getPackageManager().getApplicationInfo(PACKAGE_NAME, 0).sourceDir;
+      return getPackageManager().getApplicationInfo(getPackageName(), 0).sourceDir;
     }
     catch (NameNotFoundException e)
     {
@@ -61,7 +59,7 @@ public class MWMApplication extends android.app.Application
   public String getExtAppDirectoryPath(String folder)
   {
     final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-    return storagePath.concat(String.format("/Android/data/%s/%s/", PACKAGE_NAME, folder));
+    return storagePath.concat(String.format("/Android/data/%s/%s/", getPackageName(), folder));
   }
 
   public boolean isProVersion()
@@ -77,12 +75,6 @@ public class MWMApplication extends android.app.Application
   private String getSettingsPath()
   {
     return getFilesDir().getAbsolutePath() + "/";
-  }
-
-  @Override
-  public String getPackageName()
-  {
-    return PACKAGE_NAME;
   }
 
   static
