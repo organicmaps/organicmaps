@@ -2,6 +2,7 @@
 
 #include "../coding/file_writer.hpp"
 #include "../coding/file_reader.hpp"
+#include "../coding/varint.hpp"
 
 #include "../base/logging.hpp"
 
@@ -60,13 +61,15 @@ void ChunksDownloadStrategy::AddChunk(RangeT const & range, ChunkStatusT status)
   m_chunks.push_back(ChunkT(range.second + 1, CHUNK_AUX));
 }
 
-void ChunksDownloadStrategy::SaveChunks(string const & fName)
+void ChunksDownloadStrategy::SaveChunks(int64_t fileSize, string const & fName)
 {
   if (!m_chunks.empty())
   {
     try
     {
       FileWriter w(fName);
+      WriteVarInt(w, fileSize);
+
       w.Write(&m_chunks[0], sizeof(ChunkT) * m_chunks.size());
       return;
     }
@@ -89,23 +92,32 @@ int64_t ChunksDownloadStrategy::LoadOrInitChunks( string const & fName,
   try
   {
     FileReader r(fName);
+    ReaderSource<FileReader> src(r);
 
-    // Load chunks.
-    size_t const count = r.Size() / sizeof(ChunkT);
-    m_chunks.resize(count);
-    r.Read(0, &m_chunks[0], sizeof(ChunkT) * count);
-
-    // Reset status "downloading" to "free".
-    int64_t downloadedSize = 0;
-    for (size_t i = 0; i < count-1; ++i)
+    int64_t const readedSize = ReadVarInt<int64_t>(src);
+    if (readedSize == fileSize)
     {
-      if (m_chunks[i].m_status != CHUNK_COMPLETE)
-        m_chunks[i].m_status = CHUNK_FREE;
-      else
-        downloadedSize += (m_chunks[i+1].m_pos - m_chunks[i].m_pos);
-    }
+      // Load chunks.
+      uint64_t const size = src.Size();
+      int const stSize = sizeof(ChunkT);
+      size_t const count = size / stSize;
+      ASSERT_EQUAL(size, stSize * count, ());
 
-    return downloadedSize;
+      m_chunks.resize(count);
+      src.Read(&m_chunks[0], stSize * count);
+
+      // Reset status "downloading" to "free".
+      int64_t downloadedSize = 0;
+      for (size_t i = 0; i < count-1; ++i)
+      {
+        if (m_chunks[i].m_status != CHUNK_COMPLETE)
+          m_chunks[i].m_status = CHUNK_FREE;
+        else
+          downloadedSize += (m_chunks[i+1].m_pos - m_chunks[i].m_pos);
+      }
+
+      return downloadedSize;
+    }
   }
   catch(FileReader::Exception const & e)
   {

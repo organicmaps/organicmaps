@@ -10,8 +10,8 @@
 #define HEADER_FILE_TAG "header"
 #define VERSION_FILE_TAG "version"
 
-#define RESUME_FILE_EXTENSION ".resume"
-#define DOWNLOADING_FILE_EXTENSION ".downloading"
+#define RESUME_FILE_EXTENSION ".resume2"
+#define DOWNLOADING_FILE_EXTENSION ".downloading2"
 
 #define COUNTRIES_FILE  "countries.txt"
 

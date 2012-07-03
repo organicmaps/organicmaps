@@ -572,13 +572,11 @@ UNIT_TEST(DownloadResumeChunks)
 
     FileWriter f(DOWNLOADING_FILENAME, FileWriter::OP_WRITE_EXISTING);
     f.Seek(beg1);
-    char b1[end1 - beg1 + 1];
-    for (size_t i = 0; i < ARRAY_SIZE(b1); ++i) b1[i] = 0;
+    char b1[end1 - beg1 + 1] = {0};
     f.Write(b1, ARRAY_SIZE(b1));
 
     f.Seek(beg2);
-    char b2[end2 - beg2 + 1];
-    for (size_t i = 0; i < ARRAY_SIZE(b2); ++i) b2[i] = 0;
+    char b2[end2 - beg2 + 1] = {0};
     f.Write(b2, ARRAY_SIZE(b2));
 
     ChunksDownloadStrategy strategy((vector<string>()));
@@ -587,7 +585,7 @@ UNIT_TEST(DownloadResumeChunks)
     strategy.AddChunk(make_pair(end1+1, beg2-1), ChunksDownloadStrategy::CHUNK_COMPLETE);
     strategy.AddChunk(make_pair(beg2, end2), ChunksDownloadStrategy::CHUNK_FREE);
 
-    strategy.SaveChunks(RESUME_FILENAME);
+    strategy.SaveChunks(FILESIZE, RESUME_FILENAME);
   }
 
   // 3rd step - check that resume works

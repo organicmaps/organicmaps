@@ -159,6 +159,11 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     }
   }
 
+  void SaveResumeChunks()
+  {
+    m_strategy.SaveChunks(m_progress.second, m_filePath + RESUME_FILE_EXTENSION);
+  }
+
   /// Called for each chunk by one main (GUI) thread.
   virtual void OnFinish(long httpCode, int64_t begRange, int64_t endRange)
   {
@@ -195,7 +200,7 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
       // save information for download resume
       ++m_goodChunksCount;
       if (m_status != ECompleted && m_goodChunksCount % 10 == 0)
-        m_strategy.SaveChunks(m_filePath + RESUME_FILE_EXTENSION);
+        SaveResumeChunks();
     }
 
     if (m_status != EInProgress)
@@ -224,7 +229,7 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
         DisableBackupForFile(m_filePath);
       }
       else // or save "chunks left" otherwise
-        m_strategy.SaveChunks(m_filePath + RESUME_FILE_EXTENSION);
+        SaveResumeChunks();
 
       m_onFinish(*this);
     }
