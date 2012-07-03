@@ -105,19 +105,6 @@ android/MapsWithMeLite/local.properties
 android/MapsWithMeLite/ant.properties
 # local android scripts, such as debugger helper scrips
 android/MapsWithMeLite/local
-# ignore flags symlinks
-android/MapsWithMeLite/res/drawable-xhdpi/??.png
-android/MapsWithMeLite/res/drawable-xhdpi/do_hack.png
-android/MapsWithMeLite/res/drawable-xhdpi/uk_england.png
-android/MapsWithMeLite/res/drawable-xhdpi/uk_northern_ireland.png
-android/MapsWithMeLite/res/drawable-xhdpi/uk_scotland.png
-android/MapsWithMeLite/res/drawable-xhdpi/uk_wales.png
-android/MapsWithMeLite/res/drawable-mdpi/??.png
-android/MapsWithMeLite/res/drawable-mdpi/do_hack.png
-android/MapsWithMeLite/res/drawable-mdpi/uk_england.png
-android/MapsWithMeLite/res/drawable-mdpi/uk_northern_ireland.png
-android/MapsWithMeLite/res/drawable-mdpi/uk_scotland.png
-android/MapsWithMeLite/res/drawable-mdpi/uk_wales.png
 
 # android MapsWithMePro
 android/MapsWithMePro/bin
@@ -133,20 +120,6 @@ android/MapsWithMePro/local.properties
 android/MapsWithMePro/ant.properties
 # local android scripts, such as debugger helper scrips
 android/MapsWithMePro/local
-# ignore flags symlinks
-android/MapsWithMePro/res/drawable-xhdpi/??.png
-android/MapsWithMePro/res/drawable-xhdpi/do_hack.png
-android/MapsWithMePro/res/drawable-xhdpi/uk_england.png
-android/MapsWithMePro/res/drawable-xhdpi/uk_northern_ireland.png
-android/MapsWithMePro/res/drawable-xhdpi/uk_scotland.png
-android/MapsWithMePro/res/drawable-xhdpi/uk_wales.png
-android/MapsWithMePro/res/drawable-mdpi/??.png
-android/MapsWithMePro/res/drawable-mdpi/do_hack.png
-android/MapsWithMePro/res/drawable-mdpi/uk_england.png
-android/MapsWithMePro/res/drawable-mdpi/uk_northern_ireland.png
-android/MapsWithMePro/res/drawable-mdpi/uk_scotland.png
-android/MapsWithMeLite/res/drawable-mdpi/uk_wales.png
-
 
 # data
 data/intermediate_data
