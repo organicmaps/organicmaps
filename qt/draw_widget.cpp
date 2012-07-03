@@ -10,13 +10,13 @@
 #include "../yg/internal/opengl.hpp"
 
 #include "../platform/settings.hpp"
+#include "../platform/platform.hpp"
 
 #include <QtGui/QMouseEvent>
 #include <QtGui/QMenu>
 #include <QtGui/QApplication>
 #include <QtGui/QDesktopWidget>
 
-using namespace storage;
 
 namespace qt
 {

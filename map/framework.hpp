@@ -1,8 +1,8 @@
 #pragma once
 
 #include "events.hpp"
-#include "drawer_yg.hpp"
-#include "tile_renderer.hpp"
+//#include "drawer_yg.hpp"
+#include "render_policy.hpp"
 #include "information_display.hpp"
 #include "window_handle.hpp"
 #include "location_state.hpp"
@@ -16,30 +16,30 @@
 
 #include "../storage/storage.hpp"
 
-#include "../indexer/mercator.hpp"
-#include "../indexer/data_header.hpp"
-#include "../indexer/scales.hpp"
+//#include "../indexer/mercator.hpp"
+//#include "../indexer/data_header.hpp"
+//#include "../indexer/scales.hpp"
 
-#include "../platform/platform.hpp"
+//#include "../platform/platform.hpp"
 #include "../platform/location.hpp"
 
 #include "../yg/defines.hpp"
 #include "../yg/screen.hpp"
 #include "../yg/color.hpp"
-#include "../yg/render_state.hpp"
-#include "../yg/skin.hpp"
-#include "../yg/resource_manager.hpp"
-#include "../yg/overlay.hpp"
+//#include "../yg/render_state.hpp"
+//#include "../yg/skin.hpp"
+//#include "../yg/resource_manager.hpp"
+//#include "../yg/overlay.hpp"
 
-#include "../coding/file_reader.hpp"
-#include "../coding/file_writer.hpp"
+//#include "../coding/file_reader.hpp"
+//#include "../coding/file_writer.hpp"
 
 #include "../geometry/rect2d.hpp"
 #include "../geometry/screenbase.hpp"
 
 #include "../base/logging.hpp"
 //#include "../base/mutex.hpp"
-#include "../base/timer.hpp"
+//#include "../base/timer.hpp"
 #include "../base/strings_bundle.hpp"
 
 #include "../std/vector.hpp"
@@ -50,13 +50,10 @@
 
 //#define DRAW_TOUCH_POINTS
 
-class DrawerYG;
-class RenderPolicy;
+//class DrawerYG;
+//class RenderPolicy;
 namespace search { class Result; }
-namespace gui
-{
-  class Controller;
-}
+namespace gui { class Controller; }
 
 class CountryStatusDisplay;
 
@@ -73,10 +70,15 @@ protected:
   vector<BookmarkCategory *> m_bookmarks;
 
   scoped_ptr<RenderPolicy> m_renderPolicy;
-  bool m_hasPendingInvalidate, m_doForceUpdate, m_queryMaxScaleMode, m_drawPlacemark, m_hasPendingShowRectFixed;
+  /// @todo Need deep analyzing in future.
+  /// Now it's like a replacement of "m_hasPendingXXX" stuff.
+  int m_etalonSize;
 
-  m2::RectD m_pendingFixedRect;
-  m2::AnyRectD m_invalidRect;
+  //bool m_hasPendingInvalidate, m_doForceUpdate, m_queryMaxScaleMode, m_drawPlacemark, m_hasPendingShowRectFixed;
+  bool m_queryMaxScaleMode, m_drawPlacemark;
+
+  //m2::RectD m_pendingFixedRect;
+  //m2::AnyRectD m_invalidRect;
   m2::PointD m_placemark;
 
   double const m_metresMinWidth;

@@ -6,20 +6,21 @@
 
 #include "../defines.hpp"
 
-#include "../gui/controller.hpp"
-
-#include "../platform/settings.hpp"
-#include "../platform/preferred_languages.hpp"
-#include "../platform/location.hpp"
-
-#include "../yg/rendercontext.hpp"
-
 #include "../search/search_engine.hpp"
 #include "../search/result.hpp"
 
 #include "../indexer/categories_holder.hpp"
 #include "../indexer/feature.hpp"
 #include "../indexer/scales.hpp"
+
+#include "../gui/controller.hpp"
+
+#include "../platform/settings.hpp"
+#include "../platform/preferred_languages.hpp"
+#include "../platform/platform.hpp"
+
+#include "../yg/rendercontext.hpp"
+#include "../yg/render_state.hpp"
 
 #include "../base/math.hpp"
 
@@ -140,11 +141,12 @@ static void GetResourcesMaps(vector<string> & outMaps)
 }
 
 Framework::Framework()
-  : m_hasPendingInvalidate(false),
-    m_doForceUpdate(false),
+  : //m_hasPendingInvalidate(false),
+    //m_doForceUpdate(false),
+    m_etalonSize(GetPlatform().ScaleEtalonSize()),
     m_queryMaxScaleMode(false),
     m_drawPlacemark(false),
-    m_hasPendingShowRectFixed(false),
+    //m_hasPendingShowRectFixed(false),
     m_metresMinWidth(10),
     m_metresMaxWidth(1000000),
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_WINDOWS) || defined(OMIM_OS_LINUX)
@@ -201,8 +203,8 @@ Framework::Framework()
   for_each(maps.begin(), maps.end(), bind(&Framework::AddMap, this, _1));
 
   m_storage.Init(bind(&Framework::AddMap, this, _1),
-               bind(&Framework::RemoveMap, this, _1),
-               bind(&Framework::InvalidateRect, this, _1, true));
+                 bind(&Framework::RemoveMap, this, _1),
+                 bind(&Framework::InvalidateRect, this, _1, true));
   LOG(LDEBUG, ("Storage initialized"));
 }
 
@@ -348,8 +350,8 @@ bool Framework::NeedRedraw() const
 void Framework::SetNeedRedraw(bool flag)
 {
   m_renderPolicy->GetWindowHandle()->setNeedRedraw(flag);
-  if (!flag)
-    m_doForceUpdate = false;
+  //if (!flag)
+  //  m_doForceUpdate = false;
 }
 
 void Framework::Invalidate(bool doForceUpdate)
@@ -366,12 +368,14 @@ void Framework::InvalidateRect(m2::RectD const & rect, bool doForceUpdate)
     m_renderPolicy->SetInvalidRect(m2::AnyRectD(rect));
     m_renderPolicy->GetWindowHandle()->invalidate();
   }
+  /*
   else
   {
     m_hasPendingInvalidate = true;
     m_doForceUpdate = doForceUpdate;
     m_invalidRect = m2::AnyRectD(rect);
   }
+  */
 }
 
 void Framework::SaveState()
@@ -602,19 +606,22 @@ void Framework::ShowRectFixed(m2::RectD rect)
 {
   CheckMinGlobalRect(rect);
 
+  /*
   if (!m_renderPolicy)
   {
     m_pendingFixedRect = rect;
     m_hasPendingShowRectFixed = true;
     return;
   }
+  */
 
-  size_t const sz = m_renderPolicy->ScaleEtalonSize();
-  m2::RectD etalonRect(0, 0, sz, sz);
-  etalonRect.Offset(-etalonRect.SizeX() / 2, -etalonRect.SizeY());
+  //size_t const sz = m_renderPolicy->ScaleEtalonSize();
+
+  /// @todo Get stored value instead of m_renderPolicy call because of invalid render policy here.
+  m2::RectD etalonRect(0, 0, m_etalonSize, m_etalonSize);
+  etalonRect.Offset(-m_etalonSize / 2, -m_etalonSize);
 
   m2::PointD const pxCenter = m_navigator.Screen().PixelRect().Center();
-
   etalonRect.Offset(pxCenter);
 
   m_navigator.SetFromRects(m2::AnyRectD(rect), etalonRect);
@@ -940,11 +947,14 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
   m_guiController->ResetRenderParams();
   m_renderPolicy.reset(renderPolicy);
 
-  if (m_renderPolicy.get())
+  if (m_renderPolicy)
   {
-    gui::Controller::RenderParams rp(renderPolicy->VisualScale(),
-                                     bind(&WindowHandle::invalidate, renderPolicy->GetWindowHandle().get()),
-                                     renderPolicy->GetGlyphCache());
+    m_etalonSize = m_renderPolicy->ScaleEtalonSize();
+
+    gui::Controller::RenderParams rp(m_renderPolicy->VisualScale(),
+                                     bind(&WindowHandle::invalidate,
+                                          renderPolicy->GetWindowHandle().get()),
+                                     m_renderPolicy->GetGlyphCache());
 
     m_guiController->SetRenderParams(rp);
 
@@ -958,6 +968,10 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
     if (m_width != 0 && m_height != 0)
       OnSize(m_width, m_height);
 
+    // Do full invalidate except of any "pending" stuff.
+    Invalidate();
+
+    /*
     if (m_hasPendingInvalidate)
     {
       m_renderPolicy->SetForceUpdate(m_doForceUpdate);
@@ -971,6 +985,7 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
       ShowRectFixed(m_pendingFixedRect);
       m_hasPendingShowRectFixed = false;
     }
+    */
   }
 }
 

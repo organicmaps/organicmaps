@@ -8,6 +8,7 @@
 #include "../defines.hpp"
 
 #include "../platform/settings.hpp"
+#include "../platform/platform.hpp"
 
 #include "../std/bind.hpp"
 

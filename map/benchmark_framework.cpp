@@ -1,13 +1,15 @@
 #include "benchmark_framework.hpp"
 #include "benchmark_provider.hpp"
 
+#include "../platform/settings.hpp"
+#include "../platform/platform.hpp"
+
 #include "../coding/file_container.hpp"
 
 #include "../std/fstream.hpp"
 
-#include "../platform/settings.hpp"
-
 #include "../version/version.hpp"
+
 
 template <class T> class DoGetBenchmarks
 {
