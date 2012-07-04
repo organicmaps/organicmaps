@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.mapswithme.maps.lite"
+      package="com.mapswithme.maps"
       android:versionCode="205"
       android:versionName="2.0.5"
       android:installLocation="preferExternal"
