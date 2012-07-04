@@ -872,8 +872,8 @@ en:clothes shop|4clothes
 ru:магазин одежды|4одежда
 
 shop-car_repair
-en:car repair shop
-ru:автозапчасти|магазин
+en:3car repair shop
+ru:4автозапчасти|магазин
 
 shop-car
 en:car shop

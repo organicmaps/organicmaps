@@ -1031,6 +1031,21 @@ cont {
 cont {
   name: "amenity-bar"
   element {
+    scale: 16
+    symbol {
+      name: "bar"
+      priority: 1533
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "bar"
@@ -1161,9 +1176,24 @@ cont {
 cont {
   name: "amenity-car_rental"
   element {
+    scale: 16
+    symbol {
+      name: "car_rental"
+      priority: 1592
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+  element {
     scale: 17
     symbol {
-      name: "car_sharing"
+      name: "car_rental"
       priority: 1592
     }
     caption {
@@ -1178,6 +1208,21 @@ cont {
 }
 cont {
   name: "amenity-car_sharing"
+  element {
+    scale: 16
+    symbol {
+      name: "car_sharing"
+      priority: 1592
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }  
   element {
     scale: 17
     symbol {
@@ -1362,7 +1407,26 @@ cont {
 cont {
   name: "amenity-embassy"
   element {
+    scale: 16
+      symbol {
+      name: "embassy"
+      priority: 1588
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }  
+  element {
     scale: 17
+      symbol {
+      name: "embassy"
+      priority: 1588
+    }
     caption {
       primary {
         height: 12
@@ -1737,6 +1801,21 @@ cont {
 cont {
   name: "amenity-library"
   element {
+    scale: 16
+    symbol {
+      name: "library"
+      priority: 1581
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "library"
@@ -1754,6 +1833,21 @@ cont {
 }
 cont {
   name: "amenity-marketplace"
+  element {
+    scale: 16
+    symbol {
+      name: "supermarket"
+      priority: 1581
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }  
   element {
     scale: 17
     symbol {
@@ -1773,7 +1867,26 @@ cont {
 cont {
   name: "amenity-nightclub"
   element {
+    scale: 16
+    symbol {
+      name: "bar"
+      priority: 1581
+    }    
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }  
+  element {
     scale: 17
+    symbol {
+      name: "bar"
+      priority: 1581
+    }    
     caption {
       primary {
         height: 12
@@ -2481,7 +2594,26 @@ cont {
 cont {
   name: "amenity-taxi"
   element {
+    scale: 16
+    symbol {
+      name: "taxi"
+      priority: 1362
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+  element {
     scale: 17
+    symbol {
+      name: "taxi"
+      priority: 1531
+    }    
     caption {
       primary {
         height: 12
@@ -2841,36 +2973,16 @@ cont {
   name: "barrier-gate"
   element {
     scale: 16
-    lines {
-      width: 1
-      color: 0xB0B0B0
-      priority: 1298
-    }
-    lines {
-      width: 1
-      color: 0xB0B0B0
-      dashdot {
-        dd: 0.0004
-        dd: 1.9996
-      }
-      priority: 1304
+    symbol {
+      name: "gate"
+      priority: 1586
     }
   }
   element {
     scale: 17
-    lines {
-      width: 1
-      color: 0xB0B0B0
-      priority: 1459
-    }
-    lines {
-      width: 1
-      color: 0xB0B0B0
-      dashdot {
-        dd: 0.0008
-        dd: 3.9992
-      }
-      priority: 1465
+    symbol {
+      name: "gate"
+      priority: 1586
     }
   }
 }
@@ -2915,36 +3027,16 @@ cont {
   name: "barrier-lift_gate"
   element {
     scale: 16
-    lines {
-      width: 1
-      color: 0xB0B0B0
-      priority: 1298
-    }
-    lines {
-      width: 1
-      color: 0xB0B0B0
-      dashdot {
-        dd: 0.0004
-        dd: 1.9996
-      }
-      priority: 1304
+    symbol {
+      name: "gate"
+      priority: 1586
     }
   }
   element {
     scale: 17
-    lines {
-      width: 1
-      color: 0xB0B0B0
-      priority: 1459
-    }
-    lines {
-      width: 1
-      color: 0xB0B0B0
-      dashdot {
-        dd: 0.0008
-        dd: 3.9992
-      }
-      priority: 1465
+    symbol {
+      name: "gate"
+      priority: 1586
     }
   }
 }
@@ -32061,6 +32153,21 @@ cont {
 cont {
   name: "historic-archaeological_site"
   element {
+    scale: 16
+    symbol {
+      name: "museum"
+      priority: 1638
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "museum"
@@ -32078,6 +32185,21 @@ cont {
 }
 cont {
   name: "historic-battlefield"
+  element {
+    scale: 16
+    symbol {
+      name: "cannon"
+      priority: 1579
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -32097,7 +32219,106 @@ cont {
 cont {
   name: "historic-castle"
   element {
+    scale: 16
+    symbol {
+      name: "castle"
+      priority: 1638
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+  element {
     scale: 17
+    symbol {
+      name: "castle"
+      priority: 1638
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }  
+}
+cont {
+  name: "historic-memorial"
+  element {
+    scale: 16
+    symbol {
+      name: "memorial"
+      priority: 1638
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }  
+  element {
+    scale: 17
+    symbol {
+      name: "memorial"
+      priority: 1638
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }  
+}
+cont {
+  name: "historic-monument"
+  element {
+    scale: 16
+    symbol {
+      name: "memorial"
+      priority: 1638
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }  
+  element {
+    scale: 17
+    symbol {
+      name: "memorial"
+      priority: 1638
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }  
+}
+cont {
+  name: "historic-museum"
+  element {
+    scale: 16
     symbol {
       name: "museum"
       priority: 1638
@@ -32110,38 +32331,7 @@ cont {
       }
       priority: 11829
     }
-  }
-}
-cont {
-  name: "historic-memorial"
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 12
-        color: 0x404040
-        stroke_color: 0xFFFFFF
-      }
-      priority: 11829
-    }
-  }
-}
-cont {
-  name: "historic-monument"
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 12
-        color: 0x404040
-        stroke_color: 0xFFFFFF
-      }
-      priority: 11829
-    }
-  }
-}
-cont {
-  name: "historic-museum"
+  }  
   element {
     scale: 17
     symbol {
@@ -32160,6 +32350,21 @@ cont {
 }
 cont {
   name: "historic-ruins"
+  element {
+    scale: 16
+    symbol {
+      name: "museum"
+      priority: 1638
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -54928,6 +55133,21 @@ cont {
 cont {
   name: "shop-bakery"
   element {
+    scale: 16
+    symbol {
+      name: "bakery"
+      priority: 1573
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "bakery"
@@ -54945,10 +55165,13 @@ cont {
 }
 cont {
   name: "shop-car"
+}
+cont {
+  name: "shop-car_repair"
   element {
-    scale: 17
+    scale: 16
     symbol {
-      name: "supermarket"
+      name: "car_repair"
       priority: 1572
     }
     caption {
@@ -54959,14 +55182,11 @@ cont {
       }
       priority: 11829
     }
-  }
-}
-cont {
-  name: "shop-car_repair"
+  }  
   element {
     scale: 17
     symbol {
-      name: "supermarket"
+      name: "car_repair"
       priority: 1572
     }
     caption {
@@ -54982,9 +55202,24 @@ cont {
 cont {
   name: "shop-clothes"
   element {
+    scale: 16
+    symbol {
+      name: "clothes"
+      priority: 1572
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }  
+  element {
     scale: 17
     symbol {
-      name: "supermarket"
+      name: "clothes"
       priority: 1572
     }
     caption {
@@ -54999,6 +55234,21 @@ cont {
 }
 cont {
   name: "shop-convenience"
+  element {
+    scale: 16
+    symbol {
+      name: "supermarket"
+      priority: 1572
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }  
   element {
     scale: 17
     symbol {
@@ -55018,6 +55268,21 @@ cont {
 cont {
   name: "shop-hairdresser"
   element {
+    scale: 16
+    symbol {
+      name: "hairdresser"
+      priority: 1574
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }  
+  element {
     scale: 17
     symbol {
       name: "hairdresser"
@@ -55036,9 +55301,26 @@ cont {
 cont {
   name: "shop-kiosk"
   element {
+    scale: 16
+    circle {
+      radius: 4
+      color: 0x000000
+      priority: 1572
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }  
+  element {
     scale: 17
-    symbol {
-      name: "supermarket"
+    circle {
+      radius: 4
+      color: 0x000000
       priority: 1572
     }
     caption {
@@ -55053,6 +55335,21 @@ cont {
 }
 cont {
   name: "shop-supermarket"
+  element {
+    scale: 16
+    symbol {
+      name: "supermarket"
+      priority: 1572
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }  
   element {
     scale: 17
     symbol {
@@ -55194,7 +55491,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "gymnastics-borderless"
+      name: "golfCourse"
       priority: 1630
     }
   }
@@ -55620,6 +55917,21 @@ cont {
 cont {
   name: "tourism-guest_house"
   element {
+    scale: 16
+    symbol {
+      name: "hostel"
+      priority: 1427
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "hostel"
@@ -55638,6 +55950,21 @@ cont {
 cont {
   name: "tourism-hostel"
   element {
+    scale: 16
+    symbol {
+      name: "hostel"
+      priority: 1427
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "hostel"
@@ -55655,6 +55982,21 @@ cont {
 }
 cont {
   name: "tourism-hotel"
+  element {
+    scale: 16
+    symbol {
+      name: "hotel"
+      priority: 1426
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -55704,9 +56046,24 @@ cont {
 cont {
   name: "tourism-motel"
   element {
+    scale: 16
+    symbol {
+      name: "hotel"
+      priority: 1427
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }  
+  element {
     scale: 17
     symbol {
-      name: "hostel"
+      name: "hotel"
       priority: 1427
     }
     caption {
@@ -55721,6 +56078,21 @@ cont {
 }
 cont {
   name: "tourism-museum"
+  element {
+    scale: 16
+    symbol {
+      name: "museum"
+      priority: 1638
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0x404040
+        stroke_color: 0xFFFFFF
+      }
+      priority: 11829
+    }
+  }  
   element {
     scale: 17
     symbol {
