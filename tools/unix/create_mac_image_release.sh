@@ -5,6 +5,6 @@ pushd
 cd ../../../omim-build-release/out/release
 umount /Volumes/MapsWithMe
 rm MapsWithMe.dmg
-~/QtSDK/Desktop/Qt/474/gcc/bin/macdeployqt MapsWithMe.app -dmg
+/Developer/QtSDK/Desktop/Qt/4.8.0/gcc/bin/macdeployqt MapsWithMe.app -dmg
 
 popd
