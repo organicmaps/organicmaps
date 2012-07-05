@@ -189,12 +189,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       findViewById(R.id.map_button_search).setVisibility(View.VISIBLE);
     }
     else
-    {
-      if (android.os.Build.MODEL.equals("Kindle Fire"))
-        nativeCheckForProVersion("http://redbutton.mapswithme.com/enable_search_banner_amazon_appstore");
-      else
-        nativeCheckForProVersion("http://redbutton.mapswithme.com/enable_search_banner_google_play");
-    }
+      nativeCheckForProVersion(mApplication.getProVersionCheckURL());
   }
 
   /// Invoked from native code - asynchronous server check.

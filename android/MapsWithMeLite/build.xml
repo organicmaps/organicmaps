@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="MapsWithMeLite" default="help">
 
+    <property name="mwm.tools.dir" value="../../tools"/>
+    <property name="mwm.data.dir" value="../../../data"/>
+    <property name="renderscript.opt.level" value="O0"/>
+
     <!-- The local.properties file is created and updated by the 'android' tool.
          It contains the path to the SDK. It should *NOT* be checked into
          Version Control Systems. -->
@@ -66,7 +70,7 @@
             -post-build
             -pre-clean
     -->
-    <import file="custom_rules.xml" optional="true" />
+    <import file="custom_rules.xml" optional="true" />    
 
     <!-- Import the actual build file.
 

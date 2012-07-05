@@ -1,21 +1,47 @@
 package com.mapswithme.maps;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.AssetManager;
 import android.os.Environment;
+import android.util.Log;
 
 import com.mapswithme.maps.location.LocationService;
 
-
 public class MWMApplication extends android.app.Application
 {
+  private final static String TAG = "MWMApplication";
   private LocationService mLocationService = null;
+
+  private boolean mIsProVersion = false;
+  private String mProVersionCheckURL;
 
   @Override
   public void onCreate()
   {
     super.onCreate();
+
+    AssetManager assets = getAssets();
+
+    try
+    {
+      InputStream stream = assets.open("app_info.txt");
+      BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+
+      mIsProVersion = getPackageName().endsWith(".pro");
+      mProVersionCheckURL = reader.readLine();
+      Log.i(TAG, "PROCHECKURL: " + mProVersionCheckURL);
+    }
+    catch (IOException e)
+    {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
 
     final String extStoragePath = getDataStoragePath();
     final String extTmpPath = getExtAppDirectoryPath("caches");
@@ -64,7 +90,12 @@ public class MWMApplication extends android.app.Application
 
   public boolean isProVersion()
   {
-    return true;
+    return mIsProVersion;
+  }
+
+  public String getProVersionCheckURL()
+  {
+    return mProVersionCheckURL;
   }
 
   private String getTmpPath()

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="MapsWithMe" default="production">
 
+    <property name="mwm.tools.dir" value="../tools"/>
+    <property name="mwm.data.dir" value="../../data"/>
+
     <!-- The local.properties file is created and updated by the 'android' tool.
          It contains the path to the SDK. It should *NOT* be checked into
          Version Control Systems. -->
@@ -50,6 +53,8 @@
             unless="ndk.dir"
     />
 
+    <import file="custom_rules.xml" optional="true" />
+
 <!-- extension targets. Uncomment the ones where you want to do custom work
      in between standard targets -->
 <!--
@@ -57,128 +62,6 @@
         <exec executable="${ndk.dir}/ndk-build" failonerror="true"/>
     </target>
 -->
-    <target name="clean" depends="android_rules.clean">
-        <exec executable="${ndk.dir}/ndk-build" failonerror="true">
-            <arg value="clean"/>
-        </exec>
-    </target>
-
-    <target name="-exclude-text-drules">
-        <exec executable="rm">
-            <arg value="${asset.absolute.dir}/drules_proto.txt"/>
-        </exec>
-    </target>
-
-    <target name="-include-text-drules">
-        <exec executable="ln">
-            <arg value="-s"/>
-            <arg value="../../data/drules_proto.txt"/>
-            <arg value="${asset.absolute.dir}/drules_proto.txt"/>
-        </exec>
-    </target>
-
-    <target name="-ndk-production">
-        <exec executable="bash" failonerror="true">
-            <arg value="../tools/autobuild/android.sh"/>
-            <arg value="production"/>
-        </exec>
-        <exec executable="${ndk.dir}/ndk-build" failonerror="true">
-            <arg value="NDK_DEBUG=0"/>
-            <arg value="PRODUCTION=1"/>
-            <arg value="V=1"/>
-        </exec>
-    </target>
-
-    <target name="-set-production-mode" depends="android_rules.-set-mode-check">
-        <property name="out.packaged.file" location="${out.absolute.dir}/${ant.project.name}-production-unsigned.apk" />
-        <property name="out.final.file" location="${out.absolute.dir}/${ant.project.name}-production.apk" />
-        <property name="build.is.mode.set" value="true" />
-
-        <!-- record the current build target -->
-        <property name="build.target" value="release" />
-
-        <property name="build.is.instrumented" value="false" />
-
-        <!-- production mode is only valid if the manifest does not explicitly
-             set debuggable to true. default is false. -->
-        <xpath input="AndroidManifest.xml" expression="/manifest/application/@android:debuggable"
-                output="build.is.packaging.debug" default="false"/>
-
-        <!-- signing mode: production -->
-        <property name="build.is.signing.debug" value="false" />
-
-        <if condition="${build.is.packaging.debug}">
-            <then>
-                <echo>*************************************************</echo>
-                <echo>****  Android Manifest has debuggable=true   ****</echo>
-                <echo>** Doing DEBUG packaging with PRODUCTION keys ***</echo>
-                <echo>*************************************************</echo>
-            </then>
-            <else>
-                <!-- property only set in release mode.
-                     Useful for if/unless attributes in target node
-                     when using Ant before 1.8 -->
-                <property name="build.is.mode.release" value="true"/>
-            </else>
-        </if>
-    </target>
-
-    <target name="production" depends="-exclude-text-drules, -ndk-production, -set-production-mode,
-        android_rules.-release-obfuscation-check, android_rules.-package, android_rules.-release-prompt-for-password, android_rules.-release-nosign"
-        if="has.keystore" description="Production target - almost the same as release, but with real word config.">
-        <!-- only create apk if *not* a library project -->
-        <do-only-if-not-library elseText="Library project: do not create apk..." >
-            <sequential>
-                <property name="out.unaligned.file" location="${out.absolute.dir}/${ant.project.name}-production-unaligned.apk" />
-
-                <!-- Signs the APK -->
-                <echo>Signing final apk...</echo>
-                <signjar
-                        jar="${out.packaged.file}"
-                        signedjar="${out.unaligned.file}"
-                        keystore="${key.store}"
-                        storepass="${key.store.password}"
-                        alias="${key.alias}"
-                        keypass="${key.alias.password}"
-                        verbose="${verbose}" />
-
-                <!-- Zip aligns the APK -->
-                <zipalign-helper in.package="${out.unaligned.file}"
-                                           out.package="${out.final.file}" />
-                <echo>Release Package: ${out.final.file}</echo>
-            </sequential>
-        </do-only-if-not-library>
-        <record-build-info />
-    </target>
-
-    <target name="-ndk-release">
-        <exec executable="bash" failonerror="true">
-            <arg value="../tools/autobuild/android.sh"/>
-            <arg value="release"/>
-        </exec>
-        <exec executable="${ndk.dir}/ndk-build" failonerror="true">
-            <arg value="NDK_DEBUG=0"/>
-            <arg value="V=1"/>
-        </exec>
-    </target>
-
-    <target name="release" depends="-include-text-drules, -ndk-release, android_rules.release">
-    </target>
-
-    <target name="-ndk-debug">
-        <exec executable="bash" failonerror="true">
-            <arg value="../tools/autobuild/android.sh"/>
-            <arg value="debug"/>
-        </exec>
-        <exec executable="${ndk.dir}/ndk-build" failonerror="true">
-            <arg value="NDK_DEBUG=1"/>
-            <arg value="V=1"/>
-        </exec>
-    </target>
-
-    <target name="debug" depends="-include-text-drules, -ndk-debug, android_rules.debug">
-    </target>
-
 <!--
     <target name="-pre-compile">
     </target>
