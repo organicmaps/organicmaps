@@ -458,21 +458,21 @@
 		ja = 観光
 		ko = 관광
 	[country_status_added_to_queue]
-		en = %is added to the\ndownloading queue.
+		en = ^is added to the\ndownloading queue.
 		comment = Message to display at the center of the screen when the country is added to the downloading queue
-		ru = %добавлено в очередь\nзагрузки.
+		ru = ^добавлено в очередь\nзагрузки.
 	[country_status_downloading]
-		en = Downloading%(%\\%)
+		en = Downloading^(^%)
 		comment = Message to display at the center of the screen when the country is downloading
-		ru = Загружается%(%\\%)
+		ru = Загружается^(^%)
 	[country_status_download]
-		en = Download%
+		en = Download^
 		comment = Button text for the button at the center of the screen when the country is not downloaded
-		ru = Загрузить%
+		ru = Загрузить^
 	[country_status_download_failed]
-		en = Downloading%\nhas failed
+		en = Downloading^\nhas failed
 		comment = Message to display at the center of the screen when the country download has failed
-		ru = Ошибка загрузки%.
+		ru = Ошибка загрузки^.
 	[try_again]
 		en = Try Again
 		comment = Button text for the button under the country_status_download_failed message

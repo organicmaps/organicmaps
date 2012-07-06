@@ -14,7 +14,7 @@ namespace strings
 
     while (true)
     {
-      offs = res.find("%", offs);
+      offs = res.find("^", offs);
       if (offs == string::npos)
         break;
       else
