@@ -45,6 +45,8 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
     private int m_slotID = 0;
     private MapStorage m_storage;
 
+    private String m_packageName;
+
     private static class CountryItem
     {
       public String m_name;
@@ -133,6 +135,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
     public DownloadAdapter(Activity context)
     {
       m_storage = MapStorage.getInstance();
+      m_packageName = context.getApplication().getPackageName();
 
       m_context = context;
       m_inflater = (LayoutInflater) m_context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -474,7 +477,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
     private void setFlag(int position, ImageView v)
     {
       Resources res = m_context.getResources();
-      final int id = res.getIdentifier(m_items[position].m_flag, "drawable", "com.mapswithme.maps");
+      final int id = res.getIdentifier(m_items[position].m_flag, "drawable", m_packageName);
       if (id > 0)
         v.setImageDrawable(res.getDrawable(id));
       else
