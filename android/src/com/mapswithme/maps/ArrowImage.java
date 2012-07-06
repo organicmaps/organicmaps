@@ -24,6 +24,7 @@ public class ArrowImage extends ImageView
     super(context, attrs);
 
     m_paint = new Paint();
+    m_paint.setFlags(m_paint.getFlags() | Paint.ANTI_ALIAS_FLAG);
     m_paint.setStyle(Style.FILL);
     m_paint.setColor(Color.WHITE);
   }
