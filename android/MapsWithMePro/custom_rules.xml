@@ -21,7 +21,7 @@
     <property name="build.is.mode.set" value="true" />
 
     <!-- record the current build target -->
-    <property name="build.target" value="release" />
+    <property name="build.target" value="production" />
     
     <property name="build.is.instrumented" value="false" />
 
