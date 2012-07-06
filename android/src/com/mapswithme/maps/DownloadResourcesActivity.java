@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mapswithme.maps.location.LocationService;
+import com.mapswithme.util.ConnectionState;
 
 public class DownloadResourcesActivity extends Activity implements LocationService.Listener, MapStorage.Listener
 {
@@ -287,6 +288,9 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
       mLocationMsgView = (TextView)findViewById(R.id.download_resources_location_message);
 
       prepareFilesDownload();
+
+      if (ConnectionState.getState(this) == ConnectionState.CONNECTED_BY_WIFI)
+        onDownloadClicked(mDownloadButton);
     }
   }
 
