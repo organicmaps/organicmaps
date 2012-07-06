@@ -558,10 +558,17 @@
 	[download_country_ask]
 		en = Download %@?
 		ru = Загрузить %@?
+	[update_country_ask]
+		en = Update %@?
+		ru = Обновить %@?
 	[download_location_map_proposal]
 		en = You can download the map\nof your current location.
 		comment = REMOVE THIS STRING AFTER REFACTORING
 		ru = Вы можете загрузить карту\nвашего текущего местоположения.
+	[download_location_update_map_proposal]
+		en = You can update the map\of your current location.
+		comment = REMOVE THIS_STRING AFTER REFACTORING
+		ru = Вы можете обновить карту\nвашего текущего местоположения.
 	[download_location_map_up_to_date]
 		en = The map at your current\nlocation (%@) is up-to-date
 		comment = REMOVE THIS STRING AFTER REFACTORING

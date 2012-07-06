@@ -356,14 +356,30 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
       mCountryName = findCountryByPos(lat, lon);
       if (mCountryName != null)
       {
-        if (mMapStorage.countryStatus(mMapStorage.findIndexByName(mCountryName)) == MapStorage.ON_DISK)
+        int countryStatus = mMapStorage.countryStatus(mMapStorage.findIndexByName(mCountryName));
+        if (countryStatus == MapStorage.ON_DISK)
           mLocationMsgView.setText(String.format(getString(R.string.download_location_map_up_to_date), mCountryName));
         else
         {
-          mLocationMsgView.setText(getString(R.string.download_location_map_proposal));
           CheckBox checkBox = (CheckBox)findViewById(R.id.download_country_checkbox);
           checkBox.setVisibility(View.VISIBLE);
-          checkBox.setText(String.format(getString(R.string.download_country_ask), mCountryName));
+
+          String msgViewText;
+          String checkBoxText;
+
+          if (countryStatus == MapStorage.ON_DISK_OUT_OF_DATE)
+          {
+            msgViewText = getString(R.string.download_location_update_map_proposal);
+            checkBoxText = String.format(getString(R.string.update_country_ask), mCountryName);
+          }
+          else
+          {
+            msgViewText = getString(R.string.download_location_map_proposal);
+            checkBoxText = String.format(getString(R.string.download_country_ask), mCountryName);
+          }
+
+          mLocationMsgView.setText(msgViewText);
+          checkBox.setText(checkBoxText);
         }
 
         mLocationService.stopUpdate(this);
