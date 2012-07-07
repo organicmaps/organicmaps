@@ -67,7 +67,7 @@ namespace classificator
     //LOG(LINFO, ("Reading of drawing rules"));
     drule::RulesHolder & rules = drule::rules();
 
-#if defined(OMIM_PRODUCTION) || defined(USE_BINARY_STYLES)
+#if defined(OMIM_PRODUCTION)
     // Load from proto buffer binary file.
     string buffer;
     ModelReaderPtr(p.GetReader(DRAWING_RULES_BIN_FILE)).ReadAsString(buffer);
