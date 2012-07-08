@@ -36,6 +36,7 @@ protected:
   /// @return mwm format version
   virtual int GetInfo(string const & name, MwmInfo & info) const;
   virtual MwmValue * CreateValue(string const & name) const;
+  virtual void UpdateMwmInfo(MwmId id);
 
 public:
   Index();
@@ -44,7 +45,8 @@ public:
   class MwmLock : public MwmSet::MwmLock
   {
   public:
-    MwmLock(Index const & index, MwmId mwmId) : MwmSet::MwmLock(index, mwmId) {}
+    MwmLock(Index const & index, MwmId mwmId)
+      : MwmSet::MwmLock(const_cast<Index &>(index), mwmId) {}
 
     inline MwmValue * GetValue() const
     {
@@ -54,6 +56,9 @@ public:
     inline FilesContainerR const & GetContainer() const { return GetValue()->m_cont; }
     inline feature::DataHeader const & GetHeader() const { return GetValue()->GetHeader(); }
   };
+
+  bool DeleteMap(string const & fileName);
+  bool UpdateMap(string const & fileName, m2::RectD & rect);
 
   template <typename F>
   void ForEachInRect(F & f, m2::RectD const & rect, uint32_t scale) const
@@ -147,7 +152,7 @@ private:
       {
         /// @todo It's better to avoid hacks with scale comparison.
 
-        if (mwm[id].isCountry())
+        if (mwm[id].IsCountry())
         {
           // process countries first
           ProcessMwm(f, id, cov, scale);

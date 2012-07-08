@@ -42,10 +42,10 @@ UNIT_TEST(MwmSetSmokeTest)
   mwmSet.Remove("1");
   mwmSet.GetMwmInfo(info);
   TEST_EQUAL(info.size(), 3, ());
-  TEST(info[0].isValid(), ());
+  TEST(info[0].IsActive(), ());
   TEST_EQUAL(info[0].m_maxScale, 0, ());
-  TEST(!info[1].isValid(), ());
-  TEST(info[2].isValid(), ());
+  TEST(!info[1].IsActive(), ());
+  TEST(info[2].IsActive(), ());
   TEST_EQUAL(info[2].m_maxScale, 2, ());
   {
     MwmSet::MwmLock lock0(mwmSet, 0);
@@ -57,11 +57,11 @@ UNIT_TEST(MwmSetSmokeTest)
   mwmSet.Add("3");
   mwmSet.GetMwmInfo(info);
   TEST_EQUAL(info.size(), 3, ());
-  TEST(info[0].isValid(), ());
+  TEST(info[0].IsActive(), ());
   TEST_EQUAL(info[0].m_maxScale, 0, ());
-  TEST(info[1].isValid(), ());
+  TEST(info[1].IsActive(), ());
   TEST_EQUAL(info[1].m_maxScale, 3, ());
-  TEST(info[2].isValid(), ());
+  TEST(info[2].IsActive(), ());
   TEST_EQUAL(info[2].m_maxScale, 2, ());
 
   {
@@ -72,23 +72,23 @@ UNIT_TEST(MwmSetSmokeTest)
   }
   mwmSet.GetMwmInfo(info);
   TEST_EQUAL(info.size(), 4, ());
-  TEST(info[0].isValid(), ());
+  TEST(info[0].IsActive(), ());
   TEST_EQUAL(info[0].m_maxScale, 0, ());
-  TEST(!info[1].isValid(), ());
-  TEST(info[2].isValid(), ());
+  TEST(!info[1].IsActive(), ());
+  TEST(info[2].IsActive(), ());
   TEST_EQUAL(info[2].m_maxScale, 2, ());
-  TEST(info[3].isValid(), ());
+  TEST(info[3].IsActive(), ());
   TEST_EQUAL(info[3].m_maxScale, 4, ());
 
   mwmSet.Add("5");
   mwmSet.GetMwmInfo(info);
   TEST_EQUAL(info.size(), 4, ());
-  TEST(info[0].isValid(), ());
+  TEST(info[0].IsActive(), ());
   TEST_EQUAL(info[0].m_maxScale, 0, ());
-  TEST(info[1].isValid(), ());
+  TEST(info[1].IsActive(), ());
   TEST_EQUAL(info[1].m_maxScale, 5, ());
-  TEST(info[2].isValid(), ());
+  TEST(info[2].IsActive(), ());
   TEST_EQUAL(info[2].m_maxScale, 2, ());
-  TEST(info[3].isValid(), ());
+  TEST(info[3].IsActive(), ());
   TEST_EQUAL(info[3].m_maxScale, 4, ());
 }

@@ -10,6 +10,7 @@
 #define HEADER_FILE_TAG "header"
 #define VERSION_FILE_TAG "version"
 
+#define READY_FILE_EXTENSION ".ready"
 #define RESUME_FILE_EXTENSION ".resume2"
 #define DOWNLOADING_FILE_EXTENSION ".downloading2"
 

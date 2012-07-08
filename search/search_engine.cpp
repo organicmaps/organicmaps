@@ -329,6 +329,11 @@ bool Engine::GetNameByType(uint32_t type, int8_t lang, string & name) const
   return m_pData->m_categories.GetNameByType(type, lang, name);
 }
 
+m2::RectD Engine::GetCountryBounds(string const & file) const
+{
+  return m_pData->m_infoGetter.CalcLimitRect(file);
+}
+
 void Engine::ClearCaches()
 {
   /// @todo Add m_pData->m_infoGetter clearing routine.

@@ -10,34 +10,19 @@
 #include "../std/memcpy.hpp"
 
 
-namespace
-{
-  struct MwmIdIsEqualTo
-  {
-    MwmSet::MwmId m_id;
-    explicit MwmIdIsEqualTo(MwmSet::MwmId id) : m_id(id) {}
-    bool operator() (pair<MwmSet::MwmId, MwmSet::MwmValueBase *> const & p) const
-    {
-      return p.first == m_id;
-    }
-  };
-}  // unnamed namespace
-
 MwmInfo::MwmInfo() : m_lockCount(0), m_status(STATUS_REMOVED)
 {
   // Important: STATUS_REMOVED - is the default value.
   // Apply STATUS_ACTIVE before adding to maps container.
 }
 
-MwmSet::MwmLock::MwmLock(MwmSet const & mwmSet, MwmId mwmId)
+MwmSet::MwmLock::MwmLock(MwmSet & mwmSet, MwmId mwmId)
   : m_mwmSet(mwmSet), m_id(mwmId), m_pValue(mwmSet.LockValue(mwmId))
 {
-  //LOG(LINFO, ("MwmLock::MwmLock()", m_id));
 }
 
 MwmSet::MwmLock::~MwmLock()
 {
-  //LOG(LINFO, ("MwmLock::~MwmLock()", m_id));
   if (m_pValue)
     m_mwmSet.UnlockValue(m_id, m_pValue);
 }
@@ -46,7 +31,6 @@ MwmSet::MwmLock::~MwmLock()
 MwmSet::MwmSet(size_t cacheSize)
   : m_cacheSize(cacheSize)
 {
-  //LOG(LINFO, ("MwmSet::MwmSet()"));
 }
 
 MwmSet::~MwmSet()
@@ -60,14 +44,12 @@ void MwmSet::Cleanup()
   threads::MutexGuard mutexGuard(m_lock);
   UNUSED_VALUE(mutexGuard);
 
-  //LOG(LINFO, ("MwmSet::~MwmSet()"));
-
   ClearCacheImpl(m_cache.begin(), m_cache.end());
 
 #ifdef DEBUG
-  for (size_t i = 0; i < m_info.size(); ++i)
+  for (MwmId i = 0; i < m_info.size(); ++i)
   {
-    if (m_info[i].m_status == MwmInfo::STATUS_ACTIVE)
+    if (m_info[i].IsActive())
     {
       ASSERT_EQUAL(m_info[i].m_lockCount, 0, (i, m_name[i]));
       ASSERT_NOT_EQUAL(m_name[i], string(), (i));
@@ -76,15 +58,15 @@ void MwmSet::Cleanup()
 #endif
 }
 
-void MwmSet::UpdateMwmInfo(MwmInfo & info)
+void MwmSet::UpdateMwmInfo(MwmId id)
 {
-  if (info.m_status == MwmInfo::STATUS_TO_REMOVE && info.m_lockCount == 0)
-    info.m_status = MwmInfo::STATUS_REMOVED;
+  if (m_info[id].m_status == MwmInfo::STATUS_TO_REMOVE)
+    (void)RemoveImpl(id);
 }
 
 MwmSet::MwmId MwmSet::GetFreeId()
 {
-  MwmId const size = static_cast<MwmId>(m_info.size());
+  MwmId const size = m_info.size();
   for (MwmId i = 0; i < size; ++i)
   {
     if (m_info[i].m_status == MwmInfo::STATUS_REMOVED)
@@ -98,11 +80,10 @@ MwmSet::MwmId MwmSet::GetFreeId()
 
 MwmSet::MwmId MwmSet::GetIdByName(string const & name)
 {
-  MwmId const size = static_cast<MwmId>(m_info.size());
-  for (MwmId i = 0; i < size; ++i)
+  for (MwmId i = 0; i < m_info.size(); ++i)
   {
-    UpdateMwmInfo(m_info[i]);
-    if (m_info[i].m_status == MwmInfo::STATUS_ACTIVE && m_name[i] == name)
+    UpdateMwmInfo(i);
+    if (m_name[i] == name)
       return i;
   }
   return INVALID_MWM_ID;
@@ -115,19 +96,27 @@ string MwmSet::MwmLock::GetCountryName() const
   return src.substr(0, src.size() - strlen(DATA_FILE_EXTENSION));
 }
 
-int MwmSet::Add(string const & fileName, m2::RectD & r)
+int MwmSet::Add(string const & fileName, m2::RectD & rect)
 {
   threads::MutexGuard mutexGuard(m_lock);
   UNUSED_VALUE(mutexGuard);
 
-  //LOG(LINFO, ("MwmSet::Add()", fileName));
-
-  if (GetIdByName(fileName) != INVALID_MWM_ID)
+  MwmId const id = GetIdByName(fileName);
+  if (id != INVALID_MWM_ID)
   {
-    LOG(LWARNING, ("Trying to add already added map", fileName));
+    if (m_info[id].IsExist())
+      LOG(LWARNING, ("Trying to add already added map", fileName));
+    else
+      m_info[id].m_status = MwmInfo::STATUS_ACTIVE;
+
     return -1;
   }
 
+  return AddImpl(fileName, rect);
+}
+
+int MwmSet::AddImpl(string const & fileName, m2::RectD & rect)
+{
   // this function can throw an exception for bad mwm file
   MwmInfo info;
   int const version = GetInfo(fileName, info);
@@ -138,18 +127,24 @@ int MwmSet::Add(string const & fileName, m2::RectD & r)
   m_name[id] = fileName;
   m_info[id] = info;
 
-  r = info.m_limitRect;
-  ASSERT ( r.IsValid(), () );
+  rect = info.m_limitRect;
+  ASSERT ( rect.IsValid(), () );
   return version;
 }
 
-void MwmSet::RemoveImpl(MwmId id)
+bool MwmSet::RemoveImpl(MwmId id)
 {
   if (m_info[id].m_lockCount == 0)
+  {
+    m_name[id].clear();
     m_info[id].m_status = MwmInfo::STATUS_REMOVED;
+    return true;
+  }
   else
+  {
     m_info[id].m_status = MwmInfo::STATUS_TO_REMOVE;
-  m_name[id].clear();
+    return false;
+  }
 }
 
 void MwmSet::Remove(string const & fileName)
@@ -157,16 +152,22 @@ void MwmSet::Remove(string const & fileName)
   threads::MutexGuard mutexGuard(m_lock);
   UNUSED_VALUE(mutexGuard);
 
-  //LOG(LINFO, ("MwmSet::Remove()", fileName));
+  (void)RemoveImpl(fileName);
+}
+
+bool MwmSet::RemoveImpl(string const & fileName)
+{
+  bool ret = false;
 
   MwmId const id = GetIdByName(fileName);
-  if (id != INVALID_MWM_ID)
+  if (id != INVALID_MWM_ID && m_info[id].IsExist())
   {
-    RemoveImpl(id);
+    ret = RemoveImpl(id);
 
-    // Update the cache.
-    ClearCacheImpl(RemoveIfKeepValid(m_cache.begin(), m_cache.end(), MwmIdIsEqualTo(id)), m_cache.end());
+    ClearCache(id);
   }
+
+  return ret;
 }
 
 void MwmSet::RemoveAllCountries()
@@ -176,43 +177,49 @@ void MwmSet::RemoveAllCountries()
 
   for (MwmId i = 0; i < m_info.size(); ++i)
   {
-    if (m_info[i].isCountry())
-      RemoveImpl(i);
+    if (m_info[i].IsCountry())
+      (void)RemoveImpl(i);
   }
 
   // do not call ClearCache - it's under mutex lock
   ClearCacheImpl(m_cache.begin(), m_cache.end());
 }
 
-bool MwmSet::IsLoaded(string const & fName) const
+bool MwmSet::IsLoaded(string const & file) const
 {
-  return (const_cast<MwmSet *>(this)->GetIdByName(fName + DATA_FILE_EXTENSION) != INVALID_MWM_ID);
+  MwmSet * p = const_cast<MwmSet *>(this);
+
+  threads::MutexGuard mutexGuard(p->m_lock);
+  UNUSED_VALUE(mutexGuard);
+
+  MwmId const id = p->GetIdByName(file + DATA_FILE_EXTENSION);
+  return (id != INVALID_MWM_ID && m_info[id].IsExist());
 }
 
 void MwmSet::GetMwmInfo(vector<MwmInfo> & info) const
 {
-  threads::MutexGuard mutexGuard(m_lock);
+  MwmSet * p = const_cast<MwmSet *>(this);
+
+  threads::MutexGuard mutexGuard(p->m_lock);
   UNUSED_VALUE(mutexGuard);
 
-  for (vector<MwmInfo>::iterator it = m_info.begin(); it != m_info.end(); ++it)
-    UpdateMwmInfo(*it);
+  for (MwmId i = 0; i < m_info.size(); ++i)
+    p->UpdateMwmInfo(i);
 
   info = m_info;
 }
 
-MwmSet::MwmValueBase * MwmSet::LockValue(MwmId id) const
+MwmSet::MwmValueBase * MwmSet::LockValue(MwmId id)
 {
   threads::MutexGuard mutexGuard(m_lock);
   UNUSED_VALUE(mutexGuard);
-
-  //LOG(LINFO, ("MwmSet::LockContainer()", id));
 
   ASSERT_LESS(id, m_info.size(), ());
   if (id >= m_info.size())
     return NULL;
 
-  UpdateMwmInfo(m_info[id]);
-  if (m_info[id].m_status != MwmInfo::STATUS_ACTIVE)
+  UpdateMwmInfo(id);
+  if (!m_info[id].IsActive())
     return NULL;
 
   ++m_info[id].m_lockCount;
@@ -230,12 +237,10 @@ MwmSet::MwmValueBase * MwmSet::LockValue(MwmId id) const
   return CreateValue(m_name[id]);
 }
 
-void MwmSet::UnlockValue(MwmId id, MwmValueBase * p) const
+void MwmSet::UnlockValue(MwmId id, MwmValueBase * p)
 {
   threads::MutexGuard mutexGuard(m_lock);
   UNUSED_VALUE(mutexGuard);
-
-  //LOG(LINFO, ("MwmSet::UnlockContainer()", id));
 
   ASSERT(p, (id));
   ASSERT_LESS(id, m_info.size(), ());
@@ -245,9 +250,9 @@ void MwmSet::UnlockValue(MwmId id, MwmValueBase * p) const
   ASSERT_GREATER(m_info[id].m_lockCount, 0, ());
   if (m_info[id].m_lockCount > 0)
     --m_info[id].m_lockCount;
-  UpdateMwmInfo(m_info[id]);
+  UpdateMwmInfo(id);
 
-  if (m_info[id].m_status == MwmInfo::STATUS_ACTIVE)
+  if (m_info[id].IsActive())
   {
     m_cache.push_back(make_pair(id, p));
     if (m_cache.size() > m_cacheSize)
@@ -274,4 +279,22 @@ void MwmSet::ClearCacheImpl(CacheType::iterator beg, CacheType::iterator end)
   for (CacheType::iterator it = beg; it != end; ++it)
     delete it->second;
   m_cache.erase(beg, end);
+}
+
+namespace
+{
+  struct MwmIdIsEqualTo
+  {
+    MwmSet::MwmId m_id;
+    explicit MwmIdIsEqualTo(MwmSet::MwmId id) : m_id(id) {}
+    bool operator() (pair<MwmSet::MwmId, MwmSet::MwmValueBase *> const & p) const
+    {
+      return (p.first == m_id);
+    }
+  };
+}
+
+void MwmSet::ClearCache(MwmId id)
+{
+  ClearCacheImpl(RemoveIfKeepValid(m_cache.begin(), m_cache.end(), MwmIdIsEqualTo(id)), m_cache.end());
 }

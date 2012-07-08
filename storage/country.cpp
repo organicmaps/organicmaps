@@ -1,8 +1,8 @@
 #include "country.hpp"
 
-#include "../indexer/data_factory.hpp"
+//#include "../indexer/data_factory.hpp"
 
-#include "../coding/file_container.hpp"
+//#include "../coding/file_container.hpp"
 
 #include "../platform/platform.hpp"
 
@@ -29,6 +29,7 @@ uint32_t CountryFile::GetFileSize() const
     return 0;
 }
 
+/*
 class CountryBoundsCalculator
 {
   m2::RectD & m_bounds;
@@ -54,6 +55,7 @@ m2::RectD Country::Bounds() const
   std::for_each(m_files.begin(), m_files.end(), CountryBoundsCalculator(bounds));
   return bounds;
 }
+*/
 
 LocalAndRemoteSizeT Country::Size() const
 {
@@ -234,6 +236,7 @@ void SaveImpl(T const & v, json_t * jParent)
 {
   size_t const siblingsCount = v.SiblingsCount();
   CHECK_GREATER(siblingsCount, 0, ());
+
   my::Json jArray(json_array());
   for (size_t i = 0; i < siblingsCount; ++i)
   {
@@ -244,22 +247,27 @@ void SaveImpl(T const & v, json_t * jParent)
     string const strFlag = v[i].Value().Flag();
     if (!strFlag.empty())
       json_object_set_new(jCountry, "c", json_string(strFlag.c_str()));
-    CHECK_LESS_OR_EQUAL(v[i].Value().Files().size(), 1, ("Not supporting more than 1 file for the country at the moment"));
-    if (v[i].Value().Files().size())
+
+    size_t countriesCount = v[i].Value().GetFilesCount();
+    ASSERT_LESS_OR_EQUAL(countriesCount, 1, ());
+    if (countriesCount > 0)
     {
-      int64_t const price = v[i].Value().Files()[0].m_price;
+      CountryFile const & file = v[i].Value().GetFile();
+      int64_t const price = file.m_price;
       CHECK_GREATER_OR_EQUAL(price, 0, ("Invalid price"));
       json_object_set_new(jCountry, "p", json_integer(price));
-      string const strFile = v[i].Value().Files()[0].m_fileName;
+      string const strFile = file.m_fileName;
       if (strFile != strName)
         json_object_set_new(jCountry, "f", json_string(strFile.c_str()));
-      json_object_set_new(jCountry, "s", json_integer(v[i].Value().Files()[0].m_remoteSize));
+      json_object_set_new(jCountry, "s", json_integer(file.m_remoteSize));
     }
+
     if (v[i].SiblingsCount())
       SaveImpl(v[i], jCountry);
 
     json_array_append(jArray, jCountry);
   }
+
   json_object_set(jParent, "g", jArray);
 }
 

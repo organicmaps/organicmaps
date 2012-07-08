@@ -19,14 +19,21 @@ public:
   uint8_t m_minScale;       ///< Min zoom level of mwm.
   uint8_t m_maxScale;       ///< Max zoom level of mwm.
 
-  // Does this MwmInfo represent a valid Mwm?
-  inline bool isValid() const { return (m_status == STATUS_ACTIVE); }
-  inline bool isCountry() const { return (m_minScale > 0); }
+  inline bool IsExist() const
+  {
+    return (m_status == STATUS_ACTIVE || m_status == STATUS_UPDATE);
+  }
+  inline bool IsCountry() const { return (m_minScale > 0); }
+  inline bool IsActive() const { return (m_status == STATUS_ACTIVE); }
 
-private:
-  friend class MwmSet;
+  enum Status
+  {
+    STATUS_ACTIVE = 0,
+    STATUS_TO_REMOVE,
+    STATUS_REMOVED,
+    STATUS_UPDATE
+  };
 
-  enum Status { STATUS_ACTIVE = 0, STATUS_TO_REMOVE = 1, STATUS_REMOVED = 2 };
   uint8_t m_lockCount;      ///< Number of locks.
   uint8_t m_status;         ///< Current country status.
 };
@@ -49,7 +56,7 @@ public:
   class MwmLock
   {
   public:
-    MwmLock(MwmSet const & mwmSet, MwmId mwmId);
+    MwmLock(MwmSet & mwmSet, MwmId mwmId);
     ~MwmLock();
 
     inline MwmValueBase * GetValue() const { return m_pValue; }
@@ -57,26 +64,33 @@ public:
     inline MwmId GetID() const { return m_id; }
 
   private:
-    MwmSet const & m_mwmSet;
+    MwmSet & m_mwmSet;
     MwmId m_id;
     MwmValueBase * m_pValue;
   };
 
   /// Add new mwm. Returns false, if mwm with given fileName already exists.
   /// @param[in]  fileName  File name (without full path) of country.
-  /// @param[out] r         Limit rect of country.
+  /// @param[out] rect      Limit rect of country.
   /// @return Map format version or -1 if not added
-  int Add(string const & fileName, m2::RectD & r);
+  //@{
+protected:
+  int AddImpl(string const & fileName, m2::RectD & rect);
+
+public:
+  int Add(string const & fileName, m2::RectD & rect);
   inline bool Add(string const & fileName)
   {
     m2::RectD dummy;
     return (-1 != Add(fileName, dummy));
   }
+  //@}
 
   /// @name Remove mwm.
   //@{
-private:
-  void RemoveImpl(MwmId id);
+protected:
+  bool RemoveImpl(MwmId id);
+  bool RemoveImpl(string const & fileName);
 
 public:
   void Remove(string const & fileName);
@@ -84,9 +98,11 @@ public:
   void RemoveAllCountries();
   //@}
 
-  bool IsLoaded(string const & fName) const;
+  /// @param[in] file File name without extension.
+  bool IsLoaded(string const & file) const;
 
-  // Get ids of all mwms. Some of them may be marked to remove.
+  /// Get ids of all mwms. Some of them may be with not active status.
+  /// In that case, LockValue returns NULL.
   void GetMwmInfo(vector<MwmInfo> & info) const;
 
   // Clear caches.
@@ -100,28 +116,35 @@ protected:
   void Cleanup();
 
 private:
-  static const MwmId INVALID_MWM_ID = static_cast<MwmId>(-1);
-
   typedef deque<pair<MwmId, MwmValueBase *> > CacheType;
 
-  // Update given MwmInfo.
-  inline static void UpdateMwmInfo(MwmInfo & info);
-
-  MwmValueBase * LockValue(MwmId id) const;
-  void UnlockValue(MwmId id, MwmValueBase * p) const;
+  MwmValueBase * LockValue(MwmId id);
+  void UnlockValue(MwmId id, MwmValueBase * p);
 
   // Find first removed mwm or add a new one.
   MwmId GetFreeId();
 
-  // Find mwm with a given name.
-  MwmId GetIdByName(string const & name);
-
   // Do the cleaning for [beg, end) without acquiring the mutex.
   void ClearCacheImpl(CacheType::iterator beg, CacheType::iterator end);
 
-  mutable vector<MwmInfo> m_info;     // mutable needed for GetMwmInfo
-  /*mutable*/ vector<string> m_name;
-  mutable CacheType m_cache;
+  CacheType m_cache;
   size_t m_cacheSize;
-  mutable threads::Mutex m_lock;
+
+protected:
+  static const MwmId INVALID_MWM_ID = static_cast<MwmId>(-1);
+
+  /// Find mwm with a given name.
+  /// @note This function is always called under mutex m_lock.
+  MwmId GetIdByName(string const & name);
+
+  /// @note This function is always called under mutex m_lock.
+  void ClearCache(MwmId id);
+
+  /// Update given MwmInfo.
+  /// @note This function is always called under mutex m_lock.
+  virtual void UpdateMwmInfo(MwmId id);
+
+  vector<MwmInfo> m_info;
+  vector<string> m_name;
+  threads::Mutex m_lock;
 };

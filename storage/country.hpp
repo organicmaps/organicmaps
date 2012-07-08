@@ -57,14 +57,31 @@ namespace storage
     bool operator<(Country const & other) const { return Name() < other.Name(); }
 
     void AddFile(CountryFile const & file);
-    FilesContainerT const & Files() const { return m_files; }
+
+    size_t GetFilesCount() const { return m_files.size(); }
+
+    /*
+    template <class ToDo> void ForEachFile(ToDo toDo) const
+    {
+      for (FilesContainerT::const_iterator i = m_files.begin(); i != m_files.end(); ++i)
+        toDo(i->GetFileWithExt());
+    }
+    */
+
+    /// This function valid for current logic - one file for one country (region).
+    /// If the logic will be changed, replace GetFile with ForEachFile.
+    CountryFile const & GetFile() const
+    {
+      ASSERT_EQUAL ( m_files.size(), 1, () );
+      return m_files.front();
+    }
 
     string const & Name() const { return m_name; }
     string const & Flag() const { return m_flag; }
     int64_t Price() const;
 
     /// @return bounds for downloaded parts of the country or empty rect
-    m2::RectD Bounds() const;
+    //m2::RectD Bounds() const;
     LocalAndRemoteSizeT Size() const;
   };
 

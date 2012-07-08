@@ -1,6 +1,5 @@
 #pragma once
-
-#include "../storage/storage.hpp"
+#include "../map/framework.hpp"
 
 #include <QtGui/QDialog>
 
@@ -9,6 +8,8 @@ class QTreeWidgetItem;
 class QLabel;
 class QPushButton;
 
+class Framework;
+
 namespace qt
 {
   class UpdateDialog : public QDialog
@@ -16,7 +17,7 @@ namespace qt
     Q_OBJECT
 
   public:
-    explicit UpdateDialog(QWidget * parent, storage::Storage & storage);
+    explicit UpdateDialog(QWidget * parent, Framework & framework);
     virtual ~UpdateDialog();
 
     /// @name Called from downloader to notify GUI
@@ -36,9 +37,14 @@ namespace qt
     void FillTree();
     void UpdateRowWithCountryInfo(storage::TIndex const & index);
 
+    QTreeWidgetItem * CreateTreeItem(storage::TIndex const & index, int value, QTreeWidgetItem * parent);
+    int GetChildsCount(storage::TIndex const & index) const;
+
   private:
+    inline storage::Storage & GetStorage() const { return m_framework.Storage(); }
+
     QTreeWidget * m_tree;
-    storage::Storage & m_storage;
+    Framework & m_framework;
     int m_observerSlotId;
   };
 } // namespace qt

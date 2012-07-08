@@ -53,9 +53,19 @@ int FeaturesFetcher::AddMap(string const & file)
   return version;
 }
 
-void FeaturesFetcher::RemoveMap(string const & fName)
+void FeaturesFetcher::RemoveMap(string const & file)
 {
-  m_multiIndex.Remove(fName);
+  m_multiIndex.Remove(file);
+}
+
+bool FeaturesFetcher::DeleteMap(string const & file)
+{
+  return m_multiIndex.DeleteMap(file);
+}
+
+bool FeaturesFetcher::UpdateMap(string const & file, m2::RectD & rect)
+{
+  return m_multiIndex.UpdateMap(file, rect);
 }
 
 void FeaturesFetcher::RemoveAllCountries()
@@ -74,13 +84,14 @@ void FeaturesFetcher::ClearCaches()
   m_multiIndex.ClearCache();
 }
 
-bool FeaturesFetcher::IsCountryLoaded(m2::PointD const & pt) const
+/*
+bool FeaturesFetcher::IsLoaded(m2::PointD const & pt) const
 {
   vector<MwmInfo> info;
   m_multiIndex.GetMwmInfo(info);
 
   for (size_t i = 0; i < info.size(); ++i)
-    if (info[i].isValid() && info[i].isCountry() &&
+    if (info[i].IsExist() && info[i].IsCountry() &&
         info[i].m_limitRect.IsPointInside(pt))
     {
       return true;
@@ -88,6 +99,7 @@ bool FeaturesFetcher::IsCountryLoaded(m2::PointD const & pt) const
 
   return false;
 }
+*/
 
 m2::RectD FeaturesFetcher::GetWorldRect() const
 {

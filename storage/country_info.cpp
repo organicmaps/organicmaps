@@ -13,11 +13,49 @@
 
 namespace storage
 {
+  /*
+  class LessCountryDef
+  {
+    bool CompareStrings(string const & s1, string const & s2) const
+    {
+      // Do this stuff because of 'Guinea-Bissau.mwm' goes before 'Guinea.mwm'
+      // in file system (and in PACKED_POLYGONS_FILE also).
+      size_t n = min(s1.size(), s2.size());
+      return lexicographical_compare(s1.begin(), s1.begin() + n,
+                                     s2.begin(), s2.begin() + n);
+    }
+
+  public:
+    bool operator() (CountryDef const & r1, string const & r2) const
+    {
+      return CompareStrings(r1.m_name, r2);
+    }
+    bool operator() (string const & r1, CountryDef const & r2) const
+    {
+      return CompareStrings(r1, r2.m_name);
+    }
+    bool operator() (CountryDef const & r1, CountryDef const & r2) const
+    {
+      return CompareStrings(r1.m_name, r2.m_name);
+    }
+  };
+  */
+
   CountryInfoGetter::CountryInfoGetter(ModelReaderPtr polyR, ModelReaderPtr countryR)
     : m_reader(polyR), m_cache(2)
   {
     ReaderSource<ModelReaderPtr> src(m_reader.GetReader(PACKED_POLYGONS_INFO_TAG));
     rw::Read(src, m_countries);
+
+/*
+    // We can't change the order of countries.
+#ifdef DEBUG
+    LessCountryDef check;
+    for (size_t i = 0; i < m_countries.size() - 1; ++i)
+      ASSERT ( !check(m_countries[i+1], m_countries[i]),
+               (m_countries[i].m_name, m_countries[i+1].m_name) );
+#endif
+*/
 
     string buffer;
     countryR.ReadAsString(buffer);
@@ -111,30 +149,60 @@ namespace storage
     CountryInfo::FileName2FullName(info.m_name);
   }
 
+  template <class ToDo> void CountryInfoGetter::ForEachCountry(string const & prefix, ToDo toDo) const
+  {
+    typedef vector<CountryDef>::const_iterator IterT;
+
+    for (IterT i = m_countries.begin(); i != m_countries.end(); ++i)
+    {
+      if (i->m_name.find(prefix) != string::npos)
+        toDo(*i);
+    }
+
+    /// @todo Store sorted list of polygons in PACKED_POLYGONS_FILE.
+    /*
+    pair<IterT, IterT> r = equal_range(m_countries.begin(), m_countries.end(), file, LessCountryDef());
+    while (r.first != r.second)
+    {
+      toDo(r.first->m_name);
+      ++r.first;
+    }
+    */
+  }
+
+  namespace
+  {
+    class DoCalcUSA
+    {
+      m2::RectD * m_rects;
+    public:
+      DoCalcUSA(m2::RectD * rects) : m_rects(rects) {}
+      void operator() (CountryDef const & c)
+      {
+        if (c.m_name == "USA_Alaska")
+          m_rects[1] = c.m_rect;
+        else if (c.m_name == "USA_Hawaii")
+          m_rects[2] = c.m_rect;
+        else
+          m_rects[0].Add(c.m_rect);
+      }
+    };
+
+    void AddRect(m2::RectD & r, CountryDef const & c)
+    {
+      r.Add(c.m_rect);
+    }
+  }
+
   void CountryInfoGetter::CalcUSALimitRect(m2::RectD rects[3]) const
   {
-    for (size_t i = 0; i < m_countries.size(); ++i)
-    {
-      if (m_countries[i].m_name.find("USA_") == 0)
-      {
-        if (m_countries[i].m_name == "USA_Alaska")
-          rects[1] = m_countries[i].m_rect;
-        else if (m_countries[i].m_name == "USA_Hawaii")
-          rects[2] = m_countries[i].m_rect;
-        else
-          rects[0].Add(m_countries[i].m_rect);
-      }
-    }
+    ForEachCountry("USA_", DoCalcUSA(rects));
   }
 
   m2::RectD CountryInfoGetter::CalcLimitRect(string const & prefix) const
   {
     m2::RectD r;
-    for (size_t i = 0; i < m_countries.size(); ++i)
-    {
-      if (m_countries[i].m_name.find(prefix) == 0)
-        r.Add(m_countries[i].m_rect);
-    }
+    ForEachCountry(prefix, bind(&AddRect, ref(r), _1));
     return r;
   }
 }

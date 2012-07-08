@@ -51,6 +51,8 @@ public:
 
   bool GetNameByType(uint32_t type, int8_t lang, string & name) const;
 
+  m2::RectD GetCountryBounds(string const & file) const;
+
   void ClearCaches();
 
 private:

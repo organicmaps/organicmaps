@@ -16,6 +16,9 @@ namespace storage
     FilesContainerR m_reader;
 
     vector<CountryDef> m_countries;
+
+    template <class ToDo> void ForEachCountry(string const & prefix, ToDo toDo) const;
+
     /// ID - is a country file name without an extension.
     map<string, CountryInfo> m_id2info;
 

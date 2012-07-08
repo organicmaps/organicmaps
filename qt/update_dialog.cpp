@@ -54,9 +54,9 @@ namespace qt
   };
 
 
-  UpdateDialog::UpdateDialog(QWidget * parent, Storage & storage)
+  UpdateDialog::UpdateDialog(QWidget * parent, Framework & framework)
     : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint),
-      m_storage(storage),
+      m_framework(framework),
       m_observerSlotId(0)
   {
     setWindowModality(Qt::WindowModal);
@@ -85,14 +85,14 @@ namespace qt
     resize(600, 500);
 
     // we want to receive all download progress and result events
-    m_observerSlotId = m_storage.Subscribe(bind(&UpdateDialog::OnCountryChanged, this, _1),
-                                            bind(&UpdateDialog::OnCountryDownloadProgress, this, _1, _2));
+    m_observerSlotId = GetStorage().Subscribe(bind(&UpdateDialog::OnCountryChanged, this, _1),
+                                              bind(&UpdateDialog::OnCountryDownloadProgress, this, _1, _2));
   }
 
   UpdateDialog::~UpdateDialog()
   {
     // tell download manager that we're gone...
-    m_storage.Unsubscribe(m_observerSlotId);
+    GetStorage().Unsubscribe(m_observerSlotId);
   }
 
   /// when user clicks on any map row in the table
@@ -112,7 +112,8 @@ namespace qt
     }
 
     TIndex const countryIndex(treeIndex[0], treeIndex[1], treeIndex[2]);
-    switch (m_storage.CountryStatus(countryIndex))
+    Storage & st = GetStorage();
+    switch (m_framework.GetCountryStatus(countryIndex))
     {
     case EOnDiskOutOfDate:
       {
@@ -129,11 +130,12 @@ namespace qt
         (void)ask.exec();
 
         QAbstractButton * res = ask.clickedButton();
-        if (res == btns[0] || res == btns[1])
-          m_storage.DeleteCountry(countryIndex);
 
         if (res == btns[0])
-          m_storage.DownloadCountry(countryIndex);
+          st.DownloadCountry(countryIndex);
+
+        if (res == btns[1])
+          m_framework.DeleteMap(countryIndex);
       }
       break;
 
@@ -147,22 +149,18 @@ namespace qt
         ask.setDefaultButton(QMessageBox::No);
 
         if (ask.exec() == QMessageBox::Yes)
-          m_storage.DeleteCountry(countryIndex);
+          m_framework.DeleteMap(countryIndex);
       }
       break;
 
     case ENotDownloaded:
     case EDownloadFailed:
-      m_storage.DownloadCountry(countryIndex);
+      st.DownloadCountry(countryIndex);
       break;
 
     case EInQueue:
     case EDownloading:
-      m_storage.DeleteCountry(countryIndex);
-      break;
-
-    case EGeneratingIndex:
-      // we can't stop index genertion at this moment
+      m_framework.DeleteMap(countryIndex);
       break;
     }
   }
@@ -227,30 +225,31 @@ namespace qt
       QString statusString;
       LocalAndRemoteSizeT size(0, 0);
 
-      switch (m_storage.CountryStatus(index))
+      Storage const & st = GetStorage();
+      switch (m_framework.GetCountryStatus(index))
       {
       case ENotDownloaded:
         statusString = tr("Click to download");
         rowColor = COLOR_NOTDOWNLOADED;
-        size = m_storage.CountrySizeInBytes(index);
+        size = st.CountrySizeInBytes(index);
         break;
 
       case EOnDisk:
         statusString = tr("Installed (click to delete)");
         rowColor = COLOR_ONDISK;
-        size = m_storage.CountrySizeInBytes(index);
+        size = st.CountrySizeInBytes(index);
         break;
 
       case EOnDiskOutOfDate:
         statusString = tr("Out of date (click to update or delete)");
         rowColor = COLOR_OUTOFDATE;
-        size = m_storage.CountrySizeInBytes(index);
+        size = st.CountrySizeInBytes(index);
         break;
 
       case EDownloadFailed:
         statusString = tr("Download has failed");
         rowColor = COLOR_DOWNLOADFAILED;
-        size = m_storage.CountrySizeInBytes(index);
+        size = st.CountrySizeInBytes(index);
         break;
 
       case EDownloading:
@@ -261,12 +260,7 @@ namespace qt
       case EInQueue:
         statusString = tr("Marked for download");
         rowColor = COLOR_INQUEUE;
-        size = m_storage.CountrySizeInBytes(index);
-        break;
-
-      case EGeneratingIndex:
-        statusString = tr("Generating search index ...");
-        rowColor = COLOR_INPROGRESS;
+        size = st.CountrySizeInBytes(index);
         break;
       }
 
@@ -275,15 +269,20 @@ namespace qt
 
       if (size.second > 0)
       {
-        if (size.second > 1000 * 1000 * 1000)
-          item->setText(KColumnIndexSize, QString("%1/%2 GB").arg(
-              uint(size.first / (1000 * 1000 * 1000))).arg(uint(size.second / (1000 * 1000 * 1000))));
-        else if (size.second > 1000 * 1000)
+        int const halfMb = 512 * 1024;
+        int const Mb = 1024 * 1024;
+
+        if (size.second > Mb)
+        {
           item->setText(KColumnIndexSize, QString("%1/%2 MB").arg(
-              uint(size.first / (1000 * 1000))).arg(uint(size.second / (1000 * 1000))));
+              uint((size.first + halfMb) / Mb)).arg(uint((size.second + halfMb) / Mb)));
+        }
         else
+        {
           item->setText(KColumnIndexSize, QString("%1/%2 kB").arg(
-              uint((size.first + 999) / 1000)).arg(uint((size.second + 999) / 1000)));
+              uint((size.first + 1023) / 1024)).arg(uint((size.second + 1023) / 1024)));
+        }
+
         // needed for column sorting
         item->setData(KColumnIndexSize, Qt::UserRole, QVariant(qint64(size.second)));
       }
@@ -293,45 +292,50 @@ namespace qt
     }
   }
 
+  QTreeWidgetItem * UpdateDialog::CreateTreeItem(TIndex const & index, int value, QTreeWidgetItem * parent)
+  {
+    QString const text = QString::fromUtf8(GetStorage().CountryName(index).c_str());
+    QTreeWidgetItem * item = new QTreeWidgetItem(parent, QStringList(text));
+    item->setData(KColumnIndexCountry, Qt::UserRole, QVariant(value));
+
+    if (parent == 0)
+      m_tree->addTopLevelItem(item);
+    return item;
+  }
+
+  int UpdateDialog::GetChildsCount(TIndex const & index) const
+  {
+    return static_cast<int>(GetStorage().CountriesCount(index));
+  }
+
   void UpdateDialog::FillTree()
   {
     m_tree->setSortingEnabled(false);
     m_tree->clear();
 
-    for (int group = 0; group < static_cast<int>(m_storage.CountriesCount(TIndex())); ++group)
+    int const gCount = GetChildsCount(TIndex());
+    for (int group = 0; group < gCount; ++group)
     {
       TIndex const grIndex(group);
-      QStringList groupText(QString::fromUtf8(m_storage.CountryName(grIndex).c_str()));
-      QTreeWidgetItem * groupItem = new QTreeWidgetItem(groupText);
-      groupItem->setData(KColumnIndexCountry, Qt::UserRole, QVariant(group));
-      m_tree->addTopLevelItem(groupItem);
-      // set color by status and update country size
+      QTreeWidgetItem * groupItem = CreateTreeItem(grIndex, group, 0);
       UpdateRowWithCountryInfo(grIndex);
 
-      for (int country = 0; country < static_cast<int>(m_storage.CountriesCount(grIndex)); ++country)
+      int const cCount = GetChildsCount(grIndex);
+      for (int country = 0; country < cCount; ++country)
       {
-        TIndex cIndex(group, country);
-        QStringList countryText(QString::fromUtf8(m_storage.CountryName(cIndex).c_str()));
-        QTreeWidgetItem * countryItem = new QTreeWidgetItem(groupItem, countryText);
-        countryItem->setData(KColumnIndexCountry, Qt::UserRole, QVariant(country));
-        // set color by status and update country size
+        TIndex const cIndex(group, country);
+        QTreeWidgetItem * countryItem = CreateTreeItem(cIndex, country, groupItem);
         UpdateRowWithCountryInfo(cIndex);
 
-        for (int region = 0; region < static_cast<int>(m_storage.CountriesCount(cIndex)); ++region)
+        int const rCount = GetChildsCount(cIndex);
+        for (int region = 0; region < rCount; ++region)
         {
           TIndex const rIndex(group, country, region);
-          QStringList regionText(QString::fromUtf8(m_storage.CountryName(rIndex).c_str()));
-          QTreeWidgetItem * regionItem = new QTreeWidgetItem(countryItem, regionText);
-          regionItem->setData(KColumnIndexCountry, Qt::UserRole, QVariant(region));
-          // set color by status and update country size
+          (void)CreateTreeItem(rIndex, region, countryItem);
           UpdateRowWithCountryInfo(rIndex);
         }
       }
     }
-//        // Size column, actual size will be set later
-//        QTableWidgetItemWithCustomSorting * sizeItem = new QTableWidgetItemWithCustomSorting;
-//        sizeItem->setFlags(sizeItem->flags() ^ Qt::ItemIsEditable);
-//        m_table->setItem(row, KItemIndexSize, sizeItem);
 
     m_tree->sortByColumn(KColumnIndexCountry, Qt::AscendingOrder);
     m_tree->setSortingEnabled(true);
@@ -349,20 +353,7 @@ namespace qt
   {
     QTreeWidgetItem * item = GetTreeItemByIndex(*m_tree, index);
     if (item)
-    {
-//      QString speed;
-//      if (progress.m_bytesPerSec > 1000 * 1000)
-//        speed = QString(" %1 MB/s").arg(QString::number(static_cast<double>(progress.m_bytesPerSec) / (1000.0 * 1000.0),
-//                                                         'f', 1));
-//      else if (progress.m_bytesPerSec > 1000)
-//        speed = QString(" %1 kB/s").arg(progress.m_bytesPerSec / 1000);
-//      else if (progress.m_bytesPerSec >= 0)
-//        speed = QString(" %1 B/sec").arg(progress.m_bytesPerSec);
-
       item->setText(KColumnIndexSize, QString("%1%").arg(progress.first * 100 / progress.second));
-//      item->setText(KColumnIndexSize, QString("%1%%2").arg(progress.m_current * 100 / progress.m_total)
-//                    .arg(speed));
-    }
   }
 
   void UpdateDialog::ShowModal()

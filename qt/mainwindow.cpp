@@ -366,7 +366,7 @@ void MainWindow::OnPreferences()
 #ifndef NO_DOWNLOADER
 void MainWindow::ShowUpdateDialog()
 {
-  UpdateDialog dlg(this, m_pDrawWidget->GetFramework().Storage());
+  UpdateDialog dlg(this, m_pDrawWidget->GetFramework());
   dlg.ShowModal();
 }
 

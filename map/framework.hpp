@@ -105,6 +105,10 @@ protected:
   scoped_ptr<gui::Controller> m_guiController;
   InformationDisplay m_informationDisplay;
 
+  /// This function is called by m_storage to notify that country downloading is finished.
+  /// @param[in] file Country file name (without extensions).
+  void UpdateAfterDownload(string const & file);
+
   //my::Timer m_timer;
   inline double ElapsedSeconds() const
   {
@@ -132,11 +136,21 @@ public:
 
   void AddMap(string const & file);
   void RemoveMap(string const & datFile);
-  /// Only file names
-  void GetLocalMaps(vector<string> & outMaps) const;
-
   void AddLocalMaps();
   void RemoveLocalMaps();
+  /// @return File names without path.
+  void GetLocalMaps(vector<string> & outMaps) const;
+
+  /// @name This functions is used by Downloader UI.
+  //@{
+  void DeleteMap(storage::TIndex const & index);
+
+  storage::TStatus GetCountryStatus(storage::TIndex const & index) const;
+
+  /// Get country rect from borders (not from mwm file).
+  /// @param[in] file Pass country file name without extension as an id.
+  m2::RectD GetCountryBounds(string const & file);
+  //@}
 
   void AddBookmark(string const & category, Bookmark const & bm);
   inline size_t GetBmCategoriesCount() const { return m_bookmarks.size(); }
@@ -323,6 +337,5 @@ public:
   }
 
 private:
-  //bool IsEmptyModel() const;
-  bool IsEmptyModel(m2::PointD const & pt);
+  bool IsCountryLoaded(m2::PointD const & pt);
 };

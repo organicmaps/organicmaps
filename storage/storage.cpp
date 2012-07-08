@@ -69,11 +69,9 @@ namespace storage
   }
 
   ////////////////////////////////////////////////////////////////////////////
-  void Storage::Init(TAddMapFunction addFunc, TRemoveMapFunction removeFunc, TUpdateRectFunction updateRectFunc)
+  void Storage::Init(TUpdateAfterDownload const & updateFn)
   {
-    m_addMap = addFunc;
-    m_removeMap = removeFunc;
-    m_updateRect = updateRectFunc;
+    m_updateAfterDownload = updateFn;
   }
 
   CountriesContainerT const & NodeFromIndex(CountriesContainerT const & root, TIndex const & index)
@@ -132,17 +130,7 @@ namespace storage
     if (m_failedCountries.count(index) > 0)
       return EDownloadFailed;
 
-    //if (m_indexGeneration.count(index) > 0)
-    //  return EGeneratingIndex;
-
-    LocalAndRemoteSizeT const size = CountryByIndex(index).Size();
-    if (size.first == 0)
-      return ENotDownloaded;
-
-    if (size.second == 0)
-      return EUnknown;
-
-    return (size.first == size.second ? EOnDisk : EOnDiskOutOfDate);
+    return EUnknown;
   }
 
   void Storage::DownloadCountry(TIndex const & index)
@@ -159,14 +147,10 @@ namespace storage
     m_failedCountries.erase(index);
     // add it into the queue
     m_queue.push_back(index);
+
     // and start download if necessary
     if (m_queue.size() == 1)
     {
-      // reset total country's download progress
-      LocalAndRemoteSizeT const size = CountryByIndex(index).Size();
-      m_countryProgress.first = 0;
-      m_countryProgress.second = size.second;
-
       DownloadNextCountryFromQueue();
     }
     else
@@ -176,22 +160,6 @@ namespace storage
     }
   }
 
-  template <class TRemoveFn>
-  class DeactivateMap
-  {
-    string m_workingDir;
-    TRemoveFn & m_removeFn;
-  public:
-    DeactivateMap(TRemoveFn & removeFn) : m_removeFn(removeFn)
-    {
-      m_workingDir = GetPlatform().WritableDir();
-    }
-    void operator()(CountryFile const & file)
-    {
-      m_removeFn(file.GetFileWithExt());
-    }
-  };
-
   void Storage::NotifyStatusChanged(TIndex const & index) const
   {
     for (list<CountryObservers>::const_iterator it = m_observers.begin(); it != m_observers.end(); ++it)
@@ -200,85 +168,37 @@ namespace storage
 
   void Storage::DownloadNextCountryFromQueue()
   {
-    while (!m_queue.empty())
+    if (!m_queue.empty())
     {
-      TIndex index = m_queue.front();
-      FilesContainerT const & tiles = CountryByIndex(index).Files();
-      for (FilesContainerT::const_iterator it = tiles.begin(); it != tiles.end(); ++it)
-      {
-        if (it->GetFileSize() == 0)
-        {
-          // send Country name for statistics
-          string const postBody = it->m_fileName;
-          m_request.reset(HttpRequest::PostJson(GetPlatform().MetaServerUrl(),
-              postBody,
+      TIndex const index = m_queue.front();
+      Country const & country = CountryByIndex(index);
+
+      /// Reset progress before downloading.
+      /// @todo If we will have more than one file per country,
+      /// we should initialize progress before calling DownloadNextCountryFromQueue().
+      m_countryProgress.first = 0;
+      m_countryProgress.second = country.Size().second;
+
+      // send Country name for statistics
+      m_request.reset(HttpRequest::PostJson(GetPlatform().MetaServerUrl(),
+              country.GetFile().m_fileName,
               bind(&Storage::OnServerListDownloaded, this, _1)));
 
-          // new status for country, "Downloading"
-          NotifyStatusChanged(index);
-          return;
-        }
-      }
-
-      // continue with next country
-      m_queue.pop_front();
-
-      // reset total country's download progress
-      if (!m_queue.empty())
-      {
-        m_countryProgress.first = 0;
-        m_countryProgress.second = CountryByIndex(m_queue.front()).Size().second;
-      }
-
-      // new status for country, "OnDisk"
+      // new status for country, "Downloading"
       NotifyStatusChanged(index);
     }
   }
 
-  class DeleteMap
-  {
-    string m_workingDir;
-  public:
-    DeleteMap()
-    {
-      m_workingDir = GetPlatform().WritableDir();
-    }
-
-    void operator()(CountryFile const & file)
-    {
-      FileWriter::DeleteFileX(m_workingDir + file.m_fileName + DOWNLOADING_FILE_EXTENSION);
-      FileWriter::DeleteFileX(m_workingDir + file.m_fileName + RESUME_FILE_EXTENSION);
-      FileWriter::DeleteFileX(m_workingDir + file.GetFileWithExt());
-    }
-  };
-
-  template <typename TRemoveFunc>
-  void DeactivateAndDeleteCountry(Country const & country, TRemoveFunc removeFunc)
-  {
-    // deactivate from multiindex
-    for_each(country.Files().begin(), country.Files().end(), DeactivateMap<TRemoveFunc>(removeFunc));
-    // delete from disk
-    for_each(country.Files().begin(), country.Files().end(), DeleteMap());
-  }
-
+  /*
   m2::RectD Storage::CountryBounds(TIndex const & index) const
   {
     Country const & country = CountryByIndex(index);
     return country.Bounds();
   }
+  */
 
-  void Storage::DeleteCountryFiles(TIndex const & index)
+  bool Storage::DeleteFromDownloader(TIndex const & index)
   {
-    Country const & country = CountryByIndex(index);
-    for_each(country.Files().begin(), country.Files().end(), DeleteMap());
-  }
-
-  void Storage::DeleteCountry(TIndex const & index)
-  {
-    Country const & country = CountryByIndex(index);
-
-    m2::RectD bounds;
-
     // check if we already downloading this country
     TQueue::iterator found = find(m_queue.begin(), m_queue.end(), index);
     if (found != m_queue.end())
@@ -289,12 +209,6 @@ namespace storage
         m_request.reset();
         // remove from the queue
         m_queue.erase(found);
-        // reset progress if the queue is not empty
-        if (!m_queue.empty())
-        {
-          m_countryProgress.first = 0;
-          m_countryProgress.second = CountryByIndex(m_queue.front()).Size().second;
-        }
         // start another download if the queue is not empty
         DownloadNextCountryFromQueue();
       }
@@ -303,18 +217,11 @@ namespace storage
         // remove from the queue
         m_queue.erase(found);
       }
-    }
-    else
-    {
-      // bounds are only updated if country was already activated before
-      bounds = country.Bounds();
+
+      return true;
     }
 
-    DeactivateAndDeleteCountry(country, m_removeMap);
-    NotifyStatusChanged(index);
-
-    if (bounds != m2::RectD::GetEmptyRect())
-      m_updateRect(bounds);
+    return false;
   }
 
   void Storage::LoadCountriesFile(bool forceReload)
@@ -332,8 +239,8 @@ namespace storage
     }
   }
 
-  int Storage::Subscribe(TChangeCountryFunction change,
-                         TProgressFunction progress)
+  int Storage::Subscribe(TChangeCountryFunction const & change,
+                         TProgressFunction const & progress)
   {
     CountryObservers obs;
 
@@ -362,79 +269,30 @@ namespace storage
   {
     if (m_queue.empty())
     {
-      ASSERT ( false, ("Invalid url?", request.Data()) );
+      ASSERT ( false, ("queue can't be empty") );
       return;
     }
 
     TIndex const index = m_queue.front();
+    m_queue.pop_front();
+
     if (request.Status() == HttpRequest::EFailed)
     {
-      // remove failed country from the queue
-      m_queue.pop_front();
+      // add to failed countries set
       m_failedCountries.insert(index);
-
-      // notify GUI about failed country
-      NotifyStatusChanged(index);
     }
     else
     {
-      LocalAndRemoteSizeT const size = CountryByIndex(index).Size();
-      if (size.second != 0)
-        m_countryProgress.first = size.first;
+      Country const & country = CountryByIndex(index);
 
-      // get file descriptor
-      string file = request.Data();
-      pl::GetNameFromURLRequest(file);
-
-      /// @todo By the way - this code os obsolete.
-      /// It doesn't supported properly in android now (because of Platform::RunOnGuiThread).
-      /*
-      Platform & pl = GetPlatform();
-      if (pl.IsFeatureSupported("search"))
-      {
-        // Generate search index if it's supported in this build
-        m_indexGeneration.insert(index);
-        pl.RunAsync(bind(&Storage::GenerateSearchIndex, this, index, file));
-      }
-      else
-      */
-      {
-        // Or simply activate downloaded map
-        UpdateAfterSearchIndex(index, file);
-      }
+      // notify framework that downloading is done
+      m_updateAfterDownload(country.GetFile().GetFileWithExt());
     }
+
+    NotifyStatusChanged(index);
 
     m_request.reset();
     DownloadNextCountryFromQueue();
-  }
-
-  /*
-  void Storage::GenerateSearchIndex(TIndex const & index, string const & fName)
-  {
-    if (indexer::BuildSearchIndexFromDatFile(fName))
-    {
-      GetPlatform().RunOnGuiThread(bind(&Storage::UpdateAfterSearchIndex, this, index, fName));
-    }
-    else
-    {
-      LOG(LERROR, ("Can't build search index for", fName));
-    }
-  }
-  */
-
-  void Storage::UpdateAfterSearchIndex(TIndex const & index, string const & fName)
-  {
-    // remove from index set
-    //m_indexGeneration.erase(index);
-    NotifyStatusChanged(index);
-
-    // activate downloaded map piece
-    m_addMap(fName);
-
-    // update rect from downloaded file
-    feature::DataHeader header;
-    LoadMapHeader(GetPlatform().GetReader(fName), header);
-    m_updateRect(header.GetBounds());
   }
 
   void Storage::ReportProgress(TIndex const & idx, pair<int64_t, int64_t> const & p)
@@ -447,7 +305,7 @@ namespace storage
   {
     if (m_queue.empty())
     {
-      ASSERT(false, ("queue can't be empty"));
+      ASSERT ( false, ("queue can't be empty") );
       return;
     }
 
@@ -465,12 +323,11 @@ namespace storage
   {
     if (m_queue.empty())
     {
-      ASSERT(false, ("this should never happen"));
+      ASSERT ( false, ("queue can't be empty") );
       return;
     }
 
-    // @TODO now supports only one file in the country
-    CountryFile const & file = CountryByIndex(m_queue.front()).Files().front();
+    CountryFile const & file = CountryByIndex(m_queue.front()).GetFile();
 
     vector<string> urls;
     GetServerListFromRequest(request, urls);
@@ -479,9 +336,8 @@ namespace storage
     for (size_t i = 0; i < urls.size(); ++i)
       urls[i] = GetFileDownloadUrl(urls[i], file.GetFileWithExt());
 
-    m_request.reset(HttpRequest::GetFile(urls,
-                                         GetPlatform().WritablePathForFile(file.GetFileWithExt()),
-                                         file.m_remoteSize,
+    string const fileName = GetPlatform().WritablePathForFile(file.GetFileWithExt() + READY_FILE_EXTENSION);
+    m_request.reset(HttpRequest::GetFile(urls, fileName, file.m_remoteSize,
                                          bind(&Storage::OnMapDownloadFinished, this, _1),
                                          bind(&Storage::OnMapDownloadProgress, this, _1)));
     ASSERT ( m_request, () );

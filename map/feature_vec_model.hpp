@@ -33,10 +33,16 @@ namespace model
   public:
     void InitClassificator();
 
+    /// @param[in] file Name of mwm file with extension.
+    //@{
     /// @return MWM format version for file or -1 if error and map was not added
     int AddMap(string const & file);
-    void RemoveMap(string const & fName);
+    void RemoveMap(string const & file);
     void RemoveAllCountries();
+
+    bool DeleteMap(string const & file);
+    bool UpdateMap(string const & file, m2::RectD & rect);
+    //@}
 
     //void Clean();
     void ClearCaches();
@@ -46,7 +52,7 @@ namespace model
       return m_multiIndex.IsLoaded(fName);
     }
 
-    bool IsCountryLoaded(m2::PointD const & pt) const;
+    //bool IsLoaded(m2::PointD const & pt) const;
 
     /// @name Features enumeration.
     //@{

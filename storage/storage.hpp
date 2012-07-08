@@ -12,6 +12,7 @@
 #include "../std/function.hpp"
 #include "../std/scoped_ptr.hpp"
 
+
 namespace storage
 {
   /// Used in GUI
@@ -23,7 +24,6 @@ namespace storage
     EDownloading,
     EInQueue,
     EUnknown,
-    EGeneratingIndex,
     EOnDiskOutOfDate
   };
 
@@ -81,9 +81,6 @@ namespace storage
     typedef set<TIndex> TCountriesSet;
     TCountriesSet m_failedCountries;
 
-    /// store countries set for which search index is generating
-    //TCountriesSet m_indexGeneration;
-
     /// used to correctly calculate total country download progress with more than 1 file
     /// <current, total>
     downloader::HttpRequest::ProgressT m_countryProgress;
@@ -108,24 +105,11 @@ namespace storage
 
     /// @name Communicate with Framework
     //@{
-    typedef vector<string> map_list_t;
-  public:
-    typedef function<void (string const &)> TAddMapFunction;
-    typedef function<void (string const &)> TRemoveMapFunction;
-    typedef function<void (m2::RectD const & r)> TUpdateRectFunction;
-    typedef function<void (map_list_t &)> TEnumMapsFunction;
-
-  private:
-    TAddMapFunction m_addMap;
-    TRemoveMapFunction m_removeMap;
-    TUpdateRectFunction m_updateRect;
+    typedef function<void (string const &)> TUpdateAfterDownload;
+    TUpdateAfterDownload m_updateAfterDownload;
     //@}
 
     void DownloadNextCountryFromQueue();
-    Country const & CountryByIndex(TIndex const & index) const;
-
-    //void GenerateSearchIndex(TIndex const & index, string const & fName);
-    void UpdateAfterSearchIndex(TIndex const & index, string const & fName);
 
     void LoadCountriesFile(bool forceReload);
 
@@ -134,9 +118,7 @@ namespace storage
   public:
     Storage();
 
-    void Init(TAddMapFunction addFunc,
-              TRemoveMapFunction removeFunc,
-              TUpdateRectFunction updateRectFunc);
+    void Init(TUpdateAfterDownload const & updateFn);
 
     /// @name Called from DownloadManager
     //@{
@@ -149,11 +131,12 @@ namespace storage
     //@{
 
     /// @return unique identifier that should be used with Unsubscribe function
-    int Subscribe(TChangeCountryFunction change,
-                  TProgressFunction progress);
+    int Subscribe(TChangeCountryFunction const & change,
+                  TProgressFunction const & progress);
     void Unsubscribe(int slotId);
     //@}
 
+    Country const & CountryByIndex(TIndex const & index) const;
     TIndex const FindIndexByName(string const & name) const;
 
     size_t CountriesCount(TIndex const & index) const;
@@ -161,11 +144,10 @@ namespace storage
     string const & CountryFlag(TIndex const & index) const;
     LocalAndRemoteSizeT CountrySizeInBytes(TIndex const & index) const;
     TStatus CountryStatus(TIndex const & index) const;
-    m2::RectD CountryBounds(TIndex const & index) const;
+    //m2::RectD CountryBounds(TIndex const & index) const;
 
     void DownloadCountry(TIndex const & index);
-    void DeleteCountry(TIndex const & index);
-    void DeleteCountryFiles(TIndex const & index);
+    bool DeleteFromDownloader(TIndex const & index);
 
     void CheckForUpdate();
 

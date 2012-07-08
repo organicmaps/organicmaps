@@ -87,7 +87,7 @@ void Framework::OnGpsUpdate(location::GpsInfo const & info)
 
     // correct rect scale if country isn't downloaded
     int const upperScale = scales::GetUpperWorldScale();
-    if (rectScale > upperScale && IsEmptyModel(center))
+    if (rectScale > upperScale && IsCountryLoaded(center))
     {
       setScale = upperScale;
     }
@@ -202,15 +202,75 @@ Framework::Framework()
 
   for_each(maps.begin(), maps.end(), bind(&Framework::AddMap, this, _1));
 
-  m_storage.Init(bind(&Framework::AddMap, this, _1),
-                 bind(&Framework::RemoveMap, this, _1),
-                 bind(&Framework::InvalidateRect, this, _1, true));
+  m_storage.Init(bind(&Framework::UpdateAfterDownload, this, _1));
   LOG(LDEBUG, ("Storage initialized"));
 }
 
 Framework::~Framework()
 {
   ClearBookmarks();
+}
+
+void Framework::DeleteMap(storage::TIndex const & index)
+{
+  if (!m_storage.DeleteFromDownloader(index))
+  {
+    string const & file = m_storage.CountryByIndex(index).GetFile().m_fileName;
+    if (m_model.DeleteMap(file + DATA_FILE_EXTENSION))
+      InvalidateRect(GetCountryBounds(file), true);
+  }
+
+  m_storage.NotifyStatusChanged(index);
+}
+
+storage::TStatus Framework::GetCountryStatus(storage::TIndex const & index) const
+{
+  using namespace storage;
+
+  storage::TStatus res = m_storage.CountryStatus(index);
+
+  if (res == EUnknown)
+  {
+    Country const & c = m_storage.CountryByIndex(index);
+    LocalAndRemoteSizeT const size = c.Size();
+
+    if (size.first == 0)
+      return ENotDownloaded;
+
+    if (size.second == 0)
+      return EUnknown;
+
+    res = EOnDisk;
+    if (size.first != size.second)
+    {
+      /// @todo Do better version check, not just size comparison.
+
+      // Additional check for .ready file.
+      // Use EOnDisk status if it's good, or EOnDiskOutOfDate otherwise.
+      Platform const & pl = GetPlatform();
+      string const fName = pl.WritablePathForFile(c.GetFile().GetFileWithExt() + READY_FILE_EXTENSION);
+
+      uint64_t sz = 0;
+      if (!pl.GetFileSizeByFullPath(fName, sz) || sz != size.second)
+        res = EOnDiskOutOfDate;
+    }
+  }
+
+  return res;
+}
+
+m2::RectD Framework::GetCountryBounds(string const & file)
+{
+  m2::RectD const r = GetSearchEngine()->GetCountryBounds(file);
+  ASSERT ( r.IsValid(), () );
+  return r;
+}
+
+void Framework::UpdateAfterDownload(string const & file)
+{
+  m2::RectD rect;
+  if (m_model.UpdateMap(file, rect))
+    InvalidateRect(rect, true);
 }
 
 void Framework::AddLocalMaps()
@@ -364,6 +424,7 @@ void Framework::InvalidateRect(m2::RectD const & rect, bool doForceUpdate)
 {
   if (m_renderPolicy)
   {
+    ASSERT ( rect.IsValid(), () );
     m_renderPolicy->SetForceUpdate(doForceUpdate);
     m_renderPolicy->SetInvalidRect(m2::AnyRectD(rect));
     m_renderPolicy->GetWindowHandle()->invalidate();
@@ -483,18 +544,14 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
     Invalidate();
 }
 
-bool Framework::IsEmptyModel(m2::PointD const & pt)
+bool Framework::IsCountryLoaded(m2::PointD const & pt)
 {
   // Correct, but slow version (check country polygon).
   string const fName = GetSearchEngine()->GetCountryFile(pt);
   if (fName.empty())
-    return false;
+    return true;
 
-  return !m_model.IsLoaded(fName);
-  // Fast, but not strict-correct version (just check limit rect).
-  // *Upd* Doesn't work in many cases, as there are a lot of countries which has limit rect
-  // that even roughly doesn't correspond to the shape of the country.
-  //  return !m_model.IsCountryLoaded(pt);
+  return m_model.IsLoaded(fName);
 }
 
 void Framework::BeginPaint(shared_ptr<PaintEvent> const & e)
@@ -920,11 +977,10 @@ void Framework::ShowSearchResult(search::Result const & res)
   if (scales::GetScaleLevel(r) > scales::GetUpperWorldScale())
   {
     m2::PointD const c = r.Center();
-    if (!m_model.IsCountryLoaded(c))
+    if (!IsCountryLoaded(c))
       r = scales::GetRectForLevel(scales::GetUpperWorldScale(), c, 1.0);
   }
 
-  /// @todo We can't call this fucntion in android because of invalid m_renderPolicy.
   ShowRectFixed(r);
 
   DrawPlacemark(res.GetFeatureCenter());
@@ -967,7 +1023,7 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
     if (m_width != 0 && m_height != 0)
       OnSize(m_width, m_height);
 
-    // Do full invalidate except of any "pending" stuff.
+    // Do full invalidate instead of any "pending" stuff.
     Invalidate();
 
     /*
