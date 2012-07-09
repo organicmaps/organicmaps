@@ -155,7 +155,7 @@ namespace storage
 
     for (IterT i = m_countries.begin(); i != m_countries.end(); ++i)
     {
-      if (i->m_name.find(prefix) != string::npos)
+      if (i->m_name.find(prefix) == 0)
         toDo(*i);
     }
 
