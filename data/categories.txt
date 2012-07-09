@@ -712,7 +712,7 @@ ja:公園
 tourism-hostel
 en:3hostel|hotel
 ru:3хостел|гостиница|отель
-de:3Wohnheim
+de:3Wohnheim|Gasthaus
 fr:3foyer
 it:3ostello
 es:3albergue juvenil|4residencia
@@ -800,8 +800,8 @@ ko:스포츠 경내|스포츠
 ja:ピッチ|スポーツ
 
 leisure-swimming_pool
-en:swimming pool|sport
-ru:бассейн|спорт
+en:4swimming pool|sport
+ru:4бассейн|спорт
 de:Schwimmbad|Sport
 fr:piscine|sport
 it:piscina|sport
@@ -822,75 +822,189 @@ ja:建物
 amenity-police
 en:4police
 ru:4милиция|4полиция
+de:4Polizeistation|Polizei
+fr:4gendarmerie|4police|commissariat
+it:posto di polizia|4polizia
+es:4policía
+ko:치안대|보안대|경찰
+ja:警察|ポリス|察
 
 amenity-taxi
-en:3taxi
-ru:3такси
+en:3taxi|transport
+ru:3такси|транспорт
+de:3Taxi|Taxe|Verkehr
+fr:3taxi|transport
+it:3taxi|3tassì|transporto
+es:3taxi|4colectivo|transporte
+ko:택시로 가다|전세 영업 배|수송
+ja:タクシー|輸送
 
 amenity-marketplace
-en:4marketplace|shop
+en:4marketplace|market|shop
 ru:4рынок|магазин
+de:4Marktplatz|Markt|Laden
+fr:4marché|magasin
+it:4mercato|negozio
+es:4mercado|tienda
+ko:시장|쇼핑
+ja:市場|店
 
 amenity-nightclub
-en:4nightclub|disco
-ru:4ночной клуб|дискотека
+en:3nightclub|3disco|dance
+ru:3ночной клуб|3дискотека
+de:3Nachtclub|Nachtklub
+fr:3discothèque|3nuit-club
+it:3night club
+es:3discoteca|nightclub
+ko:나이트 클럽
+ja:ナイトクラブ
 
 amenity-embassy
 en:4embassy
 ru:4посольство
+de:4Botschaft
+fr:4ambassade
+it:4ambasciata
+es:4embajada
+ko:대사관
+ja:大使館|エンバシー
 
 historic-memorial
-en:memorial|attraction|tourism
-ru:мемориал|достопримечательность|туризм
+en:memorial|monument|attraction|tourism|sights
+ru:мемориал|монумент|достопримечательность|туризм
+de:Denkmal|Gedenkstätte|Sehenswürdigkeit
+fr:mémorial|curiosités
+it:memoriale|monumento|turistico
+es:memorial|turismo
+ko:기념물|관광
+ja:記念碑|観光
 
 historic-monument
-en:monument|attraction|tourism
+en:monument|attraction|tourism|sights
 ru:памятник|достопримечательность|туризм
+de:Monument|Denkmal|Sehenswürdigkeit
+fr:monument|curiosités
+it:monumento|turistico
+es:monumento|turismo
+ko:기념물|관광
+ja:記念碑|観光
 
 historic-ruins
-en:ruins|attraction|tourism
-ru:развалины|достопримечательность|туризм
+en:ruins|attraction|tourism|sights
+ru:руины|развалины|достопримечательность|туризм
+de:Ruinen|Sehenswürdigkeit
+fr:ruines|curiosités
+it:rovine|turistico
+es:ruinas|turismo
+ko:유적|관광
+ja:古跡|古蹟|廃墟|遺址|観光
 
 historic-castle
-en:castle|attraction|tourism
+en:castle|attraction|tourism|sights
 ru:замок|достопримечательность|туризм
+de:Burg|Schloss|Festung|Sehenswürdigkeit
+fr:château|curiosités
+it:castello|turistico
+es:castillo|turismo
+ko:대저택|관광
+ja:城|観光
 
 historic-archaeological_site
-en:archaeological site|attraction|tourism
+en:archaeological site|attraction|tourism|sights
 ru:раскопки|достопримечательность|туризм
+de:Ausgrabungen|Sehenswürdigkeit
+fr:site archéologique|curiosités
+it:sito archeologico|turistico
+es:sitio arqueológico|turismo
+ko:발굴|관광
+ja:発掘|観光
 
 natural-bay
 en:bay
 ru:залив
+de:Bucht
+fr:golfe
+it:baia
+es:bahía
+ko:만
+ja:ベイ|湾
 
 natural-spring
 en:spring
 ru:родник
+de:Quelle
+fr:source
+it:sorgente
+es:manantial
+ko:샘
+ja:泉
 
 shop-clothes
 en:clothes shop|4clothes
 ru:магазин одежды|4одежда
+de:Bekleidungsgeschäft|Laden
+fr:boutique de vêtements|magasin
+it:negozio di abbigliamento|negozio
+es:tienda de ropa|3ropa|tienda
+ko:옷 가게|쇼핑
+ja:洋服屋さん|店
 
 shop-car_repair
 en:3car repair shop
 ru:4автозапчасти|магазин
+de:Teile|Laden
+fr:parties|magasin
+it:parti|negozio
+es:Piezas|tienda
+ko:부품|쇼핑
+ja:パーツ|店
 
 shop-car
 en:car shop
 ru:автосалон|магазин
+de:Auto-Shop|Laden
+fr:vente voitures|magasin
+it:car negozio|negozio
+es:taller de coches|tienda
+ko:자동차 가게|쇼핑
+ja:カーショップ|店
 
 shop-kiosk
 en:kiosk|shop
 ru:киоск|магазин
+de:Kiosk|Laden
+fr:kiosque|magasin
+it:chiosco|negozio
+es:quiosco|tienda
+ko:정자|쇼핑
+ja:キオスク|帷幄|店
 
 tourism-museum
-en:4museum|attraction|tourism
+en:4museum|attraction|tourism|sights
 ru:4музей|достопримечательность|туризм
+de:4Museum|Sehenswürdigkeit
+fr:4musée|curiosités
+it:4museo|turistico
+es:4museo|turismo
+ko:박물관|관광
+ja:博物館|観光
 
 tourism-guest_house
 en:guest house|hotel|hostel
 ru:гостевой дом|гостиница|отель|хостел
+de:Gästehaus|Hotel|Gasthaus|Wohnheim
+fr:maison d'hôtes|hôtel|foyer
+it:guest house|hôtel|albergo|ostello
+es:casa de huéspedes|hotel|albergue juvenil|residencia
+ko:영빈관|호텔|호스텔
+ja:ゲストハウス|ホテル|ホステル
 
 tourism-motel
 en:3motel|hotel|hostel
 ru:3мотель|гостиница|отель|хостел
+de:3Motel|Hotel|Gasthaus|Wohnheim
+fr:3motel|hôtel|foyer
+it:3motel|hôtel|albergo|ostello
+es:3motel|hotel|albergue juvenil|residencia
+ko:모텔|호텔|호스텔
+ja:モーテル|ホテル|ホステル

@@ -443,6 +443,7 @@
 		comment = Search Suggestion
 		de = Verkehr
 		es = transporte
+		fr = transport
 		ru = транспорт
 		it = transporto
 		ja = 輸送
