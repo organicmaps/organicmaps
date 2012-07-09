@@ -1,20 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="MapsWithMe" default="help">
 
-  <target name="-exclude-text-drules">
-    <exec executable="rm">
-      <arg value="${asset.absolute.dir}/drules_proto.txt"/>
-    </exec>
-  </target>
-  
-  <target name="-include-text-drules">
-    <exec executable="ln">
-      <arg value="-s"/>
-      <arg value="${mwm.data.dir}/drules_proto.txt"/>
-      <arg value="${asset.absolute.dir}/drules_proto.txt"/>
-    </exec>
-  </target>
-  
   <target name="-set-production-mode" depends="android_rules.-set-mode-check">
     <property name="out.packaged.file" location="${out.absolute.dir}/${ant.project.name}-production-unsigned.apk" />
     <property name="out.final.file" location="${out.absolute.dir}/${ant.project.name}-production.apk" />
@@ -76,46 +62,7 @@
     <record-build-info />
   </target>
 
-  <target name="release" depends="-include-text-drules, android_rules.release">
-  </target>
+  <import file="../common_custom_rules.xml"/>
 
-  <target name="debug" depends="-include-text-drules, android_rules.debug">
-  </target>
-
-  <target name="-include-amazon-appinfo">
-    <exec executable="ln">
-      <arg value="-sf"/>
-      <arg value="${mwm.data.dir}/app_info_amazon.txt"/>
-      <arg value="${asset.absolute.dir}/app_info.txt"/>
-    </exec>
-  </target>
-
-  <target name="amazon-production" depends="-include-amazon-appinfo, production"/>
-  <target name="amazon-release" depends="-include-amazon-appinfo, release"/>
-  <target name="amazon-debug" depends="-include-amazon-appinfo, debug"/>
-
-  <target name="-include-google-appinfo">
-    <exec executable="ln">
-      <arg value="-sf"/>
-      <arg value="${mwm.data.dir}/app_info_google.txt"/>
-      <arg value="${asset.absolute.dir}/app_info.txt"/>
-    </exec>
-  </target>
-
-  <target name="google-production" depends="-include-google-appinfo, production"/>
-  <target name="google-release" depends="-include-google-appinfo, release"/>
-  <target name="google-debug" depends="-include-google-appinfo, debug"/>
-
-  <target name="-include-samsung-appinfo">
-    <exec executable="ln">
-      <arg value="-sf"/>
-      <arg value="${mwm.data.dir}/app_info_samsung.txt"/>
-      <arg value="${asset.absolute.dir}/app_info.txt"/>
-    </exec>
-  </target>
-
-  <target name="samsung-production" depends="-include-samsung-appinfo, production"/>
-  <target name="samsung-release" depends="-include-samsung-appinfo, release"/>
-  <target name="samsung-debug" depends="-include-samsung-appinfo, debug"/>
 </project>
 

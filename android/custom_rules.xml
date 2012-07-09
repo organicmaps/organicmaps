@@ -1,30 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="MapsWithMe" default="help">
 
+  <property name="jni.absolute.dir" location="jni" />
+
   <target name="clean" depends="android_rules.clean">
     <exec executable="${ndk.dir}/ndk-build" failonerror="true">
       <arg value="clean"/>
     </exec>
   </target>
 
-  <target name="-exclude-text-drules">
-    <exec executable="rm">
-      <arg value="${asset.absolute.dir}/drules_proto.txt"/>
-    </exec>
-  </target>
-  
-  <target name="-include-text-drules">
-    <exec executable="ln">
-      <arg value="-s"/>
-      <arg value="${mwm.data.dir}/drules_proto.txt"/>
-      <arg value="${asset.absolute.dir}/drules_proto.txt"/>
-    </exec>
-  </target>
-  
   <target name="-ndk-production">
     <exec executable="bash" failonerror="true">
       <arg value="${mwm.tools.dir}/autobuild/android.sh"/>
       <arg value="production"/>
+    </exec>
+    <exec executable="touch">
+      <arg value="${jni.absolute.dir}/com/mapswithme/core/jni_helper.cpp"/>
     </exec>
     <exec executable="${ndk.dir}/ndk-build" failonerror="true">
       <arg value="NDK_DEBUG=0"/>
@@ -67,7 +58,7 @@
     </if>
   </target>
 
-  <target name="production" depends="-exclude-text-drules, -ndk-production, -set-production-mode,                                                                                
+  <target name="production" depends="-ndk-production, -set-production-mode,                                                                                
 				     android_rules.-release-obfuscation-check, android_rules.-package, android_rules.-release-prompt-for-password, android_rules.-release-nosign"
           if="has.keystore" description="Production target - almost the same as release, but with real word config.">
     <!-- only create apk if *not* a library project -->
@@ -99,13 +90,16 @@
       <arg value="${mwm.tools.dir}/autobuild/android.sh"/>
       <arg value="release"/>
     </exec>
+    <exec executable="touch">
+      <arg value="${jni.absolute.dir}/com/mapswithme/core/jni_helper.cpp"/>
+    </exec>
     <exec executable="${ndk.dir}/ndk-build" failonerror="true">
       <arg value="NDK_DEBUG=0"/>
       <arg value="V=1"/>
     </exec>
   </target>
 
-  <target name="release" depends="-include-text-drules, -ndk-release, android_rules.release">
+  <target name="release" depends="-ndk-release, android_rules.release">
   </target>
 
   <target name="-ndk-debug">
@@ -113,13 +107,16 @@
           <arg value="${mwm.tools.dir}/autobuild/android.sh"/>
           <arg value="debug"/>
     </exec>
+    <exec executable="touch">
+      <arg value="${jni.absolute.dir}/com/mapswithme/core/jni_helper.cpp"/>
+    </exec>
     <exec executable="${ndk.dir}/ndk-build" failonerror="true">
           <arg value="NDK_DEBUG=1"/>
           <arg value="V=1"/>
     </exec>
   </target>
 
-  <target name="debug" depends="-include-text-drules, -ndk-debug, android_rules.debug">
+  <target name="debug" depends="-ndk-debug, android_rules.debug">
   </target>
 
   <target name="-include-amazon-appinfo">
