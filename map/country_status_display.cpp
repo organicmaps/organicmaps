@@ -114,7 +114,8 @@ void CountryStatusDisplay::CountryStatusChanged(storage::TIndex const & idx)
 {
   if (idx == m_countryIdx)
   {
-    m_countryStatus = m_storage->CountryStatus(m_countryIdx);
+    UpdateStatusAndProgress();
+
     setIsDirtyDrawing(true);
     invalidate();
   }
@@ -122,7 +123,7 @@ void CountryStatusDisplay::CountryStatusChanged(storage::TIndex const & idx)
 
 void CountryStatusDisplay::CountryProgress(storage::TIndex const & idx, pair<int64_t, int64_t> const & progress)
 {
-  if ((m_countryIdx == idx) && m_storage->CountryStatus(idx) == storage::EDownloading)
+  if ((m_countryIdx == idx) && (m_countryStatus == storage::EDownloading))
   {
     m_countryProgress = progress;
     setIsDirtyDrawing(true);
@@ -180,9 +181,7 @@ CountryStatusDisplay::~CountryStatusDisplay()
 
 void CountryStatusDisplay::downloadCountry()
 {
-  uint64_t const sz = m_storage->CountrySizeInBytes(m_countryIdx).second;
-
-  if (GetPlatform().GetWritableStorageStatus(sz) != Platform::STORAGE_OK)
+  if (GetPlatform().GetWritableStorageStatus(m_countryProgress.second) != Platform::STORAGE_OK)
   {
     m_notEnoughSpace = true;
 
@@ -198,6 +197,26 @@ void CountryStatusDisplay::setDownloadListener(gui::Button::TOnClickListener con
   m_downloadButton->setOnClickListener(l);
 }
 
+void CountryStatusDisplay::UpdateStatusAndProgress()
+{
+  // Actually right now actual status is getting from Framework.
+  // But here it's enough to get it from Storage because of we need only
+  // download progress statuses.
+
+  using namespace storage;
+
+  m_countryProgress = m_storage->CountrySizeInBytes(m_countryIdx);
+
+  m_countryStatus = m_storage->CountryStatus(m_countryIdx);
+  if (m_countryStatus == EUnknown)
+  {
+    if (m_countryProgress.first > 0)
+      m_countryStatus = EOnDisk;
+    else
+      m_countryStatus = ENotDownloaded;
+  }
+}
+
 void CountryStatusDisplay::setCountryName(string const & name)
 {
   if (m_fullName != name)
@@ -206,8 +225,8 @@ void CountryStatusDisplay::setCountryName(string const & name)
     LOG(LDEBUG, (m_mapName, m_mapGroupName));
 
     m_countryIdx = m_storage->FindIndexByName(m_mapName);
-    m_countryStatus = m_storage->CountryStatus(m_countryIdx);
-    m_countryProgress = m_storage->CountrySizeInBytes(m_countryIdx);
+    UpdateStatusAndProgress();
+
     m_fullName = name;
     m_notEnoughSpace = false;
 

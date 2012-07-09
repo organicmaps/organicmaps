@@ -26,6 +26,8 @@ private:
   void CountryProgress(storage::TIndex const &, pair<int64_t, int64_t> const & progress);
   /// @}
 
+  void UpdateStatusAndProgress();
+
   /// download button
   shared_ptr<gui::Button> m_downloadButton;
   /// country status message
