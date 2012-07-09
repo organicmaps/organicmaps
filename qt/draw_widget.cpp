@@ -480,7 +480,7 @@ namespace qt
     }
   }
 
-  void DrawWidget::Search(search::SearchParams params)
+  bool DrawWidget::Search(search::SearchParams params)
   {
     if (m_framework->GetCurrentPosition(params.m_lat, params.m_lon))
     {
@@ -488,7 +488,7 @@ namespace qt
       params.m_validPos = true;
     }
 
-    m_framework->Search(params);
+    return m_framework->Search(params);
   }
 
   void DrawWidget::ShowSearchResult(search::Result const & res)

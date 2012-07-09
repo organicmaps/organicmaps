@@ -80,7 +80,7 @@ namespace qt
 
     void SetScaleControl(QScaleSlider * pScale);
 
-    void Search(search::SearchParams params);
+    bool Search(search::SearchParams params);
     void ShowSearchResult(search::Result const & res);
     void CloseSearch();
 

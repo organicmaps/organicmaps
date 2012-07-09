@@ -155,6 +155,7 @@ void SearchPanel::OnSearchResult(ResultsT * res)
   }
 
   delete res;
+
   // stop search busy indicator
   m_pAnimationTimer->stop();
   m_pClearButton->setIcon(QIcon(":/ui/x.png"));
@@ -170,14 +171,15 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
     m_params.m_query = normalized.toUtf8().constData();
     m_params.m_callback = bind(&SearchPanel::SearchResultThreadFunc, this, _1);
 
-    m_pDrawWidget->Search(m_params);
+    if (m_pDrawWidget->Search(m_params))
+    {
+      // show busy indicator
+      if (!m_pAnimationTimer->isActive())
+        m_pAnimationTimer->start(200);
 
-    // show busy indicator
-    if (!m_pAnimationTimer->isActive())
-      m_pAnimationTimer->start(200);
-    OnAnimationTimer();
-    m_pClearButton->setFlat(true);
-    m_pClearButton->setVisible(true);
+      m_pClearButton->setFlat(true);
+      m_pClearButton->setVisible(true);
+    }
   }
   //else
   //{
