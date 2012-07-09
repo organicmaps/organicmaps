@@ -2,6 +2,7 @@ package com.mapswithme.maps;
 
 import java.util.Locale;
 
+import android.annotation.SuppressLint;
 import android.app.ListActivity;
 import android.content.Context;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mapswithme.maps.location.LocationService;
@@ -225,6 +227,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
   }
 
   private LocationService m_location;
+  private ProgressBar m_progress;
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
@@ -236,6 +239,8 @@ public class SearchActivity extends ListActivity implements LocationService.List
     m_location = ((MWMApplication) getApplication()).getLocationService();
 
     setContentView(R.layout.search_list_view);
+
+    m_progress = (ProgressBar) findViewById(R.id.search_progress);
 
     EditText v = getSearchBox();
     v.addTextChangedListener(new TextWatcher()
@@ -353,19 +358,28 @@ public class SearchActivity extends ListActivity implements LocationService.List
   }
 
   private int m_queryID = 0;
-
   /// Make 5-step increment to leave space for middle queries.
   /// This constant should be equal with native SearchAdapter::QUERY_STEP;
   private final static int QUERY_STEP = 5;
+
+  private boolean isCurrentResult(int id)
+  {
+    return (id >= m_queryID && id < m_queryID + QUERY_STEP);
+  }
 
   public void updateData(final int count, final int resultID)
   {
     runOnUiThread(new Runnable()
     {
+      @SuppressLint("ParserError")
       @Override
       public void run()
       {
         Log.d(TAG, "Show " + count + " results for id = " + resultID);
+
+        // if this results for the last query - hide progress
+        if (isCurrentResult(resultID))
+          m_progress.setVisibility(View.GONE);
 
         // update list view content
         getSA().updateData(count, resultID);
@@ -405,15 +419,21 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
     final String s = getSearchString();
 
-    m_queryID += QUERY_STEP;
-    if (nativeRunSearch(s, lang, m_lat, m_lon, m_mode, m_queryID))
+    final int id = m_queryID + QUERY_STEP;
+    if (nativeRunSearch(s, lang, m_lat, m_lon, m_mode, id))
     {
+      // store current query
+      m_queryID = id;
+
       // mark that it's not the first query already
       if (m_mode % 2 == 0) ++m_mode;
 
       // set toolbar visible only for empty search string
       LinearLayout bar = getSearchToolbar();
       bar.setVisibility(s.length() == 0 ? View.VISIBLE : View.GONE);
+
+      // show search progress
+      m_progress.setVisibility(View.VISIBLE);
     }
   }
 
