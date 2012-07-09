@@ -226,7 +226,7 @@ extern "C"
     CallbackT onProgress(bind(&DownloadFileProgress, jni::make_global_ref(observer), _1));
 
     g_currentRequest.reset(downloader::HttpRequest::PostJson(
-        GetPlatform().MetaServerUrl(), curFile.m_fileName,
+        GetPlatform().ResourcesMetaServerUrl(), curFile.m_fileName,
         bind(&DownloadURLListFinished, _1, onFinish, onProgress)));
 
     return ERR_FILE_IN_PROGRESS;

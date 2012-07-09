@@ -31,6 +31,11 @@ string Platform::HashUniqueID(string const & s)
   return base64::encode(xoredHash);
 }
 
+string Platform::ResourcesMetaServerUrl() const
+{
+  return "http://active.resources.servers.url";
+}
+
 string Platform::MetaServerUrl() const
 {
   return "http://active.servers.url";

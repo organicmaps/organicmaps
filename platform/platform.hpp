@@ -123,6 +123,7 @@ public:
 
   /// @return url for clients to download maps
   string MetaServerUrl() const;
+  string ResourcesMetaServerUrl() const;
 
   /// @return JSON-encoded list of urls if metaserver is unreachable
   string DefaultUrlsJSON() const;
