@@ -161,11 +161,12 @@ Framework::Framework()
     m_lowestMapVersion(-1)
 {
   // Init strings bundle.
-  m_stringsBundle.SetDefaultString("country_status_added_to_queue", "%is added to the\ndownloading queue.");
-  m_stringsBundle.SetDefaultString("country_status_downloading", "Downloading%(%\\%)");
-  m_stringsBundle.SetDefaultString("country_status_download", "Download%");
-  m_stringsBundle.SetDefaultString("country_status_download_failed", "Downloading%\nhas failed");
+  m_stringsBundle.SetDefaultString("country_status_added_to_queue", "^is added to the\ndownloading queue.");
+  m_stringsBundle.SetDefaultString("country_status_downloading", "Downloading^(^%)");
+  m_stringsBundle.SetDefaultString("country_status_download", "Download^");
+  m_stringsBundle.SetDefaultString("country_status_download_failed", "Downloading^\nhas failed");
   m_stringsBundle.SetDefaultString("try_again", "Try Again");
+  m_stringsBundle.SetDefaultString("not_enough_free_space_on_sdcard", "Not enough space\nfor downloading");
 
   // Init GUI controller.
   m_guiController.reset(new gui::Controller());
@@ -568,17 +569,15 @@ void Framework::EndPaint(shared_ptr<PaintEvent> const & e)
 
 void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 {
+  // m_informationDisplay is set and drawn after the m_renderPolicy
   ASSERT ( m_renderPolicy, () );
 
   DrawerYG * pDrawer = e->drawer();
+  yg::gl::Screen * pScreen = pDrawer->screen().get();
 
-  pDrawer->screen()->beginFrame();
+  pScreen->beginFrame();
 
-  /// m_informationDisplay is set and drawn after the m_renderPolicy
-
-  m2::PointD const center = m_navigator.Screen().GlobalRect().GlobalCenter();
-
-  bool isEmptyModel = m_renderPolicy->IsEmptyModel();
+  bool const isEmptyModel = m_renderPolicy->IsEmptyModel();
 
   if (isEmptyModel)
     m_informationDisplay.setEmptyCountryName(m_renderPolicy->GetCountryName());
@@ -589,6 +588,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
   m_informationDisplay.setDebugInfo(0/*m_renderQueue.renderState().m_duration*/, GetDrawScale());
 
+  m2::PointD const center = m_navigator.Screen().GlobalRect().GlobalCenter();
   m_informationDisplay.setCenter(m2::PointD(MercatorBounds::XToLon(center.x),
                                             MercatorBounds::YToLat(center.y)));
 
@@ -612,9 +612,9 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
       }
     }
 
-  pDrawer->screen()->endFrame();
+  pScreen->endFrame();
 
-  m_guiController->DrawFrame(pDrawer->screen().get());
+  m_guiController->DrawFrame(pScreen);
 }
 
 /// Function for calling from platform dependent-paint function.
@@ -974,11 +974,12 @@ bool Framework::GetCurrentPosition(double & lat, double & lon) const
 void Framework::ShowSearchResult(search::Result const & res)
 {
   m2::RectD r = res.GetFeatureRect();
-  if (scales::GetScaleLevel(r) > scales::GetUpperWorldScale())
+  int const worldS = scales::GetUpperWorldScale();
+  if (scales::GetScaleLevel(r) > worldS)
   {
     m2::PointD const c = r.Center();
     if (!IsCountryLoaded(c))
-      r = scales::GetRectForLevel(scales::GetUpperWorldScale(), c, 1.0);
+      r = scales::GetRectForLevel(worldS, c, 1.0);
   }
 
   ShowRectFixed(r);
