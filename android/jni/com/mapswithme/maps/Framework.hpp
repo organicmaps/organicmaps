@@ -62,6 +62,10 @@ namespace android
     storage::Storage & Storage();
     CountryStatusDisplay * GetCountryStatusDisplay();
 
+    void ShowCountry(storage::TIndex const & idx);
+    storage::TStatus GetCountryStatus(storage::TIndex const & idx) const;
+    void DeleteCountry(storage::TIndex const & idx);
+
     void OnLocationStatusChanged(int/* == location::TLocationStatus*/ newStatus);
     void OnLocationUpdated(uint64_t time, double lat, double lon, float accuracy);
     void OnCompassUpdated(uint64_t time, double magneticNorth, double trueNorth, double accuracy);
@@ -82,7 +86,6 @@ namespace android
 
     /// Show rect from another activity. Ensure that no LoadState will be called,
     /// when maim map activity will become active.
-    void ShowCountry(m2::RectD const & r);
     void ShowSearchResult(search::Result const & r);
 
     bool Search(search::SearchParams const & params);

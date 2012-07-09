@@ -4,14 +4,15 @@ public class MapStorage
 {
   public static final int GROUP = -2;
   public static final int COUNTRY = -1;
+
+  /// This constants should be equal with storage/storage.hpp, storage::TStatus
   public static final int ON_DISK = 0;
   public static final int NOT_DOWNLOADED = 1;
   public static final int DOWNLOAD_FAILED = 2;
   public static final int DOWNLOADING = 3;
   public static final int IN_QUEUE = 4;
   public static final int UNKNOWN = 5;
-  public static final int GENERATING_INDEX = 6;
-  public static final int ON_DISK_OUT_OF_DATE = 7;
+  public static final int ON_DISK_OUT_OF_DATE = 6;
 
   public interface Listener
   {
@@ -112,7 +113,6 @@ public class MapStorage
 
   public native void downloadCountry(Index idx);
   public native void deleteCountry(Index idx);
-  public native void deleteCountryFiles(Index idx);
 
   public native Index findIndexByName(String name);
 

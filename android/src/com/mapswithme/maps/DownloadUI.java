@@ -253,10 +253,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
             if (size > getFreeSpace())
               showNotEnoughFreeSpaceDialog(getSizeString(size), name);
             else
-            {
-              m_storage.deleteCountry(idx);
               m_storage.downloadCountry(idx);
-            }
 
             dlg.dismiss();
           }

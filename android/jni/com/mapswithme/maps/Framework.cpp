@@ -172,6 +172,27 @@ namespace android
     return m_work.GetCountryStatusDisplay();
   }
 
+  void Framework::ShowCountry(storage::TIndex const & idx)
+  {
+    storage::Country const & country = m_work.Storage().CountryByIndex(idx);
+    m2::RectD const r = m_work.GetCountryBounds(country.GetFile().m_fileName);
+
+    m_doLoadState = false;
+
+    m_work.SkipLocationCentering();
+    m_work.ShowRect(r);
+  }
+
+  storage::TStatus Framework::GetCountryStatus(storage::TIndex const & idx) const
+  {
+    return m_work.GetCountryStatus(idx);
+  }
+
+  void Framework::DeleteCountry(storage::TIndex const & idx)
+  {
+    m_work.DeleteCountry(idx);
+  }
+
   void Framework::Resize(int w, int h)
   {
     m_work.OnSize(w, h);
@@ -374,14 +395,6 @@ namespace android
     m_y2 = y2;
     m_mask = mask;
     m_eventType = eventType;
-  }
-
-  void Framework::ShowCountry(m2::RectD const & r)
-  {
-    m_doLoadState = false;
-
-    m_work.SkipLocationCentering();
-    m_work.ShowRect(r);
   }
 
   void Framework::ShowSearchResult(search::Result const & r)

@@ -100,7 +100,7 @@ extern "C"
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_MapStorage_countryStatus(JNIEnv * env, jobject thiz, jobject idx)
   {
-    return static_cast<jint>(g_framework->Storage().CountryStatus(IndexBinding(idx).toNative()));
+    return static_cast<jint>(g_framework->GetCountryStatus(IndexBinding(idx).toNative()));
   }
 
   JNIEXPORT void JNICALL
@@ -112,15 +112,8 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MapStorage_deleteCountry(JNIEnv * env, jobject thiz, jobject idx)
   {
-    g_framework->Storage().DeleteCountry(IndexBinding(idx).toNative());
+    g_framework->DeleteCountry(IndexBinding(idx).toNative());
   }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MapStorage_deleteCountryFiles(JNIEnv * env, jobject thiz, jobject idx)
-  {
-    g_framework->Storage().DeleteCountryFiles(IndexBinding(idx).toNative());
-  }
-
 
   JNIEXPORT jobject JNICALL
   Java_com_mapswithme_maps_MapStorage_findIndexByName(JNIEnv * env, jobject thiz, jstring name)
@@ -140,8 +133,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MapStorage_showCountry(JNIEnv * env, jobject thiz, jobject idx)
   {
-    m2::RectD const rect = g_framework->Storage().CountryBounds(IndexBinding(idx).toNative());
-    g_framework->ShowCountry(rect);
+    g_framework->ShowCountry(IndexBinding(idx).toNative());
   }
 
   void ReportChangeCountryStatus(shared_ptr<jobject> const & obj, storage::TIndex const & idx)
