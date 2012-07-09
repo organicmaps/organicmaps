@@ -19,7 +19,7 @@ public class MWMApplication extends android.app.Application
   private LocationService mLocationService = null;
 
   private boolean mIsProVersion = false;
-  private String mProVersionCheckURL;
+  private String mProVersionCheckURL = "";
 
   @Override
   public void onCreate()
@@ -28,12 +28,12 @@ public class MWMApplication extends android.app.Application
 
     AssetManager assets = getAssets();
 
+    mIsProVersion = getPackageName().endsWith(".pro");
+
     try
     {
       InputStream stream = assets.open("app_info.txt");
       BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-
-      mIsProVersion = getPackageName().endsWith(".pro");
       mProVersionCheckURL = reader.readLine();
       Log.i(TAG, "PROCHECKURL: " + mProVersionCheckURL);
     }
