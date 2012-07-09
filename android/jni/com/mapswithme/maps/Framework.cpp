@@ -174,8 +174,7 @@ namespace android
 
   void Framework::ShowCountry(storage::TIndex const & idx)
   {
-    storage::Country const & country = m_work.Storage().CountryByIndex(idx);
-    m2::RectD const r = m_work.GetCountryBounds(country.GetFile().m_fileName);
+    m2::RectD const r = m_work.GetCountryBounds(idx);
 
     m_doLoadState = false;
 

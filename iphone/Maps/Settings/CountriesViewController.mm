@@ -11,11 +11,14 @@
 
 #include "../../platform/platform.hpp"
 
+
 #define MAX_3G_MEGABYTES 50
 
 #define MB 1024*1024
 
+
 using namespace storage;
+
 
 static TIndex CalculateIndex(TIndex const & parentIndex, NSIndexPath * indexPath)
 {
@@ -51,7 +54,9 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   return ours == theirsFixed;
 }
 
+
 @implementation CountriesViewController
+
 
 - (void) onAboutButton:(id)sender
 {
@@ -114,11 +119,13 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
-  TIndex const index = CalculateIndex(m_index, indexPath);
-  storage::Storage & s = GetFramework().Storage();
-  if (s.CountryStatus(index) == EOnDisk)
+  TIndex const index = CalculateIndex(m_index, indexPath);  
+  Framework & frm = GetFramework();
+  
+  if (frm.GetCountryStatus(index) == EOnDisk)
   {
-    m2::RectD const bounds = s.CountryBounds(index);
+    m2::RectD const bounds = frm.GetCountryBounds(index);
+    
     [[[MapsAppDelegate theApp] settingsManager] hide];
     [[MapsAppDelegate theApp].m_mapViewController ZoomToRect:bounds];
   }
@@ -133,7 +140,9 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 {
   cell.accessoryView = nil;
 
-  storage::Storage & s = GetFramework().Storage();
+  Framework & frm = GetFramework();
+  Storage & s = frm.Storage();
+  
   string const & flag = s.CountryFlag(countryIndex);
   if (!flag.empty())
     cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%s.png", flag.c_str()]];
@@ -141,7 +150,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   // do not show status for parent categories
   if (cell.reuseIdentifier != @"ParentCell")
   {
-    switch (s.CountryStatus(countryIndex))
+    switch (frm.GetCountryStatus(countryIndex))
     {
     case EOnDisk:
     case EOnDiskOutOfDate:
@@ -182,17 +191,6 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
         cell.accessoryView = indicator;
         [indicator startAnimating];
         [indicator release];
-        break;
-      }
-
-    case EGeneratingIndex:
-      {
-        cell.textLabel.textColor = [UIColor colorWithRed:52.f/255.f
-                                                   green:43.f/255.f
-                                                    blue:182.f/255.f
-                                                   alpha:1.f];
-        cell.detailTextLabel.text = NSLocalizedString(@"Generating search index ...",
-                  @"Settings/Downloader - info for country which started downloading");
         break;
       }
 
@@ -260,20 +258,18 @@ UITableViewCell * g_clickedCell = nil;
   if (buttonIndex == 0)
   {
     // Delete country
-    storage::Storage & s = GetFramework().Storage();
-    switch (s.CountryStatus(g_clickedIndex))
+    Framework & frm = GetFramework();
+    
+    switch (frm.GetCountryStatus(g_clickedIndex))
     {
     case EOnDiskOutOfDate:
-      s.DeleteCountry(g_clickedIndex);
-      // no break here!
-
     case ENotDownloaded:
     case EDownloadFailed:
-      s.DownloadCountry(g_clickedIndex);
+      frm.Storage().DownloadCountry(g_clickedIndex);
       break;
 
     default:
-      s.DeleteCountry(g_clickedIndex);
+      frm.DeleteCountry(g_clickedIndex);
       // remove "zoom to country" icon
       g_clickedCell.accessoryType = UITableViewCellAccessoryNone;
     }
@@ -323,9 +319,12 @@ UITableViewCell * g_clickedCell = nil;
 	// deselect the current row (don't keep the table selection persistent)
 	[tableView deselectRowAtIndexPath: indexPath animated:YES];
   UITableViewCell * cell = [tableView cellForRowAtIndexPath: indexPath];
+  
   // Push the new table view on the stack
 	TIndex const index = CalculateIndex(m_index, indexPath);
-  storage::Storage & s = GetFramework().Storage();
+  Framework & frm = GetFramework();
+  Storage & s = frm.Storage();
+  
   if (s.CountriesCount(index))
   {
 		CountriesViewController * newController = [[CountriesViewController alloc] initWithIndex: index andHeader: cell.textLabel.text];
@@ -339,7 +338,7 @@ UITableViewCell * g_clickedCell = nil;
     g_clickedIndex = index;
     g_clickedCell = cell;
 
-		switch (s.CountryStatus(index))
+		switch (frm.GetCountryStatus(index))
   	{
   		case EOnDisk:
     	{
@@ -416,11 +415,7 @@ UITableViewCell * g_clickedCell = nil;
 
       case EInQueue:
         // cancel download
-        s.DeleteCountry(index);
-        break;
-
-      case EGeneratingIndex:
-        // we can't stop index generation at this moment
+        frm.DeleteCountry(index);
         break;
 
       default:

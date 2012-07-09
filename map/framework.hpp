@@ -150,6 +150,7 @@ public:
   /// Get country rect from borders (not from mwm file).
   /// @param[in] file Pass country file name without extension as an id.
   m2::RectD GetCountryBounds(string const & file) const;
+  m2::RectD GetCountryBounds(storage::TIndex const & index) const;
   //@}
 
   void AddBookmark(string const & category, Bookmark const & bm);

@@ -28,6 +28,8 @@
 #include "../std/target_os.hpp"
 #include "../std/vector.hpp"
 
+using namespace storage;
+
 
 void Framework::AddMap(string const & file)
 {
@@ -212,7 +214,7 @@ Framework::~Framework()
   ClearBookmarks();
 }
 
-void Framework::DeleteCountry(storage::TIndex const & index)
+void Framework::DeleteCountry(TIndex const & index)
 {
   if (!m_storage.DeleteFromDownloader(index))
   {
@@ -224,11 +226,11 @@ void Framework::DeleteCountry(storage::TIndex const & index)
   m_storage.NotifyStatusChanged(index);
 }
 
-storage::TStatus Framework::GetCountryStatus(storage::TIndex const & index) const
+TStatus Framework::GetCountryStatus(TIndex const & index) const
 {
   using namespace storage;
 
-  storage::TStatus res = m_storage.CountryStatus(index);
+  TStatus res = m_storage.CountryStatus(index);
 
   if (res == EUnknown)
   {
@@ -265,6 +267,11 @@ m2::RectD Framework::GetCountryBounds(string const & file) const
   m2::RectD const r = GetSearchEngine()->GetCountryBounds(file);
   ASSERT ( r.IsValid(), () );
   return r;
+}
+
+m2::RectD Framework::GetCountryBounds(TIndex const & index) const
+{
+  return GetCountryBounds(m_storage.CountryByIndex(index).GetFile().m_fileName);
 }
 
 void Framework::UpdateAfterDownload(string const & file)
