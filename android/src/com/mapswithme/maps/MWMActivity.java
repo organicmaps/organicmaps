@@ -160,9 +160,19 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private native int nativeGetMS();
   private native void nativeSetMS(int u);
+  private native void nativeScale(double k);
 
   private static final String PREFERENCES_MYPOSITION = "isMyPositionEnabled";
 
+  public void onPlusClicked(View v)
+  {
+    nativeScale(3.0 / 2);
+  }
+
+  public void onMinusClicked(View v)
+  {
+    nativeScale(2.0 / 3);
+  }
 
   public void onMyPositionClicked(View v)
   {

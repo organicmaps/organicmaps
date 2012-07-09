@@ -475,4 +475,9 @@ namespace android
   {
     m_work.AddString(name, value);
   }
+
+  void Framework::Scale(double k)
+  {
+    m_work.Scale(k);
+  }
 }

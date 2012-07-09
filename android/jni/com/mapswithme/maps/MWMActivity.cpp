@@ -218,4 +218,10 @@ extern "C"
       env->SetObjectArrayElement(ret, i, env->NewStringUTF(v[i].c_str()));
     return ret;
   }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMActivity_nativeScale(JNIEnv * env, jobject thiz, jdouble k)
+  {
+    g_framework->Scale(static_cast<double>(k));
+  }
 } // extern "C"

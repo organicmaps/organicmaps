@@ -101,6 +101,8 @@ namespace android
     string const GetCountryName(double x, double y) const;
 
     void AddString(string const & name, string const & value);
+
+    void Scale(double k);
   };
 }
 

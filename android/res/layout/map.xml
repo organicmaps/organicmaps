@@ -4,7 +4,39 @@
     <android.view.SurfaceView android:id="@+id/map_surfaceview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"/>
+    
+    <LinearLayout
+        android:id="@+id/navigation_buttons_container"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="bottom"
+        android:layout_gravity="right"
+        android:orientation="vertical">
 
+        <Button
+            android:id="@+id/map_button_plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/plus_button"
+            android:onClick="onPlusClicked"
+            android:layout_marginTop="10dip"
+            android:layout_marginBottom="5dip"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"/>
+
+        <Button
+            android:id="@+id/map_button_minus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/minus_button"
+            android:onClick="onMinusClicked"
+            android:layout_marginTop="5dip"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:layout_marginBottom="58dip"/>
+
+    </LinearLayout>
+    
     <LinearLayout
         android:id="@+id/map_butons_container"
         android:layout_width="fill_parent"
