@@ -22,7 +22,8 @@ namespace android
                     jstring storagePath,
                     jstring tmpPath,
                     jstring extTmpPath,
-                    jstring settingsPath);
+                    jstring settingsPath,
+                    bool isPro);
 
     void OnExternalStorageStatusChanged(bool isAvailable);
 

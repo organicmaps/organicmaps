@@ -53,7 +53,8 @@ public class MWMApplication extends android.app.Application
                extStoragePath,
                getTmpPath(),
                extTmpPath,
-               getSettingsPath());
+               getSettingsPath(),
+               mIsProVersion);
   }
 
   public LocationService getLocationService()
@@ -117,5 +118,6 @@ public class MWMApplication extends android.app.Application
                                  String storagePath,
                                  String tmpPath,
                                  String extTmpPath,
-                                 String settingsPath);
+                                 String settingsPath,
+                                 boolean isPro);
 }

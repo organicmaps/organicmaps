@@ -70,6 +70,10 @@ Platform::Platform()
 
   m_impl->m_scaleEtalonSize = 256 * 1.5 * [[UIScreen mainScreen] scale];
 
+  NSString * appID = [[bundle infoDictionary] objectForKey:@"CFBundleIdentifier"];
+  // .travelguide corresponds to the Lite version without search
+  m_isPro = ([appID rangeOfString:@"com.mapswithme.travelguide"].location == NSNotFound);
+
   NSLog(@"Device: %@, SystemName: %@, SystemVersion: %@", device.model, device.systemName, device.systemVersion);
 
   [pool release];

@@ -38,12 +38,18 @@ string Platform::ResourcesMetaServerUrl() const
 
 string Platform::MetaServerUrl() const
 {
-  return "http://active.servers.url";
+  if (m_isPro)
+    return "http://active.servers.url";
+  else
+    return "http://active.servers.url";
 }
 
 string Platform::DefaultUrlsJSON() const
 {
-  return "[\"http://1st.default.server/\",\"http://2nd.default.server/\",\"http://3rd.default.server/\"]";
+  if (m_isPro)
+    return "[\"http://1st.default.server/\",\"http://2nd.default.server/\",\"http://3rd.default.server/\"]";
+  else
+    return "[\"http://1st.default.server/\",\"http://2nd.default.server/\",\"http://3rd.default.server/\"]";
 }
 
 void Platform::GetFontNames(FilesList & res) const

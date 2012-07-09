@@ -26,6 +26,8 @@ protected:
   string m_tmpDir;
   /// Writable directory to store persistent application data
   string m_settingsDir;
+  /// Flag that it's a paid PRO version of app.
+  bool m_isPro;
 
   class PlatformImpl;
   /// Used only on those platforms where needed
@@ -121,9 +123,13 @@ public:
 
   string UniqueClientId() const;
 
+  inline bool IsPro() const { return m_isPro; }
+
   /// @return url for clients to download maps
+  //@{
   string MetaServerUrl() const;
   string ResourcesMetaServerUrl() const;
+  //@}
 
   /// @return JSON-encoded list of urls if metaserver is unreachable
   string DefaultUrlsJSON() const;

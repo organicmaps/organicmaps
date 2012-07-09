@@ -8,6 +8,9 @@
 #include "../../../../../std/algorithm.hpp"
 #include "../../../../../std/cmath.hpp"
 
+
+// For the future: It's better to use virtual functions instead of this stuff.
+/*
 class Platform::PlatformImpl
 {
 public:
@@ -17,10 +20,12 @@ public:
 
   size_t m_preCachingDepth;
 };
+*/
 
 int Platform::PreCachingDepth() const
 {
-  return m_impl->m_preCachingDepth;
+  //return m_impl->m_preCachingDepth;
+  return 3;
 }
 
 string Platform::UniqueClientId() const
@@ -70,7 +75,7 @@ namespace android
 {
   Platform::~Platform()
   {
-    delete m_impl;
+    //delete m_impl;
   }
 
   void Platform::Initialize(JNIEnv * env,
@@ -78,12 +83,12 @@ namespace android
                             jstring storagePath,
                             jstring tmpPath,
                             jstring extTmpPath,
-                            jstring settingsPath)
+                            jstring settingsPath,
+                            bool isPro)
   {
-    if (m_impl)
-      delete m_impl;
-
-    m_impl = new PlatformImpl();
+    //if (m_impl)
+    //  delete m_impl;
+    //m_impl = new PlatformImpl();
 
     m_resourcesDir = jni::ToNativeString(env, apkPath);
     m_writableDir = jni::ToNativeString(env, storagePath);
@@ -93,6 +98,8 @@ namespace android
     m_externalTmpPath = jni::ToNativeString(env, extTmpPath);
     // By default use external temporary folder
     m_tmpDir = m_externalTmpPath;
+
+    m_isPro = isPro;
 
     LOG(LDEBUG, ("Apk path = ", m_resourcesDir));
     LOG(LDEBUG, ("Writable path = ", m_writableDir));

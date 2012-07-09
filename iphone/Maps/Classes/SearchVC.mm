@@ -216,11 +216,7 @@ static void OnSearchResultCallback(search::Results const & res)
 
 - (BOOL)IsProVersion
 {
-  NSString * appID = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
-  // .travelguide corresponds to the Lite version without search
-  if ([appID rangeOfString:@"com.mapswithme.travelguide"].location != NSNotFound)
-    return FALSE;
-  return TRUE;
+  return GetPlatform().IsPro();
 }
 
 - (void)viewWillAppear:(BOOL)animated
