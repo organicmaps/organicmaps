@@ -135,7 +135,7 @@ namespace qt
           st.DownloadCountry(countryIndex);
 
         if (res == btns[1])
-          m_framework.DeleteMap(countryIndex);
+          m_framework.DeleteCountry(countryIndex);
       }
       break;
 
@@ -149,7 +149,7 @@ namespace qt
         ask.setDefaultButton(QMessageBox::No);
 
         if (ask.exec() == QMessageBox::Yes)
-          m_framework.DeleteMap(countryIndex);
+          m_framework.DeleteCountry(countryIndex);
       }
       break;
 
@@ -160,7 +160,7 @@ namespace qt
 
     case EInQueue:
     case EDownloading:
-      m_framework.DeleteMap(countryIndex);
+      m_framework.DeleteCountry(countryIndex);
       break;
     }
   }

@@ -212,7 +212,7 @@ Framework::~Framework()
   ClearBookmarks();
 }
 
-void Framework::DeleteMap(storage::TIndex const & index)
+void Framework::DeleteCountry(storage::TIndex const & index)
 {
   if (!m_storage.DeleteFromDownloader(index))
   {
@@ -260,7 +260,7 @@ storage::TStatus Framework::GetCountryStatus(storage::TIndex const & index) cons
   return res;
 }
 
-m2::RectD Framework::GetCountryBounds(string const & file)
+m2::RectD Framework::GetCountryBounds(string const & file) const
 {
   m2::RectD const r = GetSearchEngine()->GetCountryBounds(file);
   ASSERT ( r.IsValid(), () );

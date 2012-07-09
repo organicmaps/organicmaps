@@ -143,13 +143,13 @@ public:
 
   /// @name This functions is used by Downloader UI.
   //@{
-  void DeleteMap(storage::TIndex const & index);
+  void DeleteCountry(storage::TIndex const & index);
 
   storage::TStatus GetCountryStatus(storage::TIndex const & index) const;
 
   /// Get country rect from borders (not from mwm file).
   /// @param[in] file Pass country file name without extension as an id.
-  m2::RectD GetCountryBounds(string const & file);
+  m2::RectD GetCountryBounds(string const & file) const;
   //@}
 
   void AddBookmark(string const & category, Bookmark const & bm);
