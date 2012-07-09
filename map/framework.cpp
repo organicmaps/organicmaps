@@ -89,7 +89,7 @@ void Framework::OnGpsUpdate(location::GpsInfo const & info)
 
     // correct rect scale if country isn't downloaded
     int const upperScale = scales::GetUpperWorldScale();
-    if (rectScale > upperScale && IsCountryLoaded(center))
+    if (rectScale > upperScale && !IsCountryLoaded(center))
     {
       setScale = upperScale;
     }
