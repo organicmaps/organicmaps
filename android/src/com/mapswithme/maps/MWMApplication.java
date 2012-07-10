@@ -53,7 +53,8 @@ public class MWMApplication extends android.app.Application
                extStoragePath,
                getTmpPath(),
                extTmpPath,
-               getSettingsPath(),
+               // Changed path for settings to be the same as external storage
+               extStoragePath, //getSettingsPath(),
                mIsProVersion);
   }
 
