@@ -265,6 +265,8 @@ extern "C"
   {
     string const name = g_framework->GetCountryName(MercatorBounds::LonToX(lon),
                                                     MercatorBounds::LatToY(lat));
-    return env->NewStringUTF(name.c_str());
+
+    // Important thing. Return 0 if no any country.
+    return (name.empty() ? 0 : jni::ToJavaString(env, name));
   }
 }
