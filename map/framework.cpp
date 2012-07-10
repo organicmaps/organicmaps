@@ -927,22 +927,24 @@ void Framework::StopScale(ScaleEvent const & e)
 
 search::Engine * Framework::GetSearchEngine() const
 {
-  // Classical "double check" synchronization pattern.
   if (!m_pSearchEngine)
   {
-    //threads::MutexGuard lock(m_modelSyn);
-    if (!m_pSearchEngine)
-    {
-      Platform & pl = GetPlatform();
+    Platform & pl = GetPlatform();
 
-      m_pSearchEngine.reset(
-            new search::Engine(&m_model.GetIndex(),
+    try
+    {
+      m_pSearchEngine.reset(new search::Engine(&m_model.GetIndex(),
                                pl.GetReader(SEARCH_CATEGORIES_FILE_NAME),
                                pl.GetReader(PACKED_POLYGONS_FILE),
                                pl.GetReader(COUNTRIES_FILE),
                                languages::CurrentLanguage()));
     }
+    catch (RootException const & e)
+    {
+      LOG(LCRITICAL, ("Can't load needed resources for search::Engine: ", e.Msg()));
+    }
   }
+
   return m_pSearchEngine.get();
 }
 
