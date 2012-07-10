@@ -2,7 +2,7 @@
 KNOWN_QMAKE_PATHS=( \
   /Users/Alex/QtSDK/Desktop/Qt/4.8.1/gcc/bin \
   /Users/siarheirachytski/QtSDK/Desktop/Qt/474/gcc/bin \
-  /Developer/QtSDK/Desktop/Qt/4.8.0/gcc/bin \
+  /Developer/QtSDK/Desktop/Qt/4.8.1/gcc/bin \
 )
 
 # Prints path to directory with found qmake binary or prints nothing if not found
