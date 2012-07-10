@@ -284,6 +284,13 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     }
   }
 
+  @Override
+  public boolean onSearchRequested()
+  {
+    onSearchClicked(null);
+    return false;
+  }
+
   private void runDownloadActivity()
   {
     startActivity(new Intent(this, DownloadUI.class));
@@ -408,7 +415,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     {
       onAboutDialogClicked();
       return true;
-    } else
+    }
+    else
     {
       return super.onOptionsItemSelected(item);
     }
