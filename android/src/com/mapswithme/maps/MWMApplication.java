@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.AssetManager;
+import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
@@ -26,10 +27,13 @@ public class MWMApplication extends android.app.Application
   {
     super.onCreate();
 
-    AssetManager assets = getAssets();
-
     mIsProVersion = getPackageName().endsWith(".pro");
 
+    // http://stackoverflow.com/questions/1440957/httpurlconnection-getresponsecode-returns-1-on-second-invocation
+    if (Integer.parseInt(Build.VERSION.SDK) < Build.VERSION_CODES.FROYO)
+      System.setProperty("http.keepAlive", "false");
+
+    AssetManager assets = getAssets();
     try
     {
       InputStream stream = assets.open("app_info.txt");
