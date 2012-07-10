@@ -19,7 +19,6 @@ HEADERS +=
 
 SOURCES += \
   ../../testing/testingmain.cpp \
-  country_test.cpp \
   simple_tree_test.cpp \
   country_info_test.cpp \
   generate_langs.cpp \

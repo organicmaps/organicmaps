@@ -12,8 +12,6 @@
 #include "../yg/pen_info.hpp"
 #include "../yg/straight_text_element.hpp"
 
-#include "../version/version.hpp"
-
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
 #include "../base/mutex.hpp"

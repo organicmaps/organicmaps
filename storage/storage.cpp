@@ -17,8 +17,6 @@
 #include "../base/logging.hpp"
 #include "../base/string_utils.hpp"
 
-#include "../version/version.hpp"
-
 #include "../std/algorithm.hpp"
 #include "../std/target_os.hpp"
 #include "../std/bind.hpp"

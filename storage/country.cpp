@@ -1,12 +1,6 @@
 #include "country.hpp"
 
-//#include "../indexer/data_factory.hpp"
-
-//#include "../coding/file_container.hpp"
-
 #include "../platform/platform.hpp"
-
-#include "../version/version.hpp"
 
 #include "../base/logging.hpp"
 
