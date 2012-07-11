@@ -8,8 +8,9 @@
 
     <com.mapswithme.maps.ArrowImage
         android:id="@+id/country_flag"
-        android:layout_width="40dip"
-        android:layout_height="40dip"
+        android:layout_width="34dip"
+        android:layout_height="34dip"
+        android:layout_marginLeft="6dip"
         android:scaleType="center"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"/>
