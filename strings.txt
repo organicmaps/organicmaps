@@ -621,9 +621,9 @@
 		ru = Перейти на карту
 		cs = Přejít na mapu
 	[downloading_country_can_proceed]
-		en = Downloading %@. You can now\n"proceed to the map.
+		en = Downloading %@. You can now\nproceed to the map.
 		ru = Пока загружается %@ \nвы можете пользоваться приложением.
-		cs = Stahuji %@. Nyní můžeš \n"použít na mapě.
+		cs = Stahuji %@. Nyní můžeš \npoužít na mapě.
 	[download_country_ask]
 		en = Download %@?
 		ru = Загрузить %@?
@@ -638,10 +638,10 @@
 		ru = Вы можете загрузить карту\nвашего текущего местоположения.
 		cs = Můžeš stáhnout mapu\nof pro aktuální polohu.
 	[download_location_update_map_proposal]
-		en = You can update the map\of your current location.
+		en = You can update the map\nof your current location.
 		comment = REMOVE THIS_STRING AFTER REFACTORING
 		ru = Вы можете обновить карту\nвашего текущего местоположения.
-		cs = Můžeš aktualizovat mapu\tvé aktuální polohy.
+		cs = Můžeš aktualizovat mapu\ntvé aktuální polohy.
 	[download_location_map_up_to_date]
 		en = The map at your current\nlocation (%@) is up-to-date
 		comment = REMOVE THIS STRING AFTER REFACTORING

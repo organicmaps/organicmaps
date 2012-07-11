@@ -129,13 +129,13 @@
 	<string name="download_resources">Program potřebuje stáhnout \n%1$.1f%2$s povinných zdrojů.</string>
 	<string name="getting_position">Získávání aktuální pozice</string>
 	<string name="download_resources_continue">Přejít na mapu</string>
-	<string name="downloading_country_can_proceed">Stahuji %s. Nyní můžeš \n\"použít na mapě.</string>
+	<string name="downloading_country_can_proceed">Stahuji %s. Nyní můžeš \npoužít na mapě.</string>
 	<string name="download_country_ask">Stáhnout %s?</string>
 	<string name="update_country_ask">Aktualizovat %s?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="download_location_map_proposal">Můžeš stáhnout mapu\nof pro aktuální polohu.</string>
 	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
-	<string name="download_location_update_map_proposal">Můžeš aktualizovat mapu\tvé aktuální polohy.</string>
+	<string name="download_location_update_map_proposal">Můžeš aktualizovat mapu\ntvé aktuální polohy.</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="download_location_map_up_to_date">Mapa tvé aktuální\nlocation (%s) je aktuální.</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
