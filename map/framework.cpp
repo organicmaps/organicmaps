@@ -2,6 +2,7 @@
 #include "draw_processor.hpp"
 #include "drawer_yg.hpp"
 #include "benchmark_provider.hpp"
+#include "benchmark_engine.hpp"
 #include "geourl_process.hpp"
 
 #include "../defines.hpp"
@@ -160,8 +161,15 @@ Framework::Framework()
     m_height(0),
     m_centeringMode(EDoNothing),
     m_informationDisplay(&m_storage),
-    m_lowestMapVersion(-1)
+    m_lowestMapVersion(-1),
+    m_benchmarkEngine(0)
 {
+  // checking whether we should enable benchmark
+  bool isBenchmarkingEnabled = false;
+  (void)Settings::Get("IsBenchmarking", isBenchmarkingEnabled);
+  if (isBenchmarkingEnabled)
+    m_benchmarkEngine = new BenchmarkEngine(this);
+
   // Init strings bundle.
   m_stringsBundle.SetDefaultString("country_status_added_to_queue", "^is added to the\ndownloading queue.");
   m_stringsBundle.SetDefaultString("country_status_downloading", "Downloading^(^%)");
@@ -1036,6 +1044,9 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
     // Do full invalidate instead of any "pending" stuff.
     Invalidate();
 
+    if (m_benchmarkEngine)
+      m_benchmarkEngine->Start();
+
     /*
     if (m_hasPendingInvalidate)
     {
@@ -1119,4 +1130,9 @@ bool Framework::SetViewportByURL(string const & url)
   }
 
   return false;
+}
+
+bool Framework::IsBenchmarking() const
+{
+  return m_benchmarkEngine != 0;
 }

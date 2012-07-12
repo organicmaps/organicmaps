@@ -49,4 +49,8 @@ public:
   void SetCountryNameFn(TCountryNameFn countryNameFn);
 
   bool NeedRedraw() const;
+
+  /// benchmarking protocol
+  int InsertBenchmarkFence();
+  void JoinBenchmarkFence(int fenceID);
 };

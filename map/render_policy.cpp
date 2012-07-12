@@ -12,8 +12,6 @@
 #include "render_policy_mt.hpp"
 #include "tiling_render_policy_st.hpp"
 #include "tiling_render_policy_mt.hpp"
-#include "benchmark_render_policy_mt.hpp"
-#include "benchmark_tiling_render_policy_mt.hpp"
 
 #include "../yg/internal/opengl.hpp"
 
@@ -201,23 +199,17 @@ string const & RenderPolicy::SkinName() const
   return m_skinName;
 }
 
+int RenderPolicy::InsertBenchmarkFence()
+{
+  return 0;
+}
+
+void RenderPolicy::JoinBenchmarkFence(int fenceID)
+{
+}
+
 RenderPolicy * CreateRenderPolicy(RenderPolicy::Params const & params)
 {
-  bool benchmarkingEnabled = false;
-  Settings::Get("IsBenchmarking", benchmarkingEnabled);
-
-  if (benchmarkingEnabled)
-  {
-    bool isBenchmarkingMT = false;
-    Settings::Get("IsBenchmarkingMT", isBenchmarkingMT);
-
-    if (isBenchmarkingMT)
-      return new BenchmarkTilingRenderPolicyMT(params);
-    else
-      return new BenchmarkRenderPolicyMT(params);
-  }
-  else
-  {
 #ifdef OMIM_OS_ANDROID
     return new TilingRenderPolicyST(params);
 #endif
@@ -227,5 +219,4 @@ RenderPolicy * CreateRenderPolicy(RenderPolicy::Params const & params)
 #ifdef OMIM_OS_DESKTOP
     return new TilingRenderPolicyST(params);
 #endif
-  }
 }

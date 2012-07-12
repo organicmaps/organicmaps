@@ -66,4 +66,8 @@ public:
   int  GetDrawScale(ScreenBase const & s) const;
   size_t ScaleEtalonSize() const;
   size_t TileSize() const;
+
+  /// benchmarking protocol
+  int InsertBenchmarkFence();
+  void JoinBenchmarkFence(int fenceID);
 };

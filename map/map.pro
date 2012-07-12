@@ -26,9 +26,7 @@ HEADERS += \
     render_policy.hpp \
     tiling_render_policy_mt.hpp \
     tiling_render_policy_st.hpp \
-    benchmark_tiling_render_policy_mt.hpp \
-    benchmark_framework.hpp \
-    framework_factory.hpp \
+    benchmark_engine.hpp \
     render_policy_st.hpp \
     coverage_generator.hpp \
     tiler.hpp \
@@ -38,7 +36,6 @@ HEADERS += \
     basic_render_policy.hpp \
     render_queue.hpp \
     render_queue_routine.hpp \
-    benchmark_render_policy_mt.hpp \
     ruler.hpp \
     measurement_utils.hpp \
     simple_render_policy.hpp \
@@ -63,11 +60,9 @@ SOURCES += \
     location_state.cpp \
     benchmark_provider.cpp \
     render_policy.cpp \
-    benchmark_tiling_render_policy_mt.cpp \
     tiling_render_policy_st.cpp \
     tiling_render_policy_mt.cpp \
-    benchmark_framework.cpp \
-    framework_factory.cpp \
+    benchmark_engine.cpp \
     render_policy_st.cpp \
     coverage_generator.cpp \
     tiler.cpp \
@@ -77,7 +72,6 @@ SOURCES += \
     basic_render_policy.cpp \
     render_queue_routine.cpp \
     render_queue.cpp \
-    benchmark_render_policy_mt.cpp \
     ruler.cpp \
     measurement_utils.cpp \
     window_handle.cpp \
@@ -99,3 +93,9 @@ SOURCES += \
   SOURCES += qgl_render_context.cpp
   QT += opengl
 }
+
+
+
+
+
+

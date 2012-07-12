@@ -191,3 +191,12 @@ size_t BasicTilingRenderPolicy::TileSize() const
   return m_TileSize;
 }
 
+int BasicTilingRenderPolicy::InsertBenchmarkFence()
+{
+  return m_CoverageGenerator->InsertBenchmarkFence();
+}
+
+void BasicTilingRenderPolicy::JoinBenchmarkFence(int fenceID)
+{
+  return m_CoverageGenerator->JoinBenchmarkFence(fenceID);
+}

@@ -80,4 +80,7 @@ public:
   void WaitForEmptyAndFinished();
 
   void SetGLQueue(yg::gl::PacketsQueue * glQueue);
+
+  int InsertBenchmarkFence();
+  void JoinBenchmarkFence(int id);
 };

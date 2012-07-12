@@ -5,6 +5,7 @@
 #include "../geometry/rect2d.hpp"
 
 #include "../base/timer.hpp"
+#include "../base/thread.hpp"
 
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
@@ -14,9 +15,16 @@ struct BenchmarkRectProvider;
 class WindowHandle;
 class PaintEvent;
 
-class BenchmarkFramework : public Framework
+/// BenchmarkEngine is class which:
+/// - Creates it's own thread
+/// - Feeds the Framework with the paint tasks he wants to performs
+/// - Wait until each tasks completion
+/// - Measure the time of each task and save the result
+class BenchmarkEngine : public threads::IRoutine
 {
 private:
+
+  threads::Thread m_thread;
 
   double m_paintDuration;
   double m_maxDuration;
@@ -44,27 +52,23 @@ private:
   vector<Benchmark> m_benchmarks;
   size_t m_curBenchmark;
 
-  bool m_isBenchmarkFinished;
-  bool m_isBenchmarkInitialized;
+  Framework * m_framework;
 
   void BenchmarkCommandFinished();
-  void NextBenchmarkCommand();
+  bool NextBenchmarkCommand();
   void SaveBenchmarkResults();
   void SendBenchmarkResults();
 
   void MarkBenchmarkResultsStart();
   void MarkBenchmarkResultsEnd();
 
-  void InitBenchmark();
+  void PrepareMaps();
 
-  /// Removes all maps added in base class and adds only benchmarking maps
-  void ReAddLocalMaps();
+  void Do();
 
 public:
 
-  BenchmarkFramework();
+  BenchmarkEngine(Framework * fw);
 
-  void OnSize(int w, int h);
-
-  virtual void DoPaint(shared_ptr<PaintEvent> const & e);
+  void Start();
 };

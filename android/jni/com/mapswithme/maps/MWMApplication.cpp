@@ -34,4 +34,11 @@ extern "C"
     if (!g_framework)
       g_framework = new android::Framework();
   }
+
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_MWMApplication_nativeIsBenchmarking(JNIEnv * env,
+                                                               jobject thiz)
+  {
+    return static_cast<jboolean>(g_framework->IsBenchmarking());
+  }
 }

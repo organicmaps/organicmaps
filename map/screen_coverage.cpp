@@ -283,7 +283,9 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   vector<Tiler::RectInfo> firstClassTiles;
   vector<Tiler::RectInfo> secondClassTiles;
 
-  for (unsigned i = 0; i < newRects.size(); ++i)
+  unsigned newRectsCount = newRects.size();
+
+  for (unsigned i = 0; i < newRectsCount; ++i)
   {
     Tiler::RectInfo nr = newRects[i];
 
@@ -319,8 +321,10 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 
   // filtering out rects that are fully covered by its descedants
 
+  int curNewTile = 0;
+
   // adding commands for tiles which aren't in cache
-  for (size_t i = 0; i < firstClassTiles.size(); ++i)
+  for (size_t i = 0; i < firstClassTiles.size(); ++i, ++curNewTile)
   {
     Tiler::RectInfo const & ri = firstClassTiles[i];
 
@@ -331,6 +335,11 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
                           ri,
                           GetSequenceID()));
 
+    if (curNewTile == newRectsCount - 1)
+      chain.addCommand(bind(&CoverageGenerator::AddFinishSequenceTask,
+                            m_coverageGenerator,
+                            GetSequenceID()));
+
     m_tileRenderer->AddCommand(ri, GetSequenceID(),
                                chain);
 
@@ -340,7 +349,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
     m_newTileRects.insert(ri);
   }
 
-  for (size_t i = 0; i < secondClassTiles.size(); ++i)
+  for (size_t i = 0; i < secondClassTiles.size(); ++i, ++curNewTile)
   {
     Tiler::RectInfo const & ri = secondClassTiles[i];
 
@@ -349,6 +358,11 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
     chain.addCommand(bind(&TileRenderer::RemoveActiveTile,
                           m_tileRenderer,
                           ri));
+
+    if (curNewTile == newRectsCount - 1)
+      chain.addCommand(bind(&CoverageGenerator::AddFinishSequenceTask,
+                            m_coverageGenerator,
+                            GetSequenceID()));
 
     m_tileRenderer->AddCommand(ri, GetSequenceID(), chain);
   }

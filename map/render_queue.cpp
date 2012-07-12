@@ -135,3 +135,13 @@ void RenderQueue::SetGLQueue(yg::gl::PacketsQueue * glQueue)
   m_routine->setGLQueue(glQueue);
 }
 
+int RenderQueue::InsertBenchmarkFence()
+{
+  return m_routine->insertBenchmarkFence();
+}
+
+void RenderQueue::JoinBenchmarkFence(int id)
+{
+  return m_routine->joinBenchmarkFence(id);
+}
+

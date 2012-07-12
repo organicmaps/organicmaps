@@ -28,7 +28,9 @@ CoverageGenerator::CoverageGenerator(
     m_windowHandle(windowHandle),
     m_countryNameFn(countryNameFn),
     m_glQueue(glQueue),
-    m_skinName(skinName)
+    m_skinName(skinName),
+    m_fenceManager(2),
+    m_currentFenceID(-1)
 {
   g_coverageGeneratorDestroyed = false;
 
@@ -127,12 +129,13 @@ void CoverageGenerator::InvalidateTilesImpl(m2::AnyRectD const & r, int startSca
 
 void CoverageGenerator::InvalidateTiles(m2::AnyRectD const & r, int startScale)
 {
-  /// this automatically will skip the previous CoverScreen commands
-  /// and MergeTiles commands from previously generated ScreenCoverages
   if (m_sequenceID == numeric_limits<int>::max())
     return;
 
+  /// this automatically will skip the previous CoverScreen commands
+  /// and MergeTiles commands from previously generated ScreenCoverages
   ++m_sequenceID;
+
   m_queue.AddCommand(bind(&CoverageGenerator::InvalidateTilesImpl, this, r, startScale));
 }
 
@@ -147,7 +150,25 @@ void CoverageGenerator::AddCoverScreenTask(ScreenBase const & screen, bool doFor
   m_currentScreen = screen;
 
   ++m_sequenceID;
+
   m_queue.AddCommand(bind(&CoverageGenerator::CoverScreen, this, screen, m_sequenceID));
+}
+
+int CoverageGenerator::InsertBenchmarkFence()
+{
+  m_currentFenceID = m_fenceManager.insertFence();
+  return m_currentFenceID;
+}
+
+void CoverageGenerator::JoinBenchmarkFence(int fenceID)
+{
+  CHECK(fenceID == m_currentFenceID, ("InsertBenchmarkFence without corresponding SignalBenchmarkFence detected"));
+  m_fenceManager.joinFence(fenceID);
+}
+
+void CoverageGenerator::SignalBenchmarkFence()
+{
+  m_fenceManager.signalFence(m_currentFenceID);
 }
 
 void CoverageGenerator::CoverScreen(ScreenBase const & screen, int sequenceID)
@@ -230,6 +251,22 @@ void CoverageGenerator::CheckEmptyModel(int sequenceID)
   m_currentCoverage->CheckEmptyModelAtCoverageCenter();
 
   m_windowHandle->invalidate();
+}
+
+void CoverageGenerator::AddFinishSequenceTask(int sequenceID)
+{
+  m_queue.AddCommand(bind(&CoverageGenerator::FinishSequence, this, sequenceID));
+}
+
+void CoverageGenerator::FinishSequence(int sequenceID)
+{
+/*  if (sequenceID < m_sequenceID)
+  {
+    LOG(LINFO, ("sequence", sequenceID, "was cancelled"));
+    return;
+  }*/
+
+  SignalBenchmarkFence();
 }
 
 void CoverageGenerator::WaitForEmptyAndFinished()

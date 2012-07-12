@@ -3,6 +3,7 @@
 #include "../base/thread.hpp"
 #include "../base/condition.hpp"
 #include "../base/commands_queue.hpp"
+#include "../base/fence_manager.hpp"
 #include "../geometry/rect2d.hpp"
 #include "../geometry/screenbase.hpp"
 #include "../std/list.hpp"
@@ -84,6 +85,9 @@ private:
   /// A list of window handles to notify about ending rendering operations.
   list<shared_ptr<WindowHandle> > m_windowHandles;
 
+  FenceManager m_fenceManager;
+  int m_currentFenceID;
+
   bool m_isMultiSampled;
   bool m_doPeriodicalUpdate;
   double m_updateInterval;
@@ -145,4 +149,8 @@ public:
   /// wait for all commands are processed.
   void waitForEmptyAndFinished();
   void setGLQueue(yg::gl::PacketsQueue * glQueue);
+
+  int insertBenchmarkFence();
+  void signalBenchmarkFence();
+  void joinBenchmarkFence(int id);
 };

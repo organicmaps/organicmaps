@@ -153,3 +153,13 @@ bool BasicRenderPolicy::NeedRedraw() const
 
   return false;
 }
+
+int BasicRenderPolicy::InsertBenchmarkFence()
+{
+  return m_RenderQueue->InsertBenchmarkFence();
+}
+
+void BasicRenderPolicy::JoinBenchmarkFence(int fenceID)
+{
+  m_RenderQueue->JoinBenchmarkFence(fenceID);
+}

@@ -1,13 +1,13 @@
 #include "Framework.h"
 
-#include "../../../map/framework_factory.hpp"
+#include "../../../map/framework.hpp"
 
 static Framework * g_framework = 0;
 
 Framework & GetFramework()
 {
   if (g_framework == 0)
-    g_framework = FrameworkFactory::CreateFramework();
+    g_framework = new Framework();
   return *g_framework;
 }
 

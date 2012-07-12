@@ -2,7 +2,6 @@
 #include "proxystyle.hpp"
 #include "slider_ctrl.hpp"
 
-#include "../map/framework_factory.hpp"
 #include "../map/render_policy.hpp"
 
 #include "../gui/controller.hpp"
@@ -55,7 +54,7 @@ namespace qt
     : QGLWidget(pParent),
       m_isInitialized(false),
       m_isTimerStarted(false),
-      m_framework(FrameworkFactory::CreateFramework()),
+      m_framework(new Framework()),
       m_isDrag(false),
       m_isRotate(false),
       //m_redrawInterval(100),

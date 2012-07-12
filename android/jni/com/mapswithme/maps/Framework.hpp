@@ -106,6 +106,8 @@ namespace android
     void AddString(string const & name, string const & value);
 
     void Scale(double k);
+
+    bool IsBenchmarking() const;
   };
 }
 

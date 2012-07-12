@@ -39,10 +39,14 @@ namespace search { class Result; }
 namespace gui { class Controller; }
 
 class CountryStatusDisplay;
+class BenchmarkEngine;
 
 class Framework
 {
 protected:
+
+  friend class BenchmarkEngine;
+
   StringsBundle m_stringsBundle;
 
   mutable scoped_ptr<search::Engine> m_pSearchEngine;
@@ -104,6 +108,8 @@ protected:
   int m_lowestMapVersion;
 
   void DrawAdditionalInfo(shared_ptr<PaintEvent> const & e);
+
+  BenchmarkEngine * m_benchmarkEngine;
 
 public:
   Framework();
@@ -323,6 +329,8 @@ public:
   {
     m_stringsBundle.SetString(name, value);
   }
+
+  bool IsBenchmarking() const;
 
 private:
   bool IsCountryLoaded(m2::PointD const & pt) const;

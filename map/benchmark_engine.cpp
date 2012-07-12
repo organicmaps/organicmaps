@@ -1,4 +1,4 @@
-#include "benchmark_framework.hpp"
+#include "benchmark_engine.hpp"
 #include "benchmark_provider.hpp"
 
 #include "../platform/settings.hpp"
@@ -123,35 +123,31 @@ struct MapsCollector
   }
 };
 
-void BenchmarkFramework::ReAddLocalMaps()
+void BenchmarkEngine::PrepareMaps()
 {
   // remove all previously added maps in framework constructor
   Platform::FilesList files;
-  Framework::GetLocalMaps(files);
+  m_framework->GetLocalMaps(files);
   for_each(files.begin(), files.end(),
-           bind(&BenchmarkFramework::RemoveMap, this, _1));
+           bind(&Framework::RemoveMap, m_framework, _1));
   // add only maps needed for benchmarks
   MapsCollector collector;
   ForEachBenchmarkRecord(collector);
   for_each(collector.m_maps.begin(), collector.m_maps.end(),
-           bind(&BenchmarkFramework::AddMap, this, _1));
+           bind(&Framework::AddMap, m_framework, _1));
 }
 
-BenchmarkFramework::BenchmarkFramework()
+BenchmarkEngine::BenchmarkEngine(Framework * fw)
   : m_paintDuration(0),
     m_maxDuration(0),
-    m_isBenchmarkFinished(false),
-    m_isBenchmarkInitialized(false)
+    m_framework(fw)
 {
-
   m_startTime = my::FormatCurrentTime();
 
-  Framework::m_informationDisplay.enableBenchmarkInfo(true);
-
-  ReAddLocalMaps();
+  m_framework->GetInformationDisplay().enableBenchmarkInfo(true);
 }
 
-void BenchmarkFramework::BenchmarkCommandFinished()
+void BenchmarkEngine::BenchmarkCommandFinished()
 {
   double duration = m_paintDuration;
 
@@ -159,7 +155,7 @@ void BenchmarkFramework::BenchmarkCommandFinished()
   {
     m_maxDuration = duration;
     m_maxDurationRect = m_curBenchmarkRect;
-    Framework::m_informationDisplay.addBenchmarkInfo("maxDurationRect: ", m_maxDurationRect, m_maxDuration);
+    m_framework->GetInformationDisplay().addBenchmarkInfo("maxDurationRect: ", m_maxDurationRect, m_maxDuration);
   }
 
   BenchmarkResult res;
@@ -171,13 +167,10 @@ void BenchmarkFramework::BenchmarkCommandFinished()
   if (m_benchmarkResults.size() > 100)
     SaveBenchmarkResults();
 
-
   m_paintDuration = 0;
-  if (!m_isBenchmarkFinished)
-    NextBenchmarkCommand();
 }
 
-void BenchmarkFramework::SaveBenchmarkResults()
+void BenchmarkEngine::SaveBenchmarkResults()
 {
   string resultsPath;
   Settings::Get("BenchmarkResults", resultsPath);
@@ -200,7 +193,7 @@ void BenchmarkFramework::SaveBenchmarkResults()
   m_benchmarkResults.clear();
 }
 
-void BenchmarkFramework::SendBenchmarkResults()
+void BenchmarkEngine::SendBenchmarkResults()
 {
 //    ofstream fout(GetPlatform().WritablePathForFile("benchmarks/results.txt").c_str(), ios::app);
 //    fout << "[COMPLETED]";
@@ -209,7 +202,7 @@ void BenchmarkFramework::SendBenchmarkResults()
   /// and delete results file
 }
 
-void BenchmarkFramework::MarkBenchmarkResultsEnd()
+void BenchmarkEngine::MarkBenchmarkResultsEnd()
 {
   string resultsPath;
   Settings::Get("BenchmarkResults", resultsPath);
@@ -218,7 +211,7 @@ void BenchmarkFramework::MarkBenchmarkResultsEnd()
   fout << "END " << m_startTime << endl;
 }
 
-void BenchmarkFramework::MarkBenchmarkResultsStart()
+void BenchmarkEngine::MarkBenchmarkResultsStart()
 {
   string resultsPath;
   Settings::Get("BenchmarkResults", resultsPath);
@@ -227,61 +220,50 @@ void BenchmarkFramework::MarkBenchmarkResultsStart()
   fout << "START " << m_startTime << endl;
 }
 
-void BenchmarkFramework::NextBenchmarkCommand()
+bool BenchmarkEngine::NextBenchmarkCommand()
 {
   if ((m_benchmarks[m_curBenchmark].m_provider->hasRect()) || (++m_curBenchmark < m_benchmarks.size()))
   {
-    Framework::m_navigator.SetFromRect(m2::AnyRectD(m_benchmarks[m_curBenchmark].m_provider->nextRect()));
-    m_curBenchmarkRect = Framework::m_navigator.Screen().GlobalRect().GetGlobalRect();
-    Framework::Invalidate();
+    double s = m_benchmarksTimer.ElapsedSeconds();
+
+    int fenceID = m_framework->GetRenderPolicy()->InsertBenchmarkFence();
+
+    m_framework->ShowRect(m_benchmarks[m_curBenchmark].m_provider->nextRect());
+    m_curBenchmarkRect = m_framework->m_navigator.Screen().GlobalRect().GetGlobalRect();
+
+    m_framework->GetRenderPolicy()->JoinBenchmarkFence(fenceID);
+
+    m_paintDuration += m_benchmarksTimer.ElapsedSeconds() - s;
+    BenchmarkCommandFinished();
+
+    return true;
   }
   else
   {
-    static bool isFirstTime = true;
-    if (isFirstTime)
-    {
-      m_isBenchmarkFinished = true;
-      isFirstTime = false;
-      SaveBenchmarkResults();
-      MarkBenchmarkResultsEnd();
-      SendBenchmarkResults();
-      LOG(LINFO, ("Bechmarks took ", m_benchmarksTimer.ElapsedSeconds(), " seconds to complete"));
-    }
+    SaveBenchmarkResults();
+    MarkBenchmarkResultsEnd();
+    SendBenchmarkResults();
+    LOG(LINFO, ("Bechmarks took ", m_benchmarksTimer.ElapsedSeconds(), " seconds to complete"));
+    return false;
   }
 }
 
-void BenchmarkFramework::InitBenchmark()
+void BenchmarkEngine::Start()
 {
-  DoGetBenchmarks<Benchmark> doGet(m_benchmarks, Framework::m_navigator);
+  m_thread.Create(this);
+}
+
+void BenchmarkEngine::Do()
+{
+  PrepareMaps();
+
+  DoGetBenchmarks<Benchmark> doGet(m_benchmarks, m_framework->m_navigator);
   ForEachBenchmarkRecord(doGet);
 
   m_curBenchmark = 0;
 
-  //base_type::m_renderPolicy->addAfterFrame(bind(&this_type::BenchmarkCommandFinished, this));
-
   m_benchmarksTimer.Reset();
 
   MarkBenchmarkResultsStart();
-  NextBenchmarkCommand();
-
-  Framework::Invalidate();
-}
-
-void BenchmarkFramework::OnSize(int w, int h)
-{
-  Framework::OnSize(w, h);
-  if (!m_isBenchmarkInitialized)
-  {
-    m_isBenchmarkInitialized = true;
-    InitBenchmark();
-  }
-}
-
-void BenchmarkFramework::DoPaint(shared_ptr<PaintEvent> const & e)
-{
-  double s = m_benchmarksTimer.ElapsedSeconds();
-  Framework::DoPaint(e);
-  m_paintDuration += m_benchmarksTimer.ElapsedSeconds() - s;
-  if (!m_isBenchmarkFinished)
-    BenchmarkCommandFinished();
+  while (NextBenchmarkCommand()){};
 }

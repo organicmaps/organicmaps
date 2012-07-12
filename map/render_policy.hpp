@@ -124,6 +124,10 @@ public:
 
   double VisualScale() const;
   string const & SkinName() const;
+
+  /// Benchmarking protocol
+  virtual int InsertBenchmarkFence();
+  virtual void JoinBenchmarkFence(int fenceID);
 };
 
 RenderPolicy * CreateRenderPolicy(RenderPolicy::Params const & params);

@@ -492,4 +492,9 @@ namespace android
   {
     m_work.Scale(k);
   }
+
+  bool Framework::IsBenchmarking() const
+  {
+    return m_work.IsBenchmarking();
+  }
 }

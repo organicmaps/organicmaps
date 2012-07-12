@@ -7,8 +7,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.PowerManager;
-import android.os.PowerManager.WakeLock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -51,31 +49,10 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   private LocationService mLocationService = null;
   private String mCountryName = null;
 
-  private WakeLock mWakeLock = null;
-
   private int getBytesToDownload()
   {
     return getBytesToDownload(mApplication.getApkPath(),
                               mApplication.getDataStoragePath());
-  }
-
-  private void disableAutomaticStandby()
-  {
-    if (mWakeLock == null)
-    {
-      PowerManager pm = (PowerManager) mApplication.getSystemService(android.content.Context.POWER_SERVICE);
-      mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE, TAG);
-      mWakeLock.acquire();
-    }
-  }
-
-  private void enableAutomaticStandby()
-  {
-    if (mWakeLock != null)
-    {
-      mWakeLock.release();
-      mWakeLock = null;
-    }
   }
 
   private void setDownloadMessage(int bytesToDownload)
@@ -109,14 +86,14 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     }
     else
     {
-      disableAutomaticStandby();
+      mApplication.disableAutomaticStandby();
       finishFilesDownload(mBytesToDownload);
     }
   }
 
   public void onDownloadClicked(View v)
   {
-    disableAutomaticStandby();
+    mApplication.disableAutomaticStandby();
 
     mProgress.setVisibility(View.VISIBLE);
     mProgress.setMax(mBytesToDownload);
@@ -129,7 +106,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
   public void onPauseClicked(View v)
   {
-    enableAutomaticStandby();
+    mApplication.enableAutomaticStandby();
 
     mResumeButton.setVisibility(View.VISIBLE);
     mPauseButton.setVisibility(View.GONE);
@@ -139,7 +116,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
   public void onResumeClicked(View v)
   {
-    disableAutomaticStandby();
+    mApplication.disableAutomaticStandby();
 
     mPauseButton.setVisibility(View.VISIBLE);
     mResumeButton.setVisibility(View.GONE);
@@ -150,7 +127,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
   public void onTryAgainClicked(View v)
   {
-    disableAutomaticStandby();
+    mApplication.disableAutomaticStandby();
 
     mProgress.setVisibility(View.VISIBLE);
     mTryAgainButton.setVisibility(View.GONE);
@@ -197,7 +174,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
   public void finishFilesDownload(int result)
   {
-    enableAutomaticStandby();
+    mApplication.enableAutomaticStandby();
     if (result == ERR_NO_MORE_FILES)
     {
       if (mCountryName != null && mDownloadCountryCheckBox.isChecked())

@@ -32,6 +32,11 @@ namespace yg
   class ResourceStyleCache;
 }
 
+/// Control class for TilingRenderPolicy. It processes request from the RenderPolicy
+/// to draw a specific ScreenBase by splitting it in tiles that is not rendered now and
+/// feeding them into TileRenderer. Each command to render a tile is enqueued with
+/// a small command, which is feeding the CoverageGenerator with the command to process
+/// newly rendered tile(p.e. merge it into current ScreenCoverage).
 class CoverageGenerator
 {
 private:
@@ -58,6 +63,9 @@ private:
   yg::gl::PacketsQueue * m_glQueue;
   string m_skinName;
 
+  FenceManager m_fenceManager;
+  int m_currentFenceID;
+
   ScreenCoverage * CreateCoverage();
 
 public:
@@ -83,10 +91,12 @@ public:
                         int sequenceID);
 
   void AddCheckEmptyModelTask(int sequenceID);
+  void AddFinishSequenceTask(int sequenceID);
 
   void CoverScreen(ScreenBase const & screen, int sequenceID);
   void MergeTile(Tiler::RectInfo const & rectInfo, int sequenceID);
   void CheckEmptyModel(int sequenceID);
+  void FinishSequence(int sequenceID);
 
   void Cancel();
 
@@ -95,6 +105,10 @@ public:
   string GetCountryName(m2::PointD const & pt) const;
 
   ScreenCoverage & CurrentCoverage();
+
+  int InsertBenchmarkFence();
+  void JoinBenchmarkFence(int fenceID);
+  void SignalBenchmarkFence();
 
   void SetSequenceID(int sequenceID);
 

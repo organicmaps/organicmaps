@@ -375,6 +375,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onPause()
   {
+    if (mApplication.nativeIsBenchmarking())
+      mApplication.enableAutomaticStandby();
+
     getLocationService().stopUpdate(this);
 
     stopWatchingExternalStorage();
@@ -385,6 +388,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onResume()
   {
+    if (mApplication.nativeIsBenchmarking())
+      mApplication.disableAutomaticStandby();
+
     View button = findViewById(R.id.map_button_myposition);
     if (button.isSelected())
     {

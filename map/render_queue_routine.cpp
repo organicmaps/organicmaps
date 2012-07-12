@@ -23,9 +23,9 @@
 #include "window_handle.hpp"
 #include "render_queue_routine.hpp"
 RenderQueueRoutine::RenderModelCommand::RenderModelCommand(ScreenBase const & frameScreen,
-                                                             render_fn_t renderFn)
-                                                               : m_frameScreen(frameScreen),
-                                                               m_renderFn(renderFn)
+                                                           render_fn_t renderFn)
+                                                           : m_frameScreen(frameScreen),
+                                                             m_renderFn(renderFn)
 {}
 
 RenderQueueRoutine::RenderQueueRoutine(shared_ptr<yg::gl::RenderState> const & renderState,
@@ -37,6 +37,7 @@ RenderQueueRoutine::RenderQueueRoutine(shared_ptr<yg::gl::RenderState> const & r
                                        unsigned scaleEtalonSize,
                                        double visualScale,
                                        yg::Color const & bgColor)
+  : m_fenceManager(2)
 {
   m_skinName = skinName;
   m_visualScale = visualScale;
@@ -49,6 +50,7 @@ RenderQueueRoutine::RenderQueueRoutine(shared_ptr<yg::gl::RenderState> const & r
   m_scaleEtalonSize = scaleEtalonSize;
   m_bgColor = bgColor;
   m_glQueue = 0;
+  m_currentFenceID = -1;
 }
 
 void RenderQueueRoutine::Cancel()
@@ -506,6 +508,8 @@ void RenderQueueRoutine::Do()
       }
 
       invalidate();
+
+      signalBenchmarkFence();
     }
   }
 
@@ -609,4 +613,21 @@ void RenderQueueRoutine::waitForEmptyAndFinished()
 void RenderQueueRoutine::setGLQueue(yg::gl::PacketsQueue * glQueue)
 {
   m_glQueue = glQueue;
+}
+
+int RenderQueueRoutine::insertBenchmarkFence()
+{
+  m_currentFenceID = m_fenceManager.insertFence();
+  return m_currentFenceID;
+}
+
+void RenderQueueRoutine::joinBenchmarkFence(int id)
+{
+  CHECK(m_currentFenceID == id, ());
+  m_fenceManager.joinFence(id);
+}
+
+void RenderQueueRoutine::signalBenchmarkFence()
+{
+  m_fenceManager.signalFence(m_currentFenceID);
 }
