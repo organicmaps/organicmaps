@@ -48,10 +48,12 @@ public:
   {
     if (m_displayLink)
     {
+      // Set EStopped flag first. It seems like 'CADisplayLink::invalidate' can invoke pending 'perform'.
+      // So we should check EStopped flag in 'perform' to skip pending call.
+      m_state = EStopped;
       [m_displayLink invalidate];
       [m_objCppWrapper release];
       m_displayLink = 0;
-      m_state = EStopped;
     }
   }
 
@@ -69,7 +71,10 @@ public:
 
   void perform()
   {
-    m_frameFn();
+    // In case when we stopped and have pending perform at the same time.
+    // It's not allowed to call m_frameFn after stopping (see WindowHandle::~WindowHandle).
+    if (m_state != EStopped)
+      m_frameFn();
   }
 };
 
