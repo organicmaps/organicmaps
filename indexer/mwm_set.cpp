@@ -1,4 +1,5 @@
 #include "mwm_set.hpp"
+#include "scales.hpp"
 
 #include "../../defines.hpp"
 
@@ -15,6 +16,15 @@ MwmInfo::MwmInfo() : m_lockCount(0), m_status(STATUS_REMOVED)
   // Important: STATUS_REMOVED - is the default value.
   // Apply STATUS_ACTIVE before adding to maps container.
 }
+
+MwmInfo::MwmTypeT MwmInfo::GetType() const
+{
+  if (m_minScale > 0) return COUNTRY;
+  if (m_maxScale == scales::GetUpperWorldScale()) return WORLD;
+  ASSERT_EQUAL(m_maxScale, scales::GetUpperScale(), ());
+  return COASTS;
+}
+
 
 MwmSet::MwmLock::MwmLock(MwmSet & mwmSet, MwmId mwmId)
   : m_mwmSet(mwmSet), m_id(mwmId), m_pValue(mwmSet.LockValue(mwmId))
@@ -170,16 +180,13 @@ bool MwmSet::RemoveImpl(string const & fileName)
   return ret;
 }
 
-void MwmSet::RemoveAllCountries()
+void MwmSet::RemoveAll()
 {
   threads::MutexGuard mutexGuard(m_lock);
   UNUSED_VALUE(mutexGuard);
 
   for (MwmId i = 0; i < m_info.size(); ++i)
-  {
-    if (m_info[i].IsCountry())
-      (void)RemoveImpl(i);
-  }
+    (void)RemoveImpl(i);
 
   // do not call ClearCache - it's under mutex lock
   ClearCacheImpl(m_cache.begin(), m_cache.end());

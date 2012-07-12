@@ -1,7 +1,6 @@
 #pragma once
 
 #include "events.hpp"
-//#include "drawer_yg.hpp"
 #include "render_policy.hpp"
 #include "information_display.hpp"
 #include "window_handle.hpp"
@@ -16,30 +15,16 @@
 
 #include "../storage/storage.hpp"
 
-//#include "../indexer/mercator.hpp"
-//#include "../indexer/data_header.hpp"
-//#include "../indexer/scales.hpp"
-
-//#include "../platform/platform.hpp"
 #include "../platform/location.hpp"
 
 #include "../yg/defines.hpp"
 #include "../yg/screen.hpp"
 #include "../yg/color.hpp"
-//#include "../yg/render_state.hpp"
-//#include "../yg/skin.hpp"
-//#include "../yg/resource_manager.hpp"
-//#include "../yg/overlay.hpp"
-
-//#include "../coding/file_reader.hpp"
-//#include "../coding/file_writer.hpp"
 
 #include "../geometry/rect2d.hpp"
 #include "../geometry/screenbase.hpp"
 
 #include "../base/logging.hpp"
-//#include "../base/mutex.hpp"
-//#include "../base/timer.hpp"
 #include "../base/strings_bundle.hpp"
 
 #include "../std/vector.hpp"
@@ -50,8 +35,6 @@
 
 //#define DRAW_TOUCH_POINTS
 
-//class DrawerYG;
-//class RenderPolicy;
 namespace search { class Result; }
 namespace gui { class Controller; }
 
@@ -60,7 +43,6 @@ class CountryStatusDisplay;
 class Framework
 {
 protected:
-
   StringsBundle m_stringsBundle;
 
   mutable scoped_ptr<search::Engine> m_pSearchEngine;
@@ -136,8 +118,13 @@ public:
 
   void AddMap(string const & file);
   void RemoveMap(string const & datFile);
+
+  /// @name Process storage connecting/disconnecting.
+  //@{
   void AddLocalMaps();
   void RemoveLocalMaps();
+  //@}
+
   /// @return File names without path.
   void GetLocalMaps(vector<string> & outMaps) const;
 
@@ -338,5 +325,5 @@ public:
   }
 
 private:
-  bool IsCountryLoaded(m2::PointD const & pt);
+  bool IsCountryLoaded(m2::PointD const & pt) const;
 };

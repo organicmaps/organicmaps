@@ -68,9 +68,9 @@ bool FeaturesFetcher::UpdateMap(string const & file, m2::RectD & rect)
   return m_multiIndex.UpdateMap(file, rect);
 }
 
-void FeaturesFetcher::RemoveAllCountries()
+void FeaturesFetcher::RemoveAll()
 {
-  m_multiIndex.RemoveAllCountries();
+  m_multiIndex.RemoveAll();
 }
 
 //void FeaturesFetcher::Clean()
@@ -91,7 +91,8 @@ bool FeaturesFetcher::IsLoaded(m2::PointD const & pt) const
   m_multiIndex.GetMwmInfo(info);
 
   for (size_t i = 0; i < info.size(); ++i)
-    if (info[i].IsExist() && info[i].IsCountry() &&
+    if (info[i].IsExist() &&
+        info[i].GetType() == MwmInfo::COUNTRY &&
         info[i].m_limitRect.IsPointInside(pt))
     {
       return true;

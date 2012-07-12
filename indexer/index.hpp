@@ -5,7 +5,6 @@
 #include "features_vector.hpp"
 #include "scale_index.hpp"
 #include "mwm_set.hpp"
-#include "scales.hpp"
 
 #include "../coding/file_container.hpp"
 
@@ -150,19 +149,19 @@ private:
       if ((mwm[id].m_minScale <= scale && scale <= mwm[id].m_maxScale) &&
           rect.IsIntersect(mwm[id].m_limitRect))
       {
-        /// @todo It's better to avoid hacks with scale comparison.
-
-        if (mwm[id].IsCountry())
+        switch (mwm[id].GetType())
         {
-          // process countries first
+        case MwmInfo::COUNTRY:
           ProcessMwm(f, id, cov, scale);
-        }
-        else
-        {
-          if (mwm[id].m_maxScale == scales::GetUpperScale())
-            worldID[0] = id;  // store WorldCoasts to process
-          else
-            worldID[1] = id;  // store World to process
+          break;
+
+        case MwmInfo::COASTS:
+          worldID[0] = id;
+          break;
+
+        case MwmInfo::WORLD:
+          worldID[1] = id;
+          break;
         }
       }
     }

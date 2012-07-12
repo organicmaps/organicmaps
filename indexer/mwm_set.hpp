@@ -23,12 +23,14 @@ public:
   {
     return (m_status == STATUS_ACTIVE || m_status == STATUS_UPDATE);
   }
-  inline bool IsCountry() const { return (m_minScale > 0); }
   inline bool IsActive() const { return (m_status == STATUS_ACTIVE); }
+
+  enum MwmTypeT { COUNTRY, WORLD, COASTS };
+  MwmTypeT GetType() const;
 
   enum Status
   {
-    STATUS_ACTIVE = 0,
+    STATUS_ACTIVE,
     STATUS_TO_REMOVE,
     STATUS_REMOVED,
     STATUS_UPDATE
@@ -94,8 +96,7 @@ protected:
 
 public:
   void Remove(string const & fileName);
-  /// Remove all except world boundle mwm's.
-  void RemoveAllCountries();
+  void RemoveAll();
   //@}
 
   /// @param[in] file File name without extension.
@@ -121,10 +122,12 @@ private:
   MwmValueBase * LockValue(MwmId id);
   void UnlockValue(MwmId id, MwmValueBase * p);
 
-  // Find first removed mwm or add a new one.
+  /// Find first removed mwm or add a new one.
+  /// @precondition This function is always called under mutex m_lock.
   MwmId GetFreeId();
 
-  // Do the cleaning for [beg, end) without acquiring the mutex.
+  /// Do the cleaning for [beg, end) without acquiring the mutex.
+  /// @precondition This function is always called under mutex m_lock.
   void ClearCacheImpl(CacheType::iterator beg, CacheType::iterator end);
 
   CacheType m_cache;
@@ -134,14 +137,14 @@ protected:
   static const MwmId INVALID_MWM_ID = static_cast<MwmId>(-1);
 
   /// Find mwm with a given name.
-  /// @note This function is always called under mutex m_lock.
+  /// @precondition This function is always called under mutex m_lock.
   MwmId GetIdByName(string const & name);
 
-  /// @note This function is always called under mutex m_lock.
+  /// @precondition This function is always called under mutex m_lock.
   void ClearCache(MwmId id);
 
   /// Update given MwmInfo.
-  /// @note This function is always called under mutex m_lock.
+  /// @precondition This function is always called under mutex m_lock.
   virtual void UpdateMwmInfo(MwmId id);
 
   vector<MwmInfo> m_info;

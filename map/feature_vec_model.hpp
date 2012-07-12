@@ -38,7 +38,7 @@ namespace model
     /// @return MWM format version for file or -1 if error and map was not added
     int AddMap(string const & file);
     void RemoveMap(string const & file);
-    void RemoveAllCountries();
+    void RemoveAll();
 
     bool DeleteMap(string const & file);
     bool UpdateMap(string const & file, m2::RectD & rect);

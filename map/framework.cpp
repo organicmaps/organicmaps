@@ -295,7 +295,7 @@ void Framework::AddLocalMaps()
 
 void Framework::RemoveLocalMaps()
 {
-  m_model.RemoveAllCountries();
+  m_model.RemoveAll();
 }
 
 void Framework::AddBookmark(string const & category, Bookmark const & bm)
@@ -552,7 +552,7 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
     Invalidate();
 }
 
-bool Framework::IsCountryLoaded(m2::PointD const & pt)
+bool Framework::IsCountryLoaded(m2::PointD const & pt) const
 {
   // Correct, but slow version (check country polygon).
   string const fName = GetSearchEngine()->GetCountryFile(pt);

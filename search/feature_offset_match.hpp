@@ -147,7 +147,7 @@ void PrefixMatchInTrie(TrieIterator const & trieRoot,
       f(pIter->m_value[i]);
 
     for (size_t i = 0; i < pIter->m_edge.size(); ++i)
-        trieQueue.push(pIter->GoToEdge(i));
+      trieQueue.push(pIter->GoToEdge(i));
   }
 }
 
