@@ -22,12 +22,12 @@ BasicTilingRenderPolicy::BasicTilingRenderPolicy(Params const & p,
   /// ceiling screen sizes to the nearest power of two, and taking half of it as a tile size
   double const log2 = log(2.0);
 
-  size_t ceiledScreenWidth = static_cast<int>(pow(2.0, ceil(log(double(p.m_screenWidth)) / log2)));
-  size_t ceiledScreenHeight = static_cast<int>(pow(2.0, ceil(log(double(p.m_screenHeight)) / log2)));
+  size_t ceiledScreenWidth = static_cast<int>(pow(2.0, ceil(log(double(p.m_screenWidth + 1)) / log2)));
+  size_t ceiledScreenHeight = static_cast<int>(pow(2.0, ceil(log(double(p.m_screenHeight + 1)) / log2)));
 
   size_t ceiledScreenSize = max(ceiledScreenWidth, ceiledScreenHeight);
 
-  m_TileSize = min(max(ceiledScreenSize / 2, (size_t)128), (size_t)512);
+  m_TileSize = min(max(ceiledScreenSize / 2, (size_t)128), (size_t)1024);
 
   LOG(LINFO, ("ScreenSize=", p.m_screenWidth, "x", p.m_screenHeight, ", TileSize=", m_TileSize));
 
