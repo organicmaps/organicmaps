@@ -6,6 +6,9 @@
 
 /********** Strings **********/
 
+/* Used in Android manifest for all apps (Lite and Pro), because it should be equal everywere. */
+"shared_user_label" = "Maps With Me";
+
 /* Dialog text when paid version become available on the market. Showed only once. */
 "pro_version_available" = "오프라인 검색 기능의 MapsWithMe의 풀버젼으로 보다 쉽게 검색하세요. 지금 구매하세요!";
 

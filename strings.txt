@@ -1,4 +1,7 @@
 [[Strings]]
+	[shared_user_label]
+		en = Maps With Me
+		comment = Used in Android manifest for all apps (Lite and Pro), because it should be equal everywere.
 	[pro_version_available]
 		en = A paid version of MapsWithMe, featuring search, is available for download. Would you like to get it now?
 		comment = Dialog text when paid version become available on the market. Showed only once.
