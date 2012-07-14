@@ -168,7 +168,8 @@ void CoverageGenerator::JoinBenchmarkFence(int fenceID)
 
 void CoverageGenerator::SignalBenchmarkFence()
 {
-  m_fenceManager.signalFence(m_currentFenceID);
+  if (m_currentFenceID != -1)
+    m_fenceManager.signalFence(m_currentFenceID);
 }
 
 void CoverageGenerator::CoverScreen(ScreenBase const & screen, int sequenceID)
