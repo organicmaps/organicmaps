@@ -141,6 +141,10 @@ data/benchmarks/iphone3g/*
 data/benchmarks/ipod4/*
 data/benchmarks/ipad/*
 data/benchmarks/mac/*
+data/benchmarks/kindle-fire/*
+data/benchmarks/galaxy-s-2/*
+data/benchmarks/ipad3/*
+data/benchmarks/maps/*
 
 qtc_packaging
 
