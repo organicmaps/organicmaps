@@ -2,7 +2,6 @@ package com.mapswithme.maps;
 
 import java.util.Locale;
 
-import android.annotation.SuppressLint;
 import android.app.ListActivity;
 import android.content.Context;
 import android.os.Bundle;
@@ -148,6 +147,8 @@ public class SearchActivity extends ListActivity implements LocationService.List
         holder = (ViewHolder) convertView.getTag();
       }
 
+      //Log.d(TAG, "Getting result for result ID = " + m_resultID);
+
       final SearchResult r = m_context.getResult(position, m_resultID);
       if (r != null)
       {
@@ -164,6 +165,9 @@ public class SearchActivity extends ListActivity implements LocationService.List
             holder.m_flag.setFlag(m_context.getResources(), r.m_flag);
           else
             holder.m_flag.setAzimut(r.m_azimut);
+
+          // force invalidate arrow image
+          holder.m_flag.invalidate();
         }
         else
           holder.m_flag.setVisibility(View.INVISIBLE);
@@ -347,9 +351,16 @@ public class SearchActivity extends ListActivity implements LocationService.List
     final int orientation = getWindowManager().getDefaultDisplay().getOrientation();
     final double correction = LocationService.getAngleCorrection(orientation);
 
-    m_north = LocationService.correctAngle(trueNorth, correction);
+    final double north = LocationService.correctAngle(trueNorth, correction);
 
-    getSA().updateDistance();
+    // if difference is more than 1 degree
+    if (m_north == -1 || Math.abs(m_north - north) > 0.02)
+    {
+      m_north = north;
+      //Log.d(TAG, "Compass updated, north = " + m_north);
+
+      getSA().updateDistance();
+    }
   }
 
   @Override
@@ -371,7 +382,6 @@ public class SearchActivity extends ListActivity implements LocationService.List
   {
     runOnUiThread(new Runnable()
     {
-      @SuppressLint("ParserError")
       @Override
       public void run()
       {
@@ -424,6 +434,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
     {
       // store current query
       m_queryID = id;
+      //Log.d(TAG, "Current search query id =" + m_queryID);
 
       // mark that it's not the first query already
       if (m_mode % 2 == 0) ++m_mode;
