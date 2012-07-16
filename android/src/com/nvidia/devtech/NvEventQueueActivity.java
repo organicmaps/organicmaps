@@ -245,23 +245,37 @@ public abstract class NvEventQueueActivity extends Activity
     if (!m_nativeLaunched || count == 0)
       return super.onTouchEvent(event);
 
+    SurfaceView v = (SurfaceView) findViewById(R.id.map_surfaceview);
+    int [] p = new int[2];
+
+    v.getLocationOnScreen(p);
+
     switch (count)
     {
     case 1:
+    {
       m_lastPointerId = event.getPointerId(0);
-      return multiTouchEvent(event.getAction(), true, false,
-          (int)event.getX(), (int)event.getY(), 0, 0, event);
 
+      int x0 = (int)event.getX() - p[0];
+      int y0 = (int)event.getY() - p[1];
+
+      return multiTouchEvent(event.getAction(), true, false,
+          x0, y0, 0, 0, event);
+    }
     default:
       {
+        int x0 = (int)event.getX(0) - p[0];
+        int y0 = (int)event.getY(0) - p[1];
+
+        int x1 = (int)event.getX(1) - p[0];
+        int y1 = (int)event.getY(1) - p[1];
+
         if (event.getPointerId(0) == m_lastPointerId)
           return multiTouchEvent(event.getAction(), true, true,
-              (int)event.getX(0), (int)event.getY(0),
-              (int)event.getX(1), (int)event.getY(1), event);
+              x0, y0, x1, y1, event);
         else
           return multiTouchEvent(event.getAction(), true, true,
-              (int)event.getX(1), (int)event.getY(1),
-              (int)event.getX(0), (int)event.getY(0), event);
+              x1, y1, x0, y0, event);
 
       }
     }
