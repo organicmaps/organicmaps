@@ -19,15 +19,21 @@ BasicTilingRenderPolicy::BasicTilingRenderPolicy(Params const & p,
     m_IsNavigating(false)
 {
   /// calculating TileSize based on p.m_screenWidth and p.m_screenHeight
-  /// ceiling screen sizes to the nearest power of two, and taking half of it as a tile size
+  /// choosing the maximum screen size, rounding it to the power of two
+  /// and taking half of result as a tile size.
   double const log2 = log(2.0);
 
-  size_t ceiledScreenWidth = static_cast<int>(pow(2.0, ceil(log(double(p.m_screenWidth + 1)) / log2)));
-  size_t ceiledScreenHeight = static_cast<int>(pow(2.0, ceil(log(double(p.m_screenHeight + 1)) / log2)));
+  size_t maxScreenSize = max(p.m_screenWidth, p.m_screenHeight);
+  size_t ceiledScreenSize = static_cast<int>(pow(2.0, ceil(log(double(maxScreenSize + 1)) / log2)));
+  size_t flooredScreenSize = ceiledScreenSize / 2;
+  size_t resScreenSize = 0;
 
-  size_t ceiledScreenSize = max(ceiledScreenWidth, ceiledScreenHeight);
+  if (ceiledScreenSize - maxScreenSize < maxScreenSize - flooredScreenSize)
+    resScreenSize = ceiledScreenSize;
+  else
+    resScreenSize = flooredScreenSize;
 
-  m_TileSize = min(max(ceiledScreenSize / 2, (size_t)128), (size_t)1024);
+  m_TileSize = min(max(resScreenSize / 2, (size_t)128), (size_t)1024);
 
   LOG(LINFO, ("ScreenSize=", p.m_screenWidth, "x", p.m_screenHeight, ", TileSize=", m_TileSize));
 

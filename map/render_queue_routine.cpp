@@ -629,5 +629,6 @@ void RenderQueueRoutine::joinBenchmarkFence(int id)
 
 void RenderQueueRoutine::signalBenchmarkFence()
 {
-  m_fenceManager.signalFence(m_currentFenceID);
+  if (m_currentFenceID != -1)
+    m_fenceManager.signalFence(m_currentFenceID);
 }

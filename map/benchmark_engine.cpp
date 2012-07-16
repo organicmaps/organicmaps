@@ -229,7 +229,7 @@ bool BenchmarkEngine::NextBenchmarkCommand()
     int fenceID = m_framework->GetRenderPolicy()->InsertBenchmarkFence();
 
     m_framework->ShowRect(m_benchmarks[m_curBenchmark].m_provider->nextRect());
-    m_curBenchmarkRect = m_framework->m_navigator.Screen().GlobalRect().GetGlobalRect();
+    m_curBenchmarkRect = m_framework->GetCurrentViewport();
 
     m_framework->GetRenderPolicy()->JoinBenchmarkFence(fenceID);
 

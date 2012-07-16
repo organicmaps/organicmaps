@@ -219,6 +219,7 @@ Framework::Framework()
 
 Framework::~Framework()
 {
+  delete m_benchmarkEngine;
   ClearBookmarks();
 }
 
@@ -1130,6 +1131,11 @@ bool Framework::SetViewportByURL(string const & url)
   }
 
   return false;
+}
+
+m2::RectD Framework::GetCurrentViewport() const
+{
+  return m_navigator.Screen().ClipRect();
 }
 
 bool Framework::IsBenchmarking() const

@@ -197,12 +197,14 @@ public:
                  bool isTiling);
 
 private:
-  inline m2::RectD GetCurrentViewport() const { return m_navigator.Screen().ClipRect(); }
+
   search::Engine * GetSearchEngine() const;
 
   void CheckMinGlobalRect(m2::RectD & r) const;
 
 public:
+  m2::RectD GetCurrentViewport() const;
+
   /// Call this function before entering search GUI.
   /// While it's loading, we can cache features near user's position.
   /// @param[in] hasPt Are (lat, lon) valid
