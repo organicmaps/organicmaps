@@ -203,22 +203,6 @@ extern "C"
     g_framework->RemoveLocalMaps();
   }
 
-  JNIEXPORT jobjectArray JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeGetMapsWithoutSearch(JNIEnv * env, jobject thiz)
-  {
-    vector<string> v;
-    g_framework->GetMapsWithoutSearch(v);
-
-    jclass klass = env->FindClass("java/lang/String");
-    ASSERT ( klass, () );
-
-    int const count = static_cast<int>(v.size());
-    jobjectArray ret = env->NewObjectArray(count, klass, 0);
-    for (int i = 0; i < count; ++i)
-      env->SetObjectArrayElement(ret, i, env->NewStringUTF(v[i].c_str()));
-    return ret;
-  }
-
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MWMActivity_nativeScale(JNIEnv * env, jobject thiz, jdouble k)
   {

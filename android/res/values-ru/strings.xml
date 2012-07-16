@@ -149,4 +149,5 @@
 	<string name="downloaded_touch_to_update">Загружено (%s), нажмите для обновления или удаления</string>
 	<string name="update_mb_or_kb">Обновить %s</string>
 	<string name="search_update_maps">Для функции поиска необходимо обновить устаревшие карты</string>
+	<string name="advise_update_maps">Доступно обновление для следующих карт</string>
 </resources>

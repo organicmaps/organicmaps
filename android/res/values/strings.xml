@@ -153,4 +153,5 @@
 	<string name="downloaded_touch_to_update">Downloaded (%s), touch to update or delete</string>
 	<string name="update_mb_or_kb">Update %s</string>
 	<string name="search_update_maps">You need updated maps for search function</string>
+	<string name="advise_update_maps">Update available for this maps</string>
 </resources>

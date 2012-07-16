@@ -1,5 +1,9 @@
 package com.mapswithme.maps;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+
 public class MapStorage
 {
   public static final int GROUP = -2;
@@ -121,6 +125,8 @@ public class MapStorage
   public native int subscribe(Listener l);
   public native void unsubscribe(int slotId);
 
+  private native String[] nativeGetMapsWithoutSearch();
+
 
   private MapStorage()
   {
@@ -134,5 +140,86 @@ public class MapStorage
       mInstance = new MapStorage();
 
     return mInstance;
+  }
+
+  private void runDownloadCountries(Index[] indexes)
+  {
+    for (int i = 0; i < indexes.length; ++i)
+    {
+      if (indexes[i] != null)
+        downloadCountry(indexes[i]);
+    }
+  }
+
+  public interface UpdateFunctor
+  {
+    public void doUpdate();
+    public void doCancel();
+  }
+
+  public boolean updateMaps(int msgID, Context context, final UpdateFunctor fn)
+  {
+    // get map names without search index
+    final String[] maps = nativeGetMapsWithoutSearch();
+
+    if (maps.length == 0)
+      return false;
+
+    // get indexes and filter out maps that already downloading
+    int count = 0;
+    final Index[] indexes = new Index[maps.length];
+    for (int i = 0; i < maps.length; ++i)
+    {
+      final Index idx = findIndexByName(maps[i]);
+      final int st = countryStatus(idx);
+
+      if (st == DOWNLOADING || st == IN_QUEUE)
+        indexes[i] = null;
+      else
+      {
+        indexes[i] = idx;
+        ++count;
+      }
+    }
+
+    // all maps are already downloading
+    if (count == 0)
+      return false;
+
+    String msg = context.getString(msgID) + ":";
+    for (int i = 0; i < maps.length; ++i)
+    {
+      if (indexes[i] != null)
+        msg = msg + "\n" + maps[i];
+    }
+
+    new AlertDialog.Builder(context)
+    .setMessage(msg)
+    .setPositiveButton(context.getString(R.string.download), new DialogInterface.OnClickListener()
+    {
+      @Override
+      public void onClick(DialogInterface dlg, int which)
+      {
+        dlg.dismiss();
+
+        runDownloadCountries(indexes);
+
+        fn.doUpdate();
+      }
+    })
+    .setNegativeButton(context.getString(R.string.later), new DialogInterface.OnClickListener()
+    {
+      @Override
+      public void onClick(DialogInterface dlg, int which)
+      {
+        dlg.dismiss();
+
+        fn.doCancel();
+      }
+    })
+    .create()
+    .show();
+
+    return true;
   }
 }

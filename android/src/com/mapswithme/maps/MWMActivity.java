@@ -71,6 +71,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         checkShouldStartLocationService();
         checkMeasurementSystem();
         checkProVersionAvailable();
+        checkUpdateMaps();
       }
     });
   }
@@ -202,6 +203,31 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       nativeCheckForProVersion(mApplication.getProVersionCheckURL());
   }
 
+  private boolean m_needCheckUpdate = true;
+
+  private void checkUpdateMaps()
+  {
+    // do it only once
+    if (m_needCheckUpdate)
+    {
+      m_needCheckUpdate = false;
+
+      final MapStorage s = MapStorage.getInstance();
+      s.updateMaps(R.string.advise_update_maps, this, new MapStorage.UpdateFunctor()
+      {
+        @Override
+        public void doUpdate()
+        {
+          runDownloadActivity();
+        }
+        @Override
+        public void doCancel()
+        {
+        }
+      });
+    }
+  }
+
   /// Invoked from native code - asynchronous server check.
   public void onProVersionAvailable()
   {
@@ -249,38 +275,23 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     }
     else
     {
-      final String[] maps = nativeGetMapsWithoutSearch();
-      if (maps.length != 0)
+      final MapStorage s = MapStorage.getInstance();
+      if (!s.updateMaps(R.string.search_update_maps, this, new MapStorage.UpdateFunctor()
       {
-        String msg = this.getString(R.string.search_update_maps) + ": ";
-        for (int i = 0; i < maps.length; ++i)
-          msg = msg + "\n" + maps[i];
-
-        new AlertDialog.Builder(getActivity())
-        .setMessage(msg)
-        .setPositiveButton(getString(R.string.download), new DialogInterface.OnClickListener()
+        @Override
+        public void doUpdate()
         {
-          @Override
-          public void onClick(DialogInterface dlg, int which)
-          {
-            dlg.dismiss();
-            runDownloadActivity();
-          }
-        })
-        .setNegativeButton(getString(R.string.later), new DialogInterface.OnClickListener()
+          runDownloadActivity();
+        }
+        @Override
+        public void doCancel()
         {
-          @Override
-          public void onClick(DialogInterface dlg, int which)
-          {
-            dlg.dismiss();
-            runSearchActivity();
-          }
-        })
-        .create()
-        .show();
-      }
-      else
+          runSearchActivity();
+        }
+      }))
+      {
         runSearchActivity();
+      }
     }
   }
 
@@ -571,6 +582,4 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private native String nativeGetProVersionURL();
   private native void nativeCheckForProVersion(String serverURL);
-
-  private native String[] nativeGetMapsWithoutSearch();
 }
