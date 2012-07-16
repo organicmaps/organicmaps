@@ -86,11 +86,12 @@
   RenderPolicy::Params rpParams;
   
   CGRect screenRect = [[UIScreen mainScreen] bounds];
-    
-  rpParams.m_screenWidth = screenRect.size.width;
-  rpParams.m_screenHeight = screenRect.size.height;
-    
+  
   rpParams.m_visualScale = [[UIScreen mainScreen] scale];
+    
+  rpParams.m_screenWidth = screenRect.size.width * rpParams.m_visualScale;
+  rpParams.m_screenHeight = screenRect.size.height * rpParams.m_visualScale;
+  
   if (rpParams.m_visualScale > 1.0)
     rpParams.m_skinName = "basic_xhdpi.skn";
   else
