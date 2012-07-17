@@ -37,6 +37,7 @@
 			                android:layout_width="wrap_content"
 			                android:layout_height="wrap_content"
 			                android:src="@drawable/food"
+			                android:background="@drawable/ltgray_button"
 			                android:onClick="onSearchFood"/>
 
         <ImageButton  android:id="@+id/search_money"
@@ -44,6 +45,7 @@
 			                android:layout_width="wrap_content"
 			                android:layout_height="wrap_content"
 			                android:src="@drawable/money"
+			                android:background="@drawable/ltgray_button"			                
 			                android:onClick="onSearchMoney"/>
 
         <ImageButton  android:id="@+id/search_fuel"
@@ -51,6 +53,7 @@
 			                android:layout_width="wrap_content"
 			                android:layout_height="wrap_content"
 			                android:src="@drawable/fuel"
+			                android:background="@drawable/ltgray_button"			                
 			                android:onClick="onSearchFuel"/>
 
         <ImageButton  android:id="@+id/search_shop"
@@ -58,6 +61,7 @@
 			                android:layout_width="wrap_content"
 			                android:layout_height="wrap_content"
 			                android:src="@drawable/shop"
+			                android:background="@drawable/ltgray_button"			                
 			                android:onClick="onSearchShop"/>
 
         <ImageButton  android:id="@+id/search_transport"
@@ -65,6 +69,7 @@
 			                android:layout_width="wrap_content"
 			                android:layout_height="wrap_content"
 			                android:src="@drawable/transport"
+			                android:background="@drawable/ltgray_button"			                
 			                android:onClick="onSearchTransport"/>
 
         <ImageButton  android:id="@+id/search_tourism"
@@ -72,6 +77,7 @@
 			                android:layout_width="wrap_content"
 			                android:layout_height="wrap_content"
 			                android:src="@drawable/tourism"
+			                android:background="@drawable/ltgray_button"			                
 			                android:onClick="onSearchTourism"/>
 
     </LinearLayout>
