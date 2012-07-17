@@ -21,7 +21,7 @@
         android:scaleType="center"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/cell_arrow_white"/>
+        android:src="@drawable/goto_map"/>
 
     <LinearLayout
         android:orientation="vertical"
