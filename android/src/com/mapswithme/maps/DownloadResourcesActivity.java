@@ -4,6 +4,7 @@ import java.io.File;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -232,12 +233,33 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    // Set the same layout as for MWMActivity
-    setContentView(R.layout.download_resources);
 
     mApplication = (MWMApplication)getApplication();
-    mMapStorage = MapStorage.getInstance();
 
+    if (!mApplication.isProVersion())
+    {
+      try
+      {
+        Log.d(TAG, "Trying to launch pro version");
+
+        Intent intent = getPackageManager().getLaunchIntentForPackage("com.mapswithme.maps.pro");
+        if (intent != null)
+        {
+          startActivity(intent);
+          finish();
+          return;
+        }
+      }
+      catch (ActivityNotFoundException e)
+      {
+        // suppress this exception - no pro version installed
+        Log.d(TAG, "Pro version not installed");
+      }
+    }
+
+    setContentView(R.layout.download_resources);
+
+    mMapStorage = MapStorage.getInstance();
     mSlotId = mMapStorage.subscribe(this);
 
     // Create sdcard folder if it doesn't exist
@@ -280,7 +302,8 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
       mLocationService = null;
     }
 
-    mMapStorage.unsubscribe(mSlotId);
+    if (mMapStorage != null)
+      mMapStorage.unsubscribe(mSlotId);
   }
 
   @Override
