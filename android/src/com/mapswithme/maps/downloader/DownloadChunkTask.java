@@ -11,7 +11,9 @@ import java.net.URL;
 import android.os.AsyncTask;
 import android.util.Log;
 
-class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
+import com.mapswithme.util.Utils;
+
+class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
 {
   private static final String TAG = "DownloadChunkTask";
 
@@ -30,11 +32,12 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
   private int m_httpErrorCode = NOT_SET;
   private long m_downloadedBytes = 0;
 
-  native boolean onWrite(long httpCallbackID, long beg, byte [] data, long size);
+  native boolean onWrite(long httpCallbackID, long beg, byte[] data, long size);
+
   native void onFinish(long httpCallbackID, long httpCode, long beg, long end);
 
-  public DownloadChunkTask(long httpCallbackID, String url, long beg, long end, long expectedFileSize,
-                           String postBody, String userAgent)
+  public DownloadChunkTask(long httpCallbackID, String url, long beg, long end,
+                           long expectedFileSize, String postBody, String userAgent)
   {
     m_httpCallbackID = httpCallbackID;
     m_url = url;
@@ -59,7 +62,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
   }
 
   @Override
-  protected void onProgressUpdate(byte []... data)
+  protected void onProgressUpdate(byte[]... data)
   {
     if (!isCancelled())
     {
@@ -114,9 +117,11 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
         urlConnection.setDoOutput(true);
         byte[] utf8 = m_postBody.getBytes("UTF-8");
         urlConnection.setFixedLengthStreamingMode(utf8.length);
+
         final DataOutputStream os = new DataOutputStream(urlConnection.getOutputStream());
         os.write(utf8);
         os.flush();
+        Utils.closeStream(os);
       }
 
       if (isCancelled())
@@ -142,7 +147,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
     }
     catch (IOException ex)
     {
-      Log.d(TAG, "IOException: " + ex.toString());
+      Log.d(TAG, "IOException: ", ex);
 
       // Notify the client about error
       m_httpErrorCode = IO_ERROR;
@@ -164,32 +169,40 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
   /// try to introduce dynamic buffer size to read in one query.
   private boolean downloadFromStream(InputStream stream)
   {
-    int bufferSize = 64;
-    while (true)
+    final int arrSize[] = { 64, 32, 1 };
+    int ret = -1;
+
+    for (int i = 0; i < arrSize.length; ++i)
     {
       try
       {
         // download chunk from stream
-        return downloadFromStreamImpl(stream, bufferSize * 1024);
+        ret = downloadFromStreamImpl(stream, arrSize[i] * 1024);
+        break;
       }
       catch (IOException ex)
       {
-        // If exception is thrown, try to reduce buffer size or throw it up, if it's a last try.
-        bufferSize /= 32;
-
-        if (bufferSize == 0)
-        {
-          Log.d(TAG, "IOException in downloadFromStream: " + ex.toString());
-
-          // Notify the client about error
-          m_httpErrorCode = IO_ERROR;
-          return false;
-        }
+        Log.d(TAG, "IOException in downloadFromStream: ", ex);
       }
     }
+
+    if (ret < 0)
+    {
+      // notify the client about error
+      m_httpErrorCode = IO_ERROR;
+    }
+
+    Utils.closeStream(stream);
+
+    return (ret == 0);
   }
 
-  private boolean downloadFromStreamImpl(InputStream stream, int bufferSize) throws IOException
+  /// @return
+  /// 0 - download successful;
+  /// 1 - download canceled;
+  /// -1 - some error occurred;
+  private int downloadFromStreamImpl(InputStream stream, int bufferSize)
+  throws IOException
   {
     byte[] tempBuf = new byte[bufferSize];
 
@@ -197,7 +210,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
     while ((readBytes = stream.read(tempBuf)) > 0)
     {
       if (isCancelled())
-        return false;
+        return 1;
 
       byte[] chunk = new byte[readBytes];
       System.arraycopy(tempBuf, 0, chunk, 0, readBytes);
@@ -205,8 +218,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte [], Boolean>
       publishProgress(chunk);
     }
 
-    // -1 - means the end of the stream (success).
-    // 0 - some error occurred.
-    return (readBytes == -1 ? true : false);
+    // -1 - means the end of the stream (success), else - some error occurred
+    return (readBytes == -1 ? 0 : -1);
   }
 }

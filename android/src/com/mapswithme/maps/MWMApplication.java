@@ -15,6 +15,7 @@ import android.os.PowerManager.WakeLock;
 import android.util.Log;
 
 import com.mapswithme.maps.location.LocationService;
+import com.mapswithme.util.Utils;
 
 public class MWMApplication extends android.app.Application
 {
@@ -36,18 +37,21 @@ public class MWMApplication extends android.app.Application
       System.setProperty("http.keepAlive", "false");
 
     AssetManager assets = getAssets();
+    InputStream stream = null;
     try
     {
-      InputStream stream = assets.open("app_info.txt");
+      stream = assets.open("app_info.txt");
       BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
       mProVersionCheckURL = reader.readLine();
+
       Log.i(TAG, "PROCHECKURL: " + mProVersionCheckURL);
     }
-    catch (IOException e)
+    catch (IOException ex)
     {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      // suppress exceptions - pro version doesn't need app_info.txt
     }
+
+    Utils.closeStream(stream);
 
     final String extStoragePath = getDataStoragePath();
     final String extTmpPath = getExtAppDirectoryPath("caches");
@@ -80,7 +84,7 @@ public class MWMApplication extends android.app.Application
     }
     catch (NameNotFoundException e)
     {
-      e.printStackTrace();
+      Log.e(TAG, "Can't get apk path from PackageManager");
       return "";
     }
   }
