@@ -12,9 +12,10 @@
         android:layout_height="wrap_content">
         
 		    <EditText android:id="@+id/search_string"
-		              android:inputType="text"
-		              android:layout_width="match_parent"
-		              android:layout_height="wrap_content"/>
+                  android:inputType="text"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:hint="@string/search_map" />
 		    
 		    <ProgressBar android:id="@+id/search_progress"
 						         android:layout_width="wrap_content"
