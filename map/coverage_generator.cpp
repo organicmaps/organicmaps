@@ -256,6 +256,9 @@ void CoverageGenerator::CheckEmptyModel(int sequenceID)
 
 void CoverageGenerator::AddFinishSequenceTask(int sequenceID)
 {
+  if (g_coverageGeneratorDestroyed)
+    return;
+
   m_queue.AddCommand(bind(&CoverageGenerator::FinishSequence, this, sequenceID));
 }
 
