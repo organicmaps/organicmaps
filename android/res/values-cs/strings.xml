@@ -144,5 +144,5 @@
 	<string name="continue_download">Pokračovat</string>
 	<string name="downloaded_touch_to_update">Staženo (%s), klepni pro smazání</string>
 	<string name="update_mb_or_kb">Aktualizace %s</string>
-	<string name="search_update_maps">Pro funkci vyhledávání musíš aktualizovat mapy</string>
+	<string name="search_update_maps">Pro funkci vyhledávání musíš aktualizovat mapy:</string>
 </resources>

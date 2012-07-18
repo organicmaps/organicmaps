@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.ConnectionState;
@@ -229,6 +230,43 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     mProgress.setProgress((int)current);
   }
 
+  private Intent getPackageIntent(String s)
+  {
+    return getPackageManager().getLaunchIntentForPackage(s);
+  }
+
+  private boolean checkLiteProPackages(boolean isPro)
+  {
+    try
+    {
+      if (!isPro)
+      {
+        final Intent intent = getPackageIntent("com.mapswithme.maps.pro");
+        if (intent != null)
+        {
+          Log.i(TAG, "Trying to launch pro version");
+
+          startActivity(intent);
+          finish();
+          return true;
+        }
+      }
+      else
+      {
+        if (getPackageIntent("com.mapswithme.maps") != null)
+        {
+          Toast.makeText(this, R.string.suggest_uninstall_lite, Toast.LENGTH_LONG).show();
+        }
+      }
+    }
+    catch (ActivityNotFoundException ex)
+    {
+      Log.d(TAG, "Intent not found", ex);
+    }
+
+    return false;
+  }
+
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
@@ -236,26 +274,8 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
     mApplication = (MWMApplication)getApplication();
 
-    if (!mApplication.isProVersion())
-    {
-      try
-      {
-        Log.d(TAG, "Trying to launch pro version");
-
-        Intent intent = getPackageManager().getLaunchIntentForPackage("com.mapswithme.maps.pro");
-        if (intent != null)
-        {
-          startActivity(intent);
-          finish();
-          return;
-        }
-      }
-      catch (ActivityNotFoundException e)
-      {
-        // suppress this exception - no pro version installed
-        Log.d(TAG, "Pro version not installed");
-      }
-    }
+    if (checkLiteProPackages(mApplication.isProVersion()))
+      return;
 
     setContentView(R.layout.download_resources);
 

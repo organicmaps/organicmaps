@@ -669,12 +669,15 @@
 		ru = Обновить %@
 		cs = Aktualizace %@
 	[search_update_maps]
-		en = You need updated maps for search function
-		ru = Для функции поиска необходимо обновить устаревшие карты
-		cs = Pro funkci vyhledávání musíš aktualizovat mapy
+		en = You need to updated maps for search function:
+		ru = Для функции поиска необходимо обновить устаревшие карты:
+		cs = Pro funkci vyhledávání musíš aktualizovat mapy:
 	[advise_update_maps]
-		en = Update available for this maps
-		ru = Доступно обновление для следующих карт
+		en = Update available for this maps:
+		ru = Доступно обновление для следующих карт:
+	[suggest_uninstall_lite]
+		en = You don't need Maps With Me Lite any more, so you can uninstall it.
+		ru = Maps With Me Lite больше не нужна. Рекомендуем ее удалить.
 	[add_new_set]
 	  en = Add New Set
 	  tags = ios

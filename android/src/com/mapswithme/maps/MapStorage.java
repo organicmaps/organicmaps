@@ -186,7 +186,7 @@ public class MapStorage
     if (count == 0)
       return false;
 
-    String msg = context.getString(msgID) + ":";
+    String msg = context.getString(msgID);
     for (int i = 0; i < maps.length; ++i)
     {
       if (indexes[i] != null)
