@@ -118,8 +118,6 @@
 		FA4B0A1415136C4C00758203 /* World.mwm.nosearch in Resources */ = {isa = PBXBuildFile; fileRef = FA4B0A1315136C4C00758203 /* World.mwm.nosearch */; };
 		FA4B0A16151372BA00758203 /* countries.txt.nosearch in Resources */ = {isa = PBXBuildFile; fileRef = FA4B0A15151372BA00758203 /* countries.txt.nosearch */; };
 		FA500588128907F0002961F0 /* visibility.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA500587128907F0002961F0 /* visibility.txt */; };
-		FA5D4F171557F79900E7D8BB /* AddBookmarkVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA5D4F141557F79900E7D8BB /* AddBookmarkVC.mm */; };
-		FA5D4F181557F79900E7D8BB /* AddBookmarkVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA5D4F141557F79900E7D8BB /* AddBookmarkVC.mm */; };
 		FA5D4F191557F79900E7D8BB /* PlacePageVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */; };
 		FA5D4F1A1557F79900E7D8BB /* PlacePageVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */; };
 		FA64D9A913F975AD00350ECF /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA64D9A813F975AD00350ECF /* types.txt */; };
@@ -1337,7 +1335,7 @@
 		EE16192B126E374500622BD0 /* RenderContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RenderContext.hpp; path = Classes/RenderContext.hpp; sourceTree = SOURCE_ROOT; };
 		EE164810135CEE49003B8A3E /* 06_code2000.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 06_code2000.ttf; path = ../../data/06_code2000.ttf; sourceTree = SOURCE_ROOT; };
 		EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = unicode_blocks.txt; path = ../../data/unicode_blocks.txt; sourceTree = "<group>"; };
-		EE5A34E5156FCB9500E34FFE /* libgui.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libgui.a"; sourceTree = SOURCE_ROOT; };
+		EE5A34E5156FCB9500E34FFE /* libgui.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgui.a; sourceTree = SOURCE_ROOT; };
 		EE7F297C1219ECA300EB67A9 /* RenderBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RenderBuffer.hpp; path = Classes/RenderBuffer.hpp; sourceTree = SOURCE_ROOT; };
 		EE7F297D1219ECA300EB67A9 /* RenderBuffer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = RenderBuffer.mm; path = Classes/RenderBuffer.mm; sourceTree = SOURCE_ROOT; };
 		EE7F297E1219ECA300EB67A9 /* RenderContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = RenderContext.mm; path = Classes/RenderContext.mm; sourceTree = SOURCE_ROOT; };
@@ -1363,21 +1361,21 @@
 		F7DD848614FE7FE0005695E1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F7FDD822147F30CC005900FA /* drules_proto.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto.bin; path = ../../data/drules_proto.bin; sourceTree = "<group>"; };
 		FA04373112CAB83F00017494 /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libstorage.a; sourceTree = SOURCE_ROOT; };
-		FA0545E0155C22D4001F4E37 /* placemark-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = placemark-blue.png; path = Bookmarks/placemark-blue.png; sourceTree = SOURCE_ROOT; };
+		FA0545E0155C22D4001F4E37 /* placemark-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-blue.png"; path = "Bookmarks/placemark-blue.png"; sourceTree = SOURCE_ROOT; };
 		FA0545E1155C22D4001F4E37 /* placemark-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-blue@2x.png"; path = "Bookmarks/placemark-blue@2x.png"; sourceTree = SOURCE_ROOT; };
-		FA0545E2155C22D4001F4E37 /* placemark-brown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = placemark-brown.png; path = Bookmarks/placemark-brown.png; sourceTree = SOURCE_ROOT; };
+		FA0545E2155C22D4001F4E37 /* placemark-brown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-brown.png"; path = "Bookmarks/placemark-brown.png"; sourceTree = SOURCE_ROOT; };
 		FA0545E3155C22D4001F4E37 /* placemark-brown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-brown@2x.png"; path = "Bookmarks/placemark-brown@2x.png"; sourceTree = SOURCE_ROOT; };
-		FA0545E4155C22D4001F4E37 /* placemark-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = placemark-green.png; path = Bookmarks/placemark-green.png; sourceTree = SOURCE_ROOT; };
+		FA0545E4155C22D4001F4E37 /* placemark-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-green.png"; path = "Bookmarks/placemark-green.png"; sourceTree = SOURCE_ROOT; };
 		FA0545E5155C22D4001F4E37 /* placemark-green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-green@2x.png"; path = "Bookmarks/placemark-green@2x.png"; sourceTree = SOURCE_ROOT; };
-		FA0545E6155C22D4001F4E37 /* placemark-orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = placemark-orange.png; path = Bookmarks/placemark-orange.png; sourceTree = SOURCE_ROOT; };
+		FA0545E6155C22D4001F4E37 /* placemark-orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-orange.png"; path = "Bookmarks/placemark-orange.png"; sourceTree = SOURCE_ROOT; };
 		FA0545E7155C22D4001F4E37 /* placemark-orange@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-orange@2x.png"; path = "Bookmarks/placemark-orange@2x.png"; sourceTree = SOURCE_ROOT; };
-		FA0545E8155C22D4001F4E37 /* placemark-pink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = placemark-pink.png; path = Bookmarks/placemark-pink.png; sourceTree = SOURCE_ROOT; };
+		FA0545E8155C22D4001F4E37 /* placemark-pink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-pink.png"; path = "Bookmarks/placemark-pink.png"; sourceTree = SOURCE_ROOT; };
 		FA0545E9155C22D4001F4E37 /* placemark-pink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-pink@2x.png"; path = "Bookmarks/placemark-pink@2x.png"; sourceTree = SOURCE_ROOT; };
-		FA0545EA155C22D4001F4E37 /* placemark-purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = placemark-purple.png; path = Bookmarks/placemark-purple.png; sourceTree = SOURCE_ROOT; };
+		FA0545EA155C22D4001F4E37 /* placemark-purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-purple.png"; path = "Bookmarks/placemark-purple.png"; sourceTree = SOURCE_ROOT; };
 		FA0545EB155C22D4001F4E37 /* placemark-purple@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-purple@2x.png"; path = "Bookmarks/placemark-purple@2x.png"; sourceTree = SOURCE_ROOT; };
-		FA0545EC155C22D4001F4E37 /* placemark-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = placemark-red.png; path = Bookmarks/placemark-red.png; sourceTree = SOURCE_ROOT; };
+		FA0545EC155C22D4001F4E37 /* placemark-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-red.png"; path = "Bookmarks/placemark-red.png"; sourceTree = SOURCE_ROOT; };
 		FA0545ED155C22D4001F4E37 /* placemark-red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-red@2x.png"; path = "Bookmarks/placemark-red@2x.png"; sourceTree = SOURCE_ROOT; };
-		FA0545EE155C22D4001F4E37 /* placemark-yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = placemark-yellow.png; path = Bookmarks/placemark-yellow.png; sourceTree = SOURCE_ROOT; };
+		FA0545EE155C22D4001F4E37 /* placemark-yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-yellow.png"; path = "Bookmarks/placemark-yellow.png"; sourceTree = SOURCE_ROOT; };
 		FA0545EF155C22D4001F4E37 /* placemark-yellow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placemark-yellow@2x.png"; path = "Bookmarks/placemark-yellow@2x.png"; sourceTree = SOURCE_ROOT; };
 		FA054610155C465E001F4E37 /* SelectSetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectSetVC.h; path = Bookmarks/SelectSetVC.h; sourceTree = SOURCE_ROOT; };
 		FA054611155C465E001F4E37 /* SelectSetVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SelectSetVC.mm; path = Bookmarks/SelectSetVC.mm; sourceTree = SOURCE_ROOT; };
@@ -1414,8 +1412,6 @@
 		FA4B0A1315136C4C00758203 /* World.mwm.nosearch */ = {isa = PBXFileReference; lastKnownFileType = file; name = World.mwm.nosearch; path = ../../data/World.mwm.nosearch; sourceTree = "<group>"; };
 		FA4B0A15151372BA00758203 /* countries.txt.nosearch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = countries.txt.nosearch; path = ../../data/countries.txt.nosearch; sourceTree = "<group>"; };
 		FA500587128907F0002961F0 /* visibility.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = visibility.txt; path = ../../data/visibility.txt; sourceTree = SOURCE_ROOT; };
-		FA5D4F131557F79900E7D8BB /* AddBookmarkVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddBookmarkVC.h; path = Bookmarks/AddBookmarkVC.h; sourceTree = SOURCE_ROOT; };
-		FA5D4F141557F79900E7D8BB /* AddBookmarkVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AddBookmarkVC.mm; path = Bookmarks/AddBookmarkVC.mm; sourceTree = SOURCE_ROOT; };
 		FA5D4F151557F79900E7D8BB /* PlacePageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlacePageVC.h; path = Bookmarks/PlacePageVC.h; sourceTree = SOURCE_ROOT; };
 		FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PlacePageVC.mm; path = Bookmarks/PlacePageVC.mm; sourceTree = SOURCE_ROOT; };
 		FA64D9A813F975AD00350ECF /* types.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = types.txt; path = ../../data/types.txt; sourceTree = SOURCE_ROOT; };
@@ -2290,8 +2286,6 @@
 				FAA614B7155F16950031C345 /* AddSetVC.mm */,
 				FA054610155C465E001F4E37 /* SelectSetVC.h */,
 				FA054611155C465E001F4E37 /* SelectSetVC.mm */,
-				FA5D4F131557F79900E7D8BB /* AddBookmarkVC.h */,
-				FA5D4F141557F79900E7D8BB /* AddBookmarkVC.mm */,
 				FA5D4F151557F79900E7D8BB /* PlacePageVC.h */,
 				FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */,
 				FA36B80315403A4F004560CC /* BalloonView.h */,
@@ -4222,7 +4216,6 @@
 				F7B90CD31521E6D200C054EE /* CustomNavigationView.mm in Sources */,
 				FA36B80B15403A4F004560CC /* BalloonView.mm in Sources */,
 				FA36B80D15403A4F004560CC /* BookmarksVC.mm in Sources */,
-				FA5D4F171557F79900E7D8BB /* AddBookmarkVC.mm in Sources */,
 				FA5D4F191557F79900E7D8BB /* PlacePageVC.mm in Sources */,
 				FAF457E715597D4600DCCC49 /* Framework.cpp in Sources */,
 				FA054612155C465E001F4E37 /* SelectSetVC.mm in Sources */,
@@ -4255,7 +4248,6 @@
 				F7B90CD41521E6D200C054EE /* CustomNavigationView.mm in Sources */,
 				FA36B80C15403A4F004560CC /* BalloonView.mm in Sources */,
 				FA36B80E15403A4F004560CC /* BookmarksVC.mm in Sources */,
-				FA5D4F181557F79900E7D8BB /* AddBookmarkVC.mm in Sources */,
 				FA5D4F1A1557F79900E7D8BB /* PlacePageVC.mm in Sources */,
 				FAF457E815597D4600DCCC49 /* Framework.cpp in Sources */,
 				FA054613155C465E001F4E37 /* SelectSetVC.mm in Sources */,
