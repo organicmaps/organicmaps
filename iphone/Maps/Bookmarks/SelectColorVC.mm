@@ -21,7 +21,7 @@ static NSString * g_colors [] = {
   {
     m_balloon = view;
     
-    self.title = NSLocalizedString(@"Bookmark Color", @"Bookmark Color dialog title");
+    self.title = NSLocalizedString(@"bookmark_color", @"Bookmark Color dialog title");
   }
   return self;
 }

@@ -12,7 +12,7 @@
     m_balloon = view;
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onSaveClicked)];
-    self.title = NSLocalizedString(@"Add New Set", @"Add New Bookmark Set dialog title");
+    self.title = NSLocalizedString(@"add_new_set", @"Add New Bookmark Set dialog title");
   }
   return self;
 }
@@ -67,7 +67,7 @@
   f.clearButtonMode = UITextFieldViewModeWhileEditing;
   f.autocorrectionType = UITextAutocorrectionTypeNo;
   f.delegate = self;
-  f.placeholder = NSLocalizedString(@"Bookmark Set Name", @"Add Bookmark Set dialog - hint when set name is empty");
+  f.placeholder = NSLocalizedString(@"bookmark_set_name", @"Add Bookmark Set dialog - hint when set name is empty");
   cell.accessoryView = f;
   cell.selectionStyle = UITableViewCellSelectionStyleNone;
   return cell;

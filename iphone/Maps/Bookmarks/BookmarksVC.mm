@@ -16,7 +16,7 @@
   if (self)
   {
     m_balloon = view;
-    self.title = NSLocalizedString(@"Bookmarks", @"Boormarks - dialog title");
+    self.title = NSLocalizedString(@"bookmarks", @"Boormarks - dialog title");
     
     self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"maps", @"Bookmarks - Close bookmarks button") style: UIBarButtonItemStyleDone
                                                                            target:self action:@selector(onCloseButton:)] autorelease];
@@ -64,33 +64,14 @@
 {
   if (indexPath.section == 0)
   {
-    UITableViewCell * cell;
-    if (indexPath.row == 0)
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarkSetCell"];
+    if (!cell)
     {
-      cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarkSetCell"];
-      if (!cell)
-      {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarkSetCell"] autorelease];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.textLabel.text = NSLocalizedString(@"Set", @"Bookmarks dialog - Bookmark set cell");
-      }
-      cell.detailTextLabel.text = m_balloon.setName;
+      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarkSetCell"] autorelease];
+      cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+      cell.textLabel.text = NSLocalizedString(@"set", @"Bookmarks dialog - Bookmark set cell");
     }
-    else
-    {
-      cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarkSetVisibilityCell"];
-      if (!cell)
-      {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarkSetVisibilityCell"] autorelease];
-        UISwitch * onOffSwitch = [[[UISwitch alloc] init] autorelease];
-        [onOffSwitch addTarget:self action:@selector(onVisibilitySwitched:) forControlEvents:UIControlEventValueChanged];
-        cell.accessoryView = onOffSwitch;
-        cell.textLabel.text = NSLocalizedString(@"Show on the map", @"Bookmarks dialog - Show on the map on/off switch");
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-      }
-      BookmarkCategory const * cat = GetFramework().GetBmCategory([m_balloon.setName UTF8String]);
-      ((UISwitch *)cell.accessoryView).on = cat ? cat->IsVisible() : YES;
-    }
+    cell.detailTextLabel.text = m_balloon.setName;
     return cell;
   }
   else
@@ -121,12 +102,9 @@
 {
   if (indexPath.section == 0)
   {
-    if (indexPath.row == 0)
-    {
-      SelectSetVC * ssVC = [[SelectSetVC alloc] initWithBalloonView:m_balloon andEditMode:NO];
-      [self.navigationController pushViewController:ssVC animated:YES];
-      [ssVC release];
-    }
+    SelectSetVC * ssVC = [[SelectSetVC alloc] initWithBalloonView:m_balloon andEditMode:NO];
+    [self.navigationController pushViewController:ssVC animated:YES];
+    [ssVC release];
   }
   else
   {

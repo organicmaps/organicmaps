@@ -154,4 +154,30 @@
 	<string name="update_mb_or_kb">Update %s</string>
 	<string name="search_update_maps">You need updated maps for search function</string>
 	<string name="advise_update_maps">Update available for this maps</string>
+	<!-- Add New Bookmark Set dialog title -->
+	<string name="add_new_set">Add New Set</string>
+	<!-- Place Page - Add To Bookmarks button -->
+	<string name="add_to_bookmarks">Add To Bookmarks</string>
+	<!-- Bookmark Color dialog title -->
+	<string name="bookmark_color">Bookmark Color</string>
+	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<string name="bookmark_set_name">Bookmark Set Name</string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets">Bookmark Sets</string>
+	<!-- Boormarks - dialog title -->
+	<string name="bookmarks">Bookmarks</string>
+	<!-- Add bookmark dialog - bookmark color -->
+	<string name="color">Color</string>
+	<!-- Unknown Dropped Pin title, when name can't be determined -->
+	<string name="dropped_pin">Dropped Pin</string>
+	<!-- Default bookmarks set name -->
+	<string name="my_places">My Places</string>
+	<!-- Add bookmark dialog - bookmark name -->
+	<string name="name">Name</string>
+	<!-- Add bookmark dialog - bookmark address -->
+	<string name="address">Address</string>
+	<!-- Place Page - Remove Pin button -->
+	<string name="remove_pin">Remove Pin</string>
+	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
+	<string name="set">Set</string>
 </resources>

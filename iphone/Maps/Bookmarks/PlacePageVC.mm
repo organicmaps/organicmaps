@@ -103,10 +103,10 @@
           f.clearButtonMode = UITextFieldViewModeWhileEditing;
           f.autocorrectionType = UITextAutocorrectionTypeNo;
           f.delegate = self;
-          f.placeholder = NSLocalizedString(@"Name", @"Add bookmark dialog - bookmark name");
+          f.placeholder = NSLocalizedString(@"name", @"Add bookmark dialog - bookmark name");
           f.textColor = cell.detailTextLabel.textColor;
           cell.accessoryView = f;
-          cell.textLabel.text = NSLocalizedString(@"Name", @"Add bookmark dialog - bookmark name");
+          cell.textLabel.text = NSLocalizedString(@"name", @"Add bookmark dialog - bookmark name");
           cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         break;
@@ -116,7 +116,7 @@
         break;
 
         case 2:
-          cell.textLabel.text = NSLocalizedString(@"Color", @"Add bookmark dialog - bookmark color");
+          cell.textLabel.text = NSLocalizedString(@"color", @"Add bookmark dialog - bookmark color");
         break;
       }
     }
@@ -143,9 +143,9 @@
     cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"] autorelease];
     cell.textLabel.textAlignment = UITextAlignmentCenter;
     if (indexPath.row == 0)
-      cell.textLabel.text = NSLocalizedString(@"Add To Bookmarks", @"Place Page - Add To Bookmarks button");
+      cell.textLabel.text = NSLocalizedString(@"add_to_bookmarks", @"Place Page - Add To Bookmarks button");
     else
-      cell.textLabel.text = NSLocalizedString(@"Remove Pin", @"Place Page - Remove Pin button");
+      cell.textLabel.text = NSLocalizedString(@"remove_pin", @"Place Page - Remove Pin button");
   }
   return cell;
 }

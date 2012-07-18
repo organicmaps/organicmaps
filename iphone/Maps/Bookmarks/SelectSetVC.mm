@@ -13,7 +13,7 @@
     m_balloon = view;
     m_editModeEnabled = enabled;
     
-    self.title = NSLocalizedString(@"Bookmark Sets", @"Bookmark Sets dialog title");
+    self.title = NSLocalizedString(@"bookmark_sets", @"Bookmark Sets dialog title");
   }
   return self;
 }
@@ -62,7 +62,7 @@
   // Customize cell
   if (indexPath.section == 0 && m_editModeEnabled)
   {
-    cell.textLabel.text = NSLocalizedString(@"Add New Set...", @"Bookmark Sets dialog - Add New Set button");
+    cell.textLabel.text = NSLocalizedString(@"add_new_set", @"Bookmark Sets dialog - Add New Set button");
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
   }
   else

@@ -19,7 +19,7 @@
   {
     // Default bookmark pin color
     color = [[NSString alloc] initWithString:@"placemark-purple"];
-    setName = [[NSString alloc] initWithString:NSLocalizedString(@"My Places", @"Default bookmarks set name")];
+    setName = [[NSString alloc] initWithString:NSLocalizedString(@"my_places", @"Default bookmarks set name")];
     pinImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.color]];
     m_titleView = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"BookmarkTitle"];
     isDisplayed = NO;
@@ -119,7 +119,7 @@
   globalPosition = pos;
   GetFramework().GetAddressInfo(m2::PointD(pos.x, pos.y), m_addressInfo);
   if (m_addressInfo.m_name.empty())
-    self.title = NSLocalizedString(@"Dropped Pin", @"Unknown Dropped Pin title, when name can't be determined");
+    self.title = NSLocalizedString(@"dropped_pin", @"Unknown Dropped Pin title, when name can't be determined");
   else
     self.title = [NSString stringWithUTF8String:m_addressInfo.m_name.c_str()];
   self.description = [NSString stringWithUTF8String:m_addressInfo.FormatAddress().c_str()];
