@@ -41,11 +41,7 @@
 
   <target name="-setup-amazon-market">
     <property name="mwm.market.name" value="-amazon"/>
-    <exec executable="ln">
-      <arg value="-sf"/>
-      <arg value="${mwm.data.dir}/app_info_amazon.txt"/>
-      <arg value="${asset.absolute.dir}/app_info.txt"/>
-    </exec>
+    <echo file="${asset.absolute.dir}/app_info.txt" append="false" message="http://redbutton.mapswithme.com/enable_search_banner_amazon"/>
   </target>
 
   <target name="amazon-production" depends="-setup-amazon-market, -setup-production, production"/>
@@ -54,11 +50,7 @@
 
   <target name="-setup-google-market">
     <property name="mwm.market.name" value="-google"/>
-    <exec executable="ln">
-      <arg value="-sf"/>
-      <arg value="${mwm.data.dir}/app_info_google.txt"/>
-      <arg value="${asset.absolute.dir}/app_info.txt"/>
-    </exec>
+    <echo file="${asset.absolute.dir}/app_info.txt" append="false" message="http://redbutton.mapswithme.com/enable_search_banner_google"/>
   </target>
 
   <target name="google-production" depends="-setup-google-market, -setup-production, production"/>
@@ -67,11 +59,7 @@
 
   <target name="-setup-samsung-market">
     <property name="mwm.market.name" value="-samsung"/>
-    <exec executable="ln">
-      <arg value="-sf"/>
-      <arg value="${mwm.data.dir}/app_info_samsung.txt"/>
-      <arg value="${asset.absolute.dir}/app_info.txt"/>
-    </exec>
+    <echo file="${asset.absolute.dir}/app_info.txt" append="false" message="http://redbutton.mapswithme.com/enable_search_banner_samsung"/>
   </target>
 
   <target name="samsung-production" depends="-setup-samsung-market, -setup-production, production"/>
