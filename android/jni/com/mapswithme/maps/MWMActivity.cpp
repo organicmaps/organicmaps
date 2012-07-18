@@ -181,14 +181,6 @@ extern "C"
     }
   }
 
-  JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeProVersionUrl(JNIEnv * env, jobject thiz)
-  {
-    string res;
-    Settings::Get(SETTINGS_PRO_VERSION_URL_KEY, res);
-    return jni::ToJavaString(env, res);
-  }
-
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MWMActivity_nativeStorageConnected(JNIEnv * env, jobject thiz)
   {
