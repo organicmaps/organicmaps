@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.LinearLayout;
 
 import com.mapswithme.maps.location.LocationService;
 import com.nvidia.devtech.NvEventQueueActivity;
@@ -329,6 +330,15 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     // Get screen density
     DisplayMetrics metrics = new DisplayMetrics();
     getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+    double k = metrics.density;
+
+    int offs = (int)(53 * k); // height of button + half space between buttons.
+
+    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                                                                 LinearLayout.LayoutParams.WRAP_CONTENT);
+    lp.setMargins((int)(5 * k), (int)(metrics.heightPixels / 4) - offs, (int)(5 * k), (int)(5 * k));
+    findViewById(R.id.map_button_plus).setLayoutParams(lp);
 
     //m_timer = new VideoTimer();
   }

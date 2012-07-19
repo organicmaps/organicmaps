@@ -9,7 +9,7 @@
         android:id="@+id/navigation_buttons_container"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:gravity="bottom"
+        android:gravity="top"
         android:layout_gravity="right"
         android:orientation="vertical">
 
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/zoom_in_button"
             android:onClick="onPlusClicked"
-            android:layout_marginTop="10dip"
+            android:layout_marginTop="5dip"
             android:layout_marginBottom="5dip"
             android:layout_marginLeft="5dip"
             android:layout_marginRight="5dip"/>
@@ -33,7 +33,7 @@
             android:layout_marginTop="5dip"
             android:layout_marginLeft="5dip"
             android:layout_marginRight="5dip"
-            android:layout_marginBottom="58dip"/>
+            android:layout_marginBottom="5dip"/>
 
     </LinearLayout>
     
