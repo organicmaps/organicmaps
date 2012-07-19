@@ -57,6 +57,13 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
                               mApplication.getDataStoragePath());
   }
 
+  private boolean isWorldExists()
+  {
+    // 2.0.3 version doesn't contain WorldCoasts on sdcard. No need to check something.
+    //return isWorldExists(mApplication.getDataStoragePath());
+    return false;
+  }
+
   private void setDownloadMessage(int bytesToDownload)
   {
     Log.d(TAG, "prepareFilesDownload, bytesToDownload:" + bytesToDownload);
@@ -274,7 +281,8 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
     mApplication = (MWMApplication)getApplication();
 
-    if (checkLiteProPackages(mApplication.isProVersion()))
+    final boolean isPro = mApplication.isProVersion();
+    if (checkLiteProPackages(isPro))
       return;
 
     setContentView(R.layout.download_resources);
@@ -306,8 +314,17 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
       prepareFilesDownload();
 
-      if (ConnectionState.getState(this) == ConnectionState.CONNECTED_BY_WIFI)
+      switch (ConnectionState.getState(this))
+      {
+      case ConnectionState.CONNECTED_BY_WIFI:
         onDownloadClicked(mDownloadButton);
+        break;
+
+      case ConnectionState.NOT_CONNECTED:
+        if (!isPro && isWorldExists())
+          showMapView();
+        break;
+      }
     }
   }
 
@@ -417,7 +434,8 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   }
 
   private native void moveMaps(String fromFolder, String toFolder);
-  private native int getBytesToDownload(String m_apkPath, String m_sdcardPath);
+  private native int getBytesToDownload(String apkPath, String sdcardPath);
+  private native boolean isWorldExists(String path);
   private native int startNextFileDownload(Object observer);
   private native String findCountryByPos(double lat, double lon);
   private native void cancelCurrentFile();

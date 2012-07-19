@@ -62,8 +62,8 @@ extern "C"
   }
 
   JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_DownloadResourcesActivity_getBytesToDownload(JNIEnv * env, jobject thiz,
-      jstring apkPath, jstring sdcardPath)
+  Java_com_mapswithme_maps_DownloadResourcesActivity_getBytesToDownload(
+      JNIEnv * env, jobject thiz, jstring apkPath, jstring sdcardPath)
   {
     // clear all
     g_filesToDownload.clear();
@@ -122,6 +122,18 @@ extern "C"
     g_currentRequest.reset();
 
     return res;
+  }
+
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_DownloadResourcesActivity_isWorldExists(
+      JNIEnv * env, jobject thiz, jstring sdcardPath)
+  {
+    string const path = jni::ToNativeString(env, sdcardPath);
+
+    Platform & pl = GetPlatform();
+    uint64_t dummy;
+    return (pl.GetFileSizeByName(path + WORLD_FILE_NAME + DATA_FILE_EXTENSION, dummy) &&
+            pl.GetFileSizeByName(path + WORLD_COASTS_FILE_NAME + DATA_FILE_EXTENSION, dummy));
   }
 
   void DownloadFileFinished(shared_ptr<jobject> obj, downloader::HttpRequest & req)
