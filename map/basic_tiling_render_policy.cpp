@@ -9,6 +9,35 @@
 #include "screen_coverage.hpp"
 #include "queued_renderer.hpp"
 
+size_t BasicTilingRenderPolicy::CalculateTileSize(size_t screenWidth, size_t screenHeight)
+{
+  /// getting maximum screenSize
+  size_t maxScreenSize = max(screenWidth, screenHeight);
+
+  /// we're calculating the tileSize based on
+  /// (maxScreenSize > 1024 ? rounded : ceiled) to the nearest power of two value
+  /// of the maxScreenSize
+
+  double const log2 = log(2.0);
+
+  size_t ceiledScreenSize = static_cast<int>(pow(2.0, ceil(log(double(maxScreenSize + 1)) / log2)));
+  size_t flooredScreenSize = ceiledScreenSize / 2;
+  size_t resScreenSize = 0;
+
+  if (maxScreenSize < 1024)
+    resScreenSize = ceiledScreenSize;
+  else
+  {
+    /// rounding to the nearest power of two.
+    if (ceiledScreenSize - maxScreenSize < maxScreenSize - flooredScreenSize)
+      resScreenSize = ceiledScreenSize;
+    else
+      resScreenSize = flooredScreenSize;
+  }
+
+  return min(max(resScreenSize / 2, (size_t)128), (size_t)1024);
+}
+
 BasicTilingRenderPolicy::BasicTilingRenderPolicy(Params const & p,
                                                  bool doSupportRotation,
                                                  bool doUseQueuedRenderer)
@@ -18,22 +47,7 @@ BasicTilingRenderPolicy::BasicTilingRenderPolicy(Params const & p,
     m_DoRecreateCoverage(false),
     m_IsNavigating(false)
 {
-  /// calculating TileSize based on p.m_screenWidth and p.m_screenHeight
-  /// choosing the maximum screen size, rounding it to the power of two
-  /// and taking half of result as a tile size.
-  double const log2 = log(2.0);
-
-  size_t maxScreenSize = max(p.m_screenWidth, p.m_screenHeight);
-  size_t ceiledScreenSize = static_cast<int>(pow(2.0, ceil(log(double(maxScreenSize + 1)) / log2)));
-  size_t flooredScreenSize = ceiledScreenSize / 2;
-  size_t resScreenSize = 0;
-
-  if (ceiledScreenSize - maxScreenSize < maxScreenSize - flooredScreenSize)
-    resScreenSize = ceiledScreenSize;
-  else
-    resScreenSize = flooredScreenSize;
-
-  m_TileSize = min(max(resScreenSize / 2, (size_t)128), (size_t)1024);
+  m_TileSize = CalculateTileSize(p.m_screenWidth, p.m_screenHeight);
 
   LOG(LINFO, ("ScreenSize=", p.m_screenWidth, "x", p.m_screenHeight, ", TileSize=", m_TileSize));
 

@@ -19,6 +19,10 @@ class QueuedRenderer;
 /// Once the more recent ScreenCoverage are composed it became a currentCoverage.
 class BasicTilingRenderPolicy : public RenderPolicy
 {
+private:
+
+  size_t CalculateTileSize(size_t screenWidth, size_t screenHeight);
+
 protected:
 
   shared_ptr<QueuedRenderer> m_QueuedRenderer;
