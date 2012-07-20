@@ -15,6 +15,7 @@ namespace
     {
       int n = path[0] - '0';
       info.m_maxScale = n;
+      info.m_limitRect = m2::RectD(0, 0, 1, 1);
       return 1;
     }
     virtual MwmValue * CreateValue(string const &) const
