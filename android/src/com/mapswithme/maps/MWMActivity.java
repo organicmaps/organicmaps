@@ -338,7 +338,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     nativeConnectDownloadButton();
 
-    // Get screen density and do layout for +/- buttons
+    // Get screen density
     DisplayMetrics metrics = new DisplayMetrics();
     getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
