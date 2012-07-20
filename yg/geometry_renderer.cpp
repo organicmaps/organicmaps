@@ -305,6 +305,9 @@ namespace yg
       if (isDebugging())
         LOG(LINFO, ("performing ApplyStates command"));
 
+      // Disable dither to fix 4-bit textures "grid" issue on Nvidia Tegra cards
+      OGLCHECK(glDisableFn(GL_DITHER));
+
       OGLCHECK(glActiveTexture(GL_TEXTURE0));
 
 #ifndef USING_GLSL
