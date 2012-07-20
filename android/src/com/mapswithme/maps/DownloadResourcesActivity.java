@@ -287,7 +287,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
     setContentView(R.layout.download_resources);
 
-    mMapStorage = MapStorage.getInstance();
+    mMapStorage = mApplication.getMapStorage();
     mSlotId = mMapStorage.subscribe(this);
 
     // Create sdcard folder if it doesn't exist

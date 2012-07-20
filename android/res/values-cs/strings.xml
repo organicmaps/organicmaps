@@ -105,7 +105,7 @@
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^přidáno do \nfronty stahování.</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">Stahuji^(^%)</string>
+	<string name="country_status_downloading">Stahuji^ (^%)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Stáhnout^</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
@@ -144,5 +144,6 @@
 	<string name="continue_download">Pokračovat</string>
 	<string name="downloaded_touch_to_update">Staženo (%s), klepni pro smazání</string>
 	<string name="update_mb_or_kb">Aktualizace %s</string>
+	<!-- Show toast when we have countries without search index -->
 	<string name="search_update_maps">Pro funkci vyhledávání musíš aktualizovat mapy:</string>
 </resources>

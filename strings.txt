@@ -513,10 +513,10 @@
 		ru = ^добавлено в очередь\nзагрузки.
 		cs = ^přidáno do \nfronty stahování.
 	[country_status_downloading]
-		en = Downloading^(^%)
+		en = Downloading^ (^%)
 		comment = Message to display at the center of the screen when the country is downloading
-		ru = Загружается^(^%)
-		cs = Stahuji^(^%)
+		ru = Загружается^ (^%)
+		cs = Stahuji^ (^%)
 	[country_status_download]
 		en = Download^
 		comment = Button text for the button at the center of the screen when the country is not downloaded
@@ -669,30 +669,46 @@
 		ru = Обновить %@
 		cs = Aktualizace %@
 	[search_update_maps]
+		comment = Show toast when we have countries without search index
+		tags = android
 		en = You need to updated maps for search function:
 		ru = Для функции поиска необходимо обновить устаревшие карты:
 		cs = Pro funkci vyhledávání musíš aktualizovat mapy:
 	[advise_update_maps]
-		en = Update available for this maps:
+		comment = Show toast on start when we have out-of-date maps
+		tags = android
+		en = Update available for these maps:
 		ru = Доступно обновление для следующих карт:
 	[suggest_uninstall_lite]
+		comment = Show toast in Pro version that Lite can be deleted
+		tags = android
 		en = You don't need Maps With Me Lite any more, so you can uninstall it.
 		ru = Maps With Me Lite больше не нужна. Рекомендуем ее удалить.
+	[download_country_success]
+		comment = Show toast when country has downloaded.
+		tags = android
+		en = %@ downloaded successfuly.
+		ru = %@ успешно загружена.
+	[download_country_failed]
+		comment = Show toast when country downloading failed.
+		tags = android
+		en = Downloading of %@ failed.
+		ru = Загрузка %@ провалилась.
 	[add_new_set]
-	  en = Add New Set
-	  tags = ios
-	  comment = Add New Bookmark Set dialog title
-	  ru = Добавить группу
+		en = Add New Set
+		tags = ios
+		comment = Add New Bookmark Set dialog title
+		ru = Добавить группу
 	[add_to_bookmarks]
-	  en = Add To Bookmarks
-	  tags = ios
-	  comment = Place Page - Add To Bookmarks button
-	  ru = Добавить в закладки
+		en = Add To Bookmarks
+		tags = ios
+		comment = Place Page - Add To Bookmarks button
+		ru = Добавить в закладки
 	[bookmark_color]
-	  en = Bookmark Color
-    tags = ios
-    comment = Bookmark Color dialog title
-    ru = Цвет закладки
+		en = Bookmark Color
+		tags = ios
+		comment = Bookmark Color dialog title
+		ru = Цвет закладки
   [bookmark_set_name]
     en = Bookmark Set Name
     tags = ios

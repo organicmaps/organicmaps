@@ -112,7 +112,7 @@
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^is added to the\ndownloading queue.</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">Downloading^(^%)</string>
+	<string name="country_status_downloading">Downloading^ (^%)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Download^</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
@@ -152,9 +152,16 @@
 	<string name="continue_download">Continue</string>
 	<string name="downloaded_touch_to_update">Downloaded (%s), touch to update or delete</string>
 	<string name="update_mb_or_kb">Update %s</string>
+	<!-- Show toast when we have countries without search index -->
 	<string name="search_update_maps">You need to updated maps for search function:</string>
-	<string name="advise_update_maps">Update available for this maps:</string>
+	<!-- Show toast on start when we have out-of-date maps -->
+	<string name="advise_update_maps">Update available for these maps:</string>
+	<!-- Show toast in Pro version that Lite can be deleted -->
 	<string name="suggest_uninstall_lite">You don\'t need Maps With Me Lite any more, so you can uninstall it.</string>
+	<!-- Show toast when country has downloaded. -->
+	<string name="download_country_success">%s downloaded successfuly.</string>
+	<!-- Show toast when country downloading failed. -->
+	<string name="download_country_failed">Downloading of %s failed.</string>
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">Add New Set</string>
 	<!-- Place Page - Add To Bookmarks button -->

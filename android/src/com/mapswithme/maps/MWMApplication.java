@@ -13,17 +13,50 @@ import android.os.Environment;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.Utils;
 
-public class MWMApplication extends android.app.Application
+
+public class MWMApplication extends android.app.Application implements MapStorage.Listener
 {
   private final static String TAG = "MWMApplication";
-  private LocationService mLocationService = null;
+
+  private LocationService m_location = null;
+  private MapStorage m_storage = null;
+  private int m_slotID = 0;
 
   private boolean mIsProVersion = false;
   private String mProVersionCheckURL = "";
+
+
+  private void showDownloadToast(int resID, Index idx)
+  {
+    String msg = String.format(getString(resID), m_storage.countryName(idx));
+    Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+  }
+
+  @Override
+  public void onCountryStatusChanged(Index idx)
+  {
+    switch (m_storage.countryStatus(idx))
+    {
+    case MapStorage.ON_DISK:
+      showDownloadToast(R.string.download_country_success, idx);
+      break;
+
+    case MapStorage.DOWNLOAD_FAILED:
+      showDownloadToast(R.string.download_country_failed, idx);
+      break;
+    }
+  }
+
+  @Override
+  public void onCountryProgress(Index idx, long current, long total)
+  {
+  }
 
   @Override
   public void onCreate()
@@ -66,15 +99,26 @@ public class MWMApplication extends android.app.Application
                // Changed path for settings to be the same as external storage
                extStoragePath, //getSettingsPath(),
                mIsProVersion);
+
+    m_slotID = getMapStorage().subscribe(this);
   }
 
   public LocationService getLocationService()
   {
-    if (mLocationService == null)
-      mLocationService = new LocationService(this);
+    if (m_location == null)
+      m_location = new LocationService(this);
 
-    return mLocationService;
+    return m_location;
   }
+
+  public MapStorage getMapStorage()
+  {
+    if (m_storage == null)
+      m_storage = new MapStorage();
+
+    return m_storage;
+  }
+
 
   public String getApkPath()
   {

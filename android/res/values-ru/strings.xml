@@ -109,7 +109,7 @@
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^добавлено в очередь\nзагрузки.</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">Загружается^(^%)</string>
+	<string name="country_status_downloading">Загружается^ (^%)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Загрузить^</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
@@ -148,9 +148,16 @@
 	<string name="continue_download">Продолжить</string>
 	<string name="downloaded_touch_to_update">Загружено (%s), нажмите для обновления или удаления</string>
 	<string name="update_mb_or_kb">Обновить %s</string>
+	<!-- Show toast when we have countries without search index -->
 	<string name="search_update_maps">Для функции поиска необходимо обновить устаревшие карты:</string>
+	<!-- Show toast on start when we have out-of-date maps -->
 	<string name="advise_update_maps">Доступно обновление для следующих карт:</string>
+	<!-- Show toast in Pro version that Lite can be deleted -->
 	<string name="suggest_uninstall_lite">Maps With Me Lite больше не нужна. Рекомендуем ее удалить.</string>
+	<!-- Show toast when country has downloaded. -->
+	<string name="download_country_success">%s успешно загружена.</string>
+	<!-- Show toast when country downloading failed. -->
+	<string name="download_country_failed">Загрузка %s провалилась.</string>
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">Добавить группу</string>
 	<!-- Place Page - Add To Bookmarks button -->

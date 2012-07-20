@@ -15,7 +15,7 @@
 string const CountryStatusDisplay::displayName() const
 {
   if (!m_mapGroupName.empty())
-    return m_mapName + "(" + m_mapGroupName + ")";
+    return m_mapName + " (" + m_mapGroupName + ")";
   else
     return m_mapName;
 }

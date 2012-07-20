@@ -134,8 +134,9 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
 
     public DownloadAdapter(Activity context)
     {
-      m_storage = MapStorage.getInstance();
-      m_packageName = context.getApplication().getPackageName();
+      MWMApplication app = (MWMApplication) context.getApplication();
+      m_storage = app.getMapStorage();
+      m_packageName = app.getPackageName();
 
       m_context = context;
       m_inflater = (LayoutInflater) m_context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

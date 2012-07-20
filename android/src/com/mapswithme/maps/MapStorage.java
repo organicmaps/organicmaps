@@ -128,18 +128,8 @@ public class MapStorage
   private native String[] nativeGetMapsWithoutSearch();
 
 
-  private MapStorage()
+  public MapStorage()
   {
-  }
-
-  private static MapStorage mInstance = null;
-
-  public static MapStorage getInstance()
-  {
-    if (mInstance == null)
-      mInstance = new MapStorage();
-
-    return mInstance;
   }
 
   private void runDownloadCountries(Index[] indexes)

@@ -11,7 +11,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,6 +36,10 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private LocationService getLocationService()
   {
     return mApplication.getLocationService();
+  }
+  private MapStorage getMapStorage()
+  {
+    return mApplication.getMapStorage();
   }
 
   public void checkShouldStartLocationService()
@@ -213,8 +216,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     {
       m_needCheckUpdate = false;
 
-      final MapStorage s = MapStorage.getInstance();
-      s.updateMaps(R.string.advise_update_maps, this, new MapStorage.UpdateFunctor()
+      getMapStorage().updateMaps(R.string.advise_update_maps, this, new MapStorage.UpdateFunctor()
       {
         @Override
         public void doUpdate()
@@ -276,8 +278,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     }
     else
     {
-      final MapStorage s = MapStorage.getInstance();
-      if (!s.updateMaps(R.string.search_update_maps, this, new MapStorage.UpdateFunctor()
+      if (!getMapStorage().updateMaps(R.string.search_update_maps, this, new MapStorage.UpdateFunctor()
       {
         @Override
         public void doUpdate()
@@ -327,9 +328,18 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     mApplication = (MWMApplication)getApplication();
 
+    nativeSetString("country_status_added_to_queue", getString(R.string.country_status_added_to_queue));
+    nativeSetString("country_status_downloading", getString(R.string.country_status_downloading));
+    nativeSetString("country_status_download", getString(R.string.country_status_download));
+    nativeSetString("country_status_download_failed", getString(R.string.country_status_download_failed));
+    nativeSetString("try_again", getString(R.string.try_again));
+    nativeSetString("not_enough_free_space_on_sdcard", getString(R.string.not_enough_free_space_on_sdcard));
+
+    nativeConnectDownloadButton();
+
     // Get screen density
-    DisplayMetrics metrics = new DisplayMetrics();
-    getWindowManager().getDefaultDisplay().getMetrics(metrics);
+    //DisplayMetrics metrics = new DisplayMetrics();
+    //getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
     double k = metrics.density;
 
@@ -382,15 +392,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     SharedPreferences prefs = getSharedPreferences(mApplication.getPackageName(), MODE_PRIVATE);
     final boolean isMyPositionEnabled = prefs.getBoolean(PREFERENCES_MYPOSITION, false);
     findViewById(R.id.map_button_myposition).setSelected(isMyPositionEnabled);
-
-    nativeSetString("country_status_added_to_queue", getString(R.string.country_status_added_to_queue));
-    nativeSetString("country_status_downloading", getString(R.string.country_status_downloading));
-    nativeSetString("country_status_download", getString(R.string.country_status_download));
-    nativeSetString("country_status_download_failed", getString(R.string.country_status_download_failed));
-    nativeSetString("try_again", getString(R.string.try_again));
-    nativeSetString("not_enough_free_space_on_sdcard", getString(R.string.not_enough_free_space_on_sdcard));
-
-    nativeConnectDownloadButton();
   }
 
   @Override
