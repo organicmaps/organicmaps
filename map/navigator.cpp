@@ -527,12 +527,7 @@ void Navigator::StopScale(m2::PointD const & pt1, m2::PointD const & pt2, double
 
 void Navigator::Scale(double scale)
 {
-  ScreenBase tmp = m_Screen;
-  tmp.Scale(scale);
-
-  // limit max scale to MercatorBounds
-  if (CheckMaxScale(tmp) && CheckMinScale(tmp) && CheckBorders(tmp))
-    m_Screen = tmp;
+  ScaleToPoint(m_Screen.PixelRect().Center(), scale, 0);
 }
 
 void Navigator::Rotate(double angle)
