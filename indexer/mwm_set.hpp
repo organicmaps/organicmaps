@@ -91,8 +91,11 @@ public:
   /// @name Remove mwm.
   //@{
 protected:
+  /// @return true - map is free; false - map is busy
+  //@{
   bool RemoveImpl(MwmId id);
   bool RemoveImpl(string const & fileName);
+  //@}
 
 public:
   void Remove(string const & fileName);

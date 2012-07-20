@@ -90,12 +90,19 @@ MwmSet::MwmId MwmSet::GetFreeId()
 
 MwmSet::MwmId MwmSet::GetIdByName(string const & name)
 {
+  ASSERT ( !name.empty(), () );
+
   for (MwmId i = 0; i < m_info.size(); ++i)
   {
     UpdateMwmInfo(i);
+
     if (m_name[i] == name)
+    {
+      ASSERT_NOT_EQUAL ( m_info[i].m_status, MwmInfo::STATUS_REMOVED, () );
       return i;
+    }
   }
+
   return INVALID_MWM_ID;
 }
 
@@ -167,10 +174,10 @@ void MwmSet::Remove(string const & fileName)
 
 bool MwmSet::RemoveImpl(string const & fileName)
 {
-  bool ret = false;
+  bool ret = true;
 
   MwmId const id = GetIdByName(fileName);
-  if (id != INVALID_MWM_ID && m_info[id].IsExist())
+  if (id != INVALID_MWM_ID)
   {
     ret = RemoveImpl(id);
 
