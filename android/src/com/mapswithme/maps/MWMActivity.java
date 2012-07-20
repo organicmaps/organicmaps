@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -337,17 +338,17 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     nativeConnectDownloadButton();
 
-    // Get screen density
-    //DisplayMetrics metrics = new DisplayMetrics();
-    //getWindowManager().getDefaultDisplay().getMetrics(metrics);
+    // Get screen density and do layout for +/- buttons
+    DisplayMetrics metrics = new DisplayMetrics();
+    getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-    double k = metrics.density;
-
-    int offs = (int)(53 * k); // height of button + half space between buttons.
+    final double k = metrics.density;
+    final int offs = (int)(53 * k); // height of button + half space between buttons.
+    final int margin = (int)(5 * k);
 
     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                                                                  LinearLayout.LayoutParams.WRAP_CONTENT);
-    lp.setMargins((int)(5 * k), (int)(metrics.heightPixels / 4) - offs, (int)(5 * k), (int)(5 * k));
+    lp.setMargins(margin, (metrics.heightPixels / 4) - offs, margin, margin);
     findViewById(R.id.map_button_plus).setLayoutParams(lp);
 
     //m_timer = new VideoTimer();
