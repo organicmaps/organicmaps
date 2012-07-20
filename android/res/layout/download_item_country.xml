@@ -33,14 +33,12 @@
 
         <TextView
             android:id="@+id/title"
-            android:text="Xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
 
         <TextView
             android:id="@+id/summary"
-            android:text="Yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"/>

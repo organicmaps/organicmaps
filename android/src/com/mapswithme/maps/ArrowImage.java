@@ -16,6 +16,7 @@ public class ArrowImage extends ImageView
   static private String TAG = "ArrowImage";
 
   private Paint m_paint;
+  private Path m_path;
   private boolean m_drawArrow;
   private float m_angle;
   private String m_packageName;
@@ -30,6 +31,8 @@ public class ArrowImage extends ImageView
     m_paint.setFlags(m_paint.getFlags() | Paint.ANTI_ALIAS_FLAG);
     m_paint.setStyle(Style.FILL);
     m_paint.setColor(Color.WHITE);
+    
+    m_path = new Path();
   }
 
   public void setFlag(Resources res, String flag)
@@ -71,17 +74,16 @@ public class ArrowImage extends ImageView
       }
       else
       {
-        Path path = new Path();
-
-        path.moveTo(w/3, h/2);
-        path.lineTo(0, h/2 - h/3);
-        path.lineTo(w, h/2);
-        path.lineTo(0, h/2 + h/3);
-        path.lineTo(w/3, h/2);
-        path.close();
+        m_path.reset();
+        m_path.moveTo(w/3, h/2);
+        m_path.lineTo(0, h/2 - h/3);
+        m_path.lineTo(w, h/2);
+        m_path.lineTo(0, h/2 + h/3);
+        m_path.lineTo(w/3, h/2);
+        m_path.close();
 
         canvas.rotate(-m_angle, w/2, h/2);
-        canvas.drawPath(path, m_paint);
+        canvas.drawPath(m_path, m_paint);
       }
     }
   }

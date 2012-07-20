@@ -23,17 +23,17 @@
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/country_flag">
 
+        <!-- Long Distance Value -->
         <TextView
             android:id="@+id/distance"
-            android:text="Long Distance Value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:textAppearance="?android:attr/textAppearanceSmall"/>
 
+        <!-- Amenity -->
         <TextView
             android:id="@+id/amenity"
-            android:text="Amenity"
             android:layout_width="80dip"
             android:layout_height="wrap_content"
             android:layout_gravity="right"            
@@ -52,16 +52,16 @@
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true">
 
+        <!-- Long Feature Name -->
         <TextView
             android:id="@+id/name"
-            android:text="Long Feature Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
 
+        <!-- Long Country Name -->
         <TextView
             android:id="@+id/country"
-            android:text="Long Country Name xxxxxxxxxxxxxxxxxxxxxxxx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"/>
