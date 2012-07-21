@@ -18,6 +18,8 @@
 		4928A005121E89C900B7C252 /* slof_dictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49289FFE121E89C900B7C252 /* slof_dictionary.cpp */; };
 		4928A006121E89C900B7C252 /* sloynik_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4928A001121E89C900B7C252 /* sloynik_engine.cpp */; };
 		4928A007121E89C900B7C252 /* sloynik_index.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4928A003121E89C900B7C252 /* sloynik_index.cpp */; };
+		49506A6015BB2D1F00377A85 /* thread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49506A5F15BB2D1F00377A85 /* thread.cpp */; };
+		49506A6215BB2D7400377A85 /* platform_unix_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49506A6115BB2D7400377A85 /* platform_unix_impl.cpp */; };
 		496982CE121DE31000048CF1 /* dictionary.slf in Resources */ = {isa = PBXBuildFile; fileRef = 496982CD121DE31000048CF1 /* dictionary.slf */; };
 		496982D1121DE3F700048CF1 /* SearchVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 496982D0121DE3F700048CF1 /* SearchVC.mm */; };
 		496983D4121E85D300048CF1 /* base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 496983D3121E85D300048CF1 /* base.cpp */; };
@@ -70,6 +72,8 @@
 		4928A002121E89C900B7C252 /* sloynik_engine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = sloynik_engine.hpp; path = ../../words/sloynik_engine.hpp; sourceTree = SOURCE_ROOT; };
 		4928A003121E89C900B7C252 /* sloynik_index.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sloynik_index.cpp; path = ../../words/sloynik_index.cpp; sourceTree = SOURCE_ROOT; };
 		4928A004121E89C900B7C252 /* sloynik_index.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = sloynik_index.hpp; path = ../../words/sloynik_index.hpp; sourceTree = SOURCE_ROOT; };
+		49506A5F15BB2D1F00377A85 /* thread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = thread.cpp; path = ../../base/thread.cpp; sourceTree = "<group>"; };
+		49506A6115BB2D7400377A85 /* platform_unix_impl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = platform_unix_impl.cpp; path = ../../platform/platform_unix_impl.cpp; sourceTree = "<group>"; };
 		496982CD121DE31000048CF1 /* dictionary.slf */ = {isa = PBXFileReference; lastKnownFileType = file; name = dictionary.slf; path = ../../data/dictionary.slf; sourceTree = SOURCE_ROOT; };
 		496982CF121DE3F700048CF1 /* SearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchVC.h; path = Shared/SearchVC.h; sourceTree = "<group>"; };
 		496982D0121DE3F700048CF1 /* SearchVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SearchVC.mm; path = Shared/SearchVC.mm; sourceTree = "<group>"; };
@@ -218,6 +222,7 @@
 		496983D2121E859A00048CF1 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				49506A5F15BB2D1F00377A85 /* thread.cpp */,
 				496983D3121E85D300048CF1 /* base.cpp */,
 				49B637BC154EF19D00529889 /* exception.cpp */,
 				496983F6121E875200048CF1 /* logging.cpp */,
@@ -291,6 +296,7 @@
 		49B637B0154EF0C600529889 /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				49506A6115BB2D7400377A85 /* platform_unix_impl.cpp */,
 				49B637B2154EF0F900529889 /* platform.cpp */,
 				49B637B1154EF0F900529889 /* platform_ios.mm */,
 			);
@@ -396,6 +402,8 @@
 				49B637BF154EF1A900529889 /* timer.cpp in Sources */,
 				49B637C2154EF1DD00529889 /* base64.cpp in Sources */,
 				49B637C3154EF1DD00529889 /* hex.cpp in Sources */,
+				49506A6015BB2D1F00377A85 /* thread.cpp in Sources */,
+				49506A6215BB2D7400377A85 /* platform_unix_impl.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
