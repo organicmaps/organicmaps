@@ -42,4 +42,4 @@ SOURCES += ../../testing/testingmain.cpp \
 HEADERS += \
     reader_test.hpp \
     coder_test.hpp \
-
+    compressor_test_utils.hpp \

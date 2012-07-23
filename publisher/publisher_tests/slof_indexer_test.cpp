@@ -1,5 +1,8 @@
 #include "../../testing/testing.hpp"
 #include "../slof_indexer.hpp"
+
+#include "../../coding/coding_tests/compressor_test_utils.hpp"
+
 #include "../../words/slof_dictionary.hpp"
 #include "../../words/sloynik_engine.hpp"
 #include "../../coding/reader.hpp"
@@ -11,22 +14,6 @@
 
 namespace
 {
-  void TestCompressor(char const * pSrc, size_t srcSize, string & res)
-  {
-    res = "<";
-    res.insert(res.end(), pSrc, pSrc + srcSize);
-    res.insert(res.end(), '>');
-  }
-
-  void TestDecompressor(char const * pSrc, size_t srcSize, char * pDst, size_t dstSize)
-  {
-    TEST_GREATER_OR_EQUAL(srcSize, 2, ());
-    TEST_EQUAL(srcSize - 2, dstSize, ());
-    TEST_EQUAL(pSrc[0], '<', ());
-    TEST_EQUAL(pSrc[srcSize-1], '>', ());
-    memcpy(pDst, pSrc + 1, srcSize - 2);
-  }
-
   string Key(sl::SlofDictionary const & dic, sl::Dictionary::Id id)
   {
     string res;
@@ -47,10 +34,10 @@ UNIT_TEST(SlofIndexerEmptyTest)
   string serializedDictionary;
   {
     MemWriter<string> writer(serializedDictionary);
-    sl::SlofIndexer indexer(writer, 20, &TestCompressor);
+    sl::SlofIndexer indexer(writer, 20, &coding::TestCompressor);
   }
   sl::SlofDictionary dic(new MemReader(&serializedDictionary[0], serializedDictionary.size()),
-                         &TestDecompressor);
+                         &coding::TestDecompressor);
   TEST_EQUAL(dic.KeyCount(), 0, ());
 }
 
@@ -59,7 +46,7 @@ UNIT_TEST(SlofIndexerSmokeTest)
   string serializedDictionary;
   {
     MemWriter<string> writer(serializedDictionary);
-    sl::SlofIndexer indexer(writer, 25, &TestCompressor);
+    sl::SlofIndexer indexer(writer, 25, &coding::TestCompressor);
     uint64_t articleM = indexer.AddArticle("ArticleM");
     indexer.AddKey("M", articleM);
     uint64_t articleHello = indexer.AddArticle("ArticleHello");
@@ -70,7 +57,7 @@ UNIT_TEST(SlofIndexerSmokeTest)
   }
   {
     sl::SlofDictionary dic(new MemReader(&serializedDictionary[0], serializedDictionary.size()),
-                           &TestDecompressor);
+                           &coding::TestDecompressor);
     TEST_EQUAL(dic.KeyCount(), 4, ());
     TEST_EQUAL(Key(dic, 0), "He", ());
     TEST_EQUAL(Key(dic, 1), "Hello", ());
