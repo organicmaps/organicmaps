@@ -80,6 +80,7 @@ void IndexJson(sl::SlofIndexer & indexer)
       }
     }
   }
+  LOG(LINFO, ("Articles found:", articles.size()));
 
   LOG(LINFO, ("Sorting list of articles."));
   sort(articles.begin(), articles.end());
