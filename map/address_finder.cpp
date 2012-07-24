@@ -27,6 +27,7 @@ namespace
     void Swap(FeatureInfoT & rhs)
     {
       swap(m_dist, rhs.m_dist);
+      swap(m_pt, rhs.m_pt);
       m_name.swap(rhs.m_name);
       m_house.swap(rhs.m_house);
       swap(m_types, rhs.m_types);
@@ -53,6 +54,7 @@ namespace
   class DoGetFeatureInfoBase
   {
   protected:
+    virtual bool IsInclude(double dist, feature::TypesHolder const & types) const = 0;
     virtual double GetResultDistance(double d, feature::TypesHolder const & types) const = 0;
     virtual double NeedProcess(feature::TypesHolder const & types) const
     {
@@ -78,8 +80,8 @@ namespace
     }
 
   public:
-    DoGetFeatureInfoBase(m2::PointD const & pt, double eps, int scale)
-      : m_pt(pt), m_scale(scale), m_eps(eps)
+    DoGetFeatureInfoBase(m2::PointD const & pt, int scale)
+      : m_pt(pt), m_scale(scale)
     {
       m_coastType = classif().GetCoastType();
     }
@@ -92,7 +94,7 @@ namespace
         double const d = f.GetDistance(m_pt, m_scale);
         ASSERT_GREATER_OR_EQUAL(d, 0.0, ());
 
-        if (d <= m_eps)
+        if (IsInclude(d, types))
         {
           string name, house;
           f.GetPrefferedNames(name, house /*dummy parameter*/);
@@ -119,13 +121,16 @@ namespace
 
   protected:
     int m_scale;
-    double m_eps;
     vector<FeatureInfoT> m_cont;
   };
 
   class DoGetFeatureTypes : public DoGetFeatureInfoBase
   {
   protected:
+    virtual bool IsInclude(double dist, feature::TypesHolder const & types) const
+    {
+      return (dist <= m_eps);
+    }
     virtual double GetResultDistance(double d, feature::TypesHolder const & types) const
     {
       return (d + GetCompareEpsilonImpl(types.GetGeoType(), m_eps));
@@ -133,7 +138,7 @@ namespace
 
   public:
     DoGetFeatureTypes(m2::PointD const & pt, double eps, int scale)
-      : DoGetFeatureInfoBase(pt, eps, scale)
+      : DoGetFeatureInfoBase(pt, scale), m_eps(eps)
     {
     }
 
@@ -147,6 +152,9 @@ namespace
         for (size_t j = 0; j < m_cont[i].m_types.Size(); ++j)
           types.push_back(c.GetFullObjectName(m_cont[i].m_types[j]));
     }
+
+  private:
+    double m_eps;
   };
 }
 
@@ -173,7 +181,7 @@ void Framework::GetFeatureTypes(m2::PointD pt, vector<string> & types) const
 
 namespace
 {
-  class DoGetAddressInfo : public DoGetFeatureInfoBase
+  class DoGetAddressBase : public DoGetFeatureInfoBase
   {
   public:
     class TypeChecker
@@ -282,48 +290,46 @@ namespace
       }
     };
 
-    TypeChecker const & m_checker;
-    bool m_doLocalities;
-
   protected:
+    TypeChecker const & m_checker;
+
+  public:
+    DoGetAddressBase(m2::PointD const & pt, int scale, TypeChecker const & checker)
+      : DoGetFeatureInfoBase(pt, scale), m_checker(checker)
+    {
+    }
+  };
+
+  class DoGetAddressInfo : public DoGetAddressBase
+  {
+  protected:
+    virtual bool IsInclude(double dist, feature::TypesHolder const & types) const
+    {
+      return (dist <= m_arrEps[types.GetGeoType()]);
+    }
+
     virtual double GetResultDistance(double d, feature::TypesHolder const & types) const
     {
-      if (!m_doLocalities)
-        return (d + GetCompareEpsilonImpl(types.GetGeoType(), 5.0 * MercatorBounds::degreeInMetres));
-      else
-      {
-        // This routine is needed for quality of locality prediction.
-        // Hamlet may be the nearest point, but it's a part of a City. So use the divide factor
-        // for distance, according to feature type.
-        return (d / m_checker.GetLocalityDivideFactor(types));
-      }
+      return (d + GetCompareEpsilonImpl(types.GetGeoType(), 5.0 * MercatorBounds::degreeInMetres));
     }
+
     virtual double NeedProcess(feature::TypesHolder const & types) const
     {
-      if (m_doLocalities)
-      {
-        return (types.GetGeoType() == feature::GEOM_POINT && m_checker.IsLocality(types));
-      }
-      else
-      {
-        // we need features with texts for address lookup
-        pair<int, int> const r = feature::GetDrawableScaleRangeForText(types);
-        return my::between_s(r.first, r.second, m_scale);
-      }
+      // we need features with texts for address lookup
+      pair<int, int> const r = feature::GetDrawableScaleRangeForText(types);
+      return my::between_s(r.first, r.second, m_scale);
     }
 
   public:
-    DoGetAddressInfo(m2::PointD const & pt, double eps, int scale,
-                     TypeChecker const & checker)
-      : DoGetFeatureInfoBase(pt, eps, scale),
-        m_checker(checker), m_doLocalities(false)
+    DoGetAddressInfo(m2::PointD const & pt, int scale, TypeChecker const & checker,
+                     double (&arrRadius) [3])
+      : DoGetAddressBase(pt, scale, checker)
     {
-    }
-
-    void PrepareForLocalities()
-    {
-      m_doLocalities = true;
-      m_cont.clear();
+      for (size_t i = 0; i < 3; ++i)
+      {
+        m2::RectD const r = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, arrRadius[i]);
+        m_arrEps[i] = (r.SizeX() + r.SizeY()) / 2.0;
+      }
     }
 
     void FillAddress(search::Engine const * eng, Framework::AddressInfo & info)
@@ -363,6 +369,39 @@ namespace
       }
     }
 
+  private:
+    double m_arrEps[3];
+  };
+
+  class DoGetLocality : public DoGetAddressBase
+  {
+  protected:
+    virtual bool IsInclude(double dist, feature::TypesHolder const & types) const
+    {
+      return (dist <= m_eps);
+    }
+
+    virtual double GetResultDistance(double d, feature::TypesHolder const & types) const
+    {
+      // This routine is needed for quality of locality prediction.
+      // Hamlet may be the nearest point, but it's a part of a City. So use the divide factor
+      // for distance, according to feature type.
+      return (d / m_checker.GetLocalityDivideFactor(types));
+    }
+
+    virtual double NeedProcess(feature::TypesHolder const & types) const
+    {
+      return (types.GetGeoType() == feature::GEOM_POINT && m_checker.IsLocality(types));
+    }
+
+  public:
+    DoGetLocality(m2::PointD const & pt, int scale, TypeChecker const & checker,
+                  m2::RectD const & rect)
+      : DoGetAddressBase(pt, scale, checker)
+    {
+      m_eps = max(rect.SizeX(), rect.SizeY());
+    }
+
     void FillLocality(Framework::AddressInfo & info, Framework const & fm)
     {
       SortResults();
@@ -377,6 +416,9 @@ namespace
         }
       }
     }
+
+  private:
+    double m_eps;
   };
 }
 
@@ -392,17 +434,22 @@ void Framework::GetAddressInfo(m2::PointD const & pt, AddressInfo & info) const
   }
 
   int scale = scales::GetUpperScale();
-  double const addressR = 200.0;
-  double const localityR = 20000.0;
+  double addressR[] = {
+    15.0,   // radius to search point POI's
+    100.0,  // radius to search street names
+    5.0     // radius to search building numbers (POI's)
+  };
+  double const localityR = 20000.0; // radius to search localities
 
-  static DoGetAddressInfo::TypeChecker checker;
+  static DoGetAddressBase::TypeChecker checker;
 
   // first of all - get an address
   {
-    DoGetAddressInfo getAddress(pt, addressR, scale, checker);
+    // pass maximum value for all addressR
+    m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, addressR[1]);
+    DoGetAddressInfo getAddress(pt, scale, checker, addressR);
 
-    m_model.ForEachFeature(
-          MercatorBounds::RectByCenterXYAndSizeInMeters(pt, addressR), getAddress, scale);
+    m_model.ForEachFeature(rect, getAddress, scale);
 
     getAddress.FillAddress(GetSearchEngine(), info);
   }
@@ -412,11 +459,10 @@ void Framework::GetAddressInfo(m2::PointD const & pt, AddressInfo & info) const
     scale = checker.GetLocalitySearchScale();
     LOG(LDEBUG, ("Locality scale = ", scale));
 
-    DoGetAddressInfo getLocality(pt, localityR, scale, checker);
-    getLocality.PrepareForLocalities();
+    m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, localityR);
+    DoGetLocality getLocality(pt, scale, checker, rect);
 
-    m_model.ForEachFeature(
-          MercatorBounds::RectByCenterXYAndSizeInMeters(pt, localityR), getLocality, scale);
+    m_model.ForEachFeature(rect, getLocality, scale);
 
     getLocality.FillLocality(info, *this);
   }
