@@ -334,6 +334,16 @@ public:
 
   bool IsBenchmarking() const;
 
+  /// @{ Dealing with "Like us on a Facebook" dialog
+  bool ShouldShowFacebookDialog() const;
+
+  /// values for @param result are as follows
+  /// 0 - "OK" pressed
+  /// 1 - "Later" pressed
+  /// 2 - "Never" pressed
+  void SaveFacebookDialogResult(int result);
+  /// @}
+
 private:
   bool IsCountryLoaded(m2::PointD const & pt) const;
 };

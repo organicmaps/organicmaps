@@ -77,6 +77,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         checkMeasurementSystem();
         checkProVersionAvailable();
         checkUpdateMaps();
+        checkFacebookDialog();
       }
     });
   }
@@ -229,6 +230,64 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         {
         }
       });
+    }
+  }
+
+  private void showFacebookPage()
+  {
+    Intent intent = null;
+    try
+    {
+      getPackageManager().getPackageInfo("com.facebook.katana", 0);
+      /// profile id is taken from http://graph.facebook.com/MapsWithMe
+      intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/111923085594432"));
+    }
+    catch (Exception e)
+    {
+      intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/MapsWithMe"));
+    }
+
+    startActivity(intent);
+  }
+
+  private void checkFacebookDialog()
+  {
+    if (mApplication.nativeShouldShowFacebookDialog())
+    {
+      new AlertDialog.Builder(this)
+        .setCancelable(false)
+        .setMessage(getString(R.string.share_on_facebook_text))
+        .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            dlg.dismiss();
+            mApplication.nativeSubmitFacebookDialogResult(0);
+            showFacebookPage();
+          }
+        })
+        .setNeutralButton(getString(R.string.later), new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            dlg.dismiss();
+            mApplication.nativeSubmitFacebookDialogResult(1);
+          }
+        })
+        .setNegativeButton(getString(R.string.never), new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            dlg.dismiss();
+            mApplication.nativeSubmitFacebookDialogResult(2);
+          }
+        })
+        .create()
+        .show();
+
     }
   }
 

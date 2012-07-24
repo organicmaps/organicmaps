@@ -199,4 +199,11 @@ public class MWMApplication extends android.app.Application implements MapStorag
                                  boolean isPro);
 
   public native boolean nativeIsBenchmarking();
+
+  /// Dealing with Facebook dialog
+  /// @{
+  public native boolean nativeShouldShowFacebookDialog();
+  /// values of result param should correspond to values defined in map/Framework.hpp
+  public native void nativeSubmitFacebookDialogResult(int result);
+  /// @}
 }

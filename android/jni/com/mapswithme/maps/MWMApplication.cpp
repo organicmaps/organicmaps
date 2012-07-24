@@ -41,5 +41,19 @@ extern "C"
   {
     return static_cast<jboolean>(g_framework->NativeFramework()->IsBenchmarking());
   }
+
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_MWMApplication_nativeShouldShowFacebookDialog(JNIEnv * env,
+                                                                         jobject thiz)
+  {
+    return static_cast<jboolean>(g_framework->NativeFramework()->ShouldShowFacebookDialog());
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMApplication_nativeSubmitFacebookDialogResult(JNIEnv * env,
+                                                                   jobject thiz,
+                                                                   jint result)
+  {
+    g_framework->NativeFramework()->SaveFacebookDialogResult(static_cast<int>(result));
   }
 }

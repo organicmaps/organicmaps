@@ -24,6 +24,7 @@
 #include "../yg/render_state.hpp"
 
 #include "../base/math.hpp"
+#include "../base/timer.hpp"
 
 #include "../std/algorithm.hpp"
 #include "../std/target_os.hpp"
@@ -31,6 +32,8 @@
 
 using namespace storage;
 
+#define MAX_STARTUP_TIMES_TO_SHOW_FACEBOOK_DIALOG 5
+#define MAX_DAYS_TO_SHOW_FACEBOOK_DIALOG 7
 
 void Framework::AddMap(string const & file)
 {
@@ -164,6 +167,14 @@ Framework::Framework()
     m_lowestMapVersion(-1),
     m_benchmarkEngine(0)
 {
+  // checking and setting program run count
+  int StartupCount = 0;
+  (void)Settings::Get("StartupCount", StartupCount);
+  ++StartupCount;
+  Settings::Set("StartupCount", StartupCount);
+  /// setting startup time
+  Settings::Set("LastFacebookCheckTime", my::Timer::LocalTime());
+
   // checking whether we should enable benchmark
   bool isBenchmarkingEnabled = false;
   (void)Settings::Get("IsBenchmarking", isBenchmarkingEnabled);
@@ -1141,4 +1152,41 @@ m2::RectD Framework::GetCurrentViewport() const
 bool Framework::IsBenchmarking() const
 {
   return m_benchmarkEngine != 0;
+}
+
+bool Framework::ShouldShowFacebookDialog() const
+{
+  int StartupCount = 0;
+  double LastFacebookCheckTime = my::Timer::LocalTime();
+
+  bool flag = true;
+  Settings::Get("ShouldShowFacebookDialog", flag);
+
+  if (!flag)
+    return false;
+
+  Settings::Get("StartupCount", StartupCount);
+  LOG(LDEBUG, ("Program Startup Count: ", StartupCount));
+
+  Settings::Get("LastFacebookCheckTime", LastFacebookCheckTime);
+
+  return((StartupCount >= MAX_STARTUP_TIMES_TO_SHOW_FACEBOOK_DIALOG)
+      || (LastFacebookCheckTime - my::Timer::LocalTime() > MAX_DAYS_TO_SHOW_FACEBOOK_DIALOG * 24 * 60 * 60));
+}
+
+void Framework::SaveFacebookDialogResult(int result)
+{
+  switch (result)
+  {
+  case 0: case 2:
+    Settings::Set("ShouldShowFacebookDialog", false);
+    break;
+  case 1:
+    Settings::Set("StartupCount", 0);
+    Settings::Set("LastFacebookCheckTime", my::Timer::LocalTime());
+    break;
+  default:
+    LOG(LINFO, ("Unknown Facebook dialog result!"));
+    break;
+  }
 }
