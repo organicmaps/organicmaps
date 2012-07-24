@@ -193,8 +193,6 @@ void Query::UpdateViewportOffsets(MWMVectorT const & mwmInfo, m2::RectD const & 
 void Query::InitSearch(string const & query)
 {
   m_cancel = false;
-  m_rawQuery = query;
-  m_uniQuery = NormalizeAndSimplifyString(m_rawQuery);
   m_tokens.clear();
   m_prefix.clear();
 }
@@ -217,16 +215,17 @@ void Query::ClearQueues()
     m_results[i].clear();
 }
 
-void Query::Search(string const & query, Results & res, unsigned int resultsNeeded)
+void Query::Search(string const & query, Results & res)
 {
   // Initialize.
 
   InitSearch(query);
 
   search::Delimiters delims;
-  SplitUniString(m_uniQuery, MakeBackInsertFunctor(m_tokens), delims);
+  SplitUniString(NormalizeAndSimplifyString(query),
+                 MakeBackInsertFunctor(m_tokens), delims);
 
-  if (!m_tokens.empty() && !delims(strings::LastUniChar(m_rawQuery)))
+  if (!m_tokens.empty() && !delims(strings::LastUniChar(query)))
   {
     m_prefix.swap(m_tokens.back());
     m_tokens.pop_back();
@@ -241,7 +240,7 @@ void Query::Search(string const & query, Results & res, unsigned int resultsNeed
   // Match (lat, lon).
   {
     double lat, lon, latPrec, lonPrec;
-    if (search::MatchLatLon(m_rawQuery, lat, lon, latPrec, lonPrec))
+    if (search::MatchLatLon(query, lat, lon, latPrec, lonPrec))
     {
       //double const precision = 5.0 * max(0.0001, min(latPrec, lonPrec));  // Min 55 meters
       res.AddResult(MakeResult(impl::PreResult2(GetViewport(), m_position, lat, lon)));

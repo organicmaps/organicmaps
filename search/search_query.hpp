@@ -74,7 +74,7 @@ public:
   void SetPreferredLanguage(string const & lang);
   inline void SetInputLanguage(int8_t lang) { m_inputLang = lang; }
 
-  void Search(string const & query, Results & res, unsigned int resultsNeeded = 10);
+  void Search(string const & query, Results & res);
   void SearchAllInViewport(m2::RectD const & viewport, Results & res, unsigned int resultsNeeded = 30);
   void SearchAdditional(Results & res);
 
@@ -144,8 +144,6 @@ private:
 
   volatile bool m_cancel;
 
-  string m_rawQuery;
-  strings::UniString m_uniQuery;
   buffer_vector<strings::UniString, 32> m_tokens;
   strings::UniString m_prefix;
 
