@@ -493,8 +493,8 @@ namespace android
     m_work.Scale(k);
   }
 
-  bool Framework::IsBenchmarking() const
+  ::Framework * Framework::NativeFramework()
   {
-    return m_work.IsBenchmarking();
+    return &m_work;
   }
 }

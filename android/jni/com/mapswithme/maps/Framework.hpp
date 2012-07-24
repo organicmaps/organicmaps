@@ -107,7 +107,7 @@ namespace android
 
     void Scale(double k);
 
-    bool IsBenchmarking() const;
+    ::Framework * NativeFramework();
   };
 }
 

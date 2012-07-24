@@ -39,6 +39,7 @@ extern "C"
   Java_com_mapswithme_maps_MWMApplication_nativeIsBenchmarking(JNIEnv * env,
                                                                jobject thiz)
   {
-    return static_cast<jboolean>(g_framework->IsBenchmarking());
+    return static_cast<jboolean>(g_framework->NativeFramework()->IsBenchmarking());
+  }
   }
 }
