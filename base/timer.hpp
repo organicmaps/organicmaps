@@ -12,11 +12,10 @@ class Timer
 {
   double m_startTime;
 
-  static double LocalTime();
-
 public:
   Timer();
 
+  static double LocalTime();
   double ElapsedSeconds() const;
   void Reset();
 };
