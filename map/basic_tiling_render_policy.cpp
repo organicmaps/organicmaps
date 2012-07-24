@@ -11,31 +11,27 @@
 
 size_t BasicTilingRenderPolicy::CalculateTileSize(size_t screenWidth, size_t screenHeight)
 {
-  /// getting maximum screenSize
-  size_t maxScreenSize = max(screenWidth, screenHeight);
+  int const maxSz = max(screenWidth, screenHeight);
 
-  /// we're calculating the tileSize based on
-  /// (maxScreenSize > 1024 ? rounded : ceiled) to the nearest power of two value
-  /// of the maxScreenSize
+  // we're calculating the tileSize based on (maxSz > 1024 ? rounded : ceiled)
+  // to the nearest power of two value of the maxSz
 
-  double const log2 = log(2.0);
+  int const ceiledSz = 1 << static_cast<int>(ceil(log(double(maxSz + 1)) / log(2.0)));
+  int res = 0;
 
-  size_t ceiledScreenSize = static_cast<int>(pow(2.0, ceil(log(double(maxScreenSize + 1)) / log2)));
-  size_t flooredScreenSize = ceiledScreenSize / 2;
-  size_t resScreenSize = 0;
-
-  if (maxScreenSize < 1024)
-    resScreenSize = ceiledScreenSize;
+  if (maxSz < 1024)
+    res = ceiledSz;
   else
   {
-    /// rounding to the nearest power of two.
-    if (ceiledScreenSize - maxScreenSize < maxScreenSize - flooredScreenSize)
-      resScreenSize = ceiledScreenSize;
+    int const flooredSz = ceiledSz / 2;
+    // rounding to the nearest power of two.
+    if (ceiledSz - maxSz < maxSz - flooredSz)
+      res = ceiledSz;
     else
-      resScreenSize = flooredScreenSize;
+      res = flooredSz;
   }
 
-  return min(max(resScreenSize / 2, (size_t)128), (size_t)1024);
+  return min(max(res / 2, 128), 1024);
 }
 
 BasicTilingRenderPolicy::BasicTilingRenderPolicy(Params const & p,

@@ -51,6 +51,7 @@ namespace yg
         m_surfaceWidth = w;
         m_surfaceHeight = h;
 
+        /*
         double const log2 = log(2.0);
 
         m_textureWidth = static_cast<uint32_t>(pow(2, ceil(log(double(w)) / log2)));
@@ -58,6 +59,9 @@ namespace yg
 
         m_textureWidth = max(m_textureWidth, m_textureHeight);
         m_textureHeight = max(m_textureWidth, m_textureHeight);
+        */
+        m_textureWidth = m_textureHeight =
+            1 << static_cast<int>(ceil(log(double(max(w, h))) / log(2.0)));
       }
     }
 
