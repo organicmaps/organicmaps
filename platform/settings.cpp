@@ -199,6 +199,44 @@ namespace Settings
     else return false;
   }
 
+  template <> string ToString<int>(int const & v)
+  {
+    ostringstream stream;
+    stream << v;
+    return stream.str();
+  }
+
+  template <> bool FromString<int>(string const & str, int & v)
+  {
+    istringstream stream(str);
+    if (stream.good())
+    {
+      stream >> v;
+      return !stream.fail();
+    }
+    else
+      return false;
+  }
+
+  template <> string ToString<unsigned>(unsigned const & v)
+  {
+    ostringstream stream;
+    stream << v;
+    return stream.str();
+  }
+
+  template <> bool FromString<unsigned>(string const & str, unsigned & v)
+  {
+    istringstream stream(str);
+    if (stream.good())
+    {
+      stream >> v;
+      return !stream.fail();
+    }
+    else
+      return false;
+  }
+
   namespace impl
   {
     template <class TPair> string ToStringPair(TPair const & value)
