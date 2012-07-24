@@ -58,6 +58,9 @@
 
 "get_it_now" = "Installer";
 
+/* Text to show occasionaly with a proposal to Like our program on Facebook */
+"share_on_facebook_text" = "If you enjoying our program, please share it with your friends on Facebook.";
+
 /* Leave Review dialog title */
 "leave_review_text" = "Si Maps With Me vous plait, merci de nous soutenir en donnant votre avis. Si vous rencontrez des problèmes avec ce programme, merci de nous le faire savoir en remplissant le formulaire adéquat.";
 
@@ -107,6 +110,9 @@
 
 /* Update maps later/Buy pro version later button text */
 "later" = "Later";
+
+/* Don't show some dialog anymore. */
+"never" = "Never";
 
 /* Leave Review dialog - Complain button (goes to support site) */
 "report_an_issue" = "Signalez un problème";
@@ -169,7 +175,7 @@
 "country_status_added_to_queue" = "^is added to the\ndownloading queue.";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "Downloading^(^%)";
+"country_status_downloading" = "Downloading^ (^%)";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Download^";
@@ -240,9 +246,20 @@
 
 "update_mb_or_kb" = "Update %@";
 
-"search_update_maps" = "You need updated maps for search function";
+/* Show toast when we have countries without search index */
+"search_update_maps" = "You need to updated maps for search function:";
 
-"advise_update_maps" = "Update available for this maps";
+/* Show toast on start when we have out-of-date maps */
+"advise_update_maps" = "Update available for these maps:";
+
+/* Show toast in Pro version that Lite can be deleted */
+"suggest_uninstall_lite" = "You don't need Maps With Me Lite any more, so you can uninstall it.";
+
+/* Show toast when country has downloaded. */
+"download_country_success" = "%@ downloaded successfuly.";
+
+/* Show toast when country downloading failed. */
+"download_country_failed" = "Downloading of %@ failed.";
 
 /* Add New Bookmark Set dialog title */
 "add_new_set" = "Add New Set";

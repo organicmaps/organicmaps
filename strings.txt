@@ -170,6 +170,10 @@
 		ko = 지금 가져오기
 		ru = Установить
 		cs = Získat nyní
+	[share_on_facebook_text]
+		en = If you enjoying our program, please share it with your friends on Facebook.
+		ru = Если вам нравится наша программа, пожалуйста порекомендуйте ее своим друзьям на Facebook.
+		comment = Text to show occasionaly with a proposal to Like our program on Facebook
 	[leave_review_text]
 		en = If you like MapsWithMe, please support us by writing a review. If you face any issues, please let us know by filling in a special form.
 		comment = Leave Review dialog title
@@ -314,6 +318,10 @@
 		comment = Update maps later/Buy pro version later button text
 		ru = Не сейчас
 		cs = Později
+	[never]
+		en = Never
+		comment = Don't show some dialog anymore.
+		ru = Не показывать
 	[report_an_issue]
 		en = Report an issue
 		comment = Leave Review dialog - Complain button (goes to support site)

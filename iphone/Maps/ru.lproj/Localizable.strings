@@ -58,6 +58,9 @@
 
 "get_it_now" = "Установить";
 
+/* Text to show occasionaly with a proposal to Like our program on Facebook */
+"share_on_facebook_text" = "Если вам нравится наша программа, пожалуйста порекомендуйте ее своим друзьям на Facebook.";
+
 /* Leave Review dialog title */
 "leave_review_text" = "Если вам нравится MapsWithMe, пожалуйста, поддержите нас, написав отзыв. Если у вас возникли проблемы при использовании программы, пожалуйста, сообщите нам, заполнив специальную форму, чтобы мы могли связаться с вами для уточнения деталей.";
 
@@ -107,6 +110,9 @@
 
 /* Update maps later/Buy pro version later button text */
 "later" = "Не сейчас";
+
+/* Don't show some dialog anymore. */
+"never" = "Не показывать";
 
 /* Leave Review dialog - Complain button (goes to support site) */
 "report_an_issue" = "Сообщить о проблеме";
@@ -169,7 +175,7 @@
 "country_status_added_to_queue" = "^добавлено в очередь\nзагрузки.";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "Загружается^(^%)";
+"country_status_downloading" = "Загружается^ (^%)";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Загрузить^";
@@ -240,9 +246,20 @@
 
 "update_mb_or_kb" = "Обновить %@";
 
-"search_update_maps" = "Для функции поиска необходимо обновить устаревшие карты";
+/* Show toast when we have countries without search index */
+"search_update_maps" = "Для функции поиска необходимо обновить устаревшие карты:";
 
-"advise_update_maps" = "Доступно обновление для следующих карт";
+/* Show toast on start when we have out-of-date maps */
+"advise_update_maps" = "Доступно обновление для следующих карт:";
+
+/* Show toast in Pro version that Lite can be deleted */
+"suggest_uninstall_lite" = "Maps With Me Lite больше не нужна. Рекомендуем ее удалить.";
+
+/* Show toast when country has downloaded. */
+"download_country_success" = "%@ успешно загружена.";
+
+/* Show toast when country downloading failed. */
+"download_country_failed" = "Загрузка %@ провалилась.";
 
 /* Add New Bookmark Set dialog title */
 "add_new_set" = "Добавить группу";

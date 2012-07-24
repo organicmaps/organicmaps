@@ -36,6 +36,8 @@
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Загружается…</string>
 	<string name="get_it_now">Установить</string>
+	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
+	<string name="share_on_facebook_text">Если вам нравится наша программа, пожалуйста порекомендуйте ее своим друзьям на Facebook.</string>
 	<!-- Leave Review dialog title -->
 	<string name="leave_review_text">Если вам нравится MapsWithMe, пожалуйста, поддержите нас, написав отзыв. Если у вас возникли проблемы при использовании программы, пожалуйста, сообщите нам, заполнив специальную форму, чтобы мы могли связаться с вами для уточнения деталей.</string>
 	<!-- Settings/Downloader - size string -->
@@ -68,6 +70,8 @@
 	<string name="remind_me_later">Напомнить позже</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Не сейчас</string>
+	<!-- Don't show some dialog anymore. -->
+	<string name="never">Не показывать</string>
 	<!-- Leave Review dialog - Complain button (goes to support site) -->
 	<string name="report_an_issue">Сообщить о проблеме</string>
 	<!-- View and button titles for accessibility -->
