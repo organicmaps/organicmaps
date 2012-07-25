@@ -181,60 +181,58 @@ namespace Settings
     return true;
   }
 
+  namespace impl
+  {
+    template <typename T>
+    string ToStringScalar(T const & v)
+    {
+      ostringstream stream;
+      stream.precision(12);
+      stream << v;
+      return stream.str();
+    }
+
+    template <typename T>
+    bool FromStringScalar(string const & str, T & v)
+    {
+      istringstream stream(str);
+      if (stream.good())
+      {
+        stream >> v;
+        return !stream.fail();
+      }
+      else return false;
+    }
+  }
+
   template <> string ToString<double>(double const & v)
   {
-    ostringstream stream;
-    stream.precision(12);
-    stream << v;
-    return stream.str();
+    return impl::ToStringScalar<double>(v);
   }
+
   template <> bool FromString<double>(string const & str, double & v)
   {
-    istringstream stream(str);
-    if (stream.good())
-    {
-      stream >> v;
-      return !stream.fail();
-    }
-    else return false;
+    return impl::FromStringScalar<double>(str, v);
   }
 
   template <> string ToString<int>(int const & v)
   {
-    ostringstream stream;
-    stream << v;
-    return stream.str();
+    return impl::ToStringScalar<int>(v);
   }
 
   template <> bool FromString<int>(string const & str, int & v)
   {
-    istringstream stream(str);
-    if (stream.good())
-    {
-      stream >> v;
-      return !stream.fail();
-    }
-    else
-      return false;
+    return impl::FromStringScalar<int>(str, v);
   }
 
   template <> string ToString<unsigned>(unsigned const & v)
   {
-    ostringstream stream;
-    stream << v;
-    return stream.str();
+    return impl::ToStringScalar<unsigned>(v);
   }
 
   template <> bool FromString<unsigned>(string const & str, unsigned & v)
   {
-    istringstream stream(str);
-    if (stream.good())
-    {
-      stream >> v;
-      return !stream.fail();
-    }
-    else
-      return false;
+    return impl::FromStringScalar<unsigned>(str, v);
   }
 
   namespace impl
