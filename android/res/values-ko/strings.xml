@@ -62,6 +62,8 @@
 	<string name="free_disk_space_for_country_x">먼저 귀하의 장치에 어느 정도의 공간을 확보하여 %s를 다운로드하여 주십시요.</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
 	<string name="remind_me_later">이후에 기억시키기</string>
+	<!-- Update maps later/Buy pro version later button text -->
+	<string name="later">후</string>
 	<!-- Leave Review dialog - Complain button (goes to support site) -->
 	<string name="report_an_issue">문제 보고하기</string>
 	<!-- View and button titles for accessibility -->
@@ -98,4 +100,82 @@
 	<string name="transport">수송</string>
 	<!-- Search Suggestion -->
 	<string name="tourism">관광</string>
+	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
+	<string name="country_status_added_to_queue">^는 다운로드 대기열에\n추가됩니다.</string>
+	<!-- Message to display at the center of the screen when the country is downloading -->
+	<string name="country_status_downloading">다운로드 중^ (^%)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
+	<string name="country_status_download">다운로드^</string>
+	<!-- Message to display at the center of the screen when the country download has failed -->
+	<string name="country_status_download_failed">다운로드에 실패하였습니다\n^</string>
+	<!-- Button text for the button under the country_status_download_failed message -->
+	<string name="try_again">다시 시도</string>
+	<string name="about_menu_title">소개</string>
+	<string name="downloading_touch_to_cancel">%d%%를 다운로드 중, 두드려 취소하십시요</string>
+	<string name="downloaded_touch_to_delete">(%s)가 다운로드 되었습니다, 두드려 삭제하십시요.</string>
+	<string name="connection_settings">연결 설정</string>
+	<string name="download_mb_or_kb">%s 다운로드하기</string>
+	<string name="close">닫기</string>
+	<string name="unsupported_phone">하드웨어 촉진 OpenGL이 요구됩니다. 애석하게도 귀하의 장치는 지원되지 않습니다.</string>
+	<string name="download">다운로드</string>
+	<string name="external_storage_is_not_available">다운로드된지도와 SD 카드 / USB 저장 장치를 사용할 수 없습니다</string>
+	<string name="disconnect_usb_cable">MapsWithMe를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오</string>
+	<string name="not_enough_free_space_on_sdcard">응용 프로그램을 사용하기 위해서는 첫째 SD 카드 / USB 저장 장치에 여유 공간을 확보하십시오</string>
+	<string name="not_enough_memory">응용 프로그램을 실행하기위한 메모리가 충분하지 않다</string>
+	<string name="free_space_for_country">%2$s를 다운로드하기 위해서는 먼저 장치에서 무료로 %1$s를주세요</string>
+	<!-- REMOVE THIS STRING AFTER REFACTORING -->
+	<string name="download_resources">프로그램은 필수 자원의 \n%1$.1f%2$s 를 다운로드해야합니다.</string>
+	<string name="getting_position">현재 위치 얻기</string>
+	<string name="download_resources_continue">지도로 이동</string>
+	<string name="downloading_country_can_proceed">%s다운로드. 이제지도를 진행할 수 있습니다.</string>
+	<string name="download_country_ask">%s다운로드?</string>
+	<string name="update_country_ask">%s업데이트?</string>
+	<!-- REMOVE THIS STRING AFTER REFACTORING -->
+	<string name="download_location_map_proposal">당신의 현재 위치의지도를 다운로드할 수 있습니다.</string>
+	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
+	<string name="download_location_update_map_proposal">귀하의 현재 위치의지도를 업데이트할 수 있습니다.</string>
+	<!-- REMOVE THIS STRING AFTER REFACTORING -->
+	<string name="download_location_map_up_to_date">현재 위치 (%s)\n에서지도는 최신이다</string>
+	<!-- REMOVE THIS STRING AFTER REFACTORING -->
+	<string name="pause">중지</string>
+	<!-- REMOVE THIS STRING AFTER REFACTORING -->
+	<string name="continue_download">계속</string>
+	<string name="downloaded_touch_to_update">다운로드 (%s), 터치를 업데이 트하거나 삭제하는 방법</string>
+	<string name="update_mb_or_kb">%s업데이트</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">당신은 검색 기능에 대한 업데이트된지도 필요</string>
+	<!-- Show popup notification on app start when we have out-of-date maps -->
+	<string name="advise_update_maps">이지도에 사용할 수있는 업데이트 :</string>
+	<!-- Show popup notification in Pro version that Lite can be deleted -->
+	<string name="suggest_uninstall_lite">당신은 더 이상 MapsWithMe 라이트는 필요 없어, 당신은 그것을 제거할 수 있습니다.</string>
+	<!-- Show popup notification on top of the map when country was downloaded. -->
+	<string name="download_country_success">%s이 성공적으로 다운로드</string>
+	<!-- Show popup notification on top of the map when country download has failed. -->
+	<string name="download_country_failed">%s다운로드가 실패했습니다</string>
+	<!-- Add New Bookmark Set dialog title -->
+	<string name="add_new_set">새로운 세트 추가</string>
+	<!-- Place Page - Add To Bookmarks button -->
+	<string name="add_to_bookmarks">즐겨찾기에 추가</string>
+	<!-- Bookmark Color dialog title -->
+	<string name="bookmark_color">색상 즐겨찾기에 추가</string>
+	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<string name="bookmark_set_name">집합 이름을 즐겨찾기에 추가</string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets">세트를 즐겨찾기에 추가</string>
+	<!-- Boormarks - dialog title -->
+	<string name="bookmarks">북마크</string>
+	<!-- Add bookmark dialog - bookmark color -->
+	<string name="color"></string>
+	<!-- Unknown Dropped Pin title, when name can't be determined -->
+	<string name="dropped_pin"></string>
+	<!-- Default bookmarks set name -->
+	<string name="my_places"></string>
+	<!-- Add bookmark dialog - bookmark name -->
+	<string name="name"></string>
+	<!-- Add bookmark dialog - bookmark address -->
+	<string name="address"></string>
+	<!-- Place Page - Remove Pin button -->
+	<string name="remove_pin"></string>
+	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
+	<string name="set"></string>
 </resources>

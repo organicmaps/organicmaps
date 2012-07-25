@@ -5,7 +5,7 @@
 <resources>
 	<!-- Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">Вышла платная версия MapsWithMe с поиском. Хотите установить её прямо сейчас?</string>
+	<string name="pro_version_available">Больше возможностей в полной версии MapsWithMe с оффлайн поиском. Установите ее сейчас!</string>
 	<!-- About button text (should be short! @todo - fix french) -->
 	<string name="about">О картах</string>
 	<!-- Button text (should be short) -->
@@ -28,7 +28,7 @@
 	<!-- Settings/Downloader - Download confirmation button -->
 	<string name="download_x_mb">Загрузить %qu МБ</string>
 	<!-- Settings/Downloader - info for country when download fails -->
-	<string name="download_has_failed">Ошибка загрузки. Нажмите, чтобы повоторить попытку</string>
+	<string name="download_has_failed">Ошибка загрузки. Нажмите, чтобы повторить попытку</string>
 	<!-- Settings/Downloader - info for downloaded country -->
 	<string name="downloaded_x_y_touch_to_delete">Загружено (%1$qu %2$s), нажмите для удаления</string>
 	<!-- Settings/Downloader - country info current download progress -->
@@ -57,9 +57,9 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Мили</string>
 	<!-- View and button titles for accessibility -->
-	<string name="my_position">Моё местоположение</string>
+	<string name="my_position">Мое местоположение</string>
 	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">Отсутствует подключение к Интернету</string>
+	<string name="no_internet_connection_detected">Отсутствует подключение к интернету</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">Нет WiFi соединения. Вы хотите скачать %s через сотового оператора (GPRS, EDGE или 3G)?</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
@@ -70,14 +70,14 @@
 	<string name="remind_me_later">Напомнить позже</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Не сейчас</string>
-	<!-- Don't show some dialog anymore. -->
+	<!-- Don't show some dialog any more -->
 	<string name="never">Не показывать</string>
 	<!-- Leave Review dialog - Complain button (goes to support site) -->
 	<string name="report_an_issue">Сообщить о проблеме</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Поиск</string>
 	<!-- Search button pressed dialog title in the free version -->
-	<string name="search_available_in_pro_version">Поиск доступен только в Pro версии MapsWithMe. Установить ее прямо сейчас?</string>
+	<string name="search_available_in_pro_version">Поиск доступен только в Pro версии MapsWithMe. Установите ее прямо сейчас!</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Поиск на карте</string>
 	<!-- Settings/Downloader - No free space dialog title -->
@@ -117,7 +117,7 @@
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Загрузить^</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">Ошибка загрузки^.</string>
+	<string name="country_status_download_failed">Ошибка загрузки\n^</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Попробуйте еще раз</string>
 	<string name="about_menu_title">О программе</string>
@@ -134,7 +134,7 @@
 	<string name="not_enough_memory">Недостаточно памяти для запуска программы</string>
 	<string name="free_space_for_country">Для загрузки %2$s нужно %1$s свободного места</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Для запуска программы нужно загрузить\n %1$.1f%2$s необходимых ресурсов.</string>
+	<string name="download_resources">Для запуска программы нужно загрузить \n%1$.1f%2$s необходимых ресурсов.</string>
 	<string name="getting_position">Получаем местоположение</string>
 	<string name="download_resources_continue">Перейти на карту</string>
 	<string name="downloading_country_can_proceed">Пока загружается %s \nвы можете пользоваться приложением.</string>
@@ -152,16 +152,16 @@
 	<string name="continue_download">Продолжить</string>
 	<string name="downloaded_touch_to_update">Загружено (%s), нажмите для обновления или удаления</string>
 	<string name="update_mb_or_kb">Обновить %s</string>
-	<!-- Show toast when we have countries without search index -->
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
 	<string name="search_update_maps">Для функции поиска необходимо обновить устаревшие карты:</string>
-	<!-- Show toast on start when we have out-of-date maps -->
+	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Доступно обновление для следующих карт:</string>
-	<!-- Show toast in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Maps With Me Lite больше не нужна. Рекомендуем ее удалить.</string>
-	<!-- Show toast when country has downloaded. -->
-	<string name="download_country_success">%s успешно загружена.</string>
-	<!-- Show toast when country downloading failed. -->
-	<string name="download_country_failed">Загрузка %s провалилась.</string>
+	<!-- Show popup notification in Pro version that Lite can be deleted -->
+	<string name="suggest_uninstall_lite">MapsWithMe Lite больше не нужна. Рекомендуем ее удалить.</string>
+	<!-- Show popup notification on top of the map when country was downloaded. -->
+	<string name="download_country_success">%s успешно загружена</string>
+	<!-- Show popup notification on top of the map when country download has failed. -->
+	<string name="download_country_failed">Не удалось загрузить %s</string>
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">Добавить группу</string>
 	<!-- Place Page - Add To Bookmarks button -->

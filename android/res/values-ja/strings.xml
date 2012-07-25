@@ -62,6 +62,8 @@
 	<string name="free_disk_space_for_country_x">位置情報サービスを有効にして下さい。</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
 	<string name="remind_me_later">後でリマインド</string>
+	<!-- Update maps later/Buy pro version later button text -->
+	<string name="later">後で</string>
 	<!-- Leave Review dialog - Complain button (goes to support site) -->
 	<string name="report_an_issue">問題を報告</string>
 	<!-- View and button titles for accessibility -->
@@ -98,4 +100,82 @@
 	<string name="transport">輸送</string>
 	<!-- Search Suggestion -->
 	<string name="tourism">観光</string>
+	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
+	<string name="country_status_added_to_queue">^をダウンロードキューに\n追加しました</string>
+	<!-- Message to display at the center of the screen when the country is downloading -->
+	<string name="country_status_downloading">ダウンロード中^ (^%)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
+	<string name="country_status_download">ダウンロード^</string>
+	<!-- Message to display at the center of the screen when the country download has failed -->
+	<string name="country_status_download_failed">ダウンロードに失敗しました\n^</string>
+	<!-- Button text for the button under the country_status_download_failed message -->
+	<string name="try_again">再実行</string>
+	<string name="about_menu_title">情報</string>
+	<string name="downloading_touch_to_cancel">%d%%をダウンロード中です。キャンセルするにはタッチして下さい。</string>
+	<string name="downloaded_touch_to_delete">(%s)をダウンロードしました。削除するにはタッチして下さい。</string>
+	<string name="connection_settings">接続設定</string>
+	<string name="download_mb_or_kb">%sをダウンロード</string>
+	<string name="close">閉じる</string>
+	<string name="unsupported_phone">ハードウェアアクセラレーションされたOpenGLが必要です。残念ながらご使用のデバイスはサポートされていません。</string>
+	<string name="download">ダウンロード</string>
+	<string name="external_storage_is_not_available">ダウンロード済みの地図はSDカード／USBストレージに保存する事はできません</string>
+	<string name="disconnect_usb_cable">USBケーブルを抜くかMapsWithMeに使うメモリーカードを挿入してください</string>
+	<string name="not_enough_free_space_on_sdcard">アプリを起動する前にSDカード/USBストレージの空き容量を増やしてください</string>
+	<string name="not_enough_memory">メモリ不足です。アプリを起動できません</string>
+	<string name="free_space_for_country">デバイス上で%1$s解放することで%2$sダウンロードすることができます</string>
+	<!-- REMOVE THIS STRING AFTER REFACTORING -->
+	<string name="download_resources">アプリは\n%1$.1f%2$s分の必須リソースをダウンロードする必要があります</string>
+	<string name="getting_position">現在地を取得中</string>
+	<string name="download_resources_continue">地図に移動</string>
+	<string name="downloading_country_can_proceed">%sをダウンロード中\n地図に移動できます</string>
+	<string name="download_country_ask">%sをダウンロードしますか？</string>
+	<string name="update_country_ask">%sを更新しますか？</string>
+	<!-- REMOVE THIS STRING AFTER REFACTORING -->
+	<string name="download_location_map_proposal">現在地の地図を\nダウンロードできます</string>
+	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
+	<string name="download_location_update_map_proposal">現在地の地図を\n更新できます</string>
+	<!-- REMOVE THIS STRING AFTER REFACTORING -->
+	<string name="download_location_map_up_to_date">現在地の地図は\n最新です (%s)</string>
+	<!-- REMOVE THIS STRING AFTER REFACTORING -->
+	<string name="pause">一時停止</string>
+	<!-- REMOVE THIS STRING AFTER REFACTORING -->
+	<string name="continue_download">続行</string>
+	<string name="downloaded_touch_to_update">(%s)をダウンロードしました。タップして更新、削除できます</string>
+	<string name="update_mb_or_kb">%sを更新</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">検索機能を利用するには地図を更新する必要があります</string>
+	<!-- Show popup notification on app start when we have out-of-date maps -->
+	<string name="advise_update_maps">こちらの地図が更新できます：</string>
+	<!-- Show popup notification in Pro version that Lite can be deleted -->
+	<string name="suggest_uninstall_lite">MapsWithMe Liteはもう必要ありませんので削除してもかまいません</string>
+	<!-- Show popup notification on top of the map when country was downloaded. -->
+	<string name="download_country_success">%sのダウンロードが成功しました</string>
+	<!-- Show popup notification on top of the map when country download has failed. -->
+	<string name="download_country_failed">%sのダウンロードが失敗しました</string>
+	<!-- Add New Bookmark Set dialog title -->
+	<string name="add_new_set">新しいセットを追加</string>
+	<!-- Place Page - Add To Bookmarks button -->
+	<string name="add_to_bookmarks">ブックマークに追加</string>
+	<!-- Bookmark Color dialog title -->
+	<string name="bookmark_color">ブックマークの色</string>
+	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<string name="bookmark_set_name">ブックマークセット名</string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets">ブックマークセット</string>
+	<!-- Boormarks - dialog title -->
+	<string name="bookmarks">ブックマーク</string>
+	<!-- Add bookmark dialog - bookmark color -->
+	<string name="color">色</string>
+	<!-- Unknown Dropped Pin title, when name can't be determined -->
+	<string name="dropped_pin">ドロップされたピン</string>
+	<!-- Default bookmarks set name -->
+	<string name="my_places">マイロケーション</string>
+	<!-- Add bookmark dialog - bookmark name -->
+	<string name="name">場所名</string>
+	<!-- Add bookmark dialog - bookmark address -->
+	<string name="address">住所</string>
+	<!-- Place Page - Remove Pin button -->
+	<string name="remove_pin">ピンを削除</string>
+	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
+	<string name="set">セット</string>
 </resources>

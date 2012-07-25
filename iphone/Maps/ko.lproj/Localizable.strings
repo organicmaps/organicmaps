@@ -6,7 +6,7 @@
 
 /********** Strings **********/
 
-/* Used in Android manifest for all apps (Lite and Pro), because it should be equal everywere. */
+/* DO NOT TRANSLATE! Used only on Android for special purposes. */
 "shared_user_label" = "Maps With Me";
 
 /* Dialog text when paid version become available on the market. Showed only once. */
@@ -109,9 +109,9 @@
 "remind_me_later" = "이후에 기억시키기";
 
 /* Update maps later/Buy pro version later button text */
-"later" = "Later";
+"later" = "후";
 
-/* Don't show some dialog anymore. */
+/* Don't show some dialog any more */
 "never" = "Never";
 
 /* Leave Review dialog - Complain button (goes to support site) */
@@ -172,130 +172,130 @@
 "tourism" = "관광";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^is added to the\ndownloading queue.";
+"country_status_added_to_queue" = "^는 다운로드 대기열에\n추가됩니다.";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "Downloading^ (^%)";
+"country_status_downloading" = "다운로드 중^ (^%)";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Download^";
+"country_status_download" = "다운로드^";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Downloading^\nhas failed";
+"country_status_download_failed" = "다운로드에 실패하였습니다\n^";
 
 /* Button text for the button under the country_status_download_failed message */
-"try_again" = "Try Again";
+"try_again" = "다시 시도";
 
-"app_name" = "Maps With Me";
+"app_name" = "MapsWithMe";
 
-"about_menu_title" = "About MapsWithMe";
+"about_menu_title" = "소개";
 
-"downloading_touch_to_cancel" = "Downloading %d%%, touch to cancel";
+"downloading_touch_to_cancel" = "%d%%를 다운로드 중, 두드려 취소하십시요";
 
-"downloaded_touch_to_delete" = "Downloaded (%@), touch to delete";
+"downloaded_touch_to_delete" = "(%@)가 다운로드 되었습니다, 두드려 삭제하십시요.";
 
-"connection_settings" = "Connection Settings";
+"connection_settings" = "연결 설정";
 
-"download_mb_or_kb" = "Download %@";
+"download_mb_or_kb" = "%@ 다운로드하기";
 
-"close" = "Close";
+"close" = "닫기";
 
-"unsupported_phone" = "A hardware accelerated OpenGL is required. Unfortunately, your device is not supported.";
+"unsupported_phone" = "하드웨어 촉진 OpenGL이 요구됩니다. 애석하게도 귀하의 장치는 지원되지 않습니다.";
 
-"download" = "Download";
+"download" = "다운로드";
 
-"external_storage_is_not_available" = "SD card/USB storage with downloaded maps is not available";
+"external_storage_is_not_available" = "다운로드된지도와 SD 카드 / USB 저장 장치를 사용할 수 없습니다";
 
-"disconnect_usb_cable" = "Please disconnect USB cable or insert memory card to use MapsWithMe";
+"disconnect_usb_cable" = "MapsWithMe를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오";
 
-"not_enough_free_space_on_sdcard" = "Please free some space on SD card/USB storage first in order to use the app";
+"not_enough_free_space_on_sdcard" = "응용 프로그램을 사용하기 위해서는 첫째 SD 카드 / USB 저장 장치에 여유 공간을 확보하십시오";
 
-"not_enough_memory" = "Not enough memory to launch app";
+"not_enough_memory" = "응용 프로그램을 실행하기위한 메모리가 충분하지 않다";
 
-"free_space_for_country" = "Please free %1$@ on your device first in order to download %2$@";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Program needs to download \n%.1f%@ of mandatory resources.";
-
-"getting_position" = "Getting current position";
-
-"download_resources_continue" = "Go to map";
-
-"downloading_country_can_proceed" = "Downloading %@. You can now\nproceed to the map.";
-
-"download_country_ask" = "Download %@?";
-
-"update_country_ask" = "Update %@?";
+"free_space_for_country" = "%2$@를 다운로드하기 위해서는 먼저 장치에서 무료로 %1$@를주세요";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_proposal" = "You can download the map\nof your current location.";
+"download_resources" = "프로그램은 필수 자원의 \n%.1f%@ 를 다운로드해야합니다.";
+
+"getting_position" = "현재 위치 얻기";
+
+"download_resources_continue" = "지도로 이동";
+
+"downloading_country_can_proceed" = "%@다운로드. 이제지도를 진행할 수 있습니다.";
+
+"download_country_ask" = "%@다운로드?";
+
+"update_country_ask" = "%@업데이트?";
+
+/* REMOVE THIS STRING AFTER REFACTORING */
+"download_location_map_proposal" = "당신의 현재 위치의지도를 다운로드할 수 있습니다.";
 
 /* REMOVE THIS_STRING AFTER REFACTORING */
-"download_location_update_map_proposal" = "You can update the map\nof your current location.";
+"download_location_update_map_proposal" = "귀하의 현재 위치의지도를 업데이트할 수 있습니다.";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "The map at your current\nlocation (%@) is up-to-date";
+"download_location_map_up_to_date" = "현재 위치 (%@)\n에서지도는 최신이다";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"pause" = "Pause";
+"pause" = "중지";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "Continue";
+"continue_download" = "계속";
 
-"downloaded_touch_to_update" = "Downloaded (%@), touch to update or delete";
+"downloaded_touch_to_update" = "다운로드 (%@), 터치를 업데이 트하거나 삭제하는 방법";
 
-"update_mb_or_kb" = "Update %@";
+"update_mb_or_kb" = "%@업데이트";
 
-/* Show toast when we have countries without search index */
-"search_update_maps" = "You need to updated maps for search function:";
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "당신은 검색 기능에 대한 업데이트된지도 필요";
 
-/* Show toast on start when we have out-of-date maps */
-"advise_update_maps" = "Update available for these maps:";
+/* Show popup notification on app start when we have out-of-date maps */
+"advise_update_maps" = "이지도에 사용할 수있는 업데이트 :";
 
-/* Show toast in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "You don't need Maps With Me Lite any more, so you can uninstall it.";
+/* Show popup notification in Pro version that Lite can be deleted */
+"suggest_uninstall_lite" = "당신은 더 이상 MapsWithMe 라이트는 필요 없어, 당신은 그것을 제거할 수 있습니다.";
 
-/* Show toast when country has downloaded. */
-"download_country_success" = "%@ downloaded successfuly.";
+/* Show popup notification on top of the map when country was downloaded. */
+"download_country_success" = "%@이 성공적으로 다운로드";
 
-/* Show toast when country downloading failed. */
-"download_country_failed" = "Downloading of %@ failed.";
+/* Show popup notification on top of the map when country download has failed. */
+"download_country_failed" = "%@다운로드가 실패했습니다";
 
 /* Add New Bookmark Set dialog title */
-"add_new_set" = "Add New Set";
+"add_new_set" = "새로운 세트 추가";
 
 /* Place Page - Add To Bookmarks button */
-"add_to_bookmarks" = "Add To Bookmarks";
+"add_to_bookmarks" = "즐겨찾기에 추가";
 
 /* Bookmark Color dialog title */
-"bookmark_color" = "Bookmark Color";
+"bookmark_color" = "색상 즐겨찾기에 추가";
 
 /* Add Bookmark Set dialog - hint when set name is empty */
-"bookmark_set_name" = "Bookmark Set Name";
+"bookmark_set_name" = "집합 이름을 즐겨찾기에 추가";
 
 /* Bookmark Sets dialog title */
-"bookmark_sets" = "Bookmark Sets";
+"bookmark_sets" = "세트를 즐겨찾기에 추가";
 
 /* Boormarks - dialog title */
-"bookmarks" = "Bookmarks";
+"bookmarks" = "북마크";
 
 /* Add bookmark dialog - bookmark color */
-"color" = "Color";
+"color" = "";
 
 /* Unknown Dropped Pin title, when name can't be determined */
-"dropped_pin" = "Dropped Pin";
+"dropped_pin" = "";
 
 /* Default bookmarks set name */
-"my_places" = "My Places";
+"my_places" = "";
 
 /* Add bookmark dialog - bookmark name */
-"name" = "Name";
+"name" = "";
 
 /* Add bookmark dialog - bookmark address */
-"address" = "Address";
+"address" = "";
 
 /* Place Page - Remove Pin button */
-"remove_pin" = "Remove Pin";
+"remove_pin" = "";
 
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
-"set" = "Set";
+"set" = "";

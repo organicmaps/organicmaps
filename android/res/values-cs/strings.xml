@@ -5,7 +5,7 @@
 <resources>
 	<!-- Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">Placená verze aplikace MapsWithMe, obsahující vyhledávání, je dostupná ke stažení. Chceš ji teď stáhnout?</string>
+	<string name="pro_version_available">Více možností s plnou verzí MapsWithMe zahrnující hledání offline. Instalujte si ji teď!</string>
 	<!-- About button text (should be short! @todo - fix french) -->
 	<string name="about">O programu</string>
 	<!-- Button text (should be short) -->
@@ -103,7 +103,7 @@
 	<!-- Search Suggestion -->
 	<string name="tourism">pamětihodnosti</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^přidáno do \nfronty stahování.</string>
+	<string name="country_status_added_to_queue">^přidáno do\nfronty stahování.</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
 	<string name="country_status_downloading">Stahuji^ (^%)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
@@ -144,6 +144,40 @@
 	<string name="continue_download">Pokračovat</string>
 	<string name="downloaded_touch_to_update">Staženo (%s), klepni pro smazání</string>
 	<string name="update_mb_or_kb">Aktualizace %s</string>
-	<!-- Show toast when we have countries without search index -->
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
 	<string name="search_update_maps">Pro funkci vyhledávání musíš aktualizovat mapy:</string>
+	<!-- Show popup notification on app start when we have out-of-date maps -->
+	<string name="advise_update_maps">Aktualizace je k dispozici pro následující karty:</string>
+	<!-- Show popup notification in Pro version that Lite can be deleted -->
+	<string name="suggest_uninstall_lite">Nemusíte MapsWithMe Lite víc, takže si můžete odinstalovat.</string>
+	<!-- Show popup notification on top of the map when country was downloaded. -->
+	<string name="download_country_success">%s stáhnout úspěšně</string>
+	<!-- Show popup notification on top of the map when country download has failed. -->
+	<string name="download_country_failed">%s stahování se nezdařilo</string>
+	<!-- Add New Bookmark Set dialog title -->
+	<string name="add_new_set"></string>
+	<!-- Place Page - Add To Bookmarks button -->
+	<string name="add_to_bookmarks"></string>
+	<!-- Bookmark Color dialog title -->
+	<string name="bookmark_color"></string>
+	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<string name="bookmark_set_name"></string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets"></string>
+	<!-- Boormarks - dialog title -->
+	<string name="bookmarks"></string>
+	<!-- Add bookmark dialog - bookmark color -->
+	<string name="color"></string>
+	<!-- Unknown Dropped Pin title, when name can't be determined -->
+	<string name="dropped_pin"></string>
+	<!-- Default bookmarks set name -->
+	<string name="my_places"></string>
+	<!-- Add bookmark dialog - bookmark name -->
+	<string name="name"></string>
+	<!-- Add bookmark dialog - bookmark address -->
+	<string name="address"></string>
+	<!-- Place Page - Remove Pin button -->
+	<string name="remove_pin"></string>
+	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
+	<string name="set"></string>
 </resources>

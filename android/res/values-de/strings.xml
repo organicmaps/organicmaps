@@ -5,7 +5,7 @@
 <resources>
 	<!-- Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">Die neue kostenpflichtige Version von MapsWithMe mit Suchfunktion ist erhältlich. Möchten Sie sie jetzt herunterladen?</string>
+	<string name="pro_version_available">Mehr Möglichkeiten in der vollen Version MapsWithMe mit Offline-Suche. Jetzt herunterladen!</string>
 	<!-- About button text (should be short! @todo - fix french) -->
 	<string name="about">Über Karten</string>
 	<!-- Button text (should be short) -->
@@ -62,6 +62,8 @@
 	<string name="free_disk_space_for_country_x">Kein Speicherplatz vorhanden. Löschen Sie bitte unnötige Karten oder Apps, um den Download durchführen zu können.</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
 	<string name="remind_me_later">Errinern Sie mich später</string>
+	<!-- Update maps later/Buy pro version later button text -->
+	<string name="later">Später</string>
 	<!-- Leave Review dialog - Complain button (goes to support site) -->
 	<string name="report_an_issue">Problem melden</string>
 	<!-- View and button titles for accessibility -->
@@ -100,6 +102,16 @@
 	<string name="transport">Verkehr</string>
 	<!-- Search Suggestion -->
 	<string name="tourism">Sehenswürdigkeit</string>
+	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
+	<string name="country_status_added_to_queue">^wird zur\nDownload-Warteschleife hinzugefügt</string>
+	<!-- Message to display at the center of the screen when the country is downloading -->
+	<string name="country_status_downloading">Wird heruntergeladen^ (^%)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
+	<string name="country_status_download">Herunterladen^</string>
+	<!-- Message to display at the center of the screen when the country download has failed -->
+	<string name="country_status_download_failed">Download^\nfehlgeschlagen</string>
+	<!-- Button text for the button under the country_status_download_failed message -->
+	<string name="try_again">Nochmals versuchen</string>
 	<string name="about_menu_title">Über MapsWithMe</string>
 	<string name="downloading_touch_to_cancel">Heruntergeladen %d%%. Berühren, um abzubrechen</string>
 	<string name="downloaded_touch_to_delete">Heruntergeladen (%s). Berühren, um zu löschen</string>
@@ -108,4 +120,64 @@
 	<string name="close">Schließen</string>
 	<string name="unsupported_phone">Das Programm braucht OpenGL um funktionnieren zu können. Leider wird ihr Gerät nicht unterschtüzt.</string>
 	<string name="download">Herunterladen</string>
+	<string name="external_storage_is_not_available">SD Karte/USB Speicher mit geladenen Karten nicht verfügbar</string>
+	<string name="disconnect_usb_cable">Bitte USB Kabel entfernen oder Speicherkarte einsetzen um MapsWithMe zu verwenden</string>
+	<string name="not_enough_free_space_on_sdcard">Bitte zuerst Speicherplatz auf SD Karte/USB Speicher freigeben um die Anwendung zu nutzen</string>
+	<string name="not_enough_memory">Nicht genügend Speicher um die Anwendung zu starten</string>
+	<string name="free_space_for_country">Bitte zuerst %1$s Platz schaffen um %2$s herunterzuladen</string>
+	<!-- REMOVE THIS STRING AFTER REFACTORING -->
+	<string name="download_resources">Programm muss \n%1$.1f%2$s zwingend benötigte Daten herunterladen.</string>
+	<string name="getting_position">Ermittle momentane Position</string>
+	<string name="download_resources_continue">Zur Karte</string>
+	<string name="downloading_country_can_proceed">Lade %s herunter. Sie können jetzt\nzur Karte weitergehen.</string>
+	<string name="download_country_ask">%s herunterladen?</string>
+	<string name="update_country_ask">%s aktualisieren?</string>
+	<!-- REMOVE THIS STRING AFTER REFACTORING -->
+	<string name="download_location_map_proposal">Sie können die Karte von\nihrem aktuellen Ort herunterladen.</string>
+	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
+	<string name="download_location_update_map_proposal">Sie können die Karte von\nihrem aktuellen Ort aktualisieren.</string>
+	<!-- REMOVE THIS STRING AFTER REFACTORING -->
+	<string name="download_location_map_up_to_date">Die Karte von ihrem aktuellen\nOrt (%s) ist aktuell</string>
+	<!-- REMOVE THIS STRING AFTER REFACTORING -->
+	<string name="pause">Pause</string>
+	<!-- REMOVE THIS STRING AFTER REFACTORING -->
+	<string name="continue_download">Fortfahren</string>
+	<string name="downloaded_touch_to_update">Heruntergeladen (%s), berühren zum aktualisieren oder löschen</string>
+	<string name="update_mb_or_kb">Aktualisiere %s</string>
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">Sie benötigen aktualisierte Karten für die Suchfunktion</string>
+	<!-- Show popup notification on app start when we have out-of-date maps -->
+	<string name="advise_update_maps">Aktualisierung für diese Karten erhältlich:</string>
+	<!-- Show popup notification in Pro version that Lite can be deleted -->
+	<string name="suggest_uninstall_lite">Sie benötigen MapsWithMe Lite nicht mehr, sie können es deinstallieren.</string>
+	<!-- Show popup notification on top of the map when country was downloaded. -->
+	<string name="download_country_success">%s erfolgreich heruntergeladen</string>
+	<!-- Show popup notification on top of the map when country download has failed. -->
+	<string name="download_country_failed">%s herunterladen fehlgeschlagen</string>
+	<!-- Add New Bookmark Set dialog title -->
+	<string name="add_new_set">Neue Gruppe hinzufügen</string>
+	<!-- Place Page - Add To Bookmarks button -->
+	<string name="add_to_bookmarks">Zu Lesezeichen hinzufügen</string>
+	<!-- Bookmark Color dialog title -->
+	<string name="bookmark_color">Lesezeichen Farbe</string>
+	<!-- Add Bookmark Set dialog - hint when set name is empty -->
+	<string name="bookmark_set_name">Name des Lesezeichens</string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets"></string>
+	<!-- Boormarks - dialog title -->
+	<string name="bookmarks">Lesezeichengruppen</string>
+	<!-- Add bookmark dialog - bookmark color -->
+	<string name="color">Farbe</string>
+	<!-- Unknown Dropped Pin title, when name can't be determined -->
+	<string name="dropped_pin">Gesetzte Stecknadel</string>
+	<!-- Default bookmarks set name -->
+	<string name="my_places">Meine Orte</string>
+	<!-- Add bookmark dialog - bookmark name -->
+	<string name="name">Name</string>
+	<!-- Add bookmark dialog - bookmark address -->
+	<string name="address">Adresse</string>
+	<!-- Place Page - Remove Pin button -->
+	<string name="remove_pin">Stecknadel entfernen</string>
+	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
+	<string name="set">Gruppe</string>
 </resources>

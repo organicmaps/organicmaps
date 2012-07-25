@@ -6,7 +6,7 @@
 
 /********** Strings **********/
 
-/* Used in Android manifest for all apps (Lite and Pro), because it should be equal everywere. */
+/* DO NOT TRANSLATE! Used only on Android for special purposes. */
 "shared_user_label" = "Maps With Me";
 
 /* Dialog text when paid version become available on the market. Showed only once. */
@@ -109,9 +109,9 @@
 "remind_me_later" = "後でリマインド";
 
 /* Update maps later/Buy pro version later button text */
-"later" = "Later";
+"later" = "後で";
 
-/* Don't show some dialog anymore. */
+/* Don't show some dialog any more */
 "never" = "Never";
 
 /* Leave Review dialog - Complain button (goes to support site) */
@@ -172,130 +172,130 @@
 "tourism" = "観光";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^is added to the\ndownloading queue.";
+"country_status_added_to_queue" = "^をダウンロードキューに\n追加しました";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "Downloading^ (^%)";
+"country_status_downloading" = "ダウンロード中^ (^%)";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Download^";
+"country_status_download" = "ダウンロード^";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Downloading^\nhas failed";
+"country_status_download_failed" = "ダウンロードに失敗しました\n^";
 
 /* Button text for the button under the country_status_download_failed message */
-"try_again" = "Try Again";
+"try_again" = "再実行";
 
-"app_name" = "Maps With Me";
+"app_name" = "MapsWithMe";
 
-"about_menu_title" = "About MapsWithMe";
+"about_menu_title" = "情報";
 
-"downloading_touch_to_cancel" = "Downloading %d%%, touch to cancel";
+"downloading_touch_to_cancel" = "%d%%をダウンロード中です。キャンセルするにはタッチして下さい。";
 
-"downloaded_touch_to_delete" = "Downloaded (%@), touch to delete";
+"downloaded_touch_to_delete" = "(%@)をダウンロードしました。削除するにはタッチして下さい。";
 
-"connection_settings" = "Connection Settings";
+"connection_settings" = "接続設定";
 
-"download_mb_or_kb" = "Download %@";
+"download_mb_or_kb" = "%@をダウンロード";
 
-"close" = "Close";
+"close" = "閉じる";
 
-"unsupported_phone" = "A hardware accelerated OpenGL is required. Unfortunately, your device is not supported.";
+"unsupported_phone" = "ハードウェアアクセラレーションされたOpenGLが必要です。残念ながらご使用のデバイスはサポートされていません。";
 
-"download" = "Download";
+"download" = "ダウンロード";
 
-"external_storage_is_not_available" = "SD card/USB storage with downloaded maps is not available";
+"external_storage_is_not_available" = "ダウンロード済みの地図はSDカード／USBストレージに保存する事はできません";
 
-"disconnect_usb_cable" = "Please disconnect USB cable or insert memory card to use MapsWithMe";
+"disconnect_usb_cable" = "USBケーブルを抜くかMapsWithMeに使うメモリーカードを挿入してください";
 
-"not_enough_free_space_on_sdcard" = "Please free some space on SD card/USB storage first in order to use the app";
+"not_enough_free_space_on_sdcard" = "アプリを起動する前にSDカード/USBストレージの空き容量を増やしてください";
 
-"not_enough_memory" = "Not enough memory to launch app";
+"not_enough_memory" = "メモリ不足です。アプリを起動できません";
 
-"free_space_for_country" = "Please free %1$@ on your device first in order to download %2$@";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Program needs to download \n%.1f%@ of mandatory resources.";
-
-"getting_position" = "Getting current position";
-
-"download_resources_continue" = "Go to map";
-
-"downloading_country_can_proceed" = "Downloading %@. You can now\nproceed to the map.";
-
-"download_country_ask" = "Download %@?";
-
-"update_country_ask" = "Update %@?";
+"free_space_for_country" = "デバイス上で%1$@解放することで%2$@ダウンロードすることができます";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_proposal" = "You can download the map\nof your current location.";
+"download_resources" = "アプリは\n%.1f%@分の必須リソースをダウンロードする必要があります";
+
+"getting_position" = "現在地を取得中";
+
+"download_resources_continue" = "地図に移動";
+
+"downloading_country_can_proceed" = "%@をダウンロード中\n地図に移動できます";
+
+"download_country_ask" = "%@をダウンロードしますか？";
+
+"update_country_ask" = "%@を更新しますか？";
+
+/* REMOVE THIS STRING AFTER REFACTORING */
+"download_location_map_proposal" = "現在地の地図を\nダウンロードできます";
 
 /* REMOVE THIS_STRING AFTER REFACTORING */
-"download_location_update_map_proposal" = "You can update the map\nof your current location.";
+"download_location_update_map_proposal" = "現在地の地図を\n更新できます";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "The map at your current\nlocation (%@) is up-to-date";
+"download_location_map_up_to_date" = "現在地の地図は\n最新です (%@)";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"pause" = "Pause";
+"pause" = "一時停止";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "Continue";
+"continue_download" = "続行";
 
-"downloaded_touch_to_update" = "Downloaded (%@), touch to update or delete";
+"downloaded_touch_to_update" = "(%@)をダウンロードしました。タップして更新、削除できます";
 
-"update_mb_or_kb" = "Update %@";
+"update_mb_or_kb" = "%@を更新";
 
-/* Show toast when we have countries without search index */
-"search_update_maps" = "You need to updated maps for search function:";
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "検索機能を利用するには地図を更新する必要があります";
 
-/* Show toast on start when we have out-of-date maps */
-"advise_update_maps" = "Update available for these maps:";
+/* Show popup notification on app start when we have out-of-date maps */
+"advise_update_maps" = "こちらの地図が更新できます：";
 
-/* Show toast in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "You don't need Maps With Me Lite any more, so you can uninstall it.";
+/* Show popup notification in Pro version that Lite can be deleted */
+"suggest_uninstall_lite" = "MapsWithMe Liteはもう必要ありませんので削除してもかまいません";
 
-/* Show toast when country has downloaded. */
-"download_country_success" = "%@ downloaded successfuly.";
+/* Show popup notification on top of the map when country was downloaded. */
+"download_country_success" = "%@のダウンロードが成功しました";
 
-/* Show toast when country downloading failed. */
-"download_country_failed" = "Downloading of %@ failed.";
+/* Show popup notification on top of the map when country download has failed. */
+"download_country_failed" = "%@のダウンロードが失敗しました";
 
 /* Add New Bookmark Set dialog title */
-"add_new_set" = "Add New Set";
+"add_new_set" = "新しいセットを追加";
 
 /* Place Page - Add To Bookmarks button */
-"add_to_bookmarks" = "Add To Bookmarks";
+"add_to_bookmarks" = "ブックマークに追加";
 
 /* Bookmark Color dialog title */
-"bookmark_color" = "Bookmark Color";
+"bookmark_color" = "ブックマークの色";
 
 /* Add Bookmark Set dialog - hint when set name is empty */
-"bookmark_set_name" = "Bookmark Set Name";
+"bookmark_set_name" = "ブックマークセット名";
 
 /* Bookmark Sets dialog title */
-"bookmark_sets" = "Bookmark Sets";
+"bookmark_sets" = "ブックマークセット";
 
 /* Boormarks - dialog title */
-"bookmarks" = "Bookmarks";
+"bookmarks" = "ブックマーク";
 
 /* Add bookmark dialog - bookmark color */
-"color" = "Color";
+"color" = "色";
 
 /* Unknown Dropped Pin title, when name can't be determined */
-"dropped_pin" = "Dropped Pin";
+"dropped_pin" = "ドロップされたピン";
 
 /* Default bookmarks set name */
-"my_places" = "My Places";
+"my_places" = "マイロケーション";
 
 /* Add bookmark dialog - bookmark name */
-"name" = "Name";
+"name" = "場所名";
 
 /* Add bookmark dialog - bookmark address */
-"address" = "Address";
+"address" = "住所";
 
 /* Place Page - Remove Pin button */
-"remove_pin" = "Remove Pin";
+"remove_pin" = "ピンを削除";
 
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
-"set" = "Set";
+"set" = "セット";

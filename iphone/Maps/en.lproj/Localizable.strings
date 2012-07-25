@@ -6,11 +6,11 @@
 
 /********** Strings **********/
 
-/* Used in Android manifest for all apps (Lite and Pro), because it should be equal everywere. */
+/* DO NOT TRANSLATE! Used only on Android for special purposes. */
 "shared_user_label" = "Maps With Me";
 
 /* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "A paid version of MapsWithMe, featuring search, is available for download. Would you like to get it now?";
+"pro_version_available" = "Navigate easier with the full version of MapsWithMe featuring offline search. Get it now!";
 
 /* About button text (should be short! @todo - fix french) */
 "about" = "About";
@@ -34,9 +34,9 @@
 "do_not_ask_me_again" = "Do not ask me again";
 
 /* Button "do not interrupt download" if user touched actively downloading country */
-"do_nothing" = "Do nothing";
+"do_nothing" = "Continue";
 
-"download_maps" = "Download Maps";
+"download_maps" = "Download maps";
 
 /* Settings/Downloader - Download confirmation button */
 "download_x_kb" = "Download %qu kB";
@@ -111,7 +111,7 @@
 /* Update maps later/Buy pro version later button text */
 "later" = "Later";
 
-/* Don't show some dialog anymore. */
+/* Don't show some dialog any more */
 "never" = "Never";
 
 /* Leave Review dialog - Complain button (goes to support site) */
@@ -121,7 +121,7 @@
 "search" = "Search";
 
 /* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "Search is only available in the Pro version of MapsWithMe. Would you like to get it now?";
+"search_available_in_pro_version" = "Search is only available in the Pro version of MapsWithMe. Get it right now!";
 
 /* Search box placeholder text */
 "search_map" = "Search map";
@@ -184,9 +184,9 @@
 "country_status_download_failed" = "Downloading^\nhas failed";
 
 /* Button text for the button under the country_status_download_failed message */
-"try_again" = "Try Again";
+"try_again" = "Try again";
 
-"app_name" = "Maps With Me";
+"app_name" = "MapsWithMe";
 
 "about_menu_title" = "About MapsWithMe";
 
@@ -246,35 +246,35 @@
 
 "update_mb_or_kb" = "Update %@";
 
-/* Show toast when we have countries without search index */
-"search_update_maps" = "You need to updated maps for search function:";
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "You need updated maps for search function:";
 
-/* Show toast on start when we have out-of-date maps */
+/* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "Update available for these maps:";
 
-/* Show toast in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "You don't need Maps With Me Lite any more, so you can uninstall it.";
+/* Show popup notification in Pro version that Lite can be deleted */
+"suggest_uninstall_lite" = "You don't need MapsWithMe Lite any more, so you can uninstall it.";
 
-/* Show toast when country has downloaded. */
-"download_country_success" = "%@ downloaded successfuly.";
+/* Show popup notification on top of the map when country was downloaded. */
+"download_country_success" = "%@ downloaded successfuly";
 
-/* Show toast when country downloading failed. */
-"download_country_failed" = "Downloading of %@ failed.";
+/* Show popup notification on top of the map when country download has failed. */
+"download_country_failed" = "%@ download has failed";
 
 /* Add New Bookmark Set dialog title */
-"add_new_set" = "Add New Set";
+"add_new_set" = "Add new set";
 
 /* Place Page - Add To Bookmarks button */
-"add_to_bookmarks" = "Add To Bookmarks";
+"add_to_bookmarks" = "Add to bookmarks";
 
 /* Bookmark Color dialog title */
-"bookmark_color" = "Bookmark Color";
+"bookmark_color" = "Bookmark color";
 
 /* Add Bookmark Set dialog - hint when set name is empty */
-"bookmark_set_name" = "Bookmark Set Name";
+"bookmark_set_name" = "Bookmark set name";
 
 /* Bookmark Sets dialog title */
-"bookmark_sets" = "Bookmark Sets";
+"bookmark_sets" = "Bookmark sets";
 
 /* Boormarks - dialog title */
 "bookmarks" = "Bookmarks";

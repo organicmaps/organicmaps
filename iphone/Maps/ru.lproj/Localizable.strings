@@ -6,11 +6,11 @@
 
 /********** Strings **********/
 
-/* Used in Android manifest for all apps (Lite and Pro), because it should be equal everywere. */
+/* DO NOT TRANSLATE! Used only on Android for special purposes. */
 "shared_user_label" = "Maps With Me";
 
 /* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "Вышла платная версия MapsWithMe с поиском. Хотите установить её прямо сейчас?";
+"pro_version_available" = "Больше возможностей в полной версии MapsWithMe с оффлайн поиском. Установите ее сейчас!";
 
 /* About button text (should be short! @todo - fix french) */
 "about" = "О картах";
@@ -45,7 +45,7 @@
 "download_x_mb" = "Загрузить %qu МБ";
 
 /* Settings/Downloader - info for country when download fails */
-"download_has_failed" = "Ошибка загрузки. Нажмите, чтобы повоторить попытку";
+"download_has_failed" = "Ошибка загрузки. Нажмите, чтобы повторить попытку";
 
 /* Settings/Downloader - info for downloaded country */
 "downloaded_x_y_touch_to_delete" = "Загружено (%1$qu %2$@), нажмите для удаления";
@@ -89,10 +89,10 @@
 "miles" = "Мили";
 
 /* View and button titles for accessibility */
-"my_position" = "Моё местоположение";
+"my_position" = "Мое местоположение";
 
 /* Settings/Downloader - No internet connection dialog title */
-"no_internet_connection_detected" = "Отсутствует подключение к Интернету";
+"no_internet_connection_detected" = "Отсутствует подключение к интернету";
 
 /* Settings/Downloader - 3G download warning dialog title */
 "no_wifi_ask_cellular_download" = "Нет WiFi соединения. Вы хотите скачать %@ через сотового оператора (GPRS, EDGE или 3G)?";
@@ -111,7 +111,7 @@
 /* Update maps later/Buy pro version later button text */
 "later" = "Не сейчас";
 
-/* Don't show some dialog anymore. */
+/* Don't show some dialog any more */
 "never" = "Не показывать";
 
 /* Leave Review dialog - Complain button (goes to support site) */
@@ -121,7 +121,7 @@
 "search" = "Поиск";
 
 /* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "Поиск доступен только в Pro версии MapsWithMe. Установить ее прямо сейчас?";
+"search_available_in_pro_version" = "Поиск доступен только в Pro версии MapsWithMe. Установите ее прямо сейчас!";
 
 /* Search box placeholder text */
 "search_map" = "Поиск на карте";
@@ -181,12 +181,12 @@
 "country_status_download" = "Загрузить^";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Ошибка загрузки^.";
+"country_status_download_failed" = "Ошибка загрузки\n^";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Попробуйте еще раз";
 
-"app_name" = "Maps With Me";
+"app_name" = "MapsWithMe";
 
 "about_menu_title" = "О программе";
 
@@ -215,7 +215,7 @@
 "free_space_for_country" = "Для загрузки %2$@ нужно %1$@ свободного места";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Для запуска программы нужно загрузить\n %.1f%@ необходимых ресурсов.";
+"download_resources" = "Для запуска программы нужно загрузить \n%.1f%@ необходимых ресурсов.";
 
 "getting_position" = "Получаем местоположение";
 
@@ -246,20 +246,20 @@
 
 "update_mb_or_kb" = "Обновить %@";
 
-/* Show toast when we have countries without search index */
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
 "search_update_maps" = "Для функции поиска необходимо обновить устаревшие карты:";
 
-/* Show toast on start when we have out-of-date maps */
+/* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "Доступно обновление для следующих карт:";
 
-/* Show toast in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "Maps With Me Lite больше не нужна. Рекомендуем ее удалить.";
+/* Show popup notification in Pro version that Lite can be deleted */
+"suggest_uninstall_lite" = "MapsWithMe Lite больше не нужна. Рекомендуем ее удалить.";
 
-/* Show toast when country has downloaded. */
-"download_country_success" = "%@ успешно загружена.";
+/* Show popup notification on top of the map when country was downloaded. */
+"download_country_success" = "%@ успешно загружена";
 
-/* Show toast when country downloading failed. */
-"download_country_failed" = "Загрузка %@ провалилась.";
+/* Show popup notification on top of the map when country download has failed. */
+"download_country_failed" = "Не удалось загрузить %@";
 
 /* Add New Bookmark Set dialog title */
 "add_new_set" = "Добавить группу";

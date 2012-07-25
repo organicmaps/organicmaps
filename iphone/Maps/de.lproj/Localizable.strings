@@ -6,11 +6,11 @@
 
 /********** Strings **********/
 
-/* Used in Android manifest for all apps (Lite and Pro), because it should be equal everywere. */
+/* DO NOT TRANSLATE! Used only on Android for special purposes. */
 "shared_user_label" = "Maps With Me";
 
 /* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "Die neue kostenpflichtige Version von MapsWithMe mit Suchfunktion ist erhältlich. Möchten Sie sie jetzt herunterladen?";
+"pro_version_available" = "Mehr Möglichkeiten in der vollen Version MapsWithMe mit Offline-Suche. Jetzt herunterladen!";
 
 /* About button text (should be short! @todo - fix french) */
 "about" = "Über Karten";
@@ -109,9 +109,9 @@
 "remind_me_later" = "Errinern Sie mich später";
 
 /* Update maps later/Buy pro version later button text */
-"later" = "Later";
+"later" = "Später";
 
-/* Don't show some dialog anymore. */
+/* Don't show some dialog any more */
 "never" = "Never";
 
 /* Leave Review dialog - Complain button (goes to support site) */
@@ -172,21 +172,21 @@
 "tourism" = "Sehenswürdigkeit";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^is added to the\ndownloading queue.";
+"country_status_added_to_queue" = "^wird zur\nDownload-Warteschleife hinzugefügt";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "Downloading^ (^%)";
+"country_status_downloading" = "Wird heruntergeladen^ (^%)";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Download^";
+"country_status_download" = "Herunterladen^";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Downloading^\nhas failed";
+"country_status_download_failed" = "Download^\nfehlgeschlagen";
 
 /* Button text for the button under the country_status_download_failed message */
-"try_again" = "Try Again";
+"try_again" = "Nochmals versuchen";
 
-"app_name" = "Maps With Me";
+"app_name" = "MapsWithMe";
 
 "about_menu_title" = "Über MapsWithMe";
 
@@ -204,98 +204,98 @@
 
 "download" = "Herunterladen";
 
-"external_storage_is_not_available" = "SD card/USB storage with downloaded maps is not available";
+"external_storage_is_not_available" = "SD Karte/USB Speicher mit geladenen Karten nicht verfügbar";
 
-"disconnect_usb_cable" = "Please disconnect USB cable or insert memory card to use MapsWithMe";
+"disconnect_usb_cable" = "Bitte USB Kabel entfernen oder Speicherkarte einsetzen um MapsWithMe zu verwenden";
 
-"not_enough_free_space_on_sdcard" = "Please free some space on SD card/USB storage first in order to use the app";
+"not_enough_free_space_on_sdcard" = "Bitte zuerst Speicherplatz auf SD Karte/USB Speicher freigeben um die Anwendung zu nutzen";
 
-"not_enough_memory" = "Not enough memory to launch app";
+"not_enough_memory" = "Nicht genügend Speicher um die Anwendung zu starten";
 
-"free_space_for_country" = "Please free %1$@ on your device first in order to download %2$@";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Program needs to download \n%.1f%@ of mandatory resources.";
-
-"getting_position" = "Getting current position";
-
-"download_resources_continue" = "Go to map";
-
-"downloading_country_can_proceed" = "Downloading %@. You can now\nproceed to the map.";
-
-"download_country_ask" = "Download %@?";
-
-"update_country_ask" = "Update %@?";
+"free_space_for_country" = "Bitte zuerst %1$@ Platz schaffen um %2$@ herunterzuladen";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_proposal" = "You can download the map\nof your current location.";
+"download_resources" = "Programm muss \n%.1f%@ zwingend benötigte Daten herunterladen.";
+
+"getting_position" = "Ermittle momentane Position";
+
+"download_resources_continue" = "Zur Karte";
+
+"downloading_country_can_proceed" = "Lade %@ herunter. Sie können jetzt\nzur Karte weitergehen.";
+
+"download_country_ask" = "%@ herunterladen?";
+
+"update_country_ask" = "%@ aktualisieren?";
+
+/* REMOVE THIS STRING AFTER REFACTORING */
+"download_location_map_proposal" = "Sie können die Karte von\nihrem aktuellen Ort herunterladen.";
 
 /* REMOVE THIS_STRING AFTER REFACTORING */
-"download_location_update_map_proposal" = "You can update the map\nof your current location.";
+"download_location_update_map_proposal" = "Sie können die Karte von\nihrem aktuellen Ort aktualisieren.";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "The map at your current\nlocation (%@) is up-to-date";
+"download_location_map_up_to_date" = "Die Karte von ihrem aktuellen\nOrt (%@) ist aktuell";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "pause" = "Pause";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "Continue";
+"continue_download" = "Fortfahren";
 
-"downloaded_touch_to_update" = "Downloaded (%@), touch to update or delete";
+"downloaded_touch_to_update" = "Heruntergeladen (%@), berühren zum aktualisieren oder löschen";
 
-"update_mb_or_kb" = "Update %@";
+"update_mb_or_kb" = "Aktualisiere %@";
 
-/* Show toast when we have countries without search index */
-"search_update_maps" = "You need to updated maps for search function:";
+/* Show popup notification when we have downloaded countries without search (from Lite version) */
+"search_update_maps" = "Sie benötigen aktualisierte Karten für die Suchfunktion";
 
-/* Show toast on start when we have out-of-date maps */
-"advise_update_maps" = "Update available for these maps:";
+/* Show popup notification on app start when we have out-of-date maps */
+"advise_update_maps" = "Aktualisierung für diese Karten erhältlich:";
 
-/* Show toast in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "You don't need Maps With Me Lite any more, so you can uninstall it.";
+/* Show popup notification in Pro version that Lite can be deleted */
+"suggest_uninstall_lite" = "Sie benötigen MapsWithMe Lite nicht mehr, sie können es deinstallieren.";
 
-/* Show toast when country has downloaded. */
-"download_country_success" = "%@ downloaded successfuly.";
+/* Show popup notification on top of the map when country was downloaded. */
+"download_country_success" = "%@ erfolgreich heruntergeladen";
 
-/* Show toast when country downloading failed. */
-"download_country_failed" = "Downloading of %@ failed.";
+/* Show popup notification on top of the map when country download has failed. */
+"download_country_failed" = "%@ herunterladen fehlgeschlagen";
 
 /* Add New Bookmark Set dialog title */
-"add_new_set" = "Add New Set";
+"add_new_set" = "Neue Gruppe hinzufügen";
 
 /* Place Page - Add To Bookmarks button */
-"add_to_bookmarks" = "Add To Bookmarks";
+"add_to_bookmarks" = "Zu Lesezeichen hinzufügen";
 
 /* Bookmark Color dialog title */
-"bookmark_color" = "Bookmark Color";
+"bookmark_color" = "Lesezeichen Farbe";
 
 /* Add Bookmark Set dialog - hint when set name is empty */
-"bookmark_set_name" = "Bookmark Set Name";
+"bookmark_set_name" = "Name des Lesezeichens";
 
 /* Bookmark Sets dialog title */
-"bookmark_sets" = "Bookmark Sets";
+"bookmark_sets" = "";
 
 /* Boormarks - dialog title */
-"bookmarks" = "Bookmarks";
+"bookmarks" = "Lesezeichengruppen";
 
 /* Add bookmark dialog - bookmark color */
-"color" = "Color";
+"color" = "Farbe";
 
 /* Unknown Dropped Pin title, when name can't be determined */
-"dropped_pin" = "Dropped Pin";
+"dropped_pin" = "Gesetzte Stecknadel";
 
 /* Default bookmarks set name */
-"my_places" = "My Places";
+"my_places" = "Meine Orte";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "Name";
 
 /* Add bookmark dialog - bookmark address */
-"address" = "Address";
+"address" = "Adresse";
 
 /* Place Page - Remove Pin button */
-"remove_pin" = "Remove Pin";
+"remove_pin" = "Stecknadel entfernen";
 
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
-"set" = "Set";
+"set" = "Gruppe";

@@ -4,10 +4,10 @@
 <!-- Language: en -->
 <resources>
 	<!-- Strings -->
-	<!-- Used in Android manifest for all apps (Lite and Pro), because it should be equal everywere. -->
+	<!-- DO NOT TRANSLATE! Used only on Android for special purposes. -->
 	<string name="shared_user_label">Maps With Me</string>
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">A paid version of MapsWithMe, featuring search, is available for download. Would you like to get it now?</string>
+	<string name="pro_version_available">Navigate easier with the full version of MapsWithMe featuring offline search. Get it now!</string>
 	<!-- About button text (should be short! @todo - fix french) -->
 	<string name="about">About</string>
 	<!-- Button text (should be short) -->
@@ -23,8 +23,8 @@
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">Do not ask me again</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
-	<string name="do_nothing">Do nothing</string>
-	<string name="download_maps">Download Maps</string>
+	<string name="do_nothing">Continue</string>
+	<string name="download_maps">Download maps</string>
 	<!-- Settings/Downloader - Download confirmation button -->
 	<string name="download_x_kb">Download %qu kB</string>
 	<!-- Settings/Downloader - Download confirmation button -->
@@ -73,14 +73,14 @@
 	<string name="remind_me_later">Remind me later</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Later</string>
-	<!-- Don't show some dialog anymore. -->
+	<!-- Don't show some dialog any more -->
 	<string name="never">Never</string>
 	<!-- Leave Review dialog - Complain button (goes to support site) -->
 	<string name="report_an_issue">Report an issue</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Search</string>
 	<!-- Search button pressed dialog title in the free version -->
-	<string name="search_available_in_pro_version">Search is only available in the Pro version of MapsWithMe. Would you like to get it now?</string>
+	<string name="search_available_in_pro_version">Search is only available in the Pro version of MapsWithMe. Get it right now!</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Search map</string>
 	<!-- Settings/Downloader - No free space dialog title -->
@@ -122,8 +122,8 @@
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Downloading^\nhas failed</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
-	<string name="try_again">Try Again</string>
-	<string name="app_name">Maps With Me</string>
+	<string name="try_again">Try again</string>
+	<string name="app_name">MapsWithMe</string>
 	<string name="about_menu_title">About MapsWithMe</string>
 	<string name="downloading_touch_to_cancel">Downloading %d%%, touch to cancel</string>
 	<string name="downloaded_touch_to_delete">Downloaded (%s), touch to delete</string>
@@ -156,26 +156,26 @@
 	<string name="continue_download">Continue</string>
 	<string name="downloaded_touch_to_update">Downloaded (%s), touch to update or delete</string>
 	<string name="update_mb_or_kb">Update %s</string>
-	<!-- Show toast when we have countries without search index -->
-	<string name="search_update_maps">You need to updated maps for search function:</string>
-	<!-- Show toast on start when we have out-of-date maps -->
+	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
+	<string name="search_update_maps">You need updated maps for search function:</string>
+	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Update available for these maps:</string>
-	<!-- Show toast in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">You don\'t need Maps With Me Lite any more, so you can uninstall it.</string>
-	<!-- Show toast when country has downloaded. -->
-	<string name="download_country_success">%s downloaded successfuly.</string>
-	<!-- Show toast when country downloading failed. -->
-	<string name="download_country_failed">Downloading of %s failed.</string>
+	<!-- Show popup notification in Pro version that Lite can be deleted -->
+	<string name="suggest_uninstall_lite">You don\'t need MapsWithMe Lite any more, so you can uninstall it.</string>
+	<!-- Show popup notification on top of the map when country was downloaded. -->
+	<string name="download_country_success">%s downloaded successfuly</string>
+	<!-- Show popup notification on top of the map when country download has failed. -->
+	<string name="download_country_failed">%s download has failed</string>
 	<!-- Add New Bookmark Set dialog title -->
-	<string name="add_new_set">Add New Set</string>
+	<string name="add_new_set">Add new set</string>
 	<!-- Place Page - Add To Bookmarks button -->
-	<string name="add_to_bookmarks">Add To Bookmarks</string>
+	<string name="add_to_bookmarks">Add to bookmarks</string>
 	<!-- Bookmark Color dialog title -->
-	<string name="bookmark_color">Bookmark Color</string>
+	<string name="bookmark_color">Bookmark color</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
-	<string name="bookmark_set_name">Bookmark Set Name</string>
+	<string name="bookmark_set_name">Bookmark set name</string>
 	<!-- Bookmark Sets dialog title -->
-	<string name="bookmark_sets">Bookmark Sets</string>
+	<string name="bookmark_sets">Bookmark sets</string>
 	<!-- Boormarks - dialog title -->
 	<string name="bookmarks">Bookmarks</string>
 	<!-- Add bookmark dialog - bookmark color -->
