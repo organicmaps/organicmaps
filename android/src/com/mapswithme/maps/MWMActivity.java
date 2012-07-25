@@ -238,6 +238,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     Intent intent = null;
     try
     {
+      /// trying to find package with installed Facebook application.
+      /// exception is thrown if we don't have one.
       getPackageManager().getPackageInfo("com.facebook.katana", 0);
       /// profile id is taken from http://graph.facebook.com/MapsWithMe
       intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/111923085594432"));
