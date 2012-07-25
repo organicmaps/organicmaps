@@ -97,6 +97,7 @@ namespace android
     m_work.SaveState();
     LOG(LINFO, ("Clearing current render policy."));
     m_work.SetRenderPolicy(0);
+    m_work.EnterBackground();
   }
 
   bool Framework::InitRenderPolicy(int densityDpi, int screenWidth, int screenHeight)
@@ -159,6 +160,7 @@ namespace android
     }
 
     m_work.SetUpdatesEnabled(true);
+    m_work.EnterForeground();
     return true;
   }
 

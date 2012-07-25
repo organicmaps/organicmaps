@@ -56,6 +56,9 @@ protected:
   vector<BookmarkCategory *> m_bookmarks;
 
   scoped_ptr<RenderPolicy> m_renderPolicy;
+
+  double m_StartForegroundTime;
+
   /// @todo Need deep analyzing in future.
   /// Now it's like a replacement of "m_hasPendingXXX" stuff.
   int m_etalonSize;

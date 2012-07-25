@@ -32,9 +32,6 @@
 
 using namespace storage;
 
-#define MAX_STARTUP_TIMES_TO_SHOW_FACEBOOK_DIALOG 5
-#define MAX_DAYS_TO_SHOW_FACEBOOK_DIALOG 7
-
 void Framework::AddMap(string const & file)
 {
   LOG(LDEBUG, ("Loading map:", file));
@@ -167,14 +164,6 @@ Framework::Framework()
     m_lowestMapVersion(-1),
     m_benchmarkEngine(0)
 {
-  // checking and setting program run count
-  int StartupCount = 0;
-  (void)Settings::Get("StartupCount", StartupCount);
-  ++StartupCount;
-  Settings::Set("StartupCount", StartupCount);
-  /// setting startup time
-  Settings::Set("LastFacebookCheckTime", my::Timer::LocalTime());
-
   // checking whether we should enable benchmark
   bool isBenchmarkingEnabled = false;
   (void)Settings::Get("IsBenchmarking", isBenchmarkingEnabled);
@@ -736,10 +725,14 @@ void Framework::EnterBackground()
 {
   // clearing caches on entering background.
   m_model.ClearCaches();
+  double val = 0;
+  Settings::Get("ForegroundTime", val);
+  Settings::Set("ForegroundTime", my::Timer::LocalTime() - m_StartForegroundTime + val);
 }
 
 void Framework::EnterForeground()
 {
+  m_StartForegroundTime = my::Timer::LocalTime();
 }
 
 /*
@@ -1154,24 +1147,15 @@ bool Framework::IsBenchmarking() const
   return m_benchmarkEngine != 0;
 }
 
+#define MIN_FOREGROUND_TIME_TO_SHOW_FACEBOOK_DIALOG 60 * 60
+
 bool Framework::ShouldShowFacebookDialog() const
 {
-  int StartupCount = 0;
-  double LastFacebookCheckTime = my::Timer::LocalTime();
-
+  double val = 0;
   bool flag = true;
+  Settings::Get("ForegroundTime", val);
   Settings::Get("ShouldShowFacebookDialog", flag);
-
-  if (!flag)
-    return false;
-
-  Settings::Get("StartupCount", StartupCount);
-  LOG(LDEBUG, ("Program Startup Count: ", StartupCount));
-
-  Settings::Get("LastFacebookCheckTime", LastFacebookCheckTime);
-
-  return((StartupCount >= MAX_STARTUP_TIMES_TO_SHOW_FACEBOOK_DIALOG)
-      || (LastFacebookCheckTime - my::Timer::LocalTime() > MAX_DAYS_TO_SHOW_FACEBOOK_DIALOG * 24 * 60 * 60));
+  return flag && (val >= MIN_FOREGROUND_TIME_TO_SHOW_FACEBOOK_DIALOG);
 }
 
 void Framework::SaveFacebookDialogResult(int result)
@@ -1182,8 +1166,7 @@ void Framework::SaveFacebookDialogResult(int result)
     Settings::Set("ShouldShowFacebookDialog", false);
     break;
   case 1:
-    Settings::Set("StartupCount", 0);
-    Settings::Set("LastFacebookCheckTime", my::Timer::LocalTime());
+    Settings::Set("ForegroundTime", 0);
     break;
   default:
     LOG(LINFO, ("Unknown Facebook dialog result!"));
