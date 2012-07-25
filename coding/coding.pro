@@ -41,7 +41,6 @@ HEADERS += \
     var_serial_vector.hpp \
     hex.hpp \
     dd_vector.hpp \
-    dd_base.hpp \
     writer.hpp \
     write_to_sink.hpp \
     reader.hpp \
