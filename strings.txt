@@ -44,7 +44,7 @@
 		ru = Отмена
 		cs = Zrušit
 	[cancel_download]
-		en = Cancel download
+		en = Cancel Download
 		comment = Button which interrupts country download
 		de = Download beenden
 		es = Cancelar descarga
@@ -94,7 +94,7 @@
 		ru = Продолжить загрузку
 		cs = Nic neprovádět
 	[download_maps]
-		en = Download maps
+		en = Download Maps
 		de = Landkarten herunterladen
 		es = Descargar mapas
 		fr = Télécharger les cartes
@@ -564,7 +564,7 @@
 		ru = Ошибка загрузки\n^
 		cs = Stahování^\nselhalo
 	[try_again]
-		en = Try again
+		en = Try Again
 		comment = Button text for the button under the country_status_download_failed message
 		de = Nochmals versuchen
 		es = Inténtelo de nuevo
@@ -871,7 +871,7 @@
 		ko = %@다운로드가 실패했습니다
 		cs = %@ stahování se nezdařilo
 	[add_new_set]
-		en = Add New Set
+		en = Add new Set
 		tags = ios
 		comment = Add New Bookmark Set dialog title
 		ru = Добавить группу

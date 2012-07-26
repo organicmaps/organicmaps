@@ -22,7 +22,7 @@
 "cancel" = "Cancel";
 
 /* Button which interrupts country download */
-"cancel_download" = "Cancel download";
+"cancel_download" = "Cancel Download";
 
 /* Button which deletes downloaded country */
 "delete" = "Delete";
@@ -36,7 +36,7 @@
 /* Button "do not interrupt download" if user touched actively downloading country */
 "do_nothing" = "Continue";
 
-"download_maps" = "Download maps";
+"download_maps" = "Download Maps";
 
 /* Settings/Downloader - Download confirmation button */
 "download_x_kb" = "Download %qu kB";
@@ -184,7 +184,7 @@
 "country_status_download_failed" = "Downloading^\nhas failed";
 
 /* Button text for the button under the country_status_download_failed message */
-"try_again" = "Try again";
+"try_again" = "Try Again";
 
 "app_name" = "MapsWithMe";
 
@@ -262,7 +262,7 @@
 "download_country_failed" = "%@ download has failed";
 
 /* Add New Bookmark Set dialog title */
-"add_new_set" = "Add New Set";
+"add_new_set" = "Add new Set";
 
 /* Place Page - Add To Bookmarks button */
 "add_to_bookmarks" = "Add to Bookmarks";

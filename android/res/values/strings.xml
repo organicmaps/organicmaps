@@ -15,7 +15,7 @@
 	<!-- Button text (should be short) -->
 	<string name="cancel">Cancel</string>
 	<!-- Button which interrupts country download -->
-	<string name="cancel_download">Cancel download</string>
+	<string name="cancel_download">Cancel Download</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Delete</string>
 	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
@@ -24,7 +24,7 @@
 	<string name="do_not_ask_me_again">Do not ask me again</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
 	<string name="do_nothing">Continue</string>
-	<string name="download_maps">Download maps</string>
+	<string name="download_maps">Download Maps</string>
 	<!-- Settings/Downloader - Download confirmation button -->
 	<string name="download_x_kb">Download %qu kB</string>
 	<!-- Settings/Downloader - Download confirmation button -->
@@ -122,7 +122,7 @@
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Downloading^\nhas failed</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
-	<string name="try_again">Try again</string>
+	<string name="try_again">Try Again</string>
 	<string name="app_name">MapsWithMe</string>
 	<string name="about_menu_title">About MapsWithMe</string>
 	<string name="downloading_touch_to_cancel">Downloading %d%%, touch to cancel</string>
@@ -167,7 +167,7 @@
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s download has failed</string>
 	<!-- Add New Bookmark Set dialog title -->
-	<string name="add_new_set">Add New Set</string>
+	<string name="add_new_set">Add new Set</string>
 	<!-- Place Page - Add To Bookmarks button -->
 	<string name="add_to_bookmarks">Add to Bookmarks</string>
 	<!-- Bookmark Color dialog title -->
