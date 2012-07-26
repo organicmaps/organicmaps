@@ -578,10 +578,17 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
         View v = list.getChildAt(position - list.getFirstVisiblePosition());
         if (v != null)
         {
-          ViewHolder holder = (ViewHolder) v.getTag();
-          holder.m_summary.setText(String.format(m_context.getString(R.string.downloading_touch_to_cancel),
-                                                 current * 100 / total));
-          v.invalidate();
+          final ViewHolder holder = (ViewHolder) v.getTag();
+
+          // This function actually is a callback from downloading engine and
+          // when using cached views and holders, summary may be null
+          // because of different ListView context.
+          if (holder != null && holder.m_summary != null)
+          {
+            holder.m_summary.setText(String.format(m_context.getString(R.string.downloading_touch_to_cancel),
+                                                   current * 100 / total));
+            v.invalidate();
+          }
         }
       }
     }
