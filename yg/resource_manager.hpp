@@ -220,6 +220,7 @@ namespace yg
       DataFormat m_texFormat;
       DataFormat m_texRtFormat;
       bool m_useSingleThreadedOGL;
+      bool m_useReadPixelsToSynchronize;
 
       size_t m_videoMemoryLimit;
 
@@ -320,6 +321,8 @@ namespace yg
     void updatePoolState();
 
     void cancel();
+
+    bool useReadPixelsToSynchronize() const;
 
     shared_ptr<yg::gl::BaseTexture> createRenderTarget(unsigned w, unsigned h);
   };

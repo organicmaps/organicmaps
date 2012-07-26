@@ -6,6 +6,7 @@ QueuedRenderer::QueuedRenderer(int pipelinesCount)
   m_Pipelines = new PacketsPipeline[pipelinesCount];
   m_PipelinesCount = pipelinesCount;
   m_CurrentPipeline = 0;
+  m_ProcessSinglePipelineAtFrame = false;
 }
 
 QueuedRenderer::~QueuedRenderer()
@@ -51,7 +52,8 @@ void QueuedRenderer::DrawFrame()
     {
       /// next DrawFrame should start from another pipeline
       m_CurrentPipeline = (num + 1) % m_PipelinesCount;
-      break;
+      if (m_ProcessSinglePipelineAtFrame)
+        break;
     }
   }
 }
@@ -201,4 +203,9 @@ yg::gl::PacketsQueue * QueuedRenderer::GetPacketsQueue(int pipelineNum)
 void QueuedRenderer::PrepareQueueCancellation(int pipelineNum)
 {
   m_Pipelines[pipelineNum].m_Queue.cancelFences();
+}
+
+void QueuedRenderer::SetSinglePipelineProcessing(bool flag)
+{
+  m_ProcessSinglePipelineAtFrame = flag;
 }

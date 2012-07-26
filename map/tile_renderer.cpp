@@ -134,7 +134,6 @@ void TileRenderer::ReadPixels(yg::gl::PacketsQueue * glQueue, core::CommandsQueu
     unsigned tileHeight = m_resourceManager->params().m_renderTargetTexturesParams.m_texHeight;
 
     shared_ptr<vector<unsigned char> > buf = SharedBufferManager::instance().reserveSharedBuffer(tileWidth * tileHeight * 4);
-    drawer->screen()->finish(true);
     drawer->screen()->readPixels(m2::RectU(0, 0, tileWidth, tileHeight), &(buf->at(0)), true);
     SharedBufferManager::instance().freeSharedBuffer(tileWidth * tileHeight * 4, buf);
   }
@@ -231,8 +230,10 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   if (!env.isCancelled())
     tileOverlay->clip(renderRect);
 
-  ReadPixels(glQueue, env);
   drawer->screen()->finish();
+
+  if (m_resourceManager->useReadPixelsToSynchronize())
+    ReadPixels(glQueue, env);
 
   drawer->screen()->unbindRenderTarget();
 

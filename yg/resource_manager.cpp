@@ -404,6 +404,7 @@ namespace
   {
     /// general case
     m_texRtFormat = yg::Data4Bpp;
+    m_useReadPixelsToSynchronize = false;
 
     if (isGPU("Qualcomm", "Adreno", false))
       m_texRtFormat = yg::Data8Bpp;
@@ -416,6 +417,13 @@ namespace
       m_rtFormat = yg::Data8Bpp;
       m_texRtFormat = yg::Data8Bpp;
     }
+
+    bool isAndroidDevice = GetPlatform().DeviceName() == "Android";
+
+    /// on PowerVR chips in Android glFinish doesn't work, so we should use
+    /// glReadPixels instead of glFinish to synchronize.
+    if (isGPU("Imagination Technologies", "PowerVR", false) && isAndroidDevice)
+      m_useReadPixelsToSynchronize = true;
 
 /*    /// filtering all devices from Vivante Corporation
     /// to use vertex arrays
@@ -439,6 +447,8 @@ namespace
     };
 
     LOG(LINFO, ("selected", name, "format for tile textures"));
+    if (m_useReadPixelsToSynchronize)
+      LOG(LINFO, ("using ReadPixels instead of glFinish to synchronize"));
   }
 
   void ResourceManager::Params::fitIntoLimits()
@@ -890,5 +900,10 @@ namespace
       m_multiBlitStorages->Cancel();
     if (m_guiThreadStorages.get())
       m_guiThreadStorages->Cancel();
+  }
+
+  bool ResourceManager::useReadPixelsToSynchronize() const
+  {
+    return m_params.m_useReadPixelsToSynchronize;
   }
 }

@@ -111,8 +111,8 @@ RenderPolicyST::RenderPolicyST(Params const & p)
 
   rmp.fitIntoLimits();
 
-  m_resourceManager.reset();
   m_resourceManager.reset(new yg::ResourceManager(rmp));
+  m_QueuedRenderer->SetSinglePipelineProcessing(m_resourceManager->useReadPixelsToSynchronize());
 
   Platform::FilesList fonts;
   GetPlatform().GetFontNames(fonts);
