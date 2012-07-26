@@ -47,7 +47,7 @@
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometres</string>
 	<!-- Leave Review dialog - Review button -->
-	<string name="leave_a_review">Leave a review</string>
+	<string name="leave_a_review">Leave a Review</string>
 	<!-- Location purpose text description -->
 	<string name="location_services_are_needed_desc">Location Services are needed to display your current position on the map.</string>
 	<!-- View and button titles for accessibility -->
@@ -82,7 +82,7 @@
 	<!-- Search button pressed dialog title in the free version -->
 	<string name="search_available_in_pro_version">Search is only available in the Pro version of MapsWithMe. Get it right now!</string>
 	<!-- Search box placeholder text -->
-	<string name="search_map">Search map</string>
+	<string name="search_map">Search Map</string>
 	<!-- Settings/Downloader - No free space dialog title -->
 	<string name="not_enough_disk_space">There is not enough free disk space</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
@@ -140,7 +140,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="download_resources">Program needs to download \n%1$.1f%2$s of mandatory resources.</string>
 	<string name="getting_position">Getting current position</string>
-	<string name="download_resources_continue">Go to map</string>
+	<string name="download_resources_continue">Go to Map</string>
 	<string name="downloading_country_can_proceed">Downloading %s. You can now\nproceed to the map.</string>
 	<string name="download_country_ask">Download %s?</string>
 	<string name="update_country_ask">Update %s?</string>
@@ -167,15 +167,15 @@
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s download has failed</string>
 	<!-- Add New Bookmark Set dialog title -->
-	<string name="add_new_set">Add new set</string>
+	<string name="add_new_set">Add New Set</string>
 	<!-- Place Page - Add To Bookmarks button -->
-	<string name="add_to_bookmarks">Add to bookmarks</string>
+	<string name="add_to_bookmarks">Add to Bookmarks</string>
 	<!-- Bookmark Color dialog title -->
-	<string name="bookmark_color">Bookmark color</string>
+	<string name="bookmark_color">Bookmark Color</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
-	<string name="bookmark_set_name">Bookmark set name</string>
+	<string name="bookmark_set_name">Bookmark Set Name</string>
 	<!-- Bookmark Sets dialog title -->
-	<string name="bookmark_sets">Bookmark sets</string>
+	<string name="bookmark_sets">Bookmark Sets</string>
 	<!-- Boormarks - dialog title -->
 	<string name="bookmarks">Bookmarks</string>
 	<!-- Add bookmark dialog - bookmark color -->

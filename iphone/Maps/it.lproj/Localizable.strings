@@ -71,7 +71,7 @@
 "kilometres" = "Kilometres";
 
 /* Leave Review dialog - Review button */
-"leave_a_review" = "Leave a review";
+"leave_a_review" = "Leave a Review";
 
 /* Location purpose text description */
 "location_services_are_needed_desc" = "Location Services are needed to display your current position on the map.";
@@ -124,7 +124,7 @@
 "search_available_in_pro_version" = "Search is only available in the Pro version of MapsWithMe. Get it right now!";
 
 /* Search box placeholder text */
-"search_map" = "Search map";
+"search_map" = "Search Map";
 
 /* Settings/Downloader - No free space dialog title */
 "not_enough_disk_space" = "There is not enough free disk space";
@@ -219,7 +219,7 @@
 
 "getting_position" = "Getting current position";
 
-"download_resources_continue" = "Go to map";
+"download_resources_continue" = "Go to Map";
 
 "downloading_country_can_proceed" = "Downloading %@. You can now\nproceed to the map.";
 
@@ -262,19 +262,19 @@
 "download_country_failed" = "%@ download has failed";
 
 /* Add New Bookmark Set dialog title */
-"add_new_set" = "Add new set";
+"add_new_set" = "Add New Set";
 
 /* Place Page - Add To Bookmarks button */
-"add_to_bookmarks" = "Add to bookmarks";
+"add_to_bookmarks" = "Add to Bookmarks";
 
 /* Bookmark Color dialog title */
-"bookmark_color" = "Bookmark color";
+"bookmark_color" = "Bookmark Color";
 
 /* Add Bookmark Set dialog - hint when set name is empty */
-"bookmark_set_name" = "Bookmark set name";
+"bookmark_set_name" = "Bookmark Set Name";
 
 /* Bookmark Sets dialog title */
-"bookmark_sets" = "Bookmark sets";
+"bookmark_sets" = "Bookmark Sets";
 
 /* Boormarks - dialog title */
 "bookmarks" = "Bookmarks";

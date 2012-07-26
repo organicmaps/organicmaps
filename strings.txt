@@ -84,7 +84,7 @@
 		ru = Больше не спрашивать
 		cs = Vícekrát nezobrazovat
 	[do_nothing]
-		en = Continue
+		en = Continue 
 		comment = Button "do not interrupt download" if user touched actively downloading country
 		de = Download fortsetzen
 		es = Seguir descarga
@@ -200,7 +200,7 @@
 		ru = Километры
 		cs = Kilometry
 	[leave_a_review]
-		en = Leave a review
+		en = Leave a Review
 		comment = Leave Review dialog - Review button
 		de = Meinung hinterlassen
 		es = Escribir referencias
@@ -359,7 +359,7 @@
 		ru = Поиск доступен только в Pro версии MapsWithMe. Установите ее прямо сейчас!
 		cs = Vyhledávání je dostupné jen v placené verzi MapsWithMe. Chceš ji teď stáhnout?
 	[search_map]
-		en = Search map
+		en = Search Map
 		comment = Search box placeholder text
 		de = Auf der Karte suchen
 		es = Busca en el mapa
@@ -617,7 +617,7 @@
 		es = Descargar %@
 		fr = Charger %@
 		ja = %@をダウンロード
-		ko = %@ 다운로드하기
+		ko = %@ 다운로드하기 
 		ru = Загрузить %@
 		cs = Stáhnout %@
 	[close]
@@ -697,7 +697,7 @@
 		comment = REMOVE THIS STRING AFTER REFACTORING
 		de = Programm muss \n%.1f%@ zwingend benötigte Daten herunterladen.
 		es = El programa necesita descargar \n%.1f%@ de los recursos obligatorios.
-		fr = Merci de télécharger \n%.1f%@ de ressources nécessaires pour la mise en marche du programme
+		fr = Merci de télécharger \n%.1f%@ de ressources nécessaires pour la mise en marche du programme 
 		ja = アプリは\n%.1f%@分の必須リソースをダウンロードする必要があります
 		ko = 프로그램은 필수 자원의 \n%.1f%@ 를 다운로드해야합니다.
 		ru = Для запуска программы нужно загрузить \n%.1f%@ необходимых ресурсов.
@@ -712,7 +712,7 @@
 		ru = Получаем местоположение
 		cs = Získávání aktuální pozice
 	[download_resources_continue]
-		en = Go to map
+		en = Go to Map
 		de = Zur Karte
 		es = Ir al mapa
 		fr = Passer sur la carte
@@ -855,7 +855,7 @@
 		ru = %@ успешно загружена
 		de = %@ erfolgreich heruntergeladen
 		es = %@ descargado con exito
-		fr = Téléchargement de %@ est accompli avec succès
+		fr = Téléchargement de %@ est accompli avec succès 
 		ja = %@のダウンロードが成功しました
 		ko = %@이 성공적으로 다운로드
 		cs = %@ stáhnout úspěšně
@@ -871,7 +871,7 @@
 		ko = %@다운로드가 실패했습니다
 		cs = %@ stahování se nezdařilo
 	[add_new_set]
-		en = Add new set
+		en = Add New Set
 		tags = ios
 		comment = Add New Bookmark Set dialog title
 		ru = Добавить группу
@@ -882,7 +882,7 @@
 		ko = 새로운 세트 추가
 		cs =
 	[add_to_bookmarks]
-		en = Add to bookmarks
+		en = Add to Bookmarks
 		tags = ios
 		comment = Place Page - Add To Bookmarks button
 		ru = Добавить в закладки
@@ -893,7 +893,7 @@
 		ko = 즐겨찾기에 추가
 		cs =
 	[bookmark_color]
-		en = Bookmark color
+		en = Bookmark Color
 		tags = ios
 		comment = Bookmark Color dialog title
 		ru = Цвет закладки
@@ -904,7 +904,7 @@
 		ko = 색상 즐겨찾기에 추가
 		cs =
 	[bookmark_set_name]
-		en = Bookmark set name
+		en = Bookmark Set Name
 		tags = ios
 		comment = Add Bookmark Set dialog - hint when set name is empty
 		ru = Название группы
@@ -915,11 +915,11 @@
 		ko = 집합 이름을 즐겨찾기에 추가
 		cs =
 	[bookmark_sets]
-		en = Bookmark sets
+		en = Bookmark Sets
 		tags = ios
 		comment = Bookmark Sets dialog title
 		ru = Группы закладок
-		de =
+		de = 
 		es =
 		fr = Groupes de signets
 		ja = ブックマークセット
