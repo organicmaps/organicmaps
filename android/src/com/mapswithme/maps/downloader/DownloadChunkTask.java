@@ -147,7 +147,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
     }
     catch (IOException ex)
     {
-      Log.d(TAG, "IOException: ", ex);
+      Log.d(TAG, "IOException in doInBackground: ", ex);
 
       // Notify the client about error
       m_httpErrorCode = IO_ERROR;
@@ -201,8 +201,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
   /// 0 - download successful;
   /// 1 - download canceled;
   /// -1 - some error occurred;
-  private int downloadFromStreamImpl(InputStream stream, int bufferSize)
-  throws IOException
+  private int downloadFromStreamImpl(InputStream stream, int bufferSize) throws IOException
   {
     byte[] tempBuf = new byte[bufferSize];
 
