@@ -234,7 +234,8 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   @Override
   public void onCountryProgress(MapStorage.Index idx, long current, long total)
   {
-    mProgress.setProgress((int)current);
+    if (mProgress != null)
+      mProgress.setProgress((int)current);
   }
 
   private Intent getPackageIntent(String s)
@@ -287,9 +288,6 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
     setContentView(R.layout.download_resources);
 
-    mMapStorage = mApplication.getMapStorage();
-    mSlotId = mMapStorage.subscribe(this);
-
     // Create sdcard folder if it doesn't exist
     new File(mApplication.getDataStoragePath()).mkdirs();
     // Used to migrate from v2.0.0 to 2.0.1
@@ -302,6 +300,9 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
       showMapView();
     else
     {
+      mMapStorage = mApplication.getMapStorage();
+      mSlotId = mMapStorage.subscribe(this);
+
       mMsgView = (TextView)findViewById(R.id.download_resources_message);
       mProgress = (ProgressBar)findViewById(R.id.download_resources_progress);
       mDownloadButton = (Button)findViewById(R.id.download_resources_button_download);
