@@ -128,8 +128,8 @@ UNIT_TEST(DiffSimpleReplace)
   char const dst[] = "abcyydef";
   MemReader srcReader(src, ARRAY_SIZE(src) - 1);
   MemReader dstReader(dst, ARRAY_SIZE(dst) - 1);
-  DDVector<char, MemReader> srcV(srcReader, srcReader.Size()); // since sizeof(char) == 1
-  DDVector<char, MemReader> dstV(dstReader, dstReader.Size()); // since sizeof(char) == 1
+  DDVector<char, MemReader> srcV(srcReader); // since sizeof(char) == 1
+  DDVector<char, MemReader> dstV(dstReader); // since sizeof(char) == 1
 
   diff::SimpleReplaceDiffer differ;
 
@@ -150,8 +150,8 @@ UNIT_TEST(DiffSimpleReplaceEmptyBegin)
   char const dst[] = "yydef";
   MemReader srcReader(src, ARRAY_SIZE(src) - 1);
   MemReader dstReader(dst, ARRAY_SIZE(dst) - 1);
-  DDVector<char, MemReader> srcV(srcReader, srcReader.Size()); // since sizeof(char) == 1
-  DDVector<char, MemReader> dstV(dstReader, dstReader.Size()); // since sizeof(char) == 1
+  DDVector<char, MemReader> srcV(srcReader); // since sizeof(char) == 1
+  DDVector<char, MemReader> dstV(dstReader); // since sizeof(char) == 1
 
   diff::SimpleReplaceDiffer differ;
 
@@ -172,8 +172,8 @@ UNIT_TEST(DiffSimpleReplaceEmptyEnd)
   char const dst[] = "abcyy";
   MemReader srcReader(src, ARRAY_SIZE(src) - 1);
   MemReader dstReader(dst, ARRAY_SIZE(dst) - 1);
-  DDVector<char, MemReader> srcV(srcReader, srcReader.Size()); // since sizeof(char) == 1
-  DDVector<char, MemReader> dstV(dstReader, dstReader.Size()); // since sizeof(char) == 1
+  DDVector<char, MemReader> srcV(srcReader); // since sizeof(char) == 1
+  DDVector<char, MemReader> dstV(dstReader); // since sizeof(char) == 1
 
   diff::SimpleReplaceDiffer differ;
 
@@ -194,8 +194,8 @@ UNIT_TEST(DiffSimpleReplaceAllEqual)
   char const dst[] = "abcdef";
   MemReader srcReader(src, ARRAY_SIZE(src) - 1);
   MemReader dstReader(dst, ARRAY_SIZE(dst) - 1);
-  DDVector<char, MemReader> srcV(srcReader, srcReader.Size()); // since sizeof(char) == 1
-  DDVector<char, MemReader> dstV(dstReader, dstReader.Size()); // since sizeof(char) == 1
+  DDVector<char, MemReader> srcV(srcReader); // since sizeof(char) == 1
+  DDVector<char, MemReader> dstV(dstReader); // since sizeof(char) == 1
 
   diff::SimpleReplaceDiffer differ;
 
@@ -216,8 +216,8 @@ UNIT_TEST(DiffWithRollingHashEqualStrings)
   char const dst[] = "abcdefklmno";
   MemReader srcReader(src, ARRAY_SIZE(src) - 1);
   MemReader dstReader(dst, ARRAY_SIZE(dst) - 1);
-  DDVector<char, MemReader> srcV(srcReader, srcReader.Size()); // since sizeof(char) == 1
-  DDVector<char, MemReader> dstV(dstReader, dstReader.Size()); // since sizeof(char) == 1
+  DDVector<char, MemReader> srcV(srcReader); // since sizeof(char) == 1
+  DDVector<char, MemReader> dstV(dstReader); // since sizeof(char) == 1
 
   diff::RollingHashDiffer<diff::SimpleReplaceDiffer, RollingHasher64> differ(3);
 
@@ -232,8 +232,8 @@ UNIT_TEST(DiffWithRollingHashCompletelyDifferentStrings)
   char const dst[] = "abcdefgh";
   MemReader srcReader(src, ARRAY_SIZE(src) - 1);
   MemReader dstReader(dst, ARRAY_SIZE(dst) - 1);
-  DDVector<char, MemReader> srcV(srcReader, srcReader.Size()); // since sizeof(char) == 1
-  DDVector<char, MemReader> dstV(dstReader, dstReader.Size()); // since sizeof(char) == 1
+  DDVector<char, MemReader> srcV(srcReader); // since sizeof(char) == 1
+  DDVector<char, MemReader> dstV(dstReader); // since sizeof(char) == 1
 
   diff::RollingHashDiffer<diff::SimpleReplaceDiffer, RollingHasher64> differ(3);
 
@@ -248,8 +248,8 @@ UNIT_TEST(DiffWithRollingHash1)
   char const dst[] = "abcdfeghikkklmnop";
   MemReader srcReader(src, ARRAY_SIZE(src) - 1);
   MemReader dstReader(dst, ARRAY_SIZE(dst) - 1);
-  DDVector<char, MemReader> srcV(srcReader, srcReader.Size()); // since sizeof(char) == 1
-  DDVector<char, MemReader> dstV(dstReader, dstReader.Size()); // since sizeof(char) == 1
+  DDVector<char, MemReader> srcV(srcReader); // since sizeof(char) == 1
+  DDVector<char, MemReader> dstV(dstReader); // since sizeof(char) == 1
 
   diff::RollingHashDiffer<diff::SimpleReplaceDiffer, RollingHasher64> differ(3);
 
@@ -264,8 +264,8 @@ UNIT_TEST(DiffWithRollingHash2)
   char const dst[] = "abxdeflmnop";
   MemReader srcReader(src, ARRAY_SIZE(src) - 1);
   MemReader dstReader(dst, ARRAY_SIZE(dst) - 1);
-  DDVector<char, MemReader> srcV(srcReader, srcReader.Size()); // since sizeof(char) == 1
-  DDVector<char, MemReader> dstV(dstReader, dstReader.Size()); // since sizeof(char) == 1
+  DDVector<char, MemReader> srcV(srcReader); // since sizeof(char) == 1
+  DDVector<char, MemReader> dstV(dstReader); // since sizeof(char) == 1
 
   diff::RollingHashDiffer<diff::SimpleReplaceDiffer, RollingHasher64> differ(3);
 

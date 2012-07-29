@@ -5,7 +5,8 @@
 class PolymorphReader
 {
 public:
-  explicit PolymorphReader(Reader const * pReader) : m_pReader(pReader)
+  // Takes ownership of pReader
+  explicit PolymorphReader(Reader const * pReader = 0) : m_pReader(pReader)
   {
   }
 

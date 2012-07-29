@@ -6,14 +6,14 @@
 
 UNIT_TEST(DDVector)
 {
-  vector<unsigned char> data;
+  vector<uint16_t> data;
   // Push size. Big endian is used.
   data.push_back(1);
   data.push_back(2);
   data.push_back(3);
-  typedef DDVector<unsigned char, MemReader> Vector;
+  typedef DDVector<uint16_t, MemReader> Vector;
   MemReader reader(reinterpret_cast<char const *>(&data[0]), data.size() * sizeof(data[0]));
-  Vector v(reader, reader.Size()); // since sizeof(unsigned char) == 1
+  Vector v(reader);
   TEST_EQUAL(3, v.size(), ());
   TEST_EQUAL(1, v[0], ());
   TEST_EQUAL(2, v[1], ());

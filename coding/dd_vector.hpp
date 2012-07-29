@@ -25,8 +25,15 @@ public:
 
   DDVector() : m_Size(0) {}
 
-  DDVector(TReader const & reader, size_type size) : m_reader(reader), m_Size(size)
+  explicit DDVector(TReader const & reader) : m_reader(reader)
   {
+    InitSize();
+  }
+
+  void Init(TReader const & reader)
+  {
+    m_reader = reader;
+    InitSize();
   }
 
   size_type size() const
@@ -36,10 +43,7 @@ public:
 
   T const operator [] (size_type i) const
   {
-    ASSERT_LESS(i, m_Size, ());
-    T result;
-    this->Read(i, result);
-    return result;
+    return ReadPrimitiveFromPos<T>(m_reader, static_cast<uint64_t>(i) * sizeof(T));
   }
 
   class const_iterator : public iterator_facade<
@@ -69,7 +73,7 @@ public:
       ASSERT_LESS(m_I, m_Size, (m_bValueRead));
       if (!m_bValueRead)
       {
-        ReadFromPos(*m_pReader, m_I * sizeof(T), &m_Value, sizeof(T));
+        m_Value = ReadPrimitiveFromPos<T>(*m_pReader, static_cast<uint64_t>(m_I) * sizeof(T));
         m_bValueRead = true;
       }
       return m_Value;
@@ -157,6 +161,13 @@ public:
   }
 
 private:
+  void InitSize()
+  {
+    // TODO: Check that reader.Size() % sizeof(T) == 0
+    m_Size = m_reader.Size() / sizeof(T);
+  }
+
+  // TODO: Refactor me to use Reader by pointer.
   ReaderType m_reader;
   size_type m_Size;
 };
