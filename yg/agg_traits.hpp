@@ -7,7 +7,7 @@
 #include <agg_scanline_u.h>
 #include <agg_ellipse.h>
 
-#include "data_formats.hpp"
+#include "data_traits.hpp"
 
 template <typename Traits>
 struct AggTraits

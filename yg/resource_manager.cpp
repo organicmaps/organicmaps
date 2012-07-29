@@ -1,7 +1,7 @@
 
 #include "internal/opengl.hpp"
 #include "base_texture.hpp"
-#include "data_formats.hpp"
+#include "data_traits.hpp"
 #include "resource_manager.hpp"
 #include "skin_loader.hpp"
 #include "storage.hpp"
@@ -430,23 +430,8 @@ namespace
     if (isGPU("Vivante Corporation", "", false))
       m_useVA = true;*/
 
-    string name;
-    switch (m_texRtFormat)
-    {
-    case yg::Data4Bpp:
-      name = "Data4Bpp";
-      break;
-    case yg::Data8Bpp:
-      name = "Data8Bpp";
-      break;
-    case yg::Data565Bpp:
-      name = "Data565Bpp";
-      break;
-    default:
-      name = "Unknown";
-    };
+    LOG(LINFO, ("selected", yg::formatName(m_texRtFormat), "format for tile textures"));
 
-    LOG(LINFO, ("selected", name, "format for tile textures"));
     if (m_useReadPixelsToSynchronize)
       LOG(LINFO, ("using ReadPixels instead of glFinish to synchronize"));
   }

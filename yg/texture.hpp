@@ -1,7 +1,7 @@
 #pragma once
 
 #include "managed_texture.hpp"
-#include "data_formats.hpp"
+#include "data_traits.hpp"
 
 #include "../platform/platform.hpp"
 

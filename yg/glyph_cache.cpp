@@ -1,6 +1,6 @@
 #include "glyph_cache.hpp"
 #include "glyph_cache_impl.hpp"
-#include "data_formats.hpp"
+#include "data_traits.hpp"
 #include "internal/opengl.hpp"
 #include "ft2_debug.hpp"
 

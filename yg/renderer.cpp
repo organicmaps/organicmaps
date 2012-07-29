@@ -1,6 +1,6 @@
 #include "../base/SRC_FIRST.hpp"
 #include "renderer.hpp"
-#include "data_formats.hpp"
+#include "data_traits.hpp"
 #include "utils.hpp"
 #include "framebuffer.hpp"
 #include "renderbuffer.hpp"

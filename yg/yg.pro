@@ -61,7 +61,8 @@ SOURCES += \
     glyph_style.cpp \
     circle_element.cpp \
     packets_queue.cpp \
-    display_list.cpp
+    display_list.cpp \
+    data_formats.cpp
 
 HEADERS += \
     internal/opengl.hpp \
@@ -116,7 +117,8 @@ HEADERS += \
     agg_traits.hpp \
     circle_element.hpp \
     packets_queue.hpp \
-    display_list.hpp
+    display_list.hpp \
+    data_traits.hpp
 
 # At the moment do not use OpenGL 2.0 on iOS.
 !iphone* {

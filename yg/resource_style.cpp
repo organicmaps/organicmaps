@@ -1,6 +1,6 @@
 #include "resource_style.hpp"
 
-#include "data_formats.hpp"
+#include "data_traits.hpp"
 
 namespace yg
 {

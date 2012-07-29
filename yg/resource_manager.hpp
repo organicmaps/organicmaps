@@ -11,6 +11,7 @@
 
 #include "storage.hpp"
 #include "glyph_cache.hpp"
+#include "data_formats.hpp"
 
 namespace yg
 {
@@ -24,12 +25,6 @@ namespace yg
 
   struct GlyphInfo;
 
-  enum DataFormat
-  {
-    Data8Bpp,
-    Data4Bpp,
-    Data565Bpp
-  };
 
   struct TTextureFactory : BasePoolElemFactory
   {

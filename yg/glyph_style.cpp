@@ -2,7 +2,7 @@
 
 #include "glyph_cache.hpp"
 #include "agg_traits.hpp"
-#include "data_formats.hpp"
+#include "data_traits.hpp"
 
 namespace yg
 {

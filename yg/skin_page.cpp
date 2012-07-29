@@ -1,7 +1,7 @@
 #include "skin_page.hpp"
 
 #include "texture.hpp"
-#include "data_formats.hpp"
+#include "data_traits.hpp"
 #include "resource_style.hpp"
 #include "resource_manager.hpp"
 #include "internal/opengl.hpp"
