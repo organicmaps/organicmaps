@@ -255,12 +255,14 @@ namespace yg
 
     void Renderer::processCommand(shared_ptr<Command> const & command, Packet::EType type, bool doForce)
     {
-      command->m_isDebugging = renderQueue() && !doForce;
+      if (command)
+        command->m_isDebugging = renderQueue() && !doForce;
 
       if (renderQueue() && !doForce)
         renderQueue()->processPacket(Packet(command, type));
       else
-        command->perform();
+        if (command)
+          command->perform();
     }
 
     PacketsQueue * Renderer::renderQueue()
@@ -268,10 +270,16 @@ namespace yg
       return m_renderQueue;
     }
 
-    void Renderer::markFrameBoundary()
+    void Renderer::addFramePoint()
     {
       if (m_renderQueue)
         m_renderQueue->processPacket(Packet(Packet::EFramePoint));
+    }
+
+    void Renderer::addCheckPoint()
+    {
+      if (m_renderQueue)
+        m_renderQueue->processPacket(Packet(Packet::ECheckPoint));
     }
 
     void Renderer::completeCommands()

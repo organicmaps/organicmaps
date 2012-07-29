@@ -43,6 +43,7 @@ namespace yg
       void freeTexture(shared_ptr<FreeTextureCmd> const & cmd);
       void freeStorage(shared_ptr<FreeStorageCmd> const & cmd);
       void uploadData(shared_ptr<UploadDataCmd> const & cmd);
+      void addCheckPoint();
 
       void draw(math::Matrix<double, 3, 3> const & m);
     };

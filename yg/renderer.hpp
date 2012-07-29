@@ -147,8 +147,9 @@ namespace yg
       void processCommand(shared_ptr<Command> const & command, Packet::EType type = Packet::ECommand, bool doForce = false);
       PacketsQueue * renderQueue();
 
-      /// insert empty packet into glQueue to mark the frame boundary
-      void markFrameBoundary();
+      void addCheckPoint();
+      void addFramePoint();
+
       void completeCommands();
     };
   }

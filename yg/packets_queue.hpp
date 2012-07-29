@@ -79,7 +79,7 @@ namespace yg
       EType m_type;
 
       Packet();
-      /// empty packet act as a frame delimiter
+      /// empty packet act as a frame delimiter or a checkpoint.
       explicit Packet(EType type);
       /// simple command
       Packet(shared_ptr<Command> const & command,

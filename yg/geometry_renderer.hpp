@@ -23,6 +23,12 @@ namespace yg
 
       DisplayList * m_displayList;
 
+      void uploadTextureImpl(SkinPage::TUploadQueue const & uploadQueue,
+                             unsigned start,
+                             unsigned end,
+                             shared_ptr<BaseTexture> const & texture,
+                             bool shouldAddCheckPoint);
+
     public:
 
       typedef Clipper base_t;

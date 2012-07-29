@@ -83,15 +83,63 @@ namespace yg
       LOG(LINFO, ("UploadData: texture", m_texture->id(), ", count=", m_uploadQueue.size(), ", first=", r));
     }
 
-    void GeometryRenderer::uploadTexture(SkinPage::TUploadQueue const & uploadQueue,
-                                         shared_ptr<BaseTexture> const & texture)
+
+    void GeometryRenderer::uploadTextureImpl(SkinPage::TUploadQueue const & uploadQueue,
+                                             unsigned start, unsigned end,
+                                             shared_ptr<BaseTexture> const & texture,
+                                             bool shouldAddCheckPoint)
     {
-      shared_ptr<UploadData> command(new UploadData(uploadQueue, texture));
+      vector<shared_ptr<ResourceStyle> > v;
+      v.reserve(end - start);
+      copy(&uploadQueue[0] + start, &uploadQueue[0] + end, back_inserter(v));
+
+      shared_ptr<UploadData> command(new UploadData(v, texture));
 
       if (m_displayList)
         m_displayList->uploadData(command);
       else
         processCommand(command);
+
+      if (shouldAddCheckPoint)
+      {
+        if (m_displayList)
+          m_displayList->addCheckPoint();
+        else
+          addCheckPoint();
+      }
+    }
+
+    void GeometryRenderer::uploadTexture(SkinPage::TUploadQueue const & uploadQueue,
+                                         shared_ptr<BaseTexture> const & texture)
+    {
+      /// splitting the whole queue of commands into the chunks no more
+      /// than 100kb of uploadable data each
+
+      /// tracking the number of bytes downloaded onto the texture
+      /// in a single shot.
+      unsigned bytesUploaded = 0;
+      unsigned bytesPerPixel = yg::formatSize(resourceManager()->params().m_texFormat);
+      unsigned prev = 0;
+
+      for (unsigned i = 0; i < uploadQueue.size(); ++i)
+      {
+        shared_ptr<ResourceStyle> const & style = uploadQueue[i];
+
+        bytesUploaded += style->m_texRect.SizeX() * style->m_texRect.SizeY() * bytesPerPixel;
+
+        if (bytesUploaded > 64 * 1024)
+        {
+          uploadTextureImpl(uploadQueue, prev, i + 1, texture, true);
+          prev = i + 1;
+          bytesUploaded = 0;
+        }
+      }
+
+      if (uploadQueue.size())
+      {
+        uploadTextureImpl(uploadQueue, prev, uploadQueue.size(), texture, false);
+        bytesUploaded = 0;
+      }
     }
 
     void GeometryRenderer::DrawGeometry::perform()
