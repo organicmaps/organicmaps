@@ -21,6 +21,7 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 
 import com.mapswithme.maps.location.LocationService;
+import com.mapswithme.util.ConnectionState;
 import com.nvidia.devtech.NvEventQueueActivity;
 
 public class MWMActivity extends NvEventQueueActivity implements LocationService.Listener
@@ -254,7 +255,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private void checkFacebookDialog()
   {
-    if (mApplication.nativeShouldShowFacebookDialog())
+    if ((ConnectionState.getState(this) != ConnectionState.NOT_CONNECTED)
+    && (mApplication.nativeShouldShowFacebookDialog()))
     {
       new AlertDialog.Builder(this)
         .setCancelable(false)
