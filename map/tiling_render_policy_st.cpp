@@ -229,6 +229,9 @@ void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
 
   delete [] queues;
 
+  /// CoverageGenerator rendering queue could execute commands partially
+  /// as there are no render-to-texture calls.
+//  m_QueuedRenderer->SetPartialExecution(cpuCores, true);
   m_CoverageGenerator.reset(new CoverageGenerator(skinName,
                                                   m_TileRenderer.get(),
                                                   m_windowHandle,

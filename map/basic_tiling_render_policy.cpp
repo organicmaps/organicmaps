@@ -124,6 +124,8 @@ void BasicTilingRenderPolicy::StartNavigation()
   m_TileRenderer->SetIsPaused(true);
   m_IsNavigating = true;
   m_TileRenderer->CancelCommands();
+  if (m_QueuedRenderer)
+    m_QueuedRenderer->SetPartialExecution(GetPlatform().CpuCores(), true);
 }
 
 void BasicTilingRenderPolicy::StopNavigation()
@@ -131,6 +133,8 @@ void BasicTilingRenderPolicy::StopNavigation()
   m_TileRenderer->SetIsPaused(false);
   m_IsNavigating = false;
   m_DoRecreateCoverage = true;
+  if (m_QueuedRenderer)
+    m_QueuedRenderer->SetPartialExecution(GetPlatform().CpuCores(), false);
 }
 
 void BasicTilingRenderPolicy::StartScale()
