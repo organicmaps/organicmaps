@@ -71,6 +71,7 @@ namespace yg
       {
         ECommand,
         ECheckPoint,
+        EFramePoint,
         ECancelPoint
       };
 

@@ -271,7 +271,7 @@ namespace yg
     void Renderer::markFrameBoundary()
     {
       if (m_renderQueue)
-        m_renderQueue->processPacket(Packet(Packet::ECheckPoint));
+        m_renderQueue->processPacket(Packet(Packet::EFramePoint));
     }
 
     void Renderer::completeCommands()

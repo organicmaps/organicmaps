@@ -94,7 +94,7 @@ bool QueuedRenderer::RenderQueuedCommands(int pipelineNum)
     }
     else
     {
-      ASSERT(bucketType == yg::gl::Packet::ECheckPoint, ());
+      ASSERT(bucketType == yg::gl::Packet::EFramePoint, ());
 
       if (it->m_command)
         it->m_command->perform();
@@ -152,7 +152,7 @@ void QueuedRenderer::PacketsPipeline::FillFrameCommands(list<yg::gl::Packet> & r
   {
     yg::gl::Packet p = *last;
 
-    if (p.m_type == yg::gl::Packet::ECheckPoint)
+    if (p.m_type == yg::gl::Packet::EFramePoint)
     {
       /// found frame boundary, copying
       copy(first, ++last, back_inserter(m_FrameCommands));

@@ -548,7 +548,7 @@ void RenderQueueRoutine::invalidate()
   {
     shared_ptr<Invalidate> command(new Invalidate());
     command->m_windowHandles = m_windowHandles;
-    m_glQueue->processPacket(yg::gl::Packet(command, yg::gl::Packet::ECheckPoint));
+    m_glQueue->processPacket(yg::gl::Packet(command, yg::gl::Packet::EFramePoint));
   }
 }
 

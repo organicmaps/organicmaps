@@ -91,7 +91,7 @@ namespace yg
 
     void PacketsQueue::completeCommands()
     {
-      joinFence(insertFence(Packet::ECheckPoint));
+      joinFence(insertFence(Packet::EFramePoint));
     }
 
     void PacketsQueue::cancelCommands()
