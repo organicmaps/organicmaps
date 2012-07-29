@@ -4,6 +4,8 @@
 QueuedRenderer::QueuedRenderer(int pipelinesCount)
 {
   m_Pipelines = new PacketsPipeline[pipelinesCount];
+  for (int i = 0; i < pipelinesCount; ++i)
+    m_Pipelines[i].m_CouldExecutePartially = false;
   m_PipelinesCount = pipelinesCount;
   m_CurrentPipeline = 0;
   m_ProcessSinglePipelineAtFrame = false;
@@ -22,10 +24,19 @@ QueuedRenderer::~QueuedRenderer()
 bool QueuedRenderer::NeedRedraw() const
 {
   for (unsigned i = 0; i < m_PipelinesCount; ++i)
+  {
     if (!m_Pipelines[i].m_Queue.empty())
       return true;
+    if (!m_Pipelines[i].m_FrameCommands.empty())
+      return true;
+  }
 
   return false;
+}
+
+void QueuedRenderer::SetPartialExecution(int pipelineNum, bool flag)
+{
+  m_Pipelines[pipelineNum].m_CouldExecutePartially = flag;
 }
 
 void QueuedRenderer::BeginFrame()
@@ -69,20 +80,22 @@ bool QueuedRenderer::RenderQueuedCommands(int pipelineNum)
 
   unsigned cmdProcessed = 0;
 
-  m_Pipelines[pipelineNum].m_Queue.processList(bind(&QueuedRenderer::PacketsPipeline::FillFrameCommands, &m_Pipelines[pipelineNum], _1, 1));
+  /// FrameCommands could contain commands from the previous frame if
+  /// the processed pipeline is allowed to be executed partially.
+  if (m_Pipelines[pipelineNum].m_FrameCommands.empty())
+    m_Pipelines[pipelineNum].m_Queue.processList(bind(&QueuedRenderer::PacketsPipeline::FillFrameCommands, &m_Pipelines[pipelineNum], _1, 1));
 
   cmdProcessed = m_Pipelines[pipelineNum].m_FrameCommands.size();
 
   list<yg::gl::Packet>::iterator it;
 
   bool res = !m_Pipelines[pipelineNum].m_FrameCommands.empty();
+  bool partialExecution = m_Pipelines[pipelineNum].m_CouldExecutePartially;
 
   yg::gl::Packet::EType bucketType = m_Pipelines[pipelineNum].m_Type;
 
-
-  for (it = m_Pipelines[pipelineNum].m_FrameCommands.begin();
-       it != m_Pipelines[pipelineNum].m_FrameCommands.end();
-       ++it)
+  while ((it = m_Pipelines[pipelineNum].m_FrameCommands.begin())
+      != m_Pipelines[pipelineNum].m_FrameCommands.end())
   {
     if (it->m_command)
       it->m_command->setIsDebugging(m_IsDebugging);
@@ -99,10 +112,17 @@ bool QueuedRenderer::RenderQueuedCommands(int pipelineNum)
       if (it->m_command)
         it->m_command->perform();
     }
-  }
 
-  /// should clear to release resources, refered from the stored commands.
-  m_Pipelines[pipelineNum].m_FrameCommands.clear();
+    bool isCheckpoint = (it->m_type == yg::gl::Packet::ECheckPoint);
+
+    m_Pipelines[pipelineNum].m_FrameCommands.pop_front();
+
+    /// if we found a checkpoint instead of frameboundary and this
+    /// pipeline is allowed to be partially executed we are
+    /// breaking from processing cycle.
+    if (isCheckpoint && partialExecution)
+      break;
+  }
 
   if (m_IsDebugging)
   {
@@ -118,7 +138,7 @@ bool QueuedRenderer::RenderQueuedCommands(int pipelineNum)
 
 void QueuedRenderer::PacketsPipeline::FillFrameCommands(list<yg::gl::Packet> & renderQueue, int maxFrames)
 {
-  m_FrameCommands.clear();
+  ASSERT(m_FrameCommands.empty(), ());
 
   /// searching for "delimiter" markers
 

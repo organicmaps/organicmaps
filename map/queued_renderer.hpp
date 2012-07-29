@@ -19,6 +19,8 @@ private:
     list<yg::gl::Packet> m_FrameCommands; //< list of commands to execute on current frame
     yg::gl::Packet::EType m_Type; //< type of the actions to perform with FrameCommands
 
+    bool m_CouldExecutePartially;
+
     /// - this function is passed to ThreadedList::ProcessQueue to fill up
     /// the FrameCommands from the QueueData, taking at maximum maxCheckPoints chunks,
     /// skipping empty frames.
@@ -53,6 +55,7 @@ public:
   bool RenderQueuedCommands(int pipelineNum);
   void CancelQueuedCommands(int pipelineNum);
   void PrepareQueueCancellation(int pipelineNum);
+  void SetPartialExecution(int pipelineNum, bool flag);
 
   void BeginFrame();
   void DrawFrame();
