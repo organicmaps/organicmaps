@@ -254,6 +254,7 @@ int32_t NVEventAppMain(int32_t argc, char** argv)
           s_densityDpi = ev->m_data.m_size.m_density;
 
           g_framework->Resize(s_winWidth, s_winHeight);
+          g_framework->NativeFramework()->Invalidate(true);
 	  /*          if (shouldLoadState)
           {
             g_framework->LoadState();

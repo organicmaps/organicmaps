@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -234,6 +235,13 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     }
   }
 
+  @Override
+  public void onConfigurationChanged(Configuration newConfig)
+  {
+    super.onConfigurationChanged(newConfig);
+    alignZoomButtons();
+  }
+
   private void showFacebookPage()
   {
     Intent intent = null;
@@ -401,6 +409,13 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     nativeConnectDownloadButton();
 
+    alignZoomButtons();
+
+    //m_timer = new VideoTimer();
+  }
+
+  private void alignZoomButtons()
+  {
     // Get screen density
     DisplayMetrics metrics = new DisplayMetrics();
     getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -413,8 +428,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
                                                                  LinearLayout.LayoutParams.WRAP_CONTENT);
     lp.setMargins(margin, (metrics.heightPixels / 4) - offs, margin, margin);
     findViewById(R.id.map_button_plus).setLayoutParams(lp);
-
-    //m_timer = new VideoTimer();
   }
 
   /// @name From Location interface
