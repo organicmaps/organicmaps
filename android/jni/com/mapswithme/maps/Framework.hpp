@@ -27,10 +27,6 @@ namespace android
 
     void CallRepaint();
 
-    void CreateDrawer();
-
-    void CreateResourceManager();
-
     NVMultiTouchEventType m_eventType; //< multitouch action
 
     double m_x1;

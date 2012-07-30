@@ -219,10 +219,10 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   m_isEmptyModelAtCoverageCenter = true;
   m_leafTilesToRender = 0;
 
-  for (unsigned i = 0; i < allRects.size(); ++i)
+  for (size_t i = 0; i < allRects.size(); ++i)
   {
-    m_tileRects.insert(allRects[i]);
-    Tiler::RectInfo ri = allRects[i];
+    Tiler::RectInfo const & ri = allRects[i];
+    m_tileRects.insert(ri);
 
     if (tileCache->HasTile(ri))
     {
@@ -230,7 +230,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
       Tile const * tile = &tileCache->GetTile(ri);
       ASSERT(tiles.find(tile) == tiles.end(), ());
 
-      if (m_tiler.isLeaf(allRects[i]))
+      if (m_tiler.isLeaf(ri))
         m_isEmptyDrawingCoverage &= tile->m_isEmptyDrawing;
 
       tiles.insert(tile);

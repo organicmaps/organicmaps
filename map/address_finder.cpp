@@ -305,6 +305,7 @@ namespace
   protected:
     virtual bool IsInclude(double dist, feature::TypesHolder const & types) const
     {
+      // 0 - point, 1 - linear, 2 - area;
       return (dist <= m_arrEps[types.GetGeoType()]);
     }
 
@@ -327,6 +328,7 @@ namespace
     {
       for (size_t i = 0; i < 3; ++i)
       {
+        // use average value to convert meters to degrees
         m2::RectD const r = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, arrRadius[i]);
         m_arrEps[i] = (r.SizeX() + r.SizeY()) / 2.0;
       }
@@ -399,6 +401,7 @@ namespace
                   m2::RectD const & rect)
       : DoGetAddressBase(pt, scale, checker)
     {
+      // use maximum value to convert meters to degrees
       m_eps = max(rect.SizeX(), rect.SizeY());
     }
 
