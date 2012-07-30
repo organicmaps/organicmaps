@@ -14,7 +14,10 @@ Result::Result(string const & str, string const & region,
 {
   // Features with empty names can be found after suggestion.
   if (m_str.empty())
-    m_str = "-";
+  {
+    //m_str = "-";
+    m_str = type;
+  }
 }
 
 Result::Result(string const & str, string const & suggestionStr)
