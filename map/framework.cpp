@@ -73,10 +73,41 @@ void Framework::OnLocationStatusChanged(location::TLocationStatus newStatus)
   }
 }
 
+//#define FIX_LOCATION
+
+#ifdef FIX_LOCATION
+namespace
+{
+  class FixedPosition
+  {
+    pair<double, double> m_latlon;
+    double m_dirFromNorth;
+    bool m_fixedLatLon, m_fixedDir;
+
+  public:
+    FixedPosition()
+    {
+      m_fixedLatLon = Settings::Get("FixPosition", m_latlon);
+    }
+
+    void GetLat(double & l) const { if (m_fixedLatLon) l = m_latlon.first; }
+    void GetLon(double & l) const { if (m_fixedLatLon) l = m_latlon.second; }
+  };
+}
+#endif
+
 void Framework::OnGpsUpdate(location::GpsInfo const & info)
 {
-  m2::RectD rect = MercatorBounds::MetresToXY(
-        info.m_longitude, info.m_latitude, info.m_horizontalAccuracy);
+  double lon = info.m_longitude;
+  double lat = info.m_latitude;
+
+#ifdef FIX_LOCATION
+  static FixedPosition fixedPos;
+  fixedPos.GetLon(lon);
+  fixedPos.GetLat(lat);
+#endif
+
+  m2::RectD rect = MercatorBounds::MetresToXY(lon, lat, info.m_horizontalAccuracy);
   m2::PointD const center = rect.Center();
 
   m_locationState.UpdateGps(rect);

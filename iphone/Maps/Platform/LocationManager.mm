@@ -13,10 +13,6 @@
 {
   if ((self = [super init]))
   {
-    // Read fixed location from settings.
-    m_fixedLatLon = Settings::Get("FixPosition", m_latlon);
-    m_fixedDir = Settings::Get("FixDirection", m_dirFromNorth);
-
     m_locationManager = [[CLLocationManager alloc] init];
     m_locationManager.delegate = self;
     m_locationManager.purpose = NSLocalizedString(@"location_services_are_needed_desc", @"Location purpose text description");
@@ -184,13 +180,6 @@
 
 - (bool)getLat:(double &)lat Lon:(double &)lon
 {
-  if (m_fixedLatLon)
-  {
-    lat = m_latlon.first;
-    lon = m_latlon.second;
-    return true;
-  }
-
   CLLocation * l = [self lastLocation];
 
   static NSTimeInterval const SECONDS_TO_EXPIRE = 300.0;
@@ -208,12 +197,6 @@
 
 - (bool)getNorthRad:(double &)rad
 {
-  if (m_fixedDir)
-  {
-    rad = m_dirFromNorth;
-    return true;
-  }
-
   CLHeading * h = [self lastHeading];
 
   if (h != nil)

@@ -21,14 +21,6 @@
   BOOL m_reportFirstUpdate;
   NSMutableSet * m_observers;
   BOOL m_isTimerActive;
-
-  // Fixed location coordinates for debug or other special purpose.
-  pair<double, double> m_latlon;
-  bool m_fixedLatLon;
-
-  // Fixed device direction from north (radians).
-  double m_dirFromNorth;
-  bool m_fixedDir;
 }
 
 - (void)start:(id <LocationObserver>)observer;
