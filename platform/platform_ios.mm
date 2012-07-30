@@ -198,7 +198,7 @@ void Platform::RunAsync(TFunctor const & fn, Priority p)
 }
 
 ////////////////////////////////////////////////////////////////////////
-extern "C" Platform & GetPlatform()
+extern Platform & GetPlatform()
 {
   static Platform platform;
   return platform;

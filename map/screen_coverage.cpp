@@ -255,15 +255,15 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 
   for (TTileSet::const_iterator it = erasedTiles.begin(); it != erasedTiles.end(); ++it)
   {
-    Tiler::RectInfo ri = (*it)->m_rectInfo;
-    tileCache->UnlockTile((*it)->m_rectInfo);
+    Tiler::RectInfo const & ri = (*it)->m_rectInfo;
+    tileCache->UnlockTile(ri);
     /// here we should "unmerge" erasedTiles[i].m_overlay from m_overlay
   }
 
   for (TTileSet::const_iterator it = addedTiles.begin(); it != addedTiles.end(); ++it)
   {
-    Tiler::RectInfo ri = (*it)->m_rectInfo;
-    tileCache->LockTile((*it)->m_rectInfo);
+    Tiler::RectInfo const & ri = (*it)->m_rectInfo;
+    tileCache->LockTile(ri);
   }
 
   tileCache->Unlock();

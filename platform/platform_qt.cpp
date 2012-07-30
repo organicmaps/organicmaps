@@ -59,7 +59,7 @@ int Platform::VideoMemoryLimit() const
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-extern "C" Platform & GetPlatform()
+extern Platform & GetPlatform()
 {
   class PlatformQt : public Platform
   {

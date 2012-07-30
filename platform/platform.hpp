@@ -135,4 +135,4 @@ public:
   string DefaultUrlsJSON() const;
 };
 
-extern "C" Platform & GetPlatform();
+extern Platform & GetPlatform();
