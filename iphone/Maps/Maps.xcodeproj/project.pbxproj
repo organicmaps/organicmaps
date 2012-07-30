@@ -2883,6 +2883,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "MapsWithMe Pro" */;
 			buildPhases = (
+				FA3A60E715AD5BBD00F40D20 /* ShellScript */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
@@ -2901,6 +2902,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FAFB0913151215EE0041901D /* Build configuration list for PBXNativeTarget "MapsWithMe Lite" */;
 			buildPhases = (
+				FA78191C15C5F673009E0278 /* ShellScript */,
 				FAFB06AA151215EE0041901D /* Resources */,
 				FAFB08E8151215EE0041901D /* Sources */,
 				FAFB08FA151215EE0041901D /* Frameworks */,
@@ -4163,6 +4165,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		FA3A60E715AD5BBD00F40D20 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nCONF=\"simulator\"\nif [[ \"$LOWERED_CONFIG\" == *production* || \"$LOWERED_CONFIG\" == *adhoc* ]]; then\n  CONF=\"production\"\nelif [[ \"$LOWERED_CONFIG\" == *debug* ]]; then\n  CONF=\"debug\"\nelif [[ \"$LOWERED_CONFIG\" == *release* ]]; then\n  CONF=\"release\"\nfi\n\necho \"Building $CONF configuration\"\nbash \"$SRCROOT/../../tools/autobuild/ios.sh\" $CONF";
+		};
 		FA40A8FF149B86E400AD1225 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -4173,8 +4188,21 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
+			shellPath = /bin/bash;
 			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nif [[ \"$LOWERED_CONFIG\" != *production* ]]; then\n  echo \"Copy drules_proto.txt in non-production build\"\n  cp \"$SRCROOT/../../data/drules_proto.txt\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/\"\nfi";
+		};
+		FA78191C15C5F673009E0278 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nCONF=\"simulator\"\nif [[ \"$LOWERED_CONFIG\" == *production* || \"$LOWERED_CONFIG\" == *adhoc* ]]; then\n  CONF=\"production\"\nelif [[ \"$LOWERED_CONFIG\" == *debug* ]]; then\n  CONF=\"debug\"\nelif [[ \"$LOWERED_CONFIG\" == *release* ]]; then\n  CONF=\"release\"\nfi\n\necho \"Building $CONF configuration\"\nbash \"$SRCROOT/../../tools/autobuild/ios.sh\" $CONF";
 		};
 		FAFB0912151215EE0041901D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4186,7 +4214,7 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
+			shellPath = /bin/bash;
 			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nif [[ \"$LOWERED_CONFIG\" != *production* ]]; then\n  echo \"Copy drules_proto.txt in non-production build\"\n  cp \"$SRCROOT/../../data/drules_proto.txt\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/\"\nfi\nif [[ \"$LOWERED_CONFIG\" == *lite* ]]; then\n  echo \"Using World file without search index\"\n  mv \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/World.mwm.nosearch\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/World.mwm\"\n  echo \"Using countries.txt without search support\"\n  mv \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/countries.txt.nosearch\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/countries.txt\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */

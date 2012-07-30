@@ -1,6 +1,7 @@
 set -e -x
 
-LOCAL_DIRNAME="${PWD}/$(dirname "$0")"
+LOCAL_DIRNAME="$(dirname "$0")"
+#LOCAL_DIRNAME="${PWD}/$(dirname "$0")"
 
 source "$LOCAL_DIRNAME/detect_qmake.sh"
 
