@@ -94,9 +94,9 @@ bool QueuedRenderer::RenderQueuedCommands(int pipelineNum)
 
   yg::gl::Packet::EType bucketType = m_Pipelines[pipelineNum].m_Type;
 
-  while ((it = m_Pipelines[pipelineNum].m_FrameCommands.begin())
-      != m_Pipelines[pipelineNum].m_FrameCommands.end())
+  while (!m_Pipelines[pipelineNum].m_FrameCommands.empty())
   {
+    it = m_Pipelines[pipelineNum].m_FrameCommands.begin();
     if (it->m_command)
       it->m_command->setIsDebugging(m_IsDebugging);
 

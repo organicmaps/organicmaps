@@ -24,8 +24,8 @@ namespace yg
       DisplayList * m_displayList;
 
       void uploadTextureImpl(SkinPage::TUploadQueue const & uploadQueue,
-                             unsigned start,
-                             unsigned end,
+                             size_t start,
+                             size_t end,
                              shared_ptr<BaseTexture> const & texture,
                              bool shouldAddCheckPoint);
 

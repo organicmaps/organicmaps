@@ -85,7 +85,7 @@ namespace yg
 
 
     void GeometryRenderer::uploadTextureImpl(SkinPage::TUploadQueue const & uploadQueue,
-                                             unsigned start, unsigned end,
+                                             size_t start, size_t end,
                                              shared_ptr<BaseTexture> const & texture,
                                              bool shouldAddCheckPoint)
     {
@@ -117,11 +117,11 @@ namespace yg
 
       /// tracking the number of bytes downloaded onto the texture
       /// in a single shot.
-      unsigned bytesUploaded = 0;
-      unsigned bytesPerPixel = yg::formatSize(resourceManager()->params().m_texFormat);
-      unsigned prev = 0;
+      size_t bytesUploaded = 0;
+      size_t bytesPerPixel = yg::formatSize(resourceManager()->params().m_texFormat);
+      size_t prev = 0;
 
-      for (unsigned i = 0; i < uploadQueue.size(); ++i)
+      for (size_t i = 0; i < uploadQueue.size(); ++i)
       {
         shared_ptr<ResourceStyle> const & style = uploadQueue[i];
 
@@ -135,7 +135,7 @@ namespace yg
         }
       }
 
-      if (uploadQueue.size())
+      if (!uploadQueue.empty())
       {
         uploadTextureImpl(uploadQueue, prev, uploadQueue.size(), texture, false);
         bytesUploaded = 0;
