@@ -37,10 +37,12 @@
 using namespace storage;
 
 
+#ifdef FIXED_LOCATION
 Framework::FixedPosition::FixedPosition()
 {
   m_fixedLatLon = Settings::Get("FixPosition", m_latlon);
 }
+#endif
 
 void Framework::AddMap(string const & file)
 {

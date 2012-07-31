@@ -41,7 +41,7 @@ namespace gui { class Controller; }
 class CountryStatusDisplay;
 class BenchmarkEngine;
 
-#define FIXED_LOCATION
+//#define FIXED_LOCATION
 
 class Framework
 {
