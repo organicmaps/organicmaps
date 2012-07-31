@@ -4,6 +4,7 @@
 #include "benchmark_provider.hpp"
 #include "benchmark_engine.hpp"
 #include "geourl_process.hpp"
+#include "measurement_utils.hpp"
 
 #include "../defines.hpp"
 
@@ -23,6 +24,9 @@
 #include "../yg/rendercontext.hpp"
 #include "../yg/render_state.hpp"
 
+#include "../geometry/angles.hpp"
+#include "../geometry/distance_on_sphere.hpp"
+
 #include "../base/math.hpp"
 #include "../base/timer.hpp"
 
@@ -31,6 +35,12 @@
 #include "../std/vector.hpp"
 
 using namespace storage;
+
+
+Framework::FixedPosition::FixedPosition()
+{
+  m_fixedLatLon = Settings::Get("FixPosition", m_latlon);
+}
 
 void Framework::AddMap(string const & file)
 {
@@ -73,38 +83,14 @@ void Framework::OnLocationStatusChanged(location::TLocationStatus newStatus)
   }
 }
 
-//#define FIX_LOCATION
-
-#ifdef FIX_LOCATION
-namespace
-{
-  class FixedPosition
-  {
-    pair<double, double> m_latlon;
-    double m_dirFromNorth;
-    bool m_fixedLatLon, m_fixedDir;
-
-  public:
-    FixedPosition()
-    {
-      m_fixedLatLon = Settings::Get("FixPosition", m_latlon);
-    }
-
-    void GetLat(double & l) const { if (m_fixedLatLon) l = m_latlon.first; }
-    void GetLon(double & l) const { if (m_fixedLatLon) l = m_latlon.second; }
-  };
-}
-#endif
-
 void Framework::OnGpsUpdate(location::GpsInfo const & info)
 {
   double lon = info.m_longitude;
   double lat = info.m_latitude;
 
-#ifdef FIX_LOCATION
-  static FixedPosition fixedPos;
-  fixedPos.GetLon(lon);
-  fixedPos.GetLat(lat);
+#ifdef FIXED_LOCATION
+  m_fixedPos.GetLon(lon);
+  m_fixedPos.GetLat(lat);
 #endif
 
   m2::RectD rect = MercatorBounds::MetresToXY(lon, lat, info.m_horizontalAccuracy);
@@ -148,6 +134,9 @@ void Framework::OnGpsUpdate(location::GpsInfo const & info)
 
   case ESkipLocationCentering:
     m_centeringMode = EDoNothing;
+    break;
+
+  case EDoNothing:
     break;
   }
 }
@@ -1009,7 +998,18 @@ void Framework::PrepareSearch(bool hasPt, double lat, double lon)
 
 bool Framework::Search(search::SearchParams const & params)
 {
-  return GetSearchEngine()->Search(params, GetCurrentViewport());
+#ifdef FIXED_LOCATION
+  search::SearchParams p(params);
+  if (params.m_validPos)
+  {
+    m_fixedPos.GetLat(p.m_lat);
+    m_fixedPos.GetLon(p.m_lon);
+  }
+#else
+  search::SearchParams const & p = params;
+#endif
+
+  return GetSearchEngine()->Search(p, GetCurrentViewport());
 }
 
 bool Framework::GetCurrentPosition(double & lat, double & lon) const
@@ -1038,6 +1038,38 @@ void Framework::ShowSearchResult(search::Result const & res)
   ShowRectFixed(r);
 
   DrawPlacemark(res.GetFeatureCenter());
+}
+
+void Framework::GetDistanceAndAzimut(search::Result const & res,
+                                     double lat, double lon, double north,
+                                     string & distance, double & azimut)
+{
+#ifdef FIXED_LOCATION
+  m_fixedPos.GetLat(lat);
+  m_fixedPos.GetLon(lon);
+#endif
+
+  m2::PointD const center = res.GetFeatureCenter();
+
+  double const d = ms::DistanceOnEarth(lat, lon,
+                                       MercatorBounds::YToLat(center.y),
+                                       MercatorBounds::XToLon(center.x));
+
+  CHECK ( MeasurementUtils::FormatDistance(d, distance), () );
+
+  // Do not show direction arrow for features that are too far than 25 km.
+  if (north >= 0.0 && d < 25000.0)
+  {
+    azimut = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(lon),
+                                     MercatorBounds::LatToY(lat)),
+                          center) + north;
+
+    double const pi2 = 2.0*math::pi;
+    if (azimut < 0.0)
+      azimut += pi2;
+    else if (azimut > pi2)
+      azimut -= pi2;
+  }
 }
 
 void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)

@@ -2,11 +2,6 @@
 
 #include "../../../../../search/result.hpp"
 
-#include "../../../../../map/measurement_utils.hpp"
-
-#include "../../../../../geometry/angles.hpp"
-#include "../../../../../geometry/distance_on_sphere.hpp"
-
 #include "../../../../../base/thread.hpp"
 
 #include "../core/jni_helper.hpp"
@@ -222,28 +217,7 @@ Java_com_mapswithme_maps_SearchActivity_nativeGetResult(
     string distance;
     double azimut = -1.0;
     if (mode >= 2)
-    {
-      m2::PointD const center = res->GetFeatureCenter();
-
-      double const d = ms::DistanceOnEarth(lat, lon,
-                                           MercatorBounds::YToLat(center.y),
-                                           MercatorBounds::XToLon(center.x));
-
-      CHECK ( MeasurementUtils::FormatDistance(d, distance), () );
-
-      if (north >= 0.0 && d < 25000.0)
-      {
-        azimut = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(lon),
-                                         MercatorBounds::LatToY(lat)),
-                              center) + north;
-
-        double const pi2 = 2.0*math::pi;
-        if (azimut < 0.0)
-          azimut += pi2;
-        else if (azimut > pi2)
-          azimut -= pi2;
-      }
-    }
+      g_framework->NativeFramework()->GetDistanceAndAzimut(*res, lat, lon, north, distance, azimut);
 
     return env->NewObject(klass, methodID,
                           jni::ToJavaString(env, res->GetString()),

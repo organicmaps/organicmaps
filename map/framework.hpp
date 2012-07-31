@@ -41,10 +41,25 @@ namespace gui { class Controller; }
 class CountryStatusDisplay;
 class BenchmarkEngine;
 
+#define FIXED_LOCATION
+
 class Framework
 {
-protected:
+#ifdef FIXED_LOCATION
+  class FixedPosition
+  {
+    pair<double, double> m_latlon;
+    double m_dirFromNorth;
+    bool m_fixedLatLon, m_fixedDir;
 
+  public:
+    FixedPosition();
+    void GetLat(double & l) const { if (m_fixedLatLon) l = m_latlon.first; }
+    void GetLon(double & l) const { if (m_fixedLatLon) l = m_latlon.second; }
+  } m_fixedPos;
+#endif
+
+protected:
   friend class BenchmarkEngine;
 
   StringsBundle m_stringsBundle;
@@ -200,7 +215,6 @@ public:
                  bool isTiling);
 
 private:
-
   search::Engine * GetSearchEngine() const;
 
   void CheckMinGlobalRect(m2::RectD & r) const;
@@ -216,6 +230,12 @@ public:
   bool Search(search::SearchParams const & params);
   bool GetCurrentPosition(double & lat, double & lon) const;
   void ShowSearchResult(search::Result const & res);
+
+  /// Calculate distance and direction to search result for the given position.
+  /// @param[out] distance  Formatted distance string;
+  void GetDistanceAndAzimut(search::Result const & res,
+                            double lat, double lon, double north,
+                            string & distance, double & azimut);
 
   string GetCountryName(m2::PointD const & pt) const;
   /// @param[in] id Country file name without an extension.
