@@ -20,6 +20,8 @@ import android.util.Log;
 import android.view.Surface;
 
 import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.util.ConnectionState;
+
 
 public class LocationService implements LocationListener, SensorEventListener, WifiLocation.Listener
 {
@@ -115,6 +117,18 @@ public class LocationService implements LocationListener, SensorEventListener, W
     }
   }
 
+  /*
+  private void printLocation(Location l)
+  {
+    final String p = l.getProvider();
+    Log.d(TAG, "Lat = " + l.getLatitude() +
+          "; Lon = " + l.getLongitude() +
+          "; Time = " + l.getTime() +
+          "; Acc = " + l.getAccuracy() +
+          "; Provider = " + (p != null ? p : ""));
+  }
+   */
+
   public void startUpdate(Listener observer)
   {
     m_observers.add(observer);
@@ -131,11 +145,13 @@ public class LocationService implements LocationListener, SensorEventListener, W
           break;
         }
 
+      Log.d(TAG, "Enabled providers count = " + enabledProviders.size());
+
       if (enabledProviders.size() == 0)
       {
         // Use WiFi BSSIDS and Google Internet location service if no other options are available
         // But only if connection is available
-        if (com.mapswithme.util.ConnectionState.isConnected(mApplication))
+        if (ConnectionState.isConnected(mApplication))
         {
           observer.onLocationStatusChanged(STARTED);
 
@@ -162,6 +178,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
           // @TODO change frequency and accuracy to save battery
           if (m_locationManager.isProviderEnabled(provider))
           {
+            Log.d(TAG, "Connected to provider = " + provider);
             m_locationManager.requestLocationUpdates(provider, 0, 0, this);
 
             // Remember last known location
@@ -188,7 +205,10 @@ public class LocationService implements LocationListener, SensorEventListener, W
         // Pass last known location only in the end of all registerListener
         // in case, when we want to disconnect in listener.
         if (lastKnown != null)
+        {
+          Log.d(TAG, "Last known location:");
           onLocationChanged(lastKnown);
+        }
       }
     }
     else
@@ -225,8 +245,10 @@ public class LocationService implements LocationListener, SensorEventListener, W
   protected boolean isBetterLocation(Location newLocation, Location currentBestLocation)
   {
     // A new location is thrown away if it's too old
-    if (java.lang.System.currentTimeMillis() - newLocation.getTime() > FIVE_MINUTES)
-      return false;
+    // VNG: Remove this stuff. When the user has invalid time on devise, it's not working.
+    // We have better filtration like isSignificantlyNewer, or isSignificantlyOlder (see below).
+    //if (java.lang.System.currentTimeMillis() - newLocation.getTime() > FIVE_MINUTES)
+    //  return false;
 
     // A new location is better than no location
     if (currentBestLocation == null)
@@ -286,6 +308,8 @@ public class LocationService implements LocationListener, SensorEventListener, W
   @Override
   public void onLocationChanged(Location l)
   {
+    //printLocation(l);
+
     if (isBetterLocation(l, m_lastLocation))
     {
       if (m_lastLocation == null)
@@ -303,6 +327,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
         }
       }
 
+      //Log.d(TAG, "Location accepted");
       notifyLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy());
       m_lastLocation = l;
     }
