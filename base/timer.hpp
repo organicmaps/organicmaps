@@ -15,7 +15,9 @@ class Timer
 public:
   Timer();
 
+  /// @return current UTC time in seconds, elapsed from 1970.
   static double LocalTime();
+  /// @return Elapsed time in seconds from start (@see Reset).
   double ElapsedSeconds() const;
   void Reset();
 };
