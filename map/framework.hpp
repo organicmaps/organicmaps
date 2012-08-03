@@ -54,8 +54,11 @@ class Framework
 
   public:
     FixedPosition();
+
     void GetLat(double & l) const { if (m_fixedLatLon) l = m_latlon.first; }
     void GetLon(double & l) const { if (m_fixedLatLon) l = m_latlon.second; }
+    void GetNorth(double & n) const { if (m_fixedDir) n = m_dirFromNorth; }
+
   } m_fixedPos;
 #endif
 

@@ -41,6 +41,7 @@ using namespace storage;
 Framework::FixedPosition::FixedPosition()
 {
   m_fixedLatLon = Settings::Get("FixPosition", m_latlon);
+  m_fixedDir = Settings::Get("FixDirection", m_dirFromNorth);
 }
 #endif
 
@@ -145,7 +146,14 @@ void Framework::OnGpsUpdate(location::GpsInfo const & info)
 
 void Framework::OnCompassUpdate(location::CompassInfo const & info)
 {
-  m_locationState.UpdateCompass(info);
+#ifdef FIXED_LOCATION
+  location::CompassInfo rInfo(info);
+  m_fixedPos.GetNorth(rInfo.m_trueHeading);
+#else
+  location::CompassInfo const & rInfo = info;
+#endif
+
+  m_locationState.UpdateCompass(rInfo);
   Invalidate();
 }
 
@@ -743,13 +751,18 @@ void Framework::MemoryWarning()
   LOG(LINFO, ("MemoryWarning"));
 }
 
+#define MIN_FOREGROUND_TIME_TO_SHOW_FACEBOOK_DIALOG 60 * 60
+#define FOREGROUND_TIME_SETTINGS "ForegroundTime"
+#define SHOW_FACEBOOK_SETTINGS "ShouldShowFacebookDialog"
+
 void Framework::EnterBackground()
 {
   // clearing caches on entering background.
   m_model.ClearCaches();
+
   double val = 0;
-  Settings::Get("ForegroundTime", val);
-  Settings::Set("ForegroundTime", my::Timer::LocalTime() - m_StartForegroundTime + val);
+  (void)Settings::Get(FOREGROUND_TIME_SETTINGS, val);
+  Settings::Set(FOREGROUND_TIME_SETTINGS, my::Timer::LocalTime() - m_StartForegroundTime + val);
 }
 
 void Framework::EnterForeground()
@@ -1001,17 +1014,17 @@ void Framework::PrepareSearch(bool hasPt, double lat, double lon)
 bool Framework::Search(search::SearchParams const & params)
 {
 #ifdef FIXED_LOCATION
-  search::SearchParams p(params);
+  search::SearchParams rParams(params);
   if (params.m_validPos)
   {
-    m_fixedPos.GetLat(p.m_lat);
-    m_fixedPos.GetLon(p.m_lon);
+    m_fixedPos.GetLat(rParams.m_lat);
+    m_fixedPos.GetLon(rParams.m_lon);
   }
 #else
-  search::SearchParams const & p = params;
+  search::SearchParams const & rParams = params;
 #endif
 
-  return GetSearchEngine()->Search(p, GetCurrentViewport());
+  return GetSearchEngine()->Search(rParams, GetCurrentViewport());
 }
 
 bool Framework::GetCurrentPosition(double & lat, double & lon) const
@@ -1049,6 +1062,7 @@ void Framework::GetDistanceAndAzimut(search::Result const & res,
 #ifdef FIXED_LOCATION
   m_fixedPos.GetLat(lat);
   m_fixedPos.GetLon(lon);
+  m_fixedPos.GetNorth(north);
 #endif
 
   m2::PointD const center = res.GetFeatureCenter();
@@ -1212,15 +1226,13 @@ bool Framework::IsBenchmarking() const
   return m_benchmarkEngine != 0;
 }
 
-#define MIN_FOREGROUND_TIME_TO_SHOW_FACEBOOK_DIALOG 60 * 60
-
 bool Framework::ShouldShowFacebookDialog() const
 {
   double val = 0;
   bool flag = true;
-  Settings::Get("ForegroundTime", val);
-  Settings::Get("ShouldShowFacebookDialog", flag);
-  return flag && (val >= MIN_FOREGROUND_TIME_TO_SHOW_FACEBOOK_DIALOG);
+  (void)Settings::Get(FOREGROUND_TIME_SETTINGS, val);
+  (void)Settings::Get(SHOW_FACEBOOK_SETTINGS, flag);
+  return (flag && (val >= MIN_FOREGROUND_TIME_TO_SHOW_FACEBOOK_DIALOG));
 }
 
 void Framework::SaveFacebookDialogResult(int result)
@@ -1228,10 +1240,10 @@ void Framework::SaveFacebookDialogResult(int result)
   switch (result)
   {
   case 0: case 2:
-    Settings::Set("ShouldShowFacebookDialog", false);
+    Settings::Set(SHOW_FACEBOOK_SETTINGS, false);
     break;
   case 1:
-    Settings::Set("ForegroundTime", 0);
+    Settings::Set(FOREGROUND_TIME_SETTINGS, 0);
     break;
   default:
     LOG(LINFO, ("Unknown Facebook dialog result!"));
