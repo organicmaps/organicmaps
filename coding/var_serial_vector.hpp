@@ -78,6 +78,11 @@ class VarSerialVectorReader
 public:
   template <typename SourceT>
   explicit VarSerialVectorReader(SourceT & source) :
+
+  /// Reading this code can blow your mind :)
+  /// Initialization (and declaration below) order of m_offsetsReader and m_dataReader matters!!!
+  /// @see ReaderSource::SubReader - it's not constant.
+  /// @todo Do this stuff in a better way.
   m_size(ReadPrimitiveFromSource<uint32_t>(source)),
   m_offsetsReader(source.SubReader(m_size * sizeof(uint32_t))),
   m_dataReader(source.SubReader())
@@ -111,6 +116,8 @@ public:
   }
 
 private:
+
+  /// @note Do NOT change declaration order.
   uint64_t m_size;
   ReaderT m_offsetsReader;
   ReaderT m_dataReader;

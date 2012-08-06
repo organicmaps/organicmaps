@@ -29,7 +29,9 @@ bool ParseXML(SourceT & source, XMLDispatcherT & dispatcher, bool useCharData = 
   }
   catch (SourceOutOfBoundsException & e)
   {
-    if (!parser.ParseBuffer(e.BytesRead(), true))
+    size_t const toRead = e.BytesRead();
+    // 0 - means Reader overflow (see ReaderSource::Read)
+    if (toRead == 0 || !parser.ParseBuffer(toRead, true))
       return false;
   }
 

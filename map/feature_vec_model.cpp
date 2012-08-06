@@ -16,17 +16,17 @@
 namespace model
 {
 
+// While reading any files (classificator or mwm), there are 2 types of possible exceptions:
+// Reader::Exception; FileAbsentException; SourceOutOfBoundsException.
+// Let's process RootException everywhere, to supress such errors.
+
 void FeaturesFetcher::InitClassificator()
 {
   try
   {
     classificator::Load();
   }
-  catch (FileAbsentException const & e)
-  {
-      LOG(LERROR, ("Classificator not found: ", e.what()));
-  }
-  catch (Reader::Exception const & e)
+  catch (RootException const & e)
   {
     LOG(LERROR, ("Classificator read error: ", e.what()));
   }
@@ -41,13 +41,9 @@ int FeaturesFetcher::AddMap(string const & file)
     version = m_multiIndex.Add(file, r);
     m_rect.Add(r);
   }
-  catch (Reader::Exception const & e)
-  {
-    LOG(LERROR, ("IO error while adding ", file, " map. ", e.what()));
-  }
   catch (RootException const & e)
   {
-    LOG(LERROR, ("Can't find map ", file, ". ", e.what()));
+    LOG(LERROR, ("IO error while adding ", file, " map. ", e.what()));
   }
 
   return version;

@@ -3,9 +3,8 @@
 #include "source.hpp"
 
 #include "../base/assert.hpp"
-#include "../base/base.hpp"
+#include "../base/logging.hpp"
 #include "../base/exception.hpp"
-#include "../base/macros.hpp"
 
 #include "../std/shared_array.hpp"
 #include "../std/shared_ptr.hpp"
@@ -34,6 +33,8 @@ public:
 // Reader from memory.
 class MemReader : public Reader
 {
+  bool AssertPosAndSize(uint64_t pos, uint64_t size) const;
+
 public:
   // Construct from block of memory.
   MemReader(void const * pData, size_t size)
@@ -48,21 +49,19 @@ public:
 
   inline void Read(uint64_t pos, void * p, size_t size) const
   {
-    ASSERT_LESS_OR_EQUAL(pos + size, Size(), (pos, size));
+    ASSERT ( AssertPosAndSize(pos, size), () );
     memcpy(p, m_pData + pos, size);
   }
 
   inline MemReader SubReader(uint64_t pos, uint64_t size) const
   {
-    ASSERT_LESS_OR_EQUAL(pos + size, Size(), (pos, size));
-    ASSERT_LESS_OR_EQUAL(size, static_cast<size_t>(-1), ());
+    ASSERT ( AssertPosAndSize(pos, size), () );
     return MemReader(m_pData + pos, static_cast<size_t>(size));
   }
 
   inline MemReader * CreateSubReader(uint64_t pos, uint64_t size) const
   {
-    ASSERT_LESS_OR_EQUAL(pos + size, Size(), (pos, size));
-    ASSERT_LESS_OR_EQUAL(size, static_cast<size_t>(-1), ());
+    ASSERT ( AssertPosAndSize(pos, size), () );
     return new MemReader(m_pData + pos, static_cast<size_t>(size));
   }
 
@@ -73,6 +72,8 @@ private:
 
 class SharedMemReader
 {
+  bool AssertPosAndSize(uint64_t pos, uint64_t size) const;
+
 public:
   explicit SharedMemReader(size_t size) : m_data(new char[size]), m_offset(0), m_size(size) {}
 
@@ -82,21 +83,19 @@ public:
 
   inline void Read(uint64_t pos, void * p, size_t size) const
   {
-    ASSERT_LESS_OR_EQUAL(pos + size, Size(), (pos, size));
+    ASSERT ( AssertPosAndSize(pos, size), () );
     memcpy(p, Data() + pos, size);
   }
 
   inline SharedMemReader SubReader(uint64_t pos, uint64_t size) const
   {
-    ASSERT_LESS_OR_EQUAL(pos + size, Size(), (pos, size));
-    ASSERT_LESS_OR_EQUAL(size, static_cast<size_t>(-1), ());
+    ASSERT ( AssertPosAndSize(pos, size), () );
     return SharedMemReader(m_data, static_cast<size_t>(pos), static_cast<size_t>(size));
   }
 
   inline SharedMemReader * CreateSubReader(uint64_t pos, uint64_t size) const
   {
-    ASSERT_LESS_OR_EQUAL(pos + size, Size(), (pos, size));
-    ASSERT_LESS_OR_EQUAL(size, static_cast<size_t>(-1), ());
+    ASSERT ( AssertPosAndSize(pos, size), () );
     return new SharedMemReader(m_data, static_cast<size_t>(pos), static_cast<size_t>(size));
   }
 
@@ -180,11 +179,16 @@ public:
 
   void Read(void * p, size_t size)
   {
-    if (m_pos + size > m_reader.Size())
+    uint64_t const readerSize = m_reader.Size();
+    if (m_pos + size > readerSize)
     {
-      size_t const remainingSize = static_cast<size_t>(Size());
-      m_reader.Read(m_pos, p, remainingSize);
-      m_pos = m_reader.Size();
+      size_t remainingSize = 0;
+      if (readerSize >= m_pos)
+      {
+        remainingSize = static_cast<size_t>(readerSize - m_pos);
+        m_reader.Read(m_pos, p, remainingSize);
+        m_pos = readerSize;
+      }
       MYTHROW1(SourceOutOfBoundsException, remainingSize, ());
     }
     else
@@ -197,6 +201,7 @@ public:
   void Skip(uint64_t size)
   {
     m_pos += size;
+    ASSERT ( AssertPosition(), () );
   }
 
   uint64_t Pos() const
@@ -206,6 +211,7 @@ public:
 
   uint64_t Size() const
   {
+    ASSERT ( AssertPosition(), () );
     return (m_reader.Size() - m_pos);
   }
 
@@ -216,17 +222,24 @@ public:
 
   ReaderT SubReader(uint64_t size)
   {
-    uint64_t pos = m_pos;
-    m_pos += size;
+    uint64_t const pos = m_pos;
+    Skip(size);
     return m_reader.SubReader(pos, size);
   }
 
   ReaderT SubReader()
   {
-    return SubReader(m_reader.Size() - m_pos);
+    return SubReader(Size());
   }
 
 private:
+  bool AssertPosition() const
+  {
+    bool const ret = (m_pos <= m_reader.Size());
+    ASSERT ( ret, (m_pos, m_reader.Size()) );
+    return ret;
+  }
+
   ReaderT m_reader;
   uint64_t m_pos;
 };

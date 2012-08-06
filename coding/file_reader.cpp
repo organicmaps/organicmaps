@@ -86,25 +86,38 @@ uint64_t FileReader::Size() const
 
 void FileReader::Read(uint64_t pos, void * p, size_t size) const
 {
-  ASSERT_LESS_OR_EQUAL(pos + size, Size(), (pos, size));
+  ASSERT ( AssertPosAndSize(pos, size), () );
   m_pFileData->Read(m_Offset + pos, p, size);
 }
 
 FileReader FileReader::SubReader(uint64_t pos, uint64_t size) const
 {
-  ASSERT_LESS_OR_EQUAL(pos + size, Size(), (pos, size));
+  ASSERT ( AssertPosAndSize(pos, size), () );
   return FileReader(*this, m_Offset + pos, size);
 }
 
 FileReader * FileReader::CreateSubReader(uint64_t pos, uint64_t size) const
 {
-  ASSERT_LESS_OR_EQUAL(pos + size, Size(), (pos, size));
+  ASSERT ( AssertPosAndSize(pos, size), () );
   return new FileReader(*this, m_Offset + pos, size);
+}
+
+bool FileReader::AssertPosAndSize(uint64_t pos, uint64_t size) const
+{
+  uint64_t const allSize1 = Size();
+  bool const ret1 = (pos + size <= allSize1);
+  ASSERT ( ret1, (pos, size, allSize1) );
+
+  uint64_t const allSize2 = m_pFileData->Size();
+  bool const ret2 = (m_Offset + pos + size <= allSize2);
+  ASSERT ( ret2, (m_Offset, pos, size, allSize2) );
+
+  return (ret1 && ret2);
 }
 
 void FileReader::SetOffsetAndSize(uint64_t offset, uint64_t size)
 {
-  ASSERT_LESS_OR_EQUAL(offset + size, Size(), (offset, size));
+  ASSERT ( AssertPosAndSize(offset, size), () );
   m_Offset = offset;
   m_Size = size;
 }

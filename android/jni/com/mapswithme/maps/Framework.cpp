@@ -471,7 +471,7 @@ namespace android
             out.push_back(m_work.GetCountryName(v[i]));
           }
         }
-        catch (Reader::Exception const & ex)
+        catch (RootException const & ex)
         {
           // sdcard can contain dummy _*.mwm files. Supress this errors.
           LOG(LWARNING, ("Bad mwm file:", v[i], "Error:", ex.Msg()));

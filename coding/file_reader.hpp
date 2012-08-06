@@ -23,7 +23,9 @@ public:
   FileReader * CreateSubReader(uint64_t pos, uint64_t size) const;
 
 protected:
-  // Used in special derived readers.
+  /// Make assertion that pos + size in FileReader bounds.
+  bool AssertPosAndSize(uint64_t pos, uint64_t size) const;
+  /// Used in special derived readers.
   void SetOffsetAndSize(uint64_t offset, uint64_t size);
 
 private:
