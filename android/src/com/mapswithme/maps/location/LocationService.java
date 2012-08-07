@@ -185,8 +185,11 @@ public class LocationService implements LocationListener, SensorEventListener, W
             final Location l = m_locationManager.getLastKnownLocation(provider);
             if (l != null)
             {
-              if (lastKnown == null || isBetterLocation(l, lastKnown))
+              if ((System.currentTimeMillis() - l.getTime() < FIVE_MINUTES) &&
+                  (lastKnown == null || isBetterLocation(l, lastKnown)))
+              {
                 lastKnown = l;
+              }
             }
           }
         }
