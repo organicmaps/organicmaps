@@ -293,11 +293,6 @@ namespace yg
       m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + offs);
   }
 
-  int StraightTextElement::visualRank() const
-  {
-    return 1000 + m_fontDesc.m_size;
-  }
-
   OverlayElement * StraightTextElement::clone(math::Matrix<double, 3, 3> const & m) const
   {
     return new StraightTextElement(*this, m);

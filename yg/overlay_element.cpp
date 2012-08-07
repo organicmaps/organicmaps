@@ -162,6 +162,11 @@ namespace yg
     return false;
   }
 
+  int OverlayElement::visualRank() const
+  {
+    return depth();
+  }
+
   bool OverlayElement::isValid() const
   {
     return m_isValid;

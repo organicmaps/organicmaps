@@ -33,8 +33,6 @@ namespace yg
 
     void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
-    int visualRank() const;
-
     void setPivot(m2::PointD const & pv);
 
     OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
