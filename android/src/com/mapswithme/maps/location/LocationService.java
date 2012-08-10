@@ -57,14 +57,14 @@ public class LocationService implements LocationListener, SensorEventListener, W
   /// true when GPS is on
   private boolean m_isActive = false;
 
-  private MWMApplication mApplication = null;
+  private MWMApplication m_application = null;
 
   public LocationService(MWMApplication application)
   {
-    mApplication = application;
+    m_application = application;
 
-    m_locationManager = (LocationManager) mApplication.getSystemService(Context.LOCATION_SERVICE);
-    m_sensorManager = (SensorManager) mApplication.getSystemService(Context.SENSOR_SERVICE);
+    m_locationManager = (LocationManager) m_application.getSystemService(Context.LOCATION_SERVICE);
+    m_sensorManager = (SensorManager) m_application.getSystemService(Context.SENSOR_SERVICE);
 
     if (m_sensorManager != null)
     {
@@ -134,7 +134,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
           if (m_wifiScanner == null)
             m_wifiScanner = new WifiLocation();
-          m_wifiScanner.StartScan(mApplication, this);
+          m_wifiScanner.StartScan(m_application, this);
         }
         else
           observer.onLocationStatusChanged(DISABLED_BY_USER);

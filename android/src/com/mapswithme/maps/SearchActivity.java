@@ -103,12 +103,17 @@ public class SearchActivity extends ListActivity implements LocationService.List
       /// 1 - feature result
       public int m_type;
 
+      // Called from native code
+      @SuppressWarnings("unused")
       public SearchResult(String suggestion)
       {
         m_name = suggestion;
 
         m_type = 0;
       }
+
+      // Called from native code
+      @SuppressWarnings("unused")
       public SearchResult(String name, String country, String amenity,
                           String flag, String distance, double azimut)
       {
@@ -351,6 +356,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
+    @SuppressWarnings("deprecation")
     final int orientation = getWindowManager().getDefaultDisplay().getOrientation();
     final double correction = LocationService.getAngleCorrection(orientation);
 

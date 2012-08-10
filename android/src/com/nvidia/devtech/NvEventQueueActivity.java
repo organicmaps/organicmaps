@@ -92,6 +92,7 @@ public abstract class NvEventQueueActivity extends Activity
   public native boolean multiTouchEvent(int action, boolean hasFirst,
       boolean hasSecond, int x0, int y0, int x1, int y1, MotionEvent event);
 
+  @SuppressWarnings("deprecation")
   @Override
   public void onCreate(Bundle savedInstanceState)
   {

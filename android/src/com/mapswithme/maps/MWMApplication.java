@@ -26,13 +26,12 @@ public class MWMApplication extends android.app.Application implements MapStorag
   private MapStorage m_storage = null;
   private int m_slotID = 0;
 
-  private boolean mIsProVersion = false;
-  private String mProVersionCheckURL = "";
-
+  private boolean m_isProVersion = false;
+  private String m_proVersionCheckURL = "";
 
   private void showDownloadToast(int resID, Index idx)
   {
-    String msg = String.format(getString(resID), m_storage.countryName(idx));
+    final String msg = String.format(getString(resID), m_storage.countryName(idx));
     Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
   }
 
@@ -61,10 +60,10 @@ public class MWMApplication extends android.app.Application implements MapStorag
   {
     super.onCreate();
 
-    mIsProVersion = getPackageName().endsWith(".pro");
+    m_isProVersion = getPackageName().endsWith(".pro");
 
     // http://stackoverflow.com/questions/1440957/httpurlconnection-getresponsecode-returns-1-on-second-invocation
-    if (Integer.parseInt(Build.VERSION.SDK) < Build.VERSION_CODES.FROYO)
+    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ECLAIR_MR1)
       System.setProperty("http.keepAlive", "false");
 
     AssetManager assets = getAssets();
@@ -73,9 +72,9 @@ public class MWMApplication extends android.app.Application implements MapStorag
     {
       stream = assets.open("app_info.txt");
       BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-      mProVersionCheckURL = reader.readLine();
+      m_proVersionCheckURL = reader.readLine();
 
-      Log.i(TAG, "PROCHECKURL: " + mProVersionCheckURL);
+      Log.i(TAG, "PROCHECKURL: " + m_proVersionCheckURL);
     }
     catch (IOException ex)
     {
@@ -96,7 +95,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
                extTmpPath,
                // Changed path for settings to be the same as external storage
                extStoragePath, //getSettingsPath(),
-               mIsProVersion);
+               m_isProVersion);
 
     m_slotID = getMapStorage().subscribe(this);
   }
@@ -116,7 +115,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
     return m_storage;
   }
-
 
   public String getApkPath()
   {
@@ -144,12 +142,12 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
   public boolean isProVersion()
   {
-    return mIsProVersion;
+    return m_isProVersion;
   }
 
   public String getProVersionCheckURL()
   {
-    return mProVersionCheckURL;
+    return m_proVersionCheckURL;
   }
 
   private String getTmpPath()

@@ -462,6 +462,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
+    @SuppressWarnings("deprecation")
     final int orientation = getWindowManager().getDefaultDisplay().getOrientation();
     final double correction = LocationService.getAngleCorrection(orientation);
 
@@ -478,7 +479,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     super.onStart();
 
     // Restore My Position state on startup/activity recreation
-    SharedPreferences prefs = getSharedPreferences(mApplication.getPackageName(), MODE_PRIVATE);
+    final SharedPreferences prefs = getSharedPreferences(mApplication.getPackageName(), MODE_PRIVATE);
     final boolean isMyPositionEnabled = prefs.getBoolean(PREFERENCES_MYPOSITION, false);
     findViewById(R.id.map_button_myposition).setSelected(isMyPositionEnabled);
   }
