@@ -409,6 +409,12 @@ namespace
     if (isGPU("Qualcomm", "Adreno", false))
       m_texRtFormat = yg::Data8Bpp;
 
+    if (isGPU("Samsung Electronics", "FIMG-3DSE", false))
+    {
+      m_texRtFormat = yg::Data8Bpp;
+      yg::gl::g_isMapBufferSupported = false;
+    }
+
     if (isGPU("Broadcom", "VideoCore IV HW", false))
       m_texRtFormat = yg::Data8Bpp;
 
