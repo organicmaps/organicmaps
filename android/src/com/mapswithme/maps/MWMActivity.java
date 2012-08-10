@@ -189,9 +189,17 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     final boolean isLocationActive = v.isSelected();
     if (isLocationActive)
+    {
       getLocationService().stopUpdate(this);
+      // Enable automatic turning screen off while app is idle
+      getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
     else
+    {
       getLocationService().startUpdate(this);
+      // Do not turn off the screen while displaying position
+      getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
     v.setSelected(!isLocationActive);
 
     // Store active state of My Position
@@ -400,6 +408,10 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     mApplication = (MWMApplication)getApplication();
 
+    // Do not turn off the screen while benchmarking
+    if (mApplication.nativeIsBenchmarking())
+      getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
     nativeSetString("country_status_added_to_queue", getString(R.string.country_status_added_to_queue));
     nativeSetString("country_status_downloading", getString(R.string.country_status_downloading));
     nativeSetString("country_status_download", getString(R.string.country_status_download));
@@ -474,9 +486,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onPause()
   {
-    if (mApplication.nativeIsBenchmarking())
-      mApplication.enableAutomaticStandby();
-
     getLocationService().stopUpdate(this);
 
     stopWatchingExternalStorage();
@@ -487,9 +496,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onResume()
   {
-    if (mApplication.nativeIsBenchmarking())
-      mApplication.disableAutomaticStandby();
-
     View button = findViewById(R.id.map_button_myposition);
     if (button.isSelected())
     {

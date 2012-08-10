@@ -10,8 +10,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.AssetManager;
 import android.os.Build;
 import android.os.Environment;
-import android.os.PowerManager;
-import android.os.PowerManager.WakeLock;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -163,28 +161,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
   {
     return getFilesDir().getAbsolutePath() + "/";
   }
-
-  private WakeLock mWakeLock = null;
-
-  public void disableAutomaticStandby()
-  {
-    if (mWakeLock == null)
-    {
-      PowerManager pm = (PowerManager) getSystemService(android.content.Context.POWER_SERVICE);
-      mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE, TAG);
-      mWakeLock.acquire();
-    }
-  }
-
-  public void enableAutomaticStandby()
-  {
-    if (mWakeLock != null)
-    {
-      mWakeLock.release();
-      mWakeLock = null;
-    }
-  }
-
 
   static
   {

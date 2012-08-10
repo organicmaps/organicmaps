@@ -95,15 +95,12 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     }
     else
     {
-      mApplication.disableAutomaticStandby();
       finishFilesDownload(mBytesToDownload);
     }
   }
 
   public void onDownloadClicked(View v)
   {
-    mApplication.disableAutomaticStandby();
-
     mProgress.setVisibility(View.VISIBLE);
     mProgress.setMax(mBytesToDownload);
 
@@ -115,8 +112,6 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
   public void onPauseClicked(View v)
   {
-    mApplication.enableAutomaticStandby();
-
     mResumeButton.setVisibility(View.VISIBLE);
     mPauseButton.setVisibility(View.GONE);
 
@@ -125,8 +120,6 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
   public void onResumeClicked(View v)
   {
-    mApplication.disableAutomaticStandby();
-
     mPauseButton.setVisibility(View.VISIBLE);
     mResumeButton.setVisibility(View.GONE);
 
@@ -136,8 +129,6 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
   public void onTryAgainClicked(View v)
   {
-    mApplication.disableAutomaticStandby();
-
     mProgress.setVisibility(View.VISIBLE);
     mTryAgainButton.setVisibility(View.GONE);
     mPauseButton.setVisibility(View.VISIBLE);
@@ -183,7 +174,6 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
   public void finishFilesDownload(int result)
   {
-    mApplication.enableAutomaticStandby();
     if (result == ERR_NO_MORE_FILES)
     {
       if (mCountryName != null && mDownloadCountryCheckBox.isChecked())
@@ -278,6 +268,9 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
+    // Do not turn off the screen while downloading needed resources
+    getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
     super.onCreate(savedInstanceState);
 
     mApplication = (MWMApplication)getApplication();

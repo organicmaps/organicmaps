@@ -14,8 +14,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.PowerManager;
-import android.os.PowerManager.WakeLock;
 import android.util.Log;
 import android.view.Surface;
 
@@ -59,7 +57,6 @@ public class LocationService implements LocationListener, SensorEventListener, W
   /// true when GPS is on
   private boolean m_isActive = false;
 
-  private WakeLock m_wakeLock = null;
   private MWMApplication mApplication = null;
 
   public LocationService(MWMApplication application)
@@ -95,26 +92,6 @@ public class LocationService implements LocationListener, SensorEventListener, W
     Iterator<Listener> it = m_observers.iterator();
     while (it.hasNext())
       it.next().onCompassUpdated(time, magneticNorth, trueNorth, accuracy);
-  }
-
-
-  private void disableAutomaticStandby()
-  {
-    if (m_wakeLock == null)
-    {
-      PowerManager pm = (PowerManager) mApplication.getSystemService(Context.POWER_SERVICE);
-      m_wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, TAG);
-      m_wakeLock.acquire();
-    }
-  }
-
-  private void enableAutomaticStandby()
-  {
-    if (m_wakeLock != null)
-    {
-      m_wakeLock.release();
-      m_wakeLock = null;
-    }
   }
 
   /*
@@ -158,8 +135,6 @@ public class LocationService implements LocationListener, SensorEventListener, W
           if (m_wifiScanner == null)
             m_wifiScanner = new WifiLocation();
           m_wifiScanner.StartScan(mApplication, this);
-
-          disableAutomaticStandby();
         }
         else
           observer.onLocationStatusChanged(DISABLED_BY_USER);
@@ -169,7 +144,6 @@ public class LocationService implements LocationListener, SensorEventListener, W
         m_isActive = true;
 
         observer.onLocationStatusChanged(STARTED);
-        disableAutomaticStandby();
 
         Location lastKnown = null;
 
@@ -233,7 +207,6 @@ public class LocationService implements LocationListener, SensorEventListener, W
       m_lastLocation = null;
 
       m_isActive = false;
-      enableAutomaticStandby();
     }
 
     observer.onLocationStatusChanged(STOPPED);
