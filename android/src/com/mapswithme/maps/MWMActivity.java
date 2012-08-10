@@ -451,6 +451,46 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       findViewById(R.id.map_button_myposition).setBackgroundResource(R.drawable.myposition_button_found);
 
     nativeLocationStatusChanged(newStatus);
+
+    // Notify user about turned off location services
+    if (newStatus == LocationService.DISABLED_BY_USER)
+    {
+      new AlertDialog.Builder(this)
+      .setTitle(R.string.location_is_disabled_long_text)
+      .setPositiveButton(R.string.connection_settings, new DialogInterface.OnClickListener()
+      {
+        @Override
+        public void onClick(DialogInterface dialog, int which)
+        {
+          try
+          {
+            startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+          }
+          catch (Exception e)
+          {
+            // On older Android devices location settings are merged with security
+            try
+            {
+              startActivity(new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS));
+            }
+            catch (Exception ex)
+            {
+              ex.printStackTrace();
+            }
+          }
+          dialog.cancel();
+        }
+      })
+      .setNegativeButton(R.string.close, new DialogInterface.OnClickListener()
+      {
+        @Override
+        public void onClick(DialogInterface dialog, int which)
+        {
+          dialog.cancel();
+        }
+      })
+      .show();
+    }
   }
 
   @Override

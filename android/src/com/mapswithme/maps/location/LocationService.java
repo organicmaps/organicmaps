@@ -13,6 +13,7 @@ import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Surface;
@@ -128,7 +129,8 @@ public class LocationService implements LocationListener, SensorEventListener, W
       {
         // Use WiFi BSSIDS and Google Internet location service if no other options are available
         // But only if connection is available
-        if (ConnectionState.isConnected(mApplication))
+        if (ConnectionState.isConnected(m_application)
+            && ((WifiManager) m_application.getSystemService(Context.WIFI_SERVICE)).isWifiEnabled())
         {
           observer.onLocationStatusChanged(STARTED);
 
