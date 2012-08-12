@@ -12,6 +12,7 @@
 		ja = MapsWithMe完全版ならオフラインサーチでさらにナビゲートが簡単です。今すぐご入手下さい！
 		ko = 오프라인 검색 기능의 MapsWithMe의 풀버젼으로 보다 쉽게 검색하세요. 지금 구매하세요!
 		ru = Больше возможностей в полной версии MapsWithMe с оффлайн поиском. Установите ее сейчас!
+		uk = Більше можливостей у повній версії MapsWithMe з оффлайн пошуком. Встановіть її зараз!
 		cs = Více možností s plnou verzí MapsWithMe zahrnující hledání offline. Instalujte si ji teď!
 	[about]
 		en = About
@@ -22,6 +23,7 @@
 		ja = 情報
 		ko = 소개
 		ru = О картах
+		uk = О картах
 		cs = O programu
 	[back]
 		en = Back
@@ -32,6 +34,7 @@
 		ja = 戻る
 		ko = 뒤로
 		ru = Назад
+		uk = Назад
 		cs = Zpět
 	[cancel]
 		en = Cancel
@@ -42,6 +45,7 @@
 		ja = キャンセル
 		ko = 취소하기
 		ru = Отмена
+		uk = Скасування
 		cs = Zrušit
 	[cancel_download]
 		en = Cancel Download
@@ -52,6 +56,7 @@
 		ja = ダウンロードをキャンセル
 		ko = 다운로드 취소하기
 		ru = Отменить загрузку
+		uk = Скасувати завантаження
 		cs = Zrušit stahování
 	[delete]
 		en = Delete
@@ -62,6 +67,7 @@
 		ja = 削除
 		ko = 삭제하기
 		ru = Удалить
+		uk = Видалити
 		cs = Smazat
 	[delete_old_maps]
 		en = Delete old maps and proceed
@@ -72,6 +78,7 @@
 		ja = 古いマップを削除して次へ進む
 		ko = 이전의 지도를 삭제하고 진행하기
 		ru = Удалить старые карты и продолжить
+		uk = Видалити старі карти та продовжити
 		cs = Smazat staré mapy a pokračovat
 	[do_not_ask_me_again]
 		en = Do not ask me again
@@ -82,6 +89,7 @@
 		ja = 以後、このメッセージを表示しない
 		ko = 또 묻지 마세요.
 		ru = Больше не спрашивать
+		uk = Більше не питати
 		cs = Vícekrát nezobrazovat
 	[do_nothing]
 		en = Continue 
@@ -92,6 +100,7 @@
 		ja = 何もしない
 		ko = 아무것도 하지 마세요
 		ru = Продолжить загрузку
+		uk = Продовжити завантаження
 		cs = Nic neprovádět
 	[download_maps]
 		en = Download Maps
@@ -101,6 +110,7 @@
 		ja = マップをダウンロード
 		ko = 지도 다운로드받기
 		ru = Загрузить карты
+		uk = Завантажити карти
 		cs = Stáhnout mapy
 	[download_x_kb]
 		en = Download %qu kB
@@ -111,6 +121,7 @@
 		ja = %quをダウンロード
 		ko = %qu 다운로드하기
 		ru = Загрузить %qu КБ
+		uk = Завантажити %qu КБ
 		cs = Stáhnout %qu kB
 	[download_x_mb]
 		en = Download %qu MB
@@ -121,6 +132,7 @@
 		ja = %quをダウンロード
 		ko = %qu 다운로드하기
 		ru = Загрузить %qu МБ
+		uk = Завантажити %qu МБ
 		cs = Stáhnout %qu MB
 	[download_has_failed]
 		en = Download has failed, touch again for one more try
@@ -131,6 +143,7 @@
 		ja = ダウンロードに失敗しました。もう一度試すにはタッチして下さい。
 		ko = 다운로드에 실패하였습니다. 다시 두드려 시도하여 주십시요.
 		ru = Ошибка загрузки. Нажмите, чтобы повторить попытку
+		uk = Помилка завантаження. Натисніть, щоб повторити спробу
 		cs = Stahování selhalo, zkus to znovu.
 	[downloaded_x_y_touch_to_delete]
 		en = Downloaded (%1$qu %2$@), touch to delete
@@ -141,6 +154,7 @@
 		ja = (%1$qu %2$@)をダウンロードしました。削除するにはタッチして下さい。
 		ko = (%1$qu %2$@)가 다운로드 되었습니다, 두드려 삭제하십시요.
 		ru = Загружено (%1$qu %2$@), нажмите для удаления
+		uk = Завантажено (%1$qu %2$@), натисніть для видалення
 		cs = Staženo (%1$qu %2$@), klepni pro smazání.
 	[downloading_x_touch_to_cancel]
 		en = Downloading %qu%%, touch to cancel
@@ -151,6 +165,7 @@
 		ja = %qu%%をダウンロード中です。キャンセルするにはタッチして下さい。
 		ko = %qu%%를 다운로드 중, 두드려 취소하십시요
 		ru = Загружается %qu%%, нажмите, чтобы прервать
+		uk = Завантажується %qu%%, натисніть, щоб перервати
 		cs = Stahuji %qu%%, klepni pro zrušení.
 	[downloading]
 		en = Downloading…
@@ -170,11 +185,13 @@
 		ja = 今すぐ入手
 		ko = 지금 가져오기
 		ru = Установить
+		uk = Встановити
 		cs = Získat nyní
 	[share_on_facebook_text]
 		en = If you enjoying our program, please share it with your friends on Facebook.
 		ru = Если вам нравится наша программа, пожалуйста порекомендуйте ее своим друзьям на Facebook.
 		comment = Text to show occasionaly with a proposal to Like our program on Facebook
+		uk = Якщо вам подобається наша програма, будь ласка порекомендуйте її своїм друзям на Facebook.
 	[leave_review_text]
 		en = If you like MapsWithMe, please support us by writing a review. If you face any issues, please let us know by filling in a special form.
 		comment = Leave Review dialog title
@@ -184,6 +201,7 @@
 		ja = MapsWithMeを気に入って頂けた場合には評価をしてサポートして頂きますようお願いします。問題等がありましたら、特定のフォームを使って当社までご報告ください。
 		ko = MapsWithMe를 좋아하시면 평을 작성하여 주시기 바랍니다. 안건의 발생의 경우 특정 양식서를 작성하여 주시기 바랍니다.
 		ru = Если вам нравится MapsWithMe, пожалуйста, поддержите нас, написав отзыв. Если у вас возникли проблемы при использовании программы, пожалуйста, сообщите нам, заполнив специальную форму, чтобы мы могли связаться с вами для уточнения деталей.
+		uk = Якщо вам подобається MapsWithMe, будь ласка, підтримайте нас, написавши відгук. Якщо у вас виникли проблеми при використанні програми, будь ласка, повідомте нам, заповнивши спеціальну форму, щоб ми могли зв'язатися з вами для уточнення деталей.
 		cs = Pokud se ti MapsWithMe líbí, napiš nám prosím svůj názor. Pokud jsi nalezl/a nějak chyby, dej nám prosím vědět vyplněním speciálního formuláře.
 	[kb]
 		en = kB
@@ -198,6 +216,7 @@
 		ja = キロメートル
 		ko = 킬로미터
 		ru = Километры
+		uk = Кілометри
 		cs = Kilometry
 	[leave_a_review]
 		en = Leave a Review
@@ -208,6 +227,7 @@
 		ja = 評価する
 		ko = 평 남기기
 		ru = Написать отзыв
+		uk = Написати відгук
 		cs = Zpětná vazba
 	[location_services_are_needed_desc]
 		en = Location Services are needed to display your current position on the map.
@@ -218,6 +238,7 @@
 		ja = あなたの現在地をマップに表示するには位置情報サービスが必要です。
 		ko = 위치 서비스가 귀하의 현재의 지도상의 위치를 표시하기 위해 필요합니다.
 		ru = Геолокация нужна для определения вашего местоположения на карте.
+		uk = Геолокація потрібна для визначення вашого місця розташування на карті.
 		cs = Služby určování polohy jsou potřebné k zobrazení tvé aktuální pozice na mapě.
 	[maps]
 		en = Maps
@@ -238,6 +259,7 @@
 		ja = ダウンロードを始めます。キャンセルするにはタッチして下さい。
 		ko = 다운로드로 표시하였습니다. 두드려 취소하십시요.
 		ru = Поставлено в очередь на загрузку, нажмите для отмены
+		uk = Поставлено в чергу на завантаження, натисніть для скасування
 		cs = Připraveno pro stažení, klepni pro zrušení.
 	[mb]
 		en = MB
@@ -251,6 +273,7 @@
 		ja = マイル
 		ko = 마일
 		ru = Мили
+		uk = Милі
 		cs = Míle
 	[my_position]
 		en = My Position
@@ -261,6 +284,7 @@
 		ja = 現在地
 		ko = 나의 위치
 		ru = Мое местоположение
+		uk = Моє місце розташування
 		cs = Moje poloha
 	[no_internet_connection_detected]
 		en = No Internet connection detected
@@ -271,6 +295,7 @@
 		ja = インターネット接続が見つかりません
 		ko = 인터넷이 연결되지 않았습니다.
 		ru = Отсутствует подключение к интернету
+		uk = Відсутнє підключення до інтернету
 		cs = Nenalezeno připojení k Internetu
 	[no_wifi_ask_cellular_download]
 		en = No WiFi connection detected. Would you like to use cellular data (GPRS, EDGE or 3G) to download %@?
@@ -281,6 +306,7 @@
 		ja = WiFi接続が見つかりません。GPRS、EDGE又は3G等のセルラーデータを使って%@をダウンロードしますか?
 		ko = WiFi 연결이 감지되지 않았습니다. %@를 다운로드하기 위해 휴대 자료(GPRS, EDGE 혹은 3G)를 사용하시겠습니까?
 		ru = Нет WiFi соединения. Вы хотите скачать %@ через сотового оператора (GPRS, EDGE или 3G)?
+		uk = Відсутнє WiFi з'єднання. Ви бажаєте завантажити % @ через стільникового оператора (GPRS, EDGE або 3G)?
 		cs = Nenalezeno připojení k WiFi. Chceš použít mobilní sítě (GPRS, EDGE nebo 3G) k stažení %@?
 	[ok]
 		en = OK
@@ -293,6 +319,7 @@
 		ja = 位置情報サービスを有効にして下さい。
 		ko = 위치 서비스를 작동시켜 주십시요.
 		ru = Пожалуйста, включите геолокацию в настройках телефона
+		uk = Будь ласка, включіть геолокацію в настройках телефону
 		cs = Povol prosím Službu určování polohy
 	[free_disk_space_for_country_x]
 		en = Please free some space on your device first in order to download %@
@@ -303,6 +330,7 @@
 		ja = 位置情報サービスを有効にして下さい。
 		ko = 먼저 귀하의 장치에 어느 정도의 공간을 확보하여 %@를 다운로드하여 주십시요.
 		ru = Нет свободного места. Пожалуйста, удалите ненужные карты или приложения, чтобы загрузить %@
+		uk = Немає вільного місця. Будь ласка, видаліть непотрібні карти або програми, щоб завантажити %@
 		cs = Uvolni prosím nějakou paměť v tvém zařízení, než začneš stahovat %@
 	[remind_me_later]
 		en = Remind me later
@@ -313,6 +341,7 @@
 		ja = 後でリマインド
 		ko = 이후에 기억시키기
 		ru = Напомнить позже
+		uk = Нагадати пізніше
 		cs = Upozornit mě později
 	[later]
 		en = Later
@@ -323,11 +352,13 @@
 		ja = 後で
 		ko = 후
 		ru = Не сейчас
+		uk = Не зараз
 		cs = Později
 	[never]
 		en = Never
 		comment = Don't show some dialog any more
 		ru = Не показывать
+		uk = Не показувати
 	[report_an_issue]
 		en = Report an issue
 		comment = Leave Review dialog - Complain button (goes to support site)
@@ -337,6 +368,7 @@
 		ja = 問題を報告
 		ko = 문제 보고하기
 		ru = Сообщить о проблеме
+		uk = Повідомити про проблему
 		cs = Nahlásit chybu
 	[search]
 		en = Search
@@ -347,6 +379,7 @@
 		ja = 検索
 		ko = 검색하기
 		ru = Поиск
+		uk = Пошук
 		cs = Hledat
 	[search_available_in_pro_version]
 		en = Search is only available in the Pro version of MapsWithMe. Get it right now!
@@ -357,6 +390,7 @@
 		ja = サーチ機能はMapsWithMeのプロ版でのみご使用頂けます。今すぐご入手になりますか？
 		ko = 검색은 MapsWithMe의 프로 버젼에만 제공됩니다. 지금 받으시겠습니까?
 		ru = Поиск доступен только в Pro версии MapsWithMe. Установите ее прямо сейчас!
+		uk = Пошук доступний тільки в Pro версії MapsWithMe. Встановіть її прямо зараз!
 		cs = Vyhledávání je dostupné jen v placené verzi MapsWithMe. Chceš ji teď stáhnout?
 	[search_map]
 		en = Search Map
@@ -367,6 +401,7 @@
 		ja = マップから検索
 		ko = 지도 검색하기
 		ru = Поиск на карте
+		uk = Пошук на карті
 		cs = Prohledat mapu
 	[not_enough_disk_space]
 		en = There is not enough free disk space
@@ -377,6 +412,7 @@
 		ja = ディスクに十分な空き領域がありません
 		ko = 디스크 공간이 부족합니다.
 		ru = Нет свободного места
+		uk = Немає вільного місця
 		cs = Nedostatek volné paměti
 	[touch_to_download]
 		en = Touch to download
@@ -387,6 +423,7 @@
 		ja = タッチしてダウンロード
 		ko = 두드려 다운로드하세요
 		ru = Нажмите для загрузки
+		uk = Натисніть для завантаження
 		cs = Klepni pro stažení
 	[use_cellular_data]
 		en = Yes
@@ -397,6 +434,7 @@
 		ja = はい
 		ko = 네
 		ru = Да
+		uk = Так
 		cs = Ano
 	[use_wifi_recommendation_text]
 		en = We recommend using WiFi to download large maps
@@ -407,6 +445,7 @@
 		ja = 大きなマップをダウンロードするにはWiFiの使用をお勧めします。
 		ko = WiFi를 이용하여 큰 지도를 다운로드하는 것을 권하여 드립니다.
 		ru = Мы рекомендуем загружать большие страны через WiFi
+		uk = Ми рекомендуємо завантажувати великі країни через WiFi
 		cs = Doporučujeme použít WiFi pro stahování větších map.
 	[new_map_data_format_upgrade_dialog]
 		en = We've updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.
@@ -415,6 +454,7 @@
 		es = Hemos actualizado los datos de los mapas. Ahora puede seleccionar descargarse solo las regiones que necesites, pero para utilizar los nuevos mapas deberás antes borrar los anteriormente descargados.
 		fr = Nous avons mis à jour les cartes en les réduisant. Vous pouvez maintenant ne télécharger que la région ou le pays qui vous intéresse, cependant pour avoir les nouvelles cartes, il vous faut effacer toutes les anciennes cartes.
 		ru = Мы обновили карты и уменьшили их размер. Для больших стран вы сможете выборочно загружать нужные вам штаты или регионы. Однако, чтобы воспользоваться новыми картами, необходимо предварительно удалить старыe.
+		uk = Ми оновили карти і зменшили їх розмір. Для великих країн ви зможете вибірково завантажувати потрібні вам штати або регіони. Однак, щоб скористатися новими картами, необхідно попередньо видалити старi.
 		cs = Aktualizovali jsme mapovou databázi a zmenšili data map. U větších zemí si nyní můžeš vybrat ke stažení pouze region/stát, který potřebuješ. Pokud však chceš používat nové mapy, měl/a bys odstranit všechny staré mapové podklady, které již byly staženy.
 	[which_measurement_system]
 		en = Which measurement system do you prefer?
@@ -425,6 +465,7 @@
 		ja = どちらの測定システムを使いますか?
 		ko = 어느 측정 시스템을 선호하십니까?
 		ru = Какую систему измерения вы предпочитаете?
+		uk = Якій системі вимірювання ви віддаєте перевагу?
 		cs = Jaký systém pro měření preferuješ?
 	[location_is_disabled_long_text]
 		en = You currently have all Location Services for this device or application disabled. Please enable them in Settings.
@@ -435,6 +476,7 @@
 		ja = このデバイス、またはアプリケーションの位置情報サービスが全て無効になっています。設定画面から有効にして下さい。
 		ko = 현재 이 장치나 애플리케이션을 위한 전 위치 서비스를 불능시키셨습니다. 설정에서 이를 작동시켜 주시기 바랍니다.
 		ru = Геолокация выключена в настройках устройства. Пожалуйста, включите ее для удобного использования программы.
+		uk = Геолокація вимкнена в налаштуваннях пристрою. Будь ласка, увімкніть її для зручного використання програми.
 		cs = Aktuálně máš všechny možnosti pro určování polohy vypnuté. Prosím povol je v Nastavení.
 	[device_doesnot_support_location_services]
 		en = Your device doesn't support Location Services
@@ -445,6 +487,7 @@
 		ja = ご使用のデバイスは位置情報サービスをサポートしていません。
 		ko = 귀하의장치가 위치 서비스를 지원하지 않습니다.
 		ru = Ваше устройство не поддерживает геолокацию
+		uk = Ваш пристрій не підтримує геолокацію
 		cs = Tvé zařízení nepodporuje služby určování polohy
 	[zoom_to_country]
 		en = Zoom to the country
@@ -455,6 +498,7 @@
 		ja = 国へズーム
 		ko = 국가로 확대하여 주세요
 		ru = Показать страну на карте
+		uk = Показати країну на карті
 		cs = Zobrazit na mapě
 	[food]
 		en = food
@@ -466,6 +510,7 @@
 		ja = 飯
 		ko = 음식
 		ru = еда
+		uk = їжа
 		cs = jídlo
 	[money]
 		en = money
@@ -477,6 +522,7 @@
 		ja = 金
 		ko = 돈
 		ru = деньги
+		uk = гроші
 		cs = peníze
 	[fuel]
 		en = gas
@@ -488,6 +534,7 @@
 		ja = 燃料
 		ko = 연료
 		ru = заправка
+		uk = заправка
 		cs = čerpací stanice
 	[shop]
 		en = shop
@@ -499,6 +546,7 @@
 		ja = 店
 		ko = 쇼핑
 		ru = магазин
+		uk = магазин
 		cs = obchod
 	[transport]
 		en = transport
@@ -509,6 +557,7 @@
 		ja = 輸送
 		ko = 수송
 		ru = транспорт
+		uk = транспорт
 		cs = doprava
 	[tourism]
 		en = sights
@@ -520,6 +569,7 @@
 		ja = 観光
 		ko = 관광
 		ru = достопримечательность
+		uk = визначне місцє
 		cs = pamětihodnosti
 	[country_status_added_to_queue]
 		en = ^is added to the\ndownloading queue.
@@ -531,6 +581,7 @@
 		ko = ^는 다운로드 대기열에\n추가됩니다.
 		ru = ^добавлено в очередь\nзагрузки.
 		cs = ^přidáno do\nfronty stahování.
+		uk = ^добавлено в чергу\nзавантаження.
 	[country_status_downloading]
 		en = Downloading^ (^%)
 		comment = Message to display at the center of the screen when the country is downloading
@@ -542,6 +593,7 @@
 		ru = Загружается^ (^%)
 		cs = Stahování^ (^%)
 		ru = Загружается^ (^%)
+		uk = Завантажується^ (^%)
 		cs = Stahuji^ (^%)
 	[country_status_download]
 		en = Download^
@@ -552,6 +604,7 @@
 		ja = ダウンロード^
 		ko = 다운로드^
 		ru = Загрузить^
+		uk = Завантажити^
 		cs = Stáhnout^
 	[country_status_download_failed]
 		en = Downloading^\nhas failed
@@ -562,6 +615,7 @@
 		ja = ダウンロードに失敗しました\n^
 		ko = 다운로드에 실패하였습니다\n^
 		ru = Ошибка загрузки\n^
+		uk = Помилка завантаження^.
 		cs = Stahování^\nselhalo
 	[try_again]
 		en = Try Again
@@ -572,6 +626,7 @@
 		ja = 再実行
 		ko = 다시 시도
 		ru = Попробуйте еще раз
+		uk = Спробуйте ще раз
 		cs = Opakuj akci
 	[app_name]
 		en = MapsWithMe
@@ -583,6 +638,7 @@
 		ja = 情報
 		ko = 소개
 		ru = О программе
+		uk = Про програму
 		cs = O aplikaci MapsWithMe
 	[downloading_touch_to_cancel]
 		en = Downloading %d%%, touch to cancel
@@ -592,6 +648,7 @@
 		ja = %d%%をダウンロード中です。キャンセルするにはタッチして下さい。
 		ko =%d%%를 다운로드 중, 두드려 취소하십시요
 		ru = Загружается %d%%, нажмите, чтобы прервать
+		uk = Завантажується %d%%, натисніть, щоб перервати
 		cs = Stahování %d%%, klepni pro zrušení
 	[downloaded_touch_to_delete]
 		en = Downloaded (%@), touch to delete
@@ -601,6 +658,7 @@
 		ja = (%@)をダウンロードしました。削除するにはタッチして下さい。
 		ko = (%@)가 다운로드 되었습니다, 두드려 삭제하십시요.
 		ru = Загружено (%@), нажмите для удаления
+		uk = Завантажено (%@), натисніть для видалення
 		cs = Staženo (%@), klepni pro smazání
 	[connection_settings]
 		en = Connection Settings
@@ -610,6 +668,7 @@
 		ja = 接続設定
 		ko = 연결 설정
 		ru = Настройки подключения
+		uk = Налаштування підключення
 		cs = Nastavení připojení
 	[download_mb_or_kb]
 		en = Download %@
@@ -619,6 +678,7 @@
 		ja = %@をダウンロード
 		ko = %@ 다운로드하기 
 		ru = Загрузить %@
+		uk = Завантажити %@
 		cs = Stáhnout %@
 	[close]
 		en = Close
@@ -628,6 +688,7 @@
 		ja = 閉じる
 		ko = 닫기
 		ru = Закрыть
+		uk = Закрити
 		cs = Zavřít
 	[unsupported_phone]
 		en = A hardware accelerated OpenGL is required. Unfortunately, your device is not supported.
@@ -637,6 +698,7 @@
 		ja = ハードウェアアクセラレーションされたOpenGLが必要です。残念ながらご使用のデバイスはサポートされていません。
 		ko = 하드웨어 촉진 OpenGL이 요구됩니다. 애석하게도 귀하의 장치는 지원되지 않습니다.
 		ru = Для работы приложения необходим аппаратно ускоренный OpenGL. К сожалению, ваше устройство не поддерживается.
+		uk = Для роботи програми необхідний апаратно прискорений OpenGL. На жаль, ваш пристрій не підтримується.
 		cs = Je vyžadována hardwarová akcelerace OpenGL. Bohužel, tvé zařízení není podporováno.
 	[download]
 		en = Download
@@ -646,6 +708,7 @@
 		ja = ダウンロード
 		ko = 다운로드
 		ru = Загрузить
+		uk = Завантажити
 		cs = Stáhnout
 	[external_storage_is_not_available]
 		en = SD card/USB storage with downloaded maps is not available
@@ -655,6 +718,7 @@
 		ja = ダウンロード済みの地図はSDカード／USBストレージに保存する事はできません
 		ko = 다운로드된지도와 SD 카드 / USB 저장 장치를 사용할 수 없습니다
 		ru = Загруженные карты недоступны
+		uk = Завантажені карти недоступні
 		cs = SD karta/USB uložiště s uloženými mapami není k dispozici
 	[disconnect_usb_cable]
 		en = Please disconnect USB cable or insert memory card to use MapsWithMe
@@ -664,6 +728,7 @@
 		ja = USBケーブルを抜くかMapsWithMeに使うメモリーカードを挿入してください
 		ko = MapsWithMe를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오
 		ru = Отключите USB кабель или вставьте SD-карту
+		uk = Вимкніть USB кабель або вставте SD-карту
 		cs = Prosím odpoj USB kabel nebo vlož paměťovou kartu pro použití s MapsWithMe
 	[not_enough_free_space_on_sdcard]
 		en = Please free some space on SD card/USB storage first in order to use the app
@@ -673,6 +738,7 @@
 		ja = アプリを起動する前にSDカード/USBストレージの空き容量を増やしてください
 		ko = 응용 프로그램을 사용하기 위해서는 첫째 SD 카드 / USB 저장 장치에 여유 공간을 확보하십시오
 		ru = Недостаточно свободного места на SD карте/в памяти устройства для использования программы
+		uk = Недостатньо вільного місця на SD карті / в пам'яті пристрою для використання програми
 		cs = Prosím uvolni nejprve nějaký prostor na SD kartě/USB uložišti
 	[not_enough_memory]
 		en = Not enough memory to launch app
@@ -682,6 +748,7 @@
 		ja = メモリ不足です。アプリを起動できません
 		ko = 응용 프로그램을 실행하기위한 메모리가 충분하지 않다
 		ru = Недостаточно памяти для запуска программы
+		uk = Недостатньо пам'яті для запуску програми
 		cs = Nedostatek paměti ke spuštění aplikace
 	[free_space_for_country]
 		en = Please free %1$@ on your device first in order to download %2$@
@@ -691,6 +758,7 @@
 		ja = デバイス上で%1$@解放することで%2$@ダウンロードすることができます
 		ko = %2$@를 다운로드하기 위해서는 먼저 장치에서 무료로 %1$@를주세요
 		ru = Для загрузки %2$@ нужно %1$@ свободного места
+		uk = Для завантаження %2$@ треба %1$@ вільного місця
 		cs = Prosím uvolni nejprve %1$@ v tvém zařízení, abys mohl/a stáhnout %2$@
 	[download_resources]
 		en = Program needs to download \n%.1f%@ of mandatory resources.
@@ -701,6 +769,7 @@
 		ja = アプリは\n%.1f%@分の必須リソースをダウンロードする必要があります
 		ko = 프로그램은 필수 자원의 \n%.1f%@ 를 다운로드해야합니다.
 		ru = Для запуска программы нужно загрузить \n%.1f%@ необходимых ресурсов.
+		uk = Для запуску програми потрібно завантажити\n %.1f%@ необхідних ресурсів.
 		cs = Program potřebuje stáhnout \n%.1f%@ povinných zdrojů.
 	[getting_position]
 		en = Getting current position
@@ -825,6 +894,7 @@
 		ja = 検索機能を利用するには地図を更新する必要があります
 		ko = 당신은 검색 기능에 대한 업데이트된지도 필요
 		ru = Для функции поиска необходимо обновить устаревшие карты:
+		uk = Для функції пошуку необхідно оновити застарілі карти:
 		cs = Pro funkci vyhledávání musíš aktualizovat mapy:
 	[advise_update_maps]
 		en = Update available for these maps:
@@ -837,6 +907,7 @@
 		ko = 이지도에 사용할 수있는 업데이트 :
 		ru = Доступно обновление для следующих карт:
 		cs = Aktualizace je k dispozici pro následující karty:
+		uk = Доступно оновлення для наступних карт:
 	[suggest_uninstall_lite]
 		en = You don't need MapsWithMe Lite any more, so you can uninstall it.
 		tags = android
@@ -848,6 +919,7 @@
 		ja = MapsWithMe Liteはもう必要ありませんので削除してもかまいません
 		ko = 당신은 더 이상 MapsWithMe 라이트는 필요 없어, 당신은 그것을 제거할 수 있습니다.
 		cs = Nemusíte MapsWithMe Lite víc, takže si můžete odinstalovat.
+		uk = MapsWithMe Lite більше не потрібна. Рекомендуємо її видалити.
 	[download_country_success]
 		en = %@ downloaded successfuly
 		tags = android
@@ -859,6 +931,7 @@
 		ja = %@のダウンロードが成功しました
 		ko = %@이 성공적으로 다운로드
 		cs = %@ stáhnout úspěšně
+		uk = %@ успішно завантажена
 	[download_country_failed]
 		en = %@ download has failed
 		tags = android
@@ -870,12 +943,14 @@
 		ja = %@のダウンロードが失敗しました
 		ko = %@다운로드가 실패했습니다
 		cs = %@ stahování se nezdařilo
+		uk = Не вдалося завантажити %@
 	[add_new_set]
 		en = Add new Set
 		tags = ios
 		comment = Add New Bookmark Set dialog title
 		ru = Добавить группу
 		de = Neue Gruppe hinzufügen
+		uk = Додати групу
 		es =
 		fr = Ajouter une groupe
 		ja = 新しいセットを追加
@@ -887,6 +962,7 @@
 		comment = Place Page - Add To Bookmarks button
 		ru = Добавить в закладки
 		de = Zu Lesezeichen hinzufügen
+		uk = Додати в закладки
 		es =
 		fr = Ajouter dans les signets
 		ja = ブックマークに追加
@@ -898,6 +974,7 @@
 		comment = Bookmark Color dialog title
 		ru = Цвет закладки
 		de = Lesezeichen Farbe
+		uk = Колір закладки
 		es =
 		fr = Couleur du signet
 		ja = ブックマークの色
@@ -909,6 +986,7 @@
 		comment = Add Bookmark Set dialog - hint when set name is empty
 		ru = Название группы
 		de = Name des Lesezeichens
+		uk = Назва групи
 		es =
 		fr = Nom de la groupe
 		ja = ブックマークセット名
@@ -920,6 +998,7 @@
 		comment = Bookmark Sets dialog title
 		ru = Группы закладок
 		de = 
+		uk = Групи закладок
 		es =
 		fr = Groupes de signets
 		ja = ブックマークセット
@@ -931,6 +1010,7 @@
 		comment = Boormarks - dialog title
 		ru = Закладки
 		de = Lesezeichengruppen
+		uk = Закладки
 		es =
 		fr = Signets
 		ja = ブックマーク
@@ -942,6 +1022,7 @@
 		comment = Add bookmark dialog - bookmark color
 		ru = Цвет
 		de = Farbe
+		uk = Колір
 		es =
 		fr = Couleur
 		ja = 色
@@ -953,6 +1034,7 @@
 		comment = Unknown Dropped Pin title, when name can't be determined
 		ru = Перемещенная булавка
 		de = Gesetzte Stecknadel
+		uk = Переміщена шпилька
 		es =
 		fr = L'épingle déplacée
 		ja = ドロップされたピン
@@ -964,6 +1046,7 @@
 		comment = Default bookmarks set name
 		ru = Мои Закладки
 		de = Meine Orte
+		uk = Мої Закладки
 		es =
 		fr = Mes signets
 		ja = マイロケーション
@@ -975,6 +1058,7 @@
 		comment = Add bookmark dialog - bookmark name
 		ru = Имя
 		de = Name
+		uk = Iм'я
 		es =
 		fr = Nom
 		ja = 場所名
@@ -986,6 +1070,7 @@
 		comment = Add bookmark dialog - bookmark address
 		ru = Адрес
 		de = Adresse
+		uk = Адреса
 		es =
 		fr = Adresse
 		ja = 住所
@@ -997,6 +1082,7 @@
 		comment = Place Page - Remove Pin button
 		ru = Удалить булавку
 		de = Stecknadel entfernen
+		uk = Bидалити шпильку
 		es =
 		fr = Effacer l'épingle
 		ja = ピンを削除
@@ -1008,6 +1094,7 @@
 		comment = Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell
 		ru = Группа
 		de = Gruppe
+		uk = Група
 		es =
 		fr = Groupe
 		ja = セット
