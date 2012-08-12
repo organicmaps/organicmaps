@@ -188,7 +188,7 @@
 		uk = Встановити
 		cs = Získat nyní
 	[share_on_facebook_text]
-		en = If you enjoying our program, please share it with your friends on Facebook.
+		en = If you're enjoying our program, please share it with your friends on Facebook.
 		ru = Если вам нравится наша программа, пожалуйста порекомендуйте ее своим друзьям на Facebook.
 		comment = Text to show occasionaly with a proposal to Like our program on Facebook
 		uk = Якщо вам подобається наша програма, будь ласка порекомендуйте її своїм друзям на Facebook.
