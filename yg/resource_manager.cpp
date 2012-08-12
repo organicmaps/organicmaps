@@ -410,10 +410,7 @@ namespace
       m_texRtFormat = yg::Data8Bpp;
 
     if (isGPU("Samsung Electronics", "FIMG-3DSE", false))
-    {
       m_texRtFormat = yg::Data8Bpp;
-      yg::gl::g_isMapBufferSupported = false;
-    }
 
     if (isGPU("Broadcom", "VideoCore IV HW", false))
       m_texRtFormat = yg::Data8Bpp;
@@ -426,15 +423,10 @@ namespace
 
     bool isAndroidDevice = GetPlatform().DeviceName() == "Android";
 
-    /// on PowerVR chips in Android glFinish doesn't work, so we should use
+    /// on PowerVR chips on Android glFinish doesn't work, so we should use
     /// glReadPixels instead of glFinish to synchronize.
     if (isGPU("Imagination Technologies", "PowerVR", false) && isAndroidDevice)
       m_useReadPixelsToSynchronize = true;
-
-/*    /// filtering all devices from Vivante Corporation
-    /// to use vertex arrays
-    if (isGPU("Vivante Corporation", "", false))
-      m_useVA = true;*/
 
     LOG(LINFO, ("selected", yg::formatName(m_texRtFormat), "format for tile textures"));
 
@@ -585,6 +577,7 @@ namespace
   {
     if (p.isValid())
     {
+      LOG(LINFO, ("initializing", p.m_poolName, "resource pool. vbSize=", p.m_vbSize, ", ibSize=", p.m_ibSize));
       TStorageFactory storageFactory(p.m_vbSize, p.m_ibSize, m_params.m_useSingleThreadedOGL, p.m_poolName.c_str(), p.m_allocateOnDemand ? p.m_storagesCount : 0);
 
       if (m_params.m_useSingleThreadedOGL)

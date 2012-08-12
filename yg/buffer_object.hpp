@@ -16,6 +16,7 @@ namespace yg
       unsigned int m_size;
       void * m_gpuData;
       bool m_isLocked;
+      bool m_isUsingMapBuffer;
       shared_ptr<vector<unsigned char> > m_sharedBuffer;
 
     public:

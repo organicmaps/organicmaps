@@ -13,14 +13,22 @@ namespace yg
   namespace gl
   {
     BufferObject::BufferObject(unsigned target)
-      : m_target(target), m_size(0), m_gpuData(0), m_isLocked(false)
+      : m_target(target),
+        m_size(0),
+        m_gpuData(0),
+        m_isLocked(false),
+        m_isUsingMapBuffer(false)
     {
       if (g_isBufferObjectsSupported)
         OGLCHECK(glGenBuffersFn(1, &m_id));
     }
 
     BufferObject::BufferObject(size_t size, unsigned target)
-      : m_target(target), m_size(0), m_gpuData(0), m_isLocked(false)
+      : m_target(target),
+        m_size(0),
+        m_gpuData(0),
+        m_isLocked(false),
+        m_isUsingMapBuffer(false)
     {
       if (g_isBufferObjectsSupported)
         OGLCHECK(glGenBuffersFn(1, &m_id));
@@ -71,15 +79,17 @@ namespace yg
 
       if (g_isMapBufferSupported)
       {
+        m_isUsingMapBuffer = true;
         makeCurrent();
-        /// orphaning the old copy of the buffer data.
-        /// this provides that the glMapBuffer will not wait.
         OGLCHECK(glBufferDataFn(m_target, m_size, 0, GL_DYNAMIC_DRAW));
         m_gpuData = glMapBufferFn(m_target, GL_WRITE_ONLY_MWM);
         OGLCHECKAFTER;
-        return m_gpuData;
+
+        if (m_gpuData != 0)
+          return m_gpuData;
       }
 
+      m_isUsingMapBuffer = false;
       if (!m_sharedBuffer)
         m_sharedBuffer = SharedBufferManager::instance().reserveSharedBuffer(m_size);
 
@@ -98,10 +108,16 @@ namespace yg
 
         makeCurrent();
 
-        if (g_isMapBufferSupported)
-          OGLCHECK(glUnmapBufferFn(m_target));
+        if (g_isMapBufferSupported && m_isUsingMapBuffer)
+        {
+          if (glUnmapBufferFn(m_target) == GL_FALSE)
+            LOG(LWARNING, ("glUnmapBuffer returned GL_FALSE!"));
+
+          OGLCHECKAFTER;
+        }
         else
         {
+          m_isUsingMapBuffer = false;
           OGLCHECK(glBufferSubDataFn(m_target, 0, m_size, m_gpuData));
           SharedBufferManager::instance().freeSharedBuffer(m_size, m_sharedBuffer);
           m_sharedBuffer.reset();
