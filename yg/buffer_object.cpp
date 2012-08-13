@@ -90,8 +90,7 @@ namespace yg
       }
 
       m_isUsingMapBuffer = false;
-      if (!m_sharedBuffer)
-        m_sharedBuffer = SharedBufferManager::instance().reserveSharedBuffer(m_size);
+      m_sharedBuffer = SharedBufferManager::instance().reserveSharedBuffer(m_size);
 
       m_gpuData = &m_sharedBuffer->at(0);
       return m_gpuData;
