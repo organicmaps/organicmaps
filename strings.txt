@@ -176,6 +176,7 @@
 		ja = ダウンロード中…
 		ko = 다운로드 중…
 		ru = Загружается…
+		uk = Завантажується…
 		cs = Stahování…
 	[get_it_now]
 		en = Get it now
@@ -209,6 +210,7 @@
 		en = kB
 		comment = Settings/Downloader - size string
 		ru = КБ
+		uk = КБ
 	[kilometres]
 		en = Kilometres
 		comment = Choose measurement on first launch alert - choose metric system button
@@ -251,6 +253,7 @@
 		ja = マップ
 		ko = 지도
 		ru = Карта
+		uk = Карта
 		cs = Mapy
 	[marked_for_downloading]
 		en = Marked for downloading, touch to cancel
@@ -267,6 +270,7 @@
 		en = MB
 		comment = Settings/Downloader - size string
 		ru = МБ
+		uk = МБ
 	[miles]
 		en = Miles
 		comment = Choose measurement on first launch alert - choose imperial system button
@@ -777,6 +781,7 @@
 		ja = 現在地を取得中
 		ko = 현재 위치 얻기
 		ru = Получаем местоположение
+		uk = Oтримуємо розташування
 		cs = Získávání aktuální pozice
 	[download_resources_continue]
 		en = Go to Map
@@ -786,6 +791,7 @@
 		ja = 地図に移動
 		ko = 지도로 이동
 		ru = Перейти на карту
+		uk = Перейти на карту
 		cs = Přejít na mapu
 	[downloading_country_can_proceed]
 		en = Downloading %@. You can now\nproceed to the map.
@@ -795,6 +801,7 @@
 		ja = %@をダウンロード中\n地図に移動できます
 		ko = %@다운로드. 이제지도를 진행할 수 있습니다.
 		ru = Пока загружается %@ \nвы можете пользоваться приложением.
+		uk = Поки завантажується %@ \nви можете користуватися додатком.
 		cs = Stahuji %@. Nyní můžeš \npoužít na mapě.
 	[download_country_ask]
 		en = Download %@?
@@ -804,6 +811,7 @@
 		ja = %@をダウンロードしますか？
 		ko = %@다운로드?
 		ru = Загрузить %@?
+		uk = Завантажити %@?
 		cs = Stáhnout %@?
 	[update_country_ask]
 		en = Update %@?
@@ -813,6 +821,7 @@
 		ja = %@を更新しますか？
 		ko = %@업데이트?
 		ru = Обновить %@?
+		uk = Oновити %@?
 		cs = Aktualizovat %@?
 	[download_location_map_proposal]
 		en = You can download the map\nof your current location.
@@ -823,6 +832,7 @@
 		ja = 現在地の地図を\nダウンロードできます
 		ko = 당신의 현재 위치의지도를 다운로드할 수 있습니다.
 		ru = Вы можете загрузить карту\nвашего текущего местоположения.
+		uk = Ви можете завантажити карту\nвашего поточного місця розташування.
 		cs = Můžeš stáhnout mapu\nof pro aktuální polohu.
 	[download_location_update_map_proposal]
 		en = You can update the map\nof your current location.
@@ -833,6 +843,7 @@
 		ja = 現在地の地図を\n更新できます
 		ko = 귀하의 현재 위치의지도를 업데이트할 수 있습니다.
 		ru = Вы можете обновить карту\nвашего текущего местоположения.
+		uk = Ви можете оновити карту\nвашого поточного місця розташування.
 		cs = Můžeš aktualizovat mapu\ntvé aktuální polohy.
 	[download_location_map_up_to_date]
 		en = The map at your current\nlocation (%@) is up-to-date
@@ -843,6 +854,7 @@
 		ja = 現在地の地図は\n最新です (%@)
 		ko = 현재 위치 (%@)\n에서지도는 최신이다
 		ru = Карта местности, в которой\nвы находитесь (%@) уже загружена.
+		uk = Карта місцевості, в якій\nви знаходитеся (%@) вже завантажена.
 		cs = Mapa tvé aktuální\nlocation (%@) je aktuální.
 	[pause]
 		en = Pause
@@ -853,6 +865,7 @@
 		ja = 一時停止
 		ko = 중지
 		ru = Приостановить
+		uk = Призупинити
 		cs = Pauza
 	[continue_download]
 		en = Continue
@@ -863,6 +876,7 @@
 		ja = 続行
 		ko = 계속
 		ru = Продолжить
+		uk = Продовжити
 		cs = Pokračovat
 	[downloaded_touch_to_update]
 		en = Downloaded (%@), touch to update or delete
@@ -872,6 +886,7 @@
 		ja = (%@)をダウンロードしました。タップして更新、削除できます
 		ko = 다운로드 (%@), 터치를 업데이 트하거나 삭제하는 방법
 		ru = Загружено (%@), нажмите для обновления или удаления
+		uk = Завантажено (%@), натисніть для оновлення або видалення
 		cs = Staženo (%@), klepni pro smazání
 	[update_mb_or_kb]
 		en = Update %@
@@ -881,6 +896,7 @@
 		ja = %@を更新
 		ko = %@업데이트
 		ru = Обновить %@
+		uk = Oновити %@
 		cs = Aktualizace %@
 	[search_update_maps]
 		en = You need updated maps for search function:
