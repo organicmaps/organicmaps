@@ -34,6 +34,11 @@ namespace yg
 
       TextRenderer(Params const & params);
 
+      void drawStraightGlyph(m2::PointD const & ptOrg,
+                             m2::PointD const & ptGlyph,
+                             GlyphStyle const * p,
+                             float depth);
+
       void drawGlyph(m2::PointD const & ptOrg,
                      m2::PointD const & ptGlyph,
                      ang::AngleD const & angle,

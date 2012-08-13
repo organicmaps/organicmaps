@@ -107,9 +107,13 @@ namespace yg
 
       m2::PointF texPt = texture->mapPixel(m2::RectF(style->m_texRect).Center());
 
+      m2::PointF normal(0, 0);
+
       addTexturedStripStrided(
             rectPtsF,
             sizeof(m2::PointF),
+            &normal,
+            0,
             &texPt,
             0,
             4,
@@ -144,9 +148,13 @@ namespace yg
 
       m2::PointF texPt = texture->mapPixel(m2::RectF(style->m_texRect).Center());
 
+      m2::PointF normal(0, 0);
+
       addTexturedStripStrided(
           rectPts,
           sizeof(m2::PointF),
+          &normal,
+          0,
           &texPt,
           0,
           4,
@@ -218,9 +226,13 @@ namespace yg
       for (unsigned i = 0; i < seg10.size(); ++i)
         pts.push_back(m2::PointF(seg10[i]));
 
+      m2::PointF normal(0, 0);
+
       addTexturedFanStrided(
           &pts[0],
           sizeof(m2::PointF),
+          &normal,
+          0,
           &texPt,
           0,
           pts.size(),

@@ -472,20 +472,94 @@ namespace yg
        m2::PointF(texMaxX, texMinY)
      };
 
-     addTexturedFan(coords, texCoords, 4, depth, pipelineID);
+     m2::PointF normal(0, 0);
+
+     addTexturedFanStrided(coords, sizeof(m2::PointF),
+                           &normal, 0,
+                           texCoords, sizeof(m2::PointF),
+                           4,
+                           depth,
+                           pipelineID);
    }
 
+   void GeometryBatcher::drawStraightTexturedPolygon(
+       m2::PointD const & ptPivot,
+       float tx0, float ty0, float tx1, float ty1,
+       float x0, float y0, float x1, float y1,
+       double depth,
+       int pipelineID)
+   {
+     if (!hasRoom(4, 6, pipelineID))
+       flush(pipelineID);
+
+     m_pipelines[pipelineID].checkStorage(resourceManager());
+     if (!m_pipelines[pipelineID].m_hasStorage)
+       return;
+
+     float texMinX = tx0;
+     float texMaxX = tx1;
+     float texMinY = ty0;
+     float texMaxY = ty1;
+
+     shared_ptr<BaseTexture> const & texture = m_skin->getPage(pipelineID)->texture();
+
+     if (!texture)
+     {
+       LOG(LDEBUG, ("returning as no texture is reserved"));
+       return;
+     }
+
+     texture->mapPixel(texMinX, texMinY);
+     texture->mapPixel(texMaxX, texMaxY);
+
+     /// rotated and translated four points (x0, y0), (x0, y1), (x1, y1), (x1, y0)
+
+     m2::PointF offsets[4] =
+     {
+       m2::PointF(x0, y0),
+       m2::PointF(x0, y1),
+       m2::PointF(x1, y1),
+       m2::PointF(x1, y0)
+     };
+
+     m2::PointF texCoords[4] =
+     {
+       m2::PointF(texMinX, texMinY),
+       m2::PointF(texMinX, texMaxY),
+       m2::PointF(texMaxX, texMaxY),
+       m2::PointF(texMaxX, texMinY)
+     };
+
+     m2::PointF pv(ptPivot.x, ptPivot.y);
+
+     addTexturedFanStrided(&pv, 0,
+                           offsets, sizeof(m2::PointF),
+                           texCoords, sizeof(m2::PointF),
+                           4,
+                           depth,
+                           pipelineID);
+   }
+
+
    void GeometryBatcher::addTexturedFan(m2::PointF const * coords,
+                                        m2::PointF const * normals,
                                         m2::PointF const * texCoords,
                                         unsigned size,
                                         double depth,
                                         int pipelineID)
    {
-     addTexturedFanStrided(coords, sizeof(m2::PointF), texCoords, sizeof(m2::PointF), size, depth, pipelineID);
+     addTexturedFanStrided(coords, sizeof(m2::PointF),
+                           normals, sizeof(m2::PointF),
+                           texCoords, sizeof(m2::PointF),
+                           size,
+                           depth,
+                           pipelineID);
    }
 
    void GeometryBatcher::addTexturedFanStrided(m2::PointF const * coords,
                                                size_t coordsStride,
+                                               m2::PointF const * normals,
+                                               size_t normalsStride,
                                                m2::PointF const * texCoords,
                                                size_t texCoordsStride,
                                                unsigned size,
@@ -509,9 +583,11 @@ namespace yg
      for (unsigned i = 0; i < size; ++i)
      {
        pipeline.m_vertices[vOffset + i].pt = *coords;
+       pipeline.m_vertices[vOffset + i].normal = *normals;
        pipeline.m_vertices[vOffset + i].tex = *texCoords;
        pipeline.m_vertices[vOffset + i].depth = depth;
        coords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(coords) + coordsStride);
+       normals = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(normals) + normalsStride);
        texCoords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(texCoords) + texCoordsStride);
      }
 
@@ -529,18 +605,26 @@ namespace yg
 
    void GeometryBatcher::addTexturedStrip(
        m2::PointF const * coords,
+       m2::PointF const * normals,
        m2::PointF const * texCoords,
        unsigned size,
        double depth,
        int pipelineID
        )
    {
-     addTexturedStripStrided(coords, sizeof(m2::PointF), texCoords, sizeof(m2::PointF), size, depth, pipelineID);
+     addTexturedStripStrided(coords, sizeof(m2::PointF),
+                             normals, sizeof(m2::PointF),
+                             texCoords, sizeof(m2::PointF),
+                             size,
+                             depth,
+                             pipelineID);
    }
 
    void GeometryBatcher::addTexturedStripStrided(
        m2::PointF const * coords,
        size_t coordsStride,
+       m2::PointF const * normals,
+       size_t normalsStride,
        m2::PointF const * texCoords,
        size_t texCoordsStride,
        unsigned size,
@@ -564,9 +648,11 @@ namespace yg
      for (unsigned i = 0; i < size; ++i)
      {
        pipeline.m_vertices[vOffset + i].pt = *coords;
+       pipeline.m_vertices[vOffset + i].normal = *normals;
        pipeline.m_vertices[vOffset + i].tex = *texCoords;
        pipeline.m_vertices[vOffset + i].depth = depth;
        coords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(coords) + coordsStride);
+       normals = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(normals) + normalsStride);
        texCoords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(texCoords) + texCoordsStride);
      }
 
@@ -591,6 +677,8 @@ namespace yg
    void GeometryBatcher::addTexturedListStrided(
        m2::PointD const * coords,
        size_t coordsStride,
+       m2::PointF const * normals,
+       size_t normalsStride,
        m2::PointF const * texCoords,
        size_t texCoordsStride,
        unsigned size,
@@ -614,9 +702,11 @@ namespace yg
      for (size_t i = 0; i < size; ++i)
      {
        pipeline.m_vertices[vOffset + i].pt = m2::PointF(coords->x, coords->y);
+       pipeline.m_vertices[vOffset + i].normal = *normals;
        pipeline.m_vertices[vOffset + i].tex = *texCoords;
        pipeline.m_vertices[vOffset + i].depth = depth;
        coords = reinterpret_cast<m2::PointD const*>(reinterpret_cast<unsigned char const*>(coords) + coordsStride);
+       normals = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(normals) + normalsStride);
        texCoords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(texCoords) + texCoordsStride);
      }
 
@@ -632,6 +722,8 @@ namespace yg
    void GeometryBatcher::addTexturedListStrided(
        m2::PointF const * coords,
        size_t coordsStride,
+       m2::PointF const * normals,
+       size_t normalsStride,
        m2::PointF const * texCoords,
        size_t texCoordsStride,
        unsigned size,
@@ -655,9 +747,11 @@ namespace yg
      for (size_t i = 0; i < size; ++i)
      {
        pipeline.m_vertices[vOffset + i].pt = *coords;
+       pipeline.m_vertices[vOffset + i].normal = *normals;
        pipeline.m_vertices[vOffset + i].tex = *texCoords;
        pipeline.m_vertices[vOffset + i].depth = depth;
        coords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(coords) + coordsStride);
+       normals = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(normals) + normalsStride);
        texCoords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(texCoords) + texCoordsStride);
      }
 
@@ -669,9 +763,17 @@ namespace yg
      pipeline.m_currentIndex += size;
    }
 
-   void GeometryBatcher::addTexturedList(m2::PointF const * coords, m2::PointF const * texCoords, unsigned size, double depth, int pipelineID)
+   void GeometryBatcher::addTexturedList(m2::PointF const * coords,
+                                         m2::PointF const * normals,
+                                         m2::PointF const * texCoords,
+                                         unsigned size,
+                                         double depth,
+                                         int pipelineID)
    {
-     addTexturedListStrided(coords, sizeof(m2::PointF), texCoords, sizeof(m2::PointF), size, depth, pipelineID);
+     addTexturedListStrided(coords, sizeof(m2::PointF),
+                            normals, sizeof(m2::PointF),
+                            texCoords, sizeof(m2::PointF),
+                            size, depth, pipelineID);
    }
 
    void GeometryBatcher::enableClipRect(bool flag)

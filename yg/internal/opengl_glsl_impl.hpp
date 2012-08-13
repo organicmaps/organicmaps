@@ -14,6 +14,7 @@ namespace yg
 
       void glVertexPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
       void glTexCoordPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
+      void glNormalPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
       void glEnableClientState(GLenum array);
 
       void glDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *indices);

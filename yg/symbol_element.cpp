@@ -78,11 +78,13 @@ namespace yg
 
     m2::PointD posPt = tieRect(m2::RectD(texRect), m);
 
-    r->drawTexturedPolygon(m2::PointD(0.0, 0.0), 0.0,
-                          texRect.minX(), texRect.minY(), texRect.maxX(), texRect.maxY(),
-                          posPt.x, posPt.y, posPt.x + texRect.SizeX(), posPt.y + texRect.SizeY(),
-                          yg::maxDepth,
-                          style->m_pipelineID);
+    posPt -= pivot();
+
+    r->drawStraightTexturedPolygon(pivot(),
+                                   texRect.minX(), texRect.minY(), texRect.maxX(), texRect.maxY(),
+                                   posPt.x, posPt.y, posPt.x + texRect.SizeX(), posPt.y + texRect.SizeY(),
+                                   yg::maxDepth,
+                                   style->m_pipelineID);
   }
 
   int SymbolElement::visualRank() const

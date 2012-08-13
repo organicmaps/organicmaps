@@ -43,6 +43,7 @@ namespace yg
 
       glVertexPointerFn = &glsl::glVertexPointer;
       glTexCoordPointerFn = &glsl::glTexCoordPointer;
+      glNormalPointerFn = &glsl::glNormalPointer;
       glEnableClientStateFn = &glsl::glEnableClientState;
 
       glMatrixModeFn = &glsl::glMatrixMode;

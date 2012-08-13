@@ -134,6 +134,8 @@ namespace yg
         pointsData[i].depth = yg::maxDepth;
         pointsData[i].tex.x = texPts[i].x;
         pointsData[i].tex.y = texPts[i].y;
+        pointsData[i].normal.x = 0;
+        pointsData[i].normal.y = 0;
 //        pointsData[i].color = yg::Color(255, 255, 255, 255);
       }
 
@@ -317,6 +319,8 @@ namespace yg
         pointsData[i].depth = yg::maxDepth;
         pointsData[i].tex.x = m_texPts[i].x;
         pointsData[i].tex.y = m_texPts[i].y;
+        pointsData[i].normal.x = 0;
+        pointsData[i].normal.y = 0;
       }
 
       blitStorage.m_vertices->unlock();

@@ -93,7 +93,14 @@ namespace yg
         bool needToFlush = (batchSize < pointsLeft);
 
         m2::PointF texCoord(texX, texY);
-        addTexturedListStrided(&points[batchOffset], sizeof(m2::PointD), &texCoord, 0, batchSize, depth, style->m_pipelineID);
+        m2::PointF normal(0, 0);
+
+        addTexturedListStrided(&points[batchOffset], sizeof(m2::PointD),
+                               &normal, 0,
+                               &texCoord, 0,
+                               batchSize,
+                               depth,
+                               style->m_pipelineID);
 
         batchOffset += batchSize;
         pointsLeft -= batchSize;

@@ -16,6 +16,7 @@ namespace yg
 
     const GLenum GL_VERTEX_ARRAY_MWM = 0;
     const GLenum GL_TEXTURE_COORD_ARRAY_MWM = 1;
+    const GLenum GL_NORMAL_ARRAY_MWM = 2;
 
     const GLenum GL_ALPHA_TEST_MWM = 0x0BC0;
 
@@ -31,12 +32,13 @@ namespace yg
 
       static const char g_vxSrc[] =
         "attribute vec4 Position;\n"
+        "attribute vec2 Normal;\n"
         "attribute vec2 TexCoordIn;\n"
         "uniform mat4 ProjM;\n"
         "uniform mat4 ModelViewM;\n"
         "varying vec2 TexCoordOut;\n"
         "void main(void) {\n"
-        "   gl_Position = Position * ModelViewM * ProjM;\n"
+        "   gl_Position = floor(vec4(Normal, 0.0, 0.0) + Position * ModelViewM) * ProjM;\n"
         "   TexCoordOut = TexCoordIn;\n"
         "}\n";
 
@@ -67,6 +69,7 @@ namespace yg
         GLuint m_program;
         GLuint m_positionHandle;
         GLuint m_texCoordHandle;
+        GLuint m_normalHandle;
         GLuint m_projectionUniform;
         GLuint m_modelViewUniform;
         GLuint m_textureUniform;
@@ -123,6 +126,12 @@ namespace yg
           OGLCHECKAFTER;
         }
 
+        void attachNormal(char const * name)
+        {
+          m_normalHandle = ::glGetAttribLocation(m_program, name);
+          OGLCHECKAFTER;
+        }
+
         void attachPosition(char const * name)
         {
           m_positionHandle = ::glGetAttribLocation(m_program, name);
@@ -131,7 +140,7 @@ namespace yg
 
         void attachTexCoord(char const * name)
         {
-          m_texCoordHandle = ::glGetAttribLocation(m_program, "TexCoordIn");
+          m_texCoordHandle = ::glGetAttribLocation(m_program, name);
           OGLCHECKAFTER;
         }
 
@@ -213,12 +222,14 @@ namespace yg
           m_alphaTestProgram.attachTexture("Texture");
           m_alphaTestProgram.attachPosition("Position");
           m_alphaTestProgram.attachTexCoord("TexCoordIn");
+          m_alphaTestProgram.attachNormal("Normal");
 
           m_noAlphaTestProgram.attachProjection("ProjM");
           m_noAlphaTestProgram.attachModelView("ModelViewM");
           m_noAlphaTestProgram.attachTexture("Texture");
           m_noAlphaTestProgram.attachPosition("Position");
           m_noAlphaTestProgram.attachTexCoord("TexCoordIn");
+          m_noAlphaTestProgram.attachNormal("Normal");
 
           m_currentProgram = &m_noAlphaTestProgram;
           m_currentProgram->apply();
@@ -283,6 +294,13 @@ namespace yg
         ::glVertexAttribPointer(threadData.m_noAlphaTestProgram.m_texCoordHandle, size, type, GL_FALSE, stride, pointer);
       }
 
+      void glNormalPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer)
+      {
+        ThreadData & threadData = g_threadData[threads::GetCurrentThreadID()];
+        ::glVertexAttribPointer(threadData.m_alphaTestProgram.m_normalHandle, size, type, GL_FALSE, stride, pointer);
+        ::glVertexAttribPointer(threadData.m_noAlphaTestProgram.m_normalHandle, size, type, GL_FALSE, stride, pointer);
+      }
+
       void glEnableClientState(GLenum array)
       {
         ThreadData & threadData = g_threadData[threads::GetCurrentThreadID()];
@@ -295,6 +313,10 @@ namespace yg
         case GL_TEXTURE_COORD_ARRAY_MWM:
           ::glEnableVertexAttribArray(threadData.m_alphaTestProgram.m_texCoordHandle);
           ::glEnableVertexAttribArray(threadData.m_noAlphaTestProgram.m_texCoordHandle);
+          break;
+        case GL_NORMAL_ARRAY_MWM:
+          ::glEnableVertexAttribArray(threadData.m_alphaTestProgram.m_normalHandle);
+          ::glEnableVertexAttribArray(threadData.m_noAlphaTestProgram.m_normalHandle);
           break;
         default:
           LOG(LERROR, ("Unknown option is passed to glEnableClientState"));

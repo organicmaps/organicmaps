@@ -63,6 +63,7 @@ namespace yg
 
     void (OPENGL_CALLING_CONVENTION * glEnableClientStateFn) (GLenum array);
     void (OPENGL_CALLING_CONVENTION * glVertexPointerFn) (GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
+    void (OPENGL_CALLING_CONVENTION * glNormalPointerFn) (GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
     void (OPENGL_CALLING_CONVENTION * glTexCoordPointerFn) (GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
 
     void (OPENGL_CALLING_CONVENTION * glMatrixModeFn) (GLenum mode);

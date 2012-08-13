@@ -36,6 +36,7 @@ namespace yg
       glAlphaFuncFn = &glsl::glAlphaFunc;
 
       glVertexPointerFn = &glsl::glVertexPointer;
+      glNormalPointerFn = &glsl::glNormalPointer;
       glTexCoordPointerFn = &glsl::glTexCoordPointer;
       glEnableClientStateFn = &glsl::glEnableClientState;
 

@@ -138,7 +138,15 @@ namespace yg
             texture->mapPixel(m2::PointF(texMaxX, texMinY))
           };
 
-          addTexturedFan(coords, texCoords, 4, depth, lineStyle->m_pipelineID);
+          m2::PointF normals[4] =
+          {
+            m2::PointF(0, 0),
+            m2::PointF(0, 0),
+            m2::PointF(0, 0),
+            m2::PointF(0, 0)
+          };
+
+          addTexturedFan(coords, normals, texCoords, 4, depth, lineStyle->m_pipelineID);
 
           segLenRemain -= rawTileLen;
 
@@ -203,7 +211,14 @@ namespace yg
               m2::PointF(points[i + 1] + prevStartVec * geomHalfWidth)
             };
 
-            addTexturedFan(joinSeg, joinSegTex, 3, depth, lineStyle->m_pipelineID);
+            m2::PointF joinSegNormals[3] =
+            {
+              m2::PointF(0, 0),
+              m2::PointF(0, 0),
+              m2::PointF(0, 0)
+            };
+
+            addTexturedFan(joinSeg, joinSegNormals, joinSegTex, 3, depth, lineStyle->m_pipelineID);
 
             prevStartVec = startVec;
           }
@@ -277,7 +292,14 @@ namespace yg
           texture->mapPixel(m2::PointF(texMaxX, texMaxY))
         };
 
-        addTexturedStrip(coords, texCoords, 8, depth, lineStyle->m_pipelineID);
+        m2::PointF normal(0, 0);
+
+        addTexturedStripStrided(coords, sizeof(m2::PointF),
+                                &normal, 0,
+                                texCoords, sizeof(m2::PointF),
+                                8,
+                                depth,
+                                lineStyle->m_pipelineID);
       }
     }
 

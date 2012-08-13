@@ -127,6 +127,7 @@ namespace yg
       void setRenderTarget(shared_ptr<RenderTarget> const & rt);
 
       void addTexturedFan(m2::PointF const * coords,
+                          m2::PointF const * normals,
                           m2::PointF const * texCoords,
                           unsigned size,
                           double depth,
@@ -134,28 +135,42 @@ namespace yg
 
       void addTexturedFanStrided(m2::PointF const * coords,
                                  size_t coordsStride,
+                                 m2::PointF const * normals,
+                                 size_t normalsStride,
                                  m2::PointF const * texCoords,
                                  size_t texCoordsStride,
                                  unsigned size,
                                  double depth,
                                  int pipelineID);
 
+      void addTexturedStrip(m2::PointF const * coords,
+                            m2::PointF const * normals,
+                            m2::PointF const * texCoords,
+                            unsigned size,
+                            double depth,
+                            int pipelineID);
+
       void addTexturedStripStrided(m2::PointF const * coords,
                                    size_t coordsStride,
+                                   m2::PointF const * normals,
+                                   size_t normalsStride,
                                    m2::PointF const * texCoords,
                                    size_t texCoordsStride,
                                    unsigned size,
                                    double depth,
                                    int pipelineID);
 
-      void addTexturedStrip(m2::PointF const * coords,
-                            m2::PointF const * texCoords,
-                            unsigned size,
-                            double depth,
-                            int pipelineID);
+      void addTexturedList(m2::PointF const * coords,
+                           m2::PointF const * texCoords,
+                           m2::PointF const * normalCoords,
+                           unsigned size,
+                           double depth,
+                           int pipelineID);
 
       void addTexturedListStrided(m2::PointD const * coords,
                                   size_t coordsStride,
+                                  m2::PointF const * normals,
+                                  size_t normalsStride,
                                   m2::PointF const * texCoords,
                                   size_t texCoordsStride,
                                   unsigned size,
@@ -164,19 +179,22 @@ namespace yg
 
       void addTexturedListStrided(m2::PointF const * coords,
                                   size_t coordsStride,
+                                  m2::PointF const * normals,
+                                  size_t normalsStride,
                                   m2::PointF const * texCoords,
                                   size_t texCoordsStride,
                                   unsigned size,
                                   double depth,
                                   int pipelineID);
 
-      void addTexturedList(m2::PointF const * coords,
-                           m2::PointF const * texCoords,
-                           unsigned size,
-                           double depth,
-                           int pipelineID);
-
       int aaShift() const;
+
+      void drawStraightTexturedPolygon(
+          m2::PointD const & ptPivot,
+          float tx0, float ty0, float tx1, float ty1,
+          float x0, float y0, float x1, float y1,
+          double depth,
+          int pipelineID);
 
       /// drawing textured polygon with antialiasing
       /// we assume that the (tx0, ty0, tx1, ty1) area on texture is surrounded by (0, 0, 0, 0) pixels,

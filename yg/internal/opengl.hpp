@@ -74,10 +74,12 @@ namespace yg
     extern void (OPENGL_CALLING_CONVENTION * glAlphaFuncFn)(GLenum func, GLclampf ref);
     extern void (OPENGL_CALLING_CONVENTION * glEnableClientStateFn) (GLenum array);
     extern void (OPENGL_CALLING_CONVENTION * glVertexPointerFn) (GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
+    extern void (OPENGL_CALLING_CONVENTION * glNormalPointerFn) (GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
     extern void (OPENGL_CALLING_CONVENTION * glTexCoordPointerFn) (GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
 
     extern const GLenum GL_VERTEX_ARRAY_MWM;
     extern const GLenum GL_TEXTURE_COORD_ARRAY_MWM;
+    extern const GLenum GL_NORMAL_ARRAY_MWM;
 
     extern void (OPENGL_CALLING_CONVENTION * glMatrixModeFn) (GLenum mode);
     extern void (OPENGL_CALLING_CONVENTION * glLoadIdentityFn)();

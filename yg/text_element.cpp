@@ -115,14 +115,16 @@ namespace yg
       {
         glyphPt = pv + offs + elem.m_pt;
         glyphAngle = elem.m_angle;
+
+        screen->drawStraightGlyph(pv, offs + elem.m_pt, glyphStyle, depth);
       }
       else
       {
         glyphPt = (pv + offs + elem.m_pt) * m;
         glyphAngle = ang::AngleD(elem.m_angle.val() + deltaA);
-      }
 
-      screen->drawGlyph(glyphPt, m2::PointD(0.0, 0.0), glyphAngle, 0, glyphStyle, depth);
+        screen->drawGlyph(glyphPt, m2::PointD(0.0, 0.0), glyphAngle, 0, glyphStyle, depth);
+      }
     }
   }
 }
