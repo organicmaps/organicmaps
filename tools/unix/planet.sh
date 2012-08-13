@@ -56,6 +56,7 @@ MY_PATH=`dirname $0`
 
 # find generator_tool
 IT_PATHS_ARRAY=(  "$MY_PATH/../../../omim-build-release/out/release/generator_tool" \
+                  "$MY_PATH/../../../omim-release/out/release/generator_tool" \
                   "$MY_PATH/../../out/release/generator_tool" )
 
 for i in {0..1}; do
@@ -125,10 +126,13 @@ $PV $PLANET_OSM_BZ2 | $BZIP | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
 
 # 5rd pass - do in parallel
 # but separate exceptions for wolrd files to finish them earlier
-$GENERATOR_TOOL -data_path=$DATA_PATH -generate_geometry -generate_index -output=World &
-$GENERATOR_TOOL -data_path=$DATA_PATH -generate_geometry -generate_index -output=WorldCoasts &
+PARAMS="-data_path=$DATA_PATH -generate_geometry -generate_index"
+$GENERATOR_TOOL $PARAMS -output=World &
+$GENERATOR_TOOL $PARAMS -output=WorldCoasts &
+
+PARAMS_WITH_SEARCH="$PARAMS -generate_search_index"
 # additional exceptions for long-generated countries
-$GENERATOR_TOOL -data_path=$DATA_PATH -generate_geometry -generate_index "-output=Russia_Far Eastern" &
+$GENERATOR_TOOL $PARAMS_WITH_SEARCH "-output=Russia_Far Eastern" &
 for file in $DATA_PATH/*.mwm.tmp; do
   if [[ "$file" == *minsk-pass*  ]]; then
     continue
@@ -142,8 +146,13 @@ for file in $DATA_PATH/*.mwm.tmp; do
   filename=$(basename "$file")
   extension="${filename##*.}"
   filename="${filename%.*.*}"
-  $GENERATOR_TOOL -data_path=$DATA_PATH -generate_geometry -generate_index -output="$filename" &
+  $GENERATOR_TOOL $PARAMS_WITH_SEARCH -output="$filename" &
   forky $PROCESSORS
 done
 
 wait
+
+# Save World without search index
+cp "$DATA_PATH/World.mwm" "$DATA_PATH/World.mwm.nosearch"
+# Generate search index for World
+$GENERATOR_TOOL -data_path=$DATA_PATH -generate_search_index -output=World
