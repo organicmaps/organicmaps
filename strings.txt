@@ -510,7 +510,6 @@
 		ja = 飯
 		ko = 음식
 		ru = еда
-		uk = їжа
 		cs = jídlo
 	[money]
 		en = money
@@ -522,7 +521,6 @@
 		ja = 金
 		ko = 돈
 		ru = деньги
-		uk = гроші
 		cs = peníze
 	[fuel]
 		en = gas
@@ -534,7 +532,6 @@
 		ja = 燃料
 		ko = 연료
 		ru = заправка
-		uk = заправка
 		cs = čerpací stanice
 	[shop]
 		en = shop
@@ -546,7 +543,6 @@
 		ja = 店
 		ko = 쇼핑
 		ru = магазин
-		uk = магазин
 		cs = obchod
 	[transport]
 		en = transport
@@ -557,7 +553,6 @@
 		ja = 輸送
 		ko = 수송
 		ru = транспорт
-		uk = транспорт
 		cs = doprava
 	[tourism]
 		en = sights
@@ -569,7 +564,6 @@
 		ja = 観光
 		ko = 관광
 		ru = достопримечательность
-		uk = визначне місцє
 		cs = pamětihodnosti
 	[country_status_added_to_queue]
 		en = ^is added to the\ndownloading queue.
