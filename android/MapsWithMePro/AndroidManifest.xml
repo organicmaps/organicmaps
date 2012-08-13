@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.mapswithme.maps.pro"
-      android:versionCode="211"
-      android:versionName="2.1.1"
+      android:versionCode="212"
+      android:versionName="2.1.2"
       android:installLocation="preferExternal"
       android:sharedUserId="com.mapswithme"
       android:sharedUserLabel="@string/shared_user_label">
