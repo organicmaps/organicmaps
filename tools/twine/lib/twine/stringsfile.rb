@@ -88,14 +88,14 @@ module Twine
           if line.length > 4 && line[0, 2] == '[['
             match = /^\[\[(.+)\]\]$/.match(line)
             if match
-              current_section = StringsSection.new(match[1].strip)
+              current_section = StringsSection.new(match[1])
               @sections << current_section
               parsed = true
             end
           elsif line.length > 2 && line[0, 1] == '['
             match = /^\[(.+)\]$/.match(line)
             if match
-              current_row = StringsRow.new(match[1].strip)
+              current_row = StringsRow.new(match[1])
               @strings_map[current_row.key] = current_row
               if !current_section
                 current_section = StringsSection.new('')

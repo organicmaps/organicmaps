@@ -6,7 +6,5 @@
 
 /********** My Strings **********/
 
-/* This is a comment */
-"key1" = "key1-english";
-
-"key3" = "key3-english";
+/* String ends with space */
+"key with space " = "string with space ";

@@ -62,6 +62,7 @@ module Twine
               key.gsub!('\\"', '"')
               value = match[2]
               value.gsub!('\\"', '"')
+              value = iosify_substitutions(value)
               set_translation_for_key(key, lang, value)
               if last_comment
                 set_comment_for_key(key, last_comment)
@@ -100,19 +101,21 @@ module Twine
                 key = key.gsub('"', '\\\\"')
 
                 value = row.translated_string_for_lang(lang, default_lang)
-                value = value.gsub('"', '\\\\"')
+                if value
+                  value = value.gsub('"', '\\\\"')
 
-                comment = row.comment
-                if comment
-                  comment = comment.gsub('*/', '* /')
+                  comment = row.comment
+                  if comment
+                    comment = comment.gsub('*/', '* /')
+                  end
+
+                  if comment && comment.length > 0
+                    f.print "/* #{comment} */\n"
+                  end
+
+                  f.print "\"#{key}\" = \"#{value}\";\n"
                 end
-
-                if comment && comment.length > 0
-                  f.print "/* #{comment} */\n"
-                end
-
-                f.print "\"#{key}\" = \"#{value}\";\n"
-             end
+              end
             end
           end
         end

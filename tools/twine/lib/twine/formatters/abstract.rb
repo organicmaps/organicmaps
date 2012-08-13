@@ -13,6 +13,91 @@ module Twine
         @options = options
       end
 
+      def iosify_substitutions(str)
+        # 1) use "@" instead of "s" for substituting strings
+        str.gsub!(/%([0-9\$]*)s/, '%\1@')
+
+        # 2) if substitutions are numbered, see if we can remove the numbering safely
+        expectedSub = 1
+        startFound = false
+        foundSub = 0
+        str.each_char do |c|
+          if startFound
+            if c == "%"
+              # this is a literal %, keep moving
+              startFound = false
+            elsif c.match(/\d/)
+              foundSub *= 10
+              foundSub += Integer(c)
+            elsif c == "$"
+              if expectedSub == foundSub
+                # okay to keep going
+                startFound = false
+                expectedSub += 1
+              else
+                # the numbering appears to be important (or non-existent), leave it alone
+                return str
+              end
+            end
+          elsif c == "%"
+            startFound = true
+            foundSub = 0
+          end
+        end
+
+        # if we got this far, then the numbering (if any) is in order left-to-right and safe to remove
+        if expectedSub > 1
+          str.gsub!(/%\d+\$(.)/, '%\1')
+        end
+
+        return str
+      end
+
+      def androidify_substitutions(str)
+        # 1) use "s" instead of "@" for substituting strings
+        str.gsub!(/%([0-9\$]*)@/, '%\1s')
+
+        # 2) if there is more than one substitution in a string, make sure they are numbered
+        substituteCount = 0
+        startFound = false
+        str.each_char do |c|
+          if startFound
+            if c == "%"
+              # ignore as this is a literal %
+            elsif c.match(/\d/)
+              # leave the string alone if it already has numbered substitutions
+              return str
+            else
+              substituteCount += 1
+            end
+            startFound = false
+          elsif c == "%"
+            startFound = true
+          end
+        end
+
+        if substituteCount > 1
+          currentSub = 1
+          startFound = false
+          newstr = ""
+          str.each_char do |c|
+            if startFound
+              if !(c == "%")
+                newstr = newstr + "#{currentSub}$"
+                currentSub += 1
+              end
+              startFound = false
+            elsif c == "%"
+              startFound = true
+            end
+            newstr = newstr + c
+          end
+          return newstr
+        else
+          return str
+        end
+      end
+
       def set_translation_for_key(key, lang, value)
         if @strings.strings_map.include?(key)
           @strings.strings_map[key].translations[lang] = value

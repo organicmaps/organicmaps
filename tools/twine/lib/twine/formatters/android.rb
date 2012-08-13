@@ -49,19 +49,44 @@ module Twine
       end
 
       def read_file(path, lang)
+        resources_regex = /<resources>(.*)<\/resources>/m
+        key_regex = /<string name="(\w+)">/
+        comment_regex = /<!-- (.*) -->/
+        value_regex = /<string name="\w+">(.*)<\/string>/
+        key = nil
+        value = nil
+        comment = nil
+
         File.open(path, 'r:UTF-8') do |f|
-          current_section = nil
-          doc = REXML::Document.new(f)
-          doc.elements.each('resources/string') do |ele|
-            key = ele.attributes["name"]
-            value = ele.text || ''
-            value.gsub!('\\\'', '\'')
-            value.gsub!('\\"', '"')
-            value.gsub!(/\n/, '')
-            value.gsub!('&lt;', '<')
-            value.gsub!('&amp;', '&')
-            value = iosify_substitutions(value)
-            set_translation_for_key(key, lang, value)
+          content_match = resources_regex.match(f.read)
+          if content_match
+            for line in content_match[1].split(/\r?\n/)
+              key_match = key_regex.match(line)
+              if key_match
+                key = key_match[1]
+                value_match = value_regex.match(line)
+                if value_match
+                  value = value_match[1]
+                  value.gsub!('\\"', '"')
+                  value = iosify_substitutions(value)
+                else
+                  value = ""
+                end
+                if @options[:tags]
+                  set_tags_for_key(key, @options[:tags])
+                end
+                set_translation_for_key(key, lang, value)
+                if comment and comment.length > 0
+                  set_comment_for_key(key, comment)
+                end
+                comment = nil
+              end
+
+              comment_match = comment_regex.match(line)
+              if comment_match
+                comment = comment_match[1]
+              end
+            end
           end
         end
       end
@@ -124,92 +149,6 @@ module Twine
           f.puts '</resources>'
         end
       end
-
-      def iosify_substitutions(str)
-        # 1) use "@" instead of "s" for substituting strings
-        str.gsub!(/%([0-9\$]*)s/, '%\1@')
-
-        # 2) if substitutions are numbered, see if we can remove the numbering safely
-        expectedSub = 1
-        startFound = false
-        foundSub = 0
-        str.each_char do |c|
-          if startFound
-            if c == "%"
-              # this is a literal %, keep moving
-              startFound = false
-            elsif c.match(/\d/)
-              foundSub *= 10
-              foundSub += Integer(c)
-            elsif c == "$"
-              if expectedSub == foundSub
-                # okay to keep going
-                startFound = false
-                expectedSub += 1
-              else
-                # the numbering appears to be important (or non-existent), leave it alone
-                return str
-              end
-            end
-          elsif c == "%"
-            startFound = true
-            foundSub = 0
-          end
-        end
-
-        # if we got this far, then the numbering (if any) is in order left-to-right and safe to remove
-        if expectedSub > 1
-          str.gsub!(/%\d+\$(.)/, '%\1')
-        end
-
-        return str
-      end
-
-      def androidify_substitutions(str)
-        # 1) use "s" instead of "@" for substituting strings
-        str.gsub!(/%([0-9\$]*)@/, '%\1s')
-
-        # 2) if there is more than one substitution in a string, make sure they are numbered
-        substituteCount = 0
-        startFound = false
-        str.each_char do |c|
-          if startFound
-            if c == "%"
-              # ignore as this is a literal %
-            elsif c.match(/\d/)
-              # leave the string alone if it already has numbered substitutions
-              return str
-            else
-              substituteCount += 1
-            end
-            startFound = false
-          elsif c == "%"
-            startFound = true
-          end
-        end
-
-        if substituteCount > 1
-          currentSub = 1
-          startFound = false
-          newstr = ""
-          str.each_char do |c|
-            if startFound
-              if !(c == "%")
-                newstr = newstr + "#{currentSub}$"
-                currentSub += 1
-              end
-              startFound = false
-            elsif c == "%"
-              startFound = true
-            end
-            newstr = newstr + c
-          end
-          return newstr
-        else
-          return str
-        end
-      end
-
     end
   end
 end

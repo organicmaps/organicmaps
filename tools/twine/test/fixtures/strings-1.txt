@@ -2,6 +2,7 @@
 	[key1]
 		en = key1-english
 		tags = tag1
+		comment = This is a comment
 		es = key1-spanish
 		fr = key1-french
 	[key2]

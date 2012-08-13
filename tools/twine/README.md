@@ -1,6 +1,6 @@
 # Twine
 
-Twine is a command line tool for managing your strings and their translations. These strings are all stored in a master text file and then Twine uses this file to import and export strings in a variety of file types, including iOS and Mac OS X `.strings` files as well as Android `.xml` files. This allows individuals and companies to easily share strings across multiple projects, as well as export strings in any format the user wants.
+Twine is a command line tool for managing your strings and their translations. These strings are all stored in a master text file and then Twine uses this file to import and export strings in a variety of file types, including iOS and Mac OS X `.strings` files, Android `.xml` files, and [jquery-localize][jquerylocalize] `.json` files. This allows individuals and companies to easily share strings across multiple projects, as well as export strings in any format the user wants.
 
 ## Install
 
@@ -47,7 +47,7 @@ Whitepace in this file is mostly ignored. If you absolutely need to put spaces a
 			en = No
 			fr = Non
 			ja = いいえ
-
+	
 	[[Errors]]
 		[path_not_found_error]
 			en = The file '%@' could not be found.
@@ -57,7 +57,7 @@ Whitepace in this file is mostly ignored. If you absolutely need to put spaces a
 			en = The network is currently unavailable.
 			tags = app1
 			comment = An error describing when the device can not connect to the internet.
-
+	
 	[[Escaping Example]]
 		[list_item_separator]
 			en = `, `
@@ -68,10 +68,20 @@ Whitepace in this file is mostly ignored. If you absolutely need to put spaces a
 			tags = myothertag
 			comment = This string will evaluate to `%@`.
 
+## Supported Output Formats
+
+Twine currently supports the following formats for outputting strings:
+
+* [iOS and OS X String Resources][applestrings] (format: apple)
+* [Android String Resources][androidstrings] (format: android)
+* [jquery-localize Language Files][jquerylocalize] (format: jquery)
+
+If you would like to enable twine to create language files in another format, create an appropriate formatter in `lib/twine/formatters`.
+
 ## Usage
 
 	Usage: twine COMMAND STRINGS_FILE [INPUT_OR_OUTPUT_PATH] [--lang LANG1,LANG2...] [--tags TAG1,TAG2,TAG3...] [--format FORMAT]
-
+	
 ### Commands
 
 #### `generate-string-file`
@@ -149,3 +159,6 @@ Now, whenever you build your application, Xcode will automatically invoke Twine 
 [rubyzip]: http://rubygems.org/gems/rubyzip
 [git]: http://git-scm.org/
 [INI]: http://en.wikipedia.org/wiki/INI_file
+[applestrings]: http://developer.apple.com/documentation/Cocoa/Conceptual/LoadingResources/Strings/Strings.html
+[androidstrings]: http://developer.android.com/guide/topics/resources/string-resource.html
+[jquerylocalize]: https://github.com/coderifous/jquery-localize
