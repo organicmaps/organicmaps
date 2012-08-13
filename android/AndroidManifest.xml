@@ -16,7 +16,7 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     
-    <supports-screen android:largeScreens="true"/>
+    <supports-screens android:largeScreens="true" android:xlargeScreens="true"/>
 
     <application />
 
