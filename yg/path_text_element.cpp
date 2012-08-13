@@ -83,6 +83,11 @@ namespace yg
     m_glyphLayout.setPivot(pivot);
   }
 
+  int PathTextElement::visualRank() const
+  {
+    return 2000 + m_fontDesc.m_size;
+  }
+
   OverlayElement * PathTextElement::clone(math::Matrix<double, 3, 3> const & m) const
   {
     return new PathTextElement(*this, m);
