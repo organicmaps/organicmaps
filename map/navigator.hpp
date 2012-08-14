@@ -103,7 +103,16 @@ private:
   // Flag, which indicates, whether we are in the middle of some action.
   bool m_InAction;
   // Does Navigator supports screen rotation.
-  bool m_doSupportRotation;
+  bool m_DoSupportRotation;
+  // Should we check for threshold while scaling by two fingers.
+  bool m_DoCheckRotationThreshold;
+  // Do screen rotates during the two fingers scaling.
+  bool m_IsRotatingDuringScale;
   // Used in DoScale and ScaleByPoint
-  bool ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2, m2::PointD const & oldPt1, m2::PointD const & oldPt2, bool skipMaxScaleAndBordersCheck);
+  bool ScaleImpl(m2::PointD const & newPt1,
+                 m2::PointD const & newPt2,
+                 m2::PointD const & oldPt1,
+                 m2::PointD const & oldPt2,
+                 bool skipMaxScaleAndBordersCheck,
+                 bool doRotateScreen);
 };

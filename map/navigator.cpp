@@ -28,7 +28,7 @@ namespace
 Navigator::Navigator()
   : m_worldRect(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY),
     m_InAction(false),
-    m_doSupportRotation(false)
+    m_DoSupportRotation(false)
 {
 }
 
@@ -37,7 +37,7 @@ Navigator::Navigator(ScreenBase const & screen)
     m_StartScreen(screen),
     m_Screen(screen),
     m_InAction(false),
-    m_doSupportRotation(false)
+    m_DoSupportRotation(false)
 {
 }
 
@@ -144,7 +144,7 @@ ScreenBase const Navigator::ShrinkInto(ScreenBase const & screen, m2::RectD boun
 
   ScreenBase res = screen;
 
-/*  if (m_doSupportRotation)
+/*  if (m_DoSupportRotation)
     return res;*/
 
   m2::RectD clipRect = res.ClipRect();
@@ -182,7 +182,7 @@ ScreenBase const Navigator::ScaleInto(ScreenBase const & screen, m2::RectD bound
 
   ScreenBase res = screen;
 
-/*  if (m_doSupportRotation)
+/*  if (m_DoSupportRotation)
     return res;*/
 
   double scale = 1;
@@ -228,7 +228,7 @@ ScreenBase const Navigator::ShrinkAndScaleInto(ScreenBase const & screen, m2::Re
 
   ScreenBase res = screen;
 
-/*  if (m_doSupportRotation)
+/*  if (m_DoSupportRotation)
     return res;*/
 
   m2::RectD globalRect = res.ClipRect();
@@ -398,6 +398,8 @@ void Navigator::StartScale(m2::PointD const & pt1, m2::PointD const & pt2, doubl
   m_StartScreen = m_Screen;
   m_StartPt1 = pt1;
   m_StartPt2 = pt2;
+  m_DoCheckRotationThreshold = m_DoSupportRotation;
+  m_IsRotatingDuringScale = false;
 
   m_InAction = true;
 }
@@ -435,7 +437,7 @@ void Navigator::ScaleToPoint(m2::PointD const & pt, double factor, double /*time
     endPt.y = pxRect.minY();
   }
 
-  ScaleImpl(pt, endPt, pt, startPt, factor > 1);
+  ScaleImpl(pt, endPt, pt, startPt, factor > 1, false);
 }
 
 bool Navigator::CheckMaxScale(ScreenBase const & screen) const
@@ -463,14 +465,16 @@ bool Navigator::CheckBorders(ScreenBase const & screen) const
 
 bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
                           m2::PointD const & oldPt1, m2::PointD const & oldPt2,
-                          bool skipMaxScaleAndBordersCheck)
+                          bool skipMaxScaleAndBordersCheck,
+                          bool doRotateScreen)
 {
   math::Matrix<double, 3, 3> newM = m_Screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1, oldPt2, newPt1, newPt2);
 
+  double oldAngle = m_Screen.GetAngle();
   ScreenBase tmp = m_Screen;
   tmp.SetGtoPMatrix(newM);
-  if (!m_doSupportRotation)
-    tmp.Rotate(-tmp.GetAngle());
+  if (!doRotateScreen)
+    tmp.Rotate(-(tmp.GetAngle() - oldAngle));
 
   if (!skipMaxScaleAndBordersCheck && !CheckMaxScale(tmp))
     return false;
@@ -507,8 +511,29 @@ void Navigator::DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double /
 
   m_Screen = m_StartScreen;
 
-  if (!ScaleImpl(pt1, pt2, m_StartPt1, m_StartPt2, pt1.Length(pt2) / m_StartPt1.Length(m_StartPt2) > 1))
+  if (m_DoCheckRotationThreshold)
+  {
+    // checking the rotation threshold
+    double s = pt1.Length(pt2) / m_StartPt1.Length(m_StartPt2);
+    double a = ang::AngleTo(pt1, pt2) - ang::AngleTo(m_StartPt1, m_StartPt2);
+
+    double aThresh = 10.0 / 180.0 * math::pi;
+    double sThresh = 1.2;
+
+    if ((1 / s < sThresh)
+     && (s < sThresh)
+     && (fabs(a) > aThresh))
+      m_IsRotatingDuringScale = true;
+  }
+
+  if (!ScaleImpl(pt1, pt2,
+                 m_StartPt1, m_StartPt2,
+                 pt1.Length(pt2) / m_StartPt1.Length(m_StartPt2) > 1,
+                 m_IsRotatingDuringScale))
     m_Screen = PrevScreen;
+
+  if (m_IsRotatingDuringScale)
+    m_DoCheckRotationThreshold = false;
 
   m_LastPt1 = pt1;
   m_LastPt2 = pt2;
@@ -549,6 +574,6 @@ bool Navigator::Update(double timeInSec)
 
 void Navigator::SetSupportRotation(bool flag)
 {
-  m_doSupportRotation = flag;
+  m_DoSupportRotation = flag;
 }
 
