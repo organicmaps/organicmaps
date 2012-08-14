@@ -7,6 +7,7 @@
 #include "../yg/skin.hpp"
 
 #include "../indexer/mercator.hpp"
+#include "../geometry/distance_on_sphere.hpp"
 
 #include "../base/logging.hpp"
 #include "../base/string_utils.hpp"
@@ -208,25 +209,33 @@ void Ruler::update()
     m2::PointD pt0 = m_screen.PtoG(pivot() - m2::PointD(minPxWidth / 2, 0));
     m2::PointD pt1 = m_screen.PtoG(pivot() + m2::PointD(minPxWidth / 2, 0));
 
-    /// correction factor, calculated from Y-coordinate.
-    double const lonDiffCorrection = cos(MercatorBounds::YToLat(glbPivot.y) / 180.0 * math::pi);
-
-    /// longitude difference between two points
-    double lonDiff = fabs(MercatorBounds::XToLon(pt0.x) - MercatorBounds::XToLon(pt1.x));
+    double DistanceInMetres = ms::DistanceOnEarth(MercatorBounds::YToLat(pt0.y),
+                                                  MercatorBounds::XToLon(pt0.x),
+                                                  MercatorBounds::YToLat(pt1.y),
+                                                  MercatorBounds::XToLon(pt1.x));
 
     /// converting into metres
-    CalcMetresDiff(m_conversionFn(lonDiff / MercatorBounds::degreeInMetres * lonDiffCorrection));
+    CalcMetresDiff(m_conversionFn(DistanceInMetres));
 
     bool higherThanMax = m_metresDiff > m_maxUnitsWidth;
     bool lessThanMin = m_metresDiff < m_minUnitsWidth;
 
-    /// translating metres into pixels
-    double scalerWidthLatDiff = (double)m_metresDiff * MercatorBounds::degreeInMetres / lonDiffCorrection;
-    double scalerWidthXDiff = MercatorBounds::LonToX(glbPivot.x + scalerWidthLatDiff / 2)
-                            - MercatorBounds::LonToX(glbPivot.x - scalerWidthLatDiff / 2);
+    double scalerWidthInPx = minPxWidth;
 
-    double scalerWidthInPx = m_screen.GtoP(glbPivot).x - m_screen.GtoP(glbPivot + m2::PointD(scalerWidthXDiff, 0)).x;
-    scalerWidthInPx = (higherThanMax || lessThanMin) ? minPxWidth : abs(my::rounds(scalerWidthInPx));
+    if (!higherThanMax && !lessThanMin)
+    {
+      double a = ang::AngleTo(pt0, pt1);
+      m2::RectD r = MercatorBounds::RectByCenterXYAndSizeInMeters(glbPivot.x,
+                                                                  glbPivot.y,
+                                                                  cos(a) * m_metresDiff / 2,
+                                                                  sin(a) * m_metresDiff / 2);
+
+      pt0 = m_screen.GtoP(m2::PointD(r.minX(), r.minY()));
+      pt1 = m_screen.GtoP(m2::PointD(r.maxX(), r.maxY()));
+
+      scalerWidthInPx = pt0.Length(pt1);
+      scalerWidthInPx = abs(my::rounds(scalerWidthInPx));
+    }
 
     m2::PointD scalerOrg = pivot() + m2::PointD(-scalerWidthInPx / 2, rulerHeight / 2);
 
