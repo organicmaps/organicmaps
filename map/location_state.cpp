@@ -58,18 +58,20 @@ namespace location
         // display compass only if position is available
         double orientationRadius = max(pxErrorRadius, 30.0 * drawer.VisualScale());
 
+        double screenAngle = nav.Screen().GetAngle();
+
         if (m_flags & State::ECompass)
         {
           drawer.screen()->drawSector(pxPosition,
-                m_headingRad - m_headingHalfSectorRad,
-                m_headingRad + m_headingHalfSectorRad,
+                screenAngle + m_headingRad - m_headingHalfSectorRad,
+                screenAngle + m_headingRad + m_headingHalfSectorRad,
                 orientationRadius,
                 yg::Color(255, 255, 255, 192),
                 yg::maxDepth);
 
           drawer.screen()->fillSector(pxPosition,
-                m_headingRad - m_headingHalfSectorRad,
-                m_headingRad + m_headingHalfSectorRad,
+                screenAngle + m_headingRad - m_headingHalfSectorRad,
+                screenAngle + m_headingRad + m_headingHalfSectorRad,
                 orientationRadius,
                 yg::Color(255, 255, 255, 96),
                 yg::maxDepth - 1);
