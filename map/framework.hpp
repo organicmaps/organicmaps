@@ -220,7 +220,7 @@ public:
 private:
   search::Engine * GetSearchEngine() const;
 
-  void CheckMinGlobalRect(m2::RectD & r) const;
+  void CheckMinGlobalRect(m2::AnyRectD & r) const;
 
 public:
   m2::RectD GetCurrentViewport() const;
@@ -302,8 +302,9 @@ public:
 
   virtual void EndPaint(shared_ptr<PaintEvent> const & e);
 
-  void ShowRect(m2::RectD rect);
-  void ShowRectFixed(m2::RectD rect);
+  void ShowRect(m2::RectD const & rect);
+  void ShowRectFixed(m2::RectD const & rect);
+  void ShowRectFixed(m2::AnyRectD const & rect);
 
   void DrawPlacemark(m2::PointD const & pt);
   void DisablePlacemark();

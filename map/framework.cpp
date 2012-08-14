@@ -125,7 +125,11 @@ void Framework::OnGpsUpdate(location::GpsInfo const & info)
     if (setScale != -1)
       rect = scales::GetRectForLevel(setScale, center, 1.0);
 
-    ShowRectFixed(rect);
+    double a = m_navigator.Screen().GetAngle();
+    double dx = rect.SizeX();
+    double dy = rect.SizeY();
+
+    ShowRectFixed(m2::AnyRectD(rect.Center(), a, m2::RectD(-dx/2, -dy/2, dx/2, dy/2)));
 
     m_centeringMode = ECenterOnly;
     break;
@@ -687,25 +691,38 @@ void Framework::SetViewportCenter(m2::PointD const & pt)
 
 static int const theMetersFactor = 6;
 
-void Framework::CheckMinGlobalRect(m2::RectD & rect) const
+void Framework::CheckMinGlobalRect(m2::AnyRectD & rect) const
 {
   m2::RectD const minRect = MercatorBounds::RectByCenterXYAndSizeInMeters(
-                                rect.Center(), theMetersFactor * m_metresMinWidth);
+                                rect.GlobalCenter(), theMetersFactor * m_metresMinWidth);
 
-  if (minRect.IsRectInside(rect))
-    rect = minRect;
+  double dx = minRect.SizeX();
+  double dy = minRect.SizeY();
+  double a = m_navigator.Screen().GetAngle();
+
+  m2::AnyRectD const minAnyRect(minRect.Center(), a, m2::RectD(-dx/2, -dy/2, dx/2, dy/2));
+
+  if (minAnyRect.IsRectInside(rect))
+    rect = minAnyRect;
 }
 
-void Framework::ShowRect(m2::RectD rect)
+void Framework::ShowRect(m2::RectD const & r)
 {
+  m2::AnyRectD rect(r);
   CheckMinGlobalRect(rect);
 
-  m_navigator.SetFromRect(m2::AnyRectD(rect));
+  m_navigator.SetFromRect(rect);
   Invalidate();
 }
 
-void Framework::ShowRectFixed(m2::RectD rect)
+void Framework::ShowRectFixed(m2::RectD const & rect)
 {
+  ShowRectFixed(m2::AnyRectD(rect));
+}
+
+void Framework::ShowRectFixed(m2::AnyRectD const & r)
+{
+  m2::AnyRectD rect(r);
   CheckMinGlobalRect(rect);
 
   /*
@@ -726,7 +743,8 @@ void Framework::ShowRectFixed(m2::RectD rect)
   m2::PointD const pxCenter = m_navigator.Screen().PixelRect().Center();
   etalonRect.Offset(pxCenter);
 
-  m_navigator.SetFromRects(m2::AnyRectD(rect), etalonRect);
+  m_navigator.SetFromRects(rect, etalonRect);
+
   Invalidate();
 }
 
@@ -1050,7 +1068,11 @@ void Framework::ShowSearchResult(search::Result const & res)
       r = scales::GetRectForLevel(worldS, c, 1.0);
   }
 
-  ShowRectFixed(r);
+  double a = m_navigator.Screen().GetAngle();
+  double dx = r.SizeX();
+  double dy = r.SizeY();
+
+  ShowRectFixed(m2::AnyRectD(r.Center(), a, m2::RectD(-dx/2, -dy/2, dx/2, dy/2)));
 
   DrawPlacemark(res.GetFeatureCenter());
 }
