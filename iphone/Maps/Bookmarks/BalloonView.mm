@@ -21,7 +21,6 @@
     color = [[NSString alloc] initWithString:@"placemark-purple"];
     setName = [[NSString alloc] initWithString:NSLocalizedString(@"my_places", @"Default bookmarks set name")];
     pinImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.color]];
-    m_titleView = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"BookmarkTitle"];
     isDisplayed = NO;
     m_target = target;
     m_selector = selector;
@@ -41,21 +40,69 @@
   [super dealloc];
 }
 
+- (UIImage *)createPopupImageWithName:(NSString *)name andAddress:(NSString *)address
+{
+  UIImage * left = [UIImage imageNamed:@"left"];
+  UIImage * right = [UIImage imageNamed:@"right"];
+  UIImage * middle = [UIImage imageNamed:@"middle"];
+  UIImage * tail = [UIImage imageNamed:@"tail"];
+  UIImage * arrow = [UIImage imageNamed:@"arrow"];
+
+  // Calculate text width and height
+  UIFont * nameFont = [UIFont boldSystemFontOfSize:[UIFont buttonFontSize]];
+  UIFont * addressFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+
+  CGSize const defSize = CGSizeMake(arrow.size.width + tail.size.width + left.size.width + right.size.width,
+                                    tail.size.height);
+  CGSize const nameSize = name ? [name sizeWithFont:nameFont] : defSize;
+  CGSize const addressSize = address ? [address sizeWithFont:addressFont] : defSize;
+
+  CGFloat const minScreenWidth = MIN([UIScreen mainScreen].applicationFrame.size.width,
+                                     [UIScreen mainScreen].applicationFrame.size.height);
+
+  CGFloat const padding = 1.;
+
+  // Generated image size
+  CGFloat const height = tail.size.height;
+  CGFloat const additionalPadding = padding * 3 + arrow.size.width + left.size.width + right.size.width;
+  CGFloat const width = MAX(MIN(minScreenWidth, nameSize.width + additionalPadding),
+                            MIN(minScreenWidth, addressSize.width + additionalPadding));
+
+	UIGraphicsBeginImageContextWithOptions(CGSizeMake(width, height), NO, 0.0);
+
+  // Draw background
+	[left drawAtPoint:CGPointMake(0, 0)];
+  [right drawAtPoint:CGPointMake(width - right.size.width, 0)];
+  CGFloat const tailStartsAt = (long)(width - tail.size.width) / 2;
+  [tail drawAtPoint:CGPointMake(tailStartsAt, 0)];
+  [middle drawInRect:CGRectMake(left.size.width, 0, tailStartsAt - left.size.width, middle.size.height)];
+  [middle drawInRect:CGRectMake(tailStartsAt + tail.size.width, 0, width - tailStartsAt - tail.size.width - right.size.width, middle.size.height)];
+
+  // Draw text
+  CGFloat const textW = width - left.size.width - right.size.width - arrow.size.width;
+  CGFloat const nameTextH = left.size.height / 2;
+  [[UIColor whiteColor] set];
+  [name drawInRect:CGRectMake(left.size.width, nameTextH / 8, textW, nameTextH) withFont:nameFont lineBreakMode:UILineBreakModeTailTruncation];
+  [[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0] set];
+  [address drawInRect:CGRectMake(left.size.width, nameTextH - (nameTextH / 8), textW, nameTextH) withFont:addressFont lineBreakMode:UILineBreakModeTailTruncation];
+
+  // Draw Arrow image
+  CGFloat const arrowPadding = (left.size.height - arrow.size.height) / 2;
+  [arrow drawAtPoint:CGPointMake(width - arrow.size.width - arrowPadding, arrowPadding)];
+
+  UIImage * theImage = UIGraphicsGetImageFromCurrentImageContext();
+
+  UIGraphicsEndImageContext();
+	// return the image
+	return theImage;
+}
+
 - (void) showButtonsInView:(UIView *)view atPoint:(CGPoint)pt
 {
-  m_titleView.textLabel.text = self.title;
-  m_titleView.textLabel.textColor = [UIColor whiteColor];
-  m_titleView.detailTextLabel.text = self.description;
-  m_titleView.detailTextLabel.textColor = [UIColor whiteColor];
-  m_titleView.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-  m_titleView.backgroundColor = [UIColor blackColor];
-  m_titleView.layer.cornerRadius = 10;
-//  m_titleView.alpha = 0.8;
-//  m_titleView.textLabel.backgroundColor = [UIColor clearColor];
-//  m_titleView.detailTextLabel.backgroundColor = [UIColor clearColor];
-  CGFloat const w = view.bounds.size.width - 30;
-  CGFloat const h = m_titleView.bounds.size.height;
-  m_titleView.frame = CGRectMake(pt.x - w/2, pt.y - h, w, h);
+  [m_titleView release];
+  m_titleView = [[UIImageView alloc] initWithImage:[self createPopupImageWithName:self.title andAddress:self.description]];
+  CGSize const s = m_titleView.bounds.size;
+  m_titleView.frame = CGRectMake(pt.x - s.width/2, pt.y - s.height, s.width, s.height);
 
   m_titleView.userInteractionEnabled = YES;
   UITapGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc]
@@ -132,4 +179,5 @@
   color = newColor;
   self.pinImage.image = [UIImage imageNamed:newColor];
 }
+
 @end

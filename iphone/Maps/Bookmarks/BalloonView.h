@@ -4,7 +4,7 @@
 
 @interface BalloonView : NSObject
 {
-  UITableViewCell * m_titleView;
+  UIImageView * m_titleView;
   id m_target;
   SEL m_selector;
 
