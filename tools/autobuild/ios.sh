@@ -35,7 +35,7 @@ if [[ $CONFIGURATION == "simulator" ]]; then
   MKSPEC="$LOCAL_DIRNAME/../mkspecs/iphonesimulator-clang"
 else
   SHADOW_DIR="${SHADOW_DIR_BASE}-${CONFIGURATION}"
-  MKSPEC="$LOCAL_DIRNAME/../mkspecs/iphonedevice-llvm"
+  MKSPEC="$LOCAL_DIRNAME/../mkspecs/iphonedevice-clang"
 fi
 
 if [[ $# > 1 && "$2" == "clean" ]] ; then
