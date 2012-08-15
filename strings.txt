@@ -14,6 +14,7 @@
 		ru = Больше возможностей в полной версии MapsWithMe с оффлайн поиском. Установите ее сейчас!
 		uk = Більше можливостей у повній версії MapsWithMe з оффлайн пошуком. Встановіть її зараз!
 		cs = Více možností s plnou verzí MapsWithMe zahrnující hledání offline. Instalujte si ji teď!
+		nl = Navigeer makkelijker met MapsWithMe Pro met offline zoeken. Instelleer het nu!
 	[about]
 		en = About
 		comment = About button text (should be short! @todo - fix french)
@@ -25,6 +26,7 @@
 		ru = О картах
 		uk = О картах
 		cs = O programu
+		nl = Over
 	[back]
 		en = Back
 		comment = Button text (should be short)
@@ -36,6 +38,7 @@
 		ru = Назад
 		uk = Назад
 		cs = Zpět
+		nl = Terug
 	[cancel]
 		en = Cancel
 		comment = Button text (should be short)
@@ -47,6 +50,7 @@
 		ru = Отмена
 		uk = Скасування
 		cs = Zrušit
+		nl = Annuleer
 	[cancel_download]
 		en = Cancel Download
 		comment = Button which interrupts country download
@@ -58,6 +62,7 @@
 		ru = Отменить загрузку
 		uk = Скасувати завантаження
 		cs = Zrušit stahování
+		nl = Annulleer Download
 	[delete]
 		en = Delete
 		comment = Button which deletes downloaded country
@@ -69,6 +74,7 @@
 		ru = Удалить
 		uk = Видалити
 		cs = Smazat
+		nl = Verwijder
 	[delete_old_maps]
 		en = Delete old maps and proceed
 		comment = Button in iOS Downloader, displayed only when upgrading from v1 to v2
@@ -80,6 +86,7 @@
 		ru = Удалить старые карты и продолжить
 		uk = Видалити старі карти та продовжити
 		cs = Smazat staré mapy a pokračovat
+		nl = Verwijder oude kaarten en ga door
 	[do_not_ask_me_again]
 		en = Do not ask me again
 		comment = Button to dismiss dialog forever
@@ -91,6 +98,7 @@
 		ru = Больше не спрашивать
 		uk = Більше не питати
 		cs = Vícekrát nezobrazovat
+		nl = Nooit meer vragen
 	[do_nothing]
 		en = Continue 
 		comment = Button "do not interrupt download" if user touched actively downloading country
@@ -102,6 +110,7 @@
 		ru = Продолжить загрузку
 		uk = Продовжити завантаження
 		cs = Nic neprovádět
+		nl = Doorgaan
 	[download_maps]
 		en = Download Maps
 		de = Landkarten herunterladen
@@ -112,6 +121,7 @@
 		ru = Загрузить карты
 		uk = Завантажити карти
 		cs = Stáhnout mapy
+		nl = Gedownloade Kaarten
 	[download_x_kb]
 		en = Download %qu kB
 		comment = Settings/Downloader - Download confirmation button
@@ -123,6 +133,7 @@
 		ru = Загрузить %qu КБ
 		uk = Завантажити %qu КБ
 		cs = Stáhnout %qu kB
+		nl = Download %qu kB
 	[download_x_mb]
 		en = Download %qu MB
 		comment = Settings/Downloader - Download confirmation button
@@ -134,6 +145,7 @@
 		ru = Загрузить %qu МБ
 		uk = Завантажити %qu МБ
 		cs = Stáhnout %qu MB
+		nl = Download %qu MB
 	[download_has_failed]
 		en = Download has failed, touch again for one more try
 		comment = Settings/Downloader - info for country when download fails
@@ -145,6 +157,7 @@
 		ru = Ошибка загрузки. Нажмите, чтобы повторить попытку
 		uk = Помилка завантаження. Натисніть, щоб повторити спробу
 		cs = Stahování selhalo, zkus to znovu.
+		nl = Download is afgebroken, klik om nog een keer te proberen
 	[downloaded_x_y_touch_to_delete]
 		en = Downloaded (%1$qu %2$@), touch to delete
 		comment = Settings/Downloader - info for downloaded country
@@ -156,6 +169,7 @@
 		ru = Загружено (%1$qu %2$@), нажмите для удаления
 		uk = Завантажено (%1$qu %2$@), натисніть для видалення
 		cs = Staženo (%1$qu %2$@), klepni pro smazání.
+		nl = (%1$qu %2$@) gedownload, klik om te verwijderen
 	[downloading_x_touch_to_cancel]
 		en = Downloading %qu%%, touch to cancel
 		comment = Settings/Downloader - country info current download progress
@@ -167,6 +181,7 @@
 		ru = Загружается %qu%%, нажмите, чтобы прервать
 		uk = Завантажується %qu%%, натисніть, щоб перервати
 		cs = Stahuji %qu%%, klepni pro zrušení.
+		nl = %qu%% downloaden, klik om te annuleren
 	[downloading]
 		en = Downloading…
 		comment = Settings/Downloader - info for country which started downloading
@@ -178,6 +193,7 @@
 		ru = Загружается…
 		uk = Завантажується…
 		cs = Stahování…
+		nl = Downloaden…
 	[get_it_now]
 		en = Get it now
 		de = Installieren
@@ -188,13 +204,15 @@
 		ru = Установить
 		uk = Встановити
 		cs = Získat nyní
+		nl = Installeren
 	[share_on_facebook_text]
-		en = If you're enjoying our program, please share it with your friends on Facebook.
+		en = Are you enjoying MapsWithMe? Help your friends and family learn about the app, share it with them on Facebook!
 		comment = Text to show occasionaly with a proposal to Like our program on Facebook
-		ru = Если вам нравится наша программа, пожалуйста порекомендуйте ее своим друзьям на Facebook.
+		ru = Нравится MapsWithMe? Помогите вашим друзьям и родным узнать о приложении, поделитесь с ними на Фейсбуке!
 		de = Wenn ihnen unser Programm gefällt, teilen sie es bitte auf Facebook mit ihren Freunden.
 		uk = Якщо вам подобається наша програма, будь ласка порекомендуйте її своїм друзям на Facebook.
 		ja = アプリの使い勝手はどうでしょうか？是非Facebookで友達にシェアしてください
+		nl = Deel dit programma met uw vrienden op Facebook, als ons programma u bevalt.
 	[leave_review_text]
 		en = If you like MapsWithMe, please support us by writing a review. If you face any issues, please let us know by filling in a special form.
 		comment = Leave Review dialog title
@@ -206,11 +224,13 @@
 		ru = Если вам нравится MapsWithMe, пожалуйста, поддержите нас, написав отзыв. Если у вас возникли проблемы при использовании программы, пожалуйста, сообщите нам, заполнив специальную форму, чтобы мы могли связаться с вами для уточнения деталей.
 		uk = Якщо вам подобається MapsWithMe, будь ласка, підтримайте нас, написавши відгук. Якщо у вас виникли проблеми при використанні програми, будь ласка, повідомте нам, заповнивши спеціальну форму, щоб ми могли зв'язатися з вами для уточнення деталей.
 		cs = Pokud se ti MapsWithMe líbí, napiš nám prosím svůj názor. Pokud jsi nalezl/a nějak chyby, dej nám prosím vědět vyplněním speciálního formuláře.
+		nl = Ondersteun MapsWithMe door een review te schrijven. Vul een speciaal formulier in als u problemen ondervindt
 	[kb]
 		en = kB
 		comment = Settings/Downloader - size string
 		ru = КБ
 		uk = КБ
+		nl = KB
 	[kilometres]
 		en = Kilometres
 		comment = Choose measurement on first launch alert - choose metric system button
@@ -222,6 +242,7 @@
 		ru = Километры
 		uk = Кілометри
 		cs = Kilometry
+		nl = Kilometers
 	[leave_a_review]
 		en = Leave a Review
 		comment = Leave Review dialog - Review button
@@ -233,6 +254,7 @@
 		ru = Написать отзыв
 		uk = Написати відгук
 		cs = Zpětná vazba
+		nl = Laat een review achter
 	[location_services_are_needed_desc]
 		en = Location Services are needed to display your current position on the map.
 		comment = Location purpose text description
@@ -244,6 +266,7 @@
 		ru = Геолокация нужна для определения вашего местоположения на карте.
 		uk = Геолокація потрібна для визначення вашого місця розташування на карті.
 		cs = Služby určování polohy jsou potřebné k zobrazení tvé aktuální pozice na mapě.
+		nl = Locatie Services zijn nodig om uw huidige locatie weer te geven op de kaart
 	[maps]
 		en = Maps
 		comment = View and button titles for accessibility
@@ -255,6 +278,7 @@
 		ru = Карта
 		uk = Карта
 		cs = Mapy
+		nl = Kaart
 	[marked_for_downloading]
 		en = Marked for downloading, touch to cancel
 		comment = Settings/Downloader - info for country in the download queue
@@ -266,11 +290,13 @@
 		ru = Поставлено в очередь на загрузку, нажмите для отмены
 		uk = Поставлено в чергу на завантаження, натисніть для скасування
 		cs = Připraveno pro stažení, klepni pro zrušení.
+		nl = Kaarten
 	[mb]
 		en = MB
 		comment = Settings/Downloader - size string
 		ru = МБ
 		uk = МБ
+		nl = MB
 	[miles]
 		en = Miles
 		comment = Choose measurement on first launch alert - choose imperial system button
@@ -281,6 +307,7 @@
 		ru = Мили
 		uk = Милі
 		cs = Míle
+		nl = Mijlen
 	[my_position]
 		en = My Position
 		comment = View and button titles for accessibility
@@ -292,6 +319,7 @@
 		ru = Мое местоположение
 		uk = Моє місце розташування
 		cs = Moje poloha
+		nl = Mijn Locatie
 	[no_internet_connection_detected]
 		en = No Internet connection detected
 		comment = Settings/Downloader - No internet connection dialog title
@@ -303,6 +331,7 @@
 		ru = Отсутствует подключение к интернету
 		uk = Відсутнє підключення до інтернету
 		cs = Nenalezeno připojení k Internetu
+		nl = Geen Internet verbinding gedetecteerd
 	[no_wifi_ask_cellular_download]
 		en = No WiFi connection detected. Would you like to use cellular data (GPRS, EDGE or 3G) to download %@?
 		comment = Settings/Downloader - 3G download warning dialog title
@@ -314,6 +343,7 @@
 		ru = Нет WiFi соединения. Вы хотите скачать %@ через сотового оператора (GPRS, EDGE или 3G)?
 		uk = Відсутнє WiFi з'єднання. Ви бажаєте завантажити % @ через стільникового оператора (GPRS, EDGE або 3G)?
 		cs = Nenalezeno připojení k WiFi. Chceš použít mobilní sítě (GPRS, EDGE nebo 3G) k stažení %@?
+		nl = Geen WiFi verbinding gedetecteerd. Wilt u mobiele data (GPRS, EDGE of 3G) gebruiken om %@ te downloaden?
 	[ok]
 		en = OK
 	[enable_location_services]
@@ -327,6 +357,7 @@
 		ru = Пожалуйста, включите геолокацию в настройках телефона
 		uk = Будь ласка, включіть геолокацію в настройках телефону
 		cs = Povol prosím Službu určování polohy
+		nl = Schakel Locatie Services in
 	[free_disk_space_for_country_x]
 		en = Please free some space on your device first in order to download %@
 		comment = Settings/Downloader - No free space dialog message
@@ -338,6 +369,7 @@
 		ru = Нет свободного места. Пожалуйста, удалите ненужные карты или приложения, чтобы загрузить %@
 		uk = Немає вільного місця. Будь ласка, видаліть непотрібні карти або програми, щоб завантажити %@
 		cs = Uvolni prosím nějakou paměť v tvém zařízení, než začneš stahovat %@
+		nl = Maak ruimte vrij op uw apparaat om %@ te kunnen downloaden
 	[remind_me_later]
 		en = Remind me later
 		comment = Leave Review dialog - Not now button (remind me later)
@@ -349,6 +381,7 @@
 		ru = Напомнить позже
 		uk = Нагадати пізніше
 		cs = Upozornit mě později
+		nl = Herinner me later
 	[later]
 		en = Later
 		comment = Update maps later/Buy pro version later button text
@@ -360,6 +393,7 @@
 		ru = Не сейчас
 		uk = Не зараз
 		cs = Později
+		nl = Later
 	[never]
 		en = Never
 		comment = Don't show some dialog any more
@@ -367,6 +401,7 @@
 		ja = 決して
 		ru = Не показывать
 		uk = Не показувати
+		nl = Nooit
 	[report_an_issue]
 		en = Report an issue
 		comment = Leave Review dialog - Complain button (goes to support site)
@@ -378,6 +413,7 @@
 		ru = Сообщить о проблеме
 		uk = Повідомити про проблему
 		cs = Nahlásit chybu
+		nl = Meld een probleem
 	[search]
 		en = Search
 		comment = View and button titles for accessibility
@@ -389,6 +425,7 @@
 		ru = Поиск
 		uk = Пошук
 		cs = Hledat
+		nl = Zoeken
 	[search_available_in_pro_version]
 		en = Search is only available in the Pro version of MapsWithMe. Get it right now!
 		comment = Search button pressed dialog title in the free version
@@ -400,6 +437,7 @@
 		ru = Поиск доступен только в Pro версии MapsWithMe. Установите ее прямо сейчас!
 		uk = Пошук доступний тільки в Pro версії MapsWithMe. Встановіть її прямо зараз!
 		cs = Vyhledávání je dostupné jen v placené verzi MapsWithMe. Chceš ji teď stáhnout?
+		nl = Zoeken is alleen beschikbaar in de Pro versie van MapsWithMe. Wilt u hem nu installeren?
 	[search_map]
 		en = Search Map
 		comment = Search box placeholder text
@@ -411,6 +449,7 @@
 		ru = Поиск на карте
 		uk = Пошук на карті
 		cs = Prohledat mapu
+		nl = Zoek Kaart
 	[not_enough_disk_space]
 		en = There is not enough free disk space
 		comment = Settings/Downloader - No free space dialog title
@@ -422,6 +461,7 @@
 		ru = Нет свободного места
 		uk = Немає вільного місця
 		cs = Nedostatek volné paměti
+		nl = Er is niet genoeg vrije ruimte
 	[touch_to_download]
 		en = Touch to download
 		comment = Settings/Downloader - info for not downloaded country
@@ -433,6 +473,7 @@
 		ru = Нажмите для загрузки
 		uk = Натисніть для завантаження
 		cs = Klepni pro stažení
+		nl = Klik om te downloaden
 	[use_cellular_data]
 		en = Yes
 		comment = Settings/Downloader - 3G download warning dialog confirm button
@@ -444,6 +485,7 @@
 		ru = Да
 		uk = Так
 		cs = Ano
+		nl = Ja
 	[use_wifi_recommendation_text]
 		en = We recommend using WiFi to download large maps
 		comment = Settings/Downloader - No internet connection dialog message
@@ -455,6 +497,7 @@
 		ru = Мы рекомендуем загружать большие страны через WiFi
 		uk = Ми рекомендуємо завантажувати великі країни через WiFi
 		cs = Doporučujeme použít WiFi pro stahování větších map.
+		nl = We raden WiFi aan om grote kaarten te downloaden
 	[new_map_data_format_upgrade_dialog]
 		en = We've updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.
 		comment = NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2
@@ -464,6 +507,7 @@
 		ru = Мы обновили карты и уменьшили их размер. Для больших стран вы сможете выборочно загружать нужные вам штаты или регионы. Однако, чтобы воспользоваться новыми картами, необходимо предварительно удалить старыe.
 		uk = Ми оновили карти і зменшили їх розмір. Для великих країн ви зможете вибірково завантажувати потрібні вам штати або регіони. Однак, щоб скористатися новими картами, необхідно попередньо видалити старi.
 		cs = Aktualizovali jsme mapovou databázi a zmenšili data map. U větších zemí si nyní můžeš vybrat ke stažení pouze region/stát, který potřebuješ. Pokud však chceš používat nové mapy, měl/a bys odstranit všechny staré mapové podklady, které již byly staženy.
+		nl = Wij hebben de kaart geupdate en hem verkleind. Met grote landen kunt u nu ervoor kiezen om allen de regio/staat te downloaden die u nodig heeft. Om de nieuwe kaarten te gebruiken moet u alle oude kaarten verwijderen.
 	[which_measurement_system]
 		en = Which measurement system do you prefer?
 		comment = Choose measurement on first launch alert - title
@@ -475,6 +519,7 @@
 		ru = Какую систему измерения вы предпочитаете?
 		uk = Якій системі вимірювання ви віддаєте перевагу?
 		cs = Jaký systém pro měření preferuješ?
+		nl = Welk meetstelsel heeft u liever?
 	[location_is_disabled_long_text]
 		en = You currently have all Location Services for this device or application disabled. Please enable them in Settings.
 		comment = Location services are disabled by user alert - message
@@ -486,6 +531,7 @@
 		ru = Геолокация выключена в настройках устройства. Пожалуйста, включите ее для удобного использования программы.
 		uk = Геолокація вимкнена в налаштуваннях пристрою. Будь ласка, увімкніть її для зручного використання програми.
 		cs = Aktuálně máš všechny možnosti pro určování polohy vypnuté. Prosím povol je v Nastavení.
+		nl = U heeft momenteel alle Locatie Services voor dit apparaat of deze app uitgeschakeld. Schakel ze in bij Instellingen
 	[device_doesnot_support_location_services]
 		en = Your device doesn't support Location Services
 		comment = Location Services are not available on the device alert - message
@@ -497,6 +543,7 @@
 		ru = Ваше устройство не поддерживает геолокацию
 		uk = Ваш пристрій не підтримує геолокацію
 		cs = Tvé zařízení nepodporuje služby určování polohy
+		nl = Uw apparaat ondersteunt geen Locatie Services
 	[zoom_to_country]
 		en = Zoom to the country
 		comment = View and button titles for accessibility
@@ -508,6 +555,7 @@
 		ru = Показать страну на карте
 		uk = Показати країну на карті
 		cs = Zobrazit na mapě
+		nl = Zoom in richting het land
 	[food]
 		en = food
 		comment = Search Suggestion
@@ -519,6 +567,7 @@
 		ko = 음식
 		ru = еда
 		cs = jídlo
+		nl = eten
 	[money]
 		en = money
 		comment = Search Suggestion
@@ -530,6 +579,7 @@
 		ko = 돈
 		ru = деньги
 		cs = peníze
+		nl = geld
 	[fuel]
 		en = gas
 		comment = Search Suggestion
@@ -541,6 +591,7 @@
 		ko = 연료
 		ru = заправка
 		cs = čerpací stanice
+		nl = benzine
 	[shop]
 		en = shop
 		comment = Search Suggestion
@@ -552,6 +603,7 @@
 		ko = 쇼핑
 		ru = магазин
 		cs = obchod
+		nl = winkel
 	[transport]
 		en = transport
 		comment = Search Suggestion
@@ -562,6 +614,7 @@
 		ko = 수송
 		ru = транспорт
 		cs = doprava
+		nl = transport
 	[tourism]
 		en = sights
 		comment = Search Suggestion
@@ -573,6 +626,7 @@
 		ko = 관광
 		ru = достопримечательность
 		cs = pamětihodnosti
+		nl = toerisme
 	[country_status_added_to_queue]
 		en = ^is added to the\ndownloading queue.
 		comment = Message to display at the center of the screen when the country is added to the downloading queue
@@ -584,6 +638,7 @@
 		ru = ^добавлено в очередь\nзагрузки.
 		cs = ^přidáno do\nfronty stahování.
 		uk = ^добавлено в чергу\nзавантаження.
+		nl = ^is toegevoegd aan de\ndownload wachtrij
 	[country_status_downloading]
 		en = Downloading^ (^%)
 		comment = Message to display at the center of the screen when the country is downloading
@@ -597,17 +652,19 @@
 		ru = Загружается^ (^%)
 		uk = Завантажується^ (^%)
 		cs = Stahuji^ (^%)
+		nl = aan het downloaden^ (^%)
 	[country_status_download]
 		en = Download^
 		comment = Button text for the button at the center of the screen when the country is not downloaded
-    de = Herunterladen^
-    es = Descargar^
-    fr = Charger^
+		de = Herunterladen^
+		es = Descargar^
+		fr = Charger^
 		ja = ダウンロード^
 		ko = 다운로드^
 		ru = Загрузить^
 		uk = Завантажити^
 		cs = Stáhnout^
+		nl = Download^
 	[country_status_download_failed]
 		en = Downloading^\nhas failed
 		comment = Message to display at the center of the screen when the country download has failed
@@ -619,6 +676,7 @@
 		ru = Ошибка загрузки\n^
 		uk = Помилка завантаження^.
 		cs = Stahování^\nselhalo
+		nl = Downloaden^\nis niet gelukt
 	[try_again]
 		en = Try Again
 		comment = Button text for the button under the country_status_download_failed message
@@ -630,6 +688,7 @@
 		ru = Попробуйте еще раз
 		uk = Спробуйте ще раз
 		cs = Opakuj akci
+		nl = Probeer opnieuw
 	[app_name]
 		en = MapsWithMe
 	[about_menu_title]
@@ -642,6 +701,7 @@
 		ru = О программе
 		uk = Про програму
 		cs = O aplikaci MapsWithMe
+		nl = Over MapsWithMe
 	[downloading_touch_to_cancel]
 		en = Downloading %d%%, touch to cancel
 		de = Heruntergeladen %d%%. Berühren, um abzubrechen
@@ -652,6 +712,7 @@
 		ru = Загружается %d%%, нажмите, чтобы прервать
 		uk = Завантажується %d%%, натисніть, щоб перервати
 		cs = Stahování %d%%, klepni pro zrušení
+		nl = %d%% aan het downloaden, klik om te annuleren
 	[downloaded_touch_to_delete]
 		en = Downloaded (%@), touch to delete
 		de = Heruntergeladen (%@). Berühren, um zu löschen
@@ -662,6 +723,7 @@
 		ru = Загружено (%@), нажмите для удаления
 		uk = Завантажено (%@), натисніть для видалення
 		cs = Staženo (%@), klepni pro smazání
+		nl = Downloaded (%@), klik om te verwijderen
 	[connection_settings]
 		en = Connection Settings
 		de = Verbindungseinstellungen
@@ -672,6 +734,7 @@
 		ru = Настройки подключения
 		uk = Налаштування підключення
 		cs = Nastavení připojení
+		nl = Verbindingsinstellingen
 	[download_mb_or_kb]
 		en = Download %@
 		de = Herunterladen %@
@@ -682,6 +745,7 @@
 		ru = Загрузить %@
 		uk = Завантажити %@
 		cs = Stáhnout %@
+		nl = Download %@
 	[close]
 		en = Close
 		de = Schließen
@@ -692,6 +756,7 @@
 		ru = Закрыть
 		uk = Закрити
 		cs = Zavřít
+		nl = Sluiten
 	[unsupported_phone]
 		en = A hardware accelerated OpenGL is required. Unfortunately, your device is not supported.
 		de = Das Programm braucht OpenGL um funktionnieren zu können. Leider wird ihr Gerät nicht unterschtüzt.
@@ -702,6 +767,7 @@
 		ru = Для работы приложения необходим аппаратно ускоренный OpenGL. К сожалению, ваше устройство не поддерживается.
 		uk = Для роботи програми необхідний апаратно прискорений OpenGL. На жаль, ваш пристрій не підтримується.
 		cs = Je vyžadována hardwarová akcelerace OpenGL. Bohužel, tvé zařízení není podporováno.
+		nl = Een hardware geaccellereerde OpenGL is nodig. Jammer genoeg wordt uw apparaat niet ondersteund.
 	[download]
 		en = Download
 		de = Herunterladen
@@ -712,6 +778,7 @@
 		ru = Загрузить
 		uk = Завантажити
 		cs = Stáhnout
+		nl = Download
 	[external_storage_is_not_available]
 		en = SD card/USB storage with downloaded maps is not available
 		de = SD Karte/USB Speicher mit geladenen Karten nicht verfügbar
@@ -722,6 +789,7 @@
 		ru = Загруженные карты недоступны
 		uk = Завантажені карти недоступні
 		cs = SD karta/USB uložiště s uloženými mapami není k dispozici
+		nl = SD kaart/USB opslag met gedownloade kaarten is niet beschikbaar
 	[disconnect_usb_cable]
 		en = Please disconnect USB cable or insert memory card to use MapsWithMe
 		de = Bitte USB Kabel entfernen oder Speicherkarte einsetzen um MapsWithMe zu verwenden
@@ -732,6 +800,7 @@
 		ru = Отключите USB кабель или вставьте SD-карту
 		uk = Вимкніть USB кабель або вставте SD-карту
 		cs = Prosím odpoj USB kabel nebo vlož paměťovou kartu pro použití s MapsWithMe
+		nl = Verwijder de USB kabel of plaats een geheugen kaart om MapsWithMe te gebruiken
 	[not_enough_free_space_on_sdcard]
 		en = Please free some space on SD card/USB storage first in order to use the app
 		de = Bitte zuerst Speicherplatz auf SD Karte/USB Speicher freigeben um die Anwendung zu nutzen
@@ -742,6 +811,7 @@
 		ru = Недостаточно свободного места на SD карте/в памяти устройства для использования программы
 		uk = Недостатньо вільного місця на SD карті / в пам'яті пристрою для використання програми
 		cs = Prosím uvolni nejprve nějaký prostor na SD kartě/USB uložišti
+		nl = Maak eerst ruimte vrij op de SD kaart/USB opslag om de app te gebruiken
 	[not_enough_memory]
 		en = Not enough memory to launch app
 		de = Nicht genügend Speicher um die Anwendung zu starten
@@ -752,6 +822,7 @@
 		ru = Недостаточно памяти для запуска программы
 		uk = Недостатньо пам'яті для запуску програми
 		cs = Nedostatek paměti ke spuštění aplikace
+		nl = Not genoeg geheugen om app te starten
 	[free_space_for_country]
 		en = Please free %1$@ on your device first in order to download %2$@
 		de = Bitte zuerst %1$@ Platz schaffen um %2$@ herunterzuladen
@@ -762,6 +833,7 @@
 		ru = Для загрузки %2$@ нужно %1$@ свободного места
 		uk = Для завантаження %2$@ треба %1$@ вільного місця
 		cs = Prosím uvolni nejprve %1$@ v tvém zařízení, abys mohl/a stáhnout %2$@
+		nl = Maak %1$@ aan ruimte vrij op uw apparaat om %2$@ te downloaden
 	[download_resources]
 		en = Program needs to download \n%.1f%@ of mandatory resources.
 		comment = REMOVE THIS STRING AFTER REFACTORING
@@ -773,6 +845,7 @@
 		ru = Для запуска программы нужно загрузить \n%.1f%@ необходимых ресурсов.
 		uk = Для запуску програми потрібно завантажити\n %.1f%@ необхідних ресурсів.
 		cs = Program potřebuje stáhnout \n%.1f%@ povinných zdrojů.
+		nl = Programma moet \n%.1f%@ downloaden.
 	[getting_position]
 		en = Getting current position
 		de = Ermittle momentane Position
@@ -783,6 +856,7 @@
 		ru = Получаем местоположение
 		uk = Oтримуємо розташування
 		cs = Získávání aktuální pozice
+		nl = Huidige locatie opvragen
 	[download_resources_continue]
 		en = Go to Map
 		de = Zur Karte
@@ -793,6 +867,7 @@
 		ru = Перейти на карту
 		uk = Перейти на карту
 		cs = Přejít na mapu
+		nl = Ga naar de Kaart
 	[downloading_country_can_proceed]
 		en = Downloading %@. You can now\nproceed to the map.
 		de = Lade %@ herunter. Sie können jetzt\nzur Karte weitergehen.
@@ -803,6 +878,7 @@
 		ru = Пока загружается %@ \nвы можете пользоваться приложением.
 		uk = Поки завантажується %@ \nви можете користуватися додатком.
 		cs = Stahuji %@. Nyní můžeš \npoužít na mapě.
+		nl = %@ aan het downloaden. U kunt doorgaan\nnaar de kaart
 	[download_country_ask]
 		en = Download %@?
 		de = %@ herunterladen?
@@ -813,6 +889,7 @@
 		ru = Загрузить %@?
 		uk = Завантажити %@?
 		cs = Stáhnout %@?
+		nl = %@ downloaden?
 	[update_country_ask]
 		en = Update %@?
 		de = %@ aktualisieren?
@@ -823,6 +900,7 @@
 		ru = Обновить %@?
 		uk = Oновити %@?
 		cs = Aktualizovat %@?
+		nl = %@ updaten?
 	[download_location_map_proposal]
 		en = You can download the map\nof your current location.
 		comment = REMOVE THIS STRING AFTER REFACTORING
@@ -834,6 +912,7 @@
 		ru = Вы можете загрузить карту\nвашего текущего местоположения.
 		uk = Ви можете завантажити карту\nвашего поточного місця розташування.
 		cs = Můžeš stáhnout mapu\nof pro aktuální polohu.
+		nl = U kunt de kaart van\nuw huidige locatie downloaden
 	[download_location_update_map_proposal]
 		en = You can update the map\nof your current location.
 		comment = REMOVE THIS_STRING AFTER REFACTORING
@@ -845,6 +924,7 @@
 		ru = Вы можете обновить карту\nвашего текущего местоположения.
 		uk = Ви можете оновити карту\nвашого поточного місця розташування.
 		cs = Můžeš aktualizovat mapu\ntvé aktuální polohy.
+		nl = U kunt de kaart\nvan uw huidige locatie kunnen geupdate worden
 	[download_location_map_up_to_date]
 		en = The map at your current\nlocation (%@) is up-to-date
 		comment = REMOVE THIS STRING AFTER REFACTORING
@@ -856,6 +936,7 @@
 		ru = Карта местности, в которой\nвы находитесь (%@) уже загружена.
 		uk = Карта місцевості, в якій\nви знаходитеся (%@) вже завантажена.
 		cs = Mapa tvé aktuální\nlocation (%@) je aktuální.
+		nl = De kaart op uw huidige\nlocatie (%@) is up-to-date
 	[pause]
 		en = Pause
 		comment = REMOVE THIS STRING AFTER REFACTORING
@@ -867,6 +948,7 @@
 		ru = Приостановить
 		uk = Призупинити
 		cs = Pauza
+		nl = Pauze
 	[continue_download]
 		en = Continue
 		comment = REMOVE THIS STRING AFTER REFACTORING
@@ -878,6 +960,7 @@
 		ru = Продолжить
 		uk = Продовжити
 		cs = Pokračovat
+		nl = Doorgaan
 	[downloaded_touch_to_update]
 		en = Downloaded (%@), touch to update or delete
 		de = Heruntergeladen (%@), berühren zum aktualisieren oder löschen
@@ -888,6 +971,7 @@
 		ru = Загружено (%@), нажмите для обновления или удаления
 		uk = Завантажено (%@), натисніть для оновлення або видалення
 		cs = Staženo (%@), klepni pro smazání
+		nl = (%@) gedownload, klik om te updaten of te verwijderen
 	[update_mb_or_kb]
 		en = Update %@
 		de = Aktualisiere %@
@@ -898,6 +982,7 @@
 		ru = Обновить %@
 		uk = Oновити %@
 		cs = Aktualizace %@
+		nl = Update %@
 	[search_update_maps]
 		en = You need updated maps for search function:
 		tags = android
@@ -910,6 +995,7 @@
 		ru = Для функции поиска необходимо обновить устаревшие карты:
 		uk = Для функції пошуку необхідно оновити застарілі карти:
 		cs = Pro funkci vyhledávání musíš aktualizovat mapy:
+		nl = Om de zoekfunctie te kunnen gebruiken moet u de kaarten updaten
 	[advise_update_maps]
 		en = Update available for these maps:
 		tags = android
@@ -922,6 +1008,7 @@
 		ru = Доступно обновление для следующих карт:
 		cs = Aktualizace je k dispozici pro následující karty:
 		uk = Доступно оновлення для наступних карт:
+		nl = Update beschikbaar voor deze kaarten:
 	[suggest_uninstall_lite]
 		en = You don't need MapsWithMe Lite any more, so you can uninstall it.
 		tags = android
@@ -934,6 +1021,7 @@
 		ko = 당신은 더 이상 MapsWithMe 라이트는 필요 없어, 당신은 그것을 제거할 수 있습니다.
 		cs = Nemusíte MapsWithMe Lite víc, takže si můžete odinstalovat.
 		uk = MapsWithMe Lite більше не потрібна. Рекомендуємо її видалити.
+		nl = U heeft MapsWithMe Lite niet meer nodig, dus u kunt de app deïnstalleren
 	[download_country_success]
 		en = %@ downloaded successfuly
 		tags = android
@@ -946,6 +1034,7 @@
 		ko = %@이 성공적으로 다운로드
 		cs = %@ stáhnout úspěšně
 		uk = %@ успішно завантажена
+		nl = %@ is succesvol gedownload
 	[download_country_failed]
 		en = %@ download has failed
 		tags = android
@@ -958,6 +1047,7 @@
 		ko = %@다운로드가 실패했습니다
 		cs = %@ stahování se nezdařilo
 		uk = Не вдалося завантажити %@
+		nl = %@ download is afgebroken
 	[add_new_set]
 		en = Add new Set
 		tags = ios
@@ -970,6 +1060,7 @@
 		ja = 新しいセットを追加
 		ko = 새로운 세트 추가
 		cs =
+		nl = Voeg nieuwe Groep toe
 	[add_to_bookmarks]
 		en = Add to Bookmarks
 		tags = ios
@@ -982,6 +1073,7 @@
 		ja = ブックマークに追加
 		ko = 즐겨찾기에 추가
 		cs =
+		nl = Voeg aan Bladwijzers toe
 	[bookmark_color]
 		en = Bookmark Color
 		tags = ios
@@ -994,6 +1086,7 @@
 		ja = ブックマークの色
 		ko = 색상 즐겨찾기에 추가
 		cs =
+		nl = Bladwijzer Kleur
 	[bookmark_set_name]
 		en = Bookmark Set Name
 		tags = ios
@@ -1006,6 +1099,7 @@
 		ja = ブックマークセット名
 		ko = 집합 이름을 즐겨찾기에 추가
 		cs =
+		nl = Bladwijzer Groep Naam
 	[bookmark_sets]
 		en = Bookmark Sets
 		tags = ios
@@ -1018,6 +1112,7 @@
 		ja = ブックマークセット
 		ko = 세트를 즐겨찾기에 추가
 		cs =
+		nl = Bladwijzer groepen
 	[bookmarks]
 		en = Bookmarks
 		tags = ios
@@ -1029,7 +1124,8 @@
 		fr = Signets
 		ja = ブックマーク
 		ko = 북마크
-    cs =
+		nl = Bladwijzers
+		cs =
 	[color]
 		en = Color
 		tags = ios
@@ -1042,6 +1138,7 @@
 		ja = 色
 		ko =
 		cs =
+		nl = Kleur
 	[dropped_pin]
 		en = Dropped Pin
 		tags = ios
@@ -1054,6 +1151,7 @@
 		ja = ドロップされたピン
 		ko =
 		cs =
+		nl = Geplaatste Speld
 	[my_places]
 		en = My Places
 		tags = ios
@@ -1066,6 +1164,7 @@
 		ja = マイロケーション
 		ko =
 		cs =
+		nl = Mijn Plaatsen
 	[name]
 		en = Name
 		tags = ios
@@ -1078,6 +1177,7 @@
 		ja = 場所名
 		ko =
 		cs =
+		nl = Naam
 	[address]
 		en = Address
 		tags = ios
@@ -1090,6 +1190,7 @@
 		ja = 住所
 		ko =
 		cs =
+		nl = Adres
 	[remove_pin]
 		en = Remove Pin
 		tags = ios
@@ -1102,6 +1203,7 @@
 		ja = ピンを削除
 		ko =
 		cs =
+		nl = Verwijder speld
 	[set]
 		en = Set
 		tags = ios
@@ -1114,3 +1216,4 @@
 		ja = セット
 		ko =
 		cs =
+		nl = Groep
