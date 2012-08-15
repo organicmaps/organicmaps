@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.Utils;
 import com.nvidia.devtech.NvEventQueueActivity;
 
 public class MWMActivity extends NvEventQueueActivity implements LocationService.Listener
@@ -398,7 +399,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   public void onCreate(Bundle savedInstanceState)
   {
     // Use full-screen on Kindle Fire only
-    if (android.os.Build.MODEL.equals("Kindle Fire"))
+    if (Utils.isKindleFire())
     {
       getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
       getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
@@ -455,41 +456,42 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     // Notify user about turned off location services
     if (newStatus == LocationService.DISABLED_BY_USER)
     {
-      new AlertDialog.Builder(this)
-      .setTitle(R.string.location_is_disabled_long_text)
-      .setPositiveButton(R.string.connection_settings, new DialogInterface.OnClickListener()
+      // Do not show this dialog on Kindle Fire - it doesn't have location services
+      // and even wifi settings can't be opened programmatically
+      if (!Utils.isKindleFire())
       {
-        @Override
-        public void onClick(DialogInterface dialog, int which)
-        {
-          try
-          {
-            startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-          }
-          catch (Exception e)
-          {
-            // On older Android devices location settings are merged with security
-            try
+        new AlertDialog.Builder(this).setTitle(R.string.location_is_disabled_long_text)
+            .setPositiveButton(R.string.connection_settings, new DialogInterface.OnClickListener()
             {
-              startActivity(new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS));
-            }
-            catch (Exception ex)
+              @Override
+              public void onClick(DialogInterface dialog, int which)
+              {
+                try
+                {
+                  startActivity(new Intent(
+                      android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                } catch (Exception e)
+                {
+                  // On older Android devices location settings are merged with security
+                  try
+                  {
+                    startActivity(new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS));
+                  } catch (Exception ex)
+                  {
+                    ex.printStackTrace();
+                  }
+                }
+                dialog.cancel();
+              }
+            }).setNegativeButton(R.string.close, new DialogInterface.OnClickListener()
             {
-              ex.printStackTrace();
-            }
-          }
-          dialog.cancel();
-        }
-      })
-      .setNegativeButton(R.string.close, new DialogInterface.OnClickListener()
-      {
-        @Override
-        public void onClick(DialogInterface dialog, int which)
-        {
-          dialog.cancel();
-        }
-      })
-      .show();
+              @Override
+              public void onClick(DialogInterface dialog, int which)
+              {
+                dialog.cancel();
+              }
+            }).show();
+      }
     }
   }
 

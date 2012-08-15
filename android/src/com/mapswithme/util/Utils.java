@@ -23,4 +23,9 @@ public class Utils
       }
     }
   }
+
+  public static boolean isKindleFire()
+  {
+    return android.os.Build.MODEL.equals("Kindle Fire");
+  }
 }
