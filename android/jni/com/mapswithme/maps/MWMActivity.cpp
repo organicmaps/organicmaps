@@ -127,7 +127,9 @@ extern "C"
 
       if ((url.find("https://") == 0)
        || (url.find("market://") == 0)
-       || (url.find("http://") == 0))
+       || (url.find("http://") == 0)
+       || (url.find("samsungapps://") == 0)
+       || (url.find("amzn://") == 0))
       {
         LOG(LDEBUG, ("ProVersion URL is available: ", url));
         Settings::Set(SETTINGS_PRO_VERSION_URL_KEY, url);
