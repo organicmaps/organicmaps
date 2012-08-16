@@ -15,6 +15,8 @@
 #include "../indexer/feature.hpp"
 #include "../indexer/scales.hpp"
 
+#include "../anim/controller.hpp"
+
 #include "../gui/controller.hpp"
 
 #include "../platform/settings.hpp"
@@ -63,89 +65,25 @@ void Framework::RemoveMap(string const & datFile)
 
 void Framework::SkipLocationCentering()
 {
-  m_centeringMode = ESkipLocationCentering;
+  m_locationState.SkipLocationCentering();
 }
 
 void Framework::OnLocationStatusChanged(location::TLocationStatus newStatus)
 {
-  switch (newStatus)
-  {
-  case location::EStarted:
-  case location::EFirstEvent:
-    if (m_centeringMode != ESkipLocationCentering)
-    {
-      // set centering mode for the first location
-      m_centeringMode = ECenterAndScale;
-    }
-    break;
-
-  default:
-    m_centeringMode = EDoNothing;
-    m_locationState.TurnOff();
-    Invalidate();
-  }
+  m_locationState.OnLocationStatusChanged(newStatus);
 }
 
 void Framework::OnGpsUpdate(location::GpsInfo const & info)
 {
-  double lon = info.m_longitude;
-  double lat = info.m_latitude;
-
 #ifdef FIXED_LOCATION
-  m_fixedPos.GetLon(lon);
-  m_fixedPos.GetLat(lat);
+  location::GpsInfo rInfo(info);
+  m_fixedPos.GetLon(rInfo.m_longitude);
+  m_fixedPos.GetLat(rInfo.m_latitude);
+#else
+  location::GpsInfo const & rInfo = info;
 #endif
 
-  m2::RectD rect = MercatorBounds::MetresToXY(lon, lat, info.m_horizontalAccuracy);
-  m2::PointD const center = rect.Center();
-
-  m_locationState.UpdateGps(rect);
-
-  switch (m_centeringMode)
-  {
-  case ECenterAndScale:
-  {
-    int const rectScale = scales::GetScaleLevel(rect);
-    int setScale = -1;
-
-    // correct rect scale if country isn't downloaded
-    int const upperScale = scales::GetUpperWorldScale();
-    if (rectScale > upperScale && !IsCountryLoaded(center))
-    {
-      setScale = upperScale;
-    }
-    else
-    {
-      // correct rect scale for best user experience
-      int const bestScale = scales::GetUpperScale() - 1;
-      if (rectScale > bestScale)
-        setScale = bestScale;
-    }
-
-    if (setScale != -1)
-      rect = scales::GetRectForLevel(setScale, center, 1.0);
-
-    double a = m_navigator.Screen().GetAngle();
-    double dx = rect.SizeX();
-    double dy = rect.SizeY();
-
-    ShowRectFixed(m2::AnyRectD(rect.Center(), a, m2::RectD(-dx/2, -dy/2, dx/2, dy/2)));
-
-    m_centeringMode = ECenterOnly;
-    break;
-  }
-
-  case ECenterOnly:
-    SetViewportCenter(center);
-    break;
-
-  case ESkipLocationCentering:
-    m_centeringMode = EDoNothing;
-    break;
-
-  case EDoNothing:
-    break;
-  }
+  m_locationState.OnGpsUpdate(rInfo);
 }
 
 void Framework::OnCompassUpdate(location::CompassInfo const & info)
@@ -157,8 +95,7 @@ void Framework::OnCompassUpdate(location::CompassInfo const & info)
   location::CompassInfo const & rInfo = info;
 #endif
 
-  m_locationState.UpdateCompass(rInfo);
-  Invalidate();
+  m_locationState.OnCompassUpdate(rInfo);
 }
 
 InformationDisplay & Framework::GetInformationDisplay()
@@ -193,7 +130,7 @@ Framework::Framework()
 #endif
     m_width(0),
     m_height(0),
-    m_centeringMode(EDoNothing),
+    m_locationState(this),
     m_informationDisplay(&m_storage),
     m_lowestMapVersion(-1),
     m_benchmarkEngine(0)
@@ -211,6 +148,8 @@ Framework::Framework()
   m_stringsBundle.SetDefaultString("country_status_download_failed", "Downloading^\nhas failed");
   m_stringsBundle.SetDefaultString("try_again", "Try Again");
   m_stringsBundle.SetDefaultString("not_enough_free_space_on_sdcard", "Not enough space\nfor downloading");
+
+  m_animController.reset(new anim::Controller());
 
   // Init GUI controller.
   m_guiController.reset(new gui::Controller());
@@ -646,7 +585,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
   m_informationDisplay.doDraw(pDrawer);
 
-  m_locationState.DrawMyPosition(*pDrawer, m_navigator);
+  m_locationState.Draw(*pDrawer);
 
   if (m_drawPlacemark)
     m_informationDisplay.drawPlacemark(pDrawer, "placemark", m_navigator.GtoP(m_placemark));
@@ -845,6 +784,8 @@ void Framework::StartDrag(DragEvent const & e)
 
   if (m_renderPolicy)
     m_renderPolicy->StartDrag();
+
+  m_dragCompassProcessMode = m_locationState.CompassProcessMode();
 }
 
 void Framework::DoDrag(DragEvent const & e)
@@ -856,6 +797,9 @@ void Framework::DoDrag(DragEvent const & e)
 #endif
 
   m_navigator.DoDrag(pt, ElapsedSeconds());
+
+  m_locationState.SetCompassProcessMode(location::ECompassDoNothing);
+
   if (m_renderPolicy)
     m_renderPolicy->DoDrag();
 }
@@ -870,12 +814,17 @@ void Framework::StopDrag(DragEvent const & e)
   m_informationDisplay.setDebugPoint(0, pt);
 #endif
 
-  if (m_centeringMode != EDoNothing)
+  if (m_locationState.LocationProcessMode() != location::ELocationDoNothing)
   {
     // reset GPS centering mode if we have dragged far from current location
     ScreenBase const & s = m_navigator.Screen();
     if (GetPixelCenter().Length(s.GtoP(m_locationState.Position())) >= s.GetMinPixelRectSize() / 2.0)
-      m_centeringMode = EDoNothing;
+    {
+      m_locationState.SetLocationProcessMode(location::ELocationDoNothing);
+      m_locationState.SetCompassProcessMode(location::ECompassDoNothing);
+    }
+    else
+      m_locationState.SetCompassProcessMode(m_dragCompassProcessMode);
   }
 
   if (m_renderPolicy)
@@ -921,7 +870,7 @@ void Framework::Move(double azDir, double factor)
 //@{
 void Framework::ScaleToPoint(ScaleToPointEvent const & e)
 {
-  m2::PointD const pt = (m_centeringMode == EDoNothing) ?
+  m2::PointD const pt = (m_locationState.LocationProcessMode() == location::ELocationDoNothing) ?
         m_navigator.ShiftPoint(e.Pt()) : GetPixelCenter();
 
   m_navigator.ScaleToPoint(pt, e.ScaleFactor(), ElapsedSeconds());
@@ -946,7 +895,7 @@ void Framework::CalcScalePoints(ScaleEvent const & e, m2::PointD & pt1, m2::Poin
   pt1 = m_navigator.ShiftPoint(e.Pt1());
   pt2 = m_navigator.ShiftPoint(e.Pt2());
 
-  if ((m_locationState & location::State::EGps) && (m_centeringMode == ECenterOnly))
+  if (m_locationState.HasPosition() && (m_locationState.LocationProcessMode() == location::ELocationCenterOnly))
   {
     m2::PointD const ptC = (pt1 + pt2) / 2;
     m2::PointD const ptDiff = GetPixelCenter() - ptC;
@@ -978,6 +927,12 @@ void Framework::DoScale(ScaleEvent const & e)
   m_navigator.DoScale(pt1, pt2, ElapsedSeconds());
   if (m_renderPolicy)
     m_renderPolicy->DoScale();
+
+  if (m_navigator.IsRotatingDuringScale() && (m_locationState.CompassProcessMode() == location::ECompassFollow))
+  {
+    m_locationState.StopAnimation();
+    m_locationState.SetCompassProcessMode(location::ECompassDoNothing);
+  }
 }
 
 void Framework::StopScale(ScaleEvent const & e)
@@ -1031,23 +986,12 @@ void Framework::PrepareSearch(bool hasPt, double lat, double lon)
 
 bool Framework::Search(search::SearchParams const & params)
 {
-#ifdef FIXED_LOCATION
-  search::SearchParams rParams(params);
-  if (params.m_validPos)
-  {
-    m_fixedPos.GetLat(rParams.m_lat);
-    m_fixedPos.GetLon(rParams.m_lon);
-  }
-#else
-  search::SearchParams const & rParams = params;
-#endif
-
-  return GetSearchEngine()->Search(rParams, GetCurrentViewport());
+  return GetSearchEngine()->Search(params, GetCurrentViewport());
 }
 
 bool Framework::GetCurrentPosition(double & lat, double & lon) const
 {
-  if (m_locationState.IsValidPosition())
+  if (m_locationState.HasPosition())
   {
     m2::PointD const pos = m_locationState.Position();
     lat = MercatorBounds::YToLat(pos.y);
@@ -1081,12 +1025,6 @@ void Framework::GetDistanceAndAzimut(search::Result const & res,
                                      double lat, double lon, double north,
                                      string & distance, double & azimut)
 {
-#ifdef FIXED_LOCATION
-  m_fixedPos.GetLat(lat);
-  m_fixedPos.GetLon(lon);
-  m_fixedPos.GetNorth(north);
-#endif
-
   m2::PointD const center = res.GetFeatureCenter();
 
   double const d = ms::DistanceOnEarth(lat, lon,
@@ -1152,22 +1090,6 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 
     if (m_benchmarkEngine)
       m_benchmarkEngine->Start();
-
-    /*
-    if (m_hasPendingInvalidate)
-    {
-      m_renderPolicy->SetForceUpdate(m_doForceUpdate);
-      m_renderPolicy->SetInvalidRect(m_invalidRect);
-      m_renderPolicy->GetWindowHandle()->invalidate();
-      m_hasPendingInvalidate = false;
-    }
-
-    if (m_hasPendingShowRectFixed)
-    {
-      ShowRectFixed(m_pendingFixedRect);
-      m_hasPendingShowRectFixed = false;
-    }
-    */
   }
 }
 
@@ -1221,6 +1143,11 @@ gui::Controller * Framework::GetGuiController() const
   return m_guiController.get();
 }
 
+anim::Controller * Framework::GetAnimController() const
+{
+  return m_animController.get();
+}
+
 bool Framework::SetViewportByURL(string const & url)
 {
   using namespace url_scheme;
@@ -1271,4 +1198,9 @@ void Framework::SaveFacebookDialogResult(int result)
     LOG(LINFO, ("Unknown Facebook dialog result!"));
     break;
   }
+}
+
+Navigator & Framework::GetNavigator()
+{
+  return m_navigator;
 }

@@ -550,6 +550,11 @@ void Navigator::StopScale(m2::PointD const & pt1, m2::PointD const & pt2, double
 //  m_StartScreen = m_Screen;
 }
 
+bool Navigator::IsRotatingDuringScale() const
+{
+  return m_IsRotatingDuringScale;
+}
+
 void Navigator::Scale(double scale)
 {
   ScaleToPoint(m_Screen.PixelRect().Center(), scale, 0);
@@ -577,3 +582,7 @@ void Navigator::SetSupportRotation(bool flag)
   m_DoSupportRotation = flag;
 }
 
+bool Navigator::DoSupportRotation() const
+{
+  return m_DoSupportRotation;
+}

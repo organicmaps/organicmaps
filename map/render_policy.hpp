@@ -54,6 +54,7 @@ protected:
   m2::AnyRectD m_invalidRect;
   double m_visualScale;
   string m_skinName;
+  bool m_isAnimating;
 
 public:
 
@@ -112,6 +113,9 @@ public:
 
   bool DoForceUpdate() const;
   void SetForceUpdate(bool flag);
+
+  void SetIsAnimating(bool flag);
+  bool IsAnimating() const;
 
   void SetInvalidRect(m2::AnyRectD const & glbRect);
   m2::AnyRectD const & GetInvalidRect() const;

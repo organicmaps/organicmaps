@@ -11,7 +11,6 @@
 
 TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
   : BasicTilingRenderPolicy(p,
-                            false,
                             false)
 {
   yg::ResourceManager::Params rmp = p.m_rmParams;

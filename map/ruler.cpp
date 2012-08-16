@@ -227,8 +227,8 @@ void Ruler::update()
       double a = ang::AngleTo(pt0, pt1);
       m2::RectD r = MercatorBounds::RectByCenterXYAndSizeInMeters(glbPivot.x,
                                                                   glbPivot.y,
-                                                                  cos(a) * m_metresDiff / 2,
-                                                                  sin(a) * m_metresDiff / 2);
+                                                                  abs(cos(a) * m_metresDiff / 2),
+                                                                  abs(sin(a) * m_metresDiff / 2));
 
       pt0 = m_screen.GtoP(m2::PointD(r.minX(), r.minY()));
       pt1 = m_screen.GtoP(m2::PointD(r.maxX(), r.maxY()));

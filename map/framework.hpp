@@ -37,6 +37,7 @@
 
 namespace search { class Result; }
 namespace gui { class Controller; }
+namespace anim { class Controller; }
 
 class CountryStatusDisplay;
 class BenchmarkEngine;
@@ -95,21 +96,14 @@ protected:
   int m_width;
   int m_height;
 
-  enum TGpsCenteringMode
-  {
-    EDoNothing,
-    ECenterAndScale,
-    ECenterOnly,
-    ESkipLocationCentering
-  };
-
-  TGpsCenteringMode m_centeringMode;
   location::State m_locationState;
+  location::ECompassProcessMode m_dragCompassProcessMode;
 
   //mutable threads::Mutex m_modelSyn;
 
   storage::Storage m_storage;
   scoped_ptr<gui::Controller> m_guiController;
+  scoped_ptr<anim::Controller> m_animController;
   InformationDisplay m_informationDisplay;
 
   /// This function is called by m_storage to notify that country downloading is finished.
@@ -352,6 +346,8 @@ public:
   //@}
 
   gui::Controller * GetGuiController() const;
+  anim::Controller * GetAnimController() const;
+  Navigator & GetNavigator();
 
   /// Set the localized strings bundle
   inline void AddString(string const & name, string const & value)
@@ -371,6 +367,7 @@ public:
   void SaveFacebookDialogResult(int result);
   /// @}
 
-private:
+  /// Checks, whether the country which contains
+  /// the specified point is loaded
   bool IsCountryLoaded(m2::PointD const & pt) const;
 };

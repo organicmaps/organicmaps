@@ -35,9 +35,8 @@ size_t BasicTilingRenderPolicy::CalculateTileSize(size_t screenWidth, size_t scr
 }
 
 BasicTilingRenderPolicy::BasicTilingRenderPolicy(Params const & p,
-                                                 bool doSupportRotation,
                                                  bool doUseQueuedRenderer)
-  : RenderPolicy(p, doSupportRotation, GetPlatform().CpuCores()),
+  : RenderPolicy(p, true, GetPlatform().CpuCores()),
     m_DrawScale(0),
     m_IsEmptyModel(false),
     m_DoRecreateCoverage(false),
@@ -73,7 +72,7 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
   if (doForceUpdate)
     m_CoverageGenerator->InvalidateTiles(GetInvalidRect(), scales::GetUpperWorldScale() + 1);
 
-  if (!m_IsNavigating)
+  if (!m_IsNavigating && (!IsAnimating()))
     m_CoverageGenerator->AddCoverScreenTask(s,
                                             m_DoRecreateCoverage || (doForceUpdate && doIntersectInvalidRect));
 

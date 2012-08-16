@@ -41,6 +41,7 @@ public:
   void DoScale(m2::PointD const & org, m2::PointD const & p1, m2::PointD const & p2);
   void DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);
   void StopScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);
+  bool IsRotatingDuringScale() const;
 
   void ScaleToPoint(m2::PointD const & pt, double factor, double timeInSec);
 
@@ -54,8 +55,10 @@ public:
 
   bool InAction() const;
 
+  /// enabling/disabling screen rotation handling
   void SetSupportRotation(bool flag);
-
+  /// checking, whether the navigator supports rotation
+  bool DoSupportRotation() const;
   /// Our surface is a square which is bigger than visible screen area on the device,
   /// so we should take it into an account
   m2::PointD ShiftPoint(m2::PointD const & pt) const;

@@ -36,7 +36,8 @@ RenderPolicy::RenderPolicy(Params const & p,
     m_doSupportRotation(doSupportRotation),
     m_doForceUpdate(false),
     m_visualScale(p.m_visualScale),
-    m_skinName(p.m_skinName)
+    m_skinName(p.m_skinName),
+    m_isAnimating(false)
 {
   LOG(LDEBUG, ("each BaseRule will hold up to", idCacheSize, "cached values"));
   drule::rules().ResizeCaches(idCacheSize);
@@ -206,6 +207,16 @@ int RenderPolicy::InsertBenchmarkFence()
 
 void RenderPolicy::JoinBenchmarkFence(int fenceID)
 {
+}
+
+void RenderPolicy::SetIsAnimating(bool flag)
+{
+  m_isAnimating = flag;
+}
+
+bool RenderPolicy::IsAnimating() const
+{
+  return m_isAnimating;
 }
 
 RenderPolicy * CreateRenderPolicy(RenderPolicy::Params const & params)

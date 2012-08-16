@@ -1,52 +1,85 @@
 #pragma once
 
+#include "../platform/location.hpp"
+
 #include "../geometry/point2d.hpp"
-#include "../geometry/rect2d.hpp"
+
+#include "../std/shared_ptr.hpp"
 
 class DrawerYG;
-class Navigator;
+class Framework;
+class RotateScreenTask;
 
 namespace location
 {
   class GpsInfo;
   class CompassInfo;
 
+  enum ELocationProcessMode
+  {
+    ELocationDoNothing,
+    ELocationCenterAndScale,
+    ELocationCenterOnly,
+    ELocationSkipCentering
+  };
+
+  enum ECompassProcessMode
+  {
+    ECompassDoNothing,
+    ECompassFollow
+  };
+
+  // Class, that handles position and compass updates,
+  // centers, scales and rotates map according to this updates
+  // and draws location and compass marks.
   class State
   {
-    double m_errorRadiusMercator;
-    m2::PointD m_positionMercator;
+  private:
+    double m_errorRadius; //< error radius in mercator
+    m2::PointD m_position; //< position in mercator
 
-    double m_headingRad;
-    /// Angle to the left and to the right from the North
-    double m_headingHalfSectorRad;
+    double m_headingRad; //< direction in radians
+    double m_headingHalfErrorRad; //< direction error in radians
 
-    int m_flags;      ///< stores flags from SymbolType
+    bool m_hasPosition;
+    bool m_hasCompass;
+
+    ELocationProcessMode m_locationProcessMode;
+    ECompassProcessMode m_compassProcessMode;
+
+    shared_ptr<RotateScreenTask> m_rotateScreenTask;
+
+    Framework * m_fw;
+
+    void FollowCompass();
 
   public:
-    enum SymbolType
-    {
-      ENone = 0x0,
-      EGps = 0x1,
-      ECompass = 0x2
-    };
 
-    State();
+    State(Framework * framework);
 
     /// @return GPS center point in mercator
-    m2::PointD Position() const { return m_positionMercator; }
+    m2::PointD const & Position() const { return m_position; }
 
-    inline bool IsValidPosition() const { return ((m_flags & EGps) != 0); }
-    inline void TurnOff() { m_flags = ENone; }
+    bool HasPosition() const;
+    bool HasCompass() const;
 
-    /// @param[in] rect Bound rect for circle with position center and error radius.
-    void UpdateGps(m2::RectD const & rect);
-    void UpdateCompass(CompassInfo const & info);
+    ELocationProcessMode LocationProcessMode() const;
+    void SetLocationProcessMode(ELocationProcessMode mode);
 
-    void DrawMyPosition(DrawerYG & drawer, Navigator const & nav);
+    ECompassProcessMode CompassProcessMode() const;
+    void SetCompassProcessMode(ECompassProcessMode mode);
 
-    operator int() const
-    {
-      return m_flags;
-    }
+    void TurnOff();
+
+    void Draw(DrawerYG & drawer);
+    void StopAnimation();
+
+    /// @name GPS location updates routine.
+    //@{
+    void SkipLocationCentering();
+    void OnLocationStatusChanged(location::TLocationStatus newStatus);
+    void OnGpsUpdate(location::GpsInfo const & info);
+    void OnCompassUpdate(location::CompassInfo const & info);
+    //@}
   };
 }

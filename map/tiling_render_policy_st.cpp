@@ -12,7 +12,6 @@
 
 TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
   : BasicTilingRenderPolicy(p,
-                            true,
                             true)
 {
   int cpuCores = GetPlatform().CpuCores();

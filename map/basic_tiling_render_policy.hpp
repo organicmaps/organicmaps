@@ -47,7 +47,6 @@ protected:
 public:
 
   BasicTilingRenderPolicy(Params const & p,
-                          bool doSupportRotation,
                           bool doUseQueuedRenderer);
 
   void BeginFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);
