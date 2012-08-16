@@ -290,14 +290,16 @@ void FeatureType::GetPreferredDrawableNames(string & defaultName, string & intNa
   }
 }
 
-uint32_t FeatureType::GetPopulation() const
+uint8_t FeatureType::GetRank() const
 {
   ParseCommon();
+  return m_Params.rank;
+}
 
-  if (m_Params.rank == 0)
-    return 1;
-
-  return static_cast<uint32_t>(pow(1.1, m_Params.rank));
+uint32_t FeatureType::GetPopulation() const
+{
+  uint8_t const r = GetRank();
+  return (r == 0 ? 1 : static_cast<uint32_t>(pow(1.1, r)));
 }
 
 double FeatureType::GetPopulationDrawRank() const

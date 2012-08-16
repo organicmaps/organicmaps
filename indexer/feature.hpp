@@ -60,6 +60,8 @@ public:
     return (Header() & feature::HEADER_HAS_NAME) != 0;
   }
 
+  // Array with 64 strings ??? Use ForEachName instead!
+  /*
   class GetNamesFn
   {
   public:
@@ -75,6 +77,7 @@ public:
       return true;
     }
   };
+  */
 
   template <class T>
   inline bool ForEachNameRef(T & functor) const
@@ -222,8 +225,13 @@ public:
   void GetPrefferedNames(string & defaultName, string & intName) const;
   /// Additional - take into account house number for defaultName
   void GetPreferredDrawableNames(string & defaultName, string & intName) const;
+  inline bool GetName(int8_t lang, string & name) const
+  {
+    return m_Params.name.GetString(lang, name);
+  }
   //@}
 
+  uint8_t GetRank() const;
   uint32_t GetPopulation() const;
   double GetPopulationDrawRank() const;
 

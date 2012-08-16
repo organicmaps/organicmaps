@@ -236,31 +236,66 @@ struct TrieRootPrefix
   }
 };
 
-template <class ToDo, class FilterT>
-void MatchFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
-                         vector<strings::UniString> const & prefixTokens,
-                         TrieRootPrefix const & trieRoot,
-                         TrieRootPrefix const & catRoot,
-                         FilterT const & filter,
-                         ToDo & toDo)
+/// Return features set for each token.
+template <class HolderT>
+void GetFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
+                       vector<strings::UniString> const & prefixTokens,
+                       TrieRootPrefix const & trieRoot,
+                       HolderT & holder)
 {
-  //LOG(LDEBUG, ("Tokens: ", tokens));
-  //LOG(LDEBUG, ("Prefix: ", prefixTokens));
-
-  impl::OffsetIntersecter<FilterT> intersecter(filter);
-
   // Match tokens.
-  for (size_t i = 0; i < tokens.size(); ++i)
+  size_t const count = tokens.size();
+  holder.Resize(count + 1);
+
+  for (size_t i = 0; i < count; ++i)
   {
+    holder.StartNew(i);
+
     for (size_t j = 0; j < tokens[i].size(); ++j)
     {
       ASSERT ( !tokens[i][j].empty(), () );
 
       impl::FullMatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize,
+                            tokens[i][j], holder);
+    }
+  }
+
+  // Match prefix.
+  holder.StartNew(count);
+  for (size_t i = 0; i < prefixTokens.size(); ++i)
+  {
+    ASSERT ( !prefixTokens[i].empty(), () );
+
+    impl::FullMatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize,
+                          prefixTokens[i], holder);
+  }
+}
+
+/// Do set intersection of features for each token.
+template <class ToDo, class FilterT, class HolderT>
+void MatchFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
+                         vector<strings::UniString> const & prefixTokens,
+                         TrieRootPrefix const & trieRoot,
+                         FilterT const & filter,
+                         HolderT const & addHolder,
+                         ToDo & toDo)
+{
+  impl::OffsetIntersecter<FilterT> intersecter(filter);
+
+  // Match tokens.
+  size_t const count = tokens.size();
+  for (size_t i = 0; i < count; ++i)
+  {
+    for (size_t j = 0; j < tokens[i].size(); ++j)
+    {
+      ASSERT ( !tokens[i][j].empty(), () );
+
+      // match in trie
+      impl::FullMatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize,
                             tokens[i][j], intersecter);
 
-      impl::FullMatchInTrie(catRoot.m_root, catRoot.m_prefix, catRoot.m_prefixSize,
-                            tokens[i][j], intersecter);
+      // get additional features for token
+      addHolder.GetValues(i, intersecter);
     }
 
     intersecter.NextStep();
@@ -272,11 +307,12 @@ void MatchFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
   {
     ASSERT ( !prefixTokens[i].empty(), () );
 
+    // match in trie
     impl::PrefixMatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize,
                             prefixTokens[i], intersecter);
 
-    impl::FullMatchInTrie(catRoot.m_root, catRoot.m_prefix, catRoot.m_prefixSize,
-                          prefixTokens[i], intersecter);
+    // get additional features for token
+    addHolder.GetValues(count, intersecter);
   }
 
   if (prefixCount > 0)

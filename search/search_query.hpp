@@ -34,12 +34,15 @@ namespace impl
   class FeatureLoader;
   class BestNameFinder;
   class PreResult2Maker;
+  struct Locality;
+  class DoFindLocality;
 }
 
 class Query
 {
 public:
-  static int const m_scaleDepthSearch = 7;
+  static int const SCALE_SEARCH_DEPTH = 7;
+  static int const ADDRESS_SCALE = 10;
 
   struct SuggestT
   {
@@ -84,10 +87,13 @@ public:
   inline bool IsCanceled() const { return m_cancel; }
   struct CancelException {};
 
+  typedef trie::ValueReader::ValueType TrieValueT;
+
 private:
   friend class impl::FeatureLoader;
   friend class impl::BestNameFinder;
   friend class impl::PreResult2Maker;
+  friend class impl::DoFindLocality;
 
   void InitSearch(string const & query);
   void InitKeywordsScorer();
@@ -96,12 +102,12 @@ private:
   typedef vector<MwmInfo> MWMVectorT;
   typedef vector<vector<uint32_t> > OffsetsVectorT;
 
+  void SetViewportByIndex(MWMVectorT const & mwmInfo, m2::RectD const & viewport, size_t idx);
   void UpdateViewportOffsets(MWMVectorT const & mwmInfo, m2::RectD const & rect,
                              OffsetsVectorT & offsets);
   void ClearCache(size_t ind);
 
-  typedef trie::ValueReader::ValueType TrieValueT;
-  void AddResultFromTrie(TrieValueT const & val, size_t mwmID);
+  void AddResultFromTrie(TrieValueT const & val, size_t mwmID, int viewportID);
 
   void FlushResults(Results & res, void (Results::*pAddFn)(Result const &));
 
@@ -114,22 +120,36 @@ private:
     TokensVectorT m_prefixTokens;
     LangsSetT m_langs;
 
-    Params(Query & q);
+    /// Initialize search params (tokens, languages).
+    /// @param[in]  isLocalities  Use true when search for locality in World.
+    Params(Query const & q, bool isLocalities = false);
+
+    /// @param[in] eraseInds Sorted vector of token's indexes.
+    void EraseTokens(vector<size_t> const & eraseInds);
+
+    bool IsEmpty() const { return (m_tokens.empty() && m_prefixTokens.empty()); }
+    bool IsLangExist(uint8_t l) const { return (m_langs.count(l) > 0); }
+
+  private:
+    void AddSynonims(Query const & q, bool isLocalities);
+    void FillLanguages(Query const & q);
   };
 
+  void SearchAddress();
+  bool SearchLocality(MwmValue * pMwm, impl::Locality & res);
+
   void SearchFeatures();
-  void SearchFeatures(Params const & params,
-                      MWMVectorT const & mwmInfo,
-                      size_t ind);
-  void SearchInMWM(Index::MwmLock const & mwmLock,
-                   Params const & params,
-                   OffsetsVectorT const * offsets);
+  void SearchFeatures(Params const & params, MWMVectorT const & mwmInfo, int ind);
+
+  /// Do search in particular map. Pass offsets == 0 if you don't want
+  /// results set to be intersected with source feature's offsets.
+  void SearchInMWM(Index::MwmLock const & mwmLock, Params const & params, int ind);
 
   void SuggestStrings(Results & res);
   bool MatchForSuggestionsImpl(strings::UniString const & token, int8_t lang, Results & res);
   void MatchForSuggestions(strings::UniString const & token, Results & res);
 
-  void GetBestMatchName(FeatureType const & f, uint32_t & penalty, string & name);
+  void GetBestMatchName(FeatureType const & f, uint32_t & penalty, string & name) const;
 
   inline Result MakeResult(impl::PreResult2 const & r, set<uint32_t> const * pPrefferedTypes = 0) const
   {
@@ -147,13 +167,22 @@ private:
   buffer_vector<strings::UniString, 32> m_tokens;
   strings::UniString m_prefix;
 
-  static size_t const RECTSCOUNT = 2;
+  /// 0 - current viewport rect
+  /// 1 - near me rect
+  /// 2 - around city rect
+  static size_t const RECTSCOUNT = 3;
+  static int const ADDRESS_RECT_ID = RECTSCOUNT-1;
 
   m2::RectD m_viewport[RECTSCOUNT];
   bool m_worldSearch;
 
+  /// @name Get ranking params.
+  /// @param[in]  viewportID  Index of search viewport (@see comments above); -1 means default viewport.
+  //@{
   /// @return Rect for viewport-distance calculation.
-  m2::RectD const & GetViewport() const;
+  m2::RectD const & GetViewport(int viewportID = -1) const;
+  m2::PointD GetPosition(int viewportID = -1) const;
+  //@}
 
   m2::PointD m_position;
 

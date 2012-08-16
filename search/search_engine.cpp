@@ -123,7 +123,7 @@ namespace
     else
     {
       if (arrRects[VIEWPORT_RECT].IsRectInside(arrRects[NEARME_RECT]) &&
-          (scales::GetScaleLevel(arrRects[VIEWPORT_RECT]) + Query::m_scaleDepthSearch >= scales::GetUpperScale()))
+          (scales::GetScaleLevel(arrRects[VIEWPORT_RECT]) + Query::SCALE_SEARCH_DEPTH >= scales::GetUpperScale()))
       {
         arrRects[NEARME_RECT].MakeEmpty();
       }
