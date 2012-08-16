@@ -52,6 +52,8 @@
 		EEFC0BBF12B5656A002914FF /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020311CD464100ABDD5D /* libfreetype.a */; };
 		EEFE7C1412F8C9E1006AF8C3 /* fonts_blacklist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */; };
 		EEFE7C1512F8C9E1006AF8C3 /* fonts_whitelist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */; };
+		EEFFB4E815DCDD8A00BACE1C /* libanim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEFFB4E715DCDD8A00BACE1C /* libanim.a */; };
+		EEFFB4E915DCDD8A00BACE1C /* libanim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEFFB4E715DCDD8A00BACE1C /* libanim.a */; };
 		F7B90CD31521E6D200C054EE /* CustomNavigationView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F7B90CD21521E6D100C054EE /* CustomNavigationView.mm */; };
 		F7B90CD41521E6D200C054EE /* CustomNavigationView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F7B90CD21521E6D100C054EE /* CustomNavigationView.mm */; };
 		F7FDD823147F30CC005900FA /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = F7FDD822147F30CC005900FA /* drules_proto.bin */; };
@@ -1364,6 +1366,7 @@
 		EEF5745412DE1AD50082F472 /* libfribidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfribidi.a; sourceTree = SOURCE_ROOT; };
 		EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fonts_blacklist.txt; path = ../../data/fonts_blacklist.txt; sourceTree = "<group>"; };
 		EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fonts_whitelist.txt; path = ../../data/fonts_whitelist.txt; sourceTree = "<group>"; };
+		EEFFB4E715DCDD8A00BACE1C /* libanim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libanim.a; path = "libanim.a"; sourceTree = "SOURCE_ROOT"; };
 		F7B90CD11521E6D100C054EE /* CustomNavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationView.h; sourceTree = "<group>"; };
 		F7B90CD21521E6D100C054EE /* CustomNavigationView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomNavigationView.mm; sourceTree = "<group>"; };
 		F7DD848414FE77F8005695E1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2044,6 +2047,7 @@
 				FAEA8B2A1437CA80002A6737 /* libjansson.a in Frameworks */,
 				FAF29847146EEF4A00FF0057 /* libprotobuf.a in Frameworks */,
 				EE5A34E6156FCB9500E34FFE /* libgui.a in Frameworks */,
+				EEFFB4E815DCDD8A00BACE1C /* libanim.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2075,6 +2079,7 @@
 				FAFB0910151215EE0041901D /* libjansson.a in Frameworks */,
 				FAFB0911151215EE0041901D /* libprotobuf.a in Frameworks */,
 				EE5A34E7156FCBD800E34FFE /* libgui.a in Frameworks */,
+				EEFFB4E915DCDD8A00BACE1C /* libanim.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2277,6 +2282,7 @@
 				EE12020511CD464100ABDD5D /* libindexer.a */,
 				EE12020611CD464100ABDD5D /* libmap.a */,
 				EE12020811CD464100ABDD5D /* libyg.a */,
+				EEFFB4E715DCDD8A00BACE1C /* libanim.a */,
 			);
 			name = "Static Libraries";
 			sourceTree = "<group>";
@@ -4347,6 +4353,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../omim-iphone-release/out/release\"",
+				);
 			};
 			name = "Simulator Lite";
 		};
@@ -4444,6 +4454,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../omim-iphone-release/out/release\"",
+				);
 			};
 			name = "Production Lite";
 		};
@@ -4498,6 +4512,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../omim-iphone-release/out/release\"",
+				);
 			};
 			name = "Debug Lite";
 		};
@@ -4555,6 +4573,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../omim-iphone-release/out/release\"",
+				);
 			};
 			name = "AdHoc Lite";
 		};
@@ -4602,6 +4624,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../omim-iphone-release/out/release\"",
+				);
 			};
 			name = "Simulator Full";
 		};
@@ -4656,6 +4682,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../omim-iphone-release/out/release\"",
+				);
 			};
 			name = "Debug Full";
 		};
@@ -4713,6 +4743,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../omim-iphone-release/out/release\"",
+				);
 			};
 			name = "AdHoc Full";
 		};
@@ -4770,6 +4804,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../omim-iphone-release/out/release\"",
+				);
 			};
 			name = "Production Full";
 		};
@@ -4826,6 +4864,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../omim-iphone-release/out/release\"",
+				);
 			};
 			name = "Release Lite";
 		};
@@ -4882,6 +4924,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../omim-iphone-release/out/release\"",
+				);
 			};
 			name = "Release Full";
 		};
@@ -4889,6 +4935,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../omim-iphone-release/out/release\"",
+				);
 			};
 			name = "Simulator Lite";
 		};
@@ -4896,6 +4946,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../omim-iphone-release/out/release\"",
+				);
 			};
 			name = "Simulator Full";
 		};
@@ -4903,6 +4957,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../omim-iphone-release/out/release\"",
+				);
 			};
 			name = "Debug Lite";
 		};
@@ -4910,6 +4968,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../omim-iphone-release/out/release\"",
+				);
 			};
 			name = "Debug Full";
 		};
@@ -4917,6 +4979,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../omim-iphone-release/out/release\"",
+				);
 			};
 			name = "AdHoc Lite";
 		};
@@ -4924,6 +4990,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../omim-iphone-release/out/release\"",
+				);
 			};
 			name = "Release Lite";
 		};
@@ -4931,6 +5001,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../omim-iphone-release/out/release\"",
+				);
 			};
 			name = "AdHoc Full";
 		};
@@ -4938,6 +5012,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../omim-iphone-release/out/release\"",
+				);
 			};
 			name = "Release Full";
 		};
@@ -4945,6 +5023,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../omim-iphone-release/out/release\"",
+				);
 			};
 			name = "Production Lite";
 		};
@@ -4952,6 +5034,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../omim-iphone-release/out/release\"",
+				);
 			};
 			name = "Production Full";
 		};

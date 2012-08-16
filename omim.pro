@@ -16,6 +16,7 @@ SUBDIRS = 3party \
           platform \
           geometry/geometry_tests \
           platform/platform_tests \
+          anim \
           yg \
           gui \
           storage storage/storage_tests \
@@ -35,6 +36,7 @@ SUBDIRS = 3party \
             geometry \
             version \
             platform \
+            anim \
             indexer \
             storage \
             yg \

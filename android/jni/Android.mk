@@ -45,7 +45,7 @@ LOCAL_SRC_FILES := \
 	nv_time/nv_time.cpp
 
 LOCAL_LDLIBS := -llog -lGLESv2 \
-		-lmap -lgui -lversion -lsearch -lstorage -lindexer -lyg -lplatform \
+		-lmap -lgui -lversion -lsearch -lstorage -lindexer -lyg -lplatform -lanim \
 		-lgeometry -lcoding -lbase -lexpat -lfreetype -lfribidi -lzlib -lbzip2 \
 		-ljansson -ltomcrypt -lprotobuf ./obj/local/$(TARGET_ARCH_ABI)/libgnustl_static.a
 
