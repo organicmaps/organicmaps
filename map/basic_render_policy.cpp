@@ -45,6 +45,8 @@ m2::RectI const BasicRenderPolicy::OnSize(int w, int h)
 void BasicRenderPolicy::BeginFrame(shared_ptr<PaintEvent> const & e,
                                    ScreenBase const & s)
 {
+  RenderPolicy::BeginFrame(e, s);
+
   if (m_QueuedRenderer)
     m_QueuedRenderer->BeginFrame();
 }

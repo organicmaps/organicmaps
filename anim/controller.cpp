@@ -8,20 +8,16 @@ namespace anim
 {
   Controller::Controller()
   {
-    m_animStep = 10;
-    m_thread.Create(this);
+    m_LockCount = 0;
   }
 
   Controller::~Controller()
   {
-    m_tasks.Cancel();
-    m_newTasks.Cancel();
-    m_thread.Cancel();
   }
 
   void Controller::AddTask(shared_ptr<Task> const & task)
   {
-    m_newTasks.PushBack(task);
+    m_tasks.PushBack(task);
   }
 
   void Controller::CopyTasks(TTasks & from, TTasks & to)
@@ -30,54 +26,50 @@ namespace anim
     swap(from, to);
   }
 
-  void Controller::Do()
+  bool Controller::HasTasks()
   {
-    while (true)
+    return !m_tasks.Empty();
+  }
+
+  void Controller::Lock()
+  {
+    ++m_LockCount;
+  }
+
+  void Controller::Unlock()
+  {
+    --m_LockCount;
+  }
+
+  int Controller::LockCount()
+  {
+    if (m_LockCount < 0)
+      LOG(LWARNING, ("Lock/Unlock is unbalanced! LockCount < 0!"));
+
+    return m_LockCount;
+  }
+
+  void Controller::PerformStep()
+  {
+    m_tasks.ProcessList(bind(&Controller::CopyTasks, this, _1, ref(m_tasksList)));
+
+    double ts = my::Timer::LocalTime();
+
+    TTasks l;
+
+    for (TTasks::const_iterator it = m_tasksList.begin(); it != m_tasksList.end(); ++it)
     {
-      // making synchronized copy of tasks to process
-      // them without intervention from other threads.
-      m_newTasks.ProcessList(bind(&Controller::CopyTasks, this, _1, ref(m_newTasksList)));
-      m_tasks.ProcessList(bind(&Controller::CopyTasks, this, _1, ref(m_tasksList)));
-
-      // checking for thread cancellation
-      if (m_newTasks.IsCancelled()
-       || m_tasks.IsCancelled()
-       || IsCancelled())
-        break;
-
-      // current animation step timestamp
-      double timeStamp = my::Timer::LocalTime();
-
-      // starting new tasks and adding them to the pool.
-      // they we'll be processed in the next animation step
-      for (TTasks::const_iterator it = m_newTasksList.begin();
-           it != m_newTasksList.end();
-           ++it)
-      {
-        shared_ptr<Task> task = *it;
-        task->OnStart(timeStamp);
-        m_tasks.PushBack(task);
-      }
-
-      m_newTasksList.clear();
-
-      // processing current tasks
-      for (TTasks::const_iterator it = m_tasksList.begin();
-           it != m_tasksList.end();
-           ++it)
-      {
-        shared_ptr<Task> task = *it;
-        task->OnStep(timeStamp);
-        if (!task->IsFinished())
-          m_tasks.PushBack(task);
-        else
-          task->OnEnd(timeStamp);
-      }
-
-      m_tasksList.clear();
-
-      // sleeping till the next animation step.
-      threads::Sleep(m_animStep);
+      shared_ptr<Task> const & task = *it;
+      if (task->State() == Task::EWaitStart)
+        task->OnStart(ts);
+      if (task->State() == Task::EInProgress)
+        task->OnStep(ts);
+      if (task->State() == Task::EWaitEnd)
+        task->OnEnd(ts);
+      else
+        l.push_back(task);
     }
+
+    m_tasks.ProcessList(bind(&Controller::CopyTasks, this, ref(l), _1));
   }
 }

@@ -24,6 +24,12 @@ namespace yg
   class ResourceManager;
 }
 
+namespace anim
+{
+  class Controller;
+  class Task;
+}
+
 class WindowHandle;
 
 class RenderPolicy
@@ -54,7 +60,7 @@ protected:
   m2::AnyRectD m_invalidRect;
   double m_visualScale;
   string m_skinName;
-  bool m_isAnimating;
+  shared_ptr<anim::Controller> m_controller;
 
 public:
 
@@ -114,7 +120,7 @@ public:
   bool DoForceUpdate() const;
   void SetForceUpdate(bool flag);
 
-  void SetIsAnimating(bool flag);
+  shared_ptr<anim::Controller> const & GetAnimController() const;
   bool IsAnimating() const;
 
   void SetInvalidRect(m2::AnyRectD const & glbRect);

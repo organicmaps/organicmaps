@@ -15,5 +15,7 @@ HEADERS += \
 
 SOURCES += \
     controller.cpp \
+    task.cpp
+
 
 

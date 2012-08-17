@@ -1,9 +1,6 @@
 #include "../base/SRC_FIRST.hpp"
 
 #include "render_policy.hpp"
-
-#include "../indexer/drawing_rules.hpp"
-
 #include "window_handle.hpp"
 #include "test_render_policy.hpp"
 #include "basic_render_policy.hpp"
@@ -13,9 +10,13 @@
 #include "tiling_render_policy_st.hpp"
 #include "tiling_render_policy_mt.hpp"
 
+#include "../anim/controller.hpp"
+#include "../anim/task.hpp"
+
 #include "../yg/internal/opengl.hpp"
 
 #include "../indexer/scales.hpp"
+#include "../indexer/drawing_rules.hpp"
 
 #include "../platform/video_timer.hpp"
 #include "../platform/settings.hpp"
@@ -37,7 +38,7 @@ RenderPolicy::RenderPolicy(Params const & p,
     m_doForceUpdate(false),
     m_visualScale(p.m_visualScale),
     m_skinName(p.m_skinName),
-    m_isAnimating(false)
+    m_controller(new anim::Controller())
 {
   LOG(LDEBUG, ("each BaseRule will hold up to", idCacheSize, "cached values"));
   drule::rules().ResizeCaches(idCacheSize);
@@ -98,7 +99,10 @@ void RenderPolicy::StopRotate(double a, double)
 }
 
 void RenderPolicy::BeginFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
-{}
+{
+  /// processing animations at the beginning of the frame
+  m_controller->PerformStep();
+}
 
 void RenderPolicy::EndFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 {}
@@ -110,7 +114,14 @@ bool RenderPolicy::DoSupportRotation() const
 
 bool RenderPolicy::NeedRedraw() const
 {
-  return m_windowHandle->needRedraw();
+  return m_windowHandle->needRedraw()
+      || IsAnimating();
+}
+
+bool RenderPolicy::IsAnimating() const
+{
+  return (m_controller->HasTasks()
+      || (m_controller->LockCount() > 0));
 }
 
 bool RenderPolicy::IsTiling() const
@@ -209,14 +220,9 @@ void RenderPolicy::JoinBenchmarkFence(int fenceID)
 {
 }
 
-void RenderPolicy::SetIsAnimating(bool flag)
+shared_ptr<anim::Controller> const & RenderPolicy::GetAnimController() const
 {
-  m_isAnimating = flag;
-}
-
-bool RenderPolicy::IsAnimating() const
-{
-  return m_isAnimating;
+  return m_controller;
 }
 
 RenderPolicy * CreateRenderPolicy(RenderPolicy::Params const & params)

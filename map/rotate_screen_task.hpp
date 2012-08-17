@@ -16,8 +16,6 @@ private:
   double m_interval;
   double m_curAngle;
 
-  bool m_isFinished;
-
 public:
 
   RotateScreenTask(Framework * framework,
@@ -27,8 +25,4 @@ public:
 
   void OnStart(double ts);
   void OnStep(double ts);
-  void OnEnd(double ts);
-
-  bool IsFinished();
-  void Finish();
 };

@@ -6,12 +6,34 @@ namespace anim
   class Task
   {
   public:
-    virtual void OnStart(double ts) = 0;
-    virtual void OnStep(double ts) = 0;
-    virtual void OnEnd(double ts) = 0;
-    virtual bool IsFinished() = 0;
-    virtual void Finish() = 0;
 
-    virtual ~Task() {};
+    enum EState
+    {
+      EWaitStart,
+      EInProgress,
+      EWaitEnd
+    };
+
+  private:
+
+    EState m_State;
+
+  protected:
+
+    void SetState(EState state);
+
+  public:
+
+    Task();
+    virtual ~Task();
+
+    EState State() const;
+
+    virtual void OnStart(double ts);
+    virtual void OnStep(double ts);
+    virtual void OnEnd(double ts);
+
+    void Finish();
+    bool IsFinished() const;
   };
 }

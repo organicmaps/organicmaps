@@ -11,21 +11,20 @@ RotateScreenTask::RotateScreenTask(Framework * framework,
     m_interval(interval)
 {
   m_startTime = 0;
-  m_isFinished = false;
 }
 
 void RotateScreenTask::OnStart(double ts)
 {
   m_startTime = ts;
   m_curAngle = m_startAngle;
-  m_framework->GetRenderPolicy()->SetIsAnimating(true);
+  anim::Task::OnStart(ts);
 }
 
 void RotateScreenTask::OnStep(double ts)
 {
   if (ts - m_startTime > m_interval)
   {
-    m_isFinished = true;
+    Finish();
     return;
   }
 
@@ -37,21 +36,4 @@ void RotateScreenTask::OnStep(double ts)
 
   m_framework->GetNavigator().Rotate(angle - m_curAngle);
   m_curAngle = angle;
-
-  m_framework->GetRenderPolicy()->GetWindowHandle()->invalidate();
-}
-
-void RotateScreenTask::OnEnd(double ts)
-{
-  m_framework->GetRenderPolicy()->SetIsAnimating(false);
-}
-
-bool RotateScreenTask::IsFinished()
-{
-  return m_isFinished;
-}
-
-void RotateScreenTask::Finish()
-{
-  m_isFinished = true;
 }

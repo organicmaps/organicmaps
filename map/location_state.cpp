@@ -215,6 +215,8 @@ namespace location
     if (!m_fw->GetNavigator().DoSupportRotation())
       return;
 
+    m_fw->GetRenderPolicy()->GetAnimController()->Lock();
+
     StopAnimation();
 
     double startAngle = m_fw->GetNavigator().Screen().GetAngle();
@@ -235,8 +237,10 @@ namespace location
                                                     endAngle,
                                                     1));
 
-      m_fw->GetAnimController()->AddTask(m_rotateScreenTask);
+      m_fw->GetRenderPolicy()->GetAnimController()->AddTask(m_rotateScreenTask);
     }
+
+    m_fw->GetRenderPolicy()->GetAnimController()->Unlock();
   }
 
   void State::StopAnimation()
