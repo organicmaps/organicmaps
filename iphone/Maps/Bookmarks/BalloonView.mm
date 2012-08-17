@@ -164,9 +164,15 @@
 - (void) setGlobalPosition:(CGPoint)pos
 {
   globalPosition = pos;
+  m_addressInfo.Clear();
   GetFramework().GetAddressInfo(m2::PointD(pos.x, pos.y), m_addressInfo);
   if (m_addressInfo.m_name.empty())
-    self.title = NSLocalizedString(@"dropped_pin", @"Unknown Dropped Pin title, when name can't be determined");
+  {
+    if (!m_addressInfo.m_types.empty())
+      self.title = [NSString stringWithUTF8String:m_addressInfo.m_types[0].c_str()];
+    else
+      self.title = NSLocalizedString(@"dropped_pin", @"Unknown Dropped Pin title, when name can't be determined");
+  }
   else
     self.title = [NSString stringWithUTF8String:m_addressInfo.m_name.c_str()];
   self.description = [NSString stringWithUTF8String:m_addressInfo.FormatAddress().c_str()];
