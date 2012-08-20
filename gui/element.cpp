@@ -66,6 +66,12 @@ namespace gui
   void Element::cache()
   {}
 
+  void Element::purge()
+  {}
+
+  void Element::update()
+  {}
+
   void Element::checkDirtyDrawing() const
   {
     if (isDirtyDrawing())

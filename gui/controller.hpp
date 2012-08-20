@@ -57,6 +57,9 @@ namespace gui
     /// Localized strings for GUI.
     StringsBundle const * m_bundle;
 
+    /// Screen, which is used to cache gui::Elements into display lists.
+    yg::gl::Screen * m_CacheScreen;
+
   public:
 
     /// Constructor with GestureDetector to route events from.
@@ -77,10 +80,12 @@ namespace gui
       double m_VisualScale;
       TInvalidateFn m_InvalidateFn;
       yg::GlyphCache * m_GlyphCache;
+      yg::gl::Screen * m_CacheScreen;
       RenderParams();
       RenderParams(double visualScale,
                    TInvalidateFn invalidateFn,
-                   yg::GlyphCache * glyphCache);
+                   yg::GlyphCache * glyphCache,
+                   yg::gl::Screen * cacheScreen);
     };
 
     /// Attach GUI Controller to the renderer
@@ -99,9 +104,16 @@ namespace gui
     double GetVisualScale() const;
     /// Get localized strings bundle
     StringsBundle const * GetStringsBundle() const;
-    /// Get GLyphCache
+    /// Get GlyphCache
     yg::GlyphCache * GetGlyphCache() const;
+    /// Get yg::gl::Screen, which is used to cache gui::Element's
+    /// into display lists.
+    yg::gl::Screen * GetCacheScreen() const;
     /// Redraw GUI
     void DrawFrame(yg::gl::Screen * screen);
+    /// Calling gui::Element::update for every element.
+    void UpdateElements();
+    /// Calling gui::Element::purge for every element.
+    void PurgeElements();
   };
 }

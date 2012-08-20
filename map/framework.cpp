@@ -600,6 +600,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
   pScreen->endFrame();
 
+  m_guiController->UpdateElements();
   m_guiController->DrawFrame(pScreen);
 }
 
@@ -1078,7 +1079,8 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
     gui::Controller::RenderParams rp(m_renderPolicy->VisualScale(),
                                      bind(&WindowHandle::invalidate,
                                           renderPolicy->GetWindowHandle().get()),
-                                     m_renderPolicy->GetGlyphCache());
+                                     m_renderPolicy->GetGlyphCache(),
+                                     m_renderPolicy->GetDrawer()->screen().get());
 
     m_guiController->SetRenderParams(rp);
 

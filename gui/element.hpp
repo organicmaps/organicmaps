@@ -72,6 +72,12 @@ namespace gui
     int visualRank() const;
 
     virtual void cache();
+    /// this method is called upon renderPolicy destruction and should clean
+    /// all rendering-related resources, p.e. displayLists.
+    virtual void purge();
+    /// this method is called in each frame and should be overriden if the
+    /// element wants to update it's internal state.
+    virtual void update();
 
     virtual void setController(Controller * controller);
 

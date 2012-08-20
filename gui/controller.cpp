@@ -19,10 +19,12 @@ namespace gui
 
   Controller::RenderParams::RenderParams(double visualScale,
                                          TInvalidateFn invalidateFn,
-                                         yg::GlyphCache * glyphCache)
+                                         yg::GlyphCache * glyphCache,
+                                         yg::gl::Screen * cacheScreen)
     : m_VisualScale(visualScale),
       m_InvalidateFn(invalidateFn),
-      m_GlyphCache(glyphCache)
+      m_GlyphCache(glyphCache),
+      m_CacheScreen(cacheScreen)
   {}
 
   Controller::~Controller()
@@ -124,6 +126,7 @@ namespace gui
     m_GlyphCache = p.m_GlyphCache;
     m_InvalidateFn = p.m_InvalidateFn;
     m_VisualScale = p.m_VisualScale;
+    m_CacheScreen = p.m_CacheScreen;
   }
 
   void Controller::ResetRenderParams()
@@ -131,6 +134,9 @@ namespace gui
     m_GlyphCache = 0;
     m_VisualScale = 0;
     m_InvalidateFn.clear();
+    m_CacheScreen = 0;
+
+    PurgeElements();
   }
 
   void Controller::DrawFrame(yg::gl::Screen * screen)
@@ -174,5 +180,26 @@ namespace gui
   StringsBundle const * Controller::GetStringsBundle() const
   {
     return m_bundle;
+  }
+
+  yg::gl::Screen * Controller::GetCacheScreen() const
+  {
+    return m_CacheScreen;
+  }
+
+  void Controller::UpdateElements()
+  {
+    for (elem_list_t::const_iterator it = m_Elements.begin();
+         it != m_Elements.end();
+         ++it)
+      (*it)->update();
+  }
+
+  void Controller::PurgeElements()
+  {
+    for (elem_list_t::const_iterator it = m_Elements.begin();
+         it != m_Elements.end();
+         ++it)
+      (*it)->purge();
   }
 }
