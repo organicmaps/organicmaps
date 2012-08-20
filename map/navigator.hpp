@@ -47,6 +47,7 @@ public:
 
   void Scale(double scale);
   void Rotate(double angle);
+  void SetAngle(double angle);
 
   void Move(double azDir, double factor);
 

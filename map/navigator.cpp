@@ -565,6 +565,11 @@ void Navigator::Rotate(double angle)
   m_Screen.Rotate(angle);
 }
 
+void Navigator::SetAngle(double angle)
+{
+  m_Screen.SetAngle(angle);
+}
+
 void Navigator::Move(double azDir, double factor)
 {
   m2::RectD const r = m_Screen.ClipRect();

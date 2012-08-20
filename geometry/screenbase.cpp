@@ -161,6 +161,12 @@ double ScreenBase::GetAngle() const
   return m_Angle.val();
 }
 
+void ScreenBase::SetAngle(double angle)
+{
+  m_Angle = ang::AngleD(angle);
+  UpdateDependentParameters();
+}
+
 m2::PointD const & ScreenBase::GetOrg() const
 {
   return m_Org;

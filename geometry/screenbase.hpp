@@ -61,7 +61,9 @@ public:
 public:
 
   double GetScale() const;
+
   double GetAngle() const;
+  void SetAngle(double angle);
 
   m2::PointD const & GetOrg() const;
 
