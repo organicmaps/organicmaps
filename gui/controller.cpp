@@ -200,6 +200,10 @@ namespace gui
     for (elem_list_t::const_iterator it = m_Elements.begin();
          it != m_Elements.end();
          ++it)
+    {
       (*it)->purge();
+      (*it)->setIsDirtyDrawing(true);
+      (*it)->setIsDirtyRect(true);
+    }
   }
 }
