@@ -4,13 +4,13 @@
 RotateScreenTask::RotateScreenTask(Framework * framework,
                                    double startAngle,
                                    double endAngle,
-                                   double interval)
+                                   double speed)
   : m_framework(framework),
     m_startAngle(startAngle),
-    m_endAngle(endAngle),
-    m_interval(interval)
+    m_endAngle(endAngle)
 {
   m_startTime = 0;
+  m_interval = fabs(endAngle - m_startAngle) / (2 * math::pi) * speed;
 }
 
 void RotateScreenTask::OnStart(double ts)
