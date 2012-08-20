@@ -260,7 +260,8 @@ namespace android
         m_lastX1 = x1;
         m_lastY1 = y1;
 
-        m_work.GetGuiController()->OnTapStarted(m2::PointD(x1, y1));
+        if (m_work.GetGuiController()->OnTapStarted(m2::PointD(x1, y1)))
+          return;
       }
 
       if (eventType == NV_MULTITOUCH_MOVE)
@@ -269,7 +270,8 @@ namespace android
         ||  (fabs(y1 - m_lastY1) > 10))
           m_isCleanSingleClick = false;
 
-        m_work.GetGuiController()->OnTapMoved(m2::PointD(x1, y1));
+        if (m_work.GetGuiController()->OnTapMoved(m2::PointD(x1, y1)))
+          return;
       }
 
       if ((eventType == NV_MULTITOUCH_UP) && (m_isCleanSingleClick))
