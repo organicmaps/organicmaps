@@ -126,6 +126,9 @@ bool CompassArrow::onTapEnded(m2::PointD const & pt)
   shared_ptr<anim::Controller> animController = m_framework->GetRenderPolicy()->GetAnimController();
   animController->Lock();
 
+  /// switching off compass follow mode
+  m_framework->GetInformationDisplay().locationState()->StopCompassFollowing();
+
   if (m_rotateScreenTask
   && !m_rotateScreenTask->IsEnded()
   && !m_rotateScreenTask->IsCancelled())

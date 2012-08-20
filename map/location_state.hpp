@@ -54,6 +54,8 @@ namespace location
     bool m_hasPosition;
     bool m_hasCompass;
 
+    bool m_isCentered;
+
     ELocationProcessMode m_locationProcessMode;
     ECompassProcessMode m_compassProcessMode;
 
@@ -117,6 +119,9 @@ namespace location
     void TurnOff();
 
     void StopAnimation();
+    void StopCompassFollowing();
+    void SetIsCentered(bool flag);
+    bool IsCentered() const;
 
     /// @name GPS location updates routine.
     //@{

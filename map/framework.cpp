@@ -798,7 +798,8 @@ void Framework::DoDrag(DragEvent const & e)
 
   m_navigator.DoDrag(pt, ElapsedSeconds());
 
-  m_informationDisplay.locationState()->SetCompassProcessMode(location::ECompassDoNothing);
+  m_informationDisplay.locationState()->SetIsCentered(false);
+  m_informationDisplay.locationState()->StopCompassFollowing();
 
   if (m_renderPolicy)
     m_renderPolicy->DoDrag();
@@ -821,10 +822,7 @@ void Framework::StopDrag(DragEvent const & e)
     // reset GPS centering mode if we have dragged far from current location
     ScreenBase const & s = m_navigator.Screen();
     if (GetPixelCenter().Length(s.GtoP(locationState->Position())) >= s.GetMinPixelRectSize() / 2.0)
-    {
       locationState->SetLocationProcessMode(location::ELocationDoNothing);
-      locationState->SetCompassProcessMode(location::ECompassDoNothing);
-    }
     else
       locationState->SetCompassProcessMode(m_dragCompassProcessMode);
   }
@@ -937,10 +935,7 @@ void Framework::DoScale(ScaleEvent const & e)
 
   if (m_navigator.IsRotatingDuringScale()
   && (locationState->CompassProcessMode() == location::ECompassFollow))
-  {
-    locationState->StopAnimation();
-    locationState->SetCompassProcessMode(location::ECompassDoNothing);
-  }
+    locationState->StopCompassFollowing();
 }
 
 void Framework::StopScale(ScaleEvent const & e)

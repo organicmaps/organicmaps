@@ -23,6 +23,7 @@ namespace location
     : base_t(p),
       m_hasPosition(false),
       m_hasCompass(false),
+      m_isCentered(false),
       m_locationProcessMode(ELocationDoNothing),
       m_compassProcessMode(ECompassDoNothing)
   {
@@ -145,15 +146,25 @@ namespace location
 
       m_framework->ShowRectFixed(m2::AnyRectD(rect.Center(), a, m2::RectD(-dx/2, -dy/2, dx/2, dy/2)));
 
+      SetIsCentered(true);
+      if (m_compassProcessMode == ECompassFollow)
+        FollowCompass();
+
       m_locationProcessMode = ELocationCenterOnly;
       break;
     }
 
     case ELocationCenterOnly:
       m_framework->SetViewportCenter(center);
+
+      SetIsCentered(true);
+      if (m_compassProcessMode == ECompassFollow)
+        FollowCompass();
+
       break;
 
     case ELocationSkipCentering:
+      SetIsCentered(false);
       m_locationProcessMode = ELocationDoNothing;
       break;
 
@@ -180,7 +191,7 @@ namespace location
     if (fabs(oldHeadingHaldErrorRad - m_headingHalfErrorRad) > 0.01)
       setIsDirtyDrawing(true);
 
-    if (m_compassProcessMode == ECompassFollow)
+    if ((m_compassProcessMode == ECompassFollow) && (IsCentered()))
       FollowCompass();
 
     m_framework->Invalidate();
@@ -422,5 +433,21 @@ namespace location
     && !m_rotateScreenTask->IsCancelled())
       m_rotateScreenTask->Cancel();
     m_rotateScreenTask.reset();
+  }
+
+  void State::StopCompassFollowing()
+  {
+    SetCompassProcessMode(ECompassDoNothing);
+    StopAnimation();
+  }
+
+  bool State::IsCentered() const
+  {
+    return m_isCentered;
+  }
+
+  void State::SetIsCentered(bool flag)
+  {
+    m_isCentered = flag;
   }
 }
