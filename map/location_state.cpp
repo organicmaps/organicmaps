@@ -372,6 +372,10 @@ namespace location
     }
   }
 
+  bool State::hitTest(m2::PointD const & pt) const
+  {
+    return false;
+  }
 
   void State::FollowCompass()
   {

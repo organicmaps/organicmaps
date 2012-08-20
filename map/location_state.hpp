@@ -128,5 +128,7 @@ namespace location
 
     vector<m2::AnyRectD> const & boundRects() const;
     void draw(yg::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
+
+    bool hitTest(m2::PointD const & pt) const;
   };
 }
