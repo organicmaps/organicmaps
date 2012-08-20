@@ -9,9 +9,10 @@ namespace anim
 
     enum EState
     {
-      EWaitStart,
+      EStarted,
       EInProgress,
-      EWaitEnd
+      ECancelled,
+      EEnded
     };
 
   private:
@@ -32,8 +33,12 @@ namespace anim
     virtual void OnStart(double ts);
     virtual void OnStep(double ts);
     virtual void OnEnd(double ts);
+    virtual void OnCancel(double ts);
 
-    void Finish();
-    bool IsFinished() const;
+    void Cancel();
+    void End();
+
+    bool IsCancelled() const;
+    bool IsEnded() const;
   };
 }

@@ -25,4 +25,5 @@ public:
 
   void OnStart(double ts);
   void OnStep(double ts);
+  void OnEnd(double ts);
 };

@@ -24,11 +24,11 @@ void RotateScreenTask::OnStep(double ts)
 {
   if (ts - m_startTime > m_interval)
   {
-    Finish();
+    End();
     return;
   }
 
-  if (IsFinished())
+  if (IsEnded())
     return;
 
   double elapsedSec = ts - m_startTime;
@@ -36,4 +36,10 @@ void RotateScreenTask::OnStep(double ts)
 
   m_framework->GetNavigator().Rotate(angle - m_curAngle);
   m_curAngle = angle;
+}
+
+void RotateScreenTask::OnEnd(double ts)
+{
+  /// ensuring that the final angle is reached
+  m_framework->GetNavigator().SetAngle(m_endAngle);
 }

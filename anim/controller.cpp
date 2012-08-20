@@ -60,14 +60,20 @@ namespace anim
     for (TTasks::const_iterator it = m_tasksList.begin(); it != m_tasksList.end(); ++it)
     {
       shared_ptr<Task> const & task = *it;
-      if (task->State() == Task::EWaitStart)
+      if (task->State() == Task::EStarted)
         task->OnStart(ts);
       if (task->State() == Task::EInProgress)
         task->OnStep(ts);
-      if (task->State() == Task::EWaitEnd)
-        task->OnEnd(ts);
-      else
+
+      if (task->State() == Task::EInProgress)
         l.push_back(task);
+      else
+      {
+        if (task->State() == Task::ECancelled)
+          task->OnCancel(ts);
+        if (task->State() == Task::EEnded)
+          task->OnEnd(ts);
+      }
     }
 
     m_tasks.ProcessList(bind(&Controller::CopyTasks, this, ref(l), _1));
