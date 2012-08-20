@@ -32,6 +32,11 @@ namespace yg
                             uint32_t styleID,
                             double depth);
 
+      void drawTrianglesFan(m2::PointF const * points,
+                            size_t pointsCount,
+                            uint32_t styleID,
+                            double depth);
+
       void beginFrame();
       void endFrame();
     };

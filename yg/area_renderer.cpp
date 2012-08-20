@@ -36,10 +36,55 @@ namespace yg
       base_t::endFrame();
     }
 
+    void AreaRenderer::drawTrianglesFan(m2::PointF const * points,
+                                        size_t pointsCount,
+                                        uint32_t styleID,
+                                        double depth)
+    {
+      ++m_areasCount;
+      m_trianglesCount += (pointsCount - 2);
+
+      if (!m_drawAreas)
+        return;
+
+      ResourceStyle const * style = skin()->fromID(styleID);
+
+      if (style == 0)
+      {
+        LOG(LINFO, ("drawTrianglesFan: styleID=", styleID, " wasn't found on current skin."));
+        return;
+      }
+
+      ASSERT_GREATER_OR_EQUAL(pointsCount, 2, ());
+
+      float texX = style->m_texRect.minX() + 1.0f;
+      float texY = style->m_texRect.minY() + 1.0f;
+
+      shared_ptr<BaseTexture> texture = skin()->getPage(style->m_pipelineID)->texture();
+
+      if (!texture)
+      {
+        LOG(LDEBUG, ("returning as no texture is reserved"));
+        return;
+      }
+
+      texture->mapPixel(texX, texY);
+
+      m2::PointF texCoord(texX, texY);
+      m2::PointF normal(0, 0);
+
+      addTexturedFanStrided(points, sizeof(m2::PointF),
+                            &normal, 0,
+                            &texCoord, 0,
+                            pointsCount,
+                            depth,
+                            style->m_pipelineID);
+    }
+
     void AreaRenderer::drawTrianglesList(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth)
     {
       ++m_areasCount;
-      m_trianglesCount += pointsCount;
+      m_trianglesCount += pointsCount / 3;
 
       if (!m_drawAreas)
         return;

@@ -17,6 +17,19 @@ namespace yg
     {
     }
 
+    void ShapeRenderer::drawConvexPolygon(m2::PointF const * pts, size_t ptsCount, yg::Color const & color, double depth)
+    {
+      uint32_t styleID = skin()->mapColor(color);
+
+      if (styleID == skin()->invalidHandle())
+      {
+        LOG(LINFO, ("cannot map color"));
+        return;
+      }
+
+      drawTrianglesFan(pts, ptsCount, styleID, depth);
+    }
+
     void ShapeRenderer::drawArc(m2::PointD const & center, double startA, double endA, double r, yg::Color const & c, double depth)
     {
       vector<m2::PointD> pts;

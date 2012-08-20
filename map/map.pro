@@ -48,7 +48,8 @@ HEADERS += \
     tile_set.hpp \
     geourl_process.hpp \
     country_status_display.hpp \
-    rotate_screen_task.hpp
+    rotate_screen_task.hpp \
+    compass_arrow.hpp
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -88,13 +89,16 @@ SOURCES += \
     geourl_process.cpp \
     bookmark.cpp \
     country_status_display.cpp \
-    rotate_screen_task.cpp
+    rotate_screen_task.cpp \
+    compass_arrow.cpp
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp
   SOURCES += qgl_render_context.cpp
   QT += opengl
 }
+
+
 
 
 

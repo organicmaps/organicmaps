@@ -82,8 +82,8 @@ namespace yg
     bool isValid() const;
     void setIsValid(bool flag);
 
-    bool hitTest(m2::PointD const & pt) const;
-    bool roughHitTest(m2::PointD const & pt) const;
+    virtual bool hitTest(m2::PointD const & pt) const;
+    virtual bool roughHitTest(m2::PointD const & pt) const;
 
     m2::RectD const & roughBoundRect() const;
   };

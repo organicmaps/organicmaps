@@ -24,6 +24,7 @@ namespace gui
 
 class Framework;
 class CountryStatusDisplay;
+class CompassArrow;
 
 /// Class, which displays additional information on the primary layer.
 /// like rules, coordinates, GPS position and heading
@@ -80,6 +81,7 @@ private:
   static WindowHandle * s_windowHandle;
   */
   shared_ptr<CountryStatusDisplay> m_countryStatusDisplay;
+  shared_ptr<CompassArrow> m_compassArrow;
   shared_ptr<location::State> m_locationState;
 
 public:
@@ -125,6 +127,9 @@ public:
   void enableLog(bool doEnable, WindowHandle * windowHandle);
   void setLogSize(size_t logSize);
   void drawLog(DrawerYG * pDrawer);
+
+  void enableCompassArrow(bool doEnable);
+  void setCompassArrowAngle(double angle);
 
   shared_ptr<location::State> const & locationState() const;
 

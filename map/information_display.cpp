@@ -1,6 +1,7 @@
 #include "information_display.hpp"
 #include "drawer_yg.hpp"
 #include "country_status_display.hpp"
+#include "compass_arrow.hpp"
 #include "framework.hpp"
 
 #include "../indexer/mercator.hpp"
@@ -37,6 +38,19 @@ InformationDisplay::InformationDisplay(Framework * framework)
 
   m_countryStatusDisplay.reset(new CountryStatusDisplay(p));
 
+  CompassArrow::Params cap;
+
+  cap.m_position = yg::EPosCenter;
+  cap.m_depth = yg::maxDepth;
+  cap.m_arrowHeight = 60;
+  cap.m_arrowWidth = 20;
+  cap.m_pivot = m2::PointD(10 + cap.m_arrowHeight / 2, 10 + cap.m_arrowHeight / 2);
+  cap.m_northColor = yg::Color(255, 0, 0, 255);
+  cap.m_southColor = yg::Color(255, 255, 255, 255);
+  cap.m_framework = framework;
+
+  m_compassArrow.reset(new CompassArrow(cap));
+
   location::State::Params lsp;
 
   lsp.m_position = yg::EPosCenter;
@@ -57,6 +71,7 @@ InformationDisplay::InformationDisplay(Framework * framework)
   enableMemoryWarning(false);
   enableBenchmarkInfo(false);
   enableCountryStatusDisplay(false);
+  enableCompassArrow(false);
 
   for (int i = 0; i < sizeof(m_DebugPts) / sizeof(m2::PointD); ++i)
     m_DebugPts[i] = m2::PointD(0, 0);
@@ -68,6 +83,7 @@ void InformationDisplay::setController(gui::Controller *controller)
 {
   m_controller = controller;
   m_controller->AddElement(m_countryStatusDisplay);
+  m_controller->AddElement(m_compassArrow);
   m_controller->AddElement(m_locationState);
 }
 
@@ -367,6 +383,16 @@ void InformationDisplay::drawLog(DrawerYG * drawer)
   }
 }
 */
+
+void InformationDisplay::enableCompassArrow(bool doEnable)
+{
+  m_compassArrow->setIsVisible(doEnable);
+}
+
+void InformationDisplay::setCompassArrowAngle(double angle)
+{
+  m_compassArrow->setAngle(angle);
+}
 
 void InformationDisplay::enableCountryStatusDisplay(bool doEnable)
 {

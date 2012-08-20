@@ -19,6 +19,7 @@ namespace yg
       m_isVisible(true),
       m_isValid(true),
       m_isDirtyRect(true),
+      m_isDirtyDrawing(true),
       m_isDirtyRoughRect(true)
   {}
 
