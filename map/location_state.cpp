@@ -1,27 +1,37 @@
 #include "location_state.hpp"
-#include "drawer_yg.hpp"
 #include "navigator.hpp"
 #include "framework.hpp"
 #include "rotate_screen_task.hpp"
 
+#include "../yg/display_list.hpp"
+
 #include "../anim/controller.hpp"
+
+#include "../gui/controller.hpp"
 
 #include "../platform/location.hpp"
 #include "../platform/platform.hpp"
 
 #include "../geometry/rect2d.hpp"
+#include "../geometry/transformations.hpp"
 
 #include "../indexer/mercator.hpp"
 
 namespace location
 {
-  State::State(Framework * fw)
-    : m_hasPosition(false),
+  State::State(Params const & p)
+    : base_t(p),
+      m_hasPosition(false),
       m_hasCompass(false),
       m_locationProcessMode(ELocationDoNothing),
-      m_compassProcessMode(ECompassDoNothing),
-      m_fw(fw)
+      m_compassProcessMode(ECompassDoNothing)
   {
+    m_locationAreaColor = p.m_locationAreaColor;
+    m_locationBorderColor = p.m_locationBorderColor;
+    m_compassAreaColor = p.m_compassAreaColor;
+    m_compassBorderColor = p.m_compassBorderColor;
+    m_framework = p.m_framework;
+    m_boundRects.resize(1);
   }
 
   bool State::HasPosition() const
@@ -38,6 +48,7 @@ namespace location
   {
     m_hasPosition = false;
     m_hasCompass = false;
+    setIsVisible(false);
   }
 
   void State::SkipLocationCentering()
@@ -90,7 +101,7 @@ namespace location
       TurnOff();
     }
 
-    m_fw->Invalidate();
+    m_framework->Invalidate();
   }
 
   void State::OnGpsUpdate(location::GpsInfo const & info)
@@ -102,6 +113,7 @@ namespace location
     m2::PointD const center = rect.Center();
 
     m_hasPosition = true;
+    setIsVisible(true);
     m_position = center;
     m_errorRadius = rect.SizeX() / 2;
 
@@ -114,7 +126,7 @@ namespace location
 
       // correct rect scale if country isn't downloaded
       int const upperScale = scales::GetUpperWorldScale();
-      if (rectScale > upperScale && !m_fw->IsCountryLoaded(center))
+      if (rectScale > upperScale && !m_framework->IsCountryLoaded(center))
         setScale = upperScale;
       else
       {
@@ -127,18 +139,18 @@ namespace location
       if (setScale != -1)
         rect = scales::GetRectForLevel(setScale, center, 1.0);
 
-      double a = m_fw->GetNavigator().Screen().GetAngle();
+      double a = m_framework->GetNavigator().Screen().GetAngle();
       double dx = rect.SizeX();
       double dy = rect.SizeY();
 
-      m_fw->ShowRectFixed(m2::AnyRectD(rect.Center(), a, m2::RectD(-dx/2, -dy/2, dx/2, dy/2)));
+      m_framework->ShowRectFixed(m2::AnyRectD(rect.Center(), a, m2::RectD(-dx/2, -dy/2, dx/2, dy/2)));
 
       m_locationProcessMode = ELocationCenterOnly;
       break;
     }
 
     case ELocationCenterOnly:
-      m_fw->SetViewportCenter(center);
+      m_framework->SetViewportCenter(center);
       break;
 
     case ELocationSkipCentering:
@@ -149,7 +161,7 @@ namespace location
       break;
     }
 
-    m_fw->Invalidate();
+    m_framework->Invalidate();
   }
 
   void State::OnCompassUpdate(location::CompassInfo const & info)
@@ -160,66 +172,217 @@ namespace location
 
     // Avoid situations when offset between magnetic north and true north is too small
     static double const MIN_SECTOR_RAD = math::pi / 18.0;
+
+    double oldHeadingHaldErrorRad = m_headingHalfErrorRad;
+
     m_headingHalfErrorRad = (info.m_accuracy < MIN_SECTOR_RAD ? MIN_SECTOR_RAD : info.m_accuracy);
+
+    if (fabs(oldHeadingHaldErrorRad - m_headingHalfErrorRad) > 0.01)
+      setIsDirtyDrawing(true);
 
     if (m_compassProcessMode == ECompassFollow)
       FollowCompass();
 
-    m_fw->Invalidate();
+    m_framework->Invalidate();
   }
 
-  void State::Draw(DrawerYG & drawer)
+
+  vector<m2::AnyRectD> const & State::boundRects() const
   {
-    if (m_hasPosition)
+    if (isDirtyRect())
     {
-      m2::PointD const pxPosition = m_fw->GetNavigator().GtoP(Position());
-      double const pxErrorRadius = pxPosition.Length(m_fw->GetNavigator().GtoP(Position() + m2::PointD(m_errorRadius, 0.0)));
+      m_boundRects[0] = m2::AnyRectD(m_boundRect);
+      setIsDirtyRect(false);
+    }
 
-      // my position symbol
-      drawer.drawSymbol(pxPosition, "current-position", yg::EPosCenter, yg::maxDepth);
+    return m_boundRects;
+  }
 
-      // my position circle
-      drawer.screen()->fillSector(pxPosition, 0, 2.0 * math::pi, pxErrorRadius,
-                                  yg::Color(0, 0, 255, 32),
-                                  yg::maxDepth - 3);
+/*
+  void State::cache()
+  {
+    m_cacheRadius = 500 * visualScale();
 
-      // display compass only if position is available
-      double orientationRadius = max(pxErrorRadius, 30.0 * drawer.VisualScale());
+    yg::gl::Screen * cacheScreen = m_controller->GetCacheScreen();
 
-      double screenAngle = m_fw->GetNavigator().Screen().GetAngle();
+    m_locationDisplayList.reset();
+    m_locationDisplayList.reset(cacheScreen->createDisplayList());
 
-      // 0 angle is for North ("up"), but in our coordinates it's to the right.
-      double headingRad = m_headingRad - math::pi / 2.0;
+    m_compassDisplayList.reset();
+    m_compassDisplayList.reset(cacheScreen->createDisplayList());
 
-      if (m_hasCompass)
+    cacheScreen->beginFrame();
+    cacheScreen->setDisplayList(m_locationDisplayList.get());
+
+    m2::PointD zero(0, 0);
+
+    cacheScreen->drawSymbol(zero,
+                            "current_position",
+                            yg::EPosCenter,
+                            depth());
+
+    cacheScreen->fillSector(zero,
+                            0, 2.0 * math::pi,
+                            m_cacheRadius,
+                            m_locationAreaColor,
+                            depth() - 3);
+
+    cacheScreen->drawArc(zero,
+                         0, 2.0 * math::pi,
+                         m_cacheRadius,
+                         m_locationBorderColor,
+                         depth() - 2);
+
+    cacheScreen->setDisplayList(m_compassDisplayList.get());
+
+    cacheScreen->drawSector(zero,
+                           -m_headingHalfErrorRad,
+                            m_headingHalfErrorRad,
+                            m_cacheRadius,
+                            m_compassAreaColor,
+                            depth());
+
+    cacheScreen->fillSector(zero,
+                           -m_headingHalfErrorRad,
+                            m_headingHalfErrorRad,
+                            m_cacheRadius,
+                            m_compassBorderColor,
+                            depth() - 1);
+
+    cacheScreen->setDisplayList(0);
+    cacheScreen->endFrame();
+  }
+
+  void State::purge()
+  {
+    m_locationDisplayList.reset();
+    m_compassDisplayList.reset();
+  }
+
+  void State::update()
+  {
+    m2::PointD const pxPosition = m_framework->GetNavigator().GtoP(Position());
+
+    setPivot(pxPosition);
+
+    double const pxErrorRadius = pxPosition.Length(m_framework->GetNavigator().GtoP(Position() + m2::PointD(m_errorRadius, 0.0)));
+
+    m2::RectD newRect(pxPosition - m2::PointD(pxErrorRadius, pxErrorRadius),
+                      pxPosition + m2::PointD(pxErrorRadius, pxErrorRadius));
+
+    if (newRect != m_boundRect)
+    {
+      m_boundRect = newRect;
+      setIsDirtyRect(true);
+    }
+  }
+
+  void State::draw(yg::gl::OverlayRenderer * r,
+                   math::Matrix<double, 3, 3> const & m) const
+  {
+    if (isVisible())
+    {
+      checkDirtyDrawing();
+
+      if (m_hasPosition)
       {
-        drawer.screen()->drawSector(pxPosition,
-            screenAngle + headingRad - m_headingHalfErrorRad,
-            screenAngle + headingRad + m_headingHalfErrorRad,
-            orientationRadius,
-            yg::Color(255, 255, 255, 192),
-            yg::maxDepth);
+        m2::PointD const pxPosition = m_framework->GetNavigator().GtoP(Position());
+        double const pxErrorRadius = pxPosition.Length(m_framework->GetNavigator().GtoP(Position() + m2::PointD(m_errorRadius, 0.0)));
+        double const orientationRadius = max(pxErrorRadius, 30.0 * visualScale());
 
-        drawer.screen()->fillSector(pxPosition,
-            screenAngle + headingRad - m_headingHalfErrorRad,
-            screenAngle + headingRad + m_headingHalfErrorRad,
-            orientationRadius,
-            yg::Color(255, 255, 255, 96),
-            yg::maxDepth - 1);
+        double screenAngle = m_framework->GetNavigator().Screen().GetAngle();
+
+        double k = pxErrorRadius / m_cacheRadius;
+
+        math::Matrix<double, 3, 3> locationDrawM =
+            math::Shift(
+              math::Scale(math::Identity<double, 3>(), k, k),
+              pivot()
+              );
+
+        m_locationDisplayList->draw(locationDrawM * m);
+
+        // 0 angle is for North ("up"), but in our coordinates it's to the right.
+        double headingRad = m_headingRad - math::pi / 2.0;
+
+        if (m_hasCompass)
+        {
+          k = orientationRadius / m_cacheRadius;
+
+          math::Matrix<double, 3, 3> compassDrawM =
+              math::Shift(
+                math::Rotate(
+                  math::Scale(math::Identity<double, 3>(), k, k),
+                  screenAngle + headingRad),
+                pivot());
+
+          m_compassDisplayList->draw(compassDrawM * m);
+        }
+      }
+    }
+  }
+*/
+
+  void State::draw(yg::gl::OverlayRenderer * r,
+                   math::Matrix<double, 3, 3> const & m) const
+  {
+    if (isVisible())
+    {
+      checkDirtyDrawing();
+
+      if (m_hasPosition)
+      {
+        m2::PointD const pxPosition = m_framework->GetNavigator().GtoP(Position());
+        double const pxErrorRadius = pxPosition.Length(m_framework->GetNavigator().GtoP(Position() + m2::PointD(m_errorRadius, 0.0)));
+        double const orientationRadius = max(pxErrorRadius, 30.0 * visualScale());
+
+        double screenAngle = m_framework->GetNavigator().Screen().GetAngle();
+
+        r->drawSymbol(pxPosition,
+                     "current-position",
+                      yg::EPosCenter,
+                      depth());
+
+        r->fillSector(pxPosition,
+                      0, 2.0 * math::pi,
+                      pxErrorRadius,
+                      m_locationAreaColor,
+                      depth() - 3);
+
+        // 0 angle is for North ("up"), but in our coordinates it's to the right.
+        double headingRad = m_headingRad - math::pi / 2.0;
+
+        if (m_hasCompass)
+        {
+          r->drawSector(pxPosition,
+                        screenAngle + headingRad - m_headingHalfErrorRad,
+                        screenAngle + headingRad + m_headingHalfErrorRad,
+                        orientationRadius,
+                        m_compassAreaColor,
+                        depth());
+
+          r->fillSector(pxPosition,
+                        screenAngle + headingRad - m_headingHalfErrorRad,
+                        screenAngle + headingRad + m_headingHalfErrorRad,
+                        orientationRadius,
+                        m_compassBorderColor,
+                        depth() - 1);
+        }
       }
     }
   }
 
+
   void State::FollowCompass()
   {
-    if (!m_fw->GetNavigator().DoSupportRotation())
+    if (!m_framework->GetNavigator().DoSupportRotation())
       return;
 
-    m_fw->GetRenderPolicy()->GetAnimController()->Lock();
+    m_framework->GetRenderPolicy()->GetAnimController()->Lock();
 
     StopAnimation();
 
-    double startAngle = m_fw->GetNavigator().Screen().GetAngle();
+    double startAngle = m_framework->GetNavigator().Screen().GetAngle();
     double endAngle = -m_headingRad;
 
     double period = 2 * math::pi;
@@ -232,21 +395,23 @@ namespace location
       if (fabs(startAngle - endAngle) > math::pi)
         startAngle -= 2 * math::pi;
 
-      m_rotateScreenTask.reset(new RotateScreenTask(m_fw,
+      m_rotateScreenTask.reset(new RotateScreenTask(m_framework,
                                                     startAngle,
                                                     endAngle,
                                                     1));
 
-      m_fw->GetRenderPolicy()->GetAnimController()->AddTask(m_rotateScreenTask);
+      m_framework->GetRenderPolicy()->GetAnimController()->AddTask(m_rotateScreenTask);
     }
 
-    m_fw->GetRenderPolicy()->GetAnimController()->Unlock();
+    m_framework->GetRenderPolicy()->GetAnimController()->Unlock();
   }
 
   void State::StopAnimation()
   {
-    if (m_rotateScreenTask && !m_rotateScreenTask->IsFinished())
-      m_rotateScreenTask->Finish();
+    if (m_rotateScreenTask
+    && !m_rotateScreenTask->IsEnded()
+    && !m_rotateScreenTask->IsCancelled())
+      m_rotateScreenTask->Cancel();
     m_rotateScreenTask.reset();
   }
 }

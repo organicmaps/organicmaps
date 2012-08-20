@@ -96,7 +96,6 @@ protected:
   int m_width;
   int m_height;
 
-  location::State m_locationState;
   location::ECompassProcessMode m_dragCompassProcessMode;
 
   //mutable threads::Mutex m_modelSyn;

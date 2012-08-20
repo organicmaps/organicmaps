@@ -22,11 +22,7 @@ namespace gui
   class Controller;
 }
 
-namespace storage
-{
-  class Storage;
-}
-
+class Framework;
 class CountryStatusDisplay;
 
 /// Class, which displays additional information on the primary layer.
@@ -84,10 +80,11 @@ private:
   static WindowHandle * s_windowHandle;
   */
   shared_ptr<CountryStatusDisplay> m_countryStatusDisplay;
+  shared_ptr<location::State> m_locationState;
 
 public:
 
-  InformationDisplay(storage::Storage * storage);
+  InformationDisplay(Framework * framework);
 
   void setController(gui::Controller * controller);
 
@@ -128,6 +125,8 @@ public:
   void enableLog(bool doEnable, WindowHandle * windowHandle);
   void setLogSize(size_t logSize);
   void drawLog(DrawerYG * pDrawer);
+
+  shared_ptr<location::State> const & locationState() const;
 
   void enableCountryStatusDisplay(bool doEnable);
   void setDownloadListener(gui::Button::TOnClickListener l);

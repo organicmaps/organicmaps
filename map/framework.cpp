@@ -65,12 +65,12 @@ void Framework::RemoveMap(string const & datFile)
 
 void Framework::SkipLocationCentering()
 {
-  m_locationState.SkipLocationCentering();
+  m_informationDisplay.locationState()->SkipLocationCentering();
 }
 
 void Framework::OnLocationStatusChanged(location::TLocationStatus newStatus)
 {
-  m_locationState.OnLocationStatusChanged(newStatus);
+  m_informationDisplay.locationState()->OnLocationStatusChanged(newStatus);
 }
 
 void Framework::OnGpsUpdate(location::GpsInfo const & info)
@@ -83,7 +83,7 @@ void Framework::OnGpsUpdate(location::GpsInfo const & info)
   location::GpsInfo const & rInfo = info;
 #endif
 
-  m_locationState.OnGpsUpdate(rInfo);
+  m_informationDisplay.locationState()->OnGpsUpdate(rInfo);
 }
 
 void Framework::OnCompassUpdate(location::CompassInfo const & info)
@@ -95,7 +95,7 @@ void Framework::OnCompassUpdate(location::CompassInfo const & info)
   location::CompassInfo const & rInfo = info;
 #endif
 
-  m_locationState.OnCompassUpdate(rInfo);
+  m_informationDisplay.locationState()->OnCompassUpdate(rInfo);
 }
 
 InformationDisplay & Framework::GetInformationDisplay()
@@ -130,8 +130,7 @@ Framework::Framework()
 #endif
     m_width(0),
     m_height(0),
-    m_locationState(this),
-    m_informationDisplay(&m_storage),
+    m_informationDisplay(this),
     m_lowestMapVersion(-1),
     m_benchmarkEngine(0)
 {
@@ -585,8 +584,6 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
   m_informationDisplay.doDraw(pDrawer);
 
-  m_locationState.Draw(*pDrawer);
-
   if (m_drawPlacemark)
     m_informationDisplay.drawPlacemark(pDrawer, "placemark", m_navigator.GtoP(m_placemark));
 
@@ -785,7 +782,7 @@ void Framework::StartDrag(DragEvent const & e)
   if (m_renderPolicy)
     m_renderPolicy->StartDrag();
 
-  m_dragCompassProcessMode = m_locationState.CompassProcessMode();
+  m_dragCompassProcessMode = m_informationDisplay.locationState()->CompassProcessMode();
 }
 
 void Framework::DoDrag(DragEvent const & e)
@@ -798,7 +795,7 @@ void Framework::DoDrag(DragEvent const & e)
 
   m_navigator.DoDrag(pt, ElapsedSeconds());
 
-  m_locationState.SetCompassProcessMode(location::ECompassDoNothing);
+  m_informationDisplay.locationState()->SetCompassProcessMode(location::ECompassDoNothing);
 
   if (m_renderPolicy)
     m_renderPolicy->DoDrag();
@@ -814,17 +811,19 @@ void Framework::StopDrag(DragEvent const & e)
   m_informationDisplay.setDebugPoint(0, pt);
 #endif
 
-  if (m_locationState.LocationProcessMode() != location::ELocationDoNothing)
+  shared_ptr<location::State> locationState = m_informationDisplay.locationState();
+
+  if (locationState->LocationProcessMode() != location::ELocationDoNothing)
   {
     // reset GPS centering mode if we have dragged far from current location
     ScreenBase const & s = m_navigator.Screen();
-    if (GetPixelCenter().Length(s.GtoP(m_locationState.Position())) >= s.GetMinPixelRectSize() / 2.0)
+    if (GetPixelCenter().Length(s.GtoP(locationState->Position())) >= s.GetMinPixelRectSize() / 2.0)
     {
-      m_locationState.SetLocationProcessMode(location::ELocationDoNothing);
-      m_locationState.SetCompassProcessMode(location::ECompassDoNothing);
+      locationState->SetLocationProcessMode(location::ELocationDoNothing);
+      locationState->SetCompassProcessMode(location::ECompassDoNothing);
     }
     else
-      m_locationState.SetCompassProcessMode(m_dragCompassProcessMode);
+      locationState->SetCompassProcessMode(m_dragCompassProcessMode);
   }
 
   if (m_renderPolicy)
@@ -870,7 +869,7 @@ void Framework::Move(double azDir, double factor)
 //@{
 void Framework::ScaleToPoint(ScaleToPointEvent const & e)
 {
-  m2::PointD const pt = (m_locationState.LocationProcessMode() == location::ELocationDoNothing) ?
+  m2::PointD const pt = (m_informationDisplay.locationState()->LocationProcessMode() == location::ELocationDoNothing) ?
         m_navigator.ShiftPoint(e.Pt()) : GetPixelCenter();
 
   m_navigator.ScaleToPoint(pt, e.ScaleFactor(), ElapsedSeconds());
@@ -895,7 +894,10 @@ void Framework::CalcScalePoints(ScaleEvent const & e, m2::PointD & pt1, m2::Poin
   pt1 = m_navigator.ShiftPoint(e.Pt1());
   pt2 = m_navigator.ShiftPoint(e.Pt2());
 
-  if (m_locationState.HasPosition() && (m_locationState.LocationProcessMode() == location::ELocationCenterOnly))
+  shared_ptr<location::State> locationState = m_informationDisplay.locationState();
+
+  if (locationState->HasPosition()
+  && (locationState->LocationProcessMode() == location::ELocationCenterOnly))
   {
     m2::PointD const ptC = (pt1 + pt2) / 2;
     m2::PointD const ptDiff = GetPixelCenter() - ptC;
@@ -928,10 +930,13 @@ void Framework::DoScale(ScaleEvent const & e)
   if (m_renderPolicy)
     m_renderPolicy->DoScale();
 
-  if (m_navigator.IsRotatingDuringScale() && (m_locationState.CompassProcessMode() == location::ECompassFollow))
+  shared_ptr<location::State> locationState = m_informationDisplay.locationState();
+
+  if (m_navigator.IsRotatingDuringScale()
+  && (locationState->CompassProcessMode() == location::ECompassFollow))
   {
-    m_locationState.StopAnimation();
-    m_locationState.SetCompassProcessMode(location::ECompassDoNothing);
+    locationState->StopAnimation();
+    locationState->SetCompassProcessMode(location::ECompassDoNothing);
   }
 }
 
@@ -991,9 +996,11 @@ bool Framework::Search(search::SearchParams const & params)
 
 bool Framework::GetCurrentPosition(double & lat, double & lon) const
 {
-  if (m_locationState.HasPosition())
+  shared_ptr<location::State> locationState = m_informationDisplay.locationState();
+
+  if (locationState->HasPosition())
   {
-    m2::PointD const pos = m_locationState.Position();
+    m2::PointD const pos = locationState->Position();
     lat = MercatorBounds::YToLat(pos.y);
     lon = MercatorBounds::XToLon(pos.x);
     return true;
@@ -1060,8 +1067,8 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
     yg::gl::RenderContext::initParams();
   }
 
-  m_renderPolicy.reset();
   m_guiController->ResetRenderParams();
+  m_renderPolicy.reset();
   m_renderPolicy.reset(renderPolicy);
 
   if (m_renderPolicy)

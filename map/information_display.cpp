@@ -1,6 +1,7 @@
 #include "information_display.hpp"
 #include "drawer_yg.hpp"
 #include "country_status_display.hpp"
+#include "framework.hpp"
 
 #include "../indexer/mercator.hpp"
 
@@ -23,7 +24,7 @@
 #include "../std/iomanip.hpp"
 #include "../std/target_os.hpp"
 
-InformationDisplay::InformationDisplay(storage::Storage * storage)
+InformationDisplay::InformationDisplay(Framework * framework)
   : m_ruler(Ruler::Params()),
     m_bottomShift(0)
 {
@@ -32,9 +33,22 @@ InformationDisplay::InformationDisplay(storage::Storage * storage)
   p.m_pivot = m2::PointD(0, 0);
   p.m_position = yg::EPosCenter;
   p.m_depth = yg::maxDepth;
-  p.m_storage = storage;
+  p.m_storage = &framework->Storage();
 
   m_countryStatusDisplay.reset(new CountryStatusDisplay(p));
+
+  location::State::Params lsp;
+
+  lsp.m_position = yg::EPosCenter;
+  lsp.m_depth = yg::maxDepth;
+  lsp.m_pivot = m2::PointD(0, 0);
+  lsp.m_compassAreaColor = yg::Color(255, 255, 255, 192);
+  lsp.m_compassBorderColor = yg::Color(255, 255, 255, 96);
+  lsp.m_locationAreaColor = yg::Color(0, 0, 255, 32);
+  lsp.m_locationBorderColor = yg::Color(0, 0, 255, 32);
+  lsp.m_framework = framework;
+
+  m_locationState.reset(new location::State(lsp));
 
   enableDebugPoints(false);
   enableRuler(false);
@@ -54,6 +68,7 @@ void InformationDisplay::setController(gui::Controller *controller)
 {
   m_controller = controller;
   m_controller->AddElement(m_countryStatusDisplay);
+  m_controller->AddElement(m_locationState);
 }
 
 void InformationDisplay::setScreen(ScreenBase const & screen)
@@ -458,4 +473,9 @@ void InformationDisplay::doDraw(DrawerYG *drawer)
 shared_ptr<CountryStatusDisplay> const & InformationDisplay::countryStatusDisplay() const
 {
   return m_countryStatusDisplay;
+}
+
+shared_ptr<location::State> const & InformationDisplay::locationState() const
+{
+  return m_locationState;
 }
