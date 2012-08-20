@@ -395,6 +395,7 @@ namespace location
 
     m_framework->GetRenderPolicy()->GetAnimController()->Lock();
 
+    m_framework->GetInformationDisplay().locationState()->StopAnimation();
     StopAnimation();
 
     double startAngle = m_framework->GetNavigator().Screen().GetAngle();
@@ -418,7 +419,7 @@ namespace location
       m_rotateScreenTask.reset(new RotateScreenTask(m_framework,
                                                     startAngle,
                                                     endAngle,
-                                                    1));
+                                                    2));
 
       m_framework->GetRenderPolicy()->GetAnimController()->AddTask(m_rotateScreenTask);
     }

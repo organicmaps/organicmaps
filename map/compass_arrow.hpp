@@ -66,4 +66,6 @@ public:
   bool onTapEnded(m2::PointD const & pt);
 
   bool hitTest(m2::PointD const & pt) const;
+
+  void StopAnimation();
 };

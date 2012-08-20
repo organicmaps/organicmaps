@@ -121,6 +121,15 @@ void CompassArrow::purge()
   m_displayList.reset();
 }
 
+void CompassArrow::StopAnimation()
+{
+  if (m_rotateScreenTask
+  && !m_rotateScreenTask->IsEnded()
+  && !m_rotateScreenTask->IsCancelled())
+    m_rotateScreenTask->Cancel();
+  m_rotateScreenTask.reset();
+}
+
 bool CompassArrow::onTapEnded(m2::PointD const & pt)
 {
   shared_ptr<anim::Controller> animController = m_framework->GetRenderPolicy()->GetAnimController();
@@ -149,7 +158,7 @@ bool CompassArrow::onTapEnded(m2::PointD const & pt)
   m_rotateScreenTask.reset(new RotateScreenTask(m_framework,
                                                 startAngle,
                                                 endAngle,
-                                                1));
+                                                2));
   animController->AddTask(m_rotateScreenTask);
 
   animController->Unlock();
