@@ -397,7 +397,12 @@ namespace location
     if (fabs(startAngle - endAngle) > 20.0 / 180.0 * math::pi)
     {
       if (fabs(startAngle - endAngle) > math::pi)
-        startAngle -= 2 * math::pi;
+      {
+        if (startAngle > endAngle)
+          startAngle -= 2 * math::pi;
+        else
+          endAngle -= 2 * math::pi;
+      }
 
       m_rotateScreenTask.reset(new RotateScreenTask(m_framework,
                                                     startAngle,
