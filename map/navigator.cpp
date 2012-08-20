@@ -11,6 +11,7 @@
 #include "../geometry/angles.hpp"
 #include "../geometry/transformations.hpp"
 #include "../geometry/point2d.hpp"
+#include "../geometry/distance_on_sphere.hpp"
 
 #include "../base/std_serialization.hpp"
 #include "../base/logging.hpp"
@@ -452,9 +453,14 @@ bool Navigator::CheckMinScale(ScreenBase const & screen) const
 {
   m2::PointD const pt0 = screen.PtoG(m_Screen.PixelRect().Center() - m2::PointD(m_pxMinWidth / 2, 0));
   m2::PointD const pt1 = screen.PtoG(m_Screen.PixelRect().Center() + m2::PointD(m_pxMinWidth / 2, 0));
-  double lonDiff = fabs(MercatorBounds::XToLon(pt1.x) - MercatorBounds::XToLon(pt0.x));
-  double metresDiff = lonDiff / MercatorBounds::degreeInMetres;
-  return metresDiff >= m_metresMinWidth - 1;
+
+  double lon0 = MercatorBounds::XToLon(pt0.x);
+  double lat0 = MercatorBounds::YToLat(pt0.y);
+
+  double lon1 = MercatorBounds::XToLon(pt1.x);
+  double lat1 = MercatorBounds::YToLat(pt1.y);
+
+  return ms::DistanceOnEarth(lat0, lon0, lat1, lon1) >= (m_metresMinWidth - 1);
 }
 
 bool Navigator::CheckBorders(ScreenBase const & screen) const
