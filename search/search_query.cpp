@@ -171,6 +171,7 @@ void Query::SetPreferredLanguage(string const & lang)
 
 void Query::SetInputLanguage(int8_t lang)
 {
+  LOG(LDEBUG, ("New input language = ", lang));
   SetLanguage(LANG_INPUT, lang);
 }
 
@@ -796,6 +797,16 @@ namespace impl
   };
 
   void swap(Locality & r1, Locality & r2) { r1.Swap(r2); }
+
+  string DebugPrint(Locality const & l)
+  {
+    string res("Locality: ");
+    res += "Name: " + l.m_name;
+    res += "; Name English: " + l.m_enName;
+    res += "; Rank: " + ::DebugPrint(l.m_value.m_rank);
+    res += "; Matched: " + ::DebugPrint(l.m_matchedTokens.size());
+    return res;
+  }
 }
 
 void Query::SearchAddress()
@@ -891,21 +902,25 @@ namespace impl
       }
     };
 
-    int8_t m_lang, m_en, m_int;
+    int8_t m_lang;
+    int8_t m_arrEn[3];
+
     void AssignEnglishName(FeatureType const & f, Locality & l)
     {
-      if (!f.GetName(m_en, l.m_enName))
-        (void)f.GetName(m_int, l.m_enName);
+      for (int i = 0; i < 3; ++i)
+        if (f.GetName(m_arrEn[i], l.m_enName))
+          break;
     }
 
     volatile bool & m_isCancelled;
 
   public:
-    DoFindLocality(MwmValue * pMwm, int8_t lang, volatile bool & isCancelled)
+    DoFindLocality(Query & q, MwmValue * pMwm, int8_t lang, volatile bool & isCancelled)
       : m_vector(pMwm->m_cont, pMwm->GetHeader()), m_lang(lang), m_isCancelled(isCancelled)
     {
-      m_en = StringUtf8Multilang::GetLangIndex("en");
-      m_int = StringUtf8Multilang::GetLangIndex("int_name");
+      m_arrEn[0] = q.GetLanguage(LANG_ENGLISH);
+      m_arrEn[1] = q.GetLanguage(LANG_INTERNATIONAL);
+      m_arrEn[2] = q.GetLanguage(LANG_DEFAULT);
     }
 
     void Resize(size_t) {}
@@ -983,14 +998,17 @@ bool Query::SearchLocality(MwmValue * pMwm, impl::Locality & res)
     {
       scoped_ptr<TrieIterator> pLangRoot(pTrieRoot->GoToEdge(i));
 
-      impl::DoFindLocality doFind(pMwm, lang, m_cancel);
+      impl::DoFindLocality doFind(*this, pMwm, lang, m_cancel);
       GetFeaturesInTrie(params.m_tokens, params.m_prefixTokens,
                         TrieRootPrefix(*pLangRoot, edge), doFind);
 
       // save better locality, if any
       impl::Locality loc;
       if (doFind.GetBestLocality(loc) && (res < loc))
+      {
+        LOG(LDEBUG, ("Better location ", loc, " for lang ", lang));
         res = loc;
+      }
     }
   }
 

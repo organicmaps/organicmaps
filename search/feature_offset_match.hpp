@@ -13,6 +13,8 @@
 #include "../std/utility.hpp"
 #include "../std/vector.hpp"
 
+//#include "../sparsehash/dense_hash_set.hpp"
+
 
 namespace search
 {
@@ -176,10 +178,21 @@ template <class FilterT> class OffsetIntersecter
   scoped_ptr<SetType> m_prevSet;
   scoped_ptr<SetType> m_set;
 
+  void InitSet(scoped_ptr<SetType> & ptr)
+  {
+    ptr.reset(new SetType());
+
+    // this is not std compatible, but important for google::dense_hash_set
+    //ValueT zero;
+    //zero.m_featureId = 0;
+    //ptr->set_empty_key(zero);
+  }
+
 public:
   explicit OffsetIntersecter(FilterT const & filter)
-    : m_filter(filter), m_set(new SetType())
+    : m_filter(filter)
   {
+    InitSet(m_set);
   }
 
   void operator() (ValueT const & v)
@@ -196,7 +209,7 @@ public:
   void NextStep()
   {
     if (!m_prevSet)
-      m_prevSet.reset(new SetType());
+      InitSet(m_prevSet);
 
     m_prevSet.swap(m_set);
     m_set->clear();
@@ -293,10 +306,10 @@ void MatchFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
       // match in trie
       impl::FullMatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize,
                             tokens[i][j], intersecter);
-
-      // get additional features for token
-      addHolder.GetValues(i, intersecter);
     }
+
+    // get additional features for 'i' token
+    addHolder.GetValues(i, intersecter);
 
     intersecter.NextStep();
   }
@@ -310,13 +323,15 @@ void MatchFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
     // match in trie
     impl::PrefixMatchInTrie(trieRoot.m_root, trieRoot.m_prefix, trieRoot.m_prefixSize,
                             prefixTokens[i], intersecter);
-
-    // get additional features for token
-    addHolder.GetValues(count, intersecter);
   }
 
   if (prefixCount > 0)
+  {
+    // get additional features for prefix token
+    addHolder.GetValues(count, intersecter);
+
     intersecter.NextStep();
+  }
 
   intersecter.ForEachResult(toDo);
 }
