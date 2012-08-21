@@ -225,10 +225,7 @@ public:
   void GetPrefferedNames(string & defaultName, string & intName) const;
   /// Additional - take into account house number for defaultName
   void GetPreferredDrawableNames(string & defaultName, string & intName) const;
-  inline bool GetName(int8_t lang, string & name) const
-  {
-    return m_Params.name.GetString(lang, name);
-  }
+  bool GetName(int8_t lang, string & name) const;
   //@}
 
   uint8_t GetRank() const;

@@ -48,6 +48,22 @@ namespace
     &impl::PreResult2::LessViewportDistance,
     &impl::PreResult2::LessDistance
   };
+
+  /// This indexes should match the initialization routine below.
+  int g_arrLang1[] = { 0, 1, 2, 2, 3 };
+  int g_arrLang2[] = { 0, 0, 0, 1, 0 };
+  enum LangIndexT { LANG_CURRENT = 0,
+                    LANG_INPUT,
+                    LANG_INTERNATIONAL,
+                    LANG_ENGLISH,
+                    LANG_DEFAULT,
+                    LANG_COUNT };
+
+  pair<int, int> GetLangIndex(int id)
+  {
+    ASSERT_LESS ( id, LANG_COUNT, () );
+    return make_pair(g_arrLang1[id], g_arrLang2[id]);
+  }
 }
 
 
@@ -67,8 +83,6 @@ Query::Query(Index const * pIndex,
 
   ASSERT ( m_pIndex, () );
 
-  SetPreferredLanguage("en");
-
   // Results queue's initialization.
   STATIC_ASSERT ( m_qCount == ARRAY_SIZE(g_arrCompare1) );
   STATIC_ASSERT ( m_qCount == ARRAY_SIZE(g_arrCompare2) );
@@ -78,10 +92,32 @@ Query::Query(Index const * pIndex,
     m_results[i] = QueueT(2 * resultsNeeded, QueueCompareT(g_arrCompare1[i]));
     m_results[i].reserve(2 * resultsNeeded);
   }
+
+  // Initialize keywords scorer.
+  // Note! This order should match the indexes arrays above.
+  vector<vector<int8_t> > langPriorities(4);
+  langPriorities[0].push_back(0);   // future current lang
+  langPriorities[1].push_back(0);   // future input lang
+  langPriorities[2].push_back(StringUtf8Multilang::GetLangIndex("int_name"));
+  langPriorities[2].push_back(StringUtf8Multilang::GetLangIndex("en"));
+  langPriorities[3].push_back(StringUtf8Multilang::GetLangIndex("default"));
+  m_keywordsScorer.SetLanguages(langPriorities);
+
+  SetPreferredLanguage("en");
 }
 
 Query::~Query()
 {
+}
+
+void Query::SetLanguage(int id, int8_t lang)
+{
+  m_keywordsScorer.SetLanguage(GetLangIndex(id), lang);
+}
+
+int8_t Query::GetLanguage(int id) const
+{
+  return m_keywordsScorer.GetLanguage(GetLangIndex(id));
 }
 
 namespace
@@ -125,11 +161,17 @@ void Query::SetViewportByIndex(MWMVectorT const & mwmInfo, m2::RectD const & vie
 
 void Query::SetPreferredLanguage(string const & lang)
 {
-  m_currentLang = StringUtf8Multilang::GetLangIndex(lang);
+  int8_t const code = StringUtf8Multilang::GetLangIndex(lang);
+  SetLanguage(LANG_CURRENT, code);
 
   // Default initialization.
   // If you want to reset input language, call SetInputLanguage before search.
-  m_inputLang = m_currentLang;
+  SetInputLanguage(code);
+}
+
+void Query::SetInputLanguage(int8_t lang)
+{
+  SetLanguage(LANG_INPUT, lang);
 }
 
 void Query::ClearCache()
@@ -203,18 +245,6 @@ void Query::InitSearch(string const & query)
   m_prefix.clear();
 }
 
-void Query::InitKeywordsScorer()
-{
-  vector<vector<int8_t> > langPriorities(4);
-  langPriorities[0].push_back(m_currentLang);
-  langPriorities[1].push_back(m_inputLang);
-  langPriorities[2].push_back(StringUtf8Multilang::GetLangIndex("int_name"));
-  langPriorities[2].push_back(StringUtf8Multilang::GetLangIndex("en"));
-  langPriorities[3].push_back(StringUtf8Multilang::GetLangIndex("default"));
-  m_pKeywordsScorer.reset(new LangKeywordsScorer(langPriorities,
-                                                 m_tokens.data(), m_tokens.size(), &m_prefix));
-}
-
 void Query::ClearQueues()
 {
   for (size_t i = 0; i < m_qCount; ++i)
@@ -223,10 +253,9 @@ void Query::ClearQueues()
 
 void Query::Search(string const & query, Results & res)
 {
-  // Initialize.
-
   InitSearch(query);
 
+  // split input query by tokens and prefix
   search::Delimiters delims;
   SplitUniString(NormalizeAndSimplifyString(query), MakeBackInsertFunctor(m_tokens), delims);
 
@@ -235,10 +264,13 @@ void Query::Search(string const & query, Results & res)
     m_prefix.swap(m_tokens.back());
     m_tokens.pop_back();
   }
-  if (m_tokens.size() > 31)
-    m_tokens.resize(31);
 
-  InitKeywordsScorer();
+  int const maxTokensCount = MAX_TOKENS-1;
+  if (m_tokens.size() > maxTokensCount)
+    m_tokens.resize(maxTokensCount);
+
+  // assign tokens and prefix to scorer
+  m_keywordsScorer.SetKeywords(m_tokens.data(), m_tokens.size(), &m_prefix);
 
   ClearQueues();
 
@@ -259,6 +291,7 @@ void Query::Search(string const & query, Results & res)
   SearchAddress();
 
   if (m_cancel) return;
+  LOG(LDEBUG, ("Usual search"));
   SearchFeatures();
 
   if (m_cancel) return;
@@ -585,7 +618,7 @@ public:
 
 void Query::GetBestMatchName(FeatureType const & f, uint32_t & penalty, string & name) const
 {
-  impl::BestNameFinder bestNameFinder(penalty, name, *m_pKeywordsScorer);
+  impl::BestNameFinder bestNameFinder(penalty, name, m_keywordsScorer);
   (void)f.ForEachNameRef(bestNameFinder);
 
   /*
@@ -596,6 +629,11 @@ void Query::GetBestMatchName(FeatureType const & f, uint32_t & penalty, string &
     LOG(LDEBUG, (f.GetLimitRect(FeatureType::BEST_GEOMETRY)));
   }
   */
+}
+
+Result Query::MakeResult(impl::PreResult2 const & r, set<uint32_t> const * pPrefferedTypes/* = 0*/) const
+{
+  return r.GenerateFinalResult(m_pInfoGetter, m_pCategories, pPrefferedTypes, GetLanguage(LANG_CURRENT));
 }
 
 namespace impl
@@ -704,11 +742,8 @@ void Query::Params::EraseTokens(vector<size_t> const & eraseInds)
 
 void Query::Params::FillLanguages(Query const & q)
 {
-  m_langs.insert(q.m_currentLang);
-  m_langs.insert(q.m_inputLang);
-  m_langs.insert(StringUtf8Multilang::GetLangIndex("int_name"));
-  m_langs.insert(StringUtf8Multilang::GetLangIndex("en"));
-  m_langs.insert(StringUtf8Multilang::GetLangIndex("default"));
+  for (int i = 0; i < LANG_COUNT; ++i)
+    m_langs.insert(q.GetLanguage(i));
 }
 
 namespace impl
@@ -723,7 +758,16 @@ namespace impl
     Locality() : m_type(0) {}
     Locality(Query::TrieValueT const & val, uint32_t type) : m_value(val), m_type(type) {}
 
-    bool operator<(Locality const & rhs) const
+    void Swap(Locality & rhs)
+    {
+      m_name.swap(rhs.m_name);
+      m_enName.swap(rhs.m_enName);
+      swap(m_value, rhs.m_value);
+      swap(m_type, rhs.m_type);
+      m_matchedTokens.swap(rhs.m_matchedTokens);
+    }
+
+    bool operator< (Locality const & rhs) const
     {
       if (m_matchedTokens.size() != rhs.m_matchedTokens.size())
         return (m_matchedTokens.size() < rhs.m_matchedTokens.size());
@@ -750,6 +794,8 @@ namespace impl
       return (count <= m_matchedTokens.size());
     }
   };
+
+  void swap(Locality & r1, Locality & r2) { r1.Swap(r2); }
 }
 
 void Query::SearchAddress()
@@ -769,10 +815,11 @@ void Query::SearchAddress()
       impl::Locality loc;
       if (SearchLocality(pMwm, loc))
       {
-        LOG(LDEBUG, ("Locality = ", loc.m_name));
+        LOG(LDEBUG, ("Locality = ", loc.m_enName));
 
         Params params(*this);
         params.EraseTokens(loc.m_matchedTokens);
+
         if (!params.IsEmpty())
         {
           SetViewportByIndex(mwmInfo, scales::GetRectForLevel(ADDRESS_SCALE, loc.m_value.m_pt, 1.0), ADDRESS_RECT_ID);
@@ -801,14 +848,10 @@ namespace impl
       bool operator() (Locality const & l) const { return (l.m_value.m_featureId == m_id); }
     };
 
-    Query const & m_query;
-
     vector<Locality> m_localities;
 
     FeaturesVector m_vector;
     size_t m_index;         ///< index of processing token
-
-    volatile bool & m_isCancelled;
 
     class TypeChecker
     {
@@ -848,16 +891,18 @@ namespace impl
       }
     };
 
-    int8_t m_en, m_int;
+    int8_t m_lang, m_en, m_int;
     void AssignEnglishName(FeatureType const & f, Locality & l)
     {
       if (!f.GetName(m_en, l.m_enName))
         (void)f.GetName(m_int, l.m_enName);
     }
 
+    volatile bool & m_isCancelled;
+
   public:
-    DoFindLocality(Query const & query, MwmValue * pMwm, volatile bool & isCancelled)
-      : m_query(query), m_vector(pMwm->m_cont, pMwm->GetHeader()), m_isCancelled(isCancelled)
+    DoFindLocality(MwmValue * pMwm, int8_t lang, volatile bool & isCancelled)
+      : m_vector(pMwm->m_cont, pMwm->GetHeader()), m_lang(lang), m_isCancelled(isCancelled)
     {
       m_en = StringUtf8Multilang::GetLangIndex("en");
       m_int = StringUtf8Multilang::GetLangIndex("int_name");
@@ -892,8 +937,7 @@ namespace impl
       {
         m_localities.push_back(Locality(v, t));
 
-        uint32_t penalty;
-        m_query.GetBestMatchName(f, penalty, m_localities.back().m_name);
+        f.GetName(m_lang, m_localities.back().m_name);
 
         m_localities.back().m_matchedTokens.push_back(m_index);
 
@@ -934,11 +978,12 @@ bool Query::SearchLocality(MwmValue * pMwm, impl::Locality & res)
   for (size_t i = 0; i < pTrieRoot->m_edge.size(); ++i)
   {
     TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
-    if (edge[0] < search::CATEGORIES_LANG && params.IsLangExist(static_cast<int8_t>(edge[0])))
+    int8_t const lang = static_cast<int8_t>(edge[0]);
+    if (lang < search::CATEGORIES_LANG && params.IsLangExist(lang))
     {
       scoped_ptr<TrieIterator> pLangRoot(pTrieRoot->GoToEdge(i));
 
-      impl::DoFindLocality doFind(*this, pMwm, m_cancel);
+      impl::DoFindLocality doFind(pMwm, lang, m_cancel);
       GetFeaturesInTrie(params.m_tokens, params.m_prefixTokens,
                         TrieRootPrefix(*pLangRoot, edge), doFind);
 
@@ -957,8 +1002,9 @@ void Query::SearchFeatures()
   MWMVectorT mwmInfo;
   m_pIndex->GetMwmInfo(mwmInfo);
 
-  // do usual search in viewport and near me (without last rect)
   Params params(*this);
+
+  // do usual search in viewport and near me (without last rect)
   for (size_t i = 0; i < RECTSCOUNT-1; ++i)
   {
     if (m_viewport[i].IsValid())
@@ -1149,8 +1195,8 @@ bool Query::MatchForSuggestionsImpl(strings::UniString const & token, int8_t lan
 
 void Query::MatchForSuggestions(strings::UniString const & token, Results & res)
 {
-  if (!MatchForSuggestionsImpl(token, m_inputLang, res))
-    MatchForSuggestionsImpl(token, StringUtf8Multilang::GetLangIndex("en"), res);
+  if (!MatchForSuggestionsImpl(token, GetLanguage(LANG_INPUT), res))
+    MatchForSuggestionsImpl(token, GetLanguage(LANG_ENGLISH), res);
 }
 
 m2::RectD const & Query::GetViewport(int viewportID/* = -1*/) const
@@ -1194,9 +1240,7 @@ void Query::SearchAllInViewport(m2::RectD const & viewport, Results & res, unsig
     UpdateViewportOffsets(mwmInfo, viewport, offsets);
   }
 
-  // Init search.
   InitSearch(string());
-  InitKeywordsScorer();
 
   vector<impl::PreResult2*> indV;
 

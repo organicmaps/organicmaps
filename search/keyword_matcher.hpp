@@ -12,27 +12,30 @@ namespace search
 class KeywordMatcher
 {
 public:
-  enum { MAX_SCORE = MAX_TOKENS };
+  enum { MAX_SCORE = MAX_TOKENS * MAX_TOKENS };
+  typedef strings::UniString StringT;
 
-  KeywordMatcher(strings::UniString const * const * pKeywords, size_t keywordCount,
-                 strings::UniString const * pPrefix);
-  KeywordMatcher(strings::UniString const * keywords, size_t keywordCount,
-                 strings::UniString const * pPrefix);
-  ~KeywordMatcher();
+  KeywordMatcher() : m_prefix(0) {}
 
+  inline void Clear()
+  {
+    m_keywords.clear();
+    m_prefix = 0;
+  }
 
-  // Returns penalty (which is less than MAX_SCORE) if name matched, or MAX_SCORE otherwise.
+  /// Store references to keywords from source array of strings.
+  void SetKeywords(StringT const * keywords, size_t count, StringT const * prefix);
+
+  /// @return penalty of string (less is better).
+  //@{
   uint32_t Score(string const & name) const;
-  uint32_t Score(strings::UniString const & name) const;
-  uint32_t Score(strings::UniString const * tokens, int tokenCount) const;
+  uint32_t Score(StringT const & name) const;
+  uint32_t Score(StringT const * tokens, size_t count) const;
+  //@}
 
 private:
-  void Initialize();
-
-  strings::UniString const * const * m_pKeywords;
-  size_t m_keywordCount;
-  strings::UniString const * m_pPrefix;
-  bool m_bOwnKeywords;
+  buffer_vector<StringT const *, 10> m_keywords;
+  StringT const * m_prefix;
 };
 
 }  // namespace search

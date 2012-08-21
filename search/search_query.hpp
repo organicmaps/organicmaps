@@ -1,5 +1,6 @@
 #pragma once
 #include "intermediate_result.hpp"
+#include "lang_keywords_scorer.hpp"
 
 #include "../indexer/search_trie.hpp"
 #include "../indexer/index.hpp"   // for Index::MwmLock
@@ -18,16 +19,12 @@
 
 
 class FeatureType;
-//class Index;
-//class MwmInfo;
 class CategoriesHolder;
 
 namespace storage { class CountryInfoGetter; }
 
 namespace search
 {
-
-class LangKeywordsScorer;
 
 namespace impl
 {
@@ -75,7 +72,7 @@ public:
   inline void SetSearchInWorld(bool b) { m_worldSearch = b; }
 
   void SetPreferredLanguage(string const & lang);
-  inline void SetInputLanguage(int8_t lang) { m_inputLang = lang; }
+  void SetInputLanguage(int8_t lang);
 
   void Search(string const & query, Results & res);
   void SearchAllInViewport(m2::RectD const & viewport, Results & res, unsigned int resultsNeeded = 30);
@@ -96,7 +93,6 @@ private:
   friend class impl::DoFindLocality;
 
   void InitSearch(string const & query);
-  void InitKeywordsScorer();
   void ClearQueues();
 
   typedef vector<MwmInfo> MWMVectorT;
@@ -151,16 +147,12 @@ private:
 
   void GetBestMatchName(FeatureType const & f, uint32_t & penalty, string & name) const;
 
-  inline Result MakeResult(impl::PreResult2 const & r, set<uint32_t> const * pPrefferedTypes = 0) const
-  {
-    return r.GenerateFinalResult(m_pInfoGetter, m_pCategories, pPrefferedTypes, m_currentLang);
-  }
+  Result MakeResult(impl::PreResult2 const & r, set<uint32_t> const * pPrefferedTypes = 0) const;
 
   Index const * m_pIndex;
   CategoriesHolder const * m_pCategories;
   StringsToSuggestVectorT const * m_pStringsToSuggest;
   storage::CountryInfoGetter const * m_pInfoGetter;
-  int8_t m_currentLang, m_inputLang;
 
   volatile bool m_cancel;
 
@@ -186,7 +178,10 @@ private:
 
   m2::PointD m_position;
 
-  scoped_ptr<LangKeywordsScorer> m_pKeywordsScorer;
+  void SetLanguage(int id, int8_t lang);
+  int8_t GetLanguage(int id) const;
+
+  LangKeywordsScorer m_keywordsScorer;
 
   OffsetsVectorT m_offsetsInViewport[RECTSCOUNT];
 

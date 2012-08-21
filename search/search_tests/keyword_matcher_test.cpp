@@ -22,69 +22,58 @@ public:
       m_prefix = m_keywords.back();
       m_keywords.pop_back();
     }
-    m_ptrs.resize(m_keywords.size());
-    for (size_t i = 0; i < m_keywords.size(); ++i)
-      m_ptrs[i] = &m_keywords[i];
-    m_pMatcher.reset(new search::KeywordMatcher(m_ptrs.data(), int(m_ptrs.size()), &m_prefix));
+
+    m_matcher.SetKeywords(m_keywords.data(), m_keywords.size(), &m_prefix);
   }
 
-  scoped_ptr<search::KeywordMatcher> m_pMatcher;
+  search::KeywordMatcher m_matcher;
 private:
   buffer_vector<strings::UniString, 10> m_keywords;
-  buffer_vector<strings::UniString const *, 10> m_ptrs;
   strings::UniString m_prefix;
 };
 
 }  // unnamed namespace
+
 UNIT_TEST(KeywordMatcher_New)
 {
   Matcher matcher("new ");
-  TEST_EQUAL(matcher.m_pMatcher->Score("new"), 0, ());
-  TEST_EQUAL(matcher.m_pMatcher->Score("york"), MAX_SCORE, ());
-  TEST_EQUAL(matcher.m_pMatcher->Score("new york"), 0, ());
+  TEST_EQUAL(matcher.m_matcher.Score("new"), 0, ());
+  TEST_EQUAL(matcher.m_matcher.Score("york"), MAX_SCORE, ());
+  TEST_EQUAL(matcher.m_matcher.Score("new york"), 0, ());
 }
 
 UNIT_TEST(KeywordMatcher_York)
 {
   Matcher matcher("york ");
-  TEST_EQUAL(matcher.m_pMatcher->Score("new"), MAX_SCORE, ());
-  TEST_EQUAL(matcher.m_pMatcher->Score("york"), 0, ());
-  TEST_EQUAL(matcher.m_pMatcher->Score("new york"), 1, ());
+  TEST_EQUAL(matcher.m_matcher.Score("new"), MAX_SCORE, ());
+  TEST_EQUAL(matcher.m_matcher.Score("york"), 0, ());
+  TEST_EQUAL(matcher.m_matcher.Score("new york"), 1, ());
 }
 
 UNIT_TEST(KeywordMatcher_NewYork)
 {
   Matcher matcher1("new york ");
   Matcher matcher2("new york");
-  TEST_EQUAL(matcher1.m_pMatcher->Score("new"), MAX_SCORE, ());
-  TEST_EQUAL(matcher2.m_pMatcher->Score("new"), MAX_SCORE, ());
-  TEST_EQUAL(matcher1.m_pMatcher->Score("york"), MAX_SCORE, ());
-  TEST_EQUAL(matcher2.m_pMatcher->Score("york"), MAX_SCORE, ());
-  TEST_EQUAL(matcher1.m_pMatcher->Score("new york"), 0, ());
-  TEST_EQUAL(matcher2.m_pMatcher->Score("new york"), 0, ());
+  TEST_EQUAL(matcher1.m_matcher.Score("new"), MAX_SCORE, ());
+  TEST_EQUAL(matcher2.m_matcher.Score("new"), MAX_SCORE, ());
+  TEST_EQUAL(matcher1.m_matcher.Score("york"), MAX_SCORE, ());
+  TEST_EQUAL(matcher2.m_matcher.Score("york"), MAX_SCORE, ());
+  TEST_EQUAL(matcher1.m_matcher.Score("new york"), 0, ());
+  TEST_EQUAL(matcher2.m_matcher.Score("new york"), 0, ());
 }
 
 UNIT_TEST(KeywordMatcher_YorkNew)
 {
   Matcher matcher("new york ");
-  TEST_EQUAL(matcher.m_pMatcher->Score("new"), MAX_SCORE, ());
-  TEST_EQUAL(matcher.m_pMatcher->Score("york"), MAX_SCORE, ());
-  TEST_EQUAL(matcher.m_pMatcher->Score("new york"), 0, ());
+  TEST_EQUAL(matcher.m_matcher.Score("new"), MAX_SCORE, ());
+  TEST_EQUAL(matcher.m_matcher.Score("york"), MAX_SCORE, ());
+  TEST_EQUAL(matcher.m_matcher.Score("new york"), 0, ());
 }
 
 UNIT_TEST(KeywordMatcher_NewYo)
 {
   Matcher matcher("new yo");
-  TEST_EQUAL(matcher.m_pMatcher->Score("new"), MAX_SCORE, ());
-  TEST_EQUAL(matcher.m_pMatcher->Score("york"), MAX_SCORE, ());
-  TEST_EQUAL(matcher.m_pMatcher->Score("new york"), 0, ());
+  TEST_EQUAL(matcher.m_matcher.Score("new"), MAX_SCORE, ());
+  TEST_EQUAL(matcher.m_matcher.Score("york"), MAX_SCORE, ());
+  TEST_EQUAL(matcher.m_matcher.Score("new york"), 0, ());
 }
-
-
-
-
-
-
-
-
-

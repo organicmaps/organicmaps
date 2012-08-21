@@ -10,6 +10,8 @@
 #include "feature_visibility.hpp"
 #include "categories_holder.hpp"
 
+#include "../search/search_common.hpp"    // for MAX_TOKENS constant
+
 #include "../defines.hpp"
 
 #include "../platform/platform.hpp"
@@ -47,11 +49,11 @@ struct FeatureNameInserter
     buffer_vector<strings::UniString, 32> tokens;
     SplitUniString(uniName, MakeBackInsertFunctor(tokens), search::Delimiters());
 
-    /// @todo MAX_TOKENS = 32, in Query::Search we use 31 + prefix. Why 30 ???
-    if (tokens.size() > 30)
+    int const maxTokensCount = search::MAX_TOKENS - 1;
+    if (tokens.size() > maxTokensCount)
     {
       LOG(LWARNING, ("Name has too many tokens:", name));
-      tokens.resize(30);
+      tokens.resize(maxTokensCount);
     }
 
     for (size_t i = 0; i < tokens.size(); ++i)

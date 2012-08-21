@@ -290,6 +290,15 @@ void FeatureType::GetPreferredDrawableNames(string & defaultName, string & intNa
   }
 }
 
+bool FeatureType::GetName(int8_t lang, string & name) const
+{
+  if (!HasName())
+    return false;
+
+  ParseCommon();
+  return m_Params.name.GetString(lang, name);
+}
+
 uint8_t FeatureType::GetRank() const
 {
   ParseCommon();

@@ -3,6 +3,7 @@
 namespace search
 {
 
+/// Upper bound for max count of tokens for indexing and scoring.
 enum { MAX_TOKENS = 32 };
 
 template <typename IterT1, typename IterT2>

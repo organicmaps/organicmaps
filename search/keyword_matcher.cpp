@@ -11,42 +11,17 @@
 namespace search
 {
 
-KeywordMatcher::KeywordMatcher(strings::UniString const * const * pKeywords,
-                               size_t keywordCount,
-                               strings::UniString const * pPrefix)
-  : m_pKeywords(pKeywords), m_keywordCount(keywordCount), m_pPrefix(pPrefix), m_bOwnKeywords(false)
+void KeywordMatcher::SetKeywords(StringT const * keywords, size_t count, StringT const * prefix)
 {
-  Initialize();
-}
+  ASSERT_LESS ( count, static_cast<size_t>(MAX_TOKENS), () );
 
-KeywordMatcher::KeywordMatcher(strings::UniString const * keywords,
-                               size_t keywordCount,
-                               strings::UniString const * pPrefix)
-  : m_keywordCount(keywordCount), m_pPrefix(pPrefix), m_bOwnKeywords(false)
-{
-  Initialize();
-  if (m_keywordCount > 0)
-  {
-    strings::UniString const * * pKeywords = new strings::UniString const * [m_keywordCount];
-    for (size_t i = 0; i < m_keywordCount; ++i)
-      pKeywords[i] = &keywords[i];
-    m_bOwnKeywords = true;
-    m_pKeywords = pKeywords;
-  }
-}
+  m_keywords.resize(count);
+  for (size_t i = 0; i < count; ++i)
+    m_keywords[i] = &keywords[i];
 
-void KeywordMatcher::Initialize()
-{
-  ASSERT_LESS(m_keywordCount, size_t(MAX_TOKENS), ());
-  m_keywordCount = min(m_keywordCount, size_t(MAX_TOKENS));
-  if (m_pPrefix && m_pPrefix->empty())
-    m_pPrefix = NULL;
-}
-
-KeywordMatcher::~KeywordMatcher()
-{
-  if (m_bOwnKeywords)
-    delete [] m_pKeywords;
+  m_prefix = prefix;
+  if (m_prefix && m_prefix->empty())
+    m_prefix = 0;
 }
 
 uint32_t KeywordMatcher::Score(string const & name) const
@@ -54,55 +29,56 @@ uint32_t KeywordMatcher::Score(string const & name) const
   return Score(NormalizeAndSimplifyString(name));
 }
 
-uint32_t KeywordMatcher::Score(strings::UniString const & name) const
+uint32_t KeywordMatcher::Score(StringT const & name) const
 {
-  buffer_vector<strings::UniString, MAX_TOKENS> tokens;
+  buffer_vector<StringT, MAX_TOKENS> tokens;
   SplitUniString(name, MakeBackInsertFunctor(tokens), Delimiters());
-  ASSERT_LESS(tokens.size(), size_t(MAX_TOKENS), ());
-  return Score(tokens.data(), static_cast<int>(tokens.size()));
+  ASSERT_LESS ( tokens.size(), static_cast<size_t>(MAX_TOKENS), () );
+  return Score(tokens.data(), min(size_t(MAX_TOKENS-1), tokens.size()));
 }
 
-uint32_t KeywordMatcher::Score(strings::UniString const * tokens, int tokenCount) const
+uint32_t KeywordMatcher::Score(StringT const * tokens, size_t count) const
 {
-  ASSERT_LESS(tokenCount, int(MAX_TOKENS), ());
+  ASSERT_LESS ( count, static_cast<size_t>(MAX_TOKENS), () );
 
-  // We will use this for scoring.
+  // boolean array of matched input tokens
   unsigned char isTokenMatched[MAX_TOKENS] = { 0 };
 
-  // Check that all keywords matched.
-  for (int k = 0; k < m_keywordCount; ++k)
+  // calculate penalty by keywords - add MAX_TOKENS for each unmatched keyword
+  uint32_t score = 0;
+  for (size_t i = 0; i < m_keywords.size(); ++i)
   {
     unsigned char isKeywordMatched = 0;
-    for (int t = 0; t < tokenCount; ++t)
-      if (*m_pKeywords[k] == tokens[t])
-        isKeywordMatched = isTokenMatched[t] = 1;
+    for (size_t j = 0; j < count; ++j)
+      if (*m_keywords[i] == tokens[j])
+        isKeywordMatched = isTokenMatched[j] = 1;
 
-    // All keywords should be matched.
     if (!isKeywordMatched)
-      return MAX_SCORE;
+      score += MAX_TOKENS;
   }
 
-  // Check that prefix matched.
-  if (m_pPrefix)
+  // calculate penalty for prefix - add MAX_TOKENS for unmatched prefix
+  if (m_prefix)
   {
     bool bPrefixMatched = false;
-    for (int t = 0; t < tokenCount && !bPrefixMatched; ++t)
-      if (StartsWith(tokens[t].begin(), tokens[t].end(),
-                     m_pPrefix->begin(), m_pPrefix->end()))
+    for (size_t i = 0; i < count && !bPrefixMatched; ++i)
+      if (StartsWith(tokens[i].begin(), tokens[i].end(),
+                     m_prefix->begin(), m_prefix->end()))
+      {
         bPrefixMatched = true;
+      }
+
     if (!bPrefixMatched)
-      return MAX_SCORE;
+      score += MAX_TOKENS;
   }
 
-  // Calculate score.
-  int lastTokenMatched = 0;
-  for (int t = 0; t < tokenCount; ++t)
-    if (isTokenMatched[t])
-      lastTokenMatched = t;
-  uint32_t score = 0;
-  for (int t = 0; t <= lastTokenMatched; ++t)
-    if (tokens[t].size() > 2 && !isTokenMatched[t])
+  // add penalty for each unmatched token in input sequence
+  for (size_t i = 0; i <= count; ++i)
+  {
+    // check for token length (skip common tokens such as "de", "la", "a")
+    if (tokens[i].size() > 2 && !isTokenMatched[i])
       ++score;
+  }
 
   return score;
 }
