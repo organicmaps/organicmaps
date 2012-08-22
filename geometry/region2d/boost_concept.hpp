@@ -3,6 +3,7 @@
 #include "../point2d.hpp"
 #include "../region2d.hpp"
 
+#include "../../3party/boost/boost/polygon/detail/polygon_sort_adaptor.hpp"
 #include "../../3party/boost/boost/polygon/polygon.hpp"
 
 #include "../../std/vector.hpp"
