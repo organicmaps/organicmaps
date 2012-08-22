@@ -119,10 +119,8 @@
 - (void) showInView:(UIView *)view atPoint:(CGPoint)pt
 {
   if (isDisplayed)
-  {
-    NSLog(@"Already displaying the BalloonView");
-    return;
-  }
+    [self hide];
+
   isDisplayed = YES;
 
   CGFloat const w = self.pinImage.bounds.size.width;

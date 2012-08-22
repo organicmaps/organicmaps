@@ -137,14 +137,26 @@
 
 - (void)onSingleTap:(NSValue *)point
 {
-  if (m_bookmark.isDisplayed)
-    [m_bookmark hide];
+  // Try to check if we've clicked on bookmark
+  CGPoint const pixelPos = [point CGPointValue];
+  Bookmark const * bm = GetFramework().GetBookmark(m2::PointD(pixelPos.x, pixelPos.y));
+  if (!bm)
+  {
+    if (m_bookmark.isDisplayed)
+      [m_bookmark hide];
+    else
+    {
+      CGPoint const globalPos = [self viewPoint2GlobalPoint:pixelPos];
+      m_bookmark.globalPosition = globalPos;
+      [m_bookmark showInView:self.view atPoint:pixelPos];
+    }
+  }
   else
   {
-    CGPoint const pixelPos = [point CGPointValue];
-    CGPoint const globalPos = [self viewPoint2GlobalPoint:pixelPos];
-    m_bookmark.globalPosition = globalPos;
-    [m_bookmark showInView:self.view atPoint:pixelPos];
+    // Already added bookmark was clicked
+    m2::PointD const globalPos = bm->GetOrg();
+    m_bookmark.globalPosition = CGPointMake(globalPos.x, globalPos.y);
+    [m_bookmark showInView:self.view atPoint:[self globalPoint2ViewPoint:m_bookmark.globalPosition]];
   }
 }
 
