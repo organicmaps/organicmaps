@@ -102,7 +102,7 @@
   [m_titleView release];
   m_titleView = [[UIImageView alloc] initWithImage:[self createPopupImageWithName:self.title andAddress:self.description]];
   CGSize const s = m_titleView.bounds.size;
-  m_titleView.frame = CGRectMake(pt.x - s.width/2, pt.y - s.height, s.width, s.height);
+  m_titleView.frame = CGRectMake(pt.x, pt.y, 1, 1);
 
   m_titleView.userInteractionEnabled = YES;
   UITapGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc]
@@ -114,6 +114,12 @@
   [recognizer release];
 
   [view addSubview:m_titleView];
+
+  // Animate balloon from touched point
+  [UIView transitionWithView:self.pinImage duration:0.1 options:UIViewAnimationOptionCurveEaseIn
+                  animations:^{ m_titleView.frame = CGRectMake(pt.x - s.width/2, pt.y - s.height, s.width, s.height);}
+                  completion:nil];
+
 }
 
 - (void) showInView:(UIView *)view atPoint:(CGPoint)pt
@@ -125,16 +131,11 @@
 
   CGFloat const w = self.pinImage.bounds.size.width;
   CGFloat const h = self.pinImage.bounds.size.height;
-  self.pinImage.frame = CGRectMake(pt.x - w/2, 0 - h, w, h);
+  self.pinImage.frame = CGRectMake(pt.x - w/2, pt.y - h, w, h);
 
   [view addSubview:self.pinImage];
 
-  // Animate pin to the touched point
-  [UIView transitionWithView:self.pinImage duration:0.1 options:UIViewAnimationOptionCurveEaseIn
-                  animations:^{ self.pinImage.frame = CGRectMake(pt.x - w/2, pt.y - h, w, h); }
-                  completion:^(BOOL){
-                    [self showButtonsInView:view atPoint:CGPointMake(pt.x, pt.y - h)];
-                  }];
+  [self showButtonsInView:view atPoint:CGPointMake(pt.x, pt.y - h)];
 }
 
 - (void) updatePosition:(UIView *)view atPoint:(CGPoint)pt
