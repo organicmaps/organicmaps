@@ -1,7 +1,8 @@
 // Copyright (C) 2001-2003
 // William E. Kempf
+// Copyright (C) 2011-2012 Vicente J. Botet Escriba
 //
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying 
+//  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #ifndef BOOST_THREAD_CONFIG_WEK01032003_HPP
@@ -10,6 +11,119 @@
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 
+// This compiler doesn't support Boost.Chrono
+#if defined __IBMCPP__ && (__IBMCPP__ < 1100)
+#define BOOST_THREAD_DONT_USE_CHRONO
+#endif
+
+// This compiler doesn't support Boost.Move
+#if BOOST_WORKAROUND(__SUNPRO_CC, < 0x5100)
+#define BOOST_THREAD_DONT_USE_MOVE
+#endif
+
+// This compiler doesn't support Boost.Container Allocators files
+#if defined __SUNPRO_CC
+#define BOOST_THREAD_DONT_PROVIDE_FUTURE_CTOR_ALLOCATORS
+#endif
+
+#if defined _WIN32_WCE && _WIN32_WCE==0x501
+#define BOOST_THREAD_DONT_PROVIDE_FUTURE_CTOR_ALLOCATORS
+#endif
+
+#if ! defined BOOST_THREAD_DONT_PROVIDE_BASIC_THREAD_ID
+#define BOOST_THREAD_PROVIDES_BASIC_THREAD_ID
+#endif
+
+// Default version is 2
+#if !defined BOOST_THREAD_VERSION
+#define BOOST_THREAD_VERSION 2
+#else
+#if BOOST_THREAD_VERSION!=2  && BOOST_THREAD_VERSION!=3
+#error "BOOST_THREAD_VERSION must be 2 or 3"
+#endif
+#endif
+
+// Uses Boost.System by default if not stated the opposite defining BOOST_THREAD_DONT_USE_SYSTEM
+#if ! defined BOOST_THREAD_DONT_USE_SYSTEM
+#define BOOST_THREAD_USES_SYSTEM
+#endif
+
+// Uses Boost.Chrono by default if not stated the opposite  defining BOOST_THREAD_DONT_USE_CHRONO or BOOST_THREAD_DONT_USE_SYSTEM
+#if ! defined BOOST_THREAD_DONT_USE_CHRONO && ! defined BOOST_THREAD_DONT_USE_SYSTEM
+#define BOOST_THREAD_USES_CHRONO
+#endif
+
+// Don't provided by default in version 1.
+#if defined BOOST_THREAD_PROVIDES_EXPLICIT_LOCK_CONVERSION
+#define BOOST_THREAD_EXPLICIT_LOCK_CONVERSION explicit
+#else
+#define BOOST_THREAD_EXPLICIT_LOCK_CONVERSION
+#endif
+
+
+// Uses Boost.Move by default if not stated the opposite defining BOOST_THREAD_DONT_USE_MOVE
+#if ! defined BOOST_THREAD_DONT_USE_MOVE
+#if ! defined BOOST_THREAD_USES_MOVE
+//#define BOOST_THREAD_USES_MOVE
+#endif
+#endif
+
+#if BOOST_THREAD_VERSION==2
+#if ! defined BOOST_THREAD_DONT_PROVIDE_PROMISE_LAZY
+#define BOOST_THREAD_PROMISE_LAZY
+#endif
+#if ! defined BOOST_THREAD_DONT_PROVIDE_DEPRECATED_FEATURES_SINCE_V3_0_0
+#define BOOST_THREAD_PROVIDES_DEPRECATED_FEATURES_SINCE_V3_0_0
+#endif
+#endif
+
+#if BOOST_THREAD_VERSION==3
+#if ! defined BOOST_THREAD_DONT_PROVIDE_ONCE_CXX11
+#define BOOST_THREAD_PROVIDES_ONCE_CXX11
+#endif
+#if ! defined BOOST_THREAD_DONT_PROVIDE_THREAD_DESTRUCTOR_CALLS_TERMINATE_IF_JOINABLE
+#define BOOST_THREAD_PROVIDES_THREAD_DESTRUCTOR_CALLS_TERMINATE_IF_JOINABLE
+#endif
+#if ! defined BOOST_THREAD_DONT_PROVIDE_THREAD_MOVE_ASSIGN_CALLS_TERMINATE_IF_JOINABLE
+#define BOOST_THREAD_PROVIDES_THREAD_MOVE_ASSIGN_CALLS_TERMINATE_IF_JOINABLE
+#endif
+#if ! defined BOOST_THREAD_DONT_PROVIDE_FUTURE
+#define BOOST_THREAD_PROVIDES_FUTURE
+#endif
+#if ! defined BOOST_THREAD_DONT_PROVIDE_FUTURE_CTOR_ALLOCATORS
+#define BOOST_THREAD_PROVIDES_FUTURE_CTOR_ALLOCATORS
+#endif
+#if ! defined BOOST_THREAD_DONT_PROVIDE_SHARED_MUTEX_UPWARDS_CONVERSIONS
+#define BOOST_THREAD_PROVIDES_SHARED_MUTEX_UPWARDS_CONVERSIONS
+#endif
+#if ! defined BOOST_THREAD_DONT_PROVIDE_EXPLICIT_LOCK_CONVERSION
+#define BOOST_THREAD_PROVIDES_EXPLICIT_LOCK_CONVERSION
+#endif
+#if ! defined BOOST_THREAD_DONT_PROVIDE_GENERIC_SHARED_MUTEX_ON_WIN
+#define BOOST_THREAD_PROVIDES_GENERIC_SHARED_MUTEX_ON_WIN
+#endif
+#if ! defined BOOST_THREAD_PROVIDES_DEPRECATED_FEATURES_SINCE_V3_0_0
+#define BOOST_THREAD_DONT_PROVIDE_DEPRECATED_FEATURES_SINCE_V3_0_0
+#endif
+#if ! defined BOOST_THREAD_DONT_USE_MOVE
+#if ! defined BOOST_THREAD_USES_MOVE
+#define BOOST_THREAD_USES_MOVE
+#endif
+#endif
+
+#endif
+
+// BOOST_THREAD_PROVIDES_GENERIC_SHARED_MUTEX_ON_WIN is defined if BOOST_THREAD_PROVIDES_SHARED_MUTEX_UPWARDS_CONVERSIONS
+#if defined BOOST_THREAD_PROVIDES_SHARED_MUTEX_UPWARDS_CONVERSIONS
+#define BOOST_THREAD_PROVIDES_GENERIC_SHARED_MUTEX_ON_WIN
+#endif
+
+// BOOST_THREAD_PROVIDES_DEPRECATED_FEATURES_SINCE_V3_0_0 defined by default up to Boost 1.52
+// BOOST_THREAD_DONT_PROVIDE_DEPRECATED_FEATURES_SINCE_V3_0_0 defined by default up to Boost 1.55
+#if ! defined BOOST_THREAD_DONT_PROVIDE_DEPRECATED_FEATURES_SINCE_V3_0_0
+#define BOOST_THREAD_PROVIDES_DEPRECATED_FEATURES_SINCE_V3_0_0
+#endif
+
 #if BOOST_WORKAROUND(__BORLANDC__, < 0x600)
 #  pragma warn -8008 // Condition always true/false
 #  pragma warn -8080 // Identifier declared but never used
@@ -17,7 +131,7 @@
 #  pragma warn -8066 // Unreachable code
 #endif
 
-#include "platform.hpp"
+#include <boost/thread/detail/platform.hpp>
 
 // provided for backwards compatibility, since this
 // macro was used for several releases by mistake.
@@ -53,12 +167,18 @@
 
 #if defined(BOOST_HAS_DECLSPEC)
 #   if defined(BOOST_THREAD_BUILD_DLL) //Build dll
-#       define BOOST_THREAD_DECL __declspec(dllexport)
+#       define BOOST_THREAD_DECL BOOST_SYMBOL_EXPORT
+//#       define BOOST_THREAD_DECL __declspec(dllexport)
+
 #   elif defined(BOOST_THREAD_USE_DLL) //Use dll
-#       define BOOST_THREAD_DECL __declspec(dllimport)
+#       define BOOST_THREAD_DECL BOOST_SYMBOL_IMPORT
+//#       define BOOST_THREAD_DECL __declspec(dllimport)
 #   else
 #       define BOOST_THREAD_DECL
 #   endif
+#elif (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
+#  define BOOST_THREAD_DECL BOOST_SYMBOL_VISIBLE
+
 #else
 #   define BOOST_THREAD_DECL
 #endif // BOOST_HAS_DECLSPEC
@@ -69,7 +189,7 @@
 #if !defined(BOOST_ALL_NO_LIB) && !defined(BOOST_THREAD_NO_LIB) && !defined(BOOST_THREAD_BUILD_DLL) && !defined(BOOST_THREAD_BUILD_LIB)
 //
 // Tell the autolink to link dynamically, this will get undef'ed by auto_link.hpp
-// once it's done with it: 
+// once it's done with it:
 //
 #if defined(BOOST_THREAD_USE_DLL)
 #   define BOOST_DYN_LINK

@@ -5,7 +5,7 @@
     http://www.boost.org/
 
     Copyright (c) 2003 Paul Mensonides
-    Copyright (c) 2001-2011 Hartmut Kaiser. 
+    Copyright (c) 2001-2012 Hartmut Kaiser. 
     Distributed under the Boost Software License, Version 1.0. (See accompanying 
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
@@ -67,7 +67,7 @@ namespace util {
 
 #if BOOST_WAVE_SUPPORT_CPP0X != 0
     ///////////////////////////////////////////////////////////////////////////
-    //  This function returns the number of newlines in the given C++0x style 
+    //  This function returns the number of newlines in the given C++11 style 
     //  raw string
     template <typename TokenT>
     int rawstring_count_newlines(TokenT const& token)

@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -15,6 +15,9 @@
 
 #include <boost/geometry/geometries/concepts/point_concept.hpp>
 #include <boost/geometry/geometries/concepts/segment_concept.hpp>
+
+#include <boost/geometry/arithmetic/determinant.hpp>
+#include <boost/geometry/algorithms/detail/assign_values.hpp>
 
 #include <boost/geometry/util/math.hpp>
 #include <boost/geometry/util/select_calculation_type.hpp>
@@ -38,21 +41,30 @@ namespace strategy { namespace intersection
 namespace detail
 {
 
-template <typename Segment, size_t Dimension>
-struct segment_arrange
+template <std::size_t Dimension, typename Segment, typename T>
+static inline void segment_arrange(Segment const& s, T& s_1, T& s_2, bool& swapped)
 {
-    template <typename T>
-    static inline void apply(Segment const& s, T& s_1, T& s_2, bool& swapped)
+    s_1 = get<0, Dimension>(s);
+    s_2 = get<1, Dimension>(s);
+    if (s_1 > s_2)
     {
-        s_1 = get<0, Dimension>(s);
-        s_2 = get<1, Dimension>(s);
-        if (s_1 > s_2)
-        {
-            std::swap(s_1, s_2);
-            swapped = true;
-        }
+        std::swap(s_1, s_2);
+        swapped = true;
     }
-};
+}
+
+template <std::size_t Index, typename Segment>
+inline typename geometry::point_type<Segment>::type get_from_index(
+            Segment const& segment)
+{
+    typedef typename geometry::point_type<Segment>::type point_type;
+    point_type point;
+    geometry::detail::assign::assign_point_from_index
+        <
+            Segment, point_type, Index, 0, dimension<Segment>::type::value
+        >::apply(segment, point);
+    return point;
+}
 
 }
 #endif
@@ -91,10 +103,10 @@ struct relate_cartesian_segments
     /// Relate segments a and b
     static inline return_type apply(segment_type1 const& a, segment_type2 const& b)
     {
-        coordinate_type dx_a = get<1, 0>(a) - get<0, 0>(a); // distance in x-dir
-        coordinate_type dx_b = get<1, 0>(b) - get<0, 0>(b);
-        coordinate_type dy_a = get<1, 1>(a) - get<0, 1>(a); // distance in y-dir
-        coordinate_type dy_b = get<1, 1>(b) - get<0, 1>(b);
+        coordinate_type const dx_a = get<1, 0>(a) - get<0, 0>(a); // distance in x-dir
+        coordinate_type const dx_b = get<1, 0>(b) - get<0, 0>(b);
+        coordinate_type const dy_a = get<1, 1>(a) - get<0, 1>(a); // distance in y-dir
+        coordinate_type const dy_b = get<1, 1>(b) - get<0, 1>(b);
         return apply(a, b, dx_a, dy_a, dx_b, dy_b);
     }
 
@@ -105,50 +117,42 @@ struct relate_cartesian_segments
             coordinate_type const& dx_a, coordinate_type const& dy_a,
             coordinate_type const& dx_b, coordinate_type const& dy_b)
     {
-        // 1) Handle "disjoint", probably common case.
-        // per dimension, 2 cases: a_1----------a_2    b_1-------b_2 or B left of A
-        coordinate_type ax_1, ax_2, bx_1, bx_2;
-        bool ax_swapped = false, bx_swapped = false;
-        detail::segment_arrange<segment_type1, 0>::apply(a, ax_1, ax_2, ax_swapped);
-        detail::segment_arrange<segment_type2, 0>::apply(b, bx_1, bx_2, bx_swapped);
-        if (ax_2 < bx_1 || ax_1 > bx_2)
-        {
-            return Policy::disjoint();
-        }
-
-        // 1b) In Y-dimension
-        coordinate_type ay_1, ay_2, by_1, by_2;
-        bool ay_swapped = false, by_swapped = false;
-        detail::segment_arrange<segment_type1, 1>::apply(a, ay_1, ay_2, ay_swapped);
-        detail::segment_arrange<segment_type2, 1>::apply(b, by_1, by_2, by_swapped);
-        if (ay_2 < ay_1 || ay_1 > by_2)
-        {
-            return Policy::disjoint();
-        }
-
         typedef side::side_by_triangle<coordinate_type> side;
         side_info sides;
 
-        // 2) Calculate sides
-        // Note: Do NOT yet calculate the determinant here, but use the SIDE strategy.
-        // Determinant calculation is not robust; side (orient) can be made robust
-        // (and is much robuster even without measures)
-        sides.set<1>(side::apply(a.first, a.second, b.first),
-                side::apply(a.first, a.second, b.second));
+        bool collinear_use_first = math::abs(dx_a) + math::abs(dx_b) >= math::abs(dy_a) + math::abs(dy_b);
 
-        if (sides.same<1>())
+        sides.set<0>
+            (
+                side::apply(detail::get_from_index<0>(b)
+                    , detail::get_from_index<1>(b)
+                    , detail::get_from_index<0>(a)),
+                side::apply(detail::get_from_index<0>(b)
+                    , detail::get_from_index<1>(b)
+                    , detail::get_from_index<1>(a))
+            );
+        sides.set<1>
+            (
+                side::apply(detail::get_from_index<0>(a)
+                    , detail::get_from_index<1>(a)
+                    , detail::get_from_index<0>(b)),
+                side::apply(detail::get_from_index<0>(a)
+                    , detail::get_from_index<1>(a)
+                    , detail::get_from_index<1>(b))
+            );
+
+        bool collinear = sides.collinear();
+
+        robustness_verify_collinear(a, b, sides, collinear);
+        robustness_verify_meeting(a, b, sides, collinear, collinear_use_first);
+
+        if (sides.same<0>() || sides.same<1>())
         {
             // Both points are at same side of other segment, we can leave
-            return Policy::disjoint();
-        }
-
-        // 2b) For other segment
-        sides.set<0>(side::apply(b.first, b.second, a.first),
-                side::apply(b.first, b.second, a.second));
-
-        if (sides.same<0>())
-        {
-            return Policy::disjoint();
+            if (robustness_verify_same_side(a, b, sides))
+            {
+                return Policy::disjoint();
+            }
         }
 
         // Degenerate cases: segments of single point, lying on other segment, non disjoint
@@ -162,75 +166,342 @@ struct relate_cartesian_segments
             return Policy::degenerate(b, false);
         }
 
-        bool collinear = sides.collinear();
-
-        // Get the same type, but at least a double (also used for divisions
         typedef typename select_most_precise
             <
                 coordinate_type, double
             >::type promoted_type;
 
-
-        promoted_type const d = (dy_b * dx_a) - (dx_b * dy_a);
-        // Determinant d should be nonzero.
-        // If it is zero, we have an robustness issue here,
-        // (and besides that we cannot divide by it)
-        if(math::equals(d, zero) && ! collinear)
-        //if(! collinear && sides.as_collinear())
+        // r: ratio 0-1 where intersection divides A/B
+        // (only calculated for non-collinear segments)
+        promoted_type r;
+        if (! collinear)
         {
-#ifdef BOOST_GEOMETRY_DEBUG_INTERSECTION
-            std::cout << "Determinant zero? Type : "
-                << typeid(coordinate_type).name()
-                << std::endl;
+            // Calculate determinants - Cramers rule
+            coordinate_type const wx = get<0, 0>(a) - get<0, 0>(b);
+            coordinate_type const wy = get<0, 1>(a) - get<0, 1>(b);
+            coordinate_type const d = geometry::detail::determinant<coordinate_type>(dx_a, dy_a, dx_b, dy_b);
+            coordinate_type const da = geometry::detail::determinant<coordinate_type>(dx_b, dy_b, wx, wy);
 
-            std::cout << " dx_a : " << dx_a << std::endl;
-            std::cout << " dy_a : " << dy_a << std::endl;
-            std::cout << " dx_b : " << dx_b << std::endl;
-            std::cout << " dy_b : " << dy_b << std::endl;
-
-            std::cout << " side a <-> b.first : " << sides.get<0,0>() << std::endl;
-            std::cout << " side a <-> b.second: " << sides.get<0,1>() << std::endl;
-            std::cout << " side b <-> a.first : " << sides.get<1,0>() << std::endl;
-            std::cout << " side b <-> a.second: " << sides.get<1,1>() << std::endl;
-#endif
-
-            if (sides.as_collinear())
+            coordinate_type const zero = coordinate_type();
+            if (math::equals(d, zero))
             {
+                // This is still a collinear case (because of FP imprecision this can occur here)
+                // sides.debug();
                 sides.set<0>(0,0);
                 sides.set<1>(0,0);
                 collinear = true;
             }
             else
             {
-                return Policy::error("Determinant zero!");
+                r = promoted_type(da) / promoted_type(d);
+
+                if (! robustness_verify_r(a, b, r))
+                {
+                    return Policy::disjoint();
+                }
+
+                robustness_handle_meeting(a, b, sides, dx_a, dy_a, wx, wy, d, r);
+
+                if (robustness_verify_disjoint_at_one_collinear(a, b, sides))
+                {
+                    return Policy::disjoint();
+                }
+
             }
         }
 
         if(collinear)
         {
-            // Segments are collinear. We'll find out how.
-            if (math::equals(dx_b, zero))
+            if (collinear_use_first)
             {
-                // Vertical -> Check y-direction
-                return relate_collinear(a, b,
-                        ay_1, ay_2, by_1, by_2,
-                        ay_swapped, by_swapped);
+                return relate_collinear<0>(a, b);
             }
             else
             {
-                // Check x-direction
-                return relate_collinear(a, b,
-                        ax_1, ax_2, bx_1, bx_2,
-                        ax_swapped, bx_swapped);
+                // Y direction contains larger segments (maybe dx is zero)
+                return relate_collinear<1>(a, b);
             }
         }
 
-        return Policy::segments_intersect(sides,
+        return Policy::segments_intersect(sides, r,
             dx_a, dy_a, dx_b, dy_b,
             a, b);
     }
 
 private :
+
+
+    // Ratio should lie between 0 and 1
+    // Also these three conditions might be of FP imprecision, the segments were actually (nearly) collinear
+    template <typename T>
+    static inline bool robustness_verify_r(
+                segment_type1 const& a, segment_type2 const& b,
+                T& r)
+    {
+        T const zero = 0;
+        T const one = 1;
+        if (r < zero || r > one)
+        {
+            if (verify_disjoint<0>(a, b) || verify_disjoint<1>(a, b))
+            {
+                // Can still be disjoint (even if not one is left or right from another)
+                // This is e.g. in case #snake4 of buffer test.
+                return false;
+            }
+
+            //std::cout << "ROBUSTNESS: correction of r " << r << std::endl;
+            // sides.debug();
+
+            // ROBUSTNESS: the r value can in epsilon-cases much larger than 1, while (with perfect arithmetic)
+            // it should be one. It can be 1.14 or even 1.98049 or 2 (while still intersecting)
+
+            // If segments are crossing (we can see that with the sides)
+            // and one is inside the other, there must be an intersection point.
+            // We correct for that.
+            // This is (only) in case #ggl_list_20110820_christophe in unit tests
+
+            // If segments are touching (two sides zero), of course they should intersect
+            // This is (only) in case #buffer_rt_i in the unit tests)
+
+            // If one touches in the middle, they also should intersect (#buffer_rt_j)
+
+            // Note that even for ttmath r is occasionally > 1, e.g. 1.0000000000000000000000036191231203575
+
+            if (r > one)
+            {
+                r = one;
+            }
+            else if (r < zero)
+            {
+                r = zero;
+            }
+        }
+        return true;
+    }
+
+    static inline void robustness_verify_collinear(
+                segment_type1 const& a, segment_type2 const& b,
+                side_info& sides,
+                bool& collinear)
+    {
+        if ((sides.zero<0>() && ! sides.zero<1>()) || (sides.zero<1>() && ! sides.zero<0>()))
+        {
+            // If one of the segments is collinear, the other must be as well.
+            // So handle it as collinear.
+            // (In float/double epsilon margins it can easily occur that one or two of them are -1/1)
+            // sides.debug();
+            sides.set<0>(0,0);
+            sides.set<1>(0,0);
+            collinear = true;
+        }
+    }
+
+    static inline void robustness_verify_meeting(
+                segment_type1 const& a, segment_type2 const& b,
+                side_info& sides,
+                bool& collinear, bool& collinear_use_first)
+    {
+        if (sides.meeting())
+        {
+            // If two segments meet each other at their segment-points, two sides are zero,
+            // the other two are not (unless collinear but we don't mean those here).
+            // However, in near-epsilon ranges it can happen that two sides are zero
+            // but they do not meet at their segment-points.
+            // In that case they are nearly collinear and handled as such.
+            if (! point_equals
+                    (
+                        select(sides.zero_index<0>(), a),
+                        select(sides.zero_index<1>(), b)
+                    )
+                )
+            {
+                sides.set<0>(0,0);
+                sides.set<1>(0,0);
+                collinear = true;
+
+                if (collinear_use_first && analyse_equal<0>(a, b))
+                {
+                    collinear_use_first = false;
+                }
+                else if (! collinear_use_first && analyse_equal<1>(a, b))
+                {
+                    collinear_use_first = true;
+                }
+
+            }
+        }
+    }
+
+    // Verifies and if necessary correct missed touch because of robustness
+    // This is the case at multi_polygon_buffer unittest #rt_m
+    static inline bool robustness_verify_same_side(
+                segment_type1 const& a, segment_type2 const& b,
+                side_info& sides)
+    {
+        int corrected = 0;
+        if (sides.one_touching<0>())
+        {
+            if (point_equals(
+                        select(sides.zero_index<0>(), a),
+                        select(0, b)
+                    ))
+            {
+                sides.correct_to_zero<1, 0>();
+                corrected = 1;
+            }
+            if (point_equals
+                    (
+                        select(sides.zero_index<0>(), a),
+                        select(1, b)
+                    ))
+            {
+                sides.correct_to_zero<1, 1>();
+                corrected = 2;
+            }
+        }
+        else if (sides.one_touching<1>())
+        {
+            if (point_equals(
+                        select(sides.zero_index<1>(), b),
+                        select(0, a)
+                    ))
+            {
+                sides.correct_to_zero<0, 0>();
+                corrected = 3;
+            }
+            if (point_equals
+                    (
+                        select(sides.zero_index<1>(), b),
+                        select(1, a)
+                    ))
+            {
+                sides.correct_to_zero<0, 1>();
+                corrected = 4;
+            }
+        }
+
+        return corrected == 0;
+    }
+
+    static inline bool robustness_verify_disjoint_at_one_collinear(
+                segment_type1 const& a, segment_type2 const& b,
+                side_info const& sides)
+    {
+        if (sides.one_of_all_zero())
+        {
+            if (verify_disjoint<0>(a, b) || verify_disjoint<1>(a, b))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    // If r is one, or zero, segments should meet and their endpoints.
+    // Robustness issue: check if this is really the case.
+    // It turns out to be no problem, see buffer test #rt_s1 (and there are many cases generated)
+    // It generates an "ends in the middle" situation which is correct.
+    template <typename T, typename R>
+    static inline void robustness_handle_meeting(segment_type1 const& a, segment_type2 const& b,
+                side_info& sides,
+                T const& dx_a, T const& dy_a, T const& wx, T const& wy,
+                T const& d, R const& r)
+    {
+        return;
+
+        T const db = geometry::detail::determinant<T>(dx_a, dy_a, wx, wy);
+
+        R const zero = 0;
+        R const one = 1;
+        if (math::equals(r, zero) || math::equals(r, one))
+        {
+            R rb = db / d;
+            if (rb <= 0 || rb >= 1 || math::equals(rb, 0) || math::equals(rb, 1))
+            {
+                if (sides.one_zero<0>() && ! sides.one_zero<1>()) // or vice versa
+                {
+#if defined(BOOST_GEOMETRY_COUNT_INTERSECTION_EQUAL)
+                    extern int g_count_intersection_equal;
+                    g_count_intersection_equal++;
+#endif
+                    sides.debug();
+                    std::cout << "E r=" << r << " r.b=" << rb << " ";
+                }
+            }
+        }
+    }
+
+    template <std::size_t Dimension>
+    static inline bool verify_disjoint(segment_type1 const& a,
+                    segment_type2 const& b)
+    {
+        coordinate_type a_1, a_2, b_1, b_2;
+        bool a_swapped = false, b_swapped = false;
+        detail::segment_arrange<Dimension>(a, a_1, a_2, a_swapped);
+        detail::segment_arrange<Dimension>(b, b_1, b_2, b_swapped);
+        return math::smaller(a_2, b_1) || math::larger(a_1, b_2);
+    }
+
+    template <typename Segment>
+    static inline typename point_type<Segment>::type select(int index, Segment const& segment)
+    {
+        return index == 0 
+            ? detail::get_from_index<0>(segment)
+            : detail::get_from_index<1>(segment)
+            ;
+    }
+
+    // We cannot use geometry::equals here. Besides that this will be changed
+    // to compare segment-coordinate-values directly (not necessary to retrieve point first)
+    template <typename Point1, typename Point2>
+    static inline bool point_equals(Point1 const& point1, Point2 const& point2)
+    {
+        return math::equals(get<0>(point1), get<0>(point2))
+            && math::equals(get<1>(point1), get<1>(point2))
+            ;
+    }
+
+    // We cannot use geometry::equals here. Besides that this will be changed
+    // to compare segment-coordinate-values directly (not necessary to retrieve point first)
+    template <typename Point1, typename Point2>
+    static inline bool point_equality(Point1 const& point1, Point2 const& point2,
+                    bool& equals_0, bool& equals_1)
+    {
+        equals_0 = math::equals(get<0>(point1), get<0>(point2));
+        equals_1 = math::equals(get<1>(point1), get<1>(point2));
+        return equals_0 && equals_1;
+    }
+
+    template <std::size_t Dimension>
+    static inline bool analyse_equal(segment_type1 const& a, segment_type2 const& b)
+    {
+        coordinate_type const a_1 = geometry::get<0, Dimension>(a);
+        coordinate_type const a_2 = geometry::get<1, Dimension>(a);
+        coordinate_type const b_1 = geometry::get<0, Dimension>(b);
+        coordinate_type const b_2 = geometry::get<1, Dimension>(b);
+        return math::equals(a_1, b_1)
+            || math::equals(a_2, b_1)
+            || math::equals(a_1, b_2)
+            || math::equals(a_2, b_2)
+            ;
+    }
+
+    template <std::size_t Dimension>
+    static inline return_type relate_collinear(segment_type1 const& a,
+                                               segment_type2 const& b)
+    {
+        coordinate_type a_1, a_2, b_1, b_2;
+        bool a_swapped = false, b_swapped = false;
+        detail::segment_arrange<Dimension>(a, a_1, a_2, a_swapped);
+        detail::segment_arrange<Dimension>(b, b_1, b_2, b_swapped);
+        if (math::smaller(a_2, b_1) || math::larger(a_1, b_2))
+        //if (a_2 < b_1 || a_1 > b_2)
+        {
+            return Policy::disjoint();
+        }
+        return relate_collinear(a, b, a_1, a_2, b_1, b_2, a_swapped, b_swapped);
+    }
 
     /// Relate segments known collinear
     static inline return_type relate_collinear(segment_type1 const& a
@@ -260,25 +531,28 @@ private :
 
         // Handle "equal", in polygon neighbourhood comparisons a common case
 
-        // Check if segments are equal...
-        bool const a1_eq_b1 = math::equals(get<0, 0>(a), get<0, 0>(b))
-                    && math::equals(get<0, 1>(a), get<0, 1>(b));
-        bool const a2_eq_b2 = math::equals(get<1, 0>(a), get<1, 0>(b))
-                    && math::equals(get<1, 1>(a), get<1, 1>(b));
-        if (a1_eq_b1 && a2_eq_b2)
+        bool const opposite = a_swapped ^ b_swapped;
+        bool const both_swapped = a_swapped && b_swapped;
+
+        // Check if segments are equal or opposite equal...
+        bool const swapped_a1_eq_b1 = math::equals(a_1, b_1);
+        bool const swapped_a2_eq_b2 = math::equals(a_2, b_2);
+
+        if (swapped_a1_eq_b1 && swapped_a2_eq_b2)
         {
-            return Policy::segment_equal(a, false);
+            return Policy::segment_equal(a, opposite);
         }
 
-        // ... or opposite equal
-        bool const a1_eq_b2 = math::equals(get<0, 0>(a), get<1, 0>(b))
-                    && math::equals(get<0, 1>(a), get<1, 1>(b));
-        bool const a2_eq_b1 = math::equals(get<1, 0>(a), get<0, 0>(b))
-                    && math::equals(get<1, 1>(a), get<0, 1>(b));
-        if (a1_eq_b2 && a2_eq_b1)
-        {
-            return Policy::segment_equal(a, true);
-        }
+        bool const swapped_a2_eq_b1 = math::equals(a_2, b_1);
+        bool const swapped_a1_eq_b2 = math::equals(a_1, b_2);
+
+        bool const a1_eq_b1 = both_swapped ? swapped_a2_eq_b2 : a_swapped ? swapped_a2_eq_b1 : b_swapped ? swapped_a1_eq_b2 : swapped_a1_eq_b1;
+        bool const a2_eq_b2 = both_swapped ? swapped_a1_eq_b1 : a_swapped ? swapped_a1_eq_b2 : b_swapped ? swapped_a2_eq_b1 : swapped_a2_eq_b2;
+
+        bool const a1_eq_b2 = both_swapped ? swapped_a2_eq_b1 : a_swapped ? swapped_a2_eq_b2 : b_swapped ? swapped_a1_eq_b1 : swapped_a1_eq_b2;
+        bool const a2_eq_b1 = both_swapped ? swapped_a1_eq_b2 : a_swapped ? swapped_a1_eq_b1 : b_swapped ? swapped_a2_eq_b2 : swapped_a2_eq_b1;
+
+
 
 
         // The rest below will return one or two intersections.
@@ -286,7 +560,7 @@ private :
         // For IM it is important to know which relates to which. So this information is given,
         // without performance penalties to intersection calculation
 
-        bool const has_common_points = a1_eq_b1 || a1_eq_b2 || a2_eq_b1 || a2_eq_b2;
+        bool const has_common_points = swapped_a1_eq_b1 || swapped_a1_eq_b2 || swapped_a2_eq_b1 || swapped_a2_eq_b2;
 
 
         // "Touch" -> one intersection point -> one but not two common points
@@ -306,7 +580,7 @@ private :
         // #4: a2<----a1 b1--->b2   (no arrival at all)
         // Where the arranged forms have two forms:
         //    a_1-----a_2/b_1-------b_2 or reverse (B left of A)
-        if (has_common_points && (math::equals(a_2, b_1) || math::equals(b_2, a_1)))
+        if ((swapped_a2_eq_b1 || swapped_a1_eq_b2) && ! swapped_a1_eq_b1 && ! swapped_a2_eq_b2)
         {
             if (a2_eq_b1) return Policy::collinear_touch(get<1, 0>(a), get<1, 1>(a), 0, -1);
             if (a1_eq_b2) return Policy::collinear_touch(get<0, 0>(a), get<0, 1>(a), -1, 0);
@@ -347,8 +621,8 @@ private :
                 // In robustness it can occur that a point of A is inside B AND a point of B is inside A,
                 // still while has_common_points is true (so one point equals the other).
                 // If that is the case we select on length.
-                coordinate_type const length_a = abs(a_1 - a_2);
-                coordinate_type const length_b = abs(b_1 - b_2);
+                coordinate_type const length_a = geometry::math::abs(a_1 - a_2);
+                coordinate_type const length_b = geometry::math::abs(b_1 - b_2);
                 if (length_a > length_b)
                 {
                     a_in_b = false;
@@ -366,7 +640,6 @@ private :
             if (a1_eq_b1) return Policy::collinear_interior_boundary_intersect(a_in_b ? a : b, a_in_b, arrival_a, -arrival_a, false);
         }
 
-        bool const opposite = a_swapped ^ b_swapped;
 
 
         // "Inside", a completely within b or b completely within a
@@ -428,7 +701,6 @@ private :
           the picture might seem wrong but it (supposed to be) is right.
         */
 
-        bool const both_swapped = a_swapped && b_swapped;
         if (b_1 < a_2 && a_2 < b_2)
         {
             // Left column, from bottom to top
@@ -450,7 +722,7 @@ private :
                 ;
         }
         // Nothing should goes through. If any we have made an error
-        // Robustness: it can occur here...
+        // std::cout << "Robustness issue, non-logical behaviour" << std::endl;
         return Policy::error("Robustness issue, non-logical behaviour");
     }
 };

@@ -11,6 +11,7 @@
 #endif
 
 #include <boost/math/tools/rational.hpp>
+#include <boost/math/tools/big_constant.hpp>
 #include <boost/math/policies/error_handling.hpp>
 #include <boost/assert.hpp>
 
@@ -21,60 +22,90 @@
 namespace boost { namespace math { namespace detail{
 
 template <typename T, typename Policy>
+T bessel_k1(T x, const Policy&);
+
+template <class T, class Policy>
+struct bessel_k1_initializer
+{
+   struct init
+   {
+      init()
+      {
+         do_init();
+      }
+      static void do_init()
+      {
+         bessel_k1(T(1), Policy());
+      }
+      void force_instantiate()const{}
+   };
+   static const init initializer;
+   static void force_instantiate()
+   {
+      initializer.force_instantiate();
+   }
+};
+
+template <class T, class Policy>
+const typename bessel_k1_initializer<T, Policy>::init bessel_k1_initializer<T, Policy>::initializer;
+
+template <typename T, typename Policy>
 T bessel_k1(T x, const Policy& pol)
 {
+    bessel_k1_initializer<T, Policy>::force_instantiate();
+
     static const T P1[] = {
-        static_cast<T>(-2.2149374878243304548e+06L),
-         static_cast<T>(7.1938920065420586101e+05L),
-         static_cast<T>(1.7733324035147015630e+05L),
-         static_cast<T>(7.1885382604084798576e+03L),
-         static_cast<T>(9.9991373567429309922e+01L),
-         static_cast<T>(4.8127070456878442310e-01L)
+        static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, -2.2149374878243304548e+06)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 7.1938920065420586101e+05)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1.7733324035147015630e+05)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 7.1885382604084798576e+03)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 9.9991373567429309922e+01)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 4.8127070456878442310e-01))
     };
     static const T Q1[] = {
-        static_cast<T>(-2.2149374878243304548e+06L),
-         static_cast<T>(3.7264298672067697862e+04L),
-        static_cast<T>(-2.8143915754538725829e+02L),
-         static_cast<T>(1.0L)
+        static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, -2.2149374878243304548e+06)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 3.7264298672067697862e+04)),
+        static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, -2.8143915754538725829e+02)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1.0))
     };
     static const T P2[] = {
-         static_cast<T>(0.0L),
-        static_cast<T>(-1.3531161492785421328e+06L),
-        static_cast<T>(-1.4758069205414222471e+05L),
-        static_cast<T>(-4.5051623763436087023e+03L),
-        static_cast<T>(-5.3103913335180275253e+01L),
-        static_cast<T>(-2.2795590826955002390e-01L)
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 0.0)),
+        static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, -1.3531161492785421328e+06)),
+        static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, -1.4758069205414222471e+05)),
+        static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, -4.5051623763436087023e+03)),
+        static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, -5.3103913335180275253e+01)),
+        static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, -2.2795590826955002390e-01))
     };
     static const T Q2[] = {
-        static_cast<T>(-2.7062322985570842656e+06L),
-        static_cast<T>(4.3117653211351080007e+04L),
-        static_cast<T>(-3.0507151578787595807e+02L),
-        static_cast<T>(1.0L)
+        static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, -2.7062322985570842656e+06)),
+        static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 4.3117653211351080007e+04)),
+        static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, -3.0507151578787595807e+02)),
+        static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1.0))
     };
     static const T P3[] = {
-         static_cast<T>(2.2196792496874548962e+00L),
-         static_cast<T>(4.4137176114230414036e+01L),
-         static_cast<T>(3.4122953486801312910e+02L),
-         static_cast<T>(1.3319486433183221990e+03L),
-         static_cast<T>(2.8590657697910288226e+03L),
-         static_cast<T>(3.4540675585544584407e+03L),
-         static_cast<T>(2.3123742209168871550e+03L),
-         static_cast<T>(8.1094256146537402173e+02L),
-         static_cast<T>(1.3182609918569941308e+02L),
-         static_cast<T>(7.5584584631176030810e+00L),
-         static_cast<T>(6.4257745859173138767e-02L)
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 2.2196792496874548962e+00)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 4.4137176114230414036e+01)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 3.4122953486801312910e+02)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1.3319486433183221990e+03)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 2.8590657697910288226e+03)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 3.4540675585544584407e+03)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 2.3123742209168871550e+03)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 8.1094256146537402173e+02)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1.3182609918569941308e+02)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 7.5584584631176030810e+00)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 6.4257745859173138767e-02))
     };
     static const T Q3[] = {
-         static_cast<T>(1.7710478032601086579e+00L),
-         static_cast<T>(3.4552228452758912848e+01L),
-         static_cast<T>(2.5951223655579051357e+02L),
-         static_cast<T>(9.6929165726802648634e+02L),
-         static_cast<T>(1.9448440788918006154e+03L),
-         static_cast<T>(2.1181000487171943810e+03L),
-         static_cast<T>(1.2082692316002348638e+03L),
-         static_cast<T>(3.3031020088765390854e+02L),
-         static_cast<T>(3.6001069306861518855e+01L),
-         static_cast<T>(1.0L)
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1.7710478032601086579e+00)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 3.4552228452758912848e+01)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 2.5951223655579051357e+02)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 9.6929165726802648634e+02)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1.9448440788918006154e+03)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 2.1181000487171943810e+03)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1.2082692316002348638e+03)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 3.3031020088765390854e+02)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 3.6001069306861518855e+01)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1.0))
     };
     T value, factor, r, r1, r2;
 

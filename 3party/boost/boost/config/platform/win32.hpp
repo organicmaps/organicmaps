@@ -55,6 +55,8 @@
 
 #ifdef _WIN32_WCE
 #  define BOOST_NO_ANSI_APIS
+#else
+#  define BOOST_HAS_GETSYSTEMTIMEASFILETIME
 #endif
 
 #ifndef BOOST_HAS_PTHREADS

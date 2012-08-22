@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -57,10 +57,38 @@ inline OutputIterator sym_difference_insert(Geometry1 const& geometry1,
     concept::check<Geometry2 const>();
     concept::check<GeometryOut>();
 
-    out = detail::intersection::insert<GeometryOut, true, overlay_difference>(
-            geometry1, geometry2, out, strategy);
-    out = detail::intersection::insert<GeometryOut, true, overlay_difference>(
-            geometry2, geometry1, out, strategy);
+    out = geometry::dispatch::intersection_insert
+        <
+            typename geometry::tag<Geometry1>::type,
+            typename geometry::tag<Geometry2>::type,
+            typename geometry::tag<GeometryOut>::type,
+            geometry::is_areal<Geometry1>::value,
+            geometry::is_areal<Geometry2>::value,
+            geometry::is_areal<GeometryOut>::value,
+            Geometry1, Geometry2,
+            geometry::detail::overlay::do_reverse<geometry::point_order<Geometry1>::value>::value,
+            geometry::detail::overlay::do_reverse<geometry::point_order<Geometry2>::value, true>::value,
+            geometry::detail::overlay::do_reverse<geometry::point_order<GeometryOut>::value>::value,
+            OutputIterator, GeometryOut,
+            overlay_difference,
+            Strategy
+        >::apply(geometry1, geometry2, out, strategy);
+    out = geometry::dispatch::intersection_insert
+        <
+            typename geometry::tag<Geometry2>::type,
+            typename geometry::tag<Geometry1>::type,
+            typename geometry::tag<GeometryOut>::type,
+            geometry::is_areal<Geometry2>::value,
+            geometry::is_areal<Geometry1>::value,
+            geometry::is_areal<GeometryOut>::value,
+            Geometry2, Geometry1,
+            geometry::detail::overlay::do_reverse<geometry::point_order<Geometry2>::value>::value,
+            geometry::detail::overlay::do_reverse<geometry::point_order<Geometry1>::value, true>::value,
+            geometry::detail::overlay::do_reverse<geometry::point_order<GeometryOut>::value>::value,
+            OutputIterator, GeometryOut,
+            overlay_difference,
+            Strategy
+        >::apply(geometry2, geometry1, out, strategy);
     return out;
 }
 

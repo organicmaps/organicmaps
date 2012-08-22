@@ -1043,7 +1043,7 @@ namespace boost { namespace spirit
         if (!pos.node) 
         {
             l.push_back(val);
-            return utree::iterator(l.first, 0); // begin();
+            return utree::iterator(l.last, l.last->prev);
         }
         l.insert(val, pos);
         return utree::iterator(pos.node->prev, pos.node->prev->prev);

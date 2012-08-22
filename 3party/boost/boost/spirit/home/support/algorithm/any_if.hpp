@@ -42,7 +42,7 @@ namespace boost { namespace spirit
     {
         ///////////////////////////////////////////////////////////////////////
         template <typename Iterator, typename Pred>
-        struct apply_predicate 
+        struct apply_predicate
           : mpl::apply1<Pred, typename fusion::result_of::value_of<Iterator>::type>
         {};
 
@@ -180,7 +180,10 @@ namespace boost { namespace spirit
         any_if (First1 const& first1, First2 const& first2, Last1 const& last1
           , Last2 const& last2, F& f, mpl::false_)
         {
-            return f(*first1, attribute_value<Pred, First1, Last2>(first2)) ||
+            typename result_of::attribute_value<First1, First2, Last2, Pred>::type
+                attribute = attribute_value<Pred, First1, Last2>(first2);
+
+            return f(*first1, attribute) ||
                 detail::any_if<Pred>(
                     fusion::next(first1)
                   , attribute_next<Pred, First1, Last2>(first2)

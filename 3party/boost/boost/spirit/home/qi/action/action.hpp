@@ -66,8 +66,13 @@ namespace boost { namespace spirit { namespace qi
             {
                 // call the function, passing the attribute, the context.
                 // The client can return false to fail parsing.
-                if (traits::action_dispatch<Subject>()(f, attr, context))
+                if (traits::action_dispatch<Subject>()(f, attr, context)) 
+                {
+                    // Do up-stream transformation, this integrates the results
+                    // back into the original attribute value, if appropriate.
+                    traits::post_transform(attr_, attr);
                     return true;
+                }
 
                 // reset iterators if semantic action failed the match
                 // retrospectively

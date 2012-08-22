@@ -87,7 +87,6 @@ is used.
 
 namespace boost{ 
 
-#if (defined(BOOST_HAS_FPCLASSIFY) || defined(isnan)) && !defined(BOOST_MATH_DISABLE_STD_FPCLASSIFY)
 //
 // This must not be located in any namespace under boost::math
 // otherwise we can get into an infinite loop if isnan is
@@ -100,6 +99,8 @@ inline bool is_nan_helper(T t, const boost::true_type&)
 {
 #ifdef isnan
    return isnan(t);
+#elif defined(BOOST_MATH_DISABLE_STD_FPCLASSIFY) || !defined(BOOST_HAS_FPCLASSIFY)
+   return false;
 #else // BOOST_HAS_FPCLASSIFY
    return (BOOST_FPCLASSIFY_PREFIX fpclassify(t) == (int)FP_NAN);
 #endif
@@ -112,8 +113,6 @@ inline bool is_nan_helper(T, const boost::false_type&)
 }
 
 }
-
-#endif // defined(BOOST_HAS_FPCLASSIFY) || defined(isnan)
 
 namespace math{
 
@@ -168,7 +167,7 @@ inline int fpclassify_imp BOOST_NO_MACRO_EXPAND(T t, const generic_tag<false>&)
 {
 #ifdef BOOST_NO_LIMITS_COMPILE_TIME_CONSTANTS
    if(std::numeric_limits<T>::is_specialized)
-      return fp_classify_imp(t, mpl::true_());
+      return fpclassify_imp(t, generic_tag<true>());
 #endif
    // 
    // An unknown type with no numeric_limits support,
@@ -251,7 +250,7 @@ inline int fpclassify BOOST_NO_MACRO_EXPAND(T t)
    typedef typename detail::fp_traits<T>::type traits;
    typedef typename traits::method method;
 #ifdef BOOST_NO_LIMITS_COMPILE_TIME_CONSTANTS
-   if(std::numeric_limits<T>::is_specialized && detail::is_generic_tag_false(method()))
+   if(std::numeric_limits<T>::is_specialized && detail::is_generic_tag_false(static_cast<method*>(0)))
       return detail::fpclassify_imp(t, detail::generic_tag<true>());
    return detail::fpclassify_imp(t, method());
 #else
@@ -281,7 +280,7 @@ namespace detail {
     {
 #ifdef BOOST_NO_LIMITS_COMPILE_TIME_CONSTANTS
       if(std::numeric_limits<T>::is_specialized)
-         return isfinite_impl(x, mpl::true_());
+         return isfinite_impl(x, generic_tag<true>());
 #endif
        (void)x; // warning supression.
        return true;
@@ -341,7 +340,7 @@ namespace detail {
     {
 #ifdef BOOST_NO_LIMITS_COMPILE_TIME_CONSTANTS
       if(std::numeric_limits<T>::is_specialized)
-         return isnormal_impl(x, mpl::true_());
+         return isnormal_impl(x, generic_tag<true>());
 #endif
        return !(x == 0);
     }
@@ -401,7 +400,7 @@ namespace detail {
     {
 #ifdef BOOST_NO_LIMITS_COMPILE_TIME_CONSTANTS
       if(std::numeric_limits<T>::is_specialized)
-         return isinf_impl(x, mpl::true_());
+         return isinf_impl(x, generic_tag<true>());
 #endif
         (void)x; // warning supression.
         return false;
@@ -477,7 +476,7 @@ namespace detail {
     {
 #ifdef BOOST_NO_LIMITS_COMPILE_TIME_CONSTANTS
       if(std::numeric_limits<T>::is_specialized)
-         return isnan_impl(x, mpl::true_());
+         return isnan_impl(x, generic_tag<true>());
 #endif
         (void)x; // warning supression
         return false;

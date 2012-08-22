@@ -11,6 +11,8 @@
 #include <deque>
 #include <boost/config.hpp>
 
+#include <boost/concept/assert.hpp>
+
 #include <boost/graph/graph_concepts.hpp>
 #include <boost/graph/lookup_edge.hpp>
 
@@ -151,7 +153,7 @@ namespace detail
                                 const Container& in,
                                 Container& out)
     {
-        function_requires< GraphConcept<Graph> >();
+        BOOST_CONCEPT_ASSERT(( GraphConcept<Graph> ));
 
         typename graph_traits<Graph>::directed_category cat;
         typename Container::const_iterator i, end = in.end();
@@ -174,8 +176,8 @@ namespace detail
                         Visitor vis,
                         std::size_t min)
     {
-        function_requires< GraphConcept<Graph> >();
-        function_requires< CliqueVisitorConcept<Visitor,Clique,Graph> >();
+        BOOST_CONCEPT_ASSERT(( GraphConcept<Graph> ));
+        BOOST_CONCEPT_ASSERT(( CliqueVisitorConcept<Visitor,Clique,Graph> ));
         typedef typename graph_traits<Graph>::vertex_descriptor Vertex;
 
         // Is there vertex in nots that is connected to all vertices
@@ -222,7 +224,7 @@ namespace detail
 
         // otherwise, iterate over candidates and and test
         // for maxmimal cliquiness.
-        typename Container::iterator i, j, end = cands.end();
+        typename Container::iterator i, j;
         for(i = cands.begin(); i != cands.end(); ) {
             Vertex candidate = *i;
 
@@ -266,15 +268,14 @@ template <typename Graph, typename Visitor>
 inline void
 bron_kerbosch_all_cliques(const Graph& g, Visitor vis, std::size_t min)
 {
-    function_requires< IncidenceGraphConcept<Graph> >();
-    function_requires< VertexListGraphConcept<Graph> >();
-    function_requires< VertexIndexGraphConcept<Graph> >();
-    function_requires< AdjacencyMatrixConcept<Graph> >(); // Structural requirement only
+    BOOST_CONCEPT_ASSERT(( IncidenceGraphConcept<Graph> ));
+    BOOST_CONCEPT_ASSERT(( VertexListGraphConcept<Graph> ));
+    BOOST_CONCEPT_ASSERT(( AdjacencyMatrixConcept<Graph> )); // Structural requirement only
     typedef typename graph_traits<Graph>::vertex_descriptor Vertex;
     typedef typename graph_traits<Graph>::vertex_iterator VertexIterator;
     typedef std::vector<Vertex> VertexSet;
     typedef std::deque<Vertex> Clique;
-    function_requires< CliqueVisitorConcept<Visitor,Clique,Graph> >();
+    BOOST_CONCEPT_ASSERT(( CliqueVisitorConcept<Visitor,Clique,Graph> ));
 
     // NOTE: We're using a deque to implement the clique, because it provides
     // constant inserts and removals at the end and also a constant size.

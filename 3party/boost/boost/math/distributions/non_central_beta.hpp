@@ -282,8 +282,8 @@ namespace boost
             T operator()(const T& x)
             {
                return comp ?
-                  target - cdf(complement(dist, x))
-                  : cdf(dist, x) - target;
+                  T(target - cdf(complement(dist, x)))
+                  : T(cdf(dist, x) - target);
             }
 
          private:
@@ -664,7 +664,7 @@ namespace boost
 #else
             value_type result = boost::math::tools::sum_series(s, boost::math::policies::get_epsilon<value_type, Policy>(), max_iter);
 #endif
-            policies::check_series_iterations(function, max_iter, pol);
+            policies::check_series_iterations<T>(function, max_iter, pol);
             return policies::checked_narrowing_cast<T, Policy>(result, function);
          }
 

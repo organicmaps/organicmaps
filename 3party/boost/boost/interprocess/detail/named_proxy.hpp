@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -24,9 +24,9 @@
 #include <boost/interprocess/detail/mpl.hpp>
 
 #ifndef BOOST_INTERPROCESS_PERFECT_FORWARDING
-#include <boost/interprocess/detail/preprocessor.hpp> 
+#include <boost/interprocess/detail/preprocessor.hpp>
 #else
-#include <boost/interprocess/detail/move.hpp>
+#include <boost/move/move.hpp>
 #include <boost/interprocess/detail/variadic_templates_tools.hpp>
 #endif   //#ifdef BOOST_INTERPROCESS_PERFECT_FORWARDING
 
@@ -34,15 +34,15 @@
 //!Describes a proxy class that implements named allocation syntax.
 
 namespace boost {
-namespace interprocess { 
-namespace detail {
+namespace interprocess {
+namespace ipcdetail {
 
 #ifdef BOOST_INTERPROCESS_PERFECT_FORWARDING
 
 template<class T, bool is_iterator, class ...Args>
 struct CtorNArg : public placement_destroy<T>
 {
-   typedef detail::bool_<is_iterator> IsIterator;
+   typedef bool_<is_iterator> IsIterator;
    typedef CtorNArg<T, is_iterator, Args...> self_t;
    typedef typename build_number_seq<sizeof...(Args)>::type index_tuple_t;
 
@@ -71,33 +71,33 @@ struct CtorNArg : public placement_destroy<T>
 
    private:
    template<int ...IdxPack>
-   void construct(void *mem, detail::true_, const index_tuple<IdxPack...>&)
-   {  new((void*)mem)T(*boost::interprocess::forward<Args>(get<IdxPack>(args_))...); }
+   void construct(void *mem, true_, const index_tuple<IdxPack...>&)
+   {  new((void*)mem)T(*boost::forward<Args>(get<IdxPack>(args_))...); }
 
    template<int ...IdxPack>
-   void construct(void *mem, detail::false_, const index_tuple<IdxPack...>&)
-   {  new((void*)mem)T(boost::interprocess::forward<Args>(get<IdxPack>(args_))...); }
+   void construct(void *mem, false_, const index_tuple<IdxPack...>&)
+   {  new((void*)mem)T(boost::forward<Args>(get<IdxPack>(args_))...); }
 
    template<int ...IdxPack>
-   void do_increment(detail::true_, const index_tuple<IdxPack...>&)
+   void do_increment(true_, const index_tuple<IdxPack...>&)
    {
       this->expansion_helper(++get<IdxPack>(args_)...);
    }
- 
+
    template<class ...ExpansionArgs>
    void expansion_helper(ExpansionArgs &&...)
    {}
 
    template<int ...IdxPack>
-   void do_increment(detail::false_, const index_tuple<IdxPack...>&)
+   void do_increment(false_, const index_tuple<IdxPack...>&)
    {}
 
    tuple<Args&...> args_;
-};                                                                      
+};                                                                     
 
 //!Describes a proxy class that implements named
 //!allocation syntax.
-template 
+template
    < class SegmentManager  //segment manager to construct the object
    , class T               //type of object to build
    , bool is_iterator      //passing parameters are normal object or iterators?
@@ -119,10 +119,10 @@ class named_proxy
 
    template<class ...Args>
    T *operator()(Args &&...args) const
-   {  
+   { 
       CtorNArg<T, is_iterator, Args...> &&ctor_obj = CtorNArg<T, is_iterator, Args...>
-         (boost::interprocess::forward<Args>(args)...);
-      return mp_mngr->template 
+         (boost::forward<Args>(args)...);
+      return mp_mngr->template
          generic_construct<T>(mp_name, m_num, m_find, m_dothrow, ctor_obj);
    }
 
@@ -163,13 +163,13 @@ struct Ctor0Arg   :  public placement_destroy<T>
 //    struct Ctor2Arg
 //      :  public placement_destroy<T>
 //    {
-//       typedef detail::bool_<is_iterator> IsIterator;
+//       typedef bool_<is_iterator> IsIterator;
 //       typedef Ctor2Arg self_t;
 //
-//       void do_increment(detail::false_)
+//       void do_increment(false_)
 //       { ++m_p1; ++m_p2;  }
 //
-//       void do_increment(detail::true_){}
+//       void do_increment(true_){}
 //
 //       self_t& operator++()
 //       {
@@ -197,10 +197,10 @@ struct Ctor0Arg   :  public placement_destroy<T>
 //       }
 //
 //       private:
-//       void construct(void *mem, detail::true_)
+//       void construct(void *mem, true_)
 //       {  new((void*)mem)T(*m_p1, *m_p2); }
-//                                                                           
-//       void construct(void *mem, detail::false_)
+//                                                                          
+//       void construct(void *mem, false_)
 //       {  new((void*)mem)T(m_p1, m_p2); }
 //
 //       P1 &m_p1; P2 &m_p2;
@@ -218,13 +218,13 @@ struct Ctor0Arg   :  public placement_destroy<T>
    struct BOOST_PP_CAT(BOOST_PP_CAT(Ctor, n), Arg)                         \
       :  public placement_destroy<T>                                       \
    {                                                                       \
-      typedef detail::bool_<is_iterator> IsIterator;                       \
+      typedef bool_<is_iterator> IsIterator;                               \
       typedef BOOST_PP_CAT(BOOST_PP_CAT(Ctor, n), Arg) self_t;             \
                                                                            \
-      void do_increment(detail::true_)                                     \
-         { BOOST_PP_ENUM(n, BOOST_INTERPROCESS_AUX_PARAM_INC, _); }        \
+      void do_increment(true_)                                             \
+         { BOOST_PP_ENUM(n, BOOST_INTERPROCESS_PP_PARAM_INC, _); }         \
                                                                            \
-      void do_increment(detail::false_){}                                  \
+      void do_increment(false_){}                                          \
                                                                            \
       self_t& operator++()                                                 \
       {                                                                    \
@@ -236,7 +236,7 @@ struct Ctor0Arg   :  public placement_destroy<T>
                                                                            \
       BOOST_PP_CAT(BOOST_PP_CAT(Ctor, n), Arg)                             \
          ( BOOST_PP_ENUM(n, BOOST_INTERPROCESS_PP_PARAM_LIST, _) )        \
-         : BOOST_PP_ENUM(n, BOOST_INTERPROCESS_AUX_PARAM_INIT, _) {}       \
+         : BOOST_PP_ENUM(n, BOOST_INTERPROCESS_PP_PARAM_INIT, _) {}       \
                                                                            \
       virtual void construct_n(void *mem                                   \
                         , std::size_t num                                  \
@@ -250,19 +250,19 @@ struct Ctor0Arg   :  public placement_destroy<T>
       }                                                                    \
                                                                            \
       private:                                                             \
-      void construct(void *mem, detail::true_)                             \
+      void construct(void *mem, true_)                                     \
       {                                                                    \
          new((void*)mem) T                                                 \
          (BOOST_PP_ENUM(n, BOOST_INTERPROCESS_PP_MEMBER_IT_FORWARD, _));   \
       }                                                                    \
                                                                            \
-      void construct(void *mem, detail::false_)                            \
+      void construct(void *mem, false_)                                    \
       {                                                                    \
          new((void*)mem) T                                                 \
             (BOOST_PP_ENUM(n, BOOST_INTERPROCESS_PP_MEMBER_FORWARD, _));   \
       }                                                                    \
                                                                            \
-      BOOST_PP_REPEAT(n, BOOST_INTERPROCESS_AUX_PARAM_DEFINE, _)           \
+      BOOST_PP_REPEAT(n, BOOST_INTERPROCESS_PP_PARAM_DEFINE, _)            \
    };                                                                      \
 //!
 #define BOOST_PP_LOCAL_LIMITS (1, BOOST_INTERPROCESS_MAX_CONSTRUCTOR_PARAMETERS)
@@ -270,7 +270,7 @@ struct Ctor0Arg   :  public placement_destroy<T>
 
 //!Describes a proxy class that implements named
 //!allocation syntax.
-template 
+template
    < class SegmentManager  //segment manager to construct the object
    , class T               //type of object to build
    , bool is_iterator      //passing parameters are normal object or iterators?
@@ -293,9 +293,9 @@ class named_proxy
    //!makes a named allocation and calls the
    //!default constructor
    T *operator()() const
-   {  
+   { 
       Ctor0Arg<T> ctor_obj;
-      return mp_mngr->template 
+      return mp_mngr->template
          generic_construct<T>(mp_name, m_num, m_find, m_dothrow, ctor_obj);
    }
    //!
@@ -322,7 +322,7 @@ class named_proxy
    ////////////////////////////////////////////////////////////////////////
    //
    // template <class P1, class P2>
-   // T *operator()(P1 &p1, P2 &p2) const 
+   // T *operator()(P1 &p1, P2 &p2) const
    // {
    //    typedef Ctor2Arg
    //       <T, is_iterator, P1, P2>
@@ -342,7 +342,7 @@ class named_proxy
 
 #endif   //#ifdef BOOST_INTERPROCESS_PERFECT_FORWARDING
 
-}}}   //namespace boost { namespace interprocess { namespace detail {
+}}}   //namespace boost { namespace interprocess { namespace ipcdetail {
 
 #include <boost/interprocess/detail/config_end.hpp>
 

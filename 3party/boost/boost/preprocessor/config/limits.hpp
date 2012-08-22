@@ -8,6 +8,7 @@
 #  */
 #
 # /* Revised by Paul Mensonides (2002) */
+# /* Revised by Edward Diener (2011) */
 #
 # /* See http://www.boost.org for most recent version. */
 #
@@ -15,7 +16,7 @@
 # define BOOST_PREPROCESSOR_CONFIG_LIMITS_HPP
 #
 # define BOOST_PP_LIMIT_MAG 256
-# define BOOST_PP_LIMIT_TUPLE 25
+# define BOOST_PP_LIMIT_TUPLE 64
 # define BOOST_PP_LIMIT_DIM 3
 # define BOOST_PP_LIMIT_REPEAT 256
 # define BOOST_PP_LIMIT_WHILE 256

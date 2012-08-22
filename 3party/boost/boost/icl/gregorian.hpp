@@ -77,12 +77,12 @@ namespace boost{namespace icl
 
 
     // ------------------------------------------------------------------------
-    boost::gregorian::date operator ++(boost::gregorian::date& x)
+    inline boost::gregorian::date operator ++(boost::gregorian::date& x)
     {
         return x += boost::gregorian::date::duration_type::unit();
     }
 
-    boost::gregorian::date operator --(boost::gregorian::date& x)
+    inline boost::gregorian::date operator --(boost::gregorian::date& x)
     {
         return x -= boost::gregorian::date::duration_type::unit();
     }
@@ -107,12 +107,12 @@ namespace boost{namespace icl
         typedef boost::gregorian::date_duration type; 
     };  
 
-    boost::gregorian::date_duration operator ++(boost::gregorian::date_duration& x)
+    inline boost::gregorian::date_duration operator ++(boost::gregorian::date_duration& x)
     {
         return x += boost::gregorian::date::duration_type::unit();
     }
 
-    boost::gregorian::date_duration operator --(boost::gregorian::date_duration& x)
+    inline boost::gregorian::date_duration operator --(boost::gregorian::date_duration& x)
     {
         return x -= boost::gregorian::date::duration_type::unit();
     }

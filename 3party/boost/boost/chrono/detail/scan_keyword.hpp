@@ -23,14 +23,15 @@
 #include <ios>
 #include <exception>
 #include <stdlib.h>
+#include <boost/throw_exception.hpp>
 
 namespace boost {
     using interprocess::unique_ptr;
-    
+
 namespace chrono {
 namespace chrono_detail {
 
-inline void free_aux(void* ptr) { free(ptr); }    
+inline void free_aux(void* ptr) { free(ptr); }
 
 // scan_keyword
 // Scans [b, e) until a match is found in the basic_strings range
@@ -65,13 +66,13 @@ scan_keyword(InputIterator& b, InputIterator e,
     unsigned char statbuf[100];
     unsigned char* status = statbuf;
     //  Change free by free_aux to avoid
-    // Error: Could not find a match for boost::interprocess::unique_ptr<unsigned char, void(*)(void*)>::unique_ptr(int, extern "C" void(void*)) 
+    // Error: Could not find a match for boost::interprocess::unique_ptr<unsigned char, void(*)(void*)>::unique_ptr(int, extern "C" void(void*))
     unique_ptr<unsigned char, void(*)(void*)> stat_hold(0, free_aux);
     if (nkw > sizeof(statbuf))
     {
         status = (unsigned char*)malloc(nkw);
         if (status == 0)
-            throw std::bad_alloc();
+          throw_exception(std::bad_alloc());
         stat_hold.reset(status);
     }
     size_t n_might_match = nkw;  // At this point, any keyword might match

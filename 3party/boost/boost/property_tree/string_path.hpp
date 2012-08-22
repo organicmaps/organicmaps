@@ -122,6 +122,9 @@ namespace boost { namespace property_tree
         /// Test if the path contains a single element, i.e. no separators.
         bool single() const;
 
+        /// Get the separator used by this path.
+        char_type separator() const { return m_separator; }
+
         std::string dump() const {
             return detail::dump_sequence(m_value);
         }

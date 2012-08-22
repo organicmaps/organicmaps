@@ -12,8 +12,7 @@
 #include <boost/fusion/iterator/deref.hpp>
 #include <boost/fusion/support/detail/access.hpp>
 #include <boost/type_traits/is_const.hpp>
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/identity.hpp>
+#include <boost/mpl/if.hpp>
 
 namespace boost { namespace fusion { namespace extension
 {
@@ -29,17 +28,17 @@ namespace boost { namespace fusion { namespace extension
             typedef typename result_of::value_of<It>::type::second_type data;
 
             typedef typename
-                mpl::eval_if<
+                mpl::if_<
                     is_const<typename It::seq_type>
-                  , detail::cref_result<mpl::identity<data> >
-                  , detail::ref_result<mpl::identity<data> >
+                  , typename detail::cref_result<data>::type
+                  , typename detail::ref_result<data>::type
                 >::type
             type;
 
             static type
             call(It const& it)
             {
-                return deref(it).second;
+                return fusion::deref(it).second;
             }
         };
     };

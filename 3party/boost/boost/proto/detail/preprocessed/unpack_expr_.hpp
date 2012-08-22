@@ -24,6 +24,7 @@
               , Domain
             >::result_type
         type;
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             return proto::detail::protoify<terminal_type, Domain>()(fusion::at_c<0>(sequence));
@@ -45,6 +46,7 @@
         typedef typename base_expr<Domain, Tag, proto_args>::type expr_type;
         typedef typename Domain::proto_generator proto_generator;
         typedef typename proto_generator::template result<proto_generator(expr_type)>::type type;
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             fusion_iterator0 it0 = fusion::begin(sequence);
@@ -69,6 +71,7 @@
             >
         other;
         typedef typename other::type type;
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             return other::call(sequence);
@@ -86,6 +89,7 @@
         typedef typename base_expr<Domain, Tag, proto_args>::type expr_type;
         typedef typename Domain::proto_generator proto_generator;
         typedef typename proto_generator::template result<proto_generator(expr_type)>::type type;
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             fusion_iterator0 it0 = fusion::begin(sequence); fusion_iterator1 it1 = fusion::next(it0);
@@ -110,6 +114,7 @@
             >
         other;
         typedef typename other::type type;
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             return other::call(sequence);
@@ -127,6 +132,7 @@
         typedef typename base_expr<Domain, Tag, proto_args>::type expr_type;
         typedef typename Domain::proto_generator proto_generator;
         typedef typename proto_generator::template result<proto_generator(expr_type)>::type type;
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             fusion_iterator0 it0 = fusion::begin(sequence); fusion_iterator1 it1 = fusion::next(it0); fusion_iterator2 it2 = fusion::next(it1);
@@ -151,6 +157,7 @@
             >
         other;
         typedef typename other::type type;
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             return other::call(sequence);
@@ -168,6 +175,7 @@
         typedef typename base_expr<Domain, Tag, proto_args>::type expr_type;
         typedef typename Domain::proto_generator proto_generator;
         typedef typename proto_generator::template result<proto_generator(expr_type)>::type type;
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             fusion_iterator0 it0 = fusion::begin(sequence); fusion_iterator1 it1 = fusion::next(it0); fusion_iterator2 it2 = fusion::next(it1); fusion_iterator3 it3 = fusion::next(it2);
@@ -192,6 +200,7 @@
             >
         other;
         typedef typename other::type type;
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             return other::call(sequence);
@@ -209,6 +218,7 @@
         typedef typename base_expr<Domain, Tag, proto_args>::type expr_type;
         typedef typename Domain::proto_generator proto_generator;
         typedef typename proto_generator::template result<proto_generator(expr_type)>::type type;
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             fusion_iterator0 it0 = fusion::begin(sequence); fusion_iterator1 it1 = fusion::next(it0); fusion_iterator2 it2 = fusion::next(it1); fusion_iterator3 it3 = fusion::next(it2); fusion_iterator4 it4 = fusion::next(it3);
@@ -233,6 +243,7 @@
             >
         other;
         typedef typename other::type type;
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             return other::call(sequence);
@@ -250,6 +261,7 @@
         typedef typename base_expr<Domain, Tag, proto_args>::type expr_type;
         typedef typename Domain::proto_generator proto_generator;
         typedef typename proto_generator::template result<proto_generator(expr_type)>::type type;
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             fusion_iterator0 it0 = fusion::begin(sequence); fusion_iterator1 it1 = fusion::next(it0); fusion_iterator2 it2 = fusion::next(it1); fusion_iterator3 it3 = fusion::next(it2); fusion_iterator4 it4 = fusion::next(it3); fusion_iterator5 it5 = fusion::next(it4);
@@ -274,6 +286,7 @@
             >
         other;
         typedef typename other::type type;
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             return other::call(sequence);
@@ -291,6 +304,7 @@
         typedef typename base_expr<Domain, Tag, proto_args>::type expr_type;
         typedef typename Domain::proto_generator proto_generator;
         typedef typename proto_generator::template result<proto_generator(expr_type)>::type type;
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             fusion_iterator0 it0 = fusion::begin(sequence); fusion_iterator1 it1 = fusion::next(it0); fusion_iterator2 it2 = fusion::next(it1); fusion_iterator3 it3 = fusion::next(it2); fusion_iterator4 it4 = fusion::next(it3); fusion_iterator5 it5 = fusion::next(it4); fusion_iterator6 it6 = fusion::next(it5);
@@ -315,6 +329,7 @@
             >
         other;
         typedef typename other::type type;
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             return other::call(sequence);
@@ -332,6 +347,7 @@
         typedef typename base_expr<Domain, Tag, proto_args>::type expr_type;
         typedef typename Domain::proto_generator proto_generator;
         typedef typename proto_generator::template result<proto_generator(expr_type)>::type type;
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             fusion_iterator0 it0 = fusion::begin(sequence); fusion_iterator1 it1 = fusion::next(it0); fusion_iterator2 it2 = fusion::next(it1); fusion_iterator3 it3 = fusion::next(it2); fusion_iterator4 it4 = fusion::next(it3); fusion_iterator5 it5 = fusion::next(it4); fusion_iterator6 it6 = fusion::next(it5); fusion_iterator7 it7 = fusion::next(it6);
@@ -356,6 +372,7 @@
             >
         other;
         typedef typename other::type type;
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             return other::call(sequence);
@@ -373,6 +390,7 @@
         typedef typename base_expr<Domain, Tag, proto_args>::type expr_type;
         typedef typename Domain::proto_generator proto_generator;
         typedef typename proto_generator::template result<proto_generator(expr_type)>::type type;
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             fusion_iterator0 it0 = fusion::begin(sequence); fusion_iterator1 it1 = fusion::next(it0); fusion_iterator2 it2 = fusion::next(it1); fusion_iterator3 it3 = fusion::next(it2); fusion_iterator4 it4 = fusion::next(it3); fusion_iterator5 it5 = fusion::next(it4); fusion_iterator6 it6 = fusion::next(it5); fusion_iterator7 it7 = fusion::next(it6); fusion_iterator8 it8 = fusion::next(it7);
@@ -397,6 +415,7 @@
             >
         other;
         typedef typename other::type type;
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             return other::call(sequence);
@@ -414,6 +433,7 @@
         typedef typename base_expr<Domain, Tag, proto_args>::type expr_type;
         typedef typename Domain::proto_generator proto_generator;
         typedef typename proto_generator::template result<proto_generator(expr_type)>::type type;
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             fusion_iterator0 it0 = fusion::begin(sequence); fusion_iterator1 it1 = fusion::next(it0); fusion_iterator2 it2 = fusion::next(it1); fusion_iterator3 it3 = fusion::next(it2); fusion_iterator4 it4 = fusion::next(it3); fusion_iterator5 it5 = fusion::next(it4); fusion_iterator6 it6 = fusion::next(it5); fusion_iterator7 it7 = fusion::next(it6); fusion_iterator8 it8 = fusion::next(it7); fusion_iterator9 it9 = fusion::next(it8);
@@ -438,6 +458,7 @@
             >
         other;
         typedef typename other::type type;
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             return other::call(sequence);

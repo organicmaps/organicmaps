@@ -24,13 +24,14 @@
 #include <boost/graph/graph_concepts.hpp>
 #include <boost/graph/visitors.hpp>
 #include <boost/graph/named_function_params.hpp>
+#include <boost/concept/assert.hpp>
 
 namespace boost {
 
   template <class Visitor, class Graph>
   struct NeighborBFSVisitorConcept {
     void constraints() {
-      function_requires< CopyConstructibleConcept<Visitor> >();
+      BOOST_CONCEPT_ASSERT(( CopyConstructibleConcept<Visitor> ));
       vis.initialize_vertex(u, g);
       vis.discover_vertex(u, g);
       vis.examine_vertex(u, g);
@@ -133,13 +134,13 @@ namespace boost {
        Buffer& Q, BFSVisitor vis, ColorMap color)
 
     {
-      function_requires< BidirectionalGraphConcept<BidirectionalGraph> >();
+      BOOST_CONCEPT_ASSERT(( BidirectionalGraphConcept<BidirectionalGraph> ));
       typedef graph_traits<BidirectionalGraph> GTraits;
       typedef typename GTraits::vertex_descriptor Vertex;
       typedef typename GTraits::edge_descriptor Edge;
-      function_requires< 
-        NeighborBFSVisitorConcept<BFSVisitor, BidirectionalGraph> >();
-      function_requires< ReadWritePropertyMapConcept<ColorMap, Vertex> >();
+      BOOST_CONCEPT_ASSERT(( 
+        NeighborBFSVisitorConcept<BFSVisitor, BidirectionalGraph> ));
+      BOOST_CONCEPT_ASSERT(( ReadWritePropertyMapConcept<ColorMap, Vertex> ));
       typedef typename property_traits<ColorMap>::value_type ColorValue;
       typedef color_traits<ColorValue> Color;
       
@@ -249,13 +250,13 @@ namespace boost {
     };
 
     template <>
-    struct neighbor_bfs_dispatch<detail::error_property_not_found> {
+    struct neighbor_bfs_dispatch<param_not_found> {
       template <class VertexListGraph, class P, class T, class R>
       static void apply
       (VertexListGraph& g,
        typename graph_traits<VertexListGraph>::vertex_descriptor s,
        const bgl_named_params<P, T, R>& params,
-       detail::error_property_not_found)
+       param_not_found)
       {
         std::vector<default_color_type> color_vec(num_vertices(g));
         null_visitor null_vis;
@@ -287,8 +288,7 @@ namespace boost {
     // graph is not really const since we may write to property maps
     // of the graph.
     VertexListGraph& ng = const_cast<VertexListGraph&>(g);
-    typedef typename property_value< bgl_named_params<P,T,R>, 
-      vertex_color_t>::type C;
+    typedef typename get_param_type< vertex_color_t, bgl_named_params<P,T,R> >::type C;
     detail::neighbor_bfs_dispatch<C>::apply(ng, s, params, 
                                             get_param(params, vertex_color));
   }

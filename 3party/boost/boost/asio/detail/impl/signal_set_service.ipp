@@ -2,7 +2,7 @@
 // detail/impl/signal_set_service.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -71,7 +71,7 @@ void asio_signal_handler(int signal_number)
 #endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
 
 #if defined(BOOST_ASIO_HAS_SIGNAL) && !defined(BOOST_ASIO_HAS_SIGACTION)
-  signal(signal_number, asio_signal_handler);
+  ::signal(signal_number, asio_signal_handler);
 #endif // defined(BOOST_ASIO_HAS_SIGNAL) && !defined(BOOST_ASIO_HAS_SIGACTION)
 }
 
@@ -98,7 +98,8 @@ public:
   }
 
   static void do_complete(io_service_impl* /*owner*/, operation* base,
-      boost::system::error_code /*ec*/, std::size_t /*bytes_transferred*/)
+      const boost::system::error_code& /*ec*/,
+      std::size_t /*bytes_transferred*/)
   {
     pipe_read_op* o(static_cast<pipe_read_op*>(base));
     delete o;

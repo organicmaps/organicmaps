@@ -13,6 +13,7 @@
 #include <boost/graph/graph_concepts.hpp>
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/properties.hpp>
+#include <boost/concept/assert.hpp>
 
 #include <boost/concept/detail/concept_def.hpp>
 namespace boost {
@@ -156,8 +157,8 @@ namespace detail
                     const Path& p,
                     const ClosedMatrix& m)
     {
-        function_requires< IncidenceGraphConcept<Graph> >();
-        function_requires< VertexIndexGraphConcept<Graph> >();
+        BOOST_CONCEPT_ASSERT(( IncidenceGraphConcept<Graph> ));
+        BOOST_CONCEPT_ASSERT(( VertexIndexGraphConcept<Graph> ));
         typedef typename graph_traits<Graph>::vertex_descriptor Vertex;
 
         // get the vertices in question
@@ -181,7 +182,7 @@ namespace detail
     inline bool
     can_wrap_path(const Graph& g, const Path& p)
     {
-        function_requires< IncidenceGraphConcept<Graph> >();
+        BOOST_CONCEPT_ASSERT(( IncidenceGraphConcept<Graph> ));
         typedef typename graph_traits<Graph>::vertex_descriptor Vertex;
         typedef typename graph_traits<Graph>::out_edge_iterator OutIterator;
 
@@ -193,7 +194,7 @@ namespace detail
             u = p.back(),
             v = p.front();
         OutIterator i, end;
-        for(tie(i, end) = out_edges(u, g); i != end; ++i) {
+        for(boost::tie(i, end) = out_edges(u, g); i != end; ++i) {
             if((target(*i, g) == v)) {
                 return true;
             }
@@ -209,7 +210,7 @@ namespace detail
                 Path& p,
                 ClosedMatrix& closed)
     {
-        function_requires< IncidenceGraphConcept<Graph> >();
+        BOOST_CONCEPT_ASSERT(( IncidenceGraphConcept<Graph> ));
         typedef typename graph_traits<Graph>::vertex_descriptor Vertex;
         typedef typename graph_traits<Graph>::edge_descriptor Edge;
         typedef typename graph_traits<Graph>::out_edge_iterator OutIterator;
@@ -220,7 +221,7 @@ namespace detail
 
         // AdjacencyIterator i, end;
         OutIterator i, end;
-        for(tie(i, end) = out_edges(u, g); i != end; ++i) {
+        for(boost::tie(i, end) = out_edges(u, g); i != end; ++i) {
             Vertex v = target(*i, g);
 
             // if we can actually extend along this edge,
@@ -238,7 +239,7 @@ namespace detail
     inline bool
     exhaust_paths(const Graph& g, Path& p, ClosedMatrix& closed)
     {
-        function_requires< GraphConcept<Graph> >();
+        BOOST_CONCEPT_ASSERT(( GraphConcept<Graph> ));
         typedef typename graph_traits<Graph>::vertex_descriptor Vertex;
 
         // if there's more than one vertex in the path, this closes
@@ -272,10 +273,10 @@ namespace detail
                             std::size_t minlen,
                             std::size_t maxlen)
     {
-        function_requires< VertexListGraphConcept<Graph> >();
+        BOOST_CONCEPT_ASSERT(( VertexListGraphConcept<Graph> ));
         typedef typename graph_traits<Graph>::vertex_descriptor Vertex;
         typedef std::vector<Vertex> Path;
-        function_requires< CycleVisitorConcept<Visitor,Path,Graph> >();
+        BOOST_CONCEPT_ASSERT(( CycleVisitorConcept<Visitor,Path,Graph> ));
         typedef std::vector<Vertex> VertexList;
         typedef std::vector<VertexList> ClosedMatrix;
 
@@ -320,11 +321,11 @@ tiernan_all_cycles(const Graph& g,
                     std::size_t minlen,
                     std::size_t maxlen)
 {
-    function_requires< VertexListGraphConcept<Graph> >();
+    BOOST_CONCEPT_ASSERT(( VertexListGraphConcept<Graph> ));
     typedef typename graph_traits<Graph>::vertex_iterator VertexIterator;
 
     VertexIterator i, end;
-    for(tie(i, end) = vertices(g); i != end; ++i) {
+    for(boost::tie(i, end) = vertices(g); i != end; ++i) {
         detail::all_cycles_from_vertex(g, *i, vis, minlen, maxlen);
     }
 }

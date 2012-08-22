@@ -701,6 +701,7 @@ struct funptr_predicate<void**>
             ) \
         ] \
       , BOOST_PARAMETER_FN_ARG_PRED(arg) \
+      , Args \
     )
 
 # define BOOST_PARAMETER_FUNCTION_DEFAULT_FUNCTION_BODY(name, n, split_args, tag_namespace) \
@@ -728,6 +729,7 @@ struct funptr_predicate<void**>
     BOOST_PARAMETER_FUNCTION_CAST( \
         boost::parameter::aux::as_lvalue(BOOST_PARAMETER_FN_ARG_DEFAULT(arg), 0L) \
       , BOOST_PARAMETER_FN_ARG_PRED(arg) \
+      , Args \
     )
 
 # define BOOST_PARAMETER_FUNCTION_DEFAULT_EVAL_DEFAULT_BODY(name, n, split_args, tag_ns, const_) \
@@ -843,6 +845,7 @@ struct funptr_predicate<void**>
               boost::parameter::keyword<tag_ns::BOOST_PARAMETER_FN_ARG_KEYWORD(arg)>::instance \
           ] \
         , BOOST_PARAMETER_FN_ARG_PRED(arg) \
+        , Args \
       )
 
 // Generates the function template that recives a ArgumentPack, and then

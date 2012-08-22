@@ -20,6 +20,7 @@
 #include <boost/property_map/property_map.hpp>
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/graph_concepts.hpp>
+#include <boost/concept/assert.hpp>
 
 /** @file howard_cycle_ratio.hpp
  * @brief The implementation of the maximum/minimum cycle ratio/mean algorithm.
@@ -477,13 +478,13 @@ namespace boost {
     {
       typedef typename graph_traits<TG>::directed_category DirCat;
       BOOST_STATIC_ASSERT((is_convertible<DirCat*, directed_tag*>::value == true));
-      function_requires< IncidenceGraphConcept<TG> >();
-      function_requires< VertexListGraphConcept<TG> >();
+      BOOST_CONCEPT_ASSERT(( IncidenceGraphConcept<TG> ));
+      BOOST_CONCEPT_ASSERT(( VertexListGraphConcept<TG> ));
       typedef typename graph_traits<TG>::vertex_descriptor Vertex;
-      function_requires< ReadablePropertyMapConcept<TVIM, Vertex> >();
+      BOOST_CONCEPT_ASSERT(( ReadablePropertyMapConcept<TVIM, Vertex> ));
       typedef typename graph_traits<TG>::edge_descriptor Edge;
-      function_requires< ReadablePropertyMapConcept<TEW1, Edge> >();
-      function_requires< ReadablePropertyMapConcept<TEW2, Edge> >();
+      BOOST_CONCEPT_ASSERT(( ReadablePropertyMapConcept<TEW1, Edge> ));
+      BOOST_CONCEPT_ASSERT(( ReadablePropertyMapConcept<TEW2, Edge> ));
 
       if(pcc == 0) {
           return detail::mcr_howard<FT,TG, TVIM, TEW1, TEW2>(

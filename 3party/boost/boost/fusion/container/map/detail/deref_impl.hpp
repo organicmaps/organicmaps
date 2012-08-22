@@ -36,7 +36,7 @@ namespace boost { namespace fusion { namespace extension
             static type
             call(It const& it)
             {
-                return at<typename It::index>(it.seq->get_data());
+                return fusion::at<typename It::index>(it.seq->get_data());
             }
         };
     };

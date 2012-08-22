@@ -118,6 +118,25 @@ public:
         this->_set.insert(src.begin(), src.end());
     }
 
+#   ifndef BOOST_NO_RVALUE_REFERENCES
+    //==========================================================================
+    //= Move semantics
+    //==========================================================================
+
+    /// Move constructor
+    split_interval_set(split_interval_set&& src)
+        : base_type(boost::move(src))
+    {}
+
+    /// Move assignment operator
+    split_interval_set& operator = (split_interval_set&& src)
+    { 
+        base_type::operator=(boost::move(src));
+        return *this;
+    }
+    //==========================================================================
+#   endif // BOOST_NO_RVALUE_REFERENCES
+
     
 private:
     // Private functions that shall be accessible by the baseclass:

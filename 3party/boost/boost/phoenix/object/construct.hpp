@@ -38,7 +38,7 @@ namespace boost { namespace phoenix
 
         template <typename Target, typename Context>
         typename detail::result_of::target<Target>::type
-        operator()(Target, Context &) const
+        operator()(Target, Context const &) const
         {
             return typename detail::result_of::target<Target>::type();
         }

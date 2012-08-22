@@ -107,7 +107,7 @@ struct BackInserter_ : euml_action<BackInserter_<T> >
 };
 
 struct back_inserter_tag {};
-struct BackInserter_Helper: proto::extends< proto::terminal<back_inserter_tag>::type, BackInserter_Helper, sm_domain>
+struct BackInserter_Helper: proto::extends< proto::terminal<back_inserter_tag>::type, BackInserter_Helper, boost::msm::sm_domain>
 {
     BackInserter_Helper(){}
     template <class Arg1,class Arg2,class Arg3,class Arg4,class Arg5 
@@ -162,7 +162,7 @@ struct FrontInserter_ : euml_action<FrontInserter_<T> >
 };
 
 struct front_inserter_tag {};
-struct FrontInserter_Helper: proto::extends< proto::terminal<front_inserter_tag>::type, FrontInserter_Helper, sm_domain>
+struct FrontInserter_Helper: proto::extends< proto::terminal<front_inserter_tag>::type, FrontInserter_Helper, boost::msm::sm_domain>
 {
     FrontInserter_Helper(){}
     template <class Arg1,class Arg2,class Arg3,class Arg4,class Arg5 
@@ -217,7 +217,7 @@ struct Inserter_ : euml_action<Inserter_<T,Pos> >
 };
 
 struct inserter_tag {};
-struct Inserter_Helper: proto::extends< proto::terminal<inserter_tag>::type, Inserter_Helper, sm_domain>
+struct Inserter_Helper: proto::extends< proto::terminal<inserter_tag>::type, Inserter_Helper, boost::msm::sm_domain>
 {
     Inserter_Helper(){}
     template <class Arg1,class Arg2,class Arg3,class Arg4,class Arg5 
@@ -315,7 +315,7 @@ struct Transform_<Param1,Param2,Param3,Param4,Param5,
     }
 };
 struct transform_tag {};
-struct Transform_Helper: proto::extends< proto::terminal<transform_tag>::type, Transform_Helper, sm_domain>
+struct Transform_Helper: proto::extends< proto::terminal<transform_tag>::type, Transform_Helper, boost::msm::sm_domain>
 {
     Transform_Helper(){}
     template <class Arg1,class Arg2,class Arg3,class Arg4,class Arg5 

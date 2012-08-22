@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2001-2006 Joel de Guzman
+    Copyright (c) 2001-2011 Joel de Guzman
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying 
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -7,6 +7,7 @@
 #if !defined(FUSION_HAS_KEY_09232005_1454)
 #define FUSION_HAS_KEY_09232005_1454
 
+#include <boost/fusion/sequence/intrinsic_fwd.hpp>
 #include <boost/fusion/support/tag_of.hpp>
 #include <boost/fusion/iterator/equal_to.hpp>
 #include <boost/fusion/algorithm/query/find.hpp>

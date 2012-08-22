@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -20,6 +20,7 @@
 #include <boost/geometry/algorithms/area.hpp>
 #include <boost/geometry/multi/core/point_type.hpp>
 #include <boost/geometry/multi/algorithms/detail/multi_sum.hpp>
+#include <boost/geometry/multi/algorithms/num_points.hpp>
 
 
 namespace boost { namespace geometry
@@ -30,7 +31,7 @@ namespace boost { namespace geometry
 namespace dispatch
 {
 template <typename MultiGeometry, typename Strategy>
-struct area<multi_polygon_tag, MultiGeometry, Strategy>
+struct area<MultiGeometry, Strategy, multi_polygon_tag>
     : detail::multi_sum
         <
             typename Strategy::return_type,
@@ -38,9 +39,9 @@ struct area<multi_polygon_tag, MultiGeometry, Strategy>
             Strategy,
             area
                 <
-                    polygon_tag,
                     typename boost::range_value<MultiGeometry>::type,
-                    Strategy
+                    Strategy,
+                    polygon_tag
                 >
     >
 {};

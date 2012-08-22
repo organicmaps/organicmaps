@@ -18,6 +18,11 @@
 #include <boost/proto/detail/as_expr.hpp>
 #include <boost/proto/detail/deduce_domain.hpp>
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+# pragma warning(push)
+# pragma warning(disable : 4714) // function 'xxx' marked as __forceinline not inlined
+#endif
+
 namespace boost { namespace proto
 {
 
@@ -142,6 +147,7 @@ namespace boost { namespace proto
                 BOOST_PROTO_CALLABLE()
                 typedef typename remove_const<T>::type result_type;
 
+                BOOST_FORCEINLINE
                 result_type operator()(T &e) const
                 {
                     return e;
@@ -185,6 +191,7 @@ namespace boost { namespace proto
                 BOOST_PROTO_CALLABLE()
                 typedef T &result_type;
 
+                BOOST_FORCEINLINE
                 result_type operator()(T &e) const
                 {
                     return e;
@@ -322,5 +329,9 @@ namespace boost { namespace proto
     {};
 
 }}
+
+#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+# pragma warning(pop)
+#endif
 
 #endif

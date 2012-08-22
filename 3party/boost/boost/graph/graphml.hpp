@@ -262,8 +262,8 @@ write_graphml(std::ostream& out, const Graph& g, VertexIndexMap vertex_index,
     for (dynamic_properties::const_iterator i = dp.begin(); i != dp.end(); ++i)
     {
         std::string key_id = "key" + lexical_cast<std::string>(key_count++);
-        if (i->second->key() == typeid(Graph))
-            vertex_key_ids[i->first] = key_id;
+        if (i->second->key() == typeid(Graph*))
+            graph_key_ids[i->first] = key_id;
         else if (i->second->key() == typeid(vertex_descriptor))
             vertex_key_ids[i->first] = key_id;
         else if (i->second->key() == typeid(edge_descriptor))
@@ -273,7 +273,7 @@ write_graphml(std::ostream& out, const Graph& g, VertexIndexMap vertex_index,
         std::string type_name = "string";
         mpl::for_each<value_types>(get_type_name<value_types>(i->second->value(), type_names, type_name));
         out << "  <key id=\"" << encode_char_entities(key_id) << "\" for=\""
-            << (i->second->key() == typeid(Graph) ? "graph" : (i->second->key() == typeid(vertex_descriptor) ? "node" : "edge")) << "\""
+            << (i->second->key() == typeid(Graph*) ? "graph" : (i->second->key() == typeid(vertex_descriptor) ? "node" : "edge")) << "\""
             << " attr.name=\"" << i->first << "\""
             << " attr.type=\"" << type_name << "\""
             << " />\n";
@@ -287,10 +287,12 @@ write_graphml(std::ostream& out, const Graph& g, VertexIndexMap vertex_index,
     // Output graph data
     for (dynamic_properties::const_iterator i = dp.begin(); i != dp.end(); ++i)
     {
-        if (i->second->key() == typeid(Graph))
+        if (i->second->key() == typeid(Graph*))
         {
+            // The const_cast here is just to get typeid correct for property
+            // map key; the graph should not be mutated using it.
             out << "   <data key=\"" << graph_key_ids[i->first] << "\">"
-                << encode_char_entities(i->second->get_string(g)) << "</data>\n";
+                << encode_char_entities(i->second->get_string(const_cast<Graph*>(&g))) << "</data>\n";
         }
     }
 

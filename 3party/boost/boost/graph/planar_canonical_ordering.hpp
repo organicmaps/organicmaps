@@ -12,7 +12,7 @@
 #include <vector>
 #include <list>
 #include <boost/config.hpp>
-#include <boost/utility.hpp>  //for next and prior
+#include <boost/next_prior.hpp>
 #include <boost/graph/graph_traits.hpp>
 #include <boost/property_map/property_map.hpp>
 
@@ -67,7 +67,7 @@ namespace boost
     vertex_t first_vertex = *vertices(g).first;
     vertex_t second_vertex;
     adjacency_iterator_t ai, ai_end;
-    for(tie(ai,ai_end) = adjacent_vertices(first_vertex,g); ai != ai_end; ++ai)
+    for(boost::tie(ai,ai_end) = adjacent_vertices(first_vertex,g); ai != ai_end; ++ai)
       {
         if (*ai == first_vertex)
           continue;

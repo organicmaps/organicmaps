@@ -1,7 +1,7 @@
 //  Copyright (c) 2001, Daniel C. Nuffer
 //  Copyright (c) 2001-2011 Hartmut Kaiser
 //  http://spirit.sourceforge.net/
-// 
+//
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
@@ -16,13 +16,13 @@
 #include <boost/detail/workaround.hpp>
 #include <boost/utility/base_from_member.hpp>
 
-namespace boost { namespace spirit 
+namespace boost { namespace spirit
 {
     ///////////////////////////////////////////////////////////////////////////
     // The default multi_pass instantiation uses a ref-counted std_deque scheme.
     ///////////////////////////////////////////////////////////////////////////
     template<typename T, typename Policies>
-    class multi_pass 
+    class multi_pass
       : private boost::base_from_member<
             typename Policies::BOOST_NESTED_TEMPLATE shared<T>*>
       , public Policies::BOOST_NESTED_TEMPLATE unique<T>
@@ -32,14 +32,14 @@ namespace boost { namespace spirit
     {
     private:
         // unique and shared data types
-        typedef typename Policies::BOOST_NESTED_TEMPLATE unique<T> 
+        typedef typename Policies::BOOST_NESTED_TEMPLATE unique<T>
             policies_base_type;
-        typedef typename Policies::BOOST_NESTED_TEMPLATE shared<T> 
+        typedef typename Policies::BOOST_NESTED_TEMPLATE shared<T>
             shared_data_type;
 
         typedef boost::base_from_member<shared_data_type*> member_base;
 
-        // define the types the standard embedded iterator typedefs are taken 
+        // define the types the standard embedded iterator typedefs are taken
         // from
 #if defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
         typedef typename iterator_base_creator<Input, T>::type iterator_type;
@@ -56,7 +56,7 @@ namespace boost { namespace spirit
         typedef typename iterator_type::reference reference;
         typedef typename iterator_type::pointer pointer;
 
-        multi_pass() : member_base((shared_data_type*)0) {}
+        multi_pass() : member_base(static_cast<shared_data_type*>(0)) {}
 
         explicit multi_pass(T& input)
           : member_base(new shared_data_type(input)), policies_base_type(input) {}
@@ -77,7 +77,7 @@ namespace boost { namespace spirit
         // checking code that isn't required by the standard.
         // The workaround is to provide an additional constructor that
         // ignores its int argument and behaves like the default constructor.
-        multi_pass(int) : member_base((shared_data_type*)0) {}
+        multi_pass(int) : member_base(static_cast<shared_data_type*>(0)) {}
 #endif // BOOST_WORKAROUND(__GLIBCPP__, == 20020514)
 
         ~multi_pass()
@@ -126,7 +126,7 @@ namespace boost { namespace spirit
             return tmp;
         }
 
-        void clear_queue(BOOST_SCOPED_ENUM(traits::clear_mode) mode = 
+        void clear_queue(BOOST_SCOPED_ENUM(traits::clear_mode) mode =
             traits::clear_mode::clear_if_enabled)
         {
             if (mode == traits::clear_mode::clear_always || !inhibit_clear_queue())
@@ -214,7 +214,7 @@ namespace boost { namespace spirit
 
     ///////////////////////////////////////////////////////////////////////////
     template <typename T, typename Policies>
-    inline void 
+    inline void
     swap(multi_pass<T, Policies> &x, multi_pass<T, Policies> &y)
     {
         x.swap(y);
@@ -247,6 +247,6 @@ namespace boost { namespace spirit
 
 }} // namespace boost::spirit
 
-#endif 
+#endif
 
 

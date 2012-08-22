@@ -16,6 +16,23 @@
 // This header implements separate compilation features as described in
 // http://www.boost.org/more/separate_compilation.html
 
+//  normalize macros  ------------------------------------------------------------------//
+
+#if !defined(BOOST_SYSTEM_DYN_LINK) && !defined(BOOST_SYSTEM_STATIC_LINK) \
+  && !defined(BOOST_ALL_DYN_LINK) && !defined(BOOST_ALL_STATIC_LINK)
+# define BOOST_SYSTEM_STATIC_LINK
+#endif
+
+#if defined(BOOST_ALL_DYN_LINK) && !defined(BOOST_SYSTEM_DYN_LINK)
+# define BOOST_SYSTEM_DYN_LINK 
+#elif defined(BOOST_ALL_STATIC_LINK) && !defined(BOOST_SYSTEM_STATIC_LINK)
+# define BOOST_SYSTEM_STATIC_LINK 
+#endif
+
+#if defined(BOOST_SYSTEM_DYN_LINK) && defined(BOOST_SYSTEM_STATIC_LINK)
+# error Must not define both BOOST_SYSTEM_DYN_LINK and BOOST_SYSTEM_STATIC_LINK
+#endif
+
 //  enable dynamic or static linking as requested --------------------------------------//
 
 #if defined(BOOST_ALL_DYN_LINK) || defined(BOOST_SYSTEM_DYN_LINK)

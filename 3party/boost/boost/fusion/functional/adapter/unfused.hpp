@@ -100,6 +100,7 @@ namespace boost { namespace fusion
 
 namespace boost 
 {
+#if !defined(BOOST_RESULT_OF_USE_DECLTYPE) || defined(BOOST_NO_DECLTYPE)
     template<class F>
     struct result_of< boost::fusion::unfused<F> const () >
     {
@@ -107,6 +108,17 @@ namespace boost
     };
     template<class F>
     struct result_of< boost::fusion::unfused<F>() >
+    {
+        typedef typename boost::fusion::unfused<F>::call_0_result type;
+    };
+#endif
+    template<class F>
+    struct tr1_result_of< boost::fusion::unfused<F> const () >
+    {
+        typedef typename boost::fusion::unfused<F>::call_const_0_result type;
+    };
+    template<class F>
+    struct tr1_result_of< boost::fusion::unfused<F>() >
     {
         typedef typename boost::fusion::unfused<F>::call_0_result type;
     };

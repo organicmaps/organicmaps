@@ -124,11 +124,17 @@ inline T asymptotic_bessel_y_large_x_2(T v, T x)
    // Get the phase and amplitude:
    T ampl = asymptotic_bessel_amplitude(v, x);
    T phase = asymptotic_bessel_phase_mx(v, x);
+   BOOST_MATH_INSTRUMENT_VARIABLE(ampl);
+   BOOST_MATH_INSTRUMENT_VARIABLE(phase);
    //
    // Calculate the sine of the phase, using:
    // sin(x+p) = sin(x)cos(p) + cos(x)sin(p)
    //
    T sin_phase = sin(phase) * cos(x) + cos(phase) * sin(x);
+   BOOST_MATH_INSTRUMENT_CODE(sin(phase));
+   BOOST_MATH_INSTRUMENT_CODE(cos(x));
+   BOOST_MATH_INSTRUMENT_CODE(cos(phase));
+   BOOST_MATH_INSTRUMENT_CODE(sin(x));
    return sin_phase * ampl;
 }
 
@@ -140,11 +146,18 @@ inline T asymptotic_bessel_j_large_x_2(T v, T x)
    // Get the phase and amplitude:
    T ampl = asymptotic_bessel_amplitude(v, x);
    T phase = asymptotic_bessel_phase_mx(v, x);
+   BOOST_MATH_INSTRUMENT_VARIABLE(ampl);
+   BOOST_MATH_INSTRUMENT_VARIABLE(phase);
    //
    // Calculate the sine of the phase, using:
    // cos(x+p) = cos(x)cos(p) - sin(x)sin(p)
    //
+   BOOST_MATH_INSTRUMENT_CODE(cos(phase));
+   BOOST_MATH_INSTRUMENT_CODE(cos(x));
+   BOOST_MATH_INSTRUMENT_CODE(sin(phase));
+   BOOST_MATH_INSTRUMENT_CODE(sin(x));
    T sin_phase = cos(phase) * cos(x) - sin(phase) * sin(x);
+   BOOST_MATH_INSTRUMENT_VARIABLE(sin_phase);
    return sin_phase * ampl;
 }
 
@@ -215,21 +228,21 @@ template <class T>
 inline T asymptotic_bessel_j_limit(const T& v, const mpl::int_<53>&)
 {
    // double case:
-   T v2 = (std::max)(T(3), v * v);
+   T v2 = (std::max)(T(3), T(v * v));
    return v2 * 33 /*73*/;
 }
 template <class T>
 inline T asymptotic_bessel_j_limit(const T& v, const mpl::int_<64>&)
 {
    // 80-bit extended-double case:
-   T v2 = (std::max)(T(3), v * v);
+   T v2 = (std::max)(T(3), T(v * v));
    return v2 * 121 /*266*/;
 }
 template <class T>
 inline T asymptotic_bessel_j_limit(const T& v, const mpl::int_<113>&)
 {
    // 128-bit long double case:
-   T v2 = (std::max)(T(3), v * v);
+   T v2 = (std::max)(T(3), T(v * v));
    return v2 * 39154 /*85700*/;
 }
 

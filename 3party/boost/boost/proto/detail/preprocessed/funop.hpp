@@ -18,6 +18,7 @@
                 
             >
         >::type type;
+        BOOST_FORCEINLINE
         static type const call(
             Expr &e
             
@@ -53,6 +54,7 @@
                 , typename proto::result_of::as_child<A0, Domain>::type
             >
         >::type type;
+        BOOST_FORCEINLINE
         static type const call(
             Expr &e
             , A0 &a0
@@ -88,6 +90,7 @@
                 , typename proto::result_of::as_child<A0, Domain>::type , typename proto::result_of::as_child<A1, Domain>::type
             >
         >::type type;
+        BOOST_FORCEINLINE
         static type const call(
             Expr &e
             , A0 &a0 , A1 &a1
@@ -123,6 +126,7 @@
                 , typename proto::result_of::as_child<A0, Domain>::type , typename proto::result_of::as_child<A1, Domain>::type , typename proto::result_of::as_child<A2, Domain>::type
             >
         >::type type;
+        BOOST_FORCEINLINE
         static type const call(
             Expr &e
             , A0 &a0 , A1 &a1 , A2 &a2
@@ -158,6 +162,7 @@
                 , typename proto::result_of::as_child<A0, Domain>::type , typename proto::result_of::as_child<A1, Domain>::type , typename proto::result_of::as_child<A2, Domain>::type , typename proto::result_of::as_child<A3, Domain>::type
             >
         >::type type;
+        BOOST_FORCEINLINE
         static type const call(
             Expr &e
             , A0 &a0 , A1 &a1 , A2 &a2 , A3 &a3
@@ -193,6 +198,7 @@
                 , typename proto::result_of::as_child<A0, Domain>::type , typename proto::result_of::as_child<A1, Domain>::type , typename proto::result_of::as_child<A2, Domain>::type , typename proto::result_of::as_child<A3, Domain>::type , typename proto::result_of::as_child<A4, Domain>::type
             >
         >::type type;
+        BOOST_FORCEINLINE
         static type const call(
             Expr &e
             , A0 &a0 , A1 &a1 , A2 &a2 , A3 &a3 , A4 &a4
@@ -228,6 +234,7 @@
                 , typename proto::result_of::as_child<A0, Domain>::type , typename proto::result_of::as_child<A1, Domain>::type , typename proto::result_of::as_child<A2, Domain>::type , typename proto::result_of::as_child<A3, Domain>::type , typename proto::result_of::as_child<A4, Domain>::type , typename proto::result_of::as_child<A5, Domain>::type
             >
         >::type type;
+        BOOST_FORCEINLINE
         static type const call(
             Expr &e
             , A0 &a0 , A1 &a1 , A2 &a2 , A3 &a3 , A4 &a4 , A5 &a5
@@ -263,6 +270,7 @@
                 , typename proto::result_of::as_child<A0, Domain>::type , typename proto::result_of::as_child<A1, Domain>::type , typename proto::result_of::as_child<A2, Domain>::type , typename proto::result_of::as_child<A3, Domain>::type , typename proto::result_of::as_child<A4, Domain>::type , typename proto::result_of::as_child<A5, Domain>::type , typename proto::result_of::as_child<A6, Domain>::type
             >
         >::type type;
+        BOOST_FORCEINLINE
         static type const call(
             Expr &e
             , A0 &a0 , A1 &a1 , A2 &a2 , A3 &a3 , A4 &a4 , A5 &a5 , A6 &a6
@@ -298,6 +306,7 @@
                 , typename proto::result_of::as_child<A0, Domain>::type , typename proto::result_of::as_child<A1, Domain>::type , typename proto::result_of::as_child<A2, Domain>::type , typename proto::result_of::as_child<A3, Domain>::type , typename proto::result_of::as_child<A4, Domain>::type , typename proto::result_of::as_child<A5, Domain>::type , typename proto::result_of::as_child<A6, Domain>::type , typename proto::result_of::as_child<A7, Domain>::type
             >
         >::type type;
+        BOOST_FORCEINLINE
         static type const call(
             Expr &e
             , A0 &a0 , A1 &a1 , A2 &a2 , A3 &a3 , A4 &a4 , A5 &a5 , A6 &a6 , A7 &a7
@@ -333,6 +342,7 @@
                 , typename proto::result_of::as_child<A0, Domain>::type , typename proto::result_of::as_child<A1, Domain>::type , typename proto::result_of::as_child<A2, Domain>::type , typename proto::result_of::as_child<A3, Domain>::type , typename proto::result_of::as_child<A4, Domain>::type , typename proto::result_of::as_child<A5, Domain>::type , typename proto::result_of::as_child<A6, Domain>::type , typename proto::result_of::as_child<A7, Domain>::type , typename proto::result_of::as_child<A8, Domain>::type
             >
         >::type type;
+        BOOST_FORCEINLINE
         static type const call(
             Expr &e
             , A0 &a0 , A1 &a1 , A2 &a2 , A3 &a3 , A4 &a4 , A5 &a5 , A6 &a6 , A7 &a7 , A8 &a8

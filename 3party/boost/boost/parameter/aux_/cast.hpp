@@ -40,11 +40,11 @@ struct use_default_tag {};
 //   X(something, *(predicate))
 //   X(something, (int))
 
-template <class T>
+template <class T, class Args>
 struct cast;
 
-template <>
-struct cast<void*>
+template <class Args>
+struct cast<void*, Args>
 {
     static use_default_tag execute(use_default_tag)
     {
@@ -73,27 +73,39 @@ struct cast<void*>
 
 typedef void* voidstar;
 
-template <class T>
-struct cast<voidstar(T)>
-  : cast<void*>
+template <class T, class Args>
+struct cast<voidstar(T), Args>
+  : cast<void*, Args>
 {
 };
 
 #else
 
-template <class T>
-struct cast<void*(T)>
-  : cast<void*>
+template <class T, class Args>
+struct cast<void*(T), Args>
+  : cast<void*, Args>
 {
 };
 
 #endif
 
-template <class T>
-struct cast<void(T)>
+// This is a hack used in cast<> to turn the user supplied type,
+// which may or may not be a placeholder expression into one, so
+// that it will be properly evaluated by mpl::apply.
+template <class T, class Dummy = mpl::_1>
+struct as_placeholder_expr
 {
+    typedef T type;
+};
+
+template <class T, class Args>
+struct cast<void(T), Args>
+{
+    typedef typename mpl::apply2<
+        as_placeholder_expr<T>, Args, Args>::type type0;
+
     typedef typename boost::add_reference<
-        typename boost::remove_const<T>::type 
+        typename boost::remove_const<type0>::type 
     >::type reference;
 
     static use_default_tag execute(use_default_tag)
@@ -106,7 +118,7 @@ struct cast<void(T)>
         return use_default_tag();
     }
 
-    static T execute(T value)
+    static type0 execute(type0 value)
     {
         return value;
     }
@@ -118,9 +130,9 @@ struct cast<void(T)>
     }
 };
 
-#  define BOOST_PARAMETER_FUNCTION_CAST(value, predicate) \
-    boost::parameter::aux::cast<void predicate>::remove_const( \
-        boost::parameter::aux::cast<void predicate>::execute(value) \
+#  define BOOST_PARAMETER_FUNCTION_CAST(value, predicate, args) \
+    boost::parameter::aux::cast<void predicate, args>::remove_const( \
+        boost::parameter::aux::cast<void predicate, args>::execute(value) \
     )
 
 # endif

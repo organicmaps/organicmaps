@@ -2,7 +2,7 @@
 // detail/impl/service_registry.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -25,12 +25,6 @@
 namespace boost {
 namespace asio {
 namespace detail {
-
-service_registry::service_registry(boost::asio::io_service& o)
-  : owner_(o),
-    first_service_(0)
-{
-}
 
 service_registry::~service_registry()
 {

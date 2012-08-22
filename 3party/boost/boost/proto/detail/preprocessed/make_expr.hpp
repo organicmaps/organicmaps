@@ -8,6 +8,7 @@
     
     
     template<typename Tag , typename A0 , typename A1>
+    BOOST_FORCEINLINE
     typename lazy_disable_if<
         is_domain<A0>
       , result_of::make_expr<
@@ -26,6 +27,7 @@
     
     
     template<typename Tag, typename Domain , typename C0 , typename C1>
+    BOOST_FORCEINLINE
     typename result_of::make_expr<
         Tag
       , Domain
@@ -42,6 +44,7 @@
     
     
     template<typename Tag , typename A0 , typename A1 , typename A2>
+    BOOST_FORCEINLINE
     typename lazy_disable_if<
         is_domain<A0>
       , result_of::make_expr<
@@ -60,6 +63,7 @@
     
     
     template<typename Tag, typename Domain , typename C0 , typename C1 , typename C2>
+    BOOST_FORCEINLINE
     typename result_of::make_expr<
         Tag
       , Domain
@@ -76,6 +80,7 @@
     
     
     template<typename Tag , typename A0 , typename A1 , typename A2 , typename A3>
+    BOOST_FORCEINLINE
     typename lazy_disable_if<
         is_domain<A0>
       , result_of::make_expr<
@@ -94,6 +99,7 @@
     
     
     template<typename Tag, typename Domain , typename C0 , typename C1 , typename C2 , typename C3>
+    BOOST_FORCEINLINE
     typename result_of::make_expr<
         Tag
       , Domain
@@ -110,6 +116,7 @@
     
     
     template<typename Tag , typename A0 , typename A1 , typename A2 , typename A3 , typename A4>
+    BOOST_FORCEINLINE
     typename lazy_disable_if<
         is_domain<A0>
       , result_of::make_expr<
@@ -128,6 +135,7 @@
     
     
     template<typename Tag, typename Domain , typename C0 , typename C1 , typename C2 , typename C3 , typename C4>
+    BOOST_FORCEINLINE
     typename result_of::make_expr<
         Tag
       , Domain
@@ -144,6 +152,7 @@
     
     
     template<typename Tag , typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5>
+    BOOST_FORCEINLINE
     typename lazy_disable_if<
         is_domain<A0>
       , result_of::make_expr<
@@ -162,6 +171,7 @@
     
     
     template<typename Tag, typename Domain , typename C0 , typename C1 , typename C2 , typename C3 , typename C4 , typename C5>
+    BOOST_FORCEINLINE
     typename result_of::make_expr<
         Tag
       , Domain
@@ -178,6 +188,7 @@
     
     
     template<typename Tag , typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6>
+    BOOST_FORCEINLINE
     typename lazy_disable_if<
         is_domain<A0>
       , result_of::make_expr<
@@ -196,6 +207,7 @@
     
     
     template<typename Tag, typename Domain , typename C0 , typename C1 , typename C2 , typename C3 , typename C4 , typename C5 , typename C6>
+    BOOST_FORCEINLINE
     typename result_of::make_expr<
         Tag
       , Domain
@@ -212,6 +224,7 @@
     
     
     template<typename Tag , typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7>
+    BOOST_FORCEINLINE
     typename lazy_disable_if<
         is_domain<A0>
       , result_of::make_expr<
@@ -230,6 +243,7 @@
     
     
     template<typename Tag, typename Domain , typename C0 , typename C1 , typename C2 , typename C3 , typename C4 , typename C5 , typename C6 , typename C7>
+    BOOST_FORCEINLINE
     typename result_of::make_expr<
         Tag
       , Domain
@@ -246,6 +260,7 @@
     
     
     template<typename Tag , typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8>
+    BOOST_FORCEINLINE
     typename lazy_disable_if<
         is_domain<A0>
       , result_of::make_expr<
@@ -264,6 +279,7 @@
     
     
     template<typename Tag, typename Domain , typename C0 , typename C1 , typename C2 , typename C3 , typename C4 , typename C5 , typename C6 , typename C7 , typename C8>
+    BOOST_FORCEINLINE
     typename result_of::make_expr<
         Tag
       , Domain
@@ -280,6 +296,7 @@
     
     
     template<typename Tag , typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8 , typename A9>
+    BOOST_FORCEINLINE
     typename lazy_disable_if<
         is_domain<A0>
       , result_of::make_expr<
@@ -298,6 +315,7 @@
     
     
     template<typename Tag, typename Domain , typename C0 , typename C1 , typename C2 , typename C3 , typename C4 , typename C5 , typename C6 , typename C7 , typename C8 , typename C9>
+    BOOST_FORCEINLINE
     typename result_of::make_expr<
         Tag
       , Domain

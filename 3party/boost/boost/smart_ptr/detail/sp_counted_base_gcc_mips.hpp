@@ -37,9 +37,12 @@ inline void atomic_increment( int * pw )
     __asm__ __volatile__
     (
         "0:\n\t"
+        ".set push\n\t"
+        ".set mips2\n\t"
         "ll %0, %1\n\t"
         "addiu %0, 1\n\t"
         "sc %0, %1\n\t"
+        ".set pop\n\t"
         "beqz %0, 0b":
         "=&r"( tmp ), "=m"( *pw ):
         "m"( *pw )
@@ -55,9 +58,12 @@ inline int atomic_decrement( int * pw )
     __asm__ __volatile__
     (
         "0:\n\t"
+        ".set push\n\t"
+        ".set mips2\n\t"
         "ll %1, %2\n\t"
         "addiu %0, %1, -1\n\t"
         "sc %0, %2\n\t"
+        ".set pop\n\t"
         "beqz %0, 0b\n\t"
         "addiu %0, %1, -1":
         "=&r"( rv ), "=&r"( tmp ), "=m"( *pw ):
@@ -78,10 +84,13 @@ inline int atomic_conditional_increment( int * pw )
     __asm__ __volatile__
     (
         "0:\n\t"
+        ".set push\n\t"
+        ".set mips2\n\t"
         "ll %0, %2\n\t"
         "beqz %0, 1f\n\t"
         "addiu %1, %0, 1\n\t"
         "sc %1, %2\n\t"
+        ".set pop\n\t"
         "beqz %1, 0b\n\t"
         "addiu %0, %0, 1\n\t"
         "1:":

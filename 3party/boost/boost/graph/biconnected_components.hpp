@@ -20,6 +20,8 @@
 #include <boost/property_map/property_map.hpp>
 #include <boost/graph/depth_first_search.hpp>
 #include <boost/graph/graph_utility.hpp>
+#include <boost/concept/assert.hpp>
+#include <boost/assert.hpp>
 
 namespace boost
 {
@@ -27,27 +29,35 @@ namespace boost
   {
     template<typename ComponentMap, typename DiscoverTimeMap,
              typename LowPointMap, typename PredecessorMap,
-             typename OutputIterator, typename Stack, 
+             typename OutputIterator, typename Stack,
+             typename ArticulationVector, typename IndexMap,
              typename DFSVisitor>
     struct biconnected_components_visitor : public dfs_visitor<>
     {
       biconnected_components_visitor
-        (ComponentMap comp, std::size_t& c, DiscoverTimeMap dtm,
+        (ComponentMap comp, std::size_t& c, 
+         std::size_t& children_of_root, DiscoverTimeMap dtm,
          std::size_t& dfs_time, LowPointMap lowpt, PredecessorMap pred,
-         OutputIterator out, Stack& S, DFSVisitor vis)
-          : comp(comp), c(c), dtm(dtm), dfs_time(dfs_time), lowpt(lowpt),
-            pred(pred), out(out), S(S), vis(vis) { }
+         OutputIterator out, Stack& S,
+         ArticulationVector& is_articulation_point, IndexMap index_map,
+         DFSVisitor vis)
+          : comp(comp), c(c), children_of_root(children_of_root),
+            dtm(dtm), dfs_time(dfs_time), lowpt(lowpt),
+            pred(pred), out(out), S(S),
+            is_articulation_point(is_articulation_point),
+            index_map(index_map), vis(vis) { }
 
       template <typename Vertex, typename Graph>
       void initialize_vertex(const Vertex& u, Graph& g)
       {
+        put(pred, u, u);
         vis.initialize_vertex(u, g);
       }
 
       template <typename Vertex, typename Graph>
       void start_vertex(const Vertex& u, Graph& g)
       {
-        put(pred, u, u);
+        children_of_root = 0;
         vis.start_vertex(u, g);
       }
 
@@ -68,8 +78,14 @@ namespace boost
       template <typename Edge, typename Graph>
       void tree_edge(const Edge& e, Graph& g)
       {
+        typename boost::graph_traits<Graph>::vertex_descriptor src = source(e, g);
+        typename boost::graph_traits<Graph>::vertex_descriptor tgt = target(e, g);
+
         S.push(e);
-        put(pred, target(e, g), source(e, g));
+        put(pred, tgt, src);
+        if ( get(pred, src) == src ) {
+          ++children_of_root;
+        }
         vis.tree_edge(e, g);
       }
 
@@ -78,11 +94,13 @@ namespace boost
       {
         BOOST_USING_STD_MIN();
 
-        if ( target(e, g) != get(pred, source(e, g)) ) {
+        typename boost::graph_traits<Graph>::vertex_descriptor src = source(e, g);
+        typename boost::graph_traits<Graph>::vertex_descriptor tgt = target(e, g);
+        if ( tgt != get(pred, src) ) {
           S.push(e);
-          put(lowpt, source(e, g),
-              min BOOST_PREVENT_MACRO_SUBSTITUTION(get(lowpt, source(e, g)),
-                                                   get(dtm, target(e, g))));
+          put(lowpt, src,
+              min BOOST_PREVENT_MACRO_SUBSTITUTION(get(lowpt, src),
+                                                   get(dtm, tgt)));
         }
         vis.back_edge(e, g);
       }
@@ -98,55 +116,42 @@ namespace boost
       {
         BOOST_USING_STD_MIN();
         Vertex parent = get(pred, u);
-        const std::size_t dtm_of_dubious_parent = get(dtm, parent);
-        bool is_art_point = false;
-        if ( dtm_of_dubious_parent > get(dtm, u) ) {
-          parent = get(pred, parent);
-          is_art_point = true;
-          put(pred, get(pred, u), u);
-          put(pred, u, parent);
-        }
-
-        if ( parent == u ) { // at top
-          if ( get(dtm, u) + 1 == dtm_of_dubious_parent )
-            is_art_point = false;
+        if (parent == u) { // Root of tree is special
+          is_articulation_point[get(index_map, u)] = (children_of_root > 1);
         } else {
           put(lowpt, parent,
               min BOOST_PREVENT_MACRO_SUBSTITUTION(get(lowpt, parent),
-                                                   get(lowpt, u)));
-
-          if (get(lowpt, u) >= get(dtm, parent)) {
-            if ( get(dtm, parent) > get(dtm, get(pred, parent)) ) {
-              put(pred, u, get(pred, parent));
-              put(pred, parent, u);
-            }
-
+                                                 get(lowpt, u)));
+          if ( get(lowpt, u) >= get(dtm, parent) ) {
+            is_articulation_point[get(index_map, parent)] = true;
             while ( get(dtm, source(S.top(), g)) >= get(dtm, u) ) {
               put(comp, S.top(), c);
               S.pop();
             }
+            BOOST_ASSERT (source(S.top(), g) == parent);
+            BOOST_ASSERT (target(S.top(), g) == u);
             put(comp, S.top(), c);
-              S.pop();
+            S.pop();
             ++c;
-            if ( S.empty() ) {
-              put(pred, u, parent);
-              put(pred, parent, u);
-            }
           }
         }
-        if ( is_art_point )
+        if ( is_articulation_point[get(index_map, u)] ) {
           *out++ = u;
+        }
         vis.finish_vertex(u, g);
       }
 
       ComponentMap comp;
       std::size_t& c;
+      std::size_t& children_of_root;
       DiscoverTimeMap dtm;
       std::size_t& dfs_time;
       LowPointMap lowpt;
       PredecessorMap pred;
       OutputIterator out;
       Stack& S;
+      ArticulationVector& is_articulation_point;
+      IndexMap index_map;
       DFSVisitor vis;
     };
 
@@ -160,24 +165,26 @@ namespace boost
   {
     typedef typename graph_traits<Graph>::vertex_descriptor vertex_t;
     typedef typename graph_traits<Graph>::edge_descriptor edge_t;
-    function_requires<VertexListGraphConcept<Graph> >();
-    function_requires<IncidenceGraphConcept<Graph> >();
-    function_requires<WritablePropertyMapConcept<ComponentMap, edge_t> >();
-    function_requires<ReadWritePropertyMapConcept<DiscoverTimeMap,
-                                                  vertex_t> >();
-    function_requires<ReadWritePropertyMapConcept<LowPointMap, vertex_t > >();
-    function_requires<ReadWritePropertyMapConcept<PredecessorMap,
-                                                  vertex_t> >();
+    BOOST_CONCEPT_ASSERT(( VertexListGraphConcept<Graph> ));
+    BOOST_CONCEPT_ASSERT(( IncidenceGraphConcept<Graph> ));
+    BOOST_CONCEPT_ASSERT(( WritablePropertyMapConcept<ComponentMap, edge_t> ));
+    BOOST_CONCEPT_ASSERT(( ReadWritePropertyMapConcept<DiscoverTimeMap,
+                                                  vertex_t> ));
+    BOOST_CONCEPT_ASSERT(( ReadWritePropertyMapConcept<LowPointMap, vertex_t > ));
+    BOOST_CONCEPT_ASSERT(( ReadWritePropertyMapConcept<PredecessorMap,
+                                                  vertex_t> ));
 
     std::size_t num_components = 0;
+    std::size_t children_of_root;
     std::size_t dfs_time = 0;
-      std::stack<edge_t> S;
+    std::stack<edge_t> S;
+        std::vector<char> is_articulation_point(num_vertices(g));
 
-      biconnected_components_visitor<ComponentMap, DiscoverTimeMap,
-          LowPointMap, PredecessorMap, OutputIterator, std::stack<edge_t>, 
-          DFSVisitor>
-      vis(comp, num_components, dtm, dfs_time, lowpt, pred, out, 
-          S, dfs_vis);
+    biconnected_components_visitor<ComponentMap, DiscoverTimeMap,
+        LowPointMap, PredecessorMap, OutputIterator, std::stack<edge_t>, 
+        std::vector<char>, VertexIndexMap, DFSVisitor>
+    vis(comp, num_components, children_of_root, dtm, dfs_time,
+        lowpt, pred, out, S, is_articulation_point, index_map, dfs_vis);
 
     depth_first_search(g, visitor(vis).vertex_index_map(index_map));
 
@@ -203,7 +210,7 @@ namespace boost
     };
     
     template <>
-    struct bicomp_dispatch3<error_property_not_found>
+    struct bicomp_dispatch3<param_not_found>
     {
       template<typename Graph, typename ComponentMap, typename OutputIterator,
                 typename VertexIndexMap, typename DiscoverTimeMap, 
@@ -212,7 +219,7 @@ namespace boost
           ComponentMap comp, OutputIterator out, VertexIndexMap index_map, 
           DiscoverTimeMap dtm, LowPointMap lowpt, 
           const bgl_named_params<P, T, R>& params, 
-          error_property_not_found)
+          param_not_found)
   {
     typedef typename graph_traits<Graph>::vertex_descriptor vertex_t;
     std::vector<vertex_t> pred(num_vertices(g));
@@ -237,8 +244,7 @@ namespace boost
           DiscoverTimeMap dtm, const bgl_named_params<P, T, R>& params, 
           LowPointMap lowpt)
       {
-        typedef typename property_value< bgl_named_params<P,T,R>,
-            vertex_predecessor_t>::type dispatch_type;
+        typedef typename get_param_type< vertex_predecessor_t, bgl_named_params<P,T,R> >::type dispatch_type;
 
         return bicomp_dispatch3<dispatch_type>::apply
             (g, comp, out, index_map, dtm, lowpt, params, 
@@ -248,7 +254,7 @@ namespace boost
 
 
     template <>
-    struct bicomp_dispatch2<error_property_not_found>
+    struct bicomp_dispatch2<param_not_found>
     {
       template<typename Graph, typename ComponentMap, typename OutputIterator,
                 typename VertexIndexMap, typename DiscoverTimeMap, 
@@ -256,15 +262,14 @@ namespace boost
       static std::pair<std::size_t, OutputIterator> apply (const Graph& g, 
           ComponentMap comp, OutputIterator out, VertexIndexMap index_map, 
           DiscoverTimeMap dtm, const bgl_named_params<P, T, R>& params, 
-          error_property_not_found)
+          param_not_found)
   {
     typedef typename graph_traits<Graph>::vertices_size_type
       vertices_size_type;
     std::vector<vertices_size_type> lowpt(num_vertices(g));
         vertices_size_type vst(0);
 
-        typedef typename property_value< bgl_named_params<P,T,R>,
-            vertex_predecessor_t>::type dispatch_type;
+        typedef typename get_param_type< vertex_predecessor_t, bgl_named_params<P,T,R> >::type dispatch_type;
   
         return bicomp_dispatch3<dispatch_type>::apply
             (g, comp, out, index_map, dtm,
@@ -282,8 +287,7 @@ namespace boost
           ComponentMap comp, OutputIterator out, VertexIndexMap index_map, 
           const bgl_named_params<P, T, R>& params, DiscoverTimeMap dtm)
       {
-        typedef typename property_value< bgl_named_params<P,T,R>,
-            vertex_lowpoint_t>::type dispatch_type;
+        typedef typename get_param_type< vertex_lowpoint_t, bgl_named_params<P,T,R> >::type dispatch_type;
 
         return bicomp_dispatch2<dispatch_type>::apply
             (g, comp, out, index_map, dtm, params, 
@@ -292,21 +296,20 @@ namespace boost
     };
 
     template <>
-    struct bicomp_dispatch1<error_property_not_found>
+    struct bicomp_dispatch1<param_not_found>
     {
       template<typename Graph, typename ComponentMap, typename OutputIterator,
                 typename VertexIndexMap, class P, class T, class R>
       static std::pair<std::size_t, OutputIterator> apply(const Graph& g, 
           ComponentMap comp, OutputIterator out, VertexIndexMap index_map, 
-          const bgl_named_params<P, T, R>& params, error_property_not_found)
+          const bgl_named_params<P, T, R>& params, param_not_found)
       {
         typedef typename graph_traits<Graph>::vertices_size_type
             vertices_size_type;
         std::vector<vertices_size_type> discover_time(num_vertices(g));
     vertices_size_type vst(0);
 
-        typedef typename property_value< bgl_named_params<P,T,R>,
-            vertex_lowpoint_t>::type dispatch_type;
+        typedef typename get_param_type< vertex_lowpoint_t, bgl_named_params<P,T,R> >::type dispatch_type;
 
         return bicomp_dispatch2<dispatch_type>::apply
             (g, comp, out, index_map, 
@@ -323,14 +326,14 @@ namespace boost
   biconnected_components(const Graph& g, ComponentMap comp, 
       OutputIterator out, DiscoverTimeMap dtm, LowPointMap lowpt)
   {
-    typedef detail::error_property_not_found dispatch_type;
+    typedef param_not_found dispatch_type;
 
     return detail::bicomp_dispatch3<dispatch_type>::apply
             (g, comp, out, 
              get(vertex_index, g), 
              dtm, lowpt, 
              bgl_named_params<int, buffer_param_t>(0), 
-             detail::error_property_not_found());
+             param_not_found());
   }
 
   template <typename Graph, typename ComponentMap, typename OutputIterator,
@@ -339,8 +342,7 @@ namespace boost
   biconnected_components(const Graph& g, ComponentMap comp, OutputIterator out, 
       const bgl_named_params<P, T, R>& params)
   {
-    typedef typename property_value< bgl_named_params<P,T,R>,
-        vertex_discover_time_t>::type dispatch_type;
+    typedef typename get_param_type< vertex_discover_time_t, bgl_named_params<P,T,R> >::type dispatch_type;
 
     return detail::bicomp_dispatch1<dispatch_type>::apply(g, comp, out, 
         choose_const_pmap(get_param(params, vertex_index), g, vertex_index), 

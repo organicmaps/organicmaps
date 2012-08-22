@@ -40,7 +40,7 @@ namespace boost
     template< class SinglePassRange, class Value >
     inline Value accumulate( const SinglePassRange& rng, Value init )
     {
-        BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<SinglePassRange> ));
+        BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange> ));
         return std::accumulate( boost::begin(rng), boost::end(rng), init );
     }
 

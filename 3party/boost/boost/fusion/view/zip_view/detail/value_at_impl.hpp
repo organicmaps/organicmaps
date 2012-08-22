@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2001-2006 Joel de Guzman
+    Copyright (c) 2001-2011 Joel de Guzman
     Copyright (c) 2006 Dan Marsden
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying 
@@ -16,6 +16,7 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/config.hpp>
 
 namespace boost { namespace fusion {
     
@@ -35,6 +36,13 @@ namespace boost { namespace fusion {
                                mpl::identity<unused_type>,
                                result_of::value_at<typename remove_reference<Seq>::type, N> >
             {};
+
+            // never called, but needed for decltype-based result_of (C++0x)
+#ifndef BOOST_NO_RVALUE_REFERENCES
+            template<typename Seq>
+            typename result<poly_value_at(Seq)>::type
+            operator()(Seq&&) const;
+#endif
         };
     }
     

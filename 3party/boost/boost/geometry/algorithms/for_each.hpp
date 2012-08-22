@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -55,8 +55,10 @@ template <typename Point, typename Functor, bool IsConst>
 struct fe_point_per_segment
 {
     static inline Functor apply(
-                typename add_const_if_c<IsConst, Point>::type& point, Functor f)
+                typename add_const_if_c<IsConst, Point>::type& , Functor f)
     {
+        // TODO: if non-const, we should extract the points from the segment
+        // and call the functor on those two points
         return f;
     }
 };
@@ -248,6 +250,7 @@ struct for_each_segment<polygon_tag, Polygon, Functor, IsConst>
 \tparam Functor \tparam_functor
 
 \qbk{distinguish,const version}
+\qbk{[include reference/algorithms/for_each_point.qbk]}
 \qbk{[heading Example]}
 \qbk{[for_each_point_const] [for_each_point_const_output]}
 */
@@ -275,6 +278,7 @@ inline Functor for_each_point(Geometry const& geometry, Functor f)
 \tparam Geometry \tparam_geometry
 \tparam Functor \tparam_functor
 
+\qbk{[include reference/algorithms/for_each_point.qbk]}
 \qbk{[heading Example]}
 \qbk{[for_each_point] [for_each_point_output]}
 */
@@ -303,6 +307,7 @@ inline Functor for_each_point(Geometry& geometry, Functor f)
 \tparam Functor \tparam_functor
 
 \qbk{distinguish,const version}
+\qbk{[include reference/algorithms/for_each_segment.qbk]}
 \qbk{[heading Example]}
 \qbk{[for_each_segment_const] [for_each_segment_const_output]}
 */
@@ -329,6 +334,8 @@ inline Functor for_each_segment(Geometry const& geometry, Functor f)
 \param f \par_for_each_f{segment}
 \tparam Geometry \tparam_geometry
 \tparam Functor \tparam_functor
+
+\qbk{[include reference/algorithms/for_each_segment.qbk]}
 */
 template<typename Geometry, typename Functor>
 inline Functor for_each_segment(Geometry& geometry, Functor f)

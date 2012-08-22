@@ -525,8 +525,8 @@ namespace boost
             {
                non_central_chi_squared_distribution<RealType, Policy> d(v, lam);
                return comp ?
-                  p - cdf(complement(d, x))
-                  : cdf(d, x) - p;
+                  RealType(p - cdf(complement(d, x)))
+                  : RealType(cdf(d, x) - p);
             }
          private:
             RealType lam;
@@ -581,8 +581,8 @@ namespace boost
             {
                non_central_chi_squared_distribution<RealType, Policy> d(v, lam);
                return comp ?
-                  p - cdf(complement(d, x))
-                  : cdf(d, x) - p;
+                  RealType(p - cdf(complement(d, x)))
+                  : RealType(cdf(d, x) - p);
             }
          private:
             RealType v;

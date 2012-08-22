@@ -8,8 +8,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 // $Source$
-// $Date: 2011-04-25 08:26:48 -0400 (Mon, 25 Apr 2011) $
-// $Revision: 71481 $
+// $Date: 2011-10-09 15:28:33 -0700 (Sun, 09 Oct 2011) $
+// $Revision: 74865 $
 
 #include <boost/type_traits/detail/template_arity_spec.hpp>
 #include <boost/type_traits/integral_constant.hpp>
@@ -87,6 +87,18 @@ public:\
 }; \
 \
 BOOST_TT_AUX_TEMPLATE_ARITY_SPEC(2,trait) \
+/**/
+
+#define BOOST_TT_AUX_BOOL_TRAIT_DEF3(trait,T1,T2,T3,C) \
+template< typename T1, typename T2, typename T3 > struct trait \
+    BOOST_TT_AUX_BOOL_C_BASE(C) \
+{ \
+public:\
+    BOOST_TT_AUX_BOOL_TRAIT_VALUE_DECL(C) \
+    BOOST_MPL_AUX_LAMBDA_SUPPORT(3,trait,(T1,T2,T3)) \
+}; \
+\
+BOOST_TT_AUX_TEMPLATE_ARITY_SPEC(3,trait) \
 /**/
 
 #define BOOST_TT_AUX_BOOL_TRAIT_SPEC1(trait,sp,C) \

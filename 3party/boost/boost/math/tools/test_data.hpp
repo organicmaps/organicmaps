@@ -726,7 +726,7 @@ std::ostream& write_code(std::ostream& os,
    if(a == b)
       return os;
 
-   os << "#define SC_(x) static_cast<T>(BOOST_JOIN(x, L))\n"
+   os << "#ifndef SC_\n#  define SC_(x) static_cast<T>(BOOST_JOIN(x, L))\n#endif\n"
    "   static const boost::array<boost::array<T, "
    << a->size() << ">, " << data.size() << "> " << name << " = {{\n";
 
@@ -749,7 +749,7 @@ std::ostream& write_code(std::ostream& os,
       os << " }";
       ++a;
    }
-   os << "\n   }};\n#undef SC_\n\n";
+   os << "\n   }};\n//#undef SC_\n\n";
    return os;
 }
 

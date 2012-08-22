@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -19,7 +19,6 @@
 #include <boost/range/functions.hpp>
 #include <boost/range/metafunctions.hpp>
 
-
 #include <boost/geometry/core/closure.hpp>
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
@@ -30,6 +29,7 @@
 
 #include <boost/geometry/algorithms/detail/calculate_null.hpp>
 #include <boost/geometry/algorithms/detail/calculate_sum.hpp>
+// #include <boost/geometry/algorithms/detail/throw_on_empty_input.hpp>
 
 #include <boost/geometry/strategies/area.hpp>
 #include <boost/geometry/strategies/default_area_result.hpp>
@@ -92,7 +92,7 @@ struct ring_area
         // An open ring has at least three points,
         // A closed ring has at least four points,
         // if not, there is no (zero) area
-        if (boost::size(ring)
+        if (int(boost::size(ring))
                 < core_detail::closure::minimum_ring_size<Closure>::value)
         {
             return type();
@@ -135,9 +135,16 @@ namespace dispatch
 
 template
 <
-    typename Tag,
     typename Geometry,
-    typename Strategy
+    typename Strategy = typename strategy::area::services::default_strategy
+                                 <
+                                     typename cs_tag
+                                     <
+                                         typename point_type<Geometry>::type
+                                     >::type,
+                                     typename point_type<Geometry>::type
+                                 >::type,
+    typename Tag = typename tag<Geometry>::type
 >
 struct area
     : detail::calculate_null
@@ -153,7 +160,7 @@ template
     typename Geometry,
     typename Strategy
 >
-struct area<box_tag, Geometry, Strategy>
+struct area<Geometry, Strategy, box_tag>
     : detail::area::box_area<Geometry, Strategy>
 {};
 
@@ -163,7 +170,7 @@ template
     typename Ring,
     typename Strategy
 >
-struct area<ring_tag, Ring, Strategy>
+struct area<Ring, Strategy, ring_tag>
     : detail::area::ring_area
         <
             Ring,
@@ -179,7 +186,7 @@ template
     typename Polygon,
     typename Strategy
 >
-struct area<polygon_tag, Polygon, Strategy>
+struct area<Polygon, Strategy, polygon_tag>
     : detail::calculate_polygon_sum
         <
             typename Strategy::return_type,
@@ -234,11 +241,11 @@ inline typename default_area_result<Geometry>::type area(Geometry const& geometr
             point_type
         >::type strategy_type;
 
+    // detail::throw_on_empty_input(geometry);
+        
     return dispatch::area
         <
-            typename tag<Geometry>::type,
-            Geometry,
-            strategy_type
+            Geometry
         >::apply(geometry, strategy_type());
 }
 
@@ -272,9 +279,10 @@ inline typename Strategy::return_type area(
 {
     concept::check<Geometry const>();
 
+    // detail::throw_on_empty_input(geometry);
+    
     return dispatch::area
         <
-            typename tag<Geometry>::type,
             Geometry,
             Strategy
         >::apply(geometry, strategy);

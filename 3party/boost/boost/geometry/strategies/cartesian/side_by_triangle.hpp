@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -17,10 +17,9 @@
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits.hpp>
 
+#include <boost/geometry/arithmetic/determinant.hpp>
 #include <boost/geometry/core/access.hpp>
-
 #include <boost/geometry/util/select_coordinate_type.hpp>
-
 #include <boost/geometry/strategies/side.hpp>
 
 
@@ -66,7 +65,6 @@ public :
                 CalculationType
             >::type coordinate_type;
 
-//std::cout << "side: " << typeid(coordinate_type).name() << std::endl;
         coordinate_type const x = get<0>(p);
         coordinate_type const y = get<1>(p);
 
@@ -87,9 +85,14 @@ public :
         promoted_type const dpx = x - sx1;
         promoted_type const dpy = y - sy1;
 
-        promoted_type const s = dx * dpy - dy * dpx;
+        promoted_type const s 
+            = geometry::detail::determinant<promoted_type>
+                (
+                    dx, dy, 
+                    dpx, dpy
+                );
 
-        promoted_type zero = promoted_type();
+        promoted_type const zero = promoted_type();
         return math::equals(s, zero) ? 0 
             : s > zero ? 1 
             : -1;

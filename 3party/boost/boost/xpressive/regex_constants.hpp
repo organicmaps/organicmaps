@@ -232,7 +232,7 @@ enum error_type
                                 ///<
     error_badattr,              ///< Tried to read from an uninitialized attribute.
                                 ///<
-    error_internal              ///< An internal error has occured.
+    error_internal              ///< An internal error has occurred.
                                 ///<
 };
 

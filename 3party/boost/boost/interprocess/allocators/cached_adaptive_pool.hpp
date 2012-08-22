@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -28,14 +28,14 @@
 #include <cstddef>
 
 //!\file
-//!Describes cached_adaptive_pool pooled shared memory STL compatible allocator 
+//!Describes cached_adaptive_pool pooled shared memory STL compatible allocator
 
 namespace boost {
 namespace interprocess {
 
 /// @cond
 
-namespace detail {
+namespace ipcdetail {
 
 template < class T
          , class SegmentManager
@@ -44,9 +44,9 @@ template < class T
          , unsigned char OverheadPercent = 5
          >
 class cached_adaptive_pool_v1
-   :  public detail::cached_allocator_impl
+   :  public ipcdetail::cached_allocator_impl
          < T
-         , detail::shared_adaptive_node_pool
+         , ipcdetail::shared_adaptive_node_pool
             < SegmentManager
             , sizeof_value<T>::value
             , NodesPerBlock
@@ -56,9 +56,9 @@ class cached_adaptive_pool_v1
          , 1>
 {
    public:
-   typedef detail::cached_allocator_impl
+   typedef ipcdetail::cached_allocator_impl
          < T
-         , detail::shared_adaptive_node_pool
+         , ipcdetail::shared_adaptive_node_pool
             < SegmentManager
             , sizeof_value<T>::value
             , NodesPerBlock
@@ -69,13 +69,15 @@ class cached_adaptive_pool_v1
 
    template<class T2>
    struct rebind
-   {  
+   { 
       typedef cached_adaptive_pool_v1
          <T2, SegmentManager, NodesPerBlock, MaxFreeBlocks, OverheadPercent>  other;
    };
 
+   typedef typename base_t::size_type size_type;
+
    cached_adaptive_pool_v1(SegmentManager *segment_mngr,
-                         std::size_t max_cached_nodes = base_t::DEFAULT_MAX_CACHED_NODES) 
+                           size_type max_cached_nodes = base_t::DEFAULT_MAX_CACHED_NODES)
       : base_t(segment_mngr, max_cached_nodes)
    {}
 
@@ -87,16 +89,16 @@ class cached_adaptive_pool_v1
    {}
 };
 
-}  //namespace detail{
+}  //namespace ipcdetail{
 
 /// @endcond
 
-//!An STL node allocator that uses a segment manager as memory 
+//!An STL node allocator that uses a segment manager as memory
 //!source. The internal pointer type will of the same type (raw, smart) as
 //!"typename SegmentManager::void_pointer" type. This allows
 //!placing the allocator in shared memory, memory mapped-files, etc...
 //!
-//!This node allocator shares a segregated storage between all instances of 
+//!This node allocator shares a segregated storage between all instances of
 //!cached_adaptive_pool with equal sizeof(T) placed in the same
 //!memory segment. But also caches some nodes privately to
 //!avoid some synchronization overhead.
@@ -116,9 +118,9 @@ template < class T
          >
 class cached_adaptive_pool
    /// @cond
-   :  public detail::cached_allocator_impl
+   :  public ipcdetail::cached_allocator_impl
          < T
-         , detail::shared_adaptive_node_pool
+         , ipcdetail::shared_adaptive_node_pool
             < SegmentManager
             , sizeof_value<T>::value
             , NodesPerBlock
@@ -131,9 +133,9 @@ class cached_adaptive_pool
 
    #ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
    public:
-   typedef detail::cached_allocator_impl
+   typedef ipcdetail::cached_allocator_impl
          < T
-         , detail::shared_adaptive_node_pool
+         , ipcdetail::shared_adaptive_node_pool
             < SegmentManager
             , sizeof_value<T>::value
             , NodesPerBlock
@@ -147,13 +149,13 @@ class cached_adaptive_pool
 
    template<class T2>
    struct rebind
-   {  
+   { 
       typedef cached_adaptive_pool
          <T2, SegmentManager, NodesPerBlock, MaxFreeBlocks, OverheadPercent>  other;
    };
 
    cached_adaptive_pool(SegmentManager *segment_mngr,
-                         std::size_t max_cached_nodes = base_t::DEFAULT_MAX_CACHED_NODES) 
+                         std::size_t max_cached_nodes = base_t::DEFAULT_MAX_CACHED_NODES)
       : base_t(segment_mngr, max_cached_nodes)
    {}
 
@@ -170,18 +172,18 @@ class cached_adaptive_pool
    typedef implementation_defined::pointer               pointer;
    typedef implementation_defined::const_pointer         const_pointer;
    typedef T                                             value_type;
-   typedef typename detail::add_reference
+   typedef typename ipcdetail::add_reference
                      <value_type>::type                  reference;
-   typedef typename detail::add_reference
+   typedef typename ipcdetail::add_reference
                      <const value_type>::type            const_reference;
-   typedef std::size_t                                   size_type;
-   typedef std::ptrdiff_t                                difference_type;
+   typedef typename segment_manager::size_type           size_type;
+   typedef typename segment_manager::difference_type     difference_type;
 
-   //!Obtains cached_adaptive_pool from 
+   //!Obtains cached_adaptive_pool from
    //!cached_adaptive_pool
    template<class T2>
    struct rebind
-   {  
+   { 
       typedef cached_adaptive_pool<T2, SegmentManager, NodesPerBlock, MaxFreeBlocks, OverheadPercent> other;
    };
 
@@ -192,7 +194,7 @@ class cached_adaptive_pool
    cached_adaptive_pool& operator=
       (const cached_adaptive_pool<T2, SegmentManager2, N2, F2, OP2>&);
 
-   //!Not assignable from 
+   //!Not assignable from
    //!other cached_adaptive_pool
    cached_adaptive_pool& operator=(const cached_adaptive_pool&);
 
@@ -202,7 +204,7 @@ class cached_adaptive_pool
    //!Can throw boost::interprocess::bad_alloc
    cached_adaptive_pool(segment_manager *segment_mngr);
 
-   //!Copy constructor from other cached_adaptive_pool. Increments the reference 
+   //!Copy constructor from other cached_adaptive_pool. Increments the reference
    //!count of the associated node pool. Never throws
    cached_adaptive_pool(const cached_adaptive_pool &other);
 
@@ -229,7 +231,7 @@ class cached_adaptive_pool
    //!Never throws
    size_type max_size() const;
 
-   //!Allocate memory for an array of count elements. 
+   //!Allocate memory for an array of count elements.
    //!Throws boost::interprocess::bad_alloc if there is no enough memory
    pointer allocate(size_type count, cvoid_pointer hint = 0);
 
@@ -253,7 +255,7 @@ class cached_adaptive_pool
    //!Never throws
    const_pointer address(const_reference value) const;
 
-   //!Copy construct an object. 
+   //!Copy construct an object.
    //!Throws if T's copy constructor throws
    void construct(const pointer &ptr, const_reference v);
 
@@ -268,7 +270,7 @@ class cached_adaptive_pool
 
    std::pair<pointer, bool>
       allocation_command(boost::interprocess::allocation_type command,
-                         size_type limit_size, 
+                         size_type limit_size,
                          size_type preferred_size,
                          size_type &received_size, const pointer &reuse = 0);
 
@@ -278,7 +280,7 @@ class cached_adaptive_pool
    //!preferred_elements. The number of actually allocated elements is
    //!will be assigned to received_size. The elements must be deallocated
    //!with deallocate(...)
-   multiallocation_chain allocate_many(size_type elem_size, std::size_t num_elements);
+   multiallocation_chain allocate_many(size_type elem_size, size_type num_elements);
 
    //!Allocates n_elements elements, each one of size elem_sizes[i]in a
    //!contiguous block
@@ -304,7 +306,7 @@ class cached_adaptive_pool
    //!preferred_elements. The number of actually allocated elements is
    //!will be assigned to received_size. Memory allocated with this function
    //!must be deallocated only with deallocate_one().
-   multiallocation_chain allocate_individual(std::size_t num_elements);
+   multiallocation_chain allocate_individual(size_type num_elements);
 
    //!Deallocates memory previously allocated with allocate_one().
    //!You should never use deallocate_one to deallocate memory allocated
@@ -320,11 +322,11 @@ class cached_adaptive_pool
    void deallocate_individual(multiallocation_chain chain);
    //!Sets the new max cached nodes value. This can provoke deallocations
    //!if "newmax" is less than current cached nodes. Never throws
-   void set_max_cached_nodes(std::size_t newmax);
+   void set_max_cached_nodes(size_type newmax);
 
    //!Returns the max cached nodes parameter.
    //!Never throws
-   std::size_t get_max_cached_nodes() const;
+   size_type get_max_cached_nodes() const;
    #endif
 };
 
@@ -333,13 +335,13 @@ class cached_adaptive_pool
 //!Equality test for same type
 //!of cached_adaptive_pool
 template<class T, class S, std::size_t NodesPerBlock, std::size_t F, std::size_t OP> inline
-bool operator==(const cached_adaptive_pool<T, S, NodesPerBlock, F, OP> &alloc1, 
+bool operator==(const cached_adaptive_pool<T, S, NodesPerBlock, F, OP> &alloc1,
                 const cached_adaptive_pool<T, S, NodesPerBlock, F, OP> &alloc2);
 
 //!Inequality test for same type
 //!of cached_adaptive_pool
 template<class T, class S, std::size_t NodesPerBlock, std::size_t F, std::size_t OP> inline
-bool operator!=(const cached_adaptive_pool<T, S, NodesPerBlock, F, OP> &alloc1, 
+bool operator!=(const cached_adaptive_pool<T, S, NodesPerBlock, F, OP> &alloc1,
                 const cached_adaptive_pool<T, S, NodesPerBlock, F, OP> &alloc2);
 
 #endif

@@ -29,37 +29,11 @@
 #include <boost/math/special_functions/round.hpp>
 #include <boost/math/tools/rational.hpp>
 #include <boost/math/tools/promotion.hpp>
+#include <boost/math/tools/series.hpp>
 
 namespace boost{ namespace math{
 
 namespace detail{
-
-template <class T, class Policy>
-struct bessel_j_small_z_series_term
-{
-   typedef T result_type;
-
-   bessel_j_small_z_series_term(T v_, T x)
-      : N(0), v(v_)
-   {
-      BOOST_MATH_STD_USING
-      mult = x / 2;
-      term = pow(mult, v) / boost::math::tgamma(v+1, Policy());
-      mult *= -mult;
-   }
-   T operator()()
-   {
-      T r = term;
-      ++N;
-      term *= mult / (N * (N + v));
-      return r;
-   }
-private:
-   unsigned N;
-   T v;
-   T mult;
-   T term;
-};
 
 template <class T, class Policy>
 struct sph_bessel_j_small_z_series_term
@@ -89,21 +63,6 @@ private:
 };
 
 template <class T, class Policy>
-inline T bessel_j_small_z_series(T v, T x, const Policy& pol)
-{
-   bessel_j_small_z_series_term<T, Policy> s(v, x);
-   boost::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
-#if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x582))
-   T zero = 0;
-   T result = boost::math::tools::sum_series(s, boost::math::policies::get_epsilon<T, Policy>(), max_iter, zero);
-#else
-   T result = boost::math::tools::sum_series(s, boost::math::policies::get_epsilon<T, Policy>(), max_iter);
-#endif
-   policies::check_series_iterations("boost::math::bessel_j_small_z_series<%1%>(%1%,%1%)", max_iter, pol);
-   return result;
-}
-
-template <class T, class Policy>
 inline T sph_bessel_j_small_z_series(unsigned v, T x, const Policy& pol)
 {
    BOOST_MATH_STD_USING // ADL of std names
@@ -115,7 +74,7 @@ inline T sph_bessel_j_small_z_series(unsigned v, T x, const Policy& pol)
 #else
    T result = boost::math::tools::sum_series(s, boost::math::policies::get_epsilon<T, Policy>(), max_iter);
 #endif
-   policies::check_series_iterations("boost::math::sph_bessel_j_small_z_series<%1%>(%1%,%1%)", max_iter, pol);
+   policies::check_series_iterations<T>("boost::math::sph_bessel_j_small_z_series<%1%>(%1%,%1%)", max_iter, pol);
    return result * sqrt(constants::pi<T>() / 4);
 }
 
@@ -256,6 +215,8 @@ T cyl_bessel_i_imp(T v, T x, const Policy& pol)
          return bessel_i1(x);
       }
    }
+   if((v > 0) && (x / v < 0.25))
+      return bessel_i_small_z_series(v, x, pol);
    T I, K;
    bessel_ik(v, x, &I, &K, need_i, pol);
    return I;

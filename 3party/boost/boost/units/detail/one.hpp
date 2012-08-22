@@ -102,6 +102,17 @@ inline bool operator>(const boost::units::one&, const T& t) {
     return(1 > t);
 }
 
+template<class T>
+T one_to_double(const T& t) { return t; }
+
+inline double one_to_double(const one&) { return 1.0; }
+
+template<class T>
+struct one_to_double_type { typedef T type; };
+
+template<>
+struct one_to_double_type<one> { typedef double type; };
+
 } // namespace units
 
 } // namespace boost

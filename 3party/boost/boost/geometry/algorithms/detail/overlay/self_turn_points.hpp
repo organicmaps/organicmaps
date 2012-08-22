@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -19,6 +19,7 @@
 #include <boost/geometry/geometries/concepts/check.hpp>
 
 #include <boost/geometry/algorithms/detail/disjoint.hpp>
+#include <boost/geometry/algorithms/detail/partition.hpp>
 #include <boost/geometry/algorithms/detail/overlay/get_turns.hpp>
 
 #include <boost/geometry/geometries/box.hpp>
@@ -30,6 +31,77 @@ namespace boost { namespace geometry
 #ifndef DOXYGEN_NO_DETAIL
 namespace detail { namespace self_get_turn_points
 {
+
+struct no_interrupt_policy
+{
+    static bool const enabled = false;
+    static bool const has_intersections = false;
+
+
+    template <typename Range>
+    static inline bool apply(Range const&)
+    {
+        return false;
+    }
+};
+
+
+
+
+class self_ip_exception : public geometry::exception {};
+
+template
+<
+    typename Geometry,
+    typename Turns,
+    typename TurnPolicy,
+    typename InterruptPolicy
+>
+struct self_section_visitor
+{
+    Geometry const& m_geometry;
+    Turns& m_turns;
+    InterruptPolicy& m_interrupt_policy;
+
+    inline self_section_visitor(Geometry const& g,
+            Turns& turns, InterruptPolicy& ip)
+        : m_geometry(g)
+        , m_turns(turns)
+        , m_interrupt_policy(ip)
+    {}
+
+    template <typename Section>
+    inline bool apply(Section const& sec1, Section const& sec2)
+    {
+        if (! detail::disjoint::disjoint_box_box(sec1.bounding_box, sec2.bounding_box)
+                && ! sec1.duplicate
+                && ! sec2.duplicate)
+        {
+            detail::get_turns::get_turns_in_sections
+                    <
+                        Geometry, Geometry,
+                        false, false,
+                        Section, Section,
+                        Turns, TurnPolicy,
+                        InterruptPolicy
+                    >::apply(
+                            0, m_geometry, sec1,
+                            0, m_geometry, sec2,
+                            false,
+                            m_turns, m_interrupt_policy);
+        }
+        if (m_interrupt_policy.has_intersections)
+        {
+            // TODO: we should give partition an interrupt policy.
+            // Now we throw, and catch below, to stop the partition loop.
+            throw self_ip_exception();
+        }
+        return true;
+    }
+
+};
+
+
 
 template
 <
@@ -45,49 +117,38 @@ struct get_turns
             Turns& turns,
             InterruptPolicy& interrupt_policy)
     {
+        typedef model::box
+            <
+                typename geometry::point_type<Geometry>::type
+            > box_type;
         typedef typename geometry::sections
             <
-                model::box <typename geometry::point_type<Geometry>::type>,
-                1
+                box_type, 1
             > sections_type;
 
         sections_type sec;
         geometry::sectionalize<false>(geometry, sec);
 
-        for (typename boost::range_iterator<sections_type const>::type
-                    it1 = sec.begin();
-            it1 != sec.end();
-            ++it1)
+        self_section_visitor
+            <
+                Geometry,
+                Turns, TurnPolicy, InterruptPolicy
+            > visitor(geometry, turns, interrupt_policy);
+
+        try
         {
-            for (typename boost::range_iterator<sections_type const>::type
-                        it2 = sec.begin();
-                it2 != sec.end();
-                ++it2)
-            {
-                if (! geometry::detail::disjoint::disjoint_box_box(
-                                it1->bounding_box, it2->bounding_box)
-                    && ! it1->duplicate
-                    && ! it2->duplicate
-                    )
-                {
-                    if (! geometry::detail::get_turns::get_turns_in_sections
-                        <
-                            Geometry, Geometry,
-                            false, false,
-                            typename boost::range_value<sections_type>::type,
-                            typename boost::range_value<sections_type>::type,
-                            Turns, TurnPolicy,
-                            InterruptPolicy
-                        >::apply(
-                                0, geometry, *it1,
-                                0, geometry, *it2,
-                                turns, interrupt_policy))
-                    {
-                        return false;
-                    }
-                }
-            }
+            geometry::partition
+                <
+                    box_type, 
+                    detail::get_turns::get_section_box, 
+                    detail::get_turns::ovelaps_section_box
+                >::apply(sec, visitor);
         }
+        catch(self_ip_exception const& )
+        {
+            return false;
+        }
+
         return true;
     }
 };

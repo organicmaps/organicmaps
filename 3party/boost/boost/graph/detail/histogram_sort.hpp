@@ -60,6 +60,7 @@ count_starts
   // Put the degree of each vertex v into m_rowstart[v + 1]
   for (KeyIterator i = begin; i != end; ++i) {
     if (key_filter(*i)) {
+      BOOST_ASSERT (key_transform(*i) < numkeys);
       ++starts[key_transform(*i) + 1];
     }
   }
@@ -99,6 +100,7 @@ histogram_sort(KeyIterator key_begin, KeyIterator key_end,
   for (KeyIterator i = key_begin; i != key_end; ++i, ++v1i) {
     if (key_filter(*i)) {
       vertices_size_type source = key_transform(*i);
+      BOOST_ASSERT (source < numkeys);
       EdgeIndex insert_pos = current_insert_positions[source];
       ++current_insert_positions[source];
       values1_out[insert_pos] = *v1i;
@@ -137,6 +139,7 @@ histogram_sort(KeyIterator key_begin, KeyIterator key_end,
   for (KeyIterator i = key_begin; i != key_end; ++i, ++v1i, ++v2i) {
     if (key_filter(*i)) {
       vertices_size_type source = key_transform(*i);
+      BOOST_ASSERT (source < numkeys);
       EdgeIndex insert_pos = current_insert_positions[source];
       ++current_insert_positions[source];
       values1_out[insert_pos] = *v1i;
@@ -163,6 +166,7 @@ histogram_sort_inplace(KeyIterator key_begin,
   std::vector<EdgeIndex> insert_positions(rowstart, rowstart + numkeys);
   // 2. Swap the sources and targets into place
   for (size_t i = 0; i < rowstart[numkeys]; ++i) {
+    BOOST_ASSERT (key_transform(key_begin[i]) < numkeys);
     // While edge i is not in the right bucket:
     while (!(i >= rowstart[key_transform(key_begin[i])] && i < insert_positions[key_transform(key_begin[i])])) {
       // Add a slot in the right bucket
@@ -197,6 +201,7 @@ histogram_sort_inplace(KeyIterator key_begin,
   std::vector<EdgeIndex> insert_positions(rowstart, rowstart + numkeys);
   // 2. Swap the sources and targets into place
   for (size_t i = 0; i < rowstart[numkeys]; ++i) {
+    BOOST_ASSERT (key_transform(key_begin[i]) < numkeys);
     // While edge i is not in the right bucket:
     while (!(i >= rowstart[key_transform(key_begin[i])] && i < insert_positions[key_transform(key_begin[i])])) {
       // Add a slot in the right bucket

@@ -21,15 +21,14 @@ namespace boost {
                 VertexIndexMap index)
   {
     BOOST_USING_STD_MAX();
-    typedef typename graph_traits<Graph>::vertices_size_type size_type;
-    size_type b = 0;
+    using std::abs;
+    typedef typename graph_traits<Graph>::vertices_size_type vertices_size_type;
+    vertices_size_type b = 0;
     typename graph_traits<Graph>::out_edge_iterator e, end;
     for (boost::tie(e, end) = out_edges(i, g); e != end; ++e) {
       int f_i = get(index, i);
       int f_j = get(index, target(*e, g));
-      using namespace std; // to call abs() unqualified
-      if(f_i > f_j)
-          b = max BOOST_PREVENT_MACRO_SUBSTITUTION (b, size_type(f_i - f_j));
+      b = max BOOST_PREVENT_MACRO_SUBSTITUTION (b, vertices_size_type(abs(f_i - f_j)));
     }
     return b;
   }
@@ -47,10 +46,15 @@ namespace boost {
   bandwidth(const Graph& g, VertexIndexMap index)
   {
     BOOST_USING_STD_MAX();
-    typename graph_traits<Graph>::vertices_size_type b = 0;
-    typename graph_traits<Graph>::vertex_iterator i, end;
-    for (boost::tie(i, end) = vertices(g); i != end; ++i)
-        b = max BOOST_PREVENT_MACRO_SUBSTITUTION (b, ith_bandwidth(*i, g, index));
+    using std::abs;
+    typedef typename graph_traits<Graph>::vertices_size_type vertices_size_type;
+    vertices_size_type b = 0;
+    typename graph_traits<Graph>::edge_iterator i, end;
+    for (boost::tie(i, end) = edges(g); i != end; ++i) {
+      int f_i = get(index, source(*i, g));
+      int f_j = get(index, target(*i, g));
+      b = max BOOST_PREVENT_MACRO_SUBSTITUTION (b, vertices_size_type(abs(f_i - f_j)));
+    }
     return b;
   }
 

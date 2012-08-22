@@ -12,6 +12,7 @@
 #include <iomanip>
 #include <string>
 #include <cerrno>
+#include <complex>
 #include <boost/config/no_tr1/cmath.hpp>
 #include <stdexcept>
 #include <boost/math/tools/config.hpp>
@@ -576,6 +577,15 @@ inline bool check_overflow(T val, R* result, const char* function, const Policy&
    return false;
 }
 template <class R, class T, class Policy>
+inline bool check_overflow(std::complex<T> val, R* result, const char* function, const Policy& pol)
+{
+   typedef typename R::value_type r_type;
+   r_type re, im;
+   bool r = check_overflow<r_type>(val.real(), &re, function, pol) || check_overflow<r_type>(val.imag(), &im, function, pol);
+   *result = R(re, im);
+   return r;
+}
+template <class R, class T, class Policy>
 inline bool check_underflow(T val, R* result, const char* function, const Policy& pol)
 {
    if((val != 0) && (static_cast<R>(val) == 0))
@@ -584,6 +594,15 @@ inline bool check_underflow(T val, R* result, const char* function, const Policy
       return true;
    }
    return false;
+}
+template <class R, class T, class Policy>
+inline bool check_underflow(std::complex<T> val, R* result, const char* function, const Policy& pol)
+{
+   typedef typename R::value_type r_type;
+   r_type re, im;
+   bool r = check_underflow<r_type>(val.real(), &re, function, pol) || check_underflow<r_type>(val.imag(), &im, function, pol);
+   *result = R(re, im);
+   return r;
 }
 template <class R, class T, class Policy>
 inline bool check_denorm(T val, R* result, const char* function, const Policy& pol)
@@ -596,14 +615,29 @@ inline bool check_denorm(T val, R* result, const char* function, const Policy& p
    }
    return false;
 }
+template <class R, class T, class Policy>
+inline bool check_denorm(std::complex<T> val, R* result, const char* function, const Policy& pol)
+{
+   typedef typename R::value_type r_type;
+   r_type re, im;
+   bool r = check_denorm<r_type>(val.real(), &re, function, pol) || check_denorm<r_type>(val.imag(), &im, function, pol);
+   *result = R(re, im);
+   return r;
+}
 
 // Default instantiations with ignore_error policy.
 template <class R, class T>
 inline bool check_overflow(T /* val */, R* /* result */, const char* /* function */, const overflow_error<ignore_error>&){ return false; }
 template <class R, class T>
+inline bool check_overflow(std::complex<T> /* val */, R* /* result */, const char* /* function */, const overflow_error<ignore_error>&){ return false; }
+template <class R, class T>
 inline bool check_underflow(T /* val */, R* /* result */, const char* /* function */, const underflow_error<ignore_error>&){ return false; }
 template <class R, class T>
+inline bool check_underflow(std::complex<T> /* val */, R* /* result */, const char* /* function */, const underflow_error<ignore_error>&){ return false; }
+template <class R, class T>
 inline bool check_denorm(T /* val */, R* /* result*/, const char* /* function */, const denorm_error<ignore_error>&){ return false; }
+template <class R, class T>
+inline bool check_denorm(std::complex<T> /* val */, R* /* result*/, const char* /* function */, const denorm_error<ignore_error>&){ return false; }
 
 } // namespace detail
 
@@ -627,22 +661,22 @@ inline R checked_narrowing_cast(T val, const char* function)
    return static_cast<R>(val);
 }
 
-template <class Policy>
+template <class T, class Policy>
 inline void check_series_iterations(const char* function, boost::uintmax_t max_iter, const Policy& pol)
 {
    if(max_iter >= policies::get_max_series_iterations<Policy>())
-      raise_evaluation_error<boost::uintmax_t>(
+      raise_evaluation_error<T>(
          function,
-         "Series evaluation exceeded %1% iterations, giving up now.", max_iter, pol);
+         "Series evaluation exceeded %1% iterations, giving up now.", static_cast<T>(static_cast<double>(max_iter)), pol);
 }
 
-template <class Policy>
+template <class T, class Policy>
 inline void check_root_iterations(const char* function, boost::uintmax_t max_iter, const Policy& pol)
 {
    if(max_iter >= policies::get_max_root_iterations<Policy>())
-      raise_evaluation_error<boost::uintmax_t>(
+      raise_evaluation_error<T>(
          function,
-         "Root finding evaluation exceeded %1% iterations, giving up now.", max_iter, pol);
+         "Root finding evaluation exceeded %1% iterations, giving up now.", static_cast<T>(static_cast<double>(max_iter)), pol);
 }
 
 } //namespace policies

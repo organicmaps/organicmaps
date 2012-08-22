@@ -2,7 +2,7 @@
 // detail/select_reactor.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -24,6 +24,7 @@
 
 #include <boost/limits.hpp>
 #include <cstddef>
+#include <boost/asio/detail/fd_set_adapter.hpp>
 #include <boost/asio/detail/mutex.hpp>
 #include <boost/asio/detail/op_queue.hpp>
 #include <boost/asio/detail/reactor_op.hpp>
@@ -31,10 +32,10 @@
 #include <boost/asio/detail/select_interrupter.hpp>
 #include <boost/asio/detail/select_reactor_fwd.hpp>
 #include <boost/asio/detail/socket_types.hpp>
-#include <boost/asio/detail/timer_op.hpp>
 #include <boost/asio/detail/timer_queue_base.hpp>
 #include <boost/asio/detail/timer_queue_fwd.hpp>
 #include <boost/asio/detail/timer_queue_set.hpp>
+#include <boost/asio/detail/wait_op.hpp>
 #include <boost/asio/io_service.hpp>
 
 #if defined(BOOST_ASIO_HAS_IOCP)
@@ -133,7 +134,7 @@ public:
   template <typename Time_Traits>
   void schedule_timer(timer_queue<Time_Traits>& queue,
       const typename Time_Traits::time_type& time,
-      typename timer_queue<Time_Traits>::per_timer_data& timer, timer_op* op);
+      typename timer_queue<Time_Traits>::per_timer_data& timer, wait_op* op);
 
   // Cancel the timer operations associated with the given token. Returns the
   // number of operations that have been posted or dispatched.
@@ -182,6 +183,9 @@ private:
 
   // The queues of read, write and except operations.
   reactor_op_queue<socket_type> op_queue_[max_ops];
+
+  // The file descriptor sets to be passed to the select system call.
+  fd_set_adapter fd_sets_[max_select_ops];
 
   // The timer queues.
   timer_queue_set timer_queues_;

@@ -116,31 +116,55 @@ namespace boost { namespace phoenix
             : proto::or_<
                 proto::when<
                     phoenix::rule::catch_all
-                  , evaluator(proto::_child_c<0>, proto::_data, proto::make<int()>)
+                  , proto::call<
+                        evaluator(
+                            proto::_child_c<0>
+                          , proto::_data
+                          , proto::make<int()>
+                        )
+                    >
                 >
               , proto::when<
                     phoenix::rule::catch_
-                  , evaluator(proto::_child_c<1>, proto::_data, proto::make<int()>)
+                  , proto::call<
+                        evaluator(
+                            proto::_child_c<1>
+                          , proto::_data
+                          , proto::make<int()>
+                        )
+                    >
                 >
               , proto::when<
                     phoenix::rule::try_catch
-                  , mpl::and_<
-                        evaluator(proto::_child_c<0>, proto::_data, proto::make<int()>)
-                      , proto::fold<
-                            proto::call<proto::functional::pop_front(proto::_)>
-                          , proto::make<mpl::true_()>
-                          , mpl::and_<
-                                proto::_state
-                              , proto::call<
-                                    try_catch_is_nullary(
-                                        proto::_
-                                      , proto::make<int()>
-                                      , proto::_data
-                                    )
+                  , proto::make<
+                        mpl::and_<
+                            proto::call<
+                                evaluator(
+                                    proto::_child_c<0>
+                                  , proto::_data
+                                  , proto::make<int()>
+                                )
+                            >
+                          , proto::fold<
+                                proto::call<
+                                    proto::functional::pop_front(proto::_)
                                 >
-                            >()
-                        >
-                    >()
+                              , proto::make<mpl::true_()>
+                              , proto::make<
+                                    mpl::and_<
+                                        proto::_state
+                                      , proto::call<
+                                            try_catch_is_nullary(
+                                                proto::_
+                                              , proto::make<int()>
+                                              , proto::_data
+                                            )
+                                        >
+                                    >()
+                                >
+                            >
+                        >()
+                    >
                 >
             >
         {};
@@ -229,7 +253,13 @@ namespace boost { namespace phoenix
 
     template <typename Dummy>
     struct is_nullary::when<rule::try_catch, Dummy>
-        : proto::call<detail::try_catch_is_nullary(proto::_, int(), _context)>
+        : proto::call<
+            detail::try_catch_is_nullary(
+                proto::_
+              , proto::make<int()>
+              , _context
+            )
+        >
     {};
 
     template <typename TryCatch, typename Exception>

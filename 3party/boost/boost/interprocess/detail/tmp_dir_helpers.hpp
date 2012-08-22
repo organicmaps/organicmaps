@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2007-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2007-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -18,79 +18,87 @@
 #include <boost/interprocess/exceptions.hpp>
 #include <string>
 
-#if defined(BOOST_INTERPROCESS_WINDOWS)
-   #define BOOST_INTERPROCESS_HAS_WINDOWS_KERNEL_BOOTTIME
-   #define BOOST_INTERPROCESS_HAS_KERNEL_BOOTTIME
-   #include <boost/interprocess/detail/win32_api.hpp>
-#elif defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__APPLE__)
-   #include <sys/sysctl.h>
-   #if defined(CTL_KERN) && defined (KERN_BOOTTIME)
-      #define BOOST_INTERPROCESS_HAS_BSD_KERNEL_BOOTTIME
-      #define BOOST_INTERPROCESS_HAS_KERNEL_BOOTTIME
-   #endif
+#if defined(BOOST_INTERPROCESS_HAS_KERNEL_BOOTTIME) && defined(BOOST_INTERPROCESS_WINDOWS)
+   #include <boost/interprocess/detail/windows_intermodule_singleton.hpp>
 #endif
 
 namespace boost {
 namespace interprocess {
-namespace detail {
+namespace ipcdetail {
 
-#if defined (BOOST_INTERPROCESS_HAS_WINDOWS_KERNEL_BOOTTIME)
-inline void get_bootstamp(std::string &s, bool add = false)
-{
-   std::string bootstamp;
-   winapi::get_last_bootup_time(bootstamp);
-   if(add){
-      s += bootstamp;
-   }
-   else{
-      s = bootstamp;
-   }
-}
-#elif defined(BOOST_INTERPROCESS_HAS_BSD_KERNEL_BOOTTIME)
-inline void get_bootstamp(std::string &s, bool add = false)
-{
-   // FreeBSD specific: sysctl "kern.boottime"
-   int request[2] = { CTL_KERN, KERN_BOOTTIME };
-   struct ::timeval result;
-   size_t result_len = sizeof result;
+#if defined(BOOST_INTERPROCESS_HAS_KERNEL_BOOTTIME)
+   #if defined(BOOST_INTERPROCESS_WINDOWS)
+      //This type will initialize the stamp
+      struct windows_bootstamp
+      {
+         windows_bootstamp()
+         {
+            winapi::get_last_bootup_time(stamp);
+         }
+         //Use std::string. Even if this will be constructed in shared memory, all
+         //modules/dlls are from this process so internal raw pointers to heap are always valid
+         std::string stamp;
+      };
 
-   if (::sysctl (request, 2, &result, &result_len, NULL, 0) < 0)
-      return;
-
-   char bootstamp_str[256];
-
-   const char Characters [] =
-      { '0', '1', '2', '3', '4', '5', '6', '7'
-      , '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-
-   std::size_t char_counter = 0;
-   long fields[2] = { result.tv_sec, result.tv_usec };
-   for(std::size_t field = 0; field != 2; ++field){
-      for(std::size_t i = 0; i != sizeof(long); ++i){
-         const char *ptr = (const char *)&fields[field];
-         bootstamp_str[char_counter++] = Characters[(ptr[i]&0xF0)>>4];
-         bootstamp_str[char_counter++] = Characters[(ptr[i]&0x0F)];
+      inline void get_bootstamp(std::string &s, bool add = false)
+      {
+         const windows_bootstamp &bootstamp = windows_intermodule_singleton<windows_bootstamp>::get();
+         if(add){
+            s += bootstamp.stamp;
+         }
+         else{
+            s = bootstamp.stamp;
+         }
       }
-   }
-   bootstamp_str[char_counter] = 0;
-   if(add){
-      s += bootstamp_str;
-   }
-   else{
-      s = bootstamp_str;
-   }
-}
-#endif
+   #elif defined(BOOST_INTERPROCESS_HAS_BSD_KERNEL_BOOTTIME)
+      inline void get_bootstamp(std::string &s, bool add = false)
+      {
+         // FreeBSD specific: sysctl "kern.boottime"
+         int request[2] = { CTL_KERN, KERN_BOOTTIME };
+         struct ::timeval result;
+         std::size_t result_len = sizeof result;
+
+         if (::sysctl (request, 2, &result, &result_len, NULL, 0) < 0)
+            return;
+
+         char bootstamp_str[256];
+
+         const char Characters [] =
+            { '0', '1', '2', '3', '4', '5', '6', '7'
+            , '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+
+         std::size_t char_counter = 0;
+         //32 bit values to allow 32 and 64 bit process IPC
+         boost::uint32_t fields[2] = { boost::uint32_t(result.tv_sec), boost::uint32_t(result.tv_usec) };
+         for(std::size_t field = 0; field != 2; ++field){
+            for(std::size_t i = 0; i != sizeof(fields[0]); ++i){
+               const char *ptr = (const char *)&fields[field];
+               bootstamp_str[char_counter++] = Characters[(ptr[i]&0xF0)>>4];
+               bootstamp_str[char_counter++] = Characters[(ptr[i]&0x0F)];
+            }
+         }
+         bootstamp_str[char_counter] = 0;
+         if(add){
+            s += bootstamp_str;
+         }
+         else{
+            s = bootstamp_str;
+         }
+      }
+   #else
+      #error "BOOST_INTERPROCESS_HAS_KERNEL_BOOTTIME defined with no known implementation"
+   #endif
+#endif   //#if defined(BOOST_INTERPROCESS_HAS_KERNEL_BOOTTIME)
 
 inline void get_tmp_base_dir(std::string &tmp_name)
 {
    #if defined (BOOST_INTERPROCESS_WINDOWS)
-   winapi::get_shared_documents_folder(tmp_name);
-   if(tmp_name.empty()){
-      tmp_name = get_temporary_path();
-   }
+      winapi::get_shared_documents_folder(tmp_name);
+      if(tmp_name.empty() || !winapi::is_directory(tmp_name.c_str())){
+         tmp_name = get_temporary_path();
+      }
    #else
-   tmp_name = get_temporary_path();
+      tmp_name = get_temporary_path();
    #endif
    if(tmp_name.empty()){
       error_info err = system_error_code();
@@ -103,9 +111,9 @@ inline void get_tmp_base_dir(std::string &tmp_name)
 inline void tmp_folder(std::string &tmp_name)
 {
    get_tmp_base_dir(tmp_name);
-   #ifdef BOOST_INTERPROCESS_HAS_KERNEL_BOOTTIME
-   tmp_name += "/";
-   get_bootstamp(tmp_name, true);
+   #if defined(BOOST_INTERPROCESS_HAS_KERNEL_BOOTTIME)
+      tmp_name += "/";
+      get_bootstamp(tmp_name, true);
    #endif
 }
 
@@ -130,29 +138,30 @@ inline void create_tmp_and_clean_old(std::string &tmp_name)
       }
    }
 
-   #ifdef BOOST_INTERPROCESS_HAS_KERNEL_BOOTTIME
-   tmp_folder(tmp_name);
+   #if defined(BOOST_INTERPROCESS_HAS_KERNEL_BOOTTIME)
+      tmp_folder(tmp_name);
 
-   //If fails, check that it's because already exists
-   if(!create_directory(tmp_name.c_str())){
-      error_info info(system_error_code());
-      if(info.get_error_code() != already_exists_error){
-         throw interprocess_exception(info);
+      //If fails, check that it's because already exists
+      if(!create_directory(tmp_name.c_str())){
+         error_info info(system_error_code());
+         if(info.get_error_code() != already_exists_error){
+            throw interprocess_exception(info);
+         }
       }
-   }
-   //Now erase all old directories created in the previous boot sessions
-   std::string subdir = tmp_name;
-   subdir.erase(0, root_tmp_name.size()+1);
-   delete_subdirectories(root_tmp_name, subdir.c_str());
+      //Now erase all old directories created in the previous boot sessions
+      std::string subdir = tmp_name;
+      subdir.erase(0, root_tmp_name.size()+1);
+      delete_subdirectories(root_tmp_name, subdir.c_str());
    #else
-   tmp_name = root_tmp_name;
+      tmp_name = root_tmp_name;
    #endif
 }
 
 inline void create_tmp_and_clean_old_and_get_filename(const char *filename, std::string &tmp_name)
 {
    create_tmp_and_clean_old(tmp_name);
-   tmp_filename(filename, tmp_name);
+   tmp_name += "/";
+   tmp_name += filename;
 }
 
 inline void add_leading_slash(const char *name, std::string &new_name)
@@ -165,7 +174,7 @@ inline void add_leading_slash(const char *name, std::string &new_name)
 
 }  //namespace boost{
 }  //namespace interprocess {
-}  //namespace detail {
+}  //namespace ipcdetail {
 
 #include <boost/interprocess/detail/config_end.hpp>
 

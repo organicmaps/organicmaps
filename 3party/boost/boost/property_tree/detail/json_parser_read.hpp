@@ -102,7 +102,8 @@ namespace boost { namespace property_tree { namespace json_parser
             void operator()(It b, It e) const
             {
                 BOOST_ASSERT(c.stack.size() >= 1);
-                c.stack.back()->push_back(std::make_pair(c.name, Str(b, e)));
+                c.stack.back()->push_back(std::make_pair(c.name,
+                    Ptree(Str(b, e))));
                 c.name.clear();
                 c.string.clear();
             }

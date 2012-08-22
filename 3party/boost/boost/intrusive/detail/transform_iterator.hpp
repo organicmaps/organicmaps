@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2007-2009
+// (C) Copyright Ion Gaztanaga 2007-2012
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -71,7 +71,7 @@ class transform_iterator
    {  return members_.m_it;   }
 
    //Constructors
-   transform_iterator& operator++() 
+   transform_iterator& operator++()
    { increment();   return *this;   }
 
    transform_iterator operator++(int)

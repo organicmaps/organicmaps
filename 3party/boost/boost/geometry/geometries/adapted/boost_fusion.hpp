@@ -1,7 +1,7 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2011 Akira Takahashi
-// Copyright (c) 2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2011-2012 Akira Takahashi
+// Copyright (c) 2011-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -165,7 +165,7 @@ struct tag
                            fusion_adapt_detail::is_fusion_sequence<Sequence> \
                        >::type \
                > \
-    { typedef cs::cartesian type; }; \
+    { typedef CoordinateSystem type; }; \
     }}}
 
 

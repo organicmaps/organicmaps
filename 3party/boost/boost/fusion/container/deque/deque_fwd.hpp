@@ -1,24 +1,35 @@
 /*=============================================================================
-    Copyright (c) 2005-2007 Joel de Guzman
+    Copyright (c) 2005-2012 Joel de Guzman
     Copyright (c) 2005-2007 Dan Marsden
 
-    Distributed under the Boost Software License, Version 1.0. (See accompanying 
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 ==============================================================================*/
 #if !defined(FUSION_DEQUE_FORWARD_02092007_0749)
 #define FUSION_DEQUE_FORWARD_02092007_0749
 
-#include <boost/fusion/container/deque/limits.hpp>
-#include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
+#include <boost/config.hpp>
 
+///////////////////////////////////////////////////////////////////////////////
+// With no decltype and variadics, we will use the C++03 version
+///////////////////////////////////////////////////////////////////////////////
+#if (defined(BOOST_NO_DECLTYPE)             \
+  || defined(BOOST_NO_VARIADIC_TEMPLATES)   \
+  || defined(BOOST_NO_RVALUE_REFERENCES))
+# include <boost/fusion/container/deque/detail/cpp03_deque_fwd.hpp>
+#else
+# if !defined(BOOST_FUSION_HAS_CPP11_DEQUE)
+#   define BOOST_FUSION_HAS_CPP11_DEQUE
+# endif
+
+///////////////////////////////////////////////////////////////////////////////
+// C++11 interface
+///////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace fusion
 {
-    struct void_;
-
-    template<
-        BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(
-            FUSION_MAX_DEQUE_SIZE, typename T, void_)>
+    template <typename ...T>
     struct deque;
 }}
 
+#endif
 #endif

@@ -44,16 +44,18 @@ struct operator_arrow_proxy
   mutable T value_;
 };
 
-template <typename T, typename TPtr, typename NumDims, typename Reference>
+template <typename T, typename TPtr, typename NumDims, typename Reference,
+          typename IteratorCategory>
 class array_iterator;
 
-template <typename T, typename TPtr, typename NumDims, typename Reference>
+template <typename T, typename TPtr, typename NumDims, typename Reference,
+          typename IteratorCategory>
 class array_iterator
   : public
     iterator_facade<
-        array_iterator<T,TPtr,NumDims,Reference>
+        array_iterator<T,TPtr,NumDims,Reference,IteratorCategory>
       , typename associated_types<T,NumDims>::value_type
-      , boost::random_access_traversal_tag
+      , IteratorCategory
       , Reference
     >
     , private
@@ -69,7 +71,7 @@ class array_iterator
   typedef detail::multi_array::associated_types<T,NumDims> access_t;
 
   typedef iterator_facade<
-        array_iterator<T,TPtr,NumDims,Reference>
+            array_iterator<T,TPtr,NumDims,Reference,IteratorCategory>
       , typename detail::multi_array::associated_types<T,NumDims>::value_type
       , boost::random_access_traversal_tag
       , Reference
@@ -79,7 +81,7 @@ class array_iterator
   typedef typename access_t::size_type size_type;
 
 #ifndef BOOST_NO_MEMBER_TEMPLATE_FRIENDS
-  template <typename, typename, typename, typename>
+  template <typename, typename, typename, typename, typename>
     friend class array_iterator;
 #else
  public:
@@ -105,9 +107,9 @@ public:
     idx_(idx), base_(base), extents_(extents),
     strides_(strides), index_base_(index_base) { }
 
-  template <typename OPtr, typename ORef>
+  template <typename OPtr, typename ORef, typename Cat>
   array_iterator(
-      const array_iterator<T,OPtr,NumDims,ORef>& rhs
+      const array_iterator<T,OPtr,NumDims,ORef,Cat>& rhs
     , typename boost::enable_if_convertible<OPtr,TPtr>::type* = 0
   )
     : idx_(rhs.idx_), base_(rhs.base_), extents_(rhs.extents_),

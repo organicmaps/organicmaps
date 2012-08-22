@@ -39,15 +39,13 @@ namespace type_traits_detail {
     struct add_rvalue_reference_helper
     { typedef T   type; };
 
+#if !defined(BOOST_NO_RVALUE_REFERENCES) && !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
     template <typename T>
     struct add_rvalue_reference_helper<T, true>
     {
-#if !defined(BOOST_NO_RVALUE_REFERENCES)
         typedef T&&   type;
-#else
-        typedef T   type;
-#endif
     };
+#endif
 
     template <typename T>
     struct add_rvalue_reference_imp

@@ -138,7 +138,8 @@ namespace detail
         static void
         must_be_derived_class_member(Default const&)
         {
-            typedef typename assertion<mpl::not_<is_same<Default,Fn> > >::failed test0;
+            // https://svn.boost.org/trac/boost/ticket/5803
+            //typedef typename assertion<mpl::not_<is_same<Default,Fn> > >::failed test0;
 # if !BOOST_WORKAROUND(__MWERKS__, <= 0x2407)
             typedef typename assertion<is_polymorphic<T> >::failed test1;
 # endif 

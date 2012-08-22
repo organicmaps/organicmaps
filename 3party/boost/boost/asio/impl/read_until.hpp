@@ -2,7 +2,7 @@
 // impl/read_until.hpp
 // ~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -861,7 +861,7 @@ namespace detail
   inline read_until_expr_op<AsyncReadStream, Allocator, RegEx, ReadHandler>
   make_read_until_expr_op(AsyncReadStream& s,
       boost::asio::basic_streambuf<Allocator>& b,
-      const boost::regex& expr, ReadHandler handler)
+      const RegEx& expr, ReadHandler handler)
   {
     return read_until_expr_op<AsyncReadStream, Allocator, RegEx, ReadHandler>(
         s, b, expr, handler);

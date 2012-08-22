@@ -91,9 +91,21 @@ public:
 
 template<class T>
 struct guid_defined : boost::mpl::false_ {};
+
+namespace ext {
+    template <typename T>
+    struct guid_impl
+    {
+        static inline const char * call()
+        {
+            return NULL;
+        }
+    };
+}
+
 template<class T>
 inline const char * guid(){
-    return NULL;
+    return ext::guid_impl<T>::call();
 }
 
 } // namespace serialization 

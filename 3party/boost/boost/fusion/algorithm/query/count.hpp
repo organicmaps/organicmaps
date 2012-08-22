@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2001-2006 Joel de Guzman
+    Copyright (c) 2001-2011 Joel de Guzman
     Copyright (c) 2007
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying 
@@ -10,6 +10,8 @@
 
 #include <boost/fusion/algorithm/query/count_if.hpp>
 #include <boost/fusion/algorithm/query/detail/count.hpp>
+#include <boost/fusion/support/is_sequence.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace boost { namespace fusion
 {
@@ -23,7 +25,12 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence, typename T>
-    inline int
+    inline
+    typename
+        enable_if<
+            traits::is_sequence<Sequence>
+          , int
+        >::type
     count(Sequence const& seq, T const& x)
     {
         detail::count_compare<T> f(x);

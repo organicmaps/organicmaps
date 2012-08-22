@@ -39,6 +39,7 @@
     {
         typedef typename proto::detail::protoify<A, Domain>::result_type result_type;
 
+        BOOST_FORCEINLINE
         result_type operator()(typename add_reference<A>::type a) const
         {
             return proto::detail::protoify<A, Domain>()(a);
@@ -78,6 +79,7 @@
         typedef typename Domain::proto_generator proto_generator;
         typedef typename proto_generator::template result<proto_generator(expr_type)>::type result_type;
 
+        BOOST_FORCEINLINE
         result_type operator()(BOOST_PP_ENUM_BINARY_PARAMS(N, typename add_reference<A, >::type a)) const
         {
             expr_type const that = {

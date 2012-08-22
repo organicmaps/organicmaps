@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2001-2006 Joel de Guzman
+    Copyright (c) 2001-2011 Joel de Guzman
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying 
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -7,9 +7,14 @@
 #if !defined(FUSION_END_04052005_1141)
 #define FUSION_END_04052005_1141
 
+#include <boost/blank.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/fusion/sequence/intrinsic_fwd.hpp>
 #include <boost/fusion/support/tag_of.hpp>
 #include <boost/fusion/support/is_sequence.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <boost/fusion/support/is_segmented.hpp>
+#include <boost/fusion/sequence/intrinsic/detail/segmented_end.hpp>
 
 namespace boost { namespace fusion
 {
@@ -26,7 +31,13 @@ namespace boost { namespace fusion
         struct end_impl
         {
             template <typename Sequence>
-            struct apply;
+            struct apply
+              : mpl::if_<
+                    traits::is_segmented<Sequence>
+                  , detail::segmented_end<Sequence>
+                  , blank
+                >::type
+            {};
         };
 
         template <>

@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2001-2006 Joel de Guzman
+    Copyright (c) 2001-2011 Joel de Guzman
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying 
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -15,7 +15,7 @@ namespace boost { namespace fusion { namespace detail
     template <typename T>
     struct ref_result
     {
-        typedef typename add_reference<typename T::type>::type type;
+        typedef typename add_reference<T>::type type;
     };
 
     template <typename T>
@@ -23,7 +23,7 @@ namespace boost { namespace fusion { namespace detail
     {
         typedef typename 
             add_reference<
-                typename add_const<typename T::type>::type
+                typename add_const<T>::type
             >::type 
         type;
     };

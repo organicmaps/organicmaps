@@ -7,7 +7,6 @@
 #ifndef BOOST_GRAPH_DIRECTED_GRAPH_HPP
 #define BOOST_GRAPH_DIRECTED_GRAPH_HPP
 
-#include <boost/utility.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/properties.hpp>
 
@@ -33,14 +32,12 @@ template <
 class directed_graph
 {
 public:
-    typedef typename graph_detail::graph_prop<GraphProp>::property graph_property_type;
-    typedef typename graph_detail::graph_prop<GraphProp>::bundle graph_bundled;
-
-    typedef typename graph_detail::vertex_prop<VertexProp>::property vertex_property_type;
-    typedef typename graph_detail::vertex_prop<VertexProp>::bundle vertex_bundled;
-
-    typedef typename graph_detail::edge_prop<EdgeProp>::property edge_property_type;
-    typedef typename graph_detail::edge_prop<EdgeProp>::bundle edge_bundled;
+    typedef GraphProp graph_property_type;
+    typedef VertexProp vertex_property_type;
+    typedef EdgeProp edge_property_type;
+    typedef typename lookup_one_property<GraphProp, graph_bundle_t>::type graph_bundled;
+    typedef typename lookup_one_property<VertexProp, vertex_bundle_t>::type vertex_bundled;
+    typedef typename lookup_one_property<EdgeProp, edge_bundle_t>::type edge_bundled;
 
 private:
     // Wrap the user-specified properties with an index.
@@ -410,7 +407,7 @@ template <DIRECTED_GRAPH_PARAMS>
 typename DIRECTED_GRAPH::vertex_descriptor
 vertex(typename DIRECTED_GRAPH::vertices_size_type n,
        DIRECTED_GRAPH const& g)
-{ return vertex(g.impl()); }
+{ return vertex(n, g.impl()); }
 
 template <DIRECTED_GRAPH_PARAMS>
 std::pair<typename DIRECTED_GRAPH::edge_descriptor, bool>
@@ -589,35 +586,6 @@ template <DIRECTED_GRAPH_PARAMS, class Property, class Value>
 void
 set_property(DIRECTED_GRAPH& g, Property p, Value v)
 { return set_property(g.impl(), p, v); }
-
-#ifndef BOOST_GRAPH_NO_BUNDLED_PROPERTIES
-
-template <DIRECTED_GRAPH_PARAMS, typename Type, typename Bundle>
-inline typename property_map<DIRECTED_GRAPH, Type Bundle::*>::type
-get(Type Bundle::* p, DIRECTED_GRAPH& g) {
-    typedef typename property_map<
-        DIRECTED_GRAPH, Type Bundle::*
-    >::type return_type;
-    return return_type(&g, p);
-}
-
-template <DIRECTED_GRAPH_PARAMS, typename Type, typename Bundle>
-inline typename property_map<DIRECTED_GRAPH, Type Bundle::*>::const_type
-get(Type Bundle::* p, DIRECTED_GRAPH const& g) {
-    typedef typename property_map<
-        DIRECTED_GRAPH, Type Bundle::*
-    >::const_type return_type;
-    return return_type(&g, p);
-}
-
-template <DIRECTED_GRAPH_PARAMS, typename Type, typename Bundle, typename Key>
-inline Type get(Type Bundle::* p, DIRECTED_GRAPH const& g, Key const& k)
-{ return get(p, g.impl(), k); }
-
-template <DIRECTED_GRAPH_PARAMS, typename Type, typename Bundle, typename Key, typename Value>
-inline void put(Type Bundle::* p, DIRECTED_GRAPH& g, Key const& k, Value const& v)
-{ put(p, g.impl(), k, v); }
-#endif
 
 // Vertex index management
 

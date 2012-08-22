@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2001-2006 Joel de Guzman
+    Copyright (c) 2001-2011 Joel de Guzman
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying 
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -8,6 +8,8 @@
 #define FUSION_REVERSE_07212005_1230
 
 #include <boost/fusion/view/reverse_view/reverse_view.hpp>
+#include <boost/fusion/support/is_sequence.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace boost { namespace fusion
 {
@@ -21,7 +23,12 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence>
-    inline reverse_view<Sequence const>
+    inline 
+    typename
+        enable_if<
+            traits::is_sequence<Sequence>
+          , reverse_view<Sequence const>
+        >::type
     reverse(Sequence const& view)
     {
         return reverse_view<Sequence const>(view);

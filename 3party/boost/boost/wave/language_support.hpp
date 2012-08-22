@@ -1,10 +1,10 @@
 /*=============================================================================
     Boost.Wave: A Standard compliant C++ preprocessor library
     Definition of the various language support constants
-    
+
     http://www.boost.org/
 
-    Copyright (c) 2001-2011 Hartmut Kaiser. Distributed under the Boost
+    Copyright (c) 2001-2012 Hartmut Kaiser. Distributed under the Boost
     Software License, Version 1.0. (See accompanying file
     LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
@@ -26,19 +26,21 @@ enum language_support {
 //  support flags for C++98
     support_normal = 0x01,
     support_cpp = support_normal,
-    
+
     support_option_long_long = 0x02,
 
 #if BOOST_WAVE_SUPPORT_VARIADICS_PLACEMARKERS != 0
 //  support flags for C99
     support_option_variadics = 0x04,
     support_c99 = support_option_variadics | support_option_long_long | 0x08,
-#endif 
+#endif
 #if BOOST_WAVE_SUPPORT_CPP0X != 0
     support_cpp0x = support_option_variadics | support_option_long_long | 0x10,
+    support_cpp11 = support_cpp0x,
 #endif
 
-    support_option_mask = 0xFF80,
+    support_option_mask = 0xFFB0,
+    support_option_emit_contnewlines = 0x0040,
     support_option_insert_whitespace = 0x0080,
     support_option_preserve_comments = 0x0100,
     support_option_no_character_validation = 0x0200,
@@ -51,29 +53,29 @@ enum language_support {
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-//  
+//
 //  need_cpp
 //
 //      Extract, if the language to support is C++98
 //
 ///////////////////////////////////////////////////////////////////////////////
 inline bool
-need_cpp(language_support language) 
+need_cpp(language_support language)
 {
     return (language & ~support_option_mask) == support_cpp;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-//  
+//
 //  need_cpp0x
 //
-//      Extract, if the language to support is C++0x
+//      Extract, if the language to support is C++11
 //
 ///////////////////////////////////////////////////////////////////////////////
 #if BOOST_WAVE_SUPPORT_CPP0X != 0
 
 inline bool
-need_cpp0x(language_support language) 
+need_cpp0x(language_support language)
 {
     return (language & ~support_option_mask) == support_cpp0x;
 }
@@ -81,7 +83,7 @@ need_cpp0x(language_support language)
 #else
 
 inline bool
-need_cpp0x(language_support language) 
+need_cpp0x(language_support language)
 {
     return false;
 }
@@ -90,14 +92,14 @@ need_cpp0x(language_support language)
 
 #if BOOST_WAVE_SUPPORT_VARIADICS_PLACEMARKERS != 0
 ///////////////////////////////////////////////////////////////////////////////
-//  
+//
 //  need_c99
 //
 //      Extract, if the language to support is C99
 //
 ///////////////////////////////////////////////////////////////////////////////
 inline bool
-need_c99(language_support language) 
+need_c99(language_support language)
 {
     return (language & ~support_option_mask) == support_c99;
 }
@@ -105,8 +107,8 @@ need_c99(language_support language)
 #else  // BOOST_WAVE_SUPPORT_VARIADICS_PLACEMARKERS != 0
 
 ///////////////////////////////////////////////////////////////////////////////
-inline bool 
-need_variadics(language_support language) 
+inline bool
+need_variadics(language_support language)
 {
     return false;
 }
@@ -120,7 +122,7 @@ enable_variadics(language_support language, bool enable = true)
 
 //////////////////////////////////////////////////////////////////////////////
 inline bool
-need_c99(language_support language) 
+need_c99(language_support language)
 {
     return false;
 }
@@ -128,7 +130,7 @@ need_c99(language_support language)
 #endif // BOOST_WAVE_SUPPORT_VARIADICS_PLACEMARKERS != 0
 
 ///////////////////////////////////////////////////////////////////////////////
-//  
+//
 //  get_support_options
 //
 //      Set preserve comments support in the language to support
@@ -141,7 +143,7 @@ get_support_options(language_support language)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-//  
+//
 //  set_support_options
 //
 //      Set language option (for fine tuning of lexer behavior)
@@ -177,7 +179,7 @@ set_support_options(language_support language, language_support option)
     BOOST_WAVE_NEED_OPTION(option)                                            \
     BOOST_WAVE_ENABLE_OPTION(option)                                          \
     /**/
-    
+
 ///////////////////////////////////////////////////////////////////////////////
 BOOST_WAVE_OPTION(long_long)                // support_option_long_long
 BOOST_WAVE_OPTION(no_character_validation)  // support_option_no_character_validation
@@ -191,11 +193,12 @@ BOOST_WAVE_OPTION(include_guard_detection)  // support_option_include_guard_dete
 #endif
 #if BOOST_WAVE_SUPPORT_VARIADICS_PLACEMARKERS != 0
 BOOST_WAVE_OPTION(variadics)                // support_option_variadics
-#endif 
+#endif
 #if BOOST_WAVE_EMIT_PRAGMA_DIRECTIVES != 0
 BOOST_WAVE_OPTION(emit_pragma_directives)   // support_option_emit_pragma_directives
 #endif
 BOOST_WAVE_OPTION(insert_whitespace)        // support_option_insert_whitespace
+BOOST_WAVE_OPTION(emit_contnewlines)        // support_option_emit_contnewlines
 
 #undef BOOST_WAVE_NEED_OPTION
 #undef BOOST_WAVE_ENABLE_OPTION
@@ -203,7 +206,7 @@ BOOST_WAVE_OPTION(insert_whitespace)        // support_option_insert_whitespace
 
 ///////////////////////////////////////////////////////////////////////////////
 }   // namespace wave
-}   // namespace boost 
+}   // namespace boost
 
 // the suffix header occurs after all of the code
 #ifdef BOOST_HAS_ABI_HEADERS

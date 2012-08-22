@@ -35,6 +35,7 @@
     /// \overload
     ///
     template<typename Tag BOOST_PP_ENUM_TRAILING_PARAMS(N, typename A)>
+    BOOST_FORCEINLINE
     typename lazy_disable_if<
         is_domain<A0>
       , result_of::make_expr<
@@ -54,6 +55,7 @@
     /// \overload
     ///
     template<typename Tag, typename Domain BOOST_PP_ENUM_TRAILING_PARAMS(N, typename C)>
+    BOOST_FORCEINLINE
     typename result_of::make_expr<
         Tag
       , Domain

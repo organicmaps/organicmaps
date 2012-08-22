@@ -48,10 +48,12 @@ struct convert_to_internal_row
 };
 // explicit + fork + entry point + exit point grammar
 struct BuildEntry
-    : proto::when<
+    : proto::or_<
+        proto::when<
                     proto::function<proto::terminal<proto::_>,proto::terminal<state_tag>,proto::terminal<state_tag> >,
-                    get_fct<proto::_child_c<0>,proto::_child_c<1>,proto::_child_c<2> >()
+                    get_fct<proto::_child_c<0>,get_state_name<proto::_child_c<1>() >(),get_state_name<proto::_child_c<2>() >() >()
         >
+    >
 {};
 
 // row grammar
@@ -59,7 +61,7 @@ struct BuildNextStates
    : proto::or_<
         proto::when<
                     proto::terminal<state_tag>,
-                    proto::_
+                    get_state_name<proto::_>()
         >,
         proto::when<
                       BuildEntry,
@@ -118,7 +120,7 @@ struct BuildSourceState
    : proto::or_<
         proto::when<
                     proto::terminal<state_tag>,
-                    proto::_
+                    get_state_name<proto::_>()
         >,
         proto::when<
                     BuildEntry,

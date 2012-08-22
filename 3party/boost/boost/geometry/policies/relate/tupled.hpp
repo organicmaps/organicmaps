@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -49,16 +49,18 @@ struct segments_tupled
     // Get the same type, but at least a double
     typedef typename select_most_precise<coordinate_type, double>::type rtype;
 
+	template <typename R>
     static inline return_type segments_intersect(side_info const& sides,
+				    R const& r,
                     coordinate_type const& dx1, coordinate_type const& dy1,
                     coordinate_type const& dx2, coordinate_type const& dy2,
                     segment_type1 const& s1, segment_type2 const& s2)
     {
         return boost::make_tuple
             (
-                Policy1::segments_intersect(sides,
+                Policy1::segments_intersect(sides, r,
                     dx1, dy1, dx2, dy2, s1, s2),
-                Policy2::segments_intersect(sides,
+                Policy2::segments_intersect(sides, r,
                     dx1, dy1, dx2, dy2, s1, s2)
             );
     }
@@ -164,15 +166,6 @@ struct segments_tupled
             );
     }
 
-
-    static inline return_type parallel()
-    {
-        return boost::make_tuple
-            (
-                Policy1::parallel(),
-                Policy2::parallel()
-            );
-    }
 };
 
 }} // namespace policies::relate

@@ -13,6 +13,7 @@
 #include <deque>
 #include <set>
 #include <boost/graph/depth_first_search.hpp>
+#include <boost/concept/assert.hpp>
 
 // Dominator tree computation
 
@@ -244,7 +245,7 @@ namespace boost {
     typedef typename graph_traits<Graph>::vertex_descriptor Vertex;
     typedef typename graph_traits<Graph>::vertices_size_type VerticesSizeType;
 
-    function_requires< BidirectionalGraphConcept<Graph> >();
+    BOOST_CONCEPT_ASSERT(( BidirectionalGraphConcept<Graph> ));
 
     const VerticesSizeType numOfVertices = num_vertices(g);
     if (numOfVertices == 0) return;
@@ -299,7 +300,7 @@ namespace boost {
     // Typedefs and concept check
     typedef typename graph_traits<Graph>::vertices_size_type VerticesSizeType;
 
-    function_requires< BidirectionalGraphConcept<Graph> >();
+    BOOST_CONCEPT_ASSERT(( BidirectionalGraphConcept<Graph> ));
 
     // 1. Depth first visit
     const VerticesSizeType numOfVertices = num_vertices(g);
@@ -388,7 +389,7 @@ namespace boost {
       iterator_property_map<typename std::vector< std::set<Vertex> >::iterator,
                             IndexMap> vertexSetMap;
 
-    function_requires<BidirectionalGraphConcept<Graph> >();
+    BOOST_CONCEPT_ASSERT(( BidirectionalGraphConcept<Graph> ));
 
     // 1. Finding dominator
     // 1.1. Initialize

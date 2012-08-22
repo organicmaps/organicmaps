@@ -170,10 +170,12 @@ BOOST_UNITS_DEFAULT_CONVERSION(namespace_::name_ ## _base_unit, unit)
 /// Find the conversion factor between two units.
 template<class FromUnit,class ToUnit>
 inline
-typename detail::conversion_factor_helper<FromUnit, ToUnit>::type
+typename one_to_double_type<
+    typename detail::conversion_factor_helper<FromUnit, ToUnit>::type
+>::type
 conversion_factor(const FromUnit&,const ToUnit&)
 {
-    return(detail::conversion_factor_helper<FromUnit, ToUnit>::value());
+    return(one_to_double(detail::conversion_factor_helper<FromUnit, ToUnit>::value()));
 }
 
 } // namespace units

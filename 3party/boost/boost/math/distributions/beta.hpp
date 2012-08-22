@@ -109,7 +109,7 @@ namespace boost
       inline bool check_dist_and_x(const char* function, const RealType& alpha, const RealType& beta, RealType x, RealType* result, const Policy& pol)
       {
         return check_dist(function, alpha, beta, result, pol)
-          && check_x(function, x, result, pol);
+          && beta_detail::check_x(function, x, result, pol);
       } // bool check_dist_and_x
 
       template <class RealType, class Policy>

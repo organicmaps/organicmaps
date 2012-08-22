@@ -763,6 +763,17 @@ namespace ntl{
          NTL::RR::precision());
    }
 
+   inline RR atan2(RR y, RR x)
+   {
+      if(x > 0)
+         return atan(y / x);
+      if(x < 0)
+      {
+         return y < 0 ? atan(y / x) - boost::math::constants::pi<RR>() : atan(y / x) + boost::math::constants::pi<RR>();
+      }
+      return y < 0 ? -boost::math::constants::half_pi<RR>() : boost::math::constants::half_pi<RR>() ;
+   }
+
    inline RR sinh(RR z)
    {
       return (expm1(z.value()) - expm1(-z.value())) / 2;

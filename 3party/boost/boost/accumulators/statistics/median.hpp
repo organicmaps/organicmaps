@@ -19,7 +19,7 @@
 #include <boost/accumulators/statistics/count.hpp>
 #include <boost/accumulators/statistics/p_square_quantile.hpp>
 #include <boost/accumulators/statistics/density.hpp>
-#include <boost/accumulators/statistics/p_square_cumulative_distribution.hpp>
+#include <boost/accumulators/statistics/p_square_cumul_dist.hpp>
 
 namespace boost { namespace accumulators
 {

@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2001-2006 Joel de Guzman
+    Copyright (c) 2001-2011 Joel de Guzman
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying 
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -9,6 +9,7 @@
 
 #include <boost/fusion/view/transform_view/transform_view.hpp>
 #include <boost/fusion/algorithm/transformation/detail/replace_if.hpp>
+#include <boost/fusion/support/is_sequence.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_same.hpp>
 
@@ -24,7 +25,12 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence, typename F, typename T>
-    inline typename result_of::replace_if<Sequence const, F, T>::type
+    inline 
+    typename 
+        enable_if<
+            traits::is_sequence<Sequence>
+          , typename result_of::replace_if<Sequence const, F, T>::type
+        >::type
     replace_if(Sequence const& seq, F pred, T const& new_value)
     {
         typedef typename result_of::replace_if<Sequence const, F, T>::type result;

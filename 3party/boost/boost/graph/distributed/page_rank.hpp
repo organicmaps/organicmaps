@@ -93,6 +93,7 @@ page_rank_impl(const Graph& g, RankMap rank_map, Done done,
     ::const_type vertex_owner_map;
   typename property_map<Graph, vertex_owner_t>::const_type
     owner = get(vertex_owner, g);
+  (void)owner;
 
   typedef typename boost::graph::parallel::process_group_type<Graph>
     ::type process_group_type;

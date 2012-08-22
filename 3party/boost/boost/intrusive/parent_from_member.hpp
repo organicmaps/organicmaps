@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2010-2010
+// (C) Copyright Ion Gaztanaga  2010-2012
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -20,7 +20,7 @@ namespace intrusive {
 
 //! Given a pointer to a member and its corresponding pointer to data member,
 //! this function returns the pointer of the parent containing that member.
-//! Note: this function does not work with pointer to members that rely on 
+//! Note: this function does not work with pointer to members that rely on
 //! virtual inheritance.
 template<class Parent, class Member>
 inline Parent *get_parent_from_member(Member *member, const Member Parent::* ptr_to_member)
@@ -28,7 +28,7 @@ inline Parent *get_parent_from_member(Member *member, const Member Parent::* ptr
 
 //! Given a const pointer to a member and its corresponding const pointer to data member,
 //! this function returns the const pointer of the parent containing that member.
-//! Note: this function does not work with pointer to members that rely on 
+//! Note: this function does not work with pointer to members that rely on
 //! virtual inheritance.
 template<class Parent, class Member>
 inline const Parent *get_parent_from_member(const Member *member, const Member Parent::* ptr_to_member)

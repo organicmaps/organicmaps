@@ -109,7 +109,7 @@ template <> struct is_unsigned_imp<const char> : public true_type{};
 template <> struct is_unsigned_imp<volatile char> : public true_type{};
 template <> struct is_unsigned_imp<const volatile char> : public true_type{};
 #endif
-#if defined(WCHAR_MIN) && (WCHAR_MIN == 0)
+#if defined(WCHAR_MIN) && (WCHAR_MIN == 0) && !defined(BOOST_NO_INTRINSIC_WCHAR_T)
 template <> struct is_unsigned_imp<wchar_t> : public true_type{};
 template <> struct is_unsigned_imp<const wchar_t> : public true_type{};
 template <> struct is_unsigned_imp<volatile wchar_t> : public true_type{};

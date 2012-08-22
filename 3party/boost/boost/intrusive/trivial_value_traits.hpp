@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2006-2009
+// (C) Copyright Ion Gaztanaga  2006-2012
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -14,6 +14,7 @@
 #define BOOST_INTRUSIVE_TRIVIAL_VALUE_TRAITS_HPP
 
 #include <boost/intrusive/link_mode.hpp>
+#include <boost/intrusive/pointer_traits.hpp>
 
 namespace boost {
 namespace intrusive {
@@ -31,13 +32,15 @@ struct trivial_value_traits
    typedef node_ptr                                            pointer;
    typedef const_node_ptr                                      const_pointer;
    static const link_mode_type link_mode = LinkMode;
-   static node_ptr       to_node_ptr (value_type &value)       {  return node_ptr(&value); }
-   static const_node_ptr to_node_ptr (const value_type &value) {  return const_node_ptr(&value); }
-   static pointer        to_value_ptr(node_ptr n)              {  return pointer(n); }
-   static const_pointer  to_value_ptr(const_node_ptr n)        {  return const_pointer(n); }
+   static node_ptr       to_node_ptr (value_type &value)
+      {  return pointer_traits<node_ptr>::pointer_to(value);  }
+   static const_node_ptr to_node_ptr (const value_type &value)
+      {  return pointer_traits<const_node_ptr>::pointer_to(value);  }
+   static const pointer  &      to_value_ptr(const node_ptr &n)        {  return n; }
+   static const const_pointer  &to_value_ptr(const const_node_ptr &n)  {  return n; }
 };
 
-} //namespace intrusive 
-} //namespace boost 
+} //namespace intrusive
+} //namespace boost
 
 #endif //BOOST_INTRUSIVE_TRIVIAL_VALUE_TRAITS_HPP

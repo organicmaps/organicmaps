@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -37,7 +37,7 @@ template
     typename Strategy,
     typename Policy
 >
-struct geometry_in_multi
+struct geometry_multi_within_code
 {
     static inline int apply(Geometry const& geometry,
             MultiGeometry const& multi,
@@ -48,7 +48,8 @@ struct geometry_in_multi
             it != boost::end(multi);
             ++it)
         {
-            // Geometry within a multi: true if within one of them
+            // Geometry coding on multi: 1 (within) if within one of them;
+            // 0 (touch) if on border of one of them
             int const code = Policy::apply(geometry, *it, strategy);
             if (code != -1)
             {
@@ -68,23 +69,32 @@ struct geometry_in_multi
 namespace dispatch
 {
 
-template <typename Point, typename MultiPolygon, typename Strategy>
-struct within<point_tag, multi_polygon_tag, Point, MultiPolygon, Strategy>
-    : detail::within::geometry_in_multi
-        <
-            Point,
-            MultiPolygon,
-            Strategy,
-            detail::within::point_in_polygon
-                    <
-                        Point,
-                        typename boost::range_value<MultiPolygon>::type,
-                        order_as_direction<geometry::point_order<MultiPolygon>::value>::value,
-                        geometry::closure<MultiPolygon>::value,
-                        Strategy
-                    >
-        >
-{};
+template <typename Point, typename MultiPolygon>
+struct within<Point, MultiPolygon, point_tag, multi_polygon_tag>
+{
+    template <typename Strategy>
+    static inline bool apply(Point const& point, 
+                MultiPolygon const& multi_polygon, Strategy const& strategy)
+    {
+        return detail::within::geometry_multi_within_code
+            <
+                Point,
+                MultiPolygon,
+                Strategy,
+                detail::within::point_in_polygon
+                        <
+                            Point,
+                            typename boost::range_value<MultiPolygon>::type,
+                            order_as_direction
+                                <
+                                    geometry::point_order<MultiPolygon>::value
+                                >::value,
+                            geometry::closure<MultiPolygon>::value,
+                            Strategy
+                        >
+            >::apply(point, multi_polygon, strategy) == 1;
+    }
+};
 
 } // namespace dispatch
 #endif // DOXYGEN_NO_DISPATCH

@@ -81,7 +81,8 @@ class sub_array;
 template <typename T, std::size_t NumDims, typename TPtr = const T*>
 class const_sub_array;
 
-template <typename T, typename TPtr, typename NumDims, typename Reference>
+  template <typename T, typename TPtr, typename NumDims, typename Reference,
+            typename IteratorCategory>
 class array_iterator;
 
 template <typename T, std::size_t NumDims, typename TPtr = const T*>
@@ -251,7 +252,19 @@ struct associated_types
 // choose value accessor ends
 /////////////////////////////////////////////////////////////////////////
 
-
+// Due to some imprecision in the C++ Standard, 
+// MSVC 2010 is broken in debug mode: it requires
+// that an Output Iterator have output_iterator_tag in its iterator_category if 
+// that iterator is not bidirectional_iterator or random_access_iterator.
+#if BOOST_WORKAROUND(BOOST_MSVC, >= 1600)
+struct mutable_iterator_tag
+ : boost::random_access_traversal_tag, std::input_iterator_tag
+{
+  operator std::output_iterator_tag() const {
+    return std::output_iterator_tag();
+  }
+};
+#endif
 
 ////////////////////////////////////////////////////////////////////////
 // multi_array_base
@@ -301,8 +314,16 @@ public:
   //
   // iterator support
   //
-  typedef array_iterator<T,T*,mpl::size_t<NumDims>,reference> iterator;
-  typedef array_iterator<T,T const*,mpl::size_t<NumDims>,const_reference> const_iterator;
+#if BOOST_WORKAROUND(BOOST_MSVC, >= 1600)
+  // Deal with VC 2010 output_iterator_tag requirement
+  typedef array_iterator<T,T*,mpl::size_t<NumDims>,reference,
+                         mutable_iterator_tag> iterator;
+#else
+  typedef array_iterator<T,T*,mpl::size_t<NumDims>,reference,
+                         boost::random_access_traversal_tag> iterator;
+#endif
+  typedef array_iterator<T,T const*,mpl::size_t<NumDims>,const_reference,
+                         boost::random_access_traversal_tag> const_iterator;
 
   typedef ::boost::reverse_iterator<iterator> reverse_iterator;
   typedef ::boost::reverse_iterator<const_iterator> const_reverse_iterator;
@@ -321,7 +342,8 @@ protected:
                            const size_type* extents,
                            const index* strides,
                            const index* index_bases) const {
-
+    boost::function_requires<
+      CollectionConcept<IndexList> >();
     ignore_unused_variable_warning(index_bases);
     ignore_unused_variable_warning(extents);
 #if !defined(NDEBUG) && !defined(BOOST_DISABLE_ASSERTS)
@@ -332,9 +354,15 @@ protected:
 #endif
 
     index offset = 0;
-    for (size_type n = 0; n != NumDims; ++n) 
-      offset += indices[n] * strides[n];
-    
+    {
+      typename IndexList::const_iterator i = indices.begin();
+      size_type n = 0; 
+      while (n != NumDims) {
+        offset += (*i) * strides[n];
+        ++n;
+        ++i;
+      }
+    }
     return base[offset];
   }
 

@@ -2,7 +2,7 @@
 // detail/descriptor_ops.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -93,9 +93,11 @@ BOOST_ASIO_DECL int fcntl(int d, long cmd, boost::system::error_code& ec);
 BOOST_ASIO_DECL int fcntl(int d, long cmd,
     long arg, boost::system::error_code& ec);
 
-BOOST_ASIO_DECL int poll_read(int d, boost::system::error_code& ec);
+BOOST_ASIO_DECL int poll_read(int d,
+    state_type state, boost::system::error_code& ec);
 
-BOOST_ASIO_DECL int poll_write(int d, boost::system::error_code& ec);
+BOOST_ASIO_DECL int poll_write(int d,
+    state_type state, boost::system::error_code& ec);
 
 } // namespace descriptor_ops
 } // namespace detail

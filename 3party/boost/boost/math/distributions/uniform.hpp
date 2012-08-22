@@ -248,11 +248,11 @@ namespace boost{ namespace math
     }
     if (x < lower)
     {
-      return 0;
+      return 1;
     }
     if (x > upper)
     {
-      return 1;
+      return 0;
     }
     return (upper - x) / (upper - lower);
   } // RealType cdf(const complemented2_type<uniform_distribution<RealType, Policy>, RealType>& c)

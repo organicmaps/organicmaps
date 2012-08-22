@@ -34,17 +34,14 @@
 #endif  // BOOST_VERSION
 
 ///////////////////////////////////////////////////////////////////////////////
-// Windows DLL suport
-#ifdef BOOST_HAS_DECLSPEC
 #if defined(BOOST_ALL_DYN_LINK) || defined(BOOST_PROGRAM_OPTIONS_DYN_LINK)
 // export if this is our own source, otherwise import:
 #ifdef BOOST_PROGRAM_OPTIONS_SOURCE
-# define BOOST_PROGRAM_OPTIONS_DECL __declspec(dllexport)
+# define BOOST_PROGRAM_OPTIONS_DECL BOOST_SYMBOL_EXPORT
 #else
-# define BOOST_PROGRAM_OPTIONS_DECL __declspec(dllimport)
+# define BOOST_PROGRAM_OPTIONS_DECL BOOST_SYMBOL_IMPORT
 #endif  // BOOST_PROGRAM_OPTIONS_SOURCE
 #endif  // DYN_LINK
-#endif  // BOOST_HAS_DECLSPEC
 
 #ifndef BOOST_PROGRAM_OPTIONS_DECL
 #define BOOST_PROGRAM_OPTIONS_DECL

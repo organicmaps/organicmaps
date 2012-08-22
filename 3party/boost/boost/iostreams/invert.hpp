@@ -36,7 +36,7 @@ namespace boost { namespace iostreams {
 
 //
 // Template name: inverse.
-// Template paramters:
+// Template parameters:
 //      Filter - A model of InputFilter or OutputFilter.
 // Description: Generates an InputFilter from an OutputFilter or
 //      vice versa.
@@ -151,7 +151,7 @@ private:
 
 //
 // Template name: invert.
-// Template paramters:
+// Template parameters:
 //      Filter - A model of InputFilter or OutputFilter.
 // Description: Returns an instance of an appropriate specialization of inverse.
 //

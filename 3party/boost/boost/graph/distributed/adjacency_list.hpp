@@ -1882,6 +1882,30 @@ namespace boost {
     }
     //---------------------------------------------------------------------
 
+    //---------------------------------------------------------------------
+    // Opposite of above.
+    edge_property_type split_edge_property(const base_edge_property_type& p)
+    { return split_edge_property(p, directed_selector()); }
+
+    edge_property_type
+    split_edge_property(const base_edge_property_type& p, directedS)
+    {
+      return p.m_base;
+    }
+
+    edge_property_type
+    split_edge_property(const base_edge_property_type& p, bidirectionalS)
+    {
+      return p.m_base;
+    }
+
+    edge_property_type
+    split_edge_property(const base_edge_property_type& p, undirectedS)
+    {
+      return p.m_base.m_base;
+    }
+    //---------------------------------------------------------------------
+
     /** The set of messages that can be transmitted and received by
      *  a distributed adjacency list. This list will eventually be
      *  exhaustive, but is currently quite limited.
@@ -2931,7 +2955,7 @@ namespace boost {
       return std::make_pair(edge_descriptor(), false);
     } else {
       BOOST_ASSERT(false);
-      exit(1);
+      abort();
     }
   }
 

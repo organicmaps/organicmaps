@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -16,6 +16,7 @@
 #include <boost/concept_check.hpp>
 #include <boost/numeric/conversion/cast.hpp>
 
+#include <boost/geometry/arithmetic/determinant.hpp>
 #include <boost/geometry/core/access.hpp>
 #include <boost/geometry/strategies/side_info.hpp>
 #include <boost/geometry/util/select_calculation_type.hpp>
@@ -35,48 +36,33 @@ struct segments_intersection_points
     typedef ReturnType return_type;
     typedef S1 segment_type1;
     typedef S2 segment_type2;
+
     typedef typename select_calculation_type
         <
             S1, S2, CalculationType
         >::type coordinate_type;
 
-    // Get the same type, but at least a double
-    typedef typename select_most_precise<coordinate_type, double>::type rtype;
-
+	template <typename R>
     static inline return_type segments_intersect(side_info const&,
+					R const& r,
                     coordinate_type const& dx1, coordinate_type const& dy1,
                     coordinate_type const& dx2, coordinate_type const& dy2,
                     S1 const& s1, S2 const& s2)
     {
-        return_type result;
         typedef typename geometry::coordinate_type
             <
                 typename return_type::point_type
-            >::type coordinate_type;
+            >::type return_coordinate_type;
 
-        // Get the same type, but at least a double (also used for divisions
-        typedef typename select_most_precise
-            <
-                coordinate_type, double
-            >::type promoted_type;
+        coordinate_type const s1x = get<0, 0>(s1);
+        coordinate_type const s1y = get<0, 1>(s1);
 
-        promoted_type const s1x = get<0, 0>(s1);
-        promoted_type const s1y = get<0, 1>(s1);
-
-        // Calculate other determinants - Cramers rule
-        promoted_type const wx = get<0, 0>(s1) - get<0, 0>(s2);
-        promoted_type const wy = get<0, 1>(s1) - get<0, 1>(s2);
-        promoted_type const d = (dy2 * dx1) - (dx2 * dy1);
-        promoted_type const da = (promoted_type(dx2) * wy) - (promoted_type(dy2) * wx);
-
-        // r: ratio 0-1 where intersection divides A/B
-        promoted_type const r = da / d;
-
+        return_type result;
         result.count = 1;
         set<0>(result.intersections[0],
-            boost::numeric_cast<coordinate_type>(s1x + r * promoted_type(dx1)));
+            boost::numeric_cast<return_coordinate_type>(R(s1x) + r * R(dx1)));
         set<1>(result.intersections[0],
-            boost::numeric_cast<coordinate_type>(s1y + r * promoted_type(dy1)));
+            boost::numeric_cast<return_coordinate_type>(R(s1y) + r * R(dy1)));
 
         return result;
     }
@@ -111,7 +97,7 @@ struct segments_intersection_points
         return collinear_inside(s, index1, 1 - index1);
     }
 
-    static inline return_type collinear_a_in_b(S1 const& s, bool opposite)
+    static inline return_type collinear_a_in_b(S1 const& s, bool)
     {
         return collinear_inside(s);
     }
@@ -135,7 +121,7 @@ struct segments_intersection_points
         return result;
     }
 
-    static inline return_type segment_equal(S1 const& s, bool opposite)
+    static inline return_type segment_equal(S1 const& s, bool)
     {
         return_type result;
         result.count = 2;
@@ -151,7 +137,7 @@ struct segments_intersection_points
     {
         return return_type();
     }
-    static inline return_type error(std::string const& msg)
+    static inline return_type error(std::string const&)
     {
         return return_type();
     }
@@ -160,10 +146,7 @@ struct segments_intersection_points
     {
         return return_type();
     }
-    static inline return_type parallel()
-    {
-        return return_type();
-    }
+
     static inline return_type degenerate(S1 const& s, bool)
     {
         return_type result;

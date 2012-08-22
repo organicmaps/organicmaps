@@ -7,7 +7,6 @@
 #ifndef BOOST_GRAPH_UNDIRECTED_GRAPH_HPP
 #define BOOST_GRAPH_UNDIRECTED_GRAPH_HPP
 
-#include <boost/utility.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/properties.hpp>
 
@@ -38,14 +37,12 @@ template <
 class undirected_graph
 {
 public:
-    typedef typename graph_detail::graph_prop<GraphProp>::property graph_property_type;
-    typedef typename graph_detail::graph_prop<GraphProp>::bundle graph_bundled;
-
-    typedef typename graph_detail::vertex_prop<VertexProp>::property vertex_property_type;
-    typedef typename graph_detail::vertex_prop<VertexProp>::bundle vertex_bundled;
-
-    typedef typename graph_detail::edge_prop<EdgeProp>::property edge_property_type;
-    typedef typename graph_detail::edge_prop<EdgeProp>::bundle edge_bundled;
+    typedef GraphProp graph_property_type;
+    typedef VertexProp vertex_property_type;
+    typedef EdgeProp edge_property_type;
+    typedef typename lookup_one_property<GraphProp, graph_bundle_t>::type graph_bundled;
+    typedef typename lookup_one_property<VertexProp, vertex_bundle_t>::type vertex_bundled;
+    typedef typename lookup_one_property<EdgeProp, edge_bundle_t>::type edge_bundled;
 
 private:
     // Embed indices into the vertex type.
@@ -413,7 +410,7 @@ template <UNDIRECTED_GRAPH_PARAMS>
 typename UNDIRECTED_GRAPH::vertex_descriptor
 vertex(typename UNDIRECTED_GRAPH::vertices_size_type n,
        UNDIRECTED_GRAPH const& g)
-{ return vertex(g.impl()); }
+{ return vertex(n, g.impl()); }
 
 template <UNDIRECTED_GRAPH_PARAMS>
 std::pair<typename UNDIRECTED_GRAPH::edge_descriptor, bool>
@@ -530,36 +527,8 @@ remove_in_edge_if(typename UNDIRECTED_GRAPH::vertex_descriptor v,
                   UNDIRECTED_GRAPH& g)
 { return remove_in_edge_if(v, pred, g.impl()); }
 
-// Helper code for working with property maps
-namespace detail {
-    struct undirected_graph_vertex_property_selector {
-        template <class UndirectedGraph, class Property, class Tag>
-        struct bind_ {
-            typedef typename UndirectedGraph::graph_type Graph;
-            typedef property_map<Graph, Tag> PropertyMap;
-            typedef typename PropertyMap::type type;
-            typedef typename PropertyMap::const_type const_type;
-        };
-    };
-
-    struct undirected_graph_edge_property_selector {
-        template <class UndirectedGraph, class Property, class Tag>
-        struct bind_ {
-            typedef typename UndirectedGraph::graph_type Graph;
-            typedef property_map<Graph, Tag> PropertyMap;
-            typedef typename PropertyMap::type type;
-            typedef typename PropertyMap::const_type const_type;
-        };
-    };
-} // namespace detail
-
-template <>
-struct vertex_property_selector<undirected_graph_tag>
-{ typedef detail::undirected_graph_vertex_property_selector type; };
-
-template <>
-struct edge_property_selector<undirected_graph_tag>
-{ typedef detail::undirected_graph_edge_property_selector type; };
+template <UNDIRECTED_GRAPH_PARAMS, typename Property>
+struct property_map<UNDIRECTED_GRAPH, Property>: property_map<typename UNDIRECTED_GRAPH::graph_type, Property> {};
 
 // PropertyGraph concepts
 template <UNDIRECTED_GRAPH_PARAMS, typename Property>
@@ -598,36 +567,6 @@ get_property(UNDIRECTED_GRAPH const& g, Property p)
 template <UNDIRECTED_GRAPH_PARAMS, class Property, class Value>
 inline void set_property(UNDIRECTED_GRAPH& g, Property p, Value v)
 { return set_property(g.impl(), p, v); }
-
-#ifndef BOOST_GRAPH_NO_BUNDLED_PROPERTIES
-template <UNDIRECTED_GRAPH_PARAMS, typename Type, typename Bundle>
-inline typename property_map<UNDIRECTED_GRAPH, Type Bundle::*>::type
-get(Type Bundle::* p, UNDIRECTED_GRAPH& g) {
-    typedef typename property_map<
-        UNDIRECTED_GRAPH, Type Bundle::*
-    >::type return_type;
-    return return_type(&g, p);
-}
-
-template <UNDIRECTED_GRAPH_PARAMS, typename Type, typename Bundle>
-inline typename property_map<UNDIRECTED_GRAPH, Type Bundle::*>::const_type
-get(Type Bundle::* p, UNDIRECTED_GRAPH const& g) {
-    typedef typename property_map<
-        UNDIRECTED_GRAPH, Type Bundle::*
-    >::const_type return_type;
-    return return_type(&g, p);
-}
-
-template <UNDIRECTED_GRAPH_PARAMS, typename Type, typename Bundle, typename Key>
-inline Type
-get(Type Bundle::* p, UNDIRECTED_GRAPH const& g, Key const& k)
-{ return get(p, g.impl(), k); }
-
-template <UNDIRECTED_GRAPH_PARAMS, typename Type, typename Bundle, typename Key, typename Value>
-inline void
-put(Type Bundle::* p, UNDIRECTED_GRAPH& g, Key const& k, Value const& v)
-{ put(p, g.impl(), k, v); }
-#endif
 
 // Indexed Vertex graph
 

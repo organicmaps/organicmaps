@@ -35,50 +35,98 @@ namespace boost { namespace spirit
     struct use_directive<qi::domain
       , terminal_ex<repository::tag::kwd                     // enables kwd(key)[p]
         , fusion::vector1<T > >
-    > : traits::is_string<T> {};
+    > : mpl::true_ {};
     
     template < typename T>
     struct use_directive<qi::domain
       , terminal_ex<repository::tag::ikwd                     // enables ikwd(key)[p]
         , fusion::vector1<T > >
-    > : traits::is_string<T> {};
+    > : mpl::true_ {};
     
+    template < typename T>
+    struct use_directive<qi::domain
+      , terminal_ex<repository::tag::dkwd                     // enables dkwd(key)[p]
+        , fusion::vector1<T > >
+    > : mpl::true_ {};
     
+    template < typename T>
+    struct use_directive<qi::domain
+      , terminal_ex<repository::tag::idkwd                     // enables idkwd(key)[p]
+        , fusion::vector1<T > >
+    > : mpl::true_ {};
+
+
     template < typename T1, typename T2>
     struct use_directive<qi::domain
       , terminal_ex<repository::tag::kwd                     // enables kwd(key,exact)[p]
         , fusion::vector2< T1, T2 > >
-    > : traits::is_string<T1> {};
+    > : mpl::true_ {};
 
     template < typename T1, typename T2>
     struct use_directive<qi::domain
       , terminal_ex<repository::tag::ikwd                     // enables ikwd(key,exact)[p]
         , fusion::vector2< T1, T2 > >
-    > : traits::is_string<T1> {};
+    > : mpl::true_ {};
 
     template < typename T1, typename T2>
     struct use_directive<qi::domain
+      , terminal_ex<repository::tag::dkwd                     // enables dkwd(key,exact)[p]
+        , fusion::vector2< T1, T2 > >
+    > : mpl::true_ {};
+
+    template < typename T1, typename T2>
+    struct use_directive<qi::domain
+      , terminal_ex<repository::tag::idkwd                     // enables idkwd(key,exact)[p]
+        , fusion::vector2< T1, T2 > >
+    > : mpl::true_ {};
+
+   template < typename T1, typename T2>
+    struct use_directive<qi::domain
       , terminal_ex<repository::tag::kwd                     // enables kwd(min, max)[p]
         , fusion::vector3< T1, T2, T2 > >
-    > : traits::is_string<T1> {};
+    > : mpl::true_ {};
 
     template < typename T1, typename T2>
     struct use_directive<qi::domain
       , terminal_ex<repository::tag::ikwd                     // enables ikwd(min, max)[p]
         , fusion::vector3< T1, T2, T2 > >
-    > : traits::is_string<T1> {};
+    > : mpl::true_ {};
 
     template < typename T1, typename T2>
     struct use_directive<qi::domain
+      , terminal_ex<repository::tag::dkwd                     // enables dkwd(min, max)[p]
+        , fusion::vector3< T1, T2, T2 > >
+    > : mpl::true_ {};
+
+    template < typename T1, typename T2>
+    struct use_directive<qi::domain
+      , terminal_ex<repository::tag::idkwd                     // enables idkwd(min, max)[p]
+        , fusion::vector3< T1, T2, T2 > >
+    > : mpl::true_ {};
+
+   template < typename T1, typename T2>
+    struct use_directive<qi::domain
       , terminal_ex<repository::tag::kwd                     // enables kwd(min, inf)[p]
         , fusion::vector3<T1, T2, inf_type > >
-    > : traits::is_string<T1> {};
+    > : mpl::true_ {};
     
     template < typename T1, typename T2>
     struct use_directive<qi::domain
       , terminal_ex<repository::tag::ikwd                     // enables ikwd(min, inf)[p]
         , fusion::vector3<T1, T2, inf_type > >
-    > : traits::is_string<T1> {};
+    > : mpl::true_ {};
+
+   template < typename T1, typename T2>
+    struct use_directive<qi::domain
+      , terminal_ex<repository::tag::dkwd                     // enables dkwd(min, inf)[p]
+        , fusion::vector3<T1, T2, inf_type > >
+    > : mpl::true_ {};
+
+    template < typename T1, typename T2>
+    struct use_directive<qi::domain
+      , terminal_ex<repository::tag::idkwd                     // enables idkwd(min, inf)[p]
+        , fusion::vector3<T1, T2, inf_type > >
+    > : mpl::true_ {};
 
 
   /*  template <>                                     // enables *lazy* kwd(exact)[p]
@@ -102,6 +150,8 @@ namespace boost { namespace spirit { namespace repository { namespace qi
 {
     using repository::kwd;
     using repository::ikwd;
+    using repository::dkwd;
+    using repository::idkwd;
     using spirit::inf;
     using spirit::inf_type;
 
@@ -225,13 +275,14 @@ template <typename T>
         int &counter;
     };
     
-    template <typename Subject, typename KeywordType, typename LoopIter , typename NoCase >
-    struct kwd_parser : spirit::qi::unary_parser<kwd_parser<Subject, KeywordType, LoopIter , NoCase > >
+    template <typename Subject, typename KeywordType, typename LoopIter , typename NoCase, typename Distinct >
+    struct kwd_parser : spirit::qi::unary_parser<kwd_parser<Subject, KeywordType, LoopIter , NoCase, Distinct > >
     {
         struct kwd_parser_id;
         
         typedef Subject subject_type;
         typedef NoCase no_case_keyword;
+        typedef Distinct distinct;
                 
         typedef typename
             remove_const<typename traits::char_type_of<KeywordType>::type>::type
@@ -256,6 +307,13 @@ template <typename T>
            , LoopIter const& iter)
           : subject(subject), iter(iter), keyword(keyword) {}    
         
+        template<typename CharEncoding>
+        kwd_parser(Subject const& subject
+           , typename add_reference<KeywordType>::type keyword
+           , LoopIter const& iter, CharEncoding encoding)
+          : subject(subject), iter(iter), keyword(keyword,encoding) {}
+
+
         // Call the subject parser on a non container attribute
         template <typename Iterator, typename Context
           , typename Skipper, typename Attribute>
@@ -329,18 +387,21 @@ template <typename T>
             , mpl::not_< traits::is_weak_substitute< subject_attribute,Attribute > >
             >::type predicate;
             
+
             // Parse the keyword
             bool flag = iter.flag_init();
             int counter = 0;
             Iterator save = first;
             spirit::qi::skip_over(first, last, skipper);
             if(keyword.parse(first,last,context,skipper,unused)){
+                if((!distinct::value) || skipper.parse(first,last,unused,unused,unused)){
                 // Followed by the subject parser
                 spirit::qi::skip_over(first, last, skipper);
                 if(parse_impl(first,last,context,skipper,attr, predicate()))
                 {
                     return iter.register_successful_parse(flag,counter);
                 }
+            }
             }
             first = save;            
             return flag;            
@@ -350,16 +411,29 @@ template <typename T>
         template <typename Context>
         info what(Context& context) const
         {
+            if(distinct::value){
             if(no_case_keyword::value)
+                return info("idkwd", subject.what(context));
+              else
+                return info("dkwd", subject.what(context));
+            }
+            else
+            {
+              if(no_case_keyword::value)
                 return info("ikwd", subject.what(context));
             else
                 return info("kwd", subject.what(context));
+        }
         }
 
         Subject subject;
         LoopIter iter;            
         
-        spirit::qi::literal_string<KeywordType, true> keyword;
+        typedef typename mpl::if_<
+                no_case_keyword,
+                spirit::qi::no_case_literal_string< KeywordType, true>,
+                spirit::qi::literal_string<KeywordType, true> >::type keyword_string_type;
+       keyword_string_type keyword;
     private:
         // silence MSVC warning C4512: assignment operator could not be generated
         kwd_parser& operator= (kwd_parser const&);
@@ -376,6 +450,151 @@ template <typename T>
 
 
     };
+
+template <typename Subject, typename KeywordType, typename LoopIter, typename Distinct>
+    struct complex_kwd_parser : spirit::qi::unary_parser<complex_kwd_parser<Subject, KeywordType, LoopIter, Distinct > >
+    {
+        struct complex_kwd_parser_id;
+        typedef Subject subject_type;
+        typedef Distinct distinct;
+
+        template <typename Context, typename Iterator>
+        struct attribute
+        {
+            typedef typename
+            traits::build_std_vector<
+                typename traits::attribute_of<
+                Subject, Context, Iterator>::type
+                        >::type
+                type;
+        };
+
+
+        complex_kwd_parser(Subject const& subject
+           , typename add_reference<KeywordType>::type keyword
+           , LoopIter const& iter)
+          : subject(subject), iter(iter), keyword(keyword) {}
+
+        // Call the subject parser on a non container attribute
+        template <typename Iterator, typename Context
+          , typename Skipper, typename Attribute>
+        bool parse_impl(Iterator& first, Iterator const& last
+          , Context& context, Skipper const& skipper
+          , Attribute& attr,mpl::false_) const
+        {
+            return subject.parse(first,last,context,skipper,attr);
+        }
+
+        // Call the subject parser on a container attribute
+        template <typename Iterator, typename Context
+          , typename Skipper, typename Attribute>
+        bool parse_impl(Iterator& first, Iterator const& last
+          , Context& context, Skipper const& skipper
+          , Attribute& attr,mpl::true_) const
+        {
+
+            // synthesized attribute needs to be default constructed
+            typename traits::container_value<Attribute>::type val =
+                typename traits::container_value<Attribute>::type();
+
+            Iterator save = first;
+            bool r = subject.parse(first,last,context,skipper, val);
+            if (r)
+            {
+                // push the parsed value into our attribute
+                r = traits::push_back(attr, val);
+                if (!r)
+                    first = save;
+            }
+            return r;
+        }
+
+       template <typename Iterator, typename Context
+          , typename Skipper, typename Attribute,typename NoCasePass>
+        bool parse(Iterator& first, Iterator const& last
+          , Context& context, skipper_keyword_marker<Skipper,NoCasePass> const& skipper
+          , Attribute &attr) const
+        {
+
+            typedef typename traits::attribute_of<
+                Subject, Context, Iterator>::type
+                subject_attribute;
+
+            typedef typename mpl::and_<
+             traits::is_container<Attribute>
+            , mpl::not_< traits::is_weak_substitute< subject_attribute,Attribute > >
+            >::type predicate;
+
+            if(parse_impl(first,last,context,skipper.skipper,attr, predicate()))
+                return iter.register_successful_parse(skipper.flag,skipper.counter);
+            return false;
+        }
+
+        template <typename Iterator, typename Context
+          , typename Skipper, typename Attribute>
+        bool parse(Iterator& first, Iterator const& last
+          , Context& context, Skipper const& skipper
+          , Attribute& attr) const
+          {
+              typedef typename traits::attribute_of<
+                Subject, Context, Iterator>::type
+                subject_attribute;
+
+            typedef typename mpl::and_<
+            traits::is_container<Attribute>
+            , mpl::not_< traits::is_weak_substitute< subject_attribute,Attribute > >
+            >::type predicate;
+
+
+            // Parse the keyword
+            bool flag = iter.flag_init();
+            int counter = 0;
+            Iterator save = first;
+            spirit::qi::skip_over(first, last, skipper);
+            if(keyword.parse(first,last,context,skipper,unused)){
+              if( !distinct::value || skipper.parse(first,last,unused,unused,unused)){
+                // Followed by the subject parser
+                spirit::qi::skip_over(first, last, skipper);
+                if(parse_impl(first,last,context,skipper,attr, predicate()))
+                {
+                  return iter.register_successful_parse(flag,counter);
+                }
+              }
+            }
+            first = save;
+            return flag;
+          }
+
+
+        template <typename Context>
+        info what(Context& context) const
+        {
+           if(distinct::value)
+            return info("dkwd", subject.what(context));
+           else
+            return info("kwd", subject.what(context));
+        }
+
+        Subject subject;
+        LoopIter iter;
+
+        KeywordType keyword;
+    private:
+        // silence MSVC warning C4512: assignment operator could not be generated
+        complex_kwd_parser& operator= (complex_kwd_parser const&);
+
+        template <typename Iterator, typename Context, typename Skipper>
+        static spirit::qi::detail::fail_function<Iterator, Context, Skipper>
+        fail_function(
+            Iterator& first, Iterator const& last
+          , Context& context, Skipper const& skipper)
+        {
+            return spirit::qi::detail::fail_function<Iterator, Context, Skipper>
+                (first, last, context, skipper);
+        }
+
+    };
+
 }}}}
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -386,29 +605,178 @@ namespace boost { namespace spirit { namespace qi
     // Parser generators: make_xxx function (objects)
     ///////////////////////////////////////////////////////////////////////////
     
-     // Directive kwd(key)[p]
-    template <typename T1,  typename Subject, typename Modifiers>
-    struct make_directive<
-        terminal_ex<repository::tag::kwd, fusion::vector1<T1> >, Subject, Modifiers>
+    template <typename T1, typename T2,  typename Subject, typename Modifiers, typename Distinct, typename MakeDirectiveHelper>
+    struct make_directive_internal_2_args
     {
-        typedef typename add_const<T1>::type const_keyword;
-        typedef repository::qi::kwd_pass_iterator<int> iterator_type;
-        typedef has_modifier<Modifiers, tag::char_code_base<tag::no_case> > no_case;
-        
-                
-        typedef repository::qi::kwd_parser<Subject, const_keyword, iterator_type, no_case > result_type;
 
+        // is the keyword a string keyword ?
+        typedef typename traits::is_string<T1> is_string_kwd_type;
+        // make the keyword type
+        typedef typename mpl::if_< is_string_kwd_type ,
+                                   T1 ,
+                                   typename result_of::compile<qi::domain, T1>::type
+                                 >::type keyword_type;
+
+        typedef typename add_const<keyword_type>::type const_keyword;
+        // select the pass iterator type
+        typedef typename MakeDirectiveHelper::iterator_type iterator_type;
+        // determine if a no case modifier applies to the context
+        typedef has_modifier<Modifiers, tag::char_code_base<tag::no_case> > no_case;
+        // Determine the full type of the kwd / complex_kwd directive
+        typedef typename
+             mpl::if_<
+                is_string_kwd_type,
+                repository::qi::kwd_parser<Subject, const_keyword, iterator_type, no_case, Distinct >,
+                repository::qi::complex_kwd_parser<Subject, const_keyword, iterator_type, Distinct >
+                     >::type result_type;
+
+        // Return a kwd parser object
+        template <typename Terminal>
+        result_type create_kwd_string(Terminal const &term, Subject const & subject, boost::mpl::true_ ) const
+        {
+            typename spirit::detail::get_encoding<Modifiers,
+                spirit::char_encoding::standard>::type encoding;
+           return result_type(subject
+                        ,MakeDirectiveHelper::make_iterator(term.args)
+                        ,encoding
+                        );
+        }
+        template <typename Terminal>
+        result_type create_kwd_string(Terminal const &term, Subject const & subject, boost::mpl::false_ ) const
+        {
+           return result_type(subject
+                        ,fusion::at_c<0>(term.args)
+                        ,MakeDirectiveHelper::make_iterator(term.args)
+                        );
+        }
+        template <typename Terminal>
+        result_type create_kwd(Terminal const &term, Subject const & subject, Modifiers const& modifiers, boost::mpl::true_ ) const
+        {
+           return create_kwd_string(term,subject,no_case());
+        }
+        // Return a complex_kwd parser object
+        template <typename Terminal>
+        result_type create_kwd(Terminal const &term , Subject const & subject, Modifiers const& modifiers, boost::mpl::false_ ) const
+        {
+           return result_type(subject
+                        ,compile<qi::domain>(fusion::at_c<0>(term.args),modifiers)
+                        ,MakeDirectiveHelper::make_iterator(term.args)                        
+                        );
+        }
+        // Select which object type to return
         template <typename Terminal>
         result_type operator()(
-            Terminal const& term, Subject const& subject, unused_type) const
+            Terminal const& term, Subject const& subject, Modifiers const& modifiers) const
+        {
+            return create_kwd(term, subject, modifiers, is_string_kwd_type());
+        }
+
+    };
+
+     // Directive kwd(key)[p]
+    template <typename T1,  typename Subject, typename Modifiers, typename Distinct>
+    struct make_directive_internal
+    {
+        // is the keyword a string keyword ?
+        typedef typename traits::is_string<T1> is_string_kwd_type;
+        // make the keyword type
+        typedef typename mpl::if_< is_string_kwd_type ,
+                                   T1 ,
+                                   typename result_of::compile<qi::domain, T1, Modifiers>::type
+                                 >::type keyword_type;
+
+        typedef typename add_const<keyword_type>::type const_keyword;
+        // select the pass iterator type
+        typedef repository::qi::kwd_pass_iterator<int> iterator_type;
+        // determine if a no case modifier applies to the context
+        typedef has_modifier<Modifiers, tag::char_code_base<tag::no_case> > no_case;
+        // Determine the full type of the kwd / complex_kwd directive
+        typedef typename
+             mpl::if_<
+                is_string_kwd_type,
+                repository::qi::kwd_parser<Subject, const_keyword, iterator_type, no_case, Distinct >,
+                repository::qi::complex_kwd_parser<Subject, const_keyword, iterator_type, Distinct>
+                     >::type result_type;
+
+        // Return a kwd parser object
+        template <typename Terminal>
+        result_type create_kwd_string(Terminal const &term, Subject const & subject, boost::mpl::true_) const
+        {
+            typename spirit::detail::get_encoding<Modifiers,
+                spirit::char_encoding::standard>::type encoding;
+
+            return result_type(subject
+                        ,fusion::at_c<0>(term.args)
+                        ,iterator_type()
+                        ,encoding
+                        );
+
+        }
+        template <typename Terminal>
+        result_type create_kwd_string(Terminal const &term, Subject const & subject, boost::mpl::false_) const
         {
             return result_type(subject
                         ,fusion::at_c<0>(term.args)
                         ,iterator_type()
                         );
         }
+        template <typename Terminal>
+        result_type create_kwd(Terminal const &term, Subject const & subject, Modifiers const& modifiers, boost::mpl::true_ ) const
+        {
+           return create_kwd_string(term,subject,no_case());
+        }
+        // Return a complex_kwd parser object
+        template <typename Terminal>
+        result_type create_kwd(Terminal const &term , Subject const & subject, Modifiers const& modifiers, boost::mpl::false_ ) const
+        {
+           return result_type(subject
+                        ,compile<qi::domain>(fusion::at_c<0>(term.args),modifiers)
+                        ,iterator_type()
+                        );
+        }
+        // Select which object type to return
+        template <typename Terminal>
+        result_type operator()(
+            Terminal const& term, Subject const& subject, Modifiers const& modifiers ) const
+        {
+            return create_kwd(term, subject, modifiers, is_string_kwd_type());
+        }
     };
-    
+
+    template <typename T1,  typename Subject, typename Modifiers>
+    struct make_directive<
+        terminal_ex<repository::tag::kwd, fusion::vector1<T1> >, Subject, Modifiers>
+    {
+        typedef make_directive_internal<T1, Subject, Modifiers, mpl::false_> make_directive_type;
+        typedef typename make_directive_type::result_type result_type;
+        template <typename Terminal>
+        result_type operator()(
+            Terminal const& term, Subject const& subject, Modifiers const& modifiers) const
+        {
+
+            return make_directive_type()(term, subject, modifiers);
+        }
+
+    };
+ 
+   template <typename T1,  typename Subject, typename Modifiers>
+    struct make_directive<
+        terminal_ex<repository::tag::dkwd, fusion::vector1<T1> >, Subject, Modifiers>
+    {
+        typedef make_directive_internal<T1, Subject, Modifiers, mpl::true_> make_directive_type;
+        typedef typename make_directive_type::result_type result_type;
+        template <typename Terminal>
+        result_type operator()(
+            Terminal const& term, Subject const& subject, Modifiers const& modifiers) const
+        {
+
+            return make_directive_type()(term, subject, modifiers);
+        }
+
+    };
+ 
+
+
     // Directive ikwd(key)[p]
     template <typename T1,  typename Subject, typename Modifiers>
     struct make_directive<
@@ -417,43 +785,104 @@ namespace boost { namespace spirit { namespace qi
         typedef typename add_const<T1>::type const_keyword;
         typedef repository::qi::kwd_pass_iterator<int> iterator_type;
         
-        typedef repository::qi::kwd_parser<Subject, const_keyword, iterator_type, mpl::true_ > result_type;
+        typedef repository::qi::kwd_parser<Subject, const_keyword, iterator_type, mpl::true_, mpl::false_ > result_type;
+                
+        template <typename Terminal>
+        result_type operator()(
+            Terminal const& term, Subject const& subject, unused_type) const
+        {
+            typename spirit::detail::get_encoding<Modifiers,
+                spirit::char_encoding::standard>::type encoding;
+
+            return result_type(subject
+                        ,fusion::at_c<0>(term.args)
+                        ,iterator_type()
+                        ,encoding
+                        );
+        }
+    };
+    
+    template <typename T1,  typename Subject, typename Modifiers>
+    struct make_directive<
+        terminal_ex<repository::tag::idkwd, fusion::vector1<T1> >, Subject, Modifiers>
+    {
+        typedef typename add_const<T1>::type const_keyword;
+        typedef repository::qi::kwd_pass_iterator<int> iterator_type;
+        
+        typedef repository::qi::kwd_parser<Subject, const_keyword, iterator_type, mpl::true_, mpl::true_ > result_type;
 
         template <typename Terminal>
         result_type operator()(
             Terminal const& term, Subject const& subject, unused_type) const
         {
-       /*     typename spirit::detail::get_encoding<Modifiers,
-                spirit::char_encoding::standard>::type encoding;*/
+            typename spirit::detail::get_encoding<Modifiers,
+                spirit::char_encoding::standard>::type encoding;
                 
             return result_type(subject
                         ,fusion::at_c<0>(term.args)
                         ,iterator_type()                        
+                        ,encoding
                         );
         }
     };
     
     // Directive kwd(key,exact)[p]
+        template <typename T>
+    struct make_exact_helper
+    { 
+        typedef repository::qi::kwd_exact_iterator<T> iterator_type;
+        template<typename Args>
+        static iterator_type make_iterator(Args const& args)
+        {
+          return iterator_type(fusion::at_c<1>(args));
+        }
+    };
+
     template <typename T1, typename T2,  typename Subject, typename Modifiers>
     struct make_directive<
         terminal_ex<repository::tag::kwd, fusion::vector2<T1,T2> >, Subject, Modifiers>
     {
-        typedef typename add_const<T1>::type const_keyword;
-        typedef repository::qi::kwd_exact_iterator<T2> iterator_type;
-        typedef has_modifier<Modifiers, tag::char_code_base<tag::no_case> > no_case;
-        
-        typedef repository::qi::kwd_parser<Subject, const_keyword, iterator_type, no_case > result_type;
-
+        typedef make_directive_internal_2_args< T1
+                                              , T2
+                                              , Subject
+                                              , Modifiers
+                                              , mpl::false_
+                                              , make_exact_helper<T2>
+                                              > make_directive_type;
+        typedef typename make_directive_type::result_type result_type;
         template <typename Terminal>
         result_type operator()(
-            Terminal const& term, Subject const& subject, unused_type) const
+            Terminal const& term, Subject const& subject, Modifiers const& modifiers) const
         {
-            return result_type(subject
-                        ,fusion::at_c<0>(term.args)
-                        ,fusion::at_c<1>(term.args)
-                        );
+
+            return make_directive_type()(term,subject, modifiers);
         }
+
     };
+  
+    template <typename T1, typename T2,  typename Subject, typename Modifiers>
+    struct make_directive<
+        terminal_ex<repository::tag::dkwd, fusion::vector2<T1,T2> >, Subject, Modifiers>
+    {
+         typedef make_directive_internal_2_args< T1
+                                              , T2
+                                              , Subject
+                                              , Modifiers
+                                              , mpl::true_
+                                              , make_exact_helper<T2>
+                                              > make_directive_type;
+        
+        typedef typename make_directive_type::result_type result_type;
+        template <typename Terminal>
+        result_type operator()(
+            Terminal const& term, Subject const& subject, Modifiers const& modifiers) const
+        {
+
+            return make_directive_type()(term, subject, modifiers);
+        }
+
+    };
+  
 
     // Directive ikwd(key,exact)[p]
     template <typename T1, typename T2,  typename Subject, typename Modifiers>
@@ -463,41 +892,106 @@ namespace boost { namespace spirit { namespace qi
         typedef typename add_const<T1>::type const_keyword;
         typedef repository::qi::kwd_exact_iterator<T2> iterator_type;
         
-        typedef repository::qi::kwd_parser<Subject, const_keyword, iterator_type, mpl::true_ > result_type;
+        typedef repository::qi::kwd_parser<Subject, const_keyword, iterator_type, mpl::true_, mpl::false_ > result_type;
+
+        template <typename Terminal>
+        result_type operator()(
+            Terminal const& term, Subject const& subject, Modifiers const& modifiers) const
+        {
+            typename spirit::detail::get_encoding<Modifiers,
+                spirit::char_encoding::standard>::type encoding;
+            return result_type(subject
+                        ,fusion::at_c<0>(term.args)
+                        ,fusion::at_c<1>(term.args)
+                        , encoding
+                        );
+        }
+    };
+
+    template <typename T1, typename T2,  typename Subject, typename Modifiers>
+    struct make_directive<
+        terminal_ex<repository::tag::idkwd, fusion::vector2<T1,T2> >, Subject, Modifiers>
+    {
+        typedef typename add_const<T1>::type const_keyword;
+        typedef repository::qi::kwd_exact_iterator<T2> iterator_type;
+        
+        typedef repository::qi::kwd_parser<Subject, const_keyword, iterator_type, mpl::true_, mpl::true_ > result_type;
         
         template <typename Terminal>
         result_type operator()(
-            Terminal const& term, Subject const& subject, unused_type) const
+            Terminal const& term, Subject const& subject, Modifiers const& modifiers) const
         {            
+            typename spirit::detail::get_encoding<Modifiers,
+                spirit::char_encoding::standard>::type encoding;
             return result_type(subject
                         , fusion::at_c<0>(term.args)
                         , fusion::at_c<1>(term.args)
+                        , encoding
                         );
         }
     };
     
+
     // Directive kwd(min, max)[p]
+
+    template <typename T>
+    struct make_finite_helper
+    { 
+        typedef repository::qi::kwd_finite_iterator<T> iterator_type;
+        template<typename Args>
+        static iterator_type make_iterator(Args const& args)
+        {
+          return iterator_type(fusion::at_c<1>(args),fusion::at_c<2>(args));
+        }
+
+    };
+
     template <typename T1, typename T2, typename Subject, typename Modifiers>
     struct make_directive<
         terminal_ex<repository::tag::kwd, fusion::vector3< T1, T2, T2> >, Subject, Modifiers>
     {
-        typedef typename add_const<T1>::type const_keyword;
-        typedef repository::qi::kwd_finite_iterator<T2> iterator_type;
-        typedef has_modifier<Modifiers, tag::char_code_base<tag::no_case> > no_case;
-                    
-        typedef repository::qi::kwd_parser<Subject, const_keyword, iterator_type, no_case > result_type;
-
+        typedef make_directive_internal_2_args< T1
+                                              , T2
+                                              , Subject
+                                              , Modifiers
+                                              , mpl::false_
+                                              , make_finite_helper<T2>
+                                              > make_directive_type;
+        
+        
+        typedef typename make_directive_type::result_type result_type;
         template <typename Terminal>
         result_type operator()(
-            Terminal const& term, Subject const& subject, unused_type) const
+            Terminal const& term, Subject const& subject, Modifiers const& modifiers) const
         {
-            return result_type(subject, fusion::at_c<0>(term.args),
-                iterator_type(
-                    fusion::at_c<1>(term.args)
-                  , fusion::at_c<2>(term.args)
-                )
-            );
+
+            return make_directive_type()(term,subject, modifiers);
         }
+
+    };
+  
+    template <typename T1, typename T2,  typename Subject, typename Modifiers>
+    struct make_directive<
+        terminal_ex<repository::tag::dkwd, fusion::vector3<T1,T2,T2> >, Subject, Modifiers>
+    {
+       
+        typedef make_directive_internal_2_args< T1
+                                              , T2
+                                              , Subject
+                                              , Modifiers
+                                              , mpl::true_
+                                              , make_finite_helper<T2>
+                                              > make_directive_type;
+ 
+        typedef typename make_directive_type::result_type result_type;
+        template <typename Terminal>
+        result_type operator()(
+            Terminal const& term, Subject const& subject, Modifiers const& modifiers) const
+        {
+
+            return make_directive_type()(term,subject, modifiers);
+        }
+
     };
 
     // Directive ikwd(min, max)[p]
@@ -507,46 +1001,115 @@ namespace boost { namespace spirit { namespace qi
     {
         typedef typename add_const<T1>::type const_keyword;
         typedef repository::qi::kwd_finite_iterator<T2> iterator_type;
+                    
+        typedef repository::qi::kwd_parser<Subject, const_keyword, iterator_type, mpl::true_, mpl::false_ > result_type;
+
+        template <typename Terminal>
+        result_type operator()(
+            Terminal const& term, Subject const& subject, unused_type) const
+        {
+
+            typename spirit::detail::get_encoding<Modifiers,
+                spirit::char_encoding::standard>::type encoding;
+            return result_type(subject, fusion::at_c<0>(term.args),
+                iterator_type(
+                    fusion::at_c<1>(term.args)
+                  , fusion::at_c<2>(term.args)
+                  , encoding
+                )
+            );
+        }
+    };
+
+    template <typename T1, typename T2, typename Subject, typename Modifiers>
+    struct make_directive<
+        terminal_ex<repository::tag::idkwd, fusion::vector3< T1, T2, T2> >, Subject, Modifiers>
+    {
+        typedef typename add_const<T1>::type const_keyword;
+        typedef repository::qi::kwd_finite_iterator<T2> iterator_type;
                 
-        typedef repository::qi::kwd_parser<Subject, const_keyword, iterator_type, mpl::true_ > result_type;
+        typedef repository::qi::kwd_parser<Subject, const_keyword, iterator_type, mpl::true_, mpl::true_ > result_type;
 
         template <typename Terminal>
         result_type operator()(
             Terminal const& term, Subject const& subject, unused_type) const
         {
         
+            typename spirit::detail::get_encoding<Modifiers,
+                spirit::char_encoding::standard>::type encoding;
             return result_type(subject, fusion::at_c<0>(term.args),
                 iterator_type(
                     fusion::at_c<1>(term.args)
                   , fusion::at_c<2>(term.args)
+                  , encoding
                 )
             );
         }
     };
     
+
     // Directive kwd(min, inf)[p]
+
+    template <typename T>
+    struct make_infinite_helper
+    { 
+        typedef repository::qi::kwd_infinite_iterator<T> iterator_type;
+        template<typename Args>
+        static iterator_type make_iterator(Args const& args)
+        {
+          return iterator_type(fusion::at_c<1>(args));
+        }
+
+    };
+
+
     template <typename T1, typename T2, typename Subject, typename Modifiers>
     struct make_directive<
-        terminal_ex<repository::tag::kwd
-        , fusion::vector3<T1, T2, inf_type> >, Subject, Modifiers>
+        terminal_ex<repository::tag::kwd, fusion::vector3<T1,T2,inf_type> >, Subject, Modifiers>
     {
-        typedef typename add_const<T1>::type const_keyword;
-        typedef repository::qi::kwd_infinite_iterator<T2> iterator_type;
-        typedef has_modifier<Modifiers, tag::char_code_base<tag::no_case> > no_case;
+         typedef make_directive_internal_2_args< T1
+                                              , T2
+                                              , Subject
+                                              , Modifiers
+                                              , mpl::false_
+                                              , make_infinite_helper<T2>
+                                              > make_directive_type;
         
-        typedef repository::qi::kwd_parser<Subject, const_keyword, iterator_type, no_case > result_type;
-
+        typedef typename make_directive_type::result_type result_type;
         template <typename Terminal>
         result_type operator()(
             Terminal const& term, Subject const& subject, unused_type) const
         {
-            return result_type(subject
-                , fusion::at_c<0>(term.args)
-                , fusion::at_c<1>(term.args)
-                );
+
+            return make_directive_type()(term,subject, unused_type());
         }
+
     };
+  
+    template <typename T1, typename T2,  typename Subject, typename Modifiers>
+    struct make_directive<
+        terminal_ex<repository::tag::dkwd, fusion::vector3<T1,T2,inf_type> >, Subject, Modifiers>
+    {
+      typedef make_directive_internal_2_args< T1
+                                              , T2
+                                              , Subject
+                                              , Modifiers
+                                              , mpl::false_
+                                              , make_infinite_helper<T2>
+                                              > make_directive_type;
     
+        typedef typename make_directive_type::result_type result_type;
+        template <typename Terminal>
+        result_type operator()(
+            Terminal const& term, Subject const& subject, unused_type) const
+        {
+
+            return make_directive_type()(term,subject, unused_type());
+        }
+
+    };
+
+
     // Directive ikwd(min, inf)[p]
     template <typename T1, typename T2, typename Subject, typename Modifiers>
     struct make_directive<
@@ -556,7 +1119,32 @@ namespace boost { namespace spirit { namespace qi
         typedef typename add_const<T1>::type const_keyword;
         typedef repository::qi::kwd_infinite_iterator<T2> iterator_type;
         
-        typedef repository::qi::kwd_parser<Subject, const_keyword, iterator_type, mpl::true_ > result_type;
+        typedef repository::qi::kwd_parser<Subject, const_keyword, iterator_type, mpl::true_, mpl::false_ > result_type;
+
+        template <typename Terminal>
+        result_type operator()(
+            Terminal const& term, Subject const& subject, unused_type) const
+        {
+            typename spirit::detail::get_encoding<Modifiers,
+                spirit::char_encoding::standard>::type encoding;
+
+            return result_type(subject
+                , fusion::at_c<0>(term.args)
+                , fusion::at_c<1>(term.args)
+                , encoding
+                );
+        }
+    };
+    
+    template <typename T1, typename T2, typename Subject, typename Modifiers>
+    struct make_directive<
+        terminal_ex<repository::tag::idkwd
+        , fusion::vector3<T1, T2, inf_type> >, Subject, Modifiers>
+    {
+        typedef typename add_const<T1>::type const_keyword;
+        typedef repository::qi::kwd_infinite_iterator<T2> iterator_type;
+        
+        typedef repository::qi::kwd_parser<Subject, const_keyword, iterator_type, mpl::true_, mpl::true_ > result_type;
 
         template <typename Terminal>
         result_type operator()(
@@ -568,6 +1156,7 @@ namespace boost { namespace spirit { namespace qi
             return result_type(subject
                 , fusion::at_c<0>(term.args)
                 , fusion::at_c<1>(term.args)
+                , encoding
                 );
         }
     };
@@ -578,10 +1167,32 @@ namespace boost { namespace spirit { namespace qi
 namespace boost { namespace spirit { namespace traits
 {
     template <typename Subject, typename KeywordType
-            , typename LoopIter, typename NoCase >
+            , typename LoopIter, typename NoCase , typename Distinct>
     struct has_semantic_action< 
-            repository::qi::kwd_parser< Subject, KeywordType, LoopIter, NoCase > >
+            repository::qi::kwd_parser< Subject, KeywordType, LoopIter, NoCase, Distinct > >
       : unary_has_semantic_action<Subject> {};
+
+    template <typename Subject, typename KeywordType
+            , typename LoopIter, typename Distinct >
+    struct has_semantic_action<
+            repository::qi::complex_kwd_parser< Subject, KeywordType, LoopIter, Distinct > >
+      : unary_has_semantic_action<Subject> {};
+
+    template <typename Subject, typename KeywordType
+              , typename LoopIter, typename NoCase, typename Attribute, typename Context
+                , typename Iterator, typename Distinct>
+    struct handles_container<repository::qi::kwd_parser<Subject, KeywordType, LoopIter, NoCase, Distinct>, Attribute
+        , Context, Iterator>
+      : unary_handles_container<Subject, Attribute, Context, Iterator> {};
+
+    template <typename Subject, typename KeywordType
+                , typename LoopIter
+                , typename Attribute, typename Context
+                , typename Iterator, typename Distinct>
+    struct handles_container<repository::qi::complex_kwd_parser<Subject, KeywordType, LoopIter, Distinct>, Attribute
+        , Context, Iterator>
+      : unary_handles_container<Subject, Attribute, Context, Iterator> {};
+
 }}}
 
 #endif

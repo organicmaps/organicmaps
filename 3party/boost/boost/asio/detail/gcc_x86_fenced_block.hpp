@@ -2,7 +2,7 @@
 // detail/gcc_x86_fenced_block.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -29,24 +29,54 @@ class gcc_x86_fenced_block
   : private noncopyable
 {
 public:
-  // Constructor.
-  gcc_x86_fenced_block()
+  enum half_t { half };
+  enum full_t { full };
+
+  // Constructor for a half fenced block.
+  explicit gcc_x86_fenced_block(half_t)
   {
-    barrier();
+  }
+
+  // Constructor for a full fenced block.
+  explicit gcc_x86_fenced_block(full_t)
+  {
+    lbarrier();
   }
 
   // Destructor.
   ~gcc_x86_fenced_block()
   {
-    barrier();
+    sbarrier();
   }
 
 private:
   static int barrier()
   {
-    int r = 0;
-    __asm__ __volatile__ ("xchgl %%eax, %0" : "=m" (r) : : "memory", "cc");
+    int r = 0, m = 1;
+    __asm__ __volatile__ (
+        "xchgl %0, %1" :
+        "=r"(r), "=m"(m) :
+        "0"(1), "m"(m) :
+        "memory", "cc");
     return r;
+  }
+
+  static void lbarrier()
+  {
+#if defined(__SSE2__)
+    __asm__ __volatile__ ("lfence" ::: "memory");
+#else // defined(__SSE2__)
+    barrier();
+#endif // defined(__SSE2__)
+  }
+
+  static void sbarrier()
+  {
+#if defined(__SSE2__)
+    __asm__ __volatile__ ("sfence" ::: "memory");
+#else // defined(__SSE2__)
+    barrier();
+#endif // defined(__SSE2__)
   }
 };
 

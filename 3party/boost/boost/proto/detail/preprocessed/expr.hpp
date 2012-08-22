@@ -51,12 +51,14 @@
         typedef void proto_child1; typedef void proto_child2; typedef void proto_child3; typedef void proto_child4; typedef void proto_child5; typedef void proto_child6; typedef void proto_child7; typedef void proto_child8; typedef void proto_child9;
         
         
+        BOOST_FORCEINLINE
         expr const &proto_base() const
         {
             return *this;
         }
         
         
+        BOOST_FORCEINLINE
         expr &proto_base()
         {
             return *this;
@@ -65,6 +67,7 @@
         
         
         template<typename A0>
+        BOOST_FORCEINLINE
         static expr const make(A0 &a0)
         {
             return detail::make_terminal(a0, static_cast<expr *>(0), static_cast<proto_args *>(0));
@@ -72,6 +75,7 @@
         
         
         template<typename A0>
+        BOOST_FORCEINLINE
         static expr const make(A0 const &a0)
         {
             return detail::make_terminal(a0, static_cast<expr *>(0), static_cast<proto_args *>(0));
@@ -83,6 +87,7 @@
         
         
         
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr &, expr const &>
@@ -102,6 +107,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -119,6 +125,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -136,6 +143,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr &, typename result_of::as_child<A>::type>
@@ -153,6 +161,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr &, typename result_of::as_child<A const>::type>
@@ -172,6 +181,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -189,6 +199,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -206,6 +217,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr &, typename result_of::as_child<A>::type>
@@ -223,6 +235,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr &, typename result_of::as_child<A const>::type>
@@ -247,6 +260,7 @@
         
         
         
+        BOOST_FORCEINLINE
         proto::expr<proto::tag::function, list1<expr const &>, 1> const
         operator ()() const
         {
@@ -255,6 +269,7 @@
         }
         
         
+        BOOST_FORCEINLINE
         proto::expr<proto::tag::function, list1<expr &>, 1> const
         operator ()()
         {
@@ -264,6 +279,7 @@
         
         
         template<typename A0>
+        BOOST_FORCEINLINE
         typename result_of::funop1<
             expr const
           , default_domain , const A0
@@ -278,6 +294,7 @@
         
         
         template<typename A0>
+        BOOST_FORCEINLINE
         typename result_of::funop1<
             expr
           , default_domain , const A0
@@ -292,6 +309,7 @@
         
         
         template<typename A0 , typename A1>
+        BOOST_FORCEINLINE
         typename result_of::funop2<
             expr const
           , default_domain , const A0 , const A1
@@ -306,6 +324,7 @@
         
         
         template<typename A0 , typename A1>
+        BOOST_FORCEINLINE
         typename result_of::funop2<
             expr
           , default_domain , const A0 , const A1
@@ -320,6 +339,7 @@
         
         
         template<typename A0 , typename A1 , typename A2>
+        BOOST_FORCEINLINE
         typename result_of::funop3<
             expr const
           , default_domain , const A0 , const A1 , const A2
@@ -334,6 +354,7 @@
         
         
         template<typename A0 , typename A1 , typename A2>
+        BOOST_FORCEINLINE
         typename result_of::funop3<
             expr
           , default_domain , const A0 , const A1 , const A2
@@ -348,6 +369,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3>
+        BOOST_FORCEINLINE
         typename result_of::funop4<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3
@@ -362,6 +384,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3>
+        BOOST_FORCEINLINE
         typename result_of::funop4<
             expr
           , default_domain , const A0 , const A1 , const A2 , const A3
@@ -376,6 +399,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4>
+        BOOST_FORCEINLINE
         typename result_of::funop5<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4
@@ -390,6 +414,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4>
+        BOOST_FORCEINLINE
         typename result_of::funop5<
             expr
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4
@@ -404,6 +429,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5>
+        BOOST_FORCEINLINE
         typename result_of::funop6<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5
@@ -418,6 +444,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5>
+        BOOST_FORCEINLINE
         typename result_of::funop6<
             expr
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5
@@ -432,6 +459,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6>
+        BOOST_FORCEINLINE
         typename result_of::funop7<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6
@@ -446,6 +474,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6>
+        BOOST_FORCEINLINE
         typename result_of::funop7<
             expr
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6
@@ -460,6 +489,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7>
+        BOOST_FORCEINLINE
         typename result_of::funop8<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7
@@ -474,6 +504,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7>
+        BOOST_FORCEINLINE
         typename result_of::funop8<
             expr
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7
@@ -488,6 +519,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8>
+        BOOST_FORCEINLINE
         typename result_of::funop9<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7 , const A8
@@ -502,6 +534,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8>
+        BOOST_FORCEINLINE
         typename result_of::funop9<
             expr
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7 , const A8
@@ -559,12 +592,14 @@
         typedef void proto_child1; typedef void proto_child2; typedef void proto_child3; typedef void proto_child4; typedef void proto_child5; typedef void proto_child6; typedef void proto_child7; typedef void proto_child8; typedef void proto_child9;
         
         
+        BOOST_FORCEINLINE
         expr const &proto_base() const
         {
             return *this;
         }
         
         
+        BOOST_FORCEINLINE
         expr &proto_base()
         {
             return *this;
@@ -573,6 +608,7 @@
         
         
         template<typename A0>
+        BOOST_FORCEINLINE
         static expr const make(A0 const &a0)
         {
             expr that = {a0};
@@ -589,6 +625,7 @@
         
         
         
+        BOOST_FORCEINLINE
         operator address_of_hack_type_() const
         {
             return boost::addressof(this->child0);
@@ -597,6 +634,7 @@
         
         
         
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr &, expr const &>
@@ -616,6 +654,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -633,6 +672,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -652,6 +692,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -669,6 +710,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -693,6 +735,7 @@
         
         
         
+        BOOST_FORCEINLINE
         proto::expr<proto::tag::function, list1<expr const &>, 1> const
         operator ()() const
         {
@@ -702,6 +745,7 @@
         
         
         template<typename A0>
+        BOOST_FORCEINLINE
         typename result_of::funop1<
             expr const
           , default_domain , const A0
@@ -716,6 +760,7 @@
         
         
         template<typename A0 , typename A1>
+        BOOST_FORCEINLINE
         typename result_of::funop2<
             expr const
           , default_domain , const A0 , const A1
@@ -730,6 +775,7 @@
         
         
         template<typename A0 , typename A1 , typename A2>
+        BOOST_FORCEINLINE
         typename result_of::funop3<
             expr const
           , default_domain , const A0 , const A1 , const A2
@@ -744,6 +790,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3>
+        BOOST_FORCEINLINE
         typename result_of::funop4<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3
@@ -758,6 +805,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4>
+        BOOST_FORCEINLINE
         typename result_of::funop5<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4
@@ -772,6 +820,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5>
+        BOOST_FORCEINLINE
         typename result_of::funop6<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5
@@ -786,6 +835,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6>
+        BOOST_FORCEINLINE
         typename result_of::funop7<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6
@@ -800,6 +850,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7>
+        BOOST_FORCEINLINE
         typename result_of::funop8<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7
@@ -814,6 +865,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8>
+        BOOST_FORCEINLINE
         typename result_of::funop9<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7 , const A8
@@ -871,12 +923,14 @@
         typedef void proto_child2; typedef void proto_child3; typedef void proto_child4; typedef void proto_child5; typedef void proto_child6; typedef void proto_child7; typedef void proto_child8; typedef void proto_child9;
         
         
+        BOOST_FORCEINLINE
         expr const &proto_base() const
         {
             return *this;
         }
         
         
+        BOOST_FORCEINLINE
         expr &proto_base()
         {
             return *this;
@@ -885,6 +939,7 @@
         
         
         template<typename A0 , typename A1>
+        BOOST_FORCEINLINE
         static expr const make(A0 const &a0 , A1 const &a1)
         {
             expr that = {a0 , a1};
@@ -897,6 +952,7 @@
         
         
         
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr &, expr const &>
@@ -916,6 +972,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -933,6 +990,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -952,6 +1010,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -969,6 +1028,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -993,6 +1053,7 @@
         
         
         
+        BOOST_FORCEINLINE
         proto::expr<proto::tag::function, list1<expr const &>, 1> const
         operator ()() const
         {
@@ -1002,6 +1063,7 @@
         
         
         template<typename A0>
+        BOOST_FORCEINLINE
         typename result_of::funop1<
             expr const
           , default_domain , const A0
@@ -1016,6 +1078,7 @@
         
         
         template<typename A0 , typename A1>
+        BOOST_FORCEINLINE
         typename result_of::funop2<
             expr const
           , default_domain , const A0 , const A1
@@ -1030,6 +1093,7 @@
         
         
         template<typename A0 , typename A1 , typename A2>
+        BOOST_FORCEINLINE
         typename result_of::funop3<
             expr const
           , default_domain , const A0 , const A1 , const A2
@@ -1044,6 +1108,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3>
+        BOOST_FORCEINLINE
         typename result_of::funop4<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3
@@ -1058,6 +1123,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4>
+        BOOST_FORCEINLINE
         typename result_of::funop5<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4
@@ -1072,6 +1138,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5>
+        BOOST_FORCEINLINE
         typename result_of::funop6<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5
@@ -1086,6 +1153,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6>
+        BOOST_FORCEINLINE
         typename result_of::funop7<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6
@@ -1100,6 +1168,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7>
+        BOOST_FORCEINLINE
         typename result_of::funop8<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7
@@ -1114,6 +1183,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8>
+        BOOST_FORCEINLINE
         typename result_of::funop9<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7 , const A8
@@ -1171,12 +1241,14 @@
         typedef void proto_child3; typedef void proto_child4; typedef void proto_child5; typedef void proto_child6; typedef void proto_child7; typedef void proto_child8; typedef void proto_child9;
         
         
+        BOOST_FORCEINLINE
         expr const &proto_base() const
         {
             return *this;
         }
         
         
+        BOOST_FORCEINLINE
         expr &proto_base()
         {
             return *this;
@@ -1185,6 +1257,7 @@
         
         
         template<typename A0 , typename A1 , typename A2>
+        BOOST_FORCEINLINE
         static expr const make(A0 const &a0 , A1 const &a1 , A2 const &a2)
         {
             expr that = {a0 , a1 , a2};
@@ -1197,6 +1270,7 @@
         
         
         
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr &, expr const &>
@@ -1216,6 +1290,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -1233,6 +1308,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -1252,6 +1328,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -1269,6 +1346,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -1293,6 +1371,7 @@
         
         
         
+        BOOST_FORCEINLINE
         proto::expr<proto::tag::function, list1<expr const &>, 1> const
         operator ()() const
         {
@@ -1302,6 +1381,7 @@
         
         
         template<typename A0>
+        BOOST_FORCEINLINE
         typename result_of::funop1<
             expr const
           , default_domain , const A0
@@ -1316,6 +1396,7 @@
         
         
         template<typename A0 , typename A1>
+        BOOST_FORCEINLINE
         typename result_of::funop2<
             expr const
           , default_domain , const A0 , const A1
@@ -1330,6 +1411,7 @@
         
         
         template<typename A0 , typename A1 , typename A2>
+        BOOST_FORCEINLINE
         typename result_of::funop3<
             expr const
           , default_domain , const A0 , const A1 , const A2
@@ -1344,6 +1426,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3>
+        BOOST_FORCEINLINE
         typename result_of::funop4<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3
@@ -1358,6 +1441,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4>
+        BOOST_FORCEINLINE
         typename result_of::funop5<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4
@@ -1372,6 +1456,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5>
+        BOOST_FORCEINLINE
         typename result_of::funop6<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5
@@ -1386,6 +1471,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6>
+        BOOST_FORCEINLINE
         typename result_of::funop7<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6
@@ -1400,6 +1486,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7>
+        BOOST_FORCEINLINE
         typename result_of::funop8<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7
@@ -1414,6 +1501,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8>
+        BOOST_FORCEINLINE
         typename result_of::funop9<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7 , const A8
@@ -1471,12 +1559,14 @@
         typedef void proto_child4; typedef void proto_child5; typedef void proto_child6; typedef void proto_child7; typedef void proto_child8; typedef void proto_child9;
         
         
+        BOOST_FORCEINLINE
         expr const &proto_base() const
         {
             return *this;
         }
         
         
+        BOOST_FORCEINLINE
         expr &proto_base()
         {
             return *this;
@@ -1485,6 +1575,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3>
+        BOOST_FORCEINLINE
         static expr const make(A0 const &a0 , A1 const &a1 , A2 const &a2 , A3 const &a3)
         {
             expr that = {a0 , a1 , a2 , a3};
@@ -1497,6 +1588,7 @@
         
         
         
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr &, expr const &>
@@ -1516,6 +1608,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -1533,6 +1626,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -1552,6 +1646,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -1569,6 +1664,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -1593,6 +1689,7 @@
         
         
         
+        BOOST_FORCEINLINE
         proto::expr<proto::tag::function, list1<expr const &>, 1> const
         operator ()() const
         {
@@ -1602,6 +1699,7 @@
         
         
         template<typename A0>
+        BOOST_FORCEINLINE
         typename result_of::funop1<
             expr const
           , default_domain , const A0
@@ -1616,6 +1714,7 @@
         
         
         template<typename A0 , typename A1>
+        BOOST_FORCEINLINE
         typename result_of::funop2<
             expr const
           , default_domain , const A0 , const A1
@@ -1630,6 +1729,7 @@
         
         
         template<typename A0 , typename A1 , typename A2>
+        BOOST_FORCEINLINE
         typename result_of::funop3<
             expr const
           , default_domain , const A0 , const A1 , const A2
@@ -1644,6 +1744,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3>
+        BOOST_FORCEINLINE
         typename result_of::funop4<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3
@@ -1658,6 +1759,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4>
+        BOOST_FORCEINLINE
         typename result_of::funop5<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4
@@ -1672,6 +1774,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5>
+        BOOST_FORCEINLINE
         typename result_of::funop6<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5
@@ -1686,6 +1789,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6>
+        BOOST_FORCEINLINE
         typename result_of::funop7<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6
@@ -1700,6 +1804,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7>
+        BOOST_FORCEINLINE
         typename result_of::funop8<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7
@@ -1714,6 +1819,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8>
+        BOOST_FORCEINLINE
         typename result_of::funop9<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7 , const A8
@@ -1771,12 +1877,14 @@
         typedef void proto_child5; typedef void proto_child6; typedef void proto_child7; typedef void proto_child8; typedef void proto_child9;
         
         
+        BOOST_FORCEINLINE
         expr const &proto_base() const
         {
             return *this;
         }
         
         
+        BOOST_FORCEINLINE
         expr &proto_base()
         {
             return *this;
@@ -1785,6 +1893,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4>
+        BOOST_FORCEINLINE
         static expr const make(A0 const &a0 , A1 const &a1 , A2 const &a2 , A3 const &a3 , A4 const &a4)
         {
             expr that = {a0 , a1 , a2 , a3 , a4};
@@ -1797,6 +1906,7 @@
         
         
         
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr &, expr const &>
@@ -1816,6 +1926,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -1833,6 +1944,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -1852,6 +1964,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -1869,6 +1982,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -1893,6 +2007,7 @@
         
         
         
+        BOOST_FORCEINLINE
         proto::expr<proto::tag::function, list1<expr const &>, 1> const
         operator ()() const
         {
@@ -1902,6 +2017,7 @@
         
         
         template<typename A0>
+        BOOST_FORCEINLINE
         typename result_of::funop1<
             expr const
           , default_domain , const A0
@@ -1916,6 +2032,7 @@
         
         
         template<typename A0 , typename A1>
+        BOOST_FORCEINLINE
         typename result_of::funop2<
             expr const
           , default_domain , const A0 , const A1
@@ -1930,6 +2047,7 @@
         
         
         template<typename A0 , typename A1 , typename A2>
+        BOOST_FORCEINLINE
         typename result_of::funop3<
             expr const
           , default_domain , const A0 , const A1 , const A2
@@ -1944,6 +2062,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3>
+        BOOST_FORCEINLINE
         typename result_of::funop4<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3
@@ -1958,6 +2077,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4>
+        BOOST_FORCEINLINE
         typename result_of::funop5<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4
@@ -1972,6 +2092,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5>
+        BOOST_FORCEINLINE
         typename result_of::funop6<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5
@@ -1986,6 +2107,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6>
+        BOOST_FORCEINLINE
         typename result_of::funop7<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6
@@ -2000,6 +2122,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7>
+        BOOST_FORCEINLINE
         typename result_of::funop8<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7
@@ -2014,6 +2137,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8>
+        BOOST_FORCEINLINE
         typename result_of::funop9<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7 , const A8
@@ -2071,12 +2195,14 @@
         typedef void proto_child6; typedef void proto_child7; typedef void proto_child8; typedef void proto_child9;
         
         
+        BOOST_FORCEINLINE
         expr const &proto_base() const
         {
             return *this;
         }
         
         
+        BOOST_FORCEINLINE
         expr &proto_base()
         {
             return *this;
@@ -2085,6 +2211,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5>
+        BOOST_FORCEINLINE
         static expr const make(A0 const &a0 , A1 const &a1 , A2 const &a2 , A3 const &a3 , A4 const &a4 , A5 const &a5)
         {
             expr that = {a0 , a1 , a2 , a3 , a4 , a5};
@@ -2097,6 +2224,7 @@
         
         
         
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr &, expr const &>
@@ -2116,6 +2244,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -2133,6 +2262,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -2152,6 +2282,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -2169,6 +2300,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -2193,6 +2325,7 @@
         
         
         
+        BOOST_FORCEINLINE
         proto::expr<proto::tag::function, list1<expr const &>, 1> const
         operator ()() const
         {
@@ -2202,6 +2335,7 @@
         
         
         template<typename A0>
+        BOOST_FORCEINLINE
         typename result_of::funop1<
             expr const
           , default_domain , const A0
@@ -2216,6 +2350,7 @@
         
         
         template<typename A0 , typename A1>
+        BOOST_FORCEINLINE
         typename result_of::funop2<
             expr const
           , default_domain , const A0 , const A1
@@ -2230,6 +2365,7 @@
         
         
         template<typename A0 , typename A1 , typename A2>
+        BOOST_FORCEINLINE
         typename result_of::funop3<
             expr const
           , default_domain , const A0 , const A1 , const A2
@@ -2244,6 +2380,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3>
+        BOOST_FORCEINLINE
         typename result_of::funop4<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3
@@ -2258,6 +2395,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4>
+        BOOST_FORCEINLINE
         typename result_of::funop5<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4
@@ -2272,6 +2410,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5>
+        BOOST_FORCEINLINE
         typename result_of::funop6<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5
@@ -2286,6 +2425,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6>
+        BOOST_FORCEINLINE
         typename result_of::funop7<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6
@@ -2300,6 +2440,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7>
+        BOOST_FORCEINLINE
         typename result_of::funop8<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7
@@ -2314,6 +2455,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8>
+        BOOST_FORCEINLINE
         typename result_of::funop9<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7 , const A8
@@ -2371,12 +2513,14 @@
         typedef void proto_child7; typedef void proto_child8; typedef void proto_child9;
         
         
+        BOOST_FORCEINLINE
         expr const &proto_base() const
         {
             return *this;
         }
         
         
+        BOOST_FORCEINLINE
         expr &proto_base()
         {
             return *this;
@@ -2385,6 +2529,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6>
+        BOOST_FORCEINLINE
         static expr const make(A0 const &a0 , A1 const &a1 , A2 const &a2 , A3 const &a3 , A4 const &a4 , A5 const &a5 , A6 const &a6)
         {
             expr that = {a0 , a1 , a2 , a3 , a4 , a5 , a6};
@@ -2397,6 +2542,7 @@
         
         
         
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr &, expr const &>
@@ -2416,6 +2562,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -2433,6 +2580,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -2452,6 +2600,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -2469,6 +2618,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -2493,6 +2643,7 @@
         
         
         
+        BOOST_FORCEINLINE
         proto::expr<proto::tag::function, list1<expr const &>, 1> const
         operator ()() const
         {
@@ -2502,6 +2653,7 @@
         
         
         template<typename A0>
+        BOOST_FORCEINLINE
         typename result_of::funop1<
             expr const
           , default_domain , const A0
@@ -2516,6 +2668,7 @@
         
         
         template<typename A0 , typename A1>
+        BOOST_FORCEINLINE
         typename result_of::funop2<
             expr const
           , default_domain , const A0 , const A1
@@ -2530,6 +2683,7 @@
         
         
         template<typename A0 , typename A1 , typename A2>
+        BOOST_FORCEINLINE
         typename result_of::funop3<
             expr const
           , default_domain , const A0 , const A1 , const A2
@@ -2544,6 +2698,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3>
+        BOOST_FORCEINLINE
         typename result_of::funop4<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3
@@ -2558,6 +2713,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4>
+        BOOST_FORCEINLINE
         typename result_of::funop5<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4
@@ -2572,6 +2728,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5>
+        BOOST_FORCEINLINE
         typename result_of::funop6<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5
@@ -2586,6 +2743,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6>
+        BOOST_FORCEINLINE
         typename result_of::funop7<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6
@@ -2600,6 +2758,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7>
+        BOOST_FORCEINLINE
         typename result_of::funop8<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7
@@ -2614,6 +2773,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8>
+        BOOST_FORCEINLINE
         typename result_of::funop9<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7 , const A8
@@ -2671,12 +2831,14 @@
         typedef void proto_child8; typedef void proto_child9;
         
         
+        BOOST_FORCEINLINE
         expr const &proto_base() const
         {
             return *this;
         }
         
         
+        BOOST_FORCEINLINE
         expr &proto_base()
         {
             return *this;
@@ -2685,6 +2847,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7>
+        BOOST_FORCEINLINE
         static expr const make(A0 const &a0 , A1 const &a1 , A2 const &a2 , A3 const &a3 , A4 const &a4 , A5 const &a5 , A6 const &a6 , A7 const &a7)
         {
             expr that = {a0 , a1 , a2 , a3 , a4 , a5 , a6 , a7};
@@ -2697,6 +2860,7 @@
         
         
         
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr &, expr const &>
@@ -2716,6 +2880,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -2733,6 +2898,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -2752,6 +2918,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -2769,6 +2936,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -2793,6 +2961,7 @@
         
         
         
+        BOOST_FORCEINLINE
         proto::expr<proto::tag::function, list1<expr const &>, 1> const
         operator ()() const
         {
@@ -2802,6 +2971,7 @@
         
         
         template<typename A0>
+        BOOST_FORCEINLINE
         typename result_of::funop1<
             expr const
           , default_domain , const A0
@@ -2816,6 +2986,7 @@
         
         
         template<typename A0 , typename A1>
+        BOOST_FORCEINLINE
         typename result_of::funop2<
             expr const
           , default_domain , const A0 , const A1
@@ -2830,6 +3001,7 @@
         
         
         template<typename A0 , typename A1 , typename A2>
+        BOOST_FORCEINLINE
         typename result_of::funop3<
             expr const
           , default_domain , const A0 , const A1 , const A2
@@ -2844,6 +3016,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3>
+        BOOST_FORCEINLINE
         typename result_of::funop4<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3
@@ -2858,6 +3031,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4>
+        BOOST_FORCEINLINE
         typename result_of::funop5<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4
@@ -2872,6 +3046,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5>
+        BOOST_FORCEINLINE
         typename result_of::funop6<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5
@@ -2886,6 +3061,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6>
+        BOOST_FORCEINLINE
         typename result_of::funop7<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6
@@ -2900,6 +3076,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7>
+        BOOST_FORCEINLINE
         typename result_of::funop8<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7
@@ -2914,6 +3091,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8>
+        BOOST_FORCEINLINE
         typename result_of::funop9<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7 , const A8
@@ -2971,12 +3149,14 @@
         typedef void proto_child9;
         
         
+        BOOST_FORCEINLINE
         expr const &proto_base() const
         {
             return *this;
         }
         
         
+        BOOST_FORCEINLINE
         expr &proto_base()
         {
             return *this;
@@ -2985,6 +3165,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8>
+        BOOST_FORCEINLINE
         static expr const make(A0 const &a0 , A1 const &a1 , A2 const &a2 , A3 const &a3 , A4 const &a4 , A5 const &a5 , A6 const &a6 , A7 const &a7 , A8 const &a8)
         {
             expr that = {a0 , a1 , a2 , a3 , a4 , a5 , a6 , a7 , a8};
@@ -2997,6 +3178,7 @@
         
         
         
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr &, expr const &>
@@ -3016,6 +3198,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -3033,6 +3216,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -3052,6 +3236,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -3069,6 +3254,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -3093,6 +3279,7 @@
         
         
         
+        BOOST_FORCEINLINE
         proto::expr<proto::tag::function, list1<expr const &>, 1> const
         operator ()() const
         {
@@ -3102,6 +3289,7 @@
         
         
         template<typename A0>
+        BOOST_FORCEINLINE
         typename result_of::funop1<
             expr const
           , default_domain , const A0
@@ -3116,6 +3304,7 @@
         
         
         template<typename A0 , typename A1>
+        BOOST_FORCEINLINE
         typename result_of::funop2<
             expr const
           , default_domain , const A0 , const A1
@@ -3130,6 +3319,7 @@
         
         
         template<typename A0 , typename A1 , typename A2>
+        BOOST_FORCEINLINE
         typename result_of::funop3<
             expr const
           , default_domain , const A0 , const A1 , const A2
@@ -3144,6 +3334,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3>
+        BOOST_FORCEINLINE
         typename result_of::funop4<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3
@@ -3158,6 +3349,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4>
+        BOOST_FORCEINLINE
         typename result_of::funop5<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4
@@ -3172,6 +3364,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5>
+        BOOST_FORCEINLINE
         typename result_of::funop6<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5
@@ -3186,6 +3379,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6>
+        BOOST_FORCEINLINE
         typename result_of::funop7<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6
@@ -3200,6 +3394,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7>
+        BOOST_FORCEINLINE
         typename result_of::funop8<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7
@@ -3214,6 +3409,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8>
+        BOOST_FORCEINLINE
         typename result_of::funop9<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7 , const A8
@@ -3271,12 +3467,14 @@
         
         
         
+        BOOST_FORCEINLINE
         expr const &proto_base() const
         {
             return *this;
         }
         
         
+        BOOST_FORCEINLINE
         expr &proto_base()
         {
             return *this;
@@ -3285,6 +3483,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8 , typename A9>
+        BOOST_FORCEINLINE
         static expr const make(A0 const &a0 , A1 const &a1 , A2 const &a2 , A3 const &a3 , A4 const &a4 , A5 const &a5 , A6 const &a6 , A7 const &a7 , A8 const &a8 , A9 const &a9)
         {
             expr that = {a0 , a1 , a2 , a3 , a4 , a5 , a6 , a7 , a8 , a9};
@@ -3297,6 +3496,7 @@
         
         
         
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr &, expr const &>
@@ -3316,6 +3516,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -3333,6 +3534,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -3352,6 +3554,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -3369,6 +3572,7 @@
         
         
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -3393,6 +3597,7 @@
         
         
         
+        BOOST_FORCEINLINE
         proto::expr<proto::tag::function, list1<expr const &>, 1> const
         operator ()() const
         {
@@ -3402,6 +3607,7 @@
         
         
         template<typename A0>
+        BOOST_FORCEINLINE
         typename result_of::funop1<
             expr const
           , default_domain , const A0
@@ -3416,6 +3622,7 @@
         
         
         template<typename A0 , typename A1>
+        BOOST_FORCEINLINE
         typename result_of::funop2<
             expr const
           , default_domain , const A0 , const A1
@@ -3430,6 +3637,7 @@
         
         
         template<typename A0 , typename A1 , typename A2>
+        BOOST_FORCEINLINE
         typename result_of::funop3<
             expr const
           , default_domain , const A0 , const A1 , const A2
@@ -3444,6 +3652,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3>
+        BOOST_FORCEINLINE
         typename result_of::funop4<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3
@@ -3458,6 +3667,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4>
+        BOOST_FORCEINLINE
         typename result_of::funop5<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4
@@ -3472,6 +3682,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5>
+        BOOST_FORCEINLINE
         typename result_of::funop6<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5
@@ -3486,6 +3697,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6>
+        BOOST_FORCEINLINE
         typename result_of::funop7<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6
@@ -3500,6 +3712,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7>
+        BOOST_FORCEINLINE
         typename result_of::funop8<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7
@@ -3514,6 +3727,7 @@
         
         
         template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8>
+        BOOST_FORCEINLINE
         typename result_of::funop9<
             expr const
           , default_domain , const A0 , const A1 , const A2 , const A3 , const A4 , const A5 , const A6 , const A7 , const A8

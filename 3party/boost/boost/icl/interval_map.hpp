@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------------+
-Copyright (c) 2008-2009: Joachim Faulhaber
+Copyright (c) 2008-2012: Joachim Faulhaber
 +------------------------------------------------------------------------------+
    Distributed under the Boost Software License, Version 1.0.
       (See accompanying file LICENCE.txt or copy at
@@ -72,11 +72,12 @@ public:
     //==========================================================================
     //= Construct, copy, destruct
     //==========================================================================
+
     /// Default constructor for the empty object
     interval_map(): base_type() {}
+
     /// Copy constructor
     interval_map(const interval_map& src): base_type(src) {}
-
 
     /// Copy constructor for base_type
     template<class SubType>
@@ -90,6 +91,7 @@ public:
 
     explicit interval_map(const value_type& value_pair): base_type()
     { this->add(value_pair); }
+
 
     /// Assignment operator
     template<class SubType>
@@ -106,11 +108,30 @@ public:
         typedef interval_base_map<SubType,DomainT,CodomainT,
                                   Traits,Compare,Combine,Section,Interval,Alloc> base_map_type;
         this->clear();
-        // Can be implemented via _map.insert: Interval joining not necessary.
         iterator prior_ = this->_map.end();
         ICL_const_FORALL(typename base_map_type, it_, src) 
             prior_ = this->add(prior_, *it_); 
     }
+
+#   ifndef BOOST_NO_RVALUE_REFERENCES
+    //==========================================================================
+    //= Move semantics
+    //==========================================================================
+
+    /// Move constructor
+    interval_map(interval_map&& src)
+        : base_type(boost::move(src))
+    {}
+
+    /// Move assignment operator
+    interval_map& operator = (interval_map&& src)
+    { 
+        base_type::operator=(boost::move(src));
+        return *this;
+    }
+
+    //==========================================================================
+#   endif // BOOST_NO_RVALUE_REFERENCES
 
 private:
     // Private functions that shall be accessible by the baseclass:

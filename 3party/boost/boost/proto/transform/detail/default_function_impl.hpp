@@ -86,7 +86,7 @@
             BOOST_PROTO_USE_GET_POINTER();
             typedef typename detail::classtypeof<function_type>::type class_type;
             return (
-                BOOST_PROTO_GET_POINTER(class_type, BOOST_PROTO_DEFAULT_EVAL(~, 1, e)) ->* 
+                BOOST_PROTO_GET_POINTER(class_type, (BOOST_PROTO_DEFAULT_EVAL(~, 1, e))) ->* 
                 BOOST_PROTO_DEFAULT_EVAL(~, 0, e)
             )(BOOST_PP_ENUM(BOOST_PP_SUB(N, 2), BOOST_PROTO_DEF_FUN_INVOKE_ARG, e));
         }

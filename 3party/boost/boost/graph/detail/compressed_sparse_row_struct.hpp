@@ -44,7 +44,6 @@
 #include <boost/graph/graph_selectors.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/functional/hash.hpp>
-#include <boost/utility.hpp>
 
 namespace boost {
 

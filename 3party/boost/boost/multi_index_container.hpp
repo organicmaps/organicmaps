@@ -1,6 +1,6 @@
 /* Multiply indexed container.
  *
- * Copyright 2003-2010 Joaquin M Lopez Munoz.
+ * Copyright 2003-2011 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -670,7 +670,7 @@ BOOST_MULTI_INDEX_PROTECTED_IF_MEMBER_TEMPLATE_FRIENDS:
     if(version<1){
       std::size_t sz;
       ar>>serialization::make_nvp("count",sz);
-      s=sz;
+      s=static_cast<serialization::collection_size_type>(sz);
     }
     else{
       ar>>serialization::make_nvp("count",s);

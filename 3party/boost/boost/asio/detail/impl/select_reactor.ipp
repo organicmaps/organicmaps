@@ -2,7 +2,7 @@
 // detail/impl/select_reactor.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -172,27 +172,28 @@ void select_reactor::run(bool block, op_queue<operation>& ops)
 #endif // defined(BOOST_ASIO_HAS_IOCP)
 
   // Set up the descriptor sets.
-  fd_set_adapter fds[max_select_ops];
-  fds[read_op].set(interrupter_.read_descriptor());
+  for (int i = 0; i < max_select_ops; ++i)
+    fd_sets_[i].reset();
+  fd_sets_[read_op].set(interrupter_.read_descriptor());
   socket_type max_fd = 0;
   bool have_work_to_do = !timer_queues_.all_empty();
   for (int i = 0; i < max_select_ops; ++i)
   {
     have_work_to_do = have_work_to_do || !op_queue_[i].empty();
-    op_queue_[i].get_descriptors(fds[i], ops);
-    if (fds[i].max_descriptor() > max_fd)
-      max_fd = fds[i].max_descriptor();
+    op_queue_[i].get_descriptors(fd_sets_[i], ops);
+    if (fd_sets_[i].max_descriptor() > max_fd)
+      max_fd = fd_sets_[i].max_descriptor();
   }
 
 #if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
   // Connection operations on Windows use both except and write fd_sets.
   have_work_to_do = have_work_to_do || !op_queue_[connect_op].empty();
-  op_queue_[connect_op].get_descriptors(fds[write_op], ops);
-  if (fds[write_op].max_descriptor() > max_fd)
-    max_fd = fds[write_op].max_descriptor();
-  op_queue_[connect_op].get_descriptors(fds[except_op], ops);
-  if (fds[except_op].max_descriptor() > max_fd)
-    max_fd = fds[except_op].max_descriptor();
+  op_queue_[connect_op].get_descriptors(fd_sets_[write_op], ops);
+  if (fd_sets_[write_op].max_descriptor() > max_fd)
+    max_fd = fd_sets_[write_op].max_descriptor();
+  op_queue_[connect_op].get_descriptors(fd_sets_[except_op], ops);
+  if (fd_sets_[except_op].max_descriptor() > max_fd)
+    max_fd = fd_sets_[except_op].max_descriptor();
 #endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
 
   // We can return immediately if there's no work to do and the reactor is
@@ -209,11 +210,14 @@ void select_reactor::run(bool block, op_queue<operation>& ops)
   // Block on the select call until descriptors become ready.
   boost::system::error_code ec;
   int retval = socket_ops::select(static_cast<int>(max_fd + 1),
-      fds[read_op], fds[write_op], fds[except_op], tv, ec);
+      fd_sets_[read_op], fd_sets_[write_op], fd_sets_[except_op], tv, ec);
 
   // Reset the interrupter.
-  if (retval > 0 && fds[read_op].is_set(interrupter_.read_descriptor()))
+  if (retval > 0 && fd_sets_[read_op].is_set(interrupter_.read_descriptor()))
+  {
     interrupter_.reset();
+    --retval;
+  }
 
   lock.lock();
 
@@ -223,15 +227,15 @@ void select_reactor::run(bool block, op_queue<operation>& ops)
 #if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
     // Connection operations on Windows use both except and write fd_sets.
     op_queue_[connect_op].perform_operations_for_descriptors(
-        fds[except_op], ops);
+        fd_sets_[except_op], ops);
     op_queue_[connect_op].perform_operations_for_descriptors(
-        fds[write_op], ops);
+        fd_sets_[write_op], ops);
 #endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
 
     // Exception operations must be processed first to ensure that any
     // out-of-band data is read before normal data.
     for (int i = max_select_ops - 1; i >= 0; --i)
-      op_queue_[i].perform_operations_for_descriptors(fds[i], ops);
+      op_queue_[i].perform_operations_for_descriptors(fd_sets_[i], ops);
   }
   timer_queues_.get_ready_timers(ops);
 }

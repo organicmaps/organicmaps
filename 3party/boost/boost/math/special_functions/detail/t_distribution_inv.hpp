@@ -460,7 +460,7 @@ T fast_students_t_quantile_imp(T df, T p, const Policy& pol, const mpl::true_*)
    // Get an estimate of the result:
    //
    bool exact;
-   T t = inverse_students_t(df, p, 1-p, pol, &exact);
+   T t = inverse_students_t(df, p, T(1-p), pol, &exact);
    if((t == 0) || exact)
       return invert ? -t : t; // can't do better!
    //

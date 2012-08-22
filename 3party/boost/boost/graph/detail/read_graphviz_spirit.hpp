@@ -604,7 +604,9 @@ bool read_graphviz_spirit(MultiPassIterator begin, MultiPassIterator end,
 
   scanner_t scan(begin, end, policies);
 
-  return p.parse(scan);
+  bool ok = p.parse(scan);
+  m_graph.finish_building_graph();
+  return ok;
 }
 
 } // namespace boost

@@ -25,7 +25,7 @@ namespace numeric {
 namespace interval_lib {
 namespace detail {
 
-#if BOOST_MSVC < 1400 || defined(WIN64)
+#if BOOST_MSVC < 1400 || defined(_WIN64)
 extern "C" { double rint(double); }
 #else
 inline double rint(double x)

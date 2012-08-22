@@ -24,6 +24,7 @@
 #include "boost/multi_array/subarray.hpp"
 #include "boost/multi_array/algorithm.hpp"
 #include "boost/type_traits/is_integral.hpp"
+#include "boost/utility/enable_if.hpp"
 #include "boost/array.hpp"
 #include "boost/limits.hpp"
 #include <algorithm>

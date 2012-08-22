@@ -9,7 +9,7 @@
 #define __MAKE_CONNECTED_HPP__
 
 #include <boost/config.hpp>
-#include <boost/utility.hpp> //for next
+#include <boost/next_prior.hpp>
 #include <boost/tuple/tuple.hpp>   //for tie
 #include <boost/graph/connected_components.hpp>
 #include <boost/property_map/property_map.hpp>

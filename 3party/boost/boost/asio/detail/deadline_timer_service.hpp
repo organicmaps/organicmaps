@@ -2,7 +2,7 @@
 // detail/deadline_timer_service.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -24,14 +24,10 @@
 #include <boost/asio/detail/noncopyable.hpp>
 #include <boost/asio/detail/socket_ops.hpp>
 #include <boost/asio/detail/socket_types.hpp>
-#include <boost/asio/detail/timer_op.hpp>
 #include <boost/asio/detail/timer_queue.hpp>
 #include <boost/asio/detail/timer_scheduler.hpp>
 #include <boost/asio/detail/wait_handler.hpp>
-
-#include <boost/asio/detail/push_options.hpp>
-#include <boost/date_time/posix_time/posix_time_types.hpp>
-#include <boost/asio/detail/pop_options.hpp>
+#include <boost/asio/detail/wait_op.hpp>
 
 #include <boost/asio/detail/push_options.hpp>
 
@@ -166,12 +162,8 @@ public:
     ec = boost::system::error_code();
     while (Time_Traits::less_than(now, impl.expiry) && !ec)
     {
-      boost::posix_time::time_duration timeout =
-        Time_Traits::to_posix_duration(Time_Traits::subtract(impl.expiry, now));
-      ::timeval tv;
-      tv.tv_sec = timeout.total_seconds();
-      tv.tv_usec = timeout.total_microseconds() % 1000000;
-      socket_ops::select(0, 0, 0, 0, &tv, ec);
+      this->do_wait(Time_Traits::to_posix_duration(
+            Time_Traits::subtract(impl.expiry, now)), ec);
       now = Time_Traits::now();
     }
   }
@@ -196,6 +188,18 @@ public:
   }
 
 private:
+  // Helper function to wait given a duration type. The duration type should
+  // either be of type boost::posix_time::time_duration, or implement the
+  // required subset of its interface.
+  template <typename Duration>
+  void do_wait(const Duration& timeout, boost::system::error_code& ec)
+  {
+    ::timeval tv;
+    tv.tv_sec = timeout.total_seconds();
+    tv.tv_usec = timeout.total_microseconds() % 1000000;
+    socket_ops::select(0, 0, 0, 0, &tv, ec);
+  }
+
   // The queue of timers.
   timer_queue<Time_Traits> timer_queue_;
 

@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -44,11 +44,43 @@ struct equals
 template <typename Type>
 struct equals<Type, true>
 {
+	static inline Type get_max(Type const& a, Type const& b, Type const& c)
+	{
+		return (std::max)((std::max)(a, b), c);
+	}
+
     static inline bool apply(Type const& a, Type const& b)
     {
+		if (a == b)
+		{
+			return true;
+		}
+
         // See http://www.parashift.com/c++-faq-lite/newbie.html#faq-29.17,
         // FUTURE: replace by some boost tool or boost::test::close_at_tolerance
-        return std::abs(a - b) <= std::numeric_limits<Type>::epsilon() * std::abs(a);
+        return std::abs(a - b) <= std::numeric_limits<Type>::epsilon() * get_max(std::abs(a), std::abs(b), 1.0);
+    }
+};
+
+template <typename Type, bool IsFloatingPoint>
+struct smaller
+{
+    static inline bool apply(Type const& a, Type const& b)
+    {
+        return a < b;
+    }
+};
+
+template <typename Type>
+struct smaller<Type, true>
+{
+    static inline bool apply(Type const& a, Type const& b)
+    {
+		if (equals<Type, true>::apply(a, b))
+		{
+			return false;
+		}
+		return a < b;
     }
 };
 
@@ -114,6 +146,28 @@ inline bool equals_with_epsilon(T1 const& a, T2 const& b)
             select_type, 
             boost::is_floating_point<select_type>::type::value
         >::apply(a, b);
+}
+
+template <typename T1, typename T2>
+inline bool smaller(T1 const& a, T2 const& b)
+{
+    typedef typename select_most_precise<T1, T2>::type select_type;
+    return detail::smaller
+        <
+            select_type,
+            boost::is_floating_point<select_type>::type::value
+        >::apply(a, b);
+}
+
+template <typename T1, typename T2>
+inline bool larger(T1 const& a, T2 const& b)
+{
+    typedef typename select_most_precise<T1, T2>::type select_type;
+    return detail::smaller
+        <
+            select_type,
+            boost::is_floating_point<select_type>::type::value
+        >::apply(b, a);
 }
 
 

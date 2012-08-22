@@ -29,6 +29,7 @@
 #include <boost/graph/dijkstra_shortest_paths.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/type_traits/same_traits.hpp>
+#include <boost/concept/assert.hpp>
 
 namespace boost {
 
@@ -44,8 +45,8 @@ namespace boost {
   {
     typedef graph_traits<VertexAndEdgeListGraph> Traits1;
     typedef typename property_traits<Weight>::value_type DT;
-    function_requires< BasicMatrixConcept<DistanceMatrix,
-      typename Traits1::vertices_size_type, DT> >();
+    BOOST_CONCEPT_ASSERT(( BasicMatrixConcept<DistanceMatrix,
+      typename Traits1::vertices_size_type, DT> ));
 
     typedef typename Traits1::directed_category DirCat;
     bool is_undirected = is_same<DirCat, undirected_tag>::value;
@@ -120,8 +121,6 @@ namespace boost {
           (g2, *u, pred, d, w_hat, id2, compare, combine, inf, zero,dvis);
         for (boost::tie(v, v_end) = vertices(g2); v != v_end; ++v) {
           if (*u != s && *v != s) {
-            typename Traits1::vertex_descriptor u1, v1;
-            u1 = verts1[get(id2, *u)]; v1 = verts1[get(id2, *v)];
             D[get(id2, *u)-1][get(id2, *v)-1] = combine(get(d, *v), (get(h, *v) - get(h, *u)));
           }
         }

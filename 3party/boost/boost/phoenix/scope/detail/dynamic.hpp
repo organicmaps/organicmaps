@@ -38,7 +38,7 @@
             typename expression::dynamic_member<                                \
                 mpl::int_<N>                                                    \
               , self_type *                                                     \
-            >::type                                                             \
+            >::type const                                                       \
             BOOST_PP_CAT(member, BOOST_PP_INC(N));                              \
 /**/
 
@@ -75,7 +75,7 @@
 
         template <int N>
         static
-        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type
+        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type const
         init(self_type * scope)
         {
             return

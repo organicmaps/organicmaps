@@ -22,9 +22,13 @@ namespace boost {
     template <class T>
     struct closed_plus
     {
+      const T inf;
+
+      closed_plus() : inf((std::numeric_limits<T>::max)()) { }
+      closed_plus(T inf) : inf(inf) { }
+
       T operator()(const T& a, const T& b) const {
         using namespace std;
-       const T inf = (std::numeric_limits<T>::max)();
        if (a == inf) return inf;
        if (b == inf) return inf;
        return a + b;

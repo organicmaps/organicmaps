@@ -16,7 +16,6 @@
 #include <algorithm>                     // for std::sort and std::stable_sort
 #include <utility>                       // for std::pair
 #include <boost/property_map/property_map.hpp>
-#include <boost/utility.hpp>             // for boost::tie
 #include <boost/graph/graph_traits.hpp>  
 #include <boost/graph/visitors.hpp>
 #include <boost/graph/depth_first_search.hpp>

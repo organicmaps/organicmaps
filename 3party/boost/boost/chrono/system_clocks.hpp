@@ -1,8 +1,8 @@
-//  chrono.hpp  --------------------------------------------------------------//
+//  boost/chrono/system_clocks.hpp  --------------------------------------------------------------//
 
 //  Copyright 2008 Howard Hinnant
 //  Copyright 2008 Beman Dawes
-//  Copyright 2009-2010 Vicente J. Botet Escriba
+//  Copyright 2009-2011 Vicente J. Botet Escriba
 
 //  Distributed under the Boost Software License, Version 1.0.
 //  See http://www.boost.org/LICENSE_1_0.txt
@@ -31,7 +31,6 @@ time2_demo contained this comment:
 TODO:
 
   * Fully implement error handling, with test cases.
-  * Use boost::throw_exception. (Currently not used because of an issue with Intel 11.0.)
   * Consider issues raised by Michael Marcin:
 
     > In the past I've seen QueryPerformanceCounter give incorrect results,
@@ -63,9 +62,15 @@ TODO:
 #include <boost/chrono/duration.hpp>
 #include <boost/chrono/time_point.hpp>
 #include <boost/chrono/detail/system.hpp>
-#include <boost/system/error_code.hpp>
+#include <boost/chrono/clock_string.hpp>
 
 #include <ctime>
+
+# if defined( BOOST_CHRONO_POSIX_API )
+#   if ! defined(CLOCK_REALTIME)
+#     error <time.h> does not supply CLOCK_REALTIME
+#   endif
+# endif
 
 #ifdef BOOST_CHRONO_WINDOWS_API
 // The system_clock tick is 100 nanoseconds
@@ -74,6 +79,7 @@ TODO:
 # define BOOST_SYSTEM_CLOCK_DURATION boost::chrono::nanoseconds
 #endif
 
+// this must occur after all of the includes and before any code appears:
 #ifndef BOOST_CHRONO_HEADER_ONLY
 #include <boost/config/abi_prefix.hpp> // must be the last #include
 #endif
@@ -92,7 +98,7 @@ namespace chrono {
   // Clocks
   class BOOST_CHRONO_DECL system_clock;
 #ifdef BOOST_CHRONO_HAS_CLOCK_STEADY
-  class BOOST_CHRONO_DECL steady_clock; // as permitted by [time.clock.steady]
+  class BOOST_CHRONO_DECL steady_clock;
 #endif
 
 #ifdef BOOST_CHRONO_HAS_CLOCK_STEADY
@@ -125,13 +131,15 @@ namespace chrono {
       typedef duration::rep                        rep;
       typedef duration::period                     period;
       typedef chrono::time_point<system_clock>     time_point;
-      BOOST_CHRONO_STATIC_CONSTEXPR bool is_steady =             false;
+      BOOST_STATIC_CONSTEXPR bool is_steady =             false;
 
-      static BOOST_CHRONO_INLINE time_point  now();                         // throws on error
-      static BOOST_CHRONO_INLINE time_point  now(system::error_code & ec);  // never throws
+      static BOOST_CHRONO_INLINE time_point  now() BOOST_NOEXCEPT;
+#if !defined BOOST_CHRONO_DONT_PROVIDE_HYBRID_ERROR_HANDLING
+      static BOOST_CHRONO_INLINE time_point  now(system::error_code & ec);
+#endif
 
-      static BOOST_CHRONO_INLINE std::time_t to_time_t(const time_point& t);
-      static BOOST_CHRONO_INLINE time_point  from_time_t(std::time_t t);
+      static BOOST_CHRONO_INLINE std::time_t to_time_t(const time_point& t) BOOST_NOEXCEPT;
+      static BOOST_CHRONO_INLINE time_point  from_time_t(std::time_t t) BOOST_NOEXCEPT;
   };
 
 //----------------------------------------------------------------------------//
@@ -149,10 +157,12 @@ namespace chrono {
       typedef duration::rep                        rep;
       typedef duration::period                     period;
       typedef chrono::time_point<steady_clock>  time_point;
-      BOOST_CHRONO_STATIC_CONSTEXPR bool is_steady =             true;
+      BOOST_STATIC_CONSTEXPR bool is_steady =             true;
 
-      static BOOST_CHRONO_INLINE time_point  now();                         // throws on error
-      static BOOST_CHRONO_INLINE time_point  now(system::error_code & ec);  // never throws
+      static BOOST_CHRONO_INLINE time_point  now() BOOST_NOEXCEPT;
+#if !defined BOOST_CHRONO_DONT_PROVIDE_HYBRID_ERROR_HANDLING
+      static BOOST_CHRONO_INLINE time_point  now(system::error_code & ec);
+#endif
   };
 #endif
 //----------------------------------------------------------------------------//
@@ -163,10 +173,58 @@ namespace chrono {
 //  See synopsis.
 
 
+  template<class CharT>
+  struct clock_string<system_clock, CharT>
+  {
+    static std::basic_string<CharT> name()
+    {
+      static const CharT u[] =
+      { 's', 'y', 's', 't', 'e', 'm', '_', 'c', 'l', 'o', 'c', 'k' };
+      static const std::basic_string<CharT> str(u, u + sizeof(u)
+          / sizeof(u[0]));
+      return str;
+    }
+    static std::basic_string<CharT> since()
+    {
+      static const CharT
+          u[] =
+              { ' ', 's', 'i', 'n', 'c', 'e', ' ', 'J', 'a', 'n', ' ', '1', ',', ' ', '1', '9', '7', '0' };
+      static const std::basic_string<CharT> str(u, u + sizeof(u)
+          / sizeof(u[0]));
+      return str;
+    }
+  };
+
+#ifdef BOOST_CHRONO_HAS_CLOCK_STEADY
+
+  template<class CharT>
+  struct clock_string<steady_clock, CharT>
+  {
+    static std::basic_string<CharT> name()
+    {
+      static const CharT
+          u[] =
+              { 's', 't', 'e', 'a', 'd', 'y', '_', 'c', 'l', 'o', 'c', 'k' };
+      static const std::basic_string<CharT> str(u, u + sizeof(u)
+          / sizeof(u[0]));
+      return str;
+    }
+    static std::basic_string<CharT> since()
+    {
+      const CharT u[] =
+      { ' ', 's', 'i', 'n', 'c', 'e', ' ', 'b', 'o', 'o', 't' };
+      const std::basic_string<CharT> str(u, u + sizeof(u) / sizeof(u[0]));
+      return str;
+    }
+  };
+
+#endif
+
 } // namespace chrono
 } // namespace boost
 
 #ifndef BOOST_CHRONO_HEADER_ONLY
+// the suffix header occurs after all of our code:
 #include <boost/config/abi_suffix.hpp> // pops abi_prefix.hpp pragmas
 #else
 #include <boost/chrono/detail/inlined/chrono.hpp>

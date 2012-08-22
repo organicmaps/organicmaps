@@ -21,6 +21,7 @@
 #include <boost/version.hpp>
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/graph_concepts.hpp>
+#include <boost/concept/assert.hpp>
 
 #if BOOST_VERSION >= 103500
 #  include <boost/concept/detail/concept_def.hpp>
@@ -46,10 +47,10 @@ struct DistributedVertexListGraphConcept
   typedef typename graph_traits<G>::traversal_category
     traversal_category;
   void constraints() {
-    function_requires< GraphConcept<G> >();
-    function_requires< MultiPassInputIteratorConcept<vertex_iterator> >();
-    function_requires< ConvertibleConcept<traversal_category,
-      distributed_vertex_list_graph_tag> >();
+    BOOST_CONCEPT_ASSERT(( GraphConcept<G> ));
+    BOOST_CONCEPT_ASSERT(( MultiPassInputIteratorConcept<vertex_iterator> ));
+    BOOST_CONCEPT_ASSERT(( ConvertibleConcept<traversal_category,
+      distributed_vertex_list_graph_tag> ));
 
 #ifdef BOOST_VECTOR_AS_GRAPH_GRAPH_ADL_HACK
     // dwa 2003/7/11 -- This clearly shouldn't be necessary, but if
@@ -92,13 +93,13 @@ struct DistributedEdgeListGraphConcept
   typedef typename graph_traits<G>::traversal_category
     traversal_category;
   void constraints() {
-    function_requires< GraphConcept<G> >();
-    function_requires< MultiPassInputIteratorConcept<edge_iterator> >();
-    function_requires< DefaultConstructibleConcept<edge_descriptor> >();
-    function_requires< EqualityComparableConcept<edge_descriptor> >();
-    function_requires< AssignableConcept<edge_descriptor> >();
-    function_requires< ConvertibleConcept<traversal_category,
-      distributed_edge_list_graph_tag> >();
+    BOOST_CONCEPT_ASSERT(( GraphConcept<G> ));
+    BOOST_CONCEPT_ASSERT(( MultiPassInputIteratorConcept<edge_iterator> ));
+    BOOST_CONCEPT_ASSERT(( DefaultConstructibleConcept<edge_descriptor> ));
+    BOOST_CONCEPT_ASSERT(( EqualityComparableConcept<edge_descriptor> ));
+    BOOST_CONCEPT_ASSERT(( AssignableConcept<edge_descriptor> ));
+    BOOST_CONCEPT_ASSERT(( ConvertibleConcept<traversal_category,
+      distributed_edge_list_graph_tag> ));
 
     p = edges(g);
     e = *p.first;

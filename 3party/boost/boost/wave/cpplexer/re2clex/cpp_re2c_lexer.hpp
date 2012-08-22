@@ -5,7 +5,7 @@
 
     http://www.boost.org/
 
-    Copyright (c) 2001-2011 Hartmut Kaiser. Distributed under the Boost
+    Copyright (c) 2001-2012 Hartmut Kaiser. Distributed under the Boost
     Software License, Version 1.0. (See accompanying file
     LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
@@ -219,7 +219,7 @@ lexer<IteratorT, PositionT, TokenT>::get(TokenT& result)
       }
 #endif
 
-    case T_LONGINTLIT:  // supported in C++0x, C99 and long_long mode
+    case T_LONGINTLIT:  // supported in C++11, C99 and long_long mode
         value = string_type((char const *)scanner.tok, 
             scanner.cur-scanner.tok);
         if (!boost::wave::need_long_long(language)) {

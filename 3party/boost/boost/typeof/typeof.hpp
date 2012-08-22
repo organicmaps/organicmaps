@@ -155,7 +155,22 @@
 #   else
 #       error native typeof is not supported
 #   endif
-
+#elif defined(__SUNPRO_CC)
+#   if (__SUNPRO_CC < 0x590 )
+#     ifdef BOOST_TYPEOF_NATIVE
+#         error native typeof is not supported
+#     endif
+#     ifndef BOOST_TYPEOF_EMULATION
+#         define BOOST_TYPEOF_EMULATION
+#     endif
+#   else
+#     ifndef BOOST_TYPEOF_EMULATION
+#         ifndef BOOST_TYPEOF_NATIVE
+#             define BOOST_TYPEOF_NATIVE
+#         endif
+#         define BOOST_TYPEOF_KEYWORD __typeof__
+#     endif
+#   endif
 #else //unknown compiler
 #   ifndef BOOST_TYPEOF_NATIVE
 #       ifndef BOOST_TYPEOF_EMULATION

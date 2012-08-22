@@ -1,6 +1,6 @@
 //  boost/chrono/process_cpu_clocks.hpp  -----------------------------------------------------------//
 
-//  Copyright 2009-2010 Vicente J. Botet Escriba
+//  Copyright 2009-2011 Vicente J. Botet Escriba
 
 //  Distributed under the Boost Software License, Version 1.0.
 //  See http://www.boost.org/LICENSE_1_0.txt
@@ -10,13 +10,18 @@
 #ifndef BOOST_CHRONO_PROCESS_CPU_CLOCKS_HPP
 #define BOOST_CHRONO_PROCESS_CPU_CLOCKS_HPP
 
+#include <boost/chrono/config.hpp>
+
+
+#if defined(BOOST_CHRONO_HAS_PROCESS_CLOCKS)
+
 #include <boost/chrono/duration.hpp>
 #include <boost/chrono/time_point.hpp>
-#include <boost/system/error_code.hpp>
 #include <boost/operators.hpp>
 #include <boost/chrono/detail/system.hpp>
 #include <iostream>
-
+#include <boost/type_traits/common_type.hpp>
+#include <boost/chrono/clock_string.hpp>
 
 #ifndef BOOST_CHRONO_HEADER_ONLY
 #include <boost/config/abi_prefix.hpp> // must be the last #include
@@ -30,10 +35,12 @@ namespace boost { namespace chrono {
         typedef duration::rep                        rep;
         typedef duration::period                     period;
         typedef chrono::time_point<process_real_cpu_clock>    time_point;
-        BOOST_CHRONO_STATIC_CONSTEXPR bool is_steady =             true;
+        BOOST_STATIC_CONSTEXPR bool is_steady =             true;
 
-        static BOOST_CHRONO_INLINE time_point now(
-                system::error_code & ec = BOOST_CHRONO_THROWS );
+        static BOOST_CHRONO_INLINE time_point now() BOOST_NOEXCEPT;
+#if !defined BOOST_CHRONO_DONT_PROVIDE_HYBRID_ERROR_HANDLING
+        static BOOST_CHRONO_INLINE time_point now(system::error_code & ec );
+#endif
     };
 
     class BOOST_CHRONO_DECL process_user_cpu_clock {
@@ -42,10 +49,12 @@ namespace boost { namespace chrono {
         typedef duration::rep                        rep;
         typedef duration::period                     period;
         typedef chrono::time_point<process_user_cpu_clock>    time_point;
-        BOOST_CHRONO_STATIC_CONSTEXPR bool is_steady =             true;
+        BOOST_STATIC_CONSTEXPR bool is_steady =             true;
 
-        static BOOST_CHRONO_INLINE time_point now( 
-                system::error_code & ec = BOOST_CHRONO_THROWS );
+        static BOOST_CHRONO_INLINE time_point now() BOOST_NOEXCEPT;
+#if !defined BOOST_CHRONO_DONT_PROVIDE_HYBRID_ERROR_HANDLING
+        static BOOST_CHRONO_INLINE time_point now(system::error_code & ec );
+#endif
     };
 
     class BOOST_CHRONO_DECL process_system_cpu_clock {
@@ -54,86 +63,107 @@ namespace boost { namespace chrono {
         typedef duration::rep                        rep;
         typedef duration::period                     period;
         typedef chrono::time_point<process_system_cpu_clock>    time_point;
-        BOOST_CHRONO_STATIC_CONSTEXPR bool is_steady =             true;
+        BOOST_STATIC_CONSTEXPR bool is_steady =             true;
 
-        static BOOST_CHRONO_INLINE time_point now( 
-                system::error_code & ec = BOOST_CHRONO_THROWS );
+        static BOOST_CHRONO_INLINE time_point now() BOOST_NOEXCEPT;
+#if !defined BOOST_CHRONO_DONT_PROVIDE_HYBRID_ERROR_HANDLING
+        static BOOST_CHRONO_INLINE time_point now(system::error_code & ec );
+#endif
     };
 
-        struct process_cpu_clock_times 
-            : arithmetic<process_cpu_clock_times, 
-            multiplicative<process_cpu_clock_times, process_real_cpu_clock::rep, 
-            less_than_comparable<process_cpu_clock_times> > >
+        template <typename Rep>
+        struct process_times
+            : arithmetic<process_times<Rep>,
+            multiplicative<process_times<Rep>, Rep,
+            less_than_comparable<process_times<Rep> > > >
         {
-            typedef process_real_cpu_clock::rep rep;
-            process_cpu_clock_times()
+              //typedef process_real_cpu_clock::rep rep;
+              typedef Rep rep;
+            process_times()
                 : real(0)
                 , user(0)
                 , system(0){}
-            process_cpu_clock_times(
-                process_real_cpu_clock::rep r,
-                process_user_cpu_clock::rep   u,
-                process_system_cpu_clock::rep s)
+            template <typename Rep2>
+            explicit process_times(
+                Rep2 r)
+                : real(r)
+                , user(r)
+                , system(r){}
+            template <typename Rep2>
+            explicit process_times(
+                process_times<Rep2> const& rhs)
+                : real(rhs.real)
+                , user(rhs.user)
+                , system(rhs.system){}
+            process_times(
+                rep r,
+                rep u,
+                rep s)
                 : real(r)
                 , user(u)
                 , system(s){}
 
-            process_real_cpu_clock::rep   real;    // real (i.e wall clock) time
-            process_user_cpu_clock::rep   user;    // user cpu time
-            process_system_cpu_clock::rep system;  // system cpu time
+            rep   real;    // real (i.e wall clock) time
+            rep   user;    // user cpu time
+            rep system;  // system cpu time
 
-            bool operator==(process_cpu_clock_times const& rhs) {
+            operator rep() const
+            {
+              return real;
+            }
+            template <typename Rep2>
+            bool operator==(process_times<Rep2> const& rhs) {
                 return (real==rhs.real &&
                         user==rhs.user &&
                         system==rhs.system);
             }
 
-            process_cpu_clock_times operator+=(
-                    process_cpu_clock_times const& rhs) 
+            process_times& operator+=(
+                process_times const& rhs)
             {
                 real+=rhs.real;
                 user+=rhs.user;
                 system+=rhs.system;
                 return *this;
             }
-            process_cpu_clock_times operator-=(
-                    process_cpu_clock_times const& rhs) 
+            process_times& operator-=(
+                process_times const& rhs)
             {
                 real-=rhs.real;
                 user-=rhs.user;
                 system-=rhs.system;
                 return *this;
             }
-            process_cpu_clock_times operator*=(
-                    process_cpu_clock_times const& rhs) 
+            process_times& operator*=(
+                process_times const& rhs)
             {
                 real*=rhs.real;
                 user*=rhs.user;
                 system*=rhs.system;
                 return *this;
             }
-            process_cpu_clock_times operator*=(rep const& rhs) 
+            process_times& operator*=(rep const& rhs)
             {
                 real*=rhs;
                 user*=rhs;
                 system*=rhs;
                 return *this;
             }
-            process_cpu_clock_times operator/=(process_cpu_clock_times const& rhs) 
+            process_times& operator/=(process_times const& rhs)
             {
                 real/=rhs.real;
                 user/=rhs.user;
                 system/=rhs.system;
                 return *this;
             }
-            process_cpu_clock_times operator/=(rep const& rhs) 
+            process_times& operator/=(rep const& rhs)
             {
                 real/=rhs;
                 user/=rhs;
                 system/=rhs;
                 return *this;
             }
-            bool operator<(process_cpu_clock_times const & rhs) const 
+            bool operator<(process_times const & rhs) const
             {
                 if (real < rhs.real) return true;
                 if (real > rhs.real) return false;
@@ -144,13 +174,13 @@ namespace boost { namespace chrono {
             }
 
             template <class CharT, class Traits>
-            void print(std::basic_ostream<CharT, Traits>& os) const 
+            void print(std::basic_ostream<CharT, Traits>& os) const
             {
                 os <<  "{"<< real <<";"<< user <<";"<< system << "}";
             }
 
             template <class CharT, class Traits>
-            void read(std::basic_istream<CharT, Traits>& is) const 
+            void read(std::basic_istream<CharT, Traits>& is) const
             {
                 typedef std::istreambuf_iterator<CharT, Traits> in_iterator;
                 in_iterator i(is);
@@ -168,7 +198,100 @@ namespace boost { namespace chrono {
                 }
             }
         };
+}
+template <class Rep1, class Rep2>
+struct common_type<
+  chrono::process_times<Rep1>,
+  chrono::process_times<Rep2>
+>
+{
+  typedef chrono::process_times<typename common_type<Rep1, Rep2>::type> type;
+};
 
+template <class Rep1, class Rep2>
+struct common_type<
+  chrono::process_times<Rep1>,
+  Rep2
+>
+{
+  typedef chrono::process_times<typename common_type<Rep1, Rep2>::type> type;
+};
+
+template <class Rep1, class Rep2>
+struct common_type<
+  Rep1,
+  chrono::process_times<Rep2>
+>
+{
+  typedef chrono::process_times<typename common_type<Rep1, Rep2>::type> type;
+};
+
+
+namespace chrono
+{
+  template <class Rep1, class Period1, class Rep2, class Period2>
+  inline BOOST_CONSTEXPR
+  bool
+  operator==(const duration<process_times<Rep1>, Period1>& lhs,
+        const duration<process_times<Rep2>, Period2>& rhs)
+  {
+      return boost::chrono::detail::duration_eq<
+          duration<process_times<Rep1>, Period1>, duration<process_times<Rep2>, Period2> >()(lhs, rhs);
+  }
+
+  template <class Rep1, class Period1, class Rep2, class Period2>
+  inline BOOST_CONSTEXPR
+  bool
+  operator==(const duration<process_times<Rep1>, Period1>& lhs,
+        const duration<Rep2, Period2>& rhs)
+  {
+      return boost::chrono::detail::duration_eq<
+          duration<Rep1, Period1>, duration<Rep2, Period2> >()(duration<Rep1, Period1>(lhs.count().real), rhs);
+  }
+
+  template <class Rep1, class Period1, class Rep2, class Period2>
+  inline BOOST_CONSTEXPR
+  bool
+  operator==(const duration<Rep1, Period1>& lhs,
+        const duration<process_times<Rep2>, Period2>& rhs)
+  {
+      return rhs == lhs;
+  }
+
+
+  // Duration <
+
+  template <class Rep1, class Period1, class Rep2, class Period2>
+  inline BOOST_CONSTEXPR
+  bool
+  operator< (const duration<process_times<Rep1>, Period1>& lhs,
+        const duration<Rep2, Period2>& rhs)
+  {
+      return boost::chrono::detail::duration_lt<
+        duration<Rep1, Period1>, duration<Rep2, Period2> >()(duration<Rep1, Period1>(lhs.count().real), rhs);
+  }
+
+  template <class Rep1, class Period1, class Rep2, class Period2>
+  inline BOOST_CONSTEXPR
+  bool
+  operator< (const duration<Rep1, Period1>& lhs,
+        const duration<process_times<Rep2>, Period2>& rhs)
+  {
+    return rhs < lhs;
+  }
+
+  template <class Rep1, class Period1, class Rep2, class Period2>
+  inline BOOST_CONSTEXPR
+  bool
+  operator< (const duration<process_times<Rep1>, Period1>& lhs,
+        const duration<process_times<Rep2>, Period2>& rhs)
+  {
+    return boost::chrono::detail::duration_lt<
+      duration<Rep1, Period1>, duration<Rep2, Period2> >()(lhs, rhs);
+  }
+
+
+  typedef process_times<nanoseconds::rep> process_cpu_clock_times;
     class BOOST_CHRONO_DECL process_cpu_clock
     {
     public:
@@ -178,51 +301,140 @@ namespace boost { namespace chrono {
         typedef duration::rep                       rep;
         typedef duration::period                    period;
         typedef chrono::time_point<process_cpu_clock>  time_point;
-        BOOST_CHRONO_STATIC_CONSTEXPR bool is_steady =           true;
+        BOOST_STATIC_CONSTEXPR bool is_steady =           true;
 
-        static BOOST_CHRONO_INLINE time_point now( 
-                system::error_code & ec = BOOST_CHRONO_THROWS );
+        static BOOST_CHRONO_INLINE time_point now() BOOST_NOEXCEPT;
+#if !defined BOOST_CHRONO_DONT_PROVIDE_HYBRID_ERROR_HANDLING
+        static BOOST_CHRONO_INLINE time_point now(system::error_code & ec );
+#endif
     };
 
-    template <class CharT, class Traits>
-    std::basic_ostream<CharT, Traits>& 
-    operator<<(std::basic_ostream<CharT, Traits>& os, 
-            process_cpu_clock_times const& rhs) 
+    template <class CharT, class Traits, typename Rep>
+    std::basic_ostream<CharT, Traits>&
+    operator<<(std::basic_ostream<CharT, Traits>& os,
+        process_times<Rep> const& rhs)
     {
         rhs.print(os);
         return os;
     }
 
-    template <class CharT, class Traits>
-    std::basic_istream<CharT, Traits>& 
-    operator>>(std::basic_istream<CharT, Traits>& is, 
-            process_cpu_clock_times const& rhs) 
+    template <class CharT, class Traits, typename Rep>
+    std::basic_istream<CharT, Traits>&
+    operator>>(std::basic_istream<CharT, Traits>& is,
+        process_times<Rep> const& rhs)
     {
         rhs.read(is);
         return is;
     }
 
-    template <>
-    struct duration_values<process_cpu_clock_times>
+    template <typename Rep>
+    struct duration_values<process_times<Rep> >
     {
-        typedef process_cpu_clock_times Rep;
+        typedef process_times<Rep> Res;
     public:
-        static Rep zero() 
+        static Res zero()
         {
-            return Rep();
+            return Res();
         }
-        static Rep max BOOST_PREVENT_MACRO_SUBSTITUTION ()  
+        static Res max BOOST_PREVENT_MACRO_SUBSTITUTION ()
         {
-          return Rep((std::numeric_limits<process_real_cpu_clock::rep>::max)(),
-                      (std::numeric_limits<process_user_cpu_clock::rep>::max)(),
-                      (std::numeric_limits<process_system_cpu_clock::rep>::max)());
+          return Res((std::numeric_limits<Rep>::max)(),
+                      (std::numeric_limits<Rep>::max)(),
+                      (std::numeric_limits<Rep>::max)());
         }
-        static Rep min BOOST_PREVENT_MACRO_SUBSTITUTION ()  
+        static Res min BOOST_PREVENT_MACRO_SUBSTITUTION ()
         {
-          return Rep((std::numeric_limits<process_real_cpu_clock::rep>::min)(),
-                      (std::numeric_limits<process_user_cpu_clock::rep>::min)(),
-                      (std::numeric_limits<process_system_cpu_clock::rep>::min)());
+          return Res((std::numeric_limits<Rep>::min)(),
+                      (std::numeric_limits<Rep>::min)(),
+                      (std::numeric_limits<Rep>::min)());
         }
+    };
+
+    template<class CharT>
+    struct clock_string<process_real_cpu_clock, CharT>
+    {
+      static std::basic_string<CharT> name()
+      {
+        static const CharT
+            u[] =
+                { 'p', 'r', 'o', 'c', 'e', 's', 's', '_', 'r', 'e', 'a', 'l', '_', 'c', 'l', 'o', 'c', 'k' };
+        static const std::basic_string<CharT> str(u, u + sizeof(u)
+            / sizeof(u[0]));
+        return str;
+      }
+      static std::basic_string<CharT> since()
+      {
+        const CharT
+            u[] =
+                { ' ', 's', 'i', 'n', 'c', 'e', ' ', 'p', 'r', 'o', 'c', 'e', 's', 's', ' ', 's', 't', 'a', 'r', 't', '-', 'u', 'p' };
+        const std::basic_string<CharT> str(u, u + sizeof(u) / sizeof(u[0]));
+        return str;
+      }
+    };
+
+    template<class CharT>
+    struct clock_string<process_user_cpu_clock, CharT>
+    {
+      static std::basic_string<CharT> name()
+      {
+        static const CharT
+            u[] =
+                { 'p', 'r', 'o', 'c', 'e', 's', 's', '_', 'u', 's', 'e', 'r', '_', 'c', 'l', 'o', 'c', 'k' };
+        static const std::basic_string<CharT> str(u, u + sizeof(u)
+            / sizeof(u[0]));
+        return str;
+      }
+      static std::basic_string<CharT> since()
+      {
+        const CharT
+            u[] =
+                { ' ', 's', 'i', 'n', 'c', 'e', ' ', 'p', 'r', 'o', 'c', 'e', 's', 's', ' ', 's', 't', 'a', 'r', 't', '-', 'u', 'p' };
+        const std::basic_string<CharT> str(u, u + sizeof(u) / sizeof(u[0]));
+        return str;
+      }
+    };
+
+    template<class CharT>
+    struct clock_string<process_system_cpu_clock, CharT>
+    {
+      static std::basic_string<CharT> name()
+      {
+        static const CharT
+            u[] =
+                { 'p', 'r', 'o', 'c', 'e', 's', 's', '_', 's', 'y', 's', 't', 't', 'e', 'm', '_', 'c', 'l', 'o', 'c', 'k' };
+        static const std::basic_string<CharT> str(u, u + sizeof(u)
+            / sizeof(u[0]));
+        return str;
+      }
+      static std::basic_string<CharT> since()
+      {
+        const CharT
+            u[] =
+                { ' ', 's', 'i', 'n', 'c', 'e', ' ', 'p', 'r', 'o', 'c', 'e', 's', 's', ' ', 's', 't', 'a', 'r', 't', '-', 'u', 'p' };
+        const std::basic_string<CharT> str(u, u + sizeof(u) / sizeof(u[0]));
+        return str;
+      }
+    };
+
+    template<class CharT>
+    struct clock_string<process_cpu_clock, CharT>
+    {
+      static std::basic_string<CharT> name()
+      {
+        static const CharT u[] =
+        { 'p', 'r', 'o', 'c', 'e', 's', 's', '_', 'c', 'l', 'o', 'c', 'k' };
+        static const std::basic_string<CharT> str(u, u + sizeof(u)
+            / sizeof(u[0]));
+        return str;
+      }
+      static std::basic_string<CharT> since()
+      {
+        const CharT
+            u[] =
+                { ' ', 's', 'i', 'n', 'c', 'e', ' ', 'p', 'r', 'o', 'c', 'e', 's', 's', ' ', 's', 't', 'a', 'r', 't', '-', 'u', 'p' };
+        const std::basic_string<CharT> str(u, u + sizeof(u) / sizeof(u[0]));
+        return str;
+      }
     };
 
 } // namespace chrono
@@ -230,44 +442,41 @@ namespace boost { namespace chrono {
 
 namespace std {
 
-    template <>
-    class numeric_limits<boost::chrono::process_cpu_clock::times>
+    template <typename Rep>
+    struct numeric_limits<boost::chrono::process_times<Rep> >
     {
-        typedef boost::chrono::process_cpu_clock::times Rep;
+        typedef boost::chrono::process_times<Rep> Res;
 
         public:
         static const bool is_specialized = true;
-        static Rep min BOOST_PREVENT_MACRO_SUBSTITUTION ()  
+        static Res min BOOST_PREVENT_MACRO_SUBSTITUTION ()
         {
-          return Rep((std::numeric_limits<boost::chrono::process_real_cpu_clock::rep>::min)(),
-                      (std::numeric_limits<boost::chrono::process_user_cpu_clock::rep>::min)(),
-                      (std::numeric_limits<boost::chrono::process_system_cpu_clock::rep>::min)());
+          return Res((std::numeric_limits<Rep>::min)(),
+                      (std::numeric_limits<Rep>::min)(),
+                      (std::numeric_limits<Rep>::min)());
         }
-        static Rep max BOOST_PREVENT_MACRO_SUBSTITUTION ()  
+        static Res max BOOST_PREVENT_MACRO_SUBSTITUTION ()
         {
-          return Rep((std::numeric_limits<boost::chrono::process_real_cpu_clock::rep>::max)(),
-                      (std::numeric_limits<boost::chrono::process_user_cpu_clock::rep>::max)(),
-                      (std::numeric_limits<boost::chrono::process_system_cpu_clock::rep>::max)());
+          return Res((std::numeric_limits<Rep>::max)(),
+                      (std::numeric_limits<Rep>::max)(),
+                      (std::numeric_limits<Rep>::max)());
         }
-        static Rep lowest() throw() 
-        { 
-            return (min)(); 
+        static Res lowest() throw()
+        {
+            return (min)();
         }
-        static const int digits = std::numeric_limits<boost::chrono::process_real_cpu_clock::rep>::digits+
-                        std::numeric_limits<boost::chrono::process_user_cpu_clock::rep>::digits+
-                        std::numeric_limits<boost::chrono::process_system_cpu_clock::rep>::digits;
-        static const int digits10 = std::numeric_limits<boost::chrono::process_real_cpu_clock::rep>::digits10+
-                        std::numeric_limits<boost::chrono::process_user_cpu_clock::rep>::digits10+
-                        std::numeric_limits<boost::chrono::process_system_cpu_clock::rep>::digits10;
-        //~ static const int max_digits10 = std::numeric_limits<boost::chrono::process_real_cpu_clock::rep>::max_digits10+
-                        //~ std::numeric_limits<boost::chrono::process_user_cpu_clock::rep>::max_digits10+
-                        //~ std::numeric_limits<boost::chrono::process_system_cpu_clock::rep>::max_digits10;
-        static const bool is_signed = false;
-        static const bool is_integer = true;
-        static const bool is_exact = true;
+        static const int digits = std::numeric_limits<Rep>::digits+
+                        std::numeric_limits<Rep>::digits+
+                        std::numeric_limits<Rep>::digits;
+        static const int digits10 = std::numeric_limits<Rep>::digits10+
+                        std::numeric_limits<Rep>::digits10+
+                        std::numeric_limits<Rep>::digits10;
+        static const bool is_signed = Rep::is_signed;
+        static const bool is_integer = Rep::is_integer;
+        static const bool is_exact = Rep::is_exact;
         static const int radix = 0;
-        //~ static Rep epsilon() throw() { return 0; }
-        //~ static Rep round_error() throw() { return 0; }
+        //~ static Res epsilon() throw() { return 0; }
+        //~ static Res round_error() throw() { return 0; }
         //~ static const int min_exponent = 0;
         //~ static const int min_exponent10 = 0;
         //~ static const int max_exponent = 0;
@@ -277,10 +486,10 @@ namespace std {
         //~ static const bool has_signaling_NaN = false;
         //~ static const float_denorm_style has_denorm = denorm_absent;
         //~ static const bool has_denorm_loss = false;
-        //~ static Rep infinity() throw() { return 0; }
-        //~ static Rep quiet_NaN() throw() { return 0; }
-        //~ static Rep signaling_NaN() throw() { return 0; }
-        //~ static Rep denorm_min() throw() { return 0; }
+        //~ static Res infinity() throw() { return 0; }
+        //~ static Res quiet_NaN() throw() { return 0; }
+        //~ static Res signaling_NaN() throw() { return 0; }
+        //~ static Res denorm_min() throw() { return 0; }
         //~ static const bool is_iec559 = false;
         //~ static const bool is_bounded = true;
         //~ static const bool is_modulo = false;
@@ -295,6 +504,7 @@ namespace std {
 #include <boost/config/abi_suffix.hpp> // pops abi_prefix.hpp pragmas
 #else
 #include <boost/chrono/detail/inlined/process_cpu_clocks.hpp>
+#endif
 #endif
 
 #endif  // BOOST_CHRONO_PROCESS_CPU_CLOCKS_HPP

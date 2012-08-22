@@ -44,6 +44,7 @@
                 typedef typename detail::expr_traits<typename Expr::proto_child0>::reference type;
                 
                 
+                BOOST_FORCEINLINE
                 static type call(Expr &e)
                 {
                     return e.proto_base().child0;
@@ -65,6 +66,7 @@
                 typedef typename detail::expr_traits<typename Expr::proto_child0>::const_reference type;
                 
                 
+                BOOST_FORCEINLINE
                 static type call(Expr const &e)
                 {
                     return e.proto_base().child0;
@@ -184,6 +186,7 @@
                 typedef typename detail::expr_traits<typename Expr::proto_child1>::reference type;
                 
                 
+                BOOST_FORCEINLINE
                 static type call(Expr &e)
                 {
                     return e.proto_base().child1;
@@ -205,6 +208,7 @@
                 typedef typename detail::expr_traits<typename Expr::proto_child1>::const_reference type;
                 
                 
+                BOOST_FORCEINLINE
                 static type call(Expr const &e)
                 {
                     return e.proto_base().child1;
@@ -324,6 +328,7 @@
                 typedef typename detail::expr_traits<typename Expr::proto_child2>::reference type;
                 
                 
+                BOOST_FORCEINLINE
                 static type call(Expr &e)
                 {
                     return e.proto_base().child2;
@@ -345,6 +350,7 @@
                 typedef typename detail::expr_traits<typename Expr::proto_child2>::const_reference type;
                 
                 
+                BOOST_FORCEINLINE
                 static type call(Expr const &e)
                 {
                     return e.proto_base().child2;
@@ -464,6 +470,7 @@
                 typedef typename detail::expr_traits<typename Expr::proto_child3>::reference type;
                 
                 
+                BOOST_FORCEINLINE
                 static type call(Expr &e)
                 {
                     return e.proto_base().child3;
@@ -485,6 +492,7 @@
                 typedef typename detail::expr_traits<typename Expr::proto_child3>::const_reference type;
                 
                 
+                BOOST_FORCEINLINE
                 static type call(Expr const &e)
                 {
                     return e.proto_base().child3;
@@ -604,6 +612,7 @@
                 typedef typename detail::expr_traits<typename Expr::proto_child4>::reference type;
                 
                 
+                BOOST_FORCEINLINE
                 static type call(Expr &e)
                 {
                     return e.proto_base().child4;
@@ -625,6 +634,7 @@
                 typedef typename detail::expr_traits<typename Expr::proto_child4>::const_reference type;
                 
                 
+                BOOST_FORCEINLINE
                 static type call(Expr const &e)
                 {
                     return e.proto_base().child4;
@@ -744,6 +754,7 @@
                 typedef typename detail::expr_traits<typename Expr::proto_child5>::reference type;
                 
                 
+                BOOST_FORCEINLINE
                 static type call(Expr &e)
                 {
                     return e.proto_base().child5;
@@ -765,6 +776,7 @@
                 typedef typename detail::expr_traits<typename Expr::proto_child5>::const_reference type;
                 
                 
+                BOOST_FORCEINLINE
                 static type call(Expr const &e)
                 {
                     return e.proto_base().child5;
@@ -884,6 +896,7 @@
                 typedef typename detail::expr_traits<typename Expr::proto_child6>::reference type;
                 
                 
+                BOOST_FORCEINLINE
                 static type call(Expr &e)
                 {
                     return e.proto_base().child6;
@@ -905,6 +918,7 @@
                 typedef typename detail::expr_traits<typename Expr::proto_child6>::const_reference type;
                 
                 
+                BOOST_FORCEINLINE
                 static type call(Expr const &e)
                 {
                     return e.proto_base().child6;
@@ -1024,6 +1038,7 @@
                 typedef typename detail::expr_traits<typename Expr::proto_child7>::reference type;
                 
                 
+                BOOST_FORCEINLINE
                 static type call(Expr &e)
                 {
                     return e.proto_base().child7;
@@ -1045,6 +1060,7 @@
                 typedef typename detail::expr_traits<typename Expr::proto_child7>::const_reference type;
                 
                 
+                BOOST_FORCEINLINE
                 static type call(Expr const &e)
                 {
                     return e.proto_base().child7;
@@ -1164,6 +1180,7 @@
                 typedef typename detail::expr_traits<typename Expr::proto_child8>::reference type;
                 
                 
+                BOOST_FORCEINLINE
                 static type call(Expr &e)
                 {
                     return e.proto_base().child8;
@@ -1185,6 +1202,7 @@
                 typedef typename detail::expr_traits<typename Expr::proto_child8>::const_reference type;
                 
                 
+                BOOST_FORCEINLINE
                 static type call(Expr const &e)
                 {
                     return e.proto_base().child8;
@@ -1304,6 +1322,7 @@
                 typedef typename detail::expr_traits<typename Expr::proto_child9>::reference type;
                 
                 
+                BOOST_FORCEINLINE
                 static type call(Expr &e)
                 {
                     return e.proto_base().child9;
@@ -1325,6 +1344,7 @@
                 typedef typename detail::expr_traits<typename Expr::proto_child9>::const_reference type;
                 
                 
+                BOOST_FORCEINLINE
                 static type call(Expr const &e)
                 {
                     return e.proto_base().child9;
@@ -1435,6 +1455,7 @@
                 typedef typename detail::expr_traits<typename Expr::proto_child10>::reference type;
                 
                 
+                BOOST_FORCEINLINE
                 static type call(Expr &e)
                 {
                     return e.proto_base().child10;
@@ -1456,6 +1477,7 @@
                 typedef typename detail::expr_traits<typename Expr::proto_child10>::const_reference type;
                 
                 
+                BOOST_FORCEINLINE
                 static type call(Expr const &e)
                 {
                     return e.proto_base().child10;

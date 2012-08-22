@@ -5,7 +5,7 @@
     
     http://www.boost.org/
 
-    Copyright (c) 2001-2011 Hartmut Kaiser. Distributed under the Boost
+    Copyright (c) 2001-2012 Hartmut Kaiser. Distributed under the Boost
     Software License, Version 1.0. (See accompanying file
     LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
@@ -224,7 +224,7 @@ namespace util {
         }
 
 #if BOOST_WAVE_SUPPORT_CPP0X != 0
-    // C++0x mode 
+    // C++11 mode 
         static_macros const& static_data_cpp0x(std::size_t i) const
         {
         static static_macros data[] = {

@@ -50,6 +50,7 @@
         typedef proto::expr<Tag, src_args, N> src_type;
         typedef proto::expr<Tag, dst_args, N> type;
 
+        BOOST_FORCEINLINE
         static type const call(src_type const &e)
         {
             type that = {
@@ -77,6 +78,7 @@
         typedef proto::basic_expr<Tag, src_args, N> src_type;
         typedef proto::basic_expr<Tag, dst_args, N> type;
 
+        BOOST_FORCEINLINE
         static type const call(src_type const &e)
         {
             type that = {

@@ -11,7 +11,7 @@
 
 #include <boost/proto/proto_fwd.hpp>
 
-namespace boost { namespace proto { namespace tag
+namespace boost { namespace proto { namespace tagns_ { namespace tag
 {
 
     /// Tag type for terminals; aka, leaves in the expression tree.
@@ -152,6 +152,6 @@ namespace boost { namespace proto { namespace tag
     /// Tag type for the n-ary function call operator.
     struct function {};
 
-}}}
+}}}}
 
 #endif

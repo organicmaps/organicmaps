@@ -34,6 +34,7 @@
 #include <boost/graph/named_function_params.hpp>
 #include <boost/graph/graph_concepts.hpp>
 #include <boost/graph/relax.hpp>
+#include <boost/concept/assert.hpp>
 
 namespace boost
 {
@@ -84,7 +85,7 @@ namespace boost
     const BinaryFunction& combine, const Infinity& inf, 
     const Zero& zero)
   {
-    function_requires<VertexListGraphConcept<VertexListGraph> >();
+    BOOST_CONCEPT_ASSERT(( VertexListGraphConcept<VertexListGraph> ));
   
     return detail::floyd_warshall_dispatch(g, d, compare, combine, 
     inf, zero);
@@ -101,9 +102,9 @@ namespace boost
     const BinaryPredicate& compare, const BinaryFunction& combine, 
     const Infinity& inf, const Zero& zero)
   {
-    function_requires<VertexListGraphConcept<VertexAndEdgeListGraph> >();
-    function_requires<EdgeListGraphConcept<VertexAndEdgeListGraph> >();
-    function_requires<IncidenceGraphConcept<VertexAndEdgeListGraph> >();
+    BOOST_CONCEPT_ASSERT(( VertexListGraphConcept<VertexAndEdgeListGraph> ));
+    BOOST_CONCEPT_ASSERT(( EdgeListGraphConcept<VertexAndEdgeListGraph> ));
+    BOOST_CONCEPT_ASSERT(( IncidenceGraphConcept<VertexAndEdgeListGraph> ));
   
     typename graph_traits<VertexAndEdgeListGraph>::vertex_iterator 
       firstv, lastv, firstv2, lastv2;
@@ -163,14 +164,16 @@ namespace boost
       const bgl_named_params<P, T, R>& params)
     {
       typedef typename property_traits<WeightMap>::value_type WM;
+      WM inf =
+        choose_param(get_param(params, distance_inf_t()), 
+          std::numeric_limits<WM>::max BOOST_PREVENT_MACRO_SUBSTITUTION());
     
       return floyd_warshall_initialized_all_pairs_shortest_paths(g, d,
         choose_param(get_param(params, distance_compare_t()), 
           std::less<WM>()),
         choose_param(get_param(params, distance_combine_t()), 
-          closed_plus<WM>()),
-        choose_param(get_param(params, distance_inf_t()), 
-          std::numeric_limits<WM>::max BOOST_PREVENT_MACRO_SUBSTITUTION()),
+          closed_plus<WM>(inf)),
+        inf,
         choose_param(get_param(params, distance_zero_t()), 
           WM()));
     }
@@ -185,13 +188,15 @@ namespace boost
     {
       typedef typename property_traits<WeightMap>::value_type WM;
     
+      WM inf =
+        choose_param(get_param(params, distance_inf_t()), 
+          std::numeric_limits<WM>::max BOOST_PREVENT_MACRO_SUBSTITUTION());
       return floyd_warshall_all_pairs_shortest_paths(g, d, w,
         choose_param(get_param(params, distance_compare_t()), 
           std::less<WM>()),
         choose_param(get_param(params, distance_combine_t()), 
-          closed_plus<WM>()),
-        choose_param(get_param(params, distance_inf_t()), 
-          std::numeric_limits<WM>::max BOOST_PREVENT_MACRO_SUBSTITUTION()),
+          closed_plus<WM>(inf)),
+        inf,
         choose_param(get_param(params, distance_zero_t()), 
           WM()));
     }

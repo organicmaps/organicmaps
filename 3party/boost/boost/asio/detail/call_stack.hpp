@@ -2,7 +2,7 @@
 // detail/call_stack.hpp
 // ~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -27,34 +27,60 @@ namespace detail {
 
 // Helper class to determine whether or not the current thread is inside an
 // invocation of io_service::run() for a specified io_service object.
-template <typename Owner>
+template <typename Key, typename Value = unsigned char>
 class call_stack
 {
 public:
-  // Context class automatically pushes an owner on to the stack.
+  // Context class automatically pushes the key/value pair on to the stack.
   class context
     : private noncopyable
   {
   public:
-    // Push the owner on to the stack.
-    explicit context(Owner* d)
-      : owner_(d),
-        next_(call_stack<Owner>::top_)
+    // Push the key on to the stack.
+    explicit context(Key* k)
+      : key_(k),
+        next_(call_stack<Key, Value>::top_)
     {
-      call_stack<Owner>::top_ = this;
+      value_ = reinterpret_cast<unsigned char*>(this);
+      call_stack<Key, Value>::top_ = this;
     }
 
-    // Pop the owner from the stack.
+    // Push the key/value pair on to the stack.
+    context(Key* k, Value& v)
+      : key_(k),
+        value_(&v),
+        next_(call_stack<Key, Value>::top_)
+    {
+      call_stack<Key, Value>::top_ = this;
+    }
+
+    // Pop the key/value pair from the stack.
     ~context()
     {
-      call_stack<Owner>::top_ = next_;
+      call_stack<Key, Value>::top_ = next_;
+    }
+
+    // Find the next context with the same key.
+    Value* next_by_key() const
+    {
+      context* elem = next_;
+      while (elem)
+      {
+        if (elem->key_ == key_)
+          return elem->value_;
+        elem = elem->next_;
+      }
+      return 0;
     }
 
   private:
-    friend class call_stack<Owner>;
+    friend class call_stack<Key, Value>;
 
-    // The owner associated with the context.
-    Owner* owner_;
+    // The key associated with the context.
+    Key* key_;
+
+    // The value associated with the context.
+    Value* value_;
 
     // The next element in the stack.
     context* next_;
@@ -62,17 +88,18 @@ public:
 
   friend class context;
 
-  // Determine whether the specified owner is on the stack.
-  static bool contains(Owner* d)
+  // Determine whether the specified owner is on the stack. Returns address of
+  // key if present, 0 otherwise.
+  static Value* contains(Key* k)
   {
     context* elem = top_;
     while (elem)
     {
-      if (elem->owner_ == d)
-        return true;
+      if (elem->key_ == k)
+        return elem->value_;
       elem = elem->next_;
     }
-    return false;
+    return 0;
   }
 
 private:
@@ -80,9 +107,9 @@ private:
   static tss_ptr<context> top_;
 };
 
-template <typename Owner>
-tss_ptr<typename call_stack<Owner>::context>
-call_stack<Owner>::top_;
+template <typename Key, typename Value>
+tss_ptr<typename call_stack<Key, Value>::context>
+call_stack<Key, Value>::top_;
 
 } // namespace detail
 } // namespace asio

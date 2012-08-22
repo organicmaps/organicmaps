@@ -496,8 +496,7 @@ struct char_class_impl<char>
 
     static bool isctype(char ch, char_class_type mask)
     {
-        using namespace std;
-        if(0 != __isctype(static_cast<unsigned char>(ch), mask))
+        if(glibc_isctype(ch, mask))
         {
             return true;
         }
@@ -510,6 +509,15 @@ struct char_class_impl<char>
         }
 
         return false;
+    }
+
+    static bool glibc_isctype(char ch, char_class_type mask)
+    {
+        #ifdef __isctype
+        return 0 != __isctype(ch, mask);
+        #else
+        return 0 != ((*__ctype_b_loc())[(int)(ch)] & (unsigned short int)mask);
+        #endif
     }
 };
 

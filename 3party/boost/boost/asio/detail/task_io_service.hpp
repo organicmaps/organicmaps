@@ -2,7 +2,7 @@
 // detail/task_io_service.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -22,6 +22,7 @@
 #include <boost/system/error_code.hpp>
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/detail/atomic_count.hpp>
+#include <boost/asio/detail/call_stack.hpp>
 #include <boost/asio/detail/mutex.hpp>
 #include <boost/asio/detail/op_queue.hpp>
 #include <boost/asio/detail/reactor_fwd.hpp>
@@ -40,11 +41,10 @@ class task_io_service
 public:
   typedef task_io_service_operation operation;
 
-  // Constructor.
-  BOOST_ASIO_DECL task_io_service(boost::asio::io_service& io_service);
-
-  // How many concurrent threads are likely to run the io_service.
-  BOOST_ASIO_DECL void init(std::size_t concurrency_hint);
+  // Constructor. Specifies the number of concurrent threads that are likely to
+  // run the io_service. If set to 1 certain optimisation are performed.
+  BOOST_ASIO_DECL task_io_service(boost::asio::io_service& io_service,
+      std::size_t concurrency_hint = 0);
 
   // Destroy all user-defined handler objects owned by the service.
   BOOST_ASIO_DECL void shutdown_service();
@@ -86,6 +86,12 @@ public:
       stop();
   }
 
+  // Return whether a handler can be dispatched immediately.
+  bool can_dispatch()
+  {
+    return thread_call_stack::contains(this) != 0;
+  }
+
   // Request invocation of the given handler.
   template <typename Handler>
   void dispatch(Handler handler);
@@ -106,17 +112,41 @@ public:
   // that work_started() was previously called for each operation.
   BOOST_ASIO_DECL void post_deferred_completions(op_queue<operation>& ops);
 
+  // Request invocation of the given operation, preferring the thread-private
+  // queue if available, and return immediately. Assumes that work_started()
+  // has not yet been called for the operation.
+  BOOST_ASIO_DECL void post_private_immediate_completion(operation* op);
+
+  // Request invocation of the given operation, preferring the thread-private
+  // queue if available, and return immediately. Assumes that work_started()
+  // was previously called for the operation.
+  BOOST_ASIO_DECL void post_private_deferred_completion(operation* op);
+
   // Process unfinished operations as part of a shutdown_service operation.
   // Assumes that work_started() was previously called for the operations.
   BOOST_ASIO_DECL void abandon_operations(op_queue<operation>& ops);
 
 private:
   // Structure containing information about an idle thread.
-  struct idle_thread_info;
+  struct thread_info;
 
-  // Run at most one operation. Blocks only if this_idle_thread is non-null.
-  BOOST_ASIO_DECL std::size_t do_one(mutex::scoped_lock& lock,
-      idle_thread_info* this_idle_thread);
+  // Request invocation of the given operation, avoiding the thread-private
+  // queue, and return immediately. Assumes that work_started() has not yet
+  // been called for the operation.
+  BOOST_ASIO_DECL void post_non_private_immediate_completion(operation* op);
+
+  // Request invocation of the given operation, avoiding the thread-private
+  // queue, and return immediately. Assumes that work_started() was previously
+  // called for the operation.
+  BOOST_ASIO_DECL void post_non_private_deferred_completion(operation* op);
+
+  // Run at most one operation. May block.
+  BOOST_ASIO_DECL std::size_t do_run_one(mutex::scoped_lock& lock,
+      thread_info& this_thread, const boost::system::error_code& ec);
+
+  // Poll for at most one operation.
+  BOOST_ASIO_DECL std::size_t do_poll_one(mutex::scoped_lock& lock,
+      thread_info& this_thread, const boost::system::error_code& ec);
 
   // Stop the task and all idle threads.
   BOOST_ASIO_DECL void stop_all_threads(mutex::scoped_lock& lock);
@@ -135,8 +165,12 @@ private:
   struct task_cleanup;
   friend struct task_cleanup;
 
-  // Helper class to call work_finished() on block exit.
-  struct work_finished_on_block_exit;
+  // Helper class to call work-related operations on block exit.
+  struct work_cleanup;
+  friend struct work_cleanup;
+
+  // Whether to optimise for single-threaded use cases.
+  const bool one_thread_;
 
   // Mutex to protect access to internal data.
   mutable mutex mutex_;
@@ -165,8 +199,11 @@ private:
   // Flag to indicate that the dispatcher has been shut down.
   bool shutdown_;
 
+  // Per-thread call stack to track the state of each thread in the io_service.
+  typedef call_stack<task_io_service, thread_info> thread_call_stack;
+
   // The threads that are currently idle.
-  idle_thread_info* first_idle_thread_;
+  thread_info* first_idle_thread_;
 };
 
 } // namespace detail

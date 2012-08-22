@@ -2,7 +2,7 @@
 // detail/kqueue_reactor.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 // Copyright (c) 2005 Stefan Arentz (stefan at soze dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -32,10 +32,10 @@
 #include <boost/asio/detail/reactor_op.hpp>
 #include <boost/asio/detail/select_interrupter.hpp>
 #include <boost/asio/detail/socket_types.hpp>
-#include <boost/asio/detail/timer_op.hpp>
 #include <boost/asio/detail/timer_queue_base.hpp>
 #include <boost/asio/detail/timer_queue_fwd.hpp>
 #include <boost/asio/detail/timer_queue_set.hpp>
+#include <boost/asio/detail/wait_op.hpp>
 #include <boost/asio/error.hpp>
 #include <boost/asio/io_service.hpp>
 
@@ -62,12 +62,14 @@ public:
   {
     friend class kqueue_reactor;
     friend class object_pool_access;
+
+    descriptor_state* next_;
+    descriptor_state* prev_;
+
     mutex mutex_;
     int descriptor_;
     op_queue<reactor_op> op_queue_[max_ops];
     bool shutdown_;
-    descriptor_state* next_;
-    descriptor_state* prev_;
   };
 
   // Per-descriptor data.
@@ -145,7 +147,7 @@ public:
   template <typename Time_Traits>
   void schedule_timer(timer_queue<Time_Traits>& queue,
       const typename Time_Traits::time_type& time,
-      typename timer_queue<Time_Traits>::per_timer_data& timer, timer_op* op);
+      typename timer_queue<Time_Traits>::per_timer_data& timer, wait_op* op);
 
   // Cancel the timer operations associated with the given token. Returns the
   // number of operations that have been posted or dispatched.
@@ -164,6 +166,12 @@ private:
   // Create the kqueue file descriptor. Throws an exception if the descriptor
   // cannot be created.
   BOOST_ASIO_DECL static int do_kqueue_create();
+
+  // Allocate a new descriptor state object.
+  BOOST_ASIO_DECL descriptor_state* allocate_descriptor_state();
+
+  // Free an existing descriptor state object.
+  BOOST_ASIO_DECL void free_descriptor_state(descriptor_state* s);
 
   // Helper function to add a new timer queue.
   BOOST_ASIO_DECL void do_add_timer_queue(timer_queue_base& queue);

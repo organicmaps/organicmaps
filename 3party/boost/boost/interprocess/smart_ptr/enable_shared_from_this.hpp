@@ -14,8 +14,8 @@
 #ifndef BOOST_INTERPROCESS_ENABLE_SHARED_FROM_THIS_HPP_INCLUDED
 #define BOOST_INTERPROCESS_ENABLE_SHARED_FROM_THIS_HPP_INCLUDED
 
-#include <boost/interprocess/detail/workaround.hpp>
 #include <boost/interprocess/detail/config_begin.hpp>
+#include <boost/interprocess/detail/workaround.hpp>
 
 #include <boost/assert.hpp>
 #include <boost/interprocess/smart_ptr/weak_ptr.hpp>
@@ -53,14 +53,14 @@ class enable_shared_from_this
    shared_ptr<T, A, D> shared_from_this()
    {
       shared_ptr<T, A, D> p(_internal_weak_this);
-      BOOST_ASSERT(detail::get_pointer(p.get()) == this);
+      BOOST_ASSERT(ipcdetail::to_raw_pointer(p.get()) == this);
       return p;
    }
 
    shared_ptr<T const, A, D> shared_from_this() const
    {
       shared_ptr<T const, A, D> p(_internal_weak_this);
-      BOOST_ASSERT(detail::get_pointer(p.get()) == this);
+      BOOST_ASSERT(ipcdetail::to_raw_pointer(p.get()) == this);
       return p;
    }
 

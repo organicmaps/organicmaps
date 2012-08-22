@@ -25,10 +25,14 @@
 #include <boost/property_map/dynamic_property_map.hpp>
 #include <boost/graph/overloading.hpp>
 #include <boost/graph/dll_import_export.hpp>
+#include <boost/graph/compressed_sparse_row_graph.hpp>
+#include <boost/graph/iteration_macros.hpp>
 #include <boost/spirit/include/classic_multi_pass.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/static_assert.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/xpressive/xpressive_static.hpp>
+#include <boost/foreach.hpp>
 
 namespace boost {
 
@@ -713,6 +717,9 @@ class mutate_graph
 
   virtual void  // RG: need new second parameter to support BGL subgraphs
   set_graph_property(const id_t& key, const id_t& value) = 0;
+
+  virtual void
+  finish_building_graph() = 0;
 };
 
 template<typename MutableGraph>
@@ -781,11 +788,116 @@ class mutate_graph_impl : public mutate_graph
     put(key, dp_, &graph_, value);
   }
 
+  void finish_building_graph() {}
+
 
  protected:
   MutableGraph& graph_;
   dynamic_properties& dp_;
   std::string node_id_prop_;
+  std::map<node_t, bgl_vertex_t> bgl_nodes;
+  std::map<edge_t, bgl_edge_t> bgl_edges;
+};
+
+template<typename Directed,
+         typename VertexProperty,
+         typename EdgeProperty,
+         typename GraphProperty,
+         typename Vertex,
+         typename EdgeIndex>
+class mutate_graph_impl<compressed_sparse_row_graph<Directed, VertexProperty, EdgeProperty, GraphProperty, Vertex, EdgeIndex> >
+  : public mutate_graph
+{
+  typedef compressed_sparse_row_graph<Directed, VertexProperty, EdgeProperty, GraphProperty, Vertex, EdgeIndex> CSRGraph;
+  typedef typename graph_traits<CSRGraph>::vertices_size_type bgl_vertex_t;
+  typedef typename graph_traits<CSRGraph>::edges_size_type    bgl_edge_t;
+  typedef typename graph_traits<CSRGraph>::edge_descriptor    edge_descriptor;
+
+ public:
+  mutate_graph_impl(CSRGraph& graph, dynamic_properties& dp,
+                    std::string node_id_prop)
+    : graph_(graph), dp_(dp), vertex_count(0), node_id_prop_(node_id_prop) { }
+
+  ~mutate_graph_impl() {}
+
+  void finish_building_graph() {
+    typedef compressed_sparse_row_graph<directedS, no_property, bgl_edge_t, GraphProperty, Vertex, EdgeIndex> TempCSRGraph;
+    TempCSRGraph temp(edges_are_unsorted_multi_pass,
+                      edges_to_add.begin(), edges_to_add.end(),
+                      counting_iterator<bgl_edge_t>(0),
+                      vertex_count);
+    set_property(temp, graph_all, get_property(graph_, graph_all));
+    graph_.assign(temp); // Copies structure, not properties
+    std::vector<edge_descriptor> edge_permutation_from_sorting(num_edges(temp));
+    BGL_FORALL_EDGES_T(e, temp, TempCSRGraph) {
+      edge_permutation_from_sorting[temp[e]] = e;
+    }
+    typedef boost::tuple<id_t, bgl_vertex_t, id_t> v_prop;
+    BOOST_FOREACH(const v_prop& t, vertex_props) {
+      put(boost::get<0>(t), dp_, boost::get<1>(t), boost::get<2>(t));
+    }
+    typedef boost::tuple<id_t, bgl_edge_t, id_t> e_prop;
+    BOOST_FOREACH(const e_prop& t, edge_props) {
+      put(boost::get<0>(t), dp_, edge_permutation_from_sorting[boost::get<1>(t)], boost::get<2>(t));
+    }
+  }
+
+  bool is_directed() const
+  {
+    return
+      boost::is_convertible<
+        typename boost::graph_traits<CSRGraph>::directed_category,
+        boost::directed_tag>::value;
+  }
+
+  virtual void do_add_vertex(const node_t& node)
+  {
+    // Add the node to the graph.
+    bgl_vertex_t v = vertex_count++;
+
+    // Set up a mapping from name to BGL vertex.
+    bgl_nodes.insert(std::make_pair(node, v));
+
+    // node_id_prop_ allows the caller to see the real id names for nodes.
+    vertex_props.push_back(boost::make_tuple(node_id_prop_, v, node));
+  }
+
+  void
+  do_add_edge(const edge_t& edge, const node_t& source, const node_t& target)
+  {
+    bgl_edge_t result = edges_to_add.size();
+    edges_to_add.push_back(std::make_pair(bgl_nodes[source], bgl_nodes[target]));
+    bgl_edges.insert(std::make_pair(edge, result));
+  }
+
+  void
+  set_node_property(const id_t& key, const node_t& node, const id_t& value)
+  {
+    vertex_props.push_back(boost::make_tuple(key, bgl_nodes[node], value));
+  }
+
+  void
+  set_edge_property(const id_t& key, const edge_t& edge, const id_t& value)
+  {
+    edge_props.push_back(boost::make_tuple(key, bgl_edges[edge], value));
+  }
+
+  void
+  set_graph_property(const id_t& key, const id_t& value)
+  {
+    /* RG: pointer to graph prevents copying */
+    put(key, dp_, &graph_, value);
+  }
+
+
+ protected:
+  CSRGraph& graph_;
+  dynamic_properties& dp_;
+  bgl_vertex_t vertex_count;
+  std::string node_id_prop_;
+  std::vector<boost::tuple<id_t, bgl_vertex_t, id_t> > vertex_props;
+  std::vector<boost::tuple<id_t, bgl_edge_t, id_t> > edge_props;
+  std::vector<std::pair<bgl_vertex_t, bgl_vertex_t> > edges_to_add;
   std::map<node_t, bgl_vertex_t> bgl_nodes;
   std::map<edge_t, bgl_edge_t> bgl_edges;
 };

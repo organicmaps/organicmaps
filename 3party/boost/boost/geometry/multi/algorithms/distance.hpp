@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -23,6 +23,7 @@
 #include <boost/geometry/multi/core/point_type.hpp>
 
 #include <boost/geometry/algorithms/distance.hpp>
+#include <boost/geometry/multi/algorithms/num_points.hpp>
 #include <boost/geometry/util/select_coordinate_type.hpp>
 
 
@@ -36,6 +37,12 @@ namespace detail { namespace distance
 
 template<typename Geometry, typename MultiGeometry, typename Strategy>
 struct distance_single_to_multi
+    : private dispatch::distance
+      <
+          Geometry,
+          typename range_value<MultiGeometry>::type,
+          Strategy
+      >
 {
     typedef typename strategy::distance::services::return_type<Strategy>::type return_type;
 
@@ -43,19 +50,24 @@ struct distance_single_to_multi
                 MultiGeometry const& multi,
                 Strategy const& strategy)
     {
+        return_type mindist = return_type();
         bool first = true;
-        return_type mindist;
 
         for(typename range_iterator<MultiGeometry const>::type it = boost::begin(multi);
                 it != boost::end(multi);
-                ++it)
+                ++it, first = false)
         {
-            return_type dist = geometry::distance(geometry, *it);
+            return_type dist = dispatch::distance
+                <
+                    Geometry,
+                    typename range_value<MultiGeometry>::type,
+                    Strategy
+                >::apply(geometry, *it, strategy);
+
             if (first || dist < mindist)
             {
                 mindist = dist;
             }
-            first = false;
         }
 
         return mindist;
@@ -64,18 +76,24 @@ struct distance_single_to_multi
 
 template<typename Multi1, typename Multi2, typename Strategy>
 struct distance_multi_to_multi
+    : private distance_single_to_multi
+      <
+          typename range_value<Multi1>::type,
+          Multi2,
+          Strategy
+      >
 {
     typedef typename strategy::distance::services::return_type<Strategy>::type return_type;
 
     static inline return_type apply(Multi1 const& multi1,
                 Multi2 const& multi2, Strategy const& strategy)
     {
+        return_type mindist = return_type();
         bool first = true;
-        return_type mindist;
 
         for(typename range_iterator<Multi1 const>::type it = boost::begin(multi1);
                 it != boost::end(multi1);
-                ++it)
+                ++it, first = false)
         {
             return_type dist = distance_single_to_multi
                 <
@@ -87,7 +105,6 @@ struct distance_multi_to_multi
             {
                 mindist = dist;
             }
-            first = false;
         }
 
         return mindist;
@@ -105,17 +122,27 @@ namespace dispatch
 
 template
 <
-    typename SingleGeometryTag,
     typename G1,
     typename G2,
-    typename Strategy
+    typename Strategy,
+    typename SingleGeometryTag
 >
-struct distance<SingleGeometryTag, multi_tag, G1, G2, strategy_tag_distance_point_point, Strategy>
+struct distance
+<
+    G1, G2, Strategy,
+    SingleGeometryTag, multi_tag, strategy_tag_distance_point_point,
+    false
+>
     : detail::distance::distance_single_to_multi<G1, G2, Strategy>
 {};
 
 template <typename G1, typename G2, typename Strategy>
-struct distance<multi_tag, multi_tag, G1, G2, strategy_tag_distance_point_point, Strategy>
+struct distance
+<
+    G1, G2, Strategy,
+    multi_tag, multi_tag, strategy_tag_distance_point_point,
+    false
+>
     : detail::distance::distance_multi_to_multi<G1, G2, Strategy>
 {};
 

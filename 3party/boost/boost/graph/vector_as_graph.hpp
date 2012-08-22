@@ -19,6 +19,7 @@
 #include <vector>
 #include <cstddef>
 #include <boost/iterator.hpp>
+#include <boost/iterator/counting_iterator.hpp>
 #include <boost/range/irange.hpp>
 #include <boost/graph/graph_traits.hpp>
 #include <boost/property_map/property_map.hpp>
@@ -71,13 +72,14 @@ namespace boost {
       out_edge_iterator;
     typedef void in_edge_iterator;
     typedef void edge_iterator;
-    typedef typename integer_range<V>::iterator vertex_iterator;
+    typedef counting_iterator<V> vertex_iterator;
     typedef directed_tag directed_category;
     typedef allow_parallel_edge_tag edge_parallel_category;
     typedef vector_as_graph_traversal_tag traversal_category;
     typedef typename std::vector<EdgeList>::size_type vertices_size_type;
     typedef void edges_size_type;
     typedef typename EdgeList::size_type degree_size_type;
+    static V null_vertex() {return V(-1);}
   };
   template <class EdgeList>
   struct edge_property_type< std::vector<EdgeList> >
@@ -178,14 +180,11 @@ namespace boost {
   // source() and target() already provided for pairs in graph_traits.hpp
 
   template <class EdgeList, class Alloc>
-  std::pair<typename boost::integer_range<typename EdgeList::value_type>
-              ::iterator,
-            typename boost::integer_range<typename EdgeList::value_type>
-              ::iterator >
+  std::pair<boost::counting_iterator<typename EdgeList::value_type>,
+            boost::counting_iterator<typename EdgeList::value_type> >
   vertices(const std::vector<EdgeList, Alloc>& v)
   {
-    typedef typename boost::integer_range<typename EdgeList::value_type>
-      ::iterator Iter;
+    typedef boost::counting_iterator<typename EdgeList::value_type> Iter;
     return std::make_pair(Iter(0), Iter(v.size()));
   }
 

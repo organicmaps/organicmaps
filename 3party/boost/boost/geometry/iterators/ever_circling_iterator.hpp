@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -95,67 +95,115 @@ private:
     bool m_skip_first;
 };
 
-
-
 template <typename Range>
-class ever_circling_range_iterator
-    : public boost::iterator_adaptor
-        <
-            ever_circling_range_iterator<Range>,
-            typename boost::range_iterator<Range>::type
-        >
+struct ever_circling_range_iterator
+    : public boost::iterator_facade
+    <
+        ever_circling_range_iterator<Range>,
+        typename boost::range_value<Range>::type const,
+        boost::random_access_traversal_tag
+    >
 {
-public :
-    typedef typename boost::range_iterator<Range>::type iterator_type;
+    /// Constructor including the range it is based on
+    explicit inline ever_circling_range_iterator(Range& range)
+        : m_range(&range)
+        , m_iterator(boost::begin(range))
+        , m_size(boost::size(range))
+        , m_index(0)
+    {}
 
-    explicit inline ever_circling_range_iterator(Range& range,
-            bool skip_first = false)
-      : m_range(range)
-      , m_skip_first(skip_first)
+    /// Default constructor
+    explicit inline ever_circling_range_iterator()
+        : m_range(NULL)
+        , m_size(0)
+        , m_index(0)
+    {}
+
+    inline ever_circling_range_iterator<Range>& operator=(ever_circling_range_iterator<Range> const& source)
     {
-        this->base_reference() = boost::begin(m_range);
+        m_range = source.m_range;
+        m_iterator = source.m_iterator;
+        m_size = source.m_size;
+        m_index = source.m_index;
+        return *this;
     }
 
-    explicit inline ever_circling_range_iterator(Range& range, iterator_type start,
-            bool skip_first = false)
-      : m_range(range)
-      , m_skip_first(skip_first)
-    {
-        this->base_reference() = start;
-    }
-
-    /// Navigate to a certain position, should be in [start .. end], if at end
-    /// it will circle again.
-    inline void moveto(iterator_type it)
-    {
-        this->base_reference() = it;
-        check_end();
-    }
+    typedef std::ptrdiff_t difference_type;
 
 private:
-
     friend class boost::iterator_core_access;
 
-    inline void increment(bool possibly_skip = true)
+    inline typename boost::range_value<Range>::type const& dereference() const
     {
-        (this->base_reference())++;
-        check_end(possibly_skip);
+        return *m_iterator;
     }
 
-    inline void check_end(bool possibly_skip = true)
+    inline difference_type distance_to(ever_circling_range_iterator<Range> const& other) const
     {
-        if (this->base_reference() == boost::end(m_range))
+        return other.m_index - this->m_index;
+    }
+
+    inline bool equal(ever_circling_range_iterator<Range> const& other) const
+    {
+        return this->m_range == other.m_range
+            && this->m_index == other.m_index;
+    }
+
+    inline void increment()
+    {
+        ++m_index;
+        if (m_index >= 0 && m_index < m_size)
         {
-            this->base_reference() = boost::begin(m_range);
-            if (m_skip_first && possibly_skip)
-            {
-                increment(false);
-            }
+            ++m_iterator;
+        }
+        else
+        {
+            update_iterator();
         }
     }
 
-    Range& m_range;
-    bool m_skip_first;
+    inline void decrement()
+    {
+        --m_index;
+        if (m_index >= 0 && m_index < m_size)
+        {
+            --m_iterator;
+        }
+        else
+        {
+            update_iterator();
+        }
+    }
+
+    inline void advance(difference_type n)
+    {
+        if (m_index >= 0 && m_index < m_size 
+            && m_index + n >= 0 && m_index + n < m_size)
+        {
+            m_index += n;
+            m_iterator += n;
+        }
+        else
+        {
+            m_index += n;
+            update_iterator();
+        }
+    }
+
+    inline void update_iterator()
+    {
+        while (m_index < 0)
+        {
+            m_index += m_size;
+        }
+		m_index = m_index % m_size;
+        this->m_iterator = boost::begin(*m_range) + m_index;
+    }
+
+    Range* m_range;
+    typename boost::range_iterator<Range>::type m_iterator;
+    difference_type m_size;
+    difference_type m_index;
 };
 
 

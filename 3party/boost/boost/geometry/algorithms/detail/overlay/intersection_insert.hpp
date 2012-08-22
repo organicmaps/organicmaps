@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -22,12 +22,17 @@
 #include <boost/geometry/core/reverse_dispatch.hpp>
 #include <boost/geometry/geometries/concepts/check.hpp>
 #include <boost/geometry/algorithms/convert.hpp>
+#include <boost/geometry/algorithms/detail/point_on_border.hpp>
 #include <boost/geometry/algorithms/detail/overlay/clip_linestring.hpp>
 #include <boost/geometry/algorithms/detail/overlay/get_intersection_points.hpp>
 #include <boost/geometry/algorithms/detail/overlay/overlay.hpp>
 #include <boost/geometry/algorithms/detail/overlay/overlay_type.hpp>
+#include <boost/geometry/algorithms/detail/overlay/follow.hpp>
 #include <boost/geometry/views/segment_view.hpp>
 
+#if defined(BOOST_GEOMETRY_DEBUG_FOLLOW)
+#include <boost/foreach.hpp>
+#endif
 
 namespace boost { namespace geometry
 {
@@ -46,7 +51,7 @@ struct intersection_segment_segment_point
 {
     static inline OutputIterator apply(Segment1 const& segment1,
             Segment2 const& segment2, OutputIterator out,
-            Strategy const& strategy)
+            Strategy const& )
     {
         typedef typename point_type<PointOut>::type point_type;
 
@@ -82,7 +87,7 @@ struct intersection_linestring_linestring_point
 {
     static inline OutputIterator apply(Linestring1 const& linestring1,
             Linestring2 const& linestring2, OutputIterator out,
-            Strategy const& strategy)
+            Strategy const& )
     {
         typedef typename point_type<PointOut>::type point_type;
 
@@ -101,6 +106,108 @@ struct intersection_linestring_linestring_point
         return out;
     }
 };
+
+/*!
+\brief Version of linestring with an areal feature (polygon or multipolygon)
+*/
+template
+<
+    typename LineString, typename Areal,
+    bool ReverseAreal,
+    typename OutputIterator, typename LineStringOut,
+    overlay_type OverlayType,
+    typename Strategy
+>
+struct intersection_of_linestring_with_areal
+{
+    typedef detail::overlay::follow
+            <
+                LineStringOut,
+                LineString,
+                Areal,
+                OverlayType
+            > follower;
+
+#if defined(BOOST_GEOMETRY_DEBUG_FOLLOW)
+        template <typename Turn, typename Operation>
+        static inline void debug_follow(Turn const& turn, Operation op, 
+                    int index)
+        {
+            std::cout << index
+                << " at " << op.seg_id
+                << " meth: " << method_char(turn.method)
+                << " op: " << operation_char(op.operation)
+                << " vis: " << visited_char(op.visited)
+                << " of:  " << operation_char(turn.operations[0].operation)
+                << operation_char(turn.operations[1].operation)
+                << " " << geometry::wkt(turn.point)
+                << std::endl;
+        }
+#endif
+
+    static inline OutputIterator apply(LineString const& linestring, Areal const& areal,
+            OutputIterator out,
+            Strategy const& )
+    {
+        if (boost::size(linestring) == 0)
+        {
+            return out;
+        }
+
+        typedef typename point_type<LineStringOut>::type point_type;
+
+        typedef detail::overlay::traversal_turn_info<point_type> turn_info;
+        std::deque<turn_info> turns;
+
+        detail::get_turns::no_interrupt_policy policy;
+        geometry::get_turns
+            <
+                false,
+                (OverlayType == overlay_intersection ? ReverseAreal : !ReverseAreal),
+                detail::overlay::calculate_distance_policy
+            >(linestring, areal, turns, policy);
+
+        if (turns.empty())
+        {
+            // No intersection points, it is either completely 
+            // inside (interior + borders)
+            // or completely outside
+
+            // Use border point (on a segment) to check this
+            // (because turn points might skip some cases)
+            point_type border_point;
+            if (! geometry::point_on_border(border_point, linestring, true))
+            {
+                return out;
+            }
+
+
+            if (follower::included(border_point, areal))
+            {
+                LineStringOut copy;
+                geometry::convert(linestring, copy);
+                *out++ = copy;
+            }
+            return out;
+        }
+
+#if defined(BOOST_GEOMETRY_DEBUG_FOLLOW)
+        int index = 0;
+        BOOST_FOREACH(turn_info const& turn, turns)
+        {
+            debug_follow(turn, turn.operations[0], index++);
+        }
+#endif
+
+        return follower::apply
+                (
+                    linestring, areal,
+                    geometry::detail::overlay::operation_intersection,
+                    turns, out
+                );
+    }
+};
+
 
 }} // namespace detail::intersection
 #endif // DOXYGEN_NO_DETAIL
@@ -255,7 +362,7 @@ struct intersection_insert
     >
 {
     static inline OutputIterator apply(Linestring const& linestring,
-            Box const& box, OutputIterator out, Strategy const& strategy)
+            Box const& box, OutputIterator out, Strategy const& )
     {
         typedef typename point_type<GeometryOut>::type point_type;
         strategy::intersection::liang_barsky<Box, point_type> lb_strategy;
@@ -263,6 +370,62 @@ struct intersection_insert
             <GeometryOut>(box, linestring, out, lb_strategy);
     }
 };
+
+
+template
+<
+    typename Linestring, typename Polygon,
+    bool ReverseLinestring, bool ReversePolygon, bool ReverseOut,
+    typename OutputIterator, typename GeometryOut,
+    overlay_type OverlayType,
+    typename Strategy
+>
+struct intersection_insert
+    <
+        linestring_tag, polygon_tag, linestring_tag,
+        false, true, false,
+        Linestring, Polygon,
+        ReverseLinestring, ReversePolygon, ReverseOut,
+        OutputIterator, GeometryOut,
+        OverlayType,
+        Strategy
+    > : detail::intersection::intersection_of_linestring_with_areal
+            <
+                Linestring, Polygon,
+                ReversePolygon,
+                OutputIterator, GeometryOut,
+                OverlayType,
+                Strategy
+            >
+{};
+
+
+template
+<
+    typename Linestring, typename Ring,
+    bool ReverseLinestring, bool ReverseRing, bool ReverseOut,
+    typename OutputIterator, typename GeometryOut,
+    overlay_type OverlayType,
+    typename Strategy
+>
+struct intersection_insert
+    <
+        linestring_tag, ring_tag, linestring_tag,
+        false, true, false,
+        Linestring, Ring,
+        ReverseLinestring, ReverseRing, ReverseOut,
+        OutputIterator, GeometryOut,
+        OverlayType,
+        Strategy
+    > : detail::intersection::intersection_of_linestring_with_areal
+            <
+                Linestring, Ring,
+                ReverseRing,
+                OutputIterator, GeometryOut,
+                OverlayType,
+                Strategy
+            >
+{};
 
 template
 <
@@ -284,7 +447,7 @@ struct intersection_insert
     >
 {
     static inline OutputIterator apply(Segment const& segment,
-            Box const& box, OutputIterator out, Strategy const& strategy)
+            Box const& box, OutputIterator out, Strategy const& )
     {
         geometry::segment_view<Segment> range(segment);
 
@@ -292,6 +455,49 @@ struct intersection_insert
         strategy::intersection::liang_barsky<Box, point_type> lb_strategy;
         return detail::intersection::clip_range_with_box
             <GeometryOut>(box, range, out, lb_strategy);
+    }
+};
+
+template
+<
+    typename Tag1, typename Tag2,
+    bool Areal1, bool Areal2,
+    typename Geometry1, typename Geometry2,
+    bool Reverse1, bool Reverse2, bool ReverseOut,
+    typename OutputIterator, typename PointOut,
+    overlay_type OverlayType,
+    typename Strategy
+>
+struct intersection_insert
+    <
+        Tag1, Tag2, point_tag,
+        Areal1, Areal2, false,
+        Geometry1, Geometry2,
+        Reverse1, Reverse2, ReverseOut,
+        OutputIterator, PointOut,
+        OverlayType,
+        Strategy
+    >
+{
+    static inline OutputIterator apply(Geometry1 const& geometry1,
+            Geometry2 const& geometry2, OutputIterator out, Strategy const& )
+    {
+
+        typedef detail::overlay::turn_info<PointOut> turn_info;
+        std::vector<turn_info> turns;
+
+        detail::get_turns::no_interrupt_policy policy;
+        geometry::get_turns
+            <
+                false, false, detail::overlay::assign_null_policy
+            >(geometry1, geometry2, turns, policy);
+        for (typename std::vector<turn_info>::const_iterator it
+            = turns.begin(); it != turns.end(); ++it)
+        {
+            *out++ = it->point;
+        }
+
+        return out;
     }
 };
 

@@ -125,6 +125,10 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
         ActionT actor;
     };
 
+#if BOOST_WORKAROUND(BOOST_MSVC, >= 1400)
+#pragma warning(pop)
+#endif
+
 BOOST_SPIRIT_CLASSIC_NAMESPACE_END
 
 }} // namespace BOOST_SPIRIT_CLASSIC_NS

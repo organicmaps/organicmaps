@@ -9,7 +9,7 @@
 
 //  Copyright (c) 2001, 2002, 2003 Peter Dimov and Multi Media Ltd.
 //  Copyright 2004-2005 Peter Dimov
-//  Copyright 2007-2009 Ion Gaztanaga
+//  Copyright 2007-2011 Ion Gaztanaga
 //
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
@@ -32,7 +32,7 @@ namespace boost {
 
 namespace interprocess {
 
-namespace detail {
+namespace ipcdetail {
 
 class sp_counted_base
 {
@@ -54,7 +54,7 @@ public:
 
     void add_ref_copy()
     {
-        detail::atomic_inc32( &use_count_ );
+        ipcdetail::atomic_inc32( &use_count_ );
     }
 
     bool add_ref_lock() // true on success
@@ -63,25 +63,25 @@ public:
         {
             boost::uint32_t tmp = static_cast< boost::uint32_t const volatile& >( use_count_ );
             if( tmp == 0 ) return false;
-            if( detail::atomic_cas32( &use_count_, tmp + 1, tmp ) == tmp )
+            if( ipcdetail::atomic_cas32( &use_count_, tmp + 1, tmp ) == tmp )
                return true;
         }
     }
 
    bool ref_release() // nothrow
-   { return 1 == detail::atomic_dec32( &use_count_ );  }
+   { return 1 == ipcdetail::atomic_dec32( &use_count_ );  }
 
    void weak_add_ref() // nothrow
-   { detail::atomic_inc32( &weak_count_ ); }
+   { ipcdetail::atomic_inc32( &weak_count_ ); }
 
    bool weak_release() // nothrow
-   { return 1 == detail::atomic_dec32( &weak_count_ ); }
+   { return 1 == ipcdetail::atomic_dec32( &weak_count_ ); }
 
    long use_count() const // nothrow
    { return (long)static_cast<boost::uint32_t const volatile &>( use_count_ ); }
 };
 
-} // namespace detail
+} // namespace ipcdetail
 
 } // namespace interprocess
 

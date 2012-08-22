@@ -858,7 +858,7 @@ namespace boost {
 #else
   private:
     struct dummy {
-      void nonnull() {};
+      void nonnull() {}
     };
 
     typedef void (dummy::*safe_bool)();

@@ -21,6 +21,7 @@
 #include <boost/spirit/home/support/has_semantic_action.hpp>
 #include <boost/spirit/home/support/handles_container.hpp>
 #include <boost/fusion/include/cons.hpp>
+#include <boost/fusion/include/make_cons.hpp>
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at_c.hpp>
 #include <boost/mpl/identity.hpp>
@@ -50,29 +51,29 @@ namespace boost { namespace spirit { namespace karma
         template <typename T
           , bool IsSequence = fusion::traits::is_sequence<T>::value>
         struct attribute_count
-          : fusion::result_of::size<T> 
+          : fusion::result_of::size<T>
         {};
 
         template <>
-        struct attribute_count<unused_type, false> 
-          : mpl::int_<0> 
+        struct attribute_count<unused_type, false>
+          : mpl::int_<0>
         {};
 
         template <typename T>
-        struct attribute_count<T, false> 
-          : mpl::int_<1> 
+        struct attribute_count<T, false>
+          : mpl::int_<1>
         {};
 
         ///////////////////////////////////////////////////////////////////////
         template <typename T
           , bool IsSequence = fusion::traits::is_sequence<T>::value>
-        struct first_attribute_of_subject 
-          : fusion::result_of::at_c<T, 0> 
+        struct first_attribute_of_subject
+          : fusion::result_of::at_c<T, 0>
         {};
 
         template <typename T>
-        struct first_attribute_of_subject<T, false> 
-          : mpl::identity<T> 
+        struct first_attribute_of_subject<T, false>
+          : mpl::identity<T>
         {};
 
         template <typename T, typename Context, typename Iterator>
@@ -92,20 +93,20 @@ namespace boost { namespace spirit { namespace karma
 
             static type call(T const& t)
             {
-                return fusion::make_cons(cref(t)
+                return fusion::make_cons(boost::cref(t)
                   , duplicate_sequence_attribute<Attribute, T, N-1>::call(t));
             }
         };
 
         template <typename Attribute, typename T>
-        struct duplicate_sequence_attribute<Attribute, T, 1> 
+        struct duplicate_sequence_attribute<Attribute, T, 1>
         {
             typedef typename fusion::result_of::make_cons<
                 reference_wrapper<T const> >::type type;
 
             static type call(T const& t)
             {
-                return fusion::make_cons(cref(t));
+                return fusion::make_cons(boost::cref(t));
             }
         };
 
@@ -129,7 +130,7 @@ namespace boost { namespace spirit { namespace karma
         };
 
         template <typename Attribute, typename T>
-        struct duplicate_attribute<Attribute, T, 0, false> 
+        struct duplicate_attribute<Attribute, T, 0, false>
         {
             typedef unused_type type;
 
@@ -154,12 +155,12 @@ namespace boost { namespace spirit { namespace karma
     template <typename Attribute, typename T>
     inline typename detail::duplicate_attribute<Attribute, T>::type
     duplicate_attribute(T const& t)
-    { 
+    {
         return detail::duplicate_attribute<Attribute, T>::call(t);
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // duplicate_directive duplicate its attribute for all elements of the 
+    // duplicate_directive duplicate its attribute for all elements of the
     // subject generator without generating anything itself
     ///////////////////////////////////////////////////////////////////////////
     template <typename Subject>
@@ -181,7 +182,7 @@ namespace boost { namespace spirit { namespace karma
         bool generate(OutputIterator& sink, Context& ctx, Delimiter const& d
           , Attribute const& attr) const
         {
-            typedef typename traits::attribute_of<Subject, Context>::type 
+            typedef typename traits::attribute_of<Subject, Context>::type
                 subject_attr_type;
             return subject.generate(sink, ctx, d
               , duplicate_attribute<subject_attr_type>(attr));

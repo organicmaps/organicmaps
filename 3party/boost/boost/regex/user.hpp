@@ -88,3 +88,6 @@
 
 // define this if you want to enable support for Unicode via ICU.
 // #define BOOST_HAS_ICU
+
+// define this if you want regex to use __cdecl calling convensions, even when __fastcall is available:
+// #define BOOST_REGEX_NO_FASTCALL

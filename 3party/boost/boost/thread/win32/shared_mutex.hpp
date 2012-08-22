@@ -2,6 +2,7 @@
 #define BOOST_THREAD_WIN32_SHARED_MUTEX_HPP
 
 //  (C) Copyright 2006-8 Anthony Williams
+//  (C) Copyright 2011-2012 Vicente J. Botet Escriba
 //
 //  Distributed under the Boost Software License, Version 1.0. (See
 //  accompanying file LICENSE_1_0.txt or copy at
@@ -12,8 +13,12 @@
 #include <boost/thread/win32/thread_primitives.hpp>
 #include <boost/static_assert.hpp>
 #include <limits.h>
-#include <boost/utility.hpp>
 #include <boost/thread/thread_time.hpp>
+#ifdef BOOST_THREAD_USES_CHRONO
+#include <boost/chrono/system_clocks.hpp>
+#include <boost/chrono/ceil.hpp>
+#endif
+#include <boost/thread/detail/delete.hpp>
 
 #include <boost/config/abi_prefix.hpp>
 
@@ -21,9 +26,6 @@ namespace boost
 {
     class shared_mutex
     {
-    private:
-        shared_mutex(shared_mutex const&);
-        shared_mutex& operator=(shared_mutex const&);        
     private:
         struct state_data
         {
@@ -39,7 +41,7 @@ namespace boost
                 return *reinterpret_cast<unsigned const*>(&lhs)==*reinterpret_cast<unsigned const*>(&rhs);
             }
         };
-        
+
 
         template<typename T>
         T interlocked_compare_exchange(T* target,T new_value,T comparand)
@@ -67,20 +69,32 @@ namespace boost
             {
                 BOOST_VERIFY(detail::win32::ReleaseSemaphore(semaphores[exclusive_sem],1,0)!=0);
             }
-                        
+
             if(old_state.shared_waiting || old_state.exclusive_waiting)
             {
                 BOOST_VERIFY(detail::win32::ReleaseSemaphore(semaphores[unlock_sem],old_state.shared_waiting + (old_state.exclusive_waiting?1:0),0)!=0);
             }
         }
-        
+
 
     public:
+        BOOST_THREAD_NO_COPYABLE(shared_mutex)
         shared_mutex()
         {
             semaphores[unlock_sem]=detail::win32::create_anonymous_semaphore(0,LONG_MAX);
-            semaphores[exclusive_sem]=detail::win32::create_anonymous_semaphore(0,LONG_MAX);
-            upgrade_sem=detail::win32::create_anonymous_semaphore(0,LONG_MAX);
+            semaphores[exclusive_sem]=detail::win32::create_anonymous_semaphore_nothrow(0,LONG_MAX);
+            if (!semaphores[exclusive_sem])
+            {
+              detail::win32::release_semaphore(semaphores[unlock_sem],LONG_MAX);
+              boost::throw_exception(thread_resource_error());
+            }
+            upgrade_sem=detail::win32::create_anonymous_semaphore_nothrow(0,LONG_MAX);
+            if (!upgrade_sem)
+            {
+              detail::win32::release_semaphore(semaphores[unlock_sem],LONG_MAX);
+              detail::win32::release_semaphore(semaphores[exclusive_sem],LONG_MAX);
+              boost::throw_exception(thread_resource_error());
+            }
             state_data state_={0};
             state=state_;
         }
@@ -106,7 +120,7 @@ namespace boost
                         return false;
                     }
                 }
-                
+
                 state_data const current_state=interlocked_compare_exchange(&state,new_state,old_state);
                 if(current_state==old_state)
                 {
@@ -165,7 +179,7 @@ namespace boost
                 {
                     return true;
                 }
-                    
+
                 unsigned long const res=detail::win32::WaitForSingleObject(semaphores[unlock_sem],::boost::detail::get_milliseconds_until(wait_until));
                 if(res==detail::win32::timeout)
                 {
@@ -202,10 +216,119 @@ namespace boost
                     }
                     return false;
                 }
-                
+
                 BOOST_ASSERT(res==0);
             }
         }
+
+#ifdef BOOST_THREAD_USES_CHRONO
+        template <class Rep, class Period>
+        bool try_lock_shared_for(const chrono::duration<Rep, Period>& rel_time)
+        {
+          return try_lock_shared_until(chrono::steady_clock::now() + rel_time);
+        }
+        template <class Clock, class Duration>
+        bool try_lock_shared_until(const chrono::time_point<Clock, Duration>& t)
+        {
+          using namespace chrono;
+          system_clock::time_point     s_now = system_clock::now();
+          typename Clock::time_point  c_now = Clock::now();
+          return try_lock_shared_until(s_now + ceil<system_clock::duration>(t - c_now));
+        }
+        template <class Duration>
+        bool try_lock_shared_until(const chrono::time_point<chrono::system_clock, Duration>& t)
+        {
+          using namespace chrono;
+          typedef time_point<chrono::system_clock, chrono::system_clock::duration> sys_tmpt;
+          return try_lock_shared_until(sys_tmpt(chrono::ceil<chrono::system_clock::duration>(t.time_since_epoch())));
+        }
+        bool try_lock_shared_until(const chrono::time_point<chrono::system_clock, chrono::system_clock::duration>& tp)
+        {
+          for(;;)
+          {
+            state_data old_state=state;
+            for(;;)
+            {
+              state_data new_state=old_state;
+              if(new_state.exclusive || new_state.exclusive_waiting_blocked)
+              {
+                  ++new_state.shared_waiting;
+                  if(!new_state.shared_waiting)
+                  {
+                      boost::throw_exception(boost::lock_error());
+                  }
+              }
+              else
+              {
+                  ++new_state.shared_count;
+                  if(!new_state.shared_count)
+                  {
+                      boost::throw_exception(boost::lock_error());
+                  }
+              }
+
+              state_data const current_state=interlocked_compare_exchange(&state,new_state,old_state);
+              if(current_state==old_state)
+              {
+                  break;
+              }
+              old_state=current_state;
+            }
+
+            if(!(old_state.exclusive| old_state.exclusive_waiting_blocked))
+            {
+              return true;
+            }
+
+            chrono::system_clock::time_point n = chrono::system_clock::now();
+            unsigned long res;
+            if (tp>n) {
+              chrono::milliseconds rel_time= chrono::ceil<chrono::milliseconds>(tp-n);
+              res=detail::win32::WaitForSingleObject(semaphores[unlock_sem],
+                static_cast<unsigned long>(rel_time.count()));
+            } else {
+              res=detail::win32::timeout;
+            }
+            if(res==detail::win32::timeout)
+            {
+              for(;;)
+              {
+                state_data new_state=old_state;
+                if(new_state.exclusive || new_state.exclusive_waiting_blocked)
+                {
+                  if(new_state.shared_waiting)
+                  {
+                      --new_state.shared_waiting;
+                  }
+                }
+                else
+                {
+                  ++new_state.shared_count;
+                  if(!new_state.shared_count)
+                  {
+                      return false;
+                  }
+                }
+
+                state_data const current_state=interlocked_compare_exchange(&state,new_state,old_state);
+                if(current_state==old_state)
+                {
+                    break;
+                }
+                old_state=current_state;
+              }
+
+              if(!(old_state.exclusive| old_state.exclusive_waiting_blocked))
+              {
+                return true;
+              }
+              return false;
+            }
+
+            BOOST_ASSERT(res==0);
+          }
+        }
+#endif
 
         void unlock_shared()
         {
@@ -214,7 +337,7 @@ namespace boost
             {
                 state_data new_state=old_state;
                 bool const last_reader=!--new_state.shared_count;
-                
+
                 if(last_reader)
                 {
                     if(new_state.upgrade)
@@ -232,7 +355,7 @@ namespace boost
                         new_state.shared_waiting=0;
                     }
                 }
-                
+
                 state_data const current_state=interlocked_compare_exchange(&state,new_state,old_state);
                 if(current_state==old_state)
                 {
@@ -278,7 +401,7 @@ namespace boost
                 {
                     new_state.exclusive=true;
                 }
-                
+
                 state_data const current_state=interlocked_compare_exchange(&state,new_state,old_state);
                 if(current_state==old_state)
                 {
@@ -306,7 +429,7 @@ namespace boost
                         {
                             boost::throw_exception(boost::lock_error());
                         }
-                        
+
                         new_state.exclusive_waiting_blocked=true;
                     }
                     else
@@ -326,7 +449,12 @@ namespace boost
                 {
                     return true;
                 }
-                unsigned long const wait_res=detail::win32::WaitForMultipleObjects(2,semaphores,true,::boost::detail::get_milliseconds_until(wait_until));
+                #ifndef UNDER_CE
+                const bool wait_all = true;
+                #else
+                const bool wait_all = false;
+                #endif
+                unsigned long const wait_res=detail::win32::WaitForMultipleObjects(2,semaphores,wait_all,::boost::detail::get_milliseconds_until(wait_until));
                 if(wait_res==detail::win32::timeout)
                 {
                     for(;;)
@@ -363,6 +491,116 @@ namespace boost
                 BOOST_ASSERT(wait_res<2);
             }
         }
+
+#ifdef BOOST_THREAD_USES_CHRONO
+        template <class Rep, class Period>
+        bool try_lock_for(const chrono::duration<Rep, Period>& rel_time)
+        {
+          return try_lock_until(chrono::steady_clock::now() + rel_time);
+        }
+        template <class Clock, class Duration>
+        bool try_lock_until(const chrono::time_point<Clock, Duration>& t)
+        {
+          using namespace chrono;
+          system_clock::time_point     s_now = system_clock::now();
+          typename Clock::time_point  c_now = Clock::now();
+          return try_lock_until(s_now + ceil<system_clock::duration>(t - c_now));
+        }
+        template <class Duration>
+        bool try_lock_until(const chrono::time_point<chrono::system_clock, Duration>& t)
+        {
+          using namespace chrono;
+          typedef time_point<chrono::system_clock, chrono::system_clock::duration> sys_tmpt;
+          return try_lock_until(sys_tmpt(chrono::ceil<chrono::system_clock::duration>(t.time_since_epoch())));
+        }
+        bool try_lock_until(const chrono::time_point<chrono::system_clock, chrono::system_clock::duration>& tp)
+        {
+          for(;;)
+          {
+            state_data old_state=state;
+
+            for(;;)
+            {
+              state_data new_state=old_state;
+              if(new_state.shared_count || new_state.exclusive)
+              {
+                ++new_state.exclusive_waiting;
+                if(!new_state.exclusive_waiting)
+                {
+                    boost::throw_exception(boost::lock_error());
+                }
+
+                new_state.exclusive_waiting_blocked=true;
+              }
+              else
+              {
+                new_state.exclusive=true;
+              }
+
+              state_data const current_state=interlocked_compare_exchange(&state,new_state,old_state);
+              if(current_state==old_state)
+              {
+                break;
+              }
+              old_state=current_state;
+            }
+
+            if(!old_state.shared_count && !old_state.exclusive)
+            {
+                return true;
+            }
+            #ifndef UNDER_CE
+            const bool wait_all = true;
+            #else
+            const bool wait_all = false;
+            #endif
+
+            chrono::system_clock::time_point n = chrono::system_clock::now();
+            unsigned long wait_res;
+            if (tp>n) {
+              chrono::milliseconds rel_time= chrono::ceil<chrono::milliseconds>(tp-chrono::system_clock::now());
+              wait_res=detail::win32::WaitForMultipleObjects(2,semaphores,wait_all,
+                  static_cast<unsigned long>(rel_time.count()));
+            } else {
+              wait_res=detail::win32::timeout;
+            }
+            if(wait_res==detail::win32::timeout)
+            {
+              for(;;)
+              {
+                state_data new_state=old_state;
+                if(new_state.shared_count || new_state.exclusive)
+                {
+                  if(new_state.exclusive_waiting)
+                  {
+                    if(!--new_state.exclusive_waiting)
+                    {
+                      new_state.exclusive_waiting_blocked=false;
+                    }
+                  }
+                }
+                else
+                {
+                  new_state.exclusive=true;
+                }
+
+                state_data const current_state=interlocked_compare_exchange(&state,new_state,old_state);
+                if(current_state==old_state)
+                {
+                  break;
+                }
+                old_state=current_state;
+              }
+              if(!old_state.shared_count && !old_state.exclusive)
+              {
+                return true;
+              }
+              return false;
+            }
+            BOOST_ASSERT(wait_res<2);
+          }
+        }
+#endif
 
         void unlock()
         {
@@ -426,7 +664,7 @@ namespace boost
                 {
                     return;
                 }
-                    
+
                 BOOST_VERIFY(!detail::win32::WaitForSingleObject(semaphores[unlock_sem],detail::win32::infinite));
             }
         }
@@ -450,7 +688,7 @@ namespace boost
                     }
                     new_state.upgrade=true;
                 }
-                
+
                 state_data const current_state=interlocked_compare_exchange(&state,new_state,old_state);
                 if(current_state==old_state)
                 {
@@ -469,7 +707,7 @@ namespace boost
                 state_data new_state=old_state;
                 new_state.upgrade=false;
                 bool const last_reader=!--new_state.shared_count;
-                
+
                 if(last_reader)
                 {
                     if(new_state.exclusive_waiting)
@@ -479,12 +717,14 @@ namespace boost
                     }
                     new_state.shared_waiting=0;
                 }
-                
+
                 state_data const current_state=interlocked_compare_exchange(&state,new_state,old_state);
                 if(current_state==old_state)
                 {
                     if(last_reader)
                     {
+                        release_waiters(old_state);
+                    } else {
                         release_waiters(old_state);
                     }
                     break;
@@ -500,13 +740,13 @@ namespace boost
             {
                 state_data new_state=old_state;
                 bool const last_reader=!--new_state.shared_count;
-                
+
                 if(last_reader)
                 {
                     new_state.upgrade=false;
                     new_state.exclusive=true;
                 }
-                
+
                 state_data const current_state=interlocked_compare_exchange(&state,new_state,old_state);
                 if(current_state==old_state)
                 {
@@ -545,7 +785,28 @@ namespace boost
             }
             release_waiters(old_state);
         }
-        
+//        bool try_unlock_upgrade_and_lock()
+//        {
+//          return false;
+//        }
+//#ifdef BOOST_THREAD_USES_CHRONO
+//        template <class Rep, class Period>
+//        bool
+//        try_unlock_upgrade_and_lock_for(
+//                                const chrono::duration<Rep, Period>& rel_time)
+//        {
+//          return try_unlock_upgrade_and_lock_until(
+//                                 chrono::steady_clock::now() + rel_time);
+//        }
+//        template <class Clock, class Duration>
+//        bool
+//        try_unlock_upgrade_and_lock_until(
+//                          const chrono::time_point<Clock, Duration>& abs_time)
+//        {
+//          return false;
+//        }
+//#endif
+
         void unlock_and_lock_shared()
         {
             state_data old_state=state;
@@ -570,7 +831,6 @@ namespace boost
             }
             release_waiters(old_state);
         }
-        
         void unlock_upgrade_and_lock_shared()
         {
             state_data old_state=state;
@@ -594,8 +854,10 @@ namespace boost
             }
             release_waiters(old_state);
         }
-        
+
     };
+    typedef shared_mutex upgrade_mutex;
+
 }
 
 #include <boost/config/abi_suffix.hpp>

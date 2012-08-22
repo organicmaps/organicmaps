@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -34,6 +34,10 @@
 #include <boost/interprocess/streams/vectorstream.hpp>
 #include <memory>
 #include <boost/assert.hpp>
+//These includes needed to fulfill default template parameters of
+//predeclarations in interprocess_fwd.hpp
+#include <boost/interprocess/mem_algo/rbtree_best_fit.hpp> 
+#include <boost/interprocess/sync/mutex_family.hpp>
 
 //!\file
 //!Describes a named shared memory object allocation user class.
@@ -47,26 +51,31 @@ namespace interprocess {
 //-Use GetSecurityInfo?
 //-Change everything to use only a shared memory object expanded via truncate()?
 
-//!A basic shared memory named object creation class. Initializes the 
-//!shared memory segment. Inherits all basic functionality from 
+//!A basic shared memory named object creation class. Initializes the
+//!shared memory segment. Inherits all basic functionality from
 //!basic_managed_memory_impl<CharType, MemoryAlgorithm, IndexType>
 template
       <
-         class CharType, 
-         class MemoryAlgorithm, 
+         class CharType,
+         class MemoryAlgorithm,
          template<class IndexConfig> class IndexType
       >
-class basic_managed_multi_shared_memory 
-   :  public detail::basic_managed_memory_impl
+class basic_managed_multi_shared_memory
+   :  public ipcdetail::basic_managed_memory_impl
          <CharType, MemoryAlgorithm, IndexType>
 {
 
    typedef basic_managed_multi_shared_memory
                <CharType, MemoryAlgorithm, IndexType>    self_t;
+   typedef ipcdetail::basic_managed_memory_impl
+      <CharType, MemoryAlgorithm, IndexType>             base_t;
+  
    typedef typename MemoryAlgorithm::void_pointer        void_pointer;
-   typedef typename detail::
-      managed_open_or_create_impl<shared_memory_object>  managed_impl;
+   typedef typename ipcdetail::
+      managed_open_or_create_impl<shared_memory_object, MemoryAlgorithm::Alignment>  managed_impl;
    typedef typename void_pointer::segment_group_id       segment_group_id;
+   typedef typename base_t::size_type                   size_type;
+
    ////////////////////////////////////////////////////////////////////////
    //
    //               Some internal helper structs/functors
@@ -82,16 +91,16 @@ class basic_managed_multi_shared_memory
 //   {
 //      public:
 //      segment_creator(shared_memory &shmem,
-//                      const char *mem_name, 
+//                      const char *mem_name,
 //                      const void *addr)
 //      : m_shmem(shmem), m_mem_name(mem_name), m_addr(addr){}
 //
-//      void *operator()(std::size_t size)
+//      void *operator()(size_type size)
 //      {
 //         if(!m_shmem.create(m_mem_name, size, m_addr))
 //            return 0;
-//         return m_shmem.get_address(); 
-//      }      
+//         return m_shmem.get_address();
+//      }     
 //      private:
 //      shared_memory &m_shmem;
 //      const char *m_mem_name;
@@ -102,29 +111,30 @@ class basic_managed_multi_shared_memory
       :  public multi_segment_services
    {
       public:
-      typedef std::pair<void *, std::size_t>                result_type;
+      typedef std::pair<void *, size_type>                  result_type;
       typedef basic_managed_multi_shared_memory             frontend_t;
-      typedef typename 
+      typedef typename
          basic_managed_multi_shared_memory::void_pointer    void_pointer;
       typedef typename void_pointer::segment_group_id       segment_group_id;
       group_services(frontend_t *const frontend)
          :  mp_frontend(frontend), m_group(0), m_min_segment_size(0){}
 
-      virtual std::pair<void *, std::size_t> create_new_segment(std::size_t alloc_size)
-      {  
+      virtual std::pair<void *, size_type> create_new_segment(size_type alloc_size)
+      {  (void)alloc_size;
+         /*
          //We should allocate an extra byte so that the
          //[base_addr + alloc_size] byte belongs to this segment
          alloc_size += 1;
 
          //If requested size is less than minimum, update that
-         alloc_size = (m_min_segment_size > alloc_size) ? 
+         alloc_size = (m_min_segment_size > alloc_size) ?
                        m_min_segment_size : alloc_size;
          if(mp_frontend->priv_new_segment(create_open_func::DoCreate,
                                           alloc_size, 0, permissions())){
-            shmem_list_t::value_type &m_impl = *mp_frontend->m_shmem_list.rbegin();
+            typename shmem_list_t::value_type &m_impl = *mp_frontend->m_shmem_list.rbegin();
             return result_type(m_impl.get_real_address(), m_impl.get_real_size()-1);
-         }
-         return result_type(static_cast<void *>(0), 0);  
+         }*/
+         return result_type(static_cast<void *>(0), 0); 
       }
 
       virtual bool update_segments ()
@@ -138,17 +148,17 @@ class basic_managed_multi_shared_memory
       segment_group_id get_group() const
          {  return m_group;  }
 
-      void set_min_segment_size(std::size_t min_segment_size)
+      void set_min_segment_size(size_type min_segment_size)
          {  m_min_segment_size = min_segment_size;  }
 
-      std::size_t get_min_segment_size() const
+      size_type get_min_segment_size() const
          {  return m_min_segment_size;  }
 
       private:
 
       frontend_t * const   mp_frontend;
       segment_group_id     m_group;
-      std::size_t          m_min_segment_size;
+      size_type            m_min_segment_size;
    };
 
    //!Functor to execute atomically when opening or creating a shared memory
@@ -156,16 +166,16 @@ class basic_managed_multi_shared_memory
    struct create_open_func
    {
       enum type_t {  DoCreate, DoOpen, DoOpenOrCreate  };
-      typedef typename 
+      typedef typename
          basic_managed_multi_shared_memory::void_pointer   void_pointer;
 
       create_open_func(self_t * const    frontend,
-                       type_t type, std::size_t segment_number)
+                       type_t type, size_type segment_number)
          : mp_frontend(frontend), m_type(type), m_segment_number(segment_number){}
 
-      bool operator()(void *addr, std::size_t size, bool created) const
-      {  
-         if(((m_type == DoOpen)   &&  created) || 
+      bool operator()(void *addr, size_type size, bool created) const
+      { 
+         if(((m_type == DoOpen)   &&  created) ||
             ((m_type == DoCreate) && !created))
             return false;
          segment_group_id group = mp_frontend->m_group_services.get_group();
@@ -181,7 +191,7 @@ class basic_managed_multi_shared_memory
          //Check if this is the master segment
          if(!m_segment_number){
             //Create or open the Interprocess machinery
-            if((impl_done = created ? 
+            if((impl_done = created ?
                mp_frontend->create_impl(addr, size) : mp_frontend->open_impl(addr, size))){
                return true;
             }
@@ -203,28 +213,25 @@ class basic_managed_multi_shared_memory
       }
       self_t * const    mp_frontend;
       type_t            m_type;
-      std::size_t       m_segment_number;
+      size_type       m_segment_number;
    };
 
    //!Functor to execute atomically when closing a shared memory segment.
    struct close_func
    {
-      typedef typename 
+      typedef typename
          basic_managed_multi_shared_memory::void_pointer   void_pointer;
 
       close_func(self_t * const frontend)
          : mp_frontend(frontend){}
 
       void operator()(const mapped_region &region, bool last) const
-      {  
+      { 
          if(last) mp_frontend->destroy_impl();
          else     mp_frontend->close_impl();
       }
       self_t * const    mp_frontend;
    };
-
-   typedef detail::basic_managed_memory_impl 
-      <CharType, MemoryAlgorithm, IndexType>                   base_t;
 
    //Friend declarations
    friend struct basic_managed_multi_shared_memory::create_open_func;
@@ -240,16 +247,16 @@ class basic_managed_multi_shared_memory
 
    basic_managed_multi_shared_memory(create_only_t,
                                      const char *name,
-                                     std::size_t size,
+                                     size_type size,
                                      const permissions &perm = permissions())
       :  m_group_services(get_this_pointer())
    {
-      priv_open_or_create(create_open_func::DoCreate,name, size, perm);  
+      priv_open_or_create(create_open_func::DoCreate,name, size, perm); 
    }
 
    basic_managed_multi_shared_memory(open_or_create_t,
                                      const char *name,
-                                     std::size_t size,
+                                     size_type size,
                                      const permissions &perm = permissions())
       :  m_group_services(get_this_pointer())
    {
@@ -266,9 +273,9 @@ class basic_managed_multi_shared_memory
       {  this->priv_close(); }
 
    private:
-   bool  priv_open_or_create(typename create_open_func::type_t type, 
+   bool  priv_open_or_create(typename create_open_func::type_t type,
                              const char *name,
-                             std::size_t size,
+                             size_type size,
                              const permissions &perm)
    {
       if(!m_shmem_list.empty())
@@ -294,21 +301,21 @@ class basic_managed_multi_shared_memory
       if(group){
          void_pointer::delete_group(group);
       }
-      return false;      
+      return false;     
    }
 
    bool  priv_new_segment(typename create_open_func::type_t type,
-                          std::size_t size,
+                          size_type size,
                           const void *addr,
                           const permissions &perm)
    {
       BOOST_TRY{
          //Get the number of groups of this multi_segment group
-         std::size_t segment_id  = m_shmem_list.size();
-         //Format the name of the shared memory: append segment number. 
+         size_type segment_id  = m_shmem_list.size();
+         //Format the name of the shared memory: append segment number.
          boost::interprocess::basic_ovectorstream<boost::interprocess::string> formatter;
          //Pre-reserve string size
-         std::size_t str_size = m_root_name.length()+10;
+         size_type str_size = m_root_name.length()+10;
          if(formatter.vector().size() < str_size){
             //This can throw.
             formatter.reserve(str_size);
@@ -326,21 +333,21 @@ class basic_managed_multi_shared_memory
             case create_open_func::DoCreate:
             {
                managed_impl shm(create_only, name, size, read_write, addr, func, perm);
-               mshm = boost::interprocess::move(shm);
+               mshm = boost::move(shm);
             }
             break;
 
             case create_open_func::DoOpen:
             {
                managed_impl shm(open_only, name,read_write, addr, func);
-               mshm = boost::interprocess::move(shm);
+               mshm = boost::move(shm);
             }
             break;
 
             case create_open_func::DoOpenOrCreate:
             {
                managed_impl shm(open_or_create, name, size, read_write, addr, func, perm);
-               mshm = boost::interprocess::move(shm);
+               mshm = boost::move(shm);
             }
             break;
 
@@ -350,7 +357,7 @@ class basic_managed_multi_shared_memory
          }
 
          //This can throw.
-         m_shmem_list.push_back(boost::interprocess::move(mshm));
+         m_shmem_list.push_back(boost::move(mshm));
          return true;
       }
       BOOST_CATCH(const std::bad_alloc&){
@@ -361,23 +368,24 @@ class basic_managed_multi_shared_memory
 
    //!Frees resources. Never throws.
    void priv_close()
-   {  
+   { 
       if(!m_shmem_list.empty()){
          bool ret;
          //Obtain group identifier
          segment_group_id group = m_group_services.get_group();
          //Erase main segment and its resources
-         shmem_list_t::iterator  itbeg = m_shmem_list.begin(),
-                                 itend = m_shmem_list.end(),
-                                 it    = itbeg;
+         //typename shmem_list_t::iterator  itbeg = m_shmem_list.begin(),
+         //                        itend = m_shmem_list.end(),
+         //                        it    = itbeg;
          //(*itbeg)->close_with_func(close_func(this));
          //Delete group. All mappings are erased too.
          ret = void_pointer::delete_group(group);
+         (void)ret;
          BOOST_ASSERT(ret);
          m_shmem_list.clear();
       }
    }
-   
+  
    private:
    shmem_list_t   m_shmem_list;
    group_services m_group_services;

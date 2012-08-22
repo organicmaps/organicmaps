@@ -25,7 +25,6 @@
 #include "detail/property_merge.hpp"
 #include "detail/polygon_90_touch.hpp"
 #include "detail/iterator_geometry_to_set.hpp"
-#include "detail/polygon_sort_adaptor.hpp"
 
 namespace boost { namespace polygon{
   template <typename ltype, typename rtype, typename op_type>

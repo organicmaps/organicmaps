@@ -19,6 +19,7 @@
     
     
     template<typename A0 , typename A1>
+    BOOST_FORCEINLINE
     typename result_of::make_expr<
         Tag
       , Domain
@@ -46,6 +47,7 @@
     
     
     template<typename A0 , typename A1 , typename A2>
+    BOOST_FORCEINLINE
     typename result_of::make_expr<
         Tag
       , Domain
@@ -73,6 +75,7 @@
     
     
     template<typename A0 , typename A1 , typename A2 , typename A3>
+    BOOST_FORCEINLINE
     typename result_of::make_expr<
         Tag
       , Domain
@@ -100,6 +103,7 @@
     
     
     template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4>
+    BOOST_FORCEINLINE
     typename result_of::make_expr<
         Tag
       , Domain
@@ -127,6 +131,7 @@
     
     
     template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5>
+    BOOST_FORCEINLINE
     typename result_of::make_expr<
         Tag
       , Domain
@@ -154,6 +159,7 @@
     
     
     template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6>
+    BOOST_FORCEINLINE
     typename result_of::make_expr<
         Tag
       , Domain
@@ -181,6 +187,7 @@
     
     
     template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7>
+    BOOST_FORCEINLINE
     typename result_of::make_expr<
         Tag
       , Domain
@@ -208,6 +215,7 @@
     
     
     template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8>
+    BOOST_FORCEINLINE
     typename result_of::make_expr<
         Tag
       , Domain
@@ -235,6 +243,7 @@
     
     
     template<typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8 , typename A9>
+    BOOST_FORCEINLINE
     typename result_of::make_expr<
         Tag
       , Domain

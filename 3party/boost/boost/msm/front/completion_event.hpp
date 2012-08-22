@@ -16,6 +16,12 @@ namespace boost { namespace msm { namespace front
 
     struct none
     {
+        // make every event convertible to none.
+        // to support standard-conform implementation of pseudo exits.
+        none(){}
+        template <class Event>
+        none(Event const&){}
+
         typedef int completion_event;
     };
 

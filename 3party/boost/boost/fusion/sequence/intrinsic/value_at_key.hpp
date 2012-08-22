@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2001-2006 Joel de Guzman
+    Copyright (c) 2001-2011 Joel de Guzman
     Copyright (c) 2006 Dan Marsden
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying 
@@ -9,6 +9,7 @@
 #define FUSION_VALUE_AT_KEY_05052005_0229
 
 #include <boost/mpl/int.hpp>
+#include <boost/fusion/sequence/intrinsic_fwd.hpp>
 #include <boost/fusion/iterator/value_of_data.hpp>
 #include <boost/fusion/algorithm/query/find.hpp>
 #include <boost/fusion/support/tag_of.hpp>

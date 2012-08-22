@@ -1,6 +1,6 @@
 /*=============================================================================
     Copyright (c) 2001-2011 Joel de Guzman
-    Copyright (c) 2011 Thomas Bernard
+    Copyright (c) 2011-2012 Thomas Bernard
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -22,6 +22,7 @@
 #include <boost/fusion/include/iter_fold.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/value_at.hpp>
+#include <boost/fusion/include/mpl.hpp>
 #include <boost/optional.hpp>
 #include <boost/foreach.hpp>
 #include <boost/array.hpp>
@@ -35,10 +36,14 @@
 #include <boost/mpl/size.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/back_inserter.hpp>
+#include <boost/mpl/filter_view.hpp>
+#include <boost/fusion/include/zip_view.hpp>
+#include <boost/fusion/include/as_vector.hpp>
 #include <boost/variant/static_visitor.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/spirit/repository/home/qi/operator/detail/keywords.hpp>
+#include <boost/fusion/include/any.hpp>
 
 
 namespace boost { namespace spirit
@@ -62,6 +67,7 @@ namespace boost { namespace spirit { namespace repository { namespace qi
     namespace detail
     {
         BOOST_MPL_HAS_XXX_TRAIT_DEF(kwd_parser_id)        
+        BOOST_MPL_HAS_XXX_TRAIT_DEF(complex_kwd_parser_id)
 
     
     }
@@ -75,6 +81,16 @@ namespace boost { namespace spirit { namespace repository { namespace qi
 
     template <typename Subject>
     struct is_kwd_parser<spirit::qi::hold_directive<Subject> > : detail::has_kwd_parser_id<Subject> {};
+
+    template <typename T>
+    struct is_complex_kwd_parser : detail::has_complex_kwd_parser_id<T> {};
+
+    template <typename Subject, typename Action>
+    struct is_complex_kwd_parser<spirit::qi::action<Subject,Action> > : detail::has_complex_kwd_parser_id<Subject> {};
+
+    template <typename Subject>
+    struct is_complex_kwd_parser<spirit::qi::hold_directive<Subject> > : detail::has_complex_kwd_parser_id<Subject> {};
+
 
     // Keywords operator
     template <typename Elements, typename Modifiers>
@@ -101,9 +117,14 @@ namespace boost { namespace spirit { namespace repository { namespace qi
         typedef typename mpl::count_if< 
                 Elements, 
                         mpl::not_< 
+                           mpl::or_<
                             is_kwd_parser<
                                 mpl::_1 
+                              > ,
+                              is_complex_kwd_parser<
+                                mpl::_1
                             > 
+                        >
                         >
                 > non_kwd_subject_count;
         
@@ -130,208 +151,38 @@ namespace boost { namespace spirit { namespace repository { namespace qi
             typedef typename mpl::range_c<int, 0, sequence_size::value>::type int_range;
             
             // Transform the range_c to an mpl vector in order to be able to transform it into a variant
-            typedef typename mpl::copy<int_range, mpl::back_inserter<mpl::vector<> > >::type int_vector;
+            typedef typename mpl::copy<int_range, mpl::back_inserter<mpl::vector<> > >::type type;
         
-            // Build the variant type containing the indexes of the parsers
-            typedef typename 
-                spirit::detail::as_variant<
-                    int_vector >::type        type;
         };
+        // Build an index mpl vector
+        typedef typename build_parser_tags< Elements >::type parser_index_vector;
         
-        // Create a variant type to be able to store parser indexes in the embedded symbols parser
-        typedef typename build_parser_tags< Elements >::type parser_index_type;
+        template <typename idx>
+        struct is_complex_kwd_parser_filter : is_complex_kwd_parser< typename mpl::at<Elements, idx>::type >
+        {};
 
-        ///////////////////////////////////////////////////////////////////////////
-        // build_char_type_sequence
-        //
-        // Build a fusion sequence from the kwd directive specified character type. 
-        ///////////////////////////////////////////////////////////////////////////
-        template <typename Sequence >
-        struct build_char_type_sequence
-        {
-            struct element_char_type
-            {
-                template <typename T>
-                struct result;
+        template <typename idx>
+        struct is_kwd_parser_filter : is_kwd_parser< typename mpl::at<Elements, idx>::type >
+        {};
 
-                template <typename F, typename Element>
-                struct result<F(Element)>
-                {
-                    typedef typename Element::char_type type;
+        // filter out the string kwd directives
+        typedef typename mpl::filter_view< Elements, is_kwd_parser<mpl_::_> >::type string_keywords;
                         
-                };
-                template <typename F, typename Element,typename Action>
-                struct result<F(spirit::qi::action<Element,Action>) >
-                {
-                    typedef typename Element::char_type type;
-                };
-                template <typename F, typename Element>
-                struct result<F(spirit::qi::hold_directive<Element>)>
-                {   
-                    typedef typename Element::char_type type;
-                };
+        typedef typename mpl::filter_view< parser_index_vector ,
+                                         is_kwd_parser_filter< mpl::_ >
+                                             >::type string_keyword_indexes;
+        // filter out the complex keywords
+        typedef typename mpl::filter_view< parser_index_vector ,
+                                         is_complex_kwd_parser_filter< mpl::_ >
+                                            >::type complex_keywords_indexes;
 
-                // never called, but needed for decltype-based result_of (C++0x)
-                template <typename Element>
-                typename result<element_char_type(Element)>::type
-                operator()(Element&) const;
-            };
+        //typedef typename fusion::filter_view< Elements, is_complex_kwd_parser< mpl::_ > > complex_keywords_view;
 
-            // Compute the list of character types of the child kwd directives
-            typedef typename
-                fusion::result_of::transform<Sequence, element_char_type>::type
-            type;
-        };
-    
-    
-        ///////////////////////////////////////////////////////////////////////////
-        // get_keyword_char_type
-        //
-        // Collapses the character type comming from the subject kwd parsers and
-        // and checks that they are all identical (necessary in order to be able 
-        // to build a tst parser to parse the keywords. 
-        ///////////////////////////////////////////////////////////////////////////
-        template <typename Sequence>
-        struct get_keyword_char_type
-        {
-            // Make sure each of the types occur only once in the type list
-            typedef typename
-                mpl::fold<
-                    Sequence, mpl::vector<>,
-                    mpl::if_<
-                        mpl::contains<mpl::_1, mpl::_2>,
-                        mpl::_1, mpl::push_back<mpl::_1, mpl::_2>
-                    >
-                >::type
-            no_duplicate_char_types;
-        
-            // If the compiler traps here this means you mixed 
-            // character type for the keywords specified in the 
-            // kwd directive sequence.
-            BOOST_MPL_ASSERT_RELATION( mpl::size<no_duplicate_char_types>::value, ==, 1 );
-            
-            typedef typename mpl::front<no_duplicate_char_types>::type type;
-                
-        };
-
-        /// Get the character type for the tst parser
-        typedef typename build_char_type_sequence< Elements >::type char_types;
-        typedef typename  get_keyword_char_type< char_types >::type  char_type;
-        
-        /// Our symbols container
-        typedef spirit::qi::tst< char_type, parser_index_type> keywords_type;
-
-        // Filter functor used for case insensitive parsing
-        template <typename CharEncoding>
-        struct no_case_filter
-        {
-            char_type operator()(char_type ch) const
-            {
-                return static_cast<char_type>(CharEncoding::tolower(ch));
-            }
-        };
-    
-        ///////////////////////////////////////////////////////////////////////////
-        // build_case_type_sequence
-        //
-        // Build a fusion sequence from the kwd/ikwd directives 
-        // in order to determine if case sensitive and case insensitive 
-        // keywords have been mixed. 
-        ///////////////////////////////////////////////////////////////////////////
-        template <typename Sequence >
-        struct build_case_type_sequence
-        {
-            struct element_case_type
-            {
-                template <typename T>
-                struct result;
-
-                template <typename F, typename Element>
-                struct result<F(Element)>
-                {
-                    typedef typename Element::no_case_keyword type;
-                        
-                };
-                template <typename F, typename Element,typename Action>
-                struct result<F(spirit::qi::action<Element,Action>) >
-                {
-                    typedef typename Element::no_case_keyword type;
-                };
-                template <typename F, typename Element>
-                struct result<F(spirit::qi::hold_directive<Element>)>
-                {
-                    typedef typename Element::no_case_keyword type;
-                };
-
-                // never called, but needed for decltype-based result_of (C++0x)
-                template <typename Element>
-                typename result<element_case_type(Element)>::type
-                operator()(Element&) const;
-            };
-
-            // Compute the list of character types of the child kwd directives
-            typedef typename
-                fusion::result_of::transform<Sequence, element_case_type>::type
-            type;
-        };
-
-        ///////////////////////////////////////////////////////////////////////////
-        // get_nb_case_types
-        //
-        // Counts the number of entries in the case type sequence matching the 
-        // CaseType parameter (mpl::true_  -> case insensitve
-        //                   , mpl::false_ -> case sensitive
-        ///////////////////////////////////////////////////////////////////////////
-        template <typename Sequence,typename CaseType>
-        struct get_nb_case_types
-        {
-            // Make sure each of the types occur only once in the type list
-            typedef typename
-                mpl::count_if<
-                    Sequence, mpl::equal_to<mpl::_,CaseType> 
-                >::type type;
-                
-            
-        };
-        // Build the case type sequence
-        typedef typename build_case_type_sequence<Elements>::type case_type_sequence;
-        // Count the number of case sensitive entries and case insensitve entries
-        typedef typename get_nb_case_types<case_type_sequence,mpl::true_>::type ikwd_count;
-        typedef typename get_nb_case_types<case_type_sequence,mpl::false_>::type kwd_count;
-        // Get the size of the original sequence
-        typedef typename mpl::size<Elements>::type nb_elements;
-        // Determine if all the kwd directive are case sensitive/insensitive
-        typedef typename mpl::equal_to< ikwd_count, nb_elements>::type all_ikwd;
-        typedef typename mpl::equal_to< kwd_count, nb_elements>::type all_kwd;
-        
-        typedef typename mpl::or_< all_kwd, all_ikwd >::type all_directives_of_same_type;
-             
-        // Do we have a no case modifier
-        typedef has_modifier<Modifiers, spirit::tag::char_code_base<spirit::tag::no_case> > no_case_modifier;
-
-        // Should the no_case filter always be used ?
-        typedef typename mpl::or_<
-                            no_case_modifier,
-                            mpl::and_< 
-                                 all_directives_of_same_type
-                                ,all_ikwd
-                                >
-                            >::type
-                         no_case;
-        
-        typedef no_case_filter<
-            typename spirit::detail::get_encoding_with_case<
-                Modifiers
-              , char_encoding::standard
-              , no_case::value>::type>
-        nc_filter;
-        // Determine the standard case filter type
         typedef typename mpl::if_<
-            no_case
-          , nc_filter
-          , spirit::qi::tst_pass_through >::type
-        filter_type;
-        
+                typename mpl::empty<complex_keywords_indexes>::type,
+                detail::empty_keywords_list,
+                detail::complex_keywords< complex_keywords_indexes >
+                >::type complex_keywords_type;
         
         // build a bool array and an integer array which will be used to 
         // check that the repetition constraints of the kwd parsers are 
@@ -339,91 +190,24 @@ namespace boost { namespace spirit { namespace repository { namespace qi
         typedef boost::array<bool, fusion::result_of::size<Elements>::value> flags_type;
         typedef boost::array<int, fusion::result_of::size<Elements>::value> counters_type;
         
+        typedef typename mpl::if_<
+                        typename mpl::empty<string_keyword_indexes>::type,
+                        detail::empty_keywords_list,
+                        detail::string_keywords<
+                                Elements,
+                                string_keywords,
+                                string_keyword_indexes,
+                                flags_type,
+                                Modifiers>
+                >::type string_keywords_type;
         
-
-        // Functor which adds all the keywords/subject parser indexes 
-        // collected from the subject kwd directives to the keyword tst parser       
-        template< typename Sequence >
-        struct keyword_entry_adder
+        keywords(Elements const& elements_) :
+              elements(elements_)
+            , string_keywords_inst(elements,flags_init)
+      , complex_keywords_inst(elements,flags_init)
         {
-            typedef int result_type;
-
-            keyword_entry_adder(shared_ptr<keywords_type> lookup,flags_type &flags) :
-                lookup(lookup)
-                ,flags(flags)
-                {}
-            
-            typedef typename fusion::result_of::begin< Sequence >::type sequence_begin;
-            
-            template <typename T>
-                int operator()(const int i, const T &parser) const
-                {
-                     // Determine the current position being handled
-                    typedef typename fusion::result_of::distance< sequence_begin, T >::type position_raw;
-                    // Transform the position to a parser index tag
-                    typedef typename mpl::integral_c<int,position_raw::value> position;
-
-                    return call(i,fusion::deref(parser),position());
                 }
 
-            template <typename T, typename Position, typename Action>
-                int call( const int i, const spirit::qi::action<T,Action> &parser, const Position position ) const
-                {
-                    
-                    // Make the keyword/parse index entry in the tst parser
-                    lookup->add(
-                        traits::get_begin<char_type>(parser.subject.keyword.str),
-                        traits::get_end<char_type>(parser.subject.keyword.str), 
-                        position
-                        );
-                    // Get the initial state of the flags array and store it in the flags initializer
-                    flags[Position::value]=parser.subject.iter.flag_init();
-                    return 0;
-                }
-    
-            template <typename T, typename Position>
-                int call( const int i, const T & parser, const Position position) const
-                {
-                    // Make the keyword/parse index entry in the tst parser
-                    lookup->add(
-                        traits::get_begin<char_type>(parser.keyword.str),
-                        traits::get_end<char_type>(parser.keyword.str), 
-                        position
-                        );
-                    // Get the initial state of the flags array and store it in the flags initializer
-                    flags[Position::value]=parser.iter.flag_init();
-                    return 0;
-                }
-       
-            template <typename T, typename Position>
-                int call( const int i, const spirit::qi::hold_directive<T> & parser, const Position position) const
-                {
-                    // Make the keyword/parse index entry in the tst parser
-                    lookup->add(
-                        traits::get_begin<char_type>(parser.subject.keyword.str),
-                        traits::get_end<char_type>(parser.subject.keyword.str), 
-                        position
-                        );
-                    // Get the initial state of the flags array and store it in the flags initializer
-                    flags[Position::value]=parser.subject.iter.flag_init();
-                    return 0;
-                }
- 
-
-            shared_ptr<keywords_type> lookup;
-            flags_type & flags;
-        };
-        
-        
-        keywords(Elements const& elements) :
-              elements(elements)
-            , lookup(new keywords_type())
-        {
-            // Loop through all the subject parsers to build the keyword parser symbol parser
-            keyword_entry_adder<Elements> f1(lookup,flags_init);
-            fusion::iter_fold(this->elements,0,f1);
-        }
-        
         template <typename Iterator, typename Context
           , typename Skipper, typename Attribute>
         bool parse(Iterator& first, Iterator const& last
@@ -434,7 +218,7 @@ namespace boost { namespace spirit { namespace repository { namespace qi
             // We need to handle the case where kwd / ikwd directives have been mixed
             // This is where we decide which function should be called.
             return parse_impl(first, last, context, skipper, attr_,
-                                typename mpl::or_<all_directives_of_same_type, no_case>::type()
+                                typename string_keywords_type::requires_one_pass()
                              );
         }
         
@@ -442,7 +226,7 @@ namespace boost { namespace spirit { namespace repository { namespace qi
           , typename Skipper, typename Attribute>
         bool parse_impl(Iterator& first, Iterator const& last
           , Context& context, Skipper const& skipper
-          , Attribute& attr_,mpl::true_ /* no ikwd */) const
+          , Attribute& attr_,mpl::true_ /* one pass */) const
           {
            
             // wrap the attribute in a tuple if it is not a tuple
@@ -458,10 +242,16 @@ namespace boost { namespace spirit { namespace repository { namespace qi
                                     , flags_type, counters_type
                                     , typename traits::wrap_if_not_tuple<Attribute>::type
                                     , mpl::false_ > parser_visitor_type;
+
             parser_visitor_type parse_visitor(elements, first, last
                                              , context, skipper, flags
                                              , counters, attr);
             
+            typedef repository::qi::detail::complex_kwd_function< parser_visitor_type > complex_kwd_function_type;
+
+            complex_kwd_function_type
+                     complex_function(first,last,context,skipper,parse_visitor);
+
             // We have a bool array 'flags' with one flag for each parser as well as a 'counter'
             // array.
             // The kwd directive sets and increments the counter when a successeful parse occured
@@ -471,35 +261,36 @@ namespace boost { namespace spirit { namespace repository { namespace qi
             // The parsing takes place here in two steps:
             // 1) parse a keyword and fetch the parser index associated with that keyword
             // 2) call the associated parser and store the parsed value in the matching attribute.
-            Iterator save = first;
+
             while(true)
             {
                 
                 spirit::qi::skip_over(first, last, skipper);
-                if (parser_index_type* val_ptr
-                    = lookup->find(first, last, filter_type()))
+                Iterator save = first;
+                if (string_keywords_inst.parse(first, last,parse_visitor,skipper))
                 {
-                    spirit::qi::skip_over(first, last, skipper);
-                    if(!apply_visitor(parse_visitor,*val_ptr)){
-                        first = save;
-                        return false;
-                    }                
                     save = first;
                 }
-                else
+                else {
+          // restore the position to the last successful keyword parse
+          first = save;
+          if(!complex_keywords_inst.parse(complex_function))
                 {
+            first = save;
                     // Check that we are leaving the keywords parser in a successfull state
                     BOOST_FOREACH(bool &valid,flags)
                     {
                         if(!valid)
                         {
-                            first = save;
                             return false;
                         }                        
                     }
                     return true;
                 }
+          else
+            save = first;
             }            
+            }
             return false;
         }
         
@@ -508,7 +299,7 @@ namespace boost { namespace spirit { namespace repository { namespace qi
           , typename Skipper, typename Attribute>
         bool parse_impl(Iterator& first, Iterator const& last
           , Context& context, Skipper const& skipper
-          , Attribute& attr_,mpl::false_) const
+          , Attribute& attr_,mpl::false_ /* two passes */) const
           {
            
             // wrap the attribute in a tuple if it is not a tuple
@@ -536,6 +327,12 @@ namespace boost { namespace spirit { namespace repository { namespace qi
             no_case_parser_visitor_type no_case_parse_visitor(elements,first,last
                                              ,context,skipper,flags,counters,attr);                    
             
+            typedef repository::qi::detail::complex_kwd_function< parser_visitor_type > complex_kwd_function_type;
+
+            complex_kwd_function_type
+                     complex_function(first,last,context,skipper,parse_visitor);
+
+
             // We have a bool array 'flags' with one flag for each parser as well as a 'counter'
             // array.
             // The kwd directive sets and increments the counter when a successeful parse occured
@@ -545,46 +342,36 @@ namespace boost { namespace spirit { namespace repository { namespace qi
             // The parsing takes place here in two steps:
             // 1) parse a keyword and fetch the parser index associated with that keyword
             // 2) call the associated parser and store the parsed value in the matching attribute.
-            Iterator save = first;
+
             while(true)
             {
                 spirit::qi::skip_over(first, last, skipper);
-                // First pass case sensitive
-                Iterator saved_first = first;
-                if (parser_index_type* val_ptr
-                    = lookup->find(first, last, spirit::qi::tst_pass_through()))
+                Iterator save = first;
+                // String keywords pass
+                if (string_keywords_inst.parse(first,last,parse_visitor,no_case_parse_visitor,skipper))
                 {
-                    spirit::qi::skip_over(first, last, skipper);
-                    if(!apply_visitor(parse_visitor,*val_ptr)){
-                        first = save;
-                        return false;
-                    }
                     save = first;
                 }
-                // Second pass case insensitive
-                else if(parser_index_type* val_ptr
-                    = lookup->find(saved_first,last,nc_filter()))
+                else {
+          first = save;
+
+          if(!complex_keywords_inst.parse(complex_function))
                 {                    
-                        first = saved_first;
-                        spirit::qi::skip_over(first, last, skipper);
-                        if(!apply_visitor(no_case_parse_visitor,*val_ptr)){
                             first = save;
-                            return false;
-                        }                
-                        save = first;
-                }
-                else
-                {
                     // Check that we are leaving the keywords parser in a successfull state
                     BOOST_FOREACH(bool &valid,flags)
                     {
                         if(!valid)
                         {
-                            first = save;
                             return false;                        
                         }
                     }
                     return true;
+                }
+          else
+          {
+            save = first;
+            }
                 }
             }
             return false;
@@ -600,7 +387,8 @@ namespace boost { namespace spirit { namespace repository { namespace qi
         }
         flags_type flags_init;
         Elements elements;
-        shared_ptr<keywords_type> lookup;
+        string_keywords_type string_keywords_inst;
+        complex_keywords_type complex_keywords_inst;
         
     };
 }}}}
@@ -634,6 +422,14 @@ namespace boost { namespace spirit { namespace traits
     template <typename Elements, typename Modifiers>
     struct has_semantic_action<repository::qi::keywords<Elements, Modifiers> >
       : nary_has_semantic_action<Elements> {};
+
+    template <typename Elements, typename Attribute, typename Context
+        , typename Iterator, typename Modifiers>
+    struct handles_container<repository::qi::keywords<Elements,Modifiers>, Attribute
+        , Context, Iterator>
+      : nary_handles_container<Elements, Attribute, Context, Iterator> {};
+
+
 }}}
 
 #endif

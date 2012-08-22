@@ -36,12 +36,12 @@ namespace boost { namespace phoenix {
     >
     inline
     typename detail::expression::function_eval<
-        detail::function_ptr<1, RT, RT(*)(T0 &)>
+        detail::function_ptr<1, RT, RT(*)(T0)>
       , A0
     >::type const
-    bind(RT(*f)(T0 &), A0 const & a0)
+    bind(RT(*f)(T0), A0 const & a0)
     {
-        typedef detail::function_ptr<1, RT, RT(*)(T0 &)> fp_type;
+        typedef detail::function_ptr<1, RT, RT(*)(T0)> fp_type;
         return detail::expression::function_eval<fp_type, A0>::make(fp_type(f), a0);
     }
 

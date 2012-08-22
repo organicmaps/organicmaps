@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -48,7 +48,7 @@ struct unordered_map_index_aux
         std::size_t operator()(const key_type &val) const
         {
             typedef typename key_type::char_type    char_type;
-            const char_type *beg = detail::get_pointer(val.mp_str),
+            const char_type *beg = ipcdetail::to_raw_pointer(val.mp_str),
                             *end = beg + val.m_len;
             return boost::hash_range(beg, end);
         }
@@ -69,7 +69,7 @@ class unordered_map_index
    /// @cond
    typedef unordered_map_index_aux<MapConfig>   index_aux;
    typedef typename index_aux::index_t          base_type;
-   typedef typename 
+   typedef typename
       MapConfig::segment_manager_base     segment_manager_base;
    /// @endcond
 
@@ -84,7 +84,7 @@ class unordered_map_index
 
    //!This reserves memory to optimize the insertion of n
    //!elements in the index
-   void reserve(std::size_t n)
+   void reserve(typename segment_manager_base::size_type n)
    {  base_type::rehash(n);  }
 
    //!This tries to free previously allocate
@@ -102,7 +102,7 @@ template<class MapConfig>
 struct is_node_index
    <boost::interprocess::unordered_map_index<MapConfig> >
 {
-   enum {   value = true };
+   static const bool value = true;
 };
 /// @endcond
 

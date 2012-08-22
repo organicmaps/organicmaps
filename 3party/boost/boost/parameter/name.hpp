@@ -27,7 +27,7 @@ namespace boost { namespace parameter { namespace aux {
 // Tag type passed to MPL lambda.
 struct lambda_tag;
 
-struct name_tag_base 
+struct name_tag_base
 {};
 
 template <class Tag>
@@ -46,7 +46,7 @@ namespace boost { namespace mpl {
 template <class T>
 struct lambda<
     T
-  , typename enable_if<
+  , typename boost::enable_if<
         parameter::aux::is_name_tag<T>, parameter::aux::lambda_tag
     >::type
 >

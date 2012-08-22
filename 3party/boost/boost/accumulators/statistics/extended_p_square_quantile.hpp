@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <functional>
+#include <boost/throw_exception.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>

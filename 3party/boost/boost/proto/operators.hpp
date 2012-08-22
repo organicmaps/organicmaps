@@ -10,6 +10,7 @@
 #ifndef BOOST_PROTO_OPERATORS_HPP_EAN_04_01_2005
 #define BOOST_PROTO_OPERATORS_HPP_EAN_04_01_2005
 
+#include <boost/config.hpp>
 #include <boost/preprocessor/punctuation/comma.hpp>
 #include <boost/mpl/logical.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -19,6 +20,11 @@
 #include <boost/proto/matches.hpp>
 #include <boost/proto/generate.hpp>
 #include <boost/proto/make_expr.hpp>
+
+#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+# pragma warning(push)
+# pragma warning(disable : 4714) // function 'xxx' marked as __forceinline not inlined
+#endif
 
 namespace boost { namespace proto
 {
@@ -34,14 +40,14 @@ namespace boost { namespace proto
           : boost::lazy_enable_if_c<
                 boost::mpl::and_<
                     Trait
-                  , lazy_matches<result_of::make_expr<Tag, basic_default_domain, Arg &>, Grammar>
+                  , lazy_matches<result_of::make_expr<Tag, basic_default_domain, Arg>, Grammar>
                 >::value
-              , result_of::make_expr<Tag, Domain, Arg &>
+              , result_of::make_expr<Tag, Domain, Arg>
             >
         {};
 
         template<typename Domain, typename Trait, typename Tag, typename Arg>
-        struct enable_unary<Domain, proto::_, Trait, Tag, Arg>
+        struct enable_unary<Domain, proto::_, Trait, Tag, Arg &>
           : boost::lazy_enable_if_c<
                 Trait::value
               , result_of::make_expr<Tag, Domain, Arg &>
@@ -49,13 +55,13 @@ namespace boost { namespace proto
         {};
 
         template<typename Trait, typename Tag, typename Arg>
-        struct enable_unary<deduce_domain, not_a_grammar, Trait, Tag, Arg>
+        struct enable_unary<deduce_domain, not_a_grammar, Trait, Tag, Arg &>
           : enable_unary<
                 typename domain_of<Arg>::type
               , typename domain_of<Arg>::type::proto_grammar
               , Trait
               , Tag
-              , Arg
+              , Arg &
             >
         {};
 
@@ -64,14 +70,14 @@ namespace boost { namespace proto
           : boost::lazy_enable_if_c<
                 boost::mpl::and_<
                     Trait
-                  , lazy_matches<result_of::make_expr<Tag, basic_default_domain, Left &, Right &>, Grammar>
+                  , lazy_matches<result_of::make_expr<Tag, basic_default_domain, Left, Right>, Grammar>
                 >::value
-              , result_of::make_expr<Tag, Domain, Left &, Right &>
+              , result_of::make_expr<Tag, Domain, Left, Right>
             >
         {};
 
         template<typename Domain, typename Trait, typename Tag, typename Left, typename Right>
-        struct enable_binary<Domain, proto::_, Trait, Tag, Left, Right>
+        struct enable_binary<Domain, proto::_, Trait, Tag, Left &, Right &>
           : boost::lazy_enable_if_c<
                 Trait::value
               , result_of::make_expr<Tag, Domain, Left &, Right &>
@@ -79,14 +85,14 @@ namespace boost { namespace proto
         {};
 
         template<typename Trait, typename Tag, typename Left, typename Right>
-        struct enable_binary<deduce_domain, not_a_grammar, Trait, Tag, Left, Right>
+        struct enable_binary<deduce_domain, not_a_grammar, Trait, Tag, Left &, Right &>
           : enable_binary<
                 typename deduce_domain2<Left, Right>::type
               , typename deduce_domain2<Left, Right>::type::proto_grammar
               , Trait
               , Tag
-              , Left
-              , Right
+              , Left &
+              , Right &
             >
         {};
 
@@ -95,14 +101,17 @@ namespace boost { namespace proto
 #define BOOST_PROTO_UNARY_OP_IS_POSTFIX_0
 #define BOOST_PROTO_UNARY_OP_IS_POSTFIX_1 , int
 
+#ifdef BOOST_NO_RVALUE_REFERENCES
+
 #define BOOST_PROTO_DEFINE_UNARY_OPERATOR(OP, TAG, TRAIT, DOMAIN, POST)                             \
     template<typename Arg>                                                                          \
+    BOOST_PROTO_DISABLE_MSVC_C4714 BOOST_FORCEINLINE                                                \
     typename boost::proto::detail::enable_unary<                                                    \
         DOMAIN                                                                                      \
       , DOMAIN::proto_grammar                                                                       \
       , BOOST_PROTO_APPLY_UNARY_(TRAIT, Arg)                                                        \
       , TAG                                                                                         \
-      , Arg                                                                                         \
+      , Arg &                                                                                       \
     >::type const                                                                                   \
     operator OP(Arg &arg BOOST_PROTO_UNARY_OP_IS_POSTFIX_ ## POST)                                  \
     {                                                                                               \
@@ -110,12 +119,13 @@ namespace boost { namespace proto
     }                                                                                               \
                                                                                                     \
     template<typename Arg>                                                                          \
+    BOOST_PROTO_DISABLE_MSVC_C4714 BOOST_FORCEINLINE                                                \
     typename boost::proto::detail::enable_unary<                                                    \
         DOMAIN                                                                                      \
       , DOMAIN::proto_grammar                                                                       \
       , BOOST_PROTO_APPLY_UNARY_(TRAIT, Arg)                                                        \
       , TAG                                                                                         \
-      , Arg const                                                                                   \
+      , Arg const &                                                                                 \
     >::type const                                                                                   \
     operator OP(Arg const &arg BOOST_PROTO_UNARY_OP_IS_POSTFIX_ ## POST)                            \
     {                                                                                               \
@@ -125,13 +135,14 @@ namespace boost { namespace proto
 
 #define BOOST_PROTO_DEFINE_BINARY_OPERATOR(OP, TAG, TRAIT, DOMAIN)                                  \
     template<typename Left, typename Right>                                                         \
+    BOOST_PROTO_DISABLE_MSVC_C4714 BOOST_FORCEINLINE                                                \
     typename boost::proto::detail::enable_binary<                                                   \
         DOMAIN                                                                                      \
       , DOMAIN::proto_grammar                                                                       \
       , BOOST_PROTO_APPLY_BINARY_(TRAIT, Left, Right)                                               \
       , TAG                                                                                         \
-      , Left                                                                                        \
-      , Right                                                                                       \
+      , Left &                                                                                      \
+      , Right &                                                                                     \
     >::type const                                                                                   \
     operator OP(Left &left, Right &right)                                                           \
     {                                                                                               \
@@ -139,13 +150,14 @@ namespace boost { namespace proto
     }                                                                                               \
                                                                                                     \
     template<typename Left, typename Right>                                                         \
+    BOOST_PROTO_DISABLE_MSVC_C4714 BOOST_FORCEINLINE                                                \
     typename boost::proto::detail::enable_binary<                                                   \
         DOMAIN                                                                                      \
       , DOMAIN::proto_grammar                                                                       \
       , BOOST_PROTO_APPLY_BINARY_(TRAIT, Left, Right)                                               \
       , TAG                                                                                         \
-      , Left                                                                                        \
-      , Right const                                                                                 \
+      , Left &                                                                                      \
+      , Right const &                                                                               \
     >::type const                                                                                   \
     operator OP(Left &left, Right const &right)                                                     \
     {                                                                                               \
@@ -153,13 +165,14 @@ namespace boost { namespace proto
     }                                                                                               \
                                                                                                     \
     template<typename Left, typename Right>                                                         \
+    BOOST_PROTO_DISABLE_MSVC_C4714 BOOST_FORCEINLINE                                                \
     typename boost::proto::detail::enable_binary<                                                   \
         DOMAIN                                                                                      \
       , DOMAIN::proto_grammar                                                                       \
       , BOOST_PROTO_APPLY_BINARY_(TRAIT, Left, Right)                                               \
       , TAG                                                                                         \
-      , Left const                                                                                  \
-      , Right                                                                                       \
+      , Left const &                                                                                \
+      , Right &                                                                                     \
     >::type const                                                                                   \
     operator OP(Left const &left, Right &right)                                                     \
     {                                                                                               \
@@ -167,19 +180,57 @@ namespace boost { namespace proto
     }                                                                                               \
                                                                                                     \
     template<typename Left, typename Right>                                                         \
+    BOOST_PROTO_DISABLE_MSVC_C4714 BOOST_FORCEINLINE                                                \
     typename boost::proto::detail::enable_binary<                                                   \
         DOMAIN                                                                                      \
       , DOMAIN::proto_grammar                                                                       \
       , BOOST_PROTO_APPLY_BINARY_(TRAIT, Left, Right)                                               \
       , TAG                                                                                         \
-      , Left const                                                                                  \
-      , Right const                                                                                 \
+      , Left const &                                                                                \
+      , Right const &                                                                               \
     >::type const                                                                                   \
     operator OP(Left const &left, Right const &right)                                               \
     {                                                                                               \
         return boost::proto::detail::make_expr_<TAG, DOMAIN, Left const &, Right const &>()(left, right);\
     }                                                                                               \
     /**/
+
+#else
+
+#define BOOST_PROTO_DEFINE_UNARY_OPERATOR(OP, TAG, TRAIT, DOMAIN, POST)                             \
+    template<typename Arg>                                                                          \
+    BOOST_PROTO_DISABLE_MSVC_C4714 BOOST_FORCEINLINE                                                \
+    typename boost::proto::detail::enable_unary<                                                    \
+        DOMAIN                                                                                      \
+      , DOMAIN::proto_grammar                                                                       \
+      , BOOST_PROTO_APPLY_UNARY_(TRAIT, Arg)                                                        \
+      , TAG                                                                                         \
+      , Arg const &                                                                                 \
+    >::type const                                                                                   \
+    operator OP(Arg &&arg BOOST_PROTO_UNARY_OP_IS_POSTFIX_ ## POST)                                 \
+    {                                                                                               \
+        return boost::proto::detail::make_expr_<TAG, DOMAIN, Arg const &>()(arg);                   \
+    }                                                                                               \
+    /**/
+
+#define BOOST_PROTO_DEFINE_BINARY_OPERATOR(OP, TAG, TRAIT, DOMAIN)                                  \
+    template<typename Left, typename Right>                                                         \
+    BOOST_PROTO_DISABLE_MSVC_C4714 BOOST_FORCEINLINE                                                \
+    typename boost::proto::detail::enable_binary<                                                   \
+        DOMAIN                                                                                      \
+      , DOMAIN::proto_grammar                                                                       \
+      , BOOST_PROTO_APPLY_BINARY_(TRAIT, Left, Right)                                               \
+      , TAG                                                                                         \
+      , Left const &                                                                                \
+      , Right const &                                                                               \
+    >::type const                                                                                   \
+    operator OP(Left &&left, Right &&right)                                                         \
+    {                                                                                               \
+        return boost::proto::detail::make_expr_<TAG, DOMAIN, Left const &, Right const &>()(left, right);\
+    }                                                                                               \
+    /**/
+
+#endif
 
 #define BOOST_PROTO_DEFINE_OPERATORS(TRAIT, DOMAIN)                                                 \
     BOOST_PROTO_DEFINE_UNARY_OPERATOR(+, boost::proto::tag::unary_plus, TRAIT, DOMAIN, 0)           \
@@ -230,6 +281,11 @@ namespace boost { namespace proto
       : is_expr<T>
     {};
 
+    template<typename T>
+    struct is_extension<T &>
+      : is_expr<T>
+    {};
+
     #define BOOST_PROTO_APPLY_UNARY_(TRAIT, ARG) TRAIT<ARG>
     #define BOOST_PROTO_APPLY_BINARY_(TRAIT, LEFT, RIGHT) boost::mpl::or_<TRAIT<LEFT>, TRAIT<RIGHT> >
 
@@ -240,6 +296,7 @@ namespace boost { namespace proto
 
         // if_else, for the non-overloadable ternary conditional operator ?:
         template<typename A0, typename A1, typename A2>
+        BOOST_FORCEINLINE
         typename result_of::make_expr<
             tag::if_else_
           , deduce_domain
@@ -268,8 +325,13 @@ namespace boost { namespace proto
     // can use BOOST_PROTO_DEFINE_OPERATORS to define Proto operator overloads that work
     // with their own terminal types.
 
+#ifdef BOOST_NO_RVALUE_REFERENCES
+
     #define BOOST_PROTO_APPLY_UNARY_(TRAIT, ARG)                                                    \
-        boost::mpl::and_<TRAIT<ARG>, boost::mpl::not_<boost::proto::is_extension<ARG> > >           \
+        boost::mpl::and_<                                                                           \
+            TRAIT<ARG>                                                                              \
+          , boost::mpl::not_<boost::proto::is_extension<ARG> >                                      \
+        >                                                                                           \
         /**/
 
     #define BOOST_PROTO_APPLY_BINARY_(TRAIT, LEFT, RIGHT)                                           \
@@ -284,6 +346,33 @@ namespace boost { namespace proto
         >                                                                                           \
         /**/
 
+#else
+
+    #define BOOST_PROTO_APPLY_UNARY_(TRAIT, ARG)                                                    \
+        boost::mpl::and_<                                                                           \
+            TRAIT<BOOST_PROTO_UNCVREF(ARG) >                                                        \
+          , boost::mpl::not_<boost::proto::is_extension<ARG> >                                      \
+        >                                                                                           \
+        /**/
+
+    #define BOOST_PROTO_APPLY_BINARY_(TRAIT, LEFT, RIGHT)                                           \
+        boost::mpl::and_<                                                                           \
+            boost::mpl::or_<TRAIT<BOOST_PROTO_UNCVREF(LEFT) >, TRAIT<BOOST_PROTO_UNCVREF(RIGHT) > > \
+          , boost::mpl::not_<                                                                       \
+                boost::mpl::or_<                                                                    \
+                    boost::proto::is_extension<LEFT>                                                \
+                  , boost::proto::is_extension<RIGHT>                                               \
+                >                                                                                   \
+            >                                                                                       \
+        >                                                                                           \
+        /**/
+
+#endif
+
 }}
+
+#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+# pragma warning(pop)
+#endif
 
 #endif

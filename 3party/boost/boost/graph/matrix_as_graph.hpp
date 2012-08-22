@@ -14,7 +14,7 @@
 #include <utility>
 #include <boost/config.hpp>
 #include <boost/operators.hpp>
-#include <boost/int_iterator.hpp>
+#include <boost/pending/detail/int_iterator.hpp>
 #include <boost/graph/graph_traits.hpp>
 
 namespace boost {

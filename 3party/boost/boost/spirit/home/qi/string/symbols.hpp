@@ -166,6 +166,7 @@ namespace boost { namespace spirit { namespace qi
             return sym.remove(str);
         }
 
+#if defined(BOOST_NO_RVALUE_REFERENCES)
         // non-const version needed to suppress proto's += kicking in
         template <typename Str>
         friend adder const&
@@ -181,7 +182,23 @@ namespace boost { namespace spirit { namespace qi
         {
             return sym.remove(str);
         }
+#else
+        // for rvalue references
+        template <typename Str>
+        friend adder const&
+        operator+=(symbols& sym, Str&& str)
+        {
+            return sym.add(str);
+        }
 
+        // for rvalue references
+        template <typename Str>
+        friend remover const&
+        operator-=(symbols& sym, Str&& str)
+        {
+            return sym.remove(str);
+        }
+#endif
         template <typename F>
         void for_each(F f) const
         {
@@ -404,7 +421,7 @@ namespace boost { namespace spirit { namespace traits
     template <typename Char, typename T, typename Lookup, typename Filter
       , typename Attr, typename Context, typename Iterator>
     struct handles_container<qi::symbols<Char, T, Lookup, Filter>, Attr, Context, Iterator>
-      : traits::is_container<Attr> {}; 
+      : traits::is_container<Attr> {};
 }}}
 
 #if defined(BOOST_MSVC)

@@ -133,9 +133,10 @@ namespace boost { namespace math {
    template <class RealType, class Policy, class U>
    inline RealType pdf(const hypergeometric_distribution<RealType, Policy>& dist, const U& x)
    {
+      BOOST_MATH_STD_USING
       static const char* function = "boost::math::pdf(const hypergeometric_distribution<%1%>&, const %1%&)";
       RealType r = static_cast<RealType>(x);
-      unsigned u = boost::math::itrunc(r);
+      unsigned u = itrunc(r);
       if(u != r)
       {
          return boost::math::policies::raise_domain_error<RealType>(
@@ -161,9 +162,10 @@ namespace boost { namespace math {
    template <class RealType, class Policy, class U>
    inline RealType cdf(const hypergeometric_distribution<RealType, Policy>& dist, const U& x)
    {
+      BOOST_MATH_STD_USING
       static const char* function = "boost::math::cdf(const hypergeometric_distribution<%1%>&, const %1%&)";
       RealType r = static_cast<RealType>(x);
-      unsigned u = boost::math::itrunc(r);
+      unsigned u = itrunc(r);
       if(u != r)
       {
          return boost::math::policies::raise_domain_error<RealType>(
@@ -189,9 +191,10 @@ namespace boost { namespace math {
    template <class RealType, class Policy, class U>
    inline RealType cdf(const complemented2_type<hypergeometric_distribution<RealType, Policy>, U>& c)
    {
+      BOOST_MATH_STD_USING
       static const char* function = "boost::math::cdf(const hypergeometric_distribution<%1%>&, const %1%&)";
       RealType r = static_cast<RealType>(c.param);
-      unsigned u = boost::math::itrunc(r);
+      unsigned u = itrunc(r);
       if(u != r)
       {
          return boost::math::policies::raise_domain_error<RealType>(

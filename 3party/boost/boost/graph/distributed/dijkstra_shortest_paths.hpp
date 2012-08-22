@@ -49,7 +49,7 @@ namespace boost {
     };
 
     template<>
-    struct parallel_dijkstra_impl2< ::boost::detail::error_property_not_found >
+    struct parallel_dijkstra_impl2< ::boost::param_not_found >
     {
       template<typename DistributedGraph, typename DijkstraVisitor,
                typename PredecessorMap, typename DistanceMap, 
@@ -60,7 +60,7 @@ namespace boost {
       run(const DistributedGraph& g,
           typename graph_traits<DistributedGraph>::vertex_descriptor s,
           PredecessorMap predecessor, DistanceMap distance, 
-          ::boost::detail::error_property_not_found,
+          ::boost::param_not_found,
           WeightMap weight, IndexMap index_map, ColorMap color_map,
           Compare compare, Combine combine, DistInf inf, DistZero zero,
           DijkstraVisitor vis)
@@ -95,7 +95,7 @@ namespace boost {
     };
     
     template<>
-    struct parallel_dijkstra_impl< ::boost::detail::error_property_not_found >
+    struct parallel_dijkstra_impl< ::boost::param_not_found >
     {
     private:
       template<typename DistributedGraph, typename DijkstraVisitor,
@@ -131,7 +131,7 @@ namespace boost {
           typename graph_traits<DistributedGraph>::vertex_descriptor s,
           PredecessorMap predecessor, DistanceMap distance, 
           Lookahead lookahead, WeightMap weight, IndexMap index_map, 
-          ::boost::detail::error_property_not_found,
+          ::boost::param_not_found,
           Compare compare, Combine combine, DistInf inf, DistZero zero,
           DijkstraVisitor vis)
       {
@@ -190,8 +190,7 @@ namespace boost {
                                   IndexMap> DefColorMap;
     DefColorMap color_map(color.begin(), index_map);
 
-    typedef typename property_value< bgl_named_params<T, Tag, Base>,
-      vertex_color_t>::type color_map_type;
+    typedef typename get_param_type< vertex_color_t, bgl_named_params<T, Tag, Base> >::type color_map_type;
 
     graph::detail::parallel_dijkstra_impl<color_map_type>
       ::run(g, s, predecessor, distance, 

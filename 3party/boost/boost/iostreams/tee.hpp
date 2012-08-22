@@ -31,7 +31,7 @@ namespace boost { namespace iostreams {
 
 //
 // Template name: tee_filter.
-// Template paramters:
+// Template parameters:
 //      Device - A blocking Sink.
 //
 template<typename Device>
@@ -99,7 +99,7 @@ BOOST_IOSTREAMS_PIPABLE(tee_filter, 1)
 
 //
 // Template name: tee_device.
-// Template paramters:
+// Template parameters:
 //      Device - A blocking Device.
 //      Sink - A blocking Sink.
 //

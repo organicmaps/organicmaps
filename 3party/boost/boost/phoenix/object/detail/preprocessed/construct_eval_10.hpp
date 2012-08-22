@@ -23,7 +23,7 @@
         operator()(
             A0 const&
           , A1 const& a1
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -49,7 +49,7 @@
         operator()(
             A0 const&
           , A1 const& a1 , A2 const& a2
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -75,7 +75,7 @@
         operator()(
             A0 const&
           , A1 const& a1 , A2 const& a2 , A3 const& a3
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -101,7 +101,7 @@
         operator()(
             A0 const&
           , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -127,7 +127,7 @@
         operator()(
             A0 const&
           , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -153,7 +153,7 @@
         operator()(
             A0 const&
           , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -179,7 +179,7 @@
         operator()(
             A0 const&
           , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -205,7 +205,7 @@
         operator()(
             A0 const&
           , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -231,7 +231,7 @@
         operator()(
             A0 const&
           , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8 , A9 const& a9
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return

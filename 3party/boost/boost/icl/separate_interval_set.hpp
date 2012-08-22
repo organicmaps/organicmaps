@@ -82,7 +82,6 @@ public:
     /// const_iterator for iteration over intervals
     typedef typename ImplSetT::const_iterator const_iterator;
 
-
     enum { fineness = 2 };
 
 public:
@@ -124,6 +123,24 @@ public:
         this->_set.insert(src.begin(), src.end());
     }
 
+#   ifndef BOOST_NO_RVALUE_REFERENCES
+    //==========================================================================
+    //= Move semantics
+    //==========================================================================
+
+    /// Move constructor
+    separate_interval_set(separate_interval_set&& src)
+        : base_type(boost::move(src))
+    {}
+
+    /// Move assignment operator
+    separate_interval_set& operator = (separate_interval_set&& src)
+    { 
+        base_type::operator=(boost::move(src));
+        return *this;
+    }
+    //==========================================================================
+#   endif // BOOST_NO_RVALUE_REFERENCES
 
 private:
     // Private functions that shall be accessible by the baseclass:

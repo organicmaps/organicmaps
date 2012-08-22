@@ -64,7 +64,7 @@ void write_dimacs_max_flow(const Graph& g,
   
   //output the edges
   edge_iterator ei, e_end;
-  for(tie(ei,e_end) = edges(g); ei!=e_end; ++ei){
+  for(boost::tie(ei,e_end) = edges(g); ei!=e_end; ++ei){
     out << "a " << idx[ source(*ei, g) ] + 1 << " " << idx[ target(*ei, g) ] + 1 << " " << get(capacity,*ei) << std::endl;
   }
 }

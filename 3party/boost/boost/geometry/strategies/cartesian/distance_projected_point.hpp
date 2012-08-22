@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2008-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2008-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -75,23 +75,27 @@ template
 class projected_point
 {
 public :
-    typedef typename strategy::distance::services::return_type<Strategy>::type calculation_type;
-
-private :
-
     // The three typedefs below are necessary to calculate distances
     // from segments defined in integer coordinates.
 
     // Integer coordinates can still result in FP distances.
     // There is a division, which must be represented in FP.
     // So promote.
-    typedef typename promote_floating_point<calculation_type>::type fp_type;
+    typedef typename promote_floating_point
+        <
+            typename strategy::distance::services::return_type
+                <
+                    Strategy
+                >::type
+        >::type calculation_type;
+
+private :
 
     // A projected point of points in Integer coordinates must be able to be
     // represented in FP.
     typedef model::point
         <
-            fp_type,
+            calculation_type,
             dimension<PointOfSegment>::value,
             typename coordinate_system<PointOfSegment>::type
         > fp_point_type;
@@ -139,19 +143,19 @@ public :
         boost::ignore_unused_variable_warning(strategy);
 
         calculation_type const zero = calculation_type();
-        fp_type const c1 = dot_product(w, v);
+        calculation_type const c1 = dot_product(w, v);
         if (c1 <= zero)
         {
             return strategy.apply(p, p1);
         }
-        fp_type const c2 = dot_product(v, v);
+        calculation_type const c2 = dot_product(v, v);
         if (c2 <= c1)
         {
             return strategy.apply(p, p2);
         }
 
         // See above, c1 > 0 AND c2 > c1 so: c2 != 0
-        fp_type const b = c1 / c2;
+        calculation_type const b = c1 / c2;
 
         fp_strategy_type fp_strategy
             = strategy::distance::services::get_similar

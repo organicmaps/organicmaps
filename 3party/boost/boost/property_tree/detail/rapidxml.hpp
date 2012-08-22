@@ -369,8 +369,9 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
     public:
 
         //! \cond internal
-        typedef void *(alloc_func)(std::size_t);       // Type of user-defined function used to allocate memory
-        typedef void (free_func)(void *);              // Type of user-defined function used to free memory
+        // Prefixed names to work around weird MSVC lookup bug.
+        typedef void *(boost_ptree_raw_alloc_func)(std::size_t);       // Type of user-defined function used to allocate memory
+        typedef void (boost_ptree_raw_free_func)(void *);              // Type of user-defined function used to free memory
         //! \endcond
         
         //! Constructs empty pool with default allocator functions.
@@ -536,7 +537,7 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
         //! </code><br>
         //! \param af Allocation function, or 0 to restore default function
         //! \param ff Free function, or 0 to restore default function
-        void set_allocator(alloc_func *af, free_func *ff)
+        void set_allocator(boost_ptree_raw_alloc_func *af, boost_ptree_raw_free_func *ff)
         {
             BOOST_ASSERT(m_begin == m_static_memory && m_ptr == align(m_begin));    // Verify that no memory is allocated yet
             m_alloc_func = af;
@@ -617,8 +618,8 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
         char *m_ptr;                                        // First free byte in current pool
         char *m_end;                                        // One past last available byte in current pool
         char m_static_memory[BOOST_PROPERTY_TREE_RAPIDXML_STATIC_POOL_SIZE];    // Static raw memory
-        alloc_func *m_alloc_func;                           // Allocator function, or 0 if default is to be used
-        free_func *m_free_func;                             // Free function, or 0 if default is to be used
+        boost_ptree_raw_alloc_func *m_alloc_func;           // Allocator function, or 0 if default is to be used
+        boost_ptree_raw_free_func *m_free_func;             // Free function, or 0 if default is to be used
     };
 
     ///////////////////////////////////////////////////////////////////////////

@@ -285,6 +285,15 @@ template<class E, class T, class Y> std::basic_ostream<E, T> & operator<< (std::
 
 #endif // !defined(BOOST_NO_IOSTREAM)
 
+// hash_value
+
+template< class T > struct hash;
+
+template< class T > std::size_t hash_value( boost::intrusive_ptr<T> const & p )
+{
+    return boost::hash< T* >()( p.get() );
+}
+
 } // namespace boost
 
 #endif  // #ifndef BOOST_SMART_PTR_INTRUSIVE_PTR_HPP_INCLUDED

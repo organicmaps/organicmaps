@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -218,7 +218,7 @@ public :
     // constructor takes an optional third argument doing nothing.
     inline translate_transformer(coordinate_type const& translate_x,
                 coordinate_type const& translate_y,
-                coordinate_type const& dummy = 0)
+                coordinate_type const& = 0)
         : ublas_transformer<P1, P2, 2, 2>(
                 1, 0, translate_x,
                 0, 1, translate_y,
@@ -275,7 +275,7 @@ class scale_transformer<P1, P2, 2, 2> : public ublas_transformer<P1, P2, 2, 2>
 public :
     inline scale_transformer(coordinate_type const& scale_x,
                 coordinate_type const& scale_y,
-                coordinate_type const& dummy = 0)
+                coordinate_type const& = 0)
         : ublas_transformer<P1, P2, 2, 2>(
                 scale_x, 0,       0,
                 0,       scale_y, 0,

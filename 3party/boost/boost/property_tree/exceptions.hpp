@@ -51,8 +51,9 @@ namespace boost { namespace property_tree
         ~ptree_bad_data() throw();
 
         /// Retrieve the data associated with this error. This is the source
-        /// value that failed to be translated.
-        template<class T> T data();
+        /// value that failed to be translated. You need to explicitly
+        /// specify its type.
+        template<class T> T data() const;
     private:
         boost::any m_data;
     };
@@ -71,8 +72,9 @@ namespace boost { namespace property_tree
 
         ~ptree_bad_path() throw();
 
-        /// Retrieve the invalid path.
-        template<class T> T path();
+        /// Retrieve the invalid path. You need to explicitly specify the
+        /// type of path.
+        template<class T> T path() const;
     private:
         boost::any m_path;
     };

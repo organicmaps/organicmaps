@@ -18,10 +18,16 @@
 #include <boost/mpl/filter_view.hpp>
 #include <boost/mpl/pop_front.hpp>
 #include <boost/mpl/for_each.hpp>
-#include <boost/type_traits/is_base_of.hpp>
+#include <boost/mpl/advance.hpp>
 
+#include <boost/type_traits/is_base_of.hpp>
+#include <boost/type_traits/is_same.hpp>
+
+#include <boost/msm/event_traits.hpp>
 #include <boost/msm/back/metafunctions.hpp>
 #include <boost/msm/back/common_types.hpp>
+
+BOOST_MPL_HAS_XXX_TRAIT_DEF(is_frow)
 
 namespace boost { namespace msm { namespace back 
 {
@@ -66,7 +72,7 @@ struct dispatch_table
                  // try the first guard
                  typedef typename ::boost::mpl::front<Sequence>::type first_row;
                  HandledEnum res = first_row::execute(fsm,region_index,state,evt);
-                 if (HANDLED_TRUE!=res)
+                 if (HANDLED_TRUE!=res && HANDLED_DEFERRED!=res)
                  {
                     // if the first rejected, move on to the next one
                     HandledEnum sub_res = 
@@ -94,13 +100,63 @@ struct dispatch_table
     template< typename Entry > 
     struct make_chain_row_from_map_entry
     { 
-        typedef chain_row<typename Entry::second,Event,
+        // if we have more than one frow with the same state as source, remove the ones extra
+        // note: we know the frow's are located at the beginning so we remove at the beginning (number of frows - 1) elements
+        enum {number_frows = ::boost::mpl::count_if< typename Entry::second,has_is_frow< ::boost::mpl::placeholders::_1> >::value};
+
+        //erases the first NumberToDelete rows
+        template<class Sequence, int NumberToDelete>
+        struct erase_first_rows
+        {
+            typedef typename ::boost::mpl::erase<
+                typename Entry::second,
+                typename ::boost::mpl::begin<Sequence>::type,
+                typename ::boost::mpl::advance<
+                        typename ::boost::mpl::begin<Sequence>::type, 
+                        ::boost::mpl::int_<NumberToDelete> >::type
+            >::type type;
+        };
+        // if we have more than 1 frow with this event (not allowed), delete the spare
+        typedef typename ::boost::mpl::eval_if<
+            typename ::boost::mpl::bool_< number_frows >= 2 >::type,
+            erase_first_rows<typename Entry::second,number_frows-1>,
+            ::boost::mpl::identity<typename Entry::second>
+        >::type filtered_stt;
+
+        typedef chain_row<filtered_stt,Event,
             typename Entry::first > type;
     }; 
+    // helper for lazy evaluation in eval_if of change_frow_event
+    template <class Transition,class NewEvent>
+    struct replace_event
+    {
+        typedef typename Transition::template replace_event<NewEvent>::type type;
+    };
+    // changes the event type for a frow to the event we are dispatching
+    // this helps ensure that an event does not get processed more than once because of frows and base events.
+    template <class FrowTransition>
+    struct change_frow_event
+    {
+        typedef typename ::boost::mpl::eval_if<
+            typename has_is_frow<FrowTransition>::type,
+            replace_event<FrowTransition,Event>,
+            boost::mpl::identity<FrowTransition>
+        >::type type;
+    };
     // Compute the maximum state value in the sm so we know how big
     // to make the table
     typedef typename generate_state_set<Stt>::type state_list;
     BOOST_STATIC_CONSTANT(int, max_state = ( ::boost::mpl::size<state_list>::value));
+
+    template <class Transition>
+    struct convert_event_and_forward
+    {
+        static HandledEnum execute(Fsm& fsm, int region_index, int state, Event const& evt)
+        {
+            typename Transition::transition_event forwarded(evt);
+            return Transition::execute(fsm,region_index,state,forwarded);
+        }
+    };
 
     // A function object for use with mpl::for_each that stuffs
     // transitions into cells.
@@ -110,22 +166,69 @@ struct dispatch_table
           : self(self_)
         {}
         // version for transition event not base of our event
+        // first for all transitions, then for internal ones of a fsm
         template <class Transition>
-        void init_event_base_case(Transition const&, ::boost::mpl::true_ const &) const
+        typename ::boost::disable_if<
+            typename ::boost::is_same<typename Transition::current_state_type,Fsm>::type
+        ,void>::type
+        init_event_base_case(Transition const&, ::boost::mpl::true_ const &, ::boost::mpl::false_ const &) const
         {
             typedef typename create_stt<Fsm>::type stt; 
             BOOST_STATIC_CONSTANT(int, state_id = 
                 (get_state_id<stt,typename Transition::current_state_type>::value));
-            self->entries[state_id] = reinterpret_cast<cell>(&Transition::execute);
+            self->entries[state_id+1] = reinterpret_cast<cell>(&Transition::execute);
         }
-        // version for transition event base of our event
         template <class Transition>
-        void init_event_base_case(Transition const&, ::boost::mpl::false_ const &) const
+        typename ::boost::enable_if<
+            typename ::boost::is_same<typename Transition::current_state_type,Fsm>::type
+        ,void>::type
+        init_event_base_case(Transition const&, ::boost::mpl::true_ const &, ::boost::mpl::false_ const &) const
+        {
+            self->entries[0] = reinterpret_cast<cell>(&Transition::execute);
+        }
+
+        // version for transition event is boost::any
+        // first for all transitions, then for internal ones of a fsm
+        template <class Transition>
+        typename ::boost::disable_if<
+            typename ::boost::is_same<typename Transition::current_state_type,Fsm>::type
+        ,void>::type
+        init_event_base_case(Transition const&, ::boost::mpl::false_ const &, ::boost::mpl::true_ const &) const
         {
             typedef typename create_stt<Fsm>::type stt; 
             BOOST_STATIC_CONSTANT(int, state_id = 
                 (get_state_id<stt,typename Transition::current_state_type>::value));
-            self->entries[state_id] = &Transition::execute;
+            self->entries[state_id+1] = &convert_event_and_forward<Transition>::execute;
+        }
+        template <class Transition>
+        typename ::boost::enable_if<
+            typename ::boost::is_same<typename Transition::current_state_type,Fsm>::type
+        ,void>::type
+        init_event_base_case(Transition const&, ::boost::mpl::false_ const &, ::boost::mpl::true_ const &) const
+        {
+            self->entries[0] = &convert_event_and_forward<Transition>::execute;
+        }
+
+        // version for transition event base of our event
+        // first for all transitions, then for internal ones of a fsm
+        template <class Transition>
+        typename ::boost::disable_if<
+            typename ::boost::is_same<typename Transition::current_state_type,Fsm>::type
+        ,void>::type
+        init_event_base_case(Transition const&, ::boost::mpl::false_ const &, ::boost::mpl::false_ const &) const
+        {
+            typedef typename create_stt<Fsm>::type stt; 
+            BOOST_STATIC_CONSTANT(int, state_id = 
+                (get_state_id<stt,typename Transition::current_state_type>::value));
+            self->entries[state_id+1] = &Transition::execute;
+        }
+        template <class Transition>
+        typename ::boost::enable_if<
+            typename ::boost::is_same<typename Transition::current_state_type,Fsm>::type
+        ,void>::type
+        init_event_base_case(Transition const&, ::boost::mpl::false_ const &, ::boost::mpl::false_ const &) const
+        {
+            self->entries[0] = &Transition::execute;
         }
         // Cell initializer function object, used with mpl::for_each
         template <class Transition>
@@ -141,7 +244,9 @@ struct dispatch_table
             //only if the transition event is a base of our event is the reinterpret_case safe
             init_event_base_case(tr,
                 ::boost::mpl::bool_< 
-                    ::boost::is_base_of<typename Transition::transition_event,Event>::type::value>() );
+                    ::boost::is_base_of<typename Transition::transition_event,Event>::type::value>(),
+                ::boost::mpl::bool_< 
+                    ::boost::msm::is_kleene_event<typename Transition::transition_event>::type::value>());
         }
     
         dispatch_table* self;
@@ -163,18 +268,35 @@ struct dispatch_table
             typedef typename create_stt<Fsm>::type stt; 
             BOOST_STATIC_CONSTANT(int, state_id = (get_state_id<stt,State>::value));
             cell call_no_transition = &Fsm::defer_transition;
-            tofill_entries[state_id] = call_no_transition;
+            tofill_entries[state_id+1] = call_no_transition;
         }
         template <class State>
-        typename ::boost::disable_if<typename has_state_delayed_event<State,Event>::type,void >::type
+        typename ::boost::disable_if<
+            typename ::boost::mpl::or_<
+                typename has_state_delayed_event<State,Event>::type,
+                typename ::boost::is_same<State,Fsm>::type
+            >::type
+        ,void >::type
         operator()(boost::msm::wrap<State> const&,boost::msm::back::dummy<1> = 0)
         {
             typedef typename create_stt<Fsm>::type stt; 
             BOOST_STATIC_CONSTANT(int, state_id = (get_state_id<stt,State>::value));
             cell call_no_transition = &Fsm::call_no_transition;
-            tofill_entries[state_id] = call_no_transition;
+            tofill_entries[state_id+1] = call_no_transition;
         }
-
+        // case for internal transitions of this fsm
+        template <class State>
+        typename ::boost::enable_if<
+            typename ::boost::mpl::and_<
+                typename ::boost::mpl::not_<typename has_state_delayed_event<State,Event>::type>::type,
+                typename ::boost::is_same<State,Fsm>::type
+            >::type
+        ,void>::type
+        operator()(boost::msm::wrap<State> const&,boost::msm::back::dummy<2> = 0)
+        {
+            cell call_no_transition = &Fsm::call_no_transition_internal;
+            tofill_entries[0] = call_no_transition;
+        }
         dispatch_table* self;
         cell* tofill_entries;
     };
@@ -191,15 +313,28 @@ struct dispatch_table
 
         // this event is a compound one (not a real one, just one for use in event-less transitions)
         // Note this event cannot be used as deferred!
+        // case for internal transitions of this fsm 
         template <class State>
-        void operator()(boost::msm::wrap<State> const&)
+        typename ::boost::disable_if<
+            typename ::boost::is_same<State,Fsm>::type
+        ,void>::type
+        operator()(boost::msm::wrap<State> const&,boost::msm::back::dummy<0> = 0)
         {
             typedef typename create_stt<Fsm>::type stt; 
             BOOST_STATIC_CONSTANT(int, state_id = (get_state_id<stt,State>::value));
             cell call_no_transition = &Fsm::default_eventless_transition;
-            tofill_entries[state_id] = call_no_transition;
+            tofill_entries[state_id+1] = call_no_transition;
         }
 
+        template <class State>
+        typename ::boost::enable_if<
+            typename ::boost::is_same<State,Fsm>::type
+        ,void>::type
+        operator()(boost::msm::wrap<State> const&,boost::msm::back::dummy<1> = 0)
+        {
+            cell call_no_transition = &Fsm::default_eventless_transition;
+            tofill_entries[0] = call_no_transition;
+        }
         dispatch_table* self;
         cell* tofill_entries;
     };
@@ -219,7 +354,11 @@ struct dispatch_table
         typedef typename ::boost::mpl::reverse_fold<
                         // filter on event
                         ::boost::mpl::filter_view
-                            <Stt, ::boost::is_base_of<transition_event< ::boost::mpl::placeholders::_>, Event> >,
+                            <Stt, boost::mpl::or_<
+                                    ::boost::is_base_of<transition_event< ::boost::mpl::placeholders::_>, Event>,
+                                    ::boost::msm::is_kleene_event<transition_event< ::boost::mpl::placeholders::_> >
+                                    >
+                            >,
                         // build a map
                         ::boost::mpl::map<>,
                         ::boost::mpl::if_<
@@ -233,13 +372,13 @@ struct dispatch_table
                                                    ::boost::mpl::push_back< 
                                                         ::boost::mpl::at< ::boost::mpl::placeholders::_1,
                                                         transition_source_type< ::boost::mpl::placeholders::_2> >,
-                                                        ::boost::mpl::placeholders::_2 > 
+                                                        change_frow_event< ::boost::mpl::placeholders::_2 > > 
                                                    > >,
                             // first row on this source state, make a vector with 1 element
                             ::boost::mpl::insert< 
                                         ::boost::mpl::placeholders::_1,
                                         ::boost::mpl::pair<transition_source_type< ::boost::mpl::placeholders::_2>,
-                                        make_vector< ::boost::mpl::placeholders::_2> > >
+                                        make_vector< change_frow_event< ::boost::mpl::placeholders::_2> > > >
                                >
                        >::type map_of_row_seq;
         // and then build chaining rows for all source states having more than 1 row
@@ -264,7 +403,8 @@ struct dispatch_table
     static const dispatch_table instance;
 
  public: // data members
-    cell entries[max_state];
+     // +1 => 0 is reserved for this fsm (internal transitions)
+    cell entries[max_state+1];
 };
 
 }}} // boost::msm::back

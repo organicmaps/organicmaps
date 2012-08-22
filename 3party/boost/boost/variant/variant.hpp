@@ -32,6 +32,7 @@
 #include "boost/variant/detail/make_variant_list.hpp"
 #include "boost/variant/detail/over_sequence.hpp"
 #include "boost/variant/detail/visitation_impl.hpp"
+#include "boost/variant/detail/hash_variant.hpp"
 
 #include "boost/variant/detail/generic_result_type.hpp"
 #include "boost/variant/detail/has_nothrow_move.hpp"

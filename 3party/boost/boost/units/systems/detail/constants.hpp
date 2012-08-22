@@ -20,6 +20,8 @@
 #include <boost/units/static_constant.hpp>
 #include <boost/units/units_fwd.hpp>
 #include <boost/units/operators.hpp>
+#include <boost/units/static_rational.hpp>
+#include <boost/units/detail/one.hpp>
 
 namespace boost {
 
@@ -133,6 +135,72 @@ BOOST_UNITS_DEFINE_HELPER(multiply, *)
 BOOST_UNITS_DEFINE_HELPER(divide, /)
 
 #undef BOOST_UNITS_DEFINE_HELPER
+
+#define BOOST_UNITS_DEFINE_HELPER(name, symbol)                     \
+                                                                    \
+template<class T1>                                                  \
+struct name ## _typeof_helper<constant<T1>, one>                    \
+{                                                                   \
+    typedef typename name ## _typeof_helper<typename T1::value_type, one>::type type;\
+};                                                                  \
+                                                                    \
+template<class T2>                                                  \
+struct name ## _typeof_helper<one, constant<T2> >                   \
+{                                                                   \
+    typedef typename name ## _typeof_helper<one, typename T2::value_type>::type type;\
+};                                                                  \
+                                                                    \
+template<class T1>                                                  \
+typename name ## _typeof_helper<typename T1::value_type, one>::type \
+operator symbol(const constant<T1>& t, const one& u)                \
+{                                                                   \
+    return(t.value() symbol u);                                     \
+}                                                                   \
+                                                                    \
+template<class T2>                                                  \
+typename name ## _typeof_helper<one, typename T2::value_type>::type \
+operator symbol(const one& t, const constant<T2>& u)                \
+{                                                                   \
+    return(t symbol u.value());                                     \
+}
+
+BOOST_UNITS_DEFINE_HELPER(multiply, *)
+BOOST_UNITS_DEFINE_HELPER(divide, /)
+
+#undef BOOST_UNITS_DEFINE_HELPER
+
+template<class T1, long N, long D>
+struct power_typeof_helper<constant<T1>, static_rational<N,D> >
+{
+    typedef power_typeof_helper<typename T1::value_type, static_rational<N,D> > base;
+    typedef typename base::type type;
+    static type value(const constant<T1>& arg)
+    {
+        return base::value(arg.value());
+    }
+};
+
+#define BOOST_UNITS_DEFINE_HELPER(name, symbol)                     \
+                                                                    \
+template<class T1, class E>                                         \
+struct name ## _typeof_helper<constant<T1> >                        \
+{                                                                   \
+    typedef typename name ## _typeof_helper<typename T1::value_type, E>::type type;\
+};                                                                  \
+                                                                    \
+template<class T1>                                                  \
+typename name ## _typeof_helper<typename T1::value_type, one>::type \
+operator symbol(const constant<T1>& t, const one& u)                \
+{                                                                   \
+    return(t.value() symbol u);                                     \
+}                                                                   \
+                                                                    \
+template<class T2>                                                  \
+typename name ## _typeof_helper<one, typename T2::value_type>::type \
+operator symbol(const one& t, const constant<T2>& u)                \
+{                                                                   \
+    return(t symbol u.value());                                     \
+}
 
 #define BOOST_UNITS_PHYSICAL_CONSTANT(name, type, value_, uncertainty_) \
 struct name ## _t {                                                     \

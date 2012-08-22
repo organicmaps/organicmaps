@@ -1,6 +1,6 @@
 //  Copyright (c) 2001-2011 Hartmut Kaiser
-// 
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying 
+//
+//  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #if !defined(BOOST_SPIRIT_LEX_PLAIN_TOKENID_MASK_JUN_03_2011_0929PM)
@@ -25,6 +25,7 @@
 #include <boost/mpl/or.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/is_enum.hpp>
+#include <boost/lexical_cast.hpp>
 
 namespace boost { namespace spirit
 {
@@ -53,8 +54,8 @@ namespace boost { namespace spirit { namespace qi
     using spirit::tokenid_mask_type;
 
     ///////////////////////////////////////////////////////////////////////////
-    // The plain_tokenid represents a simple token defined by the lexer inside 
-    // a Qi grammar. The difference to plain_token is that it exposes the 
+    // The plain_tokenid represents a simple token defined by the lexer inside
+    // a Qi grammar. The difference to plain_token is that it exposes the
     // matched token id instead of the iterator_range of the matched input.
     // Additionally it applies the given mask to the matched token id.
     template <typename Mask>
@@ -79,16 +80,16 @@ namespace boost { namespace spirit { namespace qi
             qi::skip_over(first, last, skipper);   // always do a pre-skip
 
             if (first != last) {
-                // simply match the token id with the mask this component has 
+                // simply match the token id with the mask this component has
                 // been initialized with
 
-                typedef typename 
-                    boost::detail::iterator_traits<Iterator>::value_type 
+                typedef typename
+                    boost::detail::iterator_traits<Iterator>::value_type
                 token_type;
                 typedef typename token_type::id_type id_type;
 
                 token_type const& t = *first;
-                if ((t.id() & mask) == mask) 
+                if ((t.id() & mask) == id_type(mask))
                 {
                     spirit::traits::assign_to(t.id(), attr);
                     ++first;
@@ -101,7 +102,8 @@ namespace boost { namespace spirit { namespace qi
         template <typename Context>
         info what(Context& /*context*/) const
         {
-            return info("tokenid_mask");
+            return info("tokenid_mask",
+                "tokenid_mask(" + boost::lexical_cast<utf8_string>(mask) + ")");
         }
 
         Mask mask;

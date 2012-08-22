@@ -22,7 +22,7 @@
 #include <boost/interprocess/creation_tags.hpp>
 #include <boost/interprocess/exceptions.hpp>
 #include <boost/interprocess/detail/utilities.hpp>
-#include <boost/interprocess/detail/move.hpp>
+#include <boost/move/move.hpp>
 #include <boost/interprocess/detail/os_file_functions.hpp>
 #include <boost/interprocess/interprocess_fwd.hpp>
 #include <boost/interprocess/exceptions.hpp>
@@ -49,7 +49,7 @@ class xsi_shared_memory
 {
    /// @cond
    //Non-copyable and non-assignable
-   BOOST_INTERPROCESS_MOVABLE_BUT_NOT_COPYABLE(xsi_shared_memory)
+   BOOST_MOVABLE_BUT_NOT_COPYABLE(xsi_shared_memory)
    /// @endcond
 
    public:
@@ -66,33 +66,33 @@ class xsi_shared_memory
    //!Creates a new XSI shared memory from 'key', with size "size" and permissions "perm".
    //!If the shared memory previously exists, throws an error.
    xsi_shared_memory(create_only_t, const xsi_key &key, std::size_t size, const permissions& perm = permissions())
-   {  this->priv_open_or_create(detail::DoCreate, key, perm, size);  }
+   {  this->priv_open_or_create(ipcdetail::DoCreate, key, perm, size);  }
 
    //!Opens an existing shared memory with identifier 'key' or creates a new XSI shared memory from
    //!identifier 'key', with size "size" and permissions "perm".
    xsi_shared_memory(open_or_create_t, const xsi_key &key, std::size_t size, const permissions& perm = permissions())
-   {  this->priv_open_or_create(detail::DoOpenOrCreate, key, perm, size);  }
+   {  this->priv_open_or_create(ipcdetail::DoOpenOrCreate, key, perm, size);  }
 
    //!Tries to open a XSI shared memory with identifier 'key'
    //!If the shared memory does not previously exist, it throws an error.
    xsi_shared_memory(open_only_t, const xsi_key &key)
-   {  this->priv_open_or_create(detail::DoOpen, key, permissions(), 0);  }
+   {  this->priv_open_or_create(ipcdetail::DoOpen, key, permissions(), 0);  }
 
-   //!Moves the ownership of "moved"'s shared memory object to *this. 
-   //!After the call, "moved" does not represent any shared memory object. 
+   //!Moves the ownership of "moved"'s shared memory object to *this.
+   //!After the call, "moved" does not represent any shared memory object.
    //!Does not throw
-   xsi_shared_memory(BOOST_INTERPROCESS_RV_REF(xsi_shared_memory) moved)
+   xsi_shared_memory(BOOST_RV_REF(xsi_shared_memory) moved)
       : m_shmid(-1)
    {  this->swap(moved);   }
 
    //!Moves the ownership of "moved"'s shared memory to *this.
-   //!After the call, "moved" does not represent any shared memory. 
+   //!After the call, "moved" does not represent any shared memory.
    //!Does not throw
-   xsi_shared_memory &operator=(BOOST_INTERPROCESS_RV_REF(xsi_shared_memory) moved)
-   {  
-      xsi_shared_memory tmp(boost::interprocess::move(moved));
+   xsi_shared_memory &operator=(BOOST_RV_REF(xsi_shared_memory) moved)
+   { 
+      xsi_shared_memory tmp(boost::move(moved));
       this->swap(tmp);
-      return *this;  
+      return *this; 
    }
 
    //!Swaps two xsi_shared_memorys. Does not throw
@@ -119,7 +119,7 @@ class xsi_shared_memory
    private:
 
    //!Closes a previously opened file mapping. Never throws.
-   bool priv_open_or_create( detail::create_enum_t type
+   bool priv_open_or_create( ipcdetail::create_enum_t type
                            , const xsi_key &key
                            , const permissions& perm
                            , std::size_t size);
@@ -129,11 +129,11 @@ class xsi_shared_memory
 
 /// @cond
 
-inline xsi_shared_memory::xsi_shared_memory() 
+inline xsi_shared_memory::xsi_shared_memory()
    :  m_shmid(-1)
 {}
 
-inline xsi_shared_memory::~xsi_shared_memory() 
+inline xsi_shared_memory::~xsi_shared_memory()
 {}
 
 inline int xsi_shared_memory::get_shmid() const
@@ -148,20 +148,20 @@ inline mapping_handle_t xsi_shared_memory::get_mapping_handle() const
 {  mapping_handle_t mhnd = { m_shmid, true};   return mhnd;   }
 
 inline bool xsi_shared_memory::priv_open_or_create
-   (detail::create_enum_t type, const xsi_key &key, const permissions& permissions, std::size_t size)
+   (ipcdetail::create_enum_t type, const xsi_key &key, const permissions& permissions, std::size_t size)
 {
    int perm = permissions.get_permissions();
    perm &= 0x01FF;
    int shmflg = perm;
 
    switch(type){
-      case detail::DoOpen:
+      case ipcdetail::DoOpen:
          shmflg |= 0;
       break;
-      case detail::DoCreate:
+      case ipcdetail::DoCreate:
          shmflg |= IPC_CREAT | IPC_EXCL;
       break;
-      case detail::DoOpenOrCreate:
+      case ipcdetail::DoOpenOrCreate:
          shmflg |= IPC_CREAT;
       break;
       default:
@@ -173,7 +173,7 @@ inline bool xsi_shared_memory::priv_open_or_create
 
    int ret = ::shmget(key.get_key(), size, shmflg);
    int shmid = ret;
-   if((type == detail::DoOpen) && (-1 != ret)){
+   if((type == ipcdetail::DoOpen) && (-1 != ret)){
       //Now get the size
       ::shmid_ds xsi_ds;
       ret = ::shmctl(ret, IPC_STAT, &xsi_ds);

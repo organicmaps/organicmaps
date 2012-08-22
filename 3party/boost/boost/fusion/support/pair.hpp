@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2005 Joel de Guzman
+    Copyright (c) 2001-2011 Joel de Guzman
     Copyright (c) 2006 Tobias Schwinger
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -7,6 +7,8 @@
 ==============================================================================*/
 #if !defined(FUSION_PAIR_07222005_1203)
 #define FUSION_PAIR_07222005_1203
+
+#include <iosfwd>
 
 #include <boost/fusion/support/detail/access.hpp>
 #include <boost/fusion/support/detail/as_fusion_element.hpp>
@@ -74,17 +76,17 @@ namespace boost { namespace fusion
         return pair<First, typename detail::as_fusion_element<Second>::type>(val);
     }
 
-    template <typename OStream, typename First, typename Second>
-    inline OStream&
-    operator<<(OStream& os, pair<First, Second> const& p)
+    template <typename First, typename Second>
+    inline std::ostream&
+    operator<<(std::ostream& os, pair<First, Second> const& p)
     {
         os << p.second;
         return os;
     }
 
-    template <typename IStream, typename First, typename Second>
-    inline IStream&
-    operator>>(IStream& is, pair<First, Second>& p)
+    template <typename First, typename Second>
+    inline std::istream&
+    operator>>(std::istream& is, pair<First, Second>& p)
     {
         is >> p.second;
         return is;

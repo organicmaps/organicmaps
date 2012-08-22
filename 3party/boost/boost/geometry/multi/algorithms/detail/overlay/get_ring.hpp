@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -35,7 +35,7 @@ struct get_ring<multi_polygon_tag>
         BOOST_ASSERT
             (
                 id.multi_index >= 0
-                && id.multi_index < boost::size(multi_polygon)
+                && id.multi_index < int(boost::size(multi_polygon))
             );
         return get_ring<polygon_tag>::apply(id,
                     multi_polygon[id.multi_index]);

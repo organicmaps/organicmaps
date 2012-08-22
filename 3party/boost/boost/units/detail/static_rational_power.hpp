@@ -93,7 +93,7 @@ struct static_int_power_impl<N, true>
         typedef typename next::type type;
         static type call(const Y& y, const R& r)
         {
-            const Y square = y * y;
+            const square_type square = y * y;
             return(next::call(square, r));
         }
     };
@@ -185,7 +185,7 @@ struct static_rational_power_impl<static_rational<N, 1>, Y>
 {
     typedef typename static_int_power_sign_impl<N>::template apply<Y> impl;
     typedef typename impl::type type;
-    static Y call(const Y& y)
+    static type call(const Y& y)
     {
         return(impl::call(y));
     }

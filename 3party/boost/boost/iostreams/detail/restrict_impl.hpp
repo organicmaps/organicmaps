@@ -56,7 +56,7 @@ namespace detail {
 //
 // Template name: restricted_indirect_device.
 // Description: Provides an restricted view of an indirect Device.
-// Template paramters:
+// Template parameters:
 //      Device - An indirect model of Device that models either Source or
 //          SeekableDevice.
 //
@@ -88,7 +88,7 @@ private:
 //
 // Template name: restricted_direct_device.
 // Description: Provides an restricted view of a Direct Device.
-// Template paramters:
+// Template parameters:
 //      Device - A model of Direct and Device.
 //
 template<typename Device>
@@ -118,7 +118,7 @@ private:
 //
 // Template name: restricted_filter.
 // Description: Provides an restricted view of a Filter.
-// Template paramters:
+// Template parameters:
 //      Filter - An indirect model of Filter.
 //
 template<typename Filter>

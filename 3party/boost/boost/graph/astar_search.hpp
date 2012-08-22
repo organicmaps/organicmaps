@@ -25,7 +25,7 @@
 #include <boost/graph/detail/d_ary_heap.hpp>
 #include <boost/property_map/property_map.hpp>
 #include <boost/property_map/vector_property_map.hpp>
-
+#include <boost/concept/assert.hpp>
 
 namespace boost {
 
@@ -34,7 +34,7 @@ namespace boost {
   struct AStarHeuristicConcept {
     void constraints()
     {
-      function_requires< CopyConstructibleConcept<Heuristic> >();
+      BOOST_CONCEPT_ASSERT(( CopyConstructibleConcept<Heuristic> ));
       h(u);
     }
     Heuristic h;
@@ -58,7 +58,7 @@ namespace boost {
   struct AStarVisitorConcept {
     void constraints()
     {
-      function_requires< CopyConstructibleConcept<Visitor> >();
+      BOOST_CONCEPT_ASSERT(( CopyConstructibleConcept<Visitor> ));
       vis.initialize_vertex(u, g);
       vis.discover_vertex(u, g);
       vis.examine_vertex(u, g);
@@ -158,6 +158,7 @@ namespace boost {
 
       template <class Edge, class Graph>
       void tree_edge(Edge e, const Graph& g) {
+        using boost::get;
         m_decreased = relax(e, g, m_weight, m_predecessor, m_distance,
                             m_combine, m_compare);
 
@@ -173,6 +174,7 @@ namespace boost {
 
       template <class Edge, class Graph>
       void gray_target(Edge e, const Graph& g) {
+        using boost::get;
         m_decreased = relax(e, g, m_weight, m_predecessor, m_distance,
                             m_combine, m_compare);
 
@@ -189,6 +191,7 @@ namespace boost {
 
       template <class Edge, class Graph>
       void black_target(Edge e, const Graph& g) {
+        using boost::get;
         m_decreased = relax(e, g, m_weight, m_predecessor, m_distance,
                             m_combine, m_compare);
 
@@ -325,6 +328,7 @@ namespace boost {
       typename detail::map_maker<VertexListGraph, arg_pack_type, tag::distance_map, W>::map_type
       distance_map_type;
     typedef typename boost::property_traits<distance_map_type>::value_type D;
+    const D inf = arg_pack[_distance_inf | (std::numeric_limits<D>::max)()];
 
     astar_search
       (g, s, h,
@@ -336,8 +340,8 @@ namespace boost {
        detail::override_const_property(arg_pack, _vertex_index_map, g, vertex_index),
        detail::make_color_map_from_arg_pack(g, arg_pack),
        arg_pack[_distance_compare | std::less<D>()],
-       arg_pack[_distance_combine | closed_plus<D>()],
-       arg_pack[_distance_inf | (std::numeric_limits<D>::max)()],
+       arg_pack[_distance_combine | closed_plus<D>(inf)],
+       inf,
        arg_pack[_distance_zero | D()]);
   }
 
@@ -358,6 +362,7 @@ namespace boost {
                  arg_pack_type, tag::weight_map, edge_weight_t, VertexListGraph>::type
                weight_map_type;
     typedef typename boost::property_traits<weight_map_type>::value_type D;
+    const D inf = arg_pack[_distance_inf | (std::numeric_limits<D>::max)()];
     astar_search_no_init
       (g, s, h,
        arg_pack[_visitor | make_astar_visitor(null_visitor())],
@@ -368,8 +373,8 @@ namespace boost {
        detail::override_const_property(arg_pack, _vertex_index_map, g, vertex_index),
        detail::make_color_map_from_arg_pack(g, arg_pack),
        arg_pack[_distance_compare | std::less<D>()],
-       arg_pack[_distance_combine | closed_plus<D>()],
-       arg_pack[_distance_inf | (std::numeric_limits<D>::max)()],
+       arg_pack[_distance_combine | closed_plus<D>(inf)],
+       inf,
        arg_pack[_distance_zero | D()]);
   }
 

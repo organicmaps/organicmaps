@@ -55,7 +55,7 @@ struct composite_mode
 //
 // Template name: composite_device.
 // Description: Provides a Device view of a Filter, Device pair.
-// Template paramters:
+// Template parameters:
 //      Filter - A model of Filter.
 //      Device - An indirect model of Device.
 //
@@ -115,7 +115,7 @@ private:
 //
 // Template name: composite_device.
 // Description: Provides a Device view of a Filter, Device pair.
-// Template paramters:
+// Template parameters:
 //      Filter - A model of Filter.
 //      Device - An indirect model of Device.
 //

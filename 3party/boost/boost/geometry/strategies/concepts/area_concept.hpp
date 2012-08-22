@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -44,11 +44,11 @@ class AreaStrategy
     {
         static void apply()
         {
-            Strategy const* str;
-            state_type *st;
+            Strategy const* str = 0;
+            state_type *st = 0;
 
             // 4) must implement a method apply with the following signature
-            spoint_type const* sp;
+            spoint_type const* sp = 0;
             str->apply(*sp, *sp, *st);
 
             // 5) must implement a static method result with the following signature

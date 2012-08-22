@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -17,8 +17,12 @@
 #include <boost/interprocess/detail/os_file_functions.hpp>
 #include <boost/interprocess/detail/tmp_dir_helpers.hpp>
 #include <boost/interprocess/permissions.hpp>
-#include <string>
-#include <semaphore.h>
+
+#include <fcntl.h>      //O_CREAT, O_*...
+#include <unistd.h>     //close
+#include <string>       //std::string
+#include <semaphore.h>  //sem_* family, SEM_VALUE_MAX
+#include <sys/stat.h>   //mode_t, S_IRWXG, S_IRWXO, S_IRWXU,
 #include <boost/assert.hpp>
 
 #ifdef SEM_FAILED
@@ -35,48 +39,58 @@
 
 namespace boost {
 namespace interprocess {
-
-/// @cond
-namespace detail{ class interprocess_tester; }
-/// @endcond
-
-namespace detail {
+namespace ipcdetail {
 
 inline bool semaphore_open
-   (sem_t *&handle, detail::create_enum_t type, const char *origname, 
-    unsigned int count, const permissions &perm = permissions())
+   (sem_t *&handle, create_enum_t type, const char *origname,
+    unsigned int count = 0, const permissions &perm = permissions())
 {
    std::string name;
    #ifndef BOOST_INTERPROCESS_FILESYSTEM_BASED_POSIX_SEMAPHORES
-   detail::add_leading_slash(origname, name);
+   add_leading_slash(origname, name);
    #else
-   detail::create_tmp_and_clean_old_and_get_filename(origname, name);
+   create_tmp_and_clean_old_and_get_filename(origname, name);
    #endif
 
    //Create new mapping
    int oflag = 0;
    switch(type){
-      case detail::DoOpen:
+      case DoOpen:
+      {
          //No addition
+         handle = ::sem_open(name.c_str(), oflag);
+      }
       break;
-      case detail::DoCreate:
-         oflag |= (O_CREAT | O_EXCL);
-      break;
-      case detail::DoOpenOrCreate:
-         oflag |= O_CREAT;
+      case DoOpenOrCreate:
+      case DoCreate:
+      {
+         while(1){
+            oflag = (O_CREAT | O_EXCL);
+            handle = ::sem_open(name.c_str(), oflag, perm.get_permissions(), count);
+            if(handle != BOOST_INTERPROCESS_POSIX_SEM_FAILED){
+               //We can't change semaphore permissions!
+               //::fchmod(handle, perm.get_permissions());
+               break;
+            }
+            else if(errno == EEXIST && type == DoOpenOrCreate){
+               oflag = 0;
+               if( (handle = ::sem_open(name.c_str(), oflag)) != BOOST_INTERPROCESS_POSIX_SEM_FAILED
+                   || (errno != ENOENT) ){
+                  break;
+               }
+            }
+            else{
+               break;
+            }
+         }
+      }
       break;
       default:
-         {
-            error_info err = other_error;
-            throw interprocess_exception(err);
-         }
+      {
+         error_info err(other_error);
+         throw interprocess_exception(err);
+      }
    }
-
-   //Open file using POSIX API
-   if(oflag & O_CREAT)
-      handle = sem_open(name.c_str(), oflag, perm.get_permissions(), count);
-   else
-      handle = sem_open(name.c_str(), oflag);
 
    //Check for error
    if(handle == BOOST_INTERPROCESS_POSIX_SEM_FAILED){
@@ -89,7 +103,7 @@ inline bool semaphore_open
 inline void semaphore_close(sem_t *handle)
 {
    int ret = sem_close(handle);
-   if(ret != 0){  
+   if(ret != 0){ 
       BOOST_ASSERT(0);
    }
 }
@@ -99,11 +113,11 @@ inline bool semaphore_unlink(const char *semname)
    try{
       std::string sem_str;
       #ifndef BOOST_INTERPROCESS_FILESYSTEM_BASED_POSIX_SEMAPHORES
-      detail::add_leading_slash(semname, sem_str);
+      add_leading_slash(semname, sem_str);
       #else
-      detail::tmp_filename(semname, sem_str);
+      tmp_filename(semname, sem_str);
       #endif
-      return 0 != sem_unlink(sem_str.c_str());
+      return 0 == sem_unlink(sem_str.c_str());
    }
    catch(...){
       return false;
@@ -124,7 +138,7 @@ inline void semaphore_init(sem_t *handle, unsigned int initialCount)
 inline void semaphore_destroy(sem_t *handle)
 {
    int ret = sem_destroy(handle);
-   if(ret != 0){  
+   if(ret != 0){ 
       BOOST_ASSERT(0);
    }
 }
@@ -159,8 +173,12 @@ inline bool semaphore_try_wait(sem_t *handle)
 
 inline bool semaphore_timed_wait(sem_t *handle, const boost::posix_time::ptime &abs_time)
 {
+   if(abs_time == boost::posix_time::pos_infin){
+      semaphore_wait(handle);
+      return true;
+   }
    #ifdef BOOST_INTERPROCESS_POSIX_TIMEOUTS
-   timespec tspec = detail::ptime_to_timespec(abs_time);
+   timespec tspec = ptime_to_timespec(abs_time);
    for (;;){
       int res = sem_timedwait(handle, &tspec);
       if(res == 0)
@@ -177,89 +195,17 @@ inline bool semaphore_timed_wait(sem_t *handle, const boost::posix_time::ptime &
    return false;
    #else //#ifdef BOOST_INTERPROCESS_POSIX_TIMEOUTS
    boost::posix_time::ptime now;
-   while((now = microsec_clock::universal_time()) < abs_time){
+   do{
       if(semaphore_try_wait(handle))
          return true;
       thread_yield();
-   }
+   }while((now = microsec_clock::universal_time()) < abs_time);
    return false;
    #endif   //#ifdef BOOST_INTERPROCESS_POSIX_TIMEOUTS
 }
 
-
-class named_semaphore_wrapper
-{
-   named_semaphore_wrapper();
-   named_semaphore_wrapper(const named_semaphore_wrapper&);
-   named_semaphore_wrapper &operator= (const named_semaphore_wrapper &);
-
-   public:
-   named_semaphore_wrapper
-      (detail::create_enum_t type, const char *name, unsigned int count, const permissions &perm = permissions())
-   {  semaphore_open(mp_sem, type, name, count, perm);   }
-
-   ~named_semaphore_wrapper()
-   {
-      if(mp_sem != BOOST_INTERPROCESS_POSIX_SEM_FAILED)
-         semaphore_close(mp_sem);
-   }
-
-   void post()
-   {  semaphore_post(mp_sem); }
-
-   void wait()
-   {  semaphore_wait(mp_sem); }
-
-   bool try_wait()
-   {  return semaphore_try_wait(mp_sem); }
-
-   bool timed_wait(const boost::posix_time::ptime &abs_time)
-   {  return semaphore_timed_wait(mp_sem, abs_time); }
-
-   static bool remove(const char *name)
-   {  return semaphore_unlink(name);   }
-
-   private:
-   friend class detail::interprocess_tester;
-   void dont_close_on_destruction()
-   {  mp_sem = BOOST_INTERPROCESS_POSIX_SEM_FAILED; }
-
-   sem_t      *mp_sem;
-};
-
-class semaphore_wrapper
-{
-   semaphore_wrapper();
-   semaphore_wrapper(const semaphore_wrapper&);
-   semaphore_wrapper &operator= (const semaphore_wrapper &);
-
-   public:
-   semaphore_wrapper(unsigned int initialCount)
-   {  semaphore_init(&m_sem, initialCount);  }
-
-   ~semaphore_wrapper()
-   {  semaphore_destroy(&m_sem);  }
-
-   void post()
-   {  semaphore_post(&m_sem); }
-
-   void wait()
-   {  semaphore_wait(&m_sem); }
-
-   bool try_wait()
-   {  return semaphore_try_wait(&m_sem); }
-
-   bool timed_wait(const boost::posix_time::ptime &abs_time)
-   {  return semaphore_timed_wait(&m_sem, abs_time); }
-
-   private:
-   sem_t       m_sem;
-};
-
-}  //namespace detail {
+}  //namespace ipcdetail {
 }  //namespace interprocess {
 }  //namespace boost {
-
-#undef BOOST_INTERPROCESS_POSIX_SEM_FAILED
 
 #endif   //#ifndef BOOST_INTERPROCESS_POSIX_SEMAPHORE_WRAPPER_HPP

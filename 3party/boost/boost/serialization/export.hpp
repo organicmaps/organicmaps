@@ -124,7 +124,7 @@ namespace extra_detail {
 
 template<class T>
 struct guid_initializer
-{  
+{
     void export_guid(mpl::false_) const {
         // generates the statically-initialized objects whose constructors
         // register the information allowing serialization of T objects

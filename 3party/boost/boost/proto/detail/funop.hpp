@@ -55,6 +55,7 @@
             >
         >::type type;
 
+        BOOST_FORCEINLINE
         static type const call(
             Expr &e
             BOOST_PP_ENUM_TRAILING_BINARY_PARAMS(BOOST_PP_ITERATION(), A, &a)

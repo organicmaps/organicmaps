@@ -19,7 +19,9 @@
 #include <boost/detail/allocator_utilities.hpp>
 #include <boost/detail/no_exceptions_support.hpp>
 #include <boost/detail/workaround.hpp>
+#include <boost/foreach_fwd.hpp>
 #include <boost/limits.hpp>
+#include <boost/mpl/bool.hpp>
 #include <boost/mpl/push_front.hpp>
 #include <boost/multi_index/detail/access_specifier.hpp>
 #include <boost/multi_index/detail/auto_space.hpp>
@@ -1239,6 +1241,20 @@ struct hashed_non_unique
 } /* namespace multi_index */
 
 } /* namespace boost */
+
+/* Boost.Foreach compatibility */
+
+template<
+  typename KeyFromValue,typename Hash,typename Pred,
+  typename SuperMeta,typename TagList,typename Category
+>
+inline boost::mpl::true_* boost_foreach_is_noncopyable(
+  boost::multi_index::detail::hashed_index<
+    KeyFromValue,Hash,Pred,SuperMeta,TagList,Category>*&,
+  boost::foreach::tag)
+{
+  return 0;
+}
 
 #undef BOOST_MULTI_INDEX_HASHED_INDEX_CHECK_INVARIANT
 

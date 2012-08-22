@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2009.
+// (C) Copyright Ion Gaztanaga 2005-2011.
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
@@ -21,7 +21,7 @@
 #include <boost/interprocess/detail/workaround.hpp>
 
 namespace boost {
-namespace interprocess { 
+namespace interprocess {
 
 template<class T>
 const T &max_value(const T &a, const T &b)
@@ -31,7 +31,7 @@ template<class T>
 const T &min_value(const T &a, const T &b)
 {  return a < b ? a : b;   }
 
-}  //namespace interprocess { 
+}  //namespace interprocess {
 }  //namespace boost {
 
 #include <boost/interprocess/detail/config_end.hpp>

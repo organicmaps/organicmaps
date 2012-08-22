@@ -34,15 +34,20 @@
 #include <boost/utility/result_of.hpp>
 #include <boost/utility/enable_if.hpp>
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+# pragma warning(push)
+# pragma warning(disable : 4714) // function 'xxx' marked as __forceinline not inlined
+#endif
+
 #ifndef BOOST_NO_DECLTYPE
 # define BOOST_PROTO_DECLTYPE_(EXPR, TYPE) typedef decltype(EXPR) TYPE;
 #else
 # define BOOST_PROTO_DECLTYPE_NESTED_TYPEDEF_TPL_(NESTED, EXPR)                                     \
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL(BOOST_PP_CAT(nested_and_hidden_, NESTED), EXPR)                 \
-    static int const sz = sizeof(boost::proto::detail::check_reference(EXPR));                      \
+    static int const BOOST_PP_CAT(sz, NESTED) = sizeof(boost::proto::detail::check_reference(EXPR));\
     struct NESTED                                                                                   \
       : boost::mpl::if_c<                                                                           \
-            1==sz                                                                                   \
+            1 == BOOST_PP_CAT(sz, NESTED)                                                           \
           , typename BOOST_PP_CAT(nested_and_hidden_, NESTED)::type &                               \
           , typename BOOST_PP_CAT(nested_and_hidden_, NESTED)::type                                 \
         >                                                                                           \
@@ -497,5 +502,9 @@ namespace boost { namespace proto
 
     } // namespace detail
 }}
+
+#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+# pragma warning(pop)
+#endif
 
 #endif

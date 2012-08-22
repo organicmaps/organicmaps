@@ -11,7 +11,7 @@
 #ifndef BOOST_NUMERIC_INTERVAL_DETAIL_C99SUB_ROUNDING_CONTROL_HPP
 #define BOOST_NUMERIC_INTERVAL_DETAIL_C99SUB_ROUNDING_CONTROL_HPP
 
-#include <fenv.h>      // ISO C 99 rounding mode control
+#include <boost/detail/fenv.hpp>      // ISO C 99 rounding mode control
 
 namespace boost {
 namespace numeric {

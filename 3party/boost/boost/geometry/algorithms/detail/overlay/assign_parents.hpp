@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -14,7 +14,7 @@
 #include <boost/geometry/algorithms/expand.hpp>
 #include <boost/geometry/algorithms/detail/partition.hpp>
 #include <boost/geometry/algorithms/detail/overlay/get_ring.hpp>
-#include <boost/geometry/algorithms/detail/overlay/within_util.hpp>
+#include <boost/geometry/algorithms/within.hpp>
 
 #include <boost/geometry/geometries/box.hpp>
 
@@ -42,23 +42,22 @@ static inline bool within_selected_input(Item const& item2, ring_identifier cons
     typedef typename geometry::tag<Geometry1>::type tag1;
     typedef typename geometry::tag<Geometry2>::type tag2;
 
-    int code = -1;
     switch (ring_id.source_index)
     {
         case 0 :
-            code = point_in_ring(item2.point,
+            return geometry::within(item2.point,
                 get_ring<tag1>::apply(ring_id, geometry1));
             break;
         case 1 :
-            code = point_in_ring(item2.point,
+            return geometry::within(item2.point,
                 get_ring<tag2>::apply(ring_id, geometry2));
             break;
         case 2 :
-            code = point_in_ring(item2.point,
+            return geometry::within(item2.point,
                 get_ring<void>::apply(ring_id, collection));
             break;
     }
-    return code == 1;
+    return false;
 }
 
 
@@ -77,7 +76,7 @@ struct ring_info_helper
     {}
 
     inline ring_info_helper(ring_identifier i, area_type a)
-        : id(i), real_area(a), abs_area(abs(a))
+        : id(i), real_area(a), abs_area(geometry::math::abs(a))
     {}
 };
 
@@ -131,7 +130,7 @@ struct assign_visitor
             return;
         }
 
-        if (outer.real_area > 0)
+        if (math::larger(outer.real_area, 0))
         {
             if (inner.real_area < 0 || m_check_for_orientation)
             {
@@ -318,13 +317,14 @@ template
 >
 inline void assign_parents(Geometry const& geometry,
             RingCollection const& collection,
-            RingMap& ring_map)
+            RingMap& ring_map,
+            bool check_for_orientation)
 {
     // Call it with an empty geometry
     // (ring_map should be empty for source_id==1)
 
     Geometry empty;
-    assign_parents(geometry, empty, collection, ring_map, true);
+    assign_parents(geometry, empty, collection, ring_map, check_for_orientation);
 }
 
 

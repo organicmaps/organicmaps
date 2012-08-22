@@ -36,6 +36,10 @@
 #undef BOOST_SP_HAS_SYNC
 #endif
 
+#if defined( __sh__ )
+#undef BOOST_SP_HAS_SYNC
+#endif
+
 #if defined( __sparc__ )
 #undef BOOST_SP_HAS_SYNC
 #endif

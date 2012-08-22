@@ -325,10 +325,10 @@ namespace boost {
 
     template <typename PropVal, typename PropertyTag>
     void test_readable_vertex_property_graph
-      (const std::vector<PropVal>& vertex_prop, PropertyTag, const Graph& g)
+      (const std::vector<PropVal>& vertex_prop, PropertyTag tag, const Graph& g)
     {
       typedef typename property_map<Graph, PropertyTag>::const_type const_Map;
-      const_Map pmap = get(PropertyTag(), g);
+      const_Map pmap = get(tag, g);
       typename std::vector<PropVal>::const_iterator i = vertex_prop.begin();
 
   for (typename boost::graph_traits<Graph>::vertex_iterator 
@@ -339,7 +339,7 @@ namespace boost {
          ++bgl_first_9) {
       //BGL_FORALL_VERTICES_T(v, g, Graph) {
         typename property_traits<const_Map>::value_type 
-          pval1 = get(pmap, v), pval2 = get(PropertyTag(), g, v);
+          pval1 = get(pmap, v), pval2 = get(tag, g, v);
         BOOST_CHECK(pval1 == pval2);
         BOOST_CHECK(pval1 == *i++);
       }
@@ -350,7 +350,7 @@ namespace boost {
       (const std::vector<PropVal>& vertex_prop, PropertyTag tag, Graph& g)
     {
       typedef typename property_map<Graph, PropertyTag>::type PMap;
-      PMap pmap = get(PropertyTag(), g);
+      PMap pmap = get(tag, g);
       typename std::vector<PropVal>::const_iterator i = vertex_prop.begin();
   for (typename boost::graph_traits<Graph>::vertex_iterator 
            bgl_first_9 = vertices(g).first, bgl_last_9 = vertices(g).second;
@@ -368,7 +368,7 @@ namespace boost {
       
       typename std::vector<PropVal>::const_iterator j = vertex_prop.begin();
       BGL_FORALL_VERTICES_T(v, g, Graph)
-        put(PropertyTag(), g, v, *j++);
+        put(tag, g, v, *j++);
       
       test_readable_vertex_property_graph(vertex_prop, tag, g);      
     }

@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -15,13 +15,14 @@
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_FOR_EACH_RANGE_HPP
 
 
+#include <boost/mpl/assert.hpp>
 #include <boost/concept/requires.hpp>
-
 
 #include <boost/geometry/core/tag.hpp>
 #include <boost/geometry/core/tag_cast.hpp>
 
 #include <boost/geometry/util/add_const_if_c.hpp>
+#include <boost/geometry/views/box_view.hpp>
 
 
 namespace boost { namespace geometry
@@ -59,6 +60,17 @@ struct fe_range_polygon
     }
 };
 
+template <typename Box, typename Actor, bool IsConst>
+struct fe_range_box
+{
+    static inline void apply(
+                    typename add_const_if_c<IsConst, Box>::type& box,
+                    Actor& actor)
+    {
+        actor.apply(box_view<Box>(box));
+    }
+};
+
 
 }} // namespace detail::for_each
 #endif // DOXYGEN_NO_DETAIL
@@ -76,7 +88,14 @@ template
     typename Actor,
     bool IsConst
 >
-struct for_each_range {};
+struct for_each_range
+{
+    BOOST_MPL_ASSERT_MSG
+        (
+            false, NOT_OR_NOT_YET_IMPLEMENTED_FOR_THIS_GEOMETRY_TYPE
+            , (types<Geometry>)
+        );
+};
 
 
 template <typename Linestring, typename Actor, bool IsConst>
@@ -94,6 +113,11 @@ struct for_each_range<ring_tag, Ring, Actor, IsConst>
 template <typename Polygon, typename Actor, bool IsConst>
 struct for_each_range<polygon_tag, Polygon, Actor, IsConst>
     : detail::for_each::fe_range_polygon<Polygon, Actor, IsConst>
+{};
+
+template <typename Box, typename Actor, bool IsConst>
+struct for_each_range<box_tag, Box, Actor, IsConst>
+    : detail::for_each::fe_range_box<Box, Actor, IsConst>
 {};
 
 

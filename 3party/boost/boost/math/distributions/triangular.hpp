@@ -470,7 +470,7 @@ namespace boost{ namespace math
     RealType mode = dist.mode();
     RealType upper = dist.upper();
     RealType result = 0; // of checks.
-    if(false == detail::check_triangular(function,lower, mode, upper, &result, Policy()))
+    if(false == boost::math::detail::check_triangular(function,lower, mode, upper, &result, Policy()))
     {
       return result;
     }

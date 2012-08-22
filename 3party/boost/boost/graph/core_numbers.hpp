@@ -15,6 +15,7 @@
 #include <boost/pending/indirect_cmp.hpp>
 #include <boost/graph/breadth_first_search.hpp>
 #include <boost/iterator/reverse_iterator.hpp>
+#include <boost/concept/assert.hpp>
 
 /*
  * core_numbers
@@ -46,7 +47,7 @@ namespace boost {
     struct CoreNumbersVisitorConcept {
         void constraints()
         {
-            function_requires< CopyConstructibleConcept<Visitor> >();
+            BOOST_CONCEPT_ASSERT(( CopyConstructibleConcept<Visitor> ));
             vis.examine_vertex(u,g);
             vis.finish_vertex(u,g);
             vis.examine_edge(e,g);

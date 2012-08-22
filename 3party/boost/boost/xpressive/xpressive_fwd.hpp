@@ -31,7 +31,7 @@
 # define BOOST_XPRESSIVE_USE_C_TRAITS
 #endif
 
-#if defined(BOOST_NO_CWCHAR) | defined(BOOST_NO_CWCTYPE) | defined(BOOST_NO_STD_WSTRING)
+#if defined(BOOST_NO_CWCHAR) || defined(BOOST_NO_CWCTYPE) || defined(BOOST_NO_STD_WSTRING)
 # ifndef BOOST_XPRESSIVE_NO_WREGEX
 #  define BOOST_XPRESSIVE_NO_WREGEX
 # endif

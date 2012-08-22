@@ -2,7 +2,7 @@
 // detail/gcc_sync_fenced_block.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -32,8 +32,10 @@ class gcc_sync_fenced_block
   : private noncopyable
 {
 public:
+  enum half_or_full_t { half, full };
+
   // Constructor.
-  gcc_sync_fenced_block()
+  explicit gcc_sync_fenced_block(half_or_full_t)
     : value_(0)
   {
     __sync_lock_test_and_set(&value_, 1);

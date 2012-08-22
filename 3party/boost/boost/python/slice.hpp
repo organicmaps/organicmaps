@@ -30,7 +30,7 @@ namespace detail
       // that created this slice, than that parameter is None here, and compares 
       // equal to a default-constructed boost::python::object.
       // If a user-defined type wishes to support slicing, then support for the 
-      // special meaning associated with negative indicies is up to the user.
+      // special meaning associated with negative indices is up to the user.
       object start() const;
       object stop() const;
       object step() const;
@@ -63,7 +63,7 @@ class slice : public detail::slice_base
         
     // The following algorithm is intended to automate the process of 
     // determining a slice range when you want to fully support negative
-    // indicies and non-singular step sizes.  Its functionallity is simmilar to 
+    // indices and non-singular step sizes.  Its functionallity is simmilar to 
     // PySlice_GetIndicesEx() in the Python/C API, but tailored for C++ users.
     // This template returns a slice::range struct that, when used in the 
     // following iterative loop, will traverse a slice of the function's
@@ -110,7 +110,7 @@ class slice : public detail::slice_base
     
     template<typename RandomAccessIterator>
     slice::range<RandomAccessIterator>
-    get_indicies( const RandomAccessIterator& begin, 
+    get_indices( const RandomAccessIterator& begin, 
         const RandomAccessIterator& end) const
     {
         // This is based loosely on PySlice_GetIndicesEx(), but it has been 
@@ -239,6 +239,16 @@ class slice : public detail::slice_base
         }
         
         return ret;
+    }
+
+    // Incorrect spelling. DO NOT USE. Only here for backward compatibility.
+    // Corrected 2011-06-14.
+    template<typename RandomAccessIterator>
+    slice::range<RandomAccessIterator>
+    get_indicies( const RandomAccessIterator& begin, 
+        const RandomAccessIterator& end) const
+    {
+        return get_indices(begin, end);
     }
         
  public:

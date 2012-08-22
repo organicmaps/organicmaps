@@ -11,8 +11,8 @@
 
 #include <vector>
 #include <list>
+#include <stack>
 #include <boost/config.hpp>
-#include <boost/utility.hpp>  //for next and prior
 #include <boost/graph/graph_traits.hpp>
 #include <boost/property_map/property_map.hpp>
 
@@ -240,7 +240,7 @@ namespace boost
       (*ordering_begin,0,g,x,delta_x,left,right);
 
     vertex_iterator_t vi, vi_end;
-    for(tie(vi,vi_end) = vertices(g); vi != vi_end; ++vi)
+    for(boost::tie(vi,vi_end) = vertices(g); vi != vi_end; ++vi)
       {
         vertex_t v(*vi);
         drawing[v].x = x[v];

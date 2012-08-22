@@ -28,7 +28,7 @@
             : frame(0) {}
         template <int N>
         static
-        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type
+        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type const
         init(self_type * scope)
         {
             return
@@ -36,7 +36,7 @@
                     dynamic_member<mpl::int_<N>, self_type *>::
                         make(mpl::int_<N>(), scope);
         }
-        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type member1;
+        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type const member1;
         mutable dynamic_frame_type* frame;
     };
     
@@ -62,7 +62,7 @@
             : frame(0) {}
         template <int N>
         static
-        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type
+        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type const
         init(self_type * scope)
         {
             return
@@ -70,7 +70,7 @@
                     dynamic_member<mpl::int_<N>, self_type *>::
                         make(mpl::int_<N>(), scope);
         }
-        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type member2;
+        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type const member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type const member2;
         mutable dynamic_frame_type* frame;
     };
     
@@ -96,7 +96,7 @@
             : frame(0) {}
         template <int N>
         static
-        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type
+        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type const
         init(self_type * scope)
         {
             return
@@ -104,7 +104,7 @@
                     dynamic_member<mpl::int_<N>, self_type *>::
                         make(mpl::int_<N>(), scope);
         }
-        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type member3;
+        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type const member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type const member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type const member3;
         mutable dynamic_frame_type* frame;
     };
     
@@ -130,7 +130,7 @@
             : frame(0) {}
         template <int N>
         static
-        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type
+        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type const
         init(self_type * scope)
         {
             return
@@ -138,7 +138,7 @@
                     dynamic_member<mpl::int_<N>, self_type *>::
                         make(mpl::int_<N>(), scope);
         }
-        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type member4;
+        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type const member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type const member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type const member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type const member4;
         mutable dynamic_frame_type* frame;
     };
     
@@ -164,7 +164,7 @@
             : frame(0) {}
         template <int N>
         static
-        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type
+        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type const
         init(self_type * scope)
         {
             return
@@ -172,7 +172,7 @@
                     dynamic_member<mpl::int_<N>, self_type *>::
                         make(mpl::int_<N>(), scope);
         }
-        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type member5;
+        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type const member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type const member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type const member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type const member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type const member5;
         mutable dynamic_frame_type* frame;
     };
     
@@ -198,7 +198,7 @@
             : frame(0) {}
         template <int N>
         static
-        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type
+        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type const
         init(self_type * scope)
         {
             return
@@ -206,7 +206,7 @@
                     dynamic_member<mpl::int_<N>, self_type *>::
                         make(mpl::int_<N>(), scope);
         }
-        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type member6;
+        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type const member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type const member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type const member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type const member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type const member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type const member6;
         mutable dynamic_frame_type* frame;
     };
     
@@ -232,7 +232,7 @@
             : frame(0) {}
         template <int N>
         static
-        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type
+        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type const
         init(self_type * scope)
         {
             return
@@ -240,7 +240,7 @@
                     dynamic_member<mpl::int_<N>, self_type *>::
                         make(mpl::int_<N>(), scope);
         }
-        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type member7;
+        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type const member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type const member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type const member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type const member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type const member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type const member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type const member7;
         mutable dynamic_frame_type* frame;
     };
     
@@ -266,7 +266,7 @@
             : frame(0) {}
         template <int N>
         static
-        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type
+        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type const
         init(self_type * scope)
         {
             return
@@ -274,7 +274,7 @@
                     dynamic_member<mpl::int_<N>, self_type *>::
                         make(mpl::int_<N>(), scope);
         }
-        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type member8;
+        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type const member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type const member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type const member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type const member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type const member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type const member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type const member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type const member8;
         mutable dynamic_frame_type* frame;
     };
     
@@ -300,7 +300,7 @@
             : frame(0) {}
         template <int N>
         static
-        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type
+        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type const
         init(self_type * scope)
         {
             return
@@ -308,7 +308,7 @@
                     dynamic_member<mpl::int_<N>, self_type *>::
                         make(mpl::int_<N>(), scope);
         }
-        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type member9;
+        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type const member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type const member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type const member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type const member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type const member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type const member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type const member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type const member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type const member9;
         mutable dynamic_frame_type* frame;
     };
     
@@ -334,7 +334,7 @@
             : frame(0) {}
         template <int N>
         static
-        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type
+        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type const
         init(self_type * scope)
         {
             return
@@ -342,7 +342,7 @@
                     dynamic_member<mpl::int_<N>, self_type *>::
                         make(mpl::int_<N>(), scope);
         }
-        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type member9; typedef typename expression::dynamic_member< mpl::int_< 9> , self_type * >::type member10;
+        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type const member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type const member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type const member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type const member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type const member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type const member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type const member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type const member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type const member9; typedef typename expression::dynamic_member< mpl::int_< 9> , self_type * >::type const member10;
         mutable dynamic_frame_type* frame;
     };
     
@@ -368,7 +368,7 @@
             : frame(0) {}
         template <int N>
         static
-        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type
+        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type const
         init(self_type * scope)
         {
             return
@@ -376,7 +376,7 @@
                     dynamic_member<mpl::int_<N>, self_type *>::
                         make(mpl::int_<N>(), scope);
         }
-        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type member9; typedef typename expression::dynamic_member< mpl::int_< 9> , self_type * >::type member10; typedef typename expression::dynamic_member< mpl::int_< 10> , self_type * >::type member11;
+        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type const member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type const member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type const member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type const member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type const member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type const member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type const member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type const member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type const member9; typedef typename expression::dynamic_member< mpl::int_< 9> , self_type * >::type const member10; typedef typename expression::dynamic_member< mpl::int_< 10> , self_type * >::type const member11;
         mutable dynamic_frame_type* frame;
     };
     
@@ -402,7 +402,7 @@
             : frame(0) {}
         template <int N>
         static
-        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type
+        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type const
         init(self_type * scope)
         {
             return
@@ -410,7 +410,7 @@
                     dynamic_member<mpl::int_<N>, self_type *>::
                         make(mpl::int_<N>(), scope);
         }
-        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type member9; typedef typename expression::dynamic_member< mpl::int_< 9> , self_type * >::type member10; typedef typename expression::dynamic_member< mpl::int_< 10> , self_type * >::type member11; typedef typename expression::dynamic_member< mpl::int_< 11> , self_type * >::type member12;
+        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type const member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type const member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type const member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type const member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type const member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type const member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type const member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type const member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type const member9; typedef typename expression::dynamic_member< mpl::int_< 9> , self_type * >::type const member10; typedef typename expression::dynamic_member< mpl::int_< 10> , self_type * >::type const member11; typedef typename expression::dynamic_member< mpl::int_< 11> , self_type * >::type const member12;
         mutable dynamic_frame_type* frame;
     };
     
@@ -436,7 +436,7 @@
             : frame(0) {}
         template <int N>
         static
-        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type
+        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type const
         init(self_type * scope)
         {
             return
@@ -444,7 +444,7 @@
                     dynamic_member<mpl::int_<N>, self_type *>::
                         make(mpl::int_<N>(), scope);
         }
-        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type member9; typedef typename expression::dynamic_member< mpl::int_< 9> , self_type * >::type member10; typedef typename expression::dynamic_member< mpl::int_< 10> , self_type * >::type member11; typedef typename expression::dynamic_member< mpl::int_< 11> , self_type * >::type member12; typedef typename expression::dynamic_member< mpl::int_< 12> , self_type * >::type member13;
+        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type const member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type const member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type const member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type const member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type const member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type const member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type const member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type const member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type const member9; typedef typename expression::dynamic_member< mpl::int_< 9> , self_type * >::type const member10; typedef typename expression::dynamic_member< mpl::int_< 10> , self_type * >::type const member11; typedef typename expression::dynamic_member< mpl::int_< 11> , self_type * >::type const member12; typedef typename expression::dynamic_member< mpl::int_< 12> , self_type * >::type const member13;
         mutable dynamic_frame_type* frame;
     };
     
@@ -470,7 +470,7 @@
             : frame(0) {}
         template <int N>
         static
-        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type
+        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type const
         init(self_type * scope)
         {
             return
@@ -478,7 +478,7 @@
                     dynamic_member<mpl::int_<N>, self_type *>::
                         make(mpl::int_<N>(), scope);
         }
-        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type member9; typedef typename expression::dynamic_member< mpl::int_< 9> , self_type * >::type member10; typedef typename expression::dynamic_member< mpl::int_< 10> , self_type * >::type member11; typedef typename expression::dynamic_member< mpl::int_< 11> , self_type * >::type member12; typedef typename expression::dynamic_member< mpl::int_< 12> , self_type * >::type member13; typedef typename expression::dynamic_member< mpl::int_< 13> , self_type * >::type member14;
+        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type const member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type const member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type const member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type const member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type const member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type const member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type const member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type const member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type const member9; typedef typename expression::dynamic_member< mpl::int_< 9> , self_type * >::type const member10; typedef typename expression::dynamic_member< mpl::int_< 10> , self_type * >::type const member11; typedef typename expression::dynamic_member< mpl::int_< 11> , self_type * >::type const member12; typedef typename expression::dynamic_member< mpl::int_< 12> , self_type * >::type const member13; typedef typename expression::dynamic_member< mpl::int_< 13> , self_type * >::type const member14;
         mutable dynamic_frame_type* frame;
     };
     
@@ -504,7 +504,7 @@
             : frame(0) {}
         template <int N>
         static
-        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type
+        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type const
         init(self_type * scope)
         {
             return
@@ -512,7 +512,7 @@
                     dynamic_member<mpl::int_<N>, self_type *>::
                         make(mpl::int_<N>(), scope);
         }
-        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type member9; typedef typename expression::dynamic_member< mpl::int_< 9> , self_type * >::type member10; typedef typename expression::dynamic_member< mpl::int_< 10> , self_type * >::type member11; typedef typename expression::dynamic_member< mpl::int_< 11> , self_type * >::type member12; typedef typename expression::dynamic_member< mpl::int_< 12> , self_type * >::type member13; typedef typename expression::dynamic_member< mpl::int_< 13> , self_type * >::type member14; typedef typename expression::dynamic_member< mpl::int_< 14> , self_type * >::type member15;
+        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type const member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type const member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type const member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type const member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type const member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type const member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type const member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type const member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type const member9; typedef typename expression::dynamic_member< mpl::int_< 9> , self_type * >::type const member10; typedef typename expression::dynamic_member< mpl::int_< 10> , self_type * >::type const member11; typedef typename expression::dynamic_member< mpl::int_< 11> , self_type * >::type const member12; typedef typename expression::dynamic_member< mpl::int_< 12> , self_type * >::type const member13; typedef typename expression::dynamic_member< mpl::int_< 13> , self_type * >::type const member14; typedef typename expression::dynamic_member< mpl::int_< 14> , self_type * >::type const member15;
         mutable dynamic_frame_type* frame;
     };
     
@@ -538,7 +538,7 @@
             : frame(0) {}
         template <int N>
         static
-        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type
+        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type const
         init(self_type * scope)
         {
             return
@@ -546,7 +546,7 @@
                     dynamic_member<mpl::int_<N>, self_type *>::
                         make(mpl::int_<N>(), scope);
         }
-        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type member9; typedef typename expression::dynamic_member< mpl::int_< 9> , self_type * >::type member10; typedef typename expression::dynamic_member< mpl::int_< 10> , self_type * >::type member11; typedef typename expression::dynamic_member< mpl::int_< 11> , self_type * >::type member12; typedef typename expression::dynamic_member< mpl::int_< 12> , self_type * >::type member13; typedef typename expression::dynamic_member< mpl::int_< 13> , self_type * >::type member14; typedef typename expression::dynamic_member< mpl::int_< 14> , self_type * >::type member15; typedef typename expression::dynamic_member< mpl::int_< 15> , self_type * >::type member16;
+        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type const member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type const member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type const member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type const member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type const member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type const member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type const member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type const member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type const member9; typedef typename expression::dynamic_member< mpl::int_< 9> , self_type * >::type const member10; typedef typename expression::dynamic_member< mpl::int_< 10> , self_type * >::type const member11; typedef typename expression::dynamic_member< mpl::int_< 11> , self_type * >::type const member12; typedef typename expression::dynamic_member< mpl::int_< 12> , self_type * >::type const member13; typedef typename expression::dynamic_member< mpl::int_< 13> , self_type * >::type const member14; typedef typename expression::dynamic_member< mpl::int_< 14> , self_type * >::type const member15; typedef typename expression::dynamic_member< mpl::int_< 15> , self_type * >::type const member16;
         mutable dynamic_frame_type* frame;
     };
     
@@ -572,7 +572,7 @@
             : frame(0) {}
         template <int N>
         static
-        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type
+        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type const
         init(self_type * scope)
         {
             return
@@ -580,7 +580,7 @@
                     dynamic_member<mpl::int_<N>, self_type *>::
                         make(mpl::int_<N>(), scope);
         }
-        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type member9; typedef typename expression::dynamic_member< mpl::int_< 9> , self_type * >::type member10; typedef typename expression::dynamic_member< mpl::int_< 10> , self_type * >::type member11; typedef typename expression::dynamic_member< mpl::int_< 11> , self_type * >::type member12; typedef typename expression::dynamic_member< mpl::int_< 12> , self_type * >::type member13; typedef typename expression::dynamic_member< mpl::int_< 13> , self_type * >::type member14; typedef typename expression::dynamic_member< mpl::int_< 14> , self_type * >::type member15; typedef typename expression::dynamic_member< mpl::int_< 15> , self_type * >::type member16; typedef typename expression::dynamic_member< mpl::int_< 16> , self_type * >::type member17;
+        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type const member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type const member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type const member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type const member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type const member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type const member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type const member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type const member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type const member9; typedef typename expression::dynamic_member< mpl::int_< 9> , self_type * >::type const member10; typedef typename expression::dynamic_member< mpl::int_< 10> , self_type * >::type const member11; typedef typename expression::dynamic_member< mpl::int_< 11> , self_type * >::type const member12; typedef typename expression::dynamic_member< mpl::int_< 12> , self_type * >::type const member13; typedef typename expression::dynamic_member< mpl::int_< 13> , self_type * >::type const member14; typedef typename expression::dynamic_member< mpl::int_< 14> , self_type * >::type const member15; typedef typename expression::dynamic_member< mpl::int_< 15> , self_type * >::type const member16; typedef typename expression::dynamic_member< mpl::int_< 16> , self_type * >::type const member17;
         mutable dynamic_frame_type* frame;
     };
     
@@ -606,7 +606,7 @@
             : frame(0) {}
         template <int N>
         static
-        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type
+        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type const
         init(self_type * scope)
         {
             return
@@ -614,7 +614,7 @@
                     dynamic_member<mpl::int_<N>, self_type *>::
                         make(mpl::int_<N>(), scope);
         }
-        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type member9; typedef typename expression::dynamic_member< mpl::int_< 9> , self_type * >::type member10; typedef typename expression::dynamic_member< mpl::int_< 10> , self_type * >::type member11; typedef typename expression::dynamic_member< mpl::int_< 11> , self_type * >::type member12; typedef typename expression::dynamic_member< mpl::int_< 12> , self_type * >::type member13; typedef typename expression::dynamic_member< mpl::int_< 13> , self_type * >::type member14; typedef typename expression::dynamic_member< mpl::int_< 14> , self_type * >::type member15; typedef typename expression::dynamic_member< mpl::int_< 15> , self_type * >::type member16; typedef typename expression::dynamic_member< mpl::int_< 16> , self_type * >::type member17; typedef typename expression::dynamic_member< mpl::int_< 17> , self_type * >::type member18;
+        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type const member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type const member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type const member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type const member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type const member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type const member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type const member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type const member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type const member9; typedef typename expression::dynamic_member< mpl::int_< 9> , self_type * >::type const member10; typedef typename expression::dynamic_member< mpl::int_< 10> , self_type * >::type const member11; typedef typename expression::dynamic_member< mpl::int_< 11> , self_type * >::type const member12; typedef typename expression::dynamic_member< mpl::int_< 12> , self_type * >::type const member13; typedef typename expression::dynamic_member< mpl::int_< 13> , self_type * >::type const member14; typedef typename expression::dynamic_member< mpl::int_< 14> , self_type * >::type const member15; typedef typename expression::dynamic_member< mpl::int_< 15> , self_type * >::type const member16; typedef typename expression::dynamic_member< mpl::int_< 16> , self_type * >::type const member17; typedef typename expression::dynamic_member< mpl::int_< 17> , self_type * >::type const member18;
         mutable dynamic_frame_type* frame;
     };
     
@@ -640,7 +640,7 @@
             : frame(0) {}
         template <int N>
         static
-        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type
+        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type const
         init(self_type * scope)
         {
             return
@@ -648,7 +648,7 @@
                     dynamic_member<mpl::int_<N>, self_type *>::
                         make(mpl::int_<N>(), scope);
         }
-        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type member9; typedef typename expression::dynamic_member< mpl::int_< 9> , self_type * >::type member10; typedef typename expression::dynamic_member< mpl::int_< 10> , self_type * >::type member11; typedef typename expression::dynamic_member< mpl::int_< 11> , self_type * >::type member12; typedef typename expression::dynamic_member< mpl::int_< 12> , self_type * >::type member13; typedef typename expression::dynamic_member< mpl::int_< 13> , self_type * >::type member14; typedef typename expression::dynamic_member< mpl::int_< 14> , self_type * >::type member15; typedef typename expression::dynamic_member< mpl::int_< 15> , self_type * >::type member16; typedef typename expression::dynamic_member< mpl::int_< 16> , self_type * >::type member17; typedef typename expression::dynamic_member< mpl::int_< 17> , self_type * >::type member18; typedef typename expression::dynamic_member< mpl::int_< 18> , self_type * >::type member19;
+        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type const member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type const member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type const member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type const member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type const member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type const member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type const member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type const member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type const member9; typedef typename expression::dynamic_member< mpl::int_< 9> , self_type * >::type const member10; typedef typename expression::dynamic_member< mpl::int_< 10> , self_type * >::type const member11; typedef typename expression::dynamic_member< mpl::int_< 11> , self_type * >::type const member12; typedef typename expression::dynamic_member< mpl::int_< 12> , self_type * >::type const member13; typedef typename expression::dynamic_member< mpl::int_< 13> , self_type * >::type const member14; typedef typename expression::dynamic_member< mpl::int_< 14> , self_type * >::type const member15; typedef typename expression::dynamic_member< mpl::int_< 15> , self_type * >::type const member16; typedef typename expression::dynamic_member< mpl::int_< 16> , self_type * >::type const member17; typedef typename expression::dynamic_member< mpl::int_< 17> , self_type * >::type const member18; typedef typename expression::dynamic_member< mpl::int_< 18> , self_type * >::type const member19;
         mutable dynamic_frame_type* frame;
     };
     
@@ -674,7 +674,7 @@
             : frame(0) {}
         template <int N>
         static
-        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type
+        typename expression::dynamic_member<mpl::int_<N>, self_type *>::type const
         init(self_type * scope)
         {
             return
@@ -682,6 +682,6 @@
                     dynamic_member<mpl::int_<N>, self_type *>::
                         make(mpl::int_<N>(), scope);
         }
-        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type member9; typedef typename expression::dynamic_member< mpl::int_< 9> , self_type * >::type member10; typedef typename expression::dynamic_member< mpl::int_< 10> , self_type * >::type member11; typedef typename expression::dynamic_member< mpl::int_< 11> , self_type * >::type member12; typedef typename expression::dynamic_member< mpl::int_< 12> , self_type * >::type member13; typedef typename expression::dynamic_member< mpl::int_< 13> , self_type * >::type member14; typedef typename expression::dynamic_member< mpl::int_< 14> , self_type * >::type member15; typedef typename expression::dynamic_member< mpl::int_< 15> , self_type * >::type member16; typedef typename expression::dynamic_member< mpl::int_< 16> , self_type * >::type member17; typedef typename expression::dynamic_member< mpl::int_< 17> , self_type * >::type member18; typedef typename expression::dynamic_member< mpl::int_< 18> , self_type * >::type member19; typedef typename expression::dynamic_member< mpl::int_< 19> , self_type * >::type member20;
+        typedef typename expression::dynamic_member< mpl::int_< 0> , self_type * >::type const member1; typedef typename expression::dynamic_member< mpl::int_< 1> , self_type * >::type const member2; typedef typename expression::dynamic_member< mpl::int_< 2> , self_type * >::type const member3; typedef typename expression::dynamic_member< mpl::int_< 3> , self_type * >::type const member4; typedef typename expression::dynamic_member< mpl::int_< 4> , self_type * >::type const member5; typedef typename expression::dynamic_member< mpl::int_< 5> , self_type * >::type const member6; typedef typename expression::dynamic_member< mpl::int_< 6> , self_type * >::type const member7; typedef typename expression::dynamic_member< mpl::int_< 7> , self_type * >::type const member8; typedef typename expression::dynamic_member< mpl::int_< 8> , self_type * >::type const member9; typedef typename expression::dynamic_member< mpl::int_< 9> , self_type * >::type const member10; typedef typename expression::dynamic_member< mpl::int_< 10> , self_type * >::type const member11; typedef typename expression::dynamic_member< mpl::int_< 11> , self_type * >::type const member12; typedef typename expression::dynamic_member< mpl::int_< 12> , self_type * >::type const member13; typedef typename expression::dynamic_member< mpl::int_< 13> , self_type * >::type const member14; typedef typename expression::dynamic_member< mpl::int_< 14> , self_type * >::type const member15; typedef typename expression::dynamic_member< mpl::int_< 15> , self_type * >::type const member16; typedef typename expression::dynamic_member< mpl::int_< 16> , self_type * >::type const member17; typedef typename expression::dynamic_member< mpl::int_< 17> , self_type * >::type const member18; typedef typename expression::dynamic_member< mpl::int_< 18> , self_type * >::type const member19; typedef typename expression::dynamic_member< mpl::int_< 19> , self_type * >::type const member20;
         mutable dynamic_frame_type* frame;
     };

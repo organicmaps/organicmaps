@@ -1,7 +1,7 @@
 //  Copyright (c) 2008-2009 Ben Hanson
 //  Copyright (c) 2008-2011 Hartmut Kaiser
-// 
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying 
+//
+//  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #if !defined(BOOST_SPIRIT_LEX_LEXERTL_GENERATE_CPP_FEB_10_2008_0855PM)
@@ -22,33 +22,83 @@
 #include <boost/lexical_cast.hpp>
 
 ///////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace spirit { namespace lex { namespace lexertl 
+namespace boost { namespace spirit { namespace lex { namespace lexertl
 {
     namespace detail
     {
 
-    inline bool
-    generate_delimiter(std::ostream &os_)
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename CharT>
+    struct string_lit;
+
+    template <>
+    struct string_lit<char>
     {
-        os_ << std::string(80, '/') << "\n";
+        static char get(char c) { return c; }
+        static std::string get(char const* str = "") { return str; }
+    };
+
+    template <>
+    struct string_lit<wchar_t>
+    {
+        static wchar_t get(char c)
+        {
+            typedef std::ctype<wchar_t> ctype_t;
+            return std::use_facet<ctype_t>(std::locale()).widen(c);
+        }
+        static std::basic_string<wchar_t> get(char const* source = "")
+        {
+            using namespace std;        // some systems have size_t in ns std
+            size_t len = strlen(source);
+            std::auto_ptr<wchar_t> result (new wchar_t[len+1]);
+            result.get()[len] = '\0';
+
+            // working with wide character streams is supported only if the
+            // platform provides the std::ctype<wchar_t> facet
+            BOOST_ASSERT(std::has_facet<std::ctype<wchar_t> >(std::locale()));
+
+            std::use_facet<std::ctype<wchar_t> >(std::locale())
+                .widen(source, source + len, result.get());
+            return result.get();
+        }
+    };
+
+    template <typename Char>
+    inline Char L(char c)
+    {
+        return string_lit<Char>::get(c);
+    }
+
+    template <typename Char>
+    inline std::basic_string<Char> L(char const* c = "")
+    {
+        return string_lit<Char>::get(c);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename Char>
+    inline bool
+    generate_delimiter(std::basic_ostream<Char> &os_)
+    {
+        os_ << std::basic_string<Char>(80, '/') << "\n";
         return os_.good();
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // Generate a table of the names of the used lexer states, which is a bit 
-    // tricky, because the table stored with the rules is sorted based on the 
+    // Generate a table of the names of the used lexer states, which is a bit
+    // tricky, because the table stored with the rules is sorted based on the
     // names, but we need it sorted using the state ids.
     template <typename Char>
-    inline bool 
+    inline bool
     generate_cpp_state_info (boost::lexer::basic_rules<Char> const& rules_
-      , std::ostream &os_, char const* name_suffix)
+      , std::basic_ostream<Char> &os_, Char const* name_suffix)
     {
-        // we need to re-sort the state names in ascending order of the state 
+        // we need to re-sort the state names in ascending order of the state
         // ids, filling possible gaps in between later
-        typedef typename 
+        typedef typename
             boost::lexer::basic_rules<Char>::string_size_t_map::const_iterator
         state_iterator;
-        typedef std::map<std::size_t, char const*> reverse_state_map_type;
+        typedef std::map<std::size_t, Char const*> reverse_state_map_type;
 
         reverse_state_map_type reverse_state_map;
         state_iterator send = rules_.statemap().end();
@@ -60,7 +110,8 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
 
         generate_delimiter(os_);
         os_ << "// this table defines the names of the lexer states\n";
-        os_ << "char const* const lexer_state_names" 
+        os_ << boost::lexer::detail::strings<Char>::char_name()
+            << " const* const lexer_state_names"
             << (name_suffix[0] ? "_" : "") << name_suffix
             << "[" << rules_.statemap().size() << "] = \n{\n";
 
@@ -73,7 +124,9 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
             {
                 os_ << "    0,  // \"<undefined state>\"\n";
             }
-            os_ << "    \"" << (*rit).second << "\"";
+            os_ << "    "
+                << boost::lexer::detail::strings<Char>::char_prefix()
+                << "\"" << (*rit).second << "\"";
             if (++rit != rend)
                 os_ << ",\n";
             else
@@ -83,17 +136,18 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
 
         generate_delimiter(os_);
         os_ << "// this variable defines the number of lexer states\n";
-        os_ << "std::size_t const lexer_state_count" 
+        os_ << "std::size_t const lexer_state_count"
             << (name_suffix[0] ? "_" : "") << name_suffix
             << " = " << rules_.statemap().size() << ";\n\n";
         return os_.good();
     }
 
-    inline bool 
-    generate_cpp_state_table (std::ostream &os_, char const* name_suffix
-      , bool bol, bool eol)
+    template <typename Char>
+    inline bool
+    generate_cpp_state_table (std::basic_ostream<Char> &os_
+      , Char const* name_suffix, bool bol, bool eol)
     {
-        std::string suffix(name_suffix[0] ? "_" : "");
+        std::basic_string<Char> suffix(L<Char>(name_suffix[0] ? "_" : ""));
         suffix += name_suffix;
 
         generate_delimiter(os_);
@@ -102,7 +156,8 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         os_ << "    // version number and feature-set of compatible static lexer engine\n";
         os_ << "    enum\n";
         os_ << "    {\n        static_version = "
-            << boost::lexical_cast<std::string>(SPIRIT_STATIC_LEXER_VERSION) << ",\n";
+            << boost::lexical_cast<std::basic_string<Char> >(SPIRIT_STATIC_LEXER_VERSION)
+            << ",\n";
         os_ << "        supports_bol = " << std::boolalpha << bol << ",\n";
         os_ << "        supports_eol = " << std::boolalpha << eol << "\n";
         os_ << "    };\n\n";
@@ -110,13 +165,14 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         os_ << "    static std::size_t state_count()\n";
         os_ << "    {\n        return lexer_state_count" << suffix << "; \n    }\n\n";
         os_ << "    // return the name of the lexer state as given by 'idx'\n";
-        os_ << "    static char const* state_name(std::size_t idx)\n";
+        os_ << "    static " << boost::lexer::detail::strings<Char>::char_name()
+            << " const* state_name(std::size_t idx)\n";
         os_ << "    {\n        return lexer_state_names" << suffix << "[idx]; \n    }\n\n";
         os_ << "    // return the next matched token\n";
         os_ << "    template<typename Iterator>\n";
         os_ << "    static std::size_t next(std::size_t &start_state_, bool& bol_\n";
         os_ << "      , Iterator &start_token_, Iterator const& end_, std::size_t& unique_id_)\n";
-        os_ << "    {\n        return next_token" << suffix 
+        os_ << "    {\n        return next_token" << suffix
             << "(start_state_, bol_, start_token_, end_, unique_id_);\n    }\n";
         os_ << "};\n\n";
         return os_.good();
@@ -125,8 +181,8 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
     ///////////////////////////////////////////////////////////////////////////
     // generate function body based on traversing the DFA tables
     template <typename Char>
-    bool generate_function_body_dfa(std::ostream & os_
-      , boost::lexer::basic_state_machine<Char> const &sm_) 
+    bool generate_function_body_dfa(std::basic_ostream<Char>& os_
+      , boost::lexer::basic_state_machine<Char> const &sm_)
     {
         std::size_t const dfas_ = sm_.data()._dfa->size();
         std::size_t const lookups_ = sm_.data()._lookup->front()->size();
@@ -147,7 +203,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
                 std::size_t const* lookup_ = &sm_.data()._lookup[state_]->front();
                 std::size_t const* dfa_ = &sm_.data()._dfa[state_]->front();
 
-                os_ << "    static std::size_t const lookup" << state_ 
+                os_ << "    static std::size_t const lookup" << state_
                     << "_[" << lookups_ << "] = {\n        ";
                 for (/**/; i_ < count_; ++i_)
                 {
@@ -203,7 +259,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
             std::size_t count_ = sm_.data()._dfa_alphabet.size();
             std::size_t i_ = 1;
 
-            os_ << "    static std::size_t const* lookup_arr_[" << count_ 
+            os_ << "    static std::size_t const* lookup_arr_[" << count_
                 << "] = { lookup0_";
             for (i_ = 1; i_ < count_; ++i_)
             {
@@ -211,7 +267,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
             }
             os_ << " };\n";
 
-            os_ << "    static std::size_t const dfa_alphabet_arr_[" 
+            os_ << "    static std::size_t const dfa_alphabet_arr_["
                 << count_ << "] = { ";
             os_ << sm_.data()._dfa_alphabet.front ();
             for (i_ = 1; i_ < count_; ++i_)
@@ -220,7 +276,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
             }
             os_ << " };\n";
 
-            os_ << "    static std::size_t const* dfa_arr_[" << count_ 
+            os_ << "    static std::size_t const* dfa_arr_[" << count_
                 << "] = { ";
             os_ << "dfa0_";
             for (i_ = 1; i_ < count_; ++i_)
@@ -255,9 +311,9 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
             }
             os_ << " };\n";
 
-            os_ << "    static std::size_t const dfa_alphabet_ = " 
+            os_ << "    static std::size_t const dfa_alphabet_ = "
                 << sm_.data()._dfa_alphabet.front () << ";\n";
-            os_ << "    static std::size_t const dfa_[" 
+            os_ << "    static std::size_t const dfa_["
                 << sm_.data()._dfa[0]->size () << "] = {\n        ";
             count_ = sm_.data()._dfa[0]->size () / 8;
             for (i_ = 0; i_ < count_; ++i_)
@@ -534,10 +590,10 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
 
     ///////////////////////////////////////////////////////////////////////////
     template <typename Char>
-    inline std::string get_charlit(Char ch)
+    inline std::basic_string<Char> get_charlit(Char ch)
     {
         std::basic_string<Char> result;
-        boost::lexer::basic_string_token<Char>::escape_char (ch, result);
+        boost::lexer::basic_string_token<Char>::escape_char(ch, result);
         return result;
     }
 
@@ -573,8 +629,8 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
 
     ///////////////////////////////////////////////////////////////////////////
     template <typename Char>
-    bool generate_function_body_switch(std::ostream & os_
-      , boost::lexer::basic_state_machine<Char> const &sm_) 
+    bool generate_function_body_switch(std::basic_ostream<Char> & os_
+      , boost::lexer::basic_state_machine<Char> const &sm_)
     {
         typedef typename boost::lexer::basic_state_machine<Char>::iterator
             iterator_type;
@@ -622,7 +678,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         os_ << "    Iterator end_token_ = start_token_;\n";
         os_ << '\n';
 
-        os_ << "    " << ((lookups_ == 256) ? "char" : "wchar_t") 
+        os_ << "    " << ((lookups_ == 256) ? "char" : "wchar_t")
             << " ch_ = 0;\n\n";
 
         if (dfas_ > 1)
@@ -679,7 +735,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
                     if (transitions_) os_ << '\n';
                 }
 
-                if (t_ < transitions_ || 
+                if (t_ < transitions_ ||
                     iter_->bol_index != boost::lexer::npos ||
                     iter_->eol_index != boost::lexer::npos)
                 {
@@ -687,12 +743,12 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
                     os_ << "    ch_ = *curr_;\n";
                     if (iter_->bol_index != boost::lexer::npos)
                     {
-                        os_ << "\n    if (bol) goto state" << dfa_ << '_' 
+                        os_ << "\n    if (bol) goto state" << dfa_ << '_'
                             << iter_->bol_index << ";\n";
                     }
                     if (iter_->eol_index != boost::lexer::npos)
                     {
-                        os_ << "\n    if (ch_ == '\n') goto state" << dfa_ 
+                        os_ << "\n    if (ch_ == '\n') goto state" << dfa_
                             << '_' << iter_->eol_index << ";\n";
                     }
                     os_ << "    ++curr_;\n";
@@ -700,10 +756,10 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
 
                 for (/**/; t_ < transitions_; ++t_)
                 {
-                    char const *ptr_ = iter_->token._charset.c_str();
-                    char const *end_ = ptr_ + iter_->token._charset.size();
-                    char start_char_ = 0;
-                    char curr_char_ = 0;
+                    Char const *ptr_ = iter_->token._charset.c_str();
+                    Char const *end_ = ptr_ + iter_->token._charset.size();
+                    Char start_char_ = 0;
+                    Char curr_char_ = 0;
                     bool range_ = false;
                     bool first_char_ = true;
 
@@ -727,7 +783,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
                             {
                                 os_ << ((iter_->token._negated) ? " && " : " || ");
                             }
-                            else 
+                            else
                             {
                                 first_char_ = false;
                             }
@@ -738,20 +794,20 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
                                     os_ << "!";
                                 }
                                 os_ << "(ch_ >= '" << get_charlit(start_char_)
-                                    << "' && ch_ <= '" 
+                                    << "' && ch_ <= '"
                                     << get_charlit(curr_char_) << "')";
                                 range_ = false;
                             }
                             else
                             {
-                                os_ << "ch_ " 
+                                os_ << "ch_ "
                                     << ((iter_->token._negated) ? "!=" : "==")
                                     << " '" << get_charlit(curr_char_) << "'";
                             }
                         }
                     }
 
-                    os_ << ") goto state" << dfa_ << '_' << iter_->goto_state 
+                    os_ << ") goto state" << dfa_ << '_' << iter_->goto_state
                         << ";\n";
                     ++iter_;
                 }
@@ -818,10 +874,11 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
     ///////////////////////////////////////////////////////////////////////////
     // Generate a tokenizer for the given state machine.
     template <typename Char, typename F>
-    inline bool 
+    inline bool
     generate_cpp (boost::lexer::basic_state_machine<Char> const& sm_
       , boost::lexer::basic_rules<Char> const& rules_
-      , std::ostream &os_, char const* name_suffix, F generate_function_body)
+      , std::basic_ostream<Char> &os_, Char const* name_suffix
+      , F generate_function_body)
     {
         if (sm_.data()._lookup->empty())
             return false;
@@ -838,14 +895,15 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
             "http://www.boost.org/LICENSE_1_0.txt)\n\n";
         os_ << "// Auto-generated by boost::lexer, do not edit\n\n";
 
-        std::string guard(name_suffix);
-        guard += name_suffix[0] ? "_" : "";
-        guard += __DATE__ "_" __TIME__;
-        std::string::size_type p = guard.find_first_of(": ");
-        while (std::string::npos != p) 
+        std::basic_string<Char> guard(name_suffix);
+        guard += L<Char>(name_suffix[0] ? "_" : "");
+        guard += L<Char>(__DATE__ "_" __TIME__);
+        typename std::basic_string<Char>::size_type p = 
+            guard.find_first_of(L<Char>(": "));
+        while (std::string::npos != p)
         {
-            guard.replace(p, 1, "_");
-            p = guard.find_first_of(": ", p);
+            guard.replace(p, 1, L<Char>("_"));
+            p = guard.find_first_of(L<Char>(": "), p);
         }
         boost::to_upper(guard);
 
@@ -868,14 +926,14 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         generate_delimiter(os_);
         os_ << "// this function returns the next matched token\n";
         os_ << "template<typename Iterator>\n";
-        os_ << "std::size_t next_token" << (name_suffix[0] ? "_" : "") 
+        os_ << "std::size_t next_token" << (name_suffix[0] ? "_" : "")
             << name_suffix  << " (";
 
         if (dfas_ > 1)
         {
             os_ << "std::size_t& start_state_, ";
         }
-        else 
+        else
         {
             os_ << "std::size_t& /*start_state_*/, ";
         }
@@ -883,7 +941,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         {
             os_ << "bool& bol_, ";
         }
-        else 
+        else
         {
             os_ << "bool& /*bol_*/, ";
         }
@@ -896,7 +954,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
             return false;
         os_ << "}\n\n";
 
-        if (!generate_cpp_state_table(os_, name_suffix
+        if (!generate_cpp_state_table<Char>(os_, name_suffix
             , sm_.data()._seen_BOL_assertion, sm_.data()._seen_EOL_assertion))
         {
             return false;
@@ -913,9 +971,10 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
 
     ///////////////////////////////////////////////////////////////////////////
     template <typename Lexer, typename F>
-    inline bool 
-    generate_static(Lexer const& lexer, std::ostream& os
-      , char const* name_suffix, F f)
+    inline bool
+    generate_static(Lexer const& lexer
+      , std::basic_ostream<typename Lexer::char_type>& os
+      , typename Lexer::char_type const* name_suffix, F f)
     {
         if (!lexer.init_dfa(true))    // always minimize DFA for static lexers
             return false;
@@ -924,12 +983,14 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // deprecated function, will be removed in the future (this has been 
+    // deprecated function, will be removed in the future (this has been
     // replaced by the function generate_static_dfa - see below).
     template <typename Lexer>
-    inline bool 
-    generate_static(Lexer const& lexer, std::ostream& os
-      , char const* name_suffix = "")
+    inline bool
+    generate_static(Lexer const& lexer
+      , std::basic_ostream<typename Lexer::char_type>& os
+      , typename Lexer::char_type const* name_suffix =
+          detail::L<typename Lexer::char_type>())
     {
         return generate_static(lexer, os, name_suffix
           , &detail::generate_function_body_dfa<typename Lexer::char_type>);
@@ -937,9 +998,11 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
 
     ///////////////////////////////////////////////////////////////////////////
     template <typename Lexer>
-    inline bool 
-    generate_static_dfa(Lexer const& lexer, std::ostream& os
-      , char const* name_suffix = "")
+    inline bool
+    generate_static_dfa(Lexer const& lexer
+      , std::basic_ostream<typename Lexer::char_type>& os
+      , typename Lexer::char_type const* name_suffix =
+          detail::L<typename Lexer::char_type>())
     {
         return generate_static(lexer, os, name_suffix
           , &detail::generate_function_body_dfa<typename Lexer::char_type>);
@@ -947,9 +1010,11 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
 
     ///////////////////////////////////////////////////////////////////////////
     template <typename Lexer>
-    inline bool 
-    generate_static_switch(Lexer const& lexer, std::ostream& os
-      , char const* name_suffix = "")
+    inline bool
+    generate_static_switch(Lexer const& lexer
+      , std::basic_ostream<typename Lexer::char_type>& os
+      , typename Lexer::char_type const* name_suffix =
+          detail::L<typename Lexer::char_type>())
     {
         return generate_static(lexer, os, name_suffix
           , &detail::generate_function_body_switch<typename Lexer::char_type>);

@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2001-2006 Joel de Guzman
+    Copyright (c) 2001-2011 Joel de Guzman
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying 
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -10,6 +10,8 @@
 #include <boost/fusion/support/detail/as_fusion_element.hpp>
 #include <boost/fusion/view/joint_view/joint_view.hpp>
 #include <boost/fusion/view/single_view/single_view.hpp>
+#include <boost/fusion/support/is_sequence.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace boost { namespace fusion
 {
@@ -24,7 +26,12 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence, typename T>
-    inline typename result_of::push_front<Sequence const, T>::type
+    inline 
+    typename
+        lazy_enable_if<
+            traits::is_sequence<Sequence>
+          , result_of::push_front<Sequence const, T>
+        >::type
     push_front(Sequence const& seq, T const& x)
     {
         typedef typename result_of::push_front<Sequence const, T> push_front;

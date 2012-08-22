@@ -140,6 +140,10 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
         boost::compressed_pair<left_embed_t, right_embed_t> subj;
     };
 
+#if BOOST_WORKAROUND(BOOST_MSVC, >= 1400)
+#pragma warning(pop)
+#endif
+
 BOOST_SPIRIT_CLASSIC_NAMESPACE_END
 
 }} // namespace BOOST_SPIRIT_CLASSIC_NS

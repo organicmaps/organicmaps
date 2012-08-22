@@ -18,7 +18,6 @@
 #include <boost/range/iterator_range_core.hpp>
 #include <boost/range/value_type.hpp>
 #include <boost/iterator/counting_iterator.hpp>
-#include <boost/utility.hpp>
 
 namespace boost
 {

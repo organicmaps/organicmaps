@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2001-2006 Joel de Guzman
+    Copyright (c) 2001-2011 Joel de Guzman
     Copyright (c) 2006 Dan Marsden
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -8,6 +8,7 @@
 #if !defined(FUSION_STRICTEST_TRAVERSAL_20060123_2101)
 #define FUSION_STRICTEST_TRAVERSAL_20060123_2101
 
+#include <boost/config.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/fusion/support/category_of.hpp>
@@ -53,6 +54,13 @@ namespace boost { namespace fusion
 
                 typedef typename stricter_traversal<tag1,tag2>::type type;
             };
+
+            // never called, but needed for decltype-based result_of (C++0x)
+#ifndef BOOST_NO_RVALUE_REFERENCES
+            template<typename StrictestSoFar, typename Next>
+            typename result<strictest_traversal_impl(StrictestSoFar, Next)>::type
+            operator()(StrictestSoFar&&, Next&&) const;
+#endif
         };
 
         template<typename Sequence>

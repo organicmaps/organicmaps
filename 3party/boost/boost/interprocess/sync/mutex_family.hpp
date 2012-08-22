@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -29,7 +29,7 @@ namespace boost {
 
 namespace interprocess {
 
-//!Describes interprocess_mutex family to use with Interprocess framework 
+//!Describes interprocess_mutex family to use with Interprocess framework
 //!based on boost::interprocess synchronization objects.
 struct mutex_family
 {
@@ -37,7 +37,7 @@ struct mutex_family
    typedef boost::interprocess::interprocess_recursive_mutex       recursive_mutex_type;
 };
 
-//!Describes interprocess_mutex family to use with Interprocess frameworks 
+//!Describes interprocess_mutex family to use with Interprocess frameworks
 //!based on null operation synchronization objects.
 struct null_mutex_family
 {

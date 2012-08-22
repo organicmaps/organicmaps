@@ -65,7 +65,7 @@ inline mpfr_class frexp(const mpfr_class& v, int* expon)
    return result;
 }
 
-mpfr_class fmod(const mpfr_class& v1, const mpfr_class& v2)
+inline mpfr_class fmod(const mpfr_class& v1, const mpfr_class& v2)
 {
    mpfr_class n;
    if(v1 < 0)
@@ -449,7 +449,7 @@ mpfr_class digamma_imp(mpfr_class x, const mpl::int_<0>* , const Policy& pol)
 // starting guess for Halley iteration:
 //
 template <class Policy>
-mpfr_class erf_inv_imp(const mpfr_class& p, const mpfr_class& q, const Policy&, const boost::mpl::int_<64>*)
+inline mpfr_class erf_inv_imp(const mpfr_class& p, const mpfr_class& q, const Policy&, const boost::mpl::int_<64>*)
 {
    BOOST_MATH_STD_USING // for ADL of std names.
 
@@ -705,7 +705,7 @@ mpfr_class erf_inv_imp(const mpfr_class& p, const mpfr_class& q, const Policy&, 
    return result;
 }
 
-mpfr_class bessel_i0(mpfr_class x)
+inline mpfr_class bessel_i0(mpfr_class x)
 {
     static const mpfr_class P1[] = {
         boost::lexical_cast<mpfr_class>("-2.2335582639474375249e+15"),
@@ -780,7 +780,7 @@ mpfr_class bessel_i0(mpfr_class x)
     return value;
 }
 
-mpfr_class bessel_i1(mpfr_class x)
+inline mpfr_class bessel_i1(mpfr_class x)
 {
     static const mpfr_class P1[] = {
         static_cast<mpfr_class>("-1.4577180278143463643e+15"),
@@ -860,7 +860,11 @@ mpfr_class bessel_i1(mpfr_class x)
 
 } // namespace detail
 
-}}
+}
+
+template<> struct is_convertible<long double, mpfr_class> : public mpl::false_{};
+
+}
 
 #endif // BOOST_MATH_MPLFR_BINDINGS_HPP
 

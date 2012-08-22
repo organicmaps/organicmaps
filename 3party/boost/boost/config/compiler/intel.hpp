@@ -27,7 +27,7 @@
 #endif
 
 // Flags determined by comparing output of 'icpc -dM -E' with and without '-std=c++0x'
-#if (!(defined(_WIN32) || defined(_WIN64)) && defined(__STDC_HOSTED__) && __STDC_HOSTED__) || defined(__GXX_EXPERIMENTAL_CPP0X__)
+#if (!(defined(_WIN32) || defined(_WIN64)) && defined(__STDC_HOSTED__) && (__STDC_HOSTED__ && (BOOST_INTEL_CXX_VERSION <= 1200))) || defined(__GXX_EXPERIMENTAL_CPP0X__)
 #  define BOOST_INTEL_STDCXX0X
 #endif
 #if defined(_MSC_VER) && (_MSC_VER >= 1600)
@@ -179,8 +179,9 @@ template<> struct assert_intrinsic_wchar_t<unsigned short> {};
 // intel-vc9-win-11.1 may leave a non-POD array uninitialized, in some 
 // cases when it should be value-initialized.
 // (Niels Dekker, LKEB, May 2010)
+// Apparently Intel 12.1 (compiler version number 9999 !!) has the same issue (compiler regression).
 #if defined(__INTEL_COMPILER)
-#  if __INTEL_COMPILER <= 1110
+#  if (__INTEL_COMPILER <= 1110) || (__INTEL_COMPILER == 9999)
 #    define BOOST_NO_COMPLETE_VALUE_INITIALIZATION
 #  endif
 #endif
@@ -198,26 +199,54 @@ template<> struct assert_intrinsic_wchar_t<unsigned short> {};
 //     - ICC added static_assert in 11.0 (first version with C++0x support)
 //
 #if defined(BOOST_INTEL_STDCXX0X)
-#  undef  BOOST_NO_STATIC_ASSERT
+#  undef  BOOST_NO_CXX11_STATIC_ASSERT
 //
 // These pass our test cases, but aren't officially supported according to:
 // http://software.intel.com/en-us/articles/c0x-features-supported-by-intel-c-compiler/
 //
-//#  undef  BOOST_NO_LAMBDAS
-//#  undef  BOOST_NO_DECLTYPE
-//#  undef  BOOST_NO_AUTO_DECLARATIONS
-//#  undef  BOOST_NO_AUTO_MULTIDECLARATIONS
+//#  undef  BOOST_NO_CXX11_LAMBDAS
+//#  undef  BOOST_NO_CXX11_LOCAL_CLASS_TEMPLATE_PARAMETERS
+//#  undef  BOOST_NO_CXX11_DECLTYPE
+//#  undef  BOOST_NO_CXX11_AUTO_DECLARATIONS
+//#  undef  BOOST_NO_CXX11_AUTO_MULTIDECLARATIONS
 #endif
 
 #if defined(BOOST_INTEL_STDCXX0X) && (BOOST_INTEL_CXX_VERSION >= 1200)
-#  undef  BOOST_NO_RVALUE_REFERENCES
-//#  undef  BOOST_NO_SCOPED_ENUMS  // doesn't really work!!
-#  undef  BOOST_NO_DELETED_FUNCTIONS
-#  undef  BOOST_NO_DEFAULTED_FUNCTIONS
-#  undef  BOOST_NO_LAMBDAS
-#  undef  BOOST_NO_DECLTYPE
-#  undef  BOOST_NO_AUTO_DECLARATIONS
-#  undef  BOOST_NO_AUTO_MULTIDECLARATIONS
+//#  undef  BOOST_NO_CXX11_RVALUE_REFERENCES // Enabling this breaks Filesystem and Exception libraries
+//#  undef  BOOST_NO_CXX11_SCOPED_ENUMS  // doesn't really work!!
+#  undef  BOOST_NO_CXX11_DELETED_FUNCTIONS
+#  undef  BOOST_NO_CXX11_DEFAULTED_FUNCTIONS
+#  undef  BOOST_NO_CXX11_LAMBDAS
+#  undef  BOOST_NO_CXX11_LOCAL_CLASS_TEMPLATE_PARAMETERS
+#  undef  BOOST_NO_CXX11_DECLTYPE
+#  undef  BOOST_NO_CXX11_AUTO_DECLARATIONS
+#  undef  BOOST_NO_CXX11_AUTO_MULTIDECLARATIONS
+#endif
+
+// icl Version 12.1.0.233 Build 20110811 and possibly some other builds
+// had an incorrect __INTEL_COMPILER value of 9999. Intel say this has been fixed. 
+#if defined(BOOST_INTEL_STDCXX0X) && (BOOST_INTEL_CXX_VERSION > 1200)
+#  undef  BOOST_NO_CXX11_FUNCTION_TEMPLATE_DEFAULT_ARGS
+#  undef  BOOST_NO_CXX11_NULLPTR
+#  undef  BOOST_NO_CXX11_RVALUE_REFERENCES
+#  undef  BOOST_NO_SFINAE_EXPR
+#  undef  BOOST_NO_CXX11_TEMPLATE_ALIASES
+#  undef  BOOST_NO_CXX11_VARIADIC_TEMPLATES
+
+// http://software.intel.com/en-us/articles/c0x-features-supported-by-intel-c-compiler/
+// continues to list scoped enum support as "Partial" 
+//#  undef  BOOST_NO_CXX11_SCOPED_ENUMS 
+#endif
+
+#if defined(_MSC_VER) && (_MSC_VER <= 1700)
+//
+// Although the Intel compiler is capable of supporting these, it appears not to in MSVC compatibility mode:
+//
+#  define  BOOST_NO_CXX11_HDR_INITIALIZER_LIST
+#  define  BOOST_NO_CXX11_VARIADIC_TEMPLATES
+#  define  BOOST_NO_CXX11_DELETED_FUNCTIONS
+#  define  BOOST_NO_CXX11_DEFAULTED_FUNCTIONS
+#  define  BOOST_NO_CXX11_TEMPLATE_ALIASES
 #endif
 
 #if (BOOST_INTEL_CXX_VERSION < 1200)

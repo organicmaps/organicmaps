@@ -54,7 +54,11 @@ extern "C" long __cdecl InterlockedExchangeAdd( long*, long );
 
 #elif defined( BOOST_MSVC ) || defined( BOOST_INTEL_WIN )
 
-#if defined( __CLRCALL_PURE_OR_CDECL )
+#if defined( BOOST_MSVC ) && BOOST_MSVC >= 1600
+
+#include <intrin.h>
+
+#elif defined( __CLRCALL_PURE_OR_CDECL )
 
 extern "C" long __CLRCALL_PURE_OR_CDECL _InterlockedIncrement( long volatile * );
 extern "C" long __CLRCALL_PURE_OR_CDECL _InterlockedDecrement( long volatile * );
@@ -119,15 +123,15 @@ namespace boost
 namespace detail
 {
 
-extern "C"BOOST_INTERLOCKED_IMPORT long __stdcall InterlockedIncrement( long volatile * );
-extern "C"BOOST_INTERLOCKED_IMPORT long __stdcall InterlockedDecrement( long volatile * );
-extern "C"BOOST_INTERLOCKED_IMPORT long __stdcall InterlockedCompareExchange( long volatile *, long, long );
-extern "C"BOOST_INTERLOCKED_IMPORT long __stdcall InterlockedExchange( long volatile *, long );
-extern "C"BOOST_INTERLOCKED_IMPORT long __stdcall InterlockedExchangeAdd( long volatile *, long );
+extern "C" BOOST_INTERLOCKED_IMPORT long __stdcall InterlockedIncrement( long volatile * );
+extern "C" BOOST_INTERLOCKED_IMPORT long __stdcall InterlockedDecrement( long volatile * );
+extern "C" BOOST_INTERLOCKED_IMPORT long __stdcall InterlockedCompareExchange( long volatile *, long, long );
+extern "C" BOOST_INTERLOCKED_IMPORT long __stdcall InterlockedExchange( long volatile *, long );
+extern "C" BOOST_INTERLOCKED_IMPORT long __stdcall InterlockedExchangeAdd( long volatile *, long );
 
 # if defined(_M_IA64) || defined(_M_AMD64)
-extern "C"BOOST_INTERLOCKED_IMPORT void* __stdcall InterlockedCompareExchangePointer( void* volatile *, void*, void* );
-extern "C"BOOST_INTERLOCKED_IMPORT void* __stdcall InterlockedExchangePointer( void* volatile *, void* );
+extern "C" BOOST_INTERLOCKED_IMPORT void* __stdcall InterlockedCompareExchangePointer( void* volatile *, void*, void* );
+extern "C" BOOST_INTERLOCKED_IMPORT void* __stdcall InterlockedExchangePointer( void* volatile *, void* );
 # endif
 
 } // namespace detail

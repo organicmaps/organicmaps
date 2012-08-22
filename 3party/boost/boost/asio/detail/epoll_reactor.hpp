@@ -2,7 +2,7 @@
 // detail/epoll_reactor.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -19,8 +19,10 @@
 
 #if defined(BOOST_ASIO_HAS_EPOLL)
 
+#include <boost/cstdint.hpp>
 #include <boost/limits.hpp>
 #include <boost/asio/io_service.hpp>
+#include <boost/asio/detail/atomic_count.hpp>
 #include <boost/asio/detail/epoll_reactor_fwd.hpp>
 #include <boost/asio/detail/mutex.hpp>
 #include <boost/asio/detail/object_pool.hpp>
@@ -28,10 +30,10 @@
 #include <boost/asio/detail/reactor_op.hpp>
 #include <boost/asio/detail/select_interrupter.hpp>
 #include <boost/asio/detail/socket_types.hpp>
-#include <boost/asio/detail/timer_op.hpp>
 #include <boost/asio/detail/timer_queue_base.hpp>
 #include <boost/asio/detail/timer_queue_fwd.hpp>
 #include <boost/asio/detail/timer_queue_set.hpp>
+#include <boost/asio/detail/wait_op.hpp>
 
 #include <boost/asio/detail/push_options.hpp>
 
@@ -47,16 +49,27 @@ public:
     connect_op = 1, except_op = 2, max_ops = 3 };
 
   // Per-descriptor queues.
-  class descriptor_state
+  class descriptor_state : operation
   {
     friend class epoll_reactor;
     friend class object_pool_access;
-    mutex mutex_;
-    int descriptor_;
-    op_queue<reactor_op> op_queue_[max_ops];
-    bool shutdown_;
+
     descriptor_state* next_;
     descriptor_state* prev_;
+
+    mutex mutex_;
+    epoll_reactor* reactor_;
+    int descriptor_;
+    boost::uint32_t registered_events_;
+    op_queue<reactor_op> op_queue_[max_ops];
+    bool shutdown_;
+
+    BOOST_ASIO_DECL descriptor_state();
+    void set_ready_events(uint32_t events) { task_result_ = events; }
+    BOOST_ASIO_DECL operation* perform_io(uint32_t events);
+    BOOST_ASIO_DECL static void do_complete(
+        io_service_impl* owner, operation* base,
+        const boost::system::error_code& ec, std::size_t bytes_transferred);
   };
 
   // Per-descriptor data.
@@ -134,7 +147,7 @@ public:
   template <typename Time_Traits>
   void schedule_timer(timer_queue<Time_Traits>& queue,
       const typename Time_Traits::time_type& time,
-      typename timer_queue<Time_Traits>::per_timer_data& timer, timer_op* op);
+      typename timer_queue<Time_Traits>::per_timer_data& timer, wait_op* op);
 
   // Cancel the timer operations associated with the given token. Returns the
   // number of operations that have been posted or dispatched.
@@ -159,6 +172,12 @@ private:
 
   // Create the timerfd file descriptor. Does not throw.
   BOOST_ASIO_DECL static int do_timerfd_create();
+
+  // Allocate a new descriptor state object.
+  BOOST_ASIO_DECL descriptor_state* allocate_descriptor_state();
+
+  // Free an existing descriptor state object.
+  BOOST_ASIO_DECL void free_descriptor_state(descriptor_state* s);
 
   // Helper function to add a new timer queue.
   BOOST_ASIO_DECL void do_add_timer_queue(timer_queue_base& queue);
@@ -186,14 +205,14 @@ private:
   // Mutex to protect access to internal data.
   mutex mutex_;
 
+  // The interrupter is used to break a blocking epoll_wait call.
+  select_interrupter interrupter_;
+
   // The epoll file descriptor.
   int epoll_fd_;
 
   // The timer file descriptor.
   int timer_fd_;
-
-  // The interrupter is used to break a blocking epoll_wait call.
-  select_interrupter interrupter_;
 
   // The timer queues.
   timer_queue_set timer_queues_;
@@ -206,6 +225,10 @@ private:
 
   // Keep track of all registered descriptors.
   object_pool<descriptor_state> registered_descriptors_;
+
+  // Helper class to do post-perform_io cleanup.
+  struct perform_io_cleanup_on_block_exit;
+  friend struct perform_io_cleanup_on_block_exit;
 };
 
 } // namespace detail

@@ -216,7 +216,7 @@ namespace ratio_detail
   template <class R1, class R2> struct ratio_subtract;
   template <class R1, class R2> struct ratio_multiply;
   template <class R1, class R2> struct ratio_divide;
-  
+
   template <class R1, class R2>
   struct ratio_add
   {
@@ -241,6 +241,11 @@ namespace ratio_detail
                  R2::den
              >
          >::type type;
+  };
+  template <class R, boost::intmax_t D>
+  struct ratio_add<R, ratio<0,D> >
+  {
+    typedef R type;
   };
 
   template <class R1, class R2>
@@ -267,6 +272,12 @@ namespace ratio_detail
                  R2::den
              >
          >::type type;
+  };
+  
+  template <class R, boost::intmax_t D>
+  struct ratio_subtract<R, ratio<0,D> >
+  {
+    typedef R type;
   };
 
   template <class R1, class R2>
@@ -300,12 +311,23 @@ namespace ratio_detail
              boost::ratio_detail::br_mul<R2::num / gcd_n1_n2, R1::den / gcd_d1_d2>::value
          >::type type;
   };
+  template <class R1, class R2>
+  struct is_evenly_divisible_by
+  {
+  private:
+      static const boost::intmax_t gcd_n1_n2 = mpl::gcd_c<boost::intmax_t, R1::num, R2::num>::value;
+      static const boost::intmax_t gcd_d1_d2 = mpl::gcd_c<boost::intmax_t, R1::den, R2::den>::value;
+  public:
+      typedef integral_constant<bool,
+             ((R2::num / gcd_n1_n2 ==1) && (R1::den / gcd_d1_d2)==1)
+      > type;
+  };
   
   template <class T>
-  struct is_ratio : public boost::false_type 
+  struct is_ratio : public boost::false_type
   {};
   template <boost::intmax_t N, boost::intmax_t D>
-  struct is_ratio<ratio<N, D> > : public boost::true_type  
+  struct is_ratio<ratio<N, D> > : public boost::true_type
   {};
 
   template <class R1, class R2,
@@ -339,11 +361,11 @@ namespace ratio_detail
   {
     static const bool value = ratio_less1<ratio<R2::den, M2>, ratio<R1::den, M1>
                                             >::value;
-  };  
-  
+  };
+
   template <
-      class R1, 
-      class R2, 
+      class R1,
+      class R2,
       boost::intmax_t S1 = mpl::sign_c<boost::intmax_t, R1::num>::value,
     boost::intmax_t S2 = mpl::sign_c<boost::intmax_t, R2::num>::value
 >

@@ -318,13 +318,15 @@ namespace boost {
   class sgb_vertex_util_map
     : public boost::put_get_helper<Ref, sgb_vertex_util_map<Tag, Ref> >
   {
+    Tag tag;
   public:
+    explicit sgb_vertex_util_map(Tag tag = Tag()): tag(tag) {}
     typedef boost::lvalue_property_map_tag category;
     typedef typename Tag::type value_type;
     typedef Vertex* key_type;
     typedef Ref reference;
     reference operator[](Vertex* v) const {
-      return get_util_field(v, Tag()); 
+      return get_util_field(v, tag); 
     }
   };
 
@@ -333,13 +335,15 @@ namespace boost {
   class sgb_edge_util_map
     : public boost::put_get_helper<Ref, sgb_edge_util_map<Tag, Ref> >
   {
+    Tag tag;
   public:
+    explicit sgb_edge_util_map(Tag tag = Tag()): tag(tag) {}
     typedef boost::lvalue_property_map_tag category;
     typedef typename Tag::type value_type;
     typedef Vertex* key_type;
     typedef Ref reference;
     reference operator[](const sgb_edge& e) const {
-      return get_util_field(e._arc, Tag()); 
+      return get_util_field(e._arc, tag); 
     }
   };
 

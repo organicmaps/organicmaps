@@ -100,7 +100,11 @@ namespace boost { namespace program_options {
     basic_parsed_options<charT>
     basic_command_line_parser<charT>::run()
     {
-        parsed_options result(m_desc);
+        // save the canonical prefixes which were used by this cmdline parser
+        //    eventually inside the parsed results
+        //    This will be handy to format recognisable options
+        //    for diagnostic messages if everything blows up much later on
+        parsed_options result(m_desc, detail::cmdline::get_canonical_option_prefix());
         result.options = detail::cmdline::run();
 
         // Presense of parsed_options -> wparsed_options conversion

@@ -19,6 +19,7 @@
 #include <boost/spirit/home/support/detail/lexer/rules.hpp>
 #include <boost/spirit/home/support/detail/lexer/consts.hpp>
 #include <boost/spirit/home/support/utree/utree_traits_fwd.hpp>
+#include <boost/spirit/home/lex/lexer/terminals.hpp>
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/value_at.hpp>
@@ -173,7 +174,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         iterpair_type& matched() { return matched_; }
         iterpair_type const& matched() const { return matched_; }
 
-        token_value_type& value() { return unused; }
+        token_value_type& value() { static token_value_type u; return u; }
         token_value_type const& value() const { return unused; }
 
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1600)
@@ -554,24 +555,19 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         typedef Iterator iterator_type;
 
         //  default constructed tokens correspond to EOI tokens
-        position_token() 
-          : value_(iterpair_type(iterator_type(), iterator_type())) 
-        {}
+        position_token() {}
 
         //  construct an invalid token
         explicit position_token(int)
-          : base_type(0)
-          , value_(iterpair_type(iterator_type(), iterator_type())) 
-        {}
+          : base_type(0) {}
 
         position_token(id_type id, std::size_t state, token_value_type const& value)
-          : base_type(id, state, value), value_(value) 
-        {}
+          : base_type(id, state, value), value_(value) {}
 
         position_token(id_type id, std::size_t state, Iterator const& first
               , Iterator const& last)
           : base_type(id, state, first, last)
-          , value_(iterpair_type(iterator_type(), iterator_type())) 
+          , value_(iterpair_type(first, last)) 
         {}
 
         token_value_type& value() { return value_; }

@@ -31,7 +31,7 @@ namespace boost { namespace iostreams {
 
 //
 // Template name: line_filter.
-// Template paramters:
+// Template parameters:
 //      Ch - The character type.
 //      Alloc - The allocator type.
 // Description: Filter which processes data one line at a time.

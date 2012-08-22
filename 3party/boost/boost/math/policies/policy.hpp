@@ -951,6 +951,29 @@ struct is_policy_imp
 template <class P>
 struct is_policy : public mpl::bool_< ::boost::math::policies::detail::is_policy_imp<P>::value> {};
 
+//
+// Helper traits class for distribution error handling:
+//
+template <class Policy>
+struct constructor_error_check
+{
+   typedef typename Policy::domain_error_type domain_error_type;
+   typedef typename mpl::if_c<
+      (domain_error_type::value == throw_on_error) || (domain_error_type::value == user_error),
+      mpl::true_,
+      mpl::false_>::type type;
+};
+
+template <class Policy>
+struct method_error_check
+{
+   typedef typename Policy::domain_error_type domain_error_type;
+   typedef typename mpl::if_c<
+      (domain_error_type::value == throw_on_error) && (domain_error_type::value != user_error),
+      mpl::false_,
+      mpl::true_>::type type;
+};
+
 }}} // namespaces
 
 #endif // BOOST_MATH_POLICY_HPP

@@ -403,6 +403,11 @@ struct max_factorial
    BOOST_STATIC_CONSTANT(unsigned, value = 100);
 };
 
+#ifndef BOOST_NO_INCLASS_MEMBER_INITIALIZATION
+template <class T>
+const unsigned max_factorial<T>::value;
+#endif
+
 } // namespace math
 } // namespace boost
 

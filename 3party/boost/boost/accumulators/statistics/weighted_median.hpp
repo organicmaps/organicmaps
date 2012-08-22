@@ -20,7 +20,7 @@
 #include <boost/accumulators/statistics/median.hpp>
 #include <boost/accumulators/statistics/weighted_p_square_quantile.hpp>
 #include <boost/accumulators/statistics/weighted_density.hpp>
-#include <boost/accumulators/statistics/weighted_p_square_cumulative_distribution.hpp>
+#include <boost/accumulators/statistics/weighted_p_square_cumul_dist.hpp>
 
 namespace boost { namespace accumulators
 {

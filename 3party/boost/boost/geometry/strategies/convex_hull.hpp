@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -30,7 +30,12 @@ namespace boost { namespace geometry
     \tparam Geometry the geometry type (hull operates internally per hull over geometry)
     \tparam Point point-type of output points
 */
-template <typename Tag, typename Geometry, typename Point>
+template
+<
+    typename Geometry1,
+    typename Point,
+    typename CsTag = typename cs_tag<Point>::type
+>
 struct strategy_convex_hull
 {
     typedef strategy::not_implemented type;

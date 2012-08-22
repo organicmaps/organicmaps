@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -39,7 +39,7 @@ namespace interprocess {
 
 #if defined(BOOST_INTERPROCESS_WINDOWS)
 
-namespace detail {
+namespace ipcdetail {
 
 template <int Dummy>
 struct unrestricted_permissions_holder
@@ -50,7 +50,7 @@ struct unrestricted_permissions_holder
 template<int Dummy>
 winapi::interprocess_all_access_security unrestricted_permissions_holder<Dummy>::unrestricted;
 
-}  //namespace detail {
+}  //namespace ipcdetail {
 
 #endif   //defined BOOST_INTERPROCESS_WINDOWS
 
@@ -105,7 +105,7 @@ class permissions
    {
       /// @cond
       #if defined (BOOST_INTERPROCESS_WINDOWS)
-      m_perm = &detail::unrestricted_permissions_holder<0>::unrestricted;
+      m_perm = &ipcdetail::unrestricted_permissions_holder<0>::unrestricted;
       #else
       m_perm = 0666;
       #endif

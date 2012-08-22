@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -27,6 +27,7 @@
 #include <boost/geometry/core/reverse_dispatch.hpp>
 
 #include <boost/geometry/algorithms/detail/disjoint.hpp>
+#include <boost/geometry/algorithms/detail/for_each_range.hpp>
 #include <boost/geometry/algorithms/detail/point_on_border.hpp>
 #include <boost/geometry/algorithms/detail/overlay/get_turns.hpp>
 #include <boost/geometry/algorithms/within.hpp>
@@ -44,6 +45,61 @@ namespace boost { namespace geometry
 namespace detail { namespace disjoint
 {
 
+template<typename Geometry>
+struct check_each_ring_for_within
+{
+    bool has_within;
+    Geometry const& m_geometry;
+
+    inline check_each_ring_for_within(Geometry const& g)
+        : has_within(false)
+        , m_geometry(g)
+    {}
+
+    template <typename Range>
+    inline void apply(Range const& range)
+    {
+        typename geometry::point_type<Range>::type p;
+        geometry::point_on_border(p, range);
+        if (geometry::within(p, m_geometry))
+        {
+            has_within = true;
+        }
+    }
+};
+
+template <typename FirstGeometry, typename SecondGeometry>
+inline bool rings_containing(FirstGeometry const& geometry1,
+                SecondGeometry const& geometry2)
+{
+    check_each_ring_for_within<FirstGeometry> checker(geometry1);
+    geometry::detail::for_each_range(geometry2, checker);
+    return checker.has_within;
+}
+
+
+struct assign_disjoint_policy
+{
+    // We want to include all points:
+    static bool const include_no_turn = true;
+    static bool const include_degenerate = true;
+    static bool const include_opposite = true;
+
+    // We don't assign extra info:
+    template 
+	<
+		typename Info,
+		typename Point1,
+		typename Point2,
+		typename IntersectionInfo,
+		typename DirInfo
+	>
+    static inline void apply(Info& , Point1 const& , Point2 const&,
+                IntersectionInfo const&, DirInfo const&)
+    {}
+};
+   
+
 template <typename Geometry1, typename Geometry2>
 struct disjoint_linear
 {
@@ -54,12 +110,14 @@ struct disjoint_linear
         typedef overlay::turn_info<point_type> turn_info;
         std::deque<turn_info> turns;
 
-        // Get (and stop on) any intersection
+        // Specify two policies:
+        // 1) Stop at any intersection
+        // 2) In assignment, include also degenerate points (which are normally skipped)
         disjoint_interrupt_policy policy;
         geometry::get_turns
             <
-                false, false,
-                overlay::assign_null_policy
+                false, false, 
+                assign_disjoint_policy
             >(geometry1, geometry2, turns, policy);
         if (policy.has_intersections)
         {
@@ -92,8 +150,6 @@ struct disjoint_segment
     }
 };
 
-
-
 template <typename Geometry1, typename Geometry2>
 struct general_areal
 {
@@ -104,20 +160,10 @@ struct general_areal
             return false;
         }
 
-        typedef typename geometry::point_type<Geometry1>::type point_type;
-
         // If there is no intersection of segments, they might located
         // inside each other
-        point_type p1;
-        geometry::point_on_border(p1, geometry1);
-        if (geometry::within(p1, geometry2))
-        {
-            return false;
-        }
-
-        typename geometry::point_type<Geometry1>::type p2;
-        geometry::point_on_border(p2, geometry2);
-        if (geometry::within(p2, geometry1))
+        if (rings_containing(geometry1, geometry2)
+            || rings_containing(geometry2, geometry1))
         {
             return false;
         }
@@ -213,7 +259,9 @@ struct disjoint_reversed
 \param geometry1 \param_geometry
 \param geometry2 \param_geometry
 \return \return_check2{are disjoint}
- */
+
+\qbk{[include reference/algorithms/disjoint.qbk]}
+*/
 template <typename Geometry1, typename Geometry2>
 inline bool disjoint(Geometry1 const& geometry1,
             Geometry2 const& geometry2)

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -19,7 +19,7 @@
 #include <boost/interprocess/detail/utilities.hpp>
 #include <boost/interprocess/creation_tags.hpp>
 #include <boost/interprocess/detail/os_file_functions.hpp>
-#include <boost/interprocess/detail/move.hpp>
+#include <boost/move/move.hpp>
 #include <string>    //std::string
 
 //!\file
@@ -33,7 +33,7 @@ namespace interprocess {
 class file_mapping
 {
    /// @cond
-   BOOST_INTERPROCESS_MOVABLE_BUT_NOT_COPYABLE(file_mapping)
+   BOOST_MOVABLE_BUT_NOT_COPYABLE(file_mapping)
    /// @endcond
 
    public:
@@ -41,27 +41,27 @@ class file_mapping
    //!Does not throw
    file_mapping();
 
-   //!Opens a file mapping of file "filename", starting in offset 
-   //!"file_offset", and the mapping's size will be "size". The mapping 
+   //!Opens a file mapping of file "filename", starting in offset
+   //!"file_offset", and the mapping's size will be "size". The mapping
    //!can be opened for read-only "read_only" or read-write "read_write"
    //!modes. Throws interprocess_exception on error.
    file_mapping(const char *filename, mode_t mode);
 
-   //!Moves the ownership of "moved"'s file mapping object to *this. 
-   //!After the call, "moved" does not represent any file mapping object. 
+   //!Moves the ownership of "moved"'s file mapping object to *this.
+   //!After the call, "moved" does not represent any file mapping object.
    //!Does not throw
-   file_mapping(BOOST_INTERPROCESS_RV_REF(file_mapping) moved)
-      :  m_handle(file_handle_t(detail::invalid_file()))
+   file_mapping(BOOST_RV_REF(file_mapping) moved)
+      :  m_handle(file_handle_t(ipcdetail::invalid_file()))
    {  this->swap(moved);   }
 
    //!Moves the ownership of "moved"'s file mapping to *this.
-   //!After the call, "moved" does not represent any file mapping. 
+   //!After the call, "moved" does not represent any file mapping.
    //!Does not throw
-   file_mapping &operator=(BOOST_INTERPROCESS_RV_REF(file_mapping) moved)
+   file_mapping &operator=(BOOST_RV_REF(file_mapping) moved)
    {
-      file_mapping tmp(boost::interprocess::move(moved));
+      file_mapping tmp(boost::move(moved));
       this->swap(tmp);
-      return *this;  
+      return *this; 
    }
 
    //!Swaps to file_mappings.
@@ -100,25 +100,25 @@ class file_mapping
    /// @endcond
 };
 
-inline file_mapping::file_mapping() 
-   :  m_handle(file_handle_t(detail::invalid_file()))
+inline file_mapping::file_mapping()
+   :  m_handle(file_handle_t(ipcdetail::invalid_file()))
 {}
 
-inline file_mapping::~file_mapping() 
+inline file_mapping::~file_mapping()
 {  this->priv_close(); }
 
 inline const char *file_mapping::get_name() const
 {  return m_filename.c_str(); }
 
 inline void file_mapping::swap(file_mapping &other)
-{  
+{ 
    std::swap(m_handle, other.m_handle);
    std::swap(m_mode, other.m_mode);
-   m_filename.swap(other.m_filename);   
+   m_filename.swap(other.m_filename);  
 }
 
 inline mapping_handle_t file_mapping::get_mapping_handle() const
-{  return detail::mapping_handle_from_file_handle(m_handle);  }
+{  return ipcdetail::mapping_handle_from_file_handle(m_handle);  }
 
 inline mode_t file_mapping::get_mode() const
 {  return m_mode; }
@@ -134,10 +134,10 @@ inline file_mapping::file_mapping
    }
 
    //Open file
-   m_handle = detail::open_existing_file(filename, mode);
+   m_handle = ipcdetail::open_existing_file(filename, mode);
 
    //Check for error
-   if(m_handle == detail::invalid_file()){
+   if(m_handle == ipcdetail::invalid_file()){
       error_info err = system_error_code();
       this->priv_close();
       throw interprocess_exception(err);
@@ -146,15 +146,15 @@ inline file_mapping::file_mapping
 }
 
 inline bool file_mapping::remove(const char *filename)
-{  return detail::delete_file(filename);  }
+{  return ipcdetail::delete_file(filename);  }
 
 ///@cond
 
 inline void file_mapping::priv_close()
 {
-   if(m_handle != detail::invalid_file()){
-      detail::close_file(m_handle);
-      m_handle = detail::invalid_file();
+   if(m_handle != ipcdetail::invalid_file()){
+      ipcdetail::close_file(m_handle);
+      m_handle = ipcdetail::invalid_file();
    }
 }
 
@@ -173,7 +173,7 @@ class remove_file_on_destroy
    {}
 
    ~remove_file_on_destroy()
-   {  detail::delete_file(m_name);  }
+   {  ipcdetail::delete_file(m_name);  }
 };
 
 }  //namespace interprocess {

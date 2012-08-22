@@ -5,7 +5,7 @@
 #ifndef THREAD_HEAP_ALLOC_HPP
 #define THREAD_HEAP_ALLOC_HPP
 #include <new>
-#include "thread_primitives.hpp"
+#include <boost/thread/win32/thread_primitives.hpp>
 #include <stdexcept>
 #include <boost/assert.hpp>
 #include <boost/throw_exception.hpp>
@@ -56,7 +56,7 @@ namespace boost
 {
     namespace detail
     {
-        inline BOOST_THREAD_DECL void* allocate_raw_heap_memory(unsigned size)
+        inline void* allocate_raw_heap_memory(unsigned size)
         {
             void* const heap_memory=detail::win32::HeapAlloc(detail::win32::GetProcessHeap(),0,size);
             if(!heap_memory)
@@ -66,25 +66,29 @@ namespace boost
             return heap_memory;
         }
 
-        inline BOOST_THREAD_DECL void free_raw_heap_memory(void* heap_memory)
+        inline void free_raw_heap_memory(void* heap_memory)
         {
             BOOST_VERIFY(detail::win32::HeapFree(detail::win32::GetProcessHeap(),0,heap_memory)!=0);
         }
-            
+
         template<typename T>
         inline T* heap_new()
         {
             void* const heap_memory=allocate_raw_heap_memory(sizeof(T));
-            try
+#ifndef BOOST_NO_EXCEPTIONS
+            try // BOOST_NO_EXCEPTIONS protected
+#endif
             {
                 T* const data=new (heap_memory) T();
                 return data;
             }
-            catch(...)
+#ifndef BOOST_NO_EXCEPTIONS
+            catch(...) // BOOST_NO_EXCEPTIONS protected
             {
                 free_raw_heap_memory(heap_memory);
-                throw;
+                throw; // BOOST_NO_EXCEPTIONS protected
             }
+#endif
         }
 
 #ifndef BOOST_NO_RVALUE_REFERENCES
@@ -92,127 +96,159 @@ namespace boost
         inline T* heap_new(A1&& a1)
         {
             void* const heap_memory=allocate_raw_heap_memory(sizeof(T));
-            try
+#ifndef BOOST_NO_EXCEPTIONS
+            try // BOOST_NO_EXCEPTIONS protected
+#endif
             {
                 T* const data=new (heap_memory) T(static_cast<A1&&>(a1));
                 return data;
             }
-            catch(...)
+#ifndef BOOST_NO_EXCEPTIONS
+            catch(...) // BOOST_NO_EXCEPTIONS protected
             {
                 free_raw_heap_memory(heap_memory);
-                throw;
+                throw; // BOOST_NO_EXCEPTIONS protected
             }
+#endif
         }
         template<typename T,typename A1,typename A2>
         inline T* heap_new(A1&& a1,A2&& a2)
         {
             void* const heap_memory=allocate_raw_heap_memory(sizeof(T));
-            try
+#ifndef BOOST_NO_EXCEPTIONS
+            try // BOOST_NO_EXCEPTIONS protected
+#endif
             {
                 T* const data=new (heap_memory) T(static_cast<A1&&>(a1),static_cast<A2&&>(a2));
                 return data;
             }
-            catch(...)
+#ifndef BOOST_NO_EXCEPTIONS
+            catch(...) // BOOST_NO_EXCEPTIONS protected
             {
                 free_raw_heap_memory(heap_memory);
-                throw;
+                throw; // BOOST_NO_EXCEPTIONS protected
             }
+#endif
         }
         template<typename T,typename A1,typename A2,typename A3>
         inline T* heap_new(A1&& a1,A2&& a2,A3&& a3)
         {
             void* const heap_memory=allocate_raw_heap_memory(sizeof(T));
-            try
+#ifndef BOOST_NO_EXCEPTIONS
+            try // BOOST_NO_EXCEPTIONS protected
+#endif
             {
                 T* const data=new (heap_memory) T(static_cast<A1&&>(a1),static_cast<A2&&>(a2),
                                                   static_cast<A3&&>(a3));
                 return data;
             }
-            catch(...)
+#ifndef BOOST_NO_EXCEPTIONS
+            catch(...) // BOOST_NO_EXCEPTIONS protected
             {
                 free_raw_heap_memory(heap_memory);
-                throw;
+                throw; // BOOST_NO_EXCEPTIONS protected
             }
+#endif
         }
         template<typename T,typename A1,typename A2,typename A3,typename A4>
         inline T* heap_new(A1&& a1,A2&& a2,A3&& a3,A4&& a4)
         {
             void* const heap_memory=allocate_raw_heap_memory(sizeof(T));
-            try
+#ifndef BOOST_NO_EXCEPTIONS
+            try // BOOST_NO_EXCEPTIONS protected
+#endif
             {
                 T* const data=new (heap_memory) T(static_cast<A1&&>(a1),static_cast<A2&&>(a2),
                                                   static_cast<A3&&>(a3),static_cast<A4&&>(a4));
                 return data;
             }
-            catch(...)
+#ifndef BOOST_NO_EXCEPTIONS
+            catch(...) // BOOST_NO_EXCEPTIONS protected
             {
                 free_raw_heap_memory(heap_memory);
-                throw;
+                throw; // BOOST_NO_EXCEPTIONS protected
             }
+#endif
         }
 #else
         template<typename T,typename A1>
         inline T* heap_new_impl(A1 a1)
         {
             void* const heap_memory=allocate_raw_heap_memory(sizeof(T));
-            try
+#ifndef BOOST_NO_EXCEPTIONS
+            try // BOOST_NO_EXCEPTIONS protected
+#endif
             {
                 T* const data=new (heap_memory) T(a1);
                 return data;
             }
-            catch(...)
+#ifndef BOOST_NO_EXCEPTIONS
+            catch(...) // BOOST_NO_EXCEPTIONS protected
             {
                 free_raw_heap_memory(heap_memory);
-                throw;
+                throw; // BOOST_NO_EXCEPTIONS protected
             }
+#endif
         }
 
         template<typename T,typename A1,typename A2>
         inline T* heap_new_impl(A1 a1,A2 a2)
         {
             void* const heap_memory=allocate_raw_heap_memory(sizeof(T));
-            try
+#ifndef BOOST_NO_EXCEPTIONS
+            try // BOOST_NO_EXCEPTIONS protected
+#endif
             {
                 T* const data=new (heap_memory) T(a1,a2);
                 return data;
             }
-            catch(...)
+#ifndef BOOST_NO_EXCEPTIONS
+            catch(...) // BOOST_NO_EXCEPTIONS protected
             {
                 free_raw_heap_memory(heap_memory);
-                throw;
+                throw; // BOOST_NO_EXCEPTIONS protected
             }
+#endif
         }
 
         template<typename T,typename A1,typename A2,typename A3>
         inline T* heap_new_impl(A1 a1,A2 a2,A3 a3)
         {
             void* const heap_memory=allocate_raw_heap_memory(sizeof(T));
-            try
+#ifndef BOOST_NO_EXCEPTIONS
+            try // BOOST_NO_EXCEPTIONS protected
+#endif
             {
                 T* const data=new (heap_memory) T(a1,a2,a3);
                 return data;
             }
-            catch(...)
+#ifndef BOOST_NO_EXCEPTIONS
+            catch(...) // BOOST_NO_EXCEPTIONS protected
             {
                 free_raw_heap_memory(heap_memory);
-                throw;
+                throw; // BOOST_NO_EXCEPTIONS protected
             }
+#endif
         }
 
         template<typename T,typename A1,typename A2,typename A3,typename A4>
         inline T* heap_new_impl(A1 a1,A2 a2,A3 a3,A4 a4)
         {
             void* const heap_memory=allocate_raw_heap_memory(sizeof(T));
-            try
+#ifndef BOOST_NO_EXCEPTIONS
+            try // BOOST_NO_EXCEPTIONS protected
+#endif
             {
                 T* const data=new (heap_memory) T(a1,a2,a3,a4);
                 return data;
             }
-            catch(...)
+#ifndef BOOST_NO_EXCEPTIONS
+            catch(...) // BOOST_NO_EXCEPTIONS protected
             {
                 free_raw_heap_memory(heap_memory);
-                throw;
+                throw; // BOOST_NO_EXCEPTIONS protected
             }
+#endif
         }
 
 
@@ -226,7 +262,7 @@ namespace boost
         {
             return heap_new_impl<T,A1&>(a1);
         }
-        
+
         template<typename T,typename A1,typename A2>
         inline T* heap_new(A1 const& a1,A2 const& a2)
         {
@@ -372,8 +408,8 @@ namespace boost
         {
             return heap_new_impl<T,A1&,A2&,A3&,A4&>(a1,a2,a3,a4);
         }
-        
-#endif        
+
+#endif
         template<typename T>
         inline void heap_delete(T* data)
         {

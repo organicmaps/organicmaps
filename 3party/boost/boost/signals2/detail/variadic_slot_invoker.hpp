@@ -16,10 +16,16 @@
 #define BOOST_SIGNALS2_DETAIL_VARIADIC_SLOT_INVOKER_HPP
 
 #include <boost/signals2/detail/variadic_arg_type.hpp>
-// if compiler has variadic template support, we assume they have
-// a variadic std::tuple implementation here.  We don't use boost::tuple
-// because it does not have variadic template support at present.
+
+// if compiler has std::tuple use it instead of boost::tuple
+// because boost::tuple does not have variadic template support at present.
+#ifdef BOOST_NO_CXX11_HDR_TUPLE
+#include <boost/tuple.hpp>
+#define BOOST_SIGNALS2_TUPLE boost::tuple
+#else
 #include <tuple>
+#define BOOST_SIGNALS2_TUPLE std::tuple
+#endif
 
 namespace boost
 {
@@ -65,7 +71,7 @@ namespace boost
         typedef R result_type;
 
         template<typename Func, typename ... Args>
-          R operator()(Func &func, std::tuple<Args...> args) const
+          R operator()(Func &func, BOOST_SIGNALS2_TUPLE<Args...> args) const
         {
           typedef typename make_unsigned_meta_array<sizeof...(Args)>::type indices_type;
           typename Func::result_type *resolver = 0;
@@ -73,12 +79,12 @@ namespace boost
         }
       private:
         template<typename T, typename Func, unsigned ... indices, typename ... Args>
-          R m_invoke(T *, Func &func, unsigned_meta_array<indices...>, std::tuple<Args...> args) const
+          R m_invoke(T *, Func &func, unsigned_meta_array<indices...>, BOOST_SIGNALS2_TUPLE<Args...> args) const
         {
           return func(std::get<indices>(args)...);
         }
         template<typename Func, unsigned ... indices, typename ... Args>
-          R m_invoke(void *, Func &func, unsigned_meta_array<indices...>, std::tuple<Args...> args) const
+          R m_invoke(void *, Func &func, unsigned_meta_array<indices...>, BOOST_SIGNALS2_TUPLE<Args...> args) const
         {
           func(std::get<indices>(args)...);
           return R();
@@ -113,7 +119,7 @@ namespace boost
         {
           return call_with_tuple_args<result_type>()(connectionBody->slot.slot_function(), _args);
         }
-        std::tuple<Args& ...> _args;
+        BOOST_SIGNALS2_TUPLE<Args& ...> _args;
       };
     } // namespace detail
   } // namespace signals2

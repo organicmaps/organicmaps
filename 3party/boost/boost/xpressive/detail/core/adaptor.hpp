@@ -41,7 +41,7 @@ struct xpression_adaptor
       && ((__GNUC__ > 3) || ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 1)))
         // Ugh, gcc has an optimizer bug which elides this c'tor call
         // resulting in pure virtual function calls.
-        __attribute__((noinline))
+        __attribute__((__noinline__))
     #endif
       : xpr_(xpr)
     {

@@ -49,8 +49,8 @@ namespace boost { namespace fusion
         typedef typename meta::end<seq>::type last_type;
 
         reverse_view(Sequence& seq)
-            : first(fusion::begin(seq))
-            , last(fusion::end(seq))
+          : first(fusion::begin(seq))
+          , last(fusion::end(seq))
         {}
 
         first_type first;

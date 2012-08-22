@@ -55,14 +55,25 @@ namespace boost
         return true;
       }
       template <class RealType, class Policy>
-      inline bool check_dist(const char* function, const RealType& p, RealType* result, const Policy& /* pol */)
+      inline bool check_dist(const char* function, const RealType& p, RealType* result, const Policy& /* pol */, const mpl::true_&)
       {
         return check_success_fraction(function, p, result, Policy());
       }
       template <class RealType, class Policy>
+      inline bool check_dist(const char* , const RealType& , RealType* , const Policy& /* pol */, const mpl::false_&)
+      {
+         return true;
+      }
+      template <class RealType, class Policy>
+      inline bool check_dist(const char* function, const RealType& p, RealType* result, const Policy& /* pol */)
+      {
+         return check_dist(function, p, result, Policy(), typename policies::constructor_error_check<Policy>::type());
+      }
+
+      template <class RealType, class Policy>
       inline bool check_dist_and_k(const char* function, const RealType& p, RealType k, RealType* result, const Policy& pol)
       {
-        if(check_dist(function, p, result, Policy()) == false)
+        if(check_dist(function, p, result, Policy(), typename policies::method_error_check<Policy>::type()) == false)
         {
           return false;
         }
@@ -78,7 +89,7 @@ namespace boost
       template <class RealType, class Policy>
       inline bool check_dist_and_prob(const char* function, RealType p, RealType prob, RealType* result, const Policy& /* pol */)
       {
-        if(check_dist(function, p, result, Policy()) && detail::check_probability(function, prob, result, Policy()) == false)
+        if(check_dist(function, p, result, Policy(), typename policies::method_error_check<Policy>::type()) && detail::check_probability(function, prob, result, Policy()) == false)
         {
           return false;
         }

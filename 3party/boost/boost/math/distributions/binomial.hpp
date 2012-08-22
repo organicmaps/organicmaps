@@ -233,6 +233,10 @@ namespace boost
         { // p <= pdf(dist, 0) == cdf(dist, 0)
           return 0; // So the only reasonable result is zero.
         } // And root finder would fail otherwise.
+        if(success_fraction == 1)
+        {  // our formulae break down in this case:
+           return p > 0.5f ? trials : 0;
+        }
 
         // Solve for quantile numerically:
         //

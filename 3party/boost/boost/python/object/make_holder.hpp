@@ -12,7 +12,7 @@
 
 #  include <boost/python/object/instance.hpp>
 #  include <boost/python/converter/registry.hpp>
-#if !defined( BOOST_PYTHON_NO_PY_SIGNATURES) && defined( BOOST_PYTHON_PY_SYGNATURES_PROPER_INIT_SELF_TYPE)
+#if !defined( BOOST_PYTHON_NO_PY_SIGNATURES) && defined( BOOST_PYTHON_PY_SIGNATURES_PROPER_INIT_SELF_TYPE)
 #  include <boost/python/detail/python_type.hpp>
 #endif
 
@@ -81,7 +81,7 @@ struct make_holder<N>
 # endif 
         
         static void execute(
-#if !defined( BOOST_PYTHON_NO_PY_SIGNATURES) && defined( BOOST_PYTHON_PY_SYGNATURES_PROPER_INIT_SELF_TYPE)
+#if !defined( BOOST_PYTHON_NO_PY_SIGNATURES) && defined( BOOST_PYTHON_PY_SIGNATURES_PROPER_INIT_SELF_TYPE)
             boost::python::detail::python_class<BOOST_DEDUCED_TYPENAME Holder::value_type> *p
 #else
             PyObject *p

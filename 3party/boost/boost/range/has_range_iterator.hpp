@@ -13,7 +13,7 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/has_xxx.hpp>
 #include <boost/range/iterator.hpp>
-#include <boost/utility.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace boost
 {

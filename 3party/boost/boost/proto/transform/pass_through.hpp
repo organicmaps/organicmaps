@@ -22,6 +22,11 @@
 #include <boost/proto/transform/impl.hpp>
 #include <boost/proto/detail/ignore_unused.hpp>
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+# pragma warning(push)
+# pragma warning(disable : 4714) // function 'xxx' marked as __forceinline not inlined
+#endif
+
 namespace boost { namespace proto
 {
     namespace detail
@@ -47,6 +52,7 @@ namespace boost { namespace proto
             /// \param e An expression
             /// \return \c e
             /// \throw nothrow
+            BOOST_FORCEINLINE
             #ifdef BOOST_PROTO_STRICT_RESULT_OF
             result_type
             #else
@@ -132,5 +138,9 @@ namespace boost { namespace proto
     {};
 
 }} // namespace boost::proto
+
+#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+# pragma warning(pop)
+#endif
 
 #endif

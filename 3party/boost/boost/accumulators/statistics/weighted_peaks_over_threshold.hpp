@@ -12,6 +12,7 @@
 #include <limits>
 #include <numeric>
 #include <functional>
+#include <boost/throw_exception.hpp>
 #include <boost/range.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/placeholders.hpp>

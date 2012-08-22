@@ -24,6 +24,7 @@ namespace boost
 namespace chrono
 {
 
+#if !defined BOOST_CHRONO_DONT_PROVIDE_HYBRID_ERROR_HANDLING
 thread_clock::time_point thread_clock::now( system::error_code & ec )
 {
     //  note that Windows uses 100 nanosecond ticks for FILETIME
@@ -65,8 +66,9 @@ thread_clock::time_point thread_clock::now( system::error_code & ec )
         }
     }
 }
+#endif
 
-thread_clock::time_point thread_clock::now( )
+thread_clock::time_point thread_clock::now() BOOST_NOEXCEPT
 {
 
     //  note that Windows uses 100 nanosecond ticks for FILETIME
@@ -85,15 +87,11 @@ thread_clock::time_point thread_clock::now( )
                         | system_time.dwLowDateTime) * 100 );
 
         return time_point(system+user);
-
     }
     else
     {
-        boost::throw_exception(
-                system::system_error( 
-                        boost::detail::win32::GetLastError(), 
-                        BOOST_CHRONO_SYSTEM_CATEGORY, 
-                        "chrono::thread_clock" ));
+      BOOST_ASSERT(0 && "Boost::Chrono - Internal Error");
+      return time_point();
     }
 
 }

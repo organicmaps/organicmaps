@@ -13,7 +13,9 @@
 #include <boost/preprocessor/iteration/iterate.hpp> 
 #include <boost/preprocessor/punctuation/comma_if.hpp> 
 #include <boost/preprocessor/repetition/enum_params.hpp> 
+#include <boost/preprocessor/repetition/enum_binary_params.hpp> 
 #include <boost/preprocessor/repetition/enum_shifted_params.hpp> 
+#include <boost/preprocessor/facilities/intercept.hpp> 
 #include <boost/detail/workaround.hpp>
 #include <boost/mpl/has_xxx.hpp>
 #include <boost/mpl/if.hpp>
@@ -22,6 +24,7 @@
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/type_traits/is_member_function_pointer.hpp>
 #include <boost/type_traits/remove_cv.hpp>
+#include <boost/utility/declval.hpp>
 
 #ifndef BOOST_RESULT_OF_NUM_ARGS
 #  define BOOST_RESULT_OF_NUM_ARGS 10

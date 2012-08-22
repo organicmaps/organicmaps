@@ -261,7 +261,7 @@ visitation_impl(
 
 #   undef BOOST_VARIANT_AUX_APPLY_VISITOR_STEP_CASE
 
-    default: BOOST_ASSERT(!"Boost.Variant internal error: 'which' out of range.");
+    default: break;
     }
 
     // If not handled in this iteration, continue unrolling:

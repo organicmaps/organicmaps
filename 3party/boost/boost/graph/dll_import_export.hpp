@@ -13,15 +13,13 @@
 
 #include <boost/config.hpp>
 
-#ifdef BOOST_HAS_DECLSPEC
-#  if defined(BOOST_ALL_DYN_LINK) || defined(BOOST_GRAPH_DYN_LINK)
-#    ifdef BOOST_GRAPH_SOURCE
-#      define BOOST_GRAPH_DECL __declspec(dllexport)
-#    else
-#      define BOOST_GRAPH_DECL __declspec(dllimport)
-#    endif  // BOOST_GRAPH_SOURCE
-#  endif  // DYN_LINK
-#endif  // BOOST_HAS_DECLSPEC
+#if defined(BOOST_ALL_DYN_LINK) || defined(BOOST_GRAPH_DYN_LINK)
+#  ifdef BOOST_GRAPH_SOURCE
+#    define BOOST_GRAPH_DECL BOOST_SYMBOL_EXPORT
+#  else
+#    define BOOST_GRAPH_DECL BOOST_SYMBOL_IMPORT
+#  endif  // BOOST_GRAPH_SOURCE
+#endif  // DYN_LINK
 
 #ifndef BOOST_GRAPH_DECL
 #  define BOOST_GRAPH_DECL

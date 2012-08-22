@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------------+
-Copyright (c) 2007-2010: Joachim Faulhaber
+Copyright (c) 2007-2011: Joachim Faulhaber
 +------------------------------------------------------------------------------+
    Distributed under the Boost Software License, Version 1.0.
       (See accompanying file LICENCE.txt or copy at
@@ -10,12 +10,12 @@ Copyright (c) 2007-2010: Joachim Faulhaber
 
 #include <boost/icl/impl_config.hpp>
 
-#if defined(ICL_USE_BOOST_INTERPROCESS_IMPLEMENTATION)
-#include <boost/interprocess/containers/set.hpp>
-#elif defined(ICL_USE_BOOST_MOVE_IMPLEMENTATION)
-#include <boost/container/set.hpp>
+#if defined(ICL_USE_BOOST_MOVE_IMPLEMENTATION)
+#   include <boost/container/set.hpp>
+#elif defined(ICL_USE_STD_IMPLEMENTATION)
+#   include <set>
 #else 
-#include <set>
+#   include <set>
 #endif
 
 #include <boost/icl/concept/associative_element_container.hpp>

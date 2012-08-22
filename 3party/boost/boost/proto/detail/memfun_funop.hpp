@@ -33,6 +33,7 @@
     #define N BOOST_PP_ITERATION()
 
     template<BOOST_PP_ENUM_PARAMS(N, typename A)>
+    BOOST_FORCEINLINE
     result_type operator()(BOOST_PP_ENUM_BINARY_PARAMS(N, A, const &a)) const
     {
         BOOST_PROTO_USE_GET_POINTER();

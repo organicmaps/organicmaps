@@ -145,10 +145,15 @@ BOOST_LIB_VERSION:    The Boost version, in the form x_y, for Boost version x.y.
    // vc90:
 #  define BOOST_LIB_TOOLSET "vc90"
 
-#elif defined(BOOST_MSVC) && (BOOST_MSVC >= 1600)
+#elif defined(BOOST_MSVC) && (BOOST_MSVC == 1600)
 
    // vc10:
 #  define BOOST_LIB_TOOLSET "vc100"
+
+#elif defined(BOOST_MSVC) && (BOOST_MSVC >= 1700)
+
+   // vc11:
+#  define BOOST_LIB_TOOLSET "vc110"
 
 #elif defined(__BORLANDC__)
 
@@ -364,7 +369,7 @@ BOOST_LIB_VERSION:    The Boost version, in the form x_y, for Boost version x.y.
 #ifdef BOOST_AUTO_LINK_TAGGED
 #  pragma comment(lib, BOOST_LIB_PREFIX BOOST_STRINGIZE(BOOST_LIB_NAME) BOOST_LIB_THREAD_OPT BOOST_LIB_RT_OPT ".lib")
 #  ifdef BOOST_LIB_DIAGNOSTIC
-#     pragma message ("Linking to lib file: " BOOST_LIB_PREFIX BOOST_STRINGIZE(BOOST_LIB_NAME) "-" BOOST_LIB_TOOLSET BOOST_LIB_THREAD_OPT BOOST_LIB_RT_OPT "-" BOOST_LIB_VERSION ".lib")
+#     pragma message ("Linking to lib file: " BOOST_LIB_PREFIX BOOST_STRINGIZE(BOOST_LIB_NAME) BOOST_LIB_THREAD_OPT BOOST_LIB_RT_OPT ".lib")
 #  endif
 #elif defined(BOOST_AUTO_LINK_NOMANGLE)
 #  pragma comment(lib, BOOST_STRINGIZE(BOOST_LIB_NAME) ".lib")

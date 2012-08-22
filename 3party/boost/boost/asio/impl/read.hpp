@@ -2,7 +2,7 @@
 // impl/read.hpp
 // ~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -18,9 +18,11 @@
 #include <algorithm>
 #include <boost/asio/buffer.hpp>
 #include <boost/asio/completion_condition.hpp>
+#include <boost/asio/detail/array_fwd.hpp>
 #include <boost/asio/detail/base_from_completion_cond.hpp>
 #include <boost/asio/detail/bind_handler.hpp>
 #include <boost/asio/detail/consuming_buffers.hpp>
+#include <boost/asio/detail/dependent_type.hpp>
 #include <boost/asio/detail/handler_alloc_helpers.hpp>
 #include <boost/asio/detail/handler_invoke_helpers.hpp>
 #include <boost/asio/detail/handler_type_requirements.hpp>
@@ -279,6 +281,168 @@ namespace detail
     std::size_t total_transferred_;
     ReadHandler handler_;
   };
+
+  template <typename AsyncReadStream, typename Elem,
+      typename CompletionCondition, typename ReadHandler>
+  class read_op<AsyncReadStream, boost::array<Elem, 2>,
+      CompletionCondition, ReadHandler>
+    : detail::base_from_completion_cond<CompletionCondition>
+  {
+  public:
+    read_op(AsyncReadStream& stream, const boost::array<Elem, 2>& buffers,
+        CompletionCondition completion_condition, ReadHandler& handler)
+      : detail::base_from_completion_cond<
+          CompletionCondition>(completion_condition),
+        stream_(stream),
+        buffers_(buffers),
+        total_transferred_(0),
+        handler_(BOOST_ASIO_MOVE_CAST(ReadHandler)(handler))
+    {
+    }
+
+#if defined(BOOST_ASIO_HAS_MOVE)
+    read_op(const read_op& other)
+      : detail::base_from_completion_cond<CompletionCondition>(other),
+        stream_(other.stream_),
+        buffers_(other.buffers_),
+        total_transferred_(other.total_transferred_),
+        handler_(other.handler_)
+    {
+    }
+
+    read_op(read_op&& other)
+      : detail::base_from_completion_cond<CompletionCondition>(other),
+        stream_(other.stream_),
+        buffers_(other.buffers_),
+        total_transferred_(other.total_transferred_),
+        handler_(BOOST_ASIO_MOVE_CAST(ReadHandler)(other.handler_))
+    {
+    }
+#endif // defined(BOOST_ASIO_HAS_MOVE)
+
+    void operator()(const boost::system::error_code& ec,
+        std::size_t bytes_transferred, int start = 0)
+    {
+      typename boost::asio::detail::dependent_type<Elem,
+          boost::array<boost::asio::mutable_buffer, 2> >::type bufs = {{
+        boost::asio::mutable_buffer(buffers_[0]),
+        boost::asio::mutable_buffer(buffers_[1]) }};
+      std::size_t buffer_size0 = boost::asio::buffer_size(bufs[0]);
+      std::size_t buffer_size1 = boost::asio::buffer_size(bufs[1]);
+      std::size_t n = 0;
+      switch (start)
+      {
+        case 1:
+        n = this->check_for_completion(ec, total_transferred_);
+        for (;;)
+        {
+          bufs[0] = boost::asio::buffer(bufs[0] + total_transferred_, n);
+          bufs[1] = boost::asio::buffer(
+              bufs[1] + (total_transferred_ < buffer_size0
+                ? 0 : total_transferred_ - buffer_size0),
+              n - boost::asio::buffer_size(bufs[0]));
+          stream_.async_read_some(bufs, BOOST_ASIO_MOVE_CAST(read_op)(*this));
+          return; default:
+          total_transferred_ += bytes_transferred;
+          if ((!ec && bytes_transferred == 0)
+              || (n = this->check_for_completion(ec, total_transferred_)) == 0
+              || total_transferred_ == buffer_size0 + buffer_size1)
+            break;
+        }
+
+        handler_(ec, static_cast<const std::size_t&>(total_transferred_));
+      }
+    }
+
+  //private:
+    AsyncReadStream& stream_;
+    boost::array<Elem, 2> buffers_;
+    std::size_t total_transferred_;
+    ReadHandler handler_;
+  };
+
+#if defined(BOOST_ASIO_HAS_STD_ARRAY)
+
+  template <typename AsyncReadStream, typename Elem,
+      typename CompletionCondition, typename ReadHandler>
+  class read_op<AsyncReadStream, std::array<Elem, 2>,
+      CompletionCondition, ReadHandler>
+    : detail::base_from_completion_cond<CompletionCondition>
+  {
+  public:
+    read_op(AsyncReadStream& stream, const std::array<Elem, 2>& buffers,
+        CompletionCondition completion_condition, ReadHandler& handler)
+      : detail::base_from_completion_cond<
+          CompletionCondition>(completion_condition),
+        stream_(stream),
+        buffers_(buffers),
+        total_transferred_(0),
+        handler_(BOOST_ASIO_MOVE_CAST(ReadHandler)(handler))
+    {
+    }
+
+#if defined(BOOST_ASIO_HAS_MOVE)
+    read_op(const read_op& other)
+      : detail::base_from_completion_cond<CompletionCondition>(other),
+        stream_(other.stream_),
+        buffers_(other.buffers_),
+        total_transferred_(other.total_transferred_),
+        handler_(other.handler_)
+    {
+    }
+
+    read_op(read_op&& other)
+      : detail::base_from_completion_cond<CompletionCondition>(other),
+        stream_(other.stream_),
+        buffers_(other.buffers_),
+        total_transferred_(other.total_transferred_),
+        handler_(BOOST_ASIO_MOVE_CAST(ReadHandler)(other.handler_))
+    {
+    }
+#endif // defined(BOOST_ASIO_HAS_MOVE)
+
+    void operator()(const boost::system::error_code& ec,
+        std::size_t bytes_transferred, int start = 0)
+    {
+      typename boost::asio::detail::dependent_type<Elem,
+          std::array<boost::asio::mutable_buffer, 2> >::type bufs = {{
+        boost::asio::mutable_buffer(buffers_[0]),
+        boost::asio::mutable_buffer(buffers_[1]) }};
+      std::size_t buffer_size0 = boost::asio::buffer_size(bufs[0]);
+      std::size_t buffer_size1 = boost::asio::buffer_size(bufs[1]);
+      std::size_t n = 0;
+      switch (start)
+      {
+        case 1:
+        n = this->check_for_completion(ec, total_transferred_);
+        for (;;)
+        {
+          bufs[0] = boost::asio::buffer(bufs[0] + total_transferred_, n);
+          bufs[1] = boost::asio::buffer(
+              bufs[1] + (total_transferred_ < buffer_size0
+                ? 0 : total_transferred_ - buffer_size0),
+              n - boost::asio::buffer_size(bufs[0]));
+          stream_.async_read_some(bufs, BOOST_ASIO_MOVE_CAST(read_op)(*this));
+          return; default:
+          total_transferred_ += bytes_transferred;
+          if ((!ec && bytes_transferred == 0)
+              || (n = this->check_for_completion(ec, total_transferred_)) == 0
+              || total_transferred_ == buffer_size0 + buffer_size1)
+            break;
+        }
+
+        handler_(ec, static_cast<const std::size_t&>(total_transferred_));
+      }
+    }
+
+  //private:
+    AsyncReadStream& stream_;
+    std::array<Elem, 2> buffers_;
+    std::size_t total_transferred_;
+    ReadHandler handler_;
+  };
+
+#endif // defined(BOOST_ASIO_HAS_STD_ARRAY)
 
   template <typename AsyncReadStream, typename MutableBufferSequence,
       typename CompletionCondition, typename ReadHandler>

@@ -31,11 +31,9 @@
         #pragma wave option(preserve: 1)
     #endif
 
-    #if BOOST_PROTO_MAX_ARITY > 3
     #define BOOST_PP_ITERATION_PARAMS_1                                                             \
-        (3, (4, BOOST_PROTO_MAX_ARITY, <boost/proto/transform/detail/call.hpp>))
+        (3, (1, BOOST_PROTO_MAX_ARITY, <boost/proto/transform/detail/call.hpp>))
     #include BOOST_PP_ITERATE()
-    #endif
 
     #if defined(__WAVE__) && defined(BOOST_PROTO_CREATE_PREPROCESSED_FILES)
         #pragma wave option(output: null)
@@ -48,6 +46,7 @@
 
     #define N BOOST_PP_ITERATION()
 
+    #if N > 3
     /// \brief Call the PolymorphicFunctionObject \c Fun with the
     /// current expression, state and data, transformed according
     /// to \c A0 through \c AN.
@@ -69,6 +68,7 @@
             /// \param e The current expression
             /// \param s The current state
             /// \param d An arbitrary data
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param   e
               , typename impl::state_param  s
@@ -80,6 +80,30 @@
             }
         };
     };
+    #endif
+
+    #if N > 0
+    /// \brief Call the PolymorphicFunctionObject \c Fun with the
+    /// current expression, state and data, transformed according
+    /// to \c A0 through \c AN.
+    template<typename Fun BOOST_PP_ENUM_TRAILING_PARAMS(N, typename A)>
+    struct call<Fun(BOOST_PP_ENUM_PARAMS(N, A)...)> : transform<call<Fun(BOOST_PP_ENUM_PARAMS(N, A)...)> >
+    {
+        template<typename Expr, typename State, typename Data>
+        struct impl
+          : call<
+                typename detail::expand_pattern<
+                    proto::arity_of<Expr>::value // BUGBUG this isn't right. Could be pack(_child), should use arity of child!
+                  , BOOST_PP_CAT(A, BOOST_PP_DEC(N))
+                  , detail::BOOST_PP_CAT(expand_pattern_rest_, BOOST_PP_DEC(N))<
+                        Fun
+                        BOOST_PP_ENUM_TRAILING_PARAMS(BOOST_PP_DEC(N), A)
+                    >
+                >::type
+            >::template impl<Expr, State, Data>
+        {};
+    };
+    #endif
 
     #undef N
 

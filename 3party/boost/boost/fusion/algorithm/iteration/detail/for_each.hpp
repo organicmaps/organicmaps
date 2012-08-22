@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2001-2006 Joel de Guzman
+    Copyright (c) 2001-2011 Joel de Guzman
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying 
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -13,6 +13,7 @@
 #include <boost/fusion/iterator/next.hpp>
 #include <boost/fusion/iterator/deref.hpp>
 #include <boost/fusion/iterator/distance.hpp>
+#include <boost/fusion/support/category_of.hpp>
 #include <boost/mpl/bool.hpp>
 
 namespace boost { namespace fusion {
@@ -36,7 +37,7 @@ namespace detail
 
     template <typename Sequence, typename F, typename Tag>
     inline void
-    for_each(Sequence& seq, F const& f, Tag)
+    for_each_dispatch(Sequence& seq, F const& f, Tag)
     {
         detail::for_each_linear(
                                 fusion::begin(seq)
@@ -117,11 +118,18 @@ namespace detail
 
     template <typename Sequence, typename F>
     inline void
-    for_each(Sequence& seq, F const& f, random_access_traversal_tag)
+    for_each_dispatch(Sequence& seq, F const& f, random_access_traversal_tag)
     {
         typedef typename result_of::begin<Sequence>::type begin;
         typedef typename result_of::end<Sequence>::type end;
         for_each_unrolled<result_of::distance<begin, end>::type::value>::call(fusion::begin(seq), f);
+    }
+
+    template <typename Sequence, typename F>
+    inline void
+    for_each(Sequence& seq, F const& f, mpl::false_) // unsegmented implementation
+    {
+        detail::for_each_dispatch(seq, f, typename traits::category_of<Sequence>::type());
     }
 }}}
 

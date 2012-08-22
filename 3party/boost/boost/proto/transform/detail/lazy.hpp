@@ -53,6 +53,27 @@
         {};
     };
 
+    #if N > 0
+    template<typename Object BOOST_PP_ENUM_TRAILING_PARAMS(N, typename A)>
+    struct lazy<Object(BOOST_PP_ENUM_PARAMS(N, A)...)>
+      : transform<lazy<Object(BOOST_PP_ENUM_PARAMS(N, A)...)> >
+    {
+        template<typename Expr, typename State, typename Data>
+        struct impl
+          : lazy<
+                typename detail::expand_pattern<
+                    proto::arity_of<Expr>::value
+                  , BOOST_PP_CAT(A, BOOST_PP_DEC(N))
+                  , detail::BOOST_PP_CAT(expand_pattern_rest_, BOOST_PP_DEC(N))<
+                        Object
+                        BOOST_PP_ENUM_TRAILING_PARAMS(BOOST_PP_DEC(N), A)
+                    >
+                >::type
+            >::template impl<Expr, State, Data>
+        {};
+    };
+    #endif
+
     #undef N
 
 #endif

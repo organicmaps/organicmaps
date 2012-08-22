@@ -28,10 +28,10 @@
 
 namespace boost { namespace msm { namespace back
 {
-struct none {};
+struct no_args {};
 #define MSM_ARGS_TYPEDEF_SUB(z, n, unused) typedef ARG ## n argument ## n ;
 #define MSM_ARGS_PRINT(z, n, data) data
-#define MSM_ARGS_NONE_PRINT(z, n, data) class data ## n = none                          \
+#define MSM_ARGS_NONE_PRINT(z, n, data) class data ## n = no_args                          \
     BOOST_PP_COMMA_IF( BOOST_PP_LESS(n, BOOST_PP_DEC(BOOST_MSM_VISITOR_ARG_SIZE) ) )                  
 
 #define MSM_VISITOR_MAIN_ARGS(n)                                                        \
@@ -49,7 +49,7 @@ struct none {};
     struct args<RES,                                                                                \
                 BOOST_PP_ENUM_PARAMS(n,ARG)                                                         \
                 BOOST_PP_COMMA_IF(n)                                                                \
-                BOOST_PP_ENUM(BOOST_PP_SUB(BOOST_MSM_VISITOR_ARG_SIZE,n), MSM_ARGS_PRINT, none)     \
+                BOOST_PP_ENUM(BOOST_PP_SUB(BOOST_MSM_VISITOR_ARG_SIZE,n), MSM_ARGS_PRINT, no_args)     \
                 >                                                                                   \
     {                                                                                               \
         typedef ::boost::function<RES(BOOST_PP_ENUM_PARAMS(n, ARG))> type;                          \

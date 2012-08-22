@@ -20,14 +20,17 @@
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/mpl/int.hpp>
+#include <boost/mpl/assert.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <boost/range/iterator_range.hpp>
 #include <boost/xpressive/detail/detail_fwd.hpp>
 #include <boost/xpressive/detail/core/state.hpp>
 #include <boost/xpressive/detail/core/matcher/attr_matcher.hpp>
@@ -35,6 +38,7 @@
 #include <boost/xpressive/detail/core/matcher/attr_begin_matcher.hpp>
 #include <boost/xpressive/detail/core/matcher/predicate_matcher.hpp>
 #include <boost/xpressive/detail/utility/ignore_unused.hpp>
+#include <boost/xpressive/detail/static/type_traits.hpp>
 
 // These are very often needed by client code.
 #include <boost/typeof/std/map.hpp>
@@ -61,21 +65,6 @@
 #pragma warning(disable : 4512) // assignment operator could not be generated
 #pragma warning(disable : 4610) // can never be instantiated - user defined constructor required
 #endif
-
-namespace boost
-{
-    namespace detail
-    {
-        // Bit of a hack to make lexical_cast work with wide sub_match
-        template<typename T>
-        struct stream_char;
-
-        template<typename BidiIter>
-        struct stream_char<xpressive::sub_match<BidiIter> >
-          : boost::iterator_value<BidiIter>
-        {};
-    }
-}
 
 namespace boost { namespace xpressive
 {
@@ -572,7 +561,53 @@ namespace boost { namespace xpressive
             template<typename Value>
             T operator()(Value const &val) const
             {
-                return lexical_cast<T>(val);
+                return boost::lexical_cast<T>(val);
+            }
+
+            // Hack around some limitations in boost::lexical_cast
+            T operator()(csub_match const &val) const
+            {
+                return val.matched
+                  ? boost::lexical_cast<T>(boost::make_iterator_range(val.first, val.second))
+                  : boost::lexical_cast<T>("");
+            }
+
+            #ifndef BOOST_XPRESSIVE_NO_WREGEX
+            T operator()(wcsub_match const &val) const
+            {
+                return val.matched
+                  ? boost::lexical_cast<T>(boost::make_iterator_range(val.first, val.second))
+                  : boost::lexical_cast<T>("");
+            }
+            #endif
+
+            template<typename BidiIter>
+            T operator()(sub_match<BidiIter> const &val) const
+            {
+                // If this assert fires, you're trying to coerce a sequences of non-characters
+                // to some other type. Xpressive doesn't know how to do that.
+                typedef typename iterator_value<BidiIter>::type char_type;
+                BOOST_MPL_ASSERT_MSG(
+                    (xpressive::detail::is_char<char_type>::value)
+                  , CAN_ONLY_CONVERT_FROM_CHARACTER_SEQUENCES
+                  , (char_type)
+                );
+                return this->impl(val, xpressive::detail::is_string_iterator<BidiIter>());
+            }
+
+        private:
+            template<typename RandIter>
+            T impl(sub_match<RandIter> const &val, mpl::true_) const
+            {
+                return val.matched
+                  ? boost::lexical_cast<T>(boost::make_iterator_range(&*val.first, &*val.first + (val.second - val.first)))
+                  : boost::lexical_cast<T>("");
+            }
+
+            template<typename BidiIter>
+            T impl(sub_match<BidiIter> const &val, mpl::false_) const
+            {
+                return boost::lexical_cast<T>(val.str());
             }
         };
 
@@ -707,6 +742,7 @@ namespace boost { namespace xpressive
         typedef typename proto::terminal<Fun>::type type;
     };
 
+    function<op::at>::type const at = {{}};
     function<op::push>::type const push = {{}};
     function<op::push_back>::type const push_back = {{}};
     function<op::push_front>::type const push_front = {{}};
@@ -909,6 +945,7 @@ namespace boost { namespace xpressive
     {
         inline void ignore_unused_regex_actions()
         {
+            detail::ignore_unused(xpressive::at);
             detail::ignore_unused(xpressive::push);
             detail::ignore_unused(xpressive::push_back);
             detail::ignore_unused(xpressive::push_front);
@@ -925,6 +962,7 @@ namespace boost { namespace xpressive
             detail::ignore_unused(xpressive::str);
             detail::ignore_unused(xpressive::insert);
             detail::ignore_unused(xpressive::make_pair);
+            detail::ignore_unused(xpressive::unwrap_reference);
             detail::ignore_unused(xpressive::check);
             detail::ignore_unused(xpressive::let);
         }

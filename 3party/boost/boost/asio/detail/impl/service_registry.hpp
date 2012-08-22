@@ -2,7 +2,7 @@
 // detail/impl/service_registry.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -20,6 +20,24 @@
 namespace boost {
 namespace asio {
 namespace detail {
+
+template <typename Service, typename Arg>
+service_registry::service_registry(
+    boost::asio::io_service& o, Service*, Arg arg)
+  : owner_(o),
+    first_service_(new Service(o, arg))
+{
+  boost::asio::io_service::service::key key;
+  init_key(key, Service::id);
+  first_service_->key_ = key;
+  first_service_->next_ = 0;
+}
+
+template <typename Service>
+Service& service_registry::first_service()
+{
+  return *static_cast<Service*>(first_service_);
+}
 
 template <typename Service>
 Service& service_registry::use_service()

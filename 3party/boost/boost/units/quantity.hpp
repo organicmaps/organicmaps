@@ -680,6 +680,15 @@ struct multiply_typeof_helper< X,quantity<Unit,Y> >
     typedef quantity<unit_type,value_type>              type;
 };
 
+/// disambiguate
+/// INTERNAL ONLY
+template<class Unit,
+         class Y>
+struct multiply_typeof_helper< one,quantity<Unit,Y> >
+{
+    typedef quantity<Unit,Y> type;
+};
+
 /// quantity times scalar typeof helper
 /// INTERNAL ONLY
 template<class Unit,
@@ -690,6 +699,15 @@ struct multiply_typeof_helper< quantity<Unit,X>,Y >
     typedef typename multiply_typeof_helper<X,Y>::type  value_type;
     typedef Unit                                        unit_type;
     typedef quantity<unit_type,value_type>              type;
+};
+
+/// disambiguate
+/// INTERNAL ONLY
+template<class Unit,
+         class X>
+struct multiply_typeof_helper< quantity<Unit,X>,one >
+{
+    typedef quantity<Unit,X> type;
 };
 
 /// unit times quantity typeof helper
@@ -767,6 +785,15 @@ struct divide_typeof_helper< X,quantity<Unit,Y> >
     typedef quantity<unit_type,value_type>                                  type;
 };
 
+/// disambiguate
+/// INTERNAL ONLY
+template<class Unit,
+         class Y>
+struct divide_typeof_helper< one,quantity<Unit,Y> >
+{
+    typedef quantity<Unit,Y> type;
+};
+
 /// quantity divided by scalar typeof helper
 /// INTERNAL ONLY
 template<class Unit,
@@ -777,6 +804,15 @@ struct divide_typeof_helper< quantity<Unit,X>,Y >
     typedef typename divide_typeof_helper<X,Y>::type    value_type;
     typedef Unit                                        unit_type;
     typedef quantity<unit_type,value_type>              type;
+};
+
+/// disambiguate
+/// INTERNAL ONLY
+template<class Unit,
+         class X>
+struct divide_typeof_helper< quantity<Unit,X>,one >
+{
+    typedef quantity<Unit,X> type;
 };
 
 /// unit divided by quantity typeof helper

@@ -2,7 +2,7 @@
 // detail/buffer_sequence_adapter.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,6 +17,7 @@
 
 #include <boost/asio/detail/config.hpp>
 #include <boost/asio/buffer.hpp>
+#include <boost/asio/detail/array_fwd.hpp>
 #include <boost/asio/detail/socket_types.hpp>
 
 #include <boost/asio/detail/push_options.hpp>
@@ -246,6 +247,114 @@ private:
   native_buffer_type buffer_;
   std::size_t total_buffer_size_;
 };
+
+template <typename Buffer, typename Elem>
+class buffer_sequence_adapter<Buffer, boost::array<Elem, 2> >
+  : buffer_sequence_adapter_base
+{
+public:
+  explicit buffer_sequence_adapter(
+      const boost::array<Elem, 2>& buffer_sequence)
+  {
+    init_native_buffer(buffers_[0], Buffer(buffer_sequence[0]));
+    init_native_buffer(buffers_[1], Buffer(buffer_sequence[1]));
+    total_buffer_size_ = boost::asio::buffer_size(buffer_sequence[0])
+      + boost::asio::buffer_size(buffer_sequence[1]);
+  }
+
+  native_buffer_type* buffers()
+  {
+    return buffers_;
+  }
+
+  std::size_t count() const
+  {
+    return 2;
+  }
+
+  bool all_empty() const
+  {
+    return total_buffer_size_ == 0;
+  }
+
+  static bool all_empty(const boost::array<Elem, 2>& buffer_sequence)
+  {
+    return boost::asio::buffer_size(buffer_sequence[0]) == 0
+      && boost::asio::buffer_size(buffer_sequence[1]) == 0;
+  }
+
+  static void validate(const boost::array<Elem, 2>& buffer_sequence)
+  {
+    boost::asio::buffer_cast<const void*>(buffer_sequence[0]);
+    boost::asio::buffer_cast<const void*>(buffer_sequence[1]);
+  }
+
+  static Buffer first(const boost::array<Elem, 2>& buffer_sequence)
+  {
+    return Buffer(boost::asio::buffer_size(buffer_sequence[0]) != 0
+        ? buffer_sequence[0] : buffer_sequence[1]);
+  }
+
+private:
+  native_buffer_type buffers_[2];
+  std::size_t total_buffer_size_;
+};
+
+#if defined(BOOST_ASIO_HAS_STD_ARRAY)
+
+template <typename Buffer, typename Elem>
+class buffer_sequence_adapter<Buffer, std::array<Elem, 2> >
+  : buffer_sequence_adapter_base
+{
+public:
+  explicit buffer_sequence_adapter(
+      const std::array<Elem, 2>& buffer_sequence)
+  {
+    init_native_buffer(buffers_[0], Buffer(buffer_sequence[0]));
+    init_native_buffer(buffers_[1], Buffer(buffer_sequence[1]));
+    total_buffer_size_ = boost::asio::buffer_size(buffer_sequence[0])
+      + boost::asio::buffer_size(buffer_sequence[1]);
+  }
+
+  native_buffer_type* buffers()
+  {
+    return buffers_;
+  }
+
+  std::size_t count() const
+  {
+    return 2;
+  }
+
+  bool all_empty() const
+  {
+    return total_buffer_size_ == 0;
+  }
+
+  static bool all_empty(const std::array<Elem, 2>& buffer_sequence)
+  {
+    return boost::asio::buffer_size(buffer_sequence[0]) == 0
+      && boost::asio::buffer_size(buffer_sequence[1]) == 0;
+  }
+
+  static void validate(const std::array<Elem, 2>& buffer_sequence)
+  {
+    boost::asio::buffer_cast<const void*>(buffer_sequence[0]);
+    boost::asio::buffer_cast<const void*>(buffer_sequence[1]);
+  }
+
+  static Buffer first(const std::array<Elem, 2>& buffer_sequence)
+  {
+    return Buffer(boost::asio::buffer_size(buffer_sequence[0]) != 0
+        ? buffer_sequence[0] : buffer_sequence[1]);
+  }
+
+private:
+  native_buffer_type buffers_[2];
+  std::size_t total_buffer_size_;
+};
+
+#endif // defined(BOOST_ASIO_HAS_STD_ARRAY)
 
 } // namespace detail
 } // namespace asio

@@ -73,6 +73,7 @@
         typedef typename unref_expr::proto_generator proto_generator;
         typedef typename BOOST_PROTO_RESULT_OF<proto_generator(expr_type)>::type const result_type;
 
+        BOOST_FORCEINLINE
         result_type const operator ()(
             typename pass_through_impl::expr_param e
           , typename pass_through_impl::state_param s

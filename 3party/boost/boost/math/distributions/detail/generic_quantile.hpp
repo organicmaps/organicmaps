@@ -20,8 +20,8 @@ struct generic_quantile_finder
    value_type operator()(const value_type& x)
    {
       return comp ?
-         target - cdf(complement(dist, x))
-         : cdf(dist, x) - target;
+         value_type(target - cdf(complement(dist, x)))
+         : value_type(cdf(dist, x) - target);
    }
 
 private:

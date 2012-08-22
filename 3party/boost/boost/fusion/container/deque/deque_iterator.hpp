@@ -1,8 +1,8 @@
 /*=============================================================================
-    Copyright (c) 2001-2006 Joel de Guzman
+    Copyright (c) 2005-2012 Joel de Guzman
     Copyright (c) 2005-2006 Dan Marsden
 
-    Distributed under the Boost Software License, Version 1.0. (See accompanying 
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 ==============================================================================*/
 #if !defined(BOOST_FUSION_DEQUE_ITERATOR_26112006_2154)
@@ -12,13 +12,13 @@
 #include <boost/fusion/container/deque/detail/keyed_element.hpp>
 #include <boost/mpl/minus.hpp>
 #include <boost/mpl/equal_to.hpp>
-#include <boost/type_traits/is_const.hpp> 
+#include <boost/type_traits/is_const.hpp>
 
 namespace boost { namespace fusion {
 
     struct bidirectional_traversal_tag;
 
-    template<typename Seq, int Pos>
+    template <typename Seq, int Pos>
     struct deque_iterator
         : iterator_facade<deque_iterator<Seq, Pos>, bidirectional_traversal_tag>
     {
@@ -84,7 +84,7 @@ namespace boost { namespace fusion {
             typedef typename
                 mpl::minus<
                     typename I2::index, typename I1::index
-                >::type 
+                >::type
             type;
 
             static type

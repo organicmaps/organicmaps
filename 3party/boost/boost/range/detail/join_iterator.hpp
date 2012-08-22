@@ -23,7 +23,7 @@
 #include <boost/range/empty.hpp>
 #include <boost/range/detail/demote_iterator_traversal_tag.hpp>
 #include <boost/range/value_type.hpp>
-#include <boost/utility.hpp>
+#include <boost/next_prior.hpp>
 
 namespace boost
 {

@@ -237,8 +237,8 @@ PBGL_DISTRIB_ADJLIST_TYPE
         || get(vertex_to_processor, src) != src.owner
         || get(vertex_to_processor, tgt) != tgt.owner)
       redistributed_edges[get(vertex_to_processor, source(*ei, *this))]
-        .push_back(redistributed_edge(*ei, get(edge_all_t(), base(),
-                                               ei->local)));
+        .push_back(redistributed_edge(*ei, split_edge_property(get(edge_all_t(), base(),
+                                                                   ei->local))));
   }
   inplace_all_to_all(pg, redistributed_edges);
 

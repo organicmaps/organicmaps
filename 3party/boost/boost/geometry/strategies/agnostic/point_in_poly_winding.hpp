@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -17,6 +17,7 @@
 #include <boost/geometry/util/select_calculation_type.hpp>
 
 #include <boost/geometry/strategies/side.hpp>
+#include <boost/geometry/strategies/covered_by.hpp>
 #include <boost/geometry/strategies/within.hpp>
 
 
@@ -181,23 +182,18 @@ namespace services
 {
 
 // Register using "areal_tag" for ring, polygon, multi-polygon
-template <typename Point, typename PointOfSegment>
-struct default_strategy<point_tag, areal_tag, cartesian_tag, cartesian_tag, Point, PointOfSegment>
+template <typename AnyTag, typename Point, typename Geometry>
+struct default_strategy<point_tag, AnyTag, point_tag, areal_tag, cartesian_tag, cartesian_tag, Point, Geometry>
 {
-    typedef winding<Point, PointOfSegment> type;
+    typedef winding<Point, typename geometry::point_type<Geometry>::type> type;
 };
 
-template <typename Point, typename PointOfSegment>
-struct default_strategy<point_tag, areal_tag, spherical_polar_tag, spherical_polar_tag, Point, PointOfSegment>
+template <typename AnyTag, typename Point, typename Geometry>
+struct default_strategy<point_tag, AnyTag, point_tag, areal_tag, spherical_tag, spherical_tag, Point, Geometry>
 {
-    typedef winding<Point, PointOfSegment> type;
+    typedef winding<Point, typename geometry::point_type<Geometry>::type> type;
 };
 
-template <typename Point, typename PointOfSegment>
-struct default_strategy<point_tag, areal_tag, spherical_equatorial_tag, spherical_equatorial_tag, Point, PointOfSegment>
-{
-    typedef winding<Point, PointOfSegment> type;
-};
 
 } // namespace services
 
@@ -205,6 +201,29 @@ struct default_strategy<point_tag, areal_tag, spherical_equatorial_tag, spherica
 
 
 }} // namespace strategy::within
+
+
+
+#ifndef DOXYGEN_NO_STRATEGY_SPECIALIZATIONS
+namespace strategy { namespace covered_by { namespace services
+{
+
+// Register using "areal_tag" for ring, polygon, multi-polygon
+template <typename AnyTag, typename Point, typename Geometry>
+struct default_strategy<point_tag, AnyTag, point_tag, areal_tag, cartesian_tag, cartesian_tag, Point, Geometry>
+{
+    typedef strategy::within::winding<Point, typename geometry::point_type<Geometry>::type> type;
+};
+
+template <typename AnyTag, typename Point, typename Geometry>
+struct default_strategy<point_tag, AnyTag, point_tag, areal_tag, spherical_tag, spherical_tag, Point, Geometry>
+{
+    typedef strategy::within::winding<Point, typename geometry::point_type<Geometry>::type> type;
+};
+
+
+}}} // namespace strategy::covered_by::services
+#endif
 
 
 }} // namespace boost::geometry

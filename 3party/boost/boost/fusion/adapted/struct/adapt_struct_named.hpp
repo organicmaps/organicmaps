@@ -1,7 +1,7 @@
 /*=============================================================================
     Copyright (c) 2001-2007 Joel de Guzman
     Copyright (c) 2009-2010 Hartmut Kaiser
-    Copyright (c) 2010 Christopher Schmidt
+    Copyright (c) 2010-2011 Christopher Schmidt
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -29,7 +29,8 @@
                                                                                 \
     BOOST_FUSION_ADAPT_STRUCT_AS_VIEW(                                          \
         BOOST_FUSION_ADAPT_STRUCT_NAMESPACE_DECLARATION((0)NAMESPACE_SEQ)NAME,  \
-        BOOST_PP_CAT(BOOST_FUSION_ADAPT_STRUCT_NAMED_FILLER_0 ATTRIBUTES,_END))
+        BOOST_PP_CAT(                                                           \
+            BOOST_FUSION_ADAPT_STRUCT_NAMED_FILLER_0 ATTRIBUTES,_END))
 
 #define BOOST_FUSION_ADAPT_STRUCT_NAMED(WRAPPED_TYPE, NAME, ATTRIBUTES)         \
     BOOST_FUSION_ADAPT_STRUCT_NAMED_NS(                                         \

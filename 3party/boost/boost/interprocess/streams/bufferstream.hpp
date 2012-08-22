@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -42,7 +42,7 @@
 #include <ios>
 #include <istream>
 #include <ostream>
-#include <string>    // char traits            
+#include <string>    // char traits           
 #include <cstddef>   // ptrdiff_t
 #include <boost/assert.hpp>
 #include <boost/interprocess/interprocess_fwd.hpp>
@@ -53,7 +53,7 @@ namespace boost {  namespace interprocess {
 //!a basic_xbufferstream. The elements are transmitted from a to a fixed
 //!size buffer
 template <class CharT, class CharTraits>
-class basic_bufferbuf 
+class basic_bufferbuf
    : public std::basic_streambuf<CharT, CharTraits>
 {
    public:
@@ -74,7 +74,7 @@ class basic_bufferbuf
 
    //!Constructor. Assigns formatting buffer.
    //!Does not throw.
-   explicit basic_bufferbuf(CharT *buffer, std::size_t length, 
+   explicit basic_bufferbuf(CharT *buffer, std::size_t length,
                             std::ios_base::openmode mode
                               = std::ios_base::in | std::ios_base::out)
       :  base_t(), m_mode(mode), m_buffer(buffer), m_length(length)
@@ -83,7 +83,7 @@ class basic_bufferbuf
    virtual ~basic_bufferbuf(){}
 
    public:
-   //!Returns the pointer and size of the internal buffer. 
+   //!Returns the pointer and size of the internal buffer.
    //!Does not throw.
    std::pair<CharT *, std::size_t> buffer() const
       { return std::pair<CharT *, std::size_t>(m_buffer, m_length); }
@@ -172,13 +172,13 @@ class basic_bufferbuf
    }
 
    virtual pos_type seekoff(off_type off, std::ios_base::seekdir dir,
-                              std::ios_base::openmode mode 
+                              std::ios_base::openmode mode
                                  = std::ios_base::in | std::ios_base::out)
    {
       bool in  = false;
       bool out = false;
-        
-      const std::ios_base::openmode inout = 
+       
+      const std::ios_base::openmode inout =
          std::ios_base::in | std::ios_base::out;
 
       if((mode & inout) == inout) {
@@ -205,7 +205,7 @@ class basic_bufferbuf
             newoff = static_cast<std::streamoff>(m_length);
          break;
          case std::ios_base::cur:
-            newoff = in ? static_cast<std::streamoff>(this->gptr() - this->eback()) 
+            newoff = in ? static_cast<std::streamoff>(this->gptr() - this->eback())
                         : static_cast<std::streamoff>(this->pptr() - this->pbase());
          break;
          default:
@@ -237,7 +237,7 @@ class basic_bufferbuf
       return pos_type(off);
    }
 
-   virtual pos_type seekpos(pos_type pos, std::ios_base::openmode mode 
+   virtual pos_type seekpos(pos_type pos, std::ios_base::openmode mode
                                  = std::ios_base::in | std::ios_base::out)
    {  return seekoff(pos - pos_type(off_type(0)), std::ios_base::beg, mode);  }
 
@@ -277,7 +277,7 @@ class basic_ibufferstream
    //!Does not throw.
    basic_ibufferstream(const CharT *buffer, std::size_t length,
                           std::ios_base::openmode mode = std::ios_base::in)
-      :  basic_ios_t(), base_t(0), 
+      :  basic_ios_t(), base_t(0),
          m_buf(const_cast<CharT*>(buffer), length, mode | std::ios_base::in)
       {  basic_ios_t::init(&m_buf); }
 
@@ -289,12 +289,12 @@ class basic_ibufferstream
    basic_bufferbuf<CharT, CharTraits>* rdbuf() const
       { return const_cast<basic_bufferbuf<CharT, CharTraits>*>(&m_buf); }
 
-   //!Returns the pointer and size of the internal buffer. 
+   //!Returns the pointer and size of the internal buffer.
    //!Does not throw.
    std::pair<const CharT *, std::size_t> buffer() const
       { return m_buf.buffer(); }
 
-   //!Sets the underlying buffer to a new value. Resets 
+   //!Sets the underlying buffer to a new value. Resets
    //!stream position. Does not throw.
    void buffer(const CharT *buffer, std::size_t length)
       {  m_buf.buffer(const_cast<CharT*>(buffer), length);  }
@@ -335,7 +335,7 @@ class basic_obufferstream
    //!Does not throw.
    basic_obufferstream(CharT *buffer, std::size_t length,
                        std::ios_base::openmode mode = std::ios_base::out)
-      :  basic_ios_t(), base_t(0), 
+      :  basic_ios_t(), base_t(0),
          m_buf(buffer, length, mode | std::ios_base::out)
       {  basic_ios_t::init(&m_buf); }
 
@@ -347,12 +347,12 @@ class basic_obufferstream
    basic_bufferbuf<CharT, CharTraits>* rdbuf() const
       { return const_cast<basic_bufferbuf<CharT, CharTraits>*>(&m_buf); }
 
-   //!Returns the pointer and size of the internal buffer. 
+   //!Returns the pointer and size of the internal buffer.
    //!Does not throw.
    std::pair<CharT *, std::size_t> buffer() const
       { return m_buf.buffer(); }
 
-   //!Sets the underlying buffer to a new value. Resets 
+   //!Sets the underlying buffer to a new value. Resets
    //!stream position. Does not throw.
    void buffer(CharT *buffer, std::size_t length)
       {  m_buf.buffer(buffer, length);  }
@@ -367,7 +367,7 @@ class basic_obufferstream
 //!A basic_iostream class that uses a fixed size character buffer
 //!as its formatting buffer.
 template <class CharT, class CharTraits>
-class basic_bufferstream 
+class basic_bufferstream
    : public std::basic_iostream<CharT, CharTraits>
 
 {
@@ -388,7 +388,7 @@ class basic_bufferstream
    public:
    //!Constructor.
    //!Does not throw.
-   basic_bufferstream(std::ios_base::openmode mode 
+   basic_bufferstream(std::ios_base::openmode mode
                       = std::ios_base::in | std::ios_base::out)
       :  basic_ios_t(), base_t(0), m_buf(mode)
       {  basic_ios_t::init(&m_buf); }
@@ -409,12 +409,12 @@ class basic_bufferstream
    basic_bufferbuf<CharT, CharTraits>* rdbuf() const
       { return const_cast<basic_bufferbuf<CharT, CharTraits>*>(&m_buf); }
 
-   //!Returns the pointer and size of the internal buffer. 
+   //!Returns the pointer and size of the internal buffer.
    //!Does not throw.
    std::pair<CharT *, std::size_t> buffer() const
       { return m_buf.buffer(); }
 
-   //!Sets the underlying buffer to a new value. Resets 
+   //!Sets the underlying buffer to a new value. Resets
    //!stream position. Does not throw.
    void buffer(CharT *buffer, std::size_t length)
       {  m_buf.buffer(buffer, length);  }

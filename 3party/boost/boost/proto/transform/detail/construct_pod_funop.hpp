@@ -33,6 +33,7 @@
     #define N BOOST_PP_ITERATION()
 
     template<BOOST_PP_ENUM_PARAMS(N, typename A)>
+    BOOST_FORCEINLINE
     Type operator ()(BOOST_PP_ENUM_BINARY_PARAMS(N, A, &a)) const
     {
         Type that = {BOOST_PP_ENUM_PARAMS(N, a)};

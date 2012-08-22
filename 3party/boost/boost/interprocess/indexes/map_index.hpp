@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -25,7 +25,7 @@
 
 namespace boost {
 namespace interprocess {
-namespace detail{
+namespace ipcdetail{
 
 //!Helper class to define typedefs from IndexTraits
 template <class MapConfig>
@@ -46,17 +46,17 @@ struct map_index_aux
        key_less, allocator_type>                   index_t;
 };
 
-}  //namespace detail {
+}  //namespace ipcdetail {
 
-//!Index type based in boost::interprocess::map. Just derives from boost::interprocess::map 
+//!Index type based in boost::interprocess::map. Just derives from boost::interprocess::map
 //!and defines the interface needed by managed memory segments
 template <class MapConfig>
 class map_index
    //Derive class from map specialization
-   : public detail::map_index_aux<MapConfig>::index_t
+   : public ipcdetail::map_index_aux<MapConfig>::index_t
 {
    /// @cond
-   typedef detail::map_index_aux<MapConfig>  index_aux;
+   typedef ipcdetail::map_index_aux<MapConfig>  index_aux;
    typedef typename index_aux::index_t       base_type;
    typedef typename MapConfig::
       segment_manager_base          segment_manager_base;
@@ -71,7 +71,7 @@ class map_index
 
    //!This reserves memory to optimize the insertion of n
    //!elements in the index
-   void reserve(std::size_t)
+   void reserve(typename segment_manager_base::size_type)
       {  /*Does nothing, map has not reserve or rehash*/  }
 
    //!This tries to free previously allocate
@@ -89,7 +89,7 @@ template<class MapConfig>
 struct is_node_index
    <boost::interprocess::map_index<MapConfig> >
 {
-   enum {   value = true };
+   static const bool value = true;
 };
 /// @endcond
 

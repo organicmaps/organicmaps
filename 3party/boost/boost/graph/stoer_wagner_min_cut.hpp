@@ -20,7 +20,7 @@
 #include <boost/graph/detail/d_ary_heap.hpp>
 #include <boost/property_map/property_map.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <boost/typeof/typeof.hpp>
+#include <boost/utility/result_of.hpp>
 
 namespace boost {
   
@@ -218,7 +218,9 @@ namespace boost {
     typedef boost::bgl_named_params<P, T, R> params_type;
     BOOST_GRAPH_DECLARE_CONVERTED_PARAMETERS(params_type, params)
     
-    BOOST_AUTO(pq, (boost::detail::make_priority_queue_from_arg_pack_gen<boost::graph::keywords::tag::max_priority_queue, weight_type, vertex_descriptor, std::greater<weight_type> >(choose_param(get_param(params, boost::distance_zero_t()), weight_type(0)))(g, arg_pack)));
+    typedef boost::detail::make_priority_queue_from_arg_pack_gen<boost::graph::keywords::tag::max_priority_queue, weight_type, vertex_descriptor, std::greater<weight_type> > gen_type;
+    gen_type gen(choose_param(get_param(params, boost::distance_zero_t()), weight_type(0)));
+    typename boost::result_of<gen_type(const UndirectedGraph&, const arg_pack_type&)>::type pq = gen(g, arg_pack);
     
     return boost::detail::stoer_wagner_min_cut(g,
         weights,

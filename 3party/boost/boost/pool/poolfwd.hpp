@@ -9,6 +9,12 @@
 #ifndef BOOST_POOLFWD_HPP
 #define BOOST_POOLFWD_HPP
 
+/*!
+  \file
+  \brief Forward declarations of all public (non-implemention) classes.
+*/
+
+
 #include <boost/config.hpp> // for workarounds
 
 // std::size_t
@@ -48,7 +54,7 @@ template <typename Tag, unsigned RequestedSize,
     typename Mutex = details::pool::default_mutex,
     unsigned NextSize = 32,
     unsigned MaxSize = 0>
-struct singleton_pool;
+class singleton_pool;
 
 //
 // Location: <boost/pool/pool_alloc.hpp>

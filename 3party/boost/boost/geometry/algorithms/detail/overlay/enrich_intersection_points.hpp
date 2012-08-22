@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -8,7 +8,6 @@
 
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_ENRICH_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_ENRICH_HPP
-
 
 #include <cstddef>
 #include <algorithm>
@@ -19,25 +18,20 @@
 #ifdef BOOST_GEOMETRY_DEBUG_ENRICH
 #  include <iostream>
 #  include <boost/geometry/algorithms/detail/overlay/debug_turn_info.hpp>
-#  include <boost/geometry/domains/gis/io/wkt/wkt.hpp>
+#  include <boost/geometry/io/wkt/wkt.hpp>
 #  define BOOST_GEOMETRY_DEBUG_IDENTIFIER
 #endif
 
 #include <boost/assert.hpp>
 #include <boost/range.hpp>
 
-
-
 #include <boost/geometry/algorithms/detail/ring_identifier.hpp>
 #include <boost/geometry/algorithms/detail/overlay/copy_segment_point.hpp>
 #include <boost/geometry/algorithms/detail/overlay/get_relative_order.hpp>
-
 #include <boost/geometry/algorithms/detail/overlay/handle_tangencies.hpp>
-
 #ifdef BOOST_GEOMETRY_DEBUG_ENRICH
 #  include <boost/geometry/algorithms/detail/overlay/check_enrich.hpp>
 #endif
-
 
 namespace boost { namespace geometry
 {
@@ -300,9 +294,9 @@ template
 >
 inline void enrich_assign(Container& operations,
             TurnPoints& turn_points,
-            operation_type for_operation,
-            Geometry1 const& geometry1, Geometry2 const& geometry2,
-            Strategy const& strategy)
+            operation_type ,
+            Geometry1 const& , Geometry2 const& ,
+            Strategy const& )
 {
     typedef typename IndexType::type operations_type;
     typedef typename boost::range_iterator<Container const>::type iterator_type;
@@ -524,8 +518,6 @@ inline void enrich_intersection_points(TurnPoints& turn_points,
 
 }
 
-
 }} // namespace boost::geometry
-
 
 #endif // BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_ENRICH_HPP

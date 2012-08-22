@@ -44,6 +44,7 @@
 #include <vector>
 #include <boost/graph/parallel/algorithm.hpp>
 #include <boost/graph/distributed/connected_components.hpp>
+#include <boost/concept/assert.hpp>
 
 namespace boost { namespace graph { namespace distributed {
 
@@ -908,7 +909,7 @@ hohberg_biconnected_components
                     undirected_tag>::value));
 
   // The graph must model Incidence Graph
-  function_requires< IncidenceGraphConcept<Graph> >();
+  BOOST_CONCEPT_ASSERT(( IncidenceGraphConcept<Graph> ));
 
   typedef typename graph_traits<Graph>::edges_size_type edges_size_type;
   typedef typename graph_traits<Graph>::degree_size_type degree_size_type;

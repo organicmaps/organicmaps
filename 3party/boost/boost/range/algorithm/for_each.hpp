@@ -14,7 +14,6 @@
 #include <boost/range/end.hpp>
 #include <boost/range/concepts.hpp>
 #include <boost/ref.hpp>
-#include <boost/utility.hpp>
 #include <algorithm>
 
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1600)

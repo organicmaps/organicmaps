@@ -44,7 +44,7 @@ namespace boost { namespace spirit { namespace traits
         }
     };
 
-#if (DBL_MAX_EXP == 308) // for IEEE-754
+#if (DBL_MAX_10_EXP == 308) // for IEEE-754
     template <>
     struct pow10_helper<double>
     {
@@ -90,9 +90,9 @@ namespace boost { namespace spirit { namespace traits
     };
 
     template <>
-    struct pow10_helper<double>
+    struct pow10_helper<float>
     {
-        inline float pow10<float>(unsigned dim)
+        static float call(unsigned dim)
         {
             return pow10_helper<double>::call(dim);
         }

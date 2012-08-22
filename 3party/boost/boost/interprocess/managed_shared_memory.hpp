@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -19,50 +19,56 @@
 #include <boost/interprocess/detail/workaround.hpp>
 
 #include <boost/interprocess/detail/managed_memory_impl.hpp>
-#include <boost/interprocess/exceptions.hpp>
 #include <boost/interprocess/detail/managed_open_or_create_impl.hpp>
 #include <boost/interprocess/shared_memory_object.hpp>
 #include <boost/interprocess/creation_tags.hpp>
 #include <boost/interprocess/permissions.hpp>
+//These includes needed to fulfill default template parameters of
+//predeclarations in interprocess_fwd.hpp
+#include <boost/interprocess/mem_algo/rbtree_best_fit.hpp> 
+#include <boost/interprocess/sync/mutex_family.hpp>
 
 namespace boost {
 
 namespace interprocess {
 
-//!A basic shared memory named object creation class. Initializes the 
-//!shared memory segment. Inherits all basic functionality from 
+//!A basic shared memory named object creation class. Initializes the
+//!shared memory segment. Inherits all basic functionality from
 //!basic_managed_memory_impl<CharType, AllocationAlgorithm, IndexType>*/
 template
       <
-         class CharType, 
-         class AllocationAlgorithm, 
+         class CharType,
+         class AllocationAlgorithm,
          template<class IndexConfig> class IndexType
       >
-class basic_managed_shared_memory 
-   : public detail::basic_managed_memory_impl
+class basic_managed_shared_memory
+   : public ipcdetail::basic_managed_memory_impl
       <CharType, AllocationAlgorithm, IndexType
-      ,detail::managed_open_or_create_impl<shared_memory_object>::ManagedOpenOrCreateUserOffset>
-   , private detail::managed_open_or_create_impl<shared_memory_object>
+      ,ipcdetail::managed_open_or_create_impl<shared_memory_object
+                                             , AllocationAlgorithm::Alignment>::ManagedOpenOrCreateUserOffset>
+   , private ipcdetail::managed_open_or_create_impl<shared_memory_object
+                                                   , AllocationAlgorithm::Alignment>
 {
    /// @cond
-   public:
-   typedef shared_memory_object                       device_type;
-
-   private:
-   typedef detail::basic_managed_memory_impl 
+   typedef ipcdetail::basic_managed_memory_impl
       <CharType, AllocationAlgorithm, IndexType,
-      detail::managed_open_or_create_impl<shared_memory_object>::ManagedOpenOrCreateUserOffset>   base_t;
-   typedef detail::managed_open_or_create_impl
-      <shared_memory_object>                       base2_t;
+      ipcdetail::managed_open_or_create_impl
+         < shared_memory_object, AllocationAlgorithm::Alignment>::ManagedOpenOrCreateUserOffset>   base_t;
+   typedef ipcdetail::managed_open_or_create_impl
+      <shared_memory_object, AllocationAlgorithm::Alignment>                       base2_t;
 
-   typedef detail::create_open_func<base_t>        create_open_func_t;
+   typedef ipcdetail::create_open_func<base_t>        create_open_func_t;
 
    basic_managed_shared_memory *get_this_pointer()
    {  return this;   }
 
+   public:
+   typedef shared_memory_object                    device_type;
+   typedef typename base_t::size_type              size_type;
+
    private:
    typedef typename base_t::char_ptr_holder_t   char_ptr_holder_t;
-   BOOST_INTERPROCESS_MOVABLE_BUT_NOT_COPYABLE(basic_managed_shared_memory)
+   BOOST_MOVABLE_BUT_NOT_COPYABLE(basic_managed_shared_memory)
    /// @endcond
 
    public: //functions
@@ -81,13 +87,13 @@ class basic_managed_shared_memory
    basic_managed_shared_memory()
    {}
 
-   //!Creates shared memory and creates and places the segment manager. 
+   //!Creates shared memory and creates and places the segment manager.
    //!This can throw.
    basic_managed_shared_memory(create_only_t create_only, const char *name,
-                             std::size_t size, const void *addr = 0, const permissions& perm = permissions())
+                             size_type size, const void *addr = 0, const permissions& perm = permissions())
       : base_t()
-      , base2_t(create_only, name, size, read_write, addr, 
-                create_open_func_t(get_this_pointer(), detail::DoCreate), perm)
+      , base2_t(create_only, name, size, read_write, addr,
+                create_open_func_t(get_this_pointer(), ipcdetail::DoCreate), perm)
    {}
 
    //!Creates shared memory and creates and places the segment manager if
@@ -95,49 +101,49 @@ class basic_managed_shared_memory
    //!segment.
    //!This can throw.
    basic_managed_shared_memory (open_or_create_t open_or_create,
-                              const char *name, std::size_t size, 
+                              const char *name, size_type size,
                               const void *addr = 0, const permissions& perm = permissions())
       : base_t()
-      , base2_t(open_or_create, name, size, read_write, addr, 
-                create_open_func_t(get_this_pointer(), 
-                detail::DoOpenOrCreate), perm)
+      , base2_t(open_or_create, name, size, read_write, addr,
+                create_open_func_t(get_this_pointer(),
+                ipcdetail::DoOpenOrCreate), perm)
    {}
 
    //!Connects to a created shared memory and its segment manager.
    //!in copy_on_write mode.
    //!This can throw.
-   basic_managed_shared_memory (open_copy_on_write_t, const char* name, 
+   basic_managed_shared_memory (open_copy_on_write_t, const char* name,
                                 const void *addr = 0)
       : base_t()
-      , base2_t(open_only, name, copy_on_write, addr, 
-                create_open_func_t(get_this_pointer(), 
-                detail::DoOpen))
+      , base2_t(open_only, name, copy_on_write, addr,
+                create_open_func_t(get_this_pointer(),
+                ipcdetail::DoOpen))
    {}
 
    //!Connects to a created shared memory and its segment manager.
    //!in read-only mode.
    //!This can throw.
-   basic_managed_shared_memory (open_read_only_t, const char* name, 
+   basic_managed_shared_memory (open_read_only_t, const char* name,
                                 const void *addr = 0)
       : base_t()
-      , base2_t(open_only, name, read_only, addr, 
-                create_open_func_t(get_this_pointer(), 
-                detail::DoOpen))
+      , base2_t(open_only, name, read_only, addr,
+                create_open_func_t(get_this_pointer(),
+                ipcdetail::DoOpen))
    {}
 
    //!Connects to a created shared memory and its segment manager.
    //!This can throw.
-   basic_managed_shared_memory (open_only_t open_only, const char* name, 
+   basic_managed_shared_memory (open_only_t open_only, const char* name,
                                 const void *addr = 0)
       : base_t()
-      , base2_t(open_only, name, read_write, addr, 
-                create_open_func_t(get_this_pointer(), 
-                detail::DoOpen))
+      , base2_t(open_only, name, read_write, addr,
+                create_open_func_t(get_this_pointer(),
+                ipcdetail::DoOpen))
    {}
 
    //!Moves the ownership of "moved"'s managed memory to *this.
    //!Does not throw
-   basic_managed_shared_memory(BOOST_INTERPROCESS_RV_REF(basic_managed_shared_memory) moved)
+   basic_managed_shared_memory(BOOST_RV_REF(basic_managed_shared_memory) moved)
    {
       basic_managed_shared_memory tmp;
       this->swap(moved);
@@ -146,9 +152,9 @@ class basic_managed_shared_memory
 
    //!Moves the ownership of "moved"'s managed memory to *this.
    //!Does not throw
-   basic_managed_shared_memory &operator=(BOOST_INTERPROCESS_RV_REF(basic_managed_shared_memory) moved)
+   basic_managed_shared_memory &operator=(BOOST_RV_REF(basic_managed_shared_memory) moved)
    {
-      basic_managed_shared_memory tmp(boost::interprocess::move(moved));
+      basic_managed_shared_memory tmp(boost::move(moved));
       this->swap(tmp);
       return *this;
    }
@@ -162,11 +168,11 @@ class basic_managed_shared_memory
    }
 
    //!Tries to resize the managed shared memory object so that we have
-   //!room for more objects. 
+   //!room for more objects.
    //!
    //!This function is not synchronized so no other thread or process should
    //!be reading or writing the file
-   static bool grow(const char *shmname, std::size_t extra_bytes)
+   static bool grow(const char *shmname, size_type extra_bytes)
    {
       return base_t::template grow
          <basic_managed_shared_memory>(shmname, extra_bytes);
@@ -181,19 +187,13 @@ class basic_managed_shared_memory
       return base_t::template shrink_to_fit
          <basic_managed_shared_memory>(shmname);
    }
-
-   bool flush()
-   {
-      return this->base2_t::flush();
-   }
-
    /// @cond
 
    //!Tries to find a previous named allocation address. Returns a memory
    //!buffer and the object count. If not found returned pointer is 0.
    //!Never throws.
    template <class T>
-   std::pair<T*, std::size_t> find  (char_ptr_holder_t name)
+   std::pair<T*, size_type> find  (char_ptr_holder_t name)
    {
       if(base2_t::get_mapped_region().get_mode() == read_only){
          return base_t::template find_no_lock<T>(name);

@@ -2,7 +2,7 @@
 // detail/wait_handler.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -19,7 +19,8 @@
 #include <boost/asio/detail/fenced_block.hpp>
 #include <boost/asio/detail/handler_alloc_helpers.hpp>
 #include <boost/asio/detail/handler_invoke_helpers.hpp>
-#include <boost/asio/detail/timer_op.hpp>
+#include <boost/asio/detail/wait_op.hpp>
+#include <boost/asio/io_service.hpp>
 
 #include <boost/asio/detail/push_options.hpp>
 
@@ -28,19 +29,20 @@ namespace asio {
 namespace detail {
 
 template <typename Handler>
-class wait_handler : public timer_op
+class wait_handler : public wait_op
 {
 public:
   BOOST_ASIO_DEFINE_HANDLER_PTR(wait_handler);
 
   wait_handler(Handler& h)
-    : timer_op(&wait_handler::do_complete),
+    : wait_op(&wait_handler::do_complete),
       handler_(BOOST_ASIO_MOVE_CAST(Handler)(h))
   {
   }
 
   static void do_complete(io_service_impl* owner, operation* base,
-      boost::system::error_code /*ec*/, std::size_t /*bytes_transferred*/)
+      const boost::system::error_code& /*ec*/,
+      std::size_t /*bytes_transferred*/)
   {
     // Take ownership of the handler object.
     wait_handler* h(static_cast<wait_handler*>(base));
@@ -62,7 +64,7 @@ public:
     // Make the upcall if required.
     if (owner)
     {
-      boost::asio::detail::fenced_block b;
+      fenced_block b(fenced_block::half);
       BOOST_ASIO_HANDLER_INVOCATION_BEGIN((handler.arg1_));
       boost_asio_handler_invoke_helpers::invoke(handler, handler.handler_);
       BOOST_ASIO_HANDLER_INVOCATION_END;

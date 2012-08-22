@@ -2,7 +2,7 @@
 // buffered_write_stream.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -232,7 +232,7 @@ public:
           ? bytes_avail : space_avail;
         storage_.resize(orig_size + length);
         std::size_t bytes_copied = boost::asio::buffer_copy(
-            storage_.data(), buffers_, length);
+            storage_.data() + orig_size, buffers_, length);
 
         io_service_.dispatch(detail::bind_handler(handler_, ec, bytes_copied));
       }
@@ -335,7 +335,8 @@ private:
     std::size_t bytes_avail = boost::asio::buffer_size(buffers);
     std::size_t length = bytes_avail < space_avail ? bytes_avail : space_avail;
     storage_.resize(orig_size + length);
-    return boost::asio::buffer_copy(storage_.data(), buffers, length);
+    return boost::asio::buffer_copy(
+        storage_.data() + orig_size, buffers, length);
   }
 
   /// The next layer.

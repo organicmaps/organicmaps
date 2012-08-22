@@ -55,5 +55,7 @@
 #include <boost/math/special_functions/trunc.hpp>
 #include <boost/math/special_functions/pow.hpp>
 #include <boost/math/special_functions/next.hpp>
+#include <boost/math/special_functions/owens_t.hpp>
+#include <boost/math/special_functions/hankel.hpp>
 
 #endif // BOOST_MATH_SPECIAL_FUNCTIONS_HPP

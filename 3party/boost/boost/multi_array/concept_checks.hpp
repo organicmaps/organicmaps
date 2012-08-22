@@ -131,6 +131,7 @@ namespace detail {
       function_requires< boost_concepts::WritableIteratorConcept<iterator> >();
       function_requires< boost_concepts::ForwardTraversalConcept<const_iterator> >();
       function_requires< boost_concepts::ReadableIteratorConcept<const_iterator> >();
+      function_requires< boost::OutputIterator<iterator,value_type> >();
       
       // RG - a( CollectionArchetype) when available...
       value_type vt = a[ id ];

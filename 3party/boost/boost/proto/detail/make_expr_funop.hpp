@@ -47,6 +47,7 @@
     /// \overload
     ///
     template<BOOST_PP_ENUM_PARAMS(N, typename A)>
+    BOOST_FORCEINLINE
     typename result_of::make_expr<
         Tag
       , Domain

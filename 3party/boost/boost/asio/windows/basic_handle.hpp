@@ -2,7 +2,7 @@
 // windows/basic_handle.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -19,6 +19,7 @@
 
 #if defined(BOOST_ASIO_HAS_WINDOWS_RANDOM_ACCESS_HANDLE) \
   || defined(BOOST_ASIO_HAS_WINDOWS_STREAM_HANDLE) \
+  || defined(BOOST_ASIO_HAS_WINDOWS_OBJECT_HANDLE) \
   || defined(GENERATING_DOCUMENTATION)
 
 #include <boost/asio/basic_io_object.hpp>
@@ -276,6 +277,7 @@ protected:
 
 #endif // defined(BOOST_ASIO_HAS_WINDOWS_RANDOM_ACCESS_HANDLE)
        //   || defined(BOOST_ASIO_HAS_WINDOWS_STREAM_HANDLE)
+       //   || defined(BOOST_ASIO_HAS_WINDOWS_OBJECT_HANDLE)
        //   || defined(GENERATING_DOCUMENTATION)
 
 #endif // BOOST_ASIO_WINDOWS_BASIC_HANDLE_HPP

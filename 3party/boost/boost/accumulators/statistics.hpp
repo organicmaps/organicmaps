@@ -25,7 +25,7 @@
 #include <boost/accumulators/statistics/peaks_over_threshold.hpp>
 #include <boost/accumulators/statistics/pot_tail_mean.hpp>
 #include <boost/accumulators/statistics/pot_quantile.hpp>
-#include <boost/accumulators/statistics/p_square_cumulative_distribution.hpp>
+#include <boost/accumulators/statistics/p_square_cumul_dist.hpp>
 #include <boost/accumulators/statistics/p_square_quantile.hpp>
 #include <boost/accumulators/statistics/skewness.hpp>
 #include <boost/accumulators/statistics/stats.hpp>
@@ -45,7 +45,7 @@
 #include <boost/accumulators/statistics/weighted_median.hpp>
 #include <boost/accumulators/statistics/weighted_moment.hpp>
 #include <boost/accumulators/statistics/weighted_peaks_over_threshold.hpp>
-#include <boost/accumulators/statistics/weighted_p_square_cumulative_distribution.hpp>
+#include <boost/accumulators/statistics/weighted_p_square_cumul_dist.hpp>
 #include <boost/accumulators/statistics/weighted_p_square_quantile.hpp>
 #include <boost/accumulators/statistics/weighted_skewness.hpp>
 #include <boost/accumulators/statistics/weighted_sum.hpp>

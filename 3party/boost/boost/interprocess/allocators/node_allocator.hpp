@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -18,7 +18,7 @@
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
 
-#include <boost/pointer_to_other.hpp>
+#include <boost/intrusive/pointer_traits.hpp>
 
 #include <boost/interprocess/interprocess_fwd.hpp>
 #include <boost/assert.hpp>
@@ -26,7 +26,7 @@
 #include <boost/interprocess/detail/utilities.hpp>
 #include <boost/interprocess/detail/type_traits.hpp>
 #include <boost/interprocess/allocators/detail/node_pool.hpp>
-#include <boost/interprocess/containers/container/detail/multiallocation_chain.hpp>
+#include <boost/container/detail/multiallocation_chain.hpp>
 #include <boost/interprocess/exceptions.hpp>
 #include <boost/interprocess/allocators/detail/allocator_common.hpp>
 #include <memory>
@@ -34,14 +34,14 @@
 #include <cstddef>
 
 //!\file
-//!Describes node_allocator pooled shared memory STL compatible allocator 
+//!Describes node_allocator pooled shared memory STL compatible allocator
 
 namespace boost {
 namespace interprocess {
 
 /// @cond
 
-namespace detail{
+namespace ipcdetail{
 
 template < unsigned int Version
          , class T
@@ -68,7 +68,7 @@ class node_allocator_base
    template <int dummy>
    struct node_pool
    {
-      typedef detail::shared_node_pool
+      typedef ipcdetail::shared_node_pool
       < SegmentManager, sizeof_value<T>::value, NodesPerBlock> type;
 
       static type *get(void *p)
@@ -80,27 +80,29 @@ class node_allocator_base
 
    public:
    //-------
-   typedef typename boost::
-      pointer_to_other<void_pointer, T>::type            pointer;
-   typedef typename boost::
-      pointer_to_other<void_pointer, const T>::type      const_pointer;
+   typedef typename boost::intrusive::
+      pointer_traits<void_pointer>::template
+         rebind_pointer<T>::type                         pointer;
+   typedef typename boost::intrusive::
+      pointer_traits<void_pointer>::template
+         rebind_pointer<const T>::type                   const_pointer;
    typedef T                                             value_type;
-   typedef typename detail::add_reference
+   typedef typename ipcdetail::add_reference
                      <value_type>::type                  reference;
-   typedef typename detail::add_reference
+   typedef typename ipcdetail::add_reference
                      <const value_type>::type            const_reference;
-   typedef std::size_t                                   size_type;
-   typedef std::ptrdiff_t                                difference_type;
+   typedef typename segment_manager::size_type           size_type;
+   typedef typename segment_manager::difference_type     difference_type;
 
    typedef boost::interprocess::version_type<node_allocator_base, Version>   version;
-   typedef boost::container::containers_detail::transform_multiallocation_chain
+   typedef boost::container::container_detail::transform_multiallocation_chain
       <typename SegmentManager::multiallocation_chain, T>multiallocation_chain;
 
-   //!Obtains node_allocator_base from 
+   //!Obtains node_allocator_base from
    //!node_allocator_base
    template<class T2>
    struct rebind
-   {  
+   { 
       typedef node_allocator_base<Version, T2, SegmentManager, NodesPerBlock>       other;
    };
 
@@ -119,15 +121,15 @@ class node_allocator_base
    //!Constructor from a segment manager. If not present, constructs a node
    //!pool. Increments the reference count of the associated node pool.
    //!Can throw boost::interprocess::bad_alloc
-   node_allocator_base(segment_manager *segment_mngr) 
-      : mp_node_pool(detail::get_or_create_node_pool<typename node_pool<0>::type>(segment_mngr)) { }
+   node_allocator_base(segment_manager *segment_mngr)
+      : mp_node_pool(ipcdetail::get_or_create_node_pool<typename node_pool<0>::type>(segment_mngr)) { }
 
-   //!Copy constructor from other node_allocator_base. Increments the reference 
+   //!Copy constructor from other node_allocator_base. Increments the reference
    //!count of the associated node pool. Never throws
-   node_allocator_base(const node_allocator_base &other) 
-      : mp_node_pool(other.get_node_pool()) 
-   {  
-      node_pool<0>::get(detail::get_pointer(mp_node_pool))->inc_ref_count();   
+   node_allocator_base(const node_allocator_base &other)
+      : mp_node_pool(other.get_node_pool())
+   { 
+      node_pool<0>::get(ipcdetail::to_raw_pointer(mp_node_pool))->inc_ref_count();  
    }
 
    //!Copy constructor from related node_allocator_base. If not present, constructs
@@ -136,7 +138,7 @@ class node_allocator_base
    template<class T2>
    node_allocator_base
       (const node_allocator_base<Version, T2, SegmentManager, NodesPerBlock> &other)
-      : mp_node_pool(detail::get_or_create_node_pool<typename node_pool<0>::type>(other.get_segment_manager())) { }
+      : mp_node_pool(ipcdetail::get_or_create_node_pool<typename node_pool<0>::type>(other.get_segment_manager())) { }
 
    //!Assignment from other node_allocator_base
    node_allocator_base& operator=(const node_allocator_base &other)
@@ -148,23 +150,23 @@ class node_allocator_base
 
    //!Destructor, removes node_pool_t from memory
    //!if its reference count reaches to zero. Never throws
-   ~node_allocator_base() 
-   {  detail::destroy_node_pool_if_last_link(node_pool<0>::get(detail::get_pointer(mp_node_pool)));   }
+   ~node_allocator_base()
+   {  ipcdetail::destroy_node_pool_if_last_link(node_pool<0>::get(ipcdetail::to_raw_pointer(mp_node_pool)));   }
 
    //!Returns a pointer to the node pool.
    //!Never throws
    void* get_node_pool() const
-   {  return detail::get_pointer(mp_node_pool);   }
+   {  return ipcdetail::to_raw_pointer(mp_node_pool);   }
 
    //!Returns the segment manager.
    //!Never throws
    segment_manager* get_segment_manager()const
-   {  return node_pool<0>::get(detail::get_pointer(mp_node_pool))->get_segment_manager();  }
+   {  return node_pool<0>::get(ipcdetail::to_raw_pointer(mp_node_pool))->get_segment_manager();  }
 
    //!Swaps allocators. Does not throw. If each allocator is placed in a
    //!different memory segment, the result is undefined.
    friend void swap(self_t &alloc1, self_t &alloc2)
-   {  detail::do_swap(alloc1.mp_node_pool, alloc2.mp_node_pool);  }
+   {  ipcdetail::do_swap(alloc1.mp_node_pool, alloc2.mp_node_pool);  }
 
    /// @cond
    private:
@@ -175,14 +177,14 @@ class node_allocator_base
 //!Equality test for same type
 //!of node_allocator_base
 template<unsigned int V, class T, class S, std::size_t NPC> inline
-bool operator==(const node_allocator_base<V, T, S, NPC> &alloc1, 
+bool operator==(const node_allocator_base<V, T, S, NPC> &alloc1,
                 const node_allocator_base<V, T, S, NPC> &alloc2)
    {  return alloc1.get_node_pool() == alloc2.get_node_pool(); }
 
 //!Inequality test for same type
 //!of node_allocator_base
 template<unsigned int V, class T, class S, std::size_t NPC> inline
-bool operator!=(const node_allocator_base<V, T, S, NPC> &alloc1, 
+bool operator!=(const node_allocator_base<V, T, S, NPC> &alloc1,
                 const node_allocator_base<V, T, S, NPC> &alloc2)
    {  return alloc1.get_node_pool() != alloc2.get_node_pool(); }
 
@@ -199,16 +201,16 @@ class node_allocator_v1
          >
 {
    public:
-   typedef detail::node_allocator_base
+   typedef ipcdetail::node_allocator_base
          < 1, T, SegmentManager, NodesPerBlock> base_t;
 
    template<class T2>
    struct rebind
-   {  
+   { 
       typedef node_allocator_v1<T2, SegmentManager, NodesPerBlock>  other;
    };
 
-   node_allocator_v1(SegmentManager *segment_mngr) 
+   node_allocator_v1(SegmentManager *segment_mngr)
       : base_t(segment_mngr)
    {}
 
@@ -219,16 +221,16 @@ class node_allocator_v1
    {}
 };
 
-}  //namespace detail{
+}  //namespace ipcdetail{
 
 /// @endcond
 
-//!An STL node allocator that uses a segment manager as memory 
+//!An STL node allocator that uses a segment manager as memory
 //!source. The internal pointer type will of the same type (raw, smart) as
 //!"typename SegmentManager::void_pointer" type. This allows
 //!placing the allocator in shared memory, memory mapped-files, etc...
-//!This node allocator shares a segregated storage between all instances 
-//!of node_allocator with equal sizeof(T) placed in the same segment 
+//!This node allocator shares a segregated storage between all instances
+//!of node_allocator with equal sizeof(T) placed in the same segment
 //!group. NodesPerBlock is the number of nodes allocated at once when the allocator
 //!needs runs out of nodes
 template < class T
@@ -237,7 +239,7 @@ template < class T
          >
 class node_allocator
    /// @cond
-   :  public detail::node_allocator_base
+   :  public ipcdetail::node_allocator_base
          < 2
          , T
          , SegmentManager
@@ -247,18 +249,18 @@ class node_allocator
 {
 
    #ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
-   typedef detail::node_allocator_base
+   typedef ipcdetail::node_allocator_base
          < 2, T, SegmentManager, NodesPerBlock> base_t;
    public:
    typedef boost::interprocess::version_type<node_allocator, 2>   version;
 
    template<class T2>
    struct rebind
-   {  
+   { 
       typedef node_allocator<T2, SegmentManager, NodesPerBlock>  other;
    };
 
-   node_allocator(SegmentManager *segment_mngr) 
+   node_allocator(SegmentManager *segment_mngr)
       : base_t(segment_mngr)
    {}
 
@@ -275,18 +277,18 @@ class node_allocator
    typedef implementation_defined::pointer               pointer;
    typedef implementation_defined::const_pointer         const_pointer;
    typedef T                                             value_type;
-   typedef typename detail::add_reference
+   typedef typename ipcdetail::add_reference
                      <value_type>::type                  reference;
-   typedef typename detail::add_reference
+   typedef typename ipcdetail::add_reference
                      <const value_type>::type            const_reference;
-   typedef std::size_t                                   size_type;
-   typedef std::ptrdiff_t                                difference_type;
+   typedef typename segment_manager::size_type           size_type;
+   typedef typename segment_manager::difference_type     difference_type;
 
-   //!Obtains node_allocator from 
+   //!Obtains node_allocator from
    //!node_allocator
    template<class T2>
    struct rebind
-   {  
+   { 
       typedef node_allocator<T2, SegmentManager, NodesPerBlock> other;
    };
 
@@ -297,7 +299,7 @@ class node_allocator
    node_allocator& operator=
       (const node_allocator<T2, SegmentManager2, N2>&);
 
-   //!Not assignable from 
+   //!Not assignable from
    //!other node_allocator
    //node_allocator& operator=(const node_allocator&);
 
@@ -307,7 +309,7 @@ class node_allocator
    //!Can throw boost::interprocess::bad_alloc
    node_allocator(segment_manager *segment_mngr);
 
-   //!Copy constructor from other node_allocator. Increments the reference 
+   //!Copy constructor from other node_allocator. Increments the reference
    //!count of the associated node pool. Never throws
    node_allocator(const node_allocator &other);
 
@@ -334,7 +336,7 @@ class node_allocator
    //!Never throws
    size_type max_size() const;
 
-   //!Allocate memory for an array of count elements. 
+   //!Allocate memory for an array of count elements.
    //!Throws boost::interprocess::bad_alloc if there is no enough memory
    pointer allocate(size_type count, cvoid_pointer hint = 0);
 
@@ -358,7 +360,7 @@ class node_allocator
    //!Never throws
    const_pointer address(const_reference value) const;
 
-   //!Copy construct an object. 
+   //!Copy construct an object.
    //!Throws if T's copy constructor throws
    void construct(const pointer &ptr, const_reference v);
 
@@ -373,7 +375,7 @@ class node_allocator
 
    std::pair<pointer, bool>
       allocation_command(boost::interprocess::allocation_type command,
-                         size_type limit_size, 
+                         size_type limit_size,
                          size_type preferred_size,
                          size_type &received_size, const pointer &reuse = 0);
 
@@ -383,7 +385,7 @@ class node_allocator
    //!preferred_elements. The number of actually allocated elements is
    //!will be assigned to received_size. The elements must be deallocated
    //!with deallocate(...)
-   multiallocation_chain allocate_many(size_type elem_size, std::size_t num_elements);
+   multiallocation_chain allocate_many(size_type elem_size, size_type num_elements);
 
    //!Allocates n_elements elements, each one of size elem_sizes[i]in a
    //!contiguous block
@@ -409,7 +411,7 @@ class node_allocator
    //!preferred_elements. The number of actually allocated elements is
    //!will be assigned to received_size. Memory allocated with this function
    //!must be deallocated only with deallocate_one().
-   multiallocation_chain allocate_individual(std::size_t num_elements);
+   multiallocation_chain allocate_individual(size_type num_elements);
 
    //!Deallocates memory previously allocated with allocate_one().
    //!You should never use deallocate_one to deallocate memory allocated
@@ -431,13 +433,13 @@ class node_allocator
 //!Equality test for same type
 //!of node_allocator
 template<class T, class S, std::size_t NPC> inline
-bool operator==(const node_allocator<T, S, NPC> &alloc1, 
+bool operator==(const node_allocator<T, S, NPC> &alloc1,
                 const node_allocator<T, S, NPC> &alloc2);
 
 //!Inequality test for same type
 //!of node_allocator
 template<class T, class S, std::size_t NPC> inline
-bool operator!=(const node_allocator<T, S, NPC> &alloc1, 
+bool operator!=(const node_allocator<T, S, NPC> &alloc1,
                 const node_allocator<T, S, NPC> &alloc2);
 
 #endif

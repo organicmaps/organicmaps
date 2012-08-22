@@ -40,7 +40,7 @@ namespace boost {
 template<class Tag, class Value, class Next>
 std::istream& operator >> ( std::istream& in, property<Tag,Value,Next>& p )
 {
-        in >> p.m_value >> *(static_cast<Next*>(&p)); // houpla !!
+        in >> p.m_value >> p.m_base; // houpla !!
         return in;
 }
 
@@ -65,7 +65,7 @@ template<class Tag, class Value, class Next, class V, class Stag>
 void get
 ( property<Tag,Value,Next>& p, const V& v, Stag s )
 {
-        get( *(static_cast<Next*>(&p)),v,s );
+        get( p.m_base,v,s );
 }
 
 template<class Value, class Next, class V, class Stag>
@@ -82,7 +82,7 @@ void getSubset
 ( property<Tag,Value,Next>& p, const property<Stag,Svalue,Snext>& s )
 {
         get( p, s.m_value, Stag() );
-        getSubset( p, Snext(s) );
+        getSubset( p, s.m_base );
 }
 
 template<class Tag, class Value, class Next, 
@@ -215,7 +215,7 @@ struct PropertyPrinter
         template<class Val>
         PropertyPrinter& operator () ( std::ostream& out, const Val& v )
         {
-                typename property_map<Graph,Tag>::type ps = get(Tag(), *graph);
+                typename property_map<Graph,Tag>::const_type ps = get(Tag(), *graph);
                 out << ps[ v ] <<" ";
                 PropertyPrinter<Graph,Next> print(*graph);
                 print(out, v);
@@ -248,7 +248,7 @@ struct PropertyPrinter<Graph, property<Tag, Value, Next> >
         template<class Val>
         PropertyPrinter& operator () ( std::ostream& out, const Val& v )
         {
-                typename property_map<Graph,Tag>::type ps = get(Tag(), *graph);
+                typename property_map<Graph,Tag>::const_type ps = get(Tag(), *graph);
                 out << ps[ v ] <<" ";
                 PropertyPrinter<Graph,Next> print(*graph);
                 print(out, v);

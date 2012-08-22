@@ -140,6 +140,7 @@
 
         /// \return *this
         ///
+        BOOST_FORCEINLINE
         expr const &proto_base() const
         {
             return *this;
@@ -147,6 +148,7 @@
 
         /// \overload
         ///
+        BOOST_FORCEINLINE
         expr &proto_base()
         {
             return *this;
@@ -157,6 +159,7 @@
         /// arguments.
         ///
         template<typename A0>
+        BOOST_FORCEINLINE
         static expr const make(A0 &a0)
         {
             return detail::make_terminal(a0, static_cast<expr *>(0), static_cast<proto_args *>(0));
@@ -165,6 +168,7 @@
         /// \overload
         ///
         template<typename A0>
+        BOOST_FORCEINLINE
         static expr const make(A0 const &a0)
         {
             return detail::make_terminal(a0, static_cast<expr *>(0), static_cast<proto_args *>(0));
@@ -174,6 +178,7 @@
         /// arguments.
         ///
         template<BOOST_PP_ENUM_PARAMS(ARG_COUNT, typename A)>
+        BOOST_FORCEINLINE
         static expr const make(BOOST_PP_ENUM_BINARY_PARAMS(ARG_COUNT, A, const &a))
         {
             expr that = {BOOST_PP_ENUM_PARAMS(ARG_COUNT, a)};
@@ -194,6 +199,7 @@
         /// \attention Proto overloads <tt>operator&</tt>, which means that
         /// proto-ified objects cannot have their addresses taken, unless we use
         /// the following hack to make \c &x implicitly convertible to \c X*.
+        BOOST_FORCEINLINE
         operator address_of_hack_type_() const
         {
             return boost::addressof(this->child0);
@@ -208,6 +214,7 @@
         ///
         /// \param a The rhs.
         /// \return A new \c expr\<\> node representing an assignment of \c that to \c *this.
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr &, expr const &>
@@ -228,6 +235,7 @@
         /// \param a The rhs.
         /// \return A new \c expr\<\> node representing an assignment of \c a to \c *this.
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -246,6 +254,7 @@
         /// \overload
         ///
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -265,6 +274,7 @@
         /// \overload
         ///
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr &, typename result_of::as_child<A>::type>
@@ -283,6 +293,7 @@
         /// \overload
         ///
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::assign
           , list2<expr &, typename result_of::as_child<A const>::type>
@@ -304,6 +315,7 @@
         /// \param a The rhs.
         /// \return A new \c expr\<\> node representing \c *this subscripted with \c a.
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A>::type>
@@ -322,6 +334,7 @@
         /// \overload
         ///
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr const &, typename result_of::as_child<A const>::type>
@@ -341,6 +354,7 @@
         /// \overload
         ///
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr &, typename result_of::as_child<A>::type>
@@ -359,6 +373,7 @@
         /// \overload
         ///
         template<typename A>
+        BOOST_FORCEINLINE
         proto::expr<
             proto::tag::subscript
           , list2<expr &, typename result_of::as_child<A const>::type>
@@ -387,6 +402,7 @@
         /// \overload
         ///
         template<typename ...A>
+        BOOST_FORCEINLINE
         typename result_of::funop<
             expr const(A const &...)
           , expr
@@ -405,6 +421,7 @@
         /// \overload
         ///
         template<typename ...A>
+        BOOST_FORCEINLINE
         typename result_of::funop<
             expr(A const &...)
           , expr
@@ -425,6 +442,7 @@
         /// Function call
         ///
         /// \return A new \c expr\<\> node representing the function invocation of \c (*this)().
+        BOOST_FORCEINLINE
         proto::expr<proto::tag::function, list1<expr const &>, 1> const
         operator ()() const
         {
@@ -435,6 +453,7 @@
     #ifdef BOOST_PROTO_DEFINE_TERMINAL
         /// \overload
         ///
+        BOOST_FORCEINLINE
         proto::expr<proto::tag::function, list1<expr &>, 1> const
         operator ()()
         {

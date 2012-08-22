@@ -26,12 +26,12 @@ public:
    eps_tolerance(unsigned bits)
    {
       BOOST_MATH_STD_USING
-      eps = (std::max)(T(ldexp(1.0F, 1-bits)), T(2 * tools::epsilon<T>()));
+      eps = (std::max)(T(ldexp(1.0F, 1-bits)), T(4 * tools::epsilon<T>()));
    }
    bool operator()(const T& a, const T& b)
    {
       BOOST_MATH_STD_USING
-      return (fabs(a - b) / (std::min)(fabs(a), fabs(b))) <= eps;
+      return fabs(a - b) <= (eps * (std::min)(fabs(a), fabs(b)));
    }
 private:
    T eps;
@@ -422,9 +422,10 @@ std::pair<T, T> toms748_solve(F f, const T& ax, const T& bx, const T& fax, const
       e = d;
       fe = fd;
       detail::bracket(f, a, b, c, fa, fb, d, fd);
+      BOOST_MATH_INSTRUMENT_CODE(" a = " << a << " b = " << b);
+      BOOST_MATH_INSTRUMENT_CODE(" tol = " << T((fabs(a) - fabs(b)) / fabs(a)));
       if((0 == --count) || (fa == 0) || tol(a, b))
          break;
-      BOOST_MATH_INSTRUMENT_CODE(" a = " << a << " b = " << b);
       //
       // And finally... check to see if an additional bisection step is 
       // to be taken, we do this if we're not converging fast enough:

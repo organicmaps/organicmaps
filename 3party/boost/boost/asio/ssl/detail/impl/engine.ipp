@@ -2,7 +2,7 @@
 // ssl/detail/impl/engine.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -18,7 +18,10 @@
 #include <boost/asio/detail/config.hpp>
 
 #if !defined(BOOST_ASIO_ENABLE_OLD_SSL)
+# include <boost/asio/detail/throw_error.hpp>
+# include <boost/asio/error.hpp>
 # include <boost/asio/ssl/detail/engine.hpp>
+# include <boost/asio/ssl/error.hpp>
 # include <boost/asio/ssl/verify_context.hpp>
 #endif // !defined(BOOST_ASIO_ENABLE_OLD_SSL)
 
@@ -34,6 +37,13 @@ namespace detail {
 engine::engine(SSL_CTX* context)
   : ssl_(::SSL_new(context))
 {
+  if (!ssl_)
+  {
+    boost::system::error_code ec(::ERR_get_error(),
+        boost::asio::error::get_ssl_category());
+    boost::asio::detail::throw_error(ec, "engine");
+  }
+
   accept_mutex().init();
 
   ::SSL_set_mode(ssl_, SSL_MODE_ENABLE_PARTIAL_WRITE);
@@ -195,9 +205,13 @@ const boost::system::error_code& engine::map_error_code(
     return ec;
 
   // Otherwise, the peer should have negotiated a proper shutdown.
-  ec = boost::system::error_code(
-      ERR_PACK(ERR_LIB_SSL, 0, SSL_R_SHORT_READ),
-      boost::asio::error::get_ssl_category());
+  if ((::SSL_get_shutdown(ssl_) & SSL_RECEIVED_SHUTDOWN) == 0)
+  {
+    ec = boost::system::error_code(
+        ERR_PACK(ERR_LIB_SSL, 0, SSL_R_SHORT_READ),
+        boost::asio::error::get_ssl_category());
+  }
+
   return ec;
 }
 

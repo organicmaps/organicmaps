@@ -31,7 +31,8 @@
 #define STD std
 #endif
 
-namespace boost { namespace serialization {
+namespace boost { 
+namespace serialization {
 
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////8
 // valarray< T >
@@ -44,7 +45,6 @@ void save( Archive & ar, const STD::valarray<U> &t, const unsigned int /*file_ve
   if (t.size())
     ar << make_array(detail::get_data(t), t.size());
 }
-
 
 template<class Archive, class U>
 void load( Archive & ar, STD::valarray<U> &t,  const unsigned int /*file_version*/ )

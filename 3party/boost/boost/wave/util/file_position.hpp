@@ -5,7 +5,7 @@
     
     http://www.boost.org/
 
-    Copyright (c) 2001-2011 Hartmut Kaiser. Distributed under the Boost
+    Copyright (c) 2001-2012 Hartmut Kaiser. Distributed under the Boost
     Software License, Version 1.0. (See accompanying file
     LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
@@ -35,36 +35,6 @@ namespace wave {
 namespace util {
 
 ///////////////////////////////////////////////////////////////////////////////
-namespace debug {
-
-    //  Used only when BOOST_ASSERT expands to something
-    //  make sure the string literal does not contain any escapes ('\\' just 
-    //  before '\\', '\"' or '?')
-    template <typename StringT>
-    inline bool
-    is_escaped_lit(StringT const &value)
-    {
-        typename StringT::size_type pos = value.find_first_of ("\\", 0);
-        if (StringT::npos != pos) {
-            do {
-                if ('\\' == value[pos+1] || 
-                    '\"' == value[pos+1] || 
-                    '?' == value[pos+1])
-                {
-                    return true;
-                }
-                else {
-                    pos = value.find_first_of ("\\", pos+1);
-                }
-            } while (pos != StringT::npos);
-        }
-        return false;
-    }
-
-///////////////////////////////////////////////////////////////////////////////
-}   // namespace debug
-
-///////////////////////////////////////////////////////////////////////////////
 //
 //  file_position
 //
@@ -85,9 +55,7 @@ public:
     explicit file_position(string_type const& file_, std::size_t line_ = 1, 
             std::size_t column_ = 1)
     :   file(file_), line(line_), column(column_)
-    {
-        BOOST_ASSERT(!debug::is_escaped_lit(file));
-    }
+    {}
 
 // accessors
     string_type const &get_file() const { return file; }
@@ -97,7 +65,6 @@ public:
     void set_file(string_type const &file_) 
     { 
         file = file_; 
-        BOOST_ASSERT(!debug::is_escaped_lit(file));
     }
     void set_line(std::size_t line_) { line = line_; }
     void set_column(std::size_t column_) { column = column_; }

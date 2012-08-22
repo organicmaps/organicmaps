@@ -14,6 +14,7 @@
 #include <boost/mpl/set.hpp>
 #include <boost/mpl/for_each.hpp>
 #include <boost/mpl/has_xxx.hpp>
+#include <boost/mpl/count_if.hpp>
 
 #include <boost/typeof/typeof.hpp>
 
@@ -25,7 +26,8 @@
 #include BOOST_TYPEOF_INCREMENT_REGISTRATION_GROUP()
 
 BOOST_MPL_HAS_XXX_TRAIT_DEF(deferring_action)
-
+BOOST_MPL_HAS_XXX_TRAIT_DEF(some_deferring_actions)
+    
 namespace boost { namespace msm { namespace front
 {
     template <class Func,class Enable=void>
@@ -42,7 +44,17 @@ namespace boost { namespace msm { namespace front
     {
         static const ::boost::msm::back::HandledEnum value = ::boost::msm::back::HANDLED_DEFERRED;
     };
-
+    // for sequences
+    template <class Func>
+    struct get_functor_return_value<Func, 
+        typename ::boost::enable_if<
+                typename has_some_deferring_actions<Func>::type
+        >::type
+    > 
+    {
+        static const ::boost::msm::back::HandledEnum value = 
+            (Func::some_deferring_actions::value ? ::boost::msm::back::HANDLED_DEFERRED : ::boost::msm::back::HANDLED_TRUE );
+    };
     template <class SOURCE,class EVENT,class TARGET,class ACTION=none,class GUARD=none>
     struct Row
     {
@@ -265,6 +277,12 @@ namespace boost { namespace msm { namespace front
     struct ActionSequence_
     {
         typedef Sequence sequence;
+        // if one functor of the sequence defers events, the complete sequence does
+        typedef ::boost::mpl::bool_< 
+            ::boost::mpl::count_if<sequence, 
+                                   has_deferring_action< ::boost::mpl::placeholders::_1 > 
+            >::value != 0> some_deferring_actions;
+
         template <class Event,class FSM,class STATE >
         struct state_action_result 
         {

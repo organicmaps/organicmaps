@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -31,13 +31,13 @@ namespace detail { namespace point_on_border
 
 template
 <
-    typename MultiGeometry,
     typename Point,
+    typename MultiGeometry,
     typename Policy
 >
 struct point_on_multi
 {
-    static inline bool apply(MultiGeometry const& multi, Point& point)
+    static inline bool apply(Point& point, MultiGeometry const& multi, bool midpoint)
     {
         // Take a point on the first multi-geometry
         // (i.e. the first that is not empty)
@@ -48,7 +48,7 @@ struct point_on_multi
             it != boost::end(multi);
             ++it)
         {
-            if (Policy::apply(*it, point))
+            if (Policy::apply(point, *it, midpoint))
             {
                 return true;
             }
@@ -69,16 +69,16 @@ namespace dispatch
 {
 
 
-template<typename Multi, typename Point>
-struct point_on_border<multi_polygon_tag, Multi, Point>
+template<typename Point, typename Multi>
+struct point_on_border<multi_polygon_tag, Point, Multi>
     : detail::point_on_border::point_on_multi
         <
-            Multi,
             Point,
+            Multi,
             detail::point_on_border::point_on_polygon
                 <
-                    typename boost::range_value<Multi>::type,
-                    Point
+                    Point,
+                    typename boost::range_value<Multi>::type
                 >
         >
 {};

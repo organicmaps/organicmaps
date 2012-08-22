@@ -14,6 +14,7 @@
 #include <boost/math/special_functions/detail/bessel_j1.hpp>
 #include <boost/math/special_functions/detail/bessel_jy.hpp>
 #include <boost/math/special_functions/detail/bessel_jy_asym.hpp>
+#include <boost/math/special_functions/detail/bessel_jy_series.hpp>
 
 // Bessel function of the first kind of integer order
 // J_n(z) is the minimal solution
@@ -63,38 +64,61 @@ T bessel_jn(int n, T x, const Policy& pol)
       return factor * asymptotic_bessel_j_large_x_2<T>(n, x);
 
     BOOST_ASSERT(n > 1);
+    T scale = 1;
     if (n < abs(x))                         // forward recurrence
     {
         prev = bessel_j0(x);
         current = bessel_j1(x);
         for (int k = 1; k < n; k++)
         {
-            value = 2 * k * current / x - prev;
+            T fact = 2 * k / x;
+            //
+            // rescale if we would overflow or underflow:
+            //
+            if((fabs(fact) > 1) && ((tools::max_value<T>() - fabs(prev)) / fabs(fact) < fabs(current)))
+            {
+               scale /= current;
+               prev /= current;
+               current = 1;
+            }
+            value = fact * current - prev;
             prev = current;
             current = value;
         }
+    }
+    else if(x < 1)
+    {
+       return factor * bessel_j_small_z_series(T(n), x, pol);
     }
     else                                    // backward recurrence
     {
         T fn; int s;                        // fn = J_(n+1) / J_n
         // |x| <= n, fast convergence for continued fraction CF1
         boost::math::detail::CF1_jy(static_cast<T>(n), x, &fn, &s, pol);
-        // tiny initial value to prevent overflow
-        T init = sqrt(tools::min_value<T>());
-        prev = fn * init;
-        current = init;
+        prev = fn;
+        current = 1;
         for (int k = n; k > 0; k--)
         {
-            next = 2 * k * current / x - prev;
+            T fact = 2 * k / x;
+            if((fabs(fact) > 1) && ((tools::max_value<T>() - fabs(prev)) / fabs(fact) < fabs(current)))
+            {
+               prev /= current;
+               scale /= current;
+               current = 1;
+            }
+            next = fact * current - prev;
             prev = current;
             current = next;
         }
-        T ratio = init / current;           // scaling ratio
-        value = bessel_j0(x) * ratio;       // normalization
+        value = bessel_j0(x) / current;       // normalization
+        scale = 1 / scale;
     }
     value *= factor;
 
-    return value;
+    if(tools::max_value<T>() * scale < fabs(value))
+       return policies::raise_overflow_error<T>("boost::math::bessel_jn<%1%>(%1%,%1%)", 0, pol);
+
+    return value / scale;
 }
 
 }}} // namespaces

@@ -16,9 +16,10 @@
 
 /* If we're using clang + glibc, we have to get hacky. 
  * See http://llvm.org/bugs/show_bug.cgi?id=6907 */
-#if defined(__clang__)       &&                       \
+#if defined(__clang__)       &&  (__clang_major__ < 3) &&    \
     defined(__GNU_LIBRARY__) && /* up to version 5 */ \
-    defined(__GLIBC__)          /* version 6 + */
+    defined(__GLIBC__) &&         /* version 6 + */ \
+    !defined(_FENV_H)
   #define _FENV_H
 
   #include <features.h>

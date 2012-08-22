@@ -7,7 +7,7 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: seed_seq.hpp 71018 2011-04-05 21:27:52Z steven_watanabe $
+ * $Id: seed_seq.hpp 79771 2012-07-27 18:15:55Z jewillco $
  *
  */
 
@@ -23,7 +23,7 @@
 #include <algorithm>
 #include <iterator>
 
-#ifndef BOOST_NO_INITIALIZER_LISTS
+#ifndef BOOST_NO_CXX11_HDR_INITIALIZER_LIST
 #include <initializer_list>
 #endif
 
@@ -42,7 +42,7 @@ public:
 
     /** Initializes a seed_seq to hold an empty sequence. */
     seed_seq() {}
-#ifndef BOOST_NO_INITIALIZER_LISTS
+#ifndef BOOST_NO_CXX11_HDR_INITIALIZER_LIST
     /** Initializes the sequence from an initializer_list. */
     template<class T>
     seed_seq(const std::initializer_list<T>& il) : v(il.begin(), il.end()) {}
@@ -98,8 +98,8 @@ public:
             r3 = r3 ^ (r3 >> 27);
             r3 = (r3 * 1566083941u) & mask;
             value_type r4 = r3 - k%m;
-            *(first + (k+p)%n) ^= r4;
-            *(first + (k+q)%n) ^= r3;
+            *(first + (k+p)%n) ^= r3;
+            *(first + (k+q)%n) ^= r4;
             *(first + k%n) = r4;
         }
     }

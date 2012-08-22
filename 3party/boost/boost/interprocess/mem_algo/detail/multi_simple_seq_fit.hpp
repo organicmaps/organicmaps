@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -34,20 +34,20 @@ namespace interprocess {
    linked list of free buffers.*/
 template<class MutexFamily, class VoidPtr>
 class multi_simple_seq_fit 
-   : public detail::simple_seq_fit_impl<MutexFamily, VoidPtr>
+   : public ipcdetail::simple_seq_fit_impl<MutexFamily, VoidPtr>
 {
-   typedef detail::simple_seq_fit_impl<MutexFamily, VoidPtr> base_t;
+   typedef ipcdetail::simple_seq_fit_impl<MutexFamily, VoidPtr> base_t;
  public:
    /*!Constructor. "size" is the total size of the managed memory segment, 
       "extra_hdr_bytes" indicates the extra bytes beginning in the sizeof(multi_simple_seq_fit)
       offset that the allocator should not use at all.*/
-   multi_simple_seq_fit           (std::size_t size, std::size_t extra_hdr_bytes)
+   multi_simple_seq_fit           (size_type size, size_type extra_hdr_bytes)
       : base_t(size, extra_hdr_bytes){}
 
    /*!Allocates bytes from existing segments. If there is no memory, it uses
       the growing functor associated with the group to allocate a new segment.
       If this fails, returns 0.*/
-   void* allocate             (std::size_t nbytes)
+   void* allocate             (size_type nbytes)
       {  return base_t::multi_allocate(nbytes);   }
 };
 

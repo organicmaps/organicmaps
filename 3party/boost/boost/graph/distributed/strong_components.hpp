@@ -693,7 +693,7 @@ namespace boost { namespace graph { namespace distributed {
              if (estart != eend) {
                boost::tie(restart, reend) = out_edges(get(fr, v), gr);
                while (restart != reend && find(vertex_sets[i].begin(), vertex_sets[i].end(),
-                                               get(rf, target(*restart,g))) == vertex_sets[i].end()) restart++;
+                                               get(rf, target(*restart,gr))) == vertex_sets[i].end()) restart++;
                if (restart != reend)
                  new_set.push_back(v);
              }

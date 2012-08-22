@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -83,7 +83,7 @@ template <typename BoxIn, typename T, typename BoxOut>
 struct buffer<box_tag, box_tag, BoxIn, T, BoxOut>
 {
     static inline void apply(BoxIn const& box_in, T const& distance,
-                T const& chord_length, BoxIn& box_out)
+                T const& , BoxIn& box_out)
     {
         detail::buffer::buffer_box(box_in, distance, box_out);
     }

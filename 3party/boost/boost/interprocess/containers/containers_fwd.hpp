@@ -22,7 +22,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include <boost/interprocess/detail/config_begin.hpp>
-#include <boost/interprocess/containers/container/container_fwd.hpp>
+#include <boost/container/container_fwd.hpp>
 
 namespace boost {
 namespace interprocess {

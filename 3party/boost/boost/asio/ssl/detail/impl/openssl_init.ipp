@@ -3,7 +3,7 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
 // Copyright (c) 2005 Voipster / Indrek dot Juhani at voipster dot com
-// Copyright (c) 2005-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2005-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -38,7 +38,7 @@ public:
   {
     ::SSL_library_init();
     ::SSL_load_error_strings();        
-    ::OpenSSL_add_ssl_algorithms();
+    ::OpenSSL_add_all_algorithms();
 
     mutexes_.resize(::CRYPTO_num_locks());
     for (size_t i = 0; i < mutexes_.size(); ++i)
@@ -56,7 +56,9 @@ public:
     ::EVP_cleanup();
     ::CRYPTO_cleanup_all_ex_data();
     ::CONF_modules_unload(1);
+#if !defined(OPENSSL_NO_ENGINE)
     ::ENGINE_cleanup();
+#endif // !defined(OPENSSL_NO_ENGINE)
   }
 
 private:

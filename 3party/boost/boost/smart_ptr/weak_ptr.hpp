@@ -17,11 +17,6 @@
 #include <boost/smart_ptr/detail/shared_count.hpp>
 #include <boost/smart_ptr/shared_ptr.hpp>
 
-#ifdef BOOST_MSVC  // moved here to work around VC++ compiler crash
-# pragma warning(push)
-# pragma warning(disable:4284) // odd return type for operator->
-#endif
-
 namespace boost
 {
 
@@ -40,8 +35,24 @@ public:
     {
     }
 
-//  generated copy constructor, assignment, destructor are fine
+//  generated copy constructor, assignment, destructor are fine...
 
+#if defined( BOOST_HAS_RVALUE_REFS )
+
+// ... except in C++0x, move disables the implicit copy
+
+    weak_ptr( weak_ptr const & r ): px( r.px ), pn( r.pn ) // never throws
+    {
+    }
+
+    weak_ptr & operator=( weak_ptr const & r ) // never throws
+    {
+        px = r.px;
+        pn = r.pn;
+        return *this;
+    }
+
+#endif
 
 //
 //  The "obvious" converting constructor implementation:
@@ -189,7 +200,12 @@ public:
         pn = pn2;
     }
 
-    template<class Y> bool _internal_less(weak_ptr<Y> const & rhs) const
+    template<class Y> bool owner_before( weak_ptr<Y> const & rhs ) const
+    {
+        return pn < rhs.pn;
+    }
+
+    template<class Y> bool owner_before( shared_ptr<Y> const & rhs ) const
     {
         return pn < rhs.pn;
     }
@@ -213,7 +229,7 @@ private:
 
 template<class T, class U> inline bool operator<(weak_ptr<T> const & a, weak_ptr<U> const & b)
 {
-    return a._internal_less(b);
+    return a.owner_before( b );
 }
 
 template<class T> void swap(weak_ptr<T> & a, weak_ptr<T> & b)
@@ -222,9 +238,5 @@ template<class T> void swap(weak_ptr<T> & a, weak_ptr<T> & b)
 }
 
 } // namespace boost
-
-#ifdef BOOST_MSVC
-# pragma warning(pop)
-#endif    
 
 #endif  // #ifndef BOOST_SMART_PTR_WEAK_PTR_HPP_INCLUDED

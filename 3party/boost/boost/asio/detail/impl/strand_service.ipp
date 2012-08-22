@@ -2,7 +2,7 @@
 // detail/impl/strand_service.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -33,11 +33,12 @@ struct strand_service::on_do_complete_exit
   ~on_do_complete_exit()
   {
     impl_->mutex_.lock();
-    bool more_handlers = (--impl_->count_ > 0);
+    impl_->ready_queue_.push(impl_->waiting_queue_);
+    bool more_handlers = impl_->locked_ = !impl_->ready_queue_.empty();
     impl_->mutex_.unlock();
 
     if (more_handlers)
-      owner_->post_immediate_completion(impl_);
+      owner_->post_private_immediate_completion(impl_);
   }
 };
 
@@ -56,19 +57,28 @@ void strand_service::shutdown_service()
   boost::asio::detail::mutex::scoped_lock lock(mutex_);
 
   for (std::size_t i = 0; i < num_implementations; ++i)
+  {
     if (strand_impl* impl = implementations_[i].get())
-      ops.push(impl->queue_);
+    {
+      ops.push(impl->waiting_queue_);
+      ops.push(impl->ready_queue_);
+    }
+  }
 }
 
 void strand_service::construct(strand_service::implementation_type& impl)
 {
+  boost::asio::detail::mutex::scoped_lock lock(mutex_);
+
   std::size_t salt = salt_++;
+#if defined(BOOST_ASIO_ENABLE_SEQUENTIAL_STRAND_ALLOCATION)
+  std::size_t index = salt;
+#else // defined(BOOST_ASIO_ENABLE_SEQUENTIAL_STRAND_ALLOCATION)
   std::size_t index = reinterpret_cast<std::size_t>(&impl);
   index += (reinterpret_cast<std::size_t>(&impl) >> 3);
   index ^= salt + 0x9e3779b9 + (index << 6) + (index >> 2);
+#endif // defined(BOOST_ASIO_ENABLE_SEQUENTIAL_STRAND_ALLOCATION)
   index = index % num_implementations;
-
-  boost::asio::detail::mutex::scoped_lock lock(mutex_);
 
   if (!implementations_[index].get())
     implementations_[index].reset(new strand_impl);
@@ -77,55 +87,63 @@ void strand_service::construct(strand_service::implementation_type& impl)
 
 bool strand_service::do_dispatch(implementation_type& impl, operation* op)
 {
-  // If we are running inside the io_service, and no other handler is queued
-  // or running, then the handler can run immediately.
-  bool can_dispatch = call_stack<io_service_impl>::contains(&io_service_);
+  // If we are running inside the io_service, and no other handler already
+  // holds the strand lock, then the handler can run immediately.
+  bool can_dispatch = io_service_.can_dispatch();
   impl->mutex_.lock();
-  bool first = (++impl->count_ == 1);
-  if (can_dispatch && first)
+  if (can_dispatch && !impl->locked_)
   {
     // Immediate invocation is allowed.
+    impl->locked_ = true;
     impl->mutex_.unlock();
     return true;
   }
 
-  // Immediate invocation is not allowed, so enqueue for later.
-  impl->queue_.push(op);
-  impl->mutex_.unlock();
-
-  // The first handler to be enqueued is responsible for scheduling the
-  // strand.
-  if (first)
+  if (impl->locked_)
+  {
+    // Some other handler already holds the strand lock. Enqueue for later.
+    impl->waiting_queue_.push(op);
+    impl->mutex_.unlock();
+  }
+  else
+  {
+    // The handler is acquiring the strand lock and so is responsible for
+    // scheduling the strand.
+    impl->locked_ = true;
+    impl->mutex_.unlock();
+    impl->ready_queue_.push(op);
     io_service_.post_immediate_completion(impl);
+  }
 
   return false;
 }
 
 void strand_service::do_post(implementation_type& impl, operation* op)
 {
-  // Add the handler to the queue.
   impl->mutex_.lock();
-  bool first = (++impl->count_ == 1);
-  impl->queue_.push(op);
-  impl->mutex_.unlock();
-
-  // The first handler to be enqueue is responsible for scheduling the strand.
-  if (first)
+  if (impl->locked_)
+  {
+    // Some other handler already holds the strand lock. Enqueue for later.
+    impl->waiting_queue_.push(op);
+    impl->mutex_.unlock();
+  }
+  else
+  {
+    // The handler is acquiring the strand lock and so is responsible for
+    // scheduling the strand.
+    impl->locked_ = true;
+    impl->mutex_.unlock();
+    impl->ready_queue_.push(op);
     io_service_.post_immediate_completion(impl);
+  }
 }
 
 void strand_service::do_complete(io_service_impl* owner, operation* base,
-    boost::system::error_code /*ec*/, std::size_t /*bytes_transferred*/)
+    const boost::system::error_code& ec, std::size_t /*bytes_transferred*/)
 {
   if (owner)
   {
     strand_impl* impl = static_cast<strand_impl*>(base);
-
-    // Get the next handler to be executed.
-    impl->mutex_.lock();
-    operation* o = impl->queue_.front();
-    impl->queue_.pop();
-    impl->mutex_.unlock();
 
     // Indicate that this strand is executing on the current thread.
     call_stack<strand_impl>::context ctx(impl);
@@ -134,7 +152,13 @@ void strand_service::do_complete(io_service_impl* owner, operation* base,
     on_do_complete_exit on_exit = { owner, impl };
     (void)on_exit;
 
-    o->complete(*owner);
+    // Run all ready handlers. No lock is required since the ready queue is
+    // accessed only within the strand.
+    while (operation* o = impl->ready_queue_.front())
+    {
+      impl->ready_queue_.pop();
+      o->complete(*owner, ec, 0);
+    }
   }
 }
 

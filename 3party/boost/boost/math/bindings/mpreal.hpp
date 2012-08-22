@@ -12,6 +12,7 @@
 #define BOOST_MATH_MPREAL_BINDINGS_HPP
 
 #include <boost/config.hpp>
+#include <boost/lexical_cast.hpp>
 
 #ifdef BOOST_MSVC
 //
@@ -889,8 +890,9 @@ mpfr::mpreal bessel_i1(mpfr::mpreal x)
 }
 
 } // namespace detail
+} // namespace math
 
-}}
+}
 
 #endif // BOOST_MATH_MPLFR_BINDINGS_HPP
 

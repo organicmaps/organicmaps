@@ -13,6 +13,8 @@
 # pragma once
 #endif
 
+#include <string>
+#include <boost/config.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/type_traits/is_convertible.hpp>
@@ -54,6 +56,59 @@ struct is_random
     >
 {
 };
+
+//////////////////////////////////////////////////////////////////////////
+// is_string_iterator
+//
+template<typename Iter>
+struct is_string_iterator
+  : mpl::false_
+{
+};
+
+template<>
+struct is_string_iterator<std::string::iterator>
+  : mpl::true_
+{
+};
+
+template<>
+struct is_string_iterator<std::string::const_iterator>
+  : mpl::true_
+{
+};
+
+#ifndef BOOST_NO_STD_WSTRING
+template<>
+struct is_string_iterator<std::wstring::iterator>
+  : mpl::true_
+{
+};
+
+template<>
+struct is_string_iterator<std::wstring::const_iterator>
+  : mpl::true_
+{
+};
+#endif
+
+///////////////////////////////////////////////////////////////////////////////
+// is_char
+//
+template<typename T>
+struct is_char
+  : mpl::false_
+{};
+
+template<>
+struct is_char<char>
+  : mpl::true_
+{};
+
+template<>
+struct is_char<wchar_t>
+  : mpl::true_
+{};
 
 }}} // namespace boost::xpressive::detail
 

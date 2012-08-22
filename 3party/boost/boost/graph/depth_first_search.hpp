@@ -21,6 +21,8 @@
 #include <boost/graph/named_function_params.hpp>
 #include <boost/ref.hpp>
 #include <boost/implicit_cast.hpp>
+#include <boost/parameter.hpp>
+#include <boost/concept/assert.hpp>
 
 #include <vector>
 #include <utility>
@@ -31,7 +33,7 @@ namespace boost {
   class DFSVisitorConcept {
   public:
     void constraints() {
-      function_requires< CopyConstructibleConcept<Visitor> >();
+      BOOST_CONCEPT_ASSERT(( CopyConstructibleConcept<Visitor> ));
       vis.initialize_vertex(u, g);
       vis.start_vertex(u, g);
       vis.discover_vertex(u, g);
@@ -80,12 +82,12 @@ namespace boost {
        DFSVisitor& vis,
        ColorMap color, TerminatorFunc func = TerminatorFunc())
     {
-      function_requires<IncidenceGraphConcept<IncidenceGraph> >();
-      function_requires<DFSVisitorConcept<DFSVisitor, IncidenceGraph> >();
+      BOOST_CONCEPT_ASSERT(( IncidenceGraphConcept<IncidenceGraph> ));
+      BOOST_CONCEPT_ASSERT(( DFSVisitorConcept<DFSVisitor, IncidenceGraph> ));
       typedef typename graph_traits<IncidenceGraph>::vertex_descriptor Vertex;
-      function_requires< ReadWritePropertyMapConcept<ColorMap, Vertex> >();
+      BOOST_CONCEPT_ASSERT(( ReadWritePropertyMapConcept<ColorMap, Vertex> ));
       typedef typename property_traits<ColorMap>::value_type ColorValue;
-      function_requires< ColorValueConcept<ColorValue> >();
+      BOOST_CONCEPT_ASSERT(( ColorValueConcept<ColorValue> ));
       typedef color_traits<ColorValue> Color;
       typedef typename graph_traits<IncidenceGraph>::out_edge_iterator Iter;
       typedef std::pair<Vertex, std::pair<Iter, Iter> > VertexInfo;
@@ -151,12 +153,12 @@ namespace boost {
        DFSVisitor& vis,  // pass-by-reference here, important!
        ColorMap color, TerminatorFunc func)
     {
-      function_requires<IncidenceGraphConcept<IncidenceGraph> >();
-      function_requires<DFSVisitorConcept<DFSVisitor, IncidenceGraph> >();
+      BOOST_CONCEPT_ASSERT(( IncidenceGraphConcept<IncidenceGraph> ));
+      BOOST_CONCEPT_ASSERT(( DFSVisitorConcept<DFSVisitor, IncidenceGraph> ));
       typedef typename graph_traits<IncidenceGraph>::vertex_descriptor Vertex;
-      function_requires< ReadWritePropertyMapConcept<ColorMap, Vertex> >();
+      BOOST_CONCEPT_ASSERT(( ReadWritePropertyMapConcept<ColorMap, Vertex> ));
       typedef typename property_traits<ColorMap>::value_type ColorValue;
-      function_requires< ColorValueConcept<ColorValue> >();
+      BOOST_CONCEPT_ASSERT(( ColorValueConcept<ColorValue> ));
       typedef color_traits<ColorValue> Color;
       typename graph_traits<IncidenceGraph>::out_edge_iterator ei, ei_end;
 
@@ -187,7 +189,7 @@ namespace boost {
                      typename graph_traits<VertexListGraph>::vertex_descriptor start_vertex)
   {
     typedef typename graph_traits<VertexListGraph>::vertex_descriptor Vertex;
-    function_requires<DFSVisitorConcept<DFSVisitor, VertexListGraph> >();
+    BOOST_CONCEPT_ASSERT(( DFSVisitorConcept<DFSVisitor, VertexListGraph> ));
     typedef typename property_traits<ColorMap>::value_type ColorValue;
     typedef color_traits<ColorValue> Color;
 
@@ -197,7 +199,7 @@ namespace boost {
       put(color, u, Color::white()); vis.initialize_vertex(u, g);
     }
 
-    if (start_vertex != implicit_cast<Vertex>(*vertices(g).first)){ vis.start_vertex(start_vertex, g);
+    if (start_vertex != detail::get_default_starting_vertex(g)){ vis.start_vertex(start_vertex, g);
       detail::depth_first_visit_impl(g, start_vertex, vis, color,
                                      detail::nontruth2());
     }
@@ -220,7 +222,7 @@ namespace boost {
     if (verts.first == verts.second)
       return;
 
-    depth_first_search(g, vis, color, *verts.first);
+    depth_first_search(g, vis, color, detail::get_default_starting_vertex(g));
   }
 
   template <class Visitors = null_visitor>
@@ -281,26 +283,26 @@ namespace boost {
   }
   typedef dfs_visitor<> default_dfs_visitor;
 
-  // Named Parameter Variant
-  template <class VertexListGraph, class P, class T, class R>
-  void
-  depth_first_search(const VertexListGraph& g,
-                     const bgl_named_params<P, T, R>& params)
-  {
-    typedef typename boost::graph_traits<VertexListGraph>::vertex_iterator vi;
-    std::pair<vi, vi> verts = vertices(g);
-    if (verts.first == verts.second)
-      return;
-    using namespace boost::graph::keywords;
-    typedef bgl_named_params<P, T, R> params_type;
-    BOOST_GRAPH_DECLARE_CONVERTED_PARAMETERS(params_type, params)
-    depth_first_search
-      (g,
-       arg_pack[_visitor | make_dfs_visitor(null_visitor())],
-       boost::detail::make_color_map_from_arg_pack(g, arg_pack),
-       arg_pack[_root_vertex | *vertices(g).first]
-      );
+  // Boost.Parameter named parameter variant
+  namespace graph {
+    namespace detail {
+      template <typename Graph>
+      struct depth_first_search_impl {
+        typedef void result_type;
+        template <typename ArgPack>
+        void operator()(const Graph& g, const ArgPack& arg_pack) const {
+          using namespace boost::graph::keywords;
+          boost::depth_first_search(g,
+                                    arg_pack[_visitor | make_dfs_visitor(null_visitor())],
+                                    boost::detail::make_color_map_from_arg_pack(g, arg_pack),
+                                    arg_pack[_root_vertex || boost::detail::get_default_starting_vertex_t<Graph>(g)]);
+        }
+      };
+    }
+    BOOST_GRAPH_MAKE_FORWARDING_FUNCTION(depth_first_search, 1, 4)
   }
+
+  BOOST_GRAPH_MAKE_OLD_STYLE_PARAMETER_FUNCTION(depth_first_search, 1)
 
   template <class IncidenceGraph, class DFSVisitor, class ColorMap>
   void depth_first_visit

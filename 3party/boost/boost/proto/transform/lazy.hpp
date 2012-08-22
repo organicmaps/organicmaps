@@ -16,6 +16,7 @@
 #include <boost/proto/transform/make.hpp>
 #include <boost/proto/transform/call.hpp>
 #include <boost/proto/transform/impl.hpp>
+#include <boost/proto/transform/detail/pack.hpp>
 
 namespace boost { namespace proto
 {
@@ -37,6 +38,12 @@ namespace boost { namespace proto
             >::template impl<Expr, State, Data>
         {};
     };
+
+    /// INTERNAL ONLY
+    template<typename Fun>
+    struct lazy<detail::msvc_fun_workaround<Fun> >
+      : lazy<Fun>
+    {};
 
     #include <boost/proto/transform/detail/lazy.hpp>
 

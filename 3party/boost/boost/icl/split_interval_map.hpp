@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------------+
-Copyright (c) 2007-2009: Joachim Faulhaber
+Copyright (c) 2007-2012: Joachim Faulhaber
 Copyright (c) 1999-2006: Cortex Software GmbH, Kantstrasse 57, Berlin
 +------------------------------------------------------------------------------+
    Distributed under the Boost Software License, Version 1.0.
@@ -68,6 +68,7 @@ public:
     //==========================================================================
     /// Default constructor for the empty object
     split_interval_map(): base_type() {}
+
     /// Copy constructor
     split_interval_map(const split_interval_map& src): base_type(src) {}
 
@@ -77,7 +78,7 @@ public:
     explicit split_interval_map(const value_type& value_pair): base_type()
     { this->add(value_pair); }
 
-    /// Assignment operator
+    /// Copy assignment operator
     template<class SubType>
     split_interval_map& operator =
         (const interval_base_map<SubType,DomainT,CodomainT,
@@ -92,6 +93,26 @@ public:
         this->clear();
         this->_map.insert(src.begin(), src.end());
     }
+
+#   ifndef BOOST_NO_RVALUE_REFERENCES
+    //==========================================================================
+    //= Move semantics
+    //==========================================================================
+
+    /// Move constructor
+    split_interval_map(split_interval_map&& src)
+        : base_type(boost::move(src))
+    {}
+
+    /// Move assignment operator
+    split_interval_map& operator = (split_interval_map&& src)
+    { 
+        base_type::operator=(boost::move(src));
+        return *this;
+    }
+
+    //==========================================================================
+#   endif // BOOST_NO_RVALUE_REFERENCES
 
 private:
     // Private functions that shall be accessible by the baseclass:

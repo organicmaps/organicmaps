@@ -78,7 +78,7 @@
         }
 
         template <BOOST_PHOENIX_typename_A>
-        typename result_of::actor<proto_base_expr const, BOOST_PHOENIX_A_ref>::type
+        typename result_of::actor<proto_base_expr, BOOST_PHOENIX_A_ref>::type
         operator()(BOOST_PHOENIX_A_ref_a) const
         {
             typedef
@@ -106,7 +106,7 @@
         }
 
         template <BOOST_PHOENIX_typename_A>
-        typename result_of::actor<proto_base_expr const, BOOST_PHOENIX_A_const_ref>::type
+        typename result_of::actor<proto_base_expr, BOOST_PHOENIX_A_const_ref>::type
         operator()(BOOST_PHOENIX_A_const_ref_a) const
         {
             typedef

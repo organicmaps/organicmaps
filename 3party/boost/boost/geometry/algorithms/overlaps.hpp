@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -179,7 +179,9 @@ struct overlaps<box_tag, box_tag, Box1, Box2>
 \brief \brief_check2{overlap}
 \ingroup overlaps
 \return \return_check2{overlap}
- */
+
+\qbk{[include reference/algorithms/overlaps.qbk]}
+*/
 template <typename Geometry1, typename Geometry2>
 inline bool overlaps(Geometry1 const& geometry1, Geometry2 const& geometry2)
 {

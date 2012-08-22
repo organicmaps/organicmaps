@@ -1,4 +1,4 @@
-/* Copyright 2006-2010 Joaquin M Lopez Munoz.
+/* Copyright 2006-2011 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -29,7 +29,7 @@ namespace flyweights{
 
 template<typename C>
 struct intermodule_holder_class:
-  interprocess::detail::intermodule_singleton<C,true>,
+  interprocess::ipcdetail::intermodule_singleton<C,true>,
   holder_marker
 {
   typedef intermodule_holder_class type;

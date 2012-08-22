@@ -8,6 +8,66 @@
     
     
     
+    template<typename Fun , typename A0>
+    struct call<Fun(A0...)> : transform<call<Fun(A0...)> >
+    {
+        template<typename Expr, typename State, typename Data>
+        struct impl
+          : call<
+                typename detail::expand_pattern<
+                    proto::arity_of<Expr>::value 
+                  , A0
+                  , detail::expand_pattern_rest_0<
+                        Fun
+                        
+                    >
+                >::type
+            >::template impl<Expr, State, Data>
+        {};
+    };
+    
+    
+    
+    template<typename Fun , typename A0 , typename A1>
+    struct call<Fun(A0 , A1...)> : transform<call<Fun(A0 , A1...)> >
+    {
+        template<typename Expr, typename State, typename Data>
+        struct impl
+          : call<
+                typename detail::expand_pattern<
+                    proto::arity_of<Expr>::value 
+                  , A1
+                  , detail::expand_pattern_rest_1<
+                        Fun
+                        , A0
+                    >
+                >::type
+            >::template impl<Expr, State, Data>
+        {};
+    };
+    
+    
+    
+    template<typename Fun , typename A0 , typename A1 , typename A2>
+    struct call<Fun(A0 , A1 , A2...)> : transform<call<Fun(A0 , A1 , A2...)> >
+    {
+        template<typename Expr, typename State, typename Data>
+        struct impl
+          : call<
+                typename detail::expand_pattern<
+                    proto::arity_of<Expr>::value 
+                  , A2
+                  , detail::expand_pattern_rest_2<
+                        Fun
+                        , A0 , A1
+                    >
+                >::type
+            >::template impl<Expr, State, Data>
+        {};
+    };
+    
+    
+    
     template<typename Fun , typename A0 , typename A1 , typename A2 , typename A3>
     struct call<Fun(A0 , A1 , A2 , A3)> : transform<call<Fun(A0 , A1 , A2 , A3)> >
     {
@@ -24,6 +84,7 @@
             
             
             
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -34,6 +95,26 @@
                 return function_type()(detail::as_lvalue(a0()(e, s, d)) , detail::as_lvalue(a1()(e, s, d)) , detail::as_lvalue(a2()(e, s, d)) , detail::as_lvalue(a3()(e, s, d)));
             }
         };
+    };
+    
+    
+    
+    template<typename Fun , typename A0 , typename A1 , typename A2 , typename A3>
+    struct call<Fun(A0 , A1 , A2 , A3...)> : transform<call<Fun(A0 , A1 , A2 , A3...)> >
+    {
+        template<typename Expr, typename State, typename Data>
+        struct impl
+          : call<
+                typename detail::expand_pattern<
+                    proto::arity_of<Expr>::value 
+                  , A3
+                  , detail::expand_pattern_rest_3<
+                        Fun
+                        , A0 , A1 , A2
+                    >
+                >::type
+            >::template impl<Expr, State, Data>
+        {};
     };
     
     
@@ -54,6 +135,7 @@
             
             
             
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -64,6 +146,26 @@
                 return function_type()(detail::as_lvalue(a0()(e, s, d)) , detail::as_lvalue(a1()(e, s, d)) , detail::as_lvalue(a2()(e, s, d)) , detail::as_lvalue(a3()(e, s, d)) , detail::as_lvalue(a4()(e, s, d)));
             }
         };
+    };
+    
+    
+    
+    template<typename Fun , typename A0 , typename A1 , typename A2 , typename A3 , typename A4>
+    struct call<Fun(A0 , A1 , A2 , A3 , A4...)> : transform<call<Fun(A0 , A1 , A2 , A3 , A4...)> >
+    {
+        template<typename Expr, typename State, typename Data>
+        struct impl
+          : call<
+                typename detail::expand_pattern<
+                    proto::arity_of<Expr>::value 
+                  , A4
+                  , detail::expand_pattern_rest_4<
+                        Fun
+                        , A0 , A1 , A2 , A3
+                    >
+                >::type
+            >::template impl<Expr, State, Data>
+        {};
     };
     
     
@@ -84,6 +186,7 @@
             
             
             
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -94,6 +197,26 @@
                 return function_type()(detail::as_lvalue(a0()(e, s, d)) , detail::as_lvalue(a1()(e, s, d)) , detail::as_lvalue(a2()(e, s, d)) , detail::as_lvalue(a3()(e, s, d)) , detail::as_lvalue(a4()(e, s, d)) , detail::as_lvalue(a5()(e, s, d)));
             }
         };
+    };
+    
+    
+    
+    template<typename Fun , typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5>
+    struct call<Fun(A0 , A1 , A2 , A3 , A4 , A5...)> : transform<call<Fun(A0 , A1 , A2 , A3 , A4 , A5...)> >
+    {
+        template<typename Expr, typename State, typename Data>
+        struct impl
+          : call<
+                typename detail::expand_pattern<
+                    proto::arity_of<Expr>::value 
+                  , A5
+                  , detail::expand_pattern_rest_5<
+                        Fun
+                        , A0 , A1 , A2 , A3 , A4
+                    >
+                >::type
+            >::template impl<Expr, State, Data>
+        {};
     };
     
     
@@ -114,6 +237,7 @@
             
             
             
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -124,6 +248,26 @@
                 return function_type()(detail::as_lvalue(a0()(e, s, d)) , detail::as_lvalue(a1()(e, s, d)) , detail::as_lvalue(a2()(e, s, d)) , detail::as_lvalue(a3()(e, s, d)) , detail::as_lvalue(a4()(e, s, d)) , detail::as_lvalue(a5()(e, s, d)) , detail::as_lvalue(a6()(e, s, d)));
             }
         };
+    };
+    
+    
+    
+    template<typename Fun , typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6>
+    struct call<Fun(A0 , A1 , A2 , A3 , A4 , A5 , A6...)> : transform<call<Fun(A0 , A1 , A2 , A3 , A4 , A5 , A6...)> >
+    {
+        template<typename Expr, typename State, typename Data>
+        struct impl
+          : call<
+                typename detail::expand_pattern<
+                    proto::arity_of<Expr>::value 
+                  , A6
+                  , detail::expand_pattern_rest_6<
+                        Fun
+                        , A0 , A1 , A2 , A3 , A4 , A5
+                    >
+                >::type
+            >::template impl<Expr, State, Data>
+        {};
     };
     
     
@@ -144,6 +288,7 @@
             
             
             
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -154,6 +299,26 @@
                 return function_type()(detail::as_lvalue(a0()(e, s, d)) , detail::as_lvalue(a1()(e, s, d)) , detail::as_lvalue(a2()(e, s, d)) , detail::as_lvalue(a3()(e, s, d)) , detail::as_lvalue(a4()(e, s, d)) , detail::as_lvalue(a5()(e, s, d)) , detail::as_lvalue(a6()(e, s, d)) , detail::as_lvalue(a7()(e, s, d)));
             }
         };
+    };
+    
+    
+    
+    template<typename Fun , typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7>
+    struct call<Fun(A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7...)> : transform<call<Fun(A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7...)> >
+    {
+        template<typename Expr, typename State, typename Data>
+        struct impl
+          : call<
+                typename detail::expand_pattern<
+                    proto::arity_of<Expr>::value 
+                  , A7
+                  , detail::expand_pattern_rest_7<
+                        Fun
+                        , A0 , A1 , A2 , A3 , A4 , A5 , A6
+                    >
+                >::type
+            >::template impl<Expr, State, Data>
+        {};
     };
     
     
@@ -174,6 +339,7 @@
             
             
             
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -184,6 +350,26 @@
                 return function_type()(detail::as_lvalue(a0()(e, s, d)) , detail::as_lvalue(a1()(e, s, d)) , detail::as_lvalue(a2()(e, s, d)) , detail::as_lvalue(a3()(e, s, d)) , detail::as_lvalue(a4()(e, s, d)) , detail::as_lvalue(a5()(e, s, d)) , detail::as_lvalue(a6()(e, s, d)) , detail::as_lvalue(a7()(e, s, d)) , detail::as_lvalue(a8()(e, s, d)));
             }
         };
+    };
+    
+    
+    
+    template<typename Fun , typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8>
+    struct call<Fun(A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8...)> : transform<call<Fun(A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8...)> >
+    {
+        template<typename Expr, typename State, typename Data>
+        struct impl
+          : call<
+                typename detail::expand_pattern<
+                    proto::arity_of<Expr>::value 
+                  , A8
+                  , detail::expand_pattern_rest_8<
+                        Fun
+                        , A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7
+                    >
+                >::type
+            >::template impl<Expr, State, Data>
+        {};
     };
     
     
@@ -204,6 +390,7 @@
             
             
             
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -214,4 +401,24 @@
                 return function_type()(detail::as_lvalue(a0()(e, s, d)) , detail::as_lvalue(a1()(e, s, d)) , detail::as_lvalue(a2()(e, s, d)) , detail::as_lvalue(a3()(e, s, d)) , detail::as_lvalue(a4()(e, s, d)) , detail::as_lvalue(a5()(e, s, d)) , detail::as_lvalue(a6()(e, s, d)) , detail::as_lvalue(a7()(e, s, d)) , detail::as_lvalue(a8()(e, s, d)) , detail::as_lvalue(a9()(e, s, d)));
             }
         };
+    };
+    
+    
+    
+    template<typename Fun , typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8 , typename A9>
+    struct call<Fun(A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9...)> : transform<call<Fun(A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9...)> >
+    {
+        template<typename Expr, typename State, typename Data>
+        struct impl
+          : call<
+                typename detail::expand_pattern<
+                    proto::arity_of<Expr>::value 
+                  , A9
+                  , detail::expand_pattern_rest_9<
+                        Fun
+                        , A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8
+                    >
+                >::type
+            >::template impl<Expr, State, Data>
+        {};
     };

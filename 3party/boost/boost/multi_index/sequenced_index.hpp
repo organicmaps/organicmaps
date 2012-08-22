@@ -1,4 +1,4 @@
-/* Copyright 2003-2008 Joaquin M Lopez Munoz.
+/* Copyright 2003-2011 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -18,6 +18,7 @@
 #include <boost/detail/allocator_utilities.hpp>
 #include <boost/detail/no_exceptions_support.hpp>
 #include <boost/detail/workaround.hpp>
+#include <boost/foreach_fwd.hpp>
 #include <boost/iterator/reverse_iterator.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/not.hpp>
@@ -916,6 +917,16 @@ struct sequenced
 } /* namespace multi_index */
 
 } /* namespace boost */
+
+/* Boost.Foreach compatibility */
+
+template<typename SuperMeta,typename TagList>
+inline boost::mpl::true_* boost_foreach_is_noncopyable(
+  boost::multi_index::detail::sequenced_index<SuperMeta,TagList>*&,
+  boost::foreach::tag)
+{
+  return 0;
+}
 
 #undef BOOST_MULTI_INDEX_SEQ_INDEX_CHECK_INVARIANT
 

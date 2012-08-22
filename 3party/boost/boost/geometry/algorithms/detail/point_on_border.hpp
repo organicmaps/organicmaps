@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -25,6 +25,7 @@
 #include <boost/geometry/geometries/concepts/check.hpp>
 
 #include <boost/geometry/algorithms/assign.hpp>
+#include <boost/geometry/algorithms/detail/convert_point_to_point.hpp>
 #include <boost/geometry/algorithms/detail/disjoint.hpp>
 
 
@@ -50,7 +51,8 @@ struct get_point
 template<typename Point, std::size_t Dimension, std::size_t DimensionCount>
 struct midpoint_helper
 {
-    static inline bool apply(Point& p, Point const& p1, Point const& p2)
+    template <typename InputPoint>
+    static inline bool apply(Point& p, InputPoint const& p1, InputPoint const& p2)
     {
         typename coordinate_type<Point>::type const two = 2;
         set<Dimension>(p,
@@ -63,7 +65,8 @@ struct midpoint_helper
 template <typename Point, std::size_t DimensionCount>
 struct midpoint_helper<Point, DimensionCount, DimensionCount>
 {
-    static inline bool apply(Point& , Point const& , Point const& )
+    template <typename InputPoint>
+    static inline bool apply(Point& , InputPoint const& , InputPoint const& )
     {
         return true;
     }
@@ -102,7 +105,7 @@ struct point_on_range
 
         if (n > 0)
         {
-            point = *boost::begin(range);
+            geometry::detail::conversion::convert_point_to_point(*boost::begin(range), point);
             return true;
         }
         return false;

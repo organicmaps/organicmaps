@@ -28,6 +28,7 @@
 #include <boost/graph/named_function_params.hpp>
 #include <boost/pending/disjoint_sets.hpp>
 #include <boost/pending/indirect_cmp.hpp>
+#include <boost/concept/assert.hpp>
 
 
 namespace boost {
@@ -51,18 +52,18 @@ namespace boost {
       if (num_vertices(G) == 0) return; // Nothing to do in this case
       typedef typename graph_traits<Graph>::vertex_descriptor Vertex;
       typedef typename graph_traits<Graph>::edge_descriptor Edge;
-      function_requires<VertexListGraphConcept<Graph> >();
-      function_requires<EdgeListGraphConcept<Graph> >();
-      function_requires<OutputIteratorConcept<OutputIterator, Edge> >();
-      function_requires<ReadWritePropertyMapConcept<Rank, Vertex> >();
-      function_requires<ReadWritePropertyMapConcept<Parent, Vertex> >();
-      function_requires<ReadablePropertyMapConcept<Weight, Edge> >();
+      BOOST_CONCEPT_ASSERT(( VertexListGraphConcept<Graph> ));
+      BOOST_CONCEPT_ASSERT(( EdgeListGraphConcept<Graph> ));
+      BOOST_CONCEPT_ASSERT(( OutputIteratorConcept<OutputIterator, Edge> ));
+      BOOST_CONCEPT_ASSERT(( ReadWritePropertyMapConcept<Rank, Vertex> ));
+      BOOST_CONCEPT_ASSERT(( ReadWritePropertyMapConcept<Parent, Vertex> ));
+      BOOST_CONCEPT_ASSERT(( ReadablePropertyMapConcept<Weight, Edge> ));
       typedef typename property_traits<Weight>::value_type W_value;
       typedef typename property_traits<Rank>::value_type R_value;
       typedef typename property_traits<Parent>::value_type P_value;
-      function_requires<ComparableConcept<W_value> >();
-      function_requires<ConvertibleConcept<P_value, Vertex> >();
-      function_requires<IntegerConcept<R_value> >();
+      BOOST_CONCEPT_ASSERT(( ComparableConcept<W_value> ));
+      BOOST_CONCEPT_ASSERT(( ConvertibleConcept<P_value, Vertex> ));
+      BOOST_CONCEPT_ASSERT(( IntegerConcept<R_value> ));
 
       disjoint_sets<Rank, Parent>  dset(rank, parent);
 

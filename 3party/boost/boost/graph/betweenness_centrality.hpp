@@ -498,14 +498,14 @@ namespace detail { namespace graph {
   };
 
   template<>
-  struct brandes_betweenness_centrality_dispatch1<error_property_not_found>
+  struct brandes_betweenness_centrality_dispatch1<param_not_found>
   {
     template<typename Graph, typename CentralityMap, 
              typename EdgeCentralityMap, typename VertexIndexMap>
     static void 
     run(const Graph& g, CentralityMap centrality, 
         EdgeCentralityMap edge_centrality_map, VertexIndexMap vertex_index,
-        error_property_not_found)
+        param_not_found)
     {
       brandes_betweenness_centrality_dispatch2(g, centrality, edge_centrality_map,
                                                vertex_index);
@@ -532,7 +532,7 @@ brandes_betweenness_centrality(const Graph& g,
 {
   typedef bgl_named_params<Param,Tag,Rest> named_params;
 
-  typedef typename property_value<named_params, edge_weight_t>::type ew;
+  typedef typename get_param_type<edge_weight_t, named_params>::type ew;
   detail::graph::brandes_betweenness_centrality_dispatch1<ew>::run(
     g, 
     choose_param(get_param(params, vertex_centrality), 

@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -216,14 +216,7 @@ struct envelope
 \param geometry \param_geometry
 \param mbr \param_box \param_set{envelope}
 
-\par Example:
-Example showing envelope calculation, using point_ll latlong points
-\dontinclude doxygen_1.cpp
-\skip example_envelope_polygon
-\line {
-\until }
-
-
+\qbk{[include reference/algorithms/envelope.qbk]}
 \qbk{
 [heading Example]
 [envelope] [envelope_output]
@@ -253,6 +246,7 @@ inline void envelope(Geometry const& geometry, Box& mbr)
 \param geometry \param_geometry
 \return \return_calc{envelope}
 
+\qbk{[include reference/algorithms/envelope.qbk]}
 \qbk{
 [heading Example]
 [return_envelope] [return_envelope_output]

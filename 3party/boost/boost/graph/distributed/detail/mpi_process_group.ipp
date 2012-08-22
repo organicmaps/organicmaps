@@ -725,7 +725,7 @@ receive(const mpi_process_group& pg,
             process_id(pg), source, tag, pg.my_block_number());
 
     BOOST_ASSERT(false);
-    exit(1);
+    abort();
   }
 }
 
@@ -746,7 +746,7 @@ receive(const mpi_process_group& pg, int source, int tag, T values[],
             process_id(pg), source, tag, pg.my_block_number());
 
     BOOST_ASSERT(false);
-    exit(1);
+    abort();
   }
 }
 

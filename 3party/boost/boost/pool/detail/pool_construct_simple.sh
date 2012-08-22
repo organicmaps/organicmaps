@@ -8,4 +8,5 @@
 # See http://www.boost.org for updates, documentation, and revision history.
 #
 
-m4 -P -E -DNumberOfArguments=$1 pool_construct_simple.m4 > pool_construct_simple.inc
+m4 -P -E -DNumberOfArguments=$1 pool_construct_simple.m4 > pool_construct_simple.ipp
+

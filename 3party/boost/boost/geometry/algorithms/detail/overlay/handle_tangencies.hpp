@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -93,6 +93,7 @@ private :
     }
 
 
+#ifdef BOOST_GEOMETRY_DEBUG_ENRICH
     inline void debug_consider(int order, Indexed const& left,
             Indexed const& right, std::string const& header,
             bool skip = true,
@@ -101,8 +102,6 @@ private :
     {
         if (skip) return;
 
-
-#ifdef BOOST_GEOMETRY_DEBUG_ENRICH
         point_type pi, pj, ri, rj, si, sj;
         geometry::copy_segment_points<Reverse1, Reverse2>(m_geometry1, m_geometry2,
             left.subject.seg_id,
@@ -151,14 +150,21 @@ private :
             std::cout << " " << extra << " " << (ret ? "true" : "false");
         }
         std::cout << std::endl;
-#endif
     }
+#else
+    inline void debug_consider(int, Indexed const& ,
+            Indexed const& , std::string const& ,
+            bool = true,
+            std::string const& = "", bool = false
+        ) const
+    {}
+#endif
 
 
     // ux/ux
     inline bool consider_ux_ux(Indexed const& left,
             Indexed const& right
-            , std::string const& header
+            , std::string const& // header
         ) const
     {
         bool ret = left.index < right.index;
@@ -190,7 +196,7 @@ private :
     inline bool consider_iu_ux(Indexed const& left,
             Indexed const& right,
             int order // 1: iu first, -1: ux first
-            , std::string const& header
+            , std::string const& // header
         ) const
     {
         bool ret = false;
@@ -234,7 +240,7 @@ private :
     inline bool consider_iu_ix(Indexed const& left,
             Indexed const& right,
             int order // 1: iu first, -1: ix first
-            , std::string const& header
+            , std::string const& // header
         ) const
     {
         //debug_consider(order, left, right, header, false, "iu/ix");
@@ -507,9 +513,9 @@ template
 >
 inline void inspect_cluster(Iterator begin_cluster, Iterator end_cluster,
             TurnPoints& turn_points,
-            operation_type for_operation,
-            Geometry1 const& geometry1, Geometry2 const& geometry2,
-            Strategy const& strategy)
+            operation_type ,
+            Geometry1 const& , Geometry2 const& ,
+            Strategy const& )
 {
     int count = 0;
 

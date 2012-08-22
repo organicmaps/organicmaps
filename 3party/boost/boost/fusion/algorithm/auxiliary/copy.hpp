@@ -11,8 +11,11 @@
 #include <boost/fusion/sequence/intrinsic/end.hpp>
 #include <boost/fusion/sequence/intrinsic/size.hpp>
 #include <boost/fusion/sequence/comparison/detail/equal_to.hpp>
+#include <boost/fusion/support/is_sequence.hpp>
 #include <boost/config.hpp>
 #include <boost/static_assert.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/ice.hpp>
 
 #if defined (BOOST_MSVC)
 #  pragma warning(push)
@@ -54,7 +57,15 @@ namespace boost { namespace fusion
     }
 
     template <typename Seq1, typename Seq2>
-    inline void
+    inline
+    typename
+        enable_if_c<
+            type_traits::ice_and<
+                traits::is_sequence<Seq1>::value
+              , traits::is_sequence<Seq2>::value
+            >::value,
+            void
+        >::type
     copy(Seq1 const& src, Seq2& dest)
     {
         BOOST_STATIC_ASSERT(

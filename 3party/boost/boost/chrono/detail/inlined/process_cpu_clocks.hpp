@@ -13,6 +13,8 @@
 
 
 #include <boost/chrono/config.hpp>
+#if defined(BOOST_CHRONO_HAS_PROCESS_CLOCKS)
+
 #include <boost/version.hpp>
 #include <boost/chrono/process_cpu_clocks.hpp>
 #include <boost/throw_exception.hpp>
@@ -37,44 +39,7 @@
 #include <boost/chrono/detail/inlined/posix/process_cpu_clocks.hpp>
 
 #endif  // POSIX
-#if 0
-namespace boost { namespace chrono {
 
-    process_real_cpu_clock::time_point process_real_cpu_clock::now(
-            system::error_code & ec) 
-    {
-        process_times t;
-        process_clock::now(t, ec);
-        return process_real_cpu_clock::time_point(t.real);
-    }
-
-    process_user_cpu_clock::time_point process_user_cpu_clock::now(
-            system::error_code & ec)
-    {
-        process_times t;
-        process_clock::now(t, ec);
-        return process_user_cpu_clock::time_point(t.user);
-    }
-
-    process_system_cpu_clock::time_point process_system_cpu_clock::now(
-            system::error_code & ec) 
-    {
-        process_times t;
-        process_clock::now(t, ec);
-        return process_system_cpu_clock::time_point(t.system);
-    }
-
-    process_cpu_clock::time_point process_cpu_clock::now( 
-            system::error_code & ec ) 
-    {
-        process_times t;
-        process_clock::now(t,ec);
-        time_point::rep r(t.real.count(), t.user.count(), t.system.count());
-        return time_point(duration(r));
-    }
-
-} // namespace chrono
-} // namespace boost
 #endif
 
 #endif

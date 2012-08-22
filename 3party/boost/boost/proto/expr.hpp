@@ -31,6 +31,7 @@
 # pragma warning(disable : 4510) // default constructor could not be generated
 # pragma warning(disable : 4512) // assignment operator could not be generated
 # pragma warning(disable : 4610) // user defined constructor required
+# pragma warning(disable : 4714) // function 'xxx' marked as __forceinline not inlined
 #endif
 
 namespace boost { namespace proto
@@ -58,6 +59,7 @@ namespace boost { namespace proto
         };
 
         template<typename T, typename Expr, typename Arg0>
+        BOOST_FORCEINLINE
         Expr make_terminal(T &t, Expr *, proto::term<Arg0> *)
         {
             Expr that = {t};
@@ -65,6 +67,7 @@ namespace boost { namespace proto
         }
 
         template<typename T, typename Expr, typename Arg0, std::size_t N>
+        BOOST_FORCEINLINE
         Expr make_terminal(T (&t)[N], Expr *, proto::term<Arg0[N]> *)
         {
             Expr that;
@@ -76,6 +79,7 @@ namespace boost { namespace proto
         }
 
         template<typename T, typename Expr, typename Arg0, std::size_t N>
+        BOOST_FORCEINLINE
         Expr make_terminal(T const(&t)[N], Expr *, proto::term<Arg0[N]> *)
         {
             Expr that;
@@ -129,6 +133,7 @@ namespace boost { namespace proto
     {
         BOOST_PROTO_UNEXPR()
 
+        BOOST_FORCEINLINE
         explicit unexpr(Expr const &e)
           : Expr(e)
         {}

@@ -81,6 +81,18 @@ namespace boost { namespace program_options { namespace detail {
         cmdline(int argc, const char*const * argv);
 
         void style(int style);
+
+        /** returns the canonical option prefix associated with the command_line_style
+         *  In order of precedence:
+         *      allow_long           : allow_long
+         *      allow_long_disguise  : allow_long_disguise
+         *      allow_dash_for_short : allow_short | allow_dash_for_short
+         *      allow_slash_for_short: allow_short | allow_slash_for_short
+         *  
+         *      This is mainly used for the diagnostic messages in exceptions
+        */ 
+        int         get_canonical_option_prefix();
+
         void allow_unregistered();
 
         void set_options_description(const options_description& desc);

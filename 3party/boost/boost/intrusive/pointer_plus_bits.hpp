@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2007-2009
+// (C) Copyright Ion Gaztanaga  2007-2012
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -63,7 +63,7 @@ struct pointer_plus_bits<T*, NumBits>
    static void set_pointer(pointer &n, pointer p)
    {
       BOOST_INTRUSIVE_INVARIANT_ASSERT(0 == (std::size_t(p) & Mask));
-      n = pointer(std::size_t(p) | (std::size_t(n) & Mask)); 
+      n = pointer(std::size_t(p) | (std::size_t(n) & Mask));
    }
 
    static std::size_t get_bits(pointer n)
@@ -76,7 +76,7 @@ struct pointer_plus_bits<T*, NumBits>
    }
 };
 
-} //namespace intrusive 
-} //namespace boost 
+} //namespace intrusive
+} //namespace boost
 
 #endif //BOOST_INTRUSIVE_POINTER_PLUS_BITS_HPP

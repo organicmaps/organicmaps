@@ -52,7 +52,7 @@ namespace impl
         template<typename Args>
         void 
 #if BOOST_ACCUMULATORS_GCC_VERSION > 40305
-        __attribute__((optimize("no-associative-math")))
+        __attribute__((__optimize__("no-associative-math")))
 #endif
         operator ()(Args const &args)
         {

@@ -19,6 +19,7 @@
 #include <boost/graph/topological_sort.hpp>
 #include <boost/graph/graph_concepts.hpp>
 #include <boost/graph/named_function_params.hpp>
+#include <boost/concept/assert.hpp>
 
 namespace boost
 {
@@ -76,12 +77,12 @@ namespace boost
     typedef typename graph_traits <
       Graph >::adjacency_iterator adjacency_iterator;
 
-    function_requires < VertexListGraphConcept < Graph > >();
-    function_requires < AdjacencyGraphConcept < Graph > >();
-    function_requires < VertexMutableGraphConcept < GraphTC > >();
-    function_requires < EdgeMutableGraphConcept < GraphTC > >();
-    function_requires < ReadablePropertyMapConcept < VertexIndexMap,
-      vertex > >();
+    BOOST_CONCEPT_ASSERT(( VertexListGraphConcept < Graph > ));
+    BOOST_CONCEPT_ASSERT(( AdjacencyGraphConcept < Graph > ));
+    BOOST_CONCEPT_ASSERT(( VertexMutableGraphConcept < GraphTC > ));
+    BOOST_CONCEPT_ASSERT(( EdgeMutableGraphConcept < GraphTC > ));
+    BOOST_CONCEPT_ASSERT(( ReadablePropertyMapConcept < VertexIndexMap,
+      vertex > ));
 
     typedef size_type cg_vertex;
     std::vector < cg_vertex > component_number_vec(num_vertices(g));
@@ -302,8 +303,8 @@ namespace boost
     typedef typename graph_traits < G >::vertex_descriptor vertex;
     typedef typename graph_traits < G >::vertex_iterator vertex_iterator;
 
-    function_requires < AdjacencyMatrixConcept < G > >();
-    function_requires < EdgeMutableGraphConcept < G > >();
+    BOOST_CONCEPT_ASSERT(( AdjacencyMatrixConcept < G > ));
+    BOOST_CONCEPT_ASSERT(( EdgeMutableGraphConcept < G > ));
 
     // Matrix form:
     // for k
@@ -328,8 +329,8 @@ namespace boost
     typedef typename graph_traits < G >::vertex_descriptor vertex;
     typedef typename graph_traits < G >::vertex_iterator vertex_iterator;
 
-    function_requires < AdjacencyMatrixConcept < G > >();
-    function_requires < EdgeMutableGraphConcept < G > >();
+    BOOST_CONCEPT_ASSERT(( AdjacencyMatrixConcept < G > ));
+    BOOST_CONCEPT_ASSERT(( EdgeMutableGraphConcept < G > ));
 
     // Make sure second loop will work
     if (num_vertices(g) == 0)

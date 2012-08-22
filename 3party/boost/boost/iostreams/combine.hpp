@@ -37,7 +37,7 @@ namespace detail {
 //
 // Template name: combined_device.
 // Description: Model of Device defined in terms of a Source/Sink pair.
-// Template paramters:
+// Template parameters:
 //      Source - A model of Source, with the same char_type and traits_type
 //          as Sink.
 //      Sink - A model of Sink, with the same char_type and traits_type
@@ -77,7 +77,7 @@ private:
 //
 // Template name: combined_filter.
 // Description: Model of Device defined in terms of a Source/Sink pair.
-// Template paramters:
+// Template parameters:
 //      InputFilter - A model of InputFilter, with the same char_type as 
 //          OutputFilter.
 //      OutputFilter - A model of OutputFilter, with the same char_type as 
@@ -179,9 +179,9 @@ struct combine_traits {
 //
 // Template name: combine.
 // Description: Takes a Source/Sink pair or InputFilter/OutputFilter pair and
-//      returns a Reource or Filter which performs input using the first member
+//      returns a Source or Filter which performs input using the first member
 //      of the pair and output using the second member of the pair.
-// Template paramters:
+// Template parameters:
 //      In - A model of Source or InputFilter, with the same char_type as Out.
 //      Out - A model of Sink or OutputFilter, with the same char_type as In.
 //

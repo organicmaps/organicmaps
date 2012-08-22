@@ -58,7 +58,7 @@
             return phoenix::eval(*this, phoenix::context(env, default_actions()));
         }
         template <typename A0 , typename A1 , typename A2>
-        typename result_of::actor<proto_base_expr const, A0 & , A1 & , A2 &>::type
+        typename result_of::actor<proto_base_expr, A0 & , A1 & , A2 &>::type
         operator()(A0 & a0 , A1 & a1 , A2 & a2) const
         {
             typedef
@@ -84,7 +84,7 @@
             return phoenix::eval(*this, phoenix::context(env, default_actions()));
         }
         template <typename A0 , typename A1 , typename A2>
-        typename result_of::actor<proto_base_expr const, A0 const& , A1 const& , A2 const&>::type
+        typename result_of::actor<proto_base_expr, A0 const& , A1 const& , A2 const&>::type
         operator()(A0 const& a0 , A1 const& a1 , A2 const& a2) const
         {
             typedef
@@ -125,7 +125,7 @@
             return phoenix::eval(*this, phoenix::context(env, default_actions()));
         }
         template <typename A0 , typename A1 , typename A2 , typename A3>
-        typename result_of::actor<proto_base_expr const, A0 & , A1 & , A2 & , A3 &>::type
+        typename result_of::actor<proto_base_expr, A0 & , A1 & , A2 & , A3 &>::type
         operator()(A0 & a0 , A1 & a1 , A2 & a2 , A3 & a3) const
         {
             typedef
@@ -151,7 +151,7 @@
             return phoenix::eval(*this, phoenix::context(env, default_actions()));
         }
         template <typename A0 , typename A1 , typename A2 , typename A3>
-        typename result_of::actor<proto_base_expr const, A0 const& , A1 const& , A2 const& , A3 const&>::type
+        typename result_of::actor<proto_base_expr, A0 const& , A1 const& , A2 const& , A3 const&>::type
         operator()(A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3) const
         {
             typedef
@@ -192,7 +192,7 @@
             return phoenix::eval(*this, phoenix::context(env, default_actions()));
         }
         template <typename A0 , typename A1 , typename A2 , typename A3 , typename A4>
-        typename result_of::actor<proto_base_expr const, A0 & , A1 & , A2 & , A3 & , A4 &>::type
+        typename result_of::actor<proto_base_expr, A0 & , A1 & , A2 & , A3 & , A4 &>::type
         operator()(A0 & a0 , A1 & a1 , A2 & a2 , A3 & a3 , A4 & a4) const
         {
             typedef
@@ -218,7 +218,7 @@
             return phoenix::eval(*this, phoenix::context(env, default_actions()));
         }
         template <typename A0 , typename A1 , typename A2 , typename A3 , typename A4>
-        typename result_of::actor<proto_base_expr const, A0 const& , A1 const& , A2 const& , A3 const& , A4 const&>::type
+        typename result_of::actor<proto_base_expr, A0 const& , A1 const& , A2 const& , A3 const& , A4 const&>::type
         operator()(A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4) const
         {
             typedef
@@ -259,7 +259,7 @@
             return phoenix::eval(*this, phoenix::context(env, default_actions()));
         }
         template <typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5>
-        typename result_of::actor<proto_base_expr const, A0 & , A1 & , A2 & , A3 & , A4 & , A5 &>::type
+        typename result_of::actor<proto_base_expr, A0 & , A1 & , A2 & , A3 & , A4 & , A5 &>::type
         operator()(A0 & a0 , A1 & a1 , A2 & a2 , A3 & a3 , A4 & a4 , A5 & a5) const
         {
             typedef
@@ -285,7 +285,7 @@
             return phoenix::eval(*this, phoenix::context(env, default_actions()));
         }
         template <typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5>
-        typename result_of::actor<proto_base_expr const, A0 const& , A1 const& , A2 const& , A3 const& , A4 const& , A5 const&>::type
+        typename result_of::actor<proto_base_expr, A0 const& , A1 const& , A2 const& , A3 const& , A4 const& , A5 const&>::type
         operator()(A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5) const
         {
             typedef
@@ -326,7 +326,7 @@
             return phoenix::eval(*this, phoenix::context(env, default_actions()));
         }
         template <typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6>
-        typename result_of::actor<proto_base_expr const, A0 & , A1 & , A2 & , A3 & , A4 & , A5 & , A6 &>::type
+        typename result_of::actor<proto_base_expr, A0 & , A1 & , A2 & , A3 & , A4 & , A5 & , A6 &>::type
         operator()(A0 & a0 , A1 & a1 , A2 & a2 , A3 & a3 , A4 & a4 , A5 & a5 , A6 & a6) const
         {
             typedef
@@ -352,7 +352,7 @@
             return phoenix::eval(*this, phoenix::context(env, default_actions()));
         }
         template <typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6>
-        typename result_of::actor<proto_base_expr const, A0 const& , A1 const& , A2 const& , A3 const& , A4 const& , A5 const& , A6 const&>::type
+        typename result_of::actor<proto_base_expr, A0 const& , A1 const& , A2 const& , A3 const& , A4 const& , A5 const& , A6 const&>::type
         operator()(A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6) const
         {
             typedef
@@ -393,7 +393,7 @@
             return phoenix::eval(*this, phoenix::context(env, default_actions()));
         }
         template <typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7>
-        typename result_of::actor<proto_base_expr const, A0 & , A1 & , A2 & , A3 & , A4 & , A5 & , A6 & , A7 &>::type
+        typename result_of::actor<proto_base_expr, A0 & , A1 & , A2 & , A3 & , A4 & , A5 & , A6 & , A7 &>::type
         operator()(A0 & a0 , A1 & a1 , A2 & a2 , A3 & a3 , A4 & a4 , A5 & a5 , A6 & a6 , A7 & a7) const
         {
             typedef
@@ -419,7 +419,7 @@
             return phoenix::eval(*this, phoenix::context(env, default_actions()));
         }
         template <typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7>
-        typename result_of::actor<proto_base_expr const, A0 const& , A1 const& , A2 const& , A3 const& , A4 const& , A5 const& , A6 const& , A7 const&>::type
+        typename result_of::actor<proto_base_expr, A0 const& , A1 const& , A2 const& , A3 const& , A4 const& , A5 const& , A6 const& , A7 const&>::type
         operator()(A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7) const
         {
             typedef
@@ -460,7 +460,7 @@
             return phoenix::eval(*this, phoenix::context(env, default_actions()));
         }
         template <typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8>
-        typename result_of::actor<proto_base_expr const, A0 & , A1 & , A2 & , A3 & , A4 & , A5 & , A6 & , A7 & , A8 &>::type
+        typename result_of::actor<proto_base_expr, A0 & , A1 & , A2 & , A3 & , A4 & , A5 & , A6 & , A7 & , A8 &>::type
         operator()(A0 & a0 , A1 & a1 , A2 & a2 , A3 & a3 , A4 & a4 , A5 & a5 , A6 & a6 , A7 & a7 , A8 & a8) const
         {
             typedef
@@ -486,7 +486,7 @@
             return phoenix::eval(*this, phoenix::context(env, default_actions()));
         }
         template <typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8>
-        typename result_of::actor<proto_base_expr const, A0 const& , A1 const& , A2 const& , A3 const& , A4 const& , A5 const& , A6 const& , A7 const& , A8 const&>::type
+        typename result_of::actor<proto_base_expr, A0 const& , A1 const& , A2 const& , A3 const& , A4 const& , A5 const& , A6 const& , A7 const& , A8 const&>::type
         operator()(A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8) const
         {
             typedef
@@ -527,7 +527,7 @@
             return phoenix::eval(*this, phoenix::context(env, default_actions()));
         }
         template <typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8 , typename A9>
-        typename result_of::actor<proto_base_expr const, A0 & , A1 & , A2 & , A3 & , A4 & , A5 & , A6 & , A7 & , A8 & , A9 &>::type
+        typename result_of::actor<proto_base_expr, A0 & , A1 & , A2 & , A3 & , A4 & , A5 & , A6 & , A7 & , A8 & , A9 &>::type
         operator()(A0 & a0 , A1 & a1 , A2 & a2 , A3 & a3 , A4 & a4 , A5 & a5 , A6 & a6 , A7 & a7 , A8 & a8 , A9 & a9) const
         {
             typedef
@@ -553,7 +553,7 @@
             return phoenix::eval(*this, phoenix::context(env, default_actions()));
         }
         template <typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8 , typename A9>
-        typename result_of::actor<proto_base_expr const, A0 const& , A1 const& , A2 const& , A3 const& , A4 const& , A5 const& , A6 const& , A7 const& , A8 const& , A9 const&>::type
+        typename result_of::actor<proto_base_expr, A0 const& , A1 const& , A2 const& , A3 const& , A4 const& , A5 const& , A6 const& , A7 const& , A8 const& , A9 const&>::type
         operator()(A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8 , A9 const& a9) const
         {
             typedef

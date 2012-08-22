@@ -30,15 +30,15 @@ namespace boost
 ///
 /// \pre SinglePassRange is a model of the SinglePassRangeConcept
 /// \pre OutputIterator is a model of the OutputIteratorConcept
-/// \pre 0 <= n < distance(rng)
+/// \pre 0 <= n <= distance(rng)
 template< class SinglePassRange, class Size, class OutputIterator >
 inline OutputIterator copy_n(const SinglePassRange& rng, Size n, OutputIterator out)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange> ));
-    BOOST_ASSERT( n < static_cast<Size>(boost::distance(rng)) );
+    BOOST_ASSERT( n <= static_cast<Size>(::boost::distance(rng)) );
     BOOST_ASSERT( n >= static_cast<Size>(0) );
 
-    BOOST_DEDUCED_TYPENAME range_iterator<const SinglePassRange>::type source = boost::begin(rng);
+    BOOST_DEDUCED_TYPENAME range_iterator<const SinglePassRange>::type source = ::boost::begin(rng);
 
     for (Size i = 0; i < n; ++i, ++out, ++source)
         *out = *source;
@@ -47,7 +47,7 @@ inline OutputIterator copy_n(const SinglePassRange& rng, Size n, OutputIterator 
 }
 
     } // namespace range
-    using range::copy_n;
+    using ::boost::range::copy_n;
 } // namespace boost
 
 #endif // include guard

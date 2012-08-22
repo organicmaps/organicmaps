@@ -8,15 +8,16 @@
 // Revision History
 //  29 May 2007 - Initial Revision
 //  25 Feb 2008 - moved to namespace boost::uuids::detail
+//  10 Jan 2012 - can now handle the full size of messages (2^64 - 1 bits)
 
 // This is a byte oriented implementation
-// Note: this implementation does not handle message longer than
-//       2^32 bytes.
 
 #ifndef BOOST_UUID_SHA1_H
 #define BOOST_UUID_SHA1_H
 
 #include <boost/static_assert.hpp>
+#include <stdexcept>
+#include <boost/throw_exception.hpp>
 #include <cstddef>
 
 #ifdef BOOST_NO_STDC_NAMESPACE
@@ -54,6 +55,7 @@ public:
 
 private:
     void process_block();
+    void process_byte_impl(unsigned char byte);
 
 private:
     unsigned int h_[5];
@@ -61,7 +63,8 @@ private:
     unsigned char block_[64];
 
     std::size_t block_byte_index_;
-    std::size_t byte_count_;
+    std::size_t bit_count_low;
+    std::size_t bit_count_high;
 };
 
 inline sha1::sha1()
@@ -78,13 +81,27 @@ inline void sha1::reset()
     h_[4] = 0xC3D2E1F0;
 
     block_byte_index_ = 0;
-    byte_count_ = 0;
+    bit_count_low = 0;
+    bit_count_high = 0;
 }
 
 inline void sha1::process_byte(unsigned char byte)
 {
+    process_byte_impl(byte);
+
+    bit_count_low += 8;
+    if (bit_count_low == 0) {
+        ++bit_count_high;
+        if (bit_count_high == 0) {
+            BOOST_THROW_EXCEPTION(std::runtime_error("sha1 too many bytes"));
+        }
+    }
+}
+
+inline void sha1::process_byte_impl(unsigned char byte)
+{
     block_[block_byte_index_++] = byte;
-    ++byte_count_;
+
     if (block_byte_index_ == 64) {
         block_byte_index_ = 0;
         process_block();
@@ -160,10 +177,8 @@ inline void sha1::process_block()
 
 inline void sha1::get_digest(digest_type digest)
 {
-    std::size_t bit_count = byte_count_*8;
-
     // append the bit '1' to the message
-    process_byte(0x80);
+    process_byte_impl(0x80);
 
     // append k bits '0', where k is the minimum number >= 0
     // such that the resulting message length is congruent to 56 (mod 64)
@@ -171,29 +186,29 @@ inline void sha1::get_digest(digest_type digest)
     if (block_byte_index_ > 56) {
         // finish this block
         while (block_byte_index_ != 0) {
-            process_byte(0);
+            process_byte_impl(0);
         }
 
         // one more block
         while (block_byte_index_ < 56) {
-            process_byte(0);
+            process_byte_impl(0);
         }
     } else {
         while (block_byte_index_ < 56) {
-            process_byte(0);
+            process_byte_impl(0);
         }
     }
 
     // append length of message (before pre-processing) 
     // as a 64-bit big-endian integer
-    process_byte(0);
-    process_byte(0);
-    process_byte(0);
-    process_byte(0);
-    process_byte( static_cast<unsigned char>((bit_count>>24) & 0xFF));
-    process_byte( static_cast<unsigned char>((bit_count>>16) & 0xFF));
-    process_byte( static_cast<unsigned char>((bit_count>>8 ) & 0xFF));
-    process_byte( static_cast<unsigned char>((bit_count)     & 0xFF));
+    process_byte_impl( static_cast<unsigned char>((bit_count_high>>24) & 0xFF) );
+    process_byte_impl( static_cast<unsigned char>((bit_count_high>>16) & 0xFF) );
+    process_byte_impl( static_cast<unsigned char>((bit_count_high>>8 ) & 0xFF) );
+    process_byte_impl( static_cast<unsigned char>((bit_count_high)     & 0xFF) );
+    process_byte_impl( static_cast<unsigned char>((bit_count_low>>24) & 0xFF) );
+    process_byte_impl( static_cast<unsigned char>((bit_count_low>>16) & 0xFF) );
+    process_byte_impl( static_cast<unsigned char>((bit_count_low>>8 ) & 0xFF) );
+    process_byte_impl( static_cast<unsigned char>((bit_count_low)     & 0xFF) );
 
     // get final digest
     digest[0] = h_[0];

@@ -15,7 +15,7 @@
 namespace boost { namespace spirit { namespace repository
 {
     // The flush_multi_pass extended terminal
-    BOOST_SPIRIT_DEFINE_TERMINALS(( flush_multi_pass ))
+    BOOST_SPIRIT_TERMINAL( flush_multi_pass )
 
 }}}
 

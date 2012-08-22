@@ -218,7 +218,7 @@ namespace boost {
           detail::graph::compute_edge_length(g, distance, index,
                                              edge_or_side_length);
 
-        std::cerr << "edge_length = " << edge_length << std::endl;
+        // std::cerr << "edge_length = " << edge_length << std::endl;
         
         // Compute l_{ij} and k_{ij}
         const weight_type K = spring_constant;
@@ -275,7 +275,7 @@ namespace boost {
                 E += .5 * k_ij * (dist - l_ij) * (dist - l_ij);
               }
             }
-            std::cerr << "E = " << E << std::endl;
+            // std::cerr << "E = " << E << std::endl;
 
             // Compute the elements of the Jacobian
             // From

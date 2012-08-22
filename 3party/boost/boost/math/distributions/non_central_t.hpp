@@ -40,7 +40,7 @@ namespace boost
             // k is the starting point for iteration, and is the
             // maximum of the poisson weighting term:
             //
-            int k = boost::math::itrunc(d2);
+            int k = itrunc(d2);
             T pois;
             if(k < 15)
             {
@@ -130,7 +130,7 @@ namespace boost
             // k is the starting point for iteration, and is the
             // maximum of the poisson weighting term:
             //
-            int k = boost::math::itrunc(d2);
+            int k = itrunc(d2);
             if(k < 30)
             {
                // We typically need around 40 terms so may as well start at 0
@@ -368,7 +368,7 @@ namespace boost
             // k is the starting point for iteration, and is the
             // maximum of the poisson weighting term:
             //
-            int k = boost::math::itrunc(d2);
+            int k = itrunc(d2);
             T pois, xterm;
             if(k < 30)
             {

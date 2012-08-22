@@ -79,6 +79,9 @@
 #  elif defined(__BORLANDC__) && __BORLANDC__ >= 0x570
 #     define BOOST_TR1_STD_HEADER(name) <../include/dinkumware/name>
 
+#  elif defined(__clang__)
+#     define BOOST_TR1_STD_HEADER(name) <../include/name>
+
 #  elif defined(__GNUC__) && __GNUC__ >= 3
 #    if defined(BOOST_TR1_GCC_INCLUDE_PATH)
 #      define BOOST_TR1_STD_HEADER(name) <../BOOST_TR1_GCC_INCLUDE_PATH/name>

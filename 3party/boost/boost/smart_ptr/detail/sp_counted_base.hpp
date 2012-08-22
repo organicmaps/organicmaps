@@ -41,6 +41,9 @@
 #elif defined(__HP_aCC) && defined(__ia64)
 # include <boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp>
 
+#elif defined( __IBMCPP__ ) && defined( __powerpc )
+# include <boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp>
+
 #elif defined( __MWERKS__ ) && defined( __POWERPC__ )
 # include <boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp>
 

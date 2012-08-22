@@ -16,6 +16,10 @@
 #include <boost/limits.hpp>
 #include <math.h> // isnan where available
 #include <boost/config/no_tr1/cmath.hpp>
+#include <boost/math/special_functions/sign.hpp>
+#include <boost/math/special_functions/fpclassify.hpp>
+#include <boost/math/special_functions/sign.hpp>
+#include <boost/math/constants/constants.hpp>
 
 #ifdef BOOST_NO_STDC_NAMESPACE
 namespace std{ using ::sqrt; }
@@ -24,21 +28,9 @@ namespace std{ using ::sqrt; }
 namespace boost{ namespace math{ namespace detail{
 
 template <class T>
-inline bool test_is_nan(T t)
-{
-   // Comparisons with Nan's always fail:
-   return std::numeric_limits<T>::has_infinity && (!(t <= std::numeric_limits<T>::infinity()) || !(t >= -std::numeric_limits<T>::infinity()));
-}
-#ifdef isnan
-template<> inline bool test_is_nan<float>(float t) { return isnan(t); }
-template<> inline bool test_is_nan<double>(double t) { return isnan(t); }
-template<> inline bool test_is_nan<long double>(long double t) { return isnan(t); }
-#endif
-
-template <class T>
 inline T mult_minus_one(const T& t)
 {
-   return test_is_nan(t) ? t : -t;
+   return (boost::math::isnan)(t) ? t : (boost::math::changesign)(t);
 }
 
 template <class T>

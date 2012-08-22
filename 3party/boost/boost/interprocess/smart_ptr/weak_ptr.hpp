@@ -3,7 +3,7 @@
 // This file is the adaptation for Interprocess of boost/weak_ptr.hpp
 //
 // (C) Copyright Peter Dimov 2001, 2002, 2003
-// (C) Copyright Ion Gaztanaga 2006-2009.
+// (C) Copyright Ion Gaztanaga 2006-2011.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -22,7 +22,7 @@
 #include <boost/detail/no_exceptions_support.hpp>
 #include <boost/interprocess/allocators/allocator.hpp>
 #include <boost/interprocess/smart_ptr/deleter.hpp>
-#include <boost/pointer_to_other.hpp>
+#include <boost/intrusive/pointer_traits.hpp>
 
 //!\file
 //!Describes the smart pointer weak_ptr.
@@ -31,7 +31,7 @@ namespace boost{
 namespace interprocess{
 
 //!The weak_ptr class template stores a "weak reference" to an object
-//!that's already managed by a shared_ptr. To access the object, a weak_ptr 
+//!that's already managed by a shared_ptr. To access the object, a weak_ptr
 //!can be converted to a shared_ptr using  the shared_ptr constructor or the
 //!member function  lock. When the last shared_ptr to the object goes away
 //!and the object is deleted, the attempt to obtain a shared_ptr from the
@@ -54,11 +54,12 @@ class weak_ptr
    private:
    // Borland 5.5.1 specific workarounds
    typedef weak_ptr<T, A, D> this_type;
-   typedef typename boost::pointer_to_other
-      <typename A::pointer, T>::type      pointer;
-   typedef typename detail::add_reference
+   typedef typename boost::intrusive::
+      pointer_traits<typename A::pointer>::template
+         rebind_pointer<T>::type                         pointer;
+   typedef typename ipcdetail::add_reference
                      <T>::type            reference;
-   typedef typename detail::add_reference
+   typedef typename ipcdetail::add_reference
                      <T>::type            const_reference;
    /// @endcond
 
@@ -98,11 +99,11 @@ class weak_ptr
    template<class Y>
    weak_ptr(weak_ptr<Y, A, D> const & r)
       : m_pn(r.m_pn) // never throws
-   {  
+   { 
       //Construct a temporary shared_ptr so that nobody
       //can destroy the value while constructing this
       const shared_ptr<T, A, D> &ref = r.lock();
-      m_pn.set_pointer(ref.get()); 
+      m_pn.set_pointer(ref.get());
    }
 
    //!Effects: If r is empty, constructs an empty weak_ptr; otherwise,
@@ -125,7 +126,7 @@ class weak_ptr
    //!implied guarantees) via different means, without creating a temporary.
    template<class Y>
    weak_ptr & operator=(weak_ptr<Y, A, D> const & r) // never throws
-   {  
+   { 
       //Construct a temporary shared_ptr so that nobody
       //can destroy the value while constructing this
       const shared_ptr<T, A, D> &ref = r.lock();
@@ -173,7 +174,7 @@ class weak_ptr
    //!testing purposes, not for production code.
    long use_count() const // never throws
    {  return m_pn.use_count();  }
-    
+   
    //!Returns: Returns: use_count() == 0.
    //!
    //!Throws: nothing.
@@ -192,15 +193,15 @@ class weak_ptr
    //!
    //!Throws: nothing.
    void swap(this_type & other) // never throws
-   {  detail::do_swap(m_pn, other.m_pn);   }
+   {  ipcdetail::do_swap(m_pn, other.m_pn);   }
 
    /// @cond
-   template<class T2, class A2, class D2> 
+   template<class T2, class A2, class D2>
    bool _internal_less(weak_ptr<T2, A2, D2> const & rhs) const
    {  return m_pn < rhs.m_pn;  }
-   
+  
    template<class Y>
-   void _internal_assign(const detail::shared_count<Y, A, D> & pn2)
+   void _internal_assign(const ipcdetail::shared_count<Y, A, D> & pn2)
    {
 
       m_pn = pn2;
@@ -211,11 +212,11 @@ class weak_ptr
    template<class T2, class A2, class D2> friend class shared_ptr;
    template<class T2, class A2, class D2> friend class weak_ptr;
 
-   detail::weak_count<T, A, D> m_pn;      // reference counter
+   ipcdetail::weak_count<T, A, D> m_pn;      // reference counter
    /// @endcond
 };  // weak_ptr
 
-template<class T, class A, class D, class U, class A2, class D2> inline 
+template<class T, class A, class D, class U, class A2, class D2> inline
 bool operator<(weak_ptr<T, A, D> const & a, weak_ptr<U, A2, D2> const & b)
 {  return a._internal_less(b);   }
 

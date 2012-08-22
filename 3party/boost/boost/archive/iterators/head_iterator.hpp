@@ -42,8 +42,8 @@ private:
     > super_t;
 
     typedef head_iterator<Predicate, Base> this_t;
-    typedef BOOST_DEDUCED_TYPENAME super_t::value_type value_type;
-    typedef BOOST_DEDUCED_TYPENAME super_t::reference reference_type;
+    typedef super_t::value_type value_type;
+    typedef super_t::reference reference_type;
 
     reference_type dereference_impl(){
         if(! m_end){

@@ -238,7 +238,7 @@ struct class_metadata
     //
     inline static void maybe_register_pointer_to_python(...) {}
 
-#ifndef BOOST_PYTHON_NO_PY_SYGNATURES
+#ifndef BOOST_PYTHON_NO_PY_SIGNATURES
     inline static void maybe_register_pointer_to_python(void*,void*,mpl::true_*) 
     {
         objects::copy_class_object(python::type_id<T>(), python::type_id<back_reference<T const &> >());
@@ -255,7 +255,7 @@ struct class_metadata
               , make_ptr_instance<T2, pointer_holder<held_type, T2> >
             >()
         );
-#ifndef BOOST_PYTHON_NO_PY_SYGNATURES
+#ifndef BOOST_PYTHON_NO_PY_SIGNATURES
         // explicit qualification of type_id makes msvc6 happy
         objects::copy_class_object(python::type_id<T2>(), python::type_id<held_type>());
 #endif
@@ -270,7 +270,7 @@ struct class_metadata
     inline static void maybe_register_class_to_python(T2*, mpl::false_)
     {
         python::detail::force_instantiate(class_cref_wrapper<T2, make_instance<T2, holder> >());
-#ifndef BOOST_PYTHON_NO_PY_SYGNATURES
+#ifndef BOOST_PYTHON_NO_PY_SIGNATURES
         // explicit qualification of type_id makes msvc6 happy
         objects::copy_class_object(python::type_id<T2>(), python::type_id<held_type>());
 #endif

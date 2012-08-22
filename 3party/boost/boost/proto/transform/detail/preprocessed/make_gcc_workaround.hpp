@@ -15,6 +15,7 @@
         struct impl : transform_impl<Expr, State, Data>
         {
             typedef proto::expr<Tag, Args, Arity> result_type;
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -35,6 +36,7 @@
         struct impl : transform_impl<Expr, State, Data>
         {
             typedef proto::basic_expr<Tag, Args, Arity> result_type;
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -56,6 +58,7 @@
         struct impl : transform_impl<Expr, State, Data>
         {
             typedef proto::expr<Tag, Args, Arity> result_type;
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -76,6 +79,7 @@
         struct impl : transform_impl<Expr, State, Data>
         {
             typedef proto::basic_expr<Tag, Args, Arity> result_type;
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -97,6 +101,7 @@
         struct impl : transform_impl<Expr, State, Data>
         {
             typedef proto::expr<Tag, Args, Arity> result_type;
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -117,6 +122,7 @@
         struct impl : transform_impl<Expr, State, Data>
         {
             typedef proto::basic_expr<Tag, Args, Arity> result_type;
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -138,6 +144,7 @@
         struct impl : transform_impl<Expr, State, Data>
         {
             typedef proto::expr<Tag, Args, Arity> result_type;
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -158,6 +165,7 @@
         struct impl : transform_impl<Expr, State, Data>
         {
             typedef proto::basic_expr<Tag, Args, Arity> result_type;
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -179,6 +187,7 @@
         struct impl : transform_impl<Expr, State, Data>
         {
             typedef proto::expr<Tag, Args, Arity> result_type;
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -199,6 +208,7 @@
         struct impl : transform_impl<Expr, State, Data>
         {
             typedef proto::basic_expr<Tag, Args, Arity> result_type;
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -220,6 +230,7 @@
         struct impl : transform_impl<Expr, State, Data>
         {
             typedef proto::expr<Tag, Args, Arity> result_type;
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -240,6 +251,7 @@
         struct impl : transform_impl<Expr, State, Data>
         {
             typedef proto::basic_expr<Tag, Args, Arity> result_type;
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -261,6 +273,7 @@
         struct impl : transform_impl<Expr, State, Data>
         {
             typedef proto::expr<Tag, Args, Arity> result_type;
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -281,6 +294,7 @@
         struct impl : transform_impl<Expr, State, Data>
         {
             typedef proto::basic_expr<Tag, Args, Arity> result_type;
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -302,6 +316,7 @@
         struct impl : transform_impl<Expr, State, Data>
         {
             typedef proto::expr<Tag, Args, Arity> result_type;
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -322,6 +337,7 @@
         struct impl : transform_impl<Expr, State, Data>
         {
             typedef proto::basic_expr<Tag, Args, Arity> result_type;
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -343,6 +359,7 @@
         struct impl : transform_impl<Expr, State, Data>
         {
             typedef proto::expr<Tag, Args, Arity> result_type;
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -363,6 +380,7 @@
         struct impl : transform_impl<Expr, State, Data>
         {
             typedef proto::basic_expr<Tag, Args, Arity> result_type;
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -384,6 +402,7 @@
         struct impl : transform_impl<Expr, State, Data>
         {
             typedef proto::expr<Tag, Args, Arity> result_type;
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -404,6 +423,7 @@
         struct impl : transform_impl<Expr, State, Data>
         {
             typedef proto::basic_expr<Tag, Args, Arity> result_type;
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -425,6 +445,7 @@
         struct impl : transform_impl<Expr, State, Data>
         {
             typedef proto::expr<Tag, Args, Arity> result_type;
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s
@@ -445,6 +466,7 @@
         struct impl : transform_impl<Expr, State, Data>
         {
             typedef proto::basic_expr<Tag, Args, Arity> result_type;
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param e
               , typename impl::state_param s

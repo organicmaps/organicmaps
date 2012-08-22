@@ -126,7 +126,7 @@ namespace boost {
                     }
 
                     // Use fixed storage
-                    ::memcpy(DestStorage, SrcStorage, sizeof(set_value_type)*m_Size);
+                    ::std::memcpy(DestStorage, SrcStorage, sizeof(set_value_type)*m_Size);
                 }
 
                 // Destructor
@@ -206,7 +206,7 @@ namespace boost {
                     }
 
                     // Copy the data
-                    ::memcpy(DestStorage, SrcStorage, sizeof(set_value_type)*m_Size);
+                    ::std::memcpy(DestStorage, SrcStorage, sizeof(set_value_type)*m_Size);
 
                     return *this;
                 }

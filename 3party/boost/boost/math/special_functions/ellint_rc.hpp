@@ -80,7 +80,7 @@ T ellint_rc_imp(T x, T y, const Policy& pol)
         ++k;
     }while(k < policies::get_max_series_iterations<Policy>());
     // Check to see if we gave up too soon:
-    policies::check_series_iterations(function, k, pol);
+    policies::check_series_iterations<T>(function, k, pol);
 
     // Taylor series expansion to the 5th order
     value = (1 + S * S * (T(3) / 10 + S * (T(1) / 7 + S * (T(3) / 8 + S * T(9) / 22)))) / sqrt(u);

@@ -185,7 +185,7 @@ private:
          term = floor(f);
          e -= 30;
          m_value *= shift;
-         m_value += ::e_float(static_cast<UINT64>(term));
+         m_value += ::e_float(static_cast<INT64>(term));
          f -= term;
       }
       m_value *= ::ef::pow2(e);
@@ -316,6 +316,11 @@ inline e_float asin(const e_float& v)
 inline e_float atan(const e_float& v)
 {
    return ::ef::atan(v.value());
+}
+
+inline e_float atan2(const e_float& v, const e_float& u)
+{
+   return ::ef::atan2(v.value(), u.value());
 }
 
 inline e_float ldexp(const e_float& v, int e)

@@ -26,13 +26,14 @@ namespace chrono
 // which has a field for seconds and a field for microseconds.
 //    Fill in the timeval and then convert that to the time_point
 system_clock::time_point
-system_clock::now()
+system_clock::now() BOOST_NOEXCEPT
 {
     timeval tv;
     gettimeofday(&tv, 0);
     return time_point(seconds(tv.tv_sec) + microseconds(tv.tv_usec));
 }
 
+#if !defined BOOST_CHRONO_DONT_PROVIDE_HYBRID_ERROR_HANDLING
 system_clock::time_point
 system_clock::now(system::error_code & ec)
 {
@@ -44,19 +45,19 @@ system_clock::now(system::error_code & ec)
     }
     return time_point(seconds(tv.tv_sec) + microseconds(tv.tv_usec));
 }
-
+#endif
 // Take advantage of the fact that on this platform time_t is nothing but
 //    an integral count of seconds since New Years 1970 (same epoch as timeval).
 //    Just get the duration out of the time_point and truncate it to seconds.
 time_t
-system_clock::to_time_t(const time_point& t)
+system_clock::to_time_t(const time_point& t) BOOST_NOEXCEPT
 {
     return time_t(duration_cast<seconds>(t.time_since_epoch()).count());
 }
 
 // Just turn the time_t into a count of seconds and construct a time_point with it.
 system_clock::time_point
-system_clock::from_time_t(time_t t)
+system_clock::from_time_t(time_t t) BOOST_NOEXCEPT
 {
     return system_clock::time_point(seconds(t));
 }
@@ -82,6 +83,7 @@ steady_simplified()
     return mach_absolute_time();
 }
 
+#if !defined BOOST_CHRONO_DONT_PROVIDE_HYBRID_ERROR_HANDLING
 BOOST_CHRONO_STATIC
 steady_clock::rep
 steady_simplified_ec(system::error_code & ec)
@@ -92,7 +94,7 @@ steady_simplified_ec(system::error_code & ec)
     }
     return mach_absolute_time();
 }
-
+#endif
 
 BOOST_CHRONO_STATIC
 double
@@ -114,12 +116,12 @@ steady_full()
     static const double factor = chrono_detail::compute_steady_factor(err);
     if (err != 0) 
     {
-        boost::throw_exception(
-            system::system_error( err, BOOST_CHRONO_SYSTEM_CATEGORY, "chrono::steady_clock" ));
+      BOOST_ASSERT(0 && "Boost::Chrono - Internal Error");
     }
     return static_cast<steady_clock::rep>(mach_absolute_time() * factor);
 }
 
+#if !defined BOOST_CHRONO_DONT_PROVIDE_HYBRID_ERROR_HANDLING
 BOOST_CHRONO_STATIC
 steady_clock::rep
 steady_full_ec(system::error_code & ec)
@@ -148,10 +150,12 @@ steady_full_ec(system::error_code & ec)
     }
     return static_cast<steady_clock::rep>(mach_absolute_time() * factor);
 }
+#endif
 
 typedef steady_clock::rep (*FP)();
+#if !defined BOOST_CHRONO_DONT_PROVIDE_HYBRID_ERROR_HANDLING
 typedef steady_clock::rep (*FP_ec)(system::error_code &);
-
+#endif
 
 BOOST_CHRONO_STATIC
 FP
@@ -171,6 +175,7 @@ init_steady_clock(kern_return_t & err)
     return &chrono_detail::steady_full;
 }
 
+#if !defined BOOST_CHRONO_DONT_PROVIDE_HYBRID_ERROR_HANDLING
 BOOST_CHRONO_STATIC
 FP_ec
 init_steady_clock_ec(kern_return_t & err)
@@ -188,24 +193,22 @@ init_steady_clock_ec(kern_return_t & err)
     }
     return &chrono_detail::steady_full_ec;
 }
+#endif
 }
 
 steady_clock::time_point
-steady_clock::now()
+steady_clock::now() BOOST_NOEXCEPT
 {
     static kern_return_t err;
     static chrono_detail::FP fp = chrono_detail::init_steady_clock(err);
     if ( err != 0  ) 
     {     
-        boost::throw_exception(
-                system::system_error( 
-                        err, 
-                        BOOST_CHRONO_SYSTEM_CATEGORY, 
-                        "chrono::steady_clock" ));
+      BOOST_ASSERT(0 && "Boost::Chrono - Internal Error");
     }
     return time_point(duration(fp()));
 }
 
+#if !defined BOOST_CHRONO_DONT_PROVIDE_HYBRID_ERROR_HANDLING
 steady_clock::time_point
 steady_clock::now(system::error_code & ec)
 {
@@ -233,6 +236,6 @@ steady_clock::now(system::error_code & ec)
     }
     return time_point(duration(fp(ec)));
 }
-
+#endif
 }  // namespace chrono
 }  // namespace boost

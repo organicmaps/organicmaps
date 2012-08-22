@@ -17,9 +17,9 @@
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/properties.hpp>
 
-#include <LEDA/graph.h>
-#include <LEDA/node_array.h>
-#include <LEDA/node_map.h>
+#include <LEDA/graph/graph.h>
+#include <LEDA/graph/node_array.h>
+#include <LEDA/graph/node_map.h>
 
 // The functions and classes in this file allows the user to
 // treat a LEDA GRAPH object as a boost graph "as is". No
@@ -884,7 +884,7 @@ namespace boost {
   inline
   typename boost::property_traits<
     typename boost::property_map<leda::GRAPH<vtype, etype>,PropertyTag>::const_type
-::value_type
+   >::value_type
   get(PropertyTag p, const leda::GRAPH<vtype, etype>& g, const Key& key) {
     return get(get(p, g), key);
   }

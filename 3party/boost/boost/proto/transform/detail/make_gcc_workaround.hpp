@@ -58,6 +58,7 @@
         {
             typedef proto::expr<Tag, Args, Arity> result_type;
 
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param   e
               , typename impl::state_param  s
@@ -80,6 +81,7 @@
         {
             typedef proto::basic_expr<Tag, Args, Arity> result_type;
 
+            BOOST_FORCEINLINE
             result_type operator ()(
                 typename impl::expr_param   e
               , typename impl::state_param  s

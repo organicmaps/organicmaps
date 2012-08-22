@@ -29,6 +29,8 @@
 # include <boost/preprocessor/list/rest_n.hpp>
 # include <boost/preprocessor/list/reverse.hpp>
 # include <boost/preprocessor/list/size.hpp>
+# include <boost/preprocessor/list/to_array.hpp>
+# include <boost/preprocessor/list/to_seq.hpp>
 # include <boost/preprocessor/list/to_tuple.hpp>
 # include <boost/preprocessor/list/transform.hpp>
 #

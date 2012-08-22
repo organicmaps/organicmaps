@@ -182,6 +182,7 @@
 
                 /// INTERNAL ONLY
                 ///
+                BOOST_FORCEINLINE
                 static type call(Expr &e)
                 {
                     return e.proto_base().BOOST_PP_CAT(child, N);
@@ -207,6 +208,7 @@
 
                 /// INTERNAL ONLY
                 ///
+                BOOST_FORCEINLINE
                 static type call(Expr const &e)
                 {
                     return e.proto_base().BOOST_PP_CAT(child, N);

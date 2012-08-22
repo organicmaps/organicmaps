@@ -23,8 +23,8 @@
 namespace boost { namespace spirit { namespace traits
 {
     ///////////////////////////////////////////////////////////////////////////
-    //  This file contains attribute extraction utilities. The utilities 
-    //  provided also accept spirit's unused_type; all no-ops. Compiler 
+    //  This file contains attribute extraction utilities. The utilities
+    //  provided also accept spirit's unused_type; all no-ops. Compiler
     //  optimization will easily strip these away.
     ///////////////////////////////////////////////////////////////////////////
 
@@ -33,13 +33,13 @@ namespace boost { namespace spirit { namespace traits
         ///////////////////////////////////////////////////////////////////////
         // extract first and second element of a fusion sequence
         template <typename T>
-        struct add_const_ref 
-          : add_reference<typename add_const<T>::type> 
+        struct add_const_ref
+          : add_reference<typename add_const<T>::type>
         {};
 
         template <typename T, int N>
-        struct value_at_c 
-          : add_const_ref<typename fusion::result_of::value_at_c<T, N>::type> 
+        struct value_at_c
+          : add_const_ref<typename fusion::result_of::value_at_c<T, N>::type>
         {};
     }
 
@@ -47,7 +47,7 @@ namespace boost { namespace spirit { namespace traits
     template <typename Attribute, typename Exposed, typename Enable/*= void*/>
     struct extract_from_attribute
     {
-        typedef typename traits::one_element_sequence<Attribute>::type 
+        typedef typename traits::one_element_sequence<Attribute>::type
             is_one_element_sequence;
 
         typedef typename mpl::eval_if<
@@ -63,7 +63,7 @@ namespace boost { namespace spirit { namespace traits
         }
 
         // This handles the case where the attribute is a single element fusion
-        // sequence. We silently extract the only element and treat it as the 
+        // sequence. We silently extract the only element and treat it as the
         // attribute to generate output from.
         template <typename Context>
         static type call(Attribute const& attr, Context& ctx, mpl::true_)
@@ -78,7 +78,7 @@ namespace boost { namespace spirit { namespace traits
         }
     };
 
-    // This handles optional attributes. 
+    // This handles optional attributes.
     template <typename Attribute, typename Exposed>
     struct extract_from_attribute<boost::optional<Attribute>, Exposed>
     {
@@ -103,7 +103,7 @@ namespace boost { namespace spirit { namespace traits
         }
     };
 
-    // This handles attributes wrapped inside a boost::ref(). 
+    // This handles attributes wrapped inside a boost::ref().
     template <typename Attribute, typename Exposed>
     struct extract_from_attribute<reference_wrapper<Attribute>, Exposed>
     {
@@ -120,14 +120,14 @@ namespace boost { namespace spirit { namespace traits
     template <typename Attribute, typename Exposed, typename Enable>
     struct extract_from_container
     {
-        typedef typename traits::container_value<Attribute const>::type 
+        typedef typename traits::container_value<Attribute const>::type
             value_type;
-        typedef typename is_convertible<value_type, Exposed>::type 
+        typedef typename is_convertible<value_type, Exposed>::type
             is_convertible_to_value_type;
 
         typedef typename mpl::if_<
            mpl::or_<
-                is_same<value_type, Exposed>, is_same<Attribute, Exposed> > 
+                is_same<value_type, Exposed>, is_same<Attribute, Exposed> >
           , Exposed const&, Exposed
         >::type type;
 
@@ -137,7 +137,7 @@ namespace boost { namespace spirit { namespace traits
         static type call(Attribute const& attr, Context&, mpl::true_, Pred)
         {
             // return first element from container
-            typedef typename traits::container_iterator<Attribute const>::type 
+            typedef typename traits::container_iterator<Attribute const>::type
                 iterator_type;
 
             iterator_type it = traits::begin(attr);
@@ -176,7 +176,7 @@ namespace boost { namespace spirit { namespace traits
         static type call(Attribute const& attr, Context& ctx)
         {
             typedef typename mpl::and_<
-                traits::is_string<Exposed>, traits::is_string<Attribute> 
+                traits::is_string<Exposed>, traits::is_string<Attribute>
             >::type handle_strings;
 
             // return first element from container
@@ -208,7 +208,7 @@ namespace boost { namespace spirit { namespace traits
             return extract_from_attribute<Attribute, Exposed>::call(attr, ctx);
         }
 
-        // overload for containers (but not for variants or optionals 
+        // overload for containers (but not for variants or optionals
         // holding containers)
         template <typename Exposed, typename Attribute, typename Context>
         inline typename spirit::result_of::extract_from<Exposed, Attribute>::type
@@ -230,7 +230,7 @@ namespace boost { namespace spirit { namespace traits
         typedef typename mpl::and_<
             traits::is_container<Attribute>
           , traits::not_is_variant<Attribute>
-          , traits::not_is_optional<Attribute> 
+          , traits::not_is_optional<Attribute>
         >::type is_not_wrapped_container;
 
         return detail::extract_from<Exposed>(attr, ctx

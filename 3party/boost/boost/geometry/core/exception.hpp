@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -27,6 +27,32 @@ namespace boost { namespace geometry
 */
 class exception : public std::exception
 {};
+
+
+/*!
+\brief Empty Input Exception
+\ingroup core
+\details The empty_input_exception is thrown if free functions, e.g. distance,
+    are called with empty geometries, e.g. a linestring
+    without points, a polygon without points, an empty multi-geometry.
+\qbk{
+[heading See also]
+\* [link geometry.reference.algorithms.area the area function]
+\* [link geometry.reference.algorithms.distance the distance function]
+\* [link geometry.reference.algorithms.length the length function]
+}
+ */
+class empty_input_exception : public geometry::exception
+{
+public:
+
+    inline empty_input_exception() {}
+
+    virtual char const* what() const throw()
+    {
+        return "Boost.Geometry Empty-Input exception";
+    }
+};
 
 
 }} // namespace boost::geometry

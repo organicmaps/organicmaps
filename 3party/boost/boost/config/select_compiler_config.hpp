@@ -17,6 +17,10 @@
 // GCC-XML emulates other compilers, it has to appear first here!
 #   define BOOST_COMPILER_CONFIG "boost/config/compiler/gcc_xml.hpp"
 
+#elif defined(_CRAYC)
+// EDG based Cray compiler:
+#   define BOOST_COMPILER_CONFIG "boost/config/compiler/cray.hpp"
+
 #elif defined __CUDACC__
 //  NVIDIA CUDA C++ compiler for GPU
 #   define BOOST_COMPILER_CONFIG "boost/config/compiler/nvcc.hpp"

@@ -38,11 +38,14 @@ inline std::complex<T> asin(const std::complex<T>& z)
    static const T half = static_cast<T>(0.5L);
    static const T a_crossover = static_cast<T>(1.5L);
    static const T b_crossover = static_cast<T>(0.6417L);
-   //static const T pi = static_cast<T>(3.141592653589793238462643383279502884197L);
-   static const T half_pi = static_cast<T>(1.57079632679489661923132169163975144L);
-   static const T log_two = static_cast<T>(0.69314718055994530941723212145817657L);
-   static const T quarter_pi = static_cast<T>(0.78539816339744830961566084581987572L);
-   
+   static const T s_pi = boost::math::constants::pi<T>();
+   static const T half_pi = s_pi / 2;
+   static const T log_two = boost::math::constants::ln_two<T>();
+   static const T quarter_pi = s_pi / 4;
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable:4127)
+#endif
    //
    // Get real and imaginary parts, discard the signs as we can 
    // figure out the sign of the result later:
@@ -57,11 +60,11 @@ inline std::complex<T> asin(const std::complex<T>& z)
    // below, but handling it as a special case prevents overflow/underflow
    // arithmetic which may trip up some machines:
    //
-   if(detail::test_is_nan(x))
+   if((boost::math::isnan)(x))
    {
-      if(detail::test_is_nan(y))
+      if((boost::math::isnan)(y))
          return std::complex<T>(x, x);
-      if(std::numeric_limits<T>::has_infinity && (y == std::numeric_limits<T>::infinity()))
+      if((boost::math::isinf)(y))
       {
          real = x;
          imag = std::numeric_limits<T>::infinity();
@@ -69,14 +72,14 @@ inline std::complex<T> asin(const std::complex<T>& z)
       else
          return std::complex<T>(x, x);
    }
-   else if(detail::test_is_nan(y))
+   else if((boost::math::isnan)(y))
    {
       if(x == 0)
       {
          real = 0;
          imag = y;
       }
-      else if(std::numeric_limits<T>::has_infinity && (x == std::numeric_limits<T>::infinity()))
+      else if((boost::math::isinf)(x))
       {
          real = y;
          imag = std::numeric_limits<T>::infinity();
@@ -84,9 +87,9 @@ inline std::complex<T> asin(const std::complex<T>& z)
       else
          return std::complex<T>(y, y);
    }
-   else if(std::numeric_limits<T>::has_infinity && (x == std::numeric_limits<T>::infinity()))
+   else if((boost::math::isinf)(x))
    {
-      if(y == std::numeric_limits<T>::infinity())
+      if((boost::math::isinf)(y))
       {
          real = quarter_pi;
          imag = std::numeric_limits<T>::infinity();
@@ -97,7 +100,7 @@ inline std::complex<T> asin(const std::complex<T>& z)
          imag = std::numeric_limits<T>::infinity();
       }
    }
-   else if(std::numeric_limits<T>::has_infinity && (y == std::numeric_limits<T>::infinity()))
+   else if((boost::math::isinf)(y))
    {
       real = 0;
       imag = std::numeric_limits<T>::infinity();
@@ -108,7 +111,7 @@ inline std::complex<T> asin(const std::complex<T>& z)
       // special case for real numbers:
       //
       if((y == 0) && (x <= one))
-         return std::complex<T>(std::asin(z.real()));
+         return std::complex<T>(std::asin(z.real()), z.imag());
       //
       // Figure out if our input is within the "safe area" identified by Hull et al.
       // This would be more efficient with portable floating point exception handling;
@@ -174,7 +177,7 @@ inline std::complex<T> asin(const std::complex<T>& z)
             if(x < one)
             {
                real = std::asin(x);
-               imag = y / std::sqrt(xp1*xm1);
+               imag = y / std::sqrt(-xp1*xm1);
             }
             else
             {
@@ -232,12 +235,15 @@ inline std::complex<T> asin(const std::complex<T>& z)
    //
    // Finish off by working out the sign of the result:
    //
-   if(z.real() < 0)
-      real = -real;
-   if(z.imag() < 0)
-      imag = -imag;
+   if((boost::math::signbit)(z.real()))
+      real = (boost::math::changesign)(real);
+   if((boost::math::signbit)(z.imag()))
+      imag = (boost::math::changesign)(imag);
 
    return std::complex<T>(real, imag);
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 }
 
 } } // namespaces

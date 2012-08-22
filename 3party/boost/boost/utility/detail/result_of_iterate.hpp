@@ -35,10 +35,7 @@ struct tr1_result_of<F(BOOST_RESULT_OF_ARGS)>
 
 #if !defined(BOOST_NO_DECLTYPE) && defined(BOOST_RESULT_OF_USE_DECLTYPE)
 
-// As of N2588, C++0x result_of only supports function call
-// expressions of the form f(x). This precludes support for member
-// function pointers, which are invoked with expressions of the form
-// o->*f(x). This implementation supports both.
+// Uses declval following N3225 20.7.7.6 when F is not a pointer.
 template<typename F BOOST_PP_COMMA_IF(BOOST_PP_ITERATION())
          BOOST_PP_ENUM_PARAMS(BOOST_PP_ITERATION(),typename T)>
 struct result_of<F(BOOST_PP_ENUM_PARAMS(BOOST_PP_ITERATION(),T))>
@@ -56,18 +53,15 @@ struct result_of<F(BOOST_PP_ENUM_PARAMS(BOOST_PP_ITERATION(),T))>
 
 namespace detail {
 
-# define BOOST_RESULT_OF_STATIC_MEMBERS(z, n, _) \
-     static T ## n t ## n; \
-  /**/
-
 template<typename F BOOST_PP_COMMA_IF(BOOST_PP_ITERATION())
          BOOST_PP_ENUM_PARAMS(BOOST_PP_ITERATION(),typename T)>
-class cpp0x_result_of_impl<F(BOOST_PP_ENUM_PARAMS(BOOST_PP_ITERATION(),T))>
+struct cpp0x_result_of_impl<F(BOOST_PP_ENUM_PARAMS(BOOST_PP_ITERATION(),T))>
 {
-  static F f;
-  BOOST_PP_REPEAT(BOOST_PP_ITERATION(), BOOST_RESULT_OF_STATIC_MEMBERS, _)
-public:
-  typedef decltype(f(BOOST_PP_ENUM_PARAMS(BOOST_PP_ITERATION(),t))) type;
+  typedef decltype(
+    boost::declval<F>()(
+      BOOST_PP_ENUM_BINARY_PARAMS(BOOST_PP_ITERATION(), declval<T, >() BOOST_PP_INTERCEPT)
+    )
+  ) type;
 };
 
 } // namespace detail 

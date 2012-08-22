@@ -36,8 +36,8 @@ namespace boost { namespace program_options {
     template<class charT>
     class basic_parsed_options {
     public:
-        explicit basic_parsed_options(const options_description* xdescription) 
-        : description(xdescription) {}
+        explicit basic_parsed_options(const options_description* xdescription, int options_prefix = 0) 
+        : description(xdescription), m_options_prefix(options_prefix) {}
         /** Options found in the source. */
         std::vector< basic_option<charT> > options;
         /** Options description that was used for parsing. 
@@ -46,6 +46,17 @@ namespace boost { namespace program_options {
             up to the caller. Can be NULL.
          */
         const options_description* description;
+
+        /** Mainly used for the diagnostic messages in exceptions.
+         *  The canonical option prefix  for the parser which generated these results,
+         *  depending on the settings for basic_command_line_parser::style() or
+         *  cmdline::style(). In order of precedence of command_line_style enums:
+         *      allow_long
+         *      allow_long_disguise
+         *      allow_dash_for_short
+         *      allow_slash_for_short
+        */ 
+        int m_options_prefix;
     };
 
     /** Specialization of basic_parsed_options which:
@@ -64,6 +75,17 @@ namespace boost { namespace program_options {
         /** Stores UTF8 encoded options that were passed to constructor,
             to avoid reverse conversion in some cases. */
         basic_parsed_options<char> utf8_encoded_options;        
+
+        /** Mainly used for the diagnostic messages in exceptions.
+         *  The canonical option prefix  for the parser which generated these results,
+         *  depending on the settings for basic_command_line_parser::style() or
+         *  cmdline::style(). In order of precedence of command_line_style enums:
+         *      allow_long
+         *      allow_long_disguise
+         *      allow_dash_for_short
+         *      allow_slash_for_short
+        */ 
+        int m_options_prefix;
     };
 
     typedef basic_parsed_options<char> parsed_options;
@@ -259,6 +281,10 @@ namespace boost { namespace program_options {
     
 
 }}
+
+#if defined(BOOST_MSVC)
+#   pragma warning (pop)
+#endif
 
 #undef DECL
 

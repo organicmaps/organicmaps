@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2006-2009
+// (C) Copyright Ion Gaztanaga  2006-2012
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -19,7 +19,7 @@
 #include <boost/intrusive/detail/any_node_and_algorithms.hpp>
 #include <boost/intrusive/options.hpp>
 #include <boost/intrusive/detail/generic_hook.hpp>
-#include <boost/intrusive/detail/pointer_to_other.hpp>
+#include <boost/intrusive/pointer_traits.hpp>
 
 namespace boost {
 namespace intrusive {
@@ -50,7 +50,7 @@ struct make_any_base_hook
       Options...
       #endif
       >::type packed_options;
-   
+
    typedef detail::generic_hook
    < get_any_node_algo<typename packed_options::void_pointer>
    , typename packed_options::tag
@@ -63,13 +63,13 @@ struct make_any_base_hook
 
 //! Derive a class from this hook in order to store objects of that class
 //! in an intrusive container.
-//! 
+//!
 //! The hook admits the following options: \c tag<>, \c void_pointer<> and
 //! \c link_mode<>.
 //!
-//! \c tag<> defines a tag to identify the node. 
-//! The same tag value can be used in different classes, but if a class is 
-//! derived from more than one \c any_base_hook, then each \c any_base_hook needs its 
+//! \c tag<> defines a tag to identify the node.
+//! The same tag value can be used in different classes, but if a class is
+//! derived from more than one \c any_base_hook, then each \c any_base_hook needs its
 //! unique tag.
 //!
 //! \c link_mode<> will specify the linking mode of the hook (\c normal_link, \c safe_link).
@@ -94,27 +94,27 @@ class any_base_hook
    public:
    //! <b>Effects</b>: If link_mode is or \c safe_link
    //!   initializes the node to an unlinked state.
-   //! 
-   //! <b>Throws</b>: Nothing. 
+   //!
+   //! <b>Throws</b>: Nothing.
    any_base_hook();
 
    //! <b>Effects</b>: If link_mode is or \c safe_link
    //!   initializes the node to an unlinked state. The argument is ignored.
-   //! 
-   //! <b>Throws</b>: Nothing. 
-   //! 
+   //!
+   //! <b>Throws</b>: Nothing.
+   //!
    //! <b>Rationale</b>: Providing a copy-constructor
-   //!   makes classes using the hook STL-compliant without forcing the 
+   //!   makes classes using the hook STL-compliant without forcing the
    //!   user to do some additional work. \c swap can be used to emulate
    //!   move-semantics.
    any_base_hook(const any_base_hook& );
 
    //! <b>Effects</b>: Empty function. The argument is ignored.
-   //! 
-   //! <b>Throws</b>: Nothing. 
-   //! 
-   //! <b>Rationale</b>: Providing an assignment operator 
-   //!   makes classes using the hook STL-compliant without forcing the 
+   //!
+   //! <b>Throws</b>: Nothing.
+   //!
+   //! <b>Rationale</b>: Providing an assignment operator
+   //!   makes classes using the hook STL-compliant without forcing the
    //!   user to do some additional work. \c swap can be used to emulate
    //!   move-semantics.
    any_base_hook& operator=(const any_base_hook& );
@@ -122,17 +122,17 @@ class any_base_hook
    //! <b>Effects</b>: If link_mode is \c normal_link, the destructor does
    //!   nothing (ie. no code is generated). If link_mode is \c safe_link and the
    //!   object is stored in a container an assertion is raised.
-   //! 
-   //! <b>Throws</b>: Nothing. 
+   //!
+   //! <b>Throws</b>: Nothing.
    ~any_base_hook();
 
    //! <b>Precondition</b>: link_mode must be \c safe_link.
    //!
    //! <b>Returns</b>: true, if the node belongs to a container, false
-   //!   otherwise. This function can be used to test whether \c container::iterator_to 
-   //!   will return a valid iterator. 
+   //!   otherwise. This function can be used to test whether \c container::iterator_to
+   //!   will return a valid iterator.
    //!
-   //! <b>Complexity</b>: Constant 
+   //! <b>Complexity</b>: Constant
    bool is_linked() const;
    #endif
 };
@@ -148,7 +148,7 @@ struct make_any_member_hook
 {
    /// @cond
    typedef typename pack_options
-      < hook_defaults, 
+      < hook_defaults,
       #if !defined(BOOST_INTRUSIVE_VARIADIC_TEMPLATES)
       O1, O2, O3
       #else
@@ -168,10 +168,10 @@ struct make_any_member_hook
 
 //! Store this hook in a class to be inserted
 //! in an intrusive container.
-//! 
+//!
 //! The hook admits the following options: \c void_pointer<> and
 //! \c link_mode<>.
-//! 
+//!
 //! \c link_mode<> will specify the linking mode of the hook (\c normal_link or \c safe_link).
 //!
 //! \c void_pointer<> is the pointer type that will be used internally in the hook
@@ -194,27 +194,27 @@ class any_member_hook
    public:
    //! <b>Effects</b>: If link_mode is or \c safe_link
    //!   initializes the node to an unlinked state.
-   //! 
-   //! <b>Throws</b>: Nothing. 
+   //!
+   //! <b>Throws</b>: Nothing.
    any_member_hook();
 
    //! <b>Effects</b>: If link_mode is or \c safe_link
    //!   initializes the node to an unlinked state. The argument is ignored.
-   //! 
-   //! <b>Throws</b>: Nothing. 
-   //! 
+   //!
+   //! <b>Throws</b>: Nothing.
+   //!
    //! <b>Rationale</b>: Providing a copy-constructor
-   //!   makes classes using the hook STL-compliant without forcing the 
+   //!   makes classes using the hook STL-compliant without forcing the
    //!   user to do some additional work. \c swap can be used to emulate
    //!   move-semantics.
    any_member_hook(const any_member_hook& );
 
    //! <b>Effects</b>: Empty function. The argument is ignored.
-   //! 
-   //! <b>Throws</b>: Nothing. 
-   //! 
-   //! <b>Rationale</b>: Providing an assignment operator 
-   //!   makes classes using the hook STL-compliant without forcing the 
+   //!
+   //! <b>Throws</b>: Nothing.
+   //!
+   //! <b>Rationale</b>: Providing an assignment operator
+   //!   makes classes using the hook STL-compliant without forcing the
    //!   user to do some additional work. \c swap can be used to emulate
    //!   move-semantics.
    any_member_hook& operator=(const any_member_hook& );
@@ -222,17 +222,17 @@ class any_member_hook
    //! <b>Effects</b>: If link_mode is \c normal_link, the destructor does
    //!   nothing (ie. no code is generated). If link_mode is \c safe_link and the
    //!   object is stored in a container an assertion is raised.
-   //! 
-   //! <b>Throws</b>: Nothing. 
+   //!
+   //! <b>Throws</b>: Nothing.
    ~any_member_hook();
 
    //! <b>Precondition</b>: link_mode must be \c safe_link.
    //!
    //! <b>Returns</b>: true, if the node belongs to a container, false
-   //!   otherwise. This function can be used to test whether \c container::iterator_to 
-   //!   will return a valid iterator. 
+   //!   otherwise. This function can be used to test whether \c container::iterator_to
+   //!   will return a valid iterator.
    //!
-   //! <b>Complexity</b>: Constant 
+   //! <b>Complexity</b>: Constant
    bool is_linked() const;
    #endif
 };
@@ -244,15 +244,15 @@ namespace detail{
 template<class ValueTraits>
 struct any_to_get_base_pointer_type
 {
-   typedef typename pointer_to_other
-      <typename ValueTraits::boost_intrusive_tags::node_traits::node_ptr, void>::type type;
+   typedef typename pointer_traits<typename ValueTraits::boost_intrusive_tags::node_traits::node_ptr>::template
+      rebind_pointer<void>::type type;
 };
 
 template<class ValueTraits>
 struct any_to_get_member_pointer_type
 {
-   typedef typename pointer_to_other
-      <typename ValueTraits::node_ptr, void>::type type;
+   typedef typename pointer_traits
+      <typename ValueTraits::node_ptr>::template rebind_pointer<void>::type type;
 };
 
 //!This option setter specifies that the container
@@ -336,8 +336,8 @@ struct any_to_unordered_set_hook
 {};
 
 
-} //namespace intrusive 
-} //namespace boost 
+} //namespace intrusive
+} //namespace boost
 
 #include <boost/intrusive/detail/config_end.hpp>
 

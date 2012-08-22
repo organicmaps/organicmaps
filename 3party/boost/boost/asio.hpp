@@ -2,7 +2,7 @@
 // asio.hpp
 // ~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -29,6 +29,7 @@
 #include <boost/asio/basic_socket_streambuf.hpp>
 #include <boost/asio/basic_stream_socket.hpp>
 #include <boost/asio/basic_streambuf.hpp>
+#include <boost/asio/basic_waitable_timer.hpp>
 #include <boost/asio/buffer.hpp>
 #include <boost/asio/buffered_read_stream_fwd.hpp>
 #include <boost/asio/buffered_read_stream.hpp>
@@ -92,9 +93,14 @@
 #include <boost/asio/streambuf.hpp>
 #include <boost/asio/time_traits.hpp>
 #include <boost/asio/version.hpp>
+#include <boost/asio/wait_traits.hpp>
+#include <boost/asio/waitable_timer_service.hpp>
 #include <boost/asio/windows/basic_handle.hpp>
+#include <boost/asio/windows/basic_object_handle.hpp>
 #include <boost/asio/windows/basic_random_access_handle.hpp>
 #include <boost/asio/windows/basic_stream_handle.hpp>
+#include <boost/asio/windows/object_handle.hpp>
+#include <boost/asio/windows/object_handle_service.hpp>
 #include <boost/asio/windows/overlapped_ptr.hpp>
 #include <boost/asio/windows/random_access_handle.hpp>
 #include <boost/asio/windows/random_access_handle_service.hpp>

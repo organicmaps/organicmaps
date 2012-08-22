@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2001-2006 Joel de Guzman
+    Copyright (c) 2001-2011 Joel de Guzman
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -68,6 +68,16 @@
             return BOOST_PP_CAT(vector_data, N)(BOOST_PP_ENUM_PARAMS(N, *i));
         }
 
+        template <typename Sequence>
+        static BOOST_PP_CAT(vector_data, N)
+        init_from_sequence(Sequence& seq)
+        {
+            typedef typename result_of::begin<Sequence>::type I0;
+            I0 i0 = fusion::begin(seq);
+            BOOST_PP_REPEAT_FROM_TO(1, N, FUSION_ITER_DECL_VAR, _)
+            return BOOST_PP_CAT(vector_data, N)(BOOST_PP_ENUM_PARAMS(N, *i));
+        }
+
         BOOST_PP_REPEAT(N, FUSION_MEMBER_DECL, _)
     };
 
@@ -104,7 +114,16 @@
         BOOST_PP_CAT(vector, N)(
             Sequence const& seq
 #if (N == 1)
-          , typename disable_if<is_convertible<Sequence, T0> >::type* /*dummy*/ = 0
+          , typename boost::disable_if<is_convertible<Sequence, T0> >::type* /*dummy*/ = 0
+#endif
+            )
+            : base_type(base_type::init_from_sequence(seq)) {}
+
+        template <typename Sequence>
+        BOOST_PP_CAT(vector, N)(
+            Sequence& seq
+#if (N == 1)
+          , typename boost::disable_if<is_convertible<Sequence, T0> >::type* /*dummy*/ = 0
 #endif
             )
             : base_type(base_type::init_from_sequence(seq)) {}
@@ -118,7 +137,7 @@
         }
 
         template <typename Sequence>
-        typename disable_if<is_convertible<Sequence, T0>, this_type&>::type
+        typename boost::disable_if<is_convertible<Sequence, T0>, this_type&>::type
         operator=(Sequence const& seq)
         {
             typedef typename result_of::begin<Sequence const>::type I0;

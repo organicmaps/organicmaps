@@ -2,7 +2,7 @@
 // detail/impl/socket_ops.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -18,6 +18,7 @@
 #include <boost/asio/detail/config.hpp>
 #include <boost/assert.hpp>
 #include <boost/detail/workaround.hpp>
+#include <cctype>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -148,7 +149,7 @@ socket_type sync_accept(socket_type s, state_type state,
       return invalid_socket;
 
     // Wait for socket to become ready.
-    if (socket_ops::poll_read(s, ec) < 0)
+    if (socket_ops::poll_read(s, 0, ec) < 0)
       return invalid_socket;
   }
 }
@@ -465,6 +466,10 @@ int connect(socket_type s, const socket_addr_type* addr,
         &msghdr::msg_namelen, s, addr, addrlen), ec);
   if (result == 0)
     ec = boost::system::error_code();
+#if defined(__linux__)
+  else if (ec == boost::asio::error::try_again)
+    ec = boost::asio::error::no_buffer_space;
+#endif // defined(__linux__)
   return result;
 }
 
@@ -735,7 +740,7 @@ size_t sync_recv(socket_type s, state_type state, buf* bufs,
       return 0;
 
     // Wait for socket to become ready.
-    if (socket_ops::poll_read(s, ec) < 0)
+    if (socket_ops::poll_read(s, 0, ec) < 0)
       return 0;
   }
 }
@@ -873,7 +878,7 @@ size_t sync_recvfrom(socket_type s, state_type state, buf* bufs,
       return 0;
 
     // Wait for socket to become ready.
-    if (socket_ops::poll_read(s, ec) < 0)
+    if (socket_ops::poll_read(s, 0, ec) < 0)
       return 0;
   }
 }
@@ -984,7 +989,7 @@ size_t sync_recvmsg(socket_type s, state_type state,
       return 0;
 
     // Wait for socket to become ready.
-    if (socket_ops::poll_read(s, ec) < 0)
+    if (socket_ops::poll_read(s, 0, ec) < 0)
       return 0;
   }
 }
@@ -1110,7 +1115,7 @@ size_t sync_send(socket_type s, state_type state, const buf* bufs,
       return 0;
 
     // Wait for socket to become ready.
-    if (socket_ops::poll_write(s, ec) < 0)
+    if (socket_ops::poll_write(s, 0, ec) < 0)
       return 0;
   }
 }
@@ -1233,7 +1238,7 @@ size_t sync_sendto(socket_type s, state_type state, const buf* bufs,
       return 0;
 
     // Wait for socket to become ready.
-    if (socket_ops::poll_write(s, ec) < 0)
+    if (socket_ops::poll_write(s, 0, ec) < 0)
       return 0;
   }
 }
@@ -1683,7 +1688,7 @@ int select(int nfds, fd_set* readfds, fd_set* writefds,
 #endif
 }
 
-int poll_read(socket_type s, boost::system::error_code& ec)
+int poll_read(socket_type s, state_type state, boost::system::error_code& ec)
 {
   if (s == invalid_socket)
   {
@@ -1697,11 +1702,12 @@ int poll_read(socket_type s, boost::system::error_code& ec)
   fd_set fds;
   FD_ZERO(&fds);
   FD_SET(s, &fds);
+  timeval zero_timeout;
+  zero_timeout.tv_sec = 0;
+  zero_timeout.tv_usec = 0;
+  timeval* timeout = (state & user_set_non_blocking) ? &zero_timeout : 0;
   clear_last_error();
-  int result = error_wrapper(::select(s, &fds, 0, 0, 0), ec);
-  if (result >= 0)
-    ec = boost::system::error_code();
-  return result;
+  int result = error_wrapper(::select(s, &fds, 0, 0, timeout), ec);
 #else // defined(BOOST_WINDOWS)
       // || defined(__CYGWIN__)
       // || defined(__SYMBIAN32__)
@@ -1709,17 +1715,21 @@ int poll_read(socket_type s, boost::system::error_code& ec)
   fds.fd = s;
   fds.events = POLLIN;
   fds.revents = 0;
+  int timeout = (state & user_set_non_blocking) ? 0 : -1;
   clear_last_error();
-  int result = error_wrapper(::poll(&fds, 1, -1), ec);
-  if (result >= 0)
-    ec = boost::system::error_code();
-  return result;
+  int result = error_wrapper(::poll(&fds, 1, timeout), ec);
 #endif // defined(BOOST_WINDOWS)
        // || defined(__CYGWIN__)
        // || defined(__SYMBIAN32__)
+  if (result == 0)
+    ec = (state & user_set_non_blocking)
+      ? boost::asio::error::would_block : boost::system::error_code();
+  else if (result > 0)
+    ec = boost::system::error_code();
+  return result;
 }
 
-int poll_write(socket_type s, boost::system::error_code& ec)
+int poll_write(socket_type s, state_type state, boost::system::error_code& ec)
 {
   if (s == invalid_socket)
   {
@@ -1733,11 +1743,12 @@ int poll_write(socket_type s, boost::system::error_code& ec)
   fd_set fds;
   FD_ZERO(&fds);
   FD_SET(s, &fds);
+  timeval zero_timeout;
+  zero_timeout.tv_sec = 0;
+  zero_timeout.tv_usec = 0;
+  timeval* timeout = (state & user_set_non_blocking) ? &zero_timeout : 0;
   clear_last_error();
-  int result = error_wrapper(::select(s, 0, &fds, 0, 0), ec);
-  if (result >= 0)
-    ec = boost::system::error_code();
-  return result;
+  int result = error_wrapper(::select(s, 0, &fds, 0, timeout), ec);
 #else // defined(BOOST_WINDOWS)
       // || defined(__CYGWIN__)
       // || defined(__SYMBIAN32__)
@@ -1745,14 +1756,18 @@ int poll_write(socket_type s, boost::system::error_code& ec)
   fds.fd = s;
   fds.events = POLLOUT;
   fds.revents = 0;
+  int timeout = (state & user_set_non_blocking) ? 0 : -1;
   clear_last_error();
-  int result = error_wrapper(::poll(&fds, 1, -1), ec);
-  if (result >= 0)
-    ec = boost::system::error_code();
-  return result;
+  int result = error_wrapper(::poll(&fds, 1, timeout), ec);
 #endif // defined(BOOST_WINDOWS)
        // || defined(__CYGWIN__)
        // || defined(__SYMBIAN32__)
+  if (result == 0)
+    ec = (state & user_set_non_blocking)
+      ? boost::asio::error::would_block : boost::system::error_code();
+  else if (result > 0)
+    ec = boost::system::error_code();
+  return result;
 }
 
 int poll_connect(socket_type s, boost::system::error_code& ec)

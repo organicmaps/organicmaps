@@ -1,47 +1,45 @@
 /*=============================================================================
-    Copyright (c) 2001-2006 Joel de Guzman
+    Copyright (c) 2005-2012 Joel de Guzman
     Copyright (c) 2005-2006 Dan Marsden
 
-    Distributed under the Boost Software License, Version 1.0. (See accompanying 
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 ==============================================================================*/
 #if !defined(BOOST_FUSION_DEQUE_DETAIL_KEYED_ELEMENT_26112006_1330)
 #define BOOST_FUSION_DEQUE_DETAIL_KEYED_ELEMENT_26112006_1330
 
-#include <boost/type_traits/add_reference.hpp>
-#include <boost/type_traits/add_const.hpp>
-
+#include <boost/fusion/support/detail/access.hpp>
 #include <boost/fusion/iterator/deref.hpp>
 #include <boost/fusion/iterator/next.hpp>
 
-namespace boost { namespace fusion {
-
+namespace boost { namespace fusion
+{
     struct fusion_sequence_tag;
+}}
 
-namespace detail {
-
+namespace boost { namespace fusion { namespace detail
+{
     struct nil_keyed_element
     {
         typedef fusion_sequence_tag tag;
         void get();
 
         template<typename It>
-        static nil_keyed_element 
+        static nil_keyed_element
         from_iterator(It const&)
         {
             return nil_keyed_element();
         }
     };
 
-    template<typename Key, typename Value, typename Rest>
-    struct keyed_element
-        : Rest
+    template <typename Key, typename Value, typename Rest>
+    struct keyed_element : Rest
     {
         typedef Rest base;
         typedef fusion_sequence_tag tag;
         using Rest::get;
 
-        template<typename It>
+        template <typename It>
         static keyed_element
         from_iterator(It const& it)
         {
@@ -49,9 +47,9 @@ namespace detail {
                 *it, base::from_iterator(fusion::next(it)));
         }
 
-        template<typename U, typename Rst>
+        template <typename U, typename Rst>
         keyed_element(keyed_element<Key, U, Rst> const& rhs)
-            : Rest(rhs.get_base()), value_(rhs.value_)
+          : Rest(rhs.get_base()), value_(rhs.value_)
         {}
 
         Rest const get_base() const
@@ -59,17 +57,17 @@ namespace detail {
             return *this;
         }
 
-        typename add_reference<typename add_const<Value>::type>::type get(Key) const
+        typename cref_result<Value>::type get(Key) const
         {
             return value_;
         }
 
-        typename add_reference<Value>::type get(Key)
+        typename ref_result<Value>::type get(Key)
         {
             return value_;
         }
 
-        keyed_element(typename add_reference<typename add_const<Value>::type>::type value, Rest const& rest)
+        keyed_element(typename call_param<Value>::type value, Rest const& rest)
             : Rest(rest), value_(value)
         {}
 
@@ -97,7 +95,7 @@ namespace detail {
 
     template<typename Elem, typename Key>
     struct keyed_element_value_at
-        : keyed_element_value_at<typename Elem::base, Key>
+      : keyed_element_value_at<typename Elem::base, Key>
     {};
 
     template<typename Key, typename Value, typename Rest>
@@ -105,7 +103,6 @@ namespace detail {
     {
         typedef Value type;
     };
-
 }}}
 
 #endif

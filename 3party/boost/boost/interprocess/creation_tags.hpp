@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -61,12 +61,12 @@ static const open_or_create_t open_or_create = open_or_create_t();
 //!be only opened for reading
 static const open_copy_on_write_t open_copy_on_write = open_copy_on_write_t();
 
-namespace detail {
+namespace ipcdetail {
 
 enum create_enum_t
 {  DoCreate, DoOpen, DoOpenOrCreate   };
 
-}  //namespace detail {
+}  //namespace ipcdetail {
 
 }  //namespace interprocess {
 }  //namespace boost {

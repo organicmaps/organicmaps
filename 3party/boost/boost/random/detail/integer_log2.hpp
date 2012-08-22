@@ -7,7 +7,7 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: integer_log2.hpp 72861 2011-07-02 20:26:19Z danieljames $
+ * $Id: integer_log2.hpp 76145 2011-12-24 19:05:17Z danieljames $
  *
  */
 
@@ -22,9 +22,7 @@ namespace boost {
 namespace random {
 namespace detail {
 
-// Daniel James: Disabled use of constexpr because integer_log2_impl is not a
-// valid constexpr.
-#if 0 && !defined(BOOST_NO_CONSTEXPR)
+#if !defined(BOOST_NO_CONSTEXPR)
 #define BOOST_RANDOM_DETAIL_CONSTEXPR constexpr
 #elif defined(BOOST_MSVC)
 #define BOOST_RANDOM_DETAIL_CONSTEXPR __forceinline
@@ -37,12 +35,26 @@ namespace detail {
 template<int Shift>
 struct integer_log2_impl
 {
+#if defined(BOOST_NO_CONSTEXPR)
     template<class T>
     BOOST_RANDOM_DETAIL_CONSTEXPR static int apply(T t, int accum)
     {
         int update = ((t >> Shift) != 0) * Shift;
         return integer_log2_impl<Shift / 2>::apply(t >> update, accum + update);
     }
+#else
+    template<class T>
+    BOOST_RANDOM_DETAIL_CONSTEXPR static int apply2(T t, int accum, int update)
+    {
+        return integer_log2_impl<Shift / 2>::apply(t >> update, accum + update);
+    }
+
+    template<class T>
+    BOOST_RANDOM_DETAIL_CONSTEXPR static int apply(T t, int accum)
+    {
+        return apply2(t, accum, ((t >> Shift) != 0) * Shift);
+    }
+#endif
 };
 
 template<>

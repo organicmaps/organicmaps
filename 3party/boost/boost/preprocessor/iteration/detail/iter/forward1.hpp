@@ -17,7 +17,7 @@
 #    include <boost/preprocessor/iteration/detail/bounds/lower1.hpp>
 #    define BOOST_PP_VALUE BOOST_PP_TUPLE_ELEM(2, 1, BOOST_PP_ITERATION_LIMITS)
 #    include <boost/preprocessor/iteration/detail/bounds/upper1.hpp>
-#    define BOOST_PP_ITERATION_FLAGS_1 0
+#    define BOOST_PP_ITERATION_FLAGS_1() 0
 #    undef BOOST_PP_ITERATION_LIMITS
 # elif defined(BOOST_PP_ITERATION_PARAMS_1)
 #    define BOOST_PP_VALUE BOOST_PP_ARRAY_ELEM(0, BOOST_PP_ITERATION_PARAMS_1)
@@ -26,9 +26,9 @@
 #    include <boost/preprocessor/iteration/detail/bounds/upper1.hpp>
 #    define BOOST_PP_FILENAME_1 BOOST_PP_ARRAY_ELEM(2, BOOST_PP_ITERATION_PARAMS_1)
 #    if BOOST_PP_ARRAY_SIZE(BOOST_PP_ITERATION_PARAMS_1) >= 4
-#        define BOOST_PP_ITERATION_FLAGS_1 BOOST_PP_ARRAY_ELEM(3, BOOST_PP_ITERATION_PARAMS_1)
+#        define BOOST_PP_ITERATION_FLAGS_1() BOOST_PP_ARRAY_ELEM(3, BOOST_PP_ITERATION_PARAMS_1)
 #    else
-#        define BOOST_PP_ITERATION_FLAGS_1 0
+#        define BOOST_PP_ITERATION_FLAGS_1() 0
 #    endif
 # else
 #    error BOOST_PP_ERROR:  depth #1 iteration boundaries or filename not defined

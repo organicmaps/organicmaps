@@ -22,14 +22,14 @@ namespace boost{namespace icl
     template <typename Type> struct identity_based_inplace_combine 
         : public std::binary_function<Type&, const Type&, void>
     {
-        static Type identity_element() { return boost::icl::identity_element<Type>::value(); }
+        inline static Type identity_element() { return boost::icl::identity_element<Type>::value(); }
     };
 
     // ------------------------------------------------------------------------
     template <typename Type> struct unit_element_based_inplace_combine 
         : public std::binary_function<Type&, const Type&, void>
     {
-        static Type identity_element() { return boost::icl::unit_element<Type>::value(); }
+        inline static Type identity_element() { return boost::icl::unit_element<Type>::value(); }
     };
 
     // ------------------------------------------------------------------------
@@ -49,11 +49,13 @@ namespace boost{namespace icl
         : public identity_based_inplace_combine<Type>
     {
         typedef inplace_erasure<Type> type;
+        typedef identity_based_inplace_combine<Type> base_type;
 
         void operator()(Type& object, const Type& operand)const
         { 
             if(object == operand)
-                object = Type();
+                //identity_element(); //JODO Old gcc-3.4.4 does not compile this
+                object = base_type::identity_element(); //<-- but this.
         }
     };
 
@@ -112,8 +114,6 @@ namespace boost{namespace icl
 
         void operator()(Type& object, const Type& operand)const
         { object &= ~operand; }
-
-        static Type identity_element() { return boost::icl::identity_element<Type>::value(); }
     };
 
     template<>
@@ -140,8 +140,6 @@ namespace boost{namespace icl
 
         void operator()(Type& object, const Type& operand)const
         { object ^= operand; }
-
-        static Type identity_element() { return boost::icl::identity_element<Type>::value(); }
     };
 
     // ------------------------------------------------------------------------
@@ -165,8 +163,6 @@ namespace boost{namespace icl
 
         void operator()(Type& object, const Type& operand)const
         { object ^= operand; }
-
-        static Type identity_element() { return boost::icl::identity_element<Type>::value(); }
     };
 
     template<>
@@ -180,8 +176,6 @@ namespace boost{namespace icl
 
         void operator()(Type& object, const Type& operand)const
         { insert(object,operand); }
-
-        static Type identity_element() { return boost::icl::identity_element<Type>::value(); }
     };
 
     template<>
@@ -195,8 +189,6 @@ namespace boost{namespace icl
 
         void operator()(Type& object, const Type& operand)const
         { erase(object,operand); }
-
-        static Type identity_element() { return boost::icl::identity_element<Type>::value(); }
     };
 
     template<>
@@ -204,14 +196,12 @@ namespace boost{namespace icl
 
     // ------------------------------------------------------------------------
     template <typename Type> struct inplace_star
-        : public identity_based_inplace_combine<Type>
+        : public identity_based_inplace_combine<Type> //JODO unit_element_
     {
         typedef inplace_star<Type> type;
 
         void operator()(Type& object, const Type& operand)const
         { object *= operand; }
-
-        static Type identity_element() { return boost::icl::identity_element<Type>::value(); }
     };
 
     template<>
@@ -219,14 +209,12 @@ namespace boost{namespace icl
 
     // ------------------------------------------------------------------------
     template <typename Type> struct inplace_slash
-        : public identity_based_inplace_combine<Type>
+        : public identity_based_inplace_combine<Type> //JODO unit_element_
     {
         typedef inplace_slash<Type> type;
 
         void operator()(Type& object, const Type& operand)const
         { object /= operand; }
-
-        static Type identity_element() { return boost::icl::identity_element<Type>::value(); }
     };
 
     template<>
@@ -243,8 +231,6 @@ namespace boost{namespace icl
             if(object < operand)
                 object = operand;
         }
-
-        static Type identity_element() { return boost::icl::identity_element<Type>::value(); }
     };
 
     template<>
@@ -261,8 +247,6 @@ namespace boost{namespace icl
             if(object > operand)
                 object = operand;
         }
-
-        static Type identity_element() { return boost::icl::identity_element<Type>::value(); }
     };
 
     template<>
@@ -339,6 +323,19 @@ namespace boost{namespace icl
     template<class Type> 
     struct inverse<icl::inplace_min<Type> >
     { typedef icl::inplace_max<Type> type; };
+
+    template<class Type> 
+    struct inverse<icl::inplace_identity<Type> >
+    { typedef icl::inplace_erasure<Type> type; };
+
+    // If a Functor 
+    template<class Functor> 
+    struct inverse
+    {
+        typedef typename 
+            remove_reference<typename Functor::first_argument_type>::type argument_type;
+        typedef icl::inplace_erasure<argument_type> type; 
+    };
 
 
     //--------------------------------------------------------------------------

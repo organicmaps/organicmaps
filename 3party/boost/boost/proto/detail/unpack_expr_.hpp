@@ -107,6 +107,7 @@
             >::result_type
         type;
 
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             return proto::detail::protoify<terminal_type, Domain>()(fusion::at_c<0>(sequence));
@@ -155,6 +156,7 @@
         typedef typename Domain::proto_generator proto_generator;
         typedef typename proto_generator::template result<proto_generator(expr_type)>::type type;
 
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             BOOST_PROTO_FUSION_ITERATORS(N)
@@ -183,6 +185,7 @@
 
         typedef typename other::type type;
 
+        BOOST_FORCEINLINE
         static type const call(Sequence const &sequence)
         {
             return other::call(sequence);

@@ -18,7 +18,7 @@
 #error Boost.Serialization cannot be compatible with both 1.35 and 1.36-1.40 files
 #endif
 #else
-#define BOOST_SERIALIZATION_VECTOR_VERSIONED(V) (V==4)
+#define BOOST_SERIALIZATION_VECTOR_VERSIONED(V) (V>4)
 #endif
 
 #include <boost/serialization/vector.hpp>

@@ -81,6 +81,7 @@ class unordered_multimap_adaptor :
     public:
 
     typedef BOOST_DEDUCED_TYPENAME Iterator::value_type::second_type data_type;
+    typedef data_type mapped_type;
 
     // Access -----------------------------------------------------------------
 

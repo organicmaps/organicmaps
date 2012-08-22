@@ -11,8 +11,6 @@
 #ifndef BOOST_MSM_COMMON_H
 #define BOOST_MSM_COMMON_H
 
-
-
 namespace boost { namespace msm
 {
 // wrapper for mpl::for_each as showed in the C++ Template Metaprogramming ch. 9

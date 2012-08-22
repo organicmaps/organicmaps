@@ -92,7 +92,7 @@ T ellint_rf_imp(T x, T y, T z, const Policy& pol)
     while(k < policies::get_max_series_iterations<Policy>());
 
     // Check to see if we gave up too soon:
-    policies::check_series_iterations(function, k, pol);
+    policies::check_series_iterations<T>(function, k, pol);
     BOOST_MATH_INSTRUMENT_VARIABLE(k);
 
     // Taylor series expansion to the 5th order

@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2001-2006 Joel de Guzman
+    Copyright (c) 2005-2012 Joel de Guzman
     Copyright (c) 2006 Dan Marsden
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -21,7 +21,9 @@ namespace boost { namespace fusion
         template <typename Sequence>
         struct as_deque
         {
-            typedef typename detail::as_deque<result_of::size<Sequence>::value> gen;
+            typedef typename
+                detail::as_deque<result_of::size<Sequence>::value>
+            gen;
             typedef typename gen::
                 template apply<typename result_of::begin<Sequence>::type>::type
             type;

@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------------+
-Copyright (c) 2007-2010: Joachim Faulhaber
+Copyright (c) 2007-2012: Joachim Faulhaber
 Copyright (c) 1999-2006: Cortex Software GmbH, Kantstrasse 57, Berlin
 +------------------------------------------------------------------------------+
    Distributed under the Boost Software License, Version 1.0.
@@ -193,6 +193,7 @@ public:
     BOOST_STATIC_CONSTANT(int, fineness = 0); 
 
 public:
+
     //==========================================================================
     //= Construct, copy, destruct
     //==========================================================================
@@ -214,12 +215,36 @@ public:
         BOOST_CONCEPT_ASSERT((EqualComparableConcept<CodomainT>));
     }
 
-    /** Assignment operator */
+    /** Copy assignment operator */
     interval_base_map& operator = (const interval_base_map& src) 
     { 
         this->_map = src._map;
         return *this; 
     }
+
+#   ifndef BOOST_NO_RVALUE_REFERENCES
+    //==========================================================================
+    //= Move semantics
+    //==========================================================================
+
+    /** Move constructor */
+    interval_base_map(interval_base_map&& src): _map(boost::move(src._map))
+    {
+        BOOST_CONCEPT_ASSERT((DefaultConstructibleConcept<DomainT>));
+        BOOST_CONCEPT_ASSERT((LessThanComparableConcept<DomainT>));
+        BOOST_CONCEPT_ASSERT((DefaultConstructibleConcept<CodomainT>));
+        BOOST_CONCEPT_ASSERT((EqualComparableConcept<CodomainT>));
+    }
+
+    /** Move assignment operator */
+    interval_base_map& operator = (interval_base_map&& src) 
+    { 
+        this->_map = boost::move(src._map);
+        return *this; 
+    }
+
+    //==========================================================================
+#   endif // BOOST_NO_RVALUE_REFERENCES
 
     /** swap the content of containers */
     void swap(interval_base_map& object) { _map.swap(object._map); }

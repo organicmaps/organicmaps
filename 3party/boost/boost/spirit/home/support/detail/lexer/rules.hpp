@@ -44,6 +44,16 @@ namespace detail
         {
             return "*";
         }
+
+        static const char *char_name ()
+        {
+            return "char";
+        }
+
+        static const char *char_prefix ()
+        {
+            return "";
+        }
     };
 
     template <>
@@ -62,6 +72,16 @@ namespace detail
         static const wchar_t *all_states ()
         {
             return L"*";
+        }
+
+        static const char *char_name ()
+        {
+            return "wchar_t";
+        }
+
+        static const char *char_prefix ()
+        {
+            return "L";
         }
     };
 }

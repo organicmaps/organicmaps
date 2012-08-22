@@ -12,6 +12,7 @@
 
 #include <boost/math/special_functions/detail/bessel_y0.hpp>
 #include <boost/math/special_functions/detail/bessel_y1.hpp>
+#include <boost/math/special_functions/detail/bessel_jy_series.hpp>
 #include <boost/math/policies/error_handling.hpp>
 
 // Bessel function of the second kind of integer order
@@ -22,6 +23,7 @@ namespace boost { namespace math { namespace detail{
 template <typename T, typename Policy>
 T bessel_yn(int n, T x, const Policy& pol)
 {
+    BOOST_MATH_STD_USING
     T value, factor, current, prev;
 
     using namespace boost::math::tools;
@@ -51,7 +53,15 @@ T bessel_yn(int n, T x, const Policy& pol)
         factor = 1;
     }
 
-    if (n == 0)
+    if(x < policies::get_epsilon<T, Policy>())
+    {
+       T scale = 1;
+       value = bessel_yn_small_z(n, x, &scale, pol);
+       if(tools::max_value<T>() * fabs(scale) < fabs(value))
+          return boost::math::sign(scale) * boost::math::sign(value) * policies::raise_overflow_error<T>(function, 0, pol);
+       value /= scale;
+    }
+    else if (n == 0)
     {
         value = bessel_y0(x, pol);
     }
@@ -67,13 +77,22 @@ T bessel_yn(int n, T x, const Policy& pol)
        BOOST_ASSERT(k < n);
        do
        {
-           value = 2 * k * current / x - prev;
+           T fact = 2 * k / x;
+           if((tools::max_value<T>() - fabs(prev)) / fact < fabs(current))
+           {
+              prev /= current;
+              factor /= current;
+              current = 1;
+           }
+           value = fact * current - prev;
            prev = current;
            current = value;
            ++k;
        }
        while(k < n);
-       value *= factor;
+       if(fabs(tools::max_value<T>() * factor) < fabs(value))
+          return sign(value) * sign(value) * policies::raise_overflow_error<T>(function, 0, pol);
+       value /= factor;
     }
     return value;
 }

@@ -24,13 +24,13 @@ T cos_pi_imp(T x, const Policy& pol)
    BOOST_MATH_STD_USING // ADL of std names
    // cos of pi*x:
    bool invert = false;
-   if(x < 0.5)
+   if(fabs(x) < 0.5)
       return cos(constants::pi<T>() * x);
+
    if(x < 1)
    {
       x = -x;
    }
-
    T rem = floor(x);
    if(itrunc(rem, pol) & 1)
       invert = !invert;

@@ -73,7 +73,7 @@ struct add<T1, T2, /* signed */ true>
     if (y >= 0)
       return T2(x) + y;
     // y < 0
-    if (x >= T1(-(y+1)))  // result >= 0 after subtraction
+    if (x > T1(-(y+1)))  // result >= 0 after subtraction
       // avoid the nasty two's complement edge case for y == min()
       return T2(x - T1(-(y+1)) - 1);
     // abs(x) < abs(y), thus T2 able to represent x

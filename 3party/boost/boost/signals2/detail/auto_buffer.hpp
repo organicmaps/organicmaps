@@ -562,7 +562,7 @@ namespace detail
               buffer_( allocate(members_.capacity_) ),
               size_( 0 )
         {
-            std::uninitialized_fill( buffer_, buffer_ + size, init_value );
+            std::uninitialized_fill( buffer_, buffer_ + size_arg, init_value );
             size_ = size_arg;
             BOOST_ASSERT( is_valid() );
         }

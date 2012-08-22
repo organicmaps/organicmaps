@@ -5,6 +5,9 @@
 // (See accompanying file LICENSE_1_0.txt
 // or copy at http://www.boost.org/LICENSE_1_0.txt)
 
+#ifndef BOOST_MATH_SF_PRIME_HPP
+#define BOOST_MATH_SF_PRIME_HPP
+
 #include <boost/array.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/math/policies/error_handling.hpp>
@@ -25,15 +28,15 @@ namespace boost{ namespace math{
       static const unsigned b1 = 53;
       static const unsigned b2 = 6541;
       static const unsigned b3 = 10000;
-      static const boost::array<unsigned char, 54> a1 = {
+      static const boost::array<unsigned char, 54> a1 = {{
          2u, 3u, 5u, 7u, 11u, 13u, 17u, 19u, 23u, 29u, 31u, 
          37u, 41u, 43u, 47u, 53u, 59u, 61u, 67u, 71u, 73u, 
          79u, 83u, 89u, 97u, 101u, 103u, 107u, 109u, 113u, 
          127u, 131u, 137u, 139u, 149u, 151u, 157u, 163u, 
          167u, 173u, 179u, 181u, 191u, 193u, 197u, 199u, 
          211u, 223u, 227u, 229u, 233u, 239u, 241u, 251u
-      };
-      static const boost::array<boost::uint16_t, 6488> a2 = {
+      }};
+      static const boost::array<boost::uint16_t, 6488> a2 = {{
          257u, 263u, 269u, 271u, 277u, 281u, 283u, 293u, 
          307u, 311u, 313u, 317u, 331u, 337u, 347u, 349u, 353u, 
          359u, 367u, 373u, 379u, 383u, 389u, 397u, 401u, 409u, 
@@ -755,8 +758,8 @@ namespace boost{ namespace math{
          65203u, 65213u, 65239u, 65257u, 65267u, 65269u, 65287u, 65293u, 65309u, 
          65323u, 65327u, 65353u, 65357u, 65371u, 65381u, 65393u, 65407u, 65413u, 
          65419u, 65423u, 65437u, 65447u, 65449u, 65479u, 65497u, 65519u, 65521u
-      };
-      static const boost::array<boost::uint16_t, 3458> a3 = {
+      }};
+      static const boost::array<boost::uint16_t, 3458> a3 = {{
          2u, 4u, 8u, 16u, 22u, 28u, 44u, 
          46u, 52u, 64u, 74u, 82u, 94u, 98u, 112u, 
          116u, 122u, 142u, 152u, 164u, 166u, 172u, 178u, 
@@ -1190,7 +1193,7 @@ namespace boost{ namespace math{
          39016u, 39026u, 39044u, 39058u, 39062u, 39088u, 39104u, 39116u, 
          39124u, 39142u, 39146u, 39148u, 39158u, 39166u, 39172u, 39176u, 
          39182u, 39188u, 39194u
-      };
+      }};
 
       if(n <= b1)
          return a1[n];
@@ -1212,3 +1215,5 @@ namespace boost{ namespace math{
    static const unsigned max_prime = 10000;
 
 }} // namespace boost and math
+
+#endif // BOOST_MATH_SF_PRIME_HPP

@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 1995, 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 1995, 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 // Copyright (c) 1995 Maarten Hilferink, Amsterdam, the Netherlands
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
@@ -27,7 +27,7 @@
 //#define GL_DEBUG_DOUGLAS_PEUCKER
 
 #ifdef GL_DEBUG_DOUGLAS_PEUCKER
-#include <boost/geometry/util/write_dsv.hpp>
+#include <boost/geometry/io/dsv/write.hpp>
 #endif
 
 
@@ -60,8 +60,7 @@ namespace detail
         {}
 
         // Necessary for proper compilation
-        inline douglas_peucker_point<Point> operator=(
-                    douglas_peucker_point<Point> const& other)
+        inline douglas_peucker_point<Point> operator=(douglas_peucker_point<Point> const& )
         {
             return douglas_peucker_point<Point>(*this);
         }
@@ -94,7 +93,12 @@ class douglas_peucker
 {
 public :
 
-    typedef typename strategy::distance::services::comparable_type<PointDistanceStrategy>::type distance_strategy_type;
+	// See also ticket 5954 https://svn.boost.org/trac/boost/ticket/5954
+	// Comparable is currently not possible here because it has to be compared to the squared of max_distance, and more.
+	// For now we have to take the real distance.
+	typedef PointDistanceStrategy distance_strategy_type;
+    // typedef typename strategy::distance::services::comparable_type<PointDistanceStrategy>::type distance_strategy_type;
+
     typedef typename strategy::distance::services::return_type<distance_strategy_type>::type return_type;
 
 private :
@@ -145,7 +149,7 @@ private :
 #ifdef GL_DEBUG_DOUGLAS_PEUCKER
             std::cout << "consider " << dsv(it->p)
                 << " at " << double(dist)
-                << ((dist > max_dist) ? " maybe" : " no")
+                << ((dist > max_dist) ? " maybe" : " no") 
                 << std::endl;
 
 #endif

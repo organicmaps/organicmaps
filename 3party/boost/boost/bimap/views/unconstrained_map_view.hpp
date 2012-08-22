@@ -29,7 +29,7 @@ class unconstrained_map_view
 {
     public:
     template< class T >
-    unconstrained_map_view(const T & t) {}
+    unconstrained_map_view(const T &) {}
 
     typedef void reference;
     typedef void const_reference;

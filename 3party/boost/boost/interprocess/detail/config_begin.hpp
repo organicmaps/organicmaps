@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -44,4 +44,5 @@
                                     //    with /GR-; unpredictable behavior may result
    #pragma warning (disable : 4673) //  throwing '' the following types will not be considered at the catch site
    #pragma warning (disable : 4671) //  the copy constructor is inaccessible
+   #pragma warning (disable : 4250) //  inherits 'x' via dominance
 #endif

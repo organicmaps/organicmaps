@@ -1,8 +1,8 @@
 /*=============================================================================
-    Copyright (c) 2001-2006 Joel de Guzman
+    Copyright (c) 2005-2012 Joel de Guzman
     Copyright (c) 2006 Dan Marsden
 
-    Distributed under the Boost Software License, Version 1.0. (See accompanying 
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 ==============================================================================*/
 #ifndef BOOST_PP_IS_ITERATING
@@ -25,7 +25,7 @@ namespace boost { namespace fusion { namespace detail
 {
     template <int size>
     struct as_deque;
-    
+
     template <>
     struct as_deque<0>
     {
@@ -34,7 +34,7 @@ namespace boost { namespace fusion { namespace detail
         {
             typedef deque<> type;
         };
-        
+
         template <typename Iterator>
         static typename apply<Iterator>::type
         call(Iterator)
@@ -42,7 +42,30 @@ namespace boost { namespace fusion { namespace detail
             return deque<>();
         }
     };
+}}}
 
+#if !defined(BOOST_FUSION_DONT_USE_PREPROCESSED_FILES)
+#include <boost/fusion/container/deque/detail/preprocessed/as_deque.hpp>
+#else
+#if defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES)
+#pragma wave option(preserve: 2, line: 0, output: "preprocessed/as_deque" FUSION_MAX_DEQUE_SIZE_STR ".hpp")
+#endif
+
+/*=============================================================================
+    Copyright (c) 2001-2011 Joel de Guzman
+
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+    This is an auto-generated file. Do not edit!
+==============================================================================*/
+
+#if defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES)
+#pragma wave option(preserve: 1)
+#endif
+
+namespace boost { namespace fusion { namespace detail
+{
 #define BOOST_FUSION_NEXT_ITERATOR(z, n, data)                                  \
     typedef typename fusion::result_of::next<BOOST_PP_CAT(I, n)>::type          \
         BOOST_PP_CAT(I, BOOST_PP_INC(n));
@@ -65,6 +88,12 @@ namespace boost { namespace fusion { namespace detail
 
 }}}
 
+#if defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES)
+#pragma wave option(output: null)
+#endif
+
+#endif // BOOST_FUSION_DONT_USE_PREPROCESSED_FILES
+
 #endif
 #else // defined(BOOST_PP_IS_ITERATING)
 ///////////////////////////////////////////////////////////////////////////////
@@ -85,7 +114,7 @@ namespace boost { namespace fusion { namespace detail
             BOOST_PP_REPEAT(N, BOOST_FUSION_VALUE_OF_ITERATOR, _)
             typedef deque<BOOST_PP_ENUM_PARAMS(N, T)> type;
         };
-        
+
         template <typename Iterator>
         static typename apply<Iterator>::type
         call(Iterator const& i0)

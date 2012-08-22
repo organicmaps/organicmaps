@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -19,6 +19,7 @@
 #include <boost/numeric/conversion/cast.hpp>
 #include <boost/type_traits.hpp>
 
+#include <boost/geometry/arithmetic/determinant.hpp>
 #include <boost/geometry/core/coordinate_type.hpp>
 #include <boost/geometry/core/point_type.hpp>
 #include <boost/geometry/strategies/centroid.hpp>
@@ -177,7 +178,7 @@ public :
         calculation_type const y1 = boost::numeric_cast<calculation_type>(get<1>(p1));
         calculation_type const x2 = boost::numeric_cast<calculation_type>(get<0>(p2));
         calculation_type const y2 = boost::numeric_cast<calculation_type>(get<1>(p2));
-        calculation_type const ai = x1 * y2 - x2 * y1;
+        calculation_type const ai = geometry::detail::determinant<calculation_type>(p1, p2);
         state.count++;
         state.sum_a2 += ai;
         state.sum_x += ai * (x1 + x2);
@@ -187,7 +188,7 @@ public :
     static inline bool result(sums const& state, Point& centroid)
     {
         calculation_type const zero = calculation_type();
-        if (state.count > 0 && state.sum_a2 != zero)
+        if (state.count > 0 && ! math::equals(state.sum_a2, zero))
         {
             calculation_type const v3 = 3;
             calculation_type const a3 = v3 * state.sum_a2;

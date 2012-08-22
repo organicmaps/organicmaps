@@ -8,7 +8,7 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: geometric_distribution.hpp 71018 2011-04-05 21:27:52Z steven_watanabe $
+ * $Id: geometric_distribution.hpp 74867 2011-10-09 23:13:31Z steven_watanabe $
  *
  * Revision history
  *  2001-02-18  moved to individual header files
@@ -124,7 +124,7 @@ public:
     RealType p() const { return _p; }
 
     /** Returns the smallest value that the distribution can produce. */
-    IntType min BOOST_PREVENT_MACRO_SUBSTITUTION () const { return IntType(1); }
+    IntType min BOOST_PREVENT_MACRO_SUBSTITUTION () const { return IntType(0); }
 
     /** Returns the largest value that the distribution can produce. */
     IntType max BOOST_PREVENT_MACRO_SUBSTITUTION () const

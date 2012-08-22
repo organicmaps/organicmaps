@@ -157,10 +157,10 @@ struct If_Else_<Condition,Action1,Action2
 struct if_tag 
 {
 };
-struct If : proto::extends<proto::terminal<if_tag>::type, If, sm_domain>
+struct If : proto::extends<proto::terminal<if_tag>::type, If, boost::msm::sm_domain>
 {
     If(){}
-    using proto::extends< proto::terminal<if_tag>::type, If, sm_domain>::operator=;
+    using proto::extends< proto::terminal<if_tag>::type, If, boost::msm::sm_domain>::operator=;
     template <class Arg1,class Arg2,class Arg3,class Arg4,class Arg5 
 #ifdef BOOST_MSVC 
  ,class Arg6 
@@ -256,10 +256,10 @@ struct If_Then_<Condition,Action1
 struct if_then_tag 
 {
 };
-struct If_Then : proto::extends< proto::terminal<if_then_tag>::type, If_Then, sm_domain>
+struct If_Then : proto::extends< proto::terminal<if_then_tag>::type, If_Then, boost::msm::sm_domain>
 {
     If_Then(){}
-    using proto::extends< proto::terminal<if_then_tag>::type, If_Then, sm_domain>::operator=;
+    using proto::extends< proto::terminal<if_then_tag>::type, If_Then, boost::msm::sm_domain>::operator=;
     template <class Arg1,class Arg2,class Arg3,class Arg4,class Arg5 
 #ifdef BOOST_MSVC 
  ,class Arg6 
@@ -312,10 +312,10 @@ struct While_Do_ : euml_action<While_Do_<Condition,Body> >
 struct while_do_tag 
 {
 };
-struct While_Do_Helper : proto::extends< proto::terminal<while_do_tag>::type, While_Do_Helper, sm_domain>
+struct While_Do_Helper : proto::extends< proto::terminal<while_do_tag>::type, While_Do_Helper, boost::msm::sm_domain>
 {
     While_Do_Helper(){}
-    using proto::extends< proto::terminal<while_do_tag>::type, While_Do_Helper, sm_domain>::operator=;
+    using proto::extends< proto::terminal<while_do_tag>::type, While_Do_Helper, boost::msm::sm_domain>::operator=;
     template <class Arg1,class Arg2,class Arg3,class Arg4,class Arg5 
 #ifdef BOOST_MSVC 
  ,class Arg6 
@@ -368,10 +368,10 @@ struct Do_While_ : euml_action<Do_While_<Condition,Body> >
 struct do_while_tag 
 {
 };
-struct Do_While_Helper : proto::extends< proto::terminal<do_while_tag>::type, Do_While_Helper, sm_domain>
+struct Do_While_Helper : proto::extends< proto::terminal<do_while_tag>::type, Do_While_Helper, boost::msm::sm_domain>
 {
     Do_While_Helper(){}
-    using proto::extends< proto::terminal<do_while_tag>::type, Do_While_Helper, sm_domain>::operator=;
+    using proto::extends< proto::terminal<do_while_tag>::type, Do_While_Helper, boost::msm::sm_domain>::operator=;
     template <class Arg1,class Arg2,class Arg3,class Arg4,class Arg5 
 #ifdef BOOST_MSVC 
  ,class Arg6 
@@ -426,10 +426,10 @@ struct For_Loop_ : euml_action<For_Loop_<Begin,End,EndLoop,Body> >
 struct for_loop_tag 
 {
 };
-struct For_Loop_Helper : proto::extends< proto::terminal<for_loop_tag>::type, For_Loop_Helper, sm_domain>
+struct For_Loop_Helper : proto::extends< proto::terminal<for_loop_tag>::type, For_Loop_Helper, boost::msm::sm_domain>
 {
     For_Loop_Helper(){}
-    using proto::extends< proto::terminal<for_loop_tag>::type, For_Loop_Helper, sm_domain>::operator=;
+    using proto::extends< proto::terminal<for_loop_tag>::type, For_Loop_Helper, boost::msm::sm_domain>::operator=;
     template <class Arg1,class Arg2,class Arg3,class Arg4,class Arg5 
 #ifdef BOOST_MSVC 
  ,class Arg6 

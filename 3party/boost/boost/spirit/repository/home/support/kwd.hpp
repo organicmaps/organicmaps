@@ -15,7 +15,7 @@
 namespace boost { namespace spirit { namespace repository
 {
     // The distinct extended terminal
-    BOOST_SPIRIT_DEFINE_TERMINALS_NAME_EX(( kwd, kwd_type )( ikwd, ikwd_type ) )
+    BOOST_SPIRIT_DEFINE_TERMINALS_NAME_EX(( kwd, kwd_type )( ikwd, ikwd_type )(dkwd, dkwd_type)(idkwd, idkwd_type) )
 
 }}}
 

@@ -7,10 +7,11 @@
 #ifndef BOOST_GRAPH_CLUSTERING_COEFFICIENT_HPP
 #define BOOST_GRAPH_CLUSTERING_COEFFICIENT_HPP
 
-#include <boost/utility.hpp>
+#include <boost/next_prior.hpp>
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/graph_concepts.hpp>
 #include <boost/graph/lookup_edge.hpp>
+#include <boost/concept/assert.hpp>
 
 namespace boost
 {
@@ -20,7 +21,7 @@ namespace detail
     inline typename graph_traits<Graph>::degree_size_type
     possible_edges(const Graph& g, std::size_t k, directed_tag)
     {
-        function_requires< GraphConcept<Graph> >();
+        BOOST_CONCEPT_ASSERT(( GraphConcept<Graph> ));
         typedef typename graph_traits<Graph>::degree_size_type T;
         return T(k) * (T(k) - 1);
     }
@@ -42,7 +43,7 @@ namespace detail
                 directed_tag)
 
     {
-        function_requires< AdjacencyMatrixConcept<Graph> >();
+        BOOST_CONCEPT_ASSERT(( AdjacencyMatrixConcept<Graph> ));
         return (lookup_edge(u, v, g).second ? 1 : 0) +
                 (lookup_edge(v, u, g).second ? 1 : 0);
     }
@@ -55,7 +56,7 @@ namespace detail
                 typename graph_traits<Graph>::vertex_descriptor v,
                 undirected_tag)
     {
-        function_requires< AdjacencyMatrixConcept<Graph> >();
+        BOOST_CONCEPT_ASSERT(( AdjacencyMatrixConcept<Graph> ));
         return lookup_edge(u, v, g).second ? 1 : 0;
     }
 }
@@ -64,7 +65,7 @@ template <typename Graph, typename Vertex>
 inline typename graph_traits<Graph>::degree_size_type
 num_paths_through_vertex(const Graph& g, Vertex v)
 {
-    function_requires< AdjacencyGraphConcept<Graph> >();
+    BOOST_CONCEPT_ASSERT(( AdjacencyGraphConcept<Graph> ));
     typedef typename graph_traits<Graph>::directed_category Directed;
     typedef typename graph_traits<Graph>::adjacency_iterator AdjacencyIterator;
 
@@ -81,8 +82,8 @@ template <typename Graph, typename Vertex>
 inline typename graph_traits<Graph>::degree_size_type
 num_triangles_on_vertex(const Graph& g, Vertex v)
 {
-    function_requires< IncidenceGraphConcept<Graph> >();
-    function_requires< AdjacencyGraphConcept<Graph> >();
+    BOOST_CONCEPT_ASSERT(( IncidenceGraphConcept<Graph> ));
+    BOOST_CONCEPT_ASSERT(( AdjacencyGraphConcept<Graph> ));
     typedef typename graph_traits<Graph>::degree_size_type Degree;
     typedef typename graph_traits<Graph>::directed_category Directed;
     typedef typename graph_traits<Graph>::adjacency_iterator AdjacencyIterator;
@@ -119,10 +120,10 @@ template <typename Graph, typename ClusteringMap>
 inline typename property_traits<ClusteringMap>::value_type
 all_clustering_coefficients(const Graph& g, ClusteringMap cm)
 {
-    function_requires< VertexListGraphConcept<Graph> >();
+    BOOST_CONCEPT_ASSERT(( VertexListGraphConcept<Graph> ));
     typedef typename graph_traits<Graph>::vertex_descriptor Vertex;
     typedef typename graph_traits<Graph>::vertex_iterator VertexIterator;
-    function_requires< WritablePropertyMapConcept<ClusteringMap,Vertex> >();
+    BOOST_CONCEPT_ASSERT(( WritablePropertyMapConcept<ClusteringMap,Vertex> ));
     typedef typename property_traits<ClusteringMap>::value_type Coefficient;
 
     Coefficient sum(0);
@@ -139,10 +140,10 @@ template <typename Graph, typename ClusteringMap>
 inline typename property_traits<ClusteringMap>::value_type
 mean_clustering_coefficient(const Graph& g, ClusteringMap cm)
 {
-    function_requires< VertexListGraphConcept<Graph> >();
+    BOOST_CONCEPT_ASSERT(( VertexListGraphConcept<Graph> ));
     typedef typename graph_traits<Graph>::vertex_descriptor Vertex;
     typedef typename graph_traits<Graph>::vertex_iterator VertexIterator;
-    function_requires< ReadablePropertyMapConcept<ClusteringMap,Vertex> >();
+    BOOST_CONCEPT_ASSERT(( ReadablePropertyMapConcept<ClusteringMap,Vertex> ));
     typedef typename property_traits<ClusteringMap>::value_type Coefficient;
 
     Coefficient cc(0);

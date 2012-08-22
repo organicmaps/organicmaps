@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2001-2006 Joel de Guzman
+    Copyright (c) 2001-2011 Joel de Guzman
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -16,6 +16,58 @@
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/is_base_of.hpp>
 #include <boost/detail/workaround.hpp>
+
+#if !defined(__WAVE__)
+
+#if BOOST_WORKAROUND(BOOST_MSVC, <= 1600)
+
+#define BOOST_FUSION_VECTOR_COPY_INIT()                                       \
+    ctor_helper(rhs, is_base_of<vector, Sequence>())                          \
+
+#define BOOST_FUSION_VECTOR_CTOR_HELPER()                                     \
+    static vector_n const&                                                    \
+    ctor_helper(vector const& rhs, mpl::true_)                                \
+    {                                                                         \
+        return rhs.vec;                                                       \
+    }                                                                         \
+                                                                              \
+    template <typename T>                                                     \
+    static T const&                                                           \
+    ctor_helper(T const& rhs, mpl::false_)                                    \
+    {                                                                         \
+        return rhs;                                                           \
+    }
+
+#else
+
+#define BOOST_FUSION_VECTOR_COPY_INIT()                                       \
+    rhs                                                                       \
+
+#define BOOST_FUSION_VECTOR_CTOR_HELPER()
+
+#endif
+
+#endif // !defined(__WAVE__)
+
+#if !defined(BOOST_FUSION_DONT_USE_PREPROCESSED_FILES)
+#include <boost/fusion/container/vector/detail/preprocessed/vector.hpp>
+#else
+#if defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES)
+#pragma wave option(preserve: 2, line: 0, output: "detail/preprocessed/vvector" FUSION_MAX_VECTOR_SIZE_STR ".hpp")
+#endif
+
+/*=============================================================================
+    Copyright (c) 2001-2011 Joel de Guzman
+
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+    This is an auto-generated file. Do not edit!
+==============================================================================*/
+
+#if defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES)
+#pragma wave option(preserve: 1)
+#endif
 
 namespace boost { namespace fusion
 {
@@ -56,11 +108,7 @@ namespace boost { namespace fusion
 
         template <typename Sequence>
         vector(Sequence const& rhs)
-#if BOOST_WORKAROUND(BOOST_MSVC, <= 1600)
-            : vec(ctor_helper(rhs, is_base_of<vector, Sequence>())) {}
-#else
-            : vec(rhs) {}
-#endif
+            : vec(BOOST_FUSION_VECTOR_COPY_INIT()) {}
 
         //  Expand a couple of forwarding constructors for arguments
         //  of type (T0), (T0, T1), (T0, T1, T2) etc. Example:
@@ -129,23 +177,15 @@ namespace boost { namespace fusion
 
     private:
 
-#if BOOST_WORKAROUND(BOOST_MSVC, <= 1600)
-        static vector_n const&
-        ctor_helper(vector const& rhs, mpl::true_)
-        {
-            return rhs.vec;
-        }
-
-        template <typename T>
-        static T const&
-        ctor_helper(T const& rhs, mpl::false_)
-        {
-            return rhs;
-        }
-#endif
-
+        BOOST_FUSION_VECTOR_CTOR_HELPER()
         vector_n vec;
     };
 }}
+
+#if defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES)
+#pragma wave option(output: null)
+#endif
+
+#endif // BOOST_FUSION_DONT_USE_PREPROCESSED_FILES
 
 #endif

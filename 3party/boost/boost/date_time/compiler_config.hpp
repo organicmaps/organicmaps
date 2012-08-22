@@ -5,7 +5,7 @@
  * Subject to the Boost Software License, Version 1.0. (See accompanying
  * file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt)
  * Author: Jeff Garland, Bart Garst
- * $Date: 2008-11-12 14:37:53 -0500 (Wed, 12 Nov 2008) $
+ * $Date: 2011-07-26 10:40:21 -0700 (Tue, 26 Jul 2011) $
  */
 
 #include <cstdlib>
@@ -118,20 +118,18 @@ namespace std {
  * 
  */
 
-#ifdef BOOST_HAS_DECLSPEC // defined in config system
-   // we need to import/export our code only if the user has specifically
-   // asked for it by defining either BOOST_ALL_DYN_LINK if they want all boost
-   // libraries to be dynamically linked, or BOOST_DATE_TIME_DYN_LINK
-   // if they want just this one to be dynamically liked:
-#  if defined(BOOST_ALL_DYN_LINK) || defined(BOOST_DATE_TIME_DYN_LINK)
-      // export if this is our own source, otherwise import:
-#     ifdef BOOST_DATE_TIME_SOURCE
-#       define BOOST_DATE_TIME_DECL __declspec(dllexport)
-#     else
-#       define BOOST_DATE_TIME_DECL __declspec(dllimport)
-#     endif  // BOOST_DATE_TIME_SOURCE
-#  endif  // DYN_LINK
-#endif  // BOOST_HAS_DECLSPEC
+// we need to import/export our code only if the user has specifically
+// asked for it by defining either BOOST_ALL_DYN_LINK if they want all boost
+// libraries to be dynamically linked, or BOOST_DATE_TIME_DYN_LINK
+// if they want just this one to be dynamically liked:
+#if defined(BOOST_ALL_DYN_LINK) || defined(BOOST_DATE_TIME_DYN_LINK)
+    // export if this is our own source, otherwise import:
+#   ifdef BOOST_DATE_TIME_SOURCE
+#     define BOOST_DATE_TIME_DECL BOOST_SYMBOL_EXPORT
+#   else
+#     define BOOST_DATE_TIME_DECL BOOST_SYMBOL_IMPORT
+#   endif  // BOOST_DATE_TIME_SOURCE
+#endif  // DYN_LINK
 //
 // if BOOST_WHATEVER_DECL isn't defined yet define it now:
 #ifndef BOOST_DATE_TIME_DECL

@@ -1,7 +1,7 @@
 /*=============================================================================
     Copyright (c) 2010 Christopher Schmidt
 
-    Distributed under the Boost Software License, Version 1.0. (See accompanying 
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 ==============================================================================*/
 
@@ -14,18 +14,16 @@ namespace boost { namespace fusion
 {
     struct deque_tag;
 
-    namespace extension 
+    namespace extension
     {
         template<typename T>
         struct is_sequence_impl;
-        
+
         template<>
         struct is_sequence_impl<deque_tag>
         {
             template<typename Sequence>
-            struct apply
-              : mpl::true_
-            {};
+            struct apply : mpl::true_ {};
         };
     }
 }}

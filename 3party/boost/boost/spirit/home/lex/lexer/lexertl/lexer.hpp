@@ -1,6 +1,6 @@
 //  Copyright (c) 2001-2011 Hartmut Kaiser
-// 
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying 
+//
+//  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #if !defined(BOOST_SPIRIT_LEX_LEXER_MAR_17_2007_0139PM)
@@ -28,13 +28,13 @@
 #include <boost/foreach.hpp>
 
 namespace boost { namespace spirit { namespace lex { namespace lexertl
-{ 
+{
     ///////////////////////////////////////////////////////////////////////////
     namespace detail
     {
         ///////////////////////////////////////////////////////////////////////
         //  The must_escape function checks if the given character value needs
-        //  to be preceded by a backslash character to disable its special 
+        //  to be preceded by a backslash character to disable its special
         //  meaning in the context of a regular expression
         ///////////////////////////////////////////////////////////////////////
         template <typename Char>
@@ -60,15 +60,15 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         }
 
         ///////////////////////////////////////////////////////////////////////
-        //  The escape function returns the string representation of the given 
-        //  character value, possibly escaped with a backslash character, to 
+        //  The escape function returns the string representation of the given
+        //  character value, possibly escaped with a backslash character, to
         //  allow it being safely used in a regular expression definition.
         ///////////////////////////////////////////////////////////////////////
         template <typename Char>
-        inline std::basic_string<Char> escape(Char ch) 
-        { 
+        inline std::basic_string<Char> escape(Char ch)
+        {
             std::basic_string<Char> result(1, ch);
-            if (detail::must_escape(ch)) 
+            if (detail::must_escape(ch))
             {
                 typedef typename std::basic_string<Char>::size_type size_type;
                 result.insert((size_type)0, 1, '\\');
@@ -77,7 +77,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         }
 
         ///////////////////////////////////////////////////////////////////////
-        //  
+        //
         ///////////////////////////////////////////////////////////////////////
         inline boost::lexer::regex_flags map_flags(unsigned int flags)
         {
@@ -93,31 +93,33 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
 
     ///////////////////////////////////////////////////////////////////////////
     template <typename Lexer, typename F>
-    bool generate_static(Lexer const&, std::ostream&, char const*, F);
+    bool generate_static(Lexer const&
+      , std::basic_ostream<typename Lexer::char_type>&
+      , typename Lexer::char_type const*, F);
 
     ///////////////////////////////////////////////////////////////////////////
     //
-    //  Every lexer type to be used as a lexer for Spirit has to conform to 
+    //  Every lexer type to be used as a lexer for Spirit has to conform to
     //  the following public interface:
     //
-    //    typedefs: 
+    //    typedefs:
     //        iterator_type   The type of the iterator exposed by this lexer.
-    //        token_type      The type of the tokens returned from the exposed 
+    //        token_type      The type of the tokens returned from the exposed
     //                        iterators.
     //
     //    functions:
     //        default constructor
-    //                        Since lexers are instantiated as base classes 
-    //                        only it might be a good idea to make this 
+    //                        Since lexers are instantiated as base classes
+    //                        only it might be a good idea to make this
     //                        constructor protected.
     //        begin, end      Return a pair of iterators, when dereferenced
-    //                        returning the sequence of tokens recognized in 
-    //                        the input stream given as the parameters to the 
+    //                        returning the sequence of tokens recognized in
+    //                        the input stream given as the parameters to the
     //                        begin() function.
-    //        add_token       Should add the definition of a token to be 
+    //        add_token       Should add the definition of a token to be
     //                        recognized by this lexer.
     //        clear           Should delete all current token definitions
-    //                        associated with the given state of this lexer 
+    //                        associated with the given state of this lexer
     //                        object.
     //
     //    template parameters:
@@ -126,25 +128,25 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
     //        Token           The type of the tokens to be returned from the
     //                        exposed token iterator.
     //        Functor         The type of the InputPolicy to use to instantiate
-    //                        the multi_pass iterator type to be used as the 
+    //                        the multi_pass iterator type to be used as the
     //                        token iterator (returned from begin()/end()).
     //
     ///////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////////////
     //
-    //  The lexer class is a implementation of a Spirit.Lex lexer on 
-    //  top of Ben Hanson's lexertl library as outlined above (For more 
+    //  The lexer class is a implementation of a Spirit.Lex lexer on
+    //  top of Ben Hanson's lexertl library as outlined above (For more
     //  information about lexertl go here: http://www.benhanson.net/lexertl.html).
     //
-    //  This class is supposed to be used as the first and only template 
+    //  This class is supposed to be used as the first and only template
     //  parameter while instantiating instances of a lex::lexer class.
     //
     ///////////////////////////////////////////////////////////////////////////
     template <typename Token = token<>
       , typename Iterator = typename Token::iterator_type
       , typename Functor = functor<Token, lexertl::detail::data, Iterator> >
-    class lexer 
+    class lexer
     {
     private:
         struct dummy { void true_() {} };
@@ -156,13 +158,13 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         operator safe_bool() const
             { return initialized_dfa_ ? &dummy::true_ : 0; }
 
-        typedef typename boost::detail::iterator_traits<Iterator>::value_type 
+        typedef typename boost::detail::iterator_traits<Iterator>::value_type
             char_type;
         typedef std::basic_string<char_type> string_type;
 
         typedef boost::lexer::basic_rules<char_type> basic_rules_type;
 
-        //  Every lexer type to be used as a lexer for Spirit has to conform to 
+        //  Every lexer type to be used as a lexer for Spirit has to conform to
         //  a public interface .
         typedef Token token_type;
         typedef typename Token::id_type id_type;
@@ -170,7 +172,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
 
     private:
         // this type is purely used for the iterator_type construction below
-        struct iterator_data_type 
+        struct iterator_data_type
         {
             typedef typename Functor::semantic_actions_type semantic_actions_type;
 
@@ -195,7 +197,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         //  tokens.
         iterator_type begin(Iterator& first, Iterator const& last
           , char_type const* initial_state = 0) const
-        { 
+        {
             if (!init_dfa())    // never minimize DFA for dynamic lexers
                 return iterator_type();
 
@@ -203,16 +205,16 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
             return iterator_type(iterator_data, first, last, initial_state);
         }
 
-        //  Return the end iterator usable to stop iterating over the generated 
+        //  Return the end iterator usable to stop iterating over the generated
         //  tokens.
         iterator_type end() const
-        { 
-            return iterator_type(); 
+        {
+            return iterator_type();
         }
 
     protected:
         //  Lexer instances can be created by means of a derived class only.
-        lexer(unsigned int flags) 
+        lexer(unsigned int flags)
           : flags_(detail::map_flags(flags))
           , rules_(flags_)
           , initialized_dfa_(false)
@@ -220,7 +222,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
 
     public:
         // interface for token definition management
-        std::size_t add_token(char_type const* state, char_type tokendef, 
+        std::size_t add_token(char_type const* state, char_type tokendef,
             std::size_t token_id, char_type const* targetstate)
         {
             add_state(state);
@@ -234,7 +236,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
                 add_state(targetstate);
             return rules_.add(state, detail::escape(tokendef), token_id, targetstate);
         }
-        std::size_t add_token(char_type const* state, string_type const& tokendef, 
+        std::size_t add_token(char_type const* state, string_type const& tokendef,
             std::size_t token_id, char_type const* targetstate)
         {
             add_state(state);
@@ -269,7 +271,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         }
         std::size_t add_state(char_type const* state)
         {
-            if (state == all_states()) 
+            if (state == all_states())
                 return all_states_id;
 
             std::size_t stateid = rules_.state(state);
@@ -279,12 +281,12 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
             }
             return stateid;
         }
-        string_type initial_state() const 
-        { 
+        string_type initial_state() const
+        {
             return string_type(rules_.initial());
         }
-        string_type all_states() const 
-        { 
+        string_type all_states() const
+        {
             return string_type(rules_.all_states());
         }
 
@@ -293,14 +295,14 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         void add_action(std::size_t unique_id, std::size_t state, F act)
         {
             // If you see an error here stating add_action is not a member of
-            // fusion::unused_type then you are probably having semantic actions 
+            // fusion::unused_type then you are probably having semantic actions
             // attached to at least one token in the lexer definition without
             // using the lex::lexertl::actor_lexer<> as its base class.
             typedef typename Functor::wrap_action_type wrapper_type;
             if (state == all_states_id) {
                 // add the action to all known states
-                typedef typename 
-                    basic_rules_type::string_size_t_map::value_type 
+                typedef typename
+                    basic_rules_type::string_size_t_map::value_type
                 state_type;
 
                 std::size_t states = rules_.statemap().size();
@@ -320,8 +322,8 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
 //             actions_.add_action(unique_id, add_state(state), wrapper_type::call(act));
 //         }
 
-        // We do not minimize the state machine by default anymore because 
-        // Ben said: "If you can afford to generate a lexer at runtime, there 
+        // We do not minimize the state machine by default anymore because
+        // Ben said: "If you can afford to generate a lexer at runtime, there
         //            is little point in calling minimise."
         // Go figure.
         bool init_dfa(bool minimize = false) const
@@ -337,6 +339,11 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
                 boost::lexer::debug::dump(state_machine_, std::cerr);
 #endif
                 initialized_dfa_ = true;
+
+//                 // release memory held by rules description
+//                 basic_rules_type rules;
+//                 rules.init_state_info(rules_);        // preserve states
+//                 std::swap(rules, rules_);
             }
             return true;
         }
@@ -345,32 +352,34 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         // lexertl specific data
         mutable boost::lexer::basic_state_machine<char_type> state_machine_;
         boost::lexer::regex_flags flags_;
-        basic_rules_type rules_;
+        /*mutable*/ basic_rules_type rules_;
 
         typename Functor::semantic_actions_type actions_;
         mutable bool initialized_dfa_;
 
         // generator functions must be able to access members directly
-        template <typename Lexer, typename F> 
-        friend bool generate_static(Lexer const&, std::ostream&, char const*, F);
+        template <typename Lexer, typename F>
+        friend bool generate_static(Lexer const&
+          , std::basic_ostream<typename Lexer::char_type>&
+          , typename Lexer::char_type const*, F);
     };
 
     ///////////////////////////////////////////////////////////////////////////
     //
-    //  The actor_lexer class is another implementation of a Spirit.Lex 
-    //  lexer on top of Ben Hanson's lexertl library as outlined above (For 
-    //  more information about lexertl go here: 
+    //  The actor_lexer class is another implementation of a Spirit.Lex
+    //  lexer on top of Ben Hanson's lexertl library as outlined above (For
+    //  more information about lexertl go here:
     //  http://www.benhanson.net/lexertl.html).
     //
     //  The only difference to the lexer class above is that token_def
-    //  definitions may have semantic (lexer) actions attached while being 
+    //  definitions may have semantic (lexer) actions attached while being
     //  defined:
     //
     //      int w;
     //      token_def word = "[^ \t\n]+";
     //      self = word[++ref(w)];        // see example: word_count_lexer
     //
-    //  This class is supposed to be used as the first and only template 
+    //  This class is supposed to be used as the first and only template
     //  parameter while instantiating instances of a lex::lexer class.
     //
     ///////////////////////////////////////////////////////////////////////////
@@ -381,7 +390,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
     {
     protected:
         //  Lexer instances can be created by means of a derived class only.
-        actor_lexer(unsigned int flags) 
+        actor_lexer(unsigned int flags)
           : lexer<Token, Iterator, Functor>(flags) {}
     };
 

@@ -1,15 +1,16 @@
 /*=============================================================================
-    Copyright (c) 2001-2006 Joel de Guzman
+    Copyright (c) 2001-2011 Joel de Guzman
+    Copyright (c) 2011 Eric Niebler
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying 
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 ==============================================================================*/
-#if !defined(FUSION_DEREF_IMPL_05052005_0258)
-#define FUSION_DEREF_IMPL_05052005_0258
+#if !defined(BOOST_FUSION_SINGLE_VIEW_DEREF_IMPL_05052005_0258)
+#define BOOST_FUSION_SINGLE_VIEW_DEREF_IMPL_05052005_0258
 
-#include <boost/fusion/support/detail/access.hpp>
-#include <boost/mpl/identity.hpp>
-#include <boost/type_traits/is_const.hpp>
+#include <boost/mpl/int.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/mpl/equal_to.hpp>
 
 namespace boost { namespace fusion
 {
@@ -26,12 +27,13 @@ namespace boost { namespace fusion
             template <typename Iterator>
             struct apply
             {
+                BOOST_MPL_ASSERT((mpl::equal_to<typename Iterator::position, mpl::int_<0> >));
                 typedef typename Iterator::value_type type;
     
                 static type
                 call(Iterator const& i)
                 {
-                    return i.val;
+                    return i.view.val;
                 }
             };
         };

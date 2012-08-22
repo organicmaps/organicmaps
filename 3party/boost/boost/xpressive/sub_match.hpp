@@ -20,6 +20,8 @@
 #include <utility>
 #include <iterator>
 #include <algorithm>
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/xpressive/detail/detail_fwd.hpp>
 
@@ -146,6 +148,11 @@ inline std::basic_ostream<Char, Traits> &operator <<
 )
 {
     typedef typename iterator_value<BidiIter>::type char_type;
+    BOOST_MPL_ASSERT_MSG(
+        (boost::is_same<Char, char_type>::value)
+      , CHARACTER_TYPES_OF_STREAM_AND_SUB_MATCH_MUST_MATCH
+      , (Char, char_type)
+    );
     if(sub.matched)
     {
         std::ostream_iterator<char_type, Char, Traits> iout(sout);

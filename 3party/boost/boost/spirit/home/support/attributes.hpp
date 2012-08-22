@@ -45,6 +45,7 @@
 #include <boost/utility/enable_if.hpp>
 #include <boost/variant.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <boost/config.hpp>
 #include <vector>
 #include <utility>
 #include <ios>
@@ -96,7 +97,7 @@ namespace boost { namespace spirit { namespace traits
     }
 
     template <typename T, typename Expected, typename Enable /*= void*/>
-    struct is_substitute 
+    struct is_substitute
       : detail::is_substitute_impl<T, Expected> {};
 
     template <typename T, typename Expected>
@@ -118,8 +119,8 @@ namespace boost { namespace spirit { namespace traits
         struct is_weak_substitute_impl : is_convertible<T, Expected> {};
 
 //        // An exposed attribute is a weak substitute for a supplied container
-//        // attribute if it is a weak substitute for its value_type. This is 
-//        // true as all character parsers exposing compatible with a container
+//        // attribute if it is a weak substitute for its value_type. This is
+//        // true as all character parsers are compatible with a container
 //        // attribute having the corresponding character type as its value_type.
 //        template <typename T, typename Expected>
 //        struct is_weak_substitute_for_value_type
@@ -134,11 +135,11 @@ namespace boost { namespace spirit { namespace traits
 //                  , is_string<Expected>
 //                  , is_weak_substitute_for_value_type<T, Expected> >
 //            >::type>
-//          : mpl::true_ 
+//          : mpl::true_
 //        {};
 
         // An exposed container attribute is a weak substitute for a supplied
-        // container attribute if and only if their value_types are weak 
+        // container attribute if and only if their value_types are weak
         // substitutes.
         template <typename T, typename Expected>
         struct value_type_is_weak_substitute
@@ -157,7 +158,7 @@ namespace boost { namespace spirit { namespace traits
             >::type>
           : mpl::true_ {};
 
-        // Two fusion sequences are weak substitutes if and only if their 
+        // Two fusion sequences are weak substitutes if and only if their
         // elements are pairwise weak substitutes.
         template <typename T, typename Expected>
         struct is_weak_substitute_impl<T, Expected,
@@ -178,15 +179,15 @@ namespace boost { namespace spirit { namespace traits
             typename enable_if<
                 mpl::and_<
                     mpl::not_<fusion::traits::is_sequence<T> >
-                  , fusion::traits::is_sequence<Expected> > 
+                  , fusion::traits::is_sequence<Expected> >
             >::type>
           : mpl::false_ {};
     }
 
-    // main template forwards to detail namespace, this helps older compilers 
+    // main template forwards to detail namespace, this helps older compilers
     // to disambiguate things
     template <typename T, typename Expected, typename Enable /*= void*/>
-    struct is_weak_substitute 
+    struct is_weak_substitute
       : detail::is_weak_substitute_impl<T, Expected> {};
 
     template <typename T, typename Expected>
@@ -223,7 +224,7 @@ namespace boost { namespace spirit { namespace traits
     template <typename T>
     struct is_weak_substitute<T, T
           , typename enable_if<
-                mpl::and_<not_is_optional<T>, not_is_variant<T> > 
+                mpl::and_<not_is_optional<T>, not_is_variant<T> >
             >::type>
       : mpl::true_ {};
 
@@ -241,9 +242,22 @@ namespace boost { namespace spirit { namespace traits
         >::type>
       : mpl::true_ {};
 
+    namespace detail
+    {
+        // By declaring a nested struct in your class/struct, you tell
+        // spirit that it is regarded as a variant type. The minimum
+        // required interface for such a variant is that it has constructors
+        // for various types supported by your variant and a typedef 'types'
+        // which is an mpl sequence of the contained types.
+        //
+        // This is an intrusive interface. For a non-intrusive interface,
+        // use the not_is_variant trait.
+        BOOST_MPL_HAS_XXX_TRAIT_DEF(adapted_variant_tag)
+    }
+
     template <typename T, typename Domain, typename Enable/* = void*/>
     struct not_is_variant
-      : mpl::true_
+      : mpl::not_<detail::has_adapted_variant_tag<T> >
     {};
 
     template <BOOST_VARIANT_ENUM_PARAMS(typename T), typename Domain>
@@ -460,7 +474,7 @@ namespace boost { namespace spirit { namespace traits
                     fusion::traits::is_sequence<Attribute>
                   , mpl::not_<traits::is_container<Attribute> >
                 >
-            >::type> 
+            >::type>
         {
             typedef typename fusion::result_of::size<Attribute>::value_type type;
 
@@ -477,7 +491,7 @@ namespace boost { namespace spirit { namespace traits
                     traits::is_container<Attribute>
                   , mpl::not_<traits::is_iterator_range<Attribute> >
                 >
-            >::type> 
+            >::type>
         {
             typedef typename Attribute::size_type type;
 
@@ -489,7 +503,7 @@ namespace boost { namespace spirit { namespace traits
     }
 
     template <typename Attribute, typename Enable/* = void*/>
-    struct attribute_size 
+    struct attribute_size
       : detail::attribute_size_impl<Attribute>
     {};
 
@@ -500,7 +514,7 @@ namespace boost { namespace spirit { namespace traits
 
         static type call(optional<Attribute> const& val)
         {
-            if (!val) 
+            if (!val)
                 return 0;
             return val.get();
         }
@@ -587,6 +601,12 @@ namespace boost { namespace spirit { namespace traits
     ///////////////////////////////////////////////////////////////////////////
     template <typename T>
     struct build_optional
+    {
+        typedef boost::optional<T> type;
+    };
+
+    template <typename T>
+    struct build_optional<boost::optional<T> >
     {
         typedef boost::optional<T> type;
     };
@@ -728,9 +748,11 @@ namespace boost { namespace spirit { namespace traits
             };
 
             // never called, but needed for decltype-based result_of (C++0x)
+#ifndef BOOST_NO_RVALUE_REFERENCES
             template <typename Element>
             typename result<element_attribute(Element)>::type
-            operator()(Element&) const;
+            operator()(Element&&) const;
+#endif
         };
 
         // Compute the list of attributes of all sub-components
@@ -1288,7 +1310,7 @@ namespace boost { namespace spirit { namespace traits
                     o << "\\t";
                 else if (c == static_cast<Char>('\v'))
                     o << "\\v";
-                else if (c < 127 && iscntrl(c))
+                else if (c >= 0 && c < 127 && iscntrl(c))
                     o << "\\" << std::oct << static_cast<int>(c);
                 else
                     o << static_cast<char>(c);

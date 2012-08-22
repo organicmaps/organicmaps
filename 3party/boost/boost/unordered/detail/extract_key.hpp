@@ -1,17 +1,16 @@
 
-// Copyright (C) 2005-2009 Daniel James
+// Copyright (C) 2005-2011 Daniel James
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #ifndef BOOST_UNORDERED_DETAIL_EXTRACT_KEY_HPP_INCLUDED
 #define BOOST_UNORDERED_DETAIL_EXTRACT_KEY_HPP_INCLUDED
 
-#include <boost/config.hpp>
-#include <boost/type_traits/remove_const.hpp>
-#include <boost/unordered/detail/fwd.hpp>
+#include <boost/unordered/detail/table.hpp>
 
 namespace boost {
-namespace unordered_detail {
+namespace unordered {
+namespace detail {
 
     // key extractors
     //
@@ -26,6 +25,19 @@ namespace unordered_detail {
     struct no_key {
         no_key() {}
         template <class T> no_key(T const&) {}
+    };
+
+    template <typename Key, typename T>
+    struct is_key {
+        template <typename T2>
+        static choice1::type test(T2 const&);
+        static choice2::type test(Key const&);
+        
+        enum { value = sizeof(test(boost::unordered::detail::make<T>())) ==
+            sizeof(choice2::type) };
+        
+        typedef typename boost::detail::if_true<value>::
+            BOOST_NESTED_TEMPLATE then<Key const&, no_key>::type type;
     };
 
     template <class ValueType>
@@ -44,13 +56,12 @@ namespace unordered_detail {
             return no_key();
         }
         
-#if defined(BOOST_UNORDERED_STD_FORWARD)
+#if !defined(BOOST_NO_VARIADIC_TEMPLATES)
         template <class... Args>
         static no_key extract(Args const&...)
         {
             return no_key();
         }
-
 #else
         template <class Arg>
         static no_key extract(Arg const&)
@@ -58,8 +69,8 @@ namespace unordered_detail {
             return no_key();
         }
 
-        template <class Arg>
-        static no_key extract(Arg const&, Arg const&)
+        template <class Arg1, class Arg2>
+        static no_key extract(Arg1 const&, Arg2 const&)
         {
             return no_key();
         }
@@ -75,7 +86,7 @@ namespace unordered_detail {
     struct map_extractor
     {
         typedef ValueType value_type;
-        typedef BOOST_DEDUCED_TYPENAME boost::remove_const<Key>::type key_type;
+        typedef typename boost::remove_const<Key>::type key_type;
 
         static key_type const& extract(value_type const& v)
         {
@@ -100,7 +111,7 @@ namespace unordered_detail {
             return v.first;
         }
 
-#if defined(BOOST_UNORDERED_STD_FORWARD)
+#if !defined(BOOST_NO_VARIADIC_TEMPLATES)
         template <class Arg1, class... Args>
         static key_type const& extract(key_type const& k,
             Arg1 const&, Args const&...)
@@ -114,6 +125,7 @@ namespace unordered_detail {
             return no_key();
         }
 #else
+
         template <class Arg1>
         static key_type const& extract(key_type const& k, Arg1 const&)
         {
@@ -138,11 +150,57 @@ namespace unordered_detail {
         }
 #endif
 
+#if !defined(BOOST_NO_VARIADIC_TEMPLATES)
+
+#define BOOST_UNORDERED_KEY_FROM_TUPLE(namespace_)                          \
+        template <typename T2>                                              \
+        static no_key extract(boost::unordered::piecewise_construct_t,      \
+                namespace_::tuple<> const&, BOOST_FWD_REF(T2))              \
+        {                                                                   \
+            return no_key();                                                \
+        }                                                                   \
+                                                                            \
+        template <typename T, typename T2>                                  \
+        static typename is_key<key_type, T>::type                           \
+            extract(boost::unordered::piecewise_construct_t,                \
+                namespace_::tuple<T> const& k, BOOST_FWD_REF(T2))           \
+        {                                                                   \
+            return typename is_key<key_type, T>::type(                      \
+                namespace_::get<0>(k));                                     \
+        }
+
+#else
+
+#define BOOST_UNORDERED_KEY_FROM_TUPLE(namespace_)                          \
+        static no_key extract(boost::unordered::piecewise_construct_t,      \
+                namespace_::tuple<> const&)                                 \
+        {                                                                   \
+            return no_key();                                                \
+        }                                                                   \
+                                                                            \
+        template <typename T>                                               \
+        static typename is_key<key_type, T>::type                           \
+            extract(boost::unordered::piecewise_construct_t,                \
+                namespace_::tuple<T> const& k)                              \
+        {                                                                   \
+            return typename is_key<key_type, T>::type(                      \
+                namespace_::get<0>(k));                                     \
+        }
+
+#endif
+
+BOOST_UNORDERED_KEY_FROM_TUPLE(boost)
+
+#if !defined(BOOST_NO_CXX11_HDR_TUPLE)
+BOOST_UNORDERED_KEY_FROM_TUPLE(std)
+#endif
+
+
         static bool compare_mapped(value_type const& x, value_type const& y)
         {
             return x.second == y.second;
         }
     };
-}}
+}}}
 
 #endif

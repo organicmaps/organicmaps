@@ -11,6 +11,7 @@
         /// \overload
         ///
         template<BOOST_PP_ENUM_PARAMS(N, typename A)>
+        BOOST_FORCEINLINE
         typename result_of::BOOST_PP_CAT(funop, N)<
             expr const
           , default_domain BOOST_PP_ENUM_TRAILING_PARAMS(N, const A)
@@ -27,6 +28,7 @@
         /// \overload
         ///
         template<BOOST_PP_ENUM_PARAMS(N, typename A)>
+        BOOST_FORCEINLINE
         typename result_of::BOOST_PP_CAT(funop, N)<
             expr
           , default_domain BOOST_PP_ENUM_TRAILING_PARAMS(N, const A)

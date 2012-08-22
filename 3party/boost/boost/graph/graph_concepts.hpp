@@ -21,6 +21,7 @@
 #include <boost/graph/buffer_concepts.hpp>
 #include <boost/concept_check.hpp>
 #include <boost/detail/workaround.hpp>
+#include <boost/concept/assert.hpp>
 
 #include <boost/concept/detail/concept_def.hpp>
 namespace boost
@@ -529,8 +530,8 @@ typename T::ThereReallyIsNoMemberByThisNameInT vertices(T const&);
     {
         BOOST_CONCEPT_USAGE(NumericValue)
         {
-            function_requires< DefaultConstructible<Numeric> >();
-            function_requires< CopyConstructible<Numeric> >();
+            BOOST_CONCEPT_ASSERT(( DefaultConstructible<Numeric> ));
+            BOOST_CONCEPT_ASSERT(( CopyConstructible<Numeric> ));
             numeric_values<Numeric>::zero();
             numeric_values<Numeric>::infinity();
         }

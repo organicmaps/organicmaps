@@ -5,7 +5,7 @@
     
     http://www.boost.org/
 
-    Copyright (c) 2001-2011 Hartmut Kaiser. Distributed under the Boost
+    Copyright (c) 2001-2012 Hartmut Kaiser. Distributed under the Boost
     Software License, Version 1.0. (See accompanying file
     LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
@@ -133,7 +133,7 @@ typename lex_iterator_functor_shim<TokenT>::result_type const
 //            a third parameter containing the name of the parsed input file 
 //            and a 4th parameter of the type boost::wave::language_support
 //            which specifies, which language subset should be supported (C++,
-//            C99, C++0x etc.).
+//            C99, C++11 etc.).
 //
 ///////////////////////////////////////////////////////////////////////////////
 
