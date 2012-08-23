@@ -38,7 +38,12 @@ namespace storage
       size_t m_res;
 
       GetByPoint(CountryInfoGetter const & info, m2::PointD const & pt)
-        : m_info(info), m_pt(pt), m_res(-1) {}
+        : m_info(info), m_pt(pt), m_res(-1)
+      {
+      }
+
+      /// @param[in] id Index in m_countries.
+      /// @return false If point is in country.
       bool operator() (size_t id);
     };
 
@@ -59,5 +64,17 @@ namespace storage
     void CalcUSALimitRect(m2::RectD rects[3]) const;
 
     m2::RectD CalcLimitRect(string const & prefix) const;
+
+    /// @name Used for checking that objects (by point) are belong to regions.
+    //@{
+    /// ID of region (index in m_countries array).
+    typedef size_t IDType;
+    typedef vector<IDType> IDSet;
+
+    /// @param[in]  enName  English name to match (should be in lower case).
+    /// Search is case-insensitive.
+    void GetMatchedRegions(string const & enName, IDSet & regions) const;
+    bool IsBelongToRegion(m2::PointD const & pt, IDSet const & regions) const;
+    //@}
   };
 }

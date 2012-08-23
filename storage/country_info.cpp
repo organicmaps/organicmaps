@@ -205,4 +205,26 @@ namespace storage
     ForEachCountry(prefix, bind(&AddRect, ref(r), _1));
     return r;
   }
+
+  void CountryInfoGetter::GetMatchedRegions(string const & enName, IDSet & regions) const
+  {
+    for (size_t i = 0; i < m_countries.size(); ++i)
+    {
+      /// @todo Check for any matching now. Do it smarter in future.
+      string s = m_countries[i].m_name;
+      strings::AsciiToLower(s);
+      if (s.find(enName) != string::npos)
+        regions.push_back(i);
+    }
+  }
+
+  bool CountryInfoGetter::IsBelongToRegion(m2::PointD const & pt, IDSet const & regions) const
+  {
+    GetByPoint doCheck(*this, pt);
+    for (size_t i = 0; i < regions.size(); ++i)
+      if (m_countries[regions[i]].m_rect.IsPointInside(pt) && !doCheck(regions[i]))
+        return true;
+
+    return false;
+  }
 }
