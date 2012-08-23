@@ -83,8 +83,8 @@ namespace borders
       if (line.empty())
         continue;
 
-      /// @todo no need to tokenize by '|'
-      strings::Tokenize(line, "|", bind<void>(ref(toDo), _1));
+      // in polygons file every country is a separate string
+      toDo(line);
       toDo.Finish();
     }
   }
