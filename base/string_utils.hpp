@@ -32,6 +32,7 @@ UniString Normalize(UniString const & s);
 void Normalize(UniString & s);
 
 void AsciiToLower(string & s);
+void Trim(string & s);
 
 void MakeLowerCase(string & s);
 string MakeLowerCase(string const & s);

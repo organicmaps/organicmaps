@@ -9,8 +9,6 @@
 
 #include "../std/algorithm.hpp"
 
-#include <boost/algorithm/string.hpp> // boost::trim
-
 
 void BookmarkCategory::AddBookmark(Bookmark const & bm)
 {
@@ -143,7 +141,7 @@ namespace
 
     void CharData(string value)
     {
-      boost::trim(value);
+      strings::Trim(value);
 
       if (!value.empty())
         switch (m_level)

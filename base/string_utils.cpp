@@ -4,6 +4,9 @@
 #include "../std/target_os.hpp"
 #include "../std/iterator.hpp"
 
+#include <boost/algorithm/string.hpp> // boost::trim
+
+
 namespace strings
 {
 
@@ -118,6 +121,11 @@ namespace
 void AsciiToLower(string & s)
 {
   transform(s.begin(), s.end(), s.begin(), &ascii_to_lower);
+}
+
+void Trim(string & s)
+{
+  boost::trim(s);
 }
 
 bool EqualNoCase(string const & s1, string const & s2)
