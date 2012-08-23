@@ -10,13 +10,14 @@ RotateScreenTask::RotateScreenTask(Framework * framework,
     m_endAngle(endAngle)
 {
   m_startTime = 0;
-  m_interval = fabs(endAngle - m_startAngle) / (2 * math::pi) * speed;
+  m_dist = ang::GetShortestDistance(m_startAngle, m_endAngle);
+  m_interval = fabs(m_dist) / (2 * math::pi) * speed;
+  m_endAngle = m_startAngle + m_dist;
 }
 
 void RotateScreenTask::OnStart(double ts)
 {
   m_startTime = ts;
-  m_curAngle = m_startAngle;
   anim::Task::OnStart(ts);
 }
 
@@ -28,18 +29,22 @@ void RotateScreenTask::OnStep(double ts)
     return;
   }
 
-  if (IsEnded())
+  if (!IsRunning())
     return;
 
   double elapsedSec = ts - m_startTime;
-  double angle = m_startAngle + (m_endAngle - m_startAngle) * elapsedSec / m_interval;
+  double angle = m_startAngle + m_dist * elapsedSec / m_interval;
 
-  m_framework->GetNavigator().Rotate(angle - m_curAngle);
-  m_curAngle = angle;
+  m_framework->GetNavigator().SetAngle(angle);
 }
 
 void RotateScreenTask::OnEnd(double ts)
 {
   /// ensuring that the final angle is reached
   m_framework->GetNavigator().SetAngle(m_endAngle);
+}
+
+double RotateScreenTask::EndAngle() const
+{
+  return m_endAngle;
 }

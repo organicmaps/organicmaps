@@ -149,8 +149,7 @@ namespace location
       m_framework->ShowRectFixed(m2::AnyRectD(rect.Center(), a, m2::RectD(-dx/2, -dy/2, dx/2, dy/2)));
 
       SetIsCentered(true);
-      if (m_compassProcessMode == ECompassFollow)
-        FollowCompass();
+      CheckFollowCompass();
 
       m_locationProcessMode = ELocationCenterOnly;
       break;
@@ -160,8 +159,7 @@ namespace location
       m_framework->SetViewportCenter(center);
 
       SetIsCentered(true);
-      if (m_compassProcessMode == ECompassFollow)
-        FollowCompass();
+      CheckFollowCompass();
 
       break;
 
@@ -374,43 +372,54 @@ namespace location
     return false;
   }
 
+  void State::CheckFollowCompass()
+  {
+    if (m_hasCompass && (CompassProcessMode() == ECompassFollow) && IsCentered())
+      FollowCompass();
+  }
+
   void State::FollowCompass()
   {
     if (!m_framework->GetNavigator().DoSupportRotation())
       return;
 
-    m_framework->GetRenderPolicy()->GetAnimController()->Lock();
+    shared_ptr<anim::Controller> controller = m_framework->GetRenderPolicy()->GetAnimController();
 
-    m_framework->GetInformationDisplay().locationState()->StopAnimation();
-    StopAnimation();
+    controller->Lock();
 
     double startAngle = m_framework->GetNavigator().Screen().GetAngle();
-    double endAngle = -m_headingRad;
+    double endAngle = -m_compassFilter.GetHeadingRad();
 
-    double period = 2 * math::pi;
+    bool shouldRotate = false;
 
-    startAngle = fmod(startAngle, period);
-    endAngle = fmod(endAngle, period);
-
-    if (fabs(startAngle - endAngle) > 20.0 / 180.0 * math::pi)
+    if (m_rotateScreenTask && m_rotateScreenTask->IsRunning())
     {
-      if (fabs(startAngle - endAngle) > math::pi)
-      {
-        if (startAngle > endAngle)
-          startAngle -= 2 * math::pi;
-        else
-          endAngle -= 2 * math::pi;
-      }
+      // if the end angle seriously changed we should re-create rotation task.
+      if (fabs(ang::GetShortestDistance(m_rotateScreenTask->EndAngle(), endAngle)) > ang::DegreeToRad(10))
+        shouldRotate = true;
+    }
+    else
+    {
+      // if there are no current rotate screen task or the task is finished already
+      // we check for the distance between current screen angle and headingAngle
+      if (fabs(ang::GetShortestDistance(startAngle, endAngle)) > ang::DegreeToRad(10))
+        shouldRotate = true;
+    }
+
+    if (shouldRotate)
+    {
+      m_framework->GetInformationDisplay().locationState()->StopAnimation();
+      StopAnimation();
 
       m_rotateScreenTask.reset(new RotateScreenTask(m_framework,
                                                     startAngle,
                                                     endAngle,
                                                     2));
 
-      m_framework->GetRenderPolicy()->GetAnimController()->AddTask(m_rotateScreenTask);
+      controller->AddTask(m_rotateScreenTask);
     }
 
-    m_framework->GetRenderPolicy()->GetAnimController()->Unlock();
+    controller->Unlock();
   }
 
   void State::StopAnimation()

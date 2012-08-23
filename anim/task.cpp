@@ -55,4 +55,9 @@ namespace anim
   {
     return State() == ECancelled;
   }
+
+  bool Task::IsRunning() const
+  {
+    return State() == EInProgress;
+  }
 }

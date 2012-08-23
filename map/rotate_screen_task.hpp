@@ -12,9 +12,9 @@ private:
 
   double m_startTime;
   double m_startAngle;
+  double m_dist;
   double m_endAngle;
   double m_interval;
-  double m_curAngle;
 
 public:
 
@@ -26,4 +26,6 @@ public:
   void OnStart(double ts);
   void OnStep(double ts);
   void OnEnd(double ts);
+
+  double EndAngle() const;
 };

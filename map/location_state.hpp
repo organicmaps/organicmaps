@@ -124,6 +124,8 @@ namespace location
     void SetIsCentered(bool flag);
     bool IsCentered() const;
 
+    void CheckFollowCompass();
+
     /// @name GPS location updates routine.
     //@{
     void SkipLocationCentering();

@@ -40,5 +40,6 @@ namespace anim
 
     bool IsCancelled() const;
     bool IsEnded() const;
+    bool IsRunning() const;
   };
 }
