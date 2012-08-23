@@ -69,7 +69,7 @@ namespace my
 #undef ASSERT
 #endif
 #define ASSERT(X, msg)
-#define VERIFY(X, msg) (X)
+#define VERIFY(X, msg) (void)(X)
 #define ASSERT_EQUAL(X, Y, msg)
 #define ASSERT_NOT_EQUAL(X, Y, msg)
 #define ASSERT_LESS(X, Y, msg)

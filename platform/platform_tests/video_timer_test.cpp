@@ -17,9 +17,10 @@ void incrementValue(int & i)
 
 UNIT_TEST(TimerTest)
 {
+  /*
   int i = 0;
 
-/*  VideoTimer * videoTimer = CreatePThreadVideoTimer(bind(&incrementValue, ref(i)));
+  VideoTimer * videoTimer = CreatePThreadVideoTimer(bind(&incrementValue, ref(i)));
 
   LOG(LINFO, ("checking for approximately 60 cycles in second"));
 
@@ -41,7 +42,8 @@ UNIT_TEST(TimerTest)
 
   threads::Sleep(200);
 
-  videoTimer->stop();*/
+  videoTimer->stop();
+  */
 }
 
 #endif
