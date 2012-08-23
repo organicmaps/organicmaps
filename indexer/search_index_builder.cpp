@@ -22,32 +22,109 @@
 
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
+#include "../base/stl_add.hpp"
 
 #include "../std/algorithm.hpp"
 #include "../std/vector.hpp"
+#include "../std/unordered_map.hpp"
+#include "../std/fstream.hpp"
+
+#define SYNONIMS_FILE "synonims.txt"
 
 
 namespace
 {
 
+class SynonimsHolder
+{
+  unordered_multimap<string, string> m_map;
+
+public:
+  SynonimsHolder(string const & fPath)
+  {
+    ifstream stream(fPath.c_str());
+
+    string line;
+    vector<string> tokens;
+
+    while (stream.good())
+    {
+      std::getline(stream, line);
+      if (line.empty())
+        continue;
+
+      tokens.clear();
+      strings::Tokenize(line, ":,", MakeBackInsertFunctor(tokens));
+
+      if (tokens.size() > 1)
+      {
+        strings::Trim(tokens[0]);
+        for (size_t i = 1; i < tokens.size(); ++i)
+        {
+          strings::Trim(tokens[i]);
+          // synonim should not has any spaces
+          ASSERT ( tokens[i].find_first_of(" \t") == string::npos, () );
+          m_map.insert(make_pair(tokens[0], tokens[i]));
+        }
+      }
+    }
+  }
+
+  template <class ToDo> void ForEach(string const & key, ToDo toDo) const
+  {
+    typedef unordered_multimap<string, string>::const_iterator IterT;
+
+    pair<IterT, IterT> range = m_map.equal_range(key);
+    while (range.first != range.second)
+    {
+      toDo(range.first->second);
+      ++range.first;
+    }
+  }
+};
+
 struct FeatureNameInserter
 {
+  SynonimsHolder * m_synonims;
   StringsFile & m_names;
   StringsFile::ValueT m_val;
 
-  FeatureNameInserter(StringsFile & names) : m_names(names) {}
+  FeatureNameInserter(SynonimsHolder * synonims, StringsFile & names)
+    : m_synonims(synonims), m_names(names)
+  {
+  }
 
   void AddToken(signed char lang, strings::UniString const & s) const
   {
     m_names.AddString(StringsFile::StringT(s, lang, m_val));
   }
 
+private:
+  typedef buffer_vector<strings::UniString, 32> TokensArrayT;
+
+  class PushSynonims
+  {
+    TokensArrayT & m_tokens;
+  public:
+    PushSynonims(TokensArrayT & tokens) : m_tokens(tokens) {}
+    void operator() (string const & utf8str) const
+    {
+      m_tokens.push_back(search::NormalizeAndSimplifyString(utf8str));
+    }
+  };
+
+public:
   bool operator()(signed char lang, string const & name) const
   {
     strings::UniString const uniName = search::NormalizeAndSimplifyString(name);
 
+    // split input string on tokens
     buffer_vector<strings::UniString, 32> tokens;
     SplitUniString(uniName, MakeBackInsertFunctor(tokens), search::Delimiters());
+
+    // add synonims for input native string
+    if (m_synonims)
+      m_synonims->ForEach(name, PushSynonims(tokens));
 
     int const maxTokensCount = search::MAX_TOKENS - 1;
     if (tokens.size() > maxTokensCount)
@@ -65,6 +142,7 @@ struct FeatureNameInserter
 
 class FeatureInserter
 {
+  SynonimsHolder * m_synonims;
   StringsFile & m_names;
 
   CategoriesHolder const & m_categories;
@@ -294,11 +372,12 @@ class FeatureInserter
   };
 
 public:
-  FeatureInserter(StringsFile & names,
+  FeatureInserter(SynonimsHolder * synonims, StringsFile & names,
                   CategoriesHolder const & catHolder,
                   serial::CodingParams const & cp,
                   pair<int, int> const & scales)
-    : m_names(names), m_categories(catHolder), m_valueSaver(cp), m_scales(scales)
+    : m_synonims(synonims), m_names(names),
+      m_categories(catHolder), m_valueSaver(cp), m_scales(scales)
   {
   }
 
@@ -314,7 +393,7 @@ public:
     }
 
     // init inserter with serialized value
-    FeatureNameInserter inserter(m_names);
+    FeatureNameInserter inserter(m_synonims, m_names);
     MakeValue(f, types, pos, inserter.m_val);
 
     // add names of the feature
@@ -366,9 +445,14 @@ void BuildSearchIndex(FilesContainerR const & cont, CategoriesHolder const & cat
 
     serial::CodingParams cp(search::GetCPForTrie(header.GetDefCodingParams()));
 
+    scoped_ptr<SynonimsHolder> synonims;
+    if (header.GetType() == feature::DataHeader::world)
+      synonims.reset(new SynonimsHolder(GetPlatform().WritablePathForFile(SYNONIMS_FILE)));
+
     StringsFile names(tmpFilePath);
 
-    featuresV.ForEachOffset(FeatureInserter(names, catHolder, cp, header.GetScaleRange()));
+    featuresV.ForEachOffset(FeatureInserter(synonims.get(), names,
+                                            catHolder, cp, header.GetScaleRange()));
 
     names.EndAdding();
     names.OpenForRead();
