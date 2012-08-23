@@ -104,6 +104,22 @@ UniString Normalize(UniString const & s)
   return result;
 }
 
+namespace
+{
+  char ascii_to_lower(char in)
+  {
+    static char const diff = 'Z'-'z';
+    if (in <= 'Z' && in >= 'A')
+      return (in-diff);
+    return in;
+  }
+}
+
+void AsciiToLower(string & s)
+{
+  transform(s.begin(), s.end(), s.begin(), &ascii_to_lower);
+}
+
 bool EqualNoCase(string const & s1, string const & s2)
 {
   return MakeLowerCase(s1) == MakeLowerCase(s2);

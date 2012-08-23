@@ -28,7 +28,10 @@ public:
 UniString MakeLowerCase(UniString const & s);
 void MakeLowerCase(UniString & s);
 UniString Normalize(UniString const & s);
+/// For implementation @see base/normilize_unicode.cpp
 void Normalize(UniString & s);
+
+void AsciiToLower(string & s);
 
 void MakeLowerCase(string & s);
 string MakeLowerCase(string const & s);
