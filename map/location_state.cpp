@@ -403,8 +403,8 @@ namespace location
 
     double period = 2 * math::pi;
 
-    startAngle -= floor(startAngle / period) * period;
-    endAngle -= floor(endAngle / period) * period;
+    startAngle = fmod(startAngle, period);
+    endAngle = fmod(endAngle, period);
 
     if (fabs(startAngle - endAngle) > 20.0 / 180.0 * math::pi)
     {

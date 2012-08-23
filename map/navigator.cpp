@@ -526,9 +526,10 @@ void Navigator::DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double /
     double aThresh = 10.0 / 180.0 * math::pi;
     double sThresh = 1.2;
 
-    if ((1 / s < sThresh)
-     && (s < sThresh)
-     && (fabs(a) > aThresh))
+    bool isScalingInBounds = (1 / s < sThresh) || (s < sThresh);
+    bool isRotationOutBounds = fabs(a) > aThresh;
+
+    if (isScalingInBounds && isRotationOutBounds)
       m_IsRotatingDuringScale = true;
   }
 

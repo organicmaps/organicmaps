@@ -23,7 +23,7 @@ namespace anim
 
     int m_LockCount;
 
-    void CopyTasks(list<shared_ptr<Task> > & from, list<shared_ptr<Task> > & to);
+    static void CopyAndClearTasks(list<shared_ptr<Task> > & from, list<shared_ptr<Task> > & to);
 
   public:
     // Constructor

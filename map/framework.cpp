@@ -989,7 +989,18 @@ void Framework::PrepareSearch(bool hasPt, double lat, double lon)
 
 bool Framework::Search(search::SearchParams const & params)
 {
-  return GetSearchEngine()->Search(params, GetCurrentViewport());
+#ifdef FIXED_LOCATION
+  search::SearchParams rParams(params);
+  if (params.m_validPos)
+  {
+    m_fixedPos.GetLat(rParams.m_lat);
+    m_fixedPos.GetLon(rParams.m_lon);
+  }
+#else
+  search::SearchParams const & rParams = params;
+#endif
+
+  return GetSearchEngine()->Search(rParams, GetCurrentViewport());
 }
 
 bool Framework::GetCurrentPosition(double & lat, double & lon) const
@@ -1030,6 +1041,12 @@ void Framework::GetDistanceAndAzimut(search::Result const & res,
                                      double lat, double lon, double north,
                                      string & distance, double & azimut)
 {
+  #ifdef FIXED_LOCATION
+    m_fixedPos.GetLat(lat);
+    m_fixedPos.GetLon(lon);
+    m_fixedPos.GetNorth(north);
+  #endif
+
   m2::PointD const center = res.GetFeatureCenter();
 
   double const d = ms::DistanceOnEarth(lat, lon,
