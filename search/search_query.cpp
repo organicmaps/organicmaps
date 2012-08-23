@@ -753,19 +753,19 @@ namespace impl
   {
     string m_name, m_enName;        ///< native name and english name of locality
     Query::TrieValueT m_value;
-    uint32_t m_type;                ///< feature type
     vector<size_t> m_matchedTokens; ///< indexes of matched tokens for locality
+    int m_index;                    ///< locality index (0 - USA state, 1 - country, 2 - city)
 
-    Locality() : m_type(0) {}
-    Locality(Query::TrieValueT const & val, uint32_t type) : m_value(val), m_type(type) {}
+    Locality() : m_index(-1) {}
+    Locality(Query::TrieValueT const & val, int index) : m_value(val), m_index(index) {}
 
     void Swap(Locality & rhs)
     {
       m_name.swap(rhs.m_name);
       m_enName.swap(rhs.m_enName);
       swap(m_value, rhs.m_value);
-      swap(m_type, rhs.m_type);
       m_matchedTokens.swap(rhs.m_matchedTokens);
+      swap(m_index, rhs.m_index);
     }
 
     bool operator< (Locality const & rhs) const
@@ -774,8 +774,6 @@ namespace impl
         return (m_matchedTokens.size() < rhs.m_matchedTokens.size());
 
       return (m_value.m_rank < rhs.m_value.m_rank);
-
-      /// @todo Add sorting by type: 'city' is better than 'town' etc ...
     }
 
   private:
@@ -787,12 +785,60 @@ namespace impl
       template <class T> void operator() (T const &) { ++m_count; }
     };
 
-  public:
     bool IsFullNameMatched() const
     {
       size_t count;
       SplitUniString(NormalizeAndSimplifyString(m_name), DoCount(count), search::Delimiters());
       return (count <= m_matchedTokens.size());
+    }
+
+    typedef strings::UniString StringT;
+    typedef buffer_vector<StringT, 32> TokensArrayT;
+
+    size_t GetSynonimTokenLength(TokensArrayT const & tokens, StringT const & prefix) const
+    {
+      // check only one token as a synonim
+      if (m_matchedTokens.size() == 1)
+      {
+        size_t const index = m_matchedTokens[0];
+        if (index < tokens.size())
+          return tokens[index].size();
+        else
+        {
+          ASSERT_EQUAL ( index, tokens.size(), () );
+          ASSERT ( !prefix.empty(), () );
+          return prefix.size();
+        }
+      }
+
+      return size_t(-1);
+    }
+
+  public:
+    /// Check that locality is suitable for source input tokens.
+    bool IsSuitable(TokensArrayT const & tokens, StringT const & prefix) const
+    {
+      bool const isMatched = IsFullNameMatched();
+
+      // Do filtering of possible localities.
+      switch (m_index)
+      {
+      case 0:   // USA state
+        // USA states has 2-symbol synonims
+        return (isMatched || GetSynonimTokenLength(tokens, prefix) == 2);
+
+      case 1:   // country
+        // USA has synonims: "US" or "USA"
+        return (isMatched || (m_enName == "usa" && GetSynonimTokenLength(tokens, prefix) <= 3));
+
+      case 2:   // city
+        // need full name match for cities
+        return isMatched;
+
+      default:
+        ASSERT ( false, () );
+        return false;
+      }
     }
   };
 
@@ -871,7 +917,8 @@ namespace impl
       bool operator() (Locality const & l) const { return (l.m_value.m_featureId == m_id); }
     };
 
-    vector<Locality> m_localities, m_countries, m_states;
+    /// @see Locality::m_index
+    vector<Locality> m_localities[3];
 
     FeaturesVector m_vector;
     size_t m_index;         ///< index of processing token
@@ -885,51 +932,53 @@ namespace impl
       {
         char const * arr[][2] = {
           { "place", "country" },
-          { "place", "state" },
           { "place", "city" },
           { "place", "town" }
         };
 
         Classificator const & c = classif();
+
+        // process only USA states
+        char const * arrStateUSA[] = { "place", "state", "USA" };
+        m_vec.push_back(c.GetTypeByPath(vector<string>(arrStateUSA, arrStateUSA + 3)));
+
         for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
           m_vec.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2)));
       }
 
-      uint32_t GetType(FeatureType const & f)
+      /// @return Feature type and locality type @see Locality::m_index.
+      int GetLocalityIndex(FeatureType const & f)
       {
         feature::TypesHolder types(f);
         for (size_t i = 0; i < types.Size(); ++i)
         {
           uint32_t t = types[i];
+
+          ftype::TruncValue(t, 3);
+          if (t == m_vec[0])
+            return 0;
+
           ftype::TruncValue(t, 2);
-          if (find(m_vec.begin(), m_vec.end(), t) != m_vec.end())
-            return t;
+          for (int j = 1; j < m_vec.size(); ++j)
+            if (t == m_vec[j])
+              return (j == 1 ? 1 : 2);
         }
 
-        return 0;
-      }
-
-      Locality & PushLocalityByType(DoFindLocality & parent, Locality const & l) const
-      {
-        if (l.m_type == m_vec[0])
-        {
-          parent.m_countries.push_back(l);
-          return parent.m_countries.back();
-        }
-
-        if (l.m_type == m_vec[1])
-        {
-          parent.m_states.push_back(l);
-          return parent.m_states.back();
-        }
-
-        parent.m_localities.push_back(l);
-        return parent.m_localities.back();
+        return -1;
       }
     };
 
+    Locality * PushLocality(Locality const & l)
+    {
+      ASSERT_LESS ( l.m_index, ARRAY_SIZE(m_localities), () );
+      m_localities[l.m_index].push_back(l);
+      return &(m_localities[l.m_index].back());
+    }
+
     int8_t m_lang;
     int8_t m_arrEn[3];
+
+    Query const & m_query;
 
     void AssignEnglishName(FeatureType const & f, Locality & l)
     {
@@ -952,21 +1001,19 @@ namespace impl
         }
     }
 
-    storage::CountryInfoGetter const * m_pInfoGetter;
-
-    void AddRegions(vector<Locality> & localities, vector<Region> & regions) const
+    void AddRegions(int index, vector<Region> & regions)
     {
       // fill regions vector in priority order
-      sort(localities.begin(), localities.end());
+      vector<Locality> & arr = m_localities[index];
+      sort(arr.begin(), arr.end());
 
-      for (vector<Locality>::reverse_iterator i = localities.rbegin();
-           i != localities.rend(); ++i)
+      for (vector<Locality>::reverse_iterator i = arr.rbegin(); i != arr.rend(); ++i)
       {
         // no need to check region with empty english name (can't match for polygon)
-        if (!i->m_enName.empty())
+        if (!i->m_enName.empty() && i->IsSuitable(m_query.m_tokens, m_query.m_prefix))
         {
           vector<size_t> vec;
-          m_pInfoGetter->GetMatchedRegions(i->m_enName, vec);
+          m_query.m_pInfoGetter->GetMatchedRegions(i->m_enName, vec);
           if (!vec.empty())
           {
             regions.push_back(Region());
@@ -991,7 +1038,7 @@ namespace impl
       if (dummy.empty())
       {
         // check that locality belong to region
-        return m_pInfoGetter->IsBelongToRegion(loc.m_value.m_pt, r.m_ids);
+        return m_query.m_pInfoGetter->IsBelongToRegion(loc.m_value.m_pt, r.m_ids);
       }
 
       return false;
@@ -1002,7 +1049,7 @@ namespace impl
   public:
     DoFindLocality(Query & q, MwmValue * pMwm, int8_t lang, volatile bool & isCancelled)
       : m_vector(pMwm->m_cont, pMwm->GetHeader()), m_lang(lang),
-        m_pInfoGetter(q.m_pInfoGetter), m_isCancelled(isCancelled)
+        m_query(q), m_isCancelled(isCancelled)
     {
       m_arrEn[0] = q.GetLanguage(LANG_ENGLISH);
       m_arrEn[1] = q.GetLanguage(LANG_INTERNATIONAL);
@@ -1018,12 +1065,15 @@ namespace impl
         throw Query::CancelException();
 
       // find locality in current results
-      vector<Locality>::iterator it = find_if(m_localities.begin(), m_localities.end(),
-                                              EqualID(v.m_featureId));
-      if (it != m_localities.end())
+      for (size_t i = 0; i < 3; ++i)
       {
-        it->m_matchedTokens.push_back(m_index);
-        return;
+        vector<Locality>::iterator it = find_if(m_localities[i].begin(), m_localities[i].end(),
+                                                EqualID(v.m_featureId));
+        if (it != m_localities[i].end())
+        {
+          it->m_matchedTokens.push_back(m_index);
+          return;
+        }
       }
 
       // load feature
@@ -1032,72 +1082,84 @@ namespace impl
 
       // check, if feature is locality
       static TypeChecker checker;
-      uint32_t const t = checker.GetType(f);
-      if (t > 0)
+      int const index = checker.GetLocalityIndex(f);
+      if (index >= 0)
       {
-        Locality & loc = checker.PushLocalityByType(*this, Locality(v, t));
+        Locality * loc = PushLocality(Locality(v, index));
+        if (loc)
+        {
+          f.GetName(m_lang, loc->m_name);
 
-        f.GetName(m_lang, loc.m_name);
+          loc->m_matchedTokens.push_back(m_index);
 
-        loc.m_matchedTokens.push_back(m_index);
-
-        AssignEnglishName(f, loc);
+          AssignEnglishName(f, *loc);
+        }
       }
     }
 
     bool GetBestLocality(Locality & res)
     {
-      LOG(LDEBUG, ("Countries before processing = ", m_countries));
-      LOG(LDEBUG, ("States before processing = ", m_states));
+      LOG(LDEBUG, ("Countries before processing = ", m_localities[1]));
+      LOG(LDEBUG, ("States before processing = ", m_localities[0]));
 
       // First, prepare countries info for checking locality.
       vector<Region> regions;
-      AddRegions(m_states, regions);
-      AddRegions(m_countries, regions);
+      AddRegions(1, regions);
+      AddRegions(0, regions);
 
       LOG(LDEBUG, ("Regions after processing = ", regions));
 
       // Get suitable locality.
-      sort(m_localities.begin(), m_localities.end());
+      vector<Locality> & arr = m_localities[2];
+      sort(arr.begin(), arr.end());
 
-      for (vector<Locality>::reverse_iterator i = m_localities.rbegin(); i != m_localities.rend(); ++i)
+      Locality * p1st = 0;
+      for (vector<Locality>::reverse_iterator i = arr.rbegin(); i != arr.rend(); ++i)
       {
-        if (i->IsFullNameMatched())
-        {
-          if (!regions.empty())
-          {
-            // additional check for locality belongs to region
-            Region const * p = 0;
-            for (size_t j = 0; j < regions.size(); ++j)
-            {
-              if (IsBelong(*i, regions[j]))
-              {
-                p = &regions[j];
-                break;
-              }
-            }
+        if (!i->IsSuitable(m_query.m_tokens, m_query.m_prefix)) continue;
 
-            if (p == 0)
+        if (!regions.empty())
+        {
+          // additional check for locality belongs to region
+          Region const * p = 0;
+          for (size_t j = 0; j < regions.size(); ++j)
+          {
+            if (IsBelong(*i, regions[j]))
             {
-              // locality doesn't belong to region - goto next
-              continue;
-            }
-            else
-            {
-              // splice locality info with region info
-              i->m_matchedTokens.insert(i->m_matchedTokens.end(),
-                                        p->m_matchedTokens.begin(), p->m_matchedTokens.end());
-              i->m_enName = i->m_enName + ", " + p->m_enName;
+              p = &regions[j];
+              break;
             }
           }
 
-          // get best locality and exit
-          res = *i;
-          return true;
+          if (p == 0)
+          {
+            // remember first suitable locality for the last chance
+            if (p1st == 0) p1st = &(*i);
+
+            // locality doesn't belong to region - goto next
+            continue;
+          }
+          else
+          {
+            // splice locality info with region info
+            i->m_matchedTokens.insert(i->m_matchedTokens.end(),
+                                      p->m_matchedTokens.begin(), p->m_matchedTokens.end());
+            i->m_enName = i->m_enName + ", " + p->m_enName;
+          }
         }
+
+        // get best locality and exit
+        i->Swap(res);
+        return true;
       }
 
-      return false;
+      if (p1st)
+      {
+        p1st->Swap(res);
+        return true;
+      }
+      else
+        return false;
     }
   };
 }
@@ -1136,7 +1198,7 @@ bool Query::SearchLocality(MwmValue * pMwm, impl::Locality & res)
     }
   }
 
-  return (res.m_type != 0);
+  return (res.m_index >= 0);
 }
 
 void Query::SearchFeatures()
