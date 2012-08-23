@@ -1,6 +1,7 @@
 #include "location_state.hpp"
 #include "navigator.hpp"
 #include "framework.hpp"
+#include "compass_filter.hpp"
 #include "rotate_screen_task.hpp"
 
 #include "../yg/display_list.hpp"
@@ -21,6 +22,7 @@ namespace location
 {
   State::State(Params const & p)
     : base_t(p),
+      m_compassFilter(this),
       m_hasPosition(false),
       m_hasCompass(false),
       m_isCentered(false),
@@ -178,23 +180,7 @@ namespace location
   void State::OnCompassUpdate(location::CompassInfo const & info)
   {
     m_hasCompass = true;
-
-    m_headingRad = ((info.m_trueHeading >= 0.0) ? info.m_trueHeading : info.m_magneticHeading);
-
-    // Avoid situations when offset between magnetic north and true north is too small
-    static double const MIN_SECTOR_RAD = math::pi / 18.0;
-
-    double oldHeadingHaldErrorRad = m_headingHalfErrorRad;
-
-    m_headingHalfErrorRad = (info.m_accuracy < MIN_SECTOR_RAD ? MIN_SECTOR_RAD : info.m_accuracy);
-
-    if (fabs(oldHeadingHaldErrorRad - m_headingHalfErrorRad) > 0.01)
-      setIsDirtyDrawing(true);
-
-    if ((m_compassProcessMode == ECompassFollow) && (IsCentered()))
-      FollowCompass();
-
-    m_framework->Invalidate();
+    m_compassFilter.OnCompassUpdate(info);
   }
 
 
@@ -360,21 +346,21 @@ namespace location
                       m_locationAreaColor,
                       depth() - 3);
 
-        // 0 angle is for North ("up"), but in our coordinates it's to the right.
-        double headingRad = m_headingRad - math::pi / 2.0;
-
         if (m_hasCompass)
         {
+          // 0 angle is for North ("up"), but in our coordinates it's to the right.
+          double headingRad = m_compassFilter.GetHeadingRad() - math::pi / 2.0;
+
           r->drawSector(pxPosition,
-                        screenAngle + headingRad - m_headingHalfErrorRad,
-                        screenAngle + headingRad + m_headingHalfErrorRad,
+                        screenAngle + headingRad - m_compassFilter.GetHeadingHalfErrorRad(),
+                        screenAngle + headingRad + m_compassFilter.GetHeadingHalfErrorRad(),
                         orientationRadius,
                         m_compassAreaColor,
                         depth());
 
           r->fillSector(pxPosition,
-                        screenAngle + headingRad - m_headingHalfErrorRad,
-                        screenAngle + headingRad + m_headingHalfErrorRad,
+                        screenAngle + headingRad - m_compassFilter.GetHeadingHalfErrorRad(),
+                        screenAngle + headingRad + m_compassFilter.GetHeadingHalfErrorRad(),
                         orientationRadius,
                         m_compassBorderColor,
                         depth() - 1);

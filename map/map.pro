@@ -49,7 +49,8 @@ HEADERS += \
     geourl_process.hpp \
     country_status_display.hpp \
     rotate_screen_task.hpp \
-    compass_arrow.hpp
+    compass_arrow.hpp \
+    compass_filter.hpp
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -90,7 +91,8 @@ SOURCES += \
     bookmark.cpp \
     country_status_display.cpp \
     rotate_screen_task.cpp \
-    compass_arrow.cpp
+    compass_arrow.cpp \
+    compass_filter.cpp
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp

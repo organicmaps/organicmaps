@@ -1,5 +1,7 @@
 #pragma once
 
+#include "compass_filter.hpp"
+
 #include "../platform/location.hpp"
 
 #include "../geometry/point2d.hpp"
@@ -48,8 +50,7 @@ namespace location
     double m_errorRadius; //< error radius in mercator
     m2::PointD m_position; //< position in mercator
 
-    double m_headingRad; //< direction in radians
-    double m_headingHalfErrorRad; //< direction error in radians
+    CompassFilter m_compassFilter;
 
     bool m_hasPosition;
     bool m_hasCompass;
