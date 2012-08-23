@@ -52,3 +52,22 @@ UNIT_TEST(Average)
   TEST(is_equal_angle(ang::GetMiddleAngle(arr2[0], arr2[1]), 0.0), ());
   check_avg(arr2, ARRAY_SIZE(arr2), 0.0);
 }
+
+namespace
+{
+  bool is_equal(double val0, double val1, double eps)
+  {
+    return fabs(val0 - val1) < eps;
+  }
+}
+
+UNIT_TEST(ShortestDistance)
+{
+  double const eps = 1.0E-3;
+
+  TEST(is_equal(ang::GetShortestDistance(0, math::pi), math::pi, eps), ());
+  TEST(is_equal(ang::GetShortestDistance(0, math::pi + 1), -math::pi + 1, eps), ());
+
+  TEST(is_equal(ang::GetShortestDistance(math::pi - 1, 0), -math::pi + 1, eps), ());
+  TEST(is_equal(ang::GetShortestDistance(math::pi + 1, 0), math::pi - 1, eps), ());
+}

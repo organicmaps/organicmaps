@@ -75,6 +75,37 @@ namespace ang
     return atan2(p2.y - p1.y, p2.x - p1.x);
   }
 
+  inline double RadToDegree(double rad)
+  {
+    return rad / math::pi * 180.0;
+  }
+
+  inline double DegreeToRad(double degree)
+  {
+    return degree / 180.0 * math::pi;
+  }
+
+  inline double GetShortestDistance(double rad1, double rad2)
+  {
+    double period = 2 * math::pi;
+    rad1 = fmod(rad1, period);
+    rad2 = fmod(rad2, period);
+
+    double res = 0;
+
+    if (abs(rad1 - rad2) > math::pi)
+    {
+      if (rad1 > rad2)
+        res = 2 * math::pi - (rad1 - rad2);
+      else
+        res = - 2 * math::pi + (rad2 - rad1);
+    }
+    else
+      res = rad2 - rad1;
+
+    return res;
+  }
+
   inline double GetMiddleAngle(double a1, double a2)
   {
     double ang = (a1 + a2) / 2.0;
