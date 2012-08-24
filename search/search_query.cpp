@@ -1185,7 +1185,7 @@ bool Query::SearchLocality(MwmValue * pMwm, impl::Locality & res)
   {
     TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
     int8_t const lang = static_cast<int8_t>(edge[0]);
-    if (lang < search::CATEGORIES_LANG && params.IsLangExist(lang))
+    if (edge[0] < search::CATEGORIES_LANG && params.IsLangExist(lang))
     {
       scoped_ptr<TrieIterator> pLangRoot(pTrieRoot->GoToEdge(i));
 

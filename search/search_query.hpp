@@ -125,7 +125,7 @@ private:
     void EraseTokens(vector<size_t> const & eraseInds);
 
     bool IsEmpty() const { return (m_tokens.empty() && m_prefixTokens.empty()); }
-    bool IsLangExist(uint8_t l) const { return (m_langs.count(l) > 0); }
+    bool IsLangExist(int8_t l) const { return (m_langs.count(l) > 0); }
 
   private:
     void AddSynonims(Query const & q, bool isLocalities);
