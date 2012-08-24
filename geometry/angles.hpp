@@ -93,7 +93,7 @@ namespace ang
 
     double res = 0;
 
-    if (abs(rad1 - rad2) > math::pi)
+    if (fabs(rad1 - rad2) > math::pi)
     {
       if (rad1 > rad2)
         res = 2 * math::pi - (rad1 - rad2);
