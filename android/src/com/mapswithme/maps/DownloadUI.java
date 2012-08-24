@@ -233,7 +233,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
             dlg.dismiss();
           }
         })
-        .setNegativeButton(android.R.string.cancel, m_alertCancelHandler)
+        .setNegativeButton(R.string.cancel, m_alertCancelHandler)
         .create()
         .show();
         break;
@@ -268,7 +268,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
             dlg.dismiss();
           }
         })
-        .setNegativeButton(android.R.string.cancel, m_alertCancelHandler)
+        .setNegativeButton(R.string.cancel, m_alertCancelHandler)
         .create()
         .show();
         break;
@@ -295,7 +295,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
               dlg.dismiss();
             }
           })
-          .setNegativeButton(android.R.string.cancel, m_alertCancelHandler)
+          .setNegativeButton(R.string.cancel, m_alertCancelHandler)
           .create()
           .show();
         }

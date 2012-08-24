@@ -334,7 +334,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         startActivity(i);
       }
     })
-    .setNegativeButton(getString(android.R.string.cancel), new DialogInterface.OnClickListener()
+    .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener()
     {
       @Override
       public void onClick(DialogInterface dlg, int which)
