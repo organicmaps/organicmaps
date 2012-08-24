@@ -1,12 +1,14 @@
 #pragma once
 
-#include "../platform/video_timer.hpp"
-
-#include "../std/shared_ptr.hpp"
-#include "../std/bind.hpp"
 #include "events.hpp"
 #include "drawer_yg.hpp"
+
+#include "../platform/video_timer.hpp"
+
 #include "../base/logging.hpp"
+
+#include "../std/shared_ptr.hpp"
+
 
 namespace yg
 {
