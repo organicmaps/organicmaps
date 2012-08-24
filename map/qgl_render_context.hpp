@@ -1,7 +1,9 @@
 #pragma once
 
-#include "../std/shared_ptr.hpp"
 #include "../yg/rendercontext.hpp"
+
+#include "../std/shared_ptr.hpp"
+
 
 class QWidget;
 class QGLContext;
