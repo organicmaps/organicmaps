@@ -103,7 +103,8 @@ private:
                              OffsetsVectorT & offsets);
   void ClearCache(size_t ind);
 
-  void AddResultFromTrie(TrieValueT const & val, size_t mwmID, int viewportID);
+  /// @param[in]  viewportID  @see m_viewport
+  void AddResultFromTrie(TrieValueT const & val, size_t mwmID, int viewportID = -1);
 
   void FlushResults(Results & res, void (Results::*pAddFn)(Result const &));
 

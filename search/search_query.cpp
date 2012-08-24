@@ -899,6 +899,11 @@ void Query::SearchAddress()
           SearchFeatures(params, mwmInfo, ADDRESS_RECT_ID);
           m_worldSearch = b;
         }
+        else
+        {
+          // Add founded locality as a result if nothing left to match.
+          AddResultFromTrie(loc.m_value, mwmId);
+        }
       }
       return;
     }
