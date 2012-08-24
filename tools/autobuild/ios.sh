@@ -22,7 +22,6 @@ if [[ $? -ne 0 ]]; then
 fi
 export SDK_ROOT
 
-MKSPEC="$LOCAL_DIRNAME/../mkspecs/iphonedevice-llvm"
 QMAKE_PARAMS="CONFIG+=${CONFIGURATION}"
 if [[ $CONFIGURATION == "production" ]] ; then
   QMAKE_PARAMS="$QMAKE_PARAMS CONFIG+=release"
