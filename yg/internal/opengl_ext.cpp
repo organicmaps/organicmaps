@@ -29,6 +29,7 @@ namespace yg
 
     const GLenum GL_VERTEX_ARRAY_MWM = GL_VERTEX_ARRAY;
     const GLenum GL_TEXTURE_COORD_ARRAY_MWM = GL_TEXTURE_COORD_ARRAY;
+    const GLenum GL_NORMAL_ARRAY_MWM = GL_NORMAL_ARRAY;
 
     void glOrthoImpl (GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat zNear, GLfloat zFar)
     {
@@ -41,6 +42,11 @@ namespace yg
     void FinalizeThread()
     {}
 
+    void glNormalPointerImpl(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer)
+    {
+      glNormalPointer(type, stride, pointer);
+    }
+
     void InitExtensions()
     {
       DumpGLInformation();
@@ -52,6 +58,7 @@ namespace yg
       glVertexPointerFn = &glVertexPointer;
       glTexCoordPointerFn = &glTexCoordPointer;
       glEnableClientStateFn = &glEnableClientState;
+      glNormalPointerFn = &glNormalPointerImpl;
 
       glMatrixModeFn = &glMatrixMode;
       glLoadIdentityFn = &glLoadIdentity;
