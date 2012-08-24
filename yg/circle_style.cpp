@@ -94,10 +94,11 @@ namespace yg
                                    rbase,
                                    circleInfo.m_isOutlined ? aggOutlineColor : aggColor);
 
-    DATA_TRAITS::pixel_t px = circleInfo.m_isOutlined ? gilOutlineColor : gilColor;
+    //DATA_TRAITS::pixel_t px = circleInfo.m_isOutlined ? gilOutlineColor : gilColor;
 
-    /// making alpha channel opaque
-/*      for (size_t x = 2; x < v.width() - 2; ++x)
+    /*
+    // making alpha channel opaque
+    for (size_t x = 2; x < v.width() - 2; ++x)
       for (size_t y = 2; y < v.height() - 2; ++y)
       {
         unsigned char alpha = gil::get_color(v(x, y), gil::alpha_t());
@@ -113,7 +114,8 @@ namespace yg
           gil::get_color(v(x, y), gil::alpha_t()) = DATA_TRAITS::maxChannelVal;
         }
       }
-*/
+    */
+
     if (circleInfo.m_isOutlined)
     {
       /// drawing inner circle
@@ -130,20 +132,23 @@ namespace yg
                                      s,
                                      rbase,
                                      aggColor);
-/*        for (size_t x = 2; x < v.width() - 2; ++x)
+
+      /*
+      for (size_t x = 2; x < v.width() - 2; ++x)
         for (size_t y = 2; y < v.height() - 2; ++y)
         {
           unsigned char alpha = gil::get_color(v(x, y), gil::alpha_t());
-          float fAlpha = alpha / (float)DATA_TRAITS::maxChannelVal;
-//            if (alpha != 0)
-//            {
+          //if (alpha != 0)
+          //{
+            float const fAlpha = alpha / (float)DATA_TRAITS::maxChannelVal;
             gil::get_color(v(x, y), gil::red_t()) *= fAlpha;
             gil::get_color(v(x, y), gil::green_t()) *= fAlpha;
             gil::get_color(v(x, y), gil::blue_t()) *= fAlpha;
 
-//              gil::get_color(v(x, y), gil::alpha_t()) = DATA_TRAITS::maxChannelVal;
-//            }
-        }*/
+          //gil::get_color(v(x, y), gil::alpha_t()) = DATA_TRAITS::maxChannelVal;
+          //}
+        }
+      */
     }
   }
 }
