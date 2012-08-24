@@ -695,7 +695,7 @@ Query::Params::Params(Query const & q, bool isLocalities/* = false*/)
   for (size_t i = 0; i < tokensCount; ++i)
     m_tokens[i].push_back(q.m_tokens[i]);
 
-  // Add names of categories (and synonims).
+  // Add names of categories (and synonyms).
   if (q.m_pCategories && !isLocalities)
   {
     for (size_t i = 0; i < tokensCount; ++i)
@@ -795,9 +795,9 @@ namespace impl
     typedef strings::UniString StringT;
     typedef buffer_vector<StringT, 32> TokensArrayT;
 
-    size_t GetSynonimTokenLength(TokensArrayT const & tokens, StringT const & prefix) const
+    size_t GetSynonymTokenLength(TokensArrayT const & tokens, StringT const & prefix) const
     {
-      // check only one token as a synonim
+      // check only one token as a synonym
       if (m_matchedTokens.size() == 1)
       {
         size_t const index = m_matchedTokens[0];
@@ -824,12 +824,12 @@ namespace impl
       switch (m_index)
       {
       case 0:   // USA state
-        // USA states has 2-symbol synonims
-        return (isMatched || GetSynonimTokenLength(tokens, prefix) == 2);
+        // USA states has 2-symbol synonyms
+        return (isMatched || GetSynonymTokenLength(tokens, prefix) == 2);
 
       case 1:   // country
-        // USA has synonims: "US" or "USA"
-        return (isMatched || (m_enName == "usa" && GetSynonimTokenLength(tokens, prefix) <= 3));
+        // USA has synonyms: "US" or "USA"
+        return (isMatched || (m_enName == "usa" && GetSynonymTokenLength(tokens, prefix) <= 3));
 
       case 2:   // city
         // need full name match for cities
@@ -901,7 +901,7 @@ void Query::SearchAddress()
         }
         else
         {
-          // Add founded locality as a result if nothing left to match.
+          // Add found locality as a result if nothing left to match.
           AddResultFromTrie(loc.m_value, mwmId);
         }
       }
@@ -1121,7 +1121,8 @@ namespace impl
       Locality * p1st = 0;
       for (vector<Locality>::reverse_iterator i = arr.rbegin(); i != arr.rend(); ++i)
       {
-        if (!i->IsSuitable(m_query.m_tokens, m_query.m_prefix)) continue;
+        if (!i->IsSuitable(m_query.m_tokens, m_query.m_prefix))
+          continue;
 
         if (!regions.empty())
         {
@@ -1139,7 +1140,8 @@ namespace impl
           if (p == 0)
           {
             // remember first suitable locality for the last chance
-            if (p1st == 0) p1st = &(*i);
+            if (p1st == 0)
+              p1st = &(*i);
 
             // locality doesn't belong to region - goto next
             continue;

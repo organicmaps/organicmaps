@@ -128,7 +128,6 @@ private:
     bool IsLangExist(int8_t l) const { return (m_langs.count(l) > 0); }
 
   private:
-    void AddSynonims(Query const & q, bool isLocalities);
     void FillLanguages(Query const & q);
   };
 
