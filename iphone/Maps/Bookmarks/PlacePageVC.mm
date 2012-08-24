@@ -73,7 +73,7 @@
 {
   if (section != 0)
     return 0;
-  return 40;
+  return 60;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -208,6 +208,18 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
   [textField resignFirstResponder];
+  if (m_balloon.title != textField.text)
+  {
+    if (textField.text.length == 0)
+    {
+      m_balloon.title = NSLocalizedString(@"dropped_pin", @"Unknown Dropped Pin title, when name can't be determined");
+      textField.text = m_balloon.title;
+    }
+    else
+      m_balloon.title = textField.text;
+    self.navigationController.title = m_balloon.title;
+    [m_balloon updateTitle:m_balloon.title];
+  }
   return NO;
 }
 @end

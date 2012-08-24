@@ -185,4 +185,10 @@
   self.pinImage.image = [UIImage imageNamed:newColor];
 }
 
+- (void) updateTitle:(NSString *)newTitle
+{
+  if (m_titleView != nil)
+    m_titleView.image = [self createPopupImageWithName:newTitle andAddress:description];
+}
+
 @end

@@ -156,6 +156,8 @@
     // Already added bookmark was clicked
     m2::PointD const globalPos = bm->GetOrg();
     m_bookmark.globalPosition = CGPointMake(globalPos.x, globalPos.y);
+    // Override bookmark name which was set automatically according to the point address in previous line
+    m_bookmark.title = [NSString stringWithUTF8String:bm->GetName().c_str()];
     [m_bookmark showInView:self.view atPoint:[self globalPoint2ViewPoint:m_bookmark.globalPosition]];
   }
 }

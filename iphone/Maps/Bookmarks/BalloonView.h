@@ -28,5 +28,7 @@
 - (void) showInView:(UIView *)view atPoint:(CGPoint)pt;
 - (void) updatePosition:(UIView *)view atPoint:(CGPoint)pt;
 - (void) hide;
+// Update baloon image with new title
+- (void) updateTitle:(NSString *)newTitle;
 
 @end
