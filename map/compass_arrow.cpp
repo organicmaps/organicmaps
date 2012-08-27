@@ -170,5 +170,6 @@ bool CompassArrow::onTapEnded(m2::PointD const & pt)
 
 bool CompassArrow::hitTest(m2::PointD const & pt) const
 {
-  return pt.Length(pivot() * visualScale()) < max(m_arrowWidth / 2, m_arrowHeight / 2);
+  double rad = max(m_arrowWidth / 2, m_arrowHeight / 2);
+  return pt.Length(pivot() * visualScale()) < rad * visualScale();
 }
