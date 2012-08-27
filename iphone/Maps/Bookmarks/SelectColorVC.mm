@@ -9,7 +9,6 @@ static NSString * g_colors [] = {
   @"placemark-pink",
   @"placemark-purple",
   @"placemark-red",
-  @"placemark-yellow"
 };
 
 @implementation SelectColorVC
