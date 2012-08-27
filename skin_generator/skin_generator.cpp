@@ -291,7 +291,9 @@ namespace tools
 
       QSize symbolSize = symbolSizes[i];
 
-      page.m_fileName = skinName.substr(0, skinName.find_last_of("/") + 1) + "symbols_" + suffixes[i];
+      page.m_dir = skinName.substr(0, skinName.find_last_of("/") + 1);
+      page.m_suffix = suffixes[i];
+      page.m_fileName = page.m_dir + "symbols_" + page.m_suffix;
 
       for (int i = 0; i < fileNames.size(); ++i)
       {
@@ -410,6 +412,22 @@ namespace tools
 
         m_svgRenderer.load(it->m_fullFileName);
         m_svgRenderer.render(&painter, QRect(dstRect.minX() + 2, dstRect.minY() + 2, dstRect.SizeX() - 4, dstRect.SizeY() - 4));
+
+        size_t w = dstRect.SizeX() - 4;
+        size_t h = dstRect.SizeY() - 4;
+
+        gil::bgra8_image_t symbolImagePng(w, h);
+        gil::fill_pixels(gil::view(symbolImagePng), gil::rgba8_pixel_t(0, 0, 0, 0));
+        QImage img((uchar*)&gil::view(symbolImagePng)(0, 0), w, h, QImage::Format_ARGB32);
+        QPainter painter(&img);
+        painter.setClipping(true);
+
+        m_svgRenderer.load(it->m_fullFileName);
+        m_svgRenderer.render(&painter, QRect(0, 0, w, h));
+        string dir(page.m_dir + "drawable-" + page.m_suffix + "/");
+        QDir().mkpath(QString(dir.c_str()));
+        string s(dir + it->m_symbolID.toLocal8Bit().constData() + ".png");
+        img.save(s.c_str());
       }
 
       /// Rendering packed fonts
@@ -466,7 +484,10 @@ namespace tools
 
         }
       }
-      img.save((page.m_fileName + ".png").c_str());
+
+      string s = page.m_fileName + ".png";
+      LOG(LINFO, ("saving skin image into: ", s));
+      img.save(s.c_str());
     }
   }
 

@@ -72,6 +72,8 @@ namespace tools
         int m_width;
         int m_height;
         string m_fileName;
+        string m_dir;
+        string m_suffix;
         m2::Packer m_packer;
       };
 
