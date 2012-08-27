@@ -1284,7 +1284,7 @@ void Query::SearchFeatures(Params const & params, MWMVectorT const & mwmInfo, in
   }
 }
 
-void Query::SearchInMWM(Index::MwmLock const & mwmLock, Params const & params, int ind)
+void Query::SearchInMWM(Index::MwmLock const & mwmLock, Params const & params, int ind/* = -1*/)
 {
   if (MwmValue * pMwm = mwmLock.GetValue())
   {
@@ -1427,7 +1427,6 @@ m2::RectD const & Query::GetViewport(int viewportID/* = -1*/) const
     return m_viewport[1];
   }
 }
-
 m2::PointD Query::GetPosition(int viewportID/* = -1*/) const
 {
   if (viewportID == ADDRESS_RECT_ID)
@@ -1519,7 +1518,7 @@ void Query::SearchAdditional(Results & res)
       if (s == name[0] || s == name[1])
       {
         ClearQueues();
-        SearchInMWM(mwmLock, params, 0);
+        SearchInMWM(mwmLock, params);
       }
     }
 

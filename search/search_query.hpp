@@ -135,11 +135,15 @@ private:
   bool SearchLocality(MwmValue * pMwm, impl::Locality & res);
 
   void SearchFeatures();
-  void SearchFeatures(Params const & params, MWMVectorT const & mwmInfo, int ind);
 
-  /// Do search in particular map. Pass offsets == 0 if you don't want
-  /// results set to be intersected with source feature's offsets.
-  void SearchInMWM(Index::MwmLock const & mwmLock, Params const & params, int ind);
+  /// @param[in] ind Index of viewport rect to search (@see m_viewport).
+  /// If ind == -1, don't do any matching with features in viewport (@see m_offsetsInViewport).
+  //@{
+  /// Do search in all maps from mwmInfo.
+  void SearchFeatures(Params const & params, MWMVectorT const & mwmInfo, int ind);
+  /// Do search in particular map (mwmLock).
+  void SearchInMWM(Index::MwmLock const & mwmLock, Params const & params, int ind = -1);
+  //@}
 
   void SuggestStrings(Results & res);
   bool MatchForSuggestionsImpl(strings::UniString const & token, int8_t lang, Results & res);
