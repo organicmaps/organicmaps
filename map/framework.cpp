@@ -587,7 +587,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   m_informationDisplay.doDraw(pDrawer);
 
   if (m_drawPlacemark)
-    m_informationDisplay.drawPlacemark(pDrawer, "placemark", m_navigator.GtoP(m_placemark));
+    m_informationDisplay.drawPlacemark(pDrawer, "placemark-red", m_navigator.GtoP(m_placemark));
 
   for (size_t i = 0; i < m_bookmarks.size(); ++i)
     if (m_bookmarks[i]->IsVisible())
