@@ -113,6 +113,11 @@ namespace qt
 
     TIndex const countryIndex(treeIndex[0], treeIndex[1], treeIndex[2]);
     Storage & st = GetStorage();
+
+    // skip group items
+    if (st.CountriesCount(countryIndex) > 0)
+      return;
+
     switch (m_framework.GetCountryStatus(countryIndex))
     {
     case EOnDiskOutOfDate:

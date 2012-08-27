@@ -72,7 +72,7 @@ namespace storage
     /// If the logic will be changed, replace GetFile with ForEachFile.
     CountryFile const & GetFile() const
     {
-      ASSERT_EQUAL ( m_files.size(), 1, () );
+      ASSERT_EQUAL ( m_files.size(), 1, (m_name) );
       return m_files.front();
     }
 
