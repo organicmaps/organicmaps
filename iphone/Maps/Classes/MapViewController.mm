@@ -368,6 +368,8 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (BOOL) shouldAutorotateToInterfaceOrientation: (UIInterfaceOrientation) interfaceOrientation
 {
+  // Update popup bookmark position
+  [self updateDataAfterScreenChanged];
 	return YES; // We support all orientations
 }
 
@@ -421,6 +423,8 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void)viewWillAppear:(BOOL)animated
 {
   [self Invalidate];
+  // Update popup bookmark position
+  [self updateDataAfterScreenChanged];
   [super viewWillAppear:animated];
 }
 
