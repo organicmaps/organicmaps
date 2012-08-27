@@ -139,7 +139,9 @@
 {
   // Try to check if we've clicked on bookmark
   CGPoint const pixelPos = [point CGPointValue];
-  Bookmark const * bm = GetFramework().GetBookmark(m2::PointD(pixelPos.x, pixelPos.y));
+  CGFloat const scaleFactor = self.view.contentScaleFactor;
+
+  Bookmark const * bm = GetFramework().GetBookmark(m2::PointD(pixelPos.x * scaleFactor, pixelPos.y * scaleFactor));
   if (!bm)
   {
     if (m_bookmark.isDisplayed)
