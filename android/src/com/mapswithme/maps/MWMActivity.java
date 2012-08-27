@@ -46,11 +46,25 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     return mApplication.getMapStorage();
   }
 
+  private void startLocation()
+  {
+    getLocationService().startUpdate(this);
+    // Do not turn off the screen while displaying position
+    Utils.automaticIdleScreen(false, getWindow());
+  }
+
+  private void stopLocation()
+  {
+    getLocationService().stopUpdate(this);
+    // Enable automatic turning screen off while app is idle
+    Utils.automaticIdleScreen(true, getWindow());
+  }
+
   public void checkShouldStartLocationService()
   {
     if (m_shouldStartLocationService)
     {
-      getLocationService().startUpdate(this);
+      startLocation();
       m_shouldStartLocationService = false;
     }
   }
@@ -190,17 +204,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     final boolean isLocationActive = v.isSelected();
     if (isLocationActive)
-    {
-      getLocationService().stopUpdate(this);
-      // Enable automatic turning screen off while app is idle
-      getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-    }
+      stopLocation();
     else
-    {
-      getLocationService().startUpdate(this);
-      // Do not turn off the screen while displaying position
-      getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-    }
+      startLocation();
     v.setSelected(!isLocationActive);
 
     // Store active state of My Position
@@ -529,7 +535,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onPause()
   {
-    getLocationService().stopUpdate(this);
+    stopLocation();
 
     stopWatchingExternalStorage();
 
