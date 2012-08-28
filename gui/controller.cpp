@@ -53,6 +53,7 @@ namespace gui
     {
       m_focusedElement = l.front();
       m_focusedElement->onTapStarted(pt);
+      m_LastTapCancelled = false;
       return true;
     }
 
@@ -63,8 +64,11 @@ namespace gui
   {
     if (m_focusedElement)
     {
-      if (!m_focusedElement->roughHitTest(pt) || !m_focusedElement->hitTest(pt))
+      if (!m_focusedElement->hitTest(pt))
+      {
         m_focusedElement->onTapCancelled(pt);
+        m_LastTapCancelled = true;
+      }
       else
         m_focusedElement->onTapMoved(pt);
 
@@ -79,8 +83,11 @@ namespace gui
   {
     if (m_focusedElement)
     {
-      m_focusedElement->onTapEnded(pt);
+      if (!m_LastTapCancelled)
+        m_focusedElement->onTapEnded(pt);
+
       m_focusedElement.reset();
+      m_LastTapCancelled = false;
 
       return true;
     }

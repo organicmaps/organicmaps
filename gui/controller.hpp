@@ -60,6 +60,10 @@ namespace gui
     /// Screen, which is used to cache gui::Elements into display lists.
     yg::gl::Screen * m_CacheScreen;
 
+    /// Should we call the onTapEnded when the tap finished(we should
+    /// not if the tap was cancelled while moving).
+    bool m_LastTapCancelled;
+
   public:
 
     /// Constructor with GestureDetector to route events from.
