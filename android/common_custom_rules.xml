@@ -66,4 +66,13 @@
   <target name="samsung-release" depends="-setup-samsung-market, -setup-release, release"/>
   <target name="samsung-debug" depends="-setup-samsung-market, -setup-debug, debug"/>
 
+  <target name="-setup-lg-market">
+    <property name="mwm.market.name" value="-lg"/>
+    <echo file="${asset.absolute.dir}/app_info.txt" append="false" message="http://redbutton.mapswithme.com/enable_search_banner_lg"/>
+  </target>
+
+  <target name="lg-production" depends="-setup-lg-market, -setup-production, production"/>
+  <target name="lg-release" depends="-setup-lg-market, -setup-release, release"/>
+  <target name="lg-debug" depends="-setup-lg-market, -setup-debug, debug"/>
+
 </project>
