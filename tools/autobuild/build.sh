@@ -18,7 +18,7 @@ BuildQt() {
 
     mkdir -p "$SHADOW_DIR"
     cd "$SHADOW_DIR"
-    qmake -r "$QMAKE_PARAMS" -spec "$MKSPEC" "../omim/omim.pro"
+    qmake -r "$QMAKE_PARAMS" -spec "$MKSPEC" "$LOCAL_DIRNAME/../../omim.pro"
 #    make clean > /dev/null || true
     make -j 2
   )
