@@ -184,3 +184,6 @@ CONFIG(production) {
     QMAKE_LFLAGS += /PDB:$${DESTDIR}/$${TARGET}.pdb /DEBUG
   }
 }
+
+# Fix boost compilation error
+QMAKE_MOC = $$[QT_INSTALL_BINS]/moc -DBOOST_TT_HAS_OPERATOR_HPP_INCLUDED
