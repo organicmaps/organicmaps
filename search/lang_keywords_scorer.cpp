@@ -50,7 +50,11 @@ uint32_t LangKeywordsScorer::Score(int8_t lang, StringT const & name) const
 {
   buffer_vector<StringT, MAX_TOKENS> tokens;
   SplitUniString(name, MakeBackInsertFunctor(tokens), Delimiters());
-  ASSERT_LESS ( tokens.size(), static_cast<size_t>(MAX_TOKENS), () );
+
+  /// @todo Some Arabian names have a lot of tokens.
+  /// Trim this stuff while generation.
+  //ASSERT_LESS ( tokens.size(), static_cast<size_t>(MAX_TOKENS), () );
+
   return Score(lang, tokens.data(), min(size_t(MAX_TOKENS-1), tokens.size()));
 }
 
