@@ -1217,3 +1217,16 @@
 		ko =
 		cs =
 		nl = Groep
+  [bookmarks_usage_hint]
+    en = Add any place on the map to bookmarks. To do that, touch a spot on the map and hold until the context menu appears.
+    tags = ios
+    comment = Text hint in Bookmarks dialog, displayed if it's empty
+    ru = Добавьте в избранное любое место на карте. Для этого нажмите на точку на карте и удерживайте, пока не появится контекстное меню.
+    de =
+    uk =
+    es =
+    fr =
+    ja =
+    ko =
+    cs =
+    nl =

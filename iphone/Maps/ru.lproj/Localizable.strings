@@ -299,3 +299,6 @@
 
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "Группа";
+
+/* Text hint in Bookmarks dialog, displayed if it's empty */
+"bookmarks_usage_hint" = "Добавьте в избранное любое место на карте. Для этого нажмите на точку на карте и удерживайте, пока не появится контекстное меню.";
