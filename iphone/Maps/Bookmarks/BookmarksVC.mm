@@ -33,16 +33,55 @@
   [self dismissModalViewControllerAnimated:YES];
 }
 
-- (void)onVisibilitySwitched:(id)sender
-{
-  BookmarkCategory * cat = GetFramework().GetBmCategory([m_balloon.setName UTF8String]);
-  if (cat)
-    cat->SetVisible(((UISwitch *)sender).on);
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
+}
+
+// Returns bookmarks count in the active bookmark set (category)
+- (size_t) getBookmarksCount
+{
+  BookmarkCategory * cat = GetFramework().GetBmCategory([m_balloon.setName UTF8String]);
+  if (cat)
+    return cat->GetBookmarksCount();
+  return 0;
+}
+
+
+// Used to display bookmarks hint when no any bookmarks are added
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+  if (section == 1)
+  {
+    // Do not display any hint if bookmarks are present
+    if ([self getBookmarksCount])
+      return 0.;
+    return tableView.bounds.size.height / 2.;
+  }
+  return 0.;
+}
+
+// Used to display bookmarks hint when no any bookmarks are added
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+  if (section == 1)
+  {
+    // Do not display any hint if bookmarks are present
+    if ([self getBookmarksCount])
+      return nil;
+
+    CGRect rect = tableView.bounds;
+    rect.size.height /= 2.;
+    rect.size.width = rect.size.width * 2./3.;
+    UILabel * hint = [[[UILabel alloc] initWithFrame:rect] autorelease];
+    hint.textAlignment = UITextAlignmentCenter;
+    hint.lineBreakMode = UILineBreakModeWordWrap;
+    hint.numberOfLines = 0;
+    hint.text = NSLocalizedString(@"bookmarks_usage_hint", @"Text hint in Bookmarks dialog, displayed if it's empty");
+    hint.backgroundColor = [UIColor clearColor];
+    return hint;
+  }
+  return nil;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -52,12 +91,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  if (section == 0)
-    return 1;
-  BookmarkCategory * cat = GetFramework().GetBmCategory([m_balloon.setName UTF8String]);
-  if (cat)
-    return cat->GetBookmarksCount();
-  return 0;
+  switch (section)
+  {
+  case 0: return 1;
+  case 1: return [self getBookmarksCount];
+  default: return 0;
+  }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
