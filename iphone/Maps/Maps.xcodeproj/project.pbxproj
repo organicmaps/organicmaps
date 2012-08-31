@@ -103,9 +103,9 @@
 		FA1FB8A5147E8CA50052848B /* search-highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = FA1FB89F147E8CA50052848B /* search-highlighted.png */; };
 		FA1FB8A6147E8CA50052848B /* search-highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA1FB8A0147E8CA50052848B /* search-highlighted@2x.png */; };
 		FA29FDAA141E77F8004ADF66 /* Preferences.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA29FDA9141E77F8004ADF66 /* Preferences.mm */; };
+		FA2A05A215F0FCD600CE0BEE /* MapsWithMe-Pro.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47090 /* MapsWithMe-Pro.plist */; };
 		FA2EF9C713630C3B00E3E484 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA2EF9C613630C3B00E3E484 /* libplatform.a */; };
 		FA306C7315ED7105000EC356 /* MapsWithMe-Lite.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAFB0920151215EF0041901D /* MapsWithMe-Lite.plist */; };
-		FA306C7415ED7109000EC356 /* MapsWithMe-Pro.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47090 /* MapsWithMe-Pro.plist */; };
 		FA34BECA1338D72F00FFB2A7 /* CustomAlertView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */; };
 		FA36B80B15403A4F004560CC /* BalloonView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA36B80415403A4F004560CC /* BalloonView.mm */; };
 		FA36B80C15403A4F004560CC /* BalloonView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA36B80415403A4F004560CC /* BalloonView.mm */; };
@@ -2953,7 +2953,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0440;
 				ORGANIZATIONNAME = MapsWithMe;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Maps" */;
@@ -3593,7 +3593,7 @@
 				FAB2D51D15DAB53F00C706C3 /* right@2x.png in Resources */,
 				FAB2D51E15DAB53F00C706C3 /* tail.png in Resources */,
 				FAB2D51F15DAB53F00C706C3 /* tail@2x.png in Resources */,
-				FA306C7415ED7109000EC356 /* MapsWithMe-Pro.plist in Resources */,
+				FA2A05A215F0FCD600CE0BEE /* MapsWithMe-Pro.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
