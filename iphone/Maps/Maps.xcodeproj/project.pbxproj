@@ -4223,7 +4223,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nif [[ \"$LOWERED_CONFIG\" != *production* ]]; then\n  echo \"Copy drules_proto.txt in non-production build\"\n  cp \"$SRCROOT/../../data/drules_proto.txt\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/\"\nfi";
+			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nif [[ \"$LOWERED_CONFIG\" != *production* && \"$LOWERED_CONFIG\" != *adhoc* ]]; then\n  echo \"Copy drules_proto.txt in non-production build\"\n  cp \"$SRCROOT/../../data/drules_proto.txt\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/\"\nfi";
 		};
 		FA78191C15C5F673009E0278 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4249,7 +4249,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nif [[ \"$LOWERED_CONFIG\" != *production* ]]; then\n  echo \"Copy drules_proto.txt in non-production build\"\n  cp \"$SRCROOT/../../data/drules_proto.txt\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/\"\nfi\nif [[ \"$LOWERED_CONFIG\" == *lite* ]]; then\n  echo \"Using World file without search index\"\n  mv \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/World.mwm.nosearch\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/World.mwm\"\n  echo \"Using countries.txt without search support\"\n  mv \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/countries.txt.nosearch\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/countries.txt\"\nfi";
+			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nif [[ \"$LOWERED_CONFIG\" != *production* && \"$LOWERED_CONFIG\" != *adhoc* ]]; then\n  echo \"Copy drules_proto.txt in non-production build\"\n  cp \"$SRCROOT/../../data/drules_proto.txt\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/\"\nfi\nif [[ \"$LOWERED_CONFIG\" == *lite* ]]; then\n  echo \"Using World file without search index\"\n  mv \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/World.mwm.nosearch\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/World.mwm\"\n  echo \"Using countries.txt without search support\"\n  mv \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/countries.txt.nosearch\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/countries.txt\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
