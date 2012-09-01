@@ -420,27 +420,34 @@ protected:
     }
     else if (p->name == "relation")
     {
-      if (!feature::IsDrawableLike(fValue.m_Types, feature::FEATURE_TYPE_AREA))
-        return;
-
-      // check, if this is our processable relation
-      bool isProcess = false;
-      for (size_t i = 0; i < p->childs.size(); ++i)
       {
-        if (p->childs[i].name == "tag" &&
-            p->childs[i].attrs["k"] == "type" &&
-            p->childs[i].attrs["v"] == "multipolygon")
+        // 1. Check, if this is our processable relation. Here we process only polygon relations.
+        size_t i = 0;
+        size_t const count = p->childs.size();
+        for (; i < count; ++i)
         {
-          isProcess = true;
+          if (p->childs[i].name == "tag" &&
+              p->childs[i].attrs["k"] == "type" &&
+              p->childs[i].attrs["v"] == "multipolygon")
+          {
+            break;
+          }
         }
+        if (i == count)
+          return;
       }
-      if (!isProcess)
+
+      // 2. Relation should have visible area types.
+      if (!feature::IsDrawableLike(fValue.m_Types, feature::FEATURE_TYPE_AREA))
+      {
+        LOG(LWARNING, ("Polygon relation without area types:", id));
         return;
+      }
 
       typename base_type::holes_accumulator holes(this);
       typename base_type::way_map_t wayMap;
 
-      // iterate ways to get 'outer' and 'inner' geometries
+      // 2. Iterate ways to get 'outer' and 'inner' geometries
       for (size_t i = 0; i < p->childs.size(); ++i)
       {
         if (p->childs[i].name == "member" &&
@@ -459,10 +466,14 @@ protected:
           {
             holes(wayID);
           }
+          else if (role.empty())
+          {
+            LOG(LWARNING, ("Way", wayID, "in relation", id, "with empty role"));
+          }
         }
       }
 
-      // cycle through the ways in map
+      // 4. Cycle through the ways in map to get closed area features.
       while (!wayMap.empty())
       {
         feature_t f;
