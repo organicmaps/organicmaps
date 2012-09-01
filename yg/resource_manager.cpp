@@ -406,6 +406,15 @@ namespace
     m_texRtFormat = yg::Data4Bpp;
     m_useReadPixelsToSynchronize = false;
 
+    if (isGPU("Vivante Corporation", "GC800 core", true))
+    {
+#ifndef __mips__
+      /// glMapBuffer doesn't work on this GPU on non-MIPS devices,
+      /// so we're switching to glBufferSubData.
+      yg::gl::g_isMapBufferSupported = false;
+#endif
+    }
+
     if (isGPU("Qualcomm", "Adreno", false))
       m_texRtFormat = yg::Data8Bpp;
 
