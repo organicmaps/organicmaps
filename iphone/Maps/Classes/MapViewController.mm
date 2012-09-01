@@ -292,7 +292,7 @@ NSInteger compareAddress(id l, id r, void * context)
 
 	[self updatePointsFromEvent:event];
 
-	bool needRedraw = false;
+//	bool needRedraw = false;
 
   if (GetFramework().GetGuiController()->OnTapMoved(m_Pt1))
     return;
@@ -316,7 +316,7 @@ NSInteger compareAddress(id l, id r, void * context)
 	{
 	case DRAGGING:
 		GetFramework().DoDrag(DragEvent(m_Pt1.x, m_Pt1.y));
-		needRedraw = true;
+//		needRedraw = true;
 		break;
 	case SCALING:
 		if ([[event allTouches] count] < 2)
@@ -324,7 +324,7 @@ NSInteger compareAddress(id l, id r, void * context)
 		else
 		{
 			GetFramework().DoScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
-			needRedraw = true;
+//			needRedraw = true;
 		}
 		break;
 	case NOTHING:
