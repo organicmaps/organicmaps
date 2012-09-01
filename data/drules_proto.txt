@@ -57234,11 +57234,6 @@ cont {
   element {
     scale: 7
     lines {
-      width: 0.078125
-      color: 0xAAAAAA
-      priority: 42
-    }
-    lines {
       width: 0.0625
       color: 0xcde5ea
       priority: 46
@@ -57263,11 +57258,6 @@ cont {
   element {
     scale: 10
     lines {
-      width: 0.625
-      color: 0xAAAAAA
-      priority: 46
-    }
-    lines {
       width: 0.5
       color: 0xcde5ea
       priority: 50
@@ -57275,11 +57265,6 @@ cont {
   }
   element {
     scale: 11
-    lines {
-      width: 1.25
-      color: 0xAAAAAA
-      priority: 46
-    }
     lines {
       width: 1
       color: 0xcde5ea
@@ -57290,11 +57275,6 @@ cont {
     scale: 12
     lines {
       width: 2.5
-      color: 0xB0B0B0
-      priority: 54
-    }
-    lines {
-      width: 2.5
       color: 0xcde5ea
       priority: 64
     }
@@ -57303,22 +57283,12 @@ cont {
     scale: 13
     lines {
       width: 3
-      color: 0xB0B0B0
-      priority: 62
-    }
-    lines {
-      width: 3
       color: 0xcde5ea
       priority: 72
     }
   }
   element {
     scale: 14
-    lines {
-      width: 4
-      color: 0xB0B0B0
-      priority: 89
-    }
     lines {
       width: 4
       color: 0xcde5ea
@@ -57336,11 +57306,6 @@ cont {
     scale: 15
     lines {
       width: 5
-      color: 0xB0B0B0
-      priority: 94
-    }
-    lines {
-      width: 5
       color: 0xcde5ea
       priority: 104
     }
@@ -57356,11 +57321,6 @@ cont {
     scale: 16
     lines {
       width: 8
-      color: 0xB0B0B0
-      priority: 96
-    }
-    lines {
-      width: 8
       color: 0xcde5ea
       priority: 106
     }
@@ -57374,11 +57334,6 @@ cont {
   }
   element {
     scale: 17
-    lines {
-      width: 16
-      color: 0xB0B0B0
-      priority: 98
-    }
     lines {
       width: 16
       color: 0xcde5ea
@@ -57474,10 +57429,6 @@ cont {
     scale: 6
     area {
       color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
       priority: 40
     }
   }
@@ -57485,10 +57436,6 @@ cont {
     scale: 7
     area {
       color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
       priority: 41
     }
   }
@@ -57496,10 +57443,6 @@ cont {
     scale: 8
     area {
       color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
       priority: 31
     }
   }
@@ -57507,10 +57450,6 @@ cont {
     scale: 9
     area {
       color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
       priority: 31
     }
   }
@@ -57518,10 +57457,6 @@ cont {
     scale: 10
     area {
       color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
       priority: 45
     }
   }
@@ -57529,10 +57464,6 @@ cont {
     scale: 11
     area {
       color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xAAAAAA
-      }
       priority: 45
     }
   }
@@ -57540,10 +57471,6 @@ cont {
     scale: 12
     area {
       color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xB0B0B0
-      }
       priority: 75
     }
   }
@@ -57551,10 +57478,6 @@ cont {
     scale: 13
     area {
       color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xB0B0B0
-      }
       priority: 85
     }
   }
@@ -57562,10 +57485,6 @@ cont {
     scale: 14
     area {
       color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xB0B0B0
-      }
       priority: 123
     }
   }
@@ -57573,10 +57492,6 @@ cont {
     scale: 15
     area {
       color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xB0B0B0
-      }
       priority: 128
     }
   }
@@ -57584,10 +57499,6 @@ cont {
     scale: 16
     area {
       color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xB0B0B0
-      }
       priority: 130
     }
   }
@@ -57595,10 +57506,6 @@ cont {
     scale: 17
     area {
       color: 0xcde5ea
-      border {
-        width: 0
-        color: 0xB0B0B0
-      }
       priority: 132
     }
   }
