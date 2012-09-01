@@ -44,12 +44,12 @@ namespace
     i1.Swap(i2);
   }
 
-  string DebugPrint(FeatureInfoT const & info)
-  {
-    return ("Name = " + info.m_name +
-            " House = " + info.m_house +
-            " Distance = " + strings::to_string(info.m_dist));
-  }
+//  string DebugPrint(FeatureInfoT const & info)
+//  {
+//    return ("Name = " + info.m_name +
+//            " House = " + info.m_house +
+//            " Distance = " + strings::to_string(info.m_dist));
+//  }
 
   class DoGetFeatureInfoBase
   {
