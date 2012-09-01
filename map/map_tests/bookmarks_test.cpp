@@ -13,24 +13,60 @@ char const * kmlString =
     "<Document>"
       "<name>MapName</name>"
       "<description><![CDATA[MapDescription]]></description>"
-      "<Style id=\"style2\">"
+      "<visibility>0</visibility>"
+      "<Style id=\"placemark-blue\">"
         "<IconStyle>"
           "<Icon>"
-            "<href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>"
+            "<href>http://www.mapswithme.com/placemarks/placemark-blue.png</href>"
           "</Icon>"
         "</IconStyle>"
       "</Style>"
-      "<Style id=\"style3\">"
+      "<Style id=\"placemark-brown\">"
         "<IconStyle>"
           "<Icon>"
-            "<href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>"
+            "<href>http://www.mapswithme.com/placemarks/placemark-brown.png</href>"
+          "</Icon>"
+        "</IconStyle>"
+      "</Style>"
+      "<Style id=\"placemark-green\">"
+        "<IconStyle>"
+          "<Icon>"
+            "<href>http://www.mapswithme.com/placemarks/placemark-green.png</href>"
+          "</Icon>"
+        "</IconStyle>"
+      "</Style>"
+      "<Style id=\"placemark-orange\">"
+        "<IconStyle>"
+          "<Icon>"
+            "<href>http://www.mapswithme.com/placemarks/placemark-orange.png</href>"
+          "</Icon>"
+        "</IconStyle>"
+      "</Style>"
+      "<Style id=\"placemark-pink\">"
+        "<IconStyle>"
+          "<Icon>"
+            "<href>http://www.mapswithme.com/placemarks/placemark-pink.png</href>"
+          "</Icon>"
+        "</IconStyle>"
+      "</Style>"
+      "<Style id=\"placemark-purple\">"
+        "<IconStyle>"
+          "<Icon>"
+            "<href>http://www.mapswithme.com/placemarks/placemark-purple.png</href>"
+          "</Icon>"
+        "</IconStyle>"
+      "</Style>"
+      "<Style id=\"placemark-red\">"
+        "<IconStyle>"
+          "<Icon>"
+            "<href>http://www.mapswithme.com/placemarks/placemark-red.png</href>"
           "</Icon>"
         "</IconStyle>"
       "</Style>"
       "<Placemark>"
         "<name>Nebraska</name>"
         "<description><![CDATA[]]></description>"
-        "<styleUrl>#style2</styleUrl>"
+        "<styleUrl>#placemark-red</styleUrl>"
         "<Point>"
           "<coordinates>-99.901810,41.492538,0.000000</coordinates>"
         "</Point>"
@@ -38,7 +74,7 @@ char const * kmlString =
       "<Placemark>"
         "<name>Monongahela National Forest</name>"
         "<description><![CDATA[Huttonsville, WV 26273<br>]]></description>"
-        "<styleUrl>#style3</styleUrl>"
+        "<styleUrl>#placemark-pink</styleUrl>"
         "<Point>"
           "<coordinates>-79.829674,38.627785,0.000000</coordinates>"
         "</Point>"
@@ -46,7 +82,7 @@ char const * kmlString =
       "<Placemark>"
         "<name>From: Минск, Минская область, Беларусь</name>"
         "<description><![CDATA[]]></description>"
-        "<styleUrl>#style5</styleUrl>"
+        "<styleUrl>#placemark-blue</styleUrl>"
         "<Point>"
           "<coordinates>27.566765,53.900047,0.000000</coordinates>"
         "</Point>"
@@ -60,13 +96,17 @@ char const * kmlString =
 
     Bookmark const * bm = cat.GetBookmark(0);
     TEST_EQUAL(bm->GetName(), "Nebraska", ());
+    TEST_EQUAL(bm->GetType(), "placemark-red", ());
+
     bm = cat.GetBookmark(1);
     TEST_EQUAL(bm->GetName(), "Monongahela National Forest", ());
+    TEST_EQUAL(bm->GetType(), "placemark-pink", ());
 
     bm = cat.GetBookmark(2);
     m2::PointD const org = bm->GetOrg();
     TEST_ALMOST_EQUAL(MercatorBounds::XToLon(org.x), 27.566765, ());
     TEST_ALMOST_EQUAL(MercatorBounds::YToLat(org.y), 53.900047, ());
+    TEST_EQUAL(bm->GetType(), "placemark-blue", ());
   }
 }
 
@@ -76,17 +116,27 @@ UNIT_TEST(Bookmarks_ImportKML)
   cat.LoadFromKML(new MemReader(kmlString, strlen(kmlString)));
 
   CheckBookmarks(cat);
+
+  // Name should be overridden from file
+  TEST_EQUAL(cat.GetName(), "MapName", ());
+  TEST_EQUAL(cat.IsVisible(), false, ());
 }
 
 UNIT_TEST(Bookmarks_ExportKML)
 {
+  char const * BOOKMARKS_FILE_NAME = "UnitTestBookmarks.kml";
   BookmarkCategory cat("Default");
   cat.LoadFromKML(new MemReader(kmlString, strlen(kmlString)));
 
   CheckBookmarks(cat);
 
+  TEST_EQUAL(cat.IsVisible(), false, ());
+  // Change visibility
+  cat.SetVisible(true);
+  TEST_EQUAL(cat.IsVisible(), true, ());
+
   {
-    ofstream of("Bookmarks.kml");
+    ofstream of(BOOKMARKS_FILE_NAME);
     cat.SaveToKML(of);
   }
 
@@ -94,9 +144,12 @@ UNIT_TEST(Bookmarks_ExportKML)
 
   TEST_EQUAL(cat.GetBookmarksCount(), 0, ());
 
-  cat.LoadFromKML(new FileReader("Bookmarks.kml"));
+  cat.LoadFromKML(new FileReader(BOOKMARKS_FILE_NAME));
 
   CheckBookmarks(cat);
+  TEST_EQUAL(cat.IsVisible(), true, ());
+
+  FileWriter::DeleteFileX(BOOKMARKS_FILE_NAME);
 }
 
 UNIT_TEST(Bookmarks_Getting)

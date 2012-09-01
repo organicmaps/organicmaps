@@ -47,6 +47,7 @@ public:
 
   void SetVisible(bool isVisible) { m_visible = isVisible; }
   bool IsVisible() const { return m_visible; }
+  void SetName(string const & name) { m_name = name; }
   string GetName() const { return m_name; }
 
   inline size_t GetBookmarksCount() const { return m_bookmarks.size(); }
