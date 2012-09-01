@@ -329,20 +329,22 @@ bool Framework::DeleteBmCategory(size_t index)
   else return false;
 }
 
-Bookmark const * Framework::GetBookmark(m2::PointD pt) const
+BookmarkAndCategory Framework::GetBookmark(m2::PointD pt) const
 {
+  // @TODO Refactor. Why bookmarks can't be retrieved? Change pixel point to global point.
   if (m_renderPolicy == 0)
-    return 0;
+      return BookmarkAndCategory(0, 0);
   return GetBookmark(pt, m_renderPolicy->VisualScale());
 }
 
-Bookmark const * Framework::GetBookmark(m2::PointD pt, double visualScale) const
+BookmarkAndCategory Framework::GetBookmark(m2::PointD pt, double visualScale) const
 {
   // Get the global rect of touching area.
   int const sm = 20 * visualScale;
   m2::RectD rect(PtoG(m2::PointD(pt.x - sm, pt.y - sm)), PtoG(m2::PointD(pt.x + sm, pt.y + sm)));
 
-  Bookmark const * ret = 0;
+  Bookmark const * retBookmark = 0;
+  BookmarkCategory * retBookmarkCategory = 0;
   double minD = numeric_limits<double>::max();
 
   for (size_t i = 0; i < m_bookmarks.size(); ++i)
@@ -358,14 +360,15 @@ Bookmark const * Framework::GetBookmark(m2::PointD pt, double visualScale) const
         double const d = rect.Center().SquareLength(pt);
         if (d < minD)
         {
-          ret = bm;
+          retBookmark = bm;
+          retBookmarkCategory = m_bookmarks[i];
           minD = d;
         }
       }
     }
   }
 
-  return ret;
+  return make_pair(retBookmarkCategory, retBookmark);
 }
 
 void Framework::ClearBookmarks()

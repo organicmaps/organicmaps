@@ -56,3 +56,6 @@ public:
   void LoadFromKML(ReaderPtr<Reader> const & reader);
   void SaveToKML(ostream & s);
 };
+
+/// Non-const category is needed to "edit" bookmark (actually, re-add it)
+typedef pair<BookmarkCategory *, Bookmark const *> BookmarkAndCategory;

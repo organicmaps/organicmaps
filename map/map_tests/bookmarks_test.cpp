@@ -114,12 +114,18 @@ UNIT_TEST(Bookmarks_Getting)
   fm.AddBookmark("cat2", Bookmark(m2::PointD(41, 20), "2", "placemark-red"));
   fm.AddBookmark("cat3", Bookmark(m2::PointD(41, 40), "3", "placemark-red"));
 
-  Bookmark const * bm = fm.GetBookmark(pixC, 1.0);
-  TEST(bm != 0, ());
-  TEST_EQUAL(bm->GetName(), "2", ());
+  BookmarkAndCategory res = fm.GetBookmark(pixC, 1.0);
+  TEST(res.second != 0, ());
+  TEST(res.first != 0, ());
+  TEST_EQUAL(res.second->GetName(), "2", ());
+  TEST_EQUAL(res.first->GetName(), "cat2" , ());
 
-  TEST(fm.GetBookmark(m2::PointD(0, 0)) == 0, ());
-  TEST(fm.GetBookmark(m2::PointD(800, 400)) == 0, ());
+  res = fm.GetBookmark(m2::PointD(0, 0));
+  TEST(res.first == 0, ());
+  TEST(res.second == 0, ());
+  res = fm.GetBookmark(m2::PointD(800, 400));
+  TEST(res.first == 0, ());
+  TEST(res.second == 0, ());
 }
 
 UNIT_TEST(Bookmarks_AddressInfo)
