@@ -39,7 +39,10 @@ int FeaturesFetcher::AddMap(string const & file)
   {
     m2::RectD r;
     version = m_multiIndex.Add(file, r);
-    m_rect.Add(r);
+
+    // For debug purposes - add rect for countries only (press 'A' in map view).
+    //if (file.find("World") == string::npos)
+      m_rect.Add(r);
   }
   catch (RootException const & e)
   {
