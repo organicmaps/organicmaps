@@ -134,6 +134,9 @@
   CGFloat const w = self.pinImage.bounds.size.width;
   CGFloat const h = self.pinImage.bounds.size.height;
   self.pinImage.frame = CGRectMake(pt.x - w/2, pt.y - h, w, h);
+  // Do not show pin if we're editing existing bookmark.
+  // @TODO move pin (and probably balloon drawing) to cross-platform code
+  self.pinImage.hidden = (m_rawBookmark.second != 0);
 
   [view addSubview:self.pinImage];
 
