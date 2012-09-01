@@ -24,11 +24,9 @@ namespace
     }
   }
 
-  uint32_t GetType(char const * arr[2])
+  template <size_t N> uint32_t GetType(char const * (&arr)[N])
   {
-    vector<string> path;
-    path.push_back(arr[0]);
-    path.push_back(arr[1]);
+    vector<string> path(arr, arr + N);
     return classif().GetTypeByPath(path);
   }
 }
@@ -129,9 +127,9 @@ UNIT_TEST(OsmType_Combined)
   FeatureParams params;
   ftype::GetNameAndType(&e, params);
 
-  Classificator & c = classif();
-  TEST(params.IsTypeExist(c.GetTypeByPath(vector<string>(arr[3], arr[3] + 2))), ());
-  TEST(params.IsTypeExist(c.GetTypeByPath(vector<string>(arr[4], arr[4] + 1))), ());
+  TEST(params.IsTypeExist(GetType(arr[3])), ());
+  char const * arrT[] = { "building" };
+  TEST(params.IsTypeExist(GetType(arrT)), ());
 
   string s;
   params.name.GetString(0, s);
@@ -158,9 +156,8 @@ UNIT_TEST(OsmType_Address)
   FeatureParams params;
   ftype::GetNameAndType(&e, params);
 
-  Classificator & c = classif();
   char const * arrT[] = { "building", "address" };
-  TEST(params.IsTypeExist(c.GetTypeByPath(vector<string>(arrT, arrT + 2))), ());
+  TEST(params.IsTypeExist(GetType(arrT)), ());
 
   TEST_EQUAL(params.house.Get(), "223/5", ());
 }
@@ -185,12 +182,57 @@ UNIT_TEST(OsmType_PlaceState)
   FeatureParams params;
   ftype::GetNameAndType(&e, params);
 
-  Classificator & c = classif();
   char const * arrT[] = { "place", "state", "USA" };
-  TEST(params.IsTypeExist(c.GetTypeByPath(vector<string>(arrT, arrT + 3))), ());
+  TEST(params.IsTypeExist(GetType(arrT)), ());
 
   string s;
   TEST(params.name.GetString(0, s), ());
   TEST_EQUAL(s, "California", ());
   TEST_GREATER(params.rank, 1, ());
+}
+
+UNIT_TEST(OsmType_AlabamaRiver)
+{
+  char const * arr1[][2] = {
+    { "NHD:FCode", "55800" },
+    { "NHD:FType", "558" },
+    { "NHD:RESOLUTION", "2" },
+    { "NHD:way_id", "139286586;139286577;139286596;139286565;139286574;139286508;139286600;139286591;139286507;139286505;139286611;139286602;139286594;139286604;139286615;139286616;139286608;139286514;139286511;139286564;139286576;139286521;139286554" },
+    { "attribution", "NHD" },
+    { "boat", "yes" },
+    { "deep_draft", "no" },
+    { "gnis:feature_id", "00517033" },
+    { "name", "Tennessee River" },
+    { "ship", "yes" },
+    { "source", "NHD_import_v0.4_20100913205417" },
+    { "source:deep_draft", "National Transportation Atlas Database 2011" },
+    { "waterway", "river" }
+  };
+
+  char const * arr2[][2] = {
+    { "destination", "Ohio River" },
+    { "name", "Tennessee River" },
+    { "type", "waterway" },
+    { "waterway", "river" }
+  };
+
+  char const * arr3[][2] = {
+    { "name", "Tennessee River" },
+    { "network", "inland waterways" },
+    { "route", "boat" },
+    { "ship", "yes" },
+    { "type", "route" }
+  };
+
+  XMLElement e;
+  FillXmlElement(arr1, ARRAY_SIZE(arr1), &e);
+  FillXmlElement(arr2, ARRAY_SIZE(arr2), &e);
+  FillXmlElement(arr3, ARRAY_SIZE(arr3), &e);
+
+  FeatureParams params;
+  ftype::GetNameAndType(&e, params);
+
+  char const * arrT[] = { "waterway", "river" };
+  TEST(params.IsTypeExist(GetType(arrT)), ());
+  TEST_EQUAL(params.m_Types.size(), 1, ());
 }
