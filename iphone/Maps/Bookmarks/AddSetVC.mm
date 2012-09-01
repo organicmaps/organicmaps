@@ -11,7 +11,7 @@
   {
     m_balloon = view;
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onSaveClicked)];
+    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onSaveClicked)] autorelease];
     self.title = NSLocalizedString(@"add_new_set", @"Add New Bookmark Set dialog title");
   }
   return self;

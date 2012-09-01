@@ -327,8 +327,9 @@ UITableViewCell * g_clickedCell = nil;
   
   if (s.CountriesCount(index))
   {
-		CountriesViewController * newController = [[CountriesViewController alloc] initWithIndex: index andHeader: cell.textLabel.text];
-		[self.navigationController pushViewController:newController animated:YES];
+    CountriesViewController * newController = [[CountriesViewController alloc] initWithIndex: index andHeader: cell.textLabel.text];
+    [self.navigationController pushViewController:newController animated:YES];
+    [newController release];
   }
   else
   {

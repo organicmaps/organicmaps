@@ -42,7 +42,7 @@
     else
     {
       u = Settings::Foot;
-      PrefDelegate * d = [[PrefDelegate alloc] init];
+      PrefDelegate * d = [[[PrefDelegate alloc] init] autorelease];
       d.m_controller = controller;
       UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"which_measurement_system", @"Choose measurement on first launch alert - title")
                                                    message:nil

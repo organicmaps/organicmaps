@@ -23,7 +23,7 @@ int main(int argc, char * argv[])
   NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 
   Dummy * dummy = [[Dummy alloc] autorelease];
-  NSThread * thread = [[NSThread alloc] initWithTarget:dummy selector:@selector(dummyThread:) object:nil];
+  NSThread * thread = [[[NSThread alloc] initWithTarget:dummy selector:@selector(dummyThread:) object:nil] autorelease];
   [thread start];
 
   int retVal = UIApplicationMain(argc, argv, nil, nil);
