@@ -18,9 +18,9 @@
   if ((self = [super init]))
   {
     // Default bookmark pin color
-    color = [[NSString alloc] initWithString:@"placemark-purple"];
-    setName = [[NSString alloc] initWithString:NSLocalizedString(@"my_places", @"Default bookmarks set name")];
-    pinImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.color]];
+    self.color = @"placemark-purple";
+    self.setName = NSLocalizedString(@"my_places", @"Default bookmarks set name");
+    self.pinImage = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:self.color]] autorelease];
     isDisplayed = NO;
     m_target = target;
     m_selector = selector;
@@ -154,9 +154,12 @@
 
 - (void) hide
 {
-  [m_titleView removeFromSuperview];
-  [self.pinImage removeFromSuperview];
-  isDisplayed = NO;
+  if (isDisplayed)
+  {
+    isDisplayed = NO;
+    [m_titleView removeFromSuperview];
+    [self.pinImage removeFromSuperview];
+  }
 }
 
 // Overrided property setter to update address and displayed information
@@ -181,7 +184,9 @@
 // Overrided property setter to reload another pin image
 - (void) setColor:(NSString *)newColor
 {
-  color = newColor;
+  id old = color;
+  color = [newColor retain];
+  [old release];
   self.pinImage.image = [UIImage imageNamed:newColor];
 }
 
