@@ -152,13 +152,14 @@
 
 - (void)onAddClicked
 {
-  GetFramework().AddBookmark([m_balloon.setName UTF8String],
-                             Bookmark(m2::PointD(m_balloon.globalPosition.x, m_balloon.globalPosition.y),
-                                      [m_balloon.title UTF8String], [m_balloon.color UTF8String]));
+  [m_balloon addOrEditBookmark];
   [m_balloon hide];
-//  // Don't forget to hide navbar
-//  [self.navigationController setNavigationBarHidden:YES animated:YES];
-//  [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (void)onRemoveClicked
+{
+  [m_balloon deleteBookmark];
+  [m_balloon hide];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -198,7 +199,7 @@
     else
     {
       // Remove pin
-      [m_balloon hide];
+      [self onRemoveClicked];
     }
     // Close place page
     [self.navigationController popViewControllerAnimated:YES];

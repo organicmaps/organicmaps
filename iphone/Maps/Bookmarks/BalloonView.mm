@@ -122,12 +122,14 @@
 
 }
 
-- (void) showInView:(UIView *)view atPoint:(CGPoint)pt
+- (void) showInView:(UIView *)view atPoint:(CGPoint)pt withBookmark:(BookmarkAndCategory)bm
 {
   if (isDisplayed)
     [self hide];
 
   isDisplayed = YES;
+
+  m_rawBookmark = bm;
 
   CGFloat const w = self.pinImage.bounds.size.width;
   CGFloat const h = self.pinImage.bounds.size.height;
@@ -194,6 +196,41 @@
 {
   if (m_titleView != nil)
     m_titleView.image = [self createPopupImageWithName:newTitle andAddress:description];
+}
+
+- (void) deleteBMHelper
+{
+  BookmarkCategory * cat = m_rawBookmark.first;
+  Bookmark const * bm = m_rawBookmark.second;
+  if (cat && bm)
+  {
+    for (size_t i = 0; i < cat->GetBookmarksCount(); ++i)
+    {
+      if (cat->GetBookmark(i) == bm)
+      {
+        cat->DeleteBookmark(i);
+        break;
+      }
+    }
+  }
+}
+
+- (void) addOrEditBookmark
+{
+  // for an "edit" operation, delete old bookmark before adding "edited" one
+  [self deleteBMHelper];
+  GetFramework().AddBookmark([self.setName UTF8String],
+                             Bookmark(m2::PointD(self.globalPosition.x, self.globalPosition.y),
+                             [self.title UTF8String], [self.color UTF8String]));
+  // Clear!
+  m_rawBookmark = BookmarkAndCategory(0, 0);
+}
+
+- (void) deleteBookmark
+{
+  [self deleteBMHelper];
+  // Clear!
+  m_rawBookmark = BookmarkAndCategory(0, 0);
 }
 
 @end
