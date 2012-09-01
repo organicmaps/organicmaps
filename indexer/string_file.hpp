@@ -60,14 +60,20 @@ public:
     StringsFile & m_file;
     bool m_end;
 
+    bool IsEnd() const;
+    inline bool IsValid() const { return (!m_end && !IsEnd()); }
+
   public:
     IteratorT(StringsFile & file, bool isEnd)
       : m_file(file), m_end(isEnd)
     {
+      // Additional check in case for empty sequence.
+      if (!m_end)
+        m_end = IsEnd();
     }
 
     StringT dereference() const;
-    bool equal(IteratorT const & r) const { return m_end == r.m_end; }
+    bool equal(IteratorT const & r) const { return (m_end == r.m_end); }
     void increment();
   };
 

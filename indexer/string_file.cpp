@@ -56,21 +56,26 @@ void StringsFile::AddString(StringT const & s)
   m_strings.push_back(s);
 }
 
+bool StringsFile::IteratorT::IsEnd() const
+{
+  return m_file.m_queue.empty();
+}
+
 StringsFile::StringT StringsFile::IteratorT::dereference() const
 {
-  ASSERT ( !m_file.m_queue.empty(), () );
+  ASSERT ( IsValid(), () );
   return m_file.m_queue.top().m_string;
 }
 
 void StringsFile::IteratorT::increment()
 {
-  ASSERT ( !m_file.m_queue.empty(), () );
+  ASSERT ( IsValid(), () );
   int const index = m_file.m_queue.top().m_index;
 
   m_file.m_queue.pop();
 
   if (!m_file.PushNextValue(index))
-    m_end = m_file.m_queue.empty();
+    m_end = IsEnd();
 }
 
 StringsFile::StringsFile(string const & fPath)
