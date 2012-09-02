@@ -298,7 +298,10 @@ void Framework::LoadBookmarks()
 
 void Framework::AddBookmark(string const & category, Bookmark const & bm)
 {
-  GetBmCategory(category)->AddBookmark(bm);
+  BookmarkCategory * cat = GetBmCategory(category);
+  cat->AddBookmark(bm);
+  // Autosave added bookmark
+  (void)cat->SaveToKMLFileAtPath(GetPlatform().WritableDir());
 }
 
 namespace
@@ -339,7 +342,10 @@ bool Framework::DeleteBmCategory(size_t index)
 {
   if (index < m_bookmarks.size())
   {
-    delete m_bookmarks[index];
+    // Delete category file
+    BookmarkCategory * cat = m_bookmarks[index];
+    FileWriter::DeleteFileX(cat->GetFileName());
+    delete cat;
     m_bookmarks.erase(m_bookmarks.begin() + index);
     return true;
   }

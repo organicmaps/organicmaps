@@ -36,6 +36,9 @@ void BookmarkCategory::DeleteBookmark(size_t index)
   {
     delete m_bookmarks[index];
     m_bookmarks.erase(m_bookmarks.begin() + index);
+    // Save updated file
+    if (!m_file.empty())
+      (void)SaveToKMLFileAtPath(m_file);
   }
 }
 
