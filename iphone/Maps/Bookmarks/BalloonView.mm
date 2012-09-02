@@ -1,6 +1,10 @@
 #import "BalloonView.h"
 #import <QuartzCore/CALayer.h>
 
+#include "../../../platform/settings.hpp"
+
+
+#define SETTINGS_LAST_BOOKMARK_SET "LastBookmarkSet"
 
 @implementation BalloonView
 
@@ -13,13 +17,22 @@
 @synthesize setName;
 @synthesize isDisplayed;
 
++ (NSString *) getDefaultSetName
+{
+  string savedSet;
+  if (Settings::Get(SETTINGS_LAST_BOOKMARK_SET, savedSet))
+    return [NSString stringWithUTF8String:savedSet.c_str()];
+  // Use default set name
+  return NSLocalizedString(@"my_places", @"Default bookmarks set name");
+}
+
 - (id) initWithTarget:(id)target andSelector:(SEL)selector;
 {
   if ((self = [super init]))
   {
     // Default bookmark pin color
     self.color = @"placemark-purple";
-    self.setName = NSLocalizedString(@"my_places", @"Default bookmarks set name");
+    self.setName = [BalloonView getDefaultSetName];
     self.pinImage = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:self.color]] autorelease];
     isDisplayed = NO;
     m_target = target;
@@ -193,6 +206,15 @@
   color = [newColor retain];
   [old release];
   self.pinImage.image = [UIImage imageNamed:newColor];
+}
+
+// Overrided property setter to save default set name into the settings
+- (void) setSetName:(NSString *)newName
+{
+  id old = setName;
+  setName = [newName retain];
+  [old release];
+  Settings::Set(SETTINGS_LAST_BOOKMARK_SET, string([newName UTF8String]));
 }
 
 - (void) updateTitle:(NSString *)newTitle
