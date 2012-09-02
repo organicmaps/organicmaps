@@ -36,6 +36,8 @@ class BookmarkCategory : private noncopyable
   string m_name;
   vector<Bookmark *> m_bookmarks;
   bool m_visible;
+  /// Stores file name from which category was loaded
+  string m_file;
 
 public:
   BookmarkCategory(string const & name) : m_name(name), m_visible(true) {}
@@ -49,6 +51,7 @@ public:
   bool IsVisible() const { return m_visible; }
   void SetName(string const & name) { m_name = name; }
   string GetName() const { return m_name; }
+  string GetFileName() const { return m_file; }
 
   inline size_t GetBookmarksCount() const { return m_bookmarks.size(); }
   Bookmark const * GetBookmark(size_t index) const;
@@ -56,6 +59,12 @@ public:
 
   void LoadFromKML(ReaderPtr<Reader> const & reader);
   void SaveToKML(ostream & s);
+  /// @return 0 in the case of error
+  static BookmarkCategory * CreateFromKMLFile(string const & file);
+  /// Uses the same file name from which was loaded, or
+  /// creates unique file name on first save and uses it every time
+  /// @param[in] path directory name where to save
+  bool SaveToKMLFileAtPath(string const & path);
 };
 
 /// Non-const category is needed to "edit" bookmark (actually, re-add it)

@@ -149,6 +149,15 @@ UNIT_TEST(Bookmarks_ExportKML)
   CheckBookmarks(cat);
   TEST_EQUAL(cat.IsVisible(), true, ());
 
+  BookmarkCategory * cat2 = BookmarkCategory::CreateFromKMLFile(BOOKMARKS_FILE_NAME);
+  CheckBookmarks(*cat2);
+  FileWriter::DeleteFileX(BOOKMARKS_FILE_NAME);
+
+  cat2->SaveToKMLFileAtPath("./");
+  delete cat2;
+
+  cat2 = BookmarkCategory::CreateFromKMLFile(BOOKMARKS_FILE_NAME);
+  CheckBookmarks(*cat2);
   FileWriter::DeleteFileX(BOOKMARKS_FILE_NAME);
 }
 

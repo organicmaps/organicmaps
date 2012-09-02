@@ -2,11 +2,15 @@
 
 #include "../indexer/mercator.hpp"
 
+#include "../platform/platform.hpp"
+
+#include "../coding/file_reader.hpp"
 #include "../coding/parse_xml.hpp"  // LoadFromKML
 
 #include "../base/stl_add.hpp"
 #include "../base/string_utils.hpp"
 
+#include "../std/fstream.hpp"
 #include "../std/algorithm.hpp"
 
 
@@ -169,6 +173,23 @@ void BookmarkCategory::LoadFromKML(ReaderPtr<Reader> const & reader)
   ParseXML(src, parser, true);
 }
 
+BookmarkCategory * BookmarkCategory::CreateFromKMLFile(string const & file)
+{
+  BookmarkCategory * cat = new BookmarkCategory("");
+  try
+  {
+    cat->LoadFromKML(new FileReader(file));
+    cat->m_file = file;
+  }
+  catch (std::exception const & e)
+  {
+    LOG(LWARNING, ("Error while loading bookmarks from", file, e.what()));
+    delete cat;
+    cat = 0;
+  }
+  return cat;
+}
+
 namespace
 {
 char const * kmlHeader =
@@ -264,4 +285,34 @@ void BookmarkCategory::SaveToKML(ostream & s)
   }
 
   s << kmlFooter;
+}
+
+bool BookmarkCategory::SaveToKMLFileAtPath(string const & path)
+{
+  if (m_file.empty())
+  {
+    // Generate unique file name from category name
+    string newName = m_name + ".kml";
+    // Remove not allowed symbols
+    char const illegalChars[] = ":/";
+    for (size_t i = 0; i < ARRAY_SIZE(illegalChars); ++i)
+      newName.erase(std::remove(newName.begin(), newName.end(), illegalChars[i]), newName.end());
+    if (newName.empty())
+      newName = "Bookmarks";
+    while (Platform::IsFileExistsByFullPath(path + newName))
+      newName.append(strings::to_string(m_name.size()));
+    m_file = path + newName;
+  }
+  try
+  {
+    // @TODO On Windows UTF-8 file names are not supported.
+    ofstream fileToSave(m_file.c_str());
+    SaveToKML(fileToSave);
+  }
+  catch (std::exception const & e)
+  {
+    LOG(LWARNING, ("Can't save bookmarks catebory", m_name, "to file", m_file));
+    return false;
+  }
+  return true;
 }
