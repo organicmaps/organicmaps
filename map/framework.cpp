@@ -279,6 +279,23 @@ void Framework::RemoveLocalMaps()
   m_model.RemoveAll();
 }
 
+void Framework::LoadBookmarks()
+{
+  ClearBookmarks();
+  string const dir = GetPlatform().WritableDir();
+  Platform::FilesList files;
+  Platform::GetFilesInDir(dir, "*.kml", files);
+  for (size_t i = 0; i < files.size(); ++i)
+  {
+    BookmarkCategory * cat = BookmarkCategory::CreateFromKMLFile(dir + files[i]);
+    if (cat)
+    {
+      LOG(LINFO, ("Loaded bookmarks category", cat->GetName(), "with", cat->GetBookmarksCount(), "bookmarks"));
+      m_bookmarks.push_back(cat);
+    }
+  }
+}
+
 void Framework::AddBookmark(string const & category, Bookmark const & bm)
 {
   GetBmCategory(category)->AddBookmark(bm);

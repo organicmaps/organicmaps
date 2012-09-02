@@ -160,6 +160,9 @@ public:
   m2::RectD GetCountryBounds(storage::TIndex const & index) const;
   //@}
 
+  /// Scans and loads all kml files with bookmarks in WritableDir
+  void LoadBookmarks();
+
   void AddBookmark(string const & category, Bookmark const & bm);
   inline size_t GetBmCategoriesCount() const { return m_bookmarks.size(); }
   BookmarkCategory * GetBmCategory(size_t index) const;
