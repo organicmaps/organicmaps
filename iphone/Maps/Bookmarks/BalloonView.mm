@@ -216,6 +216,8 @@
       }
     }
   }
+  // Clear!
+  m_rawBookmark = BookmarkAndCategory(0, 0);
 }
 
 - (void) addOrEditBookmark
@@ -225,15 +227,11 @@
   GetFramework().AddBookmark([self.setName UTF8String],
                              Bookmark(m2::PointD(self.globalPosition.x, self.globalPosition.y),
                              [self.title UTF8String], [self.color UTF8String]));
-  // Clear!
-  m_rawBookmark = BookmarkAndCategory(0, 0);
 }
 
 - (void) deleteBookmark
 {
   [self deleteBMHelper];
-  // Clear!
-  m_rawBookmark = BookmarkAndCategory(0, 0);
 }
 
 @end
