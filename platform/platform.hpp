@@ -33,8 +33,6 @@ protected:
   /// Used only on those platforms where needed
   PlatformImpl * m_impl;
 
-  static bool IsFileExistsByFullPath(string const & filePath);
-
   /// Internal function to use files from writable dir
   /// if they override the same file in the resources dir
   string ReadPathForFile(string const & file) const;
@@ -45,6 +43,8 @@ protected:
 public:
   Platform();
   ~Platform();
+
+  static bool IsFileExistsByFullPath(string const & filePath);
 
   /// @return always the same writable dir for current user with slash at the end
   string WritableDir() const { return m_writableDir; }
