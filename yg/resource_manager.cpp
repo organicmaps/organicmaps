@@ -147,10 +147,12 @@ namespace yg
 
   void ResourceManager::StoragePoolParams::scaleMemoryUsage(double k)
   {
+#ifndef OMIM_PRODUCTION
     int oldMemoryUsage = memoryUsage();
     int oldVBSize = m_vbSize;
     int oldIBSize = m_ibSize;
     int oldStoragesCount = m_storagesCount;
+#endif
 
     if (!m_isFixedBufferSize)
     {
@@ -270,10 +272,12 @@ namespace yg
 
   void ResourceManager::TexturePoolParams::scaleMemoryUsage(double k)
   {
+#ifndef OMIM_PRODUCTION
     int oldTexCount = m_texCount;
     int oldTexWidth = m_texWidth;
     int oldTexHeight = m_texHeight;
     int oldMemoryUsage = memoryUsage();
+#endif
 
     if (!m_isWidthFixed || !m_isHeightFixed)
     {
