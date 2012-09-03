@@ -363,7 +363,7 @@ BookmarkAndCategory Framework::GetBookmark(m2::PointD pt) const
 BookmarkAndCategory Framework::GetBookmark(m2::PointD pt, double visualScale) const
 {
   // Get the global rect of touching area.
-  int const sm = 20 * visualScale;
+  int const sm = 30 * visualScale;
   m2::RectD rect(PtoG(m2::PointD(pt.x - sm, pt.y - sm)), PtoG(m2::PointD(pt.x + sm, pt.y + sm)));
 
   Bookmark const * retBookmark = 0;
