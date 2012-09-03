@@ -179,8 +179,8 @@ namespace location
   {
     m_hasCompass = true;
     m_compassFilter.OnCompassUpdate(info);
+    m_framework->Invalidate();
   }
-
 
   vector<m2::AnyRectD> const & State::boundRects() const
   {
