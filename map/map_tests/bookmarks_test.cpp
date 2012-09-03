@@ -206,3 +206,14 @@ UNIT_TEST(Bookmarks_AddressInfo)
   // assume that developers have English or Russian system language :)
   TEST(info.m_types[0] == "cafe" || info.m_types[0] == "кафе", (info.m_types[0]));
 }
+
+UNIT_TEST(Bookmarks_UniqueFileName)
+{
+  char const * FILENAME = "SomeUniqueFileName";
+  {
+    FileWriter file(FILENAME);
+    file.Write(FILENAME, strlen(FILENAME));
+  }
+  TEST_NOT_EQUAL(BookmarkCategory::GenerateUniqueFileName("", FILENAME), FILENAME, ());
+  FileWriter::DeleteFileX(FILENAME);
+}

@@ -146,10 +146,11 @@ namespace
     void CharData(string value)
     {
       strings::Trim(value);
-      if (m_tags.size() > 1 && !value.empty())
+      size_t const count = m_tags.size();
+      if (count > 1 && !value.empty())
       {
-        string const & currTag = m_tags.back();
-        string const & prevTag = *(m_tags.end() - 2);
+        string const & currTag = m_tags[count - 1];
+        string const & prevTag = m_tags[count - 2];
 
         if (currTag == "name")
         {
@@ -290,22 +291,25 @@ void BookmarkCategory::SaveToKML(ostream & s)
   s << kmlFooter;
 }
 
+string BookmarkCategory::GenerateUniqueFileName(const string & path, string name)
+{
+  // Remove not allowed symbols
+  char const illegalChars[] = ":/";
+  for (size_t i = 0; i < ARRAY_SIZE(illegalChars); ++i)
+    name.erase(std::remove(name.begin(), name.end(), illegalChars[i]), name.end());
+  if (name.empty())
+    name = "Bookmarks";
+  size_t counter = 1;
+  while (Platform::IsFileExistsByFullPath(path + name))
+    name.append(strings::to_string(counter++));
+  return path + name + ".kml";
+}
+
 bool BookmarkCategory::SaveToKMLFileAtPath(string const & path)
 {
   if (m_file.empty())
-  {
-    // Generate unique file name from category name
-    string newName = m_name + ".kml";
-    // Remove not allowed symbols
-    char const illegalChars[] = ":/";
-    for (size_t i = 0; i < ARRAY_SIZE(illegalChars); ++i)
-      newName.erase(std::remove(newName.begin(), newName.end(), illegalChars[i]), newName.end());
-    if (newName.empty())
-      newName = "Bookmarks";
-    while (Platform::IsFileExistsByFullPath(path + newName))
-      newName.append(strings::to_string(m_name.size()));
-    m_file = path + newName;
-  }
+    m_file = GenerateUniqueFileName(path, m_file);
+
   try
   {
     // @TODO On Windows UTF-8 file names are not supported.
@@ -314,7 +318,7 @@ bool BookmarkCategory::SaveToKMLFileAtPath(string const & path)
   }
   catch (std::exception const & e)
   {
-    LOG(LWARNING, ("Can't save bookmarks catebory", m_name, "to file", m_file));
+    LOG(LWARNING, ("Can't save bookmarks category", m_name, "to file", m_file));
     return false;
   }
   return true;
