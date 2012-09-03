@@ -7,8 +7,6 @@
 #include "../../std/function.hpp"
 #include "../../std/string.hpp"
 
-@class LocationManager;
-
 class Framework;
 namespace search { class Result; }
 

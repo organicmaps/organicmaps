@@ -147,7 +147,6 @@ static void OnSearchResultCallback(search::Results const & res)
     m_searchBar.text = g_lastSearchResults.m_searchString;
   m_searchBar.delegate = self;
   m_searchBar.placeholder = NSLocalizedString(@"search_map", @"Search box placeholder text");
-  m_searchBar.showsBookmarkButton = YES;
   item.titleView = m_searchBar;
 
   // Add search in progress indicator
@@ -549,12 +548,6 @@ static void OnSearchResultCallback(search::Results const & res)
   [self setSearchBoxText:[suggestion stringByAppendingString:@" "]];
   // Clear old results immediately after click
   [m_table reloadData];
-}
-
-- (void)searchBarBookmarkButtonClicked:(UISearchBar *)searchBar
-{
-  BookmarksVC * vc = [[[BookmarksVC alloc] init] autorelease];
-  [self presentModalViewController:vc animated:YES];
 }
 
 @end
