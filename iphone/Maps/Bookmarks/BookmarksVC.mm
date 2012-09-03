@@ -19,13 +19,12 @@
     m_locationManager = [MapsAppDelegate theApp].m_locationManager;
     m_balloon = view;
     self.title = NSLocalizedString(@"bookmarks", @"Boormarks - dialog title");
-    
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"maps", @"Bookmarks - Close bookmarks button") style: UIBarButtonItemStyleDone
-                                                                           target:self action:@selector(onCloseButton:)] autorelease];
-    // Display Edit button only if table is not empty
-    BookmarkCategory * cat = GetFramework().GetBmCategory([m_balloon.setName UTF8String]);
-    if (cat && cat->GetBookmarksCount())
-      self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
+    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc]
+        initWithTitle:NSLocalizedString(@"maps", @"Bookmarks - Close bookmarks button")
+        style: UIBarButtonItemStyleDone
+        target:self
+        action:@selector(onCloseButton:)] autorelease];
   }
   return self;
 }
@@ -297,6 +296,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
   [m_locationManager start:self];
+
+  // Display Edit button only if table is not empty
+  BookmarkCategory * cat = GetFramework().GetBmCategory([m_balloon.setName UTF8String]);
+  if (cat && cat->GetBookmarksCount())
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+  else
+    self.navigationItem.rightBarButtonItem = nil;
+
   [super viewWillAppear:animated];
 }
 
