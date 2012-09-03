@@ -514,4 +514,5 @@ void Framework::AddressInfo::Clear()
   m_street.clear();
   m_house.clear();
   m_name.clear();
+  m_types.clear();
 }
