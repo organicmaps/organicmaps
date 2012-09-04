@@ -209,11 +209,28 @@ UNIT_TEST(Bookmarks_AddressInfo)
 
 UNIT_TEST(Bookmarks_UniqueFileName)
 {
-  char const * FILENAME = "SomeUniqueFileName";
+  string const FILENAME = "SomeUniqueFileName";
   {
     FileWriter file(FILENAME);
-    file.Write(FILENAME, strlen(FILENAME));
+    file.Write(FILENAME.data(), FILENAME.size());
   }
-  TEST_NOT_EQUAL(BookmarkCategory::GenerateUniqueFileName("", FILENAME), FILENAME, ());
+  string gen = BookmarkCategory::GenerateUniqueFileName("", FILENAME);
+  TEST_NOT_EQUAL(gen, FILENAME, ());
+  TEST_EQUAL(gen, FILENAME + "1.kml", ());
+
+  string const FILENAME1 = FILENAME + "1";
+  {
+    FileWriter file(FILENAME1);
+    file.Write(FILENAME1.data(), FILENAME1.size());
+  }
+  gen = BookmarkCategory::GenerateUniqueFileName("", FILENAME);
+  TEST_NOT_EQUAL(gen, FILENAME, ());
+  TEST_NOT_EQUAL(gen, FILENAME1, ());
+  TEST_EQUAL(gen, FILENAME + "2.kml", ());
+
   FileWriter::DeleteFileX(FILENAME);
+  FileWriter::DeleteFileX(FILENAME1);
+
+  gen = BookmarkCategory::GenerateUniqueFileName("", FILENAME);
+  TEST_EQUAL(gen, FILENAME + ".kml", ());
 }

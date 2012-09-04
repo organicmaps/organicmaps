@@ -66,7 +66,7 @@ public:
   /// @param[in] path directory name where to save
   bool SaveToKMLFileAtPath(string const & path);
 
-  static string GenerateUniqueFileName(const string & path, string name);
+  static string GenerateUniqueFileName(const string & path, string const & name);
 };
 
 /// Non-const category is needed to "edit" bookmark (actually, re-add it)

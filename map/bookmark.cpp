@@ -6,6 +6,7 @@
 
 #include "../coding/file_reader.hpp"
 #include "../coding/parse_xml.hpp"  // LoadFromKML
+#include "../base/string_utils.hpp"
 
 #include "../base/stl_add.hpp"
 #include "../base/string_utils.hpp"
@@ -291,18 +292,31 @@ void BookmarkCategory::SaveToKML(ostream & s)
   s << kmlFooter;
 }
 
-string BookmarkCategory::GenerateUniqueFileName(const string & path, string name)
+static bool IsValidCharForPath(strings::UniChar c)
+{
+  static strings::UniChar const illegalChars[] = {':', '/', '\\', '<', '>', '\"', '|', '?', '*'};
+  for (size_t i = 0; i < ARRAY_SIZE(illegalChars); ++i)
+    if (c < ' ' || illegalChars[i] == c)
+      return false;
+  return true;
+}
+
+string BookmarkCategory::GenerateUniqueFileName(const string & path, string const & name)
 {
   // Remove not allowed symbols
-  char const illegalChars[] = ":/";
-  for (size_t i = 0; i < ARRAY_SIZE(illegalChars); ++i)
-    name.erase(std::remove(name.begin(), name.end(), illegalChars[i]), name.end());
-  if (name.empty())
-    name = "Bookmarks";
+  strings::UniString uniName = strings::MakeUniString(name);
+  size_t const charCount = uniName.size();
+  strings::UniString uniFixedName;
+  for (size_t i = 0; i < charCount; ++i)
+    if (IsValidCharForPath(uniName[i]))
+      uniFixedName.push_back(uniName[i]);
+
+  string const fixedName = uniFixedName.empty() ? "Bookmarks" : strings::ToUtf8(uniFixedName);
   size_t counter = 1;
-  while (Platform::IsFileExistsByFullPath(path + name))
-    name.append(strings::to_string(counter++));
-  return path + name + ".kml";
+  string suffix;
+  while (Platform::IsFileExistsByFullPath(path + fixedName + suffix))
+    suffix = strings::to_string(counter++);
+  return path + fixedName + suffix + ".kml";
 }
 
 bool BookmarkCategory::SaveToKMLFileAtPath(string const & path)
