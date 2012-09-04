@@ -86,6 +86,34 @@ public:
 
   typedef trie::ValueReader::ValueType TrieValueT;
 
+  struct Params
+  {
+    typedef strings::UniString StringT;
+    typedef vector<StringT> TokensVectorT;
+    typedef unordered_set<int8_t> LangsSetT;
+
+    vector<TokensVectorT> m_tokens;
+    TokensVectorT m_prefixTokens;
+    LangsSetT m_langs;
+
+    /// Initialize search params (tokens, languages).
+    /// @param[in]  isLocalities  Use true when search for locality in World.
+    Params(Query const & q, bool isLocalities = false);
+
+    /// @param[in] eraseInds Sorted vector of token's indexes.
+    void EraseTokens(vector<size_t> & eraseInds);
+
+    void ProcessAddressTokens();
+
+    bool IsEmpty() const { return (m_tokens.empty() && m_prefixTokens.empty()); }
+    bool IsLangExist(int8_t l) const { return (m_langs.count(l) > 0); }
+
+  private:
+    template <class ToDo> void ForEachToken(ToDo toDo);
+
+    void FillLanguages(Query const & q);
+  };
+
 private:
   friend class impl::FeatureLoader;
   friend class impl::BestNameFinder;
@@ -107,29 +135,6 @@ private:
   void AddResultFromTrie(TrieValueT const & val, size_t mwmID, int viewportID = -1);
 
   void FlushResults(Results & res, void (Results::*pAddFn)(Result const &));
-
-  struct Params
-  {
-    typedef vector<strings::UniString> TokensVectorT;
-    typedef unordered_set<int8_t> LangsSetT;
-
-    vector<TokensVectorT> m_tokens;
-    TokensVectorT m_prefixTokens;
-    LangsSetT m_langs;
-
-    /// Initialize search params (tokens, languages).
-    /// @param[in]  isLocalities  Use true when search for locality in World.
-    Params(Query const & q, bool isLocalities = false);
-
-    /// @param[in] eraseInds Sorted vector of token's indexes.
-    void EraseTokens(vector<size_t> const & eraseInds);
-
-    bool IsEmpty() const { return (m_tokens.empty() && m_prefixTokens.empty()); }
-    bool IsLangExist(int8_t l) const { return (m_langs.count(l) > 0); }
-
-  private:
-    void FillLanguages(Query const & q);
-  };
 
   void SearchAddress();
   bool SearchLocality(MwmValue * pMwm, impl::Locality & res);

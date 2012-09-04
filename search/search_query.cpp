@@ -708,8 +708,10 @@ Query::Params::Params(Query const & q, bool isLocalities/* = false*/)
   FillLanguages(q);
 }
 
-void Query::Params::EraseTokens(vector<size_t> const & eraseInds)
+void Query::Params::EraseTokens(vector<size_t> & eraseInds)
 {
+  eraseInds.erase(unique(eraseInds.begin(), eraseInds.end()), eraseInds.end());
+
   // fill temporary vector
   vector<TokensVectorT> newTokens;
 
@@ -739,6 +741,111 @@ void Query::Params::EraseTokens(vector<size_t> const & eraseInds)
     ASSERT_EQUAL ( eraseInds[skipI], count, (eraseInds) );
     m_prefixTokens.clear();
   }
+}
+
+template <class ToDo> void Query::Params::ForEachToken(ToDo toDo)
+{
+  size_t const count = m_tokens.size();
+  for (size_t i = 0; i < count; ++i)
+  {
+    ASSERT ( !m_tokens[i].empty(), () );
+    ASSERT ( !m_tokens[i].front().empty(), () );
+    toDo(m_tokens[i].front(), i);
+  }
+
+  if (!m_prefixTokens.empty())
+  {
+    ASSERT ( !m_prefixTokens.front().empty(), () );
+    toDo(m_prefixTokens.front(), count);
+  }
+}
+
+namespace
+{
+  bool IsNumber(strings::UniString const & s)
+  {
+    for (size_t i = 0; i < s.size(); ++i)
+      if (!isdigit(s[i]))
+        return false;
+    return true;
+  }
+
+  class DoStoreNumbers
+  {
+    vector<size_t> & m_vec;
+  public:
+    DoStoreNumbers(vector<size_t> & vec) : m_vec(vec) {}
+    void operator() (Query::Params::StringT const & s, size_t i)
+    {
+      /// @todo Do smart filtering of house numbers and zipcodes.
+      if (IsNumber(s))
+        m_vec.push_back(i);
+    }
+  };
+
+  class DoAddStreetSynonyms
+  {
+    Query::Params & m_params;
+
+    Query::Params::TokensVectorT & GetTokens(size_t i)
+    {
+      size_t const count = m_params.m_tokens.size();
+      if (i < count)
+        return m_params.m_tokens[i];
+      else
+      {
+        ASSERT_EQUAL ( i, count, () );
+        return m_params.m_prefixTokens;
+      }
+    }
+
+    void AddSynonym(size_t i, string const & sym)
+    {
+      GetTokens(i).push_back(strings::MakeUniString(sym));
+    }
+
+  public:
+    DoAddStreetSynonyms(Query::Params & params) : m_params(params) {}
+
+    void operator() (Query::Params::StringT const & s, size_t i)
+    {
+      if (s.size() <= 2)
+      {
+        string const ss = strings::ToUtf8(strings::MakeLowerCase(s));
+
+        // All synonyms should be lowercase!
+        if (ss == "n")
+          AddSynonym(i, "north");
+        else if (ss == "w")
+          AddSynonym(i, "west");
+        else if (ss == "s")
+          AddSynonym(i, "south");
+        else if (ss == "e")
+          AddSynonym(i, "east");
+        else if (ss == "nw")
+          AddSynonym(i, "northwest");
+        else if (ss == "ne")
+          AddSynonym(i, "northeast");
+        else if (ss == "sw")
+          AddSynonym(i, "southwest");
+        else if (ss == "se")
+          AddSynonym(i, "southeast");
+      }
+    }
+  };
+}
+
+void Query::Params::ProcessAddressTokens()
+{
+  // 1. Do simple stuff - erase all number tokens.
+  // Assume that USA street name numbers endswith "st, nd, rd, th" suffixes.
+
+  vector<size_t> toErase;
+  ForEachToken(DoStoreNumbers(toErase));
+  EraseTokens(toErase);
+
+  // 2. Add synonyms for N, NE, NW, etc.
+  ForEachToken(DoAddStreetSynonyms(*this));
 }
 
 void Query::Params::FillLanguages(Query const & q)
@@ -891,6 +998,8 @@ void Query::SearchAddress()
 
         if (!params.IsEmpty())
         {
+          params.ProcessAddressTokens();
+
           SetViewportByIndex(mwmInfo, scales::GetRectForLevel(ADDRESS_SCALE, loc.m_value.m_pt, 1.0), ADDRESS_RECT_ID);
 
           /// @todo Hack - do not search for address in World.mwm; Do it better in future.
@@ -1427,6 +1536,7 @@ m2::RectD const & Query::GetViewport(int viewportID/* = -1*/) const
     return m_viewport[1];
   }
 }
+
 m2::PointD Query::GetPosition(int viewportID/* = -1*/) const
 {
   if (viewportID == ADDRESS_RECT_ID)
