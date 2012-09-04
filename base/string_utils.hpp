@@ -26,6 +26,7 @@ public:
 };
 
 UniString MakeLowerCase(UniString const & s);
+/// For implementation @see base/lower_case.cpp
 void MakeLowerCase(UniString & s);
 UniString Normalize(UniString const & s);
 /// For implementation @see base/normilize_unicode.cpp
