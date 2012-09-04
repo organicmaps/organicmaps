@@ -308,6 +308,9 @@ class FeatureInserter
       }
     }
 
+    uint32_t GetCountryType() const { return m_enFeature[1][0]; }
+    uint32_t GetStateType() const { return m_enFeature[1][1]; }
+
   public:
     SkipIndexing()
     {
@@ -323,12 +326,14 @@ class FeatureInserter
         { "highway" }, { "natural" }, { "waterway"}, { "landuse" }
       };
 
+      /// @note Do not change order of country and state. @see GetCountryType().
       char const * arrEnFeature2[][2] = {
+        { "place", "country" },
+        { "place", "state" },
+        { "place", "county" },
+        { "place", "region" },
         { "place", "city" },
         { "place", "town" },
-        { "place", "county" },
-        { "place", "state" },
-        { "place", "region" },
         { "railway", "rail" }
       };
 
@@ -369,6 +374,21 @@ class FeatureInserter
       for (size_t i = 0; i < m_enTypes.size(); ++i)
         types.Remove(m_enTypes[i]);
     }
+
+    bool IsCountryOrState(feature::TypesHolder const & types)
+    {
+      uint32_t const c = GetCountryType();
+      uint32_t const s = GetStateType();
+
+      for (size_t i = 0; i < types.Size(); ++i)
+      {
+        uint32_t t = types[i];
+        ftype::TruncValue(t, 2);
+        if (t == c || t == s)
+          return true;
+      }
+      return false;
+    }
   };
 
 public:
@@ -392,8 +412,9 @@ public:
       return;
     }
 
-    // init inserter with serialized value
-    FeatureNameInserter inserter(m_synonyms, m_names);
+    // Init inserter with serialized value.
+    // Insert synonyms only for countries and states (maybe will add cities in future).
+    FeatureNameInserter inserter(skipIndex.IsCountryOrState(types) ? m_synonyms : 0, m_names);
     MakeValue(f, types, pos, inserter.m_val);
 
     // add names of the feature
