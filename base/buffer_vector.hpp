@@ -76,7 +76,7 @@ public:
   void resize(size_t n, T c = T())
   {
     if (m_size == USE_DYNAMIC)
-      m_dynamic.resize(n);
+      m_dynamic.resize(n, c);
     else
     {
       if (n <= N)
@@ -104,16 +104,43 @@ public:
       m_size = 0;
   }
 
-  T const * data() const { return m_size == USE_DYNAMIC ? &m_dynamic[0] : &m_static[0]; }
-  T       * data()       { return m_size == USE_DYNAMIC ? &m_dynamic[0] : &m_static[0]; }
+  /// @todo Here is some inconsistencies:
+  /// - "data" method should return 0 if vector is empty;\n
+  /// - potential memory overrun if m_dynamic is empty;\n
+  /// The best way to fix this is to reset m_size from USE_DYNAMIC to 0 when vector becomes empty.
+  /// But now I will just add some assertions to test memory overrun.
+  //@{
+  T const * data() const
+  {
+    if (m_size == USE_DYNAMIC)
+    {
+      ASSERT ( !m_dynamic.empty(), () );
+      return &m_dynamic[0];
+    }
+    else
+      return &m_static[0];
+  }
+
+  T * data()
+  {
+    if (m_size == USE_DYNAMIC)
+    {
+      ASSERT ( !m_dynamic.empty(), () );
+      return &m_dynamic[0];
+    }
+    else
+      return &m_static[0];
+  }
+  //@}
 
   T const * begin() const { return data(); }
   T       * begin()       { return data(); }
   T const * end() const { return data() + size(); }
   T       * end()       { return data() + size(); }
+  //@}
 
-  bool empty() const { return m_size == USE_DYNAMIC ? m_dynamic.empty() : m_size == 0; }
-  size_t size() const { return m_size == USE_DYNAMIC ? m_dynamic.size() : m_size; }
+  bool empty() const { return (m_size == USE_DYNAMIC ? m_dynamic.empty() : m_size == 0); }
+  size_t size() const { return (m_size == USE_DYNAMIC ? m_dynamic.size() : m_size); }
 
   T const & front() const
   {
