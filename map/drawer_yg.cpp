@@ -287,7 +287,7 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
   bool const isArea = !pInfo->m_areas.empty();
 
   // separating path rules from other
-  for (unsigned i = 0; i < count; ++i)
+  for (size_t i = 0; i < count; ++i)
   {
     rule_ptr_t pRule = rules[i].m_rule;
 
@@ -308,7 +308,7 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
 
   bool isNumber = true;
 
-  for (unsigned i = 0; i < count; ++i)
+  for (size_t i = 0; i < count; ++i)
   {
     rule_ptr_t pRule = rules[i].m_rule;
     int const depth = rules[i].m_depth;
