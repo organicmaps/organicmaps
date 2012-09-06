@@ -57,7 +57,7 @@ TrieIterator * MoveTrieIteratorToString(TrieIterator const & trieRoot,
 
       if ((count > 0) && (count == szEdge || szQuery == count + symbolsMatched))
       {
-        scoped_ptr<search::TrieIterator>(pIter->GoToEdge(i)).swap(pIter);
+        pIter.reset(pIter->GoToEdge(i));
 
         bFullEdgeMatched = (count == szEdge);
         symbolsMatched += count;

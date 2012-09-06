@@ -336,7 +336,7 @@ namespace
     shared_ptr<value_type> m_val;
 
   public:
-    IndexedValue(value_type * v) : m_val(v)
+    explicit IndexedValue(value_type * v) : m_val(v)
     {
       for (size_t i = 0; i < m_ind.size(); ++i)
         m_ind[i] = numeric_limits<size_t>::max();
@@ -403,7 +403,7 @@ namespace
       // do not insert duplicating results
       if (indV.end() == find_if(indV.begin(), indV.end(),
                                 ProxyFunctor1<impl::PreResult2::StrictEqualF>(p)))
-        indV.push_back(p);
+        indV.push_back(T(p));
       else
         delete p;
     }
@@ -1023,13 +1023,7 @@ namespace impl
 {
   class DoFindLocality
   {
-    class EqualID
-    {
-      uint32_t m_id;
-    public:
-      EqualID(uint32_t id) : m_id(id) {}
-      bool operator() (Locality const & l) const { return (l.m_value.m_featureId == m_id); }
-    };
+    Query const & m_query;
 
     /// @see Locality::m_index
     vector<Locality> m_localities[3];
@@ -1091,8 +1085,6 @@ namespace impl
 
     int8_t m_lang;
     int8_t m_arrEn[3];
-
-    Query const & m_query;
 
     void AssignEnglishName(FeatureType const & f, Locality & l)
     {
@@ -1158,12 +1150,17 @@ namespace impl
       return false;
     }
 
-    volatile bool & m_isCancelled;
+    class EqualID
+    {
+      uint32_t m_id;
+    public:
+      EqualID(uint32_t id) : m_id(id) {}
+      bool operator() (Locality const & l) const { return (l.m_value.m_featureId == m_id); }
+    };
 
   public:
-    DoFindLocality(Query & q, MwmValue * pMwm, int8_t lang, volatile bool & isCancelled)
-      : m_vector(pMwm->m_cont, pMwm->GetHeader()), m_lang(lang),
-        m_query(q), m_isCancelled(isCancelled)
+    DoFindLocality(Query & q, MwmValue * pMwm, int8_t lang)
+      : m_query(q), m_vector(pMwm->m_cont, pMwm->GetHeader()), m_lang(lang)
     {
       m_arrEn[0] = q.GetLanguage(LANG_EN);
       m_arrEn[1] = q.GetLanguage(LANG_INTERNATIONAL);
@@ -1175,7 +1172,7 @@ namespace impl
 
     void operator() (Query::TrieValueT const & v)
     {
-      if (m_isCancelled)
+      if (m_query.IsCanceled())
         throw Query::CancelException();
 
       // find locality in current results
@@ -1300,7 +1297,7 @@ bool Query::SearchLocality(MwmValue * pMwm, impl::Locality & res)
     {
       scoped_ptr<TrieIterator> pLangRoot(pTrieRoot->GoToEdge(i));
 
-      impl::DoFindLocality doFind(*this, pMwm, lang, m_cancel);
+      impl::DoFindLocality doFind(*this, pMwm, lang);
       GetFeaturesInTrie(params.m_tokens, params.m_prefixTokens,
                         TrieRootPrefix(*pLangRoot, edge), doFind);
 
@@ -1562,7 +1559,7 @@ void Query::SearchAllInViewport(m2::RectD const & viewport, Results & res, unsig
 
   InitSearch(string());
 
-  vector<impl::PreResult2*> indV;
+  vector<shared_ptr<impl::PreResult2> > indV;
 
   impl::PreResult2Maker maker(*this);
 
@@ -1596,8 +1593,6 @@ void Query::SearchAllInViewport(m2::RectD const & viewport, Results & res, unsig
       res.AddResult(MakeResult(*(indV[i])));
     }
   }
-
-  for_each(indV.begin(), indV.end(), DeleteFunctor());
 }
 
 void Query::SearchAdditional(Results & res)
