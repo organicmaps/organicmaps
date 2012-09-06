@@ -134,7 +134,7 @@ Framework::Framework()
     m_lowestMapVersion(-1),
     m_benchmarkEngine(0)
 {
-  // checking whether we should enable benchmark
+  // Checking whether we should enable benchmark.
   bool isBenchmarkingEnabled = false;
   (void)Settings::Get("IsBenchmarking", isBenchmarkingEnabled);
   if (isBenchmarkingEnabled)
@@ -171,11 +171,15 @@ Framework::Framework()
 
   m_model.InitClassificator();
 
+  // To avoid possible races - init search engine once in constructor.
+  (void)GetSearchEngine();
+
+  // Get all available maps.
   vector<string> maps;
   GetResourcesMaps(maps);
 #ifndef OMIM_OS_ANDROID
-  // On Android, local maps are added and removed when external storage
-  // is connected/disconnected
+  // On Android, local maps are added and removed when
+  // external storage is connected/disconnected.
   GetLocalMaps(maps);
 #endif
 
@@ -185,7 +189,9 @@ Framework::Framework()
 
   for_each(maps.begin(), maps.end(), bind(&Framework::AddMap, this, _1));
 
+  // Init storage with needed callback.
   m_storage.Init(bind(&Framework::UpdateAfterDownload, this, _1));
+
   LOG(LDEBUG, ("Storage initialized"));
 }
 
