@@ -44,6 +44,12 @@ SearchVC * g_searchVC = nil;
 
 @synthesize m_searchString;
 
+- (void)dealloc
+{
+  [m_searchString release];
+  [super dealloc];
+}
+
 - (id)initWithResults:(search::Results const &)res
 {
   if ((self = [super init]))
