@@ -1,10 +1,12 @@
 #include "platform.hpp"
 
+#include "../base/scope_guard.hpp"
 #include "../base/logging.hpp"
 
 #include "../coding/file_writer.hpp"
 
 #include "../std/windows.hpp"
+#include "../std/bind.hpp"
 
 #include <shlobj.h>
 
@@ -118,4 +120,35 @@ void Platform::RunAsync(TFunctor const & fn, Priority p)
 {
   /// @todo
   fn();
+}
+
+Platform::TStorageStatus Platform::GetWritableStorageStatus(uint64_t neededSize)
+{
+  ULARGE_INTEGER freeSpace;
+  if (0 == ::GetDiskFreeSpaceExA(m_writableDir.c_str(), &freeSpace, NULL, NULL))
+  {
+    LOG(LWARNING, ("GetDiskFreeSpaceEx failed with error", GetLastError()));
+    return STORAGE_DISCONNECTED;
+  }
+
+  if (freeSpace.u.LowPart + (freeSpace.u.HighPart << 32) < neededSize)
+    return NOT_ENOUGH_SPACE;
+
+  return STORAGE_OK;
+}
+
+bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)
+{
+  HANDLE hFile = CreateFileA(filePath.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+  if (hFile != INVALID_HANDLE_VALUE)
+  {
+    MY_SCOPE_GUARD(autoClose, bind(&CloseHandle, hFile));
+    LARGE_INTEGER fileSize;
+    if (0 != GetFileSizeEx(hFile, &fileSize))
+    {
+      size = fileSize.QuadPart;
+      return true;
+    }
+  }
+  return false;
 }

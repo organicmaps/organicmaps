@@ -356,7 +356,7 @@ BookmarkAndCategory Framework::GetBookmark(m2::PointD pt) const
 {
   // @TODO Refactor. Why bookmarks can't be retrieved? Change pixel point to global point.
   if (m_renderPolicy == 0)
-      return BookmarkAndCategory(0, 0);
+    return MakeEmptyBookmarkAndCategory();
   return GetBookmark(pt, m_renderPolicy->VisualScale());
 }
 

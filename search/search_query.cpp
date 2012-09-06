@@ -55,7 +55,7 @@ namespace
   enum LangIndexT { LANG_CURRENT = 0,
                     LANG_INPUT,
                     LANG_INTERNATIONAL,
-                    LANG_ENGLISH,
+                    LANG_EN,
                     LANG_DEFAULT,
                     LANG_COUNT };
 
@@ -1165,7 +1165,7 @@ namespace impl
       : m_vector(pMwm->m_cont, pMwm->GetHeader()), m_lang(lang),
         m_query(q), m_isCancelled(isCancelled)
     {
-      m_arrEn[0] = q.GetLanguage(LANG_ENGLISH);
+      m_arrEn[0] = q.GetLanguage(LANG_EN);
       m_arrEn[1] = q.GetLanguage(LANG_INTERNATIONAL);
       m_arrEn[2] = q.GetLanguage(LANG_DEFAULT);
     }
@@ -1516,7 +1516,7 @@ bool Query::MatchForSuggestionsImpl(strings::UniString const & token, int8_t lan
 void Query::MatchForSuggestions(strings::UniString const & token, Results & res)
 {
   if (!MatchForSuggestionsImpl(token, GetLanguage(LANG_INPUT), res))
-    MatchForSuggestionsImpl(token, GetLanguage(LANG_ENGLISH), res);
+    MatchForSuggestionsImpl(token, GetLanguage(LANG_EN), res);
 }
 
 m2::RectD const & Query::GetViewport(int viewportID/* = -1*/) const

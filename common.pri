@@ -103,7 +103,9 @@ win32-msvc* {
 }
 
 win32-msvc2010 {
-  DEFINES += _HAS_CPP0X=0 # disable tr1 and c++0x features to avoid build errors
+  # disable tr1 and c++0x features to avoid build errors
+  DEFINES += _HAS_CPP0X=0
+  DEFINES += BOOST_NO_CXX11_HDR_ARRAY BOOST_NO_CXX11_HDR_TYPEINDEX BOOST_NO_CXX11_SMART_PTR
   QMAKE_CFLAGS_RELEASE += /GL
   QMAKE_CXXFLAGS_RELEASE += /GL
   QMAKE_LFLAGS_RELEASE += /LTCG

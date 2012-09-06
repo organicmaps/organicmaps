@@ -32,7 +32,7 @@ ChunksDownloadStrategy::GetChunk(RangeT const & range)
   else
   {
     LOG(LERROR, ("Downloader error. Invalid chunk range: ", range));
-    return pair<ChunkT *, int>(0, -1);
+    return pair<ChunkT *, int>(reinterpret_cast<ChunkT *>(0), -1);
   }
 }
 

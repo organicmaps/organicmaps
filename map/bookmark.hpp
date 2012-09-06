@@ -71,3 +71,8 @@ public:
 
 /// Non-const category is needed to "edit" bookmark (actually, re-add it)
 typedef pair<BookmarkCategory *, Bookmark const *> BookmarkAndCategory;
+inline BookmarkAndCategory MakeEmptyBookmarkAndCategory()
+{
+  return BookmarkAndCategory(reinterpret_cast<BookmarkAndCategory::first_type>(0),
+                          reinterpret_cast<BookmarkAndCategory::second_type>(0));
+}
