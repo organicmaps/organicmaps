@@ -111,17 +111,33 @@ struct DeleteFunctor
   }
 };
 
-template <class TContainer> class DeleteRangeGuard
+namespace impl
 {
-  TContainer & m_cont;
-public:
-  DeleteRangeGuard(TContainer & cont) : m_cont(cont) {}
-  ~DeleteRangeGuard()
+  template <class TContainer, class TDeletor> class DeleteRangeFunctor
   {
-    for_each(m_cont.begin(), m_cont.end(), DeleteFunctor());
-    m_cont.clear();
-  }
-};
+    TContainer & m_cont;
+    TDeletor m_deletor;
+
+  public:
+    DeleteRangeFunctor(TContainer & cont, TDeletor const & deletor)
+      : m_cont(cont), m_deletor(deletor)
+    {
+    }
+
+    void operator() ()
+    {
+      for_each(m_cont.begin(), m_cont.end(), m_deletor);
+      m_cont.clear();
+    }
+  };
+}
+
+template <class TContainer, class TDeletor>
+impl::DeleteRangeFunctor<TContainer, TDeletor>
+GetRangeDeletor(TContainer & cont, TDeletor const & deletor)
+{
+  return impl::DeleteRangeFunctor<TContainer, TDeletor>(cont, deletor);
+}
 
 struct NoopFunctor
 {

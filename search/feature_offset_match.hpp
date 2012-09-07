@@ -5,6 +5,7 @@
 
 #include "../base/string_utils.hpp"
 #include "../base/stl_add.hpp"
+#include "../base/scope_guard.hpp"
 //#include "../base/logging.hpp"
 
 #include "../std/algorithm.hpp"
@@ -142,8 +143,7 @@ void PrefixMatchInTrie(TrieIterator const & trieRoot,
   }
 
   // 'f' can throw an exception. So be prepared to delete unprocessed elements.
-  DeleteRangeGuard<QueueT> doDelete(trieQueue);
-  UNUSED_VALUE(doDelete);
+  MY_SCOPE_GUARD(doDelete, GetRangeDeletor(trieQueue, DeleteFunctor()));
 
   while (!trieQueue.empty())
   {
