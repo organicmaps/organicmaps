@@ -4,11 +4,11 @@
 #include "../indexer/search_trie.hpp"
 
 #include "../base/string_utils.hpp"
+#include "../base/stl_add.hpp"
 //#include "../base/logging.hpp"
 
 #include "../std/algorithm.hpp"
 #include "../std/scoped_ptr.hpp"
-#include "../std/stack.hpp"
 #include "../std/unordered_set.hpp"
 #include "../std/utility.hpp"
 #include "../std/vector.hpp"
@@ -124,11 +124,12 @@ void PrefixMatchInTrie(TrieIterator const & trieRoot,
   if (!CheckMatchString(rootPrefix, rootPrefixSize, s))
       return;
 
-  stack<search::TrieIterator *> trieQueue;
+  typedef vector<search::TrieIterator *> QueueT;
+  QueueT trieQueue;
   {
     size_t symbolsMatched = 0;
     bool bFullEdgeMatched;
-    search::TrieIterator * const pRootIter =
+    search::TrieIterator * pRootIter =
         MoveTrieIteratorToString(trieRoot, s, symbolsMatched, bFullEdgeMatched);
 
     UNUSED_VALUE(symbolsMatched);
@@ -137,19 +138,25 @@ void PrefixMatchInTrie(TrieIterator const & trieRoot,
     if (!pRootIter)
       return;
 
-    trieQueue.push(pRootIter);
+    trieQueue.push_back(pRootIter);
   }
+
+  // 'f' can throw an exception. So be prepared to delete unprocessed elements.
+  DeleteRangeGuard<QueueT> doDelete(trieQueue);
+  UNUSED_VALUE(doDelete);
 
   while (!trieQueue.empty())
   {
-    scoped_ptr<search::TrieIterator> pIter(trieQueue.top());
-    trieQueue.pop();
+    // Next 2 lines don't throw any exceptions while moving
+    // ownership from container to smart pointer.
+    scoped_ptr<search::TrieIterator> pIter(trieQueue.back());
+    trieQueue.pop_back();
 
     for (size_t i = 0; i < pIter->m_value.size(); ++i)
       f(pIter->m_value[i]);
 
     for (size_t i = 0; i < pIter->m_edge.size(); ++i)
-      trieQueue.push(pIter->GoToEdge(i));
+      trieQueue.push_back(pIter->GoToEdge(i));
   }
 }
 

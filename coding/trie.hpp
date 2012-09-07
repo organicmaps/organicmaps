@@ -1,8 +1,12 @@
 #pragma once
-#include "../base/assert.hpp"
+
 #include "../base/base.hpp"
+#include "../base/assert.hpp"
 #include "../base/buffer_vector.hpp"
+//#include "../base/object_tracker.hpp"
+
 #include "../std/scoped_ptr.hpp"
+
 
 namespace trie
 {
@@ -17,6 +21,8 @@ static uint32_t const DEFAULT_CHAR = 0;
 template <typename ValueT, typename EdgeValueT>
 class Iterator
 {
+  //dbg::ObjectTracker m_tracker;
+
 public:
   struct Edge
   {

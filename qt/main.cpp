@@ -6,6 +6,7 @@
 
 #include "../base/logging.hpp"
 #include "../base/macros.hpp"
+#include "../base/object_tracker.hpp"
 
 #include "../coding/file_reader.hpp"
 
@@ -108,6 +109,8 @@ int main(int argc, char * argv[])
     w.show();
     returnCode = a.exec();
   }
+
+  dbg::ObjectTracker::PrintLeaks();
 
   LOG_SHORT(LINFO, ("MapsWithMe finished with code", returnCode));
   return returnCode;
