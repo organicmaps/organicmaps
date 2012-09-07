@@ -111,9 +111,21 @@ struct DeleteFunctor
   }
 };
 
+template <class TContainer> class DeleteRangeGuard
+{
+  TContainer & m_cont;
+public:
+  DeleteRangeGuard(TContainer & cont) : m_cont(cont) {}
+  ~DeleteRangeGuard()
+  {
+    for_each(m_cont.begin(), m_cont.end(), DeleteFunctor());
+    m_cont.clear();
+  }
+};
+
 struct NoopFunctor
 {
-  template <typename T> inline void operator () (T const &) const
+  template <typename T> void operator () (T const &) const
   {
   }
 };
