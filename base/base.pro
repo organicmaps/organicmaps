@@ -28,6 +28,7 @@ SOURCES += \
     fence_manager.cpp \
     strings_bundle.cpp \
     string_format.cpp \
+    object_tracker.cpp \
 
 HEADERS += \
     SRC_FIRST.hpp \
@@ -77,3 +78,4 @@ HEADERS += \
     fence_manager.hpp \
     strings_bundle.hpp \
     string_format.hpp \
+    object_tracker.hpp \
