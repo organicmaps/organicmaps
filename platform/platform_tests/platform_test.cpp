@@ -112,5 +112,5 @@ UNIT_TEST(CpuCores)
 UNIT_TEST(GetWritableStorageStatus)
 {
   TEST_EQUAL(Platform::STORAGE_OK, GetPlatform().GetWritableStorageStatus(100000), ());
-  TEST_EQUAL(Platform::NOT_ENOUGH_SPACE, GetPlatform().GetWritableStorageStatus(0xFFFFFFFFUL), ());
+  TEST_EQUAL(Platform::NOT_ENOUGH_SPACE, GetPlatform().GetWritableStorageStatus(uint64_t(-1)), ());
 }
