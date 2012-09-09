@@ -4210,7 +4210,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nCONF=\"simulator\"\nif [[ \"$LOWERED_CONFIG\" == *production* || \"$LOWERED_CONFIG\" == *adhoc* ]]; then\n  CONF=\"production\"\nelif [[ \"$LOWERED_CONFIG\" == *debug* ]]; then\n  CONF=\"debug\"\nelif [[ \"$LOWERED_CONFIG\" == *release* ]]; then\n  CONF=\"release\"\nfi\n\necho \"Building $CONF configuration\"\nbash \"$SRCROOT/../../tools/autobuild/ios.sh\" $CONF";
+			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nCONF=\"simulator\"\nif [[ \"$LOWERED_CONFIG\" == *production* || \"$LOWERED_CONFIG\" == *adhoc* ]]; then\n  CONF=\"production\"\nelif [[ \"$LOWERED_CONFIG\" == *debug* ]]; then\n  CONF=\"debug\"\nelif [[ \"$LOWERED_CONFIG\" == *release* ]]; then\n  if [[ \"$LOWERED_CONFIG\" == *simulator* ]]; then\n    CONF=\"simulator-release\"\n  else\n    CONF=\"release\"\n  fi\nfi\n\necho \"Building $CONF configuration\"\nbash \"$SRCROOT/../../tools/autobuild/ios.sh\" $CONF";
 		};
 		FA40A8FF149B86E400AD1225 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4886,6 +4886,60 @@
 			};
 			name = "Release Full";
 		};
+		FACFE54415F8F35600CE8B20 /* Simulator Full Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = i386;
+				BUNDLE_IDENTIFIER = com.mapswithme.full.simulator.release;
+				COMPRESS_PNG_FILES = NO;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 2.2;
+				GCC_ENABLE_PASCAL_STRINGS = NO;
+				GCC_FAST_MATH = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					TARGET_OS_IPHONE,
+					NDEBUG,
+					RELEASE,
+					_RELEASE,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_UNROLL_LOOPS = YES;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = ../../3party/boost;
+				INFOPLIST_FILE = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphonesim-release/out/release\"";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "-Wall";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				PRODUCT_NAME = "MWM Rel";
+				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = i386;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = "Simulator Full Release";
+		};
+		FACFE54515F8F35600CE8B20 /* Simulator Full Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+			};
+			name = "Simulator Full Release";
+		};
+		FACFE54615F8F35600CE8B20 /* Simulator Full Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+			};
+			name = "Simulator Full Release";
+		};
 		FAFB0914151215EE0041901D /* Simulator Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4964,6 +5018,7 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Simulator Lite */,
 				FAAB411A149BA83500C245B1 /* Simulator Full */,
+				FACFE54515F8F35600CE8B20 /* Simulator Full Release */,
 				FA1DE85A11E2235D00C6D69A /* Debug Lite */,
 				FAAB411C149BA84700C245B1 /* Debug Full */,
 				FA1DE85C11E2236200C6D69A /* AdHoc Lite */,
@@ -4981,6 +5036,7 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Simulator Lite */,
 				FAAB4119149BA83500C245B1 /* Simulator Full */,
+				FACFE54415F8F35600CE8B20 /* Simulator Full Release */,
 				FA1DE85911E2235D00C6D69A /* Debug Lite */,
 				FAAB411B149BA84700C245B1 /* Debug Full */,
 				FA1DE85B11E2236200C6D69A /* AdHoc Lite */,
@@ -4998,6 +5054,7 @@
 			buildConfigurations = (
 				FAFB0914151215EE0041901D /* Simulator Lite */,
 				FAFB0915151215EE0041901D /* Simulator Full */,
+				FACFE54615F8F35600CE8B20 /* Simulator Full Release */,
 				FAFB0916151215EE0041901D /* Debug Lite */,
 				FAFB0917151215EE0041901D /* Debug Full */,
 				FAFB0918151215EE0041901D /* AdHoc Lite */,

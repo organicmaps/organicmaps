@@ -7,7 +7,7 @@ LOCAL_DIRNAME="$(dirname "$0")"
 #LOCAL_DIRNAME="${PWD}/$(dirname "$0")"
 
 if [[ $# < 1 ]]; then
-  echo "Usage: $0 <debug|release|production|simulator> [clean]"
+  echo "Usage: $0 <debug|release|production|simulator|simulator-release> [clean]"
   exit 1
 fi
 CONFIGURATION="$1"
@@ -29,9 +29,15 @@ fi
 
 SHADOW_DIR_BASE="$LOCAL_DIRNAME/../../../omim-iphone"
 
-if [[ $CONFIGURATION == "simulator" ]]; then
-  SHADOW_DIR="${SHADOW_DIR_BASE}sim-debug"
-  MKSPEC="$LOCAL_DIRNAME/../mkspecs/iphonesimulator-clang"
+if [[ $CONFIGURATION == *simulator* ]]; then
+  if [[ $CONFIGURATION == "simulator-release" ]]; then
+    SHADOW_DIR="${SHADOW_DIR_BASE}sim-release"
+    QMAKE_PARAMS="CONFIG+=release"
+  else
+    SHADOW_DIR="${SHADOW_DIR_BASE}sim-debug"
+    QMAKE_PARAMS="CONFIG+=debug"
+  fi
+  MKSPEC="$LOCAL_DIRNAME/../mkspecs/iphonesimulator-llvm"
 else
   SHADOW_DIR="${SHADOW_DIR_BASE}-${CONFIGURATION}"
   MKSPEC="$LOCAL_DIRNAME/../mkspecs/iphonedevice-llvm"

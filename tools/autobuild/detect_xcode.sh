@@ -15,7 +15,7 @@ KNOWN_IOS_SDK_SIMULATOR_PATHS=( \
 # Returns 1 in case of not found and 0 in case of success
 PrintIOSSDKPath() {
   PATHS_ARRAY="${KNOWN_IOS_SDK_PATHS[@]}"
-  if [[ $1 == "simulator" ]]; then
+  if [[ $1 == *simulator* ]]; then
     for path in "${KNOWN_IOS_SDK_SIMULATOR_PATHS[@]}"; do
       if [ -d "${path}" ]; then
         echo "${path}"
