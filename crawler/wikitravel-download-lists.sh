@@ -9,6 +9,7 @@ wget $LONGPAGES_URL"&limit=5000&offset=0"     -O wikitravel-pages-0.html && slee
 wget $LONGPAGES_URL"&limit=5000&offset=5000"  -O wikitravel-pages-1.html && sleep 10s
 wget $LONGPAGES_URL"&limit=5000&offset=10000" -O wikitravel-pages-2.html && sleep 10s
 wget $LONGPAGES_URL"&limit=5000&offset=15000" -O wikitravel-pages-3.html && sleep 10s
+wget $LONGPAGES_URL"&limit=5000&offset=20000" -O wikitravel-pages-4.html && sleep 10s
 
 # Get all redirects.
 wget $REDIRECTS_URL"&limit=5000&offset=0"     -O wikitravel-redirects-0.html && sleep 10s
