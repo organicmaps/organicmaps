@@ -6,7 +6,7 @@
 #include "../base/string_utils.hpp"
 #include "../base/stl_add.hpp"
 #include "../base/scope_guard.hpp"
-//#include "../base/logging.hpp"
+#include "../base/mutex.hpp"
 
 #include "../std/algorithm.hpp"
 #include "../std/scoped_ptr.hpp"
@@ -109,6 +109,10 @@ void FullMatchInTrie(TrieIterator const & trieRoot,
 
   if (!pIter || !bFullEdgeMatched || symbolsMatched != s.size())
     return;
+
+  // Here is the dummy mutex to avoid mysterious iOS GCC-LLVM bug here.
+  static threads::Mutex dummyM;
+  threads::MutexGuard dummyG(dummyM);
 
   ASSERT_EQUAL ( symbolsMatched, s.size(), () );
   for (size_t i = 0; i < pIter->m_value.size(); ++i)
