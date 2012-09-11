@@ -30,4 +30,6 @@ namespace dbg
 
     static void PrintLeaks();
   };
+
+  void BreakIntoDebugger();
 }

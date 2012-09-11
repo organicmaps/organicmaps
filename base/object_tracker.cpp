@@ -2,6 +2,10 @@
 #include "assert.hpp"
 #include "logging.hpp"
 
+#ifndef OMIM_OS_WINDOWS
+  #include <signal.h>
+#endif
+
 
 namespace dbg
 {
@@ -19,7 +23,7 @@ void ObjectTracker::Add(void * p)
   threads::MutexGuard guard(m_mutex);
 #endif
 
-  CHECK ( m_map.insert(make_pair(p, m_counter++)).second == true, () );
+  CHECK ( m_map.insert(make_pair(p, m_counter++)).second == true, (p) );
 }
 
 void ObjectTracker::Remove(void * p)
@@ -28,7 +32,7 @@ void ObjectTracker::Remove(void * p)
   threads::MutexGuard guard(m_mutex);
 #endif
 
-  CHECK ( m_map.erase(p) == 1, () );
+  CHECK ( m_map.erase(p) == 1, (p) );
 }
 
 ObjectTracker::ObjectTracker()
@@ -56,6 +60,15 @@ void ObjectTracker::PrintLeaks()
     LOG(LINFO, ("No leaks found!"));
   else
     LOG(LINFO, ("Leaks map:", m_map));
+}
+
+void BreakIntoDebugger()
+{
+#ifdef OMIM_OS_WINDOWS
+  __debugbreak();
+#else
+  kill(getpid(), SIGINT);
+#endif
 }
 
 }
