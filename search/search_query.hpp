@@ -16,6 +16,7 @@
 #include "../std/string.hpp"
 #include "../std/unordered_set.hpp"
 #include "../std/vector.hpp"
+#include "../std/atomic.hpp"
 
 
 class FeatureType;
@@ -163,7 +164,7 @@ private:
   StringsToSuggestVectorT const * m_pStringsToSuggest;
   storage::CountryInfoGetter const * m_pInfoGetter;
 
-  volatile bool m_cancel;
+  volatile atomic<bool> m_cancel;
 
   buffer_vector<strings::UniString, 32> m_tokens;
   strings::UniString m_prefix;

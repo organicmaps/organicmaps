@@ -131,7 +131,8 @@ namespace
 
 void Query::SetViewport(m2::RectD viewport[], size_t count)
 {
-  ASSERT_LESS_OR_EQUAL(count, static_cast<size_t>(RECTSCOUNT), ());
+  // use static_cast to avoid GCC linker dummy bug
+  ASSERT_LESS ( count, static_cast<size_t>(RECTSCOUNT), () );
 
   m_cancel = false;
 
@@ -144,7 +145,8 @@ void Query::SetViewport(m2::RectD viewport[], size_t count)
 
 void Query::SetViewportByIndex(MWMVectorT const & mwmInfo, m2::RectD const & viewport, size_t idx)
 {
-  ASSERT_LESS_OR_EQUAL(idx, static_cast<size_t>(RECTSCOUNT), ());
+  // use static_cast to avoid GCC linker dummy bug
+  ASSERT_LESS ( idx, static_cast<size_t>(RECTSCOUNT), () );
 
   if (viewport.IsValid())
   {
@@ -292,7 +294,6 @@ void Query::Search(string const & query, Results & res)
   SearchAddress();
 
   if (m_cancel) return;
-  LOG(LDEBUG, ("Usual search"));
   SearchFeatures();
 
   if (m_cancel) return;
@@ -1335,9 +1336,10 @@ namespace
   {
     vector<uint32_t> const * m_offsets;
 
-    volatile bool & m_isCancelled;
+    volatile atomic<bool> const & m_isCancelled;
   public:
-    FeaturesFilter(vector<uint32_t> const * offsets, volatile bool & isCancelled)
+    FeaturesFilter(vector<uint32_t> const * offsets,
+                   volatile atomic<bool> const & isCancelled)
       : m_offsets(offsets), m_isCancelled(isCancelled)
     {
     }
@@ -1345,7 +1347,11 @@ namespace
     bool operator() (uint32_t offset) const
     {
       if (m_isCancelled)
+      {
+        //LOG(LINFO, ("Throw CancelException"));
+        //dbg::ObjectTracker::PrintLeaks();
         throw Query::CancelException();
+      }
 
       return (m_offsets == 0 ||
               binary_search(m_offsets->begin(), m_offsets->end(), offset));
@@ -1362,7 +1368,11 @@ namespace
     TrieValuesHolder(FilterT const & filter) : m_filter(filter) {}
 
     void Resize(size_t count) { m_holder.resize(count); }
-    void StartNew(size_t ind) { m_ind = ind; }
+    void StartNew(size_t ind)
+    {
+      ASSERT_LESS ( ind, m_holder.size(), () );
+      m_ind = ind;
+    }
     void operator() (Query::TrieValueT const & v)
     {
       if (m_filter(v.m_featureId))
@@ -1388,6 +1398,38 @@ void Query::SearchFeatures(Params const & params, MWMVectorT const & mwmInfo, in
       SearchInMWM(mwmLock, params, ind);
     }
   }
+}
+
+namespace
+{
+
+void FillCategories(Query::Params const & params, TrieIterator const * pTrieRoot,
+                    TrieValuesHolder<FeaturesFilter> & categoriesHolder)
+{
+  scoped_ptr<TrieIterator> pCategoriesRoot;
+  typedef TrieIterator::Edge::EdgeStrT EdgeT;
+  EdgeT categoriesEdge;
+
+  size_t const count = pTrieRoot->m_edge.size();
+  for (size_t i = 0; i < count; ++i)
+  {
+    EdgeT const & edge = pTrieRoot->m_edge[i].m_str;
+    ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
+
+    if (edge[0] == search::CATEGORIES_LANG)
+    {
+      categoriesEdge = edge;
+      pCategoriesRoot.reset(pTrieRoot->GoToEdge(i));
+      break;
+    }
+  }
+  ASSERT_NOT_EQUAL(pCategoriesRoot, 0, ());
+
+  GetFeaturesInTrie(params.m_tokens, params.m_prefixTokens,
+                    TrieRootPrefix(*pCategoriesRoot, categoriesEdge),
+                    categoriesHolder);
+}
+
 }
 
 void Query::SearchInMWM(Index::MwmLock const & mwmLock, Params const & params, int ind/* = -1*/)
@@ -1416,33 +1458,11 @@ void Query::SearchInMWM(Index::MwmLock const & mwmLock, Params const & params, i
 
       // Get categories for each token separately - find needed edge with categories.
       TrieValuesHolder<FeaturesFilter> categoriesHolder(filter);
-      size_t const count = pTrieRoot->m_edge.size();
-      {
-        scoped_ptr<TrieIterator> pCategoriesRoot;
-        TrieIterator::Edge::EdgeStrT categoriesEdge;
-
-        for (size_t i = 0; i < count; ++i)
-        {
-          TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
-          ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
-
-          if (edge[0] == search::CATEGORIES_LANG)
-          {
-            categoriesEdge = edge;
-            pCategoriesRoot.reset(pTrieRoot->GoToEdge(i));
-            break;
-          }
-        }
-        ASSERT_NOT_EQUAL(pCategoriesRoot, 0, ());
-
-        GetFeaturesInTrie(params.m_tokens, params.m_prefixTokens,
-                          TrieRootPrefix(*pCategoriesRoot, categoriesEdge),
-                          categoriesHolder);
-      }
-
-      impl::FeatureLoader emitter(*this, mwmId, ind);
+      FillCategories(params, pTrieRoot.get(), categoriesHolder);
 
       // Match tokens to feature for each language - iterate through first edges.
+      impl::FeatureLoader emitter(*this, mwmId, ind);
+      size_t const count = pTrieRoot->m_edge.size();
       for (size_t i = 0; i < count; ++i)
       {
         TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
