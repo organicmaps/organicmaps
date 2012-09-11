@@ -10,7 +10,7 @@
 
   Framework::AddressInfo m_addressInfo;
   // If we clicked already existing bookmark, it will be here
-  BookmarkAndCategory m_rawBookmark;
+  BookmarkAndCategory m_editedBookmark;
 }
 
 @property(nonatomic, retain) NSString * title;

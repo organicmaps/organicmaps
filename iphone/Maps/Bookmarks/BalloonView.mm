@@ -142,14 +142,14 @@
 
   isDisplayed = YES;
 
-  m_rawBookmark = bm;
+  m_editedBookmark = bm;
 
   CGFloat const w = self.pinImage.bounds.size.width;
   CGFloat const h = self.pinImage.bounds.size.height;
   self.pinImage.frame = CGRectMake(pt.x - w/2, pt.y - h, w, h);
   // Do not show pin if we're editing existing bookmark.
   // @TODO move pin (and probably balloon drawing) to cross-platform code
-  self.pinImage.hidden = (m_rawBookmark.second != 0);
+  self.pinImage.hidden = IsValid(m_editedBookmark);
 
   [view addSubview:self.pinImage];
 
@@ -225,21 +225,14 @@
 
 - (void) deleteBMHelper
 {
-  BookmarkCategory * cat = m_rawBookmark.first;
-  Bookmark const * bm = m_rawBookmark.second;
-  if (cat && bm)
+  if (IsValid(m_editedBookmark))
   {
-    for (size_t i = 0; i < cat->GetBookmarksCount(); ++i)
-    {
-      if (cat->GetBookmark(i) == bm)
-      {
-        cat->DeleteBookmark(i);
-        break;
-      }
-    }
+    BookmarkCategory * cat = GetFramework().GetBmCategory(m_editedBookmark.first);
+    if (cat)
+      cat->DeleteBookmark(m_editedBookmark.second);
+    // Clear!
+    m_editedBookmark = MakeEmptyBookmarkAndCategory();
   }
-  // Clear!
-  m_rawBookmark = BookmarkAndCategory(0, 0);
 }
 
 - (void) addOrEditBookmark

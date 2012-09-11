@@ -177,17 +177,17 @@ UNIT_TEST(Bookmarks_Getting)
   fm.AddBookmark("cat3", Bookmark(m2::PointD(41, 40), "3", "placemark-red"));
 
   BookmarkAndCategory res = fm.GetBookmark(pixC, 1.0);
-  TEST(res.second != 0, ());
-  TEST(res.first != 0, ());
-  TEST_EQUAL(res.second->GetName(), "2", ());
-  TEST_EQUAL(res.first->GetName(), "cat2" , ());
+  TEST_NOT_EQUAL(res.second, -1, ());
+  TEST(!res.first.empty(), ());
+  TEST_EQUAL(res.second, 1, ());
+  TEST_EQUAL(res.first, "cat2" , ());
 
   res = fm.GetBookmark(m2::PointD(0, 0));
-  TEST(res.first == 0, ());
-  TEST(res.second == 0, ());
+  TEST(res.first.empty(), ());
+  TEST_EQUAL(res.second, -1, ());
   res = fm.GetBookmark(m2::PointD(800, 400));
-  TEST(res.first == 0, ());
-  TEST(res.second == 0, ());
+  TEST(res.first.empty(), ());
+  TEST_EQUAL(res.second, -1, ());
 }
 
 UNIT_TEST(Bookmarks_AddressInfo)

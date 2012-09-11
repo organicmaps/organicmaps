@@ -69,10 +69,14 @@ public:
   static string GenerateUniqueFileName(const string & path, string const & name);
 };
 
-/// Non-const category is needed to "edit" bookmark (actually, re-add it)
-typedef pair<BookmarkCategory *, Bookmark const *> BookmarkAndCategory;
+/// <category name, bookmark index>
+typedef pair<string, int> BookmarkAndCategory;
 inline BookmarkAndCategory MakeEmptyBookmarkAndCategory()
 {
-  return BookmarkAndCategory(reinterpret_cast<BookmarkAndCategory::first_type>(0),
-                          reinterpret_cast<BookmarkAndCategory::second_type>(0));
+  return BookmarkAndCategory(string(), int(-1));
+}
+
+inline bool IsValid(BookmarkAndCategory const & bmc)
+{
+  return (!bmc.first.empty() && bmc.second >= 0);
 }

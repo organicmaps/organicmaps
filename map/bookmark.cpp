@@ -41,6 +41,10 @@ void BookmarkCategory::DeleteBookmark(size_t index)
     if (!m_file.empty())
       (void)SaveToKMLFileAtPath(m_file);
   }
+  else
+  {
+    LOG(LWARNING, ("Trying to delete non-existing bookmark in category", GetName(), "at index", index));
+  }
 }
 
 Bookmark const * BookmarkCategory::GetBookmark(size_t index) const

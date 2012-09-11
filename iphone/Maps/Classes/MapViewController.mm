@@ -141,8 +141,10 @@
   CGPoint const pixelPos = [point CGPointValue];
   CGFloat const scaleFactor = self.view.contentScaleFactor;
 
-  BookmarkAndCategory res = GetFramework().GetBookmark(m2::PointD(pixelPos.x * scaleFactor, pixelPos.y * scaleFactor));
-  if (!res.first || !res.second)
+  Framework & f = GetFramework();
+  BookmarkAndCategory const res = f.GetBookmark(m2::PointD(pixelPos.x * scaleFactor, pixelPos.y * scaleFactor));
+
+  if (!IsValid(res))
   {
     if (m_bookmark.isDisplayed)
       [m_bookmark hide];
@@ -156,13 +158,21 @@
   else
   {
     // Already added bookmark was clicked
-    m2::PointD const globalPos = res.second->GetOrg();
-    m_bookmark.globalPosition = CGPointMake(globalPos.x, globalPos.y);
-    // Override bookmark name which was set automatically according to the point address in previous line
-    m_bookmark.title = [NSString stringWithUTF8String:res.second->GetName().c_str()];
-    m_bookmark.color = [NSString stringWithUTF8String:res.second->GetType().c_str()];
-    m_bookmark.setName = [NSString stringWithUTF8String:res.first->GetName().c_str()];
-    [m_bookmark showInView:self.view atPoint:[self globalPoint2ViewPoint:m_bookmark.globalPosition] withBookmark:res];
+    BookmarkCategory const * cat = f.GetBmCategory(res.first);
+    if (cat)
+    {
+      Bookmark const * bm = cat->GetBookmark((size_t)res.second);
+      if (bm)
+      {
+        m2::PointD const globalPos = bm->GetOrg();
+        m_bookmark.globalPosition = CGPointMake(globalPos.x, globalPos.y);
+        // Override bookmark name which was set automatically according to the point address in previous line
+        m_bookmark.title = [NSString stringWithUTF8String:bm->GetName().c_str()];
+        m_bookmark.color = [NSString stringWithUTF8String:bm->GetType().c_str()];
+        m_bookmark.setName = [NSString stringWithUTF8String:cat->GetName().c_str()];
+        [m_bookmark showInView:self.view atPoint:[self globalPoint2ViewPoint:m_bookmark.globalPosition] withBookmark:res];
+      }
+    }
   }
 }
 
