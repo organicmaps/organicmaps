@@ -64,4 +64,11 @@ bool SearchParams::IsEqualCommon(SearchParams const & rhs) const
           m_validPos == rhs.m_validPos);
 }
 
+string DebugPrint(SearchParams const & params)
+{
+  string s("search::SearchParams: ");
+  s = s + "Query = " + params.m_query;
+  return s;
+}
+
 } // namespace search

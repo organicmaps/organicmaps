@@ -32,8 +32,8 @@ namespace search
     SearchCallbackT m_callback;
 
     string m_query;
-    /// Can be -1 (@see StringUtf8Multilang::UNSUPPORTED_LANGUAGE_CODE), in the
-    /// case of input language is not known
+    /// Can be -1 (@see StringUtf8Multilang::UNSUPPORTED_LANGUAGE_CODE),
+    /// in the case when input language is unknown.
     int8_t m_inputLanguageCode;
 
     double m_lat, m_lon;
@@ -43,4 +43,7 @@ namespace search
     enum { ResetBit = 0x1, NearMeBit = 0x2 };
     int m_mode;
   };
+
+  string DebugPrint(SearchParams const & params);
+
 } // namespace search
