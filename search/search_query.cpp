@@ -1336,10 +1336,9 @@ namespace
   {
     vector<uint32_t> const * m_offsets;
 
-    volatile atomic<bool> const & m_isCancelled;
+    volatile bool & m_isCancelled;
   public:
-    FeaturesFilter(vector<uint32_t> const * offsets,
-                   volatile atomic<bool> const & isCancelled)
+    FeaturesFilter(vector<uint32_t> const * offsets, volatile bool & isCancelled)
       : m_offsets(offsets), m_isCancelled(isCancelled)
     {
     }

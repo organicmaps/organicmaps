@@ -186,26 +186,26 @@ void Engine::SetViewportAsync(m2::RectD const & viewport, m2::RectD const & near
 
 void Engine::SearchAsync()
 {
-  // Avoid many threads waiting in search mutex. One is enough.
-  bool expected = false;
-  if (!m_readyThread.compare_exchange_strong(expected, true))
   {
-    ASSERT ( expected, () );
-    return;
+    // Avoid many threads waiting in search mutex. One is enough.
+    threads::MutexGuard readyGuard(m_readyMutex);
+    if (m_readyThread)
+      return;
+    m_readyThread = true;
   }
 
-  // Order of next 4 operations is very important!
-
-  // 1. Cancel previous query.
+  // First of all - cancel previous query.
   m_pQuery->DoCancel();
 
-  // 2. Enter to run new search.
+  // Enter to run new search.
   threads::MutexGuard searchGuard(m_searchMutex);
 
-  // 3. Free flag for the next search thread.
-  m_readyThread.store(false);
+  {
+    threads::MutexGuard readyGuard(m_readyMutex);
+    m_readyThread = false;
+  }
 
-  // 4. Get current search params.
+  // Get current search params.
   SearchParams params;
   m2::RectD arrRects[2];
 
