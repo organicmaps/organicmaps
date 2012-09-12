@@ -40,7 +40,8 @@ BasicTilingRenderPolicy::BasicTilingRenderPolicy(Params const & p,
     m_DrawScale(0),
     m_IsEmptyModel(false),
     m_DoRecreateCoverage(false),
-    m_IsNavigating(false)
+    m_IsNavigating(false),
+    m_WasAnimatingLastFrame(false)
 {
   m_TileSize = CalculateTileSize(p.m_screenWidth, p.m_screenHeight);
 
@@ -58,6 +59,21 @@ void BasicTilingRenderPolicy::BeginFrame(shared_ptr<PaintEvent> const & e, Scree
     m_QueuedRenderer->BeginFrame();
 }
 
+void BasicTilingRenderPolicy::CheckAnimationTransition()
+{
+  // transition from non-animating to animating,
+  // should stop all background work
+  if (!m_WasAnimatingLastFrame && IsAnimating())
+    PauseBackgroundRendering();
+
+  // transition from animating to non-animating
+  // should resume all background work
+  if (m_WasAnimatingLastFrame && !IsAnimating())
+    ResumeBackgroundRendering();
+
+  m_WasAnimatingLastFrame = IsAnimating();
+}
+
 void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 {
   if (m_QueuedRenderer)
@@ -65,6 +81,8 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
     m_QueuedRenderer->DrawFrame();
     m_resourceManager->updatePoolState();
   }
+
+  CheckAnimationTransition();
 
   /// checking, whether we should add the CoverScreen command
 
@@ -120,22 +138,32 @@ TileRenderer & BasicTilingRenderPolicy::GetTileRenderer()
   return *m_TileRenderer.get();
 }
 
-void BasicTilingRenderPolicy::StartNavigation()
+void BasicTilingRenderPolicy::PauseBackgroundRendering()
 {
   m_TileRenderer->SetIsPaused(true);
-  m_IsNavigating = true;
   m_TileRenderer->CancelCommands();
   if (m_QueuedRenderer)
     m_QueuedRenderer->SetPartialExecution(GetPlatform().CpuCores(), true);
 }
 
-void BasicTilingRenderPolicy::StopNavigation()
+void BasicTilingRenderPolicy::ResumeBackgroundRendering()
 {
   m_TileRenderer->SetIsPaused(false);
-  m_IsNavigating = false;
   m_DoRecreateCoverage = true;
   if (m_QueuedRenderer)
     m_QueuedRenderer->SetPartialExecution(GetPlatform().CpuCores(), false);
+}
+
+void BasicTilingRenderPolicy::StartNavigation()
+{
+  m_IsNavigating = true;
+  PauseBackgroundRendering();
+}
+
+void BasicTilingRenderPolicy::StopNavigation()
+{
+  m_IsNavigating = false;
+  ResumeBackgroundRendering();
 }
 
 void BasicTilingRenderPolicy::StartScale()

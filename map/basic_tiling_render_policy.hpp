@@ -35,6 +35,7 @@ protected:
   string m_CountryName;
   bool m_DoRecreateCoverage;
   bool m_IsNavigating;
+  bool m_WasAnimatingLastFrame;
   size_t m_TileSize;
 
 protected:
@@ -43,6 +44,10 @@ protected:
 
   void StartNavigation();
   void StopNavigation();
+
+  void PauseBackgroundRendering();
+  void ResumeBackgroundRendering();
+  void CheckAnimationTransition();
 
 public:
 
