@@ -13,6 +13,7 @@
 #include "../std/unordered_set.hpp"
 #include "../std/utility.hpp"
 #include "../std/vector.hpp"
+#include "../std/target_os.hpp"
 
 //#include "../sparsehash/dense_hash_set.hpp"
 
@@ -110,9 +111,11 @@ void FullMatchInTrie(TrieIterator const & trieRoot,
   if (!pIter || !bFullEdgeMatched || symbolsMatched != s.size())
     return;
 
+#if defined(OMIM_OS_IPHONE) && !defined(__clang__)
   // Here is the dummy mutex to avoid mysterious iOS GCC-LLVM bug here.
   static threads::Mutex dummyM;
   threads::MutexGuard dummyG(dummyM);
+#endif
 
   ASSERT_EQUAL ( symbolsMatched, s.size(), () );
   for (size_t i = 0; i < pIter->m_value.size(); ++i)

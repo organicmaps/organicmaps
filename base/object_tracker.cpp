@@ -2,6 +2,8 @@
 #include "assert.hpp"
 #include "logging.hpp"
 
+#include "../std/target_os.hpp"
+
 #ifndef OMIM_OS_WINDOWS
   #include <signal.h>
 #endif
@@ -64,6 +66,8 @@ void ObjectTracker::PrintLeaks()
 
 void BreakIntoDebugger()
 {
+  /// @todo Probably we can make it more simple (like std::terminate).
+
 #ifdef OMIM_OS_WINDOWS
   __debugbreak();
 #else
