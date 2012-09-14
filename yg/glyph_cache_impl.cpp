@@ -247,7 +247,7 @@ namespace yg
     // from routine, so add font to fonts array only in the end.
 
     FT_Face face;
-    FTCHECKRETURN(pFont->CreateFaceID(m_lib, &face));
+    FTCHECKRETURN(pFont->CreateFaceID(m_lib, &face), fileName);
 
     vector<FT_ULong> charcodes;
 
@@ -259,7 +259,7 @@ namespace yg
     sort(charcodes.begin(), charcodes.end());
     charcodes.erase(unique(charcodes.begin(), charcodes.end()), charcodes.end());
 
-    FTCHECKRETURN(FT_Done_Face(face));
+    FTCHECKRETURN(FT_Done_Face(face), fileName);
 
     m_fonts.push_back(pFont);
 

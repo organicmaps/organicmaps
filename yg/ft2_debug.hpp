@@ -12,8 +12,11 @@
 
 namespace ft2_impl
 {
-  void CheckError(FT_Error error);
+  void CheckError(FT_Error error, char const * msg = 0);
 }
 
 #define FTCHECK(x) do { FT_Error e = (x); ft2_impl::CheckError(e); } while (false)
-#define FTCHECKRETURN(x) do { FT_Error e = (x); if (e != 0) { ft2_impl::CheckError(e); return; } } while (false)
+#define FTCHECKRETURN(x, msg)                             \
+  do { FT_Error e = (x);                                  \
+  if (e != 0) { ft2_impl::CheckError(e, msg); return; } } \
+  while (false)

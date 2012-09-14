@@ -30,11 +30,12 @@ char const * FT_Error_Description(FT_Error error)
   return ft_errors[i].err_msg;
 }
 
-void CheckError(FT_Error error)
+void CheckError(FT_Error error, char const * msg)
 {
   if (error != 0)
   {
-    LOG(LINFO, ("FT_Error : ", FT_Error_Description(error)));
+    if (msg == 0) msg = "";
+    LOG(LWARNING, ("FT_Error:", FT_Error_Description(error), msg));
   }
 }
 
