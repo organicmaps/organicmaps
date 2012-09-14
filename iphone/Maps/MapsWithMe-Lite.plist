@@ -31,33 +31,6 @@
 	<string>${CURRENT_PROJECT_VERSION}</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLIconFile</key>
-			<string>144-lite</string>
-			<key>CFBundleURLName</key>
-			<string>${BUNDLE_IDENTIFIER}</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>mapswithme</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLIconFile</key>
-			<string>144-lite</string>
-			<key>CFBundleURLName</key>
-			<string>${BUNDLE_IDENTIFIER}</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>geo</string>
-			</array>
-		</dict>
-	</array>
 	<key>CFBundleVersion</key>
 	<string>${CURRENT_PROJECT_VERSION}</string>
 	<key>LSRequiresIPhoneOS</key>

@@ -157,9 +157,14 @@
   return [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] != nil;
 }
 
+// handleOpenURL is deprecaed now.
+// http://stackoverflow.com/questions/3612460/lauching-app-with-url-via-uiapplicationdelegates-handleopenurl-working-under
+/*
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
   NSString * text = [[url absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
   return [m_mapViewController OnProcessURL:text];
 }
+*/
+
 @end
