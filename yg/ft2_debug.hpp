@@ -10,7 +10,10 @@
 #include FT_STROKER_H
 #include FT_GLYPH_H
 
-char const * FT_Error_Description(FT_Error error);
-void CheckError(FT_Error error);
+namespace ft2_impl
+{
+  void CheckError(FT_Error error);
+}
 
-#define FTCHECK(x) do {FT_Error e = (x); CheckError(e);} while (false)
+#define FTCHECK(x) do { FT_Error e = (x); ft2_impl::CheckError(e); } while (false)
+#define FTCHECKRETURN(x) do { FT_Error e = (x); if (e != 0) { ft2_impl::CheckError(e); return; } } while (false)

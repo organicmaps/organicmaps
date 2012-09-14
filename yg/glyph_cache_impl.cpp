@@ -241,12 +241,13 @@ namespace yg
     if (m_isDebugging)
       return;
 
-    ReaderPtr<Reader> reader = GetPlatform().GetReader(fileName);
-    m_fonts.push_back(make_shared_ptr(new Font(reader)));
+    shared_ptr<Font> pFont(new Font(GetPlatform().GetReader(fileName)));
 
-    /// obtaining all glyphs, supported by this font
+    // Obtaining all glyphs, supported by this font. Call to FTCHECKRETURN functions may return
+    // from routine, so add font to fonts array only in the end.
+
     FT_Face face;
-    FTCHECK(m_fonts.back()->CreateFaceID(m_lib, &face));
+    FTCHECKRETURN(pFont->CreateFaceID(m_lib, &face));
 
     vector<FT_ULong> charcodes;
 
@@ -258,9 +259,11 @@ namespace yg
     sort(charcodes.begin(), charcodes.end());
     charcodes.erase(unique(charcodes.begin(), charcodes.end()), charcodes.end());
 
-    FT_Done_Face(face);
+    FTCHECKRETURN(FT_Done_Face(face));
 
-    /// modifying the m_unicodeBlocks
+    m_fonts.push_back(pFont);
+
+    // modifying the m_unicodeBlocks
 
     uint32_t lastUBEnd = 0;
 
@@ -288,19 +291,21 @@ namespace yg
       if (ubIt == m_unicodeBlocks.end())
         break;
 
-      /// here we have unicode block, which contains the specified symbol.
+      // here we have unicode block, which contains the specified symbol.
       if (ubIt->m_fonts.empty() || (ubIt->m_fonts.back() != m_fonts.back()))
       {
         ubIt->m_fonts.push_back(m_fonts.back());
         ubIt->m_coverage.push_back(0);
         touchedBlocks.push_back(ubIt);
 
-        /// checking blacklist and whitelist
+        // checking blacklist and whitelist
 
         for (size_t i = 0; i < ubIt->m_blacklist.size(); ++i)
           if (ubIt->m_blacklist[i] == fileName)
-            /// if font is blacklisted for this unicode block
+          {
+            // if font is blacklisted for this unicode block
             ubIt->m_coverage.back() = -1;
+          }
 
         for (size_t i = 0; i < ubIt->m_whitelist.size(); ++i)
           if (ubIt->m_whitelist[i] == fileName)
@@ -309,8 +314,8 @@ namespace yg
             {
               LOG(LWARNING, ("font ", fileName, "is present both at blacklist and whitelist. whitelist prevails."));
             }
-            /// weight used for sorting are boosted to the top.
-            /// the order of elements are saved by adding 'i' value as a shift.
+            // weight used for sorting are boosted to the top.
+            // the order of elements are saved by adding 'i' value as a shift.
             ubIt->m_coverage.back() = ubIt->m_end + 1 - ubIt->m_start + i + 1;
           }
       }
@@ -320,26 +325,32 @@ namespace yg
       ++ccIt;
     }
 
-//    LOG(LINFO, ("-----------------------------------------"));
-//    LOG(LINFO, ("Unicode Blocks for Font : ", extract_name(fileName)));
-//    LOG(LINFO, ("-----------------------------------------"));
-//    /// dumping touched unicode blocks
-//    for (touched_blocks_t::const_iterator it = touchedBlocks.begin(); it != touchedBlocks.end(); ++it)
-//    {
-//      LOG(LINFO, ((*it)->m_name, " with coverage ", (*it)->m_coverage.back(), " out of ", (*it)->m_end + 1 - (*it)->m_start));
-//    }
+    //LOG(LINFO, ("-----------------------------------------"));
+    //LOG(LINFO, ("Unicode Blocks for Font : ", extract_name(fileName)));
+    //LOG(LINFO, ("-----------------------------------------"));
+    //// dumping touched unicode blocks
+    //for (touched_blocks_t::const_iterator it = touchedBlocks.begin(); it != touchedBlocks.end(); ++it)
+    //{
+    //  LOG(LINFO, ((*it)->m_name, " with coverage ", (*it)->m_coverage.back(), " out of ", (*it)->m_end + 1 - (*it)->m_start));
+    //}
 
-    /// rearrange fonts in all unicode blocks according to it's coverage
+    // rearrange fonts in all unicode blocks according to it's coverage
     for (ubIt = m_unicodeBlocks.begin(); ubIt != m_unicodeBlocks.end(); ++ubIt)
     {
-      vector<pair<int, shared_ptr<Font> > > sortData;
+      /// @todo Make sorting of 2 vectors ubIt->m_coverage, ubIt->m_fonts
+      /// with one criteria without temporary vector sortData.
 
-      for (unsigned i = 0; i < ubIt->m_fonts.size(); ++i)
-        sortData.push_back(make_pair<int, shared_ptr<Font> >(ubIt->m_coverage[i], ubIt->m_fonts[i]));
+      size_t const count = ubIt->m_fonts.size();
+
+      vector<pair<int, shared_ptr<Font> > > sortData;
+      sortData.reserve(count);
+
+      for (size_t i = 0; i < count; ++i)
+        sortData.push_back(make_pair(ubIt->m_coverage[i], ubIt->m_fonts[i]));
 
       sort(sortData.begin(), sortData.end(), &greater_coverage);
 
-      for (unsigned i = 0; i < ubIt->m_fonts.size(); ++i)
+      for (size_t i = 0; i < count; ++i)
       {
         ubIt->m_coverage[i] = sortData[i].first;
         ubIt->m_fonts[i] = sortData[i].second;

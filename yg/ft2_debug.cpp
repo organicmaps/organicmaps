@@ -14,6 +14,9 @@ const struct
 
 #include FT_ERRORS_H
 
+namespace ft2_impl
+{
+
 char const * FT_Error_Description(FT_Error error)
 {
   int i = 1;
@@ -35,3 +38,4 @@ void CheckError(FT_Error error)
   }
 }
 
+}
