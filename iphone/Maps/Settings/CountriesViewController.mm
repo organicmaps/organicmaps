@@ -12,9 +12,8 @@
 #include "../../platform/platform.hpp"
 
 
-#define MAX_3G_MEGABYTES 50
-
-#define MB 1024*1024
+#define MAX_3G_MEGABYTES (50)
+#define MB (1024*1024)
 
 
 using namespace storage;
@@ -69,8 +68,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
     text = [NSString stringWithUTF8String:s.c_str()];
   }
 
-  WebViewController * aboutViewController =
-    [[WebViewController alloc] initWithHtml:text baseUrl:nil andTitleOrNil:NSLocalizedString(@"about", @"Settings/Downloader - About window title")];
+  WebViewController * aboutViewController = [[WebViewController alloc] initWithHtml:text baseUrl:nil andTitleOrNil:NSLocalizedString(@"about", nil)];
   [self.navigationController pushViewController:aboutViewController animated:YES];
   [aboutViewController release];
 }
@@ -87,14 +85,13 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   {
     self.navigationItem.title = header;
     // Show Close button only on the first page
-    if ([header compare:NSLocalizedString(@"download_maps", @"Settings/Downloader - Main downloader window title")] == NSOrderedSame)
+    if ([header compare:NSLocalizedString(@"download_maps", nil)] == NSOrderedSame)
     {
-      UIBarButtonItem * closeButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"maps", @"Settings/Downloader - Close downloader button") style: UIBarButtonItemStyleDone
+      UIBarButtonItem * closeButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"maps", nil) style: UIBarButtonItemStyleDone
                                       target:self action:@selector(onCloseButton:)] autorelease];
       self.navigationItem.leftBarButtonItem = closeButton;
     }
-  UIBarButtonItem * aboutButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"about", @"Settings/Downloader - About the program button") style: UIBarButtonItemStylePlain
-                                                                   target:self action:@selector(onAboutButton:)] autorelease];
+    UIBarButtonItem * aboutButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"about", nil) style: UIBarButtonItemStylePlain target:self action:@selector(onAboutButton:)] autorelease];
     self.navigationItem.rightBarButtonItem = aboutButton;
   }
 	return self;
@@ -136,7 +133,21 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 	return GetFramework().Storage().CountriesCount(m_index);
 }
 
-- (void) UpdateCell: (UITableViewCell *) cell forCountry: (TIndex const &) countryIndex
+- (NSString *) GetStringForSize: (size_t)size
+{
+  if (size > MB)
+  {
+    // do the correct rounding of Mb
+    return [NSString stringWithFormat:@"%d %@", (size + 512 * 1024) / MB, NSLocalizedString(@"mb", nil)];
+  }
+  else
+  {
+    // get upper bound size for Kb
+    return [NSString stringWithFormat:@"%d %@", (size + 1023) / 1024, NSLocalizedString(@"kb", nil)];
+  }
+}
+
+- (void) UpdateCell: (UITableViewCell *)cell forCountry: (TIndex const &)countryIndex
 {
   cell.accessoryView = nil;
 
@@ -150,42 +161,38 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   // do not show status for parent categories
   if (cell.reuseIdentifier != @"ParentCell")
   {
-    switch (frm.GetCountryStatus(countryIndex))
+    storage::TStatus const st = frm.GetCountryStatus(countryIndex);
+    switch (st)
     {
     case EOnDisk:
-    case EOnDiskOutOfDate:
-      {
-        LocalAndRemoteSizeT::first_type size = s.CountrySizeInBytes(countryIndex).first;
-        NSString * kBorMB;
-        if (size > MB)
-        {
-          kBorMB = NSLocalizedString(@"mb", @"Settings/Downloader - size string");
-          size /= MB;
-        }
-        else
-        {
-          kBorMB = NSLocalizedString(@"kb", @"Settings/Downloader - size string");
-          size = (size + 999) / 1000;
-        }
+      cell.textLabel.textColor = [UIColor colorWithRed:0.f/255.f
+                                                  green:161.f/255.f
+                                                  blue:68.f/255.f
+                                                  alpha:1.f];
+      cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"downloaded_touch_to_delete", nil), [self GetStringForSize: s.CountrySizeInBytes(countryIndex).first]];
 
-        cell.textLabel.textColor = [UIColor colorWithRed:0.f/255.f
-                                                   green:161.f/255.f
-                                                    blue:68.f/255.f
-                                                   alpha:1.f];
-        cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"downloaded_x_y_touch_to_delete", @"Settings/Downloader - info for downloaded country"),
-                                                                                 size, kBorMB];
+      // also add "sight" icon for centering on the country
+      cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+      break;
+
+    case EOnDiskOutOfDate:
+        cell.textLabel.textColor = [UIColor colorWithRed:1.f
+                                                    green:105.f/255.f
+                                                    blue:180.f/255.f
+                                                    alpha:1.f];
+        cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"downloaded_touch_to_update", nil), [self GetStringForSize: s.CountrySizeInBytes(countryIndex).first]];
+
         // also add "sight" icon for centering on the country
         cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-      }
-      break;
+        break;
 
     case EDownloading:
       {
         cell.textLabel.textColor = [UIColor colorWithRed:52.f/255.f
-                                                   green:43.f/255.f
+                                                    green:43.f/255.f
                                                     blue:182.f/255.f
-                                                   alpha:1.f];
-        cell.detailTextLabel.text = NSLocalizedString(@"downloading", @"Settings/Downloader - info for country which started downloading");
+                                                    alpha:1.f];
+        cell.detailTextLabel.text = NSLocalizedString(@"downloading", nil);
         UIActivityIndicatorView * indicator = [[UIActivityIndicatorView alloc] 
                                                initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleGray];
         cell.accessoryView = indicator;
@@ -196,22 +203,22 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 
     case EDownloadFailed:
       cell.textLabel.textColor = [UIColor redColor];
-      cell.detailTextLabel.text = NSLocalizedString(@"download_has_failed", @"Settings/Downloader - info for country when download fails");
+      cell.detailTextLabel.text = NSLocalizedString(@"download_has_failed", nil);
       break;
 
     case EInQueue:
       {
         cell.textLabel.textColor = [UIColor colorWithRed:91.f/255.f
-                                                   green:148.f/255.f
+                                                    green:148.f/255.f
                                                     blue:222.f/255.f
-                                                   alpha:1.f];
-        cell.detailTextLabel.text = NSLocalizedString(@"marked_for_downloading", @"Settings/Downloader - info for country in the download queue");
+                                                    alpha:1.f];
+        cell.detailTextLabel.text = NSLocalizedString(@"marked_for_downloading", nil);
       }
       break;
 
     case ENotDownloaded:
       cell.textLabel.textColor = [UIColor blackColor];
-      cell.detailTextLabel.text = NSLocalizedString(@"touch_to_download", @"Settings/Downloader - info for not downloaded country");
+      cell.detailTextLabel.text = NSLocalizedString(@"touch_to_download", nil);
       break;
 
     case EUnknown:
@@ -248,73 +255,110 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   return cell;
 }
 
-// stores clicked country index when confirmation dialog is displayed
-TIndex g_clickedIndex;
-UITableViewCell * g_clickedCell = nil;
-
 // User confirmation after touching country
 - (void) actionSheet: (UIActionSheet *) actionSheet clickedButtonAtIndex: (NSInteger) buttonIndex
 {
-  if (buttonIndex == 0)
+  if (buttonIndex != actionSheet.cancelButtonIndex)
   {
-    // Delete country
     Framework & frm = GetFramework();
-    
-    switch (frm.GetCountryStatus(g_clickedIndex))
+    switch (m_countryStatus)
     {
     case EOnDiskOutOfDate:
-    case ENotDownloaded:
-    case EDownloadFailed:
-      frm.Storage().DownloadCountry(g_clickedIndex);
+      if (buttonIndex != 0)
+      {
+        [self TryDownloadCountry];
+        return;
+      }
       break;
 
-    default:
-      frm.DeleteCountry(g_clickedIndex);
-      // remove "zoom to country" icon
-      g_clickedCell.accessoryType = UITableViewCellAccessoryNone;
+    case ENotDownloaded:
+    case EDownloadFailed:
+      frm.Storage().DownloadCountry(m_clickedIndex);
+      return;
+    }
+
+    frm.DeleteCountry(m_clickedIndex);
+    // remove "zoom to country" icon
+    m_clickedCell.accessoryType = UITableViewCellAccessoryNone;
+  }
+}
+
+- (void) DoDownloadCountry
+{
+  if (m_countryStatus == EOnDiskOutOfDate)
+  {
+    GetFramework().Storage().DownloadCountry(m_clickedIndex);
+  }
+  else
+  {
+    NSString * countryName = [[m_clickedCell textLabel] text];
+    NSString * strDownload = [NSString stringWithFormat:NSLocalizedString(@"download_mb_or_kb", nil), [self GetStringForSize: m_downloadSize]];
+
+    UIActionSheet * popupQuery = [[UIActionSheet alloc]
+                                  initWithTitle: countryName
+                                  delegate: self
+                                  cancelButtonTitle: NSLocalizedString(@"cancel", nil)
+                                  destructiveButtonTitle: nil
+                                  otherButtonTitles: strDownload, nil];
+
+    [popupQuery showFromRect: [m_clickedCell frame] inView: self.view animated: YES];
+    [popupQuery release];
+  }
+}
+
+// 3G warning confirmation handler
+- (void) alertView: (UIAlertView *)alertView didDismissWithButtonIndex: (NSInteger)buttonIndex
+{
+  if (buttonIndex != alertView.cancelButtonIndex)
+  {
+    [self DoDownloadCountry];
+  }
+}
+
+- (void) TryDownloadCountry
+{
+  NSString * countryName = [[m_clickedCell textLabel] text];
+
+  if (FreeDiskSpaceInBytes() < (m_downloadSize + MB))
+  {
+    // No enough disk space - display warning dialog
+    [[[[CustomAlertView alloc] initWithTitle:NSLocalizedString(@"not_enough_disk_space", nil)
+                                     message:[NSString stringWithFormat:NSLocalizedString(@"free_space_for_country", nil), [self GetStringForSize: m_downloadSize], countryName]
+                                    delegate:nil
+                           cancelButtonTitle:NSLocalizedString(@"ok", nil)
+                           otherButtonTitles:nil] autorelease] show];
+  }
+  else
+  {
+    TActiveConnectionType const connType = GetActiveConnectionType();
+    if (connType == ENotConnected)
+    {
+      // No any connection - skip downloading
+      [[[[CustomAlertView alloc] initWithTitle:NSLocalizedString(@"no_internet_connection_detected", nil)
+                                     message:NSLocalizedString(@"use_wifi_recommendation_text", nil)
+                                    delegate:nil
+                           cancelButtonTitle:NSLocalizedString(@"ok", nil)
+                           otherButtonTitles:nil] autorelease] show];
+    }
+    else
+    {
+      if (connType == EConnectedBy3G && m_downloadSize > MAX_3G_MEGABYTES * MB)
+      {
+        // If user uses 3G, show warning before downloading
+        [[[[CustomAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"no_wifi_ask_cellular_download", nil), countryName]
+                                       message:nil
+                                      delegate:self
+                             cancelButtonTitle:NSLocalizedString(@"cancel", nil)
+                             otherButtonTitles:NSLocalizedString(@"use_cellular_data", nil),
+         nil] autorelease] show];
+      }
+      else
+        [self DoDownloadCountry];
     }
   }
 }
 
-- (void) showDownloadCountryConfirmation:(NSString *)countryName withSize:(LocalAndRemoteSizeT::first_type)size fromRect:(CGRect)rect
-{
-  // display confirmation popup with country size
-  // convert size to human readable values
-  NSString * strDownload = nil;
-  if (size > MB)
-  {
-    size /= MB;
-    strDownload = [NSString stringWithFormat:NSLocalizedString(@"download_x_mb", @"Settings/Downloader - Download confirmation button"), size];
-  }
-  else
-  {
-    size = (size + 999) / 1000;
-    strDownload = [NSString stringWithFormat:NSLocalizedString(@"download_x_kb", @"Settings/Downloader - Download confirmation button"), size];
-  }
-  
-  UIActionSheet * popupQuery = [[UIActionSheet alloc]
-                                initWithTitle: countryName
-                                delegate: self
-                                cancelButtonTitle: NSLocalizedString(@"cancel", @"Settings/Downloader - Download confirmation Cancel button")
-                                destructiveButtonTitle: nil
-                                otherButtonTitles: strDownload, nil];
-  [popupQuery showFromRect: rect inView: self.view animated: YES];
-  [popupQuery release];
-}
-
-// 3G warning confirmation handler
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-  if (buttonIndex != alertView.cancelButtonIndex)
-  {
-    LocalAndRemoteSizeT const sizePair = GetFramework().Storage().CountrySizeInBytes(g_clickedIndex);
-    LocalAndRemoteSizeT::first_type const size = sizePair.second - sizePair.first;
-
-    [self showDownloadCountryConfirmation:[[g_clickedCell textLabel] text] withSize:size fromRect:[g_clickedCell frame]];
-  }
-}
-
-- (void) tableView: (UITableView *) tableView didSelectRowAtIndexPath: (NSIndexPath *) indexPath
+- (void) tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
 {
 	// deselect the current row (don't keep the table selection persistent)
 	[tableView deselectRowAtIndexPath: indexPath animated:YES];
@@ -336,10 +380,11 @@ UITableViewCell * g_clickedCell = nil;
 		NSString * countryName = [[cell textLabel] text];
 
     // pass parameters to dialog handlers
-    g_clickedIndex = index;
-    g_clickedCell = cell;
+    m_clickedIndex = index;
+    m_clickedCell = cell;
+    m_countryStatus = frm.GetCountryStatus(index);
 
-		switch (frm.GetCountryStatus(index))
+		switch (m_countryStatus)
   	{
   		case EOnDisk:
     	{
@@ -347,72 +392,51 @@ UITableViewCell * g_clickedCell = nil;
     		UIActionSheet * popupQuery = [[[UIActionSheet alloc]
                                        initWithTitle: countryName
                                        delegate: self
-                                       cancelButtonTitle: NSLocalizedString(@"cancel", @"Settings/Downloader - Delete country dialog - Cancel deletion button")
-                                       destructiveButtonTitle: NSLocalizedString(@"delete", @"Settings/Downloader - Delete country dialog - Confirm deletion button")
+                                       cancelButtonTitle: NSLocalizedString(@"cancel", nil)
+                                       destructiveButtonTitle: NSLocalizedString(@"delete", nil)
                                        otherButtonTitles: nil] autorelease];
         [popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
+        break;
     	}
-      break;
+
+      case EOnDiskOutOfDate:
+      {
+        // advise to update or delete country
+        m_downloadSize = s.CountrySizeInBytes(index).second;
+
+        NSString * strUpdate = [NSString stringWithFormat:NSLocalizedString(@"update_mb_or_kb", nil), [self GetStringForSize: m_downloadSize]];
+
+        UIActionSheet * popupQuery = [[UIActionSheet alloc]
+                                      initWithTitle: countryName
+                                      delegate: self
+                                      cancelButtonTitle: NSLocalizedString(@"cancel", nil)
+                                      destructiveButtonTitle: NSLocalizedString(@"delete", nil)
+                                      otherButtonTitles: strUpdate, nil];
+
+        [popupQuery showFromRect: [cell frame] inView: self.view animated: YES];
+        [popupQuery release];
+        break;
+      }
 
       case ENotDownloaded:
       case EDownloadFailed:
-      case EOnDiskOutOfDate:
-      {
-        LocalAndRemoteSizeT const sizePair = s.CountrySizeInBytes(index);
-        LocalAndRemoteSizeT::first_type const size = sizePair.second - sizePair.first;
-
-        // check for disk free space first
-        if (FreeDiskSpaceInBytes() < (size + 1024*1024))
-        {
-          // display warning dialog about not enough free disk space
-          [[[[CustomAlertView alloc] initWithTitle:NSLocalizedString(@"not_enough_disk_space", @"Settings/Downloader - No free space dialog title")
-                                                                   message:[NSString stringWithFormat:NSLocalizedString(@"free_disk_space_for_country_x", @"Settings/Downloader - No free space dialog message"), countryName]
-                                                                  delegate:nil
-                                                         cancelButtonTitle:NSLocalizedString(@"ok", @"Settings/Downloader - No free space dialog close button")
-                                                         otherButtonTitles:nil] autorelease] show];
-          break;
-        }
-
-        TActiveConnectionType const connType = GetActiveConnectionType();
-        if (connType == ENotConnected)
-        {
-          // do not initiate any download
-          [[[[CustomAlertView alloc] initWithTitle:NSLocalizedString(@"no_internet_connection_detected", @"Settings/Downloader - No internet connection dialog title")
-                                           message:NSLocalizedString(@"use_wifi_recommendation_text", @"Settings/Downloader - No internet connection dialog message")
-                                          delegate:nil
-                                 cancelButtonTitle:NSLocalizedString(@"ok", @"Settings/Downloader - No internet connection dialog close button")
-                                 otherButtonTitles:nil] autorelease] show];
-        }
-        else
-        {
-          if (connType == EConnectedBy3G && size > MAX_3G_MEGABYTES * MB)
-          {
-            // If user uses 3G, show warning to him before downloading country
-            [[[[CustomAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"no_wifi_ask_cellular_download", @"Settings/Downloader - 3G download warning dialog title"), countryName]
-                                            message:nil
-                                           delegate:self
-                                  cancelButtonTitle:NSLocalizedString(@"cancel", @"Settings/Downloader - 3G download warning dialog cancel button")
-                                  otherButtonTitles:NSLocalizedString(@"use_cellular_data", @"Settings/Downloader - 3G download warning dialog confirm button"), nil] autorelease] show];
-          }
-          else
-            [self showDownloadCountryConfirmation:countryName withSize:size fromRect:[cell frame]];
-        }
-			}
-      break;
+        // advise to download country
+        m_downloadSize = s.CountrySizeInBytes(index).second;
+        [self TryDownloadCountry];
+        break;
 
   		case EDownloading:
 	    {
-        // display confirmation popup
-    		UIActionSheet * popupQuery = [[UIActionSheet alloc]
-      			initWithTitle: countryName
-        		delegate: self
-			cancelButtonTitle: NSLocalizedString(@"do_nothing", @"Settings/Downloader - Cancel active download dialog - Do not cancel button")
-			destructiveButtonTitle: NSLocalizedString(@"cancel_download", @"Settings/Downloader - Cancel active download dialog - Interrupt country download button")
+        // advise to stop download and delete country
+		UIActionSheet * popupQuery = [[UIActionSheet alloc] initWithTitle: countryName delegate: self
+            cancelButtonTitle: NSLocalizedString(@"do_nothing", nil)
+            destructiveButtonTitle: NSLocalizedString(@"cancel_download", nil)
         		otherButtonTitles: nil];
+
         [popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
     		[popupQuery release];
+        break;
     	}
-      break;
 
       case EInQueue:
         // cancel download
@@ -420,33 +444,33 @@ UITableViewCell * g_clickedCell = nil;
         break;
 
       default:
-        ASSERT(false, ());
+        ASSERT ( false, () );
   	}
   }
 }
 
-- (void) OnCountryChange: (TIndex const &) index
+- (void) OnCountryChange: (TIndex const &)index
 {
   if (IsOurIndex(index, m_index))
   {
     UITableView * tableView = (UITableView *)self.view;
     UITableViewCell * cell = [tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow: RowFromIndex(index) inSection: 0]];
+
     if (cell)
       [self UpdateCell: cell forCountry: index];
   }
 }
 
-- (void) OnDownload: (TIndex const &) index withProgress: (pair<int64_t, int64_t> const &) progress
+- (void) OnDownload: (TIndex const &)index withProgress: (pair<int64_t, int64_t> const &)progress
 {
   if (IsOurIndex(index, m_index))
   {
     UITableView * tableView = (UITableView *)self.view;
     UITableViewCell * cell = [tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow: RowFromIndex(index) inSection: 0]];
+
     if (cell)
-      cell.detailTextLabel.text = [NSString stringWithFormat: NSLocalizedString(@"downloading_x_touch_to_cancel", @"Settings/Downloader - country info current download progress"),
-                                   progress.first * 100 / progress.second];
+      cell.detailTextLabel.text = [NSString stringWithFormat: NSLocalizedString(@"downloading_touch_to_cancel", nil), progress.first * 100 / progress.second];
   }
 }
 
 @end
-
