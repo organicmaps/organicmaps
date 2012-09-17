@@ -25,7 +25,7 @@ for i, line in enumerate(sys.stdin):
         finally:
           remoteFile.close()
         break
-      except IOError as error:
+      except Exception as error:
         sys.stderr.write('Try {0}, error: {1}\n'.format(tryCount, error))
         if tryCount >= 5:
           raise
@@ -36,4 +36,4 @@ for i, line in enumerate(sys.stdin):
     localFile.write(data)
     localFile.close()
 
-    time.sleep(1)
+    time.sleep(0.3)
