@@ -28,6 +28,8 @@ cat wikitravel-pages.json | python $MY_PATH/wikitravel-optimize-articles.py
 
 $MY_PATH/extract-image-urls.sh wikitravel-images.urls
 
-wget --wait=1 --no-clobber -i wikitravel-images.urls
+$MY_PATH/normalize-image-urls.sh wikitravel-images.urls wikitravel-images-normalized.url
+
+wget --wait=1 --random-wait --no-clobber -i wikitravel-images-normalized.urls
 
 # TODO: Run publisher.
