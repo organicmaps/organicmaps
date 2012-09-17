@@ -149,13 +149,14 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
       fillList();
     }
 
+    private final long MB = 1024 * 1024;
+
     private String getSizeString(long size)
     {
-      final long Mb = 1024 * 1024;
-      if (size > Mb)
+      if (size > MB)
       {
-        // do the correct rounding of Mb
-        return (size + 512 * 1024) / Mb + " " + m_mb;
+        // do the correct rounding of MB
+        return (size + 512 * 1024) / MB + " " + m_mb;
       }
       else
       {
@@ -250,9 +251,8 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
           @Override
           public void onClick(DialogInterface dlg, int which)
           {
-            final long size = remoteSize - m_storage.countryLocalSizeInBytes(idx);
-            if (size > getFreeSpace())
-              showNotEnoughFreeSpaceDialog(getSizeString(size), name);
+            if (remoteSize + MB > getFreeSpace())
+              showNotEnoughFreeSpaceDialog(getSizeString(remoteSize), name);
             else
               m_storage.downloadCountry(idx);
 
@@ -276,7 +276,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
       case MapStorage.NOT_DOWNLOADED:
         // Check for available free space
         final long size = m_storage.countryRemoteSizeInBytes(idx);
-        if (size > getFreeSpace())
+        if (size + MB > getFreeSpace())
         {
           showNotEnoughFreeSpaceDialog(getSizeString(size), name);
         }
