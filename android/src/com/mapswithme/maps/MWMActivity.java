@@ -278,51 +278,54 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private void checkFacebookDialog()
   {
-    if ((ConnectionState.getState(this) != ConnectionState.NOT_CONNECTED)
-    && (mApplication.nativeShouldShowFacebookDialog()))
+    if ((ConnectionState.getState(this) != ConnectionState.NOT_CONNECTED) &&
+        mApplication.nativeShouldShowFacebookDialog())
     {
       new AlertDialog.Builder(this)
-        .setCancelable(false)
-        .setMessage(getString(R.string.share_on_facebook_text))
-        .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener()
+      .setCancelable(false)
+      .setMessage(getString(R.string.share_on_facebook_text))
+      .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener()
+      {
+        @Override
+        public void onClick(DialogInterface dlg, int which)
         {
-          @Override
-          public void onClick(DialogInterface dlg, int which)
-          {
-            dlg.dismiss();
-            mApplication.nativeSubmitFacebookDialogResult(0);
-            showFacebookPage();
-          }
-        })
-        .setNeutralButton(getString(R.string.later), new DialogInterface.OnClickListener()
+          dlg.dismiss();
+          mApplication.nativeSubmitFacebookDialogResult(0);
+          showFacebookPage();
+        }
+      })
+      .setNeutralButton(getString(R.string.later), new DialogInterface.OnClickListener()
+      {
+        @Override
+        public void onClick(DialogInterface dlg, int which)
         {
-          @Override
-          public void onClick(DialogInterface dlg, int which)
-          {
-            dlg.dismiss();
-            mApplication.nativeSubmitFacebookDialogResult(1);
-          }
-        })
-        .setNegativeButton(getString(R.string.never), new DialogInterface.OnClickListener()
+          dlg.dismiss();
+          mApplication.nativeSubmitFacebookDialogResult(1);
+        }
+      })
+      .setNegativeButton(getString(R.string.never), new DialogInterface.OnClickListener()
+      {
+        @Override
+        public void onClick(DialogInterface dlg, int which)
         {
-          @Override
-          public void onClick(DialogInterface dlg, int which)
-          {
-            dlg.dismiss();
-            mApplication.nativeSubmitFacebookDialogResult(2);
-          }
-        })
-        .create()
-        .show();
-
+          dlg.dismiss();
+          mApplication.nativeSubmitFacebookDialogResult(2);
+        }
+      })
+      .create()
+      .show();
     }
   }
 
   /// Invoked from native code - asynchronous server check.
   public void onProVersionAvailable()
   {
-    findViewById(R.id.map_button_search).setVisibility(View.VISIBLE);
-    showProVersionBanner(getString(R.string.pro_version_available));
+    final View v = findViewById(R.id.map_button_search);
+    if (v != null && !isActivityPaused() && !isFinishing())
+    {
+      v.setVisibility(View.VISIBLE);
+      showProVersionBanner(getString(R.string.pro_version_available));
+    }
   }
 
   private void showProVersionBanner(String message)
@@ -467,36 +470,36 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       if (!Utils.isKindleFire())
       {
         new AlertDialog.Builder(this).setTitle(R.string.location_is_disabled_long_text)
-            .setPositiveButton(R.string.connection_settings, new DialogInterface.OnClickListener()
+        .setPositiveButton(R.string.connection_settings, new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dialog, int which)
+          {
+            try
             {
-              @Override
-              public void onClick(DialogInterface dialog, int which)
-              {
-                try
-                {
-                  startActivity(new Intent(
-                      android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                } catch (Exception e)
-                {
-                  // On older Android devices location settings are merged with security
-                  try
-                  {
-                    startActivity(new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS));
-                  } catch (Exception ex)
-                  {
-                    ex.printStackTrace();
-                  }
-                }
-                dialog.cancel();
-              }
-            }).setNegativeButton(R.string.close, new DialogInterface.OnClickListener()
+              startActivity(new Intent(
+                                       android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            } catch (Exception e)
             {
-              @Override
-              public void onClick(DialogInterface dialog, int which)
+              // On older Android devices location settings are merged with security
+              try
               {
-                dialog.cancel();
+                startActivity(new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS));
+              } catch (Exception ex)
+              {
+                ex.printStackTrace();
               }
-            }).show();
+            }
+            dialog.cancel();
+          }
+        }).setNegativeButton(R.string.close, new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dialog, int which)
+          {
+            dialog.cancel();
+          }
+        }).show();
       }
     }
   }
@@ -671,6 +674,12 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       }
       m_storageDisconnectedDialog.show();
     }
+  }
+
+  private boolean isActivityPaused()
+  {
+    // This receiver is null only when activity is paused (see onPause, onResume).
+    return (m_externalStorageReceiver == null);
   }
 
   private void startWatchingExternalStorage()

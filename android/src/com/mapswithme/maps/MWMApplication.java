@@ -155,10 +155,12 @@ public class MWMApplication extends android.app.Application implements MapStorag
     return getCacheDir().getAbsolutePath() + "/";
   }
 
+  /*
   private String getSettingsPath()
   {
     return getFilesDir().getAbsolutePath() + "/";
   }
+  */
 
   static
   {
