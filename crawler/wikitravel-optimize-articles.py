@@ -7,6 +7,9 @@ import sys
 
 myPath = os.path.dirname(os.path.realpath(__file__))
 
+def formatPath(s):
+  return s.replace('(', '\\(').replace(')', '\\)')
+
 for i, line in enumerate(sys.stdin):
   (url, title, fileBase) = json.loads(line)
   fileName = fileBase + '.article'
@@ -19,4 +22,6 @@ for i, line in enumerate(sys.stdin):
                  '--remove-intertag-spaces --simple-bool-attr --remove-quotes '
                   '--remove-js-protocol --type html '
                 '-o {outFileName} {fileName}'
-                 .format(myPath = myPath, fileName = fileName, outFileName = outFileName))
+                 .format(myPath = myPath,
+                         fileName = formatPath(fileName),
+                         outFileName = formatPath(outFileName)))
