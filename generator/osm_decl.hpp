@@ -93,6 +93,7 @@ struct RelationElement
 
   string GetType() const;
   bool FindWay(uint64_t id, string & role) const;
+  bool FindNode(uint64_t id, string & role) const;
 
   template <class ToDo> void ForEachWay(ToDo & toDo) const
   {

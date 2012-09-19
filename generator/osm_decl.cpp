@@ -35,13 +35,27 @@ string RelationElement::GetType() const
   return ((i != tags.end()) ? i->second : string());
 }
 
+namespace
+{
+  bool FindRoleImpl(vector<pair<uint64_t, string> > const & cnt,
+                    uint64_t id, string & role)
+  {
+    for (size_t i = 0; i < cnt.size(); ++i)
+      if (cnt[i].first == id)
+      {
+        role = cnt[i].second;
+        return true;
+      }
+    return false;
+  }
+}
+
 bool RelationElement::FindWay(uint64_t id, string & role) const
 {
-  for (size_t i = 0; i < ways.size(); ++i)
-    if (ways[i].first == id)
-    {
-      role = ways[i].second;
-      return true;
-    }
-    return false;
+  return FindRoleImpl(ways, id, role);
+}
+
+bool RelationElement::FindNode(uint64_t id, string & role) const
+{
+  return FindRoleImpl(nodes, id, role);
 }

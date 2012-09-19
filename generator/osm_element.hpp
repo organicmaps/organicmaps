@@ -222,7 +222,12 @@ protected:
     bool IsAcceptBoundaryTypes(RelationElement const & rel) const
     {
       string role;
-      VERIFY ( rel.FindWay(m_featureID, role), (m_featureID) );
+      if (!rel.FindWay(m_featureID, role))
+      {
+        // This case is possible when we found the relation by node (just skip it).
+        CHECK ( rel.FindNode(m_featureID, role), (m_featureID) );
+        return false;
+      }
 
       // Do not accumulate boundary types (boundary-administrative-*) for inner polygons.
       // Example: Minsk city border (admin_level=8) is inner for Minsk area border (admin_level=4).
@@ -359,6 +364,8 @@ class SecondPassParserUsual : public SecondPassParserBase<TEmitter, THolder>
 protected:
   virtual void EmitElement(XMLElement * p)
   {
+    using namespace feature;
+
     uint64_t id;
     FeatureParams fValue;
     if (!base_type::ParseType(p, id, fValue))
@@ -369,7 +376,7 @@ protected:
 
     if (p->name == "node")
     {
-      if (!feature::IsDrawableLike(fValue.m_Types, feature::FEATURE_TYPE_POINT))
+      if (!feature::RemoveNoDrawableTypes(fValue.m_Types, FEATURE_TYPE_POINT))
         return;
 
       m2::PointD pt;
@@ -380,13 +387,7 @@ protected:
     }
     else if (p->name == "way")
     {
-      bool const isLine = feature::IsDrawableLike(fValue.m_Types, feature::FEATURE_TYPE_LINE) ||
-      // this is important fix: we need to process all coastlines even without linear drawing rules
-          (m_coastType != 0 && fValue.IsTypeExist(m_coastType));
-
-      bool const isArea = feature::IsDrawableLike(fValue.m_Types, feature::FEATURE_TYPE_AREA);
-
-      if (!isLine && !isArea)
+      if (!feature::RemoveNoDrawableTypes(fValue.m_Types, FEATURE_TYPE_LINE_AREA))
         return;
 
       // geometry of feature
@@ -395,8 +396,7 @@ protected:
         if (p->childs[i].name == "nd")
         {
           uint64_t nodeID;
-          VERIFY ( strings::to_uint64(p->childs[i].attrs["ref"], nodeID),
-                   ("Bad node ref in way : ", p->childs[i].attrs["ref"]) );
+          CHECK ( strings::to_uint64(p->childs[i].attrs["ref"], nodeID), (p->childs[i].attrs["ref"]) );
 
           m2::PointD pt;
           if (!base_type::GetPoint(nodeID, pt))
@@ -410,13 +410,25 @@ protected:
       if (count < 2)
         return;
 
-      if (isLine)
-        ft.SetLinear();
-
-      // Get the tesselation for an area object (only if it has area drawing rules,
-      // otherwise it will stay a linear object).
-      if (isArea && count > 2 && ft.IsGeometryClosed())
+      // Try to set area feature (linear types are also suitable for this)
+      if (feature::IsDrawableLike(fValue.m_Types, FEATURE_TYPE_AREA) &&
+          (count > 2) && ft.IsGeometryClosed())
+      {
         base_type::FinishAreaFeature(id, ft);
+      }
+      else
+      {
+        // Try to set linear feature:
+        // - it's a coastline, OR
+        // - has linear types (remove others)
+        if ((m_coastType != 0 && fValue.IsTypeExist(m_coastType)) ||
+            feature::RemoveNoDrawableTypes(fValue.m_Types, FEATURE_TYPE_LINE))
+        {
+          ft.SetLinear();
+        }
+        else
+          return;
+      }
     }
     else if (p->name == "relation")
     {
@@ -438,16 +450,13 @@ protected:
       }
 
       // 2. Relation should have visible area types.
-      if (!feature::IsDrawableLike(fValue.m_Types, feature::FEATURE_TYPE_AREA))
-      {
-        LOG(LWARNING, ("Polygon relation without area types:", id));
+      if (!feature::IsDrawableLike(fValue.m_Types, FEATURE_TYPE_AREA))
         return;
-      }
 
       typename base_type::holes_accumulator holes(this);
       typename base_type::way_map_t wayMap;
 
-      // 2. Iterate ways to get 'outer' and 'inner' geometries
+      // 3. Iterate ways to get 'outer' and 'inner' geometries
       for (size_t i = 0; i < p->childs.size(); ++i)
       {
         if (p->childs[i].name == "member" &&
@@ -455,8 +464,7 @@ protected:
         {
           string const & role = p->childs[i].attrs["role"];
           uint64_t wayID;
-          VERIFY ( strings::to_uint64(p->childs[i].attrs["ref"], wayID),
-            ("Bad way ref in relation : ", p->childs[i].attrs["ref"]) );
+          CHECK ( strings::to_uint64(p->childs[i].attrs["ref"], wayID), (p->childs[i].attrs["ref"]) );
 
           if (role == "outer")
           {
@@ -465,10 +473,6 @@ protected:
           else if (role == "inner")
           {
             holes(wayID);
-          }
-          else if (role.empty())
-          {
-            LOG(LWARNING, ("Way", wayID, "in relation", id, "with empty role"));
           }
         }
       }

@@ -254,6 +254,47 @@ bool IsDrawableForIndex(FeatureBase const & f, int level)
   return false;
 }
 
+namespace
+{
+  class CheckNonDrawableType
+  {
+    Classificator & m_c;
+    FeatureGeoType m_arr[3];
+    size_t m_count;
+
+  public:
+    CheckNonDrawableType(FeatureGeoType ft)
+      : m_c(classif()), m_count(0)
+    {
+      if (ft < FEATURE_TYPE_LINE_AREA)
+        m_arr[m_count++] = ft;
+      else
+      {
+        ASSERT_EQUAL ( ft, FEATURE_TYPE_LINE_AREA, () );
+        m_arr[m_count++] = FEATURE_TYPE_LINE;
+        m_arr[m_count++] = FEATURE_TYPE_AREA;
+      }
+    }
+
+    bool operator() (uint32_t t)
+    {
+      for (size_t i = 0; i < m_count; ++i)
+      {
+        IsDrawableLikeChecker doCheck(m_arr[i]);
+        if (m_c.ProcessObjects(t, doCheck))
+          return false;
+      }
+      return true;
+    }
+  };
+}
+
+bool RemoveNoDrawableTypes(vector<uint32_t> & types, FeatureGeoType ft)
+{
+  types.erase(remove_if(types.begin(), types.end(), CheckNonDrawableType(ft)), types.end());
+  return !types.empty();
+}
+
 int GetMinDrawableScale(FeatureBase const & f)
 {
   int const upBound = scales::GetUpperScale();
