@@ -10,10 +10,16 @@ namespace yg
     : m_pivot(), m_position(yg::EPosAboveRight), m_depth(yg::maxDepth)
   {}
 
+  OverlayElement::UserInfo::UserInfo()
+    : m_featureID0(0),
+      m_featureID1(0)
+  {}
+
   OverlayElement::OverlayElement(Params const & p)
     : m_pivot(p.m_pivot),
       m_position(p.m_position),
       m_depth(p.m_depth),
+      m_userInfo(p.m_userInfo),
       m_isNeedRedraw(true),
       m_isFrozen(false),
       m_isVisible(true),
@@ -176,5 +182,10 @@ namespace yg
   bool OverlayElement::roughHitTest(m2::PointD const & pt) const
   {
     return roughBoundRect().IsPointInside(pt);
+  }
+
+  OverlayElement::UserInfo const & OverlayElement::userInfo() const
+  {
+    return m_userInfo;
   }
 }

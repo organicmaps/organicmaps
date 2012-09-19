@@ -15,11 +15,21 @@ namespace yg
 
   class OverlayElement
   {
+  public:
+
+    struct UserInfo
+    {
+      uint32_t m_featureID0;
+      uint32_t m_featureID1;
+      UserInfo();
+    };
+
   private:
 
     m2::PointD m_pivot;
     yg::EPosition m_position;
     double m_depth;
+    UserInfo m_userInfo;
 
     bool m_isNeedRedraw;
     bool m_isFrozen;
@@ -40,6 +50,7 @@ namespace yg
       m2::PointD m_pivot;
       yg::EPosition m_position;
       double m_depth;
+      UserInfo m_userInfo;
       Params();
     };
 
@@ -81,6 +92,8 @@ namespace yg
 
     bool isValid() const;
     void setIsValid(bool flag);
+
+    UserInfo const & userInfo() const;
 
     virtual bool hitTest(m2::PointD const & pt) const;
     virtual bool roughHitTest(m2::PointD const & pt) const;
