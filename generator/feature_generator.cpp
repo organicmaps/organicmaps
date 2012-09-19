@@ -314,9 +314,10 @@ public:
   {
     if (m_coasts)
     {
-      CHECK ( fb.GetGeomType() != feature::GEOM_POINT, () );
       if (fb.HasType(m_coastType))
       {
+        CHECK ( fb.GetGeomType() != feature::GEOM_POINT, () );
+
         // leave only coastline type
         fb.SetType(m_coastType);
         (*m_coasts)(fb);
