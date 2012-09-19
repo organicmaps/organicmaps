@@ -22,30 +22,42 @@ if [[ $? -ne 0 ]]; then
 fi
 export SDK_ROOT
 
-QMAKE_PARAMS="CONFIG+=${CONFIGURATION}"
-if [[ $CONFIGURATION == "production" ]] ; then
-  QMAKE_PARAMS="$QMAKE_PARAMS CONFIG+=release"
-fi
+SHADOW_DIR="$LOCAL_DIRNAME/../../../omim-iphone"
 
-SHADOW_DIR_BASE="$LOCAL_DIRNAME/../../../omim-iphone"
+if [[ $CONFIGURATION == *production* ]]; then
+  QMAKE_PARAMS="CONFIG+=production CONFIG+=release"
+  SHADOW_DIR="${SHADOW_DIR}-production"
+elif [[ $CONFIGURATION == *release* ]]; then
+  QMAKE_PARAMS="CONFIG+=release"
+  SHADOW_DIR="${SHADOW_DIR}-release"
+elif [[ $CONFIGURATION == *debug* || $CONFIGURATION == "simulator" ]]; then
+  QMAKE_PARAMS="CONFIG+=debug"
+  SHADOW_DIR="${SHADOW_DIR}-debug"
+else
+  echo "Unrecognized configuration passed to the script: $CONFIGURATION"
+  exit 1
+fi
 
 if [[ $CONFIGURATION == *simulator* ]]; then
-  if [[ $CONFIGURATION == "simulator-release" ]]; then
-    SHADOW_DIR="${SHADOW_DIR_BASE}sim-release"
-    QMAKE_PARAMS="CONFIG+=release"
-  else
-    SHADOW_DIR="${SHADOW_DIR_BASE}sim-debug"
-    QMAKE_PARAMS="CONFIG+=debug"
-  fi
-  MKSPEC="$LOCAL_DIRNAME/../mkspecs/iphonesimulator-llvm"
+  MKSPEC="$LOCAL_DIRNAME/../mkspecs/iphonesimulator"
 else
-  SHADOW_DIR="${SHADOW_DIR_BASE}-${CONFIGURATION}"
-  MKSPEC="$LOCAL_DIRNAME/../mkspecs/iphonedevice-llvm"
+  MKSPEC="$LOCAL_DIRNAME/../mkspecs/iphonedevice"
 fi
 
-if [[ $# > 1 && "$2" == "clean" ]] ; then
-  echo "Cleaning $CONFIGURATION configuration..."
-  rm -rf "$SHADOW_DIR"
+if [[ $GCC_VERSION == *clang* ]]; then
+  MKSPEC="${MKSPEC}-clang"
 else
-  BuildQt "$SHADOW_DIR" "$MKSPEC" "$QMAKE_PARAMS" || ( echo "ERROR while building $CONFIGURATION config"; exit 1 )
+  MKSPEC="${MKSPEC}-llvm"
 fi
+
+# Build libs for each architecture in separate folders
+for ARCH in $VALID_ARCHS; do
+  if [[ $# > 1 && "$2" == "clean" ]] ; then
+    echo "Cleaning $CONFIGURATION configuration..."
+    rm -rf "$SHADOW_DIR-$ARCH"
+  else
+    # pass build architecture to qmake as an environment variable, see mkspecs/iphone*/qmake.conf
+    export BUILD_ARCHITECTURE="$ARCH"
+    BuildQt "$SHADOW_DIR-$ARCH" "$MKSPEC" "$QMAKE_PARAMS" || ( echo "ERROR while building $CONFIGURATION config"; exit 1 )
+  fi
+done

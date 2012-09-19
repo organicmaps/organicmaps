@@ -4350,6 +4350,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = i386;
 				BUNDLE_IDENTIFIER = com.mapswithme.travelguide.simulator;
+				CLANG_CXX_LIBRARY = "libstdc++";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2.2;
@@ -4364,14 +4365,16 @@
 					_DEBUG,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphonesim-debug/out/debug\"";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-debug-i386/out/debug\"";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = "-Wall";
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-mno-thumb",
+				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "MWM Dbg Lite";
 				SDKROOT = iphoneos;
@@ -4386,12 +4389,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					armv7,
-				);
 				BUNDLE_IDENTIFIER = com.mapswithme.travelguide;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Yury Melnichek";
+				CLANG_CXX_LIBRARY = "libstdc++";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 2.2;
@@ -4406,26 +4406,28 @@
 					_RELEASE,
 					NDEBUG,
 					TARGET_OS_IPHONE,
+					"NS_BLOCK_ASSERTIONS=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_THUMB_SUPPORT = NO;
-				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
 				GCC_UNROLL_LOOPS = YES;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production/out/production\"";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				"LIBRARY_SEARCH_PATHS[arch=armv7]" = "\"$(SRCROOT)/../../../omim-iphone-production-armv7/out/production\"";
+				"LIBRARY_SEARCH_PATHS[arch=armv7s]" = "\"$(SRCROOT)/../../../omim-iphone-production-armv7s/out/production\"";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = "-Wall";
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-mno-thumb",
+				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = MapsWithMe;
-				PROVISIONING_PROFILE = "6F57AA0F-13F9-49C8-A4C6-AD6438C87533";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "armv6 armv7";
+				VALID_ARCHS = "armv7s armv7";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "Production Lite";
@@ -4441,11 +4443,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					armv7,
-				);
 				BUNDLE_IDENTIFIER = com.mapswithme.travelguide.debug;
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
@@ -4461,23 +4460,24 @@
 					TARGET_OS_IPHONE,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_THUMB_SUPPORT = NO;
-				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-debug/out/debug\"";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				"LIBRARY_SEARCH_PATHS[arch=armv7]" = "\"$(SRCROOT)/../../../omim-iphone-debug-armv7/out/debug\"";
+				"LIBRARY_SEARCH_PATHS[arch=armv7s]" = "\"$(SRCROOT)/../../../omim-iphone-debug-armv7s/out/debug\"";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = "-Wall";
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-mno-thumb",
+				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "MWM Dbg Lite";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "armv6 armv7";
+				VALID_ARCHS = armv7;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "Debug Lite";
@@ -4493,11 +4493,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					armv7,
-				);
 				BUNDLE_IDENTIFIER = com.mapswithme.travelguide.beta;
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = YES;
@@ -4513,26 +4510,28 @@
 					RELEASE,
 					_RELEASE,
 					TARGET_OS_IPHONE,
+					"NS_BLOCK_ASSERTIONS=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_THUMB_SUPPORT = NO;
-				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
 				GCC_UNROLL_LOOPS = YES;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production/out/production\"";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				"LIBRARY_SEARCH_PATHS[arch=armv7]" = "\"$(SRCROOT)/../../../omim-iphone-production-armv7/out/production\"";
+				"LIBRARY_SEARCH_PATHS[arch=armv7s]" = "\"$(SRCROOT)/../../../omim-iphone-production-armv7s/out/production\"";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = "-Wall";
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-mno-thumb",
+				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "MWM Beta Lite";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "armv6 armv7";
+				VALID_ARCHS = "armv7s armv7";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "AdHoc Lite";
@@ -4550,6 +4549,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = i386;
 				BUNDLE_IDENTIFIER = com.mapswithme.full.simulator;
+				CLANG_CXX_LIBRARY = "libstdc++";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2.2;
@@ -4564,14 +4564,16 @@
 					_DEBUG,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphonesim-debug/out/debug\"";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-debug-i386/out/debug\"";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = "-Wall";
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-mno-thumb",
+				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "MWM Dbg";
 				SDKROOT = iphoneos;
@@ -4593,11 +4595,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					armv7,
-				);
 				BUNDLE_IDENTIFIER = com.mapswithme.full.debug;
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
@@ -4613,23 +4612,24 @@
 					TARGET_OS_IPHONE,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_THUMB_SUPPORT = NO;
-				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-debug/out/debug\"";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				"LIBRARY_SEARCH_PATHS[arch=armv7]" = "\"$(SRCROOT)/../../../omim-iphone-debug-armv7/out/debug\"";
+				"LIBRARY_SEARCH_PATHS[arch=armv7s]" = "\"$(SRCROOT)/../../../omim-iphone-debug-armv7s/out/debug\"";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = "-Wall";
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-mno-thumb",
+				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "MWM Dbg";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "armv6 armv7";
+				VALID_ARCHS = armv7;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "Debug Full";
@@ -4645,11 +4645,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					armv7,
-				);
 				BUNDLE_IDENTIFIER = com.mapswithme.full.beta;
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = YES;
@@ -4665,26 +4662,28 @@
 					RELEASE,
 					_RELEASE,
 					TARGET_OS_IPHONE,
+					"NS_BLOCK_ASSERTIONS=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_THUMB_SUPPORT = NO;
-				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
 				GCC_UNROLL_LOOPS = YES;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production/out/production\"";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				"LIBRARY_SEARCH_PATHS[arch=armv7]" = "\"$(SRCROOT)/../../../omim-iphone-production-armv7/out/production\"";
+				"LIBRARY_SEARCH_PATHS[arch=armv7s]" = "\"$(SRCROOT)/../../../omim-iphone-production-armv7s/out/production\"";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = "-Wall";
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-mno-thumb",
+				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "MWM Beta";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "armv6 armv7";
+				VALID_ARCHS = "armv7s armv7";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "AdHoc Full";
@@ -4700,12 +4699,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					armv7,
-				);
 				BUNDLE_IDENTIFIER = com.mapswithme.full;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Yury Melnichek";
+				CLANG_CXX_LIBRARY = "libstdc++";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 2.2;
@@ -4720,25 +4716,28 @@
 					_RELEASE,
 					NDEBUG,
 					TARGET_OS_IPHONE,
+					"NS_BLOCK_ASSERTIONS=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_THUMB_SUPPORT = NO;
-				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
 				GCC_UNROLL_LOOPS = YES;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production/out/production\"";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				"LIBRARY_SEARCH_PATHS[arch=armv7]" = "\"$(SRCROOT)/../../../omim-iphone-production-armv7/out/production\"";
+				"LIBRARY_SEARCH_PATHS[arch=armv7s]" = "\"$(SRCROOT)/../../../omim-iphone-production-armv7s/out/production\"";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = "-Wall";
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-mno-thumb",
+				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = MapsWithMe;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "armv6 armv7";
+				VALID_ARCHS = "armv7s armv7";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "Production Full";
@@ -4754,11 +4753,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					armv7,
-				);
 				BUNDLE_IDENTIFIER = com.mapswithme.travelguide.release;
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
@@ -4773,26 +4769,28 @@
 					RELEASE,
 					_RELEASE,
 					TARGET_OS_IPHONE,
+					"NS_BLOCK_ASSERTIONS=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_THUMB_SUPPORT = NO;
-				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
 				GCC_UNROLL_LOOPS = YES;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-release/out/release\"";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				"LIBRARY_SEARCH_PATHS[arch=armv7]" = "\"$(SRCROOT)/../../../omim-iphone-release-armv7/out/release\"";
+				"LIBRARY_SEARCH_PATHS[arch=armv7s]" = "\"$(SRCROOT)/../../../omim-iphone-release-armv7s/out/release\"";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = "-Wall";
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-mno-thumb",
+				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "MWM Rel Lite";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "armv6 armv7";
+				VALID_ARCHS = armv7;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "Release Lite";
@@ -4808,11 +4806,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					armv7,
-				);
 				BUNDLE_IDENTIFIER = com.mapswithme.full.release;
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
@@ -4827,26 +4822,28 @@
 					RELEASE,
 					_RELEASE,
 					TARGET_OS_IPHONE,
+					"NS_BLOCK_ASSERTIONS=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_THUMB_SUPPORT = NO;
-				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
 				GCC_UNROLL_LOOPS = YES;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-release/out/release\"";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				"LIBRARY_SEARCH_PATHS[arch=armv7]" = "\"$(SRCROOT)/../../../omim-iphone-release-armv7/out/release\"";
+				"LIBRARY_SEARCH_PATHS[arch=armv7s]" = "\"$(SRCROOT)/../../../omim-iphone-release-armv7s/out/release\"";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = "-Wall";
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-mno-thumb",
+				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "MWM Rel";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "armv6 armv7";
+				VALID_ARCHS = armv7;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "Release Full";
@@ -4864,6 +4861,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = i386;
 				BUNDLE_IDENTIFIER = com.mapswithme.full.simulator.release;
+				CLANG_CXX_LIBRARY = "libstdc++";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2.2;
@@ -4877,17 +4875,20 @@
 					NDEBUG,
 					RELEASE,
 					_RELEASE,
+					"NS_BLOCK_ASSERTIONS=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphonesim-release/out/release\"";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-release-i386/out/release\"";
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = "-Wall";
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-mno-thumb",
+				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "MWM Rel";
 				SDKROOT = iphoneos;
