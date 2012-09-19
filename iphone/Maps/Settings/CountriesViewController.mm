@@ -138,12 +138,12 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   if (size > MB)
   {
     // do the correct rounding of Mb
-    return [NSString stringWithFormat:@"%d %@", (size + 512 * 1024) / MB, NSLocalizedString(@"mb", nil)];
+    return [NSString stringWithFormat:@"%ld %@", (size + 512 * 1024) / MB, NSLocalizedString(@"mb", nil)];
   }
   else
   {
     // get upper bound size for Kb
-    return [NSString stringWithFormat:@"%d %@", (size + 1023) / 1024, NSLocalizedString(@"kb", nil)];
+    return [NSString stringWithFormat:@"%ld %@", (size + 1023) / 1024, NSLocalizedString(@"kb", nil)];
   }
 }
 
@@ -275,6 +275,12 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
     case EDownloadFailed:
       frm.Storage().DownloadCountry(m_clickedIndex);
       return;
+
+    case EOnDisk:
+    case EDownloading:
+    case EInQueue:
+    case EUnknown:
+        break;
     }
 
     frm.DeleteCountry(m_clickedIndex);
