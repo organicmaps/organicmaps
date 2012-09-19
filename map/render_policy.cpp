@@ -225,6 +225,16 @@ shared_ptr<anim::Controller> const & RenderPolicy::GetAnimController() const
   return m_controller;
 }
 
+void RenderPolicy::SetOverlay(shared_ptr<yg::Overlay> const & overlay)
+{
+  m_overlay = overlay;
+}
+
+shared_ptr<yg::Overlay> const RenderPolicy::GetOverlay() const
+{
+  return m_overlay;
+}
+
 RenderPolicy * CreateRenderPolicy(RenderPolicy::Params const & params)
 {
 #ifdef OMIM_OS_ANDROID

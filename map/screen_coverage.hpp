@@ -52,7 +52,7 @@ private:
   /// from TileCache while drawing them
   TTileSet m_tiles;
   /// Overlay composed of overlays for visible tiles
-  scoped_ptr<yg::Overlay> m_overlay;
+  shared_ptr<yg::Overlay> m_overlay;
 
   /// State flags
 
@@ -111,7 +111,7 @@ public:
   /// Check, whether the model is empty at the center of the coverage.
   void CheckEmptyModelAtCoverageCenter();
   /// Getter for Overlay
-  yg::Overlay * GetOverlay() const;
+  shared_ptr<yg::Overlay> const & GetOverlay() const;
   /// Cache coverage in display list
   void Cache();
   /// add rendered tile to coverage. Tile is locked, so make sure to unlock it in case it's not needed.

@@ -292,6 +292,10 @@ public:
   /// @param[in] pt Point in mercator coordinates.
   void GetAddressInfo(m2::PointD const & pt, AddressInfo & info) const;
 
+  bool GetVisiblePOI(m2::PointD const & pxPoint,
+                     m2::PointD & pv,
+                     AddressInfo & info);
+
   virtual void BeginPaint(shared_ptr<PaintEvent> const & e);
   /// Function for calling from platform dependent-paint function.
   virtual void DoPaint(shared_ptr<PaintEvent> const & e);

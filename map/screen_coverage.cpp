@@ -377,9 +377,9 @@ void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)
     m_displayList->draw(m_screen.PtoGMatrix() * screen.GtoPMatrix());
 }
 
-yg::Overlay * ScreenCoverage::GetOverlay() const
+shared_ptr<yg::Overlay> const & ScreenCoverage::GetOverlay() const
 {
-  return m_overlay.get();
+  return m_overlay;
 }
 
 int ScreenCoverage::GetDrawScale() const

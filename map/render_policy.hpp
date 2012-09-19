@@ -61,6 +61,9 @@ protected:
   double m_visualScale;
   string m_skinName;
   shared_ptr<anim::Controller> m_controller;
+  shared_ptr<yg::Overlay> m_overlay;
+
+  void SetOverlay(shared_ptr<yg::Overlay> const & overlay);
 
 public:
 
@@ -138,6 +141,8 @@ public:
   /// Benchmarking protocol
   virtual int InsertBenchmarkFence();
   virtual void JoinBenchmarkFence(int fenceID);
+
+  virtual shared_ptr<yg::Overlay> const GetOverlay() const;
 };
 
 RenderPolicy * CreateRenderPolicy(RenderPolicy::Params const & params);

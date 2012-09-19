@@ -111,6 +111,8 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
 
   ScreenCoverage * curCvg = &m_CoverageGenerator->CurrentCoverage();
 
+  SetOverlay(curCvg->GetOverlay());
+
   curCvg->Draw(pDrawer->screen().get(), s);
 
   m_DrawScale = curCvg->GetDrawScale();

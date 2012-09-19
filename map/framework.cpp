@@ -1255,6 +1255,61 @@ void Framework::SaveFacebookDialogResult(int result)
   }
 }
 
+void GetClosestToPivot(list<shared_ptr<yg::OverlayElement> > & l,
+                       m2::PointD const & pxPoint,
+                       shared_ptr<yg::OverlayElement> & res)
+{
+  double dist = numeric_limits<double>::max();
+
+  for (list<shared_ptr<yg::OverlayElement> >::const_iterator it = l.begin();
+       it != l.end();
+       ++it)
+  {
+    double curDist = pxPoint.Length((*it)->pivot());
+
+    if (curDist < dist)
+    {
+      dist = curDist;
+      res = *it;
+    }
+  }
+}
+
+bool Framework::GetVisiblePOI(m2::PointD const & pxPoint,
+                              m2::PointD & pv,
+                              AddressInfo & info)
+{
+  m2::PointD pt = GetNavigator().ShiftPoint(pxPoint);
+
+  if (!m_renderPolicy)
+  {
+    LOG(LINFO, ("GetVisiblePOI called without valid renderPolicy!"));
+    return false;
+  }
+
+  shared_ptr<yg::Overlay> overlay = m_renderPolicy->GetOverlay();
+
+  m2::PointD halfSize(12 * m_renderPolicy->VisualScale(),
+                      12 * m_renderPolicy->VisualScale());
+
+  list<shared_ptr<yg::OverlayElement> > candidates;
+  overlay->selectOverlayElements(m2::RectD(pt - halfSize, pt + halfSize), candidates);
+
+  shared_ptr<yg::OverlayElement> res;
+
+  GetClosestToPivot(candidates, pt, res);
+
+  if (res)
+  {
+    /// TODO : get featureID associated with res.
+    /// Obtain AddressInfo by this featureID.
+
+    return true;
+  }
+  else
+    return false;
+}
+
 Navigator & Framework::GetNavigator()
 {
   return m_navigator;

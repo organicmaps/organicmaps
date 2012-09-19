@@ -93,6 +93,8 @@ void BasicRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   m_RenderQueue->renderState().m_mutex->Lock();
 
+  SetOverlay(m_RenderQueue->renderState().m_currentOverlay);
+
   if (m_RenderQueue->renderState().m_actualTarget.get() != 0)
   {
     m2::PointD const ptShift = m_RenderQueue->renderState().coordSystemShift(false);

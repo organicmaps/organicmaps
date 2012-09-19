@@ -300,6 +300,7 @@ void RenderQueueRoutine::Do()
   shared_ptr<yg::Overlay> overlay(new yg::Overlay());
   overlay->setCouldOverlap(false);
   m_threadDrawer->screen()->setOverlay(overlay);
+  m_renderState->m_currentOverlay = overlay;
 
   while (!IsCancelled())
   {
