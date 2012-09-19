@@ -38,6 +38,7 @@ namespace yg
     void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m);
 
     void selectOverlayElements(m2::PointD const & pt, list<shared_ptr<OverlayElement> > & res);
+    void selectOverlayElements(m2::RectD const & rect, list<shared_ptr<OverlayElement> > & res);
 
     void removeOverlayElement(shared_ptr<OverlayElement> const & oe, m2::RectD const & r);
 

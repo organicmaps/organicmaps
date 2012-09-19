@@ -153,12 +153,12 @@ namespace yg
     m_tree.Add(oe);
   }
 
-  struct DoPreciseSelect
+  struct DoPreciseSelectByPoint
   {
     m2::PointD m_pt;
     list<shared_ptr<OverlayElement> > * m_elements;
 
-    DoPreciseSelect(m2::PointD const & pt, list<shared_ptr<OverlayElement> > * elements)
+    DoPreciseSelectByPoint(m2::PointD const & pt, list<shared_ptr<OverlayElement> > * elements)
       : m_pt(pt), m_elements(elements)
     {}
 
@@ -166,6 +166,36 @@ namespace yg
     {
       if (e->hitTest(m_pt))
         m_elements->push_back(e);
+    }
+  };
+
+  struct DoPreciseSelectByRect
+  {
+    m2::AnyRectD m_rect;
+    list<shared_ptr<OverlayElement> > * m_elements;
+
+    DoPreciseSelectByRect(m2::RectD const & rect,
+                          list<shared_ptr<OverlayElement> > * elements)
+      : m_rect(rect),
+        m_elements(elements)
+    {}
+
+    void operator()(shared_ptr<OverlayElement> const & e)
+    {
+      vector<m2::AnyRectD> const & rects = e->boundRects();
+
+      for (vector<m2::AnyRectD>::const_iterator it = rects.begin();
+           it != rects.end();
+           ++it)
+      {
+        m2::AnyRectD const & rect = *it;
+
+        if (m_rect.IsIntersect(rect))
+        {
+          m_elements->push_back(e);
+          break;
+        }
+      }
     }
   };
 
@@ -199,9 +229,15 @@ namespace yg
     }
   };
 
+  void Overlay::selectOverlayElements(m2::RectD const & rect, list<shared_ptr<OverlayElement> > & res)
+  {
+    DoPreciseSelectByRect fn(rect, &res);
+    m_tree.ForEachInRect(rect, fn);
+  }
+
   void Overlay::selectOverlayElements(m2::PointD const & pt, list<shared_ptr<OverlayElement> > & res)
   {
-    DoPreciseSelect fn(pt, &res);
+    DoPreciseSelectByPoint fn(pt, &res);
     m_tree.ForEachInRect(m2::RectD(pt - m2::PointD(1, 1), pt + m2::PointD(1, 1)), fn);
   }
 
