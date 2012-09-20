@@ -15,19 +15,24 @@ namespace feature
 {
   class TypesHolder;
 
-  // Note! do not change this values. Should be equal with EGeomType.
+  /// @note do not change this values. Should be equal with EGeomType.
+  /// Used for checking visibility (by drawing style) for feature's geometry type
+  /// (for Area - check only area type, but can draw symbol or caption).
   enum FeatureGeoType {
     FEATURE_TYPE_POINT = 0,
     FEATURE_TYPE_LINE = 1,
-    FEATURE_TYPE_AREA = 2,
-    FEATURE_TYPE_LINE_AREA = 3
+    FEATURE_TYPE_AREA = 2
   };
 
   bool IsDrawableAny(uint32_t type);
-  bool IsDrawableLike(vector<uint32_t> const & types, FeatureGeoType ft);
   bool IsDrawableForIndex(FeatureBase const & f, int level);
 
+  /// @name Be carefull with FEATURE_TYPE_AREA.
+  /// It's check only unique area styles, be it also can draw symbol or caption.
+  //@{
+  bool IsDrawableLike(vector<uint32_t> const & types, FeatureGeoType ft);
   bool RemoveNoDrawableTypes(vector<uint32_t> & types, FeatureGeoType ft);
+  //@}
 
   int GetMinDrawableScale(FeatureBase const & f);
 

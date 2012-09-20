@@ -259,32 +259,19 @@ namespace
   class CheckNonDrawableType
   {
     Classificator & m_c;
-    FeatureGeoType m_arr[3];
-    size_t m_count;
+    FeatureGeoType m_type;
 
   public:
     CheckNonDrawableType(FeatureGeoType ft)
-      : m_c(classif()), m_count(0)
+      : m_c(classif()), m_type(ft)
     {
-      if (ft < FEATURE_TYPE_LINE_AREA)
-        m_arr[m_count++] = ft;
-      else
-      {
-        ASSERT_EQUAL ( ft, FEATURE_TYPE_LINE_AREA, () );
-        m_arr[m_count++] = FEATURE_TYPE_LINE;
-        m_arr[m_count++] = FEATURE_TYPE_AREA;
-      }
     }
 
     bool operator() (uint32_t t)
     {
-      for (size_t i = 0; i < m_count; ++i)
-      {
-        IsDrawableLikeChecker doCheck(m_arr[i]);
-        if (m_c.ProcessObjects(t, doCheck))
-          return false;
-      }
-      return true;
+      IsDrawableLikeChecker doCheck(m_type);
+      // return true if need to delete
+      return !m_c.ProcessObjects(t, doCheck);
     }
   };
 }

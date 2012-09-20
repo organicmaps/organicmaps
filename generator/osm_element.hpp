@@ -380,8 +380,8 @@ protected:
     }
     else if (p->name == "way")
     {
-      if (!feature::RemoveNoDrawableTypes(fValue.m_Types, FEATURE_TYPE_LINE_AREA))
-        return;
+      // It's useless here to skip any types by drawing criteria.
+      // Area features can combine all drawing types (point, linear, unique area).
 
       // geometry of feature
       for (size_t i = 0; i < p->childs.size(); ++i)
@@ -403,7 +403,7 @@ protected:
       if (count < 2)
         return;
 
-      // Try to set area feature (linear types are also suitable for this)
+      // Try to set area feature (point and linear types are also suitable for this)
       if (feature::IsDrawableLike(fValue.m_Types, FEATURE_TYPE_AREA) &&
           (count > 2) && ft.IsGeometryClosed())
       {
