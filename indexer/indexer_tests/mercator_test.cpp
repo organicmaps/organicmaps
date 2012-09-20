@@ -2,12 +2,14 @@
 
 #include "../../testing/testing.hpp"
 
-#include "../../base/math.hpp"
-#include "../../base/macros.hpp"
-
 #include "../../indexer/mercator.hpp"
 
-UNIT_TEST(MercatorTestGrid)
+#include "../../base/math.hpp"
+#include "../../base/macros.hpp"
+#include "../../base/logging.hpp"
+
+
+UNIT_TEST(Mercator_Grid)
 {
   double const eps = 0.0000001;
   for (int lat = -85; lat <= 85; ++lat)
@@ -36,7 +38,7 @@ UNIT_TEST(MercatorTestGrid)
   }
 }
 
-UNIT_TEST(MercatorTest)
+UNIT_TEST(Mercator_DirectInferseF)
 {
   double const eps = 0.0000001;
   double lon = 63.45421;
@@ -51,7 +53,7 @@ UNIT_TEST(MercatorTest)
   TEST_LESS(fabs(MercatorBounds::minX - MercatorBounds::minY), eps, ("Non-square minX and minY"));
 }
 
-UNIT_TEST(ErrorToRadius)
+UNIT_TEST(Mercator_ErrorToRadius)
 {
   double const points[] = { -85.0, -45.0, -10.0, -1.0, -0.003, 0.0, 0.003, 1.0, 10.0, 45.0, 85.0 };
 
@@ -82,4 +84,10 @@ UNIT_TEST(ErrorToRadius)
       TEST(radius10.IsPointInside(radius1.RightBottom()), (lat, lon));
     }
   }
+}
+
+UNIT_TEST(Mercator_Sample1)
+{
+  LOG(LINFO, (MercatorBounds::XToLon(27.531491200000001385),
+              MercatorBounds::YToLat(64.392864299248202542)));
 }
