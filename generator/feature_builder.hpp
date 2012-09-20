@@ -116,7 +116,8 @@ public:
   bool PreSerialize();
 
   /// Note! This function overrides all previous assigned types.
-  inline void SetParams(FeatureParams const & params) { m_Params = params; }
+  /// Set all the parameters, except geometry type (it's set by other functions).
+  inline void SetParams(FeatureParams const & params) { m_Params.SetParams(params); }
 
   /// For OSM debugging, store original OSM id
   void AddOsmId(string const & type, uint64_t osmId);

@@ -320,8 +320,7 @@ protected:
 
   bool ParseType(XMLElement * p, uint64_t & id, FeatureParams & fValue)
   {
-    VERIFY ( strings::to_uint64(p->attrs["id"], id),
-      ("Unknown element with invalid id : ", p->attrs["id"]) );
+    CHECK ( strings::to_uint64(p->attrs["id"], id), (p->attrs["id"]) );
 
     // try to get type from element tags
     ftype::GetNameAndType(p, fValue);
@@ -354,11 +353,6 @@ class SecondPassParserUsual : public SecondPassParserBase<TEmitter, THolder>
 
   typedef typename base_type::feature_builder_t feature_t;
 
-  void InitFeature(FeatureParams const & fValue, feature_t & ft)
-  {
-    ft.SetParams(fValue);
-  }
-
   uint32_t m_coastType;
 
 protected:
@@ -372,7 +366,6 @@ protected:
       return;
 
     feature_t ft;
-    InitFeature(fValue, ft);
 
     if (p->name == "node")
     {
@@ -481,7 +474,7 @@ protected:
       while (!wayMap.empty())
       {
         feature_t f;
-        InitFeature(fValue, f);
+        f.SetParams(fValue);
 
         for (typename base_type::way_map_t::iterator it = wayMap.begin(); it != wayMap.end(); ++it)
           f.AddOsmId("way", it->second->m_wayOsmId);
@@ -503,6 +496,7 @@ protected:
       return;
     }
 
+    ft.SetParams(fValue);
     if (ft.PreSerialize())
     {
       // add osm id for debugging

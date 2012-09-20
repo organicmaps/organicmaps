@@ -196,6 +196,14 @@ public:
     m_geomTypes[0] = m_geomTypes[1] = m_geomTypes[2] = false;
   }
 
+  /// Assign parameters except geometry type.
+  /// Geometry is independent state and it's set by FeatureType's geometry functions.
+  inline void SetParams(FeatureParams const & rhs)
+  {
+    BaseT::operator=(rhs);
+    m_Types = rhs.m_Types;
+  }
+
   inline bool IsValid() const { return !m_Types.empty(); }
 
   inline void SetGeomType(feature::EGeomType t) { m_geomTypes[t] = true; }
