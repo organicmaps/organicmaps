@@ -10,11 +10,6 @@ namespace yg
     : m_pivot(), m_position(yg::EPosAboveRight), m_depth(yg::maxDepth)
   {}
 
-  OverlayElement::UserInfo::UserInfo()
-    : m_featureID0(0),
-      m_featureID1(0)
-  {}
-
   OverlayElement::OverlayElement(Params const & p)
     : m_pivot(p.m_pivot),
       m_position(p.m_position),

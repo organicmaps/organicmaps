@@ -77,6 +77,16 @@ public:
     ForEachInIntervals(f, 2, m2::RectD::GetInfiniteRect(), scale);
   }
 
+  /// Guard for loading features from particular MWM by demand.
+  class FeaturesLoaderGuard
+  {
+    MwmLock m_lock;
+    FeaturesVector m_vector;
+  public:
+    FeaturesLoaderGuard(Index const & parent, MwmId id);
+    void GetFeature(uint32_t offset, FeatureType & ft);
+  };
+
 private:
 
   template <typename F>
@@ -85,16 +95,24 @@ private:
     FeaturesVector const & m_V;
     F & m_F;
     unordered_set<uint32_t> & m_offsets;
+    MwmId m_mwmID;
 
   public:
-    ReadFeatureFunctor(FeaturesVector const & v, F & f, unordered_set<uint32_t> & offsets)
-      : m_V(v), m_F(f), m_offsets(offsets) {}
+    ReadFeatureFunctor(FeaturesVector const & v, F & f,
+                       unordered_set<uint32_t> & offsets, MwmId mwmID)
+      : m_V(v), m_F(f), m_offsets(offsets), m_mwmID(mwmID)
+    {
+    }
+
     void operator() (uint32_t offset) const
     {
       if (m_offsets.insert(offset).second)
       {
         FeatureType feature;
+
         m_V.Get(offset, feature);
+        feature.SetID(m_mwmID, offset);
+
         m_F(feature);
       }
     }
@@ -125,7 +143,7 @@ private:
 
       // iterate through intervals
       unordered_set<uint32_t> offsets;
-      ReadFeatureFunctor<F> f1(fv, f, offsets);
+      ReadFeatureFunctor<F> f1(fv, f, offsets, id);
       for (size_t i = 0; i < interval.size(); ++i)
       {
         index.ForEachInIntervalAndScale(f1, interval[i].first, interval[i].second, scale);

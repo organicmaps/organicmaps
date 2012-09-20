@@ -1264,8 +1264,7 @@ shared_ptr<yg::OverlayElement> const GetClosestToPivot(list<shared_ptr<yg::Overl
        it != l.end();
        ++it)
   {
-    double curDist = pxPoint.SquareLength((*it)->pivot());
-
+    double const curDist = pxPoint.SquareLength((*it)->pivot());
     if (curDist < dist)
     {
       dist = curDist;
@@ -1276,42 +1275,47 @@ shared_ptr<yg::OverlayElement> const GetClosestToPivot(list<shared_ptr<yg::Overl
   return res;
 }
 
-bool Framework::GetVisiblePOI(m2::PointD const & pxPoint,
-                              m2::PointD & pv,
-                              AddressInfo & info)
+bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, AddressInfo & info) const
 {
-  m2::PointD pt = GetNavigator().ShiftPoint(pxPoint);
-
   if (!m_renderPolicy)
   {
     LOG(LINFO, ("GetVisiblePOI called without valid renderPolicy!"));
     return false;
   }
 
-  shared_ptr<yg::Overlay> overlay = m_renderPolicy->GetOverlay();
+  m2::PointD const pt = m_navigator.ShiftPoint(pxPoint);
+  double const halfSize = 12 * m_renderPolicy->VisualScale();
 
-  double halfSize = 12 * m_renderPolicy->VisualScale();
+  typedef yg::OverlayElement ElementT;
 
-  list<shared_ptr<yg::OverlayElement> > candidates;
-
+  list<shared_ptr<ElementT> > candidates;
   m2::RectD rect(pt.x - halfSize, pt.y - halfSize,
                  pt.x + halfSize, pt.y + halfSize);
+  m_renderPolicy->GetOverlay()->selectOverlayElements(rect, candidates);
 
-  overlay->selectOverlayElements(rect, candidates);
-
-  shared_ptr<yg::OverlayElement> res;
-
-  res = GetClosestToPivot(candidates, pt);
-
+  shared_ptr<ElementT> res = GetClosestToPivot(candidates, pt);
   if (res)
   {
-    /// TODO : get featureID associated with res.
-    /// Obtain AddressInfo by this featureID.
+    ElementT::UserInfo const & ui = res->userInfo();
+    if (ui.IsValid())
+    {
+      Index::FeaturesLoaderGuard guard(m_model.GetIndex(), ui.m_mwmID);
 
-    return true;
+      FeatureType ft;
+      guard.GetFeature(ui.m_offset, ft);
+
+      /// @todo Get correct center point for feature.
+      m2::PointD const center = (ft.GetFeatureType() == feature::GEOM_POINT ?
+                                   ft.GetCenter() : PtoG(pxPoint));
+
+      GetAddressInfo(ft, center, info);
+
+      pxPivot = GtoP(center);
+      return true;
+    }
   }
-  else
-    return false;
+
+  return false;
 }
 
 Navigator & Framework::GetNavigator()

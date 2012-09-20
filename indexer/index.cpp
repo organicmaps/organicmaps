@@ -120,3 +120,15 @@ void Index::UpdateMwmInfo(MwmId id)
     break;
   }
 }
+
+Index::FeaturesLoaderGuard::FeaturesLoaderGuard(Index const & parent, MwmId id)
+  : m_lock(parent, id),
+    /// @note This guard is suitable when mwm is loaded
+    m_vector(m_lock.GetValue()->m_cont, m_lock.GetValue()->GetHeader())
+{
+}
+
+void Index::FeaturesLoaderGuard::GetFeature(uint32_t offset, FeatureType & ft)
+{
+  m_vector.Get(offset, ft);
+}

@@ -26,9 +26,7 @@ namespace model
   private:
     m2::RectD m_rect;
 
-    typedef Index index_t;
-
-    index_t m_multiIndex;
+    Index m_multiIndex;
 
   public:
     void InitClassificator();
@@ -75,7 +73,7 @@ namespace model
     }
     //@}
 
-    index_t const & GetIndex() const { return m_multiIndex; }
+    Index const & GetIndex() const { return m_multiIndex; }
     m2::RectD GetWorldRect() const;
   };
 }

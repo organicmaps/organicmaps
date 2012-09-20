@@ -425,6 +425,21 @@ namespace
   };
 }
 
+namespace
+{
+  /// Global instance for type checker.
+  /// @todo Possible need to add synhronization.
+  typedef DoGetAddressBase::TypeChecker CheckerT;
+  CheckerT * g_checker = 0;
+
+  CheckerT & GetChecker()
+  {
+    if (g_checker == 0)
+      g_checker = new CheckerT();
+    return *g_checker;
+  }
+}
+
 void Framework::GetAddressInfo(m2::PointD const & pt, AddressInfo & info) const
 {
   info.Clear();
@@ -436,39 +451,59 @@ void Framework::GetAddressInfo(m2::PointD const & pt, AddressInfo & info) const
     return;
   }
 
-  int scale = scales::GetUpperScale();
+  int const scale = scales::GetUpperScale();
   double addressR[] = {
     15.0,   // radius to search point POI's
     100.0,  // radius to search street names
     5.0     // radius to search building numbers (POI's)
   };
-  double const localityR = 20000.0; // radius to search localities
 
-  static DoGetAddressBase::TypeChecker checker;
+  // pass maximum value for all addressR
+  m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, addressR[1]);
+  DoGetAddressInfo getAddress(pt, scale, GetChecker(), addressR);
 
-  // first of all - get an address
+  m_model.ForEachFeature(rect, getAddress, scale);
+
+  getAddress.FillAddress(GetSearchEngine(), info);
+
+  GetLocality(pt, info);
+}
+
+void Framework::GetAddressInfo(FeatureType const & ft, m2::PointD const & pt, AddressInfo & info) const
+{
+  info.Clear();
+
+  info.m_country = GetCountryName(pt);
+  if (info.m_country.empty())
   {
-    // pass maximum value for all addressR
-    m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, addressR[1]);
-    DoGetAddressInfo getAddress(pt, scale, checker, addressR);
-
-    m_model.ForEachFeature(rect, getAddress, scale);
-
-    getAddress.FillAddress(GetSearchEngine(), info);
+    LOG(LINFO, ("Can't find region for point ", pt));
+    return;
   }
 
-  // now - get the locality
-  {
-    scale = checker.GetLocalitySearchScale();
-    LOG(LDEBUG, ("Locality scale = ", scale));
+  double const inf = numeric_limits<double>::max();
+  double addressR[] = { inf, inf, inf };
 
-    m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, localityR);
-    DoGetLocality getLocality(pt, scale, checker, rect);
+  DoGetAddressInfo getAddress(pt, scales::GetUpperScale(), GetChecker(), addressR);
+  getAddress(ft);
+  getAddress.FillAddress(GetSearchEngine(), info);
 
-    m_model.ForEachFeature(rect, getLocality, scale);
+  GetLocality(pt, info);
+}
 
-    getLocality.FillLocality(info, *this);
-  }
+void Framework::GetLocality(m2::PointD const & pt, AddressInfo & info) const
+{
+  CheckerT & checker = GetChecker();
+
+  int const scale = checker.GetLocalitySearchScale();
+  LOG(LDEBUG, ("Locality scale = ", scale));
+
+  // radius to search localities
+  m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, 20000.0);
+  DoGetLocality getLocality(pt, scale, checker, rect);
+
+  m_model.ForEachFeature(rect, getLocality, scale);
+
+  getLocality.FillLocality(info, *this);
 }
 
 string Framework::AddressInfo::FormatAddress() const

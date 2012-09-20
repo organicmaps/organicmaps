@@ -19,9 +19,11 @@ namespace yg
 
     struct UserInfo
     {
-      uint32_t m_featureID0;
-      uint32_t m_featureID1;
-      UserInfo();
+      size_t m_mwmID;
+      uint32_t m_offset;
+
+      UserInfo() : m_mwmID(size_t(-1)) {}
+      inline bool IsValid() const { return (m_mwmID != size_t(-1)); }
     };
 
   private:

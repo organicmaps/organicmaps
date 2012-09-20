@@ -78,13 +78,18 @@ class DrawerYG
 
   static void ClearSkinPage(size_t threadID, uint8_t pipelineID);
 
+  typedef pair<size_t, uint32_t> FeatureID;
+
 protected:
-  void drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition pos, int depth);
-  void drawCircle(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition pos, int depth);
+  void drawSymbol(m2::PointD const & pt, rule_ptr_t pRule,
+                  yg::EPosition pos, int depth, FeatureID const & id);
+  void drawCircle(m2::PointD const & pt, rule_ptr_t pRule,
+                  yg::EPosition pos, int depth, FeatureID const & id);
   void drawPath(di::PathInfo const & info, di::DrawRule const * rules, size_t count);
   void drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth);
 
-  void drawText(m2::PointD const & pt, di::DrawInfo const * pInfo, rule_ptr_t pRule, yg::EPosition pos, int depth);
+  void drawText(m2::PointD const & pt, di::DrawInfo const * pInfo, rule_ptr_t pRule,
+                yg::EPosition pos, int depth, FeatureID const & id);
   bool drawPathText(di::PathInfo const & info, di::DrawInfo const * pInfo, rule_ptr_t pRule, int depth);
   void drawPathNumber(di::PathInfo const & path, di::DrawInfo const * pInfo);
 
@@ -116,7 +121,9 @@ public:
   double VisualScale() const;
   void SetScale(int level);
 
-  void Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size_t count);
+  void Draw(di::DrawInfo const * pInfo,
+            di::DrawRule const * rules, size_t count,
+            FeatureID const & id);
 
   bool filter_text_size(rule_ptr_t pRule) const;
   uint8_t get_text_font_size(rule_ptr_t pRule) const;

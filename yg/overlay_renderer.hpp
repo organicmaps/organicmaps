@@ -33,6 +33,7 @@ namespace yg
       OverlayRenderer(Params const & p);
 
       /// Drawing POI symbol
+      void drawSymbol(SymbolElement::Params & params);
       void drawSymbol(m2::PointD const & pt, string const & symbolName, EPosition pos, int depth);
 
       /// Drawing circle

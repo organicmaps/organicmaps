@@ -279,8 +279,11 @@ namespace fwork
     else
       m_hasNonCoast = true;
 
-    if (GetDrawer()->screen()->renderState())
-      GetDrawer()->screen()->renderState()->m_isEmptyModelCurrent = IsEmptyDrawing();
+    {
+      yg::gl::RenderState * pState = GetDrawer()->screen()->renderState().get();
+      if (pState)
+        pState->m_isEmptyModelCurrent = IsEmptyDrawing();
+    }
 
     // remove duplicating identical drawing keys
     PreProcessKeys(keys);
@@ -324,7 +327,7 @@ namespace fwork
       intName.clear();
     }
 
-    shared_ptr<di::DrawInfo> ptr(new di::DrawInfo(
+    scoped_ptr<di::DrawInfo> ptr(new di::DrawInfo(
         defaultName,
         intName,
         f.GetRoadNumber(),
@@ -415,7 +418,7 @@ namespace fwork
     }
 
     if (isExist)
-      pDrawer->Draw(ptr.get(), rules.data(), count);
+      pDrawer->Draw(ptr.get(), rules.data(), count, f.GetID());
 
     return true;
   }

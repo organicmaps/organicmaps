@@ -343,16 +343,24 @@ namespace qt
       QPoint const & pt = e->pos();
       QMenu menu;
 
-      vector<string> types;
-      m_framework->GetFeatureTypes(m2::PointD(pt.x(), pt.y()), types);
+      Framework::AddressInfo info;
+      m2::PointD dummy;
+      if (m_framework->GetVisiblePOI(m2::PointD(pt.x(), pt.y()), dummy, info))
+      {
+        add_string(menu, "POI");
+      }
+      else
+      {
+        vector<string> types;
+        m_framework->GetFeatureTypes(m2::PointD(pt.x(), pt.y()), types);
 
-      for (size_t i = 0; i < types.size(); ++i)
-        add_string(menu, types[i]);
+        for (size_t i = 0; i < types.size(); ++i)
+          add_string(menu, types[i]);
+
+        m_framework->GetAddressInfo(m_framework->PtoG(m2::PointD(pt.x(), pt.y())), info);
+      }
 
       (void)menu.addSeparator();
-
-      Framework::AddressInfo info;
-      m_framework->GetAddressInfo(m_framework->PtoG(m2::PointD(pt.x(), pt.y())), info);
 
       if (!info.m_name.empty())
         add_string(menu, info.m_name);

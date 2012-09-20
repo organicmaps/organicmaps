@@ -29,19 +29,11 @@ namespace yg
     {
     }
 
-    void OverlayRenderer::drawSymbol(m2::PointD const & pt,
-                                     string const & symbolName,
-                                     EPosition pos,
-                                     int depth)
+    void OverlayRenderer::drawSymbol(SymbolElement::Params & params)
     {
       if (!m_drawSymbols)
         return;
 
-      SymbolElement::Params params;
-      params.m_depth = depth;
-      params.m_position = pos;
-      params.m_pivot = pt;
-      params.m_symbolName = symbolName;
       params.m_skin = skin().get();
 
       shared_ptr<OverlayElement> oe(new SymbolElement(params));
@@ -52,6 +44,17 @@ namespace yg
         oe->draw(this, id);
       else
         m_overlay->processOverlayElement(oe);
+    }
+
+    void OverlayRenderer::drawSymbol(m2::PointD const & pt, string const & symbolName, EPosition pos, int depth)
+    {
+      yg::SymbolElement::Params params;
+      params.m_depth = depth;
+      params.m_position = pos;
+      params.m_pivot = pt;
+      params.m_symbolName = symbolName;
+
+      drawSymbol(params);
     }
 
     void OverlayRenderer::drawCircle(m2::PointD const & pt,
