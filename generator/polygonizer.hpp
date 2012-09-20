@@ -70,9 +70,7 @@ namespace feature
       {
         // Insert fake country polygon equal to whole world to
         // create only one output file which contains all features
-        m_countries.Add(borders::CountryPolygons(),
-                        m2::RectD(MercatorBounds::minX, MercatorBounds::minY,
-                                  MercatorBounds::maxX, MercatorBounds::maxY));
+        m_countries.Add(borders::CountryPolygons(), MercatorBounds::FullRect());
       }
     }
     ~Polygonizer()

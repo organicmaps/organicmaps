@@ -12,6 +12,8 @@ struct MercatorBounds
   static double minY;
   static double maxY;
 
+  inline static m2::RectD FullRect() { return m2::RectD(minX, minY, maxX, maxY); }
+
   inline static bool ValidLon(double d)
   {
     return my::between_s(-180.0, 180.0, d);

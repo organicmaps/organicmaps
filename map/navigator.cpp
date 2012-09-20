@@ -27,14 +27,14 @@ namespace
 }
 
 Navigator::Navigator()
-  : m_worldRect(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY),
+  : m_worldRect(MercatorBounds::FullRect()),
     m_InAction(false),
     m_DoSupportRotation(false)
 {
 }
 
 Navigator::Navigator(ScreenBase const & screen)
-  : m_worldRect(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY),
+  : m_worldRect(MercatorBounds::FullRect()),
     m_StartScreen(screen),
     m_Screen(screen),
     m_InAction(false),
@@ -99,9 +99,7 @@ bool Navigator::LoadState()
     return false;
 
   // additional check for valid rect
-  m2::RectD const r = rect.GetGlobalRect();
-  if (r.minX() < MercatorBounds::minX || r.minY() < MercatorBounds::minY
-      || r.maxX() > MercatorBounds::maxX || r.maxY() > MercatorBounds::maxY)
+  if (!MercatorBounds::FullRect().IsRectInside(rect.GetGlobalRect()))
     return false;
 
   SetFromRect(rect);

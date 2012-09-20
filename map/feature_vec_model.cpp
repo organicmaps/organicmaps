@@ -107,10 +107,7 @@ m2::RectD FeaturesFetcher::GetWorldRect() const
   {
     // rect is empty when now countries are loaded
     // return max global rect
-    return m2::RectD(MercatorBounds::minX,
-                     MercatorBounds::minY,
-                     MercatorBounds::maxX,
-                     MercatorBounds::maxY);
+    return MercatorBounds::FullRect();
   }
   return m_rect;
 }

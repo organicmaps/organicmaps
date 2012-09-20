@@ -437,8 +437,7 @@ void Framework::SetNeedRedraw(bool flag)
 
 void Framework::Invalidate(bool doForceUpdate)
 {
-  InvalidateRect(m2::RectD(MercatorBounds::minX, MercatorBounds::minY,
-                           MercatorBounds::maxX, MercatorBounds::maxY), doForceUpdate);
+  InvalidateRect(MercatorBounds::FullRect(), doForceUpdate);
 }
 
 void Framework::InvalidateRect(m2::RectD const & rect, bool doForceUpdate)
