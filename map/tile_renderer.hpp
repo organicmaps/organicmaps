@@ -40,7 +40,7 @@ protected:
   struct ThreadData
   {
     DrawerYG * m_drawer;
-    DrawerYG::params_t m_drawerParams;
+    DrawerYG::Params m_drawerParams;
     shared_ptr<yg::gl::BaseTexture> m_dummyRT;
     shared_ptr<yg::gl::RenderContext> m_renderContext;
     shared_ptr<yg::gl::RenderBuffer> m_depthBuffer;

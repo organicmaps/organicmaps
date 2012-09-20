@@ -260,7 +260,7 @@ void RenderQueueRoutine::Do()
   if (!m_glQueue)
     m_renderContext->makeCurrent();
 
-  DrawerYG::params_t params;
+  DrawerYG::Params params;
 
   params.m_resourceManager = m_resourceManager;
   params.m_frameBuffer = m_frameBuffer;

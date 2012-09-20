@@ -130,7 +130,7 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
   GetPlatform().GetFontNames(fonts);
   m_resourceManager->addFonts(fonts);
 
-  DrawerYG::params_t dp;
+  DrawerYG::Params dp;
 
   dp.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(p.m_useDefaultFB));
   dp.m_resourceManager = m_resourceManager;

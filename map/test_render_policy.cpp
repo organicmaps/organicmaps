@@ -97,7 +97,7 @@ TestRenderPolicy::TestRenderPolicy(Params const & p)
   GetPlatform().GetFontNames(fonts);
   m_resourceManager->addFonts(fonts);
 
-  DrawerYG::params_t dp;
+  DrawerYG::Params dp;
 
   m_primaryFrameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(p.m_useDefaultFB));
 

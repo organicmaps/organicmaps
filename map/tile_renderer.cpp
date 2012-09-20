@@ -49,7 +49,7 @@ TileRenderer::TileRenderer(
 
   for (unsigned i = 0; i < m_threadData.size(); ++i)
   {
-    DrawerYG::params_t params;
+    DrawerYG::Params params;
 
     params.m_resourceManager = m_resourceManager;
     params.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer());

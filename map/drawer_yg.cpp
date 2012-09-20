@@ -51,7 +51,7 @@ void di::DrawRule::SetID(size_t threadID, uint32_t id) const
   m_transparent ? m_rule->SetID2(threadID, id) : m_rule->SetID(threadID, id);
 }
 
-DrawerYG::DrawerYG(params_t const & params)
+DrawerYG::DrawerYG(Params const & params)
   : m_visualScale(params.m_visualScale), m_threadID(params.m_threadID)
 {
   m_pScreen = shared_ptr<yg::gl::Screen>(new yg::gl::Screen(params));

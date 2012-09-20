@@ -92,9 +92,7 @@ protected:
   typedef shared_ptr<yg::gl::FrameBuffer> frame_buffer_t;
 
 public:
-  typedef yg::gl::Screen screen_t;
-
-  struct Params : screen_t::Params
+  struct Params : yg::gl::Screen::Params
   {
     size_t m_threadID;
     double m_visualScale;
@@ -102,9 +100,7 @@ public:
     Params();
   };
 
-  typedef Params params_t;
-
-  DrawerYG(params_t const & params = params_t());
+  DrawerYG(Params const & params = Params());
 
   void drawSymbol(m2::PointD const & pt, string const & symbolName, yg::EPosition pos, int depth);
 
