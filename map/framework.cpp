@@ -1255,17 +1255,17 @@ void Framework::SaveFacebookDialogResult(int result)
   }
 }
 
-void GetClosestToPivot(list<shared_ptr<yg::OverlayElement> > & l,
-                       m2::PointD const & pxPoint,
-                       shared_ptr<yg::OverlayElement> & res)
+shared_ptr<yg::OverlayElement> const GetClosestToPivot(list<shared_ptr<yg::OverlayElement> > const & l,
+                                                       m2::PointD const & pxPoint)
 {
   double dist = numeric_limits<double>::max();
+  shared_ptr<yg::OverlayElement> res;
 
   for (list<shared_ptr<yg::OverlayElement> >::const_iterator it = l.begin();
        it != l.end();
        ++it)
   {
-    double curDist = pxPoint.Length((*it)->pivot());
+    double curDist = pxPoint.SquareLength((*it)->pivot());
 
     if (curDist < dist)
     {
@@ -1273,6 +1273,8 @@ void GetClosestToPivot(list<shared_ptr<yg::OverlayElement> > & l,
       res = *it;
     }
   }
+
+  return res;
 }
 
 bool Framework::GetVisiblePOI(m2::PointD const & pxPoint,
@@ -1289,15 +1291,18 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint,
 
   shared_ptr<yg::Overlay> overlay = m_renderPolicy->GetOverlay();
 
-  m2::PointD halfSize(12 * m_renderPolicy->VisualScale(),
-                      12 * m_renderPolicy->VisualScale());
+  double halfSize = 12 * m_renderPolicy->VisualScale();
 
   list<shared_ptr<yg::OverlayElement> > candidates;
-  overlay->selectOverlayElements(m2::RectD(pt - halfSize, pt + halfSize), candidates);
+
+  m2::RectD rect(pt.x - halfSize, pt.y - halfSize,
+                 pt.x + halfSize, pt.y + halfSize);
+
+  overlay->selectOverlayElements(rect, candidates);
 
   shared_ptr<yg::OverlayElement> res;
 
-  GetClosestToPivot(candidates, pt, res);
+  res = GetClosestToPivot(candidates, pt);
 
   if (res)
   {
