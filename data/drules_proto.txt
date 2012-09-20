@@ -48892,28 +48892,28 @@ cont {
     scale: 14
     area {
       color: 0xBEBEBE
-      priority: 559
+      priority: 300
     }
   }
   element {
     scale: 15
     area {
       color: 0xBEBEBE
-      priority: 746
+      priority: 300
     }
   }
   element {
     scale: 16
     area {
       color: 0xBEBEBE
-      priority: 1243
+      priority: 300
     }
   }
   element {
     scale: 17
     area {
       color: 0xBEBEBE
-      priority: 1395
+      priority: 300
     }
   }
 }
