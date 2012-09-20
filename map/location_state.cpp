@@ -328,8 +328,8 @@ namespace location
       if (m_hasPosition)
       {
         m2::PointD const pxPosition = m_framework->GetNavigator().GtoP(Position());
-        double const pxErrorRadius = pxPosition.Length(m_framework->GetNavigator().GtoP(Position() + m2::PointD(m_errorRadius, 0.0)));
-        double const orientationRadius = max(pxErrorRadius, 30.0 * visualScale());
+        double const pxErrorRadius = pxPosition.Length(
+              m_framework->GetNavigator().GtoP(Position() + m2::PointD(m_errorRadius, 0.0)));
 
         double screenAngle = m_framework->GetNavigator().Screen().GetAngle();
 
@@ -346,19 +346,21 @@ namespace location
 
         if (m_hasCompass)
         {
+          double const orientationRadius = max(pxErrorRadius, 30.0 * visualScale());
           // 0 angle is for North ("up"), but in our coordinates it's to the right.
-          double headingRad = m_compassFilter.GetHeadingRad() - math::pi / 2.0;
+          double const headingRad = m_compassFilter.GetHeadingRad() - math::pi / 2.0;
+          double const halfErrorRad = m_compassFilter.GetHeadingHalfErrorRad();
 
           r->drawSector(pxPosition,
-                        screenAngle + headingRad - m_compassFilter.GetHeadingHalfErrorRad(),
-                        screenAngle + headingRad + m_compassFilter.GetHeadingHalfErrorRad(),
+                        screenAngle + headingRad - halfErrorRad,
+                        screenAngle + headingRad + halfErrorRad,
                         orientationRadius,
                         m_compassAreaColor,
                         depth());
 
           r->fillSector(pxPosition,
-                        screenAngle + headingRad - m_compassFilter.GetHeadingHalfErrorRad(),
-                        screenAngle + headingRad + m_compassFilter.GetHeadingHalfErrorRad(),
+                        screenAngle + headingRad - halfErrorRad,
+                        screenAngle + headingRad + halfErrorRad,
                         orientationRadius,
                         m_compassBorderColor,
                         depth() - 1);
