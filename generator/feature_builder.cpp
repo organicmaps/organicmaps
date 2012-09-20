@@ -57,16 +57,14 @@ void FeatureBuilder1::SetAreaAddHoles(list<points_t> const & holes)
   {
     ASSERT ( !i->empty(), (*this) );
 
-    if (rgn.Contains(i->front()))
-    {
-#ifdef DEBUG
-    m2::RectD r;
-    CalcRect(*i, r);
-    ASSERT ( m_LimitRect.IsRectInside(r), (m_LimitRect, r) );
-#endif
+    size_t j = 0;
+    size_t const count = i->size();
+    for (; j < count; ++j)
+      if (!rgn.Contains((*i)[j]))
+        break;
 
+    if (j == count)
       m_Polygons.push_back(*i);
-    }
   }
 }
 
@@ -346,9 +344,8 @@ void FeatureBuilder1::SetCoastCell(int64_t iCell, string const & strCell)
 {
   m_coastCell = iCell;
 
-  FeatureParams params;
-  params.name.AddString(0, strCell);
-  SetParams(params);
+  ASSERT ( m_Params.name.IsEmpty(), () );
+  m_Params.name.AddString(0, strCell);
 }
 
 string DebugPrint(FeatureBuilder1 const & f)
