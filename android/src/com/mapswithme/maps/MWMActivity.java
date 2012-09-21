@@ -348,38 +348,48 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   public void onProVersionAvailable()
   {
     final View v = findViewById(R.id.map_button_search);
-    if (v != null && !isActivityPaused() && !isFinishing())
+
+    // Don't do any additional checks. Probably error was in showing Dialog from nonUI thread.
+    // See fix in showProVersionBanner.
+    if (v != null /*&& !isActivityPaused() && !isFinishing()*/)
     {
       v.setVisibility(View.VISIBLE);
       showProVersionBanner(getString(R.string.pro_version_available));
     }
   }
 
-  private void showProVersionBanner(String message)
+  private void showProVersionBanner(final String message)
   {
-    new AlertDialog.Builder(getActivity())
-    .setMessage(message)
-    .setCancelable(false)
-    .setPositiveButton(getString(R.string.get_it_now), new DialogInterface.OnClickListener()
+    runOnUiThread(new Runnable()
     {
       @Override
-      public void onClick(DialogInterface dlg, int which)
+      public void run()
       {
-        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(nativeGetProVersionURL()));
-        dlg.dismiss();
-        startActivity(i);
+        new AlertDialog.Builder(getActivity())
+        .setMessage(message)
+        .setCancelable(false)
+        .setPositiveButton(getString(R.string.get_it_now), new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(nativeGetProVersionURL()));
+            dlg.dismiss();
+            startActivity(i);
+          }
+        })
+        .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            dlg.dismiss();
+          }
+        })
+        .create()
+        .show();
       }
-    })
-    .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener()
-    {
-      @Override
-      public void onClick(DialogInterface dlg, int which)
-      {
-        dlg.dismiss();
-      }
-    })
-    .create()
-    .show();
+    });
   }
 
   private void runSearchActivity()
@@ -504,15 +514,16 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
           {
             try
             {
-              startActivity(new Intent(
-                                       android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-            } catch (Exception e)
+              startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            }
+            catch (Exception e)
             {
               // On older Android devices location settings are merged with security
               try
               {
                 startActivity(new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS));
-              } catch (Exception ex)
+              }
+              catch (Exception ex)
               {
                 ex.printStackTrace();
               }
