@@ -664,7 +664,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
       if (ConnectionState.getState(this) == ConnectionState.NOT_CONNECTED)
       {
         final DownloadUI activity = this;
-        final MapStorage storage = getDA().m_storage;
+        final String country = getDA().m_storage.countryName(idx);
 
         runOnUiThread(new Runnable()
         {
@@ -673,7 +673,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
           {
             new AlertDialog.Builder(activity)
             .setCancelable(false)
-            .setMessage(String.format(getString(R.string.download_country_failed), storage.countryName(idx)))
+            .setMessage(String.format(getString(R.string.download_country_failed), country))
             .setPositiveButton(getString(R.string.connection_settings), new DialogInterface.OnClickListener()
             {
               @Override
