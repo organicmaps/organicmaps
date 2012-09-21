@@ -5,10 +5,12 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StatFs;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.MapStorage.Index;
+import com.mapswithme.util.ConnectionState;
 
 
 public class DownloadUI extends ListActivity implements MapStorage.Listener
@@ -553,7 +556,8 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
       return -1;
     }
 
-    public void onCountryStatusChanged(Index idx)
+    /// @return Current country status (@see MapStorage).
+    public int onCountryStatusChanged(Index idx)
     {
       Log.d(TAG, "onCountryStatusChanged for index: " + idx.toString());
 
@@ -564,7 +568,11 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
 
         // use this hard reset, because of caching different ViewHolders according to item's type
         notifyDataSetChanged();
+
+        return m_items[position].m_status;
       }
+
+      return MapStorage.UNKNOWN;
     }
 
     public void onCountryProgress(ListView list, Index idx, long current, long total)
@@ -648,9 +656,47 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
   }
 
   @Override
-  public void onCountryStatusChanged(Index idx)
+  public void onCountryStatusChanged(final Index idx)
   {
-    getDA().onCountryStatusChanged(idx);
+    if (getDA().onCountryStatusChanged(idx) == MapStorage.DOWNLOAD_FAILED)
+    {
+      // Show wireless settings page if no connection found.
+      if (ConnectionState.getState(this) == ConnectionState.NOT_CONNECTED)
+      {
+        final DownloadUI activity = this;
+        final MapStorage storage = getDA().m_storage;
+
+        runOnUiThread(new Runnable()
+        {
+          @Override
+          public void run()
+          {
+            new AlertDialog.Builder(activity)
+            .setCancelable(false)
+            .setMessage(String.format(getString(R.string.download_country_failed), storage.countryName(idx)))
+            .setPositiveButton(getString(R.string.connection_settings), new DialogInterface.OnClickListener()
+            {
+              @Override
+              public void onClick(DialogInterface dlg, int which)
+              {
+                startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
+                dlg.dismiss();
+              }
+            })
+            .setNegativeButton(getString(R.string.close), new DialogInterface.OnClickListener()
+            {
+              @Override
+              public void onClick(DialogInterface dlg, int which)
+              {
+                dlg.dismiss();
+              }
+            })
+            .create()
+            .show();
+          }
+        });
+      }
+    }
   }
 
   @Override
