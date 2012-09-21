@@ -202,4 +202,20 @@ extern "C"
   {
     g_framework->Scale(static_cast<double>(k));
   }
+
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_MWMActivity_nativeIsInChina(JNIEnv * env, jobject thiz,
+                                                       jdouble lat, jdouble lon)
+  {
+    char const * arr[] = { "cn", "hk", "mo" };
+
+    string const code = g_framework->GetCountryCode(lat, lon);
+    LOG(LDEBUG, ("Current country ISO code = ", code));
+
+    for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+      if (code == arr[i])
+        return true;
+
+    return false;
+  }
 } // extern "C"

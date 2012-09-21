@@ -160,7 +160,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
   {
     return getFilesDir().getAbsolutePath() + "/";
   }
-  */
+   */
 
   static
   {

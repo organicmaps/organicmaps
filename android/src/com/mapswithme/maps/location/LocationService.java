@@ -74,6 +74,8 @@ public class LocationService implements LocationListener, SensorEventListener, W
     }
   }
 
+  public Location getLastKnown() { return m_lastLocation; }
+
   private void notifyStatusChanged(int newStatus)
   {
     Iterator<Listener> it = m_observers.iterator();

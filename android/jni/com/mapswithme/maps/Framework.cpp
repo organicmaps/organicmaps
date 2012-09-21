@@ -487,6 +487,11 @@ namespace android
     return m_work.GetCountryName(m2::PointD(x, y));
   }
 
+  string const Framework::GetCountryCode(double lat, double lon) const
+  {
+    return m_work.GetCountryCodeByPosition(lat, lon);
+  }
+
   void Framework::AddString(string const & name, string const & value)
   {
     m_work.AddString(name, value);

@@ -9,10 +9,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -276,10 +279,34 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     startActivity(intent);
   }
 
+  private boolean isChinaRegion()
+  {
+    final TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+    if (tm != null && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_CDMA)
+    {
+      final String iso = tm.getNetworkCountryIso();
+      Log.i(TAG, "TelephonyManager country IOS = " + iso);
+
+      String arr[] = { "CN", "CHN", "HK", "HKG", "MO", "MAC" };
+      for (String s : arr)
+        if (iso.equalsIgnoreCase(s))
+          return true;
+    }
+    else
+    {
+      final Location l = mApplication.getLocationService().getLastKnown();
+      if (l != null && nativeIsInChina(l.getLatitude(), l.getLongitude()))
+        return true;
+    }
+
+    return false;
+  }
+
   private void checkFacebookDialog()
   {
     if ((ConnectionState.getState(this) != ConnectionState.NOT_CONNECTED) &&
-        mApplication.nativeShouldShowFacebookDialog())
+        mApplication.nativeShouldShowFacebookDialog() &&
+        !isChinaRegion())
     {
       new AlertDialog.Builder(this)
       .setCancelable(false)
@@ -734,4 +761,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private native String nativeGetProVersionURL();
   private native void nativeCheckForProVersion(String serverURL);
+
+  private native boolean nativeIsInChina(double lat, double lon);
 }
