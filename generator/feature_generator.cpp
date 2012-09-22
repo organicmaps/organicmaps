@@ -6,6 +6,7 @@
 #include "generate_info.hpp"
 #include "coastlines_generator.hpp"
 #include "world_map_generator.hpp"
+#include "multiproducer_oneconsumer.hpp"
 
 #include "../defines.hpp"
 
@@ -335,6 +336,32 @@ public:
     }
   }
 
+private:
+  class CoastFeatureTask : public MultiProducerOneConsumer::ITask
+  {
+    MainFeaturesEmitter & m_parent;
+    size_t m_ind;
+
+  public:
+    CoastFeatureTask(MainFeaturesEmitter & parent, size_t ind)
+      : m_parent(parent), m_ind(ind) {}
+
+    virtual void RunBase()
+    {
+      vector<FeatureBuilder1> vecFb;
+      m_parent.m_coasts->GetFeatures(m_ind, vecFb);
+
+      for (size_t i = 0; i< vecFb.size(); ++i)
+        Emit(&vecFb[i]);
+    }
+
+    virtual void EmitBase(void * p)
+    {
+      (*m_parent.m_coastsHolder)(*reinterpret_cast<FeatureBuilder1 *>(p));
+    }
+  };
+
+public:
   void Finish()
   {
     if (m_world)
@@ -345,16 +372,12 @@ public:
       m_coasts->Finish();
 
       size_t const count = m_coasts->GetCellsCount();
-      LOG(LINFO, ("Generating coastline polygons", count));
+      LOG(LINFO, ("Generating coastline features for ", count, " cells."));
 
+      MultiProducerOneConsumer runner(8);
       for (size_t i = 0; i < count; ++i)
-      {
-        vector<FeatureBuilder1> vecFb;
-        m_coasts->GetFeatures(i, vecFb);
-
-        for (size_t j = 0; j < vecFb.size(); ++j)
-          (*m_coastsHolder)(vecFb[j]);
-      }
+        runner.RunTask(new CoastFeatureTask(*this, i));
+      runner.Finish();
     }
     else if (m_coastsHolder)
     {

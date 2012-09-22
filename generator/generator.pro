@@ -30,6 +30,7 @@ SOURCES += \
     osm_decl.cpp \
     coastlines_generator.cpp \
     tesselator.cpp \
+    multiproducer_oneconsumer.cpp \
 
 HEADERS += \
     feature_merger.hpp \
@@ -57,3 +58,4 @@ HEADERS += \
     osm_decl.hpp \
     coastlines_generator.hpp \
     tesselator.hpp \
+    multiproducer_oneconsumer.hpp \
