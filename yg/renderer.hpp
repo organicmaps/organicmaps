@@ -5,6 +5,7 @@
 #include "resource_manager.hpp"
 
 #include "../base/threaded_list.hpp"
+#include "../base/commands_queue.hpp"
 #include "../std/function.hpp"
 #include "../std/shared_ptr.hpp"
 #include "../geometry/rect2d.hpp"
@@ -102,6 +103,8 @@ namespace yg
       unsigned int m_width;
       unsigned int m_height;
 
+      core::CommandsQueue::Environment const * m_env;
+
     public:
 
       static const yg::Color s_bgColor;
@@ -151,6 +154,9 @@ namespace yg
       void addFramePoint();
 
       void completeCommands();
+
+      void setEnvironment(core::CommandsQueue::Environment const * env);
+      bool isCancelled() const;
     };
   }
 }

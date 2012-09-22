@@ -27,7 +27,8 @@ namespace yg
         m_isSynchronized(params.m_isSynchronized),
         m_isRendering(false),
         m_width(0),
-        m_height(0)
+        m_height(0),
+        m_env(0)
     {
       m_frameBuffer = params.m_frameBuffer;
       m_resourceManager = params.m_resourceManager;
@@ -286,6 +287,19 @@ namespace yg
     {
       if (m_renderQueue)
         m_renderQueue->completeCommands();
+    }
+
+    void Renderer::setEnvironment(core::CommandsQueue::Environment const * env)
+    {
+      m_env = env;
+    }
+
+    bool Renderer::isCancelled() const
+    {
+      if (m_env)
+        return m_env->isCancelled();
+      else
+        return false;
     }
   }
 }

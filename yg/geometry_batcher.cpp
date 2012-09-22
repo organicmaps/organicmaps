@@ -274,6 +274,14 @@ namespace yg
          }
      }
 
+     /// is the rendering was cancelled, there possibly could
+     /// be "ghost" render styles which are present in internal
+     /// skin structures, but aren't rendered onto skin texture.
+     /// so we are clearing the whole skin, to ensure that they
+     /// are gone(slightly heavy, but very simple solution).
+     if (isCancelled())
+       m_skin->clearHandles();
+
      base_t::endFrame();
    }
 

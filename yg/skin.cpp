@@ -354,6 +354,12 @@ namespace yg
     m_additionalPages[0]->setPipelineID(0 + m_pages.size());
   }
 
+  void Skin::clearHandles()
+  {
+    for (unsigned i = 0; i < m_pages.size(); ++i)
+      m_pages[i]->clear();
+  }
+
   void Skin::clearAdditionalPage()
   {
     m_additionalPages.clear();

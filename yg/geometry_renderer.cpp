@@ -89,6 +89,9 @@ namespace yg
                                              shared_ptr<BaseTexture> const & texture,
                                              bool shouldAddCheckPoint)
     {
+      if (isCancelled())
+        return;
+
       vector<shared_ptr<ResourceStyle> > v;
       v.reserve(end - start);
       copy(&uploadQueue[0] + start, &uploadQueue[0] + end, back_inserter(v));
@@ -185,6 +188,9 @@ namespace yg
                                         size_t indicesOffs,
                                         unsigned primType)
     {
+      if (isCancelled())
+        return;
+
       shared_ptr<DrawGeometry> command(new DrawGeometry());
 
       command->m_texture = texture;

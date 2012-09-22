@@ -57,8 +57,6 @@ namespace yg
 
     bool m_fillAlpha;
 
-    void clearHandles();
-
     Skin(shared_ptr<ResourceManager> const & resourceManager,
          TSkinPages const & pages);
 
@@ -140,6 +138,8 @@ namespace yg
 
     void setAdditionalPage(shared_ptr<SkinPage> const & pages);
     void clearAdditionalPage();
+
+    void clearHandles();
 
     void memoryWarning();
     void enterBackground();

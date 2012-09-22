@@ -89,12 +89,16 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
   bool doForceUpdate = DoForceUpdate();
   bool doIntersectInvalidRect = GetInvalidRect().IsIntersect(s.GlobalRect());
 
+  bool doForceUpdateFromGenerator = m_CoverageGenerator->DoForceUpdate();
+
   if (doForceUpdate)
     m_CoverageGenerator->InvalidateTiles(GetInvalidRect(), scales::GetUpperWorldScale() + 1);
 
   if (!m_IsNavigating && (!IsAnimating()))
     m_CoverageGenerator->AddCoverScreenTask(s,
-                                            m_DoRecreateCoverage || (doForceUpdate && doIntersectInvalidRect));
+                                            doForceUpdateFromGenerator
+                                            || m_DoRecreateCoverage
+                                            || (doForceUpdate && doIntersectInvalidRect));
 
   SetForceUpdate(false);
   m_DoRecreateCoverage = false;
@@ -144,6 +148,8 @@ void BasicTilingRenderPolicy::PauseBackgroundRendering()
 {
   m_TileRenderer->SetIsPaused(true);
   m_TileRenderer->CancelCommands();
+  m_CoverageGenerator->SetIsPaused(true);
+  m_CoverageGenerator->CancelCommands();
   if (m_QueuedRenderer)
     m_QueuedRenderer->SetPartialExecution(GetPlatform().CpuCores(), true);
 }
@@ -151,6 +157,7 @@ void BasicTilingRenderPolicy::PauseBackgroundRendering()
 void BasicTilingRenderPolicy::ResumeBackgroundRendering()
 {
   m_TileRenderer->SetIsPaused(false);
+  m_CoverageGenerator->SetIsPaused(false);
   m_DoRecreateCoverage = true;
   if (m_QueuedRenderer)
     m_QueuedRenderer->SetPartialExecution(GetPlatform().CpuCores(), false);

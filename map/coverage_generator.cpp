@@ -30,7 +30,9 @@ CoverageGenerator::CoverageGenerator(
     m_glQueue(glQueue),
     m_skinName(skinName),
     m_fenceManager(2),
-    m_currentFenceID(-1)
+    m_currentFenceID(-1),
+    m_doForceUpdate(false),
+    m_isPaused(false)
 {
   g_coverageGeneratorDestroyed = false;
 
@@ -151,7 +153,7 @@ void CoverageGenerator::AddCoverScreenTask(ScreenBase const & screen, bool doFor
 
   ++m_sequenceID;
 
-  m_queue.AddCommand(bind(&CoverageGenerator::CoverScreen, this, screen, m_sequenceID));
+  m_queue.AddCommand(bind(&CoverageGenerator::CoverScreen, this, _1, screen, m_sequenceID));
 }
 
 int CoverageGenerator::InsertBenchmarkFence()
@@ -172,7 +174,9 @@ void CoverageGenerator::SignalBenchmarkFence()
     m_fenceManager.signalFence(m_currentFenceID);
 }
 
-void CoverageGenerator::CoverScreen(ScreenBase const & screen, int sequenceID)
+void CoverageGenerator::CoverScreen(core::CommandsQueue::Environment const & env,
+                                    ScreenBase const & screen,
+                                    int sequenceID)
 {
   if (sequenceID < m_sequenceID)
     return;
@@ -188,12 +192,15 @@ void CoverageGenerator::CoverScreen(ScreenBase const & screen, int sequenceID)
     AddCheckEmptyModelTask(sequenceID);
   }
 
-  m_workCoverage->Cache();
+  bool shouldSwap = !m_isPaused && m_workCoverage->Cache(env);
 
+  if (shouldSwap)
   {
     threads::MutexGuard g(m_mutex);
     swap(m_currentCoverage, m_workCoverage);
   }
+
+  m_doForceUpdate = !shouldSwap;
 
   m_workCoverage->Clear();
 
@@ -206,10 +213,12 @@ void CoverageGenerator::AddMergeTileTask(Tiler::RectInfo const & rectInfo,
   if (g_coverageGeneratorDestroyed)
     return;
 
-  m_queue.AddCommand(bind(&CoverageGenerator::MergeTile, this, rectInfo, sequenceID));
+  m_queue.AddCommand(bind(&CoverageGenerator::MergeTile, this, _1, rectInfo, sequenceID));
 }
 
-void CoverageGenerator::MergeTile(Tiler::RectInfo const & rectInfo, int sequenceID)
+void CoverageGenerator::MergeTile(core::CommandsQueue::Environment const & env,
+                                  Tiler::RectInfo const & rectInfo,
+                                  int sequenceID)
 {
   if (sequenceID < m_sequenceID)
   {
@@ -227,12 +236,15 @@ void CoverageGenerator::MergeTile(Tiler::RectInfo const & rectInfo, int sequence
     AddCheckEmptyModelTask(sequenceID);
   }
 
-  m_workCoverage->Cache();
+  bool shouldSwap = !m_isPaused && m_workCoverage->Cache(env);
 
+  if (shouldSwap)
   {
     threads::MutexGuard g(m_mutex);
     swap(m_currentCoverage, m_workCoverage);
   }
+
+  m_doForceUpdate = !shouldSwap;
 
   m_workCoverage->Clear();
 
@@ -301,4 +313,19 @@ shared_ptr<yg::ResourceManager> const & CoverageGenerator::resourceManager() con
 string CoverageGenerator::GetCountryName(m2::PointD const & pt) const
 {
   return m_countryNameFn(pt);
+}
+
+void CoverageGenerator::CancelCommands()
+{
+  m_queue.CancelCommands();
+}
+
+void CoverageGenerator::SetIsPaused(bool flag)
+{
+  m_isPaused = flag;
+}
+
+bool CoverageGenerator::DoForceUpdate() const
+{
+  return m_doForceUpdate;
 }

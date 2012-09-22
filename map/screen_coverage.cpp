@@ -10,6 +10,7 @@
 
 #include "../yg/screen.hpp"
 #include "../yg/display_list.hpp"
+#include "../yg/skin.hpp"
 #include "../yg/base_texture.hpp"
 
 #include "screen_coverage.hpp"
@@ -154,12 +155,14 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
   }
 }
 
-void ScreenCoverage::Cache()
+bool ScreenCoverage::Cache(core::CommandsQueue::Environment const & env)
 {
   /// caching tiles blitting commands.
 
   m_displayList.reset();
   m_displayList.reset(m_cacheScreen->createDisplayList());
+
+  m_cacheScreen->setEnvironment(&env);
 
   m_cacheScreen->beginFrame();
   m_cacheScreen->setDisplayList(m_displayList.get());
@@ -195,6 +198,12 @@ void ScreenCoverage::Cache()
   /// while recording of displayList(for example UnlockStorage)
 
   m_cacheScreen->completeCommands();
+
+  bool isCancelled = m_cacheScreen->isCancelled();
+
+  m_cacheScreen->setEnvironment(0);
+
+  return !isCancelled;
 }
 
 void ScreenCoverage::SetScreen(ScreenBase const & screen)

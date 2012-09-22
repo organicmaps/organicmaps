@@ -1,6 +1,7 @@
 #include "../base/SRC_FIRST.hpp"
 
 #include "overlay.hpp"
+#include "overlay_renderer.hpp"
 #include "text_element.hpp"
 
 #include "../base/logging.hpp"
@@ -28,9 +29,17 @@ namespace yg
     return elem->roughBoundRect();
   }
 
+  void DrawIfNotCancelled(gl::OverlayRenderer * r,
+                          shared_ptr<OverlayElement> const & e,
+                          math::Matrix<double, 3, 3> const & m)
+  {
+    if (!r->isCancelled())
+      e->draw(r, m);
+  }
+
   void Overlay::draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m)
   {
-    m_tree.ForEach(bind(&OverlayElement::draw, _1, r, cref(m)));
+    m_tree.ForEach(bind(&DrawIfNotCancelled, r, _1, cref(m)));
   }
 
   Overlay::Overlay()

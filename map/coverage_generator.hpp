@@ -66,6 +66,9 @@ private:
   FenceManager m_fenceManager;
   int m_currentFenceID;
 
+  bool m_doForceUpdate;
+  bool m_isPaused;
+
   ScreenCoverage * CreateCoverage();
 
 public:
@@ -93,9 +96,16 @@ public:
   void AddCheckEmptyModelTask(int sequenceID);
   void AddFinishSequenceTask(int sequenceID);
 
-  void CoverScreen(ScreenBase const & screen, int sequenceID);
-  void MergeTile(Tiler::RectInfo const & rectInfo, int sequenceID);
+  void CoverScreen(core::CommandsQueue::Environment const & env,
+                   ScreenBase const & screen,
+                   int sequenceID);
+
+  void MergeTile(core::CommandsQueue::Environment const & env,
+                 Tiler::RectInfo const & rectInfo,
+                 int sequenceID);
+
   void CheckEmptyModel(int sequenceID);
+
   void FinishSequence(int sequenceID);
 
   void Cancel();
@@ -110,9 +120,14 @@ public:
   void JoinBenchmarkFence(int fenceID);
   void SignalBenchmarkFence();
 
+  bool DoForceUpdate() const;
+
   void SetSequenceID(int sequenceID);
 
   threads::Mutex & Mutex();
 
   shared_ptr<yg::ResourceManager> const & resourceManager() const;
+
+  void SetIsPaused(bool flag);
+  void CancelCommands();
 };

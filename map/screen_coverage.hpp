@@ -113,7 +113,9 @@ public:
   /// Getter for Overlay
   shared_ptr<yg::Overlay> const & GetOverlay() const;
   /// Cache coverage in display list
-  void Cache();
+  /// @return true - if the coverage was cached successfully,
+  ///         false - otherwise(p.e. the caching was cancelled)
+  bool Cache(core::CommandsQueue::Environment const & env);
   /// add rendered tile to coverage. Tile is locked, so make sure to unlock it in case it's not needed.
   void Merge(Tiler::RectInfo const & ri);
   /// recalculate screen coverage, using as much info from prev coverage as possible
