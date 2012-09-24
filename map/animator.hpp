@@ -15,7 +15,7 @@ private:
 
   shared_ptr<RotateScreenTask> m_rotateScreenTask;
 
-  bool m_rotationThreshold;
+  double m_rotationThreshold;
 
 public:
 
