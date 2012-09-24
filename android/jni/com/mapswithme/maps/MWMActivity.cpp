@@ -218,4 +218,11 @@ extern "C"
 
     return false;
   }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMActivity_nativeSkipLocationCentering(JNIEnv * env, jobject thiz)
+  {
+    g_framework->NativeFramework()->SkipLocationCentering();
+  }
+
 } // extern "C"

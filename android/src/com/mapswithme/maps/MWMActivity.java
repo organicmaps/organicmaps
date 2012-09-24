@@ -586,11 +586,14 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onResume()
   {
-    View button = findViewById(R.id.map_button_myposition);
-    if (button.isSelected())
+    final View v = findViewById(R.id.map_button_myposition);
+    if (v != null && v.isSelected())
     {
-      // Change button appearance to "looking for position"
-      button.setBackgroundResource(R.drawable.myposition_button_normal);
+      // change button appearance to "looking for position"
+      v.setBackgroundResource(R.drawable.myposition_button_normal);
+
+      // do not move map's viewport to a location when this activity is resumed
+      nativeSkipLocationCentering();
 
       // and remember to start locationService updates in OnRenderingInitialized
       m_shouldStartLocationService = true;
@@ -774,4 +777,5 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private native void nativeCheckForProVersion(String serverURL);
 
   private native boolean nativeIsInChina(double lat, double lon);
+  private native void nativeSkipLocationCentering();
 }
