@@ -362,23 +362,39 @@ static void OnSearchResultCallback(search::Results const & res)
       if (!cell)
         cell = [[[SearchCell alloc] initWithReuseIdentifier:@"FeatureCell"] autorelease];
 
+      // Init common parameters
       cell.featureName.text = [NSString stringWithUTF8String:r.GetString()];
       cell.featureCountry.text = [NSString stringWithUTF8String:r.GetRegionString()];
       cell.featureType.text = [NSString stringWithUTF8String:r.GetFeatureType()];
-      double const distance = r.GetDistanceFromCenter();
-      cell.featureDistance.text = [LocationManager formatDistance:distance];
-      // Show flags only if feature is too far away and it has the flag
-      if (r.GetRegionFlag() && (distance < 0. || distance > MIN_COMPASS_DISTANCE))
+
+      // Get current position and compass "north" direction
+      double azimut = -1.0;
+      string distance;
+
+      double lat, lon;
+      if ([m_locationManager getLat:lat Lon:lon])
       {
-        UIImage * flagImage = [UIImage imageNamed:[NSString stringWithFormat:@"%s.png", r.GetRegionFlag()]];
+        double north = -1.0;
+        [m_locationManager getNorthRad:north];
+        m_framework->GetDistanceAndAzimut(r, lat, lon, north, distance, azimut);
+      }
+
+      // Assign even empty string if no position found
+      cell.featureDistance.text = [NSString stringWithUTF8String:distance.c_str()];
+
+      // Show flags only if it has one and no azimut to feature
+      char const * flag = r.GetRegionFlag();
+      if (flag && azimut < 0.0)
+      {
+        UIImage * flagImage = [UIImage imageNamed:[NSString stringWithFormat:@"%s.png", flag]];
         UIImageView * imgView = [[UIImageView alloc] initWithImage:flagImage];
         cell.accessoryView = imgView;
         [imgView release];
       }
       else
       {
-        CompassView * compass;
         // Try to reuse existing compass view
+        CompassView * compass;
         if ([cell.accessoryView isKindOfClass:[CompassView class]])
           compass = (CompassView *)cell.accessoryView;
         else
@@ -390,25 +406,8 @@ static void OnSearchResultCallback(search::Results const & res)
           [compass release];
         }
 
-        // Separate case for continents
-        if (!r.GetRegionFlag())
-        {
-          compass.showArrow = NO;
-        }
-        else
-        {
-          double lat, lon, northR;
-          if ([m_locationManager getLat:lat Lon:lon] && [m_locationManager getNorthRad:northR])
-          {
-            m2::PointD const center = r.GetFeatureCenter();
-            compass.angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(lon),
-                                                    MercatorBounds::LatToY(lat)), center) +
-                            northR;
-            compass.showArrow = YES;
-          }
-          else
-            compass.showArrow = NO;
-        }
+        // Show arrow for valid azimut and if feature is not a continent (flag is exist)
+        compass.showArrow = (azimut >= 0.0 && flag) ? YES : NO;
       }
       return cell;
     }
