@@ -50,7 +50,8 @@ HEADERS += \
     country_status_display.hpp \
     rotate_screen_task.hpp \
     compass_arrow.hpp \
-    compass_filter.hpp
+    compass_filter.hpp \
+    animator.hpp
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -92,7 +93,8 @@ SOURCES += \
     country_status_display.cpp \
     rotate_screen_task.cpp \
     compass_arrow.cpp \
-    compass_filter.cpp
+    compass_filter.cpp \
+    animator.cpp
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp

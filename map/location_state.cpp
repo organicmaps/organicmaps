@@ -376,7 +376,9 @@ namespace location
 
   void State::CheckFollowCompass()
   {
-    if (m_hasCompass && (CompassProcessMode() == ECompassFollow) && IsCentered())
+    if (m_hasCompass
+    && (CompassProcessMode() == ECompassFollow)
+    && IsCentered())
       FollowCompass();
   }
 
@@ -392,51 +394,15 @@ namespace location
     double startAngle = m_framework->GetNavigator().Screen().GetAngle();
     double endAngle = -m_compassFilter.GetHeadingRad();
 
-    bool shouldRotate = false;
-
-    if (m_rotateScreenTask && m_rotateScreenTask->IsRunning())
-    {
-      // if the end angle seriously changed we should re-create rotation task.
-      if (fabs(ang::GetShortestDistance(m_rotateScreenTask->EndAngle(), endAngle)) > ang::DegreeToRad(10))
-        shouldRotate = true;
-    }
-    else
-    {
-      // if there are no current rotate screen task or the task is finished already
-      // we check for the distance between current screen angle and headingAngle
-      if (fabs(ang::GetShortestDistance(startAngle, endAngle)) > ang::DegreeToRad(10))
-        shouldRotate = true;
-    }
-
-    if (shouldRotate)
-    {
-      m_framework->GetInformationDisplay().locationState()->StopAnimation();
-      StopAnimation();
-
-      m_rotateScreenTask.reset(new RotateScreenTask(m_framework,
-                                                    startAngle,
-                                                    endAngle,
-                                                    2));
-
-      controller->AddTask(m_rotateScreenTask);
-    }
+    m_framework->GetAnimator().RotateScreen(startAngle, endAngle, 2);
 
     controller->Unlock();
-  }
-
-  void State::StopAnimation()
-  {
-    if (m_rotateScreenTask
-    && !m_rotateScreenTask->IsEnded()
-    && !m_rotateScreenTask->IsCancelled())
-      m_rotateScreenTask->Cancel();
-    m_rotateScreenTask.reset();
   }
 
   void State::StopCompassFollowing()
   {
     SetCompassProcessMode(ECompassDoNothing);
-    StopAnimation();
+    m_framework->GetAnimator().StopRotation();
   }
 
   bool State::IsCentered() const

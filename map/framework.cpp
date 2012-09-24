@@ -117,6 +117,7 @@ static void GetResourcesMaps(vector<string> & outMaps)
 Framework::Framework()
   : //m_hasPendingInvalidate(false),
     //m_doForceUpdate(false),
+    m_animator(this),
     m_etalonSize(GetPlatform().ScaleEtalonSize()),
     m_queryMaxScaleMode(false),
     m_drawPlacemark(false),
@@ -1315,6 +1316,11 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, 
   }
 
   return false;
+}
+
+Animator & Framework::GetAnimator()
+{
+  return m_animator;
 }
 
 Navigator & Framework::GetNavigator()

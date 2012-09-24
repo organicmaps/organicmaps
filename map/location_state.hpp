@@ -60,8 +60,6 @@ namespace location
     ELocationProcessMode m_locationProcessMode;
     ECompassProcessMode m_compassProcessMode;
 
-    shared_ptr<RotateScreenTask> m_rotateScreenTask;
-
     void FollowCompass();
 
     /// GUI element related fields.
@@ -119,7 +117,6 @@ namespace location
 
     void TurnOff();
 
-    void StopAnimation();
     void StopCompassFollowing();
     void SetIsCentered(bool flag);
     bool IsCentered() const;

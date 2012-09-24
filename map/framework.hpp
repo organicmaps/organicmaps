@@ -6,6 +6,7 @@
 #include "window_handle.hpp"
 #include "location_state.hpp"
 #include "navigator.hpp"
+#include "animator.hpp"
 #include "feature_vec_model.hpp"
 #include "bookmark.hpp"
 
@@ -71,6 +72,7 @@ protected:
   mutable scoped_ptr<search::Engine> m_pSearchEngine;
   model::FeaturesFetcher m_model;
   Navigator m_navigator;
+  Animator m_animator;
 
   vector<BookmarkCategory *> m_bookmarks;
 
@@ -356,6 +358,8 @@ public:
 
   gui::Controller * GetGuiController() const;
   anim::Controller * GetAnimController() const;
+
+  Animator & GetAnimator();
   Navigator & GetNavigator();
 
   /// Set the localized strings bundle
