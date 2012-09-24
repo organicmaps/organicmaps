@@ -183,4 +183,21 @@ namespace yg
   {
     return m_userInfo;
   }
+
+  m2::PointD const OverlayElement::point(EPosition pos) const
+  {
+    m2::PointD res = m_roughBoundRect.Center();
+
+    if (pos & EPosLeft)
+      res.x = m_roughBoundRect.minX();
+    if (pos & EPosRight)
+      res.x = m_roughBoundRect.maxX();
+
+    if (pos & EPosAbove)
+      res.y = m_roughBoundRect.minY();
+    if (pos & EPosUnder)
+      res.y = m_roughBoundRect.maxY();
+
+    return res;
+  }
 }
