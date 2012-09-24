@@ -189,15 +189,18 @@ namespace
     }
   };
 
-  class TextRulesChecker
+  class IsDrawableRulesChecker
   {
     int m_scale;
     ClassifObject::FeatureGeoType m_ft;
+    bool m_arr[2];
 
   public:
-    TextRulesChecker(int scale, feature::EGeomType ft)
+    IsDrawableRulesChecker(int scale, feature::EGeomType ft, int rules)
       : m_scale(scale), m_ft(ClassifObject::FeatureGeoType(ft))
     {
+      m_arr[0] = rules & RULE_TEXT;
+      m_arr[1] = rules & RULE_SYMBOL;
     }
 
     typedef bool ResultType;
@@ -209,11 +212,14 @@ namespace
       p->GetSuitable(m_scale, m_ft, keys);
 
       for (size_t i = 0; i < keys.size(); ++i)
-        if (keys[i].m_type == drule::caption || keys[i].m_type == drule::pathtext)
+      {
+        if ((m_arr[0] && (keys[i].m_type == drule::caption || keys[i].m_type == drule::pathtext)) ||
+            (m_arr[1] && keys[i].m_type == drule::symbol))
         {
           res = true;
           return true;
         }
+      }
 
       return false;
     }
@@ -351,11 +357,11 @@ pair<int, int> GetDrawableScaleRange(TypesHolder const & types)
 
 namespace
 {
-  bool IsDrawableText(feature::TypesHolder const & types, int level)
+  bool IsDrawableForRules(feature::TypesHolder const & types, int level, int rules)
   {
     Classificator const & c = classif();
 
-    TextRulesChecker doCheck(level, types.GetGeoType());
+    IsDrawableRulesChecker doCheck(level, types.GetGeoType(), rules);
     for (size_t i = 0; i < types.Size(); ++i)
       if (c.ProcessObjects(types[i], doCheck))
         return true;
@@ -364,13 +370,13 @@ namespace
   }
 }
 
-pair<int, int> GetDrawableScaleRangeForText(feature::TypesHolder const & types)
+pair<int, int> GetDrawableScaleRangeForRules(feature::TypesHolder const & types, int rules)
 {
   int const upBound = scales::GetUpperScale();
   int lowL = -1;
   for (int level = 0; level <= upBound; ++level)
   {
-    if (IsDrawableText(types, level))
+    if (IsDrawableForRules(types, level, rules))
     {
       lowL = level;
       break;
@@ -383,7 +389,7 @@ pair<int, int> GetDrawableScaleRangeForText(feature::TypesHolder const & types)
   int highL = lowL;
   for (int level = upBound; level > lowL; --level)
   {
-    if (IsDrawableText(types, level))
+    if (IsDrawableForRules(types, level, rules))
     {
       highL = level;
       break;
@@ -393,9 +399,9 @@ pair<int, int> GetDrawableScaleRangeForText(feature::TypesHolder const & types)
   return make_pair(lowL, highL);
 }
 
-pair<int, int> GetDrawableScaleRangeForText(FeatureBase const & f)
+pair<int, int> GetDrawableScaleRangeForRules(FeatureBase const & f, int rules)
 {
-  return GetDrawableScaleRangeForText(TypesHolder(f));
+  return GetDrawableScaleRangeForRules(TypesHolder(f), rules);
 }
 
 bool IsHighway(vector<uint32_t> const & types)

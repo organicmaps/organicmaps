@@ -18,7 +18,8 @@ namespace feature
   /// @note do not change this values. Should be equal with EGeomType.
   /// Used for checking visibility (by drawing style) for feature's geometry type
   /// (for Area - check only area type, but can draw symbol or caption).
-  enum FeatureGeoType {
+  enum FeatureGeoType
+  {
     FEATURE_TYPE_POINT = 0,
     FEATURE_TYPE_LINE = 1,
     FEATURE_TYPE_AREA = 2
@@ -43,8 +44,13 @@ namespace feature
   pair<int, int> GetDrawableScaleRange(TypesHolder const & types);
 
   /// @name Get scale range when feature's text is visible.
-  pair<int, int> GetDrawableScaleRangeForText(TypesHolder const & types);
-  pair<int, int> GetDrawableScaleRangeForText(FeatureBase const & f);
+  enum
+  {
+    RULE_TEXT = 1, RULE_SYMBOL = 2
+  };
+
+  pair<int, int> GetDrawableScaleRangeForRules(TypesHolder const & types, int rules);
+  pair<int, int> GetDrawableScaleRangeForRules(FeatureBase const & f, int rules);
   //@}
 
   /// @return (geometry type, is coastline)

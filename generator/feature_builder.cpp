@@ -172,7 +172,7 @@ bool FeatureBuilder1::PreSerialize()
 
   case GEOM_LINE:
     // We need refs for road's numbers.
-    if (!feature::IsHighway(m_Params.m_Types))
+    if (!IsHighway(m_Params.m_Types))
       m_Params.ref = string();
 
     m_Params.rank = 0;
@@ -191,7 +191,7 @@ bool FeatureBuilder1::PreSerialize()
   // Clear name for features with invisible texts.
   int64_t dummy;
   if (!m_Params.name.IsEmpty() && !GetCoastCell(dummy) &&
-      (feature::GetDrawableScaleRangeForText(GetFeatureBase()).first == -1))
+      (GetDrawableScaleRangeForRules(GetFeatureBase(), RULE_TEXT).first == -1))
   {
     m_Params.name.Clear();
   }

@@ -316,8 +316,9 @@ namespace
 
     virtual double NeedProcess(feature::TypesHolder const & types) const
     {
+      using namespace feature;
       // we need features with texts for address lookup
-      pair<int, int> const r = feature::GetDrawableScaleRangeForText(types);
+      pair<int, int> const r = GetDrawableScaleRangeForRules(types, RULE_TEXT | RULE_SYMBOL);
       return my::between_s(r.first, r.second, m_scale);
     }
 
