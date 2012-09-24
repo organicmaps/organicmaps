@@ -28,6 +28,8 @@ SOURCES += \
     mmap_reader.cpp \
     reader_streambuf.cpp \
     reader_writer_ops.cpp \
+    blob_indexer.cpp \
+    blob_storage.cpp \
 
 HEADERS += \
     internal/xmlparser.h \
@@ -83,3 +85,5 @@ HEADERS += \
     reader_streambuf.hpp \
     reader_writer_ops.hpp \
     reader_wrapper.hpp \
+    blob_indexer.hpp \
+    blob_storage.hpp \
