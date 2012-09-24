@@ -14,9 +14,11 @@ class BlobStorage
 public:
   DECLARE_EXCEPTION(OpenException, RootException);
 
+  typedef function<void (char const *, size_t, char *, size_t)> DecompressorType;
+
   // Takes ownership of pReader and deletes it, even if exception is thrown.
   BlobStorage(Reader const * pReader,
-              function<void (char const *, size_t, char *, size_t)> decompressor);
+              DecompressorType const & decompressor);
   ~BlobStorage();
 
   // Get blob by its number, starting from 0.
@@ -35,7 +37,7 @@ private:
   static uint32_t const START_OFFSET = 4;
 
   scoped_ptr<Reader const> m_pReader;
-  function<void (char const *, size_t, char *, size_t)> m_decompressor;
+  DecompressorType m_decompressor;
 
   DDVector<uint32_t, PolymorphReader> m_blobInfo;
   DDVector<uint32_t, PolymorphReader> m_chunkOffset;

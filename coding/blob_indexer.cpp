@@ -13,7 +13,7 @@
 
 BlobIndexer::BlobIndexer(Writer & writer,
                          size_t maxUncompressedChunkSize,
-                         function<void (char const *, size_t, string &)> const & compressor) :
+                         CompressorType const & compressor) :
   m_writer(writer),
   m_maxUncompressedChunkSize(min(int(maxUncompressedChunkSize), (1 << BITS_IN_CHUNK_SIZE) - 1)),
   m_compressor(compressor),

@@ -9,9 +9,11 @@ class Writer;
 class BlobIndexer
 {
 public:
+  typedef function<void (char const *, size_t, string &)> CompressorType;
+
   BlobIndexer(Writer & writer,
               size_t maxUncompressedChunkSize,
-              function<void (char const *, size_t, string &)> const & compressor);
+              CompressorType const & compressor);
   ~BlobIndexer();
 
   // Add blob and return its id.
@@ -24,7 +26,7 @@ private:
 
   Writer & m_writer;
   size_t const m_maxUncompressedChunkSize;
-  function<void (char const *, size_t, string &)> const m_compressor;
+  CompressorType m_compressor;
 
   static uint32_t const BITS_IN_CHUNK_SIZE = 20;
 

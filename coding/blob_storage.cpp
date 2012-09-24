@@ -6,7 +6,8 @@
 // nb - number of blobs
 // nc - number of chunks
 //
-// [4| Header = "Blb1"]
+// [3| Header = "Blb"]
+// [1| logMaxChunkSize]
 // [*| Chunk 0    ] [*| Chunk 1    ] ... [*| Chunk nc-1]
 // [4| Chunk 1 pos] [4| Chunk 2 pos] ... [4| Pos after the last chunk]
 // [4| Blob info 0] [4| Blob info 1] ... [4| Blob info nb-1]
@@ -23,7 +24,7 @@
 
 
 BlobStorage::BlobStorage(Reader const * pReader,
-                         function<void (char const *, size_t, char *, size_t)> decompressor) :
+                         DecompressorType const & decompressor) :
   m_pReader(pReader), m_decompressor(decompressor)
 {
   Init();
