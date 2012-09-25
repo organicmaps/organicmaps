@@ -1,5 +1,7 @@
 package com.mapswithme.maps;
 
+import java.util.Locale;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -279,24 +281,37 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     startActivity(intent);
   }
 
+  private boolean isChinaISO(String iso)
+  {
+    String arr[] = { "CN", "CHN", "HK", "HKG", "MO", "MAC" };
+    for (String s : arr)
+      if (iso.equalsIgnoreCase(s))
+        return true;
+    return false;
+  }
+
   private boolean isChinaRegion()
   {
     final TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
     if (tm != null && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_CDMA)
     {
       final String iso = tm.getNetworkCountryIso();
-      Log.i(TAG, "TelephonyManager country IOS = " + iso);
-
-      String arr[] = { "CN", "CHN", "HK", "HKG", "MO", "MAC" };
-      for (String s : arr)
-        if (iso.equalsIgnoreCase(s))
-          return true;
+      Log.i(TAG, "TelephonyManager country ISO = " + iso);
+      if (isChinaISO(iso))
+        return true;
     }
     else
     {
       final Location l = mApplication.getLocationService().getLastKnown();
       if (l != null && nativeIsInChina(l.getLatitude(), l.getLongitude()))
         return true;
+      else
+      {
+        final String lang = Locale.getDefault().getLanguage();
+        Log.i(TAG, "Current language ISO = " + lang);
+        if (isChinaISO(lang))
+          return true;
+      }
     }
 
     return false;
