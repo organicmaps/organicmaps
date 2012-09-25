@@ -4,6 +4,7 @@
 
 #include "../base/assert.hpp"
 #include "../base/base.hpp"
+#include "../base/exception.hpp"
 #include "../base/src_point.hpp"
 
 #include "../std/type_traits.hpp"
@@ -22,6 +23,8 @@ public:
   typedef TSize size_type;
   typedef TDifference difference_type;
   typedef TReader ReaderType;
+
+  DECLARE_EXCEPTION(OpenException, RootException);
 
   DDVector() : m_Size(0) {}
 
@@ -163,6 +166,8 @@ public:
 private:
   void InitSize()
   {
+    if ((m_reader.Size() % sizeof(T)) != 0)
+      MYTHROW(OpenException, (m_reader.Size(), sizeof(T)));
     // TODO: Check that reader.Size() % sizeof(T) == 0
     m_Size = m_reader.Size() / sizeof(T);
   }

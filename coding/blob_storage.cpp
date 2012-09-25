@@ -36,21 +36,24 @@ BlobStorage::~BlobStorage()
 
 void BlobStorage::Init()
 {
-  string header(3, ' ');
-  ReadFromPos(*m_pReader, 0, &header[0], 3);
+  uint32_t const HEADER_TAG_SIZE = 3;
+  uint32_t const HEADER_SIZE = 4;
+  string header(HEADER_TAG_SIZE, ' ');
+  ReadFromPos(*m_pReader, 0, &header[0], HEADER_TAG_SIZE);
   if (header != "Blb")
     MYTHROW(BlobStorage::OpenException, (header));
-  m_bitsInChunkSize = ReadPrimitiveFromPos<uint8_t>(*m_pReader, 3);
+
+  m_bitsInChunkSize = ReadPrimitiveFromPos<uint8_t>(*m_pReader, HEADER_TAG_SIZE);
 
   uint64_t const fileSize = m_pReader->Size();
-  uint32_t const blobCount = ReadPrimitiveFromPos<uint32_t>(*m_pReader, fileSize - 4);
+  uint32_t const blobCount = ReadPrimitiveFromPos<uint32_t>(*m_pReader, fileSize - HEADER_SIZE);
   m_blobInfo.Init(PolymorphReader(m_pReader->CreateSubReader(
-                                    fileSize - 4 - 4 * blobCount,
+                                    fileSize - HEADER_SIZE - 4 * blobCount,
                                     4 * blobCount)));
   uint32_t const chunkCount =
       (blobCount > 0 ? (m_blobInfo[blobCount - 1] >> m_bitsInChunkSize) + 1 : 0);
   m_chunkOffset.Init(PolymorphReader(m_pReader->CreateSubReader(
-                                       fileSize - 4 - 4 * blobCount - 4 * chunkCount,
+                                       fileSize - HEADER_SIZE - 4 * blobCount - 4 * chunkCount,
                                        4 * chunkCount)));
 }
 
