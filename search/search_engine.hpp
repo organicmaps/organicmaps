@@ -43,6 +43,8 @@ public:
   string GetCountryFile(m2::PointD const & pt);
   string GetCountryCode(m2::PointD const & pt);
 
+  int8_t GetCurrentLanguage() const;
+
 private:
   template <class T> string GetCountryNameT(T const & t);
 public:

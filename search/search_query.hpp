@@ -73,6 +73,7 @@ public:
 
   void SetPreferredLanguage(string const & lang);
   void SetInputLanguage(int8_t lang);
+  int8_t GetPrefferedLanguage() const;
 
   void Search(string const & query, Results & res);
   void SearchAllInViewport(m2::RectD const & viewport, Results & res, unsigned int resultsNeeded = 30);

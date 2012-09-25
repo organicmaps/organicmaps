@@ -177,6 +177,11 @@ void Query::SetInputLanguage(int8_t lang)
   SetLanguage(LANG_INPUT, lang);
 }
 
+int8_t Query::GetPrefferedLanguage() const
+{
+  return GetLanguage(LANG_CURRENT);
+}
+
 void Query::ClearCache()
 {
   for (size_t i = 0; i < RECTSCOUNT; ++i)

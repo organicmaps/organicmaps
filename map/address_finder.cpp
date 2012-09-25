@@ -360,7 +360,7 @@ namespace
 
     void FillAddress(search::Engine const * eng, Framework::AddressInfo & info)
     {
-      int8_t const lang = StringUtf8Multilang::GetLangIndex(languages::CurrentLanguage());
+      int8_t const lang = eng->GetCurrentLanguage();
 
       SortResults();
 

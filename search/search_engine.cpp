@@ -334,6 +334,11 @@ m2::RectD Engine::GetCountryBounds(string const & file) const
   return m_pData->m_infoGetter.CalcLimitRect(file);
 }
 
+int8_t Engine::GetCurrentLanguage() const
+{
+  return m_pQuery->GetPrefferedLanguage();
+}
+
 void Engine::ClearCaches()
 {
   /// @todo Add m_pData->m_infoGetter clearing routine.
