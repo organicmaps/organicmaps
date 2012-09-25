@@ -307,8 +307,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         return true;
       else
       {
-        final String lang = Locale.getDefault().getLanguage();
-        Log.i(TAG, "Current language ISO = " + lang);
+        final String lang = Locale.getDefault().getISO3Country();
+        Log.i(TAG, "Locale country ISO = " + lang);
         if (isChinaISO(lang))
           return true;
       }
