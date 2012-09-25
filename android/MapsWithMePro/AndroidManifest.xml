@@ -32,7 +32,7 @@
                   android:label="@string/app_name"
                   android:screenOrientation="behind"
                   android:theme="@style/MWMNoTitle"
-                  android:configChanges="orientation">
+                  android:configChanges="orientation|screenLayout|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -48,13 +48,13 @@
                   android:label="@string/download_maps"
                   android:screenOrientation="behind"
                   android:noHistory="true"
-                  android:configChanges="orientation">
+                  android:configChanges="orientation|screenLayout|screenSize">
         </activity>
         <activity android:name="com.mapswithme.maps.SearchActivity"
                   android:label="@string/search_map"
                   android:screenOrientation="behind"
                   android:noHistory="true"
-                  android:configChanges="orientation">
+                  android:configChanges="orientation|screenLayout|screenSize">
         </activity>
     </application>
 </manifest>
