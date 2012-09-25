@@ -34,7 +34,7 @@ private:
   uint32_t GetOffsetFromBI(uint32_t blobInfo) const;
 
   uint32_t m_bitsInChunkSize;
-  static uint32_t const START_OFFSET = 4;
+  static uint32_t const HEADER_SIZE = 4;
 
   scoped_ptr<Reader const> m_pReader;
   DecompressorType m_decompressor;

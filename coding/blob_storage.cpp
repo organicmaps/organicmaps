@@ -81,7 +81,7 @@ void BlobStorage::GetBlob(uint32_t i, string & blob) const
   uint32_t const chunkEnd = m_chunkOffset[chunk];
   vector<char> compressedData(chunkEnd - chunkBeg);
   ASSERT_GREATER(compressedData.size(), 4, ());
-  m_pReader->Read(START_OFFSET + chunkBeg, &compressedData[0], compressedData.size());
+  m_pReader->Read(HEADER_SIZE + chunkBeg, &compressedData[0], compressedData.size());
   uint32_t const decompressedSize = ReadPrimitiveFromPos<uint32_t>(
       MemReader(&compressedData[0], compressedData.size()), compressedData.size() - 4);
 
