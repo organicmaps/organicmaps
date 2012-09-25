@@ -132,34 +132,16 @@ void CompassArrow::StopAnimation()
 
 bool CompassArrow::onTapEnded(m2::PointD const & pt)
 {
-  shared_ptr<anim::Controller> animController = m_framework->GetRenderPolicy()->GetAnimController();
+  anim::Controller * animController = m_framework->GetAnimController();
   animController->Lock();
 
   /// switching off compass follow mode
   m_framework->GetInformationDisplay().locationState()->StopCompassFollowing();
 
-  if (m_rotateScreenTask
-  && !m_rotateScreenTask->IsEnded()
-  && !m_rotateScreenTask->IsCancelled())
-    m_rotateScreenTask->Cancel();
-  m_rotateScreenTask.reset();
-
   double startAngle = m_framework->GetNavigator().Screen().GetAngle();
   double endAngle = 0;
 
-  double period = 2 * math::pi;
-
-  startAngle -= floor(startAngle / period) * period;
-  endAngle -= floor(endAngle / period) * period;
-
-  if (fabs(startAngle - endAngle) > math::pi)
-    startAngle -= 2 * math::pi;
-
-  m_rotateScreenTask.reset(new RotateScreenTask(m_framework,
-                                                startAngle,
-                                                endAngle,
-                                                2));
-  animController->AddTask(m_rotateScreenTask);
+  m_framework->GetAnimator().RotateScreen(startAngle, endAngle, 2);
 
   animController->Unlock();
 

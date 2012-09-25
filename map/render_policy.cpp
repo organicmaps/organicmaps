@@ -37,8 +37,7 @@ RenderPolicy::RenderPolicy(Params const & p,
     m_doSupportRotation(doSupportRotation),
     m_doForceUpdate(false),
     m_visualScale(p.m_visualScale),
-    m_skinName(p.m_skinName),
-    m_controller(new anim::Controller())
+    m_skinName(p.m_skinName)
 {
   LOG(LDEBUG, ("each BaseRule will hold up to", idCacheSize, "cached values"));
   drule::rules().ResizeCaches(idCacheSize);
@@ -220,9 +219,9 @@ void RenderPolicy::JoinBenchmarkFence(int fenceID)
 {
 }
 
-shared_ptr<anim::Controller> const & RenderPolicy::GetAnimController() const
+void RenderPolicy::SetAnimController(anim::Controller * controller)
 {
-  return m_controller;
+  m_controller = controller;
 }
 
 void RenderPolicy::SetOverlay(shared_ptr<yg::Overlay> const & overlay)

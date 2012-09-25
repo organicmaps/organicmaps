@@ -387,7 +387,7 @@ namespace location
     if (!m_framework->GetNavigator().DoSupportRotation())
       return;
 
-    shared_ptr<anim::Controller> controller = m_framework->GetRenderPolicy()->GetAnimController();
+    anim::Controller * controller = m_framework->GetAnimController();
 
     controller->Lock();
 

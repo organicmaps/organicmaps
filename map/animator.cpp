@@ -16,7 +16,9 @@ void Animator::RotateScreen(double startAngle, double endAngle, double duration)
 {
   bool shouldRotate = false;
 
-  if (m_rotateScreenTask && m_rotateScreenTask->IsRunning())
+  if (m_rotateScreenTask
+   && !m_rotateScreenTask->IsCancelled()
+   && !m_rotateScreenTask->IsEnded())
   {
     // if the end angle seriously changed we should re-create rotation task.
     if (fabs(ang::GetShortestDistance(m_rotateScreenTask->EndAngle(), endAngle)) > m_rotationThreshold)
@@ -45,7 +47,8 @@ void Animator::RotateScreen(double startAngle, double endAngle, double duration)
 void Animator::StopRotation()
 {
   if (m_rotateScreenTask
-   && m_rotateScreenTask->IsRunning())
+   && !m_rotateScreenTask->IsEnded()
+   && !m_rotateScreenTask->IsCancelled())
     m_rotateScreenTask->Cancel();
 
   m_rotateScreenTask.reset();

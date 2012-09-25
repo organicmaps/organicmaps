@@ -13,6 +13,11 @@ class PaintEvent;
 class ScreenBase;
 class VideoTimer;
 
+namespace anim
+{
+  class Controller;
+}
+
 namespace yg
 {
   namespace gl
@@ -60,7 +65,7 @@ protected:
   m2::AnyRectD m_invalidRect;
   double m_visualScale;
   string m_skinName;
-  shared_ptr<anim::Controller> m_controller;
+  anim::Controller * m_controller;
   shared_ptr<yg::Overlay> m_overlay;
 
   void SetOverlay(shared_ptr<yg::Overlay> const & overlay);
@@ -111,6 +116,7 @@ public:
   /// the start point of rendering in renderpolicy.
   virtual void SetRenderFn(TRenderFn renderFn);
   virtual void SetCountryNameFn(TCountryNameFn countryNameFn);
+  void SetAnimController(anim::Controller * controller);
 
   bool DoSupportRotation() const;
   virtual bool IsTiling() const;
@@ -123,7 +129,6 @@ public:
   bool DoForceUpdate() const;
   void SetForceUpdate(bool flag);
 
-  shared_ptr<anim::Controller> const & GetAnimController() const;
   bool IsAnimating() const;
 
   void SetInvalidRect(m2::AnyRectD const & glbRect);
