@@ -22,3 +22,22 @@ UNIT_TEST(DDVector)
   for (size_t i = 0; i < v.size(); ++i, ++it)
     TEST_EQUAL(v[i], *it, ());
 }
+
+UNIT_TEST(DDVector_IncorrectSize)
+{
+  typedef DDVector<uint16_t, MemReader> Vector;
+  char const data[] = "ab";
+  MemReader reader(data, ARRAY_SIZE(data));
+
+  bool exceptionCaught = false;
+  try
+  {
+    Vector v(reader);
+  }
+  catch (Vector::OpenException & e)
+  {
+    exceptionCaught = true;
+  }
+
+  TEST(exceptionCaught, ());
+}
