@@ -340,34 +340,37 @@ namespace qt
     else if (e->button() == Qt::RightButton)
     {
       // show feature types
-      QPoint const & pt = e->pos();
+      QPoint const & qp = e->pos();
+      m2::PointD const pt(qp.x(), qp.y());
       QMenu menu;
 
+      // Get POI under cursor or nearest address by point.
       Framework::AddressInfo info;
       m2::PointD dummy;
-      if (m_framework->GetVisiblePOI(m2::PointD(pt.x(), pt.y()), dummy, info))
+      if (m_framework->GetVisiblePOI(pt, dummy, info))
       {
         add_string(menu, "POI");
       }
       else
       {
-        vector<string> types;
-        m_framework->GetFeatureTypes(m2::PointD(pt.x(), pt.y()), types);
-
-        for (size_t i = 0; i < types.size(); ++i)
-          add_string(menu, types[i]);
-
-        m_framework->GetAddressInfo(m_framework->PtoG(m2::PointD(pt.x(), pt.y())), info);
+        m_framework->GetAddressInfo(m_framework->PtoG(pt), info);
       }
+
+      // Get feature types under cursor.
+      vector<string> types;
+      m_framework->GetFeatureTypes(pt, types);
+      for (size_t i = 0; i < types.size(); ++i)
+        add_string(menu, types[i]);
 
       (void)menu.addSeparator();
 
+      // Format address and types.
       if (!info.m_name.empty())
         add_string(menu, info.m_name);
       add_string(menu, info.FormatAddress());
       add_string(menu, info.FormatTypes());
 
-      menu.exec(pt);
+      menu.exec(qp);
     }
   }
 

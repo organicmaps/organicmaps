@@ -322,6 +322,29 @@ namespace
       return my::between_s(r.first, r.second, m_scale);
     }
 
+    static void GetReadableTypes(search::Engine const * eng, int8_t lang,
+                                 feature::TypesHolder const & types,
+                                 Framework::AddressInfo & info)
+    {
+      // add types for POI
+      size_t const count = types.Size();
+      for (size_t i = 0; i < count; ++i)
+      {
+        uint32_t type = types[i];
+
+        string s;
+        if (!eng->GetNameByType(type, lang, s))
+        {
+          // Try to use common type truncation if no match found.
+          ftype::TruncValue(type, 2);
+          (void)eng->GetNameByType(type, lang, s);
+        }
+
+        if (!s.empty())
+          info.m_types.push_back(s);
+      }
+    }
+
   public:
     DoGetAddressInfo(m2::PointD const & pt, int scale, TypeChecker const & checker,
                      double (&arrRadius) [3])
@@ -357,13 +380,7 @@ namespace
           {
             info.m_name = m_cont[i].m_name;
 
-            // add types for POI
-            size_t const count = m_cont[i].m_types.Size();
-            info.m_types.resize(count);
-            for (size_t j = 0; j < count; ++j)
-            {
-              eng->GetNameByType(m_cont[i].m_types[j], lang, info.m_types[j]);
-            }
+            GetReadableTypes(eng, lang, m_cont[i].m_types, info);
           }
         }
 
@@ -536,6 +553,7 @@ string Framework::AddressInfo::FormatTypes() const
   string result;
   for (size_t i = 0; i < m_types.size(); ++i)
   {
+    ASSERT ( !m_types.empty(), () );
     if (!result.empty())
       result += ' ';
     result += m_types[i];

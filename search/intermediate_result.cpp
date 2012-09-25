@@ -374,9 +374,14 @@ uint32_t PreResult2::GetBestType(set<uint32_t> const * pPrefferedTypes) const
   }
 
   if (t == 0)
+  {
     t = m_types.GetBestType();
 
-  ftype::TruncValue(t, 2);
+    // Do type truncate (2-level is enough for search results) only for
+    // non-preffered types (types from categories leave original).
+    ftype::TruncValue(t, 2);
+  }
+
   return t;
 }
 
