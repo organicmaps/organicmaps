@@ -401,15 +401,7 @@ string PreResult2::GetFeatureType(CategoriesHolder const * pCat,
       return name;
   }
 
-  string s = classif().GetFullObjectName(type);
-
-  // remove ending dummy symbol
-  ASSERT ( !s.empty(), () );
-  s.resize(s.size()-1);
-
-  // replace separator
-  replace(s.begin(), s.end(), '|', '-');
-  return s;
+  return classif().GetReadableObjectName(type);
 }
 
 m2::RectD PreResult2::GetFinalViewport() const

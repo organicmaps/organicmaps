@@ -261,6 +261,9 @@ public:
   ClassifObject const * GetObject(uint32_t type) const;
   string GetFullObjectName(uint32_t type) const;
   //@}
+
+  /// @return Object name to show in UI (not for debug purposes).
+  string GetReadableObjectName(uint32_t type) const;
 };
 
 Classificator & classif();

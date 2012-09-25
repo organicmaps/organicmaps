@@ -552,3 +552,16 @@ void Classificator::Clear()
 {
   *this = Classificator();
 }
+
+string Classificator::GetReadableObjectName(uint32_t type) const
+{
+  string s = classif().GetFullObjectName(type);
+
+  // remove ending dummy symbol
+  ASSERT ( !s.empty(), () );
+  s.resize(s.size()-1);
+
+  // replace separator
+  replace(s.begin(), s.end(), '|', '-');
+  return s;
+}

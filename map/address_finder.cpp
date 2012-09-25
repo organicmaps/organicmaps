@@ -150,7 +150,7 @@ namespace
 
       for (size_t i = 0; i < min(count, m_cont.size()); ++i)
         for (size_t j = 0; j < m_cont[i].m_types.Size(); ++j)
-          types.push_back(c.GetFullObjectName(m_cont[i].m_types[j]));
+          types.push_back(c.GetReadableObjectName(m_cont[i].m_types[j]));
     }
 
   private:
@@ -326,7 +326,7 @@ namespace
                                  feature::TypesHolder const & types,
                                  Framework::AddressInfo & info)
     {
-      // add types for POI
+      // Try to add types from categories.
       size_t const count = types.Size();
       for (size_t i = 0; i < count; ++i)
       {
@@ -342,6 +342,14 @@ namespace
 
         if (!s.empty())
           info.m_types.push_back(s);
+      }
+
+      // If nothing added - return raw classificator types.
+      if (info.m_types.empty())
+      {
+        Classificator const & c = classif();
+        for (size_t i = 0; i < count; ++i)
+          info.m_types.push_back(c.GetReadableObjectName(types[i]));
       }
     }
 
