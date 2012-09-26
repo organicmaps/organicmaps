@@ -274,6 +274,10 @@ namespace android
           return;
       }
 
+      if (eventType == NV_MULTITOUCH_UP)
+        if (m_work.GetGuiController()->OnTapEnded(m2::PointD(x1, y1)))
+          return;
+
       if ((eventType == NV_MULTITOUCH_UP) && (m_isCleanSingleClick))
       {
         if (m_work.GetGuiController()->OnTapEnded(m2::PointD(x1, y1)))
