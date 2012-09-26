@@ -44,6 +44,8 @@ void GetServerListFromRequest(HttpRequest const & request, vector<string> & urls
   }
   else
   {
+    LOG(LWARNING, ("Can't get servers list from request"));
+
     string serverList;
     if (!Settings::Get(SETTINGS_SERVERS_KEY, serverList))
       serverList = GetPlatform().DefaultUrlsJSON();

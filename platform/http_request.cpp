@@ -69,7 +69,14 @@ class MemoryHttpRequest : public HttpRequest, public IHttpThreadCallback
 
   virtual void OnFinish(long httpCode, int64_t, int64_t)
   {
-    m_status = (httpCode == 200) ? ECompleted : EFailed;
+    if (httpCode == 200)
+      m_status = ECompleted;
+    else
+    {
+      LOG(LWARNING, ("HttpRequest error:", httpCode));
+      m_status = EFailed;
+    }
+
     m_onFinish(*this);
   }
 
