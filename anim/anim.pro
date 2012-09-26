@@ -11,11 +11,10 @@ include($$ROOT_DIR/common.pri)
 
 HEADERS += \
     controller.hpp \
-    task.hpp
+    task.hpp \
+    angle_interpolation.hpp \
 
 SOURCES += \
     controller.cpp \
-    task.cpp
-
-
-
+    task.cpp \
+    angle_interpolation.cpp \
