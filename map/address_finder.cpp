@@ -492,7 +492,8 @@ void Framework::GetAddressInfo(m2::PointD const & pt, AddressInfo & info) const
 
   getAddress.FillAddress(GetSearchEngine(), info);
 
-  GetLocality(pt, info);
+  // @TODO Temporarily commented - it's slow and not used in UI
+  //GetLocality(pt, info);
 }
 
 void Framework::GetAddressInfo(FeatureType const & ft, m2::PointD const & pt, AddressInfo & info) const
@@ -513,7 +514,8 @@ void Framework::GetAddressInfo(FeatureType const & ft, m2::PointD const & pt, Ad
   getAddress(ft);
   getAddress.FillAddress(GetSearchEngine(), info);
 
-  GetLocality(pt, info);
+  // @TODO Temporarily commented - it's slow and not used in UI
+  //GetLocality(pt, info);
 }
 
 void Framework::GetLocality(m2::PointD const & pt, AddressInfo & info) const
