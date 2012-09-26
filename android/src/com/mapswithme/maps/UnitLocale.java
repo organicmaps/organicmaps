@@ -2,16 +2,20 @@ package com.mapswithme.maps;
 
 import java.util.Locale;
 
-public class UnitLocale {
-    public static UnitLocale Imperial = new UnitLocale();
-    public static UnitLocale Metric = new UnitLocale();
+public class UnitLocale
+{
+  public static int METRIC = 0;
+  public static int IMPERIAL = 1;
 
-    public static UnitLocale getCurrent()
-    {
-        String countryCode = Locale.getDefault().getCountry();
-        if ("US".equals(countryCode)) return Imperial; // USA
-        if ("LR".equals(countryCode)) return Imperial; // liberia
-        if ("MM".equals(countryCode)) return Imperial; // burma
-        return Metric;
-    }
+  public static int getCurrent()
+  {
+    final String code = Locale.getDefault().getCountry();
+    // USA, Liberia, Burma
+    String arr[] = { "US", "LR", "MM" };
+    for (String s : arr)
+      if (s.equalsIgnoreCase(code))
+        return IMPERIAL;
+
+    return METRIC;
+  }
 }

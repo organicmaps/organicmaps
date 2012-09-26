@@ -143,7 +143,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     if (u == UNITS_UNDEFINED)
     {
       // Checking system-default measurement system
-      if (UnitLocale.getCurrent() == UnitLocale.Metric)
+      if (UnitLocale.getCurrent() == UnitLocale.METRIC)
       {
         setMeasurementSystem(UNITS_METRIC);
       }
@@ -307,9 +307,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         return true;
       else
       {
-        final String lang = Locale.getDefault().getISO3Country();
-        Log.i(TAG, "Locale country ISO = " + lang);
-        if (isChinaISO(lang))
+        final String code = Locale.getDefault().getCountry();
+        Log.i(TAG, "Locale country ISO = " + code);
+        if (isChinaISO(code))
           return true;
       }
     }
