@@ -1,11 +1,16 @@
 #pragma once
 
+#include "../std/map.hpp"
+#include "../std/function.hpp"
+
 namespace anim
 {
   // Interface for single animation task
   class Task
   {
   public:
+
+    typedef function<void()> TCallback;
 
     enum EState
     {
@@ -18,6 +23,10 @@ namespace anim
   private:
 
     EState m_State;
+
+    map<EState, TCallback> m_callbacks;
+
+    void PerformCallback(EState state);
 
   protected:
 
@@ -41,5 +50,7 @@ namespace anim
     bool IsCancelled() const;
     bool IsEnded() const;
     bool IsRunning() const;
+
+    void SetCallback(EState state, TCallback const & cb);
   };
 }

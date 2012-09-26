@@ -19,21 +19,32 @@ namespace anim
     m_State = State;
   }
 
+  void Task::PerformCallback(EState state)
+  {
+    TCallback const & cb = m_callbacks[state];
+    if (cb)
+      cb();
+  }
+
   void Task::OnStart(double ts)
   {
+    PerformCallback(EStarted);
     SetState(EInProgress);
   }
 
   void Task::OnStep(double ts)
   {
+    PerformCallback(EInProgress);
   }
 
   void Task::OnCancel(double ts)
   {
+    PerformCallback(ECancelled);
   }
 
   void Task::OnEnd(double ts)
   {
+    PerformCallback(EEnded);
   }
 
   void Task::Cancel()
@@ -59,5 +70,10 @@ namespace anim
   bool Task::IsRunning() const
   {
     return State() == EInProgress;
+  }
+
+  void Task::SetCallback(EState state, TCallback const & cb)
+  {
+    m_callbacks[state] = cb;
   }
 }
