@@ -400,13 +400,14 @@ NSInteger compareAddress(id l, id r, void * context)
   int tapCount = theTouch.tapCount;
   int touchesCount = [[event allTouches] count];
 
+  Framework & f = GetFramework();
   if (touchesCount == 1)
   {
     // Cancel long-touch timer
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     if (tapCount == 1)
     {
-      if (GetFramework().GetGuiController()->OnTapEnded(m_Pt1))
+      if (f.GetGuiController()->OnTapEnded(m_Pt1))
         return;
 
       // Launch single tap timer
@@ -414,11 +415,11 @@ NSInteger compareAddress(id l, id r, void * context)
         [self performSelector:@selector(onSingleTap:) withObject:[NSValue valueWithCGPoint:[theTouch locationInView:self.view]] afterDelay:0.3];
     }
     else if (tapCount == 2 && m_isSticking)
-      GetFramework().ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2.0));
+      f.ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2.0));
   }
 
   if (touchesCount == 2 && tapCount == 1 && m_isSticking)
-    GetFramework().Scale(0.5);
+    f.Scale(0.5);
 
   [self updateDataAfterScreenChanged];
 }
