@@ -2124,7 +2124,6 @@
 		29B97314FDCFA39411CA2CEA /* Maps */ = {
 			isa = PBXGroup;
 			children = (
-				FA9EFCBE1609E150002D6195 /* Default-568h@2x.png */,
 				FA36B8011540388B004560CC /* Bookmarks */,
 				FA34BEC71338D6DB00FFB2A7 /* Common */,
 				FA6E1F1B124E6B2800F59149 /* Platform */,
@@ -2193,6 +2192,7 @@
 				EEAF65E4134BCBD500A81C82 /* location-search@2x.png */,
 				49B3FB8B132FA43E00057053 /* location.png */,
 				49B3FB8C132FA43E00057053 /* location@2x.png */,
+				FA9EFCBE1609E150002D6195 /* Default-568h@2x.png */,
 				FA065FFD1286167A00FEA989 /* Default@2x.png */,
 				FA065FFE1286167A00FEA989 /* Default.png */,
 				28AD73870D9D96C1002E5188 /* MainWindow.xib */,

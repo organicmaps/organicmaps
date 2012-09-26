@@ -27,7 +27,7 @@
 
 //********************************************************************************************
 //*********************** Callbacks from LocationManager *************************************
-- (void)onLocationStatusChanged:(location::TLocationStatus)newStatus
+- (void) onLocationStatusChanged:(location::TLocationStatus)newStatus
 {
   GetFramework().OnLocationStatusChanged(newStatus);
   switch (newStatus)
@@ -64,12 +64,12 @@
   }
 }
 
-- (void)onGpsUpdate:(location::GpsInfo const &)info
+- (void) onGpsUpdate:(location::GpsInfo const &)info
 {
   GetFramework().OnGpsUpdate(info);
 }
 
-- (void)onCompassUpdate:(location::CompassInfo const &)info
+- (void) onCompassUpdate:(location::CompassInfo const &)info
 {
   GetFramework().OnCompassUpdate(info);
 }
@@ -114,7 +114,7 @@
   [navC release];
 }
 
-- (void)onBookmarkClicked
+- (void) onBalloonClicked
 {
   PlacePageVC * placePageVC = [[PlacePageVC alloc] initWithBalloonView:m_bookmark];
   [self.navigationController pushViewController:placePageVC animated:YES];
@@ -224,7 +224,7 @@ NSInteger compareAddress(id l, id r, void * context)
 	return l < r;
 }
 
-- (void)updatePointsFromEvent:(UIEvent*)event
+- (void) updatePointsFromEvent:(UIEvent*)event
 {
 	NSSet * allTouches = [event allTouches];
 
@@ -247,13 +247,13 @@ NSInteger compareAddress(id l, id r, void * context)
 	}
 }
 
-- (void)updateDataAfterScreenChanged
+- (void) updateDataAfterScreenChanged
 {
   if (m_bookmark.isDisplayed)
     [m_bookmark updatePosition:self.view atPoint:[self globalPoint2ViewPoint:m_bookmark.globalPosition]];
 }
 
-- (void)stopCurrentAction
+- (void) stopCurrentAction
 {
 	switch (m_CurrentAction)
 	{
@@ -272,7 +272,7 @@ NSInteger compareAddress(id l, id r, void * context)
   [self updateDataAfterScreenChanged];
 }
 
-- (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
+- (void) touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
 {
   // To cancel single tap timer
   if (((UITouch *)[touches anyObject]).tapCount > 1)
@@ -297,7 +297,7 @@ NSInteger compareAddress(id l, id r, void * context)
 	m_isSticking = true;
 }
 
-- (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
+- (void) touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
 {
 	m2::PointD const TempPt1 = m_Pt1;
 	m2::PointD const TempPt2 = m_Pt2;
@@ -346,7 +346,7 @@ NSInteger compareAddress(id l, id r, void * context)
   [self updateDataAfterScreenChanged];
 }
 
-- (void)touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event
+- (void) touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event
 {
 	[self updatePointsFromEvent:event];
 	[self stopCurrentAction];
@@ -372,7 +372,7 @@ NSInteger compareAddress(id l, id r, void * context)
   [self updateDataAfterScreenChanged];
 }
 
-- (void)touchesCancelled:(NSSet*)touches withEvent:(UIEvent*)event
+- (void) touchesCancelled:(NSSet*)touches withEvent:(UIEvent*)event
 {
 	[self updatePointsFromEvent:event];
 	[self stopCurrentAction];
@@ -385,13 +385,13 @@ NSInteger compareAddress(id l, id r, void * context)
 	return YES; // We support all orientations
 }
 
-- (void)didReceiveMemoryWarning
+- (void) didReceiveMemoryWarning
 {
 	GetFramework().MemoryWarning();
   [super didReceiveMemoryWarning];
 }
 
-- (void)viewDidUnload
+- (void) viewDidUnload
 {
   // to correctly release view on memory warnings
   self.m_myPositionButton = nil;
@@ -432,7 +432,7 @@ NSInteger compareAddress(id l, id r, void * context)
     [self Invalidate]; // only invalidate when map is displayed on the screen
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void) viewWillAppear:(BOOL)animated
 {
   [self Invalidate];
   // Update popup bookmark position
@@ -440,7 +440,7 @@ NSInteger compareAddress(id l, id r, void * context)
   [super viewWillAppear:animated];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void) viewWillDisappear:(BOOL)animated
 {
   GetFramework().SetUpdatesEnabled(false);
   [super viewWillDisappear:animated];

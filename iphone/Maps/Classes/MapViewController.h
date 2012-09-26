@@ -36,7 +36,7 @@
 - (IBAction)OnSearchClicked:(id)sender;
 - (IBAction)OnBookmarksClicked:(id)sender;
 
--(BOOL)OnProcessURL:(NSString*)url;
+-(BOOL) OnProcessURL:(NSString*)url;
 
 @property (nonatomic, retain) IBOutlet UIButton * m_myPositionButton;
 @property (nonatomic, retain) IBOutlet UIButton * m_searchButton;

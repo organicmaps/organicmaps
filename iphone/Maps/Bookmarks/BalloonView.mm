@@ -37,6 +37,14 @@
     isDisplayed = NO;
     m_target = target;
     m_selector = selector;
+    m_titleView = [[UIImageView alloc] init];
+    m_titleView.userInteractionEnabled = YES;
+    UITapGestureRecognizer * recognizer = [[[UITapGestureRecognizer alloc]
+                                            initWithTarget:m_target action:m_selector] autorelease];
+    recognizer.numberOfTapsRequired = 1;
+    recognizer.numberOfTouchesRequired = 1;
+    recognizer.delaysTouchesBegan = YES;
+    [m_titleView addGestureRecognizer:recognizer];
   }
   return self;
 }
@@ -112,19 +120,8 @@
 
 - (void) showButtonsInView:(UIView *)view atPoint:(CGPoint)pt
 {
-  [m_titleView release];
-  m_titleView = [[UIImageView alloc] initWithImage:[self createPopupImageWithName:self.title andAddress:self.description]];
   CGSize const s = m_titleView.bounds.size;
   m_titleView.frame = CGRectMake(pt.x, pt.y, 1, 1);
-
-  m_titleView.userInteractionEnabled = YES;
-  UITapGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc]
-                                         initWithTarget:m_target action:m_selector];
-  recognizer.numberOfTapsRequired = 1;
-  recognizer.numberOfTouchesRequired = 1;
-  recognizer.delaysTouchesBegan = YES;
-  [m_titleView addGestureRecognizer:recognizer];
-  [recognizer release];
 
   [view addSubview:m_titleView];
 
