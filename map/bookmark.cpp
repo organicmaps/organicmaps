@@ -279,7 +279,8 @@ void BookmarkCategory::SaveToKML(ostream & s)
   s << kmlHeader;
 
   s << "  <name>" << GetName() <<"</name>\n";
-  s << "  <visibility>" << (IsVisible() ? "1" : "0") <<"</visibility>\n";
+  // Do not save bookmarks visibility. It is dynamic runtime property.
+//  s << "  <visibility>" << (IsVisible() ? "1" : "0") <<"</visibility>\n";
 
   for (size_t i = 0; i < m_bookmarks.size(); ++i)
   {

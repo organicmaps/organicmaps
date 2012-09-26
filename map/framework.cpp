@@ -359,6 +359,15 @@ bool Framework::DeleteBmCategory(size_t index)
   else return false;
 }
 
+void Framework::SetVisibleBmCategory(string const & name)
+{
+  for (size_t i = 0; i < m_bookmarks.size(); ++i)
+  {
+    BookmarkCategory * cat = m_bookmarks[i];
+    cat->SetVisible(cat->GetName() == name);
+  }
+}
+
 BookmarkAndCategory Framework::GetBookmark(m2::PointD pt) const
 {
   // @TODO Refactor. Why bookmarks can't be retrieved? Change pixel point to global point.

@@ -168,12 +168,13 @@ public:
   void AddBookmark(string const & category, Bookmark const & bm);
   inline size_t GetBmCategoriesCount() const { return m_bookmarks.size(); }
   BookmarkCategory * GetBmCategory(size_t index) const;
-
   /// Find or create new category by name.
   BookmarkCategory * GetBmCategory(string const & name);
   /// Delete bookmarks category with all bookmarks
   /// @return true if category was deleted
   bool DeleteBmCategory(size_t index);
+  /// Makes given category visible and hides all other categories
+  void SetVisibleBmCategory(string const & name);
 
   /// Get bookmark by touch.
   /// @param[in]  pixPt   Coordinates of touch point in pixels.
