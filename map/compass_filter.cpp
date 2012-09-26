@@ -1,31 +1,37 @@
 #include "compass_filter.hpp"
 #include "location_state.hpp"
+
+#include "../geometry/angles.hpp"
+
 #include "../base/logging.hpp"
 
 #include "../platform/location.hpp"
 
-CompassFilter::CompassFilter(location::State * state)
+CompassFilter::CompassFilter()
 {
-  m_state = state;
-
   m_headingRad = m_smoothedHeadingRad = 0;
   m_headingHalfErrorRad = 0;
 
-  m_smoothingThreshold = 10 * math::pi / 180.0;
+  m_smoothingThreshold = ang::DegreeToRad(10);
   m_lowPassKoeff = 0.5;
 }
 
 void CompassFilter::OnCompassUpdate(location::CompassInfo const & info)
 {
+  // Avoid situations when offset between magnetic north and true north is too small
+  double const MIN_SECTOR_RAD = ang::DegreeToRad(10); //< 10 degrees threshold
+
   double newHeadingRad = ((info.m_trueHeading >= 0.0) ? info.m_trueHeading : info.m_magneticHeading);
   double newHeadingDelta = fabs(newHeadingRad - m_headingRad);
+  double newHeadingHalfErrorRad = (info.m_accuracy < MIN_SECTOR_RAD ? MIN_SECTOR_RAD : info.m_accuracy);
 
-/*
-  LOG(LINFO, ("Accuracy: ", int(ang::RadToDegree(info.m_accuracy)),
-              ", Heading: ", int(ang::RadToDegree(newHeadingRad)),
-              ", Delta: ", int(ang::RadToDegree(newHeadingRad - m_headingRad))));
- */
+#ifdef OMIM_OS_IPHONE
 
+  // On iOS we shouldn't smooth the compass values.
+
+  m_headingRad = newHeadingRad;
+
+#else
   // if new heading lies outside the twice headingError radius we immediately accept it
   if (newHeadingDelta > m_headingHalfErrorRad * 2)
   {
@@ -43,21 +49,10 @@ void CompassFilter::OnCompassUpdate(location::CompassInfo const & info)
       m_headingRad = m_smoothedHeadingRad;
   }
 
-  // Avoid situations when offset between magnetic north and true north is too small
-  double const MIN_SECTOR_RAD = math::pi / 18.0; //< 10 degrees threshold
+#endif
 
-  double oldHeadingHalfErrorRad = m_headingHalfErrorRad;
-
-  m_headingHalfErrorRad = (info.m_accuracy < MIN_SECTOR_RAD ? MIN_SECTOR_RAD : info.m_accuracy);
+  m_headingHalfErrorRad = newHeadingHalfErrorRad;
   m_smoothingThreshold = m_headingHalfErrorRad * 2;
-
-  /// re-caching threshold for compass accuracy is 5 degrees.
-  double reCachingThreshold = 5 * math::pi / 180.0;
-
-  if (fabs(oldHeadingHalfErrorRad - m_headingHalfErrorRad) > reCachingThreshold)
-    m_state->setIsDirtyDrawing(true);
-
-  m_state->CheckFollowCompass();
 }
 
 double CompassFilter::GetHeadingRad() const

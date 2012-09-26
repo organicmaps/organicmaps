@@ -2,15 +2,12 @@
 
 namespace location
 {
-  class State;
   class CompassInfo;
 }
 
 class CompassFilter
 {
 private:
-
-  location::State * m_state;
 
   double m_headingRad;
   double m_headingHalfErrorRad;
@@ -33,7 +30,7 @@ private:
 public:
 
   // Constructor
-  CompassFilter(location::State * state);
+  CompassFilter();
   // Getting new compass value
   void OnCompassUpdate(location::CompassInfo const & info);
   // get heading angle in radians.
