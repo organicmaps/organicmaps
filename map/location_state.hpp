@@ -13,6 +13,11 @@
 class Framework;
 class RotateScreenTask;
 
+namespace anim
+{
+  class AngleInterpolation;
+}
+
 namespace yg
 {
   namespace gl
@@ -51,6 +56,7 @@ namespace location
     m2::PointD m_position; //< position in mercator
 
     CompassFilter m_compassFilter;
+    double m_drawHeading;
 
     bool m_hasPosition;
     bool m_hasCompass;
@@ -90,6 +96,8 @@ namespace location
     mutable vector<m2::AnyRectD> m_boundRects;
     m2::RectD m_boundRect;
 
+    shared_ptr<anim::AngleInterpolation> m_headingInterpolation;
+
   public:
 
     struct Params : base_t::Params
@@ -121,6 +129,7 @@ namespace location
     void SetIsCentered(bool flag);
     bool IsCentered() const;
 
+    void CheckCompassRotation();
     void CheckFollowCompass();
 
     /// @name GPS location updates routine.

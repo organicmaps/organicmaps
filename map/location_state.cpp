@@ -7,6 +7,7 @@
 #include "../yg/display_list.hpp"
 
 #include "../anim/controller.hpp"
+#include "../anim/angle_interpolation.hpp"
 
 #include "../gui/controller.hpp"
 
@@ -22,13 +23,13 @@ namespace location
 {
   State::State(Params const & p)
     : base_t(p),
-      m_compassFilter(this),
       m_hasPosition(false),
       m_hasCompass(false),
       m_isCentered(false),
       m_locationProcessMode(ELocationDoNothing),
       m_compassProcessMode(ECompassDoNothing)
   {
+    m_drawHeading = m_compassFilter.GetHeadingRad();
     m_locationAreaColor = p.m_locationAreaColor;
     m_locationBorderColor = p.m_locationBorderColor;
     m_compassAreaColor = p.m_compassAreaColor;
@@ -149,6 +150,7 @@ namespace location
       m_framework->ShowRectFixed(m2::AnyRectD(rect.Center(), a, m2::RectD(-dx/2, -dy/2, dx/2, dy/2)));
 
       SetIsCentered(true);
+      CheckCompassRotation();
       CheckFollowCompass();
 
       m_locationProcessMode = ELocationCenterOnly;
@@ -159,6 +161,7 @@ namespace location
       m_framework->SetViewportCenter(center);
 
       SetIsCentered(true);
+      CheckCompassRotation();
       CheckFollowCompass();
 
       break;
@@ -178,7 +181,22 @@ namespace location
   void State::OnCompassUpdate(location::CompassInfo const & info)
   {
     m_hasCompass = true;
+
+    double oldHeadingHalfError = m_compassFilter.GetHeadingHalfErrorRad();
+
     m_compassFilter.OnCompassUpdate(info);
+
+    double newHeadingHalfError = m_compassFilter.GetHeadingHalfErrorRad();
+
+    /// re-caching threshold for compass accuracy is 5 degrees.
+    double reCachingThreshold = ang::DegreeToRad(5);
+
+    if (fabs(oldHeadingHalfError - newHeadingHalfError) > reCachingThreshold)
+      setIsDirtyDrawing(true);
+
+    CheckCompassRotation();
+    CheckFollowCompass();
+
     m_framework->Invalidate();
   }
 
@@ -348,7 +366,7 @@ namespace location
         {
           double const orientationRadius = max(pxErrorRadius, 30.0 * visualScale());
           // 0 angle is for North ("up"), but in our coordinates it's to the right.
-          double const headingRad = m_compassFilter.GetHeadingRad() - math::pi / 2.0;
+          double const headingRad = m_drawHeading - math::pi / 2.0;
           double const halfErrorRad = m_compassFilter.GetHeadingHalfErrorRad();
 
           r->drawSector(pxPosition,
@@ -372,6 +390,60 @@ namespace location
   bool State::hitTest(m2::PointD const & pt) const
   {
     return false;
+  }
+
+  void State::CheckCompassRotation()
+  {
+#ifndef OMIM_OS_IPHONE
+
+    if (m_headingInterpolation)
+      m_headingInterpolation->Lock();
+
+    double headingDelta = 0;
+    bool isRunning = m_headingInterpolation
+                  && m_headingInterpolation->IsRunning();
+
+    if (isRunning)
+      headingDelta = fabs(ang::GetShortestDistance(m_headingInterpolation->EndAngle(), m_compassFilter.GetHeadingRad()));
+
+    double angleThreshold = ang::DegreeToRad(10);
+
+    if (headingDelta > angleThreshold)
+      m_headingInterpolation->SetEndAngle(m_compassFilter.GetHeadingRad());
+    else
+    {
+      if (!isRunning)
+      {
+        headingDelta = fabs(ang::GetShortestDistance(m_drawHeading, m_compassFilter.GetHeadingRad()));
+
+        if (headingDelta > angleThreshold)
+        {
+          if (m_headingInterpolation
+           &&!m_headingInterpolation->IsCancelled()
+           &&!m_headingInterpolation->IsEnded())
+          {
+            m_headingInterpolation->Unlock();
+            m_headingInterpolation->Cancel();
+            m_headingInterpolation.reset();
+          }
+
+          m_headingInterpolation.reset(new anim::AngleInterpolation(m_drawHeading,
+                                                                    m_compassFilter.GetHeadingRad(),
+                                                                    1,
+                                                                    m_drawHeading));
+
+          m_framework->GetAnimController()->AddTask(m_headingInterpolation);
+          return;
+        }
+      }
+    }
+
+    if (m_headingInterpolation)
+      m_headingInterpolation->Unlock();
+
+#else
+    m_drawHeading = m_compassFilter.GetHeadingRad();
+#endif
   }
 
   void State::CheckFollowCompass()
