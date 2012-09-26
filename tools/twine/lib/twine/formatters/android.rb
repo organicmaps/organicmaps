@@ -1,5 +1,5 @@
 # encoding: utf-8
-
+require 'CGI'
 require 'rexml/document'
 
 module Twine
@@ -67,6 +67,8 @@ module Twine
                 value_match = value_regex.match(line)
                 if value_match
                   value = value_match[1]
+                  value = CGI.unescapeHTML(value)
+                  value.gsub!('\\\'', '\'')
                   value.gsub!('\\"', '"')
                   value = iosify_substitutions(value)
                 else
@@ -76,7 +78,7 @@ module Twine
                   set_tags_for_key(key, @options[:tags])
                 end
                 set_translation_for_key(key, lang, value)
-                if comment and comment.length > 0
+                if comment and comment.length > 0 and !comment.start_with?("SECTION:")
                   set_comment_for_key(key, comment)
                 end
                 comment = nil
@@ -107,7 +109,7 @@ module Twine
                   f.puts ''
                   if section.name && section.name.length > 0
                     section_name = section.name.gsub('--', '—')
-                    f.puts "\t<!-- #{section_name} -->"
+                    f.puts "\t<!-- SECTION: #{section_name} -->"
                   end
                   printed_section = true
                 end
@@ -126,9 +128,8 @@ module Twine
                   #  1) apostrophes and quotes must be escaped with a backslash
                   value.gsub!('\'', '\\\\\'')
                   value.gsub!('"', '\\\\"')
-                  #  2) ampersand and less-than must be in XML-escaped form
-                  value.gsub!('&', '&amp;')
-                  value.gsub!('<', '&lt;')
+                  #  2) HTML escape the string
+                  value = CGI.escapeHTML(value)
                   #  3) fix substitutions (e.g. %s/%@)
                   value = androidify_substitutions(value)
 
