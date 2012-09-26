@@ -3,6 +3,8 @@
 #include "../std/map.hpp"
 #include "../std/function.hpp"
 
+#include "../base/mutex.hpp"
+
 namespace anim
 {
   // Interface for single animation task
@@ -24,9 +26,11 @@ namespace anim
 
     EState m_State;
 
-    map<EState, TCallback> m_callbacks;
+    map<EState, TCallback> m_Callbacks;
 
     void PerformCallback(EState state);
+
+    threads::Mutex m_mutex;
 
   protected:
 
@@ -50,6 +54,9 @@ namespace anim
     bool IsCancelled() const;
     bool IsEnded() const;
     bool IsRunning() const;
+
+    void Lock();
+    void Unlock();
 
     void SetCallback(EState state, TCallback const & cb);
   };

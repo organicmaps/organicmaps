@@ -14,14 +14,26 @@ namespace anim
     return m_State;
   }
 
+  void Task::Lock()
+  {
+    m_mutex.Lock();
+  }
+
+  void Task::Unlock()
+  {
+    m_mutex.Unlock();
+  }
+
   void Task::SetState(EState State)
   {
+    Lock();
     m_State = State;
+    Unlock();
   }
 
   void Task::PerformCallback(EState state)
   {
-    TCallback const & cb = m_callbacks[state];
+    TCallback const & cb = m_Callbacks[state];
     if (cb)
       cb();
   }
@@ -74,6 +86,6 @@ namespace anim
 
   void Task::SetCallback(EState state, TCallback const & cb)
   {
-    m_callbacks[state] = cb;
+    m_Callbacks[state] = cb;
   }
 }
