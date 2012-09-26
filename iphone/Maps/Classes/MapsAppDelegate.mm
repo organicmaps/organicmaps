@@ -139,9 +139,6 @@
 {
   [self onFirstLaunchCheck];
 
-  // Load bookmarks from kml files
-  GetFramework().LoadBookmarks();
-
   [Preferences setup:m_mapViewController];
   m_locationManager = [[LocationManager alloc] init];
 

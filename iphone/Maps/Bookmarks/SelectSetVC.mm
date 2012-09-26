@@ -96,6 +96,8 @@
     if (![m_balloon.setName isEqualToString:cell.textLabel.text])
     {
       m_balloon.setName = cell.textLabel.text;
+      // Change visible bookmarks category
+      GetFramework().SetVisibleBmCategory([m_balloon.setName UTF8String]);
       // Update Bookmarks VC if needed
       if (!m_editModeEnabled)
       {

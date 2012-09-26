@@ -25,8 +25,12 @@
   {
     m_balloon.setName = text;
     // Create category if it doesn't exist
-    (void)GetFramework().GetBmCategory([text UTF8String]);
-    
+    Framework & f = GetFramework();
+    char const * cString = [text UTF8String];
+    (void)f.GetBmCategory(cString);
+    // Change visible bookmarks category
+    f.SetVisibleBmCategory(cString);
+
     // Display "Add Bookmark" dialog
     NSArray * vcs = self.navigationController.viewControllers;
     UITableViewController * addBookmarkVC = (UITableViewController *)[vcs objectAtIndex:[vcs count] - 3];
