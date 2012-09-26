@@ -148,7 +148,7 @@ inline void IndexScales(uint32_t bucketsCount,
     {
       FileReader reader(tmpFilePrefix + ".c2f.sorted");
       uint64_t const numCells = reader.Size() / sizeof(CellFeaturePair);
-      DDVector<CellFeaturePair, FileReader, uint64_t> cellsToFeatures(reader, numCells);
+      DDVector<CellFeaturePair, FileReader, uint64_t> cellsToFeatures(reader);
       LOG(LINFO, ("Being indexed", "features:", numFeatures, "cells:", numCells,
                   "cells per feature:", (numCells + 1.0) / (numFeatures + 1.0)));
       SubWriter<WriterT> subWriter(writer);

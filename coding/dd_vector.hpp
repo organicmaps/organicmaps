@@ -166,10 +166,11 @@ public:
 private:
   void InitSize()
   {
-    if ((m_reader.Size() % sizeof(T)) != 0)
-      MYTHROW(OpenException, (m_reader.Size(), sizeof(T)));
-    // TODO: Check that reader.Size() % sizeof(T) == 0
-    m_Size = m_reader.Size() / sizeof(T);
+    uint64_t const sz = m_reader.Size();
+    if ((sz % sizeof(T)) != 0)
+      MYTHROW(OpenException, (sz, sizeof(T)));
+
+    m_Size = sz / sizeof(T);
   }
 
   // TODO: Refactor me to use Reader by pointer.
