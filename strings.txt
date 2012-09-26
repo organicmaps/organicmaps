@@ -1055,11 +1055,11 @@
 		ru = Добавить группу
 		de = Neue Gruppe hinzufügen
 		uk = Додати групу
-		es =
+		es = Añadir nuevo grupo
 		fr = Ajouter une groupe
 		ja = 新しいセットを追加
 		ko = 새로운 세트 추가
-		cs =
+		cs = Přidat novou skupinu záložek
 		nl = Voeg nieuwe Groep toe
 	[add_to_bookmarks]
 		en = Add to Bookmarks
@@ -1068,11 +1068,11 @@
 		ru = Добавить в закладки
 		de = Zu Lesezeichen hinzufügen
 		uk = Додати в закладки
-		es =
+		es = Añadir a marcadores
 		fr = Ajouter dans les signets
 		ja = ブックマークに追加
 		ko = 즐겨찾기에 추가
-		cs =
+		cs = Přidat do záložek
 		nl = Voeg aan Bladwijzers toe
 	[bookmark_color]
 		en = Bookmark Color
@@ -1081,11 +1081,11 @@
 		ru = Цвет закладки
 		de = Lesezeichen Farbe
 		uk = Колір закладки
-		es =
+		es = Color de marcador
 		fr = Couleur du signet
 		ja = ブックマークの色
 		ko = 색상 즐겨찾기에 추가
-		cs =
+		cs = Barva záložky
 		nl = Bladwijzer Kleur
 	[bookmark_set_name]
 		en = Bookmark Set Name
@@ -1094,24 +1094,24 @@
 		ru = Название группы
 		de = Name des Lesezeichens
 		uk = Назва групи
-		es =
+		es = Nombre del grupo
 		fr = Nom de la groupe
 		ja = ブックマークセット名
 		ko = 집합 이름을 즐겨찾기에 추가
-		cs =
+		cs = Jméno záložky
 		nl = Bladwijzer Groep Naam
 	[bookmark_sets]
 		en = Bookmark Sets
 		tags = ios
 		comment = Bookmark Sets dialog title
 		ru = Группы закладок
-		de = 
+		de = Lesezeichenmappe
 		uk = Групи закладок
-		es =
+		es = Grupos de marcadores
 		fr = Groupes de signets
 		ja = ブックマークセット
 		ko = 세트를 즐겨찾기에 추가
-		cs =
+		cs = Skupina záložek
 		nl = Bladwijzer groepen
 	[bookmarks]
 		en = Bookmarks
@@ -1120,12 +1120,12 @@
 		ru = Закладки
 		de = Lesezeichengruppen
 		uk = Закладки
-		es =
+		es = Marcadores
 		fr = Signets
 		ja = ブックマーク
 		ko = 북마크
 		nl = Bladwijzers
-		cs =
+		cs = Záložky
 	[color]
 		en = Color
 		tags = ios
@@ -1133,24 +1133,24 @@
 		ru = Цвет
 		de = Farbe
 		uk = Колір
-		es =
+		es = Color
 		fr = Couleur
 		ja = 色
-		ko =
-		cs =
+		ko = 색깔
+		cs = Barva
 		nl = Kleur
 	[dropped_pin]
 		en = Dropped Pin
 		tags = ios
 		comment = Unknown Dropped Pin title, when name can't be determined
-		ru = Перемещенная булавка
+		ru = Новая метка
 		de = Gesetzte Stecknadel
-		uk = Переміщена шпилька
-		es =
+		uk = Нова мітка
+		es = Alfiler caída
 		fr = L'épingle déplacée
 		ja = ドロップされたピン
-		ko =
-		cs =
+		ko = 알수 없는 핀
+		cs = Špendlík
 		nl = Geplaatste Speld
 	[my_places]
 		en = My Places
@@ -1159,24 +1159,24 @@
 		ru = Мои Закладки
 		de = Meine Orte
 		uk = Мої Закладки
-		es =
+		es = Mis marcadores
 		fr = Mes signets
 		ja = マイロケーション
-		ko =
-		cs =
+		ko = 내 장소
+		cs = Moje místa
 		nl = Mijn Plaatsen
 	[name]
 		en = Name
 		tags = ios
 		comment = Add bookmark dialog - bookmark name
-		ru = Имя
+		ru = Название
 		de = Name
 		uk = Iм'я
-		es =
+		es = Nombre
 		fr = Nom
 		ja = 場所名
-		ko =
-		cs =
+		ko = 이름
+		cs = Název
 		nl = Naam
 	[address]
 		en = Address
@@ -1185,24 +1185,24 @@
 		ru = Адрес
 		de = Adresse
 		uk = Адреса
-		es =
+		es = Dirección
 		fr = Adresse
 		ja = 住所
-		ko =
-		cs =
+		ko = 주소
+		cs = Adresa
 		nl = Adres
 	[remove_pin]
 		en = Remove Pin
 		tags = ios
 		comment = Place Page - Remove Pin button
-		ru = Удалить булавку
+		ru = Удалить метку
 		de = Stecknadel entfernen
-		uk = Bидалити шпильку
-		es =
+		uk = Видалити мітку
+		es = Eliminar alfiler
 		fr = Effacer l'épingle
 		ja = ピンを削除
-		ko =
-		cs =
+		ko = 핀 제거
+		cs = Odstranit špendlík
 		nl = Verwijder speld
 	[set]
 		en = Set
@@ -1211,22 +1211,22 @@
 		ru = Группа
 		de = Gruppe
 		uk = Група
-		es =
+		es = Grupo
 		fr = Groupe
 		ja = セット
-		ko =
-		cs =
+		ko = 집합
+		cs = Skupina
 		nl = Groep
-  [bookmarks_usage_hint]
-    en = Add any place on the map to bookmarks. To do that, touch a spot on the map and hold until the context menu appears.
-    tags = ios
-    comment = Text hint in Bookmarks dialog, displayed if it's empty
-    ru = Добавьте в избранное любое место на карте. Для этого нажмите на точку на карте и удерживайте, пока не появится контекстное меню.
-    de =
-    uk =
-    es =
-    fr =
-    ja =
-    ko =
-    cs =
-    nl =
+	[bookmarks_usage_hint]
+		en = Add any place on the map to bookmarks. To do that, touch a spot on the map and hold until the context menu appears.
+		tags = ios
+		comment = Text hint in Bookmarks dialog, displayed if it's empty
+		ru = Добавьте в избранное любое место на карте. Для этого нажмите на точку на карте и удерживайте, пока не появится контекстное меню.
+		de = Fügen sie einen beliebigen Ort auf der Karte den Lesezeichen hinzu. Berühren sie dazu den Ort auf der Karte bis das Kontextmenü erscheint.
+		uk = Додайте будь-яке місце на карті в закладки. Щоб зробити це, натисніть місце на карті і утримувайте, поки з'явиться контекстне меню.
+		es = Añadir cualquier lugar en el mapa a favoritos. Para ello, toque un punto en el mapa y mantenga hasta que aparesca el menú contextual.
+		fr = Ajoutez n'importe quel endroit sur la carte à vos favoris. Pour cela, touchez un point sur la carte et maintenez appuyé jusqu'à ce que le menu contextuel apparaisse.
+		ja = 地図上のあらゆる場所をブックマークに追加できます。地図上の場所をタッチして、コンテキストメニューが表示されるまで長押しするだけです。
+		ko = 지도상의 어떤 장소든지 즐겨찾기에 추가할 수 있습니다. 이를 위해서는 컨텍스트 메뉴가 나타날 때까지 지도상의 장소를 오래 누르시면 됩니다.
+		cs = Přidej libovolné místo na mapě do záložek. Klepni na mapě na vybrané místo a podrž ho, dokud se nezobrazí kontextové menu.
+		nl = Voeg een plaats naar keuze op de kaart toe aan de bladwijzers. Om dat te doen, drukt u op een plek op de kaart en houd u het ingedrukt tot het contextmenu verschijnt.
