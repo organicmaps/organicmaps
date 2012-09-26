@@ -186,4 +186,8 @@
 	<string name="set">Gruppe</string>
 	<!-- Text hint in Bookmarks dialog, displayed if it's empty -->
 	<string name="bookmarks_usage_hint">Fügen sie einen beliebigen Ort auf der Karte den Lesezeichen hinzu. Berühren sie dazu den Ort auf der Karte bis das Kontextmenü erscheint.</string>
+	<!-- Settings button in system menu -->
+	<string name="settings"></string>
+	<!-- Header of settings activity where user defines storage path -->
+	<string name="maps_storage"></string>
 </resources>

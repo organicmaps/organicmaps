@@ -5,9 +5,6 @@
 #include "../../../../../platform/settings.hpp"
 #include "../../../../../base/logging.hpp"
 
-#include "../../../../../std/algorithm.hpp"
-#include "../../../../../std/cmath.hpp"
-
 
 // For the future: It's better to use virtual functions instead of this stuff.
 /*
@@ -83,7 +80,6 @@ namespace android
                             jstring storagePath,
                             jstring tmpPath,
                             jstring extTmpPath,
-                            jstring settingsPath,
                             bool isPro)
   {
     //if (m_impl)
@@ -91,8 +87,10 @@ namespace android
     //m_impl = new PlatformImpl();
 
     m_resourcesDir = jni::ToNativeString(env, apkPath);
-    m_writableDir = jni::ToNativeString(env, storagePath);
-    m_settingsDir = jni::ToNativeString(env, settingsPath);
+
+    if (!Settings::Get("StoragePath", m_writableDir))
+      m_writableDir = jni::ToNativeString(env, storagePath);
+    m_settingsDir = m_writableDir;
 
     m_localTmpPath = jni::ToNativeString(env, tmpPath);
     m_externalTmpPath = jni::ToNativeString(env, extTmpPath);
@@ -114,6 +112,23 @@ namespace android
       m_tmpDir = m_externalTmpPath;
     else
       m_tmpDir = m_localTmpPath;
+  }
+
+  string Platform::GetStoragePathPrefix()
+  {
+    size_t const count = m_writableDir.size();
+    ASSERT_GREATER ( count, 2, () );
+
+    size_t const i = m_writableDir.find_last_of('/', count-2);
+    ASSERT_GREATER ( i, 0, () );
+
+    return m_writableDir.substr(0, i);
+  }
+
+  void Platform::SetStoragePath(string const & path)
+  {
+    m_writableDir = m_settingsDir = path;
+    Settings::Set("StoragePath", m_writableDir);
   }
 
   Platform & Platform::Instance()

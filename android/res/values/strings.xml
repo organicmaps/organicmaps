@@ -194,4 +194,8 @@
 	<string name="set">Set</string>
 	<!-- Text hint in Bookmarks dialog, displayed if it's empty -->
 	<string name="bookmarks_usage_hint">Add any place on the map to bookmarks. To do that, touch a spot on the map and hold until the context menu appears.</string>
+	<!-- Settings button in system menu -->
+	<string name="settings">Settings</string>
+	<!-- Header of settings activity where user defines storage path -->
+	<string name="maps_storage">Maps storage</string>
 </resources>

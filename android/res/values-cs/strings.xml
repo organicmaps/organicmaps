@@ -182,4 +182,8 @@
 	<string name="set">Skupina</string>
 	<!-- Text hint in Bookmarks dialog, displayed if it's empty -->
 	<string name="bookmarks_usage_hint">Přidej libovolné místo na mapě do záložek. Klepni na mapě na vybrané místo a podrž ho, dokud se nezobrazí kontextové menu.</string>
+	<!-- Settings button in system menu -->
+	<string name="settings"></string>
+	<!-- Header of settings activity where user defines storage path -->
+	<string name="maps_storage"></string>
 </resources>

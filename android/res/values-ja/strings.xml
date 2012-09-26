@@ -184,4 +184,8 @@
 	<string name="set">セット</string>
 	<!-- Text hint in Bookmarks dialog, displayed if it's empty -->
 	<string name="bookmarks_usage_hint">地図上のあらゆる場所をブックマークに追加できます。地図上の場所をタッチして、コンテキストメニューが表示されるまで長押しするだけです。</string>
+	<!-- Settings button in system menu -->
+	<string name="settings"></string>
+	<!-- Header of settings activity where user defines storage path -->
+	<string name="maps_storage"></string>
 </resources>

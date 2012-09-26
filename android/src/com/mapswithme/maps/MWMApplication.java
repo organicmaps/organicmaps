@@ -93,8 +93,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
                extStoragePath,
                getTmpPath(),
                extTmpPath,
-               // Changed path for settings to be the same as external storage
-               extStoragePath, //getSettingsPath(),
                m_isProVersion);
 
     m_slotID = getMapStorage().subscribe(this);
@@ -171,7 +169,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
                                  String storagePath,
                                  String tmpPath,
                                  String extTmpPath,
-                                 String settingsPath,
                                  boolean isPro);
 
   public native boolean nativeIsBenchmarking();

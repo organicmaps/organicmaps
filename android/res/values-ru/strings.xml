@@ -190,4 +190,8 @@
 	<string name="set">Группа</string>
 	<!-- Text hint in Bookmarks dialog, displayed if it's empty -->
 	<string name="bookmarks_usage_hint">Добавьте в избранное любое место на карте. Для этого нажмите на точку на карте и удерживайте, пока не появится контекстное меню.</string>
+	<!-- Settings button in system menu -->
+	<string name="settings">Настройки</string>
+	<!-- Header of settings activity where user defines storage path -->
+	<string name="maps_storage">Хранилище карт</string>
 </resources>

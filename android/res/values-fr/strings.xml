@@ -178,4 +178,8 @@
 	<string name="set">Groupe</string>
 	<!-- Text hint in Bookmarks dialog, displayed if it's empty -->
 	<string name="bookmarks_usage_hint">Ajoutez n\'importe quel endroit sur la carte à vos favoris. Pour cela, touchez un point sur la carte et maintenez appuyé jusqu\'à ce que le menu contextuel apparaisse.</string>
+	<!-- Settings button in system menu -->
+	<string name="settings"></string>
+	<!-- Header of settings activity where user defines storage path -->
+	<string name="maps_storage"></string>
 </resources>

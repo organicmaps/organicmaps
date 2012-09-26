@@ -178,4 +178,8 @@
 	<string name="set">Група</string>
 	<!-- Text hint in Bookmarks dialog, displayed if it's empty -->
 	<string name="bookmarks_usage_hint">Додайте будь-яке місце на карті в закладки. Щоб зробити це, натисніть місце на карті і утримувайте, поки з\'явиться контекстне меню.</string>
+	<!-- Settings button in system menu -->
+	<string name="settings"></string>
+	<!-- Header of settings activity where user defines storage path -->
+	<string name="maps_storage"></string>
 </resources>

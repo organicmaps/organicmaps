@@ -1230,3 +1230,29 @@
 		ko = 지도상의 어떤 장소든지 즐겨찾기에 추가할 수 있습니다. 이를 위해서는 컨텍스트 메뉴가 나타날 때까지 지도상의 장소를 오래 누르시면 됩니다.
 		cs = Přidej libovolné místo na mapě do záložek. Klepni na mapě na vybrané místo a podrž ho, dokud se nezobrazí kontextové menu.
 		nl = Voeg een plaats naar keuze op de kaart toe aan de bladwijzers. Om dat te doen, drukt u op een plek op de kaart en houd u het ingedrukt tot het contextmenu verschijnt.
+  [settings]
+    en = Settings
+    tags = android
+    comment = Settings button in system menu
+    ru = Настройки
+    de =
+    uk =
+    es =
+    fr =
+    ja =
+    ko =
+    cs =
+    nl =
+  [maps_storage]
+    en = Maps storage
+    tags = android
+    comment = Header of settings activity where user defines storage path
+    ru = Хранилище карт
+    de =
+    uk =
+    es =
+    fr =
+    ja =
+    ko =
+    cs =
+    nl =

@@ -7,6 +7,8 @@
 #include "../../base/logging.hpp"
 
 #include "../../std/target_os.hpp"
+#include "../../std/fstream.hpp"
+#include "../../std/exception.hpp"
 
 #ifdef OMIM_OS_WINDOWS
   #include <io.h>
@@ -226,6 +228,23 @@ bool RenameFileX(string const & fOld, string const & fNew)
 #endif
 
   return CheckRemoveResult(res, fOld);
+}
+
+bool CopyFile(string const & fOld, string const & fNew)
+{
+  try
+  {
+    ifstream ifs(fOld.c_str());
+    ofstream ofs(fNew.c_str());
+
+    ofs << ifs.rdbuf();
+    return true;
+  }
+  catch (exception const & ex)
+  {
+    LOG(LERROR, ("Copy file error: ", ex.what()));
+    return false;
+  }
 }
 
 }

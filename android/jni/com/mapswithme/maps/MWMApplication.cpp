@@ -20,7 +20,6 @@ extern "C"
                                                     jstring storagePath,
                                                     jstring tmpPath,
                                                     jstring extTmpPath,
-                                                    jstring settingsPath,
                                                     jboolean isPro)
   {
     android::Platform::Instance().Initialize(env,
@@ -28,7 +27,6 @@ extern "C"
                                              storagePath,
                                              tmpPath,
                                              extTmpPath,
-                                             settingsPath,
                                              isPro);
 
     if (!g_framework)

@@ -22,10 +22,14 @@ namespace android
                     jstring storagePath,
                     jstring tmpPath,
                     jstring extTmpPath,
-                    jstring settingsPath,
                     bool isPro);
 
     void OnExternalStorageStatusChanged(bool isAvailable);
+
+    /// get storage path without ending "/MapsWithMe/"
+    string GetStoragePathPrefix();
+    /// assign storage path (should contain ending "/MapsWithMe/")
+    void SetStoragePath(string const & path);
 
     static Platform & Instance();
   };

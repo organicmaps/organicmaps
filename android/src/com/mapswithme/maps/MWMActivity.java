@@ -630,15 +630,16 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   public boolean onOptionsItemSelected(MenuItem item)
   {
-    if (item.getItemId() == R.id.menuitem_about_dialog)
-    {
+    final int id = item.getItemId();
+
+    if (id == R.id.menuitem_about_dialog)
       onAboutDialogClicked();
-      return true;
-    }
+    else if (id == R.id.menuitem_settings_activity)
+      onSettingsClicked();
     else
-    {
       return super.onOptionsItemSelected(item);
-    }
+
+    return true;
   }
 
   private void onAboutDialogClicked()
@@ -661,6 +662,11 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       }
     })
     .show();
+  }
+
+  private void onSettingsClicked()
+  {
+    startActivity(new Intent(this, SettingsActivity.class));
   }
 
   // Initialized to invalid combination to force update on the first check
