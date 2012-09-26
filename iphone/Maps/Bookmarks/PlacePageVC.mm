@@ -53,28 +53,28 @@
   }
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-  if (section != 0)
-    return nil;
-  // Address and type text
-  UILabel * label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 40)] autorelease];
-  label.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-  label.numberOfLines = 0;
-  label.lineBreakMode = UILineBreakModeWordWrap;
-  label.backgroundColor = [UIColor clearColor];
-  label.textColor = [UIColor darkGrayColor];
-  label.textAlignment = UITextAlignmentCenter;
-  label.text = [NSString stringWithFormat:@"%@\n%@", m_balloon.type, m_balloon.description];
-  return label;
-}
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//  if (section != 0)
+//    return nil;
+//  // Address and type text
+//  UILabel * label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 40)] autorelease];
+//  label.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//  label.numberOfLines = 0;
+//  label.lineBreakMode = UILineBreakModeWordWrap;
+//  label.backgroundColor = [UIColor clearColor];
+//  label.textColor = [UIColor darkGrayColor];
+//  label.textAlignment = UITextAlignmentCenter;
+//  label.text = [NSString stringWithFormat:@"%@\n%@", m_balloon.type, m_balloon.description];
+//  return label;
+//}
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-  if (section != 0)
-    return 0;
-  return 60;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+//{
+//  if (section != 0)
+//    return 0;
+//  return 60;
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
