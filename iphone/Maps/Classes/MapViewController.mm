@@ -189,10 +189,10 @@
     m2::PointD pxPivot;
     if (f.GetVisiblePOI(pxClicked, pxPivot, addrInfo))
     {
-      // @TODO Refactor point transformation
-      m_balloonView.globalPosition = [self viewPoint2GlobalPoint:CGPointMake(pxPivot.x / scaleFactor, pxPivot.y / scaleFactor)];
+      m2::PointD const gPivot = f.PtoG(pxPivot);
+      m_balloonView.globalPosition = CGPointMake(gPivot.x, gPivot.y);
       [self updatePinTexts:addrInfo];
-      [m_balloonView showInView:self.view atPoint:[self globalPoint2ViewPoint:m_balloonView.globalPosition] withBookmark:MakeEmptyBookmarkAndCategory()];
+      [m_balloonView showInView:self.view atPoint:CGPointMake(pxPivot.x / scaleFactor, pxPivot.y / scaleFactor)  withBookmark:MakeEmptyBookmarkAndCategory()];
     }
     else
     {
@@ -201,7 +201,7 @@
       {
         f.GetAddressInfo(pxClicked, addrInfo);
         // @TODO Refactor point transformation
-        m_balloonView.globalPosition = [self viewPoint2GlobalPoint:CGPointMake(point.x, point.y)];
+        m_balloonView.globalPosition = [self viewPoint2GlobalPoint:point];
         [self updatePinTexts:addrInfo];
         [m_balloonView showInView:self.view atPoint:point withBookmark:MakeEmptyBookmarkAndCategory()];
       }
