@@ -10,8 +10,8 @@
 
 @synthesize globalPosition;
 @synthesize title;
-@synthesize description;
-@synthesize type;
+//@synthesize description;
+//@synthesize type;
 @synthesize pinImage;
 @synthesize color;
 @synthesize setName;
@@ -56,13 +56,21 @@
   self.color = nil;
   self.setName = nil;
   self.title = nil;
-  self.description = nil;
-  self.type = nil;
+//  self.description = nil;
+//  self.type = nil;
   [super dealloc];
 }
 
-- (UIImage *)createPopupImageWithName:(NSString *)name andAddress:(NSString *)address
+// Returned image SHOULD NOT be released - it's handled automatically by context
+- (UIImage *)createPopupImageWithTitle:(NSString *)aTitle andDescription:(NSString *)aDescription
 {
+  // description becomes a title if title is absent
+  if (!aTitle && aDescription)
+  {
+    aTitle = aDescription;
+    aDescription = nil;
+  }
+
   UIImage * left = [UIImage imageNamed:@"left"];
   UIImage * right = [UIImage imageNamed:@"right"];
   UIImage * middle = [UIImage imageNamed:@"middle"];
@@ -70,13 +78,13 @@
   UIImage * arrow = [UIImage imageNamed:@"arrow"];
 
   // Calculate text width and height
-  UIFont * nameFont = [UIFont boldSystemFontOfSize:[UIFont buttonFontSize]];
-  UIFont * addressFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+  UIFont * titleFont = [UIFont boldSystemFontOfSize:[UIFont buttonFontSize]];
+  UIFont * descriptionFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];
 
   CGSize const defSize = CGSizeMake(arrow.size.width + tail.size.width + left.size.width + right.size.width,
                                     tail.size.height);
-  CGSize const nameSize = name ? [name sizeWithFont:nameFont] : defSize;
-  CGSize const addressSize = address ? [address sizeWithFont:addressFont] : defSize;
+  CGSize const titleSize = aTitle ? [aTitle sizeWithFont:titleFont] : defSize;
+  CGSize const descriptionSize = aDescription ? [aDescription sizeWithFont:descriptionFont] : defSize;
 
   CGFloat const minScreenWidth = MIN([UIScreen mainScreen].applicationFrame.size.width,
                                      [UIScreen mainScreen].applicationFrame.size.height);
@@ -86,8 +94,8 @@
   // Generated image size
   CGFloat const height = tail.size.height;
   CGFloat const additionalPadding = padding * 3 + arrow.size.width + left.size.width + right.size.width;
-  CGFloat const width = MAX(MIN(minScreenWidth, nameSize.width + additionalPadding),
-                            MIN(minScreenWidth, addressSize.width + additionalPadding));
+  CGFloat const width = MAX(MIN(minScreenWidth, titleSize.width + additionalPadding),
+                            MIN(minScreenWidth, descriptionSize.width + additionalPadding));
 
 	UIGraphicsBeginImageContextWithOptions(CGSizeMake(width, height), NO, 0.0);
 
@@ -101,11 +109,14 @@
 
   // Draw text
   CGFloat const textW = width - left.size.width - right.size.width - arrow.size.width;
-  CGFloat const nameTextH = left.size.height / 2;
+  CGFloat const titleTextH = left.size.height / (aDescription ? 2. : 1.);
   [[UIColor whiteColor] set];
-  [name drawInRect:CGRectMake(left.size.width, nameTextH / 8, textW, nameTextH) withFont:nameFont lineBreakMode:UILineBreakModeTailTruncation];
-  [[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0] set];
-  [address drawInRect:CGRectMake(left.size.width, nameTextH - (nameTextH / 8), textW, nameTextH) withFont:addressFont lineBreakMode:UILineBreakModeTailTruncation];
+  [aTitle drawInRect:CGRectMake(left.size.width, titleTextH / (aDescription ? 8 : 4), textW, titleTextH) withFont:titleFont lineBreakMode:UILineBreakModeTailTruncation];
+  if (aDescription)
+  {
+    [[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0] set];
+    [aDescription drawInRect:CGRectMake(left.size.width, titleTextH - (titleTextH / 8), textW, titleTextH) withFont:descriptionFont lineBreakMode:UILineBreakModeTailTruncation];
+  }
 
   // Draw Arrow image
   CGFloat const arrowPadding = (left.size.height - arrow.size.height) / 2;
@@ -116,20 +127,6 @@
   UIGraphicsEndImageContext();
 	// return the image
 	return theImage;
-}
-
-- (void) showButtonsInView:(UIView *)view atPoint:(CGPoint)pt
-{
-  CGSize const s = m_titleView.bounds.size;
-  m_titleView.frame = CGRectMake(pt.x, pt.y, 1, 1);
-
-  [view addSubview:m_titleView];
-
-  // Animate balloon from touched point
-  [UIView transitionWithView:self.pinImage duration:0.1 options:UIViewAnimationOptionCurveEaseIn
-                  animations:^{ m_titleView.frame = CGRectMake(pt.x - s.width/2, pt.y - s.height, s.width, s.height);}
-                  completion:nil];
-
 }
 
 - (void) showInView:(UIView *)view atPoint:(CGPoint)pt withBookmark:(BookmarkAndCategory)bm
@@ -143,14 +140,25 @@
 
   CGFloat const w = self.pinImage.bounds.size.width;
   CGFloat const h = self.pinImage.bounds.size.height;
-  self.pinImage.frame = CGRectMake(pt.x - w/2, pt.y - h, w, h);
+  // Fix point
+  pt.y -= h;
+  self.pinImage.frame = CGRectMake(pt.x - w/2, pt.y, w, h);
   // Do not show pin if we're editing existing bookmark.
   // @TODO move pin (and probably balloon drawing) to cross-platform code
   self.pinImage.hidden = IsValid(m_editedBookmark);
 
   [view addSubview:self.pinImage];
 
-  [self showButtonsInView:view atPoint:CGPointMake(pt.x, pt.y - h)];
+//  m_titleView.image = [[self createPopupImageWithName:self.title andAddress:self.description] autorelease];
+  CGSize const s = m_titleView.bounds.size;
+  m_titleView.frame = CGRectMake(pt.x, pt.y, 1, 1);
+
+  [view addSubview:m_titleView];
+
+  // Animate balloon from touched point
+  [UIView transitionWithView:self.pinImage duration:0.1 options:UIViewAnimationOptionCurveEaseIn
+                  animations:^{ m_titleView.frame = CGRectMake(pt.x - s.width/2, pt.y - s.height, s.width, s.height);}
+                  completion:nil];
 }
 
 - (void) updatePosition:(UIView *)view atPoint:(CGPoint)pt
@@ -177,25 +185,6 @@
   }
 }
 
-// Overrided property setter to update address and displayed information
-- (void) setGlobalPosition:(CGPoint)pos
-{
-  globalPosition = pos;
-  m_addressInfo.Clear();
-  GetFramework().GetAddressInfo(m2::PointD(pos.x, pos.y), m_addressInfo);
-  if (m_addressInfo.m_name.empty())
-  {
-    if (!m_addressInfo.m_types.empty())
-      self.title = [NSString stringWithUTF8String:m_addressInfo.m_types[0].c_str()];
-    else
-      self.title = NSLocalizedString(@"dropped_pin", @"Unknown Dropped Pin title, when name can't be determined");
-  }
-  else
-    self.title = [NSString stringWithUTF8String:m_addressInfo.m_name.c_str()];
-  self.description = [NSString stringWithUTF8String:m_addressInfo.FormatAddress().c_str()];
-  self.type = [NSString stringWithUTF8String:m_addressInfo.FormatTypes().c_str()];
-}
-
 // Overrided property setter to reload another pin image
 - (void) setColor:(NSString *)newColor
 {
@@ -214,10 +203,14 @@
   Settings::Set(SETTINGS_LAST_BOOKMARK_SET, string([newName UTF8String]));
 }
 
-- (void) updateTitle:(NSString *)newTitle
+- (void) setTitle:(NSString *)newTitle
 {
-  if (m_titleView != nil)
-    m_titleView.image = [self createPopupImageWithName:newTitle andAddress:description];
+  id old = title;
+  title = [newTitle retain];
+  [old release];
+  //m_titleView.image = [self createPopupImageWithName:newTitle andAddress:description];
+  m_titleView.image = [self createPopupImageWithTitle:newTitle andDescription:nil];
+  [m_titleView sizeToFit];
 }
 
 - (void) deleteBMHelper

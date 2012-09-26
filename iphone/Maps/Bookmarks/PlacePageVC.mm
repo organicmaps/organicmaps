@@ -219,7 +219,6 @@
     else
       m_balloon.title = textField.text;
     self.navigationController.title = m_balloon.title;
-    [m_balloon updateTitle:m_balloon.title];
   }
   return NO;
 }
