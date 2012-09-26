@@ -107,7 +107,7 @@
 
 - (IBAction)OnBookmarksClicked:(id)sender
 {
-  BookmarksVC * bVC = [[BookmarksVC alloc] initWithBalloonView:m_bookmark];
+  BookmarksVC * bVC = [[BookmarksVC alloc] initWithBalloonView:m_balloonView];
   UINavigationController * navC = [[UINavigationController alloc] initWithRootViewController:bVC];
   [self presentModalViewController:navC animated:YES];
   [bVC release];
@@ -116,7 +116,7 @@
 
 - (void) onBalloonClicked
 {
-  PlacePageVC * placePageVC = [[PlacePageVC alloc] initWithBalloonView:m_bookmark];
+  PlacePageVC * placePageVC = [[PlacePageVC alloc] initWithBalloonView:m_balloonView];
   [self.navigationController pushViewController:placePageVC animated:YES];
   [placePageVC release];
 }
@@ -135,50 +135,90 @@
   return CGPointMake(ptP.x / scaleFactor, ptP.y / scaleFactor);
 }
 
-- (void)onSingleTap:(NSValue *)point
+
+- (void) updatePinTexts:(Framework::AddressInfo const &)info
 {
-  // Try to check if we've clicked on bookmark
-  CGPoint const pixelPos = [point CGPointValue];
-  CGFloat const scaleFactor = self.view.contentScaleFactor;
-
-  Framework & f = GetFramework();
-  BookmarkAndCategory const res = f.GetBookmark(m2::PointD(pixelPos.x * scaleFactor, pixelPos.y * scaleFactor));
-
-  if (!IsValid(res))
+  if (info.m_name.empty())
   {
-    if (m_bookmark.isDisplayed)
-      [m_bookmark hide];
+    if (!info.m_types.empty())
+      m_balloonView.title = [NSString stringWithUTF8String:info.m_types[0].c_str()];
     else
+      m_balloonView.title = NSLocalizedString(@"dropped_pin", @"Unknown Dropped Pin title, when name can't be determined");
+  }
+  else
+    m_balloonView.title = [NSString stringWithUTF8String:info.m_name.c_str()];
+//  m_balloonView.description = [NSString stringWithUTF8String:info.FormatAddress().c_str()];
+//  m_balloonView.type = [NSString stringWithUTF8String:info.FormatTypes().c_str()];
+}
+
+
+- (void) processMapClickAtPoint:(CGPoint)point longClick:(BOOL)isLongClick
+{
+  if (m_balloonView.isDisplayed)
+    [m_balloonView hide];
+
+  // Try to check if we've clicked on bookmark
+  Framework & f = GetFramework();
+  CGFloat const scaleFactor = self.view.contentScaleFactor;
+  m2::PointD pxClicked(point.x * scaleFactor, point.y * scaleFactor);
+
+  BookmarkAndCategory const bmAndCat = f.GetBookmark(pxClicked);
+  if (IsValid(bmAndCat))
+  {
+    // Already added bookmark was clicked
+    BookmarkCategory const * cat = f.GetBmCategory(bmAndCat.first);
+    if (cat)
     {
-      CGPoint const globalPos = [self viewPoint2GlobalPoint:pixelPos];
-      m_bookmark.globalPosition = globalPos;
-      [m_bookmark showInView:self.view atPoint:pixelPos withBookmark:res];
+      Bookmark const * bm = cat->GetBookmark((size_t)bmAndCat.second);
+      if (bm)
+      {
+        m2::PointD const globalPos = bm->GetOrg();
+        m_balloonView.globalPosition = CGPointMake(globalPos.x, globalPos.y);
+        m_balloonView.title = [NSString stringWithUTF8String:bm->GetName().c_str()];
+        m_balloonView.color = [NSString stringWithUTF8String:bm->GetType().c_str()];
+        m_balloonView.setName = [NSString stringWithUTF8String:cat->GetName().c_str()];
+        [m_balloonView showInView:self.view atPoint:[self globalPoint2ViewPoint:m_balloonView.globalPosition] withBookmark:bmAndCat];
+      }
     }
   }
   else
   {
-    // Already added bookmark was clicked
-    BookmarkCategory const * cat = f.GetBmCategory(res.first);
-    if (cat)
+    // Check if we've clicked on visible POI
+    Framework::AddressInfo addrInfo;
+    m2::PointD pxPivot;
+    if (f.GetVisiblePOI(pxClicked, pxPivot, addrInfo))
     {
-      Bookmark const * bm = cat->GetBookmark((size_t)res.second);
-      if (bm)
+      m_balloonView.globalPosition = [self viewPoint2GlobalPoint:CGPointMake(pxPivot.x, pxPivot.y)];
+      [self updatePinTexts:addrInfo];
+      [m_balloonView showInView:self.view atPoint:[self globalPoint2ViewPoint:m_balloonView.globalPosition] withBookmark:MakeEmptyBookmarkAndCategory()];
+    }
+    else
+    {
+      // Just a click somewhere on a map
+      if (isLongClick)
       {
-        m2::PointD const globalPos = bm->GetOrg();
-        m_bookmark.globalPosition = CGPointMake(globalPos.x, globalPos.y);
-        // Override bookmark name which was set automatically according to the point address in previous line
-        m_bookmark.title = [NSString stringWithUTF8String:bm->GetName().c_str()];
-        m_bookmark.color = [NSString stringWithUTF8String:bm->GetType().c_str()];
-        m_bookmark.setName = [NSString stringWithUTF8String:cat->GetName().c_str()];
-        [m_bookmark showInView:self.view atPoint:[self globalPoint2ViewPoint:m_bookmark.globalPosition] withBookmark:res];
+        f.GetAddressInfo(pxClicked, addrInfo);
+        m_balloonView.globalPosition = [self viewPoint2GlobalPoint:CGPointMake(pxClicked.x, pxClicked.y)];
+        [self updatePinTexts:addrInfo];
+        [m_balloonView showInView:self.view atPoint:point withBookmark:MakeEmptyBookmarkAndCategory()];
       }
     }
   }
 }
 
+- (void) onSingleTap:(NSValue *)point
+{
+  [self processMapClickAtPoint:[point CGPointValue] longClick:NO];
+}
+
+- (void) onLongTap:(NSValue *)point
+{
+  [self processMapClickAtPoint:[point CGPointValue] longClick:YES];
+}
+
 - (void) dealloc
 {
-  [m_bookmark release];
+  [m_balloonView release];
   [super dealloc];
 }
 
@@ -189,7 +229,7 @@
     self.title = NSLocalizedString(@"back", @"Back button in nav bar to show the map");
 
     // Helper to display/hide pin on screen tap
-    m_bookmark = [[BalloonView alloc] initWithTarget:self andSelector:@selector(onBookmarkClicked)];
+    m_balloonView = [[BalloonView alloc] initWithTarget:self andSelector:@selector(onBalloonClicked)];
 
     /// @TODO refactor cyclic dependence.
     /// Here we're creating view and window handle in it, and later we should pass framework to the view.
@@ -249,8 +289,8 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void) updateDataAfterScreenChanged
 {
-  if (m_bookmark.isDisplayed)
-    [m_bookmark updatePosition:self.view atPoint:[self globalPoint2ViewPoint:m_bookmark.globalPosition]];
+  if (m_balloonView.isDisplayed)
+    [m_balloonView updatePosition:self.view atPoint:[self globalPoint2ViewPoint:m_balloonView.globalPosition]];
 }
 
 - (void) stopCurrentAction
@@ -275,7 +315,8 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void) touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
 {
   // To cancel single tap timer
-  if (((UITouch *)[touches anyObject]).tapCount > 1)
+  UITouch * theTouch = (UITouch *)[touches anyObject];
+  if (theTouch.tapCount > 1)
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
 
 	[self updatePointsFromEvent:event];
@@ -287,6 +328,9 @@ NSInteger compareAddress(id l, id r, void * context)
     
 		GetFramework().StartDrag(DragEvent(m_Pt1.x, m_Pt1.y));
 		m_CurrentAction = DRAGGING;
+
+    // Start long-tap timer
+    [self performSelector:@selector(onLongTap:) withObject:[NSValue valueWithCGPoint:[theTouch locationInView:self.view]] afterDelay:1.0];
 	}
 	else
 	{
@@ -299,12 +343,13 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void) touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
 {
-	m2::PointD const TempPt1 = m_Pt1;
+  // Cancel long-touch timer
+  [NSObject cancelPreviousPerformRequestsWithTarget:self];
+
+  m2::PointD const TempPt1 = m_Pt1;
 	m2::PointD const TempPt2 = m_Pt2;
 
 	[self updatePointsFromEvent:event];
-
-//	bool needRedraw = false;
 
   if (GetFramework().GetGuiController()->OnTapMoved(m_Pt1))
     return;
@@ -355,19 +400,25 @@ NSInteger compareAddress(id l, id r, void * context)
   int tapCount = theTouch.tapCount;
   int touchesCount = [[event allTouches] count];
 
-  if (touchesCount == 1 && tapCount == 1)
-    if (GetFramework().GetGuiController()->OnTapEnded(m_Pt1))
-      return;
-  
-  if (tapCount == 2 && touchesCount == 1 && m_isSticking)
-    GetFramework().ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2.0));
+  if (touchesCount == 1)
+  {
+    // Cancel long-touch timer
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    if (tapCount == 1)
+    {
+      if (GetFramework().GetGuiController()->OnTapEnded(m_Pt1))
+        return;
+
+      // Launch single tap timer
+      if (m_isSticking)
+        [self performSelector:@selector(onSingleTap:) withObject:[NSValue valueWithCGPoint:[theTouch locationInView:self.view]] afterDelay:0.3];
+    }
+    else if (tapCount == 2 && m_isSticking)
+      GetFramework().ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2.0));
+  }
 
   if (touchesCount == 2 && tapCount == 1 && m_isSticking)
     GetFramework().Scale(0.5);
-
-  // Launch single tap timer
-  if (touchesCount == 1 && tapCount == 1 && m_isSticking)
-    [self performSelector:@selector(onSingleTap:) withObject:[NSValue valueWithCGPoint:[theTouch locationInView:self.view]] afterDelay:0.3];
 
   [self updateDataAfterScreenChanged];
 }

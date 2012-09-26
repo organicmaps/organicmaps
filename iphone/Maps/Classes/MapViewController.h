@@ -19,7 +19,7 @@
 	size_t m_StickyThreshold;
 	m2::PointD m_Pt1, m_Pt2;
   
-  BalloonView * m_bookmark;
+  BalloonView * m_balloonView;
 }
 
 - (void) ZoomToRect: (m2::RectD const &) rect;
