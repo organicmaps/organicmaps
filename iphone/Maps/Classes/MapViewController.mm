@@ -160,6 +160,7 @@
   // Try to check if we've clicked on bookmark
   Framework & f = GetFramework();
   CGFloat const scaleFactor = self.view.contentScaleFactor;
+  // @TODO Refactor point transformation
   m2::PointD pxClicked(point.x * scaleFactor, point.y * scaleFactor);
 
   BookmarkAndCategory const bmAndCat = f.GetBookmark(pxClicked);
@@ -188,7 +189,8 @@
     m2::PointD pxPivot;
     if (f.GetVisiblePOI(pxClicked, pxPivot, addrInfo))
     {
-      m_balloonView.globalPosition = [self viewPoint2GlobalPoint:CGPointMake(pxPivot.x, pxPivot.y)];
+      // @TODO Refactor point transformation
+      m_balloonView.globalPosition = [self viewPoint2GlobalPoint:CGPointMake(pxPivot.x / scaleFactor, pxPivot.y / scaleFactor)];
       [self updatePinTexts:addrInfo];
       [m_balloonView showInView:self.view atPoint:[self globalPoint2ViewPoint:m_balloonView.globalPosition] withBookmark:MakeEmptyBookmarkAndCategory()];
     }
@@ -198,7 +200,8 @@
       if (isLongClick)
       {
         f.GetAddressInfo(pxClicked, addrInfo);
-        m_balloonView.globalPosition = [self viewPoint2GlobalPoint:CGPointMake(pxClicked.x, pxClicked.y)];
+        // @TODO Refactor point transformation
+        m_balloonView.globalPosition = [self viewPoint2GlobalPoint:CGPointMake(point.x, point.y)];
         [self updatePinTexts:addrInfo];
         [m_balloonView showInView:self.view atPoint:point withBookmark:MakeEmptyBookmarkAndCategory()];
       }
