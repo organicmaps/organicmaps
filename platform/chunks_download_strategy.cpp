@@ -148,6 +148,9 @@ void ChunksDownloadStrategy::ChunkFinished(bool success, RangeT const & range)
         }
         else
         {
+          LOG(LINFO, ("Thread for url", m_servers[s].m_url,
+                      "failed to download chunk number", m_servers[s].m_chunkIndex));
+
           // remove failed server and mark chunk as free
           m_servers.erase(m_servers.begin() + s);
           res.first->m_status = CHUNK_FREE;

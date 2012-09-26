@@ -147,7 +147,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
     }
     catch (IOException ex)
     {
-      Log.d(TAG, "IOException in doInBackground: ", ex);
+      Log.d(TAG, "IOException in doInBackground for URL: " + m_url, ex);
 
       // Notify the client about error
       m_httpErrorCode = IO_ERROR;
@@ -182,7 +182,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
       }
       catch (IOException ex)
       {
-        Log.d(TAG, "IOException in downloadFromStream: ", ex);
+        Log.d(TAG, "IOException in downloadFromStream for chunk size: " + arrSize[i], ex);
       }
     }
 
