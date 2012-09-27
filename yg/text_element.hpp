@@ -64,6 +64,7 @@ namespace yg
                       gl::OverlayRenderer * r,
                       math::Matrix<double, 3, 3> const & m,
                       bool doTransformPivotOnly,
+                      bool doAlignPivot,
                       FontDesc const & desc,
                       double depth) const;
     strings::UniString const & logText() const;

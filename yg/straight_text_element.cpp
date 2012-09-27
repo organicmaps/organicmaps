@@ -271,14 +271,14 @@ namespace yg
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
     {
       if (m_glyphLayouts[i].fontDesc().m_isMasked)
-        drawTextImpl(m_glyphLayouts[i], screen, m, true, m_glyphLayouts[i].fontDesc(), yg::maxDepth - 1);
+        drawTextImpl(m_glyphLayouts[i], screen, m, true, true, m_glyphLayouts[i].fontDesc(), yg::maxDepth - 1);
     }
 
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
     {
       yg::FontDesc fontDesc = m_glyphLayouts[i].fontDesc();
       fontDesc.m_isMasked = false;
-      drawTextImpl(m_glyphLayouts[i], screen, m, true, fontDesc, yg::maxDepth);
+      drawTextImpl(m_glyphLayouts[i], screen, m, true, true, fontDesc, yg::maxDepth);
     }
   }
 

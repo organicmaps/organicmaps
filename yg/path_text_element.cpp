@@ -70,11 +70,11 @@ namespace yg
 
     if (desc.m_isMasked)
     {
-      drawTextImpl(m_glyphLayout, screen, m, false, desc, yg::maxDepth - 1);
+      drawTextImpl(m_glyphLayout, screen, m, false, false, desc, yg::maxDepth - 1);
       desc.m_isMasked = false;
     }
 
-    drawTextImpl(m_glyphLayout, screen, m, false, desc, yg::maxDepth);
+    drawTextImpl(m_glyphLayout, screen, m, false, false, desc, yg::maxDepth);
   }
 
   void PathTextElement::setPivot(m2::PointD const & pivot)
