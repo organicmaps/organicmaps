@@ -26,13 +26,13 @@ extern "C"
     g_framework->RemoveLocalMaps();
 
     Platform & pl = GetPlatform();
-    char const * arrExt[] = { DATA_FILE_EXTENSION, ".ttf", ".ini" };
+    char const * arrMask[] = { "*" DATA_FILE_EXTENSION, "*.ttf" };
 
     // Copy all needed files.
-    for (size_t i = 0; i < ARRAY_SIZE(arrExt); ++i)
+    for (size_t i = 0; i < ARRAY_SIZE(arrMask); ++i)
     {
       Platform::FilesList files;
-      pl.GetFilesInDir(from, "*" DATA_FILE_EXTENSION, files);
+      pl.GetFilesInDir(from, arrMask[i], files);
 
       for (size_t j = 0; j < files.size(); ++j)
         if (!my::CopyFile((from + files[j]).c_str(), (to + files[j]).c_str()))

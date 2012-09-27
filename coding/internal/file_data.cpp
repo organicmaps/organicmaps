@@ -237,14 +237,28 @@ bool CopyFile(string const & fOld, string const & fNew)
     ifstream ifs(fOld.c_str());
     ofstream ofs(fNew.c_str());
 
-    ofs << ifs.rdbuf();
-    return true;
+    if (ifs.is_open() && ofs.is_open())
+    {
+      ofs << ifs.rdbuf();
+
+      if (ofs.bad() || ofs.fail())
+      {
+        // Well, specification says that exception is thrown for critical errors.
+        // So just log stream fail state and continue.
+        LOG(LWARNING, ("Bad or Fail bit is set while writing file:", fNew));
+      }
+
+      return true;
+    }
+    else
+      LOG(LERROR, ("Can't open files:", fOld, fNew));
   }
   catch (exception const & ex)
   {
-    LOG(LERROR, ("Copy file error: ", ex.what()));
-    return false;
+    LOG(LERROR, ("Copy file error:", ex.what()));
   }
+
+  return false;
 }
 
 }

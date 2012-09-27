@@ -88,9 +88,12 @@ namespace android
 
     m_resourcesDir = jni::ToNativeString(env, apkPath);
 
+    // Settings file should always be in one place (default external storage).
+    // It stores path to current maps storage.
+    m_settingsDir = jni::ToNativeString(env, storagePath);
+
     if (!Settings::Get("StoragePath", m_writableDir))
-      m_writableDir = jni::ToNativeString(env, storagePath);
-    m_settingsDir = m_writableDir;
+      m_writableDir = m_settingsDir;
 
     m_localTmpPath = jni::ToNativeString(env, tmpPath);
     m_externalTmpPath = jni::ToNativeString(env, extTmpPath);
@@ -127,7 +130,7 @@ namespace android
 
   void Platform::SetStoragePath(string const & path)
   {
-    m_writableDir = m_settingsDir = path;
+    m_writableDir = path;
     Settings::Set("StoragePath", m_writableDir);
   }
 

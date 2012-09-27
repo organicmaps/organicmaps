@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.StatFs;
 import android.util.Log;
@@ -136,15 +138,20 @@ public class SettingsActivity extends ListActivity
     return m_pathes.get(position) + "/MapsWithMe/";
   }
 
-  private void deleteRecursive(File file)
+  // delete all files (except settings.ini) in directory
+  private void deleteFiles(File dir)
   {
-    if (file.isDirectory())
-      for (File child : file.listFiles())
-        deleteRecursive(child);
-
-    if (!file.delete())
+    assert(dir.isDirectory());
+    for (File file : dir.listFiles())
     {
-      Log.w(TAG, "Can't delete file: " + file.getName());
+      assert(file.isFile());
+
+      // skip settings.ini - this file should be always in one place
+      if (file.getName().equalsIgnoreCase("settings.ini"))
+        continue;
+
+      if (!file.delete())
+        Log.w(TAG, "Can't delete file: " + file.getName());
     }
   }
 
@@ -176,7 +183,7 @@ public class SettingsActivity extends ListActivity
   }
 
   @Override
-  protected void onListItemClick(ListView l, View v, int position, long id)
+  protected void onListItemClick(final ListView l, View v, final int position, long id)
   {
     if (position != m_checked)
     {
@@ -189,23 +196,48 @@ public class SettingsActivity extends ListActivity
         return;
       }
 
-      Log.i(TAG, "Transfer data to storage: " + path);
-      if (nativeSetStoragePath(path))
+      new AlertDialog.Builder(this)
+      .setCancelable(false)
+      .setTitle(R.string.move_maps)
+      .setMessage(R.string.wait_several_minutes)
+      .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
       {
-        if (m_checked != -1)
-          deleteRecursive(new File(getFullPath(m_checked)));
+        @Override
+        public void onClick(DialogInterface dlg, int which)
+        {
+          Log.i(TAG, "Transfer data to storage: " + path);
+          if (nativeSetStoragePath(path))
+          {
+            if (m_checked != -1)
+              deleteFiles(new File(getFullPath(m_checked)));
 
-        l.setItemChecked(position, true);
+            l.setItemChecked(position, true);
 
-        /*
-        final CheckedTextView old = getViewByPos(l, m_checked);
-        if (old != null)
-          old.setChecked(false);
-        ((CheckedTextView) v).setChecked(true);
-         */
+            m_checked = position;
+          }
+          else if (m_checked != -1)
+          {
+            // set check state back to m_checked item
+            l.setItemChecked(m_checked, true);
+          }
 
-        m_checked = position;
-      }
+          dlg.dismiss();
+        }
+      })
+      .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
+      {
+        @Override
+        public void onClick(DialogInterface dlg, int which)
+        {
+          // set check state back to m_checked item
+          if (m_checked != -1)
+            l.setItemChecked(m_checked, true);
+
+          dlg.dismiss();
+        }
+      })
+      .create()
+      .show();
     }
   }
 

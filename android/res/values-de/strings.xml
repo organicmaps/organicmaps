@@ -190,4 +190,8 @@
 	<string name="settings"></string>
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage"></string>
+	<!-- Question dialog for transferring maps from one storage to another -->
+	<string name="move_maps"></string>
+	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<string name="wait_several_minutes"></string>
 </resources>

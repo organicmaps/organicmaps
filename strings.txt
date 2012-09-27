@@ -1256,3 +1256,29 @@
     ko =
     cs =
     nl =
+  [move_maps]
+    en = Move maps?
+    tags = android
+    comment = Question dialog for transferring maps from one storage to another
+    ru = Переместить карты?
+    de =
+    uk =
+    es =
+    fr =
+    ja =
+    ko =
+    cs =
+    nl =
+  [wait_several_minutes]
+    en = This can take several minutes.\nPlease wait ...
+    tags = android
+    comment = Ask to wait user several minutes (some long process in modal dialog).
+    ru = Это может занять несколько минут.\nПожалуйста, подождите ...
+    de =
+    uk =
+    es =
+    fr =
+    ja =
+    ko =
+    cs =
+    nl =

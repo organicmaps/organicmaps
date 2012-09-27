@@ -271,9 +271,6 @@ void Framework::UpdateAfterDownload(string const & file)
 
 void Framework::AddLocalMaps()
 {
-  // initializes model with locally downloaded maps
-  LOG(LDEBUG, ("Initializing storage"));
-
   // add maps to the model
   Platform::FilesList maps;
   GetLocalMaps(maps);
