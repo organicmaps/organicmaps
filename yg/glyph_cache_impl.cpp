@@ -261,6 +261,7 @@ namespace yg
 
     FTCHECKRETURN(FT_Done_Face(face), fileName);
 
+    LOG(LINFO, ("Font", fileName, "is added successfully"));
     m_fonts.push_back(pFont);
 
     // modifying the m_unicodeBlocks

@@ -65,5 +65,5 @@ void Platform::GetFontNames(FilesList & res) const
   sort(res.begin(), res.end());
   res.erase(unique(res.begin(), res.end()), res.end());
 
-  LOG(LDEBUG, ("Font files:", (res)));
+  LOG(LINFO, ("Available font files:", (res)));
 }

@@ -49,7 +49,7 @@ Framework::FixedPosition::FixedPosition()
 
 void Framework::AddMap(string const & file)
 {
-  LOG(LDEBUG, ("Loading map:", file));
+  LOG(LINFO, ("Loading map:", file));
 
   //threads::MutexGuard lock(m_modelSyn);
   int const version = m_model.AddMap(file);
