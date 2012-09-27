@@ -22,11 +22,13 @@ extern "C"
     string const from = GetPlatform().WritableDir();
     string const to = jni::ToNativeString(env, s);
 
+    // Remove all maps from container.
     g_framework->RemoveLocalMaps();
 
     Platform & pl = GetPlatform();
     char const * arrExt[] = { DATA_FILE_EXTENSION, ".ttf", ".ini" };
 
+    // Copy all needed files.
     for (size_t i = 0; i < ARRAY_SIZE(arrExt); ++i)
     {
       Platform::FilesList files;
@@ -37,10 +39,10 @@ extern "C"
           return false;
     }
 
-    /// @todo Delete old folder.
-
+    // Set new storage path.
     android::Platform::Instance().SetStoragePath(to);
 
+    // Add all maps again.
     g_framework->AddLocalMaps();
     return true;
   }

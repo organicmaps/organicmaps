@@ -24,7 +24,7 @@ public class SettingsActivity extends ListActivity
 
   private List<String> m_choices = new ArrayList<String>();
   private List<String> m_pathes = new ArrayList<String>();
-  private int m_checked;
+  private int m_checked = -1;
 
   private String getSizeString(long size)
   {
@@ -44,7 +44,35 @@ public class SettingsActivity extends ListActivity
     return (size / current + arrS[i]);
   }
 
-  private void parseMountFile(String file)
+  private void addStorage(String path)
+  {
+    try
+    {
+      File f = new File(path);
+      if (!f.exists() || !f.isDirectory() || !f.canWrite())
+      {
+        Log.i(TAG, "File error for storage: " + path);
+        return;
+      }
+
+      StatFs stat = new StatFs(path);
+      final long size = (long)stat.getAvailableBlocks() * (long)stat.getBlockSize();
+      Log.i(TAG, "Available size = " + size);
+
+      if (size > 0)
+      {
+        m_choices.add(path + ", " + getSizeString(size) + " available");
+        m_pathes.add(path);
+      }
+    }
+    catch (IllegalArgumentException ex)
+    {
+      // Suppress exceptions for unavailable storages.
+      Log.i(TAG, "StatFs error for storage: " + path);
+    }
+  }
+
+  private void parseMountFile(String file, int mode)
   {
     BufferedReader reader = null;
     try
@@ -61,16 +89,23 @@ public class SettingsActivity extends ListActivity
           if (arr[0].charAt(0) == '#')
             continue;
 
-          Log.i(TAG, "Label = " + arr[1] + "; Path = " + arr[2]);
-
-          StatFs stat = new StatFs(arr[2]);
-          final long size = stat.getAvailableBlocks() * stat.getBlockSize();
-          Log.i(TAG, "Available size = " + size);
-
-          if (size > 0)
+          if (mode == 0)
           {
-            m_choices.add(arr[1] + ", " + getSizeString(size) + " available");
-            m_pathes.add(arr[2]);
+            // parse "vold"
+            Log.i(TAG, "Label = " + arr[1] + "; Path = " + arr[2]);
+
+            if (arr[0].startsWith("dev_mount"))
+              addStorage(arr[2]);
+          }
+          else
+          {
+            // parse "mounts"
+            Log.i(TAG, "Label = " + arr[0] + "; Path = " + arr[1]);
+
+            String prefixes[] = { "tmpfs", "/dev/block/vold", "/dev/fuse" };
+            for (String s : prefixes)
+              if (arr[0].startsWith(s))
+                addStorage(arr[1]);
           }
         }
       }
@@ -96,13 +131,31 @@ public class SettingsActivity extends ListActivity
     return (CheckedTextView) lv.getChildAt(child);
   }
 
+  private String getFullPath(int position)
+  {
+    return m_pathes.get(position) + "/MapsWithMe/";
+  }
+
+  private void deleteRecursive(File file)
+  {
+    if (file.isDirectory())
+      for (File child : file.listFiles())
+        deleteRecursive(child);
+
+    if (!file.delete())
+    {
+      Log.w(TAG, "Can't delete file: " + file.getName());
+    }
+  }
+
   @Override
   public void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
 
-    parseMountFile("/etc/vold.conf");
-    parseMountFile("/etc/vold.fstab");
+    //parseMountFile("/etc/vold.conf", 0);
+    //parseMountFile("/etc/vold.fstab", 0);
+    parseMountFile("/proc/mounts", 1);
 
     setListAdapter(new ArrayAdapter<String>(this,
         android.R.layout.simple_list_item_single_choice, m_choices));
@@ -127,18 +180,21 @@ public class SettingsActivity extends ListActivity
   {
     if (position != m_checked)
     {
-      final String s = m_pathes.get(position) + "/MapsWithMe/";
+      final String path = getFullPath(position);
 
-      File f = new File(s);
+      File f = new File(path);
       if (!f.exists() && !f.mkdirs())
       {
-        Log.e(TAG, "Can't create directory: " + s);
+        Log.e(TAG, "Can't create directory: " + path);
         return;
       }
 
-      Log.i(TAG, "Transfer data to storage: " + s);
-      if (nativeSetStoragePath(s))
+      Log.i(TAG, "Transfer data to storage: " + path);
+      if (nativeSetStoragePath(path))
       {
+        if (m_checked != -1)
+          deleteRecursive(new File(getFullPath(m_checked)));
+
         l.setItemChecked(position, true);
 
         /*
