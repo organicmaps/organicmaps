@@ -47,6 +47,9 @@ namespace yg
       glNormalPointer(type, stride, pointer);
     }
 
+    void glUseSharpGeometryImpl(GLboolean)
+    {}
+
     void InitExtensions()
     {
       DumpGLInformation();
@@ -59,6 +62,8 @@ namespace yg
       glTexCoordPointerFn = &glTexCoordPointer;
       glEnableClientStateFn = &glEnableClientState;
       glNormalPointerFn = &glNormalPointerImpl;
+
+      glUseSharpGeometryFn = &glUseSharpGeometryImpl;
 
       glMatrixModeFn = &glMatrixMode;
       glLoadIdentityFn = &glLoadIdentity;

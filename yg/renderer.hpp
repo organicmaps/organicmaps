@@ -158,6 +158,8 @@ namespace yg
       void setEnvironment(core::CommandsQueue::Environment const * env);
       bool isCancelled() const;
 
+      void setPixelPrecision(bool flag);
+
       virtual void flush();
     };
   }

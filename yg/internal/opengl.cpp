@@ -98,6 +98,8 @@ namespace yg
     void (OPENGL_CALLING_CONVENTION * glBindRenderbufferFn) (GLenum target, GLuint renderbuffer);
     void (OPENGL_CALLING_CONVENTION * glRenderbufferStorageFn) (GLenum target, GLenum internalformat, GLsizei width, GLsizei height);
 
+    void (OPENGL_CALLING_CONVENTION * glUseSharpGeometryFn)(GLboolean flag);
+
     void (OPENGL_CALLING_CONVENTION * glBlendFuncSeparateFn) (GLenum sfactorRGB, GLenum dfactorRGB, GLenum sfactorAlpha, GLenum dfactorAlpha);
 
     bool g_hasContext = true;

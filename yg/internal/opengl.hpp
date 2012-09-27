@@ -77,6 +77,10 @@ namespace yg
     extern void (OPENGL_CALLING_CONVENTION * glNormalPointerFn) (GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
     extern void (OPENGL_CALLING_CONVENTION * glTexCoordPointerFn) (GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
 
+    /// this is a quickfix for sharpness of straight texts and symbols.
+    /// should be refactored to something more consistent.
+    extern void (OPENGL_CALLING_CONVENTION * glUseSharpGeometryFn) (GLboolean flag);
+
     extern const GLenum GL_VERTEX_ARRAY_MWM;
     extern const GLenum GL_TEXTURE_COORD_ARRAY_MWM;
     extern const GLenum GL_NORMAL_ARRAY_MWM;

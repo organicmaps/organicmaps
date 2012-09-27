@@ -39,6 +39,7 @@ namespace yg
       glNormalPointerFn = &glsl::glNormalPointer;
       glTexCoordPointerFn = &glsl::glTexCoordPointer;
       glEnableClientStateFn = &glsl::glEnableClientState;
+      glUseSharpGeometryFn = &glsl::glUseSharpGeometry;
 
       glMatrixModeFn = &glsl::glMatrixMode;
       glLoadIdentityFn = &glsl::glLoadIdentity;

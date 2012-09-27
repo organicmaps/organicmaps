@@ -38,6 +38,20 @@ namespace yg
         "uniform mat4 ModelViewM;\n"
         "varying vec2 TexCoordOut;\n"
         "void main(void) {\n"
+        "   gl_Position = (vec4(Normal, 0.0, 0.0) + Position * ModelViewM) * ProjM;\n"
+        "   TexCoordOut = TexCoordIn;\n"
+        "}\n";
+
+      /// Sharp Vertex Shader Source
+
+      static const char g_sharpVxSrc[] =
+        "attribute vec4 Position;\n"
+        "attribute vec2 Normal;\n"
+        "attribute vec2 TexCoordIn;\n"
+        "uniform mat4 ProjM;\n"
+        "uniform mat4 ModelViewM;\n"
+        "varying vec2 TexCoordOut;\n"
+        "void main(void) {\n"
         "   gl_Position = floor(vec4(Normal, 0.0, 0.0) + Position * ModelViewM) * ProjM;\n"
         "   TexCoordOut = TexCoordIn;\n"
         "}\n";
@@ -158,12 +172,33 @@ namespace yg
         Program m_noAlphaTestProgram;
         Program m_alphaTestProgram;
 
+        Program m_noAlphaTestSharpProgram;
+        Program m_alphaTestSharpProgram;
+
         /// currently bound GLSL program
         Program * m_currentProgram;
 
-        GLuint m_vertexShader;
+        GLuint m_vxShader;
+        GLuint m_sharpVxShader;
         GLuint m_noAlphaTestFrgSh;
         GLuint m_alphaTestFrgSh;
+
+        GLboolean m_useAlphaTest;
+        GLboolean m_useSharpGeometry;
+
+        Program * selectCurrentProgram()
+        {
+          if (m_useAlphaTest)
+            if (m_useSharpGeometry)
+              return &m_alphaTestSharpProgram;
+            else
+              return &m_alphaTestProgram;
+          else
+            if (m_useSharpGeometry)
+              return &m_noAlphaTestSharpProgram;
+            else
+              return &m_noAlphaTestProgram;
+        }
 
         void setCurrentProgram(Program * program)
         {
@@ -202,20 +237,28 @@ namespace yg
 
         ThreadData()
           : m_matrixMode(-1),
-            m_vertexShader(0),
+            m_vxShader(0),
+            m_sharpVxShader(0),
             m_noAlphaTestFrgSh(0),
-            m_alphaTestFrgSh(0)
+            m_alphaTestFrgSh(0),
+            m_useAlphaTest(false),
+            m_useSharpGeometry(false)
         {}
 
         void Initialize()
         {
-          m_vertexShader = loadShader(g_vxSrc, GL_VERTEX_SHADER);
+          m_vxShader = loadShader(g_vxSrc, GL_VERTEX_SHADER);
+          m_sharpVxShader = loadShader(g_sharpVxSrc, GL_VERTEX_SHADER);
+
           m_noAlphaTestFrgSh = loadShader(g_noAlphaTestFrgSrc, GL_FRAGMENT_SHADER);
           m_alphaTestFrgSh = loadShader(g_alphaTestFrgSrc, GL_FRAGMENT_SHADER);
 
           /// creating program
-          m_alphaTestProgram.createProgram(m_vertexShader, m_alphaTestFrgSh);
-          m_noAlphaTestProgram.createProgram(m_vertexShader, m_noAlphaTestFrgSh);
+          m_alphaTestProgram.createProgram(m_vxShader, m_alphaTestFrgSh);
+          m_noAlphaTestProgram.createProgram(m_vxShader, m_noAlphaTestFrgSh);
+
+          m_alphaTestSharpProgram.createProgram(m_sharpVxShader, m_alphaTestFrgSh);
+          m_noAlphaTestSharpProgram.createProgram(m_sharpVxShader, m_noAlphaTestFrgSh);
 
           m_alphaTestProgram.attachProjection("ProjM");
           m_alphaTestProgram.attachModelView("ModelViewM");
@@ -224,6 +267,13 @@ namespace yg
           m_alphaTestProgram.attachTexCoord("TexCoordIn");
           m_alphaTestProgram.attachNormal("Normal");
 
+          m_alphaTestSharpProgram.attachProjection("ProjM");
+          m_alphaTestSharpProgram.attachModelView("ModelViewM");
+          m_alphaTestSharpProgram.attachTexture("Texture");
+          m_alphaTestSharpProgram.attachPosition("Position");
+          m_alphaTestSharpProgram.attachTexCoord("TexCoordIn");
+          m_alphaTestSharpProgram.attachNormal("Normal");
+
           m_noAlphaTestProgram.attachProjection("ProjM");
           m_noAlphaTestProgram.attachModelView("ModelViewM");
           m_noAlphaTestProgram.attachTexture("Texture");
@@ -231,8 +281,14 @@ namespace yg
           m_noAlphaTestProgram.attachTexCoord("TexCoordIn");
           m_noAlphaTestProgram.attachNormal("Normal");
 
-          m_currentProgram = &m_noAlphaTestProgram;
-          m_currentProgram->apply();
+          m_noAlphaTestSharpProgram.attachProjection("ProjM");
+          m_noAlphaTestSharpProgram.attachModelView("ModelViewM");
+          m_noAlphaTestSharpProgram.attachTexture("Texture");
+          m_noAlphaTestSharpProgram.attachPosition("Position");
+          m_noAlphaTestSharpProgram.attachTexCoord("TexCoordIn");
+          m_noAlphaTestSharpProgram.attachNormal("Normal");
+
+          selectCurrentProgram()->apply();
         }
 
         void Finalize()
@@ -242,7 +298,13 @@ namespace yg
           if (yg::gl::g_hasContext)
             ::glDeleteProgram(m_noAlphaTestProgram.m_program);
           if (yg::gl::g_hasContext)
-            ::glDeleteShader(m_vertexShader);
+            ::glDeleteProgram(m_alphaTestSharpProgram.m_program);
+          if (yg::gl::g_hasContext)
+            ::glDeleteProgram(m_noAlphaTestSharpProgram.m_program);
+          if (yg::gl::g_hasContext)
+            ::glDeleteShader(m_vxShader);
+          if (yg::gl::g_hasContext)
+            ::glDeleteShader(m_sharpVxShader);
           if (yg::gl::g_hasContext)
             ::glDeleteShader(m_noAlphaTestFrgSh);
           if (yg::gl::g_hasContext)
@@ -258,7 +320,7 @@ namespace yg
         if (cap == GL_ALPHA_TEST_MWM)
         {
           ThreadData & threadData = g_threadData[threads::GetCurrentThreadID()];
-          threadData.setCurrentProgram(&threadData.m_alphaTestProgram);
+          threadData.m_useAlphaTest = true;
         }
         else
           ::glEnable(cap);
@@ -269,7 +331,7 @@ namespace yg
         if (cap == GL_ALPHA_TEST_MWM)
         {
           ThreadData & threadData = g_threadData[threads::GetCurrentThreadID()];
-          threadData.setCurrentProgram(&threadData.m_noAlphaTestProgram);
+          threadData.m_useAlphaTest = false;
         }
         else
           ::glDisable(cap);
@@ -323,6 +385,12 @@ namespace yg
         };
       }
 
+      void glUseSharpGeometry(GLboolean flag)
+      {
+        ThreadData & threadData = g_threadData[threads::GetCurrentThreadID()];
+        threadData.m_useSharpGeometry = flag;
+      }
+
       void glMatrixMode(GLenum mode)
       {
         ThreadData & threadData = g_threadData[threads::GetCurrentThreadID()];
@@ -369,6 +437,8 @@ namespace yg
 
         math::Matrix<float, 4, 4> const & projM = threadData.m_matrices[GL_PROJECTION_MWM];
         math::Matrix<float, 4, 4> const & modelViewM = threadData.m_matrices[GL_MODELVIEW_MWM];
+
+        threadData.setCurrentProgram(threadData.selectCurrentProgram());
 
         // applying shader parameters
         OGLCHECK(::glUniformMatrix4fv(threadData.m_currentProgram->m_projectionUniform, 1, 0, &projM(0, 0)));

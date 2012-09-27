@@ -22,6 +22,8 @@ namespace yg
       void glLoadIdentity();
       void glLoadMatrixf(GLfloat const * data);
       void glMatrixMode(GLenum mode);
+
+      void glUseSharpGeometry(GLboolean flag);
     }
   }
 }
