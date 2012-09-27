@@ -14,8 +14,9 @@ namespace yg
       unsigned m_pathCount;
       unsigned m_pointsCount;
       bool m_drawPathes;
+      bool m_fastSolidPath;
 
-      void drawSolidPath(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth);
+      void drawFastSolidPath(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth);
 
     public:
 
@@ -24,6 +25,7 @@ namespace yg
       struct Params : base_t::Params
       {
         bool m_drawPathes;
+        bool m_fastSolidPath;
         Params();
       };
 

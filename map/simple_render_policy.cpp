@@ -103,6 +103,7 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
   dp.m_skin = make_shared_ptr(yg::loadSkin(m_resourceManager, SkinName()));
   dp.m_visualScale = VisualScale();
   dp.m_isSynchronized = true;
+  dp.m_fastSolidPath = false;
 
   m_drawer.reset(new DrawerYG(dp));
 

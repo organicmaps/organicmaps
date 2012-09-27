@@ -127,6 +127,7 @@ RenderPolicyST::RenderPolicyST(Params const & p)
   dp.m_visualScale = VisualScale();
   dp.m_isSynchronized = false;
   dp.m_useGuiResources = true;
+  dp.m_fastSolidPath = false;
 
   m_drawer.reset();
   m_drawer.reset(new DrawerYG(dp));

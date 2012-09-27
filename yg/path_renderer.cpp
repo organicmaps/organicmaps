@@ -10,11 +10,15 @@ namespace yg
 {
   namespace gl
   {
-    PathRenderer::Params::Params() : m_drawPathes(true)
+    PathRenderer::Params::Params()
+      : m_drawPathes(true),
+        m_fastSolidPath(true)
     {}
 
     PathRenderer::PathRenderer(Params const & params)
-      : base_t(params), m_drawPathes(params.m_drawPathes)
+      : base_t(params),
+        m_drawPathes(params.m_drawPathes),
+        m_fastSolidPath(params.m_fastSolidPath)
     {}
 
     void PathRenderer::drawPath(m2::PointD const * points, size_t pointsCount, double offset, uint32_t styleID, double depth)
@@ -38,9 +42,9 @@ namespace yg
       ASSERT(style->m_cat == ResourceStyle::ELineStyle, ());
 
       LineStyle const * lineStyle = static_cast<LineStyle const *>(style);
-      if (lineStyle->m_isSolid)
+      if (m_fastSolidPath && lineStyle->m_isSolid)
       {
-        drawSolidPath(points, pointsCount, styleID, depth);
+        drawFastSolidPath(points, pointsCount, styleID, depth);
         return;
       }
 
@@ -226,7 +230,7 @@ namespace yg
       }
     }
 
-    void PathRenderer::drawSolidPath(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth)
+    void PathRenderer::drawFastSolidPath(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth)
     {
       ASSERT_GREATER_OR_EQUAL(pointsCount, 2, ());
       ResourceStyle const * style(skin()->fromID(styleID));
