@@ -92,8 +92,14 @@ namespace android
     // It stores path to current maps storage.
     m_settingsDir = jni::ToNativeString(env, storagePath);
 
-    if (!Settings::Get("StoragePath", m_writableDir))
+    if (!Settings::Get("StoragePath", m_writableDir) ||
+        (GetWritableStorageStatus(1024) != ::Platform::STORAGE_OK))
+    {
+      // If no saved storage path or the storage is unavailable
+      // (disconnected from the last session), assign writable
+      // path to the default external storage.
       m_writableDir = m_settingsDir;
+    }
 
     m_localTmpPath = jni::ToNativeString(env, tmpPath);
     m_externalTmpPath = jni::ToNativeString(env, extTmpPath);
