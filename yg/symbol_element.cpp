@@ -109,4 +109,9 @@ namespace yg
   {
     return new SymbolElement(*this, m);
   }
+
+  bool SymbolElement::hasSharpGeometry() const
+  {
+    return true;
+  }
 }

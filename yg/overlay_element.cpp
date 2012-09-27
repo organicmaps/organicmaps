@@ -200,4 +200,9 @@ namespace yg
 
     return res;
   }
+
+  bool OverlayElement::hasSharpGeometry() const
+  {
+    return false;
+  }
 }

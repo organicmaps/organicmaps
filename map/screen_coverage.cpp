@@ -155,17 +155,28 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
   }
 }
 
+void FilterElementsBySharpness(shared_ptr<yg::OverlayElement> const & e,
+                               vector<shared_ptr<yg::OverlayElement> > & v,
+                               bool flag)
+{
+  if (e->hasSharpGeometry() == flag)
+    v.push_back(e);
+}
+
 bool ScreenCoverage::Cache(core::CommandsQueue::Environment const & env)
 {
   /// caching tiles blitting commands.
 
-  m_displayList.reset();
-  m_displayList.reset(m_cacheScreen->createDisplayList());
+  m_primaryDL.reset();
+  m_primaryDL.reset(m_cacheScreen->createDisplayList());
+
+  m_sharpTextDL.reset();
+  m_sharpTextDL.reset(m_cacheScreen->createDisplayList());
 
   m_cacheScreen->setEnvironment(&env);
 
   m_cacheScreen->beginFrame();
-  m_cacheScreen->setDisplayList(m_displayList.get());
+  m_cacheScreen->setDisplayList(m_primaryDL.get());
 
   vector<yg::gl::BlitInfo> infos;
 
@@ -189,9 +200,28 @@ bool ScreenCoverage::Cache(core::CommandsQueue::Environment const & env)
   if (!infos.empty())
     m_cacheScreen->blit(&infos[0], infos.size(), true);
 
-  m_overlay->draw(m_cacheScreen.get(), math::Identity<double, 3>());
+  math::Matrix<double, 3, 3> idM = math::Identity<double, 3>();
+
+  // selecting and rendering non-sharp elements.
+
+  vector<shared_ptr<yg::OverlayElement> > nonSharpElements;
+  m_overlay->forEach(bind(&FilterElementsBySharpness, _1, ref(nonSharpElements), false));
+
+  for (unsigned i = 0; i < nonSharpElements.size(); ++i)
+    nonSharpElements[i]->draw(m_cacheScreen.get(), idM);
+
+  // selecting and rendering sharp elements
+
+  vector<shared_ptr<yg::OverlayElement> > sharpElements;
+  m_overlay->forEach(bind(&FilterElementsBySharpness, _1, ref(sharpElements), true));
+
+  m_cacheScreen->setDisplayList(m_sharpTextDL.get());
+
+  for (unsigned i = 0; i < sharpElements.size(); ++i)
+    sharpElements[i]->draw(m_cacheScreen.get(), idM);
 
   m_cacheScreen->setDisplayList(0);
+
   m_cacheScreen->endFrame();
 
   /// completing commands that was immediately executed
@@ -382,8 +412,17 @@ ScreenCoverage::~ScreenCoverage()
 
 void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)
 {
-  if (m_displayList)
-    m_displayList->draw(m_screen.PtoGMatrix() * screen.GtoPMatrix());
+  math::Matrix<double, 3, 3> m = m_screen.PtoGMatrix() * screen.GtoPMatrix();
+
+  if (m_primaryDL)
+    m_primaryDL->draw(m);
+
+  s->setPixelPrecision(true);
+
+  if (m_sharpTextDL)
+    m_sharpTextDL->draw(m);
+
+  s->setPixelPrecision(false);
 }
 
 shared_ptr<yg::Overlay> const & ScreenCoverage::GetOverlay() const

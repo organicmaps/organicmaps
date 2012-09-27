@@ -103,6 +103,8 @@ namespace yg
     virtual bool roughHitTest(m2::PointD const & pt) const;
 
     m2::RectD const & roughBoundRect() const;
+
+    virtual bool hasSharpGeometry() const;
   };
 
 }

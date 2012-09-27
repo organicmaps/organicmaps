@@ -302,4 +302,9 @@ namespace yg
   {
     return new StraightTextElement(*this, m);
   }
+
+  bool StraightTextElement::hasSharpGeometry() const
+  {
+    return true;
+  }
 }

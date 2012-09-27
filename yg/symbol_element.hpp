@@ -40,5 +40,7 @@ namespace yg
     int visualRank() const;
 
     OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
+
+    bool hasSharpGeometry() const;
   };
 }

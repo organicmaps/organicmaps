@@ -70,7 +70,10 @@ private:
   /// Screen, which is used for caching of this ScreenCoverage into DisplayList
   shared_ptr<yg::gl::Screen> m_cacheScreen;
   /// DisplayList which holds cached ScreenCoverage
-  shared_ptr<yg::gl::DisplayList> m_displayList;
+  shared_ptr<yg::gl::DisplayList> m_primaryDL;
+  /// DisplayList to cache all straight texts.
+  /// They are drawn with different shader.
+  shared_ptr<yg::gl::DisplayList> m_sharpTextDL;
 
   /// Direct copying is prohibited.
   ScreenCoverage(ScreenCoverage const & src);
