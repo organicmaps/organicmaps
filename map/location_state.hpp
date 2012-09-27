@@ -85,13 +85,17 @@ namespace location
     Framework * m_framework;
 
     double m_cacheRadius;
+    double m_arrowHeight;
+    double m_arrowWidth;
+    double m_arrowBackHeight;
+    double m_arrowScale;
 
     shared_ptr<yg::gl::DisplayList> m_locationDisplayList;
     shared_ptr<yg::gl::DisplayList> m_compassDisplayList;
 
-/*    void cache();
+    void cache();
     void purge();
-    void update();*/
+    void update();
 
     mutable vector<m2::AnyRectD> m_boundRects;
     m2::RectD m_boundRect;
@@ -144,5 +148,7 @@ namespace location
     void draw(yg::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
     bool hitTest(m2::PointD const & pt) const;
+
+    bool onTapEnded(m2::PointD const & p);
   };
 }
