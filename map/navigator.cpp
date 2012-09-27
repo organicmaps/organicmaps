@@ -89,7 +89,10 @@ void Navigator::CenterViewport(m2::PointD const & p)
 
 void Navigator::SaveState()
 {
-  Settings::Set("ScreenClipRect", m_Screen.GlobalRect());
+  m2::AnyRectD r = m_Screen.GlobalRect();
+  r.SetAngle(0);
+
+  Settings::Set("ScreenClipRect", r);
 }
 
 bool Navigator::LoadState()

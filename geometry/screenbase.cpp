@@ -62,7 +62,7 @@ void ScreenBase::SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & px
   double vScale = glbRect.GetLocalRect().SizeY() / pxRect.SizeY();
 
   m_Scale = max(hScale, vScale);
-  m_Angle = glbRect.angle();
+  m_Angle = glbRect.Angle();
   m_Org = glbRect.GlobalCenter();
 
   UpdateDependentParameters();
@@ -74,7 +74,7 @@ void ScreenBase::SetFromRect(m2::AnyRectD const & GlobalRect)
   double vScale = GlobalRect.GetLocalRect().SizeY() / m_PixelRect.SizeY();
 
   m_Scale = max(hScale, vScale);
-  m_Angle = GlobalRect.angle();
+  m_Angle = GlobalRect.Angle();
   m_Org = GlobalRect.GlobalCenter();
 
   UpdateDependentParameters();

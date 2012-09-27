@@ -66,8 +66,8 @@ namespace m2
 
     Point<T> const GlobalZero() const
     {
-      m2::PointD i(1, 0);
-      m2::PointD j(0, 1);
+      m2::Point<T> i(1, 0);
+      m2::Point<T> j(0, 1);
       return Convert(m_zero, m_i, m_j, i, j);
     }
 
@@ -81,7 +81,18 @@ namespace m2
       return m_j;
     }
 
-    ang::Angle<T> const & angle() const
+    void SetAngle(ang::Angle<T> const & a)
+    {
+      m2::Point<T> glbZero = GlobalZero();
+
+      m_angle = a;
+      m_i = m2::Point<T>(m_angle.cos(), m_angle.sin());
+      m_j = m2::Point<T>(-m_angle.sin(), m_angle.cos());
+
+      m_zero = Convert(glbZero, Point<T>(1, 0), Point<T>(0, 1), m_i, m_j);
+    }
+
+    ang::Angle<T> const & Angle() const
     {
       return m_angle;
     }
@@ -157,8 +168,8 @@ namespace m2
     /// Convert into global coordinates from the local coordinates of this AnyRect
     Point<T> const ConvertFrom(Point<T> const & p) const
     {
-      m2::PointD i(1, 0);
-      m2::PointD j(0, 1);
+      m2::Point<T> i(1, 0);
+      m2::Point<T> j(0, 1);
       return Convert(p + m_zero, m_i, m_j, i, j);
     }
 

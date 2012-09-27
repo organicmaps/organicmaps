@@ -127,7 +127,7 @@ namespace Settings
     out.precision(12);
     m2::PointD glbZero(rect.GlobalZero());
     out << glbZero.x << " " << glbZero.y << " ";
-    out << rect.angle().val() << " ";
+    out << rect.Angle().val() << " ";
     m2::RectD r = rect.GetLocalRect();
     out << r.minX() << " " << r.minY() << " " << r.maxX() << " " << r.maxY();
     return out.str();
