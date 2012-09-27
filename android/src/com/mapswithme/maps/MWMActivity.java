@@ -18,12 +18,9 @@ import android.os.Environment;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.LinearLayout;
 
 import com.mapswithme.maps.location.LocationService;
@@ -622,51 +619,16 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   public boolean onCreateOptionsMenu(Menu menu)
   {
-    MenuInflater inflater = getMenuInflater();
-    inflater.inflate(R.menu.main, menu);
-    return true;
+    return ContextMenu.onCreateOptionsMenu(this, menu);
   }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item)
   {
-    final int id = item.getItemId();
-
-    if (id == R.id.menuitem_about_dialog)
-      onAboutDialogClicked();
-    else if (id == R.id.menuitem_settings_activity)
-      onSettingsClicked();
+    if (ContextMenu.onOptionsItemSelected(this, item))
+      return true;
     else
       return super.onOptionsItemSelected(item);
-
-    return true;
-  }
-
-  private void onAboutDialogClicked()
-  {
-    LayoutInflater inflater = LayoutInflater.from(this);
-
-    View alertDialogView = inflater.inflate(R.layout.about, null);
-    WebView myWebView = (WebView) alertDialogView.findViewById(R.id.webview_about);
-    myWebView.loadUrl("file:///android_asset/about.html");
-
-    new AlertDialog.Builder(this)
-    .setView(alertDialogView)
-    .setTitle(R.string.about)
-    .setPositiveButton(R.string.close, new DialogInterface.OnClickListener()
-    {
-      @Override
-      public void onClick(DialogInterface dialog, int which)
-      {
-        dialog.cancel();
-      }
-    })
-    .show();
-  }
-
-  private void onSettingsClicked()
-  {
-    startActivity(new Intent(this, SettingsActivity.class));
   }
 
   // Initialized to invalid combination to force update on the first check

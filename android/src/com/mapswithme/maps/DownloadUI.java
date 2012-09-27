@@ -13,6 +13,8 @@ import android.os.StatFs;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -703,5 +705,20 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
   public void onCountryProgress(Index idx, long current, long total)
   {
     getDA().onCountryProgress(getListView(), idx, current, total);
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu)
+  {
+    return ContextMenu.onCreateOptionsMenu(this, menu);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item)
+  {
+    if (ContextMenu.onOptionsItemSelected(this, item))
+      return true;
+    else
+      return super.onOptionsItemSelected(item);
   }
 }

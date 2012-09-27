@@ -2,8 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/menuitem_about_dialog"
           android:title="@string/about"
-          android:icon="@drawable/ic_menu_about"/>
+          android:icon="@drawable/ic_menu_about"
+          android:showAsAction="ifRoom"/>
+
     <item android:id="@+id/menuitem_settings_activity"
           android:title="@string/settings"
-          android:icon="@android:drawable/ic_menu_preferences"/>
+          android:icon="@android:drawable/ic_menu_preferences"
+          android:showAsAction="ifRoom"/>
 </menu>
