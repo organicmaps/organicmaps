@@ -10,8 +10,8 @@ public class UnitLocale
   public static int getCurrent()
   {
     final String code = Locale.getDefault().getCountry();
-    // USA, Liberia, Burma
-    String arr[] = { "US", "LR", "MM" };
+    // USA, UK, Liberia, Burma
+    String arr[] = { "US", "GB", "LR", "MM" };
     for (String s : arr)
       if (s.equalsIgnoreCase(code))
         return IMPERIAL;
