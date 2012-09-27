@@ -824,5 +824,10 @@ namespace yg
      flush(-1);
      base_t::setDisplayList(displayList);
    }
+
+   void GeometryBatcher::flush()
+   {
+     flush(-1);
+   }
  } // namespace gl
 } // namespace yg

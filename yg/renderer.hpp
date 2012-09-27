@@ -157,6 +157,8 @@ namespace yg
 
       void setEnvironment(core::CommandsQueue::Environment const * env);
       bool isCancelled() const;
+
+      virtual void flush();
     };
   }
 }

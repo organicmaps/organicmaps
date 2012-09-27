@@ -301,5 +301,8 @@ namespace yg
       else
         return false;
     }
+
+    void Renderer::flush()
+    {}
   }
 }

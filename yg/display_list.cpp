@@ -91,6 +91,8 @@ namespace yg
 
     void DisplayList::draw(math::Matrix<double, 3, 3> const & m)
     {
+      m_parent->flush();
+
       math::Matrix<float, 4, 4> mv;
 
       /// preparing ModelView matrix

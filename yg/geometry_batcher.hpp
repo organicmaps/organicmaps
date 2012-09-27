@@ -215,6 +215,8 @@ namespace yg
       void clearAdditionalSkinPage();
 
       void setDisplayList(DisplayList * displayList);
+
+      void flush();
     };
   }
 }
