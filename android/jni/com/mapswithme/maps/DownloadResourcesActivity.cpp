@@ -61,6 +61,41 @@ extern "C"
     }
   }
 
+  // Check if we need to download mandatory resource file.
+  bool NeedToDownload(string const & name, int size)
+  {
+    uint64_t originSize = 0;
+    if (!GetPlatform().GetFileSizeByName(name, originSize))
+    {
+      // no such file
+      return true;
+    }
+
+    if (size == originSize)
+    {
+      // file is up-to-date
+      return false;
+    }
+
+    if (name == WORLD_FILE_NAME DATA_FILE_EXTENSION)
+    {
+      FilesContainerR cont(name);
+      if (cont.IsReaderExist(SEARCH_INDEX_FILE_TAG))
+      {
+        // World.mwm file has search index - can skip new version
+        return false;
+      }
+    }
+    else if (name == WORLD_COASTS_FILE_NAME DATA_FILE_EXTENSION)
+    {
+      // Skip WorldCoasts.mwm
+      return false;
+    }
+
+    // Do download otherwise.
+    return true;
+  }
+
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_DownloadResourcesActivity_getBytesToDownload(
       JNIEnv * env, jobject thiz, jstring apkPath, jstring sdcardPath)
@@ -93,8 +128,7 @@ extern "C"
       if (!in.good())
         break;
 
-      uint64_t originSize = 0;
-      if (!pl.GetFileSizeByName(name, originSize) || size != originSize)
+      if (NeedToDownload(name, size))
       {
         LOG(LDEBUG, ("Should download", name, "sized", size, "bytes"));
 
