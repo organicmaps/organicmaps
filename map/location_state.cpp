@@ -508,6 +508,7 @@ namespace location
     case EActive:
       if (m_hasCompass && IsCentered())
       {
+        (void)Settings::Set("SuggestAutoFollowMode", false);
         setState(EPressed);
         SetCompassProcessMode(ECompassFollow);
         CheckFollowCompass();

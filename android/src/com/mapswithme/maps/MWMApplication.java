@@ -179,4 +179,8 @@ public class MWMApplication extends android.app.Application implements MapStorag
   /// values of result param should correspond to values defined in map/Framework.hpp
   public native void nativeSubmitFacebookDialogResult(int result);
   /// @}
+
+  /// Dealing with Settings
+  public native boolean nativeGetBoolean(String name, boolean defaultVal);
+  public native void nativeSetBoolean(String name, boolean val);
 }

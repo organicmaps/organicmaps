@@ -10,6 +10,7 @@
 #include "../core/jni_helper.hpp"
 
 #include "../platform/Platform.hpp"
+#include "../../../../../platform/settings.hpp"
 
 extern "C"
 {
@@ -54,4 +55,26 @@ extern "C"
   {
     g_framework->NativeFramework()->SaveFacebookDialogResult(static_cast<int>(result));
   }
+
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_MWMApplication_nativeGetBoolean(JNIEnv * env,
+                                                           jobject thiz,
+                                                           jstring name,
+                                                           jboolean defaultVal)
+  {
+    bool val = static_cast<bool>(defaultVal);
+    Settings::Get(jni::ToNativeString(env, name), val);
+    return static_cast<jboolean>(val);
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMApplication_nativeSetBoolean(JNIEnv * env,
+                                                           jobject thiz,
+                                                           jstring name,
+                                                           jboolean val)
+  {
+    bool flag = static_cast<bool>(val);
+    (void)Settings::Set(jni::ToNativeString(env, name), flag);
+  }
+
 }

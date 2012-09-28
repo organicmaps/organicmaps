@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.ConnectionState;
@@ -38,6 +39,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private BroadcastReceiver m_externalStorageReceiver = null;
   private AlertDialog m_storageDisconnectedDialog = null;
   private boolean m_shouldStartLocationService = false;
+  private boolean m_hasLocation = false;
+  private boolean m_suggestAutoFollowMode = false;
 
   private LocationService getLocationService()
   {
@@ -57,6 +60,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private void stopLocation()
   {
+    m_hasLocation = false;
     getLocationService().stopUpdate(this);
     // Enable automatic turning screen off while app is idle
     Utils.automaticIdleScreen(true, getWindow());
@@ -507,7 +511,11 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   public void onLocationStatusChanged(int newStatus)
   {
     if (newStatus == LocationService.FIRST_EVENT)
+    {
       findViewById(R.id.map_button_myposition).setBackgroundResource(R.drawable.myposition_button_found);
+      m_hasLocation = true;
+      m_suggestAutoFollowMode = mApplication.nativeGetBoolean("SuggestAutoFollowMode", true);
+    }
 
     nativeLocationStatusChanged(newStatus);
 
@@ -571,6 +579,14 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     trueNorth = LocationService.correctAngle(trueNorth, correction);
 
     nativeCompassUpdated(time, magneticNorth, trueNorth, accuracy);
+
+    if (m_hasLocation
+     && mApplication.isProVersion()
+     && m_suggestAutoFollowMode)
+    {
+      Toast.makeText(this, R.string.suggest_auto_follow_mode, Toast.LENGTH_LONG).show();
+      m_suggestAutoFollowMode = false;
+    }
   }
   //@}
 
