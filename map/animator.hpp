@@ -15,8 +15,6 @@ private:
 
   shared_ptr<RotateScreenTask> m_rotateScreenTask;
 
-  double m_rotationThreshold;
-
 public:
 
   /// constructor by Framework
