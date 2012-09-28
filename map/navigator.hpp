@@ -48,6 +48,7 @@ public:
   void Scale(double scale);
   void Rotate(double angle);
   void SetAngle(double angle);
+  void SetOrg(m2::PointD const & org);
 
   void Move(double azDir, double factor);
 

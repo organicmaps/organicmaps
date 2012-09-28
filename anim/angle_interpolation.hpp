@@ -1,16 +1,11 @@
 #pragma once
 
 #include "task.hpp"
-#include "../std/function.hpp"
 
 namespace anim
 {
   class AngleInterpolation : public Task
   {
-  public:
-
-    typedef function<void()> TCallback;
-
   private:
 
     double m_startAngle;

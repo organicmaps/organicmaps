@@ -52,6 +52,7 @@ HEADERS += \
     compass_arrow.hpp \
     compass_filter.hpp \
     animator.hpp \
+    move_screen_task.hpp
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -95,12 +96,15 @@ SOURCES += \
     compass_arrow.cpp \
     compass_filter.cpp \
     animator.cpp \
+    move_screen_task.cpp
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp
   SOURCES += qgl_render_context.cpp
   QT += opengl
 }
+
+
 
 
 

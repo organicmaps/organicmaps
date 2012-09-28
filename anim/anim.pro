@@ -13,8 +13,10 @@ HEADERS += \
     controller.hpp \
     task.hpp \
     angle_interpolation.hpp \
+    segment_interpolation.hpp \
 
 SOURCES += \
     controller.cpp \
     task.cpp \
     angle_interpolation.cpp \
+    segment_interpolation.cpp \
