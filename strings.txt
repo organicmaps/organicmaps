@@ -1217,6 +1217,20 @@
 		ko = 집합
 		cs = Skupina
 		nl = Groep
+
+	[suggest_auto_follow_mode]
+		en = Tap the blue arrow to switch on the auto-follow mode
+		tags = android
+		comment = Show popup notification in Pro version as a hint how to switch on the auto-follow mode.
+		ru = 
+		de = 
+		es = 
+		fr = 
+		ja = 
+		ko = 
+		cs = 
+		uk = 
+		nl = 
 	[bookmarks_usage_hint]
 		en = Add any place on the map to bookmarks. To do that, touch a spot on the map and hold until the context menu appears.
 		tags = ios
