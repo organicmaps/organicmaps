@@ -137,6 +137,8 @@ void BasicTilingRenderPolicy::EndFrame(shared_ptr<PaintEvent> const & e, ScreenB
 
   if (m_QueuedRenderer)
     m_QueuedRenderer->EndFrame();
+
+  RenderPolicy::EndFrame(e, s);
 }
 
 TileRenderer & BasicTilingRenderPolicy::GetTileRenderer()
