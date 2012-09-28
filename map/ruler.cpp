@@ -222,7 +222,11 @@ void Ruler::update()
 
     double scalerWidthInPx = minPxWidth;
 
-    if (!higherThanMax && !lessThanMin)
+    if (higherThanMax)
+    {
+      scalerWidthInPx = minPxWidth * 3 / 2;
+    }
+    else if (!lessThanMin)
     {
       double a = ang::AngleTo(pt0, pt1);
       m2::RectD r = MercatorBounds::RectByCenterXYAndSizeInMeters(glbPivot.x,
