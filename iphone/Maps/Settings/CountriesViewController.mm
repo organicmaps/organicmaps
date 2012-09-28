@@ -118,8 +118,9 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 {
   TIndex const index = CalculateIndex(m_index, indexPath);  
   Framework & frm = GetFramework();
-  
-  if (frm.GetCountryStatus(index) == EOnDisk)
+
+  storage::TStatus const status = frm.GetCountryStatus(index);
+  if (status == EOnDisk || status == EOnDiskOutOfDate)
   {
     m2::RectD const bounds = frm.GetCountryBounds(index);
     
