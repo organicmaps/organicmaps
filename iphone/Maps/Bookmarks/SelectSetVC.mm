@@ -115,7 +115,10 @@
   // Return NO if you do not want the specified item to be editable.
   if (indexPath.section == 0)
     return NO;
-  return YES;
+  // Disable deleting of the last remaining set (can be activated by swipe right on a set item)
+  if (GetFramework().GetBmCategoriesCount() > 1)
+    return YES;
+  return NO;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
