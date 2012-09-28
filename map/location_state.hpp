@@ -7,6 +7,7 @@
 #include "../geometry/point2d.hpp"
 
 #include "../std/shared_ptr.hpp"
+#include "../std/map.hpp"
 
 #include "../gui/element.hpp"
 
@@ -85,13 +86,22 @@ namespace location
     Framework * m_framework;
 
     double m_cacheRadius;
+
+    /// Compass Rendering Parameters
+    /// @{
+
     double m_arrowHeight;
     double m_arrowWidth;
     double m_arrowBackHeight;
     double m_arrowScale;
 
-    shared_ptr<yg::gl::DisplayList> m_locationDisplayList;
-    shared_ptr<yg::gl::DisplayList> m_compassDisplayList;
+    map<EState, shared_ptr<yg::gl::DisplayList> > m_arrowBodyLists;
+    map<EState, shared_ptr<yg::gl::DisplayList> > m_arrowBorderLists;
+
+    /// @}
+
+    void cacheArrowBorder(EState state);
+    void cacheArrowBody(EState state);
 
     void cache();
     void purge();

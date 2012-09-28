@@ -14,6 +14,7 @@
 
 #include "../platform/location.hpp"
 #include "../platform/platform.hpp"
+#include "../platform/settings.hpp"
 
 #include "../geometry/rect2d.hpp"
 #include "../geometry/transformations.hpp"
@@ -41,6 +42,10 @@ namespace location
     m_arrowHeight = 50 * m_arrowScale;
     m_arrowBackHeight = 10 * m_arrowScale;
     m_boundRects.resize(1);
+
+    setColor(EActive, yg::Color(0x2f, 0xb5, 0xea, 128));
+    setColor(EPressed, yg::Color(0x1f, 0x22, 0x59, 128));
+    setState(EActive);
   }
 
   bool State::HasPosition() const
@@ -206,44 +211,35 @@ namespace location
     return m_boundRects;
   }
 
-  void State::cache()
+  void State::cacheArrowBorder(EState state)
   {
     yg::gl::Screen * cacheScreen = m_controller->GetCacheScreen();
 
-    m_compassDisplayList.reset();
-    m_compassDisplayList.reset(cacheScreen->createDisplayList());
+    shared_ptr<yg::gl::DisplayList> & dl = m_arrowBorderLists[state];
+
+    dl.reset();
+    dl.reset(cacheScreen->createDisplayList());
 
     cacheScreen->beginFrame();
+    cacheScreen->setDisplayList(dl.get());
 
-    cacheScreen->setDisplayList(m_compassDisplayList.get());
+    shared_ptr<yg::Skin> const & skin = cacheScreen->skin();
 
     double k = m_controller->GetVisualScale();
 
-    m2::PointF pts[5] =
-    {
-      m2::PointF(0, 0),
-      m2::PointF(-(m_arrowWidth * k) / 2, (m_arrowBackHeight * k)),
-      m2::PointF(0, -m_arrowHeight * k + m_arrowBackHeight * k),
-      m2::PointF((m_arrowWidth * k) / 2, m_arrowBackHeight * k),
-      m2::PointF(0, 0)
-    };
-
     m2::PointD ptsD[5] =
     {
-      m2::PointD(pts[0]),
-      m2::PointD(pts[1]),
-      m2::PointD(pts[2]),
-      m2::PointD(pts[3]),
-      m2::PointD(pts[4])
+      m2::PointD(0, 0),
+      m2::PointD(-(m_arrowWidth * k) / 2, (m_arrowBackHeight * k)),
+      m2::PointD(0, -m_arrowHeight * k + m_arrowBackHeight * k),
+      m2::PointD((m_arrowWidth * k) / 2, m_arrowBackHeight * k),
+      m2::PointD(0, 0)
     };
 
-    uint32_t colorStyle = cacheScreen->skin()->mapColor(yg::Color(0, 0, 255, 255));
+    yg::Color borderColor = m_locationAreaColor;
+    borderColor.a = 255;
 
-    cacheScreen->drawTrianglesFan(pts, 4,
-                                  colorStyle,
-                                  depth());
-
-    uint32_t penStyle = cacheScreen->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 255, 255), 2 * k, 0, 0, 0));
+    uint32_t penStyle = skin->mapPenInfo(yg::PenInfo(borderColor, 1 * k, 0, 0, 0));
 
     cacheScreen->drawPath(ptsD, 5, 0, penStyle, depth());
 
@@ -251,9 +247,55 @@ namespace location
     cacheScreen->endFrame();
   }
 
+  void State::cacheArrowBody(EState state)
+  {
+    yg::gl::Screen * cacheScreen = m_controller->GetCacheScreen();
+
+    shared_ptr<yg::gl::DisplayList> & dl = m_arrowBodyLists[state];
+
+    dl.reset();
+    dl.reset(cacheScreen->createDisplayList());
+
+    cacheScreen->beginFrame();
+    cacheScreen->setDisplayList(dl.get());
+
+    double k = m_controller->GetVisualScale();
+
+    m2::PointF pts[4] =
+    {
+      m2::PointF(0, 0),
+      m2::PointF(-(m_arrowWidth * k) / 2, (m_arrowBackHeight * k)),
+      m2::PointF(0, -m_arrowHeight * k + m_arrowBackHeight * k),
+      m2::PointF((m_arrowWidth * k) / 2, m_arrowBackHeight * k),
+    };
+
+    shared_ptr<yg::Skin> const & skin = cacheScreen->skin();
+
+    uint32_t colorStyle = skin->mapColor(color(state));
+
+    cacheScreen->drawTrianglesFan(pts, 4,
+                                  colorStyle,
+                                  depth());
+
+
+    cacheScreen->setDisplayList(0);
+    cacheScreen->endFrame();
+  }
+
+  void State::cache()
+  {
+    cacheArrowBody(EActive);
+    cacheArrowBorder(EActive);
+    cacheArrowBody(EPressed);
+    cacheArrowBorder(EPressed);
+
+    m_controller->GetCacheScreen()->completeCommands();
+  }
+
   void State::purge()
   {
-    m_compassDisplayList.reset();
+    m_arrowBorderLists.clear();
+    m_arrowBodyLists.clear();
   }
 
   void State::update()
@@ -266,6 +308,13 @@ namespace location
 
     m2::RectD newRect(pxPosition - m2::PointD(pxErrorRadius, pxErrorRadius),
                       pxPosition + m2::PointD(pxErrorRadius, pxErrorRadius));
+
+    double const pxArrowRadius = m_arrowHeight * m_controller->GetVisualScale();
+
+    m2::RectD arrowRect(pxPosition - m2::PointD(pxArrowRadius, pxArrowRadius),
+                        pxPosition + m2::PointD(pxArrowRadius, pxArrowRadius));
+
+    newRect.Add(arrowRect);
 
     if (newRect != m_boundRect)
     {
@@ -283,16 +332,45 @@ namespace location
 
       if (m_hasPosition)
       {
+        double screenAngle = m_framework->GetNavigator().Screen().GetAngle();
+        math::Matrix<double, 3, 3> compassDrawM;
+
+        /// drawing border first
+        if (m_hasCompass)
+        {
+          double const headingRad = m_drawHeading;
+
+          double k = m_controller->GetVisualScale();
+
+          compassDrawM =
+              math::Shift(
+                math::Rotate(
+                  math::Shift(
+                    math::Identity<double, 3>(),
+                    m2::PointD(0, 0.4 * m_arrowHeight * k - m_arrowBackHeight * k)),
+                  screenAngle + headingRad),
+                pivot());
+
+          map<EState, shared_ptr<yg::gl::DisplayList> >::const_iterator it;
+          it = m_arrowBodyLists.find(state());
+
+          if (it != m_arrowBodyLists.end())
+            it->second->draw(compassDrawM * m);
+          else
+            LOG(LWARNING, ("m_compassDisplayLists[state()] is not set!"));
+        }
+
+        /// then position
         m2::PointD const pxPosition = m_framework->GetNavigator().GtoP(Position());
         double const pxErrorRadius = pxPosition.Length(
               m_framework->GetNavigator().GtoP(Position() + m2::PointD(m_errorRadius, 0.0)));
 
-        double screenAngle = m_framework->GetNavigator().Screen().GetAngle();
 
-        r->drawSymbol(pxPosition,
-                     "current-position",
-                      yg::EPosCenter,
-                      depth() - 2);
+        if (!m_hasCompass)
+          r->drawSymbol(pxPosition,
+                       "current-position",
+                        yg::EPosCenter,
+                        depth() - 2);
 
         r->fillSector(pxPosition,
                       0, 2.0 * math::pi,
@@ -302,20 +380,13 @@ namespace location
 
         if (m_hasCompass)
         {
-          double const headingRad = m_drawHeading;
+          map<EState, shared_ptr<yg::gl::DisplayList> >::const_iterator it;
+          it = m_arrowBorderLists.find(state());
 
-          double k = m_controller->GetVisualScale();
-
-          math::Matrix<double, 3, 3> compassDrawM =
-              math::Shift(
-                math::Rotate(
-                  math::Shift(
-                    math::Identity<double, 3>(),
-                    m2::PointD(0, 0.4 * m_arrowHeight * k - m_arrowBackHeight * k)),
-                  screenAngle + headingRad),
-                pivot());
-
-          m_compassDisplayList->draw(compassDrawM * m);
+          if (it != m_arrowBorderLists.end())
+            it->second->draw(compassDrawM * m);
+          else
+            LOG(LWARNING, ("m_arrowBorderLists[state()] is not set!"));
         }
       }
     }
@@ -323,7 +394,9 @@ namespace location
 
   bool State::hitTest(m2::PointD const & pt) const
   {
-    return m_hasCompass && (pt.SquareLength(pivot()) <= my::sq(0.6 * m_arrowHeight));
+    double radius = m_arrowHeight * m_controller->GetVisualScale();
+
+    return m_hasCompass && (pt.SquareLength(pivot()) <= my::sq(radius));
   }
 
   void State::CheckCompassRotation()
@@ -409,6 +482,9 @@ namespace location
   {
     SetCompassProcessMode(ECompassDoNothing);
     m_framework->GetAnimator().StopRotation();
+    setState(EActive);
+
+    invalidate();
   }
 
   bool State::IsCentered() const
@@ -427,15 +503,23 @@ namespace location
 
     controller->Lock();
 
-    if (m_hasCompass
-     && IsCentered())
-      if (m_compassProcessMode == ECompassFollow)
-        StopCompassFollowing();
-      else
+    switch (state())
+    {
+    case EActive:
+      if (m_hasCompass && IsCentered())
       {
+        setState(EPressed);
         SetCompassProcessMode(ECompassFollow);
         CheckFollowCompass();
       }
+      break;
+    case EPressed:
+      setState(EActive);
+      StopCompassFollowing();
+      break;
+    default:
+      LOG(LWARNING, ("not-used EState values encountered"));
+    };
 
     controller->Unlock();
 
