@@ -99,12 +99,13 @@ void RenderPolicy::StopRotate(double a, double)
 
 void RenderPolicy::BeginFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 {
-  /// processing animations at the beginning of the frame
-  m_controller->PerformStep();
 }
 
 void RenderPolicy::EndFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
-{}
+{
+  /// processing animations at the end of the frame
+  m_controller->PerformStep();
+}
 
 bool RenderPolicy::DoSupportRotation() const
 {
@@ -120,7 +121,8 @@ bool RenderPolicy::NeedRedraw() const
 bool RenderPolicy::IsAnimating() const
 {
   return (m_controller->HasTasks()
-      || (m_controller->LockCount() > 0));
+      || (m_controller->LockCount() > 0)
+      || (m_controller->IsPreWarmed()));
 }
 
 bool RenderPolicy::IsTiling() const

@@ -10,6 +10,8 @@ namespace anim
   Controller::Controller()
   {
     m_LockCount = 0;
+    m_IdleThreshold = 5;
+    m_IdleFrames = 0;
   }
 
   Controller::~Controller()
@@ -19,6 +21,7 @@ namespace anim
   void Controller::AddTask(shared_ptr<Task> const & task)
   {
     m_tasks.PushBack(task);
+    m_IdleFrames = m_IdleThreshold;
   }
 
   void Controller::CopyAndClearTasks(TTasks & from, TTasks & to)
@@ -56,8 +59,12 @@ namespace anim
 
     TTasks l;
 
+    bool hasTasks = !m_tasksList.empty();
+
     for (TTasks::const_iterator it = m_tasksList.begin(); it != m_tasksList.end(); ++it)
     {
+      m_IdleFrames = m_IdleThreshold;
+
       shared_ptr<Task> const & task = *it;
       if (task->State() == Task::EStarted)
         task->OnStart(ts);
@@ -75,6 +82,14 @@ namespace anim
       }
     }
 
+    if (!hasTasks && m_IdleFrames > 0)
+      m_IdleFrames -= 1;
+
     m_tasks.ProcessList(bind(&Controller::CopyAndClearTasks, ref(l), _1));
+  }
+
+  bool Controller::IsPreWarmed() const
+  {
+    return m_IdleFrames > 0;
   }
 }

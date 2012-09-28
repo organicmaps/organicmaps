@@ -22,6 +22,8 @@ namespace anim
     TTasks m_tasksList;
 
     int m_LockCount;
+    int m_IdleThreshold;
+    int m_IdleFrames;
 
     static void CopyAndClearTasks(list<shared_ptr<Task> > & from, list<shared_ptr<Task> > & to);
 
@@ -44,5 +46,12 @@ namespace anim
     int LockCount();
     // Perform single animation step
     void PerformStep();
+    // When the last animation is finished, Controller continues
+    // to be considered animating something for some frames to allow
+    // animations that are likely to happen in the next few frames to
+    // catch the Controller up and animate everything smoothly without
+    // interrupting rendering process, which might had happened in these
+    // "frames-in-the-middle".
+    bool IsPreWarmed() const;
   };
 }
