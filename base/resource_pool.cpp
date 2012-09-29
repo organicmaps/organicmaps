@@ -2,8 +2,12 @@
 
 #include "resource_pool.hpp"
 
-BasePoolElemFactory::BasePoolElemFactory(char const * resName, size_t elemSize, size_t batchSize)
-  : m_resName(resName), m_elemSize(elemSize), m_batchSize(batchSize)
+BasePoolElemFactory::BasePoolElemFactory(char const * resName,
+                                         size_t elemSize,
+                                         size_t batchSize)
+  : m_resName(resName),
+    m_elemSize(elemSize),
+    m_batchSize(batchSize)
 {}
 
 char const * BasePoolElemFactory::ResName() const

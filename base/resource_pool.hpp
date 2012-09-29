@@ -1,5 +1,6 @@
 #pragma once
 
+#include "thread.hpp"
 #include "threaded_list.hpp"
 #include "logging.hpp"
 #include "../std/bind.hpp"
@@ -25,11 +26,14 @@ struct BasePoolTraits
   TElemFactory m_factory;
   ThreadedList<TElem> m_pool;
   bool m_IsDebugging;
+  threads::ThreadID m_MainThreadID;
 
   typedef TElem elem_t;
 
   BasePoolTraits(TElemFactory const & factory)
-    : m_factory(factory), m_IsDebugging(false)
+    : m_factory(factory),
+      m_IsDebugging(false),
+      m_MainThreadID(threads::GetCurrentThreadID())
   {
     m_pool.SetName(factory.ResName());
   }
@@ -218,6 +222,15 @@ struct AllocateOnDemandSingleThreadedPoolTraits : TBase
       for (unsigned i = 0; i < base_t::m_factory.BatchSize(); ++i)
         l.push_back(base_t::m_factory.Create());
     }
+  }
+
+  elem_t const Reserve()
+  {
+    /// allocate resources if needed if we're on the main thread.
+    if (threads::GetCurrentThreadID() == base_t::m_MainThreadID)
+      base_t::m_pool.ProcessList(bind(&self_t::AllocateIfNeeded, this, _1));
+
+    return base_t::Reserve();
   }
 
   void UpdateState()

@@ -77,7 +77,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
                                                                          true,
                                                                          1,
                                                                          "multiBlitStorage",
-                                                                         false,
+                                                                         true,
                                                                          true);
 
   rmp.m_renderTargetTexturesParams = yg::ResourceManager::TexturePoolParams(TileSize(),
@@ -89,32 +89,32 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
                                                                             true,
                                                                             4,
                                                                             "renderTargetTexture",
-                                                                            false,
+                                                                            true,
                                                                             true);
 
   rmp.m_guiThreadStoragesParams = yg::ResourceManager::StoragePoolParams(2000 * sizeof(yg::gl::Vertex),
                                                                          sizeof(yg::gl::Vertex),
                                                                          4000 * sizeof(unsigned short),
                                                                          sizeof(unsigned short),
-                                                                         20,
+                                                                         5,
                                                                          true,
                                                                          true,
                                                                          1,
                                                                          "guiThreadStorage",
                                                                          true,
-                                                                         false);
+                                                                         true);
 
   rmp.m_guiThreadTexturesParams = yg::ResourceManager::TexturePoolParams(256,
                                                                     128,
-                                                                    4,
+                                                                    2,
                                                                     rmp.m_texFormat,
                                                                     true,
                                                                     true,
                                                                     true,
                                                                     1,
                                                                     "guiThreadTexture",
-                                                                    false,
-                                                                    false);
+                                                                    true,
+                                                                    true);
 
 /*  bool * debuggingFlags = new bool[cpuCores + 2];
   for (unsigned i = 0; i < cpuCores + 2; ++i)
