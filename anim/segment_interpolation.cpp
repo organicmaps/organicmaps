@@ -8,8 +8,8 @@ namespace anim
                                              m2::PointD & outPt)
     : m_startPt(startPt),
       m_endPt(endPt),
-      m_interval(interval),
-      m_outPt(outPt)
+      m_outPt(outPt),
+      m_interval(interval)
   {
     m_deltaPt = m_endPt - m_startPt;
   }
@@ -23,7 +23,7 @@ namespace anim
 
   void SegmentInterpolation::OnStep(double ts)
   {
-    if (ts - m_startTime > m_interval)
+    if (ts - m_startTime >= m_interval)
     {
       End();
       return;

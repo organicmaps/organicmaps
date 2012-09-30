@@ -27,7 +27,7 @@ namespace anim
 
   void AngleInterpolation::OnStep(double ts)
   {
-    if (ts - m_startTime > m_interval)
+    if (ts - m_startTime >= m_interval)
     {
       End();
       return;
