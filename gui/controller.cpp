@@ -83,6 +83,13 @@ namespace gui
   {
     if (m_focusedElement)
     {
+      // re-checking, whether we are above the gui element.
+      if (!m_focusedElement->hitTest(pt))
+      {
+        m_focusedElement->onTapCancelled(pt);
+        m_LastTapCancelled = true;
+      }
+
       if (!m_LastTapCancelled)
         m_focusedElement->onTapEnded(pt);
 
