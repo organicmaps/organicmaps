@@ -1,7 +1,7 @@
 # Add your path into this array
 KNOWN_QMAKE_PATHS=( \
   /Users/Alex/QtSDK/Desktop/Qt/4.8.1/gcc/bin \
-  /Users/siarheirachytski/QtSDK/Desktop/Qt/474/gcc/bin \
+  /Users/sir/QtSDK/Desktop/Qt/4.8.1/gcc/bin \
   /Developer/QtSDK/Desktop/Qt/4.8.1/gcc/bin \
 )
 
