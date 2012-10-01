@@ -93,13 +93,13 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
                                                                          sizeof(yg::gl::Vertex),
                                                                          4000 * sizeof(unsigned short),
                                                                          sizeof(unsigned short),
-                                                                         20,
+                                                                         5,
                                                                          true,
                                                                          true,
                                                                          1,
                                                                          "guiThreadStorage",
                                                                          true,
-                                                                         false);
+                                                                         true);
 
   rmp.m_guiThreadTexturesParams = yg::ResourceManager::TexturePoolParams(256,
                                                                          128,
@@ -110,8 +110,8 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
                                                                          true,
                                                                          1,
                                                                          "guiThreadTexture",
-                                                                         false,
-                                                                         false);
+                                                                         true,
+                                                                         true);
 
   rmp.m_glyphCacheParams = yg::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
                                                                  "fonts_whitelist.txt",
