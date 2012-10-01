@@ -6,35 +6,48 @@
 #include "../../base/logging.hpp"
 
 
-UNIT_TEST(FileData_Api_Smoke)
+namespace
 {
-  string name = "test.file";
-  string newName = "new_test.file";
+  string const name1 = "test1.file";
+  string const name2 = "test2.file";
 
-  try
+  void MakeFile(string const & name)
   {
-    // just create file and close it immediately
     my::FileData f(name, my::FileData::OP_WRITE_TRUNCATE);
+    f.Write(name.c_str(), name.size());
   }
-  catch (Writer::OpenException const &)
+
+  void CheckFileOK(string const & name)
   {
-    LOG(LCRITICAL, ("Can't create test file"));
-    return;
+    my::FileData f(name, my::FileData::OP_READ);
+
+    uint64_t const size = f.Size();
+    TEST_EQUAL ( size, name.size(), () );
+
+    vector<char> buffer(size);
+    f.Read(0, &buffer[0], size);
+    TEST ( equal(name.begin(), name.end(), buffer.begin()), () );
   }
+}
+
+UNIT_TEST(FileData_ApiSmoke)
+{
+  MakeFile(name1);
+  uint64_t const size = name1.size();
 
   uint64_t sz;
-  TEST_EQUAL(my::GetFileSize(name, sz), true, ());
-  TEST_EQUAL(sz, 0, ());
+  TEST(my::GetFileSize(name1, sz), ());
+  TEST_EQUAL(sz, size, ());
 
-  TEST_EQUAL(my::RenameFileX(name, newName), true, ());
+  TEST(my::RenameFileX(name1, name2), ());
 
-  TEST_EQUAL(my::GetFileSize(name, sz), false, ());
-  TEST_EQUAL(my::GetFileSize(newName, sz), true, ());
-  TEST_EQUAL(sz, 0, ());
+  TEST(!my::GetFileSize(name1, sz), ());
+  TEST(my::GetFileSize(name2, sz), ());
+  TEST_EQUAL(sz, size, ());
 
-  TEST_EQUAL(my::DeleteFileX(newName), true, ());
+  TEST(my::DeleteFileX(name2), ());
 
-  TEST_EQUAL(my::GetFileSize(newName, sz), false, ());
+  TEST(!my::GetFileSize(name2, sz), ());
 }
 
 /*
@@ -58,3 +71,38 @@ UNIT_TEST(FileData_NoDiskSpace)
   (void)my::DeleteFileX(name);
 }
 */
+
+#ifdef OMIM_OS_WINDOWS
+UNIT_TEST(FileData_SharingAV_Windows)
+{
+  {
+    MakeFile(name1);
+
+    // lock file, will check sharing access
+    my::FileData f1(name1, my::FileData::OP_READ);
+
+    // try rename or delete locked file
+    TEST(!my::RenameFileX(name1, name2), ());
+    TEST(!my::DeleteFileX(name1), ());
+
+    MakeFile(name2);
+
+    // try rename or copy to locked file
+    TEST(!my::RenameFileX(name2, name1), ());
+    TEST(!my::CopyFile(name2, name1), ());
+
+    // files should be unchanged
+    CheckFileOK(name1);
+    CheckFileOK(name2);
+
+    //TEST(my::CopyFile(name1, name2), ());
+  }
+
+  // renaming to existing file is not allowed
+  TEST(!my::RenameFileX(name1, name2), ());
+  TEST(!my::RenameFileX(name2, name1), ());
+
+  TEST(my::DeleteFileX(name1), ());
+  TEST(my::DeleteFileX(name2), ());
+}
+#endif

@@ -28,8 +28,9 @@ FileData::FileData(string const & fileName, Op op)
 #else
   m_File = fopen(fileName.c_str(), modes[op]);
   int error = m_File ? ferror(m_File) : 0;
-  if (m_File && !error)
+  if (m_File && error == 0)
     return;
+
   if (op == OP_WRITE_EXISTING)
   {
     // Special case, since "r+b" fails if file doesn't exist.
@@ -38,11 +39,12 @@ FileData::FileData(string const & fileName, Op op)
     m_File = fopen(fileName.c_str(), "wb");
     error = m_File ? ferror(m_File) : 0;
   }
-  if (m_File && !error)
+  if (m_File && error == 0)
     return;
 #endif
+
   // if we're here - something bad is happened
-  if (m_Op)
+  if (m_Op != OP_READ)
     MYTHROW(Writer::OpenException, (fileName, error));
   else
     MYTHROW(Reader::OpenException, (fileName, error));
