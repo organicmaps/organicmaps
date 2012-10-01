@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.mapswithme.util.Utils;
 
@@ -45,7 +46,7 @@ public class SettingsActivity extends ListActivity
         current = bound;
     }
 
-    return (size / current + " " + arrS[i]);
+    return String.format("%.1f %s", (double)size / (double)current, arrS[i]);
   }
 
   private boolean addStorage(String path, long sizeNeeded)
@@ -61,7 +62,7 @@ public class SettingsActivity extends ListActivity
 
         if (size >= sizeNeeded)
         {
-          m_choices.add(path + ", " + getSizeString(size));
+          m_choices.add(path + ": " + getSizeString(size));
           m_pathes.add(path);
           return true;
         }
@@ -78,7 +79,10 @@ public class SettingsActivity extends ListActivity
     return false;
   }
 
-  /// @return Flag that current path (1) or default path (2) is added successfully.
+  private static int CURRENT_PATH = 1;
+  private static int DEFAULT_PATH = 2;
+
+  /// @return Flag that current path or default path is added successfully.
   private int callAddStorage(String path, String currPath, String defPath,
                              long sizeNeeded, int flag)
   {
@@ -89,13 +93,16 @@ public class SettingsActivity extends ListActivity
     if (addStorage(path, sizeNeeded))
     {
       if (path.equals(currPath))
-        flag |= 1;
+        flag |= CURRENT_PATH;
       if (path.equals(defPath))
-        flag |= 2;
+        flag |= DEFAULT_PATH;
     }
 
     return flag;
   }
+
+  private static int VOLD_MODE = 1;
+  private static int MOUNTS_MODE = 2;
 
   private void parseMountFile(String file, int mode,
                               String currPath, String defPath, long sizeNeeded)
@@ -118,9 +125,8 @@ public class SettingsActivity extends ListActivity
           if (arr[0].charAt(0) == '#')
             continue;
 
-          if (mode == 0)
+          if (mode == VOLD_MODE)
           {
-            // parse "vold"
             Log.i(TAG, "Label = " + arr[1] + "; Path = " + arr[2]);
 
             if (arr[0].startsWith("dev_mount"))
@@ -128,7 +134,7 @@ public class SettingsActivity extends ListActivity
           }
           else
           {
-            // parse "mounts"
+            assert(mode == MOUNTS_MODE);
             Log.i(TAG, "Label = " + arr[0] + "; Path = " + arr[1]);
 
             String prefixes[] = { "tmpfs", "/dev/block/vold", "/dev/fuse" };
@@ -148,17 +154,22 @@ public class SettingsActivity extends ListActivity
       Utils.closeStream(reader);
     }
 
-    if ((addFlag & 1) == 0)
+    // Check that current and default paths are added to the list.
+    if ((addFlag & CURRENT_PATH) == 0)
       addFlag = callAddStorage(currPath, currPath, defPath, sizeNeeded, addFlag);
-    if ((addFlag & 2) == 0)
+    if ((addFlag & DEFAULT_PATH) == 0)
       addFlag = callAddStorage(defPath, currPath, defPath, sizeNeeded, addFlag);
 
-    assert(addFlag == 3);
+    assert(addFlag == (CURRENT_PATH | DEFAULT_PATH));
   }
+
+  private static int LV_HEADERS_COUNT = 1;
 
   private CheckedTextView getViewByPos(ListView lv, int position)
   {
-    final int child = position - lv.getFirstVisiblePosition();
+    assert(lv.getHeaderViewsCount() == LV_HEADERS_COUNT);
+    final int child = position - (lv.getFirstVisiblePosition() - LV_HEADERS_COUNT);
+
     if (child < 0 || child >= lv.getChildCount())
     {
       Log.e(TAG, "Unable to get view for desired position: " + position);
@@ -169,7 +180,7 @@ public class SettingsActivity extends ListActivity
 
   private String getFullPath(int position)
   {
-    return m_pathes.get(position) + MWM_DIR_POSTFIX;
+    return m_pathes.get(position - LV_HEADERS_COUNT) + MWM_DIR_POSTFIX;
   }
 
   /// @name Assume that MapsWithMe folder doesn't have inner folders and symbolic links.
@@ -222,23 +233,28 @@ public class SettingsActivity extends ListActivity
     final long sizeNeeded = getDirSize(currPath + MWM_DIR_POSTFIX);
     Log.i(TAG, "Needed size for maps: " + sizeNeeded);
 
-    //parseMountFile("/etc/vold.conf", 0, currPath, defPath, sizeNeeded);
-    //parseMountFile("/etc/vold.fstab", 0, currPath, defPath, sizeNeeded);
-    parseMountFile("/proc/mounts", 1, currPath, defPath, sizeNeeded);
-
-    setListAdapter(new ArrayAdapter<String>(this,
-        android.R.layout.simple_list_item_single_choice, m_choices));
+    //parseMountFile("/etc/vold.conf", VOLD_MODE, currPath, defPath, sizeNeeded);
+    //parseMountFile("/etc/vold.fstab", VOLD_MODE, currPath, defPath, sizeNeeded);
+    parseMountFile("/proc/mounts", MOUNTS_MODE, currPath, defPath, sizeNeeded);
 
     final ListView lv = getListView();
     lv.setItemsCanFocus(false);
     lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
+    // add header item with maps size
+    TextView tv = (TextView) getLayoutInflater().inflate(android.R.layout.simple_list_item_1, lv, false);
+    tv.setText(getString(R.string.maps) + ": " + getSizeString(sizeNeeded));
+    lv.addHeaderView(tv, null, false);
+
+    setListAdapter(new ArrayAdapter<String>(this,
+        android.R.layout.simple_list_item_single_choice, m_choices));
+
     // set current selection by current storage path
     for (int i = 0; i < m_pathes.size(); ++i)
       if (m_pathes.get(i).equals(currPath))
       {
-        lv.setItemChecked(i, true);
-        m_checked = i;
+        m_checked = i + LV_HEADERS_COUNT;
+        lv.setItemChecked(m_checked, true);
         break;
       }
   }
