@@ -199,6 +199,11 @@ void CoverageGenerator::CoverScreen(core::CommandsQueue::Environment const & env
     threads::MutexGuard g(m_mutex);
     swap(m_currentCoverage, m_workCoverage);
   }
+  else
+  {
+    /// we should skip all the following MergeTile commands
+    ++m_sequenceID;
+  }
 
   m_doForceUpdate = !shouldSwap;
 
