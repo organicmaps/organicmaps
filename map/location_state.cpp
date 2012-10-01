@@ -3,6 +3,7 @@
 #include "framework.hpp"
 #include "compass_filter.hpp"
 #include "rotate_screen_task.hpp"
+#include "change_viewport_task.hpp"
 
 #include "../yg/display_list.hpp"
 #include "../yg/skin.hpp"
@@ -51,6 +52,11 @@ namespace location
   bool State::HasPosition() const
   {
     return m_hasPosition;
+  }
+
+  m2::PointD const & State::Position() const
+  {
+    return m_position;
   }
 
   bool State::HasCompass() const
@@ -476,13 +482,40 @@ namespace location
     controller->Unlock();
   }
 
+  void State::MarkCenteredAndFollowCompass()
+  {
+    m_isCentered = true;
+    SetCompassProcessMode(ECompassFollow);
+    FollowCompass();
+    (void)Settings::Set("SuggestAutoFollowMode", false);
+  }
+
+  void State::CenterScreenAndEnqueueFollowing()
+  {
+    anim::Controller * controller = m_framework->GetAnimController();
+
+    controller->Lock();
+
+    m2::AnyRectD startRect = m_framework->GetNavigator().Screen().GlobalRect();
+    m2::AnyRectD endRect = m2::AnyRectD(Position(),
+                                        -m_compassFilter.GetHeadingRad(),
+                                        m2::RectD(startRect.GetLocalRect()));
+
+    shared_ptr<ChangeViewportTask> const & t = m_framework->GetAnimator().ChangeViewport(startRect, endRect, 2);
+
+    t->Lock();
+    t->SetCallback(anim::Task::EEnded, bind(&State::MarkCenteredAndFollowCompass, this));
+    t->Unlock();
+
+    controller->Unlock();
+  }
+
   void State::StopCompassFollowing()
   {
     SetCompassProcessMode(ECompassDoNothing);
     m_framework->GetAnimator().StopRotation();
+    m_framework->GetAnimator().StopChangeViewport();
     setState(EActive);
-
-    invalidate();
   }
 
   bool State::IsCentered() const
@@ -497,6 +530,9 @@ namespace location
 
   bool State::onTapEnded(m2::PointD const & pt)
   {
+    if (!m_framework->GetNavigator().DoSupportRotation())
+      return false;
+
     anim::Controller * controller = m_framework->GetAnimController();
 
     controller->Lock();
@@ -504,12 +540,19 @@ namespace location
     switch (state())
     {
     case EActive:
-      if (m_hasCompass && IsCentered())
+      if (m_hasCompass)
       {
-        (void)Settings::Set("SuggestAutoFollowMode", false);
+        if (!IsCentered())
+          CenterScreenAndEnqueueFollowing();
+        else
+        {
+          SetCompassProcessMode(ECompassFollow);
+          FollowCompass();
+
+          (void)Settings::Set("SuggestAutoFollowMode", false);
+        }
+
         setState(EPressed);
-        SetCompassProcessMode(ECompassFollow);
-        CheckFollowCompass();
       }
       break;
     case EPressed:

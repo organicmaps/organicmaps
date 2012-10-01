@@ -68,6 +68,8 @@ namespace location
     ECompassProcessMode m_compassProcessMode;
 
     void FollowCompass();
+    void MarkCenteredAndFollowCompass();
+    void CenterScreenAndEnqueueFollowing();
 
     /// GUI element related fields.
 
@@ -126,7 +128,7 @@ namespace location
     State(Params const & p);
 
     /// @return GPS center point in mercator
-    m2::PointD const & Position() const { return m_position; }
+    m2::PointD const & Position() const;
 
     bool HasPosition() const;
     bool HasCompass() const;
