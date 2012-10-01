@@ -32,42 +32,65 @@ namespace my
     LogCheckIfErrorLevel(level);
   }
 #else
+
+  class LogHelper
+  {
+    int m_threadsCount;
+    map<threads::ThreadID, int> m_threadID;
+
+    int GetThreadID()
+    {
+      int & id = m_threadID[threads::GetCurrentThreadID()];
+      if (id == 0)
+        id = ++m_threadsCount;
+      return id;
+    }
+
+    my::Timer m_timer;
+
+    char const * m_names[5];
+    size_t m_lens[5];
+
+  public:
+    threads::Mutex m_mutex;
+
+    LogHelper() : m_threadsCount(0)
+    {
+      m_names[0] = "DEBUG"; m_lens[0] = 5;
+      m_names[1] = "INFO"; m_lens[1] = 4;
+      m_names[2] = "WARNING"; m_lens[2] = 7;
+      m_names[3] = "ERROR"; m_lens[3] = 5;
+      m_names[4] = "CRITICAL"; m_lens[4] = 8;
+    }
+
+    void WriteProlog(ostream & s, LogLevel level)
+    {
+      s << "LOG";
+
+      s << " TID(" << GetThreadID() << ")";
+      s << " " << m_names[level];
+
+      double const sec = m_timer.ElapsedSeconds();
+      s << " " << std::setfill(' ') << std::setw(16 - m_lens[level]) << sec << " ";
+    }
+  };
+
   void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, string const & msg)
   {
-    // TODO: Make LogMessageDefault() thread-safe?
-    static threads::Mutex m;
-    threads::MutexGuard g(m);
+    static LogHelper logger;
 
-    static int threadsCount = 1;
-    static map<threads::ThreadID, int> m_shortThreadID;
-
-    int & threadNumber = m_shortThreadID[threads::GetCurrentThreadID()];
-    if (threadNumber == 0)
-      threadNumber = threadsCount++;
+    threads::MutexGuard guard(logger.m_mutex);
+    UNUSED_VALUE(guard);
 
     ostringstream out;
-    out << "LOG";
+    logger.WriteProlog(out, level);
 
-    out << " TID(" << threadNumber << ")";
+    out << DebugPrint(srcPoint) << msg << endl;
 
-    static Timer s_Timer;
-    static char const * names[] = { "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL" };
-    static size_t const len[] =   {    5,      4,        7,        5,         8     };
+    std::cerr << out.str();
 
-    out << " " << names[level];
-
-    //int64_t const milliseconds = static_cast<int64_t>(s_Timer.ElapsedSeconds() * 1000 + 0.5);
-    //std::cerr << " " << std::setw(6) << milliseconds / 1000 << "." << std::setw(4) << std::setiosflags(std::ios::left) << (milliseconds % 1000) << std::resetiosflags(std::ios::left);
-
-    double const sec = s_Timer.ElapsedSeconds();
-    out << " " << std::setfill(' ') << std::setw(16 - len[level]) << sec;
-
-    out << " " << DebugPrint(srcPoint) << msg << endl;
-
-    string const outString = out.str();
-    std::cerr << outString;
 #ifdef OMIM_OS_WINDOWS
-    OutputDebugStringA(outString.c_str());
+    OutputDebugStringA(out.str().c_str());
 #endif
     LogCheckIfErrorLevel(level);
   }
