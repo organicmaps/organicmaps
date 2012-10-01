@@ -51,9 +51,9 @@ static shared_ptr<downloader::HttpRequest> g_currentRequest;
 
 extern "C"
 {
-  int HasSpaceForFiles(string const & sdcardPath, size_t fileSize)
+  int HasSpaceForFiles(Platform & pl, string const & sdcardPath, size_t fileSize)
   {
-    switch (GetPlatform().GetWritableStorageStatus(fileSize))
+    switch (pl.GetWritableStorageStatus(fileSize))
     {
     case Platform::STORAGE_DISCONNECTED: return ERR_STORAGE_DISCONNECTED;
     case Platform::NOT_ENOUGH_SPACE: return ERR_NOT_ENOUGH_FREE_SPACE;
@@ -62,10 +62,10 @@ extern "C"
   }
 
   // Check if we need to download mandatory resource file.
-  bool NeedToDownload(string const & name, int size)
+  bool NeedToDownload(Platform & pl, string const & name, int size)
   {
     uint64_t originSize = 0;
-    if (!GetPlatform().GetFileSizeByName(name, originSize))
+    if (!pl.GetFileSizeByName(name, originSize))
     {
       // no such file
       return true;
@@ -79,11 +79,19 @@ extern "C"
 
     if (name == WORLD_FILE_NAME DATA_FILE_EXTENSION)
     {
-      FilesContainerR cont(name);
-      if (cont.IsReaderExist(SEARCH_INDEX_FILE_TAG))
+      try
       {
-        // World.mwm file has search index - can skip new version
-        return false;
+        FilesContainerR cont(pl.GetReader(name));
+        if (cont.IsReaderExist(SEARCH_INDEX_FILE_TAG))
+        {
+          // World.mwm file has search index - can skip new version.
+          return false;
+        }
+      }
+      catch (RootException const &)
+      {
+        // Some error occurred when loading file.
+        return true;
       }
     }
     else if (name == WORLD_COASTS_FILE_NAME DATA_FILE_EXTENSION)
@@ -97,38 +105,32 @@ extern "C"
   }
 
   JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_DownloadResourcesActivity_getBytesToDownload(
-      JNIEnv * env, jobject thiz, jstring apkPath, jstring sdcardPath)
+  Java_com_mapswithme_maps_DownloadResourcesActivity_getBytesToDownload(JNIEnv * env, jobject thiz)
   {
     // clear all
     g_filesToDownload.clear();
     g_totalBytesToDownload = 0;
     g_totalDownloadedBytes = 0;
 
-    //g_apkPath = jni::ToNativeString(env, apkPath);
-    string const path = jni::ToNativeString(env, sdcardPath);
-
     Platform & pl = GetPlatform();
-    ReaderStreamBuf buffer(pl.GetReader("external_resources.txt"));
+    string const path = pl.WritableDir();
 
+    ReaderStreamBuf buffer(pl.GetReader("external_resources.txt"));
     istream in(&buffer);
 
     string name;
     int size;
-
     while (true)
     {
       in >> name;
-
       if (!in.good())
         break;
 
       in >> size;
-
       if (!in.good())
         break;
 
-      if (NeedToDownload(name, size))
+      if (NeedToDownload(pl, name, size))
       {
         LOG(LDEBUG, ("Should download", name, "sized", size, "bytes"));
 
@@ -142,7 +144,7 @@ extern "C"
       }
     }
 
-    int const res = HasSpaceForFiles(path, g_totalBytesToDownload);
+    int const res = HasSpaceForFiles(pl, path, g_totalBytesToDownload);
     switch (res)
     {
     case ERR_STORAGE_DISCONNECTED:
