@@ -11,6 +11,7 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.StatFs;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.mapswithme.util.Utils;
 public class SettingsActivity extends ListActivity
 {
   private static String TAG = "SettingsActivity";
+  private static String MWM_DIR_POSTFIX = "/MapsWithMe/";
 
   private List<String> m_choices = new ArrayList<String>();
   private List<String> m_pathes = new ArrayList<String>();
@@ -43,43 +45,68 @@ public class SettingsActivity extends ListActivity
         current = bound;
     }
 
-    return (size / current + arrS[i]);
+    return (size / current + " " + arrS[i]);
   }
 
-  private void addStorage(String path)
+  private boolean addStorage(String path, long sizeNeeded)
   {
     try
     {
-      File f = new File(path);
-      if (!f.exists() || !f.isDirectory() || !f.canWrite())
+      final File f = new File(path);
+      if (f.exists() && f.isDirectory() && f.canWrite())
       {
+        StatFs stat = new StatFs(path);
+        final long size = (long)stat.getAvailableBlocks() * (long)stat.getBlockSize();
+        Log.i(TAG, "Available size = " + size);
+
+        if (size >= sizeNeeded)
+        {
+          m_choices.add(path + ", " + getSizeString(size));
+          m_pathes.add(path);
+          return true;
+        }
+      }
+      else
         Log.i(TAG, "File error for storage: " + path);
-        return;
-      }
-
-      StatFs stat = new StatFs(path);
-      final long size = (long)stat.getAvailableBlocks() * (long)stat.getBlockSize();
-      Log.i(TAG, "Available size = " + size);
-
-      if (size > 0)
-      {
-        m_choices.add(path + ", " + getSizeString(size) + " available");
-        m_pathes.add(path);
-      }
     }
     catch (IllegalArgumentException ex)
     {
       // Suppress exceptions for unavailable storages.
       Log.i(TAG, "StatFs error for storage: " + path);
     }
+
+    return false;
   }
 
-  private void parseMountFile(String file, int mode)
+  /// @return Flag that current path (1) or default path (2) is added successfully.
+  private int callAddStorage(String path, String currPath, String defPath,
+                             long sizeNeeded, int flag)
+  {
+    assert(sizeNeeded > 0);
+    if (path.equals(currPath))
+      sizeNeeded = 0;
+
+    if (addStorage(path, sizeNeeded))
+    {
+      if (path.equals(currPath))
+        flag |= 1;
+      if (path.equals(defPath))
+        flag |= 2;
+    }
+
+    return flag;
+  }
+
+  private void parseMountFile(String file, int mode,
+                              String currPath, String defPath, long sizeNeeded)
   {
     BufferedReader reader = null;
+    int addFlag = 0;
+
     try
     {
       reader = new BufferedReader(new FileReader(file));
+
       while (true)
       {
         String line = reader.readLine();
@@ -97,7 +124,7 @@ public class SettingsActivity extends ListActivity
             Log.i(TAG, "Label = " + arr[1] + "; Path = " + arr[2]);
 
             if (arr[0].startsWith("dev_mount"))
-              addStorage(arr[2]);
+              addFlag = callAddStorage(arr[2], currPath, defPath, sizeNeeded, addFlag);
           }
           else
           {
@@ -107,7 +134,7 @@ public class SettingsActivity extends ListActivity
             String prefixes[] = { "tmpfs", "/dev/block/vold", "/dev/fuse" };
             for (String s : prefixes)
               if (arr[0].startsWith(s))
-                addStorage(arr[1]);
+                addFlag = callAddStorage(arr[1], currPath, defPath, sizeNeeded, addFlag);
           }
         }
       }
@@ -120,6 +147,13 @@ public class SettingsActivity extends ListActivity
     {
       Utils.closeStream(reader);
     }
+
+    if ((addFlag & 1) == 0)
+      addFlag = callAddStorage(currPath, currPath, defPath, sizeNeeded, addFlag);
+    if ((addFlag & 2) == 0)
+      addFlag = callAddStorage(defPath, currPath, defPath, sizeNeeded, addFlag);
+
+    assert(addFlag == 3);
   }
 
   private CheckedTextView getViewByPos(ListView lv, int position)
@@ -135,13 +169,33 @@ public class SettingsActivity extends ListActivity
 
   private String getFullPath(int position)
   {
-    return m_pathes.get(position) + "/MapsWithMe/";
+    return m_pathes.get(position) + MWM_DIR_POSTFIX;
+  }
+
+  /// @name Assume that MapsWithMe folder doesn't have inner folders and symbolic links.
+  //@{
+  private long getDirSize(String name)
+  {
+    File dir = new File(name);
+    assert(dir.exists());
+    assert(dir.isDirectory());
+
+    long size = 0;
+    for (File f : dir.listFiles())
+    {
+      assert(f.isFile());
+      size += f.length();
+    }
+
+    return (size + 1024*1024);
   }
 
   // delete all files (except settings.ini) in directory
   private void deleteFiles(File dir)
   {
+    assert(dir.exists());
     assert(dir.isDirectory());
+
     for (File file : dir.listFiles())
     {
       assert(file.isFile());
@@ -154,15 +208,23 @@ public class SettingsActivity extends ListActivity
         Log.w(TAG, "Can't delete file: " + file.getName());
     }
   }
+  //@}
 
   @Override
   public void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
 
-    //parseMountFile("/etc/vold.conf", 0);
-    //parseMountFile("/etc/vold.fstab", 0);
-    parseMountFile("/proc/mounts", 1);
+    final String currPath = nativeGetStoragePath();
+    final String defPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+    Log.i(TAG, "Current and Default maps pathes: " + currPath + "; " + defPath);
+
+    final long sizeNeeded = getDirSize(currPath + MWM_DIR_POSTFIX);
+    Log.i(TAG, "Needed size for maps: " + sizeNeeded);
+
+    //parseMountFile("/etc/vold.conf", 0, currPath, defPath, sizeNeeded);
+    //parseMountFile("/etc/vold.fstab", 0, currPath, defPath, sizeNeeded);
+    parseMountFile("/proc/mounts", 1, currPath, defPath, sizeNeeded);
 
     setListAdapter(new ArrayAdapter<String>(this,
         android.R.layout.simple_list_item_single_choice, m_choices));
@@ -172,9 +234,8 @@ public class SettingsActivity extends ListActivity
     lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
     // set current selection by current storage path
-    final String current = nativeGetStoragePath();
     for (int i = 0; i < m_pathes.size(); ++i)
-      if (m_pathes.get(i).equals(current))
+      if (m_pathes.get(i).equals(currPath))
       {
         lv.setItemChecked(i, true);
         m_checked = i;

@@ -25,19 +25,26 @@ extern "C"
     // Remove all maps from container.
     g_framework->RemoveLocalMaps();
 
+    // Get files to copy.
     Platform & pl = GetPlatform();
     char const * arrMask[] = { "*" DATA_FILE_EXTENSION, "*.ttf" };
 
-    // Copy all needed files.
+    Platform::FilesList files;
     for (size_t i = 0; i < ARRAY_SIZE(arrMask); ++i)
-    {
-      Platform::FilesList files;
       pl.GetFilesInDir(from, arrMask[i], files);
 
-      for (size_t j = 0; j < files.size(); ++j)
-        if (!my::CopyFile((from + files[j]).c_str(), (to + files[j]).c_str()))
-          return false;
-    }
+    // Copy all needed files.
+    for (size_t i = 0; i < files.size(); ++i)
+      if (!my::CopyFile(from + files[i], to + files[i]))
+      {
+        // Do the undo - delete all previously copied files.
+        for (size_t j = 0; j <= i; ++j)
+        {
+          string const path = to + files[j];
+          VERIFY ( my::DeleteFileX(path), (path) );
+        }
+        return false;
+      }
 
     // Set new storage path.
     android::Platform::Instance().SetStoragePath(to);
