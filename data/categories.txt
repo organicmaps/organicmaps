@@ -178,7 +178,7 @@ ja:駅|鉄道|鉄道|電車|駅|輸送
 cs:3železniční stanice|vlakové nádraží|2vlak|doprava
 nl:4station|4spoorwegen|spoor|3trein|4transport
 
-railway-subway_entrance
+railway-subway_entrance|railway-station-subway
 en:3subway|3tube|3metro|3underground|transport
 ru:3метро|транспорт
 de:2U-Bahn|Metro|Verkehr
@@ -1212,3 +1212,15 @@ ko:모텔|호텔|호스텔
 ja:モーテル|ホテル|ホステル
 cs:3motel|penzion|hotel|hostel|ubytovna
 nl:3motel|hotel|hostel
+
+tourism-camp_site
+en:4camping|campsite|campground
+ru:4кемпинг
+
+tourism-caravan_site
+en:4caravan site
+ru:4стоянка грузовиков
+
+tourism-alpine_hut
+en:mountains lodging|hotel|hostel
+ru:горный отель|отель|хостел
