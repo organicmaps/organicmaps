@@ -47,6 +47,7 @@ namespace location
     setColor(EActive, yg::Color(0x2f, 0xb5, 0xea, 128));
     setColor(EPressed, yg::Color(0x1f, 0x22, 0x59, 128));
     setState(EActive);
+    setIsVisible(false);
   }
 
   bool State::HasPosition() const
