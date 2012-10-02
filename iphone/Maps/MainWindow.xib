@@ -94,10 +94,10 @@
 						<object class="IBUIButton" id="23888313">
 							<reference key="NSNextResponder" ref="53915144"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{110, 435}, {40, 40}}</string>
+							<string key="NSFrame">{{160, 435}, {40, 40}}</string>
 							<reference key="NSSuperview" ref="53915144"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="431157229"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:222</string>
 							<bool key="IBUIOpaque">NO</bool>
 							<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -124,10 +124,10 @@
 						<object class="IBUIButton" id="431157229">
 							<reference key="NSNextResponder" ref="53915144"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{160, 435}, {40, 40}}</string>
+							<string key="NSFrame">{{60, 435}, {40, 40}}</string>
 							<reference key="NSSuperview" ref="53915144"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
+							<reference key="NSNextKeyView" ref="803813744"/>
 							<string key="NSReuseIdentifierKey">_NS:222</string>
 							<bool key="IBUIOpaque">NO</bool>
 							<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -154,7 +154,7 @@
 						<object class="IBUIButton" id="773974234">
 							<reference key="NSNextResponder" ref="53915144"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{60, 435}, {40, 40}}</string>
+							<string key="NSFrame">{{110, 435}, {40, 40}}</string>
 							<reference key="NSSuperview" ref="53915144"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="23888313"/>
@@ -185,7 +185,7 @@
 					<string key="NSFrame">{{0, 20}, {320, 480}}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
-					<reference key="NSNextKeyView" ref="803813744"/>
+					<reference key="NSNextKeyView" ref="431157229"/>
 					<object class="NSColor" key="IBUIBackgroundColor">
 						<int key="NSColorSpace">1</int>
 						<bytes key="NSRGB">MC45MzMzMzMzMzMzIDAuOTMzMzMzMzMzMyAwLjg2NjY2NjY2NjcAA</bytes>
