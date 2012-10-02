@@ -3,6 +3,7 @@ package com.mapswithme.util;
 import java.io.Closeable;
 import java.io.IOException;
 
+import android.app.Activity;
 import android.util.Log;
 import android.view.Window;
 
@@ -38,5 +39,15 @@ public class Utils
       w.clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     else
       w.addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+  }
+
+  public static float getAttributeDimension(Activity activity, int attr)
+  {
+    android.util.TypedValue value = new android.util.TypedValue();
+    boolean b = activity.getTheme().resolveAttribute(attr, value, true);
+    assert(b);
+    android.util.DisplayMetrics metrics = new android.util.DisplayMetrics();
+    activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+    return value.getDimension(metrics);
   }
 }
