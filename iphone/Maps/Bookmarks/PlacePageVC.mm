@@ -11,10 +11,15 @@
   if (self)
   {
     m_balloon = view;
-
     self.title = m_balloon.title;
   }
   return self;
+}
+
+- (void) dealloc
+{
+  [m_textField release];
+  [super dealloc];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -30,6 +35,19 @@
 {
   if (m_hideNavBar)
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+  // Check that bookmark should be added/edited and we're going back to the Map
+  if (m_textField && [self.navigationController.viewControllers indexOfObject:self] == NSNotFound)
+  {
+    if (![m_textField.text isEqualToString:m_balloon.title])
+    {
+      // Update edited bookmark name
+      if (m_textField.text.length == 0)
+        m_balloon.title = NSLocalizedString(@"dropped_pin", @"Unknown Dropped Pin title, when name can't be determined");
+      else
+        m_balloon.title = m_textField.text;
+    }
+    [m_balloon addOrEditBookmark];
+  }
   [super viewWillDisappear:animated];
 }
 
@@ -48,7 +66,7 @@
   switch (section)
   {
   case 0: return 3;
-  case 1: return 2;
+  case 1: return 1;
   default: return 0;
   }
 }
@@ -97,15 +115,16 @@
       {
         case 0:
         {
-          UITextField * f = [[[UITextField alloc] initWithFrame:CGRectMake(0, 0, 200, 21)] autorelease];
-          f.textAlignment = UITextAlignmentRight;
-          f.returnKeyType = UIReturnKeyDone;
-          f.clearButtonMode = UITextFieldViewModeWhileEditing;
-          f.autocorrectionType = UITextAutocorrectionTypeNo;
-          f.delegate = self;
-          f.placeholder = NSLocalizedString(@"name", @"Add bookmark dialog - bookmark name");
-          f.textColor = cell.detailTextLabel.textColor;
-          cell.accessoryView = f;
+          [m_textField release];
+          m_textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 200, 21)];
+          m_textField.textAlignment = UITextAlignmentRight;
+          m_textField.returnKeyType = UIReturnKeyDone;
+          m_textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+          m_textField.autocorrectionType = UITextAutocorrectionTypeNo;
+          m_textField.delegate = self;
+          m_textField.placeholder = NSLocalizedString(@"name", @"Add bookmark dialog - bookmark name");
+          m_textField.textColor = cell.detailTextLabel.textColor;
+          cell.accessoryView = m_textField;
           cell.textLabel.text = NSLocalizedString(@"name", @"Add bookmark dialog - bookmark name");
           cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
@@ -124,7 +143,7 @@
     switch (indexPath.row)
     {
       case 0:
-        ((UITextField *)(cell.accessoryView)).text = m_balloon.title;
+        m_textField.text = m_balloon.title;
       break;
 
       case 1:
@@ -142,18 +161,9 @@
     // 2nd section with add/remove pin buttons
     cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"] autorelease];
     cell.textLabel.textAlignment = UITextAlignmentCenter;
-    if (indexPath.row == 0)
-      cell.textLabel.text = NSLocalizedString(@"add_to_bookmarks", @"Place Page - Add To Bookmarks button");
-    else
-      cell.textLabel.text = NSLocalizedString(@"remove_pin", @"Place Page - Remove Pin button");
+    cell.textLabel.text = NSLocalizedString(@"remove_pin", @"Place Page - Remove Pin button");
   }
   return cell;
-}
-
-- (void)onAddClicked
-{
-  [m_balloon addOrEditBookmark];
-  [m_balloon hide];
 }
 
 - (void)onRemoveClicked
@@ -191,16 +201,11 @@
   }
   else
   {
-    if (indexPath.row == 0)
-    {
-      // Add to bookmarks
-      [self onAddClicked];
-    }
-    else
-    {
-      // Remove pin
-      [self onRemoveClicked];
-    }
+    // Remove pin
+    [self onRemoveClicked];
+    // Reset text field to indicate that bookmark should not be added on view close
+    [m_textField release];
+    m_textField = nil;
     // Close place page
     [self.navigationController popViewControllerAnimated:YES];
   }

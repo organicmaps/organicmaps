@@ -217,7 +217,15 @@
   [m_titleView sizeToFit];
 }
 
-- (void) deleteBMHelper
+- (void) addOrEditBookmark
+{
+  // If coordinates will be the same, bookmark will be automatically replaced
+  GetFramework().AddBookmark([self.setName UTF8String],
+                             Bookmark(m2::PointD(self.globalPosition.x, self.globalPosition.y),
+                             [self.title UTF8String], [self.color UTF8String]));
+}
+
+- (void) deleteBookmark
 {
   if (IsValid(m_editedBookmark))
   {
@@ -227,20 +235,6 @@
     // Clear!
     m_editedBookmark = MakeEmptyBookmarkAndCategory();
   }
-}
-
-- (void) addOrEditBookmark
-{
-  // for an "edit" operation, delete old bookmark before adding "edited" one
-  [self deleteBMHelper];
-  GetFramework().AddBookmark([self.setName UTF8String],
-                             Bookmark(m2::PointD(self.globalPosition.x, self.globalPosition.y),
-                             [self.title UTF8String], [self.color UTF8String]));
-}
-
-- (void) deleteBookmark
-{
-  [self deleteBMHelper];
 }
 
 @end
