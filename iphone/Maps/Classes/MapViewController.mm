@@ -155,7 +155,11 @@
 - (void) processMapClickAtPoint:(CGPoint)point longClick:(BOOL)isLongClick
 {
   if (m_balloonView.isDisplayed)
+  {
     [m_balloonView hide];
+    if (!isLongClick)
+      return;
+  }
 
   // Try to check if we've clicked on bookmark
   Framework & f = GetFramework();
