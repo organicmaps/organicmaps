@@ -17,6 +17,19 @@
 
 void BookmarkCategory::AddBookmark(Bookmark const & bm)
 {
+  // Replace existing bookmark if coordinates are (almost) the same
+  double const eps = my::sq(1.0 * MercatorBounds::degreeInMetres);
+  for (size_t i = 0; i < m_bookmarks.size(); ++i)
+  {
+    Bookmark const * oldBookmark = m_bookmarks[i];
+    if (eps >= bm.GetOrg().SquareLength(oldBookmark->GetOrg()))
+    {
+      m_bookmarks[i] = new Bookmark(bm);
+      delete oldBookmark;
+      return;
+    }
+  }
+
   m_bookmarks.push_back(new Bookmark(bm));
 }
 
