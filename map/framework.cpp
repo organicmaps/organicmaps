@@ -36,6 +36,9 @@
 #include "../std/target_os.hpp"
 #include "../std/vector.hpp"
 
+/// How many pixels around touch point are used to get bookmark or POI
+#define TOUCH_PIXEL_RADIUS 15
+
 using namespace storage;
 
 
@@ -376,7 +379,7 @@ BookmarkAndCategory Framework::GetBookmark(m2::PointD pt) const
 BookmarkAndCategory Framework::GetBookmark(m2::PointD pt, double visualScale) const
 {
   // Get the global rect of touching area.
-  int const sm = 30 * visualScale;
+  int const sm = TOUCH_PIXEL_RADIUS * visualScale;
   m2::RectD rect(PtoG(m2::PointD(pt.x - sm, pt.y - sm)), PtoG(m2::PointD(pt.x + sm, pt.y + sm)));
 
   int retBookmark = -1;
@@ -1293,7 +1296,7 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, 
   }
 
   m2::PointD const pt = m_navigator.ShiftPoint(pxPoint);
-  double const halfSize = 12 * m_renderPolicy->VisualScale();
+  double const halfSize = TOUCH_PIXEL_RADIUS * m_renderPolicy->VisualScale();
 
   typedef yg::OverlayElement ElementT;
 
