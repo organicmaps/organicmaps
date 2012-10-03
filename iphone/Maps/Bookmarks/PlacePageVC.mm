@@ -209,7 +209,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
   [textField resignFirstResponder];
-  if (m_balloon.title != textField.text)
+  if (![m_balloon.title isEqualToString:textField.text])
   {
     if (textField.text.length == 0)
     {
