@@ -1,5 +1,5 @@
-QTC_SOURCE = ../../../qt-creator-2.3.0-src
-QTC_BUILD = ../../../qtcreator-build-desktop-release
+QTC_SOURCE = ../../../qt-creator-2.5.2-src
+QTC_BUILD = ../../../qtcreator-build-release
 
 TEMPLATE = lib
 TARGET = EmacsMode

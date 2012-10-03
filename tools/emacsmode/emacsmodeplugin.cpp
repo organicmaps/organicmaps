@@ -31,38 +31,53 @@
 
 #include "emacsmodehandler.h"
 
-
-
-#include <coreplugin/actionmanager/actionmanager.h>
 #include <coreplugin/actionmanager/actioncontainer.h>
+#include <coreplugin/actionmanager/actionmanager.h>
 #include <coreplugin/actionmanager/command.h>
+#include <coreplugin/actionmanager/command.h>
+#include <coreplugin/actionmanager/commandmappings.h>
 #include <coreplugin/coreconstants.h>
-#include <coreplugin/editormanager/editormanager.h>
-#include <coreplugin/filemanager.h>
-#include <coreplugin/ifile.h>
 #include <coreplugin/dialogs/ioptionspage.h>
+#include <coreplugin/editormanager/editormanager.h>
+#include <coreplugin/editormanager/openeditorsmodel.h>
+#include <coreplugin/documentmanager.h>
+#include <coreplugin/icore.h>
+#include <coreplugin/idocument.h>
 #include <coreplugin/messagemanager.h>
-#include <coreplugin/modemanager.h>
-#include <coreplugin/uniqueidmanager.h>
+#include <coreplugin/id.h>
+#include <coreplugin/statusbarwidget.h>
+#include <coreplugin/statusbarmanager.h>
 
 #include <projectexplorer/projectexplorerconstants.h>
-#include <projectexplorer/session.h>
 
 #include <texteditor/basetextdocumentlayout.h>
 #include <texteditor/basetexteditor.h>
 #include <texteditor/basetextmark.h>
-//#include <texteditor/completionsupport.h>
 #include <texteditor/texteditorconstants.h>
+#include <texteditor/typingsettings.h>
 #include <texteditor/tabsettings.h>
-#include <texteditor/tabpreferences.h>
+#include <texteditor/icodestylepreferences.h>
 #include <texteditor/texteditorsettings.h>
 #include <texteditor/indenter.h>
-//#include <texteditor/textblockiterator.h>
+#include <texteditor/codeassist/basicproposalitem.h>
+#include <texteditor/codeassist/basicproposalitemlistmodel.h>
+#include <texteditor/codeassist/completionassistprovider.h>
+#include <texteditor/codeassist/iassistprocessor.h>
+#include <texteditor/codeassist/iassistinterface.h>
+#include <texteditor/codeassist/genericproposal.h>
 
 #include <find/findplugin.h>
 #include <find/textfindconstants.h>
+#include <find/ifindsupport.h>
 
 #include <utils/qtcassert.h>
+#include <utils/savedaction.h>
+#include <utils/treewidgetcolumnstretcher.h>
+#include <utils/stylehelper.h>
+
+#include <cpptools/cpptoolsconstants.h>
+
+#include <extensionsystem/pluginmanager.h>
 
 #include <QtCore/QDebug>
 #include <QtCore/QtPlugin>
@@ -139,23 +154,6 @@ QWidget *EmacsModeOptionPage::createPage(QWidget *parent)
 
 void EmacsModeOptionPage::copyTextEditorSettings()
 {
-    TabSettings ts = TextEditorSettings::instance()->tabPreferences()->settings();
-
- /*   m_ui.checkBoxExpandTab->setChecked(ts.m_spacesForTabs);
-    m_ui.spinBoxTabStop->setValue(ts.m_tabSize);
-    m_ui.spinBoxShiftWidth->setValue(ts.m_indentSize);
-    m_ui.checkBoxSmartTab->setChecked(ts.m_smartBackspace);
-    m_ui.checkBoxAutoIndent->setChecked(true);
-    m_ui.checkBoxSmartIndent->setChecked(ts.m_autoIndent);
-    m_ui.checkBoxIncSearch->setChecked(true);
-   */
-    m_ui.checkBoxExpandTab->setChecked(ts.m_spacesForTabs);
-    m_ui.lineEditTabStop->setText(QString::number(ts.m_tabSize));
-    m_ui.lineEditShiftWidth->setText(QString::number(ts.m_indentSize));
-    m_ui.checkBoxSmartTab->setChecked(ts.m_smartBackspace);
-    m_ui.checkBoxAutoIndent->setChecked(ts.m_autoIndent);
-    // FIXME: Not present in core
-    //m_ui.checkBoxIncSearch->setChecked(ts.m_incSearch);
 }
 
 void EmacsModeOptionPage::setQtStyle()
@@ -215,15 +213,11 @@ bool EmacsModePluginPrivate::initialize()
     m_actionManager = core()->actionManager();
     QTC_ASSERT(actionManager(), return false);
 
-//    m_wordCompletion = new WordCompletion;
-//    q->addAutoReleasedObject(m_wordCompletion);
-
     Context globalcontext(Core::Constants::C_GLOBAL);
 
     m_emacsModeOptionsPage = new EmacsModeOptionPage;
     q->addObject(m_emacsModeOptionsPage);
 
-//    theEmacsModeSettings()->readSettings(Core::ICore::instance()->settings());
     readSettings();
 
     Core::Command *cmd = 0;
@@ -235,17 +229,12 @@ bool EmacsModePluginPrivate::initialize()
         actionManager()->actionContainer(Core::Constants::M_EDIT_ADVANCED);
     advancedMenu->addAction(cmd, Core::Constants::G_EDIT_EDITOR);
 
-    connect(m_core, SIGNAL(coreAboutToClose()), this, SLOT(onCoreAboutToClose()));
-
-
     // EditorManager
     connect(editorManager(), SIGNAL(editorAboutToClose(Core::IEditor*)),
         this, SLOT(editorAboutToClose(Core::IEditor*)));
     connect(editorManager(), SIGNAL(editorOpened(Core::IEditor*)),
         this, SLOT(editorOpened(Core::IEditor*)));
 
-//    connect(theEmacsModeSetting(SettingsDialog), SIGNAL(triggered()),
-//        this, SLOT(showSettingsDialog()));
     connect(theEmacsModeSetting(ConfigUseEmacsMode), SIGNAL(valueChanged(QVariant)),
         this, SLOT(setUseEmacsMode(QVariant)));
 
@@ -254,9 +243,6 @@ bool EmacsModePluginPrivate::initialize()
         this, SLOT(handleDelayedQuit(bool,Core::IEditor*)), Qt::QueuedConnection);
     connect(this, SIGNAL(delayedQuitAllRequested(bool)),
         this, SLOT(handleDelayedQuitAll(bool)), Qt::QueuedConnection);
-//    maybeReadVimRc();
-    //    << "MODE: " << theFakeVimSetting(ConfigUseFakeVim)->value();
-
 }
 
 void EmacsModePluginPrivate::readSettings()
@@ -284,13 +270,13 @@ void EmacsModePluginPrivate::showSettingsDialog()
 
 void EmacsModePluginPrivate::triggerAction(const QString& code)
 {
-    Core::ActionManager *am = Core::ICore::instance()->actionManager();
+    /*Core::ActionManager *am = Core::ICore::instance()->actionManager();
     QTC_ASSERT(am, return);
     Core::Command *cmd = am->command(code);
     QTC_ASSERT(cmd, return);
     QAction *action = cmd->action();
     QTC_ASSERT(action, return);
-    action->trigger();
+    action->trigger();*/
 }
 
 void EmacsModePluginPrivate::windowCommand(int key)
@@ -384,7 +370,7 @@ void EmacsModePluginPrivate::editorOpened(Core::IEditor *editor)
     connect(handler, SIGNAL(handleExCommandRequested(QString)),
         this, SLOT(handleExCommand(QString)));
 
-    handler->setCurrentFileName(editor->file()->fileName());
+    handler->setCurrentFileName(editor->document()->fileName());
     handler->installEventFilter();
     
     // pop up the bar
@@ -439,59 +425,15 @@ void EmacsModePluginPrivate::writeFile(bool *handled,
         return;
 
     Core::IEditor *editor = m_editorToHandler.key(handler);
-    if (editor && editor->file()->fileName() == fileName) {
-        // Handle that as a special case for nicer interaction with core
-        Core::IFile *file = editor->file();
-        Core::ICore::instance()->fileManager()->saveFile(file);/*blockFileChange(file);
-        file->save(fileName);
-        Core::ICore::instance()->fileManager()->unblockFileChange(file);*/
+    if (editor && editor->document()->fileName() == fileName) {
+        DocumentManager::saveDocument(editor->document());
+
         *handled = true;
     } 
 }
 
 void EmacsModePluginPrivate::handleExCommand(const QString &cmd)
 {
-    static QRegExp reNextFile("^n(ext)?!?( (.*))?$");
-    static QRegExp rePreviousFile("^(N(ext)?|prev(ious)?)!?( (.*))?$");
-    static QRegExp reWriteAll("^wa(ll)?!?$");
-    static QRegExp reQuit("^q!?$");
-    static QRegExp reQuitAll("^qa!?$");
-
-    using namespace Core;
-
-    EmacsModeHandler *handler = qobject_cast<EmacsModeHandler *>(sender());
-    if (!handler)
-        return;
-
-    EditorManager *editorManager = EditorManager::instance();
-    QTC_ASSERT(editorManager, return);
-
-    if (reNextFile.indexIn(cmd) != -1) {
-        // :n
-        editorManager->goForwardInNavigationHistory();
-    } else if (rePreviousFile.indexIn(cmd) != -1) {
-        // :N, :prev
-        editorManager->goBackInNavigationHistory();
-    } else if (reWriteAll.indexIn(cmd) != -1) {
-        // :wa
-        FileManager *fm = ICore::instance()->fileManager();
-        QList<IFile *> toSave = fm->modifiedFiles();
-        QList<IFile *> failed = fm->saveModifiedFilesSilently(toSave);
-        if (failed.isEmpty())
-            handler->showBlackMessage(tr("Saving succeeded"));
-        else
-            handler->showRedMessage(tr("%n files not saved", 0, failed.size()));
-    } else if (reQuit.indexIn(cmd) != -1) {
-        // :q
-        bool forced = cmd.contains(QChar('!'));
-        emit delayedQuitRequested(forced, m_editorToHandler.key(handler));
-    } else if (reQuitAll.indexIn(cmd) != -1) {
-        // :qa
-        bool forced = cmd.contains(QChar('!'));
-        emit delayedQuitAllRequested(forced);
-    } else {
-        handler->showRedMessage(tr("Not an editor command: %1").arg(cmd));
-    }
 }
 
 void EmacsModePluginPrivate::handleDelayedQuit(bool forced, Core::IEditor *editor)
@@ -557,7 +499,6 @@ void EmacsModePluginPrivate::indentRegion(int *amount, int beginLine, int endLin
     TabSettings tabSettings;
     tabSettings.m_indentSize = theEmacsModeSetting(ConfigShiftWidth)->value().toInt();
     tabSettings.m_tabSize = theEmacsModeSetting(ConfigTabStop)->value().toInt();
-    tabSettings.m_spacesForTabs = theEmacsModeSetting(ConfigExpandTab)->value().toBool();
     bt->setTabSettings(tabSettings);
 
     QTextDocument *doc = bt->document();
@@ -575,7 +516,7 @@ void EmacsModePluginPrivate::indentRegion(int *amount, int beginLine, int endLin
             while (!cursor.atBlockEnd())
                 cursor.deleteChar();
         } else {
-            bt->indenter()->indentBlock(doc, block, typedChar, bt);
+            bt->indenter()->indentBlock(doc, block, typedChar, tabSettings);
         }
         block = block.next();
     }
