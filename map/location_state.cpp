@@ -31,7 +31,7 @@ namespace location
   State::State(Params const & p)
     : base_t(p),
       m_hasPosition(false),
-      m_hasCompass(true),
+      m_hasCompass(false),
       m_isCentered(false),
       m_locationProcessMode(ELocationDoNothing),
       m_compassProcessMode(ECompassDoNothing)
