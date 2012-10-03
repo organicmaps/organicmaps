@@ -24,6 +24,7 @@ template <class T1, class T2>
 void CountryStatusDisplay::SetStatusMessage(string const & msgID, T1 const * t1, T2 const * t2)
 {
   m_statusMsg->setIsVisible(true);
+  setIsVisible(m_statusMsg->isVisible() || m_downloadButton->isVisible());
 
   string msg = m_controller->GetStringsBundle()->GetString(msgID);
   if (t1)
@@ -41,6 +42,8 @@ void CountryStatusDisplay::cache()
 {
   m_downloadButton->setIsVisible(false);
   m_statusMsg->setIsVisible(false);
+  setIsVisible(false);
+  setIsDirtyRect(true);
 
   string dn = displayName();
   strings::UniString udn(strings::MakeUniString(dn));
@@ -106,6 +109,8 @@ void CountryStatusDisplay::cache()
     }
   }
 
+  setIsVisible(m_statusMsg->isVisible() || m_downloadButton->isVisible());
+
   // element bound rect is possibly changed
   setIsDirtyRect(true);
 }
@@ -168,6 +173,8 @@ CountryStatusDisplay::CountryStatusDisplay(Params const & p)
   m_statusMsg->setPosition(yg::EPosCenter);
 
   m_statusMsg->setFont(gui::Element::EActive, yg::FontDesc(18));
+
+  setIsVisible(false);
 
   m_countryIdx = storage::TIndex();
   m_countryStatus = storage::EUnknown;
@@ -258,8 +265,12 @@ vector<m2::AnyRectD> const & CountryStatusDisplay::boundRects() const
   if (isDirtyRect())
   {
     m_boundRects.clear();
-    m2::RectD r = m_downloadButton->roughBoundRect();
-    r.Add(m_statusMsg->roughBoundRect());
+
+    m2::RectD r(pivot(), pivot());
+
+    if (m_downloadButton->isVisible())
+      r.Add(m_downloadButton->roughBoundRect());
+
     m_boundRects.push_back(m2::AnyRectD(r));
     setIsDirtyRect(false);
   }
