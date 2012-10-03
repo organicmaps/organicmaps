@@ -203,22 +203,22 @@ void Ruler::update()
   {
     m2::PointD glbPivot = m_screen.PtoG(pivot());
 
-    int rulerHeight = static_cast<int>(7 * m_visualScale);
+    int rulerHeight = static_cast<int>(3 * m_visualScale);
     unsigned minPxWidth = static_cast<unsigned>(m_minPxWidth * m_visualScale);
 
     m2::PointD pt0 = m_screen.PtoG(pivot() - m2::PointD(minPxWidth / 2, 0));
     m2::PointD pt1 = m_screen.PtoG(pivot() + m2::PointD(minPxWidth / 2, 0));
 
-    double DistanceInMetres = ms::DistanceOnEarth(MercatorBounds::YToLat(pt0.y),
+    double const distanceInMetres = ms::DistanceOnEarth(MercatorBounds::YToLat(pt0.y),
                                                   MercatorBounds::XToLon(pt0.x),
                                                   MercatorBounds::YToLat(pt1.y),
                                                   MercatorBounds::XToLon(pt1.x));
 
     /// converting into metres
-    CalcMetresDiff(m_conversionFn(DistanceInMetres));
+    CalcMetresDiff(m_conversionFn(distanceInMetres));
 
-    bool higherThanMax = m_metresDiff > m_maxUnitsWidth;
-    bool lessThanMin = m_metresDiff < m_minUnitsWidth;
+    bool const higherThanMax = m_metresDiff > m_maxUnitsWidth;
+    bool const lessThanMin = m_metresDiff < m_minUnitsWidth;
 
     double scalerWidthInPx = minPxWidth;
 
@@ -290,7 +290,7 @@ void Ruler::draw(yg::gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const &
 
     if (position() & yg::EPosLeft)
       s->drawText(m_fontDesc,
-                  m_path[2] + m2::PointD(-7, -3),
+                  m_path[2] + m2::PointD(-1, -3),
                   yg::EPosAboveLeft,
                   m_scalerText,
                   depth(),
@@ -298,7 +298,7 @@ void Ruler::draw(yg::gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const &
     else
       if (position() & yg::EPosRight)
         s->drawText(m_fontDesc,
-                    m_path[1] + m2::PointD(7, -3),
+                    m_path[1] + m2::PointD(1, -3),
                     yg::EPosAboveRight,
                     m_scalerText,
                     depth(),

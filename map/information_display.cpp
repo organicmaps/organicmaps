@@ -25,8 +25,10 @@
 #include "../std/iomanip.hpp"
 #include "../std/target_os.hpp"
 
+#define DEFAULT_FONT_SIZE 11
+
 InformationDisplay::InformationDisplay(Framework * framework)
-  : m_ruler(Ruler::Params()),
+  : m_fontDesc(DEFAULT_FONT_SIZE), m_ruler(Ruler::Params()),
     m_bottomShift(0)
 {
   CountryStatusDisplay::Params p;
@@ -75,8 +77,6 @@ InformationDisplay::InformationDisplay(Framework * framework)
 
   for (int i = 0; i < sizeof(m_DebugPts) / sizeof(m2::PointD); ++i)
     m_DebugPts[i] = m2::PointD(0, 0);
-
-  m_fontDesc = yg::FontDesc(12);
 }
 
 void InformationDisplay::setController(gui::Controller *controller)
@@ -151,17 +151,16 @@ void InformationDisplay::drawRuler(DrawerYG * pDrawer)
   m_ruler.setVisualScale(m_visualScale);
 
 #if defined(OMIM_OS_IPHONE)
-  m2::PointD pivot(m2::PointD(m_displayRect.maxX(),
-                              m_displayRect.maxY() - 20 * m_visualScale)
-                 + m2::PointD(-10 * m_visualScale, - 10 * m_visualScale));
+  m2::PointD const pivot(m2::PointD(m_displayRect.maxX() - 5 * m_visualScale,
+                              m_displayRect.maxY() - 5 * m_visualScale));
   m_ruler.setPosition(yg::EPosAboveLeft);
 #elif defined(OMIM_OS_ANDROID)
-  m2::PointD pivot(m2::PointD(m_displayRect.maxX(),
+  m2::PointD const pivot(m2::PointD(m_displayRect.maxX(),
                               m_displayRect.maxY() - 20 * m_visualScale)
                  + m2::PointD(-10 * m_visualScale, - 10 * m_visualScale));
   m_ruler.setPosition(yg::EPosAboveLeft);
 #else
-  m2::PointD pivot(m2::PointD(m_displayRect.minX(),
+  m2::PointD const pivot(m2::PointD(m_displayRect.minX(),
                               m_displayRect.maxY() - m_bottomShift * m_visualScale)
                  + m2::PointD(10 * m_visualScale, -10 * m_visualScale));
 
@@ -177,7 +176,7 @@ void InformationDisplay::setVisualScale(double visualScale)
 {
   m_visualScale = visualScale;
 
-  m_fontDesc.m_size = static_cast<uint32_t>(12 * visualScale);
+  m_fontDesc.m_size = static_cast<uint32_t>(DEFAULT_FONT_SIZE * visualScale);
 }
 
 void InformationDisplay::enableCenter(bool doEnable)
@@ -205,8 +204,8 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
   params.m_log2vis = false;
 
 #if defined(OMIM_OS_IPHONE)
-  params.m_pivot = m2::PointD(m_displayRect.maxX() - 10 * m_visualScale,
-                              m_displayRect.maxY() - 10 * m_visualScale);
+  params.m_pivot = m2::PointD(m_displayRect.maxX() - 3 * m_visualScale,
+                              m_displayRect.maxY() - 22 * m_visualScale);
   params.m_position = yg::EPosAboveLeft;
 #elif defined(OMIM_OS_ANDROID)
   params.m_pivot = m2::PointD(m_displayRect.maxX() - 10 * m_visualScale,
