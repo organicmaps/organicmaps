@@ -10,7 +10,7 @@
 CompassFilter::CompassFilter()
 {
   m_headingRad = m_smoothedHeadingRad = 0;
-  m_headingHalfErrorRad = 0;
+  m_headingHalfErrorRad = ang::DegreeToRad(5);
 
   m_smoothingThreshold = ang::DegreeToRad(10);
   m_lowPassKoeff = 0.5;

@@ -24,10 +24,14 @@
 
 namespace location
 {
+  State::Params::Params()
+    : m_useDirectionArrow(true)
+  {}
+
   State::State(Params const & p)
     : base_t(p),
       m_hasPosition(false),
-      m_hasCompass(false),
+      m_hasCompass(true),
       m_isCentered(false),
       m_locationProcessMode(ELocationDoNothing),
       m_compassProcessMode(ECompassDoNothing)
@@ -37,6 +41,7 @@ namespace location
     m_locationBorderColor = p.m_locationBorderColor;
     m_compassAreaColor = p.m_compassAreaColor;
     m_compassBorderColor = p.m_compassBorderColor;
+    m_useDirectionArrow = p.m_useDirectionArrow;
     m_framework = p.m_framework;
     m_arrowScale = 0.7;
     m_arrowWidth = 40 * m_arrowScale;
@@ -343,7 +348,7 @@ namespace location
         math::Matrix<double, 3, 3> compassDrawM;
 
         /// drawing border first
-        if (m_hasCompass)
+        if (m_hasCompass && m_useDirectionArrow)
         {
           double const headingRad = m_drawHeading;
 
@@ -373,7 +378,7 @@ namespace location
               m_framework->GetNavigator().GtoP(Position() + m2::PointD(m_errorRadius, 0.0)));
 
 
-        if (!m_hasCompass)
+        if (!m_hasCompass || !m_useDirectionArrow)
           r->drawSymbol(pxPosition,
                        "current-position",
                         yg::EPosCenter,
@@ -385,7 +390,7 @@ namespace location
                       m_locationAreaColor,
                       depth() - 3);
 
-        if (m_hasCompass)
+        if (m_hasCompass && m_useDirectionArrow)
         {
           map<EState, shared_ptr<yg::gl::DisplayList> >::const_iterator it;
           it = m_arrowBorderLists.find(state());
@@ -394,6 +399,28 @@ namespace location
             it->second->draw(compassDrawM * m);
           else
             LOG(LWARNING, ("m_arrowBorderLists[state()] is not set!"));
+        }
+
+        if (m_hasCompass && !m_useDirectionArrow)
+        {
+          double drawHeadingError = m_compassFilter.GetHeadingHalfErrorRad();
+
+          double a = screenAngle + m_drawHeading - math::pi / 2;
+          double errorRadius = max(pxErrorRadius, 30 * m_controller->GetVisualScale());
+
+          r->fillSector(pxPosition,
+                        a - drawHeadingError,
+                        a + drawHeadingError,
+                        errorRadius,
+                        m_compassAreaColor,
+                        depth());
+
+          r->drawSector(pxPosition,
+                        a - drawHeadingError,
+                        a + drawHeadingError,
+                        errorRadius,
+                        m_compassBorderColor,
+                        depth());
         }
       }
     }
