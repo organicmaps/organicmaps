@@ -201,7 +201,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   drawer->screen()->drawText(yg::FontDesc(12, yg::Color(0, 0, 0, 255), true),
                              renderRect.Center(),
                              yg::EPosCenter,
-                             out.str().c_str(),
+                             out.str(),
                              0,
                              false);*/
   frameScreen.SetFromRect(m2::AnyRectD(rectInfo.m_rect));

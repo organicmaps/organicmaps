@@ -292,7 +292,7 @@ void Ruler::draw(yg::gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const &
       s->drawText(m_fontDesc,
                   m_path[2] + m2::PointD(-7, -3),
                   yg::EPosAboveLeft,
-                  m_scalerText.c_str(),
+                  m_scalerText,
                   depth(),
                   false);
     else
@@ -300,14 +300,14 @@ void Ruler::draw(yg::gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const &
         s->drawText(m_fontDesc,
                     m_path[1] + m2::PointD(7, -3),
                     yg::EPosAboveRight,
-                    m_scalerText.c_str(),
+                    m_scalerText,
                     depth(),
                     false);
       else
         s->drawText(m_fontDesc,
                     (m_path[1] + m_path[2]) * 0.5 + m2::PointD(0, -3),
                     yg::EPosAbove,
-                    m_scalerText.c_str(),
+                    m_scalerText,
                     depth(),
                     false);
   }

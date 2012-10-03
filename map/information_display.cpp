@@ -262,7 +262,7 @@ void InformationDisplay::drawDebugInfo(DrawerYG * drawer)
   drawer->screen()->drawText(m_fontDesc,
                              pos,
                              yg::EPosAboveRight,
-                             out.str().c_str(),
+                             out.str(),
                              yg::maxDepth,
                              false);
 }
@@ -289,7 +289,7 @@ void InformationDisplay::drawMemoryWarning(DrawerYG * drawer)
   drawer->screen()->drawText(m_fontDesc,
                              pos,
                              yg::EPosAboveRight,
-                             out.str().c_str(),
+                             out.str(),
                              yg::maxDepth,
                              false);
 
@@ -464,7 +464,7 @@ void InformationDisplay::drawBenchmarkInfo(DrawerYG * pDrawer)
     pDrawer->screen()->drawText(m_fontDesc,
                                 pos,
                                 yg::EPosAboveRight,
-                                out.str().c_str(),
+                                out.str(),
                                 yg::maxDepth,
                                 false
                                 );
