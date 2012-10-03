@@ -141,7 +141,7 @@
   if (info.m_name.empty())
   {
     if (!info.m_types.empty())
-      m_balloonView.title = [NSString stringWithUTF8String:info.m_types[0].c_str()];
+      m_balloonView.title = [[NSString stringWithUTF8String:info.m_types[0].c_str()] capitalizedString];
     else
       m_balloonView.title = NSLocalizedString(@"dropped_pin", @"Unknown Dropped Pin title, when name can't be determined");
   }
