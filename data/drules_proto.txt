@@ -2266,6 +2266,10 @@ cont {
   name: "amenity-police"
   element {
     scale: 17
+    symbol {
+      name: "police"
+      priority: 1540
+    }
     caption {
       primary {
         height: 12
@@ -3028,14 +3032,14 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "gate"
+      name: "barrier"
       priority: 1586
     }
   }
   element {
     scale: 17
     symbol {
-      name: "gate"
+      name: "barrier"
       priority: 1586
     }
   }
@@ -32353,7 +32357,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "museum"
+      name: "ruins"
       priority: 1638
     }
     caption {
@@ -32368,7 +32372,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "museum"
+      name: "ruins"
       priority: 1638
     }
     caption {
@@ -55302,9 +55306,8 @@ cont {
   name: "shop-kiosk"
   element {
     scale: 16
-    circle {
-      radius: 4
-      color: 0x000000
+    symbol {
+      name: "kiosk"
       priority: 1572
     }
     caption {
@@ -55318,9 +55321,8 @@ cont {
   }  
   element {
     scale: 17
-    circle {
-      radius: 4
-      color: 0x000000
+    symbol {
+      name: "kiosk"
       priority: 1572
     }
     caption {
