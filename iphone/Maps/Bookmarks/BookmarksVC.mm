@@ -129,6 +129,7 @@
       if (bm)
       {
         cell.textLabel.text = [NSString stringWithUTF8String:bm->GetName().c_str()];
+        cell.imageView.image = [UIImage imageNamed:[NSString stringWithUTF8String:bm->GetType().c_str()]];
 
         CompassView * compass;
         // Try to reuse existing compass view
