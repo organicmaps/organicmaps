@@ -121,6 +121,7 @@ public:
 
   /// For OSM debugging, store original OSM id
   void AddOsmId(string const & type, uint64_t osmId);
+  string GetOsmIdsString() const;
 
   int GetMinFeatureDrawScale() const;
 

@@ -105,7 +105,7 @@ namespace
       if (fb.IsGeometryClosed())
         m_rMain.AddRegionToTree(fb);
       else
-        LOG(LINFO, ("Not merged coastline", fb));
+        LOG(LINFO, ("Not merged coastline", fb.GetOsmIdsString()));
     }
   };
 }

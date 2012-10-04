@@ -204,5 +204,5 @@ string DebugPrint(FeatureParams const & p)
   for (size_t i = 0; i < p.m_Types.size(); ++i)
     out << p.m_Types[i] << "; ";
 
-  return out.str();
+  return (p.DebugString() + out.str());
 }

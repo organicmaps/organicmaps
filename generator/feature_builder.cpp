@@ -332,6 +332,14 @@ void FeatureBuilder1::AddOsmId(string const & type, uint64_t osmId)
   m_osmIds.push_back(osm::OsmId(type, osmId));
 }
 
+string FeatureBuilder1::GetOsmIdsString() const
+{
+  ostringstream out;
+  for (size_t i = 0; i < m_osmIds.size(); ++i)
+    out << m_osmIds[i].Type() << " id=" << m_osmIds[i].Id() << " ";
+  return out.str();
+}
+
 int FeatureBuilder1::GetMinFeatureDrawScale() const
 {
   int const minScale = feature::GetMinDrawableScale(GetFeatureBase());
@@ -351,8 +359,6 @@ void FeatureBuilder1::SetCoastCell(int64_t iCell, string const & strCell)
 string DebugPrint(FeatureBuilder1 const & f)
 {
   ostringstream out;
-  for (size_t i = 0; i < f.m_osmIds.size(); ++i)
-    out << f.m_osmIds[i].Type() << " id=" << f.m_osmIds[i].Id() << " ";
 
   switch (f.GetGeomType())
   {
@@ -365,8 +371,8 @@ string DebugPrint(FeatureBuilder1 const & f)
 
   return (out.str() + " " +
           DebugPrint(f.m_LimitRect) + " " +
-          DebugPrint(f.m_Params)
-          //+ " " + DebugPrint(f.m_Polygons)
+          DebugPrint(f.m_Params) + " " +
+          DebugPrint(f.m_Polygons)
           );
 }
 

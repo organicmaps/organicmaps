@@ -186,11 +186,6 @@ public:
   typedef vector<uint32_t> types_t;
   types_t m_Types;
 
-  FeatureParams(FeatureParamsBase const & rhs)
-    : FeatureParamsBase(rhs)
-  {
-    m_geomTypes[0] = m_geomTypes[1] = m_geomTypes[2] = false;
-  }
   FeatureParams()
   {
     m_geomTypes[0] = m_geomTypes[1] = m_geomTypes[2] = false;
