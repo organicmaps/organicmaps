@@ -200,5 +200,7 @@
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Переместить карты?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
-	<string name="wait_several_minutes">Это может занять несколько минут.\nПожалуйста, подождите ...</string>
+	<string name="wait_several_minutes">Это может занять несколько минут.\nПожалуйста, подождите…</string>
+	<!-- Show bookmarks from this category on a map or not -->
+	<string name="visible">Показывать на карте</string>
 </resources>

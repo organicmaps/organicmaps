@@ -190,11 +190,13 @@
 	<!-- Text hint in Bookmarks dialog, displayed if it's empty -->
 	<string name="bookmarks_usage_hint">Fügen sie einen beliebigen Ort auf der Karte den Lesezeichen hinzu. Berühren sie dazu den Ort auf der Karte bis das Kontextmenü erscheint.</string>
 	<!-- Settings button in system menu -->
-	<string name="settings"></string>
+	<string name="settings">Einstellungen</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage"></string>
+	<string name="maps_storage">Kartenspeicher</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
-	<string name="move_maps"></string>
+	<string name="move_maps">Karten verschieben?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
-	<string name="wait_several_minutes"></string>
+	<string name="wait_several_minutes">Dies kann einige Minuten in Anspruch nehmen.\nBitte warten…</string>
+	<!-- Show bookmarks from this category on a map or not -->
+	<string name="visible">Sichtbar</string>
 </resources>

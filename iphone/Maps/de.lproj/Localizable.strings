@@ -305,3 +305,18 @@
 
 /* Text hint in Bookmarks dialog, displayed if it's empty */
 "bookmarks_usage_hint" = "Fügen sie einen beliebigen Ort auf der Karte den Lesezeichen hinzu. Berühren sie dazu den Ort auf der Karte bis das Kontextmenü erscheint.";
+
+/* Settings button in system menu */
+"settings" = "Einstellungen";
+
+/* Header of settings activity where user defines storage path */
+"maps_storage" = "Kartenspeicher";
+
+/* Question dialog for transferring maps from one storage to another */
+"move_maps" = "Karten verschieben?";
+
+/* Ask to wait user several minutes (some long process in modal dialog). */
+"wait_several_minutes" = "Dies kann einige Minuten in Anspruch nehmen.\nBitte warten…";
+
+/* Show bookmarks from this category on a map or not */
+"visible" = "Sichtbar";

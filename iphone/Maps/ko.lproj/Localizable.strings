@@ -305,3 +305,18 @@
 
 /* Text hint in Bookmarks dialog, displayed if it's empty */
 "bookmarks_usage_hint" = "지도상의 어떤 장소든지 즐겨찾기에 추가할 수 있습니다. 이를 위해서는 컨텍스트 메뉴가 나타날 때까지 지도상의 장소를 오래 누르시면 됩니다.";
+
+/* Settings button in system menu */
+"settings" = "설정";
+
+/* Header of settings activity where user defines storage path */
+"maps_storage" = "지도 저장소";
+
+/* Question dialog for transferring maps from one storage to another */
+"move_maps" = "지도를 이동합니까?";
+
+/* Ask to wait user several minutes (some long process in modal dialog). */
+"wait_several_minutes" = "이 작업은 수 분 소요될 수 있습니다.\n잠시 기다리세요…";
+
+/* Show bookmarks from this category on a map or not */
+"visible" = "눈에 보이는";

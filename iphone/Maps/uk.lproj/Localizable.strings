@@ -305,3 +305,18 @@
 
 /* Text hint in Bookmarks dialog, displayed if it's empty */
 "bookmarks_usage_hint" = "Додайте будь-яке місце на карті в закладки. Щоб зробити це, натисніть місце на карті і утримувайте, поки з'явиться контекстне меню.";
+
+/* Settings button in system menu */
+"settings" = "Налаштування";
+
+/* Header of settings activity where user defines storage path */
+"maps_storage" = "Пам'ять для карт";
+
+/* Question dialog for transferring maps from one storage to another */
+"move_maps" = "Перемістити карти?";
+
+/* Ask to wait user several minutes (some long process in modal dialog). */
+"wait_several_minutes" = "Це може зайняти кілька хвилин.\nЛаска, зачекайте…";
+
+/* Show bookmarks from this category on a map or not */
+"visible" = "Показувати";

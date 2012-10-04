@@ -305,3 +305,18 @@
 
 /* Text hint in Bookmarks dialog, displayed if it's empty */
 "bookmarks_usage_hint" = "地図上のあらゆる場所をブックマークに追加できます。地図上の場所をタッチして、コンテキストメニューが表示されるまで長押しするだけです。";
+
+/* Settings button in system menu */
+"settings" = "設定";
+
+/* Header of settings activity where user defines storage path */
+"maps_storage" = "地図収納";
+
+/* Question dialog for transferring maps from one storage to another */
+"move_maps" = "地図を移動しますか？";
+
+/* Ask to wait user several minutes (some long process in modal dialog). */
+"wait_several_minutes" = "数分かかる場合があります。\n お待ち下さい…";
+
+/* Show bookmarks from this category on a map or not */
+"visible" = "目に見える";

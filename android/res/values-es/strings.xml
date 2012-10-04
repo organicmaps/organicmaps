@@ -186,11 +186,13 @@
 	<!-- Text hint in Bookmarks dialog, displayed if it's empty -->
 	<string name="bookmarks_usage_hint">Añadir cualquier lugar en el mapa a favoritos. Para ello, toque un punto en el mapa y mantenga hasta que aparesca el menú contextual.</string>
 	<!-- Settings button in system menu -->
-	<string name="settings"></string>
+	<string name="settings">Ajustes</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage"></string>
+	<string name="maps_storage">Almacenamiento de mapas</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
-	<string name="move_maps"></string>
+	<string name="move_maps">¿Mover mapas?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
-	<string name="wait_several_minutes"></string>
+	<string name="wait_several_minutes">Esto podría llevar algunos minutos.\nPor favor, espera…</string>
+	<!-- Show bookmarks from this category on a map or not -->
+	<string name="visible">Visible</string>
 </resources>

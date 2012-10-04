@@ -305,3 +305,18 @@
 
 /* Text hint in Bookmarks dialog, displayed if it's empty */
 "bookmarks_usage_hint" = "Add any place on the map to bookmarks. To do that, touch a spot on the map and hold until the context menu appears.";
+
+/* Settings button in system menu */
+"settings" = "Settings";
+
+/* Header of settings activity where user defines storage path */
+"maps_storage" = "Maps storage";
+
+/* Question dialog for transferring maps from one storage to another */
+"move_maps" = "Move maps?";
+
+/* Ask to wait user several minutes (some long process in modal dialog). */
+"wait_several_minutes" = "This can take several minutes.\nPlease wait…";
+
+/* Show bookmarks from this category on a map or not */
+"visible" = "Visible";

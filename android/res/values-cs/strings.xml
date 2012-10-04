@@ -185,11 +185,13 @@
 	<!-- Text hint in Bookmarks dialog, displayed if it's empty -->
 	<string name="bookmarks_usage_hint">Přidej libovolné místo na mapě do záložek. Klepni na mapě na vybrané místo a podrž ho, dokud se nezobrazí kontextové menu.</string>
 	<!-- Settings button in system menu -->
-	<string name="settings"></string>
+	<string name="settings">Nastavení</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage"></string>
+	<string name="maps_storage">Úložiště map</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
-	<string name="move_maps"></string>
+	<string name="move_maps">Chcete přesunout mapy?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
-	<string name="wait_several_minutes"></string>
+	<string name="wait_several_minutes">Tato akce může trvat několik minut.\nPočkejte prosím…</string>
+	<!-- Show bookmarks from this category on a map or not -->
+	<string name="visible">Viditelný</string>
 </resources>

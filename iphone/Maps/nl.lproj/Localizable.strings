@@ -305,3 +305,18 @@
 
 /* Text hint in Bookmarks dialog, displayed if it's empty */
 "bookmarks_usage_hint" = "Voeg een plaats naar keuze op de kaart toe aan de bladwijzers. Om dat te doen, drukt u op een plek op de kaart en houd u het ingedrukt tot het contextmenu verschijnt.";
+
+/* Settings button in system menu */
+"settings" = "Instellingen";
+
+/* Header of settings activity where user defines storage path */
+"maps_storage" = "Kaarten bewaren";
+
+/* Question dialog for transferring maps from one storage to another */
+"move_maps" = "Kaarten verplaatsen?";
+
+/* Ask to wait user several minutes (some long process in modal dialog). */
+"wait_several_minutes" = "Dit kan enkele minuten duren.\nEven geduld…";
+
+/* Show bookmarks from this category on a map or not */
+"visible" = "Zichtbaar";

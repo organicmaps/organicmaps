@@ -182,11 +182,13 @@
 	<!-- Text hint in Bookmarks dialog, displayed if it's empty -->
 	<string name="bookmarks_usage_hint">Додайте будь-яке місце на карті в закладки. Щоб зробити це, натисніть місце на карті і утримувайте, поки з\'явиться контекстне меню.</string>
 	<!-- Settings button in system menu -->
-	<string name="settings"></string>
+	<string name="settings">Налаштування</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage"></string>
+	<string name="maps_storage">Пам\'ять для карт</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
-	<string name="move_maps"></string>
+	<string name="move_maps">Перемістити карти?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
-	<string name="wait_several_minutes"></string>
+	<string name="wait_several_minutes">Це може зайняти кілька хвилин.\nЛаска, зачекайте…</string>
+	<!-- Show bookmarks from this category on a map or not -->
+	<string name="visible">Показувати</string>
 </resources>
