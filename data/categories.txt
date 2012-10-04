@@ -1216,11 +1216,35 @@ nl:3motel|hotel|hostel
 tourism-camp_site
 en:4camping|campsite|campground
 ru:4кемпинг
+de:4Camping|Campingplatz|Zelten
+fr:4camping
+it:4campeggio|campeggi|camping
+es:4campamento|cámping|acampar|acampada
+ko:캠핑|캠프|캠프장|캠핑을
+ja:キャンプ|キャンプ場|幕営|キャンピング
+cs:4kempování|camping|kempy
+nl:4camping|kamperen
 
 tourism-caravan_site
-en:4caravan site
-ru:4стоянка грузовиков
+en:4caravan site|RV site
+ru:4автокемпинг|кемпинг|стоянка грузовиков
+de:4Wohnwagenstellplatz|Campingplatz|Wohnwagenplatz|Wohnmobilpark
+fr:site caravanier|caravane|de caravane
+it:area per campeggiatori
+es:zona de caravanas|zona de camping
+ko:대상 사이트
+ja:キャラバンサイト
+cs:kemp pro obytné přívěsy
+nl:caravan site
 
 tourism-alpine_hut
-en:mountains lodging|hotel|hostel
+en:mountains lodging|hotel|hostel|alpine hut
 ru:горный отель|отель|хостел
+de:4Berghütte|Almhütte|Berghotel|hotel
+fr:hôtel de montagne|refuge|chaumière alpine|hôtel
+it:hotel di montagna|baita|capanna|capanna di montagna|capanna alpina|hotel
+es:4cabaña|cabaña de los Alpes|hotel de montaña|hotel
+ko:고산 오두막|산 호텔|호텔
+ja:高山小屋|山のホテル|ホテル
+cs:4horskou chatu|horský hotel|hotel
+nl:3berghut|alpenhut|hotel
