@@ -23,6 +23,8 @@
 #include "../platform/preferred_languages.hpp"
 #include "../platform/platform.hpp"
 
+#include "../coding/internal/file_data.hpp"
+
 #include "../yg/rendercontext.hpp"
 #include "../yg/render_state.hpp"
 
@@ -56,8 +58,16 @@ void Framework::AddMap(string const & file)
 
   //threads::MutexGuard lock(m_modelSyn);
   int const version = m_model.AddMap(file);
-  if (m_lowestMapVersion == -1 || (version != -1 && m_lowestMapVersion > version))
-    m_lowestMapVersion = version;
+
+  // Now we do force delete of old (April 2011) maps.
+  //if (m_lowestMapVersion == -1 || (version != -1 && m_lowestMapVersion > version))
+  //  m_lowestMapVersion = version;
+  if (version == 0)
+  {
+    LOG(LINFO, ("Deleting old map:", file));
+    RemoveMap(file);
+    VERIFY ( my::DeleteFileX(GetPlatform().WritablePathForFile(file)), () );
+  }
 }
 
 void Framework::RemoveMap(string const & datFile)
@@ -135,7 +145,7 @@ Framework::Framework()
     m_width(0),
     m_height(0),
     m_informationDisplay(this),
-    m_lowestMapVersion(-1),
+    //m_lowestMapVersion(-1),
     m_benchmarkEngine(0)
 {
   // Checking whether we should enable benchmark.
@@ -1170,6 +1180,7 @@ void Framework::SetupMeasurementSystem()
   Invalidate();
 }
 
+/*
 // 0 - old April version which we should delete
 #define MAXIMUM_VERSION_TO_DELETE 0
 
@@ -1197,6 +1208,7 @@ void Framework::DeleteOldMaps()
   }
   m_lowestMapVersion = MAXIMUM_VERSION_TO_DELETE + 1;
 }
+*/
 
 string Framework::GetCountryCodeByPosition(double lat, double lon) const
 {

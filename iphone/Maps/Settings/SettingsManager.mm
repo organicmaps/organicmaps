@@ -70,6 +70,8 @@ using namespace storage;
   // display controller only when countries are loaded
   [prevController presentModalViewController:m_navigationController animated:YES];
 
+  // We do force delete of old maps at startup from this moment.
+  /*
   // display upgrade/delete old maps dialog if necessary
   if (f.NeedToDeleteOldMaps())
   {
@@ -82,6 +84,7 @@ using namespace storage;
     [dialog showInView:m_navigationController.view];
     [dialog release];
   }
+  */
 }
 
 // Hides all opened settings windows
@@ -93,6 +96,7 @@ using namespace storage;
   [m_navigationController release], m_navigationController = nil;
 }
 
+/*
 // Called from Upgrade/Delete old maps dialog
 - (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -105,5 +109,5 @@ using namespace storage;
     [self hide];
   }
 }
-
+*/
 @end
