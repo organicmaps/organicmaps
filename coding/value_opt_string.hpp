@@ -42,9 +42,9 @@ public:
 
   template <class TSink> void Write(TSink & sink) const
   {
-    int n;
-    if (strings::to_int(m_s, n) && n >= 0)
-      WriteVarUint(sink, static_cast<uint32_t>((n << 1) | numeric_bit));
+    uint64_t n;
+    if (strings::to_uint64(m_s, n) && ((n << 1) >> 1) == n)
+      WriteVarUint(sink, ((n << 1) | numeric_bit));
     else
     {
       size_t const sz = m_s.size();

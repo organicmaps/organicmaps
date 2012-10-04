@@ -71,8 +71,15 @@ void FeatureParamsBase::AddHouseName(string const & s)
   house.Set(house.IsEmpty() ? s : house.Get() + " \"" + s + "\"");
 }
 
-void FeatureParamsBase::AddHouseNumber(string const & s)
+void FeatureParamsBase::AddHouseNumber(string const & ss)
 {
+  // Remove trailing zero's from house numbers.
+  // It's important for debug checks of serialized-deserialized feature.
+  string s(ss);
+  uint64_t n;
+  if (strings::to_uint64(s, n))
+    s = strings::to_string(n);
+
   house.Set(house.IsEmpty() ? s : s + " \"" + house.Get() + "\"");
 }
 
