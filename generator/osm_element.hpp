@@ -403,14 +403,27 @@ protected:
       if (count < 2)
         return;
 
+      bool const isClosed = (count > 2 && ft.IsGeometryClosed());
+
       // Try to set area feature (point and linear types are also suitable for this)
-      if (feature::IsDrawableLike(fValue.m_Types, FEATURE_TYPE_AREA) &&
-          (count > 2) && ft.IsGeometryClosed())
-      {
+      if (isClosed && feature::IsDrawableLike(fValue.m_Types, FEATURE_TYPE_AREA))
         base_type::FinishAreaFeature(id, ft);
-      }
       else
       {
+        if (isClosed)
+        {
+          // Make point feature (in center) if geometry is closed and has point drawing rules.
+          FeatureParams params(fValue);
+          if (feature::RemoveNoDrawableTypes(params.m_Types, FEATURE_TYPE_POINT))
+          {
+            feature_t f;
+            f.SetParams(params);
+            f.SetCenter(ft.GetGeometryCenter());
+            if (f.PreSerialize())
+              base_type::m_emitter(f);
+          }
+        }
+
         // Try to set linear feature:
         // - it's a coastline, OR
         // - has linear types (remove others)

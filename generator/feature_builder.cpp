@@ -30,6 +30,18 @@ bool FeatureBuilder1::IsGeometryClosed() const
   return (poly.size() > 2 && poly.front() == poly.back());
 }
 
+m2::PointD FeatureBuilder1::GetGeometryCenter() const
+{
+  ASSERT ( IsGeometryClosed(), () );
+  m2::PointD ret(0.0, 0.0);
+
+  points_t const & poly = GetGeometry();
+  size_t const count = poly.size();
+  for (size_t i = 0; i < count; ++i)
+    ret += poly[i];
+  return (ret / count);
+}
+
 void FeatureBuilder1::SetCenter(m2::PointD const & p)
 {
   m_Center = p;

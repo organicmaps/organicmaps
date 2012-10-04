@@ -69,6 +69,7 @@ public:
   FeatureBase GetFeatureBase() const;
 
   bool IsGeometryClosed() const;
+  m2::PointD GetGeometryCenter() const;
 
   inline size_t GetPointsCount() const { return GetGeometry().size(); }
   inline size_t GetPolygonsCount() const { return m_Polygons.size(); }
