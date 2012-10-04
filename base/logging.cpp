@@ -71,7 +71,7 @@ namespace my
       s << " " << m_names[level];
 
       double const sec = m_timer.ElapsedSeconds();
-      s << " " << std::setfill(' ') << std::setw(16 - m_lens[level]) << sec << " ";
+      s << " " << setfill(' ') << setw(16 - m_lens[level]) << sec << " ";
     }
   };
 

@@ -2,6 +2,9 @@
 
 #include "math.hpp"
 
+#include "../std/iomanip.hpp"
+
+
 namespace math
 {
   template <typename T, unsigned Rows, unsigned Cols>
@@ -9,7 +12,7 @@ namespace math
   {
     T m_data[Rows * Cols];
 
-    Matrix(){};
+    Matrix() {}
 
     template <typename U>
     Matrix(Matrix<U, Rows, Cols> const & src)
@@ -167,5 +170,21 @@ namespace math
         res(m, k) = sum;
       }
     return res;
+  }
+
+  template <typename T, unsigned M, unsigned N> string DebugPrint(Matrix<T, M, N> const & m)
+  {
+    ostringstream ss;
+
+    ss << ":" << endl;
+
+    for (unsigned i = 0; i < M; ++i)
+    {
+      for (unsigned j = 0; j < N; ++j)
+        ss << setfill(' ') << setw(10) << m(i, j) << " ";
+      ss << endl;
+    }
+
+    return ss.str();
   }
 }
