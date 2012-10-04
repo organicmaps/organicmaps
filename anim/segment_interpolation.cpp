@@ -10,9 +10,7 @@ namespace anim
       m_endPt(endPt),
       m_outPt(outPt),
       m_interval(interval)
-  {
-    m_deltaPt = m_endPt - m_startPt;
-  }
+  {}
 
   void SegmentInterpolation::OnStart(double ts)
   {
@@ -33,8 +31,9 @@ namespace anim
       return;
 
     double elapsedSec = ts - m_startTime;
+    m2::PointD deltaPt = m_endPt - m_startPt;
 
-    m_outPt = m_startPt + m_deltaPt * (elapsedSec / m_interval);
+    m_outPt = m_startPt + deltaPt * (elapsedSec / m_interval);
 
     Task::OnStep(ts);
   }

@@ -62,9 +62,9 @@ extern "C"
                                                            jstring name,
                                                            jboolean defaultVal)
   {
-    bool val = static_cast<bool>(defaultVal);
+    bool val = defaultVal;
     Settings::Get(jni::ToNativeString(env, name), val);
-    return static_cast<jboolean>(val);
+    return val;
   }
 
   JNIEXPORT void JNICALL
@@ -73,7 +73,7 @@ extern "C"
                                                            jstring name,
                                                            jboolean val)
   {
-    bool flag = static_cast<bool>(val);
+    bool flag = val;
     (void)Settings::Set(jni::ToNativeString(env, name), flag);
   }
 

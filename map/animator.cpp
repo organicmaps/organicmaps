@@ -22,7 +22,7 @@ void Animator::RotateScreen(double startAngle, double endAngle, double duration)
     m_rotateScreenTask->SetEndAngle(endAngle);
   else
   {
-    if (floor(ang::RadToDegree(fabs(ang::GetShortestDistance(startAngle, endAngle)))) > 0)
+    if (fabs(ang::GetShortestDistance(startAngle, endAngle)) > math::pi / 180.0)
     {
       if (m_rotateScreenTask)
       {

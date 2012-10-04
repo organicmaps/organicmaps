@@ -458,8 +458,8 @@ namespace location
         if (my::rounds(ang::RadToDegree(headingDelta)) > 0)
         {
           if (m_headingInterpolation
-           &&!m_headingInterpolation->IsCancelled()
-           &&!m_headingInterpolation->IsEnded())
+          && !m_headingInterpolation->IsCancelled()
+          && !m_headingInterpolation->IsEnded())
           {
             m_headingInterpolation->Unlock();
             m_headingInterpolation->Cancel();

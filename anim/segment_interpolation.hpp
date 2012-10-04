@@ -11,7 +11,6 @@ namespace anim
 
     m2::PointD m_startPt;
     m2::PointD m_endPt;
-    m2::PointD m_deltaPt;
     m2::PointD & m_outPt;
     double m_startTime;
     double m_interval;
