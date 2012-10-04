@@ -28,9 +28,16 @@ namespace yg
     m_fullLength = (m2::PointD(src.m_fullLength, 0) * m).Length(m2::PointD(0, 0) * m);
     m_pathOffset = (m2::PointD(src.m_pathOffset, 0) * m).Length(m2::PointD(0, 0) * m);
 
-    m_reverse = src.m_reverse;
-
-//    checkReverse();
+    /// Fix: Check for reversing only when rotation is active,
+    /// otherwise we have some flicker-blit issues for street names on zooming.
+    /// @todo Should investigate this stuff.
+    if (m(0, 1) != 0.0 && m(1, 0) != 0.0)
+    {
+      m_reverse = false;
+      checkReverse();
+    }
+    else
+      m_reverse = src.m_reverse;
   }
 
   TextPath::TextPath(m2::PointD const * arr, size_t sz, double fullLength, double pathOffset)
