@@ -320,6 +320,12 @@ void Framework::LoadBookmarks()
 void Framework::AddBookmark(string const & category, Bookmark const & bm)
 {
   BookmarkCategory * cat = GetBmCategory(category);
+  if (!cat)
+  {
+    cat = new BookmarkCategory(category);
+    m_bookmarks.push_back(cat);
+  }
+
   cat->AddBookmark(bm);
   // Autosave added bookmark
   (void)cat->SaveToKMLFileAtPath(GetPlatform().WritableDir());
@@ -351,12 +357,8 @@ BookmarkCategory * Framework::GetBmCategory(string const & name)
 
   if (i != m_bookmarks.end())
     return (*i);
-  else
-  {
-    BookmarkCategory * cat = new BookmarkCategory(name);
-    m_bookmarks.push_back(cat);
-    return cat;
-  }
+
+  return 0;
 }
 
 bool Framework::DeleteBmCategory(size_t index)

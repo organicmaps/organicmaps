@@ -24,12 +24,10 @@
   if (text.length)
   {
     m_balloon.setName = text;
-    // Create category if it doesn't exist
-    Framework & f = GetFramework();
-    char const * cString = [text UTF8String];
-    (void)f.GetBmCategory(cString);
-    // Change visible bookmarks category
-    f.SetVisibleBmCategory(cString);
+//    // Create category if it doesn't exist
+//    Framework & f = GetFramework();
+//    char const * cString = [text UTF8String];
+//    (void)f.GetBmCategory(cString);
 
     // Display "Add Bookmark" dialog
     NSArray * vcs = self.navigationController.viewControllers;

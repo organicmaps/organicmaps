@@ -217,8 +217,12 @@
 
 - (void) addOrEditBookmark
 {
-  // If coordinates will be the same, bookmark will be automatically replaced
-  GetFramework().AddBookmark([self.setName UTF8String],
+  // If bookmark was moved from one category to another, delete it from the old category
+  char const * newSetName = [self.setName UTF8String];
+  if (IsValid(m_editedBookmark) && m_editedBookmark.first != newSetName)
+    [self deleteBookmark];
+  // If coordinates are be the same, bookmark is automatically replaced
+  GetFramework().AddBookmark(newSetName,
                              Bookmark(m2::PointD(self.globalPosition.x, self.globalPosition.y),
                              [self.title UTF8String], [self.color UTF8String]));
 }

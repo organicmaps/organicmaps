@@ -41,16 +41,26 @@
   return m_editModeEnabled ? 2 : 1;
 }
 
+// @return YES if user created new set and bookmark is still not added to it (set is not saved)
+- (BOOL)isVirtualBookmarkSetVisible
+{
+  Framework & f = GetFramework();
+  size_t const catCount = f.GetBmCategoriesCount();
+  char const * strCurrSetName = [m_balloon.setName UTF8String];
+  for (size_t i = 0; i < catCount; ++i)
+    if (f.GetBmCategory(i)->GetName() == strCurrSetName)
+      return NO;
+
+  return YES;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  NSInteger count = GetFramework().GetBmCategoriesCount();
-  // If no bookmarks are added, display default set
-  if (count == 0)
-    count = 1;
+  // "Add new set" button
+  if (section == 0 && m_editModeEnabled)
+    return 1;
 
-  if (section == 0)
-    return m_editModeEnabled ? 1 : count;
-  return count;
+  return GetFramework().GetBmCategoriesCount() + ([self isVirtualBookmarkSetVisible] ? 1 : 0);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -58,7 +68,7 @@
   static NSString * kSetCellId = @"AddSetCell";
   UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:kSetCellId];
   if (cell == nil)
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kSetCellId] autorelease];
+    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kSetCellId] autorelease];
   // Customize cell
   if (indexPath.section == 0 && m_editModeEnabled)
   {
@@ -69,9 +79,16 @@
   {
     BookmarkCategory * cat = GetFramework().GetBmCategory(indexPath.row);
     if (cat)
+    {
       cell.textLabel.text = [NSString stringWithUTF8String:cat->GetName().c_str()];
+      cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", cat->GetBookmarksCount()];
+    }
     else
+    {
+      // Display not added, virtual set
       cell.textLabel.text = m_balloon.setName; // Use "not existing" default set
+      cell.detailTextLabel.text = @"1";
+    }
 
     if ([m_balloon.setName isEqualToString:cell.textLabel.text])
       cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -96,8 +113,6 @@
     if (![m_balloon.setName isEqualToString:cell.textLabel.text])
     {
       m_balloon.setName = cell.textLabel.text;
-      // Change visible bookmarks category
-      GetFramework().SetVisibleBmCategory([m_balloon.setName UTF8String]);
       // Update Bookmarks VC if needed
       if (!m_editModeEnabled)
       {

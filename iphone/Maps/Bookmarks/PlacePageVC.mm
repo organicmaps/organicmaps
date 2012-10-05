@@ -35,8 +35,11 @@
 {
   if (m_hideNavBar)
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-  // Check that bookmark should be added/edited and we're going back to the Map
-  if (m_textField && [self.navigationController.viewControllers indexOfObject:self] == NSNotFound)
+  // Handle 3 scenarios:
+  // 1. User pressed Remove Pin and goes back to the map - bookmark was deleted on click, do nothing
+  // 2. User goes back to the map by pressing Map (Back) button - save possibly edited title, add bookmark
+  // 3. User is changing Set or Color - save possibly edited title and update current balloon properties
+  if (m_textField)
   {
     if (![m_textField.text isEqualToString:m_balloon.title])
     {
@@ -46,7 +49,13 @@
       else
         m_balloon.title = m_textField.text;
     }
-    [m_balloon addOrEditBookmark];
+
+    // We're going back to the map
+    if ([self.navigationController.viewControllers indexOfObject:self] == NSNotFound)
+    {
+      [m_balloon addOrEditBookmark];
+      [m_balloon hide];
+    }
   }
   [super viewWillDisappear:animated];
 }
@@ -131,7 +140,8 @@
         break;
 
         case 1:
-          cell.textLabel.text = NSLocalizedString(@"Set", @"Add bookmark dialog - bookmark set");
+          cell.textLabel.text = NSLocalizedString(@"set", @"Add bookmark dialog - bookmark set");
+          cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         break;
 
         case 2:
