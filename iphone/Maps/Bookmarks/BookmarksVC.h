@@ -9,8 +9,9 @@
   BalloonView * m_balloon;
 
   LocationManager * m_locationManager;
+  size_t m_categoryIndex;
 }
 
-- (id) initWithBalloonView:(BalloonView *)view;
+- (id) initWithBalloonView:(BalloonView *)view andCategory:(size_t)categoryIndex;
 
 @end

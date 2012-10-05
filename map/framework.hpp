@@ -175,8 +175,6 @@ public:
   /// Delete bookmarks category with all bookmarks
   /// @return true if category was deleted
   bool DeleteBmCategory(size_t index);
-  /// Makes given category visible and hides all other categories
-  void SetVisibleBmCategory(string const & name);
 
   /// Get bookmark by touch.
   /// @param[in]  pixPt   Coordinates of touch point in pixels.

@@ -7,82 +7,27 @@
 
 #include "Framework.h"
 #include "../../../geometry/distance_on_sphere.hpp"
+#include "../../../platform/platform.hpp"
 
 
 @implementation BookmarksVC
 
-- (id) initWithBalloonView:(BalloonView *)view
+- (id) initWithBalloonView:(BalloonView *)view andCategory:(size_t)categoryIndex
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
   {
     m_locationManager = [MapsAppDelegate theApp].m_locationManager;
     m_balloon = view;
-    self.title = NSLocalizedString(@"bookmarks", @"Boormarks - dialog title");
-
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc]
-        initWithTitle:NSLocalizedString(@"maps", @"Bookmarks - Close bookmarks button")
-        style: UIBarButtonItemStyleDone
-        target:self
-        action:@selector(onCloseButton:)] autorelease];
+    m_categoryIndex = categoryIndex;
+    self.title = [NSString stringWithUTF8String:GetFramework().GetBmCategory(categoryIndex)->GetName().c_str()];
   }
   return self;
-}
-
-- (void)onCloseButton:(id)sender
-{
-  [self dismissModalViewControllerAnimated:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
-}
-
-// Returns bookmarks count in the active bookmark set (category)
-- (size_t) getBookmarksCount
-{
-  BookmarkCategory * cat = GetFramework().GetBmCategory([m_balloon.setName UTF8String]);
-  if (cat)
-    return cat->GetBookmarksCount();
-  return 0;
-}
-
-
-// Used to display bookmarks hint when no any bookmarks are added
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-  if (section == 1)
-  {
-    // Do not display any hint if bookmarks are present
-    if ([self getBookmarksCount])
-      return 0.;
-    return tableView.bounds.size.height / 2.;
-  }
-  return 0.;
-}
-
-// Used to display bookmarks hint when no any bookmarks are added
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-  if (section == 1)
-  {
-    // Do not display any hint if bookmarks are present
-    if ([self getBookmarksCount])
-      return nil;
-
-    CGRect rect = tableView.bounds;
-    rect.size.height /= 2.;
-    rect.size.width = rect.size.width * 2./3.;
-    UILabel * hint = [[[UILabel alloc] initWithFrame:rect] autorelease];
-    hint.textAlignment = UITextAlignmentCenter;
-    hint.lineBreakMode = UILineBreakModeWordWrap;
-    hint.numberOfLines = 0;
-    hint.text = NSLocalizedString(@"bookmarks_usage_hint", @"Text hint in Bookmarks dialog, displayed if it's empty");
-    hint.backgroundColor = [UIColor clearColor];
-    return hint;
-  }
-  return nil;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -94,94 +39,122 @@
 {
   switch (section)
   {
-  case 0: return 1;
-  case 1: return [self getBookmarksCount];
+  case 0: return 2;
+  case 1: return GetFramework().GetBmCategory(m_categoryIndex)->GetBookmarksCount();
   default: return 0;
   }
 }
 
+- (void)onVisibilitySwitched:(UISwitch *)sender
+{
+  BookmarkCategory * cat = GetFramework().GetBmCategory(m_categoryIndex);
+  cat->SetVisible(sender.on);
+  cat->SaveToKMLFileAtPath(GetPlatform().WritableDir());
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  BookmarkCategory * cat = GetFramework().GetBmCategory(m_categoryIndex);
+  if (!cat)
+    return nil;
+
+  UITableViewCell * cell = nil;
   if (indexPath.section == 0)
   {
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarkSetCell"];
-    if (!cell)
+    if (indexPath.row == 0)
     {
-      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarkSetCell"] autorelease];
-      cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-      cell.textLabel.text = NSLocalizedString(@"set", @"Bookmarks dialog - Bookmark set cell");
+      cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarksVCSetNameCell"];
+      if (!cell)
+      {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarksVCSetNameCell"] autorelease];
+        cell.textLabel.text = NSLocalizedString(@"name", @"Bookmarks dialog - Bookmark set cell");
+        // @TODO insert text editor
+      }
+      cell.detailTextLabel.text = [NSString stringWithUTF8String:cat->GetName().c_str()];
     }
-    cell.detailTextLabel.text = m_balloon.setName;
-    return cell;
+    else
+    {
+      cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarksVCSetVisibilityCell"];
+      if (!cell)
+      {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarksVCSetVisibilityCell"] autorelease];
+        cell.textLabel.text = NSLocalizedString(@"visible", @"Bookmarks dialog - Bookmark set cell");
+        cell.accessoryView = [[[UISwitch alloc] init] autorelease];
+      }
+      UISwitch * sw = (UISwitch *)cell.accessoryView;
+      sw.on = cat->IsVisible();
+      [sw addTarget:self action:@selector(onVisibilitySwitched:) forControlEvents:UIControlEventValueChanged];
+    }
   }
   else
   {
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarkItemCell"];
+    cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarksVCBookmarkItemCell"];
     if (!cell)
     {
-      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarkItemCell"] autorelease];
+      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarksVCBookmarkItemCell"] autorelease];
     }
 
-    BookmarkCategory * cat = GetFramework().GetBmCategory([m_balloon.setName UTF8String]);
-    if (cat)
+    Bookmark const * bm = cat->GetBookmark(indexPath.row);
+    if (bm)
     {
-      Bookmark const * bm = cat->GetBookmark(indexPath.row);
-      if (bm)
+      cell.textLabel.text = [NSString stringWithUTF8String:bm->GetName().c_str()];
+      cell.imageView.image = [UIImage imageNamed:[NSString stringWithUTF8String:bm->GetType().c_str()]];
+
+      CompassView * compass;
+      // Try to reuse existing compass view
+      if ([cell.accessoryView isKindOfClass:[CompassView class]])
+        compass = (CompassView *)cell.accessoryView;
+      else
       {
-        cell.textLabel.text = [NSString stringWithUTF8String:bm->GetName().c_str()];
-        cell.imageView.image = [UIImage imageNamed:[NSString stringWithUTF8String:bm->GetType().c_str()]];
+        // Create compass view
+        float const h = (int)(tableView.rowHeight * 0.6);
+        compass = [[[CompassView alloc] initWithFrame:CGRectMake(0, 0, h, h)] autorelease];
+        cell.accessoryView = compass;
+      }
 
-        CompassView * compass;
-        // Try to reuse existing compass view
-        if ([cell.accessoryView isKindOfClass:[CompassView class]])
-          compass = (CompassView *)cell.accessoryView;
-        else
+      double lat, lon, northR;
+      if ([m_locationManager getLat:lat Lon:lon])
+      {
+        m2::PointD const center = bm->GetOrg();
+        double const metres = ms::DistanceOnEarth(lat, lon, MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x));
+        cell.detailTextLabel.text = [LocationManager formatDistance:metres];
+
+        if ([m_locationManager getNorthRad:northR])
         {
-          // Create compass view
-          float const h = (int)(tableView.rowHeight * 0.6);
-          compass = [[[CompassView alloc] initWithFrame:CGRectMake(0, 0, h, h)] autorelease];
-          cell.accessoryView = compass;
-        }
-
-        double lat, lon, northR;
-        if ([m_locationManager getLat:lat Lon:lon])
-        {
-          m2::PointD const center = bm->GetOrg();
-          double const metres = ms::DistanceOnEarth(lat, lon,
-              MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x));
-          cell.detailTextLabel.text = [LocationManager formatDistance:metres];
-
-          if ([m_locationManager getNorthRad:northR])
-          {
-            compass.angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(lon),
+          compass.angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(lon),
                                                     MercatorBounds::LatToY(lat)), center) + northR;
-            compass.showArrow = YES;
-          }
-          else
-            compass.showArrow = NO;
+          compass.showArrow = YES;
         }
         else
-        {
           compass.showArrow = NO;
-          cell.detailTextLabel.text = nil;
-        }
+      }
+      else
+      {
+        compass.showArrow = NO;
+        cell.detailTextLabel.text = nil;
       }
     }
-    return cell;
   }
+  return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  // Remove cell selection
+  [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
+
   if (indexPath.section == 0)
   {
-    SelectSetVC * ssVC = [[SelectSetVC alloc] initWithBalloonView:m_balloon andEditMode:NO];
-    [self.navigationController pushViewController:ssVC animated:YES];
-    [ssVC release];
+    if (indexPath.row == 0)
+    {
+      // Edit name
+      // @TODO
+    }
   }
   else
   {
-    BookmarkCategory * cat = GetFramework().GetBmCategory([m_balloon.setName UTF8String]);
+    Framework & f = GetFramework();
+    BookmarkCategory * cat = f.GetBmCategory(m_categoryIndex);
     if (cat)
     {
       Bookmark const * bm = cat->GetBookmark(indexPath.row);
@@ -189,7 +162,8 @@
       {
         // Same as "Close".
         [self dismissModalViewControllerAnimated:YES];
-        GetFramework().ShowRect(bm->GetViewport());
+        [self.navigationController.visibleViewController dismissModalViewControllerAnimated:YES];
+        f.ShowRect(bm->GetViewport());
       }
     }
   }
@@ -210,7 +184,7 @@
   {
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-      BookmarkCategory * cat = GetFramework().GetBmCategory([m_balloon.setName UTF8String]);
+      BookmarkCategory * cat = GetFramework().GetBmCategory(m_categoryIndex);
       if (cat)
       {
         cat->DeleteBookmark(indexPath.row);

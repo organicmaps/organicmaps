@@ -3,7 +3,7 @@
 #import "MapsAppDelegate.h"
 #import "EAGLView.h"
 #import "BalloonView.h"
-#import "BookmarksVC.h"
+#import "BookmarksRootVC.h"
 #import "PlacePageVC.h"
 #import "../Settings/SettingsManager.h"
 #import "../../Common/CustomAlertView.h"
@@ -107,7 +107,7 @@
 
 - (IBAction)OnBookmarksClicked:(id)sender
 {
-  BookmarksVC * bVC = [[BookmarksVC alloc] initWithBalloonView:m_balloonView];
+  BookmarksRootVC * bVC = [[BookmarksRootVC alloc] initWithBalloonView:m_balloonView];
   UINavigationController * navC = [[UINavigationController alloc] initWithRootViewController:bVC];
   [self presentModalViewController:navC animated:YES];
   [bVC release];

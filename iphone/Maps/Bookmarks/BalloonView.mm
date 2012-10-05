@@ -35,8 +35,6 @@
     self.setName = [BalloonView getDefaultSetName];
     // Load bookmarks from kml files
     GetFramework().LoadBookmarks();
-    // Display only one category of bookmarks. User can change visible category from BookmarksVC Dialog.
-    GetFramework().SetVisibleBmCategory([self.setName UTF8String]);
     self.pinImage = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:self.color]] autorelease];
     isDisplayed = NO;
     m_target = target;
