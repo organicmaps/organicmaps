@@ -53,15 +53,14 @@ namespace location
   {
   private:
 
-    double m_errorRadius; //< error radius in mercator
-    m2::PointD m_position; //< position in mercator
+    double m_errorRadius;   //< error radius in mercator
+    m2::PointD m_position;  //< position in mercator
 
     CompassFilter m_compassFilter;
     double m_drawHeading;
 
     bool m_hasPosition;
     bool m_hasCompass;
-
     bool m_isCentered;
 
     ELocationProcessMode m_locationProcessMode;
@@ -78,16 +77,19 @@ namespace location
     yg::Color m_locationAreaColor;
     yg::Color m_locationBorderColor;
 
-    math::Matrix<double, 3, 3> m_locationDrawM;
+    /// @todo Useless?
+    //math::Matrix<double, 3, 3> m_locationDrawM;
 
     yg::Color m_compassAreaColor;
     yg::Color m_compassBorderColor;
 
-    math::Matrix<double, 3, 3> m_compassDrawM;
+    /// @todo Useless?
+    //math::Matrix<double, 3, 3> m_compassDrawM;
 
     Framework * m_framework;
 
-    double m_cacheRadius;
+    /// @todo Useless?
+    //double m_cacheRadius;
 
     /// Compass Rendering Parameters
     /// @{

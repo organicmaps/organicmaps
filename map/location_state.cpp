@@ -43,10 +43,14 @@ namespace location
     m_compassBorderColor = p.m_compassBorderColor;
     m_useDirectionArrow = p.m_useDirectionArrow;
     m_framework = p.m_framework;
+
+    /// @todo Probably we can make this like static const int.
+    /// It's not a class state, so no need to store it in memory.
     m_arrowScale = 0.7;
     m_arrowWidth = 40 * m_arrowScale;
     m_arrowHeight = 50 * m_arrowScale;
     m_arrowBackHeight = 10 * m_arrowScale;
+
     m_boundRects.resize(1);
 
     setColor(EActive, yg::Color(0x2f, 0xb5, 0xea, 128));
@@ -132,10 +136,8 @@ namespace location
 
   void State::OnGpsUpdate(location::GpsInfo const & info)
   {
-    double lon = info.m_longitude;
-    double lat = info.m_latitude;
-
-    m2::RectD rect = MercatorBounds::MetresToXY(lon, lat, info.m_horizontalAccuracy);
+    m2::RectD rect = MercatorBounds::MetresToXY(
+          info.m_longitude, info.m_latitude, info.m_horizontalAccuracy);
     m2::PointD const center = rect.Center();
 
     m_hasPosition = true;
@@ -165,9 +167,9 @@ namespace location
       if (setScale != -1)
         rect = scales::GetRectForLevel(setScale, center, 1.0);
 
-      double a = m_framework->GetNavigator().Screen().GetAngle();
-      double dx = rect.SizeX();
-      double dy = rect.SizeY();
+      double const a = m_framework->GetNavigator().Screen().GetAngle();
+      double const dx = rect.SizeX();
+      double const dy = rect.SizeY();
 
       m_framework->ShowRectFixed(m2::AnyRectD(rect.Center(), a, m2::RectD(-dx/2, -dy/2, dx/2, dy/2)));
 
@@ -185,7 +187,6 @@ namespace location
       SetIsCentered(true);
       CheckCompassRotation();
       CheckFollowCompass();
-
       break;
 
     case ELocationSkipCentering:

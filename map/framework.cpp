@@ -135,6 +135,9 @@ Framework::Framework()
     m_queryMaxScaleMode(false),
     m_drawPlacemark(false),
     //m_hasPendingShowRectFixed(false),
+
+    /// @todo Probably we can make this like static const int.
+    /// It's not a class state, so no need to store it in memory.
     m_metresMinWidth(10),
     m_metresMaxWidth(1000000),
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_WINDOWS) || defined(OMIM_OS_LINUX)
@@ -142,6 +145,7 @@ Framework::Framework()
 #else
     m_minRulerWidth(60),
 #endif
+
     m_width(0),
     m_height(0),
     m_informationDisplay(this),
