@@ -44,6 +44,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   // Used to filter locations from different providers
   private Location m_lastLocation = null;
+  private long m_lastTime = 0;
 
   private WifiLocation m_wifiScanner = null;
 
@@ -153,22 +154,14 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
         for (String provider : enabledProviders)
         {
-          // @TODO change frequency and accuracy to save battery
           if (m_locationManager.isProviderEnabled(provider))
           {
             Log.d(TAG, "Connected to provider = " + provider);
-            m_locationManager.requestLocationUpdates(provider, 0, 0, this);
+            // Half of a second is more than enough, I think ...
+            m_locationManager.requestLocationUpdates(provider, 500, 0, this);
 
             // Remember last known location
-            final Location l = m_locationManager.getLastKnownLocation(provider);
-            if (l != null)
-            {
-              if ((System.currentTimeMillis() - l.getTime() < FIVE_MINUTES) &&
-                  (lastKnown == null || isBetterLocation(l, lastKnown)))
-              {
-                lastKnown = l;
-              }
-            }
+            lastKnown = getBestLastKnownLocation(lastKnown, m_locationManager.getLastKnownLocation(provider));
           }
         }
 
@@ -216,71 +209,67 @@ public class LocationService implements LocationListener, SensorEventListener, W
     observer.onLocationStatusChanged(STOPPED);
   }
 
-  private static final int TWO_MINUTES = 1000 * 60 * 2;
+  private static final int ONE_MINUTE = 1000 * 60 * 1;
   private static final int FIVE_MINUTES = 1000 * 60 * 5;
 
-  // Determines whether one Location reading is better than the current Location
-  // @param location The new Location that you want to evaluate
-  // @param currentBestLocation The current Location fix, to which you want to compare the new one
-  protected boolean isBetterLocation(Location newLocation, Location currentBestLocation)
+  /// Choose better last known location from previous (saved) and current (to check).
+  private static Location getBestLastKnownLocation(Location prev, Location curr)
   {
-    // A new location is thrown away if it's too old
-    // VNG: Remove this stuff. When the user has invalid time on devise, it's not working.
-    // We have better filtration like isSignificantlyNewer, or isSignificantlyOlder (see below).
-    //if (java.lang.System.currentTimeMillis() - newLocation.getTime() > FIVE_MINUTES)
-    //  return false;
+    if (curr == null)
+      return prev;
 
-    // A new location is better than no location
-    if (currentBestLocation == null)
-      return true;
+    if (System.currentTimeMillis() - curr.getTime() >= FIVE_MINUTES)
+      return prev;
 
-    // Check whether the new location fix is newer or older
-    final long timeDelta = newLocation.getTime() - currentBestLocation.getTime();
-    final boolean isSignificantlyNewer = timeDelta > TWO_MINUTES;
-    final boolean isSignificantlyOlder = timeDelta < -TWO_MINUTES;
-    final boolean isNewer = timeDelta > 0;
+    if (prev == null)
+      return curr;
 
-    // If it's been more than two minutes since the current location, use the
-    // new location because the user has likely moved
-    if (isSignificantlyNewer)
-      return true;
-    else if (isSignificantlyOlder)
+    final long delta = curr.getTime() - prev.getTime();
+    if (Math.abs(delta) < ONE_MINUTE)
     {
-      // If the new location is more than two minutes older, it must be worse
-      return false;
+      return (curr.getAccuracy() < prev.getAccuracy() ? curr : prev);
     }
-
-    // Check if the old and new location are from the same provider
-    final boolean isFromSameProvider = isSameProvider(newLocation.getProvider(),
-                                                      currentBestLocation.getProvider());
-
-    // Situation when last known location is equal to the new one
-    if (timeDelta == 0 && isFromSameProvider)
-      return true; // Because new location is at least not too old (< 2mins from now)
-
-    // Check whether the new location fix is more or less accurate
-    final int accuracyDelta = (int) (newLocation.getAccuracy() - currentBestLocation.getAccuracy());
-    final boolean isLessAccurate = accuracyDelta > 0;
-    final boolean isMoreAccurate = accuracyDelta < 0;
-    final boolean isSignificantlyLessAccurate = accuracyDelta > 200;
-
-    // Determine location quality using a combination of timeliness and accuracy
-    if (isMoreAccurate)
-      return true;
-    else if (isNewer && !isLessAccurate)
-      return true;
-    else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider)
-      return true;
-
-    return false;
+    else
+    {
+      return (delta > 0 ? curr : prev);
+    }
   }
 
-  // Checks whether two providers are the same
-  private static boolean isSameProvider(String provider1, String provider2)
+  private boolean isSameProvider(String p1, String p2)
   {
-    if (provider1 == null)
-      return provider2 == null;
-    return provider1.equals(provider2);
+    if (p1 == null || p2 == null)
+      return (p1 == p2);
+    return p1.equals(p2);
+  }
+
+  /// Check if current location is better than m_lastLocation.
+  /// @return 0 If new location is sucks.
+  private long getBetterLocationTime(Location curr)
+  {
+    assert(curr != null);
+
+    final long currTime = System.currentTimeMillis();
+
+    if (m_lastLocation != null)
+    {
+      final long delta = currTime - m_lastTime;
+      assert(delta >= 0);
+
+      if ((delta < ONE_MINUTE) &&
+          !isSameProvider(m_lastLocation.getProvider(), curr.getProvider()) &&
+          (curr.getAccuracy() > m_lastLocation.getAccuracy()))
+      {
+        // Just filter middle locations from different sources
+        // while we have stable GPS locations set.
+        return 0;
+      }
+    }
+
+    return currTime;
+  }
+
+  private void calcDirection(Location l, long t)
+  {
   }
 
   private final static float HUNDRED_METRES = 100.0f;
@@ -290,10 +279,13 @@ public class LocationService implements LocationListener, SensorEventListener, W
   {
     //printLocation(l);
 
-    if (isBetterLocation(l, m_lastLocation))
+    final long currTime = getBetterLocationTime(l);
+    if (currTime != 0)
     {
       if (m_lastLocation == null)
         notifyStatusChanged(FIRST_EVENT);
+      else
+        calcDirection(l, currTime);
 
       // Used for more precise compass updates
       if (m_sensorManager != null)
@@ -310,6 +302,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
       //Log.d(TAG, "Location accepted");
       notifyLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy());
       m_lastLocation = l;
+      m_lastTime = currTime;
     }
   }
 
