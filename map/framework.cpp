@@ -840,7 +840,8 @@ void Framework::StartDrag(DragEvent const & e)
   if (m_renderPolicy)
     m_renderPolicy->StartDrag();
 
-  m_dragCompassProcessMode = m_informationDisplay.locationState()->CompassProcessMode();
+  shared_ptr<location::State> locationState = m_informationDisplay.locationState();
+  m_dragCompassProcessMode = locationState->CompassProcessMode();
 }
 
 void Framework::DoDrag(DragEvent const & e)
@@ -879,7 +880,12 @@ void Framework::StopDrag(DragEvent const & e)
     if (GetPixelCenter().Length(s.GtoP(locationState->Position())) >= s.GetMinPixelRectSize() / 2.0)
       locationState->SetLocationProcessMode(location::ELocationDoNothing);
     else
-      locationState->SetCompassProcessMode(m_dragCompassProcessMode);
+    {
+      if (m_dragCompassProcessMode == location::ECompassFollow)
+        locationState->AnimateToPositionAndEnqueueFollowing();
+      else
+        locationState->AnimateToPosition();
+    }
   }
 
   if (m_renderPolicy)

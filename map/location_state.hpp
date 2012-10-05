@@ -51,6 +51,10 @@ namespace location
   // and draws location and compass marks.
   class State : public gui::Element
   {
+  public:
+
+    typedef function<void(int)> TCompassStatusListener;
+
   private:
 
     double m_errorRadius;   //< error radius in mercator
@@ -67,8 +71,6 @@ namespace location
     ECompassProcessMode m_compassProcessMode;
 
     void FollowCompass();
-    void MarkCenteredAndFollowCompass();
-    void CenterScreenAndEnqueueFollowing();
 
     /// GUI element related fields.
 
@@ -117,6 +119,12 @@ namespace location
 
     shared_ptr<anim::AngleInterpolation> m_headingInterpolation;
 
+    typedef map<int, TCompassStatusListener> TCompassStatusListeners;
+    TCompassStatusListeners m_compassStatusListeners;
+    int m_currentSlotID;
+
+    void CallCompassStatusListeners(ECompassProcessMode mode);
+
   public:
 
     struct Params : base_t::Params
@@ -146,12 +154,20 @@ namespace location
 
     void TurnOff();
 
+    void StartCompassFollowing();
     void StopCompassFollowing();
+
+    int AddCompassStatusListener(TCompassStatusListener const & l);
+    void RemoveCompassStatusListener(int slotID);
+
     void SetIsCentered(bool flag);
     bool IsCentered() const;
 
+    void AnimateToPosition();
+    void AnimateToPositionAndEnqueueFollowing();
+
     void CheckCompassRotation();
-    void CheckFollowCompass();
+    void CheckCompassFollowing();
 
     /// @name GPS location updates routine.
     //@{

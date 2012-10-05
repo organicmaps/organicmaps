@@ -11,6 +11,8 @@
 
 #include "../platform/Platform.hpp"
 #include "../../../../../platform/settings.hpp"
+#include "../../../../../map/information_display.hpp"
+#include "../../../../../map/location_state.hpp"
 
 extern "C"
 {
@@ -77,4 +79,52 @@ extern "C"
     (void)Settings::Set(jni::ToNativeString(env, name), flag);
   }
 
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_MWMApplication_nativeIsFollowingCompass(JNIEnv * env,
+                                                                   jobject thiz)
+  {
+    location::ECompassProcessMode compassMode = g_framework->NativeFramework()->GetInformationDisplay().locationState()->CompassProcessMode();
+    return compassMode == location::ECompassFollow;
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMApplication_nativeStartCompassFollowing(JNIEnv * env,
+                                                                      jobject thiz)
+  {
+    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetInformationDisplay().locationState();
+    if (!ls->IsCentered())
+      ls->AnimateToPositionAndEnqueueFollowing();
+    else
+      ls->StartCompassFollowing();
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMApplication_nativeStopCompassFollowing(JNIEnv * env,
+                                                                     jobject thiz)
+  {
+    g_framework->NativeFramework()->GetInformationDisplay().locationState()->StopCompassFollowing();
+  }
+
+  void CompassStatusChanged(int mode, shared_ptr<jobject> const & obj)
+  {
+    JNIEnv * env = jni::GetEnv();
+    jmethodID methodID = jni::GetJavaMethodID(env, *obj.get(), "OnCompassStatusChanged", "(I)V");
+    jint val = static_cast<jint>(mode);
+    env->CallVoidMethod(*obj.get(), methodID, val);
+  }
+
+  JNIEXPORT jint JNICALL
+  Java_com_mapswithme_maps_MWMApplication_nativeAddCompassStatusListener(JNIEnv * env, jobject thiz, jobject obj)
+  {
+    location::State::TCompassStatusListener fn = bind(&CompassStatusChanged, _1, jni::make_global_ref(obj));
+    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetInformationDisplay().locationState();
+    return ls->AddCompassStatusListener(fn);
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMApplication_nativeRemoveCompassStatusListener(JNIEnv * env, jobject thiz, jint slotID)
+  {
+    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetInformationDisplay().locationState();
+    ls->RemoveCompassStatusListener(slotID);
+  }
 }

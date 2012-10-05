@@ -1,9 +1,13 @@
 #include "task.hpp"
 
+#include "../std/bind.hpp"
+
+#include "../base/assert.hpp"
+
 namespace anim
 {
   Task::Task()
-    : m_State(EStarted)
+    : m_State(EReady)
   {}
 
   Task::~Task()
@@ -26,46 +30,50 @@ namespace anim
 
   void Task::SetState(EState State)
   {
-    Lock();
     m_State = State;
-    Unlock();
   }
 
-  void Task::PerformCallback(EState state)
+  void Task::PerformCallbacks(EState state)
   {
-    TCallback const & cb = m_Callbacks[state];
-    if (cb)
-      cb();
+    list<TCallback> const & cb = m_Callbacks[state];
+    for_each(cb.begin(), cb.end(), bind(&TCallback::operator(), _1));
   }
 
   void Task::OnStart(double ts)
   {
-    PerformCallback(EStarted);
-    SetState(EInProgress);
+    PerformCallbacks(EReady);
   }
 
   void Task::OnStep(double ts)
   {
-    PerformCallback(EInProgress);
+    PerformCallbacks(EInProgress);
   }
 
   void Task::OnCancel(double ts)
   {
-    PerformCallback(ECancelled);
+    PerformCallbacks(ECancelled);
   }
 
   void Task::OnEnd(double ts)
   {
-    PerformCallback(EEnded);
+    PerformCallbacks(EEnded);
+  }
+
+  void Task::Start()
+  {
+    ASSERT(IsReady(), ());
+    SetState(EInProgress);
   }
 
   void Task::Cancel()
   {
+    ASSERT(IsRunning() || IsReady(), ());
     SetState(ECancelled);
   }
 
   void Task::End()
   {
+    ASSERT(IsRunning() || IsReady(), ());
     SetState(EEnded);
   }
 
@@ -84,8 +92,23 @@ namespace anim
     return State() == EInProgress;
   }
 
-  void Task::SetCallback(EState state, TCallback const & cb)
+  bool Task::IsReady() const
   {
-    m_Callbacks[state] = cb;
+    return State() == EReady;
+  }
+
+  void Task::AddCallback(EState state, TCallback const & cb)
+  {
+    m_Callbacks[state].push_back(cb);
+  }
+
+  void Task::SetController(Controller * controller)
+  {
+    m_controller = controller;
+  }
+
+  Controller * Task::GetController() const
+  {
+    return m_controller;
   }
 }

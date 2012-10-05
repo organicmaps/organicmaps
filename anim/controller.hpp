@@ -26,6 +26,7 @@ namespace anim
     int m_IdleFrames;
 
     static void CopyAndClearTasks(list<shared_ptr<Task> > & from, list<shared_ptr<Task> > & to);
+    static void MergeTasks(list<shared_ptr<Task> > & from, list<shared_ptr<Task> > & to);
 
   public:
     // Constructor
@@ -53,5 +54,7 @@ namespace anim
     // interrupting rendering process, which might had happened in these
     // "frames-in-the-middle".
     bool IsPreWarmed() const;
+    // Getting current simulation time
+    double GetCurrentTime() const;
   };
 }

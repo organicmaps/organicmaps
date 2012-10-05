@@ -22,6 +22,8 @@
 
 #include "../indexer/mercator.hpp"
 
+#include "../base/logging.hpp"
+
 namespace location
 {
   State::Params::Params()
@@ -34,7 +36,8 @@ namespace location
       m_hasCompass(false),
       m_isCentered(false),
       m_locationProcessMode(ELocationDoNothing),
-      m_compassProcessMode(ECompassDoNothing)
+      m_compassProcessMode(ECompassDoNothing),
+      m_currentSlotID(0)
   {
     m_drawHeading = m_compassFilter.GetHeadingRad();
     m_locationAreaColor = p.m_locationAreaColor;
@@ -103,7 +106,12 @@ namespace location
 
   void State::SetCompassProcessMode(ECompassProcessMode mode)
   {
+    bool stateChanged = (m_compassProcessMode != mode);
+
     m_compassProcessMode = mode;
+
+    if (stateChanged)
+      CallCompassStatusListeners(mode);
   }
 
   void State::OnLocationStatusChanged(location::TLocationStatus newStatus)
@@ -122,7 +130,7 @@ namespace location
       {
         // set centering mode for the first location
         m_locationProcessMode = ELocationCenterAndScale;
-        m_compassProcessMode = ECompassDoNothing;
+        SetCompassProcessMode(ECompassDoNothing);
       }
       break;
 
@@ -175,7 +183,7 @@ namespace location
 
       SetIsCentered(true);
       CheckCompassRotation();
-      CheckFollowCompass();
+      CheckCompassFollowing();
 
       m_locationProcessMode = ELocationCenterOnly;
       break;
@@ -186,7 +194,8 @@ namespace location
 
       SetIsCentered(true);
       CheckCompassRotation();
-      CheckFollowCompass();
+      CheckCompassFollowing();
+
       break;
 
     case ELocationSkipCentering:
@@ -208,7 +217,7 @@ namespace location
     m_compassFilter.OnCompassUpdate(info);
 
     CheckCompassRotation();
-    CheckFollowCompass();
+    CheckCompassFollowing();
 
     m_framework->Invalidate();
   }
@@ -430,7 +439,6 @@ namespace location
   bool State::hitTest(m2::PointD const & pt) const
   {
     double radius = m_arrowHeight * m_controller->GetVisualScale();
-
     return m_hasCompass && (pt.SquareLength(pivot()) <= my::sq(radius));
   }
 
@@ -486,7 +494,7 @@ namespace location
 #endif
   }
 
-  void State::CheckFollowCompass()
+  void State::CheckCompassFollowing()
   {
     if (m_hasCompass
     && (CompassProcessMode() == ECompassFollow)
@@ -511,15 +519,23 @@ namespace location
     controller->Unlock();
   }
 
-  void State::MarkCenteredAndFollowCompass()
+  void State::AnimateToPosition()
   {
-    m_isCentered = true;
-    SetCompassProcessMode(ECompassFollow);
-    FollowCompass();
-    (void)Settings::Set("SuggestAutoFollowMode", false);
+    anim::Controller * controller = m_framework->GetAnimController();
+
+    controller->Lock();
+
+    m2::AnyRectD startRect = m_framework->GetNavigator().Screen().GlobalRect();
+    m2::AnyRectD endRect = m2::AnyRectD(Position(),
+                                        startRect.Angle().val(),
+                                        m2::RectD(startRect.GetLocalRect()));
+
+    m_framework->GetAnimator().ChangeViewport(startRect, endRect, 2);
+
+    controller->Unlock();
   }
 
-  void State::CenterScreenAndEnqueueFollowing()
+  void State::AnimateToPositionAndEnqueueFollowing()
   {
     anim::Controller * controller = m_framework->GetAnimController();
 
@@ -533,10 +549,19 @@ namespace location
     shared_ptr<ChangeViewportTask> const & t = m_framework->GetAnimator().ChangeViewport(startRect, endRect, 2);
 
     t->Lock();
-    t->SetCallback(anim::Task::EEnded, bind(&State::MarkCenteredAndFollowCompass, this));
+    t->AddCallback(anim::Task::EEnded, bind(&State::SetIsCentered, this, true));
+    t->AddCallback(anim::Task::EEnded, bind(&State::StartCompassFollowing, this));
     t->Unlock();
 
     controller->Unlock();
+  }
+
+  void State::StartCompassFollowing()
+  {
+    SetCompassProcessMode(ECompassFollow);
+    CheckCompassRotation();
+    CheckCompassFollowing();
+    setState(EPressed);
   }
 
   void State::StopCompassFollowing()
@@ -557,6 +582,26 @@ namespace location
     m_isCentered = flag;
   }
 
+  void State::CallCompassStatusListeners(ECompassProcessMode mode)
+  {
+    for (TCompassStatusListeners::const_iterator it = m_compassStatusListeners.begin();
+         it != m_compassStatusListeners.end();
+         ++it)
+      it->second(mode);
+  }
+
+  int State::AddCompassStatusListener(TCompassStatusListener const & l)
+  {
+    int slotID = m_currentSlotID++;
+    m_compassStatusListeners[slotID] = l;
+    return slotID;
+  }
+
+  void State::RemoveCompassStatusListener(int slotID)
+  {
+    m_compassStatusListeners.erase(slotID);
+  }
+
   bool State::onTapEnded(m2::PointD const & pt)
   {
     if (!m_framework->GetNavigator().DoSupportRotation())
@@ -570,32 +615,16 @@ namespace location
     {
     case EActive:
       if (m_hasCompass)
-      {
-        if (!IsCentered())
-          CenterScreenAndEnqueueFollowing();
-        else
-        {
-          SetCompassProcessMode(ECompassFollow);
-          FollowCompass();
-
-          (void)Settings::Set("SuggestAutoFollowMode", false);
-        }
-
-        setState(EPressed);
-      }
+        StartCompassFollowing();
       break;
     case EPressed:
-      setState(EActive);
       StopCompassFollowing();
       break;
-    default:
-      LOG(LWARNING, ("not-used EState values encountered"));
     };
 
     controller->Unlock();
 
     m_framework->Invalidate();
-
     return true;
   }
 }

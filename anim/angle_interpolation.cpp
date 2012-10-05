@@ -1,6 +1,8 @@
 #include "angle_interpolation.hpp"
+#include "controller.hpp"
 
 #include "../geometry/angles.hpp"
+#include "../base/logging.hpp"
 
 namespace anim
 {
@@ -22,19 +24,20 @@ namespace anim
   void AngleInterpolation::OnStart(double ts)
   {
     m_startTime = ts;
+    m_outAngle = m_startAngle;
     Task::OnStart(ts);
   }
 
   void AngleInterpolation::OnStep(double ts)
   {
+    if (!IsRunning())
+      return;
+
     if (ts - m_startTime >= m_interval)
     {
       End();
       return;
     }
-
-    if (!IsRunning())
-      return;
 
     double elapsedSec = ts - m_startTime;
     m_curAngle = m_outAngle = m_startAngle + m_dist * elapsedSec / m_interval;
@@ -56,6 +59,7 @@ namespace anim
 
   void AngleInterpolation::SetEndAngle(double val)
   {
+    m_startTime = GetController()->GetCurrentTime();
     m_startAngle = m_curAngle;
     m_dist = ang::GetShortestDistance(m_startAngle, val);
     m_endAngle = m_startAngle + m_dist;

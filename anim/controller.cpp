@@ -20,6 +20,7 @@ namespace anim
 
   void Controller::AddTask(shared_ptr<Task> const & task)
   {
+    task->SetController(this);
     m_tasks.PushBack(task);
     m_IdleFrames = m_IdleThreshold;
   }
@@ -28,6 +29,11 @@ namespace anim
   {
     to.clear();
     swap(from, to);
+  }
+
+  void Controller::MergeTasks(TTasks & from, TTasks & to)
+  {
+    copy(from.begin(), from.end(), back_inserter(to));
   }
 
   bool Controller::HasTasks()
@@ -55,7 +61,7 @@ namespace anim
   {
     m_tasks.ProcessList(bind(&Controller::CopyAndClearTasks, _1, ref(m_tasksList)));
 
-    double ts = my::Timer::LocalTime();
+    double ts = GetCurrentTime();
 
     TTasks l;
 
@@ -66,30 +72,43 @@ namespace anim
       m_IdleFrames = m_IdleThreshold;
 
       shared_ptr<Task> const & task = *it;
-      if (task->State() == Task::EStarted)
+
+      task->Lock();
+
+      if (task->IsReady())
+      {
+        task->Start();
         task->OnStart(ts);
-      if (task->State() == Task::EInProgress)
+      }
+      if (task->IsRunning())
         task->OnStep(ts);
 
-      if (task->State() == Task::EInProgress)
+      if (task->IsRunning())
         l.push_back(task);
       else
       {
-        if (task->State() == Task::ECancelled)
+        if (task->IsCancelled())
           task->OnCancel(ts);
-        if (task->State() == Task::EEnded)
+        if (task->IsEnded())
           task->OnEnd(ts);
       }
+
+      task->Unlock();
     }
 
     if (!hasTasks && m_IdleFrames > 0)
       m_IdleFrames -= 1;
 
-    m_tasks.ProcessList(bind(&Controller::CopyAndClearTasks, ref(l), _1));
+    m_tasks.ProcessList(bind(&Controller::MergeTasks, ref(l), _1));
   }
 
   bool Controller::IsPreWarmed() const
   {
     return m_IdleFrames > 0;
+  }
+
+  double Controller::GetCurrentTime() const
+  {
+    return my::Timer::LocalTime();
   }
 }

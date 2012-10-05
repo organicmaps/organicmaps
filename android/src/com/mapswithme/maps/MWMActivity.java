@@ -22,7 +22,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.ConnectionState;
@@ -40,12 +39,15 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private AlertDialog m_storageDisconnectedDialog = null;
   private boolean m_shouldStartLocationService = false;
   private boolean m_hasLocation = false;
+  private boolean m_hasCompass = false;
+  private boolean m_isLocationActive = false;
   private boolean m_suggestAutoFollowMode = false;
 
   private LocationService getLocationService()
   {
     return mApplication.getLocationService();
   }
+
   private MapStorage getMapStorage()
   {
     return mApplication.getMapStorage();
@@ -53,6 +55,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private void startLocation()
   {
+    m_isLocationActive = true;
     getLocationService().startUpdate(this);
     // Do not turn off the screen while displaying position
     Utils.automaticIdleScreen(false, getWindow());
@@ -61,6 +64,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private void stopLocation()
   {
     m_hasLocation = false;
+    m_hasCompass = false;
+    m_isLocationActive = false;
     getLocationService().stopUpdate(this);
     // Enable automatic turning screen off while app is idle
     Utils.automaticIdleScreen(true, getWindow());
@@ -206,18 +211,41 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   public void onMyPositionClicked(View v)
   {
-    v.setBackgroundResource(R.drawable.myposition_button_normal);
-
-    final boolean isLocationActive = v.isSelected();
-    if (isLocationActive)
-      stopLocation();
-    else
+    if (!m_isLocationActive)
+    {
       startLocation();
-    v.setSelected(!isLocationActive);
+      v.setBackgroundResource(R.drawable.myposition_button_normal);
+      v.setSelected(true);
+    }
+    else
+    {
+      if (!m_hasCompass)
+      {
+        stopLocation();
+        v.setBackgroundResource(R.drawable.myposition_button_normal);
+        v.setSelected(false);
+      }
+      else
+      {
+        if(!mApplication.nativeIsFollowingCompass())
+        {
+          mApplication.nativeStartCompassFollowing();
+          v.setBackgroundResource(R.drawable.myposition_button_follow);
+          v.setSelected(true);
+        }
+        else
+        {
+          mApplication.nativeStopCompassFollowing();
+          v.setBackgroundResource(R.drawable.myposition_button_normal);
+          v.setSelected(false);
+          stopLocation();
+        }
+      }
+    }
 
     // Store active state of My Position
     SharedPreferences.Editor prefsEdit = getSharedPreferences(mApplication.getPackageName(), MODE_PRIVATE).edit();
-    prefsEdit.putBoolean(PREFERENCES_MYPOSITION, !isLocationActive);
+    prefsEdit.putBoolean(PREFERENCES_MYPOSITION, !m_isLocationActive);
     prefsEdit.commit();
   }
 
@@ -562,6 +590,37 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     }
   }
 
+  public void onCompassStatusChanged(int newStatus)
+  {
+    View v = findViewById(R.id.map_button_myposition);
+
+    if (newStatus == 1)
+    {
+      v.setSelected(true);
+      v.setBackgroundResource(R.drawable.myposition_button_follow);
+    }
+    else
+    {
+      if (m_hasLocation)
+        v.setBackgroundResource(R.drawable.myposition_button_found);
+      else
+        v.setBackgroundResource(R.drawable.myposition_button_normal);
+    }
+  }
+
+  public void OnCompassStatusChanged(int newStatus)
+  {
+    final int val = newStatus;
+    runOnUiThread(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        onCompassStatusChanged(val);
+      }
+    });
+  }
+
   @Override
   public void onLocationUpdated(long time, double lat, double lon, float accuracy)
   {
@@ -578,15 +637,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     magneticNorth = LocationService.correctAngle(magneticNorth, correction);
     trueNorth = LocationService.correctAngle(trueNorth, correction);
 
-    nativeCompassUpdated(time, magneticNorth, trueNorth, accuracy);
+    m_hasCompass = true;
 
-    if (m_hasLocation
-     && mApplication.isProVersion()
-     && m_suggestAutoFollowMode)
-    {
-      Toast.makeText(this, R.string.suggest_auto_follow_mode, Toast.LENGTH_LONG).show();
-      m_suggestAutoFollowMode = false;
-    }
+    nativeCompassUpdated(time, magneticNorth, trueNorth, accuracy);
   }
   //@}
 
@@ -601,12 +654,26 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     findViewById(R.id.map_button_myposition).setSelected(isMyPositionEnabled);
   }
 
+  private int m_compassStatusListenerID = -1;
+
+  private void startWatchingCompassStatusUpdate()
+  {
+    m_compassStatusListenerID = mApplication.nativeAddCompassStatusListener(this);
+  }
+
+  private void stopWatchingCompassStatusUpdate()
+  {
+    mApplication.nativeRemoveCompassStatusListener(m_compassStatusListenerID);
+  }
+
   @Override
   protected void onPause()
   {
     stopLocation();
 
     stopWatchingExternalStorage();
+
+    stopWatchingCompassStatusUpdate();
 
     super.onPause();
   }
@@ -626,6 +693,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       // and remember to start locationService updates in OnRenderingInitialized
       m_shouldStartLocationService = true;
     }
+
+    startWatchingCompassStatusUpdate();
 
     startWatchingExternalStorage();
 

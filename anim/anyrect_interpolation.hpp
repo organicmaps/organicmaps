@@ -41,5 +41,6 @@ namespace anim
     void OnStart(double ts);
     void OnStep(double ts);
     void OnEnd(double ts);
+    void OnCancel(double ts);
   };
 }
