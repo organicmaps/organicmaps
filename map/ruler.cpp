@@ -136,12 +136,12 @@ void Ruler::CalcMetresDiff(double v)
 
   if (arrU[0].m_i > v)
   {
-    m_scalerText = string("<") + arrU[0].m_s;
+    m_scalerText = string("< ") + arrU[0].m_s;
     m_metresDiff = m_minUnitsWidth - 1;
   }
   else if (arrU[count-1].m_i <= v)
   {
-    m_scalerText = string(">") + arrU[count-1].m_s;
+    m_scalerText = string("> ") + arrU[count-1].m_s;
     m_metresDiff = m_maxUnitsWidth + 1;
   }
   else
