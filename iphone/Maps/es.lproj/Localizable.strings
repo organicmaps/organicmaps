@@ -13,7 +13,7 @@
 "pro_version_available" = "Mas facil navegar con la version completa MapsWithMe con el buscador offline. Bajalo ya!";
 
 /* About button text (should be short! @todo - fix french) */
-"about" = "Sobre";
+"about" = "Acerca de";
 
 /* Button text (should be short) */
 "back" = "Atrás";

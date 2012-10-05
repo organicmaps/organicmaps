@@ -19,12 +19,12 @@
 		en = About
 		comment = About button text (should be short! @todo - fix french)
 		de = Über Karten
-		es = Sobre
+		es = Acerca de
 		fr = Au sujet des cartes
 		ja = 情報
 		ko = 소개
-		ru = О картах
-		uk = О картах
+		ru = О программе
+		uk = Про програму
 		cs = O programu
 		nl = Over
 	[back]

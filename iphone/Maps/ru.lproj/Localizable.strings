@@ -13,7 +13,7 @@
 "pro_version_available" = "Больше возможностей в полной версии MapsWithMe с оффлайн поиском. Установите ее сейчас!";
 
 /* About button text (should be short! @todo - fix french) */
-"about" = "О картах";
+"about" = "О программе";
 
 /* Button text (should be short) */
 "back" = "Назад";
