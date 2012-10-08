@@ -93,7 +93,7 @@
 {
   // Remove cell selection
   [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
-  BookmarksVC * bvc = [[BookmarksVC alloc] initWithBalloonView:m_balloon andCategory:indexPath.row];
+  BookmarksVC * bvc = [[BookmarksVC alloc] initWithCategory:indexPath.row];
   [self.navigationController pushViewController:bvc animated:YES];
   [bvc release];
 }

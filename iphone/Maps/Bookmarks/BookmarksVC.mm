@@ -12,15 +12,14 @@
 
 @implementation BookmarksVC
 
-- (id) initWithBalloonView:(BalloonView *)view andCategory:(size_t)categoryIndex
+- (id) initWithCategory:(size_t)index
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
   {
     m_locationManager = [MapsAppDelegate theApp].m_locationManager;
-    m_balloon = view;
-    m_categoryIndex = categoryIndex;
-    self.title = [NSString stringWithUTF8String:GetFramework().GetBmCategory(categoryIndex)->GetName().c_str()];
+    m_categoryIndex = index;
+    self.title = [NSString stringWithUTF8String:GetFramework().GetBmCategory(index)->GetName().c_str()];
   }
   return self;
 }
@@ -210,7 +209,7 @@
 - (void)onGpsUpdate:(location::GpsInfo const &)info
 {
   // Refresh distance
-  BookmarkCategory * cat = GetFramework().GetBmCategory([m_balloon.setName UTF8String]);
+  BookmarkCategory * cat = GetFramework().GetBmCategory(m_categoryIndex);
   if (cat)
   {
     UITableView * table = (UITableView *)self.view;
@@ -240,7 +239,7 @@
   if (![m_locationManager getLat:lat Lon:lon])
     return;
   // Refresh compass arrow
-  BookmarkCategory * cat = GetFramework().GetBmCategory([m_balloon.setName UTF8String]);
+  BookmarkCategory * cat = GetFramework().GetBmCategory(m_categoryIndex);
   if (cat)
   {
     double const northRad = (info.m_trueHeading < 0) ? info.m_magneticHeading : info.m_trueHeading;
@@ -273,7 +272,7 @@
   [m_locationManager start:self];
 
   // Display Edit button only if table is not empty
-  BookmarkCategory * cat = GetFramework().GetBmCategory([m_balloon.setName UTF8String]);
+  BookmarkCategory * cat = GetFramework().GetBmCategory(m_categoryIndex);
   if (cat && cat->GetBookmarksCount())
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
   else
