@@ -45,6 +45,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
   // Used to filter locations from different providers
   private Location m_lastLocation = null;
   private long m_lastTime = 0;
+  private double m_drivingNorth = -1.0;
 
   private WifiLocation m_wifiScanner = null;
 
@@ -211,6 +212,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   private static final int ONE_MINUTE = 1000 * 60 * 1;
   private static final int FIVE_MINUTES = 1000 * 60 * 5;
+  private static final int TEN_SECONDS = 1000 * 10;
 
   /// Choose better last known location from previous (saved) and current (to check).
   private static Location getBestLastKnownLocation(Location prev, Location curr)
@@ -270,6 +272,17 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   private void calcDirection(Location l, long t)
   {
+    // Try to calculate user direction if he is moving and
+    // we have previous close position.
+    if ((l.getSpeed() >= 1.0) && (t - m_lastTime <= TEN_SECONDS))
+    {
+      if (l.hasBearing())
+        m_drivingNorth = bearingToNorth(l.getBearing());
+      else if (m_lastLocation.distanceTo(l) > 5.0)
+        m_drivingNorth = bearingToNorth(m_lastLocation.bearingTo(l));
+    }
+    else
+      m_drivingNorth = -1.0;
   }
 
   private final static float HUNDRED_METRES = 100.0f;
@@ -331,6 +344,14 @@ public class LocationService implements LocationListener, SensorEventListener, W
   private float[] m_gravity = null;
   private float[] m_geomagnetic = null;
 
+  private void emitCompassResults(long time, double north, double trueNorth, double offset)
+  {
+    if (m_drivingNorth >= 0.0)
+      notifyCompassUpdated(time, m_drivingNorth, m_drivingNorth, 0.0);
+    else
+      notifyCompassUpdated(time, north, trueNorth, offset);
+  }
+
   @Override
   public void onSensorChanged(SensorEvent event)
   {
@@ -364,18 +385,15 @@ public class LocationService implements LocationListener, SensorEventListener, W
       if (m_magneticField == null)
       {
         // -1.0 - as default parameters
-        notifyCompassUpdated(event.timestamp, north, -1.0, -1.0);
+        emitCompassResults(event.timestamp, north, -1.0, -1.0);
       }
       else
       {
         // positive 'offset' means the magnetic field is rotated east that much from true north
         final double offset = m_magneticField.getDeclination() * Math.PI / 180.0;
-        double trueNorth = north - offset;
+        final double trueNorth = correctAngle(north, -offset);
 
-        if (trueNorth < 0.0)
-          trueNorth += (2.0 * Math.PI);
-
-        notifyCompassUpdated(event.timestamp, north, trueNorth, offset);
+        emitCompassResults(event.timestamp, north, trueNorth, offset);
       }
     }
   }
@@ -407,11 +425,19 @@ public class LocationService implements LocationListener, SensorEventListener, W
   {
     angle += correction;
 
+    final double twoPI = 2.0*Math.PI;
+    angle = angle % twoPI;
+
     // normalize angle into [0, 2PI]
     if (angle < 0.0)
-      angle += (2.0*Math.PI);
-    angle = angle % (2.0*Math.PI);
+      angle += twoPI;
+
     return angle;
+  }
+
+  static double bearingToNorth(double bearing)
+  {
+    return correctAngle(0.0, -bearing * Math.PI / 180.0);
   }
   //@}
 
