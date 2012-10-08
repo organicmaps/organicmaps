@@ -214,9 +214,12 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   {
     if (!m_isLocationActive)
     {
-      startLocation();
+      /// first set the button state to "searching"
       v.setBackgroundResource(R.drawable.myposition_button_normal);
       v.setSelected(true);
+      /// and then startLocation, as there could be my_position button
+      /// state changes in the startLocation.
+      startLocation();
     }
     else
     {
@@ -541,7 +544,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   {
     if (newStatus == LocationService.FIRST_EVENT)
     {
-      findViewById(R.id.map_button_myposition).setBackgroundResource(R.drawable.myposition_button_found);
       final View v = findViewById(R.id.map_button_myposition);
 
       v.setBackgroundResource(R.drawable.myposition_button_found);
