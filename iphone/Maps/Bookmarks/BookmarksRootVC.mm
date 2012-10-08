@@ -35,36 +35,28 @@
 // Used to display bookmarks hint when no any bookmarks are added
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-  if (section == 1)
-  {
-    // Display hint only if at least one category with bookmarks is present
-    if (GetFramework().GetBmCategoriesCount())
-      return 0.;
-    return tableView.bounds.size.height / 2.;
-  }
-  return 0.;
+  // Display hint only if at least one category with bookmarks is present
+  if (GetFramework().GetBmCategoriesCount())
+    return 0.;
+  return tableView.bounds.size.height / 2.;
 }
 
 // Used to display hint when no any categories with bookmarks are present
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-  if (section == 1)
-  {
-    if (GetFramework().GetBmCategoriesCount())
-      return nil;
+  if (GetFramework().GetBmCategoriesCount())
+    return nil;
 
-    CGRect rect = tableView.bounds;
-    rect.size.height /= 2.;
-    rect.size.width = rect.size.width * 2./3.;
-    UILabel * hint = [[[UILabel alloc] initWithFrame:rect] autorelease];
-    hint.textAlignment = UITextAlignmentCenter;
-    hint.lineBreakMode = UILineBreakModeWordWrap;
-    hint.numberOfLines = 0;
-    hint.text = NSLocalizedString(@"bookmarks_usage_hint", @"Text hint in Bookmarks dialog, displayed if it's empty");
-    hint.backgroundColor = [UIColor clearColor];
-    return hint;
-  }
-  return nil;
+  CGRect rect = tableView.bounds;
+  rect.size.height /= 2.;
+  rect.size.width = rect.size.width * 2./3.;
+  UILabel * hint = [[[UILabel alloc] initWithFrame:rect] autorelease];
+  hint.textAlignment = UITextAlignmentCenter;
+  hint.lineBreakMode = UILineBreakModeWordWrap;
+  hint.numberOfLines = 0;
+  hint.text = NSLocalizedString(@"bookmarks_usage_hint", @"Text hint in Bookmarks dialog, displayed if it's empty");
+  hint.backgroundColor = [UIColor clearColor];
+  return hint;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
