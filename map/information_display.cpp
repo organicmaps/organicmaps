@@ -46,7 +46,7 @@ InformationDisplay::InformationDisplay(Framework * framework)
   cap.m_depth = yg::maxDepth;
   cap.m_arrowHeight = 60;
   cap.m_arrowWidth = 20;
-  cap.m_pivot = m2::PointD(10 + cap.m_arrowHeight / 2, 10 + cap.m_arrowHeight / 2);
+  cap.m_pivot = m2::PointD(0, 0);
   cap.m_northColor = yg::Color(255, 0, 0, 255);
   cap.m_southColor = yg::Color(255, 255, 255, 255);
   cap.m_framework = framework;
@@ -101,6 +101,12 @@ void InformationDisplay::setScreen(ScreenBase const & screen)
     m2::PointD pt = m2::PointD(pxRect.SizeX() / 2, pxRect.SizeY() / 2) - m2::PointD(0, m_bottomShift * m_visualScale);
     m_countryStatusDisplay->setPivot(pt);
   }
+
+  double k = m_controller->GetVisualScale();
+  unsigned arrowHeight = m_compassArrow->GetArrowHeight();
+
+  m_compassArrow->setPivot(m2::PointD(10 + arrowHeight / 2,
+                                      10 + arrowHeight / 2) * k);
 }
 
 void InformationDisplay::setBottomShift(double bottomShift)
@@ -393,7 +399,7 @@ void InformationDisplay::enableCompassArrow(bool doEnable)
 
 void InformationDisplay::setCompassArrowAngle(double angle)
 {
-  m_compassArrow->setAngle(angle);
+  m_compassArrow->SetAngle(angle);
 }
 
 void InformationDisplay::enableCountryStatusDisplay(bool doEnable)

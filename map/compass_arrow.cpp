@@ -1,6 +1,6 @@
 #include "compass_arrow.hpp"
+
 #include "framework.hpp"
-#include "rotate_screen_task.hpp"
 
 #include "../anim/controller.hpp"
 
@@ -25,11 +25,9 @@ CompassArrow::CompassArrow(Params const & p)
   m_angle = 0;
 }
 
-void CompassArrow::setAngle(double angle)
+void CompassArrow::SetAngle(double angle)
 {
   m_angle = angle;
-  m_drawM = math::Shift(math::Rotate(math::Identity<double, 3>(), m_angle), pivot() * visualScale());
-
   setIsDirtyRect(true);
 }
 
@@ -39,11 +37,10 @@ vector<m2::AnyRectD> const & CompassArrow::boundRects() const
   {
     double k = visualScale();
 
-    m2::PointD pv = pivot() * k;
     double halfW = m_arrowWidth / 2.0 * k;
     double halfH = m_arrowHeight / 2.0 * k;
 
-    m_boundRects[0] = m2::AnyRectD(pv,
+    m_boundRects[0] = m2::AnyRectD(pivot(),
                                    -math::pi / 2 + m_angle,
                                    m2::RectD(-halfW, -halfH, halfW, halfH));
 
@@ -59,7 +56,14 @@ void CompassArrow::draw(yg::gl::OverlayRenderer * r,
   if (isVisible())
   {
     checkDirtyDrawing();
-    m_displayList->draw(m_drawM * m);
+
+    math::Matrix<double, 3, 3> drawM = math::Shift(
+                                         math::Rotate(
+                                           math::Identity<double, 3>(),
+                                           m_angle),
+                                         pivot());
+
+    m_displayList->draw(drawM * m);
   }
 }
 
@@ -107,8 +111,6 @@ void CompassArrow::cache()
 
   cacheScreen->drawPath(outlinePts, sizeof(outlinePts) / sizeof(m2::PointD), 0, cacheScreen->skin()->mapPenInfo(outlinePenInfo), depth());
 
-  m_drawM = math::Shift(math::Rotate(math::Identity<double, 3>(), m_angle), pivot() * k);
-
   cacheScreen->setDisplayList(0);
   cacheScreen->endFrame();
 
@@ -119,15 +121,6 @@ void CompassArrow::cache()
 void CompassArrow::purge()
 {
   m_displayList.reset();
-}
-
-void CompassArrow::StopAnimation()
-{
-  if (m_rotateScreenTask
-  && !m_rotateScreenTask->IsEnded()
-  && !m_rotateScreenTask->IsCancelled())
-    m_rotateScreenTask->Cancel();
-  m_rotateScreenTask.reset();
 }
 
 bool CompassArrow::onTapEnded(m2::PointD const & pt)
@@ -150,8 +143,13 @@ bool CompassArrow::onTapEnded(m2::PointD const & pt)
   return true;
 }
 
+unsigned CompassArrow::GetArrowHeight() const
+{
+  return m_arrowHeight;
+}
+
 bool CompassArrow::hitTest(m2::PointD const & pt) const
 {
   double rad = max(m_arrowWidth / 2, m_arrowHeight / 2);
-  return pt.Length(pivot() * visualScale()) < rad * visualScale();
+  return pt.Length(pivot()) < rad * visualScale();
 }
