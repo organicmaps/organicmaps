@@ -549,6 +549,22 @@ public abstract class NvEventQueueActivity extends Activity
     return true;
   }
 
+  protected boolean validateSurfaceSize(EGLSurface eglSurface)
+  {
+    int sizes[] = new int[1];
+    sizes[0] = 0;
+    m_egl.eglQuerySurface(m_eglDisplay, eglSurface, EGL10.EGL_WIDTH, sizes);
+    m_surfaceWidth = sizes[0];
+
+    sizes[0] = 0;
+    m_egl.eglQuerySurface(m_eglDisplay, eglSurface, EGL10.EGL_HEIGHT, sizes);
+    m_surfaceHeight = sizes[0];
+
+    Log.d(TAG, "trying to get surface size to see if it's valid: surfaceSize= " + m_surfaceWidth + "x" + m_surfaceHeight);
+
+    return m_surfaceWidth * m_surfaceHeight != 0;
+  }
+
   protected boolean CreateSurfaceEGL()
   {
     if (m_cachedSurfaceHolder == null)
@@ -581,7 +597,14 @@ public abstract class NvEventQueueActivity extends Activity
       /// trying to create window surface with one of the EGL configs, recreating the m_eglConfig if necessary
 
       m_eglSurface = m_egl.eglCreateWindowSurface(m_eglDisplay, m_configs[choosenSurfaceConfigIndex], m_cachedSurfaceHolder, null);
-      if (m_eglSurface == EGL11.EGL_NO_SURFACE)
+
+      boolean surfaceCreated = (m_eglSurface != EGL11.EGL_NO_SURFACE);
+      boolean surfaceValidated = surfaceCreated ? validateSurfaceSize(m_eglSurface) : false;
+
+      if (surfaceCreated && !surfaceValidated)
+        m_egl.eglDestroySurface(m_eglDisplay, m_eglSurface);
+
+      if (!surfaceCreated || !surfaceValidated)
       {
         Log.d(TAG, "eglCreateWindowSurface failed for config : " + eglConfigToString(m_configs[choosenSurfaceConfigIndex]));
         choosenSurfaceConfigIndex += 1;
@@ -631,7 +654,6 @@ public abstract class NvEventQueueActivity extends Activity
     m_surfaceWidth = sizes[0];
     m_egl.eglQuerySurface(m_eglDisplay, m_eglSurface, EGL10.EGL_HEIGHT, sizes);
     m_surfaceHeight = sizes[0];
-
     return true;
   }
 
