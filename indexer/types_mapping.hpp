@@ -24,10 +24,5 @@ public:
     return m_types[ind];
   }
 
-  uint32_t GetIndex(uint32_t t) const
-  {
-    MapT::const_iterator i = m_map.find(t);
-    ASSERT ( i != m_map.end(), () );
-    return i->second;
-  }
+  uint32_t GetIndex(uint32_t t) const;
 };
