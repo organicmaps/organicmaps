@@ -542,8 +542,12 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     if (newStatus == LocationService.FIRST_EVENT)
     {
       findViewById(R.id.map_button_myposition).setBackgroundResource(R.drawable.myposition_button_found);
+      final View v = findViewById(R.id.map_button_myposition);
+
+      v.setBackgroundResource(R.drawable.myposition_button_found);
+      v.setSelected(true);
+
       m_hasLocation = true;
-      m_suggestAutoFollowMode = mApplication.nativeGetBoolean("SuggestAutoFollowMode", true);
     }
 
     nativeLocationStatusChanged(newStatus);
@@ -603,7 +607,10 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     else
     {
       if (m_hasLocation)
+      {
         v.setBackgroundResource(R.drawable.myposition_button_found);
+        v.setSelected(true);
+      }
       else
         v.setBackgroundResource(R.drawable.myposition_button_normal);
     }
