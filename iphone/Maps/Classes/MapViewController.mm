@@ -174,7 +174,7 @@
     BookmarkCategory const * cat = f.GetBmCategory(bmAndCat.first);
     if (cat)
     {
-      Bookmark const * bm = cat->GetBookmark((size_t)bmAndCat.second);
+      Bookmark const * bm = cat->GetBookmark(bmAndCat.second);
       if (bm)
       {
         m2::PointD const globalPos = bm->GetOrg();
