@@ -41,6 +41,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private boolean m_hasLocation = false;
   private boolean m_hasCompass = false;
   private boolean m_isLocationActive = false;
+  private boolean m_locationWasActiveBeforePause = false;
   private boolean m_suggestAutoFollowMode = false;
 
   private LocationService getLocationService()
@@ -669,6 +670,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onPause()
   {
+    m_locationWasActiveBeforePause = m_isLocationActive;
+
     stopLocation();
 
     stopWatchingExternalStorage();
@@ -682,8 +685,11 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   protected void onResume()
   {
     final View v = findViewById(R.id.map_button_myposition);
-    if (v != null && v.isSelected())
+
+    if (v != null && m_locationWasActiveBeforePause)
     {
+      m_locationWasActiveBeforePause = false;
+
       // change button appearance to "looking for position"
       v.setBackgroundResource(R.drawable.myposition_button_normal);
 
