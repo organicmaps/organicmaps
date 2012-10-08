@@ -5,13 +5,12 @@
 
 @implementation SelectSetVC
 
-- (id) initWithBalloonView:(BalloonView *)view andEditMode:(BOOL)enabled
+- (id) initWithBalloonView:(BalloonView *)view
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
   {
     m_balloon = view;
-    m_editModeEnabled = enabled;
     
     self.title = NSLocalizedString(@"bookmark_sets", @"Bookmark Sets dialog title");
   }
@@ -20,12 +19,11 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-  if (m_editModeEnabled)
-  {
-    // Do not show Edit button if we have only one bookmarks set
-    if (GetFramework().GetBmCategoriesCount() > 1)
-      self.navigationItem.rightBarButtonItem = self.editButtonItem;
-  }
+  // Do not show Edit button if we have only one bookmarks set
+  if (GetFramework().GetBmCategoriesCount() > 1)
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+  else
+    self.navigationItem.rightBarButtonItem = nil;
 
   [super viewWillAppear:animated];
 }
@@ -37,30 +35,16 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  // Hide Add New Set button if Edit is not enabled
-  return m_editModeEnabled ? 2 : 1;
-}
-
-// @return YES if user created new set and bookmark is still not added to it (set is not saved)
-- (BOOL)isVirtualBookmarkSetVisible
-{
-  Framework & f = GetFramework();
-  size_t const catCount = f.GetBmCategoriesCount();
-  char const * strCurrSetName = [m_balloon.setName UTF8String];
-  for (size_t i = 0; i < catCount; ++i)
-    if (f.GetBmCategory(i)->GetName() == strCurrSetName)
-      return NO;
-
-  return YES;
+  return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
   // "Add new set" button
-  if (section == 0 && m_editModeEnabled)
+  if (section == 0)
     return 1;
 
-  return GetFramework().GetBmCategoriesCount() + ([self isVirtualBookmarkSetVisible] ? 1 : 0);
+  return GetFramework().GetBmCategoriesCount();
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -70,7 +54,7 @@
   if (cell == nil)
     cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kSetCellId] autorelease];
   // Customize cell
-  if (indexPath.section == 0 && m_editModeEnabled)
+  if (indexPath.section == 0)
   {
     cell.textLabel.text = NSLocalizedString(@"add_new_set", @"Bookmark Sets dialog - Add New Set button");
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -79,16 +63,7 @@
   {
     BookmarkCategory * cat = GetFramework().GetBmCategory(indexPath.row);
     if (cat)
-    {
       cell.textLabel.text = [NSString stringWithUTF8String:cat->GetName().c_str()];
-      cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", cat->GetBookmarksCount()];
-    }
-    else
-    {
-      // Display not added, virtual set
-      cell.textLabel.text = m_balloon.setName; // Use "not existing" default set
-      cell.detailTextLabel.text = @"1";
-    }
 
     if ([m_balloon.setName isEqualToString:cell.textLabel.text])
       cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -102,25 +77,19 @@
 {
   UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
   [cell setSelected:NO animated:YES];
-  if (indexPath.section == 0 && m_editModeEnabled)
+  if (indexPath.section == 0)
   {
-    AddSetVC * asVC = [[AddSetVC alloc] initWithBalloonView:m_balloon];
-    [self.navigationController pushViewController:asVC animated:YES];
+    AddSetVC * asVC = [[AddSetVC alloc] initWithBalloonView:m_balloon andRootNavigationController:self.navigationController];
+    // Use temporary navigation controller to display nav bar in modal view controller
+    UINavigationController * navC = [[UINavigationController alloc] initWithRootViewController:asVC];
+    [self.navigationController presentModalViewController:navC animated:YES];
+    [navC release];
     [asVC release];
   }
   else
   {
     if (![m_balloon.setName isEqualToString:cell.textLabel.text])
-    {
       m_balloon.setName = cell.textLabel.text;
-      // Update Bookmarks VC if needed
-      if (!m_editModeEnabled)
-      {
-        NSArray * vcs = self.navigationController.viewControllers;
-        UITableViewController * bmVC = (UITableViewController *)[vcs objectAtIndex:[vcs count] - 2];
-        [bmVC.tableView reloadData];
-      }
-    }
     [self.navigationController popViewControllerAnimated:YES];
   }
 }

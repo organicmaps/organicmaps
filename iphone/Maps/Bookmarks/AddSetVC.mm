@@ -4,17 +4,24 @@
 
 @implementation AddSetVC
 
-- (id) initWithBalloonView:(BalloonView *)view
+- (id) initWithBalloonView:(BalloonView *)view andRootNavigationController:(UINavigationController *)navC
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
   {
     m_balloon = view;
+    m_rootNavigationController = navC;
 
     self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onSaveClicked)] autorelease];
+    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onCancelClicked)] autorelease];
     self.title = NSLocalizedString(@"add_new_set", @"Add New Bookmark Set dialog title");
   }
   return self;
+}
+
+- (void)onCancelClicked
+{
+  [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)onSaveClicked
@@ -24,15 +31,14 @@
   if (text.length)
   {
     m_balloon.setName = text;
-//    // Create category if it doesn't exist
-//    Framework & f = GetFramework();
-//    char const * cString = [text UTF8String];
-//    (void)f.GetBmCategory(cString);
+    // Create category if it doesn't exist
+    (void)GetFramework().GetBmCategory([text UTF8String]);
 
-    // Display "Add Bookmark" dialog
-    NSArray * vcs = self.navigationController.viewControllers;
-    UITableViewController * addBookmarkVC = (UITableViewController *)[vcs objectAtIndex:[vcs count] - 3];
-    [self.navigationController popToViewController:addBookmarkVC animated:YES];
+    // Show Place Page dialog with new set selected
+    [self onCancelClicked];
+    NSArray * vcs = m_rootNavigationController.viewControllers;
+    UITableViewController * addBookmarkVC = (UITableViewController *)[vcs objectAtIndex:[vcs count] - 2];
+    [m_rootNavigationController popToViewController:addBookmarkVC animated:YES];
   }
 }
 
@@ -74,11 +80,6 @@
   cell.selectionStyle = UITableViewCellSelectionStyleNone;
   return cell;
 }
-
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//  [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
-//}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {

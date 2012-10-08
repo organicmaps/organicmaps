@@ -193,7 +193,7 @@
       case 1:
       {
         m_hideNavBar = NO;
-        SelectSetVC * vc = [[SelectSetVC alloc] initWithBalloonView:m_balloon andEditMode:YES];
+        SelectSetVC * vc = [[SelectSetVC alloc] initWithBalloonView:m_balloon];
         [self.navigationController pushViewController:vc animated:YES];
         [vc release];
       }
