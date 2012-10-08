@@ -705,19 +705,37 @@ void Framework::SetViewportCenter(m2::PointD const & pt)
 
 static int const theMetersFactor = 6;
 
+m2::AnyRectD Framework::ToRotated(m2::RectD const & rect) const
+{
+  double const dx = rect.SizeX();
+  double const dy = rect.SizeY();
+
+  return m2::AnyRectD(rect.Center(),
+                      m_navigator.Screen().GetAngle(),
+                      m2::RectD(-dx/2, -dy/2, dx/2, dy/2));
+}
+
 void Framework::CheckMinGlobalRect(m2::AnyRectD & rect) const
 {
   m2::RectD const minRect = MercatorBounds::RectByCenterXYAndSizeInMeters(
                                 rect.GlobalCenter(), theMetersFactor * m_metresMinWidth);
 
-  double dx = minRect.SizeX();
-  double dy = minRect.SizeY();
-  double a = m_navigator.Screen().GetAngle();
+  m2::AnyRectD const minAnyRect = ToRotated(minRect);
 
-  m2::AnyRectD const minAnyRect(minRect.Center(), a, m2::RectD(-dx/2, -dy/2, dx/2, dy/2));
-
+  /// @todo It would be better here to check only AnyRect ortho-sizes with minimal values.
   if (minAnyRect.IsRectInside(rect))
     rect = minAnyRect;
+}
+
+void Framework::CheckMinVisibleScale(m2::RectD & rect) const
+{
+  int const worldS = scales::GetUpperWorldScale();
+  if (scales::GetScaleLevel(rect) > worldS)
+  {
+    m2::PointD const c = rect.Center();
+    if (!IsCountryLoaded(c))
+      rect = scales::GetRectForLevel(worldS, c, 1.0);
+  }
 }
 
 void Framework::ShowRect(m2::RectD const & r)
@@ -729,9 +747,15 @@ void Framework::ShowRect(m2::RectD const & r)
   Invalidate();
 }
 
-void Framework::ShowRectFixed(m2::RectD const & rect)
+void Framework::ShowRectEx(m2::RectD const & rect)
 {
-  ShowRectFixed(m2::AnyRectD(rect));
+  ShowRectFixed(ToRotated(rect));
+}
+
+void Framework::ShowRectExVisibleScale(m2::RectD rect)
+{
+  CheckMinVisibleScale(rect);
+  ShowRectEx(rect);
 }
 
 void Framework::ShowRectFixed(m2::AnyRectD const & r)
@@ -1100,22 +1124,11 @@ bool Framework::GetCurrentPosition(double & lat, double & lon) const
 
 void Framework::ShowSearchResult(search::Result const & res)
 {
-  m2::RectD r = res.GetFeatureRect();
-  int const worldS = scales::GetUpperWorldScale();
-  if (scales::GetScaleLevel(r) > worldS)
-  {
-    m2::PointD const c = r.Center();
-    if (!IsCountryLoaded(c))
-      r = scales::GetRectForLevel(worldS, c, 1.0);
-  }
+  m2::RectD const rect = res.GetFeatureRect();
 
-  double a = m_navigator.Screen().GetAngle();
-  double dx = r.SizeX();
-  double dy = r.SizeY();
+  ShowRectExVisibleScale(rect);
 
-  ShowRectFixed(m2::AnyRectD(r.Center(), a, m2::RectD(-dx/2, -dy/2, dx/2, dy/2)));
-
-  DrawPlacemark(res.GetFeatureCenter());
+  DrawPlacemark(rect.Center());
 }
 
 void Framework::GetDistanceAndAzimut(search::Result const & res,
@@ -1265,7 +1278,7 @@ bool Framework::SetViewportByURL(string const & url)
 
   if (info.IsValid())
   {
-    ShowRectFixed(info.GetViewport());
+    ShowRectEx(info.GetViewport());
     Invalidate();
     return true;
   }

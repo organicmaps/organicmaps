@@ -220,8 +220,6 @@ public:
 private:
   search::Engine * GetSearchEngine() const;
 
-  void CheckMinGlobalRect(m2::AnyRectD & r) const;
-
 public:
   m2::RectD GetCurrentViewport() const;
 
@@ -309,9 +307,20 @@ public:
 
   virtual void EndPaint(shared_ptr<PaintEvent> const & e);
 
-  void ShowRect(m2::RectD const & rect);
-  void ShowRectFixed(m2::RectD const & rect);
+private:
+  m2::AnyRectD ToRotated(m2::RectD const & rect) const;
+  void CheckMinGlobalRect(m2::AnyRectD & rect) const;
+  void CheckMinVisibleScale(m2::RectD & rect) const;
   void ShowRectFixed(m2::AnyRectD const & rect);
+
+public:
+  /// Set navigator viewport by rect as-is.
+  void ShowRect(m2::RectD const & rect);
+  /// - Use navigator rotate angle.
+  /// - Check for fixed scales from navigator.
+  void ShowRectEx(m2::RectD const & rect);
+  /// - Check minimal visible scale according to downloaded countries.
+  void ShowRectExVisibleScale(m2::RectD rect);
 
   void DrawPlacemark(m2::PointD const & pt);
   void DisablePlacemark();

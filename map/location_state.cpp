@@ -174,11 +174,7 @@ namespace location
       if (setScale != -1)
         rect = scales::GetRectForLevel(setScale, center, 1.0);
 
-      double const a = m_framework->GetNavigator().Screen().GetAngle();
-      double const dx = rect.SizeX();
-      double const dy = rect.SizeY();
-
-      m_framework->ShowRectFixed(m2::AnyRectD(rect.Center(), a, m2::RectD(-dx/2, -dy/2, dx/2, dy/2)));
+      m_framework->ShowRectEx(rect);
 
       SetIsCentered(true);
       CheckCompassRotation();

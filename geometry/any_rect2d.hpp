@@ -14,16 +14,17 @@ namespace m2
   class AnyRect
   {
     ang::Angle<T> m_angle;
+
+    /// @todo No need to store orthos separately. They are stored in m_angle.
     Point<T> m_i;
     Point<T> m_j;
+
     Point<T> m_zero;
     Rect<T>  m_rect;
 
-    Point<T> const Convert(Point<T> const & p,
-                           Point<T> const & fromI,
-                           Point<T> const & fromJ,
-                           Point<T> const & toI,
-                           Point<T> const & toJ) const
+    static Point<T> const Convert(Point<T> const & p,
+                                  Point<T> const & fromI, Point<T> const & fromJ,
+                                  Point<T> const & toI, Point<T> const & toJ)
     {
       Point<T> res;
 
