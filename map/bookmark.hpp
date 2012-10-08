@@ -55,7 +55,11 @@ public:
 
   inline size_t GetBookmarksCount() const { return m_bookmarks.size(); }
   Bookmark const * GetBookmark(size_t index) const;
+  /// @param[in] distance in metres between orgs
+  /// @returns -1 or index of found bookmark
+  int GetBookmark(m2::PointD const org, double const squareDistance) const;
   void DeleteBookmark(size_t index);
+  void ReplaceBookmark(size_t index, Bookmark const & bm);
 
   void LoadFromKML(ReaderPtr<Reader> const & reader);
   void SaveToKML(ostream & s);

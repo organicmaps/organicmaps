@@ -319,13 +319,36 @@ void Framework::LoadBookmarks()
 
 void Framework::AddBookmark(string const & category, Bookmark const & bm)
 {
-  BookmarkCategory * cat = GetBmCategory(category);
-  if (!cat)
+  // @TODO not optimal for 1st release
+  // Existing bookmark can be moved from one category to another,
+  // or simply replaced in the same category,
+  // so we scan all categories for the same bookmark
+  double const squareDistance = my::sq(1.0 * MercatorBounds::degreeInMetres);
+  for (size_t i = 0; i < m_bookmarks.size(); ++i)
   {
-    cat = new BookmarkCategory(category);
-    m_bookmarks.push_back(cat);
+    m2::PointD const org = bm.GetOrg();
+    BookmarkCategory * cat = m_bookmarks[i];
+    int index = cat->GetBookmark(org, squareDistance);
+    if (index >= 0)
+    {
+      // found bookmark to replace
+      if (category == cat->GetName())
+      {
+        cat->ReplaceBookmark(static_cast<size_t>(index), bm);
+        // Autosave added bookmark
+        (void)cat->SaveToKMLFileAtPath(GetPlatform().WritableDir());
+        return;
+      }
+      else
+      {
+        // Bookmark was moved from one category to another
+        cat->DeleteBookmark(static_cast<size_t>(index));
+      }
+    }
   }
 
+  BookmarkCategory * cat = GetBmCategory(category);
+  ASSERT(cat, ("category should autocreate if not exists"));
   cat->AddBookmark(bm);
   // Autosave added bookmark
   (void)cat->SaveToKMLFileAtPath(GetPlatform().WritableDir());
@@ -358,7 +381,10 @@ BookmarkCategory * Framework::GetBmCategory(string const & name)
   if (i != m_bookmarks.end())
     return (*i);
 
-  return 0;
+  // Automatically create not existing category
+  BookmarkCategory * cat = new BookmarkCategory(name);
+  m_bookmarks.push_back(cat);
+  return cat;
 }
 
 bool Framework::DeleteBmCategory(size_t index)
@@ -383,11 +409,12 @@ BookmarkAndCategory Framework::GetBookmark(m2::PointD pt) const
   return GetBookmark(pt, m_renderPolicy->VisualScale());
 }
 
-BookmarkAndCategory Framework::GetBookmark(m2::PointD pt, double visualScale) const
+BookmarkAndCategory Framework::GetBookmark(m2::PointD pxPoint, double visualScale) const
 {
   // Get the global rect of touching area.
   int const sm = TOUCH_PIXEL_RADIUS * visualScale;
-  m2::RectD rect(PtoG(m2::PointD(pt.x - sm, pt.y - sm)), PtoG(m2::PointD(pt.x + sm, pt.y + sm)));
+  m2::RectD rect(PtoG(m2::PointD(pxPoint.x - sm, pxPoint.y - sm)),
+                 PtoG(m2::PointD(pxPoint.x + sm, pxPoint.y + sm)));
 
   int retBookmark = -1;
   string retBookmarkCategory;

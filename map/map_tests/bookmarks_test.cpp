@@ -167,8 +167,6 @@ UNIT_TEST(Bookmarks_Getting)
   fm.OnSize(800, 400);
   fm.ShowRect(m2::RectD(0, 0, 80, 40));
 
-  m2::PointD const pixC = fm.GtoP(m2::PointD(40, 20));
-
   // This is not correct because Framework::OnSize doesn't work until SetRenderPolicy is called.
   //TEST(m2::AlmostEqual(m2::PointD(400, 200), pixC), (pixC));
 
@@ -176,17 +174,20 @@ UNIT_TEST(Bookmarks_Getting)
   fm.AddBookmark("cat2", Bookmark(m2::PointD(41, 20), "2", "placemark-red"));
   fm.AddBookmark("cat3", Bookmark(m2::PointD(41, 40), "3", "placemark-red"));
 
-  BookmarkAndCategory res = fm.GetBookmark(pixC, 1.0);
+  (void)fm.GetBmCategory("notExistingCat");
+  TEST_EQUAL(fm.GetBmCategoriesCount(), 4, ());
+
+  BookmarkAndCategory res = fm.GetBookmark(fm.GtoP(m2::PointD(40, 20)), 1.0);
   TEST(IsValid(res), ());
   TEST_EQUAL(res.second, 0, ());
   TEST_EQUAL(res.first, "cat2" , ());
 
-  res = fm.GetBookmark(m2::PointD(0, 0));
+  res = fm.GetBookmark(fm.GtoP(m2::PointD(0, 0)), 1.0);
   TEST(!IsValid(res), ());
-  res = fm.GetBookmark(m2::PointD(800, 400));
+  res = fm.GetBookmark(fm.GtoP(m2::PointD(800, 400)), 1.0);
   TEST(!IsValid(res), ());
 
-  res = fm.GetBookmark(m2::PointD(41, 40));
+  res = fm.GetBookmark(fm.GtoP(m2::PointD(41, 40)), 1.0);
   TEST(IsValid(res), ());
   TEST_EQUAL(res.first, "cat3", ());
   Bookmark const * bm = fm.GetBmCategory(res.first)->GetBookmark(res.second);
@@ -196,7 +197,7 @@ UNIT_TEST(Bookmarks_Getting)
   // This one should replace previous bookmark
   fm.AddBookmark("cat3", Bookmark(m2::PointD(41, 40), "4", "placemark-blue"));
 
-  res = fm.GetBookmark(m2::PointD(41, 40));
+  res = fm.GetBookmark(fm.GtoP(m2::PointD(41, 40)), 1.0);
   TEST(IsValid(res), ());
   BookmarkCategory * cat = fm.GetBmCategory(res.first);
   TEST(cat, ());
@@ -253,4 +254,46 @@ UNIT_TEST(Bookmarks_UniqueFileName)
 
   gen = BookmarkCategory::GenerateUniqueFileName("", FILENAME);
   TEST_EQUAL(gen, FILENAME + ".kml", ());
+}
+
+UNIT_TEST(Bookmarks_AddingMoving)
+{
+  Framework fm;
+  fm.OnSize(800, 400);
+  fm.ShowRect(m2::RectD(0, 0, 80, 40));
+
+  string const categoryOne = "cat1";
+  string const categoryTwo = "cat2";
+  m2::PointD const globalPoint = m2::PointD(40, 20);
+  m2::PointD const pixelPoint = fm.GtoP(globalPoint);
+
+  fm.AddBookmark(categoryOne, Bookmark(globalPoint, "name", "placemark-red"));
+  BookmarkAndCategory res = fm.GetBookmark(pixelPoint, 1.0);
+  TEST(IsValid(res), ());
+  TEST_EQUAL(res.second, 0, ());
+  TEST_EQUAL(res.first, categoryOne, ());
+
+  // Edit the name and type of bookmark
+  fm.AddBookmark(categoryOne, Bookmark(globalPoint, "name2", "placemark-blue"));
+  res = fm.GetBookmark(pixelPoint, 1.0);
+  TEST(IsValid(res), ());
+  TEST_EQUAL(res.second, 0, ());
+  TEST_EQUAL(res.first, categoryOne, ());
+  Bookmark const * pBm = fm.GetBmCategory(res.first)->GetBookmark(res.second);
+  TEST_EQUAL(pBm->GetName(), "name2", ());
+  TEST_EQUAL(pBm->GetType(), "placemark-blue", ());
+
+  // Edit name, type and category of bookmark
+  fm.AddBookmark(categoryTwo, Bookmark(globalPoint, "name3", "placemark-green"));
+  TEST_EQUAL(fm.GetBmCategoriesCount(), 2, ());
+  res = fm.GetBookmark(pixelPoint, 1.0);
+  TEST(IsValid(res), ());
+  TEST_EQUAL(res.second, 0, ());
+  TEST_EQUAL(res.first, categoryTwo, ());
+  TEST_EQUAL(fm.GetBmCategory(categoryOne)->GetBookmarksCount(), 0,
+             ("Bookmark wasn't moved from one category to another"));
+  pBm = fm.GetBmCategory(res.first)->GetBookmark(res.second);
+  TEST_EQUAL(pBm->GetName(), "name3", ());
+  TEST_EQUAL(pBm->GetType(), "placemark-green", ());
+
 }

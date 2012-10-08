@@ -170,10 +170,9 @@ public:
   void AddBookmark(string const & category, Bookmark const & bm);
   inline size_t GetBmCategoriesCount() const { return m_bookmarks.size(); }
   /// @returns 0 if category is not found
-  //@{
   BookmarkCategory * GetBmCategory(size_t index) const;
+  /// Always creates not existing category
   BookmarkCategory * GetBmCategory(string const & name);
-  //@}
   /// Delete bookmarks category with all bookmarks
   /// @return true if category was deleted
   bool DeleteBmCategory(size_t index);

@@ -17,20 +17,20 @@
 
 void BookmarkCategory::AddBookmark(Bookmark const & bm)
 {
-  // Replace existing bookmark if coordinates are (almost) the same
-  double const eps = my::sq(1.0 * MercatorBounds::degreeInMetres);
-  for (size_t i = 0; i < m_bookmarks.size(); ++i)
-  {
-    Bookmark const * oldBookmark = m_bookmarks[i];
-    if (eps >= bm.GetOrg().SquareLength(oldBookmark->GetOrg()))
-    {
-      m_bookmarks[i] = new Bookmark(bm);
-      delete oldBookmark;
-      return;
-    }
-  }
-
   m_bookmarks.push_back(new Bookmark(bm));
+}
+
+void BookmarkCategory::ReplaceBookmark(size_t index, Bookmark const & bm)
+{
+  ASSERT_LESS(index, m_bookmarks.size(), ());
+  if (index < m_bookmarks.size())
+  {
+    Bookmark const * old = m_bookmarks[index];
+    m_bookmarks[index] = new Bookmark(bm);
+    delete old;
+  }
+  else
+    LOG(LWARNING, ("Trying to replace non-existing bookmark"));
 }
 
 BookmarkCategory::~BookmarkCategory()
@@ -63,6 +63,16 @@ void BookmarkCategory::DeleteBookmark(size_t index)
 Bookmark const * BookmarkCategory::GetBookmark(size_t index) const
 {
   return (index < m_bookmarks.size() ? m_bookmarks[index] : 0);
+}
+
+int BookmarkCategory::GetBookmark(m2::PointD const org, double const squareDistance) const
+{
+  for (size_t i = 0; i < m_bookmarks.size(); ++i)
+  {
+    if (squareDistance >= org.SquareLength(m_bookmarks[i]->GetOrg()))
+      return static_cast<int>(i);
+  }
+  return -1;
 }
 
 namespace
