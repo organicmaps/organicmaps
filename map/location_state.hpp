@@ -12,7 +12,6 @@
 #include "../gui/element.hpp"
 
 class Framework;
-class RotateScreenTask;
 
 namespace anim
 {
@@ -72,26 +71,15 @@ namespace location
 
     void FollowCompass();
 
-    /// GUI element related fields.
-
     typedef gui::Element base_t;
 
     yg::Color m_locationAreaColor;
     yg::Color m_locationBorderColor;
 
-    /// @todo Useless?
-    //math::Matrix<double, 3, 3> m_locationDrawM;
-
     yg::Color m_compassAreaColor;
     yg::Color m_compassBorderColor;
 
-    /// @todo Useless?
-    //math::Matrix<double, 3, 3> m_compassDrawM;
-
     Framework * m_framework;
-
-    /// @todo Useless?
-    //double m_cacheRadius;
 
     /// Compass Rendering Parameters
     /// @{
@@ -177,11 +165,12 @@ namespace location
     void OnCompassUpdate(location::CompassInfo const & info);
     //@}
 
+    /// yg::OverlayElement and gui::Element related methods
+    // @{
     vector<m2::AnyRectD> const & boundRects() const;
     void draw(yg::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
-
     bool hitTest(m2::PointD const & pt) const;
-
     bool onTapEnded(m2::PointD const & p);
+    /// @}
   };
 }

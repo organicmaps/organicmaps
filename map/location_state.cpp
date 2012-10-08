@@ -2,7 +2,6 @@
 #include "navigator.hpp"
 #include "framework.hpp"
 #include "compass_filter.hpp"
-#include "rotate_screen_task.hpp"
 #include "change_viewport_task.hpp"
 
 #include "../yg/display_list.hpp"
@@ -357,7 +356,7 @@ namespace location
         double screenAngle = m_framework->GetNavigator().Screen().GetAngle();
         math::Matrix<double, 3, 3> compassDrawM;
 
-        /// drawing border first
+        /// drawing arrow body first
         if (m_hasCompass && m_useDirectionArrow)
         {
           double const headingRad = m_drawHeading;
@@ -400,6 +399,7 @@ namespace location
                       m_locationAreaColor,
                       depth() - 3);
 
+        /// and then arrow border
         if (m_hasCompass && m_useDirectionArrow)
         {
           map<EState, shared_ptr<yg::gl::DisplayList> >::const_iterator it;
@@ -411,6 +411,7 @@ namespace location
             LOG(LWARNING, ("m_arrowBorderLists[state()] is not set!"));
         }
 
+        /// @todo remove it
         if (m_hasCompass && !m_useDirectionArrow)
         {
           double drawHeadingError = m_compassFilter.GetHeadingHalfErrorRad();
@@ -470,8 +471,8 @@ namespace location
           && !m_headingInterpolation->IsCancelled()
           && !m_headingInterpolation->IsEnded())
           {
-            m_headingInterpolation->Unlock();
             m_headingInterpolation->Cancel();
+            m_headingInterpolation->Unlock();
             m_headingInterpolation.reset();
           }
 
