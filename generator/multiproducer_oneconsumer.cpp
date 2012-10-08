@@ -18,7 +18,6 @@ MultiProducerOneConsumer::MultiProducerOneConsumer(size_t tasksPerThread)
 void MultiProducerOneConsumer::RunTask(ITask * pTask)
 {
 #if PARALLEL_POLYGONIZER
-  ASSERT ( pTask->autoDelete(), () );
   pTask->BeforeStart(this);
   m_ThreadPool.start(pTask);
 
