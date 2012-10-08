@@ -20,6 +20,8 @@
 	m2::PointD m_Pt1, m_Pt2;
   
   BalloonView * m_balloonView;
+  /// Temporary solution to improve long touch detection.
+  m2::PointD m_touchDownPoint;
 }
 
 - (void) ZoomToRect: (m2::RectD const &) rect;

@@ -338,6 +338,8 @@ NSInteger compareAddress(id l, id r, void * context)
 
     // Start long-tap timer
     [self performSelector:@selector(onLongTap:) withObject:[NSValue valueWithCGPoint:[theTouch locationInView:self.view]] afterDelay:1.0];
+    // Temporary solution to filter long touch
+    m_touchDownPoint = m_Pt1;
 	}
 	else
 	{
@@ -350,13 +352,14 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void) touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
 {
-  // Cancel long-touch timer
-  [NSObject cancelPreviousPerformRequestsWithTarget:self];
-
   m2::PointD const TempPt1 = m_Pt1;
 	m2::PointD const TempPt2 = m_Pt2;
 
 	[self updatePointsFromEvent:event];
+
+  // Cancel long-touch timer
+  if (!m_touchDownPoint.EqualDxDy(m_Pt1, 9))
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
 
   if (GetFramework().GetGuiController()->OnTapMoved(m_Pt1))
     return;

@@ -39,7 +39,7 @@
 #include "../std/vector.hpp"
 
 /// How many pixels around touch point are used to get bookmark or POI
-#define TOUCH_PIXEL_RADIUS 15
+#define TOUCH_PIXEL_RADIUS 20
 
 using namespace storage;
 
