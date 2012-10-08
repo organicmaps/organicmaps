@@ -45,7 +45,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
   // Used to filter locations from different providers
   private Location m_lastLocation = null;
   private long m_lastTime = 0;
-  private double m_drivingNorth = -1.0;
+  private double m_drivingHeading = -1.0;
 
   private WifiLocation m_wifiScanner = null;
 
@@ -277,12 +277,12 @@ public class LocationService implements LocationListener, SensorEventListener, W
     if ((l.getSpeed() >= 1.0) && (t - m_lastTime <= TEN_SECONDS))
     {
       if (l.hasBearing())
-        m_drivingNorth = bearingToNorth(l.getBearing());
+        m_drivingHeading = bearingToHeading(l.getBearing());
       else if (m_lastLocation.distanceTo(l) > 5.0)
-        m_drivingNorth = bearingToNorth(m_lastLocation.bearingTo(l));
+        m_drivingHeading = bearingToHeading(m_lastLocation.bearingTo(l));
     }
     else
-      m_drivingNorth = -1.0;
+      m_drivingHeading = -1.0;
   }
 
   private final static float HUNDRED_METRES = 100.0f;
@@ -346,8 +346,8 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   private void emitCompassResults(long time, double north, double trueNorth, double offset)
   {
-    if (m_drivingNorth >= 0.0)
-      notifyCompassUpdated(time, m_drivingNorth, m_drivingNorth, 0.0);
+    if (m_drivingHeading >= 0.0)
+      notifyCompassUpdated(time, m_drivingHeading, m_drivingHeading, 0.0);
     else
       notifyCompassUpdated(time, north, trueNorth, offset);
   }
@@ -380,20 +380,20 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
     if (orientation != null)
     {
-      double north = orientation[0];
+      final double magneticHeading = orientation[0];
 
       if (m_magneticField == null)
       {
         // -1.0 - as default parameters
-        emitCompassResults(event.timestamp, north, -1.0, -1.0);
+        emitCompassResults(event.timestamp, magneticHeading, -1.0, -1.0);
       }
       else
       {
         // positive 'offset' means the magnetic field is rotated east that much from true north
         final double offset = m_magneticField.getDeclination() * Math.PI / 180.0;
-        final double trueNorth = correctAngle(north, -offset);
+        final double trueHeading = correctAngle(magneticHeading, offset);
 
-        emitCompassResults(event.timestamp, north, trueNorth, offset);
+        emitCompassResults(event.timestamp, magneticHeading, trueHeading, offset);
       }
     }
   }
@@ -435,9 +435,9 @@ public class LocationService implements LocationListener, SensorEventListener, W
     return angle;
   }
 
-  static double bearingToNorth(double bearing)
+  static double bearingToHeading(double bearing)
   {
-    return correctAngle(0.0, -bearing * Math.PI / 180.0);
+    return correctAngle(0.0, bearing * Math.PI / 180.0);
   }
   //@}
 
