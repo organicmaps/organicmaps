@@ -1371,8 +1371,11 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, 
       FeatureType ft;
       guard.GetFeature(ui.m_offset, ft);
 
-      // center point of element in global coordinates
-      m2::PointD const center = m_navigator.Screen().PtoG(res->point(yg::EPosCenter));
+//      // center point of element in global coordinates
+//      m2::PointD const center = m_navigator.Screen().PtoG(res->point(yg::EPosCenter));
+      // @TODO experiment with other pivots
+      m2::PointD const center = (ft.GetFeatureType() == feature::GEOM_POINT)
+                                ? ft.GetCenter() : ft.GetLimitRect(17).Center();
 
       GetAddressInfo(ft, center, info);
 
