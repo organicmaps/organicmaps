@@ -8,9 +8,7 @@ namespace location
 class CompassFilter
 {
 private:
-
   double m_headingRad;
-  double m_headingHalfErrorRad;
 
   // Compass smoothing parameters
   // We're using technique described in
@@ -19,7 +17,7 @@ private:
   // small orientation changes and a threshold filter to get big changes fast.
   // @{
   // k in the following formula: O(n) = O(n-1) + k * (I - O(n - 1));
-  double m_lowPassKoeff;
+  //double m_lowPassKoeff;
   // smoothed heading angle. doesn't always correspond to the m_headingAngle
   // as we change the heading angle only if the delta between
   // smoothedHeadingRad and new heading value is bigger than smoothingThreshold.

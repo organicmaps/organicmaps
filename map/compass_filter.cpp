@@ -7,23 +7,24 @@
 
 #include "../platform/location.hpp"
 
+
+#define LOW_PASS_FACTOR 0.5
+
 CompassFilter::CompassFilter()
 {
   m_headingRad = m_smoothedHeadingRad = 0;
-  m_headingHalfErrorRad = ang::DegreeToRad(5);
 
+  // Set hard smoothing treshold constant to 10 degrees.
+  // We can't assign it from location::CompassInfo::accuracy, because actually it's a
+  // declination between magnetic and true north in Android
+  // (and it may be very large in particular places on the Earth).
   m_smoothingThreshold = ang::DegreeToRad(10);
-  m_lowPassKoeff = 0.5;
 }
 
 void CompassFilter::OnCompassUpdate(location::CompassInfo const & info)
 {
-  // Avoid situations when offset between magnetic north and true north is too small
-  double const MIN_SECTOR_RAD = ang::DegreeToRad(10); //< 10 degrees threshold
-
-  double newHeadingRad = ((info.m_trueHeading >= 0.0) ? info.m_trueHeading : info.m_magneticHeading);
-  double newHeadingDelta = fabs(newHeadingRad - m_headingRad);
-  double newHeadingHalfErrorRad = (info.m_accuracy < MIN_SECTOR_RAD ? MIN_SECTOR_RAD : info.m_accuracy);
+  double const newHeadingRad = ((info.m_trueHeading >= 0.0) ? info.m_trueHeading : info.m_magneticHeading);
+  double const newHeadingDelta = fabs(newHeadingRad - m_headingRad);
 
 #ifdef OMIM_OS_IPHONE
 
@@ -32,8 +33,8 @@ void CompassFilter::OnCompassUpdate(location::CompassInfo const & info)
   m_headingRad = newHeadingRad;
 
 #else
-  // if new heading lies outside the twice headingError radius we immediately accept it
-  if (newHeadingDelta > m_headingHalfErrorRad * 2)
+  // if new heading lies outside the twice treshold radius we immediately accept it
+  if (newHeadingDelta > 2.0 * m_smoothingThreshold)
   {
     m_headingRad = newHeadingRad;
     m_smoothedHeadingRad = newHeadingRad;
@@ -42,7 +43,7 @@ void CompassFilter::OnCompassUpdate(location::CompassInfo const & info)
   {
     // else we smooth the received value with the following formula
     // O(n) = O(n-1) + k * (I - O(n - 1));
-    m_smoothedHeadingRad = m_smoothedHeadingRad + m_lowPassKoeff * (newHeadingRad - m_smoothedHeadingRad);
+    m_smoothedHeadingRad = m_smoothedHeadingRad + LOW_PASS_FACTOR * (newHeadingRad - m_smoothedHeadingRad);
 
     // if the change is too small we won't change the compass value
     if (newHeadingDelta > m_smoothingThreshold)
@@ -50,9 +51,6 @@ void CompassFilter::OnCompassUpdate(location::CompassInfo const & info)
   }
 
 #endif
-
-  m_headingHalfErrorRad = newHeadingHalfErrorRad;
-  m_smoothingThreshold = m_headingHalfErrorRad * 2;
 }
 
 double CompassFilter::GetHeadingRad() const
@@ -62,6 +60,5 @@ double CompassFilter::GetHeadingRad() const
 
 double CompassFilter::GetHeadingHalfErrorRad() const
 {
-  return m_headingHalfErrorRad;
+  return m_smoothingThreshold;
 }
-
