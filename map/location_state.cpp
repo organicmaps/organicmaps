@@ -615,7 +615,10 @@ namespace location
     {
     case EActive:
       if (m_hasCompass)
-        StartCompassFollowing();
+        if (!IsCentered())
+          AnimateToPositionAndEnqueueFollowing();
+        else
+          StartCompassFollowing();
       break;
     case EPressed:
       StopCompassFollowing();
