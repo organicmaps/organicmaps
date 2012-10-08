@@ -113,7 +113,7 @@
   CGFloat const textW = width - left.size.width - right.size.width - arrow.size.width;
   CGFloat const titleTextH = left.size.height / (aDescription ? 2. : 1.);
   [[UIColor whiteColor] set];
-  [aTitle drawInRect:CGRectMake(left.size.width, titleTextH / (aDescription ? 8 : 4), textW, titleTextH) withFont:titleFont lineBreakMode:UILineBreakModeTailTruncation];
+  [aTitle drawInRect:CGRectMake(left.size.width, titleTextH / (aDescription ? 8 : 4), textW, titleTextH / 2.) withFont:titleFont lineBreakMode:UILineBreakModeTailTruncation];
   if (aDescription)
   {
     [[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0] set];
