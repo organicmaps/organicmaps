@@ -203,7 +203,7 @@ void Ruler::update()
   {
     m2::PointD glbPivot = m_screen.PtoG(pivot());
 
-    int rulerHeight = static_cast<int>(3 * m_visualScale);
+    int rulerHeight = static_cast<int>(5 * m_visualScale);
     unsigned minPxWidth = static_cast<unsigned>(m_minPxWidth * m_visualScale);
 
     m2::PointD pt0 = m_screen.PtoG(pivot() - m2::PointD(minPxWidth / 2, 0));
@@ -256,10 +256,10 @@ void Ruler::update()
       scalerOrg.y += rulerHeight / 2;
 
     m_path.clear();
-    m_path.push_back(scalerOrg + m2::PointD(0, -rulerHeight));
+    m_path.push_back(scalerOrg + m2::PointD(0, rulerHeight));
     m_path.push_back(scalerOrg);
     m_path.push_back(scalerOrg + m2::PointD(scalerWidthInPx, 0));
-    m_path.push_back(m_path[2] + m2::PointD(0, -rulerHeight));
+    m_path.push_back(m_path[2] + m2::PointD(0, rulerHeight));
 
     /// calculating bound rect
 
@@ -289,12 +289,12 @@ void Ruler::draw(yg::gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const &
 
     s->drawPath(
         &m_path[0], m_path.size(), 0,
-          s->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 0x99), 1 * m_visualScale, 0, 0, 0)),
+          s->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 0x99), 2 * m_visualScale, 0, 0, 0)),
         depth() - 2);
 
     if (position() & yg::EPosLeft)
       s->drawText(m_fontDesc,
-                  m_path[2] + m2::PointD(-1, -3),
+                  m_path[2] + m2::PointD(1 * m_visualScale, -1 * m_visualScale),
                   yg::EPosAboveLeft,
                   m_scalerText,
                   depth(),
@@ -302,7 +302,7 @@ void Ruler::draw(yg::gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const &
     else
       if (position() & yg::EPosRight)
         s->drawText(m_fontDesc,
-                    m_path[1] + m2::PointD(1, -3),
+                    m_path[1] + m2::PointD(7 * m_visualScale, -3 * m_visualScale),
                     yg::EPosAboveRight,
                     m_scalerText,
                     depth(),
