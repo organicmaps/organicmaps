@@ -128,6 +128,8 @@
   else
     self.navigationItem.rightBarButtonItem = nil;
 
+  // Always reload table - we can open it after deleting bookmarks in any category
+  [self.tableView reloadData];
   [super viewWillAppear:animated];
 }
 
