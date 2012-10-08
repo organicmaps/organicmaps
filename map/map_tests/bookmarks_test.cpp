@@ -180,7 +180,8 @@ UNIT_TEST(Bookmarks_Getting)
   BookmarkAndCategory res = fm.GetBookmark(fm.GtoP(m2::PointD(40, 20)), 1.0);
   TEST(IsValid(res), ());
   TEST_EQUAL(res.second, 0, ());
-  TEST_EQUAL(res.first, "cat2" , ());
+  TEST_EQUAL(res.first, 1 , ());
+  TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), "cat2", ());
 
   res = fm.GetBookmark(fm.GtoP(m2::PointD(0, 0)), 1.0);
   TEST(!IsValid(res), ());
@@ -189,7 +190,8 @@ UNIT_TEST(Bookmarks_Getting)
 
   res = fm.GetBookmark(fm.GtoP(m2::PointD(41, 40)), 1.0);
   TEST(IsValid(res), ());
-  TEST_EQUAL(res.first, "cat3", ());
+  TEST_EQUAL(res.first, 2, ());
+  TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), "cat3", ());
   Bookmark const * bm = fm.GetBmCategory(res.first)->GetBookmark(res.second);
   TEST_EQUAL(bm->GetName(), "3", ());
   TEST_EQUAL(bm->GetType(), "placemark-red", ());
@@ -271,14 +273,16 @@ UNIT_TEST(Bookmarks_AddingMoving)
   BookmarkAndCategory res = fm.GetBookmark(pixelPoint, 1.0);
   TEST(IsValid(res), ());
   TEST_EQUAL(res.second, 0, ());
-  TEST_EQUAL(res.first, categoryOne, ());
+  TEST_EQUAL(res.first, 0, ());
+  TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), categoryOne, ());
 
   // Edit the name and type of bookmark
   fm.AddBookmark(categoryOne, Bookmark(globalPoint, "name2", "placemark-blue"));
   res = fm.GetBookmark(pixelPoint, 1.0);
   TEST(IsValid(res), ());
   TEST_EQUAL(res.second, 0, ());
-  TEST_EQUAL(res.first, categoryOne, ());
+  TEST_EQUAL(res.first, 0, ());
+  TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), categoryOne, ());
   Bookmark const * pBm = fm.GetBmCategory(res.first)->GetBookmark(res.second);
   TEST_EQUAL(pBm->GetName(), "name2", ());
   TEST_EQUAL(pBm->GetType(), "placemark-blue", ());
@@ -289,7 +293,8 @@ UNIT_TEST(Bookmarks_AddingMoving)
   res = fm.GetBookmark(pixelPoint, 1.0);
   TEST(IsValid(res), ());
   TEST_EQUAL(res.second, 0, ());
-  TEST_EQUAL(res.first, categoryTwo, ());
+  TEST_EQUAL(res.first, 1, ());
+  TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), categoryTwo, ());
   TEST_EQUAL(fm.GetBmCategory(categoryOne)->GetBookmarksCount(), 0,
              ("Bookmark wasn't moved from one category to another"));
   pBm = fm.GetBmCategory(res.first)->GetBookmark(res.second);

@@ -73,14 +73,14 @@ public:
   static string GenerateUniqueFileName(const string & path, string const & name);
 };
 
-/// <category name, bookmark index>
-typedef pair<string, int> BookmarkAndCategory;
+/// <category index, bookmark index>
+typedef pair<int, int> BookmarkAndCategory;
 inline BookmarkAndCategory MakeEmptyBookmarkAndCategory()
 {
-  return BookmarkAndCategory(string(), int(-1));
+  return BookmarkAndCategory(int(-1), int(-1));
 }
 
 inline bool IsValid(BookmarkAndCategory const & bmc)
 {
-  return (!bmc.first.empty() && bmc.second >= 0);
+  return (bmc.first >= 0 && bmc.second >= 0);
 }

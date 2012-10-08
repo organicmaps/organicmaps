@@ -416,8 +416,8 @@ BookmarkAndCategory Framework::GetBookmark(m2::PointD pxPoint, double visualScal
   m2::RectD rect(PtoG(m2::PointD(pxPoint.x - sm, pxPoint.y - sm)),
                  PtoG(m2::PointD(pxPoint.x + sm, pxPoint.y + sm)));
 
+  int retBookmarkCategory = -1;
   int retBookmark = -1;
-  string retBookmarkCategory;
   double minD = numeric_limits<double>::max();
 
   for (size_t i = 0; i < m_bookmarks.size(); ++i)
@@ -433,8 +433,8 @@ BookmarkAndCategory Framework::GetBookmark(m2::PointD pxPoint, double visualScal
         double const d = rect.Center().SquareLength(pt);
         if (d < minD)
         {
+          retBookmarkCategory = static_cast<int>(i);
           retBookmark = static_cast<int>(j);
-          retBookmarkCategory = m_bookmarks[i]->GetName();
           minD = d;
         }
       }
