@@ -19,53 +19,53 @@ RenderPolicyMT::RenderPolicyMT(RenderPolicy::Params const & p)
                                                                        sizeof(yg::gl::Vertex),
                                                                        10000 * sizeof(unsigned short),
                                                                        sizeof(unsigned short),
-                                                                       7,
-                                                                       false,
+                                                                       1,
+                                                                       true,
                                                                        true,
                                                                        10,
                                                                        "primaryStorage",
                                                                        false,
-                                                                       false);
+                                                                       true);
 
   rmp.m_smallStoragesParams = yg::ResourceManager::StoragePoolParams(500 * sizeof(yg::gl::Vertex),
                                                                      sizeof(yg::gl::Vertex),
                                                                      1000 * sizeof(unsigned short),
                                                                      sizeof(unsigned short),
-                                                                     7,
-                                                                     false,
+                                                                     5,
+                                                                     true,
                                                                      true,
                                                                      5,
                                                                      "smallStorage",
                                                                      false,
-                                                                     false);
+                                                                     true);
 
   rmp.m_blitStoragesParams = yg::ResourceManager::StoragePoolParams(10 * sizeof(yg::gl::Vertex),
                                                                     sizeof(yg::gl::Vertex),
                                                                     10 * sizeof(unsigned short),
                                                                     sizeof(unsigned short),
-                                                                    7,
+                                                                    1,
                                                                     true,
                                                                     true,
                                                                     1,
                                                                     "blitStorage",
                                                                     false,
-                                                                    false);
+                                                                    true);
 
   rmp.m_guiThreadStoragesParams = yg::ResourceManager::StoragePoolParams(300 * sizeof(yg::gl::Vertex),
                                                                     sizeof(yg::gl::Vertex),
                                                                     600 * sizeof(unsigned short),
                                                                     sizeof(unsigned short),
-                                                                    7,
+                                                                    2,
                                                                     true,
                                                                     true,
                                                                     1,
                                                                     "guiThreadStorage",
                                                                     false,
-                                                                    false);
+                                                                    true);
 
   rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512,
                                                                        256,
-                                                                       7,
+                                                                       1,
                                                                        rmp.m_texFormat,
                                                                        true,
                                                                        true,
@@ -73,11 +73,11 @@ RenderPolicyMT::RenderPolicyMT(RenderPolicy::Params const & p)
                                                                        1,
                                                                        "primaryTexture",
                                                                        false,
-                                                                       false);
+                                                                       true);
 
   rmp.m_fontTexturesParams = yg::ResourceManager::TexturePoolParams(512,
                                                                     256,
-                                                                    7,
+                                                                    1,
                                                                     rmp.m_texFormat,
                                                                     true,
                                                                     true,
@@ -85,11 +85,11 @@ RenderPolicyMT::RenderPolicyMT(RenderPolicy::Params const & p)
                                                                     1,
                                                                     "fontTexture",
                                                                     false,
-                                                                    false);
+                                                                    true);
 
   rmp.m_guiThreadTexturesParams = yg::ResourceManager::TexturePoolParams(256,
                                                                          128,
-                                                                         4,
+                                                                         2,
                                                                          rmp.m_texFormat,
                                                                          true,
                                                                          true,
@@ -97,7 +97,7 @@ RenderPolicyMT::RenderPolicyMT(RenderPolicy::Params const & p)
                                                                          1,
                                                                          "guiThreadTexture",
                                                                          false,
-                                                                         false);
+                                                                         true);
 
   rmp.m_glyphCacheParams = yg::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
                                                                  "fonts_whitelist.txt",
