@@ -4,15 +4,15 @@
 		tags = android
 		comment = DO NOT TRANSLATE! Used only on Android for special purposes.
 	[pro_version_available]
-		en = Navigate easier with the full version of MapsWithMe featuring offline search. Get it now!
+		en = Navigate easier with the full version of MapsWithMe featuring offline search. Get it right now!
 		comment = Dialog text when paid version become available on the market. Showed only once.
 		de = Mehr Möglichkeiten in der vollen Version MapsWithMe mit Offline-Suche. Jetzt herunterladen!
 		es = Mas facil navegar con la version completa MapsWithMe con el buscador offline. Bajalo ya!
 		fr = Plus de possibilités dans la version complète de MapsWithMe avec la recherche en hors ligne. Télécharger maintenant!
 		ja = MapsWithMe完全版ならオフラインサーチでさらにナビゲートが簡単です。今すぐご入手下さい！
 		ko = 오프라인 검색 기능의 MapsWithMe의 풀버젼으로 보다 쉽게 검색하세요. 지금 구매하세요!
-		ru = Больше возможностей в полной версии MapsWithMe с оффлайн поиском. Установите ее сейчас!
-		uk = Більше можливостей у повній версії MapsWithMe з оффлайн пошуком. Встановіть її зараз!
+		ru = Больше возможностей в полной версии MapsWithMe с оффлайн поиском. Установить ее сейчас?
+		uk = Більше можливостей у повній версії MapsWithMe з оффлайн пошуком. Встановіть її зараз?
 		cs = Více možností s plnou verzí MapsWithMe zahrnující hledání offline. Instalujte si ji teď!
 		nl = Navigeer makkelijker met MapsWithMe Pro met offline zoeken. Instelleer het nu!
 	[about]
@@ -386,7 +386,7 @@
 		en = Later
 		comment = Update maps later/Buy pro version later button text
 		de = Später
-		es = Mas tarde
+		es = Luego
 		fr = Plus tard
 		ja = 後で
 		ko = 후
@@ -681,7 +681,7 @@
 		en = Try Again
 		comment = Button text for the button under the country_status_download_failed message
 		de = Nochmals versuchen
-		es = Inténtelo de nuevo
+		es = Intentarlo otra vez
 		fr = Essayez encore une fois
 		ja = 再実行
 		ko = 다시 시도
@@ -782,7 +782,7 @@
 	[external_storage_is_not_available]
 		en = SD card/USB storage with downloaded maps is not available
 		de = SD Karte/USB Speicher mit geladenen Karten nicht verfügbar
-		es = SD tarjeta/USB almacenamiento con los mapas descargados no está disponible
+		es = La memoria SD/almacenamiento USB con los mapas descargados no está disponible
 		fr = Les cartes téléchargées sont indisponibles
 		ja = ダウンロード済みの地図はSDカード／USBストレージに保存する事はできません
 		ko = 다운로드된지도와 SD 카드 / USB 저장 장치를 사용할 수 없습니다
@@ -793,7 +793,7 @@
 	[disconnect_usb_cable]
 		en = Please disconnect USB cable or insert memory card to use MapsWithMe
 		de = Bitte USB Kabel entfernen oder Speicherkarte einsetzen um MapsWithMe zu verwenden
-		es = Por favor, desconecte el cable USB o inserta la tarjeta de memoria para utilizar MapsWithMe
+		es = Por favor desconectar el cable USB o insertar la memoria SD para usar MapsWithMe
 		fr = Débranchez le câble USB ou insérez la carte SD
 		ja = USBケーブルを抜くかMapsWithMeに使うメモリーカードを挿入してください
 		ko = MapsWithMe를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오
@@ -804,7 +804,7 @@
 	[not_enough_free_space_on_sdcard]
 		en = Please free some space on SD card/USB storage first in order to use the app
 		de = Bitte zuerst Speicherplatz auf SD Karte/USB Speicher freigeben um die Anwendung zu nutzen
-		es = Por favor, primero libere espacio en la SD tarjeta/USB almacenamiento para utilizar la aplicación
+		es = Por favor libera espacio en la memoria SD/almacenamiento USB para usar la aplicación
 		fr = L'espace disponible sur l'appareil est insuffisant pour l'utilisation du programme
 		ja = アプリを起動する前にSDカード/USBストレージの空き容量を増やしてください
 		ko = 응용 프로그램을 사용하기 위해서는 첫째 SD 카드 / USB 저장 장치에 여유 공간을 확보하십시오
@@ -815,7 +815,7 @@
 	[not_enough_memory]
 		en = Not enough memory to launch app
 		de = Nicht genügend Speicher um die Anwendung zu starten
-		es = No hay suficiente espacio para poner en marcha la aplicación
+		es = No hay suficiente memoria para iniciar la aplicación
 		fr = Il ne suffit pas de memoire pour la mise en marche du programme
 		ja = メモリ不足です。アプリを起動できません
 		ko = 응용 프로그램을 실행하기위한 메모리가 충분하지 않다
@@ -826,7 +826,7 @@
 	[free_space_for_country]
 		en = Please free %1$@ on your device first in order to download %2$@
 		de = Bitte zuerst %1$@ Platz schaffen um %2$@ herunterzuladen
-		es = Por favor, primero libere %1$@ en tu dispositivo para descargar %2$@
+		es = Por favor liberar %1$@ primero para descargar %2$@
 		fr = Merci de faire  %1$@ de la place disponible pour télécharger %2$@
 		ja = デバイス上で%1$@解放することで%2$@ダウンロードすることができます
 		ko = %2$@를 다운로드하기 위해서는 먼저 장치에서 무료로 %1$@를주세요
@@ -837,19 +837,19 @@
 	[download_resources]
 		en = Program needs to download \n%.1f%@ of mandatory resources.
 		comment = REMOVE THIS STRING AFTER REFACTORING
-		de = Programm muss \n%.1f%@ zwingend benötigte Daten herunterladen.
-		es = El programa necesita descargar \n%.1f%@ de los recursos obligatorios.
-		fr = Merci de télécharger \n%.1f%@ de ressources nécessaires pour la mise en marche du programme 
+		de = Programm muss\n%.1f%@ zwingend benötigte Daten herunterladen.
+		es = El programa necesita descaragar\n%.1f%@ de recursos necesarios.
+		fr = Merci de télécharger\n%.1f%@ de ressources nécessaires pour la mise en marche du programme.
 		ja = アプリは\n%.1f%@分の必須リソースをダウンロードする必要があります
-		ko = 프로그램은 필수 자원의 \n%.1f%@ 를 다운로드해야합니다.
-		ru = Для запуска программы нужно загрузить \n%.1f%@ необходимых ресурсов.
-		uk = Для запуску програми потрібно завантажити\n %.1f%@ необхідних ресурсів.
-		cs = Program potřebuje stáhnout \n%.1f%@ povinných zdrojů.
-		nl = Programma moet \n%.1f%@ downloaden.
+		ko = 프로그램은 필수 자원의\n%.1f%@ 를 다운로드해야합니다.
+		ru = Для запуска программы нужно загрузить\n%.1f%@ необходимых ресурсов.
+		uk = Для запуску програми потрібно завантажити\n%.1f%@ необхідних ресурсів.
+		cs = Program potřebuje stáhnout\n%.1f%@ povinných zdrojů.
+		nl = Programma moet\n%.1f%@ downloaden.
 	[getting_position]
 		en = Getting current position
 		de = Ermittle momentane Position
-		es = Obtener la posición actual
+		es = Buscando su ubicación actual
 		fr = Votre position est déterminé
 		ja = 現在地を取得中
 		ko = 현재 위치 얻기
@@ -871,7 +871,7 @@
 	[downloading_country_can_proceed]
 		en = Downloading %@. You can now\nproceed to the map.
 		de = Lade %@ herunter. Sie können jetzt\nzur Karte weitergehen.
-		es = Descarga %@. Ahora puede\ncontinuar con el mapa.
+		es = Descargando %@. Puede ahora\nproceder al mapa
 		fr = Téléchargement de %@.\nPasser sur la carte
 		ja = %@をダウンロード中\n地図に移動できます
 		ko = %@다운로드. 이제지도를 진행할 수 있습니다.
@@ -905,7 +905,7 @@
 		en = You can download the map\nof your current location.
 		comment = REMOVE THIS STRING AFTER REFACTORING
 		de = Sie können die Karte von\nihrem aktuellen Ort herunterladen.
-		es = Puedes descargar el mapa\nde su ubicación actual
+		es = Puede descargar el mapa de su ubicación actual
 		fr = Vous pouvez télécharger la carte\nde votre position actuelle.
 		ja = 現在地の地図を\nダウンロードできます
 		ko = 당신의 현재 위치의지도를 다운로드할 수 있습니다.
@@ -917,7 +917,7 @@
 		en = You can update the map\nof your current location.
 		comment = REMOVE THIS_STRING AFTER REFACTORING
 		de = Sie können die Karte von\nihrem aktuellen Ort aktualisieren.
-		es = Puedes actulizar el mapa\nde su ubicación actual
+		es = Puede actualizar el mapa de su ubicación actual
 		fr = Vous pouvez renouveler la carte\nde votre position actuelle.
 		ja = 現在地の地図を\n更新できます
 		ko = 귀하의 현재 위치의지도를 업데이트할 수 있습니다.
@@ -929,7 +929,7 @@
 		en = The map at your current\nlocation (%@) is up-to-date
 		comment = REMOVE THIS STRING AFTER REFACTORING
 		de = Die Karte von ihrem aktuellen\nOrt (%@) ist aktuell
-		es = El mapa de su ubicación (%@) actual es actual
+		es = El mapa de su ubicación\nactual (%@) está actualizado
 		fr = La carte de votre\nposition (%@) est déjà téléchargée
 		ja = 現在地の地図は\n最新です (%@)
 		ko = 현재 위치 (%@)\n에서지도는 최신이다
@@ -941,7 +941,7 @@
 		en = Pause
 		comment = REMOVE THIS STRING AFTER REFACTORING
 		de = Pause
-		es = Pausa
+		es = Pausar
 		fr = Pause
 		ja = 一時停止
 		ko = 중지
@@ -964,7 +964,7 @@
 	[downloaded_touch_to_update]
 		en = Downloaded (%@), touch to update or delete
 		de = Heruntergeladen (%@), berühren zum aktualisieren oder löschen
-		es = Descargado (%@), pulse actualizar o eliminar
+		es = Descargado (%@), tocar para actualizar o borrar
 		fr = (%@) est téléchargé, touchez pour renouveler ou effacer
 		ja = (%@)をダウンロードしました。タップして更新、削除できます
 		ko = 다운로드 (%@), 터치를 업데이 트하거나 삭제하는 방법
@@ -988,7 +988,7 @@
 		tags = android
 		comment = Show popup notification when we have downloaded countries without search (from Lite version)
 		de = Sie benötigen aktualisierte Karten für die Suchfunktion
-		es = Necesita actualizar los mapas para la búsqueda
+		es = Necesita los mapas actualizados para la función de búsqueda
 		fr = Merci d'effacer les cartes anciennes pour faire fonctionner la recherche
 		ja = 検索機能を利用するには地図を更新する必要があります
 		ko = 당신은 검색 기능에 대한 업데이트된지도 필요
@@ -1001,7 +1001,7 @@
 		tags = android
 		comment = Show popup notification on app start when we have out-of-date maps
 		de = Aktualisierung für diese Karten erhältlich:
-		es = Disponible la actualización de estos mapas:
+		es = Hay actualizaciones disponibles para estos mapas:
 		fr = Le renouvellement est disponible pour les cartes suivantes:
 		ja = こちらの地図が更新できます：
 		ko = 이지도에 사용할 수있는 업데이트 :
@@ -1015,7 +1015,7 @@
 		comment = Show popup notification in Pro version that Lite can be deleted
 		ru = MapsWithMe Lite больше не нужна. Рекомендуем ее удалить.
 		de = Sie benötigen MapsWithMe Lite nicht mehr, sie können es deinstallieren.
-		es = No es necesario MapsWithMe Lite más, por lo que se puede desinstalar.
+		es = Ahora no necesita MapsWithMe Lite, la puede desinstalar.
 		fr = Vous n'avez plus besoin de MapsWithMe Lite. Merci de l'effacer
 		ja = MapsWithMe Liteはもう必要ありませんので削除してもかまいません
 		ko = 당신은 더 이상 MapsWithMe 라이트는 필요 없어, 당신은 그것을 제거할 수 있습니다.
@@ -1028,7 +1028,7 @@
 		comment = Show popup notification on top of the map when country was downloaded.
 		ru = %@ успешно загружена
 		de = %@ erfolgreich heruntergeladen
-		es = %@ descargado con exito
+		es = %@ se descargó exitosamente
 		fr = Téléchargement de %@ est accompli avec succès 
 		ja = %@のダウンロードが成功しました
 		ko = %@이 성공적으로 다운로드
@@ -1041,7 +1041,7 @@
 		comment = Show popup notification on top of the map when country download has failed.
 		ru = Не удалось загрузить %@
 		de = %@ herunterladen fehlgeschlagen
-		es = %@ descarga ha fallado
+		es = %@ la descarga ha fallado
 		fr = Erreur de téléchargement de %@
 		ja = %@のダウンロードが失敗しました
 		ko = %@다운로드가 실패했습니다
@@ -1055,7 +1055,7 @@
 		ru = Добавить группу
 		de = Neue Gruppe hinzufügen
 		uk = Додати групу
-		es = Añadir nuevo grupo
+		es = Agregar una agrupación nueva
 		fr = Ajouter une groupe
 		ja = 新しいセットを追加
 		ko = 새로운 세트 추가
@@ -1068,7 +1068,7 @@
 		ru = Добавить в закладки
 		de = Zu Lesezeichen hinzufügen
 		uk = Додати в закладки
-		es = Añadir a marcadores
+		es = Agregar a marcadores
 		fr = Ajouter dans les signets
 		ja = ブックマークに追加
 		ko = 즐겨찾기에 추가
@@ -1081,7 +1081,7 @@
 		ru = Цвет закладки
 		de = Lesezeichen Farbe
 		uk = Колір закладки
-		es = Color de marcador
+		es = Color del marcador
 		fr = Couleur du signet
 		ja = ブックマークの色
 		ko = 색상 즐겨찾기에 추가
@@ -1094,7 +1094,7 @@
 		ru = Название группы
 		de = Name des Lesezeichens
 		uk = Назва групи
-		es = Nombre del grupo
+		es = Nombre de la agrupación de marcadores
 		fr = Nom de la groupe
 		ja = ブックマークセット名
 		ko = 집합 이름을 즐겨찾기에 추가
@@ -1107,7 +1107,7 @@
 		ru = Группы закладок
 		de = Lesezeichenmappe
 		uk = Групи закладок
-		es = Grupos de marcadores
+		es = Agrupación de marcadores
 		fr = Groupes de signets
 		ja = ブックマークセット
 		ko = 세트를 즐겨찾기에 추가
@@ -1146,7 +1146,7 @@
 		ru = Новая метка
 		de = Gesetzte Stecknadel
 		uk = Нова мітка
-		es = Alfiler caída
+		es = Etiqueta colocada
 		fr = L'épingle déplacée
 		ja = ドロップされたピン
 		ko = 알수 없는 핀
@@ -1159,7 +1159,7 @@
 		ru = Мои Закладки
 		de = Meine Orte
 		uk = Мої Закладки
-		es = Mis marcadores
+		es = Mis lugares
 		fr = Mes signets
 		ja = マイロケーション
 		ko = 내 장소
@@ -1198,7 +1198,7 @@
 		ru = Удалить метку
 		de = Stecknadel entfernen
 		uk = Видалити мітку
-		es = Eliminar alfiler
+		es = Quitar la etiqueta
 		fr = Effacer l'épingle
 		ja = ピンを削除
 		ko = 핀 제거
@@ -1211,26 +1211,12 @@
 		ru = Группа
 		de = Gruppe
 		uk = Група
-		es = Grupo
+		es = Agrupación
 		fr = Groupe
 		ja = セット
 		ko = 집합
 		cs = Skupina
 		nl = Groep
-
-	[suggest_auto_follow_mode]
-		en = Tap the blue arrow to switch on the auto-follow mode
-		tags = android
-		comment = Show popup notification in Pro version as a hint how to switch on the auto-follow mode.
-		ru = 
-		de = 
-		es = 
-		fr = 
-		ja = 
-		ko = 
-		cs = 
-		uk = 
-		nl = 
 	[bookmarks_usage_hint]
 		en = Add any place on the map to bookmarks. To do that, touch a spot on the map and hold until the context menu appears.
 		tags = ios
@@ -1292,7 +1278,7 @@
 		uk = Це може зайняти кілька хвилин.\nЛаска, зачекайте…
 		es = Esto podría llevar algunos minutos.\nPor favor, espera…
 		fr = Cela peut prendre plusieurs minutes.\nVeuillez patienter…
-		ja = 数分かかる場合があります。\n お待ち下さい…
+		ja = 数分かかる場合があります。\nお待ち下さい…
 		ko = 이 작업은 수 분 소요될 수 있습니다.\n잠시 기다리세요…
 		cs = Tato akce může trvat několik minut.\nPočkejte prosím…
 		nl = Dit kan enkele minuten duren.\nEven geduld…
@@ -1309,3 +1295,16 @@
 		ko = 눈에 보이는
 		cs = Viditelný
 		nl = Zichtbaar
+	[bookmarks_in_pro_version]
+		en = Bookmarks are available in the full version of MapsWithMe. Get it right now?
+		tags = ios
+		comment = Proposal to download Pro version with Bookmarks
+		ru = Закладки доступны в полной верии MapsWithMe. Скачать ее прямо сейчас?
+		de = Lesezeichen stehen in der Vollversion von MapsWithMe zur Verfügung. Jetzt sofort besorgen?
+		uk = Закладки доступні у повній версії MapsWithMe. Отримати просто зараз?
+		es = En la versión completa de MapsWithMe, está disponible la opción de elegir favoritos. ¿Te lo quieres llevar ya?
+		fr = Les marques-page sont disponibles dans la version complète de MapsWithMe. Se la procurer maintenant?
+		ja = ブックマークはMapsWithMeの完全版でご利用いただけます。いますぐ取得されますか？
+		ko = MapsWithMe의 정식 버전에서는 즐겨찾기를 이용하실 수 있습니다. 지금 바로 구입하시겠습니까?
+		cs = V plné verzi MapsWithMe jsou k dispozici záložky. Chcete ji pořídit hned teď?
+		nl = Bladwijzers zijn beschikbaar in de volledige versie van MapsWithMe. Wilt u die nu gelijk?
