@@ -384,6 +384,9 @@ namespace
 
         if (info.m_name.empty())
         {
+          /// @todo Make logic better.
+          /// Now we skip linear objects to get only POI's here (don't mix with streets or roads).
+          /// But there are linear types that may be interesting for POI (rivers).
           if (m_cont[i].m_types.GetGeoType() != feature::GEOM_LINE)
           {
             info.m_name = m_cont[i].m_name;

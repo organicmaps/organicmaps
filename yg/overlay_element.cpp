@@ -186,6 +186,10 @@ namespace yg
 
   m2::PointD const OverlayElement::point(EPosition pos) const
   {
+    /// @todo It's better to call roughBoundRect(), or place ASSERT(!m_isDirtyRoughRect, ()) here.
+    /// In general there is no need to store m_roughBoundRect at all.
+    /// It's calculating time is fast, because elements already cache vector<m2::AnyRectD>.
+
     m2::PointD res = m_roughBoundRect.Center();
 
     if (pos & EPosLeft)
