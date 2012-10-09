@@ -98,32 +98,23 @@ public:
   }
 
   template <class ToDo>
-  void ForEachObjectConst(ToDo & toDo) const
+  void ForEachObjectInTree(ToDo & toDo, uint32_t const start) const
   {
     for (size_t i = 0; i < m_objs.size(); ++i)
-      toDo(m_objs[i]);
+    {
+      uint32_t type = start;
+
+      ftype::PushValue(type, static_cast<uint8_t>(i));
+
+      toDo(&m_objs[i], type);
+
+      m_objs[i].ForEachObjectInTree(toDo, type);
+    }
   }
 
   typedef bitset<18> visible_mask_t;
   visible_mask_t GetVisibilityMask() const { return m_visibility; }
   void SetVisibilityMask(visible_mask_t mask) { m_visibility = mask; }
-
-  //template <class ToDo> void ForEachType(int level, uint32_t type, ToDo & toDo)
-  //{
-  //  if (IsCriterion()) return;
-
-  //  if ((level > 1) || (level == 1 && m_objs.empty())) // root and first level is skipped
-  //  {
-  //    toDo(type);
-  //  }
-
-  //  for (size_t i = 0; i < m_objs.size(); ++i)
-  //  {
-  //    uint32_t t = type;
-  //    ftype::PushValue(t, i);
-  //    m_objs[i].ForEachType(level + 1, t, toDo);
-  //  }
-  //}
 
   /// @name Policies for classificator tree serialization.
   //@{
@@ -238,20 +229,22 @@ public:
 
   uint32_t GetIndexForType(uint32_t t) const { return m_mapping.GetIndex(t); }
   uint32_t GetTypeForIndex(uint32_t i) const { return m_mapping.GetType(i); }
+  bool IsTypeValid(uint32_t t) const { return m_mapping.HasIndex(t); }
 
   inline uint32_t GetCoastType() const { return m_coastType; }
-
-  // Iterate for possible objects types
-  //template <class ToDo> void ForEachType(ToDo toDo)
-  //{
-  //  m_root.ForEachType(0, ftype::GetEmptyValue(), toDo);
-  //}
 
   /// @name used in osm2type.cpp, not for public use.
   //@{
   ClassifObject const * GetRoot() const { return &m_root; }
   ClassifObject * GetMutableRoot() { return &m_root; }
   //@}
+
+  /// Iterate through all classificator tree.
+  /// Functor receives pointer to object and uint32 type.
+  template <class ToDo> void ForEachTree(ToDo & toDo) const
+  {
+    GetRoot()->ForEachObjectInTree(toDo, ftype::GetEmptyValue());
+  }
 
   /// @name Used only in feature_visibility.cpp, not for public use.
   //@{

@@ -25,4 +25,7 @@ public:
   }
 
   uint32_t GetIndex(uint32_t t) const;
+
+  /// For Debug purposes only.
+  bool HasIndex(uint32_t t) const { return (m_map.find(t) != m_map.end()); }
 };

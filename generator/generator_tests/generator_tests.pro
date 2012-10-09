@@ -28,3 +28,4 @@ SOURCES += \
     triangles_tree_coding_test.cpp \
     coasts_test.cpp \
     feature_builder_test.cpp \
+    classificator_tests.cpp \
