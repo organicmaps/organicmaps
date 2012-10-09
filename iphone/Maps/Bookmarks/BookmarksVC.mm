@@ -162,7 +162,7 @@
         // Same as "Close".
         [self dismissModalViewControllerAnimated:YES];
         [self.navigationController.visibleViewController dismissModalViewControllerAnimated:YES];
-        f.ShowRect(bm->GetViewport());
+        f.ShowRectExVisibleScale(bm->GetViewport());
       }
     }
   }
