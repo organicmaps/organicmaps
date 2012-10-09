@@ -41,6 +41,7 @@ SOURCES += \
     categories_holder.cpp \
     search_string_utils.cpp \
     string_file.cpp \
+    feature_algo.cpp \
 
 HEADERS += \
     feature.hpp \
@@ -87,6 +88,7 @@ HEADERS += \
     categories_holder.hpp \
     drules_struct.pb.h \
     string_file.hpp \
+    feature_algo.hpp \
 
 OTHER_FILES += drules_struct.proto
 

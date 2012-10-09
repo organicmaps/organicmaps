@@ -14,6 +14,7 @@
 #include "../indexer/categories_holder.hpp"
 #include "../indexer/feature.hpp"
 #include "../indexer/scales.hpp"
+#include "../indexer/feature_algo.hpp"
 
 #include "../anim/controller.hpp"
 
@@ -37,6 +38,7 @@
 #include "../std/algorithm.hpp"
 #include "../std/target_os.hpp"
 #include "../std/vector.hpp"
+
 
 /// How many pixels around touch point are used to get bookmark or POI
 #define TOUCH_PIXEL_RADIUS 20
@@ -1371,11 +1373,9 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, 
       FeatureType ft;
       guard.GetFeature(ui.m_offset, ft);
 
-//      // center point of element in global coordinates
-//      m2::PointD const center = m_navigator.Screen().PtoG(res->point(yg::EPosCenter));
       // @TODO experiment with other pivots
-      m2::PointD const center = (ft.GetFeatureType() == feature::GEOM_POINT)
-                                ? ft.GetCenter() : ft.GetLimitRect(17).Center();
+      ASSERT_NOT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE, ());
+      m2::PointD const center = feature::GetCenter(ft);
 
       GetAddressInfo(ft, center, info);
 
