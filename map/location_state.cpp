@@ -612,13 +612,22 @@ namespace location
     {
     case EActive:
       if (m_hasCompass)
+      {
         if (!IsCentered())
           AnimateToPositionAndEnqueueFollowing();
         else
           StartCompassFollowing();
+      }
       break;
+
     case EPressed:
       StopCompassFollowing();
+      break;
+
+    default:
+      /// @todo Need to check other states?
+      /// - do nothing, then write comment;
+      /// - place ASSERT, if other states are impossible;
       break;
     };
 
