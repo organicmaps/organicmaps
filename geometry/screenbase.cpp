@@ -233,8 +233,8 @@ void ScreenBase::PtoG(m2::RectD const & pxRect, m2::RectD & glbRect) const
 
 bool IsPanningAndRotate(ScreenBase const & s1, ScreenBase const & s2)
 {
-  m2::RectD r1 = s1.GlobalRect().GetLocalRect();
-  m2::RectD r2 = s2.GlobalRect().GetLocalRect();
+  m2::RectD const & r1 = s1.GlobalRect().GetLocalRect();
+  m2::RectD const & r2 = s2.GlobalRect().GetLocalRect();
 
   m2::PointD c1 = r1.Center();
   m2::PointD c2 = r2.Center();

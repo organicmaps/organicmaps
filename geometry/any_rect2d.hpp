@@ -180,7 +180,7 @@ namespace m2
         pts[i] = ConvertFrom(pts[i]);
     }
 
-    Rect<T> const GetLocalRect() const
+    Rect<T> const & GetLocalRect() const
     {
       return m_rect;
     }

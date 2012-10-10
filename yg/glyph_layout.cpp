@@ -38,7 +38,7 @@ namespace yg
     if (prevElem.m_angle.val() == curElem.m_angle.val())
       return res;
 
-    m2::RectD prevLocalRect = prevSymRectAA.GetLocalRect();
+    //m2::RectD prevLocalRect = prevSymRectAA.GetLocalRect();
     m2::PointD pts[4];
     prevSymRectAA.GetGlobalPoints(pts);
     curSymRectAA.ConvertTo(pts, 4);
@@ -48,7 +48,7 @@ namespace yg
     prevRectInCurSym.Add(pts[2]);
     prevRectInCurSym.Add(pts[3]);
 
-    m2::RectD curSymRect = curSymRectAA.GetLocalRect();
+    m2::RectD const & curSymRect = curSymRectAA.GetLocalRect();
 
     if (curSymRect.minX() < prevRectInCurSym.maxX())
       res = prevRectInCurSym.maxX() - curSymRect.minX();
