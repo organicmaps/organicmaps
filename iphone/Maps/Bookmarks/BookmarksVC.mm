@@ -6,8 +6,8 @@
 #import "CompassView.h"
 
 #include "Framework.h"
+
 #include "../../../geometry/distance_on_sphere.hpp"
-#include "../../../platform/platform.hpp"
 
 
 @implementation BookmarksVC
@@ -48,7 +48,7 @@
 {
   BookmarkCategory * cat = GetFramework().GetBmCategory(m_categoryIndex);
   cat->SetVisible(sender.on);
-  cat->SaveToKMLFileAtPath(GetPlatform().WritableDir());
+  cat->SaveToKMLFile();
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -153,7 +153,7 @@
   else
   {
     Framework & f = GetFramework();
-    BookmarkCategory * cat = f.GetBmCategory(m_categoryIndex);
+    BookmarkCategory const * cat = f.GetBmCategory(m_categoryIndex);
     if (cat)
     {
       Bookmark const * bm = cat->GetBookmark(indexPath.row);
@@ -162,7 +162,7 @@
         // Same as "Close".
         [self dismissModalViewControllerAnimated:YES];
         [self.navigationController.visibleViewController dismissModalViewControllerAnimated:YES];
-        f.ShowRectExVisibleScale(bm->GetViewport());
+        f.ShowBookmark(*bm);
       }
     }
   }

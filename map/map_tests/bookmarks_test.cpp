@@ -153,7 +153,7 @@ UNIT_TEST(Bookmarks_ExportKML)
   CheckBookmarks(*cat2);
   FileWriter::DeleteFileX(BOOKMARKS_FILE_NAME);
 
-  cat2->SaveToKMLFileAtPath("./");
+  cat2->SaveToKMLFile();
   delete cat2;
 
   cat2 = BookmarkCategory::CreateFromKMLFile(BOOKMARKS_FILE_NAME);

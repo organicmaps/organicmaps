@@ -221,6 +221,11 @@ Framework::~Framework()
   ClearBookmarks();
 }
 
+double Framework::GetVisualScale() const
+{
+  return (m_renderPolicy ? m_renderPolicy->VisualScale() : 1);
+}
+
 void Framework::DeleteCountry(TIndex const & index)
 {
   if (!m_storage.DeleteFromDownloader(index))
@@ -321,6 +326,10 @@ void Framework::LoadBookmarks()
 
 void Framework::AddBookmark(string const & category, Bookmark const & bm)
 {
+  // Get global non-rotated viewport rect and calculate viewport scale level.
+  double const scale = scales::GetScaleLevelD(
+        m_navigator.Screen().GlobalRect().GetLocalRect());
+
   // @TODO not optimal for 1st release
   // Existing bookmark can be moved from one category to another,
   // or simply replaced in the same category,
@@ -330,15 +339,13 @@ void Framework::AddBookmark(string const & category, Bookmark const & bm)
   {
     m2::PointD const org = bm.GetOrg();
     BookmarkCategory * cat = m_bookmarks[i];
-    int index = cat->GetBookmark(org, squareDistance);
+    int const index = cat->GetBookmark(org, squareDistance);
     if (index >= 0)
     {
       // found bookmark to replace
       if (category == cat->GetName())
       {
-        cat->ReplaceBookmark(static_cast<size_t>(index), bm);
-        // Autosave added bookmark
-        (void)cat->SaveToKMLFileAtPath(GetPlatform().WritableDir());
+        cat->ReplaceBookmark(static_cast<size_t>(index), bm, scale);
         return;
       }
       else
@@ -350,10 +357,7 @@ void Framework::AddBookmark(string const & category, Bookmark const & bm)
   }
 
   BookmarkCategory * cat = GetBmCategory(category);
-  ASSERT(cat, ("category should autocreate if not exists"));
-  cat->AddBookmark(bm);
-  // Autosave added bookmark
-  (void)cat->SaveToKMLFileAtPath(GetPlatform().WritableDir());
+  cat->AddBookmark(bm, scale);
 }
 
 namespace
@@ -403,15 +407,12 @@ bool Framework::DeleteBmCategory(size_t index)
   else return false;
 }
 
-BookmarkAndCategory Framework::GetBookmark(m2::PointD pt) const
+BookmarkAndCategory Framework::GetBookmark(m2::PointD const & pxPoint) const
 {
-  // @TODO Refactor. Why bookmarks can't be retrieved? Change pixel point to global point.
-  if (m_renderPolicy == 0)
-    return MakeEmptyBookmarkAndCategory();
-  return GetBookmark(pt, m_renderPolicy->VisualScale());
+  return GetBookmark(pxPoint, GetVisualScale());
 }
 
-BookmarkAndCategory Framework::GetBookmark(m2::PointD pxPoint, double visualScale) const
+BookmarkAndCategory Framework::GetBookmark(m2::PointD const & pxPoint, double visualScale) const
 {
   // Get the global rect of touching area.
   int const sm = TOUCH_PIXEL_RADIUS * visualScale;
@@ -444,6 +445,14 @@ BookmarkAndCategory Framework::GetBookmark(m2::PointD pxPoint, double visualScal
   }
 
   return make_pair(retBookmarkCategory, retBookmark);
+}
+
+void Framework::ShowBookmark(Bookmark const & bm)
+{
+  double scale = bm.GetScale();
+  if (scale == -1.0) scale = 16.0;
+
+  ShowRectExVisibleScale(scales::GetRectForLevel(scale, bm.GetOrg(), 1.0));
 }
 
 void Framework::ClearBookmarks()
@@ -1346,14 +1355,8 @@ shared_ptr<yg::OverlayElement> const GetClosestToPivot(list<shared_ptr<yg::Overl
 
 bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, AddressInfo & info) const
 {
-  if (!m_renderPolicy)
-  {
-    LOG(LINFO, ("GetVisiblePOI called without valid renderPolicy!"));
-    return false;
-  }
-
   m2::PointD const pt = m_navigator.ShiftPoint(pxPoint);
-  double const halfSize = TOUCH_PIXEL_RADIUS * m_renderPolicy->VisualScale();
+  double const halfSize = TOUCH_PIXEL_RADIUS * GetVisualScale();
 
   typedef yg::OverlayElement ElementT;
 

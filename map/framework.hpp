@@ -78,6 +78,11 @@ protected:
 
   scoped_ptr<RenderPolicy> m_renderPolicy;
 
+  /// Safe function to get current visual scale.
+  /// Call it when you need do calculate pixel rect (not matter if m_renderPolicy == 0).
+  /// @return 1.0 if m_renderPolicy == 0 (possible for Android).
+  double GetVisualScale() const;
+
   double m_StartForegroundTime;
 
   /// @todo Need deep analyzing in future.
@@ -180,8 +185,10 @@ public:
   /// Get bookmark by touch.
   /// @param[in]  pixPt   Coordinates of touch point in pixels.
   /// @return     NULL    If there is no bookmark found
-  BookmarkAndCategory GetBookmark(m2::PointD pixPt) const;
-  BookmarkAndCategory GetBookmark(m2::PointD pixPt, double visualScale) const;
+  BookmarkAndCategory GetBookmark(m2::PointD const & pxPoint) const;
+  BookmarkAndCategory GetBookmark(m2::PointD const & pxPoint, double visualScale) const;
+
+  void ShowBookmark(Bookmark const & bm);
 
   void ClearBookmarks();
 

@@ -2,11 +2,10 @@
 
 #include "../indexer/mercator.hpp"
 
-#include "../platform/platform.hpp"
-
 #include "../coding/file_reader.hpp"
 #include "../coding/parse_xml.hpp"  // LoadFromKML
-#include "../base/string_utils.hpp"
+
+#include "../platform/platform.hpp"
 
 #include "../base/stl_add.hpp"
 #include "../base/string_utils.hpp"
@@ -15,19 +14,30 @@
 #include "../std/algorithm.hpp"
 
 
-void BookmarkCategory::AddBookmark(Bookmark const & bm)
+void BookmarkCategory::AddBookmark(Bookmark const & bm, double scale)
 {
-  m_bookmarks.push_back(new Bookmark(bm));
+  Bookmark * p = new Bookmark(bm);
+  p->SetScale(scale);
+
+  m_bookmarks.push_back(p);
+
+  VERIFY ( SaveToKMLFile(), () );
 }
 
-void BookmarkCategory::ReplaceBookmark(size_t index, Bookmark const & bm)
+void BookmarkCategory::ReplaceBookmark(size_t index, Bookmark const & bm, double scale)
 {
-  ASSERT_LESS(index, m_bookmarks.size(), ());
+  ASSERT_LESS ( index, m_bookmarks.size(), () );
   if (index < m_bookmarks.size())
   {
+    Bookmark * p = new Bookmark(bm);
+    p->SetScale(scale);
+
     Bookmark const * old = m_bookmarks[index];
-    m_bookmarks[index] = new Bookmark(bm);
+    m_bookmarks[index] = p;
+
     delete old;
+
+    VERIFY ( SaveToKMLFile(), () );
   }
   else
     LOG(LWARNING, ("Trying to replace non-existing bookmark"));
@@ -50,9 +60,8 @@ void BookmarkCategory::DeleteBookmark(size_t index)
   {
     delete m_bookmarks[index];
     m_bookmarks.erase(m_bookmarks.begin() + index);
-    // Save updated file
-    if (!m_file.empty())
-      (void)SaveToKMLFileAtPath(m_file);
+
+    VERIFY ( SaveToKMLFile(), () );
   }
   else
   {
@@ -80,17 +89,20 @@ namespace
   // Fixes icons which are not supported by MapsWithMe
   static string GetSupportedBMType(string const & s)
   {
-    static char const * icons[] = {"placemark-red", "placemark-blue", "placemark-purple",
-        "placemark-pink", "placemark-brown", "placemark-green", "placemark-orange"};
+    static char const * icons[] = {
+        "placemark-red", "placemark-blue", "placemark-purple",
+        "placemark-pink", "placemark-brown", "placemark-green", "placemark-orange"
+    };
 
     // Remove leading '#' symbol
-    string result = s.substr(1);
+    string const result = s.substr(1);
     for (size_t i = 0; i < ARRAY_SIZE(icons); ++i)
       if (result == icons[i])
         return result;
+
     // Not recognized symbols are replaced with default one
     LOG(LWARNING, ("Bookmark icon is not supported:", result));
-    return "placemark-red";
+    return icons[0];
   }
 
   class KMLParser
@@ -103,12 +115,14 @@ namespace
     string m_type;
 
     m2::PointD m_org;
+    double m_scale;
 
     void Reset()
     {
       m_name.clear();
       m_org = m2::PointD(-1000, -1000);
       m_type.clear();
+      m_scale = -1.0;
     }
 
     void SetOrigin(string const & s)
@@ -156,43 +170,49 @@ namespace
 
       if (tag == "Placemark" && IsValid())
       {
-        m_category.AddBookmark(Bookmark(m_org, m_name, m_type));
+        m_category.AddBookmark(Bookmark(m_org, m_name, m_type), m_scale);
         Reset();
       }
       m_tags.pop_back();
     }
 
-    class IsSpace
-    {
-    public:
-      bool operator() (char c) const
-      {
-        return ::isspace(c);
-      }
-    };
-
     void CharData(string value)
     {
       strings::Trim(value);
+
       size_t const count = m_tags.size();
       if (count > 1 && !value.empty())
       {
         string const & currTag = m_tags[count - 1];
         string const & prevTag = m_tags[count - 2];
 
-        if (currTag == "name")
+        if (prevTag == "Document")
         {
-          if (prevTag == "Placemark")
-            m_name = value;
-          else if (prevTag == "Document")
+          if (currTag == "name")
             m_category.SetName(value);
+          else if (currTag == "visibility")
+            m_category.SetVisible(value == "0" ? false : true);
         }
-        else if (currTag == "coordinates" && prevTag == "Point")
-          SetOrigin(value);
-        else if (currTag == "visibility" && prevTag == "Document")
-          m_category.SetVisible(value == "0" ? false : true);
-        else if (currTag == "styleUrl" && prevTag == "Placemark")
-          m_type = GetSupportedBMType(value);
+        else if (prevTag == "Placemark")
+        {
+          if (currTag == "name")
+            m_name = value;
+          else if (currTag == "styleUrl")
+            m_type = GetSupportedBMType(value);
+        }
+        else if (prevTag == "Point")
+        {
+          if (currTag == "coordinates")
+            SetOrigin(value);
+        }
+        else if (prevTag == "ExtendedData")
+        {
+          if (currTag == "mwm:scale")
+          {
+            if (!strings::to_double(value, m_scale))
+              m_scale = -1.0;
+          }
+        }
       }
     }
   };
@@ -312,8 +332,18 @@ void BookmarkCategory::SaveToKML(ostream & s)
       << "    <styleUrl>#" << bm->GetType() << "</styleUrl>\n"
       << "    <Point>\n"
       << "      <coordinates>" << PointToString(bm->GetOrg()) << "</coordinates>\n"
-      << "    </Point>\n"
-      << "  </Placemark>\n";
+      << "    </Point>\n";
+
+    double const scale = bm->GetScale();
+    if (scale != -1)
+    {
+      /// @todo Factor out to separate function to use for other custom params.
+      s << "    <ExtendedData xmlns:mwm=\"http://mapswithme.com\">\n"
+        << "      <mwm:scale>" << bm->GetScale() << "</mwm:scale>\n"
+        << "    </ExtendedData>\n";
+    }
+
+    s << "  </Placemark>\n";
   }
 
   s << kmlFooter;
@@ -346,10 +376,13 @@ string BookmarkCategory::GenerateUniqueFileName(const string & path, string cons
   return path + fixedName + suffix + ".kml";
 }
 
-bool BookmarkCategory::SaveToKMLFileAtPath(string const & path)
+bool BookmarkCategory::SaveToKMLFile()
 {
   if (m_file.empty())
-    m_file = GenerateUniqueFileName(path, m_file);
+  {
+    /// @todo It's better to pass category name as file name here, isn't it?
+    m_file = GenerateUniqueFileName(GetPlatform().WritableDir(), m_file);
+  }
 
   try
   {
