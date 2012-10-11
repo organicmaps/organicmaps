@@ -335,7 +335,7 @@ void BookmarkCategory::SaveToKML(ostream & s)
       << "    </Point>\n";
 
     double const scale = bm->GetScale();
-    if (scale != -1)
+    if (scale != -1.0)
     {
       /// @todo Factor out to separate function to use for other custom params.
       s << "    <ExtendedData xmlns:mwm=\"http://mapswithme.com\">\n"
@@ -379,10 +379,7 @@ string BookmarkCategory::GenerateUniqueFileName(const string & path, string cons
 bool BookmarkCategory::SaveToKMLFile()
 {
   if (m_file.empty())
-  {
-    /// @todo It's better to pass category name as file name here, isn't it?
-    m_file = GenerateUniqueFileName(GetPlatform().WritableDir(), m_file);
-  }
+    m_file = GenerateUniqueFileName(GetPlatform().WritableDir(), m_name);
 
   try
   {

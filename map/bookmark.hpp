@@ -20,7 +20,7 @@ class Bookmark
 public:
   Bookmark() {}
   Bookmark(m2::PointD const & org, string const & name, string const & type)
-    : m_org(org), m_name(name), m_type(type)
+    : m_org(org), m_name(name), m_type(type), m_scale(-1.0)
   {
   }
 
@@ -48,7 +48,7 @@ public:
 
   void ClearBookmarks();
 
-  /// @name This function are called from Framework only.
+  /// @name Theese functions are called from Framework only.
   //@{
   void AddBookmark(Bookmark const & bm, double scale);
   void ReplaceBookmark(size_t index, Bookmark const & bm, double scale);
@@ -70,7 +70,7 @@ public:
 
   void DeleteBookmark(size_t index);
 
-  /// @name This fuctions are public for unit tests only.
+  /// @name Theese fuctions are public for unit tests only.
   /// You don't need to call them from client code.
   //@{
   void LoadFromKML(ReaderPtr<Reader> const & reader);
