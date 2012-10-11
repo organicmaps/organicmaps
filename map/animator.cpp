@@ -11,7 +11,7 @@ Animator::Animator(Framework * framework)
   : m_framework(framework)
 {}
 
-void Animator::RotateScreen(double startAngle, double endAngle, double duration)
+void Animator::RotateScreen(double startAngle, double endAngle)
 {
   if (m_rotateScreenTask)
     m_rotateScreenTask->Lock();
@@ -35,7 +35,7 @@ void Animator::RotateScreen(double startAngle, double endAngle, double duration)
       m_rotateScreenTask.reset(new RotateScreenTask(m_framework,
                                                     startAngle,
                                                     endAngle,
-                                                    duration));
+                                                    GetRotationSpeed()));
 
       m_framework->GetAnimController()->AddTask(m_rotateScreenTask);
       return;
@@ -102,4 +102,10 @@ void Animator::StopChangeViewport()
     m_changeViewportTask->Unlock();
 
   m_changeViewportTask.reset();
+}
+
+double Animator::GetRotationSpeed() const
+{
+  /// making full circle in 3 seconds.
+  return 3;
 }

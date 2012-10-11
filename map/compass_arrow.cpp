@@ -134,7 +134,7 @@ bool CompassArrow::onTapEnded(m2::PointD const & pt)
   double startAngle = m_framework->GetNavigator().Screen().GetAngle();
   double endAngle = 0;
 
-  m_framework->GetAnimator().RotateScreen(startAngle, endAngle, 2);
+  m_framework->GetAnimator().RotateScreen(startAngle, endAngle);
 
   animController->Unlock();
 

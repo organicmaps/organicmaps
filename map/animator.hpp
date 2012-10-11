@@ -25,8 +25,7 @@ public:
   Animator(Framework * framework);
   /// rotate screen by shortest path.
   void RotateScreen(double startAngle,
-                    double endAngle,
-                    double duration);
+                    double endAngle);
   /// stopping screen rotation
   void StopRotation();
   /// move screen from one point to another
@@ -35,4 +34,6 @@ public:
                                          double rotationSpeed);
   /// stop screen moving
   void StopChangeViewport();
+  /// get screen rotation speed
+  double GetRotationSpeed() const;
 };

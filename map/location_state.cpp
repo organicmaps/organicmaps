@@ -479,7 +479,7 @@ namespace location
 
           m_headingInterpolation.reset(new anim::AngleInterpolation(m_drawHeading,
                                                                     m_compassFilter.GetHeadingRad(),
-                                                                    1,
+                                                                    m_framework->GetAnimator().GetRotationSpeed(),
                                                                     m_drawHeading));
 
           m_framework->GetAnimController()->AddTask(m_headingInterpolation);
@@ -516,7 +516,7 @@ namespace location
     double startAngle = m_framework->GetNavigator().Screen().GetAngle();
     double endAngle = -m_compassFilter.GetHeadingRad();
 
-    m_framework->GetAnimator().RotateScreen(startAngle, endAngle, 2);
+    m_framework->GetAnimator().RotateScreen(startAngle, endAngle);
 
     controller->Unlock();
   }
