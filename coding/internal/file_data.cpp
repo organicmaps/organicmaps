@@ -242,8 +242,9 @@ bool CopyFile(string const & fOld, string const & fNew)
     if (ifs.is_open() && ofs.is_open())
     {
       ofs << ifs.rdbuf();
+      ofs.flush();
 
-      if (ofs.bad() || ofs.fail())
+      if (ofs.fail())
       {
         // Well, specification says that exception is thrown for critical errors.
         // So just log stream fail state and continue.
