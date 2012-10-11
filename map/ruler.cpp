@@ -290,7 +290,7 @@ void Ruler::draw(yg::gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const &
     s->drawPath(
         &m_path[0], m_path.size(), 0,
           s->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 0x99), 2 * m_visualScale, 0, 0, 0)),
-        depth() - 2);
+        depth());
 
     if (position() & yg::EPosLeft)
       s->drawText(m_fontDesc,

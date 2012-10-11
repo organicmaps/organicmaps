@@ -42,6 +42,8 @@ InformationDisplay::InformationDisplay(Framework * framework)
   m_fontDesc.m_isMasked = true;
   m_fontDesc.m_maskColor = yg::Color(0xFF, 0xFF, 0xFF, 0x80);
 
+  m_ruler.setDepth(yg::maxDepth);
+
   CountryStatusDisplay::Params p;
 
   p.m_pivot = m2::PointD(0, 0);

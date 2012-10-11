@@ -85,7 +85,7 @@ namespace yg
     r->drawStraightTexturedPolygon(pivot(),
                                    texRect.minX(), texRect.minY(), texRect.maxX(), texRect.maxY(),
                                    posPt.x, posPt.y, posPt.x + texRect.SizeX(), posPt.y + texRect.SizeY(),
-                                   yg::maxDepth,
+                                   yg::maxDepth - 2,
                                    style->m_pipelineID);
 
 #else
@@ -93,7 +93,7 @@ namespace yg
     r->drawTexturedPolygon(m2::PointD(0.0, 0.0), 0.0,
                            texRect.minX(), texRect.minY(), texRect.maxX(), texRect.maxY(),
                            posPt.x, posPt.y, posPt.x + texRect.SizeX(), posPt.y + texRect.SizeY(),
-                           yg::maxDepth,
+                           yg::maxDepth - 2,
                            style->m_pipelineID);
 
 #endif
