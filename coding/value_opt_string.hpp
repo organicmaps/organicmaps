@@ -12,8 +12,6 @@ class StringNumericOptimal
 {
   string m_s;
 
-  static const uint8_t numeric_bit = 1;
-
 public:
   inline bool operator== (StringNumericOptimal const & rhs) const
   {
@@ -40,11 +38,16 @@ public:
   inline bool IsEmpty() const { return m_s.empty(); }
   inline string const & Get() const { return m_s; }
 
+  /// First uint64_t value is:
+  /// - a number if low control bit is 1;
+  /// - a string size-1 if low control bit is 0;
+
   template <class TSink> void Write(TSink & sink) const
   {
+    // If string is a number and we have space for control bit
     uint64_t n;
     if (strings::to_uint64(m_s, n) && ((n << 1) >> 1) == n)
-      WriteVarUint(sink, ((n << 1) | numeric_bit));
+      WriteVarUint(sink, ((n << 1) | 1));
     else
     {
       size_t const sz = m_s.size();
@@ -57,9 +60,9 @@ public:
 
   template <class TSource> void Read(TSource & src)
   {
-    uint32_t sz = ReadVarUint<uint32_t>(src);
+    uint64_t sz = ReadVarUint<uint64_t>(src);
 
-    if ((sz & numeric_bit) != 0)
+    if ((sz & 1) != 0)
       m_s = strings::to_string(sz >> 1);
     else
     {
