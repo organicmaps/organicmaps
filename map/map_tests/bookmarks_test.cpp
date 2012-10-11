@@ -2,6 +2,10 @@
 
 #include "../../map/framework.hpp"
 
+#include "../../platform/platform.hpp"
+
+#include "../../coding/internal/file_data.hpp"
+
 #include "../../std/fstream.hpp"
 
 
@@ -125,9 +129,9 @@ UNIT_TEST(Bookmarks_ImportKML)
 UNIT_TEST(Bookmarks_ExportKML)
 {
   char const * BOOKMARKS_FILE_NAME = "UnitTestBookmarks.kml";
+
   BookmarkCategory cat("Default");
   cat.LoadFromKML(new MemReader(kmlString, strlen(kmlString)));
-
   CheckBookmarks(cat);
 
   TEST_EQUAL(cat.IsVisible(), false, ());
@@ -141,24 +145,25 @@ UNIT_TEST(Bookmarks_ExportKML)
   }
 
   cat.ClearBookmarks();
-
   TEST_EQUAL(cat.GetBookmarksCount(), 0, ());
 
   cat.LoadFromKML(new FileReader(BOOKMARKS_FILE_NAME));
-
   CheckBookmarks(cat);
   TEST_EQUAL(cat.IsVisible(), true, ());
 
-  BookmarkCategory * cat2 = BookmarkCategory::CreateFromKMLFile(BOOKMARKS_FILE_NAME);
+  scoped_ptr<BookmarkCategory> cat2(BookmarkCategory::CreateFromKMLFile(BOOKMARKS_FILE_NAME));
   CheckBookmarks(*cat2);
-  FileWriter::DeleteFileX(BOOKMARKS_FILE_NAME);
 
   cat2->SaveToKMLFile();
-  delete cat2;
+  // old file should be deleted if we save bookmarks with new category name
+  uint64_t dummy;
+  TEST(!my::GetFileSize(BOOKMARKS_FILE_NAME, dummy), ());
 
-  cat2 = BookmarkCategory::CreateFromKMLFile(BOOKMARKS_FILE_NAME);
+  // MapName is the <name> tag in test kml data.
+  string const catFileName = GetPlatform().WritableDir() + "MapName.kml";
+  cat2.reset(BookmarkCategory::CreateFromKMLFile(catFileName));
   CheckBookmarks(*cat2);
-  FileWriter::DeleteFileX(BOOKMARKS_FILE_NAME);
+  TEST(my::DeleteFileX(catFileName), ());
 }
 
 UNIT_TEST(Bookmarks_Getting)
@@ -228,6 +233,30 @@ UNIT_TEST(Bookmarks_AddressInfo)
 
   // assume that developers have English or Russian system language :)
   TEST(info.m_types[0] == "cafe" || info.m_types[0] == "кафе", (info.m_types[0]));
+}
+
+UNIT_TEST(Bookmarks_IllegalFileName)
+{
+  char const * arrIllegal[] = { "?", "?|", "\"x", "|x:", "x<>y", "xy*"};
+  char const * arrLegal[] =   { "",  "",   "x",   "x",   "xy",   "xy"};
+
+  for (size_t i = 0; i < ARRAY_SIZE(arrIllegal); ++i)
+  {
+    string name = BookmarkCategory::GenerateUniqueFileName("", arrIllegal[i]);
+
+    // remove extension
+    TEST_GREATER(name.size(), 4, ());
+    name.erase(name.end() - 4, name.end());
+
+    if (strlen(arrLegal[i]) == 0)
+    {
+      TEST_EQUAL("Bookmarks", name, ());
+    }
+    else
+    {
+      TEST_EQUAL(arrLegal[i], name, ());
+    }
+  }
 }
 
 UNIT_TEST(Bookmarks_UniqueFileName)
@@ -300,5 +329,14 @@ UNIT_TEST(Bookmarks_AddingMoving)
   pBm = fm.GetBmCategory(res.first)->GetBookmark(res.second);
   TEST_EQUAL(pBm->GetName(), "name3", ());
   TEST_EQUAL(pBm->GetType(), "placemark-green", ());
+}
 
+// This test should always be the last to delete temporary files from previous tests.
+UNIT_TEST(Bookmarks_Finalizing)
+{
+  string const path = GetPlatform().WritableDir();
+  char const * arrFiles[] = { "cat1", "cat2", "cat3" };
+
+  for (size_t i = 0; i < ARRAY_SIZE(arrFiles); ++i)
+    FileWriter::DeleteFileX(path + arrFiles[i] + ".kml");
 }

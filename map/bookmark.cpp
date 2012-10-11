@@ -4,6 +4,7 @@
 
 #include "../coding/file_reader.hpp"
 #include "../coding/parse_xml.hpp"  // LoadFromKML
+#include "../coding/internal/file_data.hpp"
 
 #include "../platform/platform.hpp"
 
@@ -349,48 +350,57 @@ void BookmarkCategory::SaveToKML(ostream & s)
   s << kmlFooter;
 }
 
-static bool IsValidCharForPath(strings::UniChar c)
+static bool IsBadCharForPath(strings::UniChar const & c)
 {
   static strings::UniChar const illegalChars[] = {':', '/', '\\', '<', '>', '\"', '|', '?', '*'};
+
   for (size_t i = 0; i < ARRAY_SIZE(illegalChars); ++i)
     if (c < ' ' || illegalChars[i] == c)
-      return false;
-  return true;
+      return true;
+
+  return false;
 }
 
 string BookmarkCategory::GenerateUniqueFileName(const string & path, string const & name)
 {
   // Remove not allowed symbols
   strings::UniString uniName = strings::MakeUniString(name);
-  size_t const charCount = uniName.size();
-  strings::UniString uniFixedName;
-  for (size_t i = 0; i < charCount; ++i)
-    if (IsValidCharForPath(uniName[i]))
-      uniFixedName.push_back(uniName[i]);
+  strings::UniString::iterator iEnd = remove_if(uniName.begin(), uniName.end(), &IsBadCharForPath);
+  if (iEnd != uniName.end())
+  {
+    // buffer_vector doesn't have erase function - call resize here (it's even better in this case).
+    uniName.resize(distance(uniName.begin(), iEnd));
+  }
 
-  string const fixedName = uniFixedName.empty() ? "Bookmarks" : strings::ToUtf8(uniFixedName);
+  string const utfName = uniName.empty() ? "Bookmarks" : strings::ToUtf8(uniName);
   size_t counter = 1;
   string suffix;
-  while (Platform::IsFileExistsByFullPath(path + fixedName + suffix))
+  while (Platform::IsFileExistsByFullPath(path + utfName + suffix))
     suffix = strings::to_string(counter++);
-  return path + fixedName + suffix + ".kml";
+  return (path + utfName + suffix + ".kml");
 }
 
 bool BookmarkCategory::SaveToKMLFile()
 {
-  if (m_file.empty())
-    m_file = GenerateUniqueFileName(GetPlatform().WritableDir(), m_name);
+  // always assign new file name according to category name
+  string fName = GenerateUniqueFileName(GetPlatform().WritableDir(), m_name);
+  m_file.swap(fName);
 
   try
   {
-    // @TODO On Windows UTF-8 file names are not supported.
+    /// @todo On Windows UTF-8 file names are not supported.
     ofstream fileToSave(m_file.c_str());
     SaveToKML(fileToSave);
+
+    // delete old file
+    if (!fName.empty() && fName != m_file)
+      VERIFY ( my::DeleteFileX(fName), (fName, m_file));
+
+    return true;
   }
   catch (std::exception const & e)
   {
     LOG(LWARNING, ("Can't save bookmarks category", m_name, "to file", m_file));
     return false;
   }
-  return true;
 }
