@@ -69,6 +69,10 @@ namespace anim
     void Lock();
     void Unlock();
 
+    /// is this animation task animate something,
+    /// which is directly changing visual appearance.
+    virtual bool IsVisual() const;
+
     void AddCallback(EState state, TCallback const & cb);
   };
 }

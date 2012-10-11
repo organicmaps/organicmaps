@@ -24,3 +24,8 @@ void RotateScreenTask::OnEnd(double ts)
   anim::AngleInterpolation::OnEnd(ts);
   m_framework->GetNavigator().SetAngle(m_outAngle);
 }
+
+bool RotateScreenTask::IsVisual() const
+{
+  return true;
+}

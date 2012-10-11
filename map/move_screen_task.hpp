@@ -20,4 +20,6 @@ public:
 
   void OnStep(double ts);
   void OnEnd(double ts);
+
+  bool IsVisual() const;
 };

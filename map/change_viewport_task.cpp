@@ -24,3 +24,8 @@ void ChangeViewportTask::OnEnd(double ts)
   anim::AnyRectInterpolation::OnEnd(ts);
   m_framework->GetNavigator().SetFromRect(m_outRect);
 }
+
+bool ChangeViewportTask::IsVisual() const
+{
+  return true;
+}

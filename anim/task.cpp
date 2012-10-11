@@ -97,6 +97,11 @@ namespace anim
     return State() == EReady;
   }
 
+  bool Task::IsVisual() const
+  {
+    return false;
+  }
+
   void Task::AddCallback(EState state, TCallback const & cb)
   {
     m_Callbacks[state].push_back(cb);

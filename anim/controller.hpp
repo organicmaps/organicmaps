@@ -25,6 +25,8 @@ namespace anim
     int m_IdleThreshold;
     int m_IdleFrames;
 
+    void AddTaskImpl(list<shared_ptr<Task> > & l, shared_ptr<Task> const & task);
+    void HasVisualTasksImpl(list<shared_ptr<Task> > & l, bool * res) const;
     static void CopyAndClearTasks(list<shared_ptr<Task> > & from, list<shared_ptr<Task> > & to);
     static void MergeTasks(list<shared_ptr<Task> > & from, list<shared_ptr<Task> > & to);
 
@@ -37,6 +39,8 @@ namespace anim
     void AddTask(shared_ptr<Task> const & task);
     // Do we have animation tasks, which are currently running?
     bool HasTasks();
+    // Do we have visual animation tasks, which are currently running?
+    bool HasVisualTasks();
     // Lock/Unlock controller. Locked controller
     // is considered to be in "transition" mode from one task to another
     // and this situation is taken into account into RenderPolicy when
@@ -53,7 +57,7 @@ namespace anim
     // catch the Controller up and animate everything smoothly without
     // interrupting rendering process, which might had happened in these
     // "frames-in-the-middle".
-    bool IsPreWarmed() const;
+    bool IsVisuallyPreWarmed() const;
     // Getting current simulation time
     double GetCurrentTime() const;
   };

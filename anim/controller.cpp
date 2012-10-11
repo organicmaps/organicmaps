@@ -18,11 +18,17 @@ namespace anim
   {
   }
 
+  void Controller::AddTaskImpl(list<shared_ptr<Task> > & l, shared_ptr<Task> const & task)
+  {
+    l.push_back(task);
+    task->SetController(this);
+    if (task->IsVisual())
+      m_IdleFrames = m_IdleThreshold;
+  }
+
   void Controller::AddTask(shared_ptr<Task> const & task)
   {
-    task->SetController(this);
-    m_tasks.PushBack(task);
-    m_IdleFrames = m_IdleThreshold;
+    m_tasks.ProcessList(bind(&Controller::AddTaskImpl, this, _1, task));
   }
 
   void Controller::CopyAndClearTasks(TTasks & from, TTasks & to)
@@ -39,6 +45,28 @@ namespace anim
   bool Controller::HasTasks()
   {
     return !m_tasks.Empty();
+  }
+
+  void Controller::HasVisualTasksImpl(list<shared_ptr<Task> > &l, bool *res) const
+  {
+    *res = false;
+    for (list<shared_ptr<Task> >::const_iterator it = l.begin();
+         it != l.end();
+         ++it)
+    {
+      if ((*it)->IsVisual())
+      {
+        *res = true;
+        break;
+      }
+    }
+  }
+
+  bool Controller::HasVisualTasks()
+  {
+    bool res;
+    m_tasks.ProcessList(bind(&Controller::HasVisualTasksImpl, this, _1, &res));
+    return res;
   }
 
   void Controller::Lock()
@@ -65,15 +93,24 @@ namespace anim
 
     TTasks l;
 
-    bool hasTasks = !m_tasksList.empty();
+    bool hasVisualTasks = false;
+    for (list<shared_ptr<Task> >::const_iterator it = m_tasksList.begin();
+         it != m_tasksList.end();
+         ++it)
+      if ((*it)->IsVisual())
+      {
+        hasVisualTasks = true;
+        break;
+      }
 
     for (TTasks::const_iterator it = m_tasksList.begin(); it != m_tasksList.end(); ++it)
     {
-      m_IdleFrames = m_IdleThreshold;
-
       shared_ptr<Task> const & task = *it;
 
       task->Lock();
+
+      if (task->IsVisual())
+        m_IdleFrames = m_IdleThreshold;
 
       if (task->IsReady())
       {
@@ -96,13 +133,13 @@ namespace anim
       task->Unlock();
     }
 
-    if (!hasTasks && m_IdleFrames > 0)
+    if (!hasVisualTasks && m_IdleFrames > 0)
       m_IdleFrames -= 1;
 
     m_tasks.ProcessList(bind(&Controller::MergeTasks, ref(l), _1));
   }
 
-  bool Controller::IsPreWarmed() const
+  bool Controller::IsVisuallyPreWarmed() const
   {
     return m_IdleFrames > 0;
   }
