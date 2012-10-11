@@ -31,6 +31,8 @@ namespace location
 
   State::State(Params const & p)
     : base_t(p),
+      m_errorRadius(0),
+      m_position(0, 0),
       m_hasPosition(false),
       m_hasCompass(false),
       m_isCentered(false),
@@ -317,26 +319,29 @@ namespace location
 
   void State::update()
   {
-    m2::PointD const pxPosition = m_framework->GetNavigator().GtoP(Position());
-
-    setPivot(pxPosition);
-
-    double const pxErrorRadius = pxPosition.Length(m_framework->GetNavigator().GtoP(Position() + m2::PointD(m_errorRadius, 0.0)));
-
-    m2::RectD newRect(pxPosition - m2::PointD(pxErrorRadius, pxErrorRadius),
-                      pxPosition + m2::PointD(pxErrorRadius, pxErrorRadius));
-
-    double const pxArrowRadius = m_arrowHeight * m_controller->GetVisualScale();
-
-    m2::RectD arrowRect(pxPosition - m2::PointD(pxArrowRadius, pxArrowRadius),
-                        pxPosition + m2::PointD(pxArrowRadius, pxArrowRadius));
-
-    newRect.Add(arrowRect);
-
-    if (newRect != m_boundRect)
+    if (isVisible())
     {
-      m_boundRect = newRect;
-      setIsDirtyRect(true);
+      m2::PointD const pxPosition = m_framework->GetNavigator().GtoP(Position());
+
+      setPivot(pxPosition);
+
+      double const pxErrorRadius = pxPosition.Length(m_framework->GetNavigator().GtoP(Position() + m2::PointD(m_errorRadius, 0.0)));
+
+      m2::RectD newRect(pxPosition - m2::PointD(pxErrorRadius, pxErrorRadius),
+                        pxPosition + m2::PointD(pxErrorRadius, pxErrorRadius));
+
+      double const pxArrowRadius = m_arrowHeight * m_controller->GetVisualScale();
+
+      m2::RectD arrowRect(pxPosition - m2::PointD(pxArrowRadius, pxArrowRadius),
+                          pxPosition + m2::PointD(pxArrowRadius, pxArrowRadius));
+
+      newRect.Add(arrowRect);
+
+      if (newRect != m_boundRect)
+      {
+        m_boundRect = newRect;
+        setIsDirtyRect(true);
+      }
     }
   }
 
