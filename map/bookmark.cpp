@@ -375,7 +375,7 @@ string BookmarkCategory::GenerateUniqueFileName(const string & path, string cons
   string const utfName = uniName.empty() ? "Bookmarks" : strings::ToUtf8(uniName);
   size_t counter = 1;
   string suffix;
-  while (Platform::IsFileExistsByFullPath(path + utfName + suffix))
+  while (Platform::IsFileExistsByFullPath(path + utfName + suffix + ".kml"))
     suffix = strings::to_string(counter++);
   return (path + utfName + suffix + ".kml");
 }
