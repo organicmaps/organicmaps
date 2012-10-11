@@ -353,7 +353,7 @@ namespace qt
       }
       else
       {
-        m_framework->GetAddressInfo(m_framework->PtoG(pt), info);
+        m_framework->GetAddressInfo(pt, info);
       }
 
       // Get feature types under cursor.

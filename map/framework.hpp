@@ -298,8 +298,7 @@ public:
   };
 
   /// Get address information for point on map.
-  /// @param[in] pt Point in mercator coordinates.
-  void GetAddressInfo(m2::PointD const & pt, AddressInfo & info) const;
+  void GetAddressInfo(m2::PointD const & pxPoint, AddressInfo & info) const;
 
 private:
   void GetAddressInfo(FeatureType const & ft, m2::PointD const & pt, AddressInfo & info) const;
