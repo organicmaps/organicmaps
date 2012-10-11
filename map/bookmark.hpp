@@ -34,6 +34,11 @@ public:
   void SetScale(double scale) { m_scale = scale; }
 };
 
+namespace bookmark_impl
+{
+  class KMLParser;
+}
+
 class BookmarkCategory : private noncopyable
 {
   string m_name;
@@ -41,6 +46,9 @@ class BookmarkCategory : private noncopyable
   bool m_visible;
   /// Stores file name from which category was loaded
   string m_file;
+
+  friend class bookmark_impl::KMLParser;
+  void AddBookmarkImpl(Bookmark const & bm, double scale);
 
 public:
   BookmarkCategory(string const & name) : m_name(name), m_visible(true) {}
@@ -83,6 +91,9 @@ public:
   /// @return 0 in the case of error
   static BookmarkCategory * CreateFromKMLFile(string const & file);
 
+  /// Get valid file name from input (remove illegal symbols).
+  static string GetValidFileName(string const & name);
+  /// Get unique file name from path and valid file name.
   static string GenerateUniqueFileName(const string & path, string const & name);
   //@}
 };

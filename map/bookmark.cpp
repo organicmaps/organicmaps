@@ -15,13 +15,17 @@
 #include "../std/algorithm.hpp"
 
 
-void BookmarkCategory::AddBookmark(Bookmark const & bm, double scale)
+void BookmarkCategory::AddBookmarkImpl(Bookmark const & bm, double scale)
 {
   Bookmark * p = new Bookmark(bm);
   p->SetScale(scale);
 
   m_bookmarks.push_back(p);
+}
 
+void BookmarkCategory::AddBookmark(Bookmark const & bm, double scale)
+{
+  AddBookmarkImpl(bm, scale);
   VERIFY ( SaveToKMLFile(), () );
 }
 
@@ -85,7 +89,7 @@ int BookmarkCategory::GetBookmark(m2::PointD const org, double const squareDista
   return -1;
 }
 
-namespace
+namespace bookmark_impl
 {
   // Fixes icons which are not supported by MapsWithMe
   static string GetSupportedBMType(string const & s)
@@ -171,7 +175,7 @@ namespace
 
       if (tag == "Placemark" && IsValid())
       {
-        m_category.AddBookmark(Bookmark(m_org, m_name, m_type), m_scale);
+        m_category.AddBookmarkImpl(Bookmark(m_org, m_name, m_type), m_scale);
         Reset();
       }
       m_tags.pop_back();
@@ -222,7 +226,7 @@ namespace
 void BookmarkCategory::LoadFromKML(ReaderPtr<Reader> const & reader)
 {
   ReaderSource<ReaderPtr<Reader> > src(reader);
-  KMLParser parser(*this);
+  bookmark_impl::KMLParser parser(*this);
   ParseXML(src, parser, true);
 }
 
@@ -350,18 +354,21 @@ void BookmarkCategory::SaveToKML(ostream & s)
   s << kmlFooter;
 }
 
-static bool IsBadCharForPath(strings::UniChar const & c)
+namespace
 {
-  static strings::UniChar const illegalChars[] = {':', '/', '\\', '<', '>', '\"', '|', '?', '*'};
+  bool IsBadCharForPath(strings::UniChar const & c)
+  {
+    static strings::UniChar const illegalChars[] = {':', '/', '\\', '<', '>', '\"', '|', '?', '*'};
 
-  for (size_t i = 0; i < ARRAY_SIZE(illegalChars); ++i)
-    if (c < ' ' || illegalChars[i] == c)
-      return true;
+    for (size_t i = 0; i < ARRAY_SIZE(illegalChars); ++i)
+      if (c < ' ' || illegalChars[i] == c)
+        return true;
 
-  return false;
+    return false;
+  }
 }
 
-string BookmarkCategory::GenerateUniqueFileName(const string & path, string const & name)
+string BookmarkCategory::GetValidFileName(string const & name)
 {
   // Remove not allowed symbols
   strings::UniString uniName = strings::MakeUniString(name);
@@ -372,35 +379,68 @@ string BookmarkCategory::GenerateUniqueFileName(const string & path, string cons
     uniName.resize(distance(uniName.begin(), iEnd));
   }
 
-  string const utfName = uniName.empty() ? "Bookmarks" : strings::ToUtf8(uniName);
+  return (uniName.empty() ? "Bookmarks" : strings::ToUtf8(uniName));
+}
+
+string BookmarkCategory::GenerateUniqueFileName(const string & path, string const & name)
+{
   size_t counter = 1;
   string suffix;
-  while (Platform::IsFileExistsByFullPath(path + utfName + suffix + ".kml"))
+  while (Platform::IsFileExistsByFullPath(path + name + suffix + ".kml"))
     suffix = strings::to_string(counter++);
-  return (path + utfName + suffix + ".kml");
+  return (path + name + suffix + ".kml");
 }
 
 bool BookmarkCategory::SaveToKMLFile()
 {
-  // always assign new file name according to category name
-  string fName = GenerateUniqueFileName(GetPlatform().WritableDir(), m_name);
-  m_file.swap(fName);
+  string oldFile;
+
+  // Get valid file name from category name
+  string const name = GetValidFileName(m_name);
+
+  if (!m_file.empty())
+  {
+    size_t i2 = m_file.find_last_of('.');
+    if (i2 == string::npos) i2 = m_file.size();
+    size_t i1 = m_file.find_last_of("\\/");
+    if (i1 == string::npos) i1 = 0;
+    else ++i1;
+
+    // If m_file doesn't match name, assign new m_file for this category and save old file name.
+    if (m_file.substr(i1, i2-i1).find(name) != 0)
+    {
+      oldFile = GenerateUniqueFileName(GetPlatform().WritableDir(), name);
+      m_file.swap(oldFile);
+    }
+  }
+  else
+    m_file = GenerateUniqueFileName(GetPlatform().WritableDir(), name);
 
   try
   {
     /// @todo On Windows UTF-8 file names are not supported.
-    ofstream fileToSave(m_file.c_str());
-    SaveToKML(fileToSave);
+    ofstream of(m_file.c_str());
+    SaveToKML(of);
+    of.flush();
 
-    // delete old file
-    if (!fName.empty() && fName != m_file)
-      VERIFY ( my::DeleteFileX(fName), (fName, m_file));
+    if (!of.fail())
+    {
+      // delete old file
+      if (!oldFile.empty())
+        VERIFY ( my::DeleteFileX(oldFile), (oldFile, m_file));
 
-    return true;
+      return true;
+    }
   }
   catch (std::exception const & e)
   {
-    LOG(LWARNING, ("Can't save bookmarks category", m_name, "to file", m_file));
-    return false;
   }
+
+  LOG(LWARNING, ("Can't save bookmarks category", m_name, "to file", m_file));
+
+  // return old file name in case of error
+  if (!oldFile.empty())
+    m_file.swap(oldFile);
+
+  return false;
 }

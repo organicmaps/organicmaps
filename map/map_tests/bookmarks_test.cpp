@@ -166,6 +166,19 @@ UNIT_TEST(Bookmarks_ExportKML)
   TEST(my::DeleteFileX(catFileName), ());
 }
 
+namespace
+{
+  // Call this function to delete test category files.
+  void DeleteCategoryFiles()
+  {
+    string const path = GetPlatform().WritableDir();
+    char const * arrFiles[] = { "cat1", "cat2", "cat3" };
+
+    for (size_t i = 0; i < ARRAY_SIZE(arrFiles); ++i)
+      FileWriter::DeleteFileX(path + arrFiles[i] + ".kml");
+  }
+}
+
 UNIT_TEST(Bookmarks_Getting)
 {
   Framework fm;
@@ -216,6 +229,8 @@ UNIT_TEST(Bookmarks_Getting)
 
   cat->DeleteBookmark(0);
   TEST_EQUAL(cat->GetBookmarksCount(), 0, ());
+
+  DeleteCategoryFiles();
 }
 
 UNIT_TEST(Bookmarks_AddressInfo)
@@ -242,11 +257,7 @@ UNIT_TEST(Bookmarks_IllegalFileName)
 
   for (size_t i = 0; i < ARRAY_SIZE(arrIllegal); ++i)
   {
-    string name = BookmarkCategory::GenerateUniqueFileName("", arrIllegal[i]);
-
-    // remove extension
-    TEST_GREATER(name.size(), 4, ());
-    name.erase(name.end() - 4, name.end());
+    string const name = BookmarkCategory::GetValidFileName(arrIllegal[i]);
 
     if (strlen(arrLegal[i]) == 0)
     {
@@ -261,30 +272,33 @@ UNIT_TEST(Bookmarks_IllegalFileName)
 
 UNIT_TEST(Bookmarks_UniqueFileName)
 {
-  string const FILENAME = "SomeUniqueFileName";
+  string const BASE = "SomeUniqueFileName";
+  string const FILENAME = BASE + ".kml";
+
   {
     FileWriter file(FILENAME);
     file.Write(FILENAME.data(), FILENAME.size());
   }
-  string gen = BookmarkCategory::GenerateUniqueFileName("", FILENAME);
-  TEST_NOT_EQUAL(gen, FILENAME, ());
-  TEST_EQUAL(gen, FILENAME + "1.kml", ());
 
-  string const FILENAME1 = FILENAME + "1";
+  string gen = BookmarkCategory::GenerateUniqueFileName("", BASE);
+  TEST_NOT_EQUAL(gen, FILENAME, ());
+  TEST_EQUAL(gen, BASE + "1.kml", ());
+
+  string const FILENAME1 = gen;
   {
     FileWriter file(FILENAME1);
     file.Write(FILENAME1.data(), FILENAME1.size());
   }
-  gen = BookmarkCategory::GenerateUniqueFileName("", FILENAME);
+  gen = BookmarkCategory::GenerateUniqueFileName("", BASE);
   TEST_NOT_EQUAL(gen, FILENAME, ());
   TEST_NOT_EQUAL(gen, FILENAME1, ());
-  TEST_EQUAL(gen, FILENAME + "2.kml", ());
+  TEST_EQUAL(gen, BASE + "2.kml", ());
 
   FileWriter::DeleteFileX(FILENAME);
   FileWriter::DeleteFileX(FILENAME1);
 
-  gen = BookmarkCategory::GenerateUniqueFileName("", FILENAME);
-  TEST_EQUAL(gen, FILENAME + ".kml", ());
+  gen = BookmarkCategory::GenerateUniqueFileName("", BASE);
+  TEST_EQUAL(gen, FILENAME, ());
 }
 
 UNIT_TEST(Bookmarks_AddingMoving)
@@ -329,14 +343,6 @@ UNIT_TEST(Bookmarks_AddingMoving)
   pBm = fm.GetBmCategory(res.first)->GetBookmark(res.second);
   TEST_EQUAL(pBm->GetName(), "name3", ());
   TEST_EQUAL(pBm->GetType(), "placemark-green", ());
-}
 
-// This test should always be the last to delete temporary files from previous tests.
-UNIT_TEST(Bookmarks_Finalizing)
-{
-  string const path = GetPlatform().WritableDir();
-  char const * arrFiles[] = { "cat1", "cat2", "cat3" };
-
-  for (size_t i = 0; i < ARRAY_SIZE(arrFiles); ++i)
-    FileWriter::DeleteFileX(path + arrFiles[i] + ".kml");
+  DeleteCategoryFiles();
 }
