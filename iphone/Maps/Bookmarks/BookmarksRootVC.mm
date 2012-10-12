@@ -48,15 +48,24 @@
     return nil;
 
   CGRect rect = tableView.bounds;
-  rect.size.height /= 2.;
-  rect.size.width = rect.size.width * 2./3.;
-  UILabel * hint = [[[UILabel alloc] initWithFrame:rect] autorelease];
+  rect.size.height /= 3.;
+  // Use Label in custom view to add padding on the left and right (there is no other way to do it)
+  UIView * customView = [[[UIView alloc] initWithFrame:rect] autorelease];
+  customView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  customView.backgroundColor = [UIColor clearColor];
+
+  UILabel * hint = [[[UILabel alloc] initWithFrame:CGRectInset(rect, 40, 0)] autorelease];
+  // Orientation support
+  hint.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  hint.backgroundColor = [UIColor clearColor];
+  hint.text = NSLocalizedString(@"bookmarks_usage_hint", @"Text hint in Bookmarks dialog, displayed if it's empty");
   hint.textAlignment = UITextAlignmentCenter;
   hint.lineBreakMode = UILineBreakModeWordWrap;
   hint.numberOfLines = 0;
-  hint.text = NSLocalizedString(@"bookmarks_usage_hint", @"Text hint in Bookmarks dialog, displayed if it's empty");
-  hint.backgroundColor = [UIColor clearColor];
-  return hint;
+
+  [customView addSubview:hint];
+
+  return customView;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
