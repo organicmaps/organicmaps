@@ -115,8 +115,9 @@ void SearchPanel::OnSearchResult(ResultsT * res)
   m_pTable->setRowCount(0);
   m_results.clear();
 
+  string const searchCategory = "Search";
   Framework & frm = m_pDrawWidget->GetFramework();
-  frm.ClearBookmarks();
+  frm.DeleteBmCategory(searchCategory);
 
   for (ResultsT::IterT i = res->Begin(); i != res->End(); ++i)
   {
@@ -131,7 +132,8 @@ void SearchPanel::OnSearchResult(ResultsT * res)
     if (e.GetResultType() == ResultT::RESULT_FEATURE)
     {
       // For debug purposes: add bookmarks for search results
-      frm.AddBookmark("Search", Bookmark(e.GetFeatureCenter(), e.GetString(), "placemark-red"));
+      frm.AddBookmark(searchCategory,
+                      Bookmark(e.GetFeatureCenter(), e.GetString(), "placemark-red"));
 
       m_pTable->setItem(rowCount, 0,
                         create_item(QString::fromUtf8(e.GetFeatureType())));

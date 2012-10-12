@@ -76,6 +76,10 @@ protected:
 
   vector<BookmarkCategory *> m_bookmarks;
 
+  typedef vector<BookmarkCategory *>::iterator CategoryIter;
+  CategoryIter FindBmCategory(string const & name);
+  void DeleteBmCategory(CategoryIter i);
+
   scoped_ptr<RenderPolicy> m_renderPolicy;
 
   /// Safe function to get current visual scale.
@@ -180,7 +184,10 @@ public:
   BookmarkCategory * GetBmCategory(string const & name);
   /// Delete bookmarks category with all bookmarks
   /// @return true if category was deleted
+  //@{
   bool DeleteBmCategory(size_t index);
+  bool DeleteBmCategory(string const & name);
+  //@}
 
   /// Get bookmark by touch.
   /// @param[in]  pixPt   Coordinates of touch point in pixels.

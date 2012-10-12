@@ -310,6 +310,7 @@ void Framework::RemoveLocalMaps()
 void Framework::LoadBookmarks()
 {
   ClearBookmarks();
+
   string const dir = GetPlatform().WritableDir();
   Platform::FilesList files;
   Platform::GetFilesInDir(dir, "*.kml", files);
@@ -318,8 +319,9 @@ void Framework::LoadBookmarks()
     BookmarkCategory * cat = BookmarkCategory::CreateFromKMLFile(dir + files[i]);
     if (cat)
     {
-      LOG(LINFO, ("Loaded bookmarks category", cat->GetName(), "with", cat->GetBookmarksCount(), "bookmarks"));
       m_bookmarks.push_back(cat);
+
+      LOG(LINFO, ("Loaded bookmarks category", cat->GetName(), "with", cat->GetBookmarksCount(), "bookmarks"));
     }
   }
 }
@@ -374,6 +376,11 @@ namespace
   };
 }
 
+Framework::CategoryIter Framework::FindBmCategory(string const & name)
+{
+  return find_if(m_bookmarks.begin(), m_bookmarks.end(), EqualCategoryName(name));
+}
+
 BookmarkCategory * Framework::GetBmCategory(size_t index) const
 {
   return (index < m_bookmarks.size() ? m_bookmarks[index] : 0);
@@ -381,9 +388,7 @@ BookmarkCategory * Framework::GetBmCategory(size_t index) const
 
 BookmarkCategory * Framework::GetBmCategory(string const & name)
 {
-  vector<BookmarkCategory *>::iterator i =
-      find_if(m_bookmarks.begin(), m_bookmarks.end(), EqualCategoryName(name));
-
+  vector<BookmarkCategory *>::iterator i = FindBmCategory(name);
   if (i != m_bookmarks.end())
     return (*i);
 
@@ -393,18 +398,38 @@ BookmarkCategory * Framework::GetBmCategory(string const & name)
   return cat;
 }
 
+void Framework::DeleteBmCategory(CategoryIter i)
+{
+  BookmarkCategory * cat = *i;
+
+  FileWriter::DeleteFileX(cat->GetFileName());
+
+  delete cat;
+
+  m_bookmarks.erase(i);
+}
+
 bool Framework::DeleteBmCategory(size_t index)
 {
   if (index < m_bookmarks.size())
   {
-    // Delete category file
-    BookmarkCategory * cat = m_bookmarks[index];
-    FileWriter::DeleteFileX(cat->GetFileName());
-    delete cat;
-    m_bookmarks.erase(m_bookmarks.begin() + index);
+    DeleteBmCategory(m_bookmarks.begin() + index);
     return true;
   }
-  else return false;
+  else
+    return false;
+}
+
+bool Framework::DeleteBmCategory(string const & name)
+{
+  CategoryIter i = FindBmCategory(name);
+  if (i != m_bookmarks.end())
+  {
+    DeleteBmCategory(i);
+    return true;
+  }
+  else
+    return false;
 }
 
 BookmarkAndCategory Framework::GetBookmark(m2::PointD const & pxPoint) const
