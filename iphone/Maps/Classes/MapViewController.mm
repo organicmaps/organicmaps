@@ -63,6 +63,8 @@
 - (void) onGpsUpdate:(location::GpsInfo const &)info
 {
   GetFramework().OnGpsUpdate(info);
+
+  [self updateDataAfterScreenChanged];
 }
 
 - (void) onCompassUpdate:(location::CompassInfo const &)info
