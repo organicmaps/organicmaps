@@ -2,7 +2,7 @@
 
 @class BalloonView;
 
-@interface BookmarksRootVC : UITableViewController
+@interface BookmarksRootVC : UITableViewController <UITextFieldDelegate>
 {
   // @TODO store as a property to retain reference
   BalloonView * m_balloon;

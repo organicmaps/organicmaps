@@ -3,6 +3,8 @@
 
 #include "Framework.h"
 
+#define TEXTFIELD_TAG 999
+
 @implementation BookmarksRootVC
 
 - (id) initWithBalloonView:(BalloonView *)view
@@ -18,6 +20,7 @@
         style: UIBarButtonItemStyleDone
         target:self
         action:@selector(onCloseButton:)] autorelease];
+    self.tableView.allowsSelectionDuringEditing = YES;
   }
   return self;
 }
@@ -98,15 +101,71 @@
   return cell;
 }
 
+- (void)applyCategoryRenaming
+{
+  for (UITableViewCell * cell in self.tableView.visibleCells)
+  {
+    UITextField * f = (UITextField *)[cell viewWithTag:TEXTFIELD_TAG];
+    if (f)
+    {
+      NSString * txt = f.text;
+      // Update edited category name
+      if (txt.length && ![txt isEqualToString:cell.textLabel.text])
+      {
+        cell.textLabel.text = txt;
+        // Rename category
+        BookmarkCategory * cat = GetFramework().GetBmCategory([self.tableView indexPathForCell:cell].row);
+        if (cat)
+        {
+          cat->SetName([txt UTF8String]);
+          cat->SaveToKMLFile();
+        }
+      }
+      [f removeFromSuperview];
+      cell.textLabel.hidden = NO;
+      cell.detailTextLabel.hidden = NO;
+      cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+      break;
+    }
+  }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   // Remove cell selection
-  [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
-  BookmarksVC * bvc = [[BookmarksVC alloc] initWithCategory:indexPath.row];
-  [self.navigationController pushViewController:bvc animated:YES];
-  [bvc release];
-}
+  [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO animated:!tableView.editing];
 
+  if (tableView.editing)
+  {
+    [self applyCategoryRenaming];
+    UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
+    CGRect r = cell.textLabel.frame;
+    r.size.width = cell.contentView.bounds.size.width - r.origin.x;
+    UITextField * f = [[[UITextField alloc] initWithFrame:r] autorelease];
+    f.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    f.returnKeyType = UIReturnKeyDone;
+    f.clearButtonMode = UITextFieldViewModeWhileEditing;
+    f.autocorrectionType = UITextAutocorrectionTypeNo;
+    f.adjustsFontSizeToFitWidth = YES;
+    f.text = cell.textLabel.text;
+    f.placeholder = NSLocalizedString(@"bookmark_set_name", @"Add Bookmark Set dialog - hint when set name is empty");
+    f.font = [cell.textLabel.font fontWithSize:[cell.textLabel.font pointSize]];
+    f.tag = TEXTFIELD_TAG;
+    f.delegate = self;
+    cell.textLabel.hidden = YES;
+    cell.detailTextLabel.hidden = YES;
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    [cell.contentView addSubview:f];
+    [f becomeFirstResponder];
+//    f.textAlignment = UITextAlignmentCenter;
+  }
+  else
+  {
+    BookmarksVC * bvc = [[BookmarksVC alloc] initWithCategory:indexPath.row];
+    [self.navigationController pushViewController:bvc animated:YES];
+    [bvc release];
+  }
+}
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -140,6 +199,28 @@
   // Always reload table - we can open it after deleting bookmarks in any category
   [self.tableView reloadData];
   [super viewWillAppear:animated];
+}
+
+// Used to remove active UITextField from the cell
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  [super setEditing:editing animated:animated];
+
+  if (editing == NO)
+    [self applyCategoryRenaming];
+}
+
+// To hide keyboard and apply changes
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+  if (textField.text.length == 0)
+    return YES;
+
+  [textField resignFirstResponder];
+  [self applyCategoryRenaming];
+  // Exit from edit mode
+  [self setEditing:NO animated:YES];
+  return NO;
 }
 
 @end
