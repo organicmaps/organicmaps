@@ -20,11 +20,6 @@
 @synthesize m_downloadButton;
 @synthesize m_bookmarksButton;
 
-- (void) ZoomToRect: (m2::RectD const &) rect
-{
-  GetFramework().ShowRect(rect);
-}
-
 //********************************************************************************************
 //*********************** Callbacks from LocationManager *************************************
 - (void) onLocationStatusChanged:(location::TLocationStatus)newStatus
@@ -442,8 +437,6 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (BOOL) shouldAutorotateToInterfaceOrientation: (UIInterfaceOrientation) interfaceOrientation
 {
-  // Update popup bookmark position
-  [self updateDataAfterScreenChanged];
 	return YES; // We support all orientations
 }
 
@@ -475,6 +468,8 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
 {
   [[MapsAppDelegate theApp].m_locationManager setOrientation:self.interfaceOrientation];
+  // Update popup bookmark position
+  [self updateDataAfterScreenChanged];
   [self Invalidate];
 }
 

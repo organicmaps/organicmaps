@@ -24,8 +24,6 @@
   m2::PointD m_touchDownPoint;
 }
 
-- (void) ZoomToRect: (m2::RectD const &) rect;
-
 - (void) SetupMeasurementSystem;
 
 // called when app is terminated by system

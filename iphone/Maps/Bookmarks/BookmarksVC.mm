@@ -160,9 +160,9 @@
       if (bm)
       {
         // Same as "Close".
+        f.ShowBookmark(*bm);
         [self dismissModalViewControllerAnimated:YES];
         [self.navigationController.visibleViewController dismissModalViewControllerAnimated:YES];
-        f.ShowBookmark(*bm);
       }
     }
   }
