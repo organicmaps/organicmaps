@@ -60,20 +60,15 @@ namespace location
     PositionFilter m_filter;
     bool m_reportFirstEvent;
 
-    virtual void OnLocationStatusChanged(location::TLocationStatus newStatus)
+    virtual void OnLocationError(location::TLocationError errorCode)
     {
-      m_observer.OnLocationStatusChanged(newStatus);
+      m_observer.OnLocationError(errorCode);
     }
 
-    virtual void OnGpsUpdated(GpsInfo const & info)
+    virtual void OnLocationUpdated(GpsInfo const & info)
     {
-      if (m_reportFirstEvent)
-      {
-        m_observer.OnLocationStatusChanged(location::EFirstEvent);
-        m_reportFirstEvent = false;
-      }
       if (m_filter.Passes(info))
-        m_observer.OnGpsUpdated(info);
+        m_observer.OnLocationUpdated(info);
     }
 
   public:

@@ -23,6 +23,7 @@ namespace qt
 
     QDockWidget * m_Docks[3];
 
+    bool m_isFirstLocation;
     scoped_ptr<location::LocationService> m_locationService;
 
     Q_OBJECT
@@ -31,8 +32,8 @@ namespace qt
     MainWindow();
     virtual ~MainWindow();
 
-    virtual void OnLocationStatusChanged(location::TLocationStatus newStatus);
-    virtual void OnGpsUpdated(location::GpsInfo const & info);
+    virtual void OnLocationError(location::TLocationError errorCode);
+    virtual void OnLocationUpdated(location::GpsInfo const & info);
 
   protected:
     string GetIniFile();

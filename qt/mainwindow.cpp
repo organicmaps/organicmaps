@@ -40,6 +40,7 @@ namespace qt
 MainWindow::MainWindow()
 {
   m_pDrawWidget = new DrawWidget(this);
+  m_isFirstLocation = true;
   m_locationService.reset(CreateDesktopLocationService(*this));
 
   CreateNavigationBar();
@@ -301,27 +302,27 @@ void MainWindow::OnAbout()
   dlg.exec();
 }
 
-void MainWindow::OnLocationStatusChanged(location::TLocationStatus newStatus)
+void MainWindow::OnLocationError(location::TLocationError errorCode)
 {
-  switch (newStatus)
+  switch (errorCode)
   {
-  case location::EFirstEvent:
-    m_pMyPositionAction->setIcon(QIcon(":/navig64/location.png"));
-    m_pMyPositionAction->setToolTip(tr("My Position"));
-    break;
-  case location::EDisabledByUser:
-  case location::ENotSupported:
+  case location::EDenied:
     m_pMyPositionAction->setChecked(false);
     break;
-  default:
-    break;
   }
-  m_pDrawWidget->GetFramework().OnLocationStatusChanged(newStatus);
+  m_pDrawWidget->GetFramework().OnLocationError(errorCode);
 }
 
-void MainWindow::OnGpsUpdated(location::GpsInfo const & info)
+void MainWindow::OnLocationUpdated(location::GpsInfo const & info)
 {
-  m_pDrawWidget->GetFramework().OnGpsUpdate(info);
+  if (m_isFirstLocation)
+  {
+    m_pMyPositionAction->setIcon(QIcon(":/navig64/location.png"));
+    m_pMyPositionAction->setToolTip(tr("My Position"));
+    m_isFirstLocation = false;
+  }
+
+  m_pDrawWidget->GetFramework().OnLocationUpdate(info);
 }
 
 void MainWindow::OnMyPosition()
@@ -330,6 +331,7 @@ void MainWindow::OnMyPosition()
   {
     m_pMyPositionAction->setIcon(QIcon(":/navig64/location-search.png"));
     m_pMyPositionAction->setToolTip(tr("Looking for position..."));
+    m_isFirstLocation = true;
     m_locationService->Start();
   }
   else

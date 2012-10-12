@@ -33,15 +33,14 @@ namespace location
 
   enum ELocationProcessMode
   {
-    ELocationDoNothing,
+    ELocationDoNothing = 0,
     ELocationCenterAndScale,
-    ELocationCenterOnly,
-    ELocationSkipCentering
+    ELocationCenterOnly
   };
 
   enum ECompassProcessMode
   {
-    ECompassDoNothing,
+    ECompassDoNothing = 0,
     ECompassFollow
   };
 
@@ -159,9 +158,7 @@ namespace location
 
     /// @name GPS location updates routine.
     //@{
-    void SkipLocationCentering();
-    void OnLocationStatusChanged(location::TLocationStatus newStatus);
-    void OnGpsUpdate(location::GpsInfo const & info);
+    void OnLocationUpdate(location::GpsInfo const & info);
     void OnCompassUpdate(location::CompassInfo const & info);
     //@}
 

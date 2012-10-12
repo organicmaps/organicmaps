@@ -27,17 +27,13 @@ public class LocationService implements LocationListener, SensorEventListener, W
   private static final String TAG = "LocationService";
 
   /// These constants should correspond to values defined in platform/location.hpp
-  public static final int STOPPED = 0;
-  public static final int STARTED = 1;
-  public static final int FIRST_EVENT = 2;
-  public static final int NOT_SUPPORTED = 3;
-  public static final int DISABLED_BY_USER = 4;
+  public static final int ERROR_DENIED = 0;
 
   public interface Listener
   {
     public void onLocationUpdated(long time, double lat, double lon, float accuracy);
     public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy);
-    public void onLocationStatusChanged(int status);
+    public void onLocationError(int errorCode);
   };
 
   private HashSet<Listener> m_observers = new HashSet<Listener>(10);
@@ -78,11 +74,11 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   public Location getLastKnown() { return m_lastLocation; }
 
-  private void notifyStatusChanged(int newStatus)
+  private void notifyOnError(int errorCode)
   {
     Iterator<Listener> it = m_observers.iterator();
     while (it.hasNext())
-      it.next().onLocationStatusChanged(newStatus);
+      it.next().onLocationError(errorCode);
   }
 
   private void notifyLocationUpdated(long time, double lat, double lon, float accuracy)
@@ -136,20 +132,16 @@ public class LocationService implements LocationListener, SensorEventListener, W
         if (ConnectionState.isConnected(m_application)
             && ((WifiManager) m_application.getSystemService(Context.WIFI_SERVICE)).isWifiEnabled())
         {
-          observer.onLocationStatusChanged(STARTED);
-
           if (m_wifiScanner == null)
             m_wifiScanner = new WifiLocation();
           m_wifiScanner.StartScan(m_application, this);
         }
         else
-          observer.onLocationStatusChanged(DISABLED_BY_USER);
+          observer.onLocationError(ERROR_DENIED);
       }
       else
       {
         m_isActive = true;
-
-        observer.onLocationStatusChanged(STARTED);
 
         Location lastKnown = null;
 
@@ -186,8 +178,6 @@ public class LocationService implements LocationListener, SensorEventListener, W
         }
       }
     }
-    else
-      observer.onLocationStatusChanged(STARTED);
   }
 
   public void stopUpdate(Listener observer)
@@ -206,8 +196,6 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
       m_isActive = false;
     }
-
-    observer.onLocationStatusChanged(STOPPED);
   }
 
   private static final int ONE_MINUTE = 1000 * 60 * 1;
@@ -295,9 +283,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
     final long currTime = getBetterLocationTime(l);
     if (currTime != 0)
     {
-      if (m_lastLocation == null)
-        notifyStatusChanged(FIRST_EVENT);
-      else
+      if (m_lastLocation != null)
         calcDirection(l, currTime);
 
       // Used for more precise compass updates

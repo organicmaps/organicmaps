@@ -8,8 +8,8 @@ namespace location
 class LocationObserver
 {
 public:
-  virtual void OnLocationStatusChanged(TLocationStatus newStatus) = 0;
-  virtual void OnGpsUpdated(GpsInfo const & info) = 0;
+  virtual void OnLocationError(TLocationError errorCode) = 0;
+  virtual void OnLocationUpdated(GpsInfo const & info) = 0;
 };
 
 class LocationService

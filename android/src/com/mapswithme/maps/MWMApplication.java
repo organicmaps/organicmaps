@@ -23,6 +23,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
   private final static String TAG = "MWMApplication";
 
   private LocationService m_location = null;
+  private LocationState m_locationState = null;
   private MapStorage m_storage = null;
   private int m_slotID = 0;
 
@@ -106,6 +107,14 @@ public class MWMApplication extends android.app.Application implements MapStorag
     return m_location;
   }
 
+  public LocationState getLocationState()
+  {
+    if (m_locationState == null)
+      m_locationState = new LocationState();
+
+    return m_locationState;
+  }
+
   public MapStorage getMapStorage()
   {
     if (m_storage == null)
@@ -183,11 +192,4 @@ public class MWMApplication extends android.app.Application implements MapStorag
   /// Dealing with Settings
   public native boolean nativeGetBoolean(String name, boolean defaultVal);
   public native void nativeSetBoolean(String name, boolean val);
-
-  public native boolean nativeIsFollowingCompass();
-  public native void nativeStartCompassFollowing();
-  public native void nativeStopCompassFollowing();
-
-  public native int nativeAddCompassStatusListener(Object l);
-  public native void nativeRemoveCompassStatusListener(int slotID);
 }

@@ -401,7 +401,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   }
 
   @Override
-  public void onLocationStatusChanged(int status)
+  public void onLocationError(int errorCode)
   {
   }
 

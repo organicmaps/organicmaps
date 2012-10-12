@@ -48,7 +48,7 @@ namespace location
                   // @TODO introduce flags to mark valid values
                   info.m_timestamp = static_cast<double>(time(NULL));
                   info.m_source = location::EGoogle;
-                  m_observer.OnGpsUpdated(info);
+                  m_observer.OnLocationUpdated(info);
                   success = true;
                 }
               }

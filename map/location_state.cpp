@@ -85,11 +85,6 @@ namespace location
     setIsVisible(false);
   }
 
-  void State::SkipLocationCentering()
-  {
-    m_locationProcessMode = ELocationSkipCentering;
-  }
-
   ELocationProcessMode State::LocationProcessMode() const
   {
     return m_locationProcessMode;
@@ -115,38 +110,11 @@ namespace location
       CallCompassStatusListeners(mode);
   }
 
-  void State::OnLocationStatusChanged(location::TLocationStatus newStatus)
+  void State::OnLocationUpdate(location::GpsInfo const & info)
   {
-    switch (newStatus)
-    {
-    case location::EStarted:
-
-      if (m_locationProcessMode != ELocationSkipCentering)
-        m_locationProcessMode = ELocationCenterAndScale;
-      break;
-
-    case location::EFirstEvent:
-
-      if (m_locationProcessMode != ELocationSkipCentering)
-      {
-        // set centering mode for the first location
-        m_locationProcessMode = ELocationCenterAndScale;
-        SetCompassProcessMode(ECompassDoNothing);
-      }
-      break;
-
-    default:
-      m_locationProcessMode = ELocationDoNothing;
-      TurnOff();
-    }
-
-    m_framework->Invalidate();
-  }
-
-  void State::OnGpsUpdate(location::GpsInfo const & info)
-  {
-    m2::RectD rect = MercatorBounds::MetresToXY(
-          info.m_longitude, info.m_latitude, info.m_horizontalAccuracy);
+    m2::RectD rect = MercatorBounds::MetresToXY(info.m_longitude,
+                                                info.m_latitude,
+                                                info.m_horizontalAccuracy);
     m2::PointD const center = rect.Center();
 
     m_hasPosition = true;
@@ -187,17 +155,13 @@ namespace location
     }
 
     case ELocationCenterOnly:
+
       m_framework->SetViewportCenter(center);
 
       SetIsCentered(true);
       CheckCompassRotation();
       CheckCompassFollowing();
 
-      break;
-
-    case ELocationSkipCentering:
-      SetIsCentered(false);
-      m_locationProcessMode = ELocationDoNothing;
       break;
 
     case ELocationDoNothing:
@@ -319,7 +283,7 @@ namespace location
 
   void State::update()
   {
-    if (isVisible())
+    if (isVisible() && m_hasPosition)
     {
       m2::PointD const pxPosition = m_framework->GetNavigator().GtoP(Position());
 
@@ -561,6 +525,7 @@ namespace location
   void State::StartCompassFollowing()
   {
     SetCompassProcessMode(ECompassFollow);
+    SetLocationProcessMode(ELocationCenterOnly);
     CheckCompassRotation();
     CheckCompassFollowing();
     setState(EPressed);

@@ -78,17 +78,10 @@ void Framework::RemoveMap(string const & datFile)
   m_model.RemoveMap(datFile);
 }
 
-void Framework::SkipLocationCentering()
-{
-  m_informationDisplay.locationState()->SkipLocationCentering();
-}
+void Framework::OnLocationError(location::TLocationError error)
+{}
 
-void Framework::OnLocationStatusChanged(location::TLocationStatus newStatus)
-{
-  m_informationDisplay.locationState()->OnLocationStatusChanged(newStatus);
-}
-
-void Framework::OnGpsUpdate(location::GpsInfo const & info)
+void Framework::OnLocationUpdate(location::GpsInfo const & info)
 {
 #ifdef FIXED_LOCATION
   location::GpsInfo rInfo(info);
@@ -98,7 +91,7 @@ void Framework::OnGpsUpdate(location::GpsInfo const & info)
   location::GpsInfo const & rInfo = info;
 #endif
 
-  m_informationDisplay.locationState()->OnGpsUpdate(rInfo);
+  m_informationDisplay.locationState()->OnLocationUpdate(rInfo);
 }
 
 void Framework::OnCompassUpdate(location::CompassInfo const & info)

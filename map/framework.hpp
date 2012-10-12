@@ -206,9 +206,8 @@ public:
 
   /// @name GPS location updates routine.
   //@{
-  void SkipLocationCentering();
-  void OnLocationStatusChanged(location::TLocationStatus newStatus);
-  void OnGpsUpdate(location::GpsInfo const & info);
+  void OnLocationError(location::TLocationError error);
+  void OnLocationUpdate(location::GpsInfo const & info);
   void OnCompassUpdate(location::CompassInfo const & info);
   //@}
 

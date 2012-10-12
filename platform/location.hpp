@@ -9,13 +9,9 @@ namespace location
   /// after this period we cont position as "too old"
   static double const POSITION_TIMEOUT_SECONDS = 300.0;
 
-  enum TLocationStatus
+  enum TLocationError
   {
-    EStopped = 0,
-    EStarted,
-    EFirstEvent,    //!< Sent when first valid coorinate is received
-    ENotSupported,
-    EDisabledByUser
+    EDenied
   };
 
   enum TLocationSource

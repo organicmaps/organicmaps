@@ -41,12 +41,12 @@ public:
 
   void OnLocationUpdate(GpsInfo const & info)
   {
-    m_observer.OnGpsUpdated(info);
+    m_observer.OnLocationUpdated(info);
   }
 
   void OnDeniedError()
   {
-    m_observer.OnLocationStatusChanged(location::EDisabledByUser);
+    m_observer.OnLocationError(location::EDenied);
   }
 
   virtual void Start()
@@ -59,14 +59,12 @@ public:
     else
     {
       [m_locationManager startUpdatingLocation];
-      m_observer.OnLocationStatusChanged(location::EStarted);
     }
   }
 
   virtual void Stop()
   {
     [m_locationManager stopUpdatingLocation];
-    m_observer.OnLocationStatusChanged(location::EStopped);
   }
 };
 

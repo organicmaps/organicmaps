@@ -373,7 +373,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
   }
 
   @Override
-  public void onLocationStatusChanged(int status)
+  public void onLocationError(int errorCode)
   {
   }
 

@@ -15,10 +15,10 @@
 extern "C"
 {
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeLocationStatusChanged(JNIEnv * env, jobject thiz,
-      int status)
+  Java_com_mapswithme_maps_MWMActivity_nativeOnLocationError(JNIEnv * env, jobject thiz,
+      int errorCode)
   {
-    g_framework->OnLocationStatusChanged(status);
+    g_framework->OnLocationError(errorCode);
   }
 
   JNIEXPORT void JNICALL
@@ -218,11 +218,4 @@ extern "C"
 
     return false;
   }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeSkipLocationCentering(JNIEnv * env, jobject thiz)
-  {
-    g_framework->NativeFramework()->SkipLocationCentering();
-  }
-
 } // extern "C"

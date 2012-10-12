@@ -60,9 +60,9 @@ namespace android
     delete m_videoTimer;
   }
 
-  void Framework::OnLocationStatusChanged(int newStatus)
+  void Framework::OnLocationError(int errorCode)
   {
-    m_work.OnLocationStatusChanged(static_cast<location::TLocationStatus>(newStatus));
+    m_work.OnLocationError(static_cast<location::TLocationError>(errorCode));
   }
 
   void Framework::OnLocationUpdated(uint64_t time, double lat, double lon, float accuracy)
@@ -72,7 +72,7 @@ namespace android
     info.m_latitude = lat;
     info.m_longitude = lon;
     info.m_horizontalAccuracy = accuracy;
-    m_work.OnGpsUpdate(info);
+    m_work.OnLocationUpdate(info);
   }
 
   void Framework::OnCompassUpdated(uint64_t timestamp, double magneticNorth, double trueNorth, double accuracy)
@@ -180,7 +180,6 @@ namespace android
 
     m_doLoadState = false;
 
-    m_work.SkipLocationCentering();
     m_work.ShowRect(r);
   }
 
@@ -408,7 +407,11 @@ namespace android
   {
     m_doLoadState = false;
 
-    m_work.SkipLocationCentering();
+    shared_ptr<location::State> ls = m_work.GetInformationDisplay().locationState();
+
+    ls->StopCompassFollowing();
+    ls->SetLocationProcessMode(location::ELocationDoNothing);
+
     m_work.ShowSearchResult(r);
   }
 
