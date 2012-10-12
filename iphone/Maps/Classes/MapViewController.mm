@@ -17,9 +17,6 @@
 @implementation MapViewController
 
 @synthesize m_myPositionButton;
-//@synthesize m_searchButton;
-//@synthesize m_downloadButton;
-//@synthesize m_bookmarksButton;
 
 //********************************************************************************************
 //*********************** Callbacks from LocationManager *************************************
@@ -73,6 +70,7 @@
 }
 //********************************************************************************************
 //********************************************************************************************
+
 - (IBAction)OnMyPositionClicked:(id)sender
 {
   if (m_myPositionButton.isSelected == NO)
@@ -136,17 +134,24 @@
 
 - (void) updatePinTexts:(Framework::AddressInfo const &)info
 {
-  if (info.m_name.empty())
+  NSString * res = [NSString stringWithUTF8String:info.m_name.c_str()];
+
+  if (!info.m_types.empty())
   {
-    if (!info.m_types.empty())
-      m_balloonView.title = [[NSString stringWithUTF8String:info.m_types[0].c_str()] capitalizedString];
+    NSString * type = [NSString stringWithUTF8String:info.m_types[0].c_str()];
+
+    if (res.length == 0)
+      res = [type capitalizedString];
     else
-      m_balloonView.title = NSLocalizedString(@"dropped_pin", @"Unknown Dropped Pin title, when name can't be determined");
+      res = [NSString stringWithFormat:@"%@ (%@)", res, type];
   }
-  else
-    m_balloonView.title = [NSString stringWithUTF8String:info.m_name.c_str()];
-//  m_balloonView.description = [NSString stringWithUTF8String:info.FormatAddress().c_str()];
-//  m_balloonView.type = [NSString stringWithUTF8String:info.FormatTypes().c_str()];
+
+  if (res.length == 0)
+    res = NSLocalizedString(@"dropped_pin", nil);
+
+  m_balloonView.title = res;
+  //m_balloonView.description = [NSString stringWithUTF8String:info.FormatAddress().c_str()];
+  //m_balloonView.type = [NSString stringWithUTF8String:info.FormatTypes().c_str()];
 }
 
 
