@@ -411,6 +411,7 @@ namespace android
 
     ls->StopCompassFollowing();
     ls->SetLocationProcessMode(location::ELocationDoNothing);
+    ls->SetIsCentered(false);
 
     m_work.ShowSearchResult(r);
   }
