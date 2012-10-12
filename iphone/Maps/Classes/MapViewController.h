@@ -39,8 +39,8 @@
 -(BOOL) OnProcessURL:(NSString*)url;
 
 @property (nonatomic, retain) IBOutlet UIButton * m_myPositionButton;
-@property (nonatomic, retain) IBOutlet UIButton * m_searchButton;
-@property (nonatomic, retain) IBOutlet UIButton * m_downloadButton;
-@property (nonatomic, retain) IBOutlet UIButton * m_bookmarksButton;
+//@property (nonatomic, retain) IBOutlet UIButton * m_searchButton;
+//@property (nonatomic, retain) IBOutlet UIButton * m_downloadButton;
+//@property (nonatomic, retain) IBOutlet UIButton * m_bookmarksButton;
 
 @end

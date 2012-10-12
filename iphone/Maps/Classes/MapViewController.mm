@@ -13,12 +13,13 @@
 #include "Framework.h"
 #include "RenderContext.hpp"
 
+
 @implementation MapViewController
 
 @synthesize m_myPositionButton;
-@synthesize m_searchButton;
-@synthesize m_downloadButton;
-@synthesize m_bookmarksButton;
+//@synthesize m_searchButton;
+//@synthesize m_downloadButton;
+//@synthesize m_bookmarksButton;
 
 //********************************************************************************************
 //*********************** Callbacks from LocationManager *************************************
