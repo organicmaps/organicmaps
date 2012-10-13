@@ -471,12 +471,12 @@ static void OnSearchResultCallback(search::Results const & res)
 
 //****************************************************************** 
 //*********** Location manager callbacks ***************************
-- (void)onLocationStatusChanged:(location::TLocationStatus)newStatus
+- (void)onLocationError:(location::TLocationError)errorCode
 {
   // Handle location status changes if necessary
 }
 
-- (void)onGpsUpdate:(location::GpsInfo const &)info
+- (void)onLocationUpdate:(location::GpsInfo const &)info
 {
   // Refresh search results with newer location.
   NSString * queryString = m_searchBar.text;

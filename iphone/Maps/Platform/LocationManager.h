@@ -9,8 +9,8 @@
 
 @protocol LocationObserver
 @required
-  - (void)onLocationStatusChanged:(location::TLocationStatus)newStatus;
-  - (void)onGpsUpdate:(location::GpsInfo const &)info;
+  - (void)onLocationError:(location::TLocationError)errorCode;
+  - (void)onLocationUpdate:(location::GpsInfo const &)info;
   - (void)onCompassUpdate:(location::CompassInfo const &)info;
 @end
 
@@ -18,7 +18,6 @@
 {
   CLLocationManager * m_locationManager;
   BOOL m_isStarted;
-  BOOL m_reportFirstUpdate;
   NSMutableSet * m_observers;
   BOOL m_isTimerActive;
 }

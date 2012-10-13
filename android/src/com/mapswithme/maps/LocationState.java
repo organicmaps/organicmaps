@@ -31,6 +31,8 @@ public class LocationState
   public native boolean hasPosition();
   public native boolean hasCompass();
 
+  public native boolean isFirstPosition();
+
   public native void turnOff();
   public native boolean isVisible();
 }

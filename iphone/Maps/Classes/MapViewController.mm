@@ -19,12 +19,12 @@
 
 //********************************************************************************************
 //*********************** Callbacks from LocationManager *************************************
-- (void) onLocationStatusChanged:(location::TLocationStatus)newStatus
+- (void) onLocationError:(location::TLocationError)errorCode
 {
-  GetFramework().OnLocationStatusChanged(newStatus);
-  switch (newStatus)
+  GetFramework().OnLocationError(errorCode);
+  switch (errorCode)
   {
-  case location::EDisabledByUser:
+    case location::EDenied:
     {
       UIAlertView * alert = [[CustomAlertView alloc] initWithTitle:nil
                                                        message:NSLocalizedString(@"location_is_disabled_long_text", @"Location services are disabled by user alert - message")
@@ -36,7 +36,7 @@
       [[MapsAppDelegate theApp].m_locationManager stop:self];
     }
     break;
-  case location::ENotSupported:
+    case location::ENotSupported:
     {
       UIAlertView * alert = [[CustomAlertView alloc] initWithTitle:nil
                                                        message:NSLocalizedString(@"device_doesnot_support_location_services", @"Location Services are not available on the device alert - message")
@@ -48,18 +48,19 @@
       [[MapsAppDelegate theApp].m_locationManager stop:self];
     }
     break;
-  case location::EFirstEvent:
-      [m_myPositionButton setImage:[UIImage imageNamed:@"location-selected.png"] forState:UIControlStateSelected];
-    break;
   default:
     break;
   }
 }
 
-- (void) onGpsUpdate:(location::GpsInfo const &)info
+- (void) onLocationUpdate:(location::GpsInfo const &)info
 {
-  GetFramework().OnGpsUpdate(info);
-
+  if (GetFramework().GetLocationState()->IsFirstPosition())
+  {
+    [m_myPositionButton setImage:[UIImage imageNamed:@"location-selected.png"] forState:UIControlStateSelected];
+  }
+  
+  GetFramework().OnLocationUpdate(info);
   [self updateDataAfterScreenChanged];
 }
 
@@ -76,6 +77,7 @@
   {
     m_myPositionButton.selected = YES;
     [m_myPositionButton setImage:[UIImage imageNamed:@"location-search.png"] forState:UIControlStateSelected];
+    GetFramework().StartLocation();
     [[MapsAppDelegate theApp] disableStandby];
     [[MapsAppDelegate theApp].m_locationManager start:self];
   }
@@ -83,6 +85,7 @@
   {
     m_myPositionButton.selected = NO;
     [m_myPositionButton setImage:[UIImage imageNamed:@"location.png"] forState:UIControlStateSelected];
+    GetFramework().StopLocation();
     [[MapsAppDelegate theApp] enableStandby];
     [[MapsAppDelegate theApp].m_locationManager stop:self];
   }

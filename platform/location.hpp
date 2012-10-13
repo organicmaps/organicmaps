@@ -11,7 +11,8 @@ namespace location
 
   enum TLocationError
   {
-    EDenied
+    EDenied,
+    ENotSupported
   };
 
   enum TLocationSource

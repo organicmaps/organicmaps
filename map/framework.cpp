@@ -1430,3 +1430,8 @@ Navigator & Framework::GetNavigator()
 {
   return m_navigator;
 }
+
+shared_ptr<location::State> const & Framework::GetLocationState() const
+{
+  return m_informationDisplay.locationState();
+}

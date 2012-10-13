@@ -23,7 +23,6 @@ namespace qt
 
     QDockWidget * m_Docks[3];
 
-    bool m_isFirstLocation;
     scoped_ptr<location::LocationService> m_locationService;
 
     Q_OBJECT

@@ -20,7 +20,6 @@
     m_locationManager.headingFilter = 3.0;
     m_locationManager.distanceFilter = 3.0;
     m_isStarted = NO;
-    m_reportFirstUpdate = YES;
     m_observers = [[NSMutableSet alloc] init];
   }
   return self;
@@ -53,21 +52,19 @@
           [m_locationManager startUpdatingHeading];
         m_isStarted = YES;
         [m_observers addObject:observer];
-        [observer onLocationStatusChanged:location::EStarted];
         break;
       case kCLAuthorizationStatusRestricted:
       case kCLAuthorizationStatusDenied:
-        [observer onLocationStatusChanged:location::EDisabledByUser];
+        [observer onLocationError:location::EDenied];
         break;
       }
     }
     else
-      [observer onLocationStatusChanged:location::ENotSupported];
+      [observer onLocationError:location::ENotSupported];
   }
   else
   {
     [m_observers addObject:observer];
-    [observer onLocationStatusChanged:location::EStarted];
   }
 }
 
@@ -80,13 +77,11 @@
     {
       // stop only if no more observers are subsribed
       m_isStarted = NO;
-      m_reportFirstUpdate = YES;
       if ([CLLocationManager headingAvailable])
         [m_locationManager stopUpdatingHeading];
       [m_locationManager stopUpdatingLocation];
     }
   }
-  [observer onLocationStatusChanged:location::EStopped];
 }
 
 - (CLLocation *)lastLocation
@@ -118,17 +113,10 @@
   if (location::IsLatValid(newLocation.coordinate.latitude) &&
       location::IsLonValid(newLocation.coordinate.longitude))
   {
-    if (m_reportFirstUpdate)
-    {
-      for (id observer in m_observers)
-        [observer onLocationStatusChanged:location::EFirstEvent];
-      m_reportFirstUpdate = NO;
-    }
-  
     location::GpsInfo newInfo;
     [self location:newLocation toGpsInfo:newInfo];
     for (id observer in m_observers)
-      [observer onGpsUpdate:newInfo];
+      [observer onLocationUpdate:newInfo];
   }
 }
 
@@ -151,7 +139,7 @@
   if (error.code == kCLErrorDenied)
   {
     for (id observer in m_observers)
-      [observer onLocationStatusChanged:location::EDisabledByUser];
+      [observer onLocationError:location::EDenied];
   }
 }
 

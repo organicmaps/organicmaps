@@ -63,56 +63,63 @@ extern "C"
   Java_com_mapswithme_maps_LocationState_addCompassStatusListener(JNIEnv * env, jobject thiz, jobject obj)
   {
     location::State::TCompassStatusListener fn = bind(&CompassStatusChanged, _1, jni::make_global_ref(obj));
-    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetInformationDisplay().locationState();
+    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetLocationState();
     return ls->AddCompassStatusListener(fn);
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_LocationState_removeCompassStatusListener(JNIEnv * env, jobject thiz, jint slotID)
   {
-    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetInformationDisplay().locationState();
+    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetLocationState();
     ls->RemoveCompassStatusListener(slotID);
   }
 
   JNIEXPORT jboolean JNICALL
   Java_com_mapswithme_maps_LocationState_hasPosition(JNIEnv * env, jobject thiz)
   {
-    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetInformationDisplay().locationState();
+    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetLocationState();
     return ls->HasPosition();
   }
 
   JNIEXPORT jboolean JNICALL
   Java_com_mapswithme_maps_LocationState_hasCompass(JNIEnv * env, jobject thiz)
   {
-    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetInformationDisplay().locationState();
+    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetLocationState();
     return ls->HasCompass();
+  }
+
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_LocationState_isFirstPosition(JNIEnv * env, jobject thiz)
+  {
+    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetLocationState();
+    return ls->IsFirstPosition();
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_LocationState_turnOff(JNIEnv * env, jobject thiz)
   {
-    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetInformationDisplay().locationState();
+    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetLocationState();
     return ls->TurnOff();
   }
 
   JNIEXPORT jboolean JNICALL
   Java_com_mapswithme_maps_LocationState_isVisible(JNIEnv * env, jobject thiz)
   {
-    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetInformationDisplay().locationState();
+    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetLocationState();
     return ls->isVisible();
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_LocationState_onStartLocation(JNIEnv * env, jobject thiz)
   {
-    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetInformationDisplay().locationState();
+    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetLocationState();
     ls->OnStartLocation();
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_LocationState_onStopLocation(JNIEnv * env, jobject thiz)
   {
-    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetInformationDisplay().locationState();
+    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetLocationState();
     ls->OnStopLocation();
   }
 }

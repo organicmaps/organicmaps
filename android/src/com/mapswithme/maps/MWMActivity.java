@@ -38,7 +38,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private BroadcastReceiver m_externalStorageReceiver = null;
   private AlertDialog m_storageDisconnectedDialog = null;
   private boolean m_locationWasActive = false;
-  private boolean m_isFirstLocation = false;
 
   private LocationService getLocationService()
   {
@@ -57,17 +56,13 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private void startLocation()
   {
-    getLocationState().setLocationProcessMode(LocationState.LOCATION_CENTER_AND_SCALE);
-    getLocationState().setCompassProcessMode(LocationState.COMPASS_DO_NOTHING);
-    m_isFirstLocation = true;
+    getLocationState().onStartLocation();
     resumeLocation();
   }
 
   private void stopLocation()
   {
-    getLocationState().setLocationProcessMode(LocationState.LOCATION_DO_NOTHING);
-    getLocationState().setCompassProcessMode(LocationState.COMPASS_DO_NOTHING);
-    getLocationState().turnOff();
+    getLocationState().onStopLocation();
     pauseLocation();
   }
 
@@ -666,14 +661,12 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   public void onLocationUpdated(long time, double lat, double lon, float accuracy)
   {
-    if (m_isFirstLocation)
+    if (getLocationState().isFirstPosition())
     {
       final View v = findViewById(R.id.map_button_myposition);
 
       v.setBackgroundResource(R.drawable.myposition_button_found);
       v.setSelected(true);
-
-      m_isFirstLocation = false;
     }
 
     nativeLocationUpdated(time, lat, lon, accuracy);

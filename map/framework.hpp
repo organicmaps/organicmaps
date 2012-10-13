@@ -410,4 +410,6 @@ public:
   /// Checks, whether the country which contains
   /// the specified point is loaded
   bool IsCountryLoaded(m2::PointD const & pt) const;
+
+  shared_ptr<location::State> const & GetLocationState() const;
 };
