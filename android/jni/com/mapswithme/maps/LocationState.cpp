@@ -101,4 +101,18 @@ extern "C"
     shared_ptr<location::State> ls = g_framework->NativeFramework()->GetInformationDisplay().locationState();
     return ls->isVisible();
   }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_LocationState_onStartLocation(JNIEnv * env, jobject thiz)
+  {
+    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetInformationDisplay().locationState();
+    ls->OnStartLocation();
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_LocationState_onStopLocation(JNIEnv * env, jobject thiz)
+  {
+    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetInformationDisplay().locationState();
+    ls->OnStopLocation();
+  }
 }

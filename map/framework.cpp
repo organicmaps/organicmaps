@@ -78,6 +78,16 @@ void Framework::RemoveMap(string const & datFile)
   m_model.RemoveMap(datFile);
 }
 
+void Framework::StartLocation()
+{
+  m_informationDisplay.locationState()->OnStartLocation();
+}
+
+void Framework::StopLocation()
+{
+  m_informationDisplay.locationState()->OnStopLocation();
+}
+
 void Framework::OnLocationError(location::TLocationError error)
 {}
 

@@ -64,6 +64,7 @@ namespace location
     bool m_hasPosition;
     bool m_hasCompass;
     bool m_isCentered;
+    bool m_isFirstPosition;
 
     ELocationProcessMode m_locationProcessMode;
     ECompassProcessMode m_compassProcessMode;
@@ -132,6 +133,7 @@ namespace location
 
     bool HasPosition() const;
     bool HasCompass() const;
+    bool IsFirstPosition() const;
 
     ELocationProcessMode LocationProcessMode() const;
     void SetLocationProcessMode(ELocationProcessMode mode);
@@ -143,6 +145,9 @@ namespace location
 
     void StartCompassFollowing();
     void StopCompassFollowing();
+
+    void OnStartLocation();
+    void OnStopLocation();
 
     int AddCompassStatusListener(TCompassStatusListener const & l);
     void RemoveCompassStatusListener(int slotID);

@@ -78,6 +78,11 @@ namespace location
     return m_hasCompass;
   }
 
+  bool State::IsFirstPosition() const
+  {
+    return m_isFirstPosition;
+  }
+
   void State::TurnOff()
   {
     m_hasPosition = false;
@@ -112,6 +117,8 @@ namespace location
 
   void State::OnLocationUpdate(location::GpsInfo const & info)
   {
+    m_isFirstPosition = false;
+
     m2::RectD rect = MercatorBounds::MetresToXY(info.m_longitude,
                                                 info.m_latitude,
                                                 info.m_horizontalAccuracy);
@@ -562,6 +569,21 @@ namespace location
     int slotID = m_currentSlotID++;
     m_compassStatusListeners[slotID] = l;
     return slotID;
+  }
+
+  void State::OnStartLocation()
+  {
+    SetCompassProcessMode(location::ECompassDoNothing);
+    SetLocationProcessMode(location::ELocationCenterAndScale);
+    m_isFirstPosition = true;
+  }
+
+  void State::OnStopLocation()
+  {
+    SetLocationProcessMode(location::ELocationDoNothing);
+    SetCompassProcessMode(location::ECompassDoNothing);
+    m_isFirstPosition = false;
+    TurnOff();
   }
 
   void State::RemoveCompassStatusListener(int slotID)

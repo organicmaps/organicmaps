@@ -25,6 +25,9 @@ public class LocationState
   public native int addCompassStatusListener(Object l);
   public native void removeCompassStatusListener(int slotID);
 
+  public native void onStartLocation();
+  public native void onStopLocation();
+
   public native boolean hasPosition();
   public native boolean hasCompass();
 
