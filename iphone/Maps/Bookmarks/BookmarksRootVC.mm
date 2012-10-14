@@ -88,8 +88,7 @@
   if (cat)
   {
     cell.textLabel.text = [NSString stringWithUTF8String:cat->GetName().c_str()];
-    // @TODO: add checkmark icon
-    //cell.imageView.image = cat->IsVisible() ? checkedImage : nil;
+    cell.imageView.image = [UIImage imageNamed:(cat->IsVisible() ? @"eye" : @"empty")];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", cat->GetBookmarksCount()];
   }
   return cell;
@@ -199,10 +198,10 @@
 // Used to remove active UITextField from the cell
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
-  [super setEditing:editing animated:animated];
-
   if (editing == NO)
     [self applyCategoryRenaming];
+
+  [super setEditing:editing animated:animated];
 
   // Set or remove selection style for all cells
   NSInteger const rowsCount = [self.tableView numberOfRowsInSection:0];
