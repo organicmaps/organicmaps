@@ -1164,7 +1164,10 @@ void Framework::ShowSearchResult(search::Result const & res)
 
   ShowRectExVisibleScale(rect);
 
-  DrawPlacemark(rect.Center());
+  // On iOS, we draw search results as bookmarks
+#ifndef OMIM_OS_IPHONE
+  DrawPlacemark(res.GetFeatureCenter());
+#endif
 }
 
 void Framework::GetDistanceAndAzimut(search::Result const & res,

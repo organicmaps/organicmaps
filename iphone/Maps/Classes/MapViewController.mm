@@ -10,7 +10,6 @@
 
 #include "../../../gui/controller.hpp"
 
-#include "Framework.h"
 #include "RenderContext.hpp"
 
 
@@ -214,6 +213,13 @@
       }
     }
   }
+}
+
+- (void)showSearchResultAsBookmarkAtMercatorPoint:(m2::PointD const &)pt withInfo:(Framework::AddressInfo const &)info
+{
+  m_balloonView.globalPosition = CGPointMake(pt.x, pt.y);
+  [self updatePinTexts:info];
+  [m_balloonView showInView:self.view atPoint:[self globalPoint2ViewPoint:m_balloonView.globalPosition] withBookmark:MakeEmptyBookmarkAndCategory()];
 }
 
 - (void) onSingleTap:(NSValue *)point

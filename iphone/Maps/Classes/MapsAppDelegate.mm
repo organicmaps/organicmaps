@@ -89,7 +89,7 @@
 {
   [m_locationManager release];
   [m_settingsManager release];
-  m_mapViewController = nil;
+  self.m_mapViewController = nil;
   [m_navController release];
   [m_window release];
   [super dealloc];

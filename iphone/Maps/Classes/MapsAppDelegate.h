@@ -16,7 +16,7 @@
 @property (nonatomic, retain) IBOutlet MapViewController * m_mapViewController;
 @property (nonatomic, readonly) LocationManager * m_locationManager;
 
-+ (MapsAppDelegate *) theApp;
++ (MapsAppDelegate *)theApp;
 
 - (SettingsManager *)settingsManager;
 

@@ -4,6 +4,8 @@
 #include "../../geometry/point2d.hpp"
 #include "../../geometry/rect2d.hpp"
 
+#include "Framework.h"
+
 @class BalloonView;
 
 @interface MapViewController : UIViewController <LocationObserver>
@@ -37,6 +39,8 @@
 - (IBAction)OnBookmarksClicked:(id)sender;
 
 -(BOOL) OnProcessURL:(NSString*)url;
+
+- (void)showSearchResultAsBookmarkAtMercatorPoint:(m2::PointD const &)pt withInfo:(Framework::AddressInfo const &)info;
 
 @property (nonatomic, retain) IBOutlet UIButton * m_myPositionButton;
 

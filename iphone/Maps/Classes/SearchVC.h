@@ -2,13 +2,9 @@
 
 #import "LocationManager.h"
 #import "SearchSuggestionsCell.h"
-
-#include "../../std/vector.hpp"
-#include "../../std/function.hpp"
-#include "../../std/string.hpp"
+#import "BalloonView.h"
 
 class Framework;
-namespace search { class Result; }
 
 @interface SearchVC : UIViewController
     <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource,

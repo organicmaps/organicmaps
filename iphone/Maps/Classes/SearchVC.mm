@@ -5,6 +5,7 @@
 #import "BookmarksVC.h"
 #import "CustomNavigationView.h"
 #import "MapsAppDelegate.h"
+#import "MapViewController.h"
 
 #include "Framework.h"
 
@@ -53,9 +54,7 @@ SearchVC * g_searchVC = nil;
 - (id)initWithResults:(search::Results const &)res
 {
   if ((self = [super init]))
-  {
     m_results.assign(res.Begin(), res.End());
-  }
   return self;
 }
 
@@ -85,8 +84,7 @@ static void OnSearchResultCallback(search::Results const & res)
 
 @implementation SearchVC
 
-
-- (id)init
+- (id) init
 {
   if ((self = [super initWithNibName:nil bundle:nil]))
   {
@@ -274,25 +272,14 @@ static void OnSearchResultCallback(search::Results const & res)
 - (void)searchBar:(UISearchBar *)sender textDidChange:(NSString *)searchText
 {
   // Search even with empty string.
-  //if (searchText.length)
-  {
-    search::SearchParams params;
-    [self fillSearchParams:params withText:searchText];
-    [self showIndicator];
-    m_framework->Search(params);
-  }
-  //else
-  //{
-  //  [g_lastSearchResults release];
-  //  g_lastSearchResults = nil;
-  //  // Clean the table
-  //  [m_table reloadData];
-  //}
+  search::SearchParams params;
+  [self fillSearchParams:params withText:searchText];
+  [self showIndicator];
+  m_framework->Search(params);
 }
 
 - (void)onCloseButton:(id)sender
 {
-  m_framework->DisablePlacemark();
   [self dismissModalViewControllerAnimated:YES];
 }
 //*********** End of SearchBar handlers *************************************
@@ -447,10 +434,16 @@ static void OnSearchResultCallback(search::Results const & res)
     {
       // Zoom to the feature
     case search::Result::RESULT_FEATURE:
-      m_framework->ShowSearchResult(res);
+      {
+        m_framework->ShowSearchResult(res);
 
-      // Same as "Close" button but do not disable placemark
-      [self dismissModalViewControllerAnimated:YES];
+        Framework::AddressInfo info;
+        info.m_name = res.GetString();
+        info.m_types.push_back(res.GetFeatureType());
+        [[MapsAppDelegate theApp].m_mapViewController showSearchResultAsBookmarkAtMercatorPoint:res.GetFeatureCenter() withInfo:info];
+
+        [self onCloseButton:nil];
+      }
       break;
 
     case search::Result::RESULT_SUGGESTION:
