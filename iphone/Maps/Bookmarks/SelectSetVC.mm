@@ -11,6 +11,9 @@
   if (self)
   {
     m_balloon = view;
+
+    // Always autocreate bookmark category if it's absent
+    GetFramework().GetBmCategory([m_balloon.setName UTF8String]);
     
     self.title = NSLocalizedString(@"bookmark_sets", @"Bookmark Sets dialog title");
   }

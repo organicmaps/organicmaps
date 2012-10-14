@@ -388,7 +388,7 @@ BookmarkCategory * Framework::GetBmCategory(size_t index) const
 
 BookmarkCategory * Framework::GetBmCategory(string const & name)
 {
-  vector<BookmarkCategory *>::iterator i = FindBmCategory(name);
+  CategoryIter i = FindBmCategory(name);
   if (i != m_bookmarks.end())
     return (*i);
 
