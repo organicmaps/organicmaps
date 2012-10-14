@@ -28,6 +28,11 @@
   [self.navigationController setNavigationBarHidden:NO animated:YES];
   // Update the table - we can display it after changing set or color
   [self.tableView reloadData];
+
+  // Automatically show keyboard if bookmark has default name
+  if ([m_balloon.title isEqualToString:NSLocalizedString(@"dropped_pin", nil)])
+    [[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].accessoryView becomeFirstResponder];
+
   [super viewWillAppear:animated];
 }
 
