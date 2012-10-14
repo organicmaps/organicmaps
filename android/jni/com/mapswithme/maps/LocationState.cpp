@@ -8,7 +8,7 @@ extern "C"
   Java_com_mapswithme_maps_LocationState_getCompassProcessMode(JNIEnv * env, jobject thiz)
   {
     shared_ptr<location::State> ls = g_framework->NativeFramework()->GetInformationDisplay().locationState();
-    return ls->CompassProcessMode();
+    return ls->GetCompassProcessMode();
   }
 
   JNIEXPORT void JNICALL
@@ -22,7 +22,7 @@ extern "C"
   Java_com_mapswithme_maps_LocationState_getLocationProcessMode(JNIEnv * env, jobject thiz)
   {
     shared_ptr<location::State> ls = g_framework->NativeFramework()->GetInformationDisplay().locationState();
-    return ls->LocationProcessMode();
+    return ls->GetLocationProcessMode();
   }
 
   JNIEXPORT void JNICALL

@@ -924,8 +924,8 @@ void Framework::StartDrag(DragEvent const & e)
     m_renderPolicy->StartDrag();
 
   shared_ptr<location::State> locationState = m_informationDisplay.locationState();
-  m_dragCompassProcessMode = locationState->CompassProcessMode();
-  m_dragLocationProcessMode = locationState->LocationProcessMode();
+  m_dragCompassProcessMode = locationState->GetCompassProcessMode();
+  m_dragLocationProcessMode = locationState->GetLocationProcessMode();
 }
 
 void Framework::DoDrag(DragEvent const & e)
@@ -1019,7 +1019,8 @@ void Framework::Move(double azDir, double factor)
 //@{
 void Framework::ScaleToPoint(ScaleToPointEvent const & e)
 {
-  m2::PointD const pt = (m_informationDisplay.locationState()->LocationProcessMode() == location::ELocationDoNothing) ?
+  shared_ptr<location::State> locationState = m_informationDisplay.locationState();
+  m2::PointD const pt = (locationState->GetLocationProcessMode() == location::ELocationDoNothing) ?
         m_navigator.ShiftPoint(e.Pt()) : GetPixelCenter();
 
   m_navigator.ScaleToPoint(pt, e.ScaleFactor(), ElapsedSeconds());
@@ -1047,7 +1048,7 @@ void Framework::CalcScalePoints(ScaleEvent const & e, m2::PointD & pt1, m2::Poin
   shared_ptr<location::State> locationState = m_informationDisplay.locationState();
 
   if (locationState->HasPosition()
-  && (locationState->LocationProcessMode() == location::ELocationCenterOnly))
+  && (locationState->GetLocationProcessMode() == location::ELocationCenterOnly))
   {
     m2::PointD const ptC = (pt1 + pt2) / 2;
     m2::PointD const ptDiff = GetPixelCenter() - ptC;
@@ -1083,7 +1084,7 @@ void Framework::DoScale(ScaleEvent const & e)
   shared_ptr<location::State> locationState = m_informationDisplay.locationState();
 
   if (m_navigator.IsRotatingDuringScale()
-  && (locationState->CompassProcessMode() == location::ECompassFollow))
+  && (locationState->GetCompassProcessMode() == location::ECompassFollow))
     locationState->StopCompassFollowing();
 }
 

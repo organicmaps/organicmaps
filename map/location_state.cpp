@@ -91,7 +91,7 @@ namespace location
     invalidate();
   }
 
-  ELocationProcessMode State::LocationProcessMode() const
+  ELocationProcessMode State::GetLocationProcessMode() const
   {
     return m_locationProcessMode;
   }
@@ -101,7 +101,7 @@ namespace location
     m_locationProcessMode = mode;
   }
 
-  ECompassProcessMode State::CompassProcessMode() const
+  ECompassProcessMode State::GetCompassProcessMode() const
   {
     return m_compassProcessMode;
   }
@@ -471,7 +471,7 @@ namespace location
   void State::CheckCompassFollowing()
   {
     if (m_hasCompass
-    && (CompassProcessMode() == ECompassFollow)
+    && (GetCompassProcessMode() == ECompassFollow)
     && IsCentered())
       FollowCompass();
   }

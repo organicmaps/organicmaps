@@ -135,10 +135,10 @@ namespace location
     bool HasCompass() const;
     bool IsFirstPosition() const;
 
-    ELocationProcessMode LocationProcessMode() const;
+    ELocationProcessMode GetLocationProcessMode() const;
     void SetLocationProcessMode(ELocationProcessMode mode);
 
-    ECompassProcessMode CompassProcessMode() const;
+    ECompassProcessMode GetCompassProcessMode() const;
     void SetCompassProcessMode(ECompassProcessMode mode);
 
     void TurnOff();
