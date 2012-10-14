@@ -21,6 +21,10 @@ void BookmarkCategory::AddBookmarkImpl(Bookmark const & bm, double scale)
   p->SetScale(scale);
 
   m_bookmarks.push_back(p);
+
+  // Turn on visibility, so user can see added/replaced bookmark on a map
+  if (!IsVisible())
+    SetVisible(true);
 }
 
 void BookmarkCategory::AddBookmark(Bookmark const & bm, double scale)
@@ -41,6 +45,10 @@ void BookmarkCategory::ReplaceBookmark(size_t index, Bookmark const & bm, double
     m_bookmarks[index] = p;
 
     delete old;
+
+    // Turn on visibility, so user can see added/replaced bookmark on a map
+    if (!IsVisible())
+      SetVisible(true);
 
     VERIFY ( SaveToKMLFile(), () );
   }

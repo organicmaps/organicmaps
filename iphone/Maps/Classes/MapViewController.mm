@@ -173,9 +173,17 @@
   if (IsValid(bmAndCat))
   {
     // Already added bookmark was clicked
-    BookmarkCategory const * cat = f.GetBmCategory(bmAndCat.first);
+    BookmarkCategory * cat = f.GetBmCategory(bmAndCat.first);
     if (cat)
     {
+      // Automatically reveal hidden bookmark on a click
+      if (!cat->IsVisible())
+      {
+        // Category visibility will be autosaved after editing bookmark
+        cat->SetVisible(true);
+        [self Invalidate];
+      }
+
       Bookmark const * bm = cat->GetBookmark(bmAndCat.second);
       if (bm)
       {
