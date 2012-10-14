@@ -2,6 +2,7 @@
 #import "BalloonView.h"
 
 static NSString * g_colors [] = {
+  @"placemark-red",
   @"placemark-blue",
   @"placemark-brown",
   @"placemark-green",

@@ -31,7 +31,7 @@
   if ((self = [super init]))
   {
     // Default bookmark pin color
-    self.color = @"placemark-purple";
+    self.color = @"placemark-red";
     self.setName = [BalloonView getDefaultSetName];
     // Load bookmarks from kml files
     GetFramework().LoadBookmarks();
