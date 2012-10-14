@@ -142,6 +142,7 @@
     f.autocorrectionType = UITextAutocorrectionTypeNo;
     f.adjustsFontSizeToFitWidth = YES;
     f.text = cell.textLabel.text;
+    f.textColor = cell.detailTextLabel.textColor;
     f.placeholder = NSLocalizedString(@"bookmark_set_name", @"Add Bookmark Set dialog - hint when set name is empty");
     f.font = [cell.textLabel.font fontWithSize:[cell.textLabel.font pointSize]];
     f.tag = TEXTFIELD_TAG;
@@ -202,6 +203,23 @@
 
   if (editing == NO)
     [self applyCategoryRenaming];
+
+  // Set or remove selection style for all cells
+  NSInteger const rowsCount = [self.tableView numberOfRowsInSection:0];
+  for (NSInteger i = 0; i < rowsCount; ++i)
+  {
+    UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+    if (self.editing)
+    {
+      cell.selectionStyle = UITableViewCellSelectionStyleNone;
+      cell.textLabel.textColor = cell.detailTextLabel.textColor;
+    }
+    else
+    {
+      cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+      cell.textLabel.textColor = [UIColor blackColor];
+    }
+  }
 }
 
 // To hide keyboard and apply changes
