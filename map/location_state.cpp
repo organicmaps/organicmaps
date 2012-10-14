@@ -88,6 +88,7 @@ namespace location
     m_hasPosition = false;
     m_hasCompass = false;
     setIsVisible(false);
+    invalidate();
   }
 
   ELocationProcessMode State::LocationProcessMode() const
@@ -175,7 +176,7 @@ namespace location
       break;
     }
 
-    m_framework->Invalidate();
+    invalidate();
   }
 
   void State::OnCompassUpdate(location::CompassInfo const & info)
@@ -187,7 +188,7 @@ namespace location
     CheckCompassRotation();
     CheckCompassFollowing();
 
-    m_framework->Invalidate();
+    invalidate();
   }
 
   vector<m2::AnyRectD> const & State::boundRects() const
@@ -625,7 +626,7 @@ namespace location
 
     controller->Unlock();
 
-    m_framework->Invalidate();
+    invalidate();
     return true;
   }
 }
