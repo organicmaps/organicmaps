@@ -24,9 +24,10 @@
 @property(nonatomic, retain) NSString * setName;
 @property(nonatomic, assign, readonly) BOOL isDisplayed;
 @property(nonatomic, assign) CGPoint globalPosition;
+@property(nonatomic, assign) BookmarkAndCategory editedBookmark;
 
 - (id) initWithTarget:(id)target andSelector:(SEL)selector;
-- (void) showInView:(UIView *)view atPoint:(CGPoint)pt withBookmark:(BookmarkAndCategory)bm;
+- (void) showInView:(UIView *)view atPoint:(CGPoint)pt;
 - (void) updatePosition:(UIView *)view atPoint:(CGPoint)pt;
 - (void) hide;
 

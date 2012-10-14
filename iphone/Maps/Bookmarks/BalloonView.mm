@@ -16,6 +16,7 @@
 @synthesize color;
 @synthesize setName;
 @synthesize isDisplayed;
+@synthesize editedBookmark = m_editedBookmark;
 
 + (NSString *) getDefaultSetName
 {
@@ -47,6 +48,8 @@
     recognizer.numberOfTouchesRequired = 1;
     recognizer.delaysTouchesBegan = YES;
     [m_titleView addGestureRecognizer:recognizer];
+
+    m_editedBookmark = MakeEmptyBookmarkAndCategory();
   }
   return self;
 }
@@ -77,7 +80,7 @@
   UIImage * right = [UIImage imageNamed:@"right"];
   UIImage * middle = [UIImage imageNamed:@"middle"];
   UIImage * tail = [UIImage imageNamed:@"tail"];
-  UIImage * arrow = [UIImage imageNamed:@"arrow"];
+  UIImage * arrow = [UIImage imageNamed:(IsValid(m_editedBookmark) ? @"arrow" : @"add")];
 
   // Calculate text width and height
   UIFont * titleFont = [UIFont boldSystemFontOfSize:[UIFont buttonFontSize]];
@@ -131,14 +134,12 @@
 	return theImage;
 }
 
-- (void) showInView:(UIView *)view atPoint:(CGPoint)pt withBookmark:(BookmarkAndCategory)bm
+- (void) showInView:(UIView *)view atPoint:(CGPoint)pt
 {
   if (isDisplayed)
     [self hide];
 
   isDisplayed = YES;
-
-  m_editedBookmark = bm;
 
   CGFloat const w = self.pinImage.bounds.size.width;
   CGFloat const h = self.pinImage.bounds.size.height;
@@ -184,6 +185,7 @@
     isDisplayed = NO;
     [m_titleView removeFromSuperview];
     [self.pinImage removeFromSuperview];
+    m_editedBookmark = MakeEmptyBookmarkAndCategory();
   }
 }
 

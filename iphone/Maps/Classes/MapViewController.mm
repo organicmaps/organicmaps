@@ -188,11 +188,13 @@
       if (bm)
       {
         m2::PointD const globalPos = bm->GetOrg();
+        // Set it before changing balloon title to display different images in case of creating/editing Bookmark
+        m_balloonView.editedBookmark = bmAndCat;
         m_balloonView.globalPosition = CGPointMake(globalPos.x, globalPos.y);
         m_balloonView.title = [NSString stringWithUTF8String:bm->GetName().c_str()];
         m_balloonView.color = [NSString stringWithUTF8String:bm->GetType().c_str()];
         m_balloonView.setName = [NSString stringWithUTF8String:cat->GetName().c_str()];
-        [m_balloonView showInView:self.view atPoint:[self globalPoint2ViewPoint:m_balloonView.globalPosition] withBookmark:bmAndCat];
+        [m_balloonView showInView:self.view atPoint:[self globalPoint2ViewPoint:m_balloonView.globalPosition]];
       }
     }
   }
@@ -206,7 +208,7 @@
       m2::PointD const gPivot = f.PtoG(pxPivot);
       m_balloonView.globalPosition = CGPointMake(gPivot.x, gPivot.y);
       [self updatePinTexts:addrInfo];
-      [m_balloonView showInView:self.view atPoint:CGPointMake(pxPivot.x / scaleFactor, pxPivot.y / scaleFactor)  withBookmark:MakeEmptyBookmarkAndCategory()];
+      [m_balloonView showInView:self.view atPoint:CGPointMake(pxPivot.x / scaleFactor, pxPivot.y / scaleFactor)];
     }
     else
     {
@@ -217,7 +219,7 @@
         // @TODO Refactor point transformation
         m_balloonView.globalPosition = [self viewPoint2GlobalPoint:point];
         [self updatePinTexts:addrInfo];
-        [m_balloonView showInView:self.view atPoint:point withBookmark:MakeEmptyBookmarkAndCategory()];
+        [m_balloonView showInView:self.view atPoint:point];
       }
     }
   }
@@ -227,7 +229,7 @@
 {
   m_balloonView.globalPosition = CGPointMake(pt.x, pt.y);
   [self updatePinTexts:info];
-  [m_balloonView showInView:self.view atPoint:[self globalPoint2ViewPoint:m_balloonView.globalPosition] withBookmark:MakeEmptyBookmarkAndCategory()];
+  [m_balloonView showInView:self.view atPoint:[self globalPoint2ViewPoint:m_balloonView.globalPosition]];
 }
 
 - (void) onSingleTap:(NSValue *)point
