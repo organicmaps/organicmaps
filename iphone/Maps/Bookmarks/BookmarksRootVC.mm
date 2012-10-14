@@ -127,12 +127,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   // Remove cell selection
-  [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO animated:!tableView.editing];
+  UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
+  [cell setSelected:NO animated:!tableView.editing];
 
   if (tableView.editing)
   {
     [self applyCategoryRenaming];
-    UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
     CGRect r = cell.textLabel.frame;
     r.size.width = cell.contentView.bounds.size.width - r.origin.x;
     UITextField * f = [[[UITextField alloc] initWithFrame:r] autorelease];
