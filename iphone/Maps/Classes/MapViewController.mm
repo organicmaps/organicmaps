@@ -159,8 +159,8 @@
   if (m_balloonView.isDisplayed)
   {
     [m_balloonView hide];
-    if (!isLongClick)
-      return;
+//    if (!isLongClick)
+//      return;
   }
 
   // Try to check if we've clicked on bookmark
