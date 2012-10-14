@@ -37,7 +37,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private MWMApplication mApplication = null;
   private BroadcastReceiver m_externalStorageReceiver = null;
   private AlertDialog m_storageDisconnectedDialog = null;
-  private boolean m_locationWasActive = false;
 
   private LocationService getLocationService()
   {
@@ -80,16 +79,34 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     Utils.automaticIdleScreen(false, getWindow());
   }
 
+  public void saveLocationState()
+  {
+    // Store active state of My Position
+    SharedPreferences.Editor prefsEdit = getSharedPreferences(mApplication.getPackageName(), MODE_PRIVATE).edit();
+    prefsEdit.putBoolean(PREFERENCES_HAS_POSITION, getLocationState().hasPosition());
+    prefsEdit.putInt(PREFERENCES_COMPASS_MODE, getLocationState().getCompassProcessMode());
+    prefsEdit.putInt(PREFERENCES_LOCATION_MODE, getLocationState().getLocationProcessMode());
+    prefsEdit.commit();
+  }
+
   public void checkShouldResumeLocationService()
   {
+    final SharedPreferences prefs = getSharedPreferences(mApplication.getPackageName(), MODE_PRIVATE);
+    final boolean hadPosition = prefs.getBoolean(PREFERENCES_HAS_POSITION, false);
+    final int locationMode = prefs.getInt(PREFERENCES_LOCATION_MODE, LocationState.LOCATION_DO_NOTHING);
+    final int compassMode = prefs.getInt(PREFERENCES_COMPASS_MODE, LocationState.COMPASS_DO_NOTHING);
+
     final View v = findViewById(R.id.map_button_myposition);
 
     LocationState locationState = getLocationState();
 
     if (v != null)
     {
-      if (m_locationWasActive)
+      if (hadPosition)
       {
+        locationState.setCompassProcessMode(compassMode);
+        locationState.setLocationProcessMode(locationMode);
+
         resumeLocation();
 
         if (locationState.getCompassProcessMode() == LocationState.COMPASS_FOLLOW)
@@ -228,7 +245,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private native void nativeSetMS(int u);
   private native void nativeScale(double k);
 
-  private static final String PREFERENCES_MYPOSITION = "isMyPositionEnabled";
+  private static final String PREFERENCES_HAS_POSITION = "hasPosition";
+  private static final String PREFERENCES_COMPASS_MODE = "compassProcessMode";
+  private static final String PREFERENCES_LOCATION_MODE = "locationProcessMode";
 
   public void onPlusClicked(View v)
   {
@@ -279,10 +298,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       }
     }
 
-    // Store active state of My Position
-    SharedPreferences.Editor prefsEdit = getSharedPreferences(mApplication.getPackageName(), MODE_PRIVATE).edit();
-    prefsEdit.putBoolean(PREFERENCES_MYPOSITION, getLocationState().hasPosition());
-    prefsEdit.commit();
+    saveLocationState();
   }
 
   private void checkProVersionAvailable()
@@ -686,17 +702,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   }
   //@}
 
-  @Override
-  protected void onStart()
-  {
-    super.onStart();
-
-    // Restore My Position state on startup/activity recreation
-    final SharedPreferences prefs = getSharedPreferences(mApplication.getPackageName(), MODE_PRIVATE);
-    final boolean isMyPositionEnabled = prefs.getBoolean(PREFERENCES_MYPOSITION, false);
-    findViewById(R.id.map_button_myposition).setSelected(isMyPositionEnabled);
-  }
-
   private int m_compassStatusListenerID = -1;
 
   private void startWatchingCompassStatusUpdate()
@@ -712,7 +717,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onPause()
   {
-    m_locationWasActive = getLocationState().isVisible();
+    saveLocationState();
 
     pauseLocation();
 
