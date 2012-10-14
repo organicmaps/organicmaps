@@ -35,21 +35,15 @@
     return YES;
 }
 
-// Used to display bookmarks hint when no any bookmarks are added
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+// Used to display add bookmarks hint
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-  // Display hint only if at least one category with bookmarks is present
-  if (GetFramework().GetBmCategoriesCount())
-    return 0.;
-  return tableView.bounds.size.height / 2.;
+  return tableView.bounds.size.height / 3.;
 }
 
 // Used to display hint when no any categories with bookmarks are present
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-  if (GetFramework().GetBmCategoriesCount())
-    return nil;
-
   CGRect rect = tableView.bounds;
   rect.size.height /= 3.;
   // Use Label in custom view to add padding on the left and right (there is no other way to do it)
