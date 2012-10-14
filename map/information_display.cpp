@@ -39,8 +39,6 @@ InformationDisplay::InformationDisplay(Framework * framework)
     m_visualScale(1)
 {
   m_fontDesc.m_color = yg::Color(0x44, 0x44, 0x44, 0xFF);
-  m_fontDesc.m_isMasked = true;
-  m_fontDesc.m_maskColor = yg::Color(0xFF, 0xFF, 0xFF, 0x80);
 
   m_ruler.setDepth(yg::maxDepth);
 
@@ -174,7 +172,7 @@ void InformationDisplay::drawRuler(DrawerYG * pDrawer)
   m_ruler.setVisualScale(m_visualScale);
 
   m2::PointD pivot(m2::PointD(m_displayRect.maxX() - 5 * m_visualScale,
-                              m_displayRect.maxY() - 5 * m_visualScale));
+                              m_displayRect.maxY() - 4 * m_visualScale));
   m_ruler.setPosition(yg::EPosAboveLeft);
   m_ruler.setPivot(pivot);
   m_ruler.update();
@@ -217,7 +215,7 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
   params.m_log2vis = false;
 
   params.m_pivot = m2::PointD(m_displayRect.maxX() - 4 * m_visualScale,
-                              m_displayRect.maxY() - 29 * m_visualScale);
+                              m_displayRect.maxY() - 30 * m_visualScale);
   params.m_position = yg::EPosUnderLeft;
 
   params.m_glyphCache = drawer->screen()->glyphCache();

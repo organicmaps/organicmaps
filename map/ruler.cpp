@@ -256,17 +256,11 @@ void Ruler::update()
       scalerOrg.y += rulerHeight / 2;
 
     m_path.clear();
-    m_path.push_back(scalerOrg + m2::PointD(0, rulerHeight));
     m_path.push_back(scalerOrg);
     m_path.push_back(scalerOrg + m2::PointD(scalerWidthInPx, 0));
-    m_path.push_back(m_path[2] + m2::PointD(0, rulerHeight));
 
     /// calculating bound rect
-
-    m_boundRect = m2::RectD(m_path[0], m_path[0]);
-    m_boundRect.Add(m_path[1]);
-    m_boundRect.Add(m_path[2]);
-    m_boundRect.Add(m_path[3]);
+    m_boundRect = m2::RectD(m_path[0], m_path[1]);
   }
   else
     m_hasPendingUpdate = true;
@@ -282,19 +276,14 @@ void Ruler::draw(yg::gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const &
 {
   if (m_isInitialized)
   {
-//    s->drawPath(
-//        &m_path[0], m_path.size(), 0,
-//          s->skin()->mapPenInfo(yg::PenInfo(m_fontDesc.m_color, 2 * m_visualScale, 0, 0, 0)),
-//        depth() - 3);
-
     s->drawPath(
         &m_path[0], m_path.size(), 0,
-          s->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 0x99), 2 * m_visualScale, 0, 0, 0)),
+          s->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 0x99), 4 * m_visualScale, 0, 0, 0)),
         depth());
 
     if (position() & yg::EPosLeft)
       s->drawText(m_fontDesc,
-                  m_path[2] + m2::PointD(1 * m_visualScale, -1 * m_visualScale),
+                  m_path[1] + m2::PointD(1 * m_visualScale, -2 * m_visualScale),
                   yg::EPosAboveLeft,
                   m_scalerText,
                   depth(),
@@ -302,14 +291,15 @@ void Ruler::draw(yg::gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const &
     else
       if (position() & yg::EPosRight)
         s->drawText(m_fontDesc,
-                    m_path[1] + m2::PointD(7 * m_visualScale, -3 * m_visualScale),
+                    m_path[0] + m2::PointD(7 * m_visualScale, -4 * m_visualScale),
                     yg::EPosAboveRight,
                     m_scalerText,
                     depth(),
                     false);
       else
         s->drawText(m_fontDesc,
-                    (m_path[1] + m_path[2]) * 0.5 + m2::PointD(0, -3),
+                    (m_path[0] + m_path[1]) * 0.5
+                    + m2::PointD(7 * m_visualScale, -4 * m_visualScale),
                     yg::EPosAbove,
                     m_scalerText,
                     depth(),
