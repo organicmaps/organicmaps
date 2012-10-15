@@ -8,6 +8,7 @@
 #include "../statistics.hpp"
 #include "../unpack_mwm.hpp"
 #include "../generate_info.hpp"
+#include "../check_model.hpp"
 
 #include "../../indexer/drawing_rules.hpp"
 #include "../../indexer/classificator_loader.hpp"
@@ -62,6 +63,7 @@ DEFINE_bool(dump_prefixes, false, "Prints statistics on feature's' name prefixes
 DEFINE_bool(dump_search_tokens, false, "Print statistics on search tokens.");
 DEFINE_bool(unpack_mwm, false, "Unpack each section of mwm into a separate file with name filePath.sectionName.");
 DEFINE_bool(generate_packed_borders, false, "Generate packed file with country polygons.");
+DEFINE_bool(check_mwm, false, "Check map file to be correct.");
 DEFINE_string(delete_section, "", "Delete specified section (defines.hpp) from container.");
 
 
@@ -128,7 +130,8 @@ int main(int argc, char ** argv)
   // load classificator only if necessary
   if (FLAGS_make_coasts || FLAGS_generate_features || FLAGS_generate_geometry ||
       FLAGS_generate_index || FLAGS_generate_search_index ||
-      FLAGS_calc_statistics || FLAGS_dump_types || FLAGS_dump_prefixes)
+      FLAGS_calc_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
+      FLAGS_check_mwm)
   {
     classificator::Load();
     classif().SortClassificator();
@@ -270,6 +273,9 @@ int main(int argc, char ** argv)
 
   if (FLAGS_generate_packed_borders)
     borders::GeneratePackedBorders(path);
+
+  if (FLAGS_check_mwm)
+    check_model::ReadFeatures(datFile);
 
   return 0;
 }
