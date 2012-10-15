@@ -109,71 +109,69 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell * cell;
-  if (indexPath.section == 0)
+  switch (indexPath.section)
   {
-    NSString * cellId = @"DefaultCell";
-    switch (indexPath.row)
+  // Section 0: Info about bookmark
+  case 0:
     {
-      case 0: cellId = @"NameCell"; break;
-      case 1: cellId = @"SetCell"; break;
-      case 2: cellId = @"ColorCell"; break;
-    }
+      NSString * cellId;
+      switch (indexPath.row)
+      {
+        case 0: cellId = @"NameCellId"; break;
+        case 1: cellId = @"SetCellId"; break;
+        default: cellId = @"ColorCellId"; break;
+      }
+      cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+      if (!cell)
+      {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellId] autorelease];
+        switch (indexPath.row)
+        {
+          case 0:
+            cell.textLabel.text = NSLocalizedString(@"name", @"Add bookmark dialog - bookmark name");
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            break;
 
-    cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-    if (!cell)
-    {
-      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellId] autorelease];
+          case 1:
+            cell.textLabel.text = NSLocalizedString(@"set", @"Add bookmark dialog - bookmark set");
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            break;
+
+          case 2:
+            cell.textLabel.text = NSLocalizedString(@"color", @"Add bookmark dialog - bookmark color");
+            break;
+        }
+      }
+      // Update variable cell values
       switch (indexPath.row)
       {
         case 0:
-        {
-          UITextField * f = [[[UITextField alloc] initWithFrame:CGRectMake(0, 0, 200, 21)] autorelease];
-          f.textAlignment = UITextAlignmentRight;
-          f.returnKeyType = UIReturnKeyDone;
-          f.clearButtonMode = UITextFieldViewModeWhileEditing;
-          f.autocorrectionType = UITextAutocorrectionTypeNo;
-          f.delegate = self;
-          f.placeholder = NSLocalizedString(@"name", @"Add bookmark dialog - bookmark name");
-          f.textColor = cell.detailTextLabel.textColor;
-          cell.accessoryView = f;
-          cell.textLabel.text = NSLocalizedString(@"name", @"Add bookmark dialog - bookmark name");
-          cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        }
-        break;
+          cell.detailTextLabel.text = m_balloon.title;
+          break;
 
         case 1:
-          cell.textLabel.text = NSLocalizedString(@"set", @"Add bookmark dialog - bookmark set");
-          cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        break;
+          cell.detailTextLabel.text = m_balloon.setName;
+          break;
 
         case 2:
-          cell.textLabel.text = NSLocalizedString(@"color", @"Add bookmark dialog - bookmark color");
-        break;
+          // Create a copy of view here because it can't be subview in map view and in a cell simultaneously
+          cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:m_balloon.color]] autorelease];
+          break;
       }
     }
-    // Update variable cell values
-    switch (indexPath.row)
+    break;
+  // Section 1: Remove Pin button
+  default:
     {
-      case 0:
-        ((UITextField *) cell.accessoryView).text = m_balloon.title;
-      break;
-
-      case 1:
-        cell.detailTextLabel.text = m_balloon.setName;
-      break;
-
-      case 2:
-        // Create a copy of view here because it can't be subview in map view and in cell simultaneously
-        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:m_balloon.color]] autorelease];
-      break;
+      // 2nd section with add/remove pin buttons
+      cell = [tableView dequeueReusableCellWithIdentifier:@"removePinCellId"];
+      if (!cell)
+      {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"removePinCellId"] autorelease];
+        cell.textLabel.textAlignment = UITextAlignmentCenter;
+        cell.textLabel.text = NSLocalizedString(@"remove_pin", @"Place Page - Remove Pin button");
+      }
     }
-  }
-  else
-  {
-    // 2nd section with add/remove pin buttons
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"] autorelease];
-    cell.textLabel.textAlignment = UITextAlignmentCenter;
-    cell.textLabel.text = NSLocalizedString(@"remove_pin", @"Place Page - Remove Pin button");
   }
   return cell;
 }
