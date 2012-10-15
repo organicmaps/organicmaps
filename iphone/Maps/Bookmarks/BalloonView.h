@@ -7,9 +7,6 @@
   UIImageView * m_titleView;
   id m_target;
   SEL m_selector;
-
-  // If we clicked already existing bookmark, it will be here
-  BookmarkAndCategory m_editedBookmark;
 }
 
 @property(nonatomic, retain) NSString * title;
@@ -24,6 +21,7 @@
 @property(nonatomic, retain) NSString * setName;
 @property(nonatomic, assign, readonly) BOOL isDisplayed;
 @property(nonatomic, assign) CGPoint globalPosition;
+// If we clicked already existing bookmark, it will be here
 @property(nonatomic, assign) BookmarkAndCategory editedBookmark;
 
 - (id) initWithTarget:(id)target andSelector:(SEL)selector;

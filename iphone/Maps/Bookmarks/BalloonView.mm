@@ -16,7 +16,7 @@
 @synthesize color;
 @synthesize setName;
 @synthesize isDisplayed;
-@synthesize editedBookmark = m_editedBookmark;
+@synthesize editedBookmark;
 
 + (NSString *) getDefaultSetName
 {
@@ -49,7 +49,7 @@
     recognizer.delaysTouchesBegan = YES;
     [m_titleView addGestureRecognizer:recognizer];
 
-    m_editedBookmark = MakeEmptyBookmarkAndCategory();
+    editedBookmark = MakeEmptyBookmarkAndCategory();
   }
   return self;
 }
@@ -80,7 +80,7 @@
   UIImage * right = [UIImage imageNamed:@"right"];
   UIImage * middle = [UIImage imageNamed:@"middle"];
   UIImage * tail = [UIImage imageNamed:@"tail"];
-  UIImage * arrow = [UIImage imageNamed:(IsValid(m_editedBookmark) ? @"arrow" : @"add")];
+  UIImage * arrow = [UIImage imageNamed:(IsValid(editedBookmark) ? @"arrow" : @"add")];
 
   // Calculate text width and height
   UIFont * titleFont = [UIFont boldSystemFontOfSize:[UIFont buttonFontSize]];
@@ -148,7 +148,7 @@
   self.pinImage.frame = CGRectMake(pt.x - w/2, pt.y, w, h);
   // Do not show pin if we're editing existing bookmark.
   // @TODO move pin (and probably balloon drawing) to cross-platform code
-  self.pinImage.hidden = IsValid(m_editedBookmark);
+  self.pinImage.hidden = IsValid(editedBookmark);
 
   [view addSubview:self.pinImage];
 
@@ -185,7 +185,7 @@
     isDisplayed = NO;
     [m_titleView removeFromSuperview];
     [self.pinImage removeFromSuperview];
-    m_editedBookmark = MakeEmptyBookmarkAndCategory();
+    editedBookmark = MakeEmptyBookmarkAndCategory();
   }
 }
 
@@ -228,13 +228,13 @@
 
 - (void) deleteBookmark
 {
-  if (IsValid(m_editedBookmark))
+  if (IsValid(editedBookmark))
   {
-    BookmarkCategory * cat = GetFramework().GetBmCategory(m_editedBookmark.first);
+    BookmarkCategory * cat = GetFramework().GetBmCategory(editedBookmark.first);
     if (cat)
-      cat->DeleteBookmark(m_editedBookmark.second);
+      cat->DeleteBookmark(editedBookmark.second);
     // Clear!
-    m_editedBookmark = MakeEmptyBookmarkAndCategory();
+    editedBookmark = MakeEmptyBookmarkAndCategory();
   }
 }
 
