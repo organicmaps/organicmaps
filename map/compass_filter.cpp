@@ -24,7 +24,6 @@ CompassFilter::CompassFilter()
 void CompassFilter::OnCompassUpdate(location::CompassInfo const & info)
 {
   double const newHeadingRad = ((info.m_trueHeading >= 0.0) ? info.m_trueHeading : info.m_magneticHeading);
-  double const newHeadingDelta = fabs(newHeadingRad - m_headingRad);
 
 #ifdef OMIM_OS_IPHONE
 
@@ -33,6 +32,9 @@ void CompassFilter::OnCompassUpdate(location::CompassInfo const & info)
   m_headingRad = newHeadingRad;
 
 #else
+
+  double const newHeadingDelta = fabs(newHeadingRad - m_headingRad);
+
   // if new heading lies outside the twice treshold radius we immediately accept it
   if (newHeadingDelta > 2.0 * m_smoothingThreshold)
   {
