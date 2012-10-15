@@ -16,18 +16,15 @@
   return self;
 }
 
-- (void) dealloc
-{
-  [m_textField release];
-  [super dealloc];
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
   m_hideNavBar = YES;
   [self.navigationController setNavigationBarHidden:NO animated:YES];
   // Update the table - we can display it after changing set or color
   [self.tableView reloadData];
+
+  // Should be set to YES only if Remove Pin was pressed
+  m_removePinOnClose = NO;
 
   // Automatically show keyboard if bookmark has default name
   if ([m_balloon.title isEqualToString:NSLocalizedString(@"dropped_pin", nil)])
@@ -44,15 +41,16 @@
   // 1. User pressed Remove Pin and goes back to the map - bookmark was deleted on click, do nothing
   // 2. User goes back to the map by pressing Map (Back) button - save possibly edited title, add bookmark
   // 3. User is changing Set or Color - save possibly edited title and update current balloon properties
-  if (m_textField)
+  if (!m_removePinOnClose)
   {
-    if (![m_textField.text isEqualToString:m_balloon.title])
+    NSString * bookmarkName = ((UITextField *)([self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].accessoryView)).text;
+    if (![bookmarkName isEqualToString:m_balloon.title])
     {
       // Update edited bookmark name
-      if (m_textField.text.length == 0)
+      if (bookmarkName.length == 0)
         m_balloon.title = NSLocalizedString(@"dropped_pin", @"Unknown Dropped Pin title, when name can't be determined");
       else
-        m_balloon.title = m_textField.text;
+        m_balloon.title = bookmarkName;
     }
 
     // We're going back to the map
@@ -129,16 +127,15 @@
       {
         case 0:
         {
-          [m_textField release];
-          m_textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 200, 21)];
-          m_textField.textAlignment = UITextAlignmentRight;
-          m_textField.returnKeyType = UIReturnKeyDone;
-          m_textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-          m_textField.autocorrectionType = UITextAutocorrectionTypeNo;
-          m_textField.delegate = self;
-          m_textField.placeholder = NSLocalizedString(@"name", @"Add bookmark dialog - bookmark name");
-          m_textField.textColor = cell.detailTextLabel.textColor;
-          cell.accessoryView = m_textField;
+          UITextField * f = [[[UITextField alloc] initWithFrame:CGRectMake(0, 0, 200, 21)] autorelease];
+          f.textAlignment = UITextAlignmentRight;
+          f.returnKeyType = UIReturnKeyDone;
+          f.clearButtonMode = UITextFieldViewModeWhileEditing;
+          f.autocorrectionType = UITextAutocorrectionTypeNo;
+          f.delegate = self;
+          f.placeholder = NSLocalizedString(@"name", @"Add bookmark dialog - bookmark name");
+          f.textColor = cell.detailTextLabel.textColor;
+          cell.accessoryView = f;
           cell.textLabel.text = NSLocalizedString(@"name", @"Add bookmark dialog - bookmark name");
           cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
@@ -158,7 +155,7 @@
     switch (indexPath.row)
     {
       case 0:
-        m_textField.text = m_balloon.title;
+        ((UITextField *) cell.accessoryView).text = m_balloon.title;
       break;
 
       case 1:
@@ -218,9 +215,7 @@
   {
     // Remove pin
     [self onRemoveClicked];
-    // Reset text field to indicate that bookmark should not be added on view close
-    [m_textField release];
-    m_textField = nil;
+    m_removePinOnClose = YES;
     // Close place page
     [self.navigationController popViewControllerAnimated:YES];
   }
@@ -228,16 +223,14 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+  if (textField.text.length == 0)
+    return YES;
+
   [textField resignFirstResponder];
+
   if (![m_balloon.title isEqualToString:textField.text])
   {
-    if (textField.text.length == 0)
-    {
-      m_balloon.title = NSLocalizedString(@"dropped_pin", @"Unknown Dropped Pin title, when name can't be determined");
-      textField.text = m_balloon.title;
-    }
-    else
-      m_balloon.title = textField.text;
+    m_balloon.title = textField.text;
     self.navigationController.title = m_balloon.title;
   }
   return NO;
