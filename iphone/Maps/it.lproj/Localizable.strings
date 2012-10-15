@@ -301,7 +301,7 @@
 "set" = "Set";
 
 /* Text hint in Bookmarks dialog, displayed if it's empty */
-"bookmarks_usage_hint" = "Add any place on the map to bookmarks. To do that, touch a spot on the map and hold until the context menu appears.";
+"bookmarks_usage_hint" = "To add a new bookmark here, tap on any place of the map and hold until the pop-up appears.";
 
 /* Settings button in system menu */
 "settings" = "Settings";
