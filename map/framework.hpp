@@ -110,6 +110,8 @@ protected:
   location::ECompassProcessMode m_dragCompassProcessMode;
   location::ELocationProcessMode m_dragLocationProcessMode;
 
+  void StopLocationFollow();
+
   //mutable threads::Mutex m_modelSyn;
 
   storage::Storage m_storage;

@@ -116,6 +116,15 @@ void Framework::OnCompassUpdate(location::CompassInfo const & info)
   m_informationDisplay.locationState()->OnCompassUpdate(rInfo);
 }
 
+void Framework::StopLocationFollow()
+{
+  shared_ptr<location::State> ls = m_informationDisplay.locationState();
+
+  ls->StopCompassFollowing();
+  ls->SetLocationProcessMode(location::ELocationDoNothing);
+  ls->SetIsCentered(false);
+}
+
 InformationDisplay & Framework::GetInformationDisplay()
 {
   return m_informationDisplay;
@@ -477,6 +486,8 @@ BookmarkAndCategory Framework::GetBookmark(m2::PointD const & pxPoint, double vi
 
 void Framework::ShowBookmark(Bookmark const & bm)
 {
+  StopLocationFollow();
+
   double scale = bm.GetScale();
   if (scale == -1.0) scale = 16.0;
 
@@ -1169,6 +1180,8 @@ bool Framework::GetCurrentPosition(double & lat, double & lon) const
 
 void Framework::ShowSearchResult(search::Result const & res)
 {
+  StopLocationFollow();
+
   m2::RectD const rect = res.GetFeatureRect();
 
   ShowRectExVisibleScale(rect);

@@ -407,12 +407,6 @@ namespace android
   {
     m_doLoadState = false;
 
-    shared_ptr<location::State> ls = m_work.GetInformationDisplay().locationState();
-
-    ls->StopCompassFollowing();
-    ls->SetLocationProcessMode(location::ELocationDoNothing);
-    ls->SetIsCentered(false);
-
     m_work.ShowSearchResult(r);
   }
 
