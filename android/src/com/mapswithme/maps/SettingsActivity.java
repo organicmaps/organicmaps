@@ -101,6 +101,14 @@ public class SettingsActivity extends ListActivity
       return ((m_current != index) && (m_items.get(index).m_size >= m_sizeNeeded));
     }
 
+    private int findItemByPath(String path)
+    {
+      for (int i = 0; i < m_items.size(); ++i)
+        if (m_items.get(i).m_path.equals(path))
+          return i;
+      return -1;
+    }
+
     private void updateList()
     {
       m_sizeNeeded = getDirSize(m_currPath + MWM_DIR_POSTFIX);
@@ -112,14 +120,7 @@ public class SettingsActivity extends ListActivity
       //parseMountFile("/etc/vold.fstab", VOLD_MODE, currPath, defPath, sizeNeeded);
       parseMountFile("/proc/mounts", MOUNTS_MODE);
 
-      m_current = -1;
-      for (int i = 0; i < m_items.size(); ++i)
-        if (m_items.get(i).m_path.equals(m_currPath))
-        {
-          m_current = i;
-          break;
-        }
-
+      m_current = findItemByPath(m_currPath);
       assert(m_current != -1);
     }
 
@@ -130,6 +131,9 @@ public class SettingsActivity extends ListActivity
         final File f = new File(path);
         if (f.exists() && f.isDirectory() && f.canWrite())
         {
+          if (findItemByPath(path) != -1)
+            return false;
+
           StatFs stat = new StatFs(path);
           final long size = (long)stat.getAvailableBlocks() * (long)stat.getBlockSize();
           Log.i(TAG, "Available size = " + size);
