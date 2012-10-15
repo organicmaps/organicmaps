@@ -17,6 +17,34 @@
 
 @synthesize m_myPositionButton;
 
+
+- (void) Invalidate
+{
+  Framework & f = GetFramework();
+  if (!f.SetUpdatesEnabled(true))
+    f.Invalidate();
+}
+
+- (CGPoint) viewPoint2GlobalPoint:(CGPoint)pt
+{
+  CGFloat const scaleFactor = self.view.contentScaleFactor;
+  m2::PointD const ptG = GetFramework().PtoG(m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor));
+  return CGPointMake(ptG.x, ptG.y);
+}
+
+- (CGPoint) globalPoint2ViewPoint:(CGPoint)pt
+{
+  CGFloat const scaleFactor = self.view.contentScaleFactor;
+  m2::PointD const ptP = GetFramework().GtoP(m2::PointD(pt.x, pt.y));
+  return CGPointMake(ptP.x / scaleFactor, ptP.y / scaleFactor);
+}
+
+- (void) updateDataAfterScreenChanged
+{
+  if (m_balloonView.isDisplayed)
+    [m_balloonView updatePosition:self.view atPoint:[self globalPoint2ViewPoint:m_balloonView.globalPosition]];
+}
+
 //********************************************************************************************
 //*********************** Callbacks from LocationManager *************************************
 - (void) onLocationError:(location::TLocationError)errorCode
@@ -118,21 +146,6 @@
   [self.navigationController pushViewController:placePageVC animated:YES];
   [placePageVC release];
 }
-
-- (CGPoint) viewPoint2GlobalPoint:(CGPoint)pt
-{
-  CGFloat const scaleFactor = self.view.contentScaleFactor;
-  m2::PointD const ptG = GetFramework().PtoG(m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor));
-  return CGPointMake(ptG.x, ptG.y);
-}
-
-- (CGPoint) globalPoint2ViewPoint:(CGPoint)pt
-{
-  CGFloat const scaleFactor = self.view.contentScaleFactor;
-  m2::PointD const ptP = GetFramework().GtoP(m2::PointD(pt.x, pt.y));
-  return CGPointMake(ptP.x / scaleFactor, ptP.y / scaleFactor);
-}
-
 
 - (void) updatePinTexts:(Framework::AddressInfo const &)info
 {
@@ -316,12 +329,6 @@ NSInteger compareAddress(id l, id r, void * context)
 	}
 }
 
-- (void) updateDataAfterScreenChanged
-{
-  if (m_balloonView.isDisplayed)
-    [m_balloonView updatePosition:self.view atPoint:[self globalPoint2ViewPoint:m_balloonView.globalPosition]];
-}
-
 - (void) stopCurrentAction
 {
 	switch (m_CurrentAction)
@@ -483,13 +490,6 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void) OnTerminate
 {
   GetFramework().SaveState();
-}
-
-- (void) Invalidate
-{
-  Framework & f = GetFramework();
-  if (!f.SetUpdatesEnabled(true))
-    f.Invalidate();
 }
 
 - (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
