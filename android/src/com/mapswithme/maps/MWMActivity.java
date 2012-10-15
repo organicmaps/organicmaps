@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.net.Uri;
@@ -79,51 +78,42 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     Utils.automaticIdleScreen(false, getWindow());
   }
 
-  public void saveLocationState()
-  {
-    // Store active state of My Position
-    SharedPreferences.Editor prefsEdit = getSharedPreferences(mApplication.getPackageName(), MODE_PRIVATE).edit();
-    prefsEdit.putBoolean(PREFERENCES_HAS_POSITION, getLocationState().hasPosition());
-    prefsEdit.putInt(PREFERENCES_COMPASS_MODE, getLocationState().getCompassProcessMode());
-    prefsEdit.putInt(PREFERENCES_LOCATION_MODE, getLocationState().getLocationProcessMode());
-    prefsEdit.commit();
-  }
-
   public void checkShouldResumeLocationService()
   {
-    final SharedPreferences prefs = getSharedPreferences(mApplication.getPackageName(), MODE_PRIVATE);
-    final boolean hadPosition = prefs.getBoolean(PREFERENCES_HAS_POSITION, false);
-    final int locationMode = prefs.getInt(PREFERENCES_LOCATION_MODE, LocationState.LOCATION_DO_NOTHING);
-    final int compassMode = prefs.getInt(PREFERENCES_COMPASS_MODE, LocationState.COMPASS_DO_NOTHING);
-
     final View v = findViewById(R.id.map_button_myposition);
-
-    LocationState locationState = getLocationState();
 
     if (v != null)
     {
-      if (hadPosition)
+      final LocationState state = getLocationState();
+      final boolean hasPosition = state.hasPosition();
+
+      // check if we need to start location observing
+      int resID = 0;
+      if (hasPosition)
+        resID = R.drawable.myposition_button_found;
+      else if (state.isFirstPosition())
+        resID = R.drawable.myposition_button_normal;
+
+      if (resID != 0)
       {
-        locationState.setCompassProcessMode(compassMode);
-        locationState.setLocationProcessMode(locationMode);
-
-        resumeLocation();
-
-        if (locationState.getCompassProcessMode() == LocationState.COMPASS_FOLLOW)
+        if (hasPosition && (state.getCompassProcessMode() == LocationState.COMPASS_FOLLOW))
         {
-          locationState.startCompassFollowing();
+          state.startCompassFollowing();
+
           v.setBackgroundResource(R.drawable.myposition_button_follow);
-          v.setSelected(true);
         }
         else
-        {
-          if (locationState.hasPosition())
-            v.setBackgroundResource(R.drawable.myposition_button_found);
-          else
-            v.setBackgroundResource(R.drawable.myposition_button_normal);
+          v.setBackgroundResource(resID);
 
-          v.setSelected(true);
-        }
+        v.setSelected(true);
+
+        // start observing in the end (button state can changed here from normal to found).
+        resumeLocation();
+      }
+      else
+      {
+        v.setBackgroundResource(R.drawable.myposition_button_normal);
+        v.setSelected(false);
       }
     }
   }
@@ -245,10 +235,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private native void nativeSetMS(int u);
   private native void nativeScale(double k);
 
-  private static final String PREFERENCES_HAS_POSITION = "hasPosition";
-  private static final String PREFERENCES_COMPASS_MODE = "compassProcessMode";
-  private static final String PREFERENCES_LOCATION_MODE = "locationProcessMode";
-
   public void onPlusClicked(View v)
   {
     nativeScale(3.0 / 2);
@@ -261,44 +247,41 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   public void onMyPositionClicked(View v)
   {
-    LocationState locationState = mApplication.getLocationState();
+    final LocationState state = mApplication.getLocationState();
 
-    if (!locationState.hasPosition())
+    if (!state.hasPosition())
     {
-      /// first set the button state to "searching"
+      // first set the button state to "searching" ...
       v.setBackgroundResource(R.drawable.myposition_button_normal);
       v.setSelected(true);
-      /// and then startLocation, as there could be my_position button
-      /// state changes in the startLocation.
+
+      // ... and then startLocation, as there could be my_position button
+      // state changes in the startLocation.
       startLocation();
     }
     else
     {
-      if (!locationState.hasCompass())
+      if (state.hasCompass())
       {
-        stopLocation();
-        v.setBackgroundResource(R.drawable.myposition_button_normal);
-        v.setSelected(false);
-      }
-      else
-      {
-        if(locationState.getCompassProcessMode() != LocationState.COMPASS_FOLLOW)
+        if (state.getCompassProcessMode() != LocationState.COMPASS_FOLLOW)
         {
-          locationState.startCompassFollowing();
+          state.startCompassFollowing();
+
           v.setBackgroundResource(R.drawable.myposition_button_follow);
           v.setSelected(true);
+          return;
         }
         else
-        {
-          locationState.stopCompassFollowing();
-          v.setBackgroundResource(R.drawable.myposition_button_normal);
-          v.setSelected(false);
-          stopLocation();
-        }
+          state.stopCompassFollowing();
       }
-    }
 
-    saveLocationState();
+      // first stop location observing ...
+      stopLocation();
+
+      // ... and then set button state to default
+      v.setBackgroundResource(R.drawable.myposition_button_normal);
+      v.setSelected(false);
+    }
   }
 
   private void checkProVersionAvailable()
@@ -643,22 +626,17 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     if (newStatus == 1)
     {
-      v.setSelected(true);
       v.setBackgroundResource(R.drawable.myposition_button_follow);
     }
     else
     {
       if (getLocationState().hasPosition())
-      {
         v.setBackgroundResource(R.drawable.myposition_button_found);
-        v.setSelected(true);
-      }
       else
-      {
         v.setBackgroundResource(R.drawable.myposition_button_normal);
-        v.setSelected(false);
-      }
     }
+
+    v.setSelected(true);
   }
 
   public void OnCompassStatusChanged(int newStatus)
@@ -717,8 +695,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onPause()
   {
-    saveLocationState();
-
     pauseLocation();
 
     stopWatchingExternalStorage();
@@ -731,8 +707,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onResume()
   {
-    /// all actions to restore the current state of the location mark
-    /// are taken in OnRenderingInitialized.
+    // all actions to restore the current state of the location mark
+    // are taken in OnRenderingInitialized.
+
     startWatchingCompassStatusUpdate();
 
     startWatchingExternalStorage();

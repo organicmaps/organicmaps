@@ -36,6 +36,7 @@ namespace location
       m_hasPosition(false),
       m_hasCompass(false),
       m_isCentered(false),
+      m_isFirstPosition(false),
       m_locationProcessMode(ELocationDoNothing),
       m_compassProcessMode(ECompassDoNothing),
       m_currentSlotID(0)
@@ -87,6 +88,8 @@ namespace location
   {
     m_hasPosition = false;
     m_hasCompass = false;
+    m_isFirstPosition = false;
+
     setIsVisible(false);
     invalidate();
   }
