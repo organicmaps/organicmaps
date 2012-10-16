@@ -103,11 +103,14 @@ void Framework::OnLocationUpdate(location::GpsInfo const & info)
   // pretend like GPS position
   rInfo.m_horizontalAccuracy = 5.0;
 
-  // pass compass value (for devices without compass)
-  location::CompassInfo compass;
-  compass.m_magneticHeading = compass.m_trueHeading = 0.0;
-  compass.m_timestamp = rInfo.m_timestamp;
-  OnCompassUpdate(compass);
+  if (m_fixedPos.HasNorth())
+  {
+    // pass compass value (for devices without compass)
+    location::CompassInfo compass;
+    compass.m_magneticHeading = compass.m_trueHeading = 0.0;
+    compass.m_timestamp = rInfo.m_timestamp;
+    OnCompassUpdate(compass);
+  }
 
 #else
   location::GpsInfo const & rInfo = info;
