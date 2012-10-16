@@ -344,7 +344,7 @@ ja:噴水|泉|泉水
 cs:kašna|fontána
 nl:fontein
 
-amenity-grave_yard|natural-cemetery
+amenity-grave_yard|natural-cemetery|landuse-cemetery
 en:graveyard
 ru:кладбище
 de:Friedhof
