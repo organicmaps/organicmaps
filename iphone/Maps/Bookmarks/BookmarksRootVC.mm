@@ -137,6 +137,7 @@
     UITextField * f = [[[UITextField alloc] initWithFrame:r] autorelease];
     f.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     f.returnKeyType = UIReturnKeyDone;
+    f.enablesReturnKeyAutomatically = YES;
     f.clearButtonMode = UITextFieldViewModeWhileEditing;
     f.autocorrectionType = UITextAutocorrectionTypeNo;
     f.adjustsFontSizeToFitWidth = YES;
@@ -151,7 +152,6 @@
     cell.accessoryType = UITableViewCellAccessoryNone;
     [cell.contentView addSubview:f];
     [f becomeFirstResponder];
-//    f.textAlignment = UITextAlignmentCenter;
   }
   else
   {

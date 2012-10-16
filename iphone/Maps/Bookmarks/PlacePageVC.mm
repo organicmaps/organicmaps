@@ -138,6 +138,7 @@
                 cell.contentView.frame.size.width - 3 * padding - leftR.size.width, leftR.size.height);
             UITextField * f = [[[UITextField alloc] initWithFrame:r] autorelease];
             f.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            f.enablesReturnKeyAutomatically = YES;
             f.returnKeyType = UIReturnKeyDone;
             f.clearButtonMode = UITextFieldViewModeWhileEditing;
             f.autocorrectionType = UITextAutocorrectionTypeNo;
