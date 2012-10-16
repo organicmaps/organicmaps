@@ -139,7 +139,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       public void run()
       {
         // Run all checks in main thread after rendering is initialized.
-        checkShouldResumeLocationService();
         checkMeasurementSystem();
         checkProVersionAvailable();
         checkUpdateMaps();
@@ -707,8 +706,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onResume()
   {
-    // all actions to restore the current state of the location mark
-    // are taken in OnRenderingInitialized.
+    checkShouldResumeLocationService();
 
     startWatchingCompassStatusUpdate();
 
