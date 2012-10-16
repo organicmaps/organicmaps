@@ -3,7 +3,7 @@
 
 @class BalloonView;
 
-@interface BookmarksVC : UITableViewController <LocationObserver>
+@interface BookmarksVC : UITableViewController <LocationObserver, UITextFieldDelegate>
 {
   LocationManager * m_locationManager;
   size_t m_categoryIndex;

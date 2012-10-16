@@ -129,7 +129,7 @@
             cell.textLabel.text = NSLocalizedString(@"name", @"Add bookmark dialog - bookmark name");
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             // Temporary, to init font and color
-            cell.detailTextLabel.text = m_balloon.title;
+            cell.detailTextLabel.text = @"temp string";
             // Called to initialize frames and fonts
             [cell layoutSubviews];
             CGRect const leftR = cell.textLabel.frame;

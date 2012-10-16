@@ -9,6 +9,7 @@
 
 #include "../../../geometry/distance_on_sphere.hpp"
 
+#define TEXTFIELD_TAG 999
 
 @implementation BookmarksVC
 
@@ -60,6 +61,7 @@
   UITableViewCell * cell = nil;
   if (indexPath.section == 0)
   {
+    // First section, contains info about current set
     if (indexPath.row == 0)
     {
       cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarksVCSetNameCell"];
@@ -67,9 +69,31 @@
       {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarksVCSetNameCell"] autorelease];
         cell.textLabel.text = NSLocalizedString(@"name", @"Bookmarks dialog - Bookmark set cell");
-        // @TODO insert text editor
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        // Temporary, to init font and color
+        cell.detailTextLabel.text = @"temp string";
+        // Called to initialize frames and fonts
+        [cell layoutSubviews];
+        CGRect const leftR = cell.textLabel.frame;
+        CGFloat const padding = leftR.origin.x;
+        CGRect r = CGRectMake(padding + leftR.size.width + padding, leftR.origin.y,
+                              cell.contentView.frame.size.width - 3 * padding - leftR.size.width, leftR.size.height);
+        UITextField * f = [[[UITextField alloc] initWithFrame:r] autorelease];
+        f.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        f.enablesReturnKeyAutomatically = YES;
+        f.returnKeyType = UIReturnKeyDone;
+        f.clearButtonMode = UITextFieldViewModeWhileEditing;
+        f.autocorrectionType = UITextAutocorrectionTypeNo;
+        f.textAlignment = UITextAlignmentRight;
+        f.textColor = cell.detailTextLabel.textColor;
+        f.font = [cell.detailTextLabel.font fontWithSize:[cell.detailTextLabel.font pointSize]];
+        f.tag = TEXTFIELD_TAG;
+        f.delegate = self;
+        // Reset temporary font
+        cell.detailTextLabel.text = nil;
+        [cell.contentView addSubview:f];
       }
-      cell.detailTextLabel.text = [NSString stringWithUTF8String:cat->GetName().c_str()];
+      ((UITextField *)[cell.contentView viewWithTag:TEXTFIELD_TAG]).text = [NSString stringWithUTF8String:cat->GetName().c_str()];
     }
     else
     {
@@ -87,6 +111,7 @@
   }
   else
   {
+    // Second section, contains bookmarks list
     cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarksVCBookmarkItemCell"];
     if (!cell)
     {
@@ -281,15 +306,43 @@
   [super viewWillAppear:animated];
 }
 
+- (void)renameBMCategoryIfChanged:(NSString *)newName
+{
+  // Update edited category name
+  BookmarkCategory * cat = GetFramework().GetBmCategory(m_categoryIndex);
+  char const * newCharName = [newName UTF8String];
+  if (cat->GetName() != newCharName)
+  {
+    cat->SetName(newCharName);
+    cat->SaveToKMLFile();
+    self.navigationController.title = newName;
+  }
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
   [m_locationManager stop:self];
+  // Save possibly edited set name
+  UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+  NSString * newName = ((UITextField *)[cell.contentView viewWithTag:TEXTFIELD_TAG]).text;
+  [self renameBMCategoryIfChanged:newName];
   [super viewWillDisappear:animated];
 }
 
-- (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
+- (void)didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
 {
   [m_locationManager setOrientation:self.interfaceOrientation];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+  if (textField.text.length == 0)
+    return YES;
+
+  // Hide keyboard
+  [textField resignFirstResponder];
+  [self renameBMCategoryIfChanged:textField.text];
+  return NO;
 }
 
 @end
