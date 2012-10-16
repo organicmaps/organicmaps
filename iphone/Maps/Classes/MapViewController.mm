@@ -151,7 +151,8 @@
 {
   NSString * res = [NSString stringWithUTF8String:info.m_name.c_str()];
 
-  if (!info.m_types.empty())
+  // @TODO fix "empty" type for coordinates search result
+  if (!info.m_types.empty() && !info.m_types[0].empty())
   {
     NSString * type = [NSString stringWithUTF8String:info.m_types[0].c_str()];
 

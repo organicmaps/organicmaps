@@ -3,6 +3,8 @@
 #import "SelectSetVC.h"
 #import "SelectColorVC.h"
 
+#define TEXTFIELD_TAG 999
+
 @implementation PlacePageVC
 
 - (id) initWithBalloonView:(BalloonView *)view
@@ -28,7 +30,7 @@
 
   // Automatically show keyboard if bookmark has default name
   if ([m_balloon.title isEqualToString:NSLocalizedString(@"dropped_pin", nil)])
-    [[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].accessoryView becomeFirstResponder];
+    [[[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].contentView viewWithTag:TEXTFIELD_TAG] becomeFirstResponder];
 
   [super viewWillAppear:animated];
 }
@@ -43,15 +45,10 @@
   // 3. User is changing Set or Color - save possibly edited title and update current balloon properties
   if (!m_removePinOnClose)
   {
-    NSString * bookmarkName = ((UITextField *)([self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].accessoryView)).text;
-    if (![bookmarkName isEqualToString:m_balloon.title])
-    {
-      // Update edited bookmark name
-      if (bookmarkName.length == 0)
-        m_balloon.title = NSLocalizedString(@"dropped_pin", @"Unknown Dropped Pin title, when name can't be determined");
-      else
-        m_balloon.title = bookmarkName;
-    }
+    UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    UITextField * f = (UITextField *)[cell viewWithTag:TEXTFIELD_TAG];
+    if (f && f.text.length)
+      m_balloon.title = f.text;
 
     // We're going back to the map
     if ([self.navigationController.viewControllers indexOfObject:self] == NSNotFound)
@@ -128,9 +125,32 @@
         switch (indexPath.row)
         {
           case 0:
+          {
             cell.textLabel.text = NSLocalizedString(@"name", @"Add bookmark dialog - bookmark name");
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            break;
+            // Temporary, to init font and color
+            cell.detailTextLabel.text = m_balloon.title;
+            // Called to initialize frames and fonts
+            [cell layoutSubviews];
+            CGRect const leftR = cell.textLabel.frame;
+            CGFloat const padding = leftR.origin.x;
+            CGRect r = CGRectMake(padding + leftR.size.width + padding, leftR.origin.y,
+                cell.contentView.frame.size.width - 3 * padding - leftR.size.width, leftR.size.height);
+            UITextField * f = [[[UITextField alloc] initWithFrame:r] autorelease];
+            f.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            f.returnKeyType = UIReturnKeyDone;
+            f.clearButtonMode = UITextFieldViewModeWhileEditing;
+            f.autocorrectionType = UITextAutocorrectionTypeNo;
+            f.textAlignment = UITextAlignmentRight;
+            f.textColor = cell.detailTextLabel.textColor;
+            f.font = [cell.detailTextLabel.font fontWithSize:[cell.detailTextLabel.font pointSize]];
+            f.tag = TEXTFIELD_TAG;
+            f.delegate = self;
+            // Reset temporary font
+            cell.detailTextLabel.text = nil;
+            [cell.contentView addSubview:f];
+          }
+          break;
 
           case 1:
             cell.textLabel.text = NSLocalizedString(@"set", @"Add bookmark dialog - bookmark set");
@@ -146,7 +166,7 @@
       switch (indexPath.row)
       {
         case 0:
-          cell.detailTextLabel.text = m_balloon.title;
+          ((UITextField *)[cell.contentView viewWithTag:TEXTFIELD_TAG]).text = m_balloon.title;
           break;
 
         case 1:
@@ -190,7 +210,7 @@
   {
     switch (indexPath.row)
     {
-      case 1:
+    case 1:
       {
         m_hideNavBar = NO;
         SelectSetVC * vc = [[SelectSetVC alloc] initWithBalloonView:m_balloon];
@@ -199,7 +219,7 @@
       }
       break;
 
-      case 2:
+    case 2:
       {
         m_hideNavBar = NO;
         SelectColorVC * vc = [[SelectColorVC alloc] initWithBalloonView:m_balloon];
@@ -224,12 +244,13 @@
   if (textField.text.length == 0)
     return YES;
 
+  // Hide keyboard
   [textField resignFirstResponder];
 
-  if (![m_balloon.title isEqualToString:textField.text])
+  if (![textField.text isEqualToString:m_balloon.title])
   {
     m_balloon.title = textField.text;
-    self.navigationController.title = m_balloon.title;
+    self.navigationController.title = textField.text;
   }
   return NO;
 }
