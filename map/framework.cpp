@@ -95,8 +95,20 @@ void Framework::OnLocationUpdate(location::GpsInfo const & info)
 {
 #ifdef FIXED_LOCATION
   location::GpsInfo rInfo(info);
+
+  // get fixed coordinates
   m_fixedPos.GetLon(rInfo.m_longitude);
   m_fixedPos.GetLat(rInfo.m_latitude);
+
+  // pretend like GPS position
+  rInfo.m_horizontalAccuracy = 5.0;
+
+  // pass compass value (for devices without compass)
+  location::CompassInfo compass;
+  compass.m_magneticHeading = compass.m_trueHeading = 0.0;
+  compass.m_timestamp = rInfo.m_timestamp;
+  OnCompassUpdate(compass);
+
 #else
   location::GpsInfo const & rInfo = info;
 #endif
@@ -1196,11 +1208,11 @@ void Framework::GetDistanceAndAzimut(search::Result const & res,
                                      double lat, double lon, double north,
                                      string & distance, double & azimut)
 {
-  #ifdef FIXED_LOCATION
-    m_fixedPos.GetLat(lat);
-    m_fixedPos.GetLon(lon);
-    m_fixedPos.GetNorth(north);
-  #endif
+#ifdef FIXED_LOCATION
+  m_fixedPos.GetLat(lat);
+  m_fixedPos.GetLon(lon);
+  m_fixedPos.GetNorth(north);
+#endif
 
   m2::PointD const center = res.GetFeatureCenter();
 

@@ -43,6 +43,8 @@ namespace anim { class Controller; }
 class CountryStatusDisplay;
 class BenchmarkEngine;
 
+/// Uncomment line to make fixed position settings and
+/// build version for screenshots.
 //#define FIXED_LOCATION
 
 class Framework
