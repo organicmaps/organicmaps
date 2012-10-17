@@ -22,6 +22,7 @@
   return [[UIApplication sharedApplication] delegate];
 }
 
+/// @todo Check is it still necessary?
 - (void) onFirstLaunchCheck
 {
   // Called only for V1.0.1 -> V2.0 upgrade
@@ -43,12 +44,14 @@
     {
       NSString * fileName = [files objectAtIndex:i];
 
-      if ([fileName rangeOfString:@".downloading"].location != NSNotFound)
+      if (([fileName rangeOfString:@".downloading"].location != NSNotFound) ||
+          ([fileName rangeOfString:@".resume"].location != NSNotFound))
+      {
         [fileManager removeItemAtPath:[documentsDirectoryPath stringByAppendingPathComponent:fileName] error:nil];
-      else if ([fileName rangeOfString:@".resume"].location != NSNotFound)
-          [fileManager removeItemAtPath:[documentsDirectoryPath stringByAppendingPathComponent:fileName] error:nil];
+      }
       else if ([fileName rangeOfString:@".mwm"].location != NSNotFound)
-      { // Disable iCloud backup
+      {
+        // Disable iCloud backup
         static char const * attrName = "com.apple.MobileBackup";
         u_int8_t attrValue = 1;
         int result = setxattr([[documentsDirectoryPath stringByAppendingPathComponent:fileName] UTF8String], attrName, &attrValue, sizeof(attrValue), 0, 0);
@@ -137,6 +140,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [m_mapViewController OnEnterForeground];
+
   [self onFirstLaunchCheck];
 
   [Preferences setup:m_mapViewController];

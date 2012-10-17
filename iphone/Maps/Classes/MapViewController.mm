@@ -503,7 +503,8 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void) OnEnterBackground
 {
-  // save world rect for next launch
+  // Save state and notify about entering background.
+
   Framework & f = GetFramework();
   f.SaveState();
   f.SetUpdatesEnabled(false);
@@ -512,7 +513,9 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void) OnEnterForeground
 {
+  // Notify about entering foreground (should be called on the first launch too).
   GetFramework().EnterForeground();
+
   if (self.isViewLoaded && self.view.window)
     [self Invalidate]; // only invalidate when map is displayed on the screen
 }
