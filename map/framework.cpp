@@ -866,12 +866,15 @@ void Framework::DisablePlacemark()
   m_drawPlacemark = false;
 }
 
+void Framework::ClearAllCaches()
+{
+  m_model.ClearCaches();
+  GetSearchEngine()->ClearAllCaches();
+}
+
 void Framework::MemoryWarning()
 {
-  // clearing caches on memory warning.
-  m_model.ClearCaches();
-
-  GetSearchEngine()->ClearCaches();
+  ClearAllCaches();
 
   LOG(LINFO, ("MemoryWarning"));
 }
@@ -882,8 +885,11 @@ void Framework::MemoryWarning()
 
 void Framework::EnterBackground()
 {
-  // clearing caches on entering background.
-  m_model.ClearCaches();
+  // Do not clear caches for Android. This function is called when main activity is paused,
+  // but at the same time search activity (for example) is enabled.
+#ifndef OMIM_OS_ANDROID
+  ClearAllCaches();
+#endif
 
   double val = 0;
   (void)Settings::Get(FOREGROUND_TIME_SETTINGS, val);

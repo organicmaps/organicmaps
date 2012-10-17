@@ -143,6 +143,8 @@ protected:
 
   BenchmarkEngine * m_benchmarkEngine;
 
+  void ClearAllCaches();
+
 public:
   Framework();
   virtual ~Framework();

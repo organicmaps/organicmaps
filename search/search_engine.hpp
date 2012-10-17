@@ -56,7 +56,7 @@ public:
   m2::RectD GetCountryBounds(string const & file) const;
 
   void ClearViewportsCache();
-  void ClearCaches();
+  void ClearAllCaches();
 
 private:
   static const int RESULTS_COUNT = 15;

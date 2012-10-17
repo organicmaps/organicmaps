@@ -346,10 +346,12 @@ void Engine::ClearViewportsCache()
   m_pQuery->ClearCaches();
 }
 
-void Engine::ClearCaches()
+void Engine::ClearAllCaches()
 {
-  /// @todo Add m_pData->m_infoGetter clearing routine.
-  /// Now we have prereserved cache size.
+  threads::MutexGuard guard(m_searchMutex);
+
+  m_pQuery->ClearCaches();
+  m_pData->m_infoGetter.ClearCaches();
 }
 
 }  // namespace search
