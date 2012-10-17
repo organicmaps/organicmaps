@@ -43,6 +43,9 @@ void GLDrawWidget::initializeGL()
 
   yg::ResourceManager::Params rmp;
 
+  rmp.m_rtFormat = yg::Data8Bpp;
+  rmp.m_texFormat = yg::Data8Bpp;
+
   rmp.m_videoMemoryLimit = 20 * 1024 * 1024;
   rmp.m_primaryStoragesParams = yg::ResourceManager::StoragePoolParams(30000 * sizeof(yg::gl::Vertex),
                                                                        sizeof(yg::gl::Vertex),
@@ -124,8 +127,6 @@ void GLDrawWidget::initializeGL()
                                                                  0);
 
   rmp.m_useSingleThreadedOGL = false;
-  rmp.m_rtFormat = yg::Data8Bpp;
-  rmp.m_texFormat = yg::Data8Bpp;
 
   m_resourceManager.reset(new yg::ResourceManager(rmp));
 

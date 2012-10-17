@@ -1135,10 +1135,10 @@ namespace
       p->overlay()->setCouldOverlap(false);
 
       p->drawSymbol(m2::PointD(200, 200), "current-position", yg::EPosUnder, yg::maxDepth);
-      p->drawText(yg::FontDesc(), m2::PointD(200, 200), yg::EPosAbove, "Test Text", yg::maxDepth, true);
+      p->drawText(yg::FontDesc(12), m2::PointD(200, 200), yg::EPosAbove, "Test Text", yg::maxDepth, true);
 
       p->drawSymbol(m2::PointD(180, 200), "current-position", yg::EPosUnder, yg::maxDepth);
-      p->drawText(yg::FontDesc(), m2::PointD(180, 200), yg::EPosAbove, "Test Text", yg::maxDepth, true);
+      p->drawText(yg::FontDesc(12), m2::PointD(180, 200), yg::EPosAbove, "Test Text", yg::maxDepth, true);
 
       p->endFrame();
       p->beginFrame();
@@ -1325,8 +1325,11 @@ namespace
   {
     void DoDraw(shared_ptr<yg::gl::Screen> const & p)
     {
-      p->drawCircle(m2::PointD(200, 200), p->skin()->mapCircleInfo(yg::CircleInfo(10, yg::Color(255, 0, 0, 255))), yg::EPosCenter, 100);
-      p->drawCircle(m2::PointD(100, 200), p->skin()->mapCircleInfo(yg::CircleInfo(10, yg::Color(255, 0, 0, 255), true, 4, yg::Color(255, 255, 255, 255))), yg::EPosCenter, 100);
+      yg::CircleInfo ci0(10, yg::Color(255, 0, 0, 255));
+      p->drawCircle(m2::PointD(200, 200), ci0, yg::EPosCenter, 100);
+
+      yg::CircleInfo ci1(10, yg::Color(255, 0, 0, 255), true, 4, yg::Color(255, 255, 255, 255));
+      p->drawCircle(m2::PointD(100, 200), ci1, yg::EPosCenter, 100);
     }
   };
 
