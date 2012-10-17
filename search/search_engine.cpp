@@ -142,24 +142,25 @@ void Engine::PrepareSearch(m2::RectD const & viewport,
 
 bool Engine::Search(SearchParams const & params, m2::RectD const & viewport)
 {
-  // Check for equal query.
-  if (!params.IsResetMode() &&
-      m_params.IsEqualCommon(params) &&
-      m2::IsEqual(m_viewport, viewport, epsEqualRects, epsEqualRects))
   {
-    if (!m_params.m_validPos)
-      return false;
-
-    m2::PointD const p1 = GetViewportXY(m_params.m_lat, m_params.m_lon);
-    m2::PointD const p2 = GetViewportXY(params.m_lat, params.m_lon);
-
-    if (p1.EqualDxDy(p2, epsEqualPoints))
-      return false;
-  }
-
-  {
-    // Assign new search params.
     threads::MutexGuard guard(m_updateMutex);
+
+    // Check for equal query.
+    if (!params.IsResetMode() &&
+        m_params.IsEqualCommon(params) &&
+        m2::IsEqual(m_viewport, viewport, epsEqualRects, epsEqualRects))
+    {
+      if (!m_params.m_validPos)
+        return false;
+
+      m2::PointD const p1 = GetViewportXY(m_params.m_lat, m_params.m_lon);
+      m2::PointD const p2 = GetViewportXY(params.m_lat, params.m_lon);
+
+      if (p1.EqualDxDy(p2, epsEqualPoints))
+        return false;
+    }
+
+    // Assign new search params.
     m_params = params;
     m_viewport = viewport;
   }
