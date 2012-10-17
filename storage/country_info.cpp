@@ -227,4 +227,23 @@ namespace storage
 
     return false;
   }
+
+namespace
+{
+  class DoFreeCacheMemory
+  {
+  public:
+    void operator() (vector<m2::RegionD> & v) const
+    {
+      vector<m2::RegionD> emptyV;
+      emptyV.swap(v);
+    }
+  };
+}
+
+  void CountryInfoGetter::ClearCaches() const
+  {
+    m_cache.ForEachValue(DoFreeCacheMemory());
+    m_cache.Reset();
+  }
 }

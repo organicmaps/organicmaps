@@ -21,14 +21,12 @@ namespace my
       STATIC_ASSERT((is_same<KeyT, uint32_t>::value ||
                      is_same<KeyT, uint64_t>::value));
 
-      CHECK_GREATER ( logCacheSize, 0, () );
-      CHECK_GREATER ( m_HashMask, 0, () );
-      CHECK_LESS(logCacheSize, 32, ());
+      // We always use cache with static constant. So debug assert is enough here.
+      ASSERT_GREATER ( logCacheSize, 0, () );
+      ASSERT_GREATER ( m_HashMask, 0, () );
+      ASSERT_LESS(logCacheSize, 32, ());
 
-      uint32_t const cacheSize = 1 << logCacheSize;
-      // Initialize m_Cache such, that (Hash(m_Cache[i].m_Key) & m_HashMask) != i.
-      for (uint32_t i = 0; i < cacheSize; ++i)
-        for (m_Cache[i].m_Key = 0; (Hash(m_Cache[i].m_Key) & m_HashMask) == i; ++m_Cache[i].m_Key) ;
+      Reset();
     }
 
     ~Cache()
@@ -47,7 +45,7 @@ namespace my
     // TODO: Return pair<ValueT *, bool> instead?
     ValueT & Find(KeyT const & key, bool & found)
     {
-      Data & data = m_Cache[Hash(key) & m_HashMask];
+      Data & data = m_Cache[Index(key)];
       if (data.m_Key == key)
       {
         found = true;
@@ -60,10 +58,10 @@ namespace my
       return data.m_Value;
     }
 
-    bool HasKey(KeyT const & key)
+    bool HasKey(KeyT const & key) const
     {
-      Data & data = m_Cache[Hash(key) & m_HashMask];
-      return data.m_Key == key;
+      Data const & data = m_Cache[Index(key)];
+      return (data.m_Key == key);
     }
 
     template <typename F>
@@ -73,7 +71,22 @@ namespace my
         f(m_Cache[i].m_Value);
     }
 
+    void Reset()
+    {
+      // Initialize m_Cache such, that Index(m_Cache[i].m_Key) != i.
+      for (uint32_t i = 0; i <= m_HashMask; ++i)
+      {
+        KeyT & key = m_Cache[i].m_Key;
+        for (key = 0; Index(key) == i; ++key) ;
+      }
+    }
+
   private:
+    inline size_t Index(KeyT const & key) const
+    {
+      return static_cast<size_t>(Hash(key) & m_HashMask);
+    }
+
     inline static uint32_t Hash(uint32_t x)
     {
       x = (x ^ 61) ^ (x >> 16);
