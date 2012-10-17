@@ -318,6 +318,10 @@ void Framework::UpdateAfterDownload(string const & file)
   m2::RectD rect;
   if (m_model.UpdateMap(file, rect))
     InvalidateRect(rect, true);
+
+  // Clear search cache of features in all viewports
+  // (there are new features from downloaded file).
+  GetSearchEngine()->ClearViewportsCache();
 }
 
 void Framework::AddLocalMaps()

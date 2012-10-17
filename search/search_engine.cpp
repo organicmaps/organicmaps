@@ -339,6 +339,13 @@ int8_t Engine::GetCurrentLanguage() const
   return m_pQuery->GetPrefferedLanguage();
 }
 
+void Engine::ClearViewportsCache()
+{
+  threads::MutexGuard guard(m_searchMutex);
+
+  m_pQuery->ClearCaches();
+}
+
 void Engine::ClearCaches()
 {
   /// @todo Add m_pData->m_infoGetter clearing routine.

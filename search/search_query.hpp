@@ -79,7 +79,7 @@ public:
   void SearchAllInViewport(m2::RectD const & viewport, Results & res, unsigned int resultsNeeded = 30);
   void SearchAdditional(Results & res);
 
-  void ClearCache();
+  void ClearCaches();
 
   inline void DoCancel() { m_cancel = true; }
   inline bool IsCanceled() const { return m_cancel; }

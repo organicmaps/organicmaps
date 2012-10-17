@@ -182,7 +182,7 @@ int8_t Query::GetPrefferedLanguage() const
   return GetLanguage(LANG_CURRENT);
 }
 
-void Query::ClearCache()
+void Query::ClearCaches()
 {
   for (size_t i = 0; i < RECTSCOUNT; ++i)
     ClearCache(i);
@@ -190,7 +190,10 @@ void Query::ClearCache()
 
 void Query::ClearCache(size_t ind)
 {
-  m_offsetsInViewport[ind].clear();
+  // clear cache and free memory
+  OffsetsVectorT emptyV;
+  emptyV.swap(m_offsetsInViewport[ind]);
+
   m_viewport[ind].MakeEmpty();
 }
 
