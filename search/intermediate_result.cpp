@@ -146,7 +146,8 @@ PreResult2::PreResult2(FeatureType const & f, PreResult1 const & res,
     m_rank(res.m_rank),
     m_viewportDistance(res.m_viewportDistance)
 {
-  ASSERT_GREATER(m_types.Size(), 0, ());
+  ASSERT ( !m_types.Empty(), () );
+  m_types.SortBySpec();
 
   // It's better to get exact center for point feature.
   if (f.GetFeatureType() == feature::GEOM_POINT)

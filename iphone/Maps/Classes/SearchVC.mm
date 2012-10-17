@@ -438,8 +438,8 @@ static void OnSearchResultCallback(search::Results const & res)
         m_framework->ShowSearchResult(res);
 
         Framework::AddressInfo info;
-        info.m_name = res.GetString();
-        info.m_types.push_back(res.GetFeatureType());
+        info.MakeFrom(res);
+
         [[MapsAppDelegate theApp].m_mapViewController showSearchResultAsBookmarkAtMercatorPoint:res.GetFeatureCenter() withInfo:info];
 
         [self onCloseButton:nil];

@@ -7,6 +7,10 @@
 
 using namespace feature;
 
+////////////////////////////////////////////////////////////////////////////////////
+// TypesHolder implementation
+////////////////////////////////////////////////////////////////////////////////////
+
 TypesHolder::TypesHolder(FeatureBase const & f)
 : m_size(0), m_geoType(f.GetFeatureType())
 {
@@ -33,6 +37,34 @@ void TypesHolder::Remove(uint32_t t)
   }
 }
 
+void TypesHolder::SortBySpec()
+{
+  if (m_size < 2)
+    return;
+
+  // do very simple thing - put "very common" types to the end
+  /// @todo Make this function usefull for many "common" types.
+
+  // initialize common types
+  Classificator const & c = classif();
+  vector<string> path(1);
+  path[0] = "building";
+  uint32_t const buildingT = c.GetTypeByPath(path);
+
+  // do swaps with "common" types
+  size_t end = m_size-1;
+  for (size_t i = 0; i < end; ++i)
+    if (m_types[i] == buildingT)
+    {
+      swap(m_types[i], m_types[end]);
+      ASSERT_NOT_EQUAL(m_types[i], buildingT, ());
+      break;
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+// FeatureParamsBase implementation
+////////////////////////////////////////////////////////////////////////////////////
 
 void FeatureParamsBase::MakeZero()
 {

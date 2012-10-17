@@ -89,6 +89,9 @@ namespace feature
 
     void Remove(uint32_t t);
     string DebugPrint() const;
+
+    /// Sort types by it's specification (more detailed type goes first).
+    void SortBySpec();
   };
 
   inline string DebugPrint(TypesHolder const & t)

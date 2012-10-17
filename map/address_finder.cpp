@@ -1,5 +1,7 @@
 #include "framework.hpp"
 
+#include "../search/result.hpp"
+
 #include "../indexer/classificator.hpp"
 #include "../indexer/feature_visibility.hpp"
 
@@ -323,9 +325,11 @@ namespace
     }
 
     static void GetReadableTypes(search::Engine const * eng, int8_t lang,
-                                 feature::TypesHolder const & types,
+                                 feature::TypesHolder & types,
                                  Framework::AddressInfo & info)
     {
+      types.SortBySpec();
+
       // Try to add types from categories.
       size_t const count = types.Size();
       for (size_t i = 0; i < count; ++i)
@@ -540,6 +544,25 @@ void Framework::GetLocality(m2::PointD const & pt, AddressInfo & info) const
   getLocality.FillLocality(info, *this);
 }
 
+////////////////////////////////////////////////////////////////////////////////////
+// Framework::AddressInfo implementation
+////////////////////////////////////////////////////////////////////////////////////
+
+void Framework::AddressInfo::MakeFrom(search::Result const & res)
+{
+  ASSERT_EQUAL ( res.GetResultType(), search::Result::RESULT_FEATURE, () );
+
+  // push the feature type
+  string const type = res.GetFeatureType();
+  if (!type.empty())
+    m_types.push_back(type);
+
+  // assign name if it's not equal with type
+  string name = res.GetString();
+  if (name != type)
+    m_name.swap(name);
+}
+
 string Framework::AddressInfo::FormatAddress() const
 {
   string result = m_house;
@@ -575,6 +598,16 @@ string Framework::AddressInfo::FormatTypes() const
     result += m_types[i];
   }
   return result;
+}
+
+char const * Framework::AddressInfo::GetBestType() const
+{
+  if (!m_types.empty())
+  {
+    ASSERT ( !m_types[0].empty(), () );
+    return m_types[0].c_str();
+  }
+  return 0;
 }
 
 void Framework::AddressInfo::Clear()

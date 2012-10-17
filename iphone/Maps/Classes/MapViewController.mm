@@ -151,10 +151,10 @@
 {
   NSString * res = [NSString stringWithUTF8String:info.m_name.c_str()];
 
-  // @TODO fix "empty" type for coordinates search result
-  if (!info.m_types.empty() && !info.m_types[0].empty())
+  char const * cType = info.GetBestType();
+  if (cType)
   {
-    NSString * type = [NSString stringWithUTF8String:info.m_types[0].c_str()];
+    NSString * type = [NSString stringWithUTF8String:cType];
 
     if (res.length == 0)
       res = [type capitalizedString];
