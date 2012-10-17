@@ -374,9 +374,8 @@ static void OnSearchResultCallback(search::Results const & res)
       if (flag && azimut < 0.0)
       {
         UIImage * flagImage = [UIImage imageNamed:[NSString stringWithFormat:@"%s.png", flag]];
-        UIImageView * imgView = [[UIImageView alloc] initWithImage:flagImage];
+        UIImageView * imgView = [[[UIImageView alloc] initWithImage:flagImage] autorelease];
         cell.accessoryView = imgView;
-        [imgView release];
       }
       else
       {
