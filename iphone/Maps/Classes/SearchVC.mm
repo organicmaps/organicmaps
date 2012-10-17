@@ -395,6 +395,7 @@ static void OnSearchResultCallback(search::Results const & res)
 
         // Show arrow for valid azimut and if feature is not a continent (flag is exist)
         compass.showArrow = (azimut >= 0.0 && flag) ? YES : NO;
+        compass.angle = azimut;
       }
       return cell;
     }
