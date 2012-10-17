@@ -367,7 +367,7 @@ namespace location
           r->drawSymbol(pxPosition,
                        "current-position",
                         yg::EPosCenter,
-                        depth() - 2);
+                        depth() - 1);
 
         r->fillSector(pxPosition,
                       0, 2.0 * math::pi,
@@ -400,14 +400,14 @@ namespace location
                         a + drawHeadingError,
                         errorRadius,
                         m_compassAreaColor,
-                        depth());
+                        depth() - 2);
 
           r->drawSector(pxPosition,
                         a - drawHeadingError,
                         a + drawHeadingError,
                         errorRadius,
                         m_compassBorderColor,
-                        depth());
+                        depth() - 2);
         }
       }
     }
