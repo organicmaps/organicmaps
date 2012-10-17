@@ -54,7 +54,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  BookmarkCategory * cat = GetFramework().GetBmCategory(m_categoryIndex);
+  Framework & fr = GetFramework();
+  BookmarkCategory * cat = fr.GetBmCategory(m_categoryIndex);
   if (!cat)
     return nil;
 
@@ -136,27 +137,30 @@
         cell.accessoryView = compass;
       }
 
-      double lat, lon, northR;
+      // Get current position and compass "north" direction
+      double azimut = -1.0;
+      double lat, lon;
+
       if ([m_locationManager getLat:lat Lon:lon])
       {
-        m2::PointD const center = bm->GetOrg();
-        double const metres = ms::DistanceOnEarth(lat, lon, MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x));
-        cell.detailTextLabel.text = [LocationManager formatDistance:metres];
+        double north = -1.0;
+        [m_locationManager getNorthRad:north];
 
-        if ([m_locationManager getNorthRad:northR])
-        {
-          compass.angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(lon),
-                                                    MercatorBounds::LatToY(lat)), center) + northR;
-          compass.showArrow = YES;
-        }
-        else
-          compass.showArrow = NO;
+        string distance;
+        fr.GetDistanceAndAzimut(bm->GetOrg(), lat, lon, north, distance, azimut);
+
+        cell.detailTextLabel.text = [NSString stringWithUTF8String:distance.c_str()];
       }
       else
-      {
-        compass.showArrow = NO;
         cell.detailTextLabel.text = nil;
+
+      if (azimut >= 0.0)
+      {
+        compass.angle = azimut;
+        compass.showArrow = YES;
       }
+      else
+        compass.showArrow = NO;
     }
   }
   return cell;

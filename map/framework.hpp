@@ -256,9 +256,13 @@ public:
   bool GetCurrentPosition(double & lat, double & lon) const;
   void ShowSearchResult(search::Result const & res);
 
-  /// Calculate distance and direction to search result for the given position.
-  /// @param[out] distance  Formatted distance string;
-  void GetDistanceAndAzimut(search::Result const & res,
+  /// Calculate distance and direction to POI for the given position.
+  /// @param[in]  point             POI's position;
+  /// @param[in]  lat, lon, north   Current position and heading from north;
+  /// @param[out] distance          Formatted distance string;
+  /// @param[out] azimut            Azimut to point from (lat, lon);
+  /// @return true  If the POI is near the current position (distance < 25 km);
+  bool GetDistanceAndAzimut(m2::PointD const & point,
                             double lat, double lon, double north,
                             string & distance, double & azimut);
 

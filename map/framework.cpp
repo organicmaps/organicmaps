@@ -1207,7 +1207,7 @@ void Framework::ShowSearchResult(search::Result const & res)
 #endif
 }
 
-void Framework::GetDistanceAndAzimut(search::Result const & res,
+bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
                                      double lat, double lon, double north,
                                      string & distance, double & azimut)
 {
@@ -1217,20 +1217,17 @@ void Framework::GetDistanceAndAzimut(search::Result const & res,
   m_fixedPos.GetNorth(north);
 #endif
 
-  m2::PointD const center = res.GetFeatureCenter();
-
   double const d = ms::DistanceOnEarth(lat, lon,
-                                       MercatorBounds::YToLat(center.y),
-                                       MercatorBounds::XToLon(center.x));
+                                       MercatorBounds::YToLat(point.y),
+                                       MercatorBounds::XToLon(point.x));
 
   CHECK ( MeasurementUtils::FormatDistance(d, distance), () );
 
-  // Do not show direction arrow for features that are too far than 25 km.
-  if (north >= 0.0 && d < 25000.0)
+  if (north >= 0.0)
   {
     azimut = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(lon),
                                      MercatorBounds::LatToY(lat)),
-                          center) + north;
+                          point) + north;
 
     double const pi2 = 2.0*math::pi;
     if (azimut < 0.0)
@@ -1238,6 +1235,9 @@ void Framework::GetDistanceAndAzimut(search::Result const & res,
     else if (azimut > pi2)
       azimut -= pi2;
   }
+
+  // This constant and return value is using for arrow/flag choice.
+  return (d < 25000.0);
 }
 
 void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)

@@ -356,18 +356,25 @@ static void OnSearchResultCallback(search::Results const & res)
 
       // Get current position and compass "north" direction
       double azimut = -1.0;
-      string distance;
-
       double lat, lon;
+
       if ([m_locationManager getLat:lat Lon:lon])
       {
         double north = -1.0;
         [m_locationManager getNorthRad:north];
-        m_framework->GetDistanceAndAzimut(r, lat, lon, north, distance, azimut);
-      }
 
-      // Assign even empty string if no position found
-      cell.featureDistance.text = [NSString stringWithUTF8String:distance.c_str()];
+        string distance;
+        if (!m_framework->GetDistanceAndAzimut(r.GetFeatureCenter(),
+                                               lat, lon, north, distance, azimut))
+        {
+          // do not draw arrow for far away features
+          azimut = -1.0;
+        }
+
+        cell.featureDistance.text = [NSString stringWithUTF8String:distance.c_str()];
+      }
+      else
+        cell.featureDistance.text = nil;
 
       // Show flags only if it has one and no azimut to feature
       char const * flag = r.GetRegionFlag();

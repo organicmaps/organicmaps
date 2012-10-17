@@ -217,7 +217,14 @@ Java_com_mapswithme_maps_SearchActivity_nativeGetResult(
     string distance;
     double azimut = -1.0;
     if (mode >= 2)
-      g_framework->NativeFramework()->GetDistanceAndAzimut(*res, lat, lon, north, distance, azimut);
+    {
+      if (!g_framework->NativeFramework()->GetDistanceAndAzimut(
+          res->GetFeatureCenter(), lat, lon, north, distance, azimut))
+      {
+        // do not show the arrow for far away features
+        azimut = -1.0;
+      }
+    }
 
     return env->NewObject(klass, methodID,
                           jni::ToJavaString(env, res->GetString()),
