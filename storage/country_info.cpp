@@ -42,7 +42,7 @@ namespace storage
   */
 
   CountryInfoGetter::CountryInfoGetter(ModelReaderPtr polyR, ModelReaderPtr countryR)
-    : m_reader(polyR), m_cache(2)
+    : m_reader(polyR), m_cache(3)
   {
     ReaderSource<ModelReaderPtr> src(m_reader.GetReader(PACKED_POLYGONS_INFO_TAG));
     rw::Read(src, m_countries);
