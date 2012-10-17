@@ -274,8 +274,9 @@ static void OnSearchResultCallback(search::Results const & res)
   // Search even with empty string.
   search::SearchParams params;
   [self fillSearchParams:params withText:searchText];
-  [self showIndicator];
-  m_framework->Search(params);
+
+  if (m_framework->Search(params))
+    [self showIndicator];
 }
 
 - (void)onCloseButton:(id)sender
@@ -493,8 +494,8 @@ static void OnSearchResultCallback(search::Results const & res)
     search::SearchParams params;
     [self fillSearchParams:params withText:queryString];
 
-    [self showIndicator];
-    m_framework->Search(params);
+    if (m_framework->Search(params))
+      [self showIndicator];
   }
 }
 
