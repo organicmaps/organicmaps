@@ -121,7 +121,7 @@ private:
   friend class impl::PreResult2Maker;
   friend class impl::DoFindLocality;
 
-  void InitSearch(string const & query);
+  void InitSearch();
   void ClearQueues();
 
   typedef vector<MwmInfo> MWMVectorT;

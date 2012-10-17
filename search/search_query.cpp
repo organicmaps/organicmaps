@@ -249,7 +249,7 @@ void Query::UpdateViewportOffsets(MWMVectorT const & mwmInfo, m2::RectD const & 
 #endif
 }
 
-void Query::InitSearch(string const & query)
+void Query::InitSearch()
 {
   m_cancel = false;
   m_tokens.clear();
@@ -264,7 +264,7 @@ void Query::ClearQueues()
 
 void Query::Search(string const & query, Results & res)
 {
-  InitSearch(query);
+  InitSearch();
 
   // split input query by tokens and prefix
   search::Delimiters delims;
@@ -1584,7 +1584,7 @@ void Query::SearchAllInViewport(m2::RectD const & viewport, Results & res, unsig
     UpdateViewportOffsets(mwmInfo, viewport, offsets);
   }
 
-  InitSearch(string());
+  InitSearch();
 
   vector<shared_ptr<impl::PreResult2> > indV;
 
