@@ -49,10 +49,11 @@ void ScreenBase::UpdateDependentParameters()
 
   m_GtoP = math::Inverse(m_PtoG);
 
-  double HalfSizeX = PtoG(m2::PointD(m_PixelRect.maxX(), m_PixelRect.Center().y)).Length(PtoG(m2::PointD(m_PixelRect.Center())));
-  double HalfSizeY = PtoG(m2::PointD(m_PixelRect.Center().x, m_PixelRect.minY())).Length(PtoG(m2::PointD(m_PixelRect.Center())));
+  m2::PointD const pxC = m_PixelRect.Center();
+  double const szX = PtoG(m2::PointD(m_PixelRect.maxX(), pxC.y)).Length(PtoG(m2::PointD(pxC)));
+  double const szY = PtoG(m2::PointD(pxC.x, m_PixelRect.minY())).Length(PtoG(m2::PointD(pxC)));
 
-  m_GlobalRect = m2::AnyRectD(m_Org, m_Angle, m2::RectD(-HalfSizeX, -HalfSizeY, HalfSizeX, HalfSizeY));
+  m_GlobalRect = m2::AnyRectD(m_Org, m_Angle, m2::RectD(-szX, -szY, szX, szY));
   m_ClipRect = m_GlobalRect.GetGlobalRect();
 }
 
