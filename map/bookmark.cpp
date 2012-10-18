@@ -99,27 +99,27 @@ int BookmarkCategory::GetBookmark(m2::PointD const org, double const squareDista
 
 namespace bookmark_impl
 {
-  // Fixes icons which are not supported by MapsWithMe
-  static string GetSupportedBMType(string const & s)
-  {
-    static char const * icons[] = {
-        "placemark-red", "placemark-blue", "placemark-purple",
-        "placemark-pink", "placemark-brown", "placemark-green", "placemark-orange"
-    };
-
-    // Remove leading '#' symbol
-    string const result = s.substr(1);
-    for (size_t i = 0; i < ARRAY_SIZE(icons); ++i)
-      if (result == icons[i])
-        return result;
-
-    // Not recognized symbols are replaced with default one
-    LOG(LWARNING, ("Bookmark icon is not supported:", result));
-    return icons[0];
-  }
-
   class KMLParser
   {
+    // Fixes icons which are not supported by MapsWithMe
+    string GetSupportedBMType(string const & s) const
+    {
+      static char const * icons[] = {
+          "placemark-red", "placemark-blue", "placemark-purple",
+          "placemark-pink", "placemark-brown", "placemark-green", "placemark-orange"
+      };
+
+      // Remove leading '#' symbol
+      string const result = s.substr(1);
+      for (size_t i = 0; i < ARRAY_SIZE(icons); ++i)
+        if (result == icons[i])
+          return result;
+
+      // Not recognized symbols are replaced with default one
+      LOG(LWARNING, ("Icon", result, "for bookmark", m_name, "is not supported"));
+      return icons[0];
+    }
+
     BookmarkCategory & m_category;
 
     vector<string> m_tags;
@@ -162,6 +162,31 @@ namespace bookmark_impl
       return (!m_name.empty() &&
               MercatorBounds::ValidX(m_org.x) && MercatorBounds::ValidY(m_org.y));
     }
+
+    /*
+    void TryResolveName(string const & s)
+    {
+      if (m_name.empty())
+      {
+        // "CosmosVDC" has only description in placemark.
+        size_t i1 = s.find("<a");
+        if (i1 != string::npos)
+        {
+          i1 = s.find(">", i1);
+          if (i1 != string::npos)
+          {
+            ++i1;
+            size_t const i2 = s.find("</a>", i1);
+            if (i2 != string::npos)
+            {
+              m_name = s.substr(i1, i2-i1);
+              strings::Trim(m_name);
+            }
+          }
+        }
+      }
+    }
+    */
 
   public:
     KMLParser(BookmarkCategory & cat) : m_category(cat)
@@ -210,6 +235,8 @@ namespace bookmark_impl
         {
           if (currTag == "name")
             m_name = value;
+          //else if (currTag == "description")
+          //  TryResolveName(value);
           else if (currTag == "styleUrl")
             m_type = GetSupportedBMType(value);
         }

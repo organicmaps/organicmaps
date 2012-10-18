@@ -24,7 +24,7 @@ public:
   {
   }
 
-  m2::PointD GetOrg() const { return m_org; }
+  m2::PointD const & GetOrg() const { return m_org; }
   string const & GetName() const { return m_name; }
   /// @return Now its a bookmark color.
   string const & GetType() const { return m_type; }
