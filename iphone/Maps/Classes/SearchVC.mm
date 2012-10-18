@@ -30,43 +30,63 @@ SearchVC * g_searchVC = nil;
 
 @interface ResultsWrapper : NSObject
 {
-  vector<search::Result> m_results;
-  NSString * m_searchString;
+  search::Results m_results;
 }
 
 // Stores search string which corresponds to these results.
-@property(nonatomic, retain) NSString * m_searchString;
+@property(nonatomic, retain) NSString * searchString;
 
 - (id)initWithResults:(search::Results const &)res;
-- (vector<search::Result> const &)get;
+
+- (int)getCount;
+- (search::Result const &)getWithPosition:(int)pos;
+
+- (BOOL)isEndMarker;
+- (BOOL)isEndedNormal;
 @end
 
 @implementation ResultsWrapper
 
-@synthesize m_searchString;
+@synthesize searchString;
 
 - (void)dealloc
 {
-  [m_searchString release];
+  [searchString release];
   [super dealloc];
 }
 
 - (id)initWithResults:(search::Results const &)res
 {
   if ((self = [super init]))
-    m_results.assign(res.Begin(), res.End());
+    m_results = res;
   return self;
 }
 
-- (vector<search::Result> const &)get
+- (int)getCount
 {
-  return m_results;
+  return static_cast<int>(m_results.GetCount());
 }
+
+- (search::Result const &)getWithPosition:(int)pos
+{
+  return m_results.GetResult(pos);
+}
+
+- (BOOL)isEndMarker
+{
+  return m_results.IsEndMarker();
+}
+
+- (BOOL)isEndedNormal
+{
+  return m_results.IsEndedNormal();
+}
+
 @end
 
 
-// Last search results are stored betweel SearchVC sessions
-// to appear instantly for the user, they also store last search text query
+// Last search results are stored between SearchVC sessions
+// to appear instantly for the user, they also store last search text query.
 ResultsWrapper * g_lastSearchResults = nil;
 
 static void OnSearchResultCallback(search::Results const & res)
@@ -148,7 +168,7 @@ static void OnSearchResultCallback(search::Results const & res)
   m_searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   // restore previous search query
   if (g_lastSearchResults)
-    m_searchBar.text = g_lastSearchResults.m_searchString;
+    m_searchBar.text = g_lastSearchResults.searchString;
   m_searchBar.delegate = self;
   m_searchBar.placeholder = NSLocalizedString(@"search_map", @"Search box placeholder text");
   item.titleView = m_searchBar;
@@ -303,7 +323,7 @@ static void OnSearchResultCallback(search::Results const & res)
 {
   m_suggestionsCount = [m_searchBar.text length] ? 0 : 1;
   if (g_lastSearchResults)
-    return [g_lastSearchResults get].size() + m_suggestionsCount;
+    return [g_lastSearchResults getCount] + m_suggestionsCount;
   else
     return 0 + m_suggestionsCount;
 }
@@ -335,13 +355,13 @@ static void OnSearchResultCallback(search::Results const & res)
     realRowIndex -= m_suggestionsCount;
   }
 
-  if (g_lastSearchResults == nil || realRowIndex >= (NSInteger)[g_lastSearchResults get].size())
+  if (g_lastSearchResults == nil || realRowIndex >= (NSInteger)[g_lastSearchResults getCount])
   {
-    ASSERT(false, ("Invalid m_results with size", [g_lastSearchResults get].size()));
+    ASSERT(false, ("Invalid m_results with size", [g_lastSearchResults getCount]));
     return nil;
   }
 
-  search::Result const & r = [g_lastSearchResults get][realRowIndex];
+  search::Result const & r = [g_lastSearchResults getWithPosition:realRowIndex];
   switch (r.GetResultType())
   {
     case search::Result::RESULT_FEATURE:
@@ -435,9 +455,9 @@ static void OnSearchResultCallback(search::Results const & res)
     realRowIndex -= m_suggestionsCount;
   }
 
-  if (realRowIndex < (NSInteger)[g_lastSearchResults get].size())
+  if (realRowIndex < (NSInteger)[g_lastSearchResults getCount])
   {
-    search::Result const & res = [g_lastSearchResults get][realRowIndex];
+    search::Result const & res = [g_lastSearchResults getWithPosition:realRowIndex];
     switch(res.GetResultType())
     {
       // Zoom to the feature
@@ -468,13 +488,20 @@ static void OnSearchResultCallback(search::Results const & res)
 {
   ResultsWrapper * w = (ResultsWrapper *)res;
   
-  [g_lastSearchResults release];
-  g_lastSearchResults = [w retain];
+  if ([w isEndMarker])
+  {
+    if ([w isEndedNormal])
+      [self hideIndicator];
+  }
+  else
+  {
+    [g_lastSearchResults release];
+    g_lastSearchResults = [w retain];
 
-  w.m_searchString = m_searchBar.text;
+    w.searchString = m_searchBar.text;
 
-  [self hideIndicator];
-  [m_table reloadData];
+    [m_table reloadData];
+  }
 }
 
 //****************************************************************** 
@@ -519,7 +546,7 @@ static void OnSearchResultCallback(search::Results const & res)
       realRowIndex -= m_suggestionsCount;
     }
 
-    search::Result const & res = [g_lastSearchResults get][realRowIndex];
+    search::Result const & res = [g_lastSearchResults getWithPosition:realRowIndex];
     if (res.GetResultType() == search::Result::RESULT_FEATURE)
     {
       // Show compass only for cells without flags

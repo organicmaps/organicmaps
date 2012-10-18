@@ -57,7 +57,28 @@ class Results
 {
   vector<Result> m_vec;
 
+  enum StatusT {
+    NONE,             // default status
+    ENDED_CANCELLED,  // search ended with canceling
+    ENDED             // search ended itself
+  };
+  StatusT m_status;
+
+  explicit Results(bool isCancelled)
+  {
+    m_status = (isCancelled ? ENDED_CANCELLED : ENDED);
+  }
+
 public:
+  Results() : m_status(NONE) {}
+
+  /// @name To implement end of search notification.
+  //@{
+  static Results GetEndMarker(bool isCancelled) { return Results(isCancelled); }
+  bool IsEndMarker() const { return (m_status != NONE); }
+  bool IsEndedNormal() const { return (m_status == ENDED); }
+  //@}
+
   inline void AddResult(Result const & r) { m_vec.push_back(r); }
   void AddResultCheckExisting(Result const & r);
 

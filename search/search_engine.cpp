@@ -246,6 +246,9 @@ void Engine::SearchAsync()
 
   Results res;
 
+  // Call m_pQuery->IsCanceled() everywhere it needed without storing return value.
+  // This flag can be changed from another thread.
+
   try
   {
     if (params.m_query.empty())
@@ -291,6 +294,9 @@ void Engine::SearchAsync()
     if (res.GetCount() > count)
       params.m_callback(res);
   }
+
+  // Emit finish marker to client.
+  params.m_callback(Results::GetEndMarker(m_pQuery->IsCanceled()));
 }
 
 string Engine::GetCountryFile(m2::PointD const & pt)

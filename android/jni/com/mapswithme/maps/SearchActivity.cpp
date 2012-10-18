@@ -29,6 +29,13 @@ class SearchAdapter
 
   void OnResults(search::Results const & res, int queryID)
   {
+    if (res.IsEndMarker())
+    {
+      /// @todo Process end markers for Android in future.
+      /// It's not so necessary now because we store search ID's.
+      return;
+    }
+
     if (s_pInstance == 0)
     {
       // In case when activity is destroyed, but search thread passed any results.
