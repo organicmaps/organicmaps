@@ -120,11 +120,7 @@ HEADERS += \
     display_list.hpp \
     data_traits.hpp
 
-# At the moment do not use OpenGL 2.0 on iOS.
-!iphone* {
-  # uncomment to enable GLSL support
-  CONFIG += glsl
-}
+CONFIG += glsl
 
 win32* {
   SOURCES += internal/opengl_win32.cpp

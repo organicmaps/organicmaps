@@ -242,7 +242,7 @@ RenderPolicy * CreateRenderPolicy(RenderPolicy::Params const & params)
     return new TilingRenderPolicyST(params);
 #endif
 #ifdef OMIM_OS_IPHONE
-    return new RenderPolicyMT(params);
+    return new TilingRenderPolicyMT(params);
 #endif
 #ifdef OMIM_OS_DESKTOP
     return new TilingRenderPolicyST(params);
