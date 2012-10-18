@@ -102,6 +102,10 @@ void BasicRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
     math::Matrix<double, 3, 3> m = m_RenderQueue->renderState().m_actualScreen.PtoGMatrix() * s.GtoPMatrix();
     m = math::Shift(m, -ptShift);
 
+    // rounding shift to pixel boundary to remove "blitting blurriness".
+    m(2, 0) = floor(m(2, 0));
+    m(2, 1) = floor(m(2, 1));
+
     pDrawer->screen()->blit(m_RenderQueue->renderState().m_actualTarget, m);
   }
 
