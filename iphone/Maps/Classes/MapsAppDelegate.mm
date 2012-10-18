@@ -133,10 +133,11 @@
   [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
-- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
-{
-  NSLog(@"applicationDidReceiveMemoryWarning");
-}
+// We process memory warnings in MapsViewController
+//- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
+//{
+//  NSLog(@"applicationDidReceiveMemoryWarning");
+//}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
