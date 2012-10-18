@@ -125,6 +125,8 @@ public:
 
   inline bool IsPro() const { return m_isPro; }
 
+  bool DoSupportRotation() const;
+
   /// @return url for clients to download maps
   //@{
   string MetaServerUrl() const;

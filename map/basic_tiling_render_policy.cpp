@@ -36,7 +36,7 @@ size_t BasicTilingRenderPolicy::CalculateTileSize(size_t screenWidth, size_t scr
 
 BasicTilingRenderPolicy::BasicTilingRenderPolicy(Params const & p,
                                                  bool doUseQueuedRenderer)
-  : RenderPolicy(p, GetPlatform().IsPro(), GetPlatform().CpuCores()),
+  : RenderPolicy(p, GetPlatform().DoSupportRotation(), GetPlatform().CpuCores()),
     m_DrawScale(0),
     m_IsEmptyModel(false),
     m_DoRecreateCoverage(false),
