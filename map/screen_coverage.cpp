@@ -248,7 +248,13 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   vector<Tiler::RectInfo> newRects;
   TTileSet tiles;
 
-  m_tiler.tiles(allRects, GetPlatform().PreCachingDepth());
+#ifdef OMIM_OS_IPHONE
+  int cacheDepthes[] = {0, 1};
+#else
+  int cacheDepthes[] = {0, 1, 2};
+#endif
+
+  m_tiler.tiles(allRects, cacheDepthes, sizeof(cacheDepthes) / sizeof(int));
 
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
 
@@ -342,7 +348,13 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 
 //    if (m_tiler.isLeaf(nr) || (childTilesToDraw > 1))
 
-    if ((nr.m_tileScale == m_tiler.tileScale() - 2)
+#ifdef OMIM_OS_IPHONE
+    int step = 1;
+#else
+    int step = 2;
+#endif
+
+    if ((nr.m_tileScale == m_tiler.tileScale() - step)
       ||(nr.m_tileScale == m_tiler.tileScale() ))
       firstClassTiles.push_back(nr);
     else

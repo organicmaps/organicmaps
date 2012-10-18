@@ -40,7 +40,7 @@ public:
   /// seed tiler with new screenBase.
   void seed(ScreenBase const & screenBase, m2::PointD const & centerPt, size_t tileSize);
 
-  void tiles(vector<RectInfo> & tiles, int depth);
+  void tiles(vector<RectInfo> & tiles, int const * depthes, unsigned count);
   bool isLeaf(RectInfo const & ri) const;
 
   int tileScale() const;

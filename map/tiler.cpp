@@ -89,7 +89,7 @@ void Tiler::seed(ScreenBase const & screen, m2::PointD const & centerPt, size_t 
   m_tileScale = getTileScale(screen, tileSize);
 }
 
-void Tiler::tiles(vector<RectInfo> & tiles, int depth)
+void Tiler::tiles(vector<RectInfo> & tiles, int const * depthes, unsigned count)
 {
   if (m_tileScale == 0)
     return;
@@ -97,12 +97,16 @@ void Tiler::tiles(vector<RectInfo> & tiles, int depth)
   /// clearing previous coverage
   tiles.clear();
 
-  if (m_tileScale - depth < 0)
-    depth = m_tileScale;
+  int maxDepth = depthes[count - 1];
 
-  for (unsigned i = 0; i < depth; ++i)
+  for (int j = count - 1; j >= 0; --j)
   {
-    int pow = depth - 1 - i;
+    int curDepth = depthes[j];
+
+    if (m_tileScale - curDepth < 0)
+      curDepth = m_tileScale;
+
+    int pow = maxDepth - curDepth;
 
     int scale = 1 << pow;
 
