@@ -1,9 +1,6 @@
 #import <UIKit/UIKit.h>
-#import <OpenGLES/EAGL.h>
-#import <QuartzCore/CADisplayLink.h>
 
 #include "../../std/shared_ptr.hpp"
-#include "RenderBuffer.hpp"
 
 class VideoTimer;
 class RenderPolicy;
@@ -28,18 +25,15 @@ namespace yg
 @interface EAGLView : UIView
 {
   VideoTimer * videoTimer;
-	shared_ptr<iphone::RenderContext> renderContext;
-	shared_ptr<yg::gl::FrameBuffer> frameBuffer;
-	shared_ptr<iphone::RenderBuffer> renderBuffer;  
+  shared_ptr<iphone::RenderContext> renderContext;
+  shared_ptr<yg::gl::FrameBuffer> frameBuffer;
+  shared_ptr<iphone::RenderBuffer> renderBuffer;
   RenderPolicy * renderPolicy;
+  // Do not call onSize from layoutSubViews when real size wasn't changed.
+  // It's possible when we add/remove subviews (bookmark balloons) and it hangs the map without this check
+  CGRect lastViewSize;
 }
 
 - (void) initRenderPolicy;
-
-@property (nonatomic, assign) VideoTimer * videoTimer;
-@property (nonatomic, assign) shared_ptr<iphone::RenderContext> renderContext;
-@property (nonatomic, assign) shared_ptr<iphone::RenderBuffer> renderBuffer;
-@property (nonatomic, assign) shared_ptr<yg::gl::FrameBuffer> frameBuffer;
-@property (nonatomic, assign) RenderPolicy * renderPolicy;
 
 @end

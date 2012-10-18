@@ -3,25 +3,22 @@
 
 #import "EAGLView.h"
 
-#include "../../yg/screen.hpp"
-#include "../../yg/texture.hpp"
-#include "../../yg/resource_manager.hpp"
-#include "../../yg/internal/opengl.hpp"
-#include "../../yg/skin.hpp"
-#include "../../map/render_policy.hpp"
-#include "../../platform/platform.hpp"
-#include "../../platform/video_timer.hpp"
 #include "RenderBuffer.hpp"
 #include "RenderContext.hpp"
 #include "Framework.h"
 
-@implementation EAGLView
+#include "../../yg/resource_manager.hpp"
+#include "../../yg/internal/opengl.hpp"
+#include "../../yg/data_formats.hpp"
 
-@synthesize videoTimer;
-@synthesize frameBuffer;
-@synthesize renderContext;
-@synthesize renderBuffer;
-@synthesize renderPolicy;
+#include "../../map/render_policy.hpp"
+
+#include "../../platform/platform.hpp"
+#include "../../platform/video_timer.hpp"
+
+#include "../../std/bind.hpp"
+
+@implementation EAGLView
 
 // You must implement this method
 + (Class)layerClass
@@ -160,15 +157,18 @@
 
 - (void)layoutSubviews
 {
-  CGFloat const scale = self.contentScaleFactor;
-  CGSize const s = self.bounds.size;
-	[self onSize:s.width * scale withHeight:s.height * scale];
+  if (!CGRectEqualToRect(lastViewSize, self.frame))
+  {
+    lastViewSize = self.frame;
+    CGFloat const scale = self.contentScaleFactor;
+    CGSize const s = self.bounds.size;
+	  [self onSize:s.width * scale withHeight:s.height * scale];
+  }
 }
 
 - (void)dealloc
 {
   delete videoTimer;
-  // m_framework->SetRenderPolicy(0);
   [EAGLContext setCurrentContext:nil];
   [super dealloc];
 }
