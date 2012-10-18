@@ -733,16 +733,28 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   if (m_drawPlacemark)
     m_informationDisplay.drawPlacemark(pDrawer, "placemark-red", m_navigator.GtoP(m_placemark));
 
+  // get viewport limit rect
+  m2::AnyRectD const & glbRect = m_navigator.Screen().GlobalRect();
+
   for (size_t i = 0; i < m_bookmarks.size(); ++i)
+  {
     if (m_bookmarks[i]->IsVisible())
     {
       size_t const count = m_bookmarks[i]->GetBookmarksCount();
       for (size_t j = 0; j < count; ++j)
       {
         Bookmark const * bm = m_bookmarks[i]->GetBookmark(j);
-        m_informationDisplay.drawPlacemark(pDrawer, bm->GetType().c_str(), m_navigator.GtoP(bm->GetOrg()));
+        m2::PointD const & org = bm->GetOrg();
+
+        // draw only visible bookmarks on screen
+        if (glbRect.IsPointInside(org))
+        {
+          m_informationDisplay.drawPlacemark(pDrawer, bm->GetType().c_str(),
+                                             m_navigator.GtoP(org));
+        }
       }
     }
+  }
 
   pScreen->endFrame();
 
