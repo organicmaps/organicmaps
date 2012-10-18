@@ -142,25 +142,28 @@ void Engine::PrepareSearch(m2::RectD const & viewport,
 
 bool Engine::Search(SearchParams const & params, m2::RectD const & viewport)
 {
+  // Check for equal query.
+  // There is no need to put synch here for reading m_params,
+  // because this function is always called from main thread (one-by-one for queries).
+
+  if (!params.IsResetMode() &&
+      m_params.IsEqualCommon(params) &&
+      m2::IsEqual(m_viewport, viewport, epsEqualRects, epsEqualRects))
   {
-    threads::MutexGuard guard(m_updateMutex);
+    if (!m_params.m_validPos)
+      return false;
 
-    // Check for equal query.
-    if (!params.IsResetMode() &&
-        m_params.IsEqualCommon(params) &&
-        m2::IsEqual(m_viewport, viewport, epsEqualRects, epsEqualRects))
-    {
-      if (!m_params.m_validPos)
-        return false;
+    m2::PointD const p1 = GetViewportXY(m_params.m_lat, m_params.m_lon);
+    m2::PointD const p2 = GetViewportXY(params.m_lat, params.m_lon);
 
-      m2::PointD const p1 = GetViewportXY(m_params.m_lat, m_params.m_lon);
-      m2::PointD const p2 = GetViewportXY(params.m_lat, params.m_lon);
+    if (p1.EqualDxDy(p2, epsEqualPoints))
+      return false;
+  }
 
-      if (p1.EqualDxDy(p2, epsEqualPoints))
-        return false;
-    }
-
+  {
     // Assign new search params.
+    // Put the synch here, because this params are reading in search threads.
+    threads::MutexGuard guard(m_updateMutex);
     m_params = params;
     m_viewport = viewport;
   }
