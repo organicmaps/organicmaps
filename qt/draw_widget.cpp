@@ -102,7 +102,8 @@ namespace qt
 
     if (!m_framework->LoadState())
       return false;
-    //m_framework.UpdateNow();
+
+    m_framework->LoadBookmarks();
 
     UpdateScaleControl();
     return true;
