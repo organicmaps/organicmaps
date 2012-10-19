@@ -41,6 +41,7 @@
     self.userInteractionEnabled = YES;
     self.separatorColor = [UIColor colorWithRed:224./255. green:224./255. blue:224./255. alpha:1.0];
     [self addGestureRecognizer:tapG];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
   }
   return self;
 }
