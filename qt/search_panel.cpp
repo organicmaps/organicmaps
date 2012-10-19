@@ -112,56 +112,64 @@ namespace
 
 void SearchPanel::OnSearchResult(ResultsT * res)
 {
-  // clear old results
-  m_pTable->clear();
-  m_pTable->setRowCount(0);
-  m_results.clear();
+  scoped_ptr<ResultsT> guard(res);
 
-  Framework & frm = m_pDrawWidget->GetFramework();
-  frm.DeleteBmCategory(SEARCH_CATEGORY);
-
-  for (ResultsT::IterT i = res->Begin(); i != res->End(); ++i)
+  if (res->IsEndMarker())
   {
-    ResultT const & e = *i;
-
-    int const rowCount = m_pTable->rowCount();
-    m_pTable->insertRow(rowCount);
-
-    m_pTable->setItem(rowCount, 1, create_item(QString::fromUtf8(e.GetString())));
-    m_pTable->setItem(rowCount, 2, create_item(QString::fromUtf8(e.GetRegionString())));
-
-    if (e.GetResultType() == ResultT::RESULT_FEATURE)
+    if (res->IsEndedNormal())
     {
-      // For debug purposes: add bookmarks for search results
-      frm.AddBookmark(SEARCH_CATEGORY,
-                      Bookmark(e.GetFeatureCenter(), e.GetString(), "placemark-red"));
-
-      m_pTable->setItem(rowCount, 0,
-                        create_item(QString::fromUtf8(e.GetFeatureType())));
-
-      string strDist;
-      bool const drawDir = MeasurementUtils::FormatDistance(e.GetDistanceFromCenter(), strDist);
-      m_pTable->setItem(rowCount, 3, create_item(strDist.c_str()));
-
-      if (drawDir)
-      {
-        /*
-        QTableWidgetItem * item =
-            new QTableWidgetItem(draw_direction(e.GetDirectionFromCenter()), QString());
-        item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-        m_pTable->setItem(rowCount, 4, item);
-        */
-      }
+      // stop search busy indicator
+      m_pAnimationTimer->stop();
+      m_pClearButton->setIcon(QIcon(":/ui/x.png"));
     }
-
-    m_results.push_back(e);
   }
+  else
+  {
+    // clear old results
+    m_pTable->clear();
+    m_pTable->setRowCount(0);
+    m_results.clear();
 
-  delete res;
+    Framework & frm = m_pDrawWidget->GetFramework();
+    frm.DeleteBmCategory(SEARCH_CATEGORY);
 
-  // stop search busy indicator
-  m_pAnimationTimer->stop();
-  m_pClearButton->setIcon(QIcon(":/ui/x.png"));
+    for (ResultsT::IterT i = res->Begin(); i != res->End(); ++i)
+    {
+      ResultT const & e = *i;
+
+      int const rowCount = m_pTable->rowCount();
+      m_pTable->insertRow(rowCount);
+
+      m_pTable->setItem(rowCount, 1, create_item(QString::fromUtf8(e.GetString())));
+      m_pTable->setItem(rowCount, 2, create_item(QString::fromUtf8(e.GetRegionString())));
+
+      if (e.GetResultType() == ResultT::RESULT_FEATURE)
+      {
+        // For debug purposes: add bookmarks for search results
+        frm.AddBookmark(SEARCH_CATEGORY,
+                        Bookmark(e.GetFeatureCenter(), e.GetString(), "placemark-red"));
+
+        m_pTable->setItem(rowCount, 0,
+                          create_item(QString::fromUtf8(e.GetFeatureType())));
+
+        string strDist;
+        bool const drawDir = MeasurementUtils::FormatDistance(e.GetDistanceFromCenter(), strDist);
+        m_pTable->setItem(rowCount, 3, create_item(strDist.c_str()));
+
+        if (drawDir)
+        {
+          /*
+          QTableWidgetItem * item =
+              new QTableWidgetItem(draw_direction(e.GetDirectionFromCenter()), QString());
+          item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+          m_pTable->setItem(rowCount, 4, item);
+          */
+        }
+      }
+
+      m_results.push_back(e);
+    }
+  }
 }
 
 void SearchPanel::OnSearchTextChanged(QString const & str)
