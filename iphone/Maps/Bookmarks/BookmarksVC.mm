@@ -326,13 +326,12 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
   [m_locationManager stop:self];
+
   // Save possibly edited set name
   UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-  if (cell != nil)
-  {
-    NSString * newName = ((UITextField *)[cell.contentView viewWithTag:TEXTFIELD_TAG]).text;
+  NSString * newName = ((UITextField *)[cell.contentView viewWithTag:TEXTFIELD_TAG]).text;
+  if (newName)
     [self renameBMCategoryIfChanged:newName];
-  }
 
   [super viewWillDisappear:animated];
 }
