@@ -1012,7 +1012,7 @@ void Framework::StopDrag(DragEvent const & e)
   {
     // reset GPS centering mode if we have dragged far from current location
     ScreenBase const & s = m_navigator.Screen();
-    if (GetPixelCenter().Length(s.GtoP(locationState->Position())) >= s.GetMinPixelRectSize() / 2.0)
+    if (GetPixelCenter().Length(s.GtoP(locationState->Position())) >= s.GetMinPixelRectSize() / 5.0)
       locationState->SetLocationProcessMode(location::ELocationDoNothing);
     else
     {
