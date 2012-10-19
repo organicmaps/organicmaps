@@ -12,6 +12,20 @@ Animator::Animator(Framework * framework)
   : m_framework(framework)
 {}
 
+void Animator::StopAnimation(shared_ptr<anim::Task> const & task)
+{
+  if (task)
+  {
+    task->Lock();
+
+    if (!task->IsEnded()
+     && !task->IsCancelled())
+      task->Cancel();
+
+    task->Unlock();
+  }
+}
+
 void Animator::RotateScreen(double startAngle, double endAngle)
 {
   if (m_rotateScreenTask)
@@ -49,22 +63,7 @@ void Animator::RotateScreen(double startAngle, double endAngle)
 
 void Animator::StopRotation()
 {
-  if (m_rotateScreenTask)
-    m_rotateScreenTask->Lock();
-
-  if (m_rotateScreenTask
-  && !m_rotateScreenTask->IsEnded()
-  && !m_rotateScreenTask->IsCancelled())
-  {
-    m_rotateScreenTask->Cancel();
-    m_rotateScreenTask->Unlock();
-    m_rotateScreenTask.reset();
-    return;
-  }
-
-  if (m_rotateScreenTask)
-    m_rotateScreenTask->Unlock();
-
+  StopAnimation(m_rotateScreenTask);
   m_rotateScreenTask.reset();
 }
 
@@ -86,22 +85,7 @@ shared_ptr<MoveScreenTask> const & Animator::MoveScreen(m2::PointD const & start
 
 void Animator::StopMoveScreen()
 {
-  if (m_moveScreenTask)
-    m_moveScreenTask->Lock();
-
-  if (m_moveScreenTask
-  && !m_moveScreenTask->IsEnded()
-  && !m_moveScreenTask->IsCancelled())
-  {
-    m_moveScreenTask->Cancel();
-    m_moveScreenTask->Unlock();
-    m_moveScreenTask.reset();
-    return;
-  }
-
-  if (m_moveScreenTask)
-    m_moveScreenTask->Unlock();
-
+  StopAnimation(m_moveScreenTask);
   m_moveScreenTask.reset();
 }
 
@@ -123,22 +107,7 @@ shared_ptr<ChangeViewportTask> const & Animator::ChangeViewport(m2::AnyRectD con
 
 void Animator::StopChangeViewport()
 {
-  if (m_changeViewportTask)
-    m_changeViewportTask->Lock();
-
-  if (m_changeViewportTask
-  && !m_changeViewportTask->IsEnded()
-  && !m_changeViewportTask->IsCancelled())
-  {
-    m_changeViewportTask->Unlock();
-    m_changeViewportTask->Cancel();
-    m_changeViewportTask.reset();
-    return;
-  }
-
-  if (m_changeViewportTask)
-    m_changeViewportTask->Unlock();
-
+  StopAnimation(m_changeViewportTask);
   m_changeViewportTask.reset();
 }
 

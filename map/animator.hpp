@@ -4,6 +4,7 @@
 
 #include "../geometry/point2d.hpp"
 #include "../geometry/any_rect2d.hpp"
+#include "../anim/task.hpp"
 
 class Framework;
 class RotateScreenTask;
@@ -20,6 +21,8 @@ private:
   shared_ptr<RotateScreenTask> m_rotateScreenTask;
   shared_ptr<ChangeViewportTask> m_changeViewportTask;
   shared_ptr<MoveScreenTask> m_moveScreenTask;
+
+  void StopAnimation(shared_ptr<anim::Task> const & task);
 
 public:
 
