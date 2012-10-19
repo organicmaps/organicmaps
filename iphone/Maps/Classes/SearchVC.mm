@@ -312,8 +312,10 @@ static void OnSearchResultCallback(search::Results const & res)
 - (void)setSearchBoxText:(NSString *)text
 {
   m_searchBar.text = text;
-  // Manually send text change notification if control has no focus
-  if (![m_searchBar isFirstResponder])
+  // Manually send text change notification if control has no focus,
+  // OR if iOS 6 - it doesn't send textDidChange notification after text property update
+  if (![m_searchBar isFirstResponder]
+      || [UIDevice currentDevice].systemVersion.floatValue > 5.999)
     [self searchBar:m_searchBar textDidChange:text];
 }
 
