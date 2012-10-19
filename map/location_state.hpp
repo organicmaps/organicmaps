@@ -5,6 +5,7 @@
 #include "../platform/location.hpp"
 
 #include "../geometry/point2d.hpp"
+#include "../geometry/screenbase.hpp"
 
 #include "../std/shared_ptr.hpp"
 #include "../std/map.hpp"
@@ -112,6 +113,10 @@ namespace location
     int m_currentSlotID;
 
     void CallCompassStatusListeners(ECompassProcessMode mode);
+
+    double ComputeMoveSpeed(m2::PointD const & globalPt0,
+                            m2::PointD const & globalPt1,
+                            ScreenBase const & s);
 
   public:
 
