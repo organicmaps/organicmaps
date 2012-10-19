@@ -136,14 +136,8 @@ static void OnSearchResultCallback(search::Results const & res)
   params.m_callback = bind(&OnSearchResultCallback, _1);
 
   // Set current keyboard input mode
-  string lang;
-  // UITextInputMode appeared only in iOS >= 4.2
-  if (NSClassFromString(@"UITextInputMode") != nil 
-      && [UITextInputMode respondsToSelector:@selector(currentInputMode)])
-    lang = [[UITextInputMode currentInputMode].primaryLanguage UTF8String];
-  else
-    lang = languages::CurrentLanguage(); // Use current UI language instead
-  params.SetInputLanguage(lang);
+  // Note: input mode was introduced in iOS 4.2 (now we support 4.3+)
+  params.SetInputLanguage([[UITextInputMode currentInputMode].primaryLanguage UTF8String]);
 
   double lat, lon;
   if ([m_locationManager getLat:lat Lon:lon])
@@ -217,10 +211,14 @@ static void OnSearchResultCallback(search::Results const & res)
 {
   g_searchVC = nil;
   // to correctly free memory
-  [m_indicator release]; m_indicator = nil;
-  [m_originalIndicatorView release]; m_originalIndicatorView = nil;
-  [m_searchBar release]; m_searchBar = nil;
-  [m_table release]; m_table = nil;
+  [m_indicator release];
+  m_indicator = nil;
+  [m_originalIndicatorView release];
+  m_originalIndicatorView = nil;
+  [m_searchBar release];
+  m_searchBar = nil;
+  [m_table release];
+  m_table = nil;
   
   [super viewDidUnload];
 }
@@ -321,7 +319,7 @@ static void OnSearchResultCallback(search::Results const & res)
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  m_suggestionsCount = [m_searchBar.text length] ? 0 : 1;
+  m_suggestionsCount = m_searchBar.text.length ? 0 : 1;
   if (g_lastSearchResults)
     return [g_lastSearchResults getCount] + m_suggestionsCount;
   else
@@ -514,16 +512,12 @@ static void OnSearchResultCallback(search::Results const & res)
 - (void)onLocationUpdate:(location::GpsInfo const &)info
 {
   // Refresh search results with newer location.
-  NSString * queryString = m_searchBar.text;
-  // Search even with empty string.
-  //if (queryString.length)
-  {
-    search::SearchParams params;
-    [self fillSearchParams:params withText:queryString];
+  // Note: search even with empty string, to update distance and direction
+  search::SearchParams params;
+  [self fillSearchParams:params withText:m_searchBar.text];
 
-    if (m_framework->Search(params))
-      [self showIndicator];
-  }
+  if (m_framework->Search(params))
+    [self showIndicator];
 }
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info
@@ -533,7 +527,7 @@ static void OnSearchResultCallback(search::Results const & res)
     return;
 
   double const northRad = (info.m_trueHeading < 0) ? info.m_magneticHeading : info.m_trueHeading;
-  NSArray * cells = [m_table visibleCells];
+  NSArray * cells = m_table.visibleCells;
   for (NSUInteger i = 0; i < cells.count; ++i)
   {
     UITableViewCell * cell = (UITableViewCell *)[cells objectAtIndex:i];
