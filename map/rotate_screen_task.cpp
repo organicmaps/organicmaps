@@ -15,14 +15,17 @@ RotateScreenTask::RotateScreenTask(Framework * framework,
 
 void RotateScreenTask::OnStep(double ts)
 {
+  double prevAngle = m_outAngle;
   anim::AngleInterpolation::OnStep(ts);
-  m_framework->GetNavigator().SetAngle(m_outAngle);
+  Navigator & nav = m_framework->GetNavigator();
+  nav.SetAngle(nav.Screen().GetAngle() + m_outAngle - prevAngle);
 }
 
 void RotateScreenTask::OnEnd(double ts)
 {
   anim::AngleInterpolation::OnEnd(ts);
-  m_framework->GetNavigator().SetAngle(m_outAngle);
+  Navigator & nav = m_framework->GetNavigator();
+  nav.SetAngle(m_outAngle);
 }
 
 bool RotateScreenTask::IsVisual() const

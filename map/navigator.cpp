@@ -398,8 +398,8 @@ void Navigator::StartScale(m2::PointD const & pt1, m2::PointD const & pt2, doubl
 {
   //LOG(LDEBUG, (pt1.x, pt1.y, pt2.x, pt2.y));
   m_StartScreen = m_Screen;
-  m_StartPt1 = pt1;
-  m_StartPt2 = pt2;
+  m_StartPt1 = m_LastPt1 = pt1;
+  m_StartPt2 = m_LastPt2 = pt2;
   m_DoCheckRotationThreshold = m_DoSupportRotation;
   m_IsRotatingDuringScale = false;
 
@@ -518,9 +518,9 @@ void Navigator::DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double /
 
   m_Screen = m_StartScreen;
 
+  /// Checking for rotation threshold.
   if (m_DoCheckRotationThreshold)
   {
-    //LOG(LINFO, ("checking the rotation threshold"));
     double s = pt1.Length(pt2) / m_StartPt1.Length(m_StartPt2);
     double a = ang::AngleTo(pt1, pt2) - ang::AngleTo(m_StartPt1, m_StartPt2);
 
@@ -534,22 +534,22 @@ void Navigator::DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double /
     {
       if (isRotationOutBounds)
       {
-        //LOG(LINFO, ("rotating during scale"));
         m_IsRotatingDuringScale = true;
         m_DoCheckRotationThreshold = false;
       }
     }
     else
     {
-      //LOG(LINFO, ("not rotating during scale"));
       m_IsRotatingDuringScale = false;
       m_DoCheckRotationThreshold = false;
     }
   }
 
+  m_Screen = PrevScreen;
+
   if (!ScaleImpl(pt1, pt2,
-                 m_StartPt1, m_StartPt2,
-                 pt1.Length(pt2) / m_StartPt1.Length(m_StartPt2) > 1,
+                 m_LastPt1, m_LastPt2,
+                 pt1.Length(pt2) / m_LastPt1.Length(m_LastPt2) > 1,
                  m_IsRotatingDuringScale))
     m_Screen = PrevScreen;
 
@@ -559,7 +559,6 @@ void Navigator::DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double /
 
 void Navigator::StopScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec)
 {
-  // Ensure that final pos is reached.
   DoScale(pt1, pt2, timeInSec);
   ASSERT(m_LastPt1 == pt1, (m_LastPt1.x, m_LastPt1.y, pt1.x, pt1.y));
   ASSERT(m_LastPt2 == pt2, (m_LastPt2.x, m_LastPt2.y, pt2.x, pt2.y));

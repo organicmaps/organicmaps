@@ -3,6 +3,7 @@
 #include "framework.hpp"
 #include "compass_filter.hpp"
 #include "change_viewport_task.hpp"
+#include "move_screen_task.hpp"
 
 #include "../yg/display_list.hpp"
 #include "../yg/skin.hpp"
@@ -502,12 +503,13 @@ namespace location
 
     controller->Lock();
 
-    m2::AnyRectD startRect = m_framework->GetNavigator().Screen().GlobalRect();
-    m2::AnyRectD endRect = m2::AnyRectD(Position(),
-                                        startRect.Angle().val(),
-                                        m2::RectD(startRect.GetLocalRect()));
+    m2::PointD startPt = m_framework->GetNavigator().Screen().GetOrg();
+    m2::PointD endPt = Position();
 
-    m_framework->GetAnimator().ChangeViewport(startRect, endRect, 2);
+    ScreenBase const & s = m_framework->GetNavigator().Screen();
+    double speed = min(0.5, 0.5 * s.GtoP(startPt).Length(s.GtoP(endPt)) / 50.0);
+
+    m_framework->GetAnimator().MoveScreen(startPt, endPt, speed);
 
     controller->Unlock();
   }
@@ -518,12 +520,12 @@ namespace location
 
     controller->Lock();
 
-    m2::AnyRectD startRect = m_framework->GetNavigator().Screen().GlobalRect();
-    m2::AnyRectD endRect = m2::AnyRectD(Position(),
-                                        -m_compassFilter.GetHeadingRad(),
-                                        m2::RectD(startRect.GetLocalRect()));
+    m2::PointD startPt = m_framework->GetNavigator().Screen().GetOrg();
+    m2::PointD endPt = Position();
+    ScreenBase const & s = m_framework->GetNavigator().Screen();
+    double speed = min(0.5,0.5 * s.GtoP(startPt).Length(s.GtoP(endPt)) / 50.0);
 
-    shared_ptr<ChangeViewportTask> const & t = m_framework->GetAnimator().ChangeViewport(startRect, endRect, 2);
+    shared_ptr<MoveScreenTask> const & t = m_framework->GetAnimator().MoveScreen(startPt, endPt, speed);
 
     t->Lock();
     t->AddCallback(anim::Task::EEnded, bind(&State::SetIsCentered, this, true));
@@ -547,6 +549,7 @@ namespace location
     SetCompassProcessMode(ECompassDoNothing);
     m_framework->GetAnimator().StopRotation();
     m_framework->GetAnimator().StopChangeViewport();
+    m_framework->GetAnimator().StopMoveScreen();
     setState(EActive);
   }
 

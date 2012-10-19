@@ -1,6 +1,7 @@
 #include "animator.hpp"
 #include "rotate_screen_task.hpp"
 #include "change_viewport_task.hpp"
+#include "move_screen_task.hpp"
 #include "framework.hpp"
 
 #include "../anim/controller.hpp"
@@ -65,6 +66,43 @@ void Animator::StopRotation()
     m_rotateScreenTask->Unlock();
 
   m_rotateScreenTask.reset();
+}
+
+shared_ptr<MoveScreenTask> const & Animator::MoveScreen(m2::PointD const & startPt,
+                                                        m2::PointD const & endPt,
+                                                        double speed)
+{
+  StopMoveScreen();
+
+  m_moveScreenTask.reset(new MoveScreenTask(m_framework,
+                                            startPt,
+                                            endPt,
+                                            speed));
+
+  m_framework->GetAnimController()->AddTask(m_moveScreenTask);
+
+  return m_moveScreenTask;
+}
+
+void Animator::StopMoveScreen()
+{
+  if (m_moveScreenTask)
+    m_moveScreenTask->Lock();
+
+  if (m_moveScreenTask
+  && !m_moveScreenTask->IsEnded()
+  && !m_moveScreenTask->IsCancelled())
+  {
+    m_moveScreenTask->Cancel();
+    m_moveScreenTask->Unlock();
+    m_moveScreenTask.reset();
+    return;
+  }
+
+  if (m_moveScreenTask)
+    m_moveScreenTask->Unlock();
+
+  m_moveScreenTask.reset();
 }
 
 shared_ptr<ChangeViewportTask> const & Animator::ChangeViewport(m2::AnyRectD const & start,

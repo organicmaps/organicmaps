@@ -8,6 +8,7 @@
 class Framework;
 class RotateScreenTask;
 class ChangeViewportTask;
+class MoveScreenTask;
 /// Class, which is responsible for
 /// tracking all map animations.
 class Animator
@@ -18,6 +19,7 @@ private:
 
   shared_ptr<RotateScreenTask> m_rotateScreenTask;
   shared_ptr<ChangeViewportTask> m_changeViewportTask;
+  shared_ptr<MoveScreenTask> m_moveScreenTask;
 
 public:
 
@@ -36,4 +38,10 @@ public:
   void StopChangeViewport();
   /// get screen rotation speed
   double GetRotationSpeed() const;
+  /// move screen from one point to another
+  shared_ptr<MoveScreenTask> const & MoveScreen(m2::PointD const & startPt,
+                                                m2::PointD const & endPt,
+                                                double speed);
+  /// stopping screen movement
+  void StopMoveScreen();
 };
