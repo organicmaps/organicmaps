@@ -549,7 +549,7 @@ void Navigator::DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double /
 
   if (!ScaleImpl(pt1, pt2,
                  m_LastPt1, m_LastPt2,
-                 pt1.Length(pt2) / m_LastPt1.Length(m_LastPt2) > 1,
+                 pt1.Length(pt2) > m_LastPt1.Length(m_LastPt2),
                  m_IsRotatingDuringScale))
     m_Screen = PrevScreen;
 
