@@ -97,6 +97,21 @@ int BookmarkCategory::GetBookmark(m2::PointD const org, double const squareDista
   return -1;
 }
 
+namespace
+{
+  string PointToString(m2::PointD const & org)
+  {
+    double const lon = MercatorBounds::XToLon(org.x);
+    double const lat = MercatorBounds::YToLat(org.y);
+
+    ostringstream ss;
+    ss.precision(8);
+
+    ss << lon << "," << lat;
+    return ss.str();
+  }
+}
+
 namespace bookmark_impl
 {
   class KMLParser
@@ -152,15 +167,20 @@ namespace bookmark_impl
           if (strings::to_double(*iter, lat) && MercatorBounds::ValidLat(lat))
             m_org = m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
           else
-            LOG(LWARNING, ("Invalid coordinates while loading bookmark:", s));
+            LOG(LWARNING, ("Invalid coordinates", s, "while loading bookmark", m_name));
         }
       }
     }
 
-    bool IsValid() const
+    bool MakeValid()
     {
-      return (!m_name.empty() &&
-              MercatorBounds::ValidX(m_org.x) && MercatorBounds::ValidY(m_org.y));
+      if (MercatorBounds::ValidX(m_org.x) && MercatorBounds::ValidY(m_org.y))
+      {
+        if (m_name.empty())
+          m_name = PointToString(m_org);
+        return true;
+      }
+      return false;
     }
 
     /*
@@ -206,7 +226,7 @@ namespace bookmark_impl
     {
       ASSERT_EQUAL(m_tags.back(), tag, ());
 
-      if (tag == "Placemark" && IsValid())
+      if (tag == "Placemark" && MakeValid())
       {
         m_category.AddBookmarkImpl(Bookmark(m_org, m_name, m_type), m_scale);
         Reset();
@@ -342,19 +362,6 @@ char const * kmlHeader =
 char const * kmlFooter =
     "</Document>\n"
     "</kml>\n";
-
-string PointToString(m2::PointD const & org)
-{
-  double const lon = MercatorBounds::XToLon(org.x);
-  double const lat = MercatorBounds::YToLat(org.y);
-
-  ostringstream ss;
-  ss.precision(8);
-
-  ss << lon << "," << lat;
-  return ss.str();
-}
-
 }
 
 void BookmarkCategory::SaveToKML(ostream & s)
