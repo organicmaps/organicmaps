@@ -289,6 +289,11 @@ static void OnSearchResultCallback(search::Results const & res)
 //*********** SearchBar handlers *******************************************
 - (void)searchBar:(UISearchBar *)sender textDidChange:(NSString *)searchText
 {
+  // Clear old results immediately
+  [g_lastSearchResults release];
+  g_lastSearchResults = nil;
+  [m_table reloadData];
+
   // Search even with empty string.
   search::SearchParams params;
   [self fillSearchParams:params withText:searchText];
@@ -573,8 +578,6 @@ static void OnSearchResultCallback(search::Results const & res)
 - (void)onSuggestionSelected:(NSString *)suggestion
 {
   [self setSearchBoxText:[suggestion stringByAppendingString:@" "]];
-  // Clear old results immediately after click
-  [m_table reloadData];
 }
 
 @end
