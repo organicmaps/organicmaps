@@ -183,13 +183,17 @@ bool FeatureBuilder1::PreSerialize()
     break;
 
   case GEOM_LINE:
+  {
+    static feature::TypeSetChecker checkHighway("highway");
+
     // We need refs for road's numbers.
-    if (!IsHighway(m_Params.m_Types))
+    if (!checkHighway.IsEqualV(m_Params.m_Types))
       m_Params.ref = string();
 
     m_Params.rank = 0;
     m_Params.house.Clear();
     break;
+  }
 
   case GEOM_AREA:
     m_Params.rank = 0;

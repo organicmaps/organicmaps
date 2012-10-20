@@ -404,37 +404,6 @@ pair<int, int> GetDrawableScaleRangeForRules(FeatureBase const & f, int rules)
   return GetDrawableScaleRangeForRules(TypesHolder(f), rules);
 }
 
-bool IsHighway(vector<uint32_t> const & types)
-{
-  ClassifObject const * pRoot = classif().GetRoot();
-
-  for (size_t i = 0; i < types.size(); ++i)
-  {
-    uint8_t v;
-    CHECK(ftype::GetValue(types[i], 0, v), (types[i]));
-    {
-      if (pRoot->GetObject(v)->GetName() == "highway")
-        return true;
-    }
-  }
-
-  return false;
-}
-
-/*
-bool IsJunction(vector<uint32_t> const & types)
-{
-  char const * arr[] = { "highway", "motorway_junction" };
-  static const uint32_t type = classif().GetTypeByPath(vector<string>(arr, arr + 2));
-
-  for (size_t i = 0; i < types.size(); ++i)
-    if (types[i] == type)
-      return true;
-
-  return false;
-}
-*/
-
 bool UsePopulationRank(uint32_t type)
 {
   class CheckerT
@@ -469,6 +438,19 @@ bool UsePopulationRank(uint32_t type)
 
   static CheckerT checker;
   return (checker.IsMyType(type));
+}
+
+
+void TypeSetChecker::SetType(StringT * beg, StringT * end)
+{
+  m_type = classif().GetTypeByPath(vector<string>(beg, end));
+  m_level = distance(beg, end);
+}
+
+bool TypeSetChecker::IsEqual(uint32_t type) const
+{
+  ftype::TruncValue(type, m_level);
+  return (m_type == type);
 }
 
 }

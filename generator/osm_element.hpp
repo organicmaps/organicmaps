@@ -416,11 +416,21 @@ protected:
           FeatureParams params(fValue);
           if (feature::RemoveNoDrawableTypes(params.m_Types, FEATURE_TYPE_POINT))
           {
-            feature_t f;
-            f.SetParams(params);
-            f.SetCenter(ft.GetGeometryCenter());
-            if (f.PreSerialize())
-              base_type::m_emitter(f);
+            // Remove all "place" types - they are duplicated in data.
+            typedef feature::TypeSetChecker ChekerT;
+            static ChekerT checkPlace("place");
+            params.m_Types.erase(remove_if(params.m_Types.begin(), params.m_Types.end(),
+                                           bind(&ChekerT::IsEqual, cref(checkPlace), _1)),
+                                 params.m_Types.end());
+
+            if (!params.m_Types.empty())
+            {
+              feature_t f;
+              f.SetParams(params);
+              f.SetCenter(ft.GetGeometryCenter());
+              if (f.PreSerialize())
+                base_type::m_emitter(f);
+            }
           }
         }
 

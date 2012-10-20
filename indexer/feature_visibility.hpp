@@ -57,9 +57,6 @@ namespace feature
   pair<int, bool> GetDrawRule(FeatureBase const & f, int level,
                               vector<drule::Key> & keys, string & names);
 
-  bool IsHighway(vector<uint32_t> const & types);
-  //bool IsJunction(vector<uint32_t> const & types);
-
   bool UsePopulationRank(uint32_t type);
 
   template <class IterT>
@@ -72,4 +69,36 @@ namespace feature
     }
     return false;
   }
+
+  /// Used to check whether user types belong to particular classificator set.
+  class TypeSetChecker
+  {
+    uint32_t m_type;
+    uint8_t m_level;
+
+    typedef char const * StringT;
+    void SetType(StringT * beg, StringT * end);
+
+  public:
+    /// Construct by classificator set name.
+    //@{
+    TypeSetChecker(StringT name) { SetType(&name, &name + 1); }
+    TypeSetChecker(StringT arr[], size_t n) { SetType(arr, arr + n); }
+    //@}
+
+    bool IsEqual(uint32_t type) const;
+    template <class IterT> bool IsEqualR(IterT beg, IterT end) const
+    {
+      while (beg != end)
+      {
+        if (IsEqual(*beg++))
+          return true;
+      }
+      return false;
+    }
+    bool IsEqualV(vector<uint32_t> const & v) const
+    {
+      return IsEqualR(v.begin(), v.end());
+    }
+  };
 }
