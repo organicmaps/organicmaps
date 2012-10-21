@@ -136,7 +136,7 @@ ru:4остановка|4автобус|4транспорт
 de:Bushaltestelle|Haltestelle|2Bus|Autobus|Verkehr
 fr:arrêt de bus|station|2bus|autobus|4transport
 it:fermata|autobus|4transporto
-es:parada|4transporte
+es:parada de autobuses|4transporte
 ko:수송|운송선|황홀|버스 정류장|버스|모선
 ja:バス停は|交通|停留所|トランスポート|バス|乗合|輸送
 cs:autobusová zastávka|4autobus|2bus|zastávka|stanice|doprava
@@ -255,6 +255,7 @@ en:bench
 ru:скамейка|лавка
 fr:banc
 it:panchina|panca
+es:banca
 ko:벤치|작업대
 ja:ベンチ|縁台
 cs:lavička
@@ -385,7 +386,7 @@ ru:детсад|ясли
 de:Kindergarten|Kinderkrippe|Krippe
 fr:jardin d'enfants|garderie d'enfants|pouponnière
 it:scuola materna
-es:guarderia
+es:kindergarden|preescolar
 ko:유치원
 ja:幼稚園
 cs:školka|mateřská škola|dětská školka|mateřská školka
@@ -457,7 +458,7 @@ ru:мусорка
 de:Abfälle|Recycling|Müll
 fr:déchet
 it:rifiuti
-es:papelera de reciclaje
+es:reciclaje
 ko:휴지통|휴지통|쓰레기
 ja:ごみ箱|ゴミ|ごみ
 cs:koš|odpadkový koš|popelnice|uložiště odpadu
@@ -517,7 +518,7 @@ ru:3туалет
 de:WC|3Toilette
 fr:wc|3toilette
 it:wc|3toilette
-es:3servicios|3lavabo
+es:3servicios sanitario|3lavabo|inodoro|baño
 ko:화장실
 ja:トイレ
 cs:3záchody|wc|toalety
@@ -577,7 +578,7 @@ ru:город
 de:Stadt
 fr:ville|cité
 it:città
-es:ciudad
+es:pueblo
 ko:타운|도시
 ja:町|市
 cs:město
@@ -787,7 +788,7 @@ ru:водоём
 de:Wasserbecken
 fr:bassin
 it:bacino
-es:aljibe
+es:cuenca
 ko:연못
 ja:池
 cs:voda
@@ -1159,7 +1160,7 @@ ru:автосалон|магазин
 de:Auto-Shop|Laden
 fr:vente voitures|magasin
 it:car negozio|negozio
-es:taller de coches|tienda
+es:venta de coches|tienda
 ko:자동차 가게|쇼핑
 ja:カーショップ|店
 cs:obchod s auty|obchod

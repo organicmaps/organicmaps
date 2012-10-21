@@ -10,7 +10,7 @@
 "shared_user_label" = "Maps With Me";
 
 /* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "Mas facil navegar con la version completa MapsWithMe con el buscador offline. Bajalo ya!";
+"pro_version_available" = "Mas facil navegar con la version completa MapsWithMe con el buscador fuera de la Internet. Bajalo ya!";
 
 /* About button text (should be short! @todo - fix french) */
 "about" = "Acerca de";
@@ -28,7 +28,7 @@
 "delete" = "Eliminar";
 
 /* Button in iOS Downloader, displayed only when upgrading from v1 to v2 */
-"delete_old_maps" = "Eliminar todas mapas y seguir";
+"delete_old_maps" = "Eliminar mapas antiguos y seguir";
 
 /* Button to dismiss dialog forever */
 "do_not_ask_me_again" = "No volver a preguntar";
@@ -51,10 +51,10 @@
 "downloaded_x_y_touch_to_delete" = "Descargado (%1$qu %2$@), apreté para eliminar";
 
 /* Settings/Downloader - country info current download progress */
-"downloading_x_touch_to_cancel" = "Descarga %qu%%, apreté para cancelar";
+"downloading_x_touch_to_cancel" = "Descarga %qu%%, presionar para cancelar";
 
 /* Settings/Downloader - info for country which started downloading */
-"downloading" = "Descarga…";
+"downloading" = "Descargando…";
 
 "get_it_now" = "Instalar";
 
@@ -62,7 +62,7 @@
 "share_on_facebook_text" = "Are you enjoying MapsWithMe? Help your friends and family learn about the app, share it with them on Facebook!";
 
 /* Leave Review dialog title */
-"leave_review_text" = "Si te gusta MapsWithMe, por favor apoyanos a nosotros en escribir una reseña. Si tienes cualquier problema, por favor completa un formulario especial, para que podamos contactar contigo.";
+"leave_review_text" = "Si te gusta MapsWithMe, por favor apóyanos a nosotros en escribir una reseña. Si tienes cualquier problema, por favor completa un formulario especial, para que podamos contactar contigo.";
 
 /* Settings/Downloader - size string */
 "kb" = "kB";
@@ -71,7 +71,7 @@
 "kilometres" = "Kilómetros";
 
 /* Leave Review dialog - Review button */
-"leave_a_review" = "Escribir referencias";
+"leave_a_review" = "Escribir una opinión|comentario";
 
 /* Location purpose text description */
 "location_services_are_needed_desc" = "Los servicios de localización son necesarios para mostrar su posición actual en el mapa.";
@@ -80,7 +80,7 @@
 "maps" = "Mapa";
 
 /* Settings/Downloader - info for country in the download queue */
-"marked_for_downloading" = "Marcado para descarga, apreté para cancelar";
+"marked_for_downloading" = "Marcado para descarga, presionar para cancelar";
 
 /* Settings/Downloader - size string */
 "mb" = "MB";
@@ -89,7 +89,7 @@
 "miles" = "Milla";
 
 /* View and button titles for accessibility */
-"my_position" = "Mi posicion";
+"my_position" = "Mi posición";
 
 /* Settings/Downloader - No internet connection dialog title */
 "no_internet_connection_detected" = "No hay conexión al Internet";
@@ -106,7 +106,7 @@
 "free_disk_space_for_country_x" = "No hay espacio suficiente para realizar la descarga";
 
 /* Leave Review dialog - Not now button (remind me later) */
-"remind_me_later" = "Recordar mas tarde";
+"remind_me_later" = "Recordarme mas tarde";
 
 /* Update maps later/Buy pro version later button text */
 "later" = "Luego";
@@ -115,22 +115,22 @@
 "never" = "Never";
 
 /* Leave Review dialog - Complain button (goes to support site) */
-"report_an_issue" = "Informar de un problema";
+"report_an_issue" = "Reportar un problema";
 
 /* View and button titles for accessibility */
-"search" = "Busca";
+"search" = "Buscar";
 
 /* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "Busca esta accesible solo en versión MapWithMe Pro. ¿Instalar ahora mismo?";
+"search_available_in_pro_version" = "Buscar está accesible solo en la versión MapWithMe Pro. ¿Instalar ahora mismo?";
 
 /* Search box placeholder text */
-"search_map" = "Busca en el mapa";
+"search_map" = "Buscar en el mapa";
 
 /* Settings/Downloader - No free space dialog title */
-"not_enough_disk_space" = "No hay espacio";
+"not_enough_disk_space" = "No hay suficiente espacio libre";
 
 /* Settings/Downloader - info for not downloaded country */
-"touch_to_download" = "Pulse para descargar";
+"touch_to_download" = "Presionar para descargar";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Sí";
@@ -139,7 +139,7 @@
 "use_wifi_recommendation_text" = "Recomendamos usar WiFi para descarga de los países grandes";
 
 /* NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 */
-"new_map_data_format_upgrade_dialog" = "Hemos actualizado los datos de los mapas. Ahora puede seleccionar descargarse solo las regiones que necesites, pero para utilizar los nuevos mapas deberás antes borrar los anteriormente descargados.";
+"new_map_data_format_upgrade_dialog" = "Hemos actualizado los datos de los mapas. Ahora puede seleccionar descargarse solo las regiones que necesites, pero para utilizar los nuevos mapas deberías antes borrar los anteriormente descargados.";
 
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "¿Cual sistema de medición prefieres?";
@@ -151,7 +151,7 @@
 "device_doesnot_support_location_services" = "Su dispositivo no es compatible con los servicios de localización";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Ver el país en el mapa";
+"zoom_to_country" = "Ampliar la vista del país";
 
 /* Search Suggestion */
 "food" = "comer";
@@ -175,7 +175,7 @@
 "country_status_added_to_queue" = "^añadido a la cola\nde descarga";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "Descarga^ (^%)";
+"country_status_downloading" = "Descargando^ (^%)";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Descargar^";
@@ -184,15 +184,15 @@
 "country_status_download_failed" = "Error durante la descarga\n^";
 
 /* Button text for the button under the country_status_download_failed message */
-"try_again" = "Intentarlo otra vez";
+"try_again" = "Intentarla otra vez";
 
 "app_name" = "MapsWithMe";
 
 "about_menu_title" = "Sobre MapsWithMe";
 
-"downloading_touch_to_cancel" = "Descarga %d%%, apreté para cancelar";
+"downloading_touch_to_cancel" = "Descargando %d%%, presionar para cancelar";
 
-"downloaded_touch_to_delete" = "Descargado (%@), apreté para eliminar";
+"downloaded_touch_to_delete" = "Descargado (%@), presionar para eliminar";
 
 "connection_settings" = "Ajustes de conexión";
 
@@ -200,7 +200,7 @@
 
 "close" = "Cerrar";
 
-"unsupported_phone" = "Un hardware aceleró OpenGL se requiere. Desgraciadamente, el dispositivo móvil no es compatible.";
+"unsupported_phone" = "Un acelerador de hardware OpenGL se requiere. Desafortunadamente, su dispositivo móvil no es compatible.";
 
 "download" = "Descargar";
 
@@ -208,7 +208,7 @@
 
 "disconnect_usb_cable" = "Por favor desconectar el cable USB o insertar la memoria SD para usar MapsWithMe";
 
-"not_enough_free_space_on_sdcard" = "Por favor libera espacio en la memoria SD/almacenamiento USB para usar la aplicación";
+"not_enough_free_space_on_sdcard" = "Por favor liberar espacio en la memoria SD/almacenamiento USB para usar la aplicación";
 
 "not_enough_memory" = "No hay suficiente memoria para iniciar la aplicación";
 
@@ -242,7 +242,7 @@
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Continuar";
 
-"downloaded_touch_to_update" = "Descargado (%@), tocar para actualizar o borrar";
+"downloaded_touch_to_update" = "Descargado (%@), presionar para actualizar o borrar";
 
 "update_mb_or_kb" = "Actualizar %@";
 
@@ -262,7 +262,7 @@
 "download_country_failed" = "%@ la descarga ha fallado";
 
 /* Add New Bookmark Set dialog title */
-"add_new_set" = "Agregar una agrupación nueva";
+"add_new_set" = "Agregar un grupo nuevo";
 
 /* Place Page - Add To Bookmarks button */
 "add_to_bookmarks" = "Agregar a marcadores";
@@ -271,10 +271,10 @@
 "bookmark_color" = "Color del marcador";
 
 /* Add Bookmark Set dialog - hint when set name is empty */
-"bookmark_set_name" = "Nombre de la agrupación de marcadores";
+"bookmark_set_name" = "Nombre del grupo de marcadores";
 
 /* Bookmark Sets dialog title */
-"bookmark_sets" = "Agrupación de marcadores";
+"bookmark_sets" = "Grupos de marcadores";
 
 /* Boormarks - dialog title */
 "bookmarks" = "Marcadores";
@@ -298,10 +298,10 @@
 "remove_pin" = "Quitar la etiqueta";
 
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
-"set" = "Agrupación";
+"set" = "Grupo";
 
 /* Text hint in Bookmarks dialog, displayed if it's empty */
-"bookmarks_usage_hint" = "Añadir cualquier lugar en el mapa a favoritos. Para ello, toque un punto en el mapa y mantenga hasta que aparesca el menú contextual.";
+"bookmarks_usage_hint" = "Para añadir a marcadores cualquier lugar en el mapa presionar un punto y mantenerlo hasta que aparezca el menú contextual.";
 
 /* Settings button in system menu */
 "settings" = "Ajustes";
@@ -313,10 +313,10 @@
 "move_maps" = "¿Mover mapas?";
 
 /* Ask to wait user several minutes (some long process in modal dialog). */
-"wait_several_minutes" = "Esto podría llevar algunos minutos.\nPor favor, espera…";
+"wait_several_minutes" = "Esto podría tardar varios minutos.\nPor favor, espera…";
 
 /* Show bookmarks from this category on a map or not */
 "visible" = "Visible";
 
 /* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "En la versión completa de MapsWithMe, está disponible la opción de elegir favoritos. ¿Te lo quieres llevar ya?";
+"bookmarks_in_pro_version" = "La opción de marcadores está disponible en la versión completa de MapsWithMe. ¿La quieres ya?";

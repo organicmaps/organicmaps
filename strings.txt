@@ -7,7 +7,7 @@
     en = Navigate easier with the full version of MapsWithMe featuring offline search. Get it right now!
     comment = Dialog text when paid version become available on the market. Showed only once.
     de = Mehr Möglichkeiten in der vollen Version MapsWithMe mit Offline-Suche. Jetzt herunterladen!
-    es = Mas facil navegar con la version completa MapsWithMe con el buscador offline. Bajalo ya!
+    es = Mas facil navegar con la version completa MapsWithMe con el buscador fuera de la Internet. Bajalo ya!
     fr = Plus de possibilités dans la version complète de MapsWithMe avec la recherche en hors ligne. Télécharger maintenant!
     ja = MapsWithMe完全版ならオフラインサーチでさらにナビゲートが簡単です。今すぐご入手下さい！
     ko = 오프라인 검색 기능의 MapsWithMe의 풀버젼으로 보다 쉽게 검색하세요. 지금 구매하세요!
@@ -79,7 +79,7 @@
     en = Delete old maps and proceed
     comment = Button in iOS Downloader, displayed only when upgrading from v1 to v2
     de = Alte Karten löschen und fortsetzen
-    es = Eliminar todas mapas y seguir
+    es = Eliminar mapas antiguos y seguir
     fr = Effacer les anciennes cartes et continuer
     ja = 古いマップを削除して次へ進む
     ko = 이전의 지도를 삭제하고 진행하기
@@ -174,7 +174,7 @@
     en = Downloading %qu%%, touch to cancel
     comment = Settings/Downloader - country info current download progress
     de = Heruntergeladen %qu%%. Drücken, um abzubrechen
-    es = Descarga %qu%%, apreté para cancelar
+    es = Descarga %qu%%, presionar para cancelar
     fr = Téléchargement en cours %qu%%, touchez pour stopper
     ja = %qu%%をダウンロード中です。キャンセルするにはタッチして下さい。
     ko = %qu%%를 다운로드 중, 두드려 취소하십시요
@@ -186,7 +186,7 @@
     en = Downloading…
     comment = Settings/Downloader - info for country which started downloading
     de = Wird heruntergeladen…
-    es = Descarga…
+    es = Descargando…
     fr = Téléchargement en cours…
     ja = ダウンロード中…
     ko = 다운로드 중…
@@ -217,7 +217,7 @@
     en = If you like MapsWithMe, please support us by writing a review. If you face any issues, please let us know by filling in a special form.
     comment = Leave Review dialog title
     de = Wenn Ihnen MapsWithMe gefällt, unterstützen Sie uns bitte, indem Sie Ihre Meinung hinterlassen. Wenn Sie Probleme bei der Benutzung des Programms haben, melden Sie uns diese bitte, indem Sie das entsprechende Formular ausfüllen.
-    es = Si te gusta MapsWithMe, por favor apoyanos a nosotros en escribir una reseña. Si tienes cualquier problema, por favor completa un formulario especial, para que podamos contactar contigo.
+    es = Si te gusta MapsWithMe, por favor apóyanos a nosotros en escribir una reseña. Si tienes cualquier problema, por favor completa un formulario especial, para que podamos contactar contigo.
     fr = Si Maps With Me vous plait, merci de nous soutenir en donnant votre avis. Si vous rencontrez des problèmes avec ce programme, merci de nous le faire savoir en remplissant le formulaire adéquat.
     ja = MapsWithMeを気に入って頂けた場合には評価をしてサポートして頂きますようお願いします。問題等がありましたら、特定のフォームを使って当社までご報告ください。
     ko = MapsWithMe를 좋아하시면 평을 작성하여 주시기 바랍니다. 안건의 발생의 경우 특정 양식서를 작성하여 주시기 바랍니다.
@@ -247,7 +247,7 @@
     en = Leave a Review
     comment = Leave Review dialog - Review button
     de = Meinung hinterlassen
-    es = Escribir referencias
+    es = Escribir una opinión|comentario
     fr = Donner mon opinion
     ja = 評価する
     ko = 평 남기기
@@ -283,7 +283,7 @@
     en = Marked for downloading, touch to cancel
     comment = Settings/Downloader - info for country in the download queue
     de = Wartet auf Download. Drücken, um abzubrechen
-    es = Marcado para descarga, apreté para cancelar
+    es = Marcado para descarga, presionar para cancelar
     fr = Attendez avant de télécharger, touchez pour annuler
     ja = ダウンロードを始めます。キャンセルするにはタッチして下さい。
     ko = 다운로드로 표시하였습니다. 두드려 취소하십시요.
@@ -312,7 +312,7 @@
     en = My Position
     comment = View and button titles for accessibility
     de = Mein Standort
-    es = Mi posicion
+    es = Mi posición
     fr = Ma position
     ja = 現在地
     ko = 나의 위치
@@ -374,7 +374,7 @@
     en = Remind me later
     comment = Leave Review dialog - Not now button (remind me later)
     de = Errinern Sie mich später
-    es = Recordar mas tarde
+    es = Recordarme mas tarde
     fr = Rappelez moi plus tard
     ja = 後でリマインド
     ko = 이후에 기억시키기
@@ -406,7 +406,7 @@
     en = Report an issue
     comment = Leave Review dialog - Complain button (goes to support site)
     de = Problem melden
-    es = Informar de un problema
+    es = Reportar un problema
     fr = Signalez un problème
     ja = 問題を報告
     ko = 문제 보고하기
@@ -418,7 +418,7 @@
     en = Search
     comment = View and button titles for accessibility
     de = Suche
-    es = Busca
+    es = Buscar
     fr = Recherche
     ja = 検索
     ko = 검색하기
@@ -430,7 +430,7 @@
     en = Search is only available in the Pro version of MapsWithMe. Get it right now!
     comment = Search button pressed dialog title in the free version
     de = Die Suche ist nur in der Pro Version vorhanden. Möchten Sie sie jetzt installieren?
-    es = Busca esta accesible solo en versión MapWithMe Pro. ¿Instalar ahora mismo?
+    es = Buscar está accesible solo en la versión MapWithMe Pro. ¿Instalar ahora mismo?
     fr = Seule la version Pro permet une recherche. Voulez-vous l'installer maintenant?
     ja = サーチ機能はMapsWithMeのプロ版でのみご使用頂けます。今すぐご入手になりますか？
     ko = 검색은 MapsWithMe의 프로 버젼에만 제공됩니다. 지금 받으시겠습니까?
@@ -442,7 +442,7 @@
     en = Search Map
     comment = Search box placeholder text
     de = Auf der Karte suchen
-    es = Busca en el mapa
+    es = Buscar en el mapa
     fr = Rechercher sur la carte
     ja = マップから検索
     ko = 지도 검색하기
@@ -454,7 +454,7 @@
     en = There is not enough free disk space
     comment = Settings/Downloader - No free space dialog title
     de = Kein Speicherplatz vorhanden
-    es = No hay espacio
+    es = No hay suficiente espacio libre
     fr = Le disque est plein
     ja = ディスクに十分な空き領域がありません
     ko = 디스크 공간이 부족합니다.
@@ -466,7 +466,7 @@
     en = Touch to download
     comment = Settings/Downloader - info for not downloaded country
     de = Berühren, um herunterzuladen
-    es = Pulse para descargar
+    es = Presionar para descargar
     fr = Pressez pour télécharger
     ja = タッチしてダウンロード
     ko = 두드려 다운로드하세요
@@ -502,7 +502,7 @@
     en = We've updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.
     comment = NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2
     de = Wir haben die Karten aktualisiert und kleiner gemacht. Für grosse Länder können Sie ausgewälte Regionen einzeln herunterladen. Um die neuen Karten zu benutzen, löschen Sie bitte die alten.
-    es = Hemos actualizado los datos de los mapas. Ahora puede seleccionar descargarse solo las regiones que necesites, pero para utilizar los nuevos mapas deberás antes borrar los anteriormente descargados.
+    es = Hemos actualizado los datos de los mapas. Ahora puede seleccionar descargarse solo las regiones que necesites, pero para utilizar los nuevos mapas deberías antes borrar los anteriormente descargados.
     fr = Nous avons mis à jour les cartes en les réduisant. Vous pouvez maintenant ne télécharger que la région ou le pays qui vous intéresse, cependant pour avoir les nouvelles cartes, il vous faut effacer toutes les anciennes cartes.
     ru = Мы обновили карты и уменьшили их размер. Для больших стран вы сможете выборочно загружать нужные вам штаты или регионы. Однако, чтобы воспользоваться новыми картами, необходимо предварительно удалить старыe.
     uk = Ми оновили карти і зменшили їх розмір. Для великих країн ви зможете вибірково завантажувати потрібні вам штати або регіони. Однак, щоб скористатися новими картами, необхідно попередньо видалити старi.
@@ -548,7 +548,7 @@
     en = Zoom to the country
     comment = View and button titles for accessibility
     de = Das Land auf der Karte anzeigen
-    es = Ver el país en el mapa
+    es = Ampliar la vista del país
     fr = Zoomer sur le pays désiré
     ja = 国へズーム
     ko = 국가로 확대하여 주세요
@@ -643,7 +643,7 @@
     en = Downloading^ (^%)
     comment = Message to display at the center of the screen when the country is downloading
     de = Wird heruntergeladen^ (^%)
-    es = Descarga^ (^%)
+    es = Descargando^ (^%)
     fr = Téléchargement en cours^ (^%)
     ja = ダウンロード中^ (^%)
     ko = 다운로드 중^ (^%)
@@ -681,7 +681,7 @@
     en = Try Again
     comment = Button text for the button under the country_status_download_failed message
     de = Nochmals versuchen
-    es = Intentarlo otra vez
+    es = Intentarla otra vez
     fr = Essayez encore une fois
     ja = 再実行
     ko = 다시 시도
@@ -705,7 +705,7 @@
   [downloading_touch_to_cancel]
     en = Downloading %d%%, touch to cancel
     de = Heruntergeladen %d%%. Berühren, um abzubrechen
-    es = Descarga %d%%, apreté para cancelar
+    es = Descargando %d%%, presionar para cancelar
     fr = Chargement en cours %d%%, toucher pour annuler
     ja = %d%%をダウンロード中です。キャンセルするにはタッチして下さい。
     ko =%d%%를 다운로드 중, 두드려 취소하십시요
@@ -716,7 +716,7 @@
   [downloaded_touch_to_delete]
     en = Downloaded (%@), touch to delete
     de = Heruntergeladen (%@). Berühren, um zu löschen
-    es = Descargado (%@), apreté para eliminar
+    es = Descargado (%@), presionar para eliminar
     fr = Elle est chargée (%@), Appuyer pour effacer
     ja = (%@)をダウンロードしました。削除するにはタッチして下さい。
     ko = (%@)가 다운로드 되었습니다, 두드려 삭제하십시요.
@@ -760,7 +760,7 @@
   [unsupported_phone]
     en = A hardware accelerated OpenGL is required. Unfortunately, your device is not supported.
     de = Das Programm braucht OpenGL um funktionnieren zu können. Leider wird ihr Gerät nicht unterschtüzt.
-    es = Un hardware aceleró OpenGL se requiere. Desgraciadamente, el dispositivo móvil no es compatible.
+    es = Un acelerador de hardware OpenGL se requiere. Desafortunadamente, su dispositivo móvil no es compatible.
     fr = Le programme a besoin d`OpenGL pour travailler. Votre appareil n`est pas appuyé maleuresement.
     ja = ハードウェアアクセラレーションされたOpenGLが必要です。残念ながらご使用のデバイスはサポートされていません。
     ko = 하드웨어 촉진 OpenGL이 요구됩니다. 애석하게도 귀하의 장치는 지원되지 않습니다.
@@ -804,7 +804,7 @@
   [not_enough_free_space_on_sdcard]
     en = Please free some space on SD card/USB storage first in order to use the app
     de = Bitte zuerst Speicherplatz auf SD Karte/USB Speicher freigeben um die Anwendung zu nutzen
-    es = Por favor libera espacio en la memoria SD/almacenamiento USB para usar la aplicación
+    es = Por favor liberar espacio en la memoria SD/almacenamiento USB para usar la aplicación
     fr = L'espace disponible sur l'appareil est insuffisant pour l'utilisation du programme
     ja = アプリを起動する前にSDカード/USBストレージの空き容量を増やしてください
     ko = 응용 프로그램을 사용하기 위해서는 첫째 SD 카드 / USB 저장 장치에 여유 공간을 확보하십시오
@@ -964,7 +964,7 @@
   [downloaded_touch_to_update]
     en = Downloaded (%@), touch to update or delete
     de = Heruntergeladen (%@), berühren zum aktualisieren oder löschen
-    es = Descargado (%@), tocar para actualizar o borrar
+    es = Descargado (%@), presionar para actualizar o borrar
     fr = (%@) est téléchargé, touchez pour renouveler ou effacer
     ja = (%@)をダウンロードしました。タップして更新、削除できます
     ko = 다운로드 (%@), 터치를 업데이 트하거나 삭제하는 방법
@@ -1055,7 +1055,7 @@
     ru = Добавить группу
     de = Neue Gruppe hinzufügen
     uk = Додати групу
-    es = Agregar una agrupación nueva
+    es = Agregar un grupo nuevo
     fr = Ajouter une groupe
     ja = 新しいセットを追加
     ko = 새로운 세트 추가
@@ -1094,7 +1094,7 @@
     ru = Название группы
     de = Name des Lesezeichens
     uk = Назва групи
-    es = Nombre de la agrupación de marcadores
+    es = Nombre del grupo de marcadores
     fr = Nom de la groupe
     ja = ブックマークセット名
     ko = 집합 이름을 즐겨찾기에 추가
@@ -1107,7 +1107,7 @@
     ru = Группы закладок
     de = Lesezeichenmappe
     uk = Групи закладок
-    es = Agrupación de marcadores
+    es = Grupos de marcadores
     fr = Groupes de signets
     ja = ブックマークセット
     ko = 세트를 즐겨찾기에 추가
@@ -1211,7 +1211,7 @@
     ru = Группа
     de = Gruppe
     uk = Група
-    es = Agrupación
+    es = Grupo
     fr = Groupe
     ja = セット
     ko = 집합
@@ -1224,7 +1224,7 @@
     ru = Добавьте в избранное любое место на карте. Для этого нажмите на точку на карте и удерживайте, пока не появится контекстное меню.
     de = Fügen sie einen beliebigen Ort auf der Karte den Lesezeichen hinzu. Berühren sie dazu den Ort auf der Karte bis das Kontextmenü erscheint.
     uk = Додайте будь-яке місце на карті в закладки. Щоб зробити це, натисніть місце на карті і утримувайте, поки з'явиться контекстне меню.
-    es = Añadir cualquier lugar en el mapa a favoritos. Para ello, toque un punto en el mapa y mantenga hasta que aparesca el menú contextual.
+    es = Para añadir a marcadores cualquier lugar en el mapa presionar un punto y mantenerlo hasta que aparezca el menú contextual.
     fr = Ajoutez n'importe quel endroit sur la carte à vos favoris. Pour cela, touchez un point sur la carte et maintenez appuyé jusqu'à ce que le menu contextuel apparaisse.
     ja = 地図上のあらゆる場所をブックマークに追加できます。地図上の場所をタッチして、コンテキストメニューが表示されるまで長押しするだけです。
     ko = 지도상의 어떤 장소든지 즐겨찾기에 추가할 수 있습니다. 이를 위해서는 컨텍스트 메뉴가 나타날 때까지 지도상의 장소를 오래 누르시면 됩니다.
@@ -1276,7 +1276,7 @@
     ru = Это может занять несколько минут.\nПожалуйста, подождите…
     de = Dies kann einige Minuten in Anspruch nehmen.\nBitte warten…
     uk = Це може зайняти кілька хвилин.\nЛаска, зачекайте…
-    es = Esto podría llevar algunos minutos.\nPor favor, espera…
+    es = Esto podría tardar varios minutos.\nPor favor, espera…
     fr = Cela peut prendre plusieurs minutes.\nVeuillez patienter…
     ja = 数分かかる場合があります。\nお待ち下さい…
     ko = 이 작업은 수 분 소요될 수 있습니다.\n잠시 기다리세요…
@@ -1302,7 +1302,7 @@
     ru = Закладки доступны в полной верии MapsWithMe. Скачать ее прямо сейчас?
     de = Lesezeichen stehen in der Vollversion von MapsWithMe zur Verfügung. Jetzt sofort besorgen?
     uk = Закладки доступні у повній версії MapsWithMe. Отримати просто зараз?
-    es = En la versión completa de MapsWithMe, está disponible la opción de elegir favoritos. ¿Te lo quieres llevar ya?
+    es = La opción de marcadores está disponible en la versión completa de MapsWithMe. ¿La quieres ya?
     fr = Les marques-page sont disponibles dans la version complète de MapsWithMe. Se la procurer maintenant?
     ja = ブックマークはMapsWithMeの完全版でご利用いただけます。いますぐ取得されますか？
     ko = MapsWithMe의 정식 버전에서는 즐겨찾기를 이용하실 수 있습니다. 지금 바로 구입하시겠습니까?
