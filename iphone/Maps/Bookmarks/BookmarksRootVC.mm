@@ -75,6 +75,21 @@
   return GetFramework().GetBmCategoriesCount();
 }
 
+-(void)onEyeTapped:(id)sender
+{
+  NSInteger row = ((UITapGestureRecognizer *)sender).view.tag;
+  UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
+  BookmarkCategory * cat = GetFramework().GetBmCategory(row);
+  if (cell && cat)
+  {
+    // Invert visibility
+    bool visible = !cat->IsVisible();
+    cell.imageView.image = [UIImage imageNamed:(visible ? @"eye" : @"empty")];
+    cat->SetVisible(visible);
+    cat->SaveToKMLFile();
+  }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarksRootVCSetCell"];
@@ -82,9 +97,16 @@
   {
     cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarksRootVCSetCell"] autorelease];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    // Add "Eye" icon click handler to switch visibility
+    cell.imageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer * tapped = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onEyeTapped:)] autorelease];
+    tapped.numberOfTapsRequired = 1;
+    [cell.imageView addGestureRecognizer:tapped];
   }
+  // To detect which row was tapped when user clicked on image
+  cell.imageView.tag = indexPath.row;
 
-  BookmarkCategory * cat = GetFramework().GetBmCategory(indexPath.row);
+  BookmarkCategory const * cat = GetFramework().GetBmCategory(indexPath.row);
   if (cat)
   {
     cell.textLabel.text = [NSString stringWithUTF8String:cat->GetName().c_str()];
