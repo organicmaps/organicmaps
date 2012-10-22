@@ -188,12 +188,12 @@ Framework::Framework()
     m_benchmarkEngine = new BenchmarkEngine(this);
 
   // Init strings bundle.
-  m_stringsBundle.SetDefaultString("country_status_added_to_queue", "^is added to the\ndownloading queue.");
-  m_stringsBundle.SetDefaultString("country_status_downloading", "Downloading^(^%)");
+  m_stringsBundle.SetDefaultString("country_status_added_to_queue", "^is added to the downloading queue");
+  m_stringsBundle.SetDefaultString("country_status_downloading", "Downloading^^%");
   m_stringsBundle.SetDefaultString("country_status_download", "Download^");
-  m_stringsBundle.SetDefaultString("country_status_download_failed", "Downloading^\nhas failed");
+  m_stringsBundle.SetDefaultString("country_status_download_failed", "Downloading^has failed");
   m_stringsBundle.SetDefaultString("try_again", "Try Again");
-  m_stringsBundle.SetDefaultString("not_enough_free_space_on_sdcard", "Not enough space\nfor downloading");
+  m_stringsBundle.SetDefaultString("not_enough_free_space_on_sdcard", "Not enough space for downloading");
 
   m_animController.reset(new anim::Controller());
 

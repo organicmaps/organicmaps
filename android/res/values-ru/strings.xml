@@ -111,13 +111,13 @@
 	<!-- Search Suggestion -->
 	<string name="tourism">достопримечательность</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^добавлено в очередь\nзагрузки.</string>
+	<string name="country_status_added_to_queue">^добавлено в очередь загрузки.</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">Загружается^ (^%)</string>
+	<string name="country_status_downloading">Загружается^^%</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Загрузить^</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">Ошибка загрузки\n^</string>
+	<string name="country_status_download_failed">Ошибка загрузки^</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Попробуйте еще раз</string>
 	<string name="about_menu_title">О программе</string>

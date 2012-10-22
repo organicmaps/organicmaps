@@ -23,18 +23,25 @@ string const CountryStatusDisplay::displayName() const
 template <class T1, class T2>
 void CountryStatusDisplay::SetStatusMessage(string const & msgID, T1 const * t1, T2 const * t2)
 {
-  m_statusMsg->setIsVisible(true);
-  setIsVisible(m_statusMsg->isVisible() || m_downloadButton->isVisible());
-
   string msg = m_controller->GetStringsBundle()->GetString(msgID);
   if (t1)
   {
     if (t2)
       msg = strings::Format(msg, *t1, *t2);
     else
+    {
       msg = strings::Format(msg, *t1);
+
+      size_t const count = msg.size();
+      if (count > 0)
+      {
+        if (msg[count-1] == '\n')
+          msg.erase(count-1, 1);
+      }
+    }
   }
 
+  m_statusMsg->setIsVisible(true);
   m_statusMsg->setText(msg);
 }
 
@@ -45,42 +52,24 @@ void CountryStatusDisplay::cache()
   setIsVisible(false);
   setIsDirtyRect(true);
 
-  string dn = displayName();
-  strings::UniString udn(strings::MakeUniString(dn));
-
-  string prefixedName;
-  string postfixedName;
-
-  if (udn.size() > 13)
-  {
-    if (strings::MakeUniString(m_mapName).size() > 13)
-    {
-      dn = m_mapName;
-      if (!m_mapGroupName.empty())
-        dn = dn + "\n"+ "(" + m_mapGroupName + ")";
-    }
-
-    prefixedName = "\n" + dn;
-    postfixedName = dn + "\n";
-  }
-  else
-  {
-    prefixedName = " " + dn;
-    postfixedName = dn + " ";
-  }
+  string const dn = displayName();
 
   if (m_countryIdx != storage::TIndex())
   {
     switch (m_countryStatus)
     {
     case storage::EInQueue:
-      SetStatusMessage<string, int>("country_status_added_to_queue", &postfixedName);
+    {
+      string const s = dn + "\n";
+      SetStatusMessage<string, int>("country_status_added_to_queue", &s);
       break;
+    }
 
     case storage::EDownloading:
     {
-      int percent = m_countryProgress.first * 100 / m_countryProgress.second;
-      SetStatusMessage<string, int>("country_status_downloading", &prefixedName, &percent);
+      int const percent = m_countryProgress.first * 100 / m_countryProgress.second;
+      string const s = "\n" + dn + "\n";
+      SetStatusMessage<string, int>("country_status_downloading", &s, &percent);
       break;
     }
 
@@ -91,18 +80,21 @@ void CountryStatusDisplay::cache()
       {
         m_downloadButton->setIsVisible(true);
         string const msg = m_controller->GetStringsBundle()->GetString("country_status_download");
-        m_downloadButton->setText(strings::Format(msg, prefixedName));
+        m_downloadButton->setText(strings::Format(msg, "\n" + dn));
       }
       break;
 
     case storage::EDownloadFailed:
+    {
       m_downloadButton->setIsVisible(true);
       m_downloadButton->setText(m_controller->GetStringsBundle()->GetString("try_again"));
 
-      SetStatusMessage<string, int>("country_status_download_failed", &prefixedName);
+      string const s = "\n" + dn + "\n";
+      SetStatusMessage<string, int>("country_status_download_failed", &s);
 
       setPivot(pivot());
       break;
+    }
 
     default:
       return;
@@ -111,7 +103,8 @@ void CountryStatusDisplay::cache()
 
   setIsVisible(m_statusMsg->isVisible() || m_downloadButton->isVisible());
 
-  // element bound rect is possibly changed
+  // Element bound rect is possibly changed,
+  // however it's called in the beginning of the function.
   setIsDirtyRect(true);
 }
 

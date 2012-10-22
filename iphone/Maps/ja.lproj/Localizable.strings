@@ -172,16 +172,16 @@
 "tourism" = "観光";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^をダウンロードキューに\n追加しました";
+"country_status_added_to_queue" = "^をダウンロードキューに追加しました";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "ダウンロード中^ (^%)";
+"country_status_downloading" = "ダウンロード中^^%";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "ダウンロード^";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "ダウンロードに失敗しました\n^";
+"country_status_download_failed" = "ダウンロードに失敗しました^";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "再実行";

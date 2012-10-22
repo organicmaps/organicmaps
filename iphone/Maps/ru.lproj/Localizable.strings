@@ -172,16 +172,16 @@
 "tourism" = "достопримечательность";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^добавлено в очередь\nзагрузки.";
+"country_status_added_to_queue" = "^добавлено в очередь загрузки.";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "Загружается^ (^%)";
+"country_status_downloading" = "Загружается^^%";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Загрузить^";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Ошибка загрузки\n^";
+"country_status_download_failed" = "Ошибка загрузки^";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Попробуйте еще раз";

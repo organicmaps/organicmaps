@@ -99,13 +99,13 @@
 	<!-- Search Suggestion -->
 	<string name="tourism">curiosités</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^ajouté à son tour\nde télécharger</string>
+	<string name="country_status_added_to_queue">^ajouté à son tour de télécharger</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">Téléchargement en cours^ (^%)</string>
+	<string name="country_status_downloading">Téléchargement en cours^^%</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Charger^</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">Erreur de téléchargement\n^</string>
+	<string name="country_status_download_failed">Erreur de téléchargement^</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Essayez encore une fois</string>
 	<string name="about_menu_title">Au sujet des cartes</string>

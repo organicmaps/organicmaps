@@ -172,16 +172,16 @@
 "tourism" = "toerisme";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^is toegevoegd aan de\ndownload wachtrij";
+"country_status_added_to_queue" = "^is toegevoegd aan de download wachtrij";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "aan het downloaden^ (^%)";
+"country_status_downloading" = "aan het downloaden^^%";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Download^";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Downloaden^\nis niet gelukt";
+"country_status_download_failed" = "Downloaden^is niet gelukt";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Probeer opnieuw";

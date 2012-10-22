@@ -103,13 +103,13 @@
 	<!-- Search Suggestion -->
 	<string name="tourism">pamětihodnosti</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^přidáno do\nfronty stahování.</string>
+	<string name="country_status_added_to_queue">^přidáno do fronty stahování.</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">Stahuji^ (^%)</string>
+	<string name="country_status_downloading">Stahuji^^%</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Stáhnout^</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">Stahování^\nselhalo</string>
+	<string name="country_status_download_failed">Stahování^selhalo</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Opakuj akci</string>
 	<string name="about_menu_title">O aplikaci MapsWithMe</string>

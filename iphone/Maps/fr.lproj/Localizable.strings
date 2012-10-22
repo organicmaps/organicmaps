@@ -172,16 +172,16 @@
 "tourism" = "curiosités";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^ajouté à son tour\nde télécharger";
+"country_status_added_to_queue" = "^ajouté à son tour de télécharger";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "Téléchargement en cours^ (^%)";
+"country_status_downloading" = "Téléchargement en cours^^%";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Charger^";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Erreur de téléchargement\n^";
+"country_status_download_failed" = "Erreur de téléchargement^";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Essayez encore une fois";
