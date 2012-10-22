@@ -1,5 +1,5 @@
 APP_PLATFORM := android-5
-APP_ABI := armeabi armeabi-v7a mips
+APP_ABI := armeabi armeabi-v7a mips x86
 APP_STL := gnustl_static
 LOCAL_PATH := $(call my-dir)
 APP_CFLAGS += -I$(LOCAL_PATH)/../../3party/boost
