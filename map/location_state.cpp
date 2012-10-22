@@ -44,7 +44,6 @@ namespace location
   {
     m_drawHeading = m_compassFilter.GetHeadingRad();
     m_locationAreaColor = p.m_locationAreaColor;
-    m_locationBorderColor = p.m_locationBorderColor;
     m_compassAreaColor = p.m_compassAreaColor;
     m_compassBorderColor = p.m_compassBorderColor;
     m_useDirectionArrow = p.m_useDirectionArrow;
@@ -52,15 +51,15 @@ namespace location
 
     /// @todo Probably we can make this like static const int.
     /// It's not a class state, so no need to store it in memory.
-    m_arrowScale = 0.7;
+    m_arrowScale = 0.6;
     m_arrowWidth = 40 * m_arrowScale;
     m_arrowHeight = 50 * m_arrowScale;
-    m_arrowBackHeight = 10 * m_arrowScale;
+    m_arrowBackHeight = 11 * m_arrowScale;
 
     m_boundRects.resize(1);
 
-    setColor(EActive, yg::Color(0x2f, 0xb5, 0xea, 128));
-    setColor(EPressed, yg::Color(0x1f, 0x22, 0x59, 128));
+    setColor(EActive, yg::Color(65, 136, 210, 255));
+    setColor(EPressed, yg::Color(102, 163, 210, 255));
     setState(EActive);
     setIsVisible(false);
   }
@@ -229,21 +228,21 @@ namespace location
 
     double k = m_controller->GetVisualScale();
 
-    m2::PointD ptsD[5] =
+    m2::PointD ptsD[] =
     {
       m2::PointD(0, 0),
       m2::PointD(-(m_arrowWidth * k) / 2, (m_arrowBackHeight * k)),
       m2::PointD(0, -m_arrowHeight * k + m_arrowBackHeight * k),
       m2::PointD((m_arrowWidth * k) / 2, m_arrowBackHeight * k),
-      m2::PointD(0, 0)
+      m2::PointD(0, 0),
+      m2::PointD(0, -m_arrowHeight * k + m_arrowBackHeight * k),
     };
 
-    yg::Color borderColor = m_locationAreaColor;
-    borderColor.a = 255;
+    yg::Color const borderColor = color(state);
 
     uint32_t penStyle = skin->mapPenInfo(yg::PenInfo(borderColor, 1 * k, 0, 0, 0));
 
-    cacheScreen->drawPath(ptsD, 5, 0, penStyle, depth());
+    cacheScreen->drawPath(ptsD, ARRAY_SIZE(ptsD), 0, penStyle, depth());
 
     cacheScreen->setDisplayList(0);
     cacheScreen->endFrame();
@@ -263,22 +262,27 @@ namespace location
 
     double k = m_controller->GetVisualScale();
 
-    m2::PointF pts[4] =
+    m2::PointD pts[4] =
     {
-      m2::PointF(0, 0),
-      m2::PointF(-(m_arrowWidth * k) / 2, (m_arrowBackHeight * k)),
-      m2::PointF(0, -m_arrowHeight * k + m_arrowBackHeight * k),
-      m2::PointF((m_arrowWidth * k) / 2, m_arrowBackHeight * k),
+      m2::PointD(-(m_arrowWidth * k) / 2, (m_arrowBackHeight * k)),
+      m2::PointD(0, 0),
+      m2::PointD(0, -m_arrowHeight * k + m_arrowBackHeight * k),
+      m2::PointD((m_arrowWidth * k) / 2, m_arrowBackHeight * k),
     };
 
     shared_ptr<yg::Skin> const & skin = cacheScreen->skin();
 
-    uint32_t colorStyle = skin->mapColor(color(state));
-
-    cacheScreen->drawTrianglesFan(pts, 4,
-                                  colorStyle,
-                                  depth());
-
+    yg::Color const baseColor = color(state);
+    yg::Color const lightColor = yg::Color(min(255, (baseColor.r * 5) >> 2),
+                                           min(255, (baseColor.g * 5) >> 2),
+                                           min(255, (baseColor.b * 5) >> 2),
+                                           baseColor.a);
+    cacheScreen->drawTrianglesList(&pts[0], 3,
+                                   skin->mapColor(baseColor),
+                                   depth());
+    cacheScreen->drawTrianglesList(&pts[1], 3,
+                                   skin->mapColor(lightColor),
+                                   depth());
 
     cacheScreen->setDisplayList(0);
     cacheScreen->endFrame();

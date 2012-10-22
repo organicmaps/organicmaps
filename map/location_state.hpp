@@ -75,7 +75,6 @@ namespace location
     typedef gui::Element base_t;
 
     yg::Color m_locationAreaColor;
-    yg::Color m_locationBorderColor;
 
     yg::Color m_compassAreaColor;
     yg::Color m_compassBorderColor;
@@ -123,7 +122,6 @@ namespace location
     struct Params : base_t::Params
     {
       yg::Color m_locationAreaColor;
-      yg::Color m_locationBorderColor;
       yg::Color m_compassAreaColor;
       yg::Color m_compassBorderColor;
       bool m_useDirectionArrow;
