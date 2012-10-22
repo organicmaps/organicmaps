@@ -12,7 +12,7 @@ extern "C"
 {
 /// fix for stack unwinding problem during exception handling on Android 2.1
 /// http://code.google.com/p/android/issues/detail?id=20176
-#ifndef __mips__
+#ifdef __arm__
 
   typedef long unsigned int *_Unwind_Ptr;
 
@@ -27,18 +27,18 @@ extern "C"
 
   static void* g_func_ptr;
 
-#endif // __mips__
+#endif // __arm__
 
   JNIEXPORT jint JNICALL
   JNI_OnLoad(JavaVM * jvm, void *)
   {
 /// fix for stack unwinding problem during exception handling on Android 2.1
 /// http://code.google.com/p/android/issues/detail?id=20176
-#ifndef __mips__
+#ifdef __arm__
     // when i throw exception, linker maybe can't find __gnu_Unwind_Find_exidx(lazy binding issue??)
     // so I force to bind this symbol at shared object load time
     g_func_ptr = (void*)__gnu_Unwind_Find_exidx;
-#endif // __mips__
+#endif // __arm__
 
     g_jvm = jvm;
     jni::InitSystemLog();

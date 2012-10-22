@@ -10,6 +10,14 @@ LOCAL_CFLAGS := -ffunction-sections -fdata-sections
 
 TARGET_PLATFORM := android-5
 
+ifeq ($(TARGET_ARCH_ABI), mips)
+  TARGET_PLATFORM := android-9
+else
+  ifeq ($(TARGET_ARCH_ABI), x86)
+    TARGET_PLATFORM := android-9
+  endif
+endif
+
 LOCAL_HEADER_FILES := \
  	com/mapswithme/core/jni_helper.hpp \
 	com/mapswithme/core/logging.hpp \
