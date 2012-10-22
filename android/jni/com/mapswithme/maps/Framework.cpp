@@ -176,11 +176,9 @@ namespace android
 
   void Framework::ShowCountry(storage::TIndex const & idx)
   {
-    m2::RectD const r = m_work.GetCountryBounds(idx);
-
     m_doLoadState = false;
 
-    m_work.ShowRect(r);
+    m_work.ShowCountry(idx);
   }
 
   storage::TStatus Framework::GetCountryStatus(storage::TIndex const & idx) const

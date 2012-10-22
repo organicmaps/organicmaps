@@ -122,9 +122,8 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   storage::TStatus const status = frm.GetCountryStatus(index);
   if (status == EOnDisk || status == EOnDiskOutOfDate)
   {
-    m2::RectD const bounds = frm.GetCountryBounds(index);
+    frm.ShowCountry(index);
 
-    GetFramework().ShowRect(bounds);
     [[[MapsAppDelegate theApp] settingsManager] hide];
   }
 }

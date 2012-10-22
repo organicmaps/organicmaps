@@ -180,6 +180,8 @@ public:
   /// @param[in] file Pass country file name without extension as an id.
   m2::RectD GetCountryBounds(string const & file) const;
   m2::RectD GetCountryBounds(storage::TIndex const & index) const;
+
+  void ShowCountry(storage::TIndex const & index);
   //@}
 
   /// Scans and loads all kml files with bookmarks in WritableDir

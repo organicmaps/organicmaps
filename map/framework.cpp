@@ -313,6 +313,13 @@ m2::RectD Framework::GetCountryBounds(TIndex const & index) const
   return GetCountryBounds(m_storage.CountryByIndex(index).GetFile().m_fileName);
 }
 
+void Framework::ShowCountry(storage::TIndex const & index)
+{
+  StopLocationFollow();
+
+  ShowRectEx(GetCountryBounds(index));
+}
+
 void Framework::UpdateAfterDownload(string const & file)
 {
   m2::RectD rect;
