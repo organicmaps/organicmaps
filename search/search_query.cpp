@@ -249,11 +249,14 @@ void Query::UpdateViewportOffsets(MWMVectorT const & mwmInfo, m2::RectD const & 
 #endif
 }
 
-void Query::InitSearch()
+void Query::Init()
 {
   m_cancel = false;
+
   m_tokens.clear();
   m_prefix.clear();
+
+  ClearQueues();
 }
 
 void Query::ClearQueues()
@@ -262,10 +265,8 @@ void Query::ClearQueues()
     m_results[i].clear();
 }
 
-void Query::Search(string const & query, Results & res)
+void Query::SetQuery(string const & query)
 {
-  InitSearch();
-
   // split input query by tokens and prefix
   search::Delimiters delims;
   SplitUniString(NormalizeAndSimplifyString(query), MakeBackInsertFunctor(m_tokens), delims);
@@ -282,18 +283,21 @@ void Query::Search(string const & query, Results & res)
 
   // assign tokens and prefix to scorer
   m_keywordsScorer.SetKeywords(m_tokens.data(), m_tokens.size(), &m_prefix);
+}
 
-  ClearQueues();
-
-  // Match (lat, lon).
+void Query::SearchCoordinates(string const & query, Results & res) const
+{
+  double lat, lon, latPrec, lonPrec;
+  if (search::MatchLatLon(query, lat, lon, latPrec, lonPrec))
   {
-    double lat, lon, latPrec, lonPrec;
-    if (search::MatchLatLon(query, lat, lon, latPrec, lonPrec))
-    {
-      //double const precision = 5.0 * max(0.0001, min(latPrec, lonPrec));  // Min 55 meters
-      res.AddResult(MakeResult(impl::PreResult2(GetViewport(), m_position, lat, lon)));
-    }
+    //double const precision = 5.0 * max(0.0001, min(latPrec, lonPrec));  // Min 55 meters
+    res.AddResult(MakeResult(impl::PreResult2(GetViewport(), m_position, lat, lon)));
   }
+}
+
+void Query::Search(Results & res)
+{
+  ClearQueues();
 
   if (m_cancel) return;
   SuggestStrings(res);
@@ -847,7 +851,7 @@ namespace
 void Query::Params::ProcessAddressTokens()
 {
   // 1. Do simple stuff - erase all number tokens.
-  // Assume that USA street name numbers endswith "st, nd, rd, th" suffixes.
+  // Assume that USA street name numbers are end with "st, nd, rd, th" suffixes.
 
   vector<size_t> toErase;
   ForEachToken(DoStoreNumbers(toErase));
@@ -1219,15 +1223,15 @@ namespace impl
 
     bool GetBestLocality(Locality & res)
     {
-      LOG(LDEBUG, ("Countries before processing = ", m_localities[1]));
-      LOG(LDEBUG, ("States before processing = ", m_localities[0]));
+      //LOG(LDEBUG, ("Countries before processing = ", m_localities[1]));
+      //LOG(LDEBUG, ("States before processing = ", m_localities[0]));
 
       // First, prepare countries info for checking locality.
       vector<Region> regions;
       AddRegions(1, regions);
       AddRegions(0, regions);
 
-      LOG(LDEBUG, ("Regions after processing = ", regions));
+      //LOG(LDEBUG, ("Regions after processing = ", regions));
 
       // Get suitable locality.
       vector<Locality> & arr = m_localities[2];
@@ -1481,10 +1485,9 @@ void Query::SearchInMWM(Index::MwmLock const & mwmLock, Params const & params, i
                               TrieRootPrefix(*pLangRoot, edge),
                               filter, categoriesHolder, emitter);
 
-          LOG(LDEBUG, ("Lang:",
-                       StringUtf8Multilang::GetLangByCode(static_cast<int8_t>(edge[0])),
-                       "Matched: ",
-                       emitter.GetCount()));
+          LOG(LDEBUG, ("Country", pMwm->m_name,
+                       "Lang", StringUtf8Multilang::GetLangByCode(static_cast<int8_t>(edge[0])),
+                       "Matched", emitter.GetCount()));
 
           emitter.Reset();
         }
@@ -1584,8 +1587,6 @@ void Query::SearchAllInViewport(m2::RectD const & viewport, Results & res, unsig
     UpdateViewportOffsets(mwmInfo, viewport, offsets);
   }
 
-  InitSearch();
-
   vector<shared_ptr<impl::PreResult2> > indV;
 
   impl::PreResult2Maker maker(*this);
@@ -1624,6 +1625,8 @@ void Query::SearchAllInViewport(m2::RectD const & viewport, Results & res, unsig
 
 void Query::SearchAdditional(Results & res)
 {
+  ClearQueues();
+
   string name[2];
 
   // search in mwm with position ...
@@ -1648,10 +1651,7 @@ void Query::SearchAdditional(Results & res)
       string const s = mwmLock.GetCountryName();
 
       if (s == name[0] || s == name[1])
-      {
-        ClearQueues();
         SearchInMWM(mwmLock, params);
-      }
     }
 
     FlushResults(res, &Results::AddResultCheckExisting);

@@ -220,6 +220,8 @@ void Engine::SearchAsync()
   }
 
   // Initialize query.
+  m_pQuery->Init();
+
   bool worldSearch = true;
   if (params.m_validPos)
   {
@@ -244,14 +246,19 @@ void Engine::SearchAsync()
   if (params.IsLanguageValid())
     m_pQuery->SetInputLanguage(params.m_inputLanguageCode);
 
+  m_pQuery->SetQuery(params.m_query);
+  bool const emptyQuery = m_pQuery->IsEmptyQuery();
+
   Results res;
 
   // Call m_pQuery->IsCanceled() everywhere it needed without storing return value.
   // This flag can be changed from another thread.
 
+  m_pQuery->SearchCoordinates(params.m_query, res);
+
   try
   {
-    if (params.m_query.empty())
+    if (emptyQuery)
     {
       // Search for empty query only around viewport.
       if (params.m_validPos)
@@ -260,7 +267,8 @@ void Engine::SearchAsync()
         for (size_t i = 0; i < ARRAY_SIZE(arrR); ++i)
         {
           res.Clear();
-          m_pQuery->SearchAllInViewport(GetViewportRect(params.m_lat, params.m_lon, arrR[i]), res, 3*RESULTS_COUNT);
+          m_pQuery->SearchAllInViewport(GetViewportRect(params.m_lat, params.m_lon, arrR[i]),
+                                        res, 3*RESULTS_COUNT);
 
           if (m_pQuery->IsCanceled() || res.GetCount() >= 2*RESULTS_COUNT)
             break;
@@ -268,7 +276,7 @@ void Engine::SearchAsync()
       }
     }
     else
-      m_pQuery->Search(params.m_query, res);
+      m_pQuery->Search(res);
   }
   catch (Query::CancelException const &)
   {
@@ -280,7 +288,7 @@ void Engine::SearchAsync()
     params.m_callback(res);
 
   // Make additional search in whole mwm when not enough results (only for non-empty query).
-  if (!params.m_query.empty() && !m_pQuery->IsCanceled() && count < RESULTS_COUNT)
+  if (!emptyQuery && !m_pQuery->IsCanceled() && count < RESULTS_COUNT)
   {
     try
     {

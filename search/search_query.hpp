@@ -63,6 +63,8 @@ public:
         size_t resultsNeeded = 10);
   ~Query();
 
+  void Init();
+
   void SetViewport(m2::RectD viewport[], size_t count);
 
   static const int empty_pos_value = -1000;
@@ -75,9 +77,16 @@ public:
   void SetInputLanguage(int8_t lang);
   int8_t GetPrefferedLanguage() const;
 
-  void Search(string const & query, Results & res);
+  void SetQuery(string const & query);
+  inline bool IsEmptyQuery() const { return (m_prefix.empty() && m_tokens.empty()); }
+
+  /// @name Different search functions.
+  //@{
+  void SearchCoordinates(string const & query, Results & res) const;
+  void Search(Results & res);
   void SearchAllInViewport(m2::RectD const & viewport, Results & res, unsigned int resultsNeeded = 30);
   void SearchAdditional(Results & res);
+  //@}
 
   void ClearCaches();
 
@@ -85,6 +94,9 @@ public:
   inline bool IsCanceled() const { return m_cancel; }
   struct CancelException {};
 
+  /// @name This stuff is public for implementation classes in search_query.cpp
+  /// Do not use it in client code.
+  //@{
   typedef trie::ValueReader::ValueType TrieValueT;
 
   struct Params
@@ -114,6 +126,7 @@ public:
 
     void FillLanguages(Query const & q);
   };
+  //@}
 
 private:
   friend class impl::FeatureLoader;
@@ -121,7 +134,6 @@ private:
   friend class impl::PreResult2Maker;
   friend class impl::DoFindLocality;
 
-  void InitSearch();
   void ClearQueues();
 
   typedef vector<MwmInfo> MWMVectorT;
