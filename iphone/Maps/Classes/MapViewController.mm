@@ -445,11 +445,16 @@ NSInteger compareAddress(id l, id r, void * context)
   {
     // Cancel long-touch timer
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    if (tapCount == 1)
+    
+    // TapCount could be zero if it was a single long (or moving) tap.
+    if (tapCount < 2)
     {
       if (f.GetGuiController()->OnTapEnded(m_Pt1))
         return;
+    }
 
+    if (tapCount == 1)
+    {
       // Launch single tap timer
       if (m_isSticking)
         [self performSelector:@selector(onSingleTap:) withObject:[NSValue valueWithCGPoint:[theTouch locationInView:self.view]] afterDelay:0.3];

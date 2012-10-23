@@ -64,13 +64,16 @@ namespace gui
   {
     if (m_focusedElement)
     {
-      if (!m_focusedElement->hitTest(pt))
+      if (!m_LastTapCancelled)
       {
-        m_focusedElement->onTapCancelled(pt);
-        m_LastTapCancelled = true;
+        if (!m_focusedElement->hitTest(pt))
+        {
+          m_focusedElement->onTapCancelled(pt);
+          m_LastTapCancelled = true;
+        }
+        else
+          m_focusedElement->onTapMoved(pt);
       }
-      else
-        m_focusedElement->onTapMoved(pt);
 
       /// event handled
       return true;
@@ -84,14 +87,16 @@ namespace gui
     if (m_focusedElement)
     {
       // re-checking, whether we are above the gui element.
-      if (!m_focusedElement->hitTest(pt))
-      {
-        m_focusedElement->onTapCancelled(pt);
-        m_LastTapCancelled = true;
-      }
-
       if (!m_LastTapCancelled)
-        m_focusedElement->onTapEnded(pt);
+      {
+        if (!m_focusedElement->hitTest(pt))
+        {
+          m_focusedElement->onTapCancelled(pt);
+          m_LastTapCancelled = true;
+        }
+        else
+          m_focusedElement->onTapEnded(pt);
+      }
 
       m_focusedElement.reset();
       m_LastTapCancelled = false;
