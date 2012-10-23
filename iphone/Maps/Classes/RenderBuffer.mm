@@ -13,9 +13,7 @@ namespace iphone
 		OGLCHECK(glGenRenderbuffersOES(1, &m_id));
 		makeCurrent();
 
-    BOOL res;
-   
-    res = [m_renderContext->getEAGLContext() renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:layer];
+    BOOL res = [m_renderContext->getEAGLContext() renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:layer];
 
     if (res == NO)
       LOG(LINFO, ("renderbufferStorage:fromDrawable has failed!"));

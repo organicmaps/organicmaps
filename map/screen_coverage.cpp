@@ -254,7 +254,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
   int cacheDepthes[] = {0, 1, 2};
 #endif
 
-  m_tiler.tiles(allRects, cacheDepthes, sizeof(cacheDepthes) / sizeof(int));
+  m_tiler.tiles(allRects, cacheDepthes, ARRAY_SIZE(cacheDepthes));
 
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
 
@@ -355,7 +355,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen)
 #endif
 
     if ((nr.m_tileScale == m_tiler.tileScale() - step)
-      ||(nr.m_tileScale == m_tiler.tileScale() ))
+     || (nr.m_tileScale == m_tiler.tileScale() ))
       firstClassTiles.push_back(nr);
     else
       secondClassTiles.push_back(nr);
