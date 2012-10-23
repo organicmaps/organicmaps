@@ -266,19 +266,22 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     }
     else
     {
-      // Check if we need to start compass following.
-      if (state.hasCompass())
+      if (mApplication.isProVersion())
       {
-        if (state.getCompassProcessMode() != LocationState.COMPASS_FOLLOW)
+        // Check if we need to start compass following.
+        if (state.hasCompass())
         {
-          state.startCompassFollowing();
+          if (state.getCompassProcessMode() != LocationState.COMPASS_FOLLOW)
+          {
+            state.startCompassFollowing();
 
-          v.setBackgroundResource(R.drawable.myposition_button_follow);
-          v.setSelected(true);
-          return;
+            v.setBackgroundResource(R.drawable.myposition_button_follow);
+            v.setSelected(true);
+            return;
+          }
+          else
+            state.stopCompassFollowing();
         }
-        else
-          state.stopCompassFollowing();
       }
     }
 
