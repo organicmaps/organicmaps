@@ -250,16 +250,23 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     if (!state.hasPosition())
     {
-      // first set the button state to "searching" ...
-      v.setBackgroundResource(R.drawable.myposition_button_normal);
-      v.setSelected(true);
+      if (!state.isFirstPosition())
+      {
+        // If first time pressed - start location observing:
 
-      // ... and then startLocation, as there could be my_position button
-      // state changes in the startLocation.
-      startLocation();
+        // Set the button state to "searching" first ...
+        v.setBackgroundResource(R.drawable.myposition_button_normal);
+        v.setSelected(true);
+
+        // ... and then call startLocation, as there could be my_position button
+        // state changes in the startLocation.
+        startLocation();
+        return;
+      }
     }
     else
     {
+      // Check if we need to start compass following.
       if (state.hasCompass())
       {
         if (state.getCompassProcessMode() != LocationState.COMPASS_FOLLOW)
@@ -273,14 +280,16 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         else
           state.stopCompassFollowing();
       }
-
-      // first stop location observing ...
-      stopLocation();
-
-      // ... and then set button state to default
-      v.setBackgroundResource(R.drawable.myposition_button_normal);
-      v.setSelected(false);
     }
+
+    // Turn off location search:
+
+    // Stop location observing first ...
+    stopLocation();
+
+    // ... and then set button state to default.
+    v.setBackgroundResource(R.drawable.myposition_button_normal);
+    v.setSelected(false);
   }
 
   private void checkProVersionAvailable()
