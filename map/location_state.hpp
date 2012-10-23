@@ -101,7 +101,6 @@ namespace location
     void purge();
     void update();
 
-    bool m_useDirectionArrow;
     mutable vector<m2::AnyRectD> m_boundRects;
     m2::RectD m_boundRect;
 
@@ -124,7 +123,6 @@ namespace location
       yg::Color m_locationAreaColor;
       yg::Color m_compassAreaColor;
       yg::Color m_compassBorderColor;
-      bool m_useDirectionArrow;
       Framework * m_framework;
       Params();
     };

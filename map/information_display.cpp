@@ -73,9 +73,6 @@ InformationDisplay::InformationDisplay(Framework * framework)
   lsp.m_compassBorderColor = yg::Color(255, 255, 255, 96);
   lsp.m_locationAreaColor =   yg::Color(11, 97, 210, 48);
   lsp.m_framework = framework;
-#ifdef OMIM_OS_IPHONE
-  lsp.m_useDirectionArrow = false;
-#endif
 
   m_locationState.reset(new location::State(lsp));
 
