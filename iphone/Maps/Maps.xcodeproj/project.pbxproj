@@ -54,6 +54,7 @@
 		EEFE7C1512F8C9E1006AF8C3 /* fonts_whitelist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */; };
 		EEFFB4E815DCDD8A00BACE1C /* libanim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEFFB4E715DCDD8A00BACE1C /* libanim.a */; };
 		EEFFB4E915DCDD8A00BACE1C /* libanim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEFFB4E715DCDD8A00BACE1C /* libanim.a */; };
+		F7264B8C16388E0B00A8E6C0 /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA2B12D4166E00968C36 /* countries.txt */; };
 		F785EAAF163852FA003A38A8 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = FAB2D50C15DAB53F00C706C3 /* arrow.png */; };
 		F785EAB1163852FF003A38A8 /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAB2D50D15DAB53F00C706C3 /* arrow@2x.png */; };
 		F785EAB21638530A003A38A8 /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = FAB2D50E15DAB53F00C706C3 /* left.png */; };
@@ -137,7 +138,6 @@
 		FA459EB414327AF700B5BB3C /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */; };
 		FA46DA2C12D4166E00968C36 /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA2B12D4166E00968C36 /* countries.txt */; };
 		FA4B0A1415136C4C00758203 /* World.mwm.nosearch in Resources */ = {isa = PBXBuildFile; fileRef = FA4B0A1315136C4C00758203 /* World.mwm.nosearch */; };
-		FA4B0A16151372BA00758203 /* countries.txt.nosearch in Resources */ = {isa = PBXBuildFile; fileRef = FA4B0A15151372BA00758203 /* countries.txt.nosearch */; };
 		FA500588128907F0002961F0 /* visibility.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA500587128907F0002961F0 /* visibility.txt */; };
 		FA5D4F191557F79900E7D8BB /* PlacePageVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */; };
 		FA5D4F1A1557F79900E7D8BB /* PlacePageVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */; };
@@ -1452,7 +1452,6 @@
 		FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = WorldCoasts.mwm; path = ../../data/WorldCoasts.mwm; sourceTree = "<group>"; };
 		FA46DA2B12D4166E00968C36 /* countries.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = countries.txt; path = ../../data/countries.txt; sourceTree = SOURCE_ROOT; };
 		FA4B0A1315136C4C00758203 /* World.mwm.nosearch */ = {isa = PBXFileReference; lastKnownFileType = file; name = World.mwm.nosearch; path = ../../data/World.mwm.nosearch; sourceTree = "<group>"; };
-		FA4B0A15151372BA00758203 /* countries.txt.nosearch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = countries.txt.nosearch; path = ../../data/countries.txt.nosearch; sourceTree = "<group>"; };
 		FA500587128907F0002961F0 /* visibility.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = visibility.txt; path = ../../data/visibility.txt; sourceTree = SOURCE_ROOT; };
 		FA5D4F151557F79900E7D8BB /* PlacePageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlacePageVC.h; path = Bookmarks/PlacePageVC.h; sourceTree = SOURCE_ROOT; };
 		FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PlacePageVC.mm; path = Bookmarks/PlacePageVC.mm; sourceTree = SOURCE_ROOT; };
@@ -2272,7 +2271,6 @@
 				EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */,
 				EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */,
 				FA46DA2B12D4166E00968C36 /* countries.txt */,
-				FA4B0A15151372BA00758203 /* countries.txt.nosearch */,
 				EEE4C9411298A31B007231A9 /* basic_xhdpi.skn */,
 				FA85F632145DDDC20090E1A0 /* packed_polygons.bin */,
 				EEE4C93F1298A303007231A9 /* symbols_xhdpi.png */,
@@ -4228,7 +4226,6 @@
 				FAA3A879151279DE00C7904C /* 114-lite.png in Resources */,
 				FAA3A87A151279DE00C7904C /* 144-lite.png in Resources */,
 				FA4B0A1415136C4C00758203 /* World.mwm.nosearch in Resources */,
-				FA4B0A16151372BA00758203 /* countries.txt.nosearch in Resources */,
 				FA68E1681525F92700077B9E /* Default-Landscape@2x.png in Resources */,
 				FA68E16A1525F92700077B9E /* Default-Portrait@2x.png in Resources */,
 				FA8A71D5153D83C8005D9795 /* bookmarks-highlighted.png in Resources */,
@@ -4267,6 +4264,7 @@
 				F785EAB71638531E003A38A8 /* right@2x.png in Resources */,
 				F785EAB816385321003A38A8 /* tail.png in Resources */,
 				F785EAB916385324003A38A8 /* tail@2x.png in Resources */,
+				F7264B8C16388E0B00A8E6C0 /* countries.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4323,7 +4321,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nif [[ \"$LOWERED_CONFIG\" != *production* && \"$LOWERED_CONFIG\" != *adhoc* ]]; then\n  echo \"Copy drules_proto.txt in non-production build\"\n  cp \"$SRCROOT/../../data/drules_proto.txt\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/\"\nfi\nif [[ \"$LOWERED_CONFIG\" == *lite* ]]; then\n  echo \"Using World file without search index\"\n  mv \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/World.mwm.nosearch\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/World.mwm\"\n  echo \"Using countries.txt without search support\"\n  mv \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/countries.txt.nosearch\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/countries.txt\"\nfi";
+			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nif [[ \"$LOWERED_CONFIG\" != *production* && \"$LOWERED_CONFIG\" != *adhoc* ]]; then\n  echo \"Copy drules_proto.txt in non-production build\"\n  cp \"$SRCROOT/../../data/drules_proto.txt\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/\"\nfi\nif [[ \"$LOWERED_CONFIG\" == *lite* ]]; then\n  echo \"Using World file without search index\"\n  mv \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/World.mwm.nosearch\" \"$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/World.mwm\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
