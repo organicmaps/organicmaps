@@ -64,6 +64,8 @@
 		F785EAB71638531E003A38A8 /* right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAB2D51315DAB53F00C706C3 /* right@2x.png */; };
 		F785EAB816385321003A38A8 /* tail.png in Resources */ = {isa = PBXBuildFile; fileRef = FAB2D51415DAB53F00C706C3 /* tail.png */; };
 		F785EAB916385324003A38A8 /* tail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAB2D51515DAB53F00C706C3 /* tail@2x.png */; };
+		F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */; };
+		F785EB4116386FC4003A38A8 /* BookmarkCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */; };
 		F7B90CD31521E6D200C054EE /* CustomNavigationView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F7B90CD21521E6D100C054EE /* CustomNavigationView.mm */; };
 		F7B90CD41521E6D200C054EE /* CustomNavigationView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F7B90CD21521E6D100C054EE /* CustomNavigationView.mm */; };
 		F7FDD823147F30CC005900FA /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = F7FDD822147F30CC005900FA /* drules_proto.bin */; };
@@ -1389,6 +1391,8 @@
 		EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fonts_blacklist.txt; path = ../../data/fonts_blacklist.txt; sourceTree = "<group>"; };
 		EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fonts_whitelist.txt; path = ../../data/fonts_whitelist.txt; sourceTree = "<group>"; };
 		EEFFB4E715DCDD8A00BACE1C /* libanim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libanim.a; sourceTree = SOURCE_ROOT; };
+		F785EB3E16386FC4003A38A8 /* BookmarkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BookmarkCell.h; path = Bookmarks/BookmarkCell.h; sourceTree = SOURCE_ROOT; };
+		F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BookmarkCell.mm; path = Bookmarks/BookmarkCell.mm; sourceTree = SOURCE_ROOT; };
 		F7B90CD11521E6D100C054EE /* CustomNavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationView.h; sourceTree = "<group>"; };
 		F7B90CD21521E6D100C054EE /* CustomNavigationView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomNavigationView.mm; sourceTree = "<group>"; };
 		F7DD848414FE77F8005695E1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2335,6 +2339,8 @@
 		FA36B8011540388B004560CC /* Bookmarks */ = {
 			isa = PBXGroup;
 			children = (
+				F785EB3E16386FC4003A38A8 /* BookmarkCell.h */,
+				F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */,
 				FA36B8171540466A004560CC /* Images */,
 				FA77353A15615E2300DB495F /* SelectColorVC.h */,
 				FA77353B15615E2300DB495F /* SelectColorVC.mm */,
@@ -4352,6 +4358,7 @@
 				FAA614B8155F16950031C345 /* AddSetVC.mm in Sources */,
 				FA77353C15615E2300DB495F /* SelectColorVC.mm in Sources */,
 				FAAEA7D5161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
+				F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4385,6 +4392,7 @@
 				FAA614B9155F16950031C345 /* AddSetVC.mm in Sources */,
 				FA77353D15615E2300DB495F /* SelectColorVC.mm in Sources */,
 				FAAEA7D6161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
+				F785EB4116386FC4003A38A8 /* BookmarkCell.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

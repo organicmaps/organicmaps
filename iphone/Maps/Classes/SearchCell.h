@@ -2,16 +2,12 @@
 
 @interface SearchCell : UITableViewCell
 {
-  UILabel * featureName;
-  UILabel * featureType;
-  UILabel * featureCountry;
-  UILabel * featureDistance;
 }
 
-@property (nonatomic, retain) IBOutlet UILabel * featureName;
-@property (nonatomic, retain) IBOutlet UILabel * featureType;
-@property (nonatomic, retain) IBOutlet UILabel * featureCountry;
-@property (nonatomic, retain) IBOutlet UILabel * featureDistance;
+@property (nonatomic, readonly) UILabel * featureName;
+@property (nonatomic, readonly) UILabel * featureType;
+@property (nonatomic, readonly) UILabel * featureCountry;
+@property (nonatomic, readonly) UILabel * featureDistance;
 
 - (id)initWithReuseIdentifier:(NSString *)identifier;
 

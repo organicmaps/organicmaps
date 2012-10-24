@@ -4,12 +4,15 @@
 #import "MapsAppDelegate.h"
 #import "SelectSetVC.h"
 #import "CompassView.h"
+#import "BookmarkCell.h"
 
 #include "Framework.h"
 
 #include "../../../geometry/distance_on_sphere.hpp"
 
+
 #define TEXTFIELD_TAG 999
+
 
 @implementation BookmarksVC
 
@@ -113,28 +116,28 @@
   else
   {
     // Second section, contains bookmarks list
-    cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarksVCBookmarkItemCell"];
-    if (!cell)
+    BookmarkCell * bmCell = (BookmarkCell *)[tableView dequeueReusableCellWithIdentifier:@"BookmarksVCBookmarkItemCell"];
+    if (!bmCell)
     {
-      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarksVCBookmarkItemCell"] autorelease];
+      bmCell = [[[BookmarkCell alloc] initWithReuseIdentifier:@"BookmarksVCBookmarkItemCell"] autorelease];
     }
 
     Bookmark const * bm = cat->GetBookmark(indexPath.row);
     if (bm)
     {
-      cell.textLabel.text = [NSString stringWithUTF8String:bm->GetName().c_str()];
-      cell.imageView.image = [UIImage imageNamed:[NSString stringWithUTF8String:bm->GetType().c_str()]];
+      bmCell.bmName.text = [NSString stringWithUTF8String:bm->GetName().c_str()];
+      bmCell.imageView.image = [UIImage imageNamed:[NSString stringWithUTF8String:bm->GetType().c_str()]];
 
       CompassView * compass;
       // Try to reuse existing compass view
-      if ([cell.accessoryView isKindOfClass:[CompassView class]])
-        compass = (CompassView *)cell.accessoryView;
+      if ([bmCell.accessoryView isKindOfClass:[CompassView class]])
+        compass = (CompassView *)bmCell.accessoryView;
       else
       {
         // Create compass view
         float const h = (int)(tableView.rowHeight * 0.6);
         compass = [[[CompassView alloc] initWithFrame:CGRectMake(0, 0, h, h)] autorelease];
-        cell.accessoryView = compass;
+        bmCell.accessoryView = compass;
       }
 
       // Get current position and compass "north" direction
@@ -149,10 +152,10 @@
         string distance;
         fr.GetDistanceAndAzimut(bm->GetOrg(), lat, lon, north, distance, azimut);
 
-        cell.detailTextLabel.text = [NSString stringWithUTF8String:distance.c_str()];
+        bmCell.bmDistance.text = [NSString stringWithUTF8String:distance.c_str()];
       }
       else
-        cell.detailTextLabel.text = nil;
+        bmCell.bmDistance.text = nil;
 
       if (azimut >= 0.0)
       {
@@ -162,6 +165,8 @@
       else
         compass.showArrow = NO;
     }
+
+    cell = bmCell;
   }
   return cell;
 }
