@@ -314,20 +314,30 @@ NSInteger compareAddress(id l, id r, void * context)
   UIView * v = self.view;
   CGFloat const scaleFactor = v.contentScaleFactor;
 
-	if ([allTouches count] == 1)
-	{
-		CGPoint const pt = [[[allTouches allObjects] objectAtIndex:0] locationInView:v];
-		m_Pt1 = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
-	}
-	else
-	{
-		NSArray * sortedTouches = [[allTouches allObjects] sortedArrayUsingFunction:compareAddress context:NULL];
-		CGPoint const pt1 = [[sortedTouches objectAtIndex:0] locationInView:v];
-		CGPoint const pt2 = [[sortedTouches objectAtIndex:1] locationInView:v];
+  // 0 touches are possible from touchesCancelled.
+  switch ([allTouches count])
+  {
+    case 0:
+      break;
 
-		m_Pt1 = m2::PointD(pt1.x * scaleFactor, pt1.y * scaleFactor);
-	  m_Pt2 = m2::PointD(pt2.x * scaleFactor, pt2.y * scaleFactor);
-	}
+    case 1:
+    {
+      CGPoint const pt = [[[allTouches allObjects] objectAtIndex:0] locationInView:v];
+      m_Pt1 = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
+      break;
+    }
+
+    default:
+    {
+      NSArray * sortedTouches = [[allTouches allObjects] sortedArrayUsingFunction:compareAddress context:NULL];
+      CGPoint const pt1 = [[sortedTouches objectAtIndex:0] locationInView:v];
+      CGPoint const pt2 = [[sortedTouches objectAtIndex:1] locationInView:v];
+
+      m_Pt1 = m2::PointD(pt1.x * scaleFactor, pt1.y * scaleFactor);
+      m_Pt2 = m2::PointD(pt2.x * scaleFactor, pt2.y * scaleFactor);
+      break;
+    }
+  }
 }
 
 - (void) stopCurrentAction
@@ -471,8 +481,10 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void) touchesCancelled:(NSSet*)touches withEvent:(UIEvent*)event
 {
-	[self updatePointsFromEvent:event];
-	[self stopCurrentAction];
+  [NSObject cancelPreviousPerformRequestsWithTarget:self];
+
+  [self updatePointsFromEvent:event];
+  [self stopCurrentAction];
 }
 
 - (BOOL) shouldAutorotateToInterfaceOrientation: (UIInterfaceOrientation) interfaceOrientation
