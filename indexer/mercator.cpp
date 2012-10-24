@@ -23,3 +23,20 @@ m2::RectD MercatorBounds::MetresToXY(double lon, double lat,
   return m2::RectD(m2::PointD(LonToX(minLon), LatToY(minLat)),
                    m2::PointD(LonToX(maxLon), LatToY(maxLat)));
 }
+
+m2::PointD MercatorBounds::GetSmPoint(m2::PointD const & pt, double lonMetresR, double latMetresR)
+{
+  double const lat = YToLat(pt.y);
+  double const lon = XToLon(pt.x);
+
+  double const latDegreeOffset = latMetresR * degreeInMetres;
+  double const newLat = min(90.0, max(-90.0, lat + latDegreeOffset));
+
+  double const cosL = max(cos(my::DegToRad(newLat)), 0.00001);
+  ASSERT_GREATER ( cosL, 0.0, () );
+
+  double const lonDegreeOffset = lonMetresR * degreeInMetres / cosL;
+  double const newLon = min(180.0, max(-180.0, lon + lonDegreeOffset));
+
+  return m2::PointD(LonToX(newLon), LatToY(newLat));
+}

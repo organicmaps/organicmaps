@@ -137,19 +137,19 @@ void Ruler::CalcMetresDiff(double v)
   if (arrU[0].m_i > v)
   {
     m_scalerText = string("< ") + arrU[0].m_s;
-    m_metresDiff = m_minUnitsWidth - 1;
+    m_metresDiff = m_minMetersWidth - 1.0;
   }
   else if (arrU[count-1].m_i <= v)
   {
     m_scalerText = string("> ") + arrU[count-1].m_s;
-    m_metresDiff = m_maxUnitsWidth + 1;
+    m_metresDiff = m_maxMetersWidth + 1.0;
   }
   else
     for (int i = 0; i < count; ++i)
     {
       if (arrU[i].m_i > v)
       {
-        m_metresDiff = arrU[i].m_i / m_conversionFn(1);
+        m_metresDiff = arrU[i].m_i / m_conversionFn(1.0);
         m_scalerText = arrU[i].m_s;
         break;
       }
@@ -177,14 +177,14 @@ void Ruler::setMinPxWidth(unsigned minPxWidth)
   m_minPxWidth = minPxWidth;
 }
 
-void Ruler::setMinUnitsWidth(double minUnitsWidth)
+void Ruler::setMinMetersWidth(double v)
 {
-  m_minUnitsWidth = minUnitsWidth;
+  m_minMetersWidth = v;
 }
 
-void Ruler::setMaxUnitsWidth(double maxUnitsWidth)
+void Ruler::setMaxMetersWidth(double v)
 {
-  m_maxUnitsWidth = maxUnitsWidth;
+  m_maxMetersWidth = v;
 }
 
 void Ruler::setVisualScale(double visualScale)
@@ -201,25 +201,26 @@ void Ruler::update()
 {
   if (m_isInitialized)
   {
-    m2::PointD glbPivot = m_screen.PtoG(pivot());
+    int const rulerHeight = my::rounds(5 * m_visualScale);
+    int const minPxWidth = my::rounds(m_minPxWidth * m_visualScale);
 
-    int rulerHeight = static_cast<int>(5 * m_visualScale);
-    unsigned minPxWidth = static_cast<unsigned>(m_minPxWidth * m_visualScale);
+    // pivot() here is the down right point of the ruler.
+    // Get global points of ruler and distance according to minPxWidth.
 
-    m2::PointD pt0 = m_screen.PtoG(pivot() - m2::PointD(minPxWidth / 2, 0));
-    m2::PointD pt1 = m_screen.PtoG(pivot() + m2::PointD(minPxWidth / 2, 0));
+    m2::PointD pt1 = m_screen.PtoG(pivot());
+    m2::PointD pt0 = m_screen.PtoG(pivot() - m2::PointD(minPxWidth, 0));
 
-    double const distanceInMetres = ms::DistanceOnEarth(MercatorBounds::YToLat(pt0.y),
-                                                  MercatorBounds::XToLon(pt0.x),
-                                                  MercatorBounds::YToLat(pt1.y),
-                                                  MercatorBounds::XToLon(pt1.x));
+    double const distanceInMetres = ms::DistanceOnEarth(
+          MercatorBounds::YToLat(pt0.y), MercatorBounds::XToLon(pt0.x),
+          MercatorBounds::YToLat(pt1.y), MercatorBounds::XToLon(pt1.x));
 
-    /// converting into metres
+    // convert metres to units for calculating m_metresDiff
     CalcMetresDiff(m_conversionFn(distanceInMetres));
 
-    bool const higherThanMax = m_metresDiff > m_maxUnitsWidth;
-    bool const lessThanMin = m_metresDiff < m_minUnitsWidth;
+    bool const higherThanMax = m_metresDiff > m_maxMetersWidth;
+    bool const lessThanMin = m_metresDiff < m_minMetersWidth;
 
+    // Calculate width of the ruler in pixels.
     double scalerWidthInPx = minPxWidth;
 
     if (higherThanMax)
@@ -228,17 +229,13 @@ void Ruler::update()
     }
     else if (!lessThanMin)
     {
-      double a = ang::AngleTo(pt0, pt1);
-      m2::RectD r = MercatorBounds::RectByCenterXYAndSizeInMeters(glbPivot.x,
-                                                                  glbPivot.y,
-                                                                  abs(cos(a) * m_metresDiff / 2),
-                                                                  abs(sin(a) * m_metresDiff / 2));
+      // Here we need to convert metres to pixels according to angle
+      // (in global coordinates) of the ruler.
 
-      pt0 = m_screen.GtoP(m2::PointD(r.minX(), r.minY()));
-      pt1 = m_screen.GtoP(m2::PointD(r.maxX(), r.maxY()));
+      double const a = ang::AngleTo(pt1, pt0);
+      pt0 = MercatorBounds::GetSmPoint(pt1, cos(a) * m_metresDiff, sin(a) * m_metresDiff);
 
-      scalerWidthInPx = pt0.Length(pt1);
-      scalerWidthInPx = abs(my::rounds(scalerWidthInPx));
+      scalerWidthInPx = my::rounds(pivot().Length(m_screen.GtoP(pt0)));
     }
 
     m2::PointD scalerOrg = pivot() + m2::PointD(-scalerWidthInPx / 2, rulerHeight / 2);
@@ -259,7 +256,6 @@ void Ruler::update()
     m_path.push_back(scalerOrg);
     m_path.push_back(scalerOrg + m2::PointD(scalerWidthInPx, 0));
 
-    /// calculating bound rect
     m_boundRect = m2::RectD(m_path[0], m_path[1]);
   }
   else

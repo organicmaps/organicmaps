@@ -165,8 +165,8 @@ Framework::Framework()
     m_drawPlacemark(false),
     //m_hasPendingShowRectFixed(false),
 
-    /// @todo Probably we can make this like static const int.
-    /// It's not a class state, so no need to store it in memory.
+    /// @todo It's not a class state, so no need to store it in memory.
+    /// Move this constants to Ruler (and don't store them at all).
     m_metresMinWidth(10),
     m_metresMaxWidth(1000000),
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_WINDOWS) || defined(OMIM_OS_LINUX)

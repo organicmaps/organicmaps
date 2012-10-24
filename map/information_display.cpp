@@ -156,8 +156,8 @@ void InformationDisplay::enableRuler(bool doEnable)
 void InformationDisplay::setRulerParams(unsigned pxMinWidth, double metresMinWidth, double metresMaxWidth)
 {
   m_ruler.setMinPxWidth(pxMinWidth);
-  m_ruler.setMinUnitsWidth(metresMinWidth);
-  m_ruler.setMaxUnitsWidth(metresMaxWidth);
+  m_ruler.setMinMetersWidth(metresMinWidth);
+  m_ruler.setMaxMetersWidth(metresMaxWidth);
 }
 
 void InformationDisplay::drawRuler(DrawerYG * pDrawer)

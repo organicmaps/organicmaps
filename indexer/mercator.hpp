@@ -91,5 +91,7 @@ struct MercatorBounds
     return RectByCenterXYAndSizeInMeters(center.x, center.y, size, size);
   }
 
+  static m2::PointD GetSmPoint(m2::PointD const & pt, double lonMetresR, double latMetresR);
+
   static double GetCellID2PointAbsEpsilon() { return 1.0E-4; }
 };

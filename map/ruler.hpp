@@ -19,18 +19,27 @@ class Ruler : public yg::OverlayElement
 {
 private:
 
+  /// @todo Remove this variables. All this stuff are constants
+  /// (get values from Framework constructor)
   unsigned m_minPxWidth;
   unsigned m_maxPxWidth;
 
-  double m_minUnitsWidth;
-  double m_maxUnitsWidth;
+  double m_minMetersWidth;
+  double m_maxMetersWidth;
+  //@}
+
   double m_visualScale;
 
   yg::FontDesc m_fontDesc;
   ScreenBase m_screen;
 
-  float m_metresDiff; //< current diff in units between two endpoints of the ruler.
+  /// Current diff in units between two endpoints of the ruler.
+  /// @todo No need to store it here. It's calculated once for calculating ruler's m_path.
+  double m_metresDiff;
+
   string m_scalerText;
+
+  /// @todo Make static array with 2 elements.
   vector<m2::PointD> m_path;
 
   m2::RectD m_boundRect;
@@ -62,8 +71,8 @@ public:
   ScreenBase const & screen() const;
 
   void setMinPxWidth(unsigned minPxWidth);
-  void setMinUnitsWidth(double minUnitsWidth);
-  void setMaxUnitsWidth(double maxUnitsWidth);
+  void setMinMetersWidth(double v);
+  void setMaxMetersWidth(double v);
   void setVisualScale(double visualScale);
   void setFontDesc(yg::FontDesc const & fontDesc);
 
