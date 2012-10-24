@@ -5,10 +5,14 @@
 #import "BalloonView.h"
 #import "BookmarksRootVC.h"
 #import "PlacePageVC.h"
+
 #import "../Settings/SettingsManager.h"
+
 #import "../../Common/CustomAlertView.h"
 
 #include "../../../gui/controller.hpp"
+
+#include "../../../platform/platform.hpp"
 
 #include "RenderContext.hpp"
 
@@ -50,6 +54,7 @@
 - (void) onLocationError:(location::TLocationError)errorCode
 {
   GetFramework().OnLocationError(errorCode);
+
   switch (errorCode)
   {
     case location::EDenied:
@@ -64,6 +69,7 @@
       [[MapsAppDelegate theApp].m_locationManager stop:self];
     }
     break;
+
     case location::ENotSupported:
     {
       UIAlertView * alert = [[CustomAlertView alloc] initWithTitle:nil
@@ -76,6 +82,7 @@
       [[MapsAppDelegate theApp].m_locationManager stop:self];
     }
     break;
+
   default:
     break;
   }
@@ -83,12 +90,15 @@
 
 - (void) onLocationUpdate:(location::GpsInfo const &)info
 {
-  if (GetFramework().GetLocationState()->IsFirstPosition())
+  Framework & f = GetFramework();
+
+  if (f.GetLocationState()->IsFirstPosition())
   {
     [m_myPositionButton setImage:[UIImage imageNamed:@"location-selected.png"] forState:UIControlStateSelected];
   }
-  
-  GetFramework().OnLocationUpdate(info);
+
+  f.OnLocationUpdate(info);
+
   [self updateDataAfterScreenChanged];
 }
 
@@ -101,11 +111,15 @@
 
 - (IBAction)OnMyPositionClicked:(id)sender
 {
+  Framework & f = GetFramework();
+
   if (m_myPositionButton.isSelected == NO)
   {
     m_myPositionButton.selected = YES;
     [m_myPositionButton setImage:[UIImage imageNamed:@"location-search.png"] forState:UIControlStateSelected];
-    GetFramework().StartLocation();
+
+    f.StartLocation();
+
     [[MapsAppDelegate theApp] disableStandby];
     [[MapsAppDelegate theApp].m_locationManager start:self];
   }
@@ -113,7 +127,9 @@
   {
     m_myPositionButton.selected = NO;
     [m_myPositionButton setImage:[UIImage imageNamed:@"location.png"] forState:UIControlStateSelected];
-    GetFramework().StopLocation();
+
+    f.StopLocation();
+
     [[MapsAppDelegate theApp] enableStandby];
     [[MapsAppDelegate theApp].m_locationManager stop:self];
   }
@@ -140,11 +156,37 @@
   [navC release];
 }
 
+// Banner dialog handler
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+  if (buttonIndex != alertView.cancelButtonIndex)
+  {
+    // Launch appstore
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
+  }
+}
+
 - (void) onBalloonClicked
 {
-  PlacePageVC * placePageVC = [[PlacePageVC alloc] initWithBalloonView:m_balloonView];
-  [self.navigationController pushViewController:placePageVC animated:YES];
-  [placePageVC release];
+  // Disable bookmarks for free version
+  if (!GetPlatform().IsPro())
+  {
+    // Display banner for paid version
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"bookmarks_in_pro_version", nil)
+                                   message:nil
+                                   delegate:self
+                                   cancelButtonTitle:NSLocalizedString(@"cancel", nil)
+                                   otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
+
+    [alert show];
+    [alert release];
+  }
+  else
+  {
+    PlacePageVC * placePageVC = [[PlacePageVC alloc] initWithBalloonView:m_balloonView];
+    [self.navigationController pushViewController:placePageVC animated:YES];
+    [placePageVC release];
+  }
 }
 
 - (void) updatePinTexts:(Framework::AddressInfo const &)info
@@ -368,12 +410,14 @@ NSInteger compareAddress(id l, id r, void * context)
 
 	[self updatePointsFromEvent:event];
 
+  Framework & f = GetFramework();
+
 	if ([[event allTouches] count] == 1)
 	{
-    if (GetFramework().GetGuiController()->OnTapStarted(m_Pt1))
+    if (f.GetGuiController()->OnTapStarted(m_Pt1))
       return;
     
-		GetFramework().StartDrag(DragEvent(m_Pt1.x, m_Pt1.y));
+		f.StartDrag(DragEvent(m_Pt1.x, m_Pt1.y));
 		m_CurrentAction = DRAGGING;
 
     // Start long-tap timer
@@ -383,7 +427,7 @@ NSInteger compareAddress(id l, id r, void * context)
 	}
 	else
 	{
-		GetFramework().StartScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
+		f.StartScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
 		m_CurrentAction = SCALING;
 	}
 
@@ -401,7 +445,9 @@ NSInteger compareAddress(id l, id r, void * context)
   if (!m_touchDownPoint.EqualDxDy(m_Pt1, 9))
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
 
-  if (GetFramework().GetGuiController()->OnTapMoved(m_Pt1))
+  Framework & f = GetFramework();
+
+  if (f.GetGuiController()->OnTapMoved(m_Pt1))
     return;
   
 	if (m_isSticking)
@@ -422,7 +468,7 @@ NSInteger compareAddress(id l, id r, void * context)
 	switch (m_CurrentAction)
 	{
 	case DRAGGING:
-		GetFramework().DoDrag(DragEvent(m_Pt1.x, m_Pt1.y));
+		f.DoDrag(DragEvent(m_Pt1.x, m_Pt1.y));
 //		needRedraw = true;
 		break;
 	case SCALING:
@@ -430,7 +476,7 @@ NSInteger compareAddress(id l, id r, void * context)
 			[self stopCurrentAction];
 		else
 		{
-			GetFramework().DoScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
+			f.DoScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
 //			needRedraw = true;
 		}
 		break;
@@ -451,6 +497,7 @@ NSInteger compareAddress(id l, id r, void * context)
   int touchesCount = [[event allTouches] count];
 
   Framework & f = GetFramework();
+
   if (touchesCount == 1)
   {
     // Cancel long-touch timer

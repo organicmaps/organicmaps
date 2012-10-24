@@ -20,8 +20,6 @@
 #include "../../geometry/distance_on_sphere.hpp"
 
 
-#define MAPSWITHME_PREMIUM_APPSTORE_URL @"itms://itunes.com/apps/mapswithmepro"
-
 /// When to display compass instead of country flags
 #define MIN_COMPASS_DISTANCE 25000.0
 
@@ -231,26 +229,22 @@ static void OnSearchResultCallback(search::Results const & res)
     // Launch appstore
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
   }
-  // Close Search view
+  // Close view
   [self dismissModalViewControllerAnimated:YES];
-}
-
-- (BOOL)IsProVersion
-{
-  return GetPlatform().IsPro();
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
   // Disable search for free version
-  if (![self IsProVersion])
+  if (!GetPlatform().IsPro())
   {
     // Display banner for paid version
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"search_available_in_pro_version", @"Search button pressed dialog title in the free version")
-                                                     message:nil
-                                                    delegate:self
-                                           cancelButtonTitle:NSLocalizedString(@"cancel", @"Search button pressed dialog Negative button in the free version")
-                                           otherButtonTitles:NSLocalizedString(@"get_it_now", @"Search button pressed dialog Positive button in the free version"), nil];
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"search_available_in_pro_version", nil)
+                                    message:nil
+                                    delegate:self
+                                    cancelButtonTitle:NSLocalizedString(@"cancel", nil)
+                                    otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
+
     [alert show];
     [alert release];
   }

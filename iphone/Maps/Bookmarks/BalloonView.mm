@@ -6,6 +6,7 @@
 
 #define SETTINGS_LAST_BOOKMARK_SET "LastBookmarkSet"
 
+
 @implementation BalloonView
 
 @synthesize globalPosition;
@@ -17,6 +18,7 @@
 @synthesize setName;
 @synthesize isDisplayed;
 @synthesize editedBookmark;
+
 
 + (NSString *) getDefaultSetName
 {

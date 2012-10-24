@@ -3,7 +3,11 @@
 
 #include "Framework.h"
 
+#include "../../platform/platform.hpp"
+
+
 #define TEXTFIELD_TAG 999
+
 
 @implementation BookmarksRootVC
 
@@ -204,16 +208,44 @@
   }
 }
 
+// Banner dialog handler
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+  if (buttonIndex != alertView.cancelButtonIndex)
+  {
+    // Launch appstore
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
+  }
+  // Close view
+  [self dismissModalViewControllerAnimated:YES];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
-  // Display Edit button only if table is not empty
-  if (GetFramework().GetBmCategoriesCount())
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
-  else
-    self.navigationItem.rightBarButtonItem = nil;
+  // Disable bookmarks for free version
+  if (!GetPlatform().IsPro())
+  {
+    // Display banner for paid version
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"bookmarks_in_pro_version", nil)
+                                    message:nil
+                                    delegate:self
+                                    cancelButtonTitle:NSLocalizedString(@"cancel", nil)
+                                    otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
 
-  // Always reload table - we can open it after deleting bookmarks in any category
-  [self.tableView reloadData];
+    [alert show];
+    [alert release];
+  }
+  else
+  {
+    // Display Edit button only if table is not empty
+    if (GetFramework().GetBmCategoriesCount())
+      self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    else
+      self.navigationItem.rightBarButtonItem = nil;
+
+    // Always reload table - we can open it after deleting bookmarks in any category
+    [self.tableView reloadData];
+  }
   [super viewWillAppear:animated];
 }
 
