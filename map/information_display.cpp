@@ -55,11 +55,9 @@ InformationDisplay::InformationDisplay(Framework * framework)
 
   cap.m_position = yg::EPosCenter;
   cap.m_depth = yg::maxDepth;
-  cap.m_arrowHeight = 60;
-  cap.m_arrowWidth = 20;
+  cap.m_arrowHeight = 50;
+  cap.m_arrowWidth = 16;
   cap.m_pivot = m2::PointD(0, 0);
-  cap.m_northColor = yg::Color(255, 0, 0, 255);
-  cap.m_southColor = yg::Color(255, 255, 255, 255);
   cap.m_framework = framework;
 
   m_compassArrow.reset(new CompassArrow(cap));

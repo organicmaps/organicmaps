@@ -21,8 +21,10 @@ private:
 
   unsigned m_arrowWidth;
   unsigned m_arrowHeight;
-  yg::Color m_northColor;
-  yg::Color m_southColor;
+  yg::Color const m_northLeftColor;
+  yg::Color const m_northRightColor;
+  yg::Color const m_southLeftColor;
+  yg::Color const m_southRightColor;
   double m_angle;
 
   scoped_ptr<yg::gl::DisplayList> m_displayList;
@@ -40,8 +42,6 @@ public:
   {
     unsigned m_arrowWidth;
     unsigned m_arrowHeight;
-    yg::Color m_northColor;
-    yg::Color m_southColor;
     Framework * m_framework;
   };
 

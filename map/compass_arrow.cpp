@@ -15,14 +15,16 @@
 
 CompassArrow::CompassArrow(Params const & p)
   : base_t(p),
-    m_boundRects(1)
+    m_arrowWidth(p.m_arrowWidth),
+    m_arrowHeight(p.m_arrowHeight),
+    m_northLeftColor(0xcc, 0x33, 0x00, 0xcc),
+    m_northRightColor(0xff, 0x33, 0x00, 0xcc),
+    m_southLeftColor(0xcc, 0xcc, 0xcc, 0xcc),
+    m_southRightColor(0xff, 0xff, 0xff, 0xcc),
+    m_angle(0),
+    m_boundRects(1),
+    m_framework(p.m_framework)
 {
-  m_arrowWidth = p.m_arrowWidth;
-  m_arrowHeight = p.m_arrowHeight;
-  m_northColor = p.m_northColor;
-  m_southColor = p.m_southColor;
-  m_framework = p.m_framework;
-  m_angle = 0;
 }
 
 void CompassArrow::SetAngle(double angle)
@@ -77,26 +79,38 @@ void CompassArrow::cache()
   cacheScreen->beginFrame();
   cacheScreen->setDisplayList(m_displayList.get());
 
-  double k = visualScale();
+  double const k = visualScale();
 
-  double halfW = m_arrowWidth / 2.0 * k;
-  double halfH = m_arrowHeight / 2.0 * k;
+  double const halfW = m_arrowWidth / 2.0 * k;
+  double const halfH = m_arrowHeight / 2.0 * k;
 
-  m2::PointF northPts[3] = {
+  m2::PointF const northLeftPts[3] = {
     m2::PointF(-halfW, 0),
+    m2::PointF(0, -halfH),
+    m2::PointF(0, 0)
+  };
+  cacheScreen->drawConvexPolygon(northLeftPts, 3, m_northLeftColor, depth());
+
+  m2::PointF const northRightPts[3] = {
+    m2::PointF(0, 0),
     m2::PointF(0, -halfH),
     m2::PointF(halfW, 0)
   };
+  cacheScreen->drawConvexPolygon(northRightPts, 3, m_northRightColor, depth());
 
-  cacheScreen->drawConvexPolygon(northPts, 3, m_northColor, depth());
-
-  m2::PointF southPts[3] = {
+  m2::PointF const southLeftPts[3] = {
     m2::PointF(-halfW, 0),
+    m2::PointF(0, 0),
+    m2::PointF(0, halfH),
+  };
+  cacheScreen->drawConvexPolygon(southLeftPts, 3, m_southLeftColor, depth());
+
+  m2::PointF const southRightPts[3] = {
+    m2::PointF(0, 0),
     m2::PointF(halfW, 0),
     m2::PointF(0, halfH),
   };
-
-  cacheScreen->drawConvexPolygon(southPts, 3, m_southColor, depth());
+  cacheScreen->drawConvexPolygon(southRightPts, 3, m_southRightColor, depth());
 
   m2::PointD outlinePts[6] = {
     m2::PointD(-halfW, 0),
@@ -107,7 +121,7 @@ void CompassArrow::cache()
     m2::PointD(halfW, 0)
   };
 
-  yg::PenInfo outlinePenInfo(yg::Color(32, 32, 32, 255), 1, 0, 0, 0);
+  yg::PenInfo const outlinePenInfo(yg::Color(0x66, 0x66, 0x66, 0xcc), 1, 0, 0, 0);
 
   cacheScreen->drawPath(outlinePts, sizeof(outlinePts) / sizeof(m2::PointD), 0, cacheScreen->skin()->mapPenInfo(outlinePenInfo), depth());
 
