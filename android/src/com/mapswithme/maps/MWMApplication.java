@@ -28,7 +28,10 @@ public class MWMApplication extends android.app.Application implements MapStorag
   private int m_slotID = 0;
 
   private boolean m_isProVersion = false;
-  private String m_proVersionURL = "";
+
+  // Set default string to Google Play page.
+  private String m_proVersionURL =
+    "https://play.google.com/store/apps/details?id=com.mapswithme.maps.pro";
 
   private void showDownloadToast(int resID, Index idx)
   {
@@ -73,7 +76,10 @@ public class MWMApplication extends android.app.Application implements MapStorag
     {
       stream = assets.open("app_info.txt");
       BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-      m_proVersionURL = reader.readLine();
+
+      final String s = reader.readLine();
+      if (s.length() > 0)
+        m_proVersionURL = s;
 
       Log.i(TAG, "Pro version url: " + m_proVersionURL);
     }
