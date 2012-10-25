@@ -364,10 +364,6 @@ namespace yg
 
       OGLCHECK(glActiveTexture(GL_TEXTURE0));
 
-#ifndef USING_GLSL
-      OGLCHECK(glEnableFn(GL_TEXTURE_2D));
-#endif
-
       OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
       OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 
@@ -389,9 +385,6 @@ namespace yg
         OGLCHECK(glBlendFunc(GL_SRC_ALPHA,
                              GL_ONE_MINUS_SRC_ALPHA));
 
-#ifndef USING_GLSL
-      OGLCHECK(glColor4f(1.0f, 1.0f, 1.0f, 1.0f));
-#endif
     }
 
     void GeometryRenderer::ApplyStates::cancel()
@@ -415,10 +408,6 @@ namespace yg
       if (isDebugging())
         LOG(LINFO, ("performing ApplyBlitStates command"));
 
-#ifndef USING_GLSL
-      OGLCHECK(glEnable(GL_TEXTURE_2D));
-#endif
-
       OGLCHECK(glDisableFn(GL_ALPHA_TEST_MWM));
       OGLCHECK(glDisableFn(GL_BLEND));
       OGLCHECK(glDisableFn(GL_DEPTH_TEST));
@@ -439,6 +428,5 @@ namespace yg
       else
         processCommand(command);
     }
-
   }
 }

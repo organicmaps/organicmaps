@@ -27,15 +27,11 @@ HEADERS += \
     tiling_render_policy_mt.hpp \
     tiling_render_policy_st.hpp \
     benchmark_engine.hpp \
-    render_policy_st.hpp \
     coverage_generator.hpp \
     tiler.hpp \
     tile.hpp \
     tile_cache.hpp \
     screen_coverage.hpp \
-    basic_render_policy.hpp \
-    render_queue.hpp \
-    render_queue_routine.hpp \
     ruler.hpp \
     measurement_utils.hpp \
     simple_render_policy.hpp \
@@ -43,7 +39,6 @@ HEADERS += \
     test_render_policy.hpp \
     queued_renderer.hpp \
     basic_tiling_render_policy.hpp \
-    render_policy_mt.hpp \
     bookmark.hpp \
     tile_set.hpp \
     geourl_process.hpp \
@@ -69,15 +64,11 @@ SOURCES += \
     tiling_render_policy_st.cpp \
     tiling_render_policy_mt.cpp \
     benchmark_engine.cpp \
-    render_policy_st.cpp \
     coverage_generator.cpp \
     tiler.cpp \
     tile_cache.cpp \
     tile.cpp \
     screen_coverage.cpp \
-    basic_render_policy.cpp \
-    render_queue_routine.cpp \
-    render_queue.cpp \
     ruler.cpp \
     measurement_utils.cpp \
     window_handle.cpp \
@@ -87,7 +78,6 @@ SOURCES += \
     queued_renderer.cpp \
     events.cpp \
     basic_tiling_render_policy.cpp \
-    render_policy_mt.cpp \
     address_finder.cpp \
     tile_set.cpp \
     geourl_process.cpp \

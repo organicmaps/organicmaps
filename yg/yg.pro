@@ -120,28 +120,16 @@ HEADERS += \
     display_list.hpp \
     data_traits.hpp
 
-CONFIG += glsl
-
 win32* {
   SOURCES += internal/opengl_win32.cpp
 } else: android*|iphone* {
-  CONFIG(glsl) {
-    DEFINES += USING_GLSL
-    HEADERS += internal/opengl_glsl_impl.hpp
-    SOURCES += internal/opengl_glsl_es2.cpp \
-               internal/opengl_glsl_impl.cpp
-  } else {
-    SOURCES += internal/opengl_es.cpp
-  }
+  HEADERS += internal/opengl_glsl_impl.hpp
+  SOURCES += internal/opengl_glsl_es2.cpp \
+             internal/opengl_glsl_impl.cpp
 } else {
-  CONFIG(glsl) {
-    DEFINES += USING_GLSL
-    HEADERS += internal/opengl_glsl_impl.hpp
-    SOURCES += internal/opengl_glsl_ext.cpp \
-               internal/opengl_glsl_impl.cpp
-  } else {
-    SOURCES += internal/opengl_ext.cpp
-  }
+  HEADERS += internal/opengl_glsl_impl.hpp
+  SOURCES += internal/opengl_glsl_ext.cpp \
+             internal/opengl_glsl_impl.cpp
 }
 
 

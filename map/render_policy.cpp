@@ -3,10 +3,7 @@
 #include "render_policy.hpp"
 #include "window_handle.hpp"
 #include "test_render_policy.hpp"
-#include "basic_render_policy.hpp"
 #include "simple_render_policy.hpp"
-#include "render_policy_st.hpp"
-#include "render_policy_mt.hpp"
 #include "tiling_render_policy_st.hpp"
 #include "tiling_render_policy_mt.hpp"
 

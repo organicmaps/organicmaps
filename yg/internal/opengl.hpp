@@ -4,9 +4,6 @@
 
 #include "../../base/logging.hpp"
 
-// This define is set in yg.pro
-// #define USING_GLSL
-
 #if defined(OMIM_OS_WINDOWS)
   #include "../../std/windows.hpp"
   #include <gl/gl.h>
@@ -22,15 +19,9 @@
   #include <TargetConditionals.h>
 
   #ifdef OMIM_OS_IPHONE
-    #ifdef USING_GLSL
-      #define USE_OPENGLES20_IF_AVAILABLE 1
-      #include <OpenGLES/ES2/gl.h>
-      #define OMIM_GL_ES
-    #else
-      #define USE_OPENGLES20_IF_AVAILABLE 0
-      #include <OpenGLES/ES1/gl.h>
-      #define OMIM_GL_ES
-    #endif
+    #define USE_OPENGLES20_IF_AVAILABLE 1
+    #include <OpenGLES/ES2/gl.h>
+    #define OMIM_GL_ES
   #else
     #include <OpenGL/gl.h>
     #include <OpenGL/glext.h>
@@ -38,11 +29,7 @@
 
 #elif defined(OMIM_OS_ANDROID)
 
-  #ifdef USING_GLSL
-    #include <GLES2/gl2.h>
-  #else
-    #include <GLES/gl.h>
-  #endif
+  #include <GLES2/gl2.h>
 
   #define OMIM_GL_ES
 

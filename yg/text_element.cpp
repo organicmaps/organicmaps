@@ -114,7 +114,6 @@ namespace yg
 
       if (doTransformPivotOnly)
       {
-#ifdef USING_GLSL
         m2::PointD offsPt = offs + elem.m_pt;
         m2::PointD fullPt = pv + offs + elem.m_pt;
 
@@ -122,12 +121,6 @@ namespace yg
         offsPt.y -= fullPt.y - floor(fullPt.y);
 
         screen->drawStraightGlyph(pv, offsPt, glyphStyle, depth);
-#else
-        glyphPt = pv + offs + elem.m_pt;
-        glyphAngle = elem.m_angle;
-
-        screen->drawGlyph(glyphPt, m2::PointD(0.0, 0.0), glyphAngle, 0, glyphStyle, depth);
-#endif
       }
       else
       {

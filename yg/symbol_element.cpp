@@ -78,8 +78,6 @@ namespace yg
 
     m2::PointD posPt = tieRect(m2::RectD(texRect), m);
 
-#ifdef USING_GLSL
-
     posPt -= pivot();
 
     r->drawStraightTexturedPolygon(pivot(),
@@ -87,17 +85,6 @@ namespace yg
                                    posPt.x, posPt.y, posPt.x + texRect.SizeX(), posPt.y + texRect.SizeY(),
                                    yg::maxDepth - 2,
                                    style->m_pipelineID);
-
-#else
-
-    r->drawTexturedPolygon(m2::PointD(0.0, 0.0), 0.0,
-                           texRect.minX(), texRect.minY(), texRect.maxX(), texRect.maxY(),
-                           posPt.x, posPt.y, posPt.x + texRect.SizeX(), posPt.y + texRect.SizeY(),
-                           yg::maxDepth - 2,
-                           style->m_pipelineID);
-
-#endif
-
   }
 
   int SymbolElement::visualRank() const

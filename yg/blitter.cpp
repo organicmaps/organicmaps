@@ -329,12 +329,7 @@ namespace yg
       Vertex::setupLayout(blitStorage.m_vertices->glPtr());
 
       if (m_texture)
-      {
-#ifndef USING_GLSL
-        OGLCHECK(glEnable(GL_TEXTURE_2D));
-#endif
         m_texture->makeCurrent();
-      }
 
       unsigned short idxData[4] = {0, 1, 2, 3};
       memcpy(blitStorage.m_indices->data(), idxData, sizeof(idxData));
