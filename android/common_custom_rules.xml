@@ -41,7 +41,7 @@
 
   <target name="-setup-amazon-market">
     <property name="mwm.market.name" value="-amazon"/>
-    <echo file="${asset.absolute.dir}/app_info.txt" append="false" message="http://redbutton.mapswithme.com/enable_search_banner_amazon"/>
+    <echo file="${asset.absolute.dir}/app_info.txt" append="false" message="amzn://apps/android?p=com.mapswithme.maps.pro"/>
   </target>
 
   <target name="amazon-production" depends="-setup-amazon-market, -setup-production, production"/>
@@ -50,7 +50,7 @@
 
   <target name="-setup-google-market">
     <property name="mwm.market.name" value="-google"/>
-    <echo file="${asset.absolute.dir}/app_info.txt" append="false" message="http://redbutton.mapswithme.com/enable_search_banner_google"/>
+    <echo file="${asset.absolute.dir}/app_info.txt" append="false" message="market://details?id=com.mapswithme.maps.pro"/>
   </target>
 
   <target name="google-production" depends="-setup-google-market, -setup-production, production"/>
@@ -59,7 +59,7 @@
 
   <target name="-setup-samsung-market">
     <property name="mwm.market.name" value="-samsung"/>
-    <echo file="${asset.absolute.dir}/app_info.txt" append="false" message="http://redbutton.mapswithme.com/enable_search_banner_samsung"/>
+    <echo file="${asset.absolute.dir}/app_info.txt" append="false" message="samsungapps://ProductDetail/com.mapswithme.maps.pro"/>
   </target>
 
   <target name="samsung-production" depends="-setup-samsung-market, -setup-production, production"/>
@@ -68,7 +68,7 @@
 
   <target name="-setup-lg-market">
     <property name="mwm.market.name" value="-lg"/>
-    <echo file="${asset.absolute.dir}/app_info.txt" append="false" message="http://redbutton.mapswithme.com/enable_search_banner_lg"/>
+    <echo file="${asset.absolute.dir}/app_info.txt" append="false" message="http://us.lgworld.com/web.categories.RetrieveCategoryApplView.dev?applId=000000125320212"/>
   </target>
 
   <target name="lg-production" depends="-setup-lg-market, -setup-production, production"/>

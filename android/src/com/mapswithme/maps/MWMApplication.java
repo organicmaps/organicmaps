@@ -28,7 +28,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
   private int m_slotID = 0;
 
   private boolean m_isProVersion = false;
-  private String m_proVersionCheckURL = "";
+  private String m_proVersionURL = "";
 
   private void showDownloadToast(int resID, Index idx)
   {
@@ -73,9 +73,9 @@ public class MWMApplication extends android.app.Application implements MapStorag
     {
       stream = assets.open("app_info.txt");
       BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-      m_proVersionCheckURL = reader.readLine();
+      m_proVersionURL = reader.readLine();
 
-      Log.i(TAG, "PROCHECKURL: " + m_proVersionCheckURL);
+      Log.i(TAG, "Pro version url: " + m_proVersionURL);
     }
     catch (IOException ex)
     {
@@ -152,9 +152,9 @@ public class MWMApplication extends android.app.Application implements MapStorag
     return m_isProVersion;
   }
 
-  public String getProVersionCheckURL()
+  public String getProVersionURL()
   {
-    return m_proVersionCheckURL;
+    return m_proVersionURL;
   }
 
   private String getTmpPath()

@@ -63,7 +63,7 @@
             android:layout_marginLeft="10dip"
             android:onClick="onDownloadClicked"
             android:contentDescription="@string/download_maps"/>
-        
+
         <Button 
             android:id="@+id/map_button_search"
             android:layout_width="wrap_content"
@@ -71,8 +71,7 @@
             android:background="@drawable/search_button"
             android:layout_marginLeft="10dip"
             android:onClick="onSearchClicked"
-            android:contentDescription="@string/search_map"
-            android:visibility="gone"/>
+            android:contentDescription="@string/search_map"/>
 
     </LinearLayout>
 

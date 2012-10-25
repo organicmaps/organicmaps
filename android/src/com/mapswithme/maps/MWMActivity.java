@@ -140,7 +140,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       {
         // Run all checks in main thread after rendering is initialized.
         checkMeasurementSystem();
-        checkProVersionAvailable();
         checkUpdateMaps();
         checkFacebookDialog();
       }
@@ -295,17 +294,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     v.setSelected(false);
   }
 
-  private void checkProVersionAvailable()
-  {
-    if (mApplication.isProVersion() ||
-        (nativeGetProVersionURL().length() != 0))
-    {
-      findViewById(R.id.map_button_search).setVisibility(View.VISIBLE);
-    }
-    else
-      nativeCheckForProVersion(mApplication.getProVersionCheckURL());
-  }
-
   private boolean m_needCheckUpdate = true;
 
   private void checkUpdateMaps()
@@ -434,52 +422,31 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     }
   }
 
-  /// Invoked from native code - asynchronous server check.
-  public void onProVersionAvailable()
-  {
-    final View v = findViewById(R.id.map_button_search);
-
-    // Don't do any additional checks. Probably error was in showing Dialog from nonUI thread.
-    // See fix in showProVersionBanner.
-    if (v != null /*&& !isActivityPaused() && !isFinishing()*/)
-    {
-      v.setVisibility(View.VISIBLE);
-      showProVersionBanner(getString(R.string.pro_version_available));
-    }
-  }
-
   private void showProVersionBanner(final String message)
   {
-    runOnUiThread(new Runnable()
+    new AlertDialog.Builder(getActivity())
+    .setMessage(message)
+    .setCancelable(false)
+    .setPositiveButton(getString(R.string.get_it_now), new DialogInterface.OnClickListener()
     {
       @Override
-      public void run()
+      public void onClick(DialogInterface dlg, int which)
       {
-        new AlertDialog.Builder(getActivity())
-        .setMessage(message)
-        .setCancelable(false)
-        .setPositiveButton(getString(R.string.get_it_now), new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dlg, int which)
-          {
-            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(nativeGetProVersionURL()));
-            dlg.dismiss();
-            startActivity(i);
-          }
-        })
-        .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dlg, int which)
-          {
-            dlg.dismiss();
-          }
-        })
-        .create()
-        .show();
+        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(mApplication.getProVersionURL()));
+        dlg.dismiss();
+        startActivity(i);
       }
-    });
+    })
+    .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener()
+    {
+      @Override
+      public void onClick(DialogInterface dlg, int which)
+      {
+        dlg.dismiss();
+      }
+    })
+    .create()
+    .show();
   }
 
   private void runSearchActivity()
@@ -866,9 +833,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private native void nativeOnLocationError(int errorCode);
   private native void nativeLocationUpdated(long time, double lat, double lon, float accuracy);
   private native void nativeCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy);
-
-  private native String nativeGetProVersionURL();
-  private native void nativeCheckForProVersion(String serverURL);
 
   private native boolean nativeIsInChina(double lat, double lon);
 }
