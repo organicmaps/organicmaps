@@ -56,8 +56,6 @@ namespace location
 
   private:
 
-    static const double s_cacheRadius;
-
     double m_errorRadius;   //< error radius in mercator
     m2::PointD m_position;  //< position in mercator
 
@@ -93,14 +91,11 @@ namespace location
 
     map<EState, shared_ptr<yg::gl::DisplayList> > m_arrowBodyLists;
     map<EState, shared_ptr<yg::gl::DisplayList> > m_arrowBorderLists;
-    shared_ptr<yg::gl::DisplayList> m_locationMarkDL;
-    shared_ptr<yg::gl::DisplayList> m_positionMarkDL;
 
     /// @}
 
     void cacheArrowBorder(EState state);
     void cacheArrowBody(EState state);
-    void cacheLocationMark();
 
     void cache();
     void purge();

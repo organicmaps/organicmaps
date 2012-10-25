@@ -26,8 +26,6 @@
 
 namespace location
 {
-  double const State::s_cacheRadius = 500;
-
   State::Params::Params()
   {}
 
@@ -288,44 +286,12 @@ namespace location
     cacheScreen->endFrame();
   }
 
-  void State::cacheLocationMark()
-  {
-    yg::gl::Screen * cacheScreen = m_controller->GetCacheScreen();
-
-    m_locationMarkDL.reset();
-    m_locationMarkDL.reset(cacheScreen->createDisplayList());
-
-    m_positionMarkDL.reset();
-    m_positionMarkDL.reset(cacheScreen->createDisplayList());
-
-    cacheScreen->beginFrame();
-    cacheScreen->setDisplayList(m_locationMarkDL.get());
-
-    cacheScreen->fillSector(m2::PointD(0, 0),
-                            0, 2.0 * math::pi,
-                            s_cacheRadius,
-                            m_locationAreaColor,
-                            depth() - 3);
-
-    cacheScreen->setDisplayList(m_positionMarkDL.get());
-
-    cacheScreen->drawSymbol(m2::PointD(0, 0),
-                            "current-position",
-                            yg::EPosCenter,
-                            depth() - 1);
-
-    cacheScreen->setDisplayList(0);
-
-    cacheScreen->endFrame();
-  }
-
   void State::cache()
   {
     cacheArrowBody(EActive);
     cacheArrowBorder(EActive);
     cacheArrowBody(EPressed);
     cacheArrowBorder(EPressed);
-    cacheLocationMark();
 
     m_controller->GetCacheScreen()->completeCommands();
   }
@@ -375,7 +341,6 @@ namespace location
       {
         double screenAngle = m_framework->GetNavigator().Screen().GetAngle();
         math::Matrix<double, 3, 3> compassDrawM;
-        math::Matrix<double, 3, 3> locationDrawM;
 
         /// drawing arrow body first
         if (m_hasCompass)
@@ -407,25 +372,21 @@ namespace location
         double const pxErrorRadius = pxPosition.Length(
               m_framework->GetNavigator().GtoP(Position() + m2::PointD(m_errorRadius, 0.0)));
 
-        double const drawScale = pxErrorRadius / s_cacheRadius;
-
-        locationDrawM =
-           math::Shift(
-             math::Scale(
-               math::Identity<double, 3>(),
-               drawScale,
-               drawScale),
-             pivot());
-
-        math::Matrix<double, 3, 3> const drawM = locationDrawM * m;
 
         if (!m_hasCompass)
-          m_positionMarkDL->draw(drawM);
+          r->drawSymbol(pxPosition,
+                       "current-position",
+                        yg::EPosCenter,
+                        depth() - 1);
 
-        m_locationMarkDL->draw(drawM);
+        r->fillSector(pxPosition,
+                      0, 2.0 * math::pi,
+                      pxErrorRadius,
+                      m_locationAreaColor,
+                      depth() - 3);
 
         /// and then arrow border
-        if (m_hasCompass)
+       if (m_hasCompass)
         {
           map<EState, shared_ptr<yg::gl::DisplayList> >::const_iterator it;
           it = m_arrowBorderLists.find(state());
