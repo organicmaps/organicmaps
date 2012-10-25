@@ -127,7 +127,7 @@ int Platform::VideoMemoryLimit() const
 
 int Platform::PreCachingDepth() const
 {
-  return 3;
+  return 2;
 }
 
 string Platform::DeviceName() const
