@@ -402,6 +402,8 @@ namespace location
 
   bool State::hitTest(m2::PointD const & pt) const
   {
+    if (!m_framework->GetNavigator().DoSupportRotation())
+      return false;
     double radius = m_arrowHeight * m_controller->GetVisualScale();
     return m_hasCompass && (pt.SquareLength(pivot()) <= my::sq(radius));
   }
