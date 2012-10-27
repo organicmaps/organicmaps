@@ -23,6 +23,8 @@
 #include "Framework.hpp"
 
 
+using namespace downloader;
+
 /// Special error codes to notify GUI about free space
 //@{
 #define ERR_DOWNLOAD_SUCCESS         0
@@ -47,7 +49,7 @@ struct FileToDownload
 static vector<FileToDownload> g_filesToDownload;
 static int g_totalDownloadedBytes;
 static int g_totalBytesToDownload;
-static shared_ptr<downloader::HttpRequest> g_currentRequest;
+static shared_ptr<HttpRequest> g_currentRequest;
 
 extern "C"
 {
@@ -172,18 +174,18 @@ extern "C"
             pl.GetFileSizeByName(path + WORLD_COASTS_FILE_NAME + DATA_FILE_EXTENSION, dummy));
   }
 
-  void DownloadFileFinished(shared_ptr<jobject> obj, downloader::HttpRequest & req)
+  void DownloadFileFinished(shared_ptr<jobject> obj, HttpRequest const & req)
   {
+    HttpRequest::StatusT const status = req.Status();
+    ASSERT_NOT_EQUAL(status, HttpRequest::EInProgress, ());
+
     int errorCode = 0;
-
-    ASSERT(req.Status() != downloader::HttpRequest::EInProgress, ("should be either Completed or Failed"));
-
-    switch (req.Status())
+    switch (status)
     {
-    case downloader::HttpRequest::ECompleted:
+    case HttpRequest::ECompleted:
       errorCode = ERR_DOWNLOAD_SUCCESS;
       break;
-    case downloader::HttpRequest::EFailed:
+    case HttpRequest::EFailed:
       errorCode = ERR_DOWNLOAD_ERROR;
       break;
     };
@@ -209,7 +211,7 @@ extern "C"
     env->CallVoidMethod(*obj.get(), methodID, errorCode);
   }
 
-  void DownloadFileProgress(shared_ptr<jobject> obj, downloader::HttpRequest & req)
+  void DownloadFileProgress(shared_ptr<jobject> obj, HttpRequest const & req)
   {
     //LOG(LDEBUG, (req.Progress().first, "bytes for", g_filesToDownload.back().m_fileName, "was downloaded"));
 
@@ -228,16 +230,16 @@ extern "C"
                          glbTotal, glbProgress);
   }
 
-  typedef downloader::HttpRequest::CallbackT CallbackT;
+  typedef HttpRequest::CallbackT CallbackT;
 
-  void DownloadURLListFinished(downloader::HttpRequest & req,
+  void DownloadURLListFinished(HttpRequest const & req,
                                CallbackT const & onFinish, CallbackT const & onProgress)
   {
     FileToDownload & curFile = g_filesToDownload.back();
 
     LOG(LINFO, ("Finished URL list download for", curFile.m_fileName));
 
-    downloader::GetServerListFromRequest(req, curFile.m_urls);
+    GetServerListFromRequest(req, curFile.m_urls);
 
     storage::Storage const & storage = g_framework->Storage();
     for (size_t i = 0; i < curFile.m_urls.size(); ++i)
@@ -246,7 +248,7 @@ extern "C"
       LOG(LINFO, (curFile.m_urls[i]));
     }
 
-    g_currentRequest.reset(downloader::HttpRequest::GetFile(
+    g_currentRequest.reset(HttpRequest::GetFile(
         curFile.m_urls, curFile.m_pathOnSdcard, curFile.m_fileSize,
         onFinish, onProgress,
         64 * 1024, false));
@@ -273,7 +275,7 @@ extern "C"
     CallbackT onFinish(bind(&DownloadFileFinished, jni::make_global_ref(observer), _1));
     CallbackT onProgress(bind(&DownloadFileProgress, jni::make_global_ref(observer), _1));
 
-    g_currentRequest.reset(downloader::HttpRequest::PostJson(
+    g_currentRequest.reset(HttpRequest::PostJson(
         GetPlatform().ResourcesMetaServerUrl(), curFile.m_fileName,
         bind(&DownloadURLListFinished, _1, onFinish, onProgress)));
 

@@ -73,7 +73,7 @@ void ChunksDownloadStrategy::SaveChunks(int64_t fileSize, string const & fName)
       w.Write(&m_chunks[0], sizeof(ChunkT) * m_chunks.size());
       return;
     }
-    catch(FileWriter::Exception const & e)
+    catch (FileWriter::Exception const & e)
     {
       LOG(LERROR, (e.Msg()));
     }
@@ -119,9 +119,9 @@ int64_t ChunksDownloadStrategy::LoadOrInitChunks( string const & fName,
       return downloadedSize;
     }
   }
-  catch(FileReader::Exception const & e)
+  catch (RootException const & e)
   {
-    // Usually - file not exists.
+    // Usually - file not exists. May be SourceOutOfBoundsException.
     LOG(LDEBUG, (e.Msg()));
   }
 

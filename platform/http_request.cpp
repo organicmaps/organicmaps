@@ -247,10 +247,12 @@ public:
                   CallbackT const & onFinish, CallbackT const & onProgress,
                   int64_t chunkSize, bool doCleanProgressFiles)
     : HttpRequest(onFinish, onProgress), m_strategy(urls), m_filePath(filePath),
-      m_writer(new FileWriter(filePath + DOWNLOADING_FILE_EXTENSION, FileWriter::OP_WRITE_EXISTING)),
       m_goodChunksCount(0), m_doCleanProgressFiles(doCleanProgressFiles)
   {
     ASSERT ( !urls.empty(), () );
+
+    // Open file here. Avoid throwing exceptions from constructor's initialization list.
+    m_writer.reset(new FileWriter(filePath + DOWNLOADING_FILE_EXTENSION, FileWriter::OP_WRITE_EXISTING));
 
     m_progress.first = m_strategy.LoadOrInitChunks(m_filePath + RESUME_FILE_EXTENSION,
                                                    fileSize, chunkSize);
@@ -310,11 +312,45 @@ HttpRequest * HttpRequest::PostJson(string const & url, string const & postData,
   return new MemoryHttpRequest(url, postData, onFinish, onProgress);
 }
 
+namespace
+{
+  class ErrorHttpRequest : public HttpRequest
+  {
+    string m_filePath;
+  public:
+    ErrorHttpRequest(string const & filePath)
+      : HttpRequest(CallbackT(), CallbackT()), m_filePath(filePath)
+    {
+      m_status = EFailed;
+    }
+
+    virtual string const & Data() const { return m_filePath; }
+  };
+}
+
 HttpRequest * HttpRequest::GetFile(vector<string> const & urls, string const & filePath, int64_t fileSize,
                                    CallbackT const & onFinish, CallbackT const & onProgress,
                                    int64_t chunkSize, bool doCleanProgressFiles)
 {
-  return new FileHttpRequest(urls, filePath, fileSize, onFinish, onProgress, chunkSize, doCleanProgressFiles);
+  FileHttpRequest * p = 0;
+  try
+  {
+    p = new FileHttpRequest(urls, filePath, fileSize, onFinish, onProgress, chunkSize, doCleanProgressFiles);
+  }
+  catch (FileWriter::Exception const & e)
+  {
+    // Can't create file for writing.
+    LOG(LERROR, ("Can't create FileHttpRequest for", filePath, e.what()));
+
+    delete p;
+    p = 0;
+
+    // Mark the end of download with error.
+    ErrorHttpRequest error(filePath);
+    onFinish(error);
+  }
+
+  return p;
 }
 
 } // namespace downloader

@@ -19,6 +19,7 @@ public:
   {
     /// should create java object here.
     JNIEnv * env = jni::GetEnv();
+    ASSERT ( env, () );
 
     jclass klass = env->FindClass("com/mapswithme/maps/downloader/DownloadChunkTask");
     ASSERT ( klass, () );
@@ -49,7 +50,11 @@ public:
   ~HttpThread()
   {
     JNIEnv * env = jni::GetEnv();
+    ASSERT ( env, () );
+
     jmethodID methodId = jni::GetJavaMethodID(env, m_self, "cancel", "(Z)Z");
+    ASSERT ( methodId, () );
+
     env->CallBooleanMethod(m_self, methodId, false);
 
     env->DeleteGlobalRef(m_self);
