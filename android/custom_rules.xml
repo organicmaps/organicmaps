@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="MapsWithMe" default="help">
 
+  <property name="arch" value="multiarch" />
+
+  <condition property="build.type.multi">
+    <equals arg1="${arch}" arg2="multiarch"/>
+  </condition>
+
+  <target name="-setup-architectures">
+
+    <if condition="${build.type.multi}">
+      <then>
+	<property name="mwm.ndk.abi" value="armeabi armeabi-v7a mips x86"/>
+      </then>
+      <else>
+	<property name="mwm.ndk.abi" value="${arch}"/>
+      </else>
+    </if>
+
+    <echo> ************************************************ </echo>
+    <echo> ***** BUILDING THE FOLLOWING ARCHITECTURES ***** </echo>
+    <echo> ***** ${mwm.ndk.abi}  </echo>
+    <echo> ************************************************ </echo>
+
+  </target>
+
   <property name="jni.absolute.dir" location="jni" />
 
   <target name="clean" depends="android_rules.clean">
@@ -9,8 +33,9 @@
     </exec>
   </target>
 
-  <target name="-ndk-production">
+  <target name="-ndk-production" depends="-setup-architectures">
     <exec executable="bash" failonerror="true">
+      <env key="NDK_ABI_TO_BUILD" value="${mwm.ndk.abi}"/>
       <arg value="${mwm.tools.dir}/autobuild/android.sh"/>
       <arg value="production"/>
     </exec>
@@ -85,7 +110,7 @@
     <record-build-info />
   </target>
 
-  <target name="-ndk-release">
+  <target name="-ndk-release" depends="-setup-architectures">
     <exec executable="bash" failonerror="true">
       <arg value="${mwm.tools.dir}/autobuild/android.sh"/>
       <arg value="release"/>
@@ -102,17 +127,17 @@
   <target name="release" depends="-ndk-release, android_rules.release">
   </target>
 
-  <target name="-ndk-debug">
+  <target name="-ndk-debug" depends="-setup-architectures">
     <exec executable="bash" failonerror="true">
-          <arg value="${mwm.tools.dir}/autobuild/android.sh"/>
-          <arg value="debug"/>
+      <arg value="${mwm.tools.dir}/autobuild/android.sh"/>
+      <arg value="debug"/>
     </exec>
     <exec executable="touch">
       <arg value="${jni.absolute.dir}/com/mapswithme/core/jni_helper.cpp"/>
     </exec>
     <exec executable="${ndk.dir}/ndk-build" failonerror="true">
-          <arg value="NDK_DEBUG=1"/>
-          <arg value="V=1"/>
+      <arg value="NDK_DEBUG=1"/>
+      <arg value="V=1"/>
     </exec>
   </target>
 

@@ -22,9 +22,14 @@ SHADOW_DIR_BASE="$LOCAL_DIRNAME/../../../omim-android"
 export NDK_ROOT=$(GetNdkRoot) || ( echo "Can't read NDK root path from android/local.properties"; exit 1 )
 export NDK_HOST=$(GetNdkHost) || ( echo "Can't get your OS type, please check tools/autobuild/ndk_helper.sh script"; exit 1 )
 
-NDK_ABI_TO_BUILD=(armeabi armeabi-v7a mips x86)
+NDK_ABI_LIST=(armeabi armeabi-v7a mips x86)
 
-for abi in "${NDK_ABI_TO_BUILD[@]}"; do
+if test "${NDK_ABI_TO_BUILD+set}" == set 
+then
+  NDK_ABI_LIST=($NDK_ABI_TO_BUILD);
+fi
+
+for abi in "${NDK_ABI_LIST[@]}"; do
   SHADOW_DIR="${SHADOW_DIR_BASE}-${CONFIGURATION}-${abi}"
   if [[ $# > 1 && "$2" == "clean" ]] ; then
     echo "Cleaning $CONFIGURATION-$abi configuration..."
