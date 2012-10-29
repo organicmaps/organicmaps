@@ -23,9 +23,11 @@
 
     bmName.font = self.textLabel.font;
     bmName.textColor = self.textLabel.textColor;
+    bmName.backgroundColor = [UIColor clearColor];
 
     bmDistance.font = self.detailTextLabel.font;
     bmDistance.textColor = self.detailTextLabel.textColor;
+    bmDistance.backgroundColor = [UIColor clearColor];
 
     self.detailTextLabel.text = nil;
     self.textLabel.text = nil;
