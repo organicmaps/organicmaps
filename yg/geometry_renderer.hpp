@@ -129,6 +129,8 @@ namespace yg
       void setDisplayList(DisplayList * displayList);
       /// get current display list
       DisplayList * displayList() const;
+      /// draw display list
+      void drawDisplayList(DisplayList * dl, math::Matrix<double, 3, 3> const & m);
     };
   }
 }

@@ -159,8 +159,6 @@ namespace yg
       bool isCancelled() const;
 
       void setPixelPrecision(bool flag);
-
-      virtual void flush();
     };
   }
 }

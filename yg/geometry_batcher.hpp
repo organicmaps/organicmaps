@@ -211,9 +211,9 @@ namespace yg
       void enterBackground();
       void enterForeground();
 
-      void setDisplayList(DisplayList * displayList);
-
-      void flush();
+      void setDisplayList(DisplayList * dl);
+      void drawDisplayList(DisplayList * dl, math::Matrix<double, 3, 3> const & m);
+      void setPixelPrecision(bool flag);
     };
   }
 }

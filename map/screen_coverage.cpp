@@ -417,12 +417,12 @@ void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)
   math::Matrix<double, 3, 3> m = m_screen.PtoGMatrix() * screen.GtoPMatrix();
 
   if (m_primaryDL)
-    m_primaryDL->draw(m);
+    s->drawDisplayList(m_primaryDL.get(), m);
 
   s->setPixelPrecision(true);
 
   if (m_sharpTextDL)
-    m_sharpTextDL->draw(m);
+    s->drawDisplayList(m_sharpTextDL.get(), m);
 
   s->setPixelPrecision(false);
 }

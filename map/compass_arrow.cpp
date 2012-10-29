@@ -65,7 +65,7 @@ void CompassArrow::draw(yg::gl::OverlayRenderer * r,
                                            m_angle),
                                          pivot());
 
-    m_displayList->draw(drawM * m);
+    r->drawDisplayList(m_displayList.get(), drawM * m);
   }
 }
 

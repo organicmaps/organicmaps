@@ -304,11 +304,7 @@ namespace yg
 
     void Renderer::setPixelPrecision(bool flag)
     {
-      flush();
       glUseSharpGeometryFn(flag);
     }
-
-    void Renderer::flush()
-    {}
   }
 }

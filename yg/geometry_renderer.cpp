@@ -344,9 +344,15 @@ namespace yg
       return new DisplayList(this);
     }
 
-    void GeometryRenderer::setDisplayList(DisplayList * displayList)
+    void GeometryRenderer::setDisplayList(DisplayList * dl)
     {
-      m_displayList = displayList;
+      m_displayList = dl;
+    }
+
+    void GeometryRenderer::drawDisplayList(DisplayList * dl,
+                                           math::Matrix<double, 3, 3> const & m)
+    {
+      dl->draw(m);
     }
 
     DisplayList * GeometryRenderer::displayList() const

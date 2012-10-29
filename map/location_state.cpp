@@ -362,7 +362,7 @@ namespace location
           it = m_arrowBodyLists.find(state());
 
           if (it != m_arrowBodyLists.end())
-            it->second->draw(compassDrawM * m);
+            r->drawDisplayList(it->second.get(), compassDrawM * m);
           else
             LOG(LWARNING, ("m_compassDisplayLists[state()] is not set!"));
         }
@@ -392,7 +392,7 @@ namespace location
           it = m_arrowBorderLists.find(state());
 
           if (it != m_arrowBorderLists.end())
-            it->second->draw(compassDrawM * m);
+            r->drawDisplayList(it->second.get(), compassDrawM * m);
           else
             LOG(LWARNING, ("m_arrowBorderLists[state()] is not set!"));
         }

@@ -771,15 +771,22 @@ namespace yg
        m_skin->enterForeground();
    }
 
-   void GeometryBatcher::setDisplayList(DisplayList * displayList)
+   void GeometryBatcher::setDisplayList(DisplayList * dl)
    {
      flush(-1);
-     base_t::setDisplayList(displayList);
+     base_t::setDisplayList(dl);
    }
 
-   void GeometryBatcher::flush()
+   void GeometryBatcher::drawDisplayList(DisplayList * dl, math::Matrix<double, 3, 3> const & m)
    {
      flush(-1);
+     base_t::drawDisplayList(dl, m);
+   }
+
+   void GeometryBatcher::setPixelPrecision(bool flag)
+   {
+     flush(-1);
+     base_t::setPixelPrecision(flag);
    }
  } // namespace gl
 } // namespace yg
