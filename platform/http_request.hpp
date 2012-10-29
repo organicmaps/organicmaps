@@ -22,7 +22,7 @@ public:
 
   /// <current, total>, total can be -1 if size is unknown
   typedef pair<int64_t, int64_t> ProgressT;
-  typedef function<void(HttpRequest &)> CallbackT;
+  typedef function<void (HttpRequest &)> CallbackT;
 
 protected:
   StatusT m_status;
@@ -44,16 +44,20 @@ public:
   static HttpRequest * Get(string const & url,
                            CallbackT const & onFinish,
                            CallbackT const & onProgress = CallbackT());
+
   /// Content-type for request is always "application/json"
   static HttpRequest * PostJson(string const & url, string const & postData,
                                 CallbackT const & onFinish,
                                 CallbackT const & onProgress = CallbackT());
-  static HttpRequest * GetFile(vector<string> const & urls, string const & filePath,
-                               int64_t projectedFileSize,
+
+  /// Download file to filePath.
+  /// @param[in]  fileSize  Correct file size (needed for resuming and reserving).
+  static HttpRequest * GetFile(vector<string> const & urls,
+                               string const & filePath, int64_t fileSize,
                                CallbackT const & onFinish,
                                CallbackT const & onProgress = CallbackT(),
                                int64_t chunkSize = 512 * 1024,
-                               bool doCleanProgressFiles = true);
+                               bool doCleanOnCancel = true);
 };
 
 } // namespace downloader

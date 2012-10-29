@@ -212,17 +212,7 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
 
     if (m_status != EInProgress)
     {
-      try
-      {
-        m_writer.reset();
-      }
-      catch (Writer::Exception const & ex)
-      {
-        LOG(LWARNING, ("Can't close file correctly. There is not enough space, possibly."));
-
-        ASSERT_EQUAL ( m_status, EFailed, () );
-        m_status = EFailed;
-      }
+      CloseWriter();
 
       // clean up resume file with chunks range on success
       if (m_status == ECompleted)
@@ -242,6 +232,20 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     }
   }
 
+  void CloseWriter()
+  {
+    try
+    {
+      m_writer.reset();
+    }
+    catch (Writer::Exception const & ex)
+    {
+      LOG(LWARNING, ("Can't close file correctly. There is not enough space, possibly."));
+
+      m_status = EFailed;
+    }
+  }
+
 public:
   FileHttpRequest(vector<string> const & urls, string const & filePath, int64_t fileSize,
                   CallbackT const & onFinish, CallbackT const & onProgress,
@@ -251,12 +255,28 @@ public:
   {
     ASSERT ( !urls.empty(), () );
 
-    // Open file here. Avoid throwing exceptions from constructor's initialization list.
-    m_writer.reset(new FileWriter(filePath + DOWNLOADING_FILE_EXTENSION, FileWriter::OP_WRITE_EXISTING));
-
+    // Load resume downloading information.
     m_progress.first = m_strategy.LoadOrInitChunks(m_filePath + RESUME_FILE_EXTENSION,
                                                    fileSize, chunkSize);
     m_progress.second = fileSize;
+
+    FileWriter::Op openMode = FileWriter::OP_WRITE_TRUNCATE;
+    if (m_progress.first != 0)
+    {
+      // Check that resume information is correct with existing file.
+      uint64_t size;
+      if (my::GetFileSize(filePath + DOWNLOADING_FILE_EXTENSION, size) && size == fileSize)
+        openMode = FileWriter::OP_WRITE_EXISTING;
+      else
+        m_strategy.InitChunks(fileSize, chunkSize);
+    }
+
+    // Create file and reserve needed size.
+    scoped_ptr<FileWriter> writer(new FileWriter(filePath + DOWNLOADING_FILE_EXTENSION, openMode));
+    writer->Reserve(fileSize);
+
+    // Assign here, because previous functions can throw an exception.
+    m_writer.swap(writer);
 
 #ifdef OMIM_OS_IPHONE
     m_writer->Flush();
@@ -274,12 +294,12 @@ public:
     if (m_status == EInProgress)
     {
       // means that client canceled download process, so delete all temporary files
-      m_writer.reset();
+      CloseWriter();
 
       if (m_doCleanProgressFiles)
       {
-        my::DeleteFileX(m_filePath + DOWNLOADING_FILE_EXTENSION);
-        my::DeleteFileX(m_filePath + RESUME_FILE_EXTENSION);
+        (void)my::DeleteFileX(m_filePath + DOWNLOADING_FILE_EXTENSION);
+        (void)my::DeleteFileX(m_filePath + RESUME_FILE_EXTENSION);
       }
     }
   }
@@ -328,29 +348,26 @@ namespace
   };
 }
 
-HttpRequest * HttpRequest::GetFile(vector<string> const & urls, string const & filePath, int64_t fileSize,
+HttpRequest * HttpRequest::GetFile(vector<string> const & urls,
+                                   string const & filePath, int64_t fileSize,
                                    CallbackT const & onFinish, CallbackT const & onProgress,
-                                   int64_t chunkSize, bool doCleanProgressFiles)
+                                   int64_t chunkSize, bool doCleanOnCancel)
 {
-  FileHttpRequest * p = 0;
   try
   {
-    p = new FileHttpRequest(urls, filePath, fileSize, onFinish, onProgress, chunkSize, doCleanProgressFiles);
+    return new FileHttpRequest(urls, filePath, fileSize, onFinish, onProgress, chunkSize, doCleanOnCancel);
   }
   catch (FileWriter::Exception const & e)
   {
-    // Can't create file for writing.
+    // Can't create or open file for writing.
     LOG(LERROR, ("Can't create FileHttpRequest for", filePath, e.what()));
-
-    delete p;
-    p = 0;
 
     // Mark the end of download with error.
     ErrorHttpRequest error(filePath);
     onFinish(error);
-  }
 
-  return p;
+    return 0;
+  }
 }
 
 } // namespace downloader
