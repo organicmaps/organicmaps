@@ -80,21 +80,13 @@ namespace yg
       return 0;
 
     id_pair_t p = unpackID(id);
-    if (p.first < m_pages.size())
-      return m_pages[p.first]->fromID(p.second);
-    else
-      return m_additionalPages[p.first - m_pages.size()]->fromID(p.second);
+
+    ASSERT(p.first < m_pages.size(), ());
+    return m_pages[p.first]->fromID(p.second);
   }
 
   uint32_t Skin::mapSymbol(char const * symbolName)
   {
-    for (uint8_t i = 0; i < m_additionalPages.size(); ++i)
-    {
-      uint32_t res = m_additionalPages[i]->findSymbol(symbolName);
-      if (res != invalidPageHandle())
-        return packID(i + m_pages.size(), res);
-    }
-
     for (uint8_t i = 0; i < m_pages.size(); ++i)
     {
       uint32_t res = m_pages[i]->findSymbol(symbolName);
@@ -108,13 +100,6 @@ namespace yg
   uint32_t Skin::mapColor(Color const & c)
   {
     uint32_t res = invalidPageHandle();
-
-    for (uint8_t i = 0; i < m_additionalPages.size(); ++i)
-    {
-      res = m_additionalPages[i]->findColor(c);
-      if (res != invalidPageHandle())
-        return packID(i + m_pages.size(), res);
-    }
 
     for (uint8_t i = 0; i < m_pages.size(); ++i)
     {
@@ -133,13 +118,6 @@ namespace yg
   {
     uint32_t res = invalidPageHandle();
 
-    for (uint8_t i = 0; i < m_additionalPages.size(); ++i)
-    {
-      res = m_additionalPages[i]->findPenInfo(penInfo);
-      if (res != invalidPageHandle())
-        return packID(i + m_pages.size(), res);
-    }
-
     for (uint8_t i = 0; i < m_pages.size(); ++i)
     {
       res = m_pages[i]->findPenInfo(penInfo);
@@ -156,13 +134,6 @@ namespace yg
   uint32_t Skin::mapCircleInfo(CircleInfo const & circleInfo)
   {
     uint32_t res = invalidPageHandle();
-
-    for (uint8_t i = 0; i < m_additionalPages.size(); ++i)
-    {
-      res = m_additionalPages[i]->findCircleInfo(circleInfo);
-      if (res != invalidPageHandle())
-        return packID(i + m_pages.size(), res);
-    }
 
     for (uint8_t i = 0; i < m_pages.size(); ++i)
     {
@@ -216,13 +187,6 @@ namespace yg
   {
     uint32_t res = invalidPageHandle();
 
-    for (uint8_t i = 0; i < m_additionalPages.size(); ++i)
-    {
-      res = m_additionalPages[i]->findGlyph(gk);
-      if (res != invalidPageHandle())
-        return packID(i + m_pages.size(), res);
-    }
-
     for (uint8_t i = 0; i < m_pages.size(); ++i)
     {
       res = m_pages[i]->findGlyph(gk);
@@ -238,20 +202,13 @@ namespace yg
 
   shared_ptr<SkinPage> const & Skin::getPage(int i) const
   {
-    if (i < m_pages.size())
-      return m_pages[i];
-    else
-      return m_additionalPages[i - m_pages.size()];
+    ASSERT(i < m_pages.size(), ());
+    return m_pages[i];
   }
 
   size_t Skin::getPagesCount() const
   {
     return m_pages.size();
-  }
-
-  size_t Skin::getAdditionalPagesCount() const
-  {
-    return m_additionalPages.size();
   }
 
   void Skin::addClearPageFn(clearPageFn fn, int priority)
@@ -347,21 +304,9 @@ namespace yg
   {
   }
 
-  void Skin::setAdditionalPage(shared_ptr<SkinPage> const & page)
-  {
-    m_additionalPages.clear();
-    m_additionalPages.push_back(page);
-    m_additionalPages[0]->setPipelineID(0 + m_pages.size());
-  }
-
   void Skin::clearHandles()
   {
     for (unsigned i = 0; i < m_pages.size(); ++i)
       m_pages[i]->clear();
-  }
-
-  void Skin::clearAdditionalPage()
-  {
-    m_additionalPages.clear();
   }
 }

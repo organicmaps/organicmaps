@@ -44,7 +44,6 @@ namespace yg
   private:
 
     TSkinPages m_pages;
-    TSkinPages m_additionalPages;
 
     uint8_t m_dynamicPage;
     uint8_t m_textPage;
@@ -128,16 +127,12 @@ namespace yg
 
     shared_ptr<SkinPage> const & getPage(int i) const;
     size_t getPagesCount() const;
-    size_t getAdditionalPagesCount() const;
 
     uint32_t invalidHandle() const;
     uint32_t invalidPageHandle() const;
 
     uint8_t textPage() const;
     uint8_t dynamicPage() const;
-
-    void setAdditionalPage(shared_ptr<SkinPage> const & pages);
-    void clearAdditionalPage();
 
     void clearHandles();
 

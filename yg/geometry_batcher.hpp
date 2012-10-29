@@ -211,9 +211,6 @@ namespace yg
       void enterBackground();
       void enterForeground();
 
-      void setAdditionalSkinPage(shared_ptr<SkinPage> const & v);
-      void clearAdditionalSkinPage();
-
       void setDisplayList(DisplayList * displayList);
 
       void flush();

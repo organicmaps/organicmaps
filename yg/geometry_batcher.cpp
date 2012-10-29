@@ -147,54 +147,6 @@ namespace yg
      }
    }
 
-   void GeometryBatcher::setAdditionalSkinPage(shared_ptr<SkinPage> const & p)
-   {
-     if (m_skin != 0)
-     {
-       m_skin->setAdditionalPage(p);
-       int pagesCount = m_skin->getPagesCount();
-       m_pipelines.resize(pagesCount + 1);
-
-       /// additional page are fixed-content page, and shouldn't be modified by this screen.
-       /*m_skin->addOverflowFn(bind(&GeometryBatcher::flush, this, _1), 100);
-
-       m_skin->addClearPageFn(bind(&GeometryBatcher::flush, this, _1), 100);
-       m_skin->addClearPageFn(bind(&GeometryBatcher::freeTexture, this, _1), 99);*/
-
-       for (size_t i = 0; i < 1; ++i)
-       {
-         m_pipelines[i + pagesCount].m_useGuiResources = m_useGuiResources;
-         m_pipelines[i + pagesCount].m_currentVertex = 0;
-         m_pipelines[i + pagesCount].m_currentIndex = 0;
-
-         m_pipelines[i + pagesCount].m_hasStorage = false;
-         m_pipelines[i + pagesCount].m_type = p->type();
-
-         m_pipelines[i + pagesCount].m_maxVertices = 0;
-         m_pipelines[i + pagesCount].m_maxIndices = 0;
-
-         m_pipelines[i + pagesCount].m_vertices = 0;
-         m_pipelines[i + pagesCount].m_indices = 0;
-       }
-     }
-   }
-
-   void GeometryBatcher::clearAdditionalSkinPage()
-   {
-     if (m_skin != 0)
-     {
-       size_t pagesCount = m_skin->getPagesCount();
-       size_t additionalPagesCount = m_skin->getAdditionalPagesCount();
-
-       m_skin->clearAdditionalPage();
-
-       for (unsigned i = pagesCount; i < pagesCount + additionalPagesCount; ++i)
-         freePipeline(i);
-
-       m_pipelines.resize(m_skin->getPagesCount());
-     }
-   }
-
    void GeometryBatcher::setSkin(shared_ptr<Skin> skin)
    {
      m_skin = skin;
