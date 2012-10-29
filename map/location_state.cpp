@@ -334,6 +334,8 @@ namespace location
   {
     m_arrowBorderLists.clear();
     m_arrowBodyLists.clear();
+    m_locationMarkDL.reset();
+    m_positionMarkDL.reset();
   }
 
   void State::update()
@@ -420,9 +422,9 @@ namespace location
         math::Matrix<double, 3, 3> const drawM = locationDrawM * m;
 
         if (!m_hasCompass)
-          m_positionMarkDL->draw(drawM);
+          r->drawDisplayList(m_positionMarkDL.get(), drawM);
 
-        m_locationMarkDL->draw(drawM);
+        r->drawDisplayList(m_locationMarkDL.get(), drawM);
 
         /// and then arrow border
         if (m_hasCompass)
