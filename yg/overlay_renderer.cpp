@@ -6,7 +6,6 @@
 #include "path_text_element.hpp"
 #include "symbol_element.hpp"
 #include "circle_element.hpp"
-#include "render_state.hpp"
 #include "overlay.hpp"
 #include "resource_manager.hpp"
 #include "skin.hpp"

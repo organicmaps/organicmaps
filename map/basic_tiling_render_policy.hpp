@@ -2,6 +2,8 @@
 
 #include "render_policy.hpp"
 
+#include "../geometry/screenbase.hpp"
+
 #include "../std/shared_ptr.hpp"
 #include "../yg/overlay.hpp"
 

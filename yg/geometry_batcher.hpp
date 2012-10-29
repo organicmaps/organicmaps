@@ -4,7 +4,7 @@
 #include "buffer_object.hpp"
 #include "renderbuffer.hpp"
 #include "framebuffer.hpp"
-#include "render_state_updater.hpp"
+#include "blitter.hpp"
 #include "storage.hpp"
 #include "skin_page.hpp"
 #include "resource_manager.hpp"
@@ -29,7 +29,7 @@ namespace yg
 
   namespace gl
   {
-    class GeometryBatcher : public RenderStateUpdater
+    class GeometryBatcher : public Blitter
     {
     public:
 
@@ -37,7 +37,7 @@ namespace yg
 
     private:
 
-      typedef RenderStateUpdater base_t;
+      typedef Blitter base_t;
 
       shared_ptr<yg::Skin> m_skin;
 

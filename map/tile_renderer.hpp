@@ -20,7 +20,6 @@ namespace yg
   class ResourceManager;
   namespace gl
   {
-    class RenderState;
     class RenderContext;
     class PacketsQueue;
   }

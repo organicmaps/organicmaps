@@ -27,7 +27,6 @@
 #include "../coding/internal/file_data.hpp"
 
 #include "../yg/rendercontext.hpp"
-#include "../yg/render_state.hpp"
 
 #include "../geometry/angles.hpp"
 #include "../geometry/distance_on_sphere.hpp"
@@ -669,14 +668,7 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
       m_model.ForEachFeature(selectRect, doDraw, scale);
   }
   catch (redraw_operation_cancelled const &)
-  {
-    shared_ptr<yg::gl::RenderState> pState = e->drawer()->screen()->renderState();
-    if (pState)
-    {
-      pState->m_isEmptyModelCurrent = false;
-      pState->m_isEmptyModelActual = false;
-    }
-  }
+  {}
 
   e->setIsEmptyDrawing(doDraw.IsEmptyDrawing());
 
@@ -727,7 +719,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
   m_informationDisplay.setScreen(m_navigator.Screen());
 
-  m_informationDisplay.setDebugInfo(0/*m_renderQueue.renderState().m_duration*/, GetDrawScale());
+  m_informationDisplay.setDebugInfo(0, GetDrawScale());
 
   m2::PointD const center = m_navigator.Screen().GlobalRect().GlobalCenter();
   m_informationDisplay.setCenter(m2::PointD(MercatorBounds::XToLon(center.x),

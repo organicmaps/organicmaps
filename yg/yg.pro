@@ -30,7 +30,6 @@ SOURCES += \
     blitter.cpp \
     clipper.cpp \
     renderer.cpp \
-    render_state.cpp \
     geometry_renderer.cpp \
     skin_page.cpp \
     storage.cpp \
@@ -51,7 +50,6 @@ SOURCES += \
     overlay_element.cpp \
     symbol_element.cpp \
     overlay_renderer.cpp \
-    render_state_updater.cpp \
     composite_overlay_element.cpp \
     path_text_element.cpp \
     straight_text_element.cpp \
@@ -85,7 +83,6 @@ HEADERS += \
     blitter.hpp \
     clipper.hpp \
     renderer.hpp \
-    render_state.hpp \
     geometry_renderer.hpp \
     skin_page.hpp \
     storage.hpp \
@@ -110,7 +107,6 @@ HEADERS += \
     overlay_element.hpp \
     symbol_element.hpp \
     overlay_renderer.hpp \
-    render_state_updater.hpp \
     composite_overlay_element.hpp \
     path_text_element.hpp \
     straight_text_element.hpp \

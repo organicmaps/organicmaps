@@ -11,8 +11,6 @@
 #include "../indexer/feature_data.hpp"
 #include "../indexer/feature_impl.hpp"
 
-#include "../yg/render_state.hpp"
-
 #include "../std/bind.hpp"
 
 
@@ -278,12 +276,6 @@ namespace fwork
     }
     else
       m_hasNonCoast = true;
-
-    {
-      yg::gl::RenderState * pState = GetDrawer()->screen()->renderState().get();
-      if (pState)
-        pState->m_isEmptyModelCurrent = IsEmptyDrawing();
-    }
 
     // remove duplicating identical drawing keys
     PreProcessKeys(keys);

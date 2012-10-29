@@ -4,7 +4,6 @@
 #include "window_handle.hpp"
 
 #include "../yg/internal/opengl.hpp"
-#include "../yg/render_state.hpp"
 #include "../yg/rendercontext.hpp"
 #include "../yg/base_texture.hpp"
 #include "../yg/packets_queue.hpp"
