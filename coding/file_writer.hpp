@@ -38,6 +38,8 @@ public:
   uint64_t Size() const;
   void Flush();
 
+  void Reserve(uint64_t size);
+
   static void DeleteFileX(string const & fName);
 
   string GetName() const;

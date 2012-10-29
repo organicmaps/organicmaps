@@ -55,6 +55,16 @@ void FileWriter::Flush()
   m_pFileData->Flush();
 }
 
+void FileWriter::Reserve(uint64_t size)
+{
+  if (size > 0)
+  {
+    m_pFileData->Seek(size-1);
+    uint8_t b = 0;
+    m_pFileData->Write(&b, 1);
+  }
+}
+
 void FileWriter::DeleteFileX(string const & fName)
 {
   (void)my::DeleteFileX(fName);
