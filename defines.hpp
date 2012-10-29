@@ -11,8 +11,8 @@
 #define VERSION_FILE_TAG "version"
 
 #define READY_FILE_EXTENSION ".ready"
-#define RESUME_FILE_EXTENSION ".resume2"
-#define DOWNLOADING_FILE_EXTENSION ".downloading2"
+#define RESUME_FILE_EXTENSION ".resume3"
+#define DOWNLOADING_FILE_EXTENSION ".downloading3"
 
 #define COUNTRIES_FILE  "countries.txt"
 
@@ -33,5 +33,3 @@
 
 /// How many langs we're supporting on indexing stage
 #define MAX_SUPPORTED_LANGUAGES 64
-
-#define REDBUTTON_SERVER_URL "http://redbutton.mapswithme.com/enable_search_banner"
