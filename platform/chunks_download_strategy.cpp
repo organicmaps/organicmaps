@@ -75,7 +75,7 @@ void ChunksDownloadStrategy::SaveChunks(int64_t fileSize, string const & fName)
     }
     catch (FileWriter::Exception const & e)
     {
-      LOG(LERROR, (e.Msg()));
+      LOG(LWARNING, ("Can't save chunks to file", e.Msg()));
     }
   }
 

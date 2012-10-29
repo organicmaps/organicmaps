@@ -159,16 +159,26 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
       m_writer->Write(buffer, size);
       return true;
     }
-    catch (Writer::Exception const & ex)
+    catch (Writer::Exception const & e)
     {
-      LOG(LWARNING, ("Can't write buffer for size = ", size));
+      LOG(LWARNING, ("Can't write buffer for size", size, e.Msg()));
       return false;
     }
   }
 
   void SaveResumeChunks()
   {
-    m_strategy.SaveChunks(m_progress.second, m_filePath + RESUME_FILE_EXTENSION);
+    try
+    {
+      // Flush writer before saving downloaded chunks.
+      m_writer->Flush();
+
+      m_strategy.SaveChunks(m_progress.second, m_filePath + RESUME_FILE_EXTENSION);
+    }
+    catch (Writer::Exception const & e)
+    {
+      LOG(LWARNING, ("Can't flush writer", e.Msg()));
+    }
   }
 
   /// Called for each chunk by one main (GUI) thread.
@@ -212,9 +222,14 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
 
     if (m_status != EInProgress)
     {
+      // 1. Save downloaded chunks if some error occured.
+      if (m_status != ECompleted)
+        SaveResumeChunks();
+
+      // 2. Free file handle.
       CloseWriter();
 
-      // clean up resume file with chunks range on success
+      // 3. Clean up resume file with chunks range on success
       if (m_status == ECompleted)
       {
         (void)my::DeleteFileX(m_filePath + RESUME_FILE_EXTENSION);
@@ -225,9 +240,8 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
 
         DisableBackupForFile(m_filePath);
       }
-      else // or save "chunks left" otherwise
-        SaveResumeChunks();
 
+      // 4. Finish downloading.
       m_onFinish(*this);
     }
   }
@@ -238,9 +252,9 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     {
       m_writer.reset();
     }
-    catch (Writer::Exception const & ex)
+    catch (Writer::Exception const & e)
     {
-      LOG(LWARNING, ("Can't close file correctly. There is not enough space, possibly."));
+      LOG(LWARNING, ("Can't close file correctly", e.Msg()));
 
       m_status = EFailed;
     }
@@ -279,7 +293,6 @@ public:
     m_writer.swap(writer);
 
 #ifdef OMIM_OS_IPHONE
-    m_writer->Flush();
     DisableBackupForFile(filePath + DOWNLOADING_FILE_EXTENSION);
 #endif
 
@@ -360,7 +373,7 @@ HttpRequest * HttpRequest::GetFile(vector<string> const & urls,
   catch (FileWriter::Exception const & e)
   {
     // Can't create or open file for writing.
-    LOG(LERROR, ("Can't create FileHttpRequest for", filePath, e.what()));
+    LOG(LWARNING, ("Can't create file", filePath, "with size", fileSize, e.Msg()));
 
     // Mark the end of download with error.
     ErrorHttpRequest error(filePath);
