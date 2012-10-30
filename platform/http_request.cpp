@@ -279,7 +279,7 @@ public:
     {
       // Check that resume information is correct with existing file.
       uint64_t size;
-      if (my::GetFileSize(filePath + DOWNLOADING_FILE_EXTENSION, size) && size == fileSize)
+      if (my::GetFileSize(filePath + DOWNLOADING_FILE_EXTENSION, size) && size <= fileSize)
         openMode = FileWriter::OP_WRITE_EXISTING;
       else
         m_strategy.InitChunks(fileSize, chunkSize);
@@ -287,7 +287,8 @@ public:
 
     // Create file and reserve needed size.
     scoped_ptr<FileWriter> writer(new FileWriter(filePath + DOWNLOADING_FILE_EXTENSION, openMode));
-    writer->Reserve(fileSize);
+    // Reserving disk space is very slow on a device.
+    //writer->Reserve(fileSize);
 
     // Assign here, because previous functions can throw an exception.
     m_writer.swap(writer);
