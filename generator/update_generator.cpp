@@ -82,7 +82,7 @@ namespace update
   bool UpdateCountries(string const & dataDir)
   {
     Platform::FilesList mwmFiles;
-    GetPlatform().GetFilesInDir(dataDir, "*"DATA_FILE_EXTENSION, mwmFiles);
+    GetPlatform().GetFilesByExt(dataDir, "*" DATA_FILE_EXTENSION, mwmFiles);
 
     // remove some files from list
     char const * filesToRemove[] = {

@@ -84,9 +84,9 @@ Platform::~Platform()
   delete m_impl;
 }
 
-void Platform::GetFilesInDir(string const & directory, string const & mask, FilesList & res)
+void Platform::GetFilesByRegExp(string const & directory, string const & regexp, FilesList & res)
 {
-  pl::EnumerateFilesInDir(directory, mask, res);
+  pl::EnumerateFilesByRegExp(directory, regexp, res);
 }
 
 bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const

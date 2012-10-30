@@ -5,6 +5,6 @@
 
 namespace pl
 {
-  string GetFixedMask(string const & mask);
-  void EnumerateFilesInDir(string const & directory, string const & mask, vector<string> & res);
+  void EnumerateFilesByRegExp(string const & directory, string const & regexp,
+                              vector<string> & res);
 }

@@ -59,11 +59,34 @@ void Platform::GetFontNames(FilesList & res) const
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
   {
     LOG(LDEBUG, ("Searching for fonts in", arr[i]));
-    GetFilesInDir(arr[i], "*.ttf", res);
+    GetFilesByExt(arr[i], "*.ttf", res);
   }
 
   sort(res.begin(), res.end());
   res.erase(unique(res.begin(), res.end()), res.end());
 
   LOG(LINFO, ("Available font files:", (res)));
+}
+
+void Platform::GetFilesByExt(string const & directory, string const & ext, FilesList & outFiles)
+{
+  // Transform extension mask to regexp (*.mwm -> \.mwm$)
+  ASSERT ( !ext.empty(), () );
+
+  string regexp;
+  if (ext[0] == '*')
+  {
+    regexp = ext + '$';
+    regexp[0] = '\\';
+  }
+  else if (ext[0] == '.')
+  {
+    regexp = '\\' + ext + '$';
+  }
+  else
+  {
+    regexp = "\\." + ext + '$';
+  }
+
+  GetFilesByRegExp(directory, regexp, outFiles);
 }

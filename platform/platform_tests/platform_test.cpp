@@ -60,18 +60,22 @@ UNIT_TEST(GetReader)
   TEST_EQUAL(wasException, true, ());
 }
 
-UNIT_TEST(GetFilesInDir)
+UNIT_TEST(GetFilesInDir_Smoke)
 {
   Platform & pl = GetPlatform();
-  Platform::FilesList files;
+  Platform::FilesList files1, files2;
 
-  pl.GetFilesInDir(pl.WritableDir(), "*" DATA_FILE_EXTENSION, files);
-  TEST_GREATER(files.size(), 0, ("/data/ folder should contain some data files"));
+  string const dir = pl.WritableDir();
 
-  files.clear();
+  pl.GetFilesByExt(dir, "*" DATA_FILE_EXTENSION, files1);
+  TEST_GREATER(files1.size(), 0, ("/data/ folder should contain some data files"));
 
-  pl.GetFilesInDir(pl.WritableDir(), "asdnonexistentfile.dsa", files);
-  TEST_EQUAL(files.size(), 0, ());
+  pl.GetFilesByRegExp(dir, ".*\\" DATA_FILE_EXTENSION "$", files2);
+  TEST_EQUAL(files1, files2, ());
+
+  files1.clear();
+  pl.GetFilesByExt(dir, "asdnonexistentfile.dsa", files1);
+  TEST_EQUAL(files1.size(), 0, ());
 }
 
 UNIT_TEST(GetFileSize)

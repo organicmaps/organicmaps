@@ -372,10 +372,13 @@ namespace
 {
   void DeleteTempDownloadFiles()
   {
-    // remove data from previously failed files
+    // Remove data from previously failed files.
+
+    // Get regexp like this: (\.downloading3$|\.resume3$)
+    string const regexp = "(\\" RESUME_FILE_EXTENSION "$|\\" DOWNLOADING_FILE_EXTENSION "$)";
+
     Platform::FilesList files;
-    Platform::GetFilesInDir(".", "*" RESUME_FILE_EXTENSION, files);
-    Platform::GetFilesInDir(".", "*" DOWNLOADING_FILE_EXTENSION, files);
+    Platform::GetFilesByRegExp(".", regexp, files);
     for (Platform::FilesList::iterator it = files.begin(); it != files.end(); ++it)
       FileWriter::DeleteFileX(*it);
   }

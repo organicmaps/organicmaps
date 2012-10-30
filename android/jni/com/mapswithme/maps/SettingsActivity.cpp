@@ -27,11 +27,11 @@ extern "C"
 
     // Get files to copy.
     Platform & pl = GetPlatform();
-    char const * arrMask[] = { "*" DATA_FILE_EXTENSION, "*.ttf" };
 
+    // Get regexp like this: (\.mwm$|\.ttf$)
+    string const regexp = "(\\" DATA_FILE_EXTENSION "$|\\.ttf$)";
     Platform::FilesList files;
-    for (size_t i = 0; i < ARRAY_SIZE(arrMask); ++i)
-      pl.GetFilesInDir(from, arrMask[i], files);
+    pl.GetFilesByRegExp(from, regexp, files);
 
     // Copy all needed files.
     for (size_t i = 0; i < files.size(); ++i)

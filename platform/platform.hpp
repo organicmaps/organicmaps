@@ -75,9 +75,12 @@ public:
   typedef vector<string> FilesList;
   /// Retrieves files list contained in given directory
   /// @param directory directory path with slash at the end
-  /// @param mask files extension to find, like ".map" etc
-  /// @return number of files found in outFiles
-  static void GetFilesInDir(string const & directory, string const & mask, FilesList & outFiles);
+  //@{
+  /// @param ext files extension to find, like ".mwm", "*.ttf" etc
+  static void GetFilesByExt(string const & directory, string const & ext, FilesList & outFiles);
+  static void GetFilesByRegExp(string const & directory, string const & regexp, FilesList & outFiles);
+  //@}
+
   /// @return false if file is not exist
   /// @note Check files in Writable dir first, and in ReadDir if not exist in Writable dir
   bool GetFileSizeByName(string const & fileName, uint64_t & size) const;

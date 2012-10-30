@@ -1,5 +1,6 @@
 #include "platform.hpp"
 #include "platform_unix_impl.hpp"
+#include "regexp.hpp"
 
 #include "../base/logging.hpp"
 
@@ -52,31 +53,22 @@ Platform::TStorageStatus Platform::GetWritableStorageStatus(uint64_t neededSize)
 namespace pl
 {
 
-string GetFixedMask(string const & mask)
-{
-  // Filter out according to the mask.
-  // @TODO we don't support wildcards at the moment
-  if (!mask.empty() && mask[0] == '*')
-    return string(mask.c_str() + 1);
-  else
-    return mask;
-}
-
-void EnumerateFilesInDir(string const & directory, string const & mask, vector<string> & res)
+void EnumerateFilesByRegExp(string const & directory, string const & regexp,
+                            vector<string> & res)
 {
   DIR * dir;
   struct dirent * entry;
   if ((dir = opendir(directory.c_str())) == NULL)
     return;
 
-  string const fixedMask = GetFixedMask(mask);
+  regexp::RegExpT exp;
+  regexp::Create(regexp, exp);
 
   while ((entry = readdir(dir)) != 0)
   {
-    string const fname(entry->d_name);
-    size_t const index = fname.rfind(fixedMask);
-    if ((index != string::npos) && (index == fname.size() - fixedMask.size()))
-      res.push_back(fname);
+    string const name(entry->d_name);
+    if (regexp::IsExist(name, exp))
+      res.push_back(name);
   }
 
   closedir(dir);

@@ -293,18 +293,18 @@ extern "C"
 
     Platform & pl = GetPlatform();
     Platform::FilesList files;
+
     // Move *.mwm files
-    pl.GetFilesInDir(from, "*" DATA_FILE_EXTENSION, files);
+    pl.GetFilesByExt(from, "*" DATA_FILE_EXTENSION, files);
     for (size_t i = 0; i < files.size(); ++i)
     {
       LOG(LDEBUG, ("moving map from:", from + files[i], ", to:", to + files[i]));
       my::RenameFileX((from + files[i]).c_str(), (to + files[i]).c_str());
     }
 
-    // Delete not finished *.downloading files
+    // Delete not finished temporary files (old one from first release version).
     files.clear();
-    pl.GetFilesInDir(from, "*" DOWNLOADING_FILE_EXTENSION, files);
-    pl.GetFilesInDir(from, "*" RESUME_FILE_EXTENSION, files);
+    pl.GetFilesByRegExp(from, "\\.(downloading$|resume$)", files);
     for (size_t i = 0; i < files.size(); ++i)
       my::DeleteFileX((from + files[i]).c_str());
   }

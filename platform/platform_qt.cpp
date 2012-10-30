@@ -1,5 +1,6 @@
 #include "platform.hpp"
 #include "constants.hpp"
+#include "regexp.hpp"
 
 #include "../coding/file_reader.hpp"
 
@@ -29,13 +30,20 @@ bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
   }
 }
 
-void Platform::GetFilesInDir(string const & directory, string const & mask, FilesList & outFiles)
+void Platform::GetFilesByRegExp(string const & directory, string const & regexp, FilesList & outFiles)
 {
-  QDir dir(directory.c_str(), mask.c_str(), QDir::Unsorted,
-           QDir::Files | QDir::Readable | QDir::Dirs | QDir::NoDotAndDotDot);
+  regexp::RegExpT exp;
+  regexp::Create(regexp, exp);
+
+  QDir dir(QString::fromUtf8(directory.c_str()));
   int const count = dir.count();
+
   for (int i = 0; i < count; ++i)
-    outFiles.push_back(dir[i].toUtf8().data());
+  {
+    string const name = dir[i].toUtf8().data();
+    if (regexp::IsExist(name, exp))
+      outFiles.push_back(name);
+  }
 }
 
 string Platform::DeviceName() const

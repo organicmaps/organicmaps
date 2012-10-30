@@ -1,6 +1,7 @@
 #include "platform.hpp"
 #include "platform_unix_impl.hpp"
 #include "constants.hpp"
+#include "regexp.hpp"
 
 #include "../coding/zip_reader.hpp"
 
@@ -33,7 +34,7 @@ ModelReader * Platform::GetReader(string const & file) const
   }
 }
 
-void Platform::GetFilesInDir(string const & directory, string const & mask, FilesList & res)
+void Platform::GetFilesByRegExp(string const & directory, string const & regexp, FilesList & res)
 {
   if (ZipFileReader::IsZip(directory))
   {
@@ -41,14 +42,15 @@ void Platform::GetFilesInDir(string const & directory, string const & mask, File
     FilesList fList;
     ZipFileReader::FilesList(directory, fList);
 
-    string const fixedMask = pl::GetFixedMask(mask);
+    regexp::RegExpT exp;
+    regexp::Create(regexp, exp);
 
     for (FilesList::iterator it = fList.begin(); it != fList.end(); ++it)
     {
-      if (it->find(fixedMask) != string::npos)
+      if (regexp::IsExist(*it, exp))
       {
         // Remove assets/ prefix - clean files are needed for fonts white/blacklisting logic
-        static size_t const ASSETS_LENGTH = 7;
+        size_t const ASSETS_LENGTH = 7;
         if (it->find("assets/") == 0)
           it->erase(0, ASSETS_LENGTH);
 
@@ -57,7 +59,7 @@ void Platform::GetFilesInDir(string const & directory, string const & mask, File
     }
   }
   else
-    pl::EnumerateFilesInDir(directory, mask, res);
+    pl::EnumerateFilesByRegExp(directory, regexp, res);
 }
 
 int Platform::CpuCores() const

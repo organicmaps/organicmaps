@@ -152,7 +152,7 @@ CountryStatusDisplay * Framework::GetCountryStatusDisplay() const
 static void GetResourcesMaps(vector<string> & outMaps)
 {
   Platform & pl = GetPlatform();
-  pl.GetFilesInDir(pl.ResourcesDir(), "*" DATA_FILE_EXTENSION, outMaps);
+  pl.GetFilesByExt(pl.ResourcesDir(), "*" DATA_FILE_EXTENSION, outMaps);
 }
 
 Framework::Framework()
@@ -350,7 +350,7 @@ void Framework::LoadBookmarks()
 
   string const dir = GetPlatform().WritableDir();
   Platform::FilesList files;
-  Platform::GetFilesInDir(dir, "*.kml", files);
+  Platform::GetFilesByExt(dir, "*.kml", files);
   for (size_t i = 0; i < files.size(); ++i)
   {
     BookmarkCategory * cat = BookmarkCategory::CreateFromKMLFile(dir + files[i]);
@@ -528,7 +528,7 @@ void Framework::ClearBookmarks()
 void Framework::GetLocalMaps(vector<string> & outMaps) const
 {
   Platform & pl = GetPlatform();
-  pl.GetFilesInDir(pl.WritableDir(), "*" DATA_FILE_EXTENSION, outMaps);
+  pl.GetFilesByExt(pl.WritableDir(), "*" DATA_FILE_EXTENSION, outMaps);
 }
 
 void Framework::PrepareToShutdown()
@@ -1333,7 +1333,7 @@ void Framework::DeleteOldMaps()
 {
   Platform & p = GetPlatform();
   vector<string> maps;
-  p.GetFilesInDir(p.WritableDir(), "*" DATA_FILE_EXTENSION, maps);
+  p.GetFilesByExt(p.WritableDir(), "*" DATA_FILE_EXTENSION, maps);
   for (vector<string>::iterator it = maps.begin(); it != maps.end(); ++it)
   {
     feature::DataHeader header;
