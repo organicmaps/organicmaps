@@ -33,3 +33,4 @@ SOURCES += \
     language_test.cpp \
     downloader_test.cpp \
     video_timer_test.cpp \
+    regexp_test.cpp \
