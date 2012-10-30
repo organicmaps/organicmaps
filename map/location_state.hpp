@@ -8,6 +8,7 @@
 #include "../geometry/screenbase.hpp"
 
 #include "../std/shared_ptr.hpp"
+#include "../std/scoped_ptr.hpp"
 #include "../std/map.hpp"
 
 #include "../gui/element.hpp"
@@ -93,8 +94,8 @@ namespace location
 
     map<EState, shared_ptr<yg::gl::DisplayList> > m_arrowBodyLists;
     map<EState, shared_ptr<yg::gl::DisplayList> > m_arrowBorderLists;
-    shared_ptr<yg::gl::DisplayList> m_locationMarkDL;
-    shared_ptr<yg::gl::DisplayList> m_positionMarkDL;
+    scoped_ptr<yg::gl::DisplayList> m_locationMarkDL;
+    scoped_ptr<yg::gl::DisplayList> m_positionMarkDL;
 
     /// @}
 
