@@ -38,23 +38,19 @@
     [fileManager removeItemAtPath:[documentsDirectoryPath stringByAppendingPathComponent:@"index.stamp"] error:nil];
     [fileManager removeItemAtPath:[documentsDirectoryPath stringByAppendingPathComponent:@"index.idx"] error:nil];
 
-    // Delete ".downloading" and ".resume" files and disable iCloud backup for downloaded ".mwm" maps
+    // Disable iCloud backup for downloaded ".mwm" maps.
+    char const * attrName = "com.apple.MobileBackup";
     NSArray * files = [fileManager contentsOfDirectoryAtPath:documentsDirectoryPath error:nil];
     for (NSUInteger i = 0; i < [files count]; ++i)
     {
       NSString * fileName = [files objectAtIndex:i];
 
-      if (([fileName rangeOfString:@".downloading"].location != NSNotFound) ||
-          ([fileName rangeOfString:@".resume"].location != NSNotFound))
-      {
-        [fileManager removeItemAtPath:[documentsDirectoryPath stringByAppendingPathComponent:fileName] error:nil];
-      }
-      else if ([fileName rangeOfString:@".mwm"].location != NSNotFound)
+      if ([fileName rangeOfString:@DATA_FILE_EXTENSION].location != NSNotFound)
       {
         // Disable iCloud backup
-        static char const * attrName = "com.apple.MobileBackup";
         u_int8_t attrValue = 1;
         int result = setxattr([[documentsDirectoryPath stringByAppendingPathComponent:fileName] UTF8String], attrName, &attrValue, sizeof(attrValue), 0, 0);
+
         if (result == 0)
           NSLog(@"Disabled iCloud backup for %@", fileName);
         else

@@ -64,6 +64,18 @@ namespace storage
   Storage::Storage() : m_currentSlotId(0)
   {
     LoadCountriesFile(false);
+
+    Platform & pl = GetPlatform();
+    string const dir = pl.WritableDir();
+
+    // Delete all: .mwm.downloading; .mwm.downloading2; .mwm.resume; .mwm.resume2
+    string const regexp = "\\" DATA_FILE_EXTENSION "\\.(downloading2?$|resume2?$)";
+
+    Platform::FilesList files;
+    pl.GetFilesByRegExp(dir, regexp, files);
+
+    for (size_t j = 0; j < files.size(); ++j)
+      FileWriter::DeleteFileX(dir + files[j]);
   }
 
   ////////////////////////////////////////////////////////////////////////////
