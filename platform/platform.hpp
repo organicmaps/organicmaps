@@ -76,7 +76,7 @@ public:
   /// Retrieves files list contained in given directory
   /// @param directory directory path with slash at the end
   //@{
-  /// @param ext files extension to find, like ".mwm", "*.ttf" etc
+  /// @param ext files extension to find, like ".mwm".
   static void GetFilesByExt(string const & directory, string const & ext, FilesList & outFiles);
   static void GetFilesByRegExp(string const & directory, string const & regexp, FilesList & outFiles);
   //@}

@@ -148,7 +148,7 @@ UNIT_TEST(MergeLanguages)
                          };
 
   Platform::FilesList fList;
-  GetPlatform().GetFilesByExt(paths[0], "*.meta", fList);
+  GetPlatform().GetFilesByExt(paths[0], ".meta", fList);
 
   for (size_t i = 0; i < fList.size(); ++i)
   {

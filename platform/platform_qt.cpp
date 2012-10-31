@@ -1,8 +1,9 @@
 #include "platform.hpp"
 #include "constants.hpp"
-#include "regexp.hpp"
 
 #include "../coding/file_reader.hpp"
+
+#include "../base/regexp.hpp"
 
 #include "../std/target_os.hpp"
 #include "../std/algorithm.hpp"

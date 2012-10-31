@@ -67,14 +67,14 @@ UNIT_TEST(GetFilesInDir_Smoke)
 
   string const dir = pl.WritableDir();
 
-  pl.GetFilesByExt(dir, "*" DATA_FILE_EXTENSION, files1);
+  pl.GetFilesByExt(dir, DATA_FILE_EXTENSION, files1);
   TEST_GREATER(files1.size(), 0, ("/data/ folder should contain some data files"));
 
   pl.GetFilesByRegExp(dir, ".*\\" DATA_FILE_EXTENSION "$", files2);
   TEST_EQUAL(files1, files2, ());
 
   files1.clear();
-  pl.GetFilesByExt(dir, "asdnonexistentfile.dsa", files1);
+  pl.GetFilesByExt(dir, ".dsa", files1);
   TEST_EQUAL(files1.size(), 0, ());
 }
 

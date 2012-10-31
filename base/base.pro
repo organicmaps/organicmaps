@@ -79,3 +79,4 @@ HEADERS += \
     strings_bundle.hpp \
     string_format.hpp \
     object_tracker.hpp \
+    regexp.hpp

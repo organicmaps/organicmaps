@@ -1,12 +1,12 @@
 #include "platform.hpp"
 #include "platform_unix_impl.hpp"
 #include "constants.hpp"
-#include "regexp.hpp"
 
 #include "../coding/zip_reader.hpp"
 
 #include "../base/logging.hpp"
 #include "../base/thread.hpp"
+#include "../base/regexp.hpp"
 
 #include <unistd.h>
 

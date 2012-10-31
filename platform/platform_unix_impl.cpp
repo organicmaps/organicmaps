@@ -1,8 +1,8 @@
 #include "platform.hpp"
 #include "platform_unix_impl.hpp"
-#include "regexp.hpp"
 
 #include "../base/logging.hpp"
+#include "../base/regexp.hpp"
 
 #include <dirent.h>
 #include <sys/stat.h>

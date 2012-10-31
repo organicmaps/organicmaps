@@ -68,7 +68,6 @@ HEADERS += \
     servers_list.hpp \
     constants.hpp \
     file_name_utils.hpp \
-    regexp.hpp \
 
 SOURCES += \
     preferred_languages.cpp \

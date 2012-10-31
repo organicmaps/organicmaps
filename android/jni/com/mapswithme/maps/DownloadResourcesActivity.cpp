@@ -295,7 +295,7 @@ extern "C"
     Platform::FilesList files;
 
     // Move *.mwm files
-    pl.GetFilesByExt(from, "*" DATA_FILE_EXTENSION, files);
+    pl.GetFilesByExt(from, DATA_FILE_EXTENSION, files);
     for (size_t i = 0; i < files.size(); ++i)
     {
       LOG(LDEBUG, ("moving map from:", from + files[i], ", to:", to + files[i]));
