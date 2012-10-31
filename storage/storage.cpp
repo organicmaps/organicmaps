@@ -8,6 +8,7 @@
 #include "../platform/platform.hpp"
 #include "../platform/servers_list.hpp"
 #include "../platform/file_name_utils.hpp"
+#include "../platform/settings.hpp"
 
 #include "../coding/file_writer.hpp"
 #include "../coding/file_reader.hpp"
@@ -65,17 +66,20 @@ namespace storage
   {
     LoadCountriesFile(false);
 
-    Platform & pl = GetPlatform();
-    string const dir = pl.WritableDir();
+    if (Settings::IsFirstLaunchForDate(121031))
+    {
+      Platform & pl = GetPlatform();
+      string const dir = pl.WritableDir();
 
-    // Delete all: .mwm.downloading; .mwm.downloading2; .mwm.resume; .mwm.resume2
-    string const regexp = "\\" DATA_FILE_EXTENSION "\\.(downloading2?$|resume2?$)";
+      // Delete all: .mwm.downloading; .mwm.downloading2; .mwm.resume; .mwm.resume2
+      string const regexp = "\\" DATA_FILE_EXTENSION "\\.(downloading2?$|resume2?$)";
 
-    Platform::FilesList files;
-    pl.GetFilesByRegExp(dir, regexp, files);
+      Platform::FilesList files;
+      pl.GetFilesByRegExp(dir, regexp, files);
 
-    for (size_t j = 0; j < files.size(); ++j)
-      FileWriter::DeleteFileX(dir + files[j]);
+      for (size_t j = 0; j < files.size(); ++j)
+        FileWriter::DeleteFileX(dir + files[j]);
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////

@@ -304,4 +304,17 @@ namespace Settings
 
     return true;
   }
+
+  bool IsFirstLaunchForDate(int date)
+  {
+    char const * key = "FirstLaunchOnDate";
+    int savedDate;
+    if (!Get(key, savedDate) || savedDate < date)
+    {
+      Set(key, date);
+      return true;
+    }
+    else
+      return false;
+  }
 }
