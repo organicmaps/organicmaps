@@ -46,7 +46,14 @@ namespace yg
         m_size = size;
         makeCurrent();
         if (g_isBufferObjectsSupported)
+        {
           OGLCHECK(glBufferDataFn(m_target, m_size, 0, GL_DYNAMIC_DRAW));
+          /// In multithreaded resource usage scenarios the suggested way to see
+          /// resource update made in one thread to the another thread is
+          /// to call the glFlush in thread, which modifies resource and then rebind
+          /// resource in another threads that is using this resource, if any.
+          OGLCHECK(glFlush());
+        }
       }
     }
 
