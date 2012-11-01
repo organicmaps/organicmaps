@@ -82,6 +82,7 @@
   
   RenderPolicy::Params rpParams;
   
+  CGRect frameRect = [[UIScreen mainScreen] applicationFrame];
   CGRect screenRect = [[UIScreen mainScreen] bounds];
   
   rpParams.m_visualScale = [[UIScreen mainScreen] scale];
@@ -109,6 +110,9 @@
   }
   
   frameBuffer = renderPolicy->GetDrawer()->screen()->frameBuffer();
+  
+  GetFramework().OnSize(frameRect.size.width * rpParams.m_visualScale,
+                        frameRect.size.height * rpParams.m_visualScale);
   GetFramework().SetRenderPolicy(renderPolicy);
 }
 

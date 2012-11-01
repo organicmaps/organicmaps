@@ -332,12 +332,12 @@
 
 		m_CurrentAction = NOTHING;
 
+    [v initRenderPolicy];
+
     // restore previous screen position
     if (!f.LoadState())
       f.SetMaxWorldRect();
-
-    [v initRenderPolicy];
-
+    
     f.Invalidate();
 	}
 
