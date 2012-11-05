@@ -117,11 +117,7 @@ namespace yg
           {
             unsigned char alpha = gil::get_color(v(x, y), gil::alpha_t());
             if (alpha != 0)
-            {
               v(x, y) = penColor;
-//                if (m_fillAlpha)
-//                  gil::get_color(v(x, y), gil::alpha_t()) = alpha;
-            }
           }
       }
       else

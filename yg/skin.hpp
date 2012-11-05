@@ -54,8 +54,6 @@ namespace yg
 
     shared_ptr<ResourceManager> m_resourceManager;
 
-    bool m_fillAlpha;
-
     Skin(shared_ptr<ResourceManager> const & resourceManager,
          TSkinPages const & pages);
 

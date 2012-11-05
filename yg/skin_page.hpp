@@ -87,8 +87,6 @@ namespace yg
     EType m_type;
     uint32_t m_pipelineID;
 
-    bool m_fillAlpha;
-
     /// number of pending rendering commands,
     /// that are using this skin_page
     uint32_t m_activeCommands;
