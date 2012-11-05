@@ -130,18 +130,22 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
   GetPlatform().GetFontNames(fonts);
   m_resourceManager->addFonts(fonts);
 
+  SetSkin(make_shared_ptr(yg::loadSkin(m_resourceManager, SkinName())));
+
   DrawerYG::Params dp;
 
   dp.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(p.m_useDefaultFB));
   dp.m_resourceManager = m_resourceManager;
   dp.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
-  dp.m_skin = make_shared_ptr(yg::loadSkin(m_resourceManager, SkinName()));
+  dp.m_skin = GetSkin();
   dp.m_visualScale = VisualScale();
   dp.m_useGuiResources = true;
   dp.m_isSynchronized = false;
   dp.m_fastSolidPath = true;
 
   m_drawer.reset(new DrawerYG(dp));
+
+  InitCacheScreen();
 
   m_windowHandle.reset(new WindowHandle());
 

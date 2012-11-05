@@ -25,6 +25,7 @@ namespace yg
     class RenderContext;
   }
 
+  class Skin;
   class GlyphCache;
   class ResourceManager;
 }
@@ -55,6 +56,8 @@ protected:
 
   yg::Color m_bgColor;
   shared_ptr<yg::ResourceManager> m_resourceManager;
+  shared_ptr<yg::Skin> m_skin;
+  shared_ptr<yg::gl::Screen> m_cacheScreen;
   shared_ptr<yg::gl::RenderContext> m_primaryRC;
   shared_ptr<WindowHandle> m_windowHandle;
   shared_ptr<DrawerYG> m_drawer;
@@ -69,6 +72,8 @@ protected:
   shared_ptr<yg::Overlay> m_overlay;
 
   void SetOverlay(shared_ptr<yg::Overlay> const & overlay);
+
+  void InitCacheScreen();
 
 public:
 
@@ -148,6 +153,12 @@ public:
   virtual void JoinBenchmarkFence(int fenceID);
 
   virtual shared_ptr<yg::Overlay> const GetOverlay() const;
+  yg::Color const GetBgColor() const;
+
+  shared_ptr<yg::gl::Screen> const & GetCacheScreen() const;
+
+  virtual void SetSkin(shared_ptr<yg::Skin> const & skin);
+  shared_ptr<yg::Skin> const & GetSkin() const;
 };
 
 RenderPolicy * CreateRenderPolicy(RenderPolicy::Params const & params);

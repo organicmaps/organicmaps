@@ -1285,7 +1285,7 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
                                      bind(&WindowHandle::invalidate,
                                           renderPolicy->GetWindowHandle().get()),
                                      m_renderPolicy->GetGlyphCache(),
-                                     m_renderPolicy->GetDrawer()->screen().get());
+                                     m_renderPolicy->GetCacheScreen().get());
 
     m_guiController->SetRenderParams(rp);
 

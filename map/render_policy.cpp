@@ -11,6 +11,7 @@
 #include "../anim/task.hpp"
 
 #include "../yg/internal/opengl.hpp"
+#include "../yg/skin.hpp"
 
 #include "../indexer/scales.hpp"
 #include "../indexer/drawing_rules.hpp"
@@ -41,6 +42,21 @@ RenderPolicy::RenderPolicy(Params const & p,
   yg::gl::InitExtensions();
   yg::gl::InitializeThread();
   yg::gl::CheckExtensionSupport();
+}
+
+void RenderPolicy::InitCacheScreen()
+{
+  yg::gl::Screen::Params cp;
+
+  cp.m_doUnbindRT = false;
+  cp.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
+  cp.m_useGuiResources = true;
+  cp.m_isSynchronized = false;
+  cp.m_resourceManager = m_resourceManager;
+
+  m_cacheScreen = make_shared_ptr(new yg::gl::Screen(cp));
+
+  m_cacheScreen->setSkin(m_skin);
 }
 
 m2::RectI const RenderPolicy::OnSize(int w, int h)
@@ -231,6 +247,26 @@ void RenderPolicy::SetOverlay(shared_ptr<yg::Overlay> const & overlay)
 shared_ptr<yg::Overlay> const RenderPolicy::GetOverlay() const
 {
   return m_overlay;
+}
+
+yg::Color const RenderPolicy::GetBgColor() const
+{
+  return m_bgColor;
+}
+
+shared_ptr<yg::gl::Screen> const & RenderPolicy::GetCacheScreen() const
+{
+  return m_cacheScreen;
+}
+
+void RenderPolicy::SetSkin(shared_ptr<yg::Skin> const & skin)
+{
+  m_skin = skin;
+}
+
+shared_ptr<yg::Skin> const & RenderPolicy::GetSkin() const
+{
+  return m_skin;
 }
 
 RenderPolicy * CreateRenderPolicy(RenderPolicy::Params const & params)
