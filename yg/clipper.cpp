@@ -13,20 +13,6 @@ namespace yg
       m_isClippingEnabled(false)
     {}
 
-    void Clipper::beginFrame()
-    {
-      base_t::beginFrame();
-
-      enableClipRect(m_isClippingEnabled);
-      setClipRect(m_clipRect);
-    }
-
-    void Clipper::endFrame()
-    {
-      /// clipper code goes here
-      base_t::endFrame();
-    }
-
     Clipper::EnableClipRect::EnableClipRect(bool flag)
       : m_flag(flag)
     {}

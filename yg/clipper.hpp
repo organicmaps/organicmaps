@@ -37,9 +37,6 @@ namespace yg
 
       Clipper(base_t::Params const & params);
 
-      void beginFrame();
-      void endFrame();
-
       /// Working with clip rect
       /// @{
       /// enabling/disabling and querying clipping state
