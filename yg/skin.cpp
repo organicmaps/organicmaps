@@ -226,21 +226,6 @@ namespace yg
     }
   }
 
-  void Skin::addOverflowFn(overflowFn fn, int priority)
-  {
-    m_overflowFns.push(std::pair<size_t, overflowFn>(priority, fn));
-  }
-
-  void Skin::callOverflowFns(uint8_t pipelineID)
-  {
-    overflowFns handlersCopy = m_overflowFns;
-    while (!handlersCopy.empty())
-    {
-      handlersCopy.top().second(pipelineID);
-      handlersCopy.pop();
-    }
-  }
-
   void Skin::clearPageHandles(uint8_t pipelineID)
   {
     getPage(pipelineID)->clearHandles();

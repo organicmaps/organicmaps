@@ -121,7 +121,6 @@ namespace yg
     uint32_t mapCircleInfo(CircleInfo const & circleInfo);
 
     void addClearPageFn(clearPageFn fn, int priority);
-    void addOverflowFn(overflowFn, int priority);
 
     FontInfo const & getFont(int size) const;
 

@@ -160,8 +160,6 @@ namespace yg
 
        m_pipelines.resize(m_skin->getPagesCount());
 
-       m_skin->addOverflowFn(bind(&GeometryBatcher::flush, this, _1), 100);
-
        m_skin->addClearPageFn(bind(&GeometryBatcher::flush, this, _1), 100);
        m_skin->addClearPageFn(bind(&GeometryBatcher::freeTexture, this, _1), 99);
 
