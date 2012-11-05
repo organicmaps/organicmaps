@@ -74,6 +74,7 @@ namespace yg
       glGenFramebuffersFn = &glGenFramebuffers;
       glDeleteFramebuffersFn = &glDeleteFramebuffers;
       glCheckFramebufferStatusFn = &glCheckFramebufferStatus;
+      glDiscardFramebufferFn = &glDiscardFramebufferEXT;
 
       g_isRenderbufferSupported = g_isFramebufferSupported;
 

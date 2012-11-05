@@ -66,6 +66,14 @@ namespace yg
         void perform();
       };
 
+      struct DiscardFramebuffer : Command
+      {
+        bool m_doDiscardColor;
+        bool m_doDiscardDepth;
+        DiscardFramebuffer(bool doDiscardColor, bool doDiscardDepth);
+        void perform();
+      };
+
       struct FinishCommand : Command
       {
         void perform();
@@ -129,6 +137,8 @@ namespace yg
       void setDepthBuffer(shared_ptr<RenderBuffer> const & rt);
       shared_ptr<RenderBuffer> const & depthBuffer() const;
       void resetDepthBuffer();
+
+      void discardFramebuffer(bool doDiscardColor, bool doDiscardDepth);
 
       /// @param clearRT - should we clear the renderTarget data (visible pixels)?
       /// @param clearDepth - should we clear depthBuffer data?

@@ -127,6 +127,7 @@ namespace yg
     extern void (OPENGL_CALLING_CONVENTION * glGenFramebuffersFn) (GLsizei n, GLuint *framebuffers);
     extern void (OPENGL_CALLING_CONVENTION * glDeleteFramebuffersFn) (GLsizei n, const GLuint *framebuffers);
     extern GLenum (OPENGL_CALLING_CONVENTION * glCheckFramebufferStatusFn) (GLenum target);
+    extern void (OPENGL_CALLING_CONVENTION * glDiscardFramebufferFn)(GLenum target, GLsizei numAttachments, GLenum const * attachements);
 
     // renderbuffer extensions
 
