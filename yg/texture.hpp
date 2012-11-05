@@ -58,6 +58,13 @@ namespace yg
           Traits::gl_pixel_format_type,
           Traits::gl_pixel_data_type,
           data));
+
+        /// In multithreaded resource usage scenarios the suggested way to see
+        /// resource update made in one thread to the another thread is
+        /// to call the glFlush in thread, which modifies resource and then rebind
+        /// resource in another threads that is using this resource, if any.
+        OGLCHECK(glFlush());
+
       }
 
     public:
@@ -229,6 +236,12 @@ namespace yg
          gl_pixel_format_type,
          gl_pixel_data_type,
          data));
+
+      /// In multithreaded resource usage scenarios the suggested way to see
+      /// resource update made in one thread to the another thread is
+      /// to call the glFlush in thread, which modifies resource and then rebind
+      /// resource in another threads that is using this resource, if any.
+      OGLCHECK(glFlush());
     }
 
     template <typename Traits>
