@@ -52,6 +52,7 @@ namespace yg
 
     void Renderer::beginFrame()
     {
+      CHECK(!m_isRendering, ("beginFrame called inside beginFrame/endFrame pair!"));
       m_isRendering = true;
 
       if (m_frameBuffer)
@@ -116,6 +117,8 @@ namespace yg
 
     void Renderer::endFrame()
     {
+      CHECK(m_isRendering, ("endFrame called outside beginFrame/endFrame pair!"));
+
       if (m_doUnbindRT && m_renderTarget)
         unbindRenderTarget();
 
