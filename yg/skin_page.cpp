@@ -15,40 +15,10 @@ namespace yg
 {
   typedef gl::Texture<DATA_TRAITS, true> TDynamicTexture;
 
-  ResourceStyle * FontInfo::fromID(uint32_t id, bool isMask) const
-  {
-    TChars::const_iterator it = m_chars.find(id);
-    if (it == m_chars.end())
-    {
-      if (m_invalidChar.first == 0)
-      {
-        it = m_chars.find(65533);
-
-        if (it == m_chars.end())
-          it = m_chars.find(32);
-        else
-          LOG(LINFO, ("initialized invalidChar from 65533"));
-
-        m_invalidChar = pair<ResourceStyle*, ResourceStyle*>(it->second.first.get(), it->second.second.get());
-      }
-
-      if (isMask)
-        return m_invalidChar.second;
-      else
-        return m_invalidChar.first;
-    }
-    else
-      if (isMask)
-        return it->second.second.get();
-      else
-        return it->second.first.get();
-  }
-
   SkinPage::SkinPage()
     : m_type(EStatic),
       m_pipelineID(0)
   {}
-
 
   SkinPage::SkinPage(shared_ptr<ResourceManager> const & resourceManager,
                      char const * name,

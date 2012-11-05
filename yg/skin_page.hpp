@@ -23,18 +23,6 @@ namespace yg
   class ResourceManager;
   struct GlyphInfo;
 
-  struct FontInfo
-  {
-    int8_t m_fontSize;
-    typedef map<int32_t, pair<shared_ptr<GlyphStyle>, shared_ptr<GlyphStyle> > > TChars;
-    TChars m_chars;
-
-    mutable pair<ResourceStyle *, ResourceStyle *> m_invalidChar;
-    FontInfo() : m_invalidChar(static_cast<ResourceStyle *>(0), static_cast<ResourceStyle *>(0)) {}
-
-    ResourceStyle * fromID(uint32_t id, bool isMask = false) const;
-  };
-
   class SkinPage
   {
   public:
@@ -80,9 +68,6 @@ namespace yg
     m2::Packer m_packer;
 
     TUploadQueue m_uploadQueue;
-
-    typedef vector<FontInfo> TFonts;
-    TFonts m_fonts;
 
     EType m_type;
     uint32_t m_pipelineID;

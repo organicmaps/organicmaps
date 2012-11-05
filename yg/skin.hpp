@@ -31,7 +31,6 @@ namespace yg
   struct Color;
   struct GlyphKey;
   class GlyphCache;
-  struct FontInfo;
 
   class Skin
   {
@@ -119,8 +118,6 @@ namespace yg
     uint32_t mapCircleInfo(CircleInfo const & circleInfo);
 
     void addClearPageFn(clearPageFn fn, int priority);
-
-    FontInfo const & getFont(int size) const;
 
     shared_ptr<SkinPage> const & getPage(int i) const;
     size_t getPagesCount() const;
