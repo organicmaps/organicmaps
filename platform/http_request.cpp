@@ -111,7 +111,8 @@ public:
 class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
 {
   ChunksDownloadStrategy m_strategy;
-  typedef list<pair<HttpThread *, int64_t> > ThreadsContainerT;
+  typedef pair<HttpThread *, int64_t> ThreadHandleT;
+  typedef list<ThreadHandleT> ThreadsContainerT;
   ThreadsContainerT m_threads;
 
   string m_filePath;
@@ -134,16 +135,29 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     return result;
   }
 
+  class ThreadByPos
+  {
+    int64_t m_pos;
+  public:
+    ThreadByPos(int64_t pos) : m_pos(pos) {}
+    inline bool operator() (ThreadHandleT const & p) const
+    {
+      return (p.second == m_pos);
+    }
+  };
+
   void RemoveHttpThreadByKey(int64_t begRange)
   {
-    for (ThreadsContainerT::iterator it = m_threads.begin(); it != m_threads.end(); ++it)
-      if (it->second == begRange)
-      {
-        DeleteNativeHttpThread(it->first);
-        m_threads.erase(it);
-        return;
-      }
-    ASSERT ( false, ("Tried to remove invalid thread?") );
+    ThreadsContainerT::iterator it = find_if(m_threads.begin(), m_threads.end(),
+                                             ThreadByPos(begRange));
+    if (it != m_threads.end())
+    {
+      HttpThread * p = it->first;
+      m_threads.erase(it);
+      DeleteNativeHttpThread(p);
+    }
+    else
+      LOG(LERROR, ("Tried to remove invalid thread for position", begRange));
   }
 
   virtual bool OnWrite(int64_t offset, void const * buffer, size_t size)
@@ -297,13 +311,19 @@ public:
     DisableBackupForFile(filePath + DOWNLOADING_FILE_EXTENSION);
 #endif
 
-    StartThreads();
+    (void)StartThreads();
   }
 
   virtual ~FileHttpRequest()
   {
-    for (ThreadsContainerT::iterator it = m_threads.begin(); it != m_threads.end(); ++it)
-      DeleteNativeHttpThread(it->first);
+    // Do safe delete with removing from list in case if DeleteNativeHttpThread
+    // can produce final notifications to this->OnFinish().
+    while (!m_threads.empty())
+    {
+      HttpThread * p = m_threads.back().first;
+      m_threads.pop_back();
+      DeleteNativeHttpThread(p);
+    }
 
     if (m_status == EInProgress)
     {
