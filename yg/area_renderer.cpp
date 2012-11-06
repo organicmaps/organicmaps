@@ -60,7 +60,7 @@ namespace yg
       float texX = style->m_texRect.minX() + 1.0f;
       float texY = style->m_texRect.minY() + 1.0f;
 
-      shared_ptr<BaseTexture> texture = skin()->getPage(style->m_pipelineID)->texture();
+      shared_ptr<BaseTexture> texture = skin()->page(style->m_pipelineID)->texture();
 
       if (!texture)
       {
@@ -105,7 +105,7 @@ namespace yg
       float texX = style->m_texRect.minX() + 1.0f;
       float texY = style->m_texRect.minY() + 1.0f;
 
-      shared_ptr<BaseTexture> texture = skin()->getPage(style->m_pipelineID)->texture();
+      shared_ptr<BaseTexture> texture = skin()->page(style->m_pipelineID)->texture();
 
       if (!texture)
       {

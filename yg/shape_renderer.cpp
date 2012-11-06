@@ -110,7 +110,7 @@ namespace yg
       for (int i = 0; i < 4; ++i)
         rectPtsF[i] = m2::PointF(rectPts[i].x, rectPts[i].y);
 
-      shared_ptr<BaseTexture> texture = skin()->getPage(style->m_pipelineID)->texture();
+      shared_ptr<BaseTexture> texture = skin()->page(style->m_pipelineID)->texture();
 
       if (!texture)
       {
@@ -151,7 +151,7 @@ namespace yg
           m2::PointF(r.maxX(), r.maxY())
         };
 
-      shared_ptr<BaseTexture> texture = skin()->getPage(style->m_pipelineID)->texture();
+      shared_ptr<BaseTexture> texture = skin()->page(style->m_pipelineID)->texture();
 
       if (!texture)
       {
@@ -186,7 +186,7 @@ namespace yg
         return;
       }
 
-      shared_ptr<BaseTexture> texture = skin()->getPage(style->m_pipelineID)->texture();
+      shared_ptr<BaseTexture> texture = skin()->page(style->m_pipelineID)->texture();
 
       if (!texture)
       {

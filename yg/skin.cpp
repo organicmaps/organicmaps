@@ -25,8 +25,9 @@ namespace yg
     m_textPage = m_pages.size();
     addTextPages(1);
 
-    m_dynamicPage = m_pages.size();
-    addDynamicPages(1);
+    m_startDynamicPage = m_dynamicPage = m_pages.size();
+    m_dynamicPagesCount = 2;
+    addDynamicPages(m_dynamicPagesCount);
   }
 
   void Skin::addTextPages(int count)
@@ -150,7 +151,8 @@ namespace yg
 
   bool Skin::mapPenInfo(PenInfo const * penInfos, uint32_t * styleIDS, size_t count)
   {
-    bool alreadyFlushed = false;
+    int startDynamicPage = m_dynamicPage;
+    int cycles = 0;
 
     int i = 0;
 
@@ -165,10 +167,17 @@ namespace yg
         {
           /// no room - flush the page
           flushDynamicPage();
-          if (alreadyFlushed)
-            return false; //<cycling
 
-          alreadyFlushed = true;
+          if (startDynamicPage == m_dynamicPage)
+            cycles += 1;
+
+          /// there could be maximum 2 cycles to
+          /// pack the sequence as a whole.
+          /// second cycle is necessary as the first one
+          /// could possibly run on partially packed skin pages.
+          if (cycles == 2)
+            return false;
+
           /// re-start packing
           i = 0;
         }
@@ -200,13 +209,13 @@ namespace yg
     return packID(m_textPage, m_pages[m_textPage]->mapGlyph(gk, glyphCache));
   }
 
-  shared_ptr<SkinPage> const & Skin::getPage(int i) const
+  shared_ptr<SkinPage> const & Skin::page(int i) const
   {
     ASSERT(i < m_pages.size(), ());
     return m_pages[i];
   }
 
-  size_t Skin::getPagesCount() const
+  size_t Skin::pagesCount() const
   {
     return m_pages.size();
   }
@@ -228,7 +237,7 @@ namespace yg
 
   void Skin::clearPageHandles(uint8_t pipelineID)
   {
-    getPage(pipelineID)->clearHandles();
+    page(pipelineID)->clearHandles();
   }
 
   /// This function is set to perform as a callback on texture or handles overflow
@@ -246,15 +255,56 @@ namespace yg
     flushTextPage();
   }
 
+  bool Skin::isDynamicPage(int i) const
+  {
+    return (i >= m_startDynamicPage) && (i < m_startDynamicPage + m_dynamicPagesCount);
+  }
+
   void Skin::flushDynamicPage()
   {
     callClearPageFns(m_dynamicPage);
+    changeDynamicPage();
+  }
+
+  int Skin::nextDynamicPage() const
+  {
+    if (m_dynamicPage == m_startDynamicPage + m_dynamicPagesCount - 1)
+      return m_startDynamicPage;
+    else
+      return m_dynamicPage + 1;
+  }
+
+  void Skin::changeDynamicPage()
+  {
+    m_dynamicPage = nextDynamicPage();
+  }
+
+  bool Skin::isTextPage(int i) const
+  {
+    return i == m_textPage;
   }
 
   void Skin::flushTextPage()
   {
     //callOverflowFns(m_currentTextPage);
     callClearPageFns(m_textPage);
+  }
+
+  int Skin::nextPage(int i) const
+  {
+    ASSERT(i < m_pages.size(), ());
+
+    if (isDynamicPage(i))
+      return nextDynamicPage();
+
+    /// for static and text pages return same index as passed in.
+    return i;
+  }
+
+  void Skin::changePage(int i)
+  {
+    if (isDynamicPage(i))
+      changeDynamicPage();
   }
 
   uint32_t Skin::invalidHandle() const

@@ -95,7 +95,7 @@ namespace yg
         /// Length of the actual pattern data being tiling(without antialiasing zones).
         rawTileLen = 0;
 
-        shared_ptr<BaseTexture> texture = skin()->getPage(lineStyle->m_pipelineID)->texture();
+        shared_ptr<BaseTexture> texture = skin()->page(lineStyle->m_pipelineID)->texture();
 
         if (!texture)
         {
@@ -186,7 +186,7 @@ namespace yg
             startVec = norm;
           }
 
-          shared_ptr<BaseTexture> texture = skin()->getPage(lineStyle->m_pipelineID)->texture();
+          shared_ptr<BaseTexture> texture = skin()->page(lineStyle->m_pipelineID)->texture();
 
           if (!texture)
           {
@@ -276,7 +276,7 @@ namespace yg
           nextPt + fDir - fNorm
         };
 
-        shared_ptr<BaseTexture> texture = skin()->getPage(lineStyle->m_pipelineID)->texture();
+        shared_ptr<BaseTexture> texture = skin()->page(lineStyle->m_pipelineID)->texture();
 
         if (!texture)
         {

@@ -45,7 +45,7 @@ namespace yg
      {
        discardPipeline(i);
        freePipeline(i);
-       if (m_skin->getPage(i)->type() != SkinPage::EStatic)
+       if (m_skin->page(i)->type() != SkinPage::EStatic)
          freeTexture(i);
      }
    }
@@ -154,11 +154,11 @@ namespace yg
      {
        /// settings proper skin page type according to useGuiResources flag
        if (m_useGuiResources)
-         for (size_t i = 0; i < m_skin->getPagesCount(); ++i)
-           if (m_skin->getPage(i)->type() != SkinPage::EStatic)
-             m_skin->getPage(i)->setType(SkinPage::ELightWeight);
+         for (size_t i = 0; i < m_skin->pagesCount(); ++i)
+           if (m_skin->page(i)->type() != SkinPage::EStatic)
+             m_skin->page(i)->setType(SkinPage::ELightWeight);
 
-       m_pipelines.resize(m_skin->getPagesCount());
+       m_pipelines.resize(m_skin->pagesCount());
 
        m_skin->addClearPageFn(bind(&GeometryBatcher::flush, this, _1), 100);
        m_skin->addClearPageFn(bind(&GeometryBatcher::freeTexture, this, _1), 99);
@@ -170,7 +170,7 @@ namespace yg
          m_pipelines[i].m_currentIndex = 0;
 
          m_pipelines[i].m_hasStorage = false;
-         m_pipelines[i].m_type = skin->getPage(i)->type();
+         m_pipelines[i].m_type = skin->page(i)->type();
 
          m_pipelines[i].m_maxVertices = 0;
          m_pipelines[i].m_maxIndices = 0;
@@ -275,10 +275,27 @@ namespace yg
      {
        for (size_t i = m_pipelines.size(); i > 0; --i)
        {
-         if ((pipelineID == -1) || ((i - 1) == (size_t)pipelineID))
+         size_t id = i - 1;
+
+         if ((pipelineID == -1) || (id == (size_t)pipelineID))
          {
-           flushPipeline(m_skin->getPage(i - 1), i - 1);
-           reset(i - 1);
+           if (flushPipeline(m_skin->page(id), id))
+           {
+             int nextPage = m_skin->nextPage(id);
+
+             if (nextPage != id)
+             {
+               // reserving texture in advance, before we'll
+               // potentially return current texture into the pool.
+               m_skin->page(nextPage)->checkTexture();
+             }
+
+             m_skin->changePage(id);
+           }
+
+           /// resetting geometry storage associated
+           /// with the specified pipeline.
+           reset(id);
          }
        }
      }
@@ -286,13 +303,13 @@ namespace yg
 
    void GeometryBatcher::freeTexture(int pipelineID)
    {
-     if (!m_skin->getPage(pipelineID)->hasTexture())
+     if (!m_skin->page(pipelineID)->hasTexture())
        return;
 
-     shared_ptr<BaseTexture> texture = m_skin->getPage(pipelineID)->texture();
+     shared_ptr<BaseTexture> texture = m_skin->page(pipelineID)->texture();
      TTexturePool * texturePool = 0;
 
-     switch (m_skin->getPage(pipelineID)->type())
+     switch (m_skin->page(pipelineID)->type())
      {
      case SkinPage::EPrimary:
        texturePool = resourceManager()->primaryTextures();
@@ -310,7 +327,7 @@ namespace yg
 
      base_t::freeTexture(texture, texturePool);
 
-     m_skin->getPage(pipelineID)->resetTexture();
+     m_skin->page(pipelineID)->resetTexture();
    }
 
    void GeometryBatcher::unlockPipeline(int pipelineID)
@@ -327,7 +344,7 @@ namespace yg
        base_t::discardStorage(pipeline.m_storage);
    }
 
-   void GeometryBatcher::flushPipeline(shared_ptr<SkinPage> const & skinPage,
+   bool GeometryBatcher::flushPipeline(shared_ptr<SkinPage> const & skinPage,
                                        int pipelineID)
    {
      GeometryPipeline & pipeline = m_pipelines[pipelineID];
@@ -365,7 +382,11 @@ namespace yg
        pipeline.m_indices = 0;
        pipeline.m_currentIndex = 0;
        pipeline.m_currentVertex = 0;
+
+       return true;
      }
+
+     return false;
    }
 
    void GeometryBatcher::drawTexturedPolygon(
@@ -388,7 +409,7 @@ namespace yg
      float texMinY = ty0;
      float texMaxY = ty1;
 
-     shared_ptr<BaseTexture> const & texture = m_skin->getPage(pipelineID)->texture();
+     shared_ptr<BaseTexture> const & texture = m_skin->page(pipelineID)->texture();
 
      if (!texture)
      {
@@ -459,7 +480,7 @@ namespace yg
      float texMinY = ty0;
      float texMaxY = ty1;
 
-     shared_ptr<BaseTexture> const & texture = m_skin->getPage(pipelineID)->texture();
+     shared_ptr<BaseTexture> const & texture = m_skin->page(pipelineID)->texture();
 
      if (!texture)
      {

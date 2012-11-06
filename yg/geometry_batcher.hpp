@@ -109,7 +109,7 @@ namespace yg
       void beginFrame();
       void endFrame();
 
-      void flushPipeline(shared_ptr<SkinPage> const & skinPage, int pipelineID);
+      bool flushPipeline(shared_ptr<SkinPage> const & skinPage, int pipelineID);
       void unlockPipeline(int pipelineID);
       void discardPipeline(int pipelineID);
 

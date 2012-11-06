@@ -44,11 +44,13 @@ namespace yg
 
     TSkinPages m_pages;
 
+    uint8_t m_startDynamicPage;
     uint8_t m_dynamicPage;
+    uint8_t m_dynamicPagesCount;
+
     uint8_t m_textPage;
 
     uint8_t m_startStaticPage;
-    uint8_t m_currentStaticPage;
     uint8_t m_staticPagesCount;
 
     shared_ptr<ResourceManager> m_resourceManager;
@@ -82,11 +84,18 @@ namespace yg
     void callOverflowFns(uint8_t pipelineID);
 
     void clearPageHandles(uint8_t pipelineID);
-    void onDynamicOverflow(uint8_t pipelineID);
-    void onTextOverflow(uint8_t pipelineID);
 
+    bool isDynamicPage(int i) const;
     void flushDynamicPage();
+    int  nextDynamicPage() const;
+    void changeDynamicPage();
+
+    void onDynamicOverflow(uint8_t pipelineID);
+
+    bool isTextPage(int i) const;
     void flushTextPage();
+
+    void onTextOverflow(uint8_t pipelineID);
 
   public:
 
@@ -117,16 +126,29 @@ namespace yg
     /// if not - pack and return id
     uint32_t mapCircleInfo(CircleInfo const & circleInfo);
 
+    /// adding function which will be called, when some SkinPage
+    /// is getting cleared.
     void addClearPageFn(clearPageFn fn, int priority);
 
-    shared_ptr<SkinPage> const & getPage(int i) const;
-    size_t getPagesCount() const;
+    shared_ptr<SkinPage> const & page(int i) const;
+
+    size_t pagesCount() const;
 
     uint32_t invalidHandle() const;
     uint32_t invalidPageHandle() const;
 
     uint8_t textPage() const;
     uint8_t dynamicPage() const;
+
+    /// change page for its "backbuffer" counterpart.
+    /// this function is called after any rendering command
+    /// issued to avoid the "GPU is waiting on texture used in
+    /// rendering call" issue.
+    /// @warning does nothing for static pages
+    /// (pages loaded at skin creation time)
+    /// and text pages.
+    void changePage(int i);
+    int nextPage(int i) const;
 
     void clearHandles();
 
