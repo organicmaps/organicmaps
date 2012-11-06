@@ -14,52 +14,10 @@
 @synthesize m_mapViewController;
 @synthesize m_locationManager;
 
-#define V2_0_TAG "2.0"
-#define FIRST_LAUNCH_KEY "FirstLaunchOnVersion"
 
 + (MapsAppDelegate *) theApp
 {
   return [[UIApplication sharedApplication] delegate];
-}
-
-/// @todo Check is it still necessary?
-- (void) onFirstLaunchCheck
-{
-  // Called only for V1.0.1 -> V2.0 upgrade
-  string v;
-  if (!Settings::Get(FIRST_LAUNCH_KEY, v))
-  {
-    // Scan all files in the Documents directory and do necessary actions with them
-    NSArray * paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString * documentsDirectoryPath = [paths objectAtIndex:0];
-    NSFileManager * fileManager = [NSFileManager defaultManager];
-
-    // Delete old travel guide temporary files
-    [fileManager removeItemAtPath:[documentsDirectoryPath stringByAppendingPathComponent:@"index.stamp"] error:nil];
-    [fileManager removeItemAtPath:[documentsDirectoryPath stringByAppendingPathComponent:@"index.idx"] error:nil];
-
-    // Disable iCloud backup for downloaded ".mwm" maps.
-    char const * attrName = "com.apple.MobileBackup";
-    NSArray * files = [fileManager contentsOfDirectoryAtPath:documentsDirectoryPath error:nil];
-    for (NSUInteger i = 0; i < [files count]; ++i)
-    {
-      NSString * fileName = [files objectAtIndex:i];
-
-      if ([fileName rangeOfString:@DATA_FILE_EXTENSION].location != NSNotFound)
-      {
-        // Disable iCloud backup
-        u_int8_t attrValue = 1;
-        int result = setxattr([[documentsDirectoryPath stringByAppendingPathComponent:fileName] UTF8String], attrName, &attrValue, sizeof(attrValue), 0, 0);
-
-        if (result == 0)
-          NSLog(@"Disabled iCloud backup for %@", fileName);
-        else
-          NSLog(@"Error %d while disabling iCloud backup for %@", errno, fileName);
-      }
-    }
-
-    Settings::Set(FIRST_LAUNCH_KEY, string(V2_0_TAG));
-  }
 }
 
 - (void) applicationWillTerminate: (UIApplication *) application
@@ -138,8 +96,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   [m_mapViewController OnEnterForeground];
-
-  [self onFirstLaunchCheck];
 
   [Preferences setup:m_mapViewController];
   m_locationManager = [[LocationManager alloc] init];
