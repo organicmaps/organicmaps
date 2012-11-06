@@ -29,6 +29,8 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
   private final int IO_ERROR = -2;
   private final int INVALID_URL = -3;
   private final int WRITE_ERROR = -4;
+  private final int FILE_SIZE_CHECK_FAILED = -5;
+
   private int m_httpErrorCode = NOT_SET;
   private long m_downloadedBytes = 0;
 
@@ -83,6 +85,26 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
     execute();
   }
 
+  static long parseContentRange(String contentRangeValue)
+  {
+    if (contentRangeValue != null)
+    {
+      final int slashIndex = contentRangeValue.lastIndexOf('/');
+      if (slashIndex >= 0)
+      {
+        try
+        {
+          return Long.parseLong(contentRangeValue.substring(slashIndex + 1));
+        }
+        catch (NumberFormatException ex)
+        {
+          // Return -1 at the end of function
+        }
+      }
+    }
+    return -1;
+  }
+
   @Override
   protected Boolean doInBackground(Void... p)
   {
@@ -128,13 +150,32 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
         return false;
 
       final int err = urlConnection.getResponseCode();
+      // @TODO We can handle redirect (301, 302 and 307) here and display redirected page to user,
+      // to avoid situation when downloading is always failed by "unknown" reason
       if (err != HttpURLConnection.HTTP_OK && err != HttpURLConnection.HTTP_PARTIAL)
       {
         // we've set error code so client should be notified about the error
         m_httpErrorCode = err;
+        Log.w(TAG, "Error for " + urlConnection.getURL() + ": Server replied with code " + err + ", aborting download.");
         return false;
       }
 
+      // Check for content size - are we downloading requested file or some router's garbage?
+      if (m_expectedFileSize > 0)
+      {
+        long contentLength = parseContentRange(urlConnection.getHeaderField("Content-Range"));
+        if (contentLength < 0)
+          contentLength = urlConnection.getContentLength();
+        // Check even if contentLength is invalid (-1), in this case it's not our server!
+        if (contentLength != m_expectedFileSize)
+        {
+          // we've set error code so client should be notified about the error
+          m_httpErrorCode = FILE_SIZE_CHECK_FAILED;
+          Log.w(TAG, "Error for " + urlConnection.getURL() + ": Invalid file size received (" + contentLength + ") while expecting " + m_expectedFileSize + ". Aborting download.");
+          return false;
+        }
+        // @TODO Else display received web page to user - router is redirecting us to some page
+      }
       return downloadFromStream(new BufferedInputStream(urlConnection.getInputStream()));
     }
     catch (MalformedURLException ex)
