@@ -134,7 +134,8 @@
       // if it's absent, use Content-Length instead
       if (sizeOnServer < 0)
         sizeOnServer = [response expectedContentLength];
-      if (sizeOnServer > 0 & m_expectedSize != sizeOnServer)
+      // We should always check returned size, even if it's invalid (-1)
+      if (m_expectedSize != sizeOnServer)
       {
 
         LOG(LWARNING, ("Canceling download - server replied with invalid size",
@@ -143,6 +144,7 @@
         m_callback->OnFinish(-2, m_begRange, m_endRange);
         return;
       }
+      // @TODO Else display content to user - router is redirecting us somewhere
     }
   }
   else
