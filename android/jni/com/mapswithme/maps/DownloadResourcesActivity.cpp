@@ -245,7 +245,7 @@ extern "C"
     for (size_t i = 0; i < curFile.m_urls.size(); ++i)
     {
       curFile.m_urls[i] = storage.GetFileDownloadUrl(curFile.m_urls[i], curFile.m_fileName);
-      LOG(LINFO, (curFile.m_urls[i]));
+      LOG(LDEBUG, (curFile.m_urls[i]));
     }
 
     g_currentRequest.reset(HttpRequest::GetFile(
