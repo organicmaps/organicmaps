@@ -91,12 +91,6 @@ namespace yg
 
     void Renderer::DiscardFramebuffer::perform()
     {
-      static bool firstReport = true;
-      if (firstReport && !glDiscardFramebufferFn)
-        LOG(LINFO, ("GL_EXT_discard_framebuffer is unsupported"));
-
-      firstReport = false;
-
       GLenum attachements[2];
       int numAttachements = 0;
       if (m_doDiscardColor)
@@ -108,6 +102,12 @@ namespace yg
 
     void Renderer::discardFramebuffer(bool doDiscardColor, bool doDiscardDepth)
     {
+      static bool firstReport = true;
+      if (firstReport && !glDiscardFramebufferFn)
+        LOG(LINFO, ("GL_EXT_discard_framebuffer is unsupported"));
+
+      firstReport = false;
+
       if (glDiscardFramebufferFn)
         processCommand(make_shared_ptr(new DiscardFramebuffer(doDiscardColor, doDiscardDepth)));
     }
