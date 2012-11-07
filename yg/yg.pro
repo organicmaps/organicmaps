@@ -127,13 +127,3 @@ win32* {
   SOURCES += internal/opengl_glsl_ext.cpp \
              internal/opengl_glsl_impl.cpp
 }
-
-
-
-
-
-
-
-
-
-

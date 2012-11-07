@@ -103,10 +103,12 @@ namespace yg
     void Renderer::discardFramebuffer(bool doDiscardColor, bool doDiscardDepth)
     {
       static bool firstReport = true;
-      if (firstReport && !glDiscardFramebufferFn)
-        LOG(LINFO, ("GL_EXT_discard_framebuffer is unsupported"));
-
-      firstReport = false;
+      if (firstReport)
+      {
+        if (!glDiscardFramebufferFn)
+          LOG(LINFO, ("GL_EXT_discard_framebuffer is unsupported"));
+        firstReport = false;
+      }
 
       if (glDiscardFramebufferFn)
         processCommand(make_shared_ptr(new DiscardFramebuffer(doDiscardColor, doDiscardDepth)));

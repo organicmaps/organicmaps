@@ -74,7 +74,12 @@ namespace yg
       glGenFramebuffersFn = &glGenFramebuffers;
       glDeleteFramebuffersFn = &glDeleteFramebuffers;
       glCheckFramebufferStatusFn = &glCheckFramebufferStatus;
+      // this extension is defined in headers but absent in library on Android ARM platform
+#if defined(OMIM_OS_ANDROID) && defined(__arm__)
+      glDiscardFramebufferFn = 0;
+#else
       glDiscardFramebufferFn = &glDiscardFramebufferEXT;
+#endif
 
       g_isRenderbufferSupported = g_isFramebufferSupported;
 
