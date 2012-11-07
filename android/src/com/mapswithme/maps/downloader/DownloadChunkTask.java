@@ -58,9 +58,13 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
   @Override
   protected void onPostExecute(Boolean success)
   {
-    assert(!isCancelled());
+    // It seems like onPostExecute can be called (from GUI thread queue)
+    // after the task was cancelled in destructor of HttpThread.
+    // Reproduced by Samsung testers: touch Try Again for many times from
+    // start activity when no connection is present.
 
-    onFinish(m_httpCallbackID, success ? 200 : m_httpErrorCode, m_beg, m_end);
+    if (!isCancelled())
+      onFinish(m_httpCallbackID, success ? 200 : m_httpErrorCode, m_beg, m_end);
   }
 
   @Override
