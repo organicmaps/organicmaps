@@ -6,7 +6,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := mapswithme
 
-LOCAL_CFLAGS := -ffunction-sections -fdata-sections
+LOCAL_CFLAGS := -ffunction-sections -fdata-sections -Wno-psabi
 
 TARGET_PLATFORM := android-5
 
