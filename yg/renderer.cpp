@@ -97,22 +97,19 @@ namespace yg
 
       firstReport = false;
 
-      if (glDiscardFramebufferFn)
-      {
-        GLenum attachements[2];
-        int numAttachements = 0;
-        if (m_doDiscardColor)
-          attachements[numAttachements++] = GL_COLOR_ATTACHMENT0_MWM;
-        if (m_doDiscardDepth)
-          attachements[numAttachements++] = GL_DEPTH_ATTACHMENT_MWM;
-
-        glDiscardFramebufferFn(GL_FRAMEBUFFER_MWM, numAttachements, attachements);
-      }
+      GLenum attachements[2];
+      int numAttachements = 0;
+      if (m_doDiscardColor)
+        attachements[numAttachements++] = GL_COLOR_ATTACHMENT0_MWM;
+      if (m_doDiscardDepth)
+        attachements[numAttachements++] = GL_DEPTH_ATTACHMENT_MWM;
+      glDiscardFramebufferFn(GL_FRAMEBUFFER_MWM, numAttachements, attachements);
     }
 
     void Renderer::discardFramebuffer(bool doDiscardColor, bool doDiscardDepth)
     {
-      processCommand(make_shared_ptr(new DiscardFramebuffer(doDiscardColor, doDiscardDepth)));
+      if (glDiscardFramebufferFn)
+        processCommand(make_shared_ptr(new DiscardFramebuffer(doDiscardColor, doDiscardDepth)));
     }
 
     void Renderer::endFrame()
