@@ -38,8 +38,6 @@
 - (IBAction)OnSearchClicked:(id)sender;
 - (IBAction)OnBookmarksClicked:(id)sender;
 
--(BOOL) OnProcessURL:(NSString*)url;
-
 - (void)showSearchResultAsBookmarkAtMercatorPoint:(m2::PointD const &)pt withInfo:(Framework::AddressInfo const &)info;
 
 @property (nonatomic, retain) IBOutlet UIButton * m_myPositionButton;

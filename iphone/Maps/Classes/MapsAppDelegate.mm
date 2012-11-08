@@ -9,6 +9,7 @@
 #include "Framework.h"
 #include "../../../platform/settings.hpp"
 
+
 @implementation MapsAppDelegate
 
 @synthesize m_mapViewController;
@@ -112,14 +113,24 @@
   return [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] != nil;
 }
 
-// handleOpenURL is deprecaed now.
-// http://stackoverflow.com/questions/3612460/lauching-app-with-url-via-uiapplicationdelegates-handleopenurl-working-under
-/*
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+// We don't support HandleOpenUrl as it's deprecated from iOS 4.2
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
 {
-  NSString * text = [[url absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-  return [m_mapViewController OnProcessURL:text];
+  NSString * scheme = url.scheme;
+  NSLog(@"Launched with URL Scheme %@ from the app %@", url.scheme, sourceApplication);
+
+  // geo scheme support, see http://tools.ietf.org/html/rfc5870
+  if ([scheme isEqualToString:@"geo"])
+  {
+    GetFramework().SetViewportByURL([[url.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] UTF8String]);
+    return YES;
+  }
+
+  NSLog(@"Scheme %@ is not supported", scheme);
+  return NO;
 }
-*/
 
 @end

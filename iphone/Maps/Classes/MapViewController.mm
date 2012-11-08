@@ -603,10 +603,4 @@ NSInteger compareAddress(id l, id r, void * context)
   GetFramework().SetupMeasurementSystem();
 }
 
--(BOOL) OnProcessURL:(NSString*)url
-{
-  GetFramework().SetViewportByURL([url UTF8String]);
-  return TRUE;
-}
-
 @end

@@ -25,7 +25,7 @@ namespace url_scheme
   }
 
 
-  class DoParse
+  class DoGeoParse
   {
     Info & m_info;
 
@@ -54,7 +54,7 @@ namespace url_scheme
     }
 
   public:
-    DoParse(Info & info) : m_info(info), m_mode(START)
+    DoGeoParse(Info & info) : m_info(info), m_mode(START)
     {
     }
 
@@ -63,8 +63,11 @@ namespace url_scheme
       switch (m_mode)
       {
       case START:
-        ASSERT(token == "geo" || token == "mapswithme", (token));
-        m_mode = LAT;
+        // Only geo scheme is supported by this parser
+        if (token != "geo")
+          m_mode = FINISH;
+        else
+          m_mode = LAT;
         break;
 
       case LAT:
@@ -99,6 +102,6 @@ namespace url_scheme
 
   void ParseURL(string const & s, Info & info)
   {
-    strings::Tokenize(s, ":/?&=,", DoParse(info));
+    strings::Tokenize(s, ":/?&=,", DoGeoParse(info));
   }
 }
