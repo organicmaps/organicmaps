@@ -100,7 +100,7 @@ namespace url_scheme
     }
   };
 
-  void ParseURL(string const & s, Info & info)
+  void ParseGeoURL(string const & s, Info & info)
   {
     strings::Tokenize(s, ":/?&=,", DoGeoParse(info));
   }

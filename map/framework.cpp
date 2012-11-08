@@ -1371,7 +1371,7 @@ bool Framework::SetViewportByURL(string const & url)
   using namespace url_scheme;
 
   Info info;
-  ParseURL(url, info);
+  ParseGeoURL(url, info);
 
   if (info.IsValid())
   {

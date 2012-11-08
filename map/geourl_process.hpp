@@ -28,5 +28,5 @@ namespace url_scheme
     m2::RectD GetViewport() const;
   };
 
-  void ParseURL(string const & s, Info & info);
+  void ParseGeoURL(string const & s, Info & info);
 }
