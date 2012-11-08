@@ -27,7 +27,9 @@ public class LocationService implements LocationListener, SensorEventListener, W
   private static final String TAG = "LocationService";
 
   /// These constants should correspond to values defined in platform/location.hpp
-  public static final int ERROR_DENIED = 0;
+  /// Leave 0-value as no any error.
+  public static final int ERROR_DENIED = 1;
+  public static final int ERROR_GPS_OFF = 2;
 
   public interface Listener
   {
@@ -38,7 +40,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   private HashSet<Listener> m_observers = new HashSet<Listener>(10);
 
-  // Used to filter locations from different providers
+  /// Used to filter locations from different providers
   private Location m_lastLocation = null;
   private long m_lastTime = 0;
   private double m_drivingHeading = -1.0;
@@ -53,7 +55,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
   /// To calculate true north for compass
   private GeomagneticField m_magneticField = null;
 
-  /// true when GPS is on
+  /// true when LocationService is on
   private boolean m_isActive = false;
 
   private MWMApplication m_application = null;
@@ -74,12 +76,14 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   public Location getLastKnown() { return m_lastLocation; }
 
+  /*
   private void notifyOnError(int errorCode)
   {
     Iterator<Listener> it = m_observers.iterator();
     while (it.hasNext())
       it.next().onLocationError(errorCode);
   }
+   */
 
   private void notifyLocationUpdated(long time, double lat, double lon, float accuracy)
   {
@@ -129,8 +133,8 @@ public class LocationService implements LocationListener, SensorEventListener, W
       {
         // Use WiFi BSSIDS and Google Internet location service if no other options are available
         // But only if connection is available
-        if (ConnectionState.isConnected(m_application)
-            && ((WifiManager) m_application.getSystemService(Context.WIFI_SERVICE)).isWifiEnabled())
+        if (ConnectionState.isConnected(m_application) &&
+            ((WifiManager)m_application.getSystemService(Context.WIFI_SERVICE)).isWifiEnabled())
         {
           if (m_wifiScanner == null)
             m_wifiScanner = new WifiLocation();

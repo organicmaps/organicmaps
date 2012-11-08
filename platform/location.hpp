@@ -6,13 +6,11 @@
 
 namespace location
 {
-  /// after this period we cont position as "too old"
-  static double const POSITION_TIMEOUT_SECONDS = 300.0;
-
   enum TLocationError
   {
-    EDenied,
-    ENotSupported
+    ENoError = 0,
+    EDenied = 1,
+    EGPSIsOff = 2
   };
 
   enum TLocationSource

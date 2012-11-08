@@ -21,10 +21,11 @@ class PositionFilter
 public:
   PositionFilter() : m_prevLocation(NULL) {}
   ~PositionFilter() { delete m_prevLocation; }
+
   /// @return true if location should be sent to observers
   bool Passes(location::GpsInfo const & newLocation)
   {
-    if (time(NULL) - newLocation.m_timestamp > location::POSITION_TIMEOUT_SECONDS)
+    if (time(NULL) - newLocation.m_timestamp > 300.0)
       return false;
 
     bool passes = true;
