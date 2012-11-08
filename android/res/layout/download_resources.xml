@@ -110,15 +110,6 @@
         android:textSize="16sp"
         android:visibility="gone" />
 
-    <ProgressBar
-        android:id="@+id/download_resources_location_progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dip"
-        android:indeterminate="true"
-        android:visibility="gone" />
-
     <CheckBox
         android:id="@+id/download_country_checkbox"
         android:layout_width="wrap_content"

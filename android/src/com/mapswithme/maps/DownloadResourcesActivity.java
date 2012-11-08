@@ -68,14 +68,11 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     mMsgView.setTextColor(Color.WHITE);
   }
 
-  protected void prepareFilesDownload()
+  private void prepareFilesDownload()
   {
     if (mBytesToDownload > 0)
     {
       setDownloadMessage(mBytesToDownload);
-
-      findViewById(R.id.download_resources_location_progress).setVisibility(View.VISIBLE);
-      findViewById(R.id.download_resources_location_message).setVisibility(View.VISIBLE);
 
       mLocationService = mApplication.getLocationService();
       mLocationService.startUpdate(this);
@@ -356,13 +353,13 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   {
     if (mCountryName == null)
     {
-      findViewById(R.id.download_resources_location_progress).setVisibility(View.GONE);
-
       Log.i(TAG, "Searching for country name at location lat=" + lat + ", lon=" + lon);
 
       mCountryName = findCountryByPos(lat, lon);
       if (mCountryName != null)
       {
+        mLocationMsgView.setVisibility(View.VISIBLE);
+
         int countryStatus = mMapStorage.countryStatus(mMapStorage.findIndexByName(mCountryName));
         if (countryStatus == MapStorage.ON_DISK)
           mLocationMsgView.setText(String.format(getString(R.string.download_location_map_up_to_date), mCountryName));
