@@ -208,7 +208,14 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     {
     case ERR_NOT_ENOUGH_FREE_SPACE: id = R.string.not_enough_free_space_on_sdcard; break;
     case ERR_STORAGE_DISCONNECTED: id = R.string.disconnect_usb_cable; break;
-    case ERR_DOWNLOAD_ERROR: id = R.string.download_has_failed; break;
+
+    case ERR_DOWNLOAD_ERROR:
+      if (ConnectionState.isConnected(this))
+        id = R.string.download_has_failed;
+      else
+        id = R.string.no_internet_connection_detected;
+      break;
+
     default: id = R.string.not_enough_memory;
     }
 
