@@ -142,6 +142,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         checkMeasurementSystem();
         checkUpdateMaps();
         checkFacebookDialog();
+        checkBuyProDialog();
       }
     });
   }
@@ -325,6 +326,34 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     alignZoomButtons();
   }
 
+  private void showDialogImpl(final int dlgID, int resMsg, DialogInterface.OnClickListener okListener)
+  {
+    new AlertDialog.Builder(this)
+    .setCancelable(false)
+    .setMessage(getString(resMsg))
+    .setPositiveButton(getString(R.string.ok), okListener)
+    .setNeutralButton(getString(R.string.later), new DialogInterface.OnClickListener()
+    {
+      @Override
+      public void onClick(DialogInterface dlg, int which)
+      {
+        dlg.dismiss();
+        mApplication.submitDialogResult(dlgID, MWMApplication.LATER);
+      }
+    })
+    .setNegativeButton(getString(R.string.never), new DialogInterface.OnClickListener()
+    {
+      @Override
+      public void onClick(DialogInterface dlg, int which)
+      {
+        dlg.dismiss();
+        mApplication.submitDialogResult(dlgID, MWMApplication.NEVER);
+      }
+    })
+    .create()
+    .show();
+  }
+
   private void showFacebookPage()
   {
     Intent intent = null;
@@ -383,42 +412,21 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private void checkFacebookDialog()
   {
     if ((ConnectionState.getState(this) != ConnectionState.NOT_CONNECTED) &&
-        mApplication.nativeShouldShowFacebookDialog() &&
+        mApplication.shouldShowDialog(MWMApplication.FACEBOOK) &&
         !isChinaRegion())
     {
-      new AlertDialog.Builder(this)
-      .setCancelable(false)
-      .setMessage(getString(R.string.share_on_facebook_text))
-      .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener()
+      showDialogImpl(MWMApplication.FACEBOOK, R.string.share_on_facebook_text,
+                     new DialogInterface.OnClickListener()
       {
         @Override
         public void onClick(DialogInterface dlg, int which)
         {
+          mApplication.submitDialogResult(MWMApplication.FACEBOOK, MWMApplication.OK);
+
           dlg.dismiss();
-          mApplication.nativeSubmitFacebookDialogResult(0);
           showFacebookPage();
         }
-      })
-      .setNeutralButton(getString(R.string.later), new DialogInterface.OnClickListener()
-      {
-        @Override
-        public void onClick(DialogInterface dlg, int which)
-        {
-          dlg.dismiss();
-          mApplication.nativeSubmitFacebookDialogResult(1);
-        }
-      })
-      .setNegativeButton(getString(R.string.never), new DialogInterface.OnClickListener()
-      {
-        @Override
-        public void onClick(DialogInterface dlg, int which)
-        {
-          dlg.dismiss();
-          mApplication.nativeSubmitFacebookDialogResult(2);
-        }
-      })
-      .create()
-      .show();
+      });
     }
   }
 
@@ -447,6 +455,28 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     })
     .create()
     .show();
+  }
+
+  private void checkBuyProDialog()
+  {
+    if (!mApplication.isProVersion() &&
+        (ConnectionState.getState(this) != ConnectionState.NOT_CONNECTED) &&
+        mApplication.shouldShowDialog(MWMApplication.BUYPRO))
+    {
+      showDialogImpl(MWMApplication.BUYPRO, R.string.pro_version_available,
+                     new DialogInterface.OnClickListener()
+      {
+        @Override
+        public void onClick(DialogInterface dlg, int which)
+        {
+          mApplication.submitDialogResult(MWMApplication.BUYPRO, MWMApplication.OK);
+
+          Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(mApplication.getProVersionURL()));
+          dlg.dismiss();
+          startActivity(i);
+        }
+      });
+    }
   }
 
   private void runSearchActivity()

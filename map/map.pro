@@ -49,6 +49,7 @@ HEADERS += \
     animator.hpp \
     move_screen_task.hpp \
     change_viewport_task.hpp \
+    dialog_settings.hpp \
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -89,25 +90,10 @@ SOURCES += \
     animator.cpp \
     move_screen_task.cpp \
     change_viewport_task.cpp \
+    dialog_settings.cpp \
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp
   SOURCES += qgl_render_context.cpp
   QT += opengl
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

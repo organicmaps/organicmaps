@@ -31,7 +31,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
   // Set default string to Google Play page.
   private String m_proVersionURL =
-    "https://play.google.com/store/apps/details?id=com.mapswithme.maps.pro";
+      "https://play.google.com/store/apps/details?id=com.mapswithme.maps.pro";
 
   private void showDownloadToast(int resID, Index idx)
   {
@@ -188,11 +188,18 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
   public native boolean nativeIsBenchmarking();
 
-  /// Dealing with Facebook dialog
+  /// @name Dealing with dialogs.
+  /// @note Constants should be equal with map/dialog_settings.hpp
   /// @{
-  public native boolean nativeShouldShowFacebookDialog();
+  static public final int FACEBOOK = 0;
+  static public final int BUYPRO = 1;
+  public native boolean shouldShowDialog(int dlg);
   /// values of result param should correspond to values defined in map/Framework.hpp
-  public native void nativeSubmitFacebookDialogResult(int result);
+
+  static public final int OK = 0;
+  static public final int LATER = 1;
+  static public final int NEVER = 2;
+  public native void submitDialogResult(int dlg, int res);
   /// @}
 
   /// Dealing with Settings

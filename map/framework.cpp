@@ -5,6 +5,7 @@
 #include "benchmark_engine.hpp"
 #include "geourl_process.hpp"
 #include "measurement_utils.hpp"
+#include "dialog_settings.hpp"
 
 #include "../defines.hpp"
 
@@ -891,10 +892,6 @@ void Framework::MemoryWarning()
   LOG(LINFO, ("MemoryWarning"));
 }
 
-#define MIN_FOREGROUND_TIME_TO_SHOW_FACEBOOK_DIALOG 60 * 60
-#define FOREGROUND_TIME_SETTINGS "ForegroundTime"
-#define SHOW_FACEBOOK_SETTINGS "ShouldShowFacebookDialog"
-
 void Framework::EnterBackground()
 {
   // Do not clear caches for Android. This function is called when main activity is paused,
@@ -903,9 +900,7 @@ void Framework::EnterBackground()
   ClearAllCaches();
 #endif
 
-  double val = 0;
-  (void)Settings::Get(FOREGROUND_TIME_SETTINGS, val);
-  Settings::Set(FOREGROUND_TIME_SETTINGS, my::Timer::LocalTime() - m_StartForegroundTime + val);
+  dlg_settings::EnterBackground(my::Timer::LocalTime() - m_StartForegroundTime);
 }
 
 void Framework::EnterForeground()
@@ -1392,31 +1387,6 @@ m2::RectD Framework::GetCurrentViewport() const
 bool Framework::IsBenchmarking() const
 {
   return m_benchmarkEngine != 0;
-}
-
-bool Framework::ShouldShowFacebookDialog() const
-{
-  double val = 0;
-  bool flag = true;
-  (void)Settings::Get(FOREGROUND_TIME_SETTINGS, val);
-  (void)Settings::Get(SHOW_FACEBOOK_SETTINGS, flag);
-  return (flag && (val >= MIN_FOREGROUND_TIME_TO_SHOW_FACEBOOK_DIALOG));
-}
-
-void Framework::SaveFacebookDialogResult(int result)
-{
-  switch (result)
-  {
-  case 0: case 2:
-    Settings::Set(SHOW_FACEBOOK_SETTINGS, false);
-    break;
-  case 1:
-    Settings::Set(FOREGROUND_TIME_SETTINGS, 0);
-    break;
-  default:
-    LOG(LINFO, ("Unknown Facebook dialog result!"));
-    break;
-  }
 }
 
 shared_ptr<graphics::OverlayElement> const GetClosestToPivot(list<shared_ptr<graphics::OverlayElement> > const & l,

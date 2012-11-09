@@ -10,9 +10,13 @@
 #include "../core/jni_helper.hpp"
 
 #include "../platform/Platform.hpp"
-#include "../../../../../platform/settings.hpp"
+
 #include "../../../../../map/information_display.hpp"
 #include "../../../../../map/location_state.hpp"
+#include "../../../../../map/dialog_settings.hpp"
+
+#include "../../../../../platform/settings.hpp"
+
 
 extern "C"
 {
@@ -44,18 +48,18 @@ extern "C"
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_MWMApplication_nativeShouldShowFacebookDialog(JNIEnv * env,
-                                                                         jobject thiz)
+  Java_com_mapswithme_maps_MWMApplication_shouldShowDialog(
+      JNIEnv * env, jobject thiz, jint dlg)
   {
-    return static_cast<jboolean>(g_framework->NativeFramework()->ShouldShowFacebookDialog());
+    return static_cast<jboolean>(dlg_settings::ShouldShow(static_cast<dlg_settings::DialogT>(dlg)));
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMApplication_nativeSubmitFacebookDialogResult(JNIEnv * env,
-                                                                   jobject thiz,
-                                                                   jint result)
+  Java_com_mapswithme_maps_MWMApplication_submitDialogResult(
+      JNIEnv * env, jobject thiz, jint dlg, jint res)
   {
-    g_framework->NativeFramework()->SaveFacebookDialogResult(static_cast<int>(result));
+    dlg_settings::SaveResult(static_cast<dlg_settings::DialogT>(dlg),
+                             static_cast<dlg_settings::ResultT>(res));
   }
 
   JNIEXPORT jboolean JNICALL
