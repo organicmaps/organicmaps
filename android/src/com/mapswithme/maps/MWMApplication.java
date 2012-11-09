@@ -194,7 +194,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
   static public final int FACEBOOK = 0;
   static public final int BUYPRO = 1;
   public native boolean shouldShowDialog(int dlg);
-  /// values of result param should correspond to values defined in map/Framework.hpp
 
   static public final int OK = 0;
   static public final int LATER = 1;
