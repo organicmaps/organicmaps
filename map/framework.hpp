@@ -187,7 +187,8 @@ public:
   /// Scans and loads all kml files with bookmarks in WritableDir
   void LoadBookmarks();
 
-  void AddBookmark(string const & category, Bookmark const & bm);
+  // Always returns existing or newly created bookmark category
+  BookmarkCategory * AddBookmark(string const & category, Bookmark const & bm);
   inline size_t GetBmCategoriesCount() const { return m_bookmarks.size(); }
   /// @returns 0 if category is not found
   BookmarkCategory * GetBmCategory(size_t index) const;

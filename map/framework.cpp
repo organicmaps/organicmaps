@@ -363,7 +363,7 @@ void Framework::LoadBookmarks()
   }
 }
 
-void Framework::AddBookmark(string const & category, Bookmark const & bm)
+BookmarkCategory * Framework::AddBookmark(string const & category, Bookmark const & bm)
 {
   // Get global non-rotated viewport rect and calculate viewport scale level.
   double const scale = scales::GetScaleLevelD(
@@ -385,7 +385,7 @@ void Framework::AddBookmark(string const & category, Bookmark const & bm)
       if (category == cat->GetName())
       {
         cat->ReplaceBookmark(static_cast<size_t>(index), bm, scale);
-        return;
+        return cat;
       }
       else
       {
@@ -397,6 +397,7 @@ void Framework::AddBookmark(string const & category, Bookmark const & bm)
 
   BookmarkCategory * cat = GetBmCategory(category);
   cat->AddBookmark(bm, scale);
+  return cat;
 }
 
 namespace

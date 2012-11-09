@@ -21,16 +21,11 @@ void BookmarkCategory::AddBookmarkImpl(Bookmark const & bm, double scale)
   p->SetScale(scale);
 
   m_bookmarks.push_back(p);
-
-  // Turn on visibility, so user can see added/replaced bookmark on a map
-  if (!IsVisible())
-    SetVisible(true);
 }
 
 void BookmarkCategory::AddBookmark(Bookmark const & bm, double scale)
 {
   AddBookmarkImpl(bm, scale);
-  VERIFY ( SaveToKMLFile(), () );
 }
 
 void BookmarkCategory::ReplaceBookmark(size_t index, Bookmark const & bm, double scale)
@@ -45,12 +40,6 @@ void BookmarkCategory::ReplaceBookmark(size_t index, Bookmark const & bm, double
     m_bookmarks[index] = p;
 
     delete old;
-
-    // Turn on visibility, so user can see added/replaced bookmark on a map
-    if (!IsVisible())
-      SetVisible(true);
-
-    VERIFY ( SaveToKMLFile(), () );
   }
   else
     LOG(LWARNING, ("Trying to replace non-existing bookmark"));
@@ -73,8 +62,6 @@ void BookmarkCategory::DeleteBookmark(size_t index)
   {
     delete m_bookmarks[index];
     m_bookmarks.erase(m_bookmarks.begin() + index);
-
-    VERIFY ( SaveToKMLFile(), () );
   }
   else
   {
@@ -476,6 +463,7 @@ bool BookmarkCategory::SaveToKMLFile()
   }
   catch (std::exception const & e)
   {
+    LOG(LWARNING, ("Exception while saving bookmarks:", e.what()));
   }
 
   LOG(LWARNING, ("Can't save bookmarks category", m_name, "to file", m_file));

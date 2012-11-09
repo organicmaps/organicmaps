@@ -188,9 +188,13 @@ UNIT_TEST(Bookmarks_Getting)
   // This is not correct because Framework::OnSize doesn't work until SetRenderPolicy is called.
   //TEST(m2::AlmostEqual(m2::PointD(400, 200), pixC), (pixC));
 
-  fm.AddBookmark("cat1", Bookmark(m2::PointD(38, 20), "1", "placemark-red"));
-  fm.AddBookmark("cat2", Bookmark(m2::PointD(41, 20), "2", "placemark-red"));
-  fm.AddBookmark("cat3", Bookmark(m2::PointD(41, 40), "3", "placemark-red"));
+  BookmarkCategory const * c1 = fm.AddBookmark("cat1", Bookmark(m2::PointD(38, 20), "1", "placemark-red"));
+  BookmarkCategory const * c2 = fm.AddBookmark("cat2", Bookmark(m2::PointD(41, 20), "2", "placemark-red"));
+  BookmarkCategory const * c3 = fm.AddBookmark("cat3", Bookmark(m2::PointD(41, 40), "3", "placemark-red"));
+
+  TEST_NOT_EQUAL(c1, c2, ());
+  TEST_NOT_EQUAL(c2, c3, ());
+  TEST_NOT_EQUAL(c1, c3, ());
 
   (void)fm.GetBmCategory("notExistingCat");
   TEST_EQUAL(fm.GetBmCategoriesCount(), 4, ());
@@ -215,7 +219,9 @@ UNIT_TEST(Bookmarks_Getting)
   TEST_EQUAL(bm->GetType(), "placemark-red", ());
 
   // This one should replace previous bookmark
-  fm.AddBookmark("cat3", Bookmark(m2::PointD(41, 40), "4", "placemark-blue"));
+  BookmarkCategory const * c33 = fm.AddBookmark("cat3", Bookmark(m2::PointD(41, 40), "4", "placemark-blue"));
+
+  TEST_EQUAL(c33, c3, ());
 
   res = fm.GetBookmark(fm.GtoP(m2::PointD(41, 40)), 1.0);
   TEST(IsValid(res), ());
@@ -312,7 +318,7 @@ UNIT_TEST(Bookmarks_AddingMoving)
   m2::PointD const globalPoint = m2::PointD(40, 20);
   m2::PointD const pixelPoint = fm.GtoP(globalPoint);
 
-  fm.AddBookmark(categoryOne, Bookmark(globalPoint, "name", "placemark-red"));
+  BookmarkCategory const * c1 = fm.AddBookmark(categoryOne, Bookmark(globalPoint, "name", "placemark-red"));
   BookmarkAndCategory res = fm.GetBookmark(pixelPoint, 1.0);
   TEST(IsValid(res), ());
   TEST_EQUAL(res.second, 0, ());
@@ -320,7 +326,8 @@ UNIT_TEST(Bookmarks_AddingMoving)
   TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), categoryOne, ());
 
   // Edit the name and type of bookmark
-  fm.AddBookmark(categoryOne, Bookmark(globalPoint, "name2", "placemark-blue"));
+  BookmarkCategory const * c11 = fm.AddBookmark(categoryOne, Bookmark(globalPoint, "name2", "placemark-blue"));
+  TEST_EQUAL(c1, c11, ());
   res = fm.GetBookmark(pixelPoint, 1.0);
   TEST(IsValid(res), ());
   TEST_EQUAL(res.second, 0, ());
@@ -331,7 +338,8 @@ UNIT_TEST(Bookmarks_AddingMoving)
   TEST_EQUAL(pBm->GetType(), "placemark-blue", ());
 
   // Edit name, type and category of bookmark
-  fm.AddBookmark(categoryTwo, Bookmark(globalPoint, "name3", "placemark-green"));
+  BookmarkCategory const * c2 = fm.AddBookmark(categoryTwo, Bookmark(globalPoint, "name3", "placemark-green"));
+  TEST_NOT_EQUAL(c1, c2, ());
   TEST_EQUAL(fm.GetBmCategoriesCount(), 2, ());
   res = fm.GetBookmark(pixelPoint, 1.0);
   TEST(IsValid(res), ());

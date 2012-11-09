@@ -221,6 +221,7 @@
       if (cat)
       {
         cat->DeleteBookmark(indexPath.row);
+        cat->SaveToKMLFile();
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         // Disable edit mode if no bookmarks are left
         if (cat->GetBookmarksCount() == 0)
