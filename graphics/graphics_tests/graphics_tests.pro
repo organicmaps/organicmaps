@@ -1,4 +1,4 @@
-TARGET = yg_tests
+TARGET = graphics_tests
 CONFIG += console
 CONFIG -= app_bundle
 TEMPLATE = app
