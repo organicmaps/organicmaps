@@ -8,10 +8,10 @@
 
 #include "../indexer/scales.hpp"
 
-#include "../yg/screen.hpp"
-#include "../yg/display_list.hpp"
-#include "../yg/skin.hpp"
-#include "../yg/base_texture.hpp"
+#include "../graphics/screen.hpp"
+#include "../graphics/display_list.hpp"
+#include "../graphics/skin.hpp"
+#include "../graphics/base_texture.hpp"
 
 #include "screen_coverage.hpp"
 #include "tile_renderer.hpp"
@@ -20,7 +20,7 @@
 
 ScreenCoverage::ScreenCoverage()
   : m_tiler(),
-    m_overlay(new yg::Overlay()),
+    m_overlay(new graphics::Overlay()),
     m_isEmptyDrawingCoverage(false),
     m_isEmptyModelAtCoverageCenter(true),
     m_leafTilesToRender(0)
@@ -30,10 +30,10 @@ ScreenCoverage::ScreenCoverage()
 
 ScreenCoverage::ScreenCoverage(TileRenderer * tileRenderer,
                                CoverageGenerator * coverageGenerator,
-                               shared_ptr<yg::gl::Screen> const & cacheScreen)
+                               shared_ptr<graphics::gl::Screen> const & cacheScreen)
   : m_tileRenderer(tileRenderer),
     m_coverageGenerator(coverageGenerator),
-    m_overlay(new yg::Overlay()),
+    m_overlay(new graphics::Overlay()),
     m_isEmptyDrawingCoverage(false),
     m_isEmptyModelAtCoverageCenter(true),
     m_leafTilesToRender(0),
@@ -146,7 +146,7 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
   {
     if (m_tiler.isLeaf(ri))
     {
-      yg::Overlay * tileOverlayCopy = tile->m_overlay->clone();
+      graphics::Overlay * tileOverlayCopy = tile->m_overlay->clone();
       m_overlay->merge(*tileOverlayCopy,
                         tile->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
 
@@ -155,8 +155,8 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
   }
 }
 
-void FilterElementsBySharpness(shared_ptr<yg::OverlayElement> const & e,
-                               vector<shared_ptr<yg::OverlayElement> > & v,
+void FilterElementsBySharpness(shared_ptr<graphics::OverlayElement> const & e,
+                               vector<shared_ptr<graphics::OverlayElement> > & v,
                                bool flag)
 {
   if (e->hasSharpGeometry() == flag)
@@ -178,7 +178,7 @@ bool ScreenCoverage::Cache(core::CommandsQueue::Environment const & env)
   m_cacheScreen->beginFrame();
   m_cacheScreen->setDisplayList(m_primaryDL.get());
 
-  vector<yg::gl::BlitInfo> infos;
+  vector<graphics::gl::BlitInfo> infos;
 
   for (TTileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
   {
@@ -187,7 +187,7 @@ bool ScreenCoverage::Cache(core::CommandsQueue::Environment const & env)
     size_t tileWidth = tile->m_renderTarget->width();
     size_t tileHeight = tile->m_renderTarget->height();
 
-    yg::gl::BlitInfo bi;
+    graphics::gl::BlitInfo bi;
 
     bi.m_matrix = tile->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix();
     bi.m_srcRect = m2::RectI(0, 0, tileWidth - 2, tileHeight - 2);
@@ -204,7 +204,7 @@ bool ScreenCoverage::Cache(core::CommandsQueue::Environment const & env)
 
   // selecting and rendering non-sharp elements.
 
-  vector<shared_ptr<yg::OverlayElement> > nonSharpElements;
+  vector<shared_ptr<graphics::OverlayElement> > nonSharpElements;
   m_overlay->forEach(bind(&FilterElementsBySharpness, _1, ref(nonSharpElements), false));
 
   for (unsigned i = 0; i < nonSharpElements.size(); ++i)
@@ -212,7 +212,7 @@ bool ScreenCoverage::Cache(core::CommandsQueue::Environment const & env)
 
   // selecting and rendering sharp elements
 
-  vector<shared_ptr<yg::OverlayElement> > sharpElements;
+  vector<shared_ptr<graphics::OverlayElement> > sharpElements;
   m_overlay->forEach(bind(&FilterElementsBySharpness, _1, ref(sharpElements), true));
 
   m_cacheScreen->setDisplayList(m_sharpTextDL.get());
@@ -412,7 +412,7 @@ ScreenCoverage::~ScreenCoverage()
   Clear();
 }
 
-void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)
+void ScreenCoverage::Draw(graphics::gl::Screen * s, ScreenBase const & screen)
 {
   math::Matrix<double, 3, 3> m = m_screen.PtoGMatrix() * screen.GtoPMatrix();
 
@@ -427,7 +427,7 @@ void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)
   s->setPixelPrecision(false);
 }
 
-shared_ptr<yg::Overlay> const & ScreenCoverage::GetOverlay() const
+shared_ptr<graphics::Overlay> const & ScreenCoverage::GetOverlay() const
 {
   return m_overlay;
 }
@@ -516,7 +516,7 @@ void ScreenCoverage::MergeOverlay()
     Tiler::RectInfo const & ri = (*it)->m_rectInfo;
     if (m_tiler.isLeaf(ri))
     {
-      scoped_ptr<yg::Overlay> copy((*it)->m_overlay->clone());
+      scoped_ptr<graphics::Overlay> copy((*it)->m_overlay->clone());
       m_overlay->merge(*copy.get(), (*it)->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
     }
   }

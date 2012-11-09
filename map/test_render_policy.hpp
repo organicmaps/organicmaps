@@ -6,15 +6,15 @@
 class TestRenderPolicy : public RenderPolicy
 {
 private:
-  shared_ptr<yg::gl::FrameBuffer> m_primaryFrameBuffer;
-  shared_ptr<yg::gl::FrameBuffer> m_auxFrameBuffer;
-  shared_ptr<yg::gl::FrameBuffer> m_frameBuffer;
-  shared_ptr<yg::gl::RenderBuffer> m_depthBuffer;
-  shared_ptr<yg::gl::BaseTexture> m_actualTarget;
-  shared_ptr<yg::gl::BaseTexture> m_backBuffer;
+  shared_ptr<graphics::gl::FrameBuffer> m_primaryFrameBuffer;
+  shared_ptr<graphics::gl::FrameBuffer> m_auxFrameBuffer;
+  shared_ptr<graphics::gl::FrameBuffer> m_frameBuffer;
+  shared_ptr<graphics::gl::RenderBuffer> m_depthBuffer;
+  shared_ptr<graphics::gl::BaseTexture> m_actualTarget;
+  shared_ptr<graphics::gl::BaseTexture> m_backBuffer;
 
-  shared_ptr<yg::gl::Screen> m_auxScreen;
-  shared_ptr<yg::gl::Screen> m_drawerScreen;
+  shared_ptr<graphics::gl::Screen> m_auxScreen;
+  shared_ptr<graphics::gl::Screen> m_drawerScreen;
 
   bool m_hasScreen;
   ScreenBase m_screen;

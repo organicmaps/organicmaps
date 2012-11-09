@@ -48,20 +48,20 @@ public:
   inline double ScaleFactor() const { return m_factor; }
 };
 
-class DrawerYG;
+class Drawer;
 
 class PaintEvent
 {
 
-  DrawerYG * m_drawer;
+  Drawer * m_drawer;
   core::CommandsQueue::Environment const * m_env;
   bool m_isCancelled;
   bool m_isEmptyDrawing;
 
 public:
 
-  PaintEvent(DrawerYG * drawer, core::CommandsQueue::Environment const * env = 0);
-  DrawerYG * drawer() const;
+  PaintEvent(Drawer * drawer, core::CommandsQueue::Environment const * env = 0);
+  Drawer * drawer() const;
   void cancel();
   bool isCancelled() const;
   bool isEmptyDrawing() const;

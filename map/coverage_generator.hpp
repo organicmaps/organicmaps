@@ -7,7 +7,7 @@
 
 #include "../geometry/screenbase.hpp"
 
-#include "../yg/overlay.hpp"
+#include "../graphics/overlay.hpp"
 
 #include "../base/thread.hpp"
 #include "../base/threaded_list.hpp"
@@ -21,7 +21,7 @@ class TileRenderer;
 class TileCache;
 class ScreenCoverage;
 
-namespace yg
+namespace graphics
 {
   class Skin;
 
@@ -45,8 +45,8 @@ private:
 
   TileRenderer * m_tileRenderer;
 
-  shared_ptr<yg::ResourceManager> m_resourceManager;
-  shared_ptr<yg::gl::RenderContext> m_renderContext;
+  shared_ptr<graphics::ResourceManager> m_resourceManager;
+  shared_ptr<graphics::gl::RenderContext> m_renderContext;
 
   ScreenCoverage * m_workCoverage;
   ScreenCoverage * m_currentCoverage;
@@ -60,7 +60,7 @@ private:
 
   RenderPolicy::TCountryNameFn m_countryNameFn;
 
-  yg::gl::PacketsQueue * m_glQueue;
+  graphics::gl::PacketsQueue * m_glQueue;
   string m_skinName;
 
   FenceManager m_fenceManager;
@@ -76,9 +76,9 @@ public:
   CoverageGenerator(string const & skinName,
                     TileRenderer * tileRenderer,
                     shared_ptr<WindowHandle> const & windowHandle,
-                    shared_ptr<yg::gl::RenderContext> const & primaryRC,
-                    shared_ptr<yg::ResourceManager> const & rm,
-                    yg::gl::PacketsQueue * glQueue,
+                    shared_ptr<graphics::gl::RenderContext> const & primaryRC,
+                    shared_ptr<graphics::ResourceManager> const & rm,
+                    graphics::gl::PacketsQueue * glQueue,
                     RenderPolicy::TCountryNameFn countryNameFn);
 
   ~CoverageGenerator();
@@ -126,7 +126,7 @@ public:
 
   threads::Mutex & Mutex();
 
-  shared_ptr<yg::ResourceManager> const & resourceManager() const;
+  shared_ptr<graphics::ResourceManager> const & resourceManager() const;
 
   void SetIsPaused(bool flag);
   void CancelCommands();

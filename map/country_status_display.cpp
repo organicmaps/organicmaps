@@ -2,7 +2,7 @@
 
 #include "../gui/controller.hpp"
 
-#include "../yg/overlay_renderer.hpp"
+#include "../graphics/overlay_renderer.hpp"
 
 #include "../platform/platform.hpp"
 
@@ -137,35 +137,35 @@ CountryStatusDisplay::CountryStatusDisplay(Params const & p)
 
   gui::Button::Params bp;
 
-  bp.m_depth = yg::maxDepth - 10;
+  bp.m_depth = graphics::maxDepth - 10;
   bp.m_minWidth = 200;
   bp.m_minHeight = 40;
   bp.m_pivot = m2::PointD(0, 0);
-  bp.m_position = yg::EPosCenter;
+  bp.m_position = graphics::EPosCenter;
   bp.m_text = "Download";
 
   m_downloadButton.reset(new gui::Button(bp));
   m_downloadButton->setOnClickListener(bind(&CountryStatusDisplay::downloadCountry, this));
   m_downloadButton->setIsVisible(false);
-  m_downloadButton->setPosition(yg::EPosCenter);
+  m_downloadButton->setPosition(graphics::EPosCenter);
 
-  m_downloadButton->setFont(EActive, yg::FontDesc(16, yg::Color(255, 255, 255, 255)));
-  m_downloadButton->setFont(EPressed, yg::FontDesc(16, yg::Color(255, 255, 255, 255)));
+  m_downloadButton->setFont(EActive, graphics::FontDesc(16, graphics::Color(255, 255, 255, 255)));
+  m_downloadButton->setFont(EPressed, graphics::FontDesc(16, graphics::Color(255, 255, 255, 255)));
 
-  m_downloadButton->setColor(EActive, yg::Color(yg::Color(0, 0, 0, 0.6 * 255)));
-  m_downloadButton->setColor(EPressed, yg::Color(yg::Color(0, 0, 0, 0.4 * 255)));
+  m_downloadButton->setColor(EActive, graphics::Color(graphics::Color(0, 0, 0, 0.6 * 255)));
+  m_downloadButton->setColor(EPressed, graphics::Color(graphics::Color(0, 0, 0, 0.4 * 255)));
 
   gui::TextView::Params tp;
-  tp.m_depth = yg::maxDepth - 10;
+  tp.m_depth = graphics::maxDepth - 10;
   tp.m_pivot = m2::PointD(0, 0);
   tp.m_text = "Downloading";
 
   m_statusMsg.reset(new gui::TextView(tp));
 
   m_statusMsg->setIsVisible(false);
-  m_statusMsg->setPosition(yg::EPosCenter);
+  m_statusMsg->setPosition(graphics::EPosCenter);
 
-  m_statusMsg->setFont(gui::Element::EActive, yg::FontDesc(18));
+  m_statusMsg->setFont(gui::Element::EActive, graphics::FontDesc(18));
 
   setIsVisible(false);
 
@@ -235,7 +235,7 @@ void CountryStatusDisplay::setCountryName(string const & name)
   }
 }
 
-void CountryStatusDisplay::draw(yg::gl::OverlayRenderer *r,
+void CountryStatusDisplay::draw(graphics::gl::OverlayRenderer *r,
                                 math::Matrix<double, 3, 3> const & m) const
 {
   if (!isVisible())
@@ -243,7 +243,7 @@ void CountryStatusDisplay::draw(yg::gl::OverlayRenderer *r,
 
   checkDirtyDrawing();
 
-  //r->drawRectangle(roughBoundRect(), yg::Color(0, 0, 255, 64), yg::maxDepth);
+  //r->drawRectangle(roughBoundRect(), graphics::Color(0, 0, 255, 64), graphics::maxDepth);
 
   if (m_downloadButton->isVisible())
     m_downloadButton->draw(r, m);

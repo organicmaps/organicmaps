@@ -4,7 +4,7 @@
 
 #include "../geometry/screenbase.hpp"
 
-#include "../yg/overlay.hpp"
+#include "../graphics/overlay.hpp"
 
 #include "tile.hpp"
 #include "tiler.hpp"
@@ -12,7 +12,7 @@
 
 class TileRenderer;
 
-namespace yg
+namespace graphics
 {
   namespace gl
   {
@@ -52,7 +52,7 @@ private:
   /// from TileCache while drawing them
   TTileSet m_tiles;
   /// Overlay composed of overlays for visible tiles
-  shared_ptr<yg::Overlay> m_overlay;
+  shared_ptr<graphics::Overlay> m_overlay;
 
   /// State flags
 
@@ -68,12 +68,12 @@ private:
   /// quick check.
   int m_leafTilesToRender;
   /// Screen, which is used for caching of this ScreenCoverage into DisplayList
-  shared_ptr<yg::gl::Screen> m_cacheScreen;
+  shared_ptr<graphics::gl::Screen> m_cacheScreen;
   /// DisplayList which holds cached ScreenCoverage
-  shared_ptr<yg::gl::DisplayList> m_primaryDL;
+  shared_ptr<graphics::gl::DisplayList> m_primaryDL;
   /// DisplayList to cache all straight texts.
   /// They are drawn with different shader.
-  shared_ptr<yg::gl::DisplayList> m_sharpTextDL;
+  shared_ptr<graphics::gl::DisplayList> m_sharpTextDL;
 
   /// Direct copying is prohibited.
   ScreenCoverage(ScreenCoverage const & src);
@@ -89,7 +89,7 @@ public:
   /// Constructor
   ScreenCoverage(TileRenderer * tileRenderer,
                  CoverageGenerator * coverageGenerator,
-                 shared_ptr<yg::gl::Screen> const & cacheScreen);
+                 shared_ptr<graphics::gl::Screen> const & cacheScreen);
   /// Destructor
   ~ScreenCoverage();
   /// Copy all needed information into specified ScreenCoverage
@@ -114,7 +114,7 @@ public:
   /// Check, whether the model is empty at the center of the coverage.
   void CheckEmptyModelAtCoverageCenter();
   /// Getter for Overlay
-  shared_ptr<yg::Overlay> const & GetOverlay() const;
+  shared_ptr<graphics::Overlay> const & GetOverlay() const;
   /// Cache coverage in display list
   /// @return true - if the coverage was cached successfully,
   ///         false - otherwise(p.e. the caching was cancelled)
@@ -124,7 +124,7 @@ public:
   /// recalculate screen coverage, using as much info from prev coverage as possible
   void SetScreen(ScreenBase const & screen);
   /// draw screen coverage
-  void Draw(yg::gl::Screen * s, ScreenBase const & currentScreen);
+  void Draw(graphics::gl::Screen * s, ScreenBase const & currentScreen);
   /// get draw scale for the tiles in the current coverage
   /// Not all tiles in coverage could correspond to this value,
   /// as there could be tiles from lower and higher level in the

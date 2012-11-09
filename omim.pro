@@ -17,7 +17,7 @@ SUBDIRS = 3party \
           geometry/geometry_tests \
           platform/platform_tests \
           anim \
-          yg \
+          graphics \
           gui \
           storage storage/storage_tests \
           search search/search_tests \
@@ -26,7 +26,7 @@ SUBDIRS = 3party \
           generator/generator_tool \
           qt_tstfrm \
           indexer/indexer_tests \
-          yg/yg_tests \
+          graphics/graphics_tests \
           qt
 } else {
   # libraries which are used on mobile devices
@@ -39,7 +39,7 @@ SUBDIRS = 3party \
             anim \
             indexer \
             storage \
-            yg \
+            graphics \
             gui \
             search \
             map \

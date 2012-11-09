@@ -20,7 +20,7 @@ namespace anim
   class AngleInterpolation;
 }
 
-namespace yg
+namespace graphics
 {
   namespace gl
   {
@@ -77,10 +77,10 @@ namespace location
 
     typedef gui::Element base_t;
 
-    yg::Color m_locationAreaColor;
+    graphics::Color m_locationAreaColor;
 
-    yg::Color m_compassAreaColor;
-    yg::Color m_compassBorderColor;
+    graphics::Color m_compassAreaColor;
+    graphics::Color m_compassBorderColor;
 
     Framework * m_framework;
 
@@ -92,10 +92,10 @@ namespace location
     double m_arrowBackHeight;
     double m_arrowScale;
 
-    map<EState, shared_ptr<yg::gl::DisplayList> > m_arrowBodyLists;
-    map<EState, shared_ptr<yg::gl::DisplayList> > m_arrowBorderLists;
-    scoped_ptr<yg::gl::DisplayList> m_locationMarkDL;
-    scoped_ptr<yg::gl::DisplayList> m_positionMarkDL;
+    map<EState, shared_ptr<graphics::gl::DisplayList> > m_arrowBodyLists;
+    map<EState, shared_ptr<graphics::gl::DisplayList> > m_arrowBorderLists;
+    scoped_ptr<graphics::gl::DisplayList> m_locationMarkDL;
+    scoped_ptr<graphics::gl::DisplayList> m_positionMarkDL;
 
     /// @}
 
@@ -126,9 +126,9 @@ namespace location
 
     struct Params : base_t::Params
     {
-      yg::Color m_locationAreaColor;
-      yg::Color m_compassAreaColor;
-      yg::Color m_compassBorderColor;
+      graphics::Color m_locationAreaColor;
+      graphics::Color m_compassAreaColor;
+      graphics::Color m_compassBorderColor;
       Framework * m_framework;
       Params();
     };
@@ -174,10 +174,10 @@ namespace location
     void OnCompassUpdate(location::CompassInfo const & info);
     //@}
 
-    /// yg::OverlayElement and gui::Element related methods
+    /// graphics::OverlayElement and gui::Element related methods
     // @{
     vector<m2::AnyRectD> const & boundRects() const;
-    void draw(yg::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
+    void draw(graphics::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
     bool hitTest(m2::PointD const & pt) const;
     bool onTapEnded(m2::PointD const & p);
     /// @}

@@ -3,7 +3,7 @@
 #include "tile.hpp"
 #include "tiler.hpp"
 
-#include "../yg/resource_manager.hpp"
+#include "../graphics/resource_manager.hpp"
 
 #include "../base/mru_cache.hpp"
 #include "../base/mutex.hpp"
@@ -19,9 +19,9 @@ public:
   struct Entry
   {
     Tile m_tile;
-    shared_ptr<yg::ResourceManager> m_rm;
+    shared_ptr<graphics::ResourceManager> m_rm;
     Entry();
-    Entry(Tile const & tile, shared_ptr<yg::ResourceManager> const & rm);
+    Entry(Tile const & tile, shared_ptr<graphics::ResourceManager> const & rm);
   };
 
   struct EntryValueTraits

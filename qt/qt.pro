@@ -1,6 +1,6 @@
 # Main application in qt.
 ROOT_DIR = ..
-DEPENDENCIES = map gui search storage indexer yg platform anim geometry coding base \
+DEPENDENCIES = map gui search storage indexer graphics platform anim geometry coding base \
                bzip2 freetype expat fribidi tomcrypt jansson version protobuf
 
 include($$ROOT_DIR/common.pri)

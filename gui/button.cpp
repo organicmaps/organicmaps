@@ -1,5 +1,5 @@
 #include "button.hpp"
-#include "../yg/overlay_renderer.hpp"
+#include "../graphics/overlay_renderer.hpp"
 
 namespace gui
 {
@@ -9,7 +9,7 @@ namespace gui
 
     tp.m_depth = p.m_depth + 1;
     tp.m_pivot = p.m_pivot;
-    tp.m_position = yg::EPosCenter;
+    tp.m_position = graphics::EPosCenter;
     tp.m_text = p.m_text;
 
     m_textView.reset(new TextView(tp));
@@ -18,11 +18,11 @@ namespace gui
     setMinHeight(p.m_minHeight);
     setText(p.m_text);
 
-    setFont(EActive, yg::FontDesc(12, yg::Color(0, 0, 0, 255)));
-    setFont(EPressed, yg::FontDesc(12, yg::Color(0, 0, 0, 255)));
+    setFont(EActive, graphics::FontDesc(12, graphics::Color(0, 0, 0, 255)));
+    setFont(EPressed, graphics::FontDesc(12, graphics::Color(0, 0, 0, 255)));
 
-    setColor(EActive, yg::Color(yg::Color(192, 192, 192, 255)));
-    setColor(EPressed, yg::Color(yg::Color(64, 64, 64, 255)));
+    setColor(EActive, graphics::Color(graphics::Color(192, 192, 192, 255)));
+    setColor(EPressed, graphics::Color(graphics::Color(64, 64, 64, 255)));
   }
 
   void Button::setOnClickListener(TOnClickListener const & l)
@@ -128,7 +128,7 @@ namespace gui
     return m_boundRects;
   }
 
-  void Button::draw(yg::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const
+  void Button::draw(graphics::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const
   {
     if (!isVisible())
       return;
@@ -137,7 +137,7 @@ namespace gui
 
     r->drawRoundedRectangle(roughBoundRect(), 10 * k, color(state()), depth());
 
-    yg::FontDesc desc = font(state());
+    graphics::FontDesc desc = font(state());
     desc.m_size *= k;
 
     m_textView->draw(r, m);
@@ -149,13 +149,13 @@ namespace gui
     Element::setPivot(pv);
   }
 
-  void Button::setFont(EState state, yg::FontDesc const & font)
+  void Button::setFont(EState state, graphics::FontDesc const & font)
   {
     m_textView->setFont(state, font);
     Element::setFont(state, font);
   }
 
-  void Button::setColor(EState state, yg::Color const & c)
+  void Button::setColor(EState state, graphics::Color const & c)
   {
     m_textView->setColor(state, c);
     Element::setColor(state, c);

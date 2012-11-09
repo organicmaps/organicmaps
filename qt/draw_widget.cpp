@@ -6,7 +6,7 @@
 
 #include "../gui/controller.hpp"
 
-#include "../yg/internal/opengl.hpp"
+#include "../graphics/internal/opengl.hpp"
 
 #include "../platform/settings.hpp"
 #include "../platform/platform.hpp"
@@ -217,10 +217,10 @@ namespace qt
 
       shared_ptr<qt::gl::RenderContext> primaryRC(new qt::gl::RenderContext(this));
 
-      yg::ResourceManager::Params rmParams;
-      rmParams.m_rtFormat = yg::Data8Bpp;
-      rmParams.m_texFormat = yg::Data8Bpp;
-      rmParams.m_texRtFormat = yg::Data4Bpp;
+      graphics::ResourceManager::Params rmParams;
+      rmParams.m_rtFormat = graphics::Data8Bpp;
+      rmParams.m_texFormat = graphics::Data8Bpp;
+      rmParams.m_texRtFormat = graphics::Data4Bpp;
       rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();
 
       RenderPolicy::Params rpParams;
@@ -239,7 +239,7 @@ namespace qt
       {
         m_framework->SetRenderPolicy(CreateRenderPolicy(rpParams));
       }
-      catch (yg::gl::platform_unsupported const & e)
+      catch (graphics::gl::platform_unsupported const & e)
       {
         LOG(LERROR, ("OpenGL platform is unsupported, reason: ", e.what()));
         /// @todo Show "Please Update Drivers" dialog and close the program.

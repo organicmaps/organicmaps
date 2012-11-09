@@ -5,8 +5,8 @@
 #include "tile_renderer.hpp"
 #include "tile_set.hpp"
 
-#include "../yg/skin.hpp"
-#include "../yg/rendercontext.hpp"
+#include "../graphics/skin.hpp"
+#include "../graphics/rendercontext.hpp"
 
 #include "../base/logging.hpp"
 
@@ -18,9 +18,9 @@ CoverageGenerator::CoverageGenerator(
     string const & skinName,
     TileRenderer * tileRenderer,
     shared_ptr<WindowHandle> const & windowHandle,
-    shared_ptr<yg::gl::RenderContext> const & primaryRC,
-    shared_ptr<yg::ResourceManager> const & rm,
-    yg::gl::PacketsQueue * glQueue,
+    shared_ptr<graphics::gl::RenderContext> const & primaryRC,
+    shared_ptr<graphics::ResourceManager> const & rm,
+    graphics::gl::PacketsQueue * glQueue,
     RenderPolicy::TCountryNameFn countryNameFn)
   : m_queue(1),
     m_tileRenderer(tileRenderer),
@@ -52,7 +52,7 @@ CoverageGenerator::CoverageGenerator(
 
 ScreenCoverage * CoverageGenerator::CreateCoverage()
 {
-  yg::gl::Screen::Params params;
+  graphics::gl::Screen::Params params;
 
   params.m_resourceManager = m_resourceManager;
   params.m_renderQueue = m_glQueue;
@@ -61,8 +61,8 @@ ScreenCoverage * CoverageGenerator::CreateCoverage()
   params.m_isSynchronized = false;
   params.m_glyphCacheID = m_resourceManager->cacheThreadGlyphCacheID();
 
-  shared_ptr<yg::gl::Screen> screen(new yg::gl::Screen(params));
-  shared_ptr<yg::Skin> skin(loadSkin(m_resourceManager, m_skinName));
+  shared_ptr<graphics::gl::Screen> screen(new graphics::gl::Screen(params));
+  shared_ptr<graphics::Skin> skin(loadSkin(m_resourceManager, m_skinName));
 
   screen->setSkin(skin);
 
@@ -310,7 +310,7 @@ void CoverageGenerator::SetSequenceID(int sequenceID)
   m_sequenceID = sequenceID;
 }
 
-shared_ptr<yg::ResourceManager> const & CoverageGenerator::resourceManager() const
+shared_ptr<graphics::ResourceManager> const & CoverageGenerator::resourceManager() const
 {
   return m_resourceManager;
 }

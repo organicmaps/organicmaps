@@ -18,7 +18,7 @@
 #include "../../../nv_event/nv_event.hpp"
 #include "../../../nv_thread/nv_thread.hpp"
 #include "../../../../../base/logging.hpp"
-#include "../../../../../yg/internal/opengl.hpp"
+#include "../../../../../graphics/internal/opengl.hpp"
 #include "Framework.hpp"
 #include "../platform/Platform.hpp"
 
@@ -77,11 +77,11 @@ bool ShutdownGLESResources()
   {
     NVDEBUG("ShutdownGLESResources: GLES not bound, shutting down EGL to release");
 
-    yg::gl::g_hasContext = false;
+    graphics::gl::g_hasContext = false;
 
     g_framework->DeleteRenderPolicy();
 
-    yg::gl::g_hasContext = true;
+    graphics::gl::g_hasContext = true;
 
     NVDEBUG("Cleaning up EGL");
 

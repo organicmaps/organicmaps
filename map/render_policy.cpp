@@ -10,8 +10,8 @@
 #include "../anim/controller.hpp"
 #include "../anim/task.hpp"
 
-#include "../yg/internal/opengl.hpp"
-#include "../yg/skin.hpp"
+#include "../graphics/internal/opengl.hpp"
+#include "../graphics/skin.hpp"
 
 #include "../indexer/scales.hpp"
 #include "../indexer/drawing_rules.hpp"
@@ -24,7 +24,7 @@ RenderPolicy::~RenderPolicy()
 {
   LOG(LDEBUG, ("clearing cached drawing rules"));
   drule::rules().ClearCaches();
-  yg::gl::FinalizeThread();
+  graphics::gl::FinalizeThread();
 }
 
 RenderPolicy::RenderPolicy(Params const & p,
@@ -39,14 +39,14 @@ RenderPolicy::RenderPolicy(Params const & p,
 {
   LOG(LDEBUG, ("each BaseRule will hold up to", idCacheSize, "cached values"));
   drule::rules().ResizeCaches(idCacheSize);
-  yg::gl::InitExtensions();
-  yg::gl::InitializeThread();
-  yg::gl::CheckExtensionSupport();
+  graphics::gl::InitExtensions();
+  graphics::gl::InitializeThread();
+  graphics::gl::CheckExtensionSupport();
 }
 
 void RenderPolicy::InitCacheScreen()
 {
-  yg::gl::Screen::Params cp;
+  graphics::gl::Screen::Params cp;
 
   cp.m_doUnbindRT = false;
   cp.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
@@ -54,7 +54,7 @@ void RenderPolicy::InitCacheScreen()
   cp.m_isSynchronized = false;
   cp.m_resourceManager = m_resourceManager;
 
-  m_cacheScreen = make_shared_ptr(new yg::gl::Screen(cp));
+  m_cacheScreen = make_shared_ptr(new graphics::gl::Screen(cp));
 
   m_cacheScreen->setSkin(m_skin);
 }
@@ -143,7 +143,7 @@ bool RenderPolicy::IsTiling() const
   return false;
 }
 
-shared_ptr<DrawerYG> const & RenderPolicy::GetDrawer() const
+shared_ptr<Drawer> const & RenderPolicy::GetDrawer() const
 {
   return m_drawer;
 }
@@ -153,7 +153,7 @@ shared_ptr<WindowHandle> const & RenderPolicy::GetWindowHandle() const
   return m_windowHandle;
 }
 
-yg::GlyphCache * RenderPolicy::GetGlyphCache() const
+graphics::GlyphCache * RenderPolicy::GetGlyphCache() const
 {
   return m_resourceManager->glyphCache(m_resourceManager->guiThreadGlyphCacheID());
 }
@@ -239,32 +239,32 @@ void RenderPolicy::SetAnimController(anim::Controller * controller)
   m_controller = controller;
 }
 
-void RenderPolicy::SetOverlay(shared_ptr<yg::Overlay> const & overlay)
+void RenderPolicy::SetOverlay(shared_ptr<graphics::Overlay> const & overlay)
 {
   m_overlay = overlay;
 }
 
-shared_ptr<yg::Overlay> const RenderPolicy::GetOverlay() const
+shared_ptr<graphics::Overlay> const RenderPolicy::GetOverlay() const
 {
   return m_overlay;
 }
 
-yg::Color const RenderPolicy::GetBgColor() const
+graphics::Color const RenderPolicy::GetBgColor() const
 {
   return m_bgColor;
 }
 
-shared_ptr<yg::gl::Screen> const & RenderPolicy::GetCacheScreen() const
+shared_ptr<graphics::gl::Screen> const & RenderPolicy::GetCacheScreen() const
 {
   return m_cacheScreen;
 }
 
-void RenderPolicy::SetSkin(shared_ptr<yg::Skin> const & skin)
+void RenderPolicy::SetSkin(shared_ptr<graphics::Skin> const & skin)
 {
   m_skin = skin;
 }
 
-shared_ptr<yg::Skin> const & RenderPolicy::GetSkin() const
+shared_ptr<graphics::Skin> const & RenderPolicy::GetSkin() const
 {
   return m_skin;
 }

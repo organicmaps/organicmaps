@@ -18,9 +18,9 @@
 
 #include "../platform/location.hpp"
 
-#include "../yg/defines.hpp"
-#include "../yg/screen.hpp"
-#include "../yg/color.hpp"
+#include "../graphics/defines.hpp"
+#include "../graphics/screen.hpp"
+#include "../graphics/color.hpp"
 
 #include "../geometry/rect2d.hpp"
 #include "../geometry/screenbase.hpp"

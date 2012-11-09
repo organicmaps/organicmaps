@@ -2,16 +2,16 @@
 
 #include "widgets.hpp"
 
-#include "../yg/texture.hpp"
-#include "../yg/resource_manager.hpp"
-#include "../yg/renderbuffer.hpp"
-#include "../map/drawer_yg.hpp"
+#include "../graphics/texture.hpp"
+#include "../graphics/resource_manager.hpp"
+#include "../graphics/renderbuffer.hpp"
+#include "../map/drawer.hpp"
 #include "../map/qgl_render_context.hpp"
 
 #include "../std/shared_ptr.hpp"
 
 
-namespace yg
+namespace graphics
 {
   class Skin;
   namespace gl
@@ -24,20 +24,20 @@ namespace qt { class Screen; }
 
 namespace tst
 {
-  class GLDrawWidget : public qt::GLDrawWidgetT<yg::gl::Screen>
+  class GLDrawWidget : public qt::GLDrawWidgetT<graphics::gl::Screen>
   {
   protected:
-    typedef qt::GLDrawWidgetT<yg::gl::Screen> base_type;
+    typedef qt::GLDrawWidgetT<graphics::gl::Screen> base_type;
 
-    shared_ptr<yg::ResourceManager> m_resourceManager;
+    shared_ptr<graphics::ResourceManager> m_resourceManager;
 
-    shared_ptr<yg::gl::FrameBuffer> m_primaryFrameBuffer;
-    shared_ptr<yg::gl::FrameBuffer> m_frameBuffer;
-    shared_ptr<yg::gl::RGBA8Texture> m_renderTarget;
-    shared_ptr<yg::gl::RenderBuffer> m_depthBuffer;
-    shared_ptr<yg::Skin> m_skin;
+    shared_ptr<graphics::gl::FrameBuffer> m_primaryFrameBuffer;
+    shared_ptr<graphics::gl::FrameBuffer> m_frameBuffer;
+    shared_ptr<graphics::gl::RGBA8Texture> m_renderTarget;
+    shared_ptr<graphics::gl::RenderBuffer> m_depthBuffer;
+    shared_ptr<graphics::Skin> m_skin;
     shared_ptr<qt::gl::RenderContext> m_primaryContext;
-    shared_ptr<yg::gl::Screen> m_primaryScreen;
+    shared_ptr<graphics::gl::Screen> m_primaryScreen;
 
   public:
 

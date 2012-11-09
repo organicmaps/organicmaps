@@ -1,11 +1,11 @@
-# GUI library on top of YG
+# GUI library on top of Graphics
 
 TARGET = gui
 TEMPLATE = lib
 CONFIG += staticlib
 
 ROOT_DIR = ..
-DEPENDENCIES = yg geometry coding base expat
+DEPENDENCIES = graphics geometry coding base expat
 
 include($$ROOT_DIR/common.pri)
 

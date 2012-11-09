@@ -2,13 +2,13 @@
 
 #include "../geometry/point2d.hpp"
 
-#include "../yg/overlay_element.hpp"
-#include "../yg/color.hpp"
-#include "../yg/font_desc.hpp"
+#include "../graphics/overlay_element.hpp"
+#include "../graphics/color.hpp"
+#include "../graphics/font_desc.hpp"
 
 #include "../std/map.hpp"
 
-namespace yg
+namespace graphics
 {
   namespace gl
   {
@@ -20,7 +20,7 @@ namespace gui
 {
   class Controller;
 
-  class Element : public yg::OverlayElement
+  class Element : public graphics::OverlayElement
   {
   public:
 
@@ -40,8 +40,8 @@ namespace gui
 
     EState m_state;
 
-    mutable map<EState, yg::FontDesc> m_fonts;
-    mutable map<EState, yg::Color> m_colors;
+    mutable map<EState, graphics::FontDesc> m_fonts;
+    mutable map<EState, graphics::Color> m_colors;
 
   public:
 
@@ -52,11 +52,11 @@ namespace gui
     void setState(EState state);
     EState state() const;
 
-    virtual void setFont(EState state, yg::FontDesc const & font);
-    yg::FontDesc const & font(EState state) const;
+    virtual void setFont(EState state, graphics::FontDesc const & font);
+    graphics::FontDesc const & font(EState state) const;
 
-    virtual void setColor(EState state, yg::Color const & c);
-    yg::Color const & color(EState state) const;
+    virtual void setColor(EState state, graphics::Color const & c);
+    graphics::Color const & color(EState state) const;
 
     /// Implement this method to handle single tap on the GUI element.
     virtual bool onTapStarted(m2::PointD const & pt);
@@ -67,8 +67,8 @@ namespace gui
     void invalidate();
     double visualScale() const;
 
-    yg::OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
-    void draw(yg::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
+    graphics::OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
+    void draw(graphics::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
     int visualRank() const;
 
     virtual void cache();

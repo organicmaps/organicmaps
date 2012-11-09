@@ -1,6 +1,6 @@
 #include "events.hpp"
 
-PaintEvent::PaintEvent(DrawerYG * drawer,
+PaintEvent::PaintEvent(Drawer * drawer,
                        core::CommandsQueue::Environment const * env)
     : m_drawer(drawer),
       m_env(env),
@@ -8,7 +8,7 @@ PaintEvent::PaintEvent(DrawerYG * drawer,
       m_isEmptyDrawing(true)
 {}
 
-DrawerYG * PaintEvent::drawer() const
+Drawer * PaintEvent::drawer() const
 {
   return m_drawer;
 }

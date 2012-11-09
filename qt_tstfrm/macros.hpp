@@ -109,10 +109,10 @@ class GLTestWidget : public tst::GLDrawWidget
 
 public:
 
-  virtual void DoDraw(shared_ptr<yg::gl::Screen> p)
+  virtual void DoDraw(shared_ptr<graphics::gl::Screen> p)
   {
     p->beginFrame();
-    p->clear(yg::gl::Screen::s_bgColor);
+    p->clear(graphics::gl::Screen::s_bgColor);
     test.DoDraw(p);
     p->endFrame();
   }

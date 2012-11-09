@@ -1,8 +1,8 @@
 #pragma once
 
-#include "drawer_yg.hpp"
+#include "drawer.hpp"
 
-#include "../yg/color.hpp"
+#include "../graphics/color.hpp"
 
 #include "../std/function.hpp"
 #include "../std/shared_ptr.hpp"
@@ -18,7 +18,7 @@ namespace anim
   class Controller;
 }
 
-namespace yg
+namespace graphics
 {
   namespace gl
   {
@@ -54,13 +54,13 @@ public:
 
 protected:
 
-  yg::Color m_bgColor;
-  shared_ptr<yg::ResourceManager> m_resourceManager;
-  shared_ptr<yg::Skin> m_skin;
-  shared_ptr<yg::gl::Screen> m_cacheScreen;
-  shared_ptr<yg::gl::RenderContext> m_primaryRC;
+  graphics::Color m_bgColor;
+  shared_ptr<graphics::ResourceManager> m_resourceManager;
+  shared_ptr<graphics::Skin> m_skin;
+  shared_ptr<graphics::gl::Screen> m_cacheScreen;
+  shared_ptr<graphics::gl::RenderContext> m_primaryRC;
   shared_ptr<WindowHandle> m_windowHandle;
-  shared_ptr<DrawerYG> m_drawer;
+  shared_ptr<Drawer> m_drawer;
   TRenderFn m_renderFn;
   TCountryNameFn m_countryNameFn;
   bool m_doSupportRotation;
@@ -69,9 +69,9 @@ protected:
   double m_visualScale;
   string m_skinName;
   anim::Controller * m_controller;
-  shared_ptr<yg::Overlay> m_overlay;
+  shared_ptr<graphics::Overlay> m_overlay;
 
-  void SetOverlay(shared_ptr<yg::Overlay> const & overlay);
+  void SetOverlay(shared_ptr<graphics::Overlay> const & overlay);
 
   void InitCacheScreen();
 
@@ -81,8 +81,8 @@ public:
   {
     VideoTimer * m_videoTimer;
     bool m_useDefaultFB;
-    yg::ResourceManager::Params m_rmParams;
-    shared_ptr<yg::gl::RenderContext> m_primaryRC;
+    graphics::ResourceManager::Params m_rmParams;
+    shared_ptr<graphics::gl::RenderContext> m_primaryRC;
     double m_visualScale;
     string m_skinName;
     size_t m_screenWidth;
@@ -139,9 +139,9 @@ public:
   void SetInvalidRect(m2::AnyRectD const & glbRect);
   m2::AnyRectD const & GetInvalidRect() const;
 
-  shared_ptr<DrawerYG> const & GetDrawer() const;
+  shared_ptr<Drawer> const & GetDrawer() const;
   shared_ptr<WindowHandle> const & GetWindowHandle() const;
-  yg::GlyphCache * GetGlyphCache() const;
+  graphics::GlyphCache * GetGlyphCache() const;
 
   virtual size_t ScaleEtalonSize() const;
 
@@ -152,13 +152,13 @@ public:
   virtual int InsertBenchmarkFence();
   virtual void JoinBenchmarkFence(int fenceID);
 
-  virtual shared_ptr<yg::Overlay> const GetOverlay() const;
-  yg::Color const GetBgColor() const;
+  virtual shared_ptr<graphics::Overlay> const GetOverlay() const;
+  graphics::Color const GetBgColor() const;
 
-  shared_ptr<yg::gl::Screen> const & GetCacheScreen() const;
+  shared_ptr<graphics::gl::Screen> const & GetCacheScreen() const;
 
-  virtual void SetSkin(shared_ptr<yg::Skin> const & skin);
-  shared_ptr<yg::Skin> const & GetSkin() const;
+  virtual void SetSkin(shared_ptr<graphics::Skin> const & skin);
+  shared_ptr<graphics::Skin> const & GetSkin() const;
 };
 
 RenderPolicy * CreateRenderPolicy(RenderPolicy::Params const & params);

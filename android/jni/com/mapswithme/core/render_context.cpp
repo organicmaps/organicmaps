@@ -15,7 +15,7 @@ namespace android
   void RenderContext::makeCurrent()
   {}
 
-  shared_ptr<yg::gl::RenderContext> RenderContext::createShared()
+  shared_ptr<graphics::gl::RenderContext> RenderContext::createShared()
   {
     return make_shared_ptr(new RenderContext());
   }

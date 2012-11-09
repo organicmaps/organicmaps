@@ -2,8 +2,8 @@
 
 #include "RenderBuffer.hpp"
 
-#include "../../../yg/internal/opengl.hpp"
-#include "../../../yg/utils.hpp"
+#include "../../../graphics/internal/opengl.hpp"
+#include "../../../graphics/utils.hpp"
 
 namespace iphone
 {
@@ -70,7 +70,7 @@ namespace iphone
 																				  GL_COLOR_ATTACHMENT0_OES,
   																				GL_RENDERBUFFER_OES,
 	  																			m_id));
-		yg::gl::utils::setupCoordinates(width(), height(), true);
+		graphics::gl::utils::setupCoordinates(width(), height(), true);
 	}
   
   void RenderBuffer::detachFromFrameBuffer()

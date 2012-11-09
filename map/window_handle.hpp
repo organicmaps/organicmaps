@@ -1,7 +1,7 @@
 #pragma once
 
 #include "events.hpp"
-#include "drawer_yg.hpp"
+#include "drawer.hpp"
 
 #include "../platform/video_timer.hpp"
 
@@ -10,7 +10,7 @@
 #include "../std/shared_ptr.hpp"
 
 
-namespace yg
+namespace graphics
 {
   namespace gl
   {
@@ -22,7 +22,7 @@ class RenderPolicy;
 
 class WindowHandle
 {
-  shared_ptr<yg::gl::RenderContext> m_renderContext;
+  shared_ptr<graphics::gl::RenderContext> m_renderContext;
   RenderPolicy * m_renderPolicy;
 
   bool m_hasPendingUpdates;
@@ -49,9 +49,9 @@ public:
 
   void setNeedRedraw(bool flag);
 
-  shared_ptr<yg::gl::RenderContext> const & renderContext();
+  shared_ptr<graphics::gl::RenderContext> const & renderContext();
 
-  void setRenderContext(shared_ptr<yg::gl::RenderContext> const & renderContext);
+  void setRenderContext(shared_ptr<graphics::gl::RenderContext> const & renderContext);
 
   bool setUpdatesEnabled(bool doEnable);
 

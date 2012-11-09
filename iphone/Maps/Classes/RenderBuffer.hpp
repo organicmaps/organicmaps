@@ -2,13 +2,13 @@
 
 #include "RenderContext.hpp"
 #include "../../../std/shared_ptr.hpp"
-#include "../../../yg/render_target.hpp"
+#include "../../../graphics/render_target.hpp"
 
 @class CAEAGLLayer;
 
 namespace	iphone
 {
-	class RenderBuffer : public yg::gl::RenderTarget
+	class RenderBuffer : public graphics::gl::RenderTarget
 	{
 	private:
 

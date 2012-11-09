@@ -2,7 +2,7 @@
 
 #include "basic_tiling_render_policy.hpp"
 
-namespace yg
+namespace graphics
 {
   namespace gl
   {

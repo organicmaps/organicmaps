@@ -1,7 +1,7 @@
 #include "element.hpp"
 #include "controller.hpp"
 
-#include "../yg/overlay_renderer.hpp"
+#include "../graphics/overlay_renderer.hpp"
 
 #include "../base/logging.hpp"
 
@@ -24,22 +24,22 @@ namespace gui
     return m_state;
   }
 
-  void Element::setFont(EState state, yg::FontDesc const & font)
+  void Element::setFont(EState state, graphics::FontDesc const & font)
   {
     m_fonts[state] = font;
   }
 
-  yg::FontDesc const & Element::font(EState state) const
+  graphics::FontDesc const & Element::font(EState state) const
   {
     return m_fonts[state];
   }
 
-  void Element::setColor(EState state, yg::Color const & c)
+  void Element::setColor(EState state, graphics::Color const & c)
   {
     m_colors[state] = c;
   }
 
-  yg::Color const & Element::color(EState state) const
+  graphics::Color const & Element::color(EState state) const
   {
     return m_colors[state];
   }
@@ -81,12 +81,12 @@ namespace gui
     }
   }
 
-  yg::OverlayElement * Element::clone(math::Matrix<double, 3, 3> const & m) const
+  graphics::OverlayElement * Element::clone(math::Matrix<double, 3, 3> const & m) const
   {
     return 0;
   }
 
-  void Element::draw(yg::gl::OverlayRenderer *r, math::Matrix<double, 3, 3> const & m) const
+  void Element::draw(graphics::gl::OverlayRenderer *r, math::Matrix<double, 3, 3> const & m) const
   {
     for (unsigned i = 0; i < boundRects().size(); ++i)
       r->drawRectangle(boundRects()[i], color(state()), depth());

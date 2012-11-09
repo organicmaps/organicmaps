@@ -12,8 +12,8 @@
 
 #include "../../../../../coding/file_container.hpp"
 
-#include "../../../../../yg/framebuffer.hpp"
-#include "../../../../../yg/internal/opengl.hpp"
+#include "../../../../../graphics/framebuffer.hpp"
+#include "../../../../../graphics/internal/opengl.hpp"
 
 #include "../../../../../platform/platform.hpp"
 #include "../../../../../platform/location.hpp"
@@ -102,11 +102,11 @@ namespace android
 
   bool Framework::InitRenderPolicy(int densityDpi, int screenWidth, int screenHeight)
   {
-    yg::ResourceManager::Params rmParams;
+    graphics::ResourceManager::Params rmParams;
 
     rmParams.m_videoMemoryLimit = 30 * 1024 * 1024;
-    rmParams.m_rtFormat = yg::Data8Bpp;
-    rmParams.m_texFormat = yg::Data4Bpp;
+    rmParams.m_rtFormat = graphics::Data8Bpp;
+    rmParams.m_texFormat = graphics::Data4Bpp;
 
     RenderPolicy::Params rpParams;
 
@@ -153,7 +153,7 @@ namespace android
       else
         m_doLoadState = true;
     }
-    catch (yg::gl::platform_unsupported const & e)
+    catch (graphics::gl::platform_unsupported const & e)
     {
       LOG(LINFO, ("This android platform is unsupported, reason:", e.what()));
       return false;

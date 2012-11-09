@@ -1,5 +1,5 @@
 #include "draw_processor.hpp"
-#include "drawer_yg.hpp"
+#include "drawer.hpp"
 
 #include "../platform/preferred_languages.hpp"
 
@@ -325,7 +325,7 @@ namespace fwork
         f.GetRoadNumber(),
         (m_zoom > worldZoom) ? f.GetPopulationDrawRank() : 0.0));
 
-    DrawerYG * pDrawer = GetDrawer();
+    Drawer * pDrawer = GetDrawer();
 
     using namespace get_pts;
 

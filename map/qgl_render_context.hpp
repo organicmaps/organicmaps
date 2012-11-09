@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../yg/rendercontext.hpp"
+#include "../graphics/rendercontext.hpp"
 
 #include "../std/shared_ptr.hpp"
 
@@ -13,7 +13,7 @@ namespace qt
 {
   namespace gl
   {
-    class RenderContext : public yg::gl::RenderContext
+    class RenderContext : public graphics::gl::RenderContext
     {
     private:
       shared_ptr<QGLContext> m_context;
@@ -31,7 +31,7 @@ namespace qt
       /// Make this rendering context current
       void makeCurrent();
 
-      shared_ptr<yg::gl::RenderContext> createShared();
+      shared_ptr<graphics::gl::RenderContext> createShared();
 
       /// Leave previous logic, but fix thread widget deletion error.
       void endThreadDrawing();

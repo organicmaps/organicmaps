@@ -3,7 +3,7 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 ROOT_DIR = ..
-DEPENDENCIES = map yg geometry coding base
+DEPENDENCIES = map graphics geometry coding base
 
 include($$ROOT_DIR/common.pri)
 

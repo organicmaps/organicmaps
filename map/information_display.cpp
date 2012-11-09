@@ -1,5 +1,5 @@
 #include "information_display.hpp"
-#include "drawer_yg.hpp"
+#include "drawer.hpp"
 #include "country_status_display.hpp"
 #include "compass_arrow.hpp"
 #include "framework.hpp"
@@ -9,10 +9,10 @@
 #include "../gui/controller.hpp"
 #include "../gui/button.hpp"
 
-#include "../yg/defines.hpp"
-#include "../yg/skin.hpp"
-#include "../yg/pen_info.hpp"
-#include "../yg/straight_text_element.hpp"
+#include "../graphics/defines.hpp"
+#include "../graphics/skin.hpp"
+#include "../graphics/pen_info.hpp"
+#include "../graphics/straight_text_element.hpp"
 
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
@@ -38,23 +38,23 @@ InformationDisplay::InformationDisplay(Framework * framework)
     m_bottomShift(0),
     m_visualScale(1)
 {
-  m_fontDesc.m_color = yg::Color(0x44, 0x44, 0x44, 0xFF);
+  m_fontDesc.m_color = graphics::Color(0x44, 0x44, 0x44, 0xFF);
 
-  m_ruler.setDepth(yg::maxDepth);
+  m_ruler.setDepth(graphics::maxDepth);
 
   CountryStatusDisplay::Params p;
 
   p.m_pivot = m2::PointD(0, 0);
-  p.m_position = yg::EPosCenter;
-  p.m_depth = yg::maxDepth;
+  p.m_position = graphics::EPosCenter;
+  p.m_depth = graphics::maxDepth;
   p.m_storage = &framework->Storage();
 
   m_countryStatusDisplay.reset(new CountryStatusDisplay(p));
 
   CompassArrow::Params cap;
 
-  cap.m_position = yg::EPosCenter;
-  cap.m_depth = yg::maxDepth;
+  cap.m_position = graphics::EPosCenter;
+  cap.m_depth = graphics::maxDepth;
   cap.m_arrowHeight = 50;
   cap.m_arrowWidth = 16;
   cap.m_pivot = m2::PointD(0, 0);
@@ -64,12 +64,12 @@ InformationDisplay::InformationDisplay(Framework * framework)
 
   location::State::Params lsp;
 
-  lsp.m_position = yg::EPosCenter;
-  lsp.m_depth = yg::maxDepth;
+  lsp.m_position = graphics::EPosCenter;
+  lsp.m_depth = graphics::maxDepth;
   lsp.m_pivot = m2::PointD(0, 0);
-  lsp.m_compassAreaColor = yg::Color(255, 255, 255, 192);
-  lsp.m_compassBorderColor = yg::Color(255, 255, 255, 96);
-  lsp.m_locationAreaColor =   yg::Color(11, 97, 210, 48);
+  lsp.m_compassAreaColor = graphics::Color(255, 255, 255, 192);
+  lsp.m_compassBorderColor = graphics::Color(255, 255, 255, 96);
+  lsp.m_locationAreaColor =   graphics::Color(11, 97, 210, 48);
   lsp.m_framework = framework;
 
   m_locationState.reset(new location::State(lsp));
@@ -136,13 +136,13 @@ void InformationDisplay::setDebugPoint(int pos, m2::PointD const & pt)
   m_DebugPts[pos] = pt;
 }
 
-void InformationDisplay::drawDebugPoints(DrawerYG * pDrawer)
+void InformationDisplay::drawDebugPoints(Drawer * pDrawer)
 {
   for (int i = 0; i < sizeof(m_DebugPts) / sizeof(m2::PointD); ++i)
     if (m_DebugPts[i] != m2::PointD(0, 0))
     {
-    pDrawer->screen()->drawArc(m_DebugPts[i], 0, math::pi * 2, 30, yg::Color(0, 0, 255, 32), yg::maxDepth);
-    pDrawer->screen()->fillSector(m_DebugPts[i], 0, math::pi * 2, 30, yg::Color(0, 0, 255, 32), yg::maxDepth);
+    pDrawer->screen()->drawArc(m_DebugPts[i], 0, math::pi * 2, 30, graphics::Color(0, 0, 255, 32), graphics::maxDepth);
+    pDrawer->screen()->fillSector(m_DebugPts[i], 0, math::pi * 2, 30, graphics::Color(0, 0, 255, 32), graphics::maxDepth);
   }
 }
 
@@ -158,16 +158,16 @@ void InformationDisplay::setRulerParams(unsigned pxMinWidth, double metresMinWid
   m_ruler.setMaxMetersWidth(metresMaxWidth);
 }
 
-void InformationDisplay::drawRuler(DrawerYG * pDrawer)
+void InformationDisplay::drawRuler(Drawer * pDrawer)
 {
-  yg::FontDesc rulerFont = m_fontDesc;
+  graphics::FontDesc rulerFont = m_fontDesc;
 
   m_ruler.setFontDesc(rulerFont);
   m_ruler.setVisualScale(m_visualScale);
 
   m2::PointD pivot(m2::PointD(m_displayRect.maxX() - 5 * m_visualScale,
                               m_displayRect.maxY() - 4 * m_visualScale));
-  m_ruler.setPosition(yg::EPosAboveLeft);
+  m_ruler.setPosition(graphics::EPosAboveLeft);
   m_ruler.setPivot(pivot);
   m_ruler.update();
 
@@ -191,7 +191,7 @@ void InformationDisplay::setCenter(m2::PointD const & pt)
   m_centerPtLonLat = pt;
 }
 
-void InformationDisplay::drawCenter(DrawerYG * drawer)
+void InformationDisplay::drawCenter(Drawer * drawer)
 {
   ostringstream out;
 
@@ -202,27 +202,27 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
       << m_centerPtLonLat.x
          ;
 
-  yg::StraightTextElement::Params params;
+  graphics::StraightTextElement::Params params;
 
-  params.m_depth = yg::maxDepth;
+  params.m_depth = graphics::maxDepth;
   params.m_fontDesc = m_fontDesc;
   params.m_log2vis = false;
 
   params.m_pivot = m2::PointD(m_displayRect.maxX() - 4 * m_visualScale,
                               m_displayRect.maxY() - 30 * m_visualScale);
-  params.m_position = yg::EPosUnderLeft;
+  params.m_position = graphics::EPosUnderLeft;
 
   params.m_glyphCache = drawer->screen()->glyphCache();
   params.m_logText = strings::MakeUniString(out.str());
 
-  yg::StraightTextElement ste(params);
+  graphics::StraightTextElement ste(params);
 
 //  m2::RectD bgRect = m2::Inflate(ste.roughBoundRect(), 5.0, 5.0);
 
 //  drawer->screen()->drawRectangle(
 //        bgRect,
-//        yg::Color(187, 187, 187, 128),
-//        yg::maxDepth - 1);
+//        graphics::Color(187, 187, 187, 128),
+//        graphics::maxDepth - 1);
 
   ste.draw(drawer->screen().get(), math::Identity<double, 3>());
 }
@@ -238,7 +238,7 @@ void InformationDisplay::setDebugInfo(double frameDuration, int currentScale)
   m_currentScale = currentScale;
 }
 
-void InformationDisplay::drawDebugInfo(DrawerYG * drawer)
+void InformationDisplay::drawDebugInfo(Drawer * drawer)
 {
   ostringstream out;
   out << "Scale : " << m_currentScale;
@@ -255,9 +255,9 @@ void InformationDisplay::drawDebugInfo(DrawerYG * drawer)
 
   drawer->screen()->drawText(m_fontDesc,
                              pos,
-                             yg::EPosAboveRight,
+                             graphics::EPosAboveRight,
                              out.str(),
-                             yg::maxDepth,
+                             graphics::maxDepth,
                              false);
 }
 
@@ -272,7 +272,7 @@ void InformationDisplay::memoryWarning()
   m_lastMemoryWarning = my::Timer();
 }
 
-void InformationDisplay::drawMemoryWarning(DrawerYG * drawer)
+void InformationDisplay::drawMemoryWarning(Drawer * drawer)
 {
   m_yOffset += 20;
   m2::PointD pos(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset);
@@ -282,18 +282,18 @@ void InformationDisplay::drawMemoryWarning(DrawerYG * drawer)
 
   drawer->screen()->drawText(m_fontDesc,
                              pos,
-                             yg::EPosAboveRight,
+                             graphics::EPosAboveRight,
                              out.str(),
-                             yg::maxDepth,
+                             graphics::maxDepth,
                              false);
 
   if (m_lastMemoryWarning.ElapsedSeconds() > 5)
     enableMemoryWarning(false);
 }
 
-void InformationDisplay::drawPlacemark(DrawerYG * pDrawer, string const & symbol, m2::PointD const & pt)
+void InformationDisplay::drawPlacemark(Drawer * pDrawer, string const & symbol, m2::PointD const & pt)
 {
-  pDrawer->drawSymbol(pt, symbol, yg::EPosAbove, yg::maxDepth);
+  pDrawer->drawSymbol(pt, symbol, graphics::EPosAbove, graphics::maxDepth);
 }
 
 /*
@@ -346,7 +346,7 @@ void InformationDisplay::enableLog(bool doEnable, WindowHandle * windowHandle)
   }
 }
 
-void InformationDisplay::drawLog(DrawerYG * drawer)
+void InformationDisplay::drawLog(Drawer * drawer)
 {
   threads::MutexGuard guard(s_logMutex);
 
@@ -356,21 +356,21 @@ void InformationDisplay::drawLog(DrawerYG * drawer)
 
     m2::PointD startPt(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset);
 
-    yg::StraightTextElement::Params params;
-    params.m_depth = yg::maxDepth;
+    graphics::StraightTextElement::Params params;
+    params.m_depth = graphics::maxDepth;
     params.m_fontDesc = m_fontDesc;
     params.m_log2vis = false;
     params.m_pivot = startPt;
-    params.m_position = yg::EPosAboveRight;
+    params.m_position = graphics::EPosAboveRight;
     params.m_glyphCache = drawer->screen()->glyphCache();
     params.m_logText = strings::MakeUniString(*it);
 
-    yg::StraightTextElement ste(params);
+    graphics::StraightTextElement ste(params);
 
     drawer->screen()->drawRectangle(
         m2::Inflate(ste.roughBoundRect(), m2::PointD(2, 2)),
-        yg::Color(0, 0, 0, 128),
-        yg::maxDepth - 1
+        graphics::Color(0, 0, 0, 128),
+        graphics::maxDepth - 1
         );
 
     ste.draw(drawer->screen().get(), math::Identity<double, 3>());
@@ -432,15 +432,15 @@ bool InformationDisplay::addBenchmarkInfo(string const & name, m2::RectD const &
   return true;
 }
 
-void InformationDisplay::drawBenchmarkInfo(DrawerYG * pDrawer)
+void InformationDisplay::drawBenchmarkInfo(Drawer * pDrawer)
 {
   m_yOffset += 20;
   m2::PointD pos(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset);
   pDrawer->screen()->drawText(m_fontDesc,
                               pos,
-                              yg::EPosAboveRight,
+                              graphics::EPosAboveRight,
                               "benchmark info :",
-                              yg::maxDepth,
+                              graphics::maxDepth,
                               false);
 
   for (unsigned i = max(0, (int)m_benchmarkInfo.size() - 5); i < m_benchmarkInfo.size(); ++i)
@@ -457,9 +457,9 @@ void InformationDisplay::drawBenchmarkInfo(DrawerYG * pDrawer)
     pos.y += 20;
     pDrawer->screen()->drawText(m_fontDesc,
                                 pos,
-                                yg::EPosAboveRight,
+                                graphics::EPosAboveRight,
                                 out.str(),
-                                yg::maxDepth,
+                                graphics::maxDepth,
                                 false
                                 );
   }
@@ -471,7 +471,7 @@ void InformationDisplay::setupRuler()
   m_ruler.setup();
 }
 
-void InformationDisplay::doDraw(DrawerYG *drawer)
+void InformationDisplay::doDraw(Drawer *drawer)
 {
   m_yOffset = 0;
   if (m_isDebugPointsEnabled)

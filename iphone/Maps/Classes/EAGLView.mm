@@ -7,9 +7,9 @@
 #include "RenderContext.hpp"
 #include "Framework.h"
 
-#include "../../yg/resource_manager.hpp"
-#include "../../yg/internal/opengl.hpp"
-#include "../../yg/data_formats.hpp"
+#include "../../graphics/resource_manager.hpp"
+#include "../../graphics/internal/opengl.hpp"
+#include "../../graphics/data_formats.hpp"
 
 #include "../../map/render_policy.hpp"
 
@@ -64,10 +64,10 @@
 - (void)initRenderPolicy
 {
   // to avoid grid bug on 3G device
-  yg::DataFormat rtFmt = yg::Data4Bpp;
-  yg::DataFormat texFmt = yg::Data4Bpp;
+  graphics::DataFormat rtFmt = graphics::Data4Bpp;
+  graphics::DataFormat texFmt = graphics::Data4Bpp;
   if ([[NSString stringWithFormat:@"%s", glGetString(GL_RENDERER)] hasPrefix:@"PowerVR MBX"])
-    rtFmt = yg::Data8Bpp;
+    rtFmt = graphics::Data8Bpp;
   
   typedef void (*drawFrameFn)(id, SEL);
   SEL drawFrameSel = @selector(drawFrame);
@@ -75,7 +75,7 @@
 
   videoTimer = CreateIOSVideoTimer(bind(drawFrameImpl, self, drawFrameSel));
   
-  yg::ResourceManager::Params rmParams;
+  graphics::ResourceManager::Params rmParams;
   rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();
   rmParams.m_rtFormat = rtFmt;
   rmParams.m_texFormat = texFmt;
@@ -104,7 +104,7 @@
   {
     renderPolicy = CreateRenderPolicy(rpParams);
   }
-  catch (yg::gl::platform_unsupported const & )
+  catch (graphics::gl::platform_unsupported const & )
   {
     /// terminate program (though this situation is unreal :) )
   }
@@ -120,7 +120,7 @@
 {
   frameBuffer->onSize(width, height);
   
-  shared_ptr<yg::gl::Screen> screen = renderPolicy->GetDrawer()->screen();
+  shared_ptr<graphics::gl::Screen> screen = renderPolicy->GetDrawer()->screen();
 
   /// free old render buffer, as we would not create a new one.
   screen->resetRenderTarget();
@@ -135,12 +135,12 @@
 	renderBuffer = make_shared_ptr(new iphone::RenderBuffer(renderContext, (CAEAGLLayer*)self.layer));
   
   screen->setRenderTarget(renderBuffer);
-  screen->setDepthBuffer(make_shared_ptr(new yg::gl::RenderBuffer(width, height, true)));
+  screen->setDepthBuffer(make_shared_ptr(new graphics::gl::RenderBuffer(width, height, true)));
 
   GetFramework().OnSize(width, height);
   
   screen->beginFrame();
-  screen->clear(yg::gl::Screen::s_bgColor);
+  screen->clear(graphics::gl::Screen::s_bgColor);
   screen->endFrame();
 }
 

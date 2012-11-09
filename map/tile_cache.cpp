@@ -9,7 +9,7 @@ void TileCache::EntryValueTraits::Evict(Entry &val)
 TileCache::Entry::Entry()
 {}
 
-TileCache::Entry::Entry(Tile const & tile, shared_ptr<yg::ResourceManager> const & rm)
+TileCache::Entry::Entry(Tile const & tile, shared_ptr<graphics::ResourceManager> const & rm)
   : m_tile(tile), m_rm(rm)
 {}
 

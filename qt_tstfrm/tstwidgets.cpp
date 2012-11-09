@@ -2,18 +2,18 @@
 #include "widgets_impl.hpp"
 #include "screen_qt.hpp"
 
-#include "../yg/screen.hpp"
-#include "../yg/utils.hpp"
-#include "../yg/skin.hpp"
-#include "../yg/framebuffer.hpp"
-#include "../yg/renderbuffer.hpp"
-#include "../yg/resource_manager.hpp"
-#include "../yg/internal/opengl.hpp"
+#include "../graphics/screen.hpp"
+#include "../graphics/utils.hpp"
+#include "../graphics/skin.hpp"
+#include "../graphics/framebuffer.hpp"
+#include "../graphics/renderbuffer.hpp"
+#include "../graphics/resource_manager.hpp"
+#include "../graphics/internal/opengl.hpp"
 
 #include "../platform/platform.hpp"
 
 
-template class qt::GLDrawWidgetT<yg::gl::Screen>;
+template class qt::GLDrawWidgetT<graphics::gl::Screen>;
 
 namespace tst {
 
@@ -23,32 +23,32 @@ GLDrawWidget::GLDrawWidget() : base_type(0)
 
 GLDrawWidget::~GLDrawWidget()
 {
-  yg::gl::FinalizeThread();
+  graphics::gl::FinalizeThread();
 }
 
 void GLDrawWidget::initializeGL()
 {
   try
   {
-    yg::gl::InitExtensions();
-    yg::gl::CheckExtensionSupport();
-    yg::gl::InitializeThread();
+    graphics::gl::InitExtensions();
+    graphics::gl::CheckExtensionSupport();
+    graphics::gl::InitializeThread();
   }
-  catch (yg::gl::platform_unsupported & e)
+  catch (graphics::gl::platform_unsupported & e)
   {
     /// TODO: Show "Please Update Drivers" dialog and close the program.
   }
 
   m_primaryContext = make_shared_ptr(new qt::gl::RenderContext(this));
 
-  yg::ResourceManager::Params rmp;
+  graphics::ResourceManager::Params rmp;
 
-  rmp.m_rtFormat = yg::Data8Bpp;
-  rmp.m_texFormat = yg::Data8Bpp;
+  rmp.m_rtFormat = graphics::Data8Bpp;
+  rmp.m_texFormat = graphics::Data8Bpp;
 
   rmp.m_videoMemoryLimit = 20 * 1024 * 1024;
-  rmp.m_primaryStoragesParams = yg::ResourceManager::StoragePoolParams(30000 * sizeof(yg::gl::Vertex),
-                                                                       sizeof(yg::gl::Vertex),
+  rmp.m_primaryStoragesParams = graphics::ResourceManager::StoragePoolParams(30000 * sizeof(graphics::gl::Vertex),
+                                                                       sizeof(graphics::gl::Vertex),
                                                                        50000 * sizeof(unsigned short),
                                                                        sizeof(unsigned short),
                                                                        20,
@@ -59,8 +59,8 @@ void GLDrawWidget::initializeGL()
                                                                        false,
                                                                        false);
 
-  rmp.m_smallStoragesParams = yg::ResourceManager::StoragePoolParams(3000 * sizeof(yg::gl::Vertex),
-                                                                     sizeof(yg::gl::Vertex),
+  rmp.m_smallStoragesParams = graphics::ResourceManager::StoragePoolParams(3000 * sizeof(graphics::gl::Vertex),
+                                                                     sizeof(graphics::gl::Vertex),
                                                                      5000 * sizeof(unsigned short),
                                                                      sizeof(unsigned short),
                                                                      100,
@@ -71,8 +71,8 @@ void GLDrawWidget::initializeGL()
                                                                      false,
                                                                      false);
 
-  rmp.m_blitStoragesParams = yg::ResourceManager::StoragePoolParams(10 * sizeof(yg::gl::Vertex),
-                                                                    sizeof(yg::gl::Vertex),
+  rmp.m_blitStoragesParams = graphics::ResourceManager::StoragePoolParams(10 * sizeof(graphics::gl::Vertex),
+                                                                    sizeof(graphics::gl::Vertex),
                                                                     10 * sizeof(unsigned short),
                                                                     sizeof(unsigned short),
                                                                     30,
@@ -83,8 +83,8 @@ void GLDrawWidget::initializeGL()
                                                                     false,
                                                                     false);
 
-  rmp.m_multiBlitStoragesParams = yg::ResourceManager::StoragePoolParams(500 * sizeof(yg::gl::Vertex),
-                                                                         sizeof(yg::gl::Vertex),
+  rmp.m_multiBlitStoragesParams = graphics::ResourceManager::StoragePoolParams(500 * sizeof(graphics::gl::Vertex),
+                                                                         sizeof(graphics::gl::Vertex),
                                                                          500 * sizeof(unsigned short),
                                                                          sizeof(unsigned short),
                                                                          10,
@@ -95,7 +95,7 @@ void GLDrawWidget::initializeGL()
                                                                          false,
                                                                          false);
 
-  rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512,
+  rmp.m_primaryTexturesParams = graphics::ResourceManager::TexturePoolParams(512,
                                                                        256,
                                                                        10,
                                                                        rmp.m_texFormat,
@@ -107,7 +107,7 @@ void GLDrawWidget::initializeGL()
                                                                        false,
                                                                        false);
 
-  rmp.m_fontTexturesParams = yg::ResourceManager::TexturePoolParams(512,
+  rmp.m_fontTexturesParams = graphics::ResourceManager::TexturePoolParams(512,
                                                                     256,
                                                                     5,
                                                                     rmp.m_texFormat,
@@ -119,7 +119,7 @@ void GLDrawWidget::initializeGL()
                                                                     false,
                                                                     false);
 
-  rmp.m_glyphCacheParams = yg::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
+  rmp.m_glyphCacheParams = graphics::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
                                                                  "fonts_whitelist.txt",
                                                                  "fonts_blacklist.txt",
                                                                  2 * 1024 * 1024,
@@ -128,28 +128,28 @@ void GLDrawWidget::initializeGL()
 
   rmp.m_useSingleThreadedOGL = false;
 
-  m_resourceManager.reset(new yg::ResourceManager(rmp));
+  m_resourceManager.reset(new graphics::ResourceManager(rmp));
 
   Platform::FilesList fonts;
   GetPlatform().GetFontNames(fonts);
   m_resourceManager->addFonts(fonts);
 
-  m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer());
+  m_frameBuffer = make_shared_ptr(new graphics::gl::FrameBuffer());
 
-  DrawerYG::Params params;
+  Drawer::Params params;
   params.m_resourceManager = m_resourceManager;
   params.m_frameBuffer = m_frameBuffer;
   params.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
 
-  m_p = make_shared_ptr(new yg::gl::Screen(params));
+  m_p = make_shared_ptr(new graphics::gl::Screen(params));
 
-  m_primaryFrameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(true));
+  m_primaryFrameBuffer = make_shared_ptr(new graphics::gl::FrameBuffer(true));
 
-  m_skin = shared_ptr<yg::Skin>(loadSkin(m_resourceManager, "basic_mdpi.skn"));
+  m_skin = shared_ptr<graphics::Skin>(loadSkin(m_resourceManager, "basic_mdpi.skn"));
   m_p->setSkin(m_skin);
 
   params.m_frameBuffer = m_primaryFrameBuffer;
-  m_primaryScreen = make_shared_ptr(new yg::gl::Screen(params));
+  m_primaryScreen = make_shared_ptr(new graphics::gl::Screen(params));
 }
 
 void GLDrawWidget::resizeGL(int w, int h)
@@ -161,11 +161,11 @@ void GLDrawWidget::resizeGL(int w, int h)
   m_primaryFrameBuffer->onSize(w, h);
 
   m_depthBuffer.reset();
-  m_depthBuffer = make_shared_ptr(new yg::gl::RenderBuffer(w, h, true));
+  m_depthBuffer = make_shared_ptr(new graphics::gl::RenderBuffer(w, h, true));
   m_frameBuffer->setDepthBuffer(m_depthBuffer);
 
   m_renderTarget.reset();
-  m_renderTarget = make_shared_ptr(new yg::gl::RGBA8Texture(w, h));
+  m_renderTarget = make_shared_ptr(new graphics::gl::RGBA8Texture(w, h));
   m_p->setRenderTarget(m_renderTarget);
 }
 
@@ -174,7 +174,7 @@ void GLDrawWidget::paintGL()
 //  m_renderTarget->dump("renderTarget.png");
 
   m_p->beginFrame();
-  m_p->clear(yg::Color(182, 182, 182, 255));
+  m_p->clear(graphics::Color(182, 182, 182, 255));
   DoDraw(m_p);
   m_p->endFrame();
 

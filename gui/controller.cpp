@@ -1,9 +1,9 @@
 #include "controller.hpp"
 #include "element.hpp"
 
-#include "../map/drawer_yg.hpp"
+#include "../map/drawer.hpp"
 
-#include "../yg/overlay.hpp"
+#include "../graphics/overlay.hpp"
 
 #include "../std/bind.hpp"
 
@@ -19,8 +19,8 @@ namespace gui
 
   Controller::RenderParams::RenderParams(double visualScale,
                                          TInvalidateFn invalidateFn,
-                                         yg::GlyphCache * glyphCache,
-                                         yg::gl::Screen * cacheScreen)
+                                         graphics::GlyphCache * glyphCache,
+                                         graphics::gl::Screen * cacheScreen)
     : m_VisualScale(visualScale),
       m_InvalidateFn(invalidateFn),
       m_GlyphCache(glyphCache),
@@ -158,7 +158,7 @@ namespace gui
     PurgeElements();
   }
 
-  void Controller::DrawFrame(yg::gl::Screen * screen)
+  void Controller::DrawFrame(graphics::gl::Screen * screen)
   {
     screen->beginFrame();
 
@@ -178,7 +178,7 @@ namespace gui
       m_InvalidateFn();
   }
 
-  yg::GlyphCache * Controller::GetGlyphCache() const
+  graphics::GlyphCache * Controller::GetGlyphCache() const
   {
     return m_GlyphCache;
   }
@@ -201,7 +201,7 @@ namespace gui
     return m_bundle;
   }
 
-  yg::gl::Screen * Controller::GetCacheScreen() const
+  graphics::gl::Screen * Controller::GetCacheScreen() const
   {
     return m_CacheScreen;
   }

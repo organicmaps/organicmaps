@@ -9,9 +9,9 @@
 #include "../geometry/any_rect2d.hpp"
 #include "../geometry/transformations.hpp"
 
-#include "../yg/display_list.hpp"
-#include "../yg/screen.hpp"
-#include "../yg/skin.hpp"
+#include "../graphics/display_list.hpp"
+#include "../graphics/screen.hpp"
+#include "../graphics/skin.hpp"
 
 CompassArrow::CompassArrow(Params const & p)
   : base_t(p),
@@ -52,7 +52,7 @@ vector<m2::AnyRectD> const & CompassArrow::boundRects() const
   return m_boundRects;
 }
 
-void CompassArrow::draw(yg::gl::OverlayRenderer * r,
+void CompassArrow::draw(graphics::gl::OverlayRenderer * r,
                         math::Matrix<double, 3, 3> const & m) const
 {
   if (isVisible())
@@ -71,7 +71,7 @@ void CompassArrow::draw(yg::gl::OverlayRenderer * r,
 
 void CompassArrow::cache()
 {
-  yg::gl::Screen * cacheScreen = m_controller->GetCacheScreen();
+  graphics::gl::Screen * cacheScreen = m_controller->GetCacheScreen();
 
   m_displayList.reset();
   m_displayList.reset(cacheScreen->createDisplayList());
@@ -121,7 +121,7 @@ void CompassArrow::cache()
     m2::PointD(halfW, 0)
   };
 
-  yg::PenInfo const outlinePenInfo(yg::Color(0x66, 0x66, 0x66, 0xcc), 1, 0, 0, 0);
+  graphics::PenInfo const outlinePenInfo(graphics::Color(0x66, 0x66, 0x66, 0xcc), 1, 0, 0, 0);
 
   cacheScreen->drawPath(outlinePts, sizeof(outlinePts) / sizeof(m2::PointD), 0, cacheScreen->skin()->mapPenInfo(outlinePenInfo), depth());
 

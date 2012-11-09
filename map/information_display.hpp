@@ -14,7 +14,7 @@ namespace location
   class State;
 }
 
-class DrawerYG;
+class Drawer;
 
 namespace gui
 {
@@ -32,7 +32,7 @@ class InformationDisplay
 {
 private:
 
-  yg::FontDesc m_fontDesc;
+  graphics::FontDesc m_fontDesc;
 
   ScreenBase m_screen;
   m2::RectI m_displayRect;
@@ -97,36 +97,36 @@ public:
 
   void enableDebugPoints(bool doEnable);
   void setDebugPoint(int pos, m2::PointD const & pt);
-  void drawDebugPoints(DrawerYG * pDrawer);
+  void drawDebugPoints(Drawer * pDrawer);
 
   void enableRuler(bool doEnable);
-  void drawRuler(DrawerYG * pDrawer);
+  void drawRuler(Drawer * pDrawer);
   void setRulerParams(unsigned pxMinWidth, double metresMinWidth, double metresMaxWidth);
   void setupRuler();
 
   void enableCenter(bool doEnable);
   void setCenter(m2::PointD const & latLongPt);
-  void drawCenter(DrawerYG * pDrawer);
+  void drawCenter(Drawer * pDrawer);
 
   void enableDebugInfo(bool doEnable);
   void setDebugInfo(double frameDuration, int currentScale);
-  void drawDebugInfo(DrawerYG * pDrawer);
+  void drawDebugInfo(Drawer * pDrawer);
 
   void enableMemoryWarning(bool doEnable);
   void memoryWarning();
-  void drawMemoryWarning(DrawerYG * pDrawer);
+  void drawMemoryWarning(Drawer * pDrawer);
 
-  void drawPlacemark(DrawerYG * pDrawer, string const & symbol, m2::PointD const & pt);
+  void drawPlacemark(Drawer * pDrawer, string const & symbol, m2::PointD const & pt);
 
   void enableBenchmarkInfo(bool doEnable);
   bool addBenchmarkInfo(string const & name, m2::RectD const & globalRect, double frameDuration);
-  void drawBenchmarkInfo(DrawerYG * pDrawer);
+  void drawBenchmarkInfo(Drawer * pDrawer);
 
-  void doDraw(DrawerYG * drawer);
+  void doDraw(Drawer * drawer);
 
   void enableLog(bool doEnable, WindowHandle * windowHandle);
   void setLogSize(size_t logSize);
-  void drawLog(DrawerYG * pDrawer);
+  void drawLog(Drawer * pDrawer);
 
   void enableCompassArrow(bool doEnable);
   void setCompassArrowAngle(double angle);

@@ -7,20 +7,20 @@
 
 #pragma once
 
-#include "../../../../../yg/rendercontext.hpp"
+#include "../../../../../graphics/rendercontext.hpp"
 
 #include "../../../../../std/shared_ptr.hpp"
 
 namespace android
 {
-  class RenderContext : public yg::gl::RenderContext
+  class RenderContext : public graphics::gl::RenderContext
   {
   public:
     RenderContext();
 
     virtual void makeCurrent();
 
-    virtual shared_ptr<yg::gl::RenderContext> createShared();
+    virtual shared_ptr<graphics::gl::RenderContext> createShared();
 
     virtual void endThreadDrawing();
   };

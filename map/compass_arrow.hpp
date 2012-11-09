@@ -2,8 +2,8 @@
 
 #include "../gui/element.hpp"
 
-#include "../yg/color.hpp"
-#include "../yg/display_list.hpp"
+#include "../graphics/color.hpp"
+#include "../graphics/display_list.hpp"
 
 #include "../geometry/any_rect2d.hpp"
 
@@ -21,13 +21,13 @@ private:
 
   unsigned m_arrowWidth;
   unsigned m_arrowHeight;
-  yg::Color const m_northLeftColor;
-  yg::Color const m_northRightColor;
-  yg::Color const m_southLeftColor;
-  yg::Color const m_southRightColor;
+  graphics::Color const m_northLeftColor;
+  graphics::Color const m_northRightColor;
+  graphics::Color const m_southLeftColor;
+  graphics::Color const m_southRightColor;
   double m_angle;
 
-  scoped_ptr<yg::gl::DisplayList> m_displayList;
+  scoped_ptr<graphics::gl::DisplayList> m_displayList;
 
   mutable vector<m2::AnyRectD> m_boundRects;
 
@@ -52,7 +52,7 @@ public:
   unsigned GetArrowHeight() const;
 
   vector<m2::AnyRectD> const & boundRects() const;
-  void draw(yg::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
+  void draw(graphics::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
   bool onTapEnded(m2::PointD const & pt);
 

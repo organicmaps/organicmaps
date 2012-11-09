@@ -7,7 +7,7 @@
 #include "../std/string.hpp"
 #include "../std/scoped_ptr.hpp"
 
-namespace yg
+namespace graphics
 {
   class OverlayElement;
 
@@ -55,8 +55,8 @@ namespace gui
     void setOnClickListener(TOnClickListener const & l);
 
     void setPivot(m2::PointD const & pv);
-    void setFont(EState state, yg::FontDesc const & font);
-    void setColor(EState state, yg::Color const & c);
+    void setFont(EState state, graphics::FontDesc const & font);
+    void setColor(EState state, graphics::Color const & c);
 
     void setText(string const & text);
     string const & text() const;
@@ -73,7 +73,7 @@ namespace gui
     /// @{
 
     vector<m2::AnyRectD> const & boundRects() const;
-    void draw(yg::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
+    void draw(graphics::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
     /// @}
   };

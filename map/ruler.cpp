@@ -3,8 +3,8 @@
 
 #include "../platform/settings.hpp"
 
-#include "../yg/overlay_renderer.hpp"
-#include "../yg/skin.hpp"
+#include "../graphics/overlay_renderer.hpp"
+#include "../graphics/skin.hpp"
 
 #include "../indexer/mercator.hpp"
 #include "../geometry/distance_on_sphere.hpp"
@@ -192,7 +192,7 @@ void Ruler::setVisualScale(double visualScale)
   m_visualScale = visualScale;
 }
 
-void Ruler::setFontDesc(yg::FontDesc const & fontDesc)
+void Ruler::setFontDesc(graphics::FontDesc const & fontDesc)
 {
   m_fontDesc = fontDesc;
 }
@@ -240,16 +240,16 @@ void Ruler::update()
 
     m2::PointD scalerOrg = pivot() + m2::PointD(-scalerWidthInPx / 2, rulerHeight / 2);
 
-    if (position() & yg::EPosLeft)
+    if (position() & graphics::EPosLeft)
       scalerOrg.x -= scalerWidthInPx / 2;
 
-    if (position() & yg::EPosRight)
+    if (position() & graphics::EPosRight)
       scalerOrg.x += scalerWidthInPx / 2;
 
-    if (position() & yg::EPosAbove)
+    if (position() & graphics::EPosAbove)
       scalerOrg.y -= rulerHeight / 2;
 
-    if (position() & yg::EPosUnder)
+    if (position() & graphics::EPosUnder)
       scalerOrg.y += rulerHeight / 2;
 
     m_path.clear();
@@ -268,27 +268,27 @@ vector<m2::AnyRectD> const & Ruler::boundRects() const
   return m_boundRects;
 }
 
-void Ruler::draw(yg::gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const & m) const
+void Ruler::draw(graphics::gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const & m) const
 {
   if (m_isInitialized)
   {
     s->drawPath(
         &m_path[0], m_path.size(), 0,
-          s->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 0x99), 4 * m_visualScale, 0, 0, 0)),
+          s->skin()->mapPenInfo(graphics::PenInfo(graphics::Color(0, 0, 0, 0x99), 4 * m_visualScale, 0, 0, 0)),
         depth());
 
-    if (position() & yg::EPosLeft)
+    if (position() & graphics::EPosLeft)
       s->drawText(m_fontDesc,
                   m_path[1] + m2::PointD(1 * m_visualScale, -2 * m_visualScale),
-                  yg::EPosAboveLeft,
+                  graphics::EPosAboveLeft,
                   m_scalerText,
                   depth(),
                   false);
     else
-      if (position() & yg::EPosRight)
+      if (position() & graphics::EPosRight)
         s->drawText(m_fontDesc,
                     m_path[0] + m2::PointD(7 * m_visualScale, -4 * m_visualScale),
-                    yg::EPosAboveRight,
+                    graphics::EPosAboveRight,
                     m_scalerText,
                     depth(),
                     false);
@@ -296,7 +296,7 @@ void Ruler::draw(yg::gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const &
         s->drawText(m_fontDesc,
                     (m_path[0] + m_path[1]) * 0.5
                     + m2::PointD(7 * m_visualScale, -4 * m_visualScale),
-                    yg::EPosAbove,
+                    graphics::EPosAbove,
                     m_scalerText,
                     depth(),
                     false);
@@ -308,7 +308,7 @@ int Ruler::visualRank() const
   return 0;
 }
 
-yg::OverlayElement * Ruler::clone(math::Matrix<double, 3, 3> const & m) const
+graphics::OverlayElement * Ruler::clone(math::Matrix<double, 3, 3> const & m) const
 {
   return new Ruler(*this);
 }

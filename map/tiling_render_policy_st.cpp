@@ -2,8 +2,8 @@
 
 #include "../platform/platform.hpp"
 
-#include "../yg/internal/opengl.hpp"
-#include "../yg/skin.hpp"
+#include "../graphics/internal/opengl.hpp"
+#include "../graphics/skin.hpp"
 
 #include "window_handle.hpp"
 #include "queued_renderer.hpp"
@@ -16,11 +16,11 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
 {
   int cpuCores = GetPlatform().CpuCores();
 
-  yg::ResourceManager::Params rmp = p.m_rmParams;
+  graphics::ResourceManager::Params rmp = p.m_rmParams;
 
   rmp.checkDeviceCaps();
 
-  rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512,
+  rmp.m_primaryTexturesParams = graphics::ResourceManager::TexturePoolParams(512,
                                                                        256,
                                                                        1,
                                                                        rmp.m_texFormat,
@@ -32,7 +32,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
                                                                        true,
                                                                        true);
 
-  rmp.m_fontTexturesParams = yg::ResourceManager::TexturePoolParams(256,
+  rmp.m_fontTexturesParams = graphics::ResourceManager::TexturePoolParams(256,
                                                                     256,
                                                                     10,
                                                                     rmp.m_texFormat,
@@ -44,8 +44,8 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
                                                                     true,
                                                                     true);
 
-  rmp.m_primaryStoragesParams = yg::ResourceManager::StoragePoolParams(6000 * sizeof(yg::gl::Vertex),
-                                                                       sizeof(yg::gl::Vertex),
+  rmp.m_primaryStoragesParams = graphics::ResourceManager::StoragePoolParams(6000 * sizeof(graphics::gl::Vertex),
+                                                                       sizeof(graphics::gl::Vertex),
                                                                        9000 * sizeof(unsigned short),
                                                                        sizeof(unsigned short),
                                                                        10,
@@ -56,8 +56,8 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
                                                                        true,
                                                                        true);
 
-  rmp.m_smallStoragesParams = yg::ResourceManager::StoragePoolParams(6000 * sizeof(yg::gl::Vertex),
-                                                                     sizeof(yg::gl::Vertex),
+  rmp.m_smallStoragesParams = graphics::ResourceManager::StoragePoolParams(6000 * sizeof(graphics::gl::Vertex),
+                                                                     sizeof(graphics::gl::Vertex),
                                                                      9000 * sizeof(unsigned short),
                                                                      sizeof(unsigned short),
                                                                      1,
@@ -68,8 +68,8 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
                                                                      true,
                                                                      true);
 
-  rmp.m_multiBlitStoragesParams = yg::ResourceManager::StoragePoolParams(1500 * sizeof(yg::gl::Vertex),
-                                                                         sizeof(yg::gl::Vertex),
+  rmp.m_multiBlitStoragesParams = graphics::ResourceManager::StoragePoolParams(1500 * sizeof(graphics::gl::Vertex),
+                                                                         sizeof(graphics::gl::Vertex),
                                                                          2500 * sizeof(unsigned short),
                                                                          sizeof(unsigned short),
                                                                          1,
@@ -80,7 +80,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
                                                                          true,
                                                                          true);
 
-  rmp.m_renderTargetTexturesParams = yg::ResourceManager::TexturePoolParams(TileSize(),
+  rmp.m_renderTargetTexturesParams = graphics::ResourceManager::TexturePoolParams(TileSize(),
                                                                             TileSize(),
                                                                             1,
                                                                             rmp.m_texRtFormat,
@@ -92,8 +92,8 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
                                                                             true,
                                                                             true);
 
-  rmp.m_guiThreadStoragesParams = yg::ResourceManager::StoragePoolParams(2000 * sizeof(yg::gl::Vertex),
-                                                                         sizeof(yg::gl::Vertex),
+  rmp.m_guiThreadStoragesParams = graphics::ResourceManager::StoragePoolParams(2000 * sizeof(graphics::gl::Vertex),
+                                                                         sizeof(graphics::gl::Vertex),
                                                                          4000 * sizeof(unsigned short),
                                                                          sizeof(unsigned short),
                                                                          5,
@@ -104,7 +104,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
                                                                          true,
                                                                          true);
 
-  rmp.m_guiThreadTexturesParams = yg::ResourceManager::TexturePoolParams(256,
+  rmp.m_guiThreadTexturesParams = graphics::ResourceManager::TexturePoolParams(256,
                                                                     128,
                                                                     2,
                                                                     rmp.m_texFormat,
@@ -122,7 +122,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
 
   debuggingFlags[0] = true;*/
 
-  rmp.m_glyphCacheParams = yg::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
+  rmp.m_glyphCacheParams = graphics::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
                                                                  "fonts_whitelist.txt",
                                                                  "fonts_blacklist.txt",
                                                                  2 * 1024 * 1024,
@@ -137,7 +137,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
 
   m_maxTilesCount = rmp.m_renderTargetTexturesParams.m_texCount;
 
-  m_resourceManager.reset(new yg::ResourceManager(rmp));
+  m_resourceManager.reset(new graphics::ResourceManager(rmp));
 
   m_QueuedRenderer->SetSinglePipelineProcessing(m_resourceManager->useReadPixelsToSynchronize());
 
@@ -145,11 +145,11 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
   GetPlatform().GetFontNames(fonts);
   m_resourceManager->addFonts(fonts);
 
-  SetSkin(make_shared_ptr(yg::loadSkin(m_resourceManager, SkinName())));
+  SetSkin(make_shared_ptr(graphics::loadSkin(m_resourceManager, SkinName())));
 
-  DrawerYG::Params dp;
+  Drawer::Params dp;
 
-  dp.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(p.m_useDefaultFB));
+  dp.m_frameBuffer = make_shared_ptr(new graphics::gl::FrameBuffer(p.m_useDefaultFB));
   dp.m_resourceManager = m_resourceManager;
   dp.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
   dp.m_skin = GetSkin();
@@ -159,7 +159,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
   dp.m_fastSolidPath = true;
 //  p.m_isDebugging = true;
 
-  m_drawer.reset(new DrawerYG(dp));
+  m_drawer.reset(new Drawer(dp));
 
   InitCacheScreen();
 
@@ -216,7 +216,7 @@ void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
   int cpuCores = GetPlatform().CpuCores();
   string skinName = SkinName();
 
-  yg::gl::PacketsQueue ** queues = new yg::gl::PacketsQueue*[cpuCores];
+  graphics::gl::PacketsQueue ** queues = new graphics::gl::PacketsQueue*[cpuCores];
 
   for (unsigned i = 0; i < cpuCores; ++i)
     queues[i] = m_QueuedRenderer->GetPacketsQueue(i);

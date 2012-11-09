@@ -105,7 +105,7 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
 
   /// rendering current coverage
 
-  DrawerYG * pDrawer = e->drawer();
+  Drawer * pDrawer = e->drawer();
 
   pDrawer->beginFrame();
 

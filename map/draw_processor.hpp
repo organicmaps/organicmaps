@@ -15,7 +15,7 @@
 #include "../std/list.hpp"
 #include "../std/limits.hpp"
 
-#include "../yg/glyph_cache.hpp"
+#include "../graphics/glyph_cache.hpp"
 
 class ScreenBase;
 
@@ -328,13 +328,13 @@ namespace fwork
     bool m_hasNonCoast;
     bool m_hasAnyFeature;
 
-    yg::GlyphCache * m_glyphCache;
+    graphics::GlyphCache * m_glyphCache;
 
 #ifdef PROFILER_DRAWING
     size_t m_drawCount;
 #endif
 
-    inline DrawerYG * GetDrawer() const { return m_paintEvent->drawer(); }
+    inline Drawer * GetDrawer() const { return m_paintEvent->drawer(); }
 
     void PreProcessKeys(vector<drule::Key> & keys) const;
 

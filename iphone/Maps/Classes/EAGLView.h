@@ -11,7 +11,7 @@ namespace iphone
 	class RenderBuffer;
 }
 
-namespace yg
+namespace graphics
 {
 	namespace gl
 	{
@@ -26,7 +26,7 @@ namespace yg
 {
   VideoTimer * videoTimer;
   shared_ptr<iphone::RenderContext> renderContext;
-  shared_ptr<yg::gl::FrameBuffer> frameBuffer;
+  shared_ptr<graphics::gl::FrameBuffer> frameBuffer;
   shared_ptr<iphone::RenderBuffer> renderBuffer;
   RenderPolicy * renderPolicy;
   // Do not call onSize from layoutSubViews when real size wasn't changed.

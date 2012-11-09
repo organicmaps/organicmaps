@@ -1,5 +1,5 @@
 #include "queued_renderer.hpp"
-#include "../yg/internal/opengl.hpp"
+#include "../graphics/internal/opengl.hpp"
 
 QueuedRenderer::QueuedRenderer(int pipelinesCount)
 {
@@ -73,7 +73,7 @@ bool QueuedRenderer::RenderQueuedCommands(int pipelineNum)
 {
   /// logging only calls that is made while rendering tiles.
 //  if ((pipelineNum == 0) && (m_IsDebugging))
-//    yg::gl::g_doLogOGLCalls = true;
+//    graphics::gl::g_doLogOGLCalls = true;
 
   if (m_IsDebugging)
     LOG(LINFO, ("--- Processing Pipeline #", pipelineNum, " ---"));
@@ -87,12 +87,12 @@ bool QueuedRenderer::RenderQueuedCommands(int pipelineNum)
 
   cmdProcessed = m_Pipelines[pipelineNum].m_FrameCommands.size();
 
-  list<yg::gl::Packet>::iterator it;
+  list<graphics::gl::Packet>::iterator it;
 
   bool res = !m_Pipelines[pipelineNum].m_FrameCommands.empty();
   bool partialExecution = m_Pipelines[pipelineNum].m_CouldExecutePartially;
 
-  yg::gl::Packet::EType bucketType = m_Pipelines[pipelineNum].m_Type;
+  graphics::gl::Packet::EType bucketType = m_Pipelines[pipelineNum].m_Type;
 
   while (!m_Pipelines[pipelineNum].m_FrameCommands.empty())
   {
@@ -100,20 +100,20 @@ bool QueuedRenderer::RenderQueuedCommands(int pipelineNum)
     if (it->m_command)
       it->m_command->setIsDebugging(m_IsDebugging);
 
-    if (bucketType == yg::gl::Packet::ECancelPoint)
+    if (bucketType == graphics::gl::Packet::ECancelPoint)
     {
       if (it->m_command)
         it->m_command->cancel();
     }
     else
     {
-      ASSERT(bucketType == yg::gl::Packet::EFramePoint, ());
+      ASSERT(bucketType == graphics::gl::Packet::EFramePoint, ());
 
       if (it->m_command)
         it->m_command->perform();
     }
 
-    bool isCheckpoint = (it->m_type == yg::gl::Packet::ECheckPoint);
+    bool isCheckpoint = (it->m_type == graphics::gl::Packet::ECheckPoint);
 
     m_Pipelines[pipelineNum].m_FrameCommands.pop_front();
 
@@ -133,27 +133,27 @@ bool QueuedRenderer::RenderQueuedCommands(int pipelineNum)
   return res;
 
 //  if ((pipelineNum == 0) && (m_IsDebugging))
-//    yg::gl::g_doLogOGLCalls = false;
+//    graphics::gl::g_doLogOGLCalls = false;
 }
 
-void QueuedRenderer::PacketsPipeline::FillFrameCommands(list<yg::gl::Packet> & renderQueue, int maxFrames)
+void QueuedRenderer::PacketsPipeline::FillFrameCommands(list<graphics::gl::Packet> & renderQueue, int maxFrames)
 {
   ASSERT(m_FrameCommands.empty(), ());
 
   /// searching for "delimiter" markers
 
-  list<yg::gl::Packet>::iterator first = renderQueue.begin();
-  list<yg::gl::Packet>::iterator last = renderQueue.begin();
+  list<graphics::gl::Packet>::iterator first = renderQueue.begin();
+  list<graphics::gl::Packet>::iterator last = renderQueue.begin();
 
   /// checking whether there are a CancelPoint packet in the queue.
   /// In this case - fill m_FrameCommands till this packet
 
-  for (list<yg::gl::Packet>::iterator it = renderQueue.begin();
+  for (list<graphics::gl::Packet>::iterator it = renderQueue.begin();
        it != renderQueue.end();
        ++it)
   {
-    yg::gl::Packet p = *it;
-    if (p.m_type == yg::gl::Packet::ECancelPoint)
+    graphics::gl::Packet p = *it;
+    if (p.m_type == graphics::gl::Packet::ECancelPoint)
     {
       copy(first, ++it, back_inserter(m_FrameCommands));
       renderQueue.erase(first, it);
@@ -170,9 +170,9 @@ void QueuedRenderer::PacketsPipeline::FillFrameCommands(list<yg::gl::Packet> & r
 
   while ((framesLeft != 0) && (packetsLeft != 0) && (last != renderQueue.end()))
   {
-    yg::gl::Packet p = *last;
+    graphics::gl::Packet p = *last;
 
-    if (p.m_type == yg::gl::Packet::EFramePoint)
+    if (p.m_type == graphics::gl::Packet::EFramePoint)
     {
       /// found frame boundary, copying
       copy(first, ++last, back_inserter(m_FrameCommands));
@@ -190,7 +190,7 @@ void QueuedRenderer::PacketsPipeline::FillFrameCommands(list<yg::gl::Packet> & r
   }
 }
 
-void QueuedRenderer::CopyQueuedCommands(list<yg::gl::Packet> &l, list<yg::gl::Packet> &r)
+void QueuedRenderer::CopyQueuedCommands(list<graphics::gl::Packet> &l, list<graphics::gl::Packet> &r)
 {
   swap(l, r);
 }
@@ -202,20 +202,20 @@ void QueuedRenderer::CancelQueuedCommands(int pipelineNum)
 
   m_Pipelines[pipelineNum].m_Queue.cancel();
 
-  list<yg::gl::Packet> l;
+  list<graphics::gl::Packet> l;
 
   m_Pipelines[pipelineNum].m_Queue.processList(bind(&QueuedRenderer::CopyQueuedCommands, this, _1, ref(l)));
 
-  for (list<yg::gl::Packet>::iterator it = l.begin(); it != l.end(); ++it)
+  for (list<graphics::gl::Packet>::iterator it = l.begin(); it != l.end(); ++it)
   {
-    yg::gl::Packet p = *it;
+    graphics::gl::Packet p = *it;
 
     if (p.m_command)
       p.m_command->cancel();
   }
 }
 
-yg::gl::PacketsQueue * QueuedRenderer::GetPacketsQueue(int pipelineNum)
+graphics::gl::PacketsQueue * QueuedRenderer::GetPacketsQueue(int pipelineNum)
 {
   return &m_Pipelines[pipelineNum].m_Queue;
 }

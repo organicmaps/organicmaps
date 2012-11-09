@@ -3,10 +3,10 @@
 #include "../geometry/screenbase.hpp"
 #include "../geometry/point2d.hpp"
 #include "../geometry/any_rect2d.hpp"
-#include "../yg/overlay_element.hpp"
-#include "../yg/font_desc.hpp"
+#include "../graphics/overlay_element.hpp"
+#include "../graphics/font_desc.hpp"
 
-namespace yg
+namespace graphics
 {
   namespace gl
   {
@@ -15,7 +15,7 @@ namespace yg
   }
 }
 
-class Ruler : public yg::OverlayElement
+class Ruler : public graphics::OverlayElement
 {
 private:
 
@@ -30,7 +30,7 @@ private:
 
   double m_visualScale;
 
-  yg::FontDesc m_fontDesc;
+  graphics::FontDesc m_fontDesc;
   ScreenBase m_screen;
 
   /// Current diff in units between two endpoints of the ruler.
@@ -74,12 +74,12 @@ public:
   void setMinMetersWidth(double v);
   void setMaxMetersWidth(double v);
   void setVisualScale(double visualScale);
-  void setFontDesc(yg::FontDesc const & fontDesc);
+  void setFontDesc(graphics::FontDesc const & fontDesc);
 
   vector<m2::AnyRectD> const & boundRects() const;
 
-  void draw(yg::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
+  void draw(graphics::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
   int visualRank() const;
-  yg::OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
+  graphics::OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
 };

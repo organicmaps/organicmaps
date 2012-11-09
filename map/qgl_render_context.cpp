@@ -29,18 +29,18 @@ namespace qt
     void RenderContext::makeCurrent()
     {
       m_context->makeCurrent();
-      yg::gl::RenderContext::initParams();
+      graphics::gl::RenderContext::initParams();
     }
 
-    shared_ptr<yg::gl::RenderContext> RenderContext::createShared()
+    shared_ptr<graphics::gl::RenderContext> RenderContext::createShared()
     {
-      return shared_ptr<yg::gl::RenderContext>(new RenderContext(this));
+      return shared_ptr<graphics::gl::RenderContext>(new RenderContext(this));
     }
 
     void RenderContext::endThreadDrawing()
     {
       m_context.reset();
-      yg::gl::RenderContext::endThreadDrawing();
+      graphics::gl::RenderContext::endThreadDrawing();
     }
 
     RenderContext::RenderContext(RenderContext * renderContext)

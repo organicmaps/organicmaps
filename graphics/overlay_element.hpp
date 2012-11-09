@@ -1,0 +1,110 @@
+#pragma once
+
+#include "../geometry/point2d.hpp"
+#include "../geometry/any_rect2d.hpp"
+#include "../base/matrix.hpp"
+#include "defines.hpp"
+#include "../std/vector.hpp"
+
+namespace graphics
+{
+  namespace gl
+  {
+    class OverlayRenderer;
+  }
+
+  class OverlayElement
+  {
+  public:
+
+    struct UserInfo
+    {
+      size_t m_mwmID;
+      uint32_t m_offset;
+
+      UserInfo() : m_mwmID(size_t(-1)) {}
+      inline bool IsValid() const { return (m_mwmID != size_t(-1)); }
+    };
+
+  private:
+
+    m2::PointD m_pivot;
+    graphics::EPosition m_position;
+    double m_depth;
+    UserInfo m_userInfo;
+
+    bool m_isNeedRedraw;
+    bool m_isFrozen;
+    bool m_isVisible;
+    bool m_isValid;
+    mutable bool m_isDirtyRect;
+    mutable bool m_isDirtyDrawing;
+
+    mutable bool m_isDirtyRoughRect;
+    mutable m2::RectD m_roughBoundRect;
+
+  public:
+
+    m2::PointD const tieRect(m2::RectD const & r, math::Matrix<double, 3, 3> const & m) const;
+
+    struct Params
+    {
+      m2::PointD m_pivot;
+      graphics::EPosition m_position;
+      double m_depth;
+      UserInfo m_userInfo;
+      Params();
+    };
+
+    OverlayElement(Params const & p);
+    virtual ~OverlayElement();
+
+    virtual OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const = 0;
+
+    /// PLEASE, REMEMBER THE REFERENCE!!!
+    virtual vector<m2::AnyRectD> const & boundRects() const = 0;
+    virtual void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const = 0;
+    virtual int visualRank() const = 0;
+
+    m2::PointD const & pivot() const;
+    virtual void setPivot(m2::PointD const & pv);
+
+    virtual m2::PointD const point(EPosition pos) const;
+
+    void offset(m2::PointD const & offs);
+
+    graphics::EPosition position() const;
+    void setPosition(graphics::EPosition pos);
+
+    double depth() const;
+    void setDepth(double depth);
+
+    bool isFrozen() const;
+    void setIsFrozen(bool flag);
+
+    bool isNeedRedraw() const;
+    void setIsNeedRedraw(bool flag);
+
+    bool isDirtyRect() const;
+    void setIsDirtyRect(bool flag) const;
+
+    bool isDirtyDrawing() const;
+    void setIsDirtyDrawing(bool flag) const;
+
+    bool isVisible() const;
+    void setIsVisible(bool flag);
+
+    bool isValid() const;
+    void setIsValid(bool flag);
+
+    UserInfo const & userInfo() const;
+
+    virtual bool hitTest(m2::PointD const & pt) const;
+    virtual bool roughHitTest(m2::PointD const & pt) const;
+
+    m2::RectD const & roughBoundRect() const;
+
+    virtual bool hasSharpGeometry() const;
+  };
+
+}

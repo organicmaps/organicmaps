@@ -5,8 +5,8 @@
 #include "change_viewport_task.hpp"
 #include "move_screen_task.hpp"
 
-#include "../yg/display_list.hpp"
-#include "../yg/skin.hpp"
+#include "../graphics/display_list.hpp"
+#include "../graphics/skin.hpp"
 
 #include "../anim/controller.hpp"
 #include "../anim/angle_interpolation.hpp"
@@ -58,8 +58,8 @@ namespace location
 
     m_boundRects.resize(1);
 
-    setColor(EActive, yg::Color(65, 136, 210, 255));
-    setColor(EPressed, yg::Color(102, 163, 210, 255));
+    setColor(EActive, graphics::Color(65, 136, 210, 255));
+    setColor(EPressed, graphics::Color(102, 163, 210, 255));
     setState(EActive);
     setIsVisible(false);
   }
@@ -214,9 +214,9 @@ namespace location
 
   void State::cacheArrowBorder(EState state)
   {
-    yg::gl::Screen * cacheScreen = m_controller->GetCacheScreen();
+    graphics::gl::Screen * cacheScreen = m_controller->GetCacheScreen();
 
-    shared_ptr<yg::gl::DisplayList> & dl = m_arrowBorderLists[state];
+    shared_ptr<graphics::gl::DisplayList> & dl = m_arrowBorderLists[state];
 
     dl.reset();
     dl.reset(cacheScreen->createDisplayList());
@@ -224,7 +224,7 @@ namespace location
     cacheScreen->beginFrame();
     cacheScreen->setDisplayList(dl.get());
 
-    shared_ptr<yg::Skin> const & skin = cacheScreen->skin();
+    shared_ptr<graphics::Skin> const & skin = cacheScreen->skin();
 
     double k = m_controller->GetVisualScale();
 
@@ -238,9 +238,9 @@ namespace location
       m2::PointD(0, -m_arrowHeight * k + m_arrowBackHeight * k),
     };
 
-    yg::Color const borderColor = color(state);
+    graphics::Color const borderColor = color(state);
 
-    uint32_t penStyle = skin->mapPenInfo(yg::PenInfo(borderColor, 1 * k, 0, 0, 0));
+    uint32_t penStyle = skin->mapPenInfo(graphics::PenInfo(borderColor, 1 * k, 0, 0, 0));
 
     cacheScreen->drawPath(ptsD, ARRAY_SIZE(ptsD), 0, penStyle, depth());
 
@@ -250,9 +250,9 @@ namespace location
 
   void State::cacheArrowBody(EState state)
   {
-    yg::gl::Screen * cacheScreen = m_controller->GetCacheScreen();
+    graphics::gl::Screen * cacheScreen = m_controller->GetCacheScreen();
 
-    shared_ptr<yg::gl::DisplayList> & dl = m_arrowBodyLists[state];
+    shared_ptr<graphics::gl::DisplayList> & dl = m_arrowBodyLists[state];
 
     dl.reset();
     dl.reset(cacheScreen->createDisplayList());
@@ -270,10 +270,10 @@ namespace location
       m2::PointD((m_arrowWidth * k) / 2, m_arrowBackHeight * k),
     };
 
-    shared_ptr<yg::Skin> const & skin = cacheScreen->skin();
+    shared_ptr<graphics::Skin> const & skin = cacheScreen->skin();
 
-    yg::Color const baseColor = color(state);
-    yg::Color const lightColor = yg::Color(min(255, (baseColor.r * 5) >> 2),
+    graphics::Color const baseColor = color(state);
+    graphics::Color const lightColor = graphics::Color(min(255, (baseColor.r * 5) >> 2),
                                            min(255, (baseColor.g * 5) >> 2),
                                            min(255, (baseColor.b * 5) >> 2),
                                            baseColor.a);
@@ -290,7 +290,7 @@ namespace location
 
   void State::cacheLocationMark()
   {
-    yg::gl::Screen * cacheScreen = m_controller->GetCacheScreen();
+    graphics::gl::Screen * cacheScreen = m_controller->GetCacheScreen();
 
     m_locationMarkDL.reset();
     m_locationMarkDL.reset(cacheScreen->createDisplayList());
@@ -311,7 +311,7 @@ namespace location
 
     cacheScreen->drawSymbol(m2::PointD(0, 0),
                             "current-position",
-                            yg::EPosCenter,
+                            graphics::EPosCenter,
                             depth() - 1);
 
     cacheScreen->setDisplayList(0);
@@ -366,7 +366,7 @@ namespace location
     }
   }
 
-  void State::draw(yg::gl::OverlayRenderer * r,
+  void State::draw(graphics::gl::OverlayRenderer * r,
                    math::Matrix<double, 3, 3> const & m) const
   {
     if (isVisible())
@@ -395,7 +395,7 @@ namespace location
                   screenAngle + headingRad),
                 pivot());
 
-          map<EState, shared_ptr<yg::gl::DisplayList> >::const_iterator it;
+          map<EState, shared_ptr<graphics::gl::DisplayList> >::const_iterator it;
           it = m_arrowBodyLists.find(state());
 
           if (it != m_arrowBodyLists.end())
@@ -429,7 +429,7 @@ namespace location
         /// and then arrow border
         if (m_hasCompass)
         {
-          map<EState, shared_ptr<yg::gl::DisplayList> >::const_iterator it;
+          map<EState, shared_ptr<graphics::gl::DisplayList> >::const_iterator it;
           it = m_arrowBorderLists.find(state());
 
           if (it != m_arrowBorderLists.end())

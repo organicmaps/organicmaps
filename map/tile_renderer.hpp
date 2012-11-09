@@ -4,7 +4,7 @@
 #include "tiler.hpp"
 #include "tile_cache.hpp"
 #include "tile_set.hpp"
-#include "drawer_yg.hpp"
+#include "drawer.hpp"
 
 #include "../geometry/screenbase.hpp"
 
@@ -15,7 +15,7 @@
 #include "../std/shared_ptr.hpp"
 #include "../std/vector.hpp"
 
-namespace yg
+namespace graphics
 {
   class ResourceManager;
   namespace gl
@@ -26,7 +26,7 @@ namespace yg
 }
 
 class WindowHandle;
-class DrawerYG;
+class Drawer;
 
 class TileRenderer
 {
@@ -34,20 +34,20 @@ protected:
 
   core::CommandsQueue m_queue;
 
-  shared_ptr<yg::ResourceManager> m_resourceManager;
+  shared_ptr<graphics::ResourceManager> m_resourceManager;
 
   struct ThreadData
   {
-    DrawerYG * m_drawer;
-    DrawerYG::Params m_drawerParams;
-    shared_ptr<yg::gl::BaseTexture> m_dummyRT;
-    shared_ptr<yg::gl::RenderContext> m_renderContext;
-    shared_ptr<yg::gl::RenderBuffer> m_depthBuffer;
+    Drawer * m_drawer;
+    Drawer::Params m_drawerParams;
+    shared_ptr<graphics::gl::BaseTexture> m_dummyRT;
+    shared_ptr<graphics::gl::RenderContext> m_renderContext;
+    shared_ptr<graphics::gl::RenderBuffer> m_depthBuffer;
   };
 
   buffer_vector<ThreadData, 4> m_threadData;
 
-  shared_ptr<yg::gl::RenderContext> m_primaryContext;
+  shared_ptr<graphics::gl::RenderContext> m_primaryContext;
 
   TileCache m_tileCache;
 
@@ -59,7 +59,7 @@ protected:
 
   RenderPolicy::TRenderFn m_renderFn;
   string m_skinName;
-  yg::Color m_bgColor;
+  graphics::Color m_bgColor;
   int m_sequenceID;
   bool m_isExiting;
 
@@ -77,7 +77,7 @@ protected:
                         Tiler::RectInfo const & rectInfo,
                         int sequenceID);
 
-  void ReadPixels(yg::gl::PacketsQueue * glQueue, core::CommandsQueue::Environment const & env);
+  void ReadPixels(graphics::gl::PacketsQueue * glQueue, core::CommandsQueue::Environment const & env);
 
 public:
 
@@ -85,12 +85,12 @@ public:
   TileRenderer(size_t tileSize,
                string const & skinName,
                unsigned tasksCount,
-               yg::Color const & bgColor,
+               graphics::Color const & bgColor,
                RenderPolicy::TRenderFn const & renderFn,
-               shared_ptr<yg::gl::RenderContext> const & primaryRC,
-               shared_ptr<yg::ResourceManager> const & rm,
+               shared_ptr<graphics::gl::RenderContext> const & primaryRC,
+               shared_ptr<graphics::ResourceManager> const & rm,
                double visualScale,
-               yg::gl::PacketsQueue ** packetsQueue);
+               graphics::gl::PacketsQueue ** packetsQueue);
   /// destructor.
   virtual ~TileRenderer();
   /// add command to the commands queue.

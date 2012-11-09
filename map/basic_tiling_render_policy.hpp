@@ -5,7 +5,7 @@
 #include "../geometry/screenbase.hpp"
 
 #include "../std/shared_ptr.hpp"
-#include "../yg/overlay.hpp"
+#include "../graphics/overlay.hpp"
 
 class TileRenderer;
 class CoverageGenerator;

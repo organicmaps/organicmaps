@@ -6,7 +6,7 @@ CONFIG += staticlib
 INCLUDEPATH += ../3party/protobuf/src
 
 ROOT_DIR = ..
-DEPENDENCIES = search gui yg indexer anim geometry coding base expat
+DEPENDENCIES = search gui graphics indexer anim geometry coding base expat
 
 include($$ROOT_DIR/common.pri)
 
@@ -15,7 +15,7 @@ HEADERS += \
     feature_vec_model.hpp \
     events.hpp \
     navigator.hpp \
-    drawer_yg.hpp \
+    drawer.hpp \
     draw_processor.hpp \
     draw_info.hpp \
     window_handle.hpp \
@@ -35,7 +35,7 @@ HEADERS += \
     ruler.hpp \
     measurement_utils.hpp \
     simple_render_policy.hpp \
-    proto_to_yg_styles.hpp \
+    proto_to_styles.hpp \
     test_render_policy.hpp \
     queued_renderer.hpp \
     basic_tiling_render_policy.hpp \
@@ -54,7 +54,7 @@ SOURCES += \
     feature_vec_model.cpp \
     framework.cpp \
     navigator.cpp \
-    drawer_yg.cpp \
+    drawer.cpp \
     draw_processor.cpp \
     tile_renderer.cpp \
     information_display.cpp \
@@ -73,7 +73,7 @@ SOURCES += \
     measurement_utils.cpp \
     window_handle.cpp \
     simple_render_policy.cpp \
-    proto_to_yg_styles.cpp \
+    proto_to_styles.cpp \
     test_render_policy.cpp \
     queued_renderer.cpp \
     events.cpp \

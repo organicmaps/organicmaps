@@ -1,6 +1,6 @@
 #include "framework.hpp"
 #include "draw_processor.hpp"
-#include "drawer_yg.hpp"
+#include "drawer.hpp"
 #include "benchmark_provider.hpp"
 #include "benchmark_engine.hpp"
 #include "geourl_process.hpp"
@@ -26,7 +26,7 @@
 
 #include "../coding/internal/file_data.hpp"
 
-#include "../yg/rendercontext.hpp"
+#include "../graphics/rendercontext.hpp"
 
 #include "../geometry/angles.hpp"
 #include "../geometry/distance_on_sphere.hpp"
@@ -704,8 +704,8 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   // m_informationDisplay is set and drawn after the m_renderPolicy
   ASSERT ( m_renderPolicy, () );
 
-  DrawerYG * pDrawer = e->drawer();
-  yg::gl::Screen * pScreen = pDrawer->screen().get();
+  Drawer * pDrawer = e->drawer();
+  graphics::gl::Screen * pScreen = pDrawer->screen().get();
 
   pScreen->beginFrame();
 
@@ -1271,7 +1271,7 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
     m_navigator.SetMinScreenParams(static_cast<unsigned>(m_minRulerWidth * renderPolicy->VisualScale()),
                                    m_metresMinWidth);
 
-    yg::gl::RenderContext::initParams();
+    graphics::gl::RenderContext::initParams();
   }
 
   m_guiController->ResetRenderParams();
@@ -1419,13 +1419,13 @@ void Framework::SaveFacebookDialogResult(int result)
   }
 }
 
-shared_ptr<yg::OverlayElement> const GetClosestToPivot(list<shared_ptr<yg::OverlayElement> > const & l,
+shared_ptr<graphics::OverlayElement> const GetClosestToPivot(list<shared_ptr<graphics::OverlayElement> > const & l,
                                                        m2::PointD const & pxPoint)
 {
   double dist = numeric_limits<double>::max();
-  shared_ptr<yg::OverlayElement> res;
+  shared_ptr<graphics::OverlayElement> res;
 
-  for (list<shared_ptr<yg::OverlayElement> >::const_iterator it = l.begin();
+  for (list<shared_ptr<graphics::OverlayElement> >::const_iterator it = l.begin();
        it != l.end();
        ++it)
   {
@@ -1445,7 +1445,7 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, 
   m2::PointD const pt = m_navigator.ShiftPoint(pxPoint);
   double const halfSize = TOUCH_PIXEL_RADIUS * GetVisualScale();
 
-  typedef yg::OverlayElement ElementT;
+  typedef graphics::OverlayElement ElementT;
 
   list<shared_ptr<ElementT> > candidates;
   m2::RectD rect(pt.x - halfSize, pt.y - halfSize,

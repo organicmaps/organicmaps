@@ -8,11 +8,11 @@ namespace gui
   {
     setText(p.m_text);
 
-    setFont(EActive, yg::FontDesc(12, yg::Color(0, 0, 0, 255)));
-    setFont(EPressed, yg::FontDesc(12, yg::Color(0, 0, 0, 255)));
+    setFont(EActive, graphics::FontDesc(12, graphics::Color(0, 0, 0, 255)));
+    setFont(EPressed, graphics::FontDesc(12, graphics::Color(0, 0, 0, 255)));
 
-    setColor(EActive, yg::Color(yg::Color(192, 192, 192, 255)));
-    setColor(EPressed, yg::Color(yg::Color(64, 64, 64, 255)));
+    setColor(EActive, graphics::Color(graphics::Color(192, 192, 192, 255)));
+    setColor(EPressed, graphics::Color(graphics::Color(64, 64, 64, 255)));
   }
 
   void TextView::setText(string const & text)
@@ -32,7 +32,7 @@ namespace gui
 
   void TextView::cache()
   {
-    yg::StraightTextElement::Params params;
+    graphics::StraightTextElement::Params params;
     params.m_depth = depth();
     params.m_fontDesc = font(state());
     params.m_fontDesc.m_size *= visualScale();
@@ -45,10 +45,10 @@ namespace gui
     params.m_delimiters = "\n";
     params.m_useAllParts = true;
 
-    m_elem.reset(new yg::StraightTextElement(params));
+    m_elem.reset(new graphics::StraightTextElement(params));
   }
 
-  void TextView::draw(yg::gl::OverlayRenderer *r, math::Matrix<double, 3, 3> const & m) const
+  void TextView::draw(graphics::gl::OverlayRenderer *r, math::Matrix<double, 3, 3> const & m) const
   {
     checkDirtyDrawing();
     m_elem->draw(r, m);

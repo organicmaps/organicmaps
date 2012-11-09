@@ -8,7 +8,7 @@
 
 #include "../base/strings_bundle.hpp"
 
-namespace yg
+namespace graphics
 {
   class GlyphCache;
   class OverlayElement;
@@ -37,7 +37,7 @@ namespace gui
     /// element that has focus.
     shared_ptr<Element> m_focusedElement;
 
-    typedef list<shared_ptr<yg::OverlayElement> > base_list_t;
+    typedef list<shared_ptr<graphics::OverlayElement> > base_list_t;
     typedef list<shared_ptr<Element> > elem_list_t;
 
     elem_list_t m_Elements;
@@ -52,13 +52,13 @@ namespace gui
     double m_VisualScale;
 
     /// GlyphCache for text rendering by GUI elements.
-    yg::GlyphCache * m_GlyphCache;
+    graphics::GlyphCache * m_GlyphCache;
 
     /// Localized strings for GUI.
     StringsBundle const * m_bundle;
 
     /// Screen, which is used to cache gui::Elements into display lists.
-    yg::gl::Screen * m_CacheScreen;
+    graphics::gl::Screen * m_CacheScreen;
 
     /// Should we call the onTapEnded when the tap finished(we should
     /// not if the tap was cancelled while moving).
@@ -83,13 +83,13 @@ namespace gui
     {
       double m_VisualScale;
       TInvalidateFn m_InvalidateFn;
-      yg::GlyphCache * m_GlyphCache;
-      yg::gl::Screen * m_CacheScreen;
+      graphics::GlyphCache * m_GlyphCache;
+      graphics::gl::Screen * m_CacheScreen;
       RenderParams();
       RenderParams(double visualScale,
                    TInvalidateFn invalidateFn,
-                   yg::GlyphCache * glyphCache,
-                   yg::gl::Screen * cacheScreen);
+                   graphics::GlyphCache * glyphCache,
+                   graphics::gl::Screen * cacheScreen);
     };
 
     /// Attach GUI Controller to the renderer
@@ -109,12 +109,12 @@ namespace gui
     /// Get localized strings bundle
     StringsBundle const * GetStringsBundle() const;
     /// Get GlyphCache
-    yg::GlyphCache * GetGlyphCache() const;
-    /// Get yg::gl::Screen, which is used to cache gui::Element's
+    graphics::GlyphCache * GetGlyphCache() const;
+    /// Get graphics::gl::Screen, which is used to cache gui::Element's
     /// into display lists.
-    yg::gl::Screen * GetCacheScreen() const;
+    graphics::gl::Screen * GetCacheScreen() const;
     /// Redraw GUI
-    void DrawFrame(yg::gl::Screen * screen);
+    void DrawFrame(graphics::gl::Screen * screen);
     /// Calling gui::Element::update for every element.
     void UpdateElements();
     /// Calling gui::Element::purge for every element.

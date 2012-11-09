@@ -3,7 +3,7 @@
 #include <jni.h>
 
 #include "../../../../../map/framework.hpp"
-#include "../../../../../map/drawer_yg.hpp"
+#include "../../../../../map/drawer.hpp"
 #include "../../../../../map/window_handle.hpp"
 #include "../../../../../map/feature_vec_model.hpp"
 

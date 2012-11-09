@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../base/threaded_list.hpp"
-#include "../yg/renderer.hpp"
+#include "../graphics/renderer.hpp"
 
 /// Mixture-class for rendering policies, used on the
 /// devices that do not support OpenGL context sharing
@@ -15,9 +15,9 @@ private:
   /// of "heavy" commands.
   struct PacketsPipeline
   {
-    yg::gl::PacketsQueue m_Queue; //< all enqueued commands
-    list<yg::gl::Packet> m_FrameCommands; //< list of commands to execute on current frame
-    yg::gl::Packet::EType m_Type; //< type of the actions to perform with FrameCommands
+    graphics::gl::PacketsQueue m_Queue; //< all enqueued commands
+    list<graphics::gl::Packet> m_FrameCommands; //< list of commands to execute on current frame
+    graphics::gl::Packet::EType m_Type; //< type of the actions to perform with FrameCommands
 
     bool m_CouldExecutePartially;
 
@@ -26,10 +26,10 @@ private:
     /// skipping empty frames.
     /// - if there are a CancelPoint in the QueueData than the packets are copied up to
     ///   CancelPoint packet ignoring maxCheckPoints param
-    void FillFrameCommands(list<yg::gl::Packet> & QueueData, int maxCheckPoints);
+    void FillFrameCommands(list<graphics::gl::Packet> & QueueData, int maxCheckPoints);
   };
 
-  /// couldn't use vector here as PacketsPipeline holds non-copyable yg::gl::PacketsQueue
+  /// couldn't use vector here as PacketsPipeline holds non-copyable graphics::gl::PacketsQueue
   PacketsPipeline * m_Pipelines;
   int m_PipelinesCount;
 
@@ -50,7 +50,7 @@ public:
   QueuedRenderer(int pipelinesCount);
   ~QueuedRenderer();
 
-  void CopyQueuedCommands(list<yg::gl::Packet> & l, list<yg::gl::Packet> & r);
+  void CopyQueuedCommands(list<graphics::gl::Packet> & l, list<graphics::gl::Packet> & r);
 
   bool RenderQueuedCommands(int pipelineNum);
   void CancelQueuedCommands(int pipelineNum);
@@ -64,5 +64,5 @@ public:
   bool NeedRedraw() const;
   void SetSinglePipelineProcessing(bool flag);
 
-  yg::gl::PacketsQueue * GetPacketsQueue(int pipelineNum);
+  graphics::gl::PacketsQueue * GetPacketsQueue(int pipelineNum);
 };

@@ -2,13 +2,13 @@
 
 #include "tile.hpp"
 
-#include "../yg/base_texture.hpp"
+#include "../graphics/base_texture.hpp"
 
 Tile::Tile()
 {}
 
-Tile::Tile(shared_ptr<yg::gl::BaseTexture> const & renderTarget,
-           shared_ptr<yg::Overlay> const & overlay,
+Tile::Tile(shared_ptr<graphics::gl::BaseTexture> const & renderTarget,
+           shared_ptr<graphics::Overlay> const & overlay,
            ScreenBase const & tileScreen,
            Tiler::RectInfo const & rectInfo,
            double duration,

@@ -2,17 +2,17 @@
 
 #include "../qt_tstfrm/widgets_impl.hpp"
 
-#include "../map/drawer_yg.hpp"
+#include "../map/drawer.hpp"
 
 #include "../platform/platform.hpp"
 
-#include "../yg/rendercontext.hpp"
-#include "../yg/internal/opengl.hpp"
+#include "../graphics/rendercontext.hpp"
+#include "../graphics/internal/opengl.hpp"
 
 
 namespace qt
 {
-  template class GLDrawWidgetT<DrawerYG>;
+  template class GLDrawWidgetT<Drawer>;
 
   GLDrawWidget::GLDrawWidget(QWidget * pParent)
     : base_type(pParent)
@@ -35,12 +35,12 @@ namespace qt
   {
   }
 
-  shared_ptr<yg::gl::RenderContext> const & GLDrawWidget::renderContext()
+  shared_ptr<graphics::gl::RenderContext> const & GLDrawWidget::renderContext()
   {
     return m_renderContext;
   }
 
-  shared_ptr<yg::ResourceManager> const & GLDrawWidget::resourceManager()
+  shared_ptr<graphics::ResourceManager> const & GLDrawWidget::resourceManager()
   {
     return m_resourceManager;
   }

@@ -2,7 +2,7 @@
 
 #include <QtOpenGL/qgl.h>
 
-#include "../map/drawer_yg.hpp"
+#include "../map/drawer.hpp"
 
 #include "../std/shared_ptr.hpp"
 
@@ -27,7 +27,7 @@ namespace qt
     //@}
   };
 
-  /// Widget uses yg for drawing.
+  /// Widget uses our graphics library for drawing.
   template <class T> class GLDrawWidgetT : public BaseDrawWidget<T, QGLWidget>
   {
     typedef BaseDrawWidget<T, QGLWidget> base_type;

@@ -29,7 +29,7 @@
 		EE12020E11CD464100ABDD5D /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020411CD464100ABDD5D /* libgeometry.a */; };
 		EE12020F11CD464100ABDD5D /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020511CD464100ABDD5D /* libindexer.a */; };
 		EE12021011CD464100ABDD5D /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020611CD464100ABDD5D /* libmap.a */; };
-		EE12021211CD464100ABDD5D /* libyg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020811CD464100ABDD5D /* libyg.a */; };
+		EE12021211CD464100ABDD5D /* libgraphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020811CD464100ABDD5D /* libgraphics.a */; };
 		EE164811135CEE4A003B8A3E /* 06_code2000.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE164810135CEE49003B8A3E /* 06_code2000.ttf */; };
 		EE583CBB12F773F00042CBE3 /* unicode_blocks.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */; };
 		EE5A34E6156FCB9500E34FFE /* libgui.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5A34E5156FCB9500E34FFE /* libgui.a */; };
@@ -1322,7 +1322,7 @@
 		FAFB0905151215EE0041901D /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020411CD464100ABDD5D /* libgeometry.a */; };
 		FAFB0906151215EE0041901D /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020511CD464100ABDD5D /* libindexer.a */; };
 		FAFB0907151215EE0041901D /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020611CD464100ABDD5D /* libmap.a */; };
-		FAFB0908151215EE0041901D /* libyg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020811CD464100ABDD5D /* libyg.a */; };
+		FAFB0908151215EE0041901D /* libgraphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020811CD464100ABDD5D /* libgraphics.a */; };
 		FAFB0909151215EE0041901D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA87151A12B1518F00592DAF /* SystemConfiguration.framework */; };
 		FAFB090A151215EE0041901D /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA04373112CAB83F00017494 /* libstorage.a */; };
 		FAFB090B151215EE0041901D /* libfribidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEF5745412DE1AD50082F472 /* libfribidi.a */; };
@@ -1367,7 +1367,7 @@
 		EE12020411CD464100ABDD5D /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgeometry.a; sourceTree = SOURCE_ROOT; };
 		EE12020511CD464100ABDD5D /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libindexer.a; sourceTree = SOURCE_ROOT; };
 		EE12020611CD464100ABDD5D /* libmap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmap.a; sourceTree = SOURCE_ROOT; };
-		EE12020811CD464100ABDD5D /* libyg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libyg.a; sourceTree = SOURCE_ROOT; };
+		EE12020811CD464100ABDD5D /* libgraphics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgraphics.a; sourceTree = SOURCE_ROOT; };
 		EE16192B126E374500622BD0 /* RenderContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RenderContext.hpp; path = Classes/RenderContext.hpp; sourceTree = SOURCE_ROOT; };
 		EE164810135CEE49003B8A3E /* 06_code2000.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 06_code2000.ttf; path = ../../data/06_code2000.ttf; sourceTree = SOURCE_ROOT; };
 		EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = unicode_blocks.txt; path = ../../data/unicode_blocks.txt; sourceTree = "<group>"; };
@@ -2068,7 +2068,7 @@
 				EE12020E11CD464100ABDD5D /* libgeometry.a in Frameworks */,
 				EE12020F11CD464100ABDD5D /* libindexer.a in Frameworks */,
 				EE12021011CD464100ABDD5D /* libmap.a in Frameworks */,
-				EE12021211CD464100ABDD5D /* libyg.a in Frameworks */,
+				EE12021211CD464100ABDD5D /* libgraphics.a in Frameworks */,
 				FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */,
 				FA04373212CAB83F00017494 /* libstorage.a in Frameworks */,
 				EEF5745512DE1AD50082F472 /* libfribidi.a in Frameworks */,
@@ -2100,7 +2100,7 @@
 				FAFB0905151215EE0041901D /* libgeometry.a in Frameworks */,
 				FAFB0906151215EE0041901D /* libindexer.a in Frameworks */,
 				FAFB0907151215EE0041901D /* libmap.a in Frameworks */,
-				FAFB0908151215EE0041901D /* libyg.a in Frameworks */,
+				FAFB0908151215EE0041901D /* libgraphics.a in Frameworks */,
 				FAFB0909151215EE0041901D /* SystemConfiguration.framework in Frameworks */,
 				FAFB090A151215EE0041901D /* libstorage.a in Frameworks */,
 				FAFB090B151215EE0041901D /* libfribidi.a in Frameworks */,
@@ -2313,7 +2313,7 @@
 				EE12020411CD464100ABDD5D /* libgeometry.a */,
 				EE12020511CD464100ABDD5D /* libindexer.a */,
 				EE12020611CD464100ABDD5D /* libmap.a */,
-				EE12020811CD464100ABDD5D /* libyg.a */,
+				EE12020811CD464100ABDD5D /* libgraphics.a */,
 				EEFFB4E715DCDD8A00BACE1C /* libanim.a */,
 			);
 			name = "Static Libraries";
