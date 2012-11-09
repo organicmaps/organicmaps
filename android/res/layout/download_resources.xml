@@ -36,67 +36,16 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dip"
         android:indeterminate="false"
-        android:minWidth="200dip"
-        android:visibility="gone" />
+        android:minWidth="200dip"/>
 
     <Button
-        android:id="@+id/download_resources_button_download"
+        android:id="@+id/download_resources_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dip"
         android:gravity="center"
-        android:onClick="onDownloadClicked"
-        android:text="@string/download"
         android:textSize="12sp"
-        android:width="120dip" />
-
-    <Button
-        android:id="@+id/download_resources_button_pause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dip"
-        android:gravity="center"
-        android:onClick="onPauseClicked"
-        android:text="@string/pause"
-        android:textSize="12sp"
-        android:visibility="gone"
-        android:width="120dip" />
-
-    <Button
-        android:id="@+id/download_resources_button_resume"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dip"
-        android:gravity="center"
-        android:onClick="onResumeClicked"
-        android:text="@string/continue_download"
-        android:textSize="12sp"
-        android:visibility="gone"
-        android:width="120dip" />
-
-    <Button
-        android:id="@+id/download_resources_button_proceed_to_map"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dip"
-        android:onClick="onProceedToMapClicked"
-        android:text="@string/download_resources_continue"
-        android:textSize="12sp"
-        android:visibility="gone"
-        android:width="120dip" />
-
-    <Button
-        android:id="@+id/download_resources_button_tryagain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dip"
-        android:onClick="onTryAgainClicked"
-        android:text="@string/try_again"
-        android:textSize="12sp"
-        android:visibility="gone"
         android:width="120dip" />
 
     <TextView

@@ -3,7 +3,6 @@ package com.mapswithme.maps;
 import java.io.File;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Color;
@@ -23,8 +22,6 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 {
   private static final String TAG = "DownloadResourcesActivity";
 
-  private ProgressDialog mDialog = null;
-
   // Error codes, should match the same codes in JNI
 
   private static final int ERR_DOWNLOAD_SUCCESS = 0;
@@ -37,16 +34,11 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
   private MWMApplication mApplication = null;
   private MapStorage mMapStorage = null;
-  private int mBytesToDownload = 0;
   private int mSlotId = 0;
   private TextView mMsgView = null;
   private TextView mLocationMsgView = null;
   private ProgressBar mProgress = null;
-  private Button mDownloadButton = null;
-  private Button mPauseButton = null;
-  private Button mResumeButton = null;
-  private Button mProceedButton = null;
-  private Button mTryAgainButton = null;
+  private Button mButton = null;
   private CheckBox mDownloadCountryCheckBox = null;
   private LocationService mLocationService = null;
   private String mCountryName = null;
@@ -68,64 +60,143 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     mMsgView.setTextColor(Color.WHITE);
   }
 
-  private void prepareFilesDownload()
+  private boolean prepareFilesDownload()
   {
-    if (mBytesToDownload > 0)
-    {
-      setDownloadMessage(mBytesToDownload);
+    final int bytes = getBytesToDownload();
 
-      mLocationService = mApplication.getLocationService();
-      mLocationService.startUpdate(this);
+    // Show map if no any downloading needed.
+    if (bytes == 0)
+    {
+      showMapView();
+      return false;
+    }
+
+    // Do initialization once.
+    if (mMapStorage == null)
+      initDownloading();
+
+    if (bytes > 0)
+    {
+      setDownloadMessage(bytes);
+
+      mProgress.setMax(bytes);
+      mProgress.setProgress(0);
     }
     else
     {
-      finishFilesDownload(mBytesToDownload);
+      finishFilesDownload(bytes);
     }
+
+    return true;
   }
 
-  public void onDownloadClicked(View v)
+  private static final int DOWNLOAD = 0;
+  private static final int PAUSE = 1;
+  private static final int RESUME = 2;
+  private static final int TRY_AGAIN = 3;
+  private static final int PROCEED_TO_MAP = 4;
+  private static final int BTN_COUNT = 5;
+
+  private View.OnClickListener m_btnListeners[] = null;
+  private String m_btnNames[] = null;
+
+  private void initDownloading()
   {
-    mProgress.setVisibility(View.VISIBLE);
-    mProgress.setMax(mBytesToDownload);
+    // Get GUI elements and subscribe to map storage (for country downloading).
+    mMapStorage = mApplication.getMapStorage();
+    mSlotId = mMapStorage.subscribe(this);
 
-    mDownloadButton.setVisibility(View.GONE);
-    mPauseButton.setVisibility(View.VISIBLE);
+    mMsgView = (TextView)findViewById(R.id.download_resources_message);
+    mProgress = (ProgressBar)findViewById(R.id.download_resources_progress);
+    mButton = (Button)findViewById(R.id.download_resources_button);
+    mDownloadCountryCheckBox = (CheckBox)findViewById(R.id.download_country_checkbox);
+    mLocationMsgView = (TextView)findViewById(R.id.download_resources_location_message);
 
-    startNextFileDownload(this);
+    // Initialize button states.
+    m_btnListeners = new View.OnClickListener[BTN_COUNT];
+    m_btnNames = new String[BTN_COUNT];
+
+    m_btnListeners[DOWNLOAD] = new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v) { onDownloadClicked(v); }
+    };
+    m_btnNames[DOWNLOAD] = getString(R.string.download);
+
+    m_btnListeners[PAUSE] = new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v) { onPauseClicked(v); }
+    };
+    m_btnNames[PAUSE] = getString(R.string.pause);
+
+    m_btnListeners[RESUME] = new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v) { onResumeClicked(v); }
+    };
+    m_btnNames[RESUME] = getString(R.string.continue_download);
+
+    m_btnListeners[TRY_AGAIN] = new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v) { onTryAgainClicked(v); }
+    };
+    m_btnNames[TRY_AGAIN] = getString(R.string.try_again);
+
+    m_btnListeners[PROCEED_TO_MAP] = new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v) { onProceedToMapClicked(v); }
+    };
+    m_btnNames[PROCEED_TO_MAP] = getString(R.string.download_resources_continue);
+
+    // Start listening the location.
+    mLocationService = mApplication.getLocationService();
+    mLocationService.startUpdate(this);
   }
 
-  public void onPauseClicked(View v)
+  private void setAction(int action)
   {
-    mResumeButton.setVisibility(View.VISIBLE);
-    mPauseButton.setVisibility(View.GONE);
+    mButton.setOnClickListener(m_btnListeners[action]);
+    mButton.setText(m_btnNames[action]);
+  }
 
+  private void doDownload()
+  {
+    if (startNextFileDownload(this) == ERR_NO_MORE_FILES)
+      finishFilesDownload(ERR_NO_MORE_FILES);
+  }
+
+  private void onDownloadClicked(View v)
+  {
+    setAction(PAUSE);
+    doDownload();
+  }
+
+  private void onPauseClicked(View v)
+  {
+    setAction(RESUME);
     cancelCurrentFile();
   }
 
-  public void onResumeClicked(View v)
+  private void onResumeClicked(View v)
   {
-    mPauseButton.setVisibility(View.VISIBLE);
-    mResumeButton.setVisibility(View.GONE);
-
-    if (startNextFileDownload(this) == ERR_NO_MORE_FILES)
-      finishFilesDownload(ERR_NO_MORE_FILES);
+    setAction(PAUSE);
+    doDownload();
   }
 
-  public void onTryAgainClicked(View v)
+  private void onTryAgainClicked(View v)
   {
-    mProgress.setVisibility(View.VISIBLE);
-    mTryAgainButton.setVisibility(View.GONE);
-    mPauseButton.setVisibility(View.VISIBLE);
-
-    mBytesToDownload = getBytesToDownload();
-
-    setDownloadMessage(mBytesToDownload);
-
-    if (startNextFileDownload(this) == ERR_NO_MORE_FILES)
-      finishFilesDownload(ERR_NO_MORE_FILES);
+    // Initialize downloading from the beginning.
+    if (prepareFilesDownload())
+    {
+      setAction(PAUSE);
+      doDownload();
+    }
   }
 
-  public void onProceedToMapClicked(View v)
+  private void onProceedToMapClicked(View v)
   {
     showMapView();
   }
@@ -176,8 +247,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
 
           mMapStorage.downloadCountry(idx);
 
-          mProceedButton.setVisibility(View.VISIBLE);
-          mPauseButton.setVisibility(View.GONE);
+          setAction(PROCEED_TO_MAP);
         }
         else
           showMapView();
@@ -190,9 +260,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
       mMsgView.setText(getErrorMessage(result));
       mMsgView.setTextColor(Color.RED);
 
-      mPauseButton.setVisibility(View.GONE);
-      mDownloadButton.setVisibility(View.GONE);
-      mTryAgainButton.setVisibility(View.VISIBLE);
+      setAction(TRY_AGAIN);
     }
   }
 
@@ -208,6 +276,8 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   @Override
   public void onCountryProgress(MapStorage.Index idx, long current, long total)
   {
+    // Important check - activity can be destroyed
+    // but notifications from downloading thread are coming.
     if (mProgress != null)
       mProgress.setProgress((int)current);
   }
@@ -271,29 +341,12 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
     moveMaps(mApplication.getExtAppDirectoryPath("files"),
              mApplication.getDataStoragePath());
 
-    mBytesToDownload = getBytesToDownload();
-
-    if (mBytesToDownload == 0)
-      showMapView();
-    else
+    if (prepareFilesDownload())
     {
-      mMapStorage = mApplication.getMapStorage();
-      mSlotId = mMapStorage.subscribe(this);
-
-      mMsgView = (TextView)findViewById(R.id.download_resources_message);
-      mProgress = (ProgressBar)findViewById(R.id.download_resources_progress);
-      mDownloadButton = (Button)findViewById(R.id.download_resources_button_download);
-      mPauseButton = (Button)findViewById(R.id.download_resources_button_pause);
-      mResumeButton = (Button)findViewById(R.id.download_resources_button_resume);
-      mProceedButton = (Button)findViewById(R.id.download_resources_button_proceed_to_map);
-      mTryAgainButton = (Button)findViewById(R.id.download_resources_button_tryagain);
-      mDownloadCountryCheckBox = (CheckBox)findViewById(R.id.download_country_checkbox);
-      mLocationMsgView = (TextView)findViewById(R.id.download_resources_location_message);
-
-      prepareFilesDownload();
+      setAction(DOWNLOAD);
 
       if (ConnectionState.getState(this) == ConnectionState.CONNECTED_BY_WIFI)
-        onDownloadClicked(mDownloadButton);
+        onDownloadClicked(mButton);
     }
   }
 
