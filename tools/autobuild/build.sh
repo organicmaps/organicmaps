@@ -1,9 +1,24 @@
+#!/bin/bash
 set -e -x
 
 LOCAL_DIRNAME="$(dirname "$0")"
 #LOCAL_DIRNAME="${PWD}/$(dirname "$0")"
 
 source "$LOCAL_DIRNAME/detect_qmake.sh"
+
+# Prints number of cores to stdout
+GetCPUCores() {
+  case "$OSTYPE" in
+    linux-gnu) grep -c ^processor /proc/cpuinfo 2>/dev/null
+               ;;
+    darwin) sysctl -n hw.ncpu
+               ;;
+    *)         echo "Unsupported platform in $0"
+               exit 1
+               ;;
+  esac
+  return 0
+}
 
 # 1st param: shadow directory path
 # 2nd param: mkspec
@@ -20,6 +35,6 @@ BuildQt() {
     cd "$SHADOW_DIR"
     qmake -r "$QMAKE_PARAMS" -spec "$MKSPEC" "$LOCAL_DIRNAME/../../omim.pro"
 #    make clean > /dev/null || true
-    make -j 2
+    make -j $(GetCPUCores)
   )
 }
