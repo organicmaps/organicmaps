@@ -60,4 +60,48 @@ namespace graphics
       for (size_t x = 0; x < r.SizeX(); ++x)
         v(x, y) = px;
   }
+
+  ImageStyle::ImageStyle(m2::RectU const & texRect,
+                         int pipelineID,
+                         ImageInfo const & ii)
+    : ResourceStyle(EImageStyle, texRect, pipelineID),
+      m_ii(ii)
+  {}
+
+  void ImageStyle::render(void * dst)
+  {
+    m2::RectU const & r = m_texRect;
+
+    DATA_TRAITS::view_t dstV = gil::interleaved_view(
+          r.SizeX(), r.SizeY(),
+          (DATA_TRAITS::pixel_t*)dst,
+          sizeof(DATA_TRAITS::pixel_t) * r.SizeX()
+    );
+
+    DATA_TRAITS::view_t srcV = gil::interleaved_view(
+          r.SizeX() - 4, r.SizeY() - 4,
+          (DATA_TRAITS::pixel_t*)m_ii.data(),
+          sizeof(DATA_TRAITS::pixel_t) * (r.SizeX() - 4)
+          );
+
+    DATA_TRAITS::pixel_t borderPixel = DATA_TRAITS::createPixel(Color(255, 0, 0, 255));
+
+    for (unsigned y = 0; y < 2; ++y)
+    {
+      dstV(0, y) = borderPixel;
+      dstV(1, y) = borderPixel;
+      dstV(r.SizeX() - 2, y) = borderPixel;
+      dstV(r.SizeX() - 1, y) = borderPixel;
+    }
+
+    for (unsigned y = r.SizeY() - 2; y < r.SizeY(); ++y)
+    {
+      dstV(0, y) = borderPixel;
+      dstV(1, y) = borderPixel;
+      dstV(r.SizeX() - 2, y) = borderPixel;
+      dstV(r.SizeX() - 1, y) = borderPixel;
+    }
+
+    gil::copy_pixels(srcV, gil::subimage_view(dstV, 2, 2, r.SizeX() - 4, r.SizeY() - 4));
+  }
 }

@@ -2,6 +2,7 @@
 
 #include "pen_info.hpp"
 #include "circle_info.hpp"
+#include "image_info.hpp"
 
 #include "../geometry/rect2d.hpp"
 
@@ -20,6 +21,7 @@ namespace graphics
         EGlyphStyle,
         EPointStyle,
         ECircleStyle,
+        EImageStyle,
         EUnknownStyle
     };
 
@@ -28,23 +30,29 @@ namespace graphics
     int m_pipelineID;
 
     ResourceStyle();
-    ResourceStyle(m2::RectU const & texRect, int pipelineID);
+    ResourceStyle(m2::RectU const & texRect,
+                  int pipelineID);
 
     virtual ~ResourceStyle();
     virtual void render(void * dst) = 0;
 
   protected:
-    ResourceStyle(Category cat, m2::RectU const & texRect, int pipelineID);
+    ResourceStyle(Category cat,
+                  m2::RectU const & texRect,
+                  int pipelineID);
   };
 
   struct LineStyle : public ResourceStyle
   {
     bool m_isWrapped;
     bool m_isSolid;
-    graphics::PenInfo m_penInfo;
+    PenInfo m_penInfo;
     m2::PointU m_centerColorPixel;
     m2::PointU m_borderColorPixel;
-    LineStyle(bool isWrapped, m2::RectU const & texRect, int pipelineID, graphics::PenInfo const & penInfo);
+    LineStyle(bool isWrapped,
+              m2::RectU const & texRect,
+              int pipelineID,
+              PenInfo const & penInfo);
 
     /// with antialiasing zones
     double geometryTileLen() const;
@@ -60,7 +68,9 @@ namespace graphics
   struct GlyphStyle : public ResourceStyle
   {
     shared_ptr<GlyphInfo> m_gi;
-    GlyphStyle(m2::RectU const & texRect, int pipelineID, shared_ptr<GlyphInfo> const & gi);
+    GlyphStyle(m2::RectU const & texRect,
+               int pipelineID,
+               shared_ptr<GlyphInfo> const & gi);
 
     void render(void * dst);
   };
@@ -68,23 +78,39 @@ namespace graphics
   struct PointStyle : public ResourceStyle
   {
     string m_styleName;
-    PointStyle(m2::RectU const & texRect, int pipelineID, string const & styleName);
+    PointStyle(m2::RectU const & texRect,
+               int pipelineID,
+               string const & styleName);
 
     void render(void * dst);
   };
 
   struct CircleStyle : public ResourceStyle
   {
-    graphics::CircleInfo m_ci;
-    CircleStyle(m2::RectU const & texRect, int pipelineID, graphics::CircleInfo const & ci);
+    CircleInfo m_ci;
+    CircleStyle(m2::RectU const & texRect,
+                int pipelineID,
+                CircleInfo const & ci);
 
     void render(void * dst);
   };
 
   struct ColorStyle : public ResourceStyle
   {
-    graphics::Color m_c;
-    ColorStyle(m2::RectU const & texRect, int pipelineID, graphics::Color const & c);
+    Color m_c;
+    ColorStyle(m2::RectU const & texRect,
+               int pipelineID,
+               Color const & c);
+
+    void render(void * dst);
+  };
+
+  struct ImageStyle : public ResourceStyle
+  {
+    ImageInfo m_ii;
+    ImageStyle(m2::RectU const & texRect,
+               int pipelineID,
+               ImageInfo const & ii);
 
     void render(void * dst);
   };

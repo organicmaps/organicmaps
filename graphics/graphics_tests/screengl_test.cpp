@@ -1,6 +1,8 @@
 #include "../../base/SRC_FIRST.hpp"
 #include "../../3party/sgitess/interface.h"
 
+#include "../../geometry/transformations.hpp"
+
 #include "../../graphics/screen.hpp"
 #include "../../graphics/utils.hpp"
 #include "../../graphics/internal/opengl.hpp"
@@ -1333,7 +1335,26 @@ namespace
     }
   };
 
-   UNIT_TEST_GL(TestDrawPolyOverflow);
+  struct TestDrawImage
+  {
+    void DoDraw(shared_ptr<graphics::gl::Screen> const & p)
+    {
+      graphics::ImageInfo ii("test.png");
+
+      math::Matrix<double, 3, 3> m =
+          math::Shift(
+            math::Rotate(
+              math::Identity<double, 3>(),
+              math::pi / 4),
+            100, 100);
+
+      p->drawImage(m,
+                   p->skin()->mapImageInfo(ii),
+                   graphics::maxDepth);
+    }
+  };
+
+/*   UNIT_TEST_GL(TestDrawPolyOverflow);
    UNIT_TEST_GL(TestDrawText);
    UNIT_TEST_GL(TestDrawSingleSymbol);
    UNIT_TEST_GL(TestDrawEmptySymbol);
@@ -1373,5 +1394,6 @@ namespace
    UNIT_TEST_GL(TestDrawUtilsRect);
    UNIT_TEST_GL(TestDrawUtilsRectFilledTexture);
    UNIT_TEST_GL(TestDrawSymbolFiltering);
-   UNIT_TEST_GL(TestDrawCircle);
+   UNIT_TEST_GL(TestDrawCircle);*/
+   UNIT_TEST_GL(TestDrawImage);
 }

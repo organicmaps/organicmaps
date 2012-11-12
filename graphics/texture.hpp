@@ -2,6 +2,7 @@
 
 #include "managed_texture.hpp"
 #include "data_traits.hpp"
+#include "image_info.hpp"
 
 #include "../platform/platform.hpp"
 
@@ -18,12 +19,6 @@ namespace graphics
     template <typename Traits, bool IsBacked>
     class Texture{};
 
-    inline m2::PointU const GetDimensions(string const & fileName)
-    {
-      ReaderPtr<Reader> reader = GetPlatform().GetReader(fileName);
-      gil::point2<ptrdiff_t> size = gil::lodepng_read_dimensions(reader);
-      return m2::PointU(size.x, size.y);
-    }
 
     template <typename Traits>
     class Texture<Traits, false> : public BaseTexture

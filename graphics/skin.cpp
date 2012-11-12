@@ -149,6 +149,23 @@ namespace graphics
     return packID(m_dynamicPage, m_pages[m_dynamicPage]->mapCircleInfo(circleInfo));
   }
 
+  uint32_t Skin::mapImageInfo(ImageInfo const & imageInfo)
+  {
+    uint32_t res = invalidPageHandle();
+
+    for (uint8_t i = 0; i < m_pages.size(); ++i)
+    {
+      res = m_pages[i]->findImageInfo(imageInfo);
+      if (res != invalidPageHandle())
+        return packID(i, res);
+    }
+
+    if (!m_pages[m_dynamicPage]->hasRoom(imageInfo))
+      flushDynamicPage();
+
+    return packID(m_dynamicPage, m_pages[m_dynamicPage]->mapImageInfo(imageInfo));
+  }
+
   bool Skin::mapPenInfo(PenInfo const * penInfos, uint32_t * styleIDS, size_t count)
   {
     int startDynamicPage = m_dynamicPage;

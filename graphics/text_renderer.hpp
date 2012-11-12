@@ -1,6 +1,6 @@
 #pragma once
 
-#include "shape_renderer.hpp"
+#include "image_renderer.hpp"
 #include "defines.hpp"
 #include "font_desc.hpp"
 #include "text_element.hpp"
@@ -14,7 +14,7 @@ namespace graphics
 {
   namespace gl
   {
-    class TextRenderer : public ShapeRenderer
+    class TextRenderer : public ImageRenderer
     {
     private:
 
@@ -23,7 +23,7 @@ namespace graphics
 
     public:
 
-      typedef ShapeRenderer base_t;
+      typedef ImageRenderer base_t;
 
       struct Params : base_t::Params
       {

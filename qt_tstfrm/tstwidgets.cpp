@@ -96,7 +96,7 @@ void GLDrawWidget::initializeGL()
                                                                          false);
 
   rmp.m_primaryTexturesParams = graphics::ResourceManager::TexturePoolParams(512,
-                                                                       256,
+                                                                       512,
                                                                        10,
                                                                        rmp.m_texFormat,
                                                                        true,

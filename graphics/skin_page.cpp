@@ -49,6 +49,7 @@ namespace graphics
     clearColorHandles();
     clearFontHandles();
     clearCircleInfoHandles();
+    clearImageInfoHandles();
 
     m_packer.reset();
   }
@@ -94,6 +95,49 @@ namespace graphics
       m_styles.erase(it->second);
 
     m_glyphMap.clear();
+  }
+
+  void SkinPage::clearImageInfoHandles()
+  {
+    for (TImageInfoMap::const_iterator it = m_imageInfoMap.begin();
+         it != m_imageInfoMap.end();
+         ++it)
+      m_styles.erase(it->second);
+
+    m_imageInfoMap.clear();
+  }
+
+  uint32_t SkinPage::findImageInfo(ImageInfo const & ii) const
+  {
+    TImageInfoMap::const_iterator it = m_imageInfoMap.find(ii);
+    if (it == m_imageInfoMap.end())
+      return m_packer.invalidHandle();
+    else
+      return it->second;
+  }
+
+  uint32_t SkinPage::mapImageInfo(ImageInfo const & ii)
+  {
+    uint32_t foundHandle = findImageInfo(ii);
+    if (foundHandle != m_packer.invalidHandle())
+      return foundHandle;
+
+    m2::Packer::handle_t h = m_packer.pack(ii.width() + 4, ii.height() + 4);
+
+    m_imageInfoMap[ii] = h;
+
+    m2::RectU texRect = m_packer.find(h).second;
+    shared_ptr<ResourceStyle> imageStyle(new ImageStyle(texRect, m_pipelineID, ii));
+
+    m_styles[h] = imageStyle;
+    m_uploadQueue.push_back(imageStyle);
+
+    return h;
+  }
+
+  bool SkinPage::hasRoom(ImageInfo const & ii) const
+  {
+    return m_packer.hasRoom(ii.width() + 4, ii.height() + 4);
   }
 
   uint32_t SkinPage::findColor(graphics::Color const & c) const

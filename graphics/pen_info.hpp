@@ -8,11 +8,11 @@
 
 namespace graphics
 {
-  /// definition of the line style pattern used as a texture-cache-key
+  /// definition of the line style pattern
+  /// used as a texture-cache-key
   struct PenInfo
   {
     typedef buffer_vector<double, 16> TPattern;
-//    typedef vector<double> TPattern;
     Color m_color;
     double m_w;
     TPattern m_pat;

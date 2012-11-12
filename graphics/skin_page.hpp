@@ -9,6 +9,7 @@
 #include "circle_info.hpp"
 #include "color.hpp"
 #include "glyph_cache.hpp"
+#include "image_info.hpp"
 #include "packets_queue.hpp"
 
 namespace graphics
@@ -59,6 +60,9 @@ namespace graphics
     typedef map<GlyphKey, uint32_t> TGlyphMap;
     TGlyphMap m_glyphMap;
 
+    typedef map<ImageInfo, uint32_t> TImageInfoMap;
+    TImageInfoMap m_imageInfoMap;
+
     /// made mutable to implement lazy reservation of texture
     /// @{
     mutable shared_ptr<gl::BaseTexture> m_texture;
@@ -84,6 +88,7 @@ namespace graphics
     void clearPenInfoHandles();
     void clearFontHandles();
     void clearCircleInfoHandles();
+    void clearImageInfoHandles();
 
     void clearHandles();
 
@@ -112,6 +117,10 @@ namespace graphics
     void reserveTexture() const;
     void resetTexture();
     void createPacker();
+
+    uint32_t findImageInfo(ImageInfo const & ii) const;
+    uint32_t mapImageInfo(ImageInfo const & ii);
+    bool hasRoom(ImageInfo const & ii) const;
 
     uint32_t findColor(Color const & c) const;
     uint32_t mapColor(Color const & c);

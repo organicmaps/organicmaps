@@ -28,6 +28,7 @@ namespace graphics
   struct ResourceStyle;
   struct PenInfo;
   struct CircleInfo;
+  struct ImageInfo;
   struct Color;
   struct GlyphKey;
   class GlyphCache;
@@ -125,6 +126,10 @@ namespace graphics
     /// if found - return id
     /// if not - pack and return id
     uint32_t mapCircleInfo(CircleInfo const & circleInfo);
+    /// find imageInfo on texture
+    /// if found - return id
+    /// if not - pack and return id
+    uint32_t mapImageInfo(ImageInfo const & imageInfo);
 
     /// adding function which will be called, when some SkinPage
     /// is getting cleared.

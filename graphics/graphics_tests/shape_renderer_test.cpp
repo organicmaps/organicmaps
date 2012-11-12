@@ -2,7 +2,7 @@
 #include "../shape_renderer.hpp"
 #include "../../base/math.hpp"
 
-using namespace graphics::gl;
+using namespace graphics;
 
 namespace
 {

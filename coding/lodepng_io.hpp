@@ -129,7 +129,8 @@ inline void lodepng_read_and_convert_view(ReaderPtr<Reader> & reader,const View&
 /// \brief Loads the image specified by the given png image file name and color-converts it into the given view.
 template <typename View,typename CC>
 inline void lodepng_read_and_convert_view(ReaderPtr<Reader> & reader,const View& view,CC cc) {
-    lodepng_read_and_convert_view(reader,view,cc);
+    detail::lodepng_reader_color_convert<CC> m(reader, cc);
+    m.apply(view);
 }
 
 /// \ingroup LODEPNG_IO

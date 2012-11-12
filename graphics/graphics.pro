@@ -60,7 +60,9 @@ SOURCES += \
     circle_element.cpp \
     packets_queue.cpp \
     display_list.cpp \
-    data_formats.cpp
+    data_formats.cpp \
+    image_info.cpp \
+    image_renderer.cpp
 
 HEADERS += \
     internal/opengl.hpp \
@@ -114,7 +116,9 @@ HEADERS += \
     circle_element.hpp \
     packets_queue.hpp \
     display_list.hpp \
-    data_traits.hpp
+    data_traits.hpp \
+    image_renderer.hpp \
+    image_info.hpp
 
 win32* {
   SOURCES += internal/opengl_win32.cpp
