@@ -59,11 +59,6 @@ string Platform::UniqueClientId() const
   return "@TODO";
 }
 
-bool Platform::DoSupportRotation() const
-{
-  return false;
-}
-
 void Platform::RunOnGuiThread(TFunctor const & fn)
 {
   /// @todo
