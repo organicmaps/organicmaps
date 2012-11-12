@@ -1,4 +1,10 @@
+/*
+  Copyright 2008 Intel Corporation
 
+  Use, modification and distribution are subject to the Boost Software License,
+  Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
+  http://www.boost.org/LICENSE_1_0.txt).
+*/
 namespace boost { namespace polygon { namespace detail {
 
 template <typename coordinate_type>
@@ -62,11 +68,11 @@ struct minkowski_offset {
     a.get(a_polygons);
     b.get(b_polygons);
     for(std::size_t ai = 0; ai < a_polygons.size(); ++ai) {
-      convolve_point_sequence_with_polygons(result, begin_points(a_polygons[ai]), 
+      convolve_point_sequence_with_polygons(result, begin_points(a_polygons[ai]),
                                             end_points(a_polygons[ai]), b_polygons);
       for(typename polygon_with_holes_traits<polygon>::iterator_holes_type itrh = begin_holes(a_polygons[ai]);
           itrh != end_holes(a_polygons[ai]); ++itrh) {
-        convolve_point_sequence_with_polygons(result, begin_points(*itrh), 
+        convolve_point_sequence_with_polygons(result, begin_points(*itrh),
                                               end_points(*itrh), b_polygons);
       }
       for(std::size_t bi = 0; bi < b_polygons.size(); ++bi) {
@@ -100,9 +106,9 @@ struct minkowski_offset {
       ::boost::polygon::bloat(rect, 10);
       (*this) = rect - (*this); //invert
     }
-    //make_arc(std::vector<point_data< T> >& return_points,  
+    //make_arc(std::vector<point_data< T> >& return_points,
     //point_data< double> start, point_data< double>  end,
-    //point_data< double> center,  double r, unsigned int num_circle_segments)      
+    //point_data< double> center,  double r, unsigned int num_circle_segments)
     std::vector<point_data<coordinate_type> > circle;
     point_data<double> center(0.0, 0.0), start(0.0, (double)resizing);
     make_arc(circle, start, start, center, std::abs((double)resizing),

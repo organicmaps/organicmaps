@@ -68,25 +68,37 @@ struct default_avltree_node_traits_impl
 
    typedef typename node::balance balance;
 
-   static const node_ptr & get_parent(const const_node_ptr & n)
+   static node_ptr get_parent(const const_node_ptr & n)
+   {  return n->parent_;  }
+
+   static node_ptr get_parent(const node_ptr & n)
    {  return n->parent_;  }
 
    static void set_parent(const node_ptr & n, const node_ptr & p)
    {  n->parent_ = p;  }
 
-   static const node_ptr & get_left(const const_node_ptr & n)
+   static node_ptr get_left(const const_node_ptr & n)
+   {  return n->left_;  }
+
+   static node_ptr get_left(const node_ptr & n)
    {  return n->left_;  }
 
    static void set_left(const node_ptr & n, const node_ptr & l)
    {  n->left_ = l;  }
 
-   static const node_ptr & get_right(const const_node_ptr & n)
+   static node_ptr get_right(const const_node_ptr & n)
+   {  return n->right_;  }
+
+   static node_ptr get_right(const node_ptr & n)
    {  return n->right_;  }
 
    static void set_right(const node_ptr & n, const node_ptr & r)
    {  n->right_ = r;  }
 
    static balance get_balance(const const_node_ptr & n)
+   {  return n->balance_;  }
+
+   static balance get_balance(const node_ptr & n)
    {  return n->balance_;  }
 
    static void set_balance(const node_ptr & n, balance b)
@@ -125,13 +137,13 @@ struct compact_avltree_node_traits_impl
    static void set_parent(const node_ptr & n, const node_ptr & p)
    {  ptr_bit::set_pointer(n->parent_, p);  }
 
-   static const node_ptr & get_left(const const_node_ptr & n)
+   static node_ptr get_left(const const_node_ptr & n)
    {  return n->left_;  }
 
    static void set_left(const node_ptr & n, const node_ptr & l)
    {  n->left_ = l;  }
 
-   static const node_ptr & get_right(const const_node_ptr & n)
+   static node_ptr get_right(const const_node_ptr & n)
    {  return n->right_;  }
 
    static void set_right(const node_ptr & n, const node_ptr & r)

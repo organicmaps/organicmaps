@@ -175,7 +175,7 @@ namespace boost
 
             while (neighbors[v].size() > 0 && neighbors[v].size() < max_size)
               {
-                // Find one of v's neighbors u such that that v and u
+                // Find one of v's neighbors u such that v and u
                 // have no neighbors in common. We'll look for such a 
                 // neighbor with a naive cubic-time algorithm since the 
                 // max size of any of the neighbor sets we'll consider 

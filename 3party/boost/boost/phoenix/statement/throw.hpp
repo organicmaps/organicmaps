@@ -50,7 +50,7 @@ namespace boost { namespace phoenix
 
         template <typename ThrowExpr, typename Context>
         result_type
-        operator()(ThrowExpr const& throw_expr, Context & ctx) const
+        operator()(ThrowExpr const& throw_expr, Context const & ctx) const
         {
             throw boost::phoenix::eval(throw_expr, ctx);
         }

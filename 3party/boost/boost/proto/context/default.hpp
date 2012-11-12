@@ -364,7 +364,7 @@ namespace boost { namespace proto
             result_type invoke(Expr &expr, Context &context, mpl::true_, mpl::false_) const
             {
                 BOOST_PROTO_USE_GET_POINTER();
-                typedef typename detail::classtypeof<function_type>::type class_type;
+                typedef typename detail::class_member_traits<function_type>::class_type class_type;
                 return (
                     BOOST_PROTO_GET_POINTER(class_type, (BOOST_PROTO_DEFAULT_EVAL(~, 1, expr))) ->* 
                     BOOST_PROTO_DEFAULT_EVAL(~, 0, expr)
@@ -374,7 +374,7 @@ namespace boost { namespace proto
             result_type invoke(Expr &expr, Context &context, mpl::false_, mpl::true_) const
             {
                 BOOST_PROTO_USE_GET_POINTER();
-                typedef typename detail::classtypeof<function_type>::type class_type;
+                typedef typename detail::class_member_traits<function_type>::class_type class_type;
                 return (
                     BOOST_PROTO_GET_POINTER(class_type, (BOOST_PROTO_DEFAULT_EVAL(~, 1, expr))) ->*
                     BOOST_PROTO_DEFAULT_EVAL(~, 0, expr)

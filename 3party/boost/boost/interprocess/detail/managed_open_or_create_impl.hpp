@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2006-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -48,12 +48,12 @@ class xsi_key;
 
 template<>
 struct managed_open_or_create_impl_device_id_t<xsi_shared_memory_file_wrapper>
-{ 
+{
    typedef xsi_key type;
 };
 
 #endif   //BOOST_INTERPROCESS_XSI_SHARED_MEMORY_OBJECTS
-  
+
 /// @endcond
 
 namespace ipcdetail {
@@ -79,7 +79,7 @@ class managed_open_or_create_impl_device_holder<true, DeviceAbstraction>
 
    const DeviceAbstraction &get_device() const
    {  return dev; }
-  
+
    private:
    DeviceAbstraction dev;
 };
@@ -94,9 +94,9 @@ class managed_open_or_create_impl
    typedef typename managed_open_or_create_impl_device_id_t<DeviceAbstraction>::type device_id_t;
    typedef managed_open_or_create_impl_device_holder<StoreDevice, DeviceAbstraction> DevHolder;
    enum
-   { 
-      UninitializedSegment, 
-      InitializingSegment, 
+   {
+      UninitializedSegment,
+      InitializingSegment,
       InitializedSegment,
       CorruptedSegment
    };
@@ -222,10 +222,10 @@ class managed_open_or_create_impl
    {  this->swap(moved);   }
 
    managed_open_or_create_impl &operator=(BOOST_RV_REF(managed_open_or_create_impl) moved)
-   { 
+   {
       managed_open_or_create_impl tmp(boost::move(moved));
       this->swap(tmp);
-      return *this; 
+      return *this;
    }
 
    ~managed_open_or_create_impl()

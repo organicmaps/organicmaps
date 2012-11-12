@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -207,7 +207,7 @@ class upgradable_lock
    //!Notes: The sharable_lock changes from a state of not owning the mutex,
    //!   to owning the mutex, blocking if necessary.
    void lock()
-   { 
+   {
       if(!mp_mutex || m_locked)
          throw lock_exception();
       mp_mutex->lock_upgradable();
@@ -223,7 +223,7 @@ class upgradable_lock
    //!   mutex_type does not support try_lock_upgradable(), this function will
    //!   fail at compile time if instantiated, but otherwise have no effect.
    bool try_lock()
-   { 
+   {
       if(!mp_mutex || m_locked)
          throw lock_exception();
       m_locked = mp_mutex->try_lock_upgradable();
@@ -240,7 +240,7 @@ class upgradable_lock
    //!   timed_lock_upgradable(abs_time), this function will fail at compile
    //!   time if instantiated, but otherwise have no effect.
    bool timed_lock(const boost::posix_time::ptime& abs_time)
-   { 
+   {
       if(!mp_mutex || m_locked)
          throw lock_exception();
       m_locked = mp_mutex->timed_lock_upgradable(abs_time);

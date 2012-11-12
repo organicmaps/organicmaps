@@ -1,6 +1,6 @@
 /*
   Copyright 2008 Intel Corporation
- 
+
   Use, modification and distribution are subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
@@ -32,7 +32,7 @@ namespace boost { namespace polygon{
         } else {
           int count = mp[i].second;
           if(subtract) count -= mp2[j].second;
-          else count += mp2[j].second; 
+          else count += mp2[j].second;
           if(count) {
             newmp.push_back(mp[i]);
             newmp.back().second = count;
@@ -63,7 +63,7 @@ namespace boost { namespace polygon{
       inline bool operator!=(const CountTouch& count) const { return !((*this) == count); }
       //inline CountTouch& operator=(int count) { counts[0] = counts[1] = count; return *this; }
       inline CountTouch& operator=(const CountTouch& count) { counts = count.counts; return *this; }
-      inline int& operator[](int index) { 
+      inline int& operator[](int index) {
         std::vector<std::pair<int, int> >::iterator itr = lower_bound(counts.begin(), counts.end(), std::make_pair(index, int(0)));
         if(itr != counts.end() && itr->first == index) {
             return itr->second;
@@ -102,8 +102,8 @@ namespace boost { namespace polygon{
       std::vector<std::pair<int, int> > counts;
     };
 
-    typedef std::pair<std::pair<Unit, std::map<Unit, std::set<int> > >, std::map<int, std::set<int> > > map_graph_o; 
-    typedef std::pair<std::pair<Unit, std::map<Unit, std::set<int> > >, std::vector<std::set<int> > > vector_graph_o; 
+    typedef std::pair<std::pair<Unit, std::map<Unit, std::set<int> > >, std::map<int, std::set<int> > > map_graph_o;
+    typedef std::pair<std::pair<Unit, std::map<Unit, std::set<int> > >, std::vector<std::set<int> > > vector_graph_o;
 
     template <typename cT>
     static void process_previous_x(cT& output) {
@@ -124,10 +124,10 @@ namespace boost { namespace polygon{
       }
       y_prop_map.clear();
     }
-    
+
     struct touch_45_output_functor {
       template <typename cT>
-      void operator()(cT& output, const CountTouch& count1, const CountTouch& count2, 
+      void operator()(cT& output, const CountTouch& count1, const CountTouch& count2,
                       const Point& pt, int , direction_1d ) {
         Unit& x = output.first.first;
         std::map<Unit, std::set<int> >& y_prop_map = output.first.second;
@@ -138,7 +138,7 @@ namespace boost { namespace polygon{
             itr1 != count1.counts.end(); ++itr1) {
           if(itr1->second > 0) {
             output_set.insert(output_set.end(), itr1->first);
-          } 
+          }
         }
         for(std::vector<std::pair<int, int> >::const_iterator itr2 = count2.counts.begin();
             itr2 != count2.counts.end(); ++itr2) {
@@ -148,16 +148,16 @@ namespace boost { namespace polygon{
         }
       }
     };
-    typedef typename std::pair<Point, 
+    typedef typename std::pair<Point,
                                typename boolean_op_45<Unit>::template Scan45CountT<CountTouch> > Vertex45Compact;
     typedef std::vector<Vertex45Compact> TouchSetData;
-    
+
     struct lessVertex45Compact {
       bool operator()(const Vertex45Compact& l, const Vertex45Compact& r) {
         return l.first < r.first;
       }
     };
-    
+
 //     template <typename TSD>
 //     static void print_tsd(TSD& tsd) {
 //       for(std::size_t i = 0; i < tsd.size(); ++i) {
@@ -185,8 +185,8 @@ namespace boost { namespace polygon{
 
     template <typename graph_type>
     static void performTouch(graph_type& graph, TouchSetData& tsd) {
-      
-      gtlsort(tsd.begin(), tsd.end(), lessVertex45Compact());
+
+      polygon_sort(tsd.begin(), tsd.end(), lessVertex45Compact());
       typedef std::vector<std::pair<Point, typename boolean_op_45<Unit>::template Scan45CountT<CountTouch> > > TSD;
       TSD tsd_;
       tsd_.reserve(tsd.size());
@@ -227,10 +227,10 @@ namespace boost { namespace polygon{
         }
       }
     }
-    
+
   };
 
 
 }
 }
-#endif 
+#endif

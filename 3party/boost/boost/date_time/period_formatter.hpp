@@ -7,7 +7,7 @@
  * Boost Software License, Version 1.0. (See accompanying
  * file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt)
  * Author: Jeff Garland, Bart Garst
- * $Date: 2008-02-27 12:00:24 -0800 (Wed, 27 Feb 2008) $
+ * $Date: 2012-09-22 15:33:33 -0700 (Sat, 22 Sep 2012) $
  */
 
 
@@ -114,10 +114,10 @@ namespace boost { namespace date_time {
     {
       m_range_option = option;
     }
-    void delimiter_strings(const string_type& separator,
-                           const string_type& start_delim,
-                           const string_type& open_end_delim,
-                           const string_type& closed_end_delim)
+    void delimiter_strings(const string_type& ,
+                           const string_type& ,
+                           const string_type& ,
+                           const string_type& )
     {
       m_period_separator;
       m_period_start_delimeter;

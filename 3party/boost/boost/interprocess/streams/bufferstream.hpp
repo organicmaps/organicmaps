@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -8,7 +8,7 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 //
-// This file comes from SGI's sstream file. Modified by Ion Gaztanaga 2005.
+// This file comes from SGI's sstream file. Modified by Ion Gaztanaga 2005-2012.
 // Changed internal SGI string to a buffer. Added efficient
 // internal buffer get/set/swap functions, so that we can obtain/establish the
 // internal buffer without any reallocation or copy. Kill those temporaries!
@@ -42,7 +42,7 @@
 #include <ios>
 #include <istream>
 #include <ostream>
-#include <string>    // char traits           
+#include <string>    // char traits
 #include <cstddef>   // ptrdiff_t
 #include <boost/assert.hpp>
 #include <boost/interprocess/interprocess_fwd.hpp>
@@ -177,7 +177,7 @@ class basic_bufferbuf
    {
       bool in  = false;
       bool out = false;
-       
+
       const std::ios_base::openmode inout =
          std::ios_base::in | std::ios_base::out;
 

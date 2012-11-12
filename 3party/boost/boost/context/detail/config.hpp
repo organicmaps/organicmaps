@@ -4,8 +4,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef BOOST_CTX_DETAIL_CONFIG_H
-#define BOOST_CTX_DETAIL_CONFIG_H
+#ifndef BOOST_CONTEXT_DETAIL_CONFIG_H
+#define BOOST_CONTEXT_DETAIL_CONFIG_H
 
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
@@ -39,4 +39,4 @@
 # include <boost/config/auto_link.hpp>
 #endif
 
-#endif // BOOST_CTX_DETAIL_CONFIG_H
+#endif // BOOST_CONTEXT_DETAIL_CONFIG_H

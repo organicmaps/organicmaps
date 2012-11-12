@@ -50,7 +50,7 @@
                         vector1<const ::boost::phoenix::actor<Expr> *> &
                       , default_actions
                     > const &
-                  , int
+                  , proto::empty_env
                 >::result_type
                 type;
         };
@@ -97,7 +97,7 @@
                             )<const ::boost::phoenix::actor<Expr> *, BOOST_PHOENIX_A> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };

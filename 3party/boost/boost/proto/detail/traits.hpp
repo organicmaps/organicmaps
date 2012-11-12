@@ -65,7 +65,7 @@
 
             template<typename Expr, typename State, typename Data>
             struct impl
-              : detail::pass_through_impl<function, Expr, State, Data>
+              : detail::pass_through_impl<function, deduce_domain, Expr, State, Data>
             {};
 
             /// INTERNAL ONLY
@@ -110,7 +110,7 @@
 
             template<typename Expr, typename State, typename Data>
             struct impl
-              : detail::pass_through_impl<nary_expr, Expr, State, Data>
+              : detail::pass_through_impl<nary_expr, deduce_domain, Expr, State, Data>
             {};
 
             /// INTERNAL ONLY

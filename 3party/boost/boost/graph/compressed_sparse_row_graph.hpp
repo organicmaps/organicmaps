@@ -136,7 +136,7 @@ namespace detail {
     typedef boost::iterator_facade<default_construct_iterator<T>, T, std::random_access_iterator_tag, const T&> base_type;
     T saved_value;
     const T& dereference() const {return saved_value;}
-    bool equal(default_construct_iterator i) const {return true;}
+    bool equal(default_construct_iterator /*i*/) const {return true;}
     void increment() {}
     void decrement() {}
     void advance(typename base_type::difference_type) {}

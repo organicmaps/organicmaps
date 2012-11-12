@@ -28,6 +28,68 @@ namespace container {
 namespace container_detail {
 
 //!A deleter for scoped_ptr that deallocates the memory
+//!allocated for an object using a STL allocator.
+template <class A>
+struct scoped_deallocator
+{
+   typedef allocator_traits<A> allocator_traits_type;
+   typedef typename allocator_traits_type::pointer pointer;
+   typedef container_detail::integral_constant<unsigned,
+      boost::container::container_detail::
+         version<A>::value>                   alloc_version;
+   typedef container_detail::integral_constant<unsigned, 1>     allocator_v1;
+   typedef container_detail::integral_constant<unsigned, 2>     allocator_v2;
+
+   private:
+   void priv_deallocate(allocator_v1)
+   {  m_alloc.deallocate(m_ptr, 1); }
+
+   void priv_deallocate(allocator_v2)
+   {  m_alloc.deallocate_one(m_ptr); }
+
+   BOOST_MOVABLE_BUT_NOT_COPYABLE(scoped_deallocator)
+
+   public:
+
+   pointer     m_ptr;
+   A&  m_alloc;
+
+   scoped_deallocator(pointer p, A& a)
+      : m_ptr(p), m_alloc(a)
+   {}
+
+   ~scoped_deallocator()
+   {  if (m_ptr)priv_deallocate(alloc_version());  }
+
+   scoped_deallocator(BOOST_RV_REF(scoped_deallocator) o)
+      :  m_ptr(o.m_ptr), m_alloc(o.m_alloc)
+   {  o.release();  }
+
+   pointer get() const
+   {  return m_ptr;  }
+
+   void release()
+   {  m_ptr = 0; }
+};
+
+template <class Allocator>
+struct null_scoped_deallocator
+{
+   typedef boost::container::allocator_traits<Allocator> AllocTraits;
+   typedef typename AllocTraits::pointer    pointer;
+   typedef typename AllocTraits::size_type  size_type;
+
+   null_scoped_deallocator(pointer, Allocator&, size_type)
+   {}
+
+   void release()
+   {}
+
+   pointer get() const
+   {  return pointer();  }
+};
+
+//!A deleter for scoped_ptr that deallocates the memory
 //!allocated for an array of objects using a STL allocator.
 template <class Allocator>
 struct scoped_array_deallocator
@@ -239,10 +301,57 @@ class allocator_destroyer
    void operator()(const pointer &p)
    {
       AllocTraits::destroy(a_, container_detail::to_raw_pointer(p));
-      priv_deallocate(p, alloc_version());
+      this->priv_deallocate(p, alloc_version());
    }
 };
 
+template <class A>
+class allocator_destroyer_and_chain_builder
+{
+   typedef allocator_traits<A> allocator_traits_type;
+   typedef typename allocator_traits_type::value_type value_type;
+   typedef typename A::multiallocation_chain    multiallocation_chain;
+
+   A & a_;
+   multiallocation_chain &c_;
+
+   public:
+   allocator_destroyer_and_chain_builder(A &a, multiallocation_chain &c)
+      :  a_(a), c_(c)
+   {}
+
+   void operator()(const typename A::pointer &p)
+   {
+      allocator_traits<A>::destroy(a_, container_detail::to_raw_pointer(p));
+      c_.push_front(p);
+   }
+};
+
+template <class A>
+class allocator_multialloc_chain_node_deallocator
+{
+   typedef allocator_traits<A> allocator_traits_type;
+   typedef typename allocator_traits_type::value_type value_type;
+   typedef typename A::multiallocation_chain    multiallocation_chain;
+   typedef allocator_destroyer_and_chain_builder<A> chain_builder;
+
+   A & a_;
+   multiallocation_chain c_;
+
+   public:
+   allocator_multialloc_chain_node_deallocator(A &a)
+      :  a_(a), c_()
+   {}
+
+   chain_builder get_chain_builder()
+   {  return chain_builder(a_, c_);  }
+
+   ~allocator_multialloc_chain_node_deallocator()
+   {
+      if(!c_.empty())
+         a_.deallocate_individual(boost::move(c_));
+   }
+};
 
 }  //namespace container_detail {
 }  //namespace container {

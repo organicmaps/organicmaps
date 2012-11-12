@@ -11,8 +11,7 @@
 #ifndef BOOST_GRAPH_CORE_NUMBERS_HPP
 #define BOOST_GRAPH_CORE_NUMBERS_HPP
 
-#include <boost/pending/mutable_queue.hpp>
-#include <boost/pending/indirect_cmp.hpp>
+#include <boost/graph/detail/d_ary_heap.hpp>
 #include <boost/graph/breadth_first_search.hpp>
 #include <boost/iterator/reverse_iterator.hpp>
 #include <boost/concept/assert.hpp>
@@ -159,7 +158,8 @@ namespace boost {
                     if (get(c,u) > v_cn) {
                         // remove the edge
                         put(c,u,get(c,u)-get(wm,*oi));
-                        Q.update(u);
+                        if (Q.contains(u))
+                          Q.update(u);
                     }
                 }
                 vis.finish_vertex(v,g);
@@ -175,13 +175,14 @@ namespace boost {
         {
             typedef typename property_traits<CoreMap>::value_type D;
             typedef std::less<D> Cmp;
-            typedef indirect_cmp<CoreMap,Cmp > IndirectCmp;
-            IndirectCmp icmp(c, Cmp());
             // build the mutable queue
             typedef typename graph_traits<Graph>::vertex_descriptor vertex;
-            typedef mutable_queue<vertex, std::vector<vertex>, IndirectCmp,
-                IndexMap> MutableQueue;
-            MutableQueue Q(num_vertices(g), icmp, im);
+            std::vector<std::size_t> index_in_heap_data(num_vertices(g));
+            typedef iterator_property_map<std::vector<std::size_t>::iterator, IndexMap>
+              index_in_heap_map_type;
+            index_in_heap_map_type index_in_heap_map(index_in_heap_data.begin(), im);
+            typedef d_ary_heap_indirect<vertex, 4, index_in_heap_map_type, CoreMap, Cmp> MutableQueue;
+            MutableQueue Q(c, index_in_heap_map, Cmp());
             typename graph_traits<Graph>::vertex_iterator vi,vi_end;
             for (boost::tie(vi,vi_end) = vertices(g); vi!=vi_end; ++vi) {
                 Q.push(*vi);

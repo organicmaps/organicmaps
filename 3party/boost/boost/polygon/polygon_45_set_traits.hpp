@@ -1,6 +1,6 @@
 /*
   Copyright 2008 Intel Corporation
- 
+
   Use, modification and distribution are subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
@@ -43,13 +43,13 @@ namespace boost { namespace polygon{
     typedef typename is_45_polygonal_concept<typename geometry_concept<T>::type>::type type;
   };
   template <typename T>
-  struct is_polygon_45_set_type<std::list<T> > { 
+  struct is_polygon_45_set_type<std::list<T> > {
     typedef typename gtl_or<
       typename is_45_polygonal_concept<typename geometry_concept<std::list<T> >::type>::type,
       typename is_45_polygonal_concept<typename geometry_concept<typename std::list<T>::value_type>::type>::type>::type type;
   };
   template <typename T>
-  struct is_polygon_45_set_type<std::vector<T> > { 
+  struct is_polygon_45_set_type<std::vector<T> > {
     typedef typename gtl_or<
       typename is_45_polygonal_concept<typename geometry_concept<std::vector<T> >::type>::type,
       typename is_45_polygonal_concept<typename geometry_concept<typename std::vector<T>::value_type>::type>::type>::type type;
@@ -60,13 +60,13 @@ namespace boost { namespace polygon{
     typedef typename gtl_same_type<polygon_45_set_concept, typename geometry_concept<T>::type>::type type;
   };
   template <typename T>
-  struct is_mutable_polygon_45_set_type<std::list<T> > { 
+  struct is_mutable_polygon_45_set_type<std::list<T> > {
     typedef typename gtl_or<
       typename gtl_same_type<polygon_45_set_concept, typename geometry_concept<std::list<T> >::type>::type,
       typename is_45_polygonal_concept<typename geometry_concept<typename std::list<T>::value_type>::type>::type>::type type;
   };
   template <typename T>
-  struct is_mutable_polygon_45_set_type<std::vector<T> > { 
+  struct is_mutable_polygon_45_set_type<std::vector<T> > {
     typedef typename gtl_or<
       typename gtl_same_type<polygon_45_set_concept, typename geometry_concept<std::vector<T> >::type>::type,
       typename is_45_polygonal_concept<typename geometry_concept<typename std::vector<T>::value_type>::type>::type>::type type;
@@ -94,6 +94,7 @@ namespace boost { namespace polygon{
     static inline void set(std::list<T>& polygon_set, input_iterator_type input_begin, input_iterator_type input_end) {
       polygon_set.clear();
       polygon_45_set_data<typename polygon_45_set_traits<std::list<T> >::coordinate_type> ps;
+      ps.reserve(std::distance(input_begin, input_end));
       ps.insert(input_begin, input_end);
       ps.sort();
       ps.clean();
@@ -105,7 +106,10 @@ namespace boost { namespace polygon{
     template <typename input_iterator_type>
     static inline void set(std::vector<T>& polygon_set, input_iterator_type input_begin, input_iterator_type input_end) {
       polygon_set.clear();
+      size_t num_ele = std::distance(input_begin, input_end);
+      polygon_set.reserve(num_ele);
       polygon_45_set_data<typename polygon_45_set_traits<std::list<T> >::coordinate_type> ps;
+      ps.reserve(num_ele);
       ps.insert(input_begin, input_end);
       ps.sort();
       ps.clean();
@@ -116,7 +120,7 @@ namespace boost { namespace polygon{
   template <typename T>
   struct polygon_45_set_mutable_traits<polygon_45_set_data<T> > {
     template <typename input_iterator_type>
-    static inline void set(polygon_45_set_data<T>& polygon_set, 
+    static inline void set(polygon_45_set_data<T>& polygon_set,
                            input_iterator_type input_begin, input_iterator_type input_end) {
       polygon_set.set(input_begin, input_end);
     }
@@ -140,7 +144,6 @@ namespace boost { namespace polygon{
     static inline bool sorted(const polygon_45_set_data<T>& polygon_set) { polygon_set.sort(); return true; }
 
   };
-}  
+}
 }
 #endif
-

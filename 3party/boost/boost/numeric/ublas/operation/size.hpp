@@ -304,7 +304,7 @@ template <std::size_t Dim, typename VectorExprT>
 BOOST_UBLAS_INLINE
 typename vector_traits<VectorExprT>::size_type size(vector_expression<VectorExprT> const& ve)
 {
-    return detail::size_by_dim_impl<Dim, vector_tag>::template apply(ve);
+    return detail::size_by_dim_impl<Dim, vector_tag>::apply(ve);
 }
 
 
@@ -321,7 +321,7 @@ template <std::size_t Dim, typename MatrixExprT>
 BOOST_UBLAS_INLINE
 typename matrix_traits<MatrixExprT>::size_type size(matrix_expression<MatrixExprT> const& me)
 {
-    return detail::size_by_dim_impl<Dim, matrix_tag>::template apply(me);
+    return detail::size_by_dim_impl<Dim, matrix_tag>::apply(me);
 }
 
 
@@ -341,7 +341,7 @@ typename ::boost::lazy_enable_if_c<
     detail::matrix_size_type<MatrixExprT>
 >::type size(matrix_expression<MatrixExprT> const& me)
 {
-    return detail::size_by_tag_impl<TagT, matrix_tag, typename matrix_traits<MatrixExprT>::orientation_category>::template apply(me);
+    return detail::size_by_tag_impl<TagT, matrix_tag, typename matrix_traits<MatrixExprT>::orientation_category>::apply(me);
 }
 
 }}} // Namespace boost::numeric::ublas

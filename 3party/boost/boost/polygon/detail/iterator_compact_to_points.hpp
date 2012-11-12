@@ -1,6 +1,6 @@
 /*
   Copyright 2008 Intel Corporation
- 
+
   Use, modification and distribution are subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
@@ -24,7 +24,7 @@ public:
   typedef const point_type& reference; //immutable
 
   inline iterator_compact_to_points() : iter_(), iter_end_(), pt_(), firstX_(), orient_() {}
-  inline iterator_compact_to_points(iterator_type iter, iterator_type iter_end) : 
+  inline iterator_compact_to_points(iterator_type iter, iterator_type iter_end) :
     iter_(iter), iter_end_(iter_end), pt_(), firstX_(), orient_(HORIZONTAL) {
     if(iter_ != iter_end_) {
       firstX_ = *iter_;
@@ -66,4 +66,3 @@ public:
 }
 }
 #endif
-

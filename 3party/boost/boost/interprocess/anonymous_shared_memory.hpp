@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -90,13 +90,13 @@ anonymous_shared_memory(std::size_t size, void *address = 0)
                   , 0);
 
    if(address == MAP_FAILED){
-      if(fd != -1)  
+      if(fd != -1)
          close(fd);
       error_info err = system_error_code();
       throw interprocess_exception(err);
    }
 
-   if(fd != -1)  
+   if(fd != -1)
       close(fd);
 
    return ipcdetail::raw_mapped_region_creator::create_posix_mapped_region(address, size);

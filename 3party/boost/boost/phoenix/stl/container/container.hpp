@@ -349,17 +349,39 @@ namespace boost { namespace phoenix
             {};
 
             template <typename C, typename Arg1>
-            typename result_of::erase<C, Arg1>::type
+            typename stl_impl::disable_if_is_void<
+                typename result_of::erase<C, Arg1>::type
+            >::type
             operator()(C& c, Arg1 arg1) const
             {
                 return c.erase(arg1);
             }
 
+            template <typename C, typename Arg1>
+            typename stl_impl::enable_if_is_void<
+                typename result_of::erase<C, Arg1>::type
+            >::type
+            operator()(C& c, Arg1 arg1) const
+            {
+                c.erase(arg1);
+            }
+
             template <typename C, typename Arg1, typename Arg2>
-            typename result_of::erase<C, Arg1, Arg2>::type
+            typename stl_impl::disable_if_is_void<
+                typename result_of::erase<C, Arg1, Arg2>::type
+            >::type
             operator()(C& c, Arg1 arg1, Arg2 arg2) const
             {
                 return c.erase(arg1, arg2);
+            }
+
+            template <typename C, typename Arg1, typename Arg2>
+            typename stl_impl::enable_if_is_void<
+                typename result_of::erase<C, Arg1, Arg2>::type
+            >::type
+            operator()(C& c, Arg1 arg1, Arg2 arg2) const
+            {
+                c.erase(arg1, arg2);
             }
         };
 
@@ -512,18 +534,41 @@ namespace boost { namespace phoenix
             }
 
             template <typename C, typename Arg1, typename Arg2>
-            typename result<insert(C&, Arg1, Arg2)>::type
+            typename stl_impl::disable_if_is_void<
+                typename result<insert(C&, Arg1, Arg2)>::type
+            >::type
             operator()(C& c, Arg1 arg1, Arg2 arg2) const
             {
                 return c.insert(arg1, arg2);
             }
 
+            template <typename C, typename Arg1, typename Arg2>
+            typename stl_impl::enable_if_is_void<
+                typename result<insert(C&, Arg1, Arg2)>::type
+            >::type
+            operator()(C& c, Arg1 arg1, Arg2 arg2) const
+            {
+                c.insert(arg1, arg2);
+            }
+
             template <typename C, typename Arg1, typename Arg2, typename Arg3>
-            typename result<insert(C&, Arg1, Arg2, Arg3)>::type
+            typename stl_impl::disable_if_is_void<
+                typename result<insert(C&, Arg1, Arg2, Arg3)>::type
+            >::type
             operator()(
                 C& c, Arg1 arg1, Arg2 arg2, Arg3 arg3) const
             {
                 return c.insert(arg1, arg2, arg3);
+            }
+
+            template <typename C, typename Arg1, typename Arg2, typename Arg3>
+            typename stl_impl::enable_if_is_void<
+                typename result<insert(C&, Arg1, Arg2, Arg3)>::type
+            >::type
+            operator()(
+                C& c, Arg1 arg1, Arg2 arg2, Arg3 arg3) const
+            {
+                c.insert(arg1, arg2, arg3);
             }
         };
 
@@ -666,7 +711,7 @@ namespace boost { namespace phoenix
             template <typename C, typename Arg>
             void operator()(C& c, Arg const& count) const
             {
-                return c.reserve(count);
+                c.reserve(count);
             }
         };
 
@@ -677,13 +722,13 @@ namespace boost { namespace phoenix
             template <typename C, typename Arg1>
             void operator()(C& c, Arg1 const& arg1) const
             {
-                return c.resize(arg1);
+                c.resize(arg1);
             }
 
             template <typename C, typename Arg1, typename Arg2>
             void operator()(C& c, Arg1 const& arg1, Arg2 const& arg2) const
             {
-                return c.resize(arg1, arg2);
+                c.resize(arg1, arg2);
             }
         };
 

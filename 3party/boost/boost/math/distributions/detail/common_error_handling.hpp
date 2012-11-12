@@ -1,5 +1,5 @@
 // Copyright John Maddock 2006, 2007.
-// Copyright Paul A. Bristow 2006, 2007.
+// Copyright Paul A. Bristow 2006, 2007, 2012.
 
 // Use, modification and distribution are subject to the
 // Boost Software License, Version 1.0.
@@ -12,6 +12,7 @@
 #include <boost/math/policies/error_handling.hpp>
 #include <boost/math/special_functions/fpclassify.hpp>
 // using boost::math::isfinite;
+// using boost::math::isnan;
 
 namespace boost{ namespace math{ namespace detail
 {
@@ -31,7 +32,7 @@ inline bool check_probability(const char* function, RealType const& prob, RealTy
 
 template <class RealType, class Policy>
 inline bool check_df(const char* function, RealType const& df, RealType* result, const Policy& pol)
-{
+{ //  df > 0 but NOT +infinity allowed.
    if((df <= 0) || !(boost::math::isfinite)(df))
    {
       *result = policies::raise_domain_error<RealType>(
@@ -41,6 +42,20 @@ inline bool check_df(const char* function, RealType const& df, RealType* result,
    }
    return true;
 }
+
+template <class RealType, class Policy>
+inline bool check_df_gt0_to_inf(const char* function, RealType const& df, RealType* result, const Policy& pol)
+{  // df > 0 or +infinity are allowed.
+   if( (df <= 0) || (boost::math::isnan)(df) )
+   { // is bad df <= 0 or NaN or -infinity.
+      *result = policies::raise_domain_error<RealType>(
+         function,
+         "Degrees of freedom argument is %1%, but must be > 0 !", df, pol);
+      return false;
+   }
+   return true;
+} // check_df_gt0_to_inf
+
 
 template <class RealType, class Policy>
 inline bool check_scale(

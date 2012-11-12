@@ -8,7 +8,7 @@
 #if !defined(BOOST_FUSION_DEQUE_DETAIL_DEQUE_KEYED_VALUES_26112006_1330)
 #define BOOST_FUSION_DEQUE_DETAIL_DEQUE_KEYED_VALUES_26112006_1330
 
-#if defined(BOOST_FUSION_HAS_CPP11_DEQUE)
+#if defined(BOOST_FUSION_HAS_VARIADIC_DEQUE)
 #error "C++03 only! This file should not have been included"
 #endif
 
@@ -69,6 +69,11 @@ namespace boost { namespace fusion { namespace detail
         typedef nil_keyed_element type;
 
         static type call()
+        {
+            return type();
+        }
+
+        static type forward_()
         {
             return type();
         }

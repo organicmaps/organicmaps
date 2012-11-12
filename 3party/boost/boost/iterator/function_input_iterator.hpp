@@ -1,4 +1,6 @@
 // Copyright 2009 (C) Dean Michael Berris <me@deanberris.com>
+// Copyright 2012 (C) Google, Inc.
+// Copyright 2012 (C) Jeffrey Lee Hellrung, Jr.
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -7,11 +9,14 @@
 #ifndef BOOST_FUNCTION_INPUT_ITERATOR
 #define BOOST_FUNCTION_INPUT_ITERATOR
 
+#include <boost/assert.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/function_types/is_function_pointer.hpp>
 #include <boost/function_types/is_function_reference.hpp>
 #include <boost/function_types/result_type.hpp>
 #include <boost/iterator/iterator_facade.hpp>
+#include <boost/none.hpp>
+#include <boost/optional/optional.hpp>
 
 namespace boost {
 
@@ -29,16 +34,19 @@ namespace boost {
         public:
             function_input_iterator() {}
             function_input_iterator(Function & f_, Input state_ = Input()) 
-                : f(&f_), state(state_), value((*f)()) {}
+                : f(&f_), state(state_) {}
 
             void increment() {
-                value = (*f)();
+                if(value)
+                    value = none;
+                else
+                    (*f)();
                 ++state;
             }
 
             typename Function::result_type const & 
                 dereference() const {
-                    return value;
+                    return (value ? value : value = (*f)()).get();
             }
 
             bool equal(function_input_iterator const & other) const {
@@ -48,7 +56,7 @@ namespace boost {
         private:
             Function * f;
             Input state;
-            typename Function::result_type value;
+            mutable optional<typename Function::result_type> value;
         };
 
         template <class Function, class Input>
@@ -63,17 +71,19 @@ namespace boost {
         public:
             function_pointer_input_iterator() {}
             function_pointer_input_iterator(Function &f_, Input state_ = Input())
-                : f(f_), state(state_), value((*f)()) 
-            {}
+                : f(f_), state(state_) {}
 
             void increment() {
-                value = (*f)();
+                if(value)
+                    value = none;
+                else
+                    (*f)();
                 ++state;
             }
 
             typename function_types::result_type<Function>::type const &
                 dereference() const {
-                    return value;
+                    return (value ? value : value = (*f)()).get();
             }
 
             bool equal(function_pointer_input_iterator const & other) const {
@@ -83,7 +93,7 @@ namespace boost {
         private:
             Function f;
             Input state;
-            typename function_types::result_type<Function>::type value;
+            mutable optional<typename function_types::result_type<Function>::type> value;
         };
 
         template <class Function, class Input>

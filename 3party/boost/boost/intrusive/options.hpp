@@ -57,12 +57,6 @@ struct eval_value_traits
    typedef typename ValueTraits::value_traits type;
 };
 
-template <class T>
-struct external_bucket_traits_is_true
-{
-   static const bool value = external_bucket_traits_bool<T>::value == 3;
-};
-
 template <class BucketTraits>
 struct eval_bucket_traits
 {

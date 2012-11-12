@@ -51,17 +51,8 @@ namespace boost
             int k = itrunc(l2);
             if(k == 0)
                k = 1;
-            T pois;
-            if(k == 0)
-            {
                // Starting Poisson weight:
-               pois = exp(-l2);
-            }
-            else
-            {
-               // Starting Poisson weight:
-               pois = gamma_p_derivative(T(k+1), l2, pol);
-            }
+            T pois = gamma_p_derivative(T(k+1), l2, pol);
             if(pois == 0)
                return init_val;
             // recurance term:

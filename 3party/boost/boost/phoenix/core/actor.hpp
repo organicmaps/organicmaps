@@ -261,7 +261,7 @@ namespace boost { namespace phoenix
                 Env const &
               , default_actions const &
             >::type
-          , int
+          , proto::empty_env
         >::result_type
         eval(Env const & env) const
         {

@@ -1,6 +1,6 @@
 /*
   Copyright 2008 Intel Corporation
- 
+
   Use, modification and distribution are subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
@@ -13,6 +13,7 @@
 #include "transform.hpp"
 #include "interval_concept.hpp"
 #include "rectangle_concept.hpp"
+#include "segment_concept.hpp"
 #include "detail/iterator_points_to_compact.hpp"
 #include "detail/iterator_compact_to_points.hpp"
 #include "polygon_traits.hpp"
@@ -46,7 +47,7 @@ namespace boost { namespace polygon{
 
     // constructor from an iterator pair over vertex data
     template <typename iT>
-    inline polygon_90_set_data(orientation_2d orient, iT input_begin, iT input_end) : 
+    inline polygon_90_set_data(orientation_2d orient, iT input_begin, iT input_end) :
       orient_(HORIZONTAL), data_(), dirty_(false), unsorted_(false) {
       dirty_ = true;
       unsorted_ = true;
@@ -54,14 +55,14 @@ namespace boost { namespace polygon{
     }
 
     // copy constructor
-    inline polygon_90_set_data(const polygon_90_set_data& that) : 
+    inline polygon_90_set_data(const polygon_90_set_data& that) :
       orient_(that.orient_), data_(that.data_), dirty_(that.dirty_), unsorted_(that.unsorted_) {}
 
     template <typename ltype, typename rtype, typename op_type>
     inline polygon_90_set_data(const polygon_90_set_view<ltype, rtype, op_type>& that);
 
     // copy with orientation change constructor
-    inline polygon_90_set_data(orientation_2d orient, const polygon_90_set_data& that) : 
+    inline polygon_90_set_data(orientation_2d orient, const polygon_90_set_data& that) :
       orient_(orient), data_(), dirty_(false), unsorted_(false) {
       insert(that, false, that.orient_);
     }
@@ -138,7 +139,7 @@ namespace boost { namespace polygon{
       insert(begin_input, end_input, orient_);
     }
 
-    inline void insert(const std::pair<coordinate_type, std::pair<coordinate_type, int> >& vertex, bool is_hole = false, 
+    inline void insert(const std::pair<coordinate_type, std::pair<coordinate_type, int> >& vertex, bool is_hole = false,
                        orientation_2d orient = HORIZONTAL) {
       data_.push_back(vertex);
       if(orient != orient_) std::swap(data_.back().first, data_.back().second.first);
@@ -190,7 +191,7 @@ namespace boost { namespace polygon{
       }
     }
 
-    // equivalence operator 
+    // equivalence operator
     inline bool operator==(const polygon_90_set_data& p) const {
       if(orient_ == p.orient()) {
         clean();
@@ -201,7 +202,7 @@ namespace boost { namespace polygon{
       }
     }
 
-    // inequivalence operator 
+    // inequivalence operator
     inline bool operator!=(const polygon_90_set_data& p) const {
       return !((*this) == p);
     }
@@ -260,7 +261,7 @@ namespace boost { namespace polygon{
     //   value_type data;
     //   std::swap(data, data_);
     //   applyBooleanBinaryOp(data.begin(), data.end(),
-    //                        that.begin(), that.end(), boolean_op::BinaryCount<boolean_op::BinaryNot>()); 
+    //                        that.begin(), that.end(), boolean_op::BinaryCount<boolean_op::BinaryNot>());
     //   return *this;
     // }
     // polygon_90_set_data<coordinate_type>& operator^=(const polygon_90_set_data& that) {
@@ -269,7 +270,7 @@ namespace boost { namespace polygon{
     //   value_type data;
     //   std::swap(data, data_);
     //   applyBooleanBinaryOp(data.begin(), data.end(),
-    //                        that.begin(), that.end(),  boolean_op::BinaryCount<boolean_op::BinaryXor>()); 
+    //                        that.begin(), that.end(),  boolean_op::BinaryCount<boolean_op::BinaryXor>());
     //   return *this;
     // }
     // polygon_90_set_data<coordinate_type>& operator&=(const polygon_90_set_data& that) {
@@ -278,7 +279,7 @@ namespace boost { namespace polygon{
     //   value_type data;
     //   std::swap(data, data_);
     //   applyBooleanBinaryOp(data.begin(), data.end(),
-    //                        that.begin(), that.end(), boolean_op::BinaryCount<boolean_op::BinaryAnd>()); 
+    //                        that.begin(), that.end(), boolean_op::BinaryCount<boolean_op::BinaryAnd>());
     //   return *this;
     // }
     // polygon_90_set_data<coordinate_type>& operator|=(const polygon_90_set_data& that) {
@@ -296,7 +297,7 @@ namespace boost { namespace polygon{
 
     void sort() const{
       if(unsorted_) {
-        gtlsort(data_.begin(), data_.end());
+        polygon_sort(data_.begin(), data_.end());
         unsorted_ = false;
       }
     }
@@ -304,6 +305,7 @@ namespace boost { namespace polygon{
     template <typename input_iterator_type>
     void set(input_iterator_type input_begin, input_iterator_type input_end, orientation_2d orient) {
       data_.clear();
+      reserve(std::distance(input_begin, input_end));
       data_.insert(data_.end(), input_begin, input_end);
       orient_ = orient;
       dirty_ = true;
@@ -311,7 +313,7 @@ namespace boost { namespace polygon{
     }
 
     void set(const value_type& value, orientation_2d orient) {
-      data_ = value; 
+      data_ = value;
       orient_ = orient;
       dirty_ = true;
       unsorted_ = true;
@@ -345,11 +347,11 @@ namespace boost { namespace polygon{
           typename coordinate_traits<coordinate_type>::unsigned_area_type north_bloating) {
       std::vector<rectangle_data<coordinate_type> > rects;
       clean();
-      rects.reserve(data_.size() / 2); 
+      rects.reserve(data_.size() / 2);
       get(rects);
-      rectangle_data<coordinate_type> convolutionRectangle(interval_data<coordinate_type>(-((coordinate_type)west_bloating), 
+      rectangle_data<coordinate_type> convolutionRectangle(interval_data<coordinate_type>(-((coordinate_type)west_bloating),
                                                                                           (coordinate_type)east_bloating),
-                                                           interval_data<coordinate_type>(-((coordinate_type)south_bloating), 
+                                                           interval_data<coordinate_type>(-((coordinate_type)south_bloating),
                                                                                           (coordinate_type)north_bloating));
       for(typename std::vector<rectangle_data<coordinate_type> >::iterator itr = rects.begin();
           itr != rects.end(); ++itr) {
@@ -392,7 +394,7 @@ namespace boost { namespace polygon{
       if(nyg)
         pt.x(current_pt.x() + east_bloating);
     }
-    static void resize_poly_up(std::vector<point_data<coordinate_type> >& poly, 
+    static void resize_poly_up(std::vector<point_data<coordinate_type> >& poly,
                                coordinate_type west_bloating,
                                coordinate_type east_bloating,
                                coordinate_type south_bloating,
@@ -415,7 +417,7 @@ namespace boost { namespace polygon{
       modify_pt(poly[0], prev_pt, current_pt, next_pt, west_bloating, east_bloating, south_bloating, north_bloating);
       remove_colinear_pts(poly);
     }
-    static bool resize_poly_down(std::vector<point_data<coordinate_type> >& poly, 
+    static bool resize_poly_down(std::vector<point_data<coordinate_type> >& poly,
                                  coordinate_type west_shrinking,
                                  coordinate_type east_shrinking,
                                  coordinate_type south_shrinking,
@@ -427,7 +429,7 @@ namespace boost { namespace polygon{
       point_data<coordinate_type> prev_pt = poly[0];
       point_data<coordinate_type> current_pt = poly[1];
       encompass(extents_rectangle, current_pt);
-      for(int i = 2; i < poly.size(); ++i) {
+      for(std::size_t i = 2; i < poly.size(); ++i) {
         point_data<coordinate_type> next_pt = poly[i];
         encompass(extents_rectangle, next_pt);
         modify_pt(poly[i-1], prev_pt, current_pt, next_pt, west_shrinking, east_shrinking, south_shrinking, north_shrinking);
@@ -451,7 +453,7 @@ namespace boost { namespace polygon{
       bool found_colinear = true;
       while(found_colinear && poly.size() >= 4) {
         found_colinear = false;
-        typename std::vector<point_data<coordinate_type> >::iterator itr = poly.begin(); 
+        typename std::vector<point_data<coordinate_type> >::iterator itr = poly.begin();
         itr += poly.size() - 1; //get last element position
         typename std::vector<point_data<coordinate_type> >::iterator itr2 = poly.begin();
         typename std::vector<point_data<coordinate_type> >::iterator itr3 = itr2;
@@ -477,7 +479,7 @@ namespace boost { namespace polygon{
         poly.erase(poly.end() - count, poly.end());
       }
       return poly.size() >= 4;
-    }    
+    }
 
     polygon_90_set_data&
     bloat(typename coordinate_traits<coordinate_type>::unsigned_area_type west_bloating,
@@ -493,9 +495,10 @@ namespace boost { namespace polygon{
         //psref.insert(view_as<polygon_90_concept>((*itr).self_));
         //rectangle_data<coordinate_type> prerect;
         //psref.extents(prerect);
-        resize_poly_up((*itr).self_.coords_, west_bloating, east_bloating, south_bloating, north_bloating);
+        resize_poly_up((*itr).self_.coords_, (coordinate_type)west_bloating, (coordinate_type)east_bloating,
+                       (coordinate_type)south_bloating, (coordinate_type)north_bloating);
         iterator_geometry_to_set<polygon_90_concept, view_of<polygon_90_concept, polygon_45_data<coordinate_type> > >
-          begin_input(view_as<polygon_90_concept>((*itr).self_), LOW, orient_, false, true, COUNTERCLOCKWISE), 
+          begin_input(view_as<polygon_90_concept>((*itr).self_), LOW, orient_, false, true, COUNTERCLOCKWISE),
           end_input(view_as<polygon_90_concept>((*itr).self_), HIGH, orient_, false, true, COUNTERCLOCKWISE);
         insert(begin_input, end_input, orient_);
         //polygon_90_set_data<coordinate_type> pstest;
@@ -512,15 +515,16 @@ namespace boost { namespace polygon{
           //psrefhole.insert(prerect);
           //psrefhole.insert(view_as<polygon_90_concept>(*itrh), true);
           //polygon_45_data<coordinate_type> testpoly(*itrh);
-          if(resize_poly_down((*itrh).coords_, west_bloating, east_bloating, south_bloating, north_bloating)) {
+          if(resize_poly_down((*itrh).coords_,(coordinate_type)west_bloating, (coordinate_type)east_bloating,
+                              (coordinate_type)south_bloating, (coordinate_type)north_bloating)) {
             iterator_geometry_to_set<polygon_90_concept, view_of<polygon_90_concept, polygon_45_data<coordinate_type> > >
-              begin_input2(view_as<polygon_90_concept>(*itrh), LOW, orient_, true, true), 
+              begin_input2(view_as<polygon_90_concept>(*itrh), LOW, orient_, true, true),
               end_input2(view_as<polygon_90_concept>(*itrh), HIGH, orient_, true, true);
             insert(begin_input2, end_input2, orient_);
             //polygon_90_set_data<coordinate_type> pstesthole;
             //pstesthole.insert(rect);
             //iterator_geometry_to_set<polygon_90_concept, view_of<polygon_90_concept, polygon_45_data<coordinate_type> > >
-            // begin_input2(view_as<polygon_90_concept>(*itrh), LOW, orient_, true, true); 
+            // begin_input2(view_as<polygon_90_concept>(*itrh), LOW, orient_, true, true);
             //pstesthole.insert(begin_input2, end_input, orient_);
             //psrefhole.bloat2(west_bloating, east_bloating, south_bloating, north_bloating);
             //if(!equivalence(psrefhole, pstesthole)) {
@@ -556,13 +560,14 @@ namespace boost { namespace polygon{
         //rectangle_data<coordinate_type> prerect;
         //psref.extents(prerect);
         //polygon_45_data<coordinate_type> testpoly((*itr).self_);
-        if(resize_poly_down((*itr).self_.coords_, -west_shrinking, -east_shrinking, -south_shrinking, -north_shrinking)) {
+        if(resize_poly_down((*itr).self_.coords_, -(coordinate_type)west_shrinking, -(coordinate_type)east_shrinking,
+                            -(coordinate_type)south_shrinking, -(coordinate_type)north_shrinking)) {
           iterator_geometry_to_set<polygon_90_concept, view_of<polygon_90_concept, polygon_45_data<coordinate_type> > >
-            begin_input(view_as<polygon_90_concept>((*itr).self_), LOW, orient_, false, true, COUNTERCLOCKWISE), 
+            begin_input(view_as<polygon_90_concept>((*itr).self_), LOW, orient_, false, true, COUNTERCLOCKWISE),
             end_input(view_as<polygon_90_concept>((*itr).self_), HIGH, orient_, false, true, COUNTERCLOCKWISE);
           insert(begin_input, end_input, orient_);
           //iterator_geometry_to_set<polygon_90_concept, view_of<polygon_90_concept, polygon_45_data<coordinate_type> > >
-          //  begin_input2(view_as<polygon_90_concept>((*itr).self_), LOW, orient_, false, true, COUNTERCLOCKWISE); 
+          //  begin_input2(view_as<polygon_90_concept>((*itr).self_), LOW, orient_, false, true, COUNTERCLOCKWISE);
           //polygon_90_set_data<coordinate_type> pstest;
           //pstest.insert(begin_input2, end_input, orient_);
           //psref.shrink2(west_shrinking, east_shrinking, south_shrinking, north_shrinking);
@@ -577,15 +582,16 @@ namespace boost { namespace polygon{
             //psrefhole.insert(prerect);
             //psrefhole.insert(view_as<polygon_90_concept>(*itrh), true);
             //polygon_45_data<coordinate_type> testpoly(*itrh);
-            resize_poly_up((*itrh).coords_, -west_shrinking, -east_shrinking, -south_shrinking, -north_shrinking);
+            resize_poly_up((*itrh).coords_, -(coordinate_type)west_shrinking, -(coordinate_type)east_shrinking,
+                            -(coordinate_type)south_shrinking, -(coordinate_type)north_shrinking);
             iterator_geometry_to_set<polygon_90_concept, view_of<polygon_90_concept, polygon_45_data<coordinate_type> > >
-              begin_input2(view_as<polygon_90_concept>(*itrh), LOW, orient_, true, true), 
+              begin_input2(view_as<polygon_90_concept>(*itrh), LOW, orient_, true, true),
               end_input2(view_as<polygon_90_concept>(*itrh), HIGH, orient_, true, true);
             insert(begin_input2, end_input2, orient_);
             //polygon_90_set_data<coordinate_type> pstesthole;
             //pstesthole.insert(rect);
             //iterator_geometry_to_set<polygon_90_concept, view_of<polygon_90_concept, polygon_45_data<coordinate_type> > >
-            //  begin_input2(view_as<polygon_90_concept>(*itrh), LOW, orient_, true, true); 
+            //  begin_input2(view_as<polygon_90_concept>(*itrh), LOW, orient_, true, true);
             //pstesthole.insert(begin_input2, end_input, orient_);
             //psrefhole.shrink2(west_shrinking, east_shrinking, south_shrinking, north_shrinking);
             //if(!equivalence(psrefhole, pstesthole)) {
@@ -618,13 +624,13 @@ namespace boost { namespace polygon{
       insert(externalBoundary, true); //note that the set is in a dirty state now
       sort();  //does not apply implicit OR operation
       std::vector<rectangle_data<coordinate_type> > rects;
-      rects.reserve(data_.size() / 2); 
+      rects.reserve(data_.size() / 2);
       //begin does not apply implicit or operation, this is a dirty range
       form_rectangles(rects, data_.begin(), data_.end(), orient_, rectangle_concept());
       clear();
-      rectangle_data<coordinate_type> convolutionRectangle(interval_data<coordinate_type>(-((coordinate_type)east_shrinking), 
+      rectangle_data<coordinate_type> convolutionRectangle(interval_data<coordinate_type>(-((coordinate_type)east_shrinking),
                                                                                           (coordinate_type)west_shrinking),
-                                                           interval_data<coordinate_type>(-((coordinate_type)north_shrinking), 
+                                                           interval_data<coordinate_type>(-((coordinate_type)north_shrinking),
                                                                                           (coordinate_type)south_shrinking));
       for(typename std::vector<rectangle_data<coordinate_type> >::iterator itr = rects.begin();
           itr != rects.end(); ++itr) {
@@ -663,10 +669,10 @@ namespace boost { namespace polygon{
     }
 
     polygon_90_set_data&
-    resize(coordinate_type west, coordinate_type east, coordinate_type south, coordinate_type north); 
+    resize(coordinate_type west, coordinate_type east, coordinate_type south, coordinate_type north);
 
     polygon_90_set_data& move(coordinate_type x_delta, coordinate_type y_delta) {
-      for(typename std::vector<std::pair<coordinate_type, std::pair<coordinate_type, int> > >::iterator 
+      for(typename std::vector<std::pair<coordinate_type, std::pair<coordinate_type, int> > >::iterator
             itr = data_.begin(); itr != data_.end(); ++itr) {
         if(orient_ == orientation_2d(VERTICAL)) {
           (*itr).first += x_delta;
@@ -701,7 +707,7 @@ namespace boost { namespace polygon{
 
     // scale set
     polygon_90_set_data& scale_up(typename coordinate_traits<coordinate_type>::unsigned_area_type factor) {
-      for(typename std::vector<std::pair<coordinate_type, std::pair<coordinate_type, int> > >::iterator 
+      for(typename std::vector<std::pair<coordinate_type, std::pair<coordinate_type, int> > >::iterator
             itr = data_.begin(); itr != data_.end(); ++itr) {
         (*itr).first *= (coordinate_type)factor;
         (*itr).second.first *= (coordinate_type)factor;
@@ -710,7 +716,7 @@ namespace boost { namespace polygon{
     }
     polygon_90_set_data& scale_down(typename coordinate_traits<coordinate_type>::unsigned_area_type factor) {
       typedef typename coordinate_traits<coordinate_type>::coordinate_distance dt;
-      for(typename std::vector<std::pair<coordinate_type, std::pair<coordinate_type, int> > >::iterator 
+      for(typename std::vector<std::pair<coordinate_type, std::pair<coordinate_type, int> > >::iterator
             itr = data_.begin(); itr != data_.end(); ++itr) {
         (*itr).first = scaling_policy<coordinate_type>::round((dt)((*itr).first) / (dt)factor);
         (*itr).second.first = scaling_policy<coordinate_type>::round((dt)((*itr).second.first) / (dt)factor);
@@ -720,7 +726,7 @@ namespace boost { namespace polygon{
     }
     template <typename scaling_type>
     polygon_90_set_data& scale(const anisotropic_scale_factor<scaling_type>& scaling) {
-      for(typename std::vector<std::pair<coordinate_type, std::pair<coordinate_type, int> > >::iterator 
+      for(typename std::vector<std::pair<coordinate_type, std::pair<coordinate_type, int> > >::iterator
             itr = data_.begin(); itr != data_.end(); ++itr) {
         if(orient_ == orientation_2d(VERTICAL)) {
           scaling.scale((*itr).first, (*itr).second.first);
@@ -733,7 +739,7 @@ namespace boost { namespace polygon{
     }
     template <typename scaling_type>
     polygon_90_set_data& scale_with(const scaling_type& scaling) {
-      for(typename std::vector<std::pair<coordinate_type, std::pair<coordinate_type, int> > >::iterator 
+      for(typename std::vector<std::pair<coordinate_type, std::pair<coordinate_type, int> > >::iterator
             itr = data_.begin(); itr != data_.end(); ++itr) {
         if(orient_ == orientation_2d(VERTICAL)) {
           scaling.scale((*itr).first, (*itr).second.first);
@@ -746,7 +752,7 @@ namespace boost { namespace polygon{
     }
     polygon_90_set_data& scale(double factor) {
       typedef typename coordinate_traits<coordinate_type>::coordinate_distance dt;
-      for(typename std::vector<std::pair<coordinate_type, std::pair<coordinate_type, int> > >::iterator 
+      for(typename std::vector<std::pair<coordinate_type, std::pair<coordinate_type, int> > >::iterator
             itr = data_.begin(); itr != data_.end(); ++itr) {
         (*itr).first = scaling_policy<coordinate_type>::round((dt)((*itr).first) * (dt)factor);
         (*itr).second.first = scaling_policy<coordinate_type>::round((dt)((*itr).second.first) * (dt)factor);
@@ -812,7 +818,7 @@ namespace boost { namespace polygon{
     mutable value_type data_;
     mutable bool dirty_;
     mutable bool unsorted_;
-  
+
   private:
     //functions
     template <typename output_container>
@@ -882,7 +888,7 @@ namespace boost { namespace polygon{
       return bloat(0, e_total, 0, n_total);
     }
   }
-    
+
   template <typename coordinate_type, typename property_type>
   class property_merge_90 {
   private:
@@ -905,7 +911,7 @@ namespace boost { namespace polygon{
     //with unique sets of merged properties to polygons sets in a map keyed by sets of properties
     // T = std::map<std::set<property_type>, polygon_90_set_data<coordiante_type> > or
     // T = std::map<std::vector<property_type>, polygon_90_set_data<coordiante_type> >
-    template <typename ResultType> 
+    template <typename ResultType>
     inline void merge(ResultType& result) {
       merge_scanline<coordinate_type, property_type, polygon_90_set_data<coordinate_type>, typename ResultType::key_type> ms;
       ms.perform_merge(result, pmd_);
@@ -924,12 +930,12 @@ namespace boost { namespace polygon{
     inline connectivity_extraction_90() : tsd_(), nodeCount_(0) {}
     inline connectivity_extraction_90(const connectivity_extraction_90& that) : tsd_(that.tsd_),
                                                                           nodeCount_(that.nodeCount_) {}
-    inline connectivity_extraction_90& operator=(const connectivity_extraction_90& that) { 
-      tsd_ = that.tsd_; 
+    inline connectivity_extraction_90& operator=(const connectivity_extraction_90& that) {
+      tsd_ = that.tsd_;
       nodeCount_ = that.nodeCount_; {}
       return *this;
     }
-    
+
     //insert a polygon set graph node, the value returned is the id of the graph node
     inline unsigned int insert(const polygon_90_set_data<coordinate_type>& ps) {
       ps.clean();
@@ -942,7 +948,7 @@ namespace boost { namespace polygon{
       ps.insert(geoObj);
       return insert(ps);
     }
-    
+
     //extract connectivity and store the edges in the graph
     //graph must be indexable by graph node id and the indexed value must be a std::set of
     //graph node id
@@ -954,4 +960,3 @@ namespace boost { namespace polygon{
 }
 }
 #endif
-

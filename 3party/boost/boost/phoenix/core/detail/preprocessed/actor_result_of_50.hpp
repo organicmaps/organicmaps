@@ -21,7 +21,7 @@
                         vector1<const ::boost::phoenix::actor<Expr> *> &
                       , default_actions
                     > const &
-                  , int
+                  , proto::empty_env
                 >::result_type
                 type;
         };
@@ -55,7 +55,7 @@
                             vector2<const ::boost::phoenix::actor<Expr> *, A0> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -77,7 +77,7 @@
                             vector3<const ::boost::phoenix::actor<Expr> *, A0 , A1> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -99,7 +99,7 @@
                             vector4<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -121,7 +121,7 @@
                             vector5<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -143,7 +143,7 @@
                             vector6<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -165,7 +165,7 @@
                             vector7<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -187,7 +187,7 @@
                             vector8<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -209,7 +209,7 @@
                             vector9<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -231,7 +231,7 @@
                             vector10<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -253,7 +253,7 @@
                             vector11<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -275,7 +275,7 @@
                             vector12<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -297,7 +297,7 @@
                             vector13<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -319,7 +319,7 @@
                             vector14<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -341,7 +341,7 @@
                             vector15<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -363,7 +363,7 @@
                             vector16<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -385,7 +385,7 @@
                             vector17<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -407,7 +407,7 @@
                             vector18<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -429,7 +429,7 @@
                             vector19<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -451,7 +451,7 @@
                             vector20<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -473,7 +473,7 @@
                             vector21<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -495,7 +495,7 @@
                             vector22<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -517,7 +517,7 @@
                             vector23<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -539,7 +539,7 @@
                             vector24<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -561,7 +561,7 @@
                             vector25<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -583,7 +583,7 @@
                             vector26<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -605,7 +605,7 @@
                             vector27<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -627,7 +627,7 @@
                             vector28<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -649,7 +649,7 @@
                             vector29<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26 , A27> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -671,7 +671,7 @@
                             vector30<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26 , A27 , A28> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -693,7 +693,7 @@
                             vector31<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26 , A27 , A28 , A29> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -715,7 +715,7 @@
                             vector32<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26 , A27 , A28 , A29 , A30> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -737,7 +737,7 @@
                             vector33<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26 , A27 , A28 , A29 , A30 , A31> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -759,7 +759,7 @@
                             vector34<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26 , A27 , A28 , A29 , A30 , A31 , A32> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -781,7 +781,7 @@
                             vector35<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26 , A27 , A28 , A29 , A30 , A31 , A32 , A33> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -803,7 +803,7 @@
                             vector36<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26 , A27 , A28 , A29 , A30 , A31 , A32 , A33 , A34> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -825,7 +825,7 @@
                             vector37<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26 , A27 , A28 , A29 , A30 , A31 , A32 , A33 , A34 , A35> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -847,7 +847,7 @@
                             vector38<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26 , A27 , A28 , A29 , A30 , A31 , A32 , A33 , A34 , A35 , A36> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -869,7 +869,7 @@
                             vector39<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26 , A27 , A28 , A29 , A30 , A31 , A32 , A33 , A34 , A35 , A36 , A37> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -891,7 +891,7 @@
                             vector40<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26 , A27 , A28 , A29 , A30 , A31 , A32 , A33 , A34 , A35 , A36 , A37 , A38> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -913,7 +913,7 @@
                             vector41<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26 , A27 , A28 , A29 , A30 , A31 , A32 , A33 , A34 , A35 , A36 , A37 , A38 , A39> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -935,7 +935,7 @@
                             vector42<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26 , A27 , A28 , A29 , A30 , A31 , A32 , A33 , A34 , A35 , A36 , A37 , A38 , A39 , A40> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -957,7 +957,7 @@
                             vector43<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26 , A27 , A28 , A29 , A30 , A31 , A32 , A33 , A34 , A35 , A36 , A37 , A38 , A39 , A40 , A41> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -979,7 +979,7 @@
                             vector44<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26 , A27 , A28 , A29 , A30 , A31 , A32 , A33 , A34 , A35 , A36 , A37 , A38 , A39 , A40 , A41 , A42> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -1001,7 +1001,7 @@
                             vector45<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26 , A27 , A28 , A29 , A30 , A31 , A32 , A33 , A34 , A35 , A36 , A37 , A38 , A39 , A40 , A41 , A42 , A43> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -1023,7 +1023,7 @@
                             vector46<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26 , A27 , A28 , A29 , A30 , A31 , A32 , A33 , A34 , A35 , A36 , A37 , A38 , A39 , A40 , A41 , A42 , A43 , A44> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -1045,7 +1045,7 @@
                             vector47<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26 , A27 , A28 , A29 , A30 , A31 , A32 , A33 , A34 , A35 , A36 , A37 , A38 , A39 , A40 , A41 , A42 , A43 , A44 , A45> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -1067,7 +1067,7 @@
                             vector48<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26 , A27 , A28 , A29 , A30 , A31 , A32 , A33 , A34 , A35 , A36 , A37 , A38 , A39 , A40 , A41 , A42 , A43 , A44 , A45 , A46> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -1089,7 +1089,7 @@
                             vector49<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26 , A27 , A28 , A29 , A30 , A31 , A32 , A33 , A34 , A35 , A36 , A37 , A38 , A39 , A40 , A41 , A42 , A43 , A44 , A45 , A46 , A47> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -1111,7 +1111,7 @@
                             vector50<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26 , A27 , A28 , A29 , A30 , A31 , A32 , A33 , A34 , A35 , A36 , A37 , A38 , A39 , A40 , A41 , A42 , A43 , A44 , A45 , A46 , A47 , A48> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -1133,7 +1133,7 @@
                             vector51<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19 , A20 , A21 , A22 , A23 , A24 , A25 , A26 , A27 , A28 , A29 , A30 , A31 , A32 , A33 , A34 , A35 , A36 , A37 , A38 , A39 , A40 , A41 , A42 , A43 , A44 , A45 , A46 , A47 , A48 , A49> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };

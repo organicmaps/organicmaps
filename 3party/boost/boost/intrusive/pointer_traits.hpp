@@ -170,7 +170,7 @@ struct pointer_traits
 
    template<class UPtr>
    static pointer priv_static_cast_from(boost::false_type, const UPtr &uptr)
-   {  return pointer_to(static_cast<element_type&>(*uptr));  }
+   {  return pointer_to(*static_cast<element_type*>(to_raw_pointer(uptr)));  }
 
    //priv_const_cast_from
    template<class UPtr>

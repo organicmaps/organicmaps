@@ -124,8 +124,8 @@ struct base_iteration_context
     BOOST_WAVE_STRINGTYPE real_filename;  // real name of the current file
     BOOST_WAVE_STRINGTYPE real_relative_filename;  // real relative name of the current file
     BOOST_WAVE_STRINGTYPE filename;       // actual processed file
-    unsigned int line;                    // line counter of underlying stream
-    unsigned int emitted_lines;           // count of emitted newlines
+    std::size_t line;                     // line counter of underlying stream
+    std::size_t emitted_lines;            // count of emitted newlines
     std::size_t if_block_depth; // depth of #if block recursion
     ContextT& ctx;              // corresponding context<> object
     file_type type;             // the type of the handled file

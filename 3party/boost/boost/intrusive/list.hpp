@@ -83,7 +83,7 @@ class list_impl
    typedef typename Config::value_traits                             value_traits;
    /// @cond
    static const bool external_value_traits =
-      detail::external_value_traits_is_true<value_traits>::value;
+      detail::external_value_traits_bool_is_true<value_traits>::value;
    typedef typename detail::eval_if_c
       < external_value_traits
       , detail::eval_value_traits<value_traits>
@@ -928,12 +928,12 @@ class list_impl
    //!
    //! <b>Note</b>: Iterators of values obtained from list x now point to elements of this
    //!   list. Iterators of this list and all the references are not invalidated.
-   void splice(const_iterator p, list_impl&x, const_iterator start, const_iterator end)
+   void splice(const_iterator p, list_impl&x, const_iterator start, const_iterator end_)
    {
       if(constant_time_size)
-         this->splice(p, x, start, end, std::distance(start, end));
+         this->splice(p, x, start, end_, std::distance(start, end_));
       else
-         this->splice(p, x, start, end, 1);//distance is a dummy value
+         this->splice(p, x, start, end_, 1);//distance is a dummy value
    }
 
    //! <b>Requires</b>: p must be a valid iterator of *this.
@@ -949,19 +949,19 @@ class list_impl
    //!
    //! <b>Note</b>: Iterators of values obtained from list x now point to elements of this
    //!   list. Iterators of this list and all the references are not invalidated.
-   void splice(const_iterator p, list_impl&x, const_iterator start, const_iterator end, difference_type n)
+   void splice(const_iterator p, list_impl&x, const_iterator start, const_iterator end_, difference_type n)
    {
       if(n){
          if(constant_time_size){
             size_traits &thist = this->priv_size_traits();
             size_traits &xt = x.priv_size_traits();
-            BOOST_INTRUSIVE_INVARIANT_ASSERT(n == std::distance(start, end));
-            node_algorithms::transfer(p.pointed_node(), start.pointed_node(), end.pointed_node());
+            BOOST_INTRUSIVE_INVARIANT_ASSERT(n == std::distance(start, end_));
+            node_algorithms::transfer(p.pointed_node(), start.pointed_node(), end_.pointed_node());
             thist.set_size(thist.get_size() + n);
             xt.set_size(xt.get_size() - n);
          }
          else{
-            node_algorithms::transfer(p.pointed_node(), start.pointed_node(), end.pointed_node());
+            node_algorithms::transfer(p.pointed_node(), start.pointed_node(), end_.pointed_node());
          }
       }
    }

@@ -1,6 +1,6 @@
 /*
   Copyright 2008 Intel Corporation
- 
+
   Use, modification and distribution are subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
@@ -14,31 +14,31 @@ namespace boost { namespace polygon{
   public:
     typedef T coordinate_type;
     inline interval_data()
-#ifndef BOOST_POLYGON_MSVC 
-      :coords_() 
-#endif 
-    {} 
+#ifndef BOOST_POLYGON_MSVC
+      :coords_()
+#endif
+    {}
     inline interval_data(coordinate_type low, coordinate_type high)
-#ifndef BOOST_POLYGON_MSVC 
-      :coords_() 
-#endif 
+#ifndef BOOST_POLYGON_MSVC
+      :coords_()
+#endif
     {
-      coords_[LOW] = low; coords_[HIGH] = high; 
+      coords_[LOW] = low; coords_[HIGH] = high;
     }
     inline interval_data(const interval_data& that)
-#ifndef BOOST_POLYGON_MSVC 
-      :coords_() 
-#endif 
+#ifndef BOOST_POLYGON_MSVC
+      :coords_()
+#endif
     {
-      (*this) = that; 
+      (*this) = that;
     }
     inline interval_data& operator=(const interval_data& that) {
-      coords_[0] = that.coords_[0]; coords_[1] = that.coords_[1]; return *this; 
+      coords_[0] = that.coords_[0]; coords_[1] = that.coords_[1]; return *this;
     }
     template <typename T2>
     inline interval_data& operator=(const T2& rvalue);
     inline coordinate_type get(direction_1d dir) const {
-      return coords_[dir.to_int()]; 
+      return coords_[dir.to_int()];
     }
     inline coordinate_type low() const { return coords_[0]; }
     inline coordinate_type high() const { return coords_[1]; }
@@ -56,10 +56,10 @@ namespace boost { namespace polygon{
     inline bool operator>(const interval_data& that) const { return that < *this; }
     inline bool operator>=(const interval_data& that) const { return !((*this) < that); }
   inline void set(direction_1d dir, coordinate_type value) {
-    coords_[dir.to_int()] = value; 
+    coords_[dir.to_int()] = value;
   }
 private:
-  coordinate_type coords_[2]; 
+  coordinate_type coords_[2];
 };
 
 }

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -61,7 +61,7 @@ class file_mapping
    {
       file_mapping tmp(boost::move(moved));
       this->swap(tmp);
-      return *this; 
+      return *this;
    }
 
    //!Swaps to file_mappings.
@@ -111,10 +111,10 @@ inline const char *file_mapping::get_name() const
 {  return m_filename.c_str(); }
 
 inline void file_mapping::swap(file_mapping &other)
-{ 
+{
    std::swap(m_handle, other.m_handle);
    std::swap(m_mode, other.m_mode);
-   m_filename.swap(other.m_filename);  
+   m_filename.swap(other.m_filename);
 }
 
 inline mapping_handle_t file_mapping::get_mapping_handle() const

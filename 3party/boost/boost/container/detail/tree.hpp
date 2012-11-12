@@ -41,7 +41,7 @@ namespace container {
 namespace container_detail {
 
 template<class Key, class Value, class KeyCompare, class KeyOfValue>
-struct value_compare_impl
+struct tree_value_compare
    :  public KeyCompare
 {
    typedef Value        value_type;
@@ -49,7 +49,7 @@ struct value_compare_impl
    typedef KeyOfValue   key_of_value;
    typedef Key          key_type;
 
-   value_compare_impl(const key_compare &kcomp)
+   tree_value_compare(const key_compare &kcomp)
       :  key_compare(kcomp)
    {}
 
@@ -209,13 +209,13 @@ class rbtree
    : protected container_detail::node_alloc_holder
       < A
       , typename container_detail::intrusive_rbtree_type
-         <A, value_compare_impl<Key, Value, KeyCompare, KeyOfValue> 
+         <A, tree_value_compare<Key, Value, KeyCompare, KeyOfValue> 
          >::type
       , KeyCompare
       >
 {
    typedef typename container_detail::intrusive_rbtree_type
-         < A, value_compare_impl
+         < A, tree_value_compare
             <Key, Value, KeyCompare, KeyOfValue>
          >::type                                            Icont;
    typedef container_detail::node_alloc_holder 
@@ -315,7 +315,7 @@ class rbtree
    typedef Value                                      value_type;
    typedef A                                          allocator_type;
    typedef KeyCompare                                 key_compare;
-   typedef value_compare_impl< Key, Value
+   typedef tree_value_compare< Key, Value
                         , KeyCompare, KeyOfValue>     value_compare;
    typedef typename boost::container::
       allocator_traits<A>::pointer                    pointer;
@@ -476,21 +476,77 @@ class rbtree
    {}
 
    template <class InputIterator>
-   rbtree(InputIterator first, InputIterator last, const key_compare& comp,
-          const allocator_type& a, bool unique_insertion)
+   rbtree(bool unique_insertion, InputIterator first, InputIterator last, const key_compare& comp,
+          const allocator_type& a
+      #if !defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
+      , typename container_detail::enable_if_c
+         < container_detail::is_input_iterator<InputIterator>::value
+            || container_detail::is_same<alloc_version, allocator_v1>::value
+         >::type * = 0
+      #endif
+         )
       : AllocHolder(a, comp)
    {
-      typedef typename std::iterator_traits<InputIterator>::iterator_category ItCat;
-      priv_create_and_insert_nodes(first, last, unique_insertion, alloc_version(), ItCat());
+      if(unique_insertion){
+         this->insert_unique(first, last);
+      }
+      else{
+         this->insert_equal(first, last);
+      }
+   }
+
+   template <class InputIterator>
+   rbtree(bool unique_insertion, InputIterator first, InputIterator last, const key_compare& comp,
+          const allocator_type& a
+      #if !defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
+      , typename container_detail::enable_if_c
+         < !(container_detail::is_input_iterator<InputIterator>::value
+            || container_detail::is_same<alloc_version, allocator_v1>::value)
+         >::type * = 0
+      #endif
+         )
+      : AllocHolder(a, comp)
+   {
+      if(unique_insertion){
+         this->insert_unique(first, last);
+      }
+      else{
+         //Optimized allocation and construction
+         this->allocate_many_and_construct
+            (first, std::distance(first, last), insert_equal_end_hint_functor(this->icont()));
+      }
    }
 
    template <class InputIterator>
    rbtree( ordered_range_t, InputIterator first, InputIterator last
-         , const key_compare& comp = key_compare(), const allocator_type& a = allocator_type())
+         , const key_compare& comp = key_compare(), const allocator_type& a = allocator_type()
+         #if !defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
+         , typename container_detail::enable_if_c
+            < container_detail::is_input_iterator<InputIterator>::value
+               || container_detail::is_same<alloc_version, allocator_v1>::value
+            >::type * = 0
+         #endif
+         )
       : AllocHolder(a, comp)
    {
-      typedef typename std::iterator_traits<InputIterator>::iterator_category ItCat;
-      priv_create_and_insert_ordered_nodes(first, last, alloc_version(), ItCat());
+      this->insert_equal(first, last);
+   }
+
+   template <class InputIterator>
+   rbtree( ordered_range_t, InputIterator first, InputIterator last
+         , const key_compare& comp = key_compare(), const allocator_type& a = allocator_type()
+         #if !defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
+         , typename container_detail::enable_if_c
+            < !(container_detail::is_input_iterator<InputIterator>::value
+               || container_detail::is_same<alloc_version, allocator_v1>::value)
+            >::type * = 0
+         #endif
+         )
+      : AllocHolder(a, comp)
+   {
+      //Optimized allocation and construction
+      this->allocate_many_and_construct
+         (first, std::distance(first, last), push_back_functor(this->icont()));
    }
 
    rbtree(const rbtree& x)
@@ -943,14 +999,14 @@ class rbtree
    {  return const_iterator(this->non_const_icont().upper_bound(k, KeyNodeCompare(value_comp())));  }
 
    std::pair<iterator,iterator> equal_range(const key_type& k)
-   { 
+   {
       std::pair<iiterator, iiterator> ret =
          this->icont().equal_range(k, KeyNodeCompare(value_comp()));
       return std::pair<iterator,iterator>(iterator(ret.first), iterator(ret.second));
    }
 
    std::pair<const_iterator, const_iterator> equal_range(const key_type& k) const
-   { 
+   {
       std::pair<iiterator, iiterator> ret =
          this->non_const_icont().equal_range(k, KeyNodeCompare(value_comp()));
       return std::pair<const_iterator,const_iterator>
@@ -958,108 +1014,39 @@ class rbtree
    }
 
    private:
-   //Iterator range version
-   template<class InpIterator>
-   void priv_create_and_insert_nodes
-      (InpIterator beg, InpIterator end, bool unique, allocator_v1, std::input_iterator_tag)
-   {
-      if(unique){
-         for (; beg != end; ++beg){
-            this->insert_unique(*beg);
-         }
-      }
-      else{
-         for (; beg != end; ++beg){
-            this->insert_equal(*beg);
-         }
-      }
-   }
 
-   template<class InpIterator>
-   void priv_create_and_insert_nodes
-      (InpIterator beg, InpIterator end, bool unique, allocator_v2, std::input_iterator_tag)
-   {  //Just forward to the default one
-      priv_create_and_insert_nodes(beg, end, unique, allocator_v1(), std::input_iterator_tag());
-   }
+   class insert_equal_end_hint_functor;
+   friend class insert_equal_end_hint_functor;
 
-   class insertion_functor;
-   friend class insertion_functor;
-
-   class insertion_functor
+   class insert_equal_end_hint_functor
    {
       Icont &icont_;
+      const iconst_iterator cend_;
 
       public:
-      insertion_functor(Icont &icont)
-         :  icont_(icont)
+      insert_equal_end_hint_functor(Icont &icont)
+         :  icont_(icont), cend_(this->icont_.cend())
       {}
 
       void operator()(Node &n)
-      {  this->icont_.insert_equal(this->icont_.cend(), n); }
+      {  this->icont_.insert_equal(cend_, n); }
    };
 
+   class push_back_functor;
+   friend class push_back_functor;
 
-   template<class FwdIterator>
-   void priv_create_and_insert_nodes
-      (FwdIterator beg, FwdIterator end, bool unique, allocator_v2, std::forward_iterator_tag)
-   {
-      if(beg != end){
-         if(unique){
-            priv_create_and_insert_nodes(beg, end, unique, allocator_v2(), std::input_iterator_tag());
-         }
-         else{
-            //Optimized allocation and construction
-            this->allocate_many_and_construct
-               (beg, std::distance(beg, end), insertion_functor(this->icont()));
-         }
-      }
-   }
-
-   //Iterator range version
-   template<class InpIterator>
-   void priv_create_and_insert_ordered_nodes
-      (InpIterator beg, InpIterator end, allocator_v1, std::input_iterator_tag)
-   {
-      const_iterator cend_n(this->cend());
-      for (; beg != end; ++beg){
-         this->insert_before(cend_n, *beg);
-      }
-   }
-
-   template<class InpIterator>
-   void priv_create_and_insert_ordered_nodes
-      (InpIterator beg, InpIterator end, allocator_v2, std::input_iterator_tag)
-   {  //Just forward to the default one
-      priv_create_and_insert_ordered_nodes(beg, end, allocator_v1(), std::input_iterator_tag());
-   }
-
-   class back_insertion_functor;
-   friend class back_insertion_functor;
-
-   class back_insertion_functor
+   class push_back_functor
    {
       Icont &icont_;
 
       public:
-      back_insertion_functor(Icont &icont)
+      push_back_functor(Icont &icont)
          :  icont_(icont)
       {}
 
       void operator()(Node &n)
       {  this->icont_.push_back(n); }
    };
-
-
-   template<class FwdIterator>
-   void priv_create_and_insert_ordered_nodes
-      (FwdIterator beg, FwdIterator end, allocator_v2, std::forward_iterator_tag)
-   {
-      if(beg != end){
-         //Optimized allocation and construction
-         this->allocate_many_and_construct
-            (beg, std::distance(beg, end), back_insertion_functor(this->icont()));
-      }
-   }
 };
 
 template <class Key, class Value, class KeyOfValue,

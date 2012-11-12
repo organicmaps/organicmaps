@@ -44,7 +44,7 @@
         typedef basic_expr<Tag, proto_args, 0 > proto_grammar;
         typedef default_domain proto_domain;
         typedef default_generator proto_generator;
-        typedef proto::tag::proto_expr fusion_tag;
+        typedef proto::tag::proto_expr<Tag, proto_domain> fusion_tag;
         typedef expr proto_derived_expr;
         typedef void proto_is_expr_; 
         typedef Arg0 proto_child0; proto_child0 child0;
@@ -330,7 +330,7 @@
         typedef basic_expr<Tag, proto_args, 1 > proto_grammar;
         typedef default_domain proto_domain;
         typedef default_generator proto_generator;
-        typedef proto::tag::proto_expr fusion_tag;
+        typedef proto::tag::proto_expr<Tag, proto_domain> fusion_tag;
         typedef expr proto_derived_expr;
         typedef void proto_is_expr_; 
         typedef Arg0 proto_child0; proto_child0 child0;
@@ -533,7 +533,7 @@
         typedef basic_expr<Tag, proto_args, 2 > proto_grammar;
         typedef default_domain proto_domain;
         typedef default_generator proto_generator;
-        typedef proto::tag::proto_expr fusion_tag;
+        typedef proto::tag::proto_expr<Tag, proto_domain> fusion_tag;
         typedef expr proto_derived_expr;
         typedef void proto_is_expr_; 
         typedef Arg0 proto_child0; proto_child0 child0; typedef Arg1 proto_child1; proto_child1 child1;
@@ -723,7 +723,7 @@
         typedef basic_expr<Tag, proto_args, 3 > proto_grammar;
         typedef default_domain proto_domain;
         typedef default_generator proto_generator;
-        typedef proto::tag::proto_expr fusion_tag;
+        typedef proto::tag::proto_expr<Tag, proto_domain> fusion_tag;
         typedef expr proto_derived_expr;
         typedef void proto_is_expr_; 
         typedef Arg0 proto_child0; proto_child0 child0; typedef Arg1 proto_child1; proto_child1 child1; typedef Arg2 proto_child2; proto_child2 child2;
@@ -913,7 +913,7 @@
         typedef basic_expr<Tag, proto_args, 4 > proto_grammar;
         typedef default_domain proto_domain;
         typedef default_generator proto_generator;
-        typedef proto::tag::proto_expr fusion_tag;
+        typedef proto::tag::proto_expr<Tag, proto_domain> fusion_tag;
         typedef expr proto_derived_expr;
         typedef void proto_is_expr_; 
         typedef Arg0 proto_child0; proto_child0 child0; typedef Arg1 proto_child1; proto_child1 child1; typedef Arg2 proto_child2; proto_child2 child2; typedef Arg3 proto_child3; proto_child3 child3;
@@ -1103,7 +1103,7 @@
         typedef basic_expr<Tag, proto_args, 5 > proto_grammar;
         typedef default_domain proto_domain;
         typedef default_generator proto_generator;
-        typedef proto::tag::proto_expr fusion_tag;
+        typedef proto::tag::proto_expr<Tag, proto_domain> fusion_tag;
         typedef expr proto_derived_expr;
         typedef void proto_is_expr_; 
         typedef Arg0 proto_child0; proto_child0 child0; typedef Arg1 proto_child1; proto_child1 child1; typedef Arg2 proto_child2; proto_child2 child2; typedef Arg3 proto_child3; proto_child3 child3; typedef Arg4 proto_child4; proto_child4 child4;
@@ -1293,7 +1293,7 @@
         typedef basic_expr<Tag, proto_args, 6 > proto_grammar;
         typedef default_domain proto_domain;
         typedef default_generator proto_generator;
-        typedef proto::tag::proto_expr fusion_tag;
+        typedef proto::tag::proto_expr<Tag, proto_domain> fusion_tag;
         typedef expr proto_derived_expr;
         typedef void proto_is_expr_; 
         typedef Arg0 proto_child0; proto_child0 child0; typedef Arg1 proto_child1; proto_child1 child1; typedef Arg2 proto_child2; proto_child2 child2; typedef Arg3 proto_child3; proto_child3 child3; typedef Arg4 proto_child4; proto_child4 child4; typedef Arg5 proto_child5; proto_child5 child5;
@@ -1483,7 +1483,7 @@
         typedef basic_expr<Tag, proto_args, 7 > proto_grammar;
         typedef default_domain proto_domain;
         typedef default_generator proto_generator;
-        typedef proto::tag::proto_expr fusion_tag;
+        typedef proto::tag::proto_expr<Tag, proto_domain> fusion_tag;
         typedef expr proto_derived_expr;
         typedef void proto_is_expr_; 
         typedef Arg0 proto_child0; proto_child0 child0; typedef Arg1 proto_child1; proto_child1 child1; typedef Arg2 proto_child2; proto_child2 child2; typedef Arg3 proto_child3; proto_child3 child3; typedef Arg4 proto_child4; proto_child4 child4; typedef Arg5 proto_child5; proto_child5 child5; typedef Arg6 proto_child6; proto_child6 child6;
@@ -1673,7 +1673,7 @@
         typedef basic_expr<Tag, proto_args, 8 > proto_grammar;
         typedef default_domain proto_domain;
         typedef default_generator proto_generator;
-        typedef proto::tag::proto_expr fusion_tag;
+        typedef proto::tag::proto_expr<Tag, proto_domain> fusion_tag;
         typedef expr proto_derived_expr;
         typedef void proto_is_expr_; 
         typedef Arg0 proto_child0; proto_child0 child0; typedef Arg1 proto_child1; proto_child1 child1; typedef Arg2 proto_child2; proto_child2 child2; typedef Arg3 proto_child3; proto_child3 child3; typedef Arg4 proto_child4; proto_child4 child4; typedef Arg5 proto_child5; proto_child5 child5; typedef Arg6 proto_child6; proto_child6 child6; typedef Arg7 proto_child7; proto_child7 child7;
@@ -1863,7 +1863,7 @@
         typedef basic_expr<Tag, proto_args, 9 > proto_grammar;
         typedef default_domain proto_domain;
         typedef default_generator proto_generator;
-        typedef proto::tag::proto_expr fusion_tag;
+        typedef proto::tag::proto_expr<Tag, proto_domain> fusion_tag;
         typedef expr proto_derived_expr;
         typedef void proto_is_expr_; 
         typedef Arg0 proto_child0; proto_child0 child0; typedef Arg1 proto_child1; proto_child1 child1; typedef Arg2 proto_child2; proto_child2 child2; typedef Arg3 proto_child3; proto_child3 child3; typedef Arg4 proto_child4; proto_child4 child4; typedef Arg5 proto_child5; proto_child5 child5; typedef Arg6 proto_child6; proto_child6 child6; typedef Arg7 proto_child7; proto_child7 child7; typedef Arg8 proto_child8; proto_child8 child8;
@@ -2053,7 +2053,7 @@
         typedef basic_expr<Tag, proto_args, 10 > proto_grammar;
         typedef default_domain proto_domain;
         typedef default_generator proto_generator;
-        typedef proto::tag::proto_expr fusion_tag;
+        typedef proto::tag::proto_expr<Tag, proto_domain> fusion_tag;
         typedef expr proto_derived_expr;
         typedef void proto_is_expr_; 
         typedef Arg0 proto_child0; proto_child0 child0; typedef Arg1 proto_child1; proto_child1 child1; typedef Arg2 proto_child2; proto_child2 child2; typedef Arg3 proto_child3; proto_child3 child3; typedef Arg4 proto_child4; proto_child4 child4; typedef Arg5 proto_child5; proto_child5 child5; typedef Arg6 proto_child6; proto_child6 child6; typedef Arg7 proto_child7; proto_child7 child7; typedef Arg8 proto_child8; proto_child8 child8; typedef Arg9 proto_child9; proto_child9 child9;

@@ -194,6 +194,7 @@ struct regex_token_iterator
     /// \param begin The beginning of the character range to search.
     /// \param end The end of the character range to search.
     /// \param rex The regex pattern to search for.
+    /// \param subs A range of integers designating sub-matches to be treated as tokens.
     /// \param flags Optional match flags, used to control how the expression is matched against the sequence. (See match_flag_type.)
     /// \pre \c [begin,end) is a valid range.
     /// \pre \c subs is either an integer greater or equal to -1,
@@ -219,6 +220,7 @@ struct regex_token_iterator
     /// \param begin The beginning of the character range to search.
     /// \param end The end of the character range to search.
     /// \param rex The regex pattern to search for.
+    /// \param subs A range of integers designating sub-matches to be treated as tokens.
     /// \param args A let() expression with argument bindings for semantic actions.
     /// \param flags Optional match flags, used to control how the expression is matched against the sequence. (See match_flag_type.)
     /// \pre \c [begin,end) is a valid range.

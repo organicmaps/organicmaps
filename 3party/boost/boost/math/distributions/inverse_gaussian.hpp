@@ -207,11 +207,11 @@ inline RealType cdf(const inverse_gaussian_distribution<RealType, Policy>& dist,
    return result;
 } // cdf
 
-template <class RealType>
+template <class RealType, class Policy>
 struct inverse_gaussian_quantile_functor
 { 
 
-  inverse_gaussian_quantile_functor(const boost::math::inverse_gaussian_distribution<RealType> dist, RealType const& p)
+  inverse_gaussian_quantile_functor(const boost::math::inverse_gaussian_distribution<RealType, Policy> dist, RealType const& p)
     : distribution(dist), prob(p)
   {
   }
@@ -224,14 +224,14 @@ struct inverse_gaussian_quantile_functor
     return boost::math::make_tuple(fx, dx);
   }
   private:
-  const boost::math::inverse_gaussian_distribution<RealType> distribution;
+  const boost::math::inverse_gaussian_distribution<RealType, Policy> distribution;
   RealType prob; 
 };
 
-template <class RealType>
+template <class RealType, class Policy>
 struct inverse_gaussian_quantile_complement_functor
 { 
-    inverse_gaussian_quantile_complement_functor(const boost::math::inverse_gaussian_distribution<RealType> dist, RealType const& p)
+    inverse_gaussian_quantile_complement_functor(const boost::math::inverse_gaussian_distribution<RealType, Policy> dist, RealType const& p)
     : distribution(dist), prob(p)
   {
   }
@@ -245,7 +245,7 @@ struct inverse_gaussian_quantile_complement_functor
     return boost::math::make_tuple(fx, dx);
   }
   private:
-  const boost::math::inverse_gaussian_distribution<RealType> distribution;
+  const boost::math::inverse_gaussian_distribution<RealType, Policy> distribution;
   RealType prob; 
 };
 
@@ -347,7 +347,7 @@ inline RealType quantile(const inverse_gaussian_distribution<RealType, Policy>& 
   boost::uintmax_t m = policies::get_max_root_iterations<Policy>(); // and max iterations.
   using boost::math::tools::newton_raphson_iterate;
   result =
-    newton_raphson_iterate(inverse_gaussian_quantile_functor<RealType>(dist, p), guess, min, max, get_digits, m);
+    newton_raphson_iterate(inverse_gaussian_quantile_functor<RealType, Policy>(dist, p), guess, min, max, get_digits, m);
    return result;
 } // quantile
 
@@ -380,7 +380,7 @@ inline RealType cdf(const complemented2_type<inverse_gaussian_distribution<RealT
       return result;
    if(false == detail::check_location(function, mean, &result, Policy()))
       return result;
-   if(false == detail::check_x(function, x, &result, Policy()))
+   if(false == detail::check_positive_x(function, x, &result, Policy()))
       return result;
 
    normal_distribution<RealType> n01;
@@ -428,7 +428,7 @@ inline RealType quantile(const complemented2_type<inverse_gaussian_distribution<
   boost::uintmax_t m = policies::get_max_root_iterations<Policy>();
   using boost::math::tools::newton_raphson_iterate;
   result =
-    newton_raphson_iterate(inverse_gaussian_quantile_complement_functor<RealType>(c.dist, q), guess, min, max, get_digits, m);
+    newton_raphson_iterate(inverse_gaussian_quantile_complement_functor<RealType, Policy>(c.dist, q), guess, min, max, get_digits, m);
    return result;
 } // quantile
 

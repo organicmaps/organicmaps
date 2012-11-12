@@ -95,7 +95,7 @@ namespace impl
             }
 
             // Once cache_size samples have been accumulated, create num_bins bins of same size between
-            // the minimum and maximum of the cached samples as well as an under- and and an overflow bin.
+            // the minimum and maximum of the cached samples as well as under and overflow bins.
             // Store their lower bounds (bin_positions) and fill the bins with the cached samples (samples_in_bin).
             if (cnt == this->cache_size)
             {

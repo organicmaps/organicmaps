@@ -449,14 +449,14 @@ T remez_minimax<T>::iterate()
                A(i, j + offsetN) = x;
             if(j < orderD)
             {
-               T mult = rel_error ? (b[i] - sign * fabs(b[i]) * Elast): (b[i] - sign * Elast);
+               T mult = rel_error ? T(b[i] - sign * fabs(b[i]) * Elast): T(b[i] - sign * Elast);
                A(i, j + offsetD) = -x * mult;
             }
             x *= x0;
          }
          // The last variable to be solved for is the error term, 
          // sign changes with each control point:
-         T E = rel_error ? sign * fabs(b[i]) : sign;
+         T E = rel_error ? T(sign * fabs(b[i])) : T(sign);
          A(i, unknowns - 1) = E;
          sign = -sign;
       }
@@ -478,7 +478,7 @@ T remez_minimax<T>::iterate()
       //
       solution = boost::math::tools::solve(A, b);
 
-      err_err = (Elast != 0) ? fabs((fabs(solution[unknowns-1]) - fabs(Elast)) / fabs(Elast)) : 1;
+      err_err = (Elast != 0) ? T(fabs((fabs(solution[unknowns-1]) - fabs(Elast)) / fabs(Elast))) : T(1);
    }while(orderD && (convergence_count++ < 80) && (err_err > 0.001));
 
    //

@@ -52,8 +52,8 @@ namespace boost { namespace phoenix
         };
 
         template <typename Expr, typename State>
-        struct impl<Expr, State, int>
-            : proto::transform_impl<Expr, State, int>
+        struct impl<Expr, State, proto::empty_env>
+            : proto::transform_impl<Expr, State, proto::empty_env>
         {
             typedef
                 meta_grammar::impl<
@@ -71,7 +71,7 @@ namespace boost { namespace phoenix
               , typename impl::data_param
             ) const
             {
-                return what()(e, env(s), actions(s));
+                return what()(e, phoenix::env(s), actions(s));
             }
         };
         
@@ -95,7 +95,7 @@ namespace boost { namespace phoenix
               , typename impl::data_param
             ) const
             {
-                return what()(e, env(s), actions(s));
+                return what()(e, phoenix::env(s), actions(s));
             }
         };
     };

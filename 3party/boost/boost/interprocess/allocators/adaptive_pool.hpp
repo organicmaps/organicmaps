@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -105,7 +105,7 @@ class adaptive_pool_base
    //!adaptive_pool_base
    template<class T2>
    struct rebind
-   { 
+   {
       typedef adaptive_pool_base<Version, T2, SegmentManager, NodesPerBlock, MaxFreeBlocks, OverheadPercent>       other;
    };
 
@@ -129,8 +129,8 @@ class adaptive_pool_base
    //!count of the associated node pool. Never throws
    adaptive_pool_base(const adaptive_pool_base &other)
       : mp_node_pool(other.get_node_pool())
-   { 
-      node_pool<0>::get(ipcdetail::to_raw_pointer(mp_node_pool))->inc_ref_count();  
+   {
+      node_pool<0>::get(ipcdetail::to_raw_pointer(mp_node_pool))->inc_ref_count();
    }
 
    //!Assignment from other adaptive_pool_base
@@ -211,7 +211,7 @@ class adaptive_pool_v1
 
    template<class T2>
    struct rebind
-   { 
+   {
       typedef adaptive_pool_v1<T2, SegmentManager, NodesPerBlock, MaxFreeBlocks, OverheadPercent>  other;
    };
 
@@ -271,7 +271,7 @@ class adaptive_pool
 
    template<class T2>
    struct rebind
-   { 
+   {
       typedef adaptive_pool<T2, SegmentManager, NodesPerBlock, MaxFreeBlocks, OverheadPercent>  other;
    };
 
@@ -303,7 +303,7 @@ class adaptive_pool
    //!adaptive_pool
    template<class T2>
    struct rebind
-   { 
+   {
       typedef adaptive_pool<T2, SegmentManager, NodesPerBlock, MaxFreeBlocks, OverheadPercent> other;
    };
 

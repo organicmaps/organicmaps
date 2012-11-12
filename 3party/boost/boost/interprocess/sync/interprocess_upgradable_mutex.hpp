@@ -1,6 +1,8 @@
-//////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+//  Code based on Howard Hinnant's upgrade_mutex class
+//
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -249,7 +251,7 @@ class interprocess_upgradable_mutex
          if(mp_ctrl){
             //Recover upgradable lock
             mp_ctrl->upgradable_in = 1;
-            ++mp_ctrl->num_upr_shar;  
+            ++mp_ctrl->num_upr_shar;
             //Execute the second half of exclusive locking
             mp_ctrl->exclusive_in = 0;
          }
@@ -333,8 +335,12 @@ inline bool interprocess_upgradable_mutex::timed_lock
    //The exclusive lock must block in the first gate
    //if an exclusive or upgradable lock has been acquired
    while (this->m_ctrl.exclusive_in || this->m_ctrl.upgradable_in){
-      if(!this->m_first_gate.timed_wait(lock, abs_time))
-         return !(this->m_ctrl.exclusive_in || this->m_ctrl.upgradable_in);
+      if(!this->m_first_gate.timed_wait(lock, abs_time)){
+         if(this->m_ctrl.exclusive_in || this->m_ctrl.upgradable_in){
+            return false;
+         }
+         break;
+      }
    }
 
    //Mark that exclusive lock has been acquired
@@ -346,7 +352,10 @@ inline bool interprocess_upgradable_mutex::timed_lock
    //Now wait until all readers are gone
    while (this->m_ctrl.num_upr_shar){
       if(!this->m_second_gate.timed_wait(lock, abs_time)){
-         return !(this->m_ctrl.num_upr_shar);
+         if(this->m_ctrl.num_upr_shar){
+            return false;
+         }
+         break;
       }
    }
    rollback.release();
@@ -418,9 +427,12 @@ inline bool interprocess_upgradable_mutex::timed_lock_upgradable
          || this->m_ctrl.upgradable_in
          || this->m_ctrl.num_upr_shar == constants::max_readers){
       if(!this->m_first_gate.timed_wait(lock, abs_time)){
-         return!(this->m_ctrl.exclusive_in
-               || this->m_ctrl.upgradable_in
-               || this->m_ctrl.num_upr_shar == constants::max_readers);
+         if((this->m_ctrl.exclusive_in
+             || this->m_ctrl.upgradable_in
+             || this->m_ctrl.num_upr_shar == constants::max_readers)){
+            return false;
+         }
+         break;
       }
    }
 
@@ -492,9 +504,12 @@ inline bool interprocess_upgradable_mutex::timed_lock_sharable
    //or there are too many sharable locks
    while (this->m_ctrl.exclusive_in
          || this->m_ctrl.num_upr_shar == constants::max_readers){
-      if(!this->m_first_gate.timed_wait(lock, abs_time)){
-         return!(this->m_ctrl.exclusive_in
-               || this->m_ctrl.num_upr_shar == constants::max_readers);
+      if(!this->m_first_gate.timed_wait(lock, abs_time)){   
+         if(this->m_ctrl.exclusive_in
+            || this->m_ctrl.num_upr_shar == constants::max_readers){
+            return false;
+         }
+         break;
       }
    }
 
@@ -561,7 +576,7 @@ inline void interprocess_upgradable_mutex::unlock_upgradable_and_lock()
    //Simulate unlock_upgradable() without
    //notifying sharables.
    this->m_ctrl.upgradable_in = 0;
-   --this->m_ctrl.num_upr_shar;  
+   --this->m_ctrl.num_upr_shar;
    //Execute the second half of exclusive locking
    this->m_ctrl.exclusive_in = 1;
 
@@ -584,7 +599,7 @@ inline bool interprocess_upgradable_mutex::try_unlock_upgradable_and_lock()
    }
    //Now unlock upgradable and mark exclusive
    this->m_ctrl.upgradable_in = 0;
-   --this->m_ctrl.num_upr_shar;  
+   --this->m_ctrl.num_upr_shar;
    this->m_ctrl.exclusive_in = 1;
    return true;
 }
@@ -592,13 +607,17 @@ inline bool interprocess_upgradable_mutex::try_unlock_upgradable_and_lock()
 inline bool interprocess_upgradable_mutex::timed_unlock_upgradable_and_lock
    (const boost::posix_time::ptime &abs_time)
 {
+   if(abs_time == boost::posix_time::pos_infin){
+      this->unlock_upgradable_and_lock();
+      return true;
+   }
    scoped_lock_t lock(m_mut, abs_time);
    if(!lock.owns())   return false;
 
    //Simulate unlock_upgradable() without
    //notifying sharables.
    this->m_ctrl.upgradable_in = 0;
-   --this->m_ctrl.num_upr_shar;  
+   --this->m_ctrl.num_upr_shar;
    //Execute the second half of exclusive locking
    this->m_ctrl.exclusive_in = 1;
 
@@ -607,7 +626,10 @@ inline bool interprocess_upgradable_mutex::timed_unlock_upgradable_and_lock
 
    while (this->m_ctrl.num_upr_shar){
       if(!this->m_second_gate.timed_wait(lock, abs_time)){
-         return !(this->m_ctrl.num_upr_shar);
+         if(this->m_ctrl.num_upr_shar){
+            return false;
+         }
+         break;
       }
    }
    rollback.release();

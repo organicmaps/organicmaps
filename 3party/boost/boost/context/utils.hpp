@@ -4,12 +4,20 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef BOOST_CTX_STACK_ALLOCATOR_H
-#define BOOST_CTX_STACK_ALLOCATOR_H
-
-#include <cstddef>
+#ifndef BOOST_CONTEXT_UTILS_H
+#define BOOST_CONTEXT_UTILS_H
 
 #include <boost/config.hpp>
+
+#if ! defined (BOOST_WINDOWS)
+extern "C" {
+#include <unistd.h>
+}
+#endif
+
+//#if defined (BOOST_WINDOWS) || _POSIX_C_SOURCE >= 200112L
+
+#include <cstddef>
 
 #include <boost/context/detail/config.hpp>
 
@@ -18,15 +26,9 @@
 #endif
 
 namespace boost {
-namespace ctx {
+namespace context {
 
-class BOOST_CONTEXT_DECL stack_allocator
-{
-public:
-    void * allocate( std::size_t) const;
-
-    void deallocate( void *, std::size_t) const;
-};
+BOOST_CONTEXT_DECL std::size_t pagesize();
 
 }}
 
@@ -34,4 +36,6 @@ public:
 #  include BOOST_ABI_SUFFIX
 #endif
 
-#endif // BOOST_CTX_STACK_ALLOCATOR_H
+//#endif
+
+#endif // BOOST_CONTEXT_UTILS_H

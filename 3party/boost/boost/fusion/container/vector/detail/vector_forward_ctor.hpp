@@ -12,11 +12,14 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 
+#define FUSION_FORWARD_CTOR_MOVE(z, n, _)    std::move(_##n)
+
 #define BOOST_PP_FILENAME_1 \
     <boost/fusion/container/vector/detail/vector_forward_ctor.hpp>
 #define BOOST_PP_ITERATION_LIMITS (1, FUSION_MAX_VECTOR_SIZE)
 #include BOOST_PP_ITERATE()
 
+#undef FUSION_FORWARD_CTOR_MOVE
 #endif
 #else // defined(BOOST_PP_IS_ITERATING)
 ///////////////////////////////////////////////////////////////////////////////
@@ -33,6 +36,14 @@
     vector(BOOST_PP_ENUM_BINARY_PARAMS(
         N, typename detail::call_param<T, >::type _))
         : vec(BOOST_PP_ENUM_PARAMS(N, _)) {}
+
+#if !defined(BOOST_NO_RVALUE_REFERENCES)
+#if N == 1
+    explicit
+#endif
+    vector(BOOST_PP_ENUM_BINARY_PARAMS(N, T, && _))
+        : vec(BOOST_PP_ENUM(N, FUSION_FORWARD_CTOR_MOVE, _)) {}
+#endif
 
 #undef N
 #endif // defined(BOOST_PP_IS_ITERATING)

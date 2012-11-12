@@ -1,6 +1,6 @@
 /*
   Copyright 2008 Intel Corporation
- 
+
   Use, modification and distribution are subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
@@ -19,7 +19,7 @@ namespace boost { namespace polygon{
 
   template <typename ltype, typename rtype, int op_type>
   class polygon_45_set_view;
-  
+
   struct polygon_45_set_concept {};
 
   template <typename Unit>
@@ -43,8 +43,8 @@ namespace boost { namespace polygon{
     }
 
     // copy constructor
-    inline polygon_45_set_data(const polygon_45_set_data& that) : 
-      error_data_(that.error_data_), data_(that.data_), dirty_(that.dirty_), 
+    inline polygon_45_set_data(const polygon_45_set_data& that) :
+      error_data_(that.error_data_), data_(that.data_), dirty_(that.dirty_),
       unsorted_(that.unsorted_), is_manhattan_(that.is_manhattan_) {}
 
     template <typename ltype, typename rtype, int op_type>
@@ -123,7 +123,7 @@ namespace boost { namespace polygon{
       unsorted_ = true;
       insert_clean(vertex_45, is_hole);
     }
-    
+
     template <typename coordinate_type_2>
     inline void insert(const polygon_90_set_data<coordinate_type_2>& polygon_set, bool is_hole = false) {
       if(polygon_set.orient() == VERTICAL) {
@@ -158,14 +158,14 @@ namespace boost { namespace polygon{
       p.data_.insert(p.data_.end(), error_data_.begin(), error_data_.end());
     }
 
-    // equivalence operator 
+    // equivalence operator
     inline bool operator==(const polygon_45_set_data& p) const {
       clean();
       p.clean();
       return data_ == p.data_;
     }
 
-    // inequivalence operator 
+    // inequivalence operator
     inline bool operator!=(const polygon_45_set_data& p) const {
       return !((*this) == p);
     }
@@ -212,7 +212,7 @@ namespace boost { namespace polygon{
 
     void sort() const{
       if(unsorted_) {
-        gtlsort(data_.begin(), data_.end());
+        polygon_sort(data_.begin(), data_.end());
         unsorted_ = false;
       }
     }
@@ -220,6 +220,7 @@ namespace boost { namespace polygon{
     template <typename input_iterator_type>
     void set(input_iterator_type input_begin, input_iterator_type input_end) {
       data_.clear();
+      reserve(std::distance(input_begin, input_end));
       insert(input_begin, input_end);
       dirty_ = true;
       unsorted_ = true;
@@ -232,7 +233,7 @@ namespace boost { namespace polygon{
     }
 
     void set(const value_type& value) {
-      data_ = value; 
+      data_ = value;
       dirty_ = true;
       unsorted_ = true;
     }
@@ -242,13 +243,13 @@ namespace boost { namespace polygon{
     void get_polygons(cT& container) const {
       get_dispatch(container, polygon_45_concept());
     }
-    
+
     // append to the container cT with PolygonWithHoles objects
     template <class cT>
     void get_polygons_with_holes(cT& container) const {
       get_dispatch(container, polygon_45_with_holes_concept());
     }
-    
+
     // append to the container cT with polygons of three or four verticies
     // slicing orientation is vertical
     template <class cT>
@@ -288,7 +289,7 @@ namespace boost { namespace polygon{
 
     // snap verticies of set to even,even or odd,odd coordinates
     void snap() const;
-    
+
     // |= &= += *= -= ^= binary operators
     polygon_45_set_data& operator|=(const polygon_45_set_data& b);
     polygon_45_set_data& operator&=(const polygon_45_set_data& b);
@@ -300,7 +301,7 @@ namespace boost { namespace polygon{
     // resizing operations
     polygon_45_set_data& operator+=(Unit delta);
     polygon_45_set_data& operator-=(Unit delta);
-    
+
     // shrink the Polygon45Set by shrinking
     polygon_45_set_data& resize(coordinate_type resizing, RoundingOption rounding = CLOSEST,
                                 CornerOption corner = INTERSECTION);
@@ -338,14 +339,14 @@ namespace boost { namespace polygon{
                                             bool hole = false) {
       return insert_with_resize_dispatch(poly, resizing, rounding, corner, hole, typename geometry_concept<geometry_type>::type());
     }
-    
+
   private:
     mutable value_type error_data_;
     mutable value_type data_;
     mutable bool dirty_;
     mutable bool unsorted_;
     mutable bool is_manhattan_;
-  
+
   private:
     //functions
     template <typename output_container>
@@ -377,7 +378,7 @@ namespace boost { namespace polygon{
       insert(geometry_object.begin(), geometry_object.end(), is_hole);
     }
     template <typename geometry_type>
-    void insert_dispatch(const geometry_type& geometry_object, bool is_hole, rectangle_concept tag); 
+    void insert_dispatch(const geometry_type& geometry_object, bool is_hole, rectangle_concept tag);
     template <typename geometry_type>
     void insert_dispatch(const geometry_type& geometry_object, bool is_hole, polygon_90_concept ) {
       insert_vertex_sequence(begin_points(geometry_object), end_points(geometry_object), winding(geometry_object), is_hole);
@@ -417,20 +418,20 @@ namespace boost { namespace polygon{
       insert(pl.begin(), pl.end(), is_hole);
     }
 
-    void insert_vertex_half_edge_45_pair(const point_data<Unit>& pt1, point_data<Unit>& pt2, 
+    void insert_vertex_half_edge_45_pair(const point_data<Unit>& pt1, point_data<Unit>& pt2,
                                          const point_data<Unit>& pt3, direction_1d wdir);
 
     template <typename geometry_type>
     polygon_45_set_data& insert_with_resize_dispatch(const geometry_type& poly,
                                                      coordinate_type resizing, RoundingOption rounding,
                                                      CornerOption corner, bool hole, polygon_45_concept tag);
-    
+
     // accumulate the bloated polygon with holes
     template <typename geometry_type>
     polygon_45_set_data& insert_with_resize_dispatch(const geometry_type& poly,
                                                      coordinate_type resizing, RoundingOption rounding,
-                                                     CornerOption corner, bool hole, polygon_45_with_holes_concept tag); 
-    
+                                                     CornerOption corner, bool hole, polygon_45_with_holes_concept tag);
+
     static void snap_vertex_45(Vertex45Compact& vertex);
 
   public:
@@ -446,7 +447,7 @@ namespace boost { namespace polygon{
   struct geometry_concept<polygon_45_set_data<T> > {
     typedef polygon_45_set_concept type;
   };
- 
+
   template <typename iT, typename T>
   void scale_up_vertex_45_compact_range(iT beginr, iT endr, T factor) {
     for( ; beginr != endr; ++beginr) {
@@ -490,17 +491,17 @@ namespace boost { namespace polygon{
 
   template <typename cT, typename pT>
   bool insert_vertex_half_edge_45_pair_into_vector(cT& output,
-                                       const pT& pt1, pT& pt2, 
-                                       const pT& pt3, 
+                                       const pT& pt1, pT& pt2,
+                                       const pT& pt3,
                                        direction_1d wdir) {
     int multiplier = wdir == LOW ? -1 : 1;
     typename cT::value_type vertex(pt2, 0, 0);
     //std::cout << pt1 << " " << pt2 << " " << pt3 << std::endl;
     std::pair<int, int> check;
-    check = characterizeEdge45(pt1, pt2); 
+    check = characterizeEdge45(pt1, pt2);
     //std::cout << "index " << check.first << " " << check.second * -multiplier << std::endl;
     vertex.count[check.first] += check.second * -multiplier;
-    check = characterizeEdge45(pt2, pt3); 
+    check = characterizeEdge45(pt2, pt3);
     //std::cout << "index " << check.first << " " << check.second * multiplier << std::endl;
     vertex.count[check.first] += check.second * multiplier;
     output.push_back(vertex);
@@ -508,8 +509,8 @@ namespace boost { namespace polygon{
   }
 
   template <typename Unit>
-  inline void polygon_45_set_data<Unit>::insert_vertex_half_edge_45_pair(const point_data<Unit>& pt1, point_data<Unit>& pt2, 
-                                                                         const point_data<Unit>& pt3, 
+  inline void polygon_45_set_data<Unit>::insert_vertex_half_edge_45_pair(const point_data<Unit>& pt1, point_data<Unit>& pt2,
+                                                                         const point_data<Unit>& pt3,
                                                                          direction_1d wdir) {
     if(insert_vertex_half_edge_45_pair_into_vector(data_, pt1, pt2, pt3, wdir)) is_manhattan_ = false;
   }
@@ -611,7 +612,7 @@ namespace boost { namespace polygon{
 
   template <typename cT, typename rT>
   void insert_rectangle_into_vector_45(cT& output, const rT& rect, bool is_hole) {
-    point_data<typename rectangle_traits<rT>::coordinate_type> 
+    point_data<typename rectangle_traits<rT>::coordinate_type>
       llpt = ll(rect), lrpt = lr(rect), ulpt = ul(rect), urpt = ur(rect);
     direction_1d dir = COUNTERCLOCKWISE;
     if(is_hole) dir = CLOCKWISE;
@@ -623,7 +624,7 @@ namespace boost { namespace polygon{
 
   template <typename Unit>
   template <typename geometry_type>
-  inline void polygon_45_set_data<Unit>::insert_dispatch(const geometry_type& geometry_object, 
+  inline void polygon_45_set_data<Unit>::insert_dispatch(const geometry_type& geometry_object,
                                                          bool is_hole, rectangle_concept ) {
     dirty_ = true;
     unsorted_ = true;
@@ -640,7 +641,7 @@ namespace boost { namespace polygon{
     }
     Unit low = (std::numeric_limits<Unit>::max)();
     Unit high = (std::numeric_limits<Unit>::min)();
-    interval_data<Unit> xivl(low, high); 
+    interval_data<Unit> xivl(low, high);
     interval_data<Unit> yivl(low, high);
     for(typename value_type::const_iterator itr = data_.begin();
         itr != data_.end(); ++ itr) {
@@ -714,7 +715,7 @@ namespace boost { namespace polygon{
   inline polygon_45_set_data<Unit>& polygon_45_set_data<Unit>::operator-=(const polygon_45_set_data<Unit>& b) {
     //b.sort();
     //sort();
-    applyAdaptiveBoolean_<2>(b);   
+    applyAdaptiveBoolean_<2>(b);
     dirty_ = false;
     unsorted_ = false;
     return *this;
@@ -723,7 +724,7 @@ namespace boost { namespace polygon{
   inline polygon_45_set_data<Unit>& polygon_45_set_data<Unit>::operator^=(const polygon_45_set_data<Unit>& b) {
     //b.sort();
     //sort();
-    applyAdaptiveBoolean_<3>(b);   
+    applyAdaptiveBoolean_<3>(b);
     dirty_ = false;
     unsorted_ = false;
     return *this;
@@ -739,7 +740,7 @@ namespace boost { namespace polygon{
   }
 
   template <typename Unit>
-  inline polygon_45_set_data<Unit>& 
+  inline polygon_45_set_data<Unit>&
   polygon_45_set_data<Unit>::resize(Unit resizing, RoundingOption rounding, CornerOption corner) {
     if(resizing == 0) return *this;
     std::list<polygon_45_with_holes_data<Unit> > pl;
@@ -852,7 +853,7 @@ namespace boost { namespace polygon{
     Unit y = 0;
     if(run1 == 0) {
       x = pt1.x();
-      y = (Unit)(((x1 - x2) * rise2) / run2) + pt2.y(); 
+      y = (Unit)(((x1 - x2) * rise2) / run2) + pt2.y();
     } else if(run2 == 0) {
       x = pt2.x();
       y = (Unit)(((x2 - x1) * rise1) / run1) + pt1.y();
@@ -863,7 +864,7 @@ namespace boost { namespace polygon{
       // (rise1/run1 - rise2/run2)x = y2 - y1 + rise1/run1 x1 - rise2/run2 x2
       // x = (y2 - y1 + rise1/run1 x1 - rise2/run2 x2)/(rise1/run1 - rise2/run2)
       // x = (y2 - y1 + rise1/run1 x1 - rise2/run2 x2)(rise1 run2 - rise2 run1)/(run1 run2)
-      x = (Unit)((y2 - y1 + ((rise1 * x1) / run1) - ((rise2 * x2) / run2)) * 
+      x = (Unit)((y2 - y1 + ((rise1 * x1) / run1) - ((rise2 * x2) / run2)) *
                  (run1 * run2) / (rise1 * run2 - rise2 * run1));
       if(rise1 == 0) {
         y = pt1.y();
@@ -873,7 +874,7 @@ namespace boost { namespace polygon{
         // y - y1 = (rise1/run1)(x - x1)
         // (run1/rise1)(y - y1) = x - x1
         // x = (run1/rise1)(y - y1) + x1 = (run2/rise2)(y - y2) + x2
-        y = (Unit)((x2 - x1 + ((run1 * y1) / rise1) - ((run2 * y2) / rise2)) * 
+        y = (Unit)((x2 - x1 + ((run1 * y1) / rise1) - ((run2 * y2) / rise2)) *
                    (rise1 * rise2) / (run1 * rise2 - run2 * rise1));
       }
     }
@@ -882,7 +883,7 @@ namespace boost { namespace polygon{
 
   template <typename Unit>
   inline
-  void handleResizingEdge45_SQRT1OVER2(polygon_45_set_data<Unit>& sizingSet, point_data<Unit> first, 
+  void handleResizingEdge45_SQRT1OVER2(polygon_45_set_data<Unit>& sizingSet, point_data<Unit> first,
                                        point_data<Unit> second, Unit resizing, CornerOption corner) {
     if(first.x() == second.x()) {
       sizingSet.insert(rectangle_data<Unit>(first.x() - resizing, first.y(), first.x() + resizing, second.y()));
@@ -932,7 +933,7 @@ namespace boost { namespace polygon{
 
   template <typename Unit>
   inline
-  void handleResizingEdge45(polygon_45_set_data<Unit>& sizingSet, point_data<Unit> first, 
+  void handleResizingEdge45(polygon_45_set_data<Unit>& sizingSet, point_data<Unit> first,
                             point_data<Unit> second, Unit resizing, RoundingOption rounding) {
     if(first.x() == second.x()) {
       sizingSet.insert(rectangle_data<int>(first.x() - resizing, first.y(), first.x() + resizing, second.y()));
@@ -998,14 +999,14 @@ namespace boost { namespace polygon{
 
   template <typename Unit>
   inline
-  void handleResizingVertex45(polygon_45_set_data<Unit>& sizingSet, const point_data<Unit>& first, 
-                              const point_data<Unit>& second, const point_data<Unit>& third, Unit resizing, 
-                              RoundingOption rounding, CornerOption corner, 
+  void handleResizingVertex45(polygon_45_set_data<Unit>& sizingSet, const point_data<Unit>& first,
+                              const point_data<Unit>& second, const point_data<Unit>& third, Unit resizing,
+                              RoundingOption rounding, CornerOption corner,
                               int multiplier) {
     unsigned int edge1 = getEdge45Direction(first, second);
     unsigned int edge2 = getEdge45Direction(second, third);
     unsigned int diffAngle;
-    if(multiplier < 0) 
+    if(multiplier < 0)
       diffAngle = (edge2 + 8 - edge1) % 8;
     else
       diffAngle = (edge1 + 8 - edge2) % 8;
@@ -1015,7 +1016,7 @@ namespace boost { namespace polygon{
     }
     Unit bloating = abs(resizing);
     if(rounding == SQRT1OVER2) {
-      if(edge1 % 2 && edge2 % 2) return; 
+      if(edge1 % 2 && edge2 % 2) return;
       if(corner == ORTHOGONAL && edge1 % 2 == 0 && edge2 % 2 == 0) {
         rectangle_data<Unit> insertion_rect;
         set_points(insertion_rect, second, second);
@@ -1074,7 +1075,7 @@ namespace boost { namespace polygon{
         sizingSet.insert(insertion_rect);
         return;
       }
-    } 
+    }
     std::vector<point_data<Unit> > pts;
     pts.push_back(edgePoint1);
     pts.push_back(second);
@@ -1086,15 +1087,15 @@ namespace boost { namespace polygon{
 
   template <typename Unit>
   template <typename geometry_type>
-  inline polygon_45_set_data<Unit>& 
+  inline polygon_45_set_data<Unit>&
   polygon_45_set_data<Unit>::insert_with_resize_dispatch(const geometry_type& poly,
-                                                         coordinate_type resizing, 
+                                                         coordinate_type resizing,
                                                          RoundingOption rounding,
                                                          CornerOption corner,
                                                          bool hole, polygon_45_concept ) {
     direction_1d wdir = winding(poly);
     int multiplier = wdir == LOW ? -1 : 1;
-    if(hole) resizing *= -1; 
+    if(hole) resizing *= -1;
     typedef typename polygon_45_data<Unit>::iterator_type piterator;
     piterator first, second, third, end, real_end;
     real_end = end_points(poly);
@@ -1113,8 +1114,8 @@ namespace boost { namespace polygon{
         handleResizingEdge45(sizingSet, *first, *second, resizing, rounding);
       } else {
         handleResizingEdge45_SQRT1OVER2(sizingSet, *first, *second, resizing, corner);
-      }        
-      if(corner != UNFILLED) 
+      }
+      if(corner != UNFILLED)
         handleResizingVertex45(sizingSet, *first, *second, *third, resizing, rounding, corner, multiplier);
       first = second;
       second = third;
@@ -1144,9 +1145,9 @@ namespace boost { namespace polygon{
   template <typename geometry_type>
   inline polygon_45_set_data<Unit>&
   polygon_45_set_data<Unit>::insert_with_resize_dispatch(const geometry_type& poly,
-                                                         coordinate_type resizing, 
+                                                         coordinate_type resizing,
                                                          RoundingOption rounding,
-                                                         CornerOption corner, 
+                                                         CornerOption corner,
                                                          bool hole, polygon_45_with_holes_concept ) {
     insert_with_resize_dispatch(poly, resizing, rounding, corner, hole, polygon_45_concept());
     for(typename polygon_with_holes_traits<geometry_type>::iterator_holes_type itr =
@@ -1170,11 +1171,11 @@ namespace boost { namespace polygon{
     }
     clear();
     insert(polys.begin(), polys.end());
-    dirty_ = true; 
+    dirty_ = true;
     unsorted_ = true;
     return *this;
   }
-    
+
   template <typename Unit>
   inline polygon_45_set_data<Unit>& polygon_45_set_data<Unit>::scale_up(typename coordinate_traits<Unit>::unsigned_area_type factor) {
     scale_up_vertex_45_compact_range(data_.begin(), data_.end(), factor);
@@ -1192,7 +1193,7 @@ namespace boost { namespace polygon{
     }
     clear();
     insert(polys.begin(), polys.end());
-    dirty_ = true; 
+    dirty_ = true;
     unsorted_ = true;
     return *this;
   }
@@ -1208,7 +1209,7 @@ namespace boost { namespace polygon{
     }
     clear();
     insert(polys.begin(), polys.end());
-    dirty_ = true; 
+    dirty_ = true;
     unsorted_ = true;
     return *this;
   }
@@ -1244,7 +1245,7 @@ namespace boost { namespace polygon{
     typename boolean_op_45<Unit2>::template Scan45<typename boolean_op_45<Unit2>::Count2,
       typename boolean_op_45<Unit2>::template boolean_op_45_output_functor<op> > scan45;
     std::vector<typename boolean_op_45<Unit2>::Vertex45> eventOut;
-    typedef std::pair<typename boolean_op_45<Unit2>::Point, 
+    typedef std::pair<typename boolean_op_45<Unit2>::Point,
       typename boolean_op_45<Unit2>::template Scan45CountT<typename boolean_op_45<Unit2>::Count2> > Scan45Vertex;
     std::vector<Scan45Vertex> eventIn;
     typedef std::vector<typename polygon_45_formation<Unit2>::Vertex45Compact> value_type;
@@ -1262,7 +1263,7 @@ namespace boost { namespace polygon{
         //std::cout << "SCAN " << currentX << "\n";
         //scan event
         scan45.scan(eventOut, eventIn.begin(), eventIn.end());
-        gtlsort(eventOut.begin(), eventOut.end());
+        polygon_sort(eventOut.begin(), eventOut.end());
         std::size_t ptCount = 0;
         for(std::size_t i = 0; i < eventOut.size(); ++i) {
           if(!result_data.empty() &&
@@ -1270,7 +1271,7 @@ namespace boost { namespace polygon{
             result_data.back().count += eventOut[i];
             ++ptCount;
           } else {
-            if(!result_data.empty()) { 
+            if(!result_data.empty()) {
               if(result_data.back().count.is_45()) {
                 result_is_manhattan_ = false;
               }
@@ -1290,24 +1291,24 @@ namespace boost { namespace polygon{
         x = currentX;
       }
       //std::cout << "get next\n";
-      if(iter2 != end2 && (iter1 == end1 || iter2->pt.x() < iter1->pt.x() || 
+      if(iter2 != end2 && (iter1 == end1 || iter2->pt.x() < iter1->pt.x() ||
                            (iter2->pt.x() == iter1->pt.x() &&
                             iter2->pt.y() < iter1->pt.y()) )) {
         //std::cout << "case1 next\n";
         eventIn.push_back(Scan45Vertex
-                          (iter2->pt, 
+                          (iter2->pt,
                            typename polygon_45_formation<Unit2>::
                            Scan45Count(typename polygon_45_formation<Unit2>::Count2(0, iter2->count[0]),
                                        typename polygon_45_formation<Unit2>::Count2(0, iter2->count[1]),
                                        typename polygon_45_formation<Unit2>::Count2(0, iter2->count[2]),
                                        typename polygon_45_formation<Unit2>::Count2(0, iter2->count[3]))));
         ++iter2;
-      } else if(iter1 != end1 && (iter2 == end2 || iter1->pt.x() < iter2->pt.x() || 
+      } else if(iter1 != end1 && (iter2 == end2 || iter1->pt.x() < iter2->pt.x() ||
                                   (iter1->pt.x() == iter2->pt.x() &&
                                    iter1->pt.y() < iter2->pt.y()) )) {
         //std::cout << "case2 next\n";
         eventIn.push_back(Scan45Vertex
-                          (iter1->pt, 
+                          (iter1->pt,
                            typename polygon_45_formation<Unit2>::
                            Scan45Count(
                                        typename polygon_45_formation<Unit2>::Count2(iter1->count[0], 0),
@@ -1318,22 +1319,22 @@ namespace boost { namespace polygon{
       } else {
         //std::cout << "case3 next\n";
         eventIn.push_back(Scan45Vertex
-                          (iter2->pt, 
+                          (iter2->pt,
                            typename polygon_45_formation<Unit2>::
-                           Scan45Count(typename polygon_45_formation<Unit2>::Count2(iter1->count[0], 
+                           Scan45Count(typename polygon_45_formation<Unit2>::Count2(iter1->count[0],
                                                                                     iter2->count[0]),
-                                       typename polygon_45_formation<Unit2>::Count2(iter1->count[1], 
+                                       typename polygon_45_formation<Unit2>::Count2(iter1->count[1],
                                                                                     iter2->count[1]),
-                                       typename polygon_45_formation<Unit2>::Count2(iter1->count[2], 
+                                       typename polygon_45_formation<Unit2>::Count2(iter1->count[2],
                                                                                     iter2->count[2]),
-                                       typename polygon_45_formation<Unit2>::Count2(iter1->count[3], 
+                                       typename polygon_45_formation<Unit2>::Count2(iter1->count[3],
                                                                                     iter2->count[3]))));
         ++iter1;
         ++iter2;
       }
     }
     scan45.scan(eventOut, eventIn.begin(), eventIn.end());
-    gtlsort(eventOut.begin(), eventOut.end());
+    polygon_sort(eventOut.begin(), eventOut.end());
 
     std::size_t ptCount = 0;
     for(std::size_t i = 0; i < eventOut.size(); ++i) {
@@ -1342,7 +1343,7 @@ namespace boost { namespace polygon{
         result_data.back().count += eventOut[i];
         ++ptCount;
       } else {
-        if(!result_data.empty()) { 
+        if(!result_data.empty()) {
           if(result_data.back().count.is_45()) {
             result_is_manhattan_ = false;
           }
@@ -1385,7 +1386,7 @@ namespace boost { namespace polygon{
         //std::cout << "SCAN " << currentX << "\n";
         //scan event
         scan45.scan(eventOut, eventIn.begin(), eventIn.end());
-        gtlsort(eventOut.begin(), eventOut.end());
+        polygon_sort(eventOut.begin(), eventOut.end());
         std::size_t ptCount = 0;
         for(std::size_t i = 0; i < eventOut.size(); ++i) {
           if(!result_data.empty() &&
@@ -1393,7 +1394,7 @@ namespace boost { namespace polygon{
             result_data.back().count += eventOut[i];
             ++ptCount;
           } else {
-            if(!result_data.empty()) { 
+            if(!result_data.empty()) {
               if(result_data.back().count.is_45()) {
                 result_is_manhattan_ = false;
               }
@@ -1414,7 +1415,7 @@ namespace boost { namespace polygon{
       }
       //std::cout << "get next\n";
       eventIn.push_back(Scan45Vertex
-                        (iter1->pt, 
+                        (iter1->pt,
                          Scan45Count( typename boolean_op_45<Unit2>::Count1(iter1->count[0]),
                                       typename boolean_op_45<Unit2>::Count1(iter1->count[1]),
                                       typename boolean_op_45<Unit2>::Count1(iter1->count[2]),
@@ -1422,7 +1423,7 @@ namespace boost { namespace polygon{
       ++iter1;
     }
     scan45.scan(eventOut, eventIn.begin(), eventIn.end());
-    gtlsort(eventOut.begin(), eventOut.end());
+    polygon_sort(eventOut.begin(), eventOut.end());
 
     std::size_t ptCount = 0;
     for(std::size_t i = 0; i < eventOut.size(); ++i) {
@@ -1431,7 +1432,7 @@ namespace boost { namespace polygon{
         result_data.back().count += eventOut[i];
         ++ptCount;
       } else {
-        if(!result_data.empty()) { 
+        if(!result_data.empty()) {
           if(result_data.back().count.is_45()) {
             result_is_manhattan_ = false;
           }
@@ -1453,9 +1454,9 @@ namespace boost { namespace polygon{
     return result_is_manhattan_;
   }
 
-  template <typename cT, typename iT> 
+  template <typename cT, typename iT>
   void get_error_rects_shell(cT& posE, cT& negE, iT beginr, iT endr) {
-    typedef typename iT::value_type Point;
+    typedef typename std::iterator_traits<iT>::value_type Point;
     typedef typename point_traits<Point>::coordinate_type Unit;
     typedef typename coordinate_traits<Unit>::area_type area_type;
     Point pt1, pt2, pt3;
@@ -1493,7 +1494,7 @@ namespace boost { namespace polygon{
         const Point& pt = *beginr;
         pt3 = pt;
         ++beginr;
-        if(beginr == endr) { 
+        if(beginr == endr) {
           next_to_last = true;
           //skip last point equal to first
           continue;
@@ -1508,7 +1509,7 @@ namespace boost { namespace polygon{
         if(dir == CLOCKWISE) {
           posE.push_back(rectangle_data<typename Point::coordinate_type>
                          (x(pt2) - 1, y(pt2) - 1, x(pt2) + 1, y(pt2) + 1));
-          
+
         } else {
           negE.push_back(rectangle_data<typename Point::coordinate_type>
                          (x(pt2) - 1, y(pt2) - 1, x(pt2) + 1, y(pt2) + 1));
@@ -1518,8 +1519,8 @@ namespace boost { namespace polygon{
       pt2 = pt3;
     }
   }
-    
-  template <typename cT, typename pT> 
+
+  template <typename cT, typename pT>
   void get_error_rects(cT& posE, cT& negE, const pT& p) {
     get_error_rects_shell(posE, negE, p.begin(), p.end());
     for(typename pT::iterator_holes_type iHb = p.begin_holes();
@@ -1554,16 +1555,16 @@ namespace boost { namespace polygon{
 #endif
       if(op == 0) {
         output.applyBooleanBinaryOp(l90sd.begin(), l90sd.end(),
-                                    r90sd.begin(), r90sd.end(), boolean_op::BinaryCount<boolean_op::BinaryOr>()); 
+                                    r90sd.begin(), r90sd.end(), boolean_op::BinaryCount<boolean_op::BinaryOr>());
       } else if (op == 1) {
         output.applyBooleanBinaryOp(l90sd.begin(), l90sd.end(),
-                                    r90sd.begin(), r90sd.end(), boolean_op::BinaryCount<boolean_op::BinaryAnd>()); 
+                                    r90sd.begin(), r90sd.end(), boolean_op::BinaryCount<boolean_op::BinaryAnd>());
       } else if (op == 2) {
         output.applyBooleanBinaryOp(l90sd.begin(), l90sd.end(),
-                                    r90sd.begin(), r90sd.end(), boolean_op::BinaryCount<boolean_op::BinaryNot>()); 
+                                    r90sd.begin(), r90sd.end(), boolean_op::BinaryCount<boolean_op::BinaryNot>());
       } else if (op == 3) {
         output.applyBooleanBinaryOp(l90sd.begin(), l90sd.end(),
-                                    r90sd.begin(), r90sd.end(), boolean_op::BinaryCount<boolean_op::BinaryXor>()); 
+                                    r90sd.begin(), r90sd.end(), boolean_op::BinaryCount<boolean_op::BinaryXor>());
       }
 #ifdef BOOST_POLYGON_MSVC
 #pragma warning (default: 4127)
@@ -1590,7 +1591,7 @@ namespace boost { namespace polygon{
           lvalue_data.reserve(data_.size());
           for(std::size_t i = 0 ; i < data_.size(); ++i) {
             const Vertex45Compact& vi = data_[i];
-            Vertex45Compact2 ci; 
+            Vertex45Compact2 ci;
             ci.pt = point_data<Unit2>(x(vi.pt), y(vi.pt));
             ci.count = typename polygon_45_formation<Unit2>::Vertex45Count
               ( vi.count[0], vi.count[1], vi.count[2], vi.count[3]);
@@ -1639,7 +1640,7 @@ namespace boost { namespace polygon{
               result.error_data_.push_back(ci);
             }
             Data2 new_result_data;
-            gtlsort(result_data.begin(), result_data.end());
+            polygon_sort(result_data.begin(), result_data.end());
             applyUnary45OpOnVectors<Unit2, 0>(new_result_data, result_data); //OR operation
             result_data.swap(new_result_data);
           }
@@ -1709,7 +1710,7 @@ namespace boost { namespace polygon{
           lvalue_data.reserve(data_.size());
           for(std::size_t i = 0 ; i < data_.size(); ++i) {
             const Vertex45Compact& vi = data_[i];
-            Vertex45Compact2 ci; 
+            Vertex45Compact2 ci;
             ci.pt.x(static_cast<Unit>(x(vi.pt)));
             ci.pt.y(static_cast<Unit>(y(vi.pt)));
             ci.count = typename polygon_45_formation<Unit2>::Vertex45Count
@@ -1749,7 +1750,7 @@ namespace boost { namespace polygon{
               result.error_data_.push_back(ci);
             }
             Data2 new_result_data;
-            gtlsort(result_data.begin(), result_data.end());
+            polygon_sort(result_data.begin(), result_data.end());
             applyUnary45OpOnVectors<Unit2, 0>(new_result_data, result_data); //OR operation
             result_data.swap(new_result_data);
           }
@@ -1787,11 +1788,11 @@ namespace boost { namespace polygon{
   public:
     inline property_merge_45() : tsd_() {}
     inline property_merge_45(const property_merge_45& that) : tsd_(that.tsd_) {}
-    inline property_merge_45& operator=(const property_merge_45& that) { 
-      tsd_ = that.tsd_; 
+    inline property_merge_45& operator=(const property_merge_45& that) {
+      tsd_ = that.tsd_;
       return *this;
     }
-    
+
     inline void insert(const polygon_45_set_data<coordinate_type>& ps, property_type property) {
       ps.clean();
       polygon_45_property_merge<big_coord, property_type>::populateMergeSetData(tsd_, ps.begin(), ps.end(), property);
@@ -1844,12 +1845,12 @@ namespace boost { namespace polygon{
     inline connectivity_extraction_45() : tsd_(), nodeCount_(0) {}
     inline connectivity_extraction_45(const connectivity_extraction_45& that) : tsd_(that.tsd_),
                                                                           nodeCount_(that.nodeCount_) {}
-    inline connectivity_extraction_45& operator=(const connectivity_extraction_45& that) { 
-      tsd_ = that.tsd_; 
+    inline connectivity_extraction_45& operator=(const connectivity_extraction_45& that) {
+      tsd_ = that.tsd_;
       nodeCount_ = that.nodeCount_; {}
       return *this;
     }
-    
+
     //insert a polygon set graph node, the value returned is the id of the graph node
     inline unsigned int insert(const polygon_45_set_data<coordinate_type>& ps) {
       ps.clean();
@@ -1862,7 +1863,7 @@ namespace boost { namespace polygon{
       ps.insert(geoObj);
       return insert(ps);
     }
-    
+
     //extract connectivity and store the edges in the graph
     //graph must be indexable by graph node id and the indexed value must be a std::set of
     //graph node id

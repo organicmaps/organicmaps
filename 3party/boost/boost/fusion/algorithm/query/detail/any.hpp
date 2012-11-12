@@ -109,7 +109,7 @@ namespace detail
     struct unrolled_any<0>
     {
         template <typename It, typename F>
-        static bool call(It const& it, F f)
+        static bool call(It const&, F)
         {
             return false;
         }

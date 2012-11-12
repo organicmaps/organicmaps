@@ -235,7 +235,7 @@ T bessel_yn_small_z(int n, T z, T* scale, const Policy& pol)
    {
       return (z * z) / (4 * constants::pi<T>()) * log(z / 2) 
          - (4 / (constants::pi<T>() * z * z)) 
-         - ((z * z) / (8 * constants::pi<T>())) * (3/2 - 2 * constants::euler<T>());
+         - ((z * z) / (8 * constants::pi<T>())) * (T(3)/2 - 2 * constants::euler<T>());
    }
    else
    {

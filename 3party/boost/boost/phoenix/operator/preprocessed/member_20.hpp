@@ -8,17 +8,21 @@
 namespace boost { namespace phoenix
 {
     namespace expression { template <typename Lhs, typename Rhs> struct mem_ptr : expr<proto::tag:: mem_ptr, Lhs, Rhs> {}; typedef proto::functional::make_expr<proto::tag:: mem_ptr> make_mem_ptr; } namespace rule { struct mem_ptr : expression:: mem_ptr<meta_grammar, meta_grammar> {}; } template <typename Dummy> struct meta_grammar::case_<proto::tag:: mem_ptr, Dummy> : enable_rule<rule:: mem_ptr, Dummy> {};
-    template <typename Object, typename MemPtr>
-    inline
-    typename boost::enable_if<
-        is_member_function_pointer<MemPtr>
-      , detail::mem_fun_ptr_gen<actor<Object>, MemPtr> const
-    >::type
-    operator->*(actor<Object> const& obj, MemPtr ptr)
-    {
-        return detail::mem_fun_ptr_gen<actor<Object>, MemPtr>(obj, ptr);
-    }
-    using proto::exprns_::operator->*;
+    template<>
+    struct phoenix_generator::case_<proto::tag::mem_ptr>
+      : proto::or_<
+            proto::when<
+                proto::and_<
+                    proto::mem_ptr<meta_grammar, proto::terminal<proto::_> >
+                  , proto::if_<is_member_function_pointer<boost::remove_reference<proto::call<proto::_value(proto::_right)> > >()>
+                >
+              , proto::call<detail::make_mem_fun_ptr_gen(proto::_left, proto::call<proto::_value(proto::_right)>)>
+            >
+          , proto::otherwise<
+                proto::call<proto::pod_generator<actor>(proto::_)>
+            >
+        >
+    {};
     namespace result_of
     {
         template <
@@ -37,7 +41,7 @@ namespace boost { namespace phoenix
         template <typename Context, typename A0 , typename A1>
         struct mem_fun_ptr_eval<Context, A0 , A1>
         {
-            typedef typename evaluator::impl< A0 , Context , int >::result_type child0; typedef typename evaluator::impl< A1 , Context , int >::result_type child1;
+            typedef typename evaluator::impl< A0 , Context , proto::empty_env >::result_type child0; typedef typename evaluator::impl< A1 , Context , proto::empty_env >::result_type child1;
             typedef
                 typename boost::result_of<
                     child1(
@@ -56,7 +60,7 @@ namespace boost { namespace phoenix
         template <typename Context, typename A0 , typename A1 , typename A2>
         struct mem_fun_ptr_eval<Context, A0 , A1 , A2>
         {
-            typedef typename evaluator::impl< A0 , Context , int >::result_type child0; typedef typename evaluator::impl< A1 , Context , int >::result_type child1; typedef typename evaluator::impl< A2 , Context , int >::result_type child2;
+            typedef typename evaluator::impl< A0 , Context , proto::empty_env >::result_type child0; typedef typename evaluator::impl< A1 , Context , proto::empty_env >::result_type child1; typedef typename evaluator::impl< A2 , Context , proto::empty_env >::result_type child2;
             typedef
                 typename boost::result_of<
                     child1(
@@ -75,7 +79,7 @@ namespace boost { namespace phoenix
         template <typename Context, typename A0 , typename A1 , typename A2 , typename A3>
         struct mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3>
         {
-            typedef typename evaluator::impl< A0 , Context , int >::result_type child0; typedef typename evaluator::impl< A1 , Context , int >::result_type child1; typedef typename evaluator::impl< A2 , Context , int >::result_type child2; typedef typename evaluator::impl< A3 , Context , int >::result_type child3;
+            typedef typename evaluator::impl< A0 , Context , proto::empty_env >::result_type child0; typedef typename evaluator::impl< A1 , Context , proto::empty_env >::result_type child1; typedef typename evaluator::impl< A2 , Context , proto::empty_env >::result_type child2; typedef typename evaluator::impl< A3 , Context , proto::empty_env >::result_type child3;
             typedef
                 typename boost::result_of<
                     child1(
@@ -94,7 +98,7 @@ namespace boost { namespace phoenix
         template <typename Context, typename A0 , typename A1 , typename A2 , typename A3 , typename A4>
         struct mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4>
         {
-            typedef typename evaluator::impl< A0 , Context , int >::result_type child0; typedef typename evaluator::impl< A1 , Context , int >::result_type child1; typedef typename evaluator::impl< A2 , Context , int >::result_type child2; typedef typename evaluator::impl< A3 , Context , int >::result_type child3; typedef typename evaluator::impl< A4 , Context , int >::result_type child4;
+            typedef typename evaluator::impl< A0 , Context , proto::empty_env >::result_type child0; typedef typename evaluator::impl< A1 , Context , proto::empty_env >::result_type child1; typedef typename evaluator::impl< A2 , Context , proto::empty_env >::result_type child2; typedef typename evaluator::impl< A3 , Context , proto::empty_env >::result_type child3; typedef typename evaluator::impl< A4 , Context , proto::empty_env >::result_type child4;
             typedef
                 typename boost::result_of<
                     child1(
@@ -113,7 +117,7 @@ namespace boost { namespace phoenix
         template <typename Context, typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5>
         struct mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5>
         {
-            typedef typename evaluator::impl< A0 , Context , int >::result_type child0; typedef typename evaluator::impl< A1 , Context , int >::result_type child1; typedef typename evaluator::impl< A2 , Context , int >::result_type child2; typedef typename evaluator::impl< A3 , Context , int >::result_type child3; typedef typename evaluator::impl< A4 , Context , int >::result_type child4; typedef typename evaluator::impl< A5 , Context , int >::result_type child5;
+            typedef typename evaluator::impl< A0 , Context , proto::empty_env >::result_type child0; typedef typename evaluator::impl< A1 , Context , proto::empty_env >::result_type child1; typedef typename evaluator::impl< A2 , Context , proto::empty_env >::result_type child2; typedef typename evaluator::impl< A3 , Context , proto::empty_env >::result_type child3; typedef typename evaluator::impl< A4 , Context , proto::empty_env >::result_type child4; typedef typename evaluator::impl< A5 , Context , proto::empty_env >::result_type child5;
             typedef
                 typename boost::result_of<
                     child1(
@@ -132,7 +136,7 @@ namespace boost { namespace phoenix
         template <typename Context, typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6>
         struct mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6>
         {
-            typedef typename evaluator::impl< A0 , Context , int >::result_type child0; typedef typename evaluator::impl< A1 , Context , int >::result_type child1; typedef typename evaluator::impl< A2 , Context , int >::result_type child2; typedef typename evaluator::impl< A3 , Context , int >::result_type child3; typedef typename evaluator::impl< A4 , Context , int >::result_type child4; typedef typename evaluator::impl< A5 , Context , int >::result_type child5; typedef typename evaluator::impl< A6 , Context , int >::result_type child6;
+            typedef typename evaluator::impl< A0 , Context , proto::empty_env >::result_type child0; typedef typename evaluator::impl< A1 , Context , proto::empty_env >::result_type child1; typedef typename evaluator::impl< A2 , Context , proto::empty_env >::result_type child2; typedef typename evaluator::impl< A3 , Context , proto::empty_env >::result_type child3; typedef typename evaluator::impl< A4 , Context , proto::empty_env >::result_type child4; typedef typename evaluator::impl< A5 , Context , proto::empty_env >::result_type child5; typedef typename evaluator::impl< A6 , Context , proto::empty_env >::result_type child6;
             typedef
                 typename boost::result_of<
                     child1(
@@ -151,7 +155,7 @@ namespace boost { namespace phoenix
         template <typename Context, typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7>
         struct mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7>
         {
-            typedef typename evaluator::impl< A0 , Context , int >::result_type child0; typedef typename evaluator::impl< A1 , Context , int >::result_type child1; typedef typename evaluator::impl< A2 , Context , int >::result_type child2; typedef typename evaluator::impl< A3 , Context , int >::result_type child3; typedef typename evaluator::impl< A4 , Context , int >::result_type child4; typedef typename evaluator::impl< A5 , Context , int >::result_type child5; typedef typename evaluator::impl< A6 , Context , int >::result_type child6; typedef typename evaluator::impl< A7 , Context , int >::result_type child7;
+            typedef typename evaluator::impl< A0 , Context , proto::empty_env >::result_type child0; typedef typename evaluator::impl< A1 , Context , proto::empty_env >::result_type child1; typedef typename evaluator::impl< A2 , Context , proto::empty_env >::result_type child2; typedef typename evaluator::impl< A3 , Context , proto::empty_env >::result_type child3; typedef typename evaluator::impl< A4 , Context , proto::empty_env >::result_type child4; typedef typename evaluator::impl< A5 , Context , proto::empty_env >::result_type child5; typedef typename evaluator::impl< A6 , Context , proto::empty_env >::result_type child6; typedef typename evaluator::impl< A7 , Context , proto::empty_env >::result_type child7;
             typedef
                 typename boost::result_of<
                     child1(
@@ -170,7 +174,7 @@ namespace boost { namespace phoenix
         template <typename Context, typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8>
         struct mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8>
         {
-            typedef typename evaluator::impl< A0 , Context , int >::result_type child0; typedef typename evaluator::impl< A1 , Context , int >::result_type child1; typedef typename evaluator::impl< A2 , Context , int >::result_type child2; typedef typename evaluator::impl< A3 , Context , int >::result_type child3; typedef typename evaluator::impl< A4 , Context , int >::result_type child4; typedef typename evaluator::impl< A5 , Context , int >::result_type child5; typedef typename evaluator::impl< A6 , Context , int >::result_type child6; typedef typename evaluator::impl< A7 , Context , int >::result_type child7; typedef typename evaluator::impl< A8 , Context , int >::result_type child8;
+            typedef typename evaluator::impl< A0 , Context , proto::empty_env >::result_type child0; typedef typename evaluator::impl< A1 , Context , proto::empty_env >::result_type child1; typedef typename evaluator::impl< A2 , Context , proto::empty_env >::result_type child2; typedef typename evaluator::impl< A3 , Context , proto::empty_env >::result_type child3; typedef typename evaluator::impl< A4 , Context , proto::empty_env >::result_type child4; typedef typename evaluator::impl< A5 , Context , proto::empty_env >::result_type child5; typedef typename evaluator::impl< A6 , Context , proto::empty_env >::result_type child6; typedef typename evaluator::impl< A7 , Context , proto::empty_env >::result_type child7; typedef typename evaluator::impl< A8 , Context , proto::empty_env >::result_type child8;
             typedef
                 typename boost::result_of<
                     child1(
@@ -189,7 +193,7 @@ namespace boost { namespace phoenix
         template <typename Context, typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8 , typename A9>
         struct mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9>
         {
-            typedef typename evaluator::impl< A0 , Context , int >::result_type child0; typedef typename evaluator::impl< A1 , Context , int >::result_type child1; typedef typename evaluator::impl< A2 , Context , int >::result_type child2; typedef typename evaluator::impl< A3 , Context , int >::result_type child3; typedef typename evaluator::impl< A4 , Context , int >::result_type child4; typedef typename evaluator::impl< A5 , Context , int >::result_type child5; typedef typename evaluator::impl< A6 , Context , int >::result_type child6; typedef typename evaluator::impl< A7 , Context , int >::result_type child7; typedef typename evaluator::impl< A8 , Context , int >::result_type child8; typedef typename evaluator::impl< A9 , Context , int >::result_type child9;
+            typedef typename evaluator::impl< A0 , Context , proto::empty_env >::result_type child0; typedef typename evaluator::impl< A1 , Context , proto::empty_env >::result_type child1; typedef typename evaluator::impl< A2 , Context , proto::empty_env >::result_type child2; typedef typename evaluator::impl< A3 , Context , proto::empty_env >::result_type child3; typedef typename evaluator::impl< A4 , Context , proto::empty_env >::result_type child4; typedef typename evaluator::impl< A5 , Context , proto::empty_env >::result_type child5; typedef typename evaluator::impl< A6 , Context , proto::empty_env >::result_type child6; typedef typename evaluator::impl< A7 , Context , proto::empty_env >::result_type child7; typedef typename evaluator::impl< A8 , Context , proto::empty_env >::result_type child8; typedef typename evaluator::impl< A9 , Context , proto::empty_env >::result_type child9;
             typedef
                 typename boost::result_of<
                     child1(
@@ -208,7 +212,7 @@ namespace boost { namespace phoenix
         template <typename Context, typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8 , typename A9 , typename A10>
         struct mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10>
         {
-            typedef typename evaluator::impl< A0 , Context , int >::result_type child0; typedef typename evaluator::impl< A1 , Context , int >::result_type child1; typedef typename evaluator::impl< A2 , Context , int >::result_type child2; typedef typename evaluator::impl< A3 , Context , int >::result_type child3; typedef typename evaluator::impl< A4 , Context , int >::result_type child4; typedef typename evaluator::impl< A5 , Context , int >::result_type child5; typedef typename evaluator::impl< A6 , Context , int >::result_type child6; typedef typename evaluator::impl< A7 , Context , int >::result_type child7; typedef typename evaluator::impl< A8 , Context , int >::result_type child8; typedef typename evaluator::impl< A9 , Context , int >::result_type child9; typedef typename evaluator::impl< A10 , Context , int >::result_type child10;
+            typedef typename evaluator::impl< A0 , Context , proto::empty_env >::result_type child0; typedef typename evaluator::impl< A1 , Context , proto::empty_env >::result_type child1; typedef typename evaluator::impl< A2 , Context , proto::empty_env >::result_type child2; typedef typename evaluator::impl< A3 , Context , proto::empty_env >::result_type child3; typedef typename evaluator::impl< A4 , Context , proto::empty_env >::result_type child4; typedef typename evaluator::impl< A5 , Context , proto::empty_env >::result_type child5; typedef typename evaluator::impl< A6 , Context , proto::empty_env >::result_type child6; typedef typename evaluator::impl< A7 , Context , proto::empty_env >::result_type child7; typedef typename evaluator::impl< A8 , Context , proto::empty_env >::result_type child8; typedef typename evaluator::impl< A9 , Context , proto::empty_env >::result_type child9; typedef typename evaluator::impl< A10 , Context , proto::empty_env >::result_type child10;
             typedef
                 typename boost::result_of<
                     child1(
@@ -227,7 +231,7 @@ namespace boost { namespace phoenix
         template <typename Context, typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8 , typename A9 , typename A10 , typename A11>
         struct mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11>
         {
-            typedef typename evaluator::impl< A0 , Context , int >::result_type child0; typedef typename evaluator::impl< A1 , Context , int >::result_type child1; typedef typename evaluator::impl< A2 , Context , int >::result_type child2; typedef typename evaluator::impl< A3 , Context , int >::result_type child3; typedef typename evaluator::impl< A4 , Context , int >::result_type child4; typedef typename evaluator::impl< A5 , Context , int >::result_type child5; typedef typename evaluator::impl< A6 , Context , int >::result_type child6; typedef typename evaluator::impl< A7 , Context , int >::result_type child7; typedef typename evaluator::impl< A8 , Context , int >::result_type child8; typedef typename evaluator::impl< A9 , Context , int >::result_type child9; typedef typename evaluator::impl< A10 , Context , int >::result_type child10; typedef typename evaluator::impl< A11 , Context , int >::result_type child11;
+            typedef typename evaluator::impl< A0 , Context , proto::empty_env >::result_type child0; typedef typename evaluator::impl< A1 , Context , proto::empty_env >::result_type child1; typedef typename evaluator::impl< A2 , Context , proto::empty_env >::result_type child2; typedef typename evaluator::impl< A3 , Context , proto::empty_env >::result_type child3; typedef typename evaluator::impl< A4 , Context , proto::empty_env >::result_type child4; typedef typename evaluator::impl< A5 , Context , proto::empty_env >::result_type child5; typedef typename evaluator::impl< A6 , Context , proto::empty_env >::result_type child6; typedef typename evaluator::impl< A7 , Context , proto::empty_env >::result_type child7; typedef typename evaluator::impl< A8 , Context , proto::empty_env >::result_type child8; typedef typename evaluator::impl< A9 , Context , proto::empty_env >::result_type child9; typedef typename evaluator::impl< A10 , Context , proto::empty_env >::result_type child10; typedef typename evaluator::impl< A11 , Context , proto::empty_env >::result_type child11;
             typedef
                 typename boost::result_of<
                     child1(
@@ -246,7 +250,7 @@ namespace boost { namespace phoenix
         template <typename Context, typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8 , typename A9 , typename A10 , typename A11 , typename A12>
         struct mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12>
         {
-            typedef typename evaluator::impl< A0 , Context , int >::result_type child0; typedef typename evaluator::impl< A1 , Context , int >::result_type child1; typedef typename evaluator::impl< A2 , Context , int >::result_type child2; typedef typename evaluator::impl< A3 , Context , int >::result_type child3; typedef typename evaluator::impl< A4 , Context , int >::result_type child4; typedef typename evaluator::impl< A5 , Context , int >::result_type child5; typedef typename evaluator::impl< A6 , Context , int >::result_type child6; typedef typename evaluator::impl< A7 , Context , int >::result_type child7; typedef typename evaluator::impl< A8 , Context , int >::result_type child8; typedef typename evaluator::impl< A9 , Context , int >::result_type child9; typedef typename evaluator::impl< A10 , Context , int >::result_type child10; typedef typename evaluator::impl< A11 , Context , int >::result_type child11; typedef typename evaluator::impl< A12 , Context , int >::result_type child12;
+            typedef typename evaluator::impl< A0 , Context , proto::empty_env >::result_type child0; typedef typename evaluator::impl< A1 , Context , proto::empty_env >::result_type child1; typedef typename evaluator::impl< A2 , Context , proto::empty_env >::result_type child2; typedef typename evaluator::impl< A3 , Context , proto::empty_env >::result_type child3; typedef typename evaluator::impl< A4 , Context , proto::empty_env >::result_type child4; typedef typename evaluator::impl< A5 , Context , proto::empty_env >::result_type child5; typedef typename evaluator::impl< A6 , Context , proto::empty_env >::result_type child6; typedef typename evaluator::impl< A7 , Context , proto::empty_env >::result_type child7; typedef typename evaluator::impl< A8 , Context , proto::empty_env >::result_type child8; typedef typename evaluator::impl< A9 , Context , proto::empty_env >::result_type child9; typedef typename evaluator::impl< A10 , Context , proto::empty_env >::result_type child10; typedef typename evaluator::impl< A11 , Context , proto::empty_env >::result_type child11; typedef typename evaluator::impl< A12 , Context , proto::empty_env >::result_type child12;
             typedef
                 typename boost::result_of<
                     child1(
@@ -265,7 +269,7 @@ namespace boost { namespace phoenix
         template <typename Context, typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8 , typename A9 , typename A10 , typename A11 , typename A12 , typename A13>
         struct mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13>
         {
-            typedef typename evaluator::impl< A0 , Context , int >::result_type child0; typedef typename evaluator::impl< A1 , Context , int >::result_type child1; typedef typename evaluator::impl< A2 , Context , int >::result_type child2; typedef typename evaluator::impl< A3 , Context , int >::result_type child3; typedef typename evaluator::impl< A4 , Context , int >::result_type child4; typedef typename evaluator::impl< A5 , Context , int >::result_type child5; typedef typename evaluator::impl< A6 , Context , int >::result_type child6; typedef typename evaluator::impl< A7 , Context , int >::result_type child7; typedef typename evaluator::impl< A8 , Context , int >::result_type child8; typedef typename evaluator::impl< A9 , Context , int >::result_type child9; typedef typename evaluator::impl< A10 , Context , int >::result_type child10; typedef typename evaluator::impl< A11 , Context , int >::result_type child11; typedef typename evaluator::impl< A12 , Context , int >::result_type child12; typedef typename evaluator::impl< A13 , Context , int >::result_type child13;
+            typedef typename evaluator::impl< A0 , Context , proto::empty_env >::result_type child0; typedef typename evaluator::impl< A1 , Context , proto::empty_env >::result_type child1; typedef typename evaluator::impl< A2 , Context , proto::empty_env >::result_type child2; typedef typename evaluator::impl< A3 , Context , proto::empty_env >::result_type child3; typedef typename evaluator::impl< A4 , Context , proto::empty_env >::result_type child4; typedef typename evaluator::impl< A5 , Context , proto::empty_env >::result_type child5; typedef typename evaluator::impl< A6 , Context , proto::empty_env >::result_type child6; typedef typename evaluator::impl< A7 , Context , proto::empty_env >::result_type child7; typedef typename evaluator::impl< A8 , Context , proto::empty_env >::result_type child8; typedef typename evaluator::impl< A9 , Context , proto::empty_env >::result_type child9; typedef typename evaluator::impl< A10 , Context , proto::empty_env >::result_type child10; typedef typename evaluator::impl< A11 , Context , proto::empty_env >::result_type child11; typedef typename evaluator::impl< A12 , Context , proto::empty_env >::result_type child12; typedef typename evaluator::impl< A13 , Context , proto::empty_env >::result_type child13;
             typedef
                 typename boost::result_of<
                     child1(
@@ -284,7 +288,7 @@ namespace boost { namespace phoenix
         template <typename Context, typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8 , typename A9 , typename A10 , typename A11 , typename A12 , typename A13 , typename A14>
         struct mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14>
         {
-            typedef typename evaluator::impl< A0 , Context , int >::result_type child0; typedef typename evaluator::impl< A1 , Context , int >::result_type child1; typedef typename evaluator::impl< A2 , Context , int >::result_type child2; typedef typename evaluator::impl< A3 , Context , int >::result_type child3; typedef typename evaluator::impl< A4 , Context , int >::result_type child4; typedef typename evaluator::impl< A5 , Context , int >::result_type child5; typedef typename evaluator::impl< A6 , Context , int >::result_type child6; typedef typename evaluator::impl< A7 , Context , int >::result_type child7; typedef typename evaluator::impl< A8 , Context , int >::result_type child8; typedef typename evaluator::impl< A9 , Context , int >::result_type child9; typedef typename evaluator::impl< A10 , Context , int >::result_type child10; typedef typename evaluator::impl< A11 , Context , int >::result_type child11; typedef typename evaluator::impl< A12 , Context , int >::result_type child12; typedef typename evaluator::impl< A13 , Context , int >::result_type child13; typedef typename evaluator::impl< A14 , Context , int >::result_type child14;
+            typedef typename evaluator::impl< A0 , Context , proto::empty_env >::result_type child0; typedef typename evaluator::impl< A1 , Context , proto::empty_env >::result_type child1; typedef typename evaluator::impl< A2 , Context , proto::empty_env >::result_type child2; typedef typename evaluator::impl< A3 , Context , proto::empty_env >::result_type child3; typedef typename evaluator::impl< A4 , Context , proto::empty_env >::result_type child4; typedef typename evaluator::impl< A5 , Context , proto::empty_env >::result_type child5; typedef typename evaluator::impl< A6 , Context , proto::empty_env >::result_type child6; typedef typename evaluator::impl< A7 , Context , proto::empty_env >::result_type child7; typedef typename evaluator::impl< A8 , Context , proto::empty_env >::result_type child8; typedef typename evaluator::impl< A9 , Context , proto::empty_env >::result_type child9; typedef typename evaluator::impl< A10 , Context , proto::empty_env >::result_type child10; typedef typename evaluator::impl< A11 , Context , proto::empty_env >::result_type child11; typedef typename evaluator::impl< A12 , Context , proto::empty_env >::result_type child12; typedef typename evaluator::impl< A13 , Context , proto::empty_env >::result_type child13; typedef typename evaluator::impl< A14 , Context , proto::empty_env >::result_type child14;
             typedef
                 typename boost::result_of<
                     child1(
@@ -303,7 +307,7 @@ namespace boost { namespace phoenix
         template <typename Context, typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8 , typename A9 , typename A10 , typename A11 , typename A12 , typename A13 , typename A14 , typename A15>
         struct mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15>
         {
-            typedef typename evaluator::impl< A0 , Context , int >::result_type child0; typedef typename evaluator::impl< A1 , Context , int >::result_type child1; typedef typename evaluator::impl< A2 , Context , int >::result_type child2; typedef typename evaluator::impl< A3 , Context , int >::result_type child3; typedef typename evaluator::impl< A4 , Context , int >::result_type child4; typedef typename evaluator::impl< A5 , Context , int >::result_type child5; typedef typename evaluator::impl< A6 , Context , int >::result_type child6; typedef typename evaluator::impl< A7 , Context , int >::result_type child7; typedef typename evaluator::impl< A8 , Context , int >::result_type child8; typedef typename evaluator::impl< A9 , Context , int >::result_type child9; typedef typename evaluator::impl< A10 , Context , int >::result_type child10; typedef typename evaluator::impl< A11 , Context , int >::result_type child11; typedef typename evaluator::impl< A12 , Context , int >::result_type child12; typedef typename evaluator::impl< A13 , Context , int >::result_type child13; typedef typename evaluator::impl< A14 , Context , int >::result_type child14; typedef typename evaluator::impl< A15 , Context , int >::result_type child15;
+            typedef typename evaluator::impl< A0 , Context , proto::empty_env >::result_type child0; typedef typename evaluator::impl< A1 , Context , proto::empty_env >::result_type child1; typedef typename evaluator::impl< A2 , Context , proto::empty_env >::result_type child2; typedef typename evaluator::impl< A3 , Context , proto::empty_env >::result_type child3; typedef typename evaluator::impl< A4 , Context , proto::empty_env >::result_type child4; typedef typename evaluator::impl< A5 , Context , proto::empty_env >::result_type child5; typedef typename evaluator::impl< A6 , Context , proto::empty_env >::result_type child6; typedef typename evaluator::impl< A7 , Context , proto::empty_env >::result_type child7; typedef typename evaluator::impl< A8 , Context , proto::empty_env >::result_type child8; typedef typename evaluator::impl< A9 , Context , proto::empty_env >::result_type child9; typedef typename evaluator::impl< A10 , Context , proto::empty_env >::result_type child10; typedef typename evaluator::impl< A11 , Context , proto::empty_env >::result_type child11; typedef typename evaluator::impl< A12 , Context , proto::empty_env >::result_type child12; typedef typename evaluator::impl< A13 , Context , proto::empty_env >::result_type child13; typedef typename evaluator::impl< A14 , Context , proto::empty_env >::result_type child14; typedef typename evaluator::impl< A15 , Context , proto::empty_env >::result_type child15;
             typedef
                 typename boost::result_of<
                     child1(
@@ -322,7 +326,7 @@ namespace boost { namespace phoenix
         template <typename Context, typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8 , typename A9 , typename A10 , typename A11 , typename A12 , typename A13 , typename A14 , typename A15 , typename A16>
         struct mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16>
         {
-            typedef typename evaluator::impl< A0 , Context , int >::result_type child0; typedef typename evaluator::impl< A1 , Context , int >::result_type child1; typedef typename evaluator::impl< A2 , Context , int >::result_type child2; typedef typename evaluator::impl< A3 , Context , int >::result_type child3; typedef typename evaluator::impl< A4 , Context , int >::result_type child4; typedef typename evaluator::impl< A5 , Context , int >::result_type child5; typedef typename evaluator::impl< A6 , Context , int >::result_type child6; typedef typename evaluator::impl< A7 , Context , int >::result_type child7; typedef typename evaluator::impl< A8 , Context , int >::result_type child8; typedef typename evaluator::impl< A9 , Context , int >::result_type child9; typedef typename evaluator::impl< A10 , Context , int >::result_type child10; typedef typename evaluator::impl< A11 , Context , int >::result_type child11; typedef typename evaluator::impl< A12 , Context , int >::result_type child12; typedef typename evaluator::impl< A13 , Context , int >::result_type child13; typedef typename evaluator::impl< A14 , Context , int >::result_type child14; typedef typename evaluator::impl< A15 , Context , int >::result_type child15; typedef typename evaluator::impl< A16 , Context , int >::result_type child16;
+            typedef typename evaluator::impl< A0 , Context , proto::empty_env >::result_type child0; typedef typename evaluator::impl< A1 , Context , proto::empty_env >::result_type child1; typedef typename evaluator::impl< A2 , Context , proto::empty_env >::result_type child2; typedef typename evaluator::impl< A3 , Context , proto::empty_env >::result_type child3; typedef typename evaluator::impl< A4 , Context , proto::empty_env >::result_type child4; typedef typename evaluator::impl< A5 , Context , proto::empty_env >::result_type child5; typedef typename evaluator::impl< A6 , Context , proto::empty_env >::result_type child6; typedef typename evaluator::impl< A7 , Context , proto::empty_env >::result_type child7; typedef typename evaluator::impl< A8 , Context , proto::empty_env >::result_type child8; typedef typename evaluator::impl< A9 , Context , proto::empty_env >::result_type child9; typedef typename evaluator::impl< A10 , Context , proto::empty_env >::result_type child10; typedef typename evaluator::impl< A11 , Context , proto::empty_env >::result_type child11; typedef typename evaluator::impl< A12 , Context , proto::empty_env >::result_type child12; typedef typename evaluator::impl< A13 , Context , proto::empty_env >::result_type child13; typedef typename evaluator::impl< A14 , Context , proto::empty_env >::result_type child14; typedef typename evaluator::impl< A15 , Context , proto::empty_env >::result_type child15; typedef typename evaluator::impl< A16 , Context , proto::empty_env >::result_type child16;
             typedef
                 typename boost::result_of<
                     child1(
@@ -341,7 +345,7 @@ namespace boost { namespace phoenix
         template <typename Context, typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8 , typename A9 , typename A10 , typename A11 , typename A12 , typename A13 , typename A14 , typename A15 , typename A16 , typename A17>
         struct mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17>
         {
-            typedef typename evaluator::impl< A0 , Context , int >::result_type child0; typedef typename evaluator::impl< A1 , Context , int >::result_type child1; typedef typename evaluator::impl< A2 , Context , int >::result_type child2; typedef typename evaluator::impl< A3 , Context , int >::result_type child3; typedef typename evaluator::impl< A4 , Context , int >::result_type child4; typedef typename evaluator::impl< A5 , Context , int >::result_type child5; typedef typename evaluator::impl< A6 , Context , int >::result_type child6; typedef typename evaluator::impl< A7 , Context , int >::result_type child7; typedef typename evaluator::impl< A8 , Context , int >::result_type child8; typedef typename evaluator::impl< A9 , Context , int >::result_type child9; typedef typename evaluator::impl< A10 , Context , int >::result_type child10; typedef typename evaluator::impl< A11 , Context , int >::result_type child11; typedef typename evaluator::impl< A12 , Context , int >::result_type child12; typedef typename evaluator::impl< A13 , Context , int >::result_type child13; typedef typename evaluator::impl< A14 , Context , int >::result_type child14; typedef typename evaluator::impl< A15 , Context , int >::result_type child15; typedef typename evaluator::impl< A16 , Context , int >::result_type child16; typedef typename evaluator::impl< A17 , Context , int >::result_type child17;
+            typedef typename evaluator::impl< A0 , Context , proto::empty_env >::result_type child0; typedef typename evaluator::impl< A1 , Context , proto::empty_env >::result_type child1; typedef typename evaluator::impl< A2 , Context , proto::empty_env >::result_type child2; typedef typename evaluator::impl< A3 , Context , proto::empty_env >::result_type child3; typedef typename evaluator::impl< A4 , Context , proto::empty_env >::result_type child4; typedef typename evaluator::impl< A5 , Context , proto::empty_env >::result_type child5; typedef typename evaluator::impl< A6 , Context , proto::empty_env >::result_type child6; typedef typename evaluator::impl< A7 , Context , proto::empty_env >::result_type child7; typedef typename evaluator::impl< A8 , Context , proto::empty_env >::result_type child8; typedef typename evaluator::impl< A9 , Context , proto::empty_env >::result_type child9; typedef typename evaluator::impl< A10 , Context , proto::empty_env >::result_type child10; typedef typename evaluator::impl< A11 , Context , proto::empty_env >::result_type child11; typedef typename evaluator::impl< A12 , Context , proto::empty_env >::result_type child12; typedef typename evaluator::impl< A13 , Context , proto::empty_env >::result_type child13; typedef typename evaluator::impl< A14 , Context , proto::empty_env >::result_type child14; typedef typename evaluator::impl< A15 , Context , proto::empty_env >::result_type child15; typedef typename evaluator::impl< A16 , Context , proto::empty_env >::result_type child16; typedef typename evaluator::impl< A17 , Context , proto::empty_env >::result_type child17;
             typedef
                 typename boost::result_of<
                     child1(
@@ -360,7 +364,7 @@ namespace boost { namespace phoenix
         template <typename Context, typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8 , typename A9 , typename A10 , typename A11 , typename A12 , typename A13 , typename A14 , typename A15 , typename A16 , typename A17 , typename A18>
         struct mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18>
         {
-            typedef typename evaluator::impl< A0 , Context , int >::result_type child0; typedef typename evaluator::impl< A1 , Context , int >::result_type child1; typedef typename evaluator::impl< A2 , Context , int >::result_type child2; typedef typename evaluator::impl< A3 , Context , int >::result_type child3; typedef typename evaluator::impl< A4 , Context , int >::result_type child4; typedef typename evaluator::impl< A5 , Context , int >::result_type child5; typedef typename evaluator::impl< A6 , Context , int >::result_type child6; typedef typename evaluator::impl< A7 , Context , int >::result_type child7; typedef typename evaluator::impl< A8 , Context , int >::result_type child8; typedef typename evaluator::impl< A9 , Context , int >::result_type child9; typedef typename evaluator::impl< A10 , Context , int >::result_type child10; typedef typename evaluator::impl< A11 , Context , int >::result_type child11; typedef typename evaluator::impl< A12 , Context , int >::result_type child12; typedef typename evaluator::impl< A13 , Context , int >::result_type child13; typedef typename evaluator::impl< A14 , Context , int >::result_type child14; typedef typename evaluator::impl< A15 , Context , int >::result_type child15; typedef typename evaluator::impl< A16 , Context , int >::result_type child16; typedef typename evaluator::impl< A17 , Context , int >::result_type child17; typedef typename evaluator::impl< A18 , Context , int >::result_type child18;
+            typedef typename evaluator::impl< A0 , Context , proto::empty_env >::result_type child0; typedef typename evaluator::impl< A1 , Context , proto::empty_env >::result_type child1; typedef typename evaluator::impl< A2 , Context , proto::empty_env >::result_type child2; typedef typename evaluator::impl< A3 , Context , proto::empty_env >::result_type child3; typedef typename evaluator::impl< A4 , Context , proto::empty_env >::result_type child4; typedef typename evaluator::impl< A5 , Context , proto::empty_env >::result_type child5; typedef typename evaluator::impl< A6 , Context , proto::empty_env >::result_type child6; typedef typename evaluator::impl< A7 , Context , proto::empty_env >::result_type child7; typedef typename evaluator::impl< A8 , Context , proto::empty_env >::result_type child8; typedef typename evaluator::impl< A9 , Context , proto::empty_env >::result_type child9; typedef typename evaluator::impl< A10 , Context , proto::empty_env >::result_type child10; typedef typename evaluator::impl< A11 , Context , proto::empty_env >::result_type child11; typedef typename evaluator::impl< A12 , Context , proto::empty_env >::result_type child12; typedef typename evaluator::impl< A13 , Context , proto::empty_env >::result_type child13; typedef typename evaluator::impl< A14 , Context , proto::empty_env >::result_type child14; typedef typename evaluator::impl< A15 , Context , proto::empty_env >::result_type child15; typedef typename evaluator::impl< A16 , Context , proto::empty_env >::result_type child16; typedef typename evaluator::impl< A17 , Context , proto::empty_env >::result_type child17; typedef typename evaluator::impl< A18 , Context , proto::empty_env >::result_type child18;
             typedef
                 typename boost::result_of<
                     child1(
@@ -379,7 +383,7 @@ namespace boost { namespace phoenix
         template <typename Context, typename A0 , typename A1 , typename A2 , typename A3 , typename A4 , typename A5 , typename A6 , typename A7 , typename A8 , typename A9 , typename A10 , typename A11 , typename A12 , typename A13 , typename A14 , typename A15 , typename A16 , typename A17 , typename A18 , typename A19>
         struct mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19>
         {
-            typedef typename evaluator::impl< A0 , Context , int >::result_type child0; typedef typename evaluator::impl< A1 , Context , int >::result_type child1; typedef typename evaluator::impl< A2 , Context , int >::result_type child2; typedef typename evaluator::impl< A3 , Context , int >::result_type child3; typedef typename evaluator::impl< A4 , Context , int >::result_type child4; typedef typename evaluator::impl< A5 , Context , int >::result_type child5; typedef typename evaluator::impl< A6 , Context , int >::result_type child6; typedef typename evaluator::impl< A7 , Context , int >::result_type child7; typedef typename evaluator::impl< A8 , Context , int >::result_type child8; typedef typename evaluator::impl< A9 , Context , int >::result_type child9; typedef typename evaluator::impl< A10 , Context , int >::result_type child10; typedef typename evaluator::impl< A11 , Context , int >::result_type child11; typedef typename evaluator::impl< A12 , Context , int >::result_type child12; typedef typename evaluator::impl< A13 , Context , int >::result_type child13; typedef typename evaluator::impl< A14 , Context , int >::result_type child14; typedef typename evaluator::impl< A15 , Context , int >::result_type child15; typedef typename evaluator::impl< A16 , Context , int >::result_type child16; typedef typename evaluator::impl< A17 , Context , int >::result_type child17; typedef typename evaluator::impl< A18 , Context , int >::result_type child18; typedef typename evaluator::impl< A19 , Context , int >::result_type child19;
+            typedef typename evaluator::impl< A0 , Context , proto::empty_env >::result_type child0; typedef typename evaluator::impl< A1 , Context , proto::empty_env >::result_type child1; typedef typename evaluator::impl< A2 , Context , proto::empty_env >::result_type child2; typedef typename evaluator::impl< A3 , Context , proto::empty_env >::result_type child3; typedef typename evaluator::impl< A4 , Context , proto::empty_env >::result_type child4; typedef typename evaluator::impl< A5 , Context , proto::empty_env >::result_type child5; typedef typename evaluator::impl< A6 , Context , proto::empty_env >::result_type child6; typedef typename evaluator::impl< A7 , Context , proto::empty_env >::result_type child7; typedef typename evaluator::impl< A8 , Context , proto::empty_env >::result_type child8; typedef typename evaluator::impl< A9 , Context , proto::empty_env >::result_type child9; typedef typename evaluator::impl< A10 , Context , proto::empty_env >::result_type child10; typedef typename evaluator::impl< A11 , Context , proto::empty_env >::result_type child11; typedef typename evaluator::impl< A12 , Context , proto::empty_env >::result_type child12; typedef typename evaluator::impl< A13 , Context , proto::empty_env >::result_type child13; typedef typename evaluator::impl< A14 , Context , proto::empty_env >::result_type child14; typedef typename evaluator::impl< A15 , Context , proto::empty_env >::result_type child15; typedef typename evaluator::impl< A16 , Context , proto::empty_env >::result_type child16; typedef typename evaluator::impl< A17 , Context , proto::empty_env >::result_type child17; typedef typename evaluator::impl< A18 , Context , proto::empty_env >::result_type child18; typedef typename evaluator::impl< A19 , Context , proto::empty_env >::result_type child19;
             typedef
                 typename boost::result_of<
                     child1(
@@ -412,7 +416,7 @@ namespace boost { namespace phoenix
         typename result_of::mem_fun_ptr_eval<Context, A0 , A1>::type
         operator()(
             A0 const& a0 , A1 const& a1
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -443,7 +447,7 @@ namespace boost { namespace phoenix
         typename result_of::mem_fun_ptr_eval<Context, A0 , A1 , A2>::type
         operator()(
             A0 const& a0 , A1 const& a1 , A2 const& a2
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -474,7 +478,7 @@ namespace boost { namespace phoenix
         typename result_of::mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3>::type
         operator()(
             A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -505,7 +509,7 @@ namespace boost { namespace phoenix
         typename result_of::mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4>::type
         operator()(
             A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -536,7 +540,7 @@ namespace boost { namespace phoenix
         typename result_of::mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5>::type
         operator()(
             A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -567,7 +571,7 @@ namespace boost { namespace phoenix
         typename result_of::mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6>::type
         operator()(
             A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -598,7 +602,7 @@ namespace boost { namespace phoenix
         typename result_of::mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7>::type
         operator()(
             A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -629,7 +633,7 @@ namespace boost { namespace phoenix
         typename result_of::mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8>::type
         operator()(
             A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -660,7 +664,7 @@ namespace boost { namespace phoenix
         typename result_of::mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9>::type
         operator()(
             A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8 , A9 const& a9
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -691,7 +695,7 @@ namespace boost { namespace phoenix
         typename result_of::mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10>::type
         operator()(
             A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8 , A9 const& a9 , A10 const& a10
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -722,7 +726,7 @@ namespace boost { namespace phoenix
         typename result_of::mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11>::type
         operator()(
             A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8 , A9 const& a9 , A10 const& a10 , A11 const& a11
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -753,7 +757,7 @@ namespace boost { namespace phoenix
         typename result_of::mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12>::type
         operator()(
             A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8 , A9 const& a9 , A10 const& a10 , A11 const& a11 , A12 const& a12
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -784,7 +788,7 @@ namespace boost { namespace phoenix
         typename result_of::mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13>::type
         operator()(
             A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8 , A9 const& a9 , A10 const& a10 , A11 const& a11 , A12 const& a12 , A13 const& a13
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -815,7 +819,7 @@ namespace boost { namespace phoenix
         typename result_of::mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14>::type
         operator()(
             A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8 , A9 const& a9 , A10 const& a10 , A11 const& a11 , A12 const& a12 , A13 const& a13 , A14 const& a14
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -846,7 +850,7 @@ namespace boost { namespace phoenix
         typename result_of::mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15>::type
         operator()(
             A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8 , A9 const& a9 , A10 const& a10 , A11 const& a11 , A12 const& a12 , A13 const& a13 , A14 const& a14 , A15 const& a15
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -877,7 +881,7 @@ namespace boost { namespace phoenix
         typename result_of::mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16>::type
         operator()(
             A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8 , A9 const& a9 , A10 const& a10 , A11 const& a11 , A12 const& a12 , A13 const& a13 , A14 const& a14 , A15 const& a15 , A16 const& a16
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -908,7 +912,7 @@ namespace boost { namespace phoenix
         typename result_of::mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17>::type
         operator()(
             A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8 , A9 const& a9 , A10 const& a10 , A11 const& a11 , A12 const& a12 , A13 const& a13 , A14 const& a14 , A15 const& a15 , A16 const& a16 , A17 const& a17
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -939,7 +943,7 @@ namespace boost { namespace phoenix
         typename result_of::mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18>::type
         operator()(
             A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8 , A9 const& a9 , A10 const& a10 , A11 const& a11 , A12 const& a12 , A13 const& a13 , A14 const& a14 , A15 const& a15 , A16 const& a16 , A17 const& a17 , A18 const& a18
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return
@@ -970,7 +974,7 @@ namespace boost { namespace phoenix
         typename result_of::mem_fun_ptr_eval<Context, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9 , A10 , A11 , A12 , A13 , A14 , A15 , A16 , A17 , A18 , A19>::type
         operator()(
             A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8 , A9 const& a9 , A10 const& a10 , A11 const& a11 , A12 const& a12 , A13 const& a13 , A14 const& a14 , A15 const& a15 , A16 const& a16 , A17 const& a17 , A18 const& a18 , A19 const& a19
-          , Context & ctx
+          , Context const & ctx
         ) const
         {
             return

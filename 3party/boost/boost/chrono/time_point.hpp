@@ -217,12 +217,12 @@ namespace chrono {
 
         // special values
 
-        static BOOST_CONSTEXPR time_point
+        static BOOST_CHRONO_LIB_CONSTEXPR time_point
         min BOOST_PREVENT_MACRO_SUBSTITUTION ()
         {
             return time_point((duration::min)());
         }
-        static BOOST_CONSTEXPR time_point
+        static BOOST_CHRONO_LIB_CONSTEXPR time_point
         max BOOST_PREVENT_MACRO_SUBSTITUTION ()
         {
             return time_point((duration::max)());

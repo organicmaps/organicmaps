@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -115,7 +115,7 @@ class allocator
    //!objects of type T2
    template<class T2>
    struct rebind
-   {  
+   {
       typedef allocator<T2, SegmentManager>     other;
    };
 
@@ -145,8 +145,9 @@ class allocator
    pointer allocate(size_type count, cvoid_ptr hint = 0)
    {
       (void)hint;
-      if(count > this->max_size())
+      if(size_overflows<sizeof(T)>(count)){
          throw bad_alloc();
+      }
       return pointer(static_cast<value_type*>(mp_mngr->allocate(count*sizeof(T))));
    }
 
@@ -169,7 +170,7 @@ class allocator
    //!pointed by p can hold. This size only works for memory allocated with
    //!allocate, allocation_command and allocate_many.
    size_type size(const pointer &p) const
-   { 
+   {
       return (size_type)mp_mngr->size(ipcdetail::to_raw_pointer(p))/sizeof(T);
    }
 
@@ -192,7 +193,10 @@ class allocator
    multiallocation_chain allocate_many
       (size_type elem_size, size_type num_elements)
    {
-      return multiallocation_chain(mp_mngr->allocate_many(sizeof(T)*elem_size, num_elements));
+      if(size_overflows<sizeof(T)>(elem_size)){
+         throw bad_alloc();
+      }
+      return multiallocation_chain(mp_mngr->allocate_many(elem_size*sizeof(T), num_elements));
    }
 
    //!Allocates n_elements elements, each one of size elem_sizes[i]in a

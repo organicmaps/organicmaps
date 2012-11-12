@@ -132,7 +132,7 @@ namespace boost {
 
       connection release();
 
-      inline void swap(scoped_connection&);
+      void swap(scoped_connection&);
 
       scoped_connection& operator=(const connection&);
       scoped_connection& operator=(const scoped_connection&);

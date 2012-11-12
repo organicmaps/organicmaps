@@ -18,6 +18,11 @@
 #include <boost/proto/make_expr.hpp>
 #include <boost/proto/fusion.hpp>
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4065) // switch statement contains 'default' but no 'case' labels
+#endif
+
 BOOST_PHOENIX_DEFINE_EXPRESSION(
     (boost)(phoenix)(switch_case)
   , (proto::terminal<proto::_>)
@@ -124,20 +129,20 @@ namespace boost { namespace phoenix {
         
         template <typename Context>
         result_type
-        operator()(Context &) const
+        operator()(Context const &) const
         {
         }
 
         template <typename Cond, typename Cases, typename Context>
         result_type
-        operator()(Cond const & cond, Cases const & cases, Context & ctx) const
+        operator()(Cond const & cond, Cases const & cases, Context const & ctx) const
         {
             this->evaluate(
                     ctx
                   , cond
                   , cases
-                  , typename detail::switch_size::impl<Cases, int, int>::result_type()
-                  , typename detail::switch_grammar::impl<Cases, int, int>::result_type()
+                  , typename detail::switch_size::impl<Cases, int, proto::empty_env>::result_type()
+                  , typename detail::switch_grammar::impl<Cases, int, proto::empty_env>::result_type()
                 );
         }
 
@@ -145,7 +150,7 @@ namespace boost { namespace phoenix {
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<1>
@@ -171,7 +176,7 @@ namespace boost { namespace phoenix {
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<1>
@@ -286,6 +291,10 @@ namespace boost { namespace phoenix {
     }
 
 }}
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 #endif
 

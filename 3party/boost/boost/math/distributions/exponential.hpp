@@ -16,6 +16,7 @@
 
 #ifdef BOOST_MSVC
 # pragma warning(push)
+# pragma warning(disable: 4127) // conditional expression is constant
 # pragma warning(disable: 4702) // unreachable code (return after domain_error throw).
 #endif
 
@@ -30,7 +31,7 @@ namespace detail{
 template <class RealType, class Policy>
 inline bool verify_lambda(const char* function, RealType l, RealType* presult, const Policy& pol)
 {
-   if(l <= 0)
+   if((l <= 0) || !(boost::math::isfinite)(l))
    {
       *presult = policies::raise_domain_error<RealType>(
          function,
@@ -43,7 +44,7 @@ inline bool verify_lambda(const char* function, RealType l, RealType* presult, c
 template <class RealType, class Policy>
 inline bool verify_exp_x(const char* function, RealType x, RealType* presult, const Policy& pol)
 {
-   if(x < 0)
+   if((x < 0) || (boost::math::isnan)(x))
    {
       *presult = policies::raise_domain_error<RealType>(
          function,
@@ -80,8 +81,15 @@ typedef exponential_distribution<double> exponential;
 template <class RealType, class Policy>
 inline const std::pair<RealType, RealType> range(const exponential_distribution<RealType, Policy>& /*dist*/)
 { // Range of permissible values for random variable x.
+  if (std::numeric_limits<RealType>::has_infinity)
+  { 
+    return std::pair<RealType, RealType>(static_cast<RealType>(0), std::numeric_limits<RealType>::infinity()); // 0 to + infinity.
+  }
+  else
+  {
    using boost::math::tools::max_value;
-   return std::pair<RealType, RealType>(static_cast<RealType>(0), max_value<RealType>());
+   return std::pair<RealType, RealType>(static_cast<RealType>(0), max_value<RealType>()); // 0 to + max
+  }
 }
 
 template <class RealType, class Policy>

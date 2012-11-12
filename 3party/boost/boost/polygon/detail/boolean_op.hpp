@@ -1,6 +1,6 @@
 /*
   Copyright 2008 Intel Corporation
- 
+
   Use, modification and distribution are subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
@@ -30,8 +30,8 @@ namespace boolean_op {
     inline BooleanOp (T nullT) : scanData_(), nextItr_(), nullT_(nullT) { nextItr_ = scanData_.end(); }
     inline BooleanOp (const BooleanOp& that) : scanData_(that.scanData_), nextItr_(),
                                                nullT_(that.nullT_) { nextItr_ = scanData_.begin(); }
-    inline BooleanOp& operator=(const BooleanOp& that); 
-   
+    inline BooleanOp& operator=(const BooleanOp& that);
+
     //moves scanline forward
     inline void advanceScan() { nextItr_ = scanData_.begin(); }
 
@@ -39,7 +39,7 @@ namespace boolean_op {
     //appends output edges to cT
     template <class cT>
     inline void processInterval(cT& outputContainer, interval_data<Unit> ivl, T deltaCount);
-   
+
   private:
     inline typename ScanData::iterator lookup_(Unit pos){
       if(nextItr_ != scanData_.end() && nextItr_->first >= pos) {
@@ -47,9 +47,9 @@ namespace boolean_op {
       }
       return nextItr_ = scanData_.lower_bound(pos);
     }
-    inline typename ScanData::iterator insert_(Unit pos, T count){ 
-      return nextItr_ = scanData_.insert(nextItr_, ElementType(pos, count)); 
-    } 
+    inline typename ScanData::iterator insert_(Unit pos, T count){
+      return nextItr_ = scanData_.insert(nextItr_, ElementType(pos, count));
+    }
     template <class cT>
     inline void evaluateInterval_(cT& outputContainer, interval_data<Unit> ivl, T beforeCount, T afterCount);
   };
@@ -78,29 +78,29 @@ namespace boolean_op {
   //BinaryCount is an array of two deltaCounts coming from two different layers
   //of scan event data.  It is the merged count of the two suitable for consumption
   //as the template argument of the BooleanOp algorithm because BinaryCount casts to int.
-  //T is a binary functor object that evaluates the array of counts and returns a logical 
+  //T is a binary functor object that evaluates the array of counts and returns a logical
   //result of some operation on those values.
   //BinaryCount supports many of the operators that work with int, particularly the
   //binary operators, but cannot support less than or increment.
   template <class T>
   class BinaryCount {
   public:
-    inline BinaryCount() 
-#ifndef BOOST_POLYGON_MSVC  
-      : counts_() 
+    inline BinaryCount()
+#ifndef BOOST_POLYGON_MSVC
+      : counts_()
 #endif
     { counts_[0] = counts_[1] = 0; }
     // constructs from two integers
-    inline BinaryCount(int countL, int countR) 
-#ifndef BOOST_POLYGON_MSVC  
-      : counts_() 
+    inline BinaryCount(int countL, int countR)
+#ifndef BOOST_POLYGON_MSVC
+      : counts_()
 #endif
     { counts_[0] = countL, counts_[1] = countR; }
     inline BinaryCount& operator=(int count) { counts_[0] = count, counts_[1] = count; return *this; }
-    inline BinaryCount& operator=(const BinaryCount& that); 
+    inline BinaryCount& operator=(const BinaryCount& that);
     inline BinaryCount(const BinaryCount& that)
 #ifndef BOOST_POLYGON_MSVC
-      : counts_() 
+      : counts_()
 #endif
     { *this = that; }
     inline bool operator==(const BinaryCount& that) const;
@@ -141,13 +141,13 @@ namespace boolean_op {
   };
 
   template <class T, typename Unit>
-  inline BooleanOp<T, Unit>& BooleanOp<T, Unit>::operator=(const BooleanOp& that) { 
-    scanData_ = that.scanData_; 
+  inline BooleanOp<T, Unit>& BooleanOp<T, Unit>::operator=(const BooleanOp& that) {
+    scanData_ = that.scanData_;
     nextItr_ = scanData_.begin();
     nullT_ = that.nullT_;
     return *this;
   }
-   
+
   //appends output edges to cT
   template <class T, typename Unit>
   template <class cT>
@@ -214,7 +214,7 @@ namespace boolean_op {
 
   template <class T, typename Unit>
   template <class cT>
-  inline void BooleanOp<T, Unit>::evaluateInterval_(cT& outputContainer, interval_data<Unit> ivl, 
+  inline void BooleanOp<T, Unit>::evaluateInterval_(cT& outputContainer, interval_data<Unit> ivl,
                                               T beforeCount, T afterCount) {
     bool before = (int)beforeCount > 0;
     bool after = (int)afterCount > 0;
@@ -225,13 +225,13 @@ namespace boolean_op {
   }
 
   template <class T>
-  inline BinaryCount<T>& BinaryCount<T>::operator=(const BinaryCount<T>& that) { 
+  inline BinaryCount<T>& BinaryCount<T>::operator=(const BinaryCount<T>& that) {
     counts_[0] = that.counts_[0];
     counts_[1] = that.counts_[1];
     return *this;
   }
   template <class T>
-  inline bool BinaryCount<T>::operator==(const BinaryCount<T>& that) const { 
+  inline bool BinaryCount<T>::operator==(const BinaryCount<T>& that) const {
     return counts_[0] == that.counts_[0] &&
       counts_[1] == that.counts_[1];
   }
@@ -290,7 +290,7 @@ namespace boolean_op {
       count[0] += (*itr1).second.second;
     }
     if(itr2 != itr2_end) {
-      if((*itr2).first < prevCoord || 
+      if((*itr2).first < prevCoord ||
          ((*itr2).first == prevCoord && (*itr2).second.first < prevPosition)) {
         prevCoord = (*itr2).first;
         prevPosition = (*itr2).second.first;
@@ -307,7 +307,7 @@ namespace boolean_op {
     } else {
       if(itr1 != itr1_end) ++itr1;
     }
-    
+
     while(itr1 != itr1_end || itr2 != itr2_end) {
       Unit curCoord = UnitMax;
       Unit curPosition = UnitMax;
@@ -318,7 +318,7 @@ namespace boolean_op {
         curCount[0] += (*itr1).second.second;
       }
       if(itr2 != itr2_end) {
-        if((*itr2).first < curCoord || 
+        if((*itr2).first < curCoord ||
            ((*itr2).first == curCoord && (*itr2).second.first < curPosition)) {
           curCoord = (*itr2).first;
           curPosition = (*itr2).second.first;
@@ -349,15 +349,15 @@ namespace boolean_op {
         boolean.processInterval(container, ivl, count);
         for(std::size_t i = 0; i < container.size(); ++i) {
           std::pair<interval_data<Unit>, int>& element = container[i];
-          if(!output.empty() && output.back().first == prevCoord && 
+          if(!output.empty() && output.back().first == prevCoord &&
              output.back().second.first == element.first.low() &&
              output.back().second.second == element.second * -1) {
             output.pop_back();
           } else {
-            output.push_back(std::pair<Unit, std::pair<Unit, int> >(prevCoord, std::pair<Unit, int>(element.first.low(), 
+            output.push_back(std::pair<Unit, std::pair<Unit, int> >(prevCoord, std::pair<Unit, int>(element.first.low(),
                                                                                                     element.second)));
           }
-          output.push_back(std::pair<Unit, std::pair<Unit, int> >(prevCoord, std::pair<Unit, int>(element.first.high(), 
+          output.push_back(std::pair<Unit, std::pair<Unit, int> >(prevCoord, std::pair<Unit, int>(element.first.high(),
                                                                                                   element.second * -1)));
         }
       }
@@ -379,11 +379,11 @@ namespace boolean_op {
     }
     inputOutput.insert(inputOutput.end(), output.begin(), output.end());
   }
- 
+
   template <typename Unit>
   inline void applyUnaryXOr(std::vector<std::pair<Unit, std::pair<Unit, int> > >& input) {
     BooleanOp<UnaryCount, Unit> booleanXOr;
-    
+
   }
 
   template <typename count_type = int>
@@ -416,15 +416,15 @@ namespace boolean_op {
           booleanOr.processInterval(container, ivl, count_type(count));
           for(std::size_t i = 0; i < container.size(); ++i) {
             std::pair<interval_data<Unit>, int>& element = container[i];
-            if(!output.empty() && output.back().first == prevPos && 
+            if(!output.empty() && output.back().first == prevPos &&
                output.back().second.first == element.first.low() &&
                output.back().second.second == element.second * -1) {
               output.pop_back();
             } else {
-              output.push_back(std::pair<Unit, std::pair<Unit, int> >(prevPos, std::pair<Unit, int>(element.first.low(), 
+              output.push_back(std::pair<Unit, std::pair<Unit, int> >(prevPos, std::pair<Unit, int>(element.first.low(),
                                                                                                     element.second)));
             }
-            output.push_back(std::pair<Unit, std::pair<Unit, int> >(prevPos, std::pair<Unit, int>(element.first.high(), 
+            output.push_back(std::pair<Unit, std::pair<Unit, int> >(prevPos, std::pair<Unit, int>(element.first.high(),
                                                                                                   element.second * -1)));
           }
         }
@@ -435,7 +435,7 @@ namespace boolean_op {
         input = std::vector<std::pair<Unit, std::pair<Unit, int> > >();
       } else {
       input.clear();
-      } 
+      }
       input.insert(input.end(), output.begin(), output.end());
     }
   };

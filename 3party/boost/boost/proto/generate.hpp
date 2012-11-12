@@ -116,11 +116,7 @@ namespace boost { namespace proto
         /// \return expr
         template<typename Expr>
         BOOST_FORCEINLINE
-        #ifdef BOOST_PROTO_STRICT_RESULT_OF
-        Expr
-        #else
-        Expr const &
-        #endif
+        BOOST_PROTO_RETURN_TYPE_STRICT_LOOSE(Expr, Expr const &)
         operator ()(Expr const &e) const
         {
             return e;
@@ -231,6 +227,28 @@ namespace boost { namespace proto
             Extends<Expr> that = {e};
             return that;
         }
+
+        // Work-around for:
+        // https://connect.microsoft.com/VisualStudio/feedback/details/765449/codegen-stack-corruption-using-runtime-checks-when-aggregate-initializing-struct
+    #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1700))
+        template<typename Class, typename Member>
+        BOOST_FORCEINLINE
+        Extends<expr<tag::terminal, proto::term<Member Class::*> > > operator ()(expr<tag::terminal, proto::term<Member Class::*> > const &e) const
+        {
+            Extends<expr<tag::terminal, proto::term<Member Class::*> > > that;
+            proto::value(that.proto_expr_) = proto::value(e);
+            return that;
+        }
+
+        template<typename Class, typename Member>
+        BOOST_FORCEINLINE
+        Extends<basic_expr<tag::terminal, proto::term<Member Class::*> > > operator ()(basic_expr<tag::terminal, proto::term<Member Class::*> > const &e) const
+        {
+            Extends<basic_expr<tag::terminal, proto::term<Member Class::*> > > that;
+            proto::value(that.proto_expr_) = proto::value(e);
+            return that;
+        }
+    #endif
     };
 
     /// \brief A generator that replaces child nodes held by

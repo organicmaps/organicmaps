@@ -47,10 +47,10 @@ namespace boost { namespace container {
 //! ill-formed.
 //!
 //! [Example:
-//!  template <class T, class A = allocator<T> >  
+//!  template <class T, class Allocator = allocator<T> >  
 //!  class Z {
 //!    public:
-//!      typedef A allocator_type;
+//!      typedef Allocator allocator_type;
 //!
 //!    // Default constructor with optional allocator suffix
 //!    Z(const allocator_type& a = allocator_type());
@@ -61,8 +61,8 @@ namespace boost { namespace container {
 //! };
 //!
 //! // Specialize trait for class template Z
-//! template <class T, class A = allocator<T> >
-//! struct constructible_with_allocator_suffix<Z<T,A> > 
+//! template <class T, class Allocator = allocator<T> >
+//! struct constructible_with_allocator_suffix<Z<T,Allocator> > 
 //!      : ::boost::true_type { };
 //! -- end example]
 //!
@@ -91,10 +91,10 @@ struct constructible_with_allocator_suffix
 //! a constructor, then the program is ill-formed.
 //!
 //! [Example:
-//! template <class T, class A = allocator<T> >
+//! template <class T, class Allocator = allocator<T> >
 //! class Y {
 //!    public:
-//!       typedef A allocator_type;
+//!       typedef Allocator allocator_type;
 //! 
 //!       // Default constructor with and allocator-extended default constructor
 //!       Y();
@@ -111,8 +111,8 @@ struct constructible_with_allocator_suffix
 //! };
 //! 
 //! // Specialize trait for class template Y
-//! template <class T, class A = allocator<T> >
-//! struct constructible_with_allocator_prefix<Y<T,A> > 
+//! template <class T, class Allocator = allocator<T> >
+//! struct constructible_with_allocator_prefix<Y<T,Allocator> > 
 //!       : ::boost::true_type { };
 //! 
 //! -- end example]
@@ -1036,16 +1036,16 @@ class scoped_allocator_adaptor
    typedef typename outer_traits_type::const_pointer        const_pointer;
    typedef typename outer_traits_type::void_pointer         void_pointer;
    typedef typename outer_traits_type::const_void_pointer   const_void_pointer;
-   //! Type: `true_type` if `allocator_traits<A>::propagate_on_container_copy_assignment::value` is
-   //! true for any `A` in the set of `OuterAlloc` and `InnerAllocs...`; otherwise, false_type.
+   //! Type: `true_type` if `allocator_traits<Allocator>::propagate_on_container_copy_assignment::value` is
+   //! true for any `Allocator` in the set of `OuterAlloc` and `InnerAllocs...`; otherwise, false_type.
    typedef typename base_type::
       propagate_on_container_copy_assignment                propagate_on_container_copy_assignment;
-   //! Type: `true_type` if `allocator_traits<A>::propagate_on_container_move_assignment::value` is
-   //! true for any `A` in the set of `OuterAlloc` and `InnerAllocs...`; otherwise, false_type.
+   //! Type: `true_type` if `allocator_traits<Allocator>::propagate_on_container_move_assignment::value` is
+   //! true for any `Allocator` in the set of `OuterAlloc` and `InnerAllocs...`; otherwise, false_type.
    typedef typename base_type::
       propagate_on_container_move_assignment                propagate_on_container_move_assignment;
-   //! Type: `true_type` if `allocator_traits<A>::propagate_on_container_swap::value` is true for any
-   //! `A` in the set of `OuterAlloc` and `InnerAllocs...`; otherwise, false_type.
+   //! Type: `true_type` if `allocator_traits<Allocator>::propagate_on_container_swap::value` is true for any
+   //! `Allocator` in the set of `OuterAlloc` and `InnerAllocs...`; otherwise, false_type.
    typedef typename base_type::
       propagate_on_container_swap                           propagate_on_container_swap;
 
@@ -1211,9 +1211,9 @@ class scoped_allocator_adaptor
       outer_traits_type::deallocate(this->outer_allocator(), p, n);
    }
 
-   //! <b>Returns</b>: A new scoped_allocator_adaptor object where each allocator
+   //! <b>Returns</b>: Allocator new scoped_allocator_adaptor object where each allocator
    //! A in the adaptor is initialized from the result of calling
-   //! `allocator_traits<A>::select_on_container_copy_construction()` on
+   //! `allocator_traits<Allocator>::select_on_container_copy_construction()` on
    //! the corresponding allocator in *this.
    scoped_allocator_adaptor select_on_container_copy_construction() const
    {

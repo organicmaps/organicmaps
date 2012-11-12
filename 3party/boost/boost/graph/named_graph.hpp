@@ -105,7 +105,7 @@ public:
   typedef vertex_name_type argument_type;
   typedef VertexProperty result_type;
 
-  VertexProperty operator()(const vertex_name_type& name)
+  VertexProperty operator()(const vertex_name_type&)
   {
       boost::throw_exception(std::runtime_error("add_vertex: "
                                                 "unable to create a vertex from its name"));

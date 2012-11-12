@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2009-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2009-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -68,8 +68,8 @@ class windows_semaphore_based_map
       //in max_count and initial count parameters.
       //Also, max count must be bigger than 0 and bigger or equal than initial count.
       if(sizeof(void*) == sizeof(boost::uint32_t)){
-         //This means that for 32 bit processes, a semaphore count (31 usable bits) is 
-         //enough to store 4 byte aligned memory (4GB -> 32 bits - 2 bits = 30 bits). 
+         //This means that for 32 bit processes, a semaphore count (31 usable bits) is
+         //enough to store 4 byte aligned memory (4GB -> 32 bits - 2 bits = 30 bits).
          //The max count will hold the pointer value and current semaphore count
          //will be zero.
          //
@@ -224,7 +224,7 @@ class windows_semaphore_based_map
       m_sem_count.close();
       //Once scoped_lock unlocks the mutex, the destructor will close the handle...
    }
-   
+
    private:
    winapi_mutex_wrapper     m_mtx_lock;
    winapi_semaphore_wrapper m_sem_map;

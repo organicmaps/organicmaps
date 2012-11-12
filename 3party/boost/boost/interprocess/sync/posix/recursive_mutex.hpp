@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -31,7 +31,7 @@
 #include <boost/interprocess/detail/workaround.hpp>
 
 #include <pthread.h>
-#include <errno.h>  
+#include <errno.h>
 #include <boost/interprocess/sync/posix/pthread_helpers.hpp>
 #include <boost/interprocess/sync/posix/ptime_to_timespec.hpp>
 #include <boost/interprocess/detail/posix_time_types_wrk.hpp>
@@ -130,7 +130,7 @@ inline void posix_recursive_mutex::unlock()
 {
    int res = 0;
    res = pthread_mutex_unlock(&m_mut);
-   BOOST_ASSERT(res == 0);
+   BOOST_ASSERT(res == 0); (void)res;
 }
 
 }  //namespace ipcdetail {

@@ -1,6 +1,6 @@
 /*
   Copyright 2008 Intel Corporation
- 
+
   Use, modification and distribution are subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
@@ -30,7 +30,7 @@ namespace boost { namespace polygon{
         bool incremented_;
       public:
         inline iterator() : itr_(), ivlIds_(), incremented_(false) {}
-        inline iterator(typename EventData::const_iterator itr, 
+        inline iterator(typename EventData::const_iterator itr,
                         Unit prevPos, Unit curPos, const std::set<int>& ivlIds) : itr_(itr), ivlIds_(), incremented_(false) {
           ivlIds_.second = ivlIds;
           ivlIds_.first = Interval(prevPos, curPos);
@@ -61,7 +61,7 @@ namespace boost { namespace polygon{
             } else {
               ivlIds_.second.insert(*itr);
             }
-          } 
+          }
           //std::cout << std::endl;
           //std::cout << "new state\n";
           //for(std::set<int>::iterator itr = ivlIds_.second.begin(); itr != ivlIds_.second.end(); ++itr) {
@@ -77,7 +77,7 @@ namespace boost { namespace polygon{
           ++(*this);
           return tmpItr;
         }
-        inline std::pair<Interval, std::set<int> >& operator*() { 
+        inline std::pair<Interval, std::set<int> >& operator*() {
           if(incremented_) ivlIds_.first = Interval(ivlIds_.first.get(HIGH), itr_->first);
           incremented_ = false;
           if(ivlIds_.second.empty())(++(*this));
@@ -98,13 +98,13 @@ namespace boost { namespace polygon{
         eventData_ = that.eventData_;
         return *this;
       }
-   
+
       //Insert an interval polygon id into the EventData
       inline void insert(const std::pair<Interval, int>& intervalId){
         insert(intervalId.first.low(), intervalId.second);
         insert(intervalId.first.high(), intervalId.second);
       }
-   
+
       //Insert an position and polygon id into EventData
       inline void insert(Unit pos, int id) {
         typename EventData::iterator lb = eventData_.lower_bound(pos);
@@ -121,7 +121,7 @@ namespace boost { namespace polygon{
           (*lb).second.insert(id);
         }
       }
-   
+
       //merge this scan event with that by inserting its data
       inline void insert(const TouchScanEvent& that){
         typename EventData::const_iterator itr;
@@ -129,9 +129,9 @@ namespace boost { namespace polygon{
           eventData_[(*itr).first].insert(itr->second.begin(), itr->second.end());
         }
       }
-   
+
       //Get the begin iterator over event data
-      inline iterator begin() const { 
+      inline iterator begin() const {
         //std::cout << "begin\n";
         if(eventData_.empty()) return end();
         typename EventData::const_iterator itr = eventData_.begin();
@@ -140,18 +140,18 @@ namespace boost { namespace polygon{
         ++itr;
         return iterator(itr, pos, itr->first, idr);
       }
-   
+
       //Get the end iterator over event data
       inline iterator end() const { return iterator(eventData_.end(), 0, 0, std::set<int>()); }
-   
+
       inline void clear() { eventData_.clear(); }
-   
-      inline Interval extents() const { 
+
+      inline Interval extents() const {
         if(eventData_.empty()) return Interval();
         return Interval((*(eventData_.begin())).first, (*(eventData_.rbegin())).first);
       }
     };
-   
+
     //declaration of a map of scan events by coordinate value used to store all the
     //polygon data for a single layer input into the scanline algorithm
     typedef std::pair<std::map<Unit, TouchScanEvent>, std::map<Unit, TouchScanEvent> > TouchSetData;
@@ -166,8 +166,8 @@ namespace boost { namespace polygon{
     public:
       inline TouchOp () : scanData_(), nextItr_() { nextItr_ = scanData_.end(); }
       inline TouchOp (const TouchOp& that) : scanData_(that.scanData_), nextItr_() { nextItr_ = scanData_.begin(); }
-      inline TouchOp& operator=(const TouchOp& that); 
-   
+      inline TouchOp& operator=(const TouchOp& that);
+
       //moves scanline forward
       inline void advanceScan() { nextItr_ = scanData_.begin(); }
 
@@ -252,7 +252,7 @@ namespace boost { namespace polygon{
             //std::cout << "case7" << std::endl;
             scanData_.erase(lowItr);
           }
-        } 
+        }
         //merge the top interval with the one above if they have the same count
         if(highItr != scanData_.begin()) {
           //std::cout << "case8" << std::endl;
@@ -279,7 +279,7 @@ namespace boost { namespace polygon{
 //           std::cout << std::endl;
 //         }
 //       }
-   
+
     private:
       inline typename ScanData::iterator lookup_(Unit pos){
         if(nextItr_ != scanData_.end() && nextItr_->first >= pos) {
@@ -294,7 +294,7 @@ namespace boost { namespace polygon{
       }
 
       template <typename graphT>
-      inline void evaluateInterval_(graphT& outputContainer, std::set<int>& ids, 
+      inline void evaluateInterval_(graphT& outputContainer, std::set<int>& ids,
                                     const std::set<int>& changingIds, bool leadingEdge) {
         for(std::set<int>::const_iterator ciditr = changingIds.begin(); ciditr != changingIds.end(); ++ciditr){
           //std::cout << "evaluateInterval " << (*ciditr) << std::endl;

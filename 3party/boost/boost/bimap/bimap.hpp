@@ -382,7 +382,7 @@ class bimap
     friend class boost::serialization::access;
 
     template<class Archive>
-    void serialize(Archive & ar, const unsigned int version)
+    void serialize(Archive & ar, const unsigned int)
     {
         ar & serialization::make_nvp("mi_core",core);
     }

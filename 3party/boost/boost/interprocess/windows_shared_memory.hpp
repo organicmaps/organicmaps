@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -88,10 +88,10 @@ class windows_shared_memory
    //!After the call, "moved" does not represent any shared memory.
    //!Does not throw
    windows_shared_memory &operator=(BOOST_RV_REF(windows_shared_memory) moved)
-   { 
+   {
       windows_shared_memory tmp(boost::move(moved));
       this->swap(tmp);
-      return *this; 
+      return *this;
    }
 
    //!Swaps to shared_memory_objects. Does not throw
@@ -140,10 +140,10 @@ inline const char *windows_shared_memory::get_name() const
 {  return m_name.c_str(); }
 
 inline void windows_shared_memory::swap(windows_shared_memory &other)
-{ 
+{
    std::swap(m_handle,  other.m_handle);
    std::swap(m_mode,    other.m_mode);
-   m_name.swap(other.m_name);  
+   m_name.swap(other.m_name);
 }
 
 inline mapping_handle_t windows_shared_memory::get_mapping_handle() const

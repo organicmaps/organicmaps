@@ -8,7 +8,7 @@
 #if !defined(BOOST_FUSION_DEQUE_DETAIL_DEQUE_INITIAL_SIZE_26112006_2139)
 #define BOOST_FUSION_DEQUE_DETAIL_DEQUE_INITIAL_SIZE_26112006_2139
 
-#if defined(BOOST_FUSION_HAS_CPP11_DEQUE)
+#if defined(BOOST_FUSION_HAS_VARIADIC_DEQUE)
 #error "C++03 only! This file should not have been included"
 #endif
 

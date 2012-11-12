@@ -16,52 +16,19 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
-#include <boost/type_traits/is_function.hpp>
-#include <boost/type_traits/is_abstract.hpp>
 #include <boost/mpl/if.hpp>
-#include <boost/mpl/or.hpp>
 #include <boost/mpl/void.hpp>
 #include <boost/proto/proto_fwd.hpp>
+#include <boost/proto/detail/is_noncopyable.hpp>
+
+#include <boost/mpl/or.hpp>
+#include <boost/type_traits/is_function.hpp>
+#include <boost/type_traits/is_abstract.hpp>
 
 namespace boost { namespace proto
 {
     namespace detail
     {
-        // All classes derived from std::ios_base have these public nested types,
-        // and are non-copyable. This is an imperfect test, but it's the best we
-        // we can do.
-        template<typename T>
-        yes_type check_is_iostream(
-            typename T::failure *
-          , typename T::Init *
-          , typename T::fmtflags *
-          , typename T::iostate *
-          , typename T::openmode *
-          , typename T::seekdir *
-        );
-
-        template<typename T>
-        no_type check_is_iostream(...);
-
-        template<typename T>
-        struct is_iostream
-        {
-            static bool const value = sizeof(yes_type) == sizeof(check_is_iostream<T>(0,0,0,0,0,0));
-            typedef mpl::bool_<value> type;
-        };
-
-        /// INTERNAL ONLY
-        // This should be a customization point. And it serves the same purpose
-        // as the is_noncopyable trait in Boost.Foreach. 
-        template<typename T>
-        struct ref_only
-          : mpl::or_<
-                is_function<T>
-              , is_abstract<T>
-              , is_iostream<T>
-            >
-        {};
-
         /// INTERNAL ONLY
         template<typename Expr>
         struct expr_traits
@@ -102,7 +69,7 @@ namespace boost { namespace proto
         template<typename T>
         struct term_traits<T &>
         {
-            typedef typename mpl::if_c<ref_only<T>::value, T &, T>::type value_type;
+            typedef typename mpl::if_c<is_noncopyable<T>::value, T &, T>::type value_type;
             typedef T &reference;
             typedef T &const_reference;
         };

@@ -39,7 +39,7 @@ namespace boost { namespace phoenix
                         mpl::int_<0>
                       , boost::phoenix::arity
                     >&
-                  , int
+                  , proto::empty_env
                 >::result_type::value
             >
         {};

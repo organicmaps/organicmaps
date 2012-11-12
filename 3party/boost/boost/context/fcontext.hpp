@@ -4,8 +4,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef BOOST_CTX_FCONTEXT_H
-#define BOOST_CTX_FCONTEXT_H
+#ifndef BOOST_CONTEXT_FCONTEXT_H
+#define BOOST_CONTEXT_FCONTEXT_H
 
 #if defined(__PGI)
 #include <stdint.h>
@@ -60,7 +60,7 @@
 #endif
 
 namespace boost {
-namespace ctx {
+namespace context {
 namespace detail {
 
 extern "C" BOOST_CONTEXT_DECL void * BOOST_CONTEXT_CALLDECL align_stack( void * vp);
@@ -70,7 +70,7 @@ extern "C" BOOST_CONTEXT_DECL void * BOOST_CONTEXT_CALLDECL align_stack( void * 
 extern "C" BOOST_CONTEXT_DECL
 intptr_t BOOST_CONTEXT_CALLDECL jump_fcontext( fcontext_t * ofc, fcontext_t const* nfc, intptr_t vp, bool preserve_fpu = true);
 extern "C" BOOST_CONTEXT_DECL
-void BOOST_CONTEXT_CALLDECL make_fcontext( fcontext_t * fc, void (* fn)( intptr_t) );
+fcontext_t * BOOST_CONTEXT_CALLDECL make_fcontext( void * sp, std::size_t size, void (* fn)( intptr_t) );
 
 }}
 
@@ -78,5 +78,5 @@ void BOOST_CONTEXT_CALLDECL make_fcontext( fcontext_t * fc, void (* fn)( intptr_
 # include BOOST_ABI_SUFFIX
 #endif
 
-#endif // BOOST_CTX_FCONTEXT_H
+#endif // BOOST_CONTEXT_FCONTEXT_H
 

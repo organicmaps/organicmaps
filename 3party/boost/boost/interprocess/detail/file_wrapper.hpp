@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2006-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -60,10 +60,10 @@ class file_wrapper
    //!After the call, "moved" does not represent any file.
    //!Does not throw
    file_wrapper &operator=(BOOST_RV_REF(file_wrapper) moved)
-   { 
+   {
       file_wrapper tmp(boost::move(moved));
       this->swap(tmp);
-      return *this; 
+      return *this;
    }
 
    //!Swaps to file_wrappers.
@@ -73,7 +73,7 @@ class file_wrapper
    //!Erases a file from the system.
    //!Returns false on error. Never throws
    static bool remove(const char *name);
-  
+
    //!Sets the size of the file
    void truncate(offset_t length);
 
@@ -122,10 +122,10 @@ inline bool file_wrapper::get_size(offset_t &size) const
 {  return get_file_size((file_handle_t)m_handle, size);  }
 
 inline void file_wrapper::swap(file_wrapper &other)
-{ 
+{
    std::swap(m_handle,  other.m_handle);
    std::swap(m_mode,    other.m_mode);
-   m_filename.swap(other.m_filename);  
+   m_filename.swap(other.m_filename);
 }
 
 inline mapping_handle_t file_wrapper::get_mapping_handle() const

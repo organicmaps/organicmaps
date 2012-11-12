@@ -843,5 +843,26 @@ namespace boost { namespace phoenix
             Object const& obj;
             MemPtr ptr;
         };
+        struct make_mem_fun_ptr_gen
+            : proto::callable
+        {
+            template<typename Sig>
+            struct result;
+            template<typename This, typename Object, typename MemPtr>
+            struct result<This(Object, MemPtr)>
+            {
+                typedef
+                    mem_fun_ptr_gen<
+                        typename remove_const<typename remove_reference<Object>::type>::type
+                      , typename remove_const<typename remove_reference<MemPtr>::type>::type
+                    >
+                type;
+            };
+            template<typename Object, typename MemPtr>
+            mem_fun_ptr_gen<Object, MemPtr> operator()(Object const & obj, MemPtr ptr) const
+            {
+                return mem_fun_ptr_gen<Object, MemPtr>(obj, ptr);
+            }
+        };
     }
 }}

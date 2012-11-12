@@ -20,6 +20,8 @@
 
 
 #include <boost/numeric/ublas/detail/config.hpp>
+#include <boost/numeric/ublas/expression_types.hpp>
+#include <boost/numeric/ublas/traits.hpp>
 
 
 namespace boost { namespace numeric { namespace ublas {
@@ -32,9 +34,9 @@ namespace boost { namespace numeric { namespace ublas {
      */
     template <typename MatrixExprT>
     BOOST_UBLAS_INLINE
-    typename MatrixExprT::size_type num_columns(MatrixExprT const& m)
+    typename matrix_traits<MatrixExprT>::size_type num_columns(matrix_expression<MatrixExprT> const& me)
     {
-        return m.size2();
+        return me().size2();
     }
 
 }}} // Namespace boost::numeric::ublas

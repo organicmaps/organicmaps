@@ -69,14 +69,18 @@ namespace detail {
         return std::copy ( res, res + num_hex_digits, out );
         }
 
+// this needs to be in an un-named namespace because it is not a template
+// and might get included in several compilation units. This could cause
+// multiple definition errors at link time.
+    namespace {
     unsigned hex_char_to_int ( char c ) {
         if ( c >= '0' && c <= '9' ) return c - '0';
         if ( c >= 'A' && c <= 'F' ) return c - 'A' + 10;
         if ( c >= 'a' && c <= 'f' ) return c - 'a' + 10;
         BOOST_THROW_EXCEPTION (non_hex_input() << bad_char (c));
-        return 0;   // keep dumb compilers happy
+        return 0;     // keep dumb compilers happy
         }
-    
+    }    
 
 //  My own iterator_traits class.
 //  It is here so that I can "reach inside" some kinds of output iterators
@@ -105,17 +109,17 @@ namespace detail {
 //  The first one is the output type, the second one is the character type of
 //  the underlying stream, the third is the character traits.
 //      We only care about the first one.
-  template<typename T, typename charType, typename traits>
-  struct hex_iterator_traits< std::ostream_iterator<T, charType, traits> > {
-      typedef T value_type;
-  };
+    template<typename T, typename charType, typename traits>
+    struct hex_iterator_traits< std::ostream_iterator<T, charType, traits> > {
+        typedef T value_type;
+    };
 
-	template <typename Iterator> 
-	bool iter_end ( Iterator current, Iterator last ) { return current == last; }
-	
-	template <typename T>
-	bool ptr_end ( const T* ptr, const T* /*end*/ ) { return *ptr == '\0'; }
-	
+    template <typename Iterator> 
+    bool iter_end ( Iterator current, Iterator last ) { return current == last; }
+  
+    template <typename T>
+    bool ptr_end ( const T* ptr, const T* /*end*/ ) { return *ptr == '\0'; }
+  
 //  What can we assume here about the inputs?
 //      is std::iterator_traits<InputIterator>::value_type always 'char' ?
 //  Could it be wchar_t, say? Does it matter?

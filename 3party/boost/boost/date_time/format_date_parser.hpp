@@ -7,7 +7,7 @@
  * Boost Software License, Version 1.0. (See accompanying
  * file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt)
  * Author: Jeff Garland, Bart Garst
- * $Date: 2009-06-04 01:24:49 -0700 (Thu, 04 Jun 2009) $
+ * $Date: 2012-09-30 16:25:22 -0700 (Sun, 30 Sep 2012) $
  */
 
 
@@ -256,7 +256,6 @@ class format_date_parser
     
     // skip leading whitespace
     while(std::isspace(*sitr) && sitr != stream_end) { ++sitr; } 
-    charT current_char = *sitr;
 
     short year(0), month(0), day(0), day_of_year(0);// wkday(0); 
     /* Initialized the following to their minimum values. These intermediate 
@@ -290,7 +289,6 @@ class format_date_parser
               }
               wkday = mr.current_match;
               if (mr.has_remaining()) {
-                current_char = mr.last_char();
                 use_current_char = true;
               }
               break;
@@ -310,7 +308,6 @@ class format_date_parser
               }
               wkday = mr.current_match;
               if (mr.has_remaining()) {
-                current_char = mr.last_char();
                 use_current_char = true;
               }
               break;
@@ -326,7 +323,6 @@ class format_date_parser
               }
               t_month = month_type(mr.current_match);
               if (mr.has_remaining()) {
-                current_char = mr.last_char();
                 use_current_char = true;
               }
               break;
@@ -342,7 +338,6 @@ class format_date_parser
               }
               t_month = month_type(mr.current_match);
               if (mr.has_remaining()) {
-                current_char = mr.last_char();
                 use_current_char = true;
               }
               break;
@@ -438,7 +433,6 @@ class format_date_parser
         itr++;
         if (use_current_char) {
           use_current_char = false;
-          current_char = *sitr;
         }
         else {
           sitr++;

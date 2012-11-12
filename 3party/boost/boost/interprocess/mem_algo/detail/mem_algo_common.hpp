@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -26,6 +26,7 @@
 #include <boost/interprocess/detail/utilities.hpp>
 #include <boost/move/move.hpp>
 #include <boost/interprocess/detail/min_max.hpp>
+#include <boost/container/detail/multiallocation_chain.hpp>
 #include <boost/assert.hpp>
 #include <boost/static_assert.hpp>
 #include <algorithm>
@@ -39,6 +40,37 @@
 namespace boost {
 namespace interprocess {
 namespace ipcdetail {
+
+template<class VoidPointer>
+class basic_multiallocation_chain
+   : public boost::container::container_detail::
+      basic_multiallocation_chain<VoidPointer>
+{
+   BOOST_MOVABLE_BUT_NOT_COPYABLE(basic_multiallocation_chain)
+   typedef boost::container::container_detail::
+      basic_multiallocation_chain<VoidPointer> base_t;
+   public:
+
+   basic_multiallocation_chain()
+      :  base_t()
+   {}
+
+   basic_multiallocation_chain(BOOST_RV_REF(basic_multiallocation_chain) other)
+      :  base_t(::boost::move(static_cast<base_t&>(other)))
+   {}
+
+   basic_multiallocation_chain& operator=(BOOST_RV_REF(basic_multiallocation_chain) other)
+   {
+      this->base_t::operator=(::boost::move(static_cast<base_t&>(other)));
+      return *this;
+   }
+
+   void *pop_front()
+   {
+      return boost::interprocess::ipcdetail::to_raw_pointer(this->base_t::pop_front());
+   }
+};
+
 
 //!This class implements several allocation functions shared by different algorithms
 //!(aligned allocation, multiple allocation...).
@@ -199,7 +231,7 @@ class memory_algorithm_common
    static void* allocate_aligned
       (MemoryAlgorithm *memory_algo, size_type nbytes, size_type alignment)
    {
-     
+
       //Ensure power of 2
       if ((alignment & (alignment - size_type(1u))) != 0){
          //Alignment is not power of two
@@ -215,7 +247,7 @@ class memory_algorithm_common
 
       if(nbytes > UsableByPreviousChunk)
          nbytes -= UsableByPreviousChunk;
-     
+
       //We can find a aligned portion if we allocate a block that has alignment
       //nbytes + alignment bytes or more.
       size_type minimum_allocation = max_value
@@ -436,101 +468,108 @@ class memory_algorithm_common
       }
       else{
          for(size_type i = 0; i < n_elements; ++i){
+            if(multiplication_overflows(elem_sizes[i], sizeof_element)){
+               total_request_units = 0;
+               break;
+            }
             elem_units = memory_algo->priv_get_total_units(elem_sizes[i]*sizeof_element);
             elem_units = ptr_size_units > elem_units ? ptr_size_units : elem_units;
+            if(sum_overflows(total_request_units, elem_units)){
+               total_request_units = 0;
+               break;
+            }
             total_request_units += elem_units;
          }
       }
 
       multiallocation_chain chain;
+      if(total_request_units && !multiplication_overflows(total_request_units, Alignment)){
+         size_type low_idx = 0;
+         while(low_idx < n_elements){
+            size_type total_bytes = total_request_units*Alignment - AllocatedCtrlBytes + UsableByPreviousChunk;
+            size_type min_allocation = (!sizeof_element)
+               ?  elem_units
+               :  memory_algo->priv_get_total_units(elem_sizes[low_idx]*sizeof_element);
+            min_allocation = min_allocation*Alignment - AllocatedCtrlBytes + UsableByPreviousChunk;
 
-      size_type low_idx = 0;
-      while(low_idx < n_elements){
-         size_type total_bytes = total_request_units*Alignment - AllocatedCtrlBytes + UsableByPreviousChunk;
-         size_type min_allocation = (!sizeof_element)
-            ?  elem_units
-            :  memory_algo->priv_get_total_units(elem_sizes[low_idx]*sizeof_element);
-         min_allocation = min_allocation*Alignment - AllocatedCtrlBytes + UsableByPreviousChunk;
-
-         size_type received_size;
-         std::pair<void *, bool> ret = memory_algo->priv_allocate
-            (boost::interprocess::allocate_new, min_allocation, total_bytes, received_size, 0);
-         if(!ret.first){
-            break;
-         }
-
-         block_ctrl *block = memory_algo->priv_get_block(ret.first);
-         size_type received_units = (size_type)block->m_size;
-         char *block_address = reinterpret_cast<char*>(block);
-
-         size_type total_used_units = 0;
-//         block_ctrl *prev_block = 0;
-         while(total_used_units < received_units){
-            if(sizeof_element){
-               elem_units = memory_algo->priv_get_total_units(elem_sizes[low_idx]*sizeof_element);
-               elem_units = ptr_size_units > elem_units ? ptr_size_units : elem_units;
-            }
-            if(total_used_units + elem_units > received_units)
+            size_type received_size;
+            std::pair<void *, bool> ret = memory_algo->priv_allocate
+               (boost::interprocess::allocate_new, min_allocation, total_bytes, received_size, 0);
+            if(!ret.first){
                break;
-            total_request_units -= elem_units;
-            //This is the position where the new block must be created
-            block_ctrl *new_block = reinterpret_cast<block_ctrl *>(block_address);
-            assert_alignment(new_block);
+            }
 
-            //The last block should take all the remaining space
-            if((low_idx + 1) == n_elements ||
-               (total_used_units + elem_units +
-               ((!sizeof_element)
-                  ? elem_units
-              : std::max(memory_algo->priv_get_total_units(elem_sizes[low_idx+1]*sizeof_element), ptr_size_units))
-               ) > received_units){
-               //By default, the new block will use the rest of the buffer
-               new_block->m_size = received_units - total_used_units;
-               memory_algo->priv_mark_new_allocated_block(new_block);
+            block_ctrl *block = memory_algo->priv_get_block(ret.first);
+            size_type received_units = (size_type)block->m_size;
+            char *block_address = reinterpret_cast<char*>(block);
 
-               //If the remaining units are bigger than needed and we can
-               //split it obtaining a new free memory block do it.
-               if((received_units - total_used_units) >= (elem_units + MemoryAlgorithm::BlockCtrlUnits)){
-                  size_type shrunk_received;
-                  size_type shrunk_request = elem_units*Alignment - AllocatedCtrlBytes + UsableByPreviousChunk;
-                  bool shrink_ok = shrink
-                        (memory_algo
-                        ,memory_algo->priv_get_user_buffer(new_block)
-                        ,shrunk_request
-                        ,shrunk_request
-                        ,shrunk_received);
-                  (void)shrink_ok;
-                  //Shrink must always succeed with passed parameters
-                  BOOST_ASSERT(shrink_ok);
-                  //Some sanity checks
-                  BOOST_ASSERT(shrunk_request == shrunk_received);
-                  BOOST_ASSERT(elem_units == ((shrunk_request-UsableByPreviousChunk)/Alignment + AllocatedCtrlUnits));
-                  //"new_block->m_size" must have been reduced to elem_units by "shrink"
-                  BOOST_ASSERT(new_block->m_size == elem_units);
-                  //Now update the total received units with the reduction
-                  received_units = elem_units + total_used_units;
+            size_type total_used_units = 0;
+            while(total_used_units < received_units){
+               if(sizeof_element){
+                  elem_units = memory_algo->priv_get_total_units(elem_sizes[low_idx]*sizeof_element);
+                  elem_units = ptr_size_units > elem_units ? ptr_size_units : elem_units;
                }
-            }
-            else{
-               new_block->m_size = elem_units;
-               memory_algo->priv_mark_new_allocated_block(new_block);
-            }
+               if(total_used_units + elem_units > received_units)
+                  break;
+               total_request_units -= elem_units;
+               //This is the position where the new block must be created
+               block_ctrl *new_block = reinterpret_cast<block_ctrl *>(block_address);
+               assert_alignment(new_block);
 
-            block_address += new_block->m_size*Alignment;
-            total_used_units += (size_type)new_block->m_size;
-            //Check we have enough room to overwrite the intrusive pointer
-            BOOST_ASSERT((new_block->m_size*Alignment - AllocatedCtrlUnits) >= sizeof(void_pointer));
-            void_pointer p = new(memory_algo->priv_get_user_buffer(new_block))void_pointer(0);
-            chain.push_back(p);
-            ++low_idx;
-            //prev_block = new_block;
+               //The last block should take all the remaining space
+               if((low_idx + 1) == n_elements ||
+                  (total_used_units + elem_units +
+                  ((!sizeof_element)
+                     ? elem_units
+               : std::max(memory_algo->priv_get_total_units(elem_sizes[low_idx+1]*sizeof_element), ptr_size_units))
+                  ) > received_units){
+                  //By default, the new block will use the rest of the buffer
+                  new_block->m_size = received_units - total_used_units;
+                  memory_algo->priv_mark_new_allocated_block(new_block);
+
+                  //If the remaining units are bigger than needed and we can
+                  //split it obtaining a new free memory block do it.
+                  if((received_units - total_used_units) >= (elem_units + MemoryAlgorithm::BlockCtrlUnits)){
+                     size_type shrunk_received;
+                     size_type shrunk_request = elem_units*Alignment - AllocatedCtrlBytes + UsableByPreviousChunk;
+                     bool shrink_ok = shrink
+                           (memory_algo
+                           ,memory_algo->priv_get_user_buffer(new_block)
+                           ,shrunk_request
+                           ,shrunk_request
+                           ,shrunk_received);
+                     (void)shrink_ok;
+                     //Shrink must always succeed with passed parameters
+                     BOOST_ASSERT(shrink_ok);
+                     //Some sanity checks
+                     BOOST_ASSERT(shrunk_request == shrunk_received);
+                     BOOST_ASSERT(elem_units == ((shrunk_request-UsableByPreviousChunk)/Alignment + AllocatedCtrlUnits));
+                     //"new_block->m_size" must have been reduced to elem_units by "shrink"
+                     BOOST_ASSERT(new_block->m_size == elem_units);
+                     //Now update the total received units with the reduction
+                     received_units = elem_units + total_used_units;
+                  }
+               }
+               else{
+                  new_block->m_size = elem_units;
+                  memory_algo->priv_mark_new_allocated_block(new_block);
+               }
+
+               block_address += new_block->m_size*Alignment;
+               total_used_units += (size_type)new_block->m_size;
+               //Check we have enough room to overwrite the intrusive pointer
+               BOOST_ASSERT((new_block->m_size*Alignment - AllocatedCtrlUnits) >= sizeof(void_pointer));
+               void_pointer p = new(memory_algo->priv_get_user_buffer(new_block))void_pointer(0);
+               chain.push_back(p);
+               ++low_idx;
+            }
+            //Sanity check
+            BOOST_ASSERT(total_used_units == received_units);
          }
-         //Sanity check
-         BOOST_ASSERT(total_used_units == received_units);
-      }
-     
-      if(low_idx != n_elements){
-         priv_deallocate_many(memory_algo, boost::move(chain));
+
+         if(low_idx != n_elements){
+            priv_deallocate_many(memory_algo, boost::move(chain));
+         }
       }
       return boost::move(chain);
    }
@@ -538,9 +577,7 @@ class memory_algorithm_common
    static void priv_deallocate_many(MemoryAlgorithm *memory_algo, multiallocation_chain chain)
    {
       while(!chain.empty()){
-         void *addr = to_raw_pointer(chain.front());
-         chain.pop_front();
-         memory_algo->priv_deallocate(addr);
+         memory_algo->priv_deallocate(to_raw_pointer(chain.pop_front()));
       }
    }
 };

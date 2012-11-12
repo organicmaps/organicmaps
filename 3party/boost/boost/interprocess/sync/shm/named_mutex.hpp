@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -100,8 +100,9 @@ class shm_named_mutex
    static bool remove(const char *name);
 
    /// @cond
-   interprocess_mutex *mutex() const
-   {  return static_cast<interprocess_mutex*>(m_shmem.get_user_address()); }
+   typedef interprocess_mutex internal_mutex_type;
+   interprocess_mutex &internal_mutex()
+   {  return *static_cast<interprocess_mutex*>(m_shmem.get_user_address()); }
 
    private:
    friend class ipcdetail::interprocess_tester;
@@ -153,13 +154,13 @@ inline shm_named_mutex::shm_named_mutex(open_only_t, const char *name)
 {}
 
 inline void shm_named_mutex::lock()
-{  this->mutex()->lock();  }
+{  this->internal_mutex().lock();  }
 
 inline void shm_named_mutex::unlock()
-{  this->mutex()->unlock();  }
+{  this->internal_mutex().unlock();  }
 
 inline bool shm_named_mutex::try_lock()
-{  return this->mutex()->try_lock();  }
+{  return this->internal_mutex().try_lock();  }
 
 inline bool shm_named_mutex::timed_lock(const boost::posix_time::ptime &abs_time)
 {
@@ -167,7 +168,7 @@ inline bool shm_named_mutex::timed_lock(const boost::posix_time::ptime &abs_time
       this->lock();
       return true;
    }
-   return this->mutex()->timed_lock(abs_time);
+   return this->internal_mutex().timed_lock(abs_time);
 }
 
 inline bool shm_named_mutex::remove(const char *name)

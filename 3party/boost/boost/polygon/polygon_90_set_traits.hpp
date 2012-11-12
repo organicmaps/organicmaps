@@ -1,6 +1,6 @@
 /*
   Copyright 2008 Intel Corporation
- 
+
   Use, modification and distribution are subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
@@ -23,6 +23,8 @@ namespace boost { namespace polygon{
   struct traits_by_concept<T, point_3d_concept> { typedef point_3d_traits<T> type; };
   template <typename T>
   struct traits_by_concept<T, rectangle_concept> { typedef rectangle_traits<T> type; };
+  template <typename T>
+  struct traits_by_concept<T, segment_concept> { typedef segment_traits<T> type; };
   template <typename T>
   struct traits_by_concept<T, polygon_90_concept> { typedef polygon_traits<T> type; };
   template <typename T>
@@ -63,7 +65,7 @@ namespace boost { namespace polygon{
     typedef typename traits_type::coordinate_type type;
   };
   template <typename T>
-  struct get_coordinate_type<T, undefined_concept> { 
+  struct get_coordinate_type<T, undefined_concept> {
     typedef typename get_coordinate_type_2<typename std::iterator_traits
                                            <typename T::iterator>::value_type,
                                            typename geometry_concept<typename std::iterator_traits
@@ -71,7 +73,7 @@ namespace boost { namespace polygon{
 
   template <typename T, typename T2>
   struct get_iterator_type_2 {
-    typedef const T* type;    
+    typedef const T* type;
     static type begin(const T& t) { return &t; }
     static type end(const T& t) { const T* tp = &t; ++tp; return tp; }
   };
@@ -88,7 +90,7 @@ namespace boost { namespace polygon{
     static type begin(const T& t) { return t.begin(); }
     static type end(const T& t) { return t.end(); }
   };
- 
+
 //   //helpers for allowing polygon 45 and containers of polygon 45 to behave interchangably in polygon_45_set_traits
 //   template <typename T, typename T2>
 //   struct get_coordinate_type_45 {};
@@ -109,25 +111,25 @@ namespace boost { namespace polygon{
 //   struct get_iterator_type_45 {};
 //   template <typename T>
 //   struct get_iterator_type_45<T, void> {
-//     typedef typename T::const_iterator type; 
+//     typedef typename T::const_iterator type;
 //     static type begin(const T& t) { return t.begin(); }
 //     static type end(const T& t) { return t.end(); }
 //   };
 //   template <typename T>
-//   struct get_iterator_type_45<T, polygon_45_concept> { 
-//     typedef const T* type;    
+//   struct get_iterator_type_45<T, polygon_45_concept> {
+//     typedef const T* type;
 //     static type begin(const T& t) { return &t; }
 //     static type end(const T& t) { const T* tp = &t; ++tp; return tp; }
 //   };
 //   template <typename T>
-//   struct get_iterator_type_45<T, polygon_45_with_holes_concept> { 
-//     typedef const T* type; 
+//   struct get_iterator_type_45<T, polygon_45_with_holes_concept> {
+//     typedef const T* type;
 //     static type begin(const T& t) { return &t; }
 //     static type end(const T& t) { const T* tp = &t; ++tp; return tp; }
 //   };
 //   template <typename T>
-//   struct get_iterator_type_45<T, polygon_90_set_concept> { 
-//     typedef const T* type; 
+//   struct get_iterator_type_45<T, polygon_90_set_concept> {
+//     typedef const T* type;
 //     static type begin(const T& t) { return &t; }
 //     static type end(const T& t) { const T* tp = &t; ++tp; return tp; }
 //   };
@@ -170,13 +172,13 @@ namespace boost { namespace polygon{
     typedef typename is_manhattan_polygonal_concept<typename geometry_concept<T>::type>::type type;
   };
   template <typename T>
-  struct is_polygon_90_set_type<std::list<T> > { 
+  struct is_polygon_90_set_type<std::list<T> > {
     typedef typename gtl_or<
       typename is_manhattan_polygonal_concept<typename geometry_concept<std::list<T> >::type>::type,
       typename is_manhattan_polygonal_concept<typename geometry_concept<typename std::list<T>::value_type>::type>::type>::type type;
   };
   template <typename T>
-  struct is_polygon_90_set_type<std::vector<T> > { 
+  struct is_polygon_90_set_type<std::vector<T> > {
     typedef typename gtl_or<
       typename is_manhattan_polygonal_concept<typename geometry_concept<std::vector<T> >::type>::type,
       typename is_manhattan_polygonal_concept<typename geometry_concept<typename std::vector<T>::value_type>::type>::type>::type type;
@@ -187,15 +189,15 @@ namespace boost { namespace polygon{
     typedef typename gtl_same_type<polygon_90_set_concept, typename geometry_concept<T>::type>::type type;
   };
   template <typename T>
-  struct is_mutable_polygon_90_set_type<std::list<T> > { 
+  struct is_mutable_polygon_90_set_type<std::list<T> > {
     typedef typename gtl_or<
-      typename gtl_same_type<polygon_90_set_concept, typename geometry_concept<std::list<T> >::type>::type, 
+      typename gtl_same_type<polygon_90_set_concept, typename geometry_concept<std::list<T> >::type>::type,
       typename is_manhattan_polygonal_concept<typename geometry_concept<typename std::list<T>::value_type>::type>::type>::type type;
   };
   template <typename T>
-  struct is_mutable_polygon_90_set_type<std::vector<T> > { 
+  struct is_mutable_polygon_90_set_type<std::vector<T> > {
     typedef typename gtl_or<
-      typename gtl_same_type<polygon_90_set_concept, typename geometry_concept<std::vector<T> >::type>::type, 
+      typename gtl_same_type<polygon_90_set_concept, typename geometry_concept<std::vector<T> >::type>::type,
       typename is_manhattan_polygonal_concept<typename geometry_concept<typename std::vector<T>::value_type>::type>::type>::type type;
   };
 
@@ -278,6 +280,7 @@ namespace boost { namespace polygon{
     static inline void set(std::list<T>& polygon_set, input_iterator_type input_begin, input_iterator_type input_end, orientation_2d orient) {
       polygon_set.clear();
       polygon_90_set_data<typename polygon_90_set_traits<std::list<T> >::coordinate_type> ps(orient);
+      ps.reserve(std::distance(input_begin, input_end));
       ps.insert(input_begin, input_end, orient);
       ps.clean();
       get_90_dispatch(polygon_set, ps, orient, concept_type());
@@ -289,7 +292,10 @@ namespace boost { namespace polygon{
     template <typename input_iterator_type>
     static inline void set(std::vector<T>& polygon_set, input_iterator_type input_begin, input_iterator_type input_end, orientation_2d orient) {
       polygon_set.clear();
+      size_t num_ele = std::distance(input_begin, input_end);
+      polygon_set.reserve(num_ele);
       polygon_90_set_data<typename polygon_90_set_traits<std::list<T> >::coordinate_type> ps(orient);
+      ps.reserve(num_ele);
       ps.insert(input_begin, input_end, orient);
       ps.clean();
       get_90_dispatch(polygon_set, ps, orient, concept_type());
@@ -300,10 +306,11 @@ namespace boost { namespace polygon{
   struct polygon_90_set_mutable_traits<polygon_90_set_data<T> > {
 
     template <typename input_iterator_type>
-    static inline void set(polygon_90_set_data<T>& polygon_set, 
-                           input_iterator_type input_begin, input_iterator_type input_end, 
+    static inline void set(polygon_90_set_data<T>& polygon_set,
+                           input_iterator_type input_begin, input_iterator_type input_end,
                            orientation_2d orient) {
       polygon_set.clear();
+      polygon_set.reserve(std::distance(input_begin, input_end));
       polygon_set.insert(input_begin, input_end, orient);
     }
 
@@ -341,15 +348,15 @@ namespace boost { namespace polygon{
   struct is_polygon_90_set_concept<polygon_90_concept> { typedef gtl_yes type; };
   template <>
   struct is_polygon_90_set_concept<polygon_90_with_holes_concept> { typedef gtl_yes type; };
-  
+
   template <typename T>
   struct is_mutable_polygon_90_set_concept { typedef gtl_no type; };
   template <>
   struct is_mutable_polygon_90_set_concept<polygon_90_set_concept> { typedef gtl_yes type; };
-  
+
   template <typename T>
   struct geometry_concept<polygon_90_set_data<T> > { typedef polygon_90_set_concept type; };
-  
+
   //template <typename T>
   //typename enable_if<typename is_polygon_90_set_type<T>::type, void>::type
   //print_is_polygon_90_set_concept(const T& t) { std::cout << "is polygon 90 set concept\n"; }
@@ -359,4 +366,3 @@ namespace boost { namespace polygon{
 }
 }
 #endif
-

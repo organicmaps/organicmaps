@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -82,7 +82,7 @@ class iset_index
    struct intrusive_key_value_less
    {
       bool operator()(const intrusive_compare_key_type &i, const value_type &b) const
-      { 
+      {
          std::size_t blen = b.name_length();
          return (i.m_len < blen) ||
                   (i.m_len == blen &&
@@ -91,7 +91,7 @@ class iset_index
       }
 
       bool operator()(const value_type &b, const intrusive_compare_key_type &i) const
-      { 
+      {
          std::size_t blen = b.name_length();
          return (blen < i.m_len) ||
                   (blen == i.m_len &&

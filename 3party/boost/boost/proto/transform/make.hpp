@@ -100,7 +100,7 @@ namespace boost { namespace proto
             static bool const applied = true;
         };
 
-        #if BOOST_WORKAROUND(__GNUC__, == 3) || (__GNUC__ == 4 && __GNUC_MINOR__ == 0)
+        #if BOOST_WORKAROUND(__GNUC__, == 3) || (BOOST_WORKAROUND(__GNUC__, == 4) && __GNUC_MINOR__ == 0)
         // work around GCC bug
         template<typename Tag, typename Args, long N, typename Expr, typename State, typename Data>
         struct make_if_<proto::expr<Tag, Args, N>, Expr, State, Data, false>

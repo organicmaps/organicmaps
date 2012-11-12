@@ -5,7 +5,7 @@
 //  Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt).
 //
-// This code was adapted by Vicente from Howard Hinnant's experimental work 
+// This code was adapted by Vicente from Howard Hinnant's experimental work
 // on chrono i/o under lvm/libc++ to Boost
 
 #ifndef BOOST_RATIO_RATIO_STATIC_STRING_HPP
@@ -38,14 +38,14 @@ struct ratio_static_string
 //#include <sstream>
 
 
-#if defined(BOOST_NO_UNICODE_LITERALS) || defined(BOOST_NO_CHAR16_T) || defined(BOOST_NO_CHAR32_T)
-//~ #define BOOST_RATIO_HAS_UNICODE_SUPPORT 
+#if defined(BOOST_NO_CXX11_UNICODE_LITERALS) || defined(BOOST_NO_CXX11_CHAR16_T) || defined(BOOST_NO_CXX11_CHAR32_T)
+//~ #define BOOST_RATIO_HAS_UNICODE_SUPPORT
 #else
 #define BOOST_RATIO_HAS_UNICODE_SUPPORT 1
 #endif
 
 namespace boost {
-    
+
 template <class Ratio, class CharT>
 struct ratio_static_string;
 

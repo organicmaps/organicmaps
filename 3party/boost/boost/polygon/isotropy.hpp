@@ -1,6 +1,6 @@
 /*
   Copyright 2008 Intel Corporation
- 
+
   Use, modification and distribution are subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
@@ -26,7 +26,7 @@
 
 #ifndef BOOST_POLYGON_NO_DEPS
 
-#include <boost/config.hpp> 
+#include <boost/config.hpp>
 #ifdef BOOST_MSVC
 #define BOOST_POLYGON_MSVC
 #endif
@@ -58,7 +58,7 @@ typedef boost::ulong_long_type polygon_ulong_long_type;
 typedef long long polygon_long_long_type;
 typedef unsigned long long polygon_ulong_long_type;
 
-  namespace boost { 
+  namespace boost {
     template <bool B, class T   = void>
     struct enable_if_c {
       typedef T type;
@@ -67,7 +67,7 @@ typedef unsigned long long polygon_ulong_long_type;
     template <class T>
     struct enable_if_c<false, T> {};
 
-    template <class Cond, class T = void> 
+    template <class Cond, class T = void>
     struct enable_if : public enable_if_c<Cond::value, T> {};
 
     template <bool B, class T>
@@ -78,7 +78,7 @@ typedef unsigned long long polygon_ulong_long_type;
     template <class T>
     struct lazy_enable_if_c<false, T> {};
 
-    template <class Cond, class T> 
+    template <class Cond, class T>
     struct lazy_enable_if : public lazy_enable_if_c<Cond::value, T> {};
 
 
@@ -90,7 +90,7 @@ typedef unsigned long long polygon_ulong_long_type;
     template <class T>
     struct disable_if_c<true, T> {};
 
-    template <class Cond, class T = void> 
+    template <class Cond, class T = void>
     struct disable_if : public disable_if_c<Cond::value, T> {};
 
     template <bool B, class T>
@@ -101,7 +101,7 @@ typedef unsigned long long polygon_ulong_long_type;
     template <class T>
     struct lazy_disable_if_c<true, T> {};
 
-    template <class Cond, class T> 
+    template <class Cond, class T>
     struct lazy_disable_if : public lazy_disable_if_c<Cond::value, T> {};
   }
 
@@ -129,17 +129,18 @@ namespace boost { namespace polygon{
   struct undefined_concept {};
 
   template <typename T>
-  struct geometry_concept { typedef undefined_concept type; }; 
+  struct geometry_concept { typedef undefined_concept type; };
 
   template <typename GCT, typename T>
   struct view_of {};
 
   template <typename T1, typename T2>
-  view_of<T1, T2> view_as(const T2& obj) { return view_of<T1, T2>(obj); }  
+  view_of<T1, T2> view_as(const T2& obj) { return view_of<T1, T2>(obj); }
 
   template <typename T>
   struct coordinate_traits {};
 
+  //used to override long double with an infinite precision datatype
   template <typename T>
   struct high_precision_type {
     typedef long double type;
@@ -149,6 +150,14 @@ namespace boost { namespace polygon{
   T convert_high_precision_type(const typename high_precision_type<T>::type& v) {
     return T(v);
   }
+
+  //used to override std::sort with an alternative (parallel) algorithm
+  template <typename iter_type>
+  void polygon_sort(iter_type _b_, iter_type _e_);
+
+  template <typename iter_type, typename pred_type>
+  void polygon_sort(iter_type _b_, iter_type _e_, const pred_type& _pred_);
+
 
   template <>
   struct coordinate_traits<int> {
@@ -314,13 +323,13 @@ namespace boost { namespace polygon{
   template <typename domain_type, typename coordinate_type>
   struct area_type_by_domain { typedef typename coordinate_traits<coordinate_type>::area_type type; };
   template <typename coordinate_type>
-  struct area_type_by_domain<manhattan_domain, coordinate_type> { 
+  struct area_type_by_domain<manhattan_domain, coordinate_type> {
     typedef typename coordinate_traits<coordinate_type>::manhattan_area_type type; };
 
   struct y_c_edist : gtl_yes {};
 
   template <typename coordinate_type_1, typename coordinate_type_2>
-    typename enable_if< 
+    typename enable_if<
     typename gtl_and_3<y_c_edist, typename gtl_same_type<typename geometry_concept<coordinate_type_1>::type, coordinate_concept>::type,
                        typename gtl_same_type<typename geometry_concept<coordinate_type_1>::type, coordinate_concept>::type>::type,
     typename coordinate_traits<coordinate_type_1>::coordinate_difference>::type
@@ -383,7 +392,7 @@ namespace boost { namespace polygon{
     inline direction_1d(const direction_1d_enum val) : val_(val) {}
     explicit inline direction_1d(const direction_2d& that);
     explicit inline direction_1d(const direction_3d& that);
-    inline direction_1d& operator = (const direction_1d& d) { 
+    inline direction_1d& operator = (const direction_1d& d) {
       val_ = d.val_; return * this; }
     inline bool operator==(direction_1d d) const { return (val_ == d.val_); }
     inline bool operator!=(direction_1d d) const { return !((*this) == d); }
@@ -426,7 +435,7 @@ namespace boost { namespace polygon{
     inline direction_2d() : val_(WEST) {}
 
     inline direction_2d(const direction_2d& that) : val_(that.val_) {}
-  
+
     inline direction_2d(const direction_2d_enum val) : val_(val) {}
 
     inline direction_2d& operator=(const direction_2d& d) {
@@ -489,7 +498,7 @@ namespace boost { namespace polygon{
     explicit inline orientation_3d(const direction_2d& that);
     explicit inline orientation_3d(const direction_3d& that);
     inline ~orientation_3d() {  }
-    inline orientation_3d& operator=(const orientation_3d& ori) { 
+    inline orientation_3d& operator=(const orientation_3d& ori) {
       val_ = ori.val_; return * this; }
     inline bool operator==(orientation_3d that) const { return (val_ == that.val_); }
     inline bool operator!=(orientation_3d that) const { return (val_ != that.val_); }
@@ -507,7 +516,7 @@ namespace boost { namespace polygon{
 
     inline direction_3d(direction_2d that) : val_(that.to_int()) {}
     inline direction_3d(const direction_3d& that) : val_(that.val_) {}
-  
+
     inline direction_3d(const direction_2d_enum val) : val_(val) {}
     inline direction_3d(const direction_3d_enum val) : val_(val) {}
 
@@ -551,4 +560,3 @@ namespace boost { namespace polygon{
 }
 }
 #endif
-

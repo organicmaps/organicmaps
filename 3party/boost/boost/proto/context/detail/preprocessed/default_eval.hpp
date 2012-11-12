@@ -32,7 +32,7 @@
         result_type invoke(Expr &expr, Context &context, mpl::true_) const
         {
             BOOST_PROTO_USE_GET_POINTER();
-            typedef typename detail::classtypeof<function_type>::type class_type;
+            typedef typename detail::class_member_traits<function_type>::class_type class_type;
             return (
                 BOOST_PROTO_GET_POINTER(class_type, (proto::eval(proto::child_c< 1>( expr), context))) ->*
                 proto::eval(proto::child_c< 0>( expr), context)
@@ -66,7 +66,7 @@
         result_type invoke(Expr &expr, Context &context, mpl::true_) const
         {
             BOOST_PROTO_USE_GET_POINTER();
-            typedef typename detail::classtypeof<function_type>::type class_type;
+            typedef typename detail::class_member_traits<function_type>::class_type class_type;
             return (
                 BOOST_PROTO_GET_POINTER(class_type, (proto::eval(proto::child_c< 1>( expr), context))) ->*
                 proto::eval(proto::child_c< 0>( expr), context)
@@ -100,7 +100,7 @@
         result_type invoke(Expr &expr, Context &context, mpl::true_) const
         {
             BOOST_PROTO_USE_GET_POINTER();
-            typedef typename detail::classtypeof<function_type>::type class_type;
+            typedef typename detail::class_member_traits<function_type>::class_type class_type;
             return (
                 BOOST_PROTO_GET_POINTER(class_type, (proto::eval(proto::child_c< 1>( expr), context))) ->*
                 proto::eval(proto::child_c< 0>( expr), context)
@@ -134,7 +134,7 @@
         result_type invoke(Expr &expr, Context &context, mpl::true_) const
         {
             BOOST_PROTO_USE_GET_POINTER();
-            typedef typename detail::classtypeof<function_type>::type class_type;
+            typedef typename detail::class_member_traits<function_type>::class_type class_type;
             return (
                 BOOST_PROTO_GET_POINTER(class_type, (proto::eval(proto::child_c< 1>( expr), context))) ->*
                 proto::eval(proto::child_c< 0>( expr), context)
@@ -168,7 +168,7 @@
         result_type invoke(Expr &expr, Context &context, mpl::true_) const
         {
             BOOST_PROTO_USE_GET_POINTER();
-            typedef typename detail::classtypeof<function_type>::type class_type;
+            typedef typename detail::class_member_traits<function_type>::class_type class_type;
             return (
                 BOOST_PROTO_GET_POINTER(class_type, (proto::eval(proto::child_c< 1>( expr), context))) ->*
                 proto::eval(proto::child_c< 0>( expr), context)
@@ -202,7 +202,7 @@
         result_type invoke(Expr &expr, Context &context, mpl::true_) const
         {
             BOOST_PROTO_USE_GET_POINTER();
-            typedef typename detail::classtypeof<function_type>::type class_type;
+            typedef typename detail::class_member_traits<function_type>::class_type class_type;
             return (
                 BOOST_PROTO_GET_POINTER(class_type, (proto::eval(proto::child_c< 1>( expr), context))) ->*
                 proto::eval(proto::child_c< 0>( expr), context)
@@ -236,7 +236,7 @@
         result_type invoke(Expr &expr, Context &context, mpl::true_) const
         {
             BOOST_PROTO_USE_GET_POINTER();
-            typedef typename detail::classtypeof<function_type>::type class_type;
+            typedef typename detail::class_member_traits<function_type>::class_type class_type;
             return (
                 BOOST_PROTO_GET_POINTER(class_type, (proto::eval(proto::child_c< 1>( expr), context))) ->*
                 proto::eval(proto::child_c< 0>( expr), context)
@@ -270,7 +270,7 @@
         result_type invoke(Expr &expr, Context &context, mpl::true_) const
         {
             BOOST_PROTO_USE_GET_POINTER();
-            typedef typename detail::classtypeof<function_type>::type class_type;
+            typedef typename detail::class_member_traits<function_type>::class_type class_type;
             return (
                 BOOST_PROTO_GET_POINTER(class_type, (proto::eval(proto::child_c< 1>( expr), context))) ->*
                 proto::eval(proto::child_c< 0>( expr), context)

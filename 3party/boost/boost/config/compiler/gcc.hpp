@@ -184,7 +184,7 @@
 #  define BOOST_NO_CXX11_DELETED_FUNCTIONS
 #endif
 
-#if __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 4)
+#if __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 5)
 #  define BOOST_NO_SFINAE_EXPR
 #endif
 

@@ -90,6 +90,19 @@ namespace boost { namespace proto
             return that;
         }
 
+        // Work-around for:
+        // https://connect.microsoft.com/VisualStudio/feedback/details/765449/codegen-stack-corruption-using-runtime-checks-when-aggregate-initializing-struct
+    #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1700))
+        template<typename T, typename Expr, typename C, typename U>
+        BOOST_FORCEINLINE
+        Expr make_terminal(T &t, Expr *, proto::term<U C::*> *)
+        {
+            Expr that;
+            that.child0 = t;
+            return that;
+        }
+    #endif
+
         template<typename T, typename U>
         struct same_cv
         {

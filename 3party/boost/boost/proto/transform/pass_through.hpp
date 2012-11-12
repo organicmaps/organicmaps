@@ -16,6 +16,8 @@
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/mpl/bool.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/proto/proto_fwd.hpp>
 #include <boost/proto/args.hpp>
@@ -33,6 +35,7 @@ namespace boost { namespace proto
     {
         template<
             typename Grammar
+          , typename Domain
           , typename Expr
           , typename State
           , typename Data
@@ -43,8 +46,8 @@ namespace boost { namespace proto
 
         #include <boost/proto/transform/detail/pass_through_impl.hpp>
 
-        template<typename Grammar, typename Expr, typename State, typename Data>
-        struct pass_through_impl<Grammar, Expr, State, Data, 0>
+        template<typename Grammar, typename Domain, typename Expr, typename State, typename Data>
+        struct pass_through_impl<Grammar, Domain, Expr, State, Data, 0>
           : transform_impl<Expr, State, Data>
         {
             typedef Expr result_type;
@@ -53,11 +56,7 @@ namespace boost { namespace proto
             /// \return \c e
             /// \throw nothrow
             BOOST_FORCEINLINE
-            #ifdef BOOST_PROTO_STRICT_RESULT_OF
-            result_type
-            #else
-            typename pass_through_impl::expr_param
-            #endif
+            BOOST_PROTO_RETURN_TYPE_STRICT_LOOSE(result_type, typename pass_through_impl::expr_param)
             operator()(
                 typename pass_through_impl::expr_param e
               , typename pass_through_impl::state_param
@@ -120,20 +119,20 @@ namespace boost { namespace proto
     ///     >
     /// {};
     /// \endcode
-    template<typename Grammar>
+    template<typename Grammar, typename Domain /* = deduce_domain*/>
     struct pass_through
-      : transform<pass_through<Grammar> >
+      : transform<pass_through<Grammar, Domain> >
     {
         template<typename Expr, typename State, typename Data>
         struct impl
-          : detail::pass_through_impl<Grammar, Expr, State, Data>
+          : detail::pass_through_impl<Grammar, Domain, Expr, State, Data>
         {};
     };
 
     /// INTERNAL ONLY
     ///
-    template<typename Grammar>
-    struct is_callable<pass_through<Grammar> >
+    template<typename Grammar, typename Domain>
+    struct is_callable<pass_through<Grammar, Domain> >
       : mpl::true_
     {};
 

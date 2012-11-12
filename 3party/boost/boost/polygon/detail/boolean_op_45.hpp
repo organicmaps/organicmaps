@@ -1,6 +1,6 @@
 /*
   Copyright 2008 Intel Corporation
- 
+
   Use, modification and distribution are subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
@@ -16,20 +16,20 @@ namespace boost { namespace polygon{
 
     class Count2 {
     public:
-      inline Count2() 
-#ifndef BOOST_POLYGON_MSVC  
-      : counts() 
+      inline Count2()
+#ifndef BOOST_POLYGON_MSVC
+      : counts()
 #endif
       { counts[0] = counts[1] = 0; }
       //inline Count2(int count) { counts[0] = counts[1] = count; }
-      inline Count2(int count1, int count2) 
-#ifndef BOOST_POLYGON_MSVC  
-      : counts() 
+      inline Count2(int count1, int count2)
+#ifndef BOOST_POLYGON_MSVC
+      : counts()
 #endif
       { counts[0] = count1; counts[1] = count2; }
-      inline Count2(const Count2& count) 
-#ifndef BOOST_POLYGON_MSVC  
-      : counts() 
+      inline Count2(const Count2& count)
+#ifndef BOOST_POLYGON_MSVC
+      : counts()
 #endif
       { counts[0] = count.counts[0]; counts[1] = count.counts[1]; }
       inline bool operator==(const Count2& count) const { return counts[0] == count.counts[0] && counts[1] == count.counts[1]; }
@@ -108,7 +108,7 @@ namespace boost { namespace polygon{
       inline Scan45ElementT(const Scan45ElementT& that) :
         x(that.x), y(that.y), rise(that.rise), count(that.count) {}
       inline Scan45ElementT& operator=(const Scan45ElementT& that) {
-        x = that.x; y = that.y; rise = that.rise; count = that.count; 
+        x = that.x; y = that.y; rise = that.rise; count = that.count;
         return *this;
       }
       inline Unit evalAtX(Unit xIn) const {
@@ -142,7 +142,7 @@ namespace boost { namespace polygon{
         return true;
       }
     };
-    
+
     typedef Scan45ElementT<Count2> Scan45Element;
 
     //     inline std::ostream& operator<< (std::ostream& o, const Scan45Element& c) {
@@ -168,7 +168,7 @@ namespace boost { namespace polygon{
       inline lessScan45Element(Unit *x, int *justBefore) : x_(x), justBefore_(justBefore) {}
       inline lessScan45Element(const lessScan45Element& that) : x_(that.x_), justBefore_(that.justBefore_) {}
       inline lessScan45Element& operator=(const lessScan45Element& that) { x_ = that.x_; justBefore_ = that.justBefore_; return *this; }
-      inline bool operator () (const Scan45ElementT<CountType>& elm1, 
+      inline bool operator () (const Scan45ElementT<CountType>& elm1,
                                const Scan45ElementT<CountType>& elm2) const {
         Unit y1 = elm1.evalAtX(*x_);
         Unit y2 = elm2.evalAtX(*x_);
@@ -190,42 +190,42 @@ namespace boost { namespace polygon{
     public:
       inline Scan45CountT() : counts() {} //counts[0] = counts[1] = counts[2] = counts[3] = 0; }
       inline Scan45CountT(CountType count) : counts() { counts[0] = counts[1] = counts[2] = counts[3] = count; }
-      inline Scan45CountT(const CountType& count1, const CountType& count2, const CountType& count3, 
-                          const CountType& count4) : counts() { 
-        counts[0] = count1; 
-        counts[1] = count2; 
+      inline Scan45CountT(const CountType& count1, const CountType& count2, const CountType& count3,
+                          const CountType& count4) : counts() {
+        counts[0] = count1;
+        counts[1] = count2;
         counts[2] = count3;
-        counts[3] = count4; 
+        counts[3] = count4;
       }
-      inline Scan45CountT(const Scan45CountT& count) : counts() { 
+      inline Scan45CountT(const Scan45CountT& count) : counts() {
         (*this) = count;
       }
-      inline bool operator==(const Scan45CountT& count) const { 
+      inline bool operator==(const Scan45CountT& count) const {
         for(unsigned int i = 0; i < 4; ++i) {
-          if(counts[i] != count.counts[i]) return false; 
+          if(counts[i] != count.counts[i]) return false;
         }
         return true;
       }
       inline bool operator!=(const Scan45CountT& count) const { return !((*this) == count); }
-      inline Scan45CountT& operator=(CountType count) { 
+      inline Scan45CountT& operator=(CountType count) {
         counts[0] = counts[1] = counts[2] = counts[3] = count; return *this; }
       inline Scan45CountT& operator=(const Scan45CountT& count) {
         for(unsigned int i = 0; i < 4; ++i) {
-          counts[i] = count.counts[i]; 
+          counts[i] = count.counts[i];
         }
-        return *this; 
+        return *this;
       }
       inline CountType& operator[](int index) { return counts[index]; }
       inline CountType operator[](int index) const {return counts[index]; }
       inline Scan45CountT& operator+=(const Scan45CountT& count){
         for(unsigned int i = 0; i < 4; ++i) {
-          counts[i] += count.counts[i]; 
+          counts[i] += count.counts[i];
         }
         return *this;
       }
       inline Scan45CountT& operator-=(const Scan45CountT& count){
         for(unsigned int i = 0; i < 4; ++i) {
-          counts[i] -= count.counts[i]; 
+          counts[i] -= count.counts[i];
         }
         return *this;
       }
@@ -270,7 +270,7 @@ namespace boost { namespace polygon{
       inline Vertex45T() : pt(), rise(), count() {}
       inline Vertex45T(const Point& point, int riseIn, ct countIn) : pt(point), rise(riseIn), count(countIn) {}
       inline Vertex45T(const Vertex45T& vertex) : pt(vertex.pt), rise(vertex.rise), count(vertex.count) {}
-      inline Vertex45T& operator=(const Vertex45T& vertex){ 
+      inline Vertex45T& operator=(const Vertex45T& vertex){
         pt = vertex.pt; rise = vertex.rise; count = vertex.count; return *this; }
       inline Vertex45T(const std::pair<Point, Point>& vertex) : pt(), rise(), count() {}
       inline Vertex45T& operator=(const std::pair<Point, Point>& vertex){ return *this; }
@@ -307,13 +307,13 @@ namespace boost { namespace polygon{
       int *justBefore_;
     public:
       inline lessVertex45() : x_(0), justBefore_() {}
-      
+
       inline lessVertex45(Unit *x, int *justBefore) : x_(x), justBefore_(justBefore) {}
-      
+
       inline lessVertex45(const lessVertex45& that) : x_(that.x_), justBefore_(that.justBefore_) {}
-      
+
       inline lessVertex45& operator=(const lessVertex45& that) { x_ = that.x_; justBefore_ = that.justBefore_; return *this; }
-      
+
       template <typename ct>
       inline bool operator () (const Vertex45T<ct>& elm1, const Vertex45T<ct>& elm2) const {
         Unit y1 = elm1.evalAtX(*x_);
@@ -390,7 +390,7 @@ namespace boost { namespace polygon{
     template <int op>
     struct boolean_op_45_output_functor {
       template <typename cT>
-      void operator()(cT& output, const Count2& count1, const Count2& count2, 
+      void operator()(cT& output, const Count2& count1, const Count2& count2,
                       const Point& pt, int rise, direction_1d end) {
         int edgeType = applyLogic<op>(count1, count2);
         if(edgeType) {
@@ -423,7 +423,7 @@ namespace boost { namespace polygon{
     template <int op>
     struct unary_op_45_output_functor {
       template <typename cT>
-      void operator()(cT& output, const Count1& count1, const Count1& count2, 
+      void operator()(cT& output, const Count1& count1, const Count1& count2,
                       const Point& pt, int rise, direction_1d end) {
         int edgeType = applyLogic<op>(count1, count2);
         if(edgeType) {
@@ -445,7 +445,7 @@ namespace boost { namespace polygon{
     };
     template <typename S45V>
     static inline void sortScan45Vector(S45V& vec) {
-      gtlsort(vec.begin(), vec.end(), lessScan45Vertex());
+      polygon_sort(vec.begin(), vec.end(), lessScan45Vertex());
     }
 
     template <typename CountType, typename output_functor>
@@ -453,12 +453,12 @@ namespace boost { namespace polygon{
     public:
       typedef Scan45CountT<CountType> Scan45Count;
       typedef std::pair<Point, Scan45Count> Scan45Vertex;
-      
+
       //index is the index into the vertex
       static inline Scan45Element getElement(const Scan45Vertex& vertex, int index) {
         return Scan45Element(vertex.first.x(), vertex.first.y(), index - 1, vertex.second[index]);
       }
-      
+
       class lessScan45Point : public std::binary_function<Point, Point, bool> {
       public:
         inline lessScan45Point() {} //default constructor is only constructor
@@ -466,7 +466,7 @@ namespace boost { namespace polygon{
           return (v1.x() < v2.x()) || (v1.x() == v2.x() && v1.y() < v2.y());
         }
       };
-      
+
       typedef std::vector<Scan45Vertex> Scan45Vector;
 
       //definitions
@@ -474,7 +474,7 @@ namespace boost { namespace polygon{
       typedef typename Scan45Data::iterator iterator;
       typedef typename Scan45Data::const_iterator const_iterator;
       typedef std::set<Point, lessScan45Point> CrossQueue;
-   
+
       //data
       Scan45Data scanData_;
       CrossQueue crossQueue_;
@@ -482,19 +482,19 @@ namespace boost { namespace polygon{
       Unit x_;
       int justBefore_;
     public:
-      inline Scan45() : scanData_(), crossQueue_(), crossVector_(), 
+      inline Scan45() : scanData_(), crossQueue_(), crossVector_(),
                         x_((std::numeric_limits<Unit>::min)()), justBefore_(false) {
         lessScan45Element<CountType>  lessElm(&x_, &justBefore_);
         scanData_ = std::set<Scan45ElementT<CountType>, lessScan45Element<CountType> >(lessElm);
       }
-      inline Scan45(const Scan45& that) : scanData_(), crossQueue_(), crossVector_(), 
+      inline Scan45(const Scan45& that) : scanData_(), crossQueue_(), crossVector_(),
                                           x_((std::numeric_limits<Unit>::min)()), justBefore_(false) {
         (*this) = that; }
       inline Scan45& operator=(const Scan45& that) {
         x_ = that.x_;
         justBefore_ = that.justBefore_;
-        crossQueue_ = that.crossQueue_; 
-        crossVector_ = that.crossVector_; 
+        crossQueue_ = that.crossQueue_;
+        crossVector_ = that.crossVector_;
         lessScan45Element<CountType>  lessElm(&x_, &justBefore_);
         scanData_ = std::set<Scan45ElementT<CountType>, lessScan45Element<CountType> >(lessElm);
         for(const_iterator itr = that.scanData_.begin(); itr != that.scanData_.end(); ++itr){
@@ -502,7 +502,7 @@ namespace boost { namespace polygon{
         }
         return *this;
       }
-   
+
       //cT is an output container of Vertex45
       //iT is an iterator over Scan45Vertex elements
       template <class cT, class iT>
@@ -623,7 +623,7 @@ namespace boost { namespace polygon{
           for(std::size_t i = 0; i < numEdges; ++i) {
             eraseVec.push_back(eraseItrs[i]);
           }
-         
+
           //take the derivative wrt theta of the count at the crossing point
           vertex.second[2] = count[2] - countBelow;
           vertex.second[1] = count[1] - count[2];
@@ -650,7 +650,7 @@ namespace boost { namespace polygon{
           findCross_(searchVec[i]);
         }
       }
-   
+
       template <class iT>
       inline iT mergeCross_(iT inputBegin, iT inputEnd) {
         Scan45Vector vec;
@@ -677,7 +677,7 @@ namespace boost { namespace polygon{
         }
         return inputBegin;
       }
-   
+
       template <class cT, class iT>
       inline iT processEvent_(cT& output, iT inputBegin, iT inputEnd) {
         //std::cout << "processEvent_\n";
@@ -695,12 +695,12 @@ namespace boost { namespace polygon{
                                               prevIter->evalAtX(x_) < vertex.first.y())) {
             //std::cout << "faking null event\n";
             vertex = Scan45Vertex(Point(x_, prevIter->evalAtX(x_)), Scan45Count());
-          } else { 
-            ++inputBegin; 
+          } else {
+            ++inputBegin;
             //std::cout << "after increment\n";
             //accumulate overlapping changes in Scan45Count
             while(inputBegin != inputEnd &&
-                  (*inputBegin).first.x() == x_ && 
+                  (*inputBegin).first.x() == x_ &&
                   (*inputBegin).first.y() == vertex.first.y()) {
               //std::cout << "accumulate\n";
               vertex.second += (*inputBegin).second;
@@ -715,7 +715,7 @@ namespace boost { namespace polygon{
           }
           //std::cout << vertex.second << std::endl;
           //vertex represents the change in state at this point
-         
+
           //get counts at current vertex
           CountType countBelow;
           iterator lowIter = lookUp_(vertex.first.y());
@@ -764,15 +764,15 @@ namespace boost { namespace polygon{
           //std::cout << "ADD\n";
           vertex.second += countAt;
           //std::cout << vertex.second << std::endl;
-         
+
           //add elements to the scanline
           for(int i = 0; i < 3; ++i) {
             if(vertex.second[i] != countBelow) {
               //std::cout << "insert: " << vertex.first.x() << " " << vertex.first.y() << " " << i-1 <<
               //  " " << vertex.second[i][0] << " " << vertex.second[i][1] << std::endl;
-              iterator insertIter = scanData_.insert(scanData_.end(), 
-                                                     Scan45ElementT<CountType>(vertex.first.x(), 
-                                                                               vertex.first.y(), 
+              iterator insertIter = scanData_.insert(scanData_.end(),
+                                                     Scan45ElementT<CountType>(vertex.first.x(),
+                                                                               vertex.first.y(),
                                                                                i - 1, vertex.second[i]));
               findCross_(insertIter);
               output_functor f;
@@ -784,7 +784,7 @@ namespace boost { namespace polygon{
         //std::cout << "end processEvent\n";
         return inputBegin;
       }
-   
+
       //iter1 is horizontal
       inline void scheduleCross0_(iterator iter1, iterator iter2) {
         //std::cout << "0, ";
@@ -815,7 +815,7 @@ namespace boost { namespace polygon{
             throw(msg);
           } else {
             //note that result of this subtraction is always positive because itr1 is above itr2 in scanline
-            LongUnit halfDelta2 = (LongUnit)((((LongUnit)y1) - y2)/2); 
+            LongUnit halfDelta2 = (LongUnit)((((LongUnit)y1) - y2)/2);
             //note that halfDelta2 has been truncated
             if(halfDelta2 + x_ <= UnitMax && halfDelta2 + y2 <= UnitMax) {
               crossQueue_.insert(crossQueue_.end(), Point(x_+static_cast<Unit>(halfDelta2), y2+static_cast<Unit>(halfDelta2)));
@@ -823,13 +823,13 @@ namespace boost { namespace polygon{
             }
           }
         } else {
-          LongUnit halfDelta = (LongUnit)((((LongUnit)y1) - y2)/2); 
+          LongUnit halfDelta = (LongUnit)((((LongUnit)y1) - y2)/2);
           if(halfDelta + x_ <= UnitMax && halfDelta + y2 <= UnitMax)
             crossQueue_.insert(crossQueue_.end(), Point(x_+static_cast<Unit>(halfDelta), y2+static_cast<Unit>(halfDelta)));
           //std::cout << Point(x_+halfDelta, y2+halfDelta);
         }
       }
-   
+
       inline void findCross_(iterator iter) {
         //std::cout << "find cross ";
         iterator iteratorBelow = iter;
@@ -839,7 +839,7 @@ namespace boost { namespace polygon{
           if(iter->rise == 0){
             if(iteratorBelow->rise == 1) {
               scheduleCross0_(iter, iteratorBelow);
-            } 
+            }
           } else {
             //iter->rise == -1
             if(iteratorBelow->rise == 1) {
@@ -863,10 +863,10 @@ namespace boost { namespace polygon{
               scheduleCross0_(iteratorAbove, iter);
             }
           }
-        } 
-        //std::cout << std::endl; 
-      } 
-   
+        }
+        //std::cout << std::endl;
+      }
+
       inline iterator lookUp_(Unit y){
         //if just before then we need to look from 1 not -1
         return scanData_.lower_bound(Scan45ElementT<CountType>(x_, y, -1+2*justBefore_));
@@ -874,7 +874,7 @@ namespace boost { namespace polygon{
     };
 
     //template <typename CountType>
-    //static inline void print45Data(const std::set<Scan45ElementT<CountType>, 
+    //static inline void print45Data(const std::set<Scan45ElementT<CountType>,
     //                               lessScan45Element<CountType> >& data) {
     //  typename std::set<Scan45ElementT<CountType>, lessScan45Element<CountType> >::const_iterator iter;
     //  for(iter = data.begin(); iter != data.end(); ++iter) {
@@ -920,7 +920,7 @@ namespace boost { namespace polygon{
       stdcout << "done testing Scan45Data\n";
       return true;
     }
-   
+
     template <typename stream_type>
     static inline bool testScan45Rect(stream_type& stdcout) {
       stdcout << "testing Scan45Rect\n";
@@ -1306,7 +1306,7 @@ namespace boost { namespace polygon{
       return true;
     }
 
-    
+
     template <typename stream_type>
     static inline bool testScan45Star4(stream_type& stdcout) {
       stdcout << "testing Scan45Star4\n";

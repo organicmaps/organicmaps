@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -103,7 +103,7 @@ inline bool semaphore_open
 inline void semaphore_close(sem_t *handle)
 {
    int ret = sem_close(handle);
-   if(ret != 0){ 
+   if(ret != 0){
       BOOST_ASSERT(0);
    }
 }
@@ -138,7 +138,7 @@ inline void semaphore_init(sem_t *handle, unsigned int initialCount)
 inline void semaphore_destroy(sem_t *handle)
 {
    int ret = sem_destroy(handle);
-   if(ret != 0){ 
+   if(ret != 0){
       BOOST_ASSERT(0);
    }
 }

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -110,7 +110,7 @@ inline spin_condition::spin_condition()
 }
 
 inline spin_condition::~spin_condition()
-{ 
+{
    //Trivial destructor
 }
 
@@ -171,7 +171,7 @@ inline bool spin_condition::do_timed_wait(bool tout_enabled,
                                      InterprocessMutex &mut)
 {
    boost::posix_time::ptime now = microsec_clock::universal_time();
-  
+
    if(tout_enabled){
       if(now >= abs_time) return false;
    }
@@ -205,7 +205,7 @@ inline bool spin_condition::do_timed_wait(bool tout_enabled,
 
    //By default, we suppose that no timeout has happened
    bool timed_out  = false, unlock_enter_mut= false;
-  
+
    //Loop until a notification indicates that the thread should
    //exit or timeout occurs
    while(1){
@@ -253,7 +253,7 @@ inline bool spin_condition::do_timed_wait(bool tout_enabled,
             continue;
          }
          else if(result == NOTIFY_ONE){
-            //If it was a NOTIFY_ONE command, only this thread should 
+            //If it was a NOTIFY_ONE command, only this thread should
             //exit. This thread has atomically marked command as sleep before
             //so no other thread will exit.
             //Decrement wait count.

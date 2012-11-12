@@ -1,4 +1,4 @@
-// (C) Benjamin Sobotta 2012
+//  Copyright Benjamin Sobotta 2012
 
 //  Use, modification and distribution are subject to the
 //  Boost Software License, Version 1.0. (See accompanying file
@@ -100,7 +100,9 @@ namespace boost{ namespace math{
   inline const std::pair<RealType, RealType> range(const skew_normal_distribution<RealType, Policy>& /*dist*/)
   { // Range of permissible values for random variable x.
     using boost::math::tools::max_value;
-    return std::pair<RealType, RealType>(-max_value<RealType>(), max_value<RealType>()); // - to + max value.
+    return std::pair<RealType, RealType>(
+       std::numeric_limits<RealType>::has_infinity ? -std::numeric_limits<RealType>::infinity() : -max_value<RealType>(), 
+       std::numeric_limits<RealType>::has_infinity ? std::numeric_limits<RealType>::infinity() : max_value<RealType>()); // - to + max value.
   }
 
   template <class RealType, class Policy>
@@ -476,50 +478,51 @@ namespace boost{ namespace math{
     // 21 elements
     static const RealType shapes[] = {
       0.0,
-      1.000000000000000e-004,
-      2.069138081114790e-004,
-      4.281332398719396e-004,
-      8.858667904100824e-004,
-      1.832980710832436e-003,
-      3.792690190732250e-003,
-      7.847599703514606e-003,
-      1.623776739188722e-002,
-      3.359818286283781e-002,
-      6.951927961775606e-002,
-      1.438449888287663e-001,
-      2.976351441631319e-001,
-      6.158482110660261e-001,
-      1.274274985703135e+000,
-      2.636650898730361e+000,
-      5.455594781168514e+000,
-      1.128837891684688e+001,
-      2.335721469090121e+001,
-      4.832930238571753e+001,
-      1.000000000000000e+002};
+      static_cast<RealType>(1.000000000000000e-004),
+      static_cast<RealType>(2.069138081114790e-004),
+      static_cast<RealType>(4.281332398719396e-004),
+      static_cast<RealType>(8.858667904100824e-004),
+      static_cast<RealType>(1.832980710832436e-003),
+      static_cast<RealType>(3.792690190732250e-003),
+      static_cast<RealType>(7.847599703514606e-003),
+      static_cast<RealType>(1.623776739188722e-002),
+      static_cast<RealType>(3.359818286283781e-002),
+      static_cast<RealType>(6.951927961775606e-002),
+      static_cast<RealType>(1.438449888287663e-001),
+      static_cast<RealType>(2.976351441631319e-001),
+      static_cast<RealType>(6.158482110660261e-001),
+      static_cast<RealType>(1.274274985703135e+000),
+      static_cast<RealType>(2.636650898730361e+000),
+      static_cast<RealType>(5.455594781168514e+000),
+      static_cast<RealType>(1.128837891684688e+001),
+      static_cast<RealType>(2.335721469090121e+001),
+      static_cast<RealType>(4.832930238571753e+001),
+      static_cast<RealType>(1.000000000000000e+002)
+    };
 
     // 21 elements
     static const RealType guess[] = {
       0.0,
-      5.000050000525391e-005,
-      1.500015000148736e-004,
-      3.500035000350010e-004,
-      7.500075000752560e-004,
-      1.450014500145258e-003,
-      3.050030500305390e-003,
-      6.250062500624765e-003,
-      1.295012950129504e-002,
-      2.675026750267495e-002,
-      5.525055250552491e-002,
-      1.132511325113255e-001,
-      2.249522495224952e-001,
-      3.992539925399257e-001,
-      5.353553535535358e-001,
-      4.954549545495457e-001,
-      3.524535245352451e-001,
-      2.182521825218249e-001,
-      1.256512565125654e-001,
-      6.945069450694508e-002,
-      3.735037350373460e-002
+      static_cast<RealType>(5.000050000525391e-005),
+      static_cast<RealType>(1.500015000148736e-004),
+      static_cast<RealType>(3.500035000350010e-004),
+      static_cast<RealType>(7.500075000752560e-004),
+      static_cast<RealType>(1.450014500145258e-003),
+      static_cast<RealType>(3.050030500305390e-003),
+      static_cast<RealType>(6.250062500624765e-003),
+      static_cast<RealType>(1.295012950129504e-002),
+      static_cast<RealType>(2.675026750267495e-002),
+      static_cast<RealType>(5.525055250552491e-002),
+      static_cast<RealType>(1.132511325113255e-001),
+      static_cast<RealType>(2.249522495224952e-001),
+      static_cast<RealType>(3.992539925399257e-001),
+      static_cast<RealType>(5.353553535535358e-001),
+      static_cast<RealType>(4.954549545495457e-001),
+      static_cast<RealType>(3.524535245352451e-001),
+      static_cast<RealType>(2.182521825218249e-001),
+      static_cast<RealType>(1.256512565125654e-001),
+      static_cast<RealType>(6.945069450694508e-002),
+      static_cast<RealType>(3.735037350373460e-002)
     };
 
     const RealType* result_ptr = std::lower_bound(shapes, shapes+21, shape);
@@ -532,7 +535,7 @@ namespace boost{ namespace math{
 
     // TODO: make the search bounds smarter, depending on the shape parameter
     RealType search_min = 0; // below zero was caught above
-    RealType search_max = 0.55; // will never go above 0.55
+    RealType search_max = 0.55f; // will never go above 0.55
 
     // refine
     if(d < static_cast<diff_type>(21)) // shape smaller 100
@@ -544,7 +547,7 @@ namespace boost{ namespace math{
     }
     else // shape greater 100
     {
-      result = 1e-4;
+      result = 1e-4f;
       search_max = guess[19]; // set 19 instead of 20 to have a safety margin because the table may not be exact @ shape=100
     }
     
@@ -642,23 +645,23 @@ namespace boost{ namespace math{
     if(false == detail::check_probability(function, p, &result, Policy()))
       return result;
 
-    // compute initial guess via Cornish-Fisher expansion
+    // Compute initial guess via Cornish-Fisher expansion.
     RealType x = -boost::math::erfc_inv(2 * p, Policy()) * constants::root_two<RealType>();
 
-    // avoid unnecessary computations if there is no skew
+    // Avoid unnecessary computations if there is no skew.
     if(shape != 0)
     {
       const RealType skew = skewness(dist);
       const RealType exk = kurtosis_excess(dist);
 
       x = x + (x*x-static_cast<RealType>(1))*skew/static_cast<RealType>(6)
-	+ x*(x*x-static_cast<RealType>(3))*exk/static_cast<RealType>(24)
-	- x*(static_cast<RealType>(2)*x*x-static_cast<RealType>(5))*skew*skew/static_cast<RealType>(36);
+      + x*(x*x-static_cast<RealType>(3))*exk/static_cast<RealType>(24)
+      - x*(static_cast<RealType>(2)*x*x-static_cast<RealType>(5))*skew*skew/static_cast<RealType>(36);
     } // if(shape != 0)
 
     result = standard_deviation(dist)*x+mean(dist);
 
-    // handle special case of non-skew normal distribution
+    // handle special case of non-skew normal distribution.
     if(shape == 0)
       return result;
 
@@ -678,7 +681,7 @@ namespace boost{ namespace math{
 
   template <class RealType, class Policy>
   inline RealType quantile(const complemented2_type<skew_normal_distribution<RealType, Policy>, RealType>& c)
-  {	
+  {
     const RealType scale = c.dist.scale();
     const RealType location = c.dist.location();
     const RealType shape = c.dist.shape();

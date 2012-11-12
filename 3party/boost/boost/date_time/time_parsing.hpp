@@ -6,7 +6,7 @@
  * Boost Software License, Version 1.0. (See accompanying
  * file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt)
  * Author: Jeff Garland, Bart Garst
- * $Date: 2008-02-27 12:00:24 -0800 (Wed, 27 Feb 2008) $
+ * $Date: 2012-10-10 12:05:03 -0700 (Wed, 10 Oct 2012) $
  */
 
 #include "boost/tokenizer.hpp"
@@ -116,6 +116,7 @@ namespace date_time {
         
         break;
       }
+      default: break;
       }//switch
       pos++;
     }
@@ -153,9 +154,10 @@ namespace date_time {
         std::string& first,
         std::string& second)
   {
-    int sep_pos = static_cast<int>(s.find(sep));
+    std::string::size_type sep_pos = s.find(sep);
     first = s.substr(0,sep_pos);
-    second = s.substr(sep_pos+1);
+    if (sep_pos!=std::string::npos)
+        second = s.substr(sep_pos+1);
     return true;
   }
 
@@ -280,6 +282,7 @@ namespace date_time {
             
             break;
           }
+          default: break;
       };
       pos++;
     }

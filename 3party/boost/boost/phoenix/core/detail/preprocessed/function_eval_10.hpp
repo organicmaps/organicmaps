@@ -66,7 +66,7 @@ namespace boost { namespace phoenix {
                         typename boost::result_of<evaluator(F, Context)>::type
                     >::type
                     fn;
-                typedef typename boost::result_of< boost::phoenix::evaluator( A0 , Context ) >::type a0;
+                typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A0 , Context ) >::type >::type >::type a0;
                 typedef typename
                     boost::result_of<fn(a0)>::type
                     type;
@@ -116,7 +116,7 @@ namespace boost { namespace phoenix {
                         typename boost::result_of<evaluator(F, Context)>::type
                     >::type
                     fn;
-                typedef typename boost::result_of< boost::phoenix::evaluator( A0 , Context ) >::type a0; typedef typename boost::result_of< boost::phoenix::evaluator( A1 , Context ) >::type a1;
+                typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A0 , Context ) >::type >::type >::type a0; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A1 , Context ) >::type >::type >::type a1;
                 typedef typename
                     boost::result_of<fn(a0 , a1)>::type
                     type;
@@ -166,7 +166,7 @@ namespace boost { namespace phoenix {
                         typename boost::result_of<evaluator(F, Context)>::type
                     >::type
                     fn;
-                typedef typename boost::result_of< boost::phoenix::evaluator( A0 , Context ) >::type a0; typedef typename boost::result_of< boost::phoenix::evaluator( A1 , Context ) >::type a1; typedef typename boost::result_of< boost::phoenix::evaluator( A2 , Context ) >::type a2;
+                typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A0 , Context ) >::type >::type >::type a0; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A1 , Context ) >::type >::type >::type a1; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A2 , Context ) >::type >::type >::type a2;
                 typedef typename
                     boost::result_of<fn(a0 , a1 , a2)>::type
                     type;
@@ -216,7 +216,7 @@ namespace boost { namespace phoenix {
                         typename boost::result_of<evaluator(F, Context)>::type
                     >::type
                     fn;
-                typedef typename boost::result_of< boost::phoenix::evaluator( A0 , Context ) >::type a0; typedef typename boost::result_of< boost::phoenix::evaluator( A1 , Context ) >::type a1; typedef typename boost::result_of< boost::phoenix::evaluator( A2 , Context ) >::type a2; typedef typename boost::result_of< boost::phoenix::evaluator( A3 , Context ) >::type a3;
+                typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A0 , Context ) >::type >::type >::type a0; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A1 , Context ) >::type >::type >::type a1; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A2 , Context ) >::type >::type >::type a2; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A3 , Context ) >::type >::type >::type a3;
                 typedef typename
                     boost::result_of<fn(a0 , a1 , a2 , a3)>::type
                     type;
@@ -266,7 +266,7 @@ namespace boost { namespace phoenix {
                         typename boost::result_of<evaluator(F, Context)>::type
                     >::type
                     fn;
-                typedef typename boost::result_of< boost::phoenix::evaluator( A0 , Context ) >::type a0; typedef typename boost::result_of< boost::phoenix::evaluator( A1 , Context ) >::type a1; typedef typename boost::result_of< boost::phoenix::evaluator( A2 , Context ) >::type a2; typedef typename boost::result_of< boost::phoenix::evaluator( A3 , Context ) >::type a3; typedef typename boost::result_of< boost::phoenix::evaluator( A4 , Context ) >::type a4;
+                typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A0 , Context ) >::type >::type >::type a0; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A1 , Context ) >::type >::type >::type a1; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A2 , Context ) >::type >::type >::type a2; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A3 , Context ) >::type >::type >::type a3; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A4 , Context ) >::type >::type >::type a4;
                 typedef typename
                     boost::result_of<fn(a0 , a1 , a2 , a3 , a4)>::type
                     type;
@@ -316,7 +316,7 @@ namespace boost { namespace phoenix {
                         typename boost::result_of<evaluator(F, Context)>::type
                     >::type
                     fn;
-                typedef typename boost::result_of< boost::phoenix::evaluator( A0 , Context ) >::type a0; typedef typename boost::result_of< boost::phoenix::evaluator( A1 , Context ) >::type a1; typedef typename boost::result_of< boost::phoenix::evaluator( A2 , Context ) >::type a2; typedef typename boost::result_of< boost::phoenix::evaluator( A3 , Context ) >::type a3; typedef typename boost::result_of< boost::phoenix::evaluator( A4 , Context ) >::type a4; typedef typename boost::result_of< boost::phoenix::evaluator( A5 , Context ) >::type a5;
+                typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A0 , Context ) >::type >::type >::type a0; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A1 , Context ) >::type >::type >::type a1; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A2 , Context ) >::type >::type >::type a2; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A3 , Context ) >::type >::type >::type a3; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A4 , Context ) >::type >::type >::type a4; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A5 , Context ) >::type >::type >::type a5;
                 typedef typename
                     boost::result_of<fn(a0 , a1 , a2 , a3 , a4 , a5)>::type
                     type;
@@ -366,7 +366,7 @@ namespace boost { namespace phoenix {
                         typename boost::result_of<evaluator(F, Context)>::type
                     >::type
                     fn;
-                typedef typename boost::result_of< boost::phoenix::evaluator( A0 , Context ) >::type a0; typedef typename boost::result_of< boost::phoenix::evaluator( A1 , Context ) >::type a1; typedef typename boost::result_of< boost::phoenix::evaluator( A2 , Context ) >::type a2; typedef typename boost::result_of< boost::phoenix::evaluator( A3 , Context ) >::type a3; typedef typename boost::result_of< boost::phoenix::evaluator( A4 , Context ) >::type a4; typedef typename boost::result_of< boost::phoenix::evaluator( A5 , Context ) >::type a5; typedef typename boost::result_of< boost::phoenix::evaluator( A6 , Context ) >::type a6;
+                typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A0 , Context ) >::type >::type >::type a0; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A1 , Context ) >::type >::type >::type a1; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A2 , Context ) >::type >::type >::type a2; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A3 , Context ) >::type >::type >::type a3; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A4 , Context ) >::type >::type >::type a4; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A5 , Context ) >::type >::type >::type a5; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A6 , Context ) >::type >::type >::type a6;
                 typedef typename
                     boost::result_of<fn(a0 , a1 , a2 , a3 , a4 , a5 , a6)>::type
                     type;
@@ -416,7 +416,7 @@ namespace boost { namespace phoenix {
                         typename boost::result_of<evaluator(F, Context)>::type
                     >::type
                     fn;
-                typedef typename boost::result_of< boost::phoenix::evaluator( A0 , Context ) >::type a0; typedef typename boost::result_of< boost::phoenix::evaluator( A1 , Context ) >::type a1; typedef typename boost::result_of< boost::phoenix::evaluator( A2 , Context ) >::type a2; typedef typename boost::result_of< boost::phoenix::evaluator( A3 , Context ) >::type a3; typedef typename boost::result_of< boost::phoenix::evaluator( A4 , Context ) >::type a4; typedef typename boost::result_of< boost::phoenix::evaluator( A5 , Context ) >::type a5; typedef typename boost::result_of< boost::phoenix::evaluator( A6 , Context ) >::type a6; typedef typename boost::result_of< boost::phoenix::evaluator( A7 , Context ) >::type a7;
+                typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A0 , Context ) >::type >::type >::type a0; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A1 , Context ) >::type >::type >::type a1; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A2 , Context ) >::type >::type >::type a2; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A3 , Context ) >::type >::type >::type a3; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A4 , Context ) >::type >::type >::type a4; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A5 , Context ) >::type >::type >::type a5; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A6 , Context ) >::type >::type >::type a6; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A7 , Context ) >::type >::type >::type a7;
                 typedef typename
                     boost::result_of<fn(a0 , a1 , a2 , a3 , a4 , a5 , a6 , a7)>::type
                     type;
@@ -466,7 +466,7 @@ namespace boost { namespace phoenix {
                         typename boost::result_of<evaluator(F, Context)>::type
                     >::type
                     fn;
-                typedef typename boost::result_of< boost::phoenix::evaluator( A0 , Context ) >::type a0; typedef typename boost::result_of< boost::phoenix::evaluator( A1 , Context ) >::type a1; typedef typename boost::result_of< boost::phoenix::evaluator( A2 , Context ) >::type a2; typedef typename boost::result_of< boost::phoenix::evaluator( A3 , Context ) >::type a3; typedef typename boost::result_of< boost::phoenix::evaluator( A4 , Context ) >::type a4; typedef typename boost::result_of< boost::phoenix::evaluator( A5 , Context ) >::type a5; typedef typename boost::result_of< boost::phoenix::evaluator( A6 , Context ) >::type a6; typedef typename boost::result_of< boost::phoenix::evaluator( A7 , Context ) >::type a7; typedef typename boost::result_of< boost::phoenix::evaluator( A8 , Context ) >::type a8;
+                typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A0 , Context ) >::type >::type >::type a0; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A1 , Context ) >::type >::type >::type a1; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A2 , Context ) >::type >::type >::type a2; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A3 , Context ) >::type >::type >::type a3; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A4 , Context ) >::type >::type >::type a4; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A5 , Context ) >::type >::type >::type a5; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A6 , Context ) >::type >::type >::type a6; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A7 , Context ) >::type >::type >::type a7; typedef typename boost::add_reference< typename boost::add_const< typename boost::result_of< boost::phoenix::evaluator( A8 , Context ) >::type >::type >::type a8;
                 typedef typename
                     boost::result_of<fn(a0 , a1 , a2 , a3 , a4 , a5 , a6 , a7 , a8)>::type
                     type;

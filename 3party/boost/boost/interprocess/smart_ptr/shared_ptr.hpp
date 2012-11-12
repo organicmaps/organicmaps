@@ -4,7 +4,7 @@
 //
 // (C) Copyright Greg Colvin and Beman Dawes 1998, 1999.
 // (C) Copyright Peter Dimov 2001, 2002, 2003
-// (C) Copyright Ion Gaztanaga 2006-2011.
+// (C) Copyright Ion Gaztanaga 2006-2012.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -52,7 +52,7 @@ inline void sp_enable_shared_from_this
   (shared_count<T, VoidAllocator, Deleter> const & pn
   ,enable_shared_from_this<T, VoidAllocator, Deleter> *pe
   ,T *ptr)
-  
+
 {
    (void)ptr;
    if(pe != 0){
@@ -125,7 +125,7 @@ class shared_ptr
    //!Requirements: Deleter and A's copy constructor must not throw.
    explicit shared_ptr(const pointer&p, const VoidAllocator &a = VoidAllocator(), const Deleter &d = Deleter())
       :  m_pn(p, a, d)
-   { 
+   {
       //Check that the pointer passed is of the same type that
       //the pointer the allocator defines or it's a raw pointer
       typedef typename boost::intrusive::
@@ -223,15 +223,15 @@ class shared_ptr
    //!This is equivalent to:
    //!this_type().swap(*this);
    void reset()
-   { 
-      this_type().swap(*this);  
+   {
+      this_type().swap(*this);
    }
 
    //!This is equivalent to:
    //!this_type(p, a, d).swap(*this);
    template<class Pointer>
    void reset(const Pointer &p, const VoidAllocator &a = VoidAllocator(), const Deleter &d = Deleter())
-   { 
+   {
       //Check that the pointer passed is of the same type that
       //the pointer the allocator defines or it's a raw pointer
       typedef typename boost::intrusive::
@@ -239,7 +239,7 @@ class shared_ptr
             rebind_pointer<T>::type                         ParameterPointer;
       BOOST_STATIC_ASSERT((ipcdetail::is_same<pointer, ParameterPointer>::value) ||
                           (ipcdetail::is_pointer<Pointer>::value));
-      this_type(p, a, d).swap(*this); 
+      this_type(p, a, d).swap(*this);
    }
 
    template<class Y>

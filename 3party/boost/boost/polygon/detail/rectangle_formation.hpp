@@ -1,6 +1,6 @@
 /*
     Copyright 2008 Intel Corporation
- 
+
     Use, modification and distribution are subject to the Boost Software License,
     Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
     http://www.boost.org/LICENSE_1_0.txt).
@@ -10,14 +10,14 @@
 namespace boost { namespace polygon{
 
 namespace rectangle_formation {
-  template <class T> 
+  template <class T>
   class ScanLineToRects {
   public:
     typedef T rectangle_type;
     typedef typename rectangle_traits<T>::coordinate_type coordinate_type;
     typedef rectangle_data<coordinate_type> scan_rect_type;
   private:
-    
+
     typedef std::set<scan_rect_type, less_rectangle_concept<scan_rect_type, scan_rect_type> > ScanData;
     ScanData scanData_;
     bool haveCurrentRect_;
@@ -26,17 +26,17 @@ namespace rectangle_formation {
     typename rectangle_traits<T>::coordinate_type currentCoordinate_;
   public:
     inline ScanLineToRects() : scanData_(), haveCurrentRect_(), currentRect_(), orient_(), currentCoordinate_() {}
-    
+
     inline ScanLineToRects(orientation_2d orient, rectangle_type model) :
       scanData_(orientation_2d(orient.to_int() ? VERTICAL : HORIZONTAL)),
       haveCurrentRect_(false), currentRect_(), orient_(orient), currentCoordinate_() {
       assign(currentRect_, model);
       currentCoordinate_ = (std::numeric_limits<coordinate_type>::max)();
     }
-    
+
     template <typename CT>
     inline ScanLineToRects& processEdge(CT& rectangles, const interval_data<coordinate_type>& edge);
-    
+
     inline ScanLineToRects& nextMajorCoordinate(coordinate_type currentCoordinate) {
       if(haveCurrentRect_) {
         scanData_.insert(scanData_.end(), currentRect_);
@@ -45,12 +45,12 @@ namespace rectangle_formation {
       currentCoordinate_ = currentCoordinate;
       return *this;
     }
-    
+
   };
 
-  template <class CT, class ST, class rectangle_type, typename interval_type, typename coordinate_type> inline CT& 
-  processEdge_(CT& rectangles, ST& scanData, const interval_type& edge, 
-               bool& haveCurrentRect, rectangle_type& currentRect, coordinate_type currentCoordinate, orientation_2d orient) 
+  template <class CT, class ST, class rectangle_type, typename interval_type, typename coordinate_type> inline CT&
+  processEdge_(CT& rectangles, ST& scanData, const interval_type& edge,
+               bool& haveCurrentRect, rectangle_type& currentRect, coordinate_type currentCoordinate, orientation_2d orient)
   {
     typedef typename CT::value_type result_type;
     bool edgeProcessed = false;
@@ -59,15 +59,15 @@ namespace rectangle_formation {
       //process all rectangles in the scanData that touch the edge
       typename ST::iterator dataIter = scanData.lower_bound(rectangle_type(edge, edge));
       //decrement beginIter until its low is less than edge's low
-      while((dataIter == scanData.end() || (*dataIter).get(orient).get(LOW) > edge.get(LOW)) && 
+      while((dataIter == scanData.end() || (*dataIter).get(orient).get(LOW) > edge.get(LOW)) &&
             dataIter != scanData.begin())
         {
           --dataIter;
         }
-      //process each rectangle until the low end of the rectangle 
+      //process each rectangle until the low end of the rectangle
       //is greater than the high end of the edge
       while(dataIter != scanData.end() &&
-            (*dataIter).get(orient).get(LOW) <= edge.get(HIGH)) 
+            (*dataIter).get(orient).get(LOW) <= edge.get(HIGH))
         {
           const rectangle_type& rect = *dataIter;
           //if the rectangle data intersects the edge at all
@@ -111,7 +111,7 @@ namespace rectangle_formation {
                 scanData.insert(nextIter, highRect);
               }
               //we are done with this edge
-              edgeProcessed = true;                 
+              edgeProcessed = true;
               break;
             } else {
               //it must be an opening edge
@@ -145,8 +145,8 @@ namespace rectangle_formation {
                     }
                   } else {
                     //extend the top of current rect
-                    currentRect.set(orient.get_direction(HIGH), 
-                                    (std::max)(edge.get(HIGH), 
+                    currentRect.set(orient.get_direction(HIGH),
+                                    (std::max)(edge.get(HIGH),
                                                tmpRect.get(orient.get_direction(HIGH))));
                   }
                 } else {
@@ -155,7 +155,7 @@ namespace rectangle_formation {
                   //create a new current rect
                   currentRect.set(orient.get_perpendicular(), interval_data<coordinate_type>(currentCoordinate,
                                                                       currentCoordinate));
-                  currentRect.set(orient, interval_data<coordinate_type>((std::min)(tmpRect.get(orient).get(LOW), 
+                  currentRect.set(orient, interval_data<coordinate_type>((std::min)(tmpRect.get(orient).get(LOW),
                                                        edge.get(LOW)),
                                                                          (std::max)(tmpRect.get(orient).get(HIGH),
                                                        edge.get(HIGH))));
@@ -164,7 +164,7 @@ namespace rectangle_formation {
                 haveCurrentRect = true;
                 currentRect.set(orient.get_perpendicular(), interval_data<coordinate_type>(currentCoordinate,
                                                                     currentCoordinate));
-                currentRect.set(orient, interval_data<coordinate_type>((std::min)(tmpRect.get(orient).get(LOW), 
+                currentRect.set(orient, interval_data<coordinate_type>((std::min)(tmpRect.get(orient).get(LOW),
                                                      edge.get(LOW)),
                                                                        (std::max)(tmpRect.get(orient).get(HIGH),
                                                      edge.get(HIGH))));
@@ -176,22 +176,22 @@ namespace rectangle_formation {
             //edgeProcessed = true;
           }
           ++dataIter;
-        } //end while edge intersects rectangle data 
+        } //end while edge intersects rectangle data
 
     }
     if(!edgeProcessed) {
       if(haveCurrentRect) {
-        if(currentRect.get(orient.get_perpendicular().get_direction(HIGH)) 
+        if(currentRect.get(orient.get_perpendicular().get_direction(HIGH))
            == currentCoordinate &&
-           currentRect.get(orient.get_direction(HIGH)) >= edge.get(LOW)) 
+           currentRect.get(orient.get_direction(HIGH)) >= edge.get(LOW))
           {
             if(currentRect.get(orient.get_direction(HIGH)) > edge.get(LOW)){
               rectangle_type tmpRect(currentRect);
               tmpRect.set(orient.get_direction(HIGH), edge.get(LOW));
               scanData.insert(scanData.end(), tmpRect);
               if(currentRect.get(orient.get_direction(HIGH)) > edge.get(HIGH)) {
-                currentRect.set(orient, 
-                                interval_data<coordinate_type>(edge.get(HIGH), 
+                currentRect.set(orient,
+                                interval_data<coordinate_type>(edge.get(HIGH),
                                          currentRect.get(orient.get_direction(HIGH))));
                 return rectangles;
               } else {
@@ -205,7 +205,7 @@ namespace rectangle_formation {
           }
         scanData.insert(scanData.end(), currentRect);
         haveCurrentRect = false;
-      } 
+      }
       rectangle_type tmpRect(currentRect);
       tmpRect.set(orient.get_perpendicular(), interval_data<coordinate_type>(currentCoordinate,
                                                       currentCoordinate));
@@ -214,13 +214,13 @@ namespace rectangle_formation {
       return rectangles;
     }
     return rectangles;
-  
+
   }
 
-  template <class T> 
-  template <class CT> 
-  inline 
-  ScanLineToRects<T>& ScanLineToRects<T>::processEdge(CT& rectangles, const interval_data<coordinate_type>& edge) 
+  template <class T>
+  template <class CT>
+  inline
+  ScanLineToRects<T>& ScanLineToRects<T>::processEdge(CT& rectangles, const interval_data<coordinate_type>& edge)
   {
     processEdge_(rectangles, scanData_, edge, haveCurrentRect_, currentRect_, currentCoordinate_, orient_);
     return *this;
@@ -264,4 +264,3 @@ namespace rectangle_formation {
 }
 }
 #endif
-

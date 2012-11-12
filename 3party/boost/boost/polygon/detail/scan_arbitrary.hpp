@@ -1,6 +1,6 @@
 /*
   Copyright 2008 Intel Corporation
- 
+
   Use, modification and distribution are subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
@@ -17,11 +17,11 @@ namespace boost { namespace polygon{
   class line_intersection : public scanline_base<Unit> {
   private:
     typedef typename scanline_base<Unit>::Point Point;
-      
+
     //the first point is the vertex and and second point establishes the slope of an edge eminating from the vertex
     //typedef std::pair<Point, Point> half_edge;
     typedef typename scanline_base<Unit>::half_edge half_edge;
-      
+
     //scanline comparator functor
     typedef typename scanline_base<Unit>::less_half_edge less_half_edge;
     typedef typename scanline_base<Unit>::less_point less_point;
@@ -51,7 +51,7 @@ namespace boost { namespace polygon{
 //       x_ = that.x_;
 //       just_before_ = that.just_before_;
 //       segment_id_ = that.segment_id_;
-        
+
 //       //I cannot simply copy that.edge_scanline_ to this edge_scanline_ becuase the functor store pointers to other members!
 //       less_half_edge lessElm(&x_, &just_before_);
 //       edge_scanline_ = edge_scanline(lessElm);
@@ -76,7 +76,7 @@ namespace boost { namespace polygon{
         ends.push_back(std::make_pair((*itr).first.first.y(), count));
         ends.push_back(std::make_pair((*itr).first.second.y(), -count));
       }
-      gtlsort(ends.begin(), ends.end());
+      polygon_sort(ends.begin(), ends.end());
       histogram.reserve(ends.size());
       histogram.push_back(std::make_pair(ends.front().first, std::make_pair(0, 0)));
       for(typename std::vector<std::pair<Unit, int> >::iterator itr = ends.begin(); itr != ends.end(); ++itr) {
@@ -128,11 +128,11 @@ namespace boost { namespace polygon{
         bins[*itr] = std::vector<std::pair<half_edge, segment_id> >();
       }
       for(iT itr = begin; itr != end; ++itr) {
-        typename std::map<Unit, std::vector<std::pair<half_edge, segment_id> > >::iterator lb = 
+        typename std::map<Unit, std::vector<std::pair<half_edge, segment_id> > >::iterator lb =
           bins.lower_bound((std::min)((*itr).first.first.y(), (*itr).first.second.y()));
         if(lb != bins.begin())
           --lb;
-        typename std::map<Unit, std::vector<std::pair<half_edge, segment_id> > >::iterator ub = 
+        typename std::map<Unit, std::vector<std::pair<half_edge, segment_id> > >::iterator ub =
           bins.upper_bound((std::max)((*itr).first.first.y(), (*itr).first.second.y()));
         for( ; lb != ub; ++lb) {
           (*lb).second.push_back(*itr);
@@ -161,7 +161,7 @@ namespace boost { namespace polygon{
         }
       }
       typename scanline_base<Unit>::compute_intersection_pack pack_;
-      gtlsort(data.begin(), data.end());
+      polygon_sort(data.begin(), data.end());
       //find all intersection points
       for(typename std::vector<std::pair<half_edge, segment_id> >::iterator outer = data.begin();
           outer != data.end(); ++outer) {
@@ -182,7 +182,7 @@ namespace boost { namespace polygon{
             //at least one segment has a low y value within the range
             if(he1 == he2) continue;
             if((std::min)(he2. first.get(HORIZONTAL),
-                          he2.second.get(HORIZONTAL)) >= 
+                          he2.second.get(HORIZONTAL)) >=
                (std::max)(he1.second.get(HORIZONTAL),
                           he1.first.get(HORIZONTAL)))
               break;
@@ -194,11 +194,11 @@ namespace boost { namespace polygon{
               pts.push_back(intersection);
               intersection_points[(*inner).second].insert(intersection);
               intersection_points[(*outer).second].insert(intersection);
-            } 
+            }
           }
         }
       }
-      gtlsort(pts.begin(), pts.end());
+      polygon_sort(pts.begin(), pts.end());
       typename std::vector<Point>::iterator newend = std::unique(pts.begin(), pts.end());
       typename std::vector<Point>::iterator lfinger = pts.begin();
       //find all segments that interact with intersection points
@@ -217,7 +217,7 @@ namespace boost { namespace polygon{
         //while(itr2 != newend && (*itr2).get(HORIZONTAL) <= (std::max)(he1.first.get(HORIZONTAL), he1.second.get(HORIZONTAL))) ++itr2;
         //itr = pts.begin();
         //itr2 = pts.end();
-        while(lfinger != newend && (*lfinger).x() < startpt.x()) ++lfinger; 
+        while(lfinger != newend && (*lfinger).x() < startpt.x()) ++lfinger;
         for(typename std::vector<Point>::iterator itr = lfinger ; itr != newend && (*itr).x() <= stoppt.x(); ++itr) {
           if(scanline_base<Unit>::intersects_grid(*itr, he1))
             intersection_points[id1].insert(*itr);
@@ -289,7 +289,7 @@ namespace boost { namespace polygon{
           std::swap(data[i].first.first, data[i].first.second);
         }
       }
-      gtlsort(data.begin(), data.end());
+      polygon_sort(data.begin(), data.end());
       for(typename std::vector<std::pair<half_edge, segment_id> >::iterator outer = data.begin();
           outer != data.end(); ++outer) {
         const half_edge& he1 = (*outer).first;
@@ -299,7 +299,7 @@ namespace boost { namespace polygon{
           const half_edge& he2 = (*inner).first;
           if(he1 == he2) continue;
           if((std::min)(he2. first.get(HORIZONTAL),
-                        he2.second.get(HORIZONTAL)) > 
+                        he2.second.get(HORIZONTAL)) >
              (std::max)(he1.second.get(HORIZONTAL),
                         he1.first.get(HORIZONTAL)))
             break;
@@ -359,7 +359,7 @@ namespace boost { namespace polygon{
             tmpPts.reserve(pts.size());
             tmpPts.insert(tmpPts.end(), pts.begin(), pts.end());
             less_point_down_slope lpds;
-            gtlsort(tmpPts.begin(), tmpPts.end(), lpds);
+            polygon_sort(tmpPts.begin(), tmpPts.end(), lpds);
             segment_edge(output_segments, he, id, tmpPts.begin(), tmpPts.end());
           } else {
             segment_edge(output_segments, he, id, pts.begin(), pts.end());
@@ -432,7 +432,7 @@ namespace boost { namespace polygon{
 //         edge_scanline_.erase(remove_iter);
 //     }
 
-//     static inline void update_segments(std::map<segment_id, std::set<Point> >& intersection_points, 
+//     static inline void update_segments(std::map<segment_id, std::set<Point> >& intersection_points,
 //                                        const std::set<segment_id>& segments, Point pt) {
 //       for(std::set<segment_id>::const_iterator itr = segments.begin(); itr != segments.end(); ++itr) {
 //         intersection_points[*itr].insert(pt);
@@ -479,7 +479,7 @@ namespace boost { namespace polygon{
 //       std::vector<scanline_element> insertion_edges;
 //       insertion_edges.reserve(intersecting_elements.size());
 //       std::vector<std::pair<Unit, iterator> > sloping_ends;
-//       //do all the work of updating the output of all intersecting 
+//       //do all the work of updating the output of all intersecting
 //       for(typename std::set<iterator>::iterator inter_iter = intersecting_elements.begin();
 //           inter_iter != intersecting_elements.end(); ++inter_iter) {
 //         //if it is horizontal update it now and continue
@@ -491,7 +491,7 @@ namespace boost { namespace polygon{
 //             //insert its end points into the vector of sloping ends
 //             const half_edge& he = (*inter_iter).first;
 //             Unit y = evalAtXforY(x_, he.first, he.second);
-//             Unit y2 = evalAtXforY(x_+1, he.first, he.second); 
+//             Unit y2 = evalAtXforY(x_+1, he.first, he.second);
 //             if(y2 >= y) y2 +=1; //we round up, in exact case we don't worry about overbite of one
 //             else y += 1; //downward sloping round up
 //             sloping_ends.push_back(std::make_pair(y, inter_iter));
@@ -499,9 +499,9 @@ namespace boost { namespace polygon{
 //           }
 //         }
 //       }
-        
+
 //       //merge sloping element data
-//       gtlsort(sloping_ends.begin(), sloping_ends.end());
+//       polygon_sort(sloping_ends.begin(), sloping_ends.end());
 //       std::map<Unit, std::set<iterator> > sloping_elements;
 //       std::set<iterator> merge_elements;
 //       for(typename std::vector<std::pair<Unit, iterator> >::iterator slop_iter = sloping_ends.begin();
@@ -574,7 +574,7 @@ namespace boost { namespace polygon{
 //     inline void process_scan_event(std::map<segment_id, std::set<Point> >& intersection_points) {
 //       just_before_ = true;
 
-//       //process end events by removing those segments from the scanline 
+//       //process end events by removing those segments from the scanline
 //       //and insert vertices of all events into intersection queue
 //       Point prev_point((std::numeric_limits<Unit>::min)(), (std::numeric_limits<Unit>::min)());
 //       less_point lp;
@@ -591,7 +591,7 @@ namespace boost { namespace polygon{
 //             lookup_and_remove(he, id);
 //           } else {
 //             //half edge is begin event
-//             insert_into_scanline(he, id);  
+//             insert_into_scanline(he, id);
 //             //note that they will be immediately removed and reinserted after
 //             //handling their intersection (vertex)
 //             //an optimization would allow them to be processed specially to avoid the redundant
@@ -787,7 +787,7 @@ namespace boost { namespace polygon{
         print(edges);
         return false;
       }
-      //3 3 2 2: 0; 4 2 0 6: 1; 0 3 6 3: 2; 4 1 5 5: 3; 
+      //3 3 2 2: 0; 4 2 0 6: 1; 0 3 6 3: 2; 4 1 5 5: 3;
       input.clear();
       edges.clear();
       input.push_back(std::make_pair(half_edge(Point(3, 3), Point(2, 2)), 0));
@@ -801,7 +801,7 @@ namespace boost { namespace polygon{
         print(edges);
         return false;
       }
-      //5 7 1 3: 0; 4 5 2 1: 1; 2 5 2 1: 2; 4 1 5 3: 3; 
+      //5 7 1 3: 0; 4 5 2 1: 1; 2 5 2 1: 2; 4 1 5 3: 3;
       input.clear();
       edges.clear();
       input.push_back(std::make_pair(half_edge(Point(5, 7), Point(1, 3)), 0));
@@ -815,7 +815,7 @@ namespace boost { namespace polygon{
         print(edges);
         return false;
       }
-      //1 0 -4 -1: 0; 0 0 2 -1: 1; 
+      //1 0 -4 -1: 0; 0 0 2 -1: 1;
       input.clear();
       edges.clear();
       input.push_back(std::make_pair(half_edge(Point(1, 0), Point(-4, -1)), 0));
@@ -875,7 +875,7 @@ namespace boost { namespace polygon{
     static void print(const std::vector<std::pair<half_edge, segment_id> >& vec) {
       for(std::size_t i = 0; i < vec.size(); ++ i) {
       //  print(vec[i]);
-      } 
+      }
       //std::cout << std::endl;
     }
 
@@ -940,14 +940,14 @@ namespace boost { namespace polygon{
   };
 
   //scanline consumes the "flattened" fully intersected line segments produced by
-  //a pass of line_intersection along with property and count information and performs a 
+  //a pass of line_intersection along with property and count information and performs a
   //useful operation like booleans or property merge or connectivity extraction
   template <typename Unit, typename property_type, typename keytype = std::set<property_type> >
   class scanline : public scanline_base<Unit> {
   public:
     //definitions
     typedef typename scanline_base<Unit>::Point Point;
-      
+
     //the first point is the vertex and and second point establishes the slope of an edge eminating from the vertex
     //typedef std::pair<Point, Point> half_edge;
     typedef typename scanline_base<Unit>::half_edge half_edge;
@@ -970,7 +970,7 @@ namespace boost { namespace polygon{
 
     //this is the output data type that is created by the scanline before it is post processed based on content of property sets
     typedef std::pair<half_edge, std::pair<property_set, property_set> > half_edge_property;
-      
+
     //this is the scanline data structure
     typedef std::map<half_edge, property_map, less_half_edge> scanline_type;
     typedef std::pair<half_edge, property_map> scanline_element;
@@ -987,12 +987,12 @@ namespace boost { namespace polygon{
     int just_before_;
     typename scanline_base<Unit>::evalAtXforYPack evalAtXforYPack_;
   public:
-    inline scanline() : scan_data_(), removal_set_(), insertion_set_(), end_point_queue_(), 
+    inline scanline() : scan_data_(), removal_set_(), insertion_set_(), end_point_queue_(),
                         x_((std::numeric_limits<Unit>::max)()), y_((std::numeric_limits<Unit>::max)()), just_before_(false), evalAtXforYPack_() {
       less_half_edge lessElm(&x_, &just_before_, &evalAtXforYPack_);
       scan_data_ = scanline_type(lessElm);
     }
-    inline scanline(const scanline& that) : scan_data_(), removal_set_(), insertion_set_(), end_point_queue_(), 
+    inline scanline(const scanline& that) : scan_data_(), removal_set_(), insertion_set_(), end_point_queue_(),
                                             x_((std::numeric_limits<Unit>::max)()), y_((std::numeric_limits<Unit>::max)()), just_before_(false), evalAtXforYPack_() {
       (*this) = that; }
     inline scanline& operator=(const scanline& that) {
@@ -1037,11 +1037,11 @@ namespace boost { namespace polygon{
       Unit y = (std::numeric_limits<Unit>::min)();
       bool first_iteration = true;
       //we want to return from inside the loop when we hit end or new x
-#ifdef BOOST_POLYGON_MSVC      
+#ifdef BOOST_POLYGON_MSVC
 #pragma warning( disable: 4127 )
 #endif
       while(true) {
-        if(begin == end || (!first_iteration && ((*begin).first.first.get(VERTICAL) != y || 
+        if(begin == end || (!first_iteration && ((*begin).first.first.get(VERTICAL) != y ||
                                                  (*begin).first.first.get(HORIZONTAL) != x_))) {
           //lookup iterator range in scanline for elements coming in from the left
           //that end at this y
@@ -1062,7 +1062,7 @@ namespace boost { namespace polygon{
             }
             if(current_iter != scan_data_.end()) {
               //get the bottom iterator for elements at this point
-              //while(evalAtXforY(x_, (*current_iter).first.first, (*current_iter).first.second) >= (high_precision)y && 
+              //while(evalAtXforY(x_, (*current_iter).first.first, (*current_iter).first.second) >= (high_precision)y &&
               while(scanline_base<Unit>::on_above_or_below(Point(x_, y), (*current_iter).first) != 1 &&
                     current_iter != scan_data_.begin()) {
                 --current_iter;
@@ -1145,7 +1145,7 @@ namespace boost { namespace polygon{
           ++begin;
         }
       }
-#ifdef BOOST_POLYGON_MSVC      
+#ifdef BOOST_POLYGON_MSVC
 #pragma warning( default: 4127 )
 #endif
 
@@ -1247,7 +1247,7 @@ namespace boost { namespace polygon{
           ++j;
         } else {
           int count = mp[i].second;
-          count += mp2[j].second; 
+          count += mp2[j].second;
           if(count) {
             newmp.push_back(mp[i]);
             newmp.back().second = count;
@@ -1313,7 +1313,7 @@ namespace boost { namespace polygon{
         output.push_back(vertex_half_edge(he.first, he.second, count));
         output.push_back(vertex_half_edge(he.second, he.first, -count));
       }
-      gtlsort(output.begin(), output.end());
+      polygon_sort(output.begin(), output.end());
     }
 
     class test_functor {
@@ -1484,12 +1484,12 @@ namespace boost { namespace polygon{
     }
   };
 
-  template <typename Unit, typename property_type, typename key_type = std::set<property_type>, 
+  template <typename Unit, typename property_type, typename key_type = std::set<property_type>,
             typename output_functor_type = merge_output_functor<Unit> >
   class property_merge : public scanline_base<Unit> {
   protected:
     typedef typename scanline_base<Unit>::Point Point;
-      
+
     //the first point is the vertex and and second point establishes the slope of an edge eminating from the vertex
     //typedef std::pair<Point, Point> half_edge;
     typedef typename scanline_base<Unit>::half_edge half_edge;
@@ -1531,7 +1531,7 @@ namespace boost { namespace polygon{
 
     inline void sort_property_merge_data() {
       less_vertex_data<vertex_property> lvd(&evalAtXforYPack_);
-      gtlsort(pmd.begin(), pmd.end(), lvd);
+      polygon_sort(pmd.begin(), pmd.end(), lvd);
     }
   public:
     inline property_merge_data& get_property_merge_data() { return pmd; }
@@ -1576,7 +1576,7 @@ namespace boost { namespace polygon{
         pts.push_back(lines[i].first.first);
         pts.push_back(lines[i].first.second);
       }
-      gtlsort(pts.begin(), pts.end());
+      polygon_sort(pts.begin(), pts.end());
       for(std::size_t i = 0; i < pts.size(); i+=2) {
         if(pts[i] != pts[i+1]) {
           //stdcout << "Non-closed figures after line intersection!\n";
@@ -1590,7 +1590,7 @@ namespace boost { namespace polygon{
 
   protected:
     template <typename polygon_type>
-    void insert(const polygon_type& polygon_object, const property_type& property_value, bool is_hole, 
+    void insert(const polygon_type& polygon_object, const property_type& property_value, bool is_hole,
                 polygon_concept ) {
       bool first_iteration = true;
       bool second_iteration = true;
@@ -1638,10 +1638,10 @@ namespace boost { namespace polygon{
     }
 
     template <typename polygon_with_holes_type>
-    void insert(const polygon_with_holes_type& polygon_with_holes_object, const property_type& property_value, bool is_hole, 
+    void insert(const polygon_with_holes_type& polygon_with_holes_object, const property_type& property_value, bool is_hole,
                 polygon_with_holes_concept tag) {
       insert(polygon_with_holes_object, property_value, is_hole, polygon_concept());
-      for(typename polygon_with_holes_traits<polygon_with_holes_type>::iterator_holes_type itr = 
+      for(typename polygon_with_holes_traits<polygon_with_holes_type>::iterator_holes_type itr =
             begin_holes(polygon_with_holes_object);
           itr != end_holes(polygon_with_holes_object); ++itr) {
         insert(*itr, property_value, !is_hole, polygon_concept());
@@ -1649,7 +1649,7 @@ namespace boost { namespace polygon{
     }
 
     template <typename rectangle_type>
-    void insert(const rectangle_type& rectangle_object, const property_type& property_value, bool is_hole, 
+    void insert(const rectangle_type& rectangle_object, const property_type& property_value, bool is_hole,
                 rectangle_concept ) {
       polygon_90_data<Unit> poly;
       assign(poly, rectangle_object);
@@ -1658,9 +1658,9 @@ namespace boost { namespace polygon{
 
   public: //change to private when done testing
 
-    static inline void create_vertex(property_merge_data& pmd, 
-                                     const Point& current_point, 
-                                     const Point& next_point, 
+    static inline void create_vertex(property_merge_data& pmd,
+                                     const Point& current_point,
+                                     const Point& next_point,
                                      direction_1d winding,
                                      bool is_hole, const property_type& property) {
       if(current_point == next_point) return;
@@ -1669,7 +1669,7 @@ namespace boost { namespace polygon{
       current_vertex.first.second = next_point;
       current_vertex.second.first = property;
       int multiplier = 1;
-      if(winding == CLOCKWISE) 
+      if(winding == CLOCKWISE)
         multiplier = -1;
       if(is_hole)
         multiplier *= -1;
@@ -1686,7 +1686,7 @@ namespace boost { namespace polygon{
 
     static inline void sort_vertex_half_edges(vertex_data& vertex) {
       less_half_edge_pair lessF(vertex.first);
-      gtlsort(vertex.second.begin(), vertex.second.end(), lessF);
+      polygon_sort(vertex.second.begin(), vertex.second.end(), lessF);
     }
 
     class less_half_edge_pair {
@@ -1697,12 +1697,12 @@ namespace boost { namespace polygon{
       bool operator()(const half_edge& e1, const half_edge& e2) {
         const Point& pt1 = e1.first;
         const Point& pt2 = e2.first;
-        if(get(pt1, HORIZONTAL) == 
+        if(get(pt1, HORIZONTAL) ==
            get(pt_, HORIZONTAL)) {
           //vertical edge is always largest
           return false;
         }
-        if(get(pt2, HORIZONTAL) == 
+        if(get(pt2, HORIZONTAL) ==
            get(pt_, HORIZONTAL)) {
           //if half edge 1 is not vertical its slope is less than that of half edge 2
           return get(pt1, HORIZONTAL) != get(pt2, HORIZONTAL);
@@ -1791,7 +1791,7 @@ namespace boost { namespace polygon{
 
       si.insert(rect, 333);
       print(stdcout, si.pmd) << std::endl;
-      
+
       Point pts[4] = {Point(0, 0), Point(10,-3), Point(13, 8), Point(0, 0) };
       polygon_data<Unit> poly;
       property_merge si2;
@@ -1817,7 +1817,7 @@ namespace boost { namespace polygon{
       si5.insert(poly, 444);
       si5.sort_property_merge_data();
       stdcout << (si2.pmd == si5.pmd) << std::endl;
-      
+
       return true;
     }
 
@@ -1867,8 +1867,8 @@ namespace boost { namespace polygon{
         stdcout << "fail merge 2\n";
         return false;
       }
-      //Polygon { -4 -1, 3 3, -2 3 } 
-      //Polygon { 0 -4, -4 -2, -2 1 } 
+      //Polygon { -4 -1, 3 3, -2 3 }
+      //Polygon { 0 -4, -4 -2, -2 1 }
       si.clear();
       pts.clear();
       pts.push_back(Point(-4, -1));
@@ -2069,89 +2069,89 @@ stdcout << "Polygon { -2 -2, 0 0, -1 -1 }  \n";
       //pts.push_back(Point(5624841,9125000));
       //pts.push_back(Point(17616200,9125000));
       //pts.push_back(Point(17616200,75000));
-pts.push_back(Point(12262940, 6652520 )); pts.push_back(Point(12125750, 6652520 )); pts.push_back(Point(12121272, 6652961 )); pts.push_back(Point(12112981, 6656396 )); pts.push_back(Point(12106636, 6662741 )); pts.push_back(Point(12103201, 6671032 )); pts.push_back(Point(12103201, 6680007 )); pts.push_back(Point(12106636, 6688298 )); 
-pts.push_back(Point(12109500, 6691780 )); pts.push_back(Point(12748600, 7330890 )); pts.push_back(Point(15762600, 7330890 )); pts.push_back(Point(15904620, 7472900 )); pts.push_back(Point(15909200, 7473030 )); pts.push_back(Point(15935830, 7476006 )); pts.push_back(Point(15992796, 7499602 )); pts.push_back(Point(16036397, 7543203 )); 
-pts.push_back(Point(16059993, 7600169 )); pts.push_back(Point(16059993, 7661830 )); pts.push_back(Point(16036397, 7718796 )); pts.push_back(Point(15992796, 7762397 )); pts.push_back(Point(15935830, 7785993 )); pts.push_back(Point(15874169, 7785993 )); pts.push_back(Point(15817203, 7762397 )); pts.push_back(Point(15773602, 7718796 )); 
-pts.push_back(Point(15750006, 7661830 )); pts.push_back(Point(15747030, 7635200 )); pts.push_back(Point(15746900, 7630620 )); pts.push_back(Point(15670220, 7553930 )); pts.push_back(Point(14872950, 7553930 )); pts.push_back(Point(14872950, 7626170 )); 
-pts.push_back(Point(14869973, 7661280 )); pts.push_back(Point(14846377, 7718246 )); pts.push_back(Point(14802776, 7761847 )); pts.push_back(Point(14745810, 7785443 )); pts.push_back(Point(14684149, 7785443 )); pts.push_back(Point(14627183, 7761847 )); pts.push_back(Point(14583582, 7718246 )); 
-pts.push_back(Point(14559986, 7661280 )); pts.push_back(Point(14557070, 7636660 )); pts.push_back(Point(14556670, 7625570 )); pts.push_back(Point(13703330, 7625570 )); pts.push_back(Point(13702930, 7636660 )); pts.push_back(Point(13699993, 7661830 )); pts.push_back(Point(13676397, 7718796 )); 
-pts.push_back(Point(13632796, 7762397 )); pts.push_back(Point(13575830, 7785993 )); pts.push_back(Point(13514169, 7785993 )); pts.push_back(Point(13457203, 7762397 )); pts.push_back(Point(13436270, 7745670 )); pts.push_back(Point(13432940, 7742520 )); pts.push_back(Point(12963760, 7742520 )); 
-pts.push_back(Point(12959272, 7742961 )); pts.push_back(Point(12950981, 7746396 )); pts.push_back(Point(12944636, 7752741 )); pts.push_back(Point(12941201, 7761032 )); pts.push_back(Point(12941201, 7770007 )); pts.push_back(Point(12944636, 7778298 )); pts.push_back(Point(12947490, 7781780 )); 
-pts.push_back(Point(13425330, 8259620 )); pts.push_back(Point(15601330, 8259620 )); pts.push_back(Point(15904620, 8562900 )); pts.push_back(Point(15909200, 8563030 )); pts.push_back(Point(15935830, 8566006 )); pts.push_back(Point(15992796, 8589602 )); pts.push_back(Point(16036397, 8633203 )); 
-pts.push_back(Point(16059993, 8690169 )); pts.push_back(Point(16059993, 8751830 )); pts.push_back(Point(16036397, 8808796 )); pts.push_back(Point(15992796, 8852397 )); pts.push_back(Point(15935830, 8875993 )); pts.push_back(Point(15874169, 8875993 )); pts.push_back(Point(15817203, 8852397 )); pts.push_back(Point(15773602, 8808796 )); 
-pts.push_back(Point(15750006, 8751830 )); pts.push_back(Point(15747030, 8725200 )); pts.push_back(Point(15746900, 8720620 )); pts.push_back(Point(15508950, 8482660 )); pts.push_back(Point(14689890, 8482660 )); pts.push_back(Point(14685412, 8483101 )); pts.push_back(Point(14677121, 8486536 )); 
-pts.push_back(Point(14670776, 8492881 )); pts.push_back(Point(14667341, 8501172 )); pts.push_back(Point(14667341, 8510147 )); pts.push_back(Point(14670776, 8518438 )); pts.push_back(Point(14673630, 8521920 )); pts.push_back(Point(14714620, 8562900 )); pts.push_back(Point(14719200, 8563030 )); pts.push_back(Point(14745830, 8566006 )); 
-pts.push_back(Point(14802796, 8589602 )); pts.push_back(Point(14846397, 8633203 )); pts.push_back(Point(14869993, 8690169 )); pts.push_back(Point(14869993, 8751830 )); pts.push_back(Point(14846397, 8808796 )); pts.push_back(Point(14802796, 8852397 )); pts.push_back(Point(14745830, 8875993 )); pts.push_back(Point(14684169, 8875993 )); 
-pts.push_back(Point(14627203, 8852397 )); pts.push_back(Point(14583602, 8808796 )); pts.push_back(Point(14560006, 8751830 )); pts.push_back(Point(14557030, 8725200 )); pts.push_back(Point(14556900, 8720620 )); pts.push_back(Point(14408270, 8571980 )); pts.push_back(Point(13696320, 8571980 )); pts.push_back(Point(13696320, 8675520 )); 
-pts.push_back(Point(13699963, 8690161 )); pts.push_back(Point(13699963, 8751818 )); pts.push_back(Point(13676368, 8808781 )); pts.push_back(Point(13632771, 8852378 )); pts.push_back(Point(13575808, 8875973 )); pts.push_back(Point(13514151, 8875973 )); pts.push_back(Point(13457188, 8852378 )); pts.push_back(Point(13436270, 8835670 )); pts.push_back(Point(13432940, 8832520 )); 
-pts.push_back(Point(13281760, 8832520 )); pts.push_back(Point(13277272, 8832961 )); pts.push_back(Point(13268981, 8836396 )); pts.push_back(Point(13262636, 8842741 )); pts.push_back(Point(13259201, 8851032 )); pts.push_back(Point(13259201, 8860007 )); pts.push_back(Point(13262636, 8868298 )); pts.push_back(Point(13265500, 8871780 )); 
-pts.push_back(Point(13518710, 9125000 )); pts.push_back(Point(16270720, 9125000 )); pts.push_back(Point(16270720, 8939590 )); pts.push_back(Point(17120780, 8939590 )); pts.push_back(Point(17120780, 9125000 )); pts.push_back(Point(17616200, 9125000 )); pts.push_back(Point(17616200,   75000 )); pts.push_back(Point(16024790,   75000 )); 
-pts.push_back(Point(16021460,   80700 )); pts.push_back(Point(16016397,   88796 )); pts.push_back(Point(15972796,  132397 )); pts.push_back(Point(15915830,  155993 )); pts.push_back(Point(15908730,  157240 )); pts.push_back(Point(15905000,  157800 )); pts.push_back(Point(15516800,  546000 )); pts.push_back(Point(15905000,  934200 )); 
-pts.push_back(Point(15908730,  934760 )); pts.push_back(Point(15915830,  936006 )); pts.push_back(Point(15972796,  959602 )); pts.push_back(Point(16016397, 1003203 )); pts.push_back(Point(16039993, 1060169 )); pts.push_back(Point(16039993, 1121830 )); pts.push_back(Point(16016397, 1178796 )); pts.push_back(Point(15972796, 1222397 )); 
-pts.push_back(Point(15915830, 1245993 )); pts.push_back(Point(15854169, 1245993 )); pts.push_back(Point(15797203, 1222397 )); pts.push_back(Point(15753602, 1178796 )); pts.push_back(Point(15730006, 1121830 )); pts.push_back(Point(15728760, 1114730 )); pts.push_back(Point(15728200, 1111000 )); pts.push_back(Point(15363500,  746300 )); 
-pts.push_back(Point(14602620,  746300 )); pts.push_back(Point(14598142,  746741 )); pts.push_back(Point(14589851,  750176 )); pts.push_back(Point(14583506,  756521 )); pts.push_back(Point(14580071,  764812 )); pts.push_back(Point(14580071,  773787 )); pts.push_back(Point(14583506,  782078 )); pts.push_back(Point(14586360,  785560 )); 
-pts.push_back(Point(14586370,  785560 )); pts.push_back(Point(14735000,  934200 )); pts.push_back(Point(14738730,  934760 )); pts.push_back(Point(14745830,  936006 )); pts.push_back(Point(14802796,  959602 )); pts.push_back(Point(14846397, 1003203 )); pts.push_back(Point(14869993, 1060169 )); 
-pts.push_back(Point(14870450, 1062550 )); pts.push_back(Point(14872170, 1071980 )); pts.push_back(Point(14972780, 1071980 )); pts.push_back(Point(15925000, 2024200 )); pts.push_back(Point(15928730, 2024760 )); pts.push_back(Point(15935830, 2026006 )); pts.push_back(Point(15992796, 2049602 )); 
-pts.push_back(Point(16036397, 2093203 )); pts.push_back(Point(16059993, 2150169 )); pts.push_back(Point(16059993, 2211830 )); pts.push_back(Point(16036397, 2268796 )); pts.push_back(Point(15992796, 2312397 )); pts.push_back(Point(15935830, 2335993 )); pts.push_back(Point(15874169, 2335993 )); 
-pts.push_back(Point(15817203, 2312397 )); pts.push_back(Point(15773602, 2268796 )); pts.push_back(Point(15750006, 2211830 )); pts.push_back(Point(15748760, 2204730 )); pts.push_back(Point(15748200, 2201000 )); pts.push_back(Point(14869220, 1322020 )); pts.push_back(Point(14088350, 1322020 )); 
-pts.push_back(Point(14083862, 1322461 )); pts.push_back(Point(14075571, 1325896 )); pts.push_back(Point(14069226, 1332241 )); pts.push_back(Point(14065791, 1340532 )); pts.push_back(Point(14065791, 1349507 )); pts.push_back(Point(14069226, 1357798 )); pts.push_back(Point(14072080, 1361280 )); 
-pts.push_back(Point(14072090, 1361280 )); pts.push_back(Point(14735000, 2024200 )); pts.push_back(Point(14738730, 2024760 )); pts.push_back(Point(14745830, 2026006 )); pts.push_back(Point(14802796, 2049602 )); pts.push_back(Point(14846397, 2093203 )); pts.push_back(Point(14869993, 2150169 )); 
-pts.push_back(Point(14869993, 2211830 )); pts.push_back(Point(14846397, 2268796 )); pts.push_back(Point(14802796, 2312397 )); pts.push_back(Point(14745830, 2335993 )); pts.push_back(Point(14684169, 2335993 )); pts.push_back(Point(14627203, 2312397 )); pts.push_back(Point(14583602, 2268796 )); pts.push_back(Point(14560006, 2211830 )); 
-pts.push_back(Point(14558760, 2204730 )); pts.push_back(Point(14558200, 2201000 )); pts.push_back(Point(13752220, 1395020 )); pts.push_back(Point(12991340, 1395020 )); pts.push_back(Point(12986862, 1395461 )); pts.push_back(Point(12978571, 1398896 )); pts.push_back(Point(12972226, 1405241 )); 
-pts.push_back(Point(12968791, 1413532 )); pts.push_back(Point(12968791, 1422507 )); pts.push_back(Point(12972226, 1430798 )); pts.push_back(Point(12975080, 1434280 )); pts.push_back(Point(12975090, 1434280 )); pts.push_back(Point(13565000, 2024200 )); pts.push_back(Point(13568730, 2024760 )); pts.push_back(Point(13575830, 2026006 )); 
-pts.push_back(Point(13632796, 2049602 )); pts.push_back(Point(13676397, 2093203 )); pts.push_back(Point(13699993, 2150169 )); pts.push_back(Point(13699993, 2211830 )); pts.push_back(Point(13676397, 2268796 )); pts.push_back(Point(13632796, 2312397 )); pts.push_back(Point(13575830, 2335993 )); 
-pts.push_back(Point(13514169, 2335993 )); pts.push_back(Point(13457203, 2312397 )); pts.push_back(Point(13413602, 2268796 )); pts.push_back(Point(13390006, 2211830 )); pts.push_back(Point(13388760, 2204730 )); pts.push_back(Point(13388200, 2201000 )); pts.push_back(Point(12655220, 1468020 )); 
-pts.push_back(Point(11894340, 1468020 )); pts.push_back(Point(11889862, 1468461 )); pts.push_back(Point(11881571, 1471896 )); pts.push_back(Point(11875226, 1478241 )); pts.push_back(Point(11871791, 1486532 )); pts.push_back(Point(11871791, 1495507 )); 
-pts.push_back(Point(11875226, 1503798 )); pts.push_back(Point(11878090, 1507280 )); pts.push_back(Point(12395000, 2024200 )); pts.push_back(Point(12398730, 2024760 )); pts.push_back(Point(12405830, 2026006 )); pts.push_back(Point(12462796, 2049602 )); pts.push_back(Point(12506397, 2093203 )); 
-pts.push_back(Point(12529993, 2150169 )); pts.push_back(Point(12529993, 2211830 )); pts.push_back(Point(12506397, 2268796 )); pts.push_back(Point(12462796, 2312397 )); pts.push_back(Point(12405830, 2335993 )); pts.push_back(Point(12344169, 2335993 )); 
-pts.push_back(Point(12287203, 2312397 )); pts.push_back(Point(12243602, 2268796 )); pts.push_back(Point(12220006, 2211830 )); pts.push_back(Point(12218760, 2204730 )); pts.push_back(Point(12218200, 2201000 )); pts.push_back(Point(11558220, 1541020 )); 
-pts.push_back(Point(10797340, 1541020 )); pts.push_back(Point(10792862, 1541461 )); pts.push_back(Point(10784571, 1544896 )); pts.push_back(Point(10778226, 1551241 )); pts.push_back(Point(10774791, 1559532 )); pts.push_back(Point(10774791, 1568507 )); pts.push_back(Point(10778226, 1576798 )); pts.push_back(Point(10781080, 1580280 )); 
-pts.push_back(Point(10781090, 1580280 )); pts.push_back(Point(11225000, 2024200 )); pts.push_back(Point(11228730, 2024760 )); pts.push_back(Point(11235830, 2026006 )); pts.push_back(Point(11292796, 2049602 )); pts.push_back(Point(11336397, 2093203 )); pts.push_back(Point(11359993, 2150169 )); 
-pts.push_back(Point(11359993, 2211830 )); pts.push_back(Point(11336397, 2268796 )); pts.push_back(Point(11292796, 2312397 )); pts.push_back(Point(11235830, 2335993 )); pts.push_back(Point(11174169, 2335993 )); pts.push_back(Point(11117203, 2312397 )); pts.push_back(Point(11073602, 2268796 )); pts.push_back(Point(11050006, 2211830 )); 
-pts.push_back(Point(11048760, 2204730 )); pts.push_back(Point(11048200, 2201000 )); pts.push_back(Point(10461220, 1614020 )); pts.push_back(Point( 5647400, 1614020 )); pts.push_back(Point( 5642912, 1614461 )); 
-pts.push_back(Point( 5634621, 1617896 )); pts.push_back(Point( 5628276, 1624241 )); pts.push_back(Point( 5624841, 1632532 )); pts.push_back(Point( 5624841, 1641507 )); pts.push_back(Point( 5628276, 1649798 )); pts.push_back(Point( 5631130, 1653280 )); 
-pts.push_back(Point( 5688490, 1710640 )); pts.push_back(Point( 9722350, 1710640 )); pts.push_back(Point(10034620, 2022900 )); pts.push_back(Point(10039200, 2023030 )); pts.push_back(Point(10065830, 2026006 )); pts.push_back(Point(10122796, 2049602 )); 
-pts.push_back(Point(10166397, 2093203 )); pts.push_back(Point(10189993, 2150169 )); pts.push_back(Point(10189993, 2211830 )); pts.push_back(Point(10166397, 2268796 )); pts.push_back(Point(10158620, 2279450 )); pts.push_back(Point(10158620, 2404900 )); pts.push_back(Point(10548950, 2795240 )); 
-pts.push_back(Point(15586950, 2795240 )); pts.push_back(Point(15904620, 3112900 )); pts.push_back(Point(15909200, 3113030 )); pts.push_back(Point(15935830, 3116006 )); pts.push_back(Point(15992796, 3139602 )); pts.push_back(Point(16036397, 3183203 )); pts.push_back(Point(16059993, 3240169 )); pts.push_back(Point(16059993, 3301830 )); 
-pts.push_back(Point(16036397, 3358796 )); pts.push_back(Point(15992796, 3402397 )); pts.push_back(Point(15935830, 3425993 )); pts.push_back(Point(15874169, 3425993 )); pts.push_back(Point(15817203, 3402397 )); pts.push_back(Point(15773602, 3358796 )); pts.push_back(Point(15750006, 3301830 )); pts.push_back(Point(15747030, 3275200 )); 
-pts.push_back(Point(15746900, 3270620 )); pts.push_back(Point(15494570, 3018280 )); pts.push_back(Point(14675510, 3018280 )); pts.push_back(Point(14671032, 3018721 )); pts.push_back(Point(14662741, 3022156 )); pts.push_back(Point(14656396, 3028501 )); pts.push_back(Point(14652961, 3036792 )); 
-pts.push_back(Point(14652961, 3045767 )); pts.push_back(Point(14656396, 3054058 )); pts.push_back(Point(14659260, 3057540 )); pts.push_back(Point(14714620, 3112900 )); pts.push_back(Point(14719200, 3113030 )); pts.push_back(Point(14745830, 3116006 )); pts.push_back(Point(14802796, 3139602 )); 
-pts.push_back(Point(14846397, 3183203 )); pts.push_back(Point(14869993, 3240169 )); pts.push_back(Point(14869993, 3301830 )); pts.push_back(Point(14846397, 3358796 )); pts.push_back(Point(14802796, 3402397 )); pts.push_back(Point(14745830, 3425993 )); pts.push_back(Point(14684169, 3425993 )); pts.push_back(Point(14627203, 3402397 )); 
-pts.push_back(Point(14583602, 3358796 )); pts.push_back(Point(14560006, 3301830 )); pts.push_back(Point(14557030, 3275200 )); pts.push_back(Point(14556900, 3270620 )); pts.push_back(Point(14370700, 3084410 )); pts.push_back(Point(13702830, 3084410 )); pts.push_back(Point(13702830, 3263160 )); 
-pts.push_back(Point(13700003, 3302210 )); pts.push_back(Point(13676407, 3359176 )); pts.push_back(Point(13632806, 3402777 )); pts.push_back(Point(13575840, 3426373 )); pts.push_back(Point(13514179, 3426373 )); pts.push_back(Point(13457213, 3402777 )); pts.push_back(Point(13413612, 3359176 )); 
-pts.push_back(Point(13390016, 3302210 )); pts.push_back(Point(13387030, 3275200 )); pts.push_back(Point(13386900, 3270620 )); pts.push_back(Point(13266840, 3150550 )); pts.push_back(Point(12532920, 3150550 )); pts.push_back(Point(12532920, 3264990 )); pts.push_back(Point(12529993, 3301820 )); 
-pts.push_back(Point(12506397, 3358786 )); pts.push_back(Point(12462796, 3402387 )); pts.push_back(Point(12405830, 3425983 )); pts.push_back(Point(12344169, 3425983 )); pts.push_back(Point(12287203, 3402387 )); pts.push_back(Point(12243602, 3358786 )); pts.push_back(Point(12220006, 3301820 )); pts.push_back(Point(12217030, 3275200 )); 
-pts.push_back(Point(12216900, 3270620 )); pts.push_back(Point(12157460, 3211170 )); pts.push_back(Point(11362030, 3211170 )); pts.push_back(Point(11360250, 3220520 )); pts.push_back(Point(11359993, 3221830 )); pts.push_back(Point(11336397, 3278796 )); 
-pts.push_back(Point(11292796, 3322397 )); pts.push_back(Point(11235830, 3345993 )); pts.push_back(Point(11174169, 3345993 )); pts.push_back(Point(11117203, 3322397 )); pts.push_back(Point(11096270, 3305670 )); pts.push_back(Point(11092940, 3302520 )); pts.push_back(Point(10680760, 3302520 )); 
-pts.push_back(Point(10676272, 3302961 )); pts.push_back(Point(10667981, 3306396 )); pts.push_back(Point(10661636, 3312741 )); pts.push_back(Point(10658201, 3321032 )); pts.push_back(Point(10658201, 3330007 )); pts.push_back(Point(10661636, 3338298 )); pts.push_back(Point(10664500, 3341780 )); 
-pts.push_back(Point(11264260, 3941550 )); pts.push_back(Point(15643260, 3941550 )); pts.push_back(Point(15904620, 4202900 )); pts.push_back(Point(15909200, 4203030 )); pts.push_back(Point(15935830, 4206006 )); pts.push_back(Point(15992796, 4229602 )); 
-pts.push_back(Point(16036397, 4273203 )); pts.push_back(Point(16059993, 4330169 )); pts.push_back(Point(16059993, 4391830 )); pts.push_back(Point(16036397, 4448796 )); pts.push_back(Point(15992796, 4492397 )); 
-pts.push_back(Point(15935830, 4515993 )); pts.push_back(Point(15874169, 4515993 )); pts.push_back(Point(15817203, 4492397 )); pts.push_back(Point(15773602, 4448796 )); pts.push_back(Point(15750006, 4391830 )); pts.push_back(Point(15747030, 4365200 )); pts.push_back(Point(15746900, 4360620 )); 
-pts.push_back(Point(15550880, 4164590 )); pts.push_back(Point(14825070, 4164590 )); pts.push_back(Point(14825070, 4247610 )); pts.push_back(Point(14846397, 4273213 )); pts.push_back(Point(14869993, 4330179 )); pts.push_back(Point(14869993, 4391840 )); pts.push_back(Point(14846397, 4448806 )); 
-pts.push_back(Point(14802796, 4492407 )); pts.push_back(Point(14745830, 4516003 )); pts.push_back(Point(14684169, 4516003 )); pts.push_back(Point(14627203, 4492407 )); pts.push_back(Point(14583602, 4448806 )); pts.push_back(Point(14560006, 4391840 )); pts.push_back(Point(14557030, 4365200 )); 
-pts.push_back(Point(14556900, 4360620 )); pts.push_back(Point(14432520, 4236230 )); pts.push_back(Point(13702830, 4236230 )); pts.push_back(Point(13702830, 4352930 )); pts.push_back(Point(13699993, 4391750 )); pts.push_back(Point(13676397, 4448716 )); 
-pts.push_back(Point(13632796, 4492317 )); pts.push_back(Point(13575830, 4515913 )); pts.push_back(Point(13514169, 4515913 )); pts.push_back(Point(13457203, 4492317 )); pts.push_back(Point(13413602, 4448716 )); pts.push_back(Point(13390006, 4391750 )); pts.push_back(Point(13387030, 4365200 )); 
-pts.push_back(Point(13386900, 4360620 )); pts.push_back(Point(13334170, 4307880 )); pts.push_back(Point(12532990, 4307880 )); pts.push_back(Point(12532990, 4357550 )); pts.push_back(Point(12529993, 4391760 )); pts.push_back(Point(12506397, 4448726 )); pts.push_back(Point(12462796, 4492327 )); 
-pts.push_back(Point(12405830, 4515923 )); pts.push_back(Point(12344169, 4515923 )); pts.push_back(Point(12287203, 4492327 )); pts.push_back(Point(12243602, 4448726 )); pts.push_back(Point(12220006, 4391760 )); pts.push_back(Point(12217970, 4378710 )); pts.push_back(Point(12216810, 4368500 )); 
-pts.push_back(Point(11363190, 4368500 )); pts.push_back(Point(11362030, 4378710 )); pts.push_back(Point(11359983, 4391828 )); pts.push_back(Point(11336388, 4448791 )); pts.push_back(Point(11292791, 4492388 )); pts.push_back(Point(11235828, 4515983 )); pts.push_back(Point(11174171, 4515983 )); pts.push_back(Point(11117208, 4492388 )); 
-pts.push_back(Point(11096270, 4475670 )); pts.push_back(Point(11092940, 4472520 )); pts.push_back(Point(11057750, 4472520 )); pts.push_back(Point(11053272, 4472961 )); pts.push_back(Point(11044981, 4476396 )); pts.push_back(Point(11038636, 4482741 )); pts.push_back(Point(11035201, 4491032 )); 
-pts.push_back(Point(11035201, 4500007 )); pts.push_back(Point(11038636, 4508298 )); pts.push_back(Point(11041490, 4511780 )); pts.push_back(Point(11573490, 5043780 )); pts.push_back(Point(15655490, 5043780 )); pts.push_back(Point(15904620, 5292900 )); 
-pts.push_back(Point(15909200, 5293030 )); pts.push_back(Point(15935830, 5296006 )); pts.push_back(Point(15992796, 5319602 )); pts.push_back(Point(16036397, 5363203 )); pts.push_back(Point(16059993, 5420169 )); pts.push_back(Point(16059993, 5481830 )); pts.push_back(Point(16036397, 5538796 )); 
-pts.push_back(Point(15992796, 5582397 )); pts.push_back(Point(15935830, 5605993 )); pts.push_back(Point(15874169, 5605993 )); pts.push_back(Point(15817203, 5582397 )); pts.push_back(Point(15773602, 5538796 )); pts.push_back(Point(15750006, 5481830 )); pts.push_back(Point(15747030, 5455200 )); 
-pts.push_back(Point(15746900, 5450620 )); pts.push_back(Point(15563110, 5266820 )); pts.push_back(Point(14857380, 5266820 )); pts.push_back(Point(14857380, 5382430 )); pts.push_back(Point(14869993, 5420179 )); pts.push_back(Point(14869993, 5481840 )); pts.push_back(Point(14846397, 5538806 )); pts.push_back(Point(14802796, 5582407 )); 
-pts.push_back(Point(14745830, 5606003 )); pts.push_back(Point(14684169, 5606003 )); pts.push_back(Point(14627203, 5582407 )); pts.push_back(Point(14583602, 5538806 )); pts.push_back(Point(14560006, 5481840 )); pts.push_back(Point(14557030, 5455200 )); pts.push_back(Point(14556900, 5450620 )); pts.push_back(Point(14444750, 5338460 )); 
-pts.push_back(Point(13702890, 5338460 )); pts.push_back(Point(13702890, 5364400 )); pts.push_back(Point(13699993, 5401800 )); pts.push_back(Point(13676397, 5458766 )); pts.push_back(Point(13632796, 5502367 )); pts.push_back(Point(13575830, 5525963 )); pts.push_back(Point(13514169, 5525963 )); pts.push_back(Point(13457203, 5502367 )); 
-pts.push_back(Point(13413602, 5458766 )); pts.push_back(Point(13390006, 5401800 )); pts.push_back(Point(13389230, 5397620 )); pts.push_back(Point(13387590, 5388060 )); pts.push_back(Point(12532960, 5388060 )); pts.push_back(Point(12532960, 5446220 )); pts.push_back(Point(12529993, 5481820 )); 
-pts.push_back(Point(12506397, 5538786 )); pts.push_back(Point(12462796, 5582387 )); pts.push_back(Point(12405830, 5605983 )); pts.push_back(Point(12344169, 5605983 )); pts.push_back(Point(12287203, 5582387 )); pts.push_back(Point(12266270, 5565670 )); pts.push_back(Point(12262940, 5562520 )); pts.push_back(Point(11737750, 5562520 )); 
-pts.push_back(Point(11733272, 5562961 )); pts.push_back(Point(11724981, 5566396 )); pts.push_back(Point(11718636, 5572741 )); pts.push_back(Point(11715201, 5581032 )); pts.push_back(Point(11715201, 5590007 )); pts.push_back(Point(11718636, 5598298 )); pts.push_back(Point(11721500, 5601780 )); 
-pts.push_back(Point(12287760, 6168050 )); pts.push_back(Point(15689760, 6168050 )); pts.push_back(Point(15904620, 6382900 )); pts.push_back(Point(15909200, 6383030 )); pts.push_back(Point(15935830, 6386006 )); pts.push_back(Point(15992796, 6409602 )); 
-pts.push_back(Point(16036397, 6453203 )); pts.push_back(Point(16059993, 6510169 )); pts.push_back(Point(16059993, 6571830 )); pts.push_back(Point(16036397, 6628796 )); pts.push_back(Point(15992796, 6672397 )); pts.push_back(Point(15935830, 6695993 )); pts.push_back(Point(15874169, 6695993 )); 
-pts.push_back(Point(15817203, 6672397 )); pts.push_back(Point(15773602, 6628796 )); pts.push_back(Point(15750006, 6571830 )); pts.push_back(Point(15747030, 6545200 )); pts.push_back(Point(15746900, 6540620 )); pts.push_back(Point(15597380, 6391090 )); pts.push_back(Point(14858060, 6391090 )); 
-pts.push_back(Point(14858060, 6473860 )); pts.push_back(Point(14869993, 6510179 )); pts.push_back(Point(14869993, 6571840 )); pts.push_back(Point(14846397, 6628806 )); pts.push_back(Point(14802796, 6672407 )); pts.push_back(Point(14745830, 6696003 )); pts.push_back(Point(14684169, 6696003 )); 
-pts.push_back(Point(14627203, 6672407 )); pts.push_back(Point(14583602, 6628806 )); pts.push_back(Point(14560006, 6571840 )); pts.push_back(Point(14557030, 6545200 )); pts.push_back(Point(14556900, 6540620 )); pts.push_back(Point(14479020, 6462730 )); 
-pts.push_back(Point(13702990, 6462730 )); pts.push_back(Point(13702990, 6537170 )); pts.push_back(Point(13700003, 6571840 )); pts.push_back(Point(13676407, 6628806 )); pts.push_back(Point(13632806, 6672407 )); pts.push_back(Point(13575840, 6696003 )); 
-pts.push_back(Point(13514179, 6696003 )); pts.push_back(Point(13457213, 6672407 )); pts.push_back(Point(13413612, 6628806 )); pts.push_back(Point(13390016, 6571840 )); pts.push_back(Point(13387040, 6545550 )); pts.push_back(Point(13386710, 6534380 )); 
-pts.push_back(Point(12533290, 6534380 )); pts.push_back(Point(12532960, 6545550 )); pts.push_back(Point(12529983, 6571828 )); pts.push_back(Point(12506388, 6628791 )); pts.push_back(Point(12462791, 6672388 )); pts.push_back(Point(12405828, 6695983 )); 
+pts.push_back(Point(12262940, 6652520 )); pts.push_back(Point(12125750, 6652520 )); pts.push_back(Point(12121272, 6652961 )); pts.push_back(Point(12112981, 6656396 )); pts.push_back(Point(12106636, 6662741 )); pts.push_back(Point(12103201, 6671032 )); pts.push_back(Point(12103201, 6680007 )); pts.push_back(Point(12106636, 6688298 ));
+pts.push_back(Point(12109500, 6691780 )); pts.push_back(Point(12748600, 7330890 )); pts.push_back(Point(15762600, 7330890 )); pts.push_back(Point(15904620, 7472900 )); pts.push_back(Point(15909200, 7473030 )); pts.push_back(Point(15935830, 7476006 )); pts.push_back(Point(15992796, 7499602 )); pts.push_back(Point(16036397, 7543203 ));
+pts.push_back(Point(16059993, 7600169 )); pts.push_back(Point(16059993, 7661830 )); pts.push_back(Point(16036397, 7718796 )); pts.push_back(Point(15992796, 7762397 )); pts.push_back(Point(15935830, 7785993 )); pts.push_back(Point(15874169, 7785993 )); pts.push_back(Point(15817203, 7762397 )); pts.push_back(Point(15773602, 7718796 ));
+pts.push_back(Point(15750006, 7661830 )); pts.push_back(Point(15747030, 7635200 )); pts.push_back(Point(15746900, 7630620 )); pts.push_back(Point(15670220, 7553930 )); pts.push_back(Point(14872950, 7553930 )); pts.push_back(Point(14872950, 7626170 ));
+pts.push_back(Point(14869973, 7661280 )); pts.push_back(Point(14846377, 7718246 )); pts.push_back(Point(14802776, 7761847 )); pts.push_back(Point(14745810, 7785443 )); pts.push_back(Point(14684149, 7785443 )); pts.push_back(Point(14627183, 7761847 )); pts.push_back(Point(14583582, 7718246 ));
+pts.push_back(Point(14559986, 7661280 )); pts.push_back(Point(14557070, 7636660 )); pts.push_back(Point(14556670, 7625570 )); pts.push_back(Point(13703330, 7625570 )); pts.push_back(Point(13702930, 7636660 )); pts.push_back(Point(13699993, 7661830 )); pts.push_back(Point(13676397, 7718796 ));
+pts.push_back(Point(13632796, 7762397 )); pts.push_back(Point(13575830, 7785993 )); pts.push_back(Point(13514169, 7785993 )); pts.push_back(Point(13457203, 7762397 )); pts.push_back(Point(13436270, 7745670 )); pts.push_back(Point(13432940, 7742520 )); pts.push_back(Point(12963760, 7742520 ));
+pts.push_back(Point(12959272, 7742961 )); pts.push_back(Point(12950981, 7746396 )); pts.push_back(Point(12944636, 7752741 )); pts.push_back(Point(12941201, 7761032 )); pts.push_back(Point(12941201, 7770007 )); pts.push_back(Point(12944636, 7778298 )); pts.push_back(Point(12947490, 7781780 ));
+pts.push_back(Point(13425330, 8259620 )); pts.push_back(Point(15601330, 8259620 )); pts.push_back(Point(15904620, 8562900 )); pts.push_back(Point(15909200, 8563030 )); pts.push_back(Point(15935830, 8566006 )); pts.push_back(Point(15992796, 8589602 )); pts.push_back(Point(16036397, 8633203 ));
+pts.push_back(Point(16059993, 8690169 )); pts.push_back(Point(16059993, 8751830 )); pts.push_back(Point(16036397, 8808796 )); pts.push_back(Point(15992796, 8852397 )); pts.push_back(Point(15935830, 8875993 )); pts.push_back(Point(15874169, 8875993 )); pts.push_back(Point(15817203, 8852397 )); pts.push_back(Point(15773602, 8808796 ));
+pts.push_back(Point(15750006, 8751830 )); pts.push_back(Point(15747030, 8725200 )); pts.push_back(Point(15746900, 8720620 )); pts.push_back(Point(15508950, 8482660 )); pts.push_back(Point(14689890, 8482660 )); pts.push_back(Point(14685412, 8483101 )); pts.push_back(Point(14677121, 8486536 ));
+pts.push_back(Point(14670776, 8492881 )); pts.push_back(Point(14667341, 8501172 )); pts.push_back(Point(14667341, 8510147 )); pts.push_back(Point(14670776, 8518438 )); pts.push_back(Point(14673630, 8521920 )); pts.push_back(Point(14714620, 8562900 )); pts.push_back(Point(14719200, 8563030 )); pts.push_back(Point(14745830, 8566006 ));
+pts.push_back(Point(14802796, 8589602 )); pts.push_back(Point(14846397, 8633203 )); pts.push_back(Point(14869993, 8690169 )); pts.push_back(Point(14869993, 8751830 )); pts.push_back(Point(14846397, 8808796 )); pts.push_back(Point(14802796, 8852397 )); pts.push_back(Point(14745830, 8875993 )); pts.push_back(Point(14684169, 8875993 ));
+pts.push_back(Point(14627203, 8852397 )); pts.push_back(Point(14583602, 8808796 )); pts.push_back(Point(14560006, 8751830 )); pts.push_back(Point(14557030, 8725200 )); pts.push_back(Point(14556900, 8720620 )); pts.push_back(Point(14408270, 8571980 )); pts.push_back(Point(13696320, 8571980 )); pts.push_back(Point(13696320, 8675520 ));
+pts.push_back(Point(13699963, 8690161 )); pts.push_back(Point(13699963, 8751818 )); pts.push_back(Point(13676368, 8808781 )); pts.push_back(Point(13632771, 8852378 )); pts.push_back(Point(13575808, 8875973 )); pts.push_back(Point(13514151, 8875973 )); pts.push_back(Point(13457188, 8852378 )); pts.push_back(Point(13436270, 8835670 )); pts.push_back(Point(13432940, 8832520 ));
+pts.push_back(Point(13281760, 8832520 )); pts.push_back(Point(13277272, 8832961 )); pts.push_back(Point(13268981, 8836396 )); pts.push_back(Point(13262636, 8842741 )); pts.push_back(Point(13259201, 8851032 )); pts.push_back(Point(13259201, 8860007 )); pts.push_back(Point(13262636, 8868298 )); pts.push_back(Point(13265500, 8871780 ));
+pts.push_back(Point(13518710, 9125000 )); pts.push_back(Point(16270720, 9125000 )); pts.push_back(Point(16270720, 8939590 )); pts.push_back(Point(17120780, 8939590 )); pts.push_back(Point(17120780, 9125000 )); pts.push_back(Point(17616200, 9125000 )); pts.push_back(Point(17616200,   75000 )); pts.push_back(Point(16024790,   75000 ));
+pts.push_back(Point(16021460,   80700 )); pts.push_back(Point(16016397,   88796 )); pts.push_back(Point(15972796,  132397 )); pts.push_back(Point(15915830,  155993 )); pts.push_back(Point(15908730,  157240 )); pts.push_back(Point(15905000,  157800 )); pts.push_back(Point(15516800,  546000 )); pts.push_back(Point(15905000,  934200 ));
+pts.push_back(Point(15908730,  934760 )); pts.push_back(Point(15915830,  936006 )); pts.push_back(Point(15972796,  959602 )); pts.push_back(Point(16016397, 1003203 )); pts.push_back(Point(16039993, 1060169 )); pts.push_back(Point(16039993, 1121830 )); pts.push_back(Point(16016397, 1178796 )); pts.push_back(Point(15972796, 1222397 ));
+pts.push_back(Point(15915830, 1245993 )); pts.push_back(Point(15854169, 1245993 )); pts.push_back(Point(15797203, 1222397 )); pts.push_back(Point(15753602, 1178796 )); pts.push_back(Point(15730006, 1121830 )); pts.push_back(Point(15728760, 1114730 )); pts.push_back(Point(15728200, 1111000 )); pts.push_back(Point(15363500,  746300 ));
+pts.push_back(Point(14602620,  746300 )); pts.push_back(Point(14598142,  746741 )); pts.push_back(Point(14589851,  750176 )); pts.push_back(Point(14583506,  756521 )); pts.push_back(Point(14580071,  764812 )); pts.push_back(Point(14580071,  773787 )); pts.push_back(Point(14583506,  782078 )); pts.push_back(Point(14586360,  785560 ));
+pts.push_back(Point(14586370,  785560 )); pts.push_back(Point(14735000,  934200 )); pts.push_back(Point(14738730,  934760 )); pts.push_back(Point(14745830,  936006 )); pts.push_back(Point(14802796,  959602 )); pts.push_back(Point(14846397, 1003203 )); pts.push_back(Point(14869993, 1060169 ));
+pts.push_back(Point(14870450, 1062550 )); pts.push_back(Point(14872170, 1071980 )); pts.push_back(Point(14972780, 1071980 )); pts.push_back(Point(15925000, 2024200 )); pts.push_back(Point(15928730, 2024760 )); pts.push_back(Point(15935830, 2026006 )); pts.push_back(Point(15992796, 2049602 ));
+pts.push_back(Point(16036397, 2093203 )); pts.push_back(Point(16059993, 2150169 )); pts.push_back(Point(16059993, 2211830 )); pts.push_back(Point(16036397, 2268796 )); pts.push_back(Point(15992796, 2312397 )); pts.push_back(Point(15935830, 2335993 )); pts.push_back(Point(15874169, 2335993 ));
+pts.push_back(Point(15817203, 2312397 )); pts.push_back(Point(15773602, 2268796 )); pts.push_back(Point(15750006, 2211830 )); pts.push_back(Point(15748760, 2204730 )); pts.push_back(Point(15748200, 2201000 )); pts.push_back(Point(14869220, 1322020 )); pts.push_back(Point(14088350, 1322020 ));
+pts.push_back(Point(14083862, 1322461 )); pts.push_back(Point(14075571, 1325896 )); pts.push_back(Point(14069226, 1332241 )); pts.push_back(Point(14065791, 1340532 )); pts.push_back(Point(14065791, 1349507 )); pts.push_back(Point(14069226, 1357798 )); pts.push_back(Point(14072080, 1361280 ));
+pts.push_back(Point(14072090, 1361280 )); pts.push_back(Point(14735000, 2024200 )); pts.push_back(Point(14738730, 2024760 )); pts.push_back(Point(14745830, 2026006 )); pts.push_back(Point(14802796, 2049602 )); pts.push_back(Point(14846397, 2093203 )); pts.push_back(Point(14869993, 2150169 ));
+pts.push_back(Point(14869993, 2211830 )); pts.push_back(Point(14846397, 2268796 )); pts.push_back(Point(14802796, 2312397 )); pts.push_back(Point(14745830, 2335993 )); pts.push_back(Point(14684169, 2335993 )); pts.push_back(Point(14627203, 2312397 )); pts.push_back(Point(14583602, 2268796 )); pts.push_back(Point(14560006, 2211830 ));
+pts.push_back(Point(14558760, 2204730 )); pts.push_back(Point(14558200, 2201000 )); pts.push_back(Point(13752220, 1395020 )); pts.push_back(Point(12991340, 1395020 )); pts.push_back(Point(12986862, 1395461 )); pts.push_back(Point(12978571, 1398896 )); pts.push_back(Point(12972226, 1405241 ));
+pts.push_back(Point(12968791, 1413532 )); pts.push_back(Point(12968791, 1422507 )); pts.push_back(Point(12972226, 1430798 )); pts.push_back(Point(12975080, 1434280 )); pts.push_back(Point(12975090, 1434280 )); pts.push_back(Point(13565000, 2024200 )); pts.push_back(Point(13568730, 2024760 )); pts.push_back(Point(13575830, 2026006 ));
+pts.push_back(Point(13632796, 2049602 )); pts.push_back(Point(13676397, 2093203 )); pts.push_back(Point(13699993, 2150169 )); pts.push_back(Point(13699993, 2211830 )); pts.push_back(Point(13676397, 2268796 )); pts.push_back(Point(13632796, 2312397 )); pts.push_back(Point(13575830, 2335993 ));
+pts.push_back(Point(13514169, 2335993 )); pts.push_back(Point(13457203, 2312397 )); pts.push_back(Point(13413602, 2268796 )); pts.push_back(Point(13390006, 2211830 )); pts.push_back(Point(13388760, 2204730 )); pts.push_back(Point(13388200, 2201000 )); pts.push_back(Point(12655220, 1468020 ));
+pts.push_back(Point(11894340, 1468020 )); pts.push_back(Point(11889862, 1468461 )); pts.push_back(Point(11881571, 1471896 )); pts.push_back(Point(11875226, 1478241 )); pts.push_back(Point(11871791, 1486532 )); pts.push_back(Point(11871791, 1495507 ));
+pts.push_back(Point(11875226, 1503798 )); pts.push_back(Point(11878090, 1507280 )); pts.push_back(Point(12395000, 2024200 )); pts.push_back(Point(12398730, 2024760 )); pts.push_back(Point(12405830, 2026006 )); pts.push_back(Point(12462796, 2049602 )); pts.push_back(Point(12506397, 2093203 ));
+pts.push_back(Point(12529993, 2150169 )); pts.push_back(Point(12529993, 2211830 )); pts.push_back(Point(12506397, 2268796 )); pts.push_back(Point(12462796, 2312397 )); pts.push_back(Point(12405830, 2335993 )); pts.push_back(Point(12344169, 2335993 ));
+pts.push_back(Point(12287203, 2312397 )); pts.push_back(Point(12243602, 2268796 )); pts.push_back(Point(12220006, 2211830 )); pts.push_back(Point(12218760, 2204730 )); pts.push_back(Point(12218200, 2201000 )); pts.push_back(Point(11558220, 1541020 ));
+pts.push_back(Point(10797340, 1541020 )); pts.push_back(Point(10792862, 1541461 )); pts.push_back(Point(10784571, 1544896 )); pts.push_back(Point(10778226, 1551241 )); pts.push_back(Point(10774791, 1559532 )); pts.push_back(Point(10774791, 1568507 )); pts.push_back(Point(10778226, 1576798 )); pts.push_back(Point(10781080, 1580280 ));
+pts.push_back(Point(10781090, 1580280 )); pts.push_back(Point(11225000, 2024200 )); pts.push_back(Point(11228730, 2024760 )); pts.push_back(Point(11235830, 2026006 )); pts.push_back(Point(11292796, 2049602 )); pts.push_back(Point(11336397, 2093203 )); pts.push_back(Point(11359993, 2150169 ));
+pts.push_back(Point(11359993, 2211830 )); pts.push_back(Point(11336397, 2268796 )); pts.push_back(Point(11292796, 2312397 )); pts.push_back(Point(11235830, 2335993 )); pts.push_back(Point(11174169, 2335993 )); pts.push_back(Point(11117203, 2312397 )); pts.push_back(Point(11073602, 2268796 )); pts.push_back(Point(11050006, 2211830 ));
+pts.push_back(Point(11048760, 2204730 )); pts.push_back(Point(11048200, 2201000 )); pts.push_back(Point(10461220, 1614020 )); pts.push_back(Point( 5647400, 1614020 )); pts.push_back(Point( 5642912, 1614461 ));
+pts.push_back(Point( 5634621, 1617896 )); pts.push_back(Point( 5628276, 1624241 )); pts.push_back(Point( 5624841, 1632532 )); pts.push_back(Point( 5624841, 1641507 )); pts.push_back(Point( 5628276, 1649798 )); pts.push_back(Point( 5631130, 1653280 ));
+pts.push_back(Point( 5688490, 1710640 )); pts.push_back(Point( 9722350, 1710640 )); pts.push_back(Point(10034620, 2022900 )); pts.push_back(Point(10039200, 2023030 )); pts.push_back(Point(10065830, 2026006 )); pts.push_back(Point(10122796, 2049602 ));
+pts.push_back(Point(10166397, 2093203 )); pts.push_back(Point(10189993, 2150169 )); pts.push_back(Point(10189993, 2211830 )); pts.push_back(Point(10166397, 2268796 )); pts.push_back(Point(10158620, 2279450 )); pts.push_back(Point(10158620, 2404900 )); pts.push_back(Point(10548950, 2795240 ));
+pts.push_back(Point(15586950, 2795240 )); pts.push_back(Point(15904620, 3112900 )); pts.push_back(Point(15909200, 3113030 )); pts.push_back(Point(15935830, 3116006 )); pts.push_back(Point(15992796, 3139602 )); pts.push_back(Point(16036397, 3183203 )); pts.push_back(Point(16059993, 3240169 )); pts.push_back(Point(16059993, 3301830 ));
+pts.push_back(Point(16036397, 3358796 )); pts.push_back(Point(15992796, 3402397 )); pts.push_back(Point(15935830, 3425993 )); pts.push_back(Point(15874169, 3425993 )); pts.push_back(Point(15817203, 3402397 )); pts.push_back(Point(15773602, 3358796 )); pts.push_back(Point(15750006, 3301830 )); pts.push_back(Point(15747030, 3275200 ));
+pts.push_back(Point(15746900, 3270620 )); pts.push_back(Point(15494570, 3018280 )); pts.push_back(Point(14675510, 3018280 )); pts.push_back(Point(14671032, 3018721 )); pts.push_back(Point(14662741, 3022156 )); pts.push_back(Point(14656396, 3028501 )); pts.push_back(Point(14652961, 3036792 ));
+pts.push_back(Point(14652961, 3045767 )); pts.push_back(Point(14656396, 3054058 )); pts.push_back(Point(14659260, 3057540 )); pts.push_back(Point(14714620, 3112900 )); pts.push_back(Point(14719200, 3113030 )); pts.push_back(Point(14745830, 3116006 )); pts.push_back(Point(14802796, 3139602 ));
+pts.push_back(Point(14846397, 3183203 )); pts.push_back(Point(14869993, 3240169 )); pts.push_back(Point(14869993, 3301830 )); pts.push_back(Point(14846397, 3358796 )); pts.push_back(Point(14802796, 3402397 )); pts.push_back(Point(14745830, 3425993 )); pts.push_back(Point(14684169, 3425993 )); pts.push_back(Point(14627203, 3402397 ));
+pts.push_back(Point(14583602, 3358796 )); pts.push_back(Point(14560006, 3301830 )); pts.push_back(Point(14557030, 3275200 )); pts.push_back(Point(14556900, 3270620 )); pts.push_back(Point(14370700, 3084410 )); pts.push_back(Point(13702830, 3084410 )); pts.push_back(Point(13702830, 3263160 ));
+pts.push_back(Point(13700003, 3302210 )); pts.push_back(Point(13676407, 3359176 )); pts.push_back(Point(13632806, 3402777 )); pts.push_back(Point(13575840, 3426373 )); pts.push_back(Point(13514179, 3426373 )); pts.push_back(Point(13457213, 3402777 )); pts.push_back(Point(13413612, 3359176 ));
+pts.push_back(Point(13390016, 3302210 )); pts.push_back(Point(13387030, 3275200 )); pts.push_back(Point(13386900, 3270620 )); pts.push_back(Point(13266840, 3150550 )); pts.push_back(Point(12532920, 3150550 )); pts.push_back(Point(12532920, 3264990 )); pts.push_back(Point(12529993, 3301820 ));
+pts.push_back(Point(12506397, 3358786 )); pts.push_back(Point(12462796, 3402387 )); pts.push_back(Point(12405830, 3425983 )); pts.push_back(Point(12344169, 3425983 )); pts.push_back(Point(12287203, 3402387 )); pts.push_back(Point(12243602, 3358786 )); pts.push_back(Point(12220006, 3301820 )); pts.push_back(Point(12217030, 3275200 ));
+pts.push_back(Point(12216900, 3270620 )); pts.push_back(Point(12157460, 3211170 )); pts.push_back(Point(11362030, 3211170 )); pts.push_back(Point(11360250, 3220520 )); pts.push_back(Point(11359993, 3221830 )); pts.push_back(Point(11336397, 3278796 ));
+pts.push_back(Point(11292796, 3322397 )); pts.push_back(Point(11235830, 3345993 )); pts.push_back(Point(11174169, 3345993 )); pts.push_back(Point(11117203, 3322397 )); pts.push_back(Point(11096270, 3305670 )); pts.push_back(Point(11092940, 3302520 )); pts.push_back(Point(10680760, 3302520 ));
+pts.push_back(Point(10676272, 3302961 )); pts.push_back(Point(10667981, 3306396 )); pts.push_back(Point(10661636, 3312741 )); pts.push_back(Point(10658201, 3321032 )); pts.push_back(Point(10658201, 3330007 )); pts.push_back(Point(10661636, 3338298 )); pts.push_back(Point(10664500, 3341780 ));
+pts.push_back(Point(11264260, 3941550 )); pts.push_back(Point(15643260, 3941550 )); pts.push_back(Point(15904620, 4202900 )); pts.push_back(Point(15909200, 4203030 )); pts.push_back(Point(15935830, 4206006 )); pts.push_back(Point(15992796, 4229602 ));
+pts.push_back(Point(16036397, 4273203 )); pts.push_back(Point(16059993, 4330169 )); pts.push_back(Point(16059993, 4391830 )); pts.push_back(Point(16036397, 4448796 )); pts.push_back(Point(15992796, 4492397 ));
+pts.push_back(Point(15935830, 4515993 )); pts.push_back(Point(15874169, 4515993 )); pts.push_back(Point(15817203, 4492397 )); pts.push_back(Point(15773602, 4448796 )); pts.push_back(Point(15750006, 4391830 )); pts.push_back(Point(15747030, 4365200 )); pts.push_back(Point(15746900, 4360620 ));
+pts.push_back(Point(15550880, 4164590 )); pts.push_back(Point(14825070, 4164590 )); pts.push_back(Point(14825070, 4247610 )); pts.push_back(Point(14846397, 4273213 )); pts.push_back(Point(14869993, 4330179 )); pts.push_back(Point(14869993, 4391840 )); pts.push_back(Point(14846397, 4448806 ));
+pts.push_back(Point(14802796, 4492407 )); pts.push_back(Point(14745830, 4516003 )); pts.push_back(Point(14684169, 4516003 )); pts.push_back(Point(14627203, 4492407 )); pts.push_back(Point(14583602, 4448806 )); pts.push_back(Point(14560006, 4391840 )); pts.push_back(Point(14557030, 4365200 ));
+pts.push_back(Point(14556900, 4360620 )); pts.push_back(Point(14432520, 4236230 )); pts.push_back(Point(13702830, 4236230 )); pts.push_back(Point(13702830, 4352930 )); pts.push_back(Point(13699993, 4391750 )); pts.push_back(Point(13676397, 4448716 ));
+pts.push_back(Point(13632796, 4492317 )); pts.push_back(Point(13575830, 4515913 )); pts.push_back(Point(13514169, 4515913 )); pts.push_back(Point(13457203, 4492317 )); pts.push_back(Point(13413602, 4448716 )); pts.push_back(Point(13390006, 4391750 )); pts.push_back(Point(13387030, 4365200 ));
+pts.push_back(Point(13386900, 4360620 )); pts.push_back(Point(13334170, 4307880 )); pts.push_back(Point(12532990, 4307880 )); pts.push_back(Point(12532990, 4357550 )); pts.push_back(Point(12529993, 4391760 )); pts.push_back(Point(12506397, 4448726 )); pts.push_back(Point(12462796, 4492327 ));
+pts.push_back(Point(12405830, 4515923 )); pts.push_back(Point(12344169, 4515923 )); pts.push_back(Point(12287203, 4492327 )); pts.push_back(Point(12243602, 4448726 )); pts.push_back(Point(12220006, 4391760 )); pts.push_back(Point(12217970, 4378710 )); pts.push_back(Point(12216810, 4368500 ));
+pts.push_back(Point(11363190, 4368500 )); pts.push_back(Point(11362030, 4378710 )); pts.push_back(Point(11359983, 4391828 )); pts.push_back(Point(11336388, 4448791 )); pts.push_back(Point(11292791, 4492388 )); pts.push_back(Point(11235828, 4515983 )); pts.push_back(Point(11174171, 4515983 )); pts.push_back(Point(11117208, 4492388 ));
+pts.push_back(Point(11096270, 4475670 )); pts.push_back(Point(11092940, 4472520 )); pts.push_back(Point(11057750, 4472520 )); pts.push_back(Point(11053272, 4472961 )); pts.push_back(Point(11044981, 4476396 )); pts.push_back(Point(11038636, 4482741 )); pts.push_back(Point(11035201, 4491032 ));
+pts.push_back(Point(11035201, 4500007 )); pts.push_back(Point(11038636, 4508298 )); pts.push_back(Point(11041490, 4511780 )); pts.push_back(Point(11573490, 5043780 )); pts.push_back(Point(15655490, 5043780 )); pts.push_back(Point(15904620, 5292900 ));
+pts.push_back(Point(15909200, 5293030 )); pts.push_back(Point(15935830, 5296006 )); pts.push_back(Point(15992796, 5319602 )); pts.push_back(Point(16036397, 5363203 )); pts.push_back(Point(16059993, 5420169 )); pts.push_back(Point(16059993, 5481830 )); pts.push_back(Point(16036397, 5538796 ));
+pts.push_back(Point(15992796, 5582397 )); pts.push_back(Point(15935830, 5605993 )); pts.push_back(Point(15874169, 5605993 )); pts.push_back(Point(15817203, 5582397 )); pts.push_back(Point(15773602, 5538796 )); pts.push_back(Point(15750006, 5481830 )); pts.push_back(Point(15747030, 5455200 ));
+pts.push_back(Point(15746900, 5450620 )); pts.push_back(Point(15563110, 5266820 )); pts.push_back(Point(14857380, 5266820 )); pts.push_back(Point(14857380, 5382430 )); pts.push_back(Point(14869993, 5420179 )); pts.push_back(Point(14869993, 5481840 )); pts.push_back(Point(14846397, 5538806 )); pts.push_back(Point(14802796, 5582407 ));
+pts.push_back(Point(14745830, 5606003 )); pts.push_back(Point(14684169, 5606003 )); pts.push_back(Point(14627203, 5582407 )); pts.push_back(Point(14583602, 5538806 )); pts.push_back(Point(14560006, 5481840 )); pts.push_back(Point(14557030, 5455200 )); pts.push_back(Point(14556900, 5450620 )); pts.push_back(Point(14444750, 5338460 ));
+pts.push_back(Point(13702890, 5338460 )); pts.push_back(Point(13702890, 5364400 )); pts.push_back(Point(13699993, 5401800 )); pts.push_back(Point(13676397, 5458766 )); pts.push_back(Point(13632796, 5502367 )); pts.push_back(Point(13575830, 5525963 )); pts.push_back(Point(13514169, 5525963 )); pts.push_back(Point(13457203, 5502367 ));
+pts.push_back(Point(13413602, 5458766 )); pts.push_back(Point(13390006, 5401800 )); pts.push_back(Point(13389230, 5397620 )); pts.push_back(Point(13387590, 5388060 )); pts.push_back(Point(12532960, 5388060 )); pts.push_back(Point(12532960, 5446220 )); pts.push_back(Point(12529993, 5481820 ));
+pts.push_back(Point(12506397, 5538786 )); pts.push_back(Point(12462796, 5582387 )); pts.push_back(Point(12405830, 5605983 )); pts.push_back(Point(12344169, 5605983 )); pts.push_back(Point(12287203, 5582387 )); pts.push_back(Point(12266270, 5565670 )); pts.push_back(Point(12262940, 5562520 )); pts.push_back(Point(11737750, 5562520 ));
+pts.push_back(Point(11733272, 5562961 )); pts.push_back(Point(11724981, 5566396 )); pts.push_back(Point(11718636, 5572741 )); pts.push_back(Point(11715201, 5581032 )); pts.push_back(Point(11715201, 5590007 )); pts.push_back(Point(11718636, 5598298 )); pts.push_back(Point(11721500, 5601780 ));
+pts.push_back(Point(12287760, 6168050 )); pts.push_back(Point(15689760, 6168050 )); pts.push_back(Point(15904620, 6382900 )); pts.push_back(Point(15909200, 6383030 )); pts.push_back(Point(15935830, 6386006 )); pts.push_back(Point(15992796, 6409602 ));
+pts.push_back(Point(16036397, 6453203 )); pts.push_back(Point(16059993, 6510169 )); pts.push_back(Point(16059993, 6571830 )); pts.push_back(Point(16036397, 6628796 )); pts.push_back(Point(15992796, 6672397 )); pts.push_back(Point(15935830, 6695993 )); pts.push_back(Point(15874169, 6695993 ));
+pts.push_back(Point(15817203, 6672397 )); pts.push_back(Point(15773602, 6628796 )); pts.push_back(Point(15750006, 6571830 )); pts.push_back(Point(15747030, 6545200 )); pts.push_back(Point(15746900, 6540620 )); pts.push_back(Point(15597380, 6391090 )); pts.push_back(Point(14858060, 6391090 ));
+pts.push_back(Point(14858060, 6473860 )); pts.push_back(Point(14869993, 6510179 )); pts.push_back(Point(14869993, 6571840 )); pts.push_back(Point(14846397, 6628806 )); pts.push_back(Point(14802796, 6672407 )); pts.push_back(Point(14745830, 6696003 )); pts.push_back(Point(14684169, 6696003 ));
+pts.push_back(Point(14627203, 6672407 )); pts.push_back(Point(14583602, 6628806 )); pts.push_back(Point(14560006, 6571840 )); pts.push_back(Point(14557030, 6545200 )); pts.push_back(Point(14556900, 6540620 )); pts.push_back(Point(14479020, 6462730 ));
+pts.push_back(Point(13702990, 6462730 )); pts.push_back(Point(13702990, 6537170 )); pts.push_back(Point(13700003, 6571840 )); pts.push_back(Point(13676407, 6628806 )); pts.push_back(Point(13632806, 6672407 )); pts.push_back(Point(13575840, 6696003 ));
+pts.push_back(Point(13514179, 6696003 )); pts.push_back(Point(13457213, 6672407 )); pts.push_back(Point(13413612, 6628806 )); pts.push_back(Point(13390016, 6571840 )); pts.push_back(Point(13387040, 6545550 )); pts.push_back(Point(13386710, 6534380 ));
+pts.push_back(Point(12533290, 6534380 )); pts.push_back(Point(12532960, 6545550 )); pts.push_back(Point(12529983, 6571828 )); pts.push_back(Point(12506388, 6628791 )); pts.push_back(Point(12462791, 6672388 )); pts.push_back(Point(12405828, 6695983 ));
 pts.push_back(Point(12344171, 6695983 )); pts.push_back(Point(12287208, 6672388 )); pts.push_back(Point(12266270, 6655670 ));
       poly.set(pts.begin(), pts.end());
       si.insert(poly, 444);
@@ -2168,7 +2168,7 @@ pts.push_back(Point(12344171, 6695983 )); pts.push_back(Point(12287208, 6672388 
           outpts.push_back((*itr).first.first);
           outpts.push_back((*itr).first.second);
         }
-        gtlsort(outpts.begin(), outpts.end());
+        polygon_sort(outpts.begin(), outpts.end());
         for(std::size_t i = 0; i < outpts.size(); i+=2) {
           if(outpts[i] != outpts[i+1]) {
             stdcout << "Polygon set not a closed figure\n";
@@ -2486,10 +2486,10 @@ pts.push_back(Point(12344171, 6695983 )); pts.push_back(Point(12287208, 6672388 
   template <typename Unit>
   class arbitrary_boolean_op : public scanline_base<Unit> {
   private:
-    
+
     typedef int property_type;
     typedef typename scanline_base<Unit>::Point Point;
-    
+
     //the first point is the vertex and and second point establishes the slope of an edge eminating from the vertex
     //typedef std::pair<Point, Point> half_edge;
     typedef typename scanline_base<Unit>::half_edge half_edge;
@@ -2567,7 +2567,7 @@ pts.push_back(Point(12344171, 6695983 )); pts.push_back(Point(12287208, 6672388 
             if((*(left.begin())) == 0) {
               result.insert_clean(elem);
             }
-          } 
+          }
 #ifdef BOOST_POLYGON_MSVC
 #pragma warning (default: 4127)
 #endif
@@ -2583,7 +2583,7 @@ pts.push_back(Point(12344171, 6695983 )); pts.push_back(Point(12287208, 6672388 
 
     inline void sort_property_merge_data() {
       less_vertex_data<vertex_property> lvd(&evalAtXforYPack_);
-      gtlsort(pmd.begin(), pmd.end(), lvd);
+      polygon_sort(pmd.begin(), pmd.end(), lvd);
     }
   public:
     inline arbitrary_boolean_op() : pmd(), evalAtXforYPack_() {}
@@ -2593,7 +2593,7 @@ pts.push_back(Point(12344171, 6695983 )); pts.push_back(Point(12287208, 6672388 
     enum BOOLEAN_OP_TYPE {
       BOOLEAN_OR = 0,
       BOOLEAN_AND = 1,
-      BOOLEAN_XOR = 2, 
+      BOOLEAN_XOR = 2,
       BOOLEAN_NOT = 3
     };
     template <typename result_type, typename iT1, typename iT2>
@@ -2627,17 +2627,17 @@ pts.push_back(Point(12344171, 6695983 )); pts.push_back(Point(12287208, 6672388 
       } else if(op == BOOLEAN_NOT) {
         boolean_output_functor<result_type, std::vector<property_type>, 3> bof;
         sl.scan(result, bof, pmd.begin(), pmd.end());
-      } 
+      }
     }
-    
+
     inline void clear() {*this = arbitrary_boolean_op();}
 
   private:
     template <typename iT>
     void insert(iT b, iT e, int id) {
-      for(; 
+      for(;
           b != e; ++b) {
-        pmd.push_back(vertex_property(half_edge((*b).first.first, (*b).first.second), 
+        pmd.push_back(vertex_property(half_edge((*b).first.first, (*b).first.second),
                                       std::pair<property_type, int>(id, (*b).second)));
       }
     }
@@ -2705,9 +2705,9 @@ pts.push_back(Point(12344171, 6695983 )); pts.push_back(Point(12287208, 6672388 
   template <typename Unit, typename property_type>
   class arbitrary_connectivity_extraction : public scanline_base<Unit> {
   private:
-    
+
     typedef typename scanline_base<Unit>::Point Point;
-    
+
     //the first point is the vertex and and second point establishes the slope of an edge eminating from the vertex
     //typedef std::pair<Point, Point> half_edge;
     typedef typename scanline_base<Unit>::half_edge half_edge;
@@ -2752,7 +2752,7 @@ pts.push_back(Point(12344171, 6695983 )); pts.push_back(Point(12287208, 6672388 
       std::map<point_data<Unit>, std::set<property_type> >& y_prop_map = output.first.second;
       if(y_prop_map.empty()) return;
       Unit x = output.first.first;
-      for(typename std::map<point_data<Unit>, std::set<property_type> >::iterator itr = 
+      for(typename std::map<point_data<Unit>, std::set<property_type> >::iterator itr =
             y_prop_map.begin(); itr != y_prop_map.end(); ++itr) {
         if((*itr).first.x() < x) {
           y_prop_map.erase(y_prop_map.begin(), itr);
@@ -2771,7 +2771,7 @@ pts.push_back(Point(12344171, 6695983 )); pts.push_back(Point(12287208, 6672388 
         }
       }
     }
-    
+
     template <typename result_type, typename key_type>
     class connectivity_extraction_output_functor {
     public:
@@ -2784,21 +2784,21 @@ pts.push_back(Point(12344171, 6695983 )); pts.push_back(Point(12287208, 6672388 
         x = pt.x();
         std::set<property_type>& output_set = y_prop_map[pt];
         {
-          for(typename key_type::const_iterator itr1 = 
+          for(typename key_type::const_iterator itr1 =
                 left.begin(); itr1 != left.end(); ++itr1) {
             output_set.insert(output_set.end(), *itr1);
           }
-          for(typename key_type::const_iterator itr2 = 
+          for(typename key_type::const_iterator itr2 =
                 right.begin(); itr2 != right.end(); ++itr2) {
             output_set.insert(output_set.end(), *itr2);
           }
         }
         std::set<property_type>& output_set2 = y_prop_map[edge.second];
-        for(typename key_type::const_iterator itr1 = 
+        for(typename key_type::const_iterator itr1 =
               left.begin(); itr1 != left.end(); ++itr1) {
           output_set2.insert(output_set2.end(), *itr1);
         }
-        for(typename key_type::const_iterator itr2 = 
+        for(typename key_type::const_iterator itr2 =
               right.begin(); itr2 != right.end(); ++itr2) {
           output_set2.insert(output_set2.end(), *itr2);
         }
@@ -2807,7 +2807,7 @@ pts.push_back(Point(12344171, 6695983 )); pts.push_back(Point(12287208, 6672388 
 
     inline void sort_property_merge_data() {
       less_vertex_data<vertex_property> lvd(&evalAtXforYPack_);
-      gtlsort(pmd.begin(), pmd.end(), lvd);
+      polygon_sort(pmd.begin(), pmd.end(), lvd);
     }
   public:
     inline arbitrary_connectivity_extraction() : pmd(), evalAtXforYPack_() {}
@@ -2824,13 +2824,13 @@ pts.push_back(Point(12344171, 6695983 )); pts.push_back(Point(12287208, 6672388 
       pmd.swap(tmp_pmd);
       sort_property_merge_data();
       scanline<Unit, property_type, std::vector<property_type> > sl;
-      std::pair<std::pair<Unit, std::map<point_data<Unit>, std::set<property_type> > >, 
+      std::pair<std::pair<Unit, std::map<point_data<Unit>, std::set<property_type> > >,
         result_type*> output
-        (std::make_pair(std::make_pair((std::numeric_limits<Unit>::max)(), 
-                                       std::map<point_data<Unit>, 
+        (std::make_pair(std::make_pair((std::numeric_limits<Unit>::max)(),
+                                       std::map<point_data<Unit>,
                                        std::set<property_type> >()), &result));
-      connectivity_extraction_output_functor<std::pair<std::pair<Unit, 
-        std::map<point_data<Unit>, std::set<property_type> > >, result_type*>, 
+      connectivity_extraction_output_functor<std::pair<std::pair<Unit,
+        std::map<point_data<Unit>, std::set<property_type> > >, result_type*>,
         std::vector<property_type> > ceof;
       sl.scan(output, ceof, pmd.begin(), pmd.end());
       process_previous_x(output);
@@ -2839,17 +2839,16 @@ pts.push_back(Point(12344171, 6695983 )); pts.push_back(Point(12287208, 6672388 
     inline void clear() {*this = arbitrary_connectivity_extraction();}
 
     template <typename iT>
-    void populateTouchSetData(iT begin, iT end, 
+    void populateTouchSetData(iT begin, iT end,
                                      property_type property) {
       for( ; begin != end; ++begin) {
-        pmd.push_back(vertex_property(half_edge((*begin).first.first, (*begin).first.second), 
+        pmd.push_back(vertex_property(half_edge((*begin).first.first, (*begin).first.second),
                                       std::pair<property_type, int>(property, (*begin).second)));
       }
     }
 
   };
 
-}  
+}
 }
 #endif
-

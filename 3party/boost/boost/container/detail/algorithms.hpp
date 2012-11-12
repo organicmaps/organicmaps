@@ -34,6 +34,30 @@
 namespace boost {
 namespace container {
 
+template<class It>
+struct is_default_construct_iterator
+{
+   static const bool value = false;
+};
+
+template<class U, class D>
+struct is_default_construct_iterator<default_construct_iterator<U, D> >
+{
+   static const bool value = true;
+};
+
+template<class It>
+struct is_emplace_iterator
+{
+   static const bool value = false;
+};
+
+template<class U, class EF, class D>
+struct is_emplace_iterator<emplace_iterator<U, EF, D> >
+{
+   static const bool value = true;
+};
+
 template<class A, class T, class InpIt>
 inline void construct_in_place(A &a, T* dest, InpIt source)
 {     boost::container::allocator_traits<A>::construct(a, dest, *source);  }

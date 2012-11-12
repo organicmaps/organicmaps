@@ -124,6 +124,26 @@ namespace boost { namespace phoenix { namespace stl
 
         template <typename C>
         two has_mapped_type(...);
+
+        template<typename T>
+        struct enable_if_is_void
+        {};
+
+        template<>
+        struct enable_if_is_void<void>
+        {
+            typedef void type;
+        };
+
+        template<typename T>
+        struct disable_if_is_void
+        {
+            typedef T type;
+        };
+
+        template<>
+        struct disable_if_is_void<void>
+        {};
     }
 
     template <typename C>

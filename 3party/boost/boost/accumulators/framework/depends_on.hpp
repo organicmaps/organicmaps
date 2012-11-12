@@ -11,6 +11,8 @@
 #include <boost/version.hpp>
 #include <boost/mpl/end.hpp>
 #include <boost/mpl/map.hpp>
+#include <boost/mpl/set.hpp>
+#include <boost/mpl/copy.hpp>
 #include <boost/mpl/fold.hpp>
 #include <boost/mpl/size.hpp>
 #include <boost/mpl/sort.hpp>
@@ -26,6 +28,7 @@
 #include <boost/mpl/is_sequence.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/insert_range.hpp>
+#include <boost/mpl/back_inserter.hpp>
 #include <boost/mpl/transform_view.hpp>
 #include <boost/mpl/inherit_linearly.hpp>
 #include <boost/type_traits/is_base_and_derived.hpp>
@@ -94,15 +97,49 @@ namespace boost { namespace accumulators
         template<typename A, typename B>
         struct is_dependent_on
           : is_base_and_derived<
-                typename undroppable<B>::type
+                typename feature_of<typename undroppable<B>::type>::type
               , typename undroppable<A>::type
+            >
+        {};
+
+        template<typename Feature>
+        struct dependencies_of
+        {
+            typedef typename Feature::dependencies type;
+        };
+
+        // Should use mpl::insert_range, but doesn't seem to work with mpl sets
+        template<typename Set, typename Range>
+        struct set_insert_range
+          : mpl::fold<
+                Range
+              , Set
+              , mpl::insert<mpl::_1, mpl::_2>
+            >
+        {};
+
+        template<typename Features>
+        struct collect_abstract_features
+          : mpl::fold<
+                Features
+              , mpl::set0<>
+              , set_insert_range<
+                    mpl::insert<mpl::_1, feature_of<mpl::_2> >
+                  , collect_abstract_features<dependencies_of<mpl::_2> >
+                >
             >
         {};
 
         template<typename Features>
         struct depends_on_base
           : mpl::inherit_linearly<
-                typename mpl::sort<Features, is_dependent_on<mpl::_1, mpl::_2> >::type
+                typename mpl::sort<
+                    typename mpl::copy<
+                        typename collect_abstract_features<Features>::type
+                      , mpl::back_inserter<mpl::vector0<> >
+                    >::type
+                  , is_dependent_on<mpl::_1, mpl::_2>
+                >::type
                 // Don't inherit multiply from a feature
               , mpl::if_<
                     is_dependent_on<mpl::_1, mpl::_2>

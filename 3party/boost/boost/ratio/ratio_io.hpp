@@ -6,7 +6,7 @@
 //  Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt).
 //
-// This code was adapted by Vicente from Howard Hinnant's experimental work 
+// This code was adapted by Vicente from Howard Hinnant's experimental work
 // on chrono i/o under lvm/libc++ to Boost
 
 #ifndef BOOST_RATIO_RATIO_IO_HPP
@@ -25,13 +25,18 @@ namespace boost
 template <class Ratio, class CharT>
 struct ratio_string
 {
-    static basic_string<CharT> short_name();
-    static basic_string<CharT> long_name();
+    static basic_string<CharT> prefix();
+    static basic_string<CharT> symbol();
 };
 
 }  // boost
 
 */
+#include <boost/ratio/config.hpp>
+
+#ifdef BOOST_RATIO_PROVIDES_DEPRECATED_FEATURES_SINCE_V2_0_0
+#include <boost/ratio/detail/ratio_io.hpp>
+#else
 
 #include <boost/config.hpp>
 #include <boost/ratio/ratio.hpp>
@@ -44,31 +49,31 @@ struct ratio_string
 #include <boost/static_string/static_string.hpp>
 #endif
 
-#if defined(BOOST_NO_UNICODE_LITERALS) || defined(BOOST_NO_CHAR16_T) || defined(BOOST_NO_CHAR32_T)
-//~ #define BOOST_RATIO_HAS_UNICODE_SUPPORT 
+#if defined(BOOST_NO_CXX11_UNICODE_LITERALS) || defined(BOOST_NO_CXX11_CHAR16_T) || defined(BOOST_NO_CXX11_CHAR32_T) || defined(BOOST_NO_CXX11_U16STRING) || defined(BOOST_NO_CXX11_U32STRING)
+#if defined BOOST_RATIO_HAS_UNICODE_SUPPORT
+#undef BOOST_RATIO_HAS_UNICODE_SUPPORT
+#endif
 #else
 #define BOOST_RATIO_HAS_UNICODE_SUPPORT 1
 #endif
 
 namespace boost {
 
-template <class Ratio>
-struct ratio_string_is_localizable : false_type {};
-template <class Ratio>
-struct ratio_string_id : integral_constant<int,0> {};
+//template <class Ratio>
+//struct ratio_string_is_localizable : false_type {};
+//template <class Ratio>
+//struct ratio_string_id : integral_constant<int,0> {};
 
 template <class Ratio, class CharT>
 struct ratio_string
 {
-    static std::basic_string<CharT> short_name() {return long_name();}
-    static std::basic_string<CharT> long_name();
-    static std::basic_string<CharT> symbol() {return short_name();}
-    static std::basic_string<CharT> prefix() {return long_name();}
+    static std::basic_string<CharT> symbol() {return prefix();}
+    static std::basic_string<CharT> prefix();
 };
 
 template <class Ratio, class CharT>
 std::basic_string<CharT>
-ratio_string<Ratio, CharT>::long_name()
+ratio_string<Ratio, CharT>::prefix()
 {
     std::basic_ostringstream<CharT> os;
     os << CharT('[') << Ratio::num << CharT('/')
@@ -81,64 +86,56 @@ namespace ratio_detail {
 template <class Ratio, class CharT>
 struct ratio_string_static
 {
-    static std::string short_name() {
+    static std::string symbol() {
         return std::basic_string<CharT>(
                 static_string::c_str<
-                        typename ratio_static_string<Ratio, CharT>::short_name
+                        typename ratio_static_string<Ratio, CharT>::symbol
                     >::value);
     }
-    static std::string long_name()  {
+    static std::string prefix()  {
         return std::basic_string<CharT>(
                 static_string::c_str<
-                    typename ratio_static_string<Ratio, CharT>::long_name
+                    typename ratio_static_string<Ratio, CharT>::prefix
                 >::value);
     }
-    static std::basic_string<CharT> symbol() {return short_name();}
-    static std::basic_string<CharT> prefix() {return long_name();}
 };
 }
 #endif
 // atto
-template <>
-struct ratio_string_is_localizable<atto> : true_type {};
-
-template <>
-struct ratio_string_id<atto> : integral_constant<int,-18> {};
+//template <>
+//struct ratio_string_is_localizable<atto> : true_type {};
+//
+//template <>
+//struct ratio_string_id<atto> : integral_constant<int,-18> {};
 
 #ifdef BOOST_RATIO_HAS_STATIC_STRING
 template <typename CharT>
-struct ratio_string<atto, CharT> : 
-    ratio_detail::ratio_string_static<atto,CharT> 
+struct ratio_string<atto, CharT> :
+    ratio_detail::ratio_string_static<atto,CharT>
 {};
 
 #else
 template <>
 struct ratio_string<atto, char>
 {
-    static std::string short_name() {return std::string(1, 'a');}
-    static std::string long_name()  {return std::string("atto");}
-    static std::string symbol() {return short_name();}
-    static std::string prefix() {return long_name();}
+    static std::string symbol() {return std::string(1, 'a');}
+    static std::string prefix()  {return std::string("atto");}
 };
 
-#if BOOST_RATIO_HAS_UNICODE_SUPPORT
+#if defined BOOST_RATIO_HAS_UNICODE_SUPPORT
 
 template <>
 struct ratio_string<atto, char16_t>
 {
-    static std::u16string short_name() {return std::u16string(1, u'a');}
-    static std::u16string long_name()  {return std::u16string(u"atto");}
-    static std::u16string symbol() {return short_name();}
-    static std::u16string prefix() {return long_name();}
+    static std::u16string symbol() {return std::u16string(1, u'a');}
+    static std::u16string prefix()  {return std::u16string(u"atto");}
 };
 
 template <>
 struct ratio_string<atto, char32_t>
 {
-    static std::u32string short_name() {return std::u32string(1, U'a');}
-    static std::u32string long_name()  {return std::u32string(U"atto");}
-    static std::u32string symbol() {return short_name();}
-    static std::u32string prefix() {return long_name();}
+    static std::u32string symbol() {return std::u32string(1, U'a');}
+    static std::u32string prefix()  {return std::u32string(U"atto");}
 };
 
 #endif
@@ -147,26 +144,18 @@ struct ratio_string<atto, char32_t>
 template <>
 struct ratio_string<atto, wchar_t>
 {
-    static std::wstring short_name() {return std::wstring(1, L'a');}
-    static std::wstring long_name()  {return std::wstring(L"atto");}
-    static std::wstring symbol() {return short_name();}
-    static std::wstring prefix() {return long_name();}
+    static std::wstring symbol() {return std::wstring(1, L'a');}
+    static std::wstring prefix()  {return std::wstring(L"atto");}
 };
 #endif
 #endif
 
 // femto
 
-template <>
-struct ratio_string_is_localizable<femto> : true_type {};
-
-template <>
-struct ratio_string_id<femto> : integral_constant<int,-15> {};
-
 #ifdef BOOST_RATIO_HAS_STATIC_STRING
 template <typename CharT>
-struct ratio_string<femto, CharT> : 
-    ratio_detail::ratio_string_static<femto,CharT> 
+struct ratio_string<femto, CharT> :
+    ratio_detail::ratio_string_static<femto,CharT>
 {};
 
 #else
@@ -174,30 +163,24 @@ struct ratio_string<femto, CharT> :
 template <>
 struct ratio_string<femto, char>
 {
-    static std::string short_name() {return std::string(1, 'f');}
-    static std::string long_name()  {return std::string("femto");}
-    static std::string symbol() {return short_name();}
-    static std::string prefix() {return long_name();}
+    static std::string symbol() {return std::string(1, 'f');}
+    static std::string prefix()  {return std::string("femto");}
 };
 
-#if BOOST_RATIO_HAS_UNICODE_SUPPORT
+#if defined BOOST_RATIO_HAS_UNICODE_SUPPORT
 
 template <>
 struct ratio_string<femto, char16_t>
 {
-    static std::u16string short_name() {return std::u16string(1, u'f');}
-    static std::u16string long_name()  {return std::u16string(u"femto");}
-    static std::u16string symbol() {return short_name();}
-    static std::u16string prefix() {return long_name();}
+    static std::u16string symbol() {return std::u16string(1, u'f');}
+    static std::u16string prefix()  {return std::u16string(u"femto");}
 };
 
 template <>
 struct ratio_string<femto, char32_t>
 {
-    static std::u32string short_name() {return std::u32string(1, U'f');}
-    static std::u32string long_name()  {return std::u32string(U"femto");}
-    static std::u32string symbol() {return short_name();}
-    static std::u32string prefix() {return long_name();}
+    static std::u32string symbol() {return std::u32string(1, U'f');}
+    static std::u32string prefix()  {return std::u32string(U"femto");}
 };
 
 #endif
@@ -206,56 +189,42 @@ struct ratio_string<femto, char32_t>
 template <>
 struct ratio_string<femto, wchar_t>
 {
-    static std::wstring short_name() {return std::wstring(1, L'f');}
-    static std::wstring long_name()  {return std::wstring(L"femto");}
-    static std::wstring symbol() {return short_name();}
-    static std::wstring prefix() {return long_name();}
+    static std::wstring symbol() {return std::wstring(1, L'f');}
+    static std::wstring prefix()  {return std::wstring(L"femto");}
 };
 #endif
 #endif
 
 // pico
 
-template <>
-struct ratio_string_is_localizable<pico> : true_type {};
-
-template <>
-struct ratio_string_id<pico> : integral_constant<int,-12> {};
-
 #ifdef BOOST_RATIO_HAS_STATIC_STRING
 template <typename CharT>
-struct ratio_string<pico, CharT> : 
-    ratio_detail::ratio_string_static<pico,CharT> 
+struct ratio_string<pico, CharT> :
+    ratio_detail::ratio_string_static<pico,CharT>
 {};
 
 #else
 template <>
 struct ratio_string<pico, char>
 {
-    static std::string short_name() {return std::string(1, 'p');}
-    static std::string long_name()  {return std::string("pico");}
-    static std::string symbol() {return short_name();}
-    static std::string prefix() {return long_name();}
+    static std::string symbol() {return std::string(1, 'p');}
+    static std::string prefix()  {return std::string("pico");}
 };
 
-#if BOOST_RATIO_HAS_UNICODE_SUPPORT
+#if defined BOOST_RATIO_HAS_UNICODE_SUPPORT
 
 template <>
 struct ratio_string<pico, char16_t>
 {
-    static std::u16string short_name() {return std::u16string(1, u'p');}
-    static std::u16string long_name()  {return std::u16string(u"pico");}
-    static std::u16string symbol() {return short_name();}
-    static std::u16string prefix() {return long_name();}
+    static std::u16string symbol() {return std::u16string(1, u'p');}
+    static std::u16string prefix()  {return std::u16string(u"pico");}
 };
 
 template <>
 struct ratio_string<pico, char32_t>
 {
-    static std::u32string short_name() {return std::u32string(1, U'p');}
-    static std::u32string long_name()  {return std::u32string(U"pico");}
-    static std::u32string symbol() {return short_name();}
-    static std::u32string prefix() {return long_name();}
+    static std::u32string symbol() {return std::u32string(1, U'p');}
+    static std::u32string prefix()  {return std::u32string(U"pico");}
 };
 
 #endif
@@ -264,56 +233,42 @@ struct ratio_string<pico, char32_t>
 template <>
 struct ratio_string<pico, wchar_t>
 {
-    static std::wstring short_name() {return std::wstring(1, L'p');}
-    static std::wstring long_name()  {return std::wstring(L"pico");}
-    static std::wstring symbol() {return short_name();}
-    static std::wstring prefix() {return long_name();}
+    static std::wstring symbol() {return std::wstring(1, L'p');}
+    static std::wstring prefix()  {return std::wstring(L"pico");}
 };
 #endif
 #endif
 
 // nano
 
-template <>
-struct ratio_string_is_localizable<nano> : true_type {};
-
-template <>
-struct ratio_string_id<nano> : integral_constant<int,-9> {};
-
 #ifdef BOOST_RATIO_HAS_STATIC_STRING
 template <typename CharT>
-struct ratio_string<nano, CharT> : 
-    ratio_detail::ratio_string_static<nano,CharT> 
+struct ratio_string<nano, CharT> :
+    ratio_detail::ratio_string_static<nano,CharT>
 {};
 
 #else
 template <>
 struct ratio_string<nano, char>
 {
-    static std::string short_name() {return std::string(1, 'n');}
-    static std::string long_name()  {return std::string("nano");}
-    static std::string symbol() {return short_name();}
-    static std::string prefix() {return long_name();}
+    static std::string symbol() {return std::string(1, 'n');}
+    static std::string prefix()  {return std::string("nano");}
 };
 
-#if BOOST_RATIO_HAS_UNICODE_SUPPORT
+#if defined BOOST_RATIO_HAS_UNICODE_SUPPORT
 
 template <>
 struct ratio_string<nano, char16_t>
 {
-    static std::u16string short_name() {return std::u16string(1, u'n');}
-    static std::u16string long_name()  {return std::u16string(u"nano");}
-    static std::u16string symbol() {return short_name();}
-    static std::u16string prefix() {return long_name();}
+    static std::u16string symbol() {return std::u16string(1, u'n');}
+    static std::u16string prefix()  {return std::u16string(u"nano");}
 };
 
 template <>
 struct ratio_string<nano, char32_t>
 {
-    static std::u32string short_name() {return std::u32string(1, U'n');}
-    static std::u32string long_name()  {return std::u32string(U"nano");}
-    static std::u32string symbol() {return short_name();}
-    static std::u32string prefix() {return long_name();}
+    static std::u32string symbol() {return std::u32string(1, U'n');}
+    static std::u32string prefix()  {return std::u32string(U"nano");}
 };
 
 #endif
@@ -322,56 +277,42 @@ struct ratio_string<nano, char32_t>
 template <>
 struct ratio_string<nano, wchar_t>
 {
-    static std::wstring short_name() {return std::wstring(1, L'n');}
-    static std::wstring long_name()  {return std::wstring(L"nano");}
-    static std::wstring symbol() {return short_name();}
-    static std::wstring prefix() {return long_name();}
+    static std::wstring symbol() {return std::wstring(1, L'n');}
+    static std::wstring prefix()  {return std::wstring(L"nano");}
 };
 #endif
 #endif
 
 // micro
 
-template <>
-struct ratio_string_is_localizable<micro> : true_type {};
-
-template <>
-struct ratio_string_id<micro> : integral_constant<int,-6> {};
-
 #ifdef BOOST_RATIO_HAS_STATIC_STRING
 template <typename CharT>
-struct ratio_string<micro, CharT> : 
-    ratio_detail::ratio_string_static<micro,CharT> 
+struct ratio_string<micro, CharT> :
+    ratio_detail::ratio_string_static<micro,CharT>
 {};
 
 #else
 template <>
 struct ratio_string<micro, char>
 {
-    static std::string short_name() {return std::string("\xC2\xB5");}
-    static std::string long_name()  {return std::string("micro");}
-    static std::string symbol() {return short_name();}
-    static std::string prefix() {return long_name();}
+    static std::string symbol() {return std::string("\xC2\xB5");}
+    static std::string prefix()  {return std::string("micro");}
 };
 
-#if BOOST_RATIO_HAS_UNICODE_SUPPORT
+#if defined BOOST_RATIO_HAS_UNICODE_SUPPORT
 
 template <>
 struct ratio_string<micro, char16_t>
 {
-    static std::u16string short_name() {return std::u16string(1, u'\xB5');}
-    static std::u16string long_name()  {return std::u16string(u"micro");}
-    static std::u16string symbol() {return short_name();}
-    static std::u16string prefix() {return long_name();}
+    static std::u16string symbol() {return std::u16string(1, u'\xB5');}
+    static std::u16string prefix()  {return std::u16string(u"micro");}
 };
 
 template <>
 struct ratio_string<micro, char32_t>
 {
-    static std::u32string short_name() {return std::u32string(1, U'\xB5');}
-    static std::u32string long_name()  {return std::u32string(U"micro");}
-    static std::u32string symbol() {return short_name();}
-    static std::u32string prefix() {return long_name();}
+    static std::u32string symbol() {return std::u32string(1, U'\xB5');}
+    static std::u32string prefix()  {return std::u32string(U"micro");}
 };
 
 #endif
@@ -380,56 +321,42 @@ struct ratio_string<micro, char32_t>
 template <>
 struct ratio_string<micro, wchar_t>
 {
-    static std::wstring short_name() {return std::wstring(1, L'\xB5');}
-    static std::wstring long_name()  {return std::wstring(L"micro");}
-    static std::wstring symbol() {return short_name();}
-    static std::wstring prefix() {return long_name();}
+    static std::wstring symbol() {return std::wstring(1, L'\xB5');}
+    static std::wstring prefix()  {return std::wstring(L"micro");}
 };
 #endif
 #endif
 
 // milli
 
-template <>
-struct ratio_string_is_localizable<milli> : true_type {};
-
-template <>
-struct ratio_string_id<milli> : integral_constant<int,-3> {};
-
 #ifdef BOOST_RATIO_HAS_STATIC_STRING
 template <typename CharT>
-struct ratio_string<milli, CharT> : 
-    ratio_detail::ratio_string_static<milli,CharT> 
+struct ratio_string<milli, CharT> :
+    ratio_detail::ratio_string_static<milli,CharT>
 {};
 
 #else
 template <>
 struct ratio_string<milli, char>
 {
-    static std::string short_name() {return std::string(1, 'm');}
-    static std::string long_name()  {return std::string("milli");}
-    static std::string symbol() {return short_name();}
-    static std::string prefix() {return long_name();}
+    static std::string symbol() {return std::string(1, 'm');}
+    static std::string prefix()  {return std::string("milli");}
 };
 
-#if BOOST_RATIO_HAS_UNICODE_SUPPORT
+#if defined BOOST_RATIO_HAS_UNICODE_SUPPORT
 
 template <>
 struct ratio_string<milli, char16_t>
 {
-    static std::u16string short_name() {return std::u16string(1, u'm');}
-    static std::u16string long_name()  {return std::u16string(u"milli");}
-    static std::u16string symbol() {return short_name();}
-    static std::u16string prefix() {return long_name();}
+    static std::u16string symbol() {return std::u16string(1, u'm');}
+    static std::u16string prefix()  {return std::u16string(u"milli");}
 };
 
 template <>
 struct ratio_string<milli, char32_t>
 {
-    static std::u32string short_name() {return std::u32string(1, U'm');}
-    static std::u32string long_name()  {return std::u32string(U"milli");}
-    static std::u32string symbol() {return short_name();}
-    static std::u32string prefix() {return long_name();}
+    static std::u32string symbol() {return std::u32string(1, U'm');}
+    static std::u32string prefix()  {return std::u32string(U"milli");}
 };
 
 #endif
@@ -438,56 +365,42 @@ struct ratio_string<milli, char32_t>
 template <>
 struct ratio_string<milli, wchar_t>
 {
-    static std::wstring short_name() {return std::wstring(1, L'm');}
-    static std::wstring long_name()  {return std::wstring(L"milli");}
-    static std::wstring symbol() {return short_name();}
-    static std::wstring prefix() {return long_name();}
+    static std::wstring symbol() {return std::wstring(1, L'm');}
+    static std::wstring prefix()  {return std::wstring(L"milli");}
 };
 #endif
 #endif
 
 // centi
 
-template <>
-struct ratio_string_is_localizable<centi> : true_type {};
-
-template <>
-struct ratio_string_id<centi> : integral_constant<int,-2> {};
-
 #ifdef BOOST_RATIO_HAS_STATIC_STRING
 template <typename CharT>
-struct ratio_string<centi, CharT> : 
-    ratio_detail::ratio_string_static<centi,CharT> 
+struct ratio_string<centi, CharT> :
+    ratio_detail::ratio_string_static<centi,CharT>
 {};
 
 #else
 template <>
 struct ratio_string<centi, char>
 {
-    static std::string short_name() {return std::string(1, 'c');}
-    static std::string long_name()  {return std::string("centi");}
-    static std::string symbol() {return short_name();}
-    static std::string prefix() {return long_name();}
+    static std::string symbol() {return std::string(1, 'c');}
+    static std::string prefix()  {return std::string("centi");}
 };
 
-#if BOOST_RATIO_HAS_UNICODE_SUPPORT
+#if defined BOOST_RATIO_HAS_UNICODE_SUPPORT
 
 template <>
 struct ratio_string<centi, char16_t>
 {
-    static std::u16string short_name() {return std::u16string(1, u'c');}
-    static std::u16string long_name()  {return std::u16string(u"centi");}
-    static std::u16string symbol() {return short_name();}
-    static std::u16string prefix() {return long_name();}
+    static std::u16string symbol() {return std::u16string(1, u'c');}
+    static std::u16string prefix()  {return std::u16string(u"centi");}
 };
 
 template <>
 struct ratio_string<centi, char32_t>
 {
-    static std::u32string short_name() {return std::u32string(1, U'c');}
-    static std::u32string long_name()  {return std::u32string(U"centi");}
-    static std::u32string symbol() {return short_name();}
-    static std::u32string prefix() {return long_name();}
+    static std::u32string symbol() {return std::u32string(1, U'c');}
+    static std::u32string prefix()  {return std::u32string(U"centi");}
 };
 
 #endif
@@ -496,26 +409,18 @@ struct ratio_string<centi, char32_t>
 template <>
 struct ratio_string<centi, wchar_t>
 {
-    static std::wstring short_name() {return std::wstring(1, L'c');}
-    static std::wstring long_name()  {return std::wstring(L"centi");}
-    static std::wstring symbol() {return short_name();}
-    static std::wstring prefix() {return long_name();}
+    static std::wstring symbol() {return std::wstring(1, L'c');}
+    static std::wstring prefix()  {return std::wstring(L"centi");}
 };
 #endif
 #endif
 
 // deci
 
-template <>
-struct ratio_string_is_localizable<deci> : true_type {};
-
-template <>
-struct ratio_string_id<deci> : integral_constant<int,-1> {};
-
 #ifdef BOOST_RATIO_HAS_STATIC_STRING
 template <typename CharT>
-struct ratio_string<deci, CharT> : 
-    ratio_detail::ratio_string_static<deci,CharT> 
+struct ratio_string<deci, CharT> :
+    ratio_detail::ratio_string_static<deci,CharT>
 {};
 
 #else
@@ -523,30 +428,24 @@ struct ratio_string<deci, CharT> :
 template <>
 struct ratio_string<deci, char>
 {
-    static std::string short_name() {return std::string(1, 'd');}
-    static std::string long_name()  {return std::string("deci");}
-    static std::string symbol() {return short_name();}
-    static std::string prefix() {return long_name();}
+    static std::string symbol() {return std::string(1, 'd');}
+    static std::string prefix()  {return std::string("deci");}
 };
 
-#if BOOST_RATIO_HAS_UNICODE_SUPPORT
+#if defined BOOST_RATIO_HAS_UNICODE_SUPPORT
 
 template <>
 struct ratio_string<deci, char16_t>
 {
-    static std::u16string short_name() {return std::u16string(1, u'd');}
-    static std::u16string long_name()  {return std::u16string(u"deci");}
-    static std::u16string symbol() {return short_name();}
-    static std::u16string prefix() {return long_name();}
+    static std::u16string symbol() {return std::u16string(1, u'd');}
+    static std::u16string prefix()  {return std::u16string(u"deci");}
 };
 
 template <>
 struct ratio_string<deci, char32_t>
 {
-    static std::u32string short_name() {return std::u32string(1, U'd');}
-    static std::u32string long_name()  {return std::u32string(U"deci");}
-    static std::u32string symbol() {return short_name();}
-    static std::u32string prefix() {return long_name();}
+    static std::u32string symbol() {return std::u32string(1, U'd');}
+    static std::u32string prefix()  {return std::u32string(U"deci");}
 };
 
 #endif
@@ -555,63 +454,45 @@ struct ratio_string<deci, char32_t>
 template <>
 struct ratio_string<deci, wchar_t>
 {
-    static std::wstring short_name() {return std::wstring(1, L'd');}
-    static std::wstring long_name()  {return std::wstring(L"deci");}
-    static std::wstring symbol() {return short_name();}
-    static std::wstring prefix() {return long_name();}
+    static std::wstring symbol() {return std::wstring(1, L'd');}
+    static std::wstring prefix()  {return std::wstring(L"deci");}
 };
 #endif
 #endif
 
 // unit
 
-template <>
-struct ratio_string_is_localizable<ratio<1> > : true_type {};
-
-template <>
-struct ratio_string_id<ratio<1> > : integral_constant<int,0> {};
 // deca
 
-template <>
-struct ratio_string_is_localizable<deca> : true_type {};
-
-template <>
-struct ratio_string_id<deca> : integral_constant<int,1> {};
 
 #ifdef BOOST_RATIO_HAS_STATIC_STRING
 template <typename CharT>
-struct ratio_string<deca, CharT> : 
-    ratio_detail::ratio_string_static<deca,CharT> 
+struct ratio_string<deca, CharT> :
+    ratio_detail::ratio_string_static<deca,CharT>
 {};
 
 #else
 template <>
 struct ratio_string<deca, char>
 {
-    static std::string short_name() {return std::string("da");}
-    static std::string long_name()  {return std::string("deca");}
-    static std::string symbol() {return short_name();}
-    static std::string prefix() {return long_name();}
+    static std::string symbol() {return std::string("da");}
+    static std::string prefix()  {return std::string("deca");}
 };
 
-#if BOOST_RATIO_HAS_UNICODE_SUPPORT
+#if defined BOOST_RATIO_HAS_UNICODE_SUPPORT
 
 template <>
 struct ratio_string<deca, char16_t>
 {
-    static std::u16string short_name() {return std::u16string(u"da");}
-    static std::u16string long_name()  {return std::u16string(u"deca");}
-    static std::u16string symbol() {return short_name();}
-    static std::u16string prefix() {return long_name();}
+    static std::u16string symbol() {return std::u16string(u"da");}
+    static std::u16string prefix()  {return std::u16string(u"deca");}
 };
 
 template <>
 struct ratio_string<deca, char32_t>
 {
-    static std::u32string short_name() {return std::u32string(U"da");}
-    static std::u32string long_name()  {return std::u32string(U"deca");}
-    static std::u32string symbol() {return short_name();}
-    static std::u32string prefix() {return long_name();}
+    static std::u32string symbol() {return std::u32string(U"da");}
+    static std::u32string prefix()  {return std::u32string(U"deca");}
 };
 
 #endif
@@ -620,57 +501,42 @@ struct ratio_string<deca, char32_t>
 template <>
 struct ratio_string<deca, wchar_t>
 {
-    static std::wstring short_name() {return std::wstring(L"da");}
-    static std::wstring long_name()  {return std::wstring(L"deca");}
-    static std::wstring symbol() {return short_name();}
-    static std::wstring prefix() {return long_name();}
+    static std::wstring symbol() {return std::wstring(L"da");}
+    static std::wstring prefix()  {return std::wstring(L"deca");}
 };
 #endif
 #endif
 
 // hecto
 
-template <>
-struct ratio_string_is_localizable<hecto> : true_type {};
-
-template <>
-struct ratio_string_id<hecto> : integral_constant<int,2> {};
-
-
 #ifdef BOOST_RATIO_HAS_STATIC_STRING
 template <typename CharT>
-struct ratio_string<hecto, CharT> : 
-    ratio_detail::ratio_string_static<hecto,CharT> 
+struct ratio_string<hecto, CharT> :
+    ratio_detail::ratio_string_static<hecto,CharT>
 {};
 
 #else
 template <>
 struct ratio_string<hecto, char>
 {
-    static std::string short_name() {return std::string(1, 'h');}
-    static std::string long_name()  {return std::string("hecto");}
-    static std::string symbol() {return short_name();}
-    static std::string prefix() {return long_name();}
+    static std::string symbol() {return std::string(1, 'h');}
+    static std::string prefix()  {return std::string("hecto");}
 };
 
-#if BOOST_RATIO_HAS_UNICODE_SUPPORT
+#if defined BOOST_RATIO_HAS_UNICODE_SUPPORT
 
 template <>
 struct ratio_string<hecto, char16_t>
 {
-    static std::u16string short_name() {return std::u16string(1, u'h');}
-    static std::u16string long_name()  {return std::u16string(u"hecto");}
-    static std::u16string symbol() {return short_name();}
-    static std::u16string prefix() {return long_name();}
+    static std::u16string symbol() {return std::u16string(1, u'h');}
+    static std::u16string prefix()  {return std::u16string(u"hecto");}
 };
 
 template <>
 struct ratio_string<hecto, char32_t>
 {
-    static std::u32string short_name() {return std::u32string(1, U'h');}
-    static std::u32string long_name()  {return std::u32string(U"hecto");}
-    static std::u32string symbol() {return short_name();}
-    static std::u32string prefix() {return long_name();}
+    static std::u32string symbol() {return std::u32string(1, U'h');}
+    static std::u32string prefix()  {return std::u32string(U"hecto");}
 };
 
 #endif
@@ -679,56 +545,42 @@ struct ratio_string<hecto, char32_t>
 template <>
 struct ratio_string<hecto, wchar_t>
 {
-    static std::wstring short_name() {return std::wstring(1, L'h');}
-    static std::wstring long_name()  {return std::wstring(L"hecto");}
-    static std::wstring symbol() {return short_name();}
-    static std::wstring prefix() {return long_name();}
+    static std::wstring symbol() {return std::wstring(1, L'h');}
+    static std::wstring prefix()  {return std::wstring(L"hecto");}
 };
 #endif
 #endif
 
 // kilo
 
-template <>
-struct ratio_string_is_localizable<kilo> : true_type {};
-
-template <>
-struct ratio_string_id<kilo> : integral_constant<int,3> {};
-
 #ifdef BOOST_RATIO_HAS_STATIC_STRING
 template <typename CharT>
-struct ratio_string<kilo, CharT> : 
-    ratio_detail::ratio_string_static<kilo,CharT> 
+struct ratio_string<kilo, CharT> :
+    ratio_detail::ratio_string_static<kilo,CharT>
 {};
 
 #else
 template <>
 struct ratio_string<kilo, char>
 {
-    static std::string short_name() {return std::string(1, 'k');}
-    static std::string long_name()  {return std::string("kilo");}
-    static std::string symbol() {return short_name();}
-    static std::string prefix() {return long_name();}
+    static std::string symbol() {return std::string(1, 'k');}
+    static std::string prefix()  {return std::string("kilo");}
 };
 
-#if BOOST_RATIO_HAS_UNICODE_SUPPORT
+#if defined BOOST_RATIO_HAS_UNICODE_SUPPORT
 
 template <>
 struct ratio_string<kilo, char16_t>
 {
-    static std::u16string short_name() {return std::u16string(1, u'k');}
-    static std::u16string long_name()  {return std::u16string(u"kilo");}
-    static std::u16string symbol() {return short_name();}
-    static std::u16string prefix() {return long_name();}
+    static std::u16string symbol() {return std::u16string(1, u'k');}
+    static std::u16string prefix()  {return std::u16string(u"kilo");}
 };
 
 template <>
 struct ratio_string<kilo, char32_t>
 {
-    static std::u32string short_name() {return std::u32string(1, U'k');}
-    static std::u32string long_name()  {return std::u32string(U"kilo");}
-    static std::u32string symbol() {return short_name();}
-    static std::u32string prefix() {return long_name();}
+    static std::u32string symbol() {return std::u32string(1, U'k');}
+    static std::u32string prefix()  {return std::u32string(U"kilo");}
 };
 
 #endif
@@ -737,26 +589,18 @@ struct ratio_string<kilo, char32_t>
 template <>
 struct ratio_string<kilo, wchar_t>
 {
-    static std::wstring short_name() {return std::wstring(1, L'k');}
-    static std::wstring long_name()  {return std::wstring(L"kilo");}
-    static std::wstring symbol() {return short_name();}
-    static std::wstring prefix() {return long_name();}
+    static std::wstring symbol() {return std::wstring(1, L'k');}
+    static std::wstring prefix()  {return std::wstring(L"kilo");}
 };
 #endif
 #endif
 
 // mega
 
-template <>
-struct ratio_string_is_localizable<mega> : true_type {};
-
-template <>
-struct ratio_string_id<mega> : integral_constant<int,6> {};
-
 #ifdef BOOST_RATIO_HAS_STATIC_STRING
 template <typename CharT>
-struct ratio_string<mega, CharT> : 
-    ratio_detail::ratio_string_static<mega,CharT> 
+struct ratio_string<mega, CharT> :
+    ratio_detail::ratio_string_static<mega,CharT>
 {};
 
 #else
@@ -764,30 +608,24 @@ struct ratio_string<mega, CharT> :
 template <>
 struct ratio_string<mega, char>
 {
-    static std::string short_name() {return std::string(1, 'M');}
-    static std::string long_name()  {return std::string("mega");}
-    static std::string symbol() {return short_name();}
-    static std::string prefix() {return long_name();}
+    static std::string symbol() {return std::string(1, 'M');}
+    static std::string prefix()  {return std::string("mega");}
 };
 
-#if BOOST_RATIO_HAS_UNICODE_SUPPORT
+#if defined BOOST_RATIO_HAS_UNICODE_SUPPORT
 
 template <>
 struct ratio_string<mega, char16_t>
 {
-    static std::u16string short_name() {return std::u16string(1, u'M');}
-    static std::u16string long_name()  {return std::u16string(u"mega");}
-    static std::u16string symbol() {return short_name();}
-    static std::u16string prefix() {return long_name();}
+    static std::u16string symbol() {return std::u16string(1, u'M');}
+    static std::u16string prefix()  {return std::u16string(u"mega");}
 };
 
 template <>
 struct ratio_string<mega, char32_t>
 {
-    static std::u32string short_name() {return std::u32string(1, U'M');}
-    static std::u32string long_name()  {return std::u32string(U"mega");}
-    static std::u32string symbol() {return short_name();}
-    static std::u32string prefix() {return long_name();}
+    static std::u32string symbol() {return std::u32string(1, U'M');}
+    static std::u32string prefix()  {return std::u32string(U"mega");}
 };
 
 #endif
@@ -796,26 +634,18 @@ struct ratio_string<mega, char32_t>
 template <>
 struct ratio_string<mega, wchar_t>
 {
-    static std::wstring short_name() {return std::wstring(1, L'M');}
-    static std::wstring long_name()  {return std::wstring(L"mega");}
-    static std::wstring symbol() {return short_name();}
-    static std::wstring prefix() {return long_name();}
+    static std::wstring symbol() {return std::wstring(1, L'M');}
+    static std::wstring prefix()  {return std::wstring(L"mega");}
 };
 #endif
 #endif
 
 // giga
 
-template <>
-struct ratio_string_is_localizable<giga> : true_type {};
-
-template <>
-struct ratio_string_id<giga> : integral_constant<int,9> {};
-
 #ifdef BOOST_RATIO_HAS_STATIC_STRING
 template <typename CharT>
-struct ratio_string<giga, CharT> : 
-    ratio_detail::ratio_string_static<giga,CharT> 
+struct ratio_string<giga, CharT> :
+    ratio_detail::ratio_string_static<giga,CharT>
 {};
 
 #else
@@ -823,30 +653,24 @@ struct ratio_string<giga, CharT> :
 template <>
 struct ratio_string<giga, char>
 {
-    static std::string short_name() {return std::string(1, 'G');}
-    static std::string long_name()  {return std::string("giga");}
-    static std::string symbol() {return short_name();}
-    static std::string prefix() {return long_name();}
+    static std::string symbol() {return std::string(1, 'G');}
+    static std::string prefix()  {return std::string("giga");}
 };
 
-#if BOOST_RATIO_HAS_UNICODE_SUPPORT
+#if defined BOOST_RATIO_HAS_UNICODE_SUPPORT
 
 template <>
 struct ratio_string<giga, char16_t>
 {
-    static std::u16string short_name() {return std::u16string(1, u'G');}
-    static std::u16string long_name()  {return std::u16string(u"giga");}
-    static std::u16string symbol() {return short_name();}
-    static std::u16string prefix() {return long_name();}
+    static std::u16string symbol() {return std::u16string(1, u'G');}
+    static std::u16string prefix()  {return std::u16string(u"giga");}
 };
 
 template <>
 struct ratio_string<giga, char32_t>
 {
-    static std::u32string short_name() {return std::u32string(1, U'G');}
-    static std::u32string long_name()  {return std::u32string(U"giga");}
-    static std::u32string symbol() {return short_name();}
-    static std::u32string prefix() {return long_name();}
+    static std::u32string symbol() {return std::u32string(1, U'G');}
+    static std::u32string prefix()  {return std::u32string(U"giga");}
 };
 
 #endif
@@ -855,56 +679,43 @@ struct ratio_string<giga, char32_t>
 template <>
 struct ratio_string<giga, wchar_t>
 {
-    static std::wstring short_name() {return std::wstring(1, L'G');}
-    static std::wstring long_name()  {return std::wstring(L"giga");}
-    static std::wstring symbol() {return short_name();}
-    static std::wstring prefix() {return long_name();}
+    static std::wstring symbol() {return std::wstring(1, L'G');}
+    static std::wstring prefix()  {return std::wstring(L"giga");}
 };
 #endif
 #endif
 
 // tera
 
-template <>
-struct ratio_string_is_localizable<tera> : true_type {};
-
-template <>
-struct ratio_string_id<tera> : integral_constant<int,12> {};
-
+//template <>
 #ifdef BOOST_RATIO_HAS_STATIC_STRING
 template <typename CharT>
-struct ratio_string<tera, CharT> : 
-    ratio_detail::ratio_string_static<tera,CharT> 
+struct ratio_string<tera, CharT> :
+    ratio_detail::ratio_string_static<tera,CharT>
 {};
 
 #else
 template <>
 struct ratio_string<tera, char>
 {
-    static std::string short_name() {return std::string(1, 'T');}
-    static std::string long_name()  {return std::string("tera");}
-    static std::string symbol() {return short_name();}
-    static std::string prefix() {return long_name();}
+    static std::string symbol() {return std::string(1, 'T');}
+    static std::string prefix()  {return std::string("tera");}
 };
 
-#if BOOST_RATIO_HAS_UNICODE_SUPPORT
+#if defined BOOST_RATIO_HAS_UNICODE_SUPPORT
 
 template <>
 struct ratio_string<tera, char16_t>
 {
-    static std::u16string short_name() {return std::u16string(1, u'T');}
-    static std::u16string long_name()  {return std::u16string(u"tera");}
-    static std::u16string symbol() {return short_name();}
-    static std::u16string prefix() {return long_name();}
+    static std::u16string symbol() {return std::u16string(1, u'T');}
+    static std::u16string prefix()  {return std::u16string(u"tera");}
 };
 
 template <>
 struct ratio_string<tera, char32_t>
 {
-    static std::u32string short_name() {return std::u32string(1, U'T');}
-    static std::u32string long_name()  {return std::u32string(U"tera");}
-    static std::u32string symbol() {return short_name();}
-    static std::u32string prefix() {return long_name();}
+    static std::u32string symbol() {return std::u32string(1, U'T');}
+    static std::u32string prefix()  {return std::u32string(U"tera");}
 };
 
 #endif
@@ -913,57 +724,42 @@ struct ratio_string<tera, char32_t>
 template <>
 struct ratio_string<tera, wchar_t>
 {
-    static std::wstring short_name() {return std::wstring(1, L'T');}
-    static std::wstring long_name()  {return std::wstring(L"tera");}
-    static std::wstring symbol() {return short_name();}
-    static std::wstring prefix() {return long_name();}
+    static std::wstring symbol() {return std::wstring(1, L'T');}
+    static std::wstring prefix()  {return std::wstring(L"tera");}
 };
 #endif
 #endif
 
 // peta
 
-template <>
-struct ratio_string_is_localizable<peta> : true_type {};
-
-template <>
-struct ratio_string_id<peta> : integral_constant<int,15> {};
-
-
 #ifdef BOOST_RATIO_HAS_STATIC_STRING
 template <typename CharT>
-struct ratio_string<peta, CharT> : 
-    ratio_detail::ratio_string_static<peta,CharT> 
+struct ratio_string<peta, CharT> :
+    ratio_detail::ratio_string_static<peta,CharT>
 {};
 
 #else
 template <>
 struct ratio_string<peta, char>
 {
-    static std::string short_name() {return std::string(1, 'P');}
-    static std::string long_name()  {return std::string("peta");}
-    static std::string symbol() {return short_name();}
-    static std::string prefix() {return long_name();}
+    static std::string symbol() {return std::string(1, 'P');}
+    static std::string prefix()  {return std::string("peta");}
 };
 
-#if BOOST_RATIO_HAS_UNICODE_SUPPORT
+#if defined BOOST_RATIO_HAS_UNICODE_SUPPORT
 
 template <>
 struct ratio_string<peta, char16_t>
 {
-    static std::u16string short_name() {return std::u16string(1, u'P');}
-    static std::u16string long_name()  {return std::u16string(u"peta");}
-    static std::u16string symbol() {return short_name();}
-    static std::u16string prefix() {return long_name();}
+    static std::u16string symbol() {return std::u16string(1, u'P');}
+    static std::u16string prefix()  {return std::u16string(u"peta");}
 };
 
 template <>
 struct ratio_string<peta, char32_t>
 {
-    static std::u32string short_name() {return std::u32string(1, U'P');}
-    static std::u32string long_name()  {return std::u32string(U"peta");}
-    static std::u32string symbol() {return short_name();}
-    static std::u32string prefix() {return long_name();}
+    static std::u32string symbol() {return std::u32string(1, U'P');}
+    static std::u32string prefix()  {return std::u32string(U"peta");}
 };
 
 #endif
@@ -972,56 +768,42 @@ struct ratio_string<peta, char32_t>
 template <>
 struct ratio_string<peta, wchar_t>
 {
-    static std::wstring short_name() {return std::wstring(1, L'P');}
-    static std::wstring long_name()  {return std::wstring(L"peta");}
-    static std::wstring symbol() {return short_name();}
-    static std::wstring prefix() {return long_name();}
+    static std::wstring symbol() {return std::wstring(1, L'P');}
+    static std::wstring prefix()  {return std::wstring(L"peta");}
 };
 #endif
 #endif
 
 // exa
 
-template <>
-struct ratio_string_is_localizable<exa> : true_type {};
-
-template <>
-struct ratio_string_id<exa> : integral_constant<int,18> {};
-
 #ifdef BOOST_RATIO_HAS_STATIC_STRING
 template <typename CharT>
-struct ratio_string<exa, CharT> : 
-    ratio_detail::ratio_string_static<exa,CharT> 
+struct ratio_string<exa, CharT> :
+    ratio_detail::ratio_string_static<exa,CharT>
 {};
 
 #else
 template <>
 struct ratio_string<exa, char>
 {
-    static std::string short_name() {return std::string(1, 'E');}
-    static std::string long_name()  {return std::string("exa");}
-    static std::string symbol() {return short_name();}
-    static std::string prefix() {return long_name();}
+    static std::string symbol() {return std::string(1, 'E');}
+    static std::string prefix()  {return std::string("exa");}
 };
 
-#if BOOST_RATIO_HAS_UNICODE_SUPPORT
+#if defined BOOST_RATIO_HAS_UNICODE_SUPPORT
 
 template <>
 struct ratio_string<exa, char16_t>
 {
-    static std::u16string short_name() {return std::u16string(1, u'E');}
-    static std::u16string long_name()  {return std::u16string(u"exa");}
-    static std::u16string symbol() {return short_name();}
-    static std::u16string prefix() {return long_name();}
+    static std::u16string symbol() {return std::u16string(1, u'E');}
+    static std::u16string prefix()  {return std::u16string(u"exa");}
 };
 
 template <>
 struct ratio_string<exa, char32_t>
 {
-    static std::u32string short_name() {return std::u32string(1, U'E');}
-    static std::u32string long_name()  {return std::u32string(U"exa");}
-    static std::u32string symbol() {return short_name();}
-    static std::u32string prefix() {return long_name();}
+    static std::u32string symbol() {return std::u32string(1, U'E');}
+    static std::u32string prefix()  {return std::u32string(U"exa");}
 };
 
 #endif
@@ -1030,14 +812,13 @@ struct ratio_string<exa, char32_t>
 template <>
 struct ratio_string<exa, wchar_t>
 {
-    static std::wstring short_name() {return std::wstring(1, L'E');}
-    static std::wstring long_name()  {return std::wstring(L"exa");}
-    static std::wstring symbol() {return short_name();}
-    static std::wstring prefix() {return long_name();}
+    static std::wstring symbol() {return std::wstring(1, L'E');}
+    static std::wstring prefix()  {return std::wstring(L"exa");}
 };
 #endif
 #endif
 
 }
 
+#endif  // BOOST_RATIO_PROVIDES_DEPRECATED_FEATURES_SINCE_V2_0_0
 #endif  // BOOST_RATIO_RATIO_IO_HPP

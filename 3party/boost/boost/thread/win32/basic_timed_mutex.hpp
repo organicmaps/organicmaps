@@ -58,7 +58,7 @@ namespace boost
             }
 
 
-            bool try_lock()
+            bool try_lock() BOOST_NOEXCEPT
             {
                 return !win32::interlocked_bit_test_and_set(&active_count,lock_flag_bit);
             }

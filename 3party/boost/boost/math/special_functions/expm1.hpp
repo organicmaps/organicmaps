@@ -151,8 +151,8 @@ T expm1_imp(T x, const mpl::int_<53>&, const P& pol)
       return x;
 
    static const float Y = 0.10281276702880859e1f;
-   static const T n[] = { -0.28127670288085937e-1, 0.51278186299064534e0, -0.6310029069350198e-1, 0.11638457975729296e-1, -0.52143390687521003e-3, 0.21491399776965688e-4 };
-   static const T d[] = { 1, -0.45442309511354755e0, 0.90850389570911714e-1, -0.10088963629815502e-1, 0.63003407478692265e-3, -0.17976570003654402e-4 };
+   static const T n[] = { static_cast<T>(-0.28127670288085937e-1), static_cast<T>(0.51278186299064534e0), static_cast<T>(-0.6310029069350198e-1), static_cast<T>(0.11638457975729296e-1), static_cast<T>(-0.52143390687521003e-3), static_cast<T>(0.21491399776965688e-4) };
+   static const T d[] = { 1, static_cast<T>(-0.45442309511354755e0), static_cast<T>(0.90850389570911714e-1), static_cast<T>(-0.10088963629815502e-1), static_cast<T>(0.63003407478692265e-3), static_cast<T>(-0.17976570003654402e-4) };
 
    T result = x * Y + x * tools::evaluate_polynomial(n, x) / tools::evaluate_polynomial(d, x);
    return result;

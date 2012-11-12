@@ -16,10 +16,10 @@
 #if (defined(BOOST_NO_DECLTYPE)             \
   || defined(BOOST_NO_VARIADIC_TEMPLATES)   \
   || defined(BOOST_NO_RVALUE_REFERENCES))
-# include <boost/fusion/container/deque/detail/cpp03_deque_fwd.hpp>
+# include <boost/fusion/container/deque/detail/pp_deque_fwd.hpp>
 #else
-# if !defined(BOOST_FUSION_HAS_CPP11_DEQUE)
-#   define BOOST_FUSION_HAS_CPP11_DEQUE
+# if !defined(BOOST_FUSION_HAS_VARIADIC_DEQUE)
+#   define BOOST_FUSION_HAS_VARIADIC_DEQUE
 # endif
 
 ///////////////////////////////////////////////////////////////////////////////

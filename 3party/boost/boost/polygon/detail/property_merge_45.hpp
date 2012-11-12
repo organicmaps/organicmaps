@@ -1,6 +1,6 @@
 /*
   Copyright 2008 Intel Corporation
- 
+
   Use, modification and distribution are subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
@@ -30,7 +30,7 @@ namespace boost { namespace polygon{
       inline bool operator!=(const CountMerge& count) const { return !((*this) == count); }
       //inline CountMerge& operator=(int count) { counts[0] = counts[1] = count; return *this; }
       inline CountMerge& operator=(const CountMerge& count) { counts = count.counts; return *this; }
-      inline int& operator[](property_type index) { 
+      inline int& operator[](property_type index) {
         std::vector<std::pair<int, int> >::iterator itr = lower_bound(counts.begin(), counts.end(), std::make_pair(index, int(0)));
         if(itr != counts.end() && itr->first == index) {
             return itr->second;
@@ -72,7 +72,7 @@ namespace boost { namespace polygon{
     //output is a std::map<std::set<property_type>, polygon_45_set_data<Unit> >
     struct merge_45_output_functor {
       template <typename cT>
-      void operator()(cT& output, const CountMerge& count1, const CountMerge& count2, 
+      void operator()(cT& output, const CountMerge& count1, const CountMerge& count2,
                       const Point& pt, int rise, direction_1d end) {
         typedef typename cT::key_type keytype;
         keytype left;
@@ -98,20 +98,20 @@ namespace boost { namespace polygon{
       }
     };
 
-    typedef typename std::pair<Point, 
+    typedef typename std::pair<Point,
                                typename boolean_op_45<Unit>::template Scan45CountT<CountMerge> > Vertex45Compact;
     typedef std::vector<Vertex45Compact> MergeSetData;
-    
+
     struct lessVertex45Compact {
       bool operator()(const Vertex45Compact& l, const Vertex45Compact& r) {
         return l.first < r.first;
       }
     };
-    
+
     template <typename output_type>
     static void performMerge(output_type& result, MergeSetData& tsd) {
-      
-      gtlsort(tsd.begin(), tsd.end(), lessVertex45Compact());
+
+      polygon_sort(tsd.begin(), tsd.end(), lessVertex45Compact());
       typedef std::vector<std::pair<Point, typename boolean_op_45<Unit>::template Scan45CountT<CountMerge> > > TSD;
       TSD tsd_;
       tsd_.reserve(tsd.size());
@@ -149,7 +149,7 @@ namespace boost { namespace polygon{
         }
       }
     }
-    
+
   };
 
 

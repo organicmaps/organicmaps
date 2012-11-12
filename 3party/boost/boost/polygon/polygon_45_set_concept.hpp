@@ -1,6 +1,6 @@
 /*
   Copyright 2008 Intel Corporation
- 
+
   Use, modification and distribution are subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
@@ -28,14 +28,14 @@ namespace boost { namespace polygon{
   begin_45_set_data(const polygon_set_type& polygon_set) {
     return polygon_45_set_traits<polygon_set_type>::begin(polygon_set);
   }
-  
+
   template <typename polygon_set_type>
   typename enable_if< typename gtl_if<typename is_polygon_45_or_90_set_type<polygon_set_type>::type>::type,
                        typename polygon_45_set_traits<polygon_set_type>::iterator_type>::type
   end_45_set_data(const polygon_set_type& polygon_set) {
     return polygon_45_set_traits<polygon_set_type>::end(polygon_set);
   }
-  
+
   template <typename polygon_set_type>
   typename enable_if< typename gtl_if<typename is_polygon_45_set_type<polygon_set_type>::type>::type,
                        bool>::type
@@ -79,9 +79,9 @@ namespace boost { namespace polygon{
   template <typename polygon_set_type_1, typename polygon_set_type_2>
   typename enable_if< typename gtl_and_3<typename gtl_if<typename is_polygon_45_or_90_set_type<polygon_set_type_1>::type>::type,
                                           typename gtl_if<typename is_polygon_45_or_90_set_type<polygon_set_type_2>::type>::type,
-                                          typename gtl_if<typename is_either_polygon_45_set_type<polygon_set_type_1, 
+                                          typename gtl_if<typename is_either_polygon_45_set_type<polygon_set_type_1,
                                                                                                  polygon_set_type_2>::type>::type>::type,
-                       bool>::type 
+                       bool>::type
   equivalence(const polygon_set_type_1& lvalue,
               const polygon_set_type_2& rvalue) {
     polygon_45_set_data<typename polygon_45_set_traits<polygon_set_type_1>::coordinate_type> ps1;
@@ -111,14 +111,14 @@ namespace boost { namespace polygon{
     ps.clean();
     return ps.empty();
   }
- 
+
   //extents
   template <typename polygon_set_type, typename rectangle_type>
   typename enable_if<
     typename gtl_and< typename gtl_if<typename is_mutable_polygon_45_set_type<polygon_set_type>::type>::type,
                       typename is_mutable_rectangle_concept<typename geometry_concept<rectangle_type>::type>::type>::type,
     bool>::type
-  extents(rectangle_type& extents_rectangle, 
+  extents(rectangle_type& extents_rectangle,
           const polygon_set_type& polygon_set) {
     clean(polygon_set);
     polygon_45_set_data<typename polygon_45_set_traits<polygon_set_type>::coordinate_type> ps;
@@ -181,7 +181,7 @@ namespace boost { namespace polygon{
   template <typename polygon_set_type, typename coord_type>
   typename enable_if< typename is_mutable_polygon_45_set_type<polygon_set_type>::type,
                        polygon_set_type>::type &
-  resize(polygon_set_type& polygon_set, coord_type resizing, 
+  resize(polygon_set_type& polygon_set, coord_type resizing,
          RoundingOption rounding = CLOSEST, CornerOption corner = INTERSECTION) {
     typedef typename polygon_45_set_traits<polygon_set_type>::coordinate_type Unit;
     clean(polygon_set);
@@ -195,7 +195,7 @@ namespace boost { namespace polygon{
   template <typename polygon_set_type>
   typename enable_if< typename is_mutable_polygon_45_set_type<polygon_set_type>::type,
                        polygon_set_type>::type &
-  bloat(polygon_set_type& polygon_set, 
+  bloat(polygon_set_type& polygon_set,
         typename coordinate_traits<typename polygon_45_set_traits<polygon_set_type>::coordinate_type>::unsigned_area_type bloating) {
     return resize(polygon_set, static_cast<typename polygon_45_set_traits<polygon_set_type>::coordinate_type>(bloating));
   }
@@ -203,7 +203,7 @@ namespace boost { namespace polygon{
   template <typename polygon_set_type>
   typename enable_if< typename is_mutable_polygon_45_set_type<polygon_set_type>::type,
                        polygon_set_type>::type &
-  shrink(polygon_set_type& polygon_set, 
+  shrink(polygon_set_type& polygon_set,
         typename coordinate_traits<typename polygon_45_set_traits<polygon_set_type>::coordinate_type>::unsigned_area_type shrinking) {
     return resize(polygon_set, -(typename polygon_45_set_traits<polygon_set_type>::coordinate_type)shrinking);
   }
@@ -211,7 +211,7 @@ namespace boost { namespace polygon{
   template <typename polygon_set_type>
   typename enable_if< typename is_mutable_polygon_45_set_type<polygon_set_type>::type,
                        polygon_set_type>::type &
-  grow_and(polygon_set_type& polygon_set, 
+  grow_and(polygon_set_type& polygon_set,
         typename coordinate_traits<typename polygon_45_set_traits<polygon_set_type>::coordinate_type>::unsigned_area_type bloating) {
     typedef typename polygon_45_set_traits<polygon_set_type>::coordinate_type Unit;
     std::vector<polygon_45_data<Unit> > polys;
@@ -233,7 +233,7 @@ namespace boost { namespace polygon{
   template <typename polygon_set_type>
   typename enable_if< typename is_mutable_polygon_45_set_type<polygon_set_type>::type,
                        polygon_set_type>::type &
-  scale_up(polygon_set_type& polygon_set, 
+  scale_up(polygon_set_type& polygon_set,
            typename coordinate_traits<typename polygon_45_set_traits<polygon_set_type>::coordinate_type>::unsigned_area_type factor) {
     typedef typename polygon_45_set_traits<polygon_set_type>::coordinate_type Unit;
     clean(polygon_set);
@@ -247,7 +247,7 @@ namespace boost { namespace polygon{
   template <typename polygon_set_type>
   typename enable_if< typename is_mutable_polygon_45_set_type<polygon_set_type>::type,
                        polygon_set_type>::type &
-  scale_down(polygon_set_type& polygon_set, 
+  scale_down(polygon_set_type& polygon_set,
            typename coordinate_traits<typename polygon_45_set_traits<polygon_set_type>::coordinate_type>::unsigned_area_type factor) {
     typedef typename polygon_45_set_traits<polygon_set_type>::coordinate_type Unit;
     clean(polygon_set);
@@ -316,7 +316,7 @@ namespace boost { namespace polygon{
   template <typename polygon_set_type>
   typename enable_if< typename is_mutable_polygon_45_set_type<polygon_set_type>::type,
                        polygon_set_type>::type &
-  keep(polygon_set_type& polygon_set, 
+  keep(polygon_set_type& polygon_set,
        typename coordinate_traits<typename polygon_45_set_traits<polygon_set_type>::coordinate_type>::area_type min_area,
        typename coordinate_traits<typename polygon_45_set_traits<polygon_set_type>::coordinate_type>::area_type max_area,
        typename coordinate_traits<typename polygon_45_set_traits<polygon_set_type>::coordinate_type>::unsigned_area_type min_width,
@@ -408,13 +408,13 @@ namespace boost { namespace polygon{
       return polygon_set.end();
     }
 
-    static inline orientation_2d orient(const view_of<polygon_90_set_concept, T>& polygon_set) { 
+    static inline orientation_2d orient(const view_of<polygon_90_set_concept, T>& polygon_set) {
       return polygon_set.orient(); }
 
-    static inline bool clean(const view_of<polygon_90_set_concept, T>& polygon_set) { 
+    static inline bool clean(const view_of<polygon_90_set_concept, T>& polygon_set) {
       return polygon_set.clean(); }
 
-    static inline bool sorted(const view_of<polygon_90_set_concept, T>& polygon_set) { 
+    static inline bool sorted(const view_of<polygon_90_set_concept, T>& polygon_set) {
       return polygon_set.sorted(); }
 
   };

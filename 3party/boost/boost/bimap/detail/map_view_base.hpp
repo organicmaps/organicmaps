@@ -355,7 +355,7 @@ class non_mutable_data_unique_map_view_access
     }
 
     template< class CompatibleKey >
-    data_type_ & operator[](const CompatibleKey& k)
+    data_type_ & operator[](const CompatibleKey&)
     {
         BOOST_BIMAP_STATIC_ERROR( OPERATOR_BRACKET_IS_NOT_SUPPORTED, (Derived));
     }

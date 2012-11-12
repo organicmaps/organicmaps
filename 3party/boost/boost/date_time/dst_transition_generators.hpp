@@ -18,7 +18,7 @@ namespace date_time {
     {
     public:
       typedef typename date_type::year_type year_type;
-      virtual ~dst_day_calc_rule() {};
+      virtual ~dst_day_calc_rule() {}
       virtual date_type start_day(year_type y) const=0;
       virtual std::string start_rule_as_string() const=0;
       virtual date_type end_day(year_type y) const=0;

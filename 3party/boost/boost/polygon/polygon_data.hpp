@@ -1,6 +1,6 @@
 /*
   Copyright 2008 Intel Corporation
- 
+
   Use, modification and distribution are subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
@@ -32,7 +32,7 @@ public:
 
   // copy constructor (since we have dynamic memory)
   inline polygon_data(const polygon_data& that) : coords_(that.coords_) {}
-  
+
   // assignment operator (since we have dynamic memory do a deep copy)
   inline polygon_data& operator=(const polygon_data& that) {
     coords_ = that.coords_;
@@ -61,10 +61,9 @@ public:
   inline std::size_t size() const { return coords_.size(); }
 
 public:
-  std::vector<point_data<coordinate_type> > coords_; 
+  std::vector<point_data<coordinate_type> > coords_;
 };
 
 }
 }
 #endif
-

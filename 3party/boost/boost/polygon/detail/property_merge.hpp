@@ -1,6 +1,6 @@
 /*
   Copyright 2008 Intel Corporation
- 
+
   Use, modification and distribution are subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
@@ -70,8 +70,8 @@ public:
   //static public member functions
 
   template <typename iT, typename orientation_2d_type>
-  static inline void 
-  populate_property_merge_data(property_merge_data& pmd, iT input_begin, iT input_end, 
+  static inline void
+  populate_property_merge_data(property_merge_data& pmd, iT input_begin, iT input_end,
                                const property_type& property, orientation_2d_type orient) {
     for( ; input_begin != input_end; ++input_begin) {
       std::pair<property_merge_point<coordinate_type>, std::pair<property_type, int> > element;
@@ -112,7 +112,7 @@ public:
   inline void perform_merge(result_type& result, property_merge_data& data) {
     if(data.empty()) return;
     //sort
-    gtlsort(data.begin(), data.end(), less_vertex_data<vertex_property>());
+    polygon_sort(data.begin(), data.end(), less_vertex_data<vertex_property>());
     //scanline
     bool firstIteration = true;
     scanlinePosition = scanline.end();
@@ -175,7 +175,7 @@ private:
   //private static member functions
 
   static inline void mergeProperty(property_map& lvalue, std::pair<property_type, int>& rvalue) {
-    typename property_map::iterator itr = std::lower_bound(lvalue.begin(), lvalue.end(), rvalue, 
+    typename property_map::iterator itr = std::lower_bound(lvalue.begin(), lvalue.end(), rvalue,
                                                           lessPropertyCount<std::pair<property_type, int> >());
     if(itr == lvalue.end() ||
        (*itr).first != rvalue.first) {
@@ -286,7 +286,7 @@ private:
   inline void processVertex(edge_property_vector& output) {
     if(!countFromBelow.empty()) {
       //we are processing an interval of change in scanline state between
-      //previous vertex position and current vertex position where 
+      //previous vertex position and current vertex position where
       //count from below represents the change on the interval
       //foreach scanline element from previous to current we
       //write the interval on the scanline that is changing
@@ -333,7 +333,7 @@ private:
             if((*tmpitr).second == (*previousScanlinePosition).second)
               scanline.erase(previousScanlinePosition);
           }
-             
+
         } else if(currentY < currentInterval.high()){
           //elementY > currentInterval.high()
           //split the interval between previous and current scanline elements
@@ -354,7 +354,7 @@ private:
           std::pair<coordinate_type, property_map> elementScan;
           elementScan.first = currentInterval.high();
           scanlinePosition = scanline.insert(scanline.end(), elementScan);
-        } 
+        }
       }
       if(scanlinePosition == scanline.end() &&
          currentY < currentInterval.high()) {
@@ -423,7 +423,7 @@ private:
   template <typename T>
   inline int assertRedundant(T& t) {
     if(t.empty()) return 0;
-    int count = 0; 
+    int count = 0;
     typename T::iterator itr = t.begin();
     if((*itr).second.empty())
       ++count;
@@ -442,8 +442,8 @@ private:
   inline void performExtract(T& result, property_merge_data& data) {
     if(data.empty()) return;
     //sort
-    gtlsort(data.begin(), data.end(), less_vertex_data<vertex_property>());
-    
+    polygon_sort(data.begin(), data.end(), less_vertex_data<vertex_property>());
+
     //scanline
     bool firstIteration = true;
     scanlinePosition = scanline.end();
@@ -528,7 +528,7 @@ private:
         insertEdges(graph, edge.second.second, previousEdge.second.first);
       } else {
         if(!firstIteration){
-          //look up regions above previous edge 
+          //look up regions above previous edge
           propertySetAbove(previousEdge.first.high(), ps, scanline);
           insertEdges(graph, ps, previousEdge.second.first);
           insertEdges(graph, ps, previousEdge.second.second);

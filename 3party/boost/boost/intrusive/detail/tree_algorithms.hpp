@@ -485,15 +485,14 @@ class tree_algorithms
    //! <b>Complexity</b>: Logarithmic to the size of the subtree.
    //!
    //! <b>Throws</b>: Nothing.
-   static node_ptr minimum (const node_ptr & node)
+   static node_ptr minimum (node_ptr node)
    {
-      node_ptr p(node);
-      for(node_ptr p_left = NodeTraits::get_left(p)
+      for(node_ptr p_left = NodeTraits::get_left(node)
          ;p_left
-         ;p_left = NodeTraits::get_left(p)){
-         p = p_left;
+         ;p_left = NodeTraits::get_left(node)){
+         node = p_left;
       }
-      return p;
+      return node;
    }
 
    //! <b>Requires</b>: 'node' is a node of a tree but not the header.
@@ -503,15 +502,14 @@ class tree_algorithms
    //! <b>Complexity</b>: Logarithmic to the size of the subtree.
    //!
    //! <b>Throws</b>: Nothing.
-   static node_ptr maximum(const node_ptr & node)
+   static node_ptr maximum(node_ptr node)
    {
-      node_ptr p(node);
-      for(node_ptr p_right = NodeTraits::get_right(p)
+      for(node_ptr p_right = NodeTraits::get_right(node)
          ;p_right
-         ;p_right = NodeTraits::get_right(p)){
-         p = p_right;
+         ;p_right = NodeTraits::get_right(node)){
+         node = p_right;
       }
-      return p;
+      return node;
    }
 
    //! <b>Requires</b>: 'node' must not be part of any tree.
@@ -1171,14 +1169,13 @@ class tree_algorithms
    //! <b>Complexity</b>: Logarithmic to the number of nodes in the tree.
    //!
    //! <b>Throws</b>: Nothing.
-   static std::size_t depth(const const_node_ptr & node)
+   static std::size_t depth(const_node_ptr node)
    {
-      const_node_ptr p(node);
       std::size_t depth = 0;
       node_ptr p_parent;
-      while(p != NodeTraits::get_parent(p_parent = NodeTraits::get_parent(p))){
+      while(node != NodeTraits::get_parent(p_parent = NodeTraits::get_parent(node))){
          ++depth;
-         p = p_parent;
+         node = p_parent;
       }
       return depth;
    }
@@ -1295,12 +1292,10 @@ class tree_algorithms
    }
 
    template<class Disposer>
-   static void dispose_subtree(const node_ptr & node, Disposer disposer)
+   static void dispose_subtree(node_ptr x, Disposer disposer)
    {
-      node_ptr save;
-      node_ptr x(node);
       while (x){
-         save = NodeTraits::get_left(x);
+         node_ptr save(NodeTraits::get_left(x));
          if (save) {
             // Right rotation
             NodeTraits::set_left(x, NodeTraits::get_right(save));

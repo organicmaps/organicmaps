@@ -56,7 +56,7 @@ namespace boost { namespace phoenix
         
         template<typename Cond, typename Then, typename Context>
         result_type
-        operator()(Cond const & cond, Then const & then, Context & ctx) const
+        operator()(Cond const & cond, Then const & then, Context const & ctx) const
         {
             if(boost::phoenix::eval(cond, ctx))
                 boost::phoenix::eval(then, ctx);

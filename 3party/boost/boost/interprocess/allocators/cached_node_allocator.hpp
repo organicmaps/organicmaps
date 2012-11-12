@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -64,7 +64,7 @@ class cached_node_allocator_v1
 
    template<class T2>
    struct rebind
-   { 
+   {
       typedef cached_node_allocator_v1
          <T2, SegmentManager, NodesPerBlock>  other;
    };
@@ -122,7 +122,7 @@ class cached_node_allocator
 
    template<class T2>
    struct rebind
-   { 
+   {
       typedef cached_node_allocator<T2, SegmentManager, NodesPerBlock>  other;
    };
 
@@ -155,7 +155,7 @@ class cached_node_allocator
    //!cached_node_allocator
    template<class T2>
    struct rebind
-   { 
+   {
       typedef cached_node_allocator<T2, SegmentManager> other;
    };
 

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2008. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2008-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -73,7 +73,7 @@ namespace ipcdetail {
 template<class NodePool>
 struct get_or_create_node_pool_func
 {
-  
+
    //!This connects or constructs the unique instance of node_pool_t
    //!Can throw boost::interprocess::bad_alloc
    void operator()()
@@ -90,7 +90,7 @@ struct get_or_create_node_pool_func
    //!object parameters
    get_or_create_node_pool_func(typename NodePool::segment_manager *mngr)
       : mp_segment_manager(mngr){}
-  
+
    NodePool                            *mp_node_pool;
    typename NodePool::segment_manager  *mp_segment_manager;
 };
@@ -118,7 +118,7 @@ struct destroy_if_last_link_func
 
       //Last link, let's destroy the segment_manager
       mp_node_pool->get_segment_manager()->template destroy<NodePool>(boost::interprocess::unique_instance);
-   } 
+   }
 
    //!Constructor. Initializes function
    //!object parameters
@@ -173,7 +173,7 @@ class cache_impl
    ~cache_impl()
    {
       this->deallocate_all_cached_nodes();
-      ipcdetail::destroy_node_pool_if_last_link(ipcdetail::to_raw_pointer(mp_node_pool));  
+      ipcdetail::destroy_node_pool_if_last_link(ipcdetail::to_raw_pointer(mp_node_pool));
    }
 
    NodePool *get_node_pool() const
@@ -191,8 +191,7 @@ class cache_impl
       if(m_cached_nodes.empty()){
          m_cached_nodes = mp_node_pool->allocate_nodes(m_max_cached_nodes/2);
       }
-      void *ret = ipcdetail::to_raw_pointer(m_cached_nodes.front());
-      m_cached_nodes.pop_front();
+      void *ret = ipcdetail::to_raw_pointer(m_cached_nodes.pop_front());
       return ret;
    }
 
@@ -203,8 +202,7 @@ class cache_impl
       BOOST_TRY{
          //If don't have any cached node, we have to get a new list of free nodes from the pool
          while(!m_cached_nodes.empty() && count--){
-            void *ret = ipcdetail::to_raw_pointer(m_cached_nodes.front());
-            m_cached_nodes.pop_front();
+            void *ret = ipcdetail::to_raw_pointer(m_cached_nodes.pop_front());
             chain.push_back(ret);
             ++allocated;
          }
@@ -335,7 +333,7 @@ class array_allocation_impl
    //!pointed by p can hold. This size only works for memory allocated with
    //!allocate, allocation_command and allocate_many.
    size_type size(const pointer &p) const
-   { 
+   {
       return (size_type)this->derived()->get_segment_manager()->size(ipcdetail::to_raw_pointer(p))/sizeof(T);
    }
 
@@ -357,7 +355,10 @@ class array_allocation_impl
    //!with deallocate(...)
    multiallocation_chain allocate_many(size_type elem_size, size_type num_elements)
    {
-      return this->derived()->get_segment_manager()->allocate_many(sizeof(T)*elem_size, num_elements);
+      if(size_overflows<sizeof(T)>(elem_size)){
+         throw bad_alloc();
+      }
+      return this->derived()->get_segment_manager()->allocate_many(elem_size*sizeof(T), num_elements);
    }
 
    //!Allocates n_elements elements, each one of size elem_sizes[i]in a
@@ -457,14 +458,17 @@ class node_pool_allocation_impl
       (void)hint;
       typedef typename node_pool<0>::type node_pool_t;
       node_pool_t *pool = node_pool<0>::get(this->derived()->get_node_pool());
-      if(count > this->max_size())
+      if(size_overflows<sizeof(T)>(count)){
          throw bad_alloc();
-      else if(Version == 1 && count == 1)
+      }
+      else if(Version == 1 && count == 1){
          return pointer(static_cast<value_type*>
          (pool->allocate_node()));
-      else
+      }
+      else{
          return pointer(static_cast<value_type*>
-            (pool->get_segment_manager()->allocate(sizeof(T)*count)));
+            (pool->get_segment_manager()->allocate(count*sizeof(T))));
+      }
    }
 
    //!Deallocate allocated memory. Never throws
@@ -605,14 +609,15 @@ class cached_allocator_impl
    {
       (void)hint;
       void * ret;
-      if(count > this->max_size())
+      if(size_overflows<sizeof(T)>(count)){
          throw bad_alloc();
+      }
       else if(Version == 1 && count == 1){
          ret = m_cache.cached_allocation();
       }
       else{
-         ret = this->get_segment_manager()->allocate(sizeof(T)*count);
-      }  
+         ret = this->get_segment_manager()->allocate(count*sizeof(T));
+      }
       return pointer(static_cast<T*>(ret));
    }
 
@@ -699,7 +704,7 @@ bool operator!=(const cached_allocator_impl<T, N, V> &alloc1,
 
 
 //!Pooled shared memory allocator using adaptive pool. Includes
-//!a reference count but the class does not delete itself, this is 
+//!a reference count but the class does not delete itself, this is
 //!responsibility of user classes. Node size (NodeSize) and the number of
 //!nodes allocated per block (NodesPerBlock) are known at compile time
 template<class private_node_allocator_t>
@@ -736,7 +741,7 @@ class shared_pool_impl
       //-----------------------
       return private_node_allocator_t::allocate_node();
    }
-  
+
    //!Deallocates an array pointed by ptr. Never throws
    void deallocate_node(void *ptr)
    {

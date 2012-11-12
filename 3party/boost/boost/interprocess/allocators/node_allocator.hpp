@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -102,7 +102,7 @@ class node_allocator_base
    //!node_allocator_base
    template<class T2>
    struct rebind
-   { 
+   {
       typedef node_allocator_base<Version, T2, SegmentManager, NodesPerBlock>       other;
    };
 
@@ -128,8 +128,8 @@ class node_allocator_base
    //!count of the associated node pool. Never throws
    node_allocator_base(const node_allocator_base &other)
       : mp_node_pool(other.get_node_pool())
-   { 
-      node_pool<0>::get(ipcdetail::to_raw_pointer(mp_node_pool))->inc_ref_count();  
+   {
+      node_pool<0>::get(ipcdetail::to_raw_pointer(mp_node_pool))->inc_ref_count();
    }
 
    //!Copy constructor from related node_allocator_base. If not present, constructs
@@ -206,7 +206,7 @@ class node_allocator_v1
 
    template<class T2>
    struct rebind
-   { 
+   {
       typedef node_allocator_v1<T2, SegmentManager, NodesPerBlock>  other;
    };
 
@@ -256,7 +256,7 @@ class node_allocator
 
    template<class T2>
    struct rebind
-   { 
+   {
       typedef node_allocator<T2, SegmentManager, NodesPerBlock>  other;
    };
 
@@ -288,7 +288,7 @@ class node_allocator
    //!node_allocator
    template<class T2>
    struct rebind
-   { 
+   {
       typedef node_allocator<T2, SegmentManager, NodesPerBlock> other;
    };
 

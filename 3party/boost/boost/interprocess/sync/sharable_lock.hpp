@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -189,7 +189,7 @@ class sharable_lock
    //!   before the assignment. In this case, this will own the mutex after the assignment
    //!   (and upgr will not), but the mutex's lock count will be decremented by one.
    sharable_lock &operator=(BOOST_RV_REF(sharable_lock<mutex_type>) upgr)
-   { 
+   {
       if(this->owns())
          this->unlock();
       m_locked = upgr.owns();
@@ -203,7 +203,7 @@ class sharable_lock
    //!Notes: The sharable_lock changes from a state of not owning the
    //!   mutex, to owning the mutex, blocking if necessary.
    void lock()
-   { 
+   {
       if(!mp_mutex || m_locked)
          throw lock_exception();
       mp_mutex->lock_sharable();
@@ -219,7 +219,7 @@ class sharable_lock
    //!   mutex_type does not support try_lock_sharable(), this function will
    //!   fail at compile time if instantiated, but otherwise have no effect.
    bool try_lock()
-   { 
+   {
       if(!mp_mutex || m_locked)
          throw lock_exception();
       m_locked = mp_mutex->try_lock_sharable();
@@ -236,7 +236,7 @@ class sharable_lock
    //!   timed_lock_sharable(), this function will fail at compile time if
    //!   instantiated, but otherwise have no effect.
    bool timed_lock(const boost::posix_time::ptime& abs_time)
-   { 
+   {
       if(!mp_mutex || m_locked)
          throw lock_exception();
       m_locked = mp_mutex->timed_lock_sharable(abs_time);

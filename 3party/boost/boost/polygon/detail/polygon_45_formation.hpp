@@ -1,6 +1,6 @@
 /*
     Copyright 2008 Intel Corporation
- 
+
     Use, modification and distribution are subject to the Boost Software License,
     Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
     http://www.boost.org/LICENSE_1_0.txt).
@@ -30,7 +30,7 @@ namespace boost { namespace polygon{
     typedef std::pair<Point, Scan45Count> Scan45Vertex;
     typedef typename boolean_op_45<Unit>::template
     Scan45<Count2, typename boolean_op_45<Unit>::template boolean_op_45_output_functor<0> > Scan45;
-    
+
     class PolyLine45 {
     public:
       typedef typename std::list<Point>::const_iterator iterator;
@@ -52,7 +52,7 @@ namespace boost { namespace polygon{
 
       // copy constructor (since we have dynamic memory)
       inline PolyLine45(const PolyLine45& that) : points(that.points) {}
-  
+
       // assignment operator (since we have dynamic memory do a deep copy)
       inline PolyLine45& operator=(const PolyLine45& that) {
         points = that.points;
@@ -68,31 +68,31 @@ namespace boost { namespace polygon{
       inline std::size_t size() const { return points.size(); }
 
       //public data member
-      std::list<Point> points; 
+      std::list<Point> points;
     };
 
     class ActiveTail45 {
     private:
       //data
-      PolyLine45* tailp_; 
+      PolyLine45* tailp_;
       ActiveTail45 *otherTailp_;
       std::list<ActiveTail45*> holesList_;
       bool head_;
     public:
-   
+
       /**
        * @brief iterator over coordinates of the figure
        */
       typedef typename PolyLine45::iterator iterator;
-   
+
       /**
        * @brief iterator over holes contained within the figure
        */
       typedef typename std::list<ActiveTail45*>::const_iterator iteratorHoles;
-   
+
       //default constructor
       inline ActiveTail45() : tailp_(0), otherTailp_(0), holesList_(), head_(0) {}
-   
+
       //constructor
       inline ActiveTail45(const Vertex45& vertex, ActiveTail45* otherTailp = 0) :
         tailp_(0), otherTailp_(0), holesList_(), head_(0) {
@@ -110,7 +110,7 @@ namespace boost { namespace polygon{
         tailp_->points.push_back(point);
         head_ = head;
         otherTailp_ = otherTailp;
-      
+
       }
       inline ActiveTail45(ActiveTail45* otherTailp) :
         tailp_(0), otherTailp_(0), holesList_(), head_(0)  {
@@ -155,7 +155,7 @@ namespace boost { namespace polygon{
        * @brief get the pointer to the activetail at the other end of the chain
        */
       inline ActiveTail45* getOtherActiveTail() const { return otherTailp_; }
-   
+
       /**
        * @brief test if another active tail is the other end of the chain
        */
@@ -298,7 +298,7 @@ namespace boost { namespace polygon{
        */
 
       template <class cT>
-      static inline ActiveTail45* joinChains(Point point, ActiveTail45* at1, ActiveTail45* at2, bool solid, 
+      static inline ActiveTail45* joinChains(Point point, ActiveTail45* at1, ActiveTail45* at2, bool solid,
                                              cT& output) {
         if(at1->otherTailp_ == at2) {
           //if(at2->otherTailp_ != at1) std::cout << "half closed error\n";
@@ -370,7 +370,7 @@ namespace boost { namespace polygon{
 //         std::cout << this << " " << tailp_ << " " << otherTailp_ << " " << holesList_.size() << " " << head_ << std::endl;
 //       }
 
-      static inline std::pair<ActiveTail45*, ActiveTail45*> createActiveTail45sAsPair(Point point, bool solid, 
+      static inline std::pair<ActiveTail45*, ActiveTail45*> createActiveTail45sAsPair(Point point, bool solid,
                                                                                       ActiveTail45* phole, bool fractureHoles) {
         ActiveTail45* at1 = 0;
         ActiveTail45* at2 = 0;
@@ -386,7 +386,7 @@ namespace boost { namespace polygon{
           at2 = new ActiveTail45(at1);
           at1->otherTailp_ = at2;
           at2->head_ = !solid;
-          if(phole) 
+          if(phole)
             at2->addHole(phole); //assert fractureHoles == false
         }
         return std::pair<ActiveTail45*, ActiveTail45*>(at1, at2);
@@ -398,64 +398,64 @@ namespace boost { namespace polygon{
     class Vertex45CountT {
     public:
       typedef ct count_type;
-      inline Vertex45CountT() 
-#ifndef BOOST_POLYGON_MSVC  
-        : counts() 
+      inline Vertex45CountT()
+#ifndef BOOST_POLYGON_MSVC
+        : counts()
 #endif
       { counts[0] = counts[1] = counts[2] = counts[3] = 0; }
       //inline Vertex45CountT(ct count) { counts[0] = counts[1] = counts[2] = counts[3] = count; }
-      inline Vertex45CountT(const ct& count1, const ct& count2, const ct& count3, 
+      inline Vertex45CountT(const ct& count1, const ct& count2, const ct& count3,
                            const ct& count4)
-#ifndef BOOST_POLYGON_MSVC  
-        : counts() 
-#endif                           
-      { 
-        counts[0] = count1; 
-        counts[1] = count2; 
+#ifndef BOOST_POLYGON_MSVC
+        : counts()
+#endif
+      {
+        counts[0] = count1;
+        counts[1] = count2;
         counts[2] = count3;
-        counts[3] = count4; 
+        counts[3] = count4;
       }
       inline Vertex45CountT(const Vertex45& vertex)
-#ifndef BOOST_POLYGON_MSVC  
-        : counts() 
-#endif                           
-      { 
+#ifndef BOOST_POLYGON_MSVC
+        : counts()
+#endif
+      {
         counts[0] = counts[1] = counts[2] = counts[3] = 0;
         (*this) += vertex;
       }
       inline Vertex45CountT(const Vertex45CountT& count)
-#ifndef BOOST_POLYGON_MSVC  
-        : counts() 
-#endif                           
-      { 
+#ifndef BOOST_POLYGON_MSVC
+        : counts()
+#endif
+      {
         (*this) = count;
       }
-      inline bool operator==(const Vertex45CountT& count) const { 
+      inline bool operator==(const Vertex45CountT& count) const {
         for(unsigned int i = 0; i < 4; ++i) {
-          if(counts[i] != count.counts[i]) return false; 
+          if(counts[i] != count.counts[i]) return false;
         }
         return true;
       }
       inline bool operator!=(const Vertex45CountT& count) const { return !((*this) == count); }
-      inline Vertex45CountT& operator=(ct count) { 
+      inline Vertex45CountT& operator=(ct count) {
         counts[0] = counts[1] = counts[2] = counts[3] = count; return *this; }
       inline Vertex45CountT& operator=(const Vertex45CountT& count) {
         for(unsigned int i = 0; i < 4; ++i) {
-          counts[i] = count.counts[i]; 
+          counts[i] = count.counts[i];
         }
-        return *this; 
+        return *this;
       }
       inline ct& operator[](int index) { return counts[index]; }
       inline ct operator[](int index) const {return counts[index]; }
       inline Vertex45CountT& operator+=(const Vertex45CountT& count){
         for(unsigned int i = 0; i < 4; ++i) {
-          counts[i] += count.counts[i]; 
+          counts[i] += count.counts[i];
         }
         return *this;
       }
       inline Vertex45CountT& operator-=(const Vertex45CountT& count){
         for(unsigned int i = 0; i < 4; ++i) {
-          counts[i] -= count.counts[i]; 
+          counts[i] -= count.counts[i];
         }
         return *this;
       }
@@ -501,7 +501,7 @@ namespace boost { namespace polygon{
         count[vertex.rise+1] = vertex.count;
       }
       inline Vertex45CompactT(const Vertex45CompactT& vertex) : pt(vertex.pt), count(vertex.count) {}
-      inline Vertex45CompactT& operator=(const Vertex45CompactT& vertex){ 
+      inline Vertex45CompactT& operator=(const Vertex45CompactT& vertex){
         pt = vertex.pt; count = vertex.count; return *this; }
       inline bool operator==(const Vertex45CompactT& vertex) const {
         return pt == vertex.pt && count == vertex.count; }
@@ -536,12 +536,12 @@ namespace boost { namespace polygon{
       typedef std::map<Vertex45, ActiveTail45*, lessVertex45> Polygon45FormationData;
       typedef typename Polygon45FormationData::iterator iterator;
       typedef typename Polygon45FormationData::const_iterator const_iterator;
-   
+
       //data
       Polygon45FormationData scanData_;
       Unit x_;
       int justBefore_;
-      int fractureHoles_; 
+      int fractureHoles_;
     public:
       inline Polygon45Formation() : scanData_(), x_((std::numeric_limits<Unit>::min)()), justBefore_(false), fractureHoles_(0) {
         lessVertex45 lessElm(&x_, &justBefore_);
@@ -564,7 +564,7 @@ namespace boost { namespace polygon{
         }
         return *this;
       }
-   
+
       //cT is an output container of Polygon45 or Polygon45WithHoles
       //iT is an iterator over Vertex45 elements
       //inputBegin - inputEnd is a range of sorted iT that represents
@@ -585,8 +585,8 @@ namespace boost { namespace polygon{
     private:
       //functions
       template <class cT, class cT2>
-      inline std::pair<int, ActiveTail45*> processPoint_(cT& output, cT2& elements, Point point, 
-                                                         Vertex45Count& counts, ActiveTail45** tails, Vertex45Count& incoming) { 
+      inline std::pair<int, ActiveTail45*> processPoint_(cT& output, cT2& elements, Point point,
+                                                         Vertex45Count& counts, ActiveTail45** tails, Vertex45Count& incoming) {
         //std::cout << point << std::endl;
         //std::cout << counts[0] << " ";
         //std::cout << counts[1] << " ";
@@ -609,7 +609,7 @@ namespace boost { namespace polygon{
                 if(counts[j] == 1) {
                   //std::cout << "case1: " << i << " " << j << std::endl;
                   //if a figure is closed it will be written out by this function to output
-                  ActiveTail45::joinChains(point, tails[i], tails[j], true, output); 
+                  ActiveTail45::joinChains(point, tails[i], tails[j], true, output);
                   counts[i] = 0;
                   counts[j] = 0;
                   tails[i] = 0;
@@ -632,7 +632,7 @@ namespace boost { namespace polygon{
                 if(incoming[j] == -1) {
                   //std::cout << "case2: " << i << " " << j << std::endl;
                   //std::cout << "creating active tail pair\n";
-                  std::pair<ActiveTail45*, ActiveTail45*> tailPair = 
+                  std::pair<ActiveTail45*, ActiveTail45*> tailPair =
                     ActiveTail45::createActiveTail45sAsPair(point, true, 0, fractureHoles_ != 0);
                   //tailPair.first->print();
                   //tailPair.second->print();
@@ -740,7 +740,7 @@ namespace boost { namespace polygon{
             }
             break;
           }
-        } 
+        }
         //find beginning of a hole
         for(int i = 0; i < 3; ++i) {
           if(incoming[i] != 0) {
@@ -750,7 +750,7 @@ namespace boost { namespace polygon{
                 //we are beginning a empty space
                 ActiveTail45* holep = 0;
                 if(counts[3] == 0) holep = tails[3];
-                std::pair<ActiveTail45*, ActiveTail45*> tailPair = 
+                std::pair<ActiveTail45*, ActiveTail45*> tailPair =
                   ActiveTail45::createActiveTail45sAsPair(point, false, holep, fractureHoles_ != 0);
                 if(j == 3) {
                   returnValue = tailPair.first;
@@ -839,7 +839,7 @@ namespace boost { namespace polygon{
             //we got a hole out of the point we just processed
             //iter is still at the next y element above the current y value in the tree
             //std::cout << "checking whether ot handle hole\n";
-            if(currentIter == inputEnd || 
+            if(currentIter == inputEnd ||
                currentIter->pt.x() != x_ ||
                currentIter->pt.y() >= iter->first.evalAtX(x_)) {
               //std::cout << "handle hole here\n";
@@ -882,12 +882,12 @@ namespace boost { namespace polygon{
         //std::cout << "end processEvent\n";
         return currentIter;
       }
-   
+
       inline iterator lookUp_(Unit y){
         //if just before then we need to look from 1 not -1
         return scanData_.lower_bound(Vertex45(Point(x_, y), -1+2*justBefore_, 0));
       }
-   
+
     };
 
     template <typename stream_type>
@@ -904,7 +904,7 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(10, 0), 2, -1));
       data.push_back(Vertex45(Point(10, 10), 2, 1));
       data.push_back(Vertex45(Point(10, 10), 0, 1));
-      gtlsort(data.begin(), data.end());
+      polygon_sort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -928,14 +928,14 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(10, 10), 2, -1));
       data.push_back(Vertex45(Point(10, 20), 2, 1));
       data.push_back(Vertex45(Point(10, 20), 1, 1));
-      gtlsort(data.begin(), data.end());
+      polygon_sort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
         stdcout << polys[i] << std::endl;
       }
       stdcout << "done testing polygon formation\n";
-      return true; 
+      return true;
     }
     //polygon45set class
 
@@ -952,15 +952,15 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(10, 10), 1, 1));
       data.push_back(Vertex45(Point(10, 10), 0, -1));
       data.push_back(Vertex45(Point(20, 10), 1, -1));
-      data.push_back(Vertex45(Point(20, 10), 0, 1)); 
-      gtlsort(data.begin(), data.end());
+      data.push_back(Vertex45(Point(20, 10), 0, 1));
+      polygon_sort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
         stdcout << polys[i] << std::endl;
       }
       stdcout << "done testing polygon formation\n";
-      return true; 
+      return true;
     }
     //polygon45set class
 
@@ -1018,14 +1018,14 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(12, 8), 1, -1));
       // result == 12 8 -1 1
       data.push_back(Vertex45(Point(12, 8), -1, 1));
-      gtlsort(data.begin(), data.end());
+      polygon_sort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
         stdcout << polys[i] << std::endl;
       }
       stdcout << "done testing polygon formation\n";
-      return true; 
+      return true;
     }
 
     template <typename stream_type>
@@ -1050,15 +1050,15 @@ namespace boost { namespace polygon{
       sortScan45Vector(vertices);
       stdcout << "scanning\n";
       scan45.scan(result, vertices.begin(), vertices.end());
-   
-      gtlsort(result.begin(), result.end());
+
+      polygon_sort(result.begin(), result.end());
       pf.scan(polys, result.begin(), result.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
         stdcout << polys[i] << std::endl;
       }
       stdcout << "done testing polygon formation\n";
-      return true; 
+      return true;
     }
 
     template <typename stream_type>
@@ -1123,14 +1123,14 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(8, 6), -1, -1));
       data.push_back(Vertex45(Point(8, 6), 1, 1));
 
-      gtlsort(data.begin(), data.end());
+      polygon_sort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
         stdcout << polys[i] << std::endl;
       }
       stdcout << "done testing polygon formation\n";
-      return true; 
+      return true;
     }
 
     template <typename stream_type>
@@ -1195,14 +1195,14 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(10, 8), -1, -1));
       data.push_back(Vertex45(Point(10, 8), 1, 1));
 
-      gtlsort(data.begin(), data.end());
+      polygon_sort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
         stdcout << polys[i] << std::endl;
       }
       stdcout << "done testing polygon formation\n";
-      return true; 
+      return true;
     }
 
     template <typename stream_type>
@@ -1211,7 +1211,7 @@ namespace boost { namespace polygon{
       Polygon45Formation pf(false);
       std::vector<Polygon45WithHoles> polys;
       std::vector<Vertex45> data;
-   
+
       data.push_back(Vertex45(Point(0, 0), 0, 1));
       data.push_back(Vertex45(Point(0, 0), 2, 1));
       data.push_back(Vertex45(Point(0, 100), 2, -1));
@@ -1239,14 +1239,14 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(10, 22), 2, -1));
       data.push_back(Vertex45(Point(10, 22), 0, -1));
 
-      gtlsort(data.begin(), data.end());
+      polygon_sort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
         stdcout << polys[i] << std::endl;
       }
       stdcout << "done testing polygon formation\n";
-      return true; 
+      return true;
     }
 
 
@@ -1256,7 +1256,7 @@ namespace boost { namespace polygon{
       typedef std::map<Vertex45, ActiveTail45*, lessVertex45> Polygon45FormationData;
       typedef typename Polygon45FormationData::iterator iterator;
       typedef typename Polygon45FormationData::const_iterator const_iterator;
-   
+
       //data
       Polygon45FormationData scanData_;
       Unit x_;
@@ -1266,7 +1266,7 @@ namespace boost { namespace polygon{
         lessVertex45 lessElm(&x_, &justBefore_);
         scanData_ = Polygon45FormationData(lessElm);
       }
-      inline Polygon45Tiling(const Polygon45Tiling& that) : 
+      inline Polygon45Tiling(const Polygon45Tiling& that) :
         scanData_(), x_((std::numeric_limits<Unit>::min)()), justBefore_(false) { (*this) = that; }
       inline Polygon45Tiling& operator=(const Polygon45Tiling& that) {
         x_ = that.x_;
@@ -1278,7 +1278,7 @@ namespace boost { namespace polygon{
         }
         return *this;
       }
-   
+
       //cT is an output container of Polygon45 or Polygon45WithHoles
       //iT is an iterator over Vertex45 elements
       //inputBegin - inputEnd is a range of sorted iT that represents
@@ -1298,13 +1298,13 @@ namespace boost { namespace polygon{
 
     private:
       //functions
-  
-      inline void getVerticalPair_(std::pair<ActiveTail45*, ActiveTail45*>& verticalPair, 
+
+      inline void getVerticalPair_(std::pair<ActiveTail45*, ActiveTail45*>& verticalPair,
                                    iterator previter) {
         ActiveTail45* iterTail = (*previter).second;
         Point prevPoint(x_, previter->first.evalAtX(x_));
         iterTail->pushPoint(prevPoint);
-        std::pair<ActiveTail45*, ActiveTail45*> tailPair = 
+        std::pair<ActiveTail45*, ActiveTail45*> tailPair =
           ActiveTail45::createActiveTail45sAsPair(prevPoint, true, 0, false);
         verticalPair.first = iterTail;
         verticalPair.second = tailPair.first;
@@ -1312,10 +1312,10 @@ namespace boost { namespace polygon{
       }
 
       template <class cT, class cT2>
-      inline std::pair<int, ActiveTail45*> processPoint_(cT& output, cT2& elements, 
-                                                         std::pair<ActiveTail45*, ActiveTail45*>& verticalPair, 
-                                                         iterator previter, Point point, 
-                                                         Vertex45Count& counts, ActiveTail45** tails, Vertex45Count& incoming) { 
+      inline std::pair<int, ActiveTail45*> processPoint_(cT& output, cT2& elements,
+                                                         std::pair<ActiveTail45*, ActiveTail45*>& verticalPair,
+                                                         iterator previter, Point point,
+                                                         Vertex45Count& counts, ActiveTail45** tails, Vertex45Count& incoming) {
         //std::cout << point << std::endl;
         //std::cout << counts[0] << " ";
         //std::cout << counts[1] << " ";
@@ -1341,7 +1341,7 @@ namespace boost { namespace polygon{
                 if(counts[j] == 1) {
                   //std::cout << "case1: " << i << " " << j << std::endl;
                   //if a figure is closed it will be written out by this function to output
-                  ActiveTail45::joinChains(point, tails[i], tails[j], true, output); 
+                  ActiveTail45::joinChains(point, tails[i], tails[j], true, output);
                   counts[i] = 0;
                   counts[j] = 0;
                   tails[i] = 0;
@@ -1364,7 +1364,7 @@ namespace boost { namespace polygon{
                 if(incoming[j] == -1) {
                   //std::cout << "case2: " << i << " " << j << std::endl;
                   //std::cout << "creating active tail pair\n";
-                  std::pair<ActiveTail45*, ActiveTail45*> tailPair = 
+                  std::pair<ActiveTail45*, ActiveTail45*> tailPair =
                     ActiveTail45::createActiveTail45sAsPair(point, true, 0, false);
                   //tailPair.first->print();
                   //tailPair.second->print();
@@ -1412,10 +1412,10 @@ namespace boost { namespace polygon{
                       returnCount = -1;
                     } else {
                       verticalPairOut.first = tails[i];
-                      std::pair<ActiveTail45*, ActiveTail45*> tailPair = 
+                      std::pair<ActiveTail45*, ActiveTail45*> tailPair =
                         ActiveTail45::createActiveTail45sAsPair(point, true, 0, false);
                       verticalPairOut.second = tailPair.first;
-                      elements.push_back(std::pair<Vertex45, ActiveTail45*>(Vertex45(point, j -1, incoming[j]), 
+                      elements.push_back(std::pair<Vertex45, ActiveTail45*>(Vertex45(point, j -1, incoming[j]),
                                                                             tailPair.second));
                     }
                     tails[i] = 0;
@@ -1452,16 +1452,16 @@ namespace boost { namespace polygon{
                       if(verticalPair.first == 0) {
                         getVerticalPair_(verticalPair, previter);
                       }
-                      ActiveTail45::joinChains(point, tails[i], verticalPair.first, true, output); 
+                      ActiveTail45::joinChains(point, tails[i], verticalPair.first, true, output);
                       returnValue = verticalPair.second;
                       returnCount = 1;
                     } else {
                       if(verticalPair.first == 0) {
                         getVerticalPair_(verticalPair, previter);
                       }
-                      ActiveTail45::joinChains(point, tails[i], verticalPair.first, true, output); 
+                      ActiveTail45::joinChains(point, tails[i], verticalPair.first, true, output);
                       verticalPair.second->pushPoint(point);
-                      elements.push_back(std::pair<Vertex45, ActiveTail45*>(Vertex45(point, j -1, incoming[j]), 
+                      elements.push_back(std::pair<Vertex45, ActiveTail45*>(Vertex45(point, j -1, incoming[j]),
                                                                             verticalPair.second));
                     }
                     tails[i] = 0;
@@ -1493,7 +1493,7 @@ namespace boost { namespace polygon{
                   if(verticalPair.first == 0) {
                     getVerticalPair_(verticalPair, previter);
                   }
-                  ActiveTail45::joinChains(point, tails[j], verticalPair.first, true, output); 
+                  ActiveTail45::joinChains(point, tails[j], verticalPair.first, true, output);
                   verticalPairOut.second = verticalPair.second;
                 }
                 tails[i] = 0;
@@ -1505,7 +1505,7 @@ namespace boost { namespace polygon{
             }
             break;
           }
-        } 
+        }
         //find beginning of a hole
         for(int i = 0; i < 3; ++i) {
           if(incoming[i] != 0) {
@@ -1521,7 +1521,7 @@ namespace boost { namespace polygon{
                   returnValue = verticalPair.first;
                   returnCount = -1;
                 } else {
-                  std::pair<ActiveTail45*, ActiveTail45*> tailPair = 
+                  std::pair<ActiveTail45*, ActiveTail45*> tailPair =
                     ActiveTail45::createActiveTail45sAsPair(point, true, 0, false);
                   //std::cout << "new element " << j-1 << " " << incoming[j] << std::endl;
                   elements.push_back(std::pair<Vertex45, ActiveTail45*>(Vertex45(point, j -1, incoming[j]), tailPair.second));
@@ -1646,12 +1646,12 @@ namespace boost { namespace polygon{
         //std::cout << "end processEvent\n";
         return currentIter;
       }
-   
+
       inline iterator lookUp_(Unit y){
         //if just before then we need to look from 1 not -1
         return scanData_.lower_bound(Vertex45(Point(x_, y), -1+2*justBefore_, 0));
       }
-   
+
     };
 
     template <typename stream_type>
@@ -1668,7 +1668,7 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(10, 0), 2, -1));
       data.push_back(Vertex45(Point(10, 10), 2, 1));
       data.push_back(Vertex45(Point(10, 10), 0, 1));
-      gtlsort(data.begin(), data.end());
+      polygon_sort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -1692,14 +1692,14 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(10, 10), 2, -1));
       data.push_back(Vertex45(Point(10, 20), 2, 1));
       data.push_back(Vertex45(Point(10, 20), 1, 1));
-      gtlsort(data.begin(), data.end());
+      polygon_sort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
         stdcout << polys[i] << std::endl;
       }
       stdcout << "done testing polygon tiling\n";
-      return true; 
+      return true;
     }
 
     template <typename stream_type>
@@ -1715,15 +1715,15 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(10, 10), 1, 1));
       data.push_back(Vertex45(Point(10, 10), 0, -1));
       data.push_back(Vertex45(Point(20, 10), 1, -1));
-      data.push_back(Vertex45(Point(20, 10), 0, 1)); 
-      gtlsort(data.begin(), data.end());
+      data.push_back(Vertex45(Point(20, 10), 0, 1));
+      polygon_sort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
         stdcout << polys[i] << std::endl;
       }
       stdcout << "done testing polygon tiling\n";
-      return true; 
+      return true;
     }
 
     template <typename stream_type>
@@ -1742,14 +1742,14 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(10, 10), 0, 1));
       data.push_back(Vertex45(Point(20, 20), 1, 1));
       data.push_back(Vertex45(Point(20, 20), 2, 1));
-      gtlsort(data.begin(), data.end());
+      polygon_sort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
         stdcout << polys[i] << std::endl;
       }
       stdcout << "done testing polygon tiling\n";
-      return true; 
+      return true;
     }
 
     template <typename stream_type>
@@ -1768,14 +1768,14 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(20, 10), 0, 1));
       data.push_back(Vertex45(Point(20, -10), -1, -1));
       data.push_back(Vertex45(Point(20, -10), 2, -1));
-      gtlsort(data.begin(), data.end());
+      polygon_sort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
         stdcout << polys[i] << std::endl;
       }
       stdcout << "done testing polygon tiling\n";
-      return true; 
+      return true;
     }
 
     template <typename stream_type>
@@ -1800,8 +1800,8 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(2, 2), 1, -1));
       data.push_back(Vertex45(Point(2, 2), 0, 1));
       data.push_back(Vertex45(Point(3, 2), 1, 1));
-      data.push_back(Vertex45(Point(3, 2), 0, -1)); 
-      gtlsort(data.begin(), data.end());
+      data.push_back(Vertex45(Point(3, 2), 0, -1));
+      polygon_sort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -1835,7 +1835,7 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(2, 2), 2, -1));
       data.push_back(Vertex45(Point(2, 2), 0, -1));
 
-      gtlsort(data.begin(), data.end());
+      polygon_sort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -1899,14 +1899,14 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(12, 8), 1, -1));
       // result == 12 8 -1 1
       data.push_back(Vertex45(Point(12, 8), -1, 1));
-      gtlsort(data.begin(), data.end());
+      polygon_sort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
         stdcout << polys[i] << std::endl;
       }
       stdcout << "done testing polygon tiling\n";
-      return true; 
+      return true;
     }
 
     template <typename stream_type>
@@ -1932,15 +1932,15 @@ namespace boost { namespace polygon{
       sortScan45Vector(vertices);
       stdcout << "scanning\n";
       scan45.scan(result, vertices.begin(), vertices.end());
-   
-      gtlsort(result.begin(), result.end());
+
+      polygon_sort(result.begin(), result.end());
       pf.scan(polys, result.begin(), result.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
         stdcout << polys[i] << std::endl;
       }
       stdcout << "done testing polygon tiling\n";
-      return true; 
+      return true;
     }
 
     template <typename stream_type>
@@ -2005,14 +2005,14 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(8, 6), -1, -1));
       data.push_back(Vertex45(Point(8, 6), 1, 1));
 
-      gtlsort(data.begin(), data.end());
+      polygon_sort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
         stdcout << polys[i] << std::endl;
       }
       stdcout << "done testing polygon tiling\n";
-      return true; 
+      return true;
     }
 
     template <typename stream_type>
@@ -2077,14 +2077,14 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(10, 8), -1, -1));
       data.push_back(Vertex45(Point(10, 8), 1, 1));
 
-      gtlsort(data.begin(), data.end());
+      polygon_sort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
         stdcout << polys[i] << std::endl;
       }
       stdcout << "done testing polygon tiling\n";
-      return true; 
+      return true;
     }
 
     template <typename stream_type>
@@ -2093,7 +2093,7 @@ namespace boost { namespace polygon{
       Polygon45Tiling pf;
       std::vector<Polygon45WithHoles> polys;
       std::vector<Vertex45> data;
-   
+
       data.push_back(Vertex45(Point(0, 0), 0, 1));
       data.push_back(Vertex45(Point(0, 0), 2, 1));
       data.push_back(Vertex45(Point(0, 100), 2, -1));
@@ -2121,14 +2121,14 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(10, 22), 2, -1));
       data.push_back(Vertex45(Point(10, 22), 0, -1));
 
-      gtlsort(data.begin(), data.end());
+      polygon_sort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
         stdcout << polys[i] << std::endl;
       }
       stdcout << "done testing polygon tiling\n";
-      return true; 
+      return true;
     }
   };
 
@@ -2137,7 +2137,7 @@ namespace boost { namespace polygon{
   public:
     typedef typename polygon_45_formation<Unit>::ActiveTail45 ActiveTail45;
     typedef typename ActiveTail45::iterator iterator;
-    
+
     typedef polygon_45_concept geometry_type;
     typedef Unit coordinate_type;
     typedef point_data<Unit> Point;
@@ -2145,7 +2145,7 @@ namespace boost { namespace polygon{
     //    typedef iterator_points_to_compact<iterator, Point> compact_iterator_type;
     typedef iterator iterator_type;
     typedef typename coordinate_traits<Unit>::area_type area_type;
-    
+
     inline PolyLine45HoleData() : p_(0) {}
     inline PolyLine45HoleData(ActiveTail45* p) : p_(p) {}
     //use default copy and assign
@@ -2166,7 +2166,7 @@ namespace boost { namespace polygon{
     typedef typename polygon_45_formation<Unit>::ActiveTail45 ActiveTail45;
     typedef typename ActiveTail45::iterator iterator;
     typedef PolyLine45HoleData<Unit> holeType;
-    
+
     typedef polygon_45_with_holes_concept geometry_type;
     typedef Unit coordinate_type;
     typedef point_data<Unit> Point;
@@ -2187,7 +2187,7 @@ namespace boost { namespace polygon{
       typedef const value_type& reference; //immutable
       inline iteratorHoles() : itr_() {}
       inline iteratorHoles(typename ActiveTail45::iteratorHoles itr) : itr_(itr) {}
-      inline iteratorHoles(const iteratorHoles& that) : itr_(that.itr_) {} 
+      inline iteratorHoles(const iteratorHoles& that) : itr_(that.itr_) {}
       inline iteratorHoles& operator=(const iteratorHoles& that) {
         itr_ = that.itr_;
         return *this;
@@ -2208,8 +2208,8 @@ namespace boost { namespace polygon{
       }
     };
     typedef iteratorHoles iterator_holes_type;
-    
-    
+
+
     inline PolyLine45PolygonData() : p_(0) {}
     inline PolyLine45PolygonData(ActiveTail45* p) : p_(p) {}
     //use default copy and assign
@@ -2225,7 +2225,7 @@ namespace boost { namespace polygon{
     inline PolyLine45PolygonData& set(iT inputBegin, iT inputEnd) {
       return *this;
     }
-    
+
     // initialize a polygon from x,y values, it is assumed that the first is an x
     // and that the input is a well behaved polygon
     template<class iT>

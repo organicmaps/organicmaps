@@ -42,11 +42,11 @@ namespace util {
         severity_commandline_error,
         last_severity_code = severity_commandline_error
     };
-    
+
     inline char const *
-    get_severity(int level) 
+    get_severity(int level)
     {
-        static char const *severity_text[] = 
+        static char const *severity_text[] =
         {
             "remark",               // severity_remark
             "warning",              // severity_warning
@@ -54,20 +54,20 @@ namespace util {
             "fatal error",          // severity_fatal
             "command line error"    // severity_commandline_error
         };
-        BOOST_ASSERT(severity_remark <= level && 
+        BOOST_ASSERT(severity_remark <= level &&
             level <= last_severity_code);
         return severity_text[level];
     }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-//  cpp_exception, the base class for all specific C preprocessor exceptions 
+//  cpp_exception, the base class for all specific C preprocessor exceptions
 class BOOST_SYMBOL_VISIBLE cpp_exception
 :   public std::exception
 {
 public:
-    cpp_exception(int line_, int column_, char const *filename_) throw() 
-    :   line(line_), column(column_) 
+    cpp_exception(std::size_t line_, std::size_t column_, char const *filename_) throw()
+    :   line(line_), column(column_)
     {
         unsigned int off = 0;
         while (off < sizeof(filename)-1 && *filename_)
@@ -75,22 +75,22 @@ public:
         filename[off] = 0;
     }
     ~cpp_exception() throw() {}
-    
+
     virtual char const *what() const throw() = 0;           // to be overloaded
     virtual char const *description() const throw() = 0;
     virtual int get_errorcode() const throw() = 0;
     virtual int get_severity() const throw() = 0;
     virtual char const* get_related_name() const throw() = 0;
     virtual bool is_recoverable() const throw() = 0;
-    
-    int line_no() const throw() { return line; }
-    int column_no() const throw() { return column; }
+
+    std::size_t line_no() const throw() { return line; }
+    std::size_t column_no() const throw() { return column; }
     char const *file_name() const throw() { return filename; }
-    
+
 protected:
     char filename[512];
-    int line;
-    int column;
+    std::size_t line;
+    std::size_t column;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -149,9 +149,9 @@ public:
         last_error_number = pragma_message_directive
     };
 
-    preprocess_exception(char const *what_, error_code code, int line_, 
-        int column_, char const *filename_) throw() 
-    :   cpp_exception(line_, column_, filename_), 
+    preprocess_exception(char const *what_, error_code code, std::size_t line_,
+        std::size_t column_, char const *filename_) throw()
+    :   cpp_exception(line_, column_, filename_),
         code(code)
     {
         unsigned int off = 0;
@@ -160,7 +160,7 @@ public:
         buffer[off] = 0;
     }
     ~preprocess_exception() throw() {}
-    
+
     virtual char const *what() const throw()
     {
         return "boost::wave::preprocess_exception";
@@ -184,7 +184,7 @@ public:
     virtual bool is_recoverable() const throw()
     {
         switch (get_errorcode()) {
-        // these are the exceptions thrown during processing not supposed to 
+        // these are the exceptions thrown during processing not supposed to
         // produce any tokens on the context::iterator level
         case preprocess_exception::no_error:        // just a placeholder
         case preprocess_exception::macro_redefinition:
@@ -221,7 +221,7 @@ public:
         case preprocess_exception::ill_formed_pragma_message:
         case preprocess_exception::pragma_message_directive:
             return true;
-            
+
         case preprocess_exception::unexpected_error:
         case preprocess_exception::ill_formed_operator:
         case preprocess_exception::too_few_macroarguments:
@@ -234,7 +234,7 @@ public:
         }
         return false;
     }
-    
+
     static char const *error_text(int code)
     {
     // error texts in this array must appear in the same order as the items in
@@ -370,8 +370,8 @@ class BOOST_SYMBOL_VISIBLE macro_handling_exception :
     public preprocess_exception
 {
 public:
-    macro_handling_exception(char const *what_, error_code code, int line_, 
-        int column_, char const *filename_, char const *macroname) throw() 
+    macro_handling_exception(char const *what_, error_code code, std::size_t line_,
+        std::size_t column_, char const *filename_, char const *macroname) throw()
     :   preprocess_exception(what_, code, line_, column_, filename_)
     {
         unsigned int off = 0;
@@ -380,7 +380,7 @@ public:
         name[off] = 0;
     }
     ~macro_handling_exception() throw() {}
-    
+
     virtual char const *what() const throw()
     {
         return "boost::wave::macro_handling_exception";
@@ -396,10 +396,10 @@ private:
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-//  The is_recoverable() function allows to decide, whether it is possible 
+//  The is_recoverable() function allows to decide, whether it is possible
 //  simply to continue after a given exception was thrown by Wave.
 //
-//  This is kind of a hack to allow to recover from certain errors as long as 
+//  This is kind of a hack to allow to recover from certain errors as long as
 //  Wave doesn't provide better means of error recovery.
 //
 ///////////////////////////////////////////////////////////////////////////////

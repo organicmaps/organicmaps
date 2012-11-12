@@ -460,7 +460,7 @@ template <class G>
 typename enable_if<is_reverse_graph<G>,
   detail::underlying_edge_desc_map_type<typename graph_traits<typename G::base_type>::edge_descriptor> >::type
 get(edge_underlying_t,
-    G& g)
+    G&)
 {
   return detail::underlying_edge_desc_map_type<typename graph_traits<typename G::base_type>::edge_descriptor>();
 }
@@ -468,7 +468,7 @@ get(edge_underlying_t,
 template <class G>
 typename enable_if<is_reverse_graph<G>, typename graph_traits<typename G::base_type>::edge_descriptor>::type
 get(edge_underlying_t,
-    G& g,
+    G&,
     const typename graph_traits<G>::edge_descriptor& k)
 {
   return k.underlying_descx;
@@ -477,7 +477,7 @@ get(edge_underlying_t,
 template <class G>
 typename enable_if<is_reverse_graph<G>, detail::underlying_edge_desc_map_type<typename graph_traits<typename G::base_type>::edge_descriptor> >::type
 get(edge_underlying_t,
-    const G& g)
+    const G&)
 {
   return detail::underlying_edge_desc_map_type<typename graph_traits<typename G::base_type>::edge_descriptor>();
 }
@@ -485,7 +485,7 @@ get(edge_underlying_t,
 template <class G>
 typename enable_if<is_reverse_graph<G>, typename graph_traits<typename G::base_type>::edge_descriptor>::type
 get(edge_underlying_t,
-    const G& g,
+    const G&,
     const typename graph_traits<G>::edge_descriptor& k)
 {
   return k.underlying_descx;

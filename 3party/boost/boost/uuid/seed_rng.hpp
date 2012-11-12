@@ -109,9 +109,10 @@ public:
     }
 
 private:
+    inline void ignore_size(size_t) {}
+
     static unsigned int * sha1_random_digest_state_()
     {
-        // intentionally left uninitialized
         static unsigned int state[ 5 ];
         return state;
     }
@@ -153,12 +154,7 @@ private:
 
             if(random_)
             {
-                // the not_used variable is to suppress warnings
-#if defined(__GNUC__)
-                __attribute__((unused))
-#endif
-                size_t not_used = 0;
-                not_used = std::fread( buffer, 1, 20, random_ );
+                ignore_size(std::fread( buffer, 1, 20, random_ ));
             }
 
             // using an uninitialized buffer[] if fopen fails
@@ -218,7 +214,7 @@ class generator_iterator
     > super_t;
 
  public:
-    generator_iterator() : m_g(NULL) {}
+    generator_iterator() : m_g(NULL), m_value(0) {}
     generator_iterator(Generator* g) : m_g(g), m_value((*m_g)()) {}
 
     void increment()

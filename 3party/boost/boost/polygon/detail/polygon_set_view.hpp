@@ -1,6 +1,6 @@
 /*
   Copyright 2008 Intel Corporation
- 
+
   Use, modification and distribution are subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
@@ -8,8 +8,8 @@
 #ifndef BOOST_POLYGON_POLYGON_SET_VIEW_HPP
 #define BOOST_POLYGON_POLYGON_SET_VIEW_HPP
 namespace boost { namespace polygon{
-  
-  
+
+
   template <typename coordinate_type>
   inline void polygon_set_data<coordinate_type>::clean() const {
     if(dirty_) {
@@ -20,24 +20,24 @@ namespace boost { namespace polygon{
       //that vertices be "linearly consistent"
       //therefore it doesn't work to fall back on 45-degree
       //booleans for arbitrary angle polygons
-      if(0) { //downcast(tmp) ) {
-        tmp.clean();
-        data_.clear();
-        is_45_ = true;
-        polygon_set_data<coordinate_type> tmp2;
-        tmp2.insert(tmp);
-        data_.swap(tmp2.data_);
-        dirty_ = false;
-        sort();
-      } else {
-        sort();
-        arbitrary_boolean_op<coordinate_type> abo;
-        polygon_set_data<coordinate_type> tmp2;
-        abo.execute(tmp2, begin(), end(), end(), end(), 0);
-        data_.swap(tmp2.data_);
-        is_45_ = tmp2.is_45_;
-        dirty_ = false;
-      }
+      //if(0) { //downcast(tmp) ) {
+      //  tmp.clean();
+      //  data_.clear();
+      //  is_45_ = true;
+      //  polygon_set_data<coordinate_type> tmp2;
+      //  tmp2.insert(tmp);
+      //  data_.swap(tmp2.data_);
+      //  dirty_ = false;
+      //  sort();
+      //} else {
+      sort();
+      arbitrary_boolean_op<coordinate_type> abo;
+      polygon_set_data<coordinate_type> tmp2;
+      abo.execute(tmp2, begin(), end(), end(), end(), 0);
+      data_.swap(tmp2.data_);
+      is_45_ = tmp2.is_45_;
+      dirty_ = false;
+      //}
     }
   }
 
@@ -66,7 +66,7 @@ namespace boost { namespace polygon{
     typedef typename polygon_set_view<ltype, rtype, op_type>::iterator_type iterator_type;
     typedef typename polygon_set_view<ltype, rtype, op_type>::operator_arg_type operator_arg_type;
 
-    static inline iterator_type begin(const polygon_set_view<ltype, rtype, op_type>& polygon_set); 
+    static inline iterator_type begin(const polygon_set_view<ltype, rtype, op_type>& polygon_set);
     static inline iterator_type end(const polygon_set_view<ltype, rtype, op_type>& polygon_set);
 
     static inline bool clean(const polygon_set_view<ltype, rtype, op_type>& polygon_set);
@@ -99,26 +99,26 @@ namespace boost { namespace polygon{
     insert_into_view_arg(linput_, lvalue_);
     insert_into_view_arg(rinput_, rvalue_);
     polygon_45_set_data<coordinate_type> l45, r45, o45;
-    if(linput_.downcast(l45) && rinput_.downcast(r45)) {
-      //the op codes are screwed up between 45 and arbitrary
-#ifdef BOOST_POLYGON_MSVC
-#pragma warning (disable: 4127)
-#endif
-      if(op_type < 2)
-        l45.template applyAdaptiveBoolean_<op_type>(o45, r45);
-      else if(op_type == 2)
-        l45.template applyAdaptiveBoolean_<3>(o45, r45);
-      else
-        l45.template applyAdaptiveBoolean_<2>(o45, r45);
-#ifdef BOOST_POLYGON_MSVC
-#pragma warning (default: 4127)
-#endif
-      output_.insert(o45);
-    } else {
+//    if(linput_.downcast(l45) && rinput_.downcast(r45)) {
+//      //the op codes are screwed up between 45 and arbitrary
+//#ifdef BOOST_POLYGON_MSVC
+//#pragma warning (disable: 4127)
+//#endif
+//      if(op_type < 2)
+//        l45.template applyAdaptiveBoolean_<op_type>(o45, r45);
+//      else if(op_type == 2)
+//        l45.template applyAdaptiveBoolean_<3>(o45, r45);
+//      else
+//        l45.template applyAdaptiveBoolean_<2>(o45, r45);
+//#ifdef BOOST_POLYGON_MSVC
+//#pragma warning (default: 4127)
+//#endif
+//      output_.insert(o45);
+//    } else {
       arbitrary_boolean_op<coordinate_type> abo;
       abo.execute(output_, linput_.begin(), linput_.end(),
                   rinput_.begin(), rinput_.end(), op_type);
-    }
+//    }
   }
 
   template <typename ltype, typename rtype, int op_type>
@@ -172,11 +172,11 @@ namespace boost { namespace polygon{
   }
   template <typename ltype, typename rtype, int op_type>
   bool polygon_set_traits<polygon_set_view<ltype, rtype, op_type> >::
-  clean(const polygon_set_view<ltype, rtype, op_type>& ) { 
+  clean(const polygon_set_view<ltype, rtype, op_type>& ) {
     return true; }
   template <typename ltype, typename rtype, int op_type>
   bool polygon_set_traits<polygon_set_view<ltype, rtype, op_type> >::
-  sort(const polygon_set_view<ltype, rtype, op_type>& ) { 
+  sort(const polygon_set_view<ltype, rtype, op_type>& ) {
     return true; }
 
   template <typename value_type, typename arg_type>
@@ -187,7 +187,7 @@ namespace boost { namespace polygon{
     itr2 = polygon_set_traits<arg_type>::end(arg);
     dest.insert(itr1, itr2);
   }
-  
+
   template <typename geometry_type_1, typename geometry_type_2, int op_type>
   geometry_type_1& self_assignment_boolean_op(geometry_type_1& lvalue_, const geometry_type_2& rvalue_) {
     typedef geometry_type_1 ltype;
@@ -201,13 +201,21 @@ namespace boost { namespace polygon{
 
   // copy constructor
   template <typename coordinate_type>
-  template <typename ltype, typename rtype, int op_type> 
+  template <typename ltype, typename rtype, int op_type>
   polygon_set_data<coordinate_type>::polygon_set_data(const polygon_set_view<ltype, rtype, op_type>& that) :
     data_(that.value().data_), dirty_(that.value().dirty_), unsorted_(that.value().unsorted_), is_45_(that.value().is_45_) {}
+
+    // equivalence operator
+  template <typename coordinate_type>
+  inline bool polygon_set_data<coordinate_type>::operator==(const polygon_set_data<coordinate_type>& p) const {
+    typedef polygon_set_data<coordinate_type> value_type;
+    value_type output_;
+    execute_boolean_op<value_type, value_type, value_type, 2>(output_, (*this), p);  
+    return output_.data_.empty();
+  }
 
   template <typename ltype, typename rtype, int op_type>
   struct geometry_concept<polygon_set_view<ltype, rtype, op_type> > { typedef polygon_set_concept type; };
 }
 }
 #endif
-

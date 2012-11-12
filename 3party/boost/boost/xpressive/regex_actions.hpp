@@ -105,7 +105,7 @@ namespace boost { namespace xpressive
         {
             BOOST_PROTO_CALLABLE()
             template<typename Sig>
-            struct result;
+            struct result {};
 
             template<typename This, typename MatchResults, typename Expr>
             struct result<This(MatchResults, Expr)>
@@ -163,7 +163,7 @@ namespace boost { namespace xpressive
         {
             BOOST_PROTO_CALLABLE()
             template<typename Sig>
-            struct result;
+            struct result {};
 
             template<typename This, typename Cont, typename Idx>
             struct result<This(Cont, Idx)>
@@ -173,14 +173,12 @@ namespace boost { namespace xpressive
 
             template<typename This, typename Cont, typename Idx>
             struct result<This(Cont &, Idx)>
+              : mpl::if_c<
+                    is_const<Cont>::value
+                  , typename Cont::const_reference
+                  , typename Cont::reference
+                >
             {
-                typedef typename Cont::reference type;
-            };
-
-            template<typename This, typename Cont, typename Idx>
-            struct result<This(Cont const &, Idx)>
-            {
-                typedef typename Cont::const_reference type;
             };
 
             template<typename Cont, typename Idx>
@@ -505,7 +503,7 @@ namespace boost { namespace xpressive
                 typedef UNREF(Cont) &type;
             };
 
-            /// operator()
+            /// \brief operator()
             ///
             template<typename Cont, typename A0>
             typename result<insert(Cont &, A0 const &)>::type
@@ -714,7 +712,7 @@ namespace boost { namespace xpressive
         {
             BOOST_PROTO_CALLABLE()
             template<typename Sig>
-            struct result;
+            struct result {};
 
             template<typename This, typename Ref>
             struct result<This(Ref)>
@@ -775,7 +773,7 @@ namespace boost { namespace xpressive
           : base_type(base_type::proto_base_expr::make(t))
         {}
 
-        using base_type::operator =;
+        using base_type::operator=;
 
         T &get()
         {
@@ -798,7 +796,7 @@ namespace boost { namespace xpressive
           : base_type(base_type::proto_base_expr::make(boost::ref(t)))
         {}
 
-        using base_type::operator =;
+        using base_type::operator=;
 
         T &get() const
         {
@@ -823,7 +821,7 @@ namespace boost { namespace xpressive
           , base_type(base_type::make(boost::ref(detail::value_wrapper<T>::value)))
         {}
 
-        using base_type::operator =;
+        using base_type::operator=;
 
         T &get()
         {

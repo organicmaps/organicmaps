@@ -20,7 +20,7 @@
             >
           , result_type
         >::type
-        operator()(Try const & try_, A0 const& a0, Context & ctx) const
+        operator()(Try const & try_, A0 const& a0, Context const & ctx) const
         {
             try
             {
@@ -36,7 +36,7 @@
             >
           , result_type
         >::type
-        operator()(Try const & try_, A0 const& a0, Context & ctx) const
+        operator()(Try const & try_, A0 const& a0, Context const & ctx) const
         {
             try
             {
@@ -67,7 +67,7 @@
             >
           , result_type
         >::type
-        operator()(Try const & try_, A0 const& a0 , A1 const& a1, Context & ctx) const
+        operator()(Try const & try_, A0 const& a0 , A1 const& a1, Context const & ctx) const
         {
             try
             {
@@ -83,7 +83,7 @@
             >
           , result_type
         >::type
-        operator()(Try const & try_, A0 const& a0 , A1 const& a1, Context & ctx) const
+        operator()(Try const & try_, A0 const& a0 , A1 const& a1, Context const & ctx) const
         {
             try
             {
@@ -114,7 +114,7 @@
             >
           , result_type
         >::type
-        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2, Context & ctx) const
+        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2, Context const & ctx) const
         {
             try
             {
@@ -130,7 +130,7 @@
             >
           , result_type
         >::type
-        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2, Context & ctx) const
+        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2, Context const & ctx) const
         {
             try
             {
@@ -161,7 +161,7 @@
             >
           , result_type
         >::type
-        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3, Context & ctx) const
+        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3, Context const & ctx) const
         {
             try
             {
@@ -177,7 +177,7 @@
             >
           , result_type
         >::type
-        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3, Context & ctx) const
+        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3, Context const & ctx) const
         {
             try
             {
@@ -208,7 +208,7 @@
             >
           , result_type
         >::type
-        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4, Context & ctx) const
+        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4, Context const & ctx) const
         {
             try
             {
@@ -224,7 +224,7 @@
             >
           , result_type
         >::type
-        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4, Context & ctx) const
+        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4, Context const & ctx) const
         {
             try
             {
@@ -255,7 +255,7 @@
             >
           , result_type
         >::type
-        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5, Context & ctx) const
+        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5, Context const & ctx) const
         {
             try
             {
@@ -271,7 +271,7 @@
             >
           , result_type
         >::type
-        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5, Context & ctx) const
+        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5, Context const & ctx) const
         {
             try
             {
@@ -302,7 +302,7 @@
             >
           , result_type
         >::type
-        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6, Context & ctx) const
+        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6, Context const & ctx) const
         {
             try
             {
@@ -318,7 +318,7 @@
             >
           , result_type
         >::type
-        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6, Context & ctx) const
+        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6, Context const & ctx) const
         {
             try
             {
@@ -349,7 +349,7 @@
             >
           , result_type
         >::type
-        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7, Context & ctx) const
+        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7, Context const & ctx) const
         {
             try
             {
@@ -365,7 +365,7 @@
             >
           , result_type
         >::type
-        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7, Context & ctx) const
+        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7, Context const & ctx) const
         {
             try
             {
@@ -396,7 +396,7 @@
             >
           , result_type
         >::type
-        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8, Context & ctx) const
+        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8, Context const & ctx) const
         {
             try
             {
@@ -412,7 +412,7 @@
             >
           , result_type
         >::type
-        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8, Context & ctx) const
+        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8, Context const & ctx) const
         {
             try
             {
@@ -443,7 +443,7 @@
             >
           , result_type
         >::type
-        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8 , A9 const& a9, Context & ctx) const
+        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8 , A9 const& a9, Context const & ctx) const
         {
             try
             {
@@ -459,7 +459,7 @@
             >
           , result_type
         >::type
-        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8 , A9 const& a9, Context & ctx) const
+        operator()(Try const & try_, A0 const& a0 , A1 const& a1 , A2 const& a2 , A3 const& a3 , A4 const& a4 , A5 const& a5 , A6 const& a6 , A7 const& a7 , A8 const& a8 , A9 const& a9, Context const & ctx) const
         {
             try
             {

@@ -22,10 +22,10 @@
 #include <boost/container/detail/workaround.hpp>
 #include <boost/move/move.hpp>
 #include <boost/container/allocator_traits.hpp>
+#include <boost/container/detail/type_traits.hpp>
 
 #ifdef BOOST_CONTAINER_PERFECT_FORWARDING
 #include <boost/container/detail/variadic_templates_tools.hpp>
-#include <boost/container/detail/stored_ref.hpp>
 #else
 #include <boost/container/detail/preprocessor.hpp>
 #endif
@@ -222,14 +222,12 @@ class default_construct_iterator
    default_construct_iterator operator-(Difference off) const
    {  return *this + (-off);  }
 
-   const T& operator*() const
-   { return dereference(); }
-
-   const T* operator->() const
-   { return &(dereference()); }
-
-   const T& operator[] (Difference n) const
-   { return dereference(); }
+   //This pseudo-iterator's dereference operations have no sense since value is not
+   //constructed until ::boost::container::construct_in_place is called.
+   //So comment them to catch bad uses
+   //const T& operator*() const;
+   //const T& operator[](difference_type) const;
+   //const T* operator->() const;
 
    private:
    Difference  m_num;
@@ -445,14 +443,12 @@ class emplace_iterator
    this_type operator-(difference_type off) const
    {  return *this + (-off);  }
 
-   const T& operator*() const
-   { return dereference(); }
-
-   const T& operator[](difference_type) const
-   { return dereference(); }
-
-   const T* operator->() const
-   { return &(dereference()); }
+   //This pseudo-iterator's dereference operations have no sense since value is not
+   //constructed until ::boost::container::construct_in_place is called.
+   //So comment them to catch bad uses
+   //const T& operator*() const;
+   //const T& operator[](difference_type) const;
+   //const T* operator->() const;
 
    template<class A>
    void construct_in_place(A &a, T* ptr)
@@ -506,8 +502,7 @@ struct emplace_functor
    void inplace_impl(A &a, T* ptr, const container_detail::index_tuple<IdxPack...>&)
    {
       allocator_traits<A>::construct
-         (a, ptr, container_detail::stored_ref<Args>::forward
-          (container_detail::get<IdxPack>(args_))...);
+         (a, ptr, ::boost::forward<Args>(container_detail::get<IdxPack>(args_))...);
    }
 
    container_detail::tuple<Args&...> args_;
@@ -539,10 +534,78 @@ struct emplace_functor
 
 #endif
 
+namespace container_detail {
+
+template<class T>
+struct has_iterator_category
+{
+   template <typename X>
+   static char test(int, typename X::iterator_category*);
+
+   template <typename X>
+   static int test(int, ...);
+
+   static const bool value = (1 == sizeof(test<T>(0, 0)));
+};
+
+
+template<class T, bool = has_iterator_category<T>::value >
+struct is_input_iterator
+{
+   static const bool value = is_same<typename T::iterator_category, std::input_iterator_tag>::value;
+};
+
+template<class T>
+struct is_input_iterator<T, false>
+{
+   static const bool value = false;
+};
+
+template<class T, bool = has_iterator_category<T>::value >
+struct is_forward_iterator
+{
+   static const bool value = is_same<typename T::iterator_category, std::forward_iterator_tag>::value;
+};
+
+template<class T>
+struct is_forward_iterator<T, false>
+{
+   static const bool value = false;
+};
+
+template<class T, bool = has_iterator_category<T>::value >
+struct is_bidirectional_iterator
+{
+   static const bool value = is_same<typename T::iterator_category, std::bidirectional_iterator_tag>::value;
+};
+
+template<class T>
+struct is_bidirectional_iterator<T, false>
+{
+   static const bool value = false;
+};
+
+template<class T, class IIterator>
+struct iiterator_types
+{
+   typedef typename std::iterator_traits<IIterator>::pointer         it_pointer;
+   typedef typename std::iterator_traits<IIterator>::difference_type difference_type;
+   typedef typename ::boost::intrusive::pointer_traits<it_pointer>::
+      template rebind_pointer<T>::type                               pointer;
+   typedef typename ::boost::intrusive::pointer_traits<it_pointer>::
+      template rebind_pointer<const T>::type                         const_pointer;
+   typedef typename ::boost::intrusive::
+      pointer_traits<pointer>::reference                             reference;
+   typedef typename ::boost::intrusive::
+      pointer_traits<const_pointer>::reference                       const_reference;
+};
+
+
+}  //namespace container_detail {
+
 }  //namespace container {
 }  //namespace boost {
 
 #include <boost/container/detail/config_end.hpp>
 
 #endif   //#ifndef BOOST_CONTAINER_DETAIL_ITERATORS_HPP
-

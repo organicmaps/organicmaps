@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -177,7 +177,7 @@ struct intersegment_base
 
    void set_mode(std::size_t mode)
    {
-      BOOST_ASSERT(mode < is_max_mode);     
+      BOOST_ASSERT(mode < is_max_mode);
       members.direct.ctrl = mode;
    }
 
@@ -309,13 +309,13 @@ struct flat_map_intersegment
       void *ptr_base;
       void *this_base;
       get_segment_info_and_offset(this, this_info, this_offset, this_base);
-  
+
       if(!this_info.group){
          this->set_mode(is_in_stack);
          this->members.direct.addr = const_cast<void*>(ptr);
       }
       else{
-         get_segment_info_and_offset(ptr, ptr_info, ptr_offset, ptr_base);     
+         get_segment_info_and_offset(ptr, ptr_info, ptr_offset, ptr_base);
 
          if(ptr_info.group != this_info.group){
             this->set_mode(is_pointee_outside);
@@ -383,7 +383,7 @@ struct flat_map_intersegment
       };
       vector<segment_data> m_segments;
       multi_segment_services &m_ms_services;
-     
+
       public:
       segment_group_t(multi_segment_services &ms_services)
          :  m_ms_services(ms_services)
@@ -445,7 +445,7 @@ struct flat_map_intersegment
       typedef Mutex        mutex_type;
       //!Maps base addresses and segment information
       //!(size and segment group and id)*
-     
+
       ptr_to_segment_info_t      m_ptr_to_segment_info;
 
       ~mappings_t()
@@ -486,7 +486,7 @@ struct flat_map_intersegment
       --it;
       char *      segment_base = const_cast<char*>(reinterpret_cast<const char*>(it->first));
       std::size_t segment_size = it->second.size;
-     
+
       if(segment_base <= reinterpret_cast<const char*>(ptr) &&
          (segment_base + segment_size) >= reinterpret_cast<const char*>(ptr)){
          segment = it->second;
@@ -552,7 +552,7 @@ struct flat_map_intersegment
             s_groups.insert(segment_group_t(*services));
          BOOST_ASSERT(ret.second);
          return &*ret.first;
-      }     
+      }
    }
 
    static bool delete_group(segment_group_id id)
@@ -574,7 +574,7 @@ struct flat_map_intersegment
             }
          }
          return success;
-      }     
+      }
    }
 };
 
@@ -663,17 +663,17 @@ class intersegment_ptr : public flat_map_intersegment<interprocess_mutex>
 
    //!Pointer-like -> operator. It can return 0 pointer.
    //!Never throws.
-   pointer operator->() const          
+   pointer operator->() const
    {  return self_t::get(); }
 
    //!Dereferencing operator, if it is a null intersegment_ptr behavior
    //!is undefined. Never throws.
-   reference operator* () const          
+   reference operator* () const
    {  return *(self_t::get());   }
 
    //!Indexing operator.
    //!Never throws.
-   reference operator[](std::ptrdiff_t idx) const  
+   reference operator[](std::ptrdiff_t idx) const
    {  return self_t::get()[idx];  }
 
    //!Assignment from pointer (saves extra conversion).
@@ -690,15 +690,15 @@ class intersegment_ptr : public flat_map_intersegment<interprocess_mutex>
    //!are assignable, intersegment_ptrs will be assignable. Never throws.
    template <class T2>
    intersegment_ptr& operator= (const intersegment_ptr<T2> & ptr)
-   { 
+   {
       pointer p(ptr.get());   (void)p;
-      base_t::set_from_other(ptr); return *this;  
+      base_t::set_from_other(ptr); return *this;
    }
 
    //!intersegment_ptr + std::ptrdiff_t.
    //!Never throws.
-   intersegment_ptr operator+ (std::ptrdiff_t idx) const  
-   { 
+   intersegment_ptr operator+ (std::ptrdiff_t idx) const
+   {
       intersegment_ptr result (*this);
       result.inc_offset(idx*sizeof(T));
       return result;
@@ -706,8 +706,8 @@ class intersegment_ptr : public flat_map_intersegment<interprocess_mutex>
 
    //!intersegment_ptr - std::ptrdiff_t.
    //!Never throws.
-   intersegment_ptr operator- (std::ptrdiff_t idx) const  
-   { 
+   intersegment_ptr operator- (std::ptrdiff_t idx) const
+   {
       intersegment_ptr result (*this);
       result.dec_offset(idx*sizeof(T));
       return result;
@@ -745,7 +745,7 @@ class intersegment_ptr : public flat_map_intersegment<interprocess_mutex>
 
    //!Safe bool conversion operator.
    //!Never throws.
-   operator unspecified_bool_type() const 
+   operator unspecified_bool_type() const
    {  return base_t::is_null()? 0 : &self_t::unspecified_bool_type_func;   }
 
    //!Not operator. Not needed in theory, but improves portability.
@@ -784,12 +784,12 @@ class intersegment_ptr : public flat_map_intersegment<interprocess_mutex>
 template <class T1, class T2> inline
 bool operator ==(const intersegment_ptr<T1> &left,
                  const intersegment_ptr<T2> &right)
-{ 
+{
    //Make sure both pointers can be compared
    bool e = typename intersegment_ptr<T1>::pointer(0) ==
             typename intersegment_ptr<T2>::pointer(0);
    (void)e;
-   return left._equal(right);  
+   return left._equal(right);
 }
 
 //!Returns true if *this is less than other.
@@ -798,12 +798,12 @@ bool operator ==(const intersegment_ptr<T1> &left,
 template <class T1, class T2> inline
 bool operator <(const intersegment_ptr<T1> &left,
                 const intersegment_ptr<T2> &right)
-{ 
+{
    //Make sure both pointers can be compared
    bool e = typename intersegment_ptr<T1>::pointer(0) <
             typename intersegment_ptr<T2>::pointer(0);
    (void)e;
-   return left._less(right);  
+   return left._less(right);
 }
 
 template<class T1, class T2> inline

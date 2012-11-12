@@ -1,4 +1,4 @@
-// (C) Benjamin Sobotta 2012
+// Copyright Benjamin Sobotta 2012
 
 //  Use, modification and distribution are subject to the
 //  Boost Software License, Version 1.0. (See accompanying file
@@ -219,7 +219,7 @@ namespace boost
             BOOST_MATH_STD_USING
             using namespace boost::math::constants;
 
-	    const unsigned short m = 20;
+      const unsigned short m = 20;
 
             static const RealType c2[] =
             {
@@ -595,7 +595,7 @@ namespace boost
                term = one_minus_dj_sum * a_pow / (2 * j + 1);
                c = b - c;
                sum += c * term;
-               abs_err += ldexp(std::max(T(fabs(sum)), T(fabs(c*term))), -tools::digits<T>());
+               abs_err += ldexp((std::max)(T(fabs(sum)), T(fabs(c*term))), -tools::digits<T>());
                b = (j + n) * (j - n) * b / ((j + T(0.5)) * (j + 1));
                ++j;
                //

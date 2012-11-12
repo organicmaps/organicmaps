@@ -21,7 +21,7 @@
 #include <boost/graph/property_maps/null_property_map.hpp>
 
 #include <boost/graph/graph_traits.hpp>
-#include <boost/type_traits/is_convertible.hpp>
+#include <boost/type_traits.hpp>
 #include <boost/limits.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/not.hpp>
@@ -149,13 +149,13 @@ namespace boost {
     template <typename G, typename R, typename T>
     struct property_kind_from_graph<G, R T::*> {
       typedef typename boost::mpl::if_<
-                boost::is_same<T, typename vertex_bundle_type<G>::type>,
+                boost::is_base_of<T, typename vertex_bundle_type<G>::type>,
                 vertex_property_tag,
                 typename boost::mpl::if_<
-                  boost::is_same<T, typename edge_bundle_type<G>::type>,
+                  boost::is_base_of<T, typename edge_bundle_type<G>::type>,
                   edge_property_tag,
                   typename boost::mpl::if_<
-                    boost::is_same<T, typename graph_bundle_type<G>::type>,
+                    boost::is_base_of<T, typename graph_bundle_type<G>::type>,
                     graph_property_tag,
                     void>::type>::type>::type type;
     };

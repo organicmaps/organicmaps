@@ -3,7 +3,7 @@
 // This file is the adaptation for Interprocess of boost/weak_ptr.hpp
 //
 // (C) Copyright Peter Dimov 2001, 2002, 2003
-// (C) Copyright Ion Gaztanaga 2006-2011.
+// (C) Copyright Ion Gaztanaga 2006-2012.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -99,7 +99,7 @@ class weak_ptr
    template<class Y>
    weak_ptr(weak_ptr<Y, A, D> const & r)
       : m_pn(r.m_pn) // never throws
-   { 
+   {
       //Construct a temporary shared_ptr so that nobody
       //can destroy the value while constructing this
       const shared_ptr<T, A, D> &ref = r.lock();
@@ -126,7 +126,7 @@ class weak_ptr
    //!implied guarantees) via different means, without creating a temporary.
    template<class Y>
    weak_ptr & operator=(weak_ptr<Y, A, D> const & r) // never throws
-   { 
+   {
       //Construct a temporary shared_ptr so that nobody
       //can destroy the value while constructing this
       const shared_ptr<T, A, D> &ref = r.lock();
@@ -174,7 +174,7 @@ class weak_ptr
    //!testing purposes, not for production code.
    long use_count() const // never throws
    {  return m_pn.use_count();  }
-   
+
    //!Returns: Returns: use_count() == 0.
    //!
    //!Throws: nothing.
@@ -199,7 +199,7 @@ class weak_ptr
    template<class T2, class A2, class D2>
    bool _internal_less(weak_ptr<T2, A2, D2> const & rhs) const
    {  return m_pn < rhs.m_pn;  }
-  
+
    template<class Y>
    void _internal_assign(const ipcdetail::shared_count<Y, A, D> & pn2)
    {

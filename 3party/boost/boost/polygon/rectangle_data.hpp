@@ -1,6 +1,6 @@
 /*
   Copyright 2008 Intel Corporation
- 
+
   Use, modification and distribution are subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
@@ -52,13 +52,12 @@ public:
     return ranges_[orientation_2d(dir).to_int()].set(direction_1d(dir), value);
   }
   template <typename interval_type_1>
-  inline void set(orientation_2d orient, const interval_type_1& interval); 
+  inline void set(orientation_2d orient, const interval_type_1& interval);
 private:
-  interval_data<coordinate_type> ranges_[2]; 
+  interval_data<coordinate_type> ranges_[2];
 };
 
 
 }
 }
 #endif
-

@@ -1,6 +1,6 @@
 /*
   Copyright 2008 Intel Corporation
- 
+
   Use, modification and distribution are subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
@@ -40,7 +40,7 @@ public:
 
   // copy constructor (since we have dynamic memory)
   inline polygon_90_data(const polygon_90_data& that) : coords_(that.coords_) {}
-  
+
   // assignment operator (since we have dynamic memory do a deep copy)
   inline polygon_90_data& operator=(const polygon_90_data& that) {
     coords_ = that.coords_;
@@ -63,18 +63,17 @@ public:
 
   // get begin iterator, returns a pointer to a const Unit
   inline compact_iterator_type begin_compact() const { return coords_.begin(); }
-  
+
   // get end iterator, returns a pointer to a const Unit
   inline compact_iterator_type end_compact() const { return coords_.end(); }
 
   inline std::size_t size() const { return coords_.size(); }
-  
+
 private:
-  std::vector<coordinate_type> coords_; 
+  std::vector<coordinate_type> coords_;
 };
 
 
 }
 }
 #endif
-

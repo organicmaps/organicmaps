@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2009-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2009-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -54,7 +54,7 @@ static void create_tmp_subdir_and_get_pid_based_filepath
    s += "/";
    s += file_prefix;
    if(creation_time){
-      std::string sstamp;  
+      std::string sstamp;
       get_pid_creation_time_str(sstamp);
       s += sstamp;
    }
@@ -137,7 +137,7 @@ struct thread_safe_global_map_dependant<managed_global_memory>
          delete_file(singleton_lock_file_path_);
          shared_memory_object::remove(shm_name_);
       }
-     
+
       const char * const shm_name_;
       const char * const singleton_lock_file_path_;
       managed_global_memory & shm_;

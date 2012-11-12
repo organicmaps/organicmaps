@@ -1,6 +1,6 @@
 /*
   Copyright 2008 Intel Corporation
- 
+
   Use, modification and distribution are subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
@@ -28,8 +28,8 @@ private:
   bool is_hole_;
 public:
   iterator_geometry_to_set() : rectangle_(), vertex_(), corner_(4), orient_(), is_hole_() {}
-  iterator_geometry_to_set(const rectangle_type& rectangle, direction_1d dir, 
-                           orientation_2d orient = HORIZONTAL, bool is_hole = false, bool = false, direction_1d = CLOCKWISE) : 
+  iterator_geometry_to_set(const rectangle_type& rectangle, direction_1d dir,
+                           orientation_2d orient = HORIZONTAL, bool is_hole = false, bool = false, direction_1d = CLOCKWISE) :
     rectangle_(), vertex_(), corner_(0), orient_(orient), is_hole_(is_hole) {
     assign(rectangle_, rectangle);
     if(dir == HIGH) corner_ = 4;
@@ -67,7 +67,7 @@ public:
       vertex_.second.second = 1;
       if(is_hole_) vertex_.second.second *= -1;
     }
-    return vertex_; 
+    return vertex_;
   }
 };
 
@@ -93,9 +93,9 @@ private:
   int polygon_index;
 public:
   iterator_geometry_to_set() : vertex_(), itrb(), itre(), last_vertex_(), is_hole_(), multiplier_(), first_pt(), second_pt(), pts(), use_wrap(), orient_(), polygon_index(-1) {}
-  iterator_geometry_to_set(const polygon_type& polygon, direction_1d dir, orientation_2d orient = HORIZONTAL, bool is_hole = false, bool winding_override = false, direction_1d w = CLOCKWISE) : 
-    vertex_(), itrb(), itre(), last_vertex_(), 
-    is_hole_(is_hole), multiplier_(), first_pt(), second_pt(), pts(), use_wrap(), 
+  iterator_geometry_to_set(const polygon_type& polygon, direction_1d dir, orientation_2d orient = HORIZONTAL, bool is_hole = false, bool winding_override = false, direction_1d w = CLOCKWISE) :
+    vertex_(), itrb(), itre(), last_vertex_(),
+    is_hole_(is_hole), multiplier_(), first_pt(), second_pt(), pts(), use_wrap(),
     orient_(orient), polygon_index(0) {
     itrb = begin_points(polygon);
     itre = end_points(polygon);
@@ -116,7 +116,7 @@ public:
       evaluate_();
     }
   }
-  iterator_geometry_to_set(const iterator_geometry_to_set& that) : 
+  iterator_geometry_to_set(const iterator_geometry_to_set& that) :
     vertex_(), itrb(), itre(), last_vertex_(), is_hole_(), multiplier_(), first_pt(),
     second_pt(), pts(), use_wrap(), orient_(), polygon_index(-1) {
     vertex_ = that.vertex_;
@@ -176,7 +176,7 @@ public:
     return !(*this == that);
   }
   inline reference operator*() const {
-    return vertex_; 
+    return vertex_;
   }
 
   inline void evaluate_() {
@@ -185,7 +185,7 @@ public:
     if(pts[1] == pts[2]) {
       vertex_.second.second = 0;
     } else if(pts[0].get(HORIZONTAL) != pts[1].get(HORIZONTAL)) {
-      vertex_.second.second = -1; 
+      vertex_.second.second = -1;
     } else if(pts[0].get(VERTICAL) != pts[1].get(VERTICAL)) {
       vertex_.second.second = 1;
     } else {
@@ -213,8 +213,8 @@ private:
   bool started_holes;
 public:
   iterator_geometry_to_set() : itrb(), itre(), itrhib(), itrhie(), itrhb(), itrhe(), orient_(), is_hole_(), started_holes() {}
-  iterator_geometry_to_set(const polygon_with_holes_type& polygon, direction_1d dir, 
-                           orientation_2d orient = HORIZONTAL, bool is_hole = false, bool = false, direction_1d = CLOCKWISE) : 
+  iterator_geometry_to_set(const polygon_with_holes_type& polygon, direction_1d dir,
+                           orientation_2d orient = HORIZONTAL, bool is_hole = false, bool = false, direction_1d = CLOCKWISE) :
     itrb(), itre(), itrhib(), itrhie(), itrhb(), itrhe(), orient_(orient), is_hole_(is_hole), started_holes() {
     itre = iterator_geometry_to_set<polygon_90_concept, polygon_with_holes_type>(polygon, HIGH, orient, is_hole_);
     itrhe = end_holes(polygon);
@@ -228,7 +228,7 @@ public:
       started_holes = false;
     }
   }
-  iterator_geometry_to_set(const iterator_geometry_to_set& that) : 
+  iterator_geometry_to_set(const iterator_geometry_to_set& that) :
     itrb(), itre(), itrhib(), itrhie(), itrhb(), itrhe(), orient_(), is_hole_(), started_holes() {
     itrb = that.itrb;
     itre = that.itre;
@@ -247,9 +247,9 @@ public:
     if(itrb == itre) {
       if(itrhib == itrhie) {
         if(itrhb != itrhe) {
-          itrhib = iterator_geometry_to_set<polygon_90_concept, 
+          itrhib = iterator_geometry_to_set<polygon_90_concept,
             typename polygon_with_holes_traits<polygon_with_holes_type>::hole_type>(*itrhb, LOW, orient_, !is_hole_);
-          itrhie = iterator_geometry_to_set<polygon_90_concept, 
+          itrhie = iterator_geometry_to_set<polygon_90_concept,
             typename polygon_with_holes_traits<polygon_with_holes_type>::hole_type>(*itrhb, HIGH, orient_, !is_hole_);
           ++itrhb;
         } else {
@@ -258,21 +258,21 @@ public:
           //both point to end of the previous hole processed
           //no need to explicitly reset them, and it causes an stl debug assertion to use
           //the default constructed iterator this way
-          //itrhib = itrhie = iterator_geometry_to_set<polygon_90_concept, 
+          //itrhib = itrhie = iterator_geometry_to_set<polygon_90_concept,
           //  typename polygon_with_holes_traits<polygon_with_holes_type>::hole_type>();
         }
       } else {
         ++itrhib;
         if(itrhib == itrhie) {
           if(itrhb != itrhe) {
-            itrhib = iterator_geometry_to_set<polygon_90_concept, 
+            itrhib = iterator_geometry_to_set<polygon_90_concept,
               typename polygon_with_holes_traits<polygon_with_holes_type>::hole_type>(*itrhb, LOW, orient_, !is_hole_);
-            itrhie = iterator_geometry_to_set<polygon_90_concept, 
+            itrhie = iterator_geometry_to_set<polygon_90_concept,
               typename polygon_with_holes_traits<polygon_with_holes_type>::hole_type>(*itrhb, HIGH, orient_, !is_hole_);
             ++itrhb;
           } else {
             //this is the same case as above
-            //itrhib = itrhie = iterator_geometry_to_set<polygon_90_concept, 
+            //itrhib = itrhie = iterator_geometry_to_set<polygon_90_concept,
             //  typename polygon_with_holes_traits<polygon_with_holes_type>::hole_type>();
           }
         }
@@ -281,9 +281,9 @@ public:
       ++itrb;
       if(itrb == itre) {
         if(itrhb != itrhe) {
-          itrhib = iterator_geometry_to_set<polygon_90_concept, 
+          itrhib = iterator_geometry_to_set<polygon_90_concept,
             typename polygon_with_holes_traits<polygon_with_holes_type>::hole_type>(*itrhb, LOW, orient_, !is_hole_);
-          itrhie = iterator_geometry_to_set<polygon_90_concept, 
+          itrhie = iterator_geometry_to_set<polygon_90_concept,
             typename polygon_with_holes_traits<polygon_with_holes_type>::hole_type>(*itrhb, HIGH, orient_, !is_hole_);
           ++itrhb;
         }
@@ -312,4 +312,3 @@ public:
 }
 }
 #endif
-

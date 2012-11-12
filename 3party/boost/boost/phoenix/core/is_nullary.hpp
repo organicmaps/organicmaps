@@ -119,7 +119,7 @@ namespace boost { namespace phoenix
                     mpl::true_
                   , boost::phoenix::is_nullary
                 >
-              , int
+              , proto::empty_env
             >::result_type
         {};
         

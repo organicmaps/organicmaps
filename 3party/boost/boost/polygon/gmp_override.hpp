@@ -1,6 +1,6 @@
 /*
   Copyright 2008 Intel Corporation
- 
+
   Use, modification and distribution are subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
@@ -25,14 +25,14 @@ namespace boost { namespace polygon {
       v_ = that;
       return (*this);
     }
-    inline operator int() const { 
+    inline operator int() const {
       std::cout << "cast\n";
       mpz_class num = v_.get_num();
       mpz_class den = v_.get_den();
       num /= den;
-      return num.get_si(); 
+      return num.get_si();
     }
-    inline double get_d() const { 
+    inline double get_d() const {
       return v_.get_d();
     }
     inline int get_num() const {
@@ -109,7 +109,7 @@ namespace boost { namespace polygon {
   private:
     mpq_class v_;
   };
-  
+
   template <>
   struct high_precision_type<int> {
     typedef mpq_class type;
@@ -120,10 +120,9 @@ namespace boost { namespace polygon {
     mpz_class num = v.get_num();
     mpz_class den = v.get_den();
     num /= den;
-    return num.get_si(); 
+    return num.get_si();
   };
 
 }
 }
-//==
 #endif

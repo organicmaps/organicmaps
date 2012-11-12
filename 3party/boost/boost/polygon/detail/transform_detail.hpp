@@ -1,6 +1,6 @@
 /*
     Copyright 2008 Intel Corporation
- 
+
     Use, modification and distribution are subject to the Boost Software License,
     Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
     http://www.boost.org/LICENSE_1_0.txt).
@@ -54,7 +54,7 @@ namespace boost { namespace polygon{
     };
     atr_ = tmp[orient.to_int()];
   }
-  
+
   inline axis_transformation::axis_transformation(const orientation_2d& orient) : atr_(NULL_TRANSFORM) {
     const ATR tmp[3] = {
       NORTH_EAST_UP, //sort by z, then x, then y
@@ -62,7 +62,7 @@ namespace boost { namespace polygon{
     };
     atr_ = tmp[orient.to_int()];
   }
-  
+
   inline axis_transformation::axis_transformation(const direction_3d& dir) : atr_(NULL_TRANSFORM) {
     const ATR tmp[6] = {
       DOWN_EAST_NORTH, //sort by -x, then z, then y
@@ -74,7 +74,7 @@ namespace boost { namespace polygon{
     };
     atr_ = tmp[dir.to_int()];
   }
-  
+
   inline axis_transformation::axis_transformation(const direction_2d& dir) : atr_(NULL_TRANSFORM) {
     const ATR tmp[4] = {
       SOUTH_EAST_UP, //sort by z, then x, then y
@@ -84,7 +84,7 @@ namespace boost { namespace polygon{
     };
     atr_ = tmp[dir.to_int()];
   }
-  
+
   inline axis_transformation& axis_transformation::operator=(const axis_transformation& a) {
     atr_ = a.atr_;
     return *this;
@@ -113,13 +113,13 @@ namespace boost { namespace polygon{
     bool abit3 = (a.atr_ & 8) != 0;
     bool abit2 = (a.atr_ & 4) != 0;
     bool abit1 = (a.atr_ & 2) != 0;
-    bool abit0 = (a.atr_ & 1) != 0;      
+    bool abit0 = (a.atr_ & 1) != 0;
     bool bit5 = (atr_ & 32) != 0;
     bool bit4 = (atr_ & 16) != 0;
     bool bit3 = (atr_ & 8) != 0;
     bool bit2 = (atr_ & 4) != 0;
     bool bit1 = (atr_ & 2) != 0;
-    bool bit0 = (atr_ & 1) != 0;      
+    bool bit0 = (atr_ & 1) != 0;
     int indexes[2][3] = {
       {
         ((int)((bit5 & bit2) | (bit4 & !bit2)) << 1) +
@@ -127,7 +127,7 @@ namespace boost { namespace polygon{
         ((int)((bit4 & bit2) | (bit5 & !bit2)) << 1) +
         (int)(!bit5 & !bit2),
         ((int)(!bit4 & !bit5) << 1) +
-        (int)(bit5) 
+        (int)(bit5)
       },
       {
         ((int)((abit5 & abit2) | (abit4 & !abit2)) << 1) +
@@ -135,7 +135,7 @@ namespace boost { namespace polygon{
         ((int)((abit4 & abit2) | (abit5 & !abit2)) << 1) +
         (int)(!abit5 & !abit2),
         ((int)(!abit4 & !abit5) << 1) +
-        (int)(abit5) 
+        (int)(abit5)
       }
     };
     int zero_bits[2][3] = {
@@ -153,19 +153,19 @@ namespace boost { namespace polygon{
     int nbit2 = (!(nbit5 | nbit4) & (bool)(indexes[0][0] & 1)) | //swap xy
       (nbit5 & ((indexes[0][0] & 2) >> 1)) | //z->y x->z
       (nbit4 & ((indexes[0][1] & 2) >> 1));  //z->x y->z
-    atr_ = (ATR)((nbit5 << 5) + 
-                 (nbit4 << 4) + 
-                 (nbit3 << 3) + 
-                 (nbit2 << 2) + 
+    atr_ = (ATR)((nbit5 << 5) +
+                 (nbit4 << 4) +
+                 (nbit3 << 3) +
+                 (nbit2 << 2) +
                  (nbit1 << 1) + nbit0);
     return *this;
   }
-  
+
   inline axis_transformation axis_transformation::operator+(const axis_transformation& a) const {
     axis_transformation retval(*this);
     return retval+=a;
   }
-  
+
   // populate_axis_array writes the three INDIVIDUAL_AXIS values that the
   // ATR enum value of 'this' represent into axis_array
   inline void axis_transformation::populate_axis_array(INDIVIDUAL_AXIS axis_array[]) const {
@@ -174,24 +174,24 @@ namespace boost { namespace polygon{
     bool bit3 = (atr_ & 8) != 0;
     bool bit2 = (atr_ & 4) != 0;
     bool bit1 = (atr_ & 2) != 0;
-    bool bit0 = (atr_ & 1) != 0;      
-    axis_array[2] = 
+    bool bit0 = (atr_ & 1) != 0;
+    axis_array[2] =
       (INDIVIDUAL_AXIS)((((int)(!bit4 & !bit5)) << 2) +
-                        ((int)(bit5) << 1) + 
+                        ((int)(bit5) << 1) +
                         bit3);
-    axis_array[1] = 
+    axis_array[1] =
       (INDIVIDUAL_AXIS)((((int)((bit4 & bit2) | (bit5 & !bit2))) << 2)+
-                        ((int)(!bit5 & !bit2) << 1) + 
+                        ((int)(!bit5 & !bit2) << 1) +
                         bit1);
-    axis_array[0] = 
+    axis_array[0] =
       (INDIVIDUAL_AXIS)((((int)((bit5 & bit2) | (bit4 & !bit2))) << 2) +
-                        ((int)(bit2 & !bit5) << 1) + 
+                        ((int)(bit2 & !bit5) << 1) +
                         bit0);
   }
-  
+
   // combine_axis_arrays concatenates this_array and that_array overwriting
   // the result into this_array
-  inline void 
+  inline void
   axis_transformation::combine_axis_arrays (INDIVIDUAL_AXIS this_array[],
                                             const INDIVIDUAL_AXIS that_array[]){
     int indexes[3] = {this_array[0] >> 1,
@@ -203,21 +203,21 @@ namespace boost { namespace polygon{
     };
     this_array[0] = that_array[indexes[0]];
     this_array[0] = (INDIVIDUAL_AXIS)((int)this_array[0] & (int)((int)PZ+(int)PY));
-    this_array[0] = (INDIVIDUAL_AXIS)((int)this_array[0] | 
-                                      ((int)zero_bits[0][0] ^ 
+    this_array[0] = (INDIVIDUAL_AXIS)((int)this_array[0] |
+                                      ((int)zero_bits[0][0] ^
                                        (int)zero_bits[1][indexes[0]]));
     this_array[1] = that_array[indexes[1]];
     this_array[1] = (INDIVIDUAL_AXIS)((int)this_array[1] & (int)((int)PZ+(int)PY));
-    this_array[1] = (INDIVIDUAL_AXIS)((int)this_array[1] | 
-                                      ((int)zero_bits[0][1] ^ 
+    this_array[1] = (INDIVIDUAL_AXIS)((int)this_array[1] |
+                                      ((int)zero_bits[0][1] ^
                                        (int)zero_bits[1][indexes[1]]));
     this_array[2] = that_array[indexes[2]];
     this_array[2] = (INDIVIDUAL_AXIS)((int)this_array[2] & (int)((int)PZ+(int)PY));
-    this_array[2] = (INDIVIDUAL_AXIS)((int)this_array[2] | 
-                                      ((int)zero_bits[0][2] ^ 
+    this_array[2] = (INDIVIDUAL_AXIS)((int)this_array[2] |
+                                      ((int)zero_bits[0][2] ^
                                        (int)zero_bits[1][indexes[2]]));
   }
-  
+
   // write_back_axis_array converts an array of three INDIVIDUAL_AXIS values
   // to the ATR enum value and sets 'this' to that value
   inline void axis_transformation::write_back_axis_array(const INDIVIDUAL_AXIS this_array[]) {
@@ -230,16 +230,16 @@ namespace boost { namespace polygon{
       (bit4 & (((int)this_array[1] & 4) >> 2));  //z->x y->z
     int bit1 = ((int)this_array[1] & 1);
     int bit0 = ((int)this_array[0] & 1);
-    atr_ = ATR((bit5 << 5) + 
-               (bit4 << 4) + 
-               (bit3 << 3) + 
-               (bit2 << 2) + 
+    atr_ = ATR((bit5 << 5) +
+               (bit4 << 4) +
+               (bit3 << 3) +
+               (bit2 << 2) +
                (bit1 << 1) + bit0);
   }
-  
+
   // behavior is deterministic but undefined in the case where illegal
-  // combinations of directions are passed in. 
-  inline axis_transformation& 
+  // combinations of directions are passed in.
+  inline axis_transformation&
   axis_transformation::set_directions(const direction_2d& horizontalDir,
                                       const direction_2d& verticalDir){
     int bit2 = (static_cast<orientation_2d>(horizontalDir).to_int()) != 0;
@@ -248,42 +248,39 @@ namespace boost { namespace polygon{
     atr_ = ATR((bit2 << 2) + (bit1 << 1) + bit0);
     return *this;
   }
-  
+
   // behavior is deterministic but undefined in the case where illegal
   // combinations of directions are passed in.
-  inline axis_transformation& axis_transformation::set_directions(const direction_3d& horizontalDir,
-                                                                  const direction_3d& verticalDir,
-                                                                  const direction_3d& proximalDir){
-    int this_array[3] = {horizontalDir.to_int(),
-                         verticalDir.to_int(),
-                         proximalDir.to_int()};
-    int bit5 = (this_array[2] & 2) != 0;
-    int bit4 = !(((this_array[2] & 4) != 0) | ((this_array[2] & 2) != 0));
-    int bit3 = !((this_array[2] & 1) != 0);
+  inline axis_transformation& axis_transformation::set_directions(
+      const direction_3d& horizontalDir,
+      const direction_3d& verticalDir,
+      const direction_3d& proximalDir){
+    unsigned int this_array[3] = {horizontalDir.to_int(),
+                                  verticalDir.to_int(),
+                                  proximalDir.to_int()};
+    unsigned int bit5 = (this_array[2] & 2) != 0;
+    unsigned int bit4 = !(((this_array[2] & 4) != 0) | ((this_array[2] & 2) != 0));
+    unsigned int bit3 = !((this_array[2] & 1) != 0);
     //bit 2 is the tricky bit
-    int bit2 = (!(bit5 | bit4) & ((this_array[0] & 2) != 0 )) | //swap xy
-      (bit5 & ((this_array[0] & 4) >> 2)) | //z->y x->z
-      (bit4 & ((this_array[1] & 4) >> 2));  //z->x y->z
-    int bit1 = !(this_array[1] & 1);
-    int bit0 = !(this_array[0] & 1);
-    atr_ = ATR((bit5 << 5) + 
-               (bit4 << 4) + 
-               (bit3 << 3) + 
-               (bit2 << 2) + 
-               (bit1 << 1) + bit0);
+    unsigned int bit2 = (!(bit5 | bit4) & ((this_array[0] & 2) != 0 )) | //swap xy
+                        (bit5 & ((this_array[0] & 4) >> 2)) | //z->y x->z
+                        (bit4 & ((this_array[1] & 4) >> 2));  //z->x y->z
+    unsigned int bit1 = !(this_array[1] & 1);
+    unsigned int bit0 = !(this_array[0] & 1);
+    atr_ = ATR((bit5 << 5) | (bit4 << 4) | (bit3 << 3) | (bit2 << 2) | (bit1 << 1) | bit0);
     return *this;
   }
-  
+
   template <typename coordinate_type_2>
   inline void axis_transformation::transform(coordinate_type_2& x, coordinate_type_2& y) const {
     int bit2 = (atr_ & 4) != 0;
     int bit1 = (atr_ & 2) != 0;
     int bit0 = (atr_ & 1) != 0;
     x *= -((bit0 << 1) - 1);
-    y *= -((bit1 << 1) - 1);    
+    y *= -((bit1 << 1) - 1);
     predicated_swap(bit2 != 0,x,y);
   }
-  
+
   template <typename coordinate_type_2>
   inline void axis_transformation::transform(coordinate_type_2& x, coordinate_type_2& y, coordinate_type_2& z) const {
     int bit5 = (atr_ & 32) != 0;
@@ -293,13 +290,13 @@ namespace boost { namespace polygon{
     int bit1 = (atr_ & 2) != 0;
     int bit0 = (atr_ & 1) != 0;
     x *= -((bit0 << 1) - 1);
-    y *= -((bit1 << 1) - 1);    
+    y *= -((bit1 << 1) - 1);
     z *= -((bit3 << 1) - 1);
     predicated_swap(bit2 != 0, x, y);
     predicated_swap(bit5 != 0, y, z);
     predicated_swap(bit4 != 0, x, z);
   }
-  
+
   inline axis_transformation& axis_transformation::invert_2d() {
     int bit2 = ((atr_ & 4) != 0);
     int bit1 = ((atr_ & 2) != 0);
@@ -311,15 +308,15 @@ namespace boost { namespace polygon{
     atr_ = (ATR)(atr_ | bit0 | bit1);
     return *this;
   }
-  
+
   inline axis_transformation axis_transformation::inverse_2d() const {
     axis_transformation retval(*this);
     return retval.invert_2d();
   }
-  
+
   inline axis_transformation& axis_transformation::invert() {
     int bit5 = ((atr_ & 32) != 0);
-    int bit4 = ((atr_ & 16) != 0);    
+    int bit4 = ((atr_ & 16) != 0);
     int bit3 = ((atr_ & 8) != 0);
     int bit2 = ((atr_ & 4) != 0);
     int bit1 = ((atr_ & 2) != 0);
@@ -328,24 +325,24 @@ namespace boost { namespace polygon{
     predicated_swap(bit4 != 0, bit0, bit3);
     predicated_swap(bit5 != 0, bit1, bit3);
     predicated_swap(bit2 != 0, bit0, bit1);
-    atr_ = (ATR)((bit5 << 5) + 
-                 (bit4 << 4) + 
-                 (bit3 << 3) + 
-                 (bit2 << 2) + 
+    atr_ = (ATR)((bit5 << 5) +
+                 (bit4 << 4) +
+                 (bit3 << 3) +
+                 (bit2 << 2) +
                  (bit1 << 1) + bit0);
     return *this;
   }
-  
+
   inline axis_transformation axis_transformation::inverse() const {
     axis_transformation retval(*this);
     return retval.invert();
   }
-  
+
   template <typename scale_factor_type>
   inline scale_factor_type anisotropic_scale_factor<scale_factor_type>::get(orientation_3d orient) const {
     return scale_[orient.to_int()];
   }
-  
+
   template <typename scale_factor_type>
   inline void anisotropic_scale_factor<scale_factor_type>::set(orientation_3d orient, scale_factor_type value) {
     scale_[orient.to_int()] = value;
@@ -363,14 +360,14 @@ namespace boost { namespace polygon{
   inline void anisotropic_scale_factor<scale_factor_type>::y(scale_factor_type value) { scale_[VERTICAL] = value; }
   template <typename scale_factor_type>
   inline void anisotropic_scale_factor<scale_factor_type>::z(scale_factor_type value) { scale_[PROXIMAL] = value; }
-  
+
   //concatenation operator (convolve scale factors)
   template <typename scale_factor_type>
   inline anisotropic_scale_factor<scale_factor_type> anisotropic_scale_factor<scale_factor_type>::operator+(const anisotropic_scale_factor<scale_factor_type>& s) const {
     anisotropic_scale_factor<scale_factor_type> retval(*this);
     return retval+=s;
   }
-  
+
   //concatenate this with that
   template <typename scale_factor_type>
   inline const anisotropic_scale_factor<scale_factor_type>& anisotropic_scale_factor<scale_factor_type>::operator+=(const anisotropic_scale_factor<scale_factor_type>& s){
@@ -379,7 +376,7 @@ namespace boost { namespace polygon{
     scale_[2] *= s.scale_[2];
     return *this;
   }
-  
+
   //transform
   template <typename scale_factor_type>
   inline anisotropic_scale_factor<scale_factor_type>& anisotropic_scale_factor<scale_factor_type>::transform(axis_transformation atr){
@@ -453,30 +450,30 @@ namespace boost { namespace polygon{
   }
 
   template <typename coordinate_type>
-  inline transformation<coordinate_type>::transformation(const transformation<coordinate_type>& tr) : 
+  inline transformation<coordinate_type>::transformation(const transformation<coordinate_type>& tr) :
     atr_(tr.atr_), p_(tr.p_) {;}
-  
+
   template <typename coordinate_type>
   inline bool transformation<coordinate_type>::operator==(const transformation<coordinate_type>& tr) const {
     return atr_ == tr.atr_ && p_ == tr.p_;
   }
-  
+
   template <typename coordinate_type>
   inline bool transformation<coordinate_type>::operator!=(const transformation<coordinate_type>& tr) const {
     return !(*this == tr);
   }
-  
+
   template <typename coordinate_type>
   inline bool transformation<coordinate_type>::operator<(const transformation<coordinate_type>& tr) const {
-    return atr_ < tr.atr_ || atr_ == tr.atr_ && p_ < tr.p_;
+    return atr_ < tr.atr_ || (atr_ == tr.atr_ && p_ < tr.p_);
   }
-  
+
   template <typename coordinate_type>
   inline transformation<coordinate_type> transformation<coordinate_type>::operator+(const transformation<coordinate_type>& tr) const {
     transformation<coordinate_type> retval(*this);
     return retval+=tr;
   }
-  
+
   template <typename coordinate_type>
   inline const transformation<coordinate_type>& transformation<coordinate_type>::operator+=(const transformation<coordinate_type>& tr){
     //apply the inverse transformation of this to the translation point of that
@@ -491,24 +488,24 @@ namespace boost { namespace polygon{
     atr_ += tr.atr_;
     return *this;
   }
-  
+
   template <typename coordinate_type>
   inline void transformation<coordinate_type>::set_axis_transformation(const axis_transformation& atr) {
     atr_ = atr;
   }
-  
+
   template <typename coordinate_type>
   template <typename point_type>
   inline void transformation<coordinate_type>::get_translation(point_type& p) const {
     assign(p, p_);
   }
-  
+
   template <typename coordinate_type>
   template <typename point_type>
   inline void transformation<coordinate_type>::set_translation(const point_type& p) {
     assign(p_, p);
   }
-  
+
   template <typename coordinate_type>
   inline void transformation<coordinate_type>::transform(coordinate_type& x, coordinate_type& y) const {
     //subtract each component of new origin point
@@ -525,7 +522,7 @@ namespace boost { namespace polygon{
     x -= p_.get(HORIZONTAL);
     atr_.transform(x,y,z);
   }
-  
+
   // sets the axis_transform portion to its inverse
   // transforms the tranlastion portion by that inverse axis_transform
   // multiplies the translation portion by -1 to reverse it
@@ -540,7 +537,7 @@ namespace boost { namespace polygon{
     atr_.invert();
     return *this;
   }
-  
+
   template <typename coordinate_type>
   inline transformation<coordinate_type> transformation<coordinate_type>::inverse() const {
     transformation<coordinate_type> retval(*this);
@@ -549,5 +546,3 @@ namespace boost { namespace polygon{
 }
 }
 #endif
-
-

@@ -714,7 +714,7 @@ boost::math::ef::e_float bessel_i0(boost::math::ef::e_float x)
     }
     else                                // x in (15, \infty)
     {
-        boost::math::ef::e_float y = 1 / x - 1 / 15;
+        boost::math::ef::e_float y = 1 / x - boost::math::ef::e_float(1) / 15;
         r = evaluate_polynomial(P2, y) / evaluate_polynomial(Q2, y);
         factor = exp(x) / sqrt(x);
         value = factor * r;

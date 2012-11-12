@@ -597,7 +597,7 @@ struct ibeta_fraction2_t
 {
    typedef std::pair<T, T> result_type;
 
-   ibeta_fraction2_t(T a_, T b_, T x_) : a(a_), b(b_), x(x_), m(0) {}
+   ibeta_fraction2_t(T a_, T b_, T x_, T y_) : a(a_), b(b_), x(x_), y(y_), m(0) {}
 
    result_type operator()()
    {
@@ -607,7 +607,7 @@ struct ibeta_fraction2_t
 
       T bN = m;
       bN += (m * (b - m) * x) / (a + 2*m - 1);
-      bN += ((a + m) * (a - (a + b) * x + 1 + m *(2 - x))) / (a + 2*m + 1);
+      bN += ((a + m) * (a * y - b * x + 1 + m *(2 - x))) / (a + 2*m + 1);
 
       ++m;
 
@@ -615,7 +615,7 @@ struct ibeta_fraction2_t
    }
 
 private:
-   T a, b, x;
+   T a, b, x, y;
    int m;
 };
 //
@@ -635,8 +635,10 @@ inline T ibeta_fraction2(T a, T b, T x, T y, const Policy& pol, bool normalised,
    if(result == 0)
       return result;
 
-   ibeta_fraction2_t<T> f(a, b, x);
+   ibeta_fraction2_t<T> f(a, b, x, y);
    T fract = boost::math::tools::continued_fraction_b(f, boost::math::policies::get_epsilon<T, Policy>());
+   BOOST_MATH_INSTRUMENT_VARIABLE(fract);
+   BOOST_MATH_INSTRUMENT_VARIABLE(result);
    return result / fract;
 }
 //
@@ -1115,7 +1117,7 @@ T ibeta_imp(T a, T b, T x, const Policy& pol, bool inv, bool normalised, T* p_de
       
       if(b < 40)
       {
-         if((floor(a) == a) && (floor(b) == b))
+         if((floor(a) == a) && (floor(b) == b) && (a < (std::numeric_limits<int>::max)() - 100))
          {
             // relate to the binomial distribution and use a finite sum:
             T k = a - 1;

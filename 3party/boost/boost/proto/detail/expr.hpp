@@ -131,7 +131,7 @@
         typedef basic_expr<Tag, proto_args, BOOST_PP_ITERATION() > proto_grammar;
         typedef default_domain proto_domain;
         typedef default_generator proto_generator;
-        typedef proto::tag::proto_expr fusion_tag;
+        typedef proto::tag::proto_expr<Tag, proto_domain> fusion_tag;
         typedef expr proto_derived_expr;
         typedef void proto_is_expr_; /**< INTERNAL ONLY */
 

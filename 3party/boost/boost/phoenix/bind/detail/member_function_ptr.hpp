@@ -61,7 +61,7 @@ namespace boost { namespace phoenix { namespace detail
             {
                 BOOST_PROTO_USE_GET_POINTER();
 
-                typedef typename proto::detail::classtypeof<FP>::type class_type;
+                typedef typename proto::detail::class_member_traits<FP>::class_type class_type;
                 return (BOOST_PROTO_GET_POINTER(class_type, obj) ->*fp)();
             }
 
@@ -132,7 +132,7 @@ namespace boost { namespace phoenix { namespace detail
             {
                 BOOST_PROTO_USE_GET_POINTER();
 
-                typedef typename proto::detail::classtypeof<FP>::type class_type;
+                typedef typename proto::detail::class_member_traits<FP>::class_type class_type;
                 return (BOOST_PROTO_GET_POINTER(class_type, obj)->*fp)(BOOST_PHOENIX_a);
             }
 

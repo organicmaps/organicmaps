@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2009-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2009-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -199,7 +199,7 @@ class intermodule_singleton_common
    private:
    static ThreadSafeGlobalMap &get_map()
    {
-      return *static_cast<ThreadSafeGlobalMap *>(static_cast<void *>(&mem_holder.map_mem));
+      return *static_cast<ThreadSafeGlobalMap *>(static_cast<void *>(&mem_holder.map_mem[0]));
    }
 
    static void initialize_global_map_handle()
@@ -274,7 +274,7 @@ class intermodule_singleton_common
    //Values: Uninitialized, Initializing, Initialized, Broken
    static volatile boost::uint32_t this_module_map_initialized;
 
-   //Raw memory to construct the global map manager  
+   //Raw memory to construct the global map manager
    static struct mem_holder_t
    {
       ::boost::detail::max_align aligner;
@@ -411,7 +411,7 @@ class intermodule_singleton_impl
          atomic_inc32(&rcount->singleton_ref_count);
          ret_ptr = rcount->ptr;
       }
-      void *data() const 
+      void *data() const
          { return ret_ptr;  }
 
       private:
@@ -448,7 +448,7 @@ class intermodule_singleton_impl
       }
       void *data() const
          { return ret_ptr;  }
-      
+
       private:
       ThreadSafeGlobalMap &m_map;
       void *ret_ptr;

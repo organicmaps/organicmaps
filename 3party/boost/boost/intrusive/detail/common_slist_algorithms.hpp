@@ -31,9 +31,8 @@ class common_slist_algorithms
    typedef typename NodeTraits::const_node_ptr  const_node_ptr;
    typedef NodeTraits                           node_traits;
 
-   static node_ptr get_previous_node(const node_ptr & prev_init_node, const node_ptr & this_node)
+   static node_ptr get_previous_node(node_ptr p, const node_ptr & this_node)
    {
-      node_ptr p = prev_init_node;
       for( node_ptr p_next
          ; this_node != (p_next = NodeTraits::get_next(p))
          ; p = p_next){

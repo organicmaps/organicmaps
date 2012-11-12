@@ -91,7 +91,7 @@ namespace boost
 #endif
         }
 
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
         template<typename T,typename A1>
         inline T* heap_new(A1&& a1)
         {

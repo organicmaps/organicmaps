@@ -21,7 +21,7 @@
                         vector1<const ::boost::phoenix::actor<Expr> *> &
                       , default_actions
                     > const &
-                  , int
+                  , proto::empty_env
                 >::result_type
                 type;
         };
@@ -55,7 +55,7 @@
                             vector2<const ::boost::phoenix::actor<Expr> *, A0> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -77,7 +77,7 @@
                             vector3<const ::boost::phoenix::actor<Expr> *, A0 , A1> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -99,7 +99,7 @@
                             vector4<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -121,7 +121,7 @@
                             vector5<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -143,7 +143,7 @@
                             vector6<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -165,7 +165,7 @@
                             vector7<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -187,7 +187,7 @@
                             vector8<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -209,7 +209,7 @@
                             vector9<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -231,7 +231,7 @@
                             vector10<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };
@@ -253,7 +253,7 @@
                             vector11<const ::boost::phoenix::actor<Expr> *, A0 , A1 , A2 , A3 , A4 , A5 , A6 , A7 , A8 , A9> &
                           , default_actions
                         > const &
-                      , int
+                      , proto::empty_env
                     >::result_type
                 type;
         };

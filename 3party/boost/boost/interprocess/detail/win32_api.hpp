@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -50,6 +50,7 @@ static const unsigned long error_invalid_handle = 6L;
 static const unsigned long error_sharing_violation = 32L;
 static const unsigned long error_file_not_found = 2u;
 static const unsigned long error_no_more_files  = 18u;
+static const unsigned long error_not_locked     = 158L;
 //Retries in CreateFile, see http://support.microsoft.com/kb/316609
 static const unsigned int  error_sharing_violation_tries = 3u;
 static const unsigned int  error_sharing_violation_sleep_ms = 250u;
@@ -61,6 +62,7 @@ static const unsigned long mutex_all_access     = (0x000F0000L)|(0x00100000L)|0x
 static const unsigned long page_readonly        = 0x02;
 static const unsigned long page_readwrite       = 0x04;
 static const unsigned long page_writecopy       = 0x08;
+static const unsigned long page_noaccess        = 0x01;
 
 static const unsigned long standard_rights_required   = 0x000F0000L;
 static const unsigned long section_query              = 0x0001;
@@ -239,17 +241,16 @@ struct wchar_variant
    } value;
 };
 
-   struct IUnknown_BIPC
-   {
-      public:
-      virtual long __stdcall QueryInterface(
-            /* [in] */ const GUID_BIPC &riid,
-            /* [iid_is][out] */ void **ppvObject) = 0;
+struct IUnknown_BIPC
+{
+   public:
+   virtual long __stdcall QueryInterface(
+      const GUID_BIPC &riid,  // [in]
+      void **ppvObject) = 0;  // [iid_is][out]
 
-      virtual unsigned long __stdcall AddRef( void) = 0;
-
-      virtual unsigned long __stdcall Release( void) = 0;
-   };
+   virtual unsigned long __stdcall AddRef (void) = 0;
+   virtual unsigned long __stdcall Release(void) = 0;
+};
 
 struct IWbemClassObject_BIPC : public IUnknown_BIPC
 {
@@ -356,7 +357,6 @@ struct IWbemClassObject_BIPC : public IUnknown_BIPC
       /* [out] */ wchar_t * *pstrClassName) = 0;
 
 };
-
 
 struct IWbemContext_BIPC : public IUnknown_BIPC
 {
@@ -585,8 +585,6 @@ public:
 
 };
 
-
-
 struct interprocess_overlapped
 {
    unsigned long *internal;
@@ -661,7 +659,7 @@ struct system_info {
     unsigned short wProcessorRevision;
 };
 
-typedef struct _interprocess_memory_basic_information
+struct interprocess_memory_basic_information
 {
    void *         BaseAddress;
    void *         AllocationBase;
@@ -670,16 +668,16 @@ typedef struct _interprocess_memory_basic_information
    unsigned long  State;
    unsigned long  Protect;
    unsigned long  Type;
-} interprocess_memory_basic_information;
+};
 
-typedef struct _interprocess_acl
+struct interprocess_acl
 {
    unsigned char  AclRevision;
    unsigned char  Sbz1;
    unsigned short AclSize;
    unsigned short AceCount;
    unsigned short Sbz2;
-} interprocess_acl;
+};
 
 typedef struct _interprocess_security_descriptor
 {
@@ -876,6 +874,8 @@ extern "C" __declspec(dllimport) int __stdcall    DeleteFileA (const char *);
 extern "C" __declspec(dllimport) int __stdcall    MoveFileExA (const char *, const char *, unsigned long);
 extern "C" __declspec(dllimport) void __stdcall GetSystemInfo (struct system_info *);
 extern "C" __declspec(dllimport) int __stdcall FlushViewOfFile (void *, std::size_t);
+extern "C" __declspec(dllimport) int __stdcall VirtualUnlock (void *, std::size_t);
+extern "C" __declspec(dllimport) int __stdcall VirtualProtect (void *, std::size_t, unsigned long, unsigned long *);
 extern "C" __declspec(dllimport) int __stdcall FlushFileBuffers (void *);
 extern "C" __declspec(dllimport) int __stdcall GetFileSizeEx (void *, __int64 *size);
 extern "C" __declspec(dllimport) unsigned long __stdcall FormatMessageA
@@ -1033,7 +1033,7 @@ inline bool duplicate_current_process_handle
       , duplicate_same_access);
 }
 
-inline long get_file_type(void *hFile)
+inline unsigned long get_file_type(void *hFile)
 {
    return GetFileType(hFile);
 }
@@ -1136,6 +1136,12 @@ inline void get_system_info(system_info *info)
 
 inline bool flush_view_of_file(void *base_addr, std::size_t numbytes)
 {  return 0 != FlushViewOfFile(base_addr, numbytes); }
+
+inline bool virtual_unlock(void *base_addr, std::size_t numbytes)
+{  return 0 != VirtualUnlock(base_addr, numbytes); }
+
+inline bool virtual_protect(void *base_addr, std::size_t numbytes, unsigned long flNewProtect, unsigned long &lpflOldProtect)
+{  return 0 != VirtualProtect(base_addr, numbytes, flNewProtect, &lpflOldProtect); }
 
 inline bool flush_file_buffers(void *handle)
 {  return 0 != FlushFileBuffers(handle); }

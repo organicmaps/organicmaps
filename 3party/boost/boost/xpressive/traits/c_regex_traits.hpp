@@ -113,7 +113,7 @@ struct regex_traits_version_1_tag;
 // c_regex_traits
 //
 /// \brief Encapsaulates the standard C locale functions for use by the
-/// basic_regex\<\> class template.
+/// \c basic_regex\<\> class template.
 template<typename Char>
 struct c_regex_traits
   : detail::c_regex_traits_base<Char>
@@ -200,12 +200,12 @@ struct c_regex_traits
         return detail::c_toupper(ch);
     }
 
-    /// Returns a string_type containing all the characters that compare equal
+    /// Returns a \c string_type containing all the characters that compare equal
     /// disregrarding case to the one passed in. This function can only be called
-    /// if has_fold_case<c_regex_traits<Char> >::value is true.
+    /// if <tt>has_fold_case\<c_regex_traits\<Char\> \>::value</tt> is \c true.
     ///
     /// \param ch The source character.
-    /// \return string_type containing all chars which are equal to ch when disregarding
+    /// \return \c string_type containing all chars which are equal to \c ch when disregarding
     ///     case
     //typedef array<char_type, 2> fold_case_type;
     string_type fold_case(char_type ch) const

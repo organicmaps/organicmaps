@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -8,7 +8,7 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 //
-// This file comes from SGI's sstream file. Modified by Ion Gaztanaga 2005.
+// This file comes from SGI's sstream file. Modified by Ion Gaztanaga 2005-2012.
 // Changed internal SGI string to a generic, templatized vector. Added efficient
 // internal buffer get/set/swap functions, so that we can obtain/establish the
 // internal buffer without any reallocation or copy. Kill those temporaries!
@@ -43,7 +43,7 @@
 #include <ios>
 #include <istream>
 #include <ostream>
-#include <string>    // char traits           
+#include <string>    // char traits
 #include <cstddef>   // ptrdiff_t
 #include <boost/interprocess/interprocess_fwd.hpp>
 #include <boost/assert.hpp>
@@ -100,7 +100,7 @@ class basic_vectorbuf
    //!This function resets the read/write position in the stream.
    //!Does not throw.
    void swap_vector(vector_type &vect)
-   { 
+   {
       if (this->m_mode & std::ios_base::out){
          //Update high water if necessary
          //And resize vector to remove extra size
@@ -119,7 +119,7 @@ class basic_vectorbuf
    //!Returns a const reference to the internal vector.
    //!Does not throw.
    const vector_type &vector() const
-   { 
+   {
       if (this->m_mode & std::ios_base::out){
          if (mp_high_water < base_t::pptr()){
             //Restore the vector's size if necessary

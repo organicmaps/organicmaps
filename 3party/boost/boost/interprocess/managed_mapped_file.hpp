@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -26,7 +26,7 @@
 #include <boost/interprocess/permissions.hpp>
 //These includes needed to fulfill default template parameters of
 //predeclarations in interprocess_fwd.hpp
-#include <boost/interprocess/mem_algo/rbtree_best_fit.hpp> 
+#include <boost/interprocess/mem_algo/rbtree_best_fit.hpp>
 #include <boost/interprocess/sync/mutex_family.hpp>
 #include <boost/interprocess/indexes/iset_index.hpp>
 
@@ -61,7 +61,7 @@ class basic_managed_mapped_file
 
    private:
 
-   typedef ipcdetail::create_open_func<base_t>        create_open_func_t;  
+   typedef ipcdetail::create_open_func<base_t>        create_open_func_t;
    typedef ipcdetail::managed_open_or_create_impl< ipcdetail::file_wrapper
                                                  , AllocationAlgorithm::Alignment> managed_open_or_create_type;
 

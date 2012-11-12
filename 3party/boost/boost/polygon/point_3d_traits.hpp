@@ -23,7 +23,7 @@ namespace boost { namespace polygon{
   struct point_3d_mutable_traits {
     static inline void set(T& point, orientation_3d orient, typename point_3d_traits<T>::coordinate_type value) {
       point.set(orient, value); }
-  
+ 
     static inline T construct(typename point_3d_traits<T>::coordinate_type x_value, 
                               typename point_3d_traits<T>::coordinate_type y_value, 
                               typename point_3d_traits<T>::coordinate_type z_value) {
@@ -32,4 +32,3 @@ namespace boost { namespace polygon{
 }
 }
 #endif
-

@@ -19,6 +19,7 @@
 #include <stdexcept>
 #include <boost/throw_exception.hpp>
 #include <cstddef>
+#include <string>
 
 #ifdef BOOST_NO_STDC_NAMESPACE
 namespace std {
@@ -89,10 +90,17 @@ inline void sha1::process_byte(unsigned char byte)
 {
     process_byte_impl(byte);
 
-    bit_count_low += 8;
-    if (bit_count_low == 0) {
-        ++bit_count_high;
-        if (bit_count_high == 0) {
+    // size_t max value = 0xFFFFFFFF
+    //if (bit_count_low + 8 >= 0x100000000) { // would overflow
+    //if (bit_count_low >= 0x100000000-8) {
+    if (bit_count_low < 0xFFFFFFF8) {
+        bit_count_low += 8;
+    } else {
+        bit_count_low = 0;
+
+        if (bit_count_high <= 0xFFFFFFFE) {
+            ++bit_count_high;
+        } else {
             BOOST_THROW_EXCEPTION(std::runtime_error("sha1 too many bytes"));
         }
     }

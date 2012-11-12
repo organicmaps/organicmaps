@@ -348,8 +348,7 @@ class private_adaptive_node_pool_impl
    {
       block_iterator block_it(m_block_multiset.end());
       while(n--){
-         void *pElem = container_detail::to_raw_pointer(chain.front());
-         chain.pop_front();
+         void *pElem = container_detail::to_raw_pointer(chain.pop_front());
          priv_invariants();
          block_info_t *block_info = this->priv_block_from_node(pElem);
          BOOST_ASSERT(block_info->free_nodes.size() < m_real_num_node);

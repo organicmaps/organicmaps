@@ -39,7 +39,7 @@ OutputIterator copy_if ( InputIterator first, InputIterator last, OutputIterator
 {
     for ( ; first != last; ++first )
         if (p(*first))
-            *result++ = first;
+            *result++ = *first;
     return result;
 }
 #endif
@@ -75,7 +75,7 @@ OutputIterator copy_while ( InputIterator first, InputIterator last,
                                 OutputIterator result, Predicate p )
 {
     for ( ; first != last && p(*first); ++first )
-        *result++ = first;
+        *result++ = *first;
     return result;
 }
 
@@ -109,7 +109,7 @@ template<typename InputIterator, typename OutputIterator, typename Predicate>
 OutputIterator copy_until ( InputIterator first, InputIterator last, OutputIterator result, Predicate p )
 {
     for ( ; first != last && !p(*first); ++first )
-        *result++ = first;
+        *result++ = *first;
     return result;
 }
 

@@ -27,7 +27,7 @@ namespace boost
       namespace detail{
 
          template <class T, class Policy>
-         T non_central_t2_p(T n, T delta, T x, T y, const Policy& pol, T init_val)
+         T non_central_t2_p(T v, T delta, T x, T y, const Policy& pol, T init_val)
          {
             BOOST_MATH_STD_USING
             //
@@ -38,43 +38,26 @@ namespace boost
             T d2 = delta * delta / 2;
             //
             // k is the starting point for iteration, and is the
-            // maximum of the poisson weighting term:
+            // maximum of the poisson weighting term, we don't
+            // ever allow k == 0 as this can lead to catastrophic
+            // cancellation errors later (test case is v = 1621286869049072.3
+            // delta = 0.16212868690490723, x = 0.86987415482475994).
             //
             int k = itrunc(d2);
             T pois;
-            if(k < 15)
-            {
-               // Since we'll likely need 30-40 terms anyway, start from zero
-               // since this simplifies the arithmetic, don't go too overboard though
-               // as this is the *unstable* direction:
-               k = 0;
-               // Starting Poisson weight:
-               pois = exp(-d2) * 2 / constants::root_pi<T>();
-               pois *= delta / constants::root_two<T>();
-            }
-            else
-            {
-               // Starting Poisson weight:
-               pois = gamma_p_derivative(T(k+1), d2, pol) 
-                  * tgamma_delta_ratio(T(k + 1), T(0.5f))
-                  * delta / constants::root_two<T>();
-            }
+            if(k == 0) k = 1;
+            // Starting Poisson weight:
+            pois = gamma_p_derivative(T(k+1), d2, pol) 
+               * tgamma_delta_ratio(T(k + 1), T(0.5f))
+               * delta / constants::root_two<T>();
             if(pois == 0)
                return init_val;
             T xterm, beta;
             // Recurrance & starting beta terms:
-            if(k == 0)
-            {
-               beta = -boost::math::powm1(y, n / 2, pol);
-               xterm = beta > 0.5f ? T(pow(y, n / 2)) : T(1 - beta);
-            }
-            else
-            {
-               beta = x < y
-                  ? detail::ibeta_imp(T(k + 1), T(n / 2), x, pol, false, true, &xterm)
-                  : detail::ibeta_imp(T(n / 2), T(k + 1), y, pol, true, true, &xterm);
-               xterm *= y / (n / 2 + k);
-            }
+            beta = x < y
+               ? detail::ibeta_imp(T(k + 1), T(v / 2), x, pol, false, true, &xterm)
+               : detail::ibeta_imp(T(v / 2), T(k + 1), y, pol, true, true, &xterm);
+            xterm *= y / (v / 2 + k);
             T poisf(pois), betaf(beta), xtermf(xterm);
             T sum = init_val;
             if((xterm == 0) && (beta == 0))
@@ -85,26 +68,31 @@ namespace boost
             // direction for recursion:
             //
             boost::uintmax_t count = 0;
+            T last_term = 0;
             for(int i = k; i >= 0; --i)
             {
                T term = beta * pois;
                sum += term;
-               if(fabs(term/sum) < errtol)
+               // Don't terminate on first term in case we "fixed" k above:
+               if((fabs(last_term) > fabs(term)) && fabs(term/sum) < errtol)
                   break;
+               last_term = term;
                pois *= (i + 0.5f) / d2;
                beta += xterm;
-               xterm *= (i) / (x * (n / 2 + i - 1));
+               xterm *= (i) / (x * (v / 2 + i - 1));
                ++count;
             }
+            last_term = 0;
             for(int i = k + 1; ; ++i)
             {
                poisf *= d2 / (i + 0.5f);
-               xtermf *= (x * (n / 2 + i - 1)) / (i);
+               xtermf *= (x * (v / 2 + i - 1)) / (i);
                betaf -= xtermf;
                T term = poisf * betaf;
                sum += term;
-               if(fabs(term/sum) < errtol)
+               if((fabs(last_term) > fabs(term)) && (fabs(term/sum) < errtol))
                   break;
+               last_term = term;
                ++count;
                if(count > max_iter)
                {
@@ -117,7 +105,7 @@ namespace boost
          }
 
          template <class T, class Policy>
-         T non_central_t2_q(T n, T delta, T x, T y, const Policy& pol, T init_val)
+         T non_central_t2_q(T v, T delta, T x, T y, const Policy& pol, T init_val)
          {
             BOOST_MATH_STD_USING
             //
@@ -128,23 +116,16 @@ namespace boost
             T d2 = delta * delta / 2;
             //
             // k is the starting point for iteration, and is the
-            // maximum of the poisson weighting term:
+            // maximum of the poisson weighting term, we don't allow
+            // k == 0 as this can cause catastrophic cancellation errors
+            // (test case is v = 561908036470413.25, delta = 0.056190803647041321,
+            // x = 1.6155232703966216):
             //
             int k = itrunc(d2);
-            if(k < 30)
-            {
-               // We typically need around 40 terms so may as well start at 0
-               // and gain faster computation of starting conditions:
-               k = 0; 
-            }
+            if(k == 0) k = 1;
             // Starting Poisson weight:
             T pois;
-            if(k == 0)
-            {
-               pois = exp(-d2) * 2 / constants::root_pi<T>();
-               pois *= delta / constants::root_two<T>();
-            }
-            else if((k < (int)(max_factorial<T>::value)) && (d2 < tools::log_max_value<T>()) && (log(d2) * k < tools::log_max_value<T>()))
+            if((k < (int)(max_factorial<T>::value)) && (d2 < tools::log_max_value<T>()) && (log(d2) * k < tools::log_max_value<T>()))
             {
                //
                // For small k we can optimise this calculation by using
@@ -170,14 +151,14 @@ namespace boost
             if(k != 0)
             {
                beta = x < y 
-                  ? detail::ibeta_imp(T(k + 1), T(n / 2), x, pol, true, true, &xterm) 
-                  : detail::ibeta_imp(T(n / 2), T(k + 1), y, pol, false, true, &xterm);
+                  ? detail::ibeta_imp(T(k + 1), T(v / 2), x, pol, true, true, &xterm) 
+                  : detail::ibeta_imp(T(v / 2), T(k + 1), y, pol, false, true, &xterm);
 
-               xterm *= y / (n / 2 + k);
+               xterm *= y / (v / 2 + k);
             }
             else
             {
-               beta = pow(y, n / 2);
+               beta = pow(y, v / 2);
                xterm = beta;
             }
             T poisf(pois), betaf(beta), xtermf(xterm);
@@ -189,10 +170,11 @@ namespace boost
             // Fused forward and backwards recursion:
             //
             boost::uintmax_t count = 0;
+            T last_term = 0;
             for(int i = k + 1, j = k; ; ++i, --j)
             {
                poisf *= d2 / (i + 0.5f);
-               xtermf *= (x * (n / 2 + i - 1)) / (i);
+               xtermf *= (x * (v / 2 + i - 1)) / (i);
                betaf += xtermf;
                T term = poisf * betaf;
 
@@ -201,12 +183,14 @@ namespace boost
                   term += beta * pois;
                   pois *= (j + 0.5f) / d2;
                   beta -= xterm;
-                  xterm *= (j) / (x * (n / 2 + j - 1));
+                  xterm *= (j) / (x * (v / 2 + j - 1));
                }
 
                sum += term;
-               if(fabs(term/sum) < errtol)
+               // Don't terminate on first term in case we "fixed" the value of k above:
+               if((fabs(last_term) > fabs(term)) && fabs(term/sum) < errtol)
                   break;
+               last_term = term;
                if(count > max_iter)
                {
                   return policies::raise_evaluation_error(
@@ -219,27 +203,47 @@ namespace boost
          }
 
          template <class T, class Policy>
-         T non_central_t_cdf(T n, T delta, T t, bool invert, const Policy& pol)
+         T non_central_t_cdf(T v, T delta, T t, bool invert, const Policy& pol)
          {
+            BOOST_MATH_STD_USING
+            if (boost::math::isinf(v))
+            { // Infinite degrees of freedom, so use normal distribution located at delta.
+               normal_distribution<T, Policy> n(delta, 1); 
+               return cdf(n, t);
+            }
             //
-            // For t < 0 we have to use reflect:
-            //
+            // Otherwise, for t < 0 we have to use the reflection formula:
             if(t < 0)
             {
                t = -t;
                delta = -delta;
                invert = !invert;
             }
+            if(fabs(delta / (4 * v)) < policies::get_epsilon<T, Policy>())
+            {
+               // Approximate with a Student's T centred on delta,
+               // the crossover point is based on eq 2.6 from
+               // "A Comparison of Approximations To Percentiles of the
+               // Noncentral t-Distribution".  H. Sahai and M. M. Ojeda,
+               // Revista Investigacion Operacional Vol 21, No 2, 2000.
+               // Original sources referenced in the above are:
+               // "Some Approximations to the Percentage Points of the Noncentral
+               // t-Distribution". C. van Eeden. International Statistical Review, 29, 4-31.
+               // "Continuous Univariate Distributions".  N.L. Johnson, S. Kotz and
+               // N. Balkrishnan. 1995. John Wiley and Sons New York.
+               T result = cdf(students_t_distribution<T, Policy>(v), t - delta);
+               return invert ? 1 - result : result;
+            }
             //
             // x and y are the corresponding random
             // variables for the noncentral beta distribution,
             // with y = 1 - x:
             //
-            T x = t * t / (n + t * t);
-            T y = n / (n + t * t);
+            T x = t * t / (v + t * t);
+            T y = v / (v + t * t);
             T d2 = delta * delta;
             T a = 0.5f;
-            T b = n / 2;
+            T b = v / 2;
             T c = a + b + d2 / 2;
             //
             // Crossover point for calculating p or q is the same
@@ -255,7 +259,7 @@ namespace boost
                if(x != 0)
                {
                   result = non_central_beta_p(a, b, d2, x, y, pol);
-                  result = non_central_t2_p(n, delta, x, y, pol, result);
+                  result = non_central_t2_p(v, delta, x, y, pol, result);
                   result /= 2;
                }
                else
@@ -271,10 +275,10 @@ namespace boost
                if(x != 0)
                {
                   result = non_central_beta_q(a, b, d2, x, y, pol);
-                  result = non_central_t2_q(n, delta, x, y, pol, result);
+                  result = non_central_t2_q(v, delta, x, y, pol, result);
                   result /= 2;
                }
-               else
+               else // x == 0
                   result = cdf(complement(boost::math::normal_distribution<T, Policy>(), -delta));
             }
             if(invert)
@@ -283,10 +287,11 @@ namespace boost
          }
 
          template <class T, class Policy>
-         T non_central_t_quantile(T v, T delta, T p, T q, const Policy&)
+         T non_central_t_quantile(const char* function, T v, T delta, T p, T q, const Policy&)
          {
             BOOST_MATH_STD_USING
-            static const char* function = "quantile(non_central_t_distribution<%1%>, %1%)";
+     //       static const char* function = "quantile(non_central_t_distribution<%1%>, %1%)";
+     // now passed as function
             typedef typename policies::evaluation<T, Policy>::type value_type;
             typedef typename policies::normalise<
                Policy, 
@@ -296,7 +301,7 @@ namespace boost
                policies::assert_undefined<> >::type forwarding_policy;
 
                T r;
-               if(!detail::check_df(
+               if(!detail::check_df_gt0_to_inf(
                   function,
                   v, &r, Policy())
                   ||
@@ -313,11 +318,24 @@ namespace boost
                   Policy()))
                      return r;
 
+
             value_type guess = 0;
-            if(v > 3)
-            {
-               value_type mean = delta * sqrt(v / 2) * tgamma_delta_ratio((v - 1) * 0.5f, T(0.5f));
-               value_type var = ((delta * delta + 1) * v) / (v - 2) - mean * mean;
+            if ( (boost::math::isinf(v)) || (v > 1 / boost::math::tools::epsilon<T>()) )
+            { // Infinite or very large degrees of freedom, so use normal distribution located at delta.
+               normal_distribution<T, Policy> n(delta, 1);
+               if (p < q)
+               {
+                 return quantile(n, p);
+               }
+               else
+               {
+                 return quantile(complement(n, q));
+               }
+            }
+            else if(v > 3)
+            { // Use normal distribution to calculate guess.
+               value_type mean = (v > 1 / policies::get_epsilon<T, Policy>()) ? delta : delta * sqrt(v / 2) * tgamma_delta_ratio((v - 1) * 0.5f, T(0.5f));
+               value_type var = (v > 1 / policies::get_epsilon<T, Policy>()) ? 1 : (((delta * delta + 1) * v) / (v - 2) - mean * mean);
                if(p < q)
                   guess = quantile(normal_distribution<value_type, forwarding_policy>(mean, var), p);
                else
@@ -370,31 +388,16 @@ namespace boost
             //
             int k = itrunc(d2);
             T pois, xterm;
-            if(k < 30)
-            {
-               //
-               // Since we'll need at least 30-40 terms anyway, start from 0
-               // since this simplifies the starting arithmetic:
-               //
-               k = 0;
-               // Starting Poisson weight:
-               pois = exp(-d2)
-                  * (2 / constants::root_pi<T>())
-                  * delta / constants::root_two<T>();
-               // Starting beta term:
-               xterm = pow(y, n / 2 - 1) * n / 2;
-            }
-            else
-            {
-               // Starting Poisson weight:
-               pois = gamma_p_derivative(T(k+1), d2, pol) 
-                  * tgamma_delta_ratio(T(k + 1), T(0.5f))
-                  * delta / constants::root_two<T>();
-               // Starting beta term:
-               xterm = x < y
-                  ? ibeta_derivative(T(k + 1), n / 2, x, pol)
-                  : ibeta_derivative(n / 2, T(k + 1), y, pol);
-            }
+            if(k == 0)
+               k = 1;
+            // Starting Poisson weight:
+            pois = gamma_p_derivative(T(k+1), d2, pol) 
+               * tgamma_delta_ratio(T(k + 1), T(0.5f))
+               * delta / constants::root_two<T>();
+            // Starting beta term:
+            xterm = x < y
+               ? ibeta_derivative(T(k + 1), n / 2, x, pol)
+               : ibeta_derivative(n / 2, T(k + 1), y, pol);
             T poisf(pois), xtermf(xterm);
             T sum = init_val;
             if((pois == 0) || (xterm == 0))
@@ -409,7 +412,7 @@ namespace boost
             {
                T term = xterm * pois;
                sum += term;
-               if((fabs(term/sum) < errtol) || (term == 0))
+               if(((fabs(term/sum) < errtol) && (i != k)) || (term == 0))
                   break;
                pois *= (i + 0.5f) / d2;
                xterm *= (i) / (x * (n / 2 + i));
@@ -444,9 +447,13 @@ namespace boost
          T non_central_t_pdf(T n, T delta, T t, const Policy& pol)
          {
             BOOST_MATH_STD_USING
+            if (boost::math::isinf(n))
+            { // Infinite degrees of freedom, so use normal distribution located at delta.
+               normal_distribution<T, Policy> n(delta, 1); 
+               return pdf(n, t);
+            }
             //
-            // For t < 0 we have to use the reflection formula:
-            //
+            // Otherwise, for t < 0 we have to use the reflection formula:
             if(t < 0)
             {
                t = -t;
@@ -467,6 +474,20 @@ namespace boost
                return tgamma_delta_ratio(n / 2 + 0.5f, T(0.5f))
                   * sqrt(n / constants::pi<T>()) 
                   * exp(-delta * delta / 2) / 2;
+            }
+            if(fabs(delta / (4 * n)) < policies::get_epsilon<T, Policy>())
+            {
+               // Approximate with a Student's T centred on delta,
+               // the crossover point is based on eq 2.6 from
+               // "A Comparison of Approximations To Percentiles of the
+               // Noncentral t-Distribution".  H. Sahai and M. M. Ojeda,
+               // Revista Investigacion Operacional Vol 21, No 2, 2000.
+               // Original sources referenced in the above are:
+               // "Some Approximations to the Percentage Points of the Noncentral
+               // t-Distribution". C. van Eeden. International Statistical Review, 29, 4-31.
+               // "Continuous Univariate Distributions".  N.L. Johnson, S. Kotz and
+               // N. Balkrishnan. 1995. John Wiley and Sons New York.
+               return pdf(students_t_distribution<T, Policy>(n), t - delta);
             }
             //
             // x and y are the corresponding random
@@ -494,13 +515,35 @@ namespace boost
          template <class T, class Policy>
          T mean(T v, T delta, const Policy& pol)
          {
+            if (boost::math::isinf(v))
+            {
+               return delta;
+            }
             BOOST_MATH_STD_USING
-            return delta * sqrt(v / 2) * tgamma_delta_ratio((v - 1) * 0.5f, T(0.5f), pol);
+            if (v > 1 / boost::math::tools::epsilon<T>() )
+            {
+              //normal_distribution<T, Policy> n(delta, 1);
+              //return boost::math::mean(n); 
+              return delta;
+            }
+            else
+            {
+             return delta * sqrt(v / 2) * tgamma_delta_ratio((v - 1) * 0.5f, T(0.5f), pol);
+            }
+            // Other moments use mean so using normal distribution is propagated.
          }
 
          template <class T, class Policy>
          T variance(T v, T delta, const Policy& pol)
          {
+            if (boost::math::isinf(v))
+            {
+               return 1;
+            }
+            if (delta == 0)
+            {  // == Student's t
+              return v / (v - 2);
+            }
             T result = ((delta * delta + 1) * v) / (v - 2);
             T m = mean(v, delta, pol);
             result -= m * m;
@@ -511,6 +554,14 @@ namespace boost
          T skewness(T v, T delta, const Policy& pol)
          {
             BOOST_MATH_STD_USING
+            if (boost::math::isinf(v))
+            {
+               return 0;
+            }
+            if(delta == 0)
+            { // == Student's t
+              return 0;
+            }
             T mean = boost::math::detail::mean(v, delta, pol);
             T l2 = delta * delta;
             T var = ((l2 + 1) * v) / (v - 2) - mean * mean;
@@ -525,6 +576,14 @@ namespace boost
          T kurtosis_excess(T v, T delta, const Policy& pol)
          {
             BOOST_MATH_STD_USING
+            if (boost::math::isinf(v))
+            {
+               return 3;
+            }
+            if (delta == 0)
+            { // == Student's t
+              return 3;
+            }
             T mean = boost::math::detail::mean(v, delta, pol);
             T l2 = delta * delta;
             T var = ((l2 + 1) * v) / (v - 2) - mean * mean;
@@ -626,7 +685,7 @@ namespace boost
                // Can't do a thing if one of p and q is zero:
                //
                return policies::raise_evaluation_error<RealType>(function, 
-                  "Can't find non centrality parameter when the probability is 0 or 1, only possible answer is %1%", 
+                  "Can't find non-centrality parameter when the probability is 0 or 1, only possible answer is %1%", 
                   RealType(std::numeric_limits<RealType>::quiet_NaN()), Policy());
             }
             t_non_centrality_finder<RealType, Policy> f(v, x, p < q ? p : q, p < q ? false : true);
@@ -652,7 +711,7 @@ namespace boost
             return result;
          }
 #endif
-      } // namespace detail
+      } // namespace detail ======================================================================
 
       template <class RealType = double, class Policy = policies::policy<> >
       class non_central_t_distribution
@@ -665,7 +724,7 @@ namespace boost
          { 
             const char* function = "boost::math::non_central_t_distribution<%1%>::non_central_t_distribution(%1%,%1%)";
             RealType r;
-            detail::check_df(
+            detail::check_df_gt0_to_inf(
                function,
                v, &r, Policy());
             detail::check_finite(
@@ -803,7 +862,7 @@ namespace boost
          RealType v = dist.degrees_of_freedom();
          RealType l = dist.non_centrality();
          RealType r;
-         if(!detail::check_df(
+         if(!detail::check_df_gt0_to_inf(
             function,
             v, &r, Policy())
             ||
@@ -841,7 +900,7 @@ namespace boost
          RealType v = dist.degrees_of_freedom();
          RealType l = dist.non_centrality();
          RealType r;
-         if(!detail::check_df(
+         if(!detail::check_df_gt0_to_inf(
             function,
             v, &r, Policy())
             ||
@@ -854,7 +913,7 @@ namespace boost
          if(v <= 1)
             return policies::raise_domain_error<RealType>(
                function, 
-               "The non central t distribution has no defined mean for degrees of freedom <= 1: got v=%1%.", v, Policy());
+               "The non-central t distribution has no defined mean for degrees of freedom <= 1: got v=%1%.", v, Policy());
          // return l * sqrt(v / 2) * tgamma_delta_ratio((v - 1) * 0.5f, RealType(0.5f));
          return policies::checked_narrowing_cast<RealType, forwarding_policy>(
             detail::mean(static_cast<value_type>(v), static_cast<value_type>(l), forwarding_policy()), function);
@@ -876,7 +935,7 @@ namespace boost
          RealType v = dist.degrees_of_freedom();
          RealType l = dist.non_centrality();
          RealType r;
-         if(!detail::check_df(
+         if(!detail::check_df_gt0_to_inf(
             function,
             v, &r, Policy())
             ||
@@ -889,7 +948,7 @@ namespace boost
          if(v <= 2)
             return policies::raise_domain_error<RealType>(
                function, 
-               "The non central t distribution has no defined variance for degrees of freedom <= 2: got v=%1%.", v, Policy());
+               "The non-central t distribution has no defined variance for degrees of freedom <= 2: got v=%1%.", v, Policy());
          return policies::checked_narrowing_cast<RealType, forwarding_policy>(
             detail::variance(static_cast<value_type>(v), static_cast<value_type>(l), forwarding_policy()), function);
       }
@@ -911,7 +970,7 @@ namespace boost
          RealType v = dist.degrees_of_freedom();
          RealType l = dist.non_centrality();
          RealType r;
-         if(!detail::check_df(
+         if(!detail::check_df_gt0_to_inf(
             function,
             v, &r, Policy())
             ||
@@ -924,7 +983,7 @@ namespace boost
          if(v <= 3)
             return policies::raise_domain_error<RealType>(
                function, 
-               "The non central t distribution has no defined skewness for degrees of freedom <= 3: got v=%1%.", v, Policy());;
+               "The non-central t distribution has no defined skewness for degrees of freedom <= 3: got v=%1%.", v, Policy());;
          return policies::checked_narrowing_cast<RealType, forwarding_policy>(
             detail::skewness(static_cast<value_type>(v), static_cast<value_type>(l), forwarding_policy()), function);
       }
@@ -943,7 +1002,7 @@ namespace boost
          RealType v = dist.degrees_of_freedom();
          RealType l = dist.non_centrality();
          RealType r;
-         if(!detail::check_df(
+         if(!detail::check_df_gt0_to_inf(
             function,
             v, &r, Policy())
             ||
@@ -956,7 +1015,7 @@ namespace boost
          if(v <= 4)
             return policies::raise_domain_error<RealType>(
                function, 
-               "The non central t distribution has no defined kurtosis for degrees of freedom <= 4: got v=%1%.", v, Policy());;
+               "The non-central t distribution has no defined kurtosis for degrees of freedom <= 4: got v=%1%.", v, Policy());;
          return policies::checked_narrowing_cast<RealType, forwarding_policy>(
             detail::kurtosis_excess(static_cast<value_type>(v), static_cast<value_type>(l), forwarding_policy()), function);
       } // kurtosis_excess
@@ -970,7 +1029,7 @@ namespace boost
       template <class RealType, class Policy>
       inline RealType pdf(const non_central_t_distribution<RealType, Policy>& dist, const RealType& t)
       { // Probability Density/Mass Function.
-         const char* function = "cdf(non_central_t_distribution<%1%>, %1%)";
+         const char* function = "pdf(non_central_t_distribution<%1%>, %1%)";
          typedef typename policies::evaluation<RealType, Policy>::type value_type;
          typedef typename policies::normalise<
             Policy, 
@@ -982,7 +1041,7 @@ namespace boost
          RealType v = dist.degrees_of_freedom();
          RealType l = dist.non_centrality();
          RealType r;
-         if(!detail::check_df(
+         if(!detail::check_df_gt0_to_inf(
             function,
             v, &r, Policy())
             ||
@@ -1009,7 +1068,8 @@ namespace boost
       template <class RealType, class Policy>
       RealType cdf(const non_central_t_distribution<RealType, Policy>& dist, const RealType& x)
       { 
-         const char* function = "boost::math::non_central_t_distribution<%1%>::cdf(%1%)";
+         const char* function = "boost::math::cdf(non_central_t_distribution<%1%>&, %1%)";
+//   was const char* function = "boost::math::non_central_t_distribution<%1%>::cdf(%1%)";
          typedef typename policies::evaluation<RealType, Policy>::type value_type;
          typedef typename policies::normalise<
             Policy, 
@@ -1021,7 +1081,7 @@ namespace boost
          RealType v = dist.degrees_of_freedom();
          RealType l = dist.non_centrality();
          RealType r;
-         if(!detail::check_df(
+         if(!detail::check_df_gt0_to_inf(
             function,
             v, &r, Policy())
             ||
@@ -1037,10 +1097,17 @@ namespace boost
             &r,
             Policy()))
                return (RealType)r;
+          if (boost::math::isinf(v))
+          { // Infinite degrees of freedom, so use normal distribution located at delta.
+             normal_distribution<RealType, Policy> n(l, 1); 
+             cdf(n, x);
+              //return cdf(normal_distribution<RealType, Policy>(l, 1), x);
+          }
 
          if(l == 0)
+         { // NO non-centrality, so use Student's t instead.
             return cdf(students_t_distribution<RealType, Policy>(v), x);
-
+         }
          return policies::checked_narrowing_cast<RealType, forwarding_policy>(
             detail::non_central_t_cdf(
                static_cast<value_type>(v), 
@@ -1053,7 +1120,8 @@ namespace boost
       template <class RealType, class Policy>
       RealType cdf(const complemented2_type<non_central_t_distribution<RealType, Policy>, RealType>& c)
       { // Complemented Cumulative Distribution Function
-         const char* function = "boost::math::non_central_t_distribution<%1%>::cdf(%1%)";
+  // was       const char* function = "boost::math::non_central_t_distribution<%1%>::cdf(%1%)";
+         const char* function = "boost::math::cdf(const complement(non_central_t_distribution<%1%>&), %1%)";
          typedef typename policies::evaluation<RealType, Policy>::type value_type;
          typedef typename policies::normalise<
             Policy, 
@@ -1065,9 +1133,9 @@ namespace boost
          non_central_t_distribution<RealType, Policy> const& dist = c.dist;
          RealType x = c.param;
          RealType v = dist.degrees_of_freedom();
-         RealType l = dist.non_centrality();
+         RealType l = dist.non_centrality(); // aka delta
          RealType r;
-         if(!detail::check_df(
+         if(!detail::check_df_gt0_to_inf(
             function,
             v, &r, Policy())
             ||
@@ -1084,9 +1152,15 @@ namespace boost
             Policy()))
                return (RealType)r;
 
+         if (boost::math::isinf(v))
+         { // Infinite degrees of freedom, so use normal distribution located at delta.
+             normal_distribution<RealType, Policy> n(l, 1); 
+             return cdf(complement(n, x));
+         }
          if(l == 0)
+         { // zero non-centrality so use Student's t distribution.
             return cdf(complement(students_t_distribution<RealType, Policy>(v), x));
-
+         }
          return policies::checked_narrowing_cast<RealType, forwarding_policy>(
             detail::non_central_t_cdf(
                static_cast<value_type>(v), 
@@ -1099,19 +1173,21 @@ namespace boost
       template <class RealType, class Policy>
       inline RealType quantile(const non_central_t_distribution<RealType, Policy>& dist, const RealType& p)
       { // Quantile (or Percent Point) function.
+         static const char* function = "quantile(const non_central_t_distribution<%1%>, %1%)";
          RealType v = dist.degrees_of_freedom();
          RealType l = dist.non_centrality();
-         return detail::non_central_t_quantile(v, l, p, RealType(1-p), Policy());
+         return detail::non_central_t_quantile(function, v, l, p, RealType(1-p), Policy());
       } // quantile
 
       template <class RealType, class Policy>
       inline RealType quantile(const complemented2_type<non_central_t_distribution<RealType, Policy>, RealType>& c)
       { // Quantile (or Percent Point) function.
+         static const char* function = "quantile(const complement(non_central_t_distribution<%1%>, %1%))";
          non_central_t_distribution<RealType, Policy> const& dist = c.dist;
          RealType q = c.param;
          RealType v = dist.degrees_of_freedom();
          RealType l = dist.non_centrality();
-         return detail::non_central_t_quantile(v, l, RealType(1-q), q, Policy());
+         return detail::non_central_t_quantile(function, v, l, RealType(1-q), q, Policy());
       } // quantile complement.
 
    } // namespace math

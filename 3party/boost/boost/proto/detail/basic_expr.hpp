@@ -100,7 +100,7 @@
         typedef basic_expr proto_grammar;
         typedef basic_default_domain proto_domain;
         typedef default_generator proto_generator;
-        typedef proto::tag::proto_expr fusion_tag;
+        typedef proto::tag::proto_expr<Tag, proto_domain> fusion_tag;
         typedef basic_expr proto_derived_expr;
         typedef void proto_is_expr_; /**< INTERNAL ONLY */
 

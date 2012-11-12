@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2010-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2010-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -132,7 +132,7 @@ class robust_mutex_lock_file
             throw interprocess_exception(other_error, "Robust emulation robust_mutex_lock_file constructor failed: create_file filed with unexpected error");
          }
       }
-   }  
+   }
 
    ~robust_mutex_lock_file()
    {
@@ -324,7 +324,7 @@ inline bool robust_spin_mutex<Mutex>::robust_check()
       return false;
    }
    atomic_write32(&this->state, fixing_state);
-   return true;  
+   return true;
 }
 
 template<class Mutex>

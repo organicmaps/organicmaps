@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -22,6 +22,7 @@
 #include <boost/interprocess/detail/interprocess_tester.hpp>
 #include <boost/interprocess/permissions.hpp>
 #include <boost/interprocess/detail/posix_time_types_wrk.hpp>
+#include <boost/interprocess/sync/detail/locks.hpp>
 #if !defined(BOOST_INTERPROCESS_FORCE_GENERIC_EMULATION) && defined (BOOST_INTERPROCESS_WINDOWS)
    #include <boost/interprocess/sync/windows/named_condition.hpp>
    #define BOOST_INTERPROCESS_USE_WINDOWS
@@ -153,24 +154,38 @@ inline void named_condition::notify_all()
 
 template <typename L>
 inline void named_condition::wait(L& lock)
-{  m_cond.wait(lock);  }
+{
+   ipcdetail::internal_mutex_lock<L> internal_lock(lock);
+   m_cond.wait(internal_lock);
+}
 
 template <typename L, typename Pr>
 inline void named_condition::wait(L& lock, Pr pred)
-{  m_cond.wait(lock, pred);  }
+{
+   ipcdetail::internal_mutex_lock<L> internal_lock(lock);
+   m_cond.wait(internal_lock, pred);
+}
 
 template <typename L>
 inline bool named_condition::timed_wait
    (L& lock, const boost::posix_time::ptime &abs_time)
-{  return m_cond.timed_wait(lock, abs_time);  }
+{
+   ipcdetail::internal_mutex_lock<L> internal_lock(lock);
+   return m_cond.timed_wait(internal_lock, abs_time);
+}
 
 template <typename L, typename Pr>
 inline bool named_condition::timed_wait
    (L& lock, const boost::posix_time::ptime &abs_time, Pr pred)
-{  return m_cond.timed_wait(lock, abs_time, pred);  }
+{  
+   ipcdetail::internal_mutex_lock<L> internal_lock(lock);
+   return m_cond.timed_wait(internal_lock, abs_time, pred);
+}
 
 inline bool named_condition::remove(const char *name)
-{  return condition_type::remove(name); }
+{
+   return condition_type::remove(name);
+}
 
 /// @endcond
 

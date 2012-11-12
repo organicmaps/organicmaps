@@ -5,17 +5,17 @@
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 ==============================================================================*/
-#if !defined(BOOST_CPP03_FUSION_DEQUE_26112006_1649)
-#define BOOST_CPP03_FUSION_DEQUE_26112006_1649
+#if !defined(BOOST_PP_FUSION_DEQUE_26112006_1649)
+#define BOOST_PP_FUSION_DEQUE_26112006_1649
 
-#if defined(BOOST_FUSION_HAS_CPP11_DEQUE)
+#if defined(BOOST_FUSION_HAS_VARIADIC_DEQUE)
 #error "C++03 only! This file should not have been included"
 #endif
 
 #include <boost/fusion/container/deque/limits.hpp>
 #include <boost/fusion/container/deque/front_extended_deque.hpp>
 #include <boost/fusion/container/deque/back_extended_deque.hpp>
-#include <boost/fusion/container/deque/detail/cpp03_deque_keyed_values.hpp>
+#include <boost/fusion/container/deque/detail/pp_deque_keyed_values.hpp>
 #include <boost/fusion/container/deque/detail/deque_initial_size.hpp>
 #include <boost/fusion/support/sequence_base.hpp>
 #include <boost/fusion/container/deque/detail/keyed_element.hpp>
@@ -87,13 +87,34 @@ namespace boost { namespace fusion {
             : base(t0, detail::nil_keyed_element())
             {}
 
+        explicit deque(deque const& rhs)
+            : base(rhs)
+            {}
+
+#if !defined(BOOST_NO_RVALUE_REFERENCES)
+        explicit deque(T0&& t0)
+            : base(std::forward<T0>(t0), detail::nil_keyed_element())
+            {}
+
+        explicit deque(deque&& rhs)
+            : base(std::forward<deque>(rhs))
+            {}
+#endif
+
         template<BOOST_PP_ENUM_PARAMS(FUSION_MAX_DEQUE_SIZE, typename U)>
-            deque(deque<BOOST_PP_ENUM_PARAMS(FUSION_MAX_DEQUE_SIZE, U)> const& seq)
+        deque(deque<BOOST_PP_ENUM_PARAMS(FUSION_MAX_DEQUE_SIZE, U)> const& seq)
             : base(seq)
             {}
 
+#if !defined(BOOST_NO_RVALUE_REFERENCES)
+        template<BOOST_PP_ENUM_PARAMS(FUSION_MAX_DEQUE_SIZE, typename U)>
+        deque(deque<BOOST_PP_ENUM_PARAMS(FUSION_MAX_DEQUE_SIZE, U)>&& seq)
+            : base(std::forward<deque<BOOST_PP_ENUM_PARAMS(FUSION_MAX_DEQUE_SIZE, U)>>(seq))
+            {}
+#endif
+
         template<typename Sequence>
-            deque(Sequence const& seq, typename disable_if<is_convertible<Sequence, T0> >::type* /*dummy*/ = 0)
+        deque(Sequence const& seq, typename disable_if<is_convertible<Sequence, T0> >::type* /*dummy*/ = 0)
             : base(base::from_iterator(fusion::begin(seq)))
             {}
 
@@ -112,6 +133,16 @@ namespace boost { namespace fusion {
             base::operator=(rhs);
             return *this;
         }
+
+#if !defined(BOOST_NO_RVALUE_REFERENCES)
+        template <typename T>
+        deque&
+        operator=(T&& rhs)
+        {
+            base::operator=(std::forward<T>(rhs));
+            return *this;
+        }
+#endif
 
     };
 }}

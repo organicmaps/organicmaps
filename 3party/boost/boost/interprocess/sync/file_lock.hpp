@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -64,10 +64,10 @@ class file_lock
    //!After the call, "moved" does not represent any file mapping.
    //!Does not throw
    file_lock &operator=(BOOST_RV_REF(file_lock) moved)
-   { 
+   {
       file_lock tmp(boost::move(moved));
       this->swap(tmp);
-      return *this; 
+      return *this;
    }
 
    //!Closes a file lock. Does not throw.
@@ -81,7 +81,7 @@ class file_lock
       m_file_hnd = other.m_file_hnd;
       other.m_file_hnd = tmp;
    }
-  
+
    //Exclusive locking
 
    //!Effects: The calling thread tries to obtain exclusive ownership of the mutex,
@@ -171,7 +171,7 @@ class file_lock
 
    bool timed_acquire_file_lock_sharable
       (file_handle_t hnd, bool &acquired, const boost::posix_time::ptime &abs_time)
-   { 
+   {
       //Obtain current count and target time
       boost::posix_time::ptime now = microsec_clock::universal_time();
       using namespace boost::detail;

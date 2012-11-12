@@ -68,7 +68,7 @@ namespace boost { namespace fusion
 
     template <typename Key, typename Sequence>
     inline typename result_of::has_key<Sequence, Key>::type
-    has_key(Sequence const& seq)
+    has_key(Sequence const&)
     {
         typedef typename result_of::has_key<Sequence, Key>::type result;
         return result();

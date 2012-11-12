@@ -196,7 +196,7 @@ namespace graph_detail {
     {
         // If the element is already occupied, then we probably don't want to
         // overwrite it.
-        if(c[l] == Graph::null_vertex()) return false;
+        if(c[l] == graph_traits<Graph>::null_vertex()) return false;
         c[l] = v;
         return true;
     }
@@ -411,7 +411,7 @@ public:
 
     /** Return a null descriptor */
     static vertex_descriptor null_vertex()
-    { return graph_type::null_vertex(); }
+    { return graph_traits<graph_type>::null_vertex(); }
 
 private:
     graph_type _graph;
@@ -525,7 +525,7 @@ public:
 #endif
 
     static vertex_descriptor null_vertex()
-    { return graph_type::null_vertex(); }
+    { return graph_traits<graph_type>::null_vertex(); }
 
 private:
     graph_type* _graph;

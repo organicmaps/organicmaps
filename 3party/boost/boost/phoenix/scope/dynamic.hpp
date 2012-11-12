@@ -145,7 +145,7 @@ namespace boost { namespace phoenix
 
         template <typename N, typename Scope, typename Context>
         typename result<dynamic_member_eval(N, Scope, Context)>::type
-        operator()(N, Scope s, Context &) const
+        operator()(N, Scope s, Context const &) const
         {
             return
                 fusion::at_c<

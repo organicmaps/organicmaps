@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -70,6 +70,25 @@ class interprocess_mutex
    interprocess_mutex(const interprocess_mutex &);
    interprocess_mutex &operator=(const interprocess_mutex &);
    friend class interprocess_condition;
+
+   public:
+   #if defined(BOOST_INTERPROCESS_USE_GENERIC_EMULATION)
+      #undef BOOST_INTERPROCESS_USE_GENERIC_EMULATION
+      typedef ipcdetail::spin_mutex internal_mutex_type;
+      private:
+      friend class ipcdetail::robust_emulation_helpers::mutex_traits<interprocess_mutex>;
+      void take_ownership(){ m_mutex.take_ownership(); }
+      public:
+   #elif defined(BOOST_INTERPROCESS_USE_POSIX)
+      #undef BOOST_INTERPROCESS_USE_POSIX
+      typedef ipcdetail::posix_mutex internal_mutex_type;
+   #elif defined(BOOST_INTERPROCESS_USE_WINDOWS)
+      #undef BOOST_INTERPROCESS_USE_WINDOWS
+      typedef ipcdetail::windows_mutex internal_mutex_type;
+   #else
+      #error "Unknown platform for interprocess_mutex"
+   #endif
+
    /// @endcond
    public:
 
@@ -107,23 +126,16 @@ class interprocess_mutex
    //!Effects: The calling thread releases the exclusive ownership of the mutex.
    //!Throws: interprocess_exception on error.
    void unlock();
-   /// @cond
-   private:
 
-   #if defined(BOOST_INTERPROCESS_USE_GENERIC_EMULATION)
-      #undef BOOST_INTERPROCESS_USE_GENERIC_EMULATION
-      friend class ipcdetail::robust_emulation_helpers::mutex_traits<interprocess_mutex>;
-      void take_ownership(){ mutex.take_ownership(); }
-      ipcdetail::spin_mutex mutex;
-   #elif defined(BOOST_INTERPROCESS_USE_POSIX)
-      #undef BOOST_INTERPROCESS_USE_POSIX
-      ipcdetail::posix_mutex mutex;
-   #elif defined(BOOST_INTERPROCESS_USE_WINDOWS)
-      #undef BOOST_INTERPROCESS_USE_WINDOWS
-      ipcdetail::windows_mutex mutex;
-   #else
-      #error "Unknown platform for interprocess_mutex"
-   #endif
+   /// @cond
+   internal_mutex_type &internal_mutex()
+   {  return m_mutex;   }
+
+   const internal_mutex_type &internal_mutex() const
+   {  return m_mutex;   }
+
+   private:
+   internal_mutex_type m_mutex;
    /// @endcond
 };
 
@@ -144,23 +156,25 @@ inline void interprocess_mutex::lock()
       boost::posix_time::ptime wait_time
          = boost::posix_time::microsec_clock::universal_time()
          + boost::posix_time::milliseconds(BOOST_INTERPROCESS_TIMEOUT_WHEN_LOCKING_DURATION_MS);
-      if (!mutex.timed_lock(wait_time))
+      if (!m_mutex.timed_lock(wait_time))
       {
-         throw interprocess_exception(timeout_when_locking_error, "Interprocess mutex timeout when locking. Possible deadlock: owner died without unlocking?");
+         throw interprocess_exception(timeout_when_locking_error
+                                     , "Interprocess mutex timeout when locking. Possible deadlock: "
+                                       "owner died without unlocking?");
       }
    #else
-      mutex.lock();
+      m_mutex.lock();
    #endif
 }
 
 inline bool interprocess_mutex::try_lock()
-{ return mutex.try_lock(); }
+{ return m_mutex.try_lock(); }
 
 inline bool interprocess_mutex::timed_lock(const boost::posix_time::ptime &abs_time)
-{ return mutex.timed_lock(abs_time); }
+{ return m_mutex.timed_lock(abs_time); }
 
 inline void interprocess_mutex::unlock()
-{ mutex.unlock(); }
+{ m_mutex.unlock(); }
 
 }  //namespace interprocess {
 }  //namespace boost {

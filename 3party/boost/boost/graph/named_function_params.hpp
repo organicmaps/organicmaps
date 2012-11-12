@@ -278,13 +278,13 @@ BOOST_BGL_DECLARE_NAMED_PARAMS
 
     template <> struct choose_impl_helper<false> {
       template <typename Param, typename Graph, typename PropertyTag>
-      static typename property_map<Graph, PropertyTag>::const_type
+      static typename property_map<typename boost::remove_const<Graph>::type, PropertyTag>::const_type
       f(boost::mpl::true_, const Graph& g, const Param&, PropertyTag tag) {
         return get(tag, g);
       }
 
       template <typename Param, typename Graph, typename PropertyTag>
-      static typename property_map<Graph, PropertyTag>::type
+      static typename property_map<typename boost::remove_const<Graph>::type, PropertyTag>::type
       f(boost::mpl::false_, Graph& g, const Param&, PropertyTag tag) {
         return get(tag, g);
       }
@@ -432,13 +432,13 @@ BOOST_BGL_DECLARE_NAMED_PARAMS
     template <typename ArgType, typename Prop, typename Graph, bool Exists>
     struct override_property_t {
       typedef ArgType result_type;
-      result_type operator()(const Graph& g, const typename boost::add_reference<ArgType>::type a) const {return a;}
+      result_type operator()(const Graph&, const typename boost::add_reference<ArgType>::type a) const {return a;}
     };
 
     template <typename ArgType, typename Prop, typename Graph>
     struct override_property_t<ArgType, Prop, Graph, false> {
       typedef typename boost::property_map<Graph, Prop>::type result_type;
-      result_type operator()(const Graph& g, const ArgType& a) const {return get(Prop(), g);}
+      result_type operator()(const Graph& g, const ArgType&) const {return get(Prop(), g);}
     };
 
     template <typename ArgPack, typename Tag, typename Prop, typename Graph>
@@ -455,7 +455,7 @@ BOOST_BGL_DECLARE_NAMED_PARAMS
 
     template <typename ArgPack, typename Tag, typename Prop, typename Graph>
     typename override_property_result<ArgPack, Tag, Prop, Graph>::type
-    override_property(const ArgPack& ap, const boost::parameter::keyword<Tag>& t, const Graph& g, Prop prop) {
+    override_property(const ArgPack& ap, const boost::parameter::keyword<Tag>& t, const Graph& g, Prop) {
     return override_property_t<
              typename boost::parameter::value_type<ArgPack, Tag, int>::type,
              Prop,
@@ -633,7 +633,7 @@ BOOST_BGL_DECLARE_NAMED_PARAMS
       typedef Q priority_queue_type;
 
       static priority_queue_type
-      make_queue(const Graph& g, const ArgPack& ap, KeyT defaultKey, const Q& q) {
+      make_queue(const Graph&, const ArgPack&, KeyT, const Q& q) {
         return q;
       }
     };
@@ -645,7 +645,7 @@ BOOST_BGL_DECLARE_NAMED_PARAMS
       typedef boost::d_ary_heap_indirect<ValueT, 4, index_in_heap_map, typename map_maker<Graph, ArgPack, KeyMapTag, KeyT>::helper::map_type, Compare> priority_queue_type;
 
       static priority_queue_type
-      make_queue(const Graph& g, const ArgPack& ap, KeyT defaultKey, const Q& q) {
+      make_queue(const Graph& g, const ArgPack& ap, KeyT defaultKey, const Q&) {
         return priority_queue_type(
             map_maker<Graph, ArgPack, KeyMapTag, KeyT>::make_map(g, ap, defaultKey),
             map_maker<Graph, ArgPack, IndexInHeapMapTag, default_index_in_heap_type>::make_map(g, ap, typename boost::property_traits<index_in_heap_map>::value_type(-1))

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -104,7 +104,7 @@ typedef pthread_t OS_thread_id_t;
 typedef pid_t     OS_process_id_t;
 
 struct OS_systemwide_thread_id_t
-{ 
+{
    OS_systemwide_thread_id_t()
       :  pid(), tid()
    {}

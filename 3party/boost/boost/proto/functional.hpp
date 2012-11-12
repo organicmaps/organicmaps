@@ -11,5 +11,6 @@
 
 #include <boost/proto/functional/std.hpp>
 #include <boost/proto/functional/fusion.hpp>
+#include <boost/proto/functional/range.hpp>
 
 #endif

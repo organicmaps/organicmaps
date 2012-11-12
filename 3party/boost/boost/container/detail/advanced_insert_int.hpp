@@ -173,7 +173,6 @@ struct default_construct_aux_proxy
 #ifdef BOOST_CONTAINER_PERFECT_FORWARDING
 
 #include <boost/container/detail/variadic_templates_tools.hpp>
-#include <boost/container/detail/stored_ref.hpp>
 #include <boost/move/move.hpp>
 #include <typeinfo>
 //#include <iostream> //For debugging purposes
@@ -227,8 +226,7 @@ struct advanced_insert_aux_non_movable_emplace
          if(!this->used_){
             alloc_traits::construct( this->a_
                                    , container_detail::to_raw_pointer(&*p)
-                                   , ::boost::container::container_detail::
-                                       stored_ref<Args>::forward(get<IdxPack>(this->args_))...
+                                   , ::boost::forward<Args>(get<IdxPack>(this->args_))...
                                    );
             this->used_ = true;
          }
@@ -241,8 +239,7 @@ struct advanced_insert_aux_non_movable_emplace
       if(!this->used_){
          alloc_traits::construct( this->a_
                                 , container_detail::to_raw_pointer(&*p)
-                                , ::boost::container::container_detail::
-                                    stored_ref<Args>::forward(get<IdxPack>(this->args_))...
+                                  , ::boost::forward<Args>(get<IdxPack>(this->args_))...
                                 );
          this->used_ = true;
       }
@@ -288,7 +285,7 @@ struct advanced_insert_aux_emplace
          aligned_storage<sizeof(value_type), alignment_of<value_type>::value> v;
          value_type *vp = static_cast<value_type *>(static_cast<void *>(&v));
          alloc_traits::construct(this->a_, vp,
-            ::boost::container::container_detail::stored_ref<Args>::forward(get<IdxPack>(this->args_))...);
+            ::boost::forward<Args>(get<IdxPack>(this->args_))...);
          scoped_destructor<A> d(this->a_, vp);
          *p = ::boost::move(*vp);
          d.release();
@@ -305,7 +302,7 @@ struct advanced_insert_aux_emplace
             aligned_storage<sizeof(value_type), alignment_of<value_type>::value> v;
             value_type *vp = static_cast<value_type *>(static_cast<void *>(&v));
             alloc_traits::construct(this->a_, vp,
-               ::boost::container::container_detail::stored_ref<Args>::forward(get<IdxPack>(this->args_))...);
+               ::boost::forward<Args>(get<IdxPack>(this->args_))...);
             try {
                *p = ::boost::move(*vp);
             } catch (...) {
@@ -413,7 +410,7 @@ struct BOOST_PP_CAT(BOOST_PP_CAT(advanced_insert_aux_emplace, n), arg)          
          alloc_traits::construct(this->a_, vp                                       \
             BOOST_PP_ENUM_TRAILING(n, BOOST_CONTAINER_PP_MEMBER_FORWARD, _));       \
          scoped_destructor<A> d(this->a_, vp);                                      \
-         *p = ::boost::move(*vp);                                                     \
+         *p = ::boost::move(*vp);                                                   \
          d.release();                                                               \
          this->used_ = true;                                                        \
       }                                                                             \
@@ -430,7 +427,7 @@ struct BOOST_PP_CAT(BOOST_PP_CAT(advanced_insert_aux_emplace, n), arg)          
             alloc_traits::construct(this->a_, vp                                    \
                BOOST_PP_ENUM_TRAILING(n, BOOST_CONTAINER_PP_MEMBER_FORWARD, _));    \
             scoped_destructor<A> d(this->a_, vp);                                   \
-            *p = ::boost::move(*vp);                                                  \
+            *p = ::boost::move(*vp);                                                \
             d.release();                                                            \
             this->used_ = true;                                                     \
          }                                                                          \

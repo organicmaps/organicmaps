@@ -6,22 +6,26 @@
 // (C) Copyright 2007-8 Anthony Williams
 // (C) Copyright 2011-2012 Vicente J. Botet Escriba
 
-#include <boost/thread/mutex.hpp>
 #include <boost/thread/win32/thread_primitives.hpp>
-#include <limits.h>
-#include <boost/assert.hpp>
-#include <algorithm>
-#include <boost/thread/cv_status.hpp>
 #include <boost/thread/win32/thread_data.hpp>
-#include <boost/thread/thread_time.hpp>
+#include <boost/thread/win32/thread_data.hpp>
 #include <boost/thread/win32/interlocked_read.hpp>
+#include <boost/thread/cv_status.hpp>
 #include <boost/thread/xtime.hpp>
-#include <vector>
+#include <boost/thread/mutex.hpp>
+#include <boost/thread/thread_time.hpp>
+
+#include <boost/assert.hpp>
 #include <boost/intrusive_ptr.hpp>
+
 #ifdef BOOST_THREAD_USES_CHRONO
 #include <boost/chrono/system_clocks.hpp>
 #include <boost/chrono/ceil.hpp>
 #endif
+
+#include <limits.h>
+#include <algorithm>
+#include <vector>
 
 #include <boost/config/abi_prefix.hpp>
 
@@ -191,7 +195,10 @@ namespace boost
 
                 ~entry_manager()
                 {
+                  if(! entry->is_notified())
+                  {
                     entry->remove_waiter();
+                  }
                 }
 
                 list_entry* operator->()
@@ -510,6 +517,7 @@ namespace boost
 #endif
     };
 
+        BOOST_THREAD_DECL void notify_all_at_thread_exit(condition_variable& cond, unique_lock<mutex> lk);
 }
 
 #include <boost/config/abi_suffix.hpp>

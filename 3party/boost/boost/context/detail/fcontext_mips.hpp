@@ -4,8 +4,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef BOOST_CTX_DETAIL_FCONTEXT_MIPS_H
-#define BOOST_CTX_DETAIL_FCONTEXT_MIPS_H
+#ifndef BOOST_CONTEXT_DETAIL_FCONTEXT_MIPS_H
+#define BOOST_CONTEXT_DETAIL_FCONTEXT_MIPS_H
+
+#include <cstddef>
 
 #include <boost/config.hpp>
 #include <boost/cstdint.hpp>
@@ -17,7 +19,7 @@
 #endif
 
 namespace boost {
-namespace ctx {
+namespace context {
 
 extern "C" {
 
@@ -27,11 +29,11 @@ extern "C" {
 
 struct stack_t
 {
-    void    *   base;
-    void    *   limit;
+    void    *   sp;
+    std::size_t size;
 
     stack_t() :
-        base( 0), limit( 0)
+        sp( 0), size( 0)
     {}
 };
 
@@ -46,7 +48,7 @@ struct fp_t
 
 struct fcontext_t
 {
-    boost::uint64_t     fc_greg[13];
+    boost::uint32_t     fc_greg[12];
     stack_t             fc_stack;
     fp_t                fc_fp;
 
@@ -65,4 +67,4 @@ struct fcontext_t
 # include BOOST_ABI_SUFFIX
 #endif
 
-#endif // BOOST_CTX_DETAIL_FCONTEXT_MIPS_H
+#endif // BOOST_CONTEXT_DETAIL_FCONTEXT_MIPS_H

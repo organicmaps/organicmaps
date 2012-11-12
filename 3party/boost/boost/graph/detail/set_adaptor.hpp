@@ -111,7 +111,7 @@ namespace boost {
     // Shit, can't implement this without knowing the size of the
     // universe.
     template <class K, class C, class A>
-    void set_compliment(const std::set<K,C,A>& x,
+    void set_compliment(const std::set<K,C,A>& /*x*/,
                         std::set<K,C,A>& z)
     {
       z.clear();

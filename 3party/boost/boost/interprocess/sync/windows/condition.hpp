@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -33,63 +33,34 @@ class windows_condition
    windows_condition &operator=(const windows_condition &);
 
    public:
-   windows_condition();
-   ~windows_condition();
+   windows_condition()
+      : m_condition_data()
+   {}
 
-   void notify_one();
-   void notify_all();
+   ~windows_condition()
+   {}
+
+   void notify_one()
+   {  m_condition_data.notify_one();   }
+
+   void notify_all()
+   {  m_condition_data.notify_all();   }
 
    template <typename L>
    bool timed_wait(L& lock, const boost::posix_time::ptime &abs_time)
-   {
-      if(abs_time == boost::posix_time::pos_infin){
-         this->wait(lock);
-         return true;
-      }
-      if (!lock)
-         throw lock_exception();
-      return this->do_timed_wait(abs_time, *lock.mutex());
-   }
+   {  return m_condition_data.timed_wait(lock, abs_time);   }
 
    template <typename L, typename Pr>
    bool timed_wait(L& lock, const boost::posix_time::ptime &abs_time, Pr pred)
-   {
-      if(abs_time == boost::posix_time::pos_infin){
-         this->wait(lock, pred);
-         return true;
-      }
-      if (!lock)
-         throw lock_exception();
-      while (!pred()){
-         if (!this->do_timed_wait(abs_time, *lock.mutex()))
-            return pred();
-      }
-      return true;
-   }
+   {  return m_condition_data.timed_wait(lock, abs_time, pred);   }
 
    template <typename L>
    void wait(L& lock)
-   {
-      if (!lock)
-         throw lock_exception();
-      do_wait(*lock.mutex());
-   }
+   {  m_condition_data.wait(lock);   }
 
    template <typename L, typename Pr>
    void wait(L& lock, Pr pred)
-   {
-      if (!lock)
-         throw lock_exception();
-
-      while (!pred())
-         do_wait(*lock.mutex());
-   }
-
-   template<class InterprocessMutex>
-   void do_wait(InterprocessMutex &mut);
-
-   template<class InterprocessMutex>
-   bool do_timed_wait(const boost::posix_time::ptime &abs_time, InterprocessMutex &mut);
+   {  m_condition_data.wait(lock, pred);   }
 
    private:
 
@@ -132,32 +103,10 @@ class windows_condition
       windows_semaphore m_sem_block_queue;
       windows_semaphore m_sem_block_lock;
       windows_mutex     m_mtx_unblock_lock;
-   } m_condition_data;
+   };
 
-   typedef condition_algorithm_8a<condition_data> algorithm_type;
+   ipcdetail::condition_8a_wrapper<condition_data> m_condition_data;
 };
-
-inline windows_condition::windows_condition()
-   : m_condition_data()
-{}
-
-inline windows_condition::~windows_condition()
-{}
-
-inline void windows_condition::notify_one()
-{  algorithm_type::signal(m_condition_data, false);  }
-
-inline void windows_condition::notify_all()
-{  algorithm_type::signal(m_condition_data, true);  }
-
-template<class InterprocessMutex>
-inline void windows_condition::do_wait(InterprocessMutex &mut)
-{  algorithm_type::wait(m_condition_data, false, boost::posix_time::ptime(), mut);  }
-
-template<class InterprocessMutex>
-inline bool windows_condition::do_timed_wait
-   (const boost::posix_time::ptime &abs_time, InterprocessMutex &mut)
-{  return algorithm_type::wait(m_condition_data, true, abs_time, mut);  }
 
 }  //namespace ipcdetail
 }  //namespace interprocess

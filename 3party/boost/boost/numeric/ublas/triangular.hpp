@@ -1936,6 +1936,92 @@ namespace boost { namespace numeric { namespace ublas {
             }
         }
     }
+
+    // Dense (proxy) case
+    template<class E1, class E2>
+    BOOST_UBLAS_INLINE
+    void inplace_solve (const matrix_expression<E1> &e1, vector_expression<E2> &e2,
+                        lower_tag, row_major_tag, dense_proxy_tag) {
+        typedef typename E2::size_type size_type;
+        typedef typename E2::difference_type difference_type;
+        typedef typename E2::value_type value_type;
+
+        BOOST_UBLAS_CHECK (e1 ().size1 () == e1 ().size2 (), bad_size ());
+        BOOST_UBLAS_CHECK (e1 ().size2 () == e2 ().size (), bad_size ());
+        size_type size = e2 ().size ();
+        for (size_type n = 0; n < size; ++ n) {
+#ifndef BOOST_UBLAS_SINGULAR_CHECK
+            BOOST_UBLAS_CHECK (e1 () (n, n) != value_type/*zero*/(), singular ());
+#else
+            if (e1 () (n, n) == value_type/*zero*/())
+                singular ().raise ();
+#endif
+            value_type t = e2 () (n) /= e1 () (n, n);
+            if (t != value_type/*zero*/()) {
+                for (size_type m = n + 1; m < size; ++ m)
+                    e2 () (m) -= e1 () (m, n) * t;
+            }
+        }
+    }
+    // Packed (proxy) case
+    template<class E1, class E2>
+    BOOST_UBLAS_INLINE
+    void inplace_solve (const matrix_expression<E1> &e1, vector_expression<E2> &e2,
+                        lower_tag, row_major_tag, packed_proxy_tag) {
+        typedef typename E2::size_type size_type;
+        typedef typename E2::difference_type difference_type;
+        typedef typename E2::value_type value_type;
+
+        BOOST_UBLAS_CHECK (e1 ().size1 () == e1 ().size2 (), bad_size ());
+        BOOST_UBLAS_CHECK (e1 ().size2 () == e2 ().size (), bad_size ());
+        size_type size = e2 ().size ();
+        for (size_type n = 0; n < size; ++ n) {
+#ifndef BOOST_UBLAS_SINGULAR_CHECK
+            BOOST_UBLAS_CHECK (e1 () (n, n) != value_type/*zero*/(), singular ());
+#else
+            if (e1 () (n, n) == value_type/*zero*/())
+                singular ().raise ();
+#endif
+            value_type t = e2 () (n);
+            typename E1::const_iterator2 it2e1 (e1 ().find2 (1, n, 0));
+            typename E1::const_iterator2 it2e1_end (e1 ().find2 (1, n, n));
+            while (it2e1 != it2e1_end) {
+              t -= *it2e1 * e2 () (it2e1.index2());
+              ++ it2e1;
+            }
+            e2() (n) = t / e1 () (n, n);
+        }
+    }
+    // Sparse (proxy) case
+    template<class E1, class E2>
+    BOOST_UBLAS_INLINE
+    void inplace_solve (const matrix_expression<E1> &e1, vector_expression<E2> &e2,
+                        lower_tag, row_major_tag, unknown_storage_tag) {
+        typedef typename E2::size_type size_type;
+        typedef typename E2::difference_type difference_type;
+        typedef typename E2::value_type value_type;
+
+        BOOST_UBLAS_CHECK (e1 ().size1 () == e1 ().size2 (), bad_size ());
+        BOOST_UBLAS_CHECK (e1 ().size2 () == e2 ().size (), bad_size ());
+        size_type size = e2 ().size ();
+        for (size_type n = 0; n < size; ++ n) {
+#ifndef BOOST_UBLAS_SINGULAR_CHECK
+            BOOST_UBLAS_CHECK (e1 () (n, n) != value_type/*zero*/(), singular ());
+#else
+            if (e1 () (n, n) == value_type/*zero*/())
+                singular ().raise ();
+#endif
+            value_type t = e2 () (n);
+            typename E1::const_iterator2 it2e1 (e1 ().find2 (1, n, 0));
+            typename E1::const_iterator2 it2e1_end (e1 ().find2 (1, n, n));
+            while (it2e1 != it2e1_end) {
+              t -= *it2e1 * e2 () (it2e1.index2());
+              ++ it2e1;
+            }
+            e2() (n) = t / e1 () (n, n);
+        }
+    }
+
     // Redirectors :-)
     template<class E1, class E2>
     BOOST_UBLAS_INLINE
@@ -1950,8 +2036,8 @@ namespace boost { namespace numeric { namespace ublas {
     void inplace_solve (const matrix_expression<E1> &e1, vector_expression<E2> &e2,
                         lower_tag, row_major_tag) {
         typedef typename E1::storage_category storage_category;
-        inplace_solve (e2, trans (e1),
-                       upper_tag (), row_major_tag (), storage_category ());
+        inplace_solve (e1, e2,
+                       lower_tag (), row_major_tag (), storage_category ());
     }
     // Dispatcher
     template<class E1, class E2>
@@ -2020,9 +2106,9 @@ namespace boost { namespace numeric { namespace ublas {
             if (t != value_type/*zero*/()) {
                 typename E1::const_reverse_iterator1 it1e1 (e1 ().find1 (1, n, n));
                 typename E1::const_reverse_iterator1 it1e1_rend (e1 ().find1 (1, 0, n));
-                difference_type m (it1e1_rend - it1e1);
-                while (-- m >= 0)
-                    e2 () (it1e1.index1 ()) -= *it1e1 * t, ++ it1e1;
+                while (it1e1 != it1e1_rend) {
+                  e2 () (it1e1.index1 ()) -= *it1e1 * t, ++ it1e1;
+                }
             }
         }
     }
@@ -2049,11 +2135,100 @@ namespace boost { namespace numeric { namespace ublas {
             if (t != value_type/*zero*/()) {
                 typename E1::const_reverse_iterator1 it1e1 (e1 ().find1 (1, n, n));
                 typename E1::const_reverse_iterator1 it1e1_rend (e1 ().find1 (1, 0, n));
-                while (it1e1 != it1e1_rend)
-                    e2 () (it1e1.index1 ()) -= *it1e1 * t, ++ it1e1;
+                while (it1e1 != it1e1_rend) {
+                  e2 () (it1e1.index1 ()) -= *it1e1 * t, ++ it1e1;
+                }
             }
         }
     }
+
+    // Dense (proxy) case
+    template<class E1, class E2>
+    BOOST_UBLAS_INLINE
+    void inplace_solve (const matrix_expression<E1> &e1, vector_expression<E2> &e2,
+                        upper_tag, row_major_tag, dense_proxy_tag) {
+        typedef typename E2::size_type size_type;
+        typedef typename E2::difference_type difference_type;
+        typedef typename E2::value_type value_type;
+
+        BOOST_UBLAS_CHECK (e1 ().size1 () == e1 ().size2 (), bad_size ());
+        BOOST_UBLAS_CHECK (e1 ().size2 () == e2 ().size (), bad_size ());
+        size_type size = e1 ().size1 ();
+        for (difference_type n = size-1; n >=0; -- n) {
+#ifndef BOOST_UBLAS_SINGULAR_CHECK
+            BOOST_UBLAS_CHECK (e1 () (n, n) != value_type/*zero*/(), singular ());
+#else
+            if (e1 () (n, n) == value_type/*zero*/())
+                singular ().raise ();
+#endif
+            value_type t = e2 () (n);
+            for (difference_type m = n + 1; m < e1 ().size2(); ++ m) {
+              t -= e1 () (n, m)  * e2 () (m);
+            }
+            e2() (n) = t / e1 () (n, n);
+        }
+    }
+    // Packed (proxy) case
+    template<class E1, class E2>
+    BOOST_UBLAS_INLINE
+    void inplace_solve (const matrix_expression<E1> &e1, vector_expression<E2> &e2,
+                        upper_tag, row_major_tag, packed_proxy_tag) {
+        typedef typename E2::size_type size_type;
+        typedef typename E2::difference_type difference_type;
+        typedef typename E2::value_type value_type;
+
+        BOOST_UBLAS_CHECK (e1 ().size1 () == e1 ().size2 (), bad_size ());
+        BOOST_UBLAS_CHECK (e1 ().size2 () == e2 ().size (), bad_size ());
+        size_type size = e1 ().size1 ();
+        for (difference_type n = size-1; n >=0; -- n) {
+#ifndef BOOST_UBLAS_SINGULAR_CHECK
+            BOOST_UBLAS_CHECK (e1 () (n, n) != value_type/*zero*/(), singular ());
+#else
+            if (e1 () (n, n) == value_type/*zero*/())
+                singular ().raise ();
+#endif
+            value_type t = e2 () (n);
+            typename E1::const_iterator2 it2e1 (e1 ().find2 (1, n, n+1));
+            typename E1::const_iterator2 it2e1_end (e1 ().find2 (1, n, e1 ().size2 ()));
+            while (it2e1 != it2e1_end) {
+              t -= *it2e1 * e2 () (it2e1.index2());
+              ++ it2e1;
+            }
+            e2() (n) = t / e1 () (n, n);
+
+        }
+    }
+    // Sparse (proxy) case
+    template<class E1, class E2>
+    BOOST_UBLAS_INLINE
+    void inplace_solve (const matrix_expression<E1> &e1, vector_expression<E2> &e2,
+                        upper_tag, row_major_tag, unknown_storage_tag) {
+        typedef typename E2::size_type size_type;
+        typedef typename E2::difference_type difference_type;
+        typedef typename E2::value_type value_type;
+
+        BOOST_UBLAS_CHECK (e1 ().size1 () == e1 ().size2 (), bad_size ());
+        BOOST_UBLAS_CHECK (e1 ().size2 () == e2 ().size (), bad_size ());
+        size_type size = e1 ().size1 ();
+        for (difference_type n = size-1; n >=0; -- n) {
+#ifndef BOOST_UBLAS_SINGULAR_CHECK
+            BOOST_UBLAS_CHECK (e1 () (n, n) != value_type/*zero*/(), singular ());
+#else
+            if (e1 () (n, n) == value_type/*zero*/())
+                singular ().raise ();
+#endif
+            value_type t = e2 () (n);
+            typename E1::const_iterator2 it2e1 (e1 ().find2 (1, n, n+1));
+            typename E1::const_iterator2 it2e1_end (e1 ().find2 (1, n, e1 ().size2 ()));
+            while (it2e1 != it2e1_end) {
+              t -= *it2e1 * e2 () (it2e1.index2());
+              ++ it2e1;
+            }
+            e2() (n) = t / e1 () (n, n);
+
+        }
+    }
+
     // Redirectors :-)
     template<class E1, class E2>
     BOOST_UBLAS_INLINE
@@ -2068,8 +2243,8 @@ namespace boost { namespace numeric { namespace ublas {
     void inplace_solve (const matrix_expression<E1> &e1, vector_expression<E2> &e2,
                         upper_tag, row_major_tag) {
         typedef typename E1::storage_category storage_category;
-        inplace_solve (e2, trans (e1),
-                       lower_tag (), row_major_tag (), storage_category ());
+        inplace_solve (e1, e2,
+                       upper_tag (), row_major_tag (), storage_category ());
     }
     // Dispatcher
     template<class E1, class E2>
@@ -2100,103 +2275,21 @@ namespace boost { namespace numeric { namespace ublas {
         return r;
     }
 
-    // Dense (proxy) case
-    template<class E1, class E2>
-    BOOST_UBLAS_INLINE
-    void inplace_solve (vector_expression<E1> &e1, const matrix_expression<E2> &e2,
-                        lower_tag, row_major_tag, dense_proxy_tag) {
-        typedef typename E1::size_type size_type;
-        typedef typename E1::difference_type difference_type;
-        typedef typename E1::value_type value_type;
 
-        BOOST_UBLAS_CHECK (e1 ().size () == e2 ().size1 (), bad_size ());
-        BOOST_UBLAS_CHECK (e2 ().size1 () == e2 ().size2 (), bad_size ());
-        size_type size = e1 ().size ();
-        for (difference_type n = size - 1; n >= 0; -- n) {
-#ifndef BOOST_UBLAS_SINGULAR_CHECK
-            BOOST_UBLAS_CHECK (e2 () (n, n) != value_type/*zero*/(), singular ());
-#else
-            if (e2 () (n, n) == value_type/*zero*/())
-                singular ().raise ();
-#endif
-            value_type t = e1 () (n) /= e2 () (n, n);
-            if (t != value_type/*zero*/()) {
-                for (difference_type m = n - 1; m >= 0; -- m)
-                    e1 () (m) -= t * e2 () (n, m);
-            }
-        }
-    }
-    // Packed (proxy) case
-    template<class E1, class E2>
-    BOOST_UBLAS_INLINE
-    void inplace_solve (vector_expression<E1> &e1, const matrix_expression<E2> &e2,
-                        lower_tag, row_major_tag, packed_proxy_tag) {
-        typedef typename E1::size_type size_type;
-        typedef typename E1::difference_type difference_type;
-        typedef typename E1::value_type value_type;
-
-        BOOST_UBLAS_CHECK (e1 ().size () == e2 ().size1 (), bad_size ());
-        BOOST_UBLAS_CHECK (e2 ().size1 () == e2 ().size2 (), bad_size ());
-        size_type size = e1 ().size ();
-        for (difference_type n = size - 1; n >= 0; -- n) {
-#ifndef BOOST_UBLAS_SINGULAR_CHECK
-            BOOST_UBLAS_CHECK (e2 () (n, n) != value_type/*zero*/(), singular ());
-#else
-            if (e2 () (n, n) == value_type/*zero*/())
-                singular ().raise ();
-#endif
-            value_type t = e1 () (n) /= e2 () (n, n);
-            if (t != value_type/*zero*/()) {
-                typename E2::const_reverse_iterator2 it2e2 (e2 ().find2 (1, n, n));
-                typename E2::const_reverse_iterator2 it2e2_rend (e2 ().find2 (1, n, 0));
-                difference_type m (it2e2_rend - it2e2);
-                while (-- m >= 0)
-                    e1 () (it2e2.index2 ()) -= *it2e2 * t, ++ it2e2;
-            }
-        }
-    }
-    // Sparse (proxy) case
-    template<class E1, class E2>
-    BOOST_UBLAS_INLINE
-    void inplace_solve (vector_expression<E1> &e1, const matrix_expression<E2> &e2,
-                        lower_tag, row_major_tag, unknown_storage_tag) {
-        typedef typename E1::size_type size_type;
-        typedef typename E1::difference_type difference_type;
-        typedef typename E1::value_type value_type;
-
-        BOOST_UBLAS_CHECK (e1 ().size () == e2 ().size1 (), bad_size ());
-        BOOST_UBLAS_CHECK (e2 ().size1 () == e2 ().size2 (), bad_size ());
-        size_type size = e1 ().size ();
-        for (difference_type n = size - 1; n >= 0; -- n) {
-#ifndef BOOST_UBLAS_SINGULAR_CHECK
-            BOOST_UBLAS_CHECK (e2 () (n, n) != value_type/*zero*/(), singular ());
-#else
-            if (e2 () (n, n) == value_type/*zero*/())
-                singular ().raise ();
-#endif
-            value_type t = e1 () (n) /= e2 () (n, n);
-            if (t != value_type/*zero*/()) {
-                typename E2::const_reverse_iterator2 it2e2 (e2 ().find2 (1, n, n));
-                typename E2::const_reverse_iterator2 it2e2_rend (e2 ().find2 (1, n, 0));
-                while (it2e2 != it2e2_rend)
-                    e1 () (it2e2.index2 ()) -= *it2e2 * t, ++ it2e2;
-            }
-        }
-    }
     // Redirectors :-)
     template<class E1, class E2>
     BOOST_UBLAS_INLINE
     void inplace_solve (vector_expression<E1> &e1, const matrix_expression<E2> &e2,
                         lower_tag, row_major_tag) {
-        typedef typename E1::storage_category storage_category;
-        inplace_solve (e1, e2,
-                       lower_tag (), row_major_tag (), storage_category ());
+        typedef typename E2::storage_category storage_category;
+        inplace_solve (trans(e2), e1,
+                       upper_tag (), column_major_tag (), storage_category ());
     }
     template<class E1, class E2>
     BOOST_UBLAS_INLINE
     void inplace_solve (vector_expression<E1> &e1, const matrix_expression<E2> &e2,
                         lower_tag, column_major_tag) {
-        typedef typename E1::storage_category storage_category;
+        typedef typename E2::storage_category storage_category;
         inplace_solve (trans (e2), e1,
                        upper_tag (), row_major_tag (), storage_category ());
     }
@@ -2218,103 +2311,21 @@ namespace boost { namespace numeric { namespace ublas {
                        unit_lower_tag (), orientation_category ());
     }
 
-    // Dense (proxy) case
-    template<class E1, class E2>
-    BOOST_UBLAS_INLINE
-    void inplace_solve (vector_expression<E1> &e1, const matrix_expression<E2> &e2,
-                        upper_tag, row_major_tag, dense_proxy_tag) {
-        typedef typename E1::size_type size_type;
-        typedef typename E1::difference_type difference_type;
-        typedef typename E1::value_type value_type;
 
-        BOOST_UBLAS_CHECK (e1 ().size () == e2 ().size1 (), bad_size ());
-        BOOST_UBLAS_CHECK (e2 ().size1 () == e2 ().size2 (), bad_size ());
-        size_type size = e1 ().size ();
-        for (size_type n = 0; n < size; ++ n) {
-#ifndef BOOST_UBLAS_SINGULAR_CHECK
-            BOOST_UBLAS_CHECK (e2 () (n, n) != value_type/*zero*/(), singular ());
-#else
-            if (e2 () (n, n) == value_type/*zero*/())
-                singular ().raise ();
-#endif
-            value_type t = e1 () (n) /= e2 () (n, n);
-            if (t != value_type/*zero*/()) {
-                for (size_type m = n + 1; m < size; ++ m)
-                    e1 () (m) -= t * e2 () (n, m);
-            }
-        }
-    }
-    // Packed (proxy) case
-    template<class E1, class E2>
-    BOOST_UBLAS_INLINE
-    void inplace_solve (vector_expression<E1> &e1, const matrix_expression<E2> &e2,
-                        upper_tag, row_major_tag, packed_proxy_tag) {
-        typedef typename E1::size_type size_type;
-        typedef typename E1::difference_type difference_type;
-        typedef typename E1::value_type value_type;
-
-        BOOST_UBLAS_CHECK (e1 ().size () == e2 ().size1 (), bad_size ());
-        BOOST_UBLAS_CHECK (e2 ().size1 () == e2 ().size2 (), bad_size ());
-        size_type size = e1 ().size ();
-        for (size_type n = 0; n < size; ++ n) {
-#ifndef BOOST_UBLAS_SINGULAR_CHECK
-            BOOST_UBLAS_CHECK (e2 () (n, n) != value_type/*zero*/(), singular ());
-#else
-            if (e2 () (n, n) == value_type/*zero*/())
-                singular ().raise ();
-#endif
-            value_type t = e1 () (n) /= e2 () (n, n);
-            if (t != value_type/*zero*/()) {
-                typename E2::const_iterator2 it2e2 (e2 ().find2 (1, n, n + 1));
-                typename E2::const_iterator2 it2e2_end (e2 ().find2 (1, n, e2 ().size2 ()));
-                difference_type m (it2e2_end - it2e2);
-                while (-- m >= 0)
-                    e1 () (it2e2.index2 ()) -= *it2e2 * t, ++ it2e2;
-            }
-        }
-    }
-    // Sparse (proxy) case
-    template<class E1, class E2>
-    BOOST_UBLAS_INLINE
-    void inplace_solve (vector_expression<E1> &e1, const matrix_expression<E2> &e2,
-                        upper_tag, row_major_tag, unknown_storage_tag) {
-        typedef typename E1::size_type size_type;
-        typedef typename E1::difference_type difference_type;
-        typedef typename E1::value_type value_type;
-
-        BOOST_UBLAS_CHECK (e1 ().size () == e2 ().size1 (), bad_size ());
-        BOOST_UBLAS_CHECK (e2 ().size1 () == e2 ().size2 (), bad_size ());
-        size_type size = e1 ().size ();
-        for (size_type n = 0; n < size; ++ n) {
-#ifndef BOOST_UBLAS_SINGULAR_CHECK
-            BOOST_UBLAS_CHECK (e2 () (n, n) != value_type/*zero*/(), singular ());
-#else
-            if (e2 () (n, n) == value_type/*zero*/())
-                singular ().raise ();
-#endif
-            value_type t = e1 () (n) /= e2 () (n, n);
-            if (t != value_type/*zero*/()) {
-                typename E2::const_iterator2 it2e2 (e2 ().find2 (1, n, n + 1));
-                typename E2::const_iterator2 it2e2_end (e2 ().find2 (1, n, e2 ().size2 ()));
-                while (it2e2 != it2e2_end)
-                    e1 () (it2e2.index2 ()) -= *it2e2 * t, ++ it2e2;
-            }
-        }
-    }
     // Redirectors :-)
     template<class E1, class E2>
     BOOST_UBLAS_INLINE
     void inplace_solve (vector_expression<E1> &e1, const matrix_expression<E2> &e2,
                         upper_tag, row_major_tag) {
-        typedef typename E1::storage_category storage_category;
-        inplace_solve (e1, e2,
-                       upper_tag (), row_major_tag (), storage_category ());
+        typedef typename E2::storage_category storage_category;
+        inplace_solve (trans(e2), e1,
+                       lower_tag (), column_major_tag (), storage_category ());
     }
     template<class E1, class E2>
     BOOST_UBLAS_INLINE
     void inplace_solve (vector_expression<E1> &e1, const matrix_expression<E2> &e2,
                         upper_tag, column_major_tag) {
-        typedef typename E1::storage_category storage_category;
+        typedef typename E2::storage_category storage_category;
         inplace_solve (trans (e2), e1,
                        lower_tag (), row_major_tag (), storage_category ());
     }

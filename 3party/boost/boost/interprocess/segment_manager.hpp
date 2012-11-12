@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -69,9 +69,9 @@ class segment_manager_base
    typedef typename MemoryAlgorithm::void_pointer  void_pointer;
    typedef typename MemoryAlgorithm::mutex_family  mutex_family;
    typedef MemoryAlgorithm memory_algorithm;
-  
+
    /// @cond
-  
+
    //Experimental. Don't use
    typedef typename MemoryAlgorithm::multiallocation_chain    multiallocation_chain;
    typedef typename MemoryAlgorithm::difference_type  difference_type;
@@ -165,7 +165,7 @@ class segment_manager_base
    //!Allocates nbytes bytes. Throws boost::interprocess::bad_alloc
    //!on failure
    void * allocate(size_type nbytes)
-   { 
+   {
       void * ret = MemoryAlgorithm::allocate(nbytes);
       if(!ret)
          throw bad_alloc();
@@ -180,7 +180,7 @@ class segment_manager_base
    //!Allocates nbytes bytes. This function is only used in
    //!single-segment management. Throws bad_alloc when fails
    void * allocate_aligned(size_type nbytes, size_type alignment)
-   { 
+   {
       void * ret = MemoryAlgorithm::allocate_aligned(nbytes, alignment);
       if(!ret)
          throw bad_alloc();
@@ -293,7 +293,7 @@ class segment_manager_base
    void prot_anonymous_destroy(const void *object, ipcdetail::in_place_interface &table)
    {
 
-      //Get control data from associated with this object   
+      //Get control data from associated with this object
       typedef ipcdetail::block_header<size_type> block_header_t;
       block_header_t *ctrl_data = block_header_t::block_header_from_value(object, table.size, table.alignment);
 
@@ -407,7 +407,7 @@ class segment_manager
    //!"size" is the size of the memory segment where
    //!the segment manager is being constructed.
    //!Can throw
-   segment_manager(size_type size)
+   explicit segment_manager(size_type size)
       :  Base(size, priv_get_reserved_bytes())
       ,  m_header(static_cast<Base*>(get_this_pointer()))
    {
@@ -446,7 +446,7 @@ class segment_manager
    //!Returns throwing "construct" proxy
    //!object
    template <class T>
-   typename construct_proxy<T>::type     
+   typename construct_proxy<T>::type
       construct(char_ptr_holder_t name)
    {  return typename construct_proxy<T>::type (this, name, false, true);  }
 
@@ -466,27 +466,27 @@ class segment_manager
    //!Returns no throwing "search or construct"
    //!proxy object
    template <class T>
-   typename construct_proxy<T>::type  
+   typename construct_proxy<T>::type
       find_or_construct(char_ptr_holder_t name, std::nothrow_t)
    {  return typename construct_proxy<T>::type (this, name, true, false);  }
 
    //!Returns throwing "construct from iterators" proxy object
    template <class T>
-   typename construct_iter_proxy<T>::type    
+   typename construct_iter_proxy<T>::type
       construct_it(char_ptr_holder_t name)
    {  return typename construct_iter_proxy<T>::type (this, name, false, true);  }
 
    //!Returns throwing "search or construct from iterators"
    //!proxy object
    template <class T>
-   typename construct_iter_proxy<T>::type  
+   typename construct_iter_proxy<T>::type
       find_or_construct_it(char_ptr_holder_t name)
    {  return typename construct_iter_proxy<T>::type (this, name, true, true);  }
 
    //!Returns no throwing "construct from iterators"
    //!proxy object
    template <class T>
-   typename construct_iter_proxy<T>::type  
+   typename construct_iter_proxy<T>::type
       construct_it(char_ptr_holder_t name, std::nothrow_t)
    {  return typename construct_iter_proxy<T>::type (this, name, false, false);  }
 
@@ -575,18 +575,18 @@ class segment_manager
    //!creation of "num" named objects in the managed memory segment.
    //!Can throw boost::interprocess::bad_alloc if there is no enough memory.
    void reserve_named_objects(size_type num)
-   { 
+   {
       //-------------------------------
       scoped_lock<rmutex> guard(m_header);
       //-------------------------------
-      m_header.m_named_index.reserve(num); 
+      m_header.m_named_index.reserve(num);
    }
 
    //!Preallocates needed index resources to optimize the
    //!creation of "num" unique objects in the managed memory segment.
    //!Can throw boost::interprocess::bad_alloc if there is no enough memory.
    void reserve_unique_objects(size_type num)
-   { 
+   {
       //-------------------------------
       scoped_lock<rmutex> guard(m_header);
       //-------------------------------
@@ -596,32 +596,32 @@ class segment_manager
    //!Calls shrink_to_fit in both named and unique object indexes
    //!to try to free unused memory from those indexes.
    void shrink_to_fit_indexes()
-   { 
+   {
       //-------------------------------
       scoped_lock<rmutex> guard(m_header);
       //-------------------------------
-      m_header.m_named_index.shrink_to_fit(); 
-      m_header.m_unique_index.shrink_to_fit(); 
+      m_header.m_named_index.shrink_to_fit();
+      m_header.m_unique_index.shrink_to_fit();
    }
 
    //!Returns the number of named objects stored in
    //!the segment.
    size_type get_num_named_objects()
-   { 
+   {
       //-------------------------------
       scoped_lock<rmutex> guard(m_header);
       //-------------------------------
-      return m_header.m_named_index.size(); 
+      return m_header.m_named_index.size();
    }
 
    //!Returns the number of unique objects stored in
    //!the segment.
    size_type get_num_unique_objects()
-   { 
+   {
       //-------------------------------
       scoped_lock<rmutex> guard(m_header);
       //-------------------------------
-      return m_header.m_unique_index.size(); 
+      return m_header.m_unique_index.size();
    }
 
    //!Obtains the minimum size needed by the
@@ -713,7 +713,7 @@ class segment_manager
    //!returned pair is 0.
    template <class T>
    std::pair<T*, size_type> priv_find_impl (const CharType* name, bool lock)
-   { 
+   {
       //The name can't be null, no anonymous object can be found by name
       BOOST_ASSERT(name != 0);
       ipcdetail::placement_destroy<T> table;
@@ -805,7 +805,7 @@ class segment_manager
          return 0;
       }
       CharType *name = static_cast<CharType*>(ctrl_data->template name<CharType>());
-  
+
       //Sanity checks
       BOOST_ASSERT(ctrl_data->sizeof_char() == sizeof(CharType));
       BOOST_ASSERT(ctrl_data->m_num_char == std::char_traits<CharType>::length(name));
@@ -951,7 +951,7 @@ class segment_manager
       typedef ipcdetail::index_key<CharT, void_pointer>  index_key_t;
       typedef typename index_type::iterator           index_it;
       typedef typename index_type::value_type         intrusive_value_type;
-     
+
       //-------------------------------
       scoped_lock<rmutex> guard(m_header);
       //-------------------------------
@@ -972,7 +972,7 @@ class segment_manager
       void *memory = iv;
       void *values = ctrl_data->value();
       std::size_t num = ctrl_data->m_value_bytes/table.size;
-     
+
       //Sanity check
       BOOST_ASSERT((ctrl_data->m_value_bytes % table.size) == 0);
       BOOST_ASSERT(sizeof(CharT) == ctrl_data->sizeof_char());
@@ -1184,7 +1184,7 @@ class segment_manager
       //the memory allocation as the intrusive value is built in that
       //memory
       value_eraser<index_type> v_eraser(index, it);
-     
+
       //Construct array, this can throw
       ipcdetail::array_construct(ptr, num, table);
 
@@ -1197,7 +1197,7 @@ class segment_manager
    //!Generic named new function for
    //!named functions
    template<class CharT>
-   void * priv_generic_named_construct(unsigned char type, 
+   void * priv_generic_named_construct(unsigned char type,
                                const CharT *name,
                         size_type num,
                                bool try2find,
@@ -1346,7 +1346,7 @@ class segment_manager
    {
       named_index_t           m_named_index;
       unique_index_t          m_unique_index;
-  
+
       header_t(Base *restricted_segment_mngr)
          :  m_named_index (restricted_segment_mngr)
          ,  m_unique_index(restricted_segment_mngr)

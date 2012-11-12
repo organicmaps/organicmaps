@@ -6,7 +6,7 @@
  * Boost Software License, Version 1.0. (See accompanying
  * file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt)
  * Author: Jeff Garland, Bart Garst
- * $Date: 2012-07-27 11:15:55 -0700 (Fri, 27 Jul 2012) $
+ * $Date: 2012-09-30 16:25:22 -0700 (Sun, 30 Sep 2012) $
  */
 
 #include "boost/date_time/gregorian/gregorian_types.hpp"
@@ -88,7 +88,7 @@ void load(Archive & ar,
 
 //!override needed b/c no default constructor
 template<class Archive>
-inline void load_construct_data(Archive & ar, 
+inline void load_construct_data(Archive & /*ar*/, 
                                 ::boost::gregorian::date* dp, 
                                 const unsigned int /*file_version*/)
 {
@@ -117,7 +117,7 @@ void load(Archive & ar, gregorian::date_duration & dd, unsigned int /*version*/)
 }
 //!override needed b/c no default constructor
 template<class Archive>
-inline void load_construct_data(Archive & ar, gregorian::date_duration* dd, 
+inline void load_construct_data(Archive & /*ar*/, gregorian::date_duration* dd, 
                                 const unsigned int /*file_version*/)
 {
   ::new(dd) gregorian::date_duration(gregorian::not_a_date_time);
@@ -143,7 +143,7 @@ void load(Archive & ar, gregorian::date_duration::duration_rep & dr, unsigned in
 }
 //!override needed b/c no default constructor
 template<class Archive>
-inline void load_construct_data(Archive & ar, gregorian::date_duration::duration_rep* dr, 
+inline void load_construct_data(Archive & /*ar*/, gregorian::date_duration::duration_rep* dr, 
                                 const unsigned int /*file_version*/)
 {
   ::new(dr) gregorian::date_duration::duration_rep(0);
@@ -179,7 +179,7 @@ void load(Archive & ar, gregorian::date_period& dp, unsigned int /*version*/)
 }
 //!override needed b/c no default constructor
 template<class Archive>
-inline void load_construct_data(Archive & ar, gregorian::date_period* dp, 
+inline void load_construct_data(Archive & /*ar*/, gregorian::date_period* dp, 
                                 const unsigned int /*file_version*/)
 {
   gregorian::date d(gregorian::not_a_date_time);
@@ -207,7 +207,7 @@ void load(Archive & ar, gregorian::greg_year& gy, unsigned int /*version*/)
 }
 //!override needed b/c no default constructor
 template<class Archive>
-inline void load_construct_data(Archive & ar, gregorian::greg_year* gy, 
+inline void load_construct_data(Archive & /*ar*/, gregorian::greg_year* gy, 
                                 const unsigned int /*file_version*/)
 {
   ::new(gy) gregorian::greg_year(1900);
@@ -233,7 +233,7 @@ void load(Archive & ar, gregorian::greg_month& gm, unsigned int /*version*/)
 }
 //!override needed b/c no default constructor
 template<class Archive>
-inline void load_construct_data(Archive & ar, gregorian::greg_month* gm, 
+inline void load_construct_data(Archive & /*ar*/, gregorian::greg_month* gm, 
                                 const unsigned int /*file_version*/)
 {
   ::new(gm) gregorian::greg_month(1);
@@ -259,7 +259,7 @@ void load(Archive & ar, gregorian::greg_day& gd, unsigned int /*version*/)
 }
 //!override needed b/c no default constructor
 template<class Archive>
-inline void load_construct_data(Archive & ar, gregorian::greg_day* gd, 
+inline void load_construct_data(Archive & /*ar*/, gregorian::greg_day* gd, 
                                 const unsigned int /*file_version*/)
 {
   ::new(gd) gregorian::greg_day(1);
@@ -285,7 +285,7 @@ void load(Archive & ar, gregorian::greg_weekday& gd, unsigned int /*version*/)
 }
 //!override needed b/c no default constructor
 template<class Archive>
-inline void load_construct_data(Archive & ar, gregorian::greg_weekday* gd, 
+inline void load_construct_data(Archive & /*ar*/, gregorian::greg_weekday* gd, 
                                 const unsigned int /*file_version*/)
 {
   ::new(gd) gregorian::greg_weekday(1);
@@ -323,7 +323,7 @@ void load(Archive & ar, gregorian::partial_date& pd, unsigned int /*version*/)
 }
 //!override needed b/c no default constructor
 template<class Archive>
-inline void load_construct_data(Archive & ar, gregorian::partial_date* pd, 
+inline void load_construct_data(Archive & /*ar*/, gregorian::partial_date* pd, 
                                 const unsigned int /*file_version*/)
 {
   gregorian::greg_month gm(1);
@@ -366,7 +366,7 @@ void load(Archive & ar, gregorian::nth_kday_of_month& nkd, unsigned int /*versio
 }
 //!override needed b/c no default constructor
 template<class Archive>
-inline void load_construct_data(Archive & ar, 
+inline void load_construct_data(Archive & /*ar*/, 
                                 gregorian::nth_kday_of_month* nkd, 
                                 const unsigned int /*file_version*/)
 {
@@ -406,7 +406,7 @@ void load(Archive & ar, gregorian::first_kday_of_month& fkd, unsigned int /*vers
 }
 //!override needed b/c no default constructor
 template<class Archive>
-inline void load_construct_data(Archive & ar, 
+inline void load_construct_data(Archive & /*ar*/, 
                                 gregorian::first_kday_of_month* fkd, 
                                 const unsigned int /*file_version*/)
 {
@@ -445,7 +445,7 @@ void load(Archive & ar, gregorian::last_kday_of_month& lkd, unsigned int /*versi
 }
 //!override needed b/c no default constructor
 template<class Archive>
-inline void load_construct_data(Archive & ar, 
+inline void load_construct_data(Archive & /*ar*/, 
                                 gregorian::last_kday_of_month* lkd, 
                                 const unsigned int /*file_version*/)
 {
@@ -474,7 +474,7 @@ void load(Archive & ar, gregorian::first_kday_before& fkdb, unsigned int /*versi
 }
 //!override needed b/c no default constructor
 template<class Archive>
-inline void load_construct_data(Archive & ar, 
+inline void load_construct_data(Archive & /*ar*/, 
                                 gregorian::first_kday_before* fkdb, 
                                 const unsigned int /*file_version*/)
 {
@@ -503,7 +503,7 @@ void load(Archive & ar, gregorian::first_kday_after& fkda, unsigned int /*versio
 }
 //!override needed b/c no default constructor
 template<class Archive>
-inline void load_construct_data(Archive & ar, 
+inline void load_construct_data(Archive & /*ar*/, 
                                 gregorian::first_kday_after* fkda, 
                                 const unsigned int /*file_version*/)
 {

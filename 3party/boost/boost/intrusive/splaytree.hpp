@@ -88,7 +88,7 @@ class splaytree_impl
    typedef typename Config::value_traits                             value_traits;
    /// @cond
    static const bool external_value_traits =
-      detail::external_value_traits_is_true<value_traits>::value;
+      detail::external_value_traits_bool_is_true<value_traits>::value;
    typedef typename detail::eval_if_c
       < external_value_traits
       , detail::eval_value_traits<value_traits>
@@ -540,9 +540,9 @@ class splaytree_impl
    void insert_equal(Iterator b, Iterator e)
    {
       if(this->empty()){
-         iterator end(this->end());
+         iterator end_(this->end());
          for (; b != e; ++b)
-            this->insert_equal(end, *b);
+            this->insert_equal(end_, *b);
       }
    }
 

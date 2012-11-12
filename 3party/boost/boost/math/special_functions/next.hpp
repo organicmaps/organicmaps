@@ -26,7 +26,13 @@ namespace detail{
 template <class T>
 inline T get_smallest_value(mpl::true_ const&)
 {
-   return std::numeric_limits<T>::denorm_min();
+   //
+   // numeric_limits lies about denorms being present - particularly
+   // when this can be turned on or off at runtime, as is the case
+   // when using the SSE2 registers in DAZ or FTZ mode.
+   //
+   static const T m = std::numeric_limits<T>::denorm_min();
+   return (0 == m) ? tools::min_value<T>() : m;
 }
 
 template <class T>
@@ -45,6 +51,49 @@ inline T get_smallest_value()
 #endif
 }
 
+//
+// Returns the smallest value that won't generate denorms when 
+// we calculate the value of the least-significant-bit:
+//
+template <class T>
+T get_min_shift_value();
+
+template <class T>
+struct min_shift_initializer
+{
+   struct init
+   {
+      init()
+      {
+         do_init();
+      }
+      static void do_init()
+      {
+         get_min_shift_value<T>();
+      }
+      void force_instantiate()const{}
+   };
+   static const init initializer;
+   static void force_instantiate()
+   {
+      initializer.force_instantiate();
+   }
+};
+
+template <class T>
+const typename min_shift_initializer<T>::init min_shift_initializer<T>::initializer;
+
+
+template <class T>
+inline T get_min_shift_value()
+{
+   BOOST_MATH_STD_USING
+   static const T val = ldexp(tools::min_value<T>(), tools::digits<T>() + 1);
+   min_shift_initializer<T>::force_instantiate();
+
+   return val;
+}
+
 }
 
 template <class T, class Policy>
@@ -54,7 +103,9 @@ T float_next(const T& val, const Policy& pol)
    int expon;
    static const char* function = "float_next<%1%>(%1%)";
 
-   if(!(boost::math::isfinite)(val))
+   int fpclass = (boost::math::fpclassify)(val);
+
+   if((fpclass == FP_NAN) || (fpclass == FP_INFINITE))
    {
       if(val < 0)
          return -tools::max_value<T>();
@@ -69,6 +120,16 @@ T float_next(const T& val, const Policy& pol)
    if(val == 0)
       return detail::get_smallest_value<T>();
 
+   if((fpclass != FP_SUBNORMAL) && (fpclass != FP_ZERO) && (fabs(val) < detail::get_min_shift_value<T>()) && (val != -tools::min_value<T>()))
+   {
+      //
+      // Special case: if the value of the least significant bit is a denorm, and the result 
+      // would not be a denorm, then shift the input, increment, and shift back.
+      // This avoids issues with the Intel SSE2 registers when the FTZ or DAZ flags are set.
+      //
+      return ldexp(float_next(T(ldexp(val, 2 * tools::digits<T>())), pol), -2 * tools::digits<T>());
+   }
+
    if(-0.5f == frexp(val, &expon))
       --expon; // reduce exponent when val is a power of two, and negative.
    T diff = ldexp(T(1), expon - tools::digits<T>());
@@ -77,7 +138,12 @@ T float_next(const T& val, const Policy& pol)
    return val + diff;
 }
 
-#ifdef BOOST_MSVC
+#if 0 //def BOOST_MSVC
+//
+// We used to use ::_nextafter here, but doing so fails when using
+// the SSE2 registers if the FTZ or DAZ flags are set, so use our own
+// - albeit slower - code instead as at least that gives the correct answer.
+//
 template <class Policy>
 inline double float_next(const double& val, const Policy& pol)
 {
@@ -108,7 +174,9 @@ T float_prior(const T& val, const Policy& pol)
    int expon;
    static const char* function = "float_prior<%1%>(%1%)";
 
-   if(!(boost::math::isfinite)(val))
+   int fpclass = (boost::math::fpclassify)(val);
+
+   if((fpclass == FP_NAN) || (fpclass == FP_INFINITE))
    {
       if(val > 0)
          return tools::max_value<T>();
@@ -123,6 +191,16 @@ T float_prior(const T& val, const Policy& pol)
    if(val == 0)
       return -detail::get_smallest_value<T>();
 
+   if((fpclass != FP_SUBNORMAL) && (fpclass != FP_ZERO) && (fabs(val) < detail::get_min_shift_value<T>()) && (val != tools::min_value<T>()))
+   {
+      //
+      // Special case: if the value of the least significant bit is a denorm, and the result 
+      // would not be a denorm, then shift the input, increment, and shift back.
+      // This avoids issues with the Intel SSE2 registers when the FTZ or DAZ flags are set.
+      //
+      return ldexp(float_prior(T(ldexp(val, 2 * tools::digits<T>())), pol), -2 * tools::digits<T>());
+   }
+
    T remain = frexp(val, &expon);
    if(remain == 0.5)
       --expon; // when val is a power of two we must reduce the exponent
@@ -132,7 +210,12 @@ T float_prior(const T& val, const Policy& pol)
    return val - diff;
 }
 
-#ifdef BOOST_MSVC
+#if 0 //def BOOST_MSVC
+//
+// We used to use ::_nextafter here, but doing so fails when using
+// the SSE2 registers if the FTZ or DAZ flags are set, so use our own
+// - albeit slower - code instead as at least that gives the correct answer.
+//
 template <class Policy>
 inline double float_prior(const double& val, const Policy& pol)
 {
@@ -188,22 +271,22 @@ T float_distance(const T& a, const T& b, const Policy& pol)
    // Special cases:
    //
    if(a > b)
-      return -float_distance(b, a);
+      return -float_distance(b, a, pol);
    if(a == b)
       return 0;
    if(a == 0)
-      return 1 + fabs(float_distance(static_cast<T>(boost::math::sign(b) * detail::get_smallest_value<T>()), b, pol));
+      return 1 + fabs(float_distance(static_cast<T>((b < 0) ? -detail::get_smallest_value<T>() : detail::get_smallest_value<T>()), b, pol));
    if(b == 0)
-      return 1 + fabs(float_distance(static_cast<T>(boost::math::sign(a) * detail::get_smallest_value<T>()), a, pol));
+      return 1 + fabs(float_distance(static_cast<T>((a < 0) ? -detail::get_smallest_value<T>() : detail::get_smallest_value<T>()), a, pol));
    if(boost::math::sign(a) != boost::math::sign(b))
-      return 2 + fabs(float_distance(static_cast<T>(boost::math::sign(b) * detail::get_smallest_value<T>()), b, pol))
-         + fabs(float_distance(static_cast<T>(boost::math::sign(a) * detail::get_smallest_value<T>()), a, pol));
+      return 2 + fabs(float_distance(static_cast<T>((b < 0) ? -detail::get_smallest_value<T>() : detail::get_smallest_value<T>()), b, pol))
+         + fabs(float_distance(static_cast<T>((a < 0) ? -detail::get_smallest_value<T>() : detail::get_smallest_value<T>()), a, pol));
    //
    // By the time we get here, both a and b must have the same sign, we want
    // b > a and both postive for the following logic:
    //
    if(a < 0)
-      return float_distance(static_cast<T>(-b), static_cast<T>(-a));
+      return float_distance(static_cast<T>(-b), static_cast<T>(-a), pol);
 
    BOOST_ASSERT(a >= 0);
    BOOST_ASSERT(b >= a);
@@ -230,10 +313,30 @@ T float_distance(const T& a, const T& b, const Policy& pol)
    // Use compensated double-double addition to avoid rounding 
    // errors in the subtraction:
    //
-   T mb = -(std::min)(upper, b);
-   T x = a + mb;
-   T z = x - a;
-   T y = (a - (x - z)) + (mb - z);
+   T mb, x, y, z;
+   if(((boost::math::fpclassify)(a) == FP_SUBNORMAL) || (b - a < tools::min_value<T>()))
+   {
+      //
+      // Special case - either one end of the range is a denormal, or else the difference is.
+      // The regular code will fail if we're using the SSE2 registers on Intel and either
+      // the FTZ or DAZ flags are set.
+      //
+      T a2 = ldexp(a, tools::digits<T>());
+      T b2 = ldexp(b, tools::digits<T>());
+      mb = -(std::min)(T(ldexp(upper, tools::digits<T>())), b2);
+      x = a2 + mb;
+      z = x - a2;
+      y = (a2 - (x - z)) + (mb - z);
+
+      expon -= tools::digits<T>();
+   }
+   else
+   {
+      mb = -(std::min)(upper, b);
+      x = a + mb;
+      z = x - a;
+      y = (a - (x - z)) + (mb - z);
+   }
    if(x < 0)
    {
       x = -x;
@@ -256,11 +359,15 @@ T float_distance(const T& a, const T& b)
 template <class T, class Policy>
 T float_advance(T val, int distance, const Policy& pol)
 {
+   BOOST_MATH_STD_USING
    //
    // Error handling:
    //
    static const char* function = "float_advance<%1%>(%1%, int)";
-   if(!(boost::math::isfinite)(val))
+
+   int fpclass = (boost::math::fpclassify)(val);
+
+   if((fpclass == FP_NAN) || (fpclass == FP_INFINITE))
       return policies::raise_domain_error<T>(
          function,
          "Argument val must be finite, but got %1%", val, pol);
@@ -273,7 +380,25 @@ T float_advance(T val, int distance, const Policy& pol)
       return float_next(val, pol);
    if(distance == -1)
       return float_prior(val, pol);
-   BOOST_MATH_STD_USING
+
+   if(fabs(val) < detail::get_min_shift_value<T>())
+   {
+      //
+      // Special case: if the value of the least significant bit is a denorm, 
+      // implement in terms of float_next/float_prior.
+      // This avoids issues with the Intel SSE2 registers when the FTZ or DAZ flags are set.
+      //
+      if(distance > 0)
+      {
+         do{ val = float_next(val, pol); } while(--distance);
+      }
+      else
+      {
+         do{ val = float_prior(val, pol); } while(++distance);
+      }
+      return val;
+   }
+
    int expon;
    frexp(val, &expon);
    T limit = ldexp((distance < 0 ? T(0.5f) : T(1)), expon);
@@ -297,6 +422,10 @@ T float_advance(T val, int distance, const Policy& pol)
          expon++;
       }
       limit_distance = float_distance(val, limit);
+      if(distance && (limit_distance == 0))
+      {
+         policies::raise_evaluation_error<T>(function, "Internal logic failed while trying to increment floating point value %1%: most likely your FPU is in non-IEEE conforming mode.", val, pol);
+      }
    }
    if((0.5f == frexp(val, &expon)) && (distance < 0))
       --expon;

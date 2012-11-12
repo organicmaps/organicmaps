@@ -13,6 +13,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/concepts.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <boost/ref.hpp>
 #include <algorithm>
 

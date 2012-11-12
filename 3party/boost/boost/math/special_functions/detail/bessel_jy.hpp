@@ -256,10 +256,8 @@ int CF2_jy(T v, T x, T* p, T* q, const Policy& pol)
    return 0;
 }
 
-enum
-{
-   need_j = 1, need_y = 2
-};
+static const int need_j = 1;
+static const int need_y = 2;
 
 // Compute J(v, x) and Y(v, x) simultaneously by Steed's method, see
 // Barnett et al, Computer Physics Communications, vol 8, 377 (1974)

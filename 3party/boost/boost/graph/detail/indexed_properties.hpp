@@ -253,7 +253,7 @@ class indexed_edge_properties<Derived, void, Descriptor, IndexMap>
   typedef secret const_edge_map_type;
 
   secret operator[](secret) { return secret(); }
-  void write_by_index(std::size_t idx, const no_property& prop) {}
+  void write_by_index(std::size_t /*idx*/, const no_property& /*prop*/) {}
 
   edge_map_type get_edge_bundle(const IndexMap& = IndexMap()) const {
     return edge_map_type();
@@ -270,7 +270,7 @@ class indexed_edge_properties<Derived, void, Descriptor, IndexMap>
 
  public:
   void push_back(const edge_push_back_type&) { }
-  void move_range(std::size_t src_begin, std::size_t src_end, std::size_t dest_begin) {}
+  void move_range(std::size_t /*src_begin*/, std::size_t /*src_end*/, std::size_t /*dest_begin*/) {}
 
   typedef dummy_no_property_iterator iterator;
   iterator begin() {return dummy_no_property_iterator();}

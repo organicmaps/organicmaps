@@ -10,6 +10,11 @@
 #include <boost/proto/detail/decltype.hpp>
 #include <boost/type_traits/remove_pointer.hpp>
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4180) // qualifier applied to function type has no meaning; ignored
+#endif
+
 namespace boost { namespace phoenix { namespace detail {
 
         template <typename RT, typename MP>
@@ -46,7 +51,7 @@ namespace boost { namespace phoenix { namespace detail {
             {
                 BOOST_PROTO_USE_GET_POINTER();
 
-                typedef typename proto::detail::classtypeof<MP>::type class_type;
+                typedef typename proto::detail::class_member_traits<MP>::class_type class_type;
                 return (BOOST_PROTO_GET_POINTER(class_type, obj)->*mp);
             }
 
@@ -55,7 +60,7 @@ namespace boost { namespace phoenix { namespace detail {
             {
                 BOOST_PROTO_USE_GET_POINTER();
 
-                typedef typename proto::detail::classtypeof<MP>::type class_type;
+                typedef typename proto::detail::class_member_traits<MP>::class_type class_type;
                 return (BOOST_PROTO_GET_POINTER(class_type, obj)->*mp);
             }
 
@@ -74,5 +79,9 @@ namespace boost { namespace phoenix { namespace detail {
             MP mp;
         };
 }}}
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 #endif

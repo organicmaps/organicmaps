@@ -10,11 +10,6 @@
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/properties.hpp>
 
-// NOTE: The retag_property_list is used to "normalize" a proeprty such that
-// any non-property conforming parameter is wrapped in a vertex_bundle
-// property. For example (with bad syntax) retag<property<X>> -> property<X>,
-// but retag<foo> -> property<vertex_bundle_t, foo>.
-
 namespace boost
 {
 struct undirected_graph_tag { };

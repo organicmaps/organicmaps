@@ -805,26 +805,26 @@ class rbtree_algorithms
       //       NodeTraits::get_parent(NodeTraits::get_parent(p)) == p;
    }
 
-   static void rebalance_after_erasure(const node_ptr & header, const node_ptr &xnode, const node_ptr &xnode_parent)
+   static void rebalance_after_erasure(const node_ptr & header, node_ptr x, node_ptr x_parent)
    {
-      node_ptr x(xnode), x_parent(xnode_parent);
-      while(x != NodeTraits::get_parent(header) && (x == node_ptr() || NodeTraits::get_color(x) == NodeTraits::black())){
+      while(x != NodeTraits::get_parent(header) && (!x || NodeTraits::get_color(x) == NodeTraits::black())){
          if(x == NodeTraits::get_left(x_parent)){
             node_ptr w = NodeTraits::get_right(x_parent);
+            BOOST_ASSERT(w);
             if(NodeTraits::get_color(w) == NodeTraits::red()){
                NodeTraits::set_color(w, NodeTraits::black());
                NodeTraits::set_color(x_parent, NodeTraits::red());
                tree_algorithms::rotate_left(x_parent, header);
                w = NodeTraits::get_right(x_parent);
             }
-            if((NodeTraits::get_left(w) == node_ptr() || NodeTraits::get_color(NodeTraits::get_left(w))  == NodeTraits::black()) &&
-               (NodeTraits::get_right(w) == node_ptr() || NodeTraits::get_color(NodeTraits::get_right(w)) == NodeTraits::black())){
+            if((!NodeTraits::get_left(w) || NodeTraits::get_color(NodeTraits::get_left(w))  == NodeTraits::black()) &&
+               (!NodeTraits::get_right(w) || NodeTraits::get_color(NodeTraits::get_right(w)) == NodeTraits::black())){
                NodeTraits::set_color(w, NodeTraits::red());
                x = x_parent;
                x_parent = NodeTraits::get_parent(x_parent);
             }
             else {
-               if(NodeTraits::get_right(w) == node_ptr() || NodeTraits::get_color(NodeTraits::get_right(w)) == NodeTraits::black()){
+               if(!NodeTraits::get_right(w) || NodeTraits::get_color(NodeTraits::get_right(w)) == NodeTraits::black()){
                   NodeTraits::set_color(NodeTraits::get_left(w), NodeTraits::black());
                   NodeTraits::set_color(w, NodeTraits::red());
                   tree_algorithms::rotate_right(w, header);
@@ -847,14 +847,14 @@ class rbtree_algorithms
                tree_algorithms::rotate_right(x_parent, header);
                w = NodeTraits::get_left(x_parent);
             }
-            if((NodeTraits::get_right(w) == node_ptr() || NodeTraits::get_color(NodeTraits::get_right(w)) == NodeTraits::black()) &&
-               (NodeTraits::get_left(w) == node_ptr() || NodeTraits::get_color(NodeTraits::get_left(w)) == NodeTraits::black())){
+            if((!NodeTraits::get_right(w) || NodeTraits::get_color(NodeTraits::get_right(w)) == NodeTraits::black()) &&
+               (!NodeTraits::get_left(w) || NodeTraits::get_color(NodeTraits::get_left(w)) == NodeTraits::black())){
                NodeTraits::set_color(w, NodeTraits::red());
                x = x_parent;
                x_parent = NodeTraits::get_parent(x_parent);
             }
             else {
-               if(NodeTraits::get_left(w) == node_ptr() || NodeTraits::get_color(NodeTraits::get_left(w)) == NodeTraits::black()){
+               if(!NodeTraits::get_left(w) || NodeTraits::get_color(NodeTraits::get_left(w)) == NodeTraits::black()){
                   NodeTraits::set_color(NodeTraits::get_right(w), NodeTraits::black());
                   NodeTraits::set_color(w, NodeTraits::red());
                   tree_algorithms::rotate_left(w, header);
@@ -874,9 +874,8 @@ class rbtree_algorithms
    }
 
 
-   static void rebalance_after_insertion(const node_ptr & header, const node_ptr &pnode)
+   static void rebalance_after_insertion(const node_ptr & header, node_ptr p)
    {
-      node_ptr p(pnode);
       NodeTraits::set_color(p, NodeTraits::red());
       while(p != NodeTraits::get_parent(header) && NodeTraits::get_color(NodeTraits::get_parent(p)) == NodeTraits::red()){
          node_ptr p_parent(NodeTraits::get_parent(p));

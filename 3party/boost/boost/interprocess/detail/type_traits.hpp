@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // (C) Copyright John Maddock 2000.
-// (C) Copyright Ion Gaztanaga 2005-2011.
+// (C) Copyright Ion Gaztanaga 2005-2012.
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
@@ -117,6 +117,12 @@ struct remove_volatile<volatile T>
    typedef T type;
 };
 
+template<class T>
+struct remove_const_volatile
+{
+   typedef typename remove_const<typename remove_volatile<T>::type>::type type;
+};
+
 template <typename T, typename U>
 struct is_same
 {
@@ -134,6 +140,13 @@ struct is_same
    static U *u;
 
    static const bool value = sizeof(yes_type) == sizeof(is_same_tester(t,u));
+};
+
+template<class T, class U>
+struct is_cv_same
+{
+   static const bool value = is_same< typename remove_const_volatile<T>::type
+                                    , typename remove_const_volatile<U>::type >::value;
 };
 
 } // namespace ipcdetail

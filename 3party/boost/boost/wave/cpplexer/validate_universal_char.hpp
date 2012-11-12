@@ -2,7 +2,7 @@
     Boost.Wave: A Standard compliant C++ preprocessor library
 
     Grammar for universal character validation (see C++ standard: Annex E)
-    
+
     http://www.boost.org/
 
     Copyright (c) 2001-2012 Hartmut Kaiser. Distributed under the Boost
@@ -37,12 +37,12 @@ enum universal_char_type {
 };
 
 ///////////////////////////////////////////////////////////////////////////
-// 
-//  is_range is a helper function for the classification by brute force 
+//
+//  is_range is a helper function for the classification by brute force
 //  below
 //
 ///////////////////////////////////////////////////////////////////////////
-inline bool 
+inline bool
 in_range(unsigned long ch, unsigned long l, unsigned long u)
 {
     return (l <= ch && ch <= u);
@@ -67,15 +67,15 @@ in_range(unsigned long ch, unsigned long l, unsigned long u)
 //  Implementation note:
 //      This classification isn't implemented very effectively here. This
 //      function should be rewritten with some range run matching algorithm.
-//      
+//
 ///////////////////////////////////////////////////////////////////////////////
-inline universal_char_type 
+inline universal_char_type
 classify_universal_char (unsigned long ch)
 {
 // test for invalid characters
     if (ch <= 0x0020 || in_range(ch, 0x007f, 0x009f))
         return universal_char_type_invalid;
-    
+
 // test for characters in the range of the base character set
     if (in_range(ch, 0x0021, 0x005f) || in_range(ch, 0x0061, 0x007e))
         return universal_char_type_base_charset;
@@ -88,7 +88,7 @@ classify_universal_char (unsigned long ch)
     {
         return universal_char_type_valid;   // Latin
     }
-    
+
     if (0x0384 == ch || in_range(ch, 0x0388, 0x038a) ||
         0x038c == ch || in_range(ch, 0x038e, 0x03a1) ||
         in_range(ch, 0x03a3, 0x03ce) || in_range(ch, 0x03d0, 0x03d6) ||
@@ -96,7 +96,7 @@ classify_universal_char (unsigned long ch)
         in_range(ch, 0x03e2, 0x03f3) || in_range(ch, 0x1f00, 0x1f15) ||
         in_range(ch, 0x1f18, 0x1f1d) || in_range(ch, 0x1f20, 0x1f45) ||
         in_range(ch, 0x1f48, 0x1f4d) || in_range(ch, 0x1f50, 0x1f57) ||
-        0x1f59 == ch || 0x1f5b == ch || 0x1f5d == ch || 
+        0x1f59 == ch || 0x1f5b == ch || 0x1f5d == ch ||
         in_range(ch, 0x1f5f, 0x1f7d) || in_range(ch, 0x1f80, 0x1fb4) ||
         in_range(ch, 0x1fb6, 0x1fbc) || in_range(ch, 0x1fc2, 0x1fc4) ||
         in_range(ch, 0x1fc6, 0x1fcc) || in_range(ch, 0x1fd0, 0x1fd3) ||
@@ -105,7 +105,7 @@ classify_universal_char (unsigned long ch)
     {
         return universal_char_type_valid;   // Greek
     }
-    
+
     if (in_range(ch, 0x0401, 0x040d) || in_range(ch, 0x040f, 0x044f) ||
         in_range(ch, 0x0451, 0x045c) || in_range(ch, 0x045e, 0x0481) ||
         in_range(ch, 0x0490, 0x04c4) || in_range(ch, 0x04c7, 0x04c8) ||
@@ -114,20 +114,20 @@ classify_universal_char (unsigned long ch)
     {
         return universal_char_type_valid;   // Cyrillic
     }
-    
+
     if (in_range(ch, 0x0531, 0x0556) || in_range(ch, 0x0561, 0x0587))
         return universal_char_type_valid;   // Armenian
 
     if (in_range(ch, 0x05d0, 0x05ea) || in_range(ch, 0x05f0, 0x05f4))
         return universal_char_type_valid;   // Hebrew
-        
+
     if (in_range(ch, 0x0621, 0x063a) || in_range(ch, 0x0640, 0x0652) ||
         in_range(ch, 0x0670, 0x06b7) || in_range(ch, 0x06ba, 0x06be) ||
         in_range(ch, 0x06c0, 0x06ce) || in_range(ch, 0x06e5, 0x06e7))
     {
         return universal_char_type_valid;   // Arabic
     }
-    
+
     if (in_range(ch, 0x0905, 0x0939) || in_range(ch, 0x0958, 0x0962))
         return universal_char_type_valid;   // Devanagari
 
@@ -139,7 +139,7 @@ classify_universal_char (unsigned long ch)
     {
         return universal_char_type_valid;   // Bengali
     }
-    
+
     if (in_range(ch, 0x0a05, 0x0a0a) || in_range(ch, 0x0a0f, 0x0a10) ||
         in_range(ch, 0x0a13, 0x0a28) || in_range(ch, 0x0a2a, 0x0a30) ||
         in_range(ch, 0x0a32, 0x0a33) || in_range(ch, 0x0a35, 0x0a36) ||
@@ -209,49 +209,49 @@ classify_universal_char (unsigned long ch)
 //  validate_identifier_name
 //
 //      The validate_identifier_name function tests a given identifier name for
-//      its validity with regard to eventually contained universal characters. 
-//      These should be in valid ranges (see the function 
+//      its validity with regard to eventually contained universal characters.
+//      These should be in valid ranges (see the function
 //      classify_universal_char above).
 //
-//      If the identifier name contains invalid or not allowed universal 
+//      If the identifier name contains invalid or not allowed universal
 //      characters a corresponding lexing_exception is thrown.
 //
 ///////////////////////////////////////////////////////////////////////////////
 template <typename StringT>
-inline void 
-validate_identifier_name (StringT const &name, int line, int column, 
-    StringT const &file_name)
+inline void
+validate_identifier_name (StringT const &name, std::size_t line, 
+    std::size_t column, StringT const &file_name)
 {
     using namespace std;    // some systems have strtoul in namespace std::
-    
+
 typename StringT::size_type pos = name.find_first_of('\\');
 
     while (StringT::npos != pos) {
     // the identifier name contains a backslash (must be universal char)
         BOOST_ASSERT('u' == name[pos+1] || 'U' == name[pos+1]);
-        
+
     StringT uchar_val(name.substr(pos+2, ('u' == name[pos+1]) ? 4 : 8));
-    universal_char_type type = 
-        classify_universal_char(strtoul(uchar_val.c_str(), 0, 16));  
-        
+    universal_char_type type =
+        classify_universal_char(strtoul(uchar_val.c_str(), 0, 16));
+
         if (universal_char_type_valid != type) {
         // an invalid char was found, so throw an exception
         StringT error_uchar(name.substr(pos, ('u' == name[pos+1]) ? 6 : 10));
-        
+
             if (universal_char_type_invalid == type) {
-                BOOST_WAVE_LEXER_THROW(lexing_exception, universal_char_invalid, 
+                BOOST_WAVE_LEXER_THROW(lexing_exception, universal_char_invalid,
                     error_uchar, line, column, file_name.c_str());
             }
             else if (universal_char_type_base_charset == type) {
-                BOOST_WAVE_LEXER_THROW(lexing_exception, universal_char_base_charset, 
+                BOOST_WAVE_LEXER_THROW(lexing_exception, universal_char_base_charset,
                     error_uchar, line, column, file_name.c_str());
             }
             else {
-                BOOST_WAVE_LEXER_THROW(lexing_exception, universal_char_not_allowed, 
+                BOOST_WAVE_LEXER_THROW(lexing_exception, universal_char_not_allowed,
                     error_uchar, line, column, file_name.c_str());
             }
         }
-        
+
     // find next universal char (if appropriate)
         pos = name.find_first_of('\\', pos+2);
     }
@@ -261,55 +261,55 @@ typename StringT::size_type pos = name.find_first_of('\\');
 //
 //  validate_literal
 //
-//      The validate_literal function tests a given string or character literal 
-//      for its validity with regard to eventually contained universal 
-//      characters. These should be in valid ranges (see the function 
+//      The validate_literal function tests a given string or character literal
+//      for its validity with regard to eventually contained universal
+//      characters. These should be in valid ranges (see the function
 //      classify_universal_char above).
 //
-//      If the string or character literal contains invalid or not allowed 
+//      If the string or character literal contains invalid or not allowed
 //      universal characters a corresponding lexing_exception is thrown.
 //
 ///////////////////////////////////////////////////////////////////////////////
 template <typename StringT>
-inline void 
-validate_literal (StringT const &name, int line, int column, 
+inline void
+validate_literal (StringT const &name, std::size_t line, std::size_t column,
     StringT const &file_name)
 {
     using namespace std;    // some systems have strtoul in namespace std::
-    
+
 typename StringT::size_type pos = name.find_first_of('\\');
 
     while (StringT::npos != pos) {
     // the literal contains a backslash (may be universal char)
         if ('u' == name[pos+1] || 'U' == name[pos+1]) {
         StringT uchar_val(name.substr(pos+2, ('u' == name[pos+1]) ? 4 : 8));
-        universal_char_type type = 
-            classify_universal_char(strtoul(uchar_val.c_str(), 0, 16));  
-            
-            if (universal_char_type_valid != type && 
-                universal_char_type_not_allowed_for_identifiers != type) 
+        universal_char_type type =
+            classify_universal_char(strtoul(uchar_val.c_str(), 0, 16));
+
+            if (universal_char_type_valid != type &&
+                universal_char_type_not_allowed_for_identifiers != type)
             {
             // an invalid char was found, so throw an exception
             StringT error_uchar(name.substr(pos, ('u' == name[pos+1]) ? 6 : 10));
-            
+
                 if (universal_char_type_invalid == type) {
-                    BOOST_WAVE_LEXER_THROW(lexing_exception, universal_char_invalid, 
+                    BOOST_WAVE_LEXER_THROW(lexing_exception, universal_char_invalid,
                         error_uchar, line, column, file_name.c_str());
                 }
                 else {
-                    BOOST_WAVE_LEXER_THROW(lexing_exception, universal_char_base_charset, 
+                    BOOST_WAVE_LEXER_THROW(lexing_exception, universal_char_base_charset,
                         error_uchar, line, column, file_name.c_str());
                 }
             }
         }
-                
+
     // find next universal char (if appropriate)
         pos = name.find_first_of('\\', pos+2);
     }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-}   // namespace impl           
+}   // namespace impl
 }   // namespace cpplexer
 }   // namespace wave
 }   // namespace boost

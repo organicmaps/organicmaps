@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2009-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2009-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -72,10 +72,10 @@ class xsi_named_mutex
    //!After the call, "moved" does not represent any named mutex.
    //!Does not throw
    xsi_named_mutex &operator=(BOOST_RV_REF(xsi_named_mutex) moved)
-   { 
+   {
       xsi_named_mutex tmp(boost::move(moved));
       this->swap(tmp);
-      return *this; 
+      return *this;
    }
 
    //!Swaps two xsi_named_mutex. Does not throw
@@ -142,7 +142,7 @@ inline void xsi_named_mutex::swap(xsi_named_mutex &other)
    std::swap(m_id,    other.m_id);
    std::swap(m_semid, other.m_semid);
    std::swap(m_perm,  other.m_perm);
-   m_path.swap(other.m_path);  
+   m_path.swap(other.m_path);
 }
 
 inline mapping_handle_t xsi_named_mutex::get_mapping_handle() const

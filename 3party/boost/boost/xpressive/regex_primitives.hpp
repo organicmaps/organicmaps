@@ -161,7 +161,7 @@ namespace boost { namespace xpressive { namespace detail
         {}
 
         template<typename Sig>
-        struct result;
+        struct result {};
 
         template<typename This, typename Expr>
         struct result<This(Expr)>

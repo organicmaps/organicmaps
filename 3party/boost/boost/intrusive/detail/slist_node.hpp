@@ -42,7 +42,10 @@ struct slist_node_traits
    typedef typename pointer_traits
       <VoidPointer>::template rebind_pointer<const node>::type    const_node_ptr;
 
-   static const node_ptr &get_next(const const_node_ptr & n)
+   static node_ptr get_next(const const_node_ptr & n)
+   {  return n->next_;  }
+
+   static node_ptr get_next(const node_ptr & n)
    {  return n->next_;  }
 
    static void set_next(const node_ptr & n, const node_ptr & next)

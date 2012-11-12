@@ -15,7 +15,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<2>
@@ -38,7 +38,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<2>
@@ -79,7 +79,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<3>
@@ -102,7 +102,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<3>
@@ -143,7 +143,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<4>
@@ -166,7 +166,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<4>
@@ -207,7 +207,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<5>
@@ -230,7 +230,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<5>
@@ -271,7 +271,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<6>
@@ -294,7 +294,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<6>
@@ -335,7 +335,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<7>
@@ -358,7 +358,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<7>
@@ -399,7 +399,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<8>
@@ -422,7 +422,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<8>
@@ -463,7 +463,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<9>
@@ -486,7 +486,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<9>
@@ -527,7 +527,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<10>
@@ -550,7 +550,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<10>
@@ -591,7 +591,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<11>
@@ -614,7 +614,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<11>
@@ -655,7 +655,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<12>
@@ -678,7 +678,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<12>
@@ -719,7 +719,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<13>
@@ -742,7 +742,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<13>
@@ -783,7 +783,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<14>
@@ -806,7 +806,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<14>
@@ -847,7 +847,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<15>
@@ -870,7 +870,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<15>
@@ -911,7 +911,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<16>
@@ -934,7 +934,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<16>
@@ -975,7 +975,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<17>
@@ -998,7 +998,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<17>
@@ -1039,7 +1039,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<18>
@@ -1062,7 +1062,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<18>
@@ -1103,7 +1103,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<19>
@@ -1126,7 +1126,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<19>
@@ -1167,7 +1167,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<20>
@@ -1190,7 +1190,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<20>
@@ -1231,7 +1231,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<21>
@@ -1254,7 +1254,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<21>
@@ -1295,7 +1295,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<22>
@@ -1318,7 +1318,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<22>
@@ -1359,7 +1359,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<23>
@@ -1382,7 +1382,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<23>
@@ -1423,7 +1423,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<24>
@@ -1446,7 +1446,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<24>
@@ -1487,7 +1487,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<25>
@@ -1510,7 +1510,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<25>
@@ -1551,7 +1551,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<26>
@@ -1574,7 +1574,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<26>
@@ -1615,7 +1615,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<27>
@@ -1638,7 +1638,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<27>
@@ -1679,7 +1679,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<28>
@@ -1702,7 +1702,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<28>
@@ -1743,7 +1743,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<29>
@@ -1766,7 +1766,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<29>
@@ -1807,7 +1807,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<30>
@@ -1830,7 +1830,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<30>
@@ -1871,7 +1871,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<31>
@@ -1894,7 +1894,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<31>
@@ -1935,7 +1935,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<32>
@@ -1958,7 +1958,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<32>
@@ -1999,7 +1999,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<33>
@@ -2022,7 +2022,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<33>
@@ -2063,7 +2063,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<34>
@@ -2086,7 +2086,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<34>
@@ -2127,7 +2127,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<35>
@@ -2150,7 +2150,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<35>
@@ -2191,7 +2191,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<36>
@@ -2214,7 +2214,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<36>
@@ -2255,7 +2255,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<37>
@@ -2278,7 +2278,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<37>
@@ -2319,7 +2319,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<38>
@@ -2342,7 +2342,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<38>
@@ -2383,7 +2383,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<39>
@@ -2406,7 +2406,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<39>
@@ -2447,7 +2447,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<40>
@@ -2470,7 +2470,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<40>
@@ -2511,7 +2511,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<41>
@@ -2534,7 +2534,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<41>
@@ -2575,7 +2575,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<42>
@@ -2598,7 +2598,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<42>
@@ -2639,7 +2639,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<43>
@@ -2662,7 +2662,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<43>
@@ -2703,7 +2703,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<44>
@@ -2726,7 +2726,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<44>
@@ -2767,7 +2767,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<45>
@@ -2790,7 +2790,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<45>
@@ -2831,7 +2831,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<46>
@@ -2854,7 +2854,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<46>
@@ -2895,7 +2895,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<47>
@@ -2918,7 +2918,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<47>
@@ -2959,7 +2959,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<48>
@@ -2982,7 +2982,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<48>
@@ -3023,7 +3023,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<49>
@@ -3046,7 +3046,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<49>
@@ -3087,7 +3087,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<50>
@@ -3110,7 +3110,7 @@
             template <typename Context, typename Cond, typename Cases>
             result_type
             evaluate(
-                Context & ctx
+                Context const & ctx
               , Cond const & cond
               , Cases const & cases
               , mpl::int_<50>

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -87,10 +87,10 @@ class shared_memory_object
    //!After the call, "moved" does not represent any shared memory.
    //!Does not throw
    shared_memory_object &operator=(BOOST_RV_REF(shared_memory_object) moved)
-   { 
+   {
       shared_memory_object tmp(boost::move(moved));
       this->swap(tmp);
-      return *this; 
+      return *this;
    }
 
    //!Swaps the shared_memory_objects. Does not throw
@@ -99,7 +99,7 @@ class shared_memory_object
    //!Erases a shared memory object from the system.
    //!Returns false on error. Never throws
    static bool remove(const char *name);
-  
+
    //!Sets the size of the shared memory mapping
    void truncate(offset_t length);
 
@@ -157,10 +157,10 @@ inline bool shared_memory_object::get_size(offset_t &size) const
 {  return ipcdetail::get_file_size((file_handle_t)m_handle, size);  }
 
 inline void shared_memory_object::swap(shared_memory_object &other)
-{ 
+{
    std::swap(m_handle,  other.m_handle);
    std::swap(m_mode,    other.m_mode);
-   m_filename.swap(other.m_filename);  
+   m_filename.swap(other.m_filename);
 }
 
 inline mapping_handle_t shared_memory_object::get_mapping_handle() const

@@ -24,6 +24,7 @@
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/proto/proto_fwd.hpp>
+#include <boost/proto/detail/is_noncopyable.hpp>
 
 #ifdef _MSC_VER
 # pragma warning(push)
@@ -37,26 +38,40 @@ namespace boost { namespace proto { namespace detail
     template<typename T>
     struct normalize_arg
     {
-        typedef T type;
+        typedef typename mpl::if_c<is_noncopyable<T>::value, T &, T>::type type;
+        typedef T &reference;
+    };
+
+    template<typename T>
+    struct normalize_arg<T const>
+    {
+        typedef typename mpl::if_c<is_noncopyable<T>::value, T const &, T>::type type;
         typedef T const &reference;
     };
 
     template<typename T>
     struct normalize_arg<T &>
     {
-        typedef T type;
-        typedef T const &reference;
+        typedef typename mpl::if_c<is_noncopyable<T>::value, T &, T>::type type;
+        typedef T &reference;
     };
 
     template<typename T>
     struct normalize_arg<T const &>
     {
-        typedef T type;
+        typedef typename mpl::if_c<is_noncopyable<T>::value, T const &, T>::type type;
         typedef T const &reference;
     };
 
     template<typename T>
     struct normalize_arg<boost::reference_wrapper<T> >
+    {
+        typedef T &type;
+        typedef T &reference;
+    };
+
+    template<typename T>
+    struct normalize_arg<boost::reference_wrapper<T> const>
     {
         typedef T &type;
         typedef T &reference;
@@ -93,7 +108,7 @@ namespace boost { namespace proto { namespace detail
 
         type operator()() const
         {
-            return *this;
+            return this->value;
         }
 
     private:
@@ -117,7 +132,7 @@ namespace boost { namespace proto { namespace detail
 
         type operator()() const
         {
-            return *this;
+            return this->value;
         }
 
     private:
@@ -137,8 +152,8 @@ namespace boost { namespace proto { namespace detail
     {};
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    #define BOOST_PROTO_POLY_FUNCTION()                                                         \
-        typedef void is_poly_function_base_;                                                    \
+    #define BOOST_PROTO_POLY_FUNCTION()                                                             \
+        typedef void is_poly_function_base_;                                                        \
         /**/
 
     ////////////////////////////////////////////////////////////////////////////////////////////////

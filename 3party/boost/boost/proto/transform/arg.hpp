@@ -9,10 +9,12 @@
 #ifndef BOOST_PROTO_TRANSFORM_ARG_HPP_EAN_11_01_2007
 #define BOOST_PROTO_TRANSFORM_ARG_HPP_EAN_11_01_2007
 
+#include <boost/mpl/if.hpp>
 #include <boost/proto/proto_fwd.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/proto/transform/impl.hpp>
 #include <boost/type_traits/is_array.hpp>
+#include <boost/proto/transform/env.hpp>
 
 namespace boost { namespace proto
 {
@@ -38,11 +40,7 @@ namespace boost { namespace proto
             /// \param e The current expression.
             /// \return \c e
             /// \throw nothrow
-            #ifdef BOOST_PROTO_STRICT_RESULT_OF
-            result_type
-            #else
-            typename impl::expr_param 
-            #endif
+            BOOST_PROTO_RETURN_TYPE_STRICT_LOOSE(result_type, typename impl::expr_param)
             operator()(
                 typename impl::expr_param e
               , typename impl::state_param
@@ -75,11 +73,7 @@ namespace boost { namespace proto
             /// \param s The current state.
             /// \return \c s
             /// \throw nothrow
-            #ifdef BOOST_PROTO_STRICT_RESULT_OF
-            result_type
-            #else
-            typename impl::state_param 
-            #endif
+            BOOST_PROTO_RETURN_TYPE_STRICT_LOOSE(result_type, typename impl::state_param)
             operator ()(
                 typename impl::expr_param
               , typename impl::state_param s
@@ -105,28 +99,13 @@ namespace boost { namespace proto
     struct _data : transform<_data>
     {
         template<typename Expr, typename State, typename Data>
-        struct impl : transform_impl<Expr, State, Data>
-        {
-            typedef Data result_type;
-
-            /// Returns the current data.
-            /// \param d The current data.
-            /// \return \c d
-            /// \throw nothrow
-            #ifdef BOOST_PROTO_STRICT_RESULT_OF
-            result_type
-            #else
-            typename impl::data_param 
-            #endif
-            operator ()(
-                typename impl::expr_param
-              , typename impl::state_param
-              , typename impl::data_param d
-            ) const
-            {
-                return d;
-            }
-        };
+        struct impl
+          : mpl::if_c<
+                is_env<Data>::value
+              , _env_var<data_type>
+              , _env
+            >::type::template impl<Expr, State, Data>
+        {};
     };
 
     /// \brief A PrimitiveTransform that returns N-th child of the current

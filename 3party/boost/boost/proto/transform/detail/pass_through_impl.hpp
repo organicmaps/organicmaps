@@ -54,15 +54,22 @@
 
     #define N BOOST_PP_ITERATION()
 
-    template<typename Grammar, typename Expr, typename State, typename Data>
-    struct pass_through_impl<Grammar, Expr, State, Data, N>
+    template<typename Grammar, typename Domain, typename Expr, typename State, typename Data>
+    struct pass_through_impl<Grammar, Domain, Expr, State, Data, N>
       : transform_impl<Expr, State, Data>
     {
         typedef typename pass_through_impl::expr unref_expr;
+        typedef
+            typename mpl::if_c<
+                is_same<Domain, deduce_domain>::value
+              , typename unref_expr::proto_domain
+              , Domain
+            >::type
+        result_domain;
 
         typedef
             typename base_expr<
-                typename unref_expr::proto_domain
+                result_domain
               , typename unref_expr::proto_tag
               , BOOST_PP_CAT(list, N)<
                     BOOST_PP_ENUM(N, BOOST_PROTO_DEFINE_TRANSFORM_TYPE, ~)
@@ -70,11 +77,12 @@
             >::type
         expr_type;
 
-        typedef typename unref_expr::proto_generator proto_generator;
-        typedef typename BOOST_PROTO_RESULT_OF<proto_generator(expr_type)>::type const result_type;
+        typedef typename result_domain::proto_generator proto_generator;
+        typedef typename BOOST_PROTO_RESULT_OF<proto_generator(expr_type)>::type result_type;
 
         BOOST_FORCEINLINE
-        result_type const operator ()(
+        BOOST_PROTO_RETURN_TYPE_STRICT_LOOSE(result_type, result_type const)
+        operator ()(
             typename pass_through_impl::expr_param e
           , typename pass_through_impl::state_param s
           , typename pass_through_impl::data_param d

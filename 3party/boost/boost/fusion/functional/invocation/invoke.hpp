@@ -57,13 +57,13 @@ namespace boost { namespace fusion
         template <typename Function, class Sequence> struct invoke;
     }
 
-    template <typename Function, class Sequence>
-    inline typename result_of::invoke<Function, Sequence>::type
-    invoke(Function, Sequence &);
+    //~ template <typename Function, class Sequence>
+    //~ inline typename result_of::invoke<Function, Sequence>::type
+    //~ invoke(Function, Sequence &);
 
-    template <typename Function, class Sequence>
-    inline typename result_of::invoke<Function, Sequence const>::type
-    invoke(Function, Sequence const &);
+    //~ template <typename Function, class Sequence>
+    //~ inline typename result_of::invoke<Function, Sequence const>::type
+    //~ invoke(Function, Sequence const &);
 
     //----- ---- --- -- - -  -   -
 
@@ -86,6 +86,9 @@ namespace boost { namespace fusion
         struct invoke_data_member;
 
         template <typename Function, class Sequence, int N, bool RandomAccess>
+        struct invoke_fn_ptr;
+
+        template <typename Function, class Sequence, int N, bool RandomAccess>
         struct invoke_mem_fn;
 
         #define  BOOST_PP_FILENAME_1 <boost/fusion/functional/invocation/invoke.hpp>
@@ -95,10 +98,10 @@ namespace boost { namespace fusion
         template <typename F, class Sequence, int N, bool RandomAccess>
         struct invoke_nonmember_builtin
         // use same implementation as for function objects but...
-            : invoke_impl< // ...work around boost::result_of bugs
+            : invoke_fn_ptr< // ...work around boost::result_of bugs
                 typename mpl::eval_if< ft::is_function<F>,
                     boost::add_reference<F>, boost::remove_cv<F> >::type,
-                Sequence, N, false, RandomAccess >
+                Sequence, N, RandomAccess >
         { };
 
         template <typename Function, class Sequence, int N, bool RandomAccess>
@@ -221,6 +224,35 @@ namespace boost { namespace fusion
 
         };
 
+        template <typename Function, class Sequence>
+        struct invoke_fn_ptr<Function,Sequence,N,true>
+        {
+        public:
+
+            typedef typename ft::result_type<Function>::type result_type;
+
+#if N > 0
+
+            template <typename F>
+            static inline result_type
+            call(F & f, Sequence & s)
+            {
+#define M(z,j,data) fusion::at_c<j>(s)
+                return f( BOOST_PP_ENUM(N,M,~) );
+            }
+
+#else
+            template <typename F>
+            static inline result_type
+            call(F & f, Sequence & /*s*/)
+            {
+                return f();
+            }
+
+#endif
+
+        };
+
 
 #if N > 0
         template <typename Function, class Sequence>
@@ -257,6 +289,39 @@ namespace boost { namespace fusion
             typedef typename boost::result_of<
                 Function(BOOST_PP_ENUM_PARAMS(N,typename seq::T))
                 >::type result_type;
+
+#if N > 0
+
+            template <typename F>
+            static inline result_type
+            call(F & f, Sequence & s)
+            {
+                typename seq::I0 i0 = fusion::begin(s);
+                BOOST_PP_REPEAT_FROM_TO(1,N,M,~)
+                return f( BOOST_PP_ENUM_PARAMS(N,*i) );
+            }
+
+#else
+
+            template <typename F>
+            static inline result_type
+            call(F & f, Sequence & /*s*/)
+            {
+                return f();
+            }
+
+#endif
+
+        };
+
+        template <typename Function, class Sequence>
+        struct invoke_fn_ptr<Function,Sequence,N,false>
+        {
+        private:
+            typedef invoke_param_types<Sequence,N> seq;
+        public:
+
+            typedef typename ft::result_type<Function>::type result_type;
 
 #if N > 0
 

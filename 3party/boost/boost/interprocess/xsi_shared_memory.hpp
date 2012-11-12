@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2009-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -89,10 +89,10 @@ class xsi_shared_memory
    //!After the call, "moved" does not represent any shared memory.
    //!Does not throw
    xsi_shared_memory &operator=(BOOST_RV_REF(xsi_shared_memory) moved)
-   { 
+   {
       xsi_shared_memory tmp(boost::move(moved));
       this->swap(tmp);
-      return *this; 
+      return *this;
    }
 
    //!Swaps two xsi_shared_memorys. Does not throw

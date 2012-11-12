@@ -188,7 +188,7 @@ operator + (const typename Type::value_type& operand, Type object)
 }
 
 template <class Type>
-inline typename enable_if<is_associative_element_container<Type>, Type>::type
+inline typename enable_if<is_associative_element_container<Type>, Type>::type&
 operator += (Type& object, const Type& operand) 
 { 
     if(&object == &operand)

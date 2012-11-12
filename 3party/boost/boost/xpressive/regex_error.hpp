@@ -51,6 +51,7 @@ struct regex_error
 {
     /// Constructs an object of class regex_error.
     /// \param code The error_type this regex_error represents.
+    /// \param str The message string of this regex_error.
     /// \post code() == code
     explicit regex_error(regex_constants::error_type code, char const *str = "")
       : std::runtime_error(str)

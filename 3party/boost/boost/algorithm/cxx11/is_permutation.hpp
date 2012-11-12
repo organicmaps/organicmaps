@@ -46,7 +46,7 @@ namespace detail {
 
 
 /// \fn is_permutation ( ForwardIterator1 first, ForwardIterator1 last, ForwardIterator2 first2, BinaryPredicate p )
-/// \brief Tests to see if a the sequence [first,last) is a permutation of the sequence starting at first2
+/// \brief Tests to see if the sequence [first,last) is a permutation of the sequence starting at first2
 ///
 /// \param first    The start of the input sequence
 /// \param last     One past the end of the input sequence
@@ -88,7 +88,7 @@ bool is_permutation ( ForwardIterator1 first1, ForwardIterator1 last1,
 }
 
 /// \fn is_permutation ( ForwardIterator1 first, ForwardIterator1 last, ForwardIterator2 first2 )
-/// \brief Tests to see if a the sequence [first,last) is a permutation of the sequence starting at first2
+/// \brief Tests to see if the sequence [first,last) is a permutation of the sequence starting at first2
 ///
 /// \param first    The start of the input sequence
 /// \param last     One past the end of the input sequence
@@ -108,7 +108,7 @@ bool is_permutation ( ForwardIterator1 first, ForwardIterator1 last, ForwardIter
 #endif
 
 /// \fn is_permutation ( const Range &r, ForwardIterator first2 )
-/// \brief Tests to see if a the sequence [first,last) is a permutation of the sequence starting at first2
+/// \brief Tests to see if the sequence [first,last) is a permutation of the sequence starting at first2
 ///
 /// \param r        The input range
 /// \param first2   The start of the second sequence
@@ -119,7 +119,7 @@ bool is_permutation ( const Range &r, ForwardIterator first2 )
 }
 
 /// \fn is_permutation ( const Range &r, ForwardIterator first2, BinaryPredicate pred )
-/// \brief Tests to see if a the sequence [first,last) is a permutation of the sequence starting at first2
+/// \brief Tests to see if the sequence [first,last) is a permutation of the sequence starting at first2
 ///
 /// \param r        The input range
 /// \param first2   The start of the second sequence

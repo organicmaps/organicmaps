@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2009-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2009-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -40,7 +40,7 @@ class xsi_shared_memory_file_wrapper
 {
    /// @cond
    BOOST_MOVABLE_BUT_NOT_COPYABLE(xsi_shared_memory_file_wrapper)
-   /// @endcond  
+   /// @endcond
    public:
 
    xsi_shared_memory_file_wrapper() : xsi_shared_memory() {}
@@ -61,10 +61,10 @@ class xsi_shared_memory_file_wrapper
    {  this->swap(moved);   }
 
    xsi_shared_memory_file_wrapper &operator=(BOOST_RV_REF(xsi_shared_memory_file_wrapper) moved)
-   { 
+   {
       xsi_shared_memory_file_wrapper tmp(boost::move(moved));
       this->swap(tmp);
-      return *this; 
+      return *this;
    }
 
    //!Swaps two xsi_shared_memory_file_wrapper. Does not throw

@@ -5,7 +5,7 @@
  *
  * \brief The \c num_rows operation.
  *
- * Copyright (c) 2009, Marco Guazzone
+ * Copyright (c) 2009-2012, Marco Guazzone
  *
  * Distributed under the Boost Software License, Version 1.0. (See
  * accompanying file LICENSE_1_0.txt or copy at
@@ -19,6 +19,8 @@
 
 
 #include <boost/numeric/ublas/detail/config.hpp>
+#include <boost/numeric/ublas/expression_types.hpp>
+#include <boost/numeric/ublas/traits.hpp>
 
 
 namespace boost { namespace numeric { namespace ublas {
@@ -31,9 +33,9 @@ namespace boost { namespace numeric { namespace ublas {
      */
     template <typename MatrixExprT>
     BOOST_UBLAS_INLINE
-    typename MatrixExprT::size_type num_rows(MatrixExprT const& m)
+    typename matrix_traits<MatrixExprT>::size_type num_rows(matrix_expression<MatrixExprT> const& me)
     {
-        return m.size1();
+        return me().size1();
     }
 
 }}} // Namespace boost::numeric::ublas

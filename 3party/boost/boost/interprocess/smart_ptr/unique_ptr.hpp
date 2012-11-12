@@ -5,7 +5,7 @@
 // This file is the adaptation for Interprocess of
 // Howard Hinnant's unique_ptr emulation code.
 //
-// (C) Copyright Ion Gaztanaga 2006. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2006-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -272,7 +272,7 @@ class unique_ptr
    //!Returns: A reference to the stored deleter.
    //!
    //!Throws: nothing.
-   deleter_reference       get_deleter()      
+   deleter_reference       get_deleter()
    {  return ptr_.second();   }
 
    //!Returns: A const reference to the stored deleter.
@@ -328,7 +328,7 @@ class unique_ptr
    BOOST_MOVABLE_BUT_NOT_COPYABLE(unique_ptr)
    template <class U, class E> unique_ptr(unique_ptr<U, E>&);
    template <class U> unique_ptr(U&, typename ipcdetail::unique_ptr_error<U>::type = 0);
-  
+
    template <class U, class E> unique_ptr& operator=(unique_ptr<U, E>&);
    template <class U> typename ipcdetail::unique_ptr_error<U>::type operator=(U&);
    /// @endcond
