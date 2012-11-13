@@ -1308,3 +1308,8 @@
     ko = MapsWithMe의 정식 버전에서는 즐겨찾기를 이용하실 수 있습니다. 지금 바로 구입하시겠습니까?
     cs = V plné verzi MapsWithMe jsou k dispozici záložky. Chcete ji pořídit hned teď?
     nl = Bladwijzers zijn beschikbaar in de volledige versie van MapsWithMe. Wilt u die nu gelijk?
+  [gps_is_disabled_long_text]
+    en = You currently have GPS for this device or application disabled. Please enable it in Settings.
+    comment = GPS are disabled by user alert - message
+    ru = GPS выключена в настройках устройства. Пожалуйста, включите ее для удобного использования программы.
+    uk = GPS вимкнена в налаштуваннях пристрою. Будь ласка, увімкніть її для зручного використання програми.

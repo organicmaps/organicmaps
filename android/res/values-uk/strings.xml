@@ -190,4 +190,6 @@
 	<string name="visible">Показувати</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
 	<string name="bookmarks_in_pro_version">Закладки доступні у повній версії MapsWithMe. Отримати просто зараз?</string>
+	<!-- GPS are disabled by user alert - message -->
+	<string name="gps_is_disabled_long_text">GPS вимкнена в налаштуваннях пристрою. Будь ласка, увімкніть її для зручного використання програми.</string>
 </resources>

@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.ConnectionState;
@@ -625,6 +626,10 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
           }
         }).show();
       }
+    }
+    else if (errorCode == LocationService.ERROR_GPS_OFF)
+    {
+      Toast.makeText(this, R.string.gps_is_disabled_long_text, Toast.LENGTH_LONG).show();
     }
   }
 

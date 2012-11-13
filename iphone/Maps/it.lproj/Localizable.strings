@@ -320,3 +320,6 @@
 
 /* Proposal to download Pro version with Bookmarks */
 "bookmarks_in_pro_version" = "Bookmarks are available in the full version of MapsWithMe. Get it right now?";
+
+/* GPS are disabled by user alert - message */
+"gps_is_disabled_long_text" = "You currently have GPS for this device or application disabled. Please enable it in Settings.";

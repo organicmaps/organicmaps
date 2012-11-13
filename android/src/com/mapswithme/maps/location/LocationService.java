@@ -117,19 +117,27 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
     if (!m_isActive)
     {
-      List<String> enabledProviders = m_locationManager.getProviders(true);
+      List<String> providers = m_locationManager.getProviders(false);
 
-      // Remove passive provider, we don't use it in the current implementation
-      for (int i = 0; i < enabledProviders.size(); ++i)
-        if (enabledProviders.get(i).equals("passive"))
+      // Remove passive provider and check for enabled providers.
+      boolean isGPSOff = false;
+      for (int i = 0; i < providers.size();)
+      {
+        final String provider = providers.get(i);
+        if (!m_locationManager.isProviderEnabled(provider) ||
+            provider.equals(LocationManager.PASSIVE_PROVIDER))
         {
-          enabledProviders.remove(i);
-          break;
+          if (provider.equals(LocationManager.GPS_PROVIDER))
+            isGPSOff = true;
+          providers.remove(i);
         }
+        else
+          ++i;
+      }
 
-      Log.d(TAG, "Enabled providers count = " + enabledProviders.size());
+      Log.d(TAG, "Enabled providers count = " + providers.size());
 
-      if (enabledProviders.size() == 0)
+      if (providers.size() == 0)
       {
         // Use WiFi BSSIDS and Google Internet location service if no other options are available
         // But only if connection is available
@@ -149,17 +157,14 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
         Location lastKnown = null;
 
-        for (String provider : enabledProviders)
+        for (String provider : providers)
         {
-          if (m_locationManager.isProviderEnabled(provider))
-          {
-            Log.d(TAG, "Connected to provider = " + provider);
-            // Half of a second is more than enough, I think ...
-            m_locationManager.requestLocationUpdates(provider, 500, 0, this);
+          Log.d(TAG, "Connected to provider = " + provider);
+          // Half of a second is more than enough, I think ...
+          m_locationManager.requestLocationUpdates(provider, 500, 0, this);
 
-            // Remember last known location
-            lastKnown = getBestLastKnownLocation(lastKnown, m_locationManager.getLastKnownLocation(provider));
-          }
+          // Remember last known location
+          lastKnown = getBestLastKnownLocation(lastKnown, m_locationManager.getLastKnownLocation(provider));
         }
 
         if (m_sensorManager != null)
@@ -181,6 +186,9 @@ public class LocationService implements LocationListener, SensorEventListener, W
           onLocationChanged(lastKnown);
         }
       }
+
+      if (isGPSOff)
+        observer.onLocationError(ERROR_GPS_OFF);
     }
   }
 
