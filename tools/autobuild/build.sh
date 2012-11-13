@@ -11,7 +11,7 @@ GetCPUCores() {
   case "$OSTYPE" in
     linux-gnu) grep -c ^processor /proc/cpuinfo 2>/dev/null
                ;;
-    darwin) sysctl -n hw.ncpu
+    darwin*) sysctl -n hw.ncpu
                ;;
     *)         echo "Unsupported platform in $0"
                exit 1
