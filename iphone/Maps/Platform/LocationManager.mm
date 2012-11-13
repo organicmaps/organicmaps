@@ -21,6 +21,9 @@
     m_locationManager.distanceFilter = 3.0;
     m_isStarted = NO;
     m_observers = [[NSMutableSet alloc] init];
+
+    m_lastLocationTime = nil;
+    m_isCourse = NO;
   }
   return self;
 }
@@ -29,6 +32,8 @@
 {
   [m_observers release];
   [m_locationManager release];
+  [m_lastLocationTime release];
+
   [super dealloc];
 }
 
@@ -113,24 +118,51 @@
   if (location::IsLatValid(newLocation.coordinate.latitude) &&
       location::IsLonValid(newLocation.coordinate.longitude))
   {
+    // Save current device time for location.
+    [m_lastLocationTime release];
+    m_lastLocationTime = [[NSDate date] retain];
+
     location::GpsInfo newInfo;
     [self location:newLocation toGpsInfo:newInfo];
     for (id observer in m_observers)
       [observer onLocationUpdate:newInfo];
+
+    // Pass current course if we are moving and GPS course is valid.
+    if (newLocation.speed >= 1.0 && newLocation.course >= 0.0)
+    {
+      m_isCourse = YES;
+
+      location::CompassInfo newInfo;
+      newInfo.m_magneticHeading = my::DegToRad(newLocation.course);
+      newInfo.m_trueHeading = newInfo.m_magneticHeading;
+      newInfo.m_accuracy = 10.0;
+      newInfo.m_timestamp = [newLocation.timestamp timeIntervalSince1970];
+
+      for (id observer in m_observers)
+        [observer onCompassUpdate:newInfo];
+    }
+    else
+      m_isCourse = NO;
   }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
 {
-  location::CompassInfo newInfo;
-  newInfo.m_magneticHeading = my::DegToRad(newHeading.magneticHeading);
-  newInfo.m_trueHeading = my::DegToRad(newHeading.trueHeading);
-  newInfo.m_accuracy = my::DegToRad(newHeading.headingAccuracy);
+  // Stop passing driving course if last time stamp for GPS location is later than 20 seconds.
+  if (m_lastLocationTime == nil || ([m_lastLocationTime timeIntervalSinceNow] < -20.0))
+    m_isCourse = NO;
 
-  newInfo.m_timestamp = [newHeading.timestamp timeIntervalSince1970];
+  if (!m_isCourse)
+  {
+    location::CompassInfo newInfo;
+    newInfo.m_magneticHeading = my::DegToRad(newHeading.magneticHeading);
+    newInfo.m_trueHeading = my::DegToRad(newHeading.trueHeading);
+    newInfo.m_accuracy = my::DegToRad(newHeading.headingAccuracy);
+    newInfo.m_timestamp = [newHeading.timestamp timeIntervalSince1970];
 
-  for (id observer in m_observers)
-    [observer onCompassUpdate:newInfo];
+    for (id observer in m_observers)
+      [observer onCompassUpdate:newInfo];
+  }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
@@ -170,10 +202,8 @@
 {
   CLLocation * l = [self lastLocation];
 
-  static NSTimeInterval const SECONDS_TO_EXPIRE = 300.0;
-
-  // timeIntervalSinceNow returns negative value - because of "since now"
-  if ((l != nil) && ([l.timestamp timeIntervalSinceNow] > (-SECONDS_TO_EXPIRE)))
+  // Return last saved location if it's not later than 5 minutes.
+  if ((l != nil) && ([m_lastLocationTime timeIntervalSinceNow] > -300.0))
   {
     lat = l.coordinate.latitude;
     lon = l.coordinate.longitude;
