@@ -1309,7 +1309,15 @@
     cs = V plné verzi MapsWithMe jsou k dispozici záložky. Chcete ji pořídit hned teď?
     nl = Bladwijzers zijn beschikbaar in de volledige versie van MapsWithMe. Wilt u die nu gelijk?
   [gps_is_disabled_long_text]
-    en = You currently have GPS for this device or application disabled. Please enable it in Settings.
-    comment = GPS are disabled by user alert - message
-    ru = GPS выключена в настройках устройства. Пожалуйста, включите ее для удобного использования программы.
-    uk = GPS вимкнена в налаштуваннях пристрою. Будь ласка, увімкніть її для зручного використання програми.
+    en = GPS is disabled. Please enable it in Settings.
+    tags = android
+    comment = Toast which is displayed when GPS has been deactivated
+    ru = GPS-позиционирование выключено. Пожалуйста, включите его в настройках для удобного использования программы.
+    de = GPS ist deaktiviert. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.
+    uk = GPS вимкнено в налаштуваннях пристрою. Будь ласка, увімкніть її для зручного використання програми.
+    es = El GPS está inhabilitado. Por favor, activelo en los ajustes.
+    fr = GPS désactivé. Veuillez s'il vous plaît la mettre en prise pour la commode utilisation du programme.
+    ja = GPSが無効です。設定画面から有効にして下さい。
+    ko = GPS가 사용 중지되었습니다. 설정에서 이를 작동시켜 주시기 바랍니다.
+    cs = Navigace GPS deaktivována. Prosím povol je v Nastavení.
+    nl = GPS is uitgeschakeld. Schakel ze in bij Instellingen.

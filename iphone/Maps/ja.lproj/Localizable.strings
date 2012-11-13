@@ -321,5 +321,5 @@
 /* Proposal to download Pro version with Bookmarks */
 "bookmarks_in_pro_version" = "ブックマークはMapsWithMeの完全版でご利用いただけます。いますぐ取得されますか？";
 
-/* GPS are disabled by user alert - message */
-"gps_is_disabled_long_text" = "You currently have GPS for this device or application disabled. Please enable it in Settings.";
+/* Toast which is displayed when GPS has been deactivated */
+"gps_is_disabled_long_text" = "GPSが無効です。設定画面から有効にして下さい。";

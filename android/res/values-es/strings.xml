@@ -194,4 +194,6 @@
 	<string name="visible">Visible</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
 	<string name="bookmarks_in_pro_version">La opción de marcadores está disponible en la versión completa de MapsWithMe. ¿La quieres ya?</string>
+	<!-- Toast which is displayed when GPS has been deactivated -->
+	<string name="gps_is_disabled_long_text">El GPS está inhabilitado. Por favor, activelo en los ajustes.</string>
 </resources>

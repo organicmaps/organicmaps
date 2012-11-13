@@ -202,4 +202,6 @@
 	<string name="visible">Zichtbaar</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
 	<string name="bookmarks_in_pro_version">Bladwijzers zijn beschikbaar in de volledige versie van MapsWithMe. Wilt u die nu gelijk?</string>
+	<!-- Toast which is displayed when GPS has been deactivated -->
+	<string name="gps_is_disabled_long_text">GPS is uitgeschakeld. Schakel ze in bij Instellingen.</string>
 </resources>

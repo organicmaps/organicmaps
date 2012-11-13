@@ -321,5 +321,5 @@
 /* Proposal to download Pro version with Bookmarks */
 "bookmarks_in_pro_version" = "Les marques-page sont disponibles dans la version complète de MapsWithMe. Se la procurer maintenant?";
 
-/* GPS are disabled by user alert - message */
-"gps_is_disabled_long_text" = "You currently have GPS for this device or application disabled. Please enable it in Settings.";
+/* Toast which is displayed when GPS has been deactivated */
+"gps_is_disabled_long_text" = "GPS désactivé. Veuillez s'il vous plaît la mettre en prise pour la commode utilisation du programme.";

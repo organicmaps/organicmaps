@@ -194,4 +194,6 @@
 	<string name="visible">Viditelný</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
 	<string name="bookmarks_in_pro_version">V plné verzi MapsWithMe jsou k dispozici záložky. Chcete ji pořídit hned teď?</string>
+	<!-- Toast which is displayed when GPS has been deactivated -->
+	<string name="gps_is_disabled_long_text">Navigace GPS deaktivována. Prosím povol je v Nastavení.</string>
 </resources>

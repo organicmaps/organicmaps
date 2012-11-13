@@ -321,5 +321,5 @@
 /* Proposal to download Pro version with Bookmarks */
 "bookmarks_in_pro_version" = "MapsWithMe의 정식 버전에서는 즐겨찾기를 이용하실 수 있습니다. 지금 바로 구입하시겠습니까?";
 
-/* GPS are disabled by user alert - message */
-"gps_is_disabled_long_text" = "You currently have GPS for this device or application disabled. Please enable it in Settings.";
+/* Toast which is displayed when GPS has been deactivated */
+"gps_is_disabled_long_text" = "GPS가 사용 중지되었습니다. 설정에서 이를 작동시켜 주시기 바랍니다.";

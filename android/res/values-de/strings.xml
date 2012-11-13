@@ -198,4 +198,6 @@
 	<string name="visible">Sichtbar</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
 	<string name="bookmarks_in_pro_version">Lesezeichen stehen in der Vollversion von MapsWithMe zur Verfügung. Jetzt sofort besorgen?</string>
+	<!-- Toast which is displayed when GPS has been deactivated -->
+	<string name="gps_is_disabled_long_text">GPS ist deaktiviert. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.</string>
 </resources>
