@@ -6,11 +6,13 @@
 
 namespace location
 {
+  /// @note Do not change values of this constants.
   enum TLocationError
   {
     ENoError = 0,
-    EDenied = 1,
-    EGPSIsOff = 2
+    ENotSupported,
+    EDenied,
+    EGPSIsOff
   };
 
   enum TLocationSource

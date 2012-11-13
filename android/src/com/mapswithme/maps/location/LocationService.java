@@ -28,8 +28,9 @@ public class LocationService implements LocationListener, SensorEventListener, W
 
   /// These constants should correspond to values defined in platform/location.hpp
   /// Leave 0-value as no any error.
-  public static final int ERROR_DENIED = 1;
-  public static final int ERROR_GPS_OFF = 2;
+  public static final int ERROR_NOT_SUPPORTED = 1;
+  public static final int ERROR_DENIED = 2;
+  public static final int ERROR_GPS_OFF = 3;
 
   public interface Listener
   {
