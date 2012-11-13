@@ -172,11 +172,6 @@ string Platform::UniqueClientId() const
   return HashUniqueID(GetMacAddress() + GetDeviceUid());
 }
 
-bool Platform::DoSupportRotation() const
-{
-  return true;
-}
-
 static void PerformImpl(void * obj)
 {
   Platform::TFunctor * f = reinterpret_cast<Platform::TFunctor *>(obj);

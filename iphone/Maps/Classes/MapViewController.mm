@@ -112,7 +112,7 @@
   Framework & f = GetFramework();
   shared_ptr<location::State> ls = f.GetLocationState();
   
-  if (newStatus == 1)
+  if (newStatus == location::ECompassFollow)
     [m_myPositionButton setImage:[UIImage imageNamed:@"location-follow.png"] forState:UIControlStateSelected];
   else
   {
@@ -174,7 +174,7 @@
   [[MapsAppDelegate theApp] enableStandby];
   [[MapsAppDelegate theApp].m_locationManager stop:self];
 
-  m_myPositionButton.selected = YES;
+  m_myPositionButton.selected = NO;
   [m_myPositionButton setImage:[UIImage imageNamed:@"location.png"] forState:UIControlStateSelected];
 }
 

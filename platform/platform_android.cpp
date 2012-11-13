@@ -129,11 +129,6 @@ namespace
   };
 }
 
-bool Platform::DoSupportRotation() const
-{
-  return IsPro();
-}
-
 void Platform::RunAsync(TFunctor const & fn, Priority p)
 {
   UNUSED_VALUE(p);

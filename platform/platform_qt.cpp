@@ -67,11 +67,6 @@ int Platform::VideoMemoryLimit() const
   return 20 * 1024 * 1024;
 }
 
-bool Platform::DoSupportRotation() const
-{
-  return IsPro();
-}
-
 ///////////////////////////////////////////////////////////////////////////////
 extern Platform & GetPlatform()
 {
