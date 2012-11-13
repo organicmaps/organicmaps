@@ -139,12 +139,12 @@
     {
       m_myPositionButton.selected = YES;
       [m_myPositionButton setImage:[UIImage imageNamed:@"location-search.png"] forState:UIControlStateSelected];
-      
-      f.StartLocation();
-      
+
+      ls->OnStartLocation();
+
       [[MapsAppDelegate theApp] disableStandby];
       [[MapsAppDelegate theApp].m_locationManager start:self];
-      
+
       return;
     }
   }
@@ -156,11 +156,14 @@
       {
         if (ls->GetCompassProcessMode() != location::ECompassFollow)
         {
-          ls->StartCompassFollowing();
-          
+          if (ls->IsCentered())
+            ls->StartCompassFollowing();
+          else
+            ls->AnimateToPositionAndEnqueueFollowing();
+
           m_myPositionButton.selected = YES;
           [m_myPositionButton setImage:[UIImage imageNamed:@"location-follow.png"] forState:UIControlStateSelected];
-          
+
           return;
         }
         else
@@ -169,7 +172,7 @@
     }
   }
 
-  f.StopLocation();
+  ls->OnStopLocation();
 
   [[MapsAppDelegate theApp] enableStandby];
   [[MapsAppDelegate theApp].m_locationManager stop:self];
