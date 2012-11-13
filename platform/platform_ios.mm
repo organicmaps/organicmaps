@@ -174,7 +174,7 @@ string Platform::UniqueClientId() const
 
 bool Platform::DoSupportRotation() const
 {
-  return false;
+  return true;
 }
 
 static void PerformImpl(void * obj)

@@ -106,33 +106,76 @@
 {
   GetFramework().OnCompassUpdate(info);
 }
+
+- (void) onCompassStatusChanged:(int) newStatus
+{
+  Framework & f = GetFramework();
+  shared_ptr<location::State> ls = f.GetLocationState();
+  
+  if (newStatus == 1)
+    [m_myPositionButton setImage:[UIImage imageNamed:@"location-follow.png"] forState:UIControlStateSelected];
+  else
+  {
+    if (ls->HasPosition())
+      [m_myPositionButton setImage:[UIImage imageNamed:@"location-selected.png"] forState:UIControlStateSelected];
+    else
+      [m_myPositionButton setImage:[UIImage imageNamed:@"location.png"] forState:UIControlStateSelected];
+    
+    m_myPositionButton.selected = YES;
+  }
+}
+
 //********************************************************************************************
 //********************************************************************************************
 
 - (IBAction)OnMyPositionClicked:(id)sender
 {
   Framework & f = GetFramework();
+  shared_ptr<location::State> ls = f.GetLocationState();
 
-  if (m_myPositionButton.isSelected == NO)
+  if (!ls->HasPosition())
   {
-    m_myPositionButton.selected = YES;
-    [m_myPositionButton setImage:[UIImage imageNamed:@"location-search.png"] forState:UIControlStateSelected];
-
-    f.StartLocation();
-
-    [[MapsAppDelegate theApp] disableStandby];
-    [[MapsAppDelegate theApp].m_locationManager start:self];
+    if (!ls->IsFirstPosition())
+    {
+      m_myPositionButton.selected = YES;
+      [m_myPositionButton setImage:[UIImage imageNamed:@"location-search.png"] forState:UIControlStateSelected];
+      
+      f.StartLocation();
+      
+      [[MapsAppDelegate theApp] disableStandby];
+      [[MapsAppDelegate theApp].m_locationManager start:self];
+      
+      return;
+    }
   }
   else
   {
-    m_myPositionButton.selected = NO;
-    [m_myPositionButton setImage:[UIImage imageNamed:@"location.png"] forState:UIControlStateSelected];
-
-    f.StopLocation();
-
-    [[MapsAppDelegate theApp] enableStandby];
-    [[MapsAppDelegate theApp].m_locationManager stop:self];
+    if (GetPlatform().IsPro())
+    {
+      if (ls->HasCompass())
+      {
+        if (ls->GetCompassProcessMode() != location::ECompassFollow)
+        {
+          ls->StartCompassFollowing();
+          
+          m_myPositionButton.selected = YES;
+          [m_myPositionButton setImage:[UIImage imageNamed:@"location-follow.png"] forState:UIControlStateSelected];
+          
+          return;
+        }
+        else
+          ls->StopCompassFollowing();
+      }
+    }
   }
+
+  f.StopLocation();
+
+  [[MapsAppDelegate theApp] enableStandby];
+  [[MapsAppDelegate theApp].m_locationManager stop:self];
+
+  m_myPositionButton.selected = YES;
+  [m_myPositionButton setImage:[UIImage imageNamed:@"location.png"] forState:UIControlStateSelected];
 }
 
 - (IBAction)OnSettingsClicked:(id)sender
@@ -321,6 +364,13 @@
     EAGLView * v = (EAGLView *)self.view;
 
     Framework & f = GetFramework();
+    
+    typedef void (*onCompassStatusChangedFn)(id, SEL, int);
+    SEL onCompassStatusChangedSel = @selector(onCompassStatusChanged:);
+    onCompassStatusChangedFn onCompassStatusChangedImpl = (onCompassStatusChangedFn)[self methodForSelector:onCompassStatusChangedSel];
+
+    shared_ptr<location::State> ls = f.GetLocationState();
+    ls->AddCompassStatusListener(bind(onCompassStatusChangedImpl, self, onCompassStatusChangedSel, _1));
 
     f.AddString("country_status_added_to_queue", [NSLocalizedString(@"country_status_added_to_queue", @"Message to display at the center of the screen when the country is added to the downloading queue") UTF8String]);
     f.AddString("country_status_downloading", [NSLocalizedString(@"country_status_downloading", @"Message to display at the center of the screen when the country is downloading") UTF8String]);
