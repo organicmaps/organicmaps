@@ -112,12 +112,15 @@ void RenderPolicy::StopRotate(double a, double)
 
 void RenderPolicy::BeginFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 {
+  /// processing animations at the beginning of the frame.
+  /// it's crucial as in this function could happen transition from
+  /// animating to non-animating state which should be properly handled
+  /// in the following RenderPolicy::DrawFrame call.
+  m_controller->PerformStep();
 }
 
 void RenderPolicy::EndFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 {
-  /// processing animations at the end of the frame
-  m_controller->PerformStep();
 }
 
 bool RenderPolicy::DoSupportRotation() const
