@@ -441,6 +441,11 @@ namespace location
     }
   }
 
+  bool State::roughHitTest(m2::PointD const & pt) const
+  {
+    return hitTest(pt);
+  }
+
   bool State::hitTest(m2::PointD const & pt) const
   {
     if (!m_framework->GetNavigator().DoSupportRotation())

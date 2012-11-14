@@ -56,5 +56,6 @@ public:
 
   bool onTapEnded(m2::PointD const & pt);
 
+  bool roughHitTest(m2::PointD const & pt) const;
   bool hitTest(m2::PointD const & pt) const;
 };

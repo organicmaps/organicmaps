@@ -162,8 +162,13 @@ unsigned CompassArrow::GetArrowHeight() const
   return m_arrowHeight;
 }
 
+bool CompassArrow::roughHitTest(m2::PointD const & pt) const
+{
+  return hitTest(pt);
+}
+
 bool CompassArrow::hitTest(m2::PointD const & pt) const
 {
-  double rad = max(m_arrowWidth / 2, m_arrowHeight / 2);
+  double rad = 1.5 * max(m_arrowWidth / 2, m_arrowHeight / 2);
   return pt.Length(pivot()) < rad * visualScale();
 }
