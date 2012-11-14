@@ -28,7 +28,7 @@ namespace graphics
   struct ResourceStyle;
   struct PenInfo;
   struct CircleInfo;
-  struct ImageInfo;
+  class ImageInfo;
   struct Color;
   struct GlyphKey;
   class GlyphCache;
