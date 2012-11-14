@@ -1,4 +1,4 @@
-package com.mapswithme.maps;
+package com.mapswithme.maps.settings;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -25,15 +25,16 @@ import android.widget.CheckedTextView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
 
 
-public class SettingsActivity extends ListActivity
+public class StoragePathActivity extends ListActivity
 {
   private static String TAG = "SettingsActivity";
 
   /// ListView adapter
-  private static class SettingsAdapter extends BaseAdapter
+  private static class StoragePathAdapter extends BaseAdapter
   {
     private static String TAG = "SettingsAdapter";
     private static String MWM_DIR_POSTFIX = "/MapsWithMe/";
@@ -54,7 +55,7 @@ public class SettingsActivity extends ListActivity
 
     private int m_listItemHeight;
 
-    public SettingsAdapter(Activity context, String currPath, String defPath)
+    public StoragePathAdapter(Activity context, String currPath, String defPath)
     {
       m_context = context;
       m_inflater = m_context.getLayoutInflater();
@@ -365,7 +366,7 @@ public class SettingsActivity extends ListActivity
 
     private boolean doMoveMaps(String path)
     {
-      if (SettingsActivity.nativeSetStoragePath(path))
+      if (StoragePathActivity.nativeSetStoragePath(path))
       {
         if (m_current != -1)
           deleteFiles(new File(getFullPath(m_current)));
@@ -483,7 +484,7 @@ public class SettingsActivity extends ListActivity
     final String defPath = Environment.getExternalStorageDirectory().getAbsolutePath();
     Log.i(TAG, "Current and Default maps pathes: " + currPath + "; " + defPath);
 
-    setListAdapter(new SettingsAdapter(this, currPath, defPath));
+    setListAdapter(new StoragePathAdapter(this, currPath, defPath));
   }
 
   @Override
@@ -491,7 +492,7 @@ public class SettingsActivity extends ListActivity
   {
     // Do not process clicks on header items.
     if (position != 0)
-      ((SettingsAdapter) getListView().getAdapter()).onListItemClick(position);
+      ((StoragePathAdapter) getListView().getAdapter()).onListItemClick(position);
   }
 
   private native String nativeGetStoragePath();

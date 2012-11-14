@@ -56,10 +56,14 @@
                   android:noHistory="true"
                   android:configChanges="orientation|screenLayout|screenSize">
         </activity>
-        <activity android:name="com.mapswithme.maps.SettingsActivity"
+        <activity android:name="com.mapswithme.maps.settings.SettingsActivity"
+                  android:label="@string/settings"
+                  android:screenOrientation="behind"
+                  android:configChanges="orientation|screenLayout|screenSize">
+        </activity>
+        <activity android:name="com.mapswithme.maps.settings.StoragePathActivity"
                   android:label="@string/maps_storage"
                   android:screenOrientation="behind"
-                  android:noHistory="true"
                   android:configChanges="orientation|screenLayout|screenSize">
         </activity>
     </application>

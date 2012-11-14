@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 
+import com.mapswithme.maps.settings.SettingsActivity;
+
 
 public class ContextMenu
 {
