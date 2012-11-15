@@ -2,5 +2,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     <Preference
         android:title="@string/maps_storage"
+        android:summary="@string/maps_storage_summary"
         android:key="StorageActivity"/>
+    <Preference
+        android:title="@string/measurement_units"
+        android:summary="@string/measurement_units_summary"
+        android:key="MeasurementUnits"/>
+    
 </PreferenceScreen>

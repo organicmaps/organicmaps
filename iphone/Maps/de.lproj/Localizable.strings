@@ -309,6 +309,9 @@
 /* Header of settings activity where user defines storage path */
 "maps_storage" = "Kartenspeicher";
 
+/* Summary of maps storage settings */
+"maps_storage_summary" = "Select flash storage for maps on device";
+
 /* Question dialog for transferring maps from one storage to another */
 "move_maps" = "Karten verschieben?";
 
@@ -323,3 +326,9 @@
 
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS ist deaktiviert. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.";
+
+/* Measurement units title in settings activity */
+"measurement_units" = "Measurement units";
+
+/* Measurement units summary in settings activity */
+"measurement_units_summary" = "Select preferred distance units";

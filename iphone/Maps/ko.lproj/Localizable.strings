@@ -309,6 +309,9 @@
 /* Header of settings activity where user defines storage path */
 "maps_storage" = "지도 저장소";
 
+/* Summary of maps storage settings */
+"maps_storage_summary" = "Select flash storage for maps on device";
+
 /* Question dialog for transferring maps from one storage to another */
 "move_maps" = "지도를 이동합니까?";
 
@@ -323,3 +326,9 @@
 
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS가 사용 중지되었습니다. 설정에서 이를 작동시켜 주시기 바랍니다.";
+
+/* Measurement units title in settings activity */
+"measurement_units" = "Measurement units";
+
+/* Measurement units summary in settings activity */
+"measurement_units_summary" = "Select preferred distance units";

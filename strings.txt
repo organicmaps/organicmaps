@@ -1256,6 +1256,11 @@
     ko = 지도 저장소
     cs = Úložiště map
     nl = Kaarten bewaren
+  [maps_storage_summary]
+    en = Select flash storage for maps on device
+    tags = android
+    comment = Summary of maps storage settings
+    ru = Выбрать доступное хранилище для карт на устройстве
   [move_maps]
     en = Move maps?
     tags = android
@@ -1321,3 +1326,13 @@
     ko = GPS가 사용 중지되었습니다. 설정에서 이를 작동시켜 주시기 바랍니다.
     cs = Navigace GPS deaktivována. Prosím povol je v Nastavení.
     nl = GPS is uitgeschakeld. Schakel ze in bij Instellingen.
+  [measurement_units]
+    en = Measurement units
+    tags = all
+    comment = Measurement units title in settings activity
+    ru = Единицы измерения
+  [measurement_units_summary]
+    en = Select preferred distance units
+    tags = all
+    comment = Measurement units summary in settings activity
+    ru = Выбрать единицы измерения расстояний

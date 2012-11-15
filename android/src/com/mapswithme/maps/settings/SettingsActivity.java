@@ -19,14 +19,26 @@ public class SettingsActivity extends PreferenceActivity
 
     addPreferencesFromResource(R.layout.preferences);
 
-    Preference pref = findPreference("StorageActivity");
     final Activity parent = this;
+
+    Preference pref = findPreference("StorageActivity");
     pref.setOnPreferenceClickListener(new OnPreferenceClickListener()
     {
       @Override
       public boolean onPreferenceClick(Preference preference)
       {
         parent.startActivity(new Intent(parent, StoragePathActivity.class));
+        return true;
+      }
+    });
+
+    pref = findPreference("MeasurementUnits");
+    pref.setOnPreferenceClickListener(new OnPreferenceClickListener()
+    {
+      @Override
+      public boolean onPreferenceClick(Preference preference)
+      {
+        UnitLocale.showUnitsSelectDlg(parent);
         return true;
       }
     });

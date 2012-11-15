@@ -198,6 +198,8 @@
 	<string name="settings">Settings</string>
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">Maps storage</string>
+	<!-- Summary of maps storage settings -->
+	<string name="maps_storage_summary">Select flash storage for maps on device</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Move maps?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -208,4 +210,8 @@
 	<string name="bookmarks_in_pro_version">Bookmarks are available in the full version of MapsWithMe. Get it right now?</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS is disabled. Please enable it in Settings.</string>
+	<!-- Measurement units title in settings activity -->
+	<string name="measurement_units">Measurement units</string>
+	<!-- Measurement units summary in settings activity -->
+	<string name="measurement_units_summary">Select preferred distance units</string>
 </resources>

@@ -309,6 +309,9 @@
 /* Header of settings activity where user defines storage path */
 "maps_storage" = "Хранилище карт";
 
+/* Summary of maps storage settings */
+"maps_storage_summary" = "Выбрать доступное хранилище для карт на устройстве";
+
 /* Question dialog for transferring maps from one storage to another */
 "move_maps" = "Переместить карты?";
 
@@ -323,3 +326,9 @@
 
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS-позиционирование выключено. Пожалуйста, включите его в настройках для удобного использования программы.";
+
+/* Measurement units title in settings activity */
+"measurement_units" = "Единицы измерения";
+
+/* Measurement units summary in settings activity */
+"measurement_units_summary" = "Выбрать единицы измерения расстояний";
