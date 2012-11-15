@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.mapswithme.maps.location.LocationService;
+import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Utils;
 import com.nvidia.devtech.NvEventQueueActivity;
@@ -176,63 +177,11 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     });
   }
 
-  private void setMeasurementSystem(int u)
-  {
-    nativeSetMS(u);
-  }
-
   private void checkMeasurementSystem()
   {
-    final int u = nativeGetMS();
-    if (u == UNITS_UNDEFINED)
-    {
-      // Checking system-default measurement system
-      if (UnitLocale.getCurrent() == UnitLocale.METRIC)
-      {
-        setMeasurementSystem(UNITS_METRIC);
-      }
-      else
-      {
-        // showing "select measurement system" dialog.
-        new AlertDialog.Builder(this)
-        .setCancelable(false)
-        .setMessage(getString(R.string.which_measurement_system))
-        .setNegativeButton(getString(R.string.miles), new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            dialog.dismiss();
-            setMeasurementSystem(UNITS_FOOT);
-          }
-        })
-        .setPositiveButton(getString(R.string.kilometres), new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dlg, int which)
-          {
-            dlg.dismiss();
-            setMeasurementSystem(UNITS_METRIC);
-          }
-        })
-        .create()
-        .show();
-      }
-    }
-    else
-    {
-      setMeasurementSystem(u);
-    }
+    UnitLocale.initializeCurrentUnits(this);
   }
 
-  /// This constants should be equal with Settings::Units in settings.hpp
-  private final int UNITS_UNDEFINED = -1;
-  private final int UNITS_METRIC = 0;
-  private final int UNITS_YARD = 1;
-  private final int UNITS_FOOT = 2;
-
-  private native int nativeGetMS();
-  private native void nativeSetMS(int u);
   private native void nativeScale(double k);
 
   public void onPlusClicked(View v)

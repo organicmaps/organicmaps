@@ -8,8 +8,6 @@
 
 #include "../../../../../map/country_status_display.hpp"
 
-#include "../../../../../platform/settings.hpp"
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 extern "C"
@@ -52,21 +50,6 @@ extern "C"
     jfloatArray ret = (jfloatArray)env->NewFloatArray(count);
     env->SetFloatArrayRegion(ret, 0, count, buffer);
     return ret;
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeSetMS(JNIEnv * env, jobject thiz, jint systemIdx)
-  {
-    Settings::Units const u = static_cast<Settings::Units>(systemIdx);
-    Settings::Set("Units", u);
-    g_framework->SetupMeasurementSystem();
-  }
-
-  JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeGetMS(JNIEnv * env, jobject thiz)
-  {
-    Settings::Units u = Settings::Metric;
-    return (Settings::Get("Units", u) ? u : -1);
   }
 
   void CallOnDownloadCountryClicked(shared_ptr<jobject> const & obj,
