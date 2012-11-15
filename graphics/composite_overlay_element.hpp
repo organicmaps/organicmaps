@@ -24,7 +24,7 @@ namespace graphics
 
     vector<m2::AnyRectD> const & boundRects() const;
 
-    void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
+    void draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
     int visualRank() const;
 

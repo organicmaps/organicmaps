@@ -2,7 +2,7 @@
 
 #include "../platform/platform.hpp"
 
-#include "../graphics/internal/opengl.hpp"
+#include "../graphics/opengl/opengl.hpp"
 #include "../graphics/skin.hpp"
 
 #include "window_handle.hpp"
@@ -216,7 +216,7 @@ void TilingRenderPolicyST::SetRenderFn(TRenderFn renderFn)
   int cpuCores = GetPlatform().CpuCores();
   string skinName = SkinName();
 
-  graphics::gl::PacketsQueue ** queues = new graphics::gl::PacketsQueue*[cpuCores];
+  graphics::PacketsQueue ** queues = new graphics::PacketsQueue*[cpuCores];
 
   for (unsigned i = 0; i < cpuCores; ++i)
     queues[i] = m_QueuedRenderer->GetPacketsQueue(i);

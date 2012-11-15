@@ -13,26 +13,27 @@ INCLUDEPATH += $$ROOT_DIR/3party/freetype/include $$ROOT_DIR/3party/agg
 include($$ROOT_DIR/common.pri)
 
 SOURCES += \
-    internal/opengl.cpp \
-    vertex.cpp \
+    opengl/framebuffer.cpp \
+    opengl/opengl.cpp \
+    opengl/buffer_object.cpp \
+    opengl/renderbuffer.cpp \
+    opengl/base_texture.cpp \
+    opengl/managed_texture.cpp \
+    opengl/renderer.cpp \
+    opengl/rendercontext.cpp \
+    opengl/vertex.cpp \
+    opengl/clipper.cpp \
+    opengl/geometry_renderer.cpp \
+    opengl/storage.cpp \
+    opengl/utils.cpp \
+    blitter.cpp \
     resource_manager.cpp \
     skin.cpp \
     pen_info.cpp \
     resource_style.cpp \
     color.cpp \
     skin_loader.cpp \
-    framebuffer.cpp \
-    buffer_object.cpp \
-    utils.cpp \
-    renderbuffer.cpp \
-    base_texture.cpp \
-    managed_texture.cpp \
-    blitter.cpp \
-    clipper.cpp \
-    renderer.cpp \
-    geometry_renderer.cpp \
     skin_page.cpp \
-    storage.cpp \
     glyph_cache.cpp \
     glyph_cache_impl.cpp \
     ft2_debug.cpp \
@@ -53,7 +54,6 @@ SOURCES += \
     composite_overlay_element.cpp \
     path_text_element.cpp \
     straight_text_element.cpp \
-    rendercontext.cpp \
     line_style.cpp \
     circle_style.cpp \
     glyph_style.cpp \
@@ -62,32 +62,34 @@ SOURCES += \
     display_list.cpp \
     data_formats.cpp \
     image_info.cpp \
-    image_renderer.cpp
+    image_renderer.cpp \
+    display_list_renderer.cpp
 
 HEADERS += \
-    internal/opengl.hpp \
-    internal/gl_procedures.inl \
-    vertex.hpp \
+    opengl/opengl.hpp \
+    opengl/gl_procedures.inl \
+    opengl/vertex.hpp \
+    opengl/texture.hpp \
+    opengl/framebuffer.hpp \
+    opengl/buffer_object.hpp \
+    opengl/renderbuffer.hpp \
+    opengl/base_texture.hpp \
+    opengl/managed_texture.hpp \
+    opengl/rendercontext.hpp \
+    opengl/clipper.hpp \
+    opengl/renderer.hpp \
+    opengl/geometry_renderer.hpp \
+    opengl/data_traits.hpp \
+    opengl/storage.hpp \
+    opengl/utils.hpp \
+    blitter.hpp \
     resource_manager.hpp \
-    texture.hpp \
     skin.hpp \
     skin_loader.hpp \
     pen_info.hpp \
     resource_style.hpp \
     color.hpp \
-    framebuffer.hpp \
-    buffer_object.hpp \
-    utils.hpp \
-    renderbuffer.hpp \
-    base_texture.hpp \
-    managed_texture.hpp \
-    rendercontext.hpp \
-    blitter.hpp \
-    clipper.hpp \
-    renderer.hpp \
-    geometry_renderer.hpp \
     skin_page.hpp \
-    storage.hpp \
     render_target.hpp \
     glyph_cache.hpp \
     data_formats.hpp \
@@ -116,18 +118,18 @@ HEADERS += \
     circle_element.hpp \
     packets_queue.hpp \
     display_list.hpp \
-    data_traits.hpp \
     image_renderer.hpp \
-    image_info.hpp
+    image_info.hpp \
+    display_list_renderer.hpp
 
 win32* {
-  SOURCES += internal/opengl_win32.cpp
+  SOURCES += opengl/opengl_win32.cpp
 } else: android*|iphone* {
-  HEADERS += internal/opengl_glsl_impl.hpp
-  SOURCES += internal/opengl_glsl_es2.cpp \
-             internal/opengl_glsl_impl.cpp
+  HEADERS += opengl/opengl_glsl_impl.hpp
+  SOURCES += opengl/opengl_glsl_es2.cpp \
+             opengl/opengl_glsl_impl.cpp
 } else {
-  HEADERS += internal/opengl_glsl_impl.hpp
-  SOURCES += internal/opengl_glsl_ext.cpp \
-             internal/opengl_glsl_impl.cpp
+  HEADERS += opengl/opengl_glsl_impl.hpp
+  SOURCES += opengl/opengl_glsl_ext.cpp \
+             opengl/opengl_glsl_impl.cpp
 }

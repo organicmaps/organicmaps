@@ -1,5 +1,6 @@
 #include "image_info.hpp"
-#include "data_traits.hpp"
+
+#include "opengl/data_traits.hpp"
 
 #include "../platform/platform.hpp"
 

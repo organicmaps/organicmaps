@@ -52,7 +52,7 @@ vector<m2::AnyRectD> const & CompassArrow::boundRects() const
   return m_boundRects;
 }
 
-void CompassArrow::draw(graphics::gl::OverlayRenderer * r,
+void CompassArrow::draw(graphics::OverlayRenderer * r,
                         math::Matrix<double, 3, 3> const & m) const
 {
   if (isVisible())
@@ -71,7 +71,7 @@ void CompassArrow::draw(graphics::gl::OverlayRenderer * r,
 
 void CompassArrow::cache()
 {
-  graphics::gl::Screen * cacheScreen = m_controller->GetCacheScreen();
+  graphics::Screen * cacheScreen = m_controller->GetCacheScreen();
 
   m_displayList.reset();
   m_displayList.reset(cacheScreen->createDisplayList());

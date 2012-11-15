@@ -214,9 +214,9 @@ namespace location
 
   void State::cacheArrowBorder(EState state)
   {
-    graphics::gl::Screen * cacheScreen = m_controller->GetCacheScreen();
+    graphics::Screen * cacheScreen = m_controller->GetCacheScreen();
 
-    shared_ptr<graphics::gl::DisplayList> & dl = m_arrowBorderLists[state];
+    shared_ptr<graphics::DisplayList> & dl = m_arrowBorderLists[state];
 
     dl.reset();
     dl.reset(cacheScreen->createDisplayList());
@@ -250,9 +250,9 @@ namespace location
 
   void State::cacheArrowBody(EState state)
   {
-    graphics::gl::Screen * cacheScreen = m_controller->GetCacheScreen();
+    graphics::Screen * cacheScreen = m_controller->GetCacheScreen();
 
-    shared_ptr<graphics::gl::DisplayList> & dl = m_arrowBodyLists[state];
+    shared_ptr<graphics::DisplayList> & dl = m_arrowBodyLists[state];
 
     dl.reset();
     dl.reset(cacheScreen->createDisplayList());
@@ -290,7 +290,7 @@ namespace location
 
   void State::cacheLocationMark()
   {
-    graphics::gl::Screen * cacheScreen = m_controller->GetCacheScreen();
+    graphics::Screen * cacheScreen = m_controller->GetCacheScreen();
 
     m_locationMarkDL.reset();
     m_locationMarkDL.reset(cacheScreen->createDisplayList());
@@ -366,7 +366,7 @@ namespace location
     }
   }
 
-  void State::draw(graphics::gl::OverlayRenderer * r,
+  void State::draw(graphics::OverlayRenderer * r,
                    math::Matrix<double, 3, 3> const & m) const
   {
     if (isVisible())
@@ -395,7 +395,7 @@ namespace location
                   screenAngle + headingRad),
                 pivot());
 
-          map<EState, shared_ptr<graphics::gl::DisplayList> >::const_iterator it;
+          map<EState, shared_ptr<graphics::DisplayList> >::const_iterator it;
           it = m_arrowBodyLists.find(state());
 
           if (it != m_arrowBodyLists.end())
@@ -429,7 +429,7 @@ namespace location
         /// and then arrow border
         if (m_hasCompass)
         {
-          map<EState, shared_ptr<graphics::gl::DisplayList> >::const_iterator it;
+          map<EState, shared_ptr<graphics::DisplayList> >::const_iterator it;
           it = m_arrowBorderLists.find(state());
 
           if (it != m_arrowBorderLists.end())

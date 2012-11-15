@@ -10,118 +10,113 @@
 
 namespace graphics
 {
-  namespace gl
+  struct Command
   {
-    struct Command
+  private:
+
+    bool m_isDebugging;
+    string m_name;
+
+  public:
+
+    bool isDebugging() const;
+    void setIsDebugging(bool flag);
+
+    Command();
+
+    virtual ~Command();
+    virtual void perform();
+    virtual void cancel();
+    virtual void dump();
+  };
+
+  struct DumpCommand : Command
+  {
+    shared_ptr<Command> m_cmd;
+
+    DumpCommand(shared_ptr<Command> const & cmd);
+
+    void perform();
+  };
+
+  template <typename Fn>
+  struct FunctorCommand : Command
+  {
+    Fn m_fn;
+    bool m_performOnCancel;
+
+    FunctorCommand(Fn fn, bool performOnCancel = false)
+      : m_fn(fn), m_performOnCancel(performOnCancel)
+    {}
+
+    void perform()
     {
-    private:
+      m_fn();
+    }
 
-      bool m_isDebugging;
-      string m_name;
+    void cancel()
+    {
+      if (m_performOnCancel)
+        m_fn();
+    }
+  };
 
-    public:
-
-      bool isDebugging() const;
-      void setIsDebugging(bool flag);
-
-      Command();
-
-      virtual ~Command();
-      virtual void perform();
-      virtual void cancel();
-      virtual void dump();
-
-      friend class Renderer;
+  struct Packet
+  {
+    enum EType
+    {
+      ECommand,
+      ECheckPoint,
+      EFramePoint,
+      ECancelPoint
     };
 
-    struct DumpCommand : Command
-    {
-      shared_ptr<Command> m_cmd;
+    shared_ptr<Command>   m_command;
+    EType m_type;
 
-      DumpCommand(shared_ptr<Command> const & cmd);
+    Packet();
+    /// empty packet act as a frame delimiter or a checkpoint.
+    explicit Packet(EType type);
+    /// simple command
+    Packet(shared_ptr<Command> const & command,
+           EType type);
+  };
 
-      void perform();
-    };
+  class PacketsQueue
+  {
+  private:
+
+    ThreadedList<Packet> m_packets;
+    FenceManager m_fenceManager;
+
+  public:
+
+    PacketsQueue();
+
+    void processPacket(Packet const & packet);
+    void cancel();
+    void cancelFences();
+    bool empty() const;
+    size_t size() const;
+
+    int  insertFence(Packet::EType type);
+    void joinFence(int id);
+
+    /// convenience functions
+
+    void completeCommands();
+    void cancelCommands();
 
     template <typename Fn>
-    struct FunctorCommand : Command
+    void processFn(Fn fn, bool performOnCancel = false)
     {
-      Fn m_fn;
-      bool m_performOnCancel;
+      processPacket(Packet(make_shared_ptr(new FunctorCommand<Fn>(fn)), Packet::ECommand));
+    }
 
-      FunctorCommand(Fn fn, bool performOnCancel = false)
-        : m_fn(fn), m_performOnCancel(performOnCancel)
-      {}
-
-      void perform()
-      {
-        m_fn();
-      }
-
-      void cancel()
-      {
-        if (m_performOnCancel)
-          m_fn();
-      }
-    };
-
-    struct Packet
+    template <typename Fn>
+    void processList(Fn fn)
     {
-      enum EType
-      {
-        ECommand,
-        ECheckPoint,
-        EFramePoint,
-        ECancelPoint
-      };
-
-      shared_ptr<Command>   m_command;
-      EType m_type;
-
-      Packet();
-      /// empty packet act as a frame delimiter or a checkpoint.
-      explicit Packet(EType type);
-      /// simple command
-      Packet(shared_ptr<Command> const & command,
-             EType type);
-    };
-
-    class PacketsQueue
-    {
-    private:
-
-      ThreadedList<Packet> m_packets;
-      FenceManager m_fenceManager;
-
-    public:
-
-      PacketsQueue();
-
-      void processPacket(Packet const & packet);
-      void cancel();
-      void cancelFences();
-      bool empty() const;
-      size_t size() const;
-
-      int  insertFence(Packet::EType type);
-      void joinFence(int id);
-
-      /// Convenience functions
-
-      void completeCommands();
-      void cancelCommands();
-
-      template <typename Fn>
-      void processFn(Fn fn, bool performOnCancel = false)
-      {
-        processPacket(Packet(make_shared_ptr(new FunctorCommand<Fn>(fn)), Packet::ECommand));
-      }
-
-      template <typename Fn>
-      void processList(Fn fn)
-      {
-        m_packets.ProcessList(fn);
-      }
-    };
-  }
+      m_packets.ProcessList(fn);
+    }
+  };
 }

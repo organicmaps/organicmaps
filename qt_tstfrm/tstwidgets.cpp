@@ -3,17 +3,18 @@
 #include "screen_qt.hpp"
 
 #include "../graphics/screen.hpp"
-#include "../graphics/utils.hpp"
 #include "../graphics/skin.hpp"
-#include "../graphics/framebuffer.hpp"
-#include "../graphics/renderbuffer.hpp"
 #include "../graphics/resource_manager.hpp"
-#include "../graphics/internal/opengl.hpp"
+
+#include "../graphics/opengl/utils.hpp"
+#include "../graphics/opengl/framebuffer.hpp"
+#include "../graphics/opengl/renderbuffer.hpp"
+#include "../graphics/opengl/opengl.hpp"
 
 #include "../platform/platform.hpp"
 
 
-template class qt::GLDrawWidgetT<graphics::gl::Screen>;
+template class qt::GLDrawWidgetT<graphics::Screen>;
 
 namespace tst {
 
@@ -141,7 +142,7 @@ void GLDrawWidget::initializeGL()
   params.m_frameBuffer = m_frameBuffer;
   params.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
 
-  m_p = make_shared_ptr(new graphics::gl::Screen(params));
+  m_p = make_shared_ptr(new graphics::Screen(params));
 
   m_primaryFrameBuffer = make_shared_ptr(new graphics::gl::FrameBuffer(true));
 
@@ -149,7 +150,7 @@ void GLDrawWidget::initializeGL()
   m_p->setSkin(m_skin);
 
   params.m_frameBuffer = m_primaryFrameBuffer;
-  m_primaryScreen = make_shared_ptr(new graphics::gl::Screen(params));
+  m_primaryScreen = make_shared_ptr(new graphics::Screen(params));
 }
 
 void GLDrawWidget::resizeGL(int w, int h)

@@ -268,7 +268,7 @@ vector<m2::AnyRectD> const & Ruler::boundRects() const
   return m_boundRects;
 }
 
-void Ruler::draw(graphics::gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const & m) const
+void Ruler::draw(graphics::OverlayRenderer * s, math::Matrix<double, 3, 3> const & m) const
 {
   if (m_isInitialized)
   {

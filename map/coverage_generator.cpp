@@ -6,7 +6,7 @@
 #include "tile_set.hpp"
 
 #include "../graphics/skin.hpp"
-#include "../graphics/rendercontext.hpp"
+#include "../graphics/opengl/rendercontext.hpp"
 
 #include "../base/logging.hpp"
 
@@ -20,7 +20,7 @@ CoverageGenerator::CoverageGenerator(
     shared_ptr<WindowHandle> const & windowHandle,
     shared_ptr<graphics::gl::RenderContext> const & primaryRC,
     shared_ptr<graphics::ResourceManager> const & rm,
-    graphics::gl::PacketsQueue * glQueue,
+    graphics::PacketsQueue * glQueue,
     RenderPolicy::TCountryNameFn countryNameFn)
   : m_queue(1),
     m_tileRenderer(tileRenderer),
@@ -52,7 +52,7 @@ CoverageGenerator::CoverageGenerator(
 
 ScreenCoverage * CoverageGenerator::CreateCoverage()
 {
-  graphics::gl::Screen::Params params;
+  graphics::Screen::Params params;
 
   params.m_resourceManager = m_resourceManager;
   params.m_renderQueue = m_glQueue;
@@ -61,7 +61,7 @@ ScreenCoverage * CoverageGenerator::CreateCoverage()
   params.m_isSynchronized = false;
   params.m_glyphCacheID = m_resourceManager->cacheThreadGlyphCacheID();
 
-  shared_ptr<graphics::gl::Screen> screen(new graphics::gl::Screen(params));
+  shared_ptr<graphics::Screen> screen(new graphics::Screen(params));
   shared_ptr<graphics::Skin> skin(loadSkin(m_resourceManager, m_skinName));
 
   screen->setSkin(skin);

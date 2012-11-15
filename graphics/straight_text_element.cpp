@@ -248,7 +248,7 @@ namespace graphics
     return m_boundRects;
   }
 
-  void StraightTextElement::draw(gl::OverlayRenderer * screen, math::Matrix<double, 3, 3> const & m) const
+  void StraightTextElement::draw(OverlayRenderer * screen, math::Matrix<double, 3, 3> const & m) const
   {
     if (screen->isDebugging())
     {

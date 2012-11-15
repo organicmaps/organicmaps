@@ -235,7 +235,7 @@ void CountryStatusDisplay::setCountryName(string const & name)
   }
 }
 
-void CountryStatusDisplay::draw(graphics::gl::OverlayRenderer *r,
+void CountryStatusDisplay::draw(graphics::OverlayRenderer *r,
                                 math::Matrix<double, 3, 3> const & m) const
 {
   if (!isVisible())

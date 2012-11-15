@@ -1,12 +1,12 @@
-#include "../base/SRC_FIRST.hpp"
-#include "../base/logging.hpp"
-#include "../base/assert.hpp"
-#include "../base/shared_buffer_manager.hpp"
+#include "../../base/SRC_FIRST.hpp"
+#include "../../base/logging.hpp"
+#include "../../base/assert.hpp"
+#include "../../base/shared_buffer_manager.hpp"
 
-#include "internal/opengl.hpp"
+#include "../../std/list.hpp"
 
+#include "opengl.hpp"
 #include "buffer_object.hpp"
-#include "../std/list.hpp"
 
 namespace graphics
 {

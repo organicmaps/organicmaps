@@ -36,7 +36,7 @@ namespace gui
     string const & text() const;
 
     vector<m2::AnyRectD> const & boundRects() const;
-    void draw(graphics::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
+    void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
     bool onTapStarted(m2::PointD const & pt);
     bool onTapMoved(m2::PointD const & pt);

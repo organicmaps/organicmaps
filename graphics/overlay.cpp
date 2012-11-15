@@ -29,7 +29,7 @@ namespace graphics
     return elem->roughBoundRect();
   }
 
-  void DrawIfNotCancelled(gl::OverlayRenderer * r,
+  void DrawIfNotCancelled(OverlayRenderer * r,
                           shared_ptr<OverlayElement> const & e,
                           math::Matrix<double, 3, 3> const & m)
   {
@@ -37,7 +37,7 @@ namespace graphics
       e->draw(r, m);
   }
 
-  void Overlay::draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m)
+  void Overlay::draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m)
   {
     m_tree.ForEach(bind(&DrawIfNotCancelled, r, _1, cref(m)));
   }

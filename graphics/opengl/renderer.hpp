@@ -1,25 +1,25 @@
 #pragma once
 
-#include "color.hpp"
-#include "packets_queue.hpp"
-#include "resource_manager.hpp"
+#include "../color.hpp"
+#include "../packets_queue.hpp"
+#include "../resource_manager.hpp"
 
-#include "../base/threaded_list.hpp"
-#include "../base/commands_queue.hpp"
-#include "../std/function.hpp"
-#include "../std/shared_ptr.hpp"
-#include "../geometry/rect2d.hpp"
+#include "../../base/threaded_list.hpp"
+#include "../../base/commands_queue.hpp"
+#include "../../std/function.hpp"
+#include "../../std/shared_ptr.hpp"
+#include "../../geometry/rect2d.hpp"
 
 namespace graphics
 {
   class ResourceManager;
+  class RenderTarget;
 
   namespace gl
   {
     class FrameBuffer;
     class RenderBuffer;
     class BaseTexture;
-    class RenderTarget;
 
     class Renderer
     {

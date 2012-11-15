@@ -2,8 +2,8 @@
 
 #include "RenderBuffer.hpp"
 
-#include "../../../graphics/internal/opengl.hpp"
-#include "../../../graphics/utils.hpp"
+#include "../../../graphics/opengl/opengl.hpp"
+#include "../../../graphics/opengl/utils.hpp"
 
 namespace iphone
 {

@@ -10,7 +10,7 @@
 #include "../anim/controller.hpp"
 #include "../anim/task.hpp"
 
-#include "../graphics/internal/opengl.hpp"
+#include "../graphics/opengl/opengl.hpp"
 #include "../graphics/skin.hpp"
 
 #include "../indexer/scales.hpp"
@@ -46,7 +46,7 @@ RenderPolicy::RenderPolicy(Params const & p,
 
 void RenderPolicy::InitCacheScreen()
 {
-  graphics::gl::Screen::Params cp;
+  graphics::Screen::Params cp;
 
   cp.m_doUnbindRT = false;
   cp.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
@@ -54,7 +54,7 @@ void RenderPolicy::InitCacheScreen()
   cp.m_isSynchronized = false;
   cp.m_resourceManager = m_resourceManager;
 
-  m_cacheScreen = make_shared_ptr(new graphics::gl::Screen(cp));
+  m_cacheScreen = make_shared_ptr(new graphics::Screen(cp));
 
   m_cacheScreen->setSkin(m_skin);
 }
@@ -257,7 +257,7 @@ graphics::Color const RenderPolicy::GetBgColor() const
   return m_bgColor;
 }
 
-shared_ptr<graphics::gl::Screen> const & RenderPolicy::GetCacheScreen() const
+shared_ptr<graphics::Screen> const & RenderPolicy::GetCacheScreen() const
 {
   return m_cacheScreen;
 }

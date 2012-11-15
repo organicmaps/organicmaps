@@ -78,7 +78,7 @@ public:
 
   vector<m2::AnyRectD> const & boundRects() const;
 
-  void draw(graphics::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
+  void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
   int visualRank() const;
   graphics::OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;

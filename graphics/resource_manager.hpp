@@ -9,7 +9,7 @@
 #include "../base/mutex.hpp"
 #include "../base/resource_pool.hpp"
 
-#include "storage.hpp"
+#include "opengl/storage.hpp"
 #include "glyph_cache.hpp"
 #include "data_formats.hpp"
 

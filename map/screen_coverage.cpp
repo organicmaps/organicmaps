@@ -11,7 +11,7 @@
 #include "../graphics/screen.hpp"
 #include "../graphics/display_list.hpp"
 #include "../graphics/skin.hpp"
-#include "../graphics/base_texture.hpp"
+#include "../graphics/opengl/base_texture.hpp"
 
 #include "screen_coverage.hpp"
 #include "tile_renderer.hpp"
@@ -30,7 +30,7 @@ ScreenCoverage::ScreenCoverage()
 
 ScreenCoverage::ScreenCoverage(TileRenderer * tileRenderer,
                                CoverageGenerator * coverageGenerator,
-                               shared_ptr<graphics::gl::Screen> const & cacheScreen)
+                               shared_ptr<graphics::Screen> const & cacheScreen)
   : m_tileRenderer(tileRenderer),
     m_coverageGenerator(coverageGenerator),
     m_overlay(new graphics::Overlay()),
@@ -178,7 +178,7 @@ bool ScreenCoverage::Cache(core::CommandsQueue::Environment const & env)
   m_cacheScreen->beginFrame();
   m_cacheScreen->setDisplayList(m_primaryDL.get());
 
-  vector<graphics::gl::BlitInfo> infos;
+  vector<graphics::BlitInfo> infos;
 
   for (TTileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
   {
@@ -187,7 +187,7 @@ bool ScreenCoverage::Cache(core::CommandsQueue::Environment const & env)
     size_t tileWidth = tile->m_renderTarget->width();
     size_t tileHeight = tile->m_renderTarget->height();
 
-    graphics::gl::BlitInfo bi;
+    graphics::BlitInfo bi;
 
     bi.m_matrix = tile->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix();
     bi.m_srcRect = m2::RectI(0, 0, tileWidth - 2, tileHeight - 2);
@@ -412,7 +412,7 @@ ScreenCoverage::~ScreenCoverage()
   Clear();
 }
 
-void ScreenCoverage::Draw(graphics::gl::Screen * s, ScreenBase const & screen)
+void ScreenCoverage::Draw(graphics::Screen * s, ScreenBase const & screen)
 {
   math::Matrix<double, 3, 3> m = m_screen.PtoGMatrix() * screen.GtoPMatrix();
 

@@ -2,8 +2,9 @@
 #include "events.hpp"
 #include "drawer.hpp"
 #include "window_handle.hpp"
+
 #include "../graphics/overlay.hpp"
-#include "../graphics/internal/opengl.hpp"
+#include "../graphics/opengl/opengl.hpp"
 #include "../graphics/skin.hpp"
 
 #include "../indexer/scales.hpp"

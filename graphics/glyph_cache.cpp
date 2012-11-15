@@ -1,8 +1,9 @@
 #include "glyph_cache.hpp"
 #include "glyph_cache_impl.hpp"
-#include "data_traits.hpp"
-#include "internal/opengl.hpp"
 #include "ft2_debug.hpp"
+
+#include "opengl/data_traits.hpp"
+#include "opengl/opengl.hpp"
 
 #include "../3party/fribidi/lib/fribidi-deprecated.h"
 #include "../3party/fribidi/lib/fribidi.h"

@@ -6,7 +6,7 @@
 
 #include "../gui/controller.hpp"
 
-#include "../graphics/internal/opengl.hpp"
+#include "../graphics/opengl/opengl.hpp"
 
 #include "../platform/settings.hpp"
 #include "../platform/platform.hpp"

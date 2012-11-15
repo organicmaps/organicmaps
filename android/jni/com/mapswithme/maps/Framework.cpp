@@ -12,8 +12,8 @@
 
 #include "../../../../../coding/file_container.hpp"
 
-#include "../../../../../graphics/framebuffer.hpp"
-#include "../../../../../graphics/internal/opengl.hpp"
+#include "../../../../../graphics/opengl/framebuffer.hpp"
+#include "../../../../../graphics/opengl/opengl.hpp"
 
 #include "../../../../../platform/platform.hpp"
 #include "../../../../../platform/location.hpp"

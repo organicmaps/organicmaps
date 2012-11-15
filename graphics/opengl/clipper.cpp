@@ -1,8 +1,8 @@
-#include "../base/SRC_FIRST.hpp"
+#include "../../std/bind.hpp"
+#include "../../base/logging.hpp"
+
 #include "clipper.hpp"
-#include "internal/opengl.hpp"
-#include "../std/bind.hpp"
-#include "../base/logging.hpp"
+#include "opengl.hpp"
 
 namespace graphics
 {

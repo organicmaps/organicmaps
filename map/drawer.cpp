@@ -54,7 +54,7 @@ void di::DrawRule::SetID(size_t threadID, uint32_t id) const
 Drawer::Drawer(Params const & params)
   : m_visualScale(params.m_visualScale), m_threadID(params.m_threadID)
 {
-  m_pScreen = shared_ptr<graphics::gl::Screen>(new graphics::gl::Screen(params));
+  m_pScreen = shared_ptr<graphics::Screen>(new graphics::Screen(params));
 
   m_pSkin = params.m_skin;
   m_pScreen->setSkin(m_pSkin);
@@ -276,7 +276,7 @@ void Drawer::drawPathNumber(di::PathInfo const & path, di::DrawInfo const * pInf
   }
 }
 
-shared_ptr<graphics::gl::Screen> Drawer::screen() const
+shared_ptr<graphics::Screen> Drawer::screen() const
 {
   return m_pScreen;
 }

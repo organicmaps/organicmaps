@@ -48,7 +48,7 @@ namespace gui
     m_elem.reset(new graphics::StraightTextElement(params));
   }
 
-  void TextView::draw(graphics::gl::OverlayRenderer *r, math::Matrix<double, 3, 3> const & m) const
+  void TextView::draw(graphics::OverlayRenderer *r, math::Matrix<double, 3, 3> const & m) const
   {
     checkDirtyDrawing();
     m_elem->draw(r, m);

@@ -1,8 +1,9 @@
 #include "../base/SRC_FIRST.hpp"
 
-#include "internal/opengl.hpp"
+#include "../../base/shared_buffer_manager.hpp"
+
+#include "opengl.hpp"
 #include "managed_texture.hpp"
-#include "../base/shared_buffer_manager.hpp"
 
 namespace graphics
 {

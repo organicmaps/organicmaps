@@ -1,8 +1,8 @@
 #include "image_renderer.hpp"
-
-#include "base_texture.hpp"
 #include "resource_style.hpp"
 #include "skin.hpp"
+
+#include "opengl/base_texture.hpp"
 
 #include "../base/assert.hpp"
 #include "../base/macros.hpp"

@@ -9,7 +9,7 @@
 #include "Framework.h"
 
 #include "../../graphics/resource_manager.hpp"
-#include "../../graphics/internal/opengl.hpp"
+#include "../../graphics/opengl/opengl.hpp"
 #include "../../graphics/data_formats.hpp"
 
 #include "../../map/render_policy.hpp"
@@ -123,7 +123,7 @@
 {
   frameBuffer->onSize(width, height);
   
-  shared_ptr<graphics::gl::Screen> screen = renderPolicy->GetDrawer()->screen();
+  shared_ptr<graphics::Screen> screen = renderPolicy->GetDrawer()->screen();
 
   /// free old render buffer, as we would not create a new one.
   screen->resetRenderTarget();
@@ -143,7 +143,7 @@
   GetFramework().OnSize(width, height);
   
   screen->beginFrame();
-  screen->clear(graphics::gl::Screen::s_bgColor);
+  screen->clear(graphics::Screen::s_bgColor);
   screen->endFrame();
 }
 

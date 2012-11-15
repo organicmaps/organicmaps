@@ -1,8 +1,8 @@
 #pragma once
 
-#include "color.hpp"
+#include "../color.hpp"
 
-#include "../geometry/point2d.hpp"
+#include "../../geometry/point2d.hpp"
 
 namespace graphics
 {

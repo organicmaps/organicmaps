@@ -1,7 +1,7 @@
 #include "defines.hpp"
 #include "utils.hpp"
 
-#include "internal/opengl.hpp"
+#include "opengl/opengl.hpp"
 
 #include "../std/target_os.hpp"
 

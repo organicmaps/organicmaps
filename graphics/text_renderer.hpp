@@ -12,42 +12,39 @@
 
 namespace graphics
 {
-  namespace gl
+  class TextRenderer : public ImageRenderer
   {
-    class TextRenderer : public ImageRenderer
-    {
-    private:
+  private:
 
+    bool m_drawTexts;
+    int m_glyphCacheID;
+
+  public:
+
+    typedef ImageRenderer base_t;
+
+    struct Params : base_t::Params
+    {
       bool m_drawTexts;
       int m_glyphCacheID;
-
-    public:
-
-      typedef ImageRenderer base_t;
-
-      struct Params : base_t::Params
-      {
-        bool m_drawTexts;
-        int m_glyphCacheID;
-        Params();
-      };
-
-      TextRenderer(Params const & params);
-
-      void drawStraightGlyph(m2::PointD const & ptOrg,
-                             m2::PointD const & ptGlyph,
-                             GlyphStyle const * p,
-                             float depth);
-
-      void drawGlyph(m2::PointD const & ptOrg,
-                     m2::PointD const & ptGlyph,
-                     ang::AngleD const & angle,
-                     float blOffset,
-                     GlyphStyle const * p,
-                     double depth);
-
-
-      GlyphCache * glyphCache() const;
+      Params();
     };
-  }
+
+    TextRenderer(Params const & params);
+
+    void drawStraightGlyph(m2::PointD const & ptOrg,
+                           m2::PointD const & ptGlyph,
+                           GlyphStyle const * p,
+                           float depth);
+
+    void drawGlyph(m2::PointD const & ptOrg,
+                   m2::PointD const & ptGlyph,
+                   ang::AngleD const & angle,
+                   float blOffset,
+                   GlyphStyle const * p,
+                   double depth);
+
+
+    GlyphCache * glyphCache() const;
+  };
 }

@@ -33,7 +33,7 @@ namespace graphics
     SymbolElement(SymbolElement const & se, math::Matrix<double, 3, 3> const & m);
 
     vector<m2::AnyRectD> const & boundRects() const;
-    void draw(gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const & m) const;
+    void draw(OverlayRenderer * s, math::Matrix<double, 3, 3> const & m) const;
 
     uint32_t styleID() const;
 

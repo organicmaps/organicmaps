@@ -1,5 +1,6 @@
 #include "queued_renderer.hpp"
-#include "../graphics/internal/opengl.hpp"
+
+#include "../graphics/opengl/opengl.hpp"
 
 QueuedRenderer::QueuedRenderer(int pipelinesCount)
 {
@@ -87,12 +88,12 @@ bool QueuedRenderer::RenderQueuedCommands(int pipelineNum)
 
   cmdProcessed = m_Pipelines[pipelineNum].m_FrameCommands.size();
 
-  list<graphics::gl::Packet>::iterator it;
+  list<graphics::Packet>::iterator it;
 
   bool res = !m_Pipelines[pipelineNum].m_FrameCommands.empty();
   bool partialExecution = m_Pipelines[pipelineNum].m_CouldExecutePartially;
 
-  graphics::gl::Packet::EType bucketType = m_Pipelines[pipelineNum].m_Type;
+  graphics::Packet::EType bucketType = m_Pipelines[pipelineNum].m_Type;
 
   while (!m_Pipelines[pipelineNum].m_FrameCommands.empty())
   {
@@ -100,20 +101,20 @@ bool QueuedRenderer::RenderQueuedCommands(int pipelineNum)
     if (it->m_command)
       it->m_command->setIsDebugging(m_IsDebugging);
 
-    if (bucketType == graphics::gl::Packet::ECancelPoint)
+    if (bucketType == graphics::Packet::ECancelPoint)
     {
       if (it->m_command)
         it->m_command->cancel();
     }
     else
     {
-      ASSERT(bucketType == graphics::gl::Packet::EFramePoint, ());
+      ASSERT(bucketType == graphics::Packet::EFramePoint, ());
 
       if (it->m_command)
         it->m_command->perform();
     }
 
-    bool isCheckpoint = (it->m_type == graphics::gl::Packet::ECheckPoint);
+    bool isCheckpoint = (it->m_type == graphics::Packet::ECheckPoint);
 
     m_Pipelines[pipelineNum].m_FrameCommands.pop_front();
 
@@ -136,24 +137,24 @@ bool QueuedRenderer::RenderQueuedCommands(int pipelineNum)
 //    graphics::gl::g_doLogOGLCalls = false;
 }
 
-void QueuedRenderer::PacketsPipeline::FillFrameCommands(list<graphics::gl::Packet> & renderQueue, int maxFrames)
+void QueuedRenderer::PacketsPipeline::FillFrameCommands(list<graphics::Packet> & renderQueue, int maxFrames)
 {
   ASSERT(m_FrameCommands.empty(), ());
 
   /// searching for "delimiter" markers
 
-  list<graphics::gl::Packet>::iterator first = renderQueue.begin();
-  list<graphics::gl::Packet>::iterator last = renderQueue.begin();
+  list<graphics::Packet>::iterator first = renderQueue.begin();
+  list<graphics::Packet>::iterator last = renderQueue.begin();
 
   /// checking whether there are a CancelPoint packet in the queue.
   /// In this case - fill m_FrameCommands till this packet
 
-  for (list<graphics::gl::Packet>::iterator it = renderQueue.begin();
+  for (list<graphics::Packet>::iterator it = renderQueue.begin();
        it != renderQueue.end();
        ++it)
   {
-    graphics::gl::Packet p = *it;
-    if (p.m_type == graphics::gl::Packet::ECancelPoint)
+    graphics::Packet p = *it;
+    if (p.m_type == graphics::Packet::ECancelPoint)
     {
       copy(first, ++it, back_inserter(m_FrameCommands));
       renderQueue.erase(first, it);
@@ -170,9 +171,9 @@ void QueuedRenderer::PacketsPipeline::FillFrameCommands(list<graphics::gl::Packe
 
   while ((framesLeft != 0) && (packetsLeft != 0) && (last != renderQueue.end()))
   {
-    graphics::gl::Packet p = *last;
+    graphics::Packet p = *last;
 
-    if (p.m_type == graphics::gl::Packet::EFramePoint)
+    if (p.m_type == graphics::Packet::EFramePoint)
     {
       /// found frame boundary, copying
       copy(first, ++last, back_inserter(m_FrameCommands));
@@ -190,7 +191,7 @@ void QueuedRenderer::PacketsPipeline::FillFrameCommands(list<graphics::gl::Packe
   }
 }
 
-void QueuedRenderer::CopyQueuedCommands(list<graphics::gl::Packet> &l, list<graphics::gl::Packet> &r)
+void QueuedRenderer::CopyQueuedCommands(list<graphics::Packet> &l, list<graphics::Packet> &r)
 {
   swap(l, r);
 }
@@ -202,20 +203,20 @@ void QueuedRenderer::CancelQueuedCommands(int pipelineNum)
 
   m_Pipelines[pipelineNum].m_Queue.cancel();
 
-  list<graphics::gl::Packet> l;
+  list<graphics::Packet> l;
 
   m_Pipelines[pipelineNum].m_Queue.processList(bind(&QueuedRenderer::CopyQueuedCommands, this, _1, ref(l)));
 
-  for (list<graphics::gl::Packet>::iterator it = l.begin(); it != l.end(); ++it)
+  for (list<graphics::Packet>::iterator it = l.begin(); it != l.end(); ++it)
   {
-    graphics::gl::Packet p = *it;
+    graphics::Packet p = *it;
 
     if (p.m_command)
       p.m_command->cancel();
   }
 }
 
-graphics::gl::PacketsQueue * QueuedRenderer::GetPacketsQueue(int pipelineNum)
+graphics::PacketsQueue * QueuedRenderer::GetPacketsQueue(int pipelineNum)
 {
   return &m_Pipelines[pipelineNum].m_Queue;
 }

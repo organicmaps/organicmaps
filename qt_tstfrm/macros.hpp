@@ -109,7 +109,7 @@ class GLTestWidget : public tst::GLDrawWidget
 
 public:
 
-  virtual void DoDraw(shared_ptr<graphics::gl::Screen> p)
+  virtual void DoDraw(shared_ptr<graphics::Screen> p)
   {
     test.DoDraw(p);
   }

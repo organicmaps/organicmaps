@@ -4,6 +4,19 @@ namespace graphics
 {
   static const int maxDepth = 20000;
 
+  enum EPrimitives
+  {
+    ETriangles,
+    ETrianglesFan,
+    ETrianglesStrip
+  };
+
+  enum EMatrix
+  {
+    EModelView,
+    EProjection
+  };
+
   enum EPosition
   {
     EPosCenter = 0x00,

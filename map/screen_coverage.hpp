@@ -68,12 +68,12 @@ private:
   /// quick check.
   int m_leafTilesToRender;
   /// Screen, which is used for caching of this ScreenCoverage into DisplayList
-  shared_ptr<graphics::gl::Screen> m_cacheScreen;
+  shared_ptr<graphics::Screen> m_cacheScreen;
   /// DisplayList which holds cached ScreenCoverage
-  shared_ptr<graphics::gl::DisplayList> m_primaryDL;
+  shared_ptr<graphics::DisplayList> m_primaryDL;
   /// DisplayList to cache all straight texts.
   /// They are drawn with different shader.
-  shared_ptr<graphics::gl::DisplayList> m_sharpTextDL;
+  shared_ptr<graphics::DisplayList> m_sharpTextDL;
 
   /// Direct copying is prohibited.
   ScreenCoverage(ScreenCoverage const & src);
@@ -89,7 +89,7 @@ public:
   /// Constructor
   ScreenCoverage(TileRenderer * tileRenderer,
                  CoverageGenerator * coverageGenerator,
-                 shared_ptr<graphics::gl::Screen> const & cacheScreen);
+                 shared_ptr<graphics::Screen> const & cacheScreen);
   /// Destructor
   ~ScreenCoverage();
   /// Copy all needed information into specified ScreenCoverage
@@ -124,7 +124,7 @@ public:
   /// recalculate screen coverage, using as much info from prev coverage as possible
   void SetScreen(ScreenBase const & screen);
   /// draw screen coverage
-  void Draw(graphics::gl::Screen * s, ScreenBase const & currentScreen);
+  void Draw(graphics::Screen * s, ScreenBase const & currentScreen);
   /// get draw scale for the tiles in the current coverage
   /// Not all tiles in coverage could correspond to this value,
   /// as there could be tiles from lower and higher level in the

@@ -3,9 +3,10 @@
 #include "tile_renderer.hpp"
 #include "window_handle.hpp"
 
-#include "../graphics/internal/opengl.hpp"
-#include "../graphics/rendercontext.hpp"
-#include "../graphics/base_texture.hpp"
+#include "../graphics/opengl/opengl.hpp"
+#include "../graphics/opengl/rendercontext.hpp"
+#include "../graphics/opengl/base_texture.hpp"
+
 #include "../graphics/packets_queue.hpp"
 #include "../graphics/skin.hpp"
 
@@ -26,7 +27,7 @@ TileRenderer::TileRenderer(
     shared_ptr<graphics::gl::RenderContext> const & primaryRC,
     shared_ptr<graphics::ResourceManager> const & rm,
     double visualScale,
-    graphics::gl::PacketsQueue ** packetsQueues
+    graphics::PacketsQueue ** packetsQueues
   ) : m_queue(executorsCount),
       m_tileSize(tileSize),
       m_renderFn(renderFn),
@@ -115,7 +116,7 @@ void TileRenderer::FinalizeThreadGL(core::CommandsQueue::Environment const & env
     threadData.m_renderContext->endThreadDrawing();
 }
 
-void TileRenderer::ReadPixels(graphics::gl::PacketsQueue * glQueue, core::CommandsQueue::Environment const & env)
+void TileRenderer::ReadPixels(graphics::PacketsQueue * glQueue, core::CommandsQueue::Environment const & env)
 {
   ThreadData & threadData = m_threadData[env.threadNum()];
 
@@ -123,7 +124,7 @@ void TileRenderer::ReadPixels(graphics::gl::PacketsQueue * glQueue, core::Comman
 
   if (glQueue)
   {
-    glQueue->processFn(bind(&TileRenderer::ReadPixels, this, (graphics::gl::PacketsQueue*)0, ref(env)), true);
+    glQueue->processFn(bind(&TileRenderer::ReadPixels, this, (graphics::PacketsQueue*)0, ref(env)), true);
     return;
   }
 
@@ -154,7 +155,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   ThreadData & threadData = m_threadData[env.threadNum()];
 
-  graphics::gl::PacketsQueue * glQueue = threadData.m_drawerParams.m_renderQueue;
+  graphics::PacketsQueue * glQueue = threadData.m_drawerParams.m_renderQueue;
 
   Drawer * drawer = threadData.m_drawer;
 

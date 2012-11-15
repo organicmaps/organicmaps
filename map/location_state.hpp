@@ -22,10 +22,7 @@ namespace anim
 
 namespace graphics
 {
-  namespace gl
-  {
-    class DisplayList;
-  }
+  class DisplayList;
 }
 
 namespace location
@@ -92,10 +89,10 @@ namespace location
     double m_arrowBackHeight;
     double m_arrowScale;
 
-    map<EState, shared_ptr<graphics::gl::DisplayList> > m_arrowBodyLists;
-    map<EState, shared_ptr<graphics::gl::DisplayList> > m_arrowBorderLists;
-    scoped_ptr<graphics::gl::DisplayList> m_locationMarkDL;
-    scoped_ptr<graphics::gl::DisplayList> m_positionMarkDL;
+    map<EState, shared_ptr<graphics::DisplayList> > m_arrowBodyLists;
+    map<EState, shared_ptr<graphics::DisplayList> > m_arrowBorderLists;
+    scoped_ptr<graphics::DisplayList> m_locationMarkDL;
+    scoped_ptr<graphics::DisplayList> m_positionMarkDL;
 
     /// @}
 
@@ -177,8 +174,7 @@ namespace location
     /// graphics::OverlayElement and gui::Element related methods
     // @{
     vector<m2::AnyRectD> const & boundRects() const;
-    void draw(graphics::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
-    bool roughHitTest(m2::PointD const & pt) const;
+    void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
     bool hitTest(m2::PointD const & pt) const;
     bool onTapEnded(m2::PointD const & p);
     /// @}

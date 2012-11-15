@@ -33,7 +33,7 @@ namespace
       TestBase::Init();
     }
 
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       std::vector<m2::PointD> pts;
 

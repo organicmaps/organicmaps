@@ -8,10 +8,7 @@
 
 namespace graphics
 {
-  namespace gl
-  {
-    class OverlayRenderer;
-  }
+  class OverlayRenderer;
 
   class OverlayElement
   {
@@ -63,7 +60,7 @@ namespace graphics
 
     /// PLEASE, REMEMBER THE REFERENCE!!!
     virtual vector<m2::AnyRectD> const & boundRects() const = 0;
-    virtual void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const = 0;
+    virtual void draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const = 0;
     virtual int visualRank() const = 0;
 
     m2::PointD const & pivot() const;

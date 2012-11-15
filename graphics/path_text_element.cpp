@@ -46,7 +46,7 @@ namespace graphics
     return m_boundRects;
   }
 
-  void PathTextElement::draw(gl::OverlayRenderer * screen, math::Matrix<double, 3, 3> const & m) const
+  void PathTextElement::draw(OverlayRenderer * screen, math::Matrix<double, 3, 3> const & m) const
   {
     if (screen->isDebugging())
     {

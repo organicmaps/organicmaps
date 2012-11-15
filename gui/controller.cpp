@@ -20,7 +20,7 @@ namespace gui
   Controller::RenderParams::RenderParams(double visualScale,
                                          TInvalidateFn invalidateFn,
                                          graphics::GlyphCache * glyphCache,
-                                         graphics::gl::Screen * cacheScreen)
+                                         graphics::Screen * cacheScreen)
     : m_VisualScale(visualScale),
       m_InvalidateFn(invalidateFn),
       m_GlyphCache(glyphCache),
@@ -158,7 +158,7 @@ namespace gui
     PurgeElements();
   }
 
-  void Controller::DrawFrame(graphics::gl::Screen * screen)
+  void Controller::DrawFrame(graphics::Screen * screen)
   {
     screen->beginFrame();
 
@@ -201,7 +201,7 @@ namespace gui
     return m_bundle;
   }
 
-  graphics::gl::Screen * Controller::GetCacheScreen() const
+  graphics::Screen * Controller::GetCacheScreen() const
   {
     return m_CacheScreen;
   }

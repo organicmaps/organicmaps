@@ -79,7 +79,7 @@ public:
   /// attach element to controller.
   void setController(gui::Controller *controller);
   /// render element
-  void draw(graphics::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
+  void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
   /// get bounding rects
   vector<m2::AnyRectD> const & boundRects() const;
 

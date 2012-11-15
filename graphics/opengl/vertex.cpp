@@ -1,6 +1,6 @@
 #include "vertex.hpp"
 
-#include "internal/opengl.hpp"
+#include "opengl.hpp"
 
 namespace graphics
 {

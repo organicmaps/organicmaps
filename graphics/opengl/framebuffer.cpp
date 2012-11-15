@@ -3,11 +3,11 @@
 #include "framebuffer.hpp"
 #include "render_target.hpp"
 #include "renderbuffer.hpp"
-#include "internal/opengl.hpp"
+#include "opengl.hpp"
 #include "utils.hpp"
 
-#include "../base/logging.hpp"
-#include "../std/list.hpp"
+#include "../../base/logging.hpp"
+#include "../../std/list.hpp"
 
 namespace graphics
 {

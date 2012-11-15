@@ -2,7 +2,6 @@
 
 #include "../platform/platform.hpp"
 
-#include "../graphics/internal/opengl.hpp"
 #include "../graphics/skin.hpp"
 
 #include "window_handle.hpp"

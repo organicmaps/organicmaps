@@ -1,12 +1,14 @@
 #pragma once
 
+#include "../defines.hpp"
+#include "../skin_page.hpp"
+
 #include "clipper.hpp"
-#include "skin_page.hpp"
 
-#include "../base/threaded_list.hpp"
+#include "../../base/threaded_list.hpp"
 
-#include "../std/shared_ptr.hpp"
-#include "../std/function.hpp"
+#include "../../std/shared_ptr.hpp"
+#include "../../std/function.hpp"
 
 namespace graphics
 {
@@ -15,36 +17,49 @@ namespace graphics
   namespace gl
   {
     class BaseTexture;
-    class DisplayList;
 
     class GeometryRenderer : public Clipper
     {
-    private:
-
-      DisplayList * m_displayList;
-
-      void uploadTextureImpl(SkinPage::TUploadQueue const & uploadQueue,
-                             size_t start,
-                             size_t end,
-                             shared_ptr<BaseTexture> const & texture,
-                             bool shouldAddCheckPoint);
-
     public:
 
       typedef Clipper base_t;
 
       struct UploadData : public Command
       {
-        SkinPage::TUploadQueue m_uploadQueue;
+        vector<shared_ptr<ResourceStyle> > m_uploadQueue;
         shared_ptr<BaseTexture> m_texture;
 
         UploadData();
-        UploadData(SkinPage::TUploadQueue const & uploadQueue,
+        UploadData(shared_ptr<ResourceStyle> const * styles,
+                   size_t count,
                    shared_ptr<BaseTexture> const & texture);
 
         void perform();
         void cancel();
         void dump();
+      };
+
+      struct IMMDrawTexturedPrimitives : Command
+      {
+        buffer_vector<m2::PointF, 8> m_pts;
+        buffer_vector<m2::PointF, 8> m_texPts;
+        unsigned m_ptsCount;
+        shared_ptr<BaseTexture> m_texture;
+        bool m_hasTexture;
+        graphics::Color m_color;
+        bool m_hasColor;
+
+        shared_ptr<ResourceManager> m_resourceManager;
+
+        void perform();
+      };
+
+      struct IMMDrawTexturedRect : IMMDrawTexturedPrimitives
+      {
+        IMMDrawTexturedRect(m2::RectF const & rect,
+                            m2::RectF const & texRect,
+                            shared_ptr<BaseTexture> const & texture,
+                            shared_ptr<ResourceManager> const & rm);
       };
 
       struct DrawGeometry : Command
@@ -53,7 +68,7 @@ namespace graphics
         Storage m_storage;
         size_t m_indicesCount;
         size_t m_indicesOffs;
-        unsigned m_primitiveType;
+        EPrimitives m_primitiveType;
 
         void perform();
         void dump();
@@ -115,22 +130,20 @@ namespace graphics
                         Storage const & storage,
                         size_t indicesCount,
                         size_t indicesOffs,
-                        unsigned primType);
+                        EPrimitives primType);
 
-      void uploadTexture(SkinPage::TUploadQueue const & uploadQueue, shared_ptr<BaseTexture> const & texture);
+      void uploadStyles(shared_ptr<ResourceStyle> const * styles,
+                        size_t count,
+                        shared_ptr<BaseTexture> const & texture);
+
       void freeTexture(shared_ptr<BaseTexture> const & texture, TTexturePool * texturePool);
       void freeStorage(Storage const & storage, TStoragePool * storagePool);
       void unlockStorage(Storage const & storage);
       void discardStorage(Storage const & storage);
 
-      /// create display list
-      DisplayList * createDisplayList();
-      /// set current display list
-      void setDisplayList(DisplayList * displayList);
-      /// get current display list
-      DisplayList * displayList() const;
-      /// draw display list
-      void drawDisplayList(DisplayList * dl, math::Matrix<double, 3, 3> const & m);
+      /// setup rendering matrix
+      void loadMatrix(EMatrix mt,
+                      math::Matrix<float, 4, 4> const & m);
     };
   }
 }

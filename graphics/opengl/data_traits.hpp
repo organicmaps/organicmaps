@@ -1,7 +1,7 @@
 #pragma once
 
-#include "internal/opengl.hpp"
-#include "color.hpp"
+#include "opengl.hpp"
+#include "../color.hpp"
 #include <boost/gil/gil_all.hpp>
 #include <boost/mpl/vector_c.hpp>
 

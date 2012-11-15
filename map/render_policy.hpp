@@ -57,7 +57,7 @@ protected:
   graphics::Color m_bgColor;
   shared_ptr<graphics::ResourceManager> m_resourceManager;
   shared_ptr<graphics::Skin> m_skin;
-  shared_ptr<graphics::gl::Screen> m_cacheScreen;
+  shared_ptr<graphics::Screen> m_cacheScreen;
   shared_ptr<graphics::gl::RenderContext> m_primaryRC;
   shared_ptr<WindowHandle> m_windowHandle;
   shared_ptr<Drawer> m_drawer;
@@ -155,7 +155,7 @@ public:
   virtual shared_ptr<graphics::Overlay> const GetOverlay() const;
   graphics::Color const GetBgColor() const;
 
-  shared_ptr<graphics::gl::Screen> const & GetCacheScreen() const;
+  shared_ptr<graphics::Screen> const & GetCacheScreen() const;
 
   virtual void SetSkin(shared_ptr<graphics::Skin> const & skin);
   shared_ptr<graphics::Skin> const & GetSkin() const;

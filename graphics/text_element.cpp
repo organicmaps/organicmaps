@@ -72,7 +72,7 @@ namespace graphics
   }
 
   void TextElement::drawTextImpl(GlyphLayout const & layout,
-                                 gl::OverlayRenderer * screen,
+                                 OverlayRenderer * screen,
                                  math::Matrix<double, 3, 3> const & m,
                                  bool doTransformPivotOnly,
                                  bool doAlignPivot,

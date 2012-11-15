@@ -3,9 +3,9 @@
 #include "drawer.hpp"
 #include "window_handle.hpp"
 
-#include "../graphics/base_texture.hpp"
-#include "../graphics/internal/opengl.hpp"
-#include "../graphics/utils.hpp"
+#include "../graphics/opengl/base_texture.hpp"
+#include "../graphics/opengl/opengl.hpp"
+#include "../graphics/opengl/utils.hpp"
 #include "../graphics/skin.hpp"
 
 #include "../geometry/screenbase.hpp"
@@ -171,10 +171,10 @@ void TestRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   OGLCHECK(glClear(GL_COLOR_BUFFER_BIT));*/
 
-  shared_ptr<Blitter::IMMDrawTexturedRect> immDrawTexturedRect;
+  shared_ptr<GeometryRenderer::IMMDrawTexturedRect> immDrawTexturedRect;
 
   immDrawTexturedRect.reset(
-        new Blitter::IMMDrawTexturedRect(m2::RectF(0, 0, m_backBuffer->width(), m_backBuffer->height()),
+        new GeometryRenderer::IMMDrawTexturedRect(m2::RectF(0, 0, m_backBuffer->width(), m_backBuffer->height()),
                                          m2::RectF(0, 0, 1, 1),
                                          m_backBuffer,
                                          m_resourceManager));
@@ -204,7 +204,7 @@ void TestRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
   OGLCHECK(glClear(GL_COLOR_BUFFER_BIT));*/
 
   immDrawTexturedRect.reset(
-        new Blitter::IMMDrawTexturedRect(m2::RectF(0, 0, m_backBuffer->width(), m_backBuffer->height()),
+        new GeometryRenderer::IMMDrawTexturedRect(m2::RectF(0, 0, m_backBuffer->width(), m_backBuffer->height()),
                                          m2::RectF(0, 0, 1, 1),
                                          m_backBuffer,
                                          m_resourceManager));
@@ -222,7 +222,7 @@ void TestRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
   OGLCHECK(glFramebufferTexture2DFn(GL_FRAMEBUFFER_MWM, GL_COLOR_ATTACHMENT0_MWM, GL_TEXTURE_2D, m_actualTarget->id(), 0));
 
   immDrawTexturedRect.reset(
-        new Blitter::IMMDrawTexturedRect(m2::RectF(0, 0, m_backBuffer->width(), m_backBuffer->height()),
+        new GeometryRenderer::IMMDrawTexturedRect(m2::RectF(0, 0, m_backBuffer->width(), m_backBuffer->height()),
                                          m2::RectF(0, 0, 1, 1),
                                          m_backBuffer,
                                          m_resourceManager));

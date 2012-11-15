@@ -4,7 +4,7 @@
 
 namespace graphics
 {
-  class AreaRenderer : public gl::GeometryBatcher
+  class AreaRenderer : public GeometryBatcher
   {
   private:
 
@@ -14,7 +14,7 @@ namespace graphics
 
   public:
 
-    typedef gl::GeometryBatcher base_t;
+    typedef GeometryBatcher base_t;
 
     struct Params : base_t::Params
     {

@@ -1,13 +1,16 @@
 #pragma once
 
-#include "../geometry/rect2d.hpp"
-#include "../geometry/point2d.hpp"
-#include "render_target.hpp"
-#include "packets_queue.hpp"
+#include "../../geometry/rect2d.hpp"
+#include "../../geometry/point2d.hpp"
+
+#include "../render_target.hpp"
+#include "../packets_queue.hpp"
 
 namespace graphics
 {
   struct Color;
+  class PacketsQueue;
+
   namespace gl
   {
     class BaseTexture : public RenderTarget
@@ -34,7 +37,7 @@ namespace graphics
         unsigned height() const;
 
         unsigned id() const;
-        void makeCurrent(graphics::gl::PacketsQueue * queue = 0) const;
+        void makeCurrent(graphics::PacketsQueue * queue = 0) const;
         void attachToFrameBuffer();
         void detachFromFrameBuffer();
 

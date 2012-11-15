@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../std/shared_ptr.hpp"
-#include "render_target.hpp"
+#include "../../std/shared_ptr.hpp"
+#include "../render_target.hpp"
 
 namespace graphics
 {

@@ -2,11 +2,12 @@
 
 #include "managed_texture.hpp"
 #include "data_traits.hpp"
-#include "image_info.hpp"
 
-#include "../platform/platform.hpp"
+#include "../image_info.hpp"
 
-#include "../coding/lodepng_io.hpp"
+#include "../../platform/platform.hpp"
+
+#include "../../coding/lodepng_io.hpp"
 
 namespace gil = boost::gil;
 namespace mpl = boost::mpl;

@@ -1,6 +1,6 @@
 #include "../base/SRC_FIRST.hpp"
 #include "rendercontext.hpp"
-#include "internal/opengl.hpp"
+#include "opengl.hpp"
 
 namespace graphics
 {

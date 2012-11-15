@@ -73,7 +73,7 @@ class Drawer
   int m_level;
   size_t m_threadID;
 
-  shared_ptr<graphics::gl::Screen> m_pScreen;
+  shared_ptr<graphics::Screen> m_pScreen;
   shared_ptr<graphics::Skin> m_pSkin;
 
   static void ClearSkinPage(size_t threadID, uint8_t pipelineID);
@@ -97,7 +97,8 @@ protected:
   typedef shared_ptr<graphics::gl::FrameBuffer> frame_buffer_t;
 
 public:
-  struct Params : graphics::gl::Screen::Params
+
+  struct Params : graphics::Screen::Params
   {
     size_t m_threadID;
     double m_visualScale;
@@ -116,7 +117,7 @@ public:
 
   void onSize(int w, int h);
 
-  shared_ptr<graphics::gl::Screen> screen() const;
+  shared_ptr<graphics::Screen> screen() const;
 
   double VisualScale() const;
   void SetScale(int level);

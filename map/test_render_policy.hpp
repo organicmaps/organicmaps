@@ -13,8 +13,8 @@ private:
   shared_ptr<graphics::gl::BaseTexture> m_actualTarget;
   shared_ptr<graphics::gl::BaseTexture> m_backBuffer;
 
-  shared_ptr<graphics::gl::Screen> m_auxScreen;
-  shared_ptr<graphics::gl::Screen> m_drawerScreen;
+  shared_ptr<graphics::Screen> m_auxScreen;
+  shared_ptr<graphics::Screen> m_drawerScreen;
 
   bool m_hasScreen;
   ScreenBase m_screen;

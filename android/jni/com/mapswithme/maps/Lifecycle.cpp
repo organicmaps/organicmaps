@@ -18,7 +18,7 @@
 #include "../../../nv_event/nv_event.hpp"
 #include "../../../nv_thread/nv_thread.hpp"
 #include "../../../../../base/logging.hpp"
-#include "../../../../../graphics/internal/opengl.hpp"
+#include "../../../../../graphics/opengl/opengl.hpp"
 #include "Framework.hpp"
 #include "../platform/Platform.hpp"
 

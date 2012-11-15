@@ -1,12 +1,12 @@
-#include "../base/SRC_FIRST.hpp"
+#include "../base/logging.hpp"
+
 #include "renderer.hpp"
 #include "data_traits.hpp"
 #include "utils.hpp"
 #include "framebuffer.hpp"
 #include "renderbuffer.hpp"
 #include "resource_manager.hpp"
-#include "internal/opengl.hpp"
-#include "../base/logging.hpp"
+#include "opengl.hpp"
 
 namespace graphics
 {
@@ -289,7 +289,7 @@ namespace graphics
     void Renderer::processCommand(shared_ptr<Command> const & command, Packet::EType type, bool doForce)
     {
       if (command)
-        command->m_isDebugging = renderQueue() && !doForce;
+        command->setIsDebugging(renderQueue() && !doForce);
 
       if (renderQueue() && !doForce)
         renderQueue()->processPacket(Packet(command, type));

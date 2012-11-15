@@ -1,7 +1,7 @@
-#include "../base/SRC_FIRST.hpp"
 #include "storage.hpp"
 #include "buffer_object.hpp"
-#include "internal/opengl.hpp"
+
+#include "opengl/opengl.hpp"
 
 namespace graphics
 {

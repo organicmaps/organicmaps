@@ -1,6 +1,6 @@
 #include "../base/SRC_FIRST.hpp"
 
-#include "internal/opengl.hpp"
+#include "opengl.hpp"
 #include "renderbuffer.hpp"
 #include "utils.hpp"
 

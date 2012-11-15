@@ -41,7 +41,7 @@ namespace graphics
     return m_boundRects;
   }
 
-  void CompositeOverlayElement::draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const
+  void CompositeOverlayElement::draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const
   {
     r->drawRectangle(roughBoundRect(), graphics::Color(255, 255, 0, 64), depth() - 3);
     for (unsigned i = 0; i < m_elements.size(); ++i)

@@ -8,7 +8,7 @@
 
 namespace	iphone
 {
-	class RenderBuffer : public graphics::gl::RenderTarget
+	class RenderBuffer : public graphics::RenderTarget
 	{
 	private:
 

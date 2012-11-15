@@ -1,10 +1,11 @@
-#include "../base/SRC_FIRST.hpp"
+#include "../../base/SRC_FIRST.hpp"
 
-#include "internal/opengl.hpp"
+#include "../../base/logging.hpp"
+#include "../../std/bind.hpp"
+
+#include "opengl.hpp"
 #include "base_texture.hpp"
 #include "utils.hpp"
-#include "../base/logging.hpp"
-#include "../std/bind.hpp"
 
 namespace graphics
 {
@@ -76,18 +77,15 @@ namespace graphics
       return id;
     }
 
-    void BaseTexture::makeCurrent(graphics::gl::PacketsQueue * queue) const
+    void BaseTexture::makeCurrent(graphics::PacketsQueue * queue) const
     {
       if (queue)
       {
-        queue->processFn(bind(&BaseTexture::makeCurrent, this, (graphics::gl::PacketsQueue*)0));
+        queue->processFn(bind(&BaseTexture::makeCurrent, this, (graphics::PacketsQueue*)0));
         return;
       }
 
-/*#ifndef OMIM_OS_ANDROID
-      if (current() != m_id)
-#endif*/
-        OGLCHECK(glBindTexture(GL_TEXTURE_2D, m_id));
+      OGLCHECK(glBindTexture(GL_TEXTURE_2D, m_id));
     }
 
     unsigned BaseTexture::id() const

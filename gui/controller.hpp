@@ -12,11 +12,7 @@ namespace graphics
 {
   class GlyphCache;
   class OverlayElement;
-
-  namespace gl
-  {
-    class Screen;
-  }
+  class Screen;
 }
 
 namespace gui
@@ -58,7 +54,7 @@ namespace gui
     StringsBundle const * m_bundle;
 
     /// Screen, which is used to cache gui::Elements into display lists.
-    graphics::gl::Screen * m_CacheScreen;
+    graphics::Screen * m_CacheScreen;
 
     /// Should we call the onTapEnded when the tap finished(we should
     /// not if the tap was cancelled while moving).
@@ -84,12 +80,12 @@ namespace gui
       double m_VisualScale;
       TInvalidateFn m_InvalidateFn;
       graphics::GlyphCache * m_GlyphCache;
-      graphics::gl::Screen * m_CacheScreen;
+      graphics::Screen * m_CacheScreen;
       RenderParams();
       RenderParams(double visualScale,
                    TInvalidateFn invalidateFn,
                    graphics::GlyphCache * glyphCache,
-                   graphics::gl::Screen * cacheScreen);
+                   graphics::Screen * cacheScreen);
     };
 
     /// Attach GUI Controller to the renderer
@@ -110,11 +106,11 @@ namespace gui
     StringsBundle const * GetStringsBundle() const;
     /// Get GlyphCache
     graphics::GlyphCache * GetGlyphCache() const;
-    /// Get graphics::gl::Screen, which is used to cache gui::Element's
+    /// Get graphics::Screen, which is used to cache gui::Element's
     /// into display lists.
-    graphics::gl::Screen * GetCacheScreen() const;
+    graphics::Screen * GetCacheScreen() const;
     /// Redraw GUI
-    void DrawFrame(graphics::gl::Screen * screen);
+    void DrawFrame(graphics::Screen * screen);
     /// Calling gui::Element::update for every element.
     void UpdateElements();
     /// Calling gui::Element::purge for every element.

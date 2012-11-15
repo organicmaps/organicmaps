@@ -1,14 +1,15 @@
 #pragma once
 
-#include "../std/shared_ptr.hpp"
+#include "../../std/shared_ptr.hpp"
 
 namespace graphics
 {
+  class RenderTarget;
+
   namespace gl
   {
     class BaseTexture;
     class RenderBuffer;
-    class RenderTarget;
 
     class FrameBuffer
     {

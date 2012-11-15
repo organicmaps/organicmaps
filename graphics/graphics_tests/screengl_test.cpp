@@ -4,14 +4,15 @@
 #include "../../geometry/transformations.hpp"
 
 #include "../../graphics/screen.hpp"
-#include "../../graphics/utils.hpp"
-#include "../../graphics/internal/opengl.hpp"
 #include "../../graphics/skin.hpp"
 #include "../../graphics/pen_info.hpp"
 #include "../../graphics/circle_info.hpp"
 #include "../../graphics/text_element.hpp"
 #include "../../graphics/straight_text_element.hpp"
 #include "../../graphics/path_text_element.hpp"
+
+#include "../../graphics/opengl/utils.hpp"
+#include "../../graphics/opengl/opengl.hpp"
 
 #include "../../qt_tstfrm/macros.hpp"
 
@@ -26,7 +27,7 @@ namespace
 {
   struct TestDrawPoint
   {
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       p->drawSymbol(m2::PointD(40, 40), 0, graphics::EPosCenter, 0);
       p->drawSymbol(m2::PointD(40.5, 60), 0, graphics::EPosCenter, 0);
@@ -36,7 +37,7 @@ namespace
 
   struct TestDrawSolidRect
   {
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       p->immDrawSolidRect(m2::RectF(0, 0, 100, 100), graphics::Color(255, 0, 0, 255));
     }
@@ -44,7 +45,7 @@ namespace
 
   struct TestDrawLine
   {
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       m2::PointD pts[3] =
       {
@@ -100,7 +101,7 @@ namespace
       return m_pathes[i];
     }
 
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       for (size_t i = 0; i < m_pathes.size(); ++i)
       {
@@ -375,7 +376,7 @@ namespace
       AddTest(testPoints, testPattern, graphics::Color(255, 0, 0, 255), 40, 0.5);
     }
 
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       p->enableClipRect(true);
       p->setClipRect(m2::RectI(50, 70, 150, 150));
@@ -385,7 +386,7 @@ namespace
       p->beginFrame();
       p->setClipRect(r);
       p->enableClipRect(true);
-      p->clear(graphics::gl::Screen::s_bgColor);
+      p->clear(graphics::Screen::s_bgColor);
     }
   };
 
@@ -558,7 +559,7 @@ namespace
 
   struct TestDrawPoly
   {
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
 //      m2::PointD ptsStrip[5] = {m2::PointD(10, 10), m2::PointD(40, 10), m2::PointD(70, 10), m2::PointD(90, 60), m2::PointD(130, 30)};
 //      p->drawTriangles(ptsStrip, 5, graphics::TriangleStrip, p->skin()->mapColor(graphics::Color(255, 0, 0, 255)));
@@ -574,7 +575,7 @@ namespace
   /// Trying to draw polygon with more vertices that fits into internal buffer.
   struct TestDrawPolyOverflow
   {
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       size_t verticesCount = 30000;
       vector<m2::PointD> vertices;
@@ -609,7 +610,7 @@ namespace
 
   struct TestDrawText
   {
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       m2::PointD path[2] = {m2::PointD(100, 200), m2::PointD(1000, 200)};
       double pat[2] = {2, 2};
@@ -628,7 +629,7 @@ namespace
 
   struct TestDrawSingleSymbol
   {
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       graphics::FontDesc fontDesc(20, graphics::Color(0, 0, 0, 0), true, graphics::Color(255, 255, 255, 255));
       p->drawText(fontDesc, m2::PointD(40, 50), graphics::EPosAboveRight, "X", 1, true);
@@ -637,7 +638,7 @@ namespace
 
   struct TestDrawEmptySymbol
   {
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       graphics::FontDesc fontDesc(20, graphics::Color(0, 0, 0, 0), true, graphics::Color(255, 255, 255, 255));
       p->drawText(fontDesc, m2::PointD(40, 50), graphics::EPosAboveRight, " ", 1, true);
@@ -646,7 +647,7 @@ namespace
 
   struct TestDrawStringOnString
   {
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       size_t const maxTimes = 10;
       size_t const yStep = 30;
@@ -661,7 +662,7 @@ namespace
 
   struct TestDrawSingleSymbolAndSolidPath
   {
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       vector<m2::PointD> path;
       path.push_back(m2::PointD(40, 50));
@@ -681,7 +682,7 @@ namespace
 
   struct TestDrawMultiLineStringWithPosition
   {
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       graphics::FontDesc fontDesc(14, graphics::Color(0, 0, 0, 0), true, graphics::Color(255, 255, 255, 255));
 
@@ -734,7 +735,7 @@ namespace
 
   struct TestDrawString
   {
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       graphics::FontDesc fontDesc(20, graphics::Color(0, 0, 0, 0), true, graphics::Color(255, 255, 255, 255));
       p->drawText(fontDesc, m2::PointD(40, 150), graphics::EPosAboveRight, "Simplicity is the ultimate sophistication", 0, true);
@@ -743,7 +744,7 @@ namespace
 
   struct TestDrawStringWithColor
   {
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       graphics::FontDesc fontDesc(25, graphics::Color(0, 0, 255, 255), true, graphics::Color(255, 255, 255, 255));
       p->drawText(fontDesc, m2::PointD(40, 50), graphics::EPosAboveRight, "Simplicity is the ultimate sophistication", 0, true);
@@ -753,7 +754,7 @@ namespace
 
   struct TestDrawUnicodeSymbols
   {
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       graphics::FontDesc fontDesc(12);
       p->drawText(fontDesc, m2::PointD(40, 50), graphics::EPosAboveRight, "Latin Symbol : A", 0, true);
@@ -764,7 +765,7 @@ namespace
   struct TestDrawTextRect : TestDrawString
   {
     typedef TestDrawString base_t;
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       m2::PointD startPt(40, 50);
 
@@ -812,7 +813,7 @@ namespace
       m_penInfo = graphics::PenInfo(graphics::Color(0xFF, 0xFF, 0xFF, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
     }
 
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->mapPenInfo(m_penInfo), 1);
       graphics::FontDesc fontDesc(30);
@@ -859,7 +860,7 @@ namespace
 
     }
 
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       p->drawPath(&m_testPoints[0], m_testPoints.size(), 0, p->skin()->mapPenInfo(graphics::PenInfo(graphics::Color(255, 255, 255, 255), 2, 0, 0, 0)), 0);
       graphics::FontDesc fontDesc(20, graphics::Color(0, 0, 0, 255), false);
@@ -888,7 +889,7 @@ namespace
       m_penInfo = graphics::PenInfo(graphics::Color(0, 0, 0, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
     }
 
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->mapPenInfo(m_penInfo), 0);
       graphics::FontDesc fontDesc(20);
@@ -908,7 +909,7 @@ namespace
       m_penInfo = graphics::PenInfo(graphics::Color(0, 0, 0, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
     }
 
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       graphics::StraightTextElement::Params params;
       params.m_fontDesc = graphics::FontDesc(20);
@@ -947,7 +948,7 @@ namespace
       m_penInfo = graphics::PenInfo(graphics::Color(0, 0, 0, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
     }
 
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       graphics::PathTextElement::Params params;
       params.m_pts = &m_path[0];
@@ -992,7 +993,7 @@ namespace
       m_penInfo = graphics::PenInfo(graphics::Color(0, 0, 0, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
     }
 
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->mapPenInfo(m_penInfo), 0);
 //      graphics::FontDesc fontDesc(false, 10);
@@ -1017,7 +1018,7 @@ namespace
         m_pathAbove[i].y += 50;
     }
 
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       TestDrawTextOnPath::DoDraw(p);
 
@@ -1034,7 +1035,7 @@ namespace
 
   struct TestDrawTextOverflow
   {
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       int const startSize = 20;
       size_t const sizesCount = 20;
@@ -1051,7 +1052,7 @@ namespace
 
   struct TestDrawTextFiltering
   {
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       int const startSize = 20;
       size_t const sizesCount = 20;
@@ -1069,7 +1070,7 @@ namespace
 
   struct TestDrawRandomTextFiltering
   {
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       char const * texts [] = {"Simplicity is the ultimate sophistication", "Leonardo Da Vinci"};
 
@@ -1096,7 +1097,7 @@ namespace
 
   struct TestDrawUtilsRect
   {
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       shared_ptr<graphics::gl::RGBA8Texture> texture(new graphics::gl::RGBA8Texture(512, 512));
       texture->randomize();
@@ -1113,7 +1114,7 @@ namespace
 
   struct TestDrawUtilsRectFilledTexture
   {
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       shared_ptr<graphics::gl::RGBA8Texture> texture(new graphics::gl::RGBA8Texture(512, 512));
       texture->fill(graphics::Color(0, 255, 0, 255));
@@ -1131,7 +1132,7 @@ namespace
   struct TestDrawOverlappedSymbolWithText
   {
   public:
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       p->setOverlay(make_shared_ptr(new graphics::Overlay()));
       p->overlay()->setCouldOverlap(false);
@@ -1153,7 +1154,7 @@ namespace
   struct TestDrawAnyRect
   {
   public:
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       m2::AnyRectD r[3] =
       {
@@ -1173,7 +1174,7 @@ namespace
   struct TestDrawSector
   {
   public:
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       p->drawArc(m2::PointD(100, 100), 0, math::pi * 2, 30, graphics::Color(0, 0, 255, 128), 12000);
       p->fillSector(m2::PointD(100, 100), 0, math::pi * 2, 30, graphics::Color(0, 0, 255, 64), 12000);
@@ -1208,7 +1209,7 @@ namespace
       t.endPolygon();
     }
 
-    void DoDraw(shared_ptr<graphics::gl::Screen> p)
+    void DoDraw(shared_ptr<graphics::Screen> p)
     {
       double inputDataPat[] = {10, 0};
       graphics::PenInfo inputDataRule(graphics::Color::fromARGB(0xFF000000), 6, inputDataPat, 2, 0);
@@ -1316,7 +1317,7 @@ namespace
 
   struct TestDrawSymbolFiltering
   {
-    void DoDraw(shared_ptr<graphics::gl::Screen> const & p)
+    void DoDraw(shared_ptr<graphics::Screen> const & p)
     {
       for (int i = 0; i < 40; ++i)
         p->drawSymbol(m2::PointD(100 + i, 100), "hospital", graphics::EPosCenter, 0);
@@ -1325,7 +1326,7 @@ namespace
 
   struct TestDrawCircle
   {
-    void DoDraw(shared_ptr<graphics::gl::Screen> const & p)
+    void DoDraw(shared_ptr<graphics::Screen> const & p)
     {
       graphics::CircleInfo ci0(10, graphics::Color(255, 0, 0, 255));
       p->drawCircle(m2::PointD(200, 200), ci0, graphics::EPosCenter, 100);
@@ -1337,7 +1338,7 @@ namespace
 
   struct TestDrawImage
   {
-    void DoDraw(shared_ptr<graphics::gl::Screen> const & p)
+    void DoDraw(shared_ptr<graphics::Screen> const & p)
     {
       graphics::ImageInfo ii("test.png");
 

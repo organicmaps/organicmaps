@@ -11,9 +11,6 @@
 #include "../std/bind.hpp"
 #include "../std/numeric.hpp"
 
-#include "internal/opengl.hpp"
-
-
 namespace graphics
 {
   Skin::Skin(shared_ptr<ResourceManager> const & resourceManager,

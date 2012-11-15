@@ -17,11 +17,7 @@ namespace graphics
   class ResourceManager;
   class Skin;
   class SkinPage;
-
-  namespace gl
-  {
-    class OverlayRenderer;
-  }
+  class OverlayRenderer;
 
   class TextElement : public OverlayElement
   {
@@ -61,7 +57,7 @@ namespace graphics
     TextElement(Params const & p);
 
     void drawTextImpl(GlyphLayout const & layout,
-                      gl::OverlayRenderer * r,
+                      OverlayRenderer * r,
                       math::Matrix<double, 3, 3> const & m,
                       bool doTransformPivotOnly,
                       bool doAlignPivot,

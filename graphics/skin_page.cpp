@@ -1,10 +1,10 @@
 #include "skin_page.hpp"
 
-#include "texture.hpp"
-#include "data_traits.hpp"
+#include "opengl/texture.hpp"
+#include "opengl/data_traits.hpp"
+
 #include "resource_style.hpp"
 #include "resource_manager.hpp"
-#include "internal/opengl.hpp"
 
 #include "../base/logging.hpp"
 

@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "../../../../../graphics/rendercontext.hpp"
+#include "../../../../../graphics/opengl/rendercontext.hpp"
 
 #include "../../../../../std/shared_ptr.hpp"
 

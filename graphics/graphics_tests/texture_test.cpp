@@ -2,7 +2,7 @@
 #include "../../qt_tstfrm/macros.hpp"
 #include "../../testing/testing.hpp"
 
-#include "../texture.hpp"
+#include "../opengl/texture.hpp"
 
 UNIT_TEST(TextureTest_Main)
 {

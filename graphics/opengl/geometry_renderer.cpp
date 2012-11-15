@@ -5,9 +5,8 @@
 #include "texture.hpp"
 #include "buffer_object.hpp"
 #include "managed_texture.hpp"
-#include "display_list.hpp"
 #include "vertex.hpp"
-#include "internal/opengl.hpp"
+#include "opengl/opengl.hpp"
 
 #include "../std/bind.hpp"
 #include "../base/logging.hpp"
@@ -19,14 +18,17 @@ namespace graphics
     typedef Texture<DATA_TRAITS, true> TDynamicTexture;
 
     GeometryRenderer::GeometryRenderer(base_t::Params const & params)
-      : base_t(params),
-        m_displayList(0)
+      : base_t(params)
     {}
 
-    GeometryRenderer::UploadData::UploadData(SkinPage::TUploadQueue const & uploadQueue,
+    GeometryRenderer::UploadData::UploadData(shared_ptr<ResourceStyle> const * styles,
+                                             size_t count,
                                              shared_ptr<BaseTexture> const & texture)
-      : m_uploadQueue(uploadQueue), m_texture(texture)
-    {}
+      : m_texture(texture)
+    {
+      m_uploadQueue.reserve(count);
+      copy(styles, styles + count, back_inserter(m_uploadQueue));
+    }
 
     GeometryRenderer::UploadData::UploadData()
     {}
@@ -84,65 +86,107 @@ namespace graphics
     }
 
 
-    void GeometryRenderer::uploadTextureImpl(SkinPage::TUploadQueue const & uploadQueue,
-                                             size_t start, size_t end,
-                                             shared_ptr<BaseTexture> const & texture,
-                                             bool shouldAddCheckPoint)
+    void GeometryRenderer::uploadStyles(shared_ptr<ResourceStyle> const * styles,
+                                        size_t count,
+                                        shared_ptr<BaseTexture> const & texture)
     {
-      if (isCancelled())
-        return;
-
-      vector<shared_ptr<ResourceStyle> > v;
-      v.reserve(end - start);
-      copy(&uploadQueue[0] + start, &uploadQueue[0] + end, back_inserter(v));
-
-      shared_ptr<UploadData> command(new UploadData(v, texture));
-
-      if (m_displayList)
-        m_displayList->uploadData(command);
-      else
-        processCommand(command);
-
-      if (shouldAddCheckPoint)
-      {
-        if (m_displayList)
-          m_displayList->addCheckPoint();
-        else
-          addCheckPoint();
-      }
+      processCommand(make_shared_ptr(new UploadData(styles, count, texture)));
     }
 
-    void GeometryRenderer::uploadTexture(SkinPage::TUploadQueue const & uploadQueue,
-                                         shared_ptr<BaseTexture> const & texture)
+    GeometryRenderer::IMMDrawTexturedRect::IMMDrawTexturedRect(
+        m2::RectF const & rect,
+        m2::RectF const & texRect,
+        shared_ptr<BaseTexture> const & texture,
+        shared_ptr<ResourceManager> const & rm)
     {
-      /// splitting the whole queue of commands into the chunks no more
-      /// than 100kb of uploadable data each
-
-      /// tracking the number of bytes downloaded onto the texture
-      /// in a single shot.
-      size_t bytesUploaded = 0;
-      size_t bytesPerPixel = graphics::formatSize(resourceManager()->params().m_texFormat);
-      size_t prev = 0;
-
-      for (size_t i = 0; i < uploadQueue.size(); ++i)
+      m2::PointF rectPoints[4] =
       {
-        shared_ptr<ResourceStyle> const & style = uploadQueue[i];
+        m2::PointF(rect.minX(), rect.minY()),
+        m2::PointF(rect.maxX(), rect.minY()),
+        m2::PointF(rect.maxX(), rect.maxY()),
+        m2::PointF(rect.minX(), rect.maxY())
+      };
 
-        bytesUploaded += style->m_texRect.SizeX() * style->m_texRect.SizeY() * bytesPerPixel;
+      m2::PointF texRectPoints[4] =
+      {
+        m2::PointF(texRect.minX(), texRect.minY()),
+        m2::PointF(texRect.maxX(), texRect.minY()),
+        m2::PointF(texRect.maxX(), texRect.maxY()),
+        m2::PointF(texRect.minX(), texRect.maxY()),
+      };
 
-        if (bytesUploaded > 64 * 1024)
-        {
-          uploadTextureImpl(uploadQueue, prev, i + 1, texture, true);
-          prev = i + 1;
-          bytesUploaded = 0;
-        }
+      m_pts.resize(4);
+      m_texPts.resize(4);
+
+      copy(rectPoints, rectPoints + 4, &m_pts[0]);
+      copy(texRectPoints, texRectPoints + 4, &m_texPts[0]);
+      m_ptsCount = 4;
+      m_texture = texture;
+      m_hasTexture = true;
+      m_hasColor = false;
+      m_color = graphics::Color(255, 255, 255, 255);
+      m_resourceManager = rm;
+    }
+
+    void GeometryRenderer::IMMDrawTexturedPrimitives::perform()
+    {
+      if (isDebugging())
+        LOG(LINFO, ("performing IMMDrawTexturedPrimitives command"));
+
+      graphics::gl::Storage blitStorage = m_resourceManager->blitStorages()->Reserve();
+
+      if (m_resourceManager->blitStorages()->IsCancelled())
+      {
+        LOG(LDEBUG, ("skipping IMMDrawTexturedPrimitives on cancelled multiBlitStorages pool"));
+        return;
       }
 
-      if (!uploadQueue.empty())
+      if (!blitStorage.m_vertices->isLocked())
+        blitStorage.m_vertices->lock();
+
+      if (!blitStorage.m_indices->isLocked())
+        blitStorage.m_indices->lock();
+
+      Vertex * pointsData = (Vertex*)blitStorage.m_vertices->data();
+
+      for (size_t i = 0; i < m_ptsCount; ++i)
       {
-        uploadTextureImpl(uploadQueue, prev, uploadQueue.size(), texture, false);
-        bytesUploaded = 0;
+        pointsData[i].pt.x = m_pts[i].x;
+        pointsData[i].pt.y = m_pts[i].y;
+        pointsData[i].depth = graphics::maxDepth;
+        pointsData[i].tex.x = m_texPts[i].x;
+        pointsData[i].tex.y = m_texPts[i].y;
+        pointsData[i].normal.x = 0;
+        pointsData[i].normal.y = 0;
       }
+
+      blitStorage.m_vertices->unlock();
+      blitStorage.m_vertices->makeCurrent();
+
+      Vertex::setupLayout(blitStorage.m_vertices->glPtr());
+
+      if (m_texture)
+        m_texture->makeCurrent();
+
+      unsigned short idxData[4] = {0, 1, 2, 3};
+      memcpy(blitStorage.m_indices->data(), idxData, sizeof(idxData));
+      blitStorage.m_indices->unlock();
+      blitStorage.m_indices->makeCurrent();
+
+      OGLCHECK(glDisableFn(GL_ALPHA_TEST_MWM));
+      OGLCHECK(glDisableFn(GL_BLEND));
+      OGLCHECK(glDisableFn(GL_DEPTH_TEST));
+      OGLCHECK(glDepthMask(GL_FALSE));
+      OGLCHECK(glDrawElementsFn(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_SHORT, blitStorage.m_indices->glPtr()));
+      OGLCHECK(glDepthMask(GL_TRUE));
+      OGLCHECK(glEnableFn(GL_DEPTH_TEST));
+      OGLCHECK(glEnableFn(GL_BLEND));
+      OGLCHECK(glEnableFn(GL_ALPHA_TEST_MWM));
+
+      blitStorage.m_vertices->discard();
+      blitStorage.m_indices->discard();
+
+      m_resourceManager->blitStorages()->Free(blitStorage);
     }
 
     void GeometryRenderer::DrawGeometry::perform()
@@ -168,8 +212,23 @@ namespace graphics
 
 //      OGLCHECK(glPolygonMode( GL_FRONT_AND_BACK, GL_LINE ));
 
+      unsigned glPrimType;
+
+      switch (m_primitiveType)
+      {
+      case ETrianglesFan:
+        glPrimType = GL_TRIANGLE_FAN;
+        break;
+      case ETriangles:
+        glPrimType = GL_TRIANGLES;
+        break;
+      case ETrianglesStrip:
+        glPrimType = GL_TRIANGLE_STRIP;
+        break;
+      };
+
       OGLCHECK(glDrawElementsFn(
-        m_primitiveType,
+        glPrimType,
         m_indicesCount,
         GL_UNSIGNED_SHORT,
         ((unsigned char*)m_storage.m_indices->glPtr()) + m_indicesOffs));
@@ -186,11 +245,8 @@ namespace graphics
                                         Storage const & storage,
                                         size_t indicesCount,
                                         size_t indicesOffs,
-                                        unsigned primType)
+                                        EPrimitives primType)
     {
-      if (isCancelled())
-        return;
-
       shared_ptr<DrawGeometry> command(new DrawGeometry());
 
       command->m_texture = texture;
@@ -199,10 +255,7 @@ namespace graphics
       command->m_indicesOffs = indicesOffs;
       command->m_primitiveType = primType;
 
-      if (m_displayList)
-        m_displayList->drawGeometry(command);
-      else
-        processCommand(command);
+      processCommand(command);
     }
 
     void GeometryRenderer::FreeStorage::perform()
@@ -228,10 +281,7 @@ namespace graphics
       command->m_storage = storage;
       command->m_storagePool = storagePool;
 
-      if (m_displayList)
-        m_displayList->freeStorage(command);
-      else
-        processCommand(command);
+      processCommand(command);
     }
 
     void GeometryRenderer::FreeTexture::perform()
@@ -265,10 +315,7 @@ namespace graphics
       command->m_texture = texture;
       command->m_texturePool = texturePool;
 
-      if (m_displayList)
-        m_displayList->freeTexture(command);
-      else
-        processCommand(command);
+      processCommand(command);
     }
 
     void GeometryRenderer::UnlockStorage::perform()
@@ -302,10 +349,7 @@ namespace graphics
 
       command->m_storage = storage;
 
-      if (m_displayList)
-        m_displayList->unlockStorage(command);
-      else
-        processCommand(command);
+      processCommand(command);
     }
 
     void GeometryRenderer::DiscardStorage::perform()
@@ -333,31 +377,7 @@ namespace graphics
 
       command->m_storage = storage;
 
-      if (m_displayList)
-        m_displayList->discardStorage(command);
-      else
-        processCommand(command);
-    }
-
-    DisplayList * GeometryRenderer::createDisplayList()
-    {
-      return new DisplayList(this);
-    }
-
-    void GeometryRenderer::setDisplayList(DisplayList * dl)
-    {
-      m_displayList = dl;
-    }
-
-    void GeometryRenderer::drawDisplayList(DisplayList * dl,
-                                           math::Matrix<double, 3, 3> const & m)
-    {
-      dl->draw(m);
-    }
-
-    DisplayList * GeometryRenderer::displayList() const
-    {
-      return m_displayList;
+      processCommand(command);
     }
 
     void GeometryRenderer::ApplyStates::perform()
@@ -400,13 +420,7 @@ namespace graphics
 
     void GeometryRenderer::applyStates()
     {
-
-      shared_ptr<ApplyStates> command(new ApplyStates());
-
-      if (m_displayList)
-        m_displayList->applyStates(command);
-      else
-        processCommand(command);
+      processCommand(make_shared_ptr(new ApplyStates()));
     }
 
     void GeometryRenderer::ApplyBlitStates::perform()
@@ -427,12 +441,15 @@ namespace graphics
 
     void GeometryRenderer::applyBlitStates()
     {
-      shared_ptr<ApplyBlitStates> command(new ApplyBlitStates());
+      processCommand(make_shared_ptr(new ApplyBlitStates()));
+    }
 
-      if (m_displayList)
-        m_displayList->applyBlitStates(command);
-      else
-        processCommand(command);
+    void GeometryRenderer::loadMatrix(EMatrix mt,
+                                      math::Matrix<float, 4, 4> const & m)
+    {
+      OGLCHECK(glMatrixModeFn(GL_MODELVIEW_MWM));
+      OGLCHECK(glLoadIdentityFn());
+      OGLCHECK(glLoadMatrixfFn(&m(0, 0)));
     }
   }
 }

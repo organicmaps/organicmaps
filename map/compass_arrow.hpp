@@ -27,7 +27,7 @@ private:
   graphics::Color const m_southRightColor;
   double m_angle;
 
-  scoped_ptr<graphics::gl::DisplayList> m_displayList;
+  scoped_ptr<graphics::DisplayList> m_displayList;
 
   mutable vector<m2::AnyRectD> m_boundRects;
 
@@ -52,7 +52,7 @@ public:
   unsigned GetArrowHeight() const;
 
   vector<m2::AnyRectD> const & boundRects() const;
-  void draw(graphics::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
+  void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
   bool onTapEnded(m2::PointD const & pt);
 

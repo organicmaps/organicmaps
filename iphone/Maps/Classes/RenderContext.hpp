@@ -13,7 +13,7 @@
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
 
-#include "../../../graphics/rendercontext.hpp"
+#include "../../../graphics/opengl/rendercontext.hpp"
 #include "../../../std/shared_ptr.hpp"
 
 

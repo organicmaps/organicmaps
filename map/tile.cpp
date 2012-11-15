@@ -1,8 +1,6 @@
-#include "../base/SRC_FIRST.hpp"
-
 #include "tile.hpp"
 
-#include "../graphics/base_texture.hpp"
+#include "../graphics/opengl/base_texture.hpp"
 
 Tile::Tile()
 {}

@@ -18,10 +18,11 @@
 namespace graphics
 {
   class ResourceManager;
+  class PacketsQueue;
+
   namespace gl
   {
     class RenderContext;
-    class PacketsQueue;
   }
 }
 
@@ -77,7 +78,7 @@ protected:
                         Tiler::RectInfo const & rectInfo,
                         int sequenceID);
 
-  void ReadPixels(graphics::gl::PacketsQueue * glQueue, core::CommandsQueue::Environment const & env);
+  void ReadPixels(graphics::PacketsQueue * glQueue, core::CommandsQueue::Environment const & env);
 
 public:
 
@@ -90,7 +91,7 @@ public:
                shared_ptr<graphics::gl::RenderContext> const & primaryRC,
                shared_ptr<graphics::ResourceManager> const & rm,
                double visualScale,
-               graphics::gl::PacketsQueue ** packetsQueue);
+               graphics::PacketsQueue ** packetsQueue);
   /// destructor.
   virtual ~TileRenderer();
   /// add command to the commands queue.

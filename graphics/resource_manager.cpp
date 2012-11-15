@@ -1,12 +1,13 @@
-
-#include "internal/opengl.hpp"
-#include "base_texture.hpp"
-#include "data_traits.hpp"
 #include "resource_manager.hpp"
+
+#include "opengl/opengl.hpp"
+#include "opengl/base_texture.hpp"
+#include "opengl/data_traits.hpp"
+#include "opengl/storage.hpp"
+#include "opengl/texture.hpp"
+#include "opengl/buffer_object.hpp"
+
 #include "skin_loader.hpp"
-#include "storage.hpp"
-#include "texture.hpp"
-#include "buffer_object.hpp"
 
 #include "../coding/file_reader.hpp"
 #include "../coding/parse_xml.hpp"

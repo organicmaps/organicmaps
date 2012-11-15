@@ -60,7 +60,7 @@ private:
 
   RenderPolicy::TCountryNameFn m_countryNameFn;
 
-  graphics::gl::PacketsQueue * m_glQueue;
+  graphics::PacketsQueue * m_glQueue;
   string m_skinName;
 
   FenceManager m_fenceManager;
@@ -78,7 +78,7 @@ public:
                     shared_ptr<WindowHandle> const & windowHandle,
                     shared_ptr<graphics::gl::RenderContext> const & primaryRC,
                     shared_ptr<graphics::ResourceManager> const & rm,
-                    graphics::gl::PacketsQueue * glQueue,
+                    graphics::PacketsQueue * glQueue,
                     RenderPolicy::TCountryNameFn countryNameFn);
 
   ~CoverageGenerator();

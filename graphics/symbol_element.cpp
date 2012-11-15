@@ -53,7 +53,7 @@ namespace graphics
     return m2::AnyRectD(m2::RectD(posPt, posPt + m2::PointD(texRect.SizeX(), texRect.SizeY())));
   }
 
-  void SymbolElement::draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const
+  void SymbolElement::draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const
   {
     if (!isNeedRedraw())
       return;

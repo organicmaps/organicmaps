@@ -128,7 +128,7 @@ namespace gui
     return m_boundRects;
   }
 
-  void Button::draw(graphics::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const
+  void Button::draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const
   {
     if (!isVisible())
       return;

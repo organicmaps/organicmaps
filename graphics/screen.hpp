@@ -4,17 +4,14 @@
 
 namespace graphics
 {
-  namespace gl
+  class Screen : public OverlayRenderer
   {
-    class Screen : public OverlayRenderer
-    {
-    private:
-    public:
+  private:
+  public:
 
-      typedef OverlayRenderer::Params Params;
+    typedef OverlayRenderer::Params Params;
 
-      Screen(Params const & params) : OverlayRenderer(params)
-      {}
-    };
-  }
+    Screen(Params const & params) : OverlayRenderer(params)
+    {}
+  };
 }

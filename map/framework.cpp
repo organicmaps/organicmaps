@@ -27,7 +27,7 @@
 
 #include "../coding/internal/file_data.hpp"
 
-#include "../graphics/rendercontext.hpp"
+#include "../graphics/opengl/rendercontext.hpp"
 
 #include "../geometry/angles.hpp"
 #include "../geometry/distance_on_sphere.hpp"
@@ -706,7 +706,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   ASSERT ( m_renderPolicy, () );
 
   Drawer * pDrawer = e->drawer();
-  graphics::gl::Screen * pScreen = pDrawer->screen().get();
+  graphics::Screen * pScreen = pDrawer->screen().get();
 
   pScreen->beginFrame();
 
