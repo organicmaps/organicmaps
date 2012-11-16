@@ -153,6 +153,9 @@ public class MWMApplication extends android.app.Application implements MapStorag
     return storagePath.concat(String.format("/Android/data/%s/%s/", getPackageName(), folder));
   }
 
+  /// Check if we have free space on storage (writable path).
+  public native boolean hasFreeSpace(long size);
+
   public boolean isProVersion()
   {
     return m_isProVersion;

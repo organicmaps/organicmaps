@@ -82,4 +82,10 @@ extern "C"
     bool flag = val;
     (void)Settings::Set(jni::ToNativeString(env, name), flag);
   }
+
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_MWMApplication_hasFreeSpace(JNIEnv * env, jobject thiz, jlong size)
+  {
+    return android::Platform::Instance().HasAvailableSpaceForWriting(size);
+  }
 }

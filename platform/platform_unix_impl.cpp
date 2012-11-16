@@ -31,7 +31,7 @@ bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)
   else return false;
 }
 
-Platform::TStorageStatus Platform::GetWritableStorageStatus(uint64_t neededSize)
+Platform::TStorageStatus Platform::GetWritableStorageStatus(uint64_t neededSize) const
 {
   struct statfs st;
   int const ret = statfs(m_writableDir.c_str(), &st);

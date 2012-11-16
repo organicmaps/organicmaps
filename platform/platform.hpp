@@ -96,7 +96,7 @@ public:
     STORAGE_DISCONNECTED,
     NOT_ENOUGH_SPACE
   };
-  TStorageStatus GetWritableStorageStatus(uint64_t neededSize);
+  TStorageStatus GetWritableStorageStatus(uint64_t neededSize) const;
 
   /// @name Functions for concurrent tasks.
   //@{

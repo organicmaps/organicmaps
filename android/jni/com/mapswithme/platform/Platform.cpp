@@ -92,8 +92,7 @@ namespace android
     // It stores path to current maps storage.
     m_settingsDir = jni::ToNativeString(env, storagePath);
 
-    if (!Settings::Get("StoragePath", m_writableDir) ||
-        (GetWritableStorageStatus(1024) != ::Platform::STORAGE_OK))
+    if (!Settings::Get("StoragePath", m_writableDir) || !HasAvailableSpaceForWriting(1024))
     {
       // If no saved storage path or the storage is unavailable
       // (disconnected from the last session), assign writable
@@ -123,7 +122,7 @@ namespace android
       m_tmpDir = m_localTmpPath;
   }
 
-  string Platform::GetStoragePathPrefix()
+  string Platform::GetStoragePathPrefix() const
   {
     size_t const count = m_writableDir.size();
     ASSERT_GREATER ( count, 2, () );
@@ -138,6 +137,11 @@ namespace android
   {
     m_writableDir = path;
     Settings::Set("StoragePath", m_writableDir);
+  }
+
+  bool Platform::HasAvailableSpaceForWriting(uint64_t size) const
+  {
+    return (GetWritableStorageStatus(size) == ::Platform::STORAGE_OK);
   }
 
   Platform & Platform::Instance()

@@ -8,8 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.StatFs;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -128,7 +126,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
 
     private AlertDialog.Builder m_alert;
     private DialogInterface.OnClickListener m_alertCancelHandler =
-      new DialogInterface.OnClickListener()
+        new DialogInterface.OnClickListener()
     {
       @Override
       public void onClick(DialogInterface dlg, int which)
@@ -211,10 +209,10 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
       .show();
     }
 
-    static private long getFreeSpace()
+    private boolean hasFreeSpace(long size)
     {
-      StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
-      return (long)stat.getAvailableBlocks() * (long)stat.getBlockSize();
+      MWMApplication app = (MWMApplication) m_context.getApplication();
+      return app.hasFreeSpace(size);
     }
 
     private void processCountry(int position)
@@ -256,7 +254,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
           @Override
           public void onClick(DialogInterface dlg, int which)
           {
-            if (remoteSize + MB > getFreeSpace())
+            if (!hasFreeSpace(remoteSize + MB))
               showNotEnoughFreeSpaceDialog(getSizeString(remoteSize), name);
             else
               m_storage.downloadCountry(idx);
@@ -281,7 +279,7 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
       case MapStorage.NOT_DOWNLOADED:
         // Check for available free space
         final long size = m_storage.countryRemoteSizeInBytes(idx);
-        if (size + MB > getFreeSpace())
+        if (!hasFreeSpace(size + MB))
         {
           showNotEnoughFreeSpaceDialog(getSizeString(size), name);
         }

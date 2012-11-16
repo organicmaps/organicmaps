@@ -122,7 +122,7 @@ void Platform::RunAsync(TFunctor const & fn, Priority p)
   fn();
 }
 
-Platform::TStorageStatus Platform::GetWritableStorageStatus(uint64_t neededSize)
+Platform::TStorageStatus Platform::GetWritableStorageStatus(uint64_t neededSize) const
 {
   ULARGE_INTEGER freeSpace;
   if (0 == ::GetDiskFreeSpaceExA(m_writableDir.c_str(), &freeSpace, NULL, NULL))

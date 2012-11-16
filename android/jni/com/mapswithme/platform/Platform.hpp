@@ -27,9 +27,11 @@ namespace android
     void OnExternalStorageStatusChanged(bool isAvailable);
 
     /// get storage path without ending "/MapsWithMe/"
-    string GetStoragePathPrefix();
+    string GetStoragePathPrefix() const;
     /// assign storage path (should contain ending "/MapsWithMe/")
     void SetStoragePath(string const & path);
+
+    bool HasAvailableSpaceForWriting(uint64_t size) const;
 
     static Platform & Instance();
   };
