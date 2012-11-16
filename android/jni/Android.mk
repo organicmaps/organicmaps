@@ -68,6 +68,8 @@ ifeq ($(NDK_DEBUG),1)
 else
   ifeq ($(PRODUCTION),1)
     OMIM_CONFIG := production
+    LOCAL_CFLAGS += -fvisibility=hidden
+    LOCAL_CPPFLAGS += -fvisibility-inlines-hidden
   endif
   LOCAL_CFLAGS += -O3
 endif
