@@ -2,6 +2,7 @@
 #import <OpenGLES/EAGLDrawable.h>
 
 #import "EAGLView.h"
+#import "BalloonView.h"
 
 #include "RenderBuffer.hpp"
 #include "RenderContext.hpp"
@@ -19,6 +20,8 @@
 #include "../../std/bind.hpp"
 
 @implementation EAGLView
+
+@synthesize balloonView;
 
 // You must implement this method
 + (Class)layerClass
@@ -151,6 +154,9 @@
   Framework & f = GetFramework();
   if (f.NeedRedraw())
   {
+    if (balloonView.isDisplayed)
+      [balloonView updatePosition:self atPoint:[self globalPoint2ViewPoint:balloonView.globalPosition]];
+
     f.SetNeedRedraw(false);
     f.BeginPaint(pe);
     f.DoPaint(pe);
@@ -175,6 +181,20 @@
   delete videoTimer;
   [EAGLContext setCurrentContext:nil];
   [super dealloc];
+}
+
+- (CGPoint)viewPoint2GlobalPoint:(CGPoint)pt
+{
+  CGFloat const scaleFactor = self.contentScaleFactor;
+  m2::PointD const ptG = GetFramework().PtoG(m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor));
+  return CGPointMake(ptG.x, ptG.y);
+}
+
+- (CGPoint)globalPoint2ViewPoint:(CGPoint)pt
+{
+  CGFloat const scaleFactor = self.contentScaleFactor;
+  m2::PointD const ptP = GetFramework().GtoP(m2::PointD(pt.x, pt.y));
+  return CGPointMake(ptP.x / scaleFactor, ptP.y / scaleFactor);
 }
 
 @end

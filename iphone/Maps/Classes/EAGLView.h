@@ -2,6 +2,8 @@
 
 #include "../../std/shared_ptr.hpp"
 
+@class BalloonView;
+
 class VideoTimer;
 class RenderPolicy;
 
@@ -34,6 +36,10 @@ namespace graphics
   CGRect lastViewSize;
 }
 
+@property(nonatomic, retain) BalloonView * balloonView;
+
 - (void) initRenderPolicy;
+- (CGPoint) viewPoint2GlobalPoint:(CGPoint)pt;
+- (CGPoint) globalPoint2ViewPoint:(CGPoint)pt;
 
 @end

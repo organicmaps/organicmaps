@@ -29,26 +29,6 @@
     f.Invalidate();
 }
 
-- (CGPoint) viewPoint2GlobalPoint:(CGPoint)pt
-{
-  CGFloat const scaleFactor = self.view.contentScaleFactor;
-  m2::PointD const ptG = GetFramework().PtoG(m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor));
-  return CGPointMake(ptG.x, ptG.y);
-}
-
-- (CGPoint) globalPoint2ViewPoint:(CGPoint)pt
-{
-  CGFloat const scaleFactor = self.view.contentScaleFactor;
-  m2::PointD const ptP = GetFramework().GtoP(m2::PointD(pt.x, pt.y));
-  return CGPointMake(ptP.x / scaleFactor, ptP.y / scaleFactor);
-}
-
-- (void) updateDataAfterScreenChanged
-{
-  if (m_balloonView.isDisplayed)
-    [m_balloonView updatePosition:self.view atPoint:[self globalPoint2ViewPoint:m_balloonView.globalPosition]];
-}
-
 //********************************************************************************************
 //*********************** Callbacks from LocationManager *************************************
 - (void) onLocationError:(location::TLocationError)errorCode
@@ -98,8 +78,6 @@
   }
 
   f.OnLocationUpdate(info);
-
-  [self updateDataAfterScreenChanged];
 }
 
 - (void) onCompassUpdate:(location::CompassInfo const &)info
@@ -299,7 +277,7 @@
         m_balloonView.title = [NSString stringWithUTF8String:bm->GetName().c_str()];
         m_balloonView.color = [NSString stringWithUTF8String:bm->GetType().c_str()];
         m_balloonView.setName = [NSString stringWithUTF8String:cat->GetName().c_str()];
-        [m_balloonView showInView:self.view atPoint:[self globalPoint2ViewPoint:m_balloonView.globalPosition]];
+        [m_balloonView showInView:self.view atPoint:[(EAGLView *)self.view globalPoint2ViewPoint:m_balloonView.globalPosition]];
       }
     }
   }
@@ -322,7 +300,7 @@
       {
         f.GetAddressInfo(pxClicked, addrInfo);
         // @TODO Refactor point transformation
-        m_balloonView.globalPosition = [self viewPoint2GlobalPoint:point];
+        m_balloonView.globalPosition = [(EAGLView *)self.view viewPoint2GlobalPoint:point];
         [self updatePinTexts:addrInfo];
         [m_balloonView showInView:self.view atPoint:point];
       }
@@ -334,7 +312,7 @@
 {
   m_balloonView.globalPosition = CGPointMake(pt.x, pt.y);
   [self updatePinTexts:info];
-  [m_balloonView showInView:self.view atPoint:[self globalPoint2ViewPoint:m_balloonView.globalPosition]];
+  [m_balloonView showInView:self.view atPoint:[(EAGLView *)self.view globalPoint2ViewPoint:m_balloonView.globalPosition]];
 }
 
 - (void) onSingleTap:(NSValue *)point
@@ -362,9 +340,11 @@
     // Helper to display/hide pin on screen tap
     m_balloonView = [[BalloonView alloc] initWithTarget:self andSelector:@selector(onBalloonClicked)];
 
-    /// @TODO refactor cyclic dependence.
-    /// Here we're creating view and window handle in it, and later we should pass framework to the view.
+    // @TODO refactor cyclic dependence.
+    // Here we're creating view and window handle in it, and later we should pass framework to the view.
     EAGLView * v = (EAGLView *)self.view;
+    // @TODO implement balloon view in a cross-platform code
+    v.balloonView = m_balloonView;
 
     Framework & f = GetFramework();
     
@@ -450,8 +430,6 @@ NSInteger compareAddress(id l, id r, void * context)
 	}
 
 	m_CurrentAction = NOTHING;
-
-  [self updateDataAfterScreenChanged];
 }
 
 - (void) touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
@@ -536,8 +514,6 @@ NSInteger compareAddress(id l, id r, void * context)
 	case NOTHING:
 		return;
 	}
-
-  [self updateDataAfterScreenChanged];
 }
 
 - (void) touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event
@@ -575,8 +551,6 @@ NSInteger compareAddress(id l, id r, void * context)
 
   if (touchesCount == 2 && tapCount == 1 && m_isSticking)
     f.Scale(0.5);
-
-  [self updateDataAfterScreenChanged];
 }
 
 - (void) touchesCancelled:(NSSet*)touches withEvent:(UIEvent*)event
@@ -613,8 +587,6 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
 {
   [[MapsAppDelegate theApp].m_locationManager setOrientation:self.interfaceOrientation];
-  // Update popup bookmark position
-  [self updateDataAfterScreenChanged];
   [self Invalidate];
 }
 
@@ -640,8 +612,6 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void) viewWillAppear:(BOOL)animated
 {
   [self Invalidate];
-  // Update popup bookmark position
-  [self updateDataAfterScreenChanged];
   [super viewWillAppear:animated];
 }
 
