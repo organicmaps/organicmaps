@@ -309,8 +309,8 @@
 /* Header of settings activity where user defines storage path */
 "maps_storage" = "Maps storage";
 
-/* Summary of maps storage settings */
-"maps_storage_summary" = "Select flash storage for maps on device";
+/* Detailed description of Maps Storage settings button */
+"maps_storage_summary" = "Select the place where maps should be downloaded to";
 
 /* Question dialog for transferring maps from one storage to another */
 "move_maps" = "Move maps?";
@@ -328,7 +328,7 @@
 "gps_is_disabled_long_text" = "GPS is disabled. Please enable it in Settings.";
 
 /* Measurement units title in settings activity */
-"measurement_units" = "Measurement units";
+"measurement_units" = "Measurement Units";
 
-/* Measurement units summary in settings activity */
-"measurement_units_summary" = "Select preferred distance units";
+/* Detailed description of Measurement Units settings button */
+"measurement_units_summary" = "Choose between miles and kilometres";

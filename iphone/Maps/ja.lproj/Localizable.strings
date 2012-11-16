@@ -309,8 +309,8 @@
 /* Header of settings activity where user defines storage path */
 "maps_storage" = "地図収納";
 
-/* Summary of maps storage settings */
-"maps_storage_summary" = "Select flash storage for maps on device";
+/* Detailed description of Maps Storage settings button */
+"maps_storage_summary" = "マップのダウンロード先を選択してください";
 
 /* Question dialog for transferring maps from one storage to another */
 "move_maps" = "地図を移動しますか？";
@@ -328,7 +328,7 @@
 "gps_is_disabled_long_text" = "GPSが無効です。設定画面から有効にして下さい。";
 
 /* Measurement units title in settings activity */
-"measurement_units" = "Measurement units";
+"measurement_units" = "計測単位";
 
-/* Measurement units summary in settings activity */
-"measurement_units_summary" = "Select preferred distance units";
+/* Detailed description of Measurement Units settings button */
+"measurement_units_summary" = "マイルまたはキロメートルを選択";

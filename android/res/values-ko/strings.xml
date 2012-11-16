@@ -184,6 +184,8 @@
 	<string name="settings">설정</string>
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">지도 저장소</string>
+	<!-- Detailed description of Maps Storage settings button -->
+	<string name="maps_storage_summary">지도가 다운로드될 곳을 선택합니다</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">지도를 이동합니까?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -194,4 +196,8 @@
 	<string name="bookmarks_in_pro_version">MapsWithMe의 정식 버전에서는 즐겨찾기를 이용하실 수 있습니다. 지금 바로 구입하시겠습니까?</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS가 사용 중지되었습니다. 설정에서 이를 작동시켜 주시기 바랍니다.</string>
+	<!-- Measurement units title in settings activity -->
+	<string name="measurement_units">측정 단위</string>
+	<!-- Detailed description of Measurement Units settings button -->
+	<string name="measurement_units_summary">마일과 킬로미터 중에서 선택하십시오</string>
 </resources>

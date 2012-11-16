@@ -188,6 +188,8 @@
 	<string name="settings">設定</string>
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">地図収納</string>
+	<!-- Detailed description of Maps Storage settings button -->
+	<string name="maps_storage_summary">マップのダウンロード先を選択してください</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">地図を移動しますか？</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -198,4 +200,8 @@
 	<string name="bookmarks_in_pro_version">ブックマークはMapsWithMeの完全版でご利用いただけます。いますぐ取得されますか？</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPSが無効です。設定画面から有効にして下さい。</string>
+	<!-- Measurement units title in settings activity -->
+	<string name="measurement_units">計測単位</string>
+	<!-- Detailed description of Measurement Units settings button -->
+	<string name="measurement_units_summary">マイルまたはキロメートルを選択</string>
 </resources>

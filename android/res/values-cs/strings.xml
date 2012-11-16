@@ -186,6 +186,8 @@
 	<string name="settings">Nastavení</string>
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">Úložiště map</string>
+	<!-- Detailed description of Maps Storage settings button -->
+	<string name="maps_storage_summary">Vyberte místo, kam by měly být stahovány mapy</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Chcete přesunout mapy?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -196,4 +198,8 @@
 	<string name="bookmarks_in_pro_version">V plné verzi MapsWithMe jsou k dispozici záložky. Chcete ji pořídit hned teď?</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">Navigace GPS deaktivována. Prosím povol je v Nastavení.</string>
+	<!-- Measurement units title in settings activity -->
+	<string name="measurement_units">Měřicí jednotky</string>
+	<!-- Detailed description of Measurement Units settings button -->
+	<string name="measurement_units_summary">Vyberte míle nebo kilometry</string>
 </resources>

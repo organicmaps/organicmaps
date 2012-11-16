@@ -194,6 +194,8 @@
 	<string name="settings">Instellingen</string>
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">Kaarten bewaren</string>
+	<!-- Detailed description of Maps Storage settings button -->
+	<string name="maps_storage_summary">Selecteer de map waar u de kaarten wilt opslaan</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Kaarten verplaatsen?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -204,4 +206,8 @@
 	<string name="bookmarks_in_pro_version">Bladwijzers zijn beschikbaar in de volledige versie van MapsWithMe. Wilt u die nu gelijk?</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS is uitgeschakeld. Schakel ze in bij Instellingen.</string>
+	<!-- Measurement units title in settings activity -->
+	<string name="measurement_units">Afstandseenheid</string>
+	<!-- Detailed description of Measurement Units settings button -->
+	<string name="measurement_units_summary">Kies tussen mijlen en kilometers</string>
 </resources>

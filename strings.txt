@@ -1257,10 +1257,18 @@
     cs = Úložiště map
     nl = Kaarten bewaren
   [maps_storage_summary]
-    en = Select flash storage for maps on device
+    en = Select the place where maps should be downloaded to
     tags = android
-    comment = Summary of maps storage settings
-    ru = Выбрать доступное хранилище для карт на устройстве
+    comment = Detailed description of Maps Storage settings button
+    ru = Выберите место, где будут храниться загруженные карты
+    de = Wählen Sie den Ort, wohin die Karten heruntergeladen werden sollen
+    uk = Виберіть місце, куди повинні бути завантажені карти
+    es = Seleccione el lugar donde deben descargarse los mapas
+    fr = Sélectionnez l'endroit où les cartes doivent être téléchargées
+    ja = マップのダウンロード先を選択してください
+    ko = 지도가 다운로드될 곳을 선택합니다
+    cs = Vyberte místo, kam by měly být stahovány mapy
+    nl = Selecteer de map waar u de kaarten wilt opslaan
   [move_maps]
     en = Move maps?
     tags = android
@@ -1327,12 +1335,28 @@
     cs = Navigace GPS deaktivována. Prosím povol je v Nastavení.
     nl = GPS is uitgeschakeld. Schakel ze in bij Instellingen.
   [measurement_units]
-    en = Measurement units
-    tags = all
+    en = Measurement Units
+    tags = ios, android
     comment = Measurement units title in settings activity
     ru = Единицы измерения
+    de = Maßeinheiten
+    uk = Одиниці виміру
+    es = Unidades de medida
+    fr = Unités de mesure
+    ja = 計測単位
+    ko = 측정 단위
+    cs = Měřicí jednotky 
+    nl = Afstandseenheid
   [measurement_units_summary]
-    en = Select preferred distance units
-    tags = all
-    comment = Measurement units summary in settings activity
-    ru = Выбрать единицы измерения расстояний
+    en = Choose between miles and kilometres
+    tags = ios, android
+    comment = Detailed description of Measurement Units settings button
+    ru = Использовать километры или мили
+    de = Auswahl zwischen Meilen und Kilometern
+    uk = Вибір між милями та кілометрами
+    es = Elija entre millas y kilómetros
+    fr = Choisissez entre miles et kilomètres
+    ja = マイルまたはキロメートルを選択
+    ko = 마일과 킬로미터 중에서 선택하십시오
+    cs = Vyberte míle nebo kilometry
+    nl = Kies tussen mijlen en kilometers

@@ -182,6 +182,8 @@
 	<string name="settings">Налаштування</string>
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">Пам\'ять для карт</string>
+	<!-- Detailed description of Maps Storage settings button -->
+	<string name="maps_storage_summary">Виберіть місце, куди повинні бути завантажені карти</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Перемістити карти?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -192,4 +194,8 @@
 	<string name="bookmarks_in_pro_version">Закладки доступні у повній версії MapsWithMe. Отримати просто зараз?</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS вимкнено в налаштуваннях пристрою. Будь ласка, увімкніть її для зручного використання програми.</string>
+	<!-- Measurement units title in settings activity -->
+	<string name="measurement_units">Одиниці виміру</string>
+	<!-- Detailed description of Measurement Units settings button -->
+	<string name="measurement_units_summary">Вибір між милями та кілометрами</string>
 </resources>

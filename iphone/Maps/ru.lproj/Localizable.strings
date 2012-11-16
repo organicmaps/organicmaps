@@ -309,8 +309,8 @@
 /* Header of settings activity where user defines storage path */
 "maps_storage" = "Хранилище карт";
 
-/* Summary of maps storage settings */
-"maps_storage_summary" = "Выбрать доступное хранилище для карт на устройстве";
+/* Detailed description of Maps Storage settings button */
+"maps_storage_summary" = "Выберите место, где будут храниться загруженные карты";
 
 /* Question dialog for transferring maps from one storage to another */
 "move_maps" = "Переместить карты?";
@@ -330,5 +330,5 @@
 /* Measurement units title in settings activity */
 "measurement_units" = "Единицы измерения";
 
-/* Measurement units summary in settings activity */
-"measurement_units_summary" = "Выбрать единицы измерения расстояний";
+/* Detailed description of Measurement Units settings button */
+"measurement_units_summary" = "Использовать километры или мили";

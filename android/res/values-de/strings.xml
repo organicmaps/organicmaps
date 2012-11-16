@@ -190,6 +190,8 @@
 	<string name="settings">Einstellungen</string>
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">Kartenspeicher</string>
+	<!-- Detailed description of Maps Storage settings button -->
+	<string name="maps_storage_summary">Wählen Sie den Ort, wohin die Karten heruntergeladen werden sollen</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Karten verschieben?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -200,4 +202,8 @@
 	<string name="bookmarks_in_pro_version">Lesezeichen stehen in der Vollversion von MapsWithMe zur Verfügung. Jetzt sofort besorgen?</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS ist deaktiviert. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.</string>
+	<!-- Measurement units title in settings activity -->
+	<string name="measurement_units">Maßeinheiten</string>
+	<!-- Detailed description of Measurement Units settings button -->
+	<string name="measurement_units_summary">Auswahl zwischen Meilen und Kilometern</string>
 </resources>

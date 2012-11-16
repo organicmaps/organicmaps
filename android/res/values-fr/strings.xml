@@ -182,6 +182,8 @@
 	<string name="settings">Réglages</string>
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">Sauvegarde des cartes</string>
+	<!-- Detailed description of Maps Storage settings button -->
+	<string name="maps_storage_summary">Sélectionnez l\'endroit où les cartes doivent être téléchargées</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Bouger les cartes?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -192,4 +194,8 @@
 	<string name="bookmarks_in_pro_version">Les marques-page sont disponibles dans la version complète de MapsWithMe. Se la procurer maintenant?</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS désactivé. Veuillez s\'il vous plaît la mettre en prise pour la commode utilisation du programme.</string>
+	<!-- Measurement units title in settings activity -->
+	<string name="measurement_units">Unités de mesure</string>
+	<!-- Detailed description of Measurement Units settings button -->
+	<string name="measurement_units_summary">Choisissez entre miles et kilomètres</string>
 </resources>

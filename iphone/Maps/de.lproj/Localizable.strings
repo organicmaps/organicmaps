@@ -309,8 +309,8 @@
 /* Header of settings activity where user defines storage path */
 "maps_storage" = "Kartenspeicher";
 
-/* Summary of maps storage settings */
-"maps_storage_summary" = "Select flash storage for maps on device";
+/* Detailed description of Maps Storage settings button */
+"maps_storage_summary" = "Wählen Sie den Ort, wohin die Karten heruntergeladen werden sollen";
 
 /* Question dialog for transferring maps from one storage to another */
 "move_maps" = "Karten verschieben?";
@@ -328,7 +328,7 @@
 "gps_is_disabled_long_text" = "GPS ist deaktiviert. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.";
 
 /* Measurement units title in settings activity */
-"measurement_units" = "Measurement units";
+"measurement_units" = "Maßeinheiten";
 
-/* Measurement units summary in settings activity */
-"measurement_units_summary" = "Select preferred distance units";
+/* Detailed description of Measurement Units settings button */
+"measurement_units_summary" = "Auswahl zwischen Meilen und Kilometern";

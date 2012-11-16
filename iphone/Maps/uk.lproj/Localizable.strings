@@ -309,8 +309,8 @@
 /* Header of settings activity where user defines storage path */
 "maps_storage" = "Пам'ять для карт";
 
-/* Summary of maps storage settings */
-"maps_storage_summary" = "Select flash storage for maps on device";
+/* Detailed description of Maps Storage settings button */
+"maps_storage_summary" = "Виберіть місце, куди повинні бути завантажені карти";
 
 /* Question dialog for transferring maps from one storage to another */
 "move_maps" = "Перемістити карти?";
@@ -328,7 +328,7 @@
 "gps_is_disabled_long_text" = "GPS вимкнено в налаштуваннях пристрою. Будь ласка, увімкніть її для зручного використання програми.";
 
 /* Measurement units title in settings activity */
-"measurement_units" = "Measurement units";
+"measurement_units" = "Одиниці виміру";
 
-/* Measurement units summary in settings activity */
-"measurement_units_summary" = "Select preferred distance units";
+/* Detailed description of Measurement Units settings button */
+"measurement_units_summary" = "Вибір між милями та кілометрами";
