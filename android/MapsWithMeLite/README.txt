@@ -11,3 +11,6 @@ $ ant amazon-production
 
 For LG store
 $ ant lg-production
+
+For korean TStore
+$ ant tstore-production

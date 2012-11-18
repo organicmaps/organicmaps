@@ -78,4 +78,13 @@
   <target name="lg-release" depends="-setup-lg-market, -setup-release, release"/>
   <target name="lg-debug" depends="-setup-lg-market, -setup-debug, debug"/>
 
+  <target name="-setup-tstore-market">
+    <property name="mwm.market.name" value="-tstore"/>
+    <echo file="${asset.absolute.dir}/app_info.txt" append="false" message="http://www.tstore.co.kr/userpoc/game/viewProduct.omp?insProdId=0000311760"/>
+  </target>
+
+  <target name="tstore-production" depends="-setup-tstore-market, -setup-production, production"/>
+  <target name="tstore-release" depends="-setup-tstore-market, -setup-release, release"/>
+  <target name="tstore-debug" depends="-setup-tstore-market, -setup-debug, debug"/>
+
 </project>
