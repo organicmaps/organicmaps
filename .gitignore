@@ -72,7 +72,6 @@ android/.settings
 android/.classpath
 android/.cproject
 android/.project
-android/assets
 android/local.properties
 android/ant.properties
 android/lint.xml
@@ -106,6 +105,21 @@ android/MapsWithMeLite/local.properties
 android/MapsWithMeLite/ant.properties
 # local android scripts, such as debugger helper scrips
 android/MapsWithMeLite/local
+
+# android MapsWithMeLite.Samsung
+android/MapsWithMeLite.Samsung/bin
+android/MapsWithMeLite.Samsung/gen
+android/MapsWithMeLite.Samsung/libs
+android/MapsWithMeLite.Samsung/obj
+android/MapsWithMeLite.Samsung/.settings
+android/MapsWithMeLite.Samsung/.classpath
+android/MapsWithMeLite.Samsung/.cproject
+android/MapsWithMeLite.Samsung/.project
+android/MapsWithMeLite.Samsung/assets
+android/MapsWithMeLite.Samsung/local.properties
+android/MapsWithMeLite.Samsung/ant.properties
+# local android scripts, such as debugger helper scrips
+android/MapsWithMeLite.Samsung/local
 
 # android MapsWithMePro
 android/MapsWithMePro/bin
