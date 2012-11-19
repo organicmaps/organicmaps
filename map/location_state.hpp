@@ -175,6 +175,7 @@ namespace location
     // @{
     vector<m2::AnyRectD> const & boundRects() const;
     void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
+    bool roughHitTest(m2::PointD const & pt) const;
     bool hitTest(m2::PointD const & pt) const;
     bool onTapEnded(m2::PointD const & p);
     /// @}
