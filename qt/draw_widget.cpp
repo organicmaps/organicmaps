@@ -493,11 +493,9 @@ namespace qt
 
   bool DrawWidget::Search(search::SearchParams params)
   {
-    if (m_framework->GetCurrentPosition(params.m_lat, params.m_lon))
-    {
-      //params.SetNearMeMode(true);
-      params.m_validPos = true;
-    }
+    double lat, lon;
+    if (m_framework->GetCurrentPosition(lat, lon))
+      params.SetPosition(lat, lon);
 
     return m_framework->Search(params);
   }

@@ -16,14 +16,31 @@ namespace search
   public:
     SearchParams();
 
-    void SetResetMode(bool b);
-    void SetNearMeMode(bool b);
+    /// @name Force run search without comparing with previous search params.
+    //@{
+    void SetForceSearch(bool b) { m_forceSearch = b; }
+    bool IsForceSearch() const { return m_forceSearch; }
+    //@}
+
+    /// @name Search modes.
+    //@{
+    enum SearchModeT
+    {
+      AROUND_POSITION = 1,
+      IN_VIEWPORT = 2,
+      SEARCH_WORLD = 4,
+      ALL = AROUND_POSITION | IN_VIEWPORT | SEARCH_WORLD
+    };
+
+    void SetSearchMode(int mode) { m_searchMode = mode; }
+    bool NeedSearch(SearchModeT mode) const { return ((m_searchMode & mode) != 0);}
+    //@}
+
     void SetPosition(double lat, double lon);
+    bool IsValidPosition() const { return m_validPos; }
+
     /// @param[in] language can be "fr", "en-US", "ru_RU" etc.
     void SetInputLanguage(string const & language);
-
-    bool IsResetMode() const;
-    bool IsNearMeMode() const;
     bool IsLanguageValid() const;
 
     bool IsEqualCommon(SearchParams const & rhs) const;
@@ -37,11 +54,10 @@ namespace search
     int8_t m_inputLanguageCode;
 
     double m_lat, m_lon;
-    bool m_validPos;
 
   private:
-    enum { ResetBit = 0x1, NearMeBit = 0x2 };
-    int m_mode;
+    int m_searchMode;
+    bool m_forceSearch, m_validPos;
   };
 
   string DebugPrint(SearchParams const & params);

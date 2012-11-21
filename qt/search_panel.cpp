@@ -57,6 +57,8 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
 
   setFocusPolicy(Qt::StrongFocus);
   setFocusProxy(m_pEditor);
+
+  m_params.m_callback = bind(&SearchPanel::SearchResultThreadFunc, this, _1);
 }
 
 void SearchPanel::SearchResultThreadFunc(ResultsT const & result)
@@ -180,8 +182,6 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   //if (!normalized.isEmpty())
   {
     m_params.m_query = normalized.toUtf8().constData();
-    m_params.m_callback = bind(&SearchPanel::SearchResultThreadFunc, this, _1);
-
     if (m_pDrawWidget->Search(m_params))
     {
       // show busy indicator

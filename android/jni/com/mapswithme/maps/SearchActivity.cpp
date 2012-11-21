@@ -191,7 +191,7 @@ Java_com_mapswithme_maps_SearchActivity_nativeRunSearch(
   params.m_query = jni::ToNativeString(env, s);
   params.SetInputLanguage(jni::ToNativeString(env, lang));
 
-  if (mode % 2 == 0) params.SetResetMode(true);
+  if (mode % 2 == 0) params.SetForceSearch(true);
   if (mode >= 2) params.SetPosition(lat, lon);
 
   return SearchAdapter::Instance().RunSearch(env, params, queryID);

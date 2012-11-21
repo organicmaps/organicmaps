@@ -8,25 +8,8 @@ namespace search
 
 SearchParams::SearchParams()
 : m_inputLanguageCode(StringUtf8Multilang::UNSUPPORTED_LANGUAGE_CODE),
-  m_validPos(false), m_mode(0)
+  m_searchMode(ALL), m_validPos(false)
 {
-}
-
-void SearchParams::SetResetMode(bool b)
-{
-  if (b) m_mode |= ResetBit;
-  else m_mode &= (~ResetBit);
-}
-
-bool SearchParams::IsResetMode() const
-{
-  return ((m_mode & ResetBit) != 0);
-}
-
-void SearchParams::SetNearMeMode(bool b)
-{
-  if (b) m_mode |= NearMeBit;
-  else m_mode &= (~NearMeBit);
 }
 
 void SearchParams::SetPosition(double lat, double lon)
@@ -43,12 +26,6 @@ void SearchParams::SetInputLanguage(string const & language)
 
   m_inputLanguageCode = StringUtf8Multilang::GetLangIndex(
         delimPos == string::npos ? language : language.substr(0, delimPos));
-}
-
-bool SearchParams::IsNearMeMode() const
-{
-  // this mode is valid only with correct My Position
-  return (((m_mode & NearMeBit) != 0) && m_validPos);
 }
 
 bool SearchParams::IsLanguageValid() const

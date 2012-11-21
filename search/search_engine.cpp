@@ -146,11 +146,11 @@ bool Engine::Search(SearchParams const & params, m2::RectD const & viewport)
   // There is no need to put synch here for reading m_params,
   // because this function is always called from main thread (one-by-one for queries).
 
-  if (!params.IsResetMode() &&
+  if (!params.IsForceSearch() &&
       m_params.IsEqualCommon(params) &&
       m2::IsEqual(m_viewport, viewport, epsEqualRects, epsEqualRects))
   {
-    if (!m_params.m_validPos)
+    if (!m_params.IsValidPosition())
       return false;
 
     m2::PointD const p1 = GetViewportXY(m_params.m_lat, m_params.m_lon);
@@ -222,27 +222,28 @@ void Engine::SearchAsync()
   // Initialize query.
   m_pQuery->Init();
 
-  bool worldSearch = true;
-  if (params.m_validPos)
+  // Set search viewports according to search params.
+  if (params.IsValidPosition())
   {
-    m_pQuery->SetPosition(GetViewportXY(params.m_lat, params.m_lon));
-
-    arrRects[NEARME_RECT] = GetViewportRect(params.m_lat, params.m_lon);
-
-    // Do not search in viewport for "NearMe" mode.
-    if (params.IsNearMeMode())
+    if (params.NeedSearch(SearchParams::AROUND_POSITION))
     {
-      worldSearch = false;
-      arrRects[VIEWPORT_RECT].MakeEmpty();
+      m_pQuery->SetPosition(GetViewportXY(params.m_lat, params.m_lon));
+      arrRects[NEARME_RECT] = GetViewportRect(params.m_lat, params.m_lon);
     }
-    else
-      AnalyzeRects(arrRects);
   }
   else
     m_pQuery->NullPosition();
 
+  if (!params.NeedSearch(SearchParams::IN_VIEWPORT))
+    arrRects[VIEWPORT_RECT].MakeEmpty();
+
+  if (arrRects[NEARME_RECT].IsValid() && arrRects[VIEWPORT_RECT].IsValid())
+    AnalyzeRects(arrRects);
+
   m_pQuery->SetViewport(arrRects, 2);
-  m_pQuery->SetSearchInWorld(worldSearch);
+
+  m_pQuery->SetSearchInWorld(params.NeedSearch(SearchParams::SEARCH_WORLD));
+
   if (params.IsLanguageValid())
     m_pQuery->SetInputLanguage(params.m_inputLanguageCode);
 
@@ -261,7 +262,7 @@ void Engine::SearchAsync()
     if (emptyQuery)
     {
       // Search for empty query only around viewport.
-      if (params.m_validPos)
+      if (params.IsValidPosition())
       {
         double arrR[] = { 500, 1000, 2000 };
         for (size_t i = 0; i < ARRAY_SIZE(arrR); ++i)
