@@ -7,6 +7,10 @@
     <equals arg1="${arch}" arg2="multiarch"/>
   </condition>
 
+  <condition property="ndk.buildcommand.suffix" value=".cmd" else="">
+    <os family="windows" />
+  </condition>
+
   <target name="-setup-architectures">
 
     <if condition="${build.type.multi}">
@@ -28,7 +32,7 @@
   <property name="jni.absolute.dir" location="jni" />
 
   <target name="clean" depends="android_rules.clean">
-    <exec executable="${ndk.dir}/ndk-build" failonerror="true">
+    <exec executable="${ndk.dir}/ndk-build${ndk.buildcommand.suffix}" failonerror="true">
       <arg value="clean"/>
     </exec>
   </target>
@@ -42,7 +46,7 @@
     <exec executable="touch">
       <arg value="${jni.absolute.dir}/com/mapswithme/core/jni_helper.cpp"/>
     </exec>
-    <exec executable="${ndk.dir}/ndk-build" failonerror="true">
+    <exec executable="${ndk.dir}/ndk-build${ndk.buildcommand.suffix}" failonerror="true">
       <arg value="NDK_DEBUG=0"/>
       <arg value="PRODUCTION=1"/>
       <arg value="V=1"/>
@@ -118,7 +122,7 @@
     <exec executable="touch">
       <arg value="${jni.absolute.dir}/com/mapswithme/core/jni_helper.cpp"/>
     </exec>
-    <exec executable="${ndk.dir}/ndk-build" failonerror="true">
+    <exec executable="${ndk.dir}/ndk-build${ndk.buildcommand.suffix}" failonerror="true">
       <arg value="NDK_DEBUG=0"/>
       <arg value="V=1"/>
     </exec>
@@ -135,7 +139,7 @@
     <exec executable="touch">
       <arg value="${jni.absolute.dir}/com/mapswithme/core/jni_helper.cpp"/>
     </exec>
-    <exec executable="${ndk.dir}/ndk-build" failonerror="true">
+    <exec executable="${ndk.dir}/ndk-build${ndk.buildcommand.suffix}" failonerror="true">
       <arg value="NDK_DEBUG=1"/>
       <arg value="V=1"/>
     </exec>

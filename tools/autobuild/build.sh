@@ -9,9 +9,12 @@ source "$LOCAL_DIRNAME/detect_qmake.sh"
 # Prints number of cores to stdout
 GetCPUCores() {
   case "$OSTYPE" in
+    # it's GitBash under Windows
+    msys)      echo $NUMBER_OF_PROCESSORS
+               ;;
     linux-gnu) grep -c ^processor /proc/cpuinfo 2>/dev/null
                ;;
-    darwin*) sysctl -n hw.ncpu
+    darwin*)   sysctl -n hw.ncpu
                ;;
     *)         echo "Unsupported platform in $0"
                exit 1

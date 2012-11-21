@@ -1,0 +1,28 @@
+0. Install Android SDK to the path without spaces (e.g. C:\Projects\android-sdk) with platform-tools and latest Android API
+1. Fix aapt tool in Android SDK, it's needed to create apks where some files are not compressed:
+   - Rename file android-sdk\platform-tools\aapt.exe to aapt2.exe
+   - Copy aapt.exe from repository omim/tools/android/aapt.exe to android-sdk\platform-tools\ folder
+2. Install Android NDK to the path without spaces (e.g. C:\Projects\android-ndk)
+3. Install msysgit to the path without spaces (e.g. C:\Projects\Git)
+4. Install Apache ant to the path without spaces (e.g. C:\Projects\apache-ant)
+5. Install mingw build of QT to the path without spaces (e.g. C:\Projects\Qt)
+6. Install JDK and JRE
+7. Launch GitBash console from msysgit
+8. Create symlink to 'make' binary:
+   $ ln -s /c/Qt/SDK/mingw/bin/mingw32-make.exe /bin/make
+9. Update PATH environment variable:
+   - Path to qmake for mingw build of QT
+   - Path to ant
+   $ export PATH=/c/Projects/Qt/Desktop/Qt/<version>/mingw/bin:/c/Projects/apache-ant/bin:$PATH
+10.Set JAVA_HOME environment variable to JDK location
+   $ export JAVA_HOME='C:\Program Files (x86)\Java\jdk1.6.0_37'
+11.Update symlinks to assets (this should be done when new asset is added or modified):
+   $ cd omim/tools/android
+   $ ./update_assets.sh  # or bash update_assets.sh
+12.Build omim static libraries and apk from GitBash:
+   $ cd omim/android/MapsWithMePro
+   $ ant debug
+   # You can also build release version or production version with 'ant release' or 'ant production'
+   
+Bonus: PATH and JAVA_HOME can be set automatically when launching GitBash. To do that, insert export commands from 9. and 10. to C:\Users\<Your User>\.bashrc
+You can also automatically open GitBash on the repository folder (to perform build and git tasks) by adding 'cd /c/Projects/omim' to .bashrc

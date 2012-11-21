@@ -27,6 +27,10 @@ GetNdkHost()
     echo "darwin-x86"
     return 0
   fi
-  # TODO add Windows
+  if [[ "$OSTYPE" == "msys" ]]; then
+    echo windows
+    return 0
+  fi
+  echo "ERROR: Can't detect your host OS"
   return 1
 }
