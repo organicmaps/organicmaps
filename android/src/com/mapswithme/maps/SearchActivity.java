@@ -291,7 +291,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
     super.onResume();
 
     // Reset current mode flag - start first search.
-    m_mode = 0;
+    m_flags = 0;
     m_north = -1.0;
     m_location.startUpdate(this);
 
@@ -335,17 +335,16 @@ public class SearchActivity extends ListActivity implements LocationService.List
   private double m_lon;
   private double m_north = -1.0;
 
-  /// It's should be equal to search::SearchParams::ModeT
-  /// Possible values:\n
-  /// m_mode % 2 == 0 - first search query;\n
-  /// m_mode >= 2 - position exists;\n
-  int m_mode = 0;
+  /// This constants should be equal with
+  /// Java_com_mapswithme_maps_SearchActivity_nativeRunSearch routine.
+  private static final int NOT_FIRST_QUERY = 1;
+  private static final int HAS_POSITION = 2;
+  private int m_flags = 0;
 
   @Override
   public void onLocationUpdated(long time, double lat, double lon, float accuracy)
   {
-    if (m_mode < 2)
-      m_mode += 2;
+    m_flags |= HAS_POSITION;
 
     m_lat = lat;
     m_lon = lon;
@@ -439,14 +438,14 @@ public class SearchActivity extends ListActivity implements LocationService.List
     final String s = getSearchString();
 
     final int id = m_queryID + QUERY_STEP;
-    if (nativeRunSearch(s, lang, m_lat, m_lon, m_mode, id))
+    if (nativeRunSearch(s, lang, m_lat, m_lon, m_flags, id))
     {
       // store current query
       m_queryID = id;
       //Log.d(TAG, "Current search query id =" + m_queryID);
 
       // mark that it's not the first query already
-      if (m_mode % 2 == 0) ++m_mode;
+      m_flags |= NOT_FIRST_QUERY;
 
       // set toolbar visible only for empty search string
       LinearLayout bar = getSearchToolbar();
@@ -459,14 +458,14 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
   public SearchAdapter.SearchResult getResult(int position, int queryID)
   {
-    return nativeGetResult(position, queryID, m_lat, m_lon, m_mode, m_north);
+    return nativeGetResult(position, queryID, m_lat, m_lon, (m_flags & HAS_POSITION) != 0, m_north);
   }
 
   private native void nativeInitSearch();
   private native void nativeFinishSearch();
 
   private static native SearchAdapter.SearchResult
-  nativeGetResult(int position, int queryID, double lat, double lon, int mode, double north);
+  nativeGetResult(int position, int queryID, double lat, double lon, boolean mode, double north);
 
   private native boolean nativeRunSearch(String s, String lang,
                                          double lat, double lon, int mode, int queryID);

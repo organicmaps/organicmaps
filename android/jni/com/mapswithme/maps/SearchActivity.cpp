@@ -185,14 +185,14 @@ Java_com_mapswithme_maps_SearchActivity_nativeFinishSearch(JNIEnv * env, jobject
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_SearchActivity_nativeRunSearch(
     JNIEnv * env, jobject thiz,
-    jstring s, jstring lang, jdouble lat, jdouble lon, jint mode, jint queryID)
+    jstring s, jstring lang, jdouble lat, jdouble lon, jint flags, jint queryID)
 {
   search::SearchParams params;
   params.m_query = jni::ToNativeString(env, s);
   params.SetInputLanguage(jni::ToNativeString(env, lang));
 
-  if (mode % 2 == 0) params.SetForceSearch(true);
-  if (mode >= 2) params.SetPosition(lat, lon);
+  if ((flags & 1) == 0) params.SetForceSearch(true);
+  if ((flags & 2) != 0) params.SetPosition(lat, lon);
 
   return SearchAdapter::Instance().RunSearch(env, params, queryID);
 }
@@ -206,7 +206,7 @@ Java_com_mapswithme_maps_SearchActivity_nativeShowItem(JNIEnv * env, jobject thi
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_SearchActivity_nativeGetResult(
     JNIEnv * env, jobject thiz, jint position, jint queryID,
-    jdouble lat, jdouble lon, jint mode, jdouble north)
+    jdouble lat, jdouble lon, jboolean hasPosition, jdouble north)
 {
   search::Result const * res = SearchAdapter::Instance().GetResult(position, queryID);
   if (res == 0) return 0;
@@ -223,7 +223,7 @@ Java_com_mapswithme_maps_SearchActivity_nativeGetResult(
 
     string distance;
     double azimut = -1.0;
-    if (mode >= 2)
+    if (hasPosition)
     {
       if (!g_framework->NativeFramework()->GetDistanceAndAzimut(
           res->GetFeatureCenter(), lat, lon, north, distance, azimut))
