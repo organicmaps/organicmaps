@@ -214,4 +214,10 @@
 	<string name="measurement_units">Measurement Units</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Choose between miles and kilometres</string>
+	<!-- Do search in all sources -->
+	<string name="search_mode_all">All</string>
+	<!-- Do search near my position only -->
+	<string name="search_mode_nearme">Near me</string>
+	<!-- Do search in current viewport only -->
+	<string name="search_mode_viewport">In current viewport</string>
 </resources>

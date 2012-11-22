@@ -210,4 +210,10 @@
 	<string name="measurement_units">Единицы измерения</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Использовать километры или мили</string>
+	<!-- Do search in all sources -->
+	<string name="search_mode_all">Везде</string>
+	<!-- Do search near my position only -->
+	<string name="search_mode_nearme">Около меня</string>
+	<!-- Do search in current viewport only -->
+	<string name="search_mode_viewport">В текущем экране</string>
 </resources>

@@ -229,6 +229,11 @@ public class SearchActivity extends ListActivity implements LocationService.List
     return (LinearLayout) findViewById(R.id.search_toolbar);
   }
 
+  private LinearLayout getModeToolbar()
+  {
+    return (LinearLayout) findViewById(R.id.search_mode_toolbar);
+  }
+
   private String getSearchString()
   {
     final String s = getSearchBox().getText().toString();
@@ -408,7 +413,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
     });
   }
 
-  /// @name Amenity buttons listeners
+  /// @name Amenity buttons listeners.
   //@{
   public void onSearchFood(View v) { runSearch("food "); }
   public void onSearchMoney(View v) { runSearch("money "); }
@@ -416,6 +421,13 @@ public class SearchActivity extends ListActivity implements LocationService.List
   public void onSearchShop(View v) { runSearch("shop "); }
   public void onSearchTransport(View v) { runSearch("transport "); }
   public void onSearchTourism(View v) { runSearch("tourism "); }
+  //@}
+
+  /// @name Search mode buttons listeners.
+  //@{
+  public void onSearchModeAll(View v) { runSearch(ALL); }
+  public void onSearchModeNearMe(View v) { runSearch(AROUND_POSITION); }
+  public void onSearchModeViewport(View v) { runSearch(IN_VIEWPORT); }
   //@}
 
   private void runSearch(String s)
@@ -429,6 +441,21 @@ public class SearchActivity extends ListActivity implements LocationService.List
     box.setSelection(s.length());
   }
 
+  /// @name This constants should be equal with search.params.hpp
+  //@{
+  private static final int AROUND_POSITION = 1;
+  private static final int IN_VIEWPORT = 2;
+  private static final int SEARCH_WORLD = 4;
+  private static final int ALL = AROUND_POSITION | IN_VIEWPORT | SEARCH_WORLD;
+  //@}
+  private int m_searchMode = ALL;
+
+  private void runSearch(int mode)
+  {
+    m_searchMode = mode;
+    runSearch();
+  }
+
   private void runSearch()
   {
     // TODO Need to get input language
@@ -438,7 +465,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
     final String s = getSearchString();
 
     final int id = m_queryID + QUERY_STEP;
-    if (nativeRunSearch(s, lang, m_lat, m_lon, m_flags, id))
+    if (nativeRunSearch(s, lang, m_lat, m_lon, m_flags, m_searchMode, id))
     {
       // store current query
       m_queryID = id;
@@ -448,8 +475,13 @@ public class SearchActivity extends ListActivity implements LocationService.List
       m_flags |= NOT_FIRST_QUERY;
 
       // set toolbar visible only for empty search string
+      final boolean emptyQuery = s.length() == 0;
+
       LinearLayout bar = getSearchToolbar();
-      bar.setVisibility(s.length() == 0 ? View.VISIBLE : View.GONE);
+      bar.setVisibility(emptyQuery ? View.VISIBLE : View.GONE);
+
+      bar = getModeToolbar();
+      bar.setVisibility(emptyQuery ? View.GONE : View.VISIBLE);
 
       // show search progress
       m_progress.setVisibility(View.VISIBLE);
@@ -468,6 +500,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
   nativeGetResult(int position, int queryID, double lat, double lon, boolean mode, double north);
 
   private native boolean nativeRunSearch(String s, String lang,
-                                         double lat, double lon, int mode, int queryID);
+                                         double lat, double lon, int flags,
+                                         int searchMode, int queryID);
   private static native void nativeShowItem(int position);
 }

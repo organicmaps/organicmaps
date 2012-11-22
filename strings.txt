@@ -1360,3 +1360,18 @@
     ko = 마일과 킬로미터 중에서 선택하십시오
     cs = Vyberte míle nebo kilometry
     nl = Kies tussen mijlen en kilometers
+  [search_mode_all]
+    en = All
+    tags = ios, android
+    comment = Do search in all sources
+    ru = Везде
+  [search_mode_nearme]
+    en = Near me
+    tags = ios, android
+    comment = Do search near my position only
+    ru = Около меня
+  [search_mode_viewport]
+    en = In current viewport
+    tags = ios, android
+    comment = Do search in current viewport only
+    ru = В текущем экране

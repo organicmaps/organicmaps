@@ -184,12 +184,15 @@ Java_com_mapswithme_maps_SearchActivity_nativeFinishSearch(JNIEnv * env, jobject
 
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_SearchActivity_nativeRunSearch(
-    JNIEnv * env, jobject thiz,
-    jstring s, jstring lang, jdouble lat, jdouble lon, jint flags, jint queryID)
+    JNIEnv * env, jobject thiz, jstring s, jstring lang,
+    jdouble lat, jdouble lon, jint flags, jint searchMode, jint queryID)
 {
   search::SearchParams params;
+
   params.m_query = jni::ToNativeString(env, s);
   params.SetInputLanguage(jni::ToNativeString(env, lang));
+
+  params.SetSearchMode(searchMode);
 
   if ((flags & 1) == 0) params.SetForceSearch(true);
   if ((flags & 2) != 0) params.SetPosition(lat, lon);

@@ -33,7 +33,7 @@
                   android:layout_height="wrap_content"
                   android:weightSum="6.0">
 
-        <ImageButton  android:id="@+id/search_food"
+        <ImageButton
 			                android:layout_weight="1.0"
 			                android:layout_width="wrap_content"
 			                android:layout_height="wrap_content"
@@ -41,47 +41,80 @@
 			                android:background="@drawable/ltgray_button"
 			                android:onClick="onSearchFood"/>
 
-        <ImageButton  android:id="@+id/search_money"
+        <ImageButton
 			                android:layout_weight="1.0"
 			                android:layout_width="wrap_content"
 			                android:layout_height="wrap_content"
 			                android:src="@drawable/money"
-			                android:background="@drawable/ltgray_button"			                
+			                android:background="@drawable/ltgray_button"
 			                android:onClick="onSearchMoney"/>
 
-        <ImageButton  android:id="@+id/search_fuel"
+        <ImageButton
 			                android:layout_weight="1.0"
 			                android:layout_width="wrap_content"
 			                android:layout_height="wrap_content"
 			                android:src="@drawable/fuel"
-			                android:background="@drawable/ltgray_button"			                
+			                android:background="@drawable/ltgray_button"
 			                android:onClick="onSearchFuel"/>
 
-        <ImageButton  android:id="@+id/search_shop"
+        <ImageButton
 			                android:layout_weight="1.0"
 			                android:layout_width="wrap_content"
 			                android:layout_height="wrap_content"
 			                android:src="@drawable/shop"
-			                android:background="@drawable/ltgray_button"			                
+			                android:background="@drawable/ltgray_button"
 			                android:onClick="onSearchShop"/>
 
-        <ImageButton  android:id="@+id/search_transport"
+        <ImageButton
 			                android:layout_weight="1.0"
 			                android:layout_width="wrap_content"
 			                android:layout_height="wrap_content"
 			                android:src="@drawable/transport"
-			                android:background="@drawable/ltgray_button"			                
+			                android:background="@drawable/ltgray_button"
 			                android:onClick="onSearchTransport"/>
 
-        <ImageButton  android:id="@+id/search_tourism"
+        <ImageButton
 			                android:layout_weight="1.0"
 			                android:layout_width="wrap_content"
 			                android:layout_height="wrap_content"
 			                android:src="@drawable/tourism"
-			                android:background="@drawable/ltgray_button"			                
+			                android:background="@drawable/ltgray_button"
 			                android:onClick="onSearchTourism"/>
 
     </LinearLayout>
+
+    <LinearLayout android:id="@+id/search_mode_toolbar"
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:visibility="gone"
+                  android:weightSum="3.0">
+
+        <Button
+                 android:layout_weight="1.0"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="@string/search_mode_all"
+                 android:background="@drawable/ltgray_button"
+                 android:onClick="onSearchModeAll"/>
+
+        <Button
+                 android:layout_weight="1.0"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="@string/search_mode_nearme"
+                 android:background="@drawable/ltgray_button"
+                 android:onClick="onSearchModeNearMe"/>
+
+        <Button
+                 android:layout_weight="1.0"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="@string/search_mode_viewport"
+                 android:background="@drawable/ltgray_button"
+                 android:onClick="onSearchModeViewport"/>
+
+     </LinearLayout>
 
     <ListView android:id="@android:id/list"
               android:layout_width="match_parent"
