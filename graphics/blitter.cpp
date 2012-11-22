@@ -22,16 +22,6 @@ namespace graphics
   {
   }
 
-  void Blitter::beginFrame()
-  {
-    base_t::beginFrame();
-  }
-
-  void Blitter::endFrame()
-  {
-    base_t::endFrame();
-  }
-
   void Blitter::blit(shared_ptr<gl::BaseTexture> const & srcSurface,
                      ScreenBase const & from,
                      ScreenBase const & to,

@@ -6,7 +6,7 @@
 #include "opengl/framebuffer.hpp"
 #include "opengl/storage.hpp"
 
-#include "blitter.hpp"
+#include "display_list_renderer.hpp"
 #include "skin_page.hpp"
 #include "resource_manager.hpp"
 
@@ -28,7 +28,7 @@ namespace graphics
 {
   class Skin;
 
-  class GeometryBatcher : public Blitter
+  class GeometryBatcher : public DisplayListRenderer
   {
   public:
 
@@ -36,7 +36,7 @@ namespace graphics
 
   private:
 
-    typedef Blitter base_t;
+    typedef DisplayListRenderer base_t;
 
     shared_ptr<Skin> m_skin;
 
