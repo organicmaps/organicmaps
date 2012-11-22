@@ -163,6 +163,8 @@ data/benchmarks/mac/*
 data/benchmarks/kindle-fire/*
 data/benchmarks/galaxy-s-2/*
 data/benchmarks/ipad3/*
+data/benchmarks/ipad2/*
+data/benchmarks/iphone5/*
 data/benchmarks/maps/*
 
 qtc_packaging
