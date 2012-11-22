@@ -2,7 +2,7 @@
 
 #include "opengl/storage.hpp"
 
-#include "geometry_batcher.hpp"
+#include "display_list_renderer.hpp"
 
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
@@ -30,7 +30,7 @@ namespace graphics
     m2::RectU m_texRect;
   };
 
-  class Blitter : public GeometryBatcher
+  class Blitter : public DisplayListRenderer
   {
   private:
 
@@ -38,7 +38,7 @@ namespace graphics
 
   protected:
 
-    typedef GeometryBatcher base_t;
+    typedef DisplayListRenderer base_t;
 
     void calcPoints(m2::RectI const & srcRect,
                     m2::RectU const & texRect,
@@ -51,6 +51,9 @@ namespace graphics
 
     Blitter(base_t::Params const & params);
     ~Blitter();
+
+    void beginFrame();
+    void endFrame();
 
     /// Immediate mode rendering functions.
     /// they doesn't buffer any data as other functions do, but immediately renders it
