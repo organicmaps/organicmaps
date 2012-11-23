@@ -92,24 +92,24 @@
 
         <Button
                  android:layout_weight="1.0"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
                  android:text="@string/search_mode_all"
                  android:background="@drawable/ltgray_button"
                  android:onClick="onSearchModeAll"/>
 
         <Button
                  android:layout_weight="1.0"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
                  android:text="@string/search_mode_nearme"
                  android:background="@drawable/ltgray_button"
                  android:onClick="onSearchModeNearMe"/>
 
         <Button
                  android:layout_weight="1.0"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
                  android:text="@string/search_mode_viewport"
                  android:background="@drawable/ltgray_button"
                  android:onClick="onSearchModeViewport"/>
