@@ -340,10 +340,12 @@ public class SearchActivity extends ListActivity implements LocationService.List
   private double m_lon;
   private double m_north = -1.0;
 
-  /// This constants should be equal with
+  /// @name These constants should be equal with
   /// Java_com_mapswithme_maps_SearchActivity_nativeRunSearch routine.
+  //@{
   private static final int NOT_FIRST_QUERY = 1;
   private static final int HAS_POSITION = 2;
+  //@}
   private int m_flags = 0;
 
   @Override
@@ -441,7 +443,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
     box.setSelection(s.length());
   }
 
-  /// @name This constants should be equal with search.params.hpp
+  /// @name These constants should be equal with search_params.hpp
   //@{
   private static final int AROUND_POSITION = 1;
   private static final int IN_VIEWPORT = 2;

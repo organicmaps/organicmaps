@@ -194,6 +194,8 @@ Java_com_mapswithme_maps_SearchActivity_nativeRunSearch(
 
   params.SetSearchMode(searchMode);
 
+  /// @note These magic numbers should be equal with NOT_FIRST_QUERY and HAS_POSITION
+  /// from SearchActivity.java
   if ((flags & 1) == 0) params.SetForceSearch(true);
   if ((flags & 2) != 0) params.SetPosition(lat, lon);
 
