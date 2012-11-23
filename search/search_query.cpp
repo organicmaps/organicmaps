@@ -1623,18 +1623,19 @@ void Query::SearchAllInViewport(m2::RectD const & viewport, Results & res, unsig
   }
 }
 
-void Query::SearchAdditional(Results & res)
+void Query::SearchAdditional(Results & res, bool nearMe, bool inViewport)
 {
   ClearQueues();
 
   string name[2];
 
   // search in mwm with position ...
-  if (m_position.x > empty_pos_value && m_position.y > empty_pos_value)
+  if (nearMe && m_position.x > empty_pos_value && m_position.y > empty_pos_value)
     name[0] = m_pInfoGetter->GetRegionFile(m_position);
 
   // ... and in mwm with viewport
-  name[1] = m_pInfoGetter->GetRegionFile(GetViewport().Center());
+  if (inViewport)
+    name[1] = m_pInfoGetter->GetRegionFile(GetViewport().Center());
 
   LOG(LDEBUG, ("Additional MWM search: ", name[0], name[1]));
 

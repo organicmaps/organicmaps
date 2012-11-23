@@ -85,7 +85,7 @@ public:
   void SearchCoordinates(string const & query, Results & res) const;
   void Search(Results & res);
   void SearchAllInViewport(m2::RectD const & viewport, Results & res, unsigned int resultsNeeded = 30);
-  void SearchAdditional(Results & res);
+  void SearchAdditional(Results & res, bool nearMe, bool inViewport);
   //@}
 
   void ClearCaches();

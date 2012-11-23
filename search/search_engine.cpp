@@ -293,7 +293,9 @@ void Engine::SearchAsync()
   {
     try
     {
-      m_pQuery->SearchAdditional(res);
+      m_pQuery->SearchAdditional(res,
+                                 params.NeedSearch(SearchParams::AROUND_POSITION),
+                                 params.NeedSearch(SearchParams::IN_VIEWPORT));
     }
     catch (Query::CancelException const &)
     {
