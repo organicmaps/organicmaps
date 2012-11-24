@@ -11,12 +11,8 @@ import android.util.AttributeSet;
 
 import com.mapswithme.maps.R;
 
-public class UnitLocale extends ListPreference
+public class UnitLocale
 {
-  public UnitLocale(Context context, AttributeSet attrs)
-  {
-    super(context, attrs);
-  }
 
   // / @note This constants should be equal with platform/settings.hpp
   public static final int UNITS_UNDEFINED = -1;
