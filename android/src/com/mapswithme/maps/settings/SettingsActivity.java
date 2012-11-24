@@ -11,7 +11,6 @@ import android.preference.PreferenceActivity;
 
 import com.mapswithme.maps.R;
 
-
 public class SettingsActivity extends PreferenceActivity
 {
   @Override
@@ -36,13 +35,14 @@ public class SettingsActivity extends PreferenceActivity
 
     ListPreference lPref = (ListPreference) findPreference("MeasurementUnits");
     lPref.setValue(String.valueOf(UnitLocale.getUnits()));
-    lPref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-		
-		@Override
-		public boolean onPreferenceChange(Preference preference, Object newValue) {
-			UnitLocale.setUnits(Integer.parseInt((String) newValue));
-			return true;
-		}
-	});
+    lPref.setOnPreferenceChangeListener(new OnPreferenceChangeListener()
+    {
+      @Override
+      public boolean onPreferenceChange(Preference preference, Object newValue)
+      {
+        UnitLocale.setUnits(Integer.parseInt((String) newValue));
+        return true;
+      }
+    });
   }
 }

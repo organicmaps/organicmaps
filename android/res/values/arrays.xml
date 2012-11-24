@@ -2,13 +2,12 @@
 <resources>
 
     <string-array name="measument_units">
-        <item>Kilometers</item>
-        <item>Miles</item>
+        <item>@string/kilometres</item>
+        <item>@string/miles</item>
     </string-array>
-
     <string-array name="measument_units_values">
         <item>0</item>
         <item>2</item>
     </string-array>
-    
+
 </resources>
