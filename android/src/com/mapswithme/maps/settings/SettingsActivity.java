@@ -3,7 +3,9 @@ package com.mapswithme.maps.settings;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 
@@ -17,7 +19,7 @@ public class SettingsActivity extends PreferenceActivity
   {
     super.onCreate(savedInstanceState);
 
-    addPreferencesFromResource(R.layout.preferences);
+    addPreferencesFromResource(R.xml.preferences);
 
     final Activity parent = this;
 
@@ -32,15 +34,15 @@ public class SettingsActivity extends PreferenceActivity
       }
     });
 
-    pref = findPreference("MeasurementUnits");
-    pref.setOnPreferenceClickListener(new OnPreferenceClickListener()
-    {
-      @Override
-      public boolean onPreferenceClick(Preference preference)
-      {
-        UnitLocale.showUnitsSelectDlg(parent);
-        return true;
-      }
-    });
+    ListPreference lPref = (ListPreference) findPreference("MeasurementUnits");
+    lPref.setValue(String.valueOf(UnitLocale.getUnits()));
+    lPref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+		
+		@Override
+		public boolean onPreferenceChange(Preference preference, Object newValue) {
+			UnitLocale.setUnits(Integer.parseInt((String) newValue));
+			return true;
+		}
+	});
   }
 }

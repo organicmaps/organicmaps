@@ -179,7 +179,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private void checkMeasurementSystem()
   {
-    UnitLocale.initializeCurrentUnits(this);
+    UnitLocale.initializeCurrentUnits();
   }
 
   private native void nativeScale(double k);
