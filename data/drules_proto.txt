@@ -4826,6 +4826,13 @@ cont {
       color: 0xcdcdb4
       priority: 364
     }
+    caption {
+      primary {
+        height: 10
+        color: 0x808070
+      }
+      priority: 11832
+    }
   }
   element {
     scale: 16
@@ -4876,6 +4883,20 @@ cont {
 }
 cont {
   name: "building-address"
+  element {
+    scale: 15
+    caption {
+      primary {
+        height: 10
+        color: 0x808070
+      }
+      secondary {
+        height: 10
+        color: 0x808070
+      }
+      priority: 11832
+    }
+  }
   element {
     scale: 16
     caption {
