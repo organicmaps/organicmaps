@@ -50,6 +50,7 @@ HEADERS += \
     move_screen_task.hpp \
     change_viewport_task.hpp \
     dialog_settings.hpp \
+    mwm_url.hpp \
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -91,6 +92,7 @@ SOURCES += \
     move_screen_task.cpp \
     change_viewport_task.cpp \
     dialog_settings.cpp \
+    mwm_url.cpp \
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp
