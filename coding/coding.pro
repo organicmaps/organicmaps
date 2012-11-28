@@ -30,6 +30,7 @@ SOURCES += \
     reader_writer_ops.cpp \
     blob_indexer.cpp \
     blob_storage.cpp \
+    uri.cpp \
 
 HEADERS += \
     internal/xmlparser.h \
@@ -87,3 +88,4 @@ HEADERS += \
     reader_wrapper.hpp \
     blob_indexer.hpp \
     blob_storage.hpp \
+    uri.hpp \
