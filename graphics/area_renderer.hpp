@@ -1,10 +1,10 @@
 #pragma once
 
-#include "geometry_batcher.hpp"
+#include "blitter.hpp"
 
 namespace graphics
 {
-  class AreaRenderer : public GeometryBatcher
+  class AreaRenderer : public Blitter
   {
   private:
 
@@ -14,7 +14,7 @@ namespace graphics
 
   public:
 
-    typedef GeometryBatcher base_t;
+    typedef Blitter base_t;
 
     struct Params : base_t::Params
     {
