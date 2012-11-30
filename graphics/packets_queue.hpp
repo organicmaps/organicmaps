@@ -10,6 +10,8 @@
 
 namespace graphics
 {
+  class RenderContext;
+
   struct Command
   {
   private:
@@ -17,10 +19,15 @@ namespace graphics
     bool m_isDebugging;
     string m_name;
 
+    RenderContext * m_ctx;
+
   public:
 
     bool isDebugging() const;
     void setIsDebugging(bool flag);
+
+    void setRenderContext(RenderContext * ctx);
+    RenderContext * renderContext();
 
     Command();
 

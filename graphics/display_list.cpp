@@ -1,4 +1,5 @@
 #include "display_list.hpp"
+#include "render_context.hpp"
 
 namespace graphics
 {
@@ -98,7 +99,7 @@ namespace graphics
     mv(2, 0) = 0;       mv(2, 1) = 0;       mv(2, 2) = 1; mv(2, 3) = 0;
     mv(3, 0) = m(0, 2); mv(3, 1) = m(1, 2); mv(3, 2) = 0; mv(3, 3) = m(2, 2);
 
-    r->loadMatrix(EModelView, mv);
+    r->renderContext()->setMatrix(EModelView, mv);
 
     /// drawing collected geometry
 
@@ -108,11 +109,15 @@ namespace graphics
     for (list<shared_ptr<Command> >::const_iterator it = m_commands.begin();
          it != m_commands.end();
          ++it)
+    {
+      (*it)->setRenderContext(r->renderContext());
       (*it)->perform();
+    }
 
     if (m_isDebugging)
       LOG(LINFO, ("finished DisplayList::draw"));
 
-    r->loadMatrix(EModelView, math::Identity<double, 4>());
+
+    r->renderContext()->setMatrix(EModelView, math::Identity<double, 4>());
   }
 }

@@ -3,6 +3,11 @@
 #include "../base/threaded_list.hpp"
 #include "../graphics/opengl/renderer.hpp"
 
+namespace graphics
+{
+  class RenderContext;
+}
+
 /// Mixture-class for rendering policies, used on the
 /// devices that do not support OpenGL context sharing
 class QueuedRenderer
@@ -45,9 +50,11 @@ private:
 
   bool m_IsDebugging;
 
+  shared_ptr<graphics::RenderContext> m_RenderContext;
+
 public:
 
-  QueuedRenderer(int pipelinesCount);
+  QueuedRenderer(int pipelinesCount, shared_ptr<graphics::RenderContext> const & rc);
   ~QueuedRenderer();
 
   void CopyQueuedCommands(list<graphics::Packet> & l, list<graphics::Packet> & r);

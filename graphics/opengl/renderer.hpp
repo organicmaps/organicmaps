@@ -14,6 +14,7 @@ namespace graphics
 {
   class ResourceManager;
   class RenderTarget;
+  class RenderContext;
 
   namespace gl
   {

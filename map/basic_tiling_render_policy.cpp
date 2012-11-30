@@ -48,7 +48,7 @@ BasicTilingRenderPolicy::BasicTilingRenderPolicy(Params const & p,
   LOG(LINFO, ("ScreenSize=", p.m_screenWidth, "x", p.m_screenHeight, ", TileSize=", m_TileSize));
 
   if (doUseQueuedRenderer)
-    m_QueuedRenderer.reset(new QueuedRenderer(GetPlatform().CpuCores() + 1));
+    m_QueuedRenderer.reset(new QueuedRenderer(GetPlatform().CpuCores() + 1, p.m_primaryRC));
 }
 
 void BasicTilingRenderPolicy::BeginFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)

@@ -13,6 +13,16 @@ namespace graphics
     m_isDebugging = flag;
   }
 
+  void Command::setRenderContext(RenderContext * ctx)
+  {
+    m_ctx = ctx;
+  }
+
+  RenderContext * Command::renderContext()
+  {
+    return m_ctx;
+  }
+
   Command::Command()
     : m_isDebugging(false)
   {}

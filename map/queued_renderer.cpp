@@ -2,7 +2,8 @@
 
 #include "../graphics/opengl/opengl.hpp"
 
-QueuedRenderer::QueuedRenderer(int pipelinesCount)
+QueuedRenderer::QueuedRenderer(int pipelinesCount,
+                               shared_ptr<graphics::RenderContext> const & rc)
 {
   m_Pipelines = new PacketsPipeline[pipelinesCount];
   for (int i = 0; i < pipelinesCount; ++i)
@@ -10,6 +11,7 @@ QueuedRenderer::QueuedRenderer(int pipelinesCount)
   m_PipelinesCount = pipelinesCount;
   m_CurrentPipeline = 0;
   m_ProcessSinglePipelineAtFrame = false;
+  m_RenderContext = rc;
 }
 
 QueuedRenderer::~QueuedRenderer()
@@ -99,7 +101,10 @@ bool QueuedRenderer::RenderQueuedCommands(int pipelineNum)
   {
     it = m_Pipelines[pipelineNum].m_FrameCommands.begin();
     if (it->m_command)
+    {
+      it->m_command->setRenderContext(m_RenderContext.get());
       it->m_command->setIsDebugging(m_IsDebugging);
+    }
 
     if (bucketType == graphics::Packet::ECancelPoint)
     {

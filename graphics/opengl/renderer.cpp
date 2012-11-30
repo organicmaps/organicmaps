@@ -325,7 +325,10 @@ namespace graphics
         renderQueue()->processPacket(Packet(command, type));
       else
         if (command)
+        {
+          command->setRenderContext(m_renderContext.get());
           command->perform();
+        }
     }
 
     PacketsQueue * Renderer::renderQueue()
