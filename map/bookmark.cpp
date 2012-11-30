@@ -372,7 +372,7 @@ void BookmarkCategory::SaveToKML(ostream & s)
     if (scale != -1.0)
     {
       /// @todo Factor out to separate function to use for other custom params.
-      s << "    <ExtendedData xmlns:mwm=\"http://mapswithme.com\">\n"
+      s << "    <ExtendedData xmlns:mwm=\"http://mapswith.me\">\n"
         << "      <mwm:scale>" << bm->GetScale() << "</mwm:scale>\n"
         << "    </ExtendedData>\n";
     }
