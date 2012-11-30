@@ -66,7 +66,8 @@ SOURCES += \
     data_formats.cpp \
     image_info.cpp \
     image_renderer.cpp \
-    display_list_renderer.cpp
+    display_list_renderer.cpp \
+    vertex_decl.cpp \
     render_context.cpp \
     coordinates.cpp \
     render_target.cpp \
@@ -129,7 +130,8 @@ HEADERS += \
     display_list.hpp \
     image_renderer.hpp \
     image_info.hpp \
-    display_list_renderer.hpp
+    display_list_renderer.hpp \
+    vertex_decl.hpp \
     render_context.hpp \
     coordinates.hpp \
 

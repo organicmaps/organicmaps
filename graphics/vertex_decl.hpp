@@ -16,7 +16,8 @@ namespace graphics
     size_t m_stride;
     string m_name;
 
-    VertexAttrib(size_t offset,
+    VertexAttrib(char const * name,
+                 size_t offset,
                  EDataType elemType,
                  size_t elemCount,
                  size_t stride);

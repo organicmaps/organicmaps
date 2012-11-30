@@ -2,14 +2,16 @@
 
 namespace graphics
 {
-  VertexAttrib::VertexAttrib(size_t offset,
+  VertexAttrib::VertexAttrib(char const * name,
+                             size_t offset,
                              EDataType elemType,
                              size_t elemCount,
                              size_t stride)
     : m_offset(offset),
       m_elemType(elemType),
       m_elemCount(elemCount),
-      m_stride(stride)
+      m_stride(stride),
+      m_name(name)
   {}
 
   VertexDecl::VertexDecl(VertexAttrib const * attrs, size_t cnt)
