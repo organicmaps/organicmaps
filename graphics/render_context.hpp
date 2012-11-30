@@ -7,11 +7,7 @@
 
 namespace graphics
 {
-  namespace gl
-  {
-    class Program;
-    class BaseTexture;
-  }
+  class ResourceManager;
 
   /// base class for render contexts.
   /// contains current render state data.
@@ -24,6 +20,13 @@ namespace graphics
     map<EMatrix, math::Matrix<float, 4, 4> > m_matrices;
     /// @}
 
+    unsigned m_threadSlot;
+    shared_ptr<ResourceManager> m_resourceManager;
+
+  protected:
+
+    unsigned threadSlot() const;
+
   public:
 
     /// Working with rendering states.
@@ -32,7 +35,7 @@ namespace graphics
     void setMatrix(EMatrix mt, math::Matrix<float, 4, 4> const & m);
     /// @}
 
-    /// Constructor.
+    /// Constructor
     RenderContext();
     /// Destructor.
     virtual ~RenderContext();
@@ -44,8 +47,12 @@ namespace graphics
     virtual shared_ptr<RenderContext> createShared() = 0;
     /// this function should be called from each opengl thread
     /// to setup some thread parameters.
-    virtual void startThreadDrawing() = 0;
+    virtual void startThreadDrawing(unsigned threadSlot);
     /// called at the end of thread
-    virtual void endThreadDrawing() = 0;
+    virtual void endThreadDrawing(unsigned threadSlot);
+    /// set attached resource manager
+    void setResourceManager(shared_ptr<ResourceManager> const & rm);
+    /// get the attached resource manager
+    shared_ptr<ResourceManager> const & resourceManager() const;
   };
 }

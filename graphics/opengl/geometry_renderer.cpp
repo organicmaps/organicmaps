@@ -6,7 +6,9 @@
 #include "buffer_object.hpp"
 #include "managed_texture.hpp"
 #include "vertex.hpp"
-#include "opengl/opengl.hpp"
+#include "opengl.hpp"
+#include "gl_render_context.hpp"
+#include "defines_conv.hpp"
 
 #include "../std/bind.hpp"
 #include "../base/logging.hpp"
@@ -161,9 +163,17 @@ namespace graphics
       }
 
       blitStorage.m_vertices->unlock();
-      blitStorage.m_vertices->makeCurrent();
 
-      Vertex::setupLayout(blitStorage.m_vertices->glPtr());
+      gl::RenderContext * rc = static_cast<gl::RenderContext*>(renderContext());
+      ProgramManager * pm = rc->programManager();
+      shared_ptr<Program> prg = pm->getProgram("basic", "noalphatest");
+
+      prg->setParam("ModelViewM", rc->matrix(EModelView));
+      prg->setParam("ProjM", rc->matrix(EProjection));
+      prg->setParam("Texture", 0);
+      prg->setStorage(blitStorage);
+      prg->setVertexDecl(gl::Vertex::getVertexDecl());
+      prg->makeCurrent();
 
       if (m_texture)
         m_texture->makeCurrent();
@@ -171,17 +181,14 @@ namespace graphics
       unsigned short idxData[4] = {0, 1, 2, 3};
       memcpy(blitStorage.m_indices->data(), idxData, sizeof(idxData));
       blitStorage.m_indices->unlock();
-      blitStorage.m_indices->makeCurrent();
 
-      OGLCHECK(glDisableFn(GL_ALPHA_TEST_MWM));
-      OGLCHECK(glDisableFn(GL_BLEND));
-      OGLCHECK(glDisableFn(GL_DEPTH_TEST));
+      OGLCHECK(glDisable(GL_BLEND));
+      OGLCHECK(glDisable(GL_DEPTH_TEST));
       OGLCHECK(glDepthMask(GL_FALSE));
-      OGLCHECK(glDrawElementsFn(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_SHORT, blitStorage.m_indices->glPtr()));
-      OGLCHECK(glDepthMask(GL_TRUE));
-      OGLCHECK(glEnableFn(GL_DEPTH_TEST));
-      OGLCHECK(glEnableFn(GL_BLEND));
-      OGLCHECK(glEnableFn(GL_ALPHA_TEST_MWM));
+      OGLCHECK(glDrawElements(GL_TRIANGLE_FAN,
+                              4,
+                              GL_UNSIGNED_SHORT,
+                              blitStorage.m_indices->glPtr()));
 
       blitStorage.m_vertices->discard();
       blitStorage.m_indices->discard();
@@ -194,46 +201,33 @@ namespace graphics
       if (isDebugging())
         LOG(LINFO, ("performing DrawGeometry command"));
 
-      m_storage.m_vertices->makeCurrent();
-      /// it's crucial to setupLayout after vertices->makeCurrent
-      Vertex::setupLayout(m_storage.m_vertices->glPtr());
-      m_storage.m_indices->makeCurrent();
-
       if (isDebugging())
         LOG(LINFO, ("using", m_texture->id(), "texture"));
 
       if (isDebugging())
         LOG(LINFO, ("drawing", m_indicesCount / 3, "triangles"));
 
+      gl::RenderContext * rc = static_cast<gl::RenderContext*>(renderContext());
+
+      shared_ptr<Program> const & prg = rc->program();
+
+      prg->setStorage(m_storage);
+      prg->setVertexDecl(Vertex::getVertexDecl());
+      prg->makeCurrent();
+
       if (m_texture)
         m_texture->makeCurrent();
       else
         LOG(LINFO, ("null texture used in DrawGeometry"));
 
-//      OGLCHECK(glPolygonMode( GL_FRONT_AND_BACK, GL_LINE ));
-
       unsigned glPrimType;
+      convert(m_primitiveType, glPrimType);
 
-      switch (m_primitiveType)
-      {
-      case ETrianglesFan:
-        glPrimType = GL_TRIANGLE_FAN;
-        break;
-      case ETriangles:
-        glPrimType = GL_TRIANGLES;
-        break;
-      case ETrianglesStrip:
-        glPrimType = GL_TRIANGLE_STRIP;
-        break;
-      };
-
-      OGLCHECK(glDrawElementsFn(
+      OGLCHECK(glDrawElements(
         glPrimType,
         m_indicesCount,
         GL_UNSIGNED_SHORT,
         ((unsigned char*)m_storage.m_indices->glPtr()) + m_indicesOffs));
-
-//      OGLCHECK(glPolygonMode( GL_FRONT_AND_BACK, GL_FILL ));
     }
 
     void GeometryRenderer::DrawGeometry::dump()
@@ -386,20 +380,17 @@ namespace graphics
         LOG(LINFO, ("performing ApplyStates command"));
 
       // Disable dither to fix 4-bit textures "grid" issue on Nvidia Tegra cards
-      OGLCHECK(glDisableFn(GL_DITHER));
+      OGLCHECK(glDisable(GL_DITHER));
 
       OGLCHECK(glActiveTexture(GL_TEXTURE0));
 
       OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
       OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 
-      OGLCHECK(glEnableFn(GL_DEPTH_TEST));
+      OGLCHECK(glEnable(GL_DEPTH_TEST));
       OGLCHECK(glDepthFunc(GL_LEQUAL));
 
-      OGLCHECK(glEnableFn(GL_ALPHA_TEST_MWM));
-      OGLCHECK(glAlphaFuncFn(GL_NOTEQUAL, 0.0));
-
-      OGLCHECK(glEnableFn(GL_BLEND));
+      OGLCHECK(glEnable(GL_BLEND));
       OGLCHECK(glDepthMask(GL_TRUE));
 
       if (graphics::gl::g_isSeparateBlendFuncSupported)
@@ -411,11 +402,16 @@ namespace graphics
         OGLCHECK(glBlendFunc(GL_SRC_ALPHA,
                              GL_ONE_MINUS_SRC_ALPHA));
 
-    }
+      /// Applying program
+      gl::RenderContext * rc = static_cast<gl::RenderContext*>(renderContext());
+      ProgramManager * pm = rc->programManager();
+      shared_ptr<Program> prg = pm->getProgram("basic", "alphatest");
 
-    void GeometryRenderer::ApplyStates::cancel()
-    {
-      perform();
+      prg->setParam("ModelViewM", rc->matrix(EModelView));
+      prg->setParam("ProjM", rc->matrix(EProjection));
+      prg->setParam("Texture", 0);
+
+      rc->setProgram(prg);
     }
 
     void GeometryRenderer::applyStates()
@@ -428,15 +424,19 @@ namespace graphics
       if (isDebugging())
         LOG(LINFO, ("performing ApplyBlitStates command"));
 
-      OGLCHECK(glDisableFn(GL_ALPHA_TEST_MWM));
-      OGLCHECK(glDisableFn(GL_BLEND));
-      OGLCHECK(glDisableFn(GL_DEPTH_TEST));
+      OGLCHECK(glDisable(GL_DEPTH_TEST));
       OGLCHECK(glDepthMask(GL_FALSE));
-    }
 
-    void GeometryRenderer::ApplyBlitStates::cancel()
-    {
-      perform();
+      /// Applying program
+      gl::RenderContext * rc = static_cast<gl::RenderContext*>(renderContext());
+      ProgramManager * pm = rc->programManager();
+      shared_ptr<Program> prg = pm->getProgram("basic", "noalphatest");
+
+      prg->setParam("ModelViewM", rc->matrix(EModelView));
+      prg->setParam("ProjM", rc->matrix(EProjection));
+      prg->setParam("Texture", 0);
+
+      rc->setProgram(prg);
     }
 
     void GeometryRenderer::applyBlitStates()
@@ -444,12 +444,49 @@ namespace graphics
       processCommand(make_shared_ptr(new ApplyBlitStates()));
     }
 
-    void GeometryRenderer::loadMatrix(EMatrix mt,
-                                      math::Matrix<float, 4, 4> const & m)
+    void GeometryRenderer::ApplySharpStates::perform()
     {
-      OGLCHECK(glMatrixModeFn(GL_MODELVIEW_MWM));
-      OGLCHECK(glLoadIdentityFn());
-      OGLCHECK(glLoadMatrixfFn(&m(0, 0)));
+      if (isDebugging())
+        LOG(LINFO, ("performing ApplySharpStates command"));
+
+      // Disable dither to fix 4-bit textures "grid" issue on Nvidia Tegra cards
+      OGLCHECK(glDisable(GL_DITHER));
+
+      OGLCHECK(glActiveTexture(GL_TEXTURE0));
+
+      OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+      OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+
+      OGLCHECK(glEnable(GL_DEPTH_TEST));
+      OGLCHECK(glDepthFunc(GL_LEQUAL));
+
+      OGLCHECK(glEnable(GL_BLEND));
+      OGLCHECK(glDepthMask(GL_TRUE));
+
+      if (graphics::gl::g_isSeparateBlendFuncSupported)
+        OGLCHECK(glBlendFuncSeparateFn(GL_SRC_ALPHA,
+                                       GL_ONE_MINUS_SRC_ALPHA,
+                                       GL_ZERO,
+                                       GL_ONE));
+      else
+        OGLCHECK(glBlendFunc(GL_SRC_ALPHA,
+                             GL_ONE_MINUS_SRC_ALPHA));
+
+      /// Applying program
+      gl::RenderContext * rc = static_cast<gl::RenderContext*>(renderContext());
+      ProgramManager * pm = rc->programManager();
+      shared_ptr<Program> prg = pm->getProgram("sharp", "alphatest");
+
+      prg->setParam("ModelViewM", rc->matrix(EModelView));
+      prg->setParam("ProjM", rc->matrix(EProjection));
+      prg->setParam("Texture", 0);
+
+      rc->setProgram(prg);
+    }
+
+    void GeometryRenderer::applySharpStates()
+    {
+      processCommand(make_shared_ptr(new ApplySharpStates()));
     }
   }
 }

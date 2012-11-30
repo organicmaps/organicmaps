@@ -8,6 +8,7 @@
 #include "opengl/base_texture.hpp"
 #include "opengl/utils.hpp"
 #include "opengl/opengl.hpp"
+#include "opengl/gl_render_context.hpp"
 
 #include "../geometry/rect2d.hpp"
 
@@ -801,12 +802,6 @@ namespace graphics
     base_t::drawDisplayList(dl, m);
   }
 
-  void GeometryBatcher::setPixelPrecision(bool flag)
-  {
-    flush(-1);
-    base_t::setPixelPrecision(flag);
-  }
-
   void GeometryBatcher::uploadStyles(shared_ptr<ResourceStyle> const * styles,
                                      size_t count,
                                      shared_ptr<gl::BaseTexture> const & texture)
@@ -840,5 +835,23 @@ namespace graphics
       base_t::uploadStyles(styles, count, texture);
       bytesUploaded = 0;
     }
+  }
+
+  void GeometryBatcher::applyStates()
+  {
+    flush(-1);
+    base_t::applyStates();
+  }
+
+  void GeometryBatcher::applyBlitStates()
+  {
+    flush(-1);
+    base_t::applyBlitStates();
+  }
+
+  void GeometryBatcher::applySharpStates()
+  {
+    flush(-1);
+    base_t::applySharpStates();
   }
 } // namespace graphics

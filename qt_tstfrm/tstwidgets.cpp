@@ -42,7 +42,7 @@ void GLDrawWidget::initializeGL()
 
   m_primaryContext = make_shared_ptr(new qt::gl::RenderContext(this));
 
-  m_primaryContext->startThreadDrawing();
+  m_primaryContext->startThreadDrawing(0);
 
   graphics::ResourceManager::Params rmp;
 

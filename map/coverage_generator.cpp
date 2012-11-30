@@ -41,9 +41,6 @@ CoverageGenerator::CoverageGenerator(
   if (!m_glQueue)
     m_renderContext = primaryRC->createShared();
 
-  m_workCoverage = CreateCoverage();
-  m_currentCoverage = CreateCoverage();
-
   m_queue.AddInitCommand(bind(&CoverageGenerator::InitializeThreadGL, this));
   m_queue.AddFinCommand(bind(&CoverageGenerator::FinalizeThreadGL, this));
 
@@ -73,13 +70,19 @@ ScreenCoverage * CoverageGenerator::CreateCoverage()
 void CoverageGenerator::InitializeThreadGL()
 {
   if (m_renderContext)
+  {
     m_renderContext->makeCurrent();
+    m_renderContext->startThreadDrawing(m_resourceManager->cacheThreadSlot());
+  }
+
+  m_workCoverage = CreateCoverage();
+  m_currentCoverage = CreateCoverage();
 }
 
 void CoverageGenerator::FinalizeThreadGL()
 {
   if (m_renderContext)
-    m_renderContext->endThreadDrawing();
+    m_renderContext->endThreadDrawing(m_resourceManager->cacheThreadSlot());
 }
 
 CoverageGenerator::~CoverageGenerator()

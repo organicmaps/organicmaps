@@ -21,6 +21,7 @@ namespace graphics
     class FrameBuffer;
     class RenderBuffer;
     class BaseTexture;
+    class Program;
 
     class Renderer
     {
@@ -184,8 +185,8 @@ namespace graphics
       void setEnvironment(core::CommandsQueue::Environment const * env);
       bool isCancelled() const;
 
-      void setPixelPrecision(bool flag);
-
+      void setProgram(shared_ptr<Program> const & prg);
+      shared_ptr<Program> const & program() const;
 
       RenderContext * renderContext() const;
 

@@ -34,6 +34,12 @@ namespace graphics
     m_commands.clear();
   }
 
+  void DisplayList::applySharpStates(shared_ptr<ApplySharpStatesCmd> const & cmd)
+  {
+    cmd->setIsDebugging(m_isDebugging);
+    m_commands.push_back(cmd);
+  }
+
   void DisplayList::applyBlitStates(shared_ptr<ApplyBlitStatesCmd> const & cmd)
   {
     cmd->setIsDebugging(m_isDebugging);

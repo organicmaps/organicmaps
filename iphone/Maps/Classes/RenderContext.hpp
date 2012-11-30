@@ -35,8 +35,6 @@ namespace iphone
 		void makeCurrent();
 		/// create a shared render context
 		shared_ptr<graphics::RenderContext> createShared();
-    /// @TODO
-    void endThreadDrawing() {}
 
   	EAGLContext * getEAGLContext();
   };

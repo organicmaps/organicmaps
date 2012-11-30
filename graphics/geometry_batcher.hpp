@@ -212,10 +212,13 @@ namespace graphics
 
     void setDisplayList(DisplayList * dl);
     void drawDisplayList(DisplayList * dl, math::Matrix<double, 3, 3> const & m);
-    void setPixelPrecision(bool flag);
 
     void uploadStyles(shared_ptr<ResourceStyle> const * styles,
                       size_t count,
                       shared_ptr<gl::BaseTexture> const & texture);
+
+    void applyStates();
+    void applyBlitStates();
+    void applySharpStates();
   };
 }

@@ -157,7 +157,10 @@ namespace graphics
                                     m2::RectF const & texRect,
                                     shared_ptr<gl::BaseTexture> const & texture)
   {
-    shared_ptr<IMMDrawTexturedRect> command(new IMMDrawTexturedRect(rect, texRect, texture, resourceManager()));
+    shared_ptr<IMMDrawTexturedRect> command(new IMMDrawTexturedRect(rect,
+                                                                    texRect,
+                                                                    texture,
+                                                                    resourceManager()));
     processCommand(command);
   }
 

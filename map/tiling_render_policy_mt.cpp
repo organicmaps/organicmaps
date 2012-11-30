@@ -2,6 +2,7 @@
 
 #include "../platform/platform.hpp"
 
+#include "../graphics/render_context.hpp"
 #include "../graphics/skin.hpp"
 
 #include "window_handle.hpp"
@@ -126,6 +127,9 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
   rmp.fitIntoLimits();
 
   m_resourceManager.reset(new graphics::ResourceManager(rmp));
+
+  m_primaryRC->setResourceManager(m_resourceManager);
+  m_primaryRC->startThreadDrawing(m_resourceManager->guiThreadSlot());
 
   Platform::FilesList fonts;
   GetPlatform().GetFontNames(fonts);

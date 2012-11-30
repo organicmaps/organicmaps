@@ -11,12 +11,13 @@ namespace android
 {
   void RenderContext::makeCurrent()
   {
-    startThreadDrawing();
   }
 
   shared_ptr<graphics::RenderContext> RenderContext::createShared()
   {
-    return make_shared_ptr(new RenderContext());
+    shared_ptr<RenderContext> rc(new RenderContext());
+    rc->setResourceManager(resourceManager());
+    return rc;
   }
 }
 

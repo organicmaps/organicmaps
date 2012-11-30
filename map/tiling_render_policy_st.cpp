@@ -4,6 +4,7 @@
 
 #include "../graphics/opengl/opengl.hpp"
 #include "../graphics/skin.hpp"
+#include "../graphics/render_context.hpp"
 
 #include "window_handle.hpp"
 #include "queued_renderer.hpp"
@@ -124,14 +125,15 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
   rmp.m_threadSlotsCount = cpuCores + 2;
   rmp.m_renderThreadsCount = cpuCores;
 
-//  delete [] debuggingFlags;
-
   rmp.m_useSingleThreadedOGL = true;
   rmp.fitIntoLimits();
 
   m_maxTilesCount = rmp.m_renderTargetTexturesParams.m_texCount;
 
   m_resourceManager.reset(new graphics::ResourceManager(rmp));
+
+  m_primaryRC->setResourceManager(m_resourceManager);
+  m_primaryRC->startThreadDrawing(m_resourceManager->guiThreadSlot());
 
   m_QueuedRenderer->SetSinglePipelineProcessing(m_resourceManager->useReadPixelsToSynchronize());
 

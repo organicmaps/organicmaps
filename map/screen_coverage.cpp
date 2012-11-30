@@ -215,12 +215,14 @@ bool ScreenCoverage::Cache(core::CommandsQueue::Environment const & env)
   vector<shared_ptr<graphics::OverlayElement> > sharpElements;
   m_overlay->forEach(bind(&FilterElementsBySharpness, _1, ref(sharpElements), true));
 
+  m_cacheScreen->applySharpStates();
   m_cacheScreen->setDisplayList(m_sharpTextDL.get());
 
   for (unsigned i = 0; i < sharpElements.size(); ++i)
     sharpElements[i]->draw(m_cacheScreen.get(), idM);
 
   m_cacheScreen->setDisplayList(0);
+  m_cacheScreen->applyStates();
 
   m_cacheScreen->endFrame();
 
@@ -419,12 +421,10 @@ void ScreenCoverage::Draw(graphics::Screen * s, ScreenBase const & screen)
   if (m_primaryDL)
     s->drawDisplayList(m_primaryDL.get(), m);
 
-  s->setPixelPrecision(true);
-
   if (m_sharpTextDL)
     s->drawDisplayList(m_sharpTextDL.get(), m);
 
-  s->setPixelPrecision(false);
+
 }
 
 shared_ptr<graphics::Overlay> const & ScreenCoverage::GetOverlay() const

@@ -39,6 +39,18 @@ namespace graphics
         void dump();
       };
 
+      struct DrawGeometry : Command
+      {
+        shared_ptr<BaseTexture> m_texture;
+        Storage m_storage;
+        size_t m_indicesCount;
+        size_t m_indicesOffs;
+        EPrimitives m_primitiveType;
+
+        void perform();
+        void dump();
+      };
+
       struct IMMDrawTexturedPrimitives : Command
       {
         buffer_vector<m2::PointF, 8> m_pts;
@@ -48,7 +60,6 @@ namespace graphics
         bool m_hasTexture;
         graphics::Color m_color;
         bool m_hasColor;
-
         shared_ptr<ResourceManager> m_resourceManager;
 
         void perform();
@@ -60,18 +71,6 @@ namespace graphics
                             m2::RectF const & texRect,
                             shared_ptr<BaseTexture> const & texture,
                             shared_ptr<ResourceManager> const & rm);
-      };
-
-      struct DrawGeometry : Command
-      {
-        shared_ptr<BaseTexture> m_texture;
-        Storage m_storage;
-        size_t m_indicesCount;
-        size_t m_indicesOffs;
-        EPrimitives m_primitiveType;
-
-        void perform();
-        void dump();
       };
 
       struct FreeStorage : public Command
@@ -109,22 +108,22 @@ namespace graphics
         void cancel();
       };
 
+      struct ApplySharpStates : public Command
+      {
+        void perform();
+      };
+
       struct ApplyStates : public Command
       {
         void perform();
-        void cancel();
       };
 
       struct ApplyBlitStates : public Command
       {
         void perform();
-        void cancel();
       };
 
       GeometryRenderer(base_t::Params const & params);
-
-      void applyBlitStates();
-      void applyStates();
 
       void drawGeometry(shared_ptr<BaseTexture> const & texture,
                         Storage const & storage,
@@ -141,9 +140,9 @@ namespace graphics
       void unlockStorage(Storage const & storage);
       void discardStorage(Storage const & storage);
 
-      /// setup rendering matrix
-      void loadMatrix(EMatrix mt,
-                      math::Matrix<float, 4, 4> const & m);
+      void applySharpStates();
+      void applyBlitStates();
+      void applyStates();
     };
   }
 }

@@ -6,6 +6,7 @@
 #include "../graphics/overlay.hpp"
 #include "../graphics/opengl/opengl.hpp"
 #include "../graphics/skin.hpp"
+#include "../graphics/render_context.hpp"
 
 #include "../indexer/scales.hpp"
 #include "../geometry/screenbase.hpp"
@@ -91,6 +92,9 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
   rmp.fitIntoLimits();
 
   m_resourceManager.reset(new graphics::ResourceManager(rmp));
+
+  m_primaryRC->setResourceManager(m_resourceManager);
+  m_primaryRC->startThreadDrawing(m_resourceManager->guiThreadSlot());
 
   Platform::FilesList fonts;
   GetPlatform().GetFontNames(fonts);

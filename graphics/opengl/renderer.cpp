@@ -1,4 +1,6 @@
-#include "../base/logging.hpp"
+#include "../../base/logging.hpp"
+
+#include "../resource_manager.hpp"
 #include "../render_context.hpp"
 #include "../coordinates.hpp"
 
@@ -7,7 +9,7 @@
 #include "utils.hpp"
 #include "framebuffer.hpp"
 #include "renderbuffer.hpp"
-#include "resource_manager.hpp"
+#include "program.hpp"
 #include "opengl.hpp"
 
 namespace graphics
@@ -81,8 +83,6 @@ namespace graphics
         processCommand(make_shared_ptr(new ChangeMatrix(EProjection, coordM)));
         processCommand(make_shared_ptr(new ChangeMatrix(EModelView, math::Identity<float, 4>())));
       }
-
-//      checkStatus();
     }
 
     bool Renderer::isRendering() const
@@ -367,9 +367,6 @@ namespace graphics
         return false;
     }
 
-    void Renderer::setPixelPrecision(bool flag)
-    {
-      glUseSharpGeometryFn(flag);
     RenderContext * Renderer::renderContext() const
     {
       return m_renderContext.get();

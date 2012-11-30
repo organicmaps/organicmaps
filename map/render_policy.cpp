@@ -44,8 +44,6 @@ RenderPolicy::RenderPolicy(Params const & p,
   graphics::gl::InitExtensions();
   graphics::gl::InitializeThread();
   graphics::gl::CheckExtensionSupport();
-
-  m_primaryRC->startThreadDrawing();
 }
 
 void RenderPolicy::InitCacheScreen()
@@ -57,6 +55,7 @@ void RenderPolicy::InitCacheScreen()
   cp.m_useGuiResources = true;
   cp.m_isSynchronized = false;
   cp.m_resourceManager = m_resourceManager;
+  cp.m_renderContext = m_primaryRC;
 
   m_cacheScreen = make_shared_ptr(new graphics::Screen(cp));
 

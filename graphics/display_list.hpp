@@ -16,6 +16,7 @@ namespace graphics
     typedef gl::GeometryRenderer::FreeStorage FreeStorageCmd;
     typedef gl::GeometryRenderer::ApplyBlitStates ApplyBlitStatesCmd;
     typedef gl::GeometryRenderer::ApplyStates ApplyStatesCmd;
+    typedef gl::GeometryRenderer::ApplySharpStates ApplySharpStatesCmd;
     typedef gl::GeometryRenderer::UploadData UploadDataCmd;
 
     list<shared_ptr<Command> > m_commands;
@@ -37,6 +38,7 @@ namespace graphics
 
     void applyStates(shared_ptr<ApplyStatesCmd> const & cmd);
     void applyBlitStates(shared_ptr<ApplyBlitStatesCmd> const & cmd);
+    void applySharpStates(shared_ptr<ApplySharpStatesCmd> const & cmd);
     void drawGeometry(shared_ptr<DrawGeometryCmd> const & cmd);
     void unlockStorage(shared_ptr<UnlockStorageCmd> const & cmd);
     void discardStorage(shared_ptr<DiscardStorageCmd> const & cmd);

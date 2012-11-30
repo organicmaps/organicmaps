@@ -149,6 +149,14 @@ namespace graphics
       base_t::applyStates();
   }
 
+  void DisplayListRenderer::applySharpStates()
+  {
+    if (m_displayList)
+      m_displayList->applySharpStates(make_shared_ptr(new ApplySharpStates()));
+    else
+      base_t::applySharpStates();
+  }
+
   void DisplayListRenderer::addCheckPoint()
   {
     if (m_displayList)

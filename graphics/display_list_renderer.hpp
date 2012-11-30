@@ -59,7 +59,8 @@ namespace graphics
     void applyBlitStates();
     /// apply geometry rendering states
     void applyStates();
-
+    /// apply sharp geometry states
+    void applySharpStates();
     /// @}
   };
 }

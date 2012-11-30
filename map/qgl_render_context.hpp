@@ -33,7 +33,7 @@ namespace qt
       shared_ptr<graphics::RenderContext> createShared();
 
       /// Leave previous logic, but fix thread widget deletion error.
-      void endThreadDrawing();
+      void endThreadDrawing(unsigned threadSlot);
 
       shared_ptr<QGLContext> context() const;
     };
