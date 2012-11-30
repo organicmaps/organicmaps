@@ -13,15 +13,6 @@ namespace graphics
 {
   namespace gl
   {
-    list<unsigned int> frameBufferStack;
-
-    unsigned FrameBuffer::current()
-    {
-      int id;
-      OGLCHECK(glGetIntegerv(GL_FRAMEBUFFER_BINDING_MWM, &id));
-      return id;
-    }
-
     FrameBuffer::FrameBuffer(bool defaultFB /*= false*/) : m_width(0), m_height(0)
     {
       if (defaultFB)
@@ -38,10 +29,7 @@ namespace graphics
 
     void FrameBuffer::makeCurrent()
     {
-#ifndef OMIM_OS_ANDROID
-      if (m_id != current())
-#endif
-        OGLCHECK(glBindFramebufferFn(GL_FRAMEBUFFER_MWM, m_id));
+      OGLCHECK(glBindFramebufferFn(GL_FRAMEBUFFER_MWM, m_id));
 
       if (m_depthBuffer)
         m_depthBuffer->attachToFrameBuffer();

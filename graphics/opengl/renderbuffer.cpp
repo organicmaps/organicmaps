@@ -12,15 +12,6 @@ namespace graphics
 {
   namespace gl
   {
-    list<unsigned int> renderBufferStack;
-
-    int RenderBuffer::current()
-    {
-      int id;
-      OGLCHECK(glGetIntegerv(GL_RENDERBUFFER_BINDING_MWM, &id));
-      return id;
-    }
-
     RenderBuffer::RenderBuffer(size_t width, size_t height, bool isDepthBuffer)
       : m_id(0), m_isDepthBuffer(isDepthBuffer), m_width(width), m_height(height)
     {
@@ -73,10 +64,7 @@ namespace graphics
 
     void RenderBuffer::makeCurrent() const
     {
-#ifndef OMIM_OS_ANDROID
-      if (m_id != current())
-#endif
-        OGLCHECK(glBindRenderbufferFn(GL_RENDERBUFFER_MWM, m_id));
+      OGLCHECK(glBindRenderbufferFn(GL_RENDERBUFFER_MWM, m_id));
     }
 
     bool RenderBuffer::isDepthBuffer() const
