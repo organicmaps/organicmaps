@@ -20,12 +20,12 @@ SOURCES += \
     opengl/base_texture.cpp \
     opengl/managed_texture.cpp \
     opengl/renderer.cpp \
-    opengl/rendercontext.cpp \
     opengl/vertex.cpp \
     opengl/clipper.cpp \
     opengl/geometry_renderer.cpp \
+    opengl/defines_conv.cpp \
+    opengl/gl_render_context.cpp \
     opengl/storage.cpp \
-    opengl/utils.cpp \
     blitter.cpp \
     resource_manager.cpp \
     skin.cpp \
@@ -81,7 +81,7 @@ HEADERS += \
     opengl/geometry_renderer.hpp \
     opengl/data_traits.hpp \
     opengl/storage.hpp \
-    opengl/utils.hpp \
+    opengl/defines_conv.hpp \
     blitter.hpp \
     resource_manager.hpp \
     skin.hpp \
@@ -126,11 +126,9 @@ HEADERS += \
 win32* {
   SOURCES += opengl/opengl_win32.cpp
 } else: android*|iphone* {
-  HEADERS += opengl/opengl_glsl_impl.hpp
-  SOURCES += opengl/opengl_glsl_es2.cpp \
-             opengl/opengl_glsl_impl.cpp
+  HEADERS +=
+  SOURCES += opengl/opengl_es2.cpp
 } else {
-  HEADERS += opengl/opengl_glsl_impl.hpp
-  SOURCES += opengl/opengl_glsl_ext.cpp \
-             opengl/opengl_glsl_impl.cpp
+  HEADERS +=
+  SOURCES += opengl/opengl_ext.cpp
 }

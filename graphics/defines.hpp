@@ -4,6 +4,19 @@ namespace graphics
 {
   static const int maxDepth = 20000;
 
+  enum EShaderType
+  {
+    EVertexShader,
+    EFragmentShader
+  };
+
+  enum EDataType
+  {
+    EFloat,
+    EUnsigned,
+    EInteger
+  };
+
   enum EPrimitives
   {
     ETriangles,
@@ -15,6 +28,11 @@ namespace graphics
   {
     EModelView,
     EProjection
+  };
+
+  enum EDepthFunc
+  {
+    ELessEqual
   };
 
   enum EPosition
