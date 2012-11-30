@@ -1,6 +1,7 @@
 #include "vertex.hpp"
-
 #include "opengl.hpp"
+
+#include "../base/macros.hpp"
 
 namespace graphics
 {
@@ -38,16 +39,17 @@ namespace graphics
       return *this;
     }
 
-    void Vertex::setupLayout(void * glPtr)
+    VertexDecl const * Vertex::getVertexDecl()
     {
-      OGLCHECK(glEnableClientStateFn(GL_VERTEX_ARRAY_MWM));
-      OGLCHECK(glVertexPointerFn(3, GL_FLOAT, sizeof(Vertex), (void*)((char*)glPtr + Vertex::vertexOffset)));
+      static VertexAttrib attrs [] =
+      {
+        VertexAttrib("Position", vertexOffset, EFloat, 3, sizeof(Vertex)),
+        VertexAttrib("Normal", normalOffset, EFloat, 2, sizeof(Vertex)),
+        VertexAttrib("TexCoordIn", texCoordOffset, EFloat, 2, sizeof(Vertex))
+      };
 
-      OGLCHECK(glEnableClientStateFn(GL_NORMAL_ARRAY_MWM));
-      OGLCHECK(glNormalPointerFn(2, GL_FLOAT, sizeof(Vertex), (void*)((char*)glPtr + Vertex::normalOffset)));
-
-      OGLCHECK(glEnableClientStateFn(GL_TEXTURE_COORD_ARRAY_MWM));
-      OGLCHECK(glTexCoordPointerFn(2, GL_FLOAT, sizeof(Vertex), (void*)((char*)glPtr + Vertex::texCoordOffset)));
+      static VertexDecl vd(attrs, ARRAY_SIZE(attrs));
+      return &vd;
     }
   }
 }

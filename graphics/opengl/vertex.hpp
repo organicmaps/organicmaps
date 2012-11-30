@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../color.hpp"
+#include "../vertex_decl.hpp"
 
 #include "../../geometry/point2d.hpp"
 
@@ -27,6 +28,8 @@ namespace graphics
              m2::PointF const & _tex = m2::PointF());
       Vertex(Vertex const & v);
       Vertex const & operator=(Vertex const & v);
+
+      static VertexDecl const * getVertexDecl();
 
       static void setupLayout(void * glPtr);
     };
