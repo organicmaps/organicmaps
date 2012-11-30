@@ -22,22 +22,6 @@ namespace graphics
   {
   }
 
-  void Blitter::blit(shared_ptr<gl::BaseTexture> const & srcSurface,
-                     ScreenBase const & from,
-                     ScreenBase const & to,
-                     bool isSubPixel,
-                     graphics::Color const & color,
-                     m2::RectI const & srcRect,
-                     m2::RectU const & texRect)
-  {
-    blit(srcSurface,
-         from.PtoGMatrix() * to.GtoPMatrix(),
-         isSubPixel,
-         color,
-         srcRect,
-         texRect);
-  }
-
   void Blitter::blit(BlitInfo const * blitInfo,
                      size_t s,
                      bool isSubPixel)
@@ -108,18 +92,6 @@ namespace graphics
     base_t::freeStorage(storage, resourceManager()->multiBlitStorages());
   }
 
-  void Blitter::blit(shared_ptr<graphics::gl::BaseTexture> const & srcSurface,
-                     math::Matrix<double, 3, 3> const & m,
-                     bool isSubPixel)
-  {
-    blit(srcSurface,
-         m,
-         isSubPixel,
-         graphics::Color(),
-         m2::RectI(0, 0, srcSurface->width(), srcSurface->height()),
-         m2::RectU(0, 0, srcSurface->width(), srcSurface->height()));
-  }
-
   void Blitter::calcPoints(m2::RectI const & srcRect,
                            m2::RectU const & texRect,
                            shared_ptr<gl::BaseTexture> const & srcSurface,
@@ -147,35 +119,6 @@ namespace graphics
     texPts[1] = srcSurface->mapPixel(m2::PointF(texRect.maxX(), texRect.minY()));
     texPts[2] = srcSurface->mapPixel(m2::PointF(texRect.maxX(), texRect.maxY()));
     texPts[3] = srcSurface->mapPixel(m2::PointF(texRect.minX(), texRect.maxY()));
-  }
-
-  void Blitter::blit(shared_ptr<graphics::gl::BaseTexture> const & srcSurface,
-                     math::Matrix<double, 3, 3> const & m,
-                     bool isSubPixel,
-                     graphics::Color const & color,
-                     m2::RectI const & srcRect,
-                     m2::RectU const & texRect)
-  {
-    m2::PointF pts[4];
-    m2::PointF texPts[4];
-
-    calcPoints(srcRect, texRect, srcSurface, m, isSubPixel, pts, texPts);
-
-    immDrawTexturedPrimitives(pts, texPts, 4, srcSurface, true, color, false);
-  }
-
-  void Blitter::blit(shared_ptr<gl::BaseTexture> const & srcSurface,
-                     ScreenBase const & from,
-                     ScreenBase const & to,
-                     bool isSubPixel)
-  {
-    blit(srcSurface,
-         from,
-         to,
-         isSubPixel,
-         graphics::Color(),
-         m2::RectI(0, 0, srcSurface->width(), srcSurface->height()),
-         m2::RectU(0, 0, srcSurface->width(), srcSurface->height()));
   }
 
   void Blitter::immDrawSolidRect(m2::RectF const & rect,

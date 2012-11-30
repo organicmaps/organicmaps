@@ -32,10 +32,6 @@ namespace graphics
 
   class Blitter : public GeometryBatcher
   {
-  private:
-
-    gl::Storage m_blitStorage;
-
   protected:
 
     typedef GeometryBatcher base_t;
@@ -55,30 +51,6 @@ namespace graphics
     /// Immediate mode rendering functions.
     /// they doesn't buffer any data as other functions do, but immediately renders it
     /// @{
-
-    void blit(shared_ptr<gl::BaseTexture> const & srcSurface,
-              ScreenBase const & from,
-              ScreenBase const & to,
-              bool isSubPixel,
-              graphics::Color const & color,
-              m2::RectI const & srcRect,
-              m2::RectU const & texRect);
-
-    void blit(shared_ptr<gl::BaseTexture> const & srcSurface,
-              ScreenBase const & from,
-              ScreenBase const & to,
-              bool isSubPixel = false);
-
-    void blit(shared_ptr<gl::BaseTexture> const & srcSurface,
-              math::Matrix<double, 3, 3> const & m,
-              bool isSubPixel = false);
-
-    void blit(shared_ptr<gl::BaseTexture> const & srcSurface,
-              math::Matrix<double, 3, 3> const & m,
-              bool isSubPixel,
-              graphics::Color const & color,
-              m2::RectI const & srcRect,
-              m2::RectU const & texRect);
 
     void blit(BlitInfo const * blitInfo,
               size_t s,
