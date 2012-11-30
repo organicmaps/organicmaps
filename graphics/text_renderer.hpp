@@ -17,7 +17,6 @@ namespace graphics
   private:
 
     bool m_drawTexts;
-    int m_glyphCacheID;
 
   public:
 
@@ -26,7 +25,6 @@ namespace graphics
     struct Params : base_t::Params
     {
       bool m_drawTexts;
-      int m_glyphCacheID;
       Params();
     };
 

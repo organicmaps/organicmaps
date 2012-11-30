@@ -82,10 +82,10 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
   rmp.m_glyphCacheParams = graphics::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
                                                                  "fonts_whitelist.txt",
                                                                  "fonts_blacklist.txt",
-                                                                 2 * 1024 * 1024,
-                                                                 1,
-                                                                 0);
+                                                                 2 * 1024 * 1024);
 
+  rmp.m_renderThreadsCount = 0;
+  rmp.m_threadSlotsCount = 1;
 
   rmp.m_useSingleThreadedOGL = false;
   rmp.fitIntoLimits();
@@ -100,7 +100,7 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
 
   dp.m_frameBuffer = make_shared_ptr(new graphics::gl::FrameBuffer(p.m_useDefaultFB));
   dp.m_resourceManager = m_resourceManager;
-  dp.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
+  dp.m_threadSlot = m_resourceManager->guiThreadSlot();
   dp.m_skin = make_shared_ptr(graphics::loadSkin(m_resourceManager, SkinName()));
   dp.m_visualScale = VisualScale();
   dp.m_isSynchronized = true;

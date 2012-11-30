@@ -123,9 +123,10 @@ void GLDrawWidget::initializeGL()
   rmp.m_glyphCacheParams = graphics::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
                                                                  "fonts_whitelist.txt",
                                                                  "fonts_blacklist.txt",
-                                                                 2 * 1024 * 1024,
-                                                                 1,
-                                                                 0);
+                                                                 2 * 1024 * 1024);
+
+  rmp.m_threadSlotsCount = 1;
+  rmp.m_renderThreadsCount = 0;
 
   rmp.m_useSingleThreadedOGL = false;
 
@@ -140,7 +141,7 @@ void GLDrawWidget::initializeGL()
   Drawer::Params params;
   params.m_resourceManager = m_resourceManager;
   params.m_frameBuffer = m_frameBuffer;
-  params.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
+  params.m_threadSlot = m_resourceManager->guiThreadSlot();
 
   m_p = make_shared_ptr(new graphics::Screen(params));
 

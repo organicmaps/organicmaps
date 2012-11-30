@@ -18,8 +18,7 @@
 
 
 Drawer::Params::Params()
-  : m_threadID(0),
-    m_visualScale(1)
+  : m_visualScale(1)
 {
 }
 
@@ -41,18 +40,18 @@ string const di::DrawInfo::GetPathName() const
     return m_name + "      " + m_secondaryName;
 }
 
-uint32_t di::DrawRule::GetID(size_t threadID) const
+uint32_t di::DrawRule::GetID(size_t threadSlot) const
 {
-  return (m_transparent ? m_rule->GetID2(threadID) : m_rule->GetID(threadID));
+  return (m_transparent ? m_rule->GetID2(threadSlot) : m_rule->GetID(threadSlot));
 }
 
-void di::DrawRule::SetID(size_t threadID, uint32_t id) const
+void di::DrawRule::SetID(size_t threadSlot, uint32_t id) const
 {
-  m_transparent ? m_rule->SetID2(threadID, id) : m_rule->SetID(threadID, id);
+  m_transparent ? m_rule->SetID2(threadSlot, id) : m_rule->SetID(threadSlot, id);
 }
 
 Drawer::Drawer(Params const & params)
-  : m_visualScale(params.m_visualScale), m_threadID(params.m_threadID)
+  : m_visualScale(params.m_visualScale)
 {
   m_pScreen = shared_ptr<graphics::Screen>(new graphics::Screen(params));
 
@@ -60,33 +59,33 @@ Drawer::Drawer(Params const & params)
   m_pScreen->setSkin(m_pSkin);
 
   if (m_pSkin)
-    m_pSkin->addClearPageFn(bind(&Drawer::ClearSkinPage, m_threadID, _1), 0);
+    m_pSkin->addClearPageFn(bind(&Drawer::ClearSkinPage, ThreadSlot(), _1), 0);
 }
 
 namespace
 {
   struct DoMakeInvalidRule
   {
-    size_t m_threadID;
+    size_t m_threadSlot;
     uint32_t m_pipelineIDMask;
 
-    DoMakeInvalidRule(size_t threadID, uint8_t pipelineID)
-      : m_threadID(threadID), m_pipelineIDMask(pipelineID << 24)
+    DoMakeInvalidRule(size_t threadSlot, uint8_t pipelineID)
+      : m_threadSlot(threadSlot), m_pipelineIDMask(pipelineID << 24)
     {}
 
     void operator() (int, int, int, drule::BaseRule * p)
     {
-      if ((p->GetID(m_threadID) & 0xFF000000) == m_pipelineIDMask)
-        p->MakeEmptyID(m_threadID);
-      if ((p->GetID2(m_threadID) & 0xFF000000) == m_pipelineIDMask)
-        p->MakeEmptyID2(m_threadID);
+      if ((p->GetID(m_threadSlot) & 0xFF000000) == m_pipelineIDMask)
+        p->MakeEmptyID(m_threadSlot);
+      if ((p->GetID2(m_threadSlot) & 0xFF000000) == m_pipelineIDMask)
+        p->MakeEmptyID2(m_threadSlot);
     }
   };
 }
 
-void Drawer::ClearSkinPage(size_t threadID, uint8_t pipelineID)
+void Drawer::ClearSkinPage(size_t threadSlot, uint8_t pipelineID)
 {
-  drule::rules().ForEachRule(DoMakeInvalidRule(threadID, pipelineID));
+  drule::rules().ForEachRule(DoMakeInvalidRule(threadSlot, pipelineID));
 }
 
 void Drawer::beginFrame()
@@ -147,7 +146,7 @@ void Drawer::drawPath(di::PathInfo const & info, di::DrawRule const * rules, siz
   bool flag = false;
   for (size_t i = 0; i < count; ++i)
   {
-    if (rules[i].GetID(m_threadID) == drule::BaseRule::empty_id)
+    if (rules[i].GetID(m_pScreen->threadSlot()) == drule::BaseRule::empty_id)
     {
       flag = true;
       break;
@@ -174,7 +173,7 @@ void Drawer::drawPath(di::PathInfo const & info, di::DrawRule const * rules, siz
     if (m_pSkin->mapPenInfo(&penInfos[0], &styleIDs[0], count))
     {
       for (size_t i = 0; i < count; ++i)
-        rules[i].SetID(m_threadID, styleIDs[i]);
+        rules[i].SetID(ThreadSlot(), styleIDs[i]);
     }
     else
     {
@@ -185,7 +184,7 @@ void Drawer::drawPath(di::PathInfo const & info, di::DrawRule const * rules, siz
 
   // draw path with array of rules
   for (size_t i = 0; i < count; ++i)
-    m_pScreen->drawPath(&info.m_path[0], info.m_path.size(), -info.GetOffset(), rules[i].GetID(m_threadID), rules[i].m_depth);
+    m_pScreen->drawPath(&info.m_path[0], info.m_path.size(), -info.GetOffset(), rules[i].GetID(ThreadSlot()), rules[i].m_depth);
 }
 
 void Drawer::drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth)
@@ -390,4 +389,9 @@ void Drawer::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size_t
     for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
       drawPathNumber(*i, pInfo);
   }
+}
+
+int Drawer::ThreadSlot() const
+{
+  return m_pScreen->threadSlot();
 }

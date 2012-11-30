@@ -33,22 +33,22 @@ void BaseRule::CheckCacheSize(size_t s)
   MakeEmptyID2();
 }
 
-uint32_t BaseRule::GetID(size_t threadID) const
+uint32_t BaseRule::GetID(size_t threadSlot) const
 {
-  ASSERT(m_id1.size() > threadID, ());
-  return m_id1[threadID];
+  ASSERT(m_id1.size() > threadSlot, ());
+  return m_id1[threadSlot];
 }
 
-void BaseRule::SetID(size_t threadID, uint32_t id) const
+void BaseRule::SetID(size_t threadSlot, uint32_t id) const
 {
-  ASSERT(m_id1.size() > threadID, ());
-  m_id1[threadID] = id;
+  ASSERT(m_id1.size() > threadSlot, ());
+  m_id1[threadSlot] = id;
 }
 
-void BaseRule::MakeEmptyID(size_t threadID)
+void BaseRule::MakeEmptyID(size_t threadSlot)
 {
-  ASSERT(m_id1.size() > threadID, ());
-  m_id1[threadID] = empty_id;
+  ASSERT(m_id1.size() > threadSlot, ());
+  m_id1[threadSlot] = empty_id;
 }
 
 void BaseRule::MakeEmptyID()
@@ -57,22 +57,22 @@ void BaseRule::MakeEmptyID()
     MakeEmptyID(i);
 }
 
-uint32_t BaseRule::GetID2(size_t threadID) const
+uint32_t BaseRule::GetID2(size_t threadSlot) const
 {
-  ASSERT(m_id2.size() > threadID, ());
-  return m_id2[threadID];
+  ASSERT(m_id2.size() > threadSlot, ());
+  return m_id2[threadSlot];
 }
 
-void BaseRule::SetID2(size_t threadID, uint32_t id) const
+void BaseRule::SetID2(size_t threadSlot, uint32_t id) const
 {
-  ASSERT(m_id2.size() > threadID, ());
-  m_id2[threadID] = id;
+  ASSERT(m_id2.size() > threadSlot, ());
+  m_id2[threadSlot] = id;
 }
 
-void BaseRule::MakeEmptyID2(size_t threadID)
+void BaseRule::MakeEmptyID2(size_t threadSlot)
 {
-  ASSERT(m_id2.size() > threadID, ());
-  m_id2[threadID] = empty_id;
+  ASSERT(m_id2.size() > threadSlot, ());
+  m_id2[threadSlot] = empty_id;
 }
 
 void BaseRule::MakeEmptyID2()

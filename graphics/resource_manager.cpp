@@ -331,31 +331,18 @@ namespace graphics
   }
 
   ResourceManager::GlyphCacheParams::GlyphCacheParams()
-    : m_glyphCacheMemoryLimit(0),
-      m_glyphCacheCount(0),
-      m_renderThreadCount(0)
+    : m_glyphCacheMemoryLimit(0)
   {}
 
   ResourceManager::GlyphCacheParams::GlyphCacheParams(string const & unicodeBlockFile,
                                                       string const & whiteListFile,
                                                       string const & blackListFile,
-                                                      size_t glyphCacheMemoryLimit,
-                                                      size_t glyphCacheCount,
-                                                      size_t renderThreadCount,
-                                                      bool * debuggingFlags)
+                                                      size_t glyphCacheMemoryLimit)
     : m_unicodeBlockFile(unicodeBlockFile),
       m_whiteListFile(whiteListFile),
       m_blackListFile(blackListFile),
-      m_glyphCacheMemoryLimit(glyphCacheMemoryLimit),
-      m_glyphCacheCount(glyphCacheCount),
-      m_renderThreadCount(renderThreadCount)
-  {
-    if (debuggingFlags)
-      copy(debuggingFlags, debuggingFlags + glyphCacheCount, back_inserter(m_debuggingFlags));
-    else
-      for (unsigned i = 0; i < glyphCacheCount; ++i)
-        m_debuggingFlags.push_back(false);
-  }
+      m_glyphCacheMemoryLimit(glyphCacheMemoryLimit)
+  {}
 
 namespace
 {
@@ -387,7 +374,9 @@ namespace
       m_fontTexturesParams("fontTexture"),
       m_renderTargetTexturesParams("renderTargetTexture"),
       m_styleCacheTexturesParams("styleCacheTexture"),
-      m_guiThreadTexturesParams("guiThreadTexture")
+      m_guiThreadTexturesParams("guiThreadTexture"),
+      m_renderThreadsCount(0),
+      m_threadSlotsCount(0)
   {
     GetGLStringSafe(GL_VENDOR, m_vendorName);
     GetGLStringSafe(GL_RENDERER, m_rendererName);
@@ -528,7 +517,7 @@ namespace
   ResourceManager::ResourceManager(Params const & p)
     : m_params(p)
   {
-    initGlyphCaches(p.m_glyphCacheParams);
+    initThreadSlots(p);
 
     initStoragePool(p.m_primaryStoragesParams, m_primaryStorages);
     initStoragePool(p.m_smallStoragesParams, m_smallStorages);
@@ -574,17 +563,35 @@ namespace
     m_guiThreadTexturesParams.m_scaleFactor = m_guiThreadTexturesParams.m_scalePriority / prioritySum;
   }
 
-  void ResourceManager::initGlyphCaches(GlyphCacheParams const & p)
+  void ResourceManager::initThreadSlots(Params const & p)
   {
-    if (p.m_glyphCacheMemoryLimit && p.m_glyphCacheCount)
-    {
-      LOG(LDEBUG, ("allocating ", p.m_glyphCacheCount, " glyphCaches, ", p.m_glyphCacheMemoryLimit, " bytes total."));
+    LOG(LDEBUG, ("allocating ", p.m_threadSlotsCount, " threads slots"));
+    LOG(LDEBUG, ("glyphCacheMemoryLimit is ", p.m_glyphCacheParams.m_glyphCacheMemoryLimit, " bytes total."));
 
-      for (size_t i = 0; i < p.m_glyphCacheCount; ++i)
-        m_glyphCaches.push_back(GlyphCache(GlyphCache::Params(p.m_unicodeBlockFile, p.m_whiteListFile, p.m_blackListFile, p.m_glyphCacheMemoryLimit / p.m_glyphCacheCount, p.m_debuggingFlags[i])));
+    m_threadSlots.resize(p.m_threadSlotsCount);
+
+    for (unsigned i = 0; i < p.m_threadSlotsCount; ++i)
+    {
+      GlyphCacheParams gccp = p.m_glyphCacheParams;
+
+      GlyphCache::Params gcp(gccp.m_unicodeBlockFile,
+                             gccp.m_whiteListFile,
+                             gccp.m_blackListFile,
+                             gccp.m_glyphCacheMemoryLimit / p.m_threadSlotsCount,
+                             false);
+
+      m_threadSlots[i].m_glyphCache.reset(new GlyphCache(gcp));
+
+      if (p.m_useSingleThreadedOGL)
+      {
+        if (i == 0)
+          m_threadSlots[i].m_programManager.reset(new gl::ProgramManager());
+        else
+          m_threadSlots[i].m_programManager = m_threadSlots[0].m_programManager;
+      }
+      else
+        m_threadSlots[i].m_programManager.reset(new gl::ProgramManager());
     }
-    else
-      LOG(LERROR, ("no params to init glyph caches."));
   }
 
   void ResourceManager::initStoragePool(StoragePoolParams const & p, scoped_ptr<TStoragePool> & pool)
@@ -684,15 +691,15 @@ namespace
     return m_params;
   }
 
-  GlyphCache * ResourceManager::glyphCache(int glyphCacheID)
+  GlyphCache * ResourceManager::glyphCache(int threadSlot)
   {
-    return glyphCacheID == -1 ? 0 : &m_glyphCaches[glyphCacheID];
+    return threadSlot == -1 ? 0 : m_threadSlots[threadSlot].m_glyphCache.get();
   }
 
   void ResourceManager::addFonts(vector<string> const & fontNames)
   {
-    for (unsigned i = 0; i < m_glyphCaches.size(); ++i)
-      m_glyphCaches[i].addFonts(fontNames);
+    for (unsigned i = 0; i < m_threadSlots.size(); ++i)
+      m_threadSlots[i].m_glyphCache->addFonts(fontNames);
   }
 
   void ResourceManager::memoryWarning()
@@ -784,20 +791,20 @@ namespace
     };
   }
 
-  int ResourceManager::renderThreadGlyphCacheID(int threadNum) const
+  int ResourceManager::renderThreadSlot(int threadNum) const
   {
-    ASSERT(threadNum < m_params.m_glyphCacheParams.m_renderThreadCount, (threadNum, m_params.m_glyphCacheParams.m_renderThreadCount));
+    ASSERT(threadNum < m_params.m_renderThreadsCount, (threadNum, m_params.m_renderThreadsCount));
     return 1 + threadNum;
   }
 
-  int ResourceManager::guiThreadGlyphCacheID() const
+  int ResourceManager::guiThreadSlot() const
   {
     return 0;
   }
 
-  int ResourceManager::cacheThreadGlyphCacheID() const
+  int ResourceManager::cacheThreadSlot() const
   {
-    return 1 + m_params.m_glyphCacheParams.m_renderThreadCount;
+    return 1 + m_params.m_renderThreadsCount;
   }
 
   TStoragePool * ResourceManager::primaryStorages()
@@ -903,5 +910,10 @@ namespace
   bool ResourceManager::useReadPixelsToSynchronize() const
   {
     return m_params.m_useReadPixelsToSynchronize;
+  }
+
+  gl::ProgramManager * ResourceManager::programManager(int threadSlot)
+  {
+    return threadSlot == -1 ? 0 : m_threadSlots[threadSlot].m_programManager.get();
   }
 }

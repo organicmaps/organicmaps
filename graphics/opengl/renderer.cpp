@@ -19,7 +19,8 @@ namespace graphics
       : m_isDebugging(false),
         m_doUnbindRT(false),
         m_isSynchronized(true),
-        m_renderQueue(0)
+        m_renderQueue(0),
+        m_threadSlot(-1)
     {}
 
     Renderer::Renderer(Params const & params)
@@ -29,7 +30,8 @@ namespace graphics
         m_isRendering(false),
         m_width(0),
         m_height(0),
-        m_env(0)
+        m_env(0),
+        m_threadSlot(params.m_threadSlot)
     {
       m_frameBuffer = params.m_frameBuffer;
       m_resourceManager = params.m_resourceManager;
@@ -338,6 +340,9 @@ namespace graphics
     void Renderer::setPixelPrecision(bool flag)
     {
       glUseSharpGeometryFn(flag);
+    int Renderer::threadSlot() const
+    {
+      return m_threadSlot;
     }
   }
 }

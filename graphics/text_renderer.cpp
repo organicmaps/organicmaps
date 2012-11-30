@@ -13,14 +13,12 @@
 namespace graphics
 {
   TextRenderer::Params::Params()
-    : m_drawTexts(true),
-      m_glyphCacheID(-1)
+    : m_drawTexts(true)
   {}
 
   TextRenderer::TextRenderer(Params const & params)
     : base_t(params),
-      m_drawTexts(params.m_drawTexts),
-      m_glyphCacheID(params.m_glyphCacheID)
+      m_drawTexts(params.m_drawTexts)
   {}
 
   void TextRenderer::drawStraightGlyph(m2::PointD const & ptPivot,
@@ -69,6 +67,6 @@ namespace graphics
 
   GlyphCache * TextRenderer::glyphCache() const
   {
-    return resourceManager()->glyphCache(m_glyphCacheID);
+    return resourceManager()->glyphCache(threadSlot());
   }
 }

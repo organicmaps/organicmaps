@@ -33,17 +33,17 @@ namespace drule
 
     void CheckCacheSize(size_t s);
 
-    uint32_t GetID(size_t threadID) const;
-    void SetID(size_t threadID, uint32_t id) const;
+    uint32_t GetID(size_t threadSlot) const;
+    void SetID(size_t threadSlot, uint32_t id) const;
 
-    void MakeEmptyID(size_t threadID);
+    void MakeEmptyID(size_t threadSlot);
     void MakeEmptyID();
 
-    uint32_t GetID2(size_t threadID) const;
+    uint32_t GetID2(size_t threadSlot) const;
 
-    void SetID2(size_t threadID, uint32_t id) const;
+    void SetID2(size_t threadSlot, uint32_t id) const;
 
-    void MakeEmptyID2(size_t threadID);
+    void MakeEmptyID2(size_t threadSlot);
 
     void MakeEmptyID2();
 

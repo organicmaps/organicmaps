@@ -60,8 +60,8 @@ namespace di
     DrawRule() : m_rule(0) {}
     DrawRule(rule_ptr_t p, int d, bool tr) : m_rule(p), m_depth(d), m_transparent(tr) {}
 
-    uint32_t GetID(size_t threadID) const;
-    void SetID(size_t threadID, uint32_t id) const;
+    uint32_t GetID(size_t threadSlot) const;
+    void SetID(size_t threadSlot, uint32_t id) const;
   };
 }
 
@@ -71,12 +71,11 @@ class Drawer
 
   double m_visualScale;
   int m_level;
-  size_t m_threadID;
 
   shared_ptr<graphics::Screen> m_pScreen;
   shared_ptr<graphics::Skin> m_pSkin;
 
-  static void ClearSkinPage(size_t threadID, uint8_t pipelineID);
+  static void ClearSkinPage(size_t threadSlot, uint8_t pipelineID);
 
   typedef pair<size_t, uint32_t> FeatureID;
 
@@ -100,7 +99,6 @@ public:
 
   struct Params : graphics::Screen::Params
   {
-    size_t m_threadID;
     double m_visualScale;
     shared_ptr<graphics::Skin> m_skin;
     Params();
@@ -121,6 +119,8 @@ public:
 
   double VisualScale() const;
   void SetScale(int level);
+
+  int ThreadSlot() const;
 
   void Draw(di::DrawInfo const * pInfo,
             di::DrawRule const * rules, size_t count,

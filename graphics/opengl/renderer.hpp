@@ -89,6 +89,7 @@ namespace graphics
         bool m_doUnbindRT;
         bool m_isSynchronized;
         PacketsQueue * m_renderQueue;
+        int m_threadSlot;
         Params();
       };
 
@@ -112,6 +113,8 @@ namespace graphics
       unsigned int m_height;
 
       core::CommandsQueue::Environment const * m_env;
+
+      int m_threadSlot;
 
     public:
 
@@ -169,6 +172,8 @@ namespace graphics
       bool isCancelled() const;
 
       void setPixelPrecision(bool flag);
+
+      int threadSlot() const;
     };
   }
 }

@@ -116,19 +116,13 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
                                                                     true,
                                                                     true);
 
-/*  bool * debuggingFlags = new bool[cpuCores + 2];
-  for (unsigned i = 0; i < cpuCores + 2; ++i)
-    debuggingFlags[i] = false;
-
-  debuggingFlags[0] = true;*/
-
   rmp.m_glyphCacheParams = graphics::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
                                                                  "fonts_whitelist.txt",
                                                                  "fonts_blacklist.txt",
-                                                                 2 * 1024 * 1024,
-                                                                 cpuCores + 2,
-                                                                 cpuCores,
-                                                                 0);
+                                                                 2 * 1024 * 1024);
+
+  rmp.m_threadSlotsCount = cpuCores + 2;
+  rmp.m_renderThreadsCount = cpuCores;
 
 //  delete [] debuggingFlags;
 
@@ -151,7 +145,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
 
   dp.m_frameBuffer = make_shared_ptr(new graphics::gl::FrameBuffer(p.m_useDefaultFB));
   dp.m_resourceManager = m_resourceManager;
-  dp.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
+  dp.m_threadSlot = m_resourceManager->guiThreadSlot();
   dp.m_skin = GetSkin();
   dp.m_visualScale = VisualScale();
   dp.m_useGuiResources = true;

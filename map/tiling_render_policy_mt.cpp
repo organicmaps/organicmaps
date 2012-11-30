@@ -115,10 +115,10 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
   rmp.m_glyphCacheParams = graphics::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
                                                                  "fonts_whitelist.txt",
                                                                  "fonts_blacklist.txt",
-                                                                 2 * 1024 * 1024,
-                                                                 GetPlatform().CpuCores() + 2,
-                                                                 GetPlatform().CpuCores(),
-                                                                 0);
+                                                                 2 * 1024 * 1024);
+
+  rmp.m_threadSlotsCount = cpuCores + 2;
+  rmp.m_renderThreadsCount = cpuCores;
 
   rmp.m_useSingleThreadedOGL = false;
   rmp.fitIntoLimits();
@@ -135,7 +135,7 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
 
   dp.m_frameBuffer = make_shared_ptr(new graphics::gl::FrameBuffer(p.m_useDefaultFB));
   dp.m_resourceManager = m_resourceManager;
-  dp.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
+  dp.m_threadSlot = m_resourceManager->guiThreadSlot();
   dp.m_skin = GetSkin();
   dp.m_visualScale = VisualScale();
   dp.m_useGuiResources = true;

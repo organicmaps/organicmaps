@@ -59,7 +59,7 @@ ScreenCoverage * CoverageGenerator::CreateCoverage()
 
   params.m_doUnbindRT = false;
   params.m_isSynchronized = false;
-  params.m_glyphCacheID = m_resourceManager->cacheThreadGlyphCacheID();
+  params.m_threadSlot = m_resourceManager->cacheThreadSlot();
 
   shared_ptr<graphics::Screen> screen(new graphics::Screen(params));
   shared_ptr<graphics::Skin> skin(loadSkin(m_resourceManager, m_skinName));

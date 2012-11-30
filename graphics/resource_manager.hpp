@@ -10,6 +10,7 @@
 #include "../base/resource_pool.hpp"
 
 #include "opengl/storage.hpp"
+#include "opengl/program_manager.hpp"
 #include "glyph_cache.hpp"
 #include "data_formats.hpp"
 
@@ -21,10 +22,10 @@ namespace graphics
   {
     class BaseTexture;
     class Storage;
+    class ProgramManager;
   }
 
   struct GlyphInfo;
-
 
   struct TTextureFactory : BasePoolElemFactory
   {
@@ -184,19 +185,13 @@ namespace graphics
       string m_blackListFile;
 
       size_t m_glyphCacheMemoryLimit;
-      size_t m_glyphCacheCount;
-      size_t m_renderThreadCount;
 
-      vector<bool> m_debuggingFlags;
 
       GlyphCacheParams();
       GlyphCacheParams(string const & unicodeBlockFile,
                        string const & whiteListFile,
                        string const & blackListFile,
-                       size_t glyphCacheMemoryLimit,
-                       size_t glyphCacheCount,
-                       size_t renderThreadCount,
-                       bool * debuggingFlags = 0);
+                       size_t glyphCacheMemoryLimit);
     };
 
     struct Params
@@ -239,6 +234,9 @@ namespace graphics
 
       GlyphCacheParams m_glyphCacheParams;
 
+      unsigned m_renderThreadsCount;
+      unsigned m_threadSlotsCount;
+
       Params();
 
       void distributeFreeMemory(int freeVideoMemory);
@@ -269,7 +267,13 @@ namespace graphics
     scoped_ptr<TStoragePool> m_multiBlitStorages;
     scoped_ptr<TStoragePool> m_guiThreadStorages;
 
-    vector<GlyphCache> m_glyphCaches;
+    struct ThreadSlot
+    {
+      shared_ptr<gl::ProgramManager> m_programManager;
+      shared_ptr<GlyphCache> m_glyphCache;
+    };
+
+    vector<ThreadSlot> m_threadSlots;
 
     Params m_params;
 
@@ -277,7 +281,7 @@ namespace graphics
 
     ResourceManager(Params const & p);
 
-    void initGlyphCaches(GlyphCacheParams const & p);
+    void initThreadSlots(Params const & p);
 
     void initStoragePool(StoragePoolParams const & p, scoped_ptr<TStoragePool> & pool);
 
@@ -301,11 +305,11 @@ namespace graphics
 
     shared_ptr<GlyphInfo> const getGlyphInfo(GlyphKey const & key);
     GlyphMetrics const getGlyphMetrics(GlyphKey const & key);
-    GlyphCache * glyphCache(int glyphCacheID = 0);
+    GlyphCache * glyphCache(int threadSlot = 0);
 
-    int renderThreadGlyphCacheID(int threadNum) const;
-    int guiThreadGlyphCacheID() const;
-    int cacheThreadGlyphCacheID() const;
+    int renderThreadSlot(int threadNum) const;
+    int guiThreadSlot() const;
+    int cacheThreadSlot() const;
 
     void addFonts(vector<string> const & fontNames);
 
@@ -320,6 +324,7 @@ namespace graphics
     bool useReadPixelsToSynchronize() const;
 
     shared_ptr<graphics::gl::BaseTexture> createRenderTarget(unsigned w, unsigned h);
+    gl::ProgramManager * programManager(int threadSlot);
   };
 
   Skin * loadSkin(shared_ptr<ResourceManager> const & resourceManager,

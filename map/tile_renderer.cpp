@@ -54,8 +54,7 @@ TileRenderer::TileRenderer(
     params.m_resourceManager = m_resourceManager;
     params.m_frameBuffer = make_shared_ptr(new graphics::gl::FrameBuffer());
 
-    params.m_glyphCacheID = m_resourceManager->renderThreadGlyphCacheID(i);
-    params.m_threadID = i;
+    params.m_threadSlot = m_resourceManager->renderThreadSlot(i);
     params.m_visualScale = visualScale;
     if (packetsQueues != 0)
       params.m_renderQueue = packetsQueues[i];

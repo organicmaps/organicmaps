@@ -53,7 +53,7 @@ void RenderPolicy::InitCacheScreen()
   graphics::Screen::Params cp;
 
   cp.m_doUnbindRT = false;
-  cp.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
+  cp.m_threadSlot = m_resourceManager->guiThreadSlot();
   cp.m_useGuiResources = true;
   cp.m_isSynchronized = false;
   cp.m_resourceManager = m_resourceManager;
@@ -162,7 +162,7 @@ shared_ptr<WindowHandle> const & RenderPolicy::GetWindowHandle() const
 
 graphics::GlyphCache * RenderPolicy::GetGlyphCache() const
 {
-  return m_resourceManager->glyphCache(m_resourceManager->guiThreadGlyphCacheID());
+  return m_resourceManager->glyphCache(m_resourceManager->guiThreadSlot());
 }
 
 void RenderPolicy::SetRenderFn(TRenderFn renderFn)
