@@ -23,7 +23,10 @@ SOURCES += \
     opengl/vertex.cpp \
     opengl/clipper.cpp \
     opengl/geometry_renderer.cpp \
+    opengl/shader.cpp \
+    opengl/program.cpp \
     opengl/defines_conv.cpp \
+    opengl/program_manager.cpp \
     opengl/gl_render_context.cpp \
     opengl/storage.cpp \
     blitter.cpp \
@@ -81,7 +84,10 @@ HEADERS += \
     opengl/geometry_renderer.hpp \
     opengl/data_traits.hpp \
     opengl/storage.hpp \
+    opengl/shader.hpp \
+    opengl/program.hpp \
     opengl/defines_conv.hpp \
+    opengl/program_manager.hpp \
     blitter.hpp \
     resource_manager.hpp \
     skin.hpp \
