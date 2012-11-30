@@ -3,7 +3,7 @@
 #include "RenderBuffer.hpp"
 
 #include "../../../graphics/opengl/opengl.hpp"
-#include "../../../graphics/opengl/utils.hpp"
+#include "../../../graphics/coordinates.hpp"
 
 namespace iphone
 {
@@ -70,14 +70,18 @@ namespace iphone
 																				  GL_COLOR_ATTACHMENT0_OES,
   																				GL_RENDERBUFFER_OES,
 	  																			m_id));
-		graphics::gl::utils::setupCoordinates(width(), height(), true);
 	}
   
   void RenderBuffer::detachFromFrameBuffer()
   {
     OGLCHECK(glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES,
 																				  GL_COLOR_ATTACHMENT0_OES,
-  																				GL_RENDERBUFFER_OES,
-	  																			0));
+                                          GL_RENDERBUFFER_OES,
+                                          0));
+  }
+  
+  void RenderBuffer::coordMatrix(math::Matrix<float, 4, 4> & m)
+  {
+    graphics::getOrthoMatrix(m, 0, width(), height(), 0, -graphics::maxDepth, graphics::maxDepth);
   }
 }

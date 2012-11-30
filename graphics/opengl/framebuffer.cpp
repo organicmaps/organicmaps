@@ -54,15 +54,7 @@ namespace graphics
               GL_TEXTURE_2D,
               0,
               0));
-
-        utils::setupCoordinates(width(), height(), true);
       }
-
-      /// !!! it's a must for a correct work.
-      /// update: it was necessary for multisampling,
-      /// but without it on KindleFire this function produces bug
-/*      if (m_id != 0)
-        checkStatus();*/
     }
 
     void FrameBuffer::setRenderTarget(shared_ptr<RenderTarget> const & renderTarget)

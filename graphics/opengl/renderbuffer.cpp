@@ -48,9 +48,6 @@ namespace graphics
           isDepthBuffer() ? GL_DEPTH_ATTACHMENT_MWM : GL_COLOR_ATTACHMENT0_MWM,
           GL_RENDERBUFFER_MWM,
           id()));
-
-      if (!isDepthBuffer())
-        utils::setupCoordinates(width(), height(), false);
     }
 
     void RenderBuffer::detachFromFrameBuffer()

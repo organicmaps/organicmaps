@@ -1,5 +1,6 @@
 #include "../base/logging.hpp"
 #include "../render_context.hpp"
+#include "../coordinates.hpp"
 
 #include "renderer.hpp"
 #include "data_traits.hpp"
@@ -33,6 +34,7 @@ namespace graphics
         m_env(0),
         m_threadSlot(params.m_threadSlot)
     {
+      m_renderContext = params.m_renderContext;
       m_frameBuffer = params.m_frameBuffer;
       m_resourceManager = params.m_resourceManager;
 
@@ -64,6 +66,20 @@ namespace graphics
         m_frameBuffer->setDepthBuffer(m_depthBuffer);
 
         processCommand(make_shared_ptr(new ChangeFrameBuffer(m_frameBuffer)));
+
+        math::Matrix<float, 4, 4> coordM;
+
+        if (m_renderTarget != 0)
+          m_renderTarget->coordMatrix(coordM);
+        else
+          getOrthoMatrix(coordM,
+                         0, m_frameBuffer->width(),
+                         m_frameBuffer->height(), 0,
+                         -graphics::maxDepth,
+                          graphics::maxDepth);
+
+        processCommand(make_shared_ptr(new ChangeMatrix(EProjection, coordM)));
+        processCommand(make_shared_ptr(new ChangeMatrix(EModelView, math::Identity<float, 4>())));
       }
 
 //      checkStatus();
@@ -86,6 +102,15 @@ namespace graphics
     void Renderer::unbindRenderTarget()
     {
       processCommand(make_shared_ptr(new UnbindRenderTarget(m_renderTarget)));
+    }
+
+    Renderer::ChangeMatrix::ChangeMatrix(EMatrix mt, math::Matrix<float, 4, 4> const & m)
+      : m_matrixType(mt), m_matrix(m)
+    {}
+
+    void Renderer::ChangeMatrix::perform()
+    {
+      renderContext()->setMatrix(m_matrixType, m_matrix);
     }
 
     Renderer::DiscardFramebuffer::DiscardFramebuffer(bool doDiscardColor, bool doDiscardDepth)
@@ -260,6 +285,8 @@ namespace graphics
       }
 
       m_frameBuffer->makeCurrent();
+
+      OGLCHECK(glViewport(0, 0, m_frameBuffer->width(), m_frameBuffer->height()));
     }
 
     void Renderer::onSize(unsigned int width, unsigned int height)

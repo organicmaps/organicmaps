@@ -67,6 +67,9 @@ SOURCES += \
     image_info.cpp \
     image_renderer.cpp \
     display_list_renderer.cpp
+    render_context.cpp \
+    coordinates.cpp \
+    render_target.cpp \
 
 HEADERS += \
     opengl/opengl.hpp \
@@ -128,6 +131,7 @@ HEADERS += \
     image_info.hpp \
     display_list_renderer.hpp
     render_context.hpp \
+    coordinates.hpp \
 
 win32* {
   SOURCES += opengl/opengl_win32.cpp

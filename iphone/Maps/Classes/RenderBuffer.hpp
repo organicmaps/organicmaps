@@ -33,5 +33,6 @@ namespace	iphone
 
 		void attachToFrameBuffer();
     void detachFromFrameBuffer();
+    void coordMatrix(math::Matrix<float, 4, 4> & m);
 	};
 }

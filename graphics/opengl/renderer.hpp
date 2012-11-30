@@ -59,6 +59,15 @@ namespace graphics
         void perform();
       };
 
+      struct ChangeMatrix : Command
+      {
+        EMatrix m_matrixType;
+        math::Matrix<float, 4, 4> m_matrix;
+
+        ChangeMatrix(EMatrix mt, math::Matrix<float, 4, 4> const & m);
+        void perform();
+      };
+
       struct UnbindRenderTarget : Command
       {
         shared_ptr<RenderTarget> m_renderTarget;

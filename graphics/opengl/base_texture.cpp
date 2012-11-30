@@ -58,7 +58,6 @@ namespace graphics
                                         GL_TEXTURE_2D,
                                         id(),
                                         0));
-      utils::setupCoordinates(width(), height(), false);
     }
 
     void BaseTexture::detachFromFrameBuffer()
