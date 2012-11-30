@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../graphics/opengl/rendercontext.hpp"
+#include "../graphics/opengl/gl_render_context.hpp"
 
 #include "../std/shared_ptr.hpp"
 
@@ -30,7 +30,7 @@ namespace qt
       /// Make this rendering context current
       void makeCurrent();
 
-      shared_ptr<graphics::gl::RenderContext> createShared();
+      shared_ptr<graphics::RenderContext> createShared();
 
       /// Leave previous logic, but fix thread widget deletion error.
       void endThreadDrawing();

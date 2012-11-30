@@ -46,7 +46,7 @@ private:
   TileRenderer * m_tileRenderer;
 
   shared_ptr<graphics::ResourceManager> m_resourceManager;
-  shared_ptr<graphics::gl::RenderContext> m_renderContext;
+  shared_ptr<graphics::RenderContext> m_renderContext;
 
   ScreenCoverage * m_workCoverage;
   ScreenCoverage * m_currentCoverage;
@@ -76,7 +76,7 @@ public:
   CoverageGenerator(string const & skinName,
                     TileRenderer * tileRenderer,
                     shared_ptr<WindowHandle> const & windowHandle,
-                    shared_ptr<graphics::gl::RenderContext> const & primaryRC,
+                    shared_ptr<graphics::RenderContext> const & primaryRC,
                     shared_ptr<graphics::ResourceManager> const & rm,
                     graphics::PacketsQueue * glQueue,
                     RenderPolicy::TCountryNameFn countryNameFn);

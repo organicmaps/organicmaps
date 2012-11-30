@@ -42,13 +42,13 @@ protected:
     Drawer * m_drawer;
     Drawer::Params m_drawerParams;
     shared_ptr<graphics::gl::BaseTexture> m_dummyRT;
-    shared_ptr<graphics::gl::RenderContext> m_renderContext;
+    shared_ptr<graphics::RenderContext> m_renderContext;
     shared_ptr<graphics::gl::RenderBuffer> m_depthBuffer;
   };
 
   buffer_vector<ThreadData, 4> m_threadData;
 
-  shared_ptr<graphics::gl::RenderContext> m_primaryContext;
+  shared_ptr<graphics::RenderContext> m_primaryContext;
 
   TileCache m_tileCache;
 
@@ -88,7 +88,7 @@ public:
                unsigned tasksCount,
                graphics::Color const & bgColor,
                RenderPolicy::TRenderFn const & renderFn,
-               shared_ptr<graphics::gl::RenderContext> const & primaryRC,
+               shared_ptr<graphics::RenderContext> const & primaryRC,
                shared_ptr<graphics::ResourceManager> const & rm,
                double visualScale,
                graphics::PacketsQueue ** packetsQueue);

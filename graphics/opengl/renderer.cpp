@@ -1,4 +1,5 @@
 #include "../base/logging.hpp"
+#include "../render_context.hpp"
 
 #include "renderer.hpp"
 #include "data_traits.hpp"

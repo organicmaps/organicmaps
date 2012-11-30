@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "../../../../../graphics/opengl/rendercontext.hpp"
+#include "../../../../../graphics/opengl/gl_render_context.hpp"
 
 #include "../../../../../std/shared_ptr.hpp"
 
@@ -16,12 +16,9 @@ namespace android
   class RenderContext : public graphics::gl::RenderContext
   {
   public:
-    RenderContext();
 
-    virtual void makeCurrent();
+    void makeCurrent();
 
-    virtual shared_ptr<graphics::gl::RenderContext> createShared();
-
-    virtual void endThreadDrawing();
+    shared_ptr<graphics::RenderContext> createShared();
   };
 }

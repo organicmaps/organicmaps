@@ -12,17 +12,14 @@
 
 namespace graphics
 {
-  namespace gl
-  {
-    class RenderContext;
-  }
+  class RenderContext;
 }
 
 class RenderPolicy;
 
 class WindowHandle
 {
-  shared_ptr<graphics::gl::RenderContext> m_renderContext;
+  shared_ptr<graphics::RenderContext> m_renderContext;
   RenderPolicy * m_renderPolicy;
 
   bool m_hasPendingUpdates;
@@ -49,9 +46,9 @@ public:
 
   void setNeedRedraw(bool flag);
 
-  shared_ptr<graphics::gl::RenderContext> const & renderContext();
+  shared_ptr<graphics::RenderContext> const & renderContext();
 
-  void setRenderContext(shared_ptr<graphics::gl::RenderContext> const & renderContext);
+  void setRenderContext(shared_ptr<graphics::RenderContext> const & renderContext);
 
   bool setUpdatesEnabled(bool doEnable);
 

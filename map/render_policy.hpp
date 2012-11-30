@@ -20,10 +20,7 @@ namespace anim
 
 namespace graphics
 {
-  namespace gl
-  {
-    class RenderContext;
-  }
+  class RenderContext;
 
   class Skin;
   class GlyphCache;
@@ -58,7 +55,7 @@ protected:
   shared_ptr<graphics::ResourceManager> m_resourceManager;
   shared_ptr<graphics::Skin> m_skin;
   shared_ptr<graphics::Screen> m_cacheScreen;
-  shared_ptr<graphics::gl::RenderContext> m_primaryRC;
+  shared_ptr<graphics::RenderContext> m_primaryRC;
   shared_ptr<WindowHandle> m_windowHandle;
   shared_ptr<Drawer> m_drawer;
   TRenderFn m_renderFn;
@@ -82,7 +79,7 @@ public:
     VideoTimer * m_videoTimer;
     bool m_useDefaultFB;
     graphics::ResourceManager::Params m_rmParams;
-    shared_ptr<graphics::gl::RenderContext> m_primaryRC;
+    shared_ptr<graphics::RenderContext> m_primaryRC;
     double m_visualScale;
     string m_skinName;
     size_t m_screenWidth;

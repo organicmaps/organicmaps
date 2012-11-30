@@ -4,7 +4,7 @@
 #include "window_handle.hpp"
 
 #include "../graphics/opengl/opengl.hpp"
-#include "../graphics/opengl/rendercontext.hpp"
+#include "../graphics/opengl/gl_render_context.hpp"
 #include "../graphics/opengl/base_texture.hpp"
 
 #include "../graphics/packets_queue.hpp"
@@ -24,7 +24,7 @@ TileRenderer::TileRenderer(
     unsigned executorsCount,
     graphics::Color const & bgColor,
     RenderPolicy::TRenderFn const & renderFn,
-    shared_ptr<graphics::gl::RenderContext> const & primaryRC,
+    shared_ptr<graphics::RenderContext> const & primaryRC,
     shared_ptr<graphics::ResourceManager> const & rm,
     double visualScale,
     graphics::PacketsQueue ** packetsQueues

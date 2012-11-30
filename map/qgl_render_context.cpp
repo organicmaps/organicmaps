@@ -29,10 +29,10 @@ namespace qt
     void RenderContext::makeCurrent()
     {
       m_context->makeCurrent();
-      graphics::gl::RenderContext::initParams();
+      startThreadDrawing();
     }
 
-    shared_ptr<graphics::gl::RenderContext> RenderContext::createShared()
+    shared_ptr<graphics::RenderContext> RenderContext::createShared()
     {
       return shared_ptr<graphics::gl::RenderContext>(new RenderContext(this));
     }

@@ -6,7 +6,7 @@
 #include "tile_set.hpp"
 
 #include "../graphics/skin.hpp"
-#include "../graphics/opengl/rendercontext.hpp"
+#include "../graphics/opengl/gl_render_context.hpp"
 
 #include "../base/logging.hpp"
 
@@ -18,7 +18,7 @@ CoverageGenerator::CoverageGenerator(
     string const & skinName,
     TileRenderer * tileRenderer,
     shared_ptr<WindowHandle> const & windowHandle,
-    shared_ptr<graphics::gl::RenderContext> const & primaryRC,
+    shared_ptr<graphics::RenderContext> const & primaryRC,
     shared_ptr<graphics::ResourceManager> const & rm,
     graphics::PacketsQueue * glQueue,
     RenderPolicy::TCountryNameFn countryNameFn)

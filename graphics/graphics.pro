@@ -75,7 +75,7 @@ HEADERS += \
     opengl/renderbuffer.hpp \
     opengl/base_texture.hpp \
     opengl/managed_texture.hpp \
-    opengl/rendercontext.hpp \
+    opengl/gl_render_context.hpp \
     opengl/clipper.hpp \
     opengl/renderer.hpp \
     opengl/geometry_renderer.hpp \
@@ -121,6 +121,7 @@ HEADERS += \
     image_renderer.hpp \
     image_info.hpp \
     display_list_renderer.hpp
+    render_context.hpp \
 
 win32* {
   SOURCES += opengl/opengl_win32.cpp

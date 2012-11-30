@@ -1,21 +1,25 @@
 #include "../base/SRC_FIRST.hpp"
-#include "rendercontext.hpp"
-#include "opengl.hpp"
+#include "render_context.hpp"
 
 namespace graphics
 {
-  namespace gl
+  void RenderContext::setMatrix(EMatrix mt, math::Matrix<float, 4, 4> const & m)
   {
-    void RenderContext::initParams()
-    {
-      OGLCHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
-      OGLCHECK(glPixelStorei(GL_PACK_ALIGNMENT, 1));
-      graphics::gl::InitializeThread();
-    }
-
-    void RenderContext::endThreadDrawing()
-    {
-      graphics::gl::FinalizeThread();
-    }
+    m_matrices[mt] = m;
   }
+
+  math::Matrix<float, 4, 4> const & RenderContext::matrix(EMatrix m) const
+  {
+    map<EMatrix, math::Matrix<float, 4, 4> >::const_iterator it = m_matrices.find(m);
+    return it->second;
+  }
+
+  RenderContext::RenderContext()
+  {
+    setMatrix(EModelView, math::Identity<float, 4>());
+    setMatrix(EProjection, math::Identity<float, 4>());
+  }
+
+  RenderContext::~RenderContext()
+  {}
 }

@@ -27,8 +27,6 @@
 
 #include "../coding/internal/file_data.hpp"
 
-#include "../graphics/opengl/rendercontext.hpp"
-
 #include "../geometry/angles.hpp"
 #include "../geometry/distance_on_sphere.hpp"
 
@@ -1265,8 +1263,6 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 
     m_navigator.SetMinScreenParams(static_cast<unsigned>(m_minRulerWidth * renderPolicy->VisualScale()),
                                    m_metresMinWidth);
-
-    graphics::gl::RenderContext::initParams();
   }
 
   m_guiController->ResetRenderParams();

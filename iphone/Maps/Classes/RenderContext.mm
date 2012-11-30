@@ -29,12 +29,12 @@ namespace iphone
 	void RenderContext::makeCurrent()
 	{
     [EAGLContext setCurrentContext:m_context];
-    graphics::gl::RenderContext::initParams();
+    startThreadDrawing();
 	}
  
-  shared_ptr<graphics::gl::RenderContext> RenderContext::createShared()
+  shared_ptr<graphics::RenderContext> RenderContext::createShared()
 	{
-		return shared_ptr<graphics::gl::RenderContext>(new RenderContext(this));
+		return shared_ptr<graphics::RenderContext>(new RenderContext(this));
 	}
 
 	EAGLContext * RenderContext::getEAGLContext()

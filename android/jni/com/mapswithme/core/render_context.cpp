@@ -9,19 +9,14 @@
 
 namespace android
 {
-  RenderContext::RenderContext()
-  {}
-
   void RenderContext::makeCurrent()
-  {}
-
-  shared_ptr<graphics::gl::RenderContext> RenderContext::createShared()
   {
-    return make_shared_ptr(new RenderContext());
+    startThreadDrawing();
   }
 
-  void RenderContext::endThreadDrawing()
+  shared_ptr<graphics::RenderContext> RenderContext::createShared()
   {
+    return make_shared_ptr(new RenderContext());
   }
 }
 

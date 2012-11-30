@@ -71,12 +71,12 @@ void WindowHandle::setNeedRedraw(bool flag)
     checkTimer();
 }
 
-shared_ptr<graphics::gl::RenderContext> const & WindowHandle::renderContext()
+shared_ptr<graphics::RenderContext> const & WindowHandle::renderContext()
 {
   return m_renderContext;
 }
 
-void WindowHandle::setRenderContext(shared_ptr<graphics::gl::RenderContext> const & renderContext)
+void WindowHandle::setRenderContext(shared_ptr<graphics::RenderContext> const & renderContext)
 {
   m_renderContext = renderContext;
 }

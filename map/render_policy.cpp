@@ -11,6 +11,7 @@
 #include "../anim/task.hpp"
 
 #include "../graphics/opengl/opengl.hpp"
+#include "../graphics/opengl/gl_render_context.hpp"
 #include "../graphics/skin.hpp"
 
 #include "../indexer/scales.hpp"
@@ -39,9 +40,12 @@ RenderPolicy::RenderPolicy(Params const & p,
 {
   LOG(LDEBUG, ("each BaseRule will hold up to", idCacheSize, "cached values"));
   drule::rules().ResizeCaches(idCacheSize);
+
   graphics::gl::InitExtensions();
   graphics::gl::InitializeThread();
   graphics::gl::CheckExtensionSupport();
+
+  m_primaryRC->startThreadDrawing();
 }
 
 void RenderPolicy::InitCacheScreen()

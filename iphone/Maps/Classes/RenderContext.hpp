@@ -13,7 +13,7 @@
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
 
-#include "../../../graphics/opengl/rendercontext.hpp"
+#include "../../../graphics/opengl/gl_render_context.hpp"
 #include "../../../std/shared_ptr.hpp"
 
 
@@ -34,7 +34,7 @@ namespace iphone
 		/// Make this rendering context current
 		void makeCurrent();
 		/// create a shared render context
-		shared_ptr<graphics::gl::RenderContext> createShared();
+		shared_ptr<graphics::RenderContext> createShared();
     /// @TODO
     void endThreadDrawing() {}
 
