@@ -367,6 +367,11 @@ namespace graphics
     void Renderer::setPixelPrecision(bool flag)
     {
       glUseSharpGeometryFn(flag);
+    RenderContext * Renderer::renderContext() const
+    {
+      return m_renderContext.get();
+    }
+
     int Renderer::threadSlot() const
     {
       return m_threadSlot;

@@ -49,6 +49,9 @@ TileRenderer::TileRenderer(
 
   for (unsigned i = 0; i < m_threadData.size(); ++i)
   {
+    if (!packetsQueues)
+      m_threadData[i].m_renderContext = m_primaryContext->createShared();
+
     Drawer::Params params;
 
     params.m_resourceManager = m_resourceManager;
@@ -61,6 +64,7 @@ TileRenderer::TileRenderer(
     params.m_doUnbindRT = false;
     params.m_isSynchronized = false;
     params.m_skin = make_shared_ptr(graphics::loadSkin(m_resourceManager, m_skinName));
+    params.m_renderContext = m_threadData[i].m_renderContext;
   /*  params.m_isDebugging = true;
     params.m_drawPathes = false ;
     params.m_drawAreas = false;
@@ -69,8 +73,6 @@ TileRenderer::TileRenderer(
     m_threadData[i].m_drawerParams = params;
     m_threadData[i].m_drawer = 0;
 
-    if (!packetsQueues)
-      m_threadData[i].m_renderContext = m_primaryContext->createShared();
 
     m_threadData[i].m_dummyRT = m_resourceManager->createRenderTarget(2, 2);
     m_threadData[i].m_depthBuffer = make_shared_ptr(new graphics::gl::RenderBuffer(tileWidth, tileHeight, true));

@@ -92,6 +92,7 @@ namespace graphics
 
       struct Params
       {
+        shared_ptr<RenderContext> m_renderContext;
         shared_ptr<ResourceManager> m_resourceManager;
         shared_ptr<FrameBuffer> m_frameBuffer;
         bool m_isDebugging;
@@ -124,6 +125,8 @@ namespace graphics
       core::CommandsQueue::Environment const * m_env;
 
       int m_threadSlot;
+
+      shared_ptr<RenderContext> m_renderContext;
 
     public:
 
@@ -181,6 +184,9 @@ namespace graphics
       bool isCancelled() const;
 
       void setPixelPrecision(bool flag);
+
+
+      RenderContext * renderContext() const;
 
       int threadSlot() const;
     };

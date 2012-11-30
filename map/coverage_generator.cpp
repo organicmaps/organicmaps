@@ -60,6 +60,7 @@ ScreenCoverage * CoverageGenerator::CreateCoverage()
   params.m_doUnbindRT = false;
   params.m_isSynchronized = false;
   params.m_threadSlot = m_resourceManager->cacheThreadSlot();
+  params.m_renderContext = m_renderContext;
 
   shared_ptr<graphics::Screen> screen(new graphics::Screen(params));
   shared_ptr<graphics::Skin> skin(loadSkin(m_resourceManager, m_skinName));

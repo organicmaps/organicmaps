@@ -12,6 +12,8 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
   : BasicTilingRenderPolicy(p,
                             false)
 {
+  int cpuCores = GetPlatform().CpuCores();
+
   graphics::ResourceManager::Params rmp = p.m_rmParams;
 
   rmp.checkDeviceCaps();
@@ -141,6 +143,7 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
   dp.m_useGuiResources = true;
   dp.m_isSynchronized = false;
   dp.m_fastSolidPath = true;
+  dp.m_renderContext = p.m_primaryRC;
 
   m_drawer.reset(new Drawer(dp));
 

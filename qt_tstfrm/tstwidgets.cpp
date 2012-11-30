@@ -42,6 +42,8 @@ void GLDrawWidget::initializeGL()
 
   m_primaryContext = make_shared_ptr(new qt::gl::RenderContext(this));
 
+  m_primaryContext->startThreadDrawing();
+
   graphics::ResourceManager::Params rmp;
 
   rmp.m_rtFormat = graphics::Data8Bpp;
@@ -142,6 +144,7 @@ void GLDrawWidget::initializeGL()
   params.m_resourceManager = m_resourceManager;
   params.m_frameBuffer = m_frameBuffer;
   params.m_threadSlot = m_resourceManager->guiThreadSlot();
+  params.m_renderContext = m_primaryContext;
 
   m_p = make_shared_ptr(new graphics::Screen(params));
 

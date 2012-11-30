@@ -151,6 +151,8 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
   dp.m_useGuiResources = true;
   dp.m_isSynchronized = false;
   dp.m_fastSolidPath = true;
+  dp.m_renderContext = p.m_primaryRC;
+
 //  p.m_isDebugging = true;
 
   m_drawer.reset(new Drawer(dp));
