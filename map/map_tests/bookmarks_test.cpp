@@ -88,7 +88,15 @@ char const * kmlString =
         "<description><![CDATA[]]></description>"
         "<styleUrl>#placemark-blue</styleUrl>"
         "<Point>"
-          "<coordinates>27.566765,53.900047,0.000000</coordinates>"
+          "<coordinates>27.566765,53.900047,0</coordinates>"
+        "</Point>"
+      "</Placemark>"
+      "<Placemark>"
+        "<name><![CDATA[<MWM & Sons>]]></name>"
+        "<description><![CDATA[Amps & <brackets>]]></description>"
+        "<styleUrl>#placemark-green</styleUrl>"
+        "<Point>"
+          "<coordinates>27.551532,53.89306</coordinates>"
         "</Point>"
       "</Placemark>"
     "</Document>"
@@ -96,7 +104,7 @@ char const * kmlString =
 
   void CheckBookmarks(BookmarkCategory const & cat)
   {
-    TEST_EQUAL(cat.GetBookmarksCount(), 3, ());
+    TEST_EQUAL(cat.GetBookmarksCount(), 4, ());
 
     Bookmark const * bm = cat.GetBookmark(0);
     TEST_EQUAL(bm->GetName(), "Nebraska", ());
@@ -107,10 +115,18 @@ char const * kmlString =
     TEST_EQUAL(bm->GetType(), "placemark-pink", ());
 
     bm = cat.GetBookmark(2);
-    m2::PointD const org = bm->GetOrg();
+    m2::PointD org = bm->GetOrg();
     TEST_ALMOST_EQUAL(MercatorBounds::XToLon(org.x), 27.566765, ());
     TEST_ALMOST_EQUAL(MercatorBounds::YToLat(org.y), 53.900047, ());
+    TEST_EQUAL(bm->GetName(), "From: Минск, Минская область, Беларусь", ());
     TEST_EQUAL(bm->GetType(), "placemark-blue", ());
+
+    bm = cat.GetBookmark(3);
+    org = bm->GetOrg();
+    TEST_ALMOST_EQUAL(MercatorBounds::XToLon(org.x), 27.551532, ());
+    TEST_ALMOST_EQUAL(MercatorBounds::YToLat(org.y), 53.89306, ());
+    TEST_EQUAL(bm->GetName(), "<MWM & Sons>", ());
+
   }
 }
 

@@ -351,19 +351,38 @@ char const * kmlFooter =
     "</kml>\n";
 }
 
+namespace
+{
+  // According to kml/xml spec, we need to escape special symbols inside CDATA
+  inline bool ShouldUseCDATA(string const & s)
+  {
+    return s.find_first_of("<&") != string::npos;
+  }
+}
+
 void BookmarkCategory::SaveToKML(ostream & s)
 {
   s << kmlHeader;
 
-  s << "  <name>" << GetName() <<"</name>\n";
+  // Use CDATA if we have special symbols in the name
+  if (ShouldUseCDATA(GetName()))
+    s << "  <name><![CDATA[" << GetName() << "]]></name>\n";
+  else
+    s << "  <name>" << GetName() << "</name>\n";
   s << "  <visibility>" << (IsVisible() ? "1" : "0") <<"</visibility>\n";
 
   for (size_t i = 0; i < m_bookmarks.size(); ++i)
   {
     Bookmark const * bm = m_bookmarks[i];
-    s << "  <Placemark>\n"
-      << "    <name>" << bm->GetName() << "</name>\n"
-      << "    <styleUrl>#" << bm->GetType() << "</styleUrl>\n"
+    s << "  <Placemark>\n";
+
+    // Use CDATA if we have special symbols in the name
+    if (ShouldUseCDATA(bm->GetName()))
+      s << "    <name><![CDATA[" << bm->GetName() << "]]></name>\n";
+    else
+      s << "    <name>" << bm->GetName() << "</name>\n";
+
+    s << "    <styleUrl>#" << bm->GetType() << "</styleUrl>\n"
       << "    <Point>\n"
       << "      <coordinates>" << PointToString(bm->GetOrg()) << "</coordinates>\n"
       << "    </Point>\n";
