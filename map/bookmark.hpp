@@ -66,8 +66,8 @@ public:
   bool IsVisible() const { return m_visible; }
 
   void SetName(string const & name) { m_name = name; }
-  string GetName() const { return m_name; }
-  string GetFileName() const { return m_file; }
+  string const & GetName() const { return m_name; }
+  string const & GetFileName() const { return m_file; }
 
   inline size_t GetBookmarksCount() const { return m_bookmarks.size(); }
 
