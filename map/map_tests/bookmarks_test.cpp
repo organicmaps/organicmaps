@@ -109,10 +109,12 @@ char const * kmlString =
     Bookmark const * bm = cat.GetBookmark(0);
     TEST_EQUAL(bm->GetName(), "Nebraska", ());
     TEST_EQUAL(bm->GetType(), "placemark-red", ());
+    TEST_EQUAL(bm->GetDescription(), "", ());
 
     bm = cat.GetBookmark(1);
     TEST_EQUAL(bm->GetName(), "Monongahela National Forest", ());
     TEST_EQUAL(bm->GetType(), "placemark-pink", ());
+    TEST_EQUAL(bm->GetDescription(), "Huttonsville, WV 26273<br>", ());
 
     bm = cat.GetBookmark(2);
     m2::PointD org = bm->GetOrg();
@@ -120,13 +122,14 @@ char const * kmlString =
     TEST_ALMOST_EQUAL(MercatorBounds::YToLat(org.y), 53.900047, ());
     TEST_EQUAL(bm->GetName(), "From: Минск, Минская область, Беларусь", ());
     TEST_EQUAL(bm->GetType(), "placemark-blue", ());
+    TEST_EQUAL(bm->GetDescription(), "", ());
 
     bm = cat.GetBookmark(3);
     org = bm->GetOrg();
     TEST_ALMOST_EQUAL(MercatorBounds::XToLon(org.x), 27.551532, ());
     TEST_ALMOST_EQUAL(MercatorBounds::YToLat(org.y), 53.89306, ());
     TEST_EQUAL(bm->GetName(), "<MWM & Sons>", ());
-
+    TEST_EQUAL(bm->GetDescription(), "Amps & <brackets>", ());
   }
 }
 

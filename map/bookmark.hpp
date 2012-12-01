@@ -14,18 +14,21 @@ class Bookmark
 {
   m2::PointD m_org;
   string m_name;
+  string m_description;
   string m_type;    ///< Now it stores bookmark color (category style).
   double m_scale;   ///< Viewport scale. -1.0 - is a default value (no scale set).
 
 public:
   Bookmark() {}
-  Bookmark(m2::PointD const & org, string const & name, string const & type)
-    : m_org(org), m_name(name), m_type(type), m_scale(-1.0)
+  Bookmark(m2::PointD const & org, string const & name, string const & type,
+           string const & description = string())
+    : m_org(org), m_name(name), m_description(description), m_type(type), m_scale(-1.0)
   {
   }
 
   m2::PointD const & GetOrg() const { return m_org; }
   string const & GetName() const { return m_name; }
+  string const & GetDescription() const { return m_description; }
   /// @return Now its a bookmark color.
   string const & GetType() const { return m_type; }
   m2::RectD GetViewport() const { return m2::RectD(m_org, m_org); }

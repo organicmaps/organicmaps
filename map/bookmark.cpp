@@ -128,6 +128,7 @@ namespace bookmark_impl
 
     string m_name;
     string m_type;
+    string m_description;
 
     m2::PointD m_org;
     double m_scale;
@@ -135,6 +136,7 @@ namespace bookmark_impl
     void Reset()
     {
       m_name.clear();
+      m_description.clear();
       m_org = m2::PointD(-1000, -1000);
       m_type.clear();
       m_scale = -1.0;
@@ -170,31 +172,6 @@ namespace bookmark_impl
       return false;
     }
 
-    /*
-    void TryResolveName(string const & s)
-    {
-      if (m_name.empty())
-      {
-        // "CosmosVDC" has only description in placemark.
-        size_t i1 = s.find("<a");
-        if (i1 != string::npos)
-        {
-          i1 = s.find(">", i1);
-          if (i1 != string::npos)
-          {
-            ++i1;
-            size_t const i2 = s.find("</a>", i1);
-            if (i2 != string::npos)
-            {
-              m_name = s.substr(i1, i2-i1);
-              strings::Trim(m_name);
-            }
-          }
-        }
-      }
-    }
-    */
-
   public:
     KMLParser(BookmarkCategory & cat) : m_category(cat)
     {
@@ -215,7 +192,7 @@ namespace bookmark_impl
 
       if (tag == "Placemark" && MakeValid())
       {
-        m_category.AddBookmarkImpl(Bookmark(m_org, m_name, m_type), m_scale);
+        m_category.AddBookmarkImpl(Bookmark(m_org, m_name, m_type, m_description), m_scale);
         Reset();
       }
       m_tags.pop_back();
@@ -242,8 +219,11 @@ namespace bookmark_impl
         {
           if (currTag == "name")
             m_name = value;
-          //else if (currTag == "description")
-          //  TryResolveName(value);
+          else if (currTag == "description")
+          {
+            LOG(LINFO, (value));
+            m_description = value;
+          }
           else if (currTag == "styleUrl")
             m_type = GetSupportedBMType(value);
         }
@@ -375,12 +355,22 @@ void BookmarkCategory::SaveToKML(ostream & s)
   {
     Bookmark const * bm = m_bookmarks[i];
     s << "  <Placemark>\n";
-
-    // Use CDATA if we have special symbols in the name
+    s << "    <name>";
     if (ShouldUseCDATA(bm->GetName()))
-      s << "    <name><![CDATA[" << bm->GetName() << "]]></name>\n";
+      s << "<![CDATA[" << bm->GetName() << "]]>";
     else
-      s << "    <name>" << bm->GetName() << "</name>\n";
+      s << bm->GetName();
+    s << "</name>\n";
+
+    if (!bm->GetDescription().empty())
+    {
+      s << "    <description>";
+      if (ShouldUseCDATA(bm->GetDescription()))
+        s << "<![CDATA[" << bm->GetDescription() << "]]>";
+      else
+        s << bm->GetDescription();
+      s << "</description>\n";
+    }
 
     s << "    <styleUrl>#" << bm->GetType() << "</styleUrl>\n"
       << "    <Point>\n"
