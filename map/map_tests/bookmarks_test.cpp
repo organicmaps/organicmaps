@@ -9,6 +9,10 @@
 #include "../../std/fstream.hpp"
 
 
+// Prototypes for private functions in bookmarks.cpp
+string TimestampToString(time_t time);
+time_t StringToTimestamp(string const & timeStr);
+
 namespace
 {
 char const * kmlString =
@@ -372,4 +376,22 @@ UNIT_TEST(Bookmarks_AddingMoving)
   TEST_EQUAL(pBm->GetType(), "placemark-green", ());
 
   DeleteCategoryFiles();
+}
+
+UNIT_TEST(TimestampConversion)
+{
+  TEST_EQUAL(TimestampToString(0), "1970-01-01T00:00:00Z", ());
+  TEST_EQUAL(TimestampToString(1354482514), "2012-12-02T21:08:34Z", ());
+  TEST_EQUAL(StringToTimestamp("1970-01-01T00:00:00Z"), 0, ());
+  TEST_EQUAL(StringToTimestamp("2012-12-02T21:08:34Z"), 1354482514, ());
+  TEST_EQUAL(StringToTimestamp("2012-12-03T00:38:34+03:30"), 1354482514, ());
+  TEST_EQUAL(StringToTimestamp("2012-12-02T11:08:34-10:00"), 1354482514, ());
+
+  time_t now = time(0);
+  TEST_EQUAL(now, StringToTimestamp(TimestampToString(now)), ());
+
+  TEST_EQUAL(Bookmark::INVALID_TIME_STAMP, StringToTimestamp("asd23423adsfbhj657"), ());
+  TEST_EQUAL(Bookmark::INVALID_TIME_STAMP, StringToTimestamp("2012-aa-02T21:08:34Z"), ());
+  TEST_EQUAL(Bookmark::INVALID_TIME_STAMP, StringToTimestamp("2012-12-0ZT21:08:34Z"), ());
+  TEST_EQUAL(Bookmark::INVALID_TIME_STAMP, StringToTimestamp("2012:12:02T21-08-34Z"), ());
 }

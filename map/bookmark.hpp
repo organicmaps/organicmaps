@@ -8,6 +8,7 @@
 #include "../std/string.hpp"
 #include "../std/noncopyable.hpp"
 #include "../std/iostream.hpp"
+#include "../std/ctime.hpp"
 
 
 class Bookmark
@@ -32,6 +33,8 @@ public:
   /// @return Now its a bookmark color.
   string const & GetType() const { return m_type; }
   m2::RectD GetViewport() const { return m2::RectD(m_org, m_org); }
+
+  static time_t const INVALID_TIME_STAMP;
 
   double GetScale() const { return m_scale; }
   void SetScale(double scale) { m_scale = scale; }
