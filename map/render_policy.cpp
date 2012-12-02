@@ -64,6 +64,7 @@ void RenderPolicy::InitCacheScreen()
 
 m2::RectI const RenderPolicy::OnSize(int w, int h)
 {
+  m_cacheScreen->onSize(w, h);
   m_drawer->onSize(w, h);
   return m2::RectI(0, 0, w, h);
 }

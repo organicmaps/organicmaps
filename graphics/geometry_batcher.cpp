@@ -195,6 +195,7 @@ namespace graphics
       m_pipelines[i].m_verticesDrawn = 0;
       m_pipelines[i].m_indicesDrawn = 0;
     }
+    base_t::applyStates();
   }
 
   void GeometryBatcher::clear(graphics::Color const & c, bool clearRT, float depth, bool clearDepth)

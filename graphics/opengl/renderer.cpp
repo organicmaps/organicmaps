@@ -62,6 +62,14 @@ namespace graphics
       CHECK(!m_isRendering, ("beginFrame called inside beginFrame/endFrame pair!"));
       m_isRendering = true;
 
+      math::Matrix<float, 4, 4> coordM;
+      getOrthoMatrix(coordM,
+                     0, m_width,
+                     m_height, 0,
+                    -graphics::maxDepth,
+                     graphics::maxDepth);
+
+
       if (m_frameBuffer)
       {
         m_frameBuffer->setRenderTarget(m_renderTarget);
@@ -69,20 +77,12 @@ namespace graphics
 
         processCommand(make_shared_ptr(new ChangeFrameBuffer(m_frameBuffer)));
 
-        math::Matrix<float, 4, 4> coordM;
-
         if (m_renderTarget != 0)
           m_renderTarget->coordMatrix(coordM);
-        else
-          getOrthoMatrix(coordM,
-                         0, m_frameBuffer->width(),
-                         m_frameBuffer->height(), 0,
-                         -graphics::maxDepth,
-                          graphics::maxDepth);
-
-        processCommand(make_shared_ptr(new ChangeMatrix(EProjection, coordM)));
-        processCommand(make_shared_ptr(new ChangeMatrix(EModelView, math::Identity<float, 4>())));
       }
+
+      processCommand(make_shared_ptr(new ChangeMatrix(EProjection, coordM)));
+      processCommand(make_shared_ptr(new ChangeMatrix(EModelView, math::Identity<float, 4>())));
     }
 
     bool Renderer::isRendering() const
