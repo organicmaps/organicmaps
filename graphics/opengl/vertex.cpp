@@ -43,9 +43,9 @@ namespace graphics
     {
       static VertexAttrib attrs [] =
       {
-        VertexAttrib("Position", vertexOffset, EFloat, 3, sizeof(Vertex)),
-        VertexAttrib("Normal", normalOffset, EFloat, 2, sizeof(Vertex)),
-        VertexAttrib("TexCoordIn", texCoordOffset, EFloat, 2, sizeof(Vertex))
+        VertexAttrib(ESemPosition, vertexOffset, EFloat, 3, sizeof(Vertex)),
+        VertexAttrib(ESemNormal, normalOffset, EFloat, 2, sizeof(Vertex)),
+        VertexAttrib(ESemTexCoord0, texCoordOffset, EFloat, 2, sizeof(Vertex))
       };
 
       static VertexDecl vd(attrs, ARRAY_SIZE(attrs));

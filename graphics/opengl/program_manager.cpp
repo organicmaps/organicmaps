@@ -17,13 +17,13 @@ namespace graphics
       static const char vxSrc[] =
         "attribute vec4 Position;\n"
         "attribute vec2 Normal;\n"
-        "attribute vec2 TexCoordIn;\n"
-        "uniform mat4 ProjM;\n"
-        "uniform mat4 ModelViewM;\n"
-        "varying vec2 TexCoordOut;\n"
+        "attribute vec2 TexCoord0;\n"
+        "uniform mat4 Projection;\n"
+        "uniform mat4 ModelView;\n"
+        "varying vec2 TexCoordOut0;\n"
         "void main(void) {\n"
-        "   gl_Position = (vec4(Normal, 0.0, 0.0) + Position * ModelViewM) * ProjM;\n"
-        "   TexCoordOut = TexCoordIn;\n"
+        "   gl_Position = (vec4(Normal, 0.0, 0.0) + Position * ModelView) * Projection;\n"
+        "   TexCoordOut0 = TexCoord0;\n"
         "}\n";
 
       m_vxShaders["basic"].reset(new Shader(vxSrc, EVertexShader));
@@ -33,13 +33,13 @@ namespace graphics
       static const char sharpVxSrc[] =
         "attribute vec4 Position;\n"
         "attribute vec2 Normal;\n"
-        "attribute vec2 TexCoordIn;\n"
-        "uniform mat4 ProjM;\n"
-        "uniform mat4 ModelViewM;\n"
-        "varying vec2 TexCoordOut;\n"
+        "attribute vec2 TexCoord0;\n"
+        "uniform mat4 Projection;\n"
+        "uniform mat4 ModelView;\n"
+        "varying vec2 TexCoordOut0;\n"
         "void main(void) {\n"
-        "   gl_Position = floor(vec4(Normal, 0.0, 0.0) + Position * ModelViewM) * ProjM;\n"
-        "   TexCoordOut = TexCoordIn;\n"
+        "   gl_Position = floor(vec4(Normal, 0.0, 0.0) + Position * ModelView) * Projection;\n"
+        "   TexCoordOut0 = TexCoord0;\n"
         "}\n";
 
       m_vxShaders["sharp"].reset(new Shader(sharpVxSrc, EVertexShader));
@@ -47,10 +47,10 @@ namespace graphics
       /// Fragment Shader with alphaTest
 
       static const char alphaTestFrgSrc [] =
-        "uniform sampler2D Texture;\n"
-        "varying " PRECISION " vec2 TexCoordOut;\n"
+        "uniform sampler2D Sampler0;\n"
+        "varying " PRECISION " vec2 TexCoordOut0;\n"
         "void main(void) {\n"
-        "   gl_FragColor = texture2D(Texture, TexCoordOut);\n"
+        "   gl_FragColor = texture2D(Sampler0, TexCoordOut0);\n"
         "   if (gl_FragColor.a == 0.0)\n"
         "     discard;\n"
         "}\n";
@@ -60,10 +60,10 @@ namespace graphics
       /// Fragment shader without alphaTest
 
       static const char noAlphaTestFrgSrc[] =
-        "uniform sampler2D Texture;\n"
-        "varying " PRECISION " vec2 TexCoordOut;\n"
+        "uniform sampler2D Sampler0;\n"
+        "varying " PRECISION " vec2 TexCoordOut0;\n"
         "void main(void) {\n"
-        "   gl_FragColor = texture2D(Texture, TexCoordOut);\n"
+        "   gl_FragColor = texture2D(Sampler0, TexCoordOut0);\n"
         "}\n";
       m_frgShaders["noalphatest"].reset(new Shader(noAlphaTestFrgSrc, EFragmentShader));
 

@@ -10,11 +10,32 @@ namespace graphics
     EFragmentShader
   };
 
+  enum ESemantic
+  {
+    ESemPosition,
+    ESemNormal,
+    ESemTexCoord0,
+    ESemSampler0,
+    ESemModelView,
+    ESemProjection
+  };
+
+  void convert(char const * name, ESemantic & sem);
+
   enum EDataType
   {
+    EInteger,
+    EIntegerVec2,
+    EIntegerVec3,
+    EIntegerVec4,
     EFloat,
-    EUnsigned,
-    EInteger
+    EFloatVec2,
+    EFloatVec3,
+    EFloatVec4,
+    EFloatMat2,
+    EFloatMat3,
+    EFloatMat4,
+    ESampler2D
   };
 
   enum EPrimitives

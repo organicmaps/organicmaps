@@ -71,6 +71,7 @@ SOURCES += \
     render_context.cpp \
     coordinates.cpp \
     render_target.cpp \
+    defines.cpp
 
 HEADERS += \
     opengl/opengl.hpp \

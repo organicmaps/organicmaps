@@ -21,6 +21,11 @@ namespace math
         m_data[i] = src.m_data[i];
     }
 
+    Matrix(T * data)
+    {
+      copy(data, data + Rows * Cols, m_data);
+    }
+
     template <typename U>
     Matrix<T, Rows, Cols> const & operator=(Matrix<U, Rows, Cols> const & src)
     {

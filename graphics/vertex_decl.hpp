@@ -10,13 +10,13 @@ namespace graphics
   /// Single attribute of vertex.
   struct VertexAttrib
   {
+    ESemantic m_semantic;
     size_t m_offset;
     EDataType m_elemType;
     size_t m_elemCount;
     size_t m_stride;
-    string m_name;
 
-    VertexAttrib(char const * name,
+    VertexAttrib(ESemantic semantic,
                  size_t offset,
                  EDataType elemType,
                  size_t elemCount,

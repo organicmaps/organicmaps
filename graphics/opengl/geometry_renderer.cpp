@@ -168,9 +168,10 @@ namespace graphics
       ProgramManager * pm = rc->programManager();
       shared_ptr<Program> prg = pm->getProgram("basic", "noalphatest");
 
-      prg->setParam("ModelViewM", rc->matrix(EModelView));
-      prg->setParam("ProjM", rc->matrix(EProjection));
-      prg->setParam("Texture", 0);
+      prg->setParam(ESemModelView, rc->matrix(EModelView));
+      prg->setParam(ESemProjection, rc->matrix(EProjection));
+      prg->setParam(ESemSampler0, 0);
+
       prg->setStorage(blitStorage);
       prg->setVertexDecl(gl::Vertex::getVertexDecl());
       prg->makeCurrent();
@@ -210,6 +211,10 @@ namespace graphics
       gl::RenderContext * rc = static_cast<gl::RenderContext*>(renderContext());
 
       shared_ptr<Program> const & prg = rc->program();
+
+      prg->setParam(ESemModelView, rc->matrix(EModelView));
+      prg->setParam(ESemProjection, rc->matrix(EProjection));
+      prg->setParam(ESemSampler0, 0);
 
       prg->setStorage(m_storage);
       prg->setVertexDecl(Vertex::getVertexDecl());
@@ -407,9 +412,9 @@ namespace graphics
       ProgramManager * pm = rc->programManager();
       shared_ptr<Program> prg = pm->getProgram("basic", "alphatest");
 
-      prg->setParam("ModelViewM", rc->matrix(EModelView));
-      prg->setParam("ProjM", rc->matrix(EProjection));
-      prg->setParam("Texture", 0);
+      prg->setParam(ESemModelView, rc->matrix(EModelView));
+      prg->setParam(ESemProjection, rc->matrix(EProjection));
+      prg->setParam(ESemSampler0, 0);
 
       rc->setProgram(prg);
     }
@@ -432,9 +437,9 @@ namespace graphics
       ProgramManager * pm = rc->programManager();
       shared_ptr<Program> prg = pm->getProgram("basic", "noalphatest");
 
-      prg->setParam("ModelViewM", rc->matrix(EModelView));
-      prg->setParam("ProjM", rc->matrix(EProjection));
-      prg->setParam("Texture", 0);
+      prg->setParam(ESemModelView, rc->matrix(EModelView));
+      prg->setParam(ESemProjection, rc->matrix(EProjection));
+      prg->setParam(ESemSampler0, 0);
 
       rc->setProgram(prg);
     }
@@ -477,9 +482,9 @@ namespace graphics
       ProgramManager * pm = rc->programManager();
       shared_ptr<Program> prg = pm->getProgram("sharp", "alphatest");
 
-      prg->setParam("ModelViewM", rc->matrix(EModelView));
-      prg->setParam("ProjM", rc->matrix(EProjection));
-      prg->setParam("Texture", 0);
+      prg->setParam(ESemModelView, rc->matrix(EModelView));
+      prg->setParam(ESemProjection, rc->matrix(EProjection));
+      prg->setParam(ESemSampler0, 0);
 
       rc->setProgram(prg);
     }

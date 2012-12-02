@@ -3,6 +3,8 @@
 #include "opengl.hpp"
 #include "storage.hpp"
 
+#include "../defines.hpp"
+
 #include "../../base/matrix.hpp"
 #include "../../base/exception.hpp"
 
@@ -21,12 +23,36 @@ namespace graphics
     {
     private:
 
+      void applyAttributes();
+      void applyUniforms();
+
+      struct Uniform
+      {
+        struct Data
+        {
+          float m_matVal[4 * 4];
+          int m_intVal[4];
+          float m_floatVal[4];
+        } m_data;
+        EDataType m_type;
+        GLint m_handle;
+      };
+
+      struct Attribute
+      {
+        GLint m_handle;
+        size_t m_offset;
+        EDataType m_type;
+        size_t m_count;
+        size_t m_stride;
+      };
+
       GLuint m_handle;
 
-      typedef map<string, function<void()> > TUniforms;
+      typedef map<ESemantic, Uniform> TUniforms;
       TUniforms m_uniforms;
 
-      typedef map<GLuint, function<void()> > TAttributes;
+      typedef map<ESemantic, Attribute> TAttributes;
       TAttributes m_attributes;
 
       Storage m_storage;
@@ -43,22 +69,19 @@ namespace graphics
 
       unsigned getParam(char const * name);
 
-      void setParam(char const * name, float v0);
-      void setParam(char const * name, float v0, float v1);
-      void setParam(char const * name, float v0, float v1, float v2);
-      void setParam(char const * name, float v0, float v1, float v2, float v3);
+      void setParam(ESemantic sem, float v0);
+      void setParam(ESemantic sem, float v0, float v1);
+      void setParam(ESemantic sem, float v0, float v1, float v2);
+      void setParam(ESemantic sem, float v0, float v1, float v2, float v3);
 
-      void setParam(char const * name, int v0);
-      void setParam(char const * name, int v0, int v1);
-      void setParam(char const * name, int v0, int v1, int v2);
-      void setParam(char const * name, int v0, int v1, int v2, int v3);
+      void setParam(ESemantic sem, int v0);
+      void setParam(ESemantic sem, int v0, int v1);
+      void setParam(ESemantic sem, int v0, int v1, int v2);
+      void setParam(ESemantic sem, int v0, int v1, int v2, int v3);
 
-      void setParam(char const * name, math::Matrix<float, 2, 2> const & m);
-      void setParam(char const * name, math::Matrix<float, 3, 3> const & m);
-      void setParam(char const * name, math::Matrix<float, 4, 4> const & m);
-
-      GLuint getAttribute(char const * name);
-      void setAttribute(GLuint id, GLint size, GLenum type, GLboolean normalized, GLsizei stride, void * ptr);
+      void setParam(ESemantic sem, math::Matrix<float, 2, 2> const & m);
+      void setParam(ESemantic sem, math::Matrix<float, 3, 3> const & m);
+      void setParam(ESemantic sem, math::Matrix<float, 4, 4> const & m);
 
       void setVertexDecl(VertexDecl const * decl);
 

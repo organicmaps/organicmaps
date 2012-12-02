@@ -43,6 +43,50 @@ namespace graphics
 
         throw LinkException("Could not link program: ", "Unknown link error");
       }
+
+      /// getting all uniforms
+      int cnt = 0;
+
+      OGLCHECK(glGetProgramivFn(m_handle, GL_ACTIVE_UNIFORMS, &cnt));
+
+      GLchar name[1024];
+      GLsizei len = 0;
+      GLint size;
+      GLenum type;
+
+      for (unsigned i = 0; i < cnt; ++i)
+      {
+        Uniform f;
+        ESemantic sem;
+
+        OGLCHECK(glGetActiveUniform(m_handle, i, ARRAY_SIZE(name), &len, &size, &type, name));
+
+        f.m_handle = glGetUniformLocation(m_handle, name);
+        OGLCHECKAFTER;
+
+        convert(type, f.m_type);
+        convert(name, sem);
+
+        m_uniforms[sem] = f;
+      }
+
+      OGLCHECK(glGetProgramivFn(m_handle, GL_ACTIVE_ATTRIBUTES, &cnt));
+
+      for (unsigned i = 0; i < cnt; ++i)
+      {
+        Attribute a;
+        ESemantic sem;
+
+        OGLCHECK(glGetActiveAttrib(m_handle, i, ARRAY_SIZE(name), &len, &size, &type, name));
+
+        a.m_handle = glGetAttribLocation(m_handle, name);
+        OGLCHECKAFTER;
+
+        convert(type, a.m_type, a.m_count);
+        convert(name, sem);
+
+        m_attributes[sem] = a;
+      }
     }
 
     Program::~Program()
@@ -50,103 +94,126 @@ namespace graphics
       OGLCHECK(glDeleteProgramFn(m_handle));
     }
 
-    GLuint Program::getParam(char const * name)
+    void Program::setParam(ESemantic sem, float v0)
     {
-      GLuint res = glGetUniformLocationFn(m_handle, name);
-      OGLCHECKAFTER;
-      return res;
+      map<ESemantic, Uniform>::iterator it = m_uniforms.find(sem);
+      ASSERT(it != m_uniforms.end(), ());
+      Uniform & f = it->second;
+
+      f.m_type = EFloat;
+      f.m_data.m_floatVal[0] = v0;
     }
 
-    GLuint Program::getAttribute(char const * name)
+    void Program::setParam(ESemantic sem, float v0, float v1)
     {
-      GLuint res = glGetAttribLocationFn(m_handle, name);
-      OGLCHECKAFTER;
-      return res;
+      map<ESemantic, Uniform>::iterator it = m_uniforms.find(sem);
+      ASSERT(it != m_uniforms.end(), ());
+      Uniform & f = it->second;
+
+      f.m_type = EFloatVec2;
+      f.m_data.m_floatVal[0] = v0;
+      f.m_data.m_floatVal[1] = v1;
     }
 
-    void setParamImpl(GLuint prgID, char const * name, function<void(GLint)> fn)
+    void Program::setParam(ESemantic sem, float v0, float v1, float v2)
     {
-      GLuint res = glGetUniformLocationFn(prgID, name);
-      OGLCHECKAFTER;
-      OGLCHECK(fn(res));
+      map<ESemantic, Uniform>::iterator it = m_uniforms.find(sem);
+      ASSERT(it != m_uniforms.end(), ());
+      Uniform & f = it->second;
+
+      f.m_type = EFloatVec3;
+      f.m_data.m_floatVal[0] = v0;
+      f.m_data.m_floatVal[1] = v1;
+      f.m_data.m_floatVal[2] = v2;
     }
 
-    void Program::setParam(char const * name, float v0)
+    void Program::setParam(ESemantic sem, float v0, float v1, float v2, float v3)
     {
-      function<void(GLint)> fn = bind(&glUniform1f, _1, v0);
-      m_uniforms[name] = bind(&setParamImpl, m_handle, name, fn);
+      map<ESemantic, Uniform>::iterator it = m_uniforms.find(sem);
+      ASSERT(it != m_uniforms.end(), ());
+      Uniform & f = it->second;
+
+      f.m_type = EFloatVec4;
+      f.m_data.m_floatVal[0] = v0;
+      f.m_data.m_floatVal[1] = v1;
+      f.m_data.m_floatVal[2] = v2;
+      f.m_data.m_floatVal[3] = v3;
     }
 
-    void Program::setParam(char const * name, float v0, float v1)
+    void Program::setParam(ESemantic sem, int v0)
     {
-      function<void(GLint)> fn = bind(&glUniform2f, _1, v0, v1);
-      m_uniforms[name] = bind(&setParamImpl, m_handle, name, fn);
+      map<ESemantic, Uniform>::iterator it = m_uniforms.find(sem);
+      ASSERT(it != m_uniforms.end(), ());
+      Uniform & f = it->second;
+
+      f.m_type = EInteger;
+      f.m_data.m_intVal[0] = v0;
     }
 
-    void Program::setParam(char const * name, float v0, float v1, float v2)
+    void Program::setParam(ESemantic sem, int v0, int v1)
     {
-      function<void(GLint)> fn = bind(&glUniform3f, _1, v0, v1, v2);
-      m_uniforms[name] = bind(&setParamImpl, m_handle, name, fn);
+      map<ESemantic, Uniform>::iterator it = m_uniforms.find(sem);
+      ASSERT(it != m_uniforms.end(), ());
+      Uniform & f = it->second;
+
+      f.m_type = EIntegerVec2;
+      f.m_data.m_intVal[0] = v0;
+      f.m_data.m_intVal[1] = v1;
     }
 
-    void Program::setParam(char const * name, float v0, float v1, float v2, float v3)
+    void Program::setParam(ESemantic sem, int v0, int v1, int v2)
     {
-      function<void(GLint)> fn = bind(&glUniform4f, _1, v0, v1, v2, v3);
-      m_uniforms[name] = bind(&setParamImpl, m_handle, name, fn);
+      map<ESemantic, Uniform>::iterator it = m_uniforms.find(sem);
+      ASSERT(it != m_uniforms.end(), ());
+      Uniform & f = it->second;
+
+      f.m_type = EIntegerVec3;
+      f.m_data.m_intVal[0] = v0;
+      f.m_data.m_intVal[1] = v1;
+      f.m_data.m_intVal[2] = v2;
     }
 
-    void Program::setParam(char const * name, int v0)
+    void Program::setParam(ESemantic sem, int v0, int v1, int v2, int v3)
     {
-      function<void(GLint)> fn = bind(&glUniform1i, _1, v0);
-      m_uniforms[name] = bind(&setParamImpl, m_handle, name, fn);
+      map<ESemantic, Uniform>::iterator it = m_uniforms.find(sem);
+      ASSERT(it != m_uniforms.end(), ());
+      Uniform & f = it->second;
+
+      f.m_type = EIntegerVec4;
+      f.m_data.m_intVal[0] = v0;
+      f.m_data.m_intVal[1] = v1;
+      f.m_data.m_intVal[2] = v2;
+      f.m_data.m_intVal[3] = v3;
     }
 
-    void Program::setParam(char const * name, int v0, int v1)
+    void Program::setParam(ESemantic sem, math::Matrix<float, 2, 2> const & m)
     {
-      function<void(GLint)> fn = bind(&glUniform2i, _1, v0, v1);
-      m_uniforms[name] = bind(&setParamImpl, m_handle, name, fn);
+      map<ESemantic, Uniform>::iterator it = m_uniforms.find(sem);
+      ASSERT(it != m_uniforms.end(), ());
+      Uniform & f = it->second;
+
+      f.m_type = EFloatMat2;
+      copy(&m(0, 0), &m(0, 0) + 2 * 2, f.m_data.m_matVal);
     }
 
-    void Program::setParam(char const * name, int v0, int v1, int v2)
+    void Program::setParam(ESemantic sem, math::Matrix<float, 3, 3> const & m)
     {
-      function<void(GLint)> fn = bind(&glUniform3i, _1, v0, v1, v2);
-      m_uniforms[name] = bind(&setParamImpl, m_handle, name, fn);
+      map<ESemantic, Uniform>::iterator it = m_uniforms.find(sem);
+      ASSERT(it != m_uniforms.end(), ());
+      Uniform & f = it->second;
+
+      f.m_type = EFloatMat3;
+      copy(&m(0, 0), &m(0, 0) + 3 * 3, f.m_data.m_matVal);
     }
 
-    void Program::setParam(char const * name, int v0, int v1, int v2, int v3)
+    void Program::setParam(ESemantic sem, math::Matrix<float, 4, 4> const & m)
     {
-      function<void(GLint)> fn = bind(&glUniform4i, _1, v0, v1, v2, v3);
-      m_uniforms[name] = bind(&setParamImpl, m_handle, name, fn);
-    }
+      map<ESemantic, Uniform>::iterator it = m_uniforms.find(sem);
+      ASSERT(it != m_uniforms.end(), ());
+      Uniform & f = it->second;
 
-    void Program::setParam(char const * name, math::Matrix<float, 2, 2> const & m)
-    {
-      function<void(GLint)> fn = bind(&glUniformMatrix2fv, _1, 1, 0, &m(0, 0));
-      m_uniforms[name] = bind(&setParamImpl, m_handle, name, fn);
-    }
-
-    void Program::setParam(char const * name, math::Matrix<float, 3, 3> const & m)
-    {
-      function<void(GLint)> fn = bind(&glUniformMatrix3fv, _1, 1, 0, &m(0, 0));
-      m_uniforms[name] = bind(&setParamImpl, m_handle, name, fn);
-    }
-
-    void Program::setParam(char const * name, math::Matrix<float, 4, 4> const & m)
-    {
-      function<void(GLint)> fn = bind(&glUniformMatrix4fv, _1, 1, 0, &m(0, 0));
-      m_uniforms[name] = bind(&setParamImpl, m_handle, name, fn);
-    }
-
-    void enableAndSetVertexAttrib(GLuint id, GLint size, GLenum type, GLboolean normalized, GLsizei stride, void * ptr)
-    {
-      OGLCHECK(glEnableVertexAttribArray(id));
-      OGLCHECK(glVertexAttribPointer(id, size, type, normalized, stride, ptr));
-    }
-
-    void Program::setAttribute(GLuint id, GLint size, GLenum type, GLboolean normalized, GLsizei stride, void *ptr)
-    {
-      function<void()> fn =  bind(&enableAndSetVertexAttrib, id, size, type, normalized, stride, ptr);
-      m_attributes[id] = fn;
+      f.m_type = EFloatMat4;
+      copy(&m(0, 0), &m(0, 0) + 4 * 4, f.m_data.m_matVal);
     }
 
     void Program::setVertexDecl(VertexDecl const * decl)
@@ -154,15 +221,23 @@ namespace graphics
       for (size_t i = 0; i < decl->size(); ++i)
       {
         VertexAttrib const * va = decl->getAttr(i);
-        GLuint attrID = getAttribute(va->m_name.c_str());
-        GLenum glType;
-        convert(va->m_elemType, glType);
-        setAttribute(attrID,
-                     va->m_elemCount,
-                     glType,
-                     false,
-                     va->m_stride,
-                     (void*)((unsigned char*)m_storage.m_vertices->glPtr() + va->m_offset));
+
+        map<ESemantic, Attribute>::iterator it = m_attributes.find(va->m_semantic);
+        ASSERT(it != m_attributes.end(), ());
+        Attribute & a = it->second;
+
+        a.m_offset = va->m_offset;
+        a.m_stride = va->m_stride;
+        a.m_count = va->m_elemCount;
+
+        /// a.m_count could be different from va->m_elemCount
+        /// as GLSL could provide missing attribute components
+        /// with default values according to internal rules.
+        /// (f.e. all components except 4th in vec4 are made 0
+        /// by default, and 4th is 1 by default).
+
+//        ASSERT(a.m_count == va->m_elemCount, ());
+        ASSERT(a.m_type == va->m_elemType, ());
       }
     }
 
@@ -171,27 +246,120 @@ namespace graphics
       m_storage = storage;
     }
 
+    void Program::applyAttributes()
+    {
+      /// setting all attributes streams;
+      for (TAttributes::const_iterator it = m_attributes.begin();
+           it != m_attributes.end();
+           ++it)
+      {
+        Attribute const & a = it->second;
+
+        GLenum t;
+        convert(a.m_type, t);
+
+        OGLCHECK(glEnableVertexAttribArray(a.m_handle));
+        OGLCHECK(glVertexAttribPointer(a.m_handle,
+                                       a.m_count,
+                                       t,
+                                       false,
+                                       a.m_stride,
+                                       (void*)((unsigned char *)m_storage.m_vertices->glPtr() + a.m_offset)));
+      }
+    }
+
+    void Program::applyUniforms()
+    {
+      /// setting all uniforms
+      for (TUniforms::const_iterator it = m_uniforms.begin();
+           it != m_uniforms.end();
+           ++it)
+      {
+        Uniform const & u = it->second;
+
+        switch (u.m_type)
+        {
+        case EFloat:
+          OGLCHECK(glUniform1f(u.m_handle,
+                               u.m_data.m_floatVal[0]));
+          break;
+        case EFloatVec2:
+          OGLCHECK(glUniform2f(u.m_handle,
+                               u.m_data.m_floatVal[0],
+                               u.m_data.m_floatVal[1]));
+          break;
+        case EFloatVec3:
+          OGLCHECK(glUniform3f(u.m_handle,
+                               u.m_data.m_floatVal[0],
+                               u.m_data.m_floatVal[1],
+                               u.m_data.m_floatVal[2]));
+          break;
+        case EFloatVec4:
+          OGLCHECK(glUniform4f(u.m_handle,
+                               u.m_data.m_floatVal[0],
+                               u.m_data.m_floatVal[1],
+                               u.m_data.m_floatVal[2],
+                               u.m_data.m_floatVal[3]));
+          break;
+        case EInteger:
+          OGLCHECK(glUniform1i(u.m_handle,
+                               u.m_data.m_intVal[0]));
+          break;
+        case EIntegerVec2:
+          OGLCHECK(glUniform2i(u.m_handle,
+                               u.m_data.m_intVal[0],
+                               u.m_data.m_intVal[1]));
+          break;
+        case EIntegerVec3:
+          OGLCHECK(glUniform3i(u.m_handle,
+                               u.m_data.m_intVal[0],
+                               u.m_data.m_intVal[1],
+                               u.m_data.m_intVal[2]));
+          break;
+        case EIntegerVec4:
+          OGLCHECK(glUniform4i(u.m_handle,
+                               u.m_data.m_intVal[0],
+                               u.m_data.m_intVal[1],
+                               u.m_data.m_intVal[2],
+                               u.m_data.m_intVal[3]));
+          break;
+        case EFloatMat2:
+          OGLCHECK(glUniformMatrix2fv(u.m_handle,
+                                      1,
+                                      false,
+                                      u.m_data.m_matVal));
+          break;
+        case EFloatMat3:
+          OGLCHECK(glUniformMatrix3fv(u.m_handle,
+                                      1,
+                                      false,
+                                      u.m_data.m_matVal));
+          break;
+        case EFloatMat4:
+          OGLCHECK(glUniformMatrix4fv(u.m_handle,
+                                      1,
+                                      false,
+                                      u.m_data.m_matVal));
+          break;
+        case ESampler2D:
+          OGLCHECK(glUniform1i(u.m_handle,
+                               u.m_data.m_intVal[0]));
+          break;
+        }
+      }
+    }
+
     void Program::makeCurrent()
     {
       OGLCHECK(glUseProgramFn(m_handle));
 
       m_storage.m_vertices->makeCurrent();
 
-      /// setting all attributes streams;
-      for (TAttributes::const_iterator it = m_attributes.begin();
-           it != m_attributes.end();
-           ++it)
-      {
-        it->second();
-      }
+      applyAttributes();
 
       m_storage.m_indices->makeCurrent();
 
-      /// setting all uniforms
-      for (TUniforms::const_iterator it = m_uniforms.begin();
-           it != m_uniforms.end();
-           ++it)
-        it->second();
+      applyUniforms();
     }
   }
 }
