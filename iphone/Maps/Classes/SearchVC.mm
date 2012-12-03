@@ -10,6 +10,7 @@
 #include "Framework.h"
 
 #include "../../search/result.hpp"
+#include "../../search/params.hpp"
 
 #include "../../indexer/mercator.hpp"
 
@@ -18,7 +19,6 @@
 
 #include "../../geometry/angles.hpp"
 #include "../../geometry/distance_on_sphere.hpp"
-
 
 /// When to display compass instead of country flags
 #define MIN_COMPASS_DISTANCE 25000.0
@@ -112,6 +112,9 @@ static void OnSearchResultCallback(search::Results const & res)
     double lat, lon;
     bool const hasPt = [m_locationManager getLat:lat Lon:lon];
     m_framework->PrepareSearch(hasPt, lat, lon);
+      
+    //mycode init array of categories
+    categoriesNames = [[NSArray alloc] initWithObjects:@"food", @"money", @"fuel", @"shop", @"transport", @"tourism", nil];
   }
   return self;
 }
@@ -144,52 +147,46 @@ static void OnSearchResultCallback(search::Results const & res)
 
 - (void)loadView
 {
-  // create user interface
-  // Custom view is used to automatically layout all elements
-  UIView * parentView = [[[CustomNavigationView alloc] init] autorelease];
-  parentView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    UIBarButtonItem * closeButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"maps", @"Search Results - Close search button") style: UIBarButtonItemStyleDone
+                                                                     target:self action:@selector(onCloseButton:)] autorelease];
+    
+    m_searchBar = [[UISearchBar alloc] init];
+    [m_searchBar sizeToFit];
+    // restore previous search query
+    if (g_lastSearchResults)
+        m_searchBar.text = g_lastSearchResults.searchString;
+    m_searchBar.delegate = self;
+    m_searchBar.placeholder = NSLocalizedString(@"search_map", @"Search box placeholder text");
 
-  UINavigationBar * navBar = [[[UINavigationBar alloc] init] autorelease];
-  navBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-  UINavigationItem * item = [[[UINavigationItem alloc] init] autorelease];
-  UIBarButtonItem * closeButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"maps", @"Search Results - Close search button") style: UIBarButtonItemStyleDone
-                                                                   target:self action:@selector(onCloseButton:)] autorelease];
-  item.leftBarButtonItem = closeButton;
-
-  m_searchBar = [[UISearchBar alloc] init];
-  m_searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  // restore previous search query
-  if (g_lastSearchResults)
-    m_searchBar.text = g_lastSearchResults.searchString;
-  m_searchBar.delegate = self;
-  m_searchBar.placeholder = NSLocalizedString(@"search_map", @"Search box placeholder text");
-  item.titleView = m_searchBar;
-
-  // Add search in progress indicator
-  for(UIView * v in m_searchBar.subviews)
-  {
-    if ([v isKindOfClass:[UITextField class]])
+    self.navigationItem.leftBarButtonItem = closeButton;
+    
+    self.navigationItem.titleView = m_searchBar;
+    
+    // Add search in progress indicator
+    for(UIView * v in m_searchBar.subviews)
     {
-      // Save textField to show/hide activity indicator in it
-      m_searchTextField = (UITextField *)v;
-      m_originalIndicatorView = [m_searchTextField.leftView retain];
-      m_indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-      m_indicator.bounds = m_originalIndicatorView.bounds;
-      break;
+        if ([v isKindOfClass:[UITextField class]])
+        {
+            // Save textField to show/hide activity indicator in it
+            m_searchTextField = (UITextField *)v;
+            m_originalIndicatorView = [m_searchTextField.leftView retain];
+            m_indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            m_indicator.bounds = m_originalIndicatorView.bounds;
+            break;
+        }
     }
-  }
-
-  [navBar pushNavigationItem:item animated:NO];
-
-  [parentView addSubview:navBar];
-
-  m_table = [[UITableView alloc] init];
-  m_table.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-  m_table.delegate = self;
-  m_table.dataSource = self;
-  [parentView addSubview:m_table];
-
-  self.view = parentView;
+    
+    m_table = [[UITableView alloc] init];
+    m_table.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    m_table.delegate = self;
+    m_table.dataSource = self;
+    
+    m_segmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Near me", @"Current", @"All", nil]];
+    [m_segmentedControl setSegmentedControlStyle:UISegmentedControlStyleBar];
+    m_segmentedControl.segmentedControlStyle = 7;
+    m_segmentedControl.selectedSegmentIndex = 2;
+    [m_table setTableHeaderView:m_segmentedControl];
+    self.view = m_table;
 }
 
 - (void)dealloc
@@ -197,6 +194,7 @@ static void OnSearchResultCallback(search::Results const & res)
   g_searchVC = nil;
   [m_searchBar release];
   [m_table release];
+  [m_segmentedControl release];
   [super dealloc];
 }
 
@@ -291,7 +289,11 @@ static void OnSearchResultCallback(search::Results const & res)
   // Search even with empty string.
   search::SearchParams params;
   [self fillSearchParams:params withText:searchText];
-
+//m_segmentedControl.selectedSegmentIndex
+/*
+SearchParams::SetSearchMode
+AROUND_POSITION, IN_VIEWPORT, ALL
+ */
   if (m_framework->Search(params))
     [self showIndicator];
 }
@@ -321,10 +323,9 @@ static void OnSearchResultCallback(search::Results const & res)
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
   m_suggestionsCount = m_searchBar.text.length ? 0 : 1;
-  if (g_lastSearchResults)
-    return [g_lastSearchResults getCount] + m_suggestionsCount;
-  else
-    return 0 + m_suggestionsCount;
+  if (m_suggestionsCount)
+      return [categoriesNames count];
+  return [g_lastSearchResults getCount];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -333,25 +334,18 @@ static void OnSearchResultCallback(search::Results const & res)
 
   if (m_suggestionsCount)
   {
-    // Return cell with suggestion icons
-    if (indexPath.row == 0)
-    {
-      SearchSuggestionsCell * cell = (SearchSuggestionsCell *)[tableView dequeueReusableCellWithIdentifier:@"SuggestionsCell"];
-      if (!cell)
-      {
-        cell = [[[SearchSuggestionsCell alloc] initWithReuseIdentifier:@"SuggestionsCell"] autorelease];
-        cell.delegate = self;
-        [cell addIcon:[UIImage imageNamed:@"food.png"] withSuggestion:NSLocalizedString(@"food", @"Search Suggestion")];
-        [cell addIcon:[UIImage imageNamed:@"money.png"] withSuggestion:NSLocalizedString(@"money", @"Search Suggestion")];
-        [cell addIcon:[UIImage imageNamed:@"fuel.png"] withSuggestion:NSLocalizedString(@"fuel", @"Search Suggestion")];
-        [cell addIcon:[UIImage imageNamed:@"shop.png"] withSuggestion:NSLocalizedString(@"shop", @"Search Suggestion")];
-        [cell addIcon:[UIImage imageNamed:@"transport.png"] withSuggestion:NSLocalizedString(@"transport", @"Search Suggestion")];
-        [cell addIcon:[UIImage imageNamed:@"tourism.png"] withSuggestion:NSLocalizedString(@"tourism", @"Search Suggestion")];
-      }
-      return cell;
+    //mycode
+    static NSString *CellIdentifier = @"categoryCell";
+
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
-    // We're displaying one additional row with suggestions, fix results array indexing
-    realRowIndex -= m_suggestionsCount;
+    cell.textLabel.text =  NSLocalizedString([categoriesNames objectAtIndex:indexPath.row],@"Search Suggestion");
+    cell.imageView.image = [UIImage imageNamed:[categoriesNames objectAtIndex:indexPath.row]];
+
+
+    return cell;
   }
 
   if (g_lastSearchResults == nil || realRowIndex >= (NSInteger)[g_lastSearchResults getCount])
@@ -449,6 +443,7 @@ static void OnSearchResultCallback(search::Results const & res)
   // Suggestion cell was clicked
   if (m_suggestionsCount)
   {
+    [self setSearchBoxText:[NSLocalizedString([categoriesNames objectAtIndex:realRowIndex], Search Suggestion) stringByAppendingString:@" "]];
     if (realRowIndex == 0)
       return;
     realRowIndex -= m_suggestionsCount;
@@ -575,5 +570,4 @@ static void OnSearchResultCallback(search::Results const & res)
 {
   [self setSearchBoxText:[suggestion stringByAppendingString:@" "]];
 }
-
 @end

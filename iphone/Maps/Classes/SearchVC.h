@@ -22,6 +22,10 @@ class Framework;
   UITextField * m_searchTextField;
   // Zero when suggestions cells are not visible
   NSInteger m_suggestionsCount;
+  
+  //mycode
+  UISegmentedControl * m_segmentedControl;
+  NSArray *categoriesNames;
 }
 
 @end
