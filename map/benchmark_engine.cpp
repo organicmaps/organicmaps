@@ -144,7 +144,7 @@ BenchmarkEngine::BenchmarkEngine(Framework * fw)
 {
   m_startTime = my::FormatCurrentTime();
 
-  m_framework->GetInformationDisplay().enableBenchmarkInfo(true);
+//  m_framework->GetInformationDisplay().enableBenchmarkInfo(true);
 }
 
 void BenchmarkEngine::BenchmarkCommandFinished()

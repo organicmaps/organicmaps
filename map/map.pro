@@ -36,7 +36,6 @@ HEADERS += \
     measurement_utils.hpp \
     simple_render_policy.hpp \
     proto_to_styles.hpp \
-    test_render_policy.hpp \
     queued_renderer.hpp \
     basic_tiling_render_policy.hpp \
     bookmark.hpp \
@@ -76,7 +75,6 @@ SOURCES += \
     window_handle.cpp \
     simple_render_policy.cpp \
     proto_to_styles.cpp \
-    test_render_policy.cpp \
     queued_renderer.cpp \
     events.cpp \
     basic_tiling_render_policy.cpp \

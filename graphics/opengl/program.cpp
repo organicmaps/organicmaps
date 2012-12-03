@@ -14,29 +14,29 @@ namespace graphics
     Program::Program(shared_ptr<Shader> const & vxShader,
                      shared_ptr<Shader> const & frgShader)
     {
-      m_handle = glCreateProgramFn();
+      m_handle = glCreateProgram();
       OGLCHECKAFTER;
 
       if (!m_handle)
         throw Exception("CreateProgram error", "could not create Program!");
 
-      OGLCHECK(glAttachShaderFn(m_handle, vxShader->id()));
-      OGLCHECK(glAttachShaderFn(m_handle, frgShader->id()));
+      OGLCHECK(glAttachShader(m_handle, vxShader->id()));
+      OGLCHECK(glAttachShader(m_handle, frgShader->id()));
 
-      OGLCHECK(glLinkProgramFn(m_handle));
+      OGLCHECK(glLinkProgram(m_handle));
 
       int linkStatus = GL_FALSE;
-      OGLCHECK(glGetProgramivFn(m_handle, GL_LINK_STATUS, &linkStatus));
+      OGLCHECK(glGetProgramiv(m_handle, GL_LINK_STATUS, &linkStatus));
 
       if (linkStatus != GL_TRUE)
       {
         int bufLength = 0;
-        OGLCHECK(glGetProgramivFn(m_handle, GL_INFO_LOG_LENGTH, &bufLength));
+        OGLCHECK(glGetProgramiv(m_handle, GL_INFO_LOG_LENGTH, &bufLength));
         if (bufLength)
         {
           vector<char> v;
           v.resize(bufLength);
-          glGetProgramInfoLogFn(m_handle, bufLength, NULL, &v[0]);
+          glGetProgramInfoLog(m_handle, bufLength, NULL, &v[0]);
 
           throw LinkException("Could not link program: ", &v[0]);
         }
@@ -47,7 +47,7 @@ namespace graphics
       /// getting all uniforms
       int cnt = 0;
 
-      OGLCHECK(glGetProgramivFn(m_handle, GL_ACTIVE_UNIFORMS, &cnt));
+      OGLCHECK(glGetProgramiv(m_handle, GL_ACTIVE_UNIFORMS, &cnt));
 
       GLchar name[1024];
       GLsizei len = 0;
@@ -70,7 +70,7 @@ namespace graphics
         m_uniforms[sem] = f;
       }
 
-      OGLCHECK(glGetProgramivFn(m_handle, GL_ACTIVE_ATTRIBUTES, &cnt));
+      OGLCHECK(glGetProgramiv(m_handle, GL_ACTIVE_ATTRIBUTES, &cnt));
 
       for (unsigned i = 0; i < cnt; ++i)
       {
@@ -91,7 +91,7 @@ namespace graphics
 
     Program::~Program()
     {
-      OGLCHECK(glDeleteProgramFn(m_handle));
+      OGLCHECK(glDeleteProgram(m_handle));
     }
 
     void Program::setParam(ESemantic sem, float v0)
@@ -351,7 +351,7 @@ namespace graphics
 
     void Program::makeCurrent()
     {
-      OGLCHECK(glUseProgramFn(m_handle));
+      OGLCHECK(glUseProgram(m_handle));
 
       m_storage.m_vertices->makeCurrent();
 

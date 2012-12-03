@@ -24,7 +24,6 @@ GLDrawWidget::GLDrawWidget() : base_type(0)
 
 GLDrawWidget::~GLDrawWidget()
 {
-  graphics::gl::FinalizeThread();
 }
 
 void GLDrawWidget::initializeGL()
@@ -33,7 +32,6 @@ void GLDrawWidget::initializeGL()
   {
     graphics::gl::InitExtensions();
     graphics::gl::CheckExtensionSupport();
-    graphics::gl::InitializeThread();
   }
   catch (graphics::gl::platform_unsupported & e)
   {

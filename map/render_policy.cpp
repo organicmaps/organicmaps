@@ -2,7 +2,6 @@
 
 #include "render_policy.hpp"
 #include "window_handle.hpp"
-#include "test_render_policy.hpp"
 #include "simple_render_policy.hpp"
 #include "tiling_render_policy_st.hpp"
 #include "tiling_render_policy_mt.hpp"
@@ -25,7 +24,7 @@ RenderPolicy::~RenderPolicy()
 {
   LOG(LDEBUG, ("clearing cached drawing rules"));
   drule::rules().ClearCaches();
-  graphics::gl::FinalizeThread();
+  m_primaryRC->endThreadDrawing(m_resourceManager->guiThreadSlot());
 }
 
 RenderPolicy::RenderPolicy(Params const & p,
@@ -42,7 +41,6 @@ RenderPolicy::RenderPolicy(Params const & p,
   drule::rules().ResizeCaches(idCacheSize);
 
   graphics::gl::InitExtensions();
-  graphics::gl::InitializeThread();
   graphics::gl::CheckExtensionSupport();
 }
 

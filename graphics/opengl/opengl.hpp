@@ -158,12 +158,6 @@ namespace graphics
     /// to check extensions support and initialize function pointers.
     void InitExtensions();
 
-    /// Initialize per-thread OpenGL
-    void InitializeThread();
-
-    /// Finalize per-thread OpenGL
-    void FinalizeThread();
-
     /// Does we have an extension with the specified name?
     bool HasExtension(char const * name);
 

@@ -1,7 +1,6 @@
 #include "opengl.hpp"
 
-
-namespace yg
+namespace graphics
 {
   namespace gl
   {
@@ -27,49 +26,9 @@ namespace yg
     const GLenum GL_PROJECTION_MWM = GL_PROJECTION;
     const GLenum GL_ALPHA_TEST_MWM = GL_ALPHA_TEST;
 
-    const GLenum GL_VERTEX_ARRAY_MWM = GL_VERTEX_ARRAY;
-    const GLenum GL_TEXTURE_COORD_ARRAY_MWM = GL_TEXTURE_COORD_ARRAY;
-    const GLenum GL_NORMAL_ARRAY_MWM = GL_NORMAL_ARRAY;
-
-    void glOrthoImpl (GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat zNear, GLfloat zFar)
-    {
-      glOrtho(left, right, bottom, top, zNear, zFar);
-    }
-
-    void InitializeThread()
-    {}
-
-    void FinalizeThread()
-    {}
-
-    void glNormalPointerImpl(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer)
-    {
-      glNormalPointer(type, stride, pointer);
-    }
-
-    void glUseSharpGeometryImpl(GLboolean)
-    {}
-
     void InitExtensions()
     {
       DumpGLInformation();
-
-      glEnableFn = &glEnable;
-      glDisableFn = &glDisable;
-      glAlphaFuncFn = &glAlphaFunc;
-
-      glVertexPointerFn = &glVertexPointer;
-      glTexCoordPointerFn = &glTexCoordPointer;
-      glEnableClientStateFn = &glEnableClientState;
-      glNormalPointerFn = &glNormalPointerImpl;
-
-      glUseSharpGeometryFn = &glUseSharpGeometryImpl;
-
-      glMatrixModeFn = &glMatrixMode;
-      glLoadIdentityFn = &glLoadIdentity;
-      glLoadMatrixfFn = &glLoadMatrixf;
-      glOrthoFn = &glOrthoImpl;
-      glDrawElementsFn = &glDrawElements;
 
       g_isBufferObjectsSupported = HasExtension("GL_ARB_vertex_buffer_object")
                                || HasExtension("GLX_ARB_vertex_buffer_object");
