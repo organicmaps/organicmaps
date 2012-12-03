@@ -37,22 +37,6 @@ namespace graphics
     {
       DumpGLInformation();
 
-      glEnableFn = &glsl::glEnable;
-      glDisableFn = &glsl::glDisable;
-      glAlphaFuncFn = &glsl::glAlphaFunc;
-
-      glVertexPointerFn = &glsl::glVertexPointer;
-      glTexCoordPointerFn = &glsl::glTexCoordPointer;
-      glNormalPointerFn = &glsl::glNormalPointer;
-      glEnableClientStateFn = &glsl::glEnableClientState;
-      glUseSharpGeometryFn = &glsl::glUseSharpGeometry;
-
-      glMatrixModeFn = &glsl::glMatrixMode;
-      glLoadIdentityFn = &glsl::glLoadIdentity;
-      glLoadMatrixfFn = &glsl::glLoadMatrixf;
-      glOrthoFn = &glsl::glOrtho;
-      glDrawElementsFn = &glsl::glDrawElements;
-
       g_isBufferObjectsSupported = true;
 
       glBindBufferFn = &glBindBuffer;
