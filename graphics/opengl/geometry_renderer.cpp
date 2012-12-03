@@ -166,7 +166,7 @@ namespace graphics
 
       gl::RenderContext * rc = static_cast<gl::RenderContext*>(renderContext());
       ProgramManager * pm = rc->programManager();
-      shared_ptr<Program> prg = pm->getProgram("basic", "noalphatest");
+      shared_ptr<Program> prg = pm->getProgram(EVxTextured, EFrgNoAlphaTest);
 
       prg->setParam(ESemModelView, rc->matrix(EModelView));
       prg->setParam(ESemProjection, rc->matrix(EProjection));
@@ -410,7 +410,7 @@ namespace graphics
       /// Applying program
       gl::RenderContext * rc = static_cast<gl::RenderContext*>(renderContext());
       ProgramManager * pm = rc->programManager();
-      shared_ptr<Program> prg = pm->getProgram("basic", "alphatest");
+      shared_ptr<Program> prg = pm->getProgram(EVxTextured, EFrgAlphaTest);
 
       prg->setParam(ESemModelView, rc->matrix(EModelView));
       prg->setParam(ESemProjection, rc->matrix(EProjection));
@@ -435,7 +435,7 @@ namespace graphics
       /// Applying program
       gl::RenderContext * rc = static_cast<gl::RenderContext*>(renderContext());
       ProgramManager * pm = rc->programManager();
-      shared_ptr<Program> prg = pm->getProgram("basic", "noalphatest");
+      shared_ptr<Program> prg = pm->getProgram(EVxTextured, EFrgNoAlphaTest);
 
       prg->setParam(ESemModelView, rc->matrix(EModelView));
       prg->setParam(ESemProjection, rc->matrix(EProjection));
@@ -480,7 +480,7 @@ namespace graphics
       /// Applying program
       gl::RenderContext * rc = static_cast<gl::RenderContext*>(renderContext());
       ProgramManager * pm = rc->programManager();
-      shared_ptr<Program> prg = pm->getProgram("sharp", "alphatest");
+      shared_ptr<Program> prg = pm->getProgram(EVxSharp, EFrgAlphaTest);
 
       prg->setParam(ESemModelView, rc->matrix(EModelView));
       prg->setParam(ESemProjection, rc->matrix(EProjection));

@@ -11,20 +11,32 @@ namespace graphics
 {
   namespace gl
   {
+    enum EVxType
+    {
+      EVxTextured,
+      EVxSharp
+    };
+
+    enum EFrgType
+    {
+      EFrgAlphaTest,
+      EFrgNoAlphaTest
+    };
+
     class ProgramManager
     {
     private:
 
-      map<string, shared_ptr<Shader> > m_vxShaders;
-      map<string, shared_ptr<Shader> > m_frgShaders;
-      map<string, shared_ptr<Program> > m_programs;
+      map<EVxType, shared_ptr<Shader> > m_vxShaders;
+      map<EFrgType, shared_ptr<Shader> > m_frgShaders;
+      map<pair<EVxType, EFrgType> , shared_ptr<Program> > m_programs;
 
     public:
 
       ProgramManager();
 
-      shared_ptr<Program> const getProgram(char const * vxName,
-                                           char const * frgName);
+      shared_ptr<Program> const getProgram(EVxType vxType,
+                                           EFrgType frgType);
     };
   }
 }

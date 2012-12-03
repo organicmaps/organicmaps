@@ -5,6 +5,7 @@ namespace graphics
 {
   namespace gl
   {
+
 #if defined(OMIM_GL_ES)
   #define PRECISION "lowp"
 #else
@@ -26,7 +27,7 @@ namespace graphics
         "   TexCoordOut0 = TexCoord0;\n"
         "}\n";
 
-      m_vxShaders["basic"].reset(new Shader(vxSrc, EVertexShader));
+      m_vxShaders[EVxTextured].reset(new Shader(vxSrc, EVertexShader));
 
       /// Sharp Vertex Shader Source
 
@@ -42,7 +43,7 @@ namespace graphics
         "   TexCoordOut0 = TexCoord0;\n"
         "}\n";
 
-      m_vxShaders["sharp"].reset(new Shader(sharpVxSrc, EVertexShader));
+      m_vxShaders[EVxSharp].reset(new Shader(sharpVxSrc, EVertexShader));
 
       /// Fragment Shader with alphaTest
 
@@ -55,7 +56,7 @@ namespace graphics
         "     discard;\n"
         "}\n";
 
-      m_frgShaders["alphatest"].reset(new Shader(alphaTestFrgSrc, EFragmentShader));
+      m_frgShaders[EFrgAlphaTest].reset(new Shader(alphaTestFrgSrc, EFragmentShader));
 
       /// Fragment shader without alphaTest
 
@@ -65,29 +66,27 @@ namespace graphics
         "void main(void) {\n"
         "   gl_FragColor = texture2D(Sampler0, TexCoordOut0);\n"
         "}\n";
-      m_frgShaders["noalphatest"].reset(new Shader(noAlphaTestFrgSrc, EFragmentShader));
+      m_frgShaders[EFrgNoAlphaTest].reset(new Shader(noAlphaTestFrgSrc, EFragmentShader));
 
-      getProgram("basic", "alphatest");
-      getProgram("basic", "noalphatest");
+      getProgram(EVxTextured, EFrgAlphaTest);
+      getProgram(EVxTextured, EFrgNoAlphaTest);
 
-      getProgram("sharp", "alphatest");
-      getProgram("sharp", "noalphatest");
+      getProgram(EVxSharp, EFrgAlphaTest);
+      getProgram(EVxSharp, EFrgNoAlphaTest);
     }
 
-    shared_ptr<Program> const ProgramManager::getProgram(char const * vxName,
-                                                         char const * frgName)
+    shared_ptr<Program> const ProgramManager::getProgram(EVxType vxType,
+                                                         EFrgType frgType)
     {
-      string prgName(string(vxName) + ":" + frgName);
+      pair<EVxType, EFrgType> key(vxType, frgType);
 
-      map<string, shared_ptr<Program> >::const_iterator it = m_programs.find(prgName);
+      map<pair<EVxType, EFrgType>, shared_ptr<Program> >::const_iterator it = m_programs.find(key);
       if (it != m_programs.end())
         return it->second;
 
-      shared_ptr<Program> program(new Program(m_vxShaders[vxName], m_frgShaders[frgName]));
+      shared_ptr<Program> program(new Program(m_vxShaders[vxType], m_frgShaders[frgType]));
 
-      m_programs[prgName] = program;
-
-      LOG(LINFO, (this, ", ", vxName, ", ", frgName, ", ", program));
+      m_programs[key] = program;
 
       return program;
     }
