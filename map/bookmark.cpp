@@ -281,25 +281,25 @@ namespace bookmark_impl
         {
           if (currTag == "name")
             m_name = value;
-          else if (currTag == "description")
-          {
-            LOG(LINFO, (value));
-            m_description = value;
-          }
           else if (currTag == "styleUrl")
             m_type = GetSupportedBMType(value);
+          else if (currTag == "description")
+            m_description = value;
         }
-        else if (prevTag == "Point")
+        else if (count > 3 && m_tags[2] == "Placemark")
         {
-          if (currTag == "coordinates")
-            SetOrigin(value);
-        }
-        else if (prevTag == "ExtendedData")
-        {
-          if (currTag == "mwm:scale")
+          if (prevTag == "Point")
           {
-            if (!strings::to_double(value, m_scale))
-              m_scale = -1.0;
+            if (currTag == "coordinates")
+              SetOrigin(value);
+          }
+          else if (prevTag == "ExtendedData")
+          {
+            if (currTag == "mwm:scale")
+            {
+              if (!strings::to_double(value, m_scale))
+                m_scale = -1.0;
+            }
           }
         }
       }
