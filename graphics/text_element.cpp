@@ -1,7 +1,7 @@
 #include "text_element.hpp"
 #include "screen.hpp"
 #include "skin.hpp"
-#include "skin_page.hpp"
+#include "resource_cache.hpp"
 #include "resource_manager.hpp"
 #include "overlay_renderer.hpp"
 #include "resource_style.hpp"

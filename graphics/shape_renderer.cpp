@@ -2,7 +2,7 @@
 #include "skin.hpp"
 #include "pen_info.hpp"
 #include "resource_style.hpp"
-#include "skin_page.hpp"
+#include "resource_cache.hpp"
 
 #include "opengl/base_texture.hpp"
 

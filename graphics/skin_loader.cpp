@@ -2,7 +2,7 @@
 #include "skin_loader.hpp"
 #include "resource_manager.hpp"
 #include "resource_style.hpp"
-#include "skin_page.hpp"
+#include "resource_cache.hpp"
 
 #include "../base/string_utils.hpp"
 
@@ -46,7 +46,7 @@ namespace graphics
 
   void SkinLoader::popPage()
   {
-    m_pages.push_back(make_shared_ptr(new SkinPage(m_resourceManager, m_fileName.c_str(), m_pages.size())));
+    m_pages.push_back(make_shared_ptr(new ResourceCache(m_resourceManager, m_fileName.c_str(), m_pages.size())));
 
     TStylesList::iterator prevIt = m_stylesList.end();
 

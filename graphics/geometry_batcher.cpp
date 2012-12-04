@@ -2,7 +2,7 @@
 #include "skin.hpp"
 #include "color.hpp"
 #include "resource_manager.hpp"
-#include "skin_page.hpp"
+#include "resource_cache.hpp"
 #include "resource_style.hpp"
 
 #include "opengl/base_texture.hpp"
@@ -45,7 +45,7 @@ namespace graphics
     {
       discardPipeline(i);
       freePipeline(i);
-      if (m_skin->page(i)->type() != SkinPage::EStatic)
+      if (m_skin->page(i)->type() != ResourceCache::EStatic)
         freeTexture(i);
     }
   }
@@ -72,13 +72,13 @@ namespace graphics
       {
         switch (m_type)
         {
-        case SkinPage::EPrimary:
+        case ResourceCache::EPrimary:
           m_storage = resourceManager->primaryStorages()->Reserve();
           break;
-        case SkinPage::EFonts:
+        case ResourceCache::EFonts:
           m_storage = resourceManager->smallStorages()->Reserve();
           break;
-        case SkinPage::EStatic:
+        case ResourceCache::EStatic:
           m_storage = resourceManager->smallStorages()->Reserve();
           break;
         default:
@@ -126,13 +126,13 @@ namespace graphics
       else
         switch (pipeline.m_type)
         {
-        case SkinPage::EPrimary:
+        case ResourceCache::EPrimary:
           storagePool = resourceManager()->primaryStorages();
           break;
-        case SkinPage::EFonts:
+        case ResourceCache::EFonts:
           storagePool = resourceManager()->smallStorages();
           break;
-        case SkinPage::EStatic:
+        case ResourceCache::EStatic:
           storagePool = resourceManager()->smallStorages();
           break;
         default:
@@ -155,8 +155,8 @@ namespace graphics
       /// settings proper skin page type according to useGuiResources flag
       if (m_useGuiResources)
         for (size_t i = 0; i < m_skin->pagesCount(); ++i)
-          if (m_skin->page(i)->type() != SkinPage::EStatic)
-            m_skin->page(i)->setType(SkinPage::ELightWeight);
+          if (m_skin->page(i)->type() != ResourceCache::EStatic)
+            m_skin->page(i)->setType(ResourceCache::ELightWeight);
 
       m_pipelines.resize(m_skin->pagesCount());
 
@@ -312,16 +312,16 @@ namespace graphics
 
     switch (m_skin->page(pipelineID)->type())
     {
-    case SkinPage::EPrimary:
+    case ResourceCache::EPrimary:
       texturePool = resourceManager()->primaryTextures();
       break;
-    case SkinPage::EFonts:
+    case ResourceCache::EFonts:
       texturePool = resourceManager()->fontTextures();
       break;
-    case SkinPage::ELightWeight:
+    case ResourceCache::ELightWeight:
       texturePool = resourceManager()->guiThreadTextures();
       break;
-    case SkinPage::EStatic:
+    case ResourceCache::EStatic:
       LOG(LWARNING, ("texture with EStatic can't be freed."));
       return;
     }
@@ -345,21 +345,21 @@ namespace graphics
       base_t::discardStorage(pipeline.m_storage);
   }
 
-  bool GeometryBatcher::flushPipeline(shared_ptr<SkinPage> const & skinPage,
+  bool GeometryBatcher::flushPipeline(shared_ptr<ResourceCache> const & resourceCache,
                                       int pipelineID)
   {
     GeometryPipeline & pipeline = m_pipelines[pipelineID];
     if (pipeline.m_currentIndex)
     {
-      if (skinPage->hasData())
+      if (resourceCache->hasData())
       {
-        uploadStyles(&skinPage->uploadQueue()[0], skinPage->uploadQueue().size(), skinPage->texture());
-        skinPage->clearUploadQueue();
+        uploadStyles(&resourceCache->uploadQueue()[0], resourceCache->uploadQueue().size(), resourceCache->texture());
+        resourceCache->clearUploadQueue();
       }
 
       unlockPipeline(pipelineID);
 
-      drawGeometry(skinPage->texture(),
+      drawGeometry(resourceCache->texture(),
                    pipeline.m_storage,
                    pipeline.m_currentIndex,
                    0,

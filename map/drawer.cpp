@@ -59,7 +59,7 @@ Drawer::Drawer(Params const & params)
   m_pScreen->setSkin(m_pSkin);
 
   if (m_pSkin)
-    m_pSkin->addClearPageFn(bind(&Drawer::ClearSkinPage, ThreadSlot(), _1), 0);
+    m_pSkin->addClearPageFn(bind(&Drawer::ClearResourceCache, ThreadSlot(), _1), 0);
 }
 
 namespace
@@ -83,7 +83,7 @@ namespace
   };
 }
 
-void Drawer::ClearSkinPage(size_t threadSlot, uint8_t pipelineID)
+void Drawer::ClearResourceCache(size_t threadSlot, uint8_t pipelineID)
 {
   drule::rules().ForEachRule(DoMakeInvalidRule(threadSlot, pipelineID));
 }

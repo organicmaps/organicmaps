@@ -1,4 +1,4 @@
-#include "skin_page.hpp"
+#include "resource_cache.hpp"
 
 #include "opengl/texture.hpp"
 #include "opengl/data_traits.hpp"
@@ -15,12 +15,12 @@ namespace graphics
 {
   typedef gl::Texture<DATA_TRAITS, true> TDynamicTexture;
 
-  SkinPage::SkinPage()
+  ResourceCache::ResourceCache()
     : m_type(EStatic),
       m_pipelineID(0)
   {}
 
-  SkinPage::SkinPage(shared_ptr<ResourceManager> const & resourceManager,
+  ResourceCache::ResourceCache(shared_ptr<ResourceManager> const & resourceManager,
                      char const * name,
                      uint8_t pipelineID)
                    : m_texture(resourceManager->getTexture(name)),
@@ -30,7 +30,7 @@ namespace graphics
   {
   }
 
-  SkinPage::SkinPage(shared_ptr<ResourceManager> const & resourceManager,
+  ResourceCache::ResourceCache(shared_ptr<ResourceManager> const & resourceManager,
                      EType type,
                      uint8_t pipelineID)
     : m_resourceManager(resourceManager),
@@ -40,10 +40,10 @@ namespace graphics
     createPacker();
     /// clear handles will be called only upon handles overflow,
     /// as the texture overflow is processed separately
-    m_packer.addOverflowFn(bind(&SkinPage::clearHandles, this), 0);
+    m_packer.addOverflowFn(bind(&ResourceCache::clearHandles, this), 0);
   }
 
-  void SkinPage::clearHandles()
+  void ResourceCache::clearHandles()
   {
     clearPenInfoHandles();
     clearColorHandles();
@@ -54,18 +54,18 @@ namespace graphics
     m_packer.reset();
   }
 
-  void SkinPage::clearUploadQueue()
+  void ResourceCache::clearUploadQueue()
   {
     m_uploadQueue.clear();
   }
 
-  void SkinPage::clear()
+  void ResourceCache::clear()
   {
     clearHandles();
     clearUploadQueue();
   }
 
-  void SkinPage::clearColorHandles()
+  void ResourceCache::clearColorHandles()
   {
     for (TColorMap::const_iterator it = m_colorMap.begin(); it != m_colorMap.end(); ++it)
       m_styles.erase(it->second);
@@ -73,7 +73,7 @@ namespace graphics
     m_colorMap.clear();
   }
 
-  void SkinPage::clearPenInfoHandles()
+  void ResourceCache::clearPenInfoHandles()
   {
     for (TPenInfoMap::const_iterator it = m_penInfoMap.begin(); it != m_penInfoMap.end(); ++it)
       m_styles.erase(it->second);
@@ -81,7 +81,7 @@ namespace graphics
     m_penInfoMap.clear();
   }
 
-  void SkinPage::clearCircleInfoHandles()
+  void ResourceCache::clearCircleInfoHandles()
   {
     for (TCircleInfoMap::const_iterator it = m_circleInfoMap.begin(); it != m_circleInfoMap.end(); ++it)
       m_styles.erase(it->second);
@@ -89,7 +89,7 @@ namespace graphics
     m_circleInfoMap.clear();
   }
 
-  void SkinPage::clearFontHandles()
+  void ResourceCache::clearFontHandles()
   {
     for (TGlyphMap::const_iterator it = m_glyphMap.begin(); it != m_glyphMap.end(); ++it)
       m_styles.erase(it->second);
@@ -97,7 +97,7 @@ namespace graphics
     m_glyphMap.clear();
   }
 
-  void SkinPage::clearImageInfoHandles()
+  void ResourceCache::clearImageInfoHandles()
   {
     for (TImageInfoMap::const_iterator it = m_imageInfoMap.begin();
          it != m_imageInfoMap.end();
@@ -107,7 +107,7 @@ namespace graphics
     m_imageInfoMap.clear();
   }
 
-  uint32_t SkinPage::findImageInfo(ImageInfo const & ii) const
+  uint32_t ResourceCache::findImageInfo(ImageInfo const & ii) const
   {
     TImageInfoMap::const_iterator it = m_imageInfoMap.find(ii);
     if (it == m_imageInfoMap.end())
@@ -116,7 +116,7 @@ namespace graphics
       return it->second;
   }
 
-  uint32_t SkinPage::mapImageInfo(ImageInfo const & ii)
+  uint32_t ResourceCache::mapImageInfo(ImageInfo const & ii)
   {
     uint32_t foundHandle = findImageInfo(ii);
     if (foundHandle != m_packer.invalidHandle())
@@ -135,12 +135,12 @@ namespace graphics
     return h;
   }
 
-  bool SkinPage::hasRoom(ImageInfo const & ii) const
+  bool ResourceCache::hasRoom(ImageInfo const & ii) const
   {
     return m_packer.hasRoom(ii.width() + 4, ii.height() + 4);
   }
 
-  uint32_t SkinPage::findColor(graphics::Color const & c) const
+  uint32_t ResourceCache::findColor(graphics::Color const & c) const
   {
     TColorMap::const_iterator it = m_colorMap.find(c);
     if (it == m_colorMap.end())
@@ -149,7 +149,7 @@ namespace graphics
       return it->second;
   }
 
-  uint32_t SkinPage::mapColor(graphics::Color const & c)
+  uint32_t ResourceCache::mapColor(graphics::Color const & c)
   {
     uint32_t foundHandle = findColor(c);
 
@@ -169,12 +169,12 @@ namespace graphics
     return h;
   }
 
-  bool SkinPage::hasRoom(Color const & ) const
+  bool ResourceCache::hasRoom(Color const & ) const
   {
     return m_packer.hasRoom(2, 2);
   }
 
-  uint32_t SkinPage::findSymbol(char const * symbolName) const
+  uint32_t ResourceCache::findSymbol(char const * symbolName) const
   {
     TPointNameMap::const_iterator it = m_pointNameMap.find(symbolName);
     if (it == m_pointNameMap.end())
@@ -183,7 +183,7 @@ namespace graphics
       return it->second;
   }
 
-  uint32_t SkinPage::findGlyph(GlyphKey const & g) const
+  uint32_t ResourceCache::findGlyph(GlyphKey const & g) const
   {
     TGlyphMap::const_iterator it = m_glyphMap.find(g);
     if (it == m_glyphMap.end())
@@ -192,7 +192,7 @@ namespace graphics
       return it->second;
   }
 
-  uint32_t SkinPage::mapGlyph(graphics::GlyphKey const & g, graphics::GlyphCache * glyphCache)
+  uint32_t ResourceCache::mapGlyph(graphics::GlyphKey const & g, graphics::GlyphCache * glyphCache)
   {
     uint32_t foundHandle = findGlyph(g);
     if (foundHandle != m_packer.invalidHandle())
@@ -217,18 +217,18 @@ namespace graphics
     return m_glyphMap[g];
   }
 
-  bool SkinPage::hasRoom(GlyphKey const & gk, GlyphCache * glyphCache) const
+  bool ResourceCache::hasRoom(GlyphKey const & gk, GlyphCache * glyphCache) const
   {
     shared_ptr<GlyphInfo> gi = glyphCache->getGlyphInfo(gk);
     return m_packer.hasRoom(gi->m_metrics.m_width + 4, gi->m_metrics.m_height + 4);
   }
 
-  bool SkinPage::hasRoom(m2::PointU const * sizes, size_t cnt) const
+  bool ResourceCache::hasRoom(m2::PointU const * sizes, size_t cnt) const
   {
     return m_packer.hasRoom(sizes, cnt);
   }
 
-  uint32_t SkinPage::findCircleInfo(CircleInfo const & circleInfo) const
+  uint32_t ResourceCache::findCircleInfo(CircleInfo const & circleInfo) const
   {
     TCircleInfoMap::const_iterator it = m_circleInfoMap.find(circleInfo);
     if (it == m_circleInfoMap.end())
@@ -237,7 +237,7 @@ namespace graphics
       return it->second;
   }
 
-  uint32_t SkinPage::mapCircleInfo(CircleInfo const & circleInfo)
+  uint32_t ResourceCache::mapCircleInfo(CircleInfo const & circleInfo)
   {
     uint32_t foundHandle = findCircleInfo(circleInfo);
 
@@ -259,13 +259,13 @@ namespace graphics
     return m_circleInfoMap[circleInfo];
   }
 
-  bool SkinPage::hasRoom(CircleInfo const & circleInfo) const
+  bool ResourceCache::hasRoom(CircleInfo const & circleInfo) const
   {
     m2::PointU sz = circleInfo.patternSize();
     return m_packer.hasRoom(sz.x, sz.y);
   }
 
-  uint32_t SkinPage::findPenInfo(PenInfo const & penInfo) const
+  uint32_t ResourceCache::findPenInfo(PenInfo const & penInfo) const
   {
     TPenInfoMap::const_iterator it = m_penInfoMap.find(penInfo);
     if (it == m_penInfoMap.end())
@@ -274,7 +274,7 @@ namespace graphics
       return it->second;
   }
 
-  uint32_t SkinPage::mapPenInfo(PenInfo const & penInfo)
+  uint32_t ResourceCache::mapPenInfo(PenInfo const & penInfo)
   {
     uint32_t foundHandle = findPenInfo(penInfo);
 
@@ -301,49 +301,49 @@ namespace graphics
     return m_penInfoMap[penInfo];
   }
 
-  bool SkinPage::hasRoom(const PenInfo &penInfo) const
+  bool ResourceCache::hasRoom(const PenInfo &penInfo) const
   {
     m2::PointU p = penInfo.patternSize();
     return m_packer.hasRoom(p.x, p.y);
   }
 
-  void SkinPage::setType(SkinPage::EType type)
+  void ResourceCache::setType(ResourceCache::EType type)
   {
     m_type = type;
     createPacker();
     if (m_type != EStatic)
-      m_packer.addOverflowFn(bind(&SkinPage::clearHandles, this), 0);
+      m_packer.addOverflowFn(bind(&ResourceCache::clearHandles, this), 0);
   }
 
-  SkinPage::EType SkinPage::type() const
+  ResourceCache::EType ResourceCache::type() const
   {
     return m_type;
   }
 
-  bool SkinPage::hasData()
+  bool ResourceCache::hasData()
   {
     return !m_uploadQueue.empty();
   }
 
-  SkinPage::TUploadQueue const & SkinPage::uploadQueue() const
+  ResourceCache::TUploadQueue const & ResourceCache::uploadQueue() const
   {
     return m_uploadQueue;
   }
 
-  void SkinPage::checkTexture() const
+  void ResourceCache::checkTexture() const
   {
     if ((m_type != EStatic) && (m_texture == 0))
       reserveTexture();
   }
 
-  void SkinPage::setPipelineID(uint8_t pipelineID)
+  void ResourceCache::setPipelineID(uint8_t pipelineID)
   {
     m_pipelineID = pipelineID;
     for (TStyles::iterator it = m_styles.begin(); it != m_styles.end(); ++it)
       it->second->m_pipelineID = pipelineID;
   }
 
-  ResourceStyle * SkinPage::fromID(uint32_t idx) const
+  ResourceStyle * ResourceCache::fromID(uint32_t idx) const
   {
     TStyles::const_iterator it = m_styles.find(idx);
 
@@ -353,23 +353,23 @@ namespace graphics
       return it->second.get();
   }
 
-  void SkinPage::addOverflowFn(overflowFn fn, int priority)
+  void ResourceCache::addOverflowFn(overflowFn fn, int priority)
   {
     m_packer.addOverflowFn(fn, priority);
   }
 
-  shared_ptr<gl::BaseTexture> const & SkinPage::texture() const
+  shared_ptr<gl::BaseTexture> const & ResourceCache::texture() const
   {
     checkTexture();
     return m_texture;
   }
 
-  bool SkinPage::hasTexture() const
+  bool ResourceCache::hasTexture() const
   {
     return m_texture != 0;
   }
 
-  void SkinPage::setTexture(shared_ptr<gl::BaseTexture> const & texture)
+  void ResourceCache::setTexture(shared_ptr<gl::BaseTexture> const & texture)
   {
     m_texture = texture;
     m_packer = m2::Packer(texture->width(),
@@ -377,12 +377,12 @@ namespace graphics
                           0x00FFFFFF - 1);
   }
 
-  void SkinPage::resetTexture()
+  void ResourceCache::resetTexture()
   {
     m_texture.reset();
   }
 
-  void SkinPage::reserveTexture() const
+  void ResourceCache::reserveTexture() const
   {
     switch (m_type)
     {
@@ -400,7 +400,7 @@ namespace graphics
     }
   }
 
-  void SkinPage::createPacker()
+  void ResourceCache::createPacker()
   {
     switch (m_type)
     {
@@ -424,7 +424,7 @@ namespace graphics
     }
   }
 
-  shared_ptr<ResourceManager> const & SkinPage::resourceManager() const
+  shared_ptr<ResourceManager> const & ResourceCache::resourceManager() const
   {
     return m_resourceManager;
   }

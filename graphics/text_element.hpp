@@ -16,7 +16,7 @@ namespace graphics
 {
   class ResourceManager;
   class Skin;
-  class SkinPage;
+  class ResourceCache;
   class OverlayRenderer;
 
   class TextElement : public OverlayElement

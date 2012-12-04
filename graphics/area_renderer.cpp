@@ -1,7 +1,7 @@
 #include "area_renderer.hpp"
 #include "resource_style.hpp"
 #include "skin.hpp"
-#include "skin_page.hpp"
+#include "resource_cache.hpp"
 
 #include "opengl/base_texture.hpp"
 

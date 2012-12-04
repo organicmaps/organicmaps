@@ -1,5 +1,5 @@
 #include "skin.hpp"
-#include "skin_page.hpp"
+#include "resource_cache.hpp"
 #include "resource_style.hpp"
 #include "resource_manager.hpp"
 
@@ -14,44 +14,44 @@
 namespace graphics
 {
   Skin::Skin(shared_ptr<ResourceManager> const & resourceManager,
-             Skin::TSkinPages const & pages)
-    : m_pages(pages),
-      m_staticPagesCount(pages.size()),
+             Skin::TResourceCaches const & caches)
+    : m_caches(caches),
+      m_staticPagesCount(caches.size()),
       m_resourceManager(resourceManager)
   {
-    m_textPage = m_pages.size();
+    m_textPage = m_caches.size();
     addTextPages(1);
 
-    m_startDynamicPage = m_dynamicPage = m_pages.size();
+    m_startDynamicPage = m_dynamicPage = m_caches.size();
     m_dynamicPagesCount = 2;
     addDynamicPages(m_dynamicPagesCount);
   }
 
   void Skin::addTextPages(int count)
   {
-    m_pages.reserve(m_pages.size() + count);
+    m_caches.reserve(m_caches.size() + count);
 
     addClearPageFn(bind(&Skin::clearPageHandles, this, _1), 0);
 
     for (int i = 0; i < count; ++i)
     {
-      uint8_t pipelineID = (uint8_t)m_pages.size();
-      m_pages.push_back(make_shared_ptr(new SkinPage(m_resourceManager, SkinPage::EFonts, pipelineID)));
-      m_pages.back()->addOverflowFn(bind(&Skin::onTextOverflow, this, pipelineID), 0);
+      uint8_t pipelineID = (uint8_t)m_caches.size();
+      m_caches.push_back(make_shared_ptr(new ResourceCache(m_resourceManager, ResourceCache::EFonts, pipelineID)));
+      m_caches.back()->addOverflowFn(bind(&Skin::onTextOverflow, this, pipelineID), 0);
     }
   }
 
   void Skin::addDynamicPages(int count)
   {
-    m_pages.reserve(m_pages.size() + count);
+    m_caches.reserve(m_caches.size() + count);
 
     addClearPageFn(bind(&Skin::clearPageHandles, this, _1), 0);
 
     for (int i = 0; i < count; ++i)
     {
-      uint8_t pipelineID = (uint8_t)m_pages.size();
-      m_pages.push_back(make_shared_ptr(new SkinPage(m_resourceManager, SkinPage::EPrimary, pipelineID)));
-      m_pages.back()->addOverflowFn(bind(&Skin::onDynamicOverflow, this, pipelineID), 0);
+      uint8_t pipelineID = (uint8_t)m_caches.size();
+      m_caches.push_back(make_shared_ptr(new ResourceCache(m_resourceManager, ResourceCache::EPrimary, pipelineID)));
+      m_caches.back()->addOverflowFn(bind(&Skin::onDynamicOverflow, this, pipelineID), 0);
     }
   }
 
@@ -79,15 +79,15 @@ namespace graphics
 
     id_pair_t p = unpackID(id);
 
-    ASSERT(p.first < m_pages.size(), ());
-    return m_pages[p.first]->fromID(p.second);
+    ASSERT(p.first < m_caches.size(), ());
+    return m_caches[p.first]->fromID(p.second);
   }
 
   uint32_t Skin::mapSymbol(char const * symbolName)
   {
-    for (uint8_t i = 0; i < m_pages.size(); ++i)
+    for (uint8_t i = 0; i < m_caches.size(); ++i)
     {
-      uint32_t res = m_pages[i]->findSymbol(symbolName);
+      uint32_t res = m_caches[i]->findSymbol(symbolName);
       if (res != invalidPageHandle())
         return packID(i, res);
     }
@@ -99,68 +99,68 @@ namespace graphics
   {
     uint32_t res = invalidPageHandle();
 
-    for (uint8_t i = 0; i < m_pages.size(); ++i)
+    for (uint8_t i = 0; i < m_caches.size(); ++i)
     {
-      res = m_pages[i]->findColor(c);
+      res = m_caches[i]->findColor(c);
       if (res != invalidPageHandle())
         return packID(i, res);
     }
 
-    if (!m_pages[m_dynamicPage]->hasRoom(c))
+    if (!m_caches[m_dynamicPage]->hasRoom(c))
       flushDynamicPage();
 
-    return packID(m_dynamicPage, m_pages[m_dynamicPage]->mapColor(c));
+    return packID(m_dynamicPage, m_caches[m_dynamicPage]->mapColor(c));
   }
 
   uint32_t Skin::mapPenInfo(PenInfo const & penInfo)
   {
     uint32_t res = invalidPageHandle();
 
-    for (uint8_t i = 0; i < m_pages.size(); ++i)
+    for (uint8_t i = 0; i < m_caches.size(); ++i)
     {
-      res = m_pages[i]->findPenInfo(penInfo);
+      res = m_caches[i]->findPenInfo(penInfo);
       if (res != invalidPageHandle())
         return packID(i, res);
     }
 
-    if (!m_pages[m_dynamicPage]->hasRoom(penInfo))
+    if (!m_caches[m_dynamicPage]->hasRoom(penInfo))
       flushDynamicPage();
 
-    return packID(m_dynamicPage, m_pages[m_dynamicPage]->mapPenInfo(penInfo));
+    return packID(m_dynamicPage, m_caches[m_dynamicPage]->mapPenInfo(penInfo));
   }
 
   uint32_t Skin::mapCircleInfo(CircleInfo const & circleInfo)
   {
     uint32_t res = invalidPageHandle();
 
-    for (uint8_t i = 0; i < m_pages.size(); ++i)
+    for (uint8_t i = 0; i < m_caches.size(); ++i)
     {
-      res = m_pages[i]->findCircleInfo(circleInfo);
+      res = m_caches[i]->findCircleInfo(circleInfo);
       if (res != invalidPageHandle())
         return packID(i, res);
     }
 
-    if (!m_pages[m_dynamicPage]->hasRoom(circleInfo))
+    if (!m_caches[m_dynamicPage]->hasRoom(circleInfo))
       flushDynamicPage();
 
-    return packID(m_dynamicPage, m_pages[m_dynamicPage]->mapCircleInfo(circleInfo));
+    return packID(m_dynamicPage, m_caches[m_dynamicPage]->mapCircleInfo(circleInfo));
   }
 
   uint32_t Skin::mapImageInfo(ImageInfo const & imageInfo)
   {
     uint32_t res = invalidPageHandle();
 
-    for (uint8_t i = 0; i < m_pages.size(); ++i)
+    for (uint8_t i = 0; i < m_caches.size(); ++i)
     {
-      res = m_pages[i]->findImageInfo(imageInfo);
+      res = m_caches[i]->findImageInfo(imageInfo);
       if (res != invalidPageHandle())
         return packID(i, res);
     }
 
-    if (!m_pages[m_dynamicPage]->hasRoom(imageInfo))
+    if (!m_caches[m_dynamicPage]->hasRoom(imageInfo))
       flushDynamicPage();
 
-    return packID(m_dynamicPage, m_pages[m_dynamicPage]->mapImageInfo(imageInfo));
+    return packID(m_dynamicPage, m_caches[m_dynamicPage]->mapImageInfo(imageInfo));
   }
 
   bool Skin::mapPenInfo(PenInfo const * penInfos, uint32_t * styleIDS, size_t count)
@@ -172,12 +172,12 @@ namespace graphics
 
     do
     {
-      styleIDS[i] = m_pages[m_dynamicPage]->findPenInfo(penInfos[i]);
+      styleIDS[i] = m_caches[m_dynamicPage]->findPenInfo(penInfos[i]);
 
       if ((styleIDS[i] == invalidPageHandle()) || (unpackID(styleIDS[i]).first != m_dynamicPage))
       {
         /// try to pack on the currentDynamicPage
-        while (!m_pages[m_dynamicPage]->hasRoom(penInfos[i]))
+        while (!m_caches[m_dynamicPage]->hasRoom(penInfos[i]))
         {
           /// no room - flush the page
           flushDynamicPage();
@@ -196,7 +196,7 @@ namespace graphics
           i = 0;
         }
 
-        styleIDS[i] = packID(m_dynamicPage, m_pages[m_dynamicPage]->mapPenInfo(penInfos[i]));
+        styleIDS[i] = packID(m_dynamicPage, m_caches[m_dynamicPage]->mapPenInfo(penInfos[i]));
       }
 
       ++i;
@@ -210,28 +210,28 @@ namespace graphics
   {
     uint32_t res = invalidPageHandle();
 
-    for (uint8_t i = 0; i < m_pages.size(); ++i)
+    for (uint8_t i = 0; i < m_caches.size(); ++i)
     {
-      res = m_pages[i]->findGlyph(gk);
+      res = m_caches[i]->findGlyph(gk);
       if (res != invalidPageHandle())
         return packID(i, res);
     }
 
-    if (!m_pages[m_textPage]->hasRoom(gk, glyphCache))
+    if (!m_caches[m_textPage]->hasRoom(gk, glyphCache))
       flushTextPage();
 
-    return packID(m_textPage, m_pages[m_textPage]->mapGlyph(gk, glyphCache));
+    return packID(m_textPage, m_caches[m_textPage]->mapGlyph(gk, glyphCache));
   }
 
-  shared_ptr<SkinPage> const & Skin::page(int i) const
+  shared_ptr<ResourceCache> const & Skin::page(int i) const
   {
-    ASSERT(i < m_pages.size(), ());
-    return m_pages[i];
+    ASSERT(i < m_caches.size(), ());
+    return m_caches[i];
   }
 
   size_t Skin::pagesCount() const
   {
-    return m_pages.size();
+    return m_caches.size();
   }
 
   void Skin::addClearPageFn(clearPageFn fn, int priority)
@@ -306,7 +306,7 @@ namespace graphics
 
   int Skin::nextPage(int i) const
   {
-    ASSERT(i < m_pages.size(), ());
+    ASSERT(i < m_caches.size(), ());
 
     if (isDynamicPage(i))
       return nextDynamicPage();
@@ -355,7 +355,7 @@ namespace graphics
 
   void Skin::clearHandles()
   {
-    for (unsigned i = 0; i < m_pages.size(); ++i)
-      m_pages[i]->clear();
+    for (unsigned i = 0; i < m_caches.size(); ++i)
+      m_caches[i]->clear();
   }
 }

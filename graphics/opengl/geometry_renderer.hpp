@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../defines.hpp"
-#include "../skin_page.hpp"
+#include "../resource_cache.hpp"
 
 #include "clipper.hpp"
 

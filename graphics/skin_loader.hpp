@@ -37,7 +37,7 @@ namespace graphics
   }
 
   class ResourceManager;
-  class SkinPage;
+  class ResourceCache;
   struct ResourceStyle;
   struct GlyphStyle;
 
@@ -79,7 +79,7 @@ namespace graphics
 
 /// skin-specific parameters
 
-    vector<shared_ptr<SkinPage> > m_pages;
+    vector<shared_ptr<ResourceCache> > m_pages;
 
 /// skin-page specific parameters
     string m_fileName;

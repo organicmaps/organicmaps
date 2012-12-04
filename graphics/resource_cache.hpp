@@ -24,7 +24,7 @@ namespace graphics
   class ResourceManager;
   struct GlyphInfo;
 
-  class SkinPage
+  class ResourceCache
   {
   public:
 
@@ -102,17 +102,17 @@ namespace graphics
     void setPipelineID(uint8_t pipelineID);
 
     /// creation of detached page
-    SkinPage();
+    ResourceCache();
 
     /// creation of a static page
-    SkinPage(shared_ptr<ResourceManager> const & resourceManager,
+    ResourceCache(shared_ptr<ResourceManager> const & resourceManager,
              char const * name,
              uint8_t pipelineID);
 
     /// creation of a dynamic page
-    SkinPage(shared_ptr<ResourceManager> const & resourceManager,
-             EType type,
-             uint8_t pipelineID);
+    ResourceCache(shared_ptr<ResourceManager> const & resourceManager,
+                  EType type,
+                  uint8_t pipelineID);
 
     void reserveTexture() const;
     void resetTexture();

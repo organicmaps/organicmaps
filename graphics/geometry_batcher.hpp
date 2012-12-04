@@ -7,7 +7,7 @@
 #include "opengl/storage.hpp"
 
 #include "display_list_renderer.hpp"
-#include "skin_page.hpp"
+#include "resource_cache.hpp"
 #include "resource_manager.hpp"
 
 #include "../std/vector.hpp"
@@ -61,7 +61,7 @@ namespace graphics
       /// @}
 
       bool m_useGuiResources;
-      SkinPage::EType m_type;
+      ResourceCache::EType m_type;
 
       int  verticesLeft();
       int  indicesLeft();
@@ -108,7 +108,7 @@ namespace graphics
     void beginFrame();
     void endFrame();
 
-    bool flushPipeline(shared_ptr<SkinPage> const & skinPage, int pipelineID);
+    bool flushPipeline(shared_ptr<ResourceCache> const & resourceCache, int pipelineID);
     void unlockPipeline(int pipelineID);
     void discardPipeline(int pipelineID);
 

@@ -123,7 +123,7 @@ namespace
 
   };
 
-  struct TestDrawPathWithSkinPageMiss : public TestDrawPathBase
+  struct TestDrawPathWithResourceCacheMiss : public TestDrawPathBase
   {
     typedef TestDrawPathBase base_t;
 
@@ -1379,7 +1379,7 @@ namespace
 //   UNIT_TEST_GL(TestDrawSGIConvex);
    UNIT_TEST_GL(TestDrawPoly);
    UNIT_TEST_GL(TestDrawSolidRect);
-   UNIT_TEST_GL(TestDrawPathWithSkinPageMiss);
+   UNIT_TEST_GL(TestDrawPathWithResourceCacheMiss);
    UNIT_TEST_GL(TestDrawPathWithOffset);
    UNIT_TEST_GL(TestDrawPathJoin);
    UNIT_TEST_GL(TestDrawPathSolid1PX);

@@ -36,7 +36,7 @@ SOURCES += \
     resource_style.cpp \
     color.cpp \
     skin_loader.cpp \
-    skin_page.cpp \
+    resource_cache.cpp \
     glyph_cache.cpp \
     glyph_cache_impl.cpp \
     ft2_debug.cpp \
@@ -100,7 +100,7 @@ HEADERS += \
     pen_info.hpp \
     resource_style.hpp \
     color.hpp \
-    skin_page.hpp \
+    resource_cache.hpp \
     render_target.hpp \
     glyph_cache.hpp \
     data_formats.hpp \

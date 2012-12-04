@@ -75,7 +75,7 @@ class Drawer
   shared_ptr<graphics::Screen> m_pScreen;
   shared_ptr<graphics::Skin> m_pSkin;
 
-  static void ClearSkinPage(size_t threadSlot, uint8_t pipelineID);
+  static void ClearResourceCache(size_t threadSlot, uint8_t pipelineID);
 
   typedef pair<size_t, uint32_t> FeatureID;
 

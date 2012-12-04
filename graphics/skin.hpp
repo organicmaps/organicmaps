@@ -23,7 +23,7 @@ namespace graphics
     class BaseTexture;
   }
 
-  class SkinPage;
+  class ResourceCache;
   class ResourceManager;
   struct ResourceStyle;
   struct PenInfo;
@@ -37,13 +37,13 @@ namespace graphics
   {
   public:
 
-    typedef vector<shared_ptr<SkinPage> > TSkinPages;
+    typedef vector<shared_ptr<ResourceCache> > TResourceCaches;
     typedef function<void(uint8_t)> clearPageFn;
     typedef function<void(uint8_t)> overflowFn;
 
   private:
 
-    TSkinPages m_pages;
+    TResourceCaches m_caches;
 
     uint8_t m_startDynamicPage;
     uint8_t m_dynamicPage;
@@ -57,7 +57,7 @@ namespace graphics
     shared_ptr<ResourceManager> m_resourceManager;
 
     Skin(shared_ptr<ResourceManager> const & resourceManager,
-         TSkinPages const & pages);
+         TResourceCaches const & pages);
 
     friend class SkinLoader;
 
@@ -135,7 +135,7 @@ namespace graphics
     /// is getting cleared.
     void addClearPageFn(clearPageFn fn, int priority);
 
-    shared_ptr<SkinPage> const & page(int i) const;
+    shared_ptr<ResourceCache> const & page(int i) const;
 
     size_t pagesCount() const;
 
