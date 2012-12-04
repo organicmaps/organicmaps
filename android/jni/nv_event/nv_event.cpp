@@ -339,10 +339,11 @@ const char* NVEventGetEventStr(NVEventType eventType)
     case NV_EVENT_STOP:             return "NV_EVENT_STOP";
     case NV_EVENT_QUIT:             return "NV_EVENT_QUIT";
     case NV_EVENT_USER:             return "NV_EVENT_USER";
+    case NV_EVENT_LONG_CLICK:       return "NV_EVENT_LONG_CLICK";
   }
 
   // update this if you end up having to edit something.
-  CT_ASSERT(NEED_TO_ADD_STRING_HERE, NV_EVENT_NUM_EVENTS == 17);
+  CT_ASSERT(NEED_TO_ADD_STRING_HERE, NV_EVENT_NUM_EVENTS == 18);
   return "unknown event type!";
 }
 
@@ -518,6 +519,16 @@ static jboolean NVEventTouchEvent(JNIEnv*  env, jobject  thiz, jint action, jint
   return JNI_TRUE;
 }
 
+static jboolean NVEventLongClickEvent(JNIEnv * env, jobject thiz, jint x, jint y)
+{
+  NVEvent ev;
+  ev.m_type = NV_EVENT_LONG_CLICK;
+  ev.m_data.m_multi.m_x1 = x;
+  ev.m_data.m_multi.m_y1 = y;
+  NVEventInsert(&ev);
+  return JNI_TRUE;
+}
+
 static jboolean NVEventMultiTouchEvent(JNIEnv*  env, jobject  thiz, jint action, 
 									   jboolean hasFirst, jboolean hasSecond, jint mx1, jint my1, jint mx2, jint my2)
 {
@@ -615,6 +626,8 @@ static jboolean NVEventAccelerometerEvent(JNIEnv* env, jobject thiz, jfloat valu
 // Java to Native app lifecycle callback functions
 
 static jboolean onDestroyNative(JNIEnv* env, jobject thiz);
+
+
 
 static jboolean onCreateNative(JNIEnv* env, jobject thiz)
 {
@@ -898,6 +911,11 @@ void InitNVEvent(JavaVM* vm)
       "onDestroyNative",
       "()Z",
       (void *) onDestroyNative
+    },
+    {
+     "onLongClickNative",
+     "(II)Z",
+     (void *) NVEventLongClickEvent
     },
     {
       "multiTouchEvent",

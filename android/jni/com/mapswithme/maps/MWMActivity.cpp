@@ -7,11 +7,33 @@
 #include "../../../nv_event/nv_event.hpp"
 
 #include "../../../../../map/country_status_display.hpp"
-
-
+#include "../../../../../base/logging.hpp"
+/*
+private native int addOnLongClickListener( l);
+private native void removeOnLongClickListener(int h);*/
 ////////////////////////////////////////////////////////////////////////////////////////////
 extern "C"
 {
+
+  void CallLongClickListener(shared_ptr<jobject> obj, int x, int y)
+  {
+    JNIEnv * env = jni::GetEnv();
+    jmethodID methodID = jni::GetJavaMethodID(env, *obj.get(), "onLongClick", "(II)V");
+    env->CallVoidMethod(*obj.get(), methodID, x, y);
+  }
+
+  JNIEXPORT jint JNICALL
+  Java_com_mapswithme_maps_MWMActivity_addOnLongClickListener(JNIEnv * env, jobject thiz, jobject l)
+  {
+    return g_framework->AddLongClickListener(bind(&CallLongClickListener,jni::make_global_ref(l), _1, _2));
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMActivity_removeOnLongClickListener(int h)
+  {
+    g_framework->RemoveLongClickListener(h);
+  }
+
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MWMActivity_nativeOnLocationError(JNIEnv * env, jobject thiz,
       int errorCode)

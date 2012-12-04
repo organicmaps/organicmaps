@@ -6,6 +6,7 @@
 #include "../../../../../map/drawer.hpp"
 #include "../../../../../map/window_handle.hpp"
 #include "../../../../../map/feature_vec_model.hpp"
+#include "../../../../../base/logging.hpp"
 
 #include "../../../../../geometry/avg_vector.hpp"
 
@@ -14,6 +15,8 @@
 
 #include "../../../nv_event/nv_event.hpp"
 
+#define LONG_CLICK_LENGTH_SEC 1.0
+
 class CountryStatusDisplay;
 
 namespace android
@@ -21,12 +24,14 @@ namespace android
   class Framework
   {
   private:
+    typedef function<void(int,int)> TOnLongClickListener;
     ::Framework m_work;
 
     VideoTimer * m_videoTimer;
 
     void CallRepaint();
-
+    map<int, TOnLongClickListener> m_onLongClickFns;
+    int m_onLongClickFnsHandle;
     NVMultiTouchEventType m_eventType; //< multitouch action
 
     double m_x1;
@@ -37,7 +42,7 @@ namespace android
     bool m_hasFirst;
     bool m_hasSecond;
     int m_mask;
-
+    my::Timer m_longClickTimer;
     bool m_doLoadState;
 
     /// @name Single click processing parameters.
@@ -50,6 +55,7 @@ namespace android
     //@}
 
     math::AvgVector<float, 3> m_sensors[2];
+    void CallLongClickListeners(int x, int y);
 
   public:
     Framework();
@@ -103,6 +109,10 @@ namespace android
     void AddString(string const & name, string const & value);
 
     void Scale(double k);
+
+    int AddLongClickListener(TOnLongClickListener l);
+    void RemoveLongClickListener(int h);
+
 
     ::Framework * NativeFramework();
   };

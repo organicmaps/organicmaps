@@ -207,7 +207,9 @@ int32_t NVEventAppMain(int32_t argc, char** argv)
           ev = NULL;
           NVEventDoneWithEvent(false);
           break;
+        case NV_EVENT_LONG_CLICK:
 
+          break;
         case NV_EVENT_TOUCH:
 //          if (!s_glesAutopaused)
           {

@@ -38,6 +38,30 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private MWMApplication mApplication = null;
   private BroadcastReceiver m_externalStorageReceiver = null;
   private AlertDialog m_storageDisconnectedDialog = null;
+  private int m_longClickHandler;
+  
+  private interface OnLongClickListener
+  {
+    void onLongClick(int x, int y);
+  }
+  /*
+  @Override
+  public boolean onLongClick(View v)
+  {
+    v.post(new Runnable()
+    {
+      
+      @Override
+      public void run()
+      {
+        
+      }
+    });
+    return super.onLongClick(v);
+  }*/
+  
+  private native int addOnLongClickListener(Object l);
+  private native void removeOnLongClickListener(int h);
 
   private LocationService getLocationService()
   {
@@ -192,6 +216,18 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   public void onMinusClicked(View v)
   {
     nativeScale(2.0 / 3);
+  }
+
+  public void onBookmarksClicked(View v)
+  {
+    if (!mApplication.isProVersion())
+    {
+      showProVersionBanner(getString(R.string.search_available_in_pro_version));
+    }
+    else
+    {
+      //startActivity(new Intent(this, BookmarkCategoriesActivity.class));
+    }
   }
 
   public void onMyPositionClicked(View v)

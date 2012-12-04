@@ -75,6 +75,8 @@ typedef enum NVEventType
   NV_EVENT_TOUCH,
   /** Multi-touch events */
   NV_EVENT_MULTITOUCH,
+  /** Long Click Event */
+  NV_EVENT_LONG_CLICK,
   /** Accelerometer events */
   NV_EVENT_ACCEL,
   /** onStart lifecycle events */

@@ -49,7 +49,6 @@ namespace android
     g_framework = this;
 
     m_videoTimer = new VideoTimer(bind(&Framework::CallRepaint, this));
-
     size_t const measurementsCount = 5;
     m_sensors[0].SetCount(measurementsCount);
     m_sensors[1].SetCount(measurementsCount);
@@ -237,6 +236,7 @@ namespace android
 
   void Framework::Touch(int action, int mask, double x1, double y1, double x2, double y2)
   {
+    //TODO Заводим таймер
     NVMultiTouchEventType eventType = (NVMultiTouchEventType)action;
 
     // processing double-click
@@ -253,6 +253,8 @@ namespace android
     {
       if (eventType == NV_MULTITOUCH_DOWN)
       {
+        //TODO strt timer
+        m_longClickTimer.Reset();
         m_isCleanSingleClick = true;
         m_lastX1 = x1;
         m_lastY1 = y1;
@@ -265,18 +267,25 @@ namespace android
       {
         if ((fabs(x1 - m_lastX1) > 10)
         ||  (fabs(y1 - m_lastY1) > 10))
+        {
           m_isCleanSingleClick = false;
+          //TODO stop timer
+        }
 
         if (m_work.GetGuiController()->OnTapMoved(m2::PointD(x1, y1)))
           return;
       }
-
       if (eventType == NV_MULTITOUCH_UP)
         if (m_work.GetGuiController()->OnTapEnded(m2::PointD(x1, y1)))
           return;
 
       if ((eventType == NV_MULTITOUCH_UP) && (m_isCleanSingleClick))
       {
+        double seconds = m_longClickTimer.ElapsedSeconds();
+        if ( seconds >= LONG_CLICK_LENGTH_SEC)
+        {
+          CallLongClickListeners((int)x1,(int) y1);
+        }
         if (m_work.GetGuiController()->OnTapEnded(m2::PointD(x1, y1)))
           return;
 
@@ -505,5 +514,26 @@ namespace android
   ::Framework * Framework::NativeFramework()
   {
     return &m_work;
+  }
+
+  void Framework::CallLongClickListeners(int x, int y)
+  {
+    map<int, TOnLongClickListener>::iterator it;
+    for ( it=m_onLongClickFns.begin() ; it != m_onLongClickFns.end(); it++ )
+    {
+      (*it).second(x,y);
+    }
+  }
+
+  int Framework::AddLongClickListener(Framework::TOnLongClickListener l)
+  {
+    int handle = ++m_onLongClickFnsHandle;
+    m_onLongClickFns[handle] = l;
+    return handle;
+  }
+
+  void Framework::RemoveLongClickListener(int h)
+  {
+    m_onLongClickFns.erase(m_onLongClickFns.find(h));
   }
 }
