@@ -35,7 +35,6 @@ bool SearchParams::IsLanguageValid() const
 
 bool SearchParams::IsEqualCommon(SearchParams const & rhs) const
 {
-  // do not compare m_mode
   return (m_query == rhs.m_query &&
           m_inputLanguageCode == rhs.m_inputLanguageCode &&
           m_validPos == rhs.m_validPos &&
