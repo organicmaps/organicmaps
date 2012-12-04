@@ -169,6 +169,7 @@
   SearchVC * searchVC = [[SearchVC alloc] init];
   UINavigationController * navC = [[UINavigationController alloc] initWithRootViewController:searchVC];
   [self presentModalViewController:navC animated:YES];
+  [navC release];
   [searchVC release];
 }
 
