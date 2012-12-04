@@ -191,6 +191,7 @@ namespace bookmark_impl
     string m_name;
     string m_type;
     string m_description;
+    time_t m_timeStamp;
 
     m2::PointD m_org;
     double m_scale;
@@ -202,6 +203,7 @@ namespace bookmark_impl
       m_org = m2::PointD(-1000, -1000);
       m_type.clear();
       m_scale = -1.0;
+      m_timeStamp = Bookmark::INVALID_TIME_STAMP;
     }
 
     void SetOrigin(string const & s)
@@ -254,7 +256,8 @@ namespace bookmark_impl
 
       if (tag == "Placemark" && MakeValid())
       {
-        m_category.AddBookmarkImpl(Bookmark(m_org, m_name, m_type, m_description), m_scale);
+        m_category.AddBookmarkImpl(Bookmark(m_org, m_name, m_type, m_description, m_timeStamp),
+                                   m_scale);
         Reset();
       }
       m_tags.pop_back();
@@ -299,6 +302,15 @@ namespace bookmark_impl
             {
               if (!strings::to_double(value, m_scale))
                 m_scale = -1.0;
+            }
+          }
+          else if (prevTag == "TimeStamp")
+          {
+            if (currTag == "when")
+            {
+              m_timeStamp = StringToTimestamp(value);
+              if (m_timeStamp == Bookmark::INVALID_TIME_STAMP)
+                LOG(LWARNING, ("Invalid timestamp in Placemark:", value));
             }
           }
         }
@@ -434,10 +446,16 @@ void BookmarkCategory::SaveToKML(ostream & s)
       s << "</description>\n";
     }
 
+    time_t const timeStamp = bm->GetTimeStamp();
+    if (timeStamp != Bookmark::INVALID_TIME_STAMP)
+    {
+      string const strTimeStamp = TimestampToString(timeStamp);
+      ASSERT_EQUAL(strTimeStamp.size(), 20, ("We always generate fixed length UTC-format timestamp"));
+      s << "    <TimeStamp><when>" << strTimeStamp << "</when></TimeStamp>\n";
+    }
+
     s << "    <styleUrl>#" << bm->GetType() << "</styleUrl>\n"
-      << "    <Point>\n"
-      << "      <coordinates>" << PointToString(bm->GetOrg()) << "</coordinates>\n"
-      << "    </Point>\n";
+      << "    <Point><coordinates>" << PointToString(bm->GetOrg()) << "</coordinates></Point>\n";
 
     double const scale = bm->GetScale();
     if (scale != -1.0)

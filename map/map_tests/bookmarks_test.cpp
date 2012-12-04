@@ -83,6 +83,9 @@ char const * kmlString =
         "<name>Monongahela National Forest</name>"
         "<description><![CDATA[Huttonsville, WV 26273<br>]]></description>"
         "<styleUrl>#placemark-pink</styleUrl>"
+        "<TimeStamp>"
+          "<when>1986-08-12T07:10:43Z</when>"
+        "</TimeStamp>"
         "<Point>"
           "<coordinates>-79.829674,38.627785,0.000000</coordinates>"
         "</Point>"
@@ -91,6 +94,9 @@ char const * kmlString =
         "<name>From: Минск, Минская область, Беларусь</name>"
         "<description><![CDATA[]]></description>"
         "<styleUrl>#placemark-blue</styleUrl>"
+        "<TimeStamp>"
+          "<when>1998-03-03T03:04:48+01:30</when>"
+        "</TimeStamp>"
         "<Point>"
           "<coordinates>27.566765,53.900047,0</coordinates>"
         "</Point>"
@@ -99,6 +105,9 @@ char const * kmlString =
         "<name><![CDATA[<MWM & Sons>]]></name>"
         "<description><![CDATA[Amps & <brackets>]]></description>"
         "<styleUrl>#placemark-green</styleUrl>"
+        "<TimeStamp>"
+          "<when>2048 bytes in two kilobytes - some invalid timestamp</when>"
+        "</TimeStamp>"
         "<Point>"
           "<coordinates>27.551532,53.89306</coordinates>"
         "</Point>"
@@ -114,11 +123,13 @@ char const * kmlString =
     TEST_EQUAL(bm->GetName(), "Nebraska", ());
     TEST_EQUAL(bm->GetType(), "placemark-red", ());
     TEST_EQUAL(bm->GetDescription(), "", ());
+    TEST_EQUAL(bm->GetTimeStamp(), Bookmark::INVALID_TIME_STAMP, ());
 
     bm = cat.GetBookmark(1);
     TEST_EQUAL(bm->GetName(), "Monongahela National Forest", ());
     TEST_EQUAL(bm->GetType(), "placemark-pink", ());
     TEST_EQUAL(bm->GetDescription(), "Huttonsville, WV 26273<br>", ());
+    TEST_EQUAL(bm->GetTimeStamp(), 524214643, ());
 
     bm = cat.GetBookmark(2);
     m2::PointD org = bm->GetOrg();
@@ -127,6 +138,7 @@ char const * kmlString =
     TEST_EQUAL(bm->GetName(), "From: Минск, Минская область, Беларусь", ());
     TEST_EQUAL(bm->GetType(), "placemark-blue", ());
     TEST_EQUAL(bm->GetDescription(), "", ());
+    TEST_EQUAL(bm->GetTimeStamp(), 888888888, ());
 
     bm = cat.GetBookmark(3);
     org = bm->GetOrg();
@@ -134,6 +146,7 @@ char const * kmlString =
     TEST_ALMOST_EQUAL(MercatorBounds::YToLat(org.y), 53.89306, ());
     TEST_EQUAL(bm->GetName(), "<MWM & Sons>", ());
     TEST_EQUAL(bm->GetDescription(), "Amps & <brackets>", ());
+    TEST_EQUAL(bm->GetTimeStamp(), Bookmark::INVALID_TIME_STAMP, ());
   }
 }
 

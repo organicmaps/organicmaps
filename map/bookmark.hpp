@@ -18,12 +18,14 @@ class Bookmark
   string m_description;
   string m_type;    ///< Now it stores bookmark color (category style).
   double m_scale;   ///< Viewport scale. -1.0 - is a default value (no scale set).
+  time_t m_timeStamp;
 
 public:
-  Bookmark() {}
+  Bookmark() : m_scale(-1.0), m_timeStamp(INVALID_TIME_STAMP) {}
   Bookmark(m2::PointD const & org, string const & name, string const & type,
-           string const & description = string())
-    : m_org(org), m_name(name), m_description(description), m_type(type), m_scale(-1.0)
+           string const & description = string(), time_t timeStamp = INVALID_TIME_STAMP)
+    : m_org(org), m_name(name), m_description(description), m_type(type), m_scale(-1.0),
+      m_timeStamp(timeStamp)
   {
   }
 
@@ -35,6 +37,9 @@ public:
   m2::RectD GetViewport() const { return m2::RectD(m_org, m_org); }
 
   static time_t const INVALID_TIME_STAMP;
+
+  /// @return INVALID_TIME_STAMP if bookmark has no timestamp
+  time_t GetTimeStamp() const { return m_timeStamp; }
 
   double GetScale() const { return m_scale; }
   void SetScale(double scale) { m_scale = scale; }
