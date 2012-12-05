@@ -88,8 +88,10 @@ SearchVC * g_searchVC = nil;
 ResultsWrapper * g_lastSearchResults = nil;
 
 ResultsWrapper * lastNearMeSearch   = nil;
-ResultsWrapper * lastInViewMeSearch = nil;
+ResultsWrapper * lastInViewSearch = nil;
 ResultsWrapper * lastAllSearch      = nil;
+
+int segmentControlPosition = 2;
 
 static void OnSearchResultCallback(search::Results const & res)
 {
@@ -189,7 +191,6 @@ static void OnSearchResultCallback(search::Results const & res)
     m_segmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Near me", @"Map View", @"All", nil]];
     [m_segmentedControl setSegmentedControlStyle:UISegmentedControlStyleBar];
     m_segmentedControl.segmentedControlStyle = 7;
-    m_segmentedControl.selectedSegmentIndex = 2;
     [m_segmentedControl addTarget:self
                          action:@selector(segmentChanged)
                forControlEvents:UIControlEventValueChanged];
@@ -265,7 +266,9 @@ static void OnSearchResultCallback(search::Results const & res)
     [m_locationManager start:self];
 
     // show keyboard
-    [m_searchBar becomeFirstResponder];    
+    [m_searchBar becomeFirstResponder];
+    m_segmentedControl.selectedSegmentIndex = segmentControlPosition;
+    [self proceedSearchWithString:m_searchBar.text];
   }
   
   [super viewWillAppear:animated];
@@ -277,6 +280,7 @@ static void OnSearchResultCallback(search::Results const & res)
   
   // hide keyboard immediately
   [m_searchBar resignFirstResponder];
+  [self clearCacheResults];
   
   [super viewWillDisappear:animated];
 }
@@ -336,16 +340,15 @@ static void OnSearchResultCallback(search::Results const & res)
 
   if (m_suggestionsCount)
   {
-    //mycode
     static NSString *CellIdentifier = @"categoryCell";
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
+      
     cell.textLabel.text =  NSLocalizedString([categoriesNames objectAtIndex:indexPath.row],@"Search Suggestion");
     cell.imageView.image = [UIImage imageNamed:[categoriesNames objectAtIndex:indexPath.row]];
-
 
     return cell;
   }
@@ -491,18 +494,19 @@ static void OnSearchResultCallback(search::Results const & res)
   {
     [g_lastSearchResults release];
     g_lastSearchResults = [w retain];
-    switch (m_segmentedControl.selectedSegmentIndex) {
+    //assign search results to cache
+    switch (m_segmentedControl.selectedSegmentIndex)
+    {
          case 0:
             lastNearMeSearch = [w retain];
             break;
          case 1:
-            lastInViewMeSearch = [w retain];
+            lastInViewSearch = [w retain];
             break;
          case 2:
             lastAllSearch = [w retain];
             break;
          default:
-            lastAllSearch = [w retain];
          break;
     }
 
@@ -523,9 +527,29 @@ static void OnSearchResultCallback(search::Results const & res)
 {
   // Refresh search results with newer location.
   // Note: search even with empty string, to update distance and direction
+    
+  [self clearCachePositionChanged];
   search::SearchParams params;
+  switch (m_segmentedControl.selectedSegmentIndex)
+  {
+    case 0:
+        params.SetSearchMode(search::SearchParams::AROUND_POSITION);
+        break;
+    case 1:
+        return;
+    case 2:
+        params.SetSearchMode(search::SearchParams::ALL);
+        break;
+    default:
+        params.SetSearchMode(search::SearchParams::ALL);
+        break;
+   }
+    
   [self fillSearchParams:params withText:m_searchBar.text];
-
+    
+  //hack, fillSearch Params return invalid position
+  params.SetPosition(info.m_latitude, info.m_longitude);
+    
   if (m_framework->Search(params))
     [self showIndicator];
 }
@@ -535,31 +559,26 @@ static void OnSearchResultCallback(search::Results const & res)
   double lat, lon;
   if (![m_locationManager getLat:lat Lon:lon])
     return;
-
-  double const northRad = (info.m_trueHeading < 0) ? info.m_magneticHeading : info.m_trueHeading;
-  NSArray * cells = m_table.visibleCells;
-  for (NSUInteger i = 0; i < cells.count; ++i)
+  //check if categories are on the screen
+  if (!m_suggestionsCount)
   {
-    UITableViewCell * cell = (UITableViewCell *)[cells objectAtIndex:i];
-    NSInteger realRowIndex = [m_table indexPathForCell:cell].row;
-    if (m_suggestionsCount)
+    double const northRad = (info.m_trueHeading < 0) ? info.m_magneticHeading : info.m_trueHeading;
+    NSArray * cells = m_table.visibleCells;
+    for (NSUInteger i = 0; i < cells.count; ++i)
     {
-      // Take into an account additional suggestions cell
-      if (realRowIndex == 0)
-        continue;
-      realRowIndex -= m_suggestionsCount;
-    }
-
-    search::Result const & res = [g_lastSearchResults getWithPosition:realRowIndex];
-    if (res.GetResultType() == search::Result::RESULT_FEATURE)
-    {
-      // Show compass only for cells without flags
-      if ([cell.accessoryView isKindOfClass:[CompassView class]])
+      UITableViewCell * cell = (UITableViewCell *)[cells objectAtIndex:i];
+      NSInteger realRowIndex = [m_table indexPathForCell:cell].row;
+      search::Result const & res = [g_lastSearchResults getWithPosition:realRowIndex];
+      if (res.GetResultType() == search::Result::RESULT_FEATURE)
       {
-        CompassView * compass = (CompassView *)cell.accessoryView;
-        m2::PointD const center = res.GetFeatureCenter();
-        compass.angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(lon),
+        // Show compass only for cells without flags
+        if ([cell.accessoryView isKindOfClass:[CompassView class]])
+        {
+          CompassView * compass = (CompassView *)cell.accessoryView;
+          m2::PointD const center = res.GetFeatureCenter();
+          compass.angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(lon),
                                                 MercatorBounds::LatToY(lat)), center) + northRad;
+        }
       }
     }
   }
@@ -587,40 +606,45 @@ static void OnSearchResultCallback(search::Results const & res)
 
 //segmentedControl delegate
 -(void)segmentChanged{
-    switch (m_segmentedControl.selectedSegmentIndex) {
+    switch (m_segmentedControl.selectedSegmentIndex)
+    {
         case 0:
             if (lastNearMeSearch != nil){
-                [g_lastSearchResults release];
-                g_lastSearchResults =  [lastNearMeSearch retain];
-                [m_table reloadData];
+                [self assignSearchResultsToCache:lastNearMeSearch];
                 return;
             }
+            segmentControlPosition = 0;
             break;
         case 1:
-            if (lastInViewMeSearch != nil){
-                [g_lastSearchResults release];
-                g_lastSearchResults =  [lastInViewMeSearch retain];
-                [m_table reloadData];
+            if (lastInViewSearch != nil){
+                [self assignSearchResultsToCache:lastInViewSearch];
                 return;
             }
+            segmentControlPosition = 1;
             break;
         case 2:
-            if (lastAllSearch != nil){
-                [g_lastSearchResults release];
-                g_lastSearchResults =  [lastAllSearch retain];
-                [m_table reloadData];
+            if (lastAllSearch != nil)
+            {
+                [self assignSearchResultsToCache:lastAllSearch];
                 return;
             }
+            segmentControlPosition = 2;
             break;
         default:
-            if (lastAllSearch != nil){
-                [g_lastSearchResults release];
-                g_lastSearchResults =  [lastAllSearch retain];
-                [m_table reloadData];
+            if (lastAllSearch != nil)
+            {
+                [self assignSearchResultsToCache:lastAllSearch];
                 return;
             }
+            segmentControlPosition = 2;
     }
     [self proceedSearchWithString:m_searchBar.text];
+}
+
+-(void)assignSearchResultsToCache:(ResultsWrapper *)cache{
+    [g_lastSearchResults release];
+    g_lastSearchResults =  [cache retain];
+    [m_table reloadData];
 }
 
 -(void)setSearchBarHeight{
@@ -632,8 +656,15 @@ static void OnSearchResultCallback(search::Results const & res)
 -(void)clearCacheResults{
     [lastNearMeSearch release];
     lastNearMeSearch = nil;
-    [lastInViewMeSearch release];
-    lastInViewMeSearch = nil;
+    [lastInViewSearch release];
+    lastInViewSearch = nil;
+    [lastAllSearch release];
+    lastAllSearch = nil;
+}
+
+-(void)clearCachePositionChanged{
+    [lastNearMeSearch release];
+    lastNearMeSearch = nil;
     [lastAllSearch release];
     lastAllSearch = nil;
 }
@@ -646,7 +677,8 @@ static void OnSearchResultCallback(search::Results const & res)
     
     // Search even with empty string.
     search::SearchParams params;
-    switch (m_segmentedControl.selectedSegmentIndex) {
+    switch (m_segmentedControl.selectedSegmentIndex)
+    {
         case 0:
             params.SetSearchMode(search::SearchParams::AROUND_POSITION);
             break;
