@@ -343,7 +343,8 @@ static void OnSearchResultCallback(search::Results const & res)
     static NSString *CellIdentifier = @"categoryCell";
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
+    if (cell == nil)
+    {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
       
@@ -605,18 +606,21 @@ static void OnSearchResultCallback(search::Results const & res)
 }
 
 //segmentedControl delegate
--(void)segmentChanged{
+-(void)segmentChanged
+{
     switch (m_segmentedControl.selectedSegmentIndex)
     {
         case 0:
-            if (lastNearMeSearch != nil){
+            if (lastNearMeSearch != nil)
+            {
                 [self assignSearchResultsToCache:lastNearMeSearch];
                 return;
             }
             segmentControlPosition = 0;
             break;
         case 1:
-            if (lastInViewSearch != nil){
+            if (lastInViewSearch != nil)
+            {
                 [self assignSearchResultsToCache:lastInViewSearch];
                 return;
             }
@@ -641,19 +645,22 @@ static void OnSearchResultCallback(search::Results const & res)
     [self proceedSearchWithString:m_searchBar.text];
 }
 
--(void)assignSearchResultsToCache:(ResultsWrapper *)cache{
+-(void)assignSearchResultsToCache:(ResultsWrapper *)cache
+{
     [g_lastSearchResults release];
     g_lastSearchResults =  [cache retain];
     [m_table reloadData];
 }
 
--(void)setSearchBarHeight{
+-(void)setSearchBarHeight
+{
     CGRect r = m_searchBar.frame;
     r.size.height = self.navigationController.navigationBar.bounds.size.height;
     [m_searchBar setFrame:r];
 }
 
--(void)clearCacheResults{
+-(void)clearCacheResults
+{
     [lastNearMeSearch release];
     lastNearMeSearch = nil;
     [lastInViewSearch release];
@@ -662,14 +669,16 @@ static void OnSearchResultCallback(search::Results const & res)
     lastAllSearch = nil;
 }
 
--(void)clearCachePositionChanged{
+-(void)clearCachePositionChanged
+{
     [lastNearMeSearch release];
     lastNearMeSearch = nil;
     [lastAllSearch release];
     lastAllSearch = nil;
 }
 
--(void)proceedSearchWithString:(NSString *)searchText{
+-(void)proceedSearchWithString:(NSString *)searchText
+{
     // Clear old results immediately
     [g_lastSearchResults release];
     g_lastSearchResults = nil;
