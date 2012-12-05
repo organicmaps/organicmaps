@@ -19,7 +19,6 @@
 #include "../../../../../platform/location.hpp"
 #include "../../../../../platform/file_name_utils.hpp"
 
-#include "../../../../../base/logging.hpp"
 #include "../../../../../base/math.hpp"
 
 #include "../../../../../std/shared_ptr.hpp"
@@ -281,9 +280,9 @@ namespace android
       if ((eventType == NV_MULTITOUCH_UP) && (m_isCleanSingleClick))
       {
         double seconds = m_longClickTimer.ElapsedSeconds();
-        if ( seconds >= LONG_CLICK_LENGTH_SEC)
+        if (seconds >= LONG_CLICK_LENGTH_SEC)
         {
-          CallLongClickListeners((int)x1,(int) y1);
+          CallLongClickListeners(static_cast<int>(x1), static_cast<int>(y1));
         }
         if (m_work.GetGuiController()->OnTapEnded(m2::PointD(x1, y1)))
           return;
@@ -518,13 +517,13 @@ namespace android
   void Framework::CallLongClickListeners(int x, int y)
   {
     map<int, TOnLongClickListener>::iterator it;
-    for ( it=m_onLongClickFns.begin() ; it != m_onLongClickFns.end(); it++ )
+    for (it = m_onLongClickFns.begin(); it != m_onLongClickFns.end(); it++)
     {
-      (*it).second(x,y);
+      (*it).second(x, y);
     }
   }
 
-  int Framework::AddLongClickListener(Framework::TOnLongClickListener l)
+  int Framework::AddLongClickListener(Framework::TOnLongClickListener const & l)
   {
     int handle = ++m_onLongClickFnsHandler;
     m_onLongClickFns[handle] = l;
@@ -533,6 +532,6 @@ namespace android
 
   void Framework::RemoveLongClickListener(int h)
   {
-    m_onLongClickFns.erase(m_onLongClickFns.find(h));
+    m_onLongClickFns.erase(h);
   }
 }

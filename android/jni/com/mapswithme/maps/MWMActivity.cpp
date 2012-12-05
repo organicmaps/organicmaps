@@ -7,10 +7,7 @@
 #include "../../../nv_event/nv_event.hpp"
 
 #include "../../../../../map/country_status_display.hpp"
-#include "../../../../../base/logging.hpp"
-/*
-private native int addOnLongClickListener( l);
-private native void removeOnLongClickListener(int h);*/
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 extern "C"
 {

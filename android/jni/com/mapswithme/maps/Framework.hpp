@@ -6,7 +6,6 @@
 #include "../../../../../map/drawer.hpp"
 #include "../../../../../map/window_handle.hpp"
 #include "../../../../../map/feature_vec_model.hpp"
-#include "../../../../../base/logging.hpp"
 
 #include "../../../../../geometry/avg_vector.hpp"
 
@@ -110,7 +109,7 @@ namespace android
 
     void Scale(double k);
 
-    int AddLongClickListener(TOnLongClickListener l);
+    int AddLongClickListener(TOnLongClickListener const & l);
     void RemoveLongClickListener(int h);
 
 
