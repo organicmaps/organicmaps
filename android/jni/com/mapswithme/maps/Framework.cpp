@@ -43,7 +43,8 @@ namespace android
      m_mask(0),
      m_isInsideDoubleClick(false),
      m_isCleanSingleClick(false),
-     m_doLoadState(true)
+     m_doLoadState(true),
+     m_onLongClickFnsHandler(0)
   {
     ASSERT_EQUAL ( g_framework, 0, () );
     g_framework = this;
@@ -236,7 +237,6 @@ namespace android
 
   void Framework::Touch(int action, int mask, double x1, double y1, double x2, double y2)
   {
-    //TODO Заводим таймер
     NVMultiTouchEventType eventType = (NVMultiTouchEventType)action;
 
     // processing double-click
@@ -253,7 +253,6 @@ namespace android
     {
       if (eventType == NV_MULTITOUCH_DOWN)
       {
-        //TODO strt timer
         m_longClickTimer.Reset();
         m_isCleanSingleClick = true;
         m_lastX1 = x1;
@@ -527,7 +526,7 @@ namespace android
 
   int Framework::AddLongClickListener(Framework::TOnLongClickListener l)
   {
-    int handle = ++m_onLongClickFnsHandle;
+    int handle = ++m_onLongClickFnsHandler;
     m_onLongClickFns[handle] = l;
     return handle;
   }

@@ -31,7 +31,7 @@ namespace android
 
     void CallRepaint();
     map<int, TOnLongClickListener> m_onLongClickFns;
-    int m_onLongClickFnsHandle;
+    int m_onLongClickFnsHandler;
     NVMultiTouchEventType m_eventType; //< multitouch action
 
     double m_x1;
