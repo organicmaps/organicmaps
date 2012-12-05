@@ -1366,12 +1366,12 @@
     comment = Do search in all sources
     ru = Везде
   [search_mode_nearme]
-    en = Near me
+    en = Near Me
     tags = ios, android
     comment = Do search near my position only
     ru = Около меня
   [search_mode_viewport]
-    en = In current viewport
+    en = Map View
     tags = ios, android
     comment = Do search in current viewport only
     ru = В текущем экране

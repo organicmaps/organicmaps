@@ -332,3 +332,12 @@
 
 /* Detailed description of Measurement Units settings button */
 "measurement_units_summary" = "Kies tussen mijlen en kilometers";
+
+/* Do search in all sources */
+"search_mode_all" = "All";
+
+/* Do search near my position only */
+"search_mode_nearme" = "Near Me";
+
+/* Do search in current viewport only */
+"search_mode_viewport" = "Map View";

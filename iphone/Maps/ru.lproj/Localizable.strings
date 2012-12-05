@@ -332,3 +332,12 @@
 
 /* Detailed description of Measurement Units settings button */
 "measurement_units_summary" = "Использовать километры или мили";
+
+/* Do search in all sources */
+"search_mode_all" = "Везде";
+
+/* Do search near my position only */
+"search_mode_nearme" = "Около меня";
+
+/* Do search in current viewport only */
+"search_mode_viewport" = "В текущем экране";
