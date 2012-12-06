@@ -32,8 +32,8 @@ SOURCES += \
     blitter.cpp \
     resource_manager.cpp \
     skin.cpp \
-    pen_info.cpp \
-    resource_style.cpp \
+    pen.cpp \
+    resource.cpp \
     color.cpp \
     skin_loader.cpp \
     resource_cache.cpp \
@@ -44,7 +44,7 @@ SOURCES += \
     text_renderer.cpp \
     path_renderer.cpp \
     shape_renderer.cpp \
-    circle_info.cpp \
+    circle.cpp \
     area_renderer.cpp \
     font_desc.cpp \
     glyph_layout.cpp \
@@ -64,7 +64,7 @@ SOURCES += \
     packets_queue.cpp \
     display_list.cpp \
     data_formats.cpp \
-    image_info.cpp \
+    image.cpp \
     image_renderer.cpp \
     display_list_renderer.cpp \
     vertex_decl.cpp \
@@ -97,8 +97,8 @@ HEADERS += \
     resource_manager.hpp \
     skin.hpp \
     skin_loader.hpp \
-    pen_info.hpp \
-    resource_style.hpp \
+    pen.hpp \
+    resource.hpp \
     color.hpp \
     resource_cache.hpp \
     render_target.hpp \
@@ -112,7 +112,7 @@ HEADERS += \
     defines.hpp \
     path_renderer.hpp \
     shape_renderer.hpp \
-    circle_info.hpp \
+    circle.hpp \
     area_renderer.hpp \
     font_desc.hpp \
     glyph_layout.hpp \
@@ -130,7 +130,7 @@ HEADERS += \
     packets_queue.hpp \
     display_list.hpp \
     image_renderer.hpp \
-    image_info.hpp \
+    image.hpp \
     display_list_renderer.hpp \
     vertex_decl.hpp \
     render_context.hpp \
