@@ -10,7 +10,10 @@
 
 #include "../std/bind.hpp"
 
-class ResourceManager;
+namespace graphics
+{
+  class ResourceManager;
+}
 
 class TileCache
 {

@@ -61,7 +61,8 @@ namespace graphics
       /// @}
 
       bool m_useGuiResources;
-      ResourceCache::EType m_type;
+      ETextureType m_textureType;
+      EStorageType m_storageType;
 
       int  verticesLeft();
       int  indicesLeft();

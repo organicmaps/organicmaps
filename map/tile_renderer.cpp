@@ -9,6 +9,7 @@
 
 #include "../graphics/packets_queue.hpp"
 #include "../graphics/skin.hpp"
+#include "../graphics/defines.hpp"
 
 #include "../std/bind.hpp"
 
@@ -44,8 +45,8 @@ TileRenderer::TileRenderer(
 
   LOG(LINFO, ("initializing ", m_queue.ExecutorsCount(), " rendering threads"));
 
-  int tileWidth = m_resourceManager->params().m_renderTargetTexturesParams.m_texWidth;
-  int tileHeight = m_resourceManager->params().m_renderTargetTexturesParams.m_texHeight;
+  int tileWidth = m_resourceManager->params().m_textureParams[graphics::ERenderTargetTexture].m_texWidth;
+  int tileHeight = m_resourceManager->params().m_textureParams[graphics::ERenderTargetTexture].m_texHeight;
 
   for (unsigned i = 0; i < m_threadData.size(); ++i)
   {
@@ -99,8 +100,8 @@ void TileRenderer::InitializeThreadGL(core::CommandsQueue::Environment const & e
 {
   ThreadData & threadData = m_threadData[env.threadNum()];
 
-  int tileWidth = m_resourceManager->params().m_renderTargetTexturesParams.m_texWidth;
-  int tileHeight = m_resourceManager->params().m_renderTargetTexturesParams.m_texHeight;
+  int tileWidth = m_resourceManager->params().m_textureParams[graphics::ERenderTargetTexture].m_texWidth;
+  int tileHeight = m_resourceManager->params().m_textureParams[graphics::ERenderTargetTexture].m_texHeight;
 
   if (threadData.m_renderContext)
   {
@@ -134,8 +135,8 @@ void TileRenderer::ReadPixels(graphics::PacketsQueue * glQueue, core::CommandsQu
 
   if (!env.isCancelled())
   {
-    unsigned tileWidth = m_resourceManager->params().m_renderTargetTexturesParams.m_texWidth;
-    unsigned tileHeight = m_resourceManager->params().m_renderTargetTexturesParams.m_texHeight;
+    unsigned tileWidth = m_resourceManager->params().m_textureParams[graphics::ERenderTargetTexture].m_texWidth;
+    unsigned tileHeight = m_resourceManager->params().m_textureParams[graphics::ERenderTargetTexture].m_texHeight;
 
     shared_ptr<vector<unsigned char> > buf = SharedBufferManager::instance().reserveSharedBuffer(tileWidth * tileHeight * 4);
     drawer->screen()->readPixels(m2::RectU(0, 0, tileWidth, tileHeight), &(buf->at(0)), true);
@@ -165,8 +166,8 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   ScreenBase frameScreen;
 
-  unsigned tileWidth = m_resourceManager->params().m_renderTargetTexturesParams.m_texWidth;
-  unsigned tileHeight = m_resourceManager->params().m_renderTargetTexturesParams.m_texHeight;
+  unsigned tileWidth = m_resourceManager->params().m_textureParams[graphics::ERenderTargetTexture].m_texWidth;
+  unsigned tileHeight = m_resourceManager->params().m_textureParams[graphics::ERenderTargetTexture].m_texHeight;
 
   m2::RectI renderRect(1, 1, tileWidth - 1, tileHeight - 1);
 
@@ -176,9 +177,11 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   my::Timer timer;
 
-  shared_ptr<graphics::gl::BaseTexture> tileTarget = m_resourceManager->renderTargetTextures()->Reserve();
+  graphics::TTexturePool * texturePool = m_resourceManager->texturePool(graphics::ERenderTargetTexture);
 
-  if (m_resourceManager->renderTargetTextures()->IsCancelled())
+  shared_ptr<graphics::gl::BaseTexture> tileTarget = texturePool->Reserve();
+
+  if (texturePool->IsCancelled())
     return;
 
   drawer->screen()->setRenderTarget(tileTarget);
@@ -258,7 +261,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   if (env.isCancelled())
   {
     if (!m_isExiting)
-      m_resourceManager->renderTargetTextures()->Free(tileTarget);
+      texturePool->Free(tileTarget);
   }
   else
   {
@@ -337,7 +340,7 @@ void TileRenderer::AddActiveTile(Tile const & tile)
   Tiler::RectInfo const & key = tile.m_rectInfo;
 
   if (m_tileSet.HasTile(key) || m_tileCache.HasTile(key))
-    m_resourceManager->renderTargetTextures()->Free(tile.m_renderTarget);
+    m_resourceManager->texturePool(graphics::ERenderTargetTexture)->Free(tile.m_renderTarget);
   else
   {
     m_tileSet.AddTile(tile);

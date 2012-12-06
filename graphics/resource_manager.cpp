@@ -93,241 +93,80 @@ namespace graphics
     }
   }
 
-  ResourceManager::StoragePoolParams::StoragePoolParams(string const & poolName)
-    : m_vbSize(0),
-      m_vertexSize(0),
-      m_ibSize(0),
-      m_indexSize(0),
-      m_storagesCount(0),
-      m_isFixedBufferSize(true),
-      m_isFixedBufferCount(true),
-      m_scalePriority(0),
-      m_poolName(poolName),
-      m_isDebugging(false),
-      m_allocateOnDemand(false)
-  {}
-
   ResourceManager::StoragePoolParams::StoragePoolParams(size_t vbSize,
                                                         size_t vertexSize,
                                                         size_t ibSize,
                                                         size_t indexSize,
                                                         size_t storagesCount,
-                                                        bool isFixedBufferSize,
-                                                        bool isFixedBufferCount,
-                                                        int scalePriority,
-                                                        string const & poolName,
-                                                        bool isDebugging,
-                                                        bool allocateOnDemand)
+                                                        EStorageType storageType,
+                                                        bool isDebugging)
     : m_vbSize(vbSize),
       m_vertexSize(vertexSize),
       m_ibSize(ibSize),
       m_indexSize(indexSize),
       m_storagesCount(storagesCount),
-      m_isFixedBufferSize(isFixedBufferSize),
-      m_isFixedBufferCount(isFixedBufferCount),
-      m_scalePriority(scalePriority),
-      m_poolName(poolName),
-      m_isDebugging(isDebugging),
-      m_allocateOnDemand(allocateOnDemand)
+      m_storageType(storageType),
+      m_isDebugging(isDebugging)
   {}
 
-  bool ResourceManager::StoragePoolParams::isFixed() const
-  {
-    return m_isFixedBufferSize && m_isFixedBufferCount;
-  }
+  ResourceManager::StoragePoolParams::StoragePoolParams(EStorageType storageType)
+    : m_vbSize(0),
+      m_vertexSize(0),
+      m_ibSize(0),
+      m_indexSize(0),
+      m_storagesCount(0),
+      m_storageType(storageType),
+      m_isDebugging(false)
+  {}
+
+  ResourceManager::StoragePoolParams::StoragePoolParams()
+    : m_vbSize(0),
+      m_vertexSize(0),
+      m_ibSize(0),
+      m_indexSize(0),
+      m_storagesCount(0),
+      m_storageType(EInvalidStorage),
+      m_isDebugging(false)
+  {}
 
   bool ResourceManager::StoragePoolParams::isValid() const
   {
     return m_vbSize && m_ibSize && m_storagesCount;
   }
 
-  size_t ResourceManager::StoragePoolParams::memoryUsage() const
-  {
-    return (m_vbSize + m_ibSize) * m_storagesCount;
-  }
-
-  void ResourceManager::StoragePoolParams::scaleMemoryUsage(double k)
-  {
-#ifndef OMIM_PRODUCTION
-    int oldMemoryUsage = memoryUsage();
-    int oldVBSize = m_vbSize;
-    int oldIBSize = m_ibSize;
-    int oldStoragesCount = m_storagesCount;
-#endif
-
-    if (!m_isFixedBufferSize)
-    {
-      m_vbSize *= k;
-      m_ibSize *= k;
-      k = 1;
-    }
-
-    if (!m_isFixedBufferCount)
-      m_storagesCount *= k;
-
-#ifndef OMIM_PRODUCTION
-    LOG(LINFO, ("resizing", m_poolName));
-    LOG(LINFO, ("from:", oldVBSize / m_vertexSize, "vertices,", oldIBSize / m_indexSize, "indices,", oldStoragesCount, "storages,", oldMemoryUsage, "bytes total"));
-    LOG(LINFO, ("to  :", m_vbSize / m_vertexSize, "vertices,", m_ibSize / m_indexSize, "indices,", m_storagesCount, "storages,", memoryUsage(), "bytes total"));
-#endif
-  }
-
-  void ResourceManager::StoragePoolParams::distributeFreeMemory(int freeVideoMemory)
-  {
-    if (!isFixed())
-    {
-      double k = (freeVideoMemory * m_scaleFactor + memoryUsage()) / memoryUsage();
-      scaleMemoryUsage(k);
-    }
-    else
-    {
-#ifndef OMIM_PRODUCTION
-      if (m_vbSize && m_vertexSize && m_ibSize && m_indexSize)
-        LOG(LINFO, (m_poolName, " : ", m_vbSize / m_vertexSize, " vertices, ", m_ibSize / m_indexSize, " indices, ", m_storagesCount, " storages, ", memoryUsage(), " bytes total"));
-#endif
-    }
-  }
-
-  ResourceManager::TexturePoolParams::TexturePoolParams(string const & poolName)
-    : m_texWidth(0),
-      m_texHeight(0),
-      m_texCount(0),
-      m_format(graphics::Data8Bpp),
-      m_isWidthFixed(true),
-      m_isHeightFixed(true),
-      m_isCountFixed(true),
-      m_scalePriority(0),
-      m_poolName(poolName),
-      m_isDebugging(false),
-      m_allocateOnDemand(false)
-  {}
-
   ResourceManager::TexturePoolParams::TexturePoolParams(size_t texWidth,
                                                         size_t texHeight,
                                                         size_t texCount,
                                                         graphics::DataFormat format,
-                                                        bool isWidthFixed,
-                                                        bool isHeightFixed,
-                                                        bool isCountFixed,
-                                                        int scalePriority,
-                                                        string const & poolName,
-                                                        bool isDebugging,
-                                                        bool allocateOnDemand)
+                                                        ETextureType textureType,
+                                                        bool isDebugging)
     : m_texWidth(texWidth),
       m_texHeight(texHeight),
       m_texCount(texCount),
       m_format(format),
-      m_isWidthFixed(isWidthFixed),
-      m_isHeightFixed(isHeightFixed),
-      m_isCountFixed(isCountFixed),
-      m_scalePriority(scalePriority),
-      m_poolName(poolName),
-      m_isDebugging(isDebugging),
-      m_allocateOnDemand(allocateOnDemand)
+      m_textureType(textureType),
+      m_isDebugging(isDebugging)
   {}
 
-  bool ResourceManager::TexturePoolParams::isFixed() const
-  {
-    return m_isWidthFixed && m_isHeightFixed && m_isCountFixed;
-  }
+  ResourceManager::TexturePoolParams::TexturePoolParams(ETextureType textureType)
+    : m_texWidth(0),
+      m_texHeight(0),
+      m_texCount(0),
+      m_textureType(textureType),
+      m_isDebugging(false)
+  {}
+
+  ResourceManager::TexturePoolParams::TexturePoolParams()
+    : m_texWidth(0),
+      m_texHeight(0),
+      m_texCount(0),
+      m_textureType(EInvalidTexture),
+      m_isDebugging(false)
+  {}
 
   bool ResourceManager::TexturePoolParams::isValid() const
   {
     return m_texWidth && m_texHeight && m_texCount;
-  }
-
-  size_t ResourceManager::TexturePoolParams::memoryUsage() const
-  {
-    size_t pixelSize = 0;
-    switch (m_format)
-    {
-    case graphics::Data4Bpp:
-      pixelSize = 2;
-      break;
-    case graphics::Data8Bpp:
-      pixelSize = 4;
-      break;
-    case graphics::Data565Bpp:
-      pixelSize = 2;
-      break;
-    }
-
-    return m_texWidth * m_texHeight * pixelSize * m_texCount;
-  }
-
-  void ResourceManager::TexturePoolParams::distributeFreeMemory(int freeVideoMemory)
-  {
-    if (!isFixed())
-    {
-      double k = (freeVideoMemory * m_scaleFactor + memoryUsage()) / memoryUsage();
-      scaleMemoryUsage(k);
-    }
-    else
-    {
-#ifndef OMIM_PRODUCTION
-      if (m_texWidth && m_texHeight && m_texCount)
-        LOG(LINFO, (m_poolName, " : ", m_texWidth, "x", m_texHeight, ", ", m_texCount, " textures, ", memoryUsage(), " bytes total"));
-#endif
-    }
-  }
-
-  void ResourceManager::TexturePoolParams::scaleMemoryUsage(double k)
-  {
-#ifndef OMIM_PRODUCTION
-    int oldTexCount = m_texCount;
-    int oldTexWidth = m_texWidth;
-    int oldTexHeight = m_texHeight;
-    int oldMemoryUsage = memoryUsage();
-#endif
-
-    if (!m_isWidthFixed || !m_isHeightFixed)
-    {
-      if (k > 1)
-      {
-        while (k > 2)
-        {
-          if ((k > 2) && (!m_isWidthFixed))
-          {
-            m_texWidth *= 2;
-            k /= 2;
-          }
-
-          if ((k > 2) && (!m_isHeightFixed))
-          {
-            m_texHeight *= 2;
-            k /= 2;
-          }
-        }
-      }
-      else
-      {
-        if (k < 1)
-        {
-          while (k < 1)
-          {
-            if ((k < 0.5) && (!m_isWidthFixed))
-            {
-              m_texHeight /= 2;
-              k *= 2;
-            }
-
-            if ((k < 0.5) && (!m_isHeightFixed))
-            {
-              m_texWidth /= 2;
-              k *= 2;
-            }
-          }
-        }
-      }
-    }
-
-    if (!m_isCountFixed)
-      m_texCount *= k;
-#ifndef OMIM_PRODUCTION
-    LOG(LINFO, ("scaling memory usage for ", m_poolName));
-    LOG(LINFO, (" from : ", oldTexWidth, "x", oldTexHeight, ", ", oldTexCount, " textures, ", oldMemoryUsage, " bytes total"));
-    LOG(LINFO, (" to   : ", m_texWidth, "x", m_texHeight, ", ", m_texCount, " textures, ", memoryUsage(), " bytes total"));
-#endif
   }
 
   ResourceManager::GlyphCacheParams::GlyphCacheParams()
@@ -365,19 +204,15 @@ namespace
       m_texRtFormat(graphics::Data4Bpp),
       m_useSingleThreadedOGL(false),
       m_videoMemoryLimit(0),
-      m_primaryStoragesParams("primaryStorage"),
-      m_smallStoragesParams("smallStorage"),
-      m_blitStoragesParams("blitStorage"),
-      m_multiBlitStoragesParams("multiBlitStorage"),
-      m_guiThreadStoragesParams("tinyStorage"),
-      m_primaryTexturesParams("primaryTexture"),
-      m_fontTexturesParams("fontTexture"),
-      m_renderTargetTexturesParams("renderTargetTexture"),
-      m_styleCacheTexturesParams("styleCacheTexture"),
-      m_guiThreadTexturesParams("guiThreadTexture"),
       m_renderThreadsCount(0),
       m_threadSlotsCount(0)
   {
+    for (unsigned i = 0; i < EInvalidStorage + 1; ++i)
+      m_storageParams.push_back(ResourceManager::StoragePoolParams(EStorageType(i)));
+
+    for (unsigned i = 0; i < EInvalidTexture + 1; ++i)
+      m_textureParams.push_back(ResourceManager::TexturePoolParams(ETextureType(i)));
+
     GetGLStringSafe(GL_VENDOR, m_vendorName);
     GetGLStringSafe(GL_RENDERER, m_rendererName);
   }
@@ -437,130 +272,23 @@ namespace
       LOG(LINFO, ("using ReadPixels instead of glFinish to synchronize"));
   }
 
-  void ResourceManager::Params::fitIntoLimits()
-  {
-    initScaleWeights();
-
-    int oldMemoryUsage = memoryUsage();
-
-    int videoMemoryLimit = m_videoMemoryLimit;
-
-    if (videoMemoryLimit == 0)
-    {
-      videoMemoryLimit = memoryUsage();
-      LOG(LINFO, ("videoMemoryLimit is not set. will not scale resource usage."));
-    }
-
-    if (videoMemoryLimit < fixedMemoryUsage())
-    {
-      LOG(LINFO, ("videoMemoryLimit", videoMemoryLimit, "is less than an amount of fixed resources", fixedMemoryUsage()));
-      videoMemoryLimit = memoryUsage();
-    }
-
-    if (videoMemoryLimit < memoryUsage())
-    {
-      LOG(LINFO, ("videoMemoryLimit", videoMemoryLimit, "is less than amount of currently allocated resources", memoryUsage()));
-      videoMemoryLimit = memoryUsage();
-    }
-
-    int freeVideoMemory = videoMemoryLimit - oldMemoryUsage;
-
-    /// distributing free memory according to the weights
-    distributeFreeMemory(freeVideoMemory);
-
-    LOG(LINFO, ("resizing from", oldMemoryUsage, "bytes to", memoryUsage(), "bytes of video memory"));
-  }
-
-  int ResourceManager::Params::memoryUsage() const
-  {
-    return m_primaryStoragesParams.memoryUsage()
-        + m_smallStoragesParams.memoryUsage()
-        + m_blitStoragesParams.memoryUsage()
-        + m_multiBlitStoragesParams.memoryUsage()
-        + m_guiThreadStoragesParams.memoryUsage()
-        + m_primaryTexturesParams.memoryUsage()
-        + m_fontTexturesParams.memoryUsage()
-        + m_renderTargetTexturesParams.memoryUsage()
-        + m_styleCacheTexturesParams.memoryUsage()
-        + m_guiThreadTexturesParams.memoryUsage();
-  }
-
-  int ResourceManager::Params::fixedMemoryUsage() const
-  {
-    return (m_primaryStoragesParams.isFixed() ? m_primaryStoragesParams.memoryUsage() : 0)
-      + (m_smallStoragesParams.isFixed() ? m_smallStoragesParams.memoryUsage() : 0)
-      + (m_blitStoragesParams.isFixed() ? m_blitStoragesParams.memoryUsage() : 0)
-      + (m_multiBlitStoragesParams.isFixed() ? m_multiBlitStoragesParams.memoryUsage() : 0)
-      + (m_guiThreadStoragesParams.isFixed() ? m_guiThreadStoragesParams.memoryUsage() : 0)
-      + (m_primaryTexturesParams.isFixed() ? m_primaryTexturesParams.memoryUsage() : 0)
-      + (m_fontTexturesParams.isFixed() ? m_fontTexturesParams.memoryUsage() : 0)
-      + (m_renderTargetTexturesParams.isFixed() ? m_renderTargetTexturesParams.memoryUsage() : 0)
-      + (m_styleCacheTexturesParams.isFixed() ? m_styleCacheTexturesParams.memoryUsage() : 0)
-      + (m_guiThreadTexturesParams.isFixed() ? m_guiThreadTexturesParams.memoryUsage() : 0);
-  }
-
-  void ResourceManager::Params::distributeFreeMemory(int freeVideoMemory)
-  {
-    m_primaryStoragesParams.distributeFreeMemory(freeVideoMemory);
-    m_smallStoragesParams.distributeFreeMemory(freeVideoMemory);
-    m_blitStoragesParams.distributeFreeMemory(freeVideoMemory);
-    m_multiBlitStoragesParams.distributeFreeMemory(freeVideoMemory);
-    m_guiThreadStoragesParams.distributeFreeMemory(freeVideoMemory);
-
-    m_primaryTexturesParams.distributeFreeMemory(freeVideoMemory);
-    m_fontTexturesParams.distributeFreeMemory(freeVideoMemory);
-    m_renderTargetTexturesParams.distributeFreeMemory(freeVideoMemory);
-    m_styleCacheTexturesParams.distributeFreeMemory(freeVideoMemory);
-    m_guiThreadTexturesParams.distributeFreeMemory(freeVideoMemory);
-  }
-
   ResourceManager::ResourceManager(Params const & p)
     : m_params(p)
   {
     initThreadSlots(p);
 
-    initStoragePool(p.m_primaryStoragesParams, m_primaryStorages);
-    initStoragePool(p.m_smallStoragesParams, m_smallStorages);
-    initStoragePool(p.m_blitStoragesParams, m_blitStorages);
-    initStoragePool(p.m_multiBlitStoragesParams, m_multiBlitStorages);
-    initStoragePool(p.m_guiThreadStoragesParams, m_guiThreadStorages);
+    m_storagePools.resize(EInvalidStorage + 1);
 
-    initTexturePool(p.m_primaryTexturesParams, m_primaryTextures);
-    initTexturePool(p.m_fontTexturesParams, m_fontTextures);
-    initTexturePool(p.m_renderTargetTexturesParams, m_renderTargets);
-    initTexturePool(p.m_styleCacheTexturesParams, m_styleCacheTextures);
-    initTexturePool(p.m_guiThreadTexturesParams, m_guiThreadTextures);
+    for (unsigned i = 0; i < EInvalidStorage + 1; ++i)
+      initStoragePool(p.m_storageParams[i], m_storagePools[i]);
+
+    m_texturePools.resize(EInvalidTexture + 1);
+
+    for (unsigned i = 0; i < EInvalidTexture + 1; ++i)
+      initTexturePool(p.m_textureParams[i], m_texturePools[i]);
 
     if (!graphics::gl::g_isBufferObjectsSupported)
       LOG(LINFO, ("buffer objects are unsupported. using client vertex array instead."));
-  }
-
-  void ResourceManager::Params::initScaleWeights()
-  {
-    double prioritySum = (m_primaryStoragesParams.isFixed() ? 0 : m_primaryStoragesParams.m_scalePriority)
-        + (m_smallStoragesParams.isFixed() ? 0 : m_smallStoragesParams.m_scalePriority)
-        + (m_blitStoragesParams.isFixed() ? 0 : m_blitStoragesParams.m_scalePriority)
-        + (m_multiBlitStoragesParams.isFixed() ? 0 : m_multiBlitStoragesParams.m_scalePriority)
-        + (m_guiThreadStoragesParams.isFixed() ? 0 : m_guiThreadStoragesParams.m_scalePriority)
-        + (m_primaryTexturesParams.isFixed() ? 0 : m_primaryTexturesParams.m_scalePriority)
-        + (m_fontTexturesParams.isFixed() ? 0 : m_fontTexturesParams.m_scalePriority)
-        + (m_renderTargetTexturesParams.isFixed() ? 0 : m_renderTargetTexturesParams.m_scalePriority)
-        + (m_styleCacheTexturesParams.isFixed() ? 0 : m_styleCacheTexturesParams.m_scalePriority)
-        + (m_guiThreadTexturesParams.isFixed() ? 0 : m_guiThreadTexturesParams.m_scalePriority);
-
-    if (prioritySum == 0)
-      return;
-
-    m_primaryStoragesParams.m_scaleFactor = m_primaryStoragesParams.m_scalePriority / prioritySum;
-    m_smallStoragesParams.m_scaleFactor = m_smallStoragesParams.m_scalePriority / prioritySum;
-    m_blitStoragesParams.m_scaleFactor = m_blitStoragesParams.m_scalePriority / prioritySum;
-    m_multiBlitStoragesParams.m_scaleFactor = m_multiBlitStoragesParams.m_scalePriority / prioritySum;
-    m_guiThreadStoragesParams.m_scaleFactor = m_guiThreadStoragesParams.m_scalePriority / prioritySum;
-    m_primaryTexturesParams.m_scaleFactor = m_primaryTexturesParams.m_scalePriority / prioritySum;
-    m_fontTexturesParams.m_scaleFactor = m_fontTexturesParams.m_scalePriority / prioritySum;
-    m_renderTargetTexturesParams.m_scaleFactor = m_renderTargetTexturesParams.m_scalePriority / prioritySum;
-    m_styleCacheTexturesParams.m_scaleFactor = m_styleCacheTexturesParams.m_scalePriority / prioritySum;
-    m_guiThreadTexturesParams.m_scaleFactor = m_guiThreadTexturesParams.m_scalePriority / prioritySum;
   }
 
   void ResourceManager::initThreadSlots(Params const & p)
@@ -594,59 +322,58 @@ namespace
     }
   }
 
-  void ResourceManager::initStoragePool(StoragePoolParams const & p, scoped_ptr<TStoragePool> & pool)
+  void ResourceManager::initStoragePool(StoragePoolParams const & p, shared_ptr<TStoragePool> & pool)
   {
     if (p.isValid())
     {
-      LOG(LINFO, ("initializing", p.m_poolName, "resource pool. vbSize=", p.m_vbSize, ", ibSize=", p.m_ibSize));
-      TStorageFactory storageFactory(p.m_vbSize, p.m_ibSize, m_params.m_useSingleThreadedOGL, p.m_poolName.c_str(), p.m_allocateOnDemand ? p.m_storagesCount : 0);
+      LOG(LINFO, ("initializing", convert(p.m_storageType), "resource pool. vbSize=", p.m_vbSize, ", ibSize=", p.m_ibSize));
+      TStorageFactory storageFactory(p.m_vbSize,
+                                     p.m_ibSize,
+                                     m_params.m_useSingleThreadedOGL,
+                                     convert(p.m_storageType),
+                                     p.m_storagesCount);
 
       if (m_params.m_useSingleThreadedOGL)
-      {
-        if (p.m_allocateOnDemand)
-          pool.reset(new TOnDemandSingleThreadedStoragePoolImpl(new TOnDemandSingleThreadedStoragePoolTraits(storageFactory, p.m_storagesCount)));
-        else
-          pool.reset(new TFixedSizeMergeableStoragePoolImpl(new TFixedSizeMergeableStoragePoolTraits(storageFactory, p.m_storagesCount)));
-      }
+        pool.reset(new TOnDemandSingleThreadedStoragePoolImpl(new TOnDemandSingleThreadedStoragePoolTraits(storageFactory, p.m_storagesCount)));
       else
-      {
-        if (p.m_allocateOnDemand)
-          pool.reset(new TOnDemandMultiThreadedStoragePoolImpl(new TOnDemandMultiThreadedStoragePoolTraits(storageFactory, p.m_storagesCount)));
-        else
-          pool.reset(new TFixedSizeNonMergeableStoragePoolImpl(new TFixedSizeNonMergeableStoragePoolTraits(storageFactory, p.m_storagesCount)));
-      }
+        pool.reset(new TOnDemandMultiThreadedStoragePoolImpl(new TOnDemandMultiThreadedStoragePoolTraits(storageFactory, p.m_storagesCount)));
 
       pool->SetIsDebugging(p.m_isDebugging);
     }
     else
-      LOG(LINFO, ("no ", p.m_poolName, " resource"));
+      LOG(LINFO, ("no ", convert(p.m_storageType), " resource"));
   }
 
-  void ResourceManager::initTexturePool(TexturePoolParams const & p, scoped_ptr<TTexturePool> & pool)
+  TStoragePool * ResourceManager::storagePool(EStorageType type)
+  {
+    return m_storagePools[type].get();
+  }
+
+  void ResourceManager::initTexturePool(TexturePoolParams const & p,
+                                        shared_ptr<TTexturePool> & pool)
   {
     if (p.isValid())
     {
-      TTextureFactory textureFactory(p.m_texWidth, p.m_texHeight, p.m_format, p.m_poolName.c_str(), p.m_allocateOnDemand ? p.m_texCount : 0);
+      TTextureFactory textureFactory(p.m_texWidth,
+                                     p.m_texHeight,
+                                     p.m_format,
+                                     convert(p.m_textureType),
+                                     p.m_texCount);
 
       if (m_params.m_useSingleThreadedOGL)
-      {
-        if (p.m_allocateOnDemand)
-          pool.reset(new TOnDemandSingleThreadedTexturePoolImpl(new TOnDemandSingleThreadedTexturePoolTraits(textureFactory, p.m_texCount)));
-        else
-          pool.reset(new TFixedSizeTexturePoolImpl(new TFixedSizeTexturePoolTraits(textureFactory, p.m_texCount)));
-      }
+        pool.reset(new TOnDemandSingleThreadedTexturePoolImpl(new TOnDemandSingleThreadedTexturePoolTraits(textureFactory, p.m_texCount)));
       else
-      {
-        if (p.m_allocateOnDemand)
-          pool.reset(new TOnDemandMultiThreadedTexturePoolImpl(new TOnDemandMultiThreadedTexturePoolTraits(textureFactory, p.m_texCount)));
-        else
-          pool.reset(new TFixedSizeTexturePoolImpl(new TFixedSizeTexturePoolTraits(textureFactory, p.m_texCount)));
-      }
+        pool.reset(new TOnDemandMultiThreadedTexturePoolImpl(new TOnDemandMultiThreadedTexturePoolTraits(textureFactory, p.m_texCount)));
 
       pool->SetIsDebugging(p.m_isDebugging);
     }
     else
-      LOG(LINFO, ("no ", p.m_poolName, " resource"));
+      LOG(LINFO, ("no ", convert(p.m_textureType), " resource"));
+  }
+
+  TTexturePool * ResourceManager::texturePool(ETextureType type)
+  {
+    return m_texturePools[type].get();
   }
 
   shared_ptr<gl::BaseTexture> const & ResourceManager::getTexture(string const & fileName)
@@ -710,70 +437,26 @@ namespace
   {
     threads::MutexGuard guard(m_mutex);
 
-    if (m_primaryStorages.get())
-      m_primaryStorages->EnterBackground();
+    for (unsigned i = 0; i < m_texturePools.size(); ++i)
+      if (m_texturePools[i].get())
+        m_texturePools[i]->EnterBackground();
 
-    if (m_smallStorages.get())
-      m_smallStorages->EnterBackground();
-
-    if (m_blitStorages.get())
-      m_blitStorages->EnterBackground();
-
-    if (m_multiBlitStorages.get())
-      m_multiBlitStorages->EnterBackground();
-
-    if (m_guiThreadStorages.get())
-      m_guiThreadStorages->EnterBackground();
-
-    if (m_primaryTextures.get())
-      m_primaryTextures->EnterBackground();
-
-    if (m_fontTextures.get())
-      m_fontTextures->EnterBackground();
-
-    if (m_renderTargets.get())
-      m_renderTargets->EnterBackground();
-
-    if (m_styleCacheTextures.get())
-      m_styleCacheTextures->EnterBackground();
-
-    if (m_guiThreadTextures.get())
-      m_guiThreadTextures->EnterBackground();
+    for (unsigned i = 0; i < m_storagePools.size(); ++i)
+      if (m_storagePools[i].get())
+        m_storagePools[i]->EnterBackground();
   }
 
   void ResourceManager::enterForeground()
   {
     threads::MutexGuard guard(m_mutex);
 
-    if (m_primaryStorages.get())
-      m_primaryStorages->EnterForeground();
+    for (unsigned i = 0; i < m_texturePools.size(); ++i)
+      if (m_texturePools[i].get())
+        m_texturePools[i]->EnterForeground();
 
-    if (m_smallStorages.get())
-      m_smallStorages->EnterForeground();
-
-    if (m_blitStorages.get())
-      m_blitStorages->EnterForeground();
-
-    if (m_multiBlitStorages.get())
-      m_multiBlitStorages->EnterForeground();
-
-    if (m_guiThreadStorages.get())
-      m_guiThreadStorages->EnterForeground();
-
-    if (m_primaryTextures.get())
-      m_primaryTextures->EnterForeground();
-
-    if (m_fontTextures.get())
-      m_fontTextures->EnterForeground();
-
-    if (m_renderTargets.get())
-      m_renderTargets->EnterForeground();
-
-    if (m_styleCacheTextures.get())
-      m_styleCacheTextures->EnterForeground();
-
-    if (m_guiThreadTextures.get())
-      m_guiThreadTextures->EnterForeground();
+    for (unsigned i = 0; i < m_storagePools.size(); ++i)
+      if (m_storagePools[i].get())
+        m_storagePools[i]->EnterForeground();
   }
 
   shared_ptr<graphics::gl::BaseTexture> ResourceManager::createRenderTarget(unsigned w, unsigned h)
@@ -807,104 +490,26 @@ namespace
     return 1 + m_params.m_renderThreadsCount;
   }
 
-  TStoragePool * ResourceManager::primaryStorages()
-  {
-    return m_primaryStorages.get();
-  }
-
-  TStoragePool * ResourceManager::smallStorages()
-  {
-    return m_smallStorages.get();
-  }
-
-  TStoragePool * ResourceManager::guiThreadStorages()
-  {
-    return m_guiThreadStorages.get();
-  }
-
-  TStoragePool * ResourceManager::blitStorages()
-  {
-    return m_blitStorages.get();
-  }
-
-  TStoragePool * ResourceManager::multiBlitStorages()
-  {
-    return m_multiBlitStorages.get();
-  }
-
-  TTexturePool * ResourceManager::primaryTextures()
-  {
-    return m_primaryTextures.get();
-  }
-
-  TTexturePool * ResourceManager::fontTextures()
-  {
-    return m_fontTextures.get();
-  }
-
-  TTexturePool * ResourceManager::renderTargetTextures()
-  {
-    return m_renderTargets.get();
-  }
-
-  TTexturePool * ResourceManager::styleCacheTextures()
-  {
-    return m_styleCacheTextures.get();
-  }
-
-  TTexturePool * ResourceManager::guiThreadTextures()
-  {
-    return m_guiThreadTextures.get();
-  }
-
   void ResourceManager::updatePoolState()
   {
-    if (m_primaryTextures.get())
-      m_primaryTextures->UpdateState();
-    if (m_fontTextures.get())
-      m_fontTextures->UpdateState();
-    if (m_styleCacheTextures.get())
-      m_styleCacheTextures->UpdateState();
-    if (m_renderTargets.get())
-      m_renderTargets->UpdateState();
-    if (m_guiThreadTextures.get())
-      m_guiThreadTextures->UpdateState();
+    for (unsigned i = 0; i < m_texturePools.size(); ++i)
+      if (m_texturePools[i].get())
+        m_texturePools[i]->UpdateState();
 
-    if (m_guiThreadStorages.get())
-      m_guiThreadStorages->UpdateState();
-    if (m_primaryStorages.get())
-      m_primaryStorages->UpdateState();
-    if (m_smallStorages.get())
-      m_smallStorages->UpdateState();
-    if (m_blitStorages.get())
-      m_blitStorages->UpdateState();
-    if (m_multiBlitStorages.get())
-      m_multiBlitStorages->UpdateState();
+    for (unsigned i = 0; i < m_storagePools.size(); ++i)
+      if (m_storagePools[i].get())
+        m_storagePools[i]->UpdateState();
   }
 
   void ResourceManager::cancel()
   {
-    if (m_primaryTextures.get())
-      m_primaryTextures->Cancel();
-    if (m_fontTextures.get())
-      m_fontTextures->Cancel();
-    if (m_styleCacheTextures.get())
-      m_styleCacheTextures->Cancel();
-    if (m_renderTargets.get())
-      m_renderTargets->Cancel();
-    if (m_guiThreadTextures.get())
-      m_guiThreadTextures->Cancel();
+    for (unsigned i = 0; i < m_texturePools.size(); ++i)
+      if (m_texturePools[i].get())
+        m_texturePools[i]->Cancel();
 
-    if (m_primaryStorages.get())
-      m_primaryStorages->Cancel();
-    if (m_smallStorages.get())
-      m_smallStorages->Cancel();
-    if (m_blitStorages.get())
-      m_blitStorages->Cancel();
-    if (m_multiBlitStorages.get())
-      m_multiBlitStorages->Cancel();
-    if (m_guiThreadStorages.get())
-      m_guiThreadStorages->Cancel();
+    for (unsigned i = 0; i < m_storagePools.size(); ++i)
+      if (m_storagePools[i].get())
+        m_storagePools[i]->Cancel();
   }
 
   bool ResourceManager::useReadPixelsToSynchronize() const

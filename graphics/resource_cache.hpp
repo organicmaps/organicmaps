@@ -11,6 +11,7 @@
 #include "glyph_cache.hpp"
 #include "image_info.hpp"
 #include "packets_queue.hpp"
+#include "defines.hpp"
 
 namespace graphics
 {
@@ -27,14 +28,6 @@ namespace graphics
   class ResourceCache
   {
   public:
-
-    enum EType
-    {
-      EStatic,
-      EPrimary,
-      EFonts,
-      ELightWeight
-    };
 
     typedef m2::Packer::overflowFn overflowFn;
 
@@ -73,7 +66,8 @@ namespace graphics
 
     TUploadQueue m_uploadQueue;
 
-    EType m_type;
+    ETextureType m_textureType;
+    EStorageType m_storageType;
     uint32_t m_pipelineID;
 
     /// number of pending rendering commands,
@@ -106,12 +100,12 @@ namespace graphics
 
     /// creation of a static page
     ResourceCache(shared_ptr<ResourceManager> const & resourceManager,
-             char const * name,
-             uint8_t pipelineID);
+                  char const * name,
+                  uint8_t pipelineID);
 
     /// creation of a dynamic page
     ResourceCache(shared_ptr<ResourceManager> const & resourceManager,
-                  EType type,
+                  ETextureType type,
                   uint8_t pipelineID);
 
     void reserveTexture() const;
@@ -143,8 +137,8 @@ namespace graphics
 
     ResourceStyle * fromID(uint32_t idx) const;
 
-    void setType(EType type);
-    EType type() const;
+    void setType(ETextureType textureType);
+    ETextureType type() const;
     shared_ptr<ResourceManager> const & resourceManager() const;
 
     void addOverflowFn(overflowFn fn, int priority);

@@ -135,9 +135,11 @@ namespace graphics
       if (isDebugging())
         LOG(LINFO, ("performing IMMDrawTexturedPrimitives command"));
 
-      graphics::gl::Storage blitStorage = m_resourceManager->blitStorages()->Reserve();
+      TStoragePool * storagePool = m_resourceManager->storagePool(ESmallStorage);
 
-      if (m_resourceManager->blitStorages()->IsCancelled())
+      graphics::gl::Storage blitStorage = storagePool->Reserve();
+
+      if (storagePool->IsCancelled())
       {
         LOG(LDEBUG, ("skipping IMMDrawTexturedPrimitives on cancelled multiBlitStorages pool"));
         return;
@@ -194,7 +196,7 @@ namespace graphics
       blitStorage.m_vertices->discard();
       blitStorage.m_indices->discard();
 
-      m_resourceManager->blitStorages()->Free(blitStorage);
+      storagePool->Free(blitStorage);
     }
 
     void GeometryRenderer::DrawGeometry::perform()

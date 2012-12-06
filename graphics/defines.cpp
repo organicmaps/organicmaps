@@ -8,7 +8,7 @@ namespace graphics
   namespace {
    struct Data
    {
-     ESemantic m_val;
+     int m_val;
      char const * m_name;
    };
   }
@@ -28,11 +28,52 @@ namespace graphics
     {
       if (strcmp(name, s_semantics[i].m_name) == 0)
       {
-        sem = s_semantics[i].m_val;
+        sem = (ESemantic)s_semantics[i].m_val;
         return;
       }
     }
 
     LOG(LINFO, ("Unknown Semantics=", name, "specified!"));
+  }
+
+  Data s_storages [] = {
+    {ETinyStorage, "TinyStorage"},
+    {ESmallStorage, "SmallStorage"},
+    {EMediumStorage, "MediumStorage"},
+    {ELargeStorage, "LargeStorage"},
+    {EInvalidStorage, "InvalidStorage"}
+  };
+
+  char const * convert(EStorageType type)
+  {
+    for (unsigned i = 0; i < ARRAY_SIZE(s_storages); ++i)
+    {
+      if (s_storages[i].m_val == type)
+        return s_storages[i].m_name;
+    }
+
+    LOG(LINFO, ("Unknown StorageType=", type, "specified!"));
+    return "UnknownStorage";
+  }
+
+  Data s_textures [] = {
+    {ESmallTexture, "SmallTexture"},
+    {EMediumTexture, "MediumTexture"},
+    {ELargeTexture, "LargeTexture"},
+    {ERenderTargetTexture, "RenderTargetTexture"},
+    {EStaticTexture, "StaticTexture"},
+    {EInvalidTexture, "InvalidTexture"}
+  };
+
+  char const * convert(ETextureType type)
+  {
+    for (unsigned i = 0; i < ARRAY_SIZE(s_textures); ++i)
+    {
+      if (s_textures[i].m_val == type)
+        return s_textures[i].m_name;
+    }
+
+    LOG(LERROR, ("Unknown TextureType=", type, "specified!"));
+    return "UnknownTexture";
   }
 }

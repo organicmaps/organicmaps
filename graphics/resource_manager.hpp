@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../std/shared_ptr.hpp"
-#include "../std/scoped_ptr.hpp"
 #include "../std/map.hpp"
 #include "../std/string.hpp"
 #include "../std/list.hpp"
@@ -13,6 +12,7 @@
 #include "opengl/program_manager.hpp"
 #include "glyph_cache.hpp"
 #include "data_formats.hpp"
+#include "defines.hpp"
 
 namespace graphics
 {
@@ -32,7 +32,11 @@ namespace graphics
     size_t m_w;
     size_t m_h;
     graphics::DataFormat m_format;
-    TTextureFactory(size_t w, size_t h, graphics::DataFormat format, char const * resName, size_t batchSize);
+    TTextureFactory(size_t w,
+                    size_t h,
+                    graphics::DataFormat format,
+                    char const * resName,
+                    size_t batchSize);
     shared_ptr<gl::BaseTexture> const Create();
   };
 
@@ -41,7 +45,11 @@ namespace graphics
     size_t m_vbSize;
     size_t m_ibSize;
     bool m_useSingleThreadedOGL;
-    TStorageFactory(size_t vbSize, size_t ibSize, bool useSingleThreadedOGL, char const * resName, size_t batchSize);
+    TStorageFactory(size_t vbSize,
+                    size_t ibSize,
+                    bool useSingleThreadedOGL,
+                    char const * resName,
+                    size_t batchSize);
     gl::Storage const Create();
     void BeforeMerge(gl::Storage const & e);
   };
@@ -105,37 +113,20 @@ namespace graphics
       size_t m_ibSize;
       size_t m_indexSize;
       size_t m_storagesCount;
-
-      bool m_isFixedBufferSize;
-      bool m_isFixedBufferCount;
-
-      int m_scalePriority;
-      double m_scaleFactor;
-
-      string m_poolName;
-
+      EStorageType m_storageType;
       bool m_isDebugging;
-      bool m_allocateOnDemand;
 
+      StoragePoolParams();
+      StoragePoolParams(EStorageType storageType);
       StoragePoolParams(size_t vbSize,
                         size_t vertexSize,
                         size_t ibSize,
                         size_t indexSize,
                         size_t storagesCount,
-                        bool isFixedBufferSize,
-                        bool isFixedBufferCount,
-                        int scalePriority,
-                        string const & poolName,
-                        bool isDebugging,
-                        bool allocateOnDemand);
+                        EStorageType storageType,
+                        bool isDebugging);
 
-      StoragePoolParams(string const & poolName);
-
-      bool isFixed() const;
       bool isValid() const;
-      void scaleMemoryUsage(double k);
-      void distributeFreeMemory(int freeVideoMemory);
-      size_t memoryUsage() const;
     };
 
     struct TexturePoolParams
@@ -144,38 +135,19 @@ namespace graphics
       size_t m_texHeight;
       size_t m_texCount;
       graphics::DataFormat m_format;
-
-      bool m_isWidthFixed;
-      bool m_isHeightFixed;
-      bool m_isCountFixed;
-
-      int m_scalePriority;
-      double m_scaleFactor;
-
-      string m_poolName;
-
+      ETextureType m_textureType;
       bool m_isDebugging;
-      bool m_allocateOnDemand;
 
+      TexturePoolParams();
+      TexturePoolParams(ETextureType textureType);
       TexturePoolParams(size_t texWidth,
                         size_t texHeight,
                         size_t texCount,
                         graphics::DataFormat format,
-                        bool isWidthFixed,
-                        bool isHeightFixed,
-                        bool isCountFixed,
-                        int scalePriority,
-                        string const & poolName,
-                        bool isDebugging,
-                        bool allocateOnDemand);
+                        ETextureType textureType,
+                        bool isDebugging);
 
-      TexturePoolParams(string const & poolName);
-
-      bool isFixed() const;
       bool isValid() const;
-      void scaleMemoryUsage(double k);
-      void distributeFreeMemory(int freeVideoMemory);
-      size_t memoryUsage() const;
     };
 
     struct GlyphCacheParams
@@ -185,7 +157,6 @@ namespace graphics
       string m_blackListFile;
 
       size_t m_glyphCacheMemoryLimit;
-
 
       GlyphCacheParams();
       GlyphCacheParams(string const & unicodeBlockFile,
@@ -215,23 +186,12 @@ namespace graphics
       size_t m_videoMemoryLimit;
 
       /// storages params
-
-      StoragePoolParams m_primaryStoragesParams;
-      StoragePoolParams m_smallStoragesParams;
-      StoragePoolParams m_blitStoragesParams;
-      StoragePoolParams m_multiBlitStoragesParams;
-      StoragePoolParams m_guiThreadStoragesParams;
+      vector<StoragePoolParams> m_storageParams;
 
       /// textures params
-
-      TexturePoolParams m_primaryTexturesParams;
-      TexturePoolParams m_fontTexturesParams;
-      TexturePoolParams m_renderTargetTexturesParams;
-      TexturePoolParams m_styleCacheTexturesParams;
-      TexturePoolParams m_guiThreadTexturesParams;
+      vector<TexturePoolParams> m_textureParams;
 
       /// glyph caches params
-
       GlyphCacheParams m_glyphCacheParams;
 
       unsigned m_renderThreadsCount;
@@ -241,7 +201,6 @@ namespace graphics
 
       void distributeFreeMemory(int freeVideoMemory);
       void checkDeviceCaps();
-      void fitIntoLimits();
       int memoryUsage() const;
       int fixedMemoryUsage() const;
       void initScaleWeights();
@@ -255,17 +214,8 @@ namespace graphics
 
     threads::Mutex m_mutex;
 
-    scoped_ptr<TTexturePool> m_primaryTextures;
-    scoped_ptr<TTexturePool> m_fontTextures;
-    scoped_ptr<TTexturePool> m_styleCacheTextures;
-    scoped_ptr<TTexturePool> m_renderTargets;
-    scoped_ptr<TTexturePool> m_guiThreadTextures;
-
-    scoped_ptr<TStoragePool> m_primaryStorages;
-    scoped_ptr<TStoragePool> m_smallStorages;
-    scoped_ptr<TStoragePool> m_blitStorages;
-    scoped_ptr<TStoragePool> m_multiBlitStorages;
-    scoped_ptr<TStoragePool> m_guiThreadStorages;
+    vector<shared_ptr<TTexturePool> > m_texturePools;
+    vector<shared_ptr<TStoragePool> > m_storagePools;
 
     struct ThreadSlot
     {
@@ -283,21 +233,13 @@ namespace graphics
 
     void initThreadSlots(Params const & p);
 
-    void initStoragePool(StoragePoolParams const & p, scoped_ptr<TStoragePool> & pool);
+    void initStoragePool(StoragePoolParams const & p, shared_ptr<TStoragePool> & pool);
 
-    TStoragePool * primaryStorages();
-    TStoragePool * smallStorages();
-    TStoragePool * blitStorages();
-    TStoragePool * multiBlitStorages();
-    TStoragePool * guiThreadStorages();
+    TStoragePool * storagePool(EStorageType type);
 
-    void initTexturePool(TexturePoolParams const & p, scoped_ptr<TTexturePool> & pool);
+    void initTexturePool(TexturePoolParams const & p, shared_ptr<TTexturePool> & pool);
 
-    TTexturePool * primaryTextures();
-    TTexturePool * fontTextures();
-    TTexturePool * renderTargetTextures();
-    TTexturePool * styleCacheTextures();
-    TTexturePool * guiThreadTextures();
+    TTexturePool * texturePool(ETextureType type);
 
     shared_ptr<gl::BaseTexture> const & getTexture(string const & fileName);
 

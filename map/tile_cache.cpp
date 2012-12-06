@@ -3,7 +3,7 @@
 void TileCache::EntryValueTraits::Evict(Entry &val)
 {
   if (val.m_rm)
-    val.m_rm->renderTargetTextures()->Free(val.m_tile.m_renderTarget);
+    val.m_rm->texturePool(graphics::ERenderTargetTexture)->Free(val.m_tile.m_renderTarget);
 }
 
 TileCache::Entry::Entry()

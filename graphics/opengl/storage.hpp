@@ -16,6 +16,8 @@ namespace graphics
 
       Storage();
       Storage(size_t vbSize, size_t ibSize);
+
+      bool isValid() const;
     };
   }
 }

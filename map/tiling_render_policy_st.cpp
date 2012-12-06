@@ -21,114 +21,84 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
 
   rmp.checkDeviceCaps();
 
-  rmp.m_primaryTexturesParams = graphics::ResourceManager::TexturePoolParams(512,
-                                                                       256,
-                                                                       1,
-                                                                       rmp.m_texFormat,
-                                                                       true,
-                                                                       true,
-                                                                       true,
-                                                                       1,
-                                                                       "primaryTexture",
-                                                                       true,
-                                                                       true);
+  graphics::ResourceManager::TexturePoolParams tpp;
+  graphics::ResourceManager::StoragePoolParams spp;
 
-  rmp.m_fontTexturesParams = graphics::ResourceManager::TexturePoolParams(256,
-                                                                    256,
-                                                                    10,
-                                                                    rmp.m_texFormat,
-                                                                    true,
-                                                                    true,
-                                                                    true,
-                                                                    1,
-                                                                    "fontTexture",
-                                                                    true,
-                                                                    true);
+  tpp = graphics::ResourceManager::TexturePoolParams(512,
+                                                     256,
+                                                     1,
+                                                     rmp.m_texFormat,
+                                                     graphics::ELargeTexture,
+                                                     true);
 
-  rmp.m_primaryStoragesParams = graphics::ResourceManager::StoragePoolParams(6000 * sizeof(graphics::gl::Vertex),
-                                                                       sizeof(graphics::gl::Vertex),
-                                                                       9000 * sizeof(unsigned short),
-                                                                       sizeof(unsigned short),
-                                                                       10,
-                                                                       true,
-                                                                       true,
-                                                                       2,
-                                                                       "primaryStorage",
-                                                                       true,
-                                                                       true);
+  rmp.m_textureParams[tpp.m_textureType] = tpp;
 
-  rmp.m_smallStoragesParams = graphics::ResourceManager::StoragePoolParams(6000 * sizeof(graphics::gl::Vertex),
-                                                                     sizeof(graphics::gl::Vertex),
-                                                                     9000 * sizeof(unsigned short),
-                                                                     sizeof(unsigned short),
-                                                                     1,
-                                                                     true,
-                                                                     true,
-                                                                     1,
-                                                                     "smallStorage",
-                                                                     true,
-                                                                     true);
+  tpp = graphics::ResourceManager::TexturePoolParams(256,
+                                                     256,
+                                                     10,
+                                                     rmp.m_texFormat,
+                                                     graphics::EMediumTexture,
+                                                     true);
 
-  rmp.m_multiBlitStoragesParams = graphics::ResourceManager::StoragePoolParams(1500 * sizeof(graphics::gl::Vertex),
-                                                                         sizeof(graphics::gl::Vertex),
-                                                                         2500 * sizeof(unsigned short),
-                                                                         sizeof(unsigned short),
-                                                                         1,
-                                                                         true,
-                                                                         true,
-                                                                         1,
-                                                                         "multiBlitStorage",
-                                                                         true,
-                                                                         true);
+  rmp.m_textureParams[tpp.m_textureType] = tpp;
 
-  rmp.m_renderTargetTexturesParams = graphics::ResourceManager::TexturePoolParams(TileSize(),
-                                                                            TileSize(),
-                                                                            1,
-                                                                            rmp.m_texRtFormat,
-                                                                            true,
-                                                                            true,
-                                                                            true,
-                                                                            4,
-                                                                            "renderTargetTexture",
-                                                                            true,
-                                                                            true);
+  tpp = graphics::ResourceManager::TexturePoolParams(TileSize(),
+                                                     TileSize(),
+                                                     1,
+                                                     rmp.m_texRtFormat,
+                                                     graphics::ERenderTargetTexture,
+                                                     true);
 
-  rmp.m_guiThreadStoragesParams = graphics::ResourceManager::StoragePoolParams(2000 * sizeof(graphics::gl::Vertex),
-                                                                         sizeof(graphics::gl::Vertex),
-                                                                         4000 * sizeof(unsigned short),
-                                                                         sizeof(unsigned short),
-                                                                         5,
-                                                                         true,
-                                                                         true,
-                                                                         1,
-                                                                         "guiThreadStorage",
-                                                                         true,
-                                                                         true);
+  rmp.m_textureParams[tpp.m_textureType] = tpp;
 
-  rmp.m_guiThreadTexturesParams = graphics::ResourceManager::TexturePoolParams(256,
-                                                                    128,
-                                                                    2,
-                                                                    rmp.m_texFormat,
-                                                                    true,
-                                                                    true,
-                                                                    true,
-                                                                    1,
-                                                                    "guiThreadTexture",
-                                                                    true,
-                                                                    true);
+  tpp = graphics::ResourceManager::TexturePoolParams(256,
+                                                     128,
+                                                     2,
+                                                     rmp.m_texFormat,
+                                                     graphics::ESmallTexture,
+                                                     true);
+
+  rmp.m_textureParams[tpp.m_textureType] = tpp;
+
+  spp = graphics::ResourceManager::StoragePoolParams(6000 * sizeof(graphics::gl::Vertex),
+                                                     sizeof(graphics::gl::Vertex),
+                                                     9000 * sizeof(unsigned short),
+                                                     sizeof(unsigned short),
+                                                     10,
+                                                     graphics::ELargeStorage,
+                                                     true);
+
+  rmp.m_storageParams[spp.m_storageType] = spp;
+
+  spp = graphics::ResourceManager::StoragePoolParams(6000 * sizeof(graphics::gl::Vertex),
+                                                     sizeof(graphics::gl::Vertex),
+                                                     9000 * sizeof(unsigned short),
+                                                     sizeof(unsigned short),
+                                                     1,
+                                                     graphics::EMediumStorage,
+                                                     true);
+
+  rmp.m_storageParams[spp.m_storageType] = spp;
+
+  spp = graphics::ResourceManager::StoragePoolParams(2000 * sizeof(graphics::gl::Vertex),
+                                                     sizeof(graphics::gl::Vertex),
+                                                     4000 * sizeof(unsigned short),
+                                                     sizeof(unsigned short),
+                                                     5,
+                                                     graphics::ESmallStorage,
+                                                     true);
+
+  rmp.m_storageParams[spp.m_storageType] = spp;
 
   rmp.m_glyphCacheParams = graphics::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
-                                                                 "fonts_whitelist.txt",
-                                                                 "fonts_blacklist.txt",
-                                                                 2 * 1024 * 1024);
+                                                                       "fonts_whitelist.txt",
+                                                                       "fonts_blacklist.txt",
+                                                                       2 * 1024 * 1024);
 
   rmp.m_threadSlotsCount = cpuCores + 2;
   rmp.m_renderThreadsCount = cpuCores;
 
   rmp.m_useSingleThreadedOGL = true;
-  rmp.fitIntoLimits();
-
-  m_maxTilesCount = rmp.m_renderTargetTexturesParams.m_texCount;
 
   m_resourceManager.reset(new graphics::ResourceManager(rmp));
 

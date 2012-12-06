@@ -4,6 +4,34 @@ namespace graphics
 {
   static const int maxDepth = 20000;
 
+  /// When adding values here,
+  /// please check constructor of ResourceManager,
+  /// and defines.cpp
+  enum ETextureType
+  {
+    ESmallTexture = 0,
+    EMediumTexture,
+    ELargeTexture,
+    ERenderTargetTexture,
+    EStaticTexture,
+    EInvalidTexture //< Should be last
+  };
+
+  char const * convert(ETextureType type);
+
+  /// When adding values here,
+  /// please check constructor of ResourceManager.
+  enum EStorageType
+  {
+    ETinyStorage = 0,
+    ESmallStorage,
+    EMediumStorage,
+    ELargeStorage,
+    EInvalidStorage //< Should be last
+  };
+
+  char const * convert(EStorageType type);
+
   enum EShaderType
   {
     EVertexShader,

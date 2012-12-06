@@ -14,5 +14,10 @@ namespace graphics
       m_vertices(new BufferObject(vbSize, GL_ARRAY_BUFFER)),
       m_indices(new BufferObject(ibSize, GL_ELEMENT_ARRAY_BUFFER))
     {}
+
+    bool Storage::isValid() const
+    {
+      return m_vertices.get();
+    }
   }
 }

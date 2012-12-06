@@ -48,77 +48,57 @@ void GLDrawWidget::initializeGL()
   rmp.m_texFormat = graphics::Data8Bpp;
 
   rmp.m_videoMemoryLimit = 20 * 1024 * 1024;
-  rmp.m_primaryStoragesParams = graphics::ResourceManager::StoragePoolParams(30000 * sizeof(graphics::gl::Vertex),
-                                                                       sizeof(graphics::gl::Vertex),
-                                                                       50000 * sizeof(unsigned short),
-                                                                       sizeof(unsigned short),
-                                                                       20,
-                                                                       false,
-                                                                       true,
-                                                                       1,
-                                                                       "primaryStorage",
-                                                                       false,
-                                                                       false);
 
-  rmp.m_smallStoragesParams = graphics::ResourceManager::StoragePoolParams(3000 * sizeof(graphics::gl::Vertex),
-                                                                     sizeof(graphics::gl::Vertex),
-                                                                     5000 * sizeof(unsigned short),
-                                                                     sizeof(unsigned short),
-                                                                     100,
-                                                                     false,
-                                                                     true,
-                                                                     1,
-                                                                     "smallStorage",
-                                                                     false,
-                                                                     false);
+  graphics::ResourceManager::StoragePoolParams spp;
+  graphics::ResourceManager::TexturePoolParams tpp;
 
-  rmp.m_blitStoragesParams = graphics::ResourceManager::StoragePoolParams(10 * sizeof(graphics::gl::Vertex),
-                                                                    sizeof(graphics::gl::Vertex),
-                                                                    10 * sizeof(unsigned short),
-                                                                    sizeof(unsigned short),
-                                                                    30,
-                                                                    true,
-                                                                    true,
-                                                                    1,
-                                                                    "blitStorage",
-                                                                    false,
-                                                                    false);
+  spp = graphics::ResourceManager::StoragePoolParams(30000 * sizeof(graphics::gl::Vertex),
+                                                     sizeof(graphics::gl::Vertex),
+                                                     50000 * sizeof(unsigned short),
+                                                     sizeof(unsigned short),
+                                                     20,
+                                                     graphics::ELargeStorage,
+                                                     false);
 
-  rmp.m_multiBlitStoragesParams = graphics::ResourceManager::StoragePoolParams(500 * sizeof(graphics::gl::Vertex),
-                                                                         sizeof(graphics::gl::Vertex),
-                                                                         500 * sizeof(unsigned short),
-                                                                         sizeof(unsigned short),
-                                                                         10,
-                                                                         true,
-                                                                         true,
-                                                                         1,
-                                                                         "multiBlitStorage",
-                                                                         false,
-                                                                         false);
+  rmp.m_storageParams[graphics::ELargeStorage] = spp;
 
-  rmp.m_primaryTexturesParams = graphics::ResourceManager::TexturePoolParams(512,
-                                                                       512,
-                                                                       10,
-                                                                       rmp.m_texFormat,
-                                                                       true,
-                                                                       true,
-                                                                       true,
-                                                                       1,
-                                                                       "primaryTexture",
-                                                                       false,
-                                                                       false);
+  spp = graphics::ResourceManager::StoragePoolParams(3000 * sizeof(graphics::gl::Vertex),
+                                                     sizeof(graphics::gl::Vertex),
+                                                     5000 * sizeof(unsigned short),
+                                                     sizeof(unsigned short),
+                                                     100,
+                                                     graphics::EMediumStorage,
+                                                     false);
 
-  rmp.m_fontTexturesParams = graphics::ResourceManager::TexturePoolParams(512,
-                                                                    256,
-                                                                    5,
-                                                                    rmp.m_texFormat,
-                                                                    true,
-                                                                    true,
-                                                                    true,
-                                                                    1,
-                                                                    "fontTexture",
-                                                                    false,
-                                                                    false);
+  rmp.m_storageParams[graphics::EMediumStorage] = spp;
+
+  spp = graphics::ResourceManager::StoragePoolParams(500 * sizeof(graphics::gl::Vertex),
+                                                     sizeof(graphics::gl::Vertex),
+                                                     500 * sizeof(unsigned short),
+                                                     sizeof(unsigned short),
+                                                     10,
+                                                     graphics::ESmallStorage,
+                                                     false);
+
+  rmp.m_storageParams[graphics::ESmallStorage] = spp;
+
+  tpp = graphics::ResourceManager::TexturePoolParams(512,
+                                                     512,
+                                                     10,
+                                                     rmp.m_texFormat,
+                                                     graphics::ELargeTexture,
+                                                     false);
+
+  rmp.m_textureParams[graphics::ELargeTexture] = tpp;
+
+  tpp = graphics::ResourceManager::TexturePoolParams(512,
+                                                     256,
+                                                     5,
+                                                     rmp.m_texFormat,
+                                                     graphics::ESmallTexture,
+                                                     false);
+
+  rmp.m_textureParams[graphics::ESmallTexture];
 
   rmp.m_glyphCacheParams = graphics::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
                                                                  "fonts_whitelist.txt",

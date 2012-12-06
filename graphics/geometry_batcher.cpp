@@ -45,7 +45,7 @@ namespace graphics
     {
       discardPipeline(i);
       freePipeline(i);
-      if (m_skin->page(i)->type() != ResourceCache::EStatic)
+      if (m_skin->page(i)->type() != EStaticTexture)
         freeTexture(i);
     }
   }
@@ -67,22 +67,15 @@ namespace graphics
     if (!m_hasStorage)
     {
       if (m_useGuiResources)
-        m_storage = resourceManager->guiThreadStorages()->Reserve();
+        m_storage = resourceManager->storagePool(ESmallStorage)->Reserve();
       else
       {
-        switch (m_type)
+        if (m_storageType != EInvalidStorage)
+          m_storage = resourceManager->storagePool(m_storageType)->Reserve();
+        else
         {
-        case ResourceCache::EPrimary:
-          m_storage = resourceManager->primaryStorages()->Reserve();
-          break;
-        case ResourceCache::EFonts:
-          m_storage = resourceManager->smallStorages()->Reserve();
-          break;
-        case ResourceCache::EStatic:
-          m_storage = resourceManager->smallStorages()->Reserve();
-          break;
-        default:
           LOG(LERROR, ("invalid storage type in checkStorage"));
+          return;
         }
       }
 
@@ -122,22 +115,14 @@ namespace graphics
     {
       TStoragePool * storagePool = 0;
       if (pipeline.m_useGuiResources)
-        storagePool = resourceManager()->guiThreadStorages();
+        storagePool = resourceManager()->storagePool(ESmallStorage);
       else
-        switch (pipeline.m_type)
+        if (pipeline.m_storageType != EInvalidStorage)
+          storagePool = resourceManager()->storagePool(pipeline.m_storageType);
+        else
         {
-        case ResourceCache::EPrimary:
-          storagePool = resourceManager()->primaryStorages();
-          break;
-        case ResourceCache::EFonts:
-          storagePool = resourceManager()->smallStorages();
-          break;
-        case ResourceCache::EStatic:
-          storagePool = resourceManager()->smallStorages();
-          break;
-        default:
           LOG(LERROR, ("invalid pipeline type in freePipeline"));
-          break;
+          return;
         }
 
       base_t::freeStorage(pipeline.m_storage, storagePool);
@@ -155,8 +140,8 @@ namespace graphics
       /// settings proper skin page type according to useGuiResources flag
       if (m_useGuiResources)
         for (size_t i = 0; i < m_skin->pagesCount(); ++i)
-          if (m_skin->page(i)->type() != ResourceCache::EStatic)
-            m_skin->page(i)->setType(ResourceCache::ELightWeight);
+          if (m_skin->page(i)->type() != EStaticTexture)
+            m_skin->page(i)->setType(ESmallTexture);
 
       m_pipelines.resize(m_skin->pagesCount());
 
@@ -170,7 +155,25 @@ namespace graphics
         m_pipelines[i].m_currentIndex = 0;
 
         m_pipelines[i].m_hasStorage = false;
-        m_pipelines[i].m_type = skin->page(i)->type();
+        m_pipelines[i].m_textureType = skin->page(i)->type();
+
+        switch(m_pipelines[i].m_textureType)
+        {
+        case ELargeTexture:
+          m_pipelines[i].m_storageType = ELargeStorage;
+          break;
+        case EMediumTexture:
+          m_pipelines[i].m_storageType = EMediumStorage;
+          break;
+        case ESmallTexture:
+          m_pipelines[i].m_storageType = ESmallStorage;
+          break;
+        case EStaticTexture:
+          m_pipelines[i].m_storageType = EMediumStorage;
+          break;
+        default:
+          LOG(LINFO, ("Unknown StorageType for TextureType detected!"));
+        };
 
         m_pipelines[i].m_maxVertices = 0;
         m_pipelines[i].m_maxIndices = 0;
@@ -220,9 +223,7 @@ namespace graphics
     {
       for (size_t i = 0; i < m_pipelines.size(); ++i)
         if ((m_pipelines[i].m_verticesDrawn != 0) || (m_pipelines[i].m_indicesDrawn != 0))
-        {
           LOG(LINFO, ("pipeline #", i, " vertices=", m_pipelines[i].m_verticesDrawn, ", triangles=", m_pipelines[i].m_indicesDrawn / 3));
-        }
     }
 
     /// is the rendering was cancelled, there possibly could
@@ -310,21 +311,16 @@ namespace graphics
     shared_ptr<gl::BaseTexture> texture = m_skin->page(pipelineID)->texture();
     TTexturePool * texturePool = 0;
 
-    switch (m_skin->page(pipelineID)->type())
+    ETextureType type = m_skin->page(pipelineID)->type();
+
+    if (type != EStaticTexture)
+      texturePool = resourceManager()->texturePool(type);
+    else
     {
-    case ResourceCache::EPrimary:
-      texturePool = resourceManager()->primaryTextures();
-      break;
-    case ResourceCache::EFonts:
-      texturePool = resourceManager()->fontTextures();
-      break;
-    case ResourceCache::ELightWeight:
-      texturePool = resourceManager()->guiThreadTextures();
-      break;
-    case ResourceCache::EStatic:
       LOG(LWARNING, ("texture with EStatic can't be freed."));
       return;
     }
+
 
     base_t::freeTexture(texture, texturePool);
 

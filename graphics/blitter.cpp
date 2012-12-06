@@ -46,9 +46,10 @@ namespace graphics
       idxData[i * 4 + 3] = i * 4 + 3;
     }
 
-    graphics::gl::Storage storage = resourceManager()->multiBlitStorages()->Reserve();
+    TStoragePool * storagePool = resourceManager()->storagePool(ESmallStorage);
+    gl::Storage storage = storagePool->Reserve();
 
-    if (resourceManager()->multiBlitStorages()->IsCancelled())
+    if (storagePool->IsCancelled())
     {
       LOG(LINFO, ("skipping multiBlit on cancelled multiBlitStorages pool"));
       return;
@@ -89,7 +90,7 @@ namespace graphics
     base_t::applyStates();
     base_t::discardStorage(storage);
 
-    base_t::freeStorage(storage, resourceManager()->multiBlitStorages());
+    base_t::freeStorage(storage, storagePool);
   }
 
   void Blitter::calcPoints(m2::RectI const & srcRect,

@@ -36,7 +36,7 @@ namespace graphics
     for (int i = 0; i < count; ++i)
     {
       uint8_t pipelineID = (uint8_t)m_caches.size();
-      m_caches.push_back(make_shared_ptr(new ResourceCache(m_resourceManager, ResourceCache::EFonts, pipelineID)));
+      m_caches.push_back(make_shared_ptr(new ResourceCache(m_resourceManager, EMediumTexture, pipelineID)));
       m_caches.back()->addOverflowFn(bind(&Skin::onTextOverflow, this, pipelineID), 0);
     }
   }
@@ -50,7 +50,7 @@ namespace graphics
     for (int i = 0; i < count; ++i)
     {
       uint8_t pipelineID = (uint8_t)m_caches.size();
-      m_caches.push_back(make_shared_ptr(new ResourceCache(m_resourceManager, ResourceCache::EPrimary, pipelineID)));
+      m_caches.push_back(make_shared_ptr(new ResourceCache(m_resourceManager, ELargeTexture, pipelineID)));
       m_caches.back()->addOverflowFn(bind(&Skin::onDynamicOverflow, this, pipelineID), 0);
     }
   }

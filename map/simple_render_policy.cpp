@@ -20,65 +20,57 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
 
   rmp.checkDeviceCaps();
 
-  rmp.m_primaryStoragesParams = graphics::ResourceManager::StoragePoolParams(50000 * sizeof(graphics::gl::Vertex),
-                                                                       sizeof(graphics::gl::Vertex),
-                                                                       10000 * sizeof(unsigned short),
-                                                                       sizeof(unsigned short),
-                                                                       15,
-                                                                       false,
-                                                                       true,
-                                                                       1,
-                                                                       "primaryStorage",
-                                                                       false,
-                                                                       false);
+  graphics::ResourceManager::TexturePoolParams tpp;
+  graphics::ResourceManager::StoragePoolParams spp;
 
-  rmp.m_smallStoragesParams = graphics::ResourceManager::StoragePoolParams(5000 * sizeof(graphics::gl::Vertex),
-                                                                     sizeof(graphics::gl::Vertex),
-                                                                     10000 * sizeof(unsigned short),
-                                                                     sizeof(unsigned short),
-                                                                     100,
-                                                                     false,
-                                                                     true,
-                                                                     1,
-                                                                     "smallStorage",
-                                                                     false,
-                                                                     false);
+  spp = graphics::ResourceManager::StoragePoolParams(50000 * sizeof(graphics::gl::Vertex),
+                                                     sizeof(graphics::gl::Vertex),
+                                                     10000 * sizeof(unsigned short),
+                                                     sizeof(unsigned short),
+                                                     15,
+                                                     graphics::ELargeStorage,
+                                                     false);
 
-  rmp.m_blitStoragesParams = graphics::ResourceManager::StoragePoolParams(10 * sizeof(graphics::gl::Vertex),
-                                                                    sizeof(graphics::gl::Vertex),
-                                                                    10 * sizeof(unsigned short),
-                                                                    sizeof(unsigned short),
-                                                                    50,
-                                                                    true,
-                                                                    true,
-                                                                    1,
-                                                                    "blitStorage",
-                                                                    false,
-                                                                    false);
+  rmp.m_storageParams[spp.m_storageType] = spp;
 
-  rmp.m_primaryTexturesParams = graphics::ResourceManager::TexturePoolParams(512,
-                                                                       256,
-                                                                       10,
-                                                                       rmp.m_texFormat,
-                                                                       true,
-                                                                       true,
-                                                                       true,
-                                                                       1,
-                                                                       "primaryTexture",
-                                                                       false,
-                                                                       false);
+  spp = graphics::ResourceManager::StoragePoolParams(5000 * sizeof(graphics::gl::Vertex),
+                                                     sizeof(graphics::gl::Vertex),
+                                                     10000 * sizeof(unsigned short),
+                                                     sizeof(unsigned short),
+                                                     100,
+                                                     graphics::EMediumStorage,
+                                                     false);
 
-  rmp.m_fontTexturesParams = graphics::ResourceManager::TexturePoolParams(512,
-                                                                    256,
-                                                                    5,
-                                                                    rmp.m_texFormat,
-                                                                    true,
-                                                                    true,
-                                                                    true,
-                                                                    1,
-                                                                    "fontTexture",
-                                                                    false,
-                                                                    false);
+  rmp.m_storageParams[spp.m_storageType] = spp;
+
+  spp = graphics::ResourceManager::StoragePoolParams(2000 * sizeof(graphics::gl::Vertex),
+                                                     sizeof(graphics::gl::Vertex),
+                                                     6000 * sizeof(unsigned short),
+                                                     sizeof(unsigned short),
+                                                     10,
+                                                     graphics::ESmallStorage,
+                                                     false);
+
+  rmp.m_storageParams[spp.m_storageType] = spp;
+
+
+  tpp = graphics::ResourceManager::TexturePoolParams(512,
+                                                     256,
+                                                     10,
+                                                     rmp.m_texFormat,
+                                                     graphics::ELargeTexture,
+                                                     false);
+
+  rmp.m_textureParams[tpp.m_textureType] = tpp;
+
+  tpp = graphics::ResourceManager::TexturePoolParams(512,
+                                                     256,
+                                                     5,
+                                                     rmp.m_texFormat,
+                                                     graphics::EMediumTexture,
+                                                     false);
+
+  rmp.m_textureParams[tpp.m_textureType] = tpp;
 
   rmp.m_glyphCacheParams = graphics::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
                                                                  "fonts_whitelist.txt",
@@ -89,7 +81,6 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
   rmp.m_threadSlotsCount = 1;
 
   rmp.m_useSingleThreadedOGL = false;
-  rmp.fitIntoLimits();
 
   m_resourceManager.reset(new graphics::ResourceManager(rmp));
 

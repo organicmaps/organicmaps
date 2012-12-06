@@ -4,10 +4,6 @@
 
 class TilingRenderPolicyST : public BasicTilingRenderPolicy
 {
-private:
-
-  int m_maxTilesCount;
-
 public:
 
   TilingRenderPolicyST(Params const & p);

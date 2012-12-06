@@ -16,7 +16,7 @@ namespace graphics
   typedef gl::Texture<DATA_TRAITS, true> TDynamicTexture;
 
   ResourceCache::ResourceCache()
-    : m_type(EStatic),
+    : m_textureType(EStaticTexture),
       m_pipelineID(0)
   {}
 
@@ -25,16 +25,16 @@ namespace graphics
                      uint8_t pipelineID)
                    : m_texture(resourceManager->getTexture(name)),
                      m_packer(m_texture->width(), m_texture->height(), 0x00FFFFFF - 1),
-                     m_type(EStatic),
+                     m_textureType(EStaticTexture),
                      m_pipelineID(pipelineID)
   {
   }
 
   ResourceCache::ResourceCache(shared_ptr<ResourceManager> const & resourceManager,
-                     EType type,
+                     ETextureType type,
                      uint8_t pipelineID)
     : m_resourceManager(resourceManager),
-      m_type(type),
+      m_textureType(type),
       m_pipelineID(pipelineID)
   {
     createPacker();
@@ -307,17 +307,17 @@ namespace graphics
     return m_packer.hasRoom(p.x, p.y);
   }
 
-  void ResourceCache::setType(ResourceCache::EType type)
+  void ResourceCache::setType(ETextureType textureType)
   {
-    m_type = type;
+    m_textureType = textureType;
     createPacker();
-    if (m_type != EStatic)
+    if (m_textureType != EStaticTexture)
       m_packer.addOverflowFn(bind(&ResourceCache::clearHandles, this), 0);
   }
 
-  ResourceCache::EType ResourceCache::type() const
+  ETextureType ResourceCache::type() const
   {
-    return m_type;
+    return m_textureType;
   }
 
   bool ResourceCache::hasData()
@@ -332,7 +332,7 @@ namespace graphics
 
   void ResourceCache::checkTexture() const
   {
-    if ((m_type != EStatic) && (m_texture == 0))
+    if ((m_textureType != EStaticTexture) && (m_texture == 0))
       reserveTexture();
   }
 
@@ -384,44 +384,20 @@ namespace graphics
 
   void ResourceCache::reserveTexture() const
   {
-    switch (m_type)
-    {
-    case EPrimary:
-      m_texture = m_resourceManager->primaryTextures()->Reserve();
-      break;
-    case EFonts:
-      m_texture = m_resourceManager->fontTextures()->Reserve();
-      break;
-    case ELightWeight:
-      m_texture = m_resourceManager->guiThreadTextures()->Reserve();
-      break;
-    default:
+    if (m_textureType != EStaticTexture)
+      m_texture = m_resourceManager->texturePool(m_textureType)->Reserve();
+    else
       LOG(LINFO, ("reserveTexture call for with invalid type param"));
-    }
   }
 
   void ResourceCache::createPacker()
   {
-    switch (m_type)
-    {
-    case EPrimary:
-      m_packer = m2::Packer(m_resourceManager->params().m_primaryTexturesParams.m_texWidth,
-                            m_resourceManager->params().m_primaryTexturesParams.m_texHeight,
+    if (m_textureType != EStaticTexture)
+      m_packer = m2::Packer(m_resourceManager->params().m_textureParams[m_textureType].m_texWidth,
+                            m_resourceManager->params().m_textureParams[m_textureType].m_texHeight,
                             0x00FFFFFF - 1);
-      break;
-    case EFonts:
-      m_packer = m2::Packer(m_resourceManager->params().m_fontTexturesParams.m_texWidth,
-                            m_resourceManager->params().m_fontTexturesParams.m_texHeight,
-                            0x00FFFFFF - 1);
-      break;
-    case ELightWeight:
-      m_packer = m2::Packer(m_resourceManager->params().m_guiThreadTexturesParams.m_texWidth,
-                            m_resourceManager->params().m_guiThreadTexturesParams.m_texHeight,
-                            0x00FFFFFF - 1);
-      break;
-    default:
+    else
       LOG(LINFO, ("createPacker call for invalid type param"));
-    }
   }
 
   shared_ptr<ResourceManager> const & ResourceCache::resourceManager() const
