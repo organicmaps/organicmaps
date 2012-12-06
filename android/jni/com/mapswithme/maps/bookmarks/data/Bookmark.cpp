@@ -1,6 +1,7 @@
 #include "../../Framework.hpp"
 
 #include "../../../core/jni_helper.hpp"
+#include "../../../../../../../base/logging.hpp"
 
 namespace {
   ::Framework * frm() { return g_framework->NativeFramework(); }
@@ -11,9 +12,9 @@ extern "C"
 
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGetName(
-       JNIEnv * env, jobject thiz, jstring cat, jlong bmk)
+       JNIEnv * env, jobject thiz, jint cat, jlong bmk)
   {
-    return jni::ToJavaString(env, frm()->GetBmCategory(jni::ToNativeString(env, cat))->GetBookmark(bmk)->GetName());
+    return jni::ToJavaString(env, frm()->GetBmCategory(cat)->GetBookmark(bmk)->GetName());
   }
 
   JNIEXPORT jstring JNICALL
@@ -28,9 +29,9 @@ extern "C"
 
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGetIcon(
-       JNIEnv * env, jobject thiz, jstring cat, jlong bmk)
+       JNIEnv * env, jobject thiz, jint cat, jlong bmk)
   {
-    return jni::ToJavaString(env, frm()->GetBmCategory(jni::ToNativeString(env, cat))->GetBookmark(bmk)->GetType());
+    return jni::ToJavaString(env, frm()->GetBmCategory(cat)->GetBookmark(bmk)->GetType());
   }
 
   JNIEXPORT jstring JNICALL
@@ -45,16 +46,17 @@ extern "C"
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nChangeBookamark(
-         JNIEnv * env, jobject thiz, jdouble lat, jdouble lon, jstring cat, jstring name, jstring type)
+         JNIEnv * env, jobject thiz, jdouble lan, jdouble lon, jstring cat, jstring name, jstring type)
   {
-    frm()->AddBookmark(jni::ToNativeString(env, cat), Bookmark( m2::PointD(lat, lon), jni::ToNativeString(env, name), jni::ToNativeString(env, type)));
+    LOG(LDEBUG, ("lan lon change", lan, lon));
+    frm()->AddBookmark(jni::ToNativeString(env, cat), Bookmark( m2::PointD(lan, lon), jni::ToNativeString(env, name), jni::ToNativeString(env, type)));
   }
 
   JNIEXPORT jdoubleArray JNICALL
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGetLatLon(
-       JNIEnv * env, jobject thiz, jstring cat, jlong bmk)
+       JNIEnv * env, jobject thiz, jint cat, jlong bmk)
   {
-    m2::PointD org = frm()->GetBmCategory(jni::ToNativeString(env, cat))->GetBookmark(bmk)->GetOrg();
+    m2::PointD org = frm()->GetBmCategory(cat)->GetBookmark(bmk)->GetOrg();
     jdoubleArray result;
     result = env->NewDoubleArray(2);
     if (result == NULL) {

@@ -1,5 +1,6 @@
 package com.mapswithme.maps.bookmarks;
 
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -16,9 +17,9 @@ import com.mapswithme.maps.bookmarks.data.Icon;
 public class SpinnerAdapter extends ArrayAdapter<Icon>
 {
 
-  public SpinnerAdapter(Context context, List<Icon> set)
+  public SpinnerAdapter(Context context, List<Icon> list)
   {
-    super(context, 0, 0, set);
+    super(context, 0, 0, list);
   }
 
   @Override

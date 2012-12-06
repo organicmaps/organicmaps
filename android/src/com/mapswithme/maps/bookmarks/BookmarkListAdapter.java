@@ -1,6 +1,7 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,11 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 
-public class BookmarkAdapter extends BaseAdapter
+public class BookmarkListAdapter extends BaseAdapter
 {
   Context mContext;
   BookmarkCategory mCategory;
-  public BookmarkAdapter(Context context, BookmarkCategory cat)
+  public BookmarkListAdapter(Context context, BookmarkCategory cat)
   {
     mContext = context;
     mCategory = cat;
@@ -34,8 +35,9 @@ public class BookmarkAdapter extends BaseAdapter
     }
     Bookmark item = mCategory.getBookmark(position);
     PinHolder holder = (PinHolder) convertView.getTag();
- //   holder.name.setText(item.getName());
+    holder.name.setText(item.getName());
     holder.icon.setImageBitmap(item.getIcon().getIcon());
+    Log.d("lat lot", item.getLat() + " " + item.getLon());
     return convertView;
   }
 

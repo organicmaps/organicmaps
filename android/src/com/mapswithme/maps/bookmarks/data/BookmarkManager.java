@@ -56,22 +56,11 @@ public class BookmarkManager
     return p;
   }*/
 
-  public Bookmark getPin(int index)
-  {
-    if (index >= 0 && index < mPins.size())
-    {
-      return mPins.get(index);
-    } else
-    {
-      return null;
-    }
-  }
-
   private void refreshList()
   {
     for (int i = 0; i < 10; i++)
     {
-      putBookmark(100, 100, "name " + i, "category "+i);
+      putBookmark(50*i, 25*i, "name " + i, "category "+i);
     }
     /*
     mPins = new ArrayList<Bookmark>();
@@ -90,13 +79,16 @@ public class BookmarkManager
     }*/
   }
 
-  public void deleteBookmark(Bookmark pin)
-  {
-    //TODO implement
-  }
 
   /// All method below it implemented in jni
+
+  public void deleteBookmark(int cat, int bmk)
+  {
+    nDeleteBookmark(cat, bmk);
+  }
+
   private native void putBookmark(int x, int y, String bokmarkName, String categoryName);
+  private native void nDeleteBookmark(int x, int y);
 
   public void addBookmark(int x, int y, String bokmarkName, String categoryName)
   {
@@ -122,9 +114,9 @@ public class BookmarkManager
     return mIconManager.getIcon(name);
   }
 
-  public HashMap<String, Icon> getIcons()
+  public List<Icon> getIcons()
   {
-    return mIconManager.getAll();
+    return new ArrayList<Icon>(mIconManager.getAll().values());
   }
 
   public Bookmark getBookmark(Point p)
@@ -136,9 +128,15 @@ public class BookmarkManager
     }
     else
     {
-      return new Bookmark(mContext, new BookmarkCategory(mContext, bookmark[0]).getName(), bookmark[1]);
+      return new Bookmark(mContext, new BookmarkCategory(mContext, bookmark[0]).getId(), bookmark[1]);
     }
   }
 
   private native int[] nGetBookmark(int x, int y);
+
+  public Bookmark getBookmark(int cat, int bmk)
+  {
+
+    return new Bookmark(mContext, cat, bmk);
+  }
 }

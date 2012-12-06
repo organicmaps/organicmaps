@@ -11,23 +11,23 @@ extern "C"
 
   JNIEXPORT jboolean JNICALL
   Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nIsVisible(
-      JNIEnv * env, jobject thiz, jstring id)
+      JNIEnv * env, jobject thiz, jint id)
   {
-    return frm()->GetBmCategory(jni::ToNativeString(env, id))->IsVisible();
+    return frm()->GetBmCategory(id)->IsVisible();
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nSetVisibility(
-      JNIEnv * env, jobject thiz, jstring id, jboolean b)
+      JNIEnv * env, jobject thiz, jint id, jboolean b)
   {
-    return frm()->GetBmCategory(jni::ToNativeString(env, id))->SetVisible(b);
+    return frm()->GetBmCategory(id)->SetVisible(b);
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nSetName(
-      JNIEnv * env, jobject thiz, jstring id, jstring n)
+      JNIEnv * env, jobject thiz, jint id, jstring n)
   {
-    return frm()->GetBmCategory(jni::ToNativeString(env, id))->SetName(jni::ToNativeString(env, n));
+    return frm()->GetBmCategory(id)->SetName(jni::ToNativeString(env, n));
   }
 
   JNIEXPORT jstring JNICALL
@@ -39,8 +39,8 @@ extern "C"
 
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nGetSize(
-       JNIEnv * env, jobject thiz, jstring name)
+       JNIEnv * env, jobject thiz, jint id)
   {
-    return frm()->GetBmCategory(jni::ToNativeString(env, name))->GetBookmarksCount();
+    return frm()->GetBmCategory(id)->GetBookmarksCount();
   }
 }

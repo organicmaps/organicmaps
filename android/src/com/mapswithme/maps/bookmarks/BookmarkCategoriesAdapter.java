@@ -40,7 +40,7 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
 
     }
     psh.name.setText(set.getName());
-    //psh.size.setText(String.valueOf(set.getPins().size()));
+    psh.size.setText(String.valueOf(set.getSize()));
     if (getItem(position).isVisible())
     {
       psh.visibility.setImageResource(R.drawable.eye);
