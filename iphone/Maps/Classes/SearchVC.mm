@@ -88,10 +88,10 @@ SearchVC * g_searchVC = nil;
 ResultsWrapper * g_lastSearchResults = nil;
 
 ResultsWrapper * lastNearMeSearch   = nil;
-ResultsWrapper * lastInViewSearch = nil;
+ResultsWrapper * lastInViewSearch   = nil;
 ResultsWrapper * lastAllSearch      = nil;
 
-int segmentControlPosition = 2;
+int scopeSection = 2;
 
 static void OnSearchResultCallback(search::Results const & res)
 {
@@ -152,21 +152,17 @@ static void OnSearchResultCallback(search::Results const & res)
 }
 
 - (void)loadView
-{
-    UIBarButtonItem * closeButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"maps", @"Search Results - Close search button") style: UIBarButtonItemStyleDone
-                                                                     target:self action:@selector(onCloseButton:)] autorelease];
-    
+{    
     m_searchBar = [[UISearchBar alloc] init];
     [m_searchBar sizeToFit];
+    m_searchBar.showsScopeBar = YES;
+    m_searchBar.showsCancelButton = YES;
     // restore previous search query
     
     if (g_lastSearchResults)
         m_searchBar.text = g_lastSearchResults.searchString;
     m_searchBar.delegate = self;
     m_searchBar.placeholder = NSLocalizedString(@"search_map", @"Search box placeholder text");
-
-    self.navigationItem.leftBarButtonItem = closeButton;
-    self.navigationItem.titleView = m_searchBar;
     
     // Add search in progress indicator
     for(UIView * v in m_searchBar.subviews)
@@ -188,14 +184,12 @@ static void OnSearchResultCallback(search::Results const & res)
     m_table.delegate = self;
     m_table.dataSource = self;
     
-    m_segmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Near me", @"Map View", @"All", nil]];
-    [m_segmentedControl setSegmentedControlStyle:UISegmentedControlStyleBar];
-    m_segmentedControl.segmentedControlStyle = 7;
-    [m_segmentedControl addTarget:self
-                         action:@selector(segmentChanged)
-               forControlEvents:UIControlEventValueChanged];
-    [m_table setTableHeaderView:m_segmentedControl];
+    [m_searchBar setScopeButtonTitles:[NSArray arrayWithObjects:
+                                                                   NSLocalizedString(@"search_mode_nearme", @"Do search near my position only"),
+                                                                   NSLocalizedString(@"search_mode_viewport", @""),
+                                                                   NSLocalizedString(@"search_mode_all", nil), nil]];
     [self setSearchBarHeight];
+    [m_table setTableHeaderView:m_searchBar];
     self.view = m_table;
 }
 
@@ -204,7 +198,6 @@ static void OnSearchResultCallback(search::Results const & res)
   g_searchVC = nil;
   [m_searchBar release];
   [m_table release];
-  [m_segmentedControl release];
   [categoriesNames release];
   [super dealloc];
 }
@@ -226,8 +219,6 @@ static void OnSearchResultCallback(search::Results const & res)
   m_searchBar = nil;
   [m_table release];
   m_table = nil;
-  [m_segmentedControl release];
-  m_segmentedControl = nil;
   [categoriesNames release];
   categoriesNames = nil;
   
@@ -267,8 +258,7 @@ static void OnSearchResultCallback(search::Results const & res)
 
     // show keyboard
     [m_searchBar becomeFirstResponder];
-    m_segmentedControl.selectedSegmentIndex = segmentControlPosition;
-    [self proceedSearchWithString:m_searchBar.text];
+    m_searchBar.selectedScopeButtonIndex = scopeSection;
   }
   
   [super viewWillAppear:animated];
@@ -288,7 +278,6 @@ static void OnSearchResultCallback(search::Results const & res)
 - (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
 {
   [m_locationManager setOrientation:self.interfaceOrientation];
-  [self setSearchBarHeight];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -496,7 +485,7 @@ static void OnSearchResultCallback(search::Results const & res)
     [g_lastSearchResults release];
     g_lastSearchResults = [w retain];
     //assign search results to cache
-    switch (m_segmentedControl.selectedSegmentIndex)
+    switch (scopeSection)
     {
          case 0:
             lastNearMeSearch = [w retain];
@@ -529,30 +518,19 @@ static void OnSearchResultCallback(search::Results const & res)
   // Refresh search results with newer location.
   // Note: search even with empty string, to update distance and direction
     
-  [self clearCachePositionChanged];
+  [self clearCacheResults];
   search::SearchParams params;
-  switch (m_segmentedControl.selectedSegmentIndex)
+  setSearchType(params);
+  if (m_searchBar.text)
   {
-    case 0:
-        params.SetSearchMode(search::SearchParams::AROUND_POSITION);
-        break;
-    case 1:
-        return;
-    case 2:
-        params.SetSearchMode(search::SearchParams::ALL);
-        break;
-    default:
-        params.SetSearchMode(search::SearchParams::ALL);
-        break;
-   }
+    [self fillSearchParams:params withText:m_searchBar.text];
     
-  [self fillSearchParams:params withText:m_searchBar.text];
+    //hack, fillSearch Params return invalid position
+    params.SetPosition(info.m_latitude, info.m_longitude);
     
-  //hack, fillSearch Params return invalid position
-  params.SetPosition(info.m_latitude, info.m_longitude);
-    
-  if (m_framework->Search(params))
-    [self showIndicator];
+    if (m_framework->Search(params))
+      [self showIndicator];
+  }
 }
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info
@@ -591,6 +569,7 @@ static void OnSearchResultCallback(search::Results const & res)
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
   [m_searchBar resignFirstResponder];
+  [self enableCancelButton];
 }
 
 // Dismiss virtual keyboard when "Search" button is pressed
@@ -606,41 +585,41 @@ static void OnSearchResultCallback(search::Results const & res)
 }
 
 //segmentedControl delegate
--(void)segmentChanged
+- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
 {
-    switch (m_segmentedControl.selectedSegmentIndex)
+    switch (selectedScope)
     {
         case 0:
+            scopeSection = 0;
             if (lastNearMeSearch != nil)
             {
                 [self assignSearchResultsToCache:lastNearMeSearch];
                 return;
             }
-            segmentControlPosition = 0;
             break;
         case 1:
+            scopeSection = 1;
             if (lastInViewSearch != nil)
             {
                 [self assignSearchResultsToCache:lastInViewSearch];
                 return;
             }
-            segmentControlPosition = 1;
             break;
         case 2:
+            scopeSection = 2;
             if (lastAllSearch != nil)
             {
                 [self assignSearchResultsToCache:lastAllSearch];
                 return;
             }
-            segmentControlPosition = 2;
             break;
         default:
+            scopeSection = 2;
             if (lastAllSearch != nil)
             {
                 [self assignSearchResultsToCache:lastAllSearch];
                 return;
             }
-            segmentControlPosition = 2;
     }
     [self proceedSearchWithString:m_searchBar.text];
 }
@@ -655,8 +634,13 @@ static void OnSearchResultCallback(search::Results const & res)
 -(void)setSearchBarHeight
 {
     CGRect r = m_searchBar.frame;
-    r.size.height = self.navigationController.navigationBar.bounds.size.height;
+    r.size.height *= 2;
     [m_searchBar setFrame:r];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [self onCloseButton:nil];
 }
 
 -(void)clearCacheResults
@@ -665,14 +649,6 @@ static void OnSearchResultCallback(search::Results const & res)
     lastNearMeSearch = nil;
     [lastInViewSearch release];
     lastInViewSearch = nil;
-    [lastAllSearch release];
-    lastAllSearch = nil;
-}
-
--(void)clearCachePositionChanged
-{
-    [lastNearMeSearch release];
-    lastNearMeSearch = nil;
     [lastAllSearch release];
     lastAllSearch = nil;
 }
@@ -686,7 +662,28 @@ static void OnSearchResultCallback(search::Results const & res)
     
     // Search even with empty string.
     search::SearchParams params;
-    switch (m_segmentedControl.selectedSegmentIndex)
+    setSearchType(params);
+    [self fillSearchParams:params withText:searchText];
+    if (m_framework->Search(params))
+        [self showIndicator];
+}
+
+-(void)enableCancelButton
+{
+   for (UIView *v in m_searchBar.subviews)
+   {
+        if ([v isKindOfClass:[UIButton class]])
+        {
+            UIButton *cancelButton = (UIButton*)v;
+            cancelButton.enabled = YES;
+            break;
+        }
+    }
+}
+
+static void setSearchType(search::SearchParams& params)
+{
+    switch (scopeSection)
     {
         case 0:
             params.SetSearchMode(search::SearchParams::AROUND_POSITION);
@@ -701,8 +698,5 @@ static void OnSearchResultCallback(search::Results const & res)
             params.SetSearchMode(search::SearchParams::ALL);
             break;
     }
-    [self fillSearchParams:params withText:searchText];
-    if (m_framework->Search(params))
-        [self showIndicator];
 }
 @end

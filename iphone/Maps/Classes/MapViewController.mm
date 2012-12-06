@@ -167,9 +167,7 @@
 - (IBAction)OnSearchClicked:(id)sender
 {
   SearchVC * searchVC = [[SearchVC alloc] init];
-  UINavigationController * navC = [[UINavigationController alloc] initWithRootViewController:searchVC];
-  [self presentModalViewController:navC animated:YES];
-  [navC release];
+  [self presentModalViewController:searchVC animated:YES];
   [searchVC release];
 }
 

@@ -70,6 +70,11 @@
   else
   {
     [m_observers addObject:observer];
+    if ([self lastLocationIsValid]){
+      location::GpsInfo newInfo;
+      [self location:[self lastLocation] toGpsInfo:newInfo];
+      [observer onLocationUpdate:newInfo];
+    }
   }
 }
 
@@ -203,7 +208,7 @@
   CLLocation * l = [self lastLocation];
 
   // Return last saved location if it's not later than 5 minutes.
-  if ((l != nil) && ([m_lastLocationTime timeIntervalSinceNow] > -300.0))
+  if ([self lastLocationIsValid])
   {
     lat = l.coordinate.latitude;
     lon = l.coordinate.longitude;
@@ -235,6 +240,11 @@
   string s;
   MeasurementUtils::FormatDistance(meters, s);
   return [NSString stringWithUTF8String:s.c_str()];
+}
+
+-(bool)lastLocationIsValid
+{
+    return (([self lastLocation] != nil) && ([m_lastLocationTime timeIntervalSinceNow] > -300.0));
 }
 
 @end
