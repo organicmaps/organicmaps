@@ -10,6 +10,8 @@
 
 #import "../../Common/CustomAlertView.h"
 
+#include "../../../anim/controller.hpp"
+
 #include "../../../gui/controller.hpp"
 
 #include "../../../platform/platform.hpp"
@@ -145,7 +147,23 @@
           return;
         }
         else
+        {
           ls->StopCompassFollowing();
+          anim::Controller *animController = f.GetAnimController();
+          animController->Lock();
+        
+          /// switching off compass follow mode
+          f.GetInformationDisplay().locationState()->StopCompassFollowing();
+        
+          double startAngle = f.GetNavigator().Screen().GetAngle();
+          double endAngle = 0;
+       
+          f.GetAnimator().RotateScreen(startAngle, endAngle);
+        
+          animController->Unlock();
+        
+          f.Invalidate();
+        }
       }
     }
   }
