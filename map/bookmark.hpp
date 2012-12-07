@@ -22,24 +22,25 @@ class Bookmark
 
 public:
   Bookmark() : m_scale(-1.0), m_timeStamp(INVALID_TIME_STAMP) {}
-  Bookmark(m2::PointD const & org, string const & name, string const & type,
-           string const & description = string(), time_t timeStamp = INVALID_TIME_STAMP)
-    : m_org(org), m_name(name), m_description(description), m_type(type), m_scale(-1.0),
-      m_timeStamp(timeStamp)
+  Bookmark(m2::PointD const & org, string const & name, string const & type)
+    : m_org(org), m_name(name), m_type(type), m_scale(-1.0), m_timeStamp(INVALID_TIME_STAMP)
   {
   }
 
   m2::PointD const & GetOrg() const { return m_org; }
   string const & GetName() const { return m_name; }
-  string const & GetDescription() const { return m_description; }
-  /// @return Now its a bookmark color.
+  /// @return Now its a bookmark color - name of icon file
   string const & GetType() const { return m_type; }
   m2::RectD GetViewport() const { return m2::RectD(m_org, m_org); }
+
+  string const & GetDescription() const { return m_description; }
+  void SetDescription(string const & description) { m_description = description; }
 
   static time_t const INVALID_TIME_STAMP;
 
   /// @return INVALID_TIME_STAMP if bookmark has no timestamp
   time_t GetTimeStamp() const { return m_timeStamp; }
+  void SetTimeStamp(time_t timeStamp) { m_timeStamp = timeStamp; }
 
   double GetScale() const { return m_scale; }
   void SetScale(double scale) { m_scale = scale; }

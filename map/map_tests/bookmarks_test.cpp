@@ -215,6 +215,35 @@ namespace
   }
 }
 
+UNIT_TEST(Bookmarks_Timestamp)
+{
+  time_t const timeStamp = time(0);
+  m2::PointD const orgPoint(10, 10);
+  Bookmark b1(orgPoint, "name", "type");
+  b1.SetTimeStamp(timeStamp);
+  TEST_NOT_EQUAL(b1.GetTimeStamp(), Bookmark::INVALID_TIME_STAMP, ());
+
+  Framework fm;
+  fm.AddBookmark("cat", b1);
+
+  BookmarkAndCategory res = fm.GetBookmark(fm.GtoP(orgPoint), 1.0);
+  Bookmark const * b2 = fm.GetBmCategory(res.first)->GetBookmark(res.second);
+  TEST_NOT_EQUAL(b2->GetTimeStamp(), Bookmark::INVALID_TIME_STAMP, ());
+  TEST_EQUAL(b2->GetTimeStamp(), timeStamp, ());
+
+  // Replace/update bookmark
+  Bookmark b3(orgPoint, "newName", "newType");
+  b3.SetTimeStamp(12345);
+  TEST_NOT_EQUAL(b3.GetTimeStamp(), b2->GetTimeStamp(), ());
+
+  fm.AddBookmark("cat", b3);
+
+
+  res = fm.GetBookmark(fm.GtoP(orgPoint), 1.0);
+  Bookmark const * b4 = fm.GetBmCategory(res.first)->GetBookmark(res.second);
+  TEST_EQUAL(b4->GetTimeStamp(), timeStamp, ());
+}
+
 UNIT_TEST(Bookmarks_Getting)
 {
   Framework fm;

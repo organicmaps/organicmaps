@@ -99,6 +99,8 @@ void BookmarkCategory::ReplaceBookmark(size_t index, Bookmark const & bm, double
     p->SetScale(scale);
 
     Bookmark const * old = m_bookmarks[index];
+    // Save creation time stamp
+    p->SetTimeStamp(old->GetTimeStamp());
     m_bookmarks[index] = p;
 
     delete old;
@@ -256,8 +258,10 @@ namespace bookmark_impl
 
       if (tag == "Placemark" && MakeValid())
       {
-        m_category.AddBookmarkImpl(Bookmark(m_org, m_name, m_type, m_description, m_timeStamp),
-                                   m_scale);
+        Bookmark bm(m_org, m_name, m_type);
+        bm.SetTimeStamp(m_timeStamp);
+        bm.SetDescription(m_description);
+        m_category.AddBookmarkImpl(bm, m_scale);
         Reset();
       }
       m_tags.pop_back();
