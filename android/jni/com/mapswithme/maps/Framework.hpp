@@ -14,8 +14,6 @@
 
 #include "../../../nv_event/nv_event.hpp"
 
-#define LONG_CLICK_LENGTH_SEC 1.0
-
 class CountryStatusDisplay;
 
 namespace android
@@ -23,14 +21,15 @@ namespace android
   class Framework
   {
   private:
-    typedef function<void(int,int)> TOnLongClickListener;
+    typedef function<void(int, int, double)> TOnClickListener;
     ::Framework m_work;
 
     VideoTimer * m_videoTimer;
 
     void CallRepaint();
-    map<int, TOnLongClickListener> m_onLongClickFns;
-    int m_onLongClickFnsHandler;
+
+    map<int, TOnClickListener> m_onClickFns;
+    int m_onClickFnsHandler;
     NVMultiTouchEventType m_eventType; //< multitouch action
 
     double m_x1;
@@ -54,7 +53,8 @@ namespace android
     //@}
 
     math::AvgVector<float, 3> m_sensors[2];
-    void CallLongClickListeners(int x, int y);
+
+    void CallClickListeners(int x, int y, double time);
 
   public:
     Framework();
@@ -112,8 +112,8 @@ namespace android
 
     void Scale(double k);
 
-    int AddLongClickListener(TOnLongClickListener const & l);
-    void RemoveLongClickListener(int h);
+    int AddClickListener(TOnClickListener const & l);
+    void RemoveClickListener(int h);
 
 
     ::Framework * NativeFramework();

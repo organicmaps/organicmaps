@@ -7,28 +7,52 @@
 #include "../../../nv_event/nv_event.hpp"
 
 #include "../../../../../map/country_status_display.hpp"
-
+#define LONG_CLICK_LENGTH_SEC 1.0
+#define SHORT_CLICK_LENGTH_SEC 0.1
 ////////////////////////////////////////////////////////////////////////////////////////////
 extern "C"
 {
 
-  void CallLongClickListener(shared_ptr<jobject> obj, int x, int y)
+  void CallClickListener(shared_ptr<jobject> obj, int x, int y, double seconds)
   {
     JNIEnv * env = jni::GetEnv();
-    jmethodID methodID = jni::GetJavaMethodID(env, *obj.get(), "onLongClick", "(II)V");
-    env->CallVoidMethod(*obj.get(), methodID, x, y);
+    jmethodID methodID = 0;
+    if (seconds > LONG_CLICK_LENGTH_SEC)
+    {
+      methodID = jni::GetJavaMethodID(env, *obj.get(), "onLongClick", "(II)V");
+    }
+    else if(seconds <= SHORT_CLICK_LENGTH_SEC)
+    {
+      methodID = jni::GetJavaMethodID(env, *obj.get(), "onClick", "(II)V");
+    }
+    if (methodID != 0)
+    {
+      env->CallVoidMethod(*obj.get(), methodID, x, y);
+    }
   }
 
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_MWMActivity_addOnLongClickListener(JNIEnv * env, jobject thiz, jobject l)
   {
-    return g_framework->AddLongClickListener(bind(&CallLongClickListener,jni::make_global_ref(l), _1, _2));
+    return g_framework->AddClickListener(bind(&CallClickListener,jni::make_global_ref(l), _1, _2, _3));
+  }
+
+  JNIEXPORT jint JNICALL
+  Java_com_mapswithme_maps_MWMActivity_addOnClickListener(JNIEnv * env, jobject thiz, jobject l)
+  {
+    return g_framework->AddClickListener(bind(&CallClickListener,jni::make_global_ref(l), _1, _2, _3));
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MWMActivity_removeOnLongClickListener(int h)
   {
-    g_framework->RemoveLongClickListener(h);
+    g_framework->RemoveClickListener(h);
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMActivity_removeOnClickListener(int h)
+  {
+    g_framework->RemoveClickListener(h);
   }
 
   JNIEXPORT void JNICALL

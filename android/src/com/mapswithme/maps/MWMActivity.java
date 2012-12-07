@@ -40,28 +40,23 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private BroadcastReceiver m_externalStorageReceiver = null;
   private AlertDialog m_storageDisconnectedDialog = null;
   private int m_longClickHandler;
+  private int m_clickHandler;
 
-  /// @note Always implement onLongClick function like this:
-  /*
-  @Override
-  public boolean onLongClick(View v)
-  {
-    v.post(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-      }
-    });
-    return super.onLongClick(v);
-  }*/
   private interface OnLongClickListener
   {
     void onLongClick(int x, int y);
   }
 
+  private interface OnClickListenter
+      {
+    void onClick(int x, int y);
+      }
+
   private native int addOnLongClickListener(Object l);
   private native void removeOnLongClickListener(int h);
+
+  private native int addOnClickListener(Object l);
+  private native void removeOnClickListener(int h);
 
   private LocationService getLocationService()
   {
@@ -220,18 +215,13 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   public void onBookmarksClicked(View v)
   {
-    startActivity(new Intent(this, BookmarkCategoriesActivity.class));
-  }
-
-  public void onBookmarksClicked(View v)
-  {
     if (!mApplication.isProVersion())
     {
       showProVersionBanner(getString(R.string.search_available_in_pro_version));
     }
     else
     {
-      //startActivity(new Intent(this, BookmarkCategoriesActivity.class));
+      startActivity(new Intent(this, BookmarkCategoriesActivity.class));
     }
   }
 
@@ -371,7 +361,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     {
       // Show Facebook page in browser.
       intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/MapsWithMe"));
-
       startActivity(intent);
     }
   }
@@ -559,8 +548,31 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     nativeConnectDownloadButton();
 
     alignZoomButtons();
+    m_longClickHandler = addOnLongClickListener(new OnLongClickListener()
+    {
 
+      @Override
+      public void onLongClick(int x, int y)
+      {
+      }
+    });
+    m_clickHandler = addOnClickListener(new OnClickListenter()
+    {
+
+      @Override
+      public void onClick(int x, int y)
+      {
+      }
+    });
     //m_timer = new VideoTimer();
+  }
+
+  @Override
+  public void onDestroy()
+  {
+    removeOnClickListener(m_clickHandler);
+    removeOnLongClickListener(m_longClickHandler);
+    super.onDestroy();
   }
 
   private void alignZoomButtons()
@@ -620,17 +632,14 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
             dialog.dismiss();
           }
-        })
-        .setNegativeButton(R.string.close, new DialogInterface.OnClickListener()
+        }).setNegativeButton(R.string.close, new DialogInterface.OnClickListener()
         {
           @Override
           public void onClick(DialogInterface dialog, int which)
           {
             dialog.dismiss();
           }
-        })
-        .create()
-        .show();
+        }).show();
       }
     }
     else if (errorCode == LocationService.ERROR_GPS_OFF)
