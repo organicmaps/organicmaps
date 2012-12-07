@@ -1,7 +1,8 @@
 # Add your path into this array
 KNOWN_QMAKE_PATHS=( \
-  ~/QtSDK/Desktop/Qt/4.8.1/gcc/bin \
-  /Developer/QtSDK/Desktop/Qt/4.8.1/gcc/bin \
+  ~/QtSDK/Desktop/Qt/4.8.1/gcc/bin/qmake \
+  /Developer/QtSDK/Desktop/Qt/4.8.1/gcc/bin/qmake \
+  ~/Developer/Qt-4.8.4/bin/qmake \
 )
 
 # Prints path to directory with found qmake binary or prints nothing if not found
@@ -12,7 +13,7 @@ PrintQmakePath() {
   if [ $? -ne 0 ]; then
     # qmake binary is not in the path, look for it in the given array
     for path in "${KNOWN_QMAKE_PATHS[@]}"; do
-      if [ -f "${path}/qmake" ]; then
+      if [ -f "${path}" ]; then
         echo "${path}"
         return 0
       fi

@@ -29,14 +29,14 @@ GetCPUCores() {
 BuildQt() {
   (
     # set qmake path
-    PATH="$(PrintQmakePath):$PATH" || ( echo "ERROR: qmake was not found, please add it to your PATH or into the tools/autobuild/detect_qmake.sh"; exit 1 )
+    QMAKE="$(PrintQmakePath)" || ( echo "ERROR: qmake was not found, please add it to your PATH or into the tools/autobuild/detect_qmake.sh"; exit 1 )
     SHADOW_DIR="$1"
     MKSPEC="$2"
     QMAKE_PARAMS="$3"
 
     mkdir -p "$SHADOW_DIR"
     cd "$SHADOW_DIR"
-    qmake -r "$QMAKE_PARAMS" -spec "$MKSPEC" "$LOCAL_DIRNAME/../../omim.pro"
+    "$QMAKE" -r "$QMAKE_PARAMS" -spec "$MKSPEC" "$LOCAL_DIRNAME/../../omim.pro"
 #    make clean > /dev/null || true
     make -j $(GetCPUCores)
   )
