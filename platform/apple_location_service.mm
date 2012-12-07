@@ -72,7 +72,7 @@ public:
 
 - (id)initWithService:(AppleLocationService *) service
 {
-  if (self = [super init])
+  if ((self = [super init]))
     m_service = service;
   return self;
 }
