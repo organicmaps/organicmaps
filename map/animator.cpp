@@ -41,7 +41,7 @@ void Animator::RotateScreen(double startAngle, double endAngle)
     {
       if (m_rotateScreenTask)
       {
-        if (!m_rotateScreenTask->IsCancelled())
+        if (!m_rotateScreenTask->IsCancelled() && !m_rotateScreenTask->IsEnded())
           m_rotateScreenTask->Cancel();
         m_rotateScreenTask->Unlock();
         m_rotateScreenTask.reset();
