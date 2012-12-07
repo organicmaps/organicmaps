@@ -411,10 +411,13 @@ char const * kmlFooter =
 
 namespace
 {
-  // According to kml/xml spec, we need to escape special symbols inside CDATA
-  inline bool ShouldUseCDATA(string const & s)
+  inline void SaveStringWithCDATA(ostream & stream, string const & s)
   {
-    return s.find_first_of("<&") != string::npos;
+    // According to kml/xml spec, we need to escape special symbols with CDATA
+    if (s.find_first_of("<&") != string::npos)
+      stream << "<![CDATA[" << s << "]]>";
+    else
+      stream << s;
   }
 }
 
@@ -423,10 +426,10 @@ void BookmarkCategory::SaveToKML(ostream & s)
   s << kmlHeader;
 
   // Use CDATA if we have special symbols in the name
-  if (ShouldUseCDATA(GetName()))
-    s << "  <name><![CDATA[" << GetName() << "]]></name>\n";
-  else
-    s << "  <name>" << GetName() << "</name>\n";
+  s << "  <name>";
+  SaveStringWithCDATA(s, GetName());
+  s << "</name>\n";
+
   s << "  <visibility>" << (IsVisible() ? "1" : "0") <<"</visibility>\n";
 
   for (size_t i = 0; i < m_bookmarks.size(); ++i)
@@ -434,19 +437,13 @@ void BookmarkCategory::SaveToKML(ostream & s)
     Bookmark const * bm = m_bookmarks[i];
     s << "  <Placemark>\n";
     s << "    <name>";
-    if (ShouldUseCDATA(bm->GetName()))
-      s << "<![CDATA[" << bm->GetName() << "]]>";
-    else
-      s << bm->GetName();
+    SaveStringWithCDATA(s, bm->GetName());
     s << "</name>\n";
 
     if (!bm->GetDescription().empty())
     {
       s << "    <description>";
-      if (ShouldUseCDATA(bm->GetDescription()))
-        s << "<![CDATA[" << bm->GetDescription() << "]]>";
-      else
-        s << bm->GetDescription();
+      SaveStringWithCDATA(s, bm->GetDescription());
       s << "</description>\n";
     }
 
