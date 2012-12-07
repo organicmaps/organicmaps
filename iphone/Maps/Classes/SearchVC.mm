@@ -506,6 +506,25 @@ static void OnSearchResultCallback(search::Results const & res)
   }
 }
 
+void setSearchType(search::SearchParams& params)
+{
+  switch (scopeSection)
+  {
+    case 0:
+      params.SetSearchMode(search::SearchParams::AROUND_POSITION);
+      break;
+    case 1:
+      params.SetSearchMode(search::SearchParams::IN_VIEWPORT);
+      break;
+    case 2:
+      params.SetSearchMode(search::SearchParams::ALL);
+      break;
+    default:
+      params.SetSearchMode(search::SearchParams::ALL);
+      break;
+  }
+}
+
 //****************************************************************** 
 //*********** Location manager callbacks ***************************
 - (void)onLocationError:(location::TLocationError)errorCode
@@ -678,25 +697,6 @@ static void OnSearchResultCallback(search::Results const & res)
             cancelButton.enabled = YES;
             break;
         }
-    }
-}
-
-static void setSearchType(search::SearchParams& params)
-{
-    switch (scopeSection)
-    {
-        case 0:
-            params.SetSearchMode(search::SearchParams::AROUND_POSITION);
-            break;
-        case 1:
-            params.SetSearchMode(search::SearchParams::IN_VIEWPORT);
-            break;
-        case 2:
-            params.SetSearchMode(search::SearchParams::ALL);
-            break;
-        default:
-            params.SetSearchMode(search::SearchParams::ALL);
-            break;
     }
 }
 @end
