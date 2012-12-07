@@ -38,24 +38,6 @@ public class BookmarkManager
     return sManager;
   }
 
-  public List<BookmarkCategory> getPinSets()
-  {
-
-    return mPinSets;
-  }
-
-  public int getPinId(Bookmark pin)
-  {
-    return mPins.indexOf(pin);
-  }
-/*
-  public Bookmark createNewBookmark()
-  {
-    Bookmark p;
-   // mPins.add(p = new Bookmark("", mIcons.get(R.drawable.placemark_red)));
-    return p;
-  }*/
-
   private void refreshList()
   {
     for (int i = 0; i < 10; i++)
@@ -130,6 +112,17 @@ public class BookmarkManager
     {
       return new Bookmark(mContext, new BookmarkCategory(mContext, bookmark[0]).getId(), bookmark[1]);
     }
+  }
+
+  public ParcelablePoint findBookmark(Point p)
+  {
+    int [] bookmark = nGetBookmark(p.x, p.y);
+    if (bookmark[0]>=0 && bookmark[1]>=0)
+    {
+      return new ParcelablePoint(bookmark[0], bookmark[1]);
+    }
+    else
+      return null;
   }
 
   private native int[] nGetBookmark(int x, int y);

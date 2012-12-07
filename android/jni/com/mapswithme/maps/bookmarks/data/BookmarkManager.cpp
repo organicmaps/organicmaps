@@ -38,4 +38,20 @@ extern "C"
   {
     frm()->GetBmCategory(cat)->DeleteBookmark(bmk);
   }
+
+  JNIEXPORT jintArray JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetBookmark(JNIEnv * env, jobject thiz, jint x, jint y)
+  {
+    BookmarkAndCategory bac = frm()->GetBookmark(m2::PointD(x, y));
+    jintArray result;
+    result = env->NewIntArray(2);
+    if (result == NULL) {
+       return NULL; /* out of memory error thrown */
+    }
+    int fill[2];
+    fill[0] = bac.first;
+    fill[1] = bac.second;
+    env->SetIntArrayRegion(result, 0, 2, fill);
+    return result;
+   }
 }
