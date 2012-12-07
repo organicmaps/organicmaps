@@ -148,11 +148,9 @@
         }
         else
         {
-          ls->StopCompassFollowing();
           anim::Controller *animController = f.GetAnimController();
           animController->Lock();
-        
-          /// switching off compass follow mode
+
           f.GetInformationDisplay().locationState()->StopCompassFollowing();
         
           double startAngle = f.GetNavigator().Screen().GetAngle();
