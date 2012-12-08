@@ -8,19 +8,32 @@ public class Bookmark
   private Icon mIcon;
   private Context mContext;
   private Point mPosition;
-  private int mCategoryId;
+  private int mCategoryId = -1;
   private long mBookmark;
   private double mLat = Double.NaN;
   private double mLon = Double.NaN;
 
-  public Bookmark(Context context, Point position)
+  Bookmark(Context context, Point position, int nextCat)
   {
     mContext = context.getApplicationContext();
     mPosition = position;
-    getLatLon();
+    getLatLon(position);
+    changeBookmark(getCategoryName(), getName(), getIcon().getType());
+    if (nextCat == -1)
+    {
+      nextCat++;
+    }
+    mCategoryId = nextCat;
   }
 
-  public Bookmark(Context context, int c, long b)
+  private void getLatLon(Point position)
+  {
+    double[] ll = nPtoG(position.x, position.y);
+    mLat = ll[0];
+    mLon = ll[1];
+  }
+
+  Bookmark(Context context, int c, long b)
   {
     mContext = context.getApplicationContext();
     mCategoryId = c;
@@ -29,12 +42,13 @@ public class Bookmark
     getLatLon();
   }
 
+  private native double[] nPtoG(int x, int y);
   private native double[] nGetLatLon(int c, long b);
   private native String nGetNamePos(int x, int y);
   private native String nGetName(int c, long b);
   private native String nGetIconPos(int x, int y);
   private native String nGetIcon(int c, long b);
-  private native void nChangeBookamark(double lat, double lon, String category, String name, String type);
+  private native void nChangeBookmark(double lat, double lon, String category, String name, String type);
 
   void getLatLon()
   {
@@ -55,72 +69,91 @@ public class Bookmark
 
   public Icon getIcon()
   {
-    String type = null;
-    if (mPosition != null)
+    if (mCategoryId > -1)
     {
-      type = nGetIconPos(mPosition.x, mPosition.y);
+      String type = null;
+      if (mPosition != null)
+      {
+        type = nGetIconPos(mPosition.x, mPosition.y);
+      }
+      else if(mLat != Double.NaN && mLon != Double.NaN)
+      {
+        type = nGetIcon(mCategoryId, mBookmark);
+      }
+      if (type == null)
+      {
+        throw new NullPointerException("Congratulations! You find a third way to specify bookmark!");
+      }
+      return BookmarkManager.getPinManager(mContext).getIconByName(type);
     }
-    else if(mLat != Double.NaN && mLon != Double.NaN)
+    else
     {
-      type = nGetIcon(mCategoryId, mBookmark);
+      return BookmarkManager.getPinManager(mContext).getIconByName("");
     }
-    if (type == null)
-    {
-      throw new NullPointerException("Congratulations! You find a third way to specify bookmark!");
-    }
-    return BookmarkManager.getPinManager(mContext).getIconByName(type);
+
   }
 
   public String getName(){
-    String name = null;
-    if (mPosition != null)
+    if (mCategoryId > -1)
     {
-      name = nGetNamePos(mPosition.x, mPosition.y);
+      String name = null;
+      if (mPosition != null)
+      {
+        name = nGetNamePos(mPosition.x, mPosition.y);
+      }
+      else if(mLat != Double.NaN && mLon != Double.NaN)
+      {
+        name = nGetName(mCategoryId, mBookmark);
+      }
+      if (name == null)
+      {
+        throw new NullPointerException("Congratulations! You find a third way to specify bookmark!");
+      }
+      return name;
     }
-    else if(mLat != Double.NaN && mLon != Double.NaN)
+    else
     {
-      name = nGetName(mCategoryId, mBookmark);
+      return "Bookmark";
     }
-    if (name == null)
-    {
-      throw new NullPointerException("Congratulations! You find a third way to specify bookmark!");
-    }
-    return name;
   }
 
   public String getCategoryName()
   {
-    return BookmarkManager.getPinManager(mContext).getCategoryById(mCategoryId).getName();
+    if (mCategoryId >= 0)
+    {
+      return BookmarkManager.getPinManager(mContext).getCategoryById(mCategoryId).getName();
+    }
+    else
+    {
+      //TODO change string resources
+      return "My Places";
+    }
   }
-/*
-  public void setCategory(String category)
-  {
 
-  }
-  */
   public void setIcon(Icon icon)
   {
     mIcon = icon;
-    nChangeBookamark(mLat, mLon,
-                     getCategoryName(),
-                     getName(), icon.getType());
+    changeBookmark(getCategoryName(), getName(), icon.getType());
   }
 
   public void setName(String name)
   {
-    nChangeBookamark(mLat, mLon,
-                     getCategoryName(),
-                     name, mIcon.getType());
+    changeBookmark(getCategoryName(), name, mIcon.getType());
   }
-
-
 
   public void setCategory(String category, int catId)
   {
-    nChangeBookamark(mLat, mLon,
-                     category,
-                     getName(), mIcon.getType());
+    changeBookmark(category, getName(), mIcon.getType());
     mCategoryId = catId;
   }
 
+  private void changeBookmark(String category, String name, String type)
+  {
+    nChangeBookmark(mLat, mLon, category, name, type);
+  }
+
+  public int getCategoryId()
+  {
+    return mCategoryId;
+  }
 }

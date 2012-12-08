@@ -559,6 +559,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       @Override
       public void onLongClick(int x, int y)
       {
+        startActivity(new Intent(MWMActivity.this, BookmarkActivity.class).
+                      putExtra(BookmarkActivity.BOOKMARK_POSITION, new ParcelablePoint(x, y)));
       }
     });
     m_clickHandler = addOnClickListener(new OnClickListenter()

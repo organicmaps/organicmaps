@@ -35,7 +35,7 @@ public class BookmarkIconManager
     //Maybe we can find a better way to store icons?
     if (iconB == null)
     {
-      throw new NullPointerException("I can't find icon! "+type);
+      return new Icon("placemark-red", "placemark-red", mEmptyBitmap);
     }
     return new Icon(type, type, iconB);
   }
@@ -52,18 +52,26 @@ public class BookmarkIconManager
 
   private Bitmap getIconBitmap(String type)
   {
-    Bitmap icon = null;
-    icon = mIcons.get(type);
-    if (icon==null)
+    try
     {
-      //It's not take a lot of time to load this icon, so, now i'm not implementing icon loading in background thread.
-      mIcons.put(type, icon = BitmapFactory.decodeResource(
-                                      mContext.getResources(),
-                                      mContext.getResources().
-                                        getIdentifier(type.replace("-", "_"), "drawable", mContext.getPackageName())
-                                        )
-                       );
+
+      Bitmap icon = null;
+      icon = mIcons.get(type);
+      if (icon==null)
+      {
+        //It's not take a lot of time to load this icon, so, now i'm not implementing icon loading in background thread.
+        mIcons.put(type, icon = BitmapFactory.decodeResource(
+                                        mContext.getResources(),
+                                        mContext.getResources().
+                                          getIdentifier(type.replace("-", "_"), "drawable", mContext.getPackageName())
+                                          )
+                         );
+      }
+      return icon;
     }
-    return icon;
+    catch (Exception e)
+    {
+      return mEmptyBitmap;
+    }
   }
 }

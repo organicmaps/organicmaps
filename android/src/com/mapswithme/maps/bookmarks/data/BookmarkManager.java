@@ -39,11 +39,11 @@ public class BookmarkManager
   }
 
   private void refreshList()
-  {
+  {/*
     for (int i = 0; i < 10; i++)
     {
       putBookmark(50*i, 25*i, "name " + i, "category "+i);
-    }
+    }*/
     /*
     mPins = new ArrayList<Bookmark>();
     mPinSets = new ArrayList<BookmarkCategory>();
@@ -104,9 +104,9 @@ public class BookmarkManager
   public Bookmark getBookmark(Point p)
   {
     int [] bookmark = nGetBookmark(p.x, p.y);
-    if (bookmark == null)
+    if (bookmark[0] == -1 && bookmark[1] == -1)
     {
-      return new Bookmark(mContext, p);
+      return new Bookmark(mContext, p, getCategoriesCount() - 1);
     }
     else
     {

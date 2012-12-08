@@ -45,12 +45,29 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_Bookmark_nChangeBookamark(
+  Java_com_mapswithme_maps_bookmarks_data_Bookmark_nChangeBookmark(
          JNIEnv * env, jobject thiz, jdouble lan, jdouble lon, jstring cat, jstring name, jstring type)
   {
     LOG(LDEBUG, ("lan lon change", lan, lon));
     frm()->AddBookmark(jni::ToNativeString(env, cat), Bookmark( m2::PointD(lan, lon), jni::ToNativeString(env, name), jni::ToNativeString(env, type)));
   }
+
+  JNIEXPORT jdoubleArray JNICALL
+    Java_com_mapswithme_maps_bookmarks_data_Bookmark_nPtoG(
+         JNIEnv * env, jobject thiz, jint x, jint y)
+    {
+      m2::PointD org = frm()->PtoG(m2::PointD(x, y));
+      jdoubleArray result;
+      result = env->NewDoubleArray(2);
+      if (result == NULL) {
+          return NULL; /* out of memory error thrown */
+      }
+      double fill[2];
+      fill[0] = org.x;
+      fill[1] = org.y;
+      env->SetDoubleArrayRegion(result, 0, 2, fill);
+      return result;
+    }
 
   JNIEXPORT jdoubleArray JNICALL
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGetLatLon(

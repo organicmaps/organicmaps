@@ -54,6 +54,10 @@ public class BookmarkActivity extends AbstractBookmarkActivity
     {
      // mPin = mManager.createNewBookmark();
     }
+    else
+    {
+      mCurrentCategoryId = mPin.getCategoryId();
+    }
 
     setUpViews();
   }
