@@ -7,6 +7,8 @@
 #include "../std/vector.hpp"
 #include "../std/queue.hpp"
 
+#include "resource.hpp"
+
 namespace graphics
 {
   template <typename pair_t>
@@ -25,13 +27,6 @@ namespace graphics
 
   class ResourceCache;
   class ResourceManager;
-  struct ResourceStyle;
-  struct PenInfo;
-  struct CircleInfo;
-  class ImageInfo;
-  struct Color;
-  struct GlyphKey;
-  class GlyphCache;
 
   class Skin
   {
@@ -102,34 +97,17 @@ namespace graphics
 
     /// clean and destroy
     ~Skin();
-    /// obtain ResourceStyle from id
-    ResourceStyle const * fromID(uint32_t id);
-    /// get an identifier from the styleName.
-    /// return 0xFFFF if this style is not found in Skin.
-    uint32_t mapSymbol(char const * symbolName);
-    /// find ruleDef on the texture.
+    /// obtain Resource from id
+    Resource const * fromID(uint32_t id);
+
+    /// map Resource::Info on skin
     /// if found - return id.
     /// if not - pack and return id.
-    uint32_t mapPenInfo(PenInfo const & penInfo);
-    /// map an array of PenInfo on the same skin page
-    /// returns the completion flag
-    bool mapPenInfo(PenInfo const * penInfos, uint32_t * styleIDS, size_t count);
-    /// find brushDef on the texture.
-    /// if found - return id.
-    /// if not - pack and return id.
-    uint32_t mapColor(Color const & c);
-    /// find glyph identified by GlyphKey on texture
-    /// if found - return id
-    /// if not - pack and return id
-    uint32_t mapGlyph(GlyphKey const & gk, GlyphCache * glyphCache);
-    /// find circleStyle on texture
-    /// if found - return id
-    /// if not - pack and return id
-    uint32_t mapCircleInfo(CircleInfo const & circleInfo);
-    /// find imageInfo on texture
-    /// if found - return id
-    /// if not - pack and return id
-    uint32_t mapImageInfo(ImageInfo const & imageInfo);
+    uint32_t map(Resource::Info const & info);
+    /// map array of Resource::Info's on skin
+    bool map(Resource::Info const * const * infos, uint32_t * ids, size_t count);
+
+    uint32_t findInfo(Resource::Info const & info);
 
     /// adding function which will be called, when some SkinPage
     /// is getting cleared.

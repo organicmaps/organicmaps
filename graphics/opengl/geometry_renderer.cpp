@@ -1,6 +1,6 @@
 #include "../base/SRC_FIRST.hpp"
 #include "geometry_renderer.hpp"
-#include "resource_style.hpp"
+#include "resource.hpp"
 #include "base_texture.hpp"
 #include "texture.hpp"
 #include "buffer_object.hpp"
@@ -23,13 +23,13 @@ namespace graphics
       : base_t(params)
     {}
 
-    GeometryRenderer::UploadData::UploadData(shared_ptr<ResourceStyle> const * styles,
+    GeometryRenderer::UploadData::UploadData(shared_ptr<Resource> const * resources,
                                              size_t count,
                                              shared_ptr<BaseTexture> const & texture)
       : m_texture(texture)
     {
       m_uploadQueue.reserve(count);
-      copy(styles, styles + count, back_inserter(m_uploadQueue));
+      copy(resources, resources + count, back_inserter(m_uploadQueue));
     }
 
     GeometryRenderer::UploadData::UploadData()
@@ -55,14 +55,14 @@ namespace graphics
 
       for (size_t i = 0; i < m_uploadQueue.size(); ++i)
       {
-        shared_ptr<ResourceStyle> const & style = m_uploadQueue[i];
+        shared_ptr<Resource> const & resource = m_uploadQueue[i];
 
-        TDynamicTexture::view_t v = dynTexture->view(style->m_texRect.SizeX(),
-                                                     style->m_texRect.SizeY());
+        TDynamicTexture::view_t v = dynTexture->view(resource->m_texRect.SizeX(),
+                                                     resource->m_texRect.SizeY());
 
-        style->render(&v(0, 0));
+        resource->render(&v(0, 0));
 
-        dynTexture->upload(&v(0, 0), style->m_texRect);
+        dynTexture->upload(&v(0, 0), resource->m_texRect);
       }
 
       /// In multithreaded resource usage scenarios the suggested way to see
@@ -88,11 +88,11 @@ namespace graphics
     }
 
 
-    void GeometryRenderer::uploadStyles(shared_ptr<ResourceStyle> const * styles,
-                                        size_t count,
-                                        shared_ptr<BaseTexture> const & texture)
+    void GeometryRenderer::uploadResources(shared_ptr<Resource> const * resources,
+                                           size_t count,
+                                           shared_ptr<BaseTexture> const & texture)
     {
-      processCommand(make_shared_ptr(new UploadData(styles, count, texture)));
+      processCommand(make_shared_ptr(new UploadData(resources, count, texture)));
     }
 
     GeometryRenderer::IMMDrawTexturedRect::IMMDrawTexturedRect(

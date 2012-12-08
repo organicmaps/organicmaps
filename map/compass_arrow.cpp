@@ -12,6 +12,7 @@
 #include "../graphics/display_list.hpp"
 #include "../graphics/screen.hpp"
 #include "../graphics/skin.hpp"
+#include "../graphics/pen.hpp"
 
 CompassArrow::CompassArrow(Params const & p)
   : base_t(p),
@@ -121,9 +122,9 @@ void CompassArrow::cache()
     m2::PointD(halfW, 0)
   };
 
-  graphics::PenInfo const outlinePenInfo(graphics::Color(0x66, 0x66, 0x66, 0xcc), 1, 0, 0, 0);
+  graphics::Pen::Info const outlinePenInfo(graphics::Color(0x66, 0x66, 0x66, 0xcc), 1, 0, 0, 0);
 
-  cacheScreen->drawPath(outlinePts, sizeof(outlinePts) / sizeof(m2::PointD), 0, cacheScreen->skin()->mapPenInfo(outlinePenInfo), depth());
+  cacheScreen->drawPath(outlinePts, sizeof(outlinePts) / sizeof(m2::PointD), 0, cacheScreen->skin()->map(outlinePenInfo), depth());
 
   cacheScreen->setDisplayList(0);
   cacheScreen->endFrame();

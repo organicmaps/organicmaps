@@ -40,9 +40,9 @@ namespace graphics
                       size_t indicesOffs,
                       EPrimitives primType);
     /// upload ResourceStyle's on texture
-    void uploadStyles(shared_ptr<ResourceStyle> const * styles,
-                      size_t count,
-                      shared_ptr<gl::BaseTexture> const & texture);
+    void uploadResources(shared_ptr<Resource> const * resources,
+                         size_t count,
+                         shared_ptr<gl::BaseTexture> const & texture);
     /// free texture
     void freeTexture(shared_ptr<gl::BaseTexture> const & texture,
                      TTexturePool * texturePool);

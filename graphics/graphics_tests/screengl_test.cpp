@@ -5,8 +5,9 @@
 
 #include "../../graphics/screen.hpp"
 #include "../../graphics/skin.hpp"
-#include "../../graphics/pen_info.hpp"
-#include "../../graphics/circle_info.hpp"
+#include "../../graphics/pen.hpp"
+#include "../../graphics/circle.hpp"
+#include "../../graphics/brush.hpp"
 #include "../../graphics/text_element.hpp"
 #include "../../graphics/straight_text_element.hpp"
 #include "../../graphics/path_text_element.hpp"
@@ -56,7 +57,7 @@ namespace
 
 //      double pat [] = {7, 7, 10, 10};
       double pat1 [] = {1, 1};
-      p->drawPath(pts, 3, 0, p->skin()->mapPenInfo(graphics::PenInfo(graphics::Color(0xFF, 0xFF, 0xFF, 0xFF), 2, pat1, 2, 0)), 0);
+      p->drawPath(pts, 3, 0, p->skin()->map(graphics::Pen::Info(graphics::Color(0xFF, 0xFF, 0xFF, 0xFF), 2, pat1, 2, 0)), 0);
     }
   };
 
@@ -65,11 +66,11 @@ namespace
     std::vector<std::vector<m2::PointD> > m_pathes;
     std::vector<double> m_pathOffsets;
     //std::vector<std::vector<double> > m_patterns;
-    std::vector<graphics::PenInfo> m_penInfos;
+    std::vector<graphics::Pen::Info> m_penInfos;
     std::vector<double> m_depthes;
 
     std::vector<double> m_axisPattern;
-    graphics::PenInfo m_axisPenInfo;
+    graphics::Pen::Info m_axisPenInfo;
     bool m_drawAxis;
 
     void Init()
@@ -78,7 +79,7 @@ namespace
 
       m_axisPattern.push_back(2);
       m_axisPattern.push_back(2);
-      m_axisPenInfo = graphics::PenInfo(graphics::Color(0xFF, 0, 0, 0xFF), 2, &m_axisPattern[0], m_axisPattern.size(), 0);
+      m_axisPenInfo = graphics::Pen::Info(graphics::Color(0xFF, 0, 0, 0xFF), 2, &m_axisPattern[0], m_axisPattern.size(), 0);
     }
 
     void AddTest(std::vector<m2::PointD> const & points,
@@ -92,7 +93,7 @@ namespace
       m_pathes.push_back(points);
       m_pathOffsets.push_back(pathOffset);
       //m_patterns.push_back(pattern);
-      m_penInfos.push_back(graphics::PenInfo(color, width, pattern.empty() ? 0 : &pattern[0], pattern.size(), penOffset));
+      m_penInfos.push_back(graphics::Pen::Info(color, width, pattern.empty() ? 0 : &pattern[0], pattern.size(), penOffset));
       m_depthes.push_back(depth);
     }
 
@@ -105,9 +106,9 @@ namespace
     {
       for (size_t i = 0; i < m_pathes.size(); ++i)
       {
-        p->drawPath(&m_pathes[i][0], m_pathes[i].size(), m_pathOffsets[i], p->skin()->mapPenInfo(m_penInfos[i]), m_depthes[i]);
+        p->drawPath(&m_pathes[i][0], m_pathes[i].size(), m_pathOffsets[i], p->skin()->map(m_penInfos[i]), m_depthes[i]);
         if (m_drawAxis)
-          p->drawPath(&m_pathes[i][0], m_pathes[i].size(), 0, p->skin()->mapPenInfo(m_axisPenInfo), m_depthes[i]);
+          p->drawPath(&m_pathes[i][0], m_pathes[i].size(), 0, p->skin()->map(m_axisPenInfo), m_depthes[i]);
       }
     }
 
@@ -568,7 +569,7 @@ namespace
 //      p->drawTriangles(ptsFan, 5, graphics::TriangleFan, p->skin()->mapColor(graphics::Color(0, 255, 0, 255)));
 
       m2::PointD ptsList[6] = {m2::PointD(20, 80), m2::PointD(50, 120), m2::PointD(80, 80), m2::PointD(110, 80), m2::PointD(140, 120), m2::PointD(80, 120)};
-      p->drawTrianglesList(ptsList, 6, /*graphics::TriangleList, */p->skin()->mapColor(graphics::Color(0, 0, 255, 255)), 0);
+      p->drawTrianglesList(ptsList, 6, /*graphics::TriangleList, */p->skin()->map(graphics::Brush::Info(graphics::Color(0, 0, 255, 255))), 0);
     }
   };
 
@@ -604,7 +605,7 @@ namespace
 
       p->drawTrianglesList(&vertices[0],
                            vertices.size(),
-                           p->skin()->mapColor(graphics::Color(0, 0, 255, 255)), 0);
+                           p->skin()->map(graphics::Brush::Info(graphics::Color(0, 0, 255, 255))), 0);
     }
   };
 
@@ -614,7 +615,7 @@ namespace
     {
       m2::PointD path[2] = {m2::PointD(100, 200), m2::PointD(1000, 200)};
       double pat[2] = {2, 2};
-      p->drawPath(path, sizeof(path) / sizeof(m2::PointD), 0, p->skin()->mapPenInfo(graphics::PenInfo(graphics::Color(0, 0, 0, 0xFF), 2, pat, 2, 0)), 0);
+      p->drawPath(path, sizeof(path) / sizeof(m2::PointD), 0, p->skin()->map(graphics::Pen::Info(graphics::Color(0, 0, 0, 0xFF), 2, pat, 2, 0)), 0);
 
       graphics::FontDesc fontDesc(20, graphics::Color(0, 0, 0, 0), true, graphics::Color(255, 255, 255, 255));
 
@@ -669,13 +670,13 @@ namespace
       path.push_back(m2::PointD(70, 50));
 
       double pat[] = { 2, 2 };
-      graphics::PenInfo penInfo = graphics::PenInfo(graphics::Color(0, 0, 0, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
-      graphics::PenInfo solidPenInfo = graphics::PenInfo(graphics::Color(0xFF, 0, 0, 0xFF), 4, 0, 0, 0);
+      graphics::Pen::Info penInfo = graphics::Pen::Info(graphics::Color(0, 0, 0, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
+      graphics::Pen::Info solidPenInfo = graphics::Pen::Info(graphics::Color(0xFF, 0, 0, 0xFF), 4, 0, 0, 0);
 
       graphics::FontDesc fontDesc(20, graphics::Color(0, 0, 0, 0), true, graphics::Color(255, 255, 255, 255));
 
       p->drawText(fontDesc, m2::PointD(40, 50), graphics::EPosAboveRight, "S", 0, true);
-      p->drawPath(&path[0], path.size(), 0, p->skin()->mapPenInfo(solidPenInfo), 0);
+      p->drawPath(&path[0], path.size(), 0, p->skin()->map(solidPenInfo), 0);
 
     }
   };
@@ -799,7 +800,7 @@ namespace
   {
     vector<m2::PointD> m_path;
     string m_text;
-    graphics::PenInfo m_penInfo;
+    graphics::Pen::Info m_penInfo;
 
     void Init()
     {
@@ -810,12 +811,12 @@ namespace
       m_text = "Syp";
 
       double pat[2] = {2, 2};
-      m_penInfo = graphics::PenInfo(graphics::Color(0xFF, 0xFF, 0xFF, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
+      m_penInfo = graphics::Pen::Info(graphics::Color(0xFF, 0xFF, 0xFF, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
     }
 
     void DoDraw(shared_ptr<graphics::Screen> p)
     {
-      p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->mapPenInfo(m_penInfo), 1);
+      p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->map(m_penInfo), 1);
       graphics::FontDesc fontDesc(30);
 
       p->drawPathText(fontDesc, &m_path[0], m_path.size(), m_text, calc_length(m_path), 0.0, graphics::EPosLeft, 0);
@@ -862,7 +863,7 @@ namespace
 
     void DoDraw(shared_ptr<graphics::Screen> p)
     {
-      p->drawPath(&m_testPoints[0], m_testPoints.size(), 0, p->skin()->mapPenInfo(graphics::PenInfo(graphics::Color(255, 255, 255, 255), 2, 0, 0, 0)), 0);
+      p->drawPath(&m_testPoints[0], m_testPoints.size(), 0, p->skin()->map(graphics::Pen::Info(graphics::Color(255, 255, 255, 255), 2, 0, 0, 0)), 0);
       graphics::FontDesc fontDesc(20, graphics::Color(0, 0, 0, 255), false);
       //m_text = "Simplicity is the ultimate sophistication. Leonardo Da Vinci.";
       m_text = "Vinci";
@@ -874,7 +875,7 @@ namespace
   {
     std::vector<m2::PointD> m_path;
     std::string m_text;
-    graphics::PenInfo m_penInfo;
+    graphics::Pen::Info m_penInfo;
 
     TestDrawTextOnPath()
     {
@@ -886,12 +887,12 @@ namespace
       m_text = "Simplicity is the ultimate sophistication. Leonardo Da Vinci.";
 
       double pat[] = { 2, 2 };
-      m_penInfo = graphics::PenInfo(graphics::Color(0, 0, 0, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
+      m_penInfo = graphics::Pen::Info(graphics::Color(0, 0, 0, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
     }
 
     void DoDraw(shared_ptr<graphics::Screen> p)
     {
-      p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->mapPenInfo(m_penInfo), 0);
+      p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->map(m_penInfo), 0);
       graphics::FontDesc fontDesc(20);
       p->drawPathText(fontDesc, &m_path[0], m_path.size(), m_text, calc_length(m_path), 0.0, graphics::EPosCenter, 0);
     }
@@ -899,14 +900,14 @@ namespace
 
   struct TestDrawStraightTextElement
   {
-    graphics::PenInfo m_penInfo;
+    graphics::Pen::Info m_penInfo;
     vector<m2::PointD> m_path;
     TestDrawStraightTextElement()
     {
       m_path.push_back(m2::PointD(100, 200));
       m_path.push_back(m2::PointD(500, 200));
       double pat[] = { 2, 2 };
-      m_penInfo = graphics::PenInfo(graphics::Color(0, 0, 0, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
+      m_penInfo = graphics::Pen::Info(graphics::Color(0, 0, 0, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
     }
 
     void DoDraw(shared_ptr<graphics::Screen> p)
@@ -922,7 +923,7 @@ namespace
 
       graphics::StraightTextElement ste(params);
 
-      p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->mapPenInfo(m_penInfo), 0);
+      p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->map(m_penInfo), 0);
       ste.draw(p.get(), math::Identity<double, 3>());
     }
   };
@@ -930,7 +931,7 @@ namespace
   struct TestDrawPathTextElement
   {
     vector<m2::PointD> m_path;
-    graphics::PenInfo m_penInfo;
+    graphics::Pen::Info m_penInfo;
 
     TestDrawPathTextElement()
     {
@@ -945,7 +946,7 @@ namespace
       m_path.push_back(m2::PointD(400, 200));
 
       double pat[] = { 2, 2 };
-      m_penInfo = graphics::PenInfo(graphics::Color(0, 0, 0, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
+      m_penInfo = graphics::Pen::Info(graphics::Color(0, 0, 0, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
     }
 
     void DoDraw(shared_ptr<graphics::Screen> p)
@@ -965,7 +966,7 @@ namespace
 
       graphics::PathTextElement pte(params);
 
-      p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->mapPenInfo(m_penInfo), 0);
+      p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->map(m_penInfo), 0);
       pte.draw(p.get(), math::Identity<double, 3>());
     }
   };
@@ -974,7 +975,7 @@ namespace
   {
     std::vector<m2::PointD> m_path;
     std::string m_text;
-    graphics::PenInfo m_penInfo;
+    graphics::Pen::Info m_penInfo;
 
     TestDrawTextOnPathZigZag()
     {
@@ -990,12 +991,12 @@ namespace
       m_text = "Simplicity is the ultimate sophistication. Leonardo Da Vinci.";
 
       double pat[] = { 2, 2 };
-      m_penInfo = graphics::PenInfo(graphics::Color(0, 0, 0, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
+      m_penInfo = graphics::Pen::Info(graphics::Color(0, 0, 0, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
     }
 
     void DoDraw(shared_ptr<graphics::Screen> p)
     {
-      p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->mapPenInfo(m_penInfo), 0);
+      p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->map(m_penInfo), 0);
 //      graphics::FontDesc fontDesc(false, 10);
       graphics::FontDesc fontDesc(20);
       p->drawPathText(fontDesc, &m_path[0], m_path.size(), m_text, calc_length(m_path), 0.0, graphics::EPosCenter, 0);
@@ -1022,8 +1023,8 @@ namespace
     {
       TestDrawTextOnPath::DoDraw(p);
 
-      p->drawPath(&m_pathAbove[0], m_pathAbove.size(), 0, p->skin()->mapPenInfo(m_penInfo), 0);
-      p->drawPath(&m_pathUnder[0], m_pathUnder.size(), 0, p->skin()->mapPenInfo(m_penInfo), 0);
+      p->drawPath(&m_pathAbove[0], m_pathAbove.size(), 0, p->skin()->map(m_penInfo), 0);
+      p->drawPath(&m_pathUnder[0], m_pathUnder.size(), 0, p->skin()->map(m_penInfo), 0);
 
       double const len = calc_length(m_path);
       graphics::FontDesc fontDesc(20);
@@ -1212,25 +1213,25 @@ namespace
     void DoDraw(shared_ptr<graphics::Screen> p)
     {
       double inputDataPat[] = {10, 0};
-      graphics::PenInfo inputDataRule(graphics::Color::fromARGB(0xFF000000), 6, inputDataPat, 2, 0);
+      graphics::Pen::Info inputDataRule(graphics::Color::fromARGB(0xFF000000), 6, inputDataPat, 2, 0);
 
       double triangleFanPat[] = {10, 10};
-      graphics::PenInfo triangleFanRule(graphics::Color::fromARGB(0xFFFF0000), 5, triangleFanPat, 2, 0);
+      graphics::Pen::Info triangleFanRule(graphics::Color::fromARGB(0xFFFF0000), 5, triangleFanPat, 2, 0);
 
       double triangleStripPat[] = {10, 10};
-      graphics::PenInfo triangleStripRule(graphics::Color::fromARGB(0xFF00FF00), 4, triangleStripPat, 2, 0);
+      graphics::Pen::Info triangleStripRule(graphics::Color::fromARGB(0xFF00FF00), 4, triangleStripPat, 2, 0);
 
       double triangleListPat[] = {10, 10};
-      graphics::PenInfo triangleListRule(graphics::Color::fromARGB(0xFF0000FF), 3, triangleListPat, 2, 0);
+      graphics::Pen::Info triangleListRule(graphics::Color::fromARGB(0xFF0000FF), 3, triangleListPat, 2, 0);
 
       double lineLoopPat[] = {2, 2};
-      graphics::PenInfo lineLoopRule(graphics::Color::fromARGB(0xFF00FFFF), 2, lineLoopPat, 2, 0);
+      graphics::Pen::Info lineLoopRule(graphics::Color::fromARGB(0xFF00FFFF), 2, lineLoopPat, 2, 0);
 
-      uint32_t inputDataID = p->skin()->mapPenInfo(inputDataRule);
-      uint32_t triangleFanID = p->skin()->mapPenInfo(triangleFanRule);
-      /*uint32_t triangleStripID = */p->skin()->mapPenInfo(triangleStripRule);
-      uint32_t triangleListID = p->skin()->mapPenInfo(triangleListRule);
-      uint32_t lineLoopID = p->skin()->mapPenInfo(lineLoopRule);
+      uint32_t inputDataID = p->skin()->map(inputDataRule);
+      uint32_t triangleFanID = p->skin()->map(triangleFanRule);
+      /*uint32_t triangleStripID = */p->skin()->map(triangleStripRule);
+      uint32_t triangleListID = p->skin()->map(triangleListRule);
+      uint32_t lineLoopID = p->skin()->map(lineLoopRule);
 
       p->drawPath((m2::PointD const *)&m_vertices[0], m_vertices.size(), 0, inputDataID, 0);
 
@@ -1328,10 +1329,10 @@ namespace
   {
     void DoDraw(shared_ptr<graphics::Screen> const & p)
     {
-      graphics::CircleInfo ci0(10, graphics::Color(255, 0, 0, 255));
+      graphics::Circle::Info ci0(10, graphics::Color(255, 0, 0, 255));
       p->drawCircle(m2::PointD(200, 200), ci0, graphics::EPosCenter, 100);
 
-      graphics::CircleInfo ci1(10, graphics::Color(255, 0, 0, 255), true, 4, graphics::Color(255, 255, 255, 255));
+      graphics::Circle::Info ci1(10, graphics::Color(255, 0, 0, 255), true, 4, graphics::Color(255, 255, 255, 255));
       p->drawCircle(m2::PointD(100, 200), ci1, graphics::EPosCenter, 100);
     }
   };
@@ -1340,7 +1341,7 @@ namespace
   {
     void DoDraw(shared_ptr<graphics::Screen> const & p)
     {
-      graphics::ImageInfo ii("test.png");
+      graphics::Image::Info ii("test.png");
 
       math::Matrix<double, 3, 3> m =
           math::Shift(
@@ -1350,7 +1351,7 @@ namespace
             100, 100);
 
       p->drawImage(m,
-                   p->skin()->mapImageInfo(ii),
+                   p->skin()->map(ii),
                    graphics::maxDepth);
     }
   };

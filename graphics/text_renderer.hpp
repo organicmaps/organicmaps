@@ -12,6 +12,8 @@
 
 namespace graphics
 {
+  class Glyph;
+
   class TextRenderer : public ImageRenderer
   {
   private:
@@ -32,14 +34,14 @@ namespace graphics
 
     void drawStraightGlyph(m2::PointD const & ptOrg,
                            m2::PointD const & ptGlyph,
-                           GlyphStyle const * p,
+                           Glyph const * p,
                            float depth);
 
     void drawGlyph(m2::PointD const & ptOrg,
                    m2::PointD const & ptGlyph,
                    ang::AngleD const & angle,
                    float blOffset,
-                   GlyphStyle const * p,
+                   Glyph const * p,
                    double depth);
 
 

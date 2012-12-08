@@ -1,7 +1,8 @@
 #include "../base/logging.hpp"
 
 #include "symbol_element.hpp"
-#include "resource_style.hpp"
+#include "resource.hpp"
+#include "icon.hpp"
 #include "overlay_renderer.hpp"
 #include "skin.hpp"
 
@@ -9,24 +10,24 @@ namespace graphics
 {
   SymbolElement::SymbolElement(Params const & p)
     : base_t(p),
-      m_symbolName(p.m_symbolName),
+      m_info(p.m_info),
       m_symbolRect(0, 0, 0, 0)
   {
-    uint32_t styleID = p.m_skin->mapSymbol(m_symbolName.c_str());
-    ResourceStyle const * style = p.m_skin->fromID(styleID);
+    uint32_t resID = p.m_skin->findInfo(m_info);
+    Resource const * res = p.m_skin->fromID(resID);
 
-    if (style == 0)
+    if (res == 0)
     {
-      LOG(LINFO, ("POI ", m_symbolName, " wasn't found on the current skin"));
+      LOG(LINFO, ("POI ", m_info.m_name, " wasn't found on the current skin"));
       return;
     }
 
-    m_symbolRect = style->m_texRect;
+    m_symbolRect = res->m_texRect;
   }
 
   SymbolElement::SymbolElement(SymbolElement const & se, math::Matrix<double, 3, 3> const & m)
     : base_t(se),
-      m_symbolName(se.m_symbolName),
+      m_info(se.m_info),
       m_symbolRect(se.m_symbolRect)
   {
     setPivot(se.pivot() * m);
@@ -58,22 +59,22 @@ namespace graphics
     if (!isNeedRedraw())
       return;
 
-    uint32_t styleID = r->skin()->mapSymbol(m_symbolName.c_str());
-    ResourceStyle const * style = r->skin()->fromID(styleID);
+    uint32_t resID = r->skin()->findInfo(m_info);
+    Resource const * res = r->skin()->fromID(resID);
 
-    if (style == 0)
+    if (res == 0)
     {
-      LOG(LINFO, ("POI(", m_symbolName, ") wasn't found on the current skin"));
+      LOG(LINFO, ("POI(", m_info.m_name, ") wasn't found on the current skin"));
       return;
     }
 
-    if (style->m_texRect != m_symbolRect)
+    if (res->m_texRect != m_symbolRect)
     {
-      LOG(LINFO, ("POI(", m_symbolName, ") rects do not match."));
+      LOG(LINFO, ("POI(", m_info.m_name, ") rects do not match."));
       return;
     }
 
-    m2::RectI texRect(style->m_texRect);
+    m2::RectI texRect(res->m_texRect);
     texRect.Inflate(-1, -1);
 
     m2::PointD posPt = tieRect(m2::RectD(texRect), m);
@@ -84,7 +85,7 @@ namespace graphics
                                    texRect.minX(), texRect.minY(), texRect.maxX(), texRect.maxY(),
                                    posPt.x, posPt.y, posPt.x + texRect.SizeX(), posPt.y + texRect.SizeY(),
                                    graphics::maxDepth - 2,
-                                   style->m_pipelineID);
+                                   res->m_pipelineID);
   }
 
   int SymbolElement::visualRank() const

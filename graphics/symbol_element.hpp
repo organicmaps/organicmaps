@@ -1,18 +1,17 @@
 #pragma once
 
 #include "overlay_element.hpp"
+#include "icon.hpp"
 
 namespace graphics
 {
-  struct ResourceStyle;
   class Skin;
-  class ResourceStyleCache;
 
   class SymbolElement : public OverlayElement
   {
   private:
 
-    string m_symbolName;
+    Icon::Info m_info;
     m2::RectU m_symbolRect;
 
     mutable vector<m2::AnyRectD> m_boundRects;
@@ -26,7 +25,7 @@ namespace graphics
     struct Params : public base_t::Params
     {
       Skin * m_skin;
-      string m_symbolName;
+      Icon::Info m_info;
     };
 
     SymbolElement(Params const & p);
@@ -35,7 +34,7 @@ namespace graphics
     vector<m2::AnyRectD> const & boundRects() const;
     void draw(OverlayRenderer * s, math::Matrix<double, 3, 3> const & m) const;
 
-    uint32_t styleID() const;
+    uint32_t resID() const;
 
     int visualRank() const;
 

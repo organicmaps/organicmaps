@@ -3,7 +3,6 @@
 #include "opengl/texture.hpp"
 #include "opengl/data_traits.hpp"
 
-#include "resource_style.hpp"
 #include "resource_manager.hpp"
 
 #include "../base/logging.hpp"
@@ -31,8 +30,8 @@ namespace graphics
   }
 
   ResourceCache::ResourceCache(shared_ptr<ResourceManager> const & resourceManager,
-                     ETextureType type,
-                     uint8_t pipelineID)
+                               ETextureType type,
+                               uint8_t pipelineID)
     : m_resourceManager(resourceManager),
       m_textureType(type),
       m_pipelineID(pipelineID)
@@ -45,12 +44,12 @@ namespace graphics
 
   void ResourceCache::clearHandles()
   {
-    clearPenInfoHandles();
-    clearColorHandles();
-    clearFontHandles();
-    clearCircleInfoHandles();
-    clearImageInfoHandles();
+    for (TResourceInfos::const_iterator it = m_infos.begin();
+         it != m_infos.end();
+         ++it)
+      m_resources.erase(it->second);
 
+    m_infos.clear();
     m_packer.reset();
   }
 
@@ -65,246 +64,45 @@ namespace graphics
     clearUploadQueue();
   }
 
-  void ResourceCache::clearColorHandles()
+  bool ResourceCache::LessThan::operator()(Resource::Info const * l,
+                                           Resource::Info const * r) const
   {
-    for (TColorMap::const_iterator it = m_colorMap.begin(); it != m_colorMap.end(); ++it)
-      m_styles.erase(it->second);
-
-    m_colorMap.clear();
+    return l->lessThan(r);
   }
 
-  void ResourceCache::clearPenInfoHandles()
+  uint32_t ResourceCache::findInfo(Resource::Info const & info) const
   {
-    for (TPenInfoMap::const_iterator it = m_penInfoMap.begin(); it != m_penInfoMap.end(); ++it)
-      m_styles.erase(it->second);
-
-    m_penInfoMap.clear();
-  }
-
-  void ResourceCache::clearCircleInfoHandles()
-  {
-    for (TCircleInfoMap::const_iterator it = m_circleInfoMap.begin(); it != m_circleInfoMap.end(); ++it)
-      m_styles.erase(it->second);
-
-    m_circleInfoMap.clear();
-  }
-
-  void ResourceCache::clearFontHandles()
-  {
-    for (TGlyphMap::const_iterator it = m_glyphMap.begin(); it != m_glyphMap.end(); ++it)
-      m_styles.erase(it->second);
-
-    m_glyphMap.clear();
-  }
-
-  void ResourceCache::clearImageInfoHandles()
-  {
-    for (TImageInfoMap::const_iterator it = m_imageInfoMap.begin();
-         it != m_imageInfoMap.end();
-         ++it)
-      m_styles.erase(it->second);
-
-    m_imageInfoMap.clear();
-  }
-
-  uint32_t ResourceCache::findImageInfo(ImageInfo const & ii) const
-  {
-    TImageInfoMap::const_iterator it = m_imageInfoMap.find(ii);
-    if (it == m_imageInfoMap.end())
+    TResourceInfos::const_iterator it = m_infos.find(&info);
+    if (it == m_infos.end())
       return m_packer.invalidHandle();
     else
       return it->second;
   }
 
-  uint32_t ResourceCache::mapImageInfo(ImageInfo const & ii)
+  uint32_t ResourceCache::mapInfo(Resource::Info const & info)
   {
-    uint32_t foundHandle = findImageInfo(ii);
+    uint32_t foundHandle = findInfo(info);
     if (foundHandle != m_packer.invalidHandle())
       return foundHandle;
 
-    m2::Packer::handle_t h = m_packer.pack(ii.width() + 4, ii.height() + 4);
+    m2::PointU sz = info.resourceSize();
 
-    m_imageInfoMap[ii] = h;
+    m2::Packer::handle_t h = m_packer.pack(sz.x, sz.y);
 
     m2::RectU texRect = m_packer.find(h).second;
-    shared_ptr<ResourceStyle> imageStyle(new ImageStyle(texRect, m_pipelineID, ii));
+    shared_ptr<Resource> resource(info.createResource(texRect, m_pipelineID));
 
-    m_styles[h] = imageStyle;
-    m_uploadQueue.push_back(imageStyle);
+    m_resources[h] = resource;
+    m_infos[resource->info()] = h;
+    m_uploadQueue.push_back(resource);
 
     return h;
   }
 
-  bool ResourceCache::hasRoom(ImageInfo const & ii) const
+  bool ResourceCache::hasRoom(Resource::Info const & info) const
   {
-    return m_packer.hasRoom(ii.width() + 4, ii.height() + 4);
-  }
-
-  uint32_t ResourceCache::findColor(graphics::Color const & c) const
-  {
-    TColorMap::const_iterator it = m_colorMap.find(c);
-    if (it == m_colorMap.end())
-      return m_packer.invalidHandle();
-    else
-      return it->second;
-  }
-
-  uint32_t ResourceCache::mapColor(graphics::Color const & c)
-  {
-    uint32_t foundHandle = findColor(c);
-
-    if (foundHandle != m_packer.invalidHandle())
-      return foundHandle;
-
-    m2::Packer::handle_t h = m_packer.pack(2, 2);
-
-    m_colorMap[c] = h;
-
-    m2::RectU texRect = m_packer.find(h).second;
-    shared_ptr<ResourceStyle> colorStyle(new ColorStyle(texRect, m_pipelineID, c));
-
-    m_styles[h] = colorStyle;
-    m_uploadQueue.push_back(colorStyle);
-
-    return h;
-  }
-
-  bool ResourceCache::hasRoom(Color const & ) const
-  {
-    return m_packer.hasRoom(2, 2);
-  }
-
-  uint32_t ResourceCache::findSymbol(char const * symbolName) const
-  {
-    TPointNameMap::const_iterator it = m_pointNameMap.find(symbolName);
-    if (it == m_pointNameMap.end())
-      return m_packer.invalidHandle();
-    else
-      return it->second;
-  }
-
-  uint32_t ResourceCache::findGlyph(GlyphKey const & g) const
-  {
-    TGlyphMap::const_iterator it = m_glyphMap.find(g);
-    if (it == m_glyphMap.end())
-      return m_packer.invalidHandle();
-    else
-      return it->second;
-  }
-
-  uint32_t ResourceCache::mapGlyph(graphics::GlyphKey const & g, graphics::GlyphCache * glyphCache)
-  {
-    uint32_t foundHandle = findGlyph(g);
-    if (foundHandle != m_packer.invalidHandle())
-      return foundHandle;
-
-    shared_ptr<GlyphInfo> gi = glyphCache->getGlyphInfo(g);
-
-    m2::Packer::handle_t handle = m_packer.pack(gi->m_metrics.m_width + 4,
-                                                gi->m_metrics.m_height + 4);
-
-    m2::RectU texRect = m_packer.find(handle).second;
-    m_glyphMap[g] = handle;
-
-    boost::shared_ptr<ResourceStyle> glyphStyle(
-        new GlyphStyle(texRect,
-                      m_pipelineID,
-                      gi));
-
-    m_styles[handle] = glyphStyle;
-    m_uploadQueue.push_back(glyphStyle);
-
-    return m_glyphMap[g];
-  }
-
-  bool ResourceCache::hasRoom(GlyphKey const & gk, GlyphCache * glyphCache) const
-  {
-    shared_ptr<GlyphInfo> gi = glyphCache->getGlyphInfo(gk);
-    return m_packer.hasRoom(gi->m_metrics.m_width + 4, gi->m_metrics.m_height + 4);
-  }
-
-  bool ResourceCache::hasRoom(m2::PointU const * sizes, size_t cnt) const
-  {
-    return m_packer.hasRoom(sizes, cnt);
-  }
-
-  uint32_t ResourceCache::findCircleInfo(CircleInfo const & circleInfo) const
-  {
-    TCircleInfoMap::const_iterator it = m_circleInfoMap.find(circleInfo);
-    if (it == m_circleInfoMap.end())
-      return m_packer.invalidHandle();
-    else
-      return it->second;
-  }
-
-  uint32_t ResourceCache::mapCircleInfo(CircleInfo const & circleInfo)
-  {
-    uint32_t foundHandle = findCircleInfo(circleInfo);
-
-    if (foundHandle != m_packer.invalidHandle())
-      return foundHandle;
-
-    m2::PointU sz = circleInfo.patternSize();
-    m2::Packer::handle_t handle = m_packer.pack(sz.x, sz.y);
-
-    m_circleInfoMap[circleInfo] = handle;
-
-    m2::RectU texRect = m_packer.find(handle).second;
-
-    shared_ptr<ResourceStyle> circleStyle(new CircleStyle(texRect, m_pipelineID, circleInfo));
-
-    m_styles[handle] = circleStyle;
-    m_uploadQueue.push_back(circleStyle);
-
-    return m_circleInfoMap[circleInfo];
-  }
-
-  bool ResourceCache::hasRoom(CircleInfo const & circleInfo) const
-  {
-    m2::PointU sz = circleInfo.patternSize();
+    m2::PointU sz = info.resourceSize();
     return m_packer.hasRoom(sz.x, sz.y);
-  }
-
-  uint32_t ResourceCache::findPenInfo(PenInfo const & penInfo) const
-  {
-    TPenInfoMap::const_iterator it = m_penInfoMap.find(penInfo);
-    if (it == m_penInfoMap.end())
-      return m_packer.invalidHandle();
-    else
-      return it->second;
-  }
-
-  uint32_t ResourceCache::mapPenInfo(PenInfo const & penInfo)
-  {
-    uint32_t foundHandle = findPenInfo(penInfo);
-
-    if (foundHandle != m_packer.invalidHandle())
-      return foundHandle;
-
-    m2::PointU p = penInfo.patternSize();
-
-    m2::Packer::handle_t handle = m_packer.pack(p.x, p.y);
-
-    m_penInfoMap[penInfo] = handle;
-
-    m2::RectU texRect = m_packer.find(handle).second;
-
-    boost::shared_ptr<ResourceStyle> lineStyle(
-          new LineStyle(false,
-                        texRect,
-                        m_pipelineID,
-                        penInfo));
-
-    m_styles[handle] = lineStyle;
-    m_uploadQueue.push_back(lineStyle);
-
-    return m_penInfoMap[penInfo];
-  }
-
-  bool ResourceCache::hasRoom(const PenInfo &penInfo) const
-  {
-    m2::PointU p = penInfo.patternSize();
-    return m_packer.hasRoom(p.x, p.y);
   }
 
   void ResourceCache::setType(ETextureType textureType)
@@ -339,15 +137,22 @@ namespace graphics
   void ResourceCache::setPipelineID(uint8_t pipelineID)
   {
     m_pipelineID = pipelineID;
-    for (TStyles::iterator it = m_styles.begin(); it != m_styles.end(); ++it)
+    for (TResources::iterator it = m_resources.begin();
+         it != m_resources.end();
+         ++it)
       it->second->m_pipelineID = pipelineID;
   }
 
-  ResourceStyle * ResourceCache::fromID(uint32_t idx) const
+  uint8_t ResourceCache::pipelineID() const
   {
-    TStyles::const_iterator it = m_styles.find(idx);
+    return m_pipelineID;
+  }
 
-    if (it == m_styles.end())
+  Resource * ResourceCache::fromID(uint32_t idx) const
+  {
+    TResources::const_iterator it = m_resources.find(idx);
+
+    if (it == m_resources.end())
       return 0;
     else
       return it->second.get();

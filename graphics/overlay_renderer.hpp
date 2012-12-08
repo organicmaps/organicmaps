@@ -3,6 +3,7 @@
 #include "text_renderer.hpp"
 #include "../std/shared_ptr.hpp"
 #include "overlay.hpp"
+#include "circle.hpp"
 
 namespace graphics
 {
@@ -35,7 +36,10 @@ namespace graphics
     void drawSymbol(m2::PointD const & pt, string const & symbolName, EPosition pos, int depth);
 
     /// Drawing circle
-    void drawCircle(m2::PointD const & pt, graphics::CircleInfo const & ci, EPosition pos, int depth);
+    void drawCircle(m2::PointD const & pt,
+                    Circle::Info const & ci,
+                    EPosition pos,
+                    int depth);
 
     /// drawing straight text
     void drawText(FontDesc const & fontDesc,

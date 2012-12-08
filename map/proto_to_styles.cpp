@@ -24,7 +24,7 @@ namespace
 }
 
 
-void ConvertStyle(LineDefProto const * pSrc, double scale, graphics::PenInfo & dest)
+void ConvertStyle(LineDefProto const * pSrc, double scale, graphics::Pen::Info & dest)
 {
   double offset = 0.0;
   vector<double> v;
@@ -42,30 +42,30 @@ void ConvertStyle(LineDefProto const * pSrc, double scale, graphics::PenInfo & d
       offset = dd.offset() * scale;
   }
 
-  dest = graphics::PenInfo(
+  dest = graphics::Pen::Info(
         ConvertColor(pSrc->color()),
         ConvertWidth(pSrc->width(), scale),
         v.empty() ? 0 : &v[0], v.size(), offset);
 }
 
-void ConvertStyle(AreaRuleProto const * pSrc, graphics::Color & dest)
+void ConvertStyle(AreaRuleProto const * pSrc, graphics::Brush::Info & dest)
 {
-  dest = ConvertColor(pSrc->color());
+  dest.m_color = ConvertColor(pSrc->color());
 }
 
-void ConvertStyle(SymbolRuleProto const * pSrc, string & dest)
+void ConvertStyle(SymbolRuleProto const * pSrc, graphics::Icon::Info & dest)
 {
-  dest = pSrc->name();
+  dest.m_name = pSrc->name();
 }
 
-void ConvertStyle(CircleRuleProto const * pSrc, double scale, graphics::CircleInfo & dest)
+void ConvertStyle(CircleRuleProto const * pSrc, double scale, graphics::Circle::Info & dest)
 {
-  dest = graphics::CircleInfo(min(max(pSrc->radius(), 3.0), 6.0) * scale,
+  dest = graphics::Circle::Info(min(max(pSrc->radius(), 3.0), 6.0) * scale,
                         ConvertColor(pSrc->color()));
 
   if (pSrc->has_border())
   {
-    graphics::PenInfo pen;
+    graphics::Pen::Info pen;
     ConvertStyle(&(pSrc->border()), scale, pen);
 
     dest.m_isOutlined = true;

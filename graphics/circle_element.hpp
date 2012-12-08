@@ -1,7 +1,7 @@
 #pragma once
 
 #include "overlay_element.hpp"
-#include "circle_info.hpp"
+#include "circle.hpp"
 
 namespace graphics
 {
@@ -9,7 +9,7 @@ namespace graphics
   {
   private:
 
-    graphics::CircleInfo m_ci;
+    Circle::Info m_ci;
 
     mutable vector<m2::AnyRectD> m_boundRects;
 
@@ -21,7 +21,7 @@ namespace graphics
 
     struct Params : public base_t::Params
     {
-      graphics::CircleInfo m_ci;
+      Circle::Info m_ci;
     };
 
     CircleElement(Params const & p);

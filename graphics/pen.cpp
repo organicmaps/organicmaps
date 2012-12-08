@@ -1,4 +1,4 @@
-#include "pen_info.hpp"
+#include "pen.hpp"
 
 #include "../base/logging.hpp"
 
@@ -6,13 +6,25 @@
 #include "../std/iterator.hpp"
 #include "../std/numeric.hpp"
 
+#include "opengl/data_traits.hpp"
+#include "agg_traits.hpp"
+
 namespace graphics
 {
-  PenInfo::PenInfo()
+  Pen::Info::Info()
+    : Resource::Info(EPen)
   {}
 
-  PenInfo::PenInfo(Color const & color, double w, double const * pattern, size_t patternSize, double offset)
-    : m_color(color), m_w(w), m_offset(offset), m_isSolid(false)
+  Pen::Info::Info(Color const & color,
+                  double w,
+                  double const * pattern,
+                  size_t patternSize,
+                  double offset)
+    : Resource::Info(EPen),
+      m_color(color),
+      m_w(w),
+      m_offset(offset),
+      m_isSolid(false)
   {
     if (m_w < 1.0)
       m_w = 1.0;
@@ -78,7 +90,7 @@ namespace graphics
     }
   }
 
-  double PenInfo::firstDashOffset() const
+  double Pen::Info::firstDashOffset() const
   {
     double res = 0;
     for (size_t i = 0; i < m_pat.size() / 2; ++i)
@@ -89,7 +101,7 @@ namespace graphics
     return res;
   }
 
-  bool PenInfo::atDashOffset(double offset) const
+  bool Pen::Info::atDashOffset(double offset) const
   {
     double nextDashStart = 0;
     for (size_t i = 0; i < m_pat.size() / 2; ++i)
@@ -105,7 +117,7 @@ namespace graphics
     return false;
   }
 
-  m2::PointU const PenInfo::patternSize() const
+  m2::PointU const Pen::Info::resourceSize() const
   {
     if (m_isSolid)
       return m2::PointU(static_cast<uint32_t>(ceil(m_w / 2)) * 2 + 4,
@@ -117,22 +129,226 @@ namespace graphics
     }
   }
 
-  bool operator < (PenInfo const & l, PenInfo const & r)
+  Resource * Pen::Info::createResource(m2::RectU const & texRect,
+                                       uint8_t pipelineID) const
   {
-    if (l.m_isSolid != r.m_isSolid)
-      return l.m_isSolid < r.m_isSolid;
-    if (l.m_color != r.m_color)
-      return l.m_color < r.m_color;
-    if (l.m_w != r.m_w)
-      return l.m_w < r.m_w;
-    if (l.m_offset != r.m_offset)
-      return l.m_offset < r.m_offset;
-    if (l.m_pat.size() != r.m_pat.size())
-      return l.m_pat.size() < r.m_pat.size();
-    for (size_t i = 0; i < l.m_pat.size(); ++i)
-      if (l.m_pat[i] != r.m_pat[i])
-        return l.m_pat[i] < r.m_pat[i];
+    return new Pen(false,
+                   texRect,
+                   pipelineID,
+                   *this);
+  }
+
+  bool Pen::Info::lessThan(Resource::Info const * r) const
+  {
+    if (m_category != r->m_category)
+      return m_category < r->m_category;
+
+    Info const * rp = static_cast<Info const *>(r);
+
+    if (m_isSolid != rp->m_isSolid)
+      return m_isSolid < rp->m_isSolid;
+    if (m_color != rp->m_color)
+      return m_color < rp->m_color;
+    if (m_w != rp->m_w)
+      return m_w < rp->m_w;
+    if (m_offset != rp->m_offset)
+      return m_offset < rp->m_offset;
+    if (m_pat.size() != rp->m_pat.size())
+      return m_pat.size() < rp->m_pat.size();
+    for (size_t i = 0; i < m_pat.size(); ++i)
+      if (m_pat[i] != rp->m_pat[i])
+        return m_pat[i] < rp->m_pat[i];
 
     return false;
   }
+
+  Pen::Pen(bool isWrapped,
+           m2::RectU const & texRect,
+           int pipelineID,
+           Info const & info)
+  : Resource(EPen, texRect, pipelineID),
+    m_info(info),
+    m_isWrapped(isWrapped),
+    m_isSolid(info.m_isSolid)
+  {
+    if (m_isSolid)
+      m_borderColorPixel = m_centerColorPixel = m2::PointU(texRect.minX() + 1, texRect.minY() + 1);
+    else
+    {
+      double firstDashOffset = info.firstDashOffset();
+      m_centerColorPixel = m2::PointU(static_cast<uint32_t>(firstDashOffset + texRect.minX() + 3),
+                                      static_cast<uint32_t>(texRect.minY() + texRect.SizeY() / 2.0));
+      m_borderColorPixel = m2::PointU(static_cast<uint32_t>(firstDashOffset + texRect.minX() + 3),
+                                    static_cast<uint32_t>(texRect.minY() + 1));
+    }
+  }
+
+  double Pen::geometryTileLen() const
+  {
+    return m_texRect.SizeX() - 2;
+  }
+
+  double Pen::geometryTileWidth() const
+  {
+    return m_texRect.SizeY() - 2;
+  }
+
+  double Pen::rawTileLen() const
+  {
+    return m_texRect.SizeX() - 4;
+  }
+
+  double Pen::rawTileWidth() const
+  {
+    return m_texRect.SizeY() - 4;
+  }
+
+  void Pen::render(void * dst)
+  {
+    Info const & info = m_info;
+    m2::RectU const & rect = m_texRect;
+
+    DATA_TRAITS::view_t v = gil::interleaved_view(rect.SizeX(),
+                                                  rect.SizeY(),
+                                                  (DATA_TRAITS::pixel_t*)dst,
+                                                  sizeof(DATA_TRAITS::pixel_t) * rect.SizeX());
+
+    graphics::Color penColor = info.m_color;
+
+    penColor /= DATA_TRAITS::channelScaleFactor;
+
+    DATA_TRAITS::pixel_t penColorTranslucent;
+
+    gil::get_color(penColorTranslucent, gil::red_t()) = penColor.r;
+    gil::get_color(penColorTranslucent, gil::green_t()) = penColor.g;
+    gil::get_color(penColorTranslucent, gil::blue_t()) = penColor.b;
+    gil::get_color(penColorTranslucent, gil::alpha_t()) = 0;
+
+    DATA_TRAITS::pixel_t pxPenColor = penColorTranslucent;
+    gil::get_color(pxPenColor, gil::alpha_t()) = penColor.a;
+
+    if (info.m_isSolid)
+    {
+      /// draw circle
+      agg::rendering_buffer buf(
+          (unsigned char *)&v(0, 0),
+          rect.SizeX(),
+          rect.SizeY(),
+          rect.SizeX() * sizeof(DATA_TRAITS::pixel_t)
+          );
+
+      typedef AggTraits<DATA_TRAITS>::pixfmt_t agg_pixfmt_t;
+
+      agg_pixfmt_t pixfmt(buf);
+      agg::renderer_base<agg_pixfmt_t> rbase(pixfmt);
+
+      gil::fill_pixels(v, penColorTranslucent);
+
+      agg::scanline_u8 s;
+      agg::rasterizer_scanline_aa<> rasterizer;
+      if (info.m_w > 2)
+      {
+        agg::ellipse ell;
+        float r = ceil(info.m_w) / 2.0;
+        ell.init(r + 2, r + 2, r, r, 100);
+        rasterizer.add_path(ell);
+
+        agg::render_scanlines_aa_solid(rasterizer,
+                                       s,
+                                       rbase,
+                                       agg::rgba8(info.m_color.r,
+                                                  info.m_color.g,
+                                                  info.m_color.b,
+                                                  info.m_color.a));
+
+        uint32_t ri = static_cast<uint32_t>(r);
+
+        /// pixels that are used to texture inner part of the line should be fully opaque
+        v(2 + ri - 1, 2) = pxPenColor;
+        v(2 + ri    , 2) = pxPenColor;
+        v(2 + ri - 1, 2 + ri * 2 - 1) = pxPenColor;
+        v(2 + ri    , 2 + ri * 2 - 1) = pxPenColor;
+
+        /// in non-transparent areas - premultiply color value with alpha and make it opaque
+        for (size_t x = 2; x < v.width() - 2; ++x)
+          for (size_t y = 2; y < v.height() - 2; ++y)
+          {
+            unsigned char alpha = gil::get_color(v(x, y), gil::alpha_t());
+            if (alpha != 0)
+              v(x, y) = pxPenColor;
+          }
+      }
+      else
+      {
+        gil::fill_pixels(
+            gil::subimage_view(v, 2, 2, rect.SizeX() - 4, rect.SizeY() - 4),
+            pxPenColor
+            );
+      }
+    }
+    else
+    {
+      /// First two and last two rows of a pattern are filled
+      /// with a penColorTranslucent pixel for the antialiasing.
+      for (size_t y = 0; y < 2; ++y)
+        for (size_t x = 0; x < rect.SizeX(); ++x)
+          v(x, y) = penColorTranslucent;
+
+      for (size_t y = rect.SizeY() - 2; y < rect.SizeY(); ++y)
+        for (size_t x = 0; x < rect.SizeX(); ++x)
+          v(x, y) = penColorTranslucent;
+
+      /// first and last two pixels filled with penColorTranslucent
+      for (size_t y = 2; y < rect.SizeY() - 2; ++y)
+      {
+        v(0, y) = penColorTranslucent;
+        v(1, y) = penColorTranslucent;
+        v(rect.SizeX() - 2, y) = penColorTranslucent;
+        v(rect.SizeX() - 1, y) = penColorTranslucent;
+      }
+
+      /// draw pattern
+      for (size_t y = 2; y < rect.SizeY() - 2; ++y)
+      {
+        double curLen = 0;
+
+        DATA_TRAITS::pixel_t px = pxPenColor;
+
+        /// In general case this code is incorrect.
+        /// TODO : Make a pattern start and end with a dash.
+        uint32_t curLenI = static_cast<uint32_t>(curLen);
+
+        v(curLenI, y) = px;
+        v(curLenI + 1, y) = px;
+
+        for (size_t i = 0; i < info.m_pat.size(); ++i)
+        {
+          for (size_t j = 0; j < info.m_pat[i]; ++j)
+          {
+            uint32_t val = (i + 1) % 2;
+
+            if (val == 0)
+              gil::get_color(px, gil::alpha_t()) = 0;
+            else
+              gil::get_color(px, gil::alpha_t()) = penColor.a;
+
+            v(curLenI + j + 2, y) = px;
+          }
+
+          v(static_cast<uint32_t>(curLen + 2 + info.m_pat[i]), y) = px;
+          v(static_cast<uint32_t>(curLen + 2 + info.m_pat[i] + 1), y) = px;
+
+          curLen += info.m_pat[i];
+
+          curLenI = static_cast<uint32_t>(curLen);
+        }
+      }
+    }
+  }
+
+  Resource::Info const * Pen::info() const
+  {
+    return &m_info;
+  }
+
 }

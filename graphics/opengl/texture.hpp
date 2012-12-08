@@ -3,7 +3,7 @@
 #include "managed_texture.hpp"
 #include "data_traits.hpp"
 
-#include "../image_info.hpp"
+#include "../image.hpp"
 
 #include "../../platform/platform.hpp"
 

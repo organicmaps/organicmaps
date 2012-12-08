@@ -1,4 +1,4 @@
-#include "resource_style.hpp"
+#include "glyph.hpp"
 #include "glyph_cache.hpp"
 #include "agg_traits.hpp"
 
@@ -6,13 +6,59 @@
 
 namespace graphics
 {
-  GlyphStyle::GlyphStyle(m2::RectU const & texRect, int pipelineID, shared_ptr<GlyphInfo> const & gi)
-    : ResourceStyle(EGlyphStyle, texRect, pipelineID), m_gi(gi)
+  Glyph::Info::Info()
+    : Resource::Info(Resource::EGlyph)
   {}
 
-  void GlyphStyle::render(void * dst)
+  Glyph::Info::Info(GlyphKey const & key,
+                    GlyphCache * cache)
+    : Resource::Info(Resource::EGlyph),
+      m_key(key),
+      m_cache(cache)
   {
-    shared_ptr<GlyphInfo> const & gi = m_gi;
+    m_metrics = m_cache->getGlyphMetrics(m_key);
+  }
+
+  m2::PointU const Glyph::Info::resourceSize() const
+  {
+    return m2::PointU(m_metrics.m_width + 4,
+                      m_metrics.m_height + 4);
+  }
+
+  Resource * Glyph::Info::createResource(m2::RectU const & texRect,
+                                         uint8_t pipelineID) const
+  {
+    return new Glyph(*this,
+                     texRect,
+                     pipelineID);
+  }
+
+  bool Glyph::Info::lessThan(Resource::Info const * r) const
+  {
+    if (m_category != r->m_category)
+      return m_category < r->m_category;
+
+    Glyph::Info const * ri = static_cast<Glyph::Info const *>(r);
+
+    if (m_key != ri->m_key)
+      return m_key < ri->m_key;
+
+    return false;
+  }
+
+  Glyph::Glyph(Info const & info,
+               m2::RectU const & texRect,
+               int pipelineID)
+    : Resource(EGlyph,
+               texRect,
+               pipelineID),
+      m_info(info)
+  {
+    m_bitmap = m_info.m_cache->getGlyphBitmap(m_info.m_key);
+  }
+
+  void Glyph::render(void * dst)
+  {
     m2::RectU const & rect = m_texRect;
 
     DATA_TRAITS::view_t v = gil::interleaved_view(
@@ -22,9 +68,10 @@ namespace graphics
       );
 
     DATA_TRAITS::pixel_t pxTranslucent;
-    gil::get_color(pxTranslucent, gil::red_t()) = gi->m_color.r / DATA_TRAITS::channelScaleFactor;
-    gil::get_color(pxTranslucent, gil::green_t()) = gi->m_color.g / DATA_TRAITS::channelScaleFactor;
-    gil::get_color(pxTranslucent, gil::blue_t()) = gi->m_color.b / DATA_TRAITS::channelScaleFactor;
+
+    gil::get_color(pxTranslucent, gil::red_t()) = m_info.m_key.m_color.r / DATA_TRAITS::channelScaleFactor;
+    gil::get_color(pxTranslucent, gil::green_t()) = m_info.m_key.m_color.g / DATA_TRAITS::channelScaleFactor;
+    gil::get_color(pxTranslucent, gil::blue_t()) = m_info.m_key.m_color.b / DATA_TRAITS::channelScaleFactor;
     gil::get_color(pxTranslucent, gil::alpha_t()) = 0;
 
     for (size_t y = 0; y < 2; ++y)
@@ -43,36 +90,35 @@ namespace graphics
       v(rect.SizeX() - 1, y) = pxTranslucent;
     }
 
-    if ((gi->m_metrics.m_width != 0) && (gi->m_metrics.m_height != 0))
+    if ((m_info.m_metrics.m_width != 0)
+     && (m_info.m_metrics.m_height != 0))
     {
       gil::gray8c_view_t srcView = gil::interleaved_view(
-            gi->m_metrics.m_width,
-            gi->m_metrics.m_height,
-            (gil::gray8_pixel_t*)gi->m_bitmapData,
-            gi->m_bitmapPitch
+            m_info.m_metrics.m_width,
+            m_info.m_metrics.m_height,
+            (gil::gray8_pixel_t*)&m_bitmap->m_data[0],
+            m_bitmap->m_pitch
             );
-
-/*        DATA_TRAITS::const_view_t srcView = gil::interleaved_view(
-          gi->m_metrics.m_width,
-          gi->m_metrics.m_height,
-          (TDynamicTexture::pixel_t*)&gi->m_bitmap[0],
-          gi->m_metrics.m_width * sizeof(TDynamicTexture::pixel_t)
-          );*/
 
       DATA_TRAITS::pixel_t c;
 
-      gil::get_color(c, gil::red_t()) = gi->m_color.r / DATA_TRAITS::channelScaleFactor;
-      gil::get_color(c, gil::green_t()) = gi->m_color.g / DATA_TRAITS::channelScaleFactor;
-      gil::get_color(c, gil::blue_t()) = gi->m_color.b / DATA_TRAITS::channelScaleFactor;
-      gil::get_color(c, gil::alpha_t()) = gi->m_color.a / DATA_TRAITS::channelScaleFactor;
+      gil::get_color(c, gil::red_t()) = m_info.m_key.m_color.r / DATA_TRAITS::channelScaleFactor;
+      gil::get_color(c, gil::green_t()) = m_info.m_key.m_color.g / DATA_TRAITS::channelScaleFactor;
+      gil::get_color(c, gil::blue_t()) = m_info.m_key.m_color.b / DATA_TRAITS::channelScaleFactor;
+      gil::get_color(c, gil::alpha_t()) = m_info.m_key.m_color.a / DATA_TRAITS::channelScaleFactor;
 
       for (size_t y = 2; y < rect.SizeY() - 2; ++y)
         for (size_t x = 2; x < rect.SizeX() - 2; ++x)
          {
            gil::get_color(c, gil::alpha_t()) = srcView(x - 2, y - 2) / DATA_TRAITS::channelScaleFactor;
            v(x, y) = c;
-           gil::get_color(c, gil::alpha_t()) *= gi->m_color.a / 255.0f;
+           gil::get_color(c, gil::alpha_t()) *= m_info.m_key.m_color.a / 255.0f;
          }
     }
+  }
+
+  Resource::Info const * Glyph::info() const
+  {
+    return &m_info;
   }
 }

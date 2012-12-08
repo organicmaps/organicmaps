@@ -56,11 +56,14 @@ namespace graphics
   struct GlyphCacheImpl
   {
     FT_Library m_lib;
-    FT_Stroker m_stroker; //< stroker, used to produce stroked glyph outlines
+    FT_Stroker m_glyphStroker; //< stroker, used to produce stroked glyph outlines
+    FT_Stroker m_metricsStroker;
 
     FTC_Manager m_manager; //< freetype cache manager for all caches
 
-    FTC_ImageCache m_glyphMetricsCache; //< glyph metrics cache
+    FTC_ImageCache m_normalMetricsCache; //< cache of normal glyph metrics
+    FTC_ImageCache m_strokedMetricsCache; //< cache of stroked glyph metrics
+
     FTC_ImageCache m_normalGlyphCache; //< cache of normal glyph images
     FTC_ImageCache m_strokedGlyphCache; //< cache of stroked glyph images
 
@@ -86,7 +89,7 @@ namespace graphics
     int getCharIDX(shared_ptr<Font> const & font, strings::UniChar symbolCode);
     pair<Font*, int> const getCharIDX(GlyphKey const & key);
     GlyphMetrics const getGlyphMetrics(GlyphKey const & key);
-    shared_ptr<GlyphInfo> const getGlyphInfo(GlyphKey const & key);
+    shared_ptr<GlyphBitmap> const getGlyphBitmap(GlyphKey const & key);
 
     GlyphCacheImpl(GlyphCache::Params const & params);
     ~GlyphCacheImpl();

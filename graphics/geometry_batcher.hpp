@@ -124,8 +124,6 @@ namespace graphics
     void clear(Color const & c, bool clearRT = true, float depth = 1.0, bool clearDepth = true);
     /// @}
 
-    void setRenderTarget(shared_ptr<RenderTarget> const & rt);
-
     void addTexturedFan(m2::PointF const * coords,
                         m2::PointF const * normals,
                         m2::PointF const * texCoords,
@@ -214,9 +212,9 @@ namespace graphics
     void setDisplayList(DisplayList * dl);
     void drawDisplayList(DisplayList * dl, math::Matrix<double, 3, 3> const & m);
 
-    void uploadStyles(shared_ptr<ResourceStyle> const * styles,
-                      size_t count,
-                      shared_ptr<gl::BaseTexture> const & texture);
+    void uploadResources(shared_ptr<Resource> const * resources,
+                         size_t count,
+                         shared_ptr<gl::BaseTexture> const & texture);
 
     void applyStates();
     void applyBlitStates();

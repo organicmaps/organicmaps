@@ -82,7 +82,7 @@ namespace graphics
     m_discardStorageCmd.push_back(cmd);
   }
 
-  void DisplayList::uploadStyles(shared_ptr<UploadDataCmd> const & cmd)
+  void DisplayList::uploadResources(shared_ptr<UploadDataCmd> const & cmd)
   {
     cmd->setIsDebugging(m_isDebugging);
     m_parent->processCommand(cmd);

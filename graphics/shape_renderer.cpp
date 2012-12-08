@@ -1,7 +1,8 @@
 #include "shape_renderer.hpp"
 #include "skin.hpp"
-#include "pen_info.hpp"
-#include "resource_style.hpp"
+#include "pen.hpp"
+#include "brush.hpp"
+#include "resource.hpp"
 #include "resource_cache.hpp"
 
 #include "opengl/base_texture.hpp"
@@ -18,15 +19,15 @@ namespace graphics
 
   void ShapeRenderer::drawConvexPolygon(m2::PointF const * pts, size_t ptsCount, graphics::Color const & color, double depth)
   {
-    uint32_t styleID = skin()->mapColor(color);
+    uint32_t resID = skin()->map(Brush::Info(color));
 
-    if (styleID == skin()->invalidHandle())
+    if (resID == skin()->invalidHandle())
     {
       LOG(LINFO, ("cannot map color"));
       return;
     }
 
-    drawTrianglesFan(pts, ptsCount, styleID, depth);
+    drawTrianglesFan(pts, ptsCount, resID, depth);
   }
 
   void ShapeRenderer::drawArc(m2::PointD const & center, double startA, double endA, double r, graphics::Color const & c, double depth)
@@ -37,7 +38,7 @@ namespace graphics
     if (pts.size() < 2)
       return;
 
-    drawPath(&pts[0], pts.size(), 0, skin()->mapPenInfo(graphics::PenInfo(c, 3, 0, 0, 0)), depth);
+    drawPath(&pts[0], pts.size(), 0, skin()->map(graphics::Pen::Info(c, 3, 0, 0, 0)), depth);
   }
 
   void ShapeRenderer::approximateArc(m2::PointD const & center, double startA, double endA, double r, vector<m2::PointD> & pts)
@@ -61,7 +62,7 @@ namespace graphics
     if (pts.size() < 3)
       return;
 
-    drawPath(&pts[0], pts.size(), 0, skin()->mapPenInfo(graphics::PenInfo(c, 2, 0, 0, 0)), depth);
+    drawPath(&pts[0], pts.size(), 0, skin()->map(graphics::Pen::Info(c, 2, 0, 0, 0)), depth);
   }
 
   void ShapeRenderer::fillSector(m2::PointD const & center, double startA, double endA, double r, graphics::Color const & c, double depth)
@@ -87,14 +88,14 @@ namespace graphics
       pt1 = arcPts[i];
     }
 
-    drawTrianglesList(&sectorPts[0], sectorPts.size(), skin()->mapColor(c), depth);
+    drawTrianglesList(&sectorPts[0], sectorPts.size(), skin()->map(Brush::Info(c)), depth);
   }
 
   void ShapeRenderer::drawRectangle(m2::AnyRectD const & r, graphics::Color const & c, double depth)
   {
-    ResourceStyle const * style = skin()->fromID(skin()->mapColor(c));
+    Resource const * res = skin()->fromID(skin()->map(Brush::Info(c)));
 
-    if (style == 0)
+    if (res == 0)
     {
       LOG(LINFO, ("cannot map color"));
       return;
@@ -109,7 +110,7 @@ namespace graphics
     for (int i = 0; i < 4; ++i)
       rectPtsF[i] = m2::PointF(rectPts[i].x, rectPts[i].y);
 
-    shared_ptr<gl::BaseTexture> texture = skin()->page(style->m_pipelineID)->texture();
+    shared_ptr<gl::BaseTexture> texture = skin()->page(res->m_pipelineID)->texture();
 
     if (!texture)
     {
@@ -117,7 +118,7 @@ namespace graphics
       return;
     }
 
-    m2::PointF texPt = texture->mapPixel(m2::RectF(style->m_texRect).Center());
+    m2::PointF texPt = texture->mapPixel(m2::RectF(res->m_texRect).Center());
 
     m2::PointF normal(0, 0);
 
@@ -130,14 +131,14 @@ namespace graphics
           0,
           4,
           depth,
-          style->m_pipelineID);
+          res->m_pipelineID);
   }
 
   void ShapeRenderer::drawRectangle(m2::RectD const & r, graphics::Color const & c, double depth)
   {
-    ResourceStyle const * style = skin()->fromID(skin()->mapColor(c));
+    Resource const * res = skin()->fromID(skin()->map(Brush::Info(c)));
 
-    if (style == 0)
+    if (res == 0)
     {
       LOG(LINFO, ("cannot map color"));
       return;
@@ -150,7 +151,7 @@ namespace graphics
       m2::PointF(r.maxX(), r.maxY())
     };
 
-    shared_ptr<gl::BaseTexture> texture = skin()->page(style->m_pipelineID)->texture();
+    shared_ptr<gl::BaseTexture> texture = skin()->page(res->m_pipelineID)->texture();
 
     if (!texture)
     {
@@ -158,7 +159,7 @@ namespace graphics
       return;
     }
 
-    m2::PointF texPt = texture->mapPixel(m2::RectF(style->m_texRect).Center());
+    m2::PointF texPt = texture->mapPixel(m2::RectF(res->m_texRect).Center());
 
     m2::PointF normal(0, 0);
 
@@ -171,21 +172,21 @@ namespace graphics
           0,
           4,
           depth,
-          style->m_pipelineID
+          res->m_pipelineID
           );
   }
 
   void ShapeRenderer::drawRoundedRectangle(m2::RectD const & r, double rad, graphics::Color const & c, double depth)
   {
-    ResourceStyle const * style = skin()->fromID(skin()->mapColor(c));
+    Resource const * res = skin()->fromID(skin()->map(Brush::Info(c)));
 
-    if (style == 0)
+    if (res == 0)
     {
       LOG(LINFO, ("cannot map color"));
       return;
     }
 
-    shared_ptr<gl::BaseTexture> texture = skin()->page(style->m_pipelineID)->texture();
+    shared_ptr<gl::BaseTexture> texture = skin()->page(res->m_pipelineID)->texture();
 
     if (!texture)
     {
@@ -193,7 +194,7 @@ namespace graphics
       return;
     }
 
-    m2::PointF texPt = texture->mapPixel(m2::RectF(style->m_texRect).Center());
+    m2::PointF texPt = texture->mapPixel(m2::RectF(res->m_texRect).Center());
 
     vector<m2::PointD> seg00;
     vector<m2::PointD> seg10;
@@ -249,7 +250,7 @@ namespace graphics
           0,
           pts.size(),
           depth,
-          style->m_pipelineID
+          res->m_pipelineID
           );
   }
 }

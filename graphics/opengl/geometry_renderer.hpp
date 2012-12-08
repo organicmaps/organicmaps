@@ -12,7 +12,7 @@
 
 namespace graphics
 {
-  struct ResourceStyle;
+  struct Resource;
 
   namespace gl
   {
@@ -26,11 +26,11 @@ namespace graphics
 
       struct UploadData : public Command
       {
-        vector<shared_ptr<ResourceStyle> > m_uploadQueue;
+        vector<shared_ptr<Resource> > m_uploadQueue;
         shared_ptr<BaseTexture> m_texture;
 
         UploadData();
-        UploadData(shared_ptr<ResourceStyle> const * styles,
+        UploadData(shared_ptr<Resource> const * styles,
                    size_t count,
                    shared_ptr<BaseTexture> const & texture);
 
@@ -131,9 +131,9 @@ namespace graphics
                         size_t indicesOffs,
                         EPrimitives primType);
 
-      void uploadStyles(shared_ptr<ResourceStyle> const * styles,
-                        size_t count,
-                        shared_ptr<BaseTexture> const & texture);
+      void uploadResources(shared_ptr<Resource> const * styles,
+                           size_t count,
+                           shared_ptr<BaseTexture> const & texture);
 
       void freeTexture(shared_ptr<BaseTexture> const & texture, TTexturePool * texturePool);
       void freeStorage(Storage const & storage, TStoragePool * storagePool);

@@ -22,26 +22,12 @@ namespace graphics
     int m_height;
   };
 
-  /// full info about single glyph
-  struct GlyphInfo
+  struct GlyphBitmap
   {
-  private:
-
-    /// copying is prohibited
-    GlyphInfo(GlyphInfo const &);
-    GlyphInfo & operator=(GlyphInfo const &);
-
-  public:
-
-    GlyphMetrics m_metrics;
-    graphics::Color m_color;
-
-    /// glyph bitmap in 8bpp grayscale format
-    unsigned char * m_bitmapData;
-    int m_bitmapPitch;
-
-    GlyphInfo();
-    virtual ~GlyphInfo();
+    unsigned m_width;
+    unsigned m_height;
+    unsigned m_pitch;
+    vector<unsigned char> m_data;
   };
 
   struct GlyphKey
@@ -53,12 +39,17 @@ namespace graphics
     /// as it's used for fixed fonts only, the color doesn't matter
     /// @TODO REMOVE IT!!! All chars are already 32bit
     uint32_t toUInt32() const;
-    GlyphKey(strings::UniChar symbolCode, int fontSize, bool isMask, graphics::Color const & color);
+    GlyphKey(strings::UniChar symbolCode,
+             int fontSize,
+             bool isMask,
+             Color const & color);
+    GlyphKey();
   };
 
   struct Font;
 
   bool operator<(GlyphKey const & l, GlyphKey const & r);
+  bool operator!=(GlyphKey const & l, GlyphKey const & r);
 
   struct GlyphCacheImpl;
 
@@ -93,7 +84,7 @@ namespace graphics
 
     pair<Font*, int> getCharIDX(GlyphKey const & key);
 
-    shared_ptr<GlyphInfo> const getGlyphInfo(GlyphKey const & key);
+    shared_ptr<GlyphBitmap> const getGlyphBitmap(GlyphKey const & key);
     /// return control box(could be slightly larger than the precise bound box).
     GlyphMetrics const getGlyphMetrics(GlyphKey const & key);
 

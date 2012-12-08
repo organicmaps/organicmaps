@@ -7,6 +7,8 @@
 
 #include "../graphics/display_list.hpp"
 #include "../graphics/skin.hpp"
+#include "../graphics/brush.hpp"
+#include "../graphics/pen.hpp"
 
 #include "../anim/controller.hpp"
 #include "../anim/angle_interpolation.hpp"
@@ -240,7 +242,7 @@ namespace location
 
     graphics::Color const borderColor = color(state);
 
-    uint32_t penStyle = skin->mapPenInfo(graphics::PenInfo(borderColor, 1 * k, 0, 0, 0));
+    uint32_t penStyle = skin->map(graphics::Pen::Info(borderColor, 1 * k, 0, 0, 0));
 
     cacheScreen->drawPath(ptsD, ARRAY_SIZE(ptsD), 0, penStyle, depth());
 
@@ -278,10 +280,10 @@ namespace location
                                            min(255, (baseColor.b * 5) >> 2),
                                            baseColor.a);
     cacheScreen->drawTrianglesList(&pts[0], 3,
-                                   skin->mapColor(baseColor),
+                                   skin->map(graphics::Brush::Info(baseColor)),
                                    depth());
     cacheScreen->drawTrianglesList(&pts[1], 3,
-                                   skin->mapColor(lightColor),
+                                   skin->map(graphics::Brush::Info(lightColor)),
                                    depth());
 
     cacheScreen->setDisplayList(0);

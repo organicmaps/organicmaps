@@ -24,8 +24,21 @@ namespace gil = boost::gil;
 
 namespace graphics
 {
-  GlyphKey::GlyphKey(strings::UniChar symbolCode, int fontSize, bool isMask, graphics::Color const & color)
-    : m_symbolCode(symbolCode), m_fontSize(fontSize), m_isMask(isMask), m_color(color)
+  GlyphKey::GlyphKey(strings::UniChar symbolCode,
+                     int fontSize,
+                     bool isMask,
+                     Color const & color)
+    : m_symbolCode(symbolCode),
+      m_fontSize(fontSize),
+      m_isMask(isMask),
+      m_color(color)
+  {}
+
+  GlyphKey::GlyphKey()
+    : m_symbolCode(0),
+      m_fontSize(),
+      m_isMask(),
+      m_color()
   {}
 
   uint32_t GlyphKey::toUInt32() const
@@ -46,28 +59,13 @@ namespace graphics
     return l.m_color < r.m_color;
   }
 
-  GlyphInfo::GlyphInfo()
+  bool operator!=(GlyphKey const & l, GlyphKey const & r)
   {
+    return (l.m_symbolCode != r.m_symbolCode)
+        || (l.m_fontSize != r.m_fontSize)
+        || (l.m_isMask != r.m_isMask)
+        || (l.m_color != r.m_color);
   }
-
-  GlyphInfo::~GlyphInfo()
-  {
-  }
-
-  struct FTGlyphInfo : public GlyphInfo
-  {
-    FTC_Node m_node;
-    FTC_Manager m_manager;
-
-    FTGlyphInfo(FTC_Node node, FTC_Manager manager)
-      : m_node(node), m_manager(manager)
-    {}
-
-    ~FTGlyphInfo()
-    {
-      FTC_Node_Unref(m_node, m_manager);
-    }
-  };
 
   GlyphCache::Params::Params(string const & blocksFile, string const & whiteListFile, string const & blackListFile, size_t maxSize, bool isDebugging)
     : m_blocksFile(blocksFile), m_whiteListFile(whiteListFile), m_blackListFile(blackListFile), m_maxSize(maxSize), m_isDebugging(isDebugging)
@@ -100,9 +98,9 @@ namespace graphics
     return m_impl->getGlyphMetrics(key);
   }
 
-  shared_ptr<GlyphInfo> const GlyphCache::getGlyphInfo(GlyphKey const & key)
+  shared_ptr<GlyphBitmap> const GlyphCache::getGlyphBitmap(GlyphKey const & key)
   {
-    return m_impl->getGlyphInfo(key);
+    return m_impl->getGlyphBitmap(key);
   }
 
   double GlyphCache::getTextLength(double fontSize, string const & text)

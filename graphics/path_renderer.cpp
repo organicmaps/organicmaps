@@ -1,5 +1,6 @@
 #include "path_renderer.hpp"
-#include "resource_style.hpp"
+#include "resource.hpp"
+#include "pen.hpp"
 #include "skin.hpp"
 #include "resource_cache.hpp"
 
@@ -20,7 +21,7 @@ namespace graphics
       m_fastSolidPath(params.m_fastSolidPath)
   {}
 
-  void PathRenderer::drawPath(m2::PointD const * points, size_t pointsCount, double offset, uint32_t styleID, double depth)
+  void PathRenderer::drawPath(m2::PointD const * points, size_t pointsCount, double offset, uint32_t resID, double depth)
   {
     ++m_pathCount;
     m_pointsCount += pointsCount;
@@ -29,29 +30,29 @@ namespace graphics
       return;
 
     ASSERT_GREATER_OR_EQUAL(pointsCount, 2, ());
-    ASSERT_NOT_EQUAL(styleID, uint32_t(-1), ());
+    ASSERT_NOT_EQUAL(resID, uint32_t(-1), ());
 
-    ResourceStyle const * style(skin()->fromID(styleID));
-    if (style == 0)
+    Resource const * res(skin()->fromID(resID));
+    if (res == 0)
     {
-      LOG(LINFO, ("drawPath: styleID=", styleID, " wasn't found on current skin"));
+      LOG(LINFO, ("drawPath: resID=", resID, " wasn't found on current skin"));
       return;
     }
 
-    ASSERT(style->m_cat == ResourceStyle::ELineStyle, ());
+    ASSERT(res->m_cat == Resource::EPen, ());
 
-    LineStyle const * lineStyle = static_cast<LineStyle const *>(style);
-    if (m_fastSolidPath && lineStyle->m_isSolid)
+    Pen const * pen = static_cast<Pen const *>(res);
+    if (m_fastSolidPath && pen->m_isSolid)
     {
-      drawFastSolidPath(points, pointsCount, styleID, depth);
+      drawFastSolidPath(points, pointsCount, resID, depth);
       return;
     }
 
     float rawTileStartLen = 0;
 
-    float rawTileLen = (float)lineStyle->rawTileLen();
+    float rawTileLen = (float)pen->rawTileLen();
 
-    if ((offset < 0) && (!lineStyle->m_isWrapped))
+    if ((offset < 0) && (!pen->m_isWrapped))
       offset = offset - rawTileLen * ceil(offset / rawTileLen);
 
     bool skipToOffset = true;
@@ -80,7 +81,7 @@ namespace graphics
       }
 
       /// Geometry width. It's 1px wider than the pattern width.
-      int geomWidth = static_cast<int>(lineStyle->m_penInfo.m_w) + 4 - 2 * aaShift();
+      int geomWidth = static_cast<int>(pen->m_info.m_w) + 4 - 2 * aaShift();
       float geomHalfWidth =  geomWidth / 2.0;
 
       /// Starting point of the tiles on this segment
@@ -94,7 +95,7 @@ namespace graphics
       /// Length of the actual pattern data being tiling(without antialiasing zones).
       rawTileLen = 0;
 
-      shared_ptr<gl::BaseTexture> texture = skin()->page(lineStyle->m_pipelineID)->texture();
+      shared_ptr<gl::BaseTexture> texture = skin()->page(pen->m_pipelineID)->texture();
 
       if (!texture)
       {
@@ -102,25 +103,25 @@ namespace graphics
         return;
       }
 
-      float texMaxY = lineStyle->m_texRect.maxY() - aaShift();
-      float texMinY = lineStyle->m_texRect.minY() + aaShift();
+      float texMaxY = pen->m_texRect.maxY() - aaShift();
+      float texMinY = pen->m_texRect.minY() + aaShift();
 
       m2::PointF const fNorm = norm * geomHalfWidth;  // enough to calc it once
 
       while (segLenRemain > 0)
       {
-        rawTileLen = lineStyle->m_isWrapped
+        rawTileLen = pen->m_isWrapped
             ? segLen
-            : std::min(((float)lineStyle->rawTileLen() - rawTileStartLen), segLenRemain);
+            : std::min(((float)pen->rawTileLen() - rawTileStartLen), segLenRemain);
 
 
-        float texMinX = lineStyle->m_isWrapped ? 0 : lineStyle->m_texRect.minX() + 2 + rawTileStartLen;
+        float texMinX = pen->m_isWrapped ? 0 : pen->m_texRect.minX() + 2 + rawTileStartLen;
         float texMaxX = texMinX + rawTileLen;
 
         rawTileStartLen += rawTileLen;
-        if (rawTileStartLen >= lineStyle->rawTileLen())
-          rawTileStartLen -= lineStyle->rawTileLen();
-        ASSERT(rawTileStartLen < lineStyle->rawTileLen(), ());
+        if (rawTileStartLen >= pen->rawTileLen())
+          rawTileStartLen -= pen->rawTileLen();
+        ASSERT(rawTileStartLen < pen->rawTileLen(), ());
 
         m2::PointF rawTileEndPt(rawTileStartPt.x + dir.x * rawTileLen, rawTileStartPt.y + dir.y * rawTileLen);
 
@@ -149,14 +150,19 @@ namespace graphics
           m2::PointF(0, 0)
         };
 
-        addTexturedFan(coords, normals, texCoords, 4, depth, lineStyle->m_pipelineID);
+        addTexturedFan(coords,
+                       normals,
+                       texCoords,
+                       4,
+                       depth,
+                       pen->m_pipelineID);
 
         segLenRemain -= rawTileLen;
 
         rawTileStartPt = rawTileEndPt;
       }
 
-      bool isColorJoin = lineStyle->m_isSolid ? true : lineStyle->m_penInfo.atDashOffset(rawTileLen);
+      bool isColorJoin = pen->m_isSolid ? true : pen->m_info.atDashOffset(rawTileLen);
 
       /// Adding geometry for a line join between previous and current segment.
       if ((i != pointsCount - 2) && (isColorJoin))
@@ -185,7 +191,7 @@ namespace graphics
           startVec = norm;
         }
 
-        shared_ptr<gl::BaseTexture> texture = skin()->page(lineStyle->m_pipelineID)->texture();
+        shared_ptr<gl::BaseTexture> texture = skin()->page(pen->m_pipelineID)->texture();
 
         if (!texture)
         {
@@ -195,9 +201,9 @@ namespace graphics
 
         m2::PointF joinSegTex[3] =
         {
-          texture->mapPixel(lineStyle->m_centerColorPixel),
-          texture->mapPixel(lineStyle->m_borderColorPixel),
-          texture->mapPixel(lineStyle->m_borderColorPixel)
+          texture->mapPixel(pen->m_centerColorPixel),
+          texture->mapPixel(pen->m_borderColorPixel),
+          texture->mapPixel(pen->m_borderColorPixel)
         };
 
         m2::PointD prevStartVec = startVec;
@@ -221,7 +227,12 @@ namespace graphics
             m2::PointF(0, 0)
           };
 
-          addTexturedFan(joinSeg, joinSegNormals, joinSegTex, 3, depth, lineStyle->m_pipelineID);
+          addTexturedFan(joinSeg,
+                         joinSegNormals,
+                         joinSegTex,
+                         3,
+                         depth,
+                         pen->m_pipelineID);
 
           prevStartVec = startVec;
         }
@@ -229,15 +240,15 @@ namespace graphics
     }
   }
 
-  void PathRenderer::drawFastSolidPath(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth)
+  void PathRenderer::drawFastSolidPath(m2::PointD const * points, size_t pointsCount, uint32_t resID, double depth)
   {
     ASSERT_GREATER_OR_EQUAL(pointsCount, 2, ());
-    ResourceStyle const * style(skin()->fromID(styleID));
+    Resource const * res(skin()->fromID(resID));
 
-    ASSERT(style->m_cat == ResourceStyle::ELineStyle, ());
-    LineStyle const * lineStyle = static_cast<LineStyle const *>(style);
+    ASSERT(res->m_cat == Resource::EPen, ());
+    Pen const * pen = static_cast<Pen const *>(res);
 
-    ASSERT(lineStyle->m_isSolid, ());
+    ASSERT(pen->m_isSolid, ());
 
     for (size_t i = 0; i < pointsCount - 1; ++i)
     {
@@ -247,13 +258,13 @@ namespace graphics
       m2::PointD norm(-dir.y, dir.x);
       m2::PointD const & nextPt = points[i + 1];
 
-      float geomHalfWidth = (lineStyle->m_penInfo.m_w + 4 - aaShift() * 2) / 2.0;
+      float geomHalfWidth = (pen->m_info.m_w + 4 - aaShift() * 2) / 2.0;
 
-      float texMinX = lineStyle->m_texRect.minX() + 1;
-      float texMaxX = lineStyle->m_texRect.maxX() - 1;
+      float texMinX = pen->m_texRect.minX() + 1;
+      float texMaxX = pen->m_texRect.maxX() - 1;
 
-      float texMinY = lineStyle->m_texRect.maxY() - aaShift();
-      float texMaxY = lineStyle->m_texRect.minY() + aaShift();
+      float texMinY = pen->m_texRect.maxY() - aaShift();
+      float texMaxY = pen->m_texRect.minY() + aaShift();
 
       float texCenterX = (texMinX + texMaxX) / 2;
 
@@ -275,7 +286,7 @@ namespace graphics
         nextPt + fDir - fNorm
       };
 
-      shared_ptr<gl::BaseTexture> texture = skin()->page(lineStyle->m_pipelineID)->texture();
+      shared_ptr<gl::BaseTexture> texture = skin()->page(pen->m_pipelineID)->texture();
 
       if (!texture)
       {
@@ -302,7 +313,7 @@ namespace graphics
                               texCoords, sizeof(m2::PointF),
                               8,
                               depth,
-                              lineStyle->m_pipelineID);
+                              pen->m_pipelineID);
     }
   }
 

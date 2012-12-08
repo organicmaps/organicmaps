@@ -4,7 +4,8 @@
 #include "resource_cache.hpp"
 #include "resource_manager.hpp"
 #include "overlay_renderer.hpp"
-#include "resource_style.hpp"
+#include "glyph.hpp"
+#include "resource.hpp"
 
 #include "../base/logging.hpp"
 
@@ -106,8 +107,8 @@ namespace graphics
                         fontDesc.m_size,
                         fontDesc.m_isMasked,
                         fontDesc.m_isMasked ? fontDesc.m_maskColor : fontDesc.m_color);
-      uint32_t const glyphID = skin->mapGlyph(glyphKey, screen->glyphCache());
-      GlyphStyle const * glyphStyle = static_cast<GlyphStyle const *>(skin->fromID(glyphID));
+      uint32_t const glyphID = skin->map(Glyph::Info(glyphKey, screen->glyphCache()));
+      Glyph const * glyph = static_cast<Glyph const *>(skin->fromID(glyphID));
 
       m2::PointD glyphPt;
       ang::AngleD glyphAngle;
@@ -120,14 +121,14 @@ namespace graphics
         offsPt.x -= fullPt.x - floor(fullPt.x);
         offsPt.y -= fullPt.y - floor(fullPt.y);
 
-        screen->drawStraightGlyph(pv, offsPt, glyphStyle, depth);
+        screen->drawStraightGlyph(pv, offsPt, glyph, depth);
       }
       else
       {
         glyphPt = (pv + offs + elem.m_pt) * m;
         glyphAngle = ang::AngleD(elem.m_angle.val() + deltaA);
 
-        screen->drawGlyph(glyphPt, m2::PointD(0.0, 0.0), glyphAngle, 0, glyphStyle, depth);
+        screen->drawGlyph(glyphPt, m2::PointD(0.0, 0.0), glyphAngle, 0, glyph, depth);
       }
     }
   }

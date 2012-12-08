@@ -60,17 +60,17 @@ namespace graphics
 
   }
 
-  void DisplayListRenderer::uploadStyles(shared_ptr<ResourceStyle> const * styles,
-                                         size_t count,
-                                         shared_ptr<gl::BaseTexture> const & texture)
+  void DisplayListRenderer::uploadResources(shared_ptr<Resource> const * resources,
+                                            size_t count,
+                                            shared_ptr<gl::BaseTexture> const & texture)
   {
     if (isCancelled())
       return;
 
     if (m_displayList)
-      m_displayList->uploadStyles(make_shared_ptr(new UploadData(styles, count, texture)));
+      m_displayList->uploadResources(make_shared_ptr(new UploadData(resources, count, texture)));
     else
-      base_t::uploadStyles(styles, count, texture);
+      base_t::uploadResources(resources, count, texture);
   }
 
   void DisplayListRenderer::freeTexture(shared_ptr<gl::BaseTexture> const & texture,

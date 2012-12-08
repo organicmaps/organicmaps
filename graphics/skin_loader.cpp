@@ -1,8 +1,9 @@
 #include "skin.hpp"
 #include "skin_loader.hpp"
 #include "resource_manager.hpp"
-#include "resource_style.hpp"
 #include "resource_cache.hpp"
+#include "resource.hpp"
+#include "icon.hpp"
 
 #include "../base/string_utils.hpp"
 
@@ -11,9 +12,6 @@ namespace graphics
   SkinLoader::SkinLoader(shared_ptr<ResourceManager> const & resourceManager)
     : m_id(-1),
     m_texRect(0, 0, 0, 0),
-    m_xOffset(0),
-    m_yOffset(0),
-    m_xAdvance(0),
     m_fileName(""),
     m_resourceManager(resourceManager),
     m_skin(0)
@@ -21,51 +19,60 @@ namespace graphics
     m_mode.push_back(ERoot);
   }
 
-  void SkinLoader::pushResourceStyle()
+  void SkinLoader::pushResource()
   {
     m_texRect = m2::RectU(0, 0, 0, 0);
   }
 
-  void SkinLoader::popResourceStyle()
+  void SkinLoader::popResource()
   {
-    m_texRect = m2::RectU(m_texX, m_texY, m_texX + m_texWidth, m_texY + m_texHeight);
+    m_texRect = m2::RectU(m_texX,
+                          m_texY,
+                          m_texX + m_texWidth,
+                          m_texY + m_texHeight);
   }
 
-  void SkinLoader::popPointStyle()
+  void SkinLoader::popIcon()
   {
-    uint32_t id = m_id;
-    pair<int32_t, shared_ptr<ResourceStyle> > style(
-        id, shared_ptr<PointStyle>(new PointStyle(m_texRect, m_pages.size(), m_styleID)));
-    m_stylesList.push_back(style);
+    shared_ptr<Resource> res(
+          new Icon(m_texRect, m_caches.size(), Icon::Info(m_resID)));
+
+    pair<int32_t, shared_ptr<Resource> > p(m_id, res);
+    m_resourceList.push_back(p);
   }
 
   void SkinLoader::pushPage()
   {
-    m_stylesList.clear();
+    m_resourceList.clear();
   }
 
   void SkinLoader::popPage()
   {
-    m_pages.push_back(make_shared_ptr(new ResourceCache(m_resourceManager, m_fileName.c_str(), m_pages.size())));
+    m_caches.push_back(make_shared_ptr(new ResourceCache(m_resourceManager, m_fileName.c_str(), m_caches.size())));
 
-    TStylesList::iterator prevIt = m_stylesList.end();
+    TResourceList::iterator prevIt = m_resourceList.end();
 
-    for (TStylesList::iterator it = m_stylesList.begin(); it != m_stylesList.end(); ++it)
+    for (TResourceList::iterator it = m_resourceList.begin();
+         it != m_resourceList.end();
+         ++it)
     {
-      m_pages.back()->m_styles[it->first] = it->second;
+      m_caches.back()->m_resources[it->first] = it->second;
 
-      if (it->second->m_cat == ResourceStyle::EPointStyle)
-        m_pages.back()->m_pointNameMap[static_cast<PointStyle*>(it->second.get())->m_styleName] = it->first;
+      if (it->second->m_cat == Resource::EIcon)
+      {
+        Icon * icon = static_cast<Icon*>(it->second.get());
+        m_caches.back()->m_infos[&icon->m_info] = it->first;
+      }
 
-      if (prevIt != m_stylesList.end())
-        m_stylesList.erase(prevIt);
+      if (prevIt != m_resourceList.end())
+        m_resourceList.erase(prevIt);
       prevIt = it;
     }
   }
 
   void SkinLoader::popSkin()
   {
-    m_skin = new Skin(m_resourceManager, m_pages);
+    m_skin = new Skin(m_resourceManager, m_caches);
   }
 
 #define PUSH_MODE(mode, name) \
@@ -95,9 +102,8 @@ namespace graphics
   {
     PUSH_MODE(ESkin, "skin");
     PUSH_MODE_EX(EPage, "page", pushPage);
-    PUSH_MODE(EPointStyle, "symbolStyle");
-    PUSH_MODE(ELineStyle, "lineStyle");
-    PUSH_MODE_EX(EResourceStyle, "resourceStyle", pushResourceStyle);
+    PUSH_MODE(EIcon, "symbolStyle");
+    PUSH_MODE_EX(EResource, "resourceStyle", pushResource);
     return true;
   }
 
@@ -105,9 +111,8 @@ namespace graphics
   {
     POP_MODE_EX(ESkin, "skin", popSkin);
     POP_MODE_EX(EPage, "page", popPage);
-    POP_MODE_EX(EPointStyle, "symbolStyle", popPointStyle);
-    POP_MODE(ELineStyle, "lineStyle");
-    POP_MODE_EX(EResourceStyle, "resourceStyle", popResourceStyle);
+    POP_MODE_EX(EIcon, "symbolStyle", popIcon);
+    POP_MODE_EX(EResource, "resourceStyle", popResource);
   }
 
   int StrToInt(string const & s)
@@ -127,13 +132,13 @@ namespace graphics
       if (attr == "file")
         m_fileName = value;
       break;
-    case EPointStyle:
+    case EIcon:
       if (attr == "id")
         m_id = StrToInt(value);
       else if (attr == "name")
-        m_styleID = value;
+        m_resID = value;
       break;
-    case EResourceStyle:
+    case EResource:
       if (attr == "x")
         m_texX = StrToInt(value);
       else if (attr == "y")

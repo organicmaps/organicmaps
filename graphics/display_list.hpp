@@ -44,7 +44,7 @@ namespace graphics
     void discardStorage(shared_ptr<DiscardStorageCmd> const & cmd);
     void freeTexture(shared_ptr<FreeTextureCmd> const & cmd);
     void freeStorage(shared_ptr<FreeStorageCmd> const & cmd);
-    void uploadStyles(shared_ptr<UploadDataCmd> const & cmd);
+    void uploadResources(shared_ptr<UploadDataCmd> const & cmd);
     void addCheckPoint();
 
     void draw(DisplayListRenderer * r,

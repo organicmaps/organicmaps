@@ -40,8 +40,6 @@ void GLDrawWidget::initializeGL()
 
   m_primaryContext = make_shared_ptr(new qt::gl::RenderContext(this));
 
-  m_primaryContext->startThreadDrawing(0);
-
   graphics::ResourceManager::Params rmp;
 
   rmp.m_rtFormat = graphics::Data8Bpp;
@@ -111,6 +109,9 @@ void GLDrawWidget::initializeGL()
   rmp.m_useSingleThreadedOGL = false;
 
   m_resourceManager.reset(new graphics::ResourceManager(rmp));
+
+  m_primaryContext->setResourceManager(m_resourceManager);
+  m_primaryContext->startThreadDrawing(0);
 
   Platform::FilesList fonts;
   GetPlatform().GetFontNames(fonts);

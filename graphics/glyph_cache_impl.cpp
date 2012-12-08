@@ -12,14 +12,6 @@
 
 namespace graphics
 {
-  struct RawGlyphInfo : public GlyphInfo
-  {
-    ~RawGlyphInfo()
-    {
-      delete m_bitmapData;
-    }
-  };
-
   UnicodeBlock::UnicodeBlock(string const & name, strings::UniChar start, strings::UniChar end)
     : m_name(name), m_start(start), m_end(end)
   {}
@@ -425,11 +417,16 @@ namespace graphics
 
       FTCHECK(FTC_ImageCache_New(m_manager, &m_normalGlyphCache));
       FTCHECK(FTC_StrokedImageCache_New(m_manager, &m_strokedGlyphCache));
-      FTCHECK(FTC_ImageCache_New(m_manager, &m_glyphMetricsCache));
+
+      FTCHECK(FTC_ImageCache_New(m_manager, &m_normalMetricsCache));
+      FTCHECK(FTC_StrokedImageCache_New(m_manager, &m_strokedMetricsCache));
 
       /// Initializing stroker
-      FTCHECK(FT_Stroker_New(m_lib, &m_stroker));
-      FT_Stroker_Set(m_stroker, 2 * 64, FT_STROKER_LINECAP_ROUND, FT_STROKER_LINEJOIN_ROUND, 0);
+      FTCHECK(FT_Stroker_New(m_lib, &m_metricsStroker));
+      FT_Stroker_Set(m_metricsStroker, 2 * 64, FT_STROKER_LINECAP_ROUND, FT_STROKER_LINEJOIN_ROUND, 0);
+
+      FTCHECK(FT_Stroker_New(m_lib, &m_glyphStroker));
+      FT_Stroker_Set(m_glyphStroker, 2 * 64, FT_STROKER_LINECAP_ROUND, FT_STROKER_LINEJOIN_ROUND, 0);
 
       FTCHECK(FTC_CMapCache_New(m_manager, &m_charMapCache));
     }
@@ -444,7 +441,8 @@ namespace graphics
     if (!m_isDebugging)
     {
       FTC_Manager_Done(m_manager);
-      FT_Stroker_Done(m_stroker);
+      FT_Stroker_Done(m_metricsStroker);
+      FT_Stroker_Done(m_glyphStroker);
       FT_Done_FreeType(m_lib);
     }
   }
@@ -508,18 +506,6 @@ namespace graphics
 
   GlyphMetrics const GlyphCacheImpl::getGlyphMetrics(GlyphKey const & key)
   {
-    if (m_isDebugging)
-    {
-      GlyphMetrics m =
-      {
-        10,
-        0,
-        0, 0,
-        10, 20
-      };
-      return m;
-    }
-
     pair<Font*, int> charIDX = getCharIDX(key);
 
     FTC_ScalerRec fontScaler =
@@ -534,13 +520,27 @@ namespace graphics
 
     FT_Glyph glyph = 0;
 
-    FTCHECK(FTC_ImageCache_LookupScaler(
-      m_glyphMetricsCache,
-      &fontScaler,
-      FT_LOAD_DEFAULT,
-      charIDX.second,
-      &glyph,
-      0));
+    if (key.m_isMask)
+    {
+      FTCHECK(FTC_StrokedImageCache_LookupScaler(
+          m_strokedMetricsCache,
+          &fontScaler,
+          m_metricsStroker,
+          FT_LOAD_DEFAULT,
+          charIDX.second,
+          &glyph,
+          0));
+    }
+    else
+    {
+      FTCHECK(FTC_ImageCache_LookupScaler(
+        m_normalMetricsCache,
+        &fontScaler,
+        FT_LOAD_DEFAULT,
+        charIDX.second,
+        &glyph,
+        0));
+    }
 
     FT_BBox cbox;
     FT_Glyph_Get_CBox(glyph, FT_GLYPH_BBOX_PIXELS, &cbox);
@@ -556,29 +556,8 @@ namespace graphics
     return m;
   }
 
-  shared_ptr<GlyphInfo> const GlyphCacheImpl::getGlyphInfo(GlyphKey const & key)
+  shared_ptr<GlyphBitmap> const GlyphCacheImpl::getGlyphBitmap(GlyphKey const & key)
   {
-    if (m_isDebugging)
-    {
-      static bool hasFakeSymbol = false;
-      static shared_ptr<GlyphInfo> fakeSymbol;
-
-      if (!hasFakeSymbol)
-      {
-        fakeSymbol.reset(new RawGlyphInfo());
-        fakeSymbol->m_metrics = getGlyphMetrics(key);
-        fakeSymbol->m_color = graphics::Color(0, 0, 255, 255);
-        fakeSymbol->m_bitmapPitch = (fakeSymbol->m_metrics.m_width + 7) / 8 * 8;
-        fakeSymbol->m_bitmapData = new unsigned char[fakeSymbol->m_bitmapPitch * fakeSymbol->m_metrics.m_height];
-        for (unsigned i = 0; i < fakeSymbol->m_bitmapPitch * fakeSymbol->m_metrics.m_height; ++i)
-          fakeSymbol->m_bitmapData[i] = 0xFF;
-
-        hasFakeSymbol = true;
-      }
-
-      return fakeSymbol;
-    }
-
     pair<Font *, int> charIDX = getCharIDX(key);
 
     FTC_ScalerRec fontScaler =
@@ -594,21 +573,17 @@ namespace graphics
     FT_Glyph glyph = 0;
     FTC_Node node;
 
-    GlyphInfo * info = 0;
-
     if (key.m_isMask)
     {
       FTCHECK(FTC_StrokedImageCache_LookupScaler(
           m_strokedGlyphCache,
           &fontScaler,
-          m_stroker,
+          m_glyphStroker,
           FT_LOAD_DEFAULT,
           charIDX.second,
           &glyph,
           &node
           ));
-
-//      info = new FTGlyphInfo(node, m_manager);
     }
     else
     {
@@ -620,39 +595,27 @@ namespace graphics
           &glyph,
           &node
           ));
-
-//      info = new FTGlyphInfo(node, m_manager);
     }
 
-    info = new RawGlyphInfo();
+    GlyphBitmap * bitmap = new GlyphBitmap();
 
     FT_BitmapGlyph bitmapGlyph = (FT_BitmapGlyph)glyph;
 
-    info->m_metrics.m_height = bitmapGlyph ? bitmapGlyph->bitmap.rows : 0;
-    info->m_metrics.m_width = bitmapGlyph ? bitmapGlyph->bitmap.width : 0;
-    info->m_metrics.m_xOffset = bitmapGlyph ? bitmapGlyph->left : 0;
-    info->m_metrics.m_yOffset = bitmapGlyph ? bitmapGlyph->top - info->m_metrics.m_height : 0;
-    info->m_metrics.m_xAdvance = bitmapGlyph ? int(bitmapGlyph->root.advance.x >> 16) : 0;
-    info->m_metrics.m_yAdvance = bitmapGlyph ? int(bitmapGlyph->root.advance.y >> 16) : 0;
-    info->m_color = key.m_color;
+    bitmap->m_width = bitmapGlyph ? bitmapGlyph->bitmap.width : 0;
+    bitmap->m_height = bitmapGlyph ? bitmapGlyph->bitmap.rows : 0;
+    bitmap->m_pitch = bitmapGlyph ? bitmapGlyph->bitmap.pitch : 0;
 
-    info->m_bitmapData = 0;
-    info->m_bitmapPitch = 0;
-
-    if ((info->m_metrics.m_width != 0) && (info->m_metrics.m_height != 0))
+    if (bitmap->m_width * bitmap->m_height != 0)
     {
-//      info->m_bitmapData = bitmapGlyph->bitmap.buffer;
-//      info->m_bitmapPitch = bitmapGlyph->bitmap.pitch;
-
-      info->m_bitmapPitch = bitmapGlyph->bitmap.pitch;
-      info->m_bitmapData = new unsigned char[info->m_bitmapPitch * info->m_metrics.m_height];
-
-      memcpy(info->m_bitmapData, bitmapGlyph->bitmap.buffer, info->m_bitmapPitch * info->m_metrics.m_height);
+      bitmap->m_data.resize(bitmap->m_pitch * bitmap->m_height);
+      memcpy(&bitmap->m_data[0],
+             bitmapGlyph->bitmap.buffer,
+             bitmap->m_pitch * bitmap->m_height);
     }
 
     FTC_Node_Unref(node, m_manager);
 
-    return make_shared_ptr(info);
+    return make_shared_ptr(bitmap);
   }
 
   FT_Error GlyphCacheImpl::RequestFace(FTC_FaceID faceID, FT_Library library, FT_Pointer /*requestData*/, FT_Face * face)

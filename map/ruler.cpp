@@ -5,6 +5,7 @@
 
 #include "../graphics/overlay_renderer.hpp"
 #include "../graphics/skin.hpp"
+#include "../graphics/pen.hpp"
 
 #include "../indexer/mercator.hpp"
 #include "../geometry/distance_on_sphere.hpp"
@@ -274,7 +275,7 @@ void Ruler::draw(graphics::OverlayRenderer * s, math::Matrix<double, 3, 3> const
   {
     s->drawPath(
         &m_path[0], m_path.size(), 0,
-          s->skin()->mapPenInfo(graphics::PenInfo(graphics::Color(0, 0, 0, 0x99), 4 * m_visualScale, 0, 0, 0)),
+          s->skin()->map(graphics::Pen::Info(graphics::Color(0, 0, 0, 0x99), 4 * m_visualScale, 0, 0, 0)),
         depth());
 
     if (position() & graphics::EPosLeft)

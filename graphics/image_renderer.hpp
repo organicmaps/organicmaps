@@ -15,7 +15,7 @@ namespace graphics
     ImageRenderer(base_t::Params const & p);
 
     void drawImage(math::Matrix<double, 3, 3> const & m,
-                   uint32_t styleID,
+                   uint32_t resID,
                    double depth);
   };
 }

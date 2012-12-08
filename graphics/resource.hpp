@@ -1,117 +1,56 @@
 #pragma once
 
-#include "pen_info.hpp"
-#include "circle_info.hpp"
-#include "image_info.hpp"
-
 #include "../geometry/rect2d.hpp"
 
 #include "../std/shared_ptr.hpp"
 
 namespace graphics
 {
-  struct GlyphInfo;
-
-  struct ResourceStyle
+  struct Resource
   {
     enum Category
     {
-        EColorStyle = 1,
-        ELineStyle,
-        EGlyphStyle,
-        EPointStyle,
-        ECircleStyle,
-        EImageStyle,
-        EUnknownStyle
+      EBrush = 1,
+      EPen,
+      EGlyph,
+      EIcon,
+      ECircle,
+      EImage,
+      EUnknown
+    };
+
+    /// Base class for lighweight Resource description
+    struct Info
+    {
+      Category m_category;
+
+      Info(Category cat);
+      /// returns the size of this resource info which will
+      /// be occupied in texture cache.
+      virtual m2::PointU const resourceSize() const = 0;
+      /// factory method for Resource object
+      virtual Resource * createResource(m2::RectU const & texRect,
+                                        uint8_t pipelineID) const = 0;
+      /// comparing for using Info as a key in map.
+      virtual bool lessThan(Info const * r) const = 0;
     };
 
     Category m_cat;
     m2::RectU m_texRect;
     int m_pipelineID;
 
-    ResourceStyle();
-    ResourceStyle(m2::RectU const & texRect,
-                  int pipelineID);
+    Resource();
+    Resource(m2::RectU const & texRect,
+             int pipelineID);
 
-    virtual ~ResourceStyle();
+    virtual ~Resource();
     virtual void render(void * dst) = 0;
+    /// get key for ResourceCache.
+    virtual Info const * info() const = 0;
 
   protected:
-    ResourceStyle(Category cat,
-                  m2::RectU const & texRect,
-                  int pipelineID);
-  };
-
-  struct LineStyle : public ResourceStyle
-  {
-    bool m_isWrapped;
-    bool m_isSolid;
-    PenInfo m_penInfo;
-    m2::PointU m_centerColorPixel;
-    m2::PointU m_borderColorPixel;
-    LineStyle(bool isWrapped,
-              m2::RectU const & texRect,
-              int pipelineID,
-              PenInfo const & penInfo);
-
-    /// with antialiasing zones
-    double geometryTileLen() const;
-    double geometryTileWidth() const;
-
-    /// without antialiasing zones
-    double rawTileLen() const;
-    double rawTileWidth() const;
-
-    void render(void * dst);
-  };
-
-  struct GlyphStyle : public ResourceStyle
-  {
-    shared_ptr<GlyphInfo> m_gi;
-    GlyphStyle(m2::RectU const & texRect,
-               int pipelineID,
-               shared_ptr<GlyphInfo> const & gi);
-
-    void render(void * dst);
-  };
-
-  struct PointStyle : public ResourceStyle
-  {
-    string m_styleName;
-    PointStyle(m2::RectU const & texRect,
-               int pipelineID,
-               string const & styleName);
-
-    void render(void * dst);
-  };
-
-  struct CircleStyle : public ResourceStyle
-  {
-    CircleInfo m_ci;
-    CircleStyle(m2::RectU const & texRect,
-                int pipelineID,
-                CircleInfo const & ci);
-
-    void render(void * dst);
-  };
-
-  struct ColorStyle : public ResourceStyle
-  {
-    Color m_c;
-    ColorStyle(m2::RectU const & texRect,
-               int pipelineID,
-               Color const & c);
-
-    void render(void * dst);
-  };
-
-  struct ImageStyle : public ResourceStyle
-  {
-    ImageInfo m_ii;
-    ImageStyle(m2::RectU const & texRect,
-               int pipelineID,
-               ImageInfo const & ii);
-
-    void render(void * dst);
+    Resource(Category cat,
+             m2::RectU const & texRect,
+             int pipelineID);
   };
 }

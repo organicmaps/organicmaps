@@ -38,8 +38,7 @@ namespace graphics
 
   class ResourceManager;
   class ResourceCache;
-  struct ResourceStyle;
-  struct GlyphStyle;
+  struct Resource;
 
   class SkinLoader
   {
@@ -50,10 +49,8 @@ namespace graphics
       ERoot,
       EPage,
       ESkin,
-      EFontStyle,
-      EPointStyle,
-      ELineStyle,
-      EResourceStyle
+      EIcon,
+      EResource
     };
 
     list<EMode> m_mode;
@@ -66,27 +63,19 @@ namespace graphics
     uint32_t m_texHeight;
     m2::RectU m_texRect;
 
-/// glyphInfo and glyphMaskInfo specific parameters
-    int8_t m_xOffset;
-    int8_t m_yOffset;
-    int8_t m_xAdvance;
-
-    shared_ptr<GlyphStyle> m_glyphInfo;
-    shared_ptr<GlyphStyle> m_glyphMaskInfo;
-
 /// pointStyle-specific parameters
-    string m_styleID;
+    string m_resID;
 
 /// skin-specific parameters
 
-    vector<shared_ptr<ResourceCache> > m_pages;
+    vector<shared_ptr<ResourceCache> > m_caches;
 
 /// skin-page specific parameters
     string m_fileName;
 
-    typedef list<pair<int32_t, shared_ptr<ResourceStyle> > > TStylesList;
+    typedef list<pair<int32_t, shared_ptr<Resource> > > TResourceList;
 
-    TStylesList m_stylesList;
+    TResourceList m_resourceList;
 
     shared_ptr<ResourceManager> m_resourceManager;
     Skin * m_skin;
@@ -100,13 +89,13 @@ namespace graphics
     void AddAttr(string const & attribute, string const & value);
     void CharData(string const &) {}
 
-    void popPointStyle();
+    void popIcon();
     void popSkin();
     void pushPage();
     void popPage();
 
-    void pushResourceStyle();
-    void popResourceStyle();
+    void pushResource();
+    void popResource();
 
     Skin * skin();
   };

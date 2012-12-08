@@ -1,5 +1,5 @@
 #include "image_renderer.hpp"
-#include "resource_style.hpp"
+#include "resource.hpp"
 #include "skin.hpp"
 
 #include "opengl/base_texture.hpp"
@@ -14,20 +14,20 @@ namespace graphics
   {}
 
   void ImageRenderer::drawImage(math::Matrix<double, 3, 3> const & m,
-                                uint32_t styleID,
+                                uint32_t resID,
                                 double depth)
   {
-    ResourceStyle const * style(skin()->fromID(styleID));
+    Resource const * res(skin()->fromID(resID));
 
-    if (style == 0)
+    if (res == 0)
     {
-      LOG(LINFO, ("drawImage: styleID=", styleID, "wasn't found on current skin"));
+      LOG(LINFO, ("drawImage: resID=", resID, "wasn't found on current skin"));
       return;
     }
 
-    ASSERT(style->m_cat == ResourceStyle::EImageStyle, ());
+    ASSERT(res->m_cat == Resource::EImage, ());
 
-    m2::RectI texRect(style->m_texRect);
+    m2::RectI texRect(res->m_texRect);
     texRect.Inflate(-1, -1);
 
     m2::PointF pts[6] =
@@ -40,7 +40,7 @@ namespace graphics
       m2::PointF(m2::PointD(-1, -1) * m)
     };
 
-    shared_ptr<gl::BaseTexture> const & texture = skin()->page(style->m_pipelineID)->texture();
+    shared_ptr<gl::BaseTexture> const & texture = skin()->page(res->m_pipelineID)->texture();
 
     m2::PointF texPts[6] =
     {
@@ -62,6 +62,6 @@ namespace graphics
                            texPts, sizeof(m2::PointF),
                            6,
                            depth,
-                           style->m_pipelineID);
+                           res->m_pipelineID);
   }
 }

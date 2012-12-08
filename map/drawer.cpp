@@ -117,23 +117,26 @@ void Drawer::drawSymbol(m2::PointD const & pt, string const & symbolName,
 void Drawer::drawCircle(m2::PointD const & pt, rule_ptr_t pRule,
                           graphics::EPosition pos, int depth, FeatureID const & id)
 {
-  graphics::CircleInfo ci;
+  graphics::Circle::Info ci;
   ConvertStyle(pRule->GetCircle(), m_visualScale, ci);
 
   m_pScreen->drawCircle(pt, ci, pos, depth);
 }
 
-void Drawer::drawSymbol(m2::PointD const & pt, rule_ptr_t pRule,
-                          graphics::EPosition pos, int depth, FeatureID const & id)
+void Drawer::drawSymbol(m2::PointD const & pt,
+                        rule_ptr_t pRule,
+                        graphics::EPosition pos,
+                        int depth,
+                        FeatureID const & id)
 {
-  string name;
-  ConvertStyle(pRule->GetSymbol(), name);
+  graphics::Icon::Info info;
+  ConvertStyle(pRule->GetSymbol(), info);
 
   graphics::SymbolElement::Params params;
   params.m_depth = depth;
   params.m_position = pos;
   params.m_pivot = pt;
-  params.m_symbolName.swap(name);
+  params.m_info = info;
   params.m_userInfo.m_mwmID = id.first;
   params.m_userInfo.m_offset = id.second;
 
@@ -153,8 +156,9 @@ void Drawer::drawPath(di::PathInfo const & info, di::DrawRule const * rules, siz
     }
   }
 
-  buffer_vector<graphics::PenInfo, 8> penInfos(count);
-  buffer_vector<uint32_t, 8> styleIDs(count);
+  buffer_vector<graphics::Pen::Info, 8> penInfos(count);
+  buffer_vector<graphics::Resource::Info const*, 8> infos(count);
+  buffer_vector<uint32_t, 8> resIDs(count);
 
   if (flag)
   {
@@ -163,17 +167,19 @@ void Drawer::drawPath(di::PathInfo const & info, di::DrawRule const * rules, siz
     {
       ConvertStyle(rules[i].m_rule->GetLine(), m_visualScale, penInfos[i]);
 
+      infos[i] = &penInfos[i];
+
       if (rules[i].m_transparent)
         penInfos[i].m_color.a = 100;
 
-      styleIDs[i] = m_pSkin->invalidHandle();
+      resIDs[i] = m_pSkin->invalidHandle();
     }
 
     // map array of pens
-    if (m_pSkin->mapPenInfo(&penInfos[0], &styleIDs[0], count))
+    if (m_pSkin->map(&infos[0], &resIDs[0], count))
     {
       for (size_t i = 0; i < count; ++i)
-        rules[i].SetID(ThreadSlot(), styleIDs[i]);
+        rules[i].SetID(ThreadSlot(), resIDs[i]);
     }
     else
     {
@@ -192,9 +198,10 @@ void Drawer::drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int dept
   // DO NOT cache 'id' in pRule, because one rule can use in drawPath and drawArea.
   // Leave CBaseRule::m_id for drawPath. mapColor working fast enough.
 
-  graphics::Color color;
-  ConvertStyle(pRule->GetArea(), color);
-  uint32_t const id = m_pSkin->mapColor(color);
+  graphics::Brush::Info info;
+  ConvertStyle(pRule->GetArea(), info);
+
+  uint32_t const id = m_pSkin->map(info);
   ASSERT ( id != -1, () );
 
   m_pScreen->drawTrianglesList(&pts[0], pts.size()/*, res*/, id, depth);

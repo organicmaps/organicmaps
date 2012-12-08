@@ -1,6 +1,5 @@
 #include "skin.hpp"
 #include "resource_cache.hpp"
-#include "resource_style.hpp"
 #include "resource_manager.hpp"
 
 #include "../platform/platform.hpp"
@@ -72,7 +71,7 @@ namespace graphics
     return (uint32_t)(pipelineIDMask | h);
   }
 
-  ResourceStyle const * Skin::fromID(uint32_t id)
+  Resource const * Skin::fromID(uint32_t id)
   {
     if (id == invalidHandle())
       return 0;
@@ -83,87 +82,38 @@ namespace graphics
     return m_caches[p.first]->fromID(p.second);
   }
 
-  uint32_t Skin::mapSymbol(char const * symbolName)
-  {
-    for (uint8_t i = 0; i < m_caches.size(); ++i)
-    {
-      uint32_t res = m_caches[i]->findSymbol(symbolName);
-      if (res != invalidPageHandle())
-        return packID(i, res);
-    }
-
-    return invalidHandle();
-  }
-
-  uint32_t Skin::mapColor(Color const & c)
+  uint32_t Skin::map(Resource::Info const & info)
   {
     uint32_t res = invalidPageHandle();
 
     for (uint8_t i = 0; i < m_caches.size(); ++i)
     {
-      res = m_caches[i]->findColor(c);
+      res = m_caches[i]->findInfo(info);
       if (res != invalidPageHandle())
         return packID(i, res);
     }
 
-    if (!m_caches[m_dynamicPage]->hasRoom(c))
+    if (!m_caches[m_dynamicPage]->hasRoom(info))
       flushDynamicPage();
 
-    return packID(m_dynamicPage, m_caches[m_dynamicPage]->mapColor(c));
+    return packID(m_dynamicPage, m_caches[m_dynamicPage]->mapInfo(info));
   }
 
-  uint32_t Skin::mapPenInfo(PenInfo const & penInfo)
+  uint32_t Skin::findInfo(Resource::Info const & info)
   {
     uint32_t res = invalidPageHandle();
 
     for (uint8_t i = 0; i < m_caches.size(); ++i)
     {
-      res = m_caches[i]->findPenInfo(penInfo);
+      res = m_caches[i]->findInfo(info);
       if (res != invalidPageHandle())
         return packID(i, res);
     }
 
-    if (!m_caches[m_dynamicPage]->hasRoom(penInfo))
-      flushDynamicPage();
-
-    return packID(m_dynamicPage, m_caches[m_dynamicPage]->mapPenInfo(penInfo));
+    return res;
   }
 
-  uint32_t Skin::mapCircleInfo(CircleInfo const & circleInfo)
-  {
-    uint32_t res = invalidPageHandle();
-
-    for (uint8_t i = 0; i < m_caches.size(); ++i)
-    {
-      res = m_caches[i]->findCircleInfo(circleInfo);
-      if (res != invalidPageHandle())
-        return packID(i, res);
-    }
-
-    if (!m_caches[m_dynamicPage]->hasRoom(circleInfo))
-      flushDynamicPage();
-
-    return packID(m_dynamicPage, m_caches[m_dynamicPage]->mapCircleInfo(circleInfo));
-  }
-
-  uint32_t Skin::mapImageInfo(ImageInfo const & imageInfo)
-  {
-    uint32_t res = invalidPageHandle();
-
-    for (uint8_t i = 0; i < m_caches.size(); ++i)
-    {
-      res = m_caches[i]->findImageInfo(imageInfo);
-      if (res != invalidPageHandle())
-        return packID(i, res);
-    }
-
-    if (!m_caches[m_dynamicPage]->hasRoom(imageInfo))
-      flushDynamicPage();
-
-    return packID(m_dynamicPage, m_caches[m_dynamicPage]->mapImageInfo(imageInfo));
-  }
-
-  bool Skin::mapPenInfo(PenInfo const * penInfos, uint32_t * styleIDS, size_t count)
+  bool Skin::map(Resource::Info const * const * infos, uint32_t * ids, size_t count)
   {
     int startDynamicPage = m_dynamicPage;
     int cycles = 0;
@@ -172,12 +122,13 @@ namespace graphics
 
     do
     {
-      styleIDS[i] = m_caches[m_dynamicPage]->findPenInfo(penInfos[i]);
+      ids[i] = m_caches[m_dynamicPage]->findInfo(*infos[i]);
 
-      if ((styleIDS[i] == invalidPageHandle()) || (unpackID(styleIDS[i]).first != m_dynamicPage))
+      if ((ids[i] == invalidPageHandle())
+       || (unpackID(ids[i]).first != m_dynamicPage))
       {
         /// try to pack on the currentDynamicPage
-        while (!m_caches[m_dynamicPage]->hasRoom(penInfos[i]))
+        while (!m_caches[m_dynamicPage]->hasRoom(*infos[i]))
         {
           /// no room - flush the page
           flushDynamicPage();
@@ -196,7 +147,7 @@ namespace graphics
           i = 0;
         }
 
-        styleIDS[i] = packID(m_dynamicPage, m_caches[m_dynamicPage]->mapPenInfo(penInfos[i]));
+        ids[i] = packID(m_dynamicPage, m_caches[m_dynamicPage]->mapInfo(*infos[i]));
       }
 
       ++i;
@@ -204,23 +155,6 @@ namespace graphics
     while (i != count);
 
     return true;
-  }
-
-  uint32_t Skin::mapGlyph(GlyphKey const & gk, GlyphCache * glyphCache)
-  {
-    uint32_t res = invalidPageHandle();
-
-    for (uint8_t i = 0; i < m_caches.size(); ++i)
-    {
-      res = m_caches[i]->findGlyph(gk);
-      if (res != invalidPageHandle())
-        return packID(i, res);
-    }
-
-    if (!m_caches[m_textPage]->hasRoom(gk, glyphCache))
-      flushTextPage();
-
-    return packID(m_textPage, m_caches[m_textPage]->mapGlyph(gk, glyphCache));
   }
 
   shared_ptr<ResourceCache> const & Skin::page(int i) const

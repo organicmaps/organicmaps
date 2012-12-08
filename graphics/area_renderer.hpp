@@ -27,12 +27,12 @@ namespace graphics
     /// drawing triangles list. assuming that each 3 points compose a triangle
     void drawTrianglesList(m2::PointD const * points,
                            size_t pointsCount,
-                           uint32_t styleID,
+                           uint32_t resID,
                            double depth);
 
     void drawTrianglesFan(m2::PointF const * points,
                           size_t pointsCount,
-                          uint32_t styleID,
+                          uint32_t resID,
                           double depth);
 
     void beginFrame();

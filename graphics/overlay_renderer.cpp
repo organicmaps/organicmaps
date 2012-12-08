@@ -43,19 +43,19 @@ namespace graphics
       m_overlay->processOverlayElement(oe);
   }
 
-  void OverlayRenderer::drawSymbol(m2::PointD const & pt, string const & symbolName, EPosition pos, int depth)
+  void OverlayRenderer::drawSymbol(m2::PointD const & pt, string const & name, EPosition pos, int depth)
   {
     graphics::SymbolElement::Params params;
     params.m_depth = depth;
     params.m_position = pos;
     params.m_pivot = pt;
-    params.m_symbolName = symbolName;
+    params.m_info.m_name = name;
 
     drawSymbol(params);
   }
 
   void OverlayRenderer::drawCircle(m2::PointD const & pt,
-                                   graphics::CircleInfo const & ci,
+                                   graphics::Circle::Info const & ci,
                                    EPosition pos,
                                    int depth)
   {

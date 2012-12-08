@@ -57,9 +57,7 @@ SOURCES += \
     composite_overlay_element.cpp \
     path_text_element.cpp \
     straight_text_element.cpp \
-    line_style.cpp \
-    circle_style.cpp \
-    glyph_style.cpp \
+    glyph.cpp \
     circle_element.cpp \
     packets_queue.cpp \
     display_list.cpp \
@@ -72,6 +70,8 @@ SOURCES += \
     coordinates.cpp \
     render_target.cpp \
     defines.cpp
+    icon.cpp \
+    brush.cpp
 
 HEADERS += \
     opengl/opengl.hpp \
@@ -135,6 +135,9 @@ HEADERS += \
     vertex_decl.hpp \
     render_context.hpp \
     coordinates.hpp \
+    icon.hpp \
+    glyph.hpp \
+    brush.hpp
 
 win32* {
   SOURCES += opengl/opengl_win32.cpp

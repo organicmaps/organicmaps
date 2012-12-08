@@ -1,6 +1,6 @@
 #include "glyph_layout.hpp"
 #include "font_desc.hpp"
-#include "resource_style.hpp"
+#include "resource.hpp"
 
 #include "../base/logging.hpp"
 #include "../base/math.hpp"

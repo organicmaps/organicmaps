@@ -11,7 +11,7 @@
 
 #include "../graphics/defines.hpp"
 #include "../graphics/skin.hpp"
-#include "../graphics/pen_info.hpp"
+#include "../graphics/pen.hpp"
 #include "../graphics/straight_text_element.hpp"
 
 #include "../base/string_utils.hpp"

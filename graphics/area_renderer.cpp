@@ -1,5 +1,5 @@
 #include "area_renderer.hpp"
-#include "resource_style.hpp"
+#include "brush.hpp"
 #include "skin.hpp"
 #include "resource_cache.hpp"
 
@@ -37,7 +37,7 @@ namespace graphics
 
   void AreaRenderer::drawTrianglesFan(m2::PointF const * points,
                                       size_t pointsCount,
-                                      uint32_t styleID,
+                                      uint32_t resID,
                                       double depth)
   {
     ++m_areasCount;
@@ -46,20 +46,22 @@ namespace graphics
     if (!m_drawAreas)
       return;
 
-    ResourceStyle const * style = skin()->fromID(styleID);
+    Resource const * res = skin()->fromID(resID);
 
-    if (style == 0)
+    ASSERT(res->m_cat == Resource::EBrush, ("triangleFan should be rendered with Brush resource"));
+
+    if (res == 0)
     {
-      LOG(LINFO, ("drawTrianglesFan: styleID=", styleID, " wasn't found on current skin."));
+      LOG(LINFO, ("drawTrianglesFan: resID=", resID, " wasn't found on current skin."));
       return;
     }
 
     ASSERT_GREATER_OR_EQUAL(pointsCount, 2, ());
 
-    float texX = style->m_texRect.minX() + 1.0f;
-    float texY = style->m_texRect.minY() + 1.0f;
+    float texX = res->m_texRect.minX() + 1.0f;
+    float texY = res->m_texRect.minY() + 1.0f;
 
-    shared_ptr<gl::BaseTexture> texture = skin()->page(style->m_pipelineID)->texture();
+    shared_ptr<gl::BaseTexture> texture = skin()->page(res->m_pipelineID)->texture();
 
     if (!texture)
     {
@@ -77,10 +79,10 @@ namespace graphics
                           &texCoord, 0,
                           pointsCount,
                           depth,
-                          style->m_pipelineID);
+                          res->m_pipelineID);
   }
 
-  void AreaRenderer::drawTrianglesList(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth)
+  void AreaRenderer::drawTrianglesList(m2::PointD const * points, size_t pointsCount, uint32_t resID, double depth)
   {
     ++m_areasCount;
     m_trianglesCount += pointsCount / 3;
@@ -88,23 +90,25 @@ namespace graphics
     if (!m_drawAreas)
       return;
 
-    ResourceStyle const * style = skin()->fromID(styleID);
+    Resource const * res = skin()->fromID(resID);
 
-    if (style == 0)
+    ASSERT(res->m_cat == Resource::EBrush, ("area should be rendered with Brush resource"));
+
+    if (res == 0)
     {
-      LOG(LINFO, ("drawArea: styleID=", styleID, " wasn't found on current skin."));
+      LOG(LINFO, ("drawArea: resID=", resID, " wasn't found on current skin."));
       return;
     }
 
-    if (!hasRoom(pointsCount, pointsCount, style->m_pipelineID))
-      flush(style->m_pipelineID);
+    if (!hasRoom(pointsCount, pointsCount, res->m_pipelineID))
+      flush(res->m_pipelineID);
 
     ASSERT_GREATER_OR_EQUAL(pointsCount, 2, ());
 
-    float texX = style->m_texRect.minX() + 1.0f;
-    float texY = style->m_texRect.minY() + 1.0f;
+    float texX = res->m_texRect.minX() + 1.0f;
+    float texY = res->m_texRect.minY() + 1.0f;
 
-    shared_ptr<gl::BaseTexture> texture = skin()->page(style->m_pipelineID)->texture();
+    shared_ptr<gl::BaseTexture> texture = skin()->page(res->m_pipelineID)->texture();
 
     if (!texture)
     {
@@ -121,8 +125,8 @@ namespace graphics
     {
       size_t batchSize = pointsLeft;
 
-      int vLeft = verticesLeft(style->m_pipelineID);
-      int iLeft = indicesLeft(style->m_pipelineID);
+      int vLeft = verticesLeft(res->m_pipelineID);
+      int iLeft = indicesLeft(res->m_pipelineID);
 
       if ((vLeft == -1) || (iLeft == -1))
         return;
@@ -144,13 +148,13 @@ namespace graphics
                              &texCoord, 0,
                              batchSize,
                              depth,
-                             style->m_pipelineID);
+                             res->m_pipelineID);
 
       batchOffset += batchSize;
       pointsLeft -= batchSize;
 
       if (needToFlush)
-        flush(style->m_pipelineID);
+        flush(res->m_pipelineID);
 
       if (pointsLeft == 0)
         break;

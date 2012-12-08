@@ -1,7 +1,6 @@
 #include "circle_element.hpp"
 
 #include "overlay_renderer.hpp"
-#include "resource_style.hpp"
 #include "skin.hpp"
 
 namespace graphics
@@ -10,7 +9,6 @@ namespace graphics
     : base_t(p),
       m_ci(p.m_ci)
   {}
-
 
   CircleElement::CircleElement(CircleElement const & ce, math::Matrix<double, 3, 3> const & m)
     : base_t(ce),
@@ -33,7 +31,9 @@ namespace graphics
 
   m2::AnyRectD const CircleElement::boundRect() const
   {
-    m2::RectI texRect(m2::PointI(0, 0), m2::PointI(m_ci.patternSize()));
+    m2::RectI texRect(m2::PointI(0, 0),
+                      m2::PointI(m_ci.resourceSize()));
+
     texRect.Inflate(-1, -1);
 
     m2::PointD posPt = tieRect(m2::RectD(texRect), math::Identity<double, 3>());
@@ -46,12 +46,12 @@ namespace graphics
     if (!isNeedRedraw())
       return;
 
-    uint32_t styleID = r->skin()->mapCircleInfo(m_ci);
+    uint32_t resID = r->skin()->map(m_ci);
 
-    ResourceStyle const * style = r->skin()->fromID(styleID);
-    ASSERT_NOT_EQUAL ( style, 0, () );
+    Resource const * res = r->skin()->fromID(resID);
+    ASSERT_NOT_EQUAL ( res, 0, () );
 
-    m2::RectI texRect(style->m_texRect);
+    m2::RectI texRect(res->m_texRect);
     texRect.Inflate(-1, -1);
 
     m2::PointD posPt = tieRect(m2::RectD(texRect), m);
@@ -60,7 +60,7 @@ namespace graphics
                           texRect.minX(), texRect.minY(), texRect.maxX(), texRect.maxY(),
                           posPt.x, posPt.y, posPt.x + texRect.SizeX(), posPt.y + texRect.SizeY(),
                           graphics::maxDepth,
-                          style->m_pipelineID);
+                          res->m_pipelineID);
   }
 
   int CircleElement::visualRank() const

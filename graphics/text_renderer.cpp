@@ -1,7 +1,7 @@
 #include "text_renderer.hpp"
 #include "overlay.hpp"
-#include "resource_style.hpp"
 #include "resource_manager.hpp"
+#include "glyph.hpp"
 
 #include "../geometry/angles.hpp"
 
@@ -23,11 +23,11 @@ namespace graphics
 
   void TextRenderer::drawStraightGlyph(m2::PointD const & ptPivot,
                                        m2::PointD const & ptOffs,
-                                       GlyphStyle const * p,
+                                       Glyph const * p,
                                        float depth)
   {
-    float x0 = ptOffs.x + (p->m_gi->m_metrics.m_xOffset - 1);
-    float y1 = ptOffs.y - (p->m_gi->m_metrics.m_yOffset - 1);
+    float x0 = ptOffs.x + (p->m_info.m_metrics.m_xOffset - 1);
+    float y1 = ptOffs.y - (p->m_info.m_metrics.m_yOffset - 1);
     float y0 = y1 - (p->m_texRect.SizeY() - 2);
     float x1 = x0 + (p->m_texRect.SizeX() - 2);
 
@@ -47,11 +47,11 @@ namespace graphics
                                m2::PointD const & ptGlyph,
                                ang::AngleD const & angle,
                                float /*blOffset*/,
-                               GlyphStyle const * p,
+                               Glyph const * p,
                                double depth)
   {
-    float x0 = ptGlyph.x + (p->m_gi->m_metrics.m_xOffset - 1);
-    float y1 = ptGlyph.y - (p->m_gi->m_metrics.m_yOffset - 1);
+    float x0 = ptGlyph.x + (p->m_info.m_metrics.m_xOffset - 1);
+    float y1 = ptGlyph.y - (p->m_info.m_metrics.m_yOffset - 1);
     float y0 = y1 - (p->m_texRect.SizeY() - 2);
     float x1 = x0 + (p->m_texRect.SizeX() - 2);
 

@@ -14,7 +14,7 @@ namespace graphics
     bool m_drawPathes;
     bool m_fastSolidPath;
 
-    void drawFastSolidPath(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth);
+    void drawFastSolidPath(m2::PointD const * points, size_t pointsCount, uint32_t resID, double depth);
 
   public:
 
@@ -29,7 +29,7 @@ namespace graphics
 
     PathRenderer(Params const & params);
 
-    void drawPath(m2::PointD const * points, size_t pointsCount, double offset, uint32_t styleID, double depth);
+    void drawPath(m2::PointD const * points, size_t pointsCount, double offset, uint32_t resID, double depth);
 
     void beginFrame();
     void endFrame();

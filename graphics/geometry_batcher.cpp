@@ -3,7 +3,6 @@
 #include "color.hpp"
 #include "resource_manager.hpp"
 #include "resource_cache.hpp"
-#include "resource_style.hpp"
 
 #include "opengl/base_texture.hpp"
 #include "opengl/utils.hpp"
@@ -207,12 +206,6 @@ namespace graphics
     base_t::clear(c, clearRT, depth, clearDepth);
   }
 
-  void GeometryBatcher::setRenderTarget(shared_ptr<RenderTarget> const & rt)
-  {
-    flush(-1);
-    base_t::setRenderTarget(rt);
-  }
-
   void GeometryBatcher::endFrame()
   {
     flush(-1);
@@ -349,7 +342,9 @@ namespace graphics
     {
       if (resourceCache->hasData())
       {
-        uploadStyles(&resourceCache->uploadQueue()[0], resourceCache->uploadQueue().size(), resourceCache->texture());
+        uploadResources(&resourceCache->uploadQueue()[0],
+                        resourceCache->uploadQueue().size(),
+                        resourceCache->texture());
         resourceCache->clearUploadQueue();
       }
 
@@ -385,6 +380,7 @@ namespace graphics
 
     return false;
   }
+
 
   void GeometryBatcher::drawTexturedPolygon(
       m2::PointD const & ptShift,
@@ -799,9 +795,9 @@ namespace graphics
     base_t::drawDisplayList(dl, m);
   }
 
-  void GeometryBatcher::uploadStyles(shared_ptr<ResourceStyle> const * styles,
-                                     size_t count,
-                                     shared_ptr<gl::BaseTexture> const & texture)
+  void GeometryBatcher::uploadResources(shared_ptr<Resource> const * resources,
+                                        size_t count,
+                                        shared_ptr<gl::BaseTexture> const & texture)
   {
     /// splitting the whole queue of commands into the chunks no more
     /// than 64KB of uploadable data each
@@ -812,13 +808,13 @@ namespace graphics
 
     for (size_t i = 0; i < count; ++i)
     {
-      shared_ptr<ResourceStyle> const & style = styles[i];
+      shared_ptr<Resource> const & res = resources[i];
 
-      bytesUploaded += style->m_texRect.SizeX() * style->m_texRect.SizeY() * bytesPerPixel;
+      bytesUploaded += res->m_texRect.SizeX() * res->m_texRect.SizeY() * bytesPerPixel;
 
       if (bytesUploaded > 64 * 1024)
       {
-        base_t::uploadStyles(styles + prev, i + 1 - prev, texture);
+        base_t::uploadResources(resources + prev, i + 1 - prev, texture);
         if (i + 1 < count)
           addCheckPoint();
 
@@ -829,7 +825,7 @@ namespace graphics
 
     if (count != 0)
     {
-      base_t::uploadStyles(styles, count, texture);
+      base_t::uploadResources(resources, count, texture);
       bytesUploaded = 0;
     }
   }
