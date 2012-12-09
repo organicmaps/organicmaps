@@ -24,7 +24,8 @@ RenderPolicy::~RenderPolicy()
 {
   LOG(LDEBUG, ("clearing cached drawing rules"));
   drule::rules().ClearCaches();
-  m_primaryRC->endThreadDrawing(m_resourceManager->guiThreadSlot());
+  if (m_primaryRC && m_resourceManager)
+    m_primaryRC->endThreadDrawing(m_resourceManager->guiThreadSlot());
 }
 
 RenderPolicy::RenderPolicy(Params const & p,

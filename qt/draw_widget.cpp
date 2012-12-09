@@ -244,6 +244,10 @@ namespace qt
         LOG(LERROR, ("OpenGL platform is unsupported, reason: ", e.what()));
         /// @todo Show "Please Update Drivers" dialog and close the program.
       }
+      catch (RootException const & e)
+      {
+        LOG(LERROR, (e.what()));
+      }
 
       m_isInitialized = true;
     }
