@@ -69,7 +69,7 @@ SOURCES += \
     render_context.cpp \
     coordinates.cpp \
     render_target.cpp \
-    defines.cpp
+    defines.cpp \
     icon.cpp \
     brush.cpp
 
