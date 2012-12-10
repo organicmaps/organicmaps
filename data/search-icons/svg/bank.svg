@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1"
+	 id="bank" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" sodipodi:docname="bank.svg" inkscape:version="0.48.2 r9819" xmlns:svg="http://www.w3.org/2000/svg"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="18.641px"
+	 height="18.641px" viewBox="0 0 18.641 18.641" enable-background="new 0 0 18.641 18.641" xml:space="preserve">
+<sodipodi:namedview  inkscape:cx="9.3199997" inkscape:zoom="12.660945" pagecolor="#ffffff" inkscape:cy="9.3199997" borderopacity="1" objecttolerance="10" guidetolerance="10" bordercolor="#666666" gridtolerance="10" showgrid="false" inkscape:window-height="480" inkscape:current-layer="bank" inkscape:window-y="0" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-x="0" inkscape:window-width="640" inkscape:window-maximized="0" id="namedview7">
+	</sodipodi:namedview>
+<g>
+	<path fill="#50524E" d="M10.14,11.482v1.641C11.184,12.973,11.184,11.632,10.14,11.482z"/>
+	<path fill="#50524E" d="M9.246,9.096V7.456C8.202,7.605,8.202,8.947,9.246,9.096z"/>
+	<path fill="#50524E" d="M9.693,0.045L0,7.456h2.237V18.64h14.166V7.456h2.237L9.693,0.045z M10.14,15.211
+		c0,0.895,0,1.192-0.447,1.192s-0.447-0.298-0.447-1.192c-0.746,0-2.834-0.299-2.685-1.641s1.641-0.597,2.685-0.447v-1.938
+		C8.052,10.885,6.561,9.991,6.561,8.35c0-1.64,1.491-2.684,2.685-2.684c0-0.895,0-1.193,0.447-1.193s0.447,0.299,0.447,1.193
+		c0.895,0,2.982,0.298,2.535,1.342s-1.79,0.597-2.535,0.447v1.938c1.342,0.299,2.833,1.193,2.833,2.834
+		C12.973,13.868,11.632,15.211,10.14,15.211z"/>
+</g>
+</svg>
