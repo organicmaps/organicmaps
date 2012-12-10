@@ -1,5 +1,5 @@
-World.mwm 35910424
-WorldCoasts.mwm 5869426
+World.mwm 36168972
+WorldCoasts.mwm 5868464
 01_dejavusans.ttf 633604
 02_wqy-microhei.ttf 5177387
 03_jomolhari-id-a3d.ttf 1817160 
