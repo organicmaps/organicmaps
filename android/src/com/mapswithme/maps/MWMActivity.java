@@ -39,27 +39,26 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private BroadcastReceiver m_externalStorageReceiver = null;
   private AlertDialog m_storageDisconnectedDialog = null;
   private int m_longClickHandler;
-  
-  private interface OnLongClickListener
-  {
-    void onLongClick(int x, int y);
-  }
+
+  /// @note Always implement onLongClick function like this:
   /*
   @Override
   public boolean onLongClick(View v)
   {
     v.post(new Runnable()
     {
-      
       @Override
       public void run()
       {
-        
       }
     });
     return super.onLongClick(v);
   }*/
-  
+  private interface OnLongClickListener
+  {
+    void onLongClick(int x, int y);
+  }
+
   private native int addOnLongClickListener(Object l);
   private native void removeOnLongClickListener(int h);
 
@@ -345,18 +344,21 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     Intent intent = null;
     try
     {
-      /// trying to find package with installed Facebook application.
-      /// exception is thrown if we don't have one.
+      // Trying to find package with installed Facebook application.
+      // Exception is thrown if we don't have one.
       getPackageManager().getPackageInfo("com.facebook.katana", 0);
-      /// profile id is taken from http://graph.facebook.com/MapsWithMe
+
+      // Profile id is taken from http://graph.facebook.com/MapsWithMe
       intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/111923085594432"));
+
+      // throws ActivityNotFoundException
+      startActivity(intent);
     }
     catch (Exception e)
     {
       intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/MapsWithMe"));
+      startActivity(intent);
     }
-
-    startActivity(intent);
   }
 
   private boolean isChinaISO(String iso)
@@ -602,14 +604,17 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
             }
             dialog.cancel();
           }
-        }).setNegativeButton(R.string.close, new DialogInterface.OnClickListener()
+        })
+        .setNegativeButton(R.string.close, new DialogInterface.OnClickListener()
         {
           @Override
           public void onClick(DialogInterface dialog, int which)
           {
             dialog.cancel();
           }
-        }).show();
+        })
+        .create()
+        .show();
       }
     }
     else if (errorCode == LocationService.ERROR_GPS_OFF)

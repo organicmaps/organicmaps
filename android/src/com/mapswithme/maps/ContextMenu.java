@@ -35,6 +35,7 @@ public class ContextMenu
         dialog.cancel();
       }
     })
+    .create()
     .show();
   }
 
