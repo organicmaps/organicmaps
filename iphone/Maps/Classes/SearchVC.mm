@@ -120,7 +120,23 @@ static void OnSearchResultCallback(search::Results const & res)
     m_framework->PrepareSearch(hasPt, lat, lon);
       
     //mycode init array of categories
-    categoriesNames = [[NSArray alloc] initWithObjects:@"food", @"money", @"fuel", @"shop", @"transport", @"tourism", nil];
+    categoriesNames = [[NSArray alloc] initWithObjects:
+                       @"food",
+                       @"transport",
+                       @"fuel",
+                       @"parking",
+                       @"shop",
+                       @"hotel",
+                       @"tourism",
+                       @"entertainment",
+                       @"atm",
+                       @"bank",
+                       @"pharmacy",
+                       @"hospital",
+                       @"toilet",
+                       @"post",
+                       @"police",
+                       nil];
   }
   return self;
 }
@@ -185,9 +201,9 @@ static void OnSearchResultCallback(search::Results const & res)
     m_table.dataSource = self;
     
     [m_searchBar setScopeButtonTitles:[NSArray arrayWithObjects:
-                                                                   NSLocalizedString(@"search_mode_nearme", @"Do search near my position only"),
-                                                                   NSLocalizedString(@"search_mode_viewport", @""),
-                                                                   NSLocalizedString(@"search_mode_all", nil), nil]];
+                                              NSLocalizedString(@"search_mode_nearme", nil),
+                                              NSLocalizedString(@"search_mode_viewport", nil),
+                                              NSLocalizedString(@"search_mode_all", nil), nil]];
     [self setSearchBarHeight];
     [m_table setTableHeaderView:m_searchBar];
     self.view = m_table;
@@ -336,8 +352,8 @@ static void OnSearchResultCallback(search::Results const & res)
     {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
-      
-    cell.textLabel.text =  NSLocalizedString([categoriesNames objectAtIndex:indexPath.row],@"Search Suggestion");
+
+    cell.textLabel.text =  NSLocalizedString([categoriesNames objectAtIndex:indexPath.row], nil);
     cell.imageView.image = [UIImage imageNamed:[categoriesNames objectAtIndex:indexPath.row]];
 
     return cell;

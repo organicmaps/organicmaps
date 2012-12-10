@@ -153,24 +153,6 @@
 /* View and button titles for accessibility */
 "zoom_to_country" = "Das Land auf der Karte anzeigen";
 
-/* Search Suggestion */
-"food" = "essen";
-
-/* Search Suggestion */
-"money" = "Geld";
-
-/* Search Suggestion */
-"fuel" = "Tankstelle";
-
-/* Search Suggestion */
-"shop" = "Laden";
-
-/* Search Suggestion */
-"transport" = "Verkehr";
-
-/* Search Suggestion */
-"tourism" = "Sehenswürdigkeit";
-
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^wird zur Download-Warteschleife hinzugefügt";
 
@@ -334,10 +316,57 @@
 "measurement_units_summary" = "Auswahl zwischen Meilen und Kilometern";
 
 /* Do search in all sources */
-"search_mode_all" = "All";
+"search_mode_all" = "Überall";
 
 /* Do search near my position only */
-"search_mode_nearme" = "Near Me";
+"search_mode_nearme" = "In meiner Nähe";
 
 /* Do search in current viewport only */
-"search_mode_viewport" = "Map View";
+"search_mode_viewport" = "Auf der Karte";
+
+/* Search Suggestion */
+"food" = "Essen";
+
+/* Search Suggestion */
+"transport" = "Verkehr";
+
+/* Search Suggestion */
+"fuel" = "Tankstelle";
+
+/* Search Suggestion */
+"parking" = "Parkplatz";
+
+/* Search Suggestion */
+"shop" = "Laden";
+
+"hotel" = "Hotel";
+
+/* Search Suggestion */
+"tourism" = "Sehenswürdigkeit";
+
+/* Search Suggestion */
+"entertainment" = "Unterhaltung";
+
+/* Search Suggestion */
+"atm" = "Geldautomat";
+
+/* Search Suggestion */
+"bank" = "Bank";
+
+/* Search Suggestion */
+"pharmacy" = "Apotheke";
+
+/* Search Suggestion */
+"hospital" = "Spital";
+
+/* Search Suggestion */
+"toilet" = "Toilette";
+
+/* Search Suggestion */
+"post" = "Post";
+
+/* Search Suggestion */
+"police" = "Polizeistation";
+
+/* String in search result list, when nothing found */
+"no_search_results_found" = "Keine Ergebnisse gefunden";

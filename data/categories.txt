@@ -286,16 +286,16 @@ cs:3půjčovna aut|3auto
 nl:3autoverhuur|auto
 
 amenity-cinema
-en:3cinema
-ru:кинотеатр|3кино
-de:3Kino|Cinema|Filmtheater
-fr:3cinéma|ciné
+en:3cinema|entertainment
+ru:кинотеатр|3кино|развлечения
+de:3Kino|Cinema|Filmtheater|Unterhaltung
+fr:3cinéma|ciné|divertissement
 it:3cinema|teatro
-es:3cine
-ko:영화
-ja:シネマ
-cs:3kino|biograf
-nl:3bioscoop
+es:3cine|entretenimiento
+ko:영화|엔터테인먼트
+ja:シネマ|エンターテイメント
+cs:3kino|biograf|zábava
+nl:3bioscoop|uitgaan
 
 amenity-college
 en:college
@@ -425,7 +425,7 @@ it:3farmacia
 es:3farmacia
 ko:약국|약물 매장|약종상
 ja:薬局|ドラッグストア|薬剤師|調剤|薬局の
-cs:lékárna
+cs:3lékárna
 nl:3apotheek|verdeelstation
 
 amenity-post_box
@@ -501,16 +501,16 @@ cs:2telefon|telefoní budka|telefoní automat
 nl:2telefoon
 
 amenity-theatre
-en:3theatre|theater
-ru:3театр
-de:3Theater
-fr:3théâtre
+en:3theatre|theater|entertainment
+ru:3театр|развлечения
+de:3Theater|Unterhaltung
+fr:3théâtre|divertissement
 it:3teatro
-es:3teatro
-ko:연극
-ja:劇場
-cs:3divadlo
-nl:3theater
+es:3teatro|entretenimiento
+ko:연극|엔터테인먼트
+ja:劇場|エンターテイメント
+cs:3divadlo|zábava
+nl:3theater|uitgaan
 
 amenity-toilets
 en:3toilet|wc
@@ -1023,16 +1023,16 @@ cs:4tržiště|samoobsluha|market|obchod
 nl:4markt|winkel
 
 amenity-nightclub
-en:3nightclub|3disco|dance
-ru:3ночной клуб|3дискотека
-de:3Nachtclub|Nachtklub
-fr:3discothèque|3nuit-club
+en:3nightclub|3disco|dance|entertainment
+ru:3ночной клуб|3дискотека|развлечения
+de:3Nachtclub|Nachtklub|Unterhaltung
+fr:3discothèque|3nuit-club|divertissement
 it:3night club
-es:3discoteca|nightclub
-ko:나이트 클럽
-ja:ナイトクラブ
-cs:4noční klub|3disco|3klub
-nl:3nightclub|3disco|dansen
+es:3discoteca|nightclub|entretenimiento
+ko:나이트 클럽|엔터테인먼트
+ja:ナイトクラブ|エンターテイメント
+cs:4noční klub|3disco|3klub|zábava
+nl:3nightclub|3disco|dansen|uitgaan
 
 amenity-embassy
 en:4embassy

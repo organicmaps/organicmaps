@@ -153,24 +153,6 @@
 /* View and button titles for accessibility */
 "zoom_to_country" = "Показать страну на карте";
 
-/* Search Suggestion */
-"food" = "еда";
-
-/* Search Suggestion */
-"money" = "деньги";
-
-/* Search Suggestion */
-"fuel" = "заправка";
-
-/* Search Suggestion */
-"shop" = "магазин";
-
-/* Search Suggestion */
-"transport" = "транспорт";
-
-/* Search Suggestion */
-"tourism" = "достопримечательность";
-
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^добавлено в очередь загрузки.";
 
@@ -340,4 +322,51 @@
 "search_mode_nearme" = "Около меня";
 
 /* Do search in current viewport only */
-"search_mode_viewport" = "В текущем экране";
+"search_mode_viewport" = "На карте";
+
+/* Search Suggestion */
+"food" = "еда";
+
+/* Search Suggestion */
+"transport" = "транспорт";
+
+/* Search Suggestion */
+"fuel" = "заправка";
+
+/* Search Suggestion */
+"parking" = "парковка";
+
+/* Search Suggestion */
+"shop" = "магазин";
+
+"hotel" = "гостиница";
+
+/* Search Suggestion */
+"tourism" = "достопримечательность";
+
+/* Search Suggestion */
+"entertainment" = "развлечения";
+
+/* Search Suggestion */
+"atm" = "банкомат";
+
+/* Search Suggestion */
+"bank" = "банк";
+
+/* Search Suggestion */
+"pharmacy" = "аптека";
+
+/* Search Suggestion */
+"hospital" = "больница";
+
+/* Search Suggestion */
+"toilet" = "туалет";
+
+/* Search Suggestion */
+"post" = "почта";
+
+/* Search Suggestion */
+"police" = "полиция";
+
+/* String in search result list, when nothing found */
+"no_search_results_found" = "Нет результатов поиска";

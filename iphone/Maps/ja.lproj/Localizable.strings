@@ -153,24 +153,6 @@
 /* View and button titles for accessibility */
 "zoom_to_country" = "国へズーム";
 
-/* Search Suggestion */
-"food" = "飯";
-
-/* Search Suggestion */
-"money" = "金";
-
-/* Search Suggestion */
-"fuel" = "燃料";
-
-/* Search Suggestion */
-"shop" = "店";
-
-/* Search Suggestion */
-"transport" = "輸送";
-
-/* Search Suggestion */
-"tourism" = "観光";
-
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^をダウンロードキューに追加しました";
 
@@ -334,10 +316,57 @@
 "measurement_units_summary" = "マイルまたはキロメートルを選択";
 
 /* Do search in all sources */
-"search_mode_all" = "All";
+"search_mode_all" = "どこにでも";
 
 /* Do search near my position only */
-"search_mode_nearme" = "Near Me";
+"search_mode_nearme" = "周辺情報";
 
 /* Do search in current viewport only */
-"search_mode_viewport" = "Map View";
+"search_mode_viewport" = "地図上検索";
+
+/* Search Suggestion */
+"food" = "飯";
+
+/* Search Suggestion */
+"transport" = "輸送";
+
+/* Search Suggestion */
+"fuel" = "燃料";
+
+/* Search Suggestion */
+"parking" = "駐車場";
+
+/* Search Suggestion */
+"shop" = "店";
+
+"hotel" = "ホテル";
+
+/* Search Suggestion */
+"tourism" = "観光";
+
+/* Search Suggestion */
+"entertainment" = "エンターテイメント";
+
+/* Search Suggestion */
+"atm" = "atm";
+
+/* Search Suggestion */
+"bank" = "銀行";
+
+/* Search Suggestion */
+"pharmacy" = "薬局";
+
+/* Search Suggestion */
+"hospital" = "病院";
+
+/* Search Suggestion */
+"toilet" = "トイレ";
+
+/* Search Suggestion */
+"post" = "電子メール";
+
+/* Search Suggestion */
+"police" = "警察";
+
+/* String in search result list, when nothing found */
+"no_search_results_found" = "結果が見つかりませんでした";

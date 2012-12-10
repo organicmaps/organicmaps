@@ -153,24 +153,6 @@
 /* View and button titles for accessibility */
 "zoom_to_country" = "Zoom to the country";
 
-/* Search Suggestion */
-"food" = "food";
-
-/* Search Suggestion */
-"money" = "money";
-
-/* Search Suggestion */
-"fuel" = "gas";
-
-/* Search Suggestion */
-"shop" = "shop";
-
-/* Search Suggestion */
-"transport" = "transport";
-
-/* Search Suggestion */
-"tourism" = "sights";
-
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^is added to the downloading queue.";
 
@@ -337,7 +319,54 @@
 "search_mode_all" = "All";
 
 /* Do search near my position only */
-"search_mode_nearme" = "Near Me";
+"search_mode_nearme" = "Near me";
 
 /* Do search in current viewport only */
-"search_mode_viewport" = "Map View";
+"search_mode_viewport" = "On the map";
+
+/* Search Suggestion */
+"food" = "food";
+
+/* Search Suggestion */
+"transport" = "transport";
+
+/* Search Suggestion */
+"fuel" = "gas";
+
+/* Search Suggestion */
+"parking" = "parking";
+
+/* Search Suggestion */
+"shop" = "shop";
+
+"hotel" = "hotel";
+
+/* Search Suggestion */
+"tourism" = "sights";
+
+/* Search Suggestion */
+"entertainment" = "entertainment";
+
+/* Search Suggestion */
+"atm" = "atm";
+
+/* Search Suggestion */
+"bank" = "bank";
+
+/* Search Suggestion */
+"pharmacy" = "pharmacy";
+
+/* Search Suggestion */
+"hospital" = "hospital";
+
+/* Search Suggestion */
+"toilet" = "toilet";
+
+/* Search Suggestion */
+"post" = "post";
+
+/* Search Suggestion */
+"police" = "police";
+
+/* String in search result list, when nothing found */
+"no_search_results_found" = "No results found";

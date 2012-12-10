@@ -153,24 +153,6 @@
 /* View and button titles for accessibility */
 "zoom_to_country" = "국가로 확대하여 주세요";
 
-/* Search Suggestion */
-"food" = "음식";
-
-/* Search Suggestion */
-"money" = "돈";
-
-/* Search Suggestion */
-"fuel" = "연료";
-
-/* Search Suggestion */
-"shop" = "쇼핑";
-
-/* Search Suggestion */
-"transport" = "수송";
-
-/* Search Suggestion */
-"tourism" = "관광";
-
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^는 다운로드 대기열에추가됩니다.";
 
@@ -334,10 +316,57 @@
 "measurement_units_summary" = "마일과 킬로미터 중에서 선택하십시오";
 
 /* Do search in all sources */
-"search_mode_all" = "All";
+"search_mode_all" = "모든 곳";
 
 /* Do search near my position only */
-"search_mode_nearme" = "Near Me";
+"search_mode_nearme" = "근처 검색";
 
 /* Do search in current viewport only */
-"search_mode_viewport" = "Map View";
+"search_mode_viewport" = "현재 맵 검색";
+
+/* Search Suggestion */
+"food" = "음식";
+
+/* Search Suggestion */
+"transport" = "수송";
+
+/* Search Suggestion */
+"fuel" = "연료";
+
+/* Search Suggestion */
+"parking" = "주차";
+
+/* Search Suggestion */
+"shop" = "쇼핑";
+
+"hotel" = "호텔";
+
+/* Search Suggestion */
+"tourism" = "관광";
+
+/* Search Suggestion */
+"entertainment" = "엔터테인먼트";
+
+/* Search Suggestion */
+"atm" = "atm";
+
+/* Search Suggestion */
+"bank" = "은행";
+
+/* Search Suggestion */
+"pharmacy" = "약국";
+
+/* Search Suggestion */
+"hospital" = "병원";
+
+/* Search Suggestion */
+"toilet" = "화장실";
+
+/* Search Suggestion */
+"post" = "우편";
+
+/* Search Suggestion */
+"police" = "치안대";
+
+/* String in search result list, when nothing found */
+"no_search_results_found" = "결과 없음";
