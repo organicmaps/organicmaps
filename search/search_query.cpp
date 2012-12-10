@@ -295,7 +295,7 @@ void Query::SearchCoordinates(string const & query, Results & res) const
   }
 }
 
-void Query::Search(Results & res)
+void Query::Search(Results & res, bool searchAddress)
 {
   ClearQueues();
 
@@ -303,7 +303,8 @@ void Query::Search(Results & res)
   SuggestStrings(res);
 
   if (m_cancel) return;
-  SearchAddress();
+  if (searchAddress)
+    SearchAddress();
 
   if (m_cancel) return;
   SearchFeatures();

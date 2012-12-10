@@ -277,7 +277,7 @@ void Engine::SearchAsync()
       }
     }
     else
-      m_pQuery->Search(res);
+      m_pQuery->Search(res, params.NeedSearch(SearchParams::SEARCH_ADDRESS));
   }
   catch (Query::CancelException const &)
   {

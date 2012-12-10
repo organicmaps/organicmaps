@@ -83,7 +83,7 @@ public:
   /// @name Different search functions.
   //@{
   void SearchCoordinates(string const & query, Results & res) const;
-  void Search(Results & res);
+  void Search(Results & res, bool searchAddress);
   void SearchAllInViewport(m2::RectD const & viewport, Results & res, unsigned int resultsNeeded = 30);
   void SearchAdditional(Results & res, bool nearMe, bool inViewport);
   //@}

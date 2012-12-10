@@ -29,7 +29,8 @@ namespace search
       AROUND_POSITION = 1,
       IN_VIEWPORT = 2,
       SEARCH_WORLD = 4,
-      ALL = AROUND_POSITION | IN_VIEWPORT | SEARCH_WORLD
+      SEARCH_ADDRESS = 8,
+      ALL = AROUND_POSITION | IN_VIEWPORT | SEARCH_WORLD | SEARCH_ADDRESS
     };
 
     void SetSearchMode(int mode) { m_searchMode = mode; }
