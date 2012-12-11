@@ -9,15 +9,16 @@ public class Bookmark
   private Context mContext;
   private Point mPosition;
   private int mCategoryId = -1;
-  private long mBookmark;
+  private int mBookmark;
   private double mLat = Double.NaN;
   private double mLon = Double.NaN;
 
-  Bookmark(Context context, Point position, int nextCat)
+  Bookmark(Context context, Point position, int nextCat, int b)
   {
     mContext = context.getApplicationContext();
     mPosition = position;
     getLatLon(position);
+    mBookmark = b;
     changeBookmark(getCategoryName(), getName(), getIcon().getType());
     if (nextCat == -1)
     {
@@ -33,7 +34,7 @@ public class Bookmark
     mLon = ll[1];
   }
 
-  Bookmark(Context context, int c, long b)
+  Bookmark(Context context, int c, int b)
   {
     mContext = context.getApplicationContext();
     mCategoryId = c;
@@ -145,6 +146,7 @@ public class Bookmark
   {
     changeBookmark(category, getName(), mIcon.getType());
     mCategoryId = catId;
+    mBookmark = BookmarkManager.getPinManager(mContext).getCategoryById(mCategoryId).getSize();
   }
 
   private void changeBookmark(String category, String name, String type)
@@ -155,5 +157,10 @@ public class Bookmark
   public int getCategoryId()
   {
     return mCategoryId;
+  }
+
+  public int getBookmarkId()
+  {
+    return mBookmark;
   }
 }

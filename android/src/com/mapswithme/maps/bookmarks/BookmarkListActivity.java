@@ -1,6 +1,7 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -36,20 +37,26 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
     super.onCreate(savedInstanceState);
     setContentView(R.layout.pins);
     final int setIndex = getIntent().getIntExtra(BookmarkActivity.PIN_SET, -1);
-    if ((mEditedSet = mManager.getCategoryById(setIndex)) != null)
+    if ((mEditedSet = mManager.getCategoryById(setIndex)) == null)
     {
-      setListAdapter(mPinAdapter = new BookmarkListAdapter(this, mEditedSet));
-      setUpViews();
-      getListView().setOnItemClickListener(new OnItemClickListener()
-      {
-
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-        {
-          startPinActivity(setIndex, position);
-        }
-      });
+      Point bmk = ((ParcelablePoint)getIntent().getParcelableExtra(BookmarkActivity.PIN)).getPoint();
+      mEditedSet = mManager.createCategory(mManager.getBookmark(bmk.x, bmk.y));
+      setResult(RESULT_OK,
+                new Intent().putExtra(BookmarkActivity.PIN_SET, mManager.getCategoriesCount()-1).
+                putExtra(BookmarkActivity.PIN, new ParcelablePoint(mManager.getCategoriesCount()-1, mEditedSet.getSize()-1))
+                );
     }
+    setListAdapter(mPinAdapter = new BookmarkListAdapter(this, mEditedSet));
+    setUpViews();
+    getListView().setOnItemClickListener(new OnItemClickListener()
+    {
+
+      @Override
+      public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+      {
+        startPinActivity(setIndex, position);
+      }
+    });
     registerForContextMenu(getListView());
   }
 

@@ -21,6 +21,7 @@ import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.Icon;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
+import com.mapswithme.maps.bookmarks.data.ParcelablePointD;
 
 public class BookmarkActivity extends AbstractBookmarkActivity
 {
@@ -94,7 +95,8 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       {
         startActivityForResult(
             new Intent(BookmarkActivity.this, ChooseBookmarkCategoryActivity.class).putExtra(PIN_SET,
-                mCurrentCategoryId), REQUEST_CODE_SET);
+                mCurrentCategoryId).putExtra(PIN, new ParcelablePoint(mPin.getCategoryId(), mPin.getBookmarkId())),
+                REQUEST_CODE_SET);
       }
     });
     mSetName = (TextView) findViewById(R.id.pin_button_set_name);
@@ -133,7 +135,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
         BookmarkCategory set = mManager.getCategoryById(mCurrentCategoryId);
         if (set != null)
         {
-          mPin.setCategory(set.getName(), mCurrentCategoryId);
+          //mPin.setCategory(set.getName(), mCurrentCategoryId);
           mSetName.setText(set.getName());
         }
       }

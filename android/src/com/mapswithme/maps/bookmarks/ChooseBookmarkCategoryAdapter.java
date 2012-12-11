@@ -53,6 +53,18 @@ public class ChooseBookmarkCategoryAdapter extends AbstractBookmarkCategoryAdapt
     }
   }
 
+  /// I'm ashamed, but i don't know how make it better
+  public void chooseItem(int position)
+  {
+    mCheckedPosition = position;
+    notifyDataSetChanged();
+  }
+
+  public int getChechedItemPosition()
+  {
+    return mCheckedPosition;
+  }
+
   @Override
   public void onItemClick(AdapterView<?> parent, View view, int position, long id)
   {

@@ -79,7 +79,14 @@ public class BookmarkManager
 
   public BookmarkCategory getCategoryById(int id)
   {
-    return new BookmarkCategory(mContext, id);
+    if (id < getCategoriesCount())
+    {
+      return new BookmarkCategory(mContext, id);
+    }
+    else
+    {
+      return null;
+    }
   }
 
   public native int getCategoriesCount();
@@ -106,7 +113,7 @@ public class BookmarkManager
     int [] bookmark = nGetBookmark(p.x, p.y);
     if (bookmark[0] == -1 && bookmark[1] == -1)
     {
-      return new Bookmark(mContext, p, getCategoriesCount() - 1);
+      return new Bookmark(mContext, p, getCategoriesCount() - 1, 0);
     }
     else
     {
@@ -131,5 +138,12 @@ public class BookmarkManager
   {
 
     return new Bookmark(mContext, cat, bmk);
+  }
+
+  public BookmarkCategory createCategory(Bookmark bookmark)
+  {
+    bookmark.setCategory("Category " + (getCategoriesCount()), getCategoriesCount());
+    BookmarkCategory cat = new BookmarkCategory(mContext, getCategoriesCount()-1);
+    return cat;
   }
 }

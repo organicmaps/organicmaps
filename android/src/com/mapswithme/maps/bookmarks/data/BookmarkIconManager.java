@@ -13,7 +13,6 @@ import android.util.Log;
 public class BookmarkIconManager
 {
   private Context mContext;
-  private R.drawable mDrawables;
   private Bitmap mEmptyBitmap = null;
   private static String[] ICONS = {
              "placemark-red", "placemark-blue", "placemark-purple",
@@ -24,7 +23,6 @@ public class BookmarkIconManager
   public BookmarkIconManager(Context context)
   {
     mContext = context.getApplicationContext();
-    mDrawables = new R.drawable();
     mIcons = new WeakHashMap<String, Bitmap>();
     mEmptyBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.placemark_red);
   }
