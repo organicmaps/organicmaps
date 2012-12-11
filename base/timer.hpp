@@ -2,7 +2,8 @@
 
 #include "../std/stdint.hpp"
 #include "../std/string.hpp"
-#include "../std/stdint.hpp"
+#include "../std/ctime.hpp"
+
 
 namespace my
 {
@@ -24,5 +25,16 @@ public:
 
 string FormatCurrentTime();
 uint32_t TodayAsYYMMDD();
+
+/// Always creates strings in UTC time: 1997-07-16T07:30:15Z
+/// Returns empty string on error
+string TimestampToString(time_t time);
+
+time_t const INVALID_TIME_STAMP = -1;
+
+/// Accepts strings in UTC format: 1997-07-16T07:30:15Z
+/// And with custom time offset:   1997-07-16T10:30:15+03:00
+/// @return INVALID_TIME_STAMP if string is invalid
+time_t StringToTimestamp(string const & s);
 
 }

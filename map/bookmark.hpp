@@ -5,10 +5,11 @@
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
 
+#include "../base/timer.hpp"
+
 #include "../std/string.hpp"
 #include "../std/noncopyable.hpp"
 #include "../std/iostream.hpp"
-#include "../std/ctime.hpp"
 
 
 class Bookmark
@@ -21,9 +22,9 @@ class Bookmark
   time_t m_timeStamp;
 
 public:
-  Bookmark() : m_scale(-1.0), m_timeStamp(INVALID_TIME_STAMP) {}
+  Bookmark() : m_scale(-1.0), m_timeStamp(my::INVALID_TIME_STAMP) {}
   Bookmark(m2::PointD const & org, string const & name, string const & type)
-    : m_org(org), m_name(name), m_type(type), m_scale(-1.0), m_timeStamp(INVALID_TIME_STAMP)
+    : m_org(org), m_name(name), m_type(type), m_scale(-1.0), m_timeStamp(my::INVALID_TIME_STAMP)
   {
   }
 
@@ -36,9 +37,7 @@ public:
   string const & GetDescription() const { return m_description; }
   void SetDescription(string const & description) { m_description = description; }
 
-  static time_t const INVALID_TIME_STAMP;
-
-  /// @return INVALID_TIME_STAMP if bookmark has no timestamp
+  /// @return my::INVALID_TIME_STAMP if bookmark has no timestamp
   time_t GetTimeStamp() const { return m_timeStamp; }
   void SetTimeStamp(time_t timeStamp) { m_timeStamp = timeStamp; }
 

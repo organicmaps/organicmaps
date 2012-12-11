@@ -9,10 +9,6 @@
 #include "../../std/fstream.hpp"
 
 
-// Prototypes for private functions in bookmarks.cpp
-string TimestampToString(time_t time);
-time_t StringToTimestamp(string const & timeStr);
-
 namespace
 {
 char const * kmlString =
@@ -123,7 +119,7 @@ char const * kmlString =
     TEST_EQUAL(bm->GetName(), "Nebraska", ());
     TEST_EQUAL(bm->GetType(), "placemark-red", ());
     TEST_EQUAL(bm->GetDescription(), "", ());
-    TEST_EQUAL(bm->GetTimeStamp(), Bookmark::INVALID_TIME_STAMP, ());
+    TEST_EQUAL(bm->GetTimeStamp(), my::INVALID_TIME_STAMP, ());
 
     bm = cat.GetBookmark(1);
     TEST_EQUAL(bm->GetName(), "Monongahela National Forest", ());
@@ -146,7 +142,7 @@ char const * kmlString =
     TEST_ALMOST_EQUAL(MercatorBounds::YToLat(org.y), 53.89306, ());
     TEST_EQUAL(bm->GetName(), "<MWM & Sons>", ());
     TEST_EQUAL(bm->GetDescription(), "Amps & <brackets>", ());
-    TEST_EQUAL(bm->GetTimeStamp(), Bookmark::INVALID_TIME_STAMP, ());
+    TEST_EQUAL(bm->GetTimeStamp(), my::INVALID_TIME_STAMP, ());
   }
 }
 
@@ -221,14 +217,14 @@ UNIT_TEST(Bookmarks_Timestamp)
   m2::PointD const orgPoint(10, 10);
   Bookmark b1(orgPoint, "name", "type");
   b1.SetTimeStamp(timeStamp);
-  TEST_NOT_EQUAL(b1.GetTimeStamp(), Bookmark::INVALID_TIME_STAMP, ());
+  TEST_NOT_EQUAL(b1.GetTimeStamp(), my::INVALID_TIME_STAMP, ());
 
   Framework fm;
   fm.AddBookmark("cat", b1);
 
   BookmarkAndCategory res = fm.GetBookmark(fm.GtoP(orgPoint), 1.0);
   Bookmark const * b2 = fm.GetBmCategory(res.first)->GetBookmark(res.second);
-  TEST_NOT_EQUAL(b2->GetTimeStamp(), Bookmark::INVALID_TIME_STAMP, ());
+  TEST_NOT_EQUAL(b2->GetTimeStamp(), my::INVALID_TIME_STAMP, ());
   TEST_EQUAL(b2->GetTimeStamp(), timeStamp, ());
 
   // Replace/update bookmark
@@ -418,22 +414,4 @@ UNIT_TEST(Bookmarks_AddingMoving)
   TEST_EQUAL(pBm->GetType(), "placemark-green", ());
 
   DeleteCategoryFiles();
-}
-
-UNIT_TEST(TimestampConversion)
-{
-  TEST_EQUAL(TimestampToString(0), "1970-01-01T00:00:00Z", ());
-  TEST_EQUAL(TimestampToString(1354482514), "2012-12-02T21:08:34Z", ());
-  TEST_EQUAL(StringToTimestamp("1970-01-01T00:00:00Z"), 0, ());
-  TEST_EQUAL(StringToTimestamp("2012-12-02T21:08:34Z"), 1354482514, ());
-  TEST_EQUAL(StringToTimestamp("2012-12-03T00:38:34+03:30"), 1354482514, ());
-  TEST_EQUAL(StringToTimestamp("2012-12-02T11:08:34-10:00"), 1354482514, ());
-
-  time_t now = time(0);
-  TEST_EQUAL(now, StringToTimestamp(TimestampToString(now)), ());
-
-  TEST_EQUAL(Bookmark::INVALID_TIME_STAMP, StringToTimestamp("asd23423adsfbhj657"), ());
-  TEST_EQUAL(Bookmark::INVALID_TIME_STAMP, StringToTimestamp("2012-aa-02T21:08:34Z"), ());
-  TEST_EQUAL(Bookmark::INVALID_TIME_STAMP, StringToTimestamp("2012-12-0ZT21:08:34Z"), ());
-  TEST_EQUAL(Bookmark::INVALID_TIME_STAMP, StringToTimestamp("2012:12:02T21-08-34Z"), ());
 }

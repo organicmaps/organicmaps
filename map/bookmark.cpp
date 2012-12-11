@@ -15,68 +15,6 @@
 #include "../std/algorithm.hpp"
 
 
-////////////////////////////////////////////////////////
-time_t const Bookmark::INVALID_TIME_STAMP = static_cast<time_t>(-1);
-
-/// @name Helper functions to convert kml timestamps
-//@{
-
-/// Always creates strings in UTC time: 1997-07-16T07:30:15Z
-/// Returns empty string on error
-string TimestampToString(time_t time)
-{
-  struct tm * t = gmtime(&time);
-  char buf[21] = { 0 };
-  ::snprintf(buf, ARRAY_SIZE(buf), "%04d-%02d-%02dT%02d:%02d:%02dZ", t->tm_year + 1900,
-             t->tm_mon + 1, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec);
-  return buf;
-}
-
-/// Accepts strings in UTC format: 1997-07-16T07:30:15Z
-/// And with custom time offset:   1997-07-16T10:30:15+03:00
-/// @return INVALID_TIME_STAMP if string is invalid
-time_t StringToTimestamp(string const & timeStr)
-{
-  struct tm t;
-  memset(&t, 0, sizeof(t));
-  // Return current time in the case of failure
-  time_t res = Bookmark::INVALID_TIME_STAMP;
-  // Parse UTC format
-  if (timeStr.size() == 20)
-  {
-    if (6 == sscanf(timeStr.c_str(), "%4d-%2d-%2dT%2d:%2d:%2dZ", &t.tm_year,
-                    &t.tm_mon, &t.tm_mday, &t.tm_hour, &t.tm_min, &t.tm_sec))
-    {
-      t.tm_year -= 1900;
-      t.tm_mon -= 1;
-      res = timegm(&t);
-    }
-  }
-  else if (timeStr.size() == 25)
-  {
-    // Parse custom time zone offset format
-    char sign;
-    int tzHours, tzMinutes;
-    if (9 == sscanf(timeStr.c_str(), "%4d-%2d-%2dT%2d:%2d:%2d%c%2d:%2d", &t.tm_year,
-                    &t.tm_mon, &t.tm_mday, &t.tm_hour, &t.tm_min, &t.tm_sec,
-                    &sign, &tzHours, &tzMinutes))
-    {
-      t.tm_year -= 1900;
-      t.tm_mon -= 1;
-      time_t const tt = timegm(&t);
-      // Fix timezone offset
-      if (sign == '-')
-        res = tt + tzHours * 3600 + tzMinutes * 60;
-      else if (sign == '+')
-        res = tt - tzHours * 3600 - tzMinutes * 60;
-    }
-  }
-
-  return res;
-}
-
-//@}
-
 void BookmarkCategory::AddBookmarkImpl(Bookmark const & bm, double scale)
 {
   Bookmark * p = new Bookmark(bm);
@@ -205,7 +143,7 @@ namespace bookmark_impl
       m_org = m2::PointD(-1000, -1000);
       m_type.clear();
       m_scale = -1.0;
-      m_timeStamp = Bookmark::INVALID_TIME_STAMP;
+      m_timeStamp = my::INVALID_TIME_STAMP;
     }
 
     void SetOrigin(string const & s)
@@ -312,8 +250,8 @@ namespace bookmark_impl
           {
             if (currTag == "when")
             {
-              m_timeStamp = StringToTimestamp(value);
-              if (m_timeStamp == Bookmark::INVALID_TIME_STAMP)
+              m_timeStamp = my::StringToTimestamp(value);
+              if (m_timeStamp == my::INVALID_TIME_STAMP)
                 LOG(LWARNING, ("Invalid timestamp in Placemark:", value));
             }
           }
@@ -448,9 +386,9 @@ void BookmarkCategory::SaveToKML(ostream & s)
     }
 
     time_t const timeStamp = bm->GetTimeStamp();
-    if (timeStamp != Bookmark::INVALID_TIME_STAMP)
+    if (timeStamp != my::INVALID_TIME_STAMP)
     {
-      string const strTimeStamp = TimestampToString(timeStamp);
+      string const strTimeStamp = my::TimestampToString(timeStamp);
       ASSERT_EQUAL(strTimeStamp.size(), 20, ("We always generate fixed length UTC-format timestamp"));
       s << "    <TimeStamp><when>" << strTimeStamp << "</when></TimeStamp>\n";
     }
