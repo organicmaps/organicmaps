@@ -69,6 +69,8 @@ ScreenCoverage * CoverageGenerator::CreateCoverage()
 
 void CoverageGenerator::InitializeThreadGL()
 {
+  threads::MutexGuard g(m_mutex);
+
   if (m_renderContext)
   {
     m_renderContext->makeCurrent();
@@ -299,9 +301,9 @@ void CoverageGenerator::WaitForEmptyAndFinished()
   m_queue.Join();
 }
 
-ScreenCoverage & CoverageGenerator::CurrentCoverage()
+ScreenCoverage * CoverageGenerator::CurrentCoverage()
 {
-  return *m_currentCoverage;
+  return m_currentCoverage;
 }
 
 threads::Mutex & CoverageGenerator::Mutex()

@@ -114,7 +114,7 @@ public:
 
   string GetCountryName(m2::PointD const & pt) const;
 
-  ScreenCoverage & CurrentCoverage();
+  ScreenCoverage * CurrentCoverage();
 
   int InsertBenchmarkFence();
   void JoinBenchmarkFence(int fenceID);

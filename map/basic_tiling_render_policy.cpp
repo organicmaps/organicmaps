@@ -113,19 +113,23 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
 
   m_CoverageGenerator->Mutex().Lock();
 
-  ScreenCoverage * curCvg = &m_CoverageGenerator->CurrentCoverage();
+  ScreenCoverage * curCvg = m_CoverageGenerator->CurrentCoverage();
 
-  SetOverlay(curCvg->GetOverlay());
 
-  curCvg->Draw(pDrawer->screen().get(), s);
-
-  m_DrawScale = curCvg->GetDrawScale();
-
-  if (!curCvg->IsEmptyDrawingCoverage() || !curCvg->IsPartialCoverage())
+  if (curCvg)
   {
-    m_IsEmptyModel = curCvg->IsEmptyDrawingCoverage() && curCvg->IsEmptyModelAtCoverageCenter();
-    if (m_IsEmptyModel)
-      m_CountryName = curCvg->GetCountryNameAtCoverageCenter();
+    SetOverlay(curCvg->GetOverlay());
+
+    curCvg->Draw(pDrawer->screen().get(), s);
+
+    m_DrawScale = curCvg->GetDrawScale();
+
+    if (!curCvg->IsEmptyDrawingCoverage() || !curCvg->IsPartialCoverage())
+    {
+      m_IsEmptyModel = curCvg->IsEmptyDrawingCoverage() && curCvg->IsEmptyModelAtCoverageCenter();
+      if (m_IsEmptyModel)
+        m_CountryName = curCvg->GetCountryNameAtCoverageCenter();
+    }
   }
 
   pDrawer->endFrame();
