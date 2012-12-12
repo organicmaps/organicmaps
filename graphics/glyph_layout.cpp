@@ -92,7 +92,8 @@ namespace graphics
     {
       GlyphKey glyphKey(visText[i],
                         fontDesc.m_size,
-                        fontDesc.m_isMasked,
+                        //fontDesc.m_isMasked,
+                        false, //< calculating glyph positions using unmasked glyphs.
                         fontDesc.m_color);
 
       GlyphMetrics const m = glyphCache->getGlyphMetrics(glyphKey);
@@ -189,7 +190,8 @@ namespace graphics
     {
       GlyphKey key(visText[i],
                    m_fontDesc.m_size,
-                   m_fontDesc.m_isMasked,
+                   //m_fontDesc.m_isMasked,
+                   false, //< calculating glyph positions using the unmasked glyphs.
                    graphics::Color(0, 0, 0, 0));
       m_metrics.push_back(glyphCache->getGlyphMetrics(key));
     }
