@@ -1271,6 +1271,9 @@ namespace impl
             // splice locality info with region info
             i->m_matchedTokens.insert(i->m_matchedTokens.end(),
                                       p->m_matchedTokens.begin(), p->m_matchedTokens.end());
+            // we need to store sorted range of token indexies
+            sort(i->m_matchedTokens.begin(), i->m_matchedTokens.end());
+
             i->m_enName = i->m_enName + ", " + p->m_enName;
           }
         }
