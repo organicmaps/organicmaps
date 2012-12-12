@@ -1290,7 +1290,7 @@
     cs = Vyberte míle nebo kilometry
     nl = Kies tussen mijlen en kilometers
   [search_mode_all]
-    en = All
+    en = Everywhere
     tags = ios, android
     comment = Do search in all sources
     de = Überall
@@ -1303,7 +1303,7 @@
     cs = Všude
     nl = Overalq
   [search_mode_nearme]
-    en = Near me
+    en = Near Me
     tags = ios, android
     comment = Do search near my position only
     de = In meiner Nähe
@@ -1316,7 +1316,7 @@
     cs = V mé blízkosti
     nl = Dichtbij mij
   [search_mode_viewport]
-    en = On the map
+    en = On the Map
     tags = ios, android
     comment = Do search in current viewport only
     de = Auf der Karte
