@@ -122,15 +122,15 @@ static void OnSearchResultCallback(search::Results const & res)
     //mycode init array of categories
     categoriesNames = [[NSArray alloc] initWithObjects:
                        @"food",
-                       @"transport",
-                       @"fuel",
-                       @"parking",
                        @"shop",
                        @"hotel",
                        @"tourism",
                        @"entertainment",
                        @"atm",
                        @"bank",
+                       @"transport",
+                       @"fuel",
+                       @"parking",
                        @"pharmacy",
                        @"hospital",
                        @"toilet",
