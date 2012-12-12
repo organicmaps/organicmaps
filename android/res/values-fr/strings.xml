@@ -88,16 +88,6 @@
 	<string name="device_doesnot_support_location_services">Votre appareil n\'est pas compatible pour les services de repérage</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Zoomer sur le pays désiré</string>
-	<!-- Search Suggestion -->
-	<string name="food">repas</string>
-	<!-- Search Suggestion -->
-	<string name="money">argent</string>
-	<!-- Search Suggestion -->
-	<string name="fuel">station-service</string>
-	<!-- Search Suggestion -->
-	<string name="shop">magasin</string>
-	<!-- Search Suggestion -->
-	<string name="tourism">curiosités</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^ajouté à son tour de télécharger</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -198,4 +188,47 @@
 	<string name="measurement_units">Unités de mesure</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Choisissez entre miles et kilomètres</string>
+	<!-- Do search in all sources -->
+	<string name="search_mode_all">Partout</string>
+	<!-- Do search near my position only -->
+	<string name="search_mode_nearme">Près de moi</string>
+	<!-- Do search in current viewport only -->
+	<string name="search_mode_viewport">Sur la carte</string>
+	<!-- Search Suggestion -->
+	<string name="food">repas</string>
+	<!-- Search Suggestion -->
+	<string name="fuel">station-service</string>
+	<!-- Search Suggestion -->
+	<string name="parking">parking</string>
+	<!-- Search Suggestion -->
+	<string name="shop">magasin</string>
+	<string name="hotel">hôtel</string>
+	<!-- Search Suggestion -->
+	<string name="tourism">curiosités</string>
+	<!-- Search Suggestion -->
+	<string name="entertainment">divertissement</string>
+	<!-- Search Suggestion -->
+	<string name="atm">bancomat</string>
+	<!-- Search Suggestion -->
+	<string name="bank">banque</string>
+	<!-- Search Suggestion -->
+	<string name="pharmacy">pharmacie</string>
+	<!-- Search Suggestion -->
+	<string name="hospital">hôpital|clinique</string>
+	<!-- Search Suggestion -->
+	<string name="toilet">toilette</string>
+	<!-- Search Suggestion -->
+	<string name="post">poste</string>
+	<!-- Search Suggestion -->
+	<string name="police">gendarmerie</string>
+	<!-- String in search result list, when nothing found -->
+	<string name="no_search_results_found">Aucun résultat trouvé</string>
+	<!-- Notes field in Bookmarks view -->
+	<string name="description">Description</string>
+	<!-- Search Suggestion -->
+	<string name="share_by_email">Partager par e-mail</string>
+	<!-- Search Suggestion -->
+	<string name="share_bookmarks_email_subject">Signets MapsWithMe partagés avec vous</string>
+	<!-- Search Suggestion -->
+	<string name="share_bookmarks_email_body">Vous trouverez mes favoris des cartes hors-ligne MapsWithMe dans le fichier \&quot;%s.km:\&quot; ci-joint. Veuillez l\'ouvrir si vous avez déjà installé MapsWithMe Pro. Sinon, téléchargez d\'abord l\'application pour appareil iOS ou Android depuis le lien http://www.mapswithme.com/get?kml.\n\nAmusez-vous bien avec MapsWithMe!</string>
 </resources>

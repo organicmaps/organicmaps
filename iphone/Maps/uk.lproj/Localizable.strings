@@ -370,3 +370,15 @@
 
 /* String in search result list, when nothing found */
 "no_search_results_found" = "Результатів не знайдено";
+
+/* Notes field in Bookmarks view */
+"description" = "Опис";
+
+/* Search Suggestion */
+"share_by_email" = "Поділитися по електронній пошті";
+
+/* Search Suggestion */
+"share_bookmarks_email_subject" = "Вам надаються закладки MapsWithMe";
+
+/* Search Suggestion */
+"share_bookmarks_email_body" = "Ось мої закладки з автономних карт MapsWithMe у доданому файлі \"%@.kml\". Прошу відкрти його, якщо у вас MapsWithMe Pro вже встановлено. Якщо ні, тоді спочатку завантажте застосунок для пристроїв IOS або Android за цим посиланням http://www.mapswithme.com/get?kml.\n\nПриємних розваг з MapsWithMe!";

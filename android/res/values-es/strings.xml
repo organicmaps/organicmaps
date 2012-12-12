@@ -90,18 +90,6 @@
 	<string name="device_doesnot_support_location_services">Su dispositivo no es compatible con los servicios de localización</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Ampliar la vista del país</string>
-	<!-- Search Suggestion -->
-	<string name="food">comer</string>
-	<!-- Search Suggestion -->
-	<string name="money">dinero</string>
-	<!-- Search Suggestion -->
-	<string name="fuel">gasolinera</string>
-	<!-- Search Suggestion -->
-	<string name="shop">tienda</string>
-	<!-- Search Suggestion -->
-	<string name="transport">transporte</string>
-	<!-- Search Suggestion -->
-	<string name="tourism">turismo</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^añadido a la cola de descarga</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -202,4 +190,49 @@
 	<string name="measurement_units">Unidades de medida</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Elija entre millas y kilómetros</string>
+	<!-- Do search in all sources -->
+	<string name="search_mode_all">Todos</string>
+	<!-- Do search near my position only -->
+	<string name="search_mode_nearme">Cerca de mí</string>
+	<!-- Do search in current viewport only -->
+	<string name="search_mode_viewport">En el mapa</string>
+	<!-- Search Suggestion -->
+	<string name="food">comer</string>
+	<!-- Search Suggestion -->
+	<string name="transport">transporte</string>
+	<!-- Search Suggestion -->
+	<string name="fuel">gasolinera</string>
+	<!-- Search Suggestion -->
+	<string name="parking">estationamiento</string>
+	<!-- Search Suggestion -->
+	<string name="shop">tienda</string>
+	<string name="hotel">hotel</string>
+	<!-- Search Suggestion -->
+	<string name="tourism">turismo</string>
+	<!-- Search Suggestion -->
+	<string name="entertainment">entretenimiento</string>
+	<!-- Search Suggestion -->
+	<string name="atm">atm</string>
+	<!-- Search Suggestion -->
+	<string name="bank">banco</string>
+	<!-- Search Suggestion -->
+	<string name="pharmacy">farmacia</string>
+	<!-- Search Suggestion -->
+	<string name="hospital">hospital</string>
+	<!-- Search Suggestion -->
+	<string name="toilet">servicios sanitario</string>
+	<!-- Search Suggestion -->
+	<string name="post">oficina de correos</string>
+	<!-- Search Suggestion -->
+	<string name="police">policía</string>
+	<!-- String in search result list, when nothing found -->
+	<string name="no_search_results_found">No se han encontrado resultados</string>
+	<!-- Notes field in Bookmarks view -->
+	<string name="description">Descripción</string>
+	<!-- Search Suggestion -->
+	<string name="share_by_email">Enviar por e-mail</string>
+	<!-- Search Suggestion -->
+	<string name="share_bookmarks_email_subject">Marcapáginas de MapsWithMe compartidos contigo</string>
+	<!-- Search Suggestion -->
+	<string name="share_bookmarks_email_body">En el archivo adjunto \&quot;%s.kml\&quot;, están mis marcadores de los mapas offline MapsWithMe. Por favor, ábrelo con MapsWithMe Pro si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://www.mapswithme.com/get?kml.\n\n¡Que disfrutes de MapsWithMe!</string>
 </resources>

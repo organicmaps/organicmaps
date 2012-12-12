@@ -370,3 +370,15 @@
 
 /* String in search result list, when nothing found */
 "no_search_results_found" = "Нет результатов поиска";
+
+/* Notes field in Bookmarks view */
+"description" = "Описание";
+
+/* Search Suggestion */
+"share_by_email" = "Послать по email";
+
+/* Search Suggestion */
+"share_bookmarks_email_subject" = "С вами поделились закладками MapsWithMe";
+
+/* Search Suggestion */
+"share_bookmarks_email_body" = "Мои закладки из офлайн карт MapsWithMe находятся в прикрепленном файле\"%@.kml\". Если у вас уже установлено приложение MapsWithMe Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  MapsWithMe Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.mapswithme.com/get?kml\n\nСпасибо!";

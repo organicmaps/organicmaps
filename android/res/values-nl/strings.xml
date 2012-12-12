@@ -98,18 +98,6 @@
 	<string name="device_doesnot_support_location_services">Uw apparaat ondersteunt geen Locatie Services</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Zoom in richting het land</string>
-	<!-- Search Suggestion -->
-	<string name="food">eten</string>
-	<!-- Search Suggestion -->
-	<string name="money">geld</string>
-	<!-- Search Suggestion -->
-	<string name="fuel">benzine</string>
-	<!-- Search Suggestion -->
-	<string name="shop">winkel</string>
-	<!-- Search Suggestion -->
-	<string name="transport">transport</string>
-	<!-- Search Suggestion -->
-	<string name="tourism">toerisme</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^is toegevoegd aan de download wachtrij</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -210,4 +198,49 @@
 	<string name="measurement_units">Afstandseenheid</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Kies tussen mijlen en kilometers</string>
+	<!-- Do search in all sources -->
+	<string name="search_mode_all">Overalq</string>
+	<!-- Do search near my position only -->
+	<string name="search_mode_nearme">Dichtbij mij</string>
+	<!-- Do search in current viewport only -->
+	<string name="search_mode_viewport">Op de kaart</string>
+	<!-- Search Suggestion -->
+	<string name="food">eten</string>
+	<!-- Search Suggestion -->
+	<string name="transport">transport</string>
+	<!-- Search Suggestion -->
+	<string name="fuel">benzine</string>
+	<!-- Search Suggestion -->
+	<string name="parking">parkeerplaats</string>
+	<!-- Search Suggestion -->
+	<string name="shop">winkel</string>
+	<string name="hotel">hotel</string>
+	<!-- Search Suggestion -->
+	<string name="tourism">toerisme</string>
+	<!-- Search Suggestion -->
+	<string name="entertainment">uitgaan</string>
+	<!-- Search Suggestion -->
+	<string name="atm">geldautomaat</string>
+	<!-- Search Suggestion -->
+	<string name="bank">bank</string>
+	<!-- Search Suggestion -->
+	<string name="pharmacy">apotheek</string>
+	<!-- Search Suggestion -->
+	<string name="hospital">ziekenhuis</string>
+	<!-- Search Suggestion -->
+	<string name="toilet">toilet</string>
+	<!-- Search Suggestion -->
+	<string name="post">post</string>
+	<!-- Search Suggestion -->
+	<string name="police">politie</string>
+	<!-- String in search result list, when nothing found -->
+	<string name="no_search_results_found">Geen resultaten gevonden</string>
+	<!-- Notes field in Bookmarks view -->
+	<string name="description">Beschrijving</string>
+	<!-- Search Suggestion -->
+	<string name="share_by_email">Delen via e-mail</string>
+	<!-- Search Suggestion -->
+	<string name="share_bookmarks_email_subject">Bladwijzers van MapsWithMe met u gedeeld</string>
+	<!-- Search Suggestion -->
+	<string name="share_bookmarks_email_body">Hier zijn mijn bladwijzers uit de MapsWithMe offline kaarten, in het bijgevoegde \&quot;%s.kml\&quot;-bestand. Open het bestand als u MapsWithMe Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://www.mapswithme.com/get?kml.\n\nVeel plezier met MapsWithMe!</string>
 </resources>

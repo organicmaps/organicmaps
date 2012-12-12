@@ -370,3 +370,15 @@
 
 /* String in search result list, when nothing found */
 "no_search_results_found" = "Keine Ergebnisse gefunden";
+
+/* Notes field in Bookmarks view */
+"description" = "Beschreibung";
+
+/* Search Suggestion */
+"share_by_email" = "Per E-Mail teilen";
+
+/* Search Suggestion */
+"share_bookmarks_email_subject" = "MapsWithMe Lesezeichen mit Ihnen geteilt";
+
+/* Search Suggestion */
+"share_bookmarks_email_body" = "In der angefügten „%@.kml“-Datei befinden sich die Lesezeichen meiner Offline-Karten von MapsWithMe. Falls Sie MapsWithMe Pro bereits installiert haben, müssen Sie diese nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://www.mapswithme.com/get?kml herunterladen.\n\nIch wünsche viel Vergnügen mit MapsWithMe!";

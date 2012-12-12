@@ -88,18 +88,6 @@
 	<string name="device_doesnot_support_location_services">귀하의장치가 위치 서비스를 지원하지 않습니다.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">국가로 확대하여 주세요</string>
-	<!-- Search Suggestion -->
-	<string name="food">음식</string>
-	<!-- Search Suggestion -->
-	<string name="money">돈</string>
-	<!-- Search Suggestion -->
-	<string name="fuel">연료</string>
-	<!-- Search Suggestion -->
-	<string name="shop">쇼핑</string>
-	<!-- Search Suggestion -->
-	<string name="transport">수송</string>
-	<!-- Search Suggestion -->
-	<string name="tourism">관광</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^는 다운로드 대기열에추가됩니다.</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -200,4 +188,49 @@
 	<string name="measurement_units">측정 단위</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">마일과 킬로미터 중에서 선택하십시오</string>
+	<!-- Do search in all sources -->
+	<string name="search_mode_all">모든 곳</string>
+	<!-- Do search near my position only -->
+	<string name="search_mode_nearme">근처 검색</string>
+	<!-- Do search in current viewport only -->
+	<string name="search_mode_viewport">현재 맵 검색</string>
+	<!-- Search Suggestion -->
+	<string name="food">음식</string>
+	<!-- Search Suggestion -->
+	<string name="transport">수송</string>
+	<!-- Search Suggestion -->
+	<string name="fuel">연료</string>
+	<!-- Search Suggestion -->
+	<string name="parking">주차</string>
+	<!-- Search Suggestion -->
+	<string name="shop">쇼핑</string>
+	<string name="hotel">호텔</string>
+	<!-- Search Suggestion -->
+	<string name="tourism">관광</string>
+	<!-- Search Suggestion -->
+	<string name="entertainment">엔터테인먼트</string>
+	<!-- Search Suggestion -->
+	<string name="atm">atm</string>
+	<!-- Search Suggestion -->
+	<string name="bank">은행</string>
+	<!-- Search Suggestion -->
+	<string name="pharmacy">약국</string>
+	<!-- Search Suggestion -->
+	<string name="hospital">병원</string>
+	<!-- Search Suggestion -->
+	<string name="toilet">화장실</string>
+	<!-- Search Suggestion -->
+	<string name="post">우편</string>
+	<!-- Search Suggestion -->
+	<string name="police">치안대</string>
+	<!-- String in search result list, when nothing found -->
+	<string name="no_search_results_found">결과 없음</string>
+	<!-- Notes field in Bookmarks view -->
+	<string name="description">설명</string>
+	<!-- Search Suggestion -->
+	<string name="share_by_email">이메일로 공유</string>
+	<!-- Search Suggestion -->
+	<string name="share_bookmarks_email_subject">귀하와 공유된 MapsWithMe 즐겨찾기</string>
+	<!-- Search Suggestion -->
+	<string name="share_bookmarks_email_body">첨부된 \&quot;%s.kml\&quot; 파일에 MapsWithMe 오프라인 지도로부터의 제 즐겨찾기가 있습니다. MapsWithMe 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://www.mapswithme.com/get?kml 링크에서 다운로드하시기 바랍니다.\n\nMapsWithMe와 함께 즐거운 시간 되시기 바랍니다!</string>
 </resources>

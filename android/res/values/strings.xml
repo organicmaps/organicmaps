@@ -101,18 +101,6 @@
 	<string name="device_doesnot_support_location_services">Your device doesn\'t support Location Services</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Zoom to the country</string>
-	<!-- Search Suggestion -->
-	<string name="food">food</string>
-	<!-- Search Suggestion -->
-	<string name="money">money</string>
-	<!-- Search Suggestion -->
-	<string name="fuel">gas</string>
-	<!-- Search Suggestion -->
-	<string name="shop">shop</string>
-	<!-- Search Suggestion -->
-	<string name="transport">transport</string>
-	<!-- Search Suggestion -->
-	<string name="tourism">sights</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^is added to the downloading queue.</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -215,9 +203,48 @@
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Choose between miles and kilometres</string>
 	<!-- Do search in all sources -->
-	<string name="search_mode_all">All</string>
+	<string name="search_mode_all">Everywhere</string>
 	<!-- Do search near my position only -->
-	<string name="search_mode_nearme">Near me</string>
+	<string name="search_mode_nearme">Near Me</string>
 	<!-- Do search in current viewport only -->
-	<string name="search_mode_viewport">In current viewport</string>
+	<string name="search_mode_viewport">On the Map</string>
+	<!-- Search Suggestion -->
+	<string name="food">food</string>
+	<!-- Search Suggestion -->
+	<string name="transport">transport</string>
+	<!-- Search Suggestion -->
+	<string name="fuel">gas</string>
+	<!-- Search Suggestion -->
+	<string name="parking">parking</string>
+	<!-- Search Suggestion -->
+	<string name="shop">shop</string>
+	<string name="hotel">hotel</string>
+	<!-- Search Suggestion -->
+	<string name="tourism">sights</string>
+	<!-- Search Suggestion -->
+	<string name="entertainment">entertainment</string>
+	<!-- Search Suggestion -->
+	<string name="atm">atm</string>
+	<!-- Search Suggestion -->
+	<string name="bank">bank</string>
+	<!-- Search Suggestion -->
+	<string name="pharmacy">pharmacy</string>
+	<!-- Search Suggestion -->
+	<string name="hospital">hospital</string>
+	<!-- Search Suggestion -->
+	<string name="toilet">toilet</string>
+	<!-- Search Suggestion -->
+	<string name="post">post</string>
+	<!-- Search Suggestion -->
+	<string name="police">police</string>
+	<!-- String in search result list, when nothing found -->
+	<string name="no_search_results_found">No results found</string>
+	<!-- Notes field in Bookmarks view -->
+	<string name="description">Description</string>
+	<!-- Search Suggestion -->
+	<string name="share_by_email">Share by email</string>
+	<!-- Search Suggestion -->
+	<string name="share_bookmarks_email_subject">MapsWithMe bookmarks has been shared with you</string>
+	<!-- Search Suggestion -->
+	<string name="share_bookmarks_email_body">Here are my bookmarks from MapsWithMe offline maps in the attached \&quot;%s.kml\&quot; file. Please open it if you have MapsWithMe Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://www.mapswithme.com/get?kml.\n\nHave a good time with MapsWithMe!</string>
 </resources>

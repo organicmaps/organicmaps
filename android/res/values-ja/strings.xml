@@ -92,18 +92,6 @@
 	<string name="device_doesnot_support_location_services">ご使用のデバイスは位置情報サービスをサポートしていません。</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">国へズーム</string>
-	<!-- Search Suggestion -->
-	<string name="food">飯</string>
-	<!-- Search Suggestion -->
-	<string name="money">金</string>
-	<!-- Search Suggestion -->
-	<string name="fuel">燃料</string>
-	<!-- Search Suggestion -->
-	<string name="shop">店</string>
-	<!-- Search Suggestion -->
-	<string name="transport">輸送</string>
-	<!-- Search Suggestion -->
-	<string name="tourism">観光</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^をダウンロードキューに追加しました</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -204,4 +192,49 @@
 	<string name="measurement_units">計測単位</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">マイルまたはキロメートルを選択</string>
+	<!-- Do search in all sources -->
+	<string name="search_mode_all">どこにでも</string>
+	<!-- Do search near my position only -->
+	<string name="search_mode_nearme">周辺情報</string>
+	<!-- Do search in current viewport only -->
+	<string name="search_mode_viewport">地図上検索</string>
+	<!-- Search Suggestion -->
+	<string name="food">飯</string>
+	<!-- Search Suggestion -->
+	<string name="transport">輸送</string>
+	<!-- Search Suggestion -->
+	<string name="fuel">燃料</string>
+	<!-- Search Suggestion -->
+	<string name="parking">駐車場</string>
+	<!-- Search Suggestion -->
+	<string name="shop">店</string>
+	<string name="hotel">ホテル</string>
+	<!-- Search Suggestion -->
+	<string name="tourism">観光</string>
+	<!-- Search Suggestion -->
+	<string name="entertainment">エンターテイメント</string>
+	<!-- Search Suggestion -->
+	<string name="atm">atm</string>
+	<!-- Search Suggestion -->
+	<string name="bank">銀行</string>
+	<!-- Search Suggestion -->
+	<string name="pharmacy">薬局</string>
+	<!-- Search Suggestion -->
+	<string name="hospital">病院</string>
+	<!-- Search Suggestion -->
+	<string name="toilet">トイレ</string>
+	<!-- Search Suggestion -->
+	<string name="post">電子メール</string>
+	<!-- Search Suggestion -->
+	<string name="police">警察</string>
+	<!-- String in search result list, when nothing found -->
+	<string name="no_search_results_found">結果が見つかりませんでした</string>
+	<!-- Notes field in Bookmarks view -->
+	<string name="description">説明</string>
+	<!-- Search Suggestion -->
+	<string name="share_by_email">Eメールでシェアする</string>
+	<!-- Search Suggestion -->
+	<string name="share_bookmarks_email_subject">MapsWithMeブックマークでシェアされました。</string>
+	<!-- Search Suggestion -->
+	<string name="share_bookmarks_email_body">MapsWithMeオフライン地図で作成した私のブックマークを、添付ファイル\&quot;%s.kml\&quot;でお送りします。MapsWithMe Proを既にインストールされている場合は、ファイルを開いてみてください。インストールがまだの場合は、まずはこちらのリンク http://www.mapswithme.com/get?kml から、お使いのiOSまたはAndroid端末用のアプリをダウンロードしてください。\n\nMapsWithMeで楽しい時間をお過ごしください！</string>
 </resources>

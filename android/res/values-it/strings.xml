@@ -7,13 +7,30 @@
 	<!-- Search Suggestion -->
 	<string name="food">mangiare</string>
 	<!-- Search Suggestion -->
-	<string name="money">soldi</string>
+	<string name="transport">transporto</string>
 	<!-- Search Suggestion -->
 	<string name="fuel">stazione di rifornimento</string>
 	<!-- Search Suggestion -->
-	<string name="shop">negozio</string>
+	<string name="parking">parcheggio</string>
 	<!-- Search Suggestion -->
-	<string name="transport">transporto</string>
+	<string name="shop">negozio</string>
+	<string name="hotel">hôtel</string>
 	<!-- Search Suggestion -->
 	<string name="tourism">turistico</string>
+	<!-- Search Suggestion -->
+	<string name="atm">bancomat</string>
+	<!-- Search Suggestion -->
+	<string name="bank">banca</string>
+	<!-- Search Suggestion -->
+	<string name="pharmacy">farmacia</string>
+	<!-- Search Suggestion -->
+	<string name="hospital">ospedale</string>
+	<!-- Search Suggestion -->
+	<string name="toilet">toilette</string>
+	<!-- Search Suggestion -->
+	<string name="post">posta</string>
+	<!-- Search Suggestion -->
+	<string name="police">posto di polizia</string>
+	<!-- Search Suggestion -->
+	<string name="share_bookmarks_email_body">Questi sono i miei \&quot;preferiti\&quot; fra le mappe offline di MapsWithMe, che si trovano nel file allegato \&quot;%s.kml\&quot;. Il file può essere aperto se l\'app MapsWithMe Pro è già stata installata. In caso contrario, occorre scaricare l\'app per il tuo iOS o dispositivo Android dal link http://www.mapswithme.com/get?kml.\n\nBuon divertimento con MapsWithMe!</string>
 </resources>

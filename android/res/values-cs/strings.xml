@@ -90,18 +90,6 @@
 	<string name="device_doesnot_support_location_services">Tvé zařízení nepodporuje služby určování polohy</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Zobrazit na mapě</string>
-	<!-- Search Suggestion -->
-	<string name="food">jídlo</string>
-	<!-- Search Suggestion -->
-	<string name="money">peníze</string>
-	<!-- Search Suggestion -->
-	<string name="fuel">čerpací stanice</string>
-	<!-- Search Suggestion -->
-	<string name="shop">obchod</string>
-	<!-- Search Suggestion -->
-	<string name="transport">doprava</string>
-	<!-- Search Suggestion -->
-	<string name="tourism">pamětihodnosti</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^přidáno do fronty stahování.</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -202,4 +190,49 @@
 	<string name="measurement_units">Měřicí jednotky</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Vyberte míle nebo kilometry</string>
+	<!-- Do search in all sources -->
+	<string name="search_mode_all">Všude</string>
+	<!-- Do search near my position only -->
+	<string name="search_mode_nearme">V mé blízkosti</string>
+	<!-- Do search in current viewport only -->
+	<string name="search_mode_viewport">Na mapě</string>
+	<!-- Search Suggestion -->
+	<string name="food">jídlo</string>
+	<!-- Search Suggestion -->
+	<string name="transport">doprava</string>
+	<!-- Search Suggestion -->
+	<string name="fuel">čerpací stanice</string>
+	<!-- Search Suggestion -->
+	<string name="parking">parkoviště</string>
+	<!-- Search Suggestion -->
+	<string name="shop">obchod</string>
+	<string name="hotel">hotel</string>
+	<!-- Search Suggestion -->
+	<string name="tourism">pamětihodnosti</string>
+	<!-- Search Suggestion -->
+	<string name="entertainment">zábava</string>
+	<!-- Search Suggestion -->
+	<string name="atm">bankomat</string>
+	<!-- Search Suggestion -->
+	<string name="bank">banka</string>
+	<!-- Search Suggestion -->
+	<string name="pharmacy">lékárna</string>
+	<!-- Search Suggestion -->
+	<string name="hospital">nemocnice</string>
+	<!-- Search Suggestion -->
+	<string name="toilet">záchody</string>
+	<!-- Search Suggestion -->
+	<string name="post">pošta</string>
+	<!-- Search Suggestion -->
+	<string name="police">policie</string>
+	<!-- String in search result list, when nothing found -->
+	<string name="no_search_results_found">Žádné výsledky</string>
+	<!-- Notes field in Bookmarks view -->
+	<string name="description">Popis</string>
+	<!-- Search Suggestion -->
+	<string name="share_by_email">Sdílet emailem</string>
+	<!-- Search Suggestion -->
+	<string name="share_bookmarks_email_subject">Sdílené záložky MapsWithMe</string>
+	<!-- Search Suggestion -->
+	<string name="share_bookmarks_email_body">Zde jsou mé záložky z offline map MapsWithMe v přiloženém \&quot;%s.kml\&quot; souboru. Pokud máte již nainstalované MapsWithMe, otevřete tento soubor, prosím. V opačném případě si nejprve nainstalujte aplikaci pro vaše iOS nebo Android zařízení z tohoto odkazu http://www.mapswithme.com/get?kml.\n\nSkvěle se bavte s MapsWithMe!</string>
 </resources>

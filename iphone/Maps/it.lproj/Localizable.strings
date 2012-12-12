@@ -370,3 +370,15 @@
 
 /* String in search result list, when nothing found */
 "no_search_results_found" = "No results found";
+
+/* Notes field in Bookmarks view */
+"description" = "Description";
+
+/* Search Suggestion */
+"share_by_email" = "Share by email";
+
+/* Search Suggestion */
+"share_bookmarks_email_subject" = "MapsWithMe bookmarks has been shared with you";
+
+/* Search Suggestion */
+"share_bookmarks_email_body" = "Questi sono i miei \"preferiti\" fra le mappe offline di MapsWithMe, che si trovano nel file allegato \"%@.kml\". Il file può essere aperto se l'app MapsWithMe Pro è già stata installata. In caso contrario, occorre scaricare l'app per il tuo iOS o dispositivo Android dal link http://www.mapswithme.com/get?kml.\n\nBuon divertimento con MapsWithMe!";

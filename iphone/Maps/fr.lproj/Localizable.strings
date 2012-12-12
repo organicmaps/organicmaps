@@ -370,3 +370,15 @@
 
 /* String in search result list, when nothing found */
 "no_search_results_found" = "Aucun résultat trouvé";
+
+/* Notes field in Bookmarks view */
+"description" = "Description";
+
+/* Search Suggestion */
+"share_by_email" = "Partager par e-mail";
+
+/* Search Suggestion */
+"share_bookmarks_email_subject" = "Signets MapsWithMe partagés avec vous";
+
+/* Search Suggestion */
+"share_bookmarks_email_body" = "Vous trouverez mes favoris des cartes hors-ligne MapsWithMe dans le fichier \"%@.km:\" ci-joint. Veuillez l'ouvrir si vous avez déjà installé MapsWithMe Pro. Sinon, téléchargez d'abord l'application pour appareil iOS ou Android depuis le lien http://www.mapswithme.com/get?kml.\n\nAmusez-vous bien avec MapsWithMe!";

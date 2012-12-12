@@ -370,3 +370,15 @@
 
 /* String in search result list, when nothing found */
 "no_search_results_found" = "結果が見つかりませんでした";
+
+/* Notes field in Bookmarks view */
+"description" = "説明";
+
+/* Search Suggestion */
+"share_by_email" = "Eメールでシェアする";
+
+/* Search Suggestion */
+"share_bookmarks_email_subject" = "MapsWithMeブックマークでシェアされました。";
+
+/* Search Suggestion */
+"share_bookmarks_email_body" = "MapsWithMeオフライン地図で作成した私のブックマークを、添付ファイル\"%@.kml\"でお送りします。MapsWithMe Proを既にインストールされている場合は、ファイルを開いてみてください。インストールがまだの場合は、まずはこちらのリンク http://www.mapswithme.com/get?kml から、お使いのiOSまたはAndroid端末用のアプリをダウンロードしてください。\n\nMapsWithMeで楽しい時間をお過ごしください！";

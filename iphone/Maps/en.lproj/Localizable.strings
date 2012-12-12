@@ -370,3 +370,15 @@
 
 /* String in search result list, when nothing found */
 "no_search_results_found" = "No results found";
+
+/* Notes field in Bookmarks view */
+"description" = "Description";
+
+/* Search Suggestion */
+"share_by_email" = "Share by email";
+
+/* Search Suggestion */
+"share_bookmarks_email_subject" = "MapsWithMe bookmarks has been shared with you";
+
+/* Search Suggestion */
+"share_bookmarks_email_body" = "Here are my bookmarks from MapsWithMe offline maps in the attached \"%@.kml\" file. Please open it if you have MapsWithMe Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://www.mapswithme.com/get?kml.\n\nHave a good time with MapsWithMe!";

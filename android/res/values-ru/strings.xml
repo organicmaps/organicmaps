@@ -98,18 +98,6 @@
 	<string name="device_doesnot_support_location_services">Ваше устройство не поддерживает геолокацию</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Показать страну на карте</string>
-	<!-- Search Suggestion -->
-	<string name="food">еда</string>
-	<!-- Search Suggestion -->
-	<string name="money">деньги</string>
-	<!-- Search Suggestion -->
-	<string name="fuel">заправка</string>
-	<!-- Search Suggestion -->
-	<string name="shop">магазин</string>
-	<!-- Search Suggestion -->
-	<string name="transport">транспорт</string>
-	<!-- Search Suggestion -->
-	<string name="tourism">достопримечательность</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^добавлено в очередь загрузки.</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -215,5 +203,44 @@
 	<!-- Do search near my position only -->
 	<string name="search_mode_nearme">Около меня</string>
 	<!-- Do search in current viewport only -->
-	<string name="search_mode_viewport">В текущем экране</string>
+	<string name="search_mode_viewport">На карте</string>
+	<!-- Search Suggestion -->
+	<string name="food">еда</string>
+	<!-- Search Suggestion -->
+	<string name="transport">транспорт</string>
+	<!-- Search Suggestion -->
+	<string name="fuel">заправка</string>
+	<!-- Search Suggestion -->
+	<string name="parking">парковка</string>
+	<!-- Search Suggestion -->
+	<string name="shop">магазин</string>
+	<string name="hotel">гостиница</string>
+	<!-- Search Suggestion -->
+	<string name="tourism">достопримечательность</string>
+	<!-- Search Suggestion -->
+	<string name="entertainment">развлечения</string>
+	<!-- Search Suggestion -->
+	<string name="atm">банкомат</string>
+	<!-- Search Suggestion -->
+	<string name="bank">банк</string>
+	<!-- Search Suggestion -->
+	<string name="pharmacy">аптека</string>
+	<!-- Search Suggestion -->
+	<string name="hospital">больница</string>
+	<!-- Search Suggestion -->
+	<string name="toilet">туалет</string>
+	<!-- Search Suggestion -->
+	<string name="post">почта</string>
+	<!-- Search Suggestion -->
+	<string name="police">полиция</string>
+	<!-- String in search result list, when nothing found -->
+	<string name="no_search_results_found">Нет результатов поиска</string>
+	<!-- Notes field in Bookmarks view -->
+	<string name="description">Описание</string>
+	<!-- Search Suggestion -->
+	<string name="share_by_email">Послать по email</string>
+	<!-- Search Suggestion -->
+	<string name="share_bookmarks_email_subject">С вами поделились закладками MapsWithMe</string>
+	<!-- Search Suggestion -->
+	<string name="share_bookmarks_email_body">Мои закладки из офлайн карт MapsWithMe находятся в прикрепленном файле\&quot;%s.kml\&quot;. Если у вас уже установлено приложение MapsWithMe Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  MapsWithMe Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.mapswithme.com/get?kml\n\nСпасибо!</string>
 </resources>
