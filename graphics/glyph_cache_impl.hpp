@@ -56,8 +56,7 @@ namespace graphics
   struct GlyphCacheImpl
   {
     FT_Library m_lib;
-    FT_Stroker m_glyphStroker; //< stroker, used to produce stroked glyph outlines
-    FT_Stroker m_metricsStroker;
+    FT_Stroker m_stroker;
 
     FTC_Manager m_manager; //< freetype cache manager for all caches
 

@@ -422,11 +422,8 @@ namespace graphics
       FTCHECK(FTC_StrokedImageCache_New(m_manager, &m_strokedMetricsCache));
 
       /// Initializing stroker
-      FTCHECK(FT_Stroker_New(m_lib, &m_metricsStroker));
-      FT_Stroker_Set(m_metricsStroker, 2 * 64, FT_STROKER_LINECAP_ROUND, FT_STROKER_LINEJOIN_ROUND, 0);
-
-      FTCHECK(FT_Stroker_New(m_lib, &m_glyphStroker));
-      FT_Stroker_Set(m_glyphStroker, 2 * 64, FT_STROKER_LINECAP_ROUND, FT_STROKER_LINEJOIN_ROUND, 0);
+      FTCHECK(FT_Stroker_New(m_lib, &m_stroker));
+      FT_Stroker_Set(m_stroker, 2 * 64, FT_STROKER_LINECAP_ROUND, FT_STROKER_LINEJOIN_ROUND, 0);
 
       FTCHECK(FTC_CMapCache_New(m_manager, &m_charMapCache));
     }
@@ -441,8 +438,7 @@ namespace graphics
     if (!m_isDebugging)
     {
       FTC_Manager_Done(m_manager);
-      FT_Stroker_Done(m_metricsStroker);
-      FT_Stroker_Done(m_glyphStroker);
+      FT_Stroker_Done(m_stroker);
       FT_Done_FreeType(m_lib);
     }
   }
@@ -525,7 +521,7 @@ namespace graphics
       FTCHECK(FTC_StrokedImageCache_LookupScaler(
           m_strokedMetricsCache,
           &fontScaler,
-          m_metricsStroker,
+          m_stroker,
           FT_LOAD_DEFAULT,
           charIDX.second,
           &glyph,
@@ -578,7 +574,7 @@ namespace graphics
       FTCHECK(FTC_StrokedImageCache_LookupScaler(
           m_strokedGlyphCache,
           &fontScaler,
-          m_glyphStroker,
+          m_stroker,
           FT_LOAD_DEFAULT,
           charIDX.second,
           &glyph,
