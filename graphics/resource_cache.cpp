@@ -44,13 +44,17 @@ namespace graphics
 
   void ResourceCache::clearHandles()
   {
-    for (TResourceInfos::const_iterator it = m_infos.begin();
+    if (m_textureType != graphics::EStaticTexture)
+    {
+      /// clearing only non-static caches.
+      for (TResourceInfos::const_iterator it = m_infos.begin();
          it != m_infos.end();
          ++it)
       m_resources.erase(it->second);
 
-    m_infos.clear();
-    m_packer.reset();
+      m_infos.clear();
+      m_packer.reset();
+    }
   }
 
   void ResourceCache::clearUploadQueue()
