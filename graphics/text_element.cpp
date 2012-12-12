@@ -99,16 +99,38 @@ namespace graphics
       deltaA = (ang::AngleD(0) * m).val();
     }
 
-    for (unsigned i = layout.firstVisible(); i < layout.lastVisible(); ++i)
+    size_t cnt = layout.entries().size();
+
+    buffer_vector<Glyph::Info, 32> glyphInfos(cnt);
+    buffer_vector<Resource::Info const *, 32> resInfos(cnt);
+    buffer_vector<uint32_t, 32> glyphIDs(cnt);
+
+    unsigned firstVis = layout.firstVisible();
+    unsigned lastVis = layout.lastVisible();
+
+    /// collecting all glyph infos in one array and packing them as a whole.
+    for (unsigned i = firstVis; i < lastVis; ++i)
     {
-      Skin * skin = screen->skin().get();
-      GlyphLayoutElem const & elem = layout.entries()[i];
-      GlyphKey glyphKey(elem.m_sym,
+      GlyphKey glyphKey(layout.entries()[i].m_sym,
                         fontDesc.m_size,
                         fontDesc.m_isMasked,
                         fontDesc.m_isMasked ? fontDesc.m_maskColor : fontDesc.m_color);
-      uint32_t const glyphID = skin->map(Glyph::Info(glyphKey, screen->glyphCache()));
-      Glyph const * glyph = static_cast<Glyph const *>(skin->fromID(glyphID));
+
+      glyphInfos[i] = Glyph::Info(glyphKey, screen->glyphCache());
+      resInfos[i] = &glyphInfos[i];
+    }
+
+    Skin * skin = screen->skin().get();
+
+    if (firstVis != lastVis)
+      skin->map(&resInfos[firstVis],
+                &glyphIDs[firstVis],
+                lastVis - firstVis);
+
+    for (unsigned i = firstVis; i < lastVis; ++i)
+    {
+      GlyphLayoutElem const & elem = layout.entries()[i];
+      Glyph const * glyph = static_cast<Glyph const *>(skin->fromID(glyphIDs[i]));
 
       m2::PointD glyphPt;
       ang::AngleD glyphAngle;

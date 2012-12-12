@@ -12,7 +12,7 @@
 
 namespace graphics
 {
-  class Glyph;
+  struct Glyph;
 
   class TextRenderer : public ImageRenderer
   {

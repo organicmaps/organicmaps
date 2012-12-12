@@ -77,8 +77,10 @@ namespace graphics
       m_pivot(pt),
       m_offset(0, 0)
   {
-    m_entries.reserve(visText.size());
-    m_metrics.reserve(visText.size());
+    size_t cnt = visText.size();
+
+    m_entries.resize(cnt);
+    m_metrics.resize(cnt);
 
     if (!m_fontDesc.IsValid())
       return;
@@ -116,8 +118,8 @@ namespace graphics
       elem.m_sym = visText[i];
       elem.m_angle = 0;
       elem.m_pt = curPt;
-      m_entries.push_back(elem);
-      m_metrics.push_back(m);
+      m_entries[i] = elem;
+      m_metrics[i] = m;
 
       curPt += m2::PointD(m.m_xAdvance, m.m_yAdvance);
     }
@@ -186,7 +188,10 @@ namespace graphics
     if (!m_fontDesc.IsValid())
       return;
     m_boundRects.push_back(m2::AnyRectD(m2::RectD(0, 0, 0, 0)));
-    for (size_t i = 0; i < m_visText.size(); ++i)
+
+    size_t cnt = m_visText.size();
+
+    for (size_t i = 0; i < cnt; ++i)
     {
       GlyphKey key(visText[i],
                    m_fontDesc.m_size,
