@@ -84,7 +84,6 @@ namespace graphics
     size_t lastVisible() const;
 
     buffer_vector<GlyphLayoutElem, 32> const & entries() const;
-    buffer_vector<GlyphMetrics, 32> const & metrics() const;
     buffer_vector<m2::AnyRectD, 16> const & boundRects() const;
 
     graphics::FontDesc const & fontDesc() const;

@@ -392,11 +392,6 @@ namespace graphics
     return m_entries;
   }
 
-  buffer_vector<GlyphMetrics, 32> const & GlyphLayout::metrics() const
-  {
-    return m_metrics;
-  }
-
   buffer_vector<m2::AnyRectD, 16> const & GlyphLayout::boundRects() const
   {
     return m_boundRects;
