@@ -12,14 +12,19 @@
 
 namespace graphics
 {
-  double GlyphLayout::getKerning(GlyphLayoutElem const & prevElem, GlyphMetrics const & prevMetrics, GlyphLayoutElem const & curElem, GlyphMetrics const & curMetrics)
+  double GlyphLayout::getKerning(GlyphLayoutElem const & prevElem,
+                                 GlyphMetrics const & prevMetrics,
+                                 GlyphLayoutElem const & curElem,
+                                 GlyphMetrics const & curMetrics)
   {
     double res = 0;
     /// check, whether we should offset this symbol slightly
     /// not to overlap the previous symbol
 
     m2::AnyRectD prevSymRectAA(
-          prevElem.m_pt.Move(prevMetrics.m_height, -prevElem.m_angle.cos(), prevElem.m_angle.sin()), //< moving by angle = prevElem.m_angle - math::pi / 2
+          prevElem.m_pt.Move(prevMetrics.m_height,
+                            -prevElem.m_angle.cos(),
+                             prevElem.m_angle.sin()), //< moving by angle = prevElem.m_angle - math::pi / 2
           prevElem.m_angle,
           m2::RectD(prevMetrics.m_xOffset,
                     prevMetrics.m_yOffset,
@@ -27,7 +32,9 @@ namespace graphics
                     prevMetrics.m_yOffset + prevMetrics.m_height));
 
     m2::AnyRectD curSymRectAA(
-          curElem.m_pt.Move(curMetrics.m_height, -curElem.m_angle.cos(), curElem.m_angle.sin()), //< moving by angle = curElem.m_angle - math::pi / 2
+          curElem.m_pt.Move(curMetrics.m_height,
+                           -curElem.m_angle.cos(),
+                            curElem.m_angle.sin()), //< moving by angle = curElem.m_angle - math::pi / 2
           curElem.m_angle,
           m2::RectD(curMetrics.m_xOffset,
                     curMetrics.m_yOffset,
@@ -83,7 +90,10 @@ namespace graphics
 
     for (size_t i = 0; i < visText.size(); ++i)
     {
-      GlyphKey glyphKey(visText[i], fontDesc.m_size, fontDesc.m_isMasked, fontDesc.m_color);
+      GlyphKey glyphKey(visText[i],
+                        fontDesc.m_size,
+                        fontDesc.m_isMasked,
+                        fontDesc.m_color);
 
       GlyphMetrics const m = glyphCache->getGlyphMetrics(glyphKey);
 
@@ -176,7 +186,13 @@ namespace graphics
       return;
     m_boundRects.push_back(m2::AnyRectD(m2::RectD(0, 0, 0, 0)));
     for (size_t i = 0; i < m_visText.size(); ++i)
-      m_metrics.push_back(glyphCache->getGlyphMetrics(GlyphKey(visText[i], m_fontDesc.m_size, m_fontDesc.m_isMasked, graphics::Color(0, 0, 0, 0))));
+    {
+      GlyphKey key(visText[i],
+                   m_fontDesc.m_size,
+                   m_fontDesc.m_isMasked,
+                   graphics::Color(0, 0, 0, 0));
+      m_metrics.push_back(glyphCache->getGlyphMetrics(key));
+    }
     recalcAlongPath();
   }
 
@@ -269,19 +285,26 @@ namespace graphics
 
           m_entries[symPos].m_angle = pivotPt.m_angle;
           double centerOffset = metrics.m_xOffset + metrics.m_width / 2.0;
-          m_entries[symPos].m_pt = pivotPt.m_pp.m_pt.Move(-centerOffset, m_entries[symPos].m_angle.sin(), m_entries[symPos].m_angle.cos());
+          m_entries[symPos].m_pt = pivotPt.m_pp.m_pt.Move(-centerOffset,
+                                                          m_entries[symPos].m_angle.sin(),
+                                                          m_entries[symPos].m_angle.cos());
 
 //          m_entries[symPos].m_pt = m_entries[symPos].m_pt.Move(blOffset, m_entries[symPos].m_angle - math::pi / 2);
 //        sin(a - pi / 2) == -cos(a)
 //        cos(a - pi / 2) == sin(a)
-          m_entries[symPos].m_pt = m_entries[symPos].m_pt.Move(blOffset, -m_entries[symPos].m_angle.cos(), m_entries[symPos].m_angle.sin());
+          m_entries[symPos].m_pt = m_entries[symPos].m_pt.Move(blOffset,
+                                                               -m_entries[symPos].m_angle.cos(),
+                                                               m_entries[symPos].m_angle.sin());
 
 //          m_entries[symPos].m_pt = m_entries[symPos].m_pt.Move(kernOffset, m_entries[symPos].m_angle - math::pi / 2);
 
           // < check whether we should "kern"
           if (hasPrevElem)
           {
-            kern = getKerning(prevElem, prevMetrics, m_entries[symPos], m_metrics[symPos]);
+            kern = getKerning(prevElem,
+                              prevMetrics,
+                              m_entries[symPos],
+                              m_metrics[symPos]);
             if (kern < 0.5)
               kern = 0;
 
