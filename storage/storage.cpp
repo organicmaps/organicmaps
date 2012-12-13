@@ -28,15 +28,6 @@ using namespace downloader;
 
 namespace storage
 {
-  const int TIndex::INVALID = -1;
-
-  string DebugPrint(TIndex const & r)
-  {
-    ostringstream out;
-    out << "storage::TIndex(" << r.m_group << ", " << r.m_country << ", " << r.m_region << ")";
-    return out.str();
-  }
-
   /*
   static string ErrorString(DownloadResultT res)
   {

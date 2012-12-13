@@ -19,9 +19,11 @@ HEADERS += \
   country_polygon.hpp \
   country_info.hpp \
   country_decl.hpp \
+  index.hpp \
 
 SOURCES += \
   country.cpp \
   storage.cpp \
   country_info.cpp \
   country_decl.cpp \
+  index.cpp \
