@@ -149,8 +149,6 @@ namespace storage
     void DownloadCountry(TIndex const & index);
     bool DeleteFromDownloader(TIndex const & index);
 
-    void CheckForUpdate();
-
     void NotifyStatusChanged(TIndex const & index) const;
 
     string GetFileDownloadUrl(string const & baseUrl, string const & fName) const;
