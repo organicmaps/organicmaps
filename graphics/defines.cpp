@@ -33,7 +33,8 @@ namespace graphics
       }
     }
 
-    LOG(LINFO, ("Unknown Semantics=", name, "specified!"));
+    sem = (ESemantic)0;
+    LOG(LERROR, ("Unknown Semantics=", name, "specified!"));
   }
 
   Data s_storages [] = {
@@ -52,7 +53,7 @@ namespace graphics
         return s_storages[i].m_name;
     }
 
-    LOG(LINFO, ("Unknown StorageType=", type, "specified!"));
+    LOG(LERROR, ("Unknown StorageType=", type, "specified!"));
     return "UnknownStorage";
   }
 

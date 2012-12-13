@@ -13,11 +13,15 @@ namespace graphics
   /// contains current render state data.
   class RenderContext
   {
+  public:
+
+    typedef math::Matrix<float, 4, 4> TMatrix;
+
   private:
 
     /// Rendering states
     /// @{
-    map<EMatrix, math::Matrix<float, 4, 4> > m_matrices;
+    map<EMatrix, TMatrix> m_matrices;
     /// @}
 
     unsigned m_threadSlot;
@@ -31,8 +35,8 @@ namespace graphics
 
     /// Working with rendering states.
     /// @{
-    math::Matrix<float, 4, 4> const & matrix(EMatrix m) const;
-    void setMatrix(EMatrix mt, math::Matrix<float, 4, 4> const & m);
+    TMatrix const & matrix(EMatrix m) const;
+    void setMatrix(EMatrix mt, TMatrix const & m);
     /// @}
 
     /// Constructor

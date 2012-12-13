@@ -3,14 +3,14 @@
 
 namespace graphics
 {
-  void RenderContext::setMatrix(EMatrix mt, math::Matrix<float, 4, 4> const & m)
+  void RenderContext::setMatrix(EMatrix mt, TMatrix const & m)
   {
     m_matrices[mt] = m;
   }
 
-  math::Matrix<float, 4, 4> const & RenderContext::matrix(EMatrix m) const
+  RenderContext::TMatrix const & RenderContext::matrix(EMatrix m) const
   {
-    map<EMatrix, math::Matrix<float, 4, 4> >::const_iterator it = m_matrices.find(m);
+    map<EMatrix, TMatrix >::const_iterator it = m_matrices.find(m);
     return it->second;
   }
 

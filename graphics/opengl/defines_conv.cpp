@@ -41,7 +41,7 @@ namespace graphics
           return;
         }
       to = (EDataType)0;
-      LOG(LINFO, ("Unknown GLenum for EDataType specified"));
+      LOG(LERROR, ("Unknown GLenum for EDataType specified"));
     }
 
     void convert(EDataType from, GLenum & to)
@@ -54,7 +54,7 @@ namespace graphics
         }
 
       to = 0;
-      LOG(LINFO, ("Unknown EDataType specified"));
+      LOG(LERROR, ("Unknown EDataType specified"));
     }
 
     void convert(GLenum from, EDataType & to, size_t & count)
@@ -68,7 +68,7 @@ namespace graphics
         }
       to = (EDataType)0;
       count = 0;
-      LOG(LINFO, ("Unknown GLenum for EDataType specified"));
+      LOG(LERROR, ("Unknown GLenum for EDataType specified"));
     }
 
     void convert(EShaderType from, GLenum & to)
