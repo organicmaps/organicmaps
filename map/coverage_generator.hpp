@@ -58,7 +58,7 @@ private:
 
   threads::Mutex m_mutex;
 
-  RenderPolicy::TCountryNameFn m_countryNameFn;
+  RenderPolicy::TCountryIndexFn m_countryIndexFn;
 
   graphics::PacketsQueue * m_glQueue;
   string m_skinName;
@@ -79,7 +79,7 @@ public:
                     shared_ptr<graphics::RenderContext> const & primaryRC,
                     shared_ptr<graphics::ResourceManager> const & rm,
                     graphics::PacketsQueue * glQueue,
-                    RenderPolicy::TCountryNameFn countryNameFn);
+                    RenderPolicy::TCountryIndexFn const & countryIndexFn);
 
   ~CoverageGenerator();
 
@@ -112,7 +112,7 @@ public:
 
   void WaitForEmptyAndFinished();
 
-  string GetCountryName(m2::PointD const & pt) const;
+  storage::TIndex GetCountryIndex(m2::PointD const & pt) const;
 
   ScreenCoverage * CurrentCoverage();
 

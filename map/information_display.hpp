@@ -2,12 +2,18 @@
 
 #include "window_handle.hpp"
 #include "ruler.hpp"
+
+#include "../storage/index.hpp"
+
+#include "../gui/button.hpp"
+
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
 #include "../geometry/screenbase.hpp"
+
 #include "../base/timer.hpp"
 #include "../base/logging.hpp"
-#include "../gui/button.hpp"
+
 
 namespace location
 {
@@ -135,7 +141,7 @@ public:
 
   void enableCountryStatusDisplay(bool doEnable);
   void setDownloadListener(gui::Button::TOnClickListener l);
-  void setEmptyCountryName(string const & country);
+  void setEmptyCountryIndex(storage::TIndex const & idx);
 
   shared_ptr<CountryStatusDisplay> const & countryStatusDisplay() const;
 

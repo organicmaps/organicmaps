@@ -181,5 +181,5 @@ void TilingRenderPolicyMT::SetRenderFn(TRenderFn renderFn)
                                                   m_primaryRC,
                                                   m_resourceManager,
                                                   0,
-                                                  m_countryNameFn));
+                                                  m_countryIndexFn));
 }

@@ -54,7 +54,7 @@ void ScreenCoverage::CopyInto(ScreenCoverage & cvg)
   cvg.m_isEmptyDrawingCoverage = m_isEmptyDrawingCoverage;
   cvg.m_isEmptyModelAtCoverageCenter = m_isEmptyModelAtCoverageCenter;
   cvg.m_leafTilesToRender = m_leafTilesToRender;
-  cvg.m_countryNameAtCoverageCenter = m_countryNameAtCoverageCenter;
+  cvg.m_countryIndexAtCoverageCenter = m_countryIndexAtCoverageCenter;
 
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
 
@@ -452,18 +452,18 @@ void ScreenCoverage::ResetEmptyModelAtCoverageCenter()
   m_isEmptyModelAtCoverageCenter = false;
 }
 
-string ScreenCoverage::GetCountryNameAtCoverageCenter() const
+storage::TIndex ScreenCoverage::GetCountryIndexAtCoverageCenter() const
 {
-  return m_countryNameAtCoverageCenter;
+  return m_countryIndexAtCoverageCenter;
 }
 
 void ScreenCoverage::CheckEmptyModelAtCoverageCenter()
 {
   if (!IsPartialCoverage() && IsEmptyDrawingCoverage())
   {
-    m2::PointD centerPt = m_screen.GlobalRect().GetGlobalRect().Center();
-    m_countryNameAtCoverageCenter = m_coverageGenerator->GetCountryName(centerPt);
-    m_isEmptyModelAtCoverageCenter = !m_countryNameAtCoverageCenter.empty();
+    m2::PointD const centerPt = m_screen.GlobalRect().GetGlobalRect().Center();
+    m_countryIndexAtCoverageCenter = m_coverageGenerator->GetCountryIndex(centerPt);
+    m_isEmptyModelAtCoverageCenter = m_countryIndexAtCoverageCenter.IsValid();
   }
 }
 

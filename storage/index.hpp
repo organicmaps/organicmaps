@@ -15,6 +15,8 @@ namespace storage
     TIndex(int group = INVALID, int country = INVALID, int region = INVALID)
       : m_group(group), m_country(country), m_region(region) {}
 
+    bool IsValid() const { return (m_group != INVALID && m_country != INVALID); }
+
     bool operator==(TIndex const & other) const
     {
       return (m_group == other.m_group &&

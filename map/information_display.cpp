@@ -393,9 +393,9 @@ void InformationDisplay::enableCountryStatusDisplay(bool doEnable)
   m_countryStatusDisplay->setIsVisible(doEnable);
 }
 
-void InformationDisplay::setEmptyCountryName(string const & country)
+void InformationDisplay::setEmptyCountryIndex(storage::TIndex const & idx)
 {
-  m_countryStatusDisplay->setCountryName(country);
+  m_countryStatusDisplay->setCountryIndex(idx);
 }
 
 void InformationDisplay::setDownloadListener(gui::Button::TOnClickListener l)

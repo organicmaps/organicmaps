@@ -103,7 +103,8 @@ namespace storage
     //@}
 
     Country const & CountryByIndex(TIndex const & index) const;
-    TIndex const FindIndexByName(string const & name) const;
+    TIndex FindIndexByFile(string const & name) const;
+    void GetGroupAndCountry(TIndex const & index, string & group, string & country) const;
 
     size_t CountriesCount(TIndex const & index) const;
     string const & CountryName(TIndex const & index) const;

@@ -32,8 +32,6 @@ private:
   shared_ptr<gui::Button> m_downloadButton;
   /// country status message
   shared_ptr<gui::TextView> m_statusMsg;
-  /// full name, could be in the form "Country, Province"
-  string m_fullName;
   /// current map name, "Province" part of the fullName
   string m_mapName;
   /// current map group name, "Country" part of the fullName
@@ -73,7 +71,7 @@ public:
   /// set download button listener
   void setDownloadListener(gui::Button::TOnClickListener const & l);
   /// set current country name
-  void setCountryName(string const & name);
+  void setCountryIndex(storage::TIndex const & idx);
   /// reposition element
   void setPivot(m2::PointD const & pv);
   /// attach element to controller.

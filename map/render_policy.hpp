@@ -2,12 +2,15 @@
 
 #include "drawer.hpp"
 
+#include "../storage/index.hpp"
+
 #include "../graphics/color.hpp"
+
+#include "../geometry/rect2d.hpp"
 
 #include "../std/function.hpp"
 #include "../std/shared_ptr.hpp"
 
-#include "../geometry/rect2d.hpp"
 
 class PaintEvent;
 class ScreenBase;
@@ -47,7 +50,7 @@ public:
                         bool)> TRenderFn;
 
   typedef function<bool (m2::PointD const &)> TEmptyModelFn;
-  typedef function<string (m2::PointD const &)> TCountryNameFn;
+  typedef function<storage::TIndex (m2::PointD const &)> TCountryIndexFn;
 
 protected:
 
@@ -59,7 +62,7 @@ protected:
   shared_ptr<WindowHandle> m_windowHandle;
   shared_ptr<Drawer> m_drawer;
   TRenderFn m_renderFn;
-  TCountryNameFn m_countryNameFn;
+  TCountryIndexFn m_countryIndexFn;
   bool m_doSupportRotation;
   bool m_doForceUpdate;
   m2::AnyRectD m_invalidRect;
@@ -117,7 +120,8 @@ public:
 
   /// the start point of rendering in renderpolicy.
   virtual void SetRenderFn(TRenderFn renderFn);
-  virtual void SetCountryNameFn(TCountryNameFn countryNameFn);
+
+  void SetCountryIndexFn(TCountryIndexFn const & fn);
   void SetAnimController(anim::Controller * controller);
 
   bool DoSupportRotation() const;
@@ -125,7 +129,7 @@ public:
 
   virtual bool NeedRedraw() const;
   virtual bool IsEmptyModel() const;
-  virtual string const GetCountryName() const;
+  virtual storage::TIndex GetCountryIndex() const { return storage::TIndex(); }
   virtual int  GetDrawScale(ScreenBase const & s) const;
 
   bool DoForceUpdate() const;

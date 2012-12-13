@@ -711,7 +711,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   bool const isEmptyModel = m_renderPolicy->IsEmptyModel();
 
   if (isEmptyModel)
-    m_informationDisplay.setEmptyCountryName(m_renderPolicy->GetCountryName());
+    m_informationDisplay.setEmptyCountryIndex(m_renderPolicy->GetCountryIndex());
 
   m_informationDisplay.enableCountryStatusDisplay(isEmptyModel);
   m_informationDisplay.enableCompassArrow(m_navigator.Screen().GetAngle() != 0);
@@ -1163,6 +1163,11 @@ search::Engine * Framework::GetSearchEngine() const
   return m_pSearchEngine.get();
 }
 
+storage::TIndex Framework::GetCountryIndex(m2::PointD const & pt) const
+{
+  return m_storage.FindIndexByFile(GetSearchEngine()->GetCountryFile(pt));
+}
+
 string Framework::GetCountryName(m2::PointD const & pt) const
 {
   return GetSearchEngine()->GetCountryName(pt);
@@ -1281,8 +1286,7 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 
     m_guiController->SetRenderParams(rp);
 
-    string (Framework::*pFn)(m2::PointD const &) const = &Framework::GetCountryName;
-    m_renderPolicy->SetCountryNameFn(bind(pFn, this, _1));
+    m_renderPolicy->SetCountryIndexFn(bind(&Framework::GetCountryIndex, this, _1));
 
     m_renderPolicy->SetRenderFn(DrawModelFn());
 

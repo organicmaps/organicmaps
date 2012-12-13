@@ -217,17 +217,17 @@ void CountryStatusDisplay::UpdateStatusAndProgress()
   }
 }
 
-void CountryStatusDisplay::setCountryName(string const & name)
+void CountryStatusDisplay::setCountryIndex(storage::TIndex const & idx)
 {
-  if (m_fullName != name)
+  if (m_countryIdx != idx)
   {
-    storage::CountryInfo::FullName2GroupAndMap(name, m_mapGroupName, m_mapName);
+    m_countryIdx = idx;
+
+    m_storage->GetGroupAndCountry(idx, m_mapGroupName, m_mapName);
     LOG(LDEBUG, (m_mapName, m_mapGroupName));
 
-    m_countryIdx = m_storage->FindIndexByName(m_mapName);
     UpdateStatusAndProgress();
 
-    m_fullName = name;
     m_notEnoughSpace = false;
 
     setIsDirtyDrawing(true);

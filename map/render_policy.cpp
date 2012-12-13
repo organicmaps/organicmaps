@@ -169,9 +169,9 @@ void RenderPolicy::SetRenderFn(TRenderFn renderFn)
   m_renderFn = renderFn;
 }
 
-void RenderPolicy::SetCountryNameFn(TCountryNameFn countryNameFn)
+void RenderPolicy::SetCountryIndexFn(TCountryIndexFn const & fn)
 {
-  m_countryNameFn = countryNameFn;
+  m_countryIndexFn = fn;
 }
 
 bool RenderPolicy::DoForceUpdate() const
@@ -197,11 +197,6 @@ m2::AnyRectD const & RenderPolicy::GetInvalidRect() const
 bool RenderPolicy::IsEmptyModel() const
 {
   return false;
-}
-
-string const RenderPolicy::GetCountryName() const
-{
-  return string();
 }
 
 int RenderPolicy::GetDrawScale(ScreenBase const & s) const

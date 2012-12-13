@@ -99,6 +99,13 @@ namespace storage
     return NodeFromIndex(m_countries, index).Value();
   }
 
+  void Storage::GetGroupAndCountry(TIndex const & index, string & group, string & country) const
+  {
+    string fName = CountryByIndex(index).GetFile().m_fileName;
+    CountryInfo::FileName2FullName(fName);
+    CountryInfo::FullName2GroupAndMap(fName, group, country);
+  }
+
   size_t Storage::CountriesCount(TIndex const & index) const
   {
     return NodeFromIndex(m_countries, index).SiblingsCount();
@@ -353,21 +360,30 @@ namespace storage
     return baseUrl + OMIM_OS_NAME "/" + strings::to_string(m_currentVersion)  + "/" + UrlEncode(fName);
   }
 
-  TIndex const Storage::FindIndexByName(string const & name) const
+  bool IsEqualFileName(SimpleTree<Country> const & node, string const & name)
+  {
+    Country const & c = node.Value();
+    if (c.GetFilesCount() > 0)
+      return (c.GetFile().m_fileName == name);
+    else
+      return false;
+  }
+
+  TIndex Storage::FindIndexByFile(string const & name) const
   {
     for (unsigned i = 0; i < m_countries.SiblingsCount(); ++i)
     {
-      if (m_countries[i].Value().Name() == name)
+      if (IsEqualFileName(m_countries[i], name))
         return TIndex(i);
 
       for (unsigned j = 0; j < m_countries[i].SiblingsCount(); ++j)
       {
-        if (m_countries[i][j].Value().Name() == name)
+        if (IsEqualFileName(m_countries[i][j], name))
           return TIndex(i, j);
 
         for (unsigned k = 0; k < m_countries[i][j].SiblingsCount(); ++k)
         {
-          if (m_countries[i][j][k].Value().Name() == name)
+          if (IsEqualFileName(m_countries[i][j][k], name))
             return TIndex(i, j, k);
         }
       }

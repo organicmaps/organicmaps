@@ -2,10 +2,12 @@
 
 #include "render_policy.hpp"
 
+#include "../graphics/overlay.hpp"
+
 #include "../geometry/screenbase.hpp"
 
 #include "../std/shared_ptr.hpp"
-#include "../graphics/overlay.hpp"
+
 
 class TileRenderer;
 class CoverageGenerator;
@@ -34,7 +36,7 @@ protected:
   ScreenBase m_CurrentScreen;
   int  m_DrawScale;
   bool m_IsEmptyModel;
-  string m_CountryName;
+  storage::TIndex m_countryIndex;
   bool m_DoRecreateCoverage;
   bool m_IsNavigating;
   bool m_WasAnimatingLastFrame;
@@ -72,8 +74,8 @@ public:
   bool NeedRedraw() const;
   bool IsTiling() const;
   bool IsEmptyModel() const;
-  string const GetCountryName() const;
-  int  GetDrawScale(ScreenBase const & s) const;
+  storage::TIndex GetCountryIndex() const;
+  int GetDrawScale(ScreenBase const & s) const;
   size_t ScaleEtalonSize() const;
   size_t TileSize() const;
 

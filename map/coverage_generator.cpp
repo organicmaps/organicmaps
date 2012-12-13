@@ -21,12 +21,12 @@ CoverageGenerator::CoverageGenerator(
     shared_ptr<graphics::RenderContext> const & primaryRC,
     shared_ptr<graphics::ResourceManager> const & rm,
     graphics::PacketsQueue * glQueue,
-    RenderPolicy::TCountryNameFn countryNameFn)
+    RenderPolicy::TCountryIndexFn const & countryIndexFn)
   : m_queue(1),
     m_tileRenderer(tileRenderer),
     m_sequenceID(0),
     m_windowHandle(windowHandle),
-    m_countryNameFn(countryNameFn),
+    m_countryIndexFn(countryIndexFn),
     m_glQueue(glQueue),
     m_skinName(skinName),
     m_fenceManager(2),
@@ -321,9 +321,9 @@ shared_ptr<graphics::ResourceManager> const & CoverageGenerator::resourceManager
   return m_resourceManager;
 }
 
-string CoverageGenerator::GetCountryName(m2::PointD const & pt) const
+storage::TIndex CoverageGenerator::GetCountryIndex(m2::PointD const & pt) const
 {
-  return m_countryNameFn(pt);
+  return m_countryIndexFn(pt);
 }
 
 void CoverageGenerator::CancelCommands()

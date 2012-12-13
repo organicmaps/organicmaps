@@ -128,7 +128,7 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
     {
       m_IsEmptyModel = curCvg->IsEmptyDrawingCoverage() && curCvg->IsEmptyModelAtCoverageCenter();
       if (m_IsEmptyModel)
-        m_CountryName = curCvg->GetCountryNameAtCoverageCenter();
+        m_countryIndex = curCvg->GetCountryIndexAtCoverageCenter();
     }
   }
 
@@ -229,9 +229,9 @@ bool BasicTilingRenderPolicy::IsEmptyModel() const
   return m_IsEmptyModel;
 }
 
-string const BasicTilingRenderPolicy::GetCountryName() const
+storage::TIndex BasicTilingRenderPolicy::GetCountryIndex() const
 {
-  return m_CountryName;
+  return m_countryIndex;
 }
 
 bool BasicTilingRenderPolicy::NeedRedraw() const

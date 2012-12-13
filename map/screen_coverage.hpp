@@ -62,7 +62,7 @@ private:
   bool m_isEmptyModelAtCoverageCenter;
   /// Which country this coverage points to at its center?
   /// It's valid only if m_isEmptyModelAtCoverageCenter is true
-  string m_countryNameAtCoverageCenter;
+  storage::TIndex m_countryIndexAtCoverageCenter;
   /// How many "leaf" tiles we should render to cover the screen.
   /// This is efficiently the size of newLeafTileRects and is cached for
   /// quick check.
@@ -110,7 +110,7 @@ public:
   void ResetEmptyModelAtCoverageCenter();
   /// What country is at this coverage center.
   /// @warning check this flag only if IsEmptyModelAtCoverageCenter is true
-  string GetCountryNameAtCoverageCenter() const;
+  storage::TIndex GetCountryIndexAtCoverageCenter() const;
   /// Check, whether the model is empty at the center of the coverage.
   void CheckEmptyModelAtCoverageCenter();
   /// Getter for Overlay
