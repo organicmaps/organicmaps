@@ -32,7 +32,7 @@ SOURCES += ../../testing/testingmain.cpp \
     gzip_test.cpp \
     coder_util_test.cpp \
     bit_shift_test.cpp \
-    base64_test.cpp \
+    base64_for_user_id_test.cpp \
     sha2_test.cpp \
     value_opt_string_test.cpp \
     multilang_utf8_string_test.cpp \

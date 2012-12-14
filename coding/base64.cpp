@@ -8,7 +8,9 @@ using namespace boost::archive::iterators;
 typedef base64_from_binary<transform_width<string::const_iterator, 6, 8> > base64_t;
 typedef transform_width<binary_from_base64<string::const_iterator>, 8, 6 > binary_t;
 
-namespace base64
+/// This namespace contains historically invalid implementation of base64,
+/// but it's still needed for production code
+namespace base64_for_user_ids
 {
   string encode(string rawBytes)
   {

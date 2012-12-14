@@ -28,7 +28,7 @@ string Platform::HashUniqueID(string const & s)
   for (size_t i = 0; i < offset; ++i)
     xoredHash.push_back(hash[i] ^ hash[i + offset] ^ hash[i + offset * 2] ^ hash[i + offset * 3]);
   // and use base64 encoding
-  return base64::encode(xoredHash);
+  return base64_for_user_ids::encode(xoredHash);
 }
 
 string Platform::ResourcesMetaServerUrl() const
