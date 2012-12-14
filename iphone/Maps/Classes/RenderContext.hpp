@@ -34,7 +34,7 @@ namespace iphone
 		/// Make this rendering context current
 		void makeCurrent();
 		/// create a shared render context
-		shared_ptr<graphics::RenderContext> createShared();
+    graphics::RenderContext * createShared();
 
   	EAGLContext * getEAGLContext();
   };

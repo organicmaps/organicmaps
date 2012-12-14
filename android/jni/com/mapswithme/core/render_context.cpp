@@ -13,9 +13,9 @@ namespace android
   {
   }
 
-  shared_ptr<graphics::RenderContext> RenderContext::createShared()
+  graphics::RenderContext * RenderContext::createShared()
   {
-    shared_ptr<RenderContext> rc(new RenderContext());
+    RenderContext * rc = new RenderContext();
     rc->setResourceManager(resourceManager());
     return rc;
   }

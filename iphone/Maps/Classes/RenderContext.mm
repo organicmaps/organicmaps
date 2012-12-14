@@ -31,9 +31,9 @@ namespace iphone
     [EAGLContext setCurrentContext:m_context];
 	}
  
-  shared_ptr<graphics::RenderContext> RenderContext::createShared()
+  graphics::RenderContext * RenderContext::createShared()
 	{
-    shared_ptr<graphics::RenderContext> res(new RenderContext(this));
+    graphics::RenderContext * res = new RenderContext(this);
     res->setResourceManager(resourceManager());
     return res;
 	}

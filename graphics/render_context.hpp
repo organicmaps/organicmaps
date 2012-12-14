@@ -48,7 +48,7 @@ namespace graphics
     /// Create a render context which is shared with this one.
     /// Context sharing means that all resources created in one context
     /// can be used in shared context and vice versa.
-    virtual shared_ptr<RenderContext> createShared() = 0;
+    virtual RenderContext * createShared() = 0;
     /// this function should be called from each opengl thread
     /// to setup some thread parameters.
     virtual void startThreadDrawing(unsigned threadSlot);

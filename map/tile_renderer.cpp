@@ -51,7 +51,7 @@ TileRenderer::TileRenderer(
   for (unsigned i = 0; i < m_threadData.size(); ++i)
   {
     if (!packetsQueues)
-      m_threadData[i].m_renderContext = m_primaryContext->createShared();
+      m_threadData[i].m_renderContext.reset(m_primaryContext->createShared());
 
     Drawer::Params params;
 

@@ -31,9 +31,9 @@ namespace qt
       m_context->makeCurrent();
     }
 
-    shared_ptr<graphics::RenderContext> RenderContext::createShared()
+    graphics::RenderContext * RenderContext::createShared()
     {
-      shared_ptr<graphics::gl::RenderContext> res(new RenderContext(this));
+      graphics::gl::RenderContext * res = new RenderContext(this);
       res->setResourceManager(resourceManager());
       return res;
     }

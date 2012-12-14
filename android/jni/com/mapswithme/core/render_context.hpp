@@ -19,6 +19,6 @@ namespace android
 
     void makeCurrent();
 
-    shared_ptr<graphics::RenderContext> createShared();
+    graphics::RenderContext * createShared();
   };
 }

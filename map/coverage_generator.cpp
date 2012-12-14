@@ -39,7 +39,7 @@ CoverageGenerator::CoverageGenerator(
   m_resourceManager = rm;
 
   if (!m_glQueue)
-    m_renderContext = primaryRC->createShared();
+    m_renderContext.reset(primaryRC->createShared());
 
   m_queue.AddInitCommand(bind(&CoverageGenerator::InitializeThreadGL, this));
   m_queue.AddFinCommand(bind(&CoverageGenerator::FinalizeThreadGL, this));

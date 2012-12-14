@@ -30,7 +30,7 @@ namespace qt
       /// Make this rendering context current
       void makeCurrent();
 
-      shared_ptr<graphics::RenderContext> createShared();
+      graphics::RenderContext * createShared();
 
       /// Leave previous logic, but fix thread widget deletion error.
       void endThreadDrawing(unsigned threadSlot);
