@@ -25,7 +25,7 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
   ResourceManager::StoragePoolParams spp;
 
   tpp = ResourceManager::TexturePoolParams(512,
-                                           256,
+                                           512,
                                            1,
                                            rmp.m_texFormat,
                                            ELargeTexture,
@@ -51,7 +51,7 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
 
   rmp.m_textureParams[tpp.m_textureType] = tpp;
 
-  tpp = ResourceManager::TexturePoolParams(256,
+  tpp = ResourceManager::TexturePoolParams(128,
                                            128,
                                            4,
                                            rmp.m_texFormat,

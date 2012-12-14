@@ -913,15 +913,15 @@ void InitNVEvent(JavaVM* vm)
       (void *) onDestroyNative
     },
     {
-     "onLongClickNative",
-     "(II)Z",
-     (void *) NVEventLongClickEvent
-    },
-    {
       "multiTouchEvent",
       "(IZZIIIILandroid/view/MotionEvent;)Z",
       (void *) NVEventMultiTouchEvent
     },
+    {
+     "onLongClickNative",
+     "(II)Z",
+     (void *) NVEventLongClickEvent
+    }
   };
 
   jclass k;
