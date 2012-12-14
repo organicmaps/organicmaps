@@ -145,10 +145,14 @@ namespace graphics
 
     agg::ellipse ell;
 
+    unsigned radius = info.m_radius;
+    if (info.m_isOutlined)
+      radius += info.m_outlineWidth;
+
     ell.init(center.x,
              center.y,
-             info.m_isOutlined ? info.m_radius + info.m_outlineWidth : info.m_radius,
-             info.m_isOutlined ? info.m_radius + info.m_outlineWidth : info.m_radius,
+             radius,
+             radius,
              100);
 
     rasterizer.add_path(ell);

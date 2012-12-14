@@ -191,6 +191,8 @@ namespace graphics
 
     size_t cnt = m_visText.size();
 
+    m_metrics.resize(cnt);
+
     for (size_t i = 0; i < cnt; ++i)
     {
       GlyphKey key(visText[i],
@@ -198,7 +200,7 @@ namespace graphics
                    //m_fontDesc.m_isMasked,
                    false, //< calculating glyph positions using the unmasked glyphs.
                    graphics::Color(0, 0, 0, 0));
-      m_metrics.push_back(glyphCache->getGlyphMetrics(key));
+      m_metrics[i] = glyphCache->getGlyphMetrics(key);
     }
     recalcAlongPath();
   }

@@ -171,7 +171,7 @@ namespace graphics
           m_pipelines[i].m_storageType = EMediumStorage;
           break;
         default:
-          LOG(LINFO, ("Unknown StorageType for TextureType detected!"));
+          LOG(LERROR, ("Unknown StorageType for TextureType detected!"));
         };
 
         m_pipelines[i].m_maxVertices = 0;

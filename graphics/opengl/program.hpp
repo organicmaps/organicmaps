@@ -57,6 +57,11 @@ namespace graphics
 
       Storage m_storage;
 
+      template <unsigned N>
+      void setParamImpl(ESemantic sem,
+                        EDataType dt,
+                        math::Matrix<float, N, N> const & m);
+
     public:
 
       DECLARE_EXCEPTION(Exception, RootException);

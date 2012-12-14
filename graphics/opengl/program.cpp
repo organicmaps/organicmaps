@@ -186,34 +186,32 @@ namespace graphics
       f.m_data.m_intVal[3] = v3;
     }
 
-    void Program::setParam(ESemantic sem, math::Matrix<float, 2, 2> const & m)
+    template <unsigned N>
+    void Program::setParamImpl(ESemantic sem,
+                               EDataType dt,
+                               math::Matrix<float, N, N> const & m)
     {
       map<ESemantic, Uniform>::iterator it = m_uniforms.find(sem);
       ASSERT(it != m_uniforms.end(), ());
       Uniform & f = it->second;
 
-      f.m_type = EFloatMat2;
-      copy(&m(0, 0), &m(0, 0) + 2 * 2, f.m_data.m_matVal);
+      f.m_type = dt;
+      copy(&m(0, 0), &m(0, 0) + N * N, f.m_data.m_matVal);
+    }
+
+    void Program::setParam(ESemantic sem, math::Matrix<float, 2, 2> const & m)
+    {
+      setParamImpl(sem, EFloatMat2, m);
     }
 
     void Program::setParam(ESemantic sem, math::Matrix<float, 3, 3> const & m)
     {
-      map<ESemantic, Uniform>::iterator it = m_uniforms.find(sem);
-      ASSERT(it != m_uniforms.end(), ());
-      Uniform & f = it->second;
-
-      f.m_type = EFloatMat3;
-      copy(&m(0, 0), &m(0, 0) + 3 * 3, f.m_data.m_matVal);
+      setParamImpl(sem, EFloatMat3, m);
     }
 
     void Program::setParam(ESemantic sem, math::Matrix<float, 4, 4> const & m)
     {
-      map<ESemantic, Uniform>::iterator it = m_uniforms.find(sem);
-      ASSERT(it != m_uniforms.end(), ());
-      Uniform & f = it->second;
-
-      f.m_type = EFloatMat4;
-      copy(&m(0, 0), &m(0, 0) + 4 * 4, f.m_data.m_matVal);
+      setParamImpl(sem, EFloatMat4, m);
     }
 
     void Program::setVertexDecl(VertexDecl const * decl)
