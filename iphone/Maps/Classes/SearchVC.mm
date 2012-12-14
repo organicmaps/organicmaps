@@ -85,13 +85,12 @@ SearchVC * g_searchVC = nil;
 
 // Last search results are stored between SearchVC sessions
 // to appear instantly for the user, they also store last search text query.
-ResultsWrapper * g_lastSearchResults = nil;
+//ResultsWrapper * g_lastSearchResults = nil;
 
-ResultsWrapper * lastNearMeSearch   = nil;
-ResultsWrapper * lastInViewSearch   = nil;
-ResultsWrapper * lastAllSearch      = nil;
 
+NSString *lastSearchRequest = nil;
 int scopeSection = 2;
+int numberOfRowsInEmptySearch = 0;
 
 static void OnSearchResultCallback(search::Results const & res)
 {
@@ -107,6 +106,7 @@ static void OnSearchResultCallback(search::Results const & res)
 /////////////////////////////////////////////////////////////////////
 
 @implementation SearchVC
+@synthesize searchResults = _searchResults;
 
 - (id) init
 {
@@ -137,6 +137,11 @@ static void OnSearchResultCallback(search::Results const & res)
                        @"post",
                        @"police",
                        nil];
+      _searchResults = [[NSMutableArray alloc] initWithObjects:[[[ResultsWrapper alloc] init]autorelease],[[[ResultsWrapper alloc] init]autorelease], [[[ResultsWrapper alloc] init]autorelease], nil];
+      if (!lastSearchRequest)
+      {
+          lastSearchRequest = @"";
+      }
   }
   return self;
 }
@@ -175,8 +180,8 @@ static void OnSearchResultCallback(search::Results const & res)
     m_searchBar.showsCancelButton = YES;
     // restore previous search query
     
-    if (g_lastSearchResults)
-        m_searchBar.text = g_lastSearchResults.searchString;
+    if (lastSearchRequest)
+      [m_searchBar setText:lastSearchRequest];
     m_searchBar.delegate = self;
     m_searchBar.placeholder = NSLocalizedString(@"search_map", @"Search box placeholder text");
     
@@ -215,6 +220,7 @@ static void OnSearchResultCallback(search::Results const & res)
   [m_searchBar release];
   [m_table release];
   [categoriesNames release];
+  [_searchResults release];
   [super dealloc];
 }
 
@@ -237,6 +243,8 @@ static void OnSearchResultCallback(search::Results const & res)
   m_table = nil;
   [categoriesNames release];
   categoriesNames = nil;
+  [_searchResults release];
+  _searchResults = nil;
   
   [super viewDidUnload];
 }
@@ -271,10 +279,10 @@ static void OnSearchResultCallback(search::Results const & res)
   else
   {
     [m_locationManager start:self];
-
     // show keyboard
     [m_searchBar becomeFirstResponder];
-    m_searchBar.selectedScopeButtonIndex = scopeSection;
+     m_searchBar.selectedScopeButtonIndex = scopeSection;
+    [self proceedSearchWithString:lastSearchRequest andForceSearch:YES];
   }
   
   [super viewWillAppear:animated];
@@ -286,9 +294,8 @@ static void OnSearchResultCallback(search::Results const & res)
   
   // hide keyboard immediately
   [m_searchBar resignFirstResponder];
-  [self clearCacheResults];
-  
   [super viewWillDisappear:animated];
+  numberOfRowsInEmptySearch = 0;
 }
 
 - (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
@@ -305,8 +312,11 @@ static void OnSearchResultCallback(search::Results const & res)
 //*********** SearchBar handlers *******************************************
 - (void)searchBar:(UISearchBar *)sender textDidChange:(NSString *)searchText
 {
+    numberOfRowsInEmptySearch = 0;
+    [lastSearchRequest release];
+    lastSearchRequest = [[NSString alloc] initWithString:m_searchBar.text];
     [self clearCacheResults];
-    [self proceedSearchWithString:m_searchBar.text];
+    [self proceedSearchWithString:m_searchBar.text andForceSearch:NO];
 }
 
 - (void)onCloseButton:(id)sender
@@ -334,15 +344,22 @@ static void OnSearchResultCallback(search::Results const & res)
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
   m_suggestionsCount = m_searchBar.text.length ? 0 : 1;
+  //No text in search show categories
   if (m_suggestionsCount)
+  {
       return [categoriesNames count];
-  return [g_lastSearchResults getCount];
+  }
+  //If no results we should show 0 strings if search is in progress or 1 string with message thaht there is no results
+  if (![[_searchResults objectAtIndex:scopeSection] getCount])
+  {
+    return numberOfRowsInEmptySearch;
+  }
+  return [[_searchResults objectAtIndex:scopeSection] getCount];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSInteger realRowIndex = indexPath.row;
-
   if (m_suggestionsCount)
   {
     static NSString *CellIdentifier = @"categoryCell";
@@ -358,14 +375,25 @@ static void OnSearchResultCallback(search::Results const & res)
 
     return cell;
   }
+  //No search results
+  if ([m_searchBar.text length] != 0 && ![[_searchResults objectAtIndex:scopeSection] getCount])
+  {      
+      UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NoResultsCell"];
+      if (cell == nil)
+      {
+          cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NoResultsCell"] autorelease];
+      }
+      cell.textLabel.text =  NSLocalizedString(@"no_search_results_found", nil);
+      return cell;
+  }
 
-  if (g_lastSearchResults == nil || realRowIndex >= (NSInteger)[g_lastSearchResults getCount])
+  if ([_searchResults objectAtIndex:scopeSection] == nil || realRowIndex >= (NSInteger)[[_searchResults objectAtIndex:scopeSection] getCount])
   {
-    ASSERT(false, ("Invalid m_results with size", [g_lastSearchResults getCount]));
+    ASSERT(false, ("Invalid m_results with size", [[_searchResults objectAtIndex:scopeSection] getCount]));
     return nil;
   }
 
-  search::Result const & r = [g_lastSearchResults getWithPosition:realRowIndex];
+  search::Result const & r = [[_searchResults objectAtIndex:scopeSection] getWithPosition:realRowIndex];
   switch (r.GetResultType())
   {
     case search::Result::RESULT_FEATURE:
@@ -455,12 +483,19 @@ static void OnSearchResultCallback(search::Results const & res)
   if (m_suggestionsCount)
   {
     [self setSearchBoxText:[NSLocalizedString([categoriesNames objectAtIndex:realRowIndex], Search Suggestion) stringByAppendingString:@" "]];
+    [m_table scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     return;
   }
-
-  if (realRowIndex < (NSInteger)[g_lastSearchResults getCount])
+  //row that says that there is no results
+  if ([m_searchBar.text length] != 0 && ![[_searchResults objectAtIndex:scopeSection] getCount])
   {
-    search::Result const & res = [g_lastSearchResults getWithPosition:realRowIndex];
+      [m_table deselectRowAtIndexPath:indexPath animated:YES];
+      return;
+  }
+
+  if (realRowIndex < (NSInteger)[[_searchResults objectAtIndex:scopeSection] getCount])
+  {
+    search::Result const & res = [[_searchResults objectAtIndex:scopeSection] getWithPosition:realRowIndex];
     switch(res.GetResultType())
     {
       // Zoom to the feature
@@ -494,31 +529,17 @@ static void OnSearchResultCallback(search::Results const & res)
   if ([w isEndMarker])
   {
     if ([w isEndedNormal])
+    {
       [self hideIndicator];
+       numberOfRowsInEmptySearch = 1;
+      [m_table reloadData];
+    }
   }
   else
   {
-    [g_lastSearchResults release];
-    g_lastSearchResults = [w retain];
-    //assign search results to cache
-    switch (scopeSection)
-    {
-         case 0:
-            lastNearMeSearch = [w retain];
-            break;
-         case 1:
-            lastInViewSearch = [w retain];
-            break;
-         case 2:
-            lastAllSearch = [w retain];
-            break;
-         default:
-         break;
-    }
-
-    w.searchString = m_searchBar.text;
-
-    [m_table reloadData];
+     numberOfRowsInEmptySearch = 0;
+     [_searchResults replaceObjectAtIndex:scopeSection withObject:w];
+     [m_table reloadData];
   }
 }
 
@@ -551,9 +572,8 @@ void setSearchType(search::SearchParams& params)
 - (void)onLocationUpdate:(location::GpsInfo const &)info
 {
   // Refresh search results with newer location.
-  // Note: search even with empty string, to update distance and direction
-    
-  [self clearCacheResults];
+  if (![m_searchBar.text length])
+      return;
   search::SearchParams params;
   setSearchType(params);
   if (m_searchBar.text)
@@ -564,7 +584,15 @@ void setSearchType(search::SearchParams& params)
     params.SetPosition(info.m_latitude, info.m_longitude);
     
     if (m_framework->Search(params))
+    {
+      [self clearCacheResults];
+      numberOfRowsInEmptySearch = 0;
       [self showIndicator];
+    }
+    else
+    {
+      numberOfRowsInEmptySearch = 1;
+    }
   }
 }
 
@@ -574,7 +602,7 @@ void setSearchType(search::SearchParams& params)
   if (![m_locationManager getLat:lat Lon:lon])
     return;
   //check if categories are on the screen
-  if (!m_suggestionsCount)
+  if (!m_suggestionsCount && [[_searchResults objectAtIndex:scopeSection] getCount])
   {
     double const northRad = (info.m_trueHeading < 0) ? info.m_magneticHeading : info.m_trueHeading;
     NSArray * cells = m_table.visibleCells;
@@ -582,7 +610,7 @@ void setSearchType(search::SearchParams& params)
     {
       UITableViewCell * cell = (UITableViewCell *)[cells objectAtIndex:i];
       NSInteger realRowIndex = [m_table indexPathForCell:cell].row;
-      search::Result const & res = [g_lastSearchResults getWithPosition:realRowIndex];
+      search::Result const & res = [[_searchResults objectAtIndex:scopeSection] getWithPosition:realRowIndex];
       if (res.GetResultType() == search::Result::RESULT_FEATURE)
       {
         // Show compass only for cells without flags
@@ -622,48 +650,16 @@ void setSearchType(search::SearchParams& params)
 //segmentedControl delegate
 - (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
 {
-    switch (selectedScope)
+    scopeSection = selectedScope;
+    numberOfRowsInEmptySearch = 0;
+    if (![[_searchResults objectAtIndex:selectedScope] getCount])
     {
-        case 0:
-            scopeSection = 0;
-            if (lastNearMeSearch != nil)
-            {
-                [self assignSearchResultsToCache:lastNearMeSearch];
-                return;
-            }
-            break;
-        case 1:
-            scopeSection = 1;
-            if (lastInViewSearch != nil)
-            {
-                [self assignSearchResultsToCache:lastInViewSearch];
-                return;
-            }
-            break;
-        case 2:
-            scopeSection = 2;
-            if (lastAllSearch != nil)
-            {
-                [self assignSearchResultsToCache:lastAllSearch];
-                return;
-            }
-            break;
-        default:
-            scopeSection = 2;
-            if (lastAllSearch != nil)
-            {
-                [self assignSearchResultsToCache:lastAllSearch];
-                return;
-            }
+      [self proceedSearchWithString:m_searchBar.text andForceSearch:NO];
     }
-    [self proceedSearchWithString:m_searchBar.text];
-}
-
--(void)assignSearchResultsToCache:(ResultsWrapper *)cache
-{
-    [g_lastSearchResults release];
-    g_lastSearchResults =  [cache retain];
-    [m_table reloadData];
+    else
+    {
+      [m_table reloadData];
+    }
 }
 
 -(void)setSearchBarHeight
@@ -680,27 +676,36 @@ void setSearchType(search::SearchParams& params)
 
 -(void)clearCacheResults
 {
-    [lastNearMeSearch release];
-    lastNearMeSearch = nil;
-    [lastInViewSearch release];
-    lastInViewSearch = nil;
-    [lastAllSearch release];
-    lastAllSearch = nil;
+    for (int i = 0; i < [_searchResults count];++i)
+    {
+        [_searchResults replaceObjectAtIndex:i withObject:[[[ResultsWrapper alloc] init]autorelease]];
+    }
 }
 
--(void)proceedSearchWithString:(NSString *)searchText
+-(void)proceedSearchWithString:(NSString *)searchText andForceSearch:(BOOL)forceSearch
 {
     // Clear old results immediately
-    [g_lastSearchResults release];
-    g_lastSearchResults = nil;
+    [_searchResults replaceObjectAtIndex:scopeSection withObject:[[[ResultsWrapper alloc] init]autorelease]];
     [m_table reloadData];
-    
-    // Search even with empty string.
+    if (![searchText length])
+        return;
     search::SearchParams params;
     setSearchType(params);
+    if(forceSearch)
+    {
+        params.SetForceSearch(true);
+    }
     [self fillSearchParams:params withText:searchText];
     if (m_framework->Search(params))
+    {
         [self showIndicator];
+        numberOfRowsInEmptySearch = 0;   
+    }
+    else
+    {
+        numberOfRowsInEmptySearch = 1;
+        [m_table reloadData];
+    }
 }
 
 -(void)enableCancelButton

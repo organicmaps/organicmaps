@@ -24,5 +24,5 @@ class Framework;
   NSInteger m_suggestionsCount;
   NSArray *categoriesNames;
 }
-
+@property (nonatomic, retain) NSMutableArray *searchResults;
 @end
