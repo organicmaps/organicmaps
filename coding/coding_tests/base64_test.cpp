@@ -5,46 +5,27 @@
 
 #include "../base64.hpp"
 
-UNIT_TEST(Base64_Encode)
-{
-  TEST_EQUAL(base64::encode("Hello, world!"), "SGVsbG8sIHdvcmxkITAw", ());
-  TEST_EQUAL(base64::encode(""), "", ());
-  TEST_EQUAL(base64::encode("$"), "JDAw", ());
-  TEST_EQUAL(base64::encode("MapsWithMe is an offline maps application for any device in the world."),
-    "TWFwc1dpdGhNZSBpcyBhbiBvZmZsaW5lIG1hcHMgYXBwbGljYXRpb24gZm9yIGFueSBkZXZpY2Ug"
-    "aW4gdGhlIHdvcmxkLjAw", ());
-}
 
-UNIT_TEST(Base64_Decode)
-{
-  TEST_EQUAL(base64::decode("SGVsbG8sIHdvcmxkIQ"), "Hello, world!", ());
-  TEST_EQUAL(base64::decode(""), "", ());
-  TEST_EQUAL(base64::decode("JA"), "$", ());
-  TEST_EQUAL(base64::decode("TWFwc1dpdGhNZSBpcyBhbiBvZmZsaW5lIG1hcHMgYXBwbGljYXRpb24gZm9yIGFueSBkZXZpY2Ug"
-             "aW4gdGhlIHdvcmxkLg"),
-             "MapsWithMe is an offline maps application for any device in the world.", ());
-}
+using namespace base64;
 
-UNIT_TEST(Base64_QualityTest)
+UNIT_TEST(Base64_Smoke)
 {
-  size_t const NUMBER_OF_TESTS = 10000;
-  LCG32 generator(NUMBER_OF_TESTS);
-  for (size_t i = 0; i < NUMBER_OF_TESTS; ++i)
+  char const * bytes[] = {"H", "He", "Hel", "Hell", "Hello", "Hello,", "Hello, ", "Hello, World!"};
+  char const * encoded[] = {"SA==", "SGU=", "SGVs", "SGVsbA==", "SGVsbG8=", "SGVsbG8s",
+                           "SGVsbG8sIA==", "SGVsbG8sIFdvcmxkIQ=="};
+
+  TEST_EQUAL(ARRAY_SIZE(bytes), ARRAY_SIZE(encoded), ());
+
+  for (size_t i = 0; i < ARRAY_SIZE(bytes); ++i)
   {
-    string randomBytes;
-    for (size_t j = 0 ; j < 8; ++j)
-    {
-      if (j == 4)
-      {
-        randomBytes.push_back('\0');
-        continue;
-      }
-      randomBytes.push_back(static_cast<char>(generator.Generate()));
-    }
-    string const result = base64::encode(randomBytes);
-    TEST_GREATER_OR_EQUAL(result.size(), randomBytes.size(),
-        (randomBytes, result));
-    for (size_t i = 0; i < result.size(); ++i)
-      TEST_NOT_EQUAL(result[i], 0, ());
+    TEST_EQUAL(Encode(bytes[i]), encoded[i], ());
+    TEST_EQUAL(Decode(encoded[i]), bytes[i], ());
+    TEST_EQUAL(Decode(Encode(bytes[i])), bytes[i], ());
+    TEST_EQUAL(Encode(Decode(encoded[i])), encoded[i], ());
   }
+
+  char const * str = "MapsWithMe is the offline maps application for any device in the world.";
+  char const * encStr = "TWFwc1dpdGhNZSBpcyB0aGUgb2ZmbGluZSBtYXBzIGFwcGxpY2F0aW9uIGZvciBhbnkgZGV2aWNlIGluIHRoZSB3b3JsZC4=";
+  TEST_EQUAL(Encode(str), encStr, ());
+  TEST_EQUAL(Decode(encStr), str, ());
 }
