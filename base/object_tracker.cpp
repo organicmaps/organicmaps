@@ -68,8 +68,8 @@ void BreakIntoDebugger()
 {
   /// @todo Probably we can make it more simple (like std::terminate).
 
-#ifdef OMIM_OS_WINDOWS
-  __debugbreak();
+#if defined(OMIM_OS_WINDOWS)
+  DebugBreak();
 #else
   kill(getpid(), SIGINT);
 #endif

@@ -9,6 +9,8 @@ DEPENDENCIES = coding base bzip2 zlib tomcrypt
 
 include($$ROOT_DIR/common.pri)
 
+win32-g++: LIBS *= -lpthread
+
 SOURCES += ../../testing/testingmain.cpp \
     endianness_test.cpp \
     varint_test.cpp \

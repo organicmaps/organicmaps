@@ -2,6 +2,8 @@
 #include "../base/macros.hpp"
 #include "../base/logging.hpp"
 #include "../std/string.hpp"
+// for strcmp
+#include "../std/memcpy.hpp"
 
 namespace graphics
 {

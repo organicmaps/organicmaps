@@ -1,12 +1,10 @@
-#include "../base/SRC_FIRST.hpp"
-
-#include "opengl.hpp"
 #include "renderbuffer.hpp"
+#include "opengl.hpp"
 #include "utils.hpp"
 
-#include "../base/logging.hpp"
+#include "../../base/logging.hpp"
 
-#include "../std/list.hpp"
+#include "../../std/list.hpp"
 
 namespace graphics
 {

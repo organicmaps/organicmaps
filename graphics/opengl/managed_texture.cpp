@@ -1,5 +1,3 @@
-#include "../base/SRC_FIRST.hpp"
-
 #include "../../base/shared_buffer_manager.hpp"
 
 #include "opengl.hpp"

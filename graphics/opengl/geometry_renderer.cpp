@@ -1,6 +1,5 @@
-#include "../base/SRC_FIRST.hpp"
 #include "geometry_renderer.hpp"
-#include "resource.hpp"
+#include "../resource.hpp"
 #include "base_texture.hpp"
 #include "texture.hpp"
 #include "buffer_object.hpp"
@@ -10,8 +9,8 @@
 #include "gl_render_context.hpp"
 #include "defines_conv.hpp"
 
-#include "../std/bind.hpp"
-#include "../base/logging.hpp"
+#include "../../std/bind.hpp"
+#include "../../base/logging.hpp"
 
 namespace graphics
 {
