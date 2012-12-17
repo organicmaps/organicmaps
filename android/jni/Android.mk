@@ -23,6 +23,7 @@ LOCAL_HEADER_FILES := \
 	com/mapswithme/core/logging.hpp \
 	com/mapswithme/core/render_context.hpp \
 	com/mapswithme/maps/Framework.hpp \
+	com/mapswithme/maps/MapStorage.hpp \
 	com/mapswithme/platform/Platform.hpp \
 	com/mapswithme/platform/http_thread_android.hpp \
 	nv_thread/nv_thread.hpp \

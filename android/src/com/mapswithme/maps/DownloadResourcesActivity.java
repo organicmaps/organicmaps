@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.ConnectionState;
 
@@ -41,7 +42,7 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   private Button mButton = null;
   private CheckBox mDownloadCountryCheckBox = null;
   private LocationService mLocationService = null;
-  private String mCountryName = null;
+  private Index mCountryIndex = null;
 
   private void setDownloadMessage(int bytesToDownload)
   {
@@ -238,26 +239,19 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   {
     if (result == ERR_NO_MORE_FILES)
     {
-      if (mCountryName != null && mDownloadCountryCheckBox.isChecked())
+      if (mCountryIndex != null && mDownloadCountryCheckBox.isChecked())
       {
         mDownloadCountryCheckBox.setVisibility(View.GONE);
         mLocationMsgView.setVisibility(View.GONE);
         mMsgView.setText(String.format(getString(R.string.downloading_country_can_proceed),
-                                       mCountryName));
+                                       mMapStorage.countryName(mCountryIndex)));
 
-        MapStorage.Index idx = mMapStorage.findIndexByName(mCountryName);
+        mProgress.setMax((int)mMapStorage.countryRemoteSizeInBytes(mCountryIndex));
+        mProgress.setProgress(0);
 
-        if (idx.isValid())
-        {
-          mProgress.setMax((int)mMapStorage.countryRemoteSizeInBytes(idx));
-          mProgress.setProgress(0);
+        mMapStorage.downloadCountry(mCountryIndex);
 
-          mMapStorage.downloadCountry(idx);
-
-          setAction(PROCEED_TO_MAP);
-        }
-        else
-          showMapView();
+        setAction(PROCEED_TO_MAP);
       }
       else
         showMapView();
@@ -411,18 +405,20 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   @Override
   public void onLocationUpdated(long time, double lat, double lon, float accuracy)
   {
-    if (mCountryName == null)
+    if (mCountryIndex == null)
     {
       Log.i(TAG, "Searching for country name at location lat=" + lat + ", lon=" + lon);
 
-      mCountryName = findCountryByPos(lat, lon);
-      if (mCountryName != null)
+      mCountryIndex = findIndexByPos(lat, lon);
+      if (mCountryIndex != null)
       {
         mLocationMsgView.setVisibility(View.VISIBLE);
 
-        int countryStatus = mMapStorage.countryStatus(mMapStorage.findIndexByName(mCountryName));
+        final int countryStatus = mMapStorage.countryStatus(mCountryIndex);
+        final String name = mMapStorage.countryName(mCountryIndex);
+
         if (countryStatus == MapStorage.ON_DISK)
-          mLocationMsgView.setText(String.format(getString(R.string.download_location_map_up_to_date), mCountryName));
+          mLocationMsgView.setText(String.format(getString(R.string.download_location_map_up_to_date), name));
         else
         {
           CheckBox checkBox = (CheckBox)findViewById(R.id.download_country_checkbox);
@@ -434,12 +430,12 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
           if (countryStatus == MapStorage.ON_DISK_OUT_OF_DATE)
           {
             msgViewText = getString(R.string.download_location_update_map_proposal);
-            checkBoxText = String.format(getString(R.string.update_country_ask), mCountryName);
+            checkBoxText = String.format(getString(R.string.update_country_ask), name);
           }
           else
           {
             msgViewText = getString(R.string.download_location_map_proposal);
-            checkBoxText = String.format(getString(R.string.download_country_ask), mCountryName);
+            checkBoxText = String.format(getString(R.string.download_country_ask), name);
           }
 
           mLocationMsgView.setText(msgViewText);
@@ -466,6 +462,6 @@ public class DownloadResourcesActivity extends Activity implements LocationServi
   private native int getBytesToDownload();
   private native boolean isWorldExists(String path);
   private native int startNextFileDownload(Object observer);
-  private native String findCountryByPos(double lat, double lon);
+  private native Index findIndexByPos(double lat, double lon);
   private native void cancelCurrentFile();
 }

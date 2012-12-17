@@ -102,8 +102,8 @@ namespace android
 
     void GetMapsWithoutSearch(vector<string> & out) const;
 
-    string const GetCountryName(double x, double y) const;
-    string const GetCountryCode(double lat, double lon) const;
+    storage::TIndex GetCountryIndex(double lat, double lon) const;
+    string GetCountryCode(double lat, double lon) const;
 
     void AddString(string const & name, string const & value);
 

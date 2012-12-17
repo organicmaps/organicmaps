@@ -118,7 +118,7 @@ public class MapStorage
   public native void downloadCountry(Index idx);
   public native void deleteCountry(Index idx);
 
-  public native Index findIndexByName(String name);
+  public native Index findIndexByFile(String name);
 
   public native void showCountry(Index idx);
 
@@ -160,15 +160,17 @@ public class MapStorage
     final Index[] indexes = new Index[maps.length];
     for (int i = 0; i < maps.length; ++i)
     {
-      final Index idx = findIndexByName(maps[i]);
-      final int st = countryStatus(idx);
+      indexes[i] = null;
 
-      if (st == DOWNLOADING || st == IN_QUEUE)
-        indexes[i] = null;
-      else
+      final Index idx = findIndexByFile(maps[i]);
+      if (idx != null)
       {
-        indexes[i] = idx;
-        ++count;
+        final int st = countryStatus(idx);
+        if (st != DOWNLOADING && st != IN_QUEUE)
+        {
+          indexes[i] = idx;
+          ++count;
+        }
       }
     }
 

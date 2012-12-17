@@ -1346,10 +1346,9 @@ void Framework::DeleteOldMaps()
 }
 */
 
-string Framework::GetCountryCodeByPosition(double lat, double lon) const
+string Framework::GetCountryCode(m2::PointD const & pt) const
 {
-  return GetSearchEngine()->GetCountryCode(m2::PointD(
-                           MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat)));
+  return GetSearchEngine()->GetCountryCode(pt);
 }
 
 gui::Controller * Framework::GetGuiController() const

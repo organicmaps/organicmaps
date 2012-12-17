@@ -271,15 +271,16 @@ public:
                             double lat, double lon, double north,
                             string & distance, double & azimut);
 
-private:
+ //@{
   storage::TIndex GetCountryIndex(m2::PointD const & pt) const;
-public:
+
   string GetCountryName(m2::PointD const & pt) const;
   /// @param[in] id Country file name without an extension.
   string GetCountryName(string const & id) const;
 
   /// @return country code in ISO 3166-1 alpha-2 format (two small letters) or empty string
-  string GetCountryCodeByPosition(double lat, double lon) const;
+  string GetCountryCode(m2::PointD const & pt) const;
+  //@}
 
   void SetMaxWorldRect();
 

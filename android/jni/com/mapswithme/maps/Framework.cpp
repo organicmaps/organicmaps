@@ -477,7 +477,7 @@ namespace android
           if (!cont.IsReaderExist(SEARCH_INDEX_FILE_TAG))
           {
             pl::GetNameWithoutExt(v[i]);
-            out.push_back(m_work.GetCountryName(v[i]));
+            out.push_back(v[i]);
           }
         }
         catch (RootException const & ex)
@@ -489,14 +489,14 @@ namespace android
     }
   }
 
-  string const Framework::GetCountryName(double x, double y) const
+  storage::TIndex Framework::GetCountryIndex(double lat, double lon) const
   {
-    return m_work.GetCountryName(m2::PointD(x, y));
+    return m_work.GetCountryIndex(m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat)));
   }
 
-  string const Framework::GetCountryCode(double lat, double lon) const
+  string Framework::GetCountryCode(double lat, double lon) const
   {
-    return m_work.GetCountryCodeByPosition(lat, lon);
+    return m_work.GetCountryCode(m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat)));
   }
 
   void Framework::AddString(string const & name, string const & value)

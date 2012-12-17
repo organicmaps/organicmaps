@@ -1,4 +1,5 @@
-#include <jni.h>
+#include "Framework.hpp"
+#include "MapStorage.hpp"
 
 #include "../../../../../defines.hpp"
 
@@ -17,10 +18,6 @@
 #include "../../../../../std/string.hpp"
 #include "../../../../../std/bind.hpp"
 #include "../../../../../std/shared_ptr.hpp"
-
-#include "../core/jni_helper.hpp"
-
-#include "Framework.hpp"
 
 
 using namespace downloader;
@@ -309,14 +306,16 @@ extern "C"
       my::DeleteFileX((from + files[i]).c_str());
   }
 
-  JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_DownloadResourcesActivity_findCountryByPos(JNIEnv * env, jobject thiz,
+  JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_maps_DownloadResourcesActivity_findIndexByPos(JNIEnv * env, jobject thiz,
       jdouble lat, jdouble lon)
   {
-    string const name = g_framework->GetCountryName(MercatorBounds::LonToX(lon),
-                                                    MercatorBounds::LatToY(lat));
+    storage::TIndex const idx = g_framework->GetCountryIndex(lat, lon);
 
     // Important thing. Return 0 if no any country.
-    return (name.empty() ? 0 : jni::ToJavaString(env, name));
+    if (idx.IsValid())
+      return storage::toJava(idx);
+    else
+      return 0;
   }
 }
