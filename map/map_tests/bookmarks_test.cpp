@@ -415,3 +415,40 @@ UNIT_TEST(Bookmarks_AddingMoving)
 
   DeleteCategoryFiles();
 }
+
+namespace
+{
+char const * kmlString2 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+    "<kml xmlns=\"http://earth.google.com/kml/2.1\">"
+    "<Document>"
+     "<name>busparkplatz</name>"
+     "<Folder>"
+      "<name>Waypoint</name>"
+      "<Style id=\"poiIcon37\">"
+       "<IconStyle>"
+       "<scale>1</scale>"
+       "<Icon><href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href></Icon>"
+       "<hotSpot x=\"0.5\" y=\"0\" xunits=\"fraction\" yunits=\"fraction\"/>"
+       "</IconStyle>"
+      "</Style>"
+      "<Placemark>"
+       "<name>[P] Silvrettastrae[Bieler Hhe]</name>"
+       "<description></description>"
+       "<styleUrl>#poiIcon37</styleUrl>"
+       "<Point>"
+        "<coordinates>10.09237,46.91741,0</coordinates>"
+       "</Point>"
+      "</Placemark>"
+    "</Folder>"
+   "</Document>"
+   "</kml>";
+}
+
+UNIT_TEST(Bookmarks_InnerFolder)
+{
+  BookmarkCategory cat("Default");
+  cat.LoadFromKML(new MemReader(kmlString2, strlen(kmlString2)));
+
+  TEST_EQUAL(cat.GetBookmarksCount(), 1, ());
+}

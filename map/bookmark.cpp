@@ -231,7 +231,7 @@ namespace bookmark_impl
           else if (currTag == "description")
             m_description = value;
         }
-        else if (count > 3 && m_tags[2] == "Placemark")
+        else if (count > 3 && m_tags[count-3] == "Placemark")
         {
           if (prevTag == "Point")
           {
@@ -265,7 +265,8 @@ void BookmarkCategory::LoadFromKML(ReaderPtr<Reader> const & reader)
 {
   ReaderSource<ReaderPtr<Reader> > src(reader);
   bookmark_impl::KMLParser parser(*this);
-  ParseXML(src, parser, true);
+  if (!ParseXML(src, parser, true))
+    LOG(LERROR, ("XML read error. Probably, incorrect file encoding."));
 }
 
 BookmarkCategory * BookmarkCategory::CreateFromKMLFile(string const & file)
