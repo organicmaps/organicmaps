@@ -50,7 +50,8 @@ void RenderPolicy::InitCacheScreen()
 
   cp.m_doUnbindRT = false;
   cp.m_threadSlot = m_resourceManager->guiThreadSlot();
-  cp.m_useGuiResources = true;
+  cp.m_storageType = graphics::ESmallStorage;
+  cp.m_textureType = graphics::ESmallTexture;
   cp.m_skinName = m_skinName;
   cp.m_isSynchronized = false;
   cp.m_resourceManager = m_resourceManager;

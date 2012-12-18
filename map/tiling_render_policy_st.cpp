@@ -117,7 +117,8 @@ TilingRenderPolicyST::TilingRenderPolicyST(Params const & p)
   dp.m_threadSlot = m_resourceManager->guiThreadSlot();
   dp.m_skinName = SkinName();
   dp.m_visualScale = VisualScale();
-  dp.m_useGuiResources = true;
+  dp.m_storageType = graphics::ESmallStorage;
+  dp.m_textureType = graphics::ESmallTexture;
   dp.m_isSynchronized = false;
   dp.m_fastSolidPath = true;
   dp.m_renderContext = p.m_primaryRC;

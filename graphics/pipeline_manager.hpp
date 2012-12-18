@@ -104,7 +104,10 @@ namespace graphics
 
     struct Params : public base_t::Params
     {
+      EStorageType m_storageType;
+      ETextureType m_textureType;
       string m_skinName;
+      Params();
     };
 
     PipelinesManager(Params const & params);

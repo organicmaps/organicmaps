@@ -29,7 +29,6 @@ namespace graphics
 
     bool m_isAntiAliased;
     bool m_isSynchronized;
-    bool m_useGuiResources;
 
     int m_aaShift;
 
@@ -44,13 +43,7 @@ namespace graphics
     int verticesLeft(int pipelineID) const;
     int  indicesLeft(int pipelineID) const;
 
-    struct Params : public base_t::Params
-    {
-      bool m_useGuiResources;
-      Params();
-    };
-
-    GeometryBatcher(Params const & params);
+    GeometryBatcher(base_t::Params const & params);
 
     void beginFrame();
     void endFrame();

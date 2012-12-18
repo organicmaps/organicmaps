@@ -14,6 +14,11 @@
 
 namespace graphics
 {
+  PipelinesManager::Params::Params()
+    : m_storageType(ELargeStorage),
+      m_textureType(ELargeTexture)
+  {}
+
   PipelinesManager::PipelinesManager(Params const & p)
     : base_t(p)
   {
@@ -27,8 +32,8 @@ namespace graphics
 
     m_dynamicPagesCount = 2;
     m_startDynamicPage = reservePipelines(m_dynamicPagesCount,
-                                          ELargeTexture,
-                                          ELargeStorage);
+                                          p.m_textureType,
+                                          p.m_storageType);
     m_dynamicPage = m_startDynamicPage;
   }
 

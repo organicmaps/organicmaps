@@ -20,38 +20,20 @@
 
 namespace graphics
 {
-  GeometryBatcher::Params::Params()
-    : m_useGuiResources(false)
-  {}
-
-  GeometryBatcher::GeometryBatcher(Params const & params)
+  GeometryBatcher::GeometryBatcher(base_t::Params const & params)
     : base_t(params),
-      m_isAntiAliased(true),
-      m_useGuiResources(params.m_useGuiResources)
+      m_isAntiAliased(true)
   {
     base_t::applyStates();
 
     /// TODO: Perform this after full initialization.
     for (size_t i = 0; i < pipelinesCount(); ++i)
-    {
-      if (m_useGuiResources)
-      {
-        GeometryPipeline & p = pipeline(i);
-        if (p.textureType() != EStaticTexture)
-        {
-          p.setTextureType(ESmallTexture);
-          p.setStorageType(ESmallStorage);
-        }
-      }
-
       addClearPageFn(i, bind(&GeometryBatcher::flush, this, i), 100);
-    }
 
     /// 1 to turn antialiasing on
     /// 2 to switch it off
     m_aaShift = m_isAntiAliased ? 1 : 2;
   }
-
 
   void GeometryBatcher::beginFrame()
   {
