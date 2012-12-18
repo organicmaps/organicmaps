@@ -94,7 +94,9 @@ namespace graphics
       /// Length of the actual pattern data being tiling(without antialiasing zones).
       rawTileLen = 0;
 
-      shared_ptr<gl::BaseTexture> texture = base_t::pipeline(pen->m_pipelineID).m_cache->texture();
+      GeometryPipeline & p = pipeline(res->m_pipelineID);
+
+      shared_ptr<gl::BaseTexture> texture = p.m_cache->texture();
 
       if (!texture)
       {
@@ -190,7 +192,9 @@ namespace graphics
           startVec = norm;
         }
 
-        shared_ptr<gl::BaseTexture> texture = base_t::pipeline(pen->m_pipelineID).m_cache->texture();
+        GeometryPipeline & p = pipeline(pen->m_pipelineID);
+
+        shared_ptr<gl::BaseTexture> texture = p.m_cache->texture();
 
         if (!texture)
         {
@@ -285,7 +289,9 @@ namespace graphics
         nextPt + fDir - fNorm
       };
 
-      shared_ptr<gl::BaseTexture> texture = base_t::pipeline(pen->m_pipelineID).m_cache->texture();
+      GeometryPipeline & p = pipeline(res->m_pipelineID);
+
+      shared_ptr<gl::BaseTexture> texture = p.m_cache->texture();
 
       if (!texture)
       {

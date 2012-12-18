@@ -73,7 +73,7 @@ namespace graphics
 
   bool GeometryBatcher::hasRoom(size_t verticesCount, size_t indicesCount, int pipelineID) const
   {
-    GeometryPipeline const & p = base_t::pipeline(pipelineID);
+    GeometryPipeline const & p = pipeline(pipelineID);
 
     p.checkStorage(resourceManager());
     if (!p.m_hasStorage)
@@ -145,8 +145,10 @@ namespace graphics
     if (!hasRoom(4, 6, pipelineID))
       flush(pipelineID);
 
-    pipeline(pipelineID).checkStorage(resourceManager());
-    if (!pipeline(pipelineID).m_hasStorage)
+    GeometryPipeline & p = pipeline(pipelineID);
+
+    p.checkStorage(resourceManager());
+    if (!p.m_hasStorage)
       return;
 
     float texMinX = tx0;
@@ -154,7 +156,7 @@ namespace graphics
     float texMinY = ty0;
     float texMaxY = ty1;
 
-    shared_ptr<gl::BaseTexture> const & texture = base_t::pipeline(pipelineID).m_cache->texture();
+    shared_ptr<gl::BaseTexture> const & texture = p.m_cache->texture();
 
     if (!texture)
     {
@@ -216,8 +218,10 @@ namespace graphics
     if (!hasRoom(4, 6, pipelineID))
       flush(pipelineID);
 
-    pipeline(pipelineID).checkStorage(resourceManager());
-    if (!pipeline(pipelineID).m_hasStorage)
+    GeometryPipeline & p = pipeline(pipelineID);
+
+    p.checkStorage(resourceManager());
+    if (!p.m_hasStorage)
       return;
 
     float texMinX = tx0;
@@ -225,7 +229,7 @@ namespace graphics
     float texMinY = ty0;
     float texMaxY = ty1;
 
-    shared_ptr<gl::BaseTexture> const & texture = base_t::pipeline(pipelineID).m_cache->texture();
+    shared_ptr<gl::BaseTexture> const & texture = p.m_cache->texture();
 
     if (!texture)
     {

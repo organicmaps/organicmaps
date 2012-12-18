@@ -102,7 +102,7 @@ namespace graphics
     ETextureType type() const;
     shared_ptr<ResourceManager> const & resourceManager() const;
 
-    void addHandlesOverflowFn(handlesOverflowFn fn, int priority);
+    void addHandlesOverflowFn(handlesOverflowFn const & fn, int priority);
 
     bool hasTexture() const;
     shared_ptr<gl::BaseTexture> const & texture() const;

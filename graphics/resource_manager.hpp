@@ -4,6 +4,7 @@
 #include "../std/map.hpp"
 #include "../std/string.hpp"
 #include "../std/list.hpp"
+#include "../std/vector.hpp"
 
 #include "../base/mutex.hpp"
 #include "../base/resource_pool.hpp"
@@ -17,6 +18,8 @@
 
 namespace graphics
 {
+  class ResourceCache;
+
   namespace gl
   {
     class BaseTexture;
@@ -268,7 +271,8 @@ namespace graphics
     gl::ProgramManager * programManager(int threadSlot);
   };
 
-  vector<shared_ptr<ResourceCache> > const loadSkin(shared_ptr<ResourceManager> const & rm,
-                                         string const & fileName);
+  void loadSkin(shared_ptr<ResourceManager> const & rm,
+                string const & fileName,
+                vector<shared_ptr<ResourceCache> > & caches);
 }
 

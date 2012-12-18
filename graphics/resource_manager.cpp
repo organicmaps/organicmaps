@@ -390,13 +390,14 @@ namespace
     return m_staticTextures[fileName];
   }
 
-  vector<shared_ptr<ResourceCache> > const loadSkin(shared_ptr<ResourceManager> const & rm,
-                                                    string const & fileName)
+  void loadSkin(shared_ptr<ResourceManager> const & rm,
+                string const & fileName,
+                vector<shared_ptr<ResourceCache> > & caches)
   {
     if (fileName.empty())
-      return vector<shared_ptr<ResourceCache> >();
+      return;
 
-    SkinLoader loader(rm);
+    SkinLoader loader(rm, caches);
 
     try
     {
@@ -408,10 +409,8 @@ namespace
     catch (RootException const & e)
     {
       LOG(LERROR, ("Error reading skin file: ", e.what()));
-      return vector<shared_ptr<ResourceCache> >();
+      return;
     }
-
-    return loader.caches();
   }
 
   ResourceManager::Params const & ResourceManager::params() const

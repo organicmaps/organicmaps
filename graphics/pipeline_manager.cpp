@@ -18,7 +18,7 @@ namespace graphics
     : base_t(p)
   {
     vector<shared_ptr<ResourceCache> > caches;
-    caches = loadSkin(resourceManager(), p.m_skinName);
+    loadSkin(resourceManager(), p.m_skinName, caches);
 
     m_staticPagesCount = caches.size();
     m_startStaticPage = reservePipelines(caches,
@@ -54,8 +54,8 @@ namespace graphics
         if (!m_storage.m_indices->isLocked())
           m_storage.m_indices->lock();
 
-        m_vertices = (gl::Vertex*)m_storage.m_vertices->data();
-        m_indices = (unsigned short *)m_storage.m_indices->data();
+        m_vertices = static_cast<gl::Vertex*>(m_storage.m_vertices->data());
+        m_indices = static_cast<unsigned short*>(m_storage.m_indices->data());
 
         m_hasStorage = true;
       }

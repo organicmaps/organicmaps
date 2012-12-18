@@ -60,7 +60,8 @@ namespace graphics
     float texX = res->m_texRect.minX() + 1.0f;
     float texY = res->m_texRect.minY() + 1.0f;
 
-    shared_ptr<gl::BaseTexture> texture = base_t::pipeline(res->m_pipelineID).m_cache->texture();
+    GeometryPipeline & p = pipeline(res->m_pipelineID);
+    shared_ptr<gl::BaseTexture> texture = p.m_cache->texture();
 
     if (!texture)
     {
@@ -107,7 +108,8 @@ namespace graphics
     float texX = res->m_texRect.minX() + 1.0f;
     float texY = res->m_texRect.minY() + 1.0f;
 
-    shared_ptr<gl::BaseTexture> texture = base_t::pipeline(res->m_pipelineID).m_cache->texture();
+    GeometryPipeline & p = pipeline(res->m_pipelineID);
+    shared_ptr<gl::BaseTexture> texture = p.m_cache->texture();
 
     if (!texture)
     {

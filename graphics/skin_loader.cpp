@@ -8,11 +8,13 @@
 
 namespace graphics
 {
-  SkinLoader::SkinLoader(shared_ptr<ResourceManager> const & resourceManager)
+  SkinLoader::SkinLoader(shared_ptr<ResourceManager> const & resourceManager,
+                         vector<shared_ptr<ResourceCache> > & caches)
     : m_id(-1),
     m_texRect(0, 0, 0, 0),
     m_fileName(""),
-    m_resourceManager(resourceManager)
+    m_resourceManager(resourceManager),
+    m_caches(caches)
   {
     m_mode.push_back(ERoot);
   }
@@ -148,10 +150,5 @@ namespace graphics
     default:
       break;
     }
-  }
-
-  vector<shared_ptr<ResourceCache> > const & SkinLoader::caches()
-  {
-    return m_caches;
   }
 }

@@ -121,7 +121,9 @@ namespace graphics
     for (int i = 0; i < 4; ++i)
       rectPtsF[i] = m2::PointF(rectPts[i].x, rectPts[i].y);
 
-    shared_ptr<gl::BaseTexture> texture = base_t::pipeline(res->m_pipelineID).m_cache->texture();
+    GeometryPipeline & p = pipeline(res->m_pipelineID);
+
+    shared_ptr<gl::BaseTexture> texture = p.m_cache->texture();
 
     if (!texture)
     {
@@ -163,7 +165,9 @@ namespace graphics
       m2::PointF(r.maxX(), r.maxY())
     };
 
-    shared_ptr<gl::BaseTexture> texture = base_t::pipeline(res->m_pipelineID).m_cache->texture();
+    GeometryPipeline & p = pipeline(res->m_pipelineID);
+
+    shared_ptr<gl::BaseTexture> texture = p.m_cache->texture();
 
     if (!texture)
     {
@@ -199,7 +203,9 @@ namespace graphics
       return;
     }
 
-    shared_ptr<gl::BaseTexture> texture = base_t::pipeline(res->m_pipelineID).m_cache->texture();
+    GeometryPipeline & p = pipeline(res->m_pipelineID);
+
+    shared_ptr<gl::BaseTexture> texture = p.m_cache->texture();
 
     if (!texture)
     {

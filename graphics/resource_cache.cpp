@@ -212,7 +212,7 @@ namespace graphics
     return m_resourceManager;
   }
 
-  void ResourceCache::addHandlesOverflowFn(handlesOverflowFn fn, int priority)
+  void ResourceCache::addHandlesOverflowFn(handlesOverflowFn const & fn, int priority)
   {
     m_packer.addOverflowFn(fn, priority);
   }

@@ -39,7 +39,9 @@ namespace graphics
       m2::PointF(m2::PointD(-1, -1) * m)
     };
 
-    shared_ptr<gl::BaseTexture> const & texture = base_t::pipeline(res->m_pipelineID).m_cache->texture();
+    GeometryPipeline & p = pipeline(res->m_pipelineID);
+
+    shared_ptr<gl::BaseTexture> const & texture = p.m_cache->texture();
 
     m2::PointF texPts[6] =
     {

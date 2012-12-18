@@ -61,7 +61,7 @@ namespace graphics
 
 /// skin-specific parameters
 
-    vector<shared_ptr<ResourceCache> > m_caches;
+    vector<shared_ptr<ResourceCache> > & m_caches;
 
 /// skin-page specific parameters
     string m_fileName;
@@ -74,7 +74,8 @@ namespace graphics
 
   public:
 
-    SkinLoader(shared_ptr<ResourceManager> const & resourceManager);
+    SkinLoader(shared_ptr<ResourceManager> const & resourceManager,
+               vector<shared_ptr<ResourceCache> > & caches);
 
     bool Push(string const & element);
     void Pop(string const & element);
