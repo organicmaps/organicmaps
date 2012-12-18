@@ -1,3 +1,5 @@
+United Kingdom: UK
+
 United States of America: US, USA
 Alabama: AL
 Alaska: AK
