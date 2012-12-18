@@ -48,7 +48,7 @@
       if ([CLLocationManager respondsToSelector:@selector(authorizationStatus)])
         authStatus = [CLLocationManager authorizationStatus];
 
-      switch(authStatus)
+      switch (authStatus)
       {
       case kCLAuthorizationStatusAuthorized:
       case kCLAuthorizationStatusNotDetermined:
@@ -70,7 +70,10 @@
   else
   {
     [m_observers addObject:observer];
-    if ([self lastLocationIsValid]){
+    if ([self lastLocationIsValid])
+    {
+      // pass last location known location when new observer is attached
+      // (default CLLocationManagerDelegate behaviour)
       location::GpsInfo newInfo;
       [self location:[self lastLocation] toGpsInfo:newInfo];
       [observer onLocationUpdate:newInfo];
