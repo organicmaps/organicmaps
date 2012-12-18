@@ -11,13 +11,12 @@
 #include "opengl/storage.hpp"
 #include "opengl/program_manager.hpp"
 #include "glyph_cache.hpp"
+#include "resource_cache.hpp"
 #include "data_formats.hpp"
 #include "defines.hpp"
 
 namespace graphics
 {
-  class Skin;
-
   namespace gl
   {
     class BaseTexture;
@@ -269,7 +268,7 @@ namespace graphics
     gl::ProgramManager * programManager(int threadSlot);
   };
 
-  Skin * loadSkin(shared_ptr<ResourceManager> const & resourceManager,
-                  string const & fileName);
+  vector<shared_ptr<ResourceCache> > const loadSkin(shared_ptr<ResourceManager> const & rm,
+                                         string const & fileName);
 }
 

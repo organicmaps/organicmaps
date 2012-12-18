@@ -1,4 +1,3 @@
-#include "skin.hpp"
 #include "skin_loader.hpp"
 #include "resource_manager.hpp"
 #include "resource_cache.hpp"
@@ -13,8 +12,7 @@ namespace graphics
     : m_id(-1),
     m_texRect(0, 0, 0, 0),
     m_fileName(""),
-    m_resourceManager(resourceManager),
-    m_skin(0)
+    m_resourceManager(resourceManager)
   {
     m_mode.push_back(ERoot);
   }
@@ -72,7 +70,6 @@ namespace graphics
 
   void SkinLoader::popSkin()
   {
-    m_skin = new Skin(m_resourceManager, m_caches);
   }
 
 #define PUSH_MODE(mode, name) \
@@ -153,8 +150,8 @@ namespace graphics
     }
   }
 
-  Skin * SkinLoader::skin()
+  vector<shared_ptr<ResourceCache> > const & SkinLoader::caches()
   {
-    return m_skin;
+    return m_caches;
   }
 }

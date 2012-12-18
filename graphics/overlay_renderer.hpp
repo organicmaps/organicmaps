@@ -1,7 +1,9 @@
 #pragma once
 
-#include "text_renderer.hpp"
 #include "../std/shared_ptr.hpp"
+#include "../std/map.hpp"
+
+#include "text_renderer.hpp"
 #include "overlay.hpp"
 #include "circle.hpp"
 

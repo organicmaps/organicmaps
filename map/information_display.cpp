@@ -10,7 +10,6 @@
 #include "../gui/button.hpp"
 
 #include "../graphics/defines.hpp"
-#include "../graphics/skin.hpp"
 #include "../graphics/pen.hpp"
 #include "../graphics/straight_text_element.hpp"
 

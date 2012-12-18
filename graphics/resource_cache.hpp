@@ -23,7 +23,7 @@ namespace graphics
   {
   public:
 
-    typedef m2::Packer::overflowFn overflowFn;
+    typedef m2::Packer::overflowFn handlesOverflowFn;
 
     typedef vector<shared_ptr<Resource> > TUploadQueue;
 
@@ -102,7 +102,7 @@ namespace graphics
     ETextureType type() const;
     shared_ptr<ResourceManager> const & resourceManager() const;
 
-    void addOverflowFn(overflowFn fn, int priority);
+    void addHandlesOverflowFn(handlesOverflowFn fn, int priority);
 
     bool hasTexture() const;
     shared_ptr<gl::BaseTexture> const & texture() const;

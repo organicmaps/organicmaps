@@ -39,7 +39,7 @@ namespace graphics
     createPacker();
     /// clear handles will be called only upon handles overflow,
     /// as the texture overflow is processed separately
-    m_packer.addOverflowFn(bind(&ResourceCache::clearHandles, this), 0);
+    addHandlesOverflowFn(bind(&ResourceCache::clearHandles, this), 0);
   }
 
   void ResourceCache::clearHandles()
@@ -64,8 +64,11 @@ namespace graphics
 
   void ResourceCache::clear()
   {
-    clearHandles();
-    clearUploadQueue();
+    if (m_textureType != EStaticTexture)
+    {
+      clearHandles();
+      clearUploadQueue();
+    }
   }
 
   bool ResourceCache::LessThan::operator()(Resource::Info const * l,
@@ -114,7 +117,7 @@ namespace graphics
     m_textureType = textureType;
     createPacker();
     if (m_textureType != EStaticTexture)
-      m_packer.addOverflowFn(bind(&ResourceCache::clearHandles, this), 0);
+      addHandlesOverflowFn(bind(&ResourceCache::clearHandles, this), 0);
   }
 
   ETextureType ResourceCache::type() const
@@ -162,11 +165,6 @@ namespace graphics
       return it->second.get();
   }
 
-  void ResourceCache::addOverflowFn(overflowFn fn, int priority)
-  {
-    m_packer.addOverflowFn(fn, priority);
-  }
-
   shared_ptr<gl::BaseTexture> const & ResourceCache::texture() const
   {
     checkTexture();
@@ -212,5 +210,10 @@ namespace graphics
   shared_ptr<ResourceManager> const & ResourceCache::resourceManager() const
   {
     return m_resourceManager;
+  }
+
+  void ResourceCache::addHandlesOverflowFn(handlesOverflowFn fn, int priority)
+  {
+    m_packer.addOverflowFn(fn, priority);
   }
 }

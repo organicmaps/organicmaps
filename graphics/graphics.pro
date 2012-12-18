@@ -31,7 +31,6 @@ SOURCES += \
     opengl/storage.cpp \
     blitter.cpp \
     resource_manager.cpp \
-    skin.cpp \
     pen.cpp \
     resource.cpp \
     color.cpp \
@@ -71,7 +70,8 @@ SOURCES += \
     render_target.cpp \
     defines.cpp \
     icon.cpp \
-    brush.cpp
+    brush.cpp \
+    pipeline_manager.cpp
 
 HEADERS += \
     opengl/opengl.hpp \
@@ -95,7 +95,6 @@ HEADERS += \
     opengl/program_manager.hpp \
     blitter.hpp \
     resource_manager.hpp \
-    skin.hpp \
     skin_loader.hpp \
     pen.hpp \
     resource.hpp \
@@ -137,7 +136,8 @@ HEADERS += \
     coordinates.hpp \
     icon.hpp \
     glyph.hpp \
-    brush.hpp
+    brush.hpp \
+    pipeline_manager.hpp
 
 win32* {
   SOURCES += opengl/opengl_win32.cpp

@@ -157,9 +157,6 @@ public:
   graphics::Color const GetBgColor() const;
 
   shared_ptr<graphics::Screen> const & GetCacheScreen() const;
-
-  virtual void SetSkin(shared_ptr<graphics::Skin> const & skin);
-  shared_ptr<graphics::Skin> const & GetSkin() const;
 };
 
 RenderPolicy * CreateRenderPolicy(RenderPolicy::Params const & params);

@@ -5,7 +5,6 @@
 #include "tile_renderer.hpp"
 #include "tile_set.hpp"
 
-#include "../graphics/skin.hpp"
 #include "../graphics/opengl/gl_render_context.hpp"
 
 #include "../base/logging.hpp"
@@ -58,11 +57,9 @@ ScreenCoverage * CoverageGenerator::CreateCoverage()
   params.m_isSynchronized = false;
   params.m_threadSlot = m_resourceManager->cacheThreadSlot();
   params.m_renderContext = m_renderContext;
+  params.m_skinName = m_skinName;
 
   shared_ptr<graphics::Screen> screen(new graphics::Screen(params));
-  shared_ptr<graphics::Skin> skin(loadSkin(m_resourceManager, m_skinName));
-
-  screen->setSkin(skin);
 
   return new ScreenCoverage(m_tileRenderer, this, screen);
 }

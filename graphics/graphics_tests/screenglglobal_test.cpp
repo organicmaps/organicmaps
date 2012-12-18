@@ -1,6 +1,5 @@
 #include "../../base/SRC_FIRST.hpp"
 #include "../../graphics/screen.hpp"
-#include "../../graphics/skin.hpp"
 #include "../../graphics/pen.hpp"
 #include "../../geometry/screenbase.hpp"
 #include "../../geometry/point2d.hpp"
@@ -45,7 +44,11 @@ namespace
 
       toPixel(pts);
 
-      p->drawPath(&pts[0], pts.size(), 0, p->skin()->map(graphics::Pen::Info(graphics::Color(255, 0, 0, 255), 2, 0, 0, 0)), 0);
+      p->drawPath(&pts[0],
+                  pts.size(),
+                  0,
+                  p->mapInfo(graphics::Pen::Info(graphics::Color(255, 0, 0, 255), 2, 0, 0, 0)),
+                  0);
     }
   };
 

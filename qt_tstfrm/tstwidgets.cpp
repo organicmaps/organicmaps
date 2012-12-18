@@ -3,7 +3,6 @@
 #include "screen_qt.hpp"
 
 #include "../graphics/screen.hpp"
-#include "../graphics/skin.hpp"
 #include "../graphics/resource_manager.hpp"
 
 #include "../graphics/opengl/utils.hpp"
@@ -124,13 +123,11 @@ void GLDrawWidget::initializeGL()
   params.m_frameBuffer = m_frameBuffer;
   params.m_threadSlot = m_resourceManager->guiThreadSlot();
   params.m_renderContext = m_primaryContext;
+  params.m_skinName = "basic_mdpi.skn";
 
   m_p = make_shared_ptr(new graphics::Screen(params));
 
   m_primaryFrameBuffer = make_shared_ptr(new graphics::gl::FrameBuffer(true));
-
-  m_skin = shared_ptr<graphics::Skin>(loadSkin(m_resourceManager, "basic_mdpi.skn"));
-  m_p->setSkin(m_skin);
 
   params.m_frameBuffer = m_primaryFrameBuffer;
   m_primaryScreen = make_shared_ptr(new graphics::Screen(params));

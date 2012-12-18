@@ -10,7 +10,6 @@
 
 #include "../graphics/screen.hpp"
 #include "../graphics/display_list.hpp"
-#include "../graphics/skin.hpp"
 #include "../graphics/opengl/base_texture.hpp"
 
 #include "screen_coverage.hpp"

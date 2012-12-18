@@ -11,7 +11,6 @@
 
 #include "../graphics/opengl/opengl.hpp"
 #include "../graphics/opengl/gl_render_context.hpp"
-#include "../graphics/skin.hpp"
 
 #include "../indexer/scales.hpp"
 #include "../indexer/drawing_rules.hpp"
@@ -52,13 +51,12 @@ void RenderPolicy::InitCacheScreen()
   cp.m_doUnbindRT = false;
   cp.m_threadSlot = m_resourceManager->guiThreadSlot();
   cp.m_useGuiResources = true;
+  cp.m_skinName = m_skinName;
   cp.m_isSynchronized = false;
   cp.m_resourceManager = m_resourceManager;
   cp.m_renderContext = m_primaryRC;
 
   m_cacheScreen = make_shared_ptr(new graphics::Screen(cp));
-
-  m_cacheScreen->setSkin(m_skin);
 }
 
 m2::RectI const RenderPolicy::OnSize(int w, int h)
@@ -258,16 +256,6 @@ graphics::Color const RenderPolicy::GetBgColor() const
 shared_ptr<graphics::Screen> const & RenderPolicy::GetCacheScreen() const
 {
   return m_cacheScreen;
-}
-
-void RenderPolicy::SetSkin(shared_ptr<graphics::Skin> const & skin)
-{
-  m_skin = skin;
-}
-
-shared_ptr<graphics::Skin> const & RenderPolicy::GetSkin() const
-{
-  return m_skin;
 }
 
 RenderPolicy * CreateRenderPolicy(RenderPolicy::Params const & params)

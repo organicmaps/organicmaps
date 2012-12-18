@@ -3,7 +3,6 @@
 #include "../platform/platform.hpp"
 
 #include "../graphics/render_context.hpp"
-#include "../graphics/skin.hpp"
 
 #include "window_handle.hpp"
 #include "tile_renderer.hpp"
@@ -120,14 +119,12 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
   GetPlatform().GetFontNames(fonts);
   m_resourceManager->addFonts(fonts);
 
-  SetSkin(make_shared_ptr(graphics::loadSkin(m_resourceManager, SkinName())));
-
   Drawer::Params dp;
 
   dp.m_frameBuffer = make_shared_ptr(new graphics::gl::FrameBuffer(p.m_useDefaultFB));
   dp.m_resourceManager = m_resourceManager;
   dp.m_threadSlot = m_resourceManager->guiThreadSlot();
-  dp.m_skin = GetSkin();
+  dp.m_skinName = SkinName();
   dp.m_visualScale = VisualScale();
   dp.m_useGuiResources = true;
   dp.m_isSynchronized = false;

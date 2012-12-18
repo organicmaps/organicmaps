@@ -1,6 +1,5 @@
 #include "../../testing/testing.hpp"
 #include "../../qt_tstfrm/macros.hpp"
-#include "../skin.hpp"
 #include "../resource_manager.hpp"
 #include "../pen.hpp"
 #include "../../std/vector.hpp"

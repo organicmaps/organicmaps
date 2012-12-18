@@ -1,5 +1,4 @@
 #include "geometry_batcher.hpp"
-#include "skin.hpp"
 #include "color.hpp"
 #include "resource_manager.hpp"
 #include "resource_cache.hpp"
@@ -30,173 +29,33 @@ namespace graphics
       m_isAntiAliased(true),
       m_useGuiResources(params.m_useGuiResources)
   {
-    reset(-1);
     base_t::applyStates();
+
+    /// TODO: Perform this after full initialization.
+    for (size_t i = 0; i < pipelinesCount(); ++i)
+    {
+      if (m_useGuiResources)
+      {
+        GeometryPipeline & p = pipeline(i);
+        if (p.textureType() != EStaticTexture)
+        {
+          p.setTextureType(ESmallTexture);
+          p.setStorageType(ESmallStorage);
+        }
+      }
+
+      addClearPageFn(i, bind(&GeometryBatcher::flush, this, i), 100);
+    }
 
     /// 1 to turn antialiasing on
     /// 2 to switch it off
     m_aaShift = m_isAntiAliased ? 1 : 2;
   }
 
-  GeometryBatcher::~GeometryBatcher()
-  {
-    for (size_t i = 0; i < m_pipelines.size(); ++i)
-    {
-      discardPipeline(i);
-      freePipeline(i);
-      if (m_skin->page(i)->type() != EStaticTexture)
-        freeTexture(i);
-    }
-  }
-
-  void GeometryBatcher::reset(int pipelineID)
-  {
-    for (size_t i = 0; i < m_pipelines.size(); ++i)
-    {
-      if ((pipelineID == -1) || ((size_t)pipelineID == i))
-      {
-        m_pipelines[i].m_currentVertex = 0;
-        m_pipelines[i].m_currentIndex = 0;
-      }
-    }
-  }
-
-  void GeometryBatcher::GeometryPipeline::checkStorage(shared_ptr<ResourceManager> const & resourceManager) const
-  {
-    if (!m_hasStorage)
-    {
-      if (m_useGuiResources)
-        m_storage = resourceManager->storagePool(ESmallStorage)->Reserve();
-      else
-      {
-        if (m_storageType != EInvalidStorage)
-          m_storage = resourceManager->storagePool(m_storageType)->Reserve();
-        else
-        {
-          LOG(LERROR, ("invalid storage type in checkStorage"));
-          return;
-        }
-      }
-
-      if (m_storage.m_vertices && m_storage.m_indices)
-      {
-        m_maxVertices = m_storage.m_vertices->size() / sizeof(gl::Vertex);
-        m_maxIndices = m_storage.m_indices->size() / sizeof(unsigned short);
-
-        if (!m_storage.m_vertices->isLocked())
-          m_storage.m_vertices->lock();
-        if (!m_storage.m_indices->isLocked())
-          m_storage.m_indices->lock();
-
-        m_vertices = (gl::Vertex*)m_storage.m_vertices->data();
-        m_indices = (unsigned short *)m_storage.m_indices->data();
-
-        m_hasStorage = true;
-      }
-      else
-      {
-        m_maxVertices = 0;
-        m_maxIndices = 0;
-
-        m_vertices = 0;
-        m_indices = 0;
-
-        m_hasStorage = false;
-      }
-    }
-  }
-
-  void GeometryBatcher::freePipeline(int pipelineID)
-  {
-    GeometryPipeline & pipeline = m_pipelines[pipelineID];
-
-    if (pipeline.m_hasStorage)
-    {
-      TStoragePool * storagePool = 0;
-      if (pipeline.m_useGuiResources)
-        storagePool = resourceManager()->storagePool(ESmallStorage);
-      else
-        if (pipeline.m_storageType != EInvalidStorage)
-          storagePool = resourceManager()->storagePool(pipeline.m_storageType);
-        else
-        {
-          LOG(LERROR, ("invalid pipeline type in freePipeline"));
-          return;
-        }
-
-      base_t::freeStorage(pipeline.m_storage, storagePool);
-
-      pipeline.m_hasStorage = false;
-      pipeline.m_storage = gl::Storage();
-    }
-  }
-
-  void GeometryBatcher::setSkin(shared_ptr<Skin> skin)
-  {
-    m_skin = skin;
-    if (m_skin != 0)
-    {
-      /// settings proper skin page type according to useGuiResources flag
-      if (m_useGuiResources)
-        for (size_t i = 0; i < m_skin->pagesCount(); ++i)
-          if (m_skin->page(i)->type() != EStaticTexture)
-            m_skin->page(i)->setType(ESmallTexture);
-
-      m_pipelines.resize(m_skin->pagesCount());
-
-      m_skin->addClearPageFn(bind(&GeometryBatcher::flush, this, _1), 100);
-      m_skin->addClearPageFn(bind(&GeometryBatcher::freeTexture, this, _1), 99);
-
-      for (size_t i = 0; i < m_pipelines.size(); ++i)
-      {
-        m_pipelines[i].m_useGuiResources = m_useGuiResources;
-        m_pipelines[i].m_currentVertex = 0;
-        m_pipelines[i].m_currentIndex = 0;
-
-        m_pipelines[i].m_hasStorage = false;
-        m_pipelines[i].m_textureType = skin->page(i)->type();
-
-        switch(m_pipelines[i].m_textureType)
-        {
-        case ELargeTexture:
-          m_pipelines[i].m_storageType = ELargeStorage;
-          break;
-        case EMediumTexture:
-          m_pipelines[i].m_storageType = EMediumStorage;
-          break;
-        case ESmallTexture:
-          m_pipelines[i].m_storageType = ESmallStorage;
-          break;
-        case EStaticTexture:
-          m_pipelines[i].m_storageType = EMediumStorage;
-          break;
-        default:
-          LOG(LERROR, ("Unknown StorageType for TextureType detected!"));
-        };
-
-        m_pipelines[i].m_maxVertices = 0;
-        m_pipelines[i].m_maxIndices = 0;
-
-        m_pipelines[i].m_vertices = 0;
-        m_pipelines[i].m_indices = 0;
-      }
-    }
-  }
-
-  shared_ptr<Skin> const & GeometryBatcher::skin() const
-  {
-    return m_skin;
-  }
 
   void GeometryBatcher::beginFrame()
   {
     base_t::beginFrame();
-    reset(-1);
-    for (size_t i = 0; i < m_pipelines.size(); ++i)
-    {
-      m_pipelines[i].m_verticesDrawn = 0;
-      m_pipelines[i].m_indicesDrawn = 0;
-    }
     base_t::applyStates();
   }
 
@@ -209,178 +68,71 @@ namespace graphics
   void GeometryBatcher::endFrame()
   {
     flush(-1);
-    /// Syncronization point.
-    enableClipRect(false);
-
-    if (isDebugging())
-    {
-      for (size_t i = 0; i < m_pipelines.size(); ++i)
-        if ((m_pipelines[i].m_verticesDrawn != 0) || (m_pipelines[i].m_indicesDrawn != 0))
-          LOG(LINFO, ("pipeline #", i, " vertices=", m_pipelines[i].m_verticesDrawn, ", triangles=", m_pipelines[i].m_indicesDrawn / 3));
-    }
-
-    /// is the rendering was cancelled, there possibly could
-    /// be "ghost" render styles which are present in internal
-    /// skin structures, but aren't rendered onto skin texture.
-    /// so we are clearing the whole skin, to ensure that they
-    /// are gone(slightly heavy, but very simple solution).
-    if (isCancelled())
-      m_skin->clearHandles();
-
     base_t::endFrame();
   }
 
   bool GeometryBatcher::hasRoom(size_t verticesCount, size_t indicesCount, int pipelineID) const
   {
-    GeometryPipeline const & pipeline = m_pipelines[pipelineID];
+    GeometryPipeline const & p = base_t::pipeline(pipelineID);
 
-    pipeline.checkStorage(resourceManager());
-    if (!pipeline.m_hasStorage)
+    p.checkStorage(resourceManager());
+    if (!p.m_hasStorage)
       return false;
 
-    return ((pipeline.m_currentVertex + verticesCount <= pipeline.m_maxVertices)
-            &&  (pipeline.m_currentIndex + indicesCount <= pipeline.m_maxIndices));
+    return ((p.m_currentVertex + verticesCount <= p.m_maxVertices)
+            && (p.m_currentIndex + indicesCount <= p.m_maxIndices));
   }
 
   int GeometryBatcher::verticesLeft(int pipelineID) const
   {
-    GeometryPipeline const & pipeline = m_pipelines[pipelineID];
+    GeometryPipeline const & p = pipeline(pipelineID);
 
-    pipeline.checkStorage(resourceManager());
-    if (!pipeline.m_hasStorage)
+    p.checkStorage(resourceManager());
+    if (!p.m_hasStorage)
       return -1;
 
-    return pipeline.m_maxVertices - pipeline.m_currentVertex;
+    return p.m_maxVertices - p.m_currentVertex;
   }
 
   int GeometryBatcher::indicesLeft(int pipelineID) const
   {
-    GeometryPipeline const & pipeline = m_pipelines[pipelineID];
+    GeometryPipeline const & p = pipeline(pipelineID);
 
-    pipeline.checkStorage(resourceManager());
-    if (!pipeline.m_hasStorage)
+    p.checkStorage(resourceManager());
+    if (!p.m_hasStorage)
       return -1;
 
-    return pipeline.m_maxIndices - pipeline.m_currentIndex;
+    return p.m_maxIndices - p.m_currentIndex;
   }
 
   void GeometryBatcher::flush(int pipelineID)
   {
-    if (m_skin)
+    for (size_t i = pipelinesCount(); i > 0; --i)
     {
-      for (size_t i = m_pipelines.size(); i > 0; --i)
+      size_t id = i - 1;
+
+      if ((pipelineID == -1) || (id == (size_t)pipelineID))
       {
-        size_t id = i - 1;
-
-        if ((pipelineID == -1) || (id == (size_t)pipelineID))
+        if (flushPipeline(id))
         {
-          if (flushPipeline(m_skin->page(id), id))
+          int np = nextPage(id);
+
+          if (np != id)
           {
-            int nextPage = m_skin->nextPage(id);
-
-            if (nextPage != id)
-            {
-              // reserving texture in advance, before we'll
-              // potentially return current texture into the pool.
-              m_skin->page(nextPage)->checkTexture();
-            }
-
-            m_skin->changePage(id);
+            // reserving texture in advance, before we'll
+            // potentially return current texture into the pool.
+            pipeline(np).m_cache->checkTexture();
           }
 
-          /// resetting geometry storage associated
-          /// with the specified pipeline.
-          reset(id);
+          changePage(id);
         }
+
+        /// resetting geometry storage associated
+        /// with the specified pipeline.
+        reset(id);
       }
     }
   }
-
-  void GeometryBatcher::freeTexture(int pipelineID)
-  {
-    if (!m_skin->page(pipelineID)->hasTexture())
-      return;
-
-    shared_ptr<gl::BaseTexture> texture = m_skin->page(pipelineID)->texture();
-    TTexturePool * texturePool = 0;
-
-    ETextureType type = m_skin->page(pipelineID)->type();
-
-    if (type != EStaticTexture)
-      texturePool = resourceManager()->texturePool(type);
-    else
-    {
-      LOG(LWARNING, ("texture with EStatic can't be freed."));
-      return;
-    }
-
-
-    base_t::freeTexture(texture, texturePool);
-
-    m_skin->page(pipelineID)->resetTexture();
-  }
-
-  void GeometryBatcher::unlockPipeline(int pipelineID)
-  {
-    GeometryPipeline & pipeline = m_pipelines[pipelineID];
-    base_t::unlockStorage(pipeline.m_storage);
-  }
-
-  void GeometryBatcher::discardPipeline(int pipelineID)
-  {
-    GeometryPipeline & pipeline = m_pipelines[pipelineID];
-
-    if (pipeline.m_hasStorage)
-      base_t::discardStorage(pipeline.m_storage);
-  }
-
-  bool GeometryBatcher::flushPipeline(shared_ptr<ResourceCache> const & resourceCache,
-                                      int pipelineID)
-  {
-    GeometryPipeline & pipeline = m_pipelines[pipelineID];
-    if (pipeline.m_currentIndex)
-    {
-      if (resourceCache->hasData())
-      {
-        uploadResources(&resourceCache->uploadQueue()[0],
-                        resourceCache->uploadQueue().size(),
-                        resourceCache->texture());
-        resourceCache->clearUploadQueue();
-      }
-
-      unlockPipeline(pipelineID);
-
-      drawGeometry(resourceCache->texture(),
-                   pipeline.m_storage,
-                   pipeline.m_currentIndex,
-                   0,
-                   ETriangles);
-
-      discardPipeline(pipelineID);
-
-
-      if (isDebugging())
-      {
-        pipeline.m_verticesDrawn += pipeline.m_currentVertex;
-        pipeline.m_indicesDrawn += pipeline.m_currentIndex;
-        //               LOG(LINFO, ("Pipeline #", i - 1, "draws ", pipeline.m_currentIndex / 3, "/", pipeline.m_maxIndices / 3," triangles"));
-      }
-
-      freePipeline(pipelineID);
-
-      pipeline.m_maxIndices = 0;
-      pipeline.m_maxVertices = 0;
-      pipeline.m_vertices = 0;
-      pipeline.m_indices = 0;
-      pipeline.m_currentIndex = 0;
-      pipeline.m_currentVertex = 0;
-
-      return true;
-    }
-
-    return false;
-  }
-
 
   void GeometryBatcher::drawTexturedPolygon(
       m2::PointD const & ptShift,
@@ -393,8 +145,8 @@ namespace graphics
     if (!hasRoom(4, 6, pipelineID))
       flush(pipelineID);
 
-    m_pipelines[pipelineID].checkStorage(resourceManager());
-    if (!m_pipelines[pipelineID].m_hasStorage)
+    pipeline(pipelineID).checkStorage(resourceManager());
+    if (!pipeline(pipelineID).m_hasStorage)
       return;
 
     float texMinX = tx0;
@@ -402,7 +154,7 @@ namespace graphics
     float texMinY = ty0;
     float texMaxY = ty1;
 
-    shared_ptr<gl::BaseTexture> const & texture = m_skin->page(pipelineID)->texture();
+    shared_ptr<gl::BaseTexture> const & texture = base_t::pipeline(pipelineID).m_cache->texture();
 
     if (!texture)
     {
@@ -464,8 +216,8 @@ namespace graphics
     if (!hasRoom(4, 6, pipelineID))
       flush(pipelineID);
 
-    m_pipelines[pipelineID].checkStorage(resourceManager());
-    if (!m_pipelines[pipelineID].m_hasStorage)
+    pipeline(pipelineID).checkStorage(resourceManager());
+    if (!pipeline(pipelineID).m_hasStorage)
       return;
 
     float texMinX = tx0;
@@ -473,7 +225,7 @@ namespace graphics
     float texMinY = ty0;
     float texMaxY = ty1;
 
-    shared_ptr<gl::BaseTexture> const & texture = m_skin->page(pipelineID)->texture();
+    shared_ptr<gl::BaseTexture> const & texture = base_t::pipeline(pipelineID).m_cache->texture();
 
     if (!texture)
     {
@@ -541,38 +293,38 @@ namespace graphics
     if (!hasRoom(size, (size - 2) * 3, pipelineID))
       flush(pipelineID);
 
-    GeometryPipeline & pipeline = m_pipelines[pipelineID];
+    GeometryPipeline & p = pipeline(pipelineID);
 
-    pipeline.checkStorage(resourceManager());
-    if (!pipeline.m_hasStorage)
+    p.checkStorage(resourceManager());
+    if (!p.m_hasStorage)
       return;
 
     ASSERT(size > 2, ());
 
-    size_t vOffset = pipeline.m_currentVertex;
-    size_t iOffset = pipeline.m_currentIndex;
+    size_t vOffset = p.m_currentVertex;
+    size_t iOffset = p.m_currentIndex;
 
     for (unsigned i = 0; i < size; ++i)
     {
-      pipeline.m_vertices[vOffset + i].pt = *coords;
-      pipeline.m_vertices[vOffset + i].normal = *normals;
-      pipeline.m_vertices[vOffset + i].tex = *texCoords;
-      pipeline.m_vertices[vOffset + i].depth = depth;
+      p.m_vertices[vOffset + i].pt = *coords;
+      p.m_vertices[vOffset + i].normal = *normals;
+      p.m_vertices[vOffset + i].tex = *texCoords;
+      p.m_vertices[vOffset + i].depth = depth;
       coords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(coords) + coordsStride);
       normals = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(normals) + normalsStride);
       texCoords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(texCoords) + texCoordsStride);
     }
 
-    pipeline.m_currentVertex += size;
+    p.m_currentVertex += size;
 
     for (size_t j = 0; j < size - 2; ++j)
     {
-      pipeline.m_indices[iOffset + j * 3] = vOffset;
-      pipeline.m_indices[iOffset + j * 3 + 1] = vOffset + j + 1;
-      pipeline.m_indices[iOffset + j * 3 + 2] = vOffset + j + 2;
+      p.m_indices[iOffset + j * 3] = vOffset;
+      p.m_indices[iOffset + j * 3 + 1] = vOffset + j + 1;
+      p.m_indices[iOffset + j * 3 + 2] = vOffset + j + 2;
     }
 
-    pipeline.m_currentIndex += (size - 2) * 3;
+    p.m_currentIndex += (size - 2) * 3;
   }
 
   void GeometryBatcher::addTexturedStrip(
@@ -606,44 +358,44 @@ namespace graphics
     if (!hasRoom(size, (size - 2) * 3, pipelineID))
       flush(pipelineID);
 
-    GeometryPipeline & pipeline = m_pipelines[pipelineID];
+    GeometryPipeline & p = pipeline(pipelineID);
 
-    pipeline.checkStorage(resourceManager());
-    if (!pipeline.m_hasStorage)
+    p.checkStorage(resourceManager());
+    if (!p.m_hasStorage)
       return;
 
     ASSERT(size > 2, ());
 
-    size_t vOffset = pipeline.m_currentVertex;
-    size_t iOffset = pipeline.m_currentIndex;
+    size_t vOffset = p.m_currentVertex;
+    size_t iOffset = p.m_currentIndex;
 
     for (unsigned i = 0; i < size; ++i)
     {
-      pipeline.m_vertices[vOffset + i].pt = *coords;
-      pipeline.m_vertices[vOffset + i].normal = *normals;
-      pipeline.m_vertices[vOffset + i].tex = *texCoords;
-      pipeline.m_vertices[vOffset + i].depth = depth;
+      p.m_vertices[vOffset + i].pt = *coords;
+      p.m_vertices[vOffset + i].normal = *normals;
+      p.m_vertices[vOffset + i].tex = *texCoords;
+      p.m_vertices[vOffset + i].depth = depth;
       coords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(coords) + coordsStride);
       normals = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(normals) + normalsStride);
       texCoords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(texCoords) + texCoordsStride);
     }
 
-    pipeline.m_currentVertex += size;
+    p.m_currentVertex += size;
 
     size_t oldIdx1 = vOffset;
     size_t oldIdx2 = vOffset + 1;
 
     for (size_t j = 0; j < size - 2; ++j)
     {
-      pipeline.m_indices[iOffset + j * 3] = oldIdx1;
-      pipeline.m_indices[iOffset + j * 3 + 1] = oldIdx2;
-      pipeline.m_indices[iOffset + j * 3 + 2] = vOffset + j + 2;
+      p.m_indices[iOffset + j * 3] = oldIdx1;
+      p.m_indices[iOffset + j * 3 + 1] = oldIdx2;
+      p.m_indices[iOffset + j * 3 + 2] = vOffset + j + 2;
 
       oldIdx1 = oldIdx2;
       oldIdx2 = vOffset + j + 2;
     }
 
-    pipeline.m_currentIndex += (size - 2) * 3;
+    p.m_currentIndex += (size - 2) * 3;
   }
 
   void GeometryBatcher::addTexturedListStrided(
@@ -660,34 +412,34 @@ namespace graphics
     if (!hasRoom(size, size, pipelineID))
       flush(pipelineID);
 
-    GeometryPipeline & pipeline = m_pipelines[pipelineID];
+    GeometryPipeline & p = pipeline(pipelineID);
 
-    pipeline.checkStorage(resourceManager());
-    if (!pipeline.m_hasStorage)
+    p.checkStorage(resourceManager());
+    if (!p.m_hasStorage)
       return;
 
     ASSERT(size > 2, ());
 
-    size_t vOffset = pipeline.m_currentVertex;
-    size_t iOffset = pipeline.m_currentIndex;
+    size_t vOffset = p.m_currentVertex;
+    size_t iOffset = p.m_currentIndex;
 
     for (size_t i = 0; i < size; ++i)
     {
-      pipeline.m_vertices[vOffset + i].pt = m2::PointF(coords->x, coords->y);
-      pipeline.m_vertices[vOffset + i].normal = *normals;
-      pipeline.m_vertices[vOffset + i].tex = *texCoords;
-      pipeline.m_vertices[vOffset + i].depth = depth;
+      p.m_vertices[vOffset + i].pt = m2::PointF(coords->x, coords->y);
+      p.m_vertices[vOffset + i].normal = *normals;
+      p.m_vertices[vOffset + i].tex = *texCoords;
+      p.m_vertices[vOffset + i].depth = depth;
       coords = reinterpret_cast<m2::PointD const*>(reinterpret_cast<unsigned char const*>(coords) + coordsStride);
       normals = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(normals) + normalsStride);
       texCoords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(texCoords) + texCoordsStride);
     }
 
-    pipeline.m_currentVertex += size;
+    p.m_currentVertex += size;
 
     for (size_t i = 0; i < size; ++i)
-      pipeline.m_indices[iOffset + i] = vOffset + i;
+      p.m_indices[iOffset + i] = vOffset + i;
 
-    pipeline.m_currentIndex += size;
+    p.m_currentIndex += size;
   }
 
 
@@ -705,34 +457,34 @@ namespace graphics
     if (!hasRoom(size, size, pipelineID))
       flush(pipelineID);
 
-    GeometryPipeline & pipeline = m_pipelines[pipelineID];
+    GeometryPipeline & p = pipeline(pipelineID);
 
-    pipeline.checkStorage(resourceManager());
-    if (!pipeline.m_hasStorage)
+    p.checkStorage(resourceManager());
+    if (!p.m_hasStorage)
       return;
 
     ASSERT(size > 2, ());
 
-    size_t vOffset = pipeline.m_currentVertex;
-    size_t iOffset = pipeline.m_currentIndex;
+    size_t vOffset = p.m_currentVertex;
+    size_t iOffset = p.m_currentIndex;
 
     for (size_t i = 0; i < size; ++i)
     {
-      pipeline.m_vertices[vOffset + i].pt = *coords;
-      pipeline.m_vertices[vOffset + i].normal = *normals;
-      pipeline.m_vertices[vOffset + i].tex = *texCoords;
-      pipeline.m_vertices[vOffset + i].depth = depth;
+      p.m_vertices[vOffset + i].pt = *coords;
+      p.m_vertices[vOffset + i].normal = *normals;
+      p.m_vertices[vOffset + i].tex = *texCoords;
+      p.m_vertices[vOffset + i].depth = depth;
       coords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(coords) + coordsStride);
       normals = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(normals) + normalsStride);
       texCoords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(texCoords) + texCoordsStride);
     }
 
-    pipeline.m_currentVertex += size;
+    p.m_currentVertex += size;
 
     for (size_t i = 0; i < size; ++i)
-      pipeline.m_indices[iOffset + i] = vOffset + i;
+      p.m_indices[iOffset + i] = vOffset + i;
 
-    pipeline.m_currentIndex += size;
+    p.m_currentIndex += size;
   }
 
   void GeometryBatcher::addTexturedList(m2::PointF const * coords,
@@ -763,24 +515,6 @@ namespace graphics
   int GeometryBatcher::aaShift() const
   {
     return m_aaShift;
-  }
-
-  void GeometryBatcher::memoryWarning()
-  {
-    if (m_skin)
-      m_skin->memoryWarning();
-  }
-
-  void GeometryBatcher::enterBackground()
-  {
-    if (m_skin)
-      m_skin->enterBackground();
-  }
-
-  void GeometryBatcher::enterForeground()
-  {
-    if (m_skin)
-      m_skin->enterForeground();
   }
 
   void GeometryBatcher::setDisplayList(DisplayList * dl)

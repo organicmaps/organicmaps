@@ -4,7 +4,6 @@
 #include "resource.hpp"
 #include "icon.hpp"
 #include "overlay_renderer.hpp"
-#include "skin.hpp"
 
 namespace graphics
 {
@@ -13,12 +12,12 @@ namespace graphics
       m_info(p.m_info),
       m_symbolRect(0, 0, 0, 0)
   {
-    uint32_t resID = p.m_skin->findInfo(m_info);
-    Resource const * res = p.m_skin->fromID(resID);
+    uint32_t resID = p.m_renderer->findInfo(m_info);
+    Resource const * res = p.m_renderer->fromID(resID);
 
     if (res == 0)
     {
-      LOG(LINFO, ("POI ", m_info.m_name, " wasn't found on the current skin"));
+      LOG(LWARNING, ("POI", m_info.m_name, "wasn't found on current skin."));
       return;
     }
 
@@ -59,8 +58,8 @@ namespace graphics
     if (!isNeedRedraw())
       return;
 
-    uint32_t resID = r->skin()->findInfo(m_info);
-    Resource const * res = r->skin()->fromID(resID);
+    uint32_t resID = r->findInfo(m_info);
+    Resource const * res = r->fromID(resID);
 
     if (res == 0)
     {
@@ -70,7 +69,7 @@ namespace graphics
 
     if (res->m_texRect != m_symbolRect)
     {
-      LOG(LINFO, ("POI(", m_info.m_name, ") rects do not match."));
+      LOG(LINFO, ("POI(", m_info.m_name, ") rects doesn't match"));
       return;
     }
 

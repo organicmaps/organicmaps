@@ -24,8 +24,9 @@ namespace graphics
 
     struct Params : public base_t::Params
     {
-      Skin * m_skin;
       Icon::Info m_info;
+      m2::RectU m_symbolRect;
+      OverlayRenderer * m_renderer;
     };
 
     SymbolElement(Params const & p);

@@ -1,7 +1,6 @@
 #include "circle_element.hpp"
 
 #include "overlay_renderer.hpp"
-#include "skin.hpp"
 
 namespace graphics
 {
@@ -46,9 +45,9 @@ namespace graphics
     if (!isNeedRedraw())
       return;
 
-    uint32_t resID = r->skin()->map(m_ci);
+    uint32_t resID = r->mapInfo(m_ci);
 
-    Resource const * res = r->skin()->fromID(resID);
+    Resource const * res = r->fromID(resID);
     ASSERT_NOT_EQUAL ( res, 0, () );
 
     m2::RectI texRect(res->m_texRect);

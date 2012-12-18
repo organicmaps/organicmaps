@@ -1,6 +1,8 @@
-#include "skin.hpp"
+#include "pipeline_manager.hpp"
 #include "resource_cache.hpp"
 #include "resource_manager.hpp"
+
+#include "opengl/buffer_object.hpp"
 
 #include "../platform/platform.hpp"
 
@@ -12,100 +14,190 @@
 
 namespace graphics
 {
-  Skin::Skin(shared_ptr<ResourceManager> const & resourceManager,
-             Skin::TResourceCaches const & caches)
-    : m_caches(caches),
-      m_staticPagesCount(caches.size()),
-      m_resourceManager(resourceManager)
+  PipelinesManager::PipelinesManager(Params const & p)
+    : base_t(p)
   {
-    m_textPage = m_caches.size();
-    addTextPages(1);
+    vector<shared_ptr<ResourceCache> > caches;
+    caches = loadSkin(resourceManager(), p.m_skinName);
 
-    m_startDynamicPage = m_dynamicPage = m_caches.size();
+    m_staticPagesCount = caches.size();
+    m_startStaticPage = reservePipelines(caches,
+                                         EMediumStorage);
+
+
     m_dynamicPagesCount = 2;
-    addDynamicPages(m_dynamicPagesCount);
+    m_startDynamicPage = reservePipelines(m_dynamicPagesCount,
+                                          ELargeTexture,
+                                          ELargeStorage);
+    m_dynamicPage = m_startDynamicPage;
   }
 
-  void Skin::addTextPages(int count)
+  void PipelinesManager::GeometryPipeline::checkStorage(shared_ptr<ResourceManager> const & rm) const
   {
-    m_caches.reserve(m_caches.size() + count);
-
-    addClearPageFn(bind(&Skin::clearPageHandles, this, _1), 0);
-
-    for (int i = 0; i < count; ++i)
+    if (!m_hasStorage)
     {
-      uint8_t pipelineID = (uint8_t)m_caches.size();
-      m_caches.push_back(make_shared_ptr(new ResourceCache(m_resourceManager, EMediumTexture, pipelineID)));
-      m_caches.back()->addOverflowFn(bind(&Skin::onTextOverflow, this, pipelineID), 0);
+      if (m_storageType != EInvalidStorage)
+        m_storage = rm->storagePool(m_storageType)->Reserve();
+      else
+      {
+        LOG(LERROR, ("invalid storage type in checkStorage"));
+        return;
+      }
+
+      if (m_storage.m_vertices && m_storage.m_indices)
+      {
+        m_maxVertices = m_storage.m_vertices->size() / sizeof(gl::Vertex);
+        m_maxIndices = m_storage.m_indices->size() / sizeof(unsigned short);
+
+        if (!m_storage.m_vertices->isLocked())
+          m_storage.m_vertices->lock();
+        if (!m_storage.m_indices->isLocked())
+          m_storage.m_indices->lock();
+
+        m_vertices = (gl::Vertex*)m_storage.m_vertices->data();
+        m_indices = (unsigned short *)m_storage.m_indices->data();
+
+        m_hasStorage = true;
+      }
+      else
+      {
+        m_maxVertices = 0;
+        m_maxIndices = 0;
+
+        m_vertices = 0;
+        m_indices = 0;
+
+        m_hasStorage = false;
+      }
     }
   }
 
-  void Skin::addDynamicPages(int count)
+  ETextureType PipelinesManager::GeometryPipeline::textureType() const
   {
-    m_caches.reserve(m_caches.size() + count);
+    return m_cache->type();
+  }
 
-    addClearPageFn(bind(&Skin::clearPageHandles, this, _1), 0);
+  void PipelinesManager::GeometryPipeline::setTextureType(ETextureType type)
+  {
+    m_cache->setType(type);
+  }
 
-    for (int i = 0; i < count; ++i)
+  void PipelinesManager::GeometryPipeline::setStorageType(EStorageType type)
+  {
+    m_storageType = type;
+  }
+
+  unsigned PipelinesManager::reservePipelines(unsigned count,
+                                              ETextureType textureType,
+                                              EStorageType storageType)
+  {
+    vector<shared_ptr<ResourceCache> > v;
+
+    for (unsigned i = 0; i < count; ++i)
+      v.push_back(make_shared_ptr(new ResourceCache(resourceManager(),
+                                                    textureType,
+                                                    pipelinesCount() + i)));
+
+    return reservePipelines(v, storageType);
+  }
+
+  unsigned PipelinesManager::reservePipelines(vector<shared_ptr<ResourceCache> > const & caches,
+                                              EStorageType storageType)
+  {
+    unsigned res = m_pipelines.size();
+
+    for (unsigned i = 0; i < caches.size(); ++i)
     {
-      uint8_t pipelineID = (uint8_t)m_caches.size();
-      m_caches.push_back(make_shared_ptr(new ResourceCache(m_resourceManager, ELargeTexture, pipelineID)));
-      m_caches.back()->addOverflowFn(bind(&Skin::onDynamicOverflow, this, pipelineID), 0);
+      GeometryPipeline p;
+
+      p.m_cache = caches[i];
+      p.m_currentIndex = 0;
+      p.m_currentVertex = 0;
+      p.m_hasStorage = false;
+
+      p.m_maxVertices = 0;
+      p.m_maxIndices = 0;
+
+      p.m_vertices = 0;
+      p.m_indices = 0;
+
+      p.m_storageType = storageType;
+
+      m_pipelines.push_back(p);
+      m_clearPageFns.push_back(clearPageFns());
+
+      int pipelineID = res + i;
+
+      addClearPageFn(pipelineID, bind(&PipelinesManager::freeTexture, this, pipelineID), 99);
+      addClearPageFn(pipelineID, bind(&PipelinesManager::clearPageHandles, this, pipelineID), 0);
+
+      p.m_cache->addHandlesOverflowFn(bind(&PipelinesManager::onDynamicOverflow, this, pipelineID), 0);
+    }
+
+    return res;
+  }
+
+  PipelinesManager::~PipelinesManager()
+  {
+    for (size_t i = 0; i < m_pipelines.size(); ++i)
+    {
+      discardPipeline(i);
+      freePipeline(i);
+      if (m_pipelines[i].textureType() != EStaticTexture)
+        freeTexture(i);
     }
   }
 
-  Skin::~Skin()
-  {}
-
-  pair<uint8_t, uint32_t> Skin::unpackID(uint32_t id) const
+  pair<uint8_t, uint32_t> PipelinesManager::unpackID(uint32_t id) const
   {
     uint8_t pipelineID = (id & 0xFF000000) >> 24;
     uint32_t h = (id & 0x00FFFFFF);
     return make_pair<uint8_t, uint32_t>(pipelineID, h);
   }
 
-  uint32_t Skin::packID(uint8_t pipelineID, uint32_t handle) const
+  uint32_t PipelinesManager::packID(uint8_t pipelineID, uint32_t handle) const
   {
     uint32_t pipelineIDMask = (uint32_t)pipelineID << 24;
     uint32_t h = (handle & 0x00FFFFFF);
     return (uint32_t)(pipelineIDMask | h);
   }
 
-  Resource const * Skin::fromID(uint32_t id)
+  Resource const * PipelinesManager::fromID(uint32_t id)
   {
     if (id == invalidHandle())
       return 0;
 
     id_pair_t p = unpackID(id);
 
-    ASSERT(p.first < m_caches.size(), ());
-    return m_caches[p.first]->fromID(p.second);
+    ASSERT(p.first < m_pipelines.size(), ());
+    return m_pipelines[p.first].m_cache->fromID(p.second);
   }
 
-  uint32_t Skin::map(Resource::Info const & info)
+  uint32_t PipelinesManager::mapInfo(Resource::Info const & info)
   {
     uint32_t res = invalidPageHandle();
 
-    for (uint8_t i = 0; i < m_caches.size(); ++i)
+    for (uint8_t i = 0; i < m_pipelines.size(); ++i)
     {
-      res = m_caches[i]->findInfo(info);
+      res = m_pipelines[i].m_cache->findInfo(info);
       if (res != invalidPageHandle())
         return packID(i, res);
     }
 
-    if (!m_caches[m_dynamicPage]->hasRoom(info))
+    if (!m_pipelines[m_dynamicPage].m_cache->hasRoom(info))
       flushDynamicPage();
 
-    return packID(m_dynamicPage, m_caches[m_dynamicPage]->mapInfo(info));
+    return packID(m_dynamicPage,
+                  m_pipelines[m_dynamicPage].m_cache->mapInfo(info));
   }
 
-  uint32_t Skin::findInfo(Resource::Info const & info)
+  uint32_t PipelinesManager::findInfo(Resource::Info const & info)
   {
     uint32_t res = invalidPageHandle();
 
-    for (uint8_t i = 0; i < m_caches.size(); ++i)
+    for (uint8_t i = 0; i < m_pipelines.size(); ++i)
     {
-      res = m_caches[i]->findInfo(info);
+      res = m_pipelines[i].m_cache->findInfo(info);
       if (res != invalidPageHandle())
         return packID(i, res);
     }
@@ -113,7 +205,9 @@ namespace graphics
     return res;
   }
 
-  bool Skin::map(Resource::Info const * const * infos, uint32_t * ids, size_t count)
+  bool PipelinesManager::mapInfo(Resource::Info const * const * infos,
+                                 uint32_t * ids,
+                                 size_t count)
   {
     int startDynamicPage = m_dynamicPage;
     int cycles = 0;
@@ -122,13 +216,13 @@ namespace graphics
 
     do
     {
-      ids[i] = m_caches[m_dynamicPage]->findInfo(*infos[i]);
+      ids[i] = m_pipelines[m_dynamicPage].m_cache->findInfo(*infos[i]);
 
       if ((ids[i] == invalidPageHandle())
        || (unpackID(ids[i]).first != m_dynamicPage))
       {
         /// try to pack on the currentDynamicPage
-        while (!m_caches[m_dynamicPage]->hasRoom(*infos[i]))
+        while (!m_pipelines[m_dynamicPage].m_cache->hasRoom(*infos[i]))
         {
           /// no room - flush the page
           flushDynamicPage();
@@ -147,7 +241,8 @@ namespace graphics
           i = 0;
         }
 
-        ids[i] = packID(m_dynamicPage, m_caches[m_dynamicPage]->mapInfo(*infos[i]));
+        ids[i] = packID(m_dynamicPage,
+                        m_pipelines[m_dynamicPage].m_cache->mapInfo(*infos[i]));
       }
 
       ++i;
@@ -157,64 +252,47 @@ namespace graphics
     return true;
   }
 
-  shared_ptr<ResourceCache> const & Skin::page(int i) const
+  void PipelinesManager::addClearPageFn(int pipelineID, clearPageFn fn, int priority)
   {
-    ASSERT(i < m_caches.size(), ());
-    return m_caches[i];
+    m_clearPageFns[pipelineID].push(std::pair<size_t, clearPageFn>(priority, fn));
   }
 
-  size_t Skin::pagesCount() const
+  void PipelinesManager::callClearPageFns(int pipelineID)
   {
-    return m_caches.size();
-  }
-
-  void Skin::addClearPageFn(clearPageFn fn, int priority)
-  {
-    m_clearPageFns.push(std::pair<size_t, clearPageFn>(priority, fn));
-  }
-
-  void Skin::callClearPageFns(uint8_t pipelineID)
-  {
-    clearPageFns handlersCopy = m_clearPageFns;
+    clearPageFns handlersCopy = m_clearPageFns[pipelineID];
     while (!handlersCopy.empty())
     {
-      handlersCopy.top().second(pipelineID);
+      handlersCopy.top().second();
       handlersCopy.pop();
     }
   }
 
-  void Skin::clearPageHandles(uint8_t pipelineID)
+  void PipelinesManager::clearPageHandles(int pipelineID)
   {
-    page(pipelineID)->clearHandles();
+    m_pipelines[pipelineID].m_cache->clearHandles();
   }
 
   /// This function is set to perform as a callback on texture or handles overflow
   /// BUT! Never called on texture overflow, as this situation
   /// is explicitly checked in the mapXXX() functions.
-  void Skin::onDynamicOverflow(uint8_t pipelineID)
+  void PipelinesManager::onDynamicOverflow(int pipelineID)
   {
     LOG(LINFO, ("DynamicPage flushing, pipelineID=", (uint32_t)pipelineID));
     flushDynamicPage();
   }
 
-  void Skin::onTextOverflow(uint8_t pipelineID)
-  {
-    LOG(LINFO, ("TextPage flushing, pipelineID=", (uint32_t)pipelineID));
-    flushTextPage();
-  }
-
-  bool Skin::isDynamicPage(int i) const
+  bool PipelinesManager::isDynamicPage(int i) const
   {
     return (i >= m_startDynamicPage) && (i < m_startDynamicPage + m_dynamicPagesCount);
   }
 
-  void Skin::flushDynamicPage()
+  void PipelinesManager::flushDynamicPage()
   {
     callClearPageFns(m_dynamicPage);
     changeDynamicPage();
   }
 
-  int Skin::nextDynamicPage() const
+  int PipelinesManager::nextDynamicPage() const
   {
     if (m_dynamicPage == m_startDynamicPage + m_dynamicPagesCount - 1)
       return m_startDynamicPage;
@@ -222,25 +300,14 @@ namespace graphics
       return m_dynamicPage + 1;
   }
 
-  void Skin::changeDynamicPage()
+  void PipelinesManager::changeDynamicPage()
   {
     m_dynamicPage = nextDynamicPage();
   }
 
-  bool Skin::isTextPage(int i) const
+  int PipelinesManager::nextPage(int i) const
   {
-    return i == m_textPage;
-  }
-
-  void Skin::flushTextPage()
-  {
-    //callOverflowFns(m_currentTextPage);
-    callClearPageFns(m_textPage);
-  }
-
-  int Skin::nextPage(int i) const
-  {
-    ASSERT(i < m_caches.size(), ());
+    ASSERT(i < m_pipelines.size(), ());
 
     if (isDynamicPage(i))
       return nextDynamicPage();
@@ -249,47 +316,207 @@ namespace graphics
     return i;
   }
 
-  void Skin::changePage(int i)
+  void PipelinesManager::changePage(int i)
   {
     if (isDynamicPage(i))
       changeDynamicPage();
   }
 
-  uint32_t Skin::invalidHandle() const
+  uint32_t PipelinesManager::invalidHandle() const
   {
     return 0xFFFFFFFF;
   }
 
-  uint32_t Skin::invalidPageHandle() const
+  uint32_t PipelinesManager::invalidPageHandle() const
   {
     return 0x00FFFFFF;
   }
 
-  uint8_t Skin::textPage() const
-  {
-    return m_textPage;
-  }
-
-  uint8_t Skin::dynamicPage() const
+  uint8_t PipelinesManager::dynamicPage() const
   {
     return m_dynamicPage;
   }
 
-  void Skin::memoryWarning()
+  void PipelinesManager::memoryWarning()
   {
   }
 
-  void Skin::enterBackground()
+  void PipelinesManager::enterBackground()
   {
   }
 
-  void Skin::enterForeground()
+  void PipelinesManager::enterForeground()
   {
   }
 
-  void Skin::clearHandles()
+  void PipelinesManager::clearHandles()
   {
-    for (unsigned i = 0; i < m_caches.size(); ++i)
-      m_caches[i]->clear();
+    for (unsigned i = 0; i < m_pipelines.size(); ++i)
+      m_pipelines[i].m_cache->clear();
+  }
+
+  void PipelinesManager::freeTexture(int pipelineID)
+  {
+    if (!m_pipelines[pipelineID].m_cache->hasTexture())
+      return;
+
+    shared_ptr<gl::BaseTexture> texture = m_pipelines[pipelineID].m_cache->texture();
+    TTexturePool * texturePool = 0;
+
+    ETextureType type = m_pipelines[pipelineID].m_cache->type();
+
+    if (type != EStaticTexture)
+      texturePool = resourceManager()->texturePool(type);
+    else
+    {
+      LOG(LWARNING, ("texture with EStatic can't be freed."));
+      return;
+    }
+
+    base_t::freeTexture(texture, texturePool);
+
+    m_pipelines[pipelineID].m_cache->resetTexture();
+  }
+
+  void PipelinesManager::freePipeline(int pipelineID)
+  {
+    GeometryPipeline & pipeline = m_pipelines[pipelineID];
+
+    if (pipeline.m_hasStorage)
+    {
+      TStoragePool * storagePool = 0;
+      if (pipeline.m_storageType != EInvalidStorage)
+        storagePool = resourceManager()->storagePool(pipeline.m_storageType);
+      else
+      {
+        LOG(LERROR, ("invalid pipeline type in freePipeline"));
+        return;
+      }
+
+      base_t::freeStorage(pipeline.m_storage, storagePool);
+
+      pipeline.m_hasStorage = false;
+      pipeline.m_storage = gl::Storage();
+    }
+  }
+
+  bool PipelinesManager::flushPipeline(int pipelineID)
+  {
+    GeometryPipeline & p = m_pipelines[pipelineID];
+    if (p.m_currentIndex)
+    {
+      if (p.m_cache->hasData())
+      {
+        uploadResources(&p.m_cache->uploadQueue()[0],
+                        p.m_cache->uploadQueue().size(),
+                        p.m_cache->texture());
+        p.m_cache->clearUploadQueue();
+      }
+
+      unlockPipeline(pipelineID);
+
+      drawGeometry(p.m_cache->texture(),
+                   p.m_storage,
+                   p.m_currentIndex,
+                   0,
+                   ETriangles);
+
+      discardPipeline(pipelineID);
+
+      if (isDebugging())
+      {
+        p.m_verticesDrawn += p.m_currentVertex;
+        p.m_indicesDrawn += p.m_currentIndex;
+        //               LOG(LINFO, ("Pipeline #", i - 1, "draws ", pipeline.m_currentIndex / 3, "/", pipeline.m_maxIndices / 3," triangles"));
+      }
+
+      freePipeline(pipelineID);
+
+      p.m_maxIndices = 0;
+      p.m_maxVertices = 0;
+      p.m_vertices = 0;
+      p.m_indices = 0;
+      p.m_currentIndex = 0;
+      p.m_currentVertex = 0;
+
+      return true;
+    }
+
+    return false;
+  }
+
+  void PipelinesManager::unlockPipeline(int pipelineID)
+  {
+    GeometryPipeline & pipeline = m_pipelines[pipelineID];
+    base_t::unlockStorage(pipeline.m_storage);
+  }
+
+  void PipelinesManager::discardPipeline(int pipelineID)
+  {
+    GeometryPipeline & pipeline = m_pipelines[pipelineID];
+
+    if (pipeline.m_hasStorage)
+      base_t::discardStorage(pipeline.m_storage);
+  }
+
+  void PipelinesManager::reset(int pipelineID)
+  {
+    for (size_t i = 0; i < m_pipelines.size(); ++i)
+    {
+      if ((pipelineID == -1) || ((size_t)pipelineID == i))
+      {
+        m_pipelines[i].m_currentVertex = 0;
+        m_pipelines[i].m_currentIndex = 0;
+      }
+    }
+  }
+
+  void PipelinesManager::beginFrame()
+  {
+    base_t::beginFrame();
+    reset(-1);
+    for (size_t i = 0; i < m_pipelines.size(); ++i)
+    {
+      m_pipelines[i].m_verticesDrawn = 0;
+      m_pipelines[i].m_indicesDrawn = 0;
+    }
+  }
+
+  void PipelinesManager::endFrame()
+  {
+    /// Syncronization point.
+    enableClipRect(false);
+
+    if (isDebugging())
+    {
+      for (size_t i = 0; i < m_pipelines.size(); ++i)
+        if ((m_pipelines[i].m_verticesDrawn != 0) || (m_pipelines[i].m_indicesDrawn != 0))
+          LOG(LINFO, ("pipeline #", i, " vertices=", m_pipelines[i].m_verticesDrawn, ", triangles=", m_pipelines[i].m_indicesDrawn / 3));
+    }
+
+    /// is the rendering was cancelled, there possibly could
+    /// be "ghost" render styles which are present in internal
+    /// skin structures, but aren't rendered onto skin texture.
+    /// so we are clearing the whole skin, to ensure that they
+    /// are gone(slightly heavy, but very simple solution).
+    if (isCancelled())
+      clearHandles();
+
+    base_t::endFrame();
+  }
+
+  unsigned PipelinesManager::pipelinesCount() const
+  {
+    return m_pipelines.size();
+  }
+
+  PipelinesManager::GeometryPipeline & PipelinesManager::pipeline(int i)
+  {
+    return m_pipelines[i];
+  }
+
+  PipelinesManager::GeometryPipeline const & PipelinesManager::pipeline(int i) const
+  {
+    return m_pipelines[i];
   }
 }

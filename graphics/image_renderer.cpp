@@ -1,6 +1,5 @@
 #include "image_renderer.hpp"
 #include "resource.hpp"
-#include "skin.hpp"
 
 #include "opengl/base_texture.hpp"
 
@@ -17,7 +16,7 @@ namespace graphics
                                 uint32_t resID,
                                 double depth)
   {
-    Resource const * res(skin()->fromID(resID));
+    Resource const * res(base_t::fromID(resID));
 
     if (res == 0)
     {
@@ -40,7 +39,7 @@ namespace graphics
       m2::PointF(m2::PointD(-1, -1) * m)
     };
 
-    shared_ptr<gl::BaseTexture> const & texture = skin()->page(res->m_pipelineID)->texture();
+    shared_ptr<gl::BaseTexture> const & texture = base_t::pipeline(res->m_pipelineID).m_cache->texture();
 
     m2::PointF texPts[6] =
     {

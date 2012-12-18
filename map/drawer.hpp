@@ -100,7 +100,6 @@ public:
   struct Params : graphics::Screen::Params
   {
     double m_visualScale;
-    shared_ptr<graphics::Skin> m_skin;
     Params();
   };
 

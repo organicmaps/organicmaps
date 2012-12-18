@@ -6,7 +6,6 @@
 #include "move_screen_task.hpp"
 
 #include "../graphics/display_list.hpp"
-#include "../graphics/skin.hpp"
 #include "../graphics/brush.hpp"
 #include "../graphics/pen.hpp"
 
@@ -226,8 +225,6 @@ namespace location
     cacheScreen->beginFrame();
     cacheScreen->setDisplayList(dl.get());
 
-    shared_ptr<graphics::Skin> const & skin = cacheScreen->skin();
-
     double k = m_controller->GetVisualScale();
 
     m2::PointD ptsD[] =
@@ -242,7 +239,7 @@ namespace location
 
     graphics::Color const borderColor = color(state);
 
-    uint32_t penStyle = skin->map(graphics::Pen::Info(borderColor, 1 * k, 0, 0, 0));
+    uint32_t penStyle = cacheScreen->mapInfo(graphics::Pen::Info(borderColor, 1 * k, 0, 0, 0));
 
     cacheScreen->drawPath(ptsD, ARRAY_SIZE(ptsD), 0, penStyle, depth());
 
@@ -272,18 +269,16 @@ namespace location
       m2::PointD((m_arrowWidth * k) / 2, m_arrowBackHeight * k),
     };
 
-    shared_ptr<graphics::Skin> const & skin = cacheScreen->skin();
-
     graphics::Color const baseColor = color(state);
     graphics::Color const lightColor = graphics::Color(min(255, (baseColor.r * 5) >> 2),
                                            min(255, (baseColor.g * 5) >> 2),
                                            min(255, (baseColor.b * 5) >> 2),
                                            baseColor.a);
     cacheScreen->drawTrianglesList(&pts[0], 3,
-                                   skin->map(graphics::Brush::Info(baseColor)),
+                                   cacheScreen->mapInfo(graphics::Brush::Info(baseColor)),
                                    depth());
     cacheScreen->drawTrianglesList(&pts[1], 3,
-                                   skin->map(graphics::Brush::Info(lightColor)),
+                                   cacheScreen->mapInfo(graphics::Brush::Info(lightColor)),
                                    depth());
 
     cacheScreen->setDisplayList(0);

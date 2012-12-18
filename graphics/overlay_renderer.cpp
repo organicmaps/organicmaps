@@ -8,7 +8,6 @@
 #include "circle_element.hpp"
 #include "overlay.hpp"
 #include "resource_manager.hpp"
-#include "skin.hpp"
 
 namespace graphics
 {
@@ -31,8 +30,6 @@ namespace graphics
     if (!m_drawSymbols)
       return;
 
-    params.m_skin = skin().get();
-
     shared_ptr<OverlayElement> oe(new SymbolElement(params));
 
     math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
@@ -46,10 +43,12 @@ namespace graphics
   void OverlayRenderer::drawSymbol(m2::PointD const & pt, string const & name, EPosition pos, int depth)
   {
     graphics::SymbolElement::Params params;
+
     params.m_depth = depth;
     params.m_position = pos;
     params.m_pivot = pt;
     params.m_info.m_name = name;
+    params.m_renderer = this;
 
     drawSymbol(params);
   }

@@ -1,12 +1,15 @@
 #pragma once
 
-#include "../geometry/rect2d.hpp"
-
 #include "../std/shared_ptr.hpp"
 #include "../std/function.hpp"
 #include "../std/vector.hpp"
 #include "../std/queue.hpp"
 
+#include "../geometry/rect2d.hpp"
+
+#include "opengl/vertex.hpp"
+
+#include "display_list_renderer.hpp"
 #include "resource.hpp"
 
 namespace graphics
@@ -20,44 +23,60 @@ namespace graphics
     }
   };
 
-  namespace gl
-  {
-    class BaseTexture;
-  }
-
-  class ResourceCache;
-  class ResourceManager;
-
-  class Skin
+  class PipelinesManager : public DisplayListRenderer
   {
   public:
 
-    typedef vector<shared_ptr<ResourceCache> > TResourceCaches;
-    typedef function<void(uint8_t)> clearPageFn;
-    typedef function<void(uint8_t)> overflowFn;
+    typedef DisplayListRenderer base_t;
+
+    typedef function<void()> clearPageFn;
+    typedef function<void()> overflowFn;
+
+    struct GeometryPipeline
+    {
+      size_t m_verticesDrawn;
+      size_t m_indicesDrawn;
+
+      size_t m_currentVertex;
+      size_t m_currentIndex;
+
+      /// made mutable to implement lazy reservation of m_storage
+      /// @{
+      mutable size_t m_maxVertices;
+      mutable size_t m_maxIndices;
+
+      mutable bool m_hasStorage;
+      mutable gl::Storage m_storage;
+
+      mutable gl::Vertex * m_vertices;
+      mutable unsigned short * m_indices;
+      /// @}
+
+      ETextureType m_textureType;
+      EStorageType m_storageType;
+
+      int  verticesLeft();
+      int  indicesLeft();
+
+      ETextureType textureType() const;
+      void setTextureType(ETextureType type);
+      void setStorageType(EStorageType type);
+
+      shared_ptr<ResourceCache> m_cache;
+
+      void checkStorage(shared_ptr<ResourceManager> const & resourceManager) const;
+    };
 
   private:
 
-    TResourceCaches m_caches;
-
-    uint8_t m_startDynamicPage;
-    uint8_t m_dynamicPage;
-    uint8_t m_dynamicPagesCount;
-
-    uint8_t m_textPage;
+    vector<GeometryPipeline> m_pipelines;
 
     uint8_t m_startStaticPage;
     uint8_t m_staticPagesCount;
 
-    shared_ptr<ResourceManager> m_resourceManager;
-
-    Skin(shared_ptr<ResourceManager> const & resourceManager,
-         TResourceCaches const & pages);
-
-    friend class SkinLoader;
-
-    void addDynamicPages(int count);
-    void addTextPages(int count);
+    uint8_t m_startDynamicPage;
+    uint8_t m_dynamicPage;
+    uint8_t m_dynamicPagesCount;
 
     typedef pair<uint8_t, uint32_t> id_pair_t;
     id_pair_t unpackID(uint32_t id) const;
@@ -68,59 +87,78 @@ namespace graphics
                            first_less<pair<size_t, clearPageFn> >
                            > clearPageFns;
 
-    clearPageFns m_clearPageFns;
-    void callClearPageFns(uint8_t pipelineID);
+    vector<clearPageFns> m_clearPageFns;
+    void callClearPageFns(int pipelineID);
 
     typedef priority_queue<pair<size_t, overflowFn>,
                            vector<pair<size_t, overflowFn> >,
                            first_less<pair<size_t, overflowFn> >
                            > overflowFns;
 
-    overflowFns m_overflowFns;
+    vector<overflowFns> m_overflowFns;
     void callOverflowFns(uint8_t pipelineID);
 
-    void clearPageHandles(uint8_t pipelineID);
+    void clearPageHandles(int pipelineID);
+
+  public:
+
+    struct Params : public base_t::Params
+    {
+      string m_skinName;
+    };
+
+    PipelinesManager(Params const & params);
+    ~PipelinesManager();
+
+    /// reserve static pipelines
+    unsigned reservePipelines(vector<shared_ptr<ResourceCache> > const & caches,
+                              EStorageType storageType);
+    /// reserve dynamic pipelines
+    unsigned reservePipelines(unsigned count,
+                              ETextureType textureType,
+                              EStorageType storageType);
 
     bool isDynamicPage(int i) const;
     void flushDynamicPage();
     int  nextDynamicPage() const;
     void changeDynamicPage();
 
-    void onDynamicOverflow(uint8_t pipelineID);
+    void onDynamicOverflow(int pipelineID);
+    void freePipeline(int pipelineID);
+    void freeTexture(int pipelineID);
 
-    bool isTextPage(int i) const;
-    void flushTextPage();
-
-    void onTextOverflow(uint8_t pipelineID);
+    bool flushPipeline(int pipelineID);
+    void unlockPipeline(int pipelineID);
+    void discardPipeline(int pipelineID);
+    void reset(int pipelineID);
 
   public:
 
-    /// clean and destroy
-    ~Skin();
     /// obtain Resource from id
     Resource const * fromID(uint32_t id);
 
     /// map Resource::Info on skin
     /// if found - return id.
     /// if not - pack and return id.
-    uint32_t map(Resource::Info const & info);
+    uint32_t mapInfo(Resource::Info const & info);
     /// map array of Resource::Info's on skin
-    bool map(Resource::Info const * const * infos, uint32_t * ids, size_t count);
+    bool mapInfo(Resource::Info const * const * infos,
+             uint32_t * ids,
+             size_t count);
 
     uint32_t findInfo(Resource::Info const & info);
 
     /// adding function which will be called, when some SkinPage
     /// is getting cleared.
-    void addClearPageFn(clearPageFn fn, int priority);
+    void addClearPageFn(int pipelineID, clearPageFn fn, int priority);
 
-    shared_ptr<ResourceCache> const & page(int i) const;
-
-    size_t pagesCount() const;
+    GeometryPipeline const & pipeline(int i) const;
+    GeometryPipeline & pipeline(int i);
+    unsigned pipelinesCount() const;
 
     uint32_t invalidHandle() const;
     uint32_t invalidPageHandle() const;
 
-    uint8_t textPage() const;
     uint8_t dynamicPage() const;
 
     /// change page for its "backbuffer" counterpart.
@@ -138,5 +176,8 @@ namespace graphics
     void memoryWarning();
     void enterBackground();
     void enterForeground();
+
+    void beginFrame();
+    void endFrame();
   };
 }

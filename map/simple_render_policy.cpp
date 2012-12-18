@@ -5,7 +5,6 @@
 
 #include "../graphics/overlay.hpp"
 #include "../graphics/opengl/opengl.hpp"
-#include "../graphics/skin.hpp"
 #include "../graphics/render_context.hpp"
 
 #include "../indexer/scales.hpp"
@@ -96,7 +95,7 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
   dp.m_frameBuffer = make_shared_ptr(new graphics::gl::FrameBuffer(p.m_useDefaultFB));
   dp.m_resourceManager = m_resourceManager;
   dp.m_threadSlot = m_resourceManager->guiThreadSlot();
-  dp.m_skin = make_shared_ptr(graphics::loadSkin(m_resourceManager, SkinName()));
+  dp.m_skinName = SkinName();
   dp.m_visualScale = VisualScale();
   dp.m_isSynchronized = true;
   dp.m_fastSolidPath = false;

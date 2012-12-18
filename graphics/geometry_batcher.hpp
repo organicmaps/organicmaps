@@ -6,7 +6,7 @@
 #include "opengl/framebuffer.hpp"
 #include "opengl/storage.hpp"
 
-#include "display_list_renderer.hpp"
+#include "pipeline_manager.hpp"
 #include "resource_cache.hpp"
 #include "resource_manager.hpp"
 
@@ -19,63 +19,13 @@
 
 #include "../base/matrix.hpp"
 
-namespace threads
-{
-  class Mutex;
-}
-
 namespace graphics
 {
-  class Skin;
-
-  class GeometryBatcher : public DisplayListRenderer
+  class GeometryBatcher : public PipelinesManager
   {
-  public:
-
-    typedef function<void()> onFlushFinishedFn;
-
   private:
 
-    typedef DisplayListRenderer base_t;
-
-    shared_ptr<Skin> m_skin;
-
-    struct GeometryPipeline
-    {
-      size_t m_verticesDrawn;
-      size_t m_indicesDrawn;
-
-      size_t m_currentVertex;
-      size_t m_currentIndex;
-
-      /// made mutable to implement lazy reservation of m_storage
-      /// @{
-      mutable size_t m_maxVertices;
-      mutable size_t m_maxIndices;
-
-      mutable bool m_hasStorage;
-      mutable gl::Storage m_storage;
-
-      mutable gl::Vertex * m_vertices;
-      mutable unsigned short * m_indices;
-      /// @}
-
-      bool m_useGuiResources;
-      ETextureType m_textureType;
-      EStorageType m_storageType;
-
-      int  verticesLeft();
-      int  indicesLeft();
-
-      void checkStorage(shared_ptr<ResourceManager> const & resourceManager) const;
-    };
-
-    vector<GeometryPipeline> m_pipelines;
-
-    void reset(int pipelineID);
-
-    void freePipeline(int pipelineID);
-    void freeTexture(int pipelineID);
+    typedef PipelinesManager base_t;
 
     bool m_isAntiAliased;
     bool m_isSynchronized;
@@ -101,17 +51,9 @@ namespace graphics
     };
 
     GeometryBatcher(Params const & params);
-    ~GeometryBatcher();
-
-    void setSkin(shared_ptr<Skin> skin);
-    shared_ptr<Skin> const & skin() const;
 
     void beginFrame();
     void endFrame();
-
-    bool flushPipeline(shared_ptr<ResourceCache> const & resourceCache, int pipelineID);
-    void unlockPipeline(int pipelineID);
-    void discardPipeline(int pipelineID);
 
   public:
 
@@ -204,10 +146,6 @@ namespace graphics
         float x0, float y0, float x1, float y1,
         double depth,
         int pipelineID);
-
-    void memoryWarning();
-    void enterBackground();
-    void enterForeground();
 
     void setDisplayList(DisplayList * dl);
     void drawDisplayList(DisplayList * dl, math::Matrix<double, 3, 3> const & m);

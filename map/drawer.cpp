@@ -8,14 +8,12 @@
 
 #include "../graphics/defines.hpp"
 #include "../graphics/screen.hpp"
-#include "../graphics/skin.hpp"
 #include "../graphics/resource_manager.hpp"
 
 #include "../geometry/screenbase.hpp"
 
 #include "../base/logging.hpp"
 #include "../base/buffer_vector.hpp"
-
 
 Drawer::Params::Params()
   : m_visualScale(1)
@@ -55,11 +53,8 @@ Drawer::Drawer(Params const & params)
 {
   m_pScreen = shared_ptr<graphics::Screen>(new graphics::Screen(params));
 
-  m_pSkin = params.m_skin;
-  m_pScreen->setSkin(m_pSkin);
-
-  if (m_pSkin)
-    m_pSkin->addClearPageFn(bind(&Drawer::ClearResourceCache, ThreadSlot(), _1), 0);
+  for (unsigned i = 0; i < m_pScreen->pipelinesCount(); ++i)
+    m_pScreen->addClearPageFn(i, bind(&Drawer::ClearResourceCache, ThreadSlot(), i), 0);
 }
 
 namespace
@@ -108,8 +103,10 @@ void Drawer::onSize(int w, int h)
   m_pScreen->onSize(w, h);
 }
 
-void Drawer::drawSymbol(m2::PointD const & pt, string const & symbolName,
-                          graphics::EPosition pos, int depth)
+void Drawer::drawSymbol(m2::PointD const & pt,
+                        string const & symbolName,
+                        graphics::EPosition pos,
+                        int depth)
 {
   m_pScreen->drawSymbol(pt, symbolName, pos, depth);
 }
@@ -137,6 +134,7 @@ void Drawer::drawSymbol(m2::PointD const & pt,
   params.m_position = pos;
   params.m_pivot = pt;
   params.m_info = info;
+  params.m_renderer = m_pScreen.get();
   params.m_userInfo.m_mwmID = id.first;
   params.m_userInfo.m_offset = id.second;
 
@@ -172,11 +170,11 @@ void Drawer::drawPath(di::PathInfo const & info, di::DrawRule const * rules, siz
       if (rules[i].m_transparent)
         penInfos[i].m_color.a = 100;
 
-      resIDs[i] = m_pSkin->invalidHandle();
+      resIDs[i] = m_pScreen->invalidHandle();
     }
 
     // map array of pens
-    if (m_pSkin->map(&infos[0], &resIDs[0], count))
+    if (m_pScreen->mapInfo(&infos[0], &resIDs[0], count))
     {
       for (size_t i = 0; i < count; ++i)
         rules[i].SetID(ThreadSlot(), resIDs[i]);
@@ -201,7 +199,7 @@ void Drawer::drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int dept
   graphics::Brush::Info info;
   ConvertStyle(pRule->GetArea(), info);
 
-  uint32_t const id = m_pSkin->map(info);
+  uint32_t const id = m_pScreen->mapInfo(info);
   ASSERT ( id != -1, () );
 
   m_pScreen->drawTrianglesList(&pts[0], pts.size()/*, res*/, id, depth);

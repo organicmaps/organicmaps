@@ -1,6 +1,5 @@
 #include "text_element.hpp"
 #include "screen.hpp"
-#include "skin.hpp"
 #include "resource_cache.hpp"
 #include "resource_manager.hpp"
 #include "overlay_renderer.hpp"
@@ -120,17 +119,15 @@ namespace graphics
       resInfos[i] = &glyphInfos[i];
     }
 
-    Skin * skin = screen->skin().get();
-
     if (firstVis != lastVis)
-      skin->map(&resInfos[firstVis],
-                &glyphIDs[firstVis],
-                lastVis - firstVis);
+      screen->mapInfo(&resInfos[firstVis],
+                      &glyphIDs[firstVis],
+                      lastVis - firstVis);
 
     for (unsigned i = firstVis; i < lastVis; ++i)
     {
       GlyphLayoutElem const & elem = layout.entries()[i];
-      Glyph const * glyph = static_cast<Glyph const *>(skin->fromID(glyphIDs[i]));
+      Glyph const * glyph = static_cast<Glyph const *>(screen->fromID(glyphIDs[i]));
 
       m2::PointD glyphPt;
       ang::AngleD glyphAngle;

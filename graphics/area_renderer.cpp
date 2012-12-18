@@ -1,6 +1,5 @@
 #include "area_renderer.hpp"
 #include "brush.hpp"
-#include "skin.hpp"
 #include "resource_cache.hpp"
 
 #include "opengl/base_texture.hpp"
@@ -46,7 +45,7 @@ namespace graphics
     if (!m_drawAreas)
       return;
 
-    Resource const * res = skin()->fromID(resID);
+    Resource const * res = base_t::fromID(resID);
 
     ASSERT(res->m_cat == Resource::EBrush, ("triangleFan should be rendered with Brush resource"));
 
@@ -61,7 +60,7 @@ namespace graphics
     float texX = res->m_texRect.minX() + 1.0f;
     float texY = res->m_texRect.minY() + 1.0f;
 
-    shared_ptr<gl::BaseTexture> texture = skin()->page(res->m_pipelineID)->texture();
+    shared_ptr<gl::BaseTexture> texture = base_t::pipeline(res->m_pipelineID).m_cache->texture();
 
     if (!texture)
     {
@@ -90,7 +89,7 @@ namespace graphics
     if (!m_drawAreas)
       return;
 
-    Resource const * res = skin()->fromID(resID);
+    Resource const * res = base_t::fromID(resID);
 
     ASSERT(res->m_cat == Resource::EBrush, ("area should be rendered with Brush resource"));
 
@@ -108,7 +107,7 @@ namespace graphics
     float texX = res->m_texRect.minX() + 1.0f;
     float texY = res->m_texRect.minY() + 1.0f;
 
-    shared_ptr<gl::BaseTexture> texture = skin()->page(res->m_pipelineID)->texture();
+    shared_ptr<gl::BaseTexture> texture = base_t::pipeline(res->m_pipelineID).m_cache->texture();
 
     if (!texture)
     {

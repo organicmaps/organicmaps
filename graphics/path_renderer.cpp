@@ -1,7 +1,6 @@
 #include "path_renderer.hpp"
 #include "resource.hpp"
 #include "pen.hpp"
-#include "skin.hpp"
 #include "resource_cache.hpp"
 
 #include "opengl/base_texture.hpp"
@@ -32,7 +31,7 @@ namespace graphics
     ASSERT_GREATER_OR_EQUAL(pointsCount, 2, ());
     ASSERT_NOT_EQUAL(resID, uint32_t(-1), ());
 
-    Resource const * res(skin()->fromID(resID));
+    Resource const * res(base_t::fromID(resID));
     if (res == 0)
     {
       LOG(LINFO, ("drawPath: resID=", resID, " wasn't found on current skin"));
@@ -95,7 +94,7 @@ namespace graphics
       /// Length of the actual pattern data being tiling(without antialiasing zones).
       rawTileLen = 0;
 
-      shared_ptr<gl::BaseTexture> texture = skin()->page(pen->m_pipelineID)->texture();
+      shared_ptr<gl::BaseTexture> texture = base_t::pipeline(pen->m_pipelineID).m_cache->texture();
 
       if (!texture)
       {
@@ -191,7 +190,7 @@ namespace graphics
           startVec = norm;
         }
 
-        shared_ptr<gl::BaseTexture> texture = skin()->page(pen->m_pipelineID)->texture();
+        shared_ptr<gl::BaseTexture> texture = base_t::pipeline(pen->m_pipelineID).m_cache->texture();
 
         if (!texture)
         {
@@ -243,7 +242,7 @@ namespace graphics
   void PathRenderer::drawFastSolidPath(m2::PointD const * points, size_t pointsCount, uint32_t resID, double depth)
   {
     ASSERT_GREATER_OR_EQUAL(pointsCount, 2, ());
-    Resource const * res(skin()->fromID(resID));
+    Resource const * res(base_t::fromID(resID));
 
     ASSERT(res->m_cat == Resource::EPen, ());
     Pen const * pen = static_cast<Pen const *>(res);
@@ -286,7 +285,7 @@ namespace graphics
         nextPt + fDir - fNorm
       };
 
-      shared_ptr<gl::BaseTexture> texture = skin()->page(pen->m_pipelineID)->texture();
+      shared_ptr<gl::BaseTexture> texture = base_t::pipeline(pen->m_pipelineID).m_cache->texture();
 
       if (!texture)
       {

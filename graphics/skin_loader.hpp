@@ -1,16 +1,9 @@
 /// @author Siarhei Rachytski
 #pragma once
 
-//#include "resource_style.hpp"
-//#include "skin.hpp"
-//#include "../geometry/rect2d.hpp"
-//#include "../base/base.hpp"
-//#include "../std/string.hpp"
-//#include "../std/list.hpp"
-//#include "../std/map.hpp"
-//#include "../std/vector.hpp"
+#include "../geometry/rect2d.hpp"
+#include "../std/list.hpp"
 #include "../std/shared_ptr.hpp"
-//#include "../std/utility.hpp"
 
 /// @example
 /// <?xml version="1.0" ?>
@@ -78,7 +71,6 @@ namespace graphics
     TResourceList m_resourceList;
 
     shared_ptr<ResourceManager> m_resourceManager;
-    Skin * m_skin;
 
   public:
 
@@ -97,6 +89,6 @@ namespace graphics
     void pushResource();
     void popResource();
 
-    Skin * skin();
+    vector<shared_ptr<ResourceCache> > const & caches();
   };
 }
