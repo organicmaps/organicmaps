@@ -75,6 +75,7 @@ namespace storage
     /// Search is case-insensitive.
     void GetMatchedRegions(string const & enName, IDSet & regions) const;
     bool IsBelongToRegion(m2::PointD const & pt, IDSet const & regions) const;
+    bool IsBelongToRegion(string const & fileName, IDSet const & regions) const;
     //@}
 
     /// m_cache is mutable.

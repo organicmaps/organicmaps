@@ -32,6 +32,7 @@ namespace impl
   class BestNameFinder;
   class PreResult2Maker;
   struct Locality;
+  struct Region;
   class DoFindLocality;
 }
 
@@ -150,7 +151,12 @@ private:
   void FlushResults(Results & res, void (Results::*pAddFn)(Result const &));
 
   void SearchAddress();
-  bool SearchLocality(MwmValue * pMwm, impl::Locality & res);
+
+  /// Search for best localities by input tokens.
+  /// @param[in]  pMwm  MWM file for World
+  /// @param[out] res1  Best city-locality
+  /// @param[out] res2  Best region-locality
+  void SearchLocality(MwmValue * pMwm, impl::Locality & res1, impl::Region & res2);
 
   void SearchFeatures();
 

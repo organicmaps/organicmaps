@@ -858,10 +858,26 @@ namespace impl
     string m_name, m_enName;        ///< native name and english name of locality
     Query::TrieValueT m_value;
     vector<size_t> m_matchedTokens; ///< indexes of matched tokens for locality
-    int m_index;                    ///< locality index (0 - USA state, 1 - country, 2 - city)
 
-    Locality() : m_index(-1) {}
-    Locality(Query::TrieValueT const & val, int index) : m_value(val), m_index(index) {}
+    /// Type of locality (do not change values - they have detalization order)
+    /// COUNTRY < STATE < CITY
+    enum Type { NONE = -1, COUNTRY = 0, STATE, CITY };
+    Type m_type;
+
+    Locality() : m_type(NONE) {}
+    Locality(Query::TrieValueT const & val, Type type) : m_value(val), m_type(type) {}
+
+    bool IsValid() const
+    {
+      if (m_type != NONE)
+      {
+        ASSERT ( !m_matchedTokens.empty(), () );
+        ASSERT ( !m_enName.empty(), () );
+        return true;
+      }
+      else
+        return false;
+    }
 
     void Swap(Locality & rhs)
     {
@@ -869,11 +885,14 @@ namespace impl
       m_enName.swap(rhs.m_enName);
       swap(m_value, rhs.m_value);
       m_matchedTokens.swap(rhs.m_matchedTokens);
-      swap(m_index, rhs.m_index);
+      swap(m_type, rhs.m_type);
     }
 
     bool operator< (Locality const & rhs) const
     {
+      if (m_type != rhs.m_type)
+        return (m_type < rhs.m_type);
+
       if (m_matchedTokens.size() != rhs.m_matchedTokens.size())
         return (m_matchedTokens.size() < rhs.m_matchedTokens.size());
 
@@ -925,17 +944,19 @@ namespace impl
       bool const isMatched = IsFullNameMatched();
 
       // Do filtering of possible localities.
-      switch (m_index)
+      switch (m_type)
       {
-      case 0:   // USA state
+      case STATE:   // we process USA, Canada states only for now
         // USA states has 2-symbol synonyms
         return (isMatched || GetSynonymTokenLength(tokens, prefix) == 2);
 
-      case 1:   // country
+      case COUNTRY:
         // USA has synonyms: "US" or "USA"
-        return (isMatched || (m_enName == "usa" && GetSynonymTokenLength(tokens, prefix) <= 3));
+        return (isMatched ||
+                (m_enName == "usa" && GetSynonymTokenLength(tokens, prefix) <= 3) ||
+                (m_enName == "uk" && GetSynonymTokenLength(tokens, prefix) == 2));
 
-      case 2:   // city
+      case CITY:
         // need full name match for cities
         return isMatched;
 
@@ -963,11 +984,38 @@ namespace impl
     vector<size_t> m_ids;
     vector<size_t> m_matchedTokens;
     string m_enName;
+
+    bool operator<(Region const & rhs) const
+    {
+      return (m_matchedTokens.size() < rhs.m_matchedTokens.size());
+    }
+
+    bool IsValid() const
+    {
+      if (!m_ids.empty())
+      {
+        ASSERT ( !m_matchedTokens.empty(), () );
+        ASSERT ( !m_enName.empty(), () );
+        return true;
+      }
+      else
+        return false;
+    }
+
+    void Swap(Region & rhs)
+    {
+      m_ids.swap(rhs.m_ids);
+      m_matchedTokens.swap(rhs.m_matchedTokens);
+      m_enName.swap(rhs.m_enName);
+    }
   };
 
   string DebugPrint(Region const & r)
   {
-    return string("Name: " + r.m_enName);
+    string res("Region: ");
+    res += "Name English: " + r.m_enName;
+    res += "; Matched: " + ::DebugPrint(r.m_matchedTokens.size());
+    return res;
   }
 }
 
@@ -985,19 +1033,22 @@ void Query::SearchAddress()
         pMwm->m_cont.IsReaderExist(SEARCH_INDEX_FILE_TAG) &&
         pMwm->GetHeader().GetType() == feature::DataHeader::world)
     {
-      impl::Locality loc;
-      if (SearchLocality(pMwm, loc))
+      impl::Locality city;
+      impl::Region region;
+      SearchLocality(pMwm, city, region);
+
+      if (city.IsValid())
       {
-        LOG(LDEBUG, ("Final locality = ", loc));
+        LOG(LDEBUG, ("Final city-locality = ", city));
 
         Params params(*this);
-        params.EraseTokens(loc.m_matchedTokens);
+        params.EraseTokens(city.m_matchedTokens);
 
         if (!params.IsEmpty())
         {
           params.ProcessAddressTokens();
 
-          SetViewportByIndex(mwmInfo, scales::GetRectForLevel(ADDRESS_SCALE, loc.m_value.m_pt, 1.0), ADDRESS_RECT_ID);
+          SetViewportByIndex(mwmInfo, scales::GetRectForLevel(ADDRESS_SCALE, city.m_value.m_pt, 1.0), ADDRESS_RECT_ID);
 
           /// @todo Hack - do not search for address in World.mwm; Do it better in future.
           bool const b = m_worldSearch;
@@ -1008,9 +1059,27 @@ void Query::SearchAddress()
         else
         {
           // Add found locality as a result if nothing left to match.
-          AddResultFromTrie(loc.m_value, mwmId);
+          AddResultFromTrie(city.m_value, mwmId);
         }
       }
+      else if (region.IsValid())
+      {
+        LOG(LDEBUG, ("Final region-locality = ", region));
+
+        Params params(*this);
+        params.EraseTokens(region.m_matchedTokens);
+
+        if (!params.IsEmpty())
+        {
+          for (MwmSet::MwmId id = 0; id < mwmInfo.size(); ++id)
+          {
+            Index::MwmLock mwmLock(*m_pIndex, id);
+            if (m_pInfoGetter->IsBelongToRegion(mwmLock.GetFileName(), region.m_ids))
+              SearchInMWM(mwmLock, params);
+          }
+        }
+      }
+
       return;
     }
   }
@@ -1022,12 +1091,13 @@ namespace impl
   {
     Query const & m_query;
 
-    /// @see Locality::m_index
+    /// Index in array equal to Locality::m_type value.
     vector<Locality> m_localities[3];
 
     FeaturesVector m_vector;
     size_t m_index;         ///< index of processing token
 
+    /// Check for "locality" types.
     class TypeChecker
     {
       vector<uint32_t> m_vec;
@@ -1052,7 +1122,7 @@ namespace impl
       }
 
       /// @return Feature type and locality type @see Locality::m_index.
-      int GetLocalityIndex(FeatureType const & f)
+      Locality::Type GetLocalityIndex(FeatureType const & f)
       {
         feature::TypesHolder types(f);
         for (size_t i = 0; i < types.Size(); ++i)
@@ -1061,28 +1131,42 @@ namespace impl
 
           ftype::TruncValue(t, 3);
           if (t == m_vec[0])
-            return 0;
+            return Locality::STATE;
 
           ftype::TruncValue(t, 2);
           for (int j = 1; j < m_vec.size(); ++j)
             if (t == m_vec[j])
-              return (j == 1 ? 1 : 2);
+              return (j == 1 ? Locality::COUNTRY : Locality::CITY);
         }
 
-        return -1;
+        return Locality::NONE;
       }
     };
 
     Locality * PushLocality(Locality const & l)
     {
-      ASSERT_LESS ( l.m_index, ARRAY_SIZE(m_localities), () );
-      m_localities[l.m_index].push_back(l);
-      return &(m_localities[l.m_index].back());
+      ASSERT ( 0 <= l.m_type && l.m_type <= ARRAY_SIZE(m_localities), (l.m_type) );
+      m_localities[l.m_type].push_back(l);
+      return &(m_localities[l.m_type].back());
     }
 
     int8_t m_lang;
     int8_t m_arrEn[3];
 
+    /// Tanslates country full english name to mwm file name prefix
+    /// (need when matching correspondent mwm file in CountryInfoGetter::GetMatchedRegions).
+    static bool FeatureName2FileNamePrefix(string & name, char const * prefix,
+                                    char const * arr[], size_t n)
+    {
+      for (size_t i = 0; i < n; ++i)
+        if (name.find(arr[i]) == string::npos)
+          return false;
+
+      name = prefix;
+      return true;
+    }
+
+    //@{
     void AssignEnglishName(FeatureType const & f, Locality & l)
     {
       // search for name in next order: "en", "int_name", "default"
@@ -1092,25 +1176,22 @@ namespace impl
           // make name lower-case
           strings::AsciiToLower(l.m_enName);
 
-          // do special correction for USA
-          // (needed for CountryInfoGetter::GetMatchedRegions matching)
           char const * arrUSA[] = { "united", "states", "america" };
-          for (size_t i = 0; i < ARRAY_SIZE(arrUSA); ++i)
-            if (l.m_enName.find(arrUSA[i]) == string::npos)
-              return;
+          char const * arrUK[] = { "united", "kingdom" };
 
-          l.m_enName = "usa";
+          if (!FeatureName2FileNamePrefix(l.m_enName, "usa", arrUSA, ARRAY_SIZE(arrUSA)))
+            if (!FeatureName2FileNamePrefix(l.m_enName, "uk", arrUK, ARRAY_SIZE(arrUK)))
+
           return;
         }
     }
+    //@}
 
-    void AddRegions(int index, vector<Region> & regions)
+    void AddRegions(int index, vector<Region> & regions) const
     {
       // fill regions vector in priority order
-      vector<Locality> & arr = m_localities[index];
-      sort(arr.begin(), arr.end());
-
-      for (vector<Locality>::reverse_iterator i = arr.rbegin(); i != arr.rend(); ++i)
+      vector<Locality> const & arr = m_localities[index];
+      for (vector<Locality>::const_reverse_iterator i = arr.rbegin(); i != arr.rend(); ++i)
       {
         // no need to check region with empty english name (can't match for polygon)
         if (!i->m_enName.empty() && i->IsSuitable(m_query.m_tokens, m_query.m_prefix))
@@ -1123,8 +1204,8 @@ namespace impl
             Region & r = regions.back();
 
             r.m_ids.swap(vec);
-            r.m_matchedTokens.swap(i->m_matchedTokens);
-            r.m_enName.swap(i->m_enName);
+            r.m_matchedTokens = i->m_matchedTokens;
+            r.m_enName = i->m_enName;
           }
         }
       }
@@ -1190,8 +1271,8 @@ namespace impl
 
       // check, if feature is locality
       static TypeChecker checker;
-      int const index = checker.GetLocalityIndex(f);
-      if (index >= 0)
+      Locality::Type const index = checker.GetLocalityIndex(f);
+      if (index != Locality::NONE)
       {
         Locality * loc = PushLocality(Locality(v, index));
         if (loc)
@@ -1205,23 +1286,29 @@ namespace impl
       }
     }
 
-    bool GetBestLocality(Locality & res)
+    void SortLocalities()
     {
-      //LOG(LDEBUG, ("Countries before processing = ", m_localities[1]));
-      //LOG(LDEBUG, ("States before processing = ", m_localities[0]));
+      for (int i = Locality::COUNTRY; i <= Locality::CITY; ++i)
+        sort(m_localities[i].begin(), m_localities[i].end());
+    }
 
-      // First, prepare countries info for checking locality.
-      vector<Region> regions;
-      AddRegions(1, regions);
-      AddRegions(0, regions);
+    void GetRegions(vector<Region> & regions) const
+    {
+      //LOG(LDEBUG, ("Countries before processing = ", m_localities[Locality::COUNTRY]));
+      //LOG(LDEBUG, ("States before processing = ", m_localities[Locality::STATE]));
+
+      AddRegions(Locality::COUNTRY, regions);
+      AddRegions(Locality::STATE, regions);
 
       //LOG(LDEBUG, ("Regions after processing = ", regions));
+    }
 
-      // Get suitable locality.
-      vector<Locality> & arr = m_localities[2];
-      sort(arr.begin(), arr.end());
-
+    bool GetBestCity(Locality & res, vector<Region> const & regions)
+    {
+      // Get suitable city-locality.
       Locality * p1st = 0;
+
+      vector<Locality> & arr = m_localities[Locality::CITY];
       for (vector<Locality>::reverse_iterator i = arr.rbegin(); i != arr.rend(); ++i)
       {
         if (!i->IsSuitable(m_query.m_tokens, m_query.m_prefix))
@@ -1277,7 +1364,7 @@ namespace impl
   };
 }
 
-bool Query::SearchLocality(MwmValue * pMwm, impl::Locality & res)
+void Query::SearchLocality(MwmValue * pMwm, impl::Locality & res1, impl::Region & res2)
 {
   Params params(*this, true);
 
@@ -1292,26 +1379,45 @@ bool Query::SearchLocality(MwmValue * pMwm, impl::Locality & res)
   for (size_t i = 0; i < pTrieRoot->m_edge.size(); ++i)
   {
     TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
+
+    /// We do search countries, states and cities for one language.
+    /// @todo Do combine countries and cities for different languages.
     int8_t const lang = static_cast<int8_t>(edge[0]);
     if (edge[0] < search::CATEGORIES_LANG && params.IsLangExist(lang))
     {
       scoped_ptr<TrieIterator> pLangRoot(pTrieRoot->GoToEdge(i));
 
+      // gel all localities from mwm
       impl::DoFindLocality doFind(*this, pMwm, lang);
       GetFeaturesInTrie(params.m_tokens, params.m_prefixTokens,
                         TrieRootPrefix(*pLangRoot, edge), doFind);
 
-      // save better locality, if any
+      // sort localities by priority
+      doFind.SortLocalities();
+
+      // get Region's from COUNTRY and STATE localities
+      vector<impl::Region> regions;
+      doFind.GetRegions(regions);
+
+      // get best CITY locality
       impl::Locality loc;
-      if (doFind.GetBestLocality(loc) && (res < loc))
+      if (doFind.GetBestCity(loc, regions) && (res1 < loc))
       {
         LOG(LDEBUG, ("Better location ", loc, " for language ", lang));
-        res = loc;
+        res1.Swap(loc);
+      }
+      else
+      {
+        // get best Region
+        if (!regions.empty())
+        {
+          sort(regions.begin(), regions.end());
+          if (res2 < regions.back())
+            res2.Swap(regions.back());
+        }
       }
     }
   }
-
-  return (res.m_index >= 0);
 }
 
 void Query::SearchFeatures()

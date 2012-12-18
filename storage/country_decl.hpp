@@ -9,6 +9,7 @@ namespace storage
 {
   struct CountryDef
   {
+    /// File name without extension (equal to english name - used in search for region).
     string m_name;
     m2::RectD m_rect;
 

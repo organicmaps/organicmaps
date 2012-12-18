@@ -210,7 +210,8 @@ namespace storage
   {
     for (size_t i = 0; i < m_countries.size(); ++i)
     {
-      /// @todo Check for any matching now. Do it smarter in future.
+      /// Match english name with region file name (they are equal in almost all cases).
+      /// @todo Do it smarter in future.
       string s = m_countries[i].m_name;
       strings::AsciiToLower(s);
       if (s.find(enName) != string::npos)
@@ -224,6 +225,17 @@ namespace storage
     for (size_t i = 0; i < regions.size(); ++i)
       if (m_countries[regions[i]].m_rect.IsPointInside(pt) && !doCheck(regions[i]))
         return true;
+
+    return false;
+  }
+
+  bool CountryInfoGetter::IsBelongToRegion(string const & fileName, IDSet const & regions) const
+  {
+    for (size_t i = 0; i < regions.size(); ++i)
+    {
+      if (m_countries[regions[i]].m_name == fileName)
+        return true;
+    }
 
     return false;
   }
