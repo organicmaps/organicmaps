@@ -35,6 +35,14 @@ UNIT_TEST(CountryInfo_GetByPoint_Smoke)
 
   TEST_EQUAL(info.m_name, "Belarus", ());
   TEST_EQUAL(info.m_flag, "by", ());
+
+
+  getter->GetRegionInfo(m2::PointD(MercatorBounds::LonToX(-38.0098101),
+                                   MercatorBounds::LatToY(-6.4146288)),
+                        info);
+
+  TEST_EQUAL(info.m_name, "Brazil", ());
+  TEST_EQUAL(info.m_flag, "br", ());
 }
 
 namespace
