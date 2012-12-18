@@ -428,44 +428,27 @@ namespace impl
 {
   class PreResult2Maker
   {
-    struct LockedFeaturesVector
-    {
-      Index::MwmLock m_lock;
-      FeaturesVector m_vector;
-
-      // Assume that we didn't remove maps during search, so m_lock.GetValue() != 0.
-      LockedFeaturesVector(Index const & index, MwmSet::MwmId const & id)
-        : m_lock(index, id), m_vector(m_lock.GetContainer(), m_lock.GetHeader())
-      {
-      }
-
-      string GetCountry() const
-      {
-        if (m_lock.GetHeader().GetType() == feature::DataHeader::world)
-          return string();
-        return m_lock.GetCountryName();
-      }
-
-      MwmSet::MwmId GetID() const { return m_lock.GetID(); }
-    };
-
     Query & m_query;
 
-    scoped_ptr<LockedFeaturesVector> m_pFV;
+    scoped_ptr<Index::FeaturesLoaderGuard> m_pFV;
 
     // For the best performance, incoming id's should be sorted by id.first (mwm file id).
     void LoadFeature(pair<size_t, uint32_t> const & id,
                      FeatureType & f, string & name, string & country)
     {
       if (m_pFV.get() == 0 || m_pFV->GetID() != id.first)
-        m_pFV.reset(new LockedFeaturesVector(*m_query.m_pIndex, id.first));
+        m_pFV.reset(new Index::FeaturesLoaderGuard(*m_query.m_pIndex, id.first));
 
-      m_pFV->m_vector.Get(id.second, f);
+      m_pFV->GetFeature(id.second, f);
 
       uint32_t penalty;
       m_query.GetBestMatchName(f, penalty, name);
 
-      country = m_pFV->GetCountry();
+      // country (region) name is a file name if feature isn't from World.mwm
+      if (m_pFV->IsWorld())
+        country.clear();
+      else
+        country = m_pFV->GetFileName();
     }
 
   public:
@@ -1489,7 +1472,7 @@ void Query::SearchInMWM(Index::MwmLock const & mwmLock, Params const & params, i
                               TrieRootPrefix(*pLangRoot, edge),
                               filter, categoriesHolder, emitter);
 
-          LOG(LDEBUG, ("Country", pMwm->m_name,
+          LOG(LDEBUG, ("Country", pMwm->GetFileName(),
                        "Lang", StringUtf8Multilang::GetLangByCode(static_cast<int8_t>(edge[0])),
                        "Matched", emitter.GetCount()));
 
@@ -1653,7 +1636,7 @@ void Query::SearchAdditional(Results & res, bool nearMe, bool inViewport)
     for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
     {
       Index::MwmLock mwmLock(*m_pIndex, mwmId);
-      string const s = mwmLock.GetCountryName();
+      string const s = mwmLock.GetFileName();
 
       if (s == name[0] || s == name[1])
         SearchInMWM(mwmLock, params);

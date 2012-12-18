@@ -2,15 +2,42 @@
 #include "data_header.hpp"
 
 #include "../platform/platform.hpp"
+#include "../platform/file_name_utils.hpp"
 
 #include "../coding/internal/file_data.hpp"
 
 
+//////////////////////////////////////////////////////////////////////////////////
+// MwmValue implementation
+//////////////////////////////////////////////////////////////////////////////////
+
 MwmValue::MwmValue(string const & name)
-  : m_cont(GetPlatform().GetReader(name)), m_name(name)
+  : m_cont(GetPlatform().GetReader(name))
 {
   m_factory.Load(m_cont);
 }
+
+string MwmValue::GetFileName() const
+{
+  string s = m_cont.GetFileName();
+  pl::GetNameFromURLRequest(s);
+  pl::GetNameWithoutExt(s);
+  return s;
+}
+
+//////////////////////////////////////////////////////////////////////////////////
+// Index::MwmLock implementation
+//////////////////////////////////////////////////////////////////////////////////
+
+string Index::MwmLock::GetFileName() const
+{
+  MwmValue * p = GetValue();
+  return (p ? p->GetFileName() : string());
+}
+
+//////////////////////////////////////////////////////////////////////////////////
+// Index implementation
+//////////////////////////////////////////////////////////////////////////////////
 
 int Index::GetInfo(string const & name, MwmInfo & info) const
 {
@@ -121,11 +148,20 @@ void Index::UpdateMwmInfo(MwmId id)
   }
 }
 
+//////////////////////////////////////////////////////////////////////////////////
+// Index::FeaturesLoaderGuard implementation
+//////////////////////////////////////////////////////////////////////////////////
+
 Index::FeaturesLoaderGuard::FeaturesLoaderGuard(Index const & parent, MwmId id)
   : m_lock(parent, id),
     /// @note This guard is suitable when mwm is loaded
     m_vector(m_lock.GetValue()->m_cont, m_lock.GetValue()->GetHeader())
 {
+}
+
+bool Index::FeaturesLoaderGuard::IsWorld() const
+{
+  return (m_lock.GetValue()->GetHeader().GetType() == feature::DataHeader::world);
 }
 
 void Index::FeaturesLoaderGuard::GetFeature(uint32_t offset, FeatureType & ft)

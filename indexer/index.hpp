@@ -18,16 +18,16 @@ class MwmValue : public MwmSet::MwmValueBase
 {
 public:
   FilesContainerR m_cont;
-  string m_name;
   IndexFactory m_factory;
 
   explicit MwmValue(string const & name);
 
-  inline feature::DataHeader const & GetHeader() const
-  {
-    return m_factory.GetHeader();
-  }
+  inline feature::DataHeader const & GetHeader() const { return m_factory.GetHeader(); }
+
+  /// @return MWM file name without extension.
+  string GetFileName() const;
 };
+
 
 class Index : public MwmSet
 {
@@ -43,17 +43,19 @@ public:
 
   class MwmLock : public MwmSet::MwmLock
   {
+    typedef MwmSet::MwmLock BaseT;
   public:
     MwmLock(Index const & index, MwmId mwmId)
-      : MwmSet::MwmLock(const_cast<Index &>(index), mwmId) {}
+      : BaseT(const_cast<Index &>(index), mwmId) {}
 
     inline MwmValue * GetValue() const
     {
-      return static_cast<MwmValue *>(MwmSet::MwmLock::GetValue());
+      return static_cast<MwmValue *>(BaseT::GetValue());
     }
 
-    inline FilesContainerR const & GetContainer() const { return GetValue()->m_cont; }
-    inline feature::DataHeader const & GetHeader() const { return GetValue()->GetHeader(); }
+    /// @return MWM file name without extension.
+    /// If value is 0, an empty string returned.
+    string GetFileName() const;
   };
 
   bool DeleteMap(string const & fileName);
@@ -82,8 +84,14 @@ public:
   {
     MwmLock m_lock;
     FeaturesVector m_vector;
+
   public:
     FeaturesLoaderGuard(Index const & parent, MwmId id);
+
+    inline MwmSet::MwmId GetID() const { return m_lock.GetID(); }
+    inline string GetFileName() const { return m_lock.GetFileName(); }
+
+    bool IsWorld() const;
     void GetFeature(uint32_t offset, FeatureType & ft);
   };
 

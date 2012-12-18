@@ -106,13 +106,6 @@ MwmSet::MwmId MwmSet::GetIdByName(string const & name)
   return INVALID_MWM_ID;
 }
 
-string MwmSet::MwmLock::GetCountryName() const
-{
-  string const & src = m_mwmSet.m_name[m_id];
-  ASSERT ( !src.empty(), () );
-  return src.substr(0, src.size() - strlen(DATA_FILE_EXTENSION));
-}
-
 int MwmSet::Add(string const & fileName, m2::RectD & rect)
 {
   threads::MutexGuard mutexGuard(m_lock);
