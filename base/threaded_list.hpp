@@ -44,9 +44,8 @@ public:
 
     bool doSignal = m_list.empty();
 
-    m_isEmpty = doSignal;
-
     m_list.push_back(t);
+    m_isEmpty = false;
 
     if (doSignal)
       m_Cond.Signal();
@@ -58,9 +57,8 @@ public:
 
     bool doSignal = m_list.empty();
 
-    m_isEmpty = doSignal;
-
     m_list.push_front(t);
+    m_isEmpty = false;
 
     if (doSignal)
       m_Cond.Signal();
