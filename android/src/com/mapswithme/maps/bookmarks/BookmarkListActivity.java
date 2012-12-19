@@ -17,10 +17,12 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
+import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
+import com.mapswithme.maps.location.LocationService;
 
 public class BookmarkListActivity extends AbstractBookmarkListActivity
 {
@@ -30,6 +32,8 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   private BookmarkCategory mEditedSet;
   private int mSelectedPosition;
   private BookmarkListAdapter mPinAdapter;
+  private double m_north = -1;
+  private LocationService m_location;
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
@@ -62,6 +66,8 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
         startPinActivity(setIndex, position);
       }
     });
+
+    m_location = ((MWMApplication) getApplication()).getLocationService();
     registerForContextMenu(getListView());
   }
 
@@ -144,5 +150,19 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   {
     super.onStart();
     mPinAdapter.notifyDataSetChanged();
+  }
+
+  @Override
+  protected void onPause()
+  {
+    m_location.stopUpdate(mPinAdapter);
+    super.onPause();
+  }
+
+  @Override
+  protected void onResume()
+  {
+    super.onResume();
+    m_location.startUpdate(mPinAdapter);
   }
 }

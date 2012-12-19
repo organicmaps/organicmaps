@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:paddingLeft="3dp"
+    android:paddingRight="3dp" >
 
-    <ImageView
+    <com.mapswithme.maps.ArrowImage
         android:id="@+id/pi_arrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="34dip"
+        android:layout_height="34dip"
+        android:layout_marginLeft="6dip"
+        android:scaleType="center"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:padding="10dp"
-        android:src="@drawable/add" />
+        android:layout_centerVertical="true"/>
 
     <ImageView
         android:id="@+id/pi_pin_color"
@@ -26,8 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/pi_arrow"
-        android:text="5.2 km" />
+        android:layout_toLeftOf="@id/pi_arrow" />
 
     <TextView
         android:id="@+id/pi_name"

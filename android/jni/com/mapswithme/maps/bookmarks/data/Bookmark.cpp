@@ -82,6 +82,30 @@ extern "C"
       return result;
     }
 
+  JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGetDistanceAndAzimuth(
+      JNIEnv * env, jobject thiz, jdouble lat, jdouble lon, jdouble cLat, jdouble cLon, jdouble north)
+  {
+    jclass klass = env->FindClass("com/mapswithme/maps/bookmarks/data/DistanceAndAthimuth");
+    ASSERT ( klass, () );
+    jmethodID methodID = env->GetMethodID(
+        klass, "<init>",
+        "(Ljava/lang/String;D)V");
+    ASSERT ( methodID, () );
+
+    string distance;
+    double azimut = -1.0;
+    if (!g_framework->NativeFramework()->GetDistanceAndAzimut(
+        m2::PointD(lat, lon), cLat, cLon, north, distance, azimut))
+    {
+      // do not show the arrow for far away features
+     // azimut = -1.0;
+    }
+
+    return env->NewObject(klass, methodID,
+                          jni::ToJavaString(env, distance.c_str()),
+                          static_cast<jdouble>(azimut));
+  }
   JNIEXPORT jdoubleArray JNICALL
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGetLatLon(
        JNIEnv * env, jobject thiz, jint cat, jlong bmk)

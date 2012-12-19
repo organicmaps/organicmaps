@@ -50,7 +50,7 @@ public class Bookmark
     getLatLon();
   }
 
-
+  private native DistanceAndAthimuth nGetDistanceAndAzimuth(double lat, double lon, double cLat, double cLon, double north);
   private native void nGtoP(double lat, double lon, Point p);
   private native double[] nPtoG(int x, int y);
   private native double[] nGetLatLon(int c, long b);
@@ -65,6 +65,11 @@ public class Bookmark
     double [] ll = nGetLatLon(mCategoryId, mBookmark);
     mLat = ll[0];
     mLon = ll[1];
+  }
+
+  public DistanceAndAthimuth getDistanceAndAthimuth(double cLat, double cLon, double north)
+  {
+    return nGetDistanceAndAzimuth(mLat, mLon, cLat, cLon, north);
   }
 
   public Point getPosition()
