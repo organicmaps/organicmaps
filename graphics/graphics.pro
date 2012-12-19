@@ -71,6 +71,7 @@ SOURCES += \
     defines.cpp \
     icon.cpp \
     brush.cpp \
+    geometry_pipeline.cpp \
     pipeline_manager.cpp
 
 HEADERS += \
@@ -137,6 +138,7 @@ HEADERS += \
     icon.hpp \
     glyph.hpp \
     brush.hpp \
+    geometry_pipeline.hpp \
     pipeline_manager.hpp
 
 win32* {
