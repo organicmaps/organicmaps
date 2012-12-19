@@ -28,12 +28,15 @@ namespace graphics
   {
   private:
     vector<VertexAttrib> m_attrs;
+    size_t m_elemSize;
   public:
     /// constructor.
     VertexDecl(VertexAttrib const * attrs, size_t cnt);
     /// get the number of attributes.
-    size_t size() const;
+    size_t attrCount() const;
     /// get vertex attribute.
     VertexAttrib const * getAttr(size_t i) const;
+    /// size of single element.
+    size_t elemSize() const;
   };
 }

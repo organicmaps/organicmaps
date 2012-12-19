@@ -79,4 +79,37 @@ namespace graphics
     LOG(LERROR, ("Unknown TextureType=", type, "specified!"));
     return "UnknownTexture";
   }
+
+  namespace {
+    struct DataType
+    {
+      EDataType m_dt;
+      unsigned m_elemSize;
+    };
+  }
+
+  DataType s_dataTypes [] = {
+    {EInteger, sizeof(int)},
+    {EIntegerVec2, sizeof(int) * 2},
+    {EIntegerVec3, sizeof(int) * 3},
+    {EIntegerVec4, sizeof(int) * 4},
+    {EFloat, sizeof(float)},
+    {EFloatVec2, sizeof(float) * 2},
+    {EFloatVec3, sizeof(float) * 3},
+    {EFloatVec4, sizeof(float) * 4},
+    {EFloatMat2, sizeof(float) * 4},
+    {EFloatMat3, sizeof(float) * 9},
+    {EFloatMat4, sizeof(float) * 16},
+    {ESampler2D, sizeof(int)}
+  };
+
+  unsigned elemSize(EDataType dt)
+  {
+    for (unsigned i = 0; i < ARRAY_SIZE(s_dataTypes); ++i)
+      if (s_dataTypes[i].m_dt == dt)
+        return s_dataTypes[i].m_elemSize;
+
+    return 0;
+  }
+
 }

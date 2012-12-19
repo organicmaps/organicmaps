@@ -216,7 +216,7 @@ namespace graphics
 
     void Program::setVertexDecl(VertexDecl const * decl)
     {
-      for (size_t i = 0; i < decl->size(); ++i)
+      for (size_t i = 0; i < decl->attrCount(); ++i)
       {
         VertexAttrib const * va = decl->getAttr(i);
 

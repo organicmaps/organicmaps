@@ -66,6 +66,8 @@ namespace graphics
     ESampler2D
   };
 
+  unsigned elemSize(EDataType dt);
+
   enum EPrimitives
   {
     ETriangles,
