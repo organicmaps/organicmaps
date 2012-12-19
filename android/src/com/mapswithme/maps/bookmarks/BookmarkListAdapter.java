@@ -128,5 +128,6 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
   public void onLocationError(int errorCode)
   {
     m_hasPosition = false;
+    notifyDataSetChanged();
   }
 }
