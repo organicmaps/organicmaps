@@ -525,6 +525,20 @@ namespace android
     return &m_work;
   }
 
+  jobject Framework::getNewParcelablePointD(JNIEnv * env, m2::PointD point)
+  {
+    jclass klass = env->FindClass("com/mapswithme/maps/bookmarks/data/ParcelablePointD");
+    ASSERT ( klass, () );
+    jmethodID methodID = env->GetMethodID(
+        klass, "<init>",
+        "(DD)V");
+    ASSERT ( methodID, () );
+
+    return env->NewObject(klass, methodID,
+                              static_cast<jdouble>(point.x),
+                              static_cast<jdouble>(point.y));
+  }
+
   void Framework::CallClickListeners(int x, int y, double time)
   {
     map<int, TOnClickListener>::iterator it;

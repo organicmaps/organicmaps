@@ -36,9 +36,9 @@ public class Bookmark
 
   private void getLatLon(Point position)
   {
-    double[] ll = nPtoG(position.x, position.y);
-    mLat = ll[0];
-    mLon = ll[1];
+    ParcelablePointD ll = nPtoG(position.x, position.y);
+    mLat = ll.x;
+    mLon = ll.y;
   }
 
   Bookmark(Context context, int c, int b)
@@ -52,8 +52,8 @@ public class Bookmark
 
   private native DistanceAndAthimuth nGetDistanceAndAzimuth(double lat, double lon, double cLat, double cLon, double north);
   private native void nGtoP(double lat, double lon, Point p);
-  private native double[] nPtoG(int x, int y);
-  private native double[] nGetLatLon(int c, long b);
+  private native ParcelablePointD nPtoG(int x, int y);
+  private native ParcelablePointD nGetLatLon(int c, long b);
   private native String nGetNamePos(int x, int y);
   private native String nGetName(int c, long b);
   private native String nGetIconPos(int x, int y);
@@ -62,9 +62,9 @@ public class Bookmark
 
   void getLatLon()
   {
-    double [] ll = nGetLatLon(mCategoryId, mBookmark);
-    mLat = ll[0];
-    mLon = ll[1];
+    ParcelablePointD ll = nGetLatLon(mCategoryId, mBookmark);
+    mLat = ll.x;
+    mLon = ll.y;
   }
 
   public DistanceAndAthimuth getDistanceAndAthimuth(double cLat, double cLon, double north)

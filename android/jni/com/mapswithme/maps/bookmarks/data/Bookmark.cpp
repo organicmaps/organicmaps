@@ -65,22 +65,12 @@ extern "C"
     frm()->AddBookmark(jni::ToNativeString(env, cat), b)->SaveToKMLFile();
   }
 
-  JNIEXPORT jdoubleArray JNICALL
-    Java_com_mapswithme_maps_bookmarks_data_Bookmark_nPtoG(
-         JNIEnv * env, jobject thiz, jint x, jint y)
-    {
-      m2::PointD org = frm()->PtoG(m2::PointD(x, y));
-      jdoubleArray result;
-      result = env->NewDoubleArray(2);
-      if (result == NULL) {
-          return NULL; /* out of memory error thrown */
-      }
-      double fill[2];
-      fill[0] = org.x;
-      fill[1] = org.y;
-      env->SetDoubleArrayRegion(result, 0, 2, fill);
-      return result;
-    }
+  JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_Bookmark_nPtoG(
+       JNIEnv * env, jobject thiz, jint x, jint y)
+  {
+    return g_framework->getNewParcelablePointD(env, frm()->PtoG(m2::PointD(x, y)));
+  }
 
   JNIEXPORT jobject JNICALL
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGetDistanceAndAzimuth(
@@ -95,32 +85,18 @@ extern "C"
 
     string distance;
     double azimut = -1.0;
-    if (!g_framework->NativeFramework()->GetDistanceAndAzimut(
-        m2::PointD(lat, lon), cLat, cLon, north, distance, azimut))
-    {
-      // do not show the arrow for far away features
-     // azimut = -1.0;
-    }
+    g_framework->NativeFramework()->GetDistanceAndAzimut(
+        m2::PointD(lat, lon), cLat, cLon, north, distance, azimut);
 
     return env->NewObject(klass, methodID,
                           jni::ToJavaString(env, distance.c_str()),
                           static_cast<jdouble>(azimut));
   }
-  JNIEXPORT jdoubleArray JNICALL
+  JNIEXPORT jobject JNICALL
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGetLatLon(
        JNIEnv * env, jobject thiz, jint cat, jlong bmk)
   {
-    m2::PointD org = frm()->GetBmCategory(cat)->GetBookmark(bmk)->GetOrg();
-    jdoubleArray result;
-    result = env->NewDoubleArray(2);
-    if (result == NULL) {
-        return NULL; /* out of memory error thrown */
-    }
-    double fill[2];
-    fill[0] = org.x;
-    fill[1] = org.y;
-    env->SetDoubleArrayRegion(result, 0, 2, fill);
-    return result;
+    return g_framework->getNewParcelablePointD(env, frm()->GetBmCategory(cat)->GetBookmark(bmk)->GetOrg());
   }
 
 }
