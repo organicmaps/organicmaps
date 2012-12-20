@@ -9,14 +9,14 @@ namespace graphics
                                      EStorageType storageType,
                                      shared_ptr<ResourceManager> const & rm,
                                      VertexDecl const * decl)
-    : m_cache(cache),
+    : m_decl(decl),
+      m_cache(cache),
       m_currentVx(0),
       m_currentIdx(0),
       m_maxVx(0),
       m_maxIdx(0),
       m_rm(rm),
-      m_storageType(storageType),
-      m_decl(decl)
+      m_storageType(storageType)
   {}
 
   GeometryPipeline::GeometryPipeline(ETextureType textureType,
@@ -24,14 +24,14 @@ namespace graphics
                                      shared_ptr<ResourceManager> const & rm,
                                      VertexDecl const * decl,
                                      uint8_t pipelineID)
-    : m_cache(new ResourceCache(rm, textureType, pipelineID)),
+    : m_decl(decl),
+      m_cache(new ResourceCache(rm, textureType, pipelineID)),
       m_currentVx(0),
       m_currentIdx(0),
       m_maxVx(0),
       m_maxIdx(0),
       m_rm(rm),
-      m_storageType(storageType),
-      m_decl(decl)
+      m_storageType(storageType)
   {}
 
   bool GeometryPipeline::hasStorage() const
@@ -53,6 +53,11 @@ namespace graphics
 
       if (m_storage.isValid())
       {
+        if (!m_storage.m_vertices->isLocked())
+          m_storage.m_vertices->lock();
+        if (!m_storage.m_indices->isLocked())
+          m_storage.m_indices->lock();
+
         m_maxVx = m_storage.m_vertices->size() / m_decl->elemSize();
         m_maxIdx = m_storage.m_indices->size() / sizeof(unsigned short);
       }
@@ -69,13 +74,18 @@ namespace graphics
     m_cache->resetTexture();
   }
 
+  void GeometryPipeline::clearStorage() const
+  {
+    m_currentVx = 0;
+    m_currentIdx = 0;
+  }
+
   void GeometryPipeline::resetStorage() const
   {
     m_storage = gl::Storage();
-    m_currentVx = 0;
-    m_currentIdx = 0;
     m_maxIdx = 0;
     m_maxVx = 0;
+    clearStorage();
   }
 
   bool GeometryPipeline::hasRoom(unsigned verticesCount, unsigned indicesCount) const

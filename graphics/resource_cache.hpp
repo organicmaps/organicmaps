@@ -9,6 +9,7 @@
 #include "resource.hpp"
 #include "packets_queue.hpp"
 #include "defines.hpp"
+#include "resource_manager.hpp"
 
 namespace graphics
 {
@@ -107,5 +108,7 @@ namespace graphics
     bool hasTexture() const;
     shared_ptr<gl::BaseTexture> const & texture() const;
     void setTexture(shared_ptr<gl::BaseTexture> const & t);
+
+    TTexturePool * texturePool() const;
   };
 }

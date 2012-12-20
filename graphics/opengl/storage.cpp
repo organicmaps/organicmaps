@@ -17,7 +17,7 @@ namespace graphics
 
     bool Storage::isValid() const
     {
-      return m_vertices.get();
+      return m_vertices && m_indices;
     }
   }
 }

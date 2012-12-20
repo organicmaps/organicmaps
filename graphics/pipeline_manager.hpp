@@ -11,6 +11,7 @@
 
 #include "display_list_renderer.hpp"
 #include "resource.hpp"
+#include "geometry_pipeline.hpp"
 
 namespace graphics
 {
@@ -32,55 +33,11 @@ namespace graphics
     typedef function<void()> clearPageFn;
     typedef function<void()> overflowFn;
 
-    struct GeometryPipeline
-    {
-      size_t m_verticesDrawn;
-      size_t m_indicesDrawn;
-
-      size_t m_currentVertex;
-      size_t m_currentIndex;
-
-      /// made mutable to implement lazy reservation of m_storage
-      /// @{
-      mutable size_t m_maxVertices;
-      mutable size_t m_maxIndices;
-
-      mutable bool m_hasStorage;
-      mutable gl::Storage m_storage;
-
-      mutable gl::Vertex * m_vertices;
-      mutable unsigned short * m_indices;
-      /// @}
-
-      ETextureType m_textureType;
-      EStorageType m_storageType;
-
-      int  verticesLeft();
-      int  indicesLeft();
-
-      ETextureType textureType() const;
-      void setTextureType(ETextureType type);
-      void setStorageType(EStorageType type);
-
-      shared_ptr<ResourceCache> m_cache;
-
-      void checkStorage(shared_ptr<ResourceManager> const & resourceManager) const;
-    };
-
   private:
 
     vector<GeometryPipeline> m_pipelines;
 
-    uint8_t m_startStaticPage;
-    uint8_t m_staticPagesCount;
-
-    uint8_t m_startDynamicPage;
-    uint8_t m_dynamicPage;
-    uint8_t m_dynamicPagesCount;
-
     typedef pair<uint8_t, uint32_t> id_pair_t;
-    id_pair_t unpackID(uint32_t id) const;
-    uint32_t packID(uint8_t, uint32_t) const;
 
     typedef priority_queue<pair<size_t, clearPageFn>,
                            vector<pair<size_t, clearPageFn> >,
@@ -88,7 +45,6 @@ namespace graphics
                            > clearPageFns;
 
     vector<clearPageFns> m_clearPageFns;
-    void callClearPageFns(int pipelineID);
 
     typedef priority_queue<pair<size_t, overflowFn>,
                            vector<pair<size_t, overflowFn> >,
@@ -102,58 +58,37 @@ namespace graphics
 
   public:
 
-    struct Params : public base_t::Params
-    {
-      EStorageType m_storageType;
-      ETextureType m_textureType;
-      string m_skinName;
-      Params();
-    };
-
-    PipelinesManager(Params const & params);
+    PipelinesManager(base_t::Params const & params);
     ~PipelinesManager();
+
+    id_pair_t unpackID(uint32_t id) const;
+    uint32_t packID(uint8_t, uint32_t) const;
+
+    /// obtain Resource from id
+    Resource const * fromID(uint32_t id);
+
+    void addClearPageFn(int pipelineID, clearPageFn fn, int priority);
+    void callClearPageFns(int pipelineID);
 
     /// reserve static pipelines
     unsigned reservePipelines(vector<shared_ptr<ResourceCache> > const & caches,
-                              EStorageType storageType);
+                              EStorageType storageType,
+                              VertexDecl const * decl);
+
     /// reserve dynamic pipelines
     unsigned reservePipelines(unsigned count,
                               ETextureType textureType,
-                              EStorageType storageType);
+                              EStorageType storageType,
+                              VertexDecl const * decl);
 
-    bool isDynamicPage(int i) const;
-    void flushDynamicPage();
-    int  nextDynamicPage() const;
-    void changeDynamicPage();
-
-    void onDynamicOverflow(int pipelineID);
     void freePipeline(int pipelineID);
     void freeTexture(int pipelineID);
 
     bool flushPipeline(int pipelineID);
     void unlockPipeline(int pipelineID);
     void discardPipeline(int pipelineID);
-    void reset(int pipelineID);
-
-  public:
-
-    /// obtain Resource from id
-    Resource const * fromID(uint32_t id);
-
-    /// map Resource::Info on skin
-    /// if found - return id.
-    /// if not - pack and return id.
-    uint32_t mapInfo(Resource::Info const & info);
-    /// map array of Resource::Info's on skin
-    bool mapInfo(Resource::Info const * const * infos,
-             uint32_t * ids,
-             size_t count);
-
-    uint32_t findInfo(Resource::Info const & info);
-
-    /// adding function which will be called, when some SkinPage
-    /// is getting cleared.
-    void addClearPageFn(int pipelineID, clearPageFn fn, int priority);
+    void resetPipeline(int pipelineID);
+    void clearPipeline(int pipelineID);
 
     GeometryPipeline const & pipeline(int i) const;
     GeometryPipeline & pipeline(int i);
@@ -161,18 +96,6 @@ namespace graphics
 
     uint32_t invalidHandle() const;
     uint32_t invalidPageHandle() const;
-
-    uint8_t dynamicPage() const;
-
-    /// change page for its "backbuffer" counterpart.
-    /// this function is called after any rendering command
-    /// issued to avoid the "GPU is waiting on texture used in
-    /// rendering call" issue.
-    /// @warning does nothing for static pages
-    /// (pages loaded at skin creation time)
-    /// and text pages.
-    void changePage(int i);
-    int nextPage(int i) const;
 
     void clearHandles();
 

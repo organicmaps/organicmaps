@@ -96,7 +96,7 @@ namespace graphics
 
       GeometryPipeline & p = pipeline(res->m_pipelineID);
 
-      shared_ptr<gl::BaseTexture> texture = p.m_cache->texture();
+      shared_ptr<gl::BaseTexture> texture = p.texture();
 
       if (!texture)
       {
@@ -194,7 +194,7 @@ namespace graphics
 
         GeometryPipeline & p = pipeline(pen->m_pipelineID);
 
-        shared_ptr<gl::BaseTexture> texture = p.m_cache->texture();
+        shared_ptr<gl::BaseTexture> texture = p.texture();
 
         if (!texture)
         {
@@ -291,7 +291,7 @@ namespace graphics
 
       GeometryPipeline & p = pipeline(res->m_pipelineID);
 
-      shared_ptr<gl::BaseTexture> texture = p.m_cache->texture();
+      shared_ptr<gl::BaseTexture> texture = p.texture();
 
       if (!texture)
       {

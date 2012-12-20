@@ -125,6 +125,8 @@ namespace graphics
     /// Reset storage and rendering info,
     /// associated with this pipeline.
     void resetStorage() const;
+    /// Clear rendered geometry information.
+    void clearStorage() const;
     /// Does this pipeline has something to render?
     bool hasGeometry() const;
 

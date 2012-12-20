@@ -20,19 +20,66 @@
 
 namespace graphics
 {
-  GeometryBatcher::GeometryBatcher(base_t::Params const & params)
-    : base_t(params),
+  GeometryBatcher::Params::Params()
+    : m_storageType(ELargeStorage),
+      m_textureType(ELargeTexture)
+  {}
+
+  GeometryBatcher::GeometryBatcher(Params const & p)
+    : base_t(p),
       m_isAntiAliased(true)
   {
     base_t::applyStates();
 
-    /// TODO: Perform this after full initialization.
-    for (size_t i = 0; i < pipelinesCount(); ++i)
-      addClearPageFn(i, bind(&GeometryBatcher::flush, this, i), 100);
+    vector<shared_ptr<ResourceCache> > caches;
+    loadSkin(resourceManager(), p.m_skinName, caches);
+
+    m_staticPagesCount = caches.size();
+    m_startStaticPage = reservePipelines(caches,
+                                         EMediumStorage,
+                                         gl::Vertex::getVertexDecl());
+
+    m_dynamicPagesCount = 2;
+    m_startDynamicPage = reservePipelines(m_dynamicPagesCount,
+                                          p.m_textureType,
+                                          p.m_storageType,
+                                          gl::Vertex::getVertexDecl());
+    m_dynamicPage = m_startDynamicPage;
 
     /// 1 to turn antialiasing on
     /// 2 to switch it off
     m_aaShift = m_isAntiAliased ? 1 : 2;
+  }
+
+  unsigned GeometryBatcher::reservePipelines(vector<shared_ptr<ResourceCache> > const & caches,
+                                             EStorageType storageType,
+                                             VertexDecl const * decl)
+  {
+    unsigned res = base_t::reservePipelines(caches, storageType, decl);
+
+    for (size_t i = res; i < res + caches.size(); ++i)
+    {
+      addClearPageFn(i, bind(&GeometryBatcher::flush, this, i), 100);
+      pipeline(i).addHandlesOverflowFn(bind(&GeometryBatcher::onDynamicOverflow, this, i), 0);
+    }
+
+    return res;
+  }
+
+  unsigned GeometryBatcher::reservePipelines(unsigned count,
+                                             ETextureType textureType,
+                                             EStorageType storageType,
+                                             VertexDecl const * decl)
+  {
+    unsigned res = base_t::reservePipelines(count, textureType, storageType, decl);
+
+    for (size_t i = res; i < res + count; ++i)
+    {
+      addClearPageFn(i, bind(&GeometryBatcher::flush, this, i), 100);
+      pipeline(i).addHandlesOverflowFn(bind(&GeometryBatcher::onDynamicOverflow, this, i), 0);
+    }
+
+    return res;
   }
 
   void GeometryBatcher::beginFrame()
@@ -55,36 +102,19 @@ namespace graphics
 
   bool GeometryBatcher::hasRoom(size_t verticesCount, size_t indicesCount, int pipelineID) const
   {
-    GeometryPipeline const & p = pipeline(pipelineID);
-
-    p.checkStorage(resourceManager());
-    if (!p.m_hasStorage)
-      return false;
-
-    return ((p.m_currentVertex + verticesCount <= p.m_maxVertices)
-            && (p.m_currentIndex + indicesCount <= p.m_maxIndices));
+    return pipeline(pipelineID).hasRoom(verticesCount, indicesCount);
   }
 
   int GeometryBatcher::verticesLeft(int pipelineID) const
   {
     GeometryPipeline const & p = pipeline(pipelineID);
-
-    p.checkStorage(resourceManager());
-    if (!p.m_hasStorage)
-      return -1;
-
-    return p.m_maxVertices - p.m_currentVertex;
+    return p.vxLeft();
   }
 
   int GeometryBatcher::indicesLeft(int pipelineID) const
   {
     GeometryPipeline const & p = pipeline(pipelineID);
-
-    p.checkStorage(resourceManager());
-    if (!p.m_hasStorage)
-      return -1;
-
-    return p.m_maxIndices - p.m_currentIndex;
+    return p.idxLeft();
   }
 
   void GeometryBatcher::flush(int pipelineID)
@@ -97,21 +127,19 @@ namespace graphics
       {
         if (flushPipeline(id))
         {
-          int np = nextPage(id);
+          int np = nextPipeline(id);
 
           if (np != id)
           {
             // reserving texture in advance, before we'll
             // potentially return current texture into the pool.
-            pipeline(np).m_cache->checkTexture();
+            // this way we make sure that the reserved texture will
+            // be different from the returned one.
+            pipeline(np).checkTexture();
           }
 
-          changePage(id);
+          changePipeline(id);
         }
-
-        /// resetting geometry storage associated
-        /// with the specified pipeline.
-        reset(id);
       }
     }
   }
@@ -129,8 +157,8 @@ namespace graphics
 
     GeometryPipeline & p = pipeline(pipelineID);
 
-    p.checkStorage(resourceManager());
-    if (!p.m_hasStorage)
+    p.checkStorage();
+    if (!p.hasStorage())
       return;
 
     float texMinX = tx0;
@@ -138,7 +166,7 @@ namespace graphics
     float texMinY = ty0;
     float texMaxY = ty1;
 
-    shared_ptr<gl::BaseTexture> const & texture = p.m_cache->texture();
+    shared_ptr<gl::BaseTexture> const & texture = p.texture();
 
     if (!texture)
     {
@@ -202,8 +230,8 @@ namespace graphics
 
     GeometryPipeline & p = pipeline(pipelineID);
 
-    p.checkStorage(resourceManager());
-    if (!p.m_hasStorage)
+    p.checkStorage();
+    if (!p.hasStorage())
       return;
 
     float texMinX = tx0;
@@ -211,7 +239,7 @@ namespace graphics
     float texMinY = ty0;
     float texMaxY = ty1;
 
-    shared_ptr<gl::BaseTexture> const & texture = p.m_cache->texture();
+    shared_ptr<gl::BaseTexture> const & texture = p.texture();
 
     if (!texture)
     {
@@ -221,8 +249,6 @@ namespace graphics
 
     texture->mapPixel(texMinX, texMinY);
     texture->mapPixel(texMaxX, texMaxY);
-
-    /// rotated and translated four points (x0, y0), (x0, y1), (x1, y1), (x1, y0)
 
     m2::PointF offsets[4] =
     {
@@ -281,36 +307,38 @@ namespace graphics
 
     GeometryPipeline & p = pipeline(pipelineID);
 
-    p.checkStorage(resourceManager());
-    if (!p.m_hasStorage)
+    p.checkStorage();
+    if (!p.hasStorage())
       return;
 
     ASSERT(size > 2, ());
 
-    size_t vOffset = p.m_currentVertex;
-    size_t iOffset = p.m_currentIndex;
+    unsigned vOffset = p.currentVx();
+    unsigned iOffset = p.currentIdx();
+
+    gl::Vertex * vertices = static_cast<gl::Vertex*>(p.vxData());
+    unsigned short * indices = static_cast<unsigned short*>(p.idxData());
 
     for (unsigned i = 0; i < size; ++i)
     {
-      p.m_vertices[vOffset + i].pt = *coords;
-      p.m_vertices[vOffset + i].normal = *normals;
-      p.m_vertices[vOffset + i].tex = *texCoords;
-      p.m_vertices[vOffset + i].depth = depth;
+      vertices[vOffset + i].pt = *coords;
+      vertices[vOffset + i].normal = *normals;
+      vertices[vOffset + i].tex = *texCoords;
+      vertices[vOffset + i].depth = depth;
       coords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(coords) + coordsStride);
       normals = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(normals) + normalsStride);
       texCoords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(texCoords) + texCoordsStride);
     }
 
-    p.m_currentVertex += size;
-
     for (size_t j = 0; j < size - 2; ++j)
     {
-      p.m_indices[iOffset + j * 3] = vOffset;
-      p.m_indices[iOffset + j * 3 + 1] = vOffset + j + 1;
-      p.m_indices[iOffset + j * 3 + 2] = vOffset + j + 2;
+      indices[iOffset + j * 3] = vOffset;
+      indices[iOffset + j * 3 + 1] = vOffset + j + 1;
+      indices[iOffset + j * 3 + 2] = vOffset + j + 2;
     }
 
-    p.m_currentIndex += (size - 2) * 3;
+    p.advanceVx(size);
+    p.advanceIdx((size - 2) * 3);
   }
 
   void GeometryBatcher::addTexturedStrip(
@@ -346,42 +374,45 @@ namespace graphics
 
     GeometryPipeline & p = pipeline(pipelineID);
 
-    p.checkStorage(resourceManager());
-    if (!p.m_hasStorage)
+    p.checkStorage();
+    if (!p.hasStorage())
       return;
 
     ASSERT(size > 2, ());
 
-    size_t vOffset = p.m_currentVertex;
-    size_t iOffset = p.m_currentIndex;
+    size_t vOffset = p.currentVx();
+    size_t iOffset = p.currentIdx();
+
+    gl::Vertex * vertices = static_cast<gl::Vertex*>(p.vxData());
+    unsigned short * indices = static_cast<unsigned short*>(p.idxData());
 
     for (unsigned i = 0; i < size; ++i)
     {
-      p.m_vertices[vOffset + i].pt = *coords;
-      p.m_vertices[vOffset + i].normal = *normals;
-      p.m_vertices[vOffset + i].tex = *texCoords;
-      p.m_vertices[vOffset + i].depth = depth;
+      vertices[vOffset + i].pt = *coords;
+      vertices[vOffset + i].normal = *normals;
+      vertices[vOffset + i].tex = *texCoords;
+      vertices[vOffset + i].depth = depth;
       coords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(coords) + coordsStride);
       normals = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(normals) + normalsStride);
       texCoords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(texCoords) + texCoordsStride);
     }
 
-    p.m_currentVertex += size;
+    p.advanceVx(size);
 
     size_t oldIdx1 = vOffset;
     size_t oldIdx2 = vOffset + 1;
 
     for (size_t j = 0; j < size - 2; ++j)
     {
-      p.m_indices[iOffset + j * 3] = oldIdx1;
-      p.m_indices[iOffset + j * 3 + 1] = oldIdx2;
-      p.m_indices[iOffset + j * 3 + 2] = vOffset + j + 2;
+      indices[iOffset + j * 3] = oldIdx1;
+      indices[iOffset + j * 3 + 1] = oldIdx2;
+      indices[iOffset + j * 3 + 2] = vOffset + j + 2;
 
       oldIdx1 = oldIdx2;
       oldIdx2 = vOffset + j + 2;
     }
 
-    p.m_currentIndex += (size - 2) * 3;
+    p.advanceIdx((size - 2) * 3);
   }
 
   void GeometryBatcher::addTexturedListStrided(
@@ -400,32 +431,35 @@ namespace graphics
 
     GeometryPipeline & p = pipeline(pipelineID);
 
-    p.checkStorage(resourceManager());
-    if (!p.m_hasStorage)
+    p.checkStorage();
+    if (!p.hasStorage())
       return;
 
     ASSERT(size > 2, ());
 
-    size_t vOffset = p.m_currentVertex;
-    size_t iOffset = p.m_currentIndex;
+    size_t vOffset = p.currentVx();
+    size_t iOffset = p.currentIdx();
+
+    gl::Vertex * vertices = static_cast<gl::Vertex*>(p.vxData());
+    unsigned short * indices = static_cast<unsigned short*>(p.idxData());
 
     for (size_t i = 0; i < size; ++i)
     {
-      p.m_vertices[vOffset + i].pt = m2::PointF(coords->x, coords->y);
-      p.m_vertices[vOffset + i].normal = *normals;
-      p.m_vertices[vOffset + i].tex = *texCoords;
-      p.m_vertices[vOffset + i].depth = depth;
+      vertices[vOffset + i].pt = m2::PointF(coords->x, coords->y);
+      vertices[vOffset + i].normal = *normals;
+      vertices[vOffset + i].tex = *texCoords;
+      vertices[vOffset + i].depth = depth;
       coords = reinterpret_cast<m2::PointD const*>(reinterpret_cast<unsigned char const*>(coords) + coordsStride);
       normals = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(normals) + normalsStride);
       texCoords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(texCoords) + texCoordsStride);
     }
 
-    p.m_currentVertex += size;
+    p.advanceVx(size);
 
     for (size_t i = 0; i < size; ++i)
-      p.m_indices[iOffset + i] = vOffset + i;
+      indices[iOffset + i] = vOffset + i;
 
-    p.m_currentIndex += size;
+    p.advanceIdx(size);
   }
 
 
@@ -445,32 +479,35 @@ namespace graphics
 
     GeometryPipeline & p = pipeline(pipelineID);
 
-    p.checkStorage(resourceManager());
-    if (!p.m_hasStorage)
+    p.checkStorage();
+    if (!p.hasStorage())
       return;
 
     ASSERT(size > 2, ());
 
-    size_t vOffset = p.m_currentVertex;
-    size_t iOffset = p.m_currentIndex;
+    size_t vOffset = p.currentVx();
+    size_t iOffset = p.currentIdx();
+
+    gl::Vertex * vertices = static_cast<gl::Vertex*>(p.vxData());
+    unsigned short * indices = static_cast<unsigned short*>(p.idxData());
 
     for (size_t i = 0; i < size; ++i)
     {
-      p.m_vertices[vOffset + i].pt = *coords;
-      p.m_vertices[vOffset + i].normal = *normals;
-      p.m_vertices[vOffset + i].tex = *texCoords;
-      p.m_vertices[vOffset + i].depth = depth;
+      vertices[vOffset + i].pt = *coords;
+      vertices[vOffset + i].normal = *normals;
+      vertices[vOffset + i].tex = *texCoords;
+      vertices[vOffset + i].depth = depth;
       coords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(coords) + coordsStride);
       normals = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(normals) + normalsStride);
       texCoords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(texCoords) + texCoordsStride);
     }
 
-    p.m_currentVertex += size;
+    p.advanceVx(size);
 
     for (size_t i = 0; i < size; ++i)
-      p.m_indices[iOffset + i] = vOffset + i;
+      indices[iOffset + i] = vOffset + i;
 
-    p.m_currentIndex += size;
+    p.advanceIdx(size);
   }
 
   void GeometryBatcher::addTexturedList(m2::PointF const * coords,
@@ -567,4 +604,139 @@ namespace graphics
     flush(-1);
     base_t::applySharpStates();
   }
+
+  bool GeometryBatcher::isDynamicPage(int i) const
+  {
+    return (i >= m_startDynamicPage) && (i < m_startDynamicPage + m_dynamicPagesCount);
+  }
+
+  void GeometryBatcher::flushDynamicPage()
+  {
+    callClearPageFns(m_dynamicPage);
+    changeDynamicPage();
+  }
+
+  int GeometryBatcher::nextDynamicPage() const
+  {
+    if (m_dynamicPage == m_startDynamicPage + m_dynamicPagesCount - 1)
+      return m_startDynamicPage;
+    else
+      return m_dynamicPage + 1;
+  }
+
+  void GeometryBatcher::changeDynamicPage()
+  {
+    m_dynamicPage = nextDynamicPage();
+  }
+
+  int GeometryBatcher::nextPipeline(int i) const
+  {
+    ASSERT(i < pipelinesCount(), ());
+
+    if (isDynamicPage(i))
+      return nextDynamicPage();
+
+    /// for static and text pages return same index as passed in.
+    return i;
+  }
+
+  void GeometryBatcher::changePipeline(int i)
+  {
+    if (isDynamicPage(i))
+      changeDynamicPage();
+  }
+
+  /// This function is set to perform as a callback on texture or handles overflow
+  /// BUT! Never called on texture overflow, as this situation
+  /// is explicitly checked in the mapXXX() functions.
+  void GeometryBatcher::onDynamicOverflow(int pipelineID)
+  {
+    LOG(LINFO, ("DynamicPage flushing, pipelineID=", (uint32_t)pipelineID));
+    flushDynamicPage();
+  }
+
+  uint8_t GeometryBatcher::dynamicPage() const
+  {
+    return m_dynamicPage;
+  }
+
+  uint32_t GeometryBatcher::mapInfo(Resource::Info const & info)
+  {
+    uint32_t res = invalidPageHandle();
+
+    for (uint8_t i = 0; i < pipelinesCount(); ++i)
+    {
+      res = pipeline(i).cache()->findInfo(info);
+      if (res != invalidPageHandle())
+        return packID(i, res);
+    }
+
+    if (!pipeline(m_dynamicPage).cache()->hasRoom(info))
+      flushDynamicPage();
+
+    return packID(m_dynamicPage,
+                  pipeline(m_dynamicPage).cache()->mapInfo(info));
+  }
+
+  uint32_t GeometryBatcher::findInfo(Resource::Info const & info)
+  {
+    uint32_t res = invalidPageHandle();
+
+    for (uint8_t i = 0; i < pipelinesCount(); ++i)
+    {
+      res = pipeline(i).cache()->findInfo(info);
+      if (res != invalidPageHandle())
+        return packID(i, res);
+    }
+
+    return res;
+  }
+
+  bool GeometryBatcher::mapInfo(Resource::Info const * const * infos,
+                                 uint32_t * ids,
+                                 size_t count)
+  {
+    int startDynamicPage = m_dynamicPage;
+    int cycles = 0;
+
+    int i = 0;
+
+    do
+    {
+      ids[i] = pipeline(m_dynamicPage).cache()->findInfo(*infos[i]);
+
+      if ((ids[i] == invalidPageHandle())
+       || (unpackID(ids[i]).first != m_dynamicPage))
+      {
+        /// try to pack on the currentDynamicPage
+        while (!pipeline(m_dynamicPage).cache()->hasRoom(*infos[i]))
+        {
+          /// no room - flush the page
+          flushDynamicPage();
+
+          if (startDynamicPage == m_dynamicPage)
+            cycles += 1;
+
+          /// there could be maximum 2 cycles to
+          /// pack the sequence as a whole.
+          /// second cycle is necessary as the first one
+          /// could possibly run on partially packed skin pages.
+          if (cycles == 2)
+            return false;
+
+          /// re-start packing
+          i = 0;
+        }
+
+        ids[i] = packID(m_dynamicPage,
+                        pipeline(m_dynamicPage).cache()->mapInfo(*infos[i]));
+      }
+
+      ++i;
+    }
+    while (i != count);
+
+    return true;
+  }
+
 } // namespace graphics

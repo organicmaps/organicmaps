@@ -197,6 +197,20 @@ namespace graphics
       LOG(LINFO, ("reserveTexture call for with invalid type param"));
   }
 
+  TTexturePool * ResourceCache::texturePool() const
+  {
+    if (m_textureType == EStaticTexture)
+      return 0;
+
+    if (m_textureType != EInvalidTexture)
+      return m_resourceManager->texturePool(m_textureType);
+    else
+    {
+      LOG(LWARNING, ("no texturePool with such type", m_textureType));
+      return 0;
+    }
+  }
+
   void ResourceCache::createPacker()
   {
     if (m_textureType != EStaticTexture)

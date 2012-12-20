@@ -12,7 +12,6 @@
 #include "opengl/storage.hpp"
 #include "opengl/program_manager.hpp"
 #include "glyph_cache.hpp"
-#include "resource_cache.hpp"
 #include "data_formats.hpp"
 #include "defines.hpp"
 
