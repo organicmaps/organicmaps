@@ -684,14 +684,17 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
             dialog.dismiss();
           }
-        }).setNegativeButton(R.string.close, new DialogInterface.OnClickListener()
+        })
+        .setNegativeButton(R.string.close, new DialogInterface.OnClickListener()
         {
           @Override
           public void onClick(DialogInterface dialog, int which)
           {
             dialog.dismiss();
           }
-        }).show();
+        })
+        .create()
+        .show();
       }
     }
     else if (errorCode == LocationService.ERROR_GPS_OFF)

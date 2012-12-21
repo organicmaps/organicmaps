@@ -116,10 +116,10 @@ public class BookmarkManager
     return new Bookmark(mContext, cat, bmk);
   }
 
-  public BookmarkCategory createCategory(Bookmark bookmark)
+  public BookmarkCategory createCategory(Bookmark bookmark, String newName)
   {
     String pattern;
-    String name = pattern = mContext.getResources().getString(R.string.new_places);
+    String name = pattern = newName;
     int i = 0;
     while (getCategoryByName(name))
     {
@@ -141,5 +141,12 @@ public class BookmarkManager
   public Bookmark previewBookmark(Point point)
   {
     return new Bookmark(mContext, point);
+  }
+
+  private native void nShowBookmark(int x, int y);
+
+  public void showBookmarkOnMap(int c, int b)
+  {
+    nShowBookmark(c, b);
   }
 }

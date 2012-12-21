@@ -17,6 +17,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
+import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
@@ -30,6 +31,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   private EditText mSetName;
   private CheckBox mIsVisible;
   private BookmarkCategory mEditedSet;
+  private Bookmark mBookmark;
   private int mSelectedPosition;
   private BookmarkListAdapter mPinAdapter;
   private double m_north = -1;
@@ -44,18 +46,15 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
     if ((mEditedSet = mManager.getCategoryById(setIndex)) == null)
     {
       Point bmk = ((ParcelablePoint)getIntent().getParcelableExtra(BookmarkActivity.PIN)).getPoint();
-      mEditedSet = mManager.createCategory(mManager.getBookmark(bmk.x, bmk.y));
-      setResult(RESULT_OK,
-                new Intent().putExtra(BookmarkActivity.PIN_SET, mManager.getCategoriesCount()-1).
-                putExtra(BookmarkActivity.PIN, new ParcelablePoint(mManager.getCategoriesCount()-1, mEditedSet.getSize()-1))
-                );
+      mBookmark = mManager.getBookmark(bmk.x, bmk.y);
       setTitle(R.string.add_new_set);
     }
     else
     {
       setTitle(mEditedSet.getName());
     }
-    setListAdapter(mPinAdapter = new BookmarkListAdapter(this, mEditedSet));
+    if(mEditedSet != null)
+      setListAdapter(mPinAdapter = new BookmarkListAdapter(this, mEditedSet));
     setUpViews();
     getListView().setOnItemClickListener(new OnItemClickListener()
     {
@@ -63,7 +62,10 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id)
       {
-        startPinActivity(setIndex, position);
+        Intent i = new Intent(BookmarkListActivity.this, MWMActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        mManager.showBookmarkOnMap(setIndex, position);
+        startActivity(i);
       }
     });
 
@@ -74,14 +76,28 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   private void setUpViews()
   {
     mSetName = (EditText) findViewById(R.id.pin_set_name);
-    mSetName.setText(mEditedSet.getName());
+    if(mEditedSet != null)
+      mSetName.setText(mEditedSet.getName());
     mSetName.addTextChangedListener(new TextWatcher()
     {
 
       @Override
       public void onTextChanged(CharSequence s, int start, int before, int count)
       {
-        mEditedSet.setName(s.toString());
+        if (mEditedSet == null)
+        {
+          mEditedSet = mManager.createCategory(mBookmark, s.toString());
+          setListAdapter(mPinAdapter = new BookmarkListAdapter(BookmarkListActivity.this, mEditedSet));
+          setResult(RESULT_OK,
+                    new Intent().putExtra(BookmarkActivity.PIN_SET, mManager.getCategoriesCount()-1).
+                    putExtra(BookmarkActivity.PIN, new ParcelablePoint(mManager.getCategoriesCount()-1, mEditedSet.getSize()-1))
+                    );
+          mIsVisible.setChecked(true);
+        }
+        else
+        {
+          mEditedSet.setName(s.toString());
+        }
       }
 
       @Override
@@ -95,14 +111,16 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
       }
     });
     mIsVisible = (CheckBox) findViewById(R.id.pin_set_visible);
-    mIsVisible.setChecked(mEditedSet.isVisible());
+    if(mEditedSet != null)
+      mIsVisible.setChecked(mEditedSet.isVisible());
     mIsVisible.setOnCheckedChangeListener(new OnCheckedChangeListener()
     {
 
       @Override
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
       {
-        mEditedSet.setVisibility(isChecked);
+        if(mEditedSet != null)
+          mEditedSet.setVisibility(isChecked);
       }
     });
   }
@@ -149,13 +167,15 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   protected void onStart()
   {
     super.onStart();
-    mPinAdapter.notifyDataSetChanged();
+    if(mPinAdapter != null)
+      mPinAdapter.notifyDataSetChanged();
   }
 
   @Override
   protected void onPause()
   {
-    m_location.stopUpdate(mPinAdapter);
+    if(mPinAdapter != null)
+      m_location.stopUpdate(mPinAdapter);
     super.onPause();
   }
 
@@ -163,6 +183,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   protected void onResume()
   {
     super.onResume();
-    m_location.startUpdate(mPinAdapter);
+    if(mPinAdapter != null)
+      m_location.startUpdate(mPinAdapter);
   }
 }
