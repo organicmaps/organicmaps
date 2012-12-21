@@ -142,11 +142,4 @@ public class BookmarkActivity extends AbstractBookmarkActivity
     }
     super.onActivityResult(requestCode, resultCode, data);
   }
-
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu)
-  {
-    getMenuInflater().inflate(R.menu.activity_pin, menu);
-    return true;
-  }
 }
