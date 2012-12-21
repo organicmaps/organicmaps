@@ -8,6 +8,11 @@ namespace {
 
 extern "C"
 {
+  JNIEXPORT jint JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nShowBookmark(JNIEnv * env, jobject thiz, jint c, jint b)
+  {
+    frm()->ShowBookmark(*g_framework->NativeFramework()->GetBmCategory(c)->GetBookmark(b));
+  }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_putBookmark(
