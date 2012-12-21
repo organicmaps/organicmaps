@@ -72,35 +72,19 @@ public class PopupLayout extends View
     m_textPaint.setAntiAlias(true);
   }
 
-  public void activate(final Bookmark bmk)
+  public synchronized void activate(final Bookmark bmk)
   {
-    post(new Runnable()
-    {
-
-      @Override
-      public void run()
-      {
-        m_bmk = bmk;
-        invalidate();
-      }
-    });
+    m_bmk = bmk;
+    postInvalidate();
   }
 
-  public void deactivate()
+  public synchronized void deactivate()
   {
-    post(new Runnable()
-    {
-
-      @Override
-      public void run()
-      {
-        m_bmk = null;
-        invalidate();
-      }
-    });
+    m_bmk = null;
+    postInvalidate();
   }
 
-  public boolean isActive()
+  public synchronized boolean isActive()
   {
     return m_bmk != null;
   }
@@ -123,60 +107,64 @@ public class PopupLayout extends View
   @Override
   protected void onDraw(Canvas canvas)
   {
-    if (isActive())
+    synchronized (this)
     {
-      anchor = m_bmk.getPosition();
-
-      int pinHeight = m_pin.getHeight();
-
-
-      Bitmap btn;
-      if (m_bmk.isPreviewBookmark())
+      Bookmark bmk = m_bmk;
+      if (isActive())
       {
-        btn = m_AddButton;
-        canvas.drawBitmap(m_pin, anchor.x - m_pin.getWidth() / 2, anchor.y - pinHeight, m_borderPaint);
+
+        anchor = bmk.getPosition();
+
+        int pinHeight = m_pin.getHeight();
+
+
+        Bitmap btn;
+        if (bmk.isPreviewBookmark())
+        {
+          btn = m_AddButton;
+          canvas.drawBitmap(m_pin, anchor.x - m_pin.getWidth() / 2, anchor.y - pinHeight, m_borderPaint);
+        }
+        else
+        {
+          btn = m_editButton;
+        }
+
+        int pWidth = getWidth() / 2;
+        int pHeight = btn.getHeight() + 10;
+
+        m_popupAnchor.x = anchor.x - pWidth / 2;
+        m_popupAnchor.y = anchor.y - pinHeight - m_thriangleHeight - pHeight;
+
+        m_popupRect.left = m_popupAnchor.x;
+        m_popupRect.top = m_popupAnchor.y;
+        m_popupRect.right = m_popupAnchor.x + pWidth;
+        m_popupRect.bottom = m_popupAnchor.y + pHeight;
+
+        m_popupPath.reset();
+        m_popupPath.moveTo(m_popupAnchor.x, m_popupAnchor.y);
+        m_popupPath.lineTo(m_popupAnchor.x + pWidth, m_popupAnchor.y);
+        m_popupPath.lineTo(m_popupAnchor.x + pWidth, m_popupAnchor.y + pHeight);
+        m_popupPath.lineTo(anchor.x + m_thriangleHeight, m_popupAnchor.y + pHeight);
+        m_popupPath.lineTo(anchor.x,  m_popupAnchor.y + pHeight + m_thriangleHeight);
+        m_popupPath.lineTo(anchor.x - m_thriangleHeight,  m_popupAnchor.y + pHeight);
+        m_popupPath.lineTo(m_popupAnchor.x,  m_popupAnchor.y + pHeight);
+        m_popupPath.lineTo(m_popupAnchor.x, m_popupAnchor.y);
+
+        String text = (String) TextUtils.ellipsize(bmk.getName(), m_textPaint, pWidth - btn.getWidth() - 10, TruncateAt.END);
+        canvas.drawPath(m_popupPath, m_backgroundPaint);
+        canvas.drawBitmap(btn, m_popupAnchor.x + pWidth - btn.getWidth()-5, m_popupAnchor.y + 5, m_buttonPaint);
+        canvas.drawPath(m_popupPath, m_borderPaint);
+        m_textPaint.getTextBounds(bmk.getName(), 0, bmk.getName().length(), m_textBounds);
+        int textHeight = m_textBounds.bottom - m_textBounds.top;
+        canvas.drawText(text, m_popupAnchor.x+2,
+                        m_popupAnchor.y - (pHeight - textHeight) / 2 + pHeight,
+                        m_textPaint);
+
       }
       else
       {
-        btn = m_editButton;
+        super.onDraw(canvas);
       }
-
-      int pWidth = getWidth() / 2;
-      int pHeight = btn.getHeight() + 10;
-
-      m_popupAnchor.x = anchor.x - pWidth / 2;
-      m_popupAnchor.y = anchor.y - pinHeight - m_thriangleHeight - pHeight;
-
-      m_popupRect.left = m_popupAnchor.x;
-      m_popupRect.top = m_popupAnchor.y;
-      m_popupRect.right = m_popupAnchor.x + pWidth;
-      m_popupRect.bottom = m_popupAnchor.y + pHeight;
-
-      m_popupPath.reset();
-      m_popupPath.moveTo(m_popupAnchor.x, m_popupAnchor.y);
-      m_popupPath.lineTo(m_popupAnchor.x + pWidth, m_popupAnchor.y);
-      m_popupPath.lineTo(m_popupAnchor.x + pWidth, m_popupAnchor.y + pHeight);
-      m_popupPath.lineTo(anchor.x + m_thriangleHeight, m_popupAnchor.y + pHeight);
-      m_popupPath.lineTo(anchor.x,  m_popupAnchor.y + pHeight + m_thriangleHeight);
-      m_popupPath.lineTo(anchor.x - m_thriangleHeight,  m_popupAnchor.y + pHeight);
-      m_popupPath.lineTo(m_popupAnchor.x,  m_popupAnchor.y + pHeight);
-      m_popupPath.lineTo(m_popupAnchor.x, m_popupAnchor.y);
-
-      String text = (String) TextUtils.ellipsize(m_bmk.getName(), m_textPaint, pWidth - btn.getWidth() - 10, TruncateAt.END);
-      canvas.drawPath(m_popupPath, m_backgroundPaint);
-      canvas.drawBitmap(btn, m_popupAnchor.x + pWidth - btn.getWidth()-5, m_popupAnchor.y + 5, m_buttonPaint);
-      canvas.drawPath(m_popupPath, m_borderPaint);
-      //TODO npe. think about syncronization
-      m_textPaint.getTextBounds(m_bmk.getName(), 0, m_bmk.getName().length(), m_textBounds);
-      int textHeight = m_textBounds.bottom - m_textBounds.top;
-      canvas.drawText(text, m_popupAnchor.x+2,
-                      m_popupAnchor.y - (pHeight - textHeight) / 2 + pHeight,
-                      m_textPaint);
-
-    }
-    else
-    {
-      super.onDraw(canvas);
     }
   }
 
