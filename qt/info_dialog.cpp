@@ -3,11 +3,13 @@
 #include "../base/assert.hpp"
 
 #include <QtGui/QIcon>
-#include <QtGui/QTextBrowser>
-#include <QtGui/QPushButton>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QLabel>
+
+#include <QtWidgets/QTextBrowser>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QLabel>
+
 
 namespace qt
 {

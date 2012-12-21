@@ -9,13 +9,14 @@
 
 #ifdef OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP
   #ifdef OMIM_OS_MAC // on Mac OS X native run loop works only for QApplication :(
-    #include <QApplication>
+    #include <QtWidgets/QApplication>
     #define QAPP QApplication
   #else
-    #include <QCoreApplication>
+    #include <QtCore/QCoreApplication>
     #define QAPP QCoreApplication
   #endif
 #endif
+
 
 static bool g_bLastTestOK = true;
 

@@ -1,7 +1,7 @@
 #pragma once
 #include "../map/framework.hpp"
 
-#include <QtGui/QDialog>
+#include <QtWidgets/QDialog>
 
 class QTreeWidget;
 class QTreeWidgetItem;

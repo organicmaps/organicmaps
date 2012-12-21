@@ -7,15 +7,16 @@
 
 #include "../std/bind.hpp"
 
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QLabel>
-#include <QtGui/QPushButton>
-#include <QtGui/QTreeWidget>
-#include <QtGui/QHeaderView>
-#include <QtGui/QMessageBox>
-#include <QtGui/QProgressBar>
 #include <QtCore/QDateTime>
+
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QTreeWidget>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QMessageBox>
+#include <QtWidgets/QProgressBar>
 
 
 #define CHECK_FOR_UPDATE "Check for update"
@@ -345,8 +346,8 @@ namespace qt
 
     m_tree->sortByColumn(KColumnIndexCountry, Qt::AscendingOrder);
     m_tree->setSortingEnabled(true);
-    m_tree->header()->setResizeMode(KColumnIndexCountry, QHeaderView::ResizeToContents);
-    m_tree->header()->setResizeMode(KColumnIndexStatus, QHeaderView::ResizeToContents);
+    m_tree->header()->setSectionResizeMode(KColumnIndexCountry, QHeaderView::ResizeToContents);
+    m_tree->header()->setSectionResizeMode(KColumnIndexStatus, QHeaderView::ResizeToContents);
   }
 
   void UpdateDialog::OnCountryChanged(TIndex const & index)

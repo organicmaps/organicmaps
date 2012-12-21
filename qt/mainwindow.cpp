@@ -12,12 +12,13 @@
 
 #include "../std/bind.hpp"
 
-#include <QtGui/QAction>
 #include <QtGui/QCloseEvent>
-#include <QtGui/QDockWidget>
-#include <QtGui/QMenu>
-#include <QtGui/QMenuBar>
-#include <QtGui/QToolBar>
+
+#include <QtWidgets/QAction>
+#include <QtWidgets/QDockWidget>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QMenuBar>
+#include <QtWidgets/QToolBar>
 
 #define IDM_ABOUT_DIALOG        1001
 #define IDM_PREFERENCES_DIALOG  1002

@@ -12,11 +12,11 @@
 
 #include "../std/cstdio.hpp"
 
-#include <QtGui/QApplication>
 #include <QtCore/QLocale>
 
-//#include <google/protobuf/stubs/common.h>
+#include <QtWidgets/QApplication>
 
+//#include <google/protobuf/stubs/common.h>
 
 namespace
 {

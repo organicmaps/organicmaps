@@ -7,13 +7,14 @@
 
 #include <QtCore/QTimer>
 
-#include <QtGui/QHeaderView>
-#include <QtGui/QTableWidget>
-#include <QtGui/QLineEdit>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QPushButton>
 #include <QtGui/QBitmap>
+
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QTableWidget>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QPushButton>
 
 
 namespace qt
@@ -33,7 +34,7 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   m_pTable->setSelectionBehavior(QAbstractItemView::SelectRows);
   m_pTable->verticalHeader()->setVisible(false);
   m_pTable->horizontalHeader()->setVisible(false);
-  m_pTable->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+  m_pTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
   connect(m_pTable, SIGNAL(cellClicked(int, int)), this, SLOT(OnSearchPanelItemClicked(int,int)));
 
   m_pClearButton = new QPushButton(this);
@@ -55,8 +56,9 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   CHECK(connect(this, SIGNAL(SearchResultSignal(ResultsT *)),
                 this, SLOT(OnSearchResult(ResultsT *)), Qt::QueuedConnection), ());
 
-  setFocusPolicy(Qt::StrongFocus);
-  setFocusProxy(m_pEditor);
+  /// @todo THis is not working on Qt5. QLineEdit doesn't get any input.
+  //setFocusPolicy(Qt::StrongFocus);
+  //setFocusProxy(m_pEditor);
 
   m_params.m_callback = bind(&SearchPanel::SearchResultThreadFunc, this, _1);
 }

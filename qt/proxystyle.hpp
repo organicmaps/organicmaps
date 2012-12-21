@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QtGui/QStyle>
+#include <QtWidgets/QStyle>
 
 class ProxyStyle : public QStyle
 {
@@ -29,6 +29,9 @@ public:
 	QRect subElementRect(SubElement element, const QStyleOption* option, const QWidget* widget = 0) const;
 	void unpolish(QWidget* widget);
 	void unpolish(QApplication* app);
+  int layoutSpacing(QSizePolicy::ControlType control1,
+                    QSizePolicy::ControlType control2, Qt::Orientation orientation,
+                    const QStyleOption *option = 0, const QWidget *widget = 0) const;
 
 private:
 	QStyle * style;

@@ -3,12 +3,15 @@
 #include "../platform/platform.hpp"
 
 #include <QtCore/QFile>
+
 #include <QtGui/QIcon>
-#include <QtGui/QMenuBar>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QLabel>
-#include <QtGui/QTextBrowser>
+
+#include <QtWidgets/QMenuBar>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QTextBrowser>
+
 
 
 AboutDialog::AboutDialog(QWidget * parent)
@@ -22,7 +25,7 @@ AboutDialog::AboutDialog(QWidget * parent)
   labelIcon->setPixmap(icon.pixmap(128));
 
   // @todo insert version to bundle.
-  QLabel * labelVersion = new QLabel(QString::fromAscii("MapsWithMe"));
+  QLabel * labelVersion = new QLabel(QString::fromLocal8Bit("MapsWithMe"));
 
   QHBoxLayout * hBox = new QHBoxLayout();
   hBox->addWidget(labelIcon);

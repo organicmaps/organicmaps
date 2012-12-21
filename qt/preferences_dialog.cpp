@@ -3,15 +3,16 @@
 #include "../platform/settings.hpp"
 
 #include <QtGui/QIcon>
-#include <QtGui/QCheckBox>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QTableWidget>
-#include <QtGui/QHeaderView>
-#include <QtGui/QPushButton>
-#include <QtGui/QGroupBox>
-#include <QtGui/QButtonGroup>
-#include <QtGui/QRadioButton>
+
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QTableWidget>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QRadioButton>
 
 
 namespace qt

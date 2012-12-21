@@ -4,7 +4,7 @@
 
 #include "../std/scoped_ptr.hpp"
 
-#include <QtGui/QMainWindow>
+#include <QtWidgets/QMainWindow>
 
 
 class QDockWidget;

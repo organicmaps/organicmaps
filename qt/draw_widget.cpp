@@ -1,5 +1,4 @@
 #include "draw_widget.hpp"
-#include "proxystyle.hpp"
 #include "slider_ctrl.hpp"
 
 #include "../map/render_policy.hpp"
@@ -17,9 +16,10 @@
 #include <QtCore/QLocale>
 
 #include <QtGui/QMouseEvent>
-#include <QtGui/QMenu>
-#include <QtGui/QApplication>
-#include <QtGui/QDesktopWidget>
+
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QDesktopWidget>
 
 
 namespace qt

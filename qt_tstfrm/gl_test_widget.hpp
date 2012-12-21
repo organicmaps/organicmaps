@@ -3,9 +3,11 @@
 #include "tstwidgets.hpp"
 
 #include "../../testing/testing.hpp"
+
 #include "../../map/qgl_render_context.hpp"
 
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
+
 
 template<class T, bool (T::*)(QKeyEvent *)>
 struct key_event_fn_bind

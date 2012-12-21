@@ -117,3 +117,10 @@ void ProxyStyle::unpolish(QApplication* app)
 {
 	style->unpolish(app);
 }
+
+int ProxyStyle::layoutSpacing(QSizePolicy::ControlType control1,
+                              QSizePolicy::ControlType control2, Qt::Orientation orientation,
+                              const QStyleOption *option, const QWidget *widget) const
+{
+  return style->layoutSpacing(control1, control2, orientation, option, widget);
+}

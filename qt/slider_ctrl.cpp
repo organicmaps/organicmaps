@@ -15,7 +15,8 @@ namespace qt
   QClickSmoothSlider::QClickSmoothSlider(Qt::Orientation orient, QWidget * pParent, int factor)
    : base_t(orient, pParent), m_factor(factor)
   {
-    // this style cause slider to set value exactly to the cursor position (not "page scroll")
+    /// This style cause slider to set value exactly to the cursor position (not "page scroll")
+    /// @todo Do investigate this stuff with Qt5.
     class MyProxyStyle : public ProxyStyle
     {
     public:

@@ -5,8 +5,9 @@
 
 #include "../std/vector.hpp"
 
-#include <QtGui/QWidget>
 #include <QtGui/QPixmap>
+
+#include <QtWidgets/QWidget>
 
 class QTableWidget;
 class QLineEdit;

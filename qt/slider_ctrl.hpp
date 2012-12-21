@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QtGui/QSlider>
+#include <QtWidgets/QSlider>
 
 namespace qt
 {
