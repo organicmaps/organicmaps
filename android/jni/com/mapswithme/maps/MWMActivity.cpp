@@ -9,7 +9,7 @@
 
 #include "../../../../../map/country_status_display.hpp"
 #define LONG_CLICK_LENGTH_SEC 1.0
-#define SHORT_CLICK_LENGTH_SEC 0.1
+#define SHORT_CLICK_LENGTH_SEC 0.5
 ////////////////////////////////////////////////////////////////////////////////////////////
 extern "C"
 {
