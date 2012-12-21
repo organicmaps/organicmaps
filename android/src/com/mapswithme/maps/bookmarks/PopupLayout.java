@@ -68,7 +68,7 @@ public class PopupLayout extends View
     m_popupPath = new Path();
 
     m_textPaint = new TextPaint();
-    m_textPaint.setTextSize(30);
+    m_textPaint.setTextSize(20 * getResources().getDisplayMetrics().density);
     m_textPaint.setAntiAlias(true);
   }
 
@@ -81,6 +81,7 @@ public class PopupLayout extends View
   public synchronized void deactivate()
   {
     m_bmk = null;
+    nRemoveBookmark();
     postInvalidate();
   }
 
@@ -115,14 +116,15 @@ public class PopupLayout extends View
 
         anchor = bmk.getPosition();
 
-        int pinHeight = m_pin.getHeight();
+        int pinHeight = 35;//m_pin.getHeight();
 
 
         Bitmap btn;
         if (bmk.isPreviewBookmark())
         {
           btn = m_AddButton;
-          canvas.drawBitmap(m_pin, anchor.x - m_pin.getWidth() / 2, anchor.y - pinHeight, m_borderPaint);
+          nDrawBookmark(bmk.getPosition().x, bmk.getPosition().y);
+          //canvas.drawBitmap(m_pin, anchor.x - m_pin.getWidth() / 2, anchor.y - pinHeight, m_borderPaint);
         }
         else
         {
@@ -168,6 +170,9 @@ public class PopupLayout extends View
     }
   }
 
+  private native void nDrawBookmark(double x, double y);
+  private native void nRemoveBookmark();
+
   public void handleClick(int x, int y)
   {
     if ( m_popupRect.contains(x, y) )
@@ -184,4 +189,6 @@ public class PopupLayout extends View
       m_bmk = null;
     }
   }
+
+
 }
