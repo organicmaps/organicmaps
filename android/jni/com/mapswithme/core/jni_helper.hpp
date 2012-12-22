@@ -4,6 +4,7 @@
 
 #include "../../../../../std/string.hpp"
 #include "../../../../../std/shared_ptr.hpp"
+#include "../../../../../geometry/point2d.hpp"
 
 namespace jni
 {
@@ -35,4 +36,9 @@ namespace jni
   string DescribeException();
 
   shared_ptr<jobject> make_global_ref(jobject obj);
+
+  jobject GetNewParcelablePointD(JNIEnv * env, m2::PointD point);
+
+  jobject GetNewPoint(JNIEnv * env, m2::PointD point);
+  jobject GetNewPoint(JNIEnv * env, m2::PointI point);
 }

@@ -115,11 +115,6 @@ namespace android
 
     void Scale(double k);
 
-    jobject GetNewParcelablePointD(JNIEnv * env, m2::PointD point);
-
-    jobject GetNewPoint(JNIEnv * env, m2::PointD point);
-    jobject GetNewPoint(JNIEnv * env, m2::PointI point);
-
     void AddClickListener(TOnClickListener const & l);
     void RemoveClickListener();
 

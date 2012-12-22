@@ -529,39 +529,6 @@ namespace android
     return &m_work;
   }
 
-  jobject Framework::GetNewParcelablePointD(JNIEnv * env, m2::PointD point)
-  {
-    jclass klass = env->FindClass("com/mapswithme/maps/bookmarks/data/ParcelablePointD");
-    ASSERT ( klass, () );
-    jmethodID methodID = env->GetMethodID(
-        klass, "<init>",
-        "(DD)V");
-    ASSERT ( methodID, () );
-
-    return env->NewObject(klass, methodID,
-                              static_cast<jdouble>(point.x),
-                              static_cast<jdouble>(point.y));
-  }
-
-  jobject Framework::GetNewPoint(JNIEnv * env, m2::PointD point)
-  {
-    return GetNewPoint(env, m2::PointI(static_cast<int>(point.x), static_cast<int>(point.y)));
-  }
-
-  jobject Framework::GetNewPoint(JNIEnv * env, m2::PointI point)
-  {
-    jclass klass = env->FindClass("android/graphics/Point");
-    ASSERT ( klass, () );
-    jmethodID methodID = env->GetMethodID(
-        klass, "<init>",
-        "(II)V");
-    ASSERT ( methodID, () );
-
-    return env->NewObject(klass, methodID,
-                              static_cast<jint>(point.x),
-                              static_cast<jint>(point.y));
-  }
-
   void Framework::CallClickListeners(int x, int y, double time)
   {
 
@@ -580,10 +547,6 @@ namespace android
         m_onClickListener(x, y);
       }
     }
-    /*for (it = m_onClickFns.begin(); it != m_onClickFns.end(); it++)
-    {
-      (*it).second(x, y, time);
-    }*/
   }
 
   void Framework::AddClickListener(Framework::TOnClickListener const & l)

@@ -62,6 +62,6 @@ extern "C"
   {
     BookmarkAndCategory bac = frm()->GetBookmark(m2::PointD(x, y));
 
-    return g_framework->GetNewPoint(env, m2::PointI(bac.first, bac.second));
+    return jni::GetNewPoint(env, m2::PointI(bac.first, bac.second));
    }
 }

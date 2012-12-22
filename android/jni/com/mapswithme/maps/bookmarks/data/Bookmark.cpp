@@ -12,7 +12,7 @@ extern "C"
   JNIEXPORT jobject JNICALL
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGtoP(JNIEnv * env, jobject thiz, jdouble lat, jdouble lon)
   {
-    return g_framework->GetNewPoint(env, frm()->GtoP(m2::PointD(lat, lon)));
+    return jni::GetNewPoint(env, frm()->GtoP(m2::PointD(lat, lon)));
   }
 
   JNIEXPORT jstring JNICALL
@@ -61,7 +61,7 @@ extern "C"
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nPtoG(
        JNIEnv * env, jobject thiz, jint x, jint y)
   {
-    return g_framework->GetNewParcelablePointD(env, frm()->PtoG(m2::PointD(x, y)));
+    return jni::GetNewParcelablePointD(env, frm()->PtoG(m2::PointD(x, y)));
   }
 
   JNIEXPORT jobject JNICALL
@@ -88,7 +88,7 @@ extern "C"
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGetLatLon(
        JNIEnv * env, jobject thiz, jint cat, jlong bmk)
   {
-    return g_framework->GetNewParcelablePointD(env, frm()->GetBmCategory(cat)->GetBookmark(bmk)->GetOrg());
+    return jni::GetNewParcelablePointD(env, frm()->GetBmCategory(cat)->GetBookmark(bmk)->GetOrg());
   }
 
 }
