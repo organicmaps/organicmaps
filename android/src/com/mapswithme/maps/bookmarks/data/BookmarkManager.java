@@ -86,14 +86,14 @@ public class BookmarkManager
 
   public Bookmark getBookmark(Point p)
   {
-    int [] bookmark = nGetBookmark(p.x, p.y);
-    if (bookmark[0] == -1 && bookmark[1] == -1)
+    Point bookmark = nGetBookmark(p.x, p.y);
+    if (bookmark.x == -1 && bookmark.y == -1)
     {
       return new Bookmark(mContext, p, getCategoriesCount() - 1, 0);
     }
     else
     {
-      return new Bookmark(mContext, new BookmarkCategory(mContext, bookmark[0]).getId(), bookmark[1]);
+      return new Bookmark(mContext, new BookmarkCategory(mContext, bookmark.x).getId(), bookmark.y);
     }
   }
 
