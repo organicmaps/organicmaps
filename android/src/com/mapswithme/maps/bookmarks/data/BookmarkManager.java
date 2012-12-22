@@ -99,16 +99,16 @@ public class BookmarkManager
 
   public ParcelablePoint findBookmark(Point p)
   {
-    int [] bookmark = nGetBookmark(p.x, p.y);
-    if (bookmark[0]>=0 && bookmark[1]>=0)
+    Point bookmark = nGetBookmark(p.x, p.y);
+    if (bookmark.x>=0 && bookmark.y>=0)
     {
-      return new ParcelablePoint(bookmark[0], bookmark[1]);
+      return new ParcelablePoint(bookmark);
     }
     else
       return null;
   }
 
-  private native int[] nGetBookmark(int x, int y);
+  private native Point nGetBookmark(int x, int y);
 
   public Bookmark getBookmark(int cat, int bmk)
   {

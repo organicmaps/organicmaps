@@ -9,17 +9,10 @@ namespace {
 
 extern "C"
 {
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGtoP(JNIEnv * env, jobject thiz, jdouble lat, jdouble lon, jobject point)
+  JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGtoP(JNIEnv * env, jobject thiz, jdouble lat, jdouble lon)
   {
-    m2::PointD pos = frm()->GtoP(m2::PointD(lat, lon));
-
-    jclass javaDataClass = env->FindClass("android/graphics/Point");
-    jfieldID field = env->GetFieldID(javaDataClass, "x", "I");
-    env->SetIntField(point, field, static_cast<jint>(pos.x));
-
-    field = env->GetFieldID(javaDataClass, "y", "I");
-    env->SetIntField(point, field, static_cast<jint>(pos.y));
+    return g_framework->GetNewPoint(env, frm()->GtoP(m2::PointD(lat, lon)));
   }
 
   JNIEXPORT jstring JNICALL
@@ -60,7 +53,6 @@ extern "C"
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nChangeBookmark(
          JNIEnv * env, jobject thiz, jdouble lan, jdouble lon, jstring cat, jstring name, jstring type)
   {
-    LOG(LDEBUG, ("lan lon change", lan, lon));
     Bookmark b = Bookmark( m2::PointD(lan, lon), jni::ToNativeString(env, name), jni::ToNativeString(env, type));
     frm()->AddBookmark(jni::ToNativeString(env, cat), b)->SaveToKMLFile();
   }
@@ -69,7 +61,7 @@ extern "C"
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nPtoG(
        JNIEnv * env, jobject thiz, jint x, jint y)
   {
-    return g_framework->getNewParcelablePointD(env, frm()->PtoG(m2::PointD(x, y)));
+    return g_framework->GetNewParcelablePointD(env, frm()->PtoG(m2::PointD(x, y)));
   }
 
   JNIEXPORT jobject JNICALL
@@ -96,7 +88,7 @@ extern "C"
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGetLatLon(
        JNIEnv * env, jobject thiz, jint cat, jlong bmk)
   {
-    return g_framework->getNewParcelablePointD(env, frm()->GetBmCategory(cat)->GetBookmark(bmk)->GetOrg());
+    return g_framework->GetNewParcelablePointD(env, frm()->GetBmCategory(cat)->GetBookmark(bmk)->GetOrg());
   }
 
 }

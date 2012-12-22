@@ -51,7 +51,7 @@ public class Bookmark
   }
 
   private native DistanceAndAthimuth nGetDistanceAndAzimuth(double lat, double lon, double cLat, double cLon, double north);
-  private native void nGtoP(double lat, double lon, Point p);
+  private native Point nGtoP(double lat, double lon);
   private native ParcelablePointD nPtoG(int x, int y);
   private native ParcelablePointD nGetLatLon(int c, long b);
   private native String nGetNamePos(int x, int y);
@@ -74,9 +74,7 @@ public class Bookmark
 
   public Point getPosition()
   {
-    Point pos = new Point();
-    nGtoP(mLat, mLon, pos);
-    return pos;
+    return nGtoP(mLat, mLon);
   }
 
   public double getLat()
