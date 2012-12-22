@@ -1,7 +1,7 @@
 # Add your path into this array
 KNOWN_QMAKE_PATHS=( \
   ~/QtSDK/Desktop/Qt/4.8.1/gcc/bin/qmake \
-  /Developer/QtSDK/Desktop/Qt/4.8.1/gcc/bin/qmake \
+  /Developer/Tools/qmake \
   ~/Developer/Qt-4.8.4/bin/qmake \
 )
 
