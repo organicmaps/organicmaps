@@ -54,6 +54,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private MWMApplication mApplication = null;
   private BroadcastReceiver m_externalStorageReceiver = null;
   private AlertDialog m_storageDisconnectedDialog = null;
+  private BookmarkManager m_BookmarkManager;
   private int m_longClickHandler;
   private int m_clickHandler;
 
@@ -548,7 +549,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     }
 
     super.onCreate(savedInstanceState);
-
     mApplication = (MWMApplication)getApplication();
 
     // Do not turn off the screen while benchmarking
@@ -569,6 +569,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     BookmarkTouchHandler handler = new BookmarkTouchHandler(m_popupLayout = (PopupLayout)findViewById(R.id.map_popup));
     if (mApplication.isProVersion())
     {
+      m_BookmarkManager = BookmarkManager.getBookmarkManager(getApplicationContext());
       m_longClickHandler = addOnLongClickListener(handler);
     }
     //m_clickHandler = addOnClickListener(handler);
@@ -585,7 +586,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     @Override
     public void onLongClick(int x, int y)
     {
-      m_PopupLayout.activate(BookmarkManager.getBookmarkManager(MWMActivity.this).previewBookmark(new Point(x, y)));
+      m_PopupLayout.activate(m_BookmarkManager.previewBookmark(new Point(x, y)));
     }
 
     @Override
@@ -604,10 +605,10 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     private void handleOnBookmarkClick(int x, int y)
     {
-      ParcelablePoint b = BookmarkManager.getBookmarkManager(MWMActivity.this).findBookmark(new Point(x, y));
+      ParcelablePoint b = m_BookmarkManager.findBookmark(new Point(x, y));
       if (b != null)
       {
-        m_PopupLayout.activate(BookmarkManager.getBookmarkManager(MWMActivity.this).getBookmark(b.getPoint().x, b.getPoint().y));
+        m_PopupLayout.activate(m_BookmarkManager.getBookmark(b.getPoint().x, b.getPoint().y));
       }
     }
   }
