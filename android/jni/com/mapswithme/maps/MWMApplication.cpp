@@ -36,8 +36,12 @@ extern "C"
                                              extTmpPath,
                                              isPro);
 
+    LOG(LDEBUG, ("Creating android::Framework instance ..."));
+
     if (!g_framework)
       g_framework = new android::Framework();
+
+    LOG(LDEBUG, ("android::Framework created"));
   }
 
   JNIEXPORT jboolean JNICALL
