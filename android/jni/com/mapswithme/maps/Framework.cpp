@@ -25,6 +25,10 @@
 #include "../../../../../std/bind.hpp"
 
 
+#define LONG_CLICK_LENGTH_SEC 1.0
+#define SHORT_CLICK_LENGTH_SEC 0.5
+
+
 android::Framework * g_framework = 0;
 
 namespace android
@@ -560,22 +564,44 @@ namespace android
 
   void Framework::CallClickListeners(int x, int y, double time)
   {
-    map<int, TOnClickListener>::iterator it;
-    for (it = m_onClickFns.begin(); it != m_onClickFns.end(); it++)
+
+    if (time > LONG_CLICK_LENGTH_SEC)
+    {
+
+      if (!m_onLongClickListener.empty())
+      {
+        m_onLongClickListener(x, y);
+      }
+    }
+    else if(time <= SHORT_CLICK_LENGTH_SEC)
+    {
+      if (!m_onClickListener.empty())
+      {
+        m_onClickListener(x, y);
+      }
+    }
+    /*for (it = m_onClickFns.begin(); it != m_onClickFns.end(); it++)
     {
       (*it).second(x, y, time);
-    }
+    }*/
   }
 
-  int Framework::AddClickListener(Framework::TOnClickListener const & l)
+  void Framework::AddClickListener(Framework::TOnClickListener const & l)
   {
-    int handle = ++m_onClickFnsHandler;
-    m_onClickFns[handle] = l;
-    return handle;
+    m_onClickListener = l;
   }
 
-  void Framework::RemoveClickListener(int h)
+  void Framework::RemoveClickListener()
   {
-    m_onClickFns.erase(h);
+    m_onClickListener.clear();
+  }
+
+  void Framework::AddLongClickListener(TOnLongClickListener const & l)
+  {
+    m_onLongClickListener = l;
+  }
+  void Framework::RemoveLongClickListener()
+  {
+    m_onLongClickListener.clear();
   }
 }

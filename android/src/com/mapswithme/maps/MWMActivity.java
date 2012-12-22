@@ -55,8 +55,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private BroadcastReceiver m_externalStorageReceiver = null;
   private AlertDialog m_storageDisconnectedDialog = null;
   private BookmarkManager m_BookmarkManager;
-  private int m_longClickHandler;
-  private int m_clickHandler;
 
   private interface OnLongClickListener
   {
@@ -68,11 +66,11 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     void onClick(int x, int y);
   }
 
-  private native int addOnLongClickListener(Object l);
-  private native void removeOnLongClickListener(int h);
+  private native void addOnLongClickListener(Object l);
+  private native void removeOnLongClickListener();
 
-  private native int addOnClickListener(Object l);
-  private native void removeOnClickListener(int h);
+  private native void addOnClickListener(Object l);
+  private native void removeOnClickListener();
 
   private LocationService getLocationService()
   {
@@ -570,9 +568,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     if (mApplication.isProVersion())
     {
       m_BookmarkManager = BookmarkManager.getBookmarkManager(getApplicationContext());
-      m_longClickHandler = addOnLongClickListener(handler);
+      addOnLongClickListener(handler);
+      addOnClickListener(handler);
     }
-    //m_clickHandler = addOnClickListener(handler);
   }
 
   private class BookmarkTouchHandler implements OnClickListenter, OnLongClickListener
@@ -624,7 +622,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   public void onDestroy()
   {
     if (mApplication.isProVersion())
-      removeOnLongClickListener(m_longClickHandler);
+      removeOnLongClickListener();
+      removeOnClickListener();
     super.onDestroy();
   }
 

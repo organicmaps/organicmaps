@@ -21,14 +21,17 @@ namespace android
   class Framework
   {
   private:
-    typedef function<void(int, int, double)> TOnClickListener;
+    typedef function<void(int, int)> TOnClickListener;
+    typedef function<void(int, int)> TOnLongClickListener;
     ::Framework m_work;
 
     VideoTimer * m_videoTimer;
 
     void CallRepaint();
 
-    map<int, TOnClickListener> m_onClickFns;
+    TOnClickListener m_onClickListener;
+    TOnLongClickListener m_onLongClickListener;
+
     int m_onClickFnsHandler;
     NVMultiTouchEventType m_eventType; //< multitouch action
 
@@ -117,9 +120,11 @@ namespace android
     jobject GetNewPoint(JNIEnv * env, m2::PointD point);
     jobject GetNewPoint(JNIEnv * env, m2::PointI point);
 
-    int AddClickListener(TOnClickListener const & l);
-    void RemoveClickListener(int h);
+    void AddClickListener(TOnClickListener const & l);
+    void RemoveClickListener();
 
+    void AddLongClickListener(TOnLongClickListener const & l);
+    void RemoveLongClickListener();
 
     ::Framework * NativeFramework();
   };
