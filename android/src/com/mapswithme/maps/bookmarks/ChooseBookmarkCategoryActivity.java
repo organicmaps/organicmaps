@@ -63,7 +63,8 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
       startActivityForResult(
                     new Intent(this, BookmarkListActivity.class).
                     putExtra(BookmarkActivity.PIN_SET, mManager.getCategoriesCount()).
-                    putExtra(BookmarkActivity.PIN, getIntent().getParcelableExtra(BookmarkActivity.PIN)),
+                    putExtra(BookmarkActivity.PIN, getIntent().getParcelableExtra(BookmarkActivity.PIN)).
+                    putExtra(BookmarkListActivity.EDIT_CONTENT, false),
                     REQUEST_CREATE_CATEGORY);
     }
     return super.onOptionsItemSelected(item);

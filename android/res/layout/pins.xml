@@ -3,11 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+
     <!-- This view'll take focus. And user will not see keyboard when open this screen. -->
-    <View android:layout_width="0dp"
+
+    <View
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:focusable="true"
-        android:focusableInTouchMode="true"/>
+        android:focusableInTouchMode="true" />
 
     <include
         android:layout_width="match_parent"
@@ -19,6 +22,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/bookmarks" />
+
+    <TextView
+        android:id="@+id/bookmark_usage_hint"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="@string/bookmarks_usage_hint" />
 
     <ListView
         android:id="@android:id/list"

@@ -20,6 +20,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.BookmarkListAdapter.DataChangedListener;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
@@ -27,6 +28,7 @@ import com.mapswithme.maps.location.LocationService;
 
 public class BookmarkListActivity extends AbstractBookmarkListActivity
 {
+  public static final String EDIT_CONTENT = "edit_content";
 
   private EditText mSetName;
   private CheckBox mIsVisible;
@@ -36,6 +38,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   private BookmarkListAdapter mPinAdapter;
   private double m_north = -1;
   private LocationService m_location;
+  private boolean m_calledFromChooser;
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
@@ -43,6 +46,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
     super.onCreate(savedInstanceState);
     setContentView(R.layout.pins);
     final int setIndex = getIntent().getIntExtra(BookmarkActivity.PIN_SET, -1);
+    m_calledFromChooser = getIntent().getBooleanExtra(EDIT_CONTENT, false);
     if ((mEditedSet = mManager.getCategoryById(setIndex)) == null)
     {
       Point bmk = ((ParcelablePoint)getIntent().getParcelableExtra(BookmarkActivity.PIN)).getPoint();
@@ -54,7 +58,16 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
       setTitle(mEditedSet.getName());
     }
     if(mEditedSet != null)
-      setListAdapter(mPinAdapter = new BookmarkListAdapter(this, mEditedSet));
+      setListAdapter(mPinAdapter = new BookmarkListAdapter(this, mEditedSet, new DataChangedListener()
+      {
+
+        @Override
+        public void onDataChanged(int vis)
+        {
+          findViewById(R.id.bookmark_usage_hint).setVisibility(vis);
+        }
+      }));
+
     setUpViews();
     getListView().setOnItemClickListener(new OnItemClickListener()
     {
@@ -87,12 +100,21 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
         if (mEditedSet == null)
         {
           mEditedSet = mManager.createCategory(mBookmark, s.toString());
-          setListAdapter(mPinAdapter = new BookmarkListAdapter(BookmarkListActivity.this, mEditedSet));
+          setListAdapter(mPinAdapter = new BookmarkListAdapter(BookmarkListActivity.this, mEditedSet, new DataChangedListener()
+          {
+
+            @Override
+            public void onDataChanged(int vis)
+            {
+              findViewById(R.id.bookmark_usage_hint).setVisibility(vis);
+            }
+          }));
           setResult(RESULT_OK,
                     new Intent().putExtra(BookmarkActivity.PIN_SET, mManager.getCategoriesCount()-1).
                     putExtra(BookmarkActivity.PIN, new ParcelablePoint(mManager.getCategoriesCount()-1, mEditedSet.getSize()-1))
                     );
           mIsVisible.setChecked(true);
+          mPinAdapter.notifyDataSetChanged();
         }
         else
         {
@@ -128,14 +150,17 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   @Override
   public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
   {
-    if (menuInfo instanceof AdapterView.AdapterContextMenuInfo)
+    if (!m_calledFromChooser)
     {
-      AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-      mSelectedPosition = info.position;
-      MenuInflater inflater = getMenuInflater();
-      inflater.inflate(R.menu.pin_sets_context_menu, menu);
+      if (menuInfo instanceof AdapterView.AdapterContextMenuInfo)
+      {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        mSelectedPosition = info.position;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.pin_sets_context_menu, menu);
+      }
+      super.onCreateContextMenu(menu, v, menuInfo);
     }
-    super.onCreateContextMenu(menu, v, menuInfo);
   }
 
   private void startPinActivity(int cat, int bmk)

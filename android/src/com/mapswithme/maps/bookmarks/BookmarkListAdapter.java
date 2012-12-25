@@ -25,11 +25,13 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
   private double m_north = -1;
   private boolean m_hasPosition;
   private ParcelablePointD m_currentPosition;
+  private DataChangedListener m_DataChangedListener;
 
-  public BookmarkListAdapter(Activity context, BookmarkCategory cat)
+  public BookmarkListAdapter(Activity context, BookmarkCategory cat, DataChangedListener dcl)
   {
     mContext = context;
     mCategory = cat;
+    m_DataChangedListener = dcl;
   }
 
   @Override
@@ -61,20 +63,20 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
     return convertView;
   }
 
-  private static class PinHolder
+  @Override
+  public void notifyDataSetChanged()
   {
-    ArrowImage arrow;
-    ImageView icon;
-    TextView name;
-    TextView distance;
-
-    public PinHolder(ArrowImage arrow, ImageView icon, TextView name, TextView distance)
+    super.notifyDataSetChanged();
+    if (m_DataChangedListener != null)
     {
-      super();
-      this.arrow = arrow;
-      this.icon = icon;
-      this.name = name;
-      this.distance = distance;
+      if (isEmpty())
+      {
+        m_DataChangedListener.onDataChanged(View.VISIBLE);
+      }
+      else
+      {
+        m_DataChangedListener.onDataChanged(View.GONE);
+      }
     }
   }
 
@@ -129,5 +131,27 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
   {
     m_hasPosition = false;
     notifyDataSetChanged();
+  }
+
+  private static class PinHolder
+  {
+    ArrowImage arrow;
+    ImageView icon;
+    TextView name;
+    TextView distance;
+
+    public PinHolder(ArrowImage arrow, ImageView icon, TextView name, TextView distance)
+    {
+      super();
+      this.arrow = arrow;
+      this.icon = icon;
+      this.name = name;
+      this.distance = distance;
+    }
+  }
+
+  public interface DataChangedListener
+  {
+    void onDataChanged(int vis);
   }
 }

@@ -39,7 +39,10 @@ public class AbstractBookmarkCategoryActivity extends AbstractBookmarkListActivi
     int itemId = item.getItemId();
     if (itemId == R.id.set_edit)
     {
-      startActivity(new Intent(this, BookmarkListActivity.class).putExtra(BookmarkActivity.PIN_SET, mSelectedPosition));
+      startActivity(new Intent(this, BookmarkListActivity.class).
+                    putExtra(BookmarkActivity.PIN_SET, mSelectedPosition).
+                    // o_0
+                    putExtra(BookmarkListActivity.EDIT_CONTENT, this instanceof ChooseBookmarkCategoryActivity));
     }
     else if (itemId == R.id.set_delete)
     {
