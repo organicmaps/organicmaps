@@ -20,14 +20,16 @@ extern "C"
   Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nSetVisibility(
       JNIEnv * env, jobject thiz, jint id, jboolean b)
   {
-    return frm()->GetBmCategory(id)->SetVisible(b);
+    frm()->GetBmCategory(id)->SetVisible(b);
+    frm()->GetBmCategory(id)->SaveToKMLFile();
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nSetName(
       JNIEnv * env, jobject thiz, jint id, jstring n)
   {
-    return frm()->GetBmCategory(id)->SetName(jni::ToNativeString(env, n));
+    frm()->GetBmCategory(id)->SetName(jni::ToNativeString(env, n));
+    frm()->GetBmCategory(id)->SaveToKMLFile();
   }
 
   JNIEXPORT jstring JNICALL

@@ -8,6 +8,14 @@ namespace {
 
 extern "C"
 {
+
+  JNIEXPORT jint JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetNameForPoint(JNIEnv * env, jobject thiz, jint x, jint y)
+  {/*
+    AddressInfo adInfo;
+    frm()->GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, adInfo) const*/
+  }
+
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nShowBookmark(JNIEnv * env, jobject thiz, jint c, jint b)
   {
@@ -55,6 +63,7 @@ extern "C"
   Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nDeleteBookmark(JNIEnv * env, jobject thiz, jint cat, jint bmk)
   {
     frm()->GetBmCategory(cat)->DeleteBookmark(bmk);
+    frm()->GetBmCategory(cat)->SaveToKMLFile();
   }
 
   JNIEXPORT jobject JNICALL
