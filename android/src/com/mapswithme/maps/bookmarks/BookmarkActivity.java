@@ -137,7 +137,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
         BookmarkCategory set = mManager.getCategoryById(mCurrentCategoryId);
         if (set != null)
         {
-          //mPin.setCategory(set.getName(), mCurrentCategoryId);
+          mPin.setCategory(set.getName(), mCurrentCategoryId);
           mSetName.setText(set.getName());
         }
       }
