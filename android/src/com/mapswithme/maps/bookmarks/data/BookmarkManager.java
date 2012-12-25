@@ -149,4 +149,18 @@ public class BookmarkManager
   {
     nShowBookmark(c, b);
   }
+
+  private native String nGetNameForPOI(int x, int y);
+
+  public String getNameForPOI(Point p)
+  {
+    return nGetNameForPOI(p.x,p.y);
+  }
+
+  private native Point nGetBmkPositionForPOI(int x, int y);
+
+  public Point getBmkPositionForPOI(Point p)
+  {
+    return nGetBmkPositionForPOI(p.x, p.y);
+  }
 }

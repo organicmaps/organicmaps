@@ -9,12 +9,24 @@ namespace {
 extern "C"
 {
 
-  JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetNameForPoint(JNIEnv * env, jobject thiz, jint x, jint y)
-  {/*
-    AddressInfo adInfo;
-    frm()->GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, adInfo) const*/
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetNameForPOI(JNIEnv * env, jobject thiz, jint x, jint y)
+  {
+    Framework::AddressInfo adInfo;
+    m2::PointD pxPivot;
+    frm()->GetVisiblePOI(m2::PointD(x, y), pxPivot, adInfo);
+    return jni::ToJavaString(env, adInfo.m_name);
   }
+
+  JNIEXPORT jobject JNICALL
+    Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetBmkPositionForPOI(JNIEnv * env, jobject thiz, jint x, jint y)
+    {
+      Framework::AddressInfo adInfo;
+      m2::PointD pxPivot;
+      frm()->GetVisiblePOI(m2::PointD(x, y), pxPivot, adInfo);
+      return jni::GetNewPoint(env, pxPivot);
+    }
+
 
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nShowBookmark(JNIEnv * env, jobject thiz, jint c, jint b)

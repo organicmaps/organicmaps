@@ -2,6 +2,7 @@ package com.mapswithme.maps.bookmarks;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 
 import android.content.Context;
@@ -108,66 +109,64 @@ public class PopupLayout extends View
   @Override
   protected void onDraw(Canvas canvas)
   {
-    synchronized (this)
+    Bookmark bmk = m_bmk;
+    if (bmk != null)
     {
-      Bookmark bmk = m_bmk;
-      if (isActive())
+
+      anchor = bmk.getPosition();
+
+      int pinHeight = 35;//m_pin.getHeight();
+
+
+      Bitmap btn;
+      if (bmk.isPreviewBookmark())
       {
-
-        anchor = bmk.getPosition();
-
-        int pinHeight = 35;//m_pin.getHeight();
-
-
-        Bitmap btn;
-        if (bmk.isPreviewBookmark())
-        {
-          btn = m_AddButton;
-          nDrawBookmark(bmk.getPosition().x, bmk.getPosition().y);
-          //canvas.drawBitmap(m_pin, anchor.x - m_pin.getWidth() / 2, anchor.y - pinHeight, m_borderPaint);
-        }
-        else
-        {
-          btn = m_editButton;
-        }
-
-        int pWidth = getWidth() / 2;
-        int pHeight = btn.getHeight() + 10;
-
-        m_popupAnchor.x = anchor.x - pWidth / 2;
-        m_popupAnchor.y = anchor.y - pinHeight - m_thriangleHeight - pHeight;
-
-        m_popupRect.left = m_popupAnchor.x;
-        m_popupRect.top = m_popupAnchor.y;
-        m_popupRect.right = m_popupAnchor.x + pWidth;
-        m_popupRect.bottom = m_popupAnchor.y + pHeight;
-
-        m_popupPath.reset();
-        m_popupPath.moveTo(m_popupAnchor.x, m_popupAnchor.y);
-        m_popupPath.lineTo(m_popupAnchor.x + pWidth, m_popupAnchor.y);
-        m_popupPath.lineTo(m_popupAnchor.x + pWidth, m_popupAnchor.y + pHeight);
-        m_popupPath.lineTo(anchor.x + m_thriangleHeight, m_popupAnchor.y + pHeight);
-        m_popupPath.lineTo(anchor.x,  m_popupAnchor.y + pHeight + m_thriangleHeight);
-        m_popupPath.lineTo(anchor.x - m_thriangleHeight,  m_popupAnchor.y + pHeight);
-        m_popupPath.lineTo(m_popupAnchor.x,  m_popupAnchor.y + pHeight);
-        m_popupPath.lineTo(m_popupAnchor.x, m_popupAnchor.y);
-
-        String text = (String) TextUtils.ellipsize(bmk.getName(), m_textPaint, pWidth - btn.getWidth() - 10, TruncateAt.END);
-        canvas.drawPath(m_popupPath, m_backgroundPaint);
-        canvas.drawBitmap(btn, m_popupAnchor.x + pWidth - btn.getWidth()-5, m_popupAnchor.y + 5, m_buttonPaint);
-        canvas.drawPath(m_popupPath, m_borderPaint);
-        m_textPaint.getTextBounds(bmk.getName(), 0, bmk.getName().length(), m_textBounds);
-        int textHeight = m_textBounds.bottom - m_textBounds.top;
-        canvas.drawText(text, m_popupAnchor.x+2,
-                        m_popupAnchor.y - (pHeight - textHeight) / 2 + pHeight,
-                        m_textPaint);
-
+        btn = m_AddButton;
+        nDrawBookmark(bmk.getPosition().x, bmk.getPosition().y);
+        //canvas.drawBitmap(m_pin, anchor.x - m_pin.getWidth() / 2, anchor.y - pinHeight, m_borderPaint);
       }
       else
       {
-        super.onDraw(canvas);
+        btn = m_editButton;
       }
+
+      int pWidth = getWidth() / 2;
+      int pHeight = btn.getHeight() + 10;
+
+      m_popupAnchor.x = anchor.x - pWidth / 2;
+      m_popupAnchor.y = anchor.y - pinHeight - m_thriangleHeight - pHeight;
+
+      m_popupRect.left = m_popupAnchor.x;
+      m_popupRect.top = m_popupAnchor.y;
+      m_popupRect.right = m_popupAnchor.x + pWidth;
+      m_popupRect.bottom = m_popupAnchor.y + pHeight;
+
+      m_popupPath.reset();
+      m_popupPath.moveTo(m_popupAnchor.x, m_popupAnchor.y);
+      m_popupPath.lineTo(m_popupAnchor.x + pWidth, m_popupAnchor.y);
+      m_popupPath.lineTo(m_popupAnchor.x + pWidth, m_popupAnchor.y + pHeight);
+      m_popupPath.lineTo(anchor.x + m_thriangleHeight, m_popupAnchor.y + pHeight);
+      m_popupPath.lineTo(anchor.x,  m_popupAnchor.y + pHeight + m_thriangleHeight);
+      m_popupPath.lineTo(anchor.x - m_thriangleHeight,  m_popupAnchor.y + pHeight);
+      m_popupPath.lineTo(m_popupAnchor.x,  m_popupAnchor.y + pHeight);
+      m_popupPath.lineTo(m_popupAnchor.x, m_popupAnchor.y);
+
+      String text = (String) TextUtils.ellipsize(bmk.getName(), m_textPaint, pWidth - btn.getWidth() - 10, TruncateAt.END);
+      canvas.drawPath(m_popupPath, m_backgroundPaint);
+      canvas.drawBitmap(btn, m_popupAnchor.x + pWidth - btn.getWidth()-5, m_popupAnchor.y + 5, m_buttonPaint);
+      canvas.drawPath(m_popupPath, m_borderPaint);
+      m_textPaint.getTextBounds(bmk.getName(), 0, bmk.getName().length(), m_textBounds);
+      int textHeight = m_textBounds.bottom - m_textBounds.top;
+      canvas.drawText(text, m_popupAnchor.x+2,
+                      m_popupAnchor.y - (pHeight - textHeight) / 2 + pHeight,
+                      m_textPaint);
+
     }
+    else
+    {
+      super.onDraw(canvas);
+    }
+
   }
 
   private native void nDrawBookmark(double x, double y);
@@ -179,8 +178,10 @@ public class PopupLayout extends View
     {
       if (m_bmk.isPreviewBookmark())
       {
+        //m_bmk.setCategoryId(BookmarkManager.getBookmarkManager(getContext()).getCategoriesCount()-1);
         getContext().startActivity(new Intent(getContext(), BookmarkActivity.class).
-                      putExtra(BookmarkActivity.BOOKMARK_POSITION, new ParcelablePoint(m_bmk.getPosition())));
+                      putExtra(BookmarkActivity.BOOKMARK_POSITION, new ParcelablePoint(m_bmk.getPosition())).
+                      putExtra(BookmarkActivity.BOOKMARK_NAME, m_bmk.getName()));
       }
       else
       {

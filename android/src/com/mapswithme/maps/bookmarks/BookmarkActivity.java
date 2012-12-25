@@ -30,6 +30,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   public static final String PIN_ICON_ID = "pin";
   public static final String PIN_SET = "pin_set";
   public static final int REQUEST_CODE_SET = 567890;
+  public static final String BOOKMARK_NAME = "bookmark_name";
   private Spinner mSpinner;
   private Bookmark mPin;
   private EditText mName;
@@ -44,6 +45,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
     if (getIntent().getExtras().containsKey(BOOKMARK_POSITION))
     {
       mPin = mManager.getBookmark(((ParcelablePoint)getIntent().getExtras().getParcelable(BOOKMARK_POSITION)).getPoint());
+      mPin.setName(getIntent().getExtras().getString(BOOKMARK_NAME));
     }
     else if (getIntent().getExtras().containsKey(PIN))
     {

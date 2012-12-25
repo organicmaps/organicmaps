@@ -2,6 +2,7 @@ package com.mapswithme.maps.bookmarks.data;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.text.TextUtils;
 
 public class Bookmark
 {
@@ -12,12 +13,28 @@ public class Bookmark
   private int mBookmark;
   private double mLat = Double.NaN;
   private double mLon = Double.NaN;
+  private String m_previewString;
 
   Bookmark(Context context, Point pos)
   {
     mContext = context.getApplicationContext();
     mPosition = pos;
-    getLatLon(pos);
+    getPOIData();
+    getLatLon(mPosition);
+  }
+
+  private void getPOIData()
+  {
+    BookmarkManager manager = BookmarkManager.getBookmarkManager(mContext);
+    m_previewString = manager.getNameForPOI(mPosition);
+    if (TextUtils.isEmpty(m_previewString))
+    {
+      m_previewString = "New Bookmark";
+    }
+    else
+    {
+      mPosition = manager.getBmkPositionForPOI(mPosition);
+    }
   }
 
   Bookmark(Context context, Point position, int nextCat, int b)
@@ -26,7 +43,8 @@ public class Bookmark
     mPosition = position;
     getLatLon(position);
     mBookmark = b;
-    changeBookmark(getCategoryName(), getName(), getIcon().getType());
+    mIcon = getIconInternal();
+    changeBookmark(getCategoryName(), getName(), mIcon.getType());
     if (nextCat == -1)
     {
       nextCat++;
@@ -34,20 +52,21 @@ public class Bookmark
     mCategoryId = nextCat;
   }
 
-  private void getLatLon(Point position)
-  {
-    ParcelablePointD ll = nPtoG(position.x, position.y);
-    mLat = ll.x;
-    mLon = ll.y;
-  }
 
   Bookmark(Context context, int c, int b)
   {
     mContext = context.getApplicationContext();
     mCategoryId = c;
     mBookmark = b;
-    mIcon = BookmarkManager.getBookmarkManager(mContext).getIconByName(nGetIcon(c, b));
+    mIcon = getIconInternal();// BookmarkManager.getBookmarkManager(mContext).getIconByName(nGetIcon(c, b));
     getLatLon();
+  }
+
+  private void getLatLon(Point position)
+  {
+    ParcelablePointD ll = nPtoG(position.x, position.y);
+    mLat = ll.x;
+    mLon = ll.y;
   }
 
   private native DistanceAndAthimuth nGetDistanceAndAzimuth(double lat, double lon, double cLat, double cLon, double north);
@@ -87,7 +106,7 @@ public class Bookmark
     return mLon;
   }
 
-  public Icon getIcon()
+  private Icon getIconInternal()
   {
     if (mCategoryId > -1)
     {
@@ -113,6 +132,11 @@ public class Bookmark
 
   }
 
+  public Icon getIcon()
+  {
+    return mIcon;
+  }
+
   public String getName(){
     if (mCategoryId > -1)
     {
@@ -133,7 +157,7 @@ public class Bookmark
     }
     else
     {
-      return "Bookmark";
+      return m_previewString;
     }
   }
 
@@ -159,6 +183,11 @@ public class Bookmark
   public void setName(String name)
   {
     changeBookmark(getCategoryName(), name, mIcon.getType());
+  }
+
+  public void setCategoryId(int catId)
+  {
+    setCategory(BookmarkManager.getBookmarkManager(mContext).getCategoryById(catId).getName(), catId);
   }
 
   public void setCategory(String category, int catId)
