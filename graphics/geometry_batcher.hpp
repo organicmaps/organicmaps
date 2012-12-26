@@ -69,6 +69,12 @@ namespace graphics
 
     void onDynamicOverflow(int pipelineID);
 
+    /// copy vertices from source VertexStream
+    unsigned copyVertices(VertexStream * srcVS,
+                          unsigned vCount,
+                          unsigned iCount,
+                          int pipelineID);
+
   public:
 
     /// This functions hide the base_t functions with the same name and signature
@@ -88,6 +94,18 @@ namespace graphics
                               ETextureType textureType,
                               EStorageType storageType,
                               VertexDecl const * decl);
+
+    void addTriangleStrip(VertexStream * srcVS,
+                          unsigned count,
+                          int pipelineID);
+
+    void addTriangleList(VertexStream * srcVS,
+                         unsigned count,
+                         int pipelineID);
+
+    void addTriangleFan(VertexStream * srcVS,
+                        unsigned count,
+                        int pipelineID);
 
     void addTexturedFan(m2::PointF const * coords,
                         m2::PointF const * normals,

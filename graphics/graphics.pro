@@ -139,7 +139,8 @@ HEADERS += \
     glyph.hpp \
     brush.hpp \
     geometry_pipeline.hpp \
-    pipeline_manager.hpp
+    pipeline_manager.hpp \
+    vertex_stream.hpp
 
 win32* {
   SOURCES += opengl/opengl_win32.cpp

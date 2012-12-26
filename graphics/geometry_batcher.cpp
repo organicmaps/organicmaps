@@ -276,6 +276,122 @@ namespace graphics
                           pipelineID);
   }
 
+  unsigned GeometryBatcher::copyVertices(VertexStream * srcVS,
+                                     unsigned vCount,
+                                     unsigned iCount,
+                                     int pipelineID)
+  {
+    if (!hasRoom(vCount, iCount, pipelineID))
+      flush(pipelineID);
+
+    GeometryPipeline & p = pipeline(pipelineID);
+    p.checkStorage();
+
+    if (!p.hasStorage())
+      return (unsigned)-1;
+
+    ASSERT(iCount > 2, ());
+
+    VertexStream * dstVS = p.vertexStream();
+
+    unsigned res = p.currentVx();
+
+    for (unsigned i = 0; i < vCount; ++i)
+    {
+      dstVS->copyVertex(srcVS);
+      srcVS->advanceVertex(1);
+      p.advanceVx(1);
+    }
+
+    return res;
+  }
+
+  void GeometryBatcher::addTriangleFan(VertexStream * srcVS,
+                                       unsigned count,
+                                       int pipelineID)
+  {
+    unsigned vOffset = copyVertices(srcVS,
+                                    count,
+                                    (count - 2) * 3,
+                                    pipelineID);
+
+    GeometryPipeline & p = pipeline(pipelineID);
+
+    if (vOffset != (unsigned)-1)
+    {
+      unsigned short * indices = (unsigned short*)p.idxData();
+
+      unsigned iOffset = p.currentIdx();
+
+      for (size_t j = 0; j < count - 2; ++j)
+      {
+        indices[iOffset + j * 3] = vOffset;
+        indices[iOffset + j * 3 + 1] = vOffset + j + 1;
+        indices[iOffset + j * 3 + 2] = vOffset + j + 2;
+      }
+
+      p.advanceIdx((count - 2) * 3);
+    }
+  }
+
+  void GeometryBatcher::addTriangleStrip(VertexStream * srcVS,
+                                         unsigned count,
+                                         int pipelineID)
+  {
+    unsigned vOffset = copyVertices(srcVS,
+                                    count,
+                                    (count - 2) * 3,
+                                    pipelineID);
+
+    GeometryPipeline & p = pipeline(pipelineID);
+
+    if (vOffset != (unsigned)-1)
+    {
+      unsigned short * indices = (unsigned short*)p.idxData();
+
+      unsigned iOffset = p.currentIdx();
+
+      size_t oldIdx1 = vOffset;
+      size_t oldIdx2 = vOffset + 1;
+
+      for (size_t j = 0; j < count - 2; ++j)
+      {
+        indices[iOffset + j * 3] = oldIdx1;
+        indices[iOffset + j * 3 + 1] = oldIdx2;
+        indices[iOffset + j * 3 + 2] = vOffset + j + 2;
+
+        oldIdx1 = oldIdx2;
+        oldIdx2 = vOffset + j + 2;
+      }
+
+      p.advanceIdx((count - 2) * 3);
+    }
+  }
+
+  void GeometryBatcher::addTriangleList(VertexStream * srcVS,
+                                        unsigned count,
+                                        int pipelineID)
+  {
+    unsigned vOffset = copyVertices(srcVS,
+                                    count,
+                                    count,
+                                    pipelineID);
+
+    GeometryPipeline & p = pipeline(pipelineID);
+
+    if (vOffset != (unsigned)-1)
+    {
+      unsigned short * indices = (unsigned short*)p.idxData();
+
+      unsigned iOffset = p.currentIdx();
+
+      for (size_t j = 0; j < count; ++j)
+        indices[iOffset + j] = vOffset + j;
+
+      p.advanceIdx(count);
+    }
+
+  }
 
   void GeometryBatcher::addTexturedFan(m2::PointF const * coords,
                                        m2::PointF const * normals,
@@ -284,12 +400,24 @@ namespace graphics
                                        double depth,
                                        int pipelineID)
   {
-    addTexturedFanStrided(coords, sizeof(m2::PointF),
-                          normals, sizeof(m2::PointF),
-                          texCoords, sizeof(m2::PointF),
-                          size,
-                          depth,
-                          pipelineID);
+    VertexStream vs;
+
+    vs.m_fPos.m_x = (float*)(coords);
+    vs.m_fPos.m_xStride = sizeof(m2::PointF);
+    vs.m_fPos.m_y = (float*)(coords) + 1;
+    vs.m_fPos.m_yStride = sizeof(m2::PointF);
+    vs.m_dPos.m_z = (double*)(&depth);
+    vs.m_dPos.m_zStride = 0;
+    vs.m_fNormal.m_x = (float*)(normals);
+    vs.m_fNormal.m_xStride = sizeof(m2::PointF);
+    vs.m_fNormal.m_y = (float*)(normals) + 1;
+    vs.m_fNormal.m_yStride = sizeof(m2::PointF);
+    vs.m_fTex.m_u = (float*)(texCoords);
+    vs.m_fTex.m_uStride = sizeof(m2::PointF);
+    vs.m_fTex.m_v = (float*)(texCoords) + 1;
+    vs.m_fTex.m_vStride = sizeof(m2::PointF);
+
+    addTriangleFan(&vs, size, pipelineID);
   }
 
   void GeometryBatcher::addTexturedFanStrided(m2::PointF const * coords,
@@ -302,43 +430,24 @@ namespace graphics
                                               double depth,
                                               int pipelineID)
   {
-    if (!hasRoom(size, (size - 2) * 3, pipelineID))
-      flush(pipelineID);
+    VertexStream vs;
 
-    GeometryPipeline & p = pipeline(pipelineID);
+    vs.m_fPos.m_x = (float*)(coords);
+    vs.m_fPos.m_xStride = coordsStride;
+    vs.m_fPos.m_y = (float*)(coords) + 1;
+    vs.m_fPos.m_yStride = coordsStride;
+    vs.m_dPos.m_z = (double*)(&depth);
+    vs.m_dPos.m_zStride = 0;
+    vs.m_fNormal.m_x = (float*)(normals);
+    vs.m_fNormal.m_xStride = normalsStride;
+    vs.m_fNormal.m_y = (float*)(normals) + 1;
+    vs.m_fNormal.m_yStride = normalsStride;
+    vs.m_fTex.m_u = (float*)(texCoords);
+    vs.m_fTex.m_uStride = texCoordsStride;
+    vs.m_fTex.m_v = (float*)(texCoords) + 1;
+    vs.m_fTex.m_vStride = texCoordsStride;
 
-    p.checkStorage();
-    if (!p.hasStorage())
-      return;
-
-    ASSERT(size > 2, ());
-
-    unsigned vOffset = p.currentVx();
-    unsigned iOffset = p.currentIdx();
-
-    gl::Vertex * vertices = static_cast<gl::Vertex*>(p.vxData());
-    unsigned short * indices = static_cast<unsigned short*>(p.idxData());
-
-    for (unsigned i = 0; i < size; ++i)
-    {
-      vertices[vOffset + i].pt = *coords;
-      vertices[vOffset + i].normal = *normals;
-      vertices[vOffset + i].tex = *texCoords;
-      vertices[vOffset + i].depth = depth;
-      coords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(coords) + coordsStride);
-      normals = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(normals) + normalsStride);
-      texCoords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(texCoords) + texCoordsStride);
-    }
-
-    for (size_t j = 0; j < size - 2; ++j)
-    {
-      indices[iOffset + j * 3] = vOffset;
-      indices[iOffset + j * 3 + 1] = vOffset + j + 1;
-      indices[iOffset + j * 3 + 2] = vOffset + j + 2;
-    }
-
-    p.advanceVx(size);
-    p.advanceIdx((size - 2) * 3);
+    addTriangleFan(&vs, size, pipelineID);
   }
 
   void GeometryBatcher::addTexturedStrip(
@@ -350,12 +459,24 @@ namespace graphics
       int pipelineID
       )
   {
-    addTexturedStripStrided(coords, sizeof(m2::PointF),
-                            normals, sizeof(m2::PointF),
-                            texCoords, sizeof(m2::PointF),
-                            size,
-                            depth,
-                            pipelineID);
+    VertexStream vs;
+
+    vs.m_fPos.m_x = (float*)(coords);
+    vs.m_fPos.m_xStride = sizeof(m2::PointF);
+    vs.m_fPos.m_y = (float*)(coords) + 1;
+    vs.m_fPos.m_yStride = sizeof(m2::PointF);
+    vs.m_dPos.m_z = (double*)(&depth);
+    vs.m_dPos.m_zStride = 0;
+    vs.m_fNormal.m_x = (float*)(normals);
+    vs.m_fNormal.m_xStride = sizeof(m2::PointF);
+    vs.m_fNormal.m_y = (float*)(normals) + 1;
+    vs.m_fNormal.m_yStride = sizeof(m2::PointF);
+    vs.m_fTex.m_u = (float*)(texCoords);
+    vs.m_fTex.m_uStride = sizeof(m2::PointF);
+    vs.m_fTex.m_v = (float*)(texCoords) + 1;
+    vs.m_fTex.m_vStride = sizeof(m2::PointF);
+
+    addTriangleStrip(&vs, size, pipelineID);
   }
 
   void GeometryBatcher::addTexturedStripStrided(
@@ -369,50 +490,24 @@ namespace graphics
       double depth,
       int pipelineID)
   {
-    if (!hasRoom(size, (size - 2) * 3, pipelineID))
-      flush(pipelineID);
+    VertexStream vs;
 
-    GeometryPipeline & p = pipeline(pipelineID);
+    vs.m_fPos.m_x = (float*)(coords);
+    vs.m_fPos.m_xStride = coordsStride;
+    vs.m_fPos.m_y = (float*)(coords) + 1;
+    vs.m_fPos.m_yStride = coordsStride;
+    vs.m_dPos.m_z = (double*)(&depth);
+    vs.m_dPos.m_zStride = 0;
+    vs.m_fNormal.m_x = (float*)(normals);
+    vs.m_fNormal.m_xStride = normalsStride;
+    vs.m_fNormal.m_y = (float*)(normals) + 1;
+    vs.m_fNormal.m_yStride = normalsStride;
+    vs.m_fTex.m_u = (float*)(texCoords);
+    vs.m_fTex.m_uStride = texCoordsStride;
+    vs.m_fTex.m_v = (float*)(texCoords) + 1;
+    vs.m_fTex.m_vStride = texCoordsStride;
 
-    p.checkStorage();
-    if (!p.hasStorage())
-      return;
-
-    ASSERT(size > 2, ());
-
-    size_t vOffset = p.currentVx();
-    size_t iOffset = p.currentIdx();
-
-    gl::Vertex * vertices = static_cast<gl::Vertex*>(p.vxData());
-    unsigned short * indices = static_cast<unsigned short*>(p.idxData());
-
-    for (unsigned i = 0; i < size; ++i)
-    {
-      vertices[vOffset + i].pt = *coords;
-      vertices[vOffset + i].normal = *normals;
-      vertices[vOffset + i].tex = *texCoords;
-      vertices[vOffset + i].depth = depth;
-      coords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(coords) + coordsStride);
-      normals = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(normals) + normalsStride);
-      texCoords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(texCoords) + texCoordsStride);
-    }
-
-    p.advanceVx(size);
-
-    size_t oldIdx1 = vOffset;
-    size_t oldIdx2 = vOffset + 1;
-
-    for (size_t j = 0; j < size - 2; ++j)
-    {
-      indices[iOffset + j * 3] = oldIdx1;
-      indices[iOffset + j * 3 + 1] = oldIdx2;
-      indices[iOffset + j * 3 + 2] = vOffset + j + 2;
-
-      oldIdx1 = oldIdx2;
-      oldIdx2 = vOffset + j + 2;
-    }
-
-    p.advanceIdx((size - 2) * 3);
+    addTriangleStrip(&vs, size, pipelineID);
   }
 
   void GeometryBatcher::addTexturedListStrided(
@@ -426,40 +521,24 @@ namespace graphics
       double depth,
       int pipelineID)
   {
-    if (!hasRoom(size, size, pipelineID))
-      flush(pipelineID);
+    VertexStream vs;
 
-    GeometryPipeline & p = pipeline(pipelineID);
+    vs.m_dPos.m_x = (double*)(coords);
+    vs.m_dPos.m_xStride = coordsStride;
+    vs.m_dPos.m_y = (double*)(coords) + 1;
+    vs.m_dPos.m_yStride = coordsStride;
+    vs.m_dPos.m_z = (double*)(&depth);
+    vs.m_dPos.m_zStride = 0;
+    vs.m_fNormal.m_x = (float*)(normals);
+    vs.m_fNormal.m_xStride = normalsStride;
+    vs.m_fNormal.m_y = (float*)(normals) + 1;
+    vs.m_fNormal.m_yStride = normalsStride;
+    vs.m_fTex.m_u = (float*)(texCoords);
+    vs.m_fTex.m_uStride = texCoordsStride;
+    vs.m_fTex.m_v = (float*)(texCoords) + 1;
+    vs.m_fTex.m_vStride = texCoordsStride;
 
-    p.checkStorage();
-    if (!p.hasStorage())
-      return;
-
-    ASSERT(size > 2, ());
-
-    size_t vOffset = p.currentVx();
-    size_t iOffset = p.currentIdx();
-
-    gl::Vertex * vertices = static_cast<gl::Vertex*>(p.vxData());
-    unsigned short * indices = static_cast<unsigned short*>(p.idxData());
-
-    for (size_t i = 0; i < size; ++i)
-    {
-      vertices[vOffset + i].pt = m2::PointF(coords->x, coords->y);
-      vertices[vOffset + i].normal = *normals;
-      vertices[vOffset + i].tex = *texCoords;
-      vertices[vOffset + i].depth = depth;
-      coords = reinterpret_cast<m2::PointD const*>(reinterpret_cast<unsigned char const*>(coords) + coordsStride);
-      normals = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(normals) + normalsStride);
-      texCoords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(texCoords) + texCoordsStride);
-    }
-
-    p.advanceVx(size);
-
-    for (size_t i = 0; i < size; ++i)
-      indices[iOffset + i] = vOffset + i;
-
-    p.advanceIdx(size);
+    addTriangleList(&vs, size, pipelineID);
   }
 
 
@@ -474,40 +553,24 @@ namespace graphics
       double depth,
       int pipelineID)
   {
-    if (!hasRoom(size, size, pipelineID))
-      flush(pipelineID);
+    VertexStream vs;
 
-    GeometryPipeline & p = pipeline(pipelineID);
+    vs.m_fPos.m_x = (float*)(coords);
+    vs.m_fPos.m_xStride = coordsStride;
+    vs.m_fPos.m_y = (float*)(coords) + 1;
+    vs.m_fPos.m_yStride = coordsStride;
+    vs.m_dPos.m_z = (double*)(&depth);
+    vs.m_dPos.m_zStride = 0;
+    vs.m_fNormal.m_x = (float*)(normals);
+    vs.m_fNormal.m_xStride = normalsStride;
+    vs.m_fNormal.m_y = (float*)(normals) + 1;
+    vs.m_fNormal.m_yStride = normalsStride;
+    vs.m_fTex.m_u = (float*)(texCoords);
+    vs.m_fTex.m_uStride = texCoordsStride;
+    vs.m_fTex.m_v = (float*)(texCoords) + 1;
+    vs.m_fTex.m_vStride = texCoordsStride;
 
-    p.checkStorage();
-    if (!p.hasStorage())
-      return;
-
-    ASSERT(size > 2, ());
-
-    size_t vOffset = p.currentVx();
-    size_t iOffset = p.currentIdx();
-
-    gl::Vertex * vertices = static_cast<gl::Vertex*>(p.vxData());
-    unsigned short * indices = static_cast<unsigned short*>(p.idxData());
-
-    for (size_t i = 0; i < size; ++i)
-    {
-      vertices[vOffset + i].pt = *coords;
-      vertices[vOffset + i].normal = *normals;
-      vertices[vOffset + i].tex = *texCoords;
-      vertices[vOffset + i].depth = depth;
-      coords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(coords) + coordsStride);
-      normals = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(normals) + normalsStride);
-      texCoords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(texCoords) + texCoordsStride);
-    }
-
-    p.advanceVx(size);
-
-    for (size_t i = 0; i < size; ++i)
-      indices[iOffset + i] = vOffset + i;
-
-    p.advanceIdx(size);
+    addTriangleList(&vs, size, pipelineID);
   }
 
   void GeometryBatcher::addTexturedList(m2::PointF const * coords,

@@ -1,12 +1,14 @@
 #pragma once
 
 #include "defines.hpp"
+#include "vertex_stream.hpp"
 
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
 
 namespace graphics
 {
+  struct VertexStream;
   /// Single attribute of vertex.
   struct VertexAttrib
   {
@@ -21,6 +23,10 @@ namespace graphics
                  EDataType elemType,
                  size_t elemCount,
                  size_t stride);
+
+    void initStream(VertexStream * vs,
+                    unsigned char * v,
+                    unsigned stride) const;
   };
 
   /// Vertex structure declaration.
@@ -38,5 +44,7 @@ namespace graphics
     VertexAttrib const * getAttr(size_t i) const;
     /// size of single element.
     size_t elemSize() const;
+    /// initialize vertex stream
+    void initStream(VertexStream * vs, unsigned char * v) const;
   };
 }

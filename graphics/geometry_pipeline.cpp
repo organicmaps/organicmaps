@@ -17,7 +17,8 @@ namespace graphics
       m_maxIdx(0),
       m_rm(rm),
       m_storageType(storageType)
-  {}
+  {
+  }
 
   GeometryPipeline::GeometryPipeline(ETextureType textureType,
                                      EStorageType storageType,
@@ -57,6 +58,9 @@ namespace graphics
           m_storage.m_vertices->lock();
         if (!m_storage.m_indices->isLocked())
           m_storage.m_indices->lock();
+
+        m_decl->initStream(&m_vertexStream,
+                           (unsigned char*)m_storage.m_vertices->data());
 
         m_maxVx = m_storage.m_vertices->size() / m_decl->elemSize();
         m_maxIdx = m_storage.m_indices->size() / sizeof(unsigned short);
@@ -106,6 +110,11 @@ namespace graphics
   VertexDecl const * GeometryPipeline::vertexDecl() const
   {
     return m_decl;
+  }
+
+  VertexStream * GeometryPipeline::vertexStream()
+  {
+    return &m_vertexStream;
   }
 
   shared_ptr<gl::Program> const & GeometryPipeline::program() const
@@ -187,6 +196,7 @@ namespace graphics
   void GeometryPipeline::advanceVx(unsigned elemCnt)
   {
     m_currentVx += elemCnt;
+    m_vertexStream.advanceVertex(elemCnt);
   }
 
   void * GeometryPipeline::vxData()

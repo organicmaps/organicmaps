@@ -24,6 +24,10 @@ namespace graphics
     /// vertex is interpreted into m_storage.m_vertexBuffer
     VertexDecl const * m_decl;
 
+    /// Stream of interpreted data from m_storage,
+    /// created according to m_decl.
+    mutable VertexStream m_vertexStream;
+
     /// Program, which is used for this pipeline.
     /// Different pipelines could use different programs.
     shared_ptr<gl::Program> m_program;
@@ -72,6 +76,9 @@ namespace graphics
     /// how to interpret data into m_storage.m_vertexBuffer
     void setVertexDecl(VertexDecl * decl);
     VertexDecl const * vertexDecl() const;
+
+    /// Get structured stream of vertex data from m_storage.
+    VertexStream * vertexStream();
 
     /// Does this pipeline holds enough free room for the
     /// specified amount of vertices and indices.
@@ -139,6 +146,8 @@ namespace graphics
     void advanceVx(unsigned elemCnt);
     /// Get direct pointer to vertex data
     void * vxData();
+    /// Get VertexDecl
+    VertexDecl * decl() const;
 
     /// How much more indices could be fitted into this pipeline
     unsigned idxLeft() const;
