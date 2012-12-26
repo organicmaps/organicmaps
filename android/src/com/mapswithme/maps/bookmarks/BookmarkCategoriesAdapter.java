@@ -26,7 +26,7 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
   {
     if (convertView == null)
     {
-      convertView = LayoutInflater.from(getContext()).inflate(R.layout.pinsets_item, null);
+      convertView = LayoutInflater.from(getContext()).inflate(R.layout.bmk_category_item, null);
       convertView.setTag(new PinSetHolder((ImageView) convertView.findViewById(R.id.psi_visible),
           (TextView) convertView.findViewById(R.id.psi_name), (TextView) convertView.findViewById(R.id.psi_set_size)));
     }
