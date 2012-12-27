@@ -3,6 +3,8 @@
 #include "thread.hpp"
 #include "threaded_list.hpp"
 #include "logging.hpp"
+#include "assert.hpp"
+
 #include "../std/bind.hpp"
 #include "../std/scoped_ptr.hpp"
 
@@ -226,11 +228,22 @@ struct AllocateOnDemandSingleThreadedPoolTraits : TBase
 
   elem_t const Reserve()
   {
+    elem_t res;
     /// allocate resources if needed if we're on the main thread.
     if (threads::GetCurrentThreadID() == base_t::m_MainThreadID)
-      base_t::m_pool.ProcessList(bind(&self_t::AllocateIfNeeded, this, _1));
+      base_t::m_pool.ProcessList(bind(&self_t::AllocateAndReserve, this, _1, ref(res)));
+    else
+      res = base_t::Reserve();
+    return res;
+  }
 
-    return base_t::Reserve();
+  void AllocateAndReserve(list<elem_t> & l, elem_t & res)
+  {
+    AllocateIfNeeded(l);
+    ASSERT ( !l.empty(), () );
+
+    res = l.front();
+    l.pop_front();
   }
 
   void UpdateState()
