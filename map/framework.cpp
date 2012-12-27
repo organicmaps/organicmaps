@@ -1187,7 +1187,7 @@ bool Framework::Search(search::SearchParams const & params)
 {
 #ifdef FIXED_LOCATION
   search::SearchParams rParams(params);
-  if (params.m_validPos)
+  if (params.IsValidPosition())
   {
     m_fixedPos.GetLat(rParams.m_lat);
     m_fixedPos.GetLon(rParams.m_lon);
