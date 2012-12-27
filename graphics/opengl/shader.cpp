@@ -3,6 +3,9 @@
 #include "defines_conv.hpp"
 #include "opengl.hpp"
 
+// For strlen
+#include "../../std/memcpy.hpp"
+
 namespace graphics
 {
   namespace gl
