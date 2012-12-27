@@ -35,6 +35,8 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+  if ([MFMailComposeViewController canSendMail])
+   return 3;
   return 2;
 }
 
@@ -44,6 +46,8 @@
   {
   case 0: return 2;
   case 1: return GetFramework().GetBmCategory(m_categoryIndex)->GetBookmarksCount();
+  // Export bookmarks
+  case 2: return 1;
   default: return 0;
   }
 }
@@ -63,152 +67,198 @@
     return nil;
 
   UITableViewCell * cell = nil;
-  if (indexPath.section == 0)
+  switch (indexPath.section)
   {
     // First section, contains info about current set
-    if (indexPath.row == 0)
+    case 0:
     {
-      cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarksVCSetNameCell"];
-      if (!cell)
+      if (indexPath.row == 0)
       {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarksVCSetNameCell"] autorelease];
-        cell.textLabel.text = NSLocalizedString(@"name", @"Bookmarks dialog - Bookmark set cell");
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        // Temporary, to init font and color
-        cell.detailTextLabel.text = @"temp string";
-        // Called to initialize frames and fonts
-        [cell layoutSubviews];
-        CGRect const leftR = cell.textLabel.frame;
-        CGFloat const padding = leftR.origin.x;
-        CGRect r = CGRectMake(padding + leftR.size.width + padding, leftR.origin.y,
-                              cell.contentView.frame.size.width - 3 * padding - leftR.size.width, leftR.size.height);
-        UITextField * f = [[[UITextField alloc] initWithFrame:r] autorelease];
-        f.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        f.enablesReturnKeyAutomatically = YES;
-        f.returnKeyType = UIReturnKeyDone;
-        f.clearButtonMode = UITextFieldViewModeWhileEditing;
-        f.autocorrectionType = UITextAutocorrectionTypeNo;
-        f.textAlignment = UITextAlignmentRight;
-        f.textColor = cell.detailTextLabel.textColor;
-        f.font = [cell.detailTextLabel.font fontWithSize:[cell.detailTextLabel.font pointSize]];
-        f.tag = TEXTFIELD_TAG;
-        f.delegate = self;
-        // Reset temporary font
-        cell.detailTextLabel.text = nil;
-        [cell.contentView addSubview:f];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarksVCSetNameCell"];
+        if (!cell)
+        {
+          cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarksVCSetNameCell"] autorelease];
+          cell.textLabel.text = NSLocalizedString(@"name", nil);
+          cell.selectionStyle = UITableViewCellSelectionStyleNone;
+          // Temporary, to init font and color
+          cell.detailTextLabel.text = @"temp string";
+          // Called to initialize frames and fonts
+          [cell layoutSubviews];
+          CGRect const leftR = cell.textLabel.frame;
+          CGFloat const padding = leftR.origin.x;
+          CGRect r = CGRectMake(padding + leftR.size.width + padding, leftR.origin.y,
+                                cell.contentView.frame.size.width - 3 * padding - leftR.size.width, leftR.size.height);
+          UITextField * f = [[[UITextField alloc] initWithFrame:r] autorelease];
+          f.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+          f.enablesReturnKeyAutomatically = YES;
+          f.returnKeyType = UIReturnKeyDone;
+          f.clearButtonMode = UITextFieldViewModeWhileEditing;
+          f.autocorrectionType = UITextAutocorrectionTypeNo;
+          f.textAlignment = UITextAlignmentRight;
+          f.textColor = cell.detailTextLabel.textColor;
+          f.font = [cell.detailTextLabel.font fontWithSize:[cell.detailTextLabel.font pointSize]];
+          f.tag = TEXTFIELD_TAG;
+          f.delegate = self;
+          // Reset temporary font
+          cell.detailTextLabel.text = nil;
+          [cell.contentView addSubview:f];
+        }
+        ((UITextField *)[cell.contentView viewWithTag:TEXTFIELD_TAG]).text = [NSString stringWithUTF8String:cat->GetName().c_str()];
       }
-      ((UITextField *)[cell.contentView viewWithTag:TEXTFIELD_TAG]).text = [NSString stringWithUTF8String:cat->GetName().c_str()];
-    }
-    else
-    {
-      cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarksVCSetVisibilityCell"];
-      if (!cell)
+      else
       {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarksVCSetVisibilityCell"] autorelease];
-        cell.textLabel.text = NSLocalizedString(@"visible", @"Bookmarks dialog - Bookmark set cell");
-        cell.accessoryView = [[[UISwitch alloc] init] autorelease];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarksVCSetVisibilityCell"];
+        if (!cell)
+        {
+          cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarksVCSetVisibilityCell"] autorelease];
+          cell.textLabel.text = NSLocalizedString(@"visible", nil);
+          cell.accessoryView = [[[UISwitch alloc] init] autorelease];
+        }
+        UISwitch * sw = (UISwitch *)cell.accessoryView;
+        sw.on = cat->IsVisible();
+        [sw addTarget:self action:@selector(onVisibilitySwitched:) forControlEvents:UIControlEventValueChanged];
       }
-      UISwitch * sw = (UISwitch *)cell.accessoryView;
-      sw.on = cat->IsVisible();
-      [sw addTarget:self action:@selector(onVisibilitySwitched:) forControlEvents:UIControlEventValueChanged];
     }
-  }
-  else
-  {
+    break;
     // Second section, contains bookmarks list
-    BookmarkCell * bmCell = (BookmarkCell *)[tableView dequeueReusableCellWithIdentifier:@"BookmarksVCBookmarkItemCell"];
-    if (!bmCell)
+    case 1:
     {
-      bmCell = [[[BookmarkCell alloc] initWithReuseIdentifier:@"BookmarksVCBookmarkItemCell"] autorelease];
-    }
+      BookmarkCell * bmCell = (BookmarkCell *)[tableView dequeueReusableCellWithIdentifier:@"BookmarksVCBookmarkItemCell"];
+      if (!bmCell)
+        bmCell = [[[BookmarkCell alloc] initWithReuseIdentifier:@"BookmarksVCBookmarkItemCell"] autorelease];
 
-    Bookmark const * bm = cat->GetBookmark(indexPath.row);
-    if (bm)
+      Bookmark const * bm = cat->GetBookmark(indexPath.row);
+      if (bm)
+      {
+        bmCell.bmName.text = [NSString stringWithUTF8String:bm->GetName().c_str()];
+        bmCell.imageView.image = [UIImage imageNamed:[NSString stringWithUTF8String:bm->GetType().c_str()]];
+
+        CompassView * compass;
+        // Try to reuse existing compass view
+        if ([bmCell.accessoryView isKindOfClass:[CompassView class]])
+          compass = (CompassView *)bmCell.accessoryView;
+        else
+        {
+          // Create compass view
+          float const h = (int)(tableView.rowHeight * 0.6);
+          compass = [[[CompassView alloc] initWithFrame:CGRectMake(0, 0, h, h)] autorelease];
+          bmCell.accessoryView = compass;
+        }
+
+        // Get current position and compass "north" direction
+        double azimut = -1.0;
+        double lat, lon;
+
+        if ([m_locationManager getLat:lat Lon:lon])
+        {
+          double north = -1.0;
+          [m_locationManager getNorthRad:north];
+
+          string distance;
+          fr.GetDistanceAndAzimut(bm->GetOrg(), lat, lon, north, distance, azimut);
+
+          bmCell.bmDistance.text = [NSString stringWithUTF8String:distance.c_str()];
+        }
+        else
+          bmCell.bmDistance.text = nil;
+
+        if (azimut >= 0.0)
+        {
+          compass.angle = azimut;
+          compass.showArrow = YES;
+        }
+        else
+          compass.showArrow = NO;
+      }
+
+      cell = bmCell;
+    }
+  break;
+  // Export bookmarks
+  case 2:
     {
-      bmCell.bmName.text = [NSString stringWithUTF8String:bm->GetName().c_str()];
-      bmCell.imageView.image = [UIImage imageNamed:[NSString stringWithUTF8String:bm->GetType().c_str()]];
-
-      CompassView * compass;
-      // Try to reuse existing compass view
-      if ([bmCell.accessoryView isKindOfClass:[CompassView class]])
-        compass = (CompassView *)bmCell.accessoryView;
-      else
+      cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarksExportCell"];
+      if (!cell)
       {
-        // Create compass view
-        float const h = (int)(tableView.rowHeight * 0.6);
-        compass = [[[CompassView alloc] initWithFrame:CGRectMake(0, 0, h, h)] autorelease];
-        bmCell.accessoryView = compass;
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BookmarksExportCell"] autorelease];
+        cell.textLabel.textAlignment = UITextAlignmentCenter;
+        cell.textLabel.text = NSLocalizedString(@"share_by_email", nil);
       }
-
-      // Get current position and compass "north" direction
-      double azimut = -1.0;
-      double lat, lon;
-
-      if ([m_locationManager getLat:lat Lon:lon])
-      {
-        double north = -1.0;
-        [m_locationManager getNorthRad:north];
-
-        string distance;
-        fr.GetDistanceAndAzimut(bm->GetOrg(), lat, lon, north, distance, azimut);
-
-        bmCell.bmDistance.text = [NSString stringWithUTF8String:distance.c_str()];
-      }
-      else
-        bmCell.bmDistance.text = nil;
-
-      if (azimut >= 0.0)
-      {
-        compass.angle = azimut;
-        compass.showArrow = YES;
-      }
-      else
-        compass.showArrow = NO;
     }
-
-    cell = bmCell;
+  break;
   }
+
   return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   // Remove cell selection
-  [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
+  [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO animated:NO];
 
-  if (indexPath.section == 0)
+  Framework & f = GetFramework();
+  switch (indexPath.section)
   {
-    if (indexPath.row == 0)
+    case 0:
     {
-      // Edit name
-      // @TODO
-    }
-  }
-  else
-  {
-    Framework & f = GetFramework();
-    BookmarkCategory const * cat = f.GetBmCategory(m_categoryIndex);
-    if (cat)
-    {
-      Bookmark const * bm = cat->GetBookmark(indexPath.row);
-      if (bm)
+      if (indexPath.row == 0)
       {
-        // Same as "Close".
-        f.ShowBookmark(*bm);
-        [self dismissModalViewControllerAnimated:YES];
-        [self.navigationController.visibleViewController dismissModalViewControllerAnimated:YES];
+        // Edit name
+        // @TODO
       }
     }
+    break;
+
+    case 1:
+    {
+      BookmarkCategory const * cat = f.GetBmCategory(m_categoryIndex);
+      if (cat)
+      {
+        Bookmark const * bm = cat->GetBookmark(indexPath.row);
+        if (bm)
+        {
+          // Same as "Close".
+          f.ShowBookmark(*bm);
+          [self dismissModalViewControllerAnimated:YES];
+          [self.navigationController.visibleViewController dismissModalViewControllerAnimated:YES];
+        }
+      }
+    }
+    break;
+
+    case 2:
+    {
+      BookmarkCategory const * cat = GetFramework().GetBmCategory(m_categoryIndex);
+      if (cat)
+      {
+        MFMailComposeViewController * mailVC = [[[MFMailComposeViewController alloc] init] autorelease];
+        mailVC.mailComposeDelegate = self;
+
+        [mailVC setSubject:NSLocalizedString(@"share_bookmarks_email_subject", nil)];
+
+        NSString * filePath = [NSString stringWithUTF8String:cat->GetFileName().c_str()];
+        NSData * myData = [[[NSData alloc] initWithContentsOfFile:filePath] autorelease];
+        NSString * catName = [NSString stringWithUTF8String:cat->GetName().c_str()];
+        [mailVC addAttachmentData:myData mimeType:@"application/vnd.google-earth.kml+xml" fileName:[NSString stringWithFormat:@"%@.kml", catName]];
+        [mailVC setMessageBody:[NSString stringWithFormat:NSLocalizedString(@"share_bookmarks_email_body", nil), catName] isHTML:NO];
+        [self presentModalViewController:mailVC animated:YES];
+      }
+    }
+    break;
   }
 }
 
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+  [self dismissModalViewControllerAnimated:YES];
+}
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  // Return NO if you do not want the specified item to be editable.
-  if (indexPath.section == 0)
-    return NO;
-  return YES;
+  // Only Bookmarks section is editable
+  if (indexPath.section == 1)
+    return YES;
+  return NO;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
