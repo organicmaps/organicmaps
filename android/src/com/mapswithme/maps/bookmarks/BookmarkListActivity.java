@@ -158,6 +158,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
         mSelectedPosition = info.position;
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.pin_sets_context_menu, menu);
+        menu.setHeaderTitle(mManager.getBookmark(mEditedSet.getId(), mSelectedPosition).getName());
       }
       super.onCreateContextMenu(menu, v, menuInfo);
     }

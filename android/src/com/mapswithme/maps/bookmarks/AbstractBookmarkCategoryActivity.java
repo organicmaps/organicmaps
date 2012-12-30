@@ -29,6 +29,7 @@ public class AbstractBookmarkCategoryActivity extends AbstractBookmarkListActivi
     {
       AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
       mSelectedPosition = info.position;
+      menu.setHeaderTitle(mManager.getCategoryById(mSelectedPosition).getName());
     }
     super.onCreateContextMenu(menu, v, menuInfo);
   }
