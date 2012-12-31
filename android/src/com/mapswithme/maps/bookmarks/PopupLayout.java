@@ -8,6 +8,7 @@ import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -28,6 +29,8 @@ public class PopupLayout extends View
   private Bitmap m_AddButton;
   private Bitmap m_editButton;
   private Bitmap m_pin;
+  private Bitmap m_popup;
+
   private Bookmark m_bmk;
   private Paint m_backgroundPaint;
   private Paint m_borderPaint;
@@ -38,16 +41,17 @@ public class PopupLayout extends View
   private Rect m_popupRect = new Rect();
   private Point m_popupAnchor = new Point();
 
+  private int m_width;
+  private int m_height;
+
   public PopupLayout(Context context)
   {
     this(context, null, 0);
-    // TODO Auto-generated constructor stub
   }
 
   public PopupLayout(Context context, AttributeSet attrs)
   {
     this(context, attrs, 0);
-    // TODO Auto-generated constructor stub
   }
 
   public PopupLayout(Context context, AttributeSet attrs, int defStyle)
@@ -76,6 +80,7 @@ public class PopupLayout extends View
   public synchronized void activate(final Bookmark bmk)
   {
     m_bmk = bmk;
+    m_popup = prepareBitmap(m_bmk);
     postInvalidate();
   }
 
@@ -83,6 +88,9 @@ public class PopupLayout extends View
   {
     m_bmk = null;
     nRemoveBookmark();
+    Bitmap b = m_popup;
+    m_popup = null;
+    b.recycle();
     postInvalidate();
   }
 
@@ -106,61 +114,83 @@ public class PopupLayout extends View
       postInvalidate();
   }
 
+  private Bitmap prepareBitmap(Bookmark bmk)
+  {
+    anchor = bmk.getPosition();
+
+    Bitmap btn;
+    if (bmk.isPreviewBookmark())
+    {
+      btn = m_AddButton;
+      nDrawBookmark(bmk.getPosition().x, bmk.getPosition().y);
+    }
+    else
+    {
+      btn = m_editButton;
+    }
+
+    String bmkName = bmk.getName();
+    int pWidth = getWidth() / 2;
+    int pHeight = m_height = btn.getHeight() + 10;
+    int maxTextWidth = pWidth - btn.getWidth() - 10;
+    int currentTextWidth = Math.round(m_textPaint.measureText(bmkName));
+    String text;
+    if (currentTextWidth > maxTextWidth)
+    {
+      text = TextUtils.ellipsize(bmkName, m_textPaint, maxTextWidth, TruncateAt.END).toString();
+      currentTextWidth = Math.round(m_textPaint.measureText(text));;
+    }
+    else
+    {
+      text = bmkName;
+    }
+    pWidth = m_width = currentTextWidth + btn.getWidth() + 10;
+
+
+    m_popupPath.reset();
+    m_popupPath.moveTo(0, 0);
+    m_popupPath.lineTo(pWidth, 0);
+    m_popupPath.lineTo(pWidth, 0 + pHeight);
+    m_popupPath.lineTo(m_width/2 + m_thriangleHeight, pHeight);
+    m_popupPath.lineTo(m_width/2, pHeight + m_thriangleHeight);
+    m_popupPath.lineTo(m_width/2 - m_thriangleHeight, pHeight);
+    m_popupPath.lineTo(0, pHeight);
+    m_popupPath.lineTo(0, 0);
+
+    Bitmap b = Bitmap.createBitmap(pWidth, pHeight + m_thriangleHeight, Config.ARGB_8888);
+    Canvas canvas = new Canvas(b);
+    canvas.drawPath(m_popupPath, m_backgroundPaint);
+    canvas.drawBitmap(btn, pWidth - btn.getWidth()-5, + 5, m_buttonPaint);
+    canvas.drawPath(m_popupPath, m_borderPaint);
+    m_textPaint.getTextBounds(text, 0, text.length(), m_textBounds);
+
+    int textHeight = m_textBounds.bottom - m_textBounds.top;
+    canvas.drawText(text, 2,
+                    - (pHeight - textHeight) / 2 + pHeight,
+                    m_textPaint);
+
+    return b;
+  }
+
   @Override
   protected void onDraw(Canvas canvas)
   {
     Bookmark bmk = m_bmk;
     if (bmk != null)
     {
-
-      anchor = bmk.getPosition();
-
-      int pinHeight = 35;//m_pin.getHeight();
-
-
-      Bitmap btn;
-      if (bmk.isPreviewBookmark())
-      {
-        btn = m_AddButton;
-        nDrawBookmark(bmk.getPosition().x, bmk.getPosition().y);
-        //canvas.drawBitmap(m_pin, anchor.x - m_pin.getWidth() / 2, anchor.y - pinHeight, m_borderPaint);
-      }
-      else
-      {
-        btn = m_editButton;
-      }
-
-      int pWidth = getWidth() / 2;
-      int pHeight = btn.getHeight() + 10;
-
-      m_popupAnchor.x = anchor.x - pWidth / 2;
-      m_popupAnchor.y = anchor.y - pinHeight - m_thriangleHeight - pHeight;
+      int pinHeight = 35;
+      m_popupAnchor.x = bmk.getPosition().x - m_width / 2;
+      m_popupAnchor.y = bmk.getPosition().y - pinHeight - m_thriangleHeight - m_height;
 
       m_popupRect.left = m_popupAnchor.x;
       m_popupRect.top = m_popupAnchor.y;
-      m_popupRect.right = m_popupAnchor.x + pWidth;
-      m_popupRect.bottom = m_popupAnchor.y + pHeight;
+      m_popupRect.right = m_popupAnchor.x + m_width;
+      m_popupRect.bottom = m_popupAnchor.y + m_height;
 
-      m_popupPath.reset();
-      m_popupPath.moveTo(m_popupAnchor.x, m_popupAnchor.y);
-      m_popupPath.lineTo(m_popupAnchor.x + pWidth, m_popupAnchor.y);
-      m_popupPath.lineTo(m_popupAnchor.x + pWidth, m_popupAnchor.y + pHeight);
-      m_popupPath.lineTo(anchor.x + m_thriangleHeight, m_popupAnchor.y + pHeight);
-      m_popupPath.lineTo(anchor.x,  m_popupAnchor.y + pHeight + m_thriangleHeight);
-      m_popupPath.lineTo(anchor.x - m_thriangleHeight,  m_popupAnchor.y + pHeight);
-      m_popupPath.lineTo(m_popupAnchor.x,  m_popupAnchor.y + pHeight);
-      m_popupPath.lineTo(m_popupAnchor.x, m_popupAnchor.y);
-
-      String text = (String) TextUtils.ellipsize(bmk.getName(), m_textPaint, pWidth - btn.getWidth() - 10, TruncateAt.END);
-      canvas.drawPath(m_popupPath, m_backgroundPaint);
-      canvas.drawBitmap(btn, m_popupAnchor.x + pWidth - btn.getWidth()-5, m_popupAnchor.y + 5, m_buttonPaint);
-      canvas.drawPath(m_popupPath, m_borderPaint);
-      m_textPaint.getTextBounds(bmk.getName(), 0, bmk.getName().length(), m_textBounds);
-      int textHeight = m_textBounds.bottom - m_textBounds.top;
-      canvas.drawText(text, m_popupAnchor.x+2,
-                      m_popupAnchor.y - (pHeight - textHeight) / 2 + pHeight,
-                      m_textPaint);
-
+      if (m_popup != null)
+      {
+        canvas.drawBitmap(m_popup, m_popupAnchor.x, m_popupAnchor.y, m_buttonPaint);
+      }
     }
     else
     {
