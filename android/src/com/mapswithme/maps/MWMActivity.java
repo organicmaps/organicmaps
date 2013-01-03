@@ -598,30 +598,34 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     @Override
     public void onLongClick(int x, int y)
     {
-      m_PopupLayout.activate(m_BookmarkManager.previewBookmark(new Point(x, y)));
+      if(!handleOnSmthClick(x, y))
+        m_PopupLayout.activate(m_BookmarkManager.previewBookmark(new Point(x, y)));
     }
 
     @Override
     public void onClick(int x, int y)
     {
-      handleOnSmthClick(x, y);
+      if(!m_PopupLayout.handleClick(x, y))
+        handleOnSmthClick(x, y);
     }
 
-    private void handleOnSmthClick(int x, int y)
+    private boolean handleOnSmthClick(int x, int y)
     {
       ParcelablePoint b = m_BookmarkManager.findBookmark(new Point(x, y));
       if (b != null)
       {
         m_PopupLayout.activate(m_BookmarkManager.getBookmark(b.getPoint().x, b.getPoint().y));
+        return true;
       }
       else if (!TextUtils.isEmpty(m_BookmarkManager.getNameForPOI(new Point(x, y))))
       {
         m_PopupLayout.activate(m_BookmarkManager.previewBookmark(new Point(x, y)));
+        return true;
       }
       else
       {
-        m_PopupLayout.handleClick(x, y);
         m_PopupLayout.deactivate();
+        return false;
       }
     }
   }

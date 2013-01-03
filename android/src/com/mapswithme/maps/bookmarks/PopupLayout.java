@@ -205,7 +205,13 @@ public class PopupLayout extends View
   private native void nDrawBookmark(double x, double y);
   private native void nRemoveBookmark();
 
-  public void handleClick(int x, int y)
+  /**
+   *
+   * @param x
+   * @param y
+   * @return true if we start {@link BookmarkActivity}, false otherwise
+   */
+  public boolean handleClick(int x, int y)
   {
     if ( m_popupRect.contains(x, y) )
     {
@@ -221,7 +227,9 @@ public class PopupLayout extends View
         getContext().startActivity(new Intent(getContext(), BookmarkActivity.class).putExtra(BookmarkActivity.PIN, new ParcelablePoint(m_bmk.getCategoryId(), m_bmk.getBookmarkId())));
       }
       m_bmk = null;
+      return true;
     }
+    return false;
   }
 
 
