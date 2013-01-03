@@ -1426,30 +1426,29 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, 
   shared_ptr<ElementT> elem = GetClosestToPivot(candidates, pt);
 
   /// cloning element to avoid it's modification after FrameUnlock.
+
+  ElementT::UserInfo ui;
+
   if (elem)
-    elem.reset(elem->clone(math::Identity<double, 3>()));
+    ui = elem->userInfo();
 
   m_renderPolicy->FrameUnlock();
 
-  if (elem)
+  if (ui.IsValid())
   {
-    ElementT::UserInfo const & ui = elem->userInfo();
-    if (ui.IsValid())
-    {
-      Index::FeaturesLoaderGuard guard(m_model.GetIndex(), ui.m_mwmID);
+    Index::FeaturesLoaderGuard guard(m_model.GetIndex(), ui.m_mwmID);
 
-      FeatureType ft;
-      guard.GetFeature(ui.m_offset, ft);
+    FeatureType ft;
+    guard.GetFeature(ui.m_offset, ft);
 
-      // @TODO experiment with other pivots
-      ASSERT_NOT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE, ());
-      m2::PointD const center = feature::GetCenter(ft);
+    // @TODO experiment with other pivots
+    ASSERT_NOT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE, ());
+    m2::PointD const center = feature::GetCenter(ft);
 
-      GetAddressInfo(ft, center, info);
+    GetAddressInfo(ft, center, info);
 
-      pxPivot = GtoP(center);
-      return true;
-    }
+    pxPivot = GtoP(center);
+    return true;
   }
 
   return false;
