@@ -16,10 +16,10 @@
         android:focusableInTouchMode="true"/>
 
     <ScrollView
-        android:layout_below="@id/bmk_hack_view"
-        android:layout_above="@+id/bmk_delete"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bmk_delete"
+        android:layout_below="@id/bmk_hack_view" >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -30,7 +30,7 @@
                 android:id="@+id/pin_name"
                 android:layout_width="fill_parent"
                 android:layout_height="60dp"
-                android:background="@null"
+                android:layout_margin="5dp"
                 android:hint="@string/name"
                 android:imeOptions="actionDone"
                 android:paddingBottom="20dp"
@@ -49,6 +49,8 @@
                 android:id="@+id/pin_sets"
                 android:layout_width="fill_parent"
                 android:layout_height="60dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
                 android:paddingLeft="5dp"
@@ -58,7 +60,6 @@
                     android:id="@+id/pin_button_set_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="3dp"
                     android:singleLine="true"
                     android:text="sdfjdslkfjdsklf"
                     android:textSize="18sp" />
@@ -66,7 +67,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="3dp"
                     android:singleLine="true"
                     android:text="@string/set"
                     android:textColor="@android:color/darker_gray" />
@@ -96,7 +96,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/delete"
-        android:onClick="onDeleteClick" />
+        android:onClick="onDeleteClick"
+        android:text="@string/delete" />
 
 </RelativeLayout>

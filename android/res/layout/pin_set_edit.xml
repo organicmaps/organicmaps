@@ -14,18 +14,17 @@
             android:orientation="vertical" >
 
             <EditText
+                android:layout_margin="5dp"
                 android:id="@+id/pin_set_name"
                 android:layout_width="fill_parent"
                 android:layout_height="60dp"
-                android:background="@null"
                 android:hint="@string/name"
                 android:paddingBottom="20dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="20dp"
                 android:singleLine="true"
-                android:imeOptions="actionDone"
-                android:textColor="@android:color/white" />
+                android:imeOptions="actionDone" />
 
             <View
                 android:layout_width="fill_parent"
@@ -33,6 +32,7 @@
                 android:background="@android:drawable/divider_horizontal_dark" />
 
             <CheckBox
+                android:layout_margin="5dp"
                 android:id="@+id/pin_set_visible"
                 android:layout_width="fill_parent"
                 android:layout_height="60dp"
