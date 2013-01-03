@@ -1423,9 +1423,14 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, 
                  pt.x + halfSize, pt.y + halfSize);
   m_renderPolicy->FrameOverlay()->selectOverlayElements(rect, candidates);
 
-  bool res = false;
-
   shared_ptr<ElementT> elem = GetClosestToPivot(candidates, pt);
+
+  /// cloning element to avoid it's modification after FrameUnlock.
+  if (elem)
+    elem.reset(elem->clone(math::Identity<double, 3>()));
+
+  m_renderPolicy->FrameUnlock();
+
   if (elem)
   {
     ElementT::UserInfo const & ui = elem->userInfo();
@@ -1443,12 +1448,11 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, 
       GetAddressInfo(ft, center, info);
 
       pxPivot = GtoP(center);
-      res = true;
+      return true;
     }
   }
 
-  m_renderPolicy->FrameUnlock();
-  return res;
+  return false;
 }
 
 Animator & Framework::GetAnimator()
