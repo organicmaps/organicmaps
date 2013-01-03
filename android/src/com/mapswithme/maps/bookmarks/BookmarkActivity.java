@@ -50,8 +50,10 @@ public class BookmarkActivity extends AbstractBookmarkActivity
     setContentView(R.layout.pin);
     if (getIntent().getExtras().containsKey(BOOKMARK_POSITION))
     {
+      // create new bookmark
       mPin = mManager.getBookmark(((ParcelablePoint)getIntent().getExtras().getParcelable(BOOKMARK_POSITION)).getPoint());
       mPin.setName(getIntent().getExtras().getString(BOOKMARK_NAME));
+      findViewById(R.id.pin_name).requestFocus();
     }
     else if (getIntent().getExtras().containsKey(PIN))
     {
@@ -110,7 +112,8 @@ public class BookmarkActivity extends AbstractBookmarkActivity
     mSetName = (TextView) findViewById(R.id.pin_button_set_name);
     mSetName.setText(mPin.getCategoryName() != null ? mPin.getCategoryName() : getString(android.R.string.unknownName));
     mName = (EditText) findViewById(R.id.pin_name);
-    mName.setText(mPin.getName());
+    mName.setText("");
+    mName.append(mPin.getName());
     mName.addTextChangedListener(new TextWatcher()
     {
 
