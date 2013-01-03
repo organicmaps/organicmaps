@@ -71,8 +71,6 @@ protected:
   anim::Controller * m_controller;
   shared_ptr<graphics::Overlay> m_overlay;
 
-  void SetOverlay(shared_ptr<graphics::Overlay> const & overlay);
-
   void InitCacheScreen();
 
 public:
@@ -149,11 +147,25 @@ public:
   double VisualScale() const;
   string const & SkinName() const;
 
+  /// This function is used when we need to prevent race
+  /// conditions on some resources, which could be modified
+  /// from another threads.
+  /// One example of such resource is a current graphics::Overlay
+  /// object
+  /// @{
+  virtual void FrameLock();
+  virtual void FrameUnlock();
+  /// @}
+
+  /// Get current graphics::Overlay object.
+  /// Access to this resource should be synchronized using
+  /// FrameLock/FrameUnlock methods
+  virtual shared_ptr<graphics::Overlay> const FrameOverlay() const;
+
   /// Benchmarking protocol
   virtual int InsertBenchmarkFence();
   virtual void JoinBenchmarkFence(int fenceID);
 
-  virtual shared_ptr<graphics::Overlay> const GetOverlay() const;
   graphics::Color const GetBgColor() const;
 
   shared_ptr<graphics::Screen> const & GetCacheScreen() const;

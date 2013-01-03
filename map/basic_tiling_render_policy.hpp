@@ -79,6 +79,10 @@ public:
   size_t ScaleEtalonSize() const;
   size_t TileSize() const;
 
+  void FrameLock();
+  void FrameUnlock();
+  shared_ptr<graphics::Overlay> const FrameOverlay() const;
+
   /// benchmarking protocol
   int InsertBenchmarkFence();
   void JoinBenchmarkFence(int fenceID);

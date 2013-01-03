@@ -239,14 +239,20 @@ void RenderPolicy::SetAnimController(anim::Controller * controller)
   m_controller = controller;
 }
 
-void RenderPolicy::SetOverlay(shared_ptr<graphics::Overlay> const & overlay)
+void RenderPolicy::FrameLock()
 {
-  m_overlay = overlay;
+  LOG(LWARNING, ("unimplemented method called."));
 }
 
-shared_ptr<graphics::Overlay> const RenderPolicy::GetOverlay() const
+void RenderPolicy::FrameUnlock()
 {
-  return m_overlay;
+  LOG(LWARNING, ("unimplemented method called"));
+}
+
+shared_ptr<graphics::Overlay> const RenderPolicy::FrameOverlay() const
+{
+  LOG(LWARNING, ("unimplemented method called"));
+  return shared_ptr<graphics::Overlay>();
 }
 
 graphics::Color const RenderPolicy::GetBgColor() const

@@ -1411,6 +1411,8 @@ shared_ptr<graphics::OverlayElement> const GetClosestToPivot(list<shared_ptr<gra
 
 bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, AddressInfo & info) const
 {
+  m_renderPolicy->FrameLock();
+
   m2::PointD const pt = m_navigator.ShiftPoint(pxPoint);
   double const halfSize = TOUCH_PIXEL_RADIUS * GetVisualScale();
 
@@ -1419,12 +1421,14 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, 
   list<shared_ptr<ElementT> > candidates;
   m2::RectD rect(pt.x - halfSize, pt.y - halfSize,
                  pt.x + halfSize, pt.y + halfSize);
-  m_renderPolicy->GetOverlay()->selectOverlayElements(rect, candidates);
+  m_renderPolicy->FrameOverlay()->selectOverlayElements(rect, candidates);
 
-  shared_ptr<ElementT> res = GetClosestToPivot(candidates, pt);
-  if (res)
+  bool res = false;
+
+  shared_ptr<ElementT> elem = GetClosestToPivot(candidates, pt);
+  if (elem)
   {
-    ElementT::UserInfo const & ui = res->userInfo();
+    ElementT::UserInfo const & ui = elem->userInfo();
     if (ui.IsValid())
     {
       Index::FeaturesLoaderGuard guard(m_model.GetIndex(), ui.m_mwmID);
@@ -1439,11 +1443,12 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, 
       GetAddressInfo(ft, center, info);
 
       pxPivot = GtoP(center);
-      return true;
+      res = true;
     }
   }
 
-  return false;
+  m_renderPolicy->FrameUnlock();
+  return res;
 }
 
 Animator & Framework::GetAnimator()

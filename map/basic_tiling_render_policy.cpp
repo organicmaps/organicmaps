@@ -118,8 +118,6 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
 
   if (curCvg)
   {
-    SetOverlay(curCvg->GetOverlay());
-
     curCvg->Draw(pDrawer->screen().get(), s);
 
     m_DrawScale = curCvg->GetDrawScale();
@@ -253,6 +251,21 @@ size_t BasicTilingRenderPolicy::ScaleEtalonSize() const
 size_t BasicTilingRenderPolicy::TileSize() const
 {
   return m_TileSize;
+}
+
+void BasicTilingRenderPolicy::FrameLock()
+{
+  m_CoverageGenerator->Mutex().Lock();
+}
+
+void BasicTilingRenderPolicy::FrameUnlock()
+{
+  m_CoverageGenerator->Mutex().Unlock();
+}
+
+shared_ptr<graphics::Overlay> const BasicTilingRenderPolicy::FrameOverlay() const
+{
+  return m_CoverageGenerator->CurrentCoverage()->GetOverlay();
 }
 
 int BasicTilingRenderPolicy::InsertBenchmarkFence()
