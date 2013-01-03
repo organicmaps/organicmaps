@@ -573,6 +573,19 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     }
   }
 
+  @Override
+  protected void onStop()
+  {
+    if (mApplication.isProVersion())
+    {
+      if (m_popupLayout != null)
+      {
+        m_popupLayout.deactivate();
+      }
+    }
+    super.onStop();
+  }
+
   private class BookmarkTouchHandler implements OnClickListenter, OnLongClickListener
   {
     private PopupLayout m_PopupLayout;
