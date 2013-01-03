@@ -21,6 +21,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
@@ -603,23 +604,24 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     @Override
     public void onClick(int x, int y)
     {
-      if (m_PopupLayout.isActive())
-      {
-        m_PopupLayout.handleClick(x, y);
-        m_PopupLayout.deactivate();
-      }
-      else
-      {
-        handleOnBookmarkClick(x, y);
-      }
+      handleOnSmthClick(x, y);
     }
 
-    private void handleOnBookmarkClick(int x, int y)
+    private void handleOnSmthClick(int x, int y)
     {
       ParcelablePoint b = m_BookmarkManager.findBookmark(new Point(x, y));
       if (b != null)
       {
         m_PopupLayout.activate(m_BookmarkManager.getBookmark(b.getPoint().x, b.getPoint().y));
+      }
+      else if (!TextUtils.isEmpty(m_BookmarkManager.getNameForPOI(new Point(x, y))))
+      {
+        m_PopupLayout.activate(m_BookmarkManager.previewBookmark(new Point(x, y)));
+      }
+      else
+      {
+        m_PopupLayout.handleClick(x, y);
+        m_PopupLayout.deactivate();
       }
     }
   }
