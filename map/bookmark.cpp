@@ -166,13 +166,20 @@ namespace bookmark_impl
     }
 
     bool MakeValid()
-    {
+    { 
       if (MercatorBounds::ValidX(m_org.x) && MercatorBounds::ValidY(m_org.y))
       {
+        // set default name
         if (m_name.empty())
           m_name = PointToString(m_org);
+
+        // set default pin
+        if (m_type.empty())
+          m_type = "placemark-red";
+
         return true;
       }
+
       return false;
     }
 
