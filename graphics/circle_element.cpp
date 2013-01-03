@@ -62,11 +62,6 @@ namespace graphics
                           res->m_pipelineID);
   }
 
-  int CircleElement::visualRank() const
-  {
-    return 500;
-  }
-
   OverlayElement * CircleElement::clone(math::Matrix<double, 3, 3> const & m) const
   {
     return new CircleElement(*this, m);

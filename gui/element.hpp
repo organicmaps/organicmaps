@@ -69,7 +69,7 @@ namespace gui
 
     graphics::OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
     void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
-    int visualRank() const;
+    int priority() const;
 
     virtual void cache();
     /// this method is called upon renderPolicy destruction and should clean

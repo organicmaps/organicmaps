@@ -48,12 +48,12 @@ namespace graphics
       m_elements[i]->draw(r, m);
   }
 
-  int CompositeOverlayElement::visualRank() const
+  int CompositeOverlayElement::priority() const
   {
     int res = numeric_limits<int>::min();
 
     for (unsigned i = 0; i < m_elements.size(); ++i)
-      res = max(res, m_elements[i]->visualRank());
+      res = max(res, m_elements[i]->priority());
 
     return res;
   }

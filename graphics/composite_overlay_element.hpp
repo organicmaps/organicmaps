@@ -26,7 +26,7 @@ namespace graphics
 
     void draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
-    int visualRank() const;
+    int priority() const;
 
     void offset(m2::PointD const & offs);
   };

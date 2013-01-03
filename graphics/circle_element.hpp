@@ -31,8 +31,6 @@ namespace graphics
 
     void draw(OverlayRenderer * s, math::Matrix<double, 3, 3> const & m) const;
 
-    int visualRank() const;
-
     OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
   };
 }

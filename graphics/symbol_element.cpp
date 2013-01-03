@@ -87,11 +87,6 @@ namespace graphics
                                    res->m_pipelineID);
   }
 
-  int SymbolElement::visualRank() const
-  {
-    return 0000;
-  }
-
   OverlayElement * SymbolElement::clone(math::Matrix<double, 3, 3> const & m) const
   {
     return new SymbolElement(*this, m);

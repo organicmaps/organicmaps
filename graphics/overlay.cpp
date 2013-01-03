@@ -21,7 +21,7 @@ namespace graphics
       return false;
 
     /// for the composite elements, collected in OverlayRenderer to replace the part elements
-    return l->visualRank() >= r->visualRank();
+    return l->priority() >= r->priority();
   }
 
   m2::RectD const OverlayElementTraits::LimitRect(shared_ptr<OverlayElement> const & elem)
@@ -288,7 +288,7 @@ namespace graphics
   bool greater_priority(shared_ptr<OverlayElement> const & l,
                         shared_ptr<OverlayElement> const & r)
   {
-    return l->visualRank() > r->visualRank();
+    return l->priority() > r->priority();
   }
 
   void Overlay::merge(Overlay const & layer, math::Matrix<double, 3, 3> const & m)

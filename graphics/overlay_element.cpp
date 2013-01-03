@@ -209,4 +209,9 @@ namespace graphics
   {
     return false;
   }
+
+  int OverlayElement::priority() const
+  {
+    return m_depth * 1000;
+  }
 }
