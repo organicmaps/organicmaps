@@ -96,6 +96,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:onClick="onDeleteClick"
-        android:text="@string/delete" />
+        android:text="@string/remove_pin" />
 
 </RelativeLayout>

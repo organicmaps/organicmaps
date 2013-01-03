@@ -7,15 +7,6 @@
     android:paddingRight="5dp"
     android:paddingTop="15dp" >
 
-    <ImageView
-        android:id="@+id/psi_visible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:padding="5dp"
-        android:src="@drawable/eye_on" />
-
     <TextView
         android:id="@+id/psi_set_size"
         android:layout_width="wrap_content"
@@ -28,10 +19,10 @@
         android:id="@+id/psi_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="5dp"
         android:layout_toLeftOf="@id/psi_set_size"
-        android:layout_toRightOf="@id/psi_visible"
         android:singleLine="true"
         android:textSize="25sp" />
 

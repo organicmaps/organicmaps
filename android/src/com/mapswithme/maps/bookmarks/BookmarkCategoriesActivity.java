@@ -42,7 +42,7 @@ public class BookmarkCategoriesActivity extends AbstractBookmarkCategoryActivity
   public void onCreateContextMenu(ContextMenu menu, View v,
                                   ContextMenuInfo menuInfo)
   {
-    getMenuInflater().inflate(R.menu.pin_sets_context_menu, menu);
+    getMenuInflater().inflate(R.menu.bookmark_categories_context_menu, menu);
     super.onCreateContextMenu(menu, v, menuInfo);
   }
 
