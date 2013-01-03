@@ -88,9 +88,12 @@ public class PopupLayout extends View
   {
     m_bmk = null;
     nRemoveBookmark();
-    Bitmap b = m_popup;
-    m_popup = null;
-    b.recycle();
+    if(m_popup != null)
+    {
+      Bitmap b = m_popup;
+      m_popup = null;
+      b.recycle();
+    }
     postInvalidate();
   }
 

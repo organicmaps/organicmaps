@@ -37,8 +37,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="20dp"
-                android:singleLine="true"
-                android:textColor="@android:color/white" />
+                android:singleLine="true" />
 
             <View
                 android:layout_width="fill_parent"
