@@ -20,33 +20,45 @@ namespace graphics
       m_fastSolidPath(params.m_fastSolidPath)
   {}
 
-  void PathRenderer::drawPath(m2::PointD const * points, size_t pointsCount, double offset, uint32_t resID, double depth)
+  void PathRenderer::drawPath(m2::PointD const * pts, size_t ptsCount, double offset, uint32_t resID, double depth)
   {
     ++m_pathCount;
-    m_pointsCount += pointsCount;
+    m_pointsCount += ptsCount;
 
     if (!m_drawPathes)
       return;
 
-    ASSERT_GREATER_OR_EQUAL(pointsCount, 2, ());
+    ASSERT_GREATER_OR_EQUAL(ptsCount, 2, ());
     ASSERT_NOT_EQUAL(resID, uint32_t(-1), ());
 
-    Resource const * res(base_t::fromID(resID));
+    Resource const * res = base_t::fromID(resID);
+
     if (res == 0)
     {
-      LOG(LINFO, ("drawPath: resID=", resID, " wasn't found on current skin"));
+      LOG(LINFO, ("drawPath: resID=", resID, "wasn't found on current skin"));
       return;
     }
 
     ASSERT(res->m_cat == Resource::EPen, ());
 
     Pen const * pen = static_cast<Pen const *>(res);
-    if (m_fastSolidPath && pen->m_isSolid)
-    {
-      drawFastSolidPath(points, pointsCount, resID, depth);
-      return;
-    }
 
+    if (!pen->m_info.m_symbol.empty())
+      drawSymbolPath(pts, ptsCount, offset, pen, depth);
+    else
+      if (m_fastSolidPath && pen->m_isSolid)
+        drawSolidPath(pts, ptsCount, offset, pen, depth);
+      else
+        drawStipplePath(pts, ptsCount, offset, pen, depth);
+  }
+
+  void PathRenderer::drawSymbolPath(m2::PointD const * pts, size_t ptsCount, double offset, Pen const * pen, double depth)
+  {
+    LOG(LINFO, ("drawSymbolPath is unimplemented. symbolName=", pen->m_info.m_symbol));
+  }
+
+  void PathRenderer::drawStipplePath(m2::PointD const * points, size_t pointsCount, double offset, Pen const * pen, double depth)
+  {
     float rawTileStartLen = 0;
 
     float rawTileLen = (float)pen->rawTileLen();
@@ -94,7 +106,7 @@ namespace graphics
       /// Length of the actual pattern data being tiling(without antialiasing zones).
       rawTileLen = 0;
 
-      GeometryPipeline & p = pipeline(res->m_pipelineID);
+      GeometryPipeline & p = pipeline(pen->m_pipelineID);
 
       shared_ptr<gl::BaseTexture> texture = p.texture();
 
@@ -243,14 +255,8 @@ namespace graphics
     }
   }
 
-  void PathRenderer::drawFastSolidPath(m2::PointD const * points, size_t pointsCount, uint32_t resID, double depth)
+  void PathRenderer::drawSolidPath(m2::PointD const * points, size_t pointsCount, double offset, Pen const * pen, double depth)
   {
-    ASSERT_GREATER_OR_EQUAL(pointsCount, 2, ());
-    Resource const * res(base_t::fromID(resID));
-
-    ASSERT(res->m_cat == Resource::EPen, ());
-    Pen const * pen = static_cast<Pen const *>(res);
-
     ASSERT(pen->m_isSolid, ());
 
     for (size_t i = 0; i < pointsCount - 1; ++i)
@@ -289,7 +295,7 @@ namespace graphics
         nextPt + fDir - fNorm
       };
 
-      GeometryPipeline & p = pipeline(res->m_pipelineID);
+      GeometryPipeline & p = pipeline(pen->m_pipelineID);
 
       shared_ptr<gl::BaseTexture> texture = p.texture();
 

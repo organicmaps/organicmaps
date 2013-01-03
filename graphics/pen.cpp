@@ -11,82 +11,95 @@
 
 namespace graphics
 {
-  Pen::Info::Info()
-    : Resource::Info(EPen)
-  {}
-
   Pen::Info::Info(Color const & color,
                   double w,
                   double const * pattern,
                   size_t patternSize,
-                  double offset)
+                  double offset,
+                  char const * symbol,
+                  double step,
+                  ELineJoin join,
+                  ELineCap cap)
     : Resource::Info(EPen),
       m_color(color),
       m_w(w),
       m_offset(offset),
+      m_step(step),
+      m_join(join),
+      m_cap(cap),
       m_isSolid(false)
   {
+    if (symbol != 0)
+      m_symbol = string(symbol);
+
     if (m_w < 1.0)
       m_w = 1.0;
 
-    /// if pattern is solid
-    if ((pattern == 0 ) || (patternSize == 0))
-      m_isSolid = true;
+    if (!m_symbol.empty())
+    {
+      m_isSolid = false;
+    }
     else
     {
-      buffer_vector<double, 4> tmpV;
-      copy(pattern, pattern + patternSize, back_inserter(tmpV));
-
-      if (tmpV.size() % 2)
-        tmpV.push_back(0);
-
-      double length = 0;
-
-      /// ensuring that a minimal element has a length of 2px
-      for (size_t i = 0; i < tmpV.size(); ++i)
+      /// if pattern is solid
+      if ((pattern == 0 ) || (patternSize == 0))
+        m_isSolid = true;
+      else
       {
-        if ((tmpV[i] < 2) && (tmpV[i] > 0))
-          tmpV[i] = 2;
-        length += tmpV[i];
-      }
+        buffer_vector<double, 4> tmpV;
+        copy(pattern, pattern + patternSize, back_inserter(tmpV));
 
-      int i = 0;
+        if (tmpV.size() % 2)
+          tmpV.push_back(0);
 
-      buffer_vector<double, 4> vec;
+        double length = 0;
 
-      if ((offset >= length) || (offset < 0))
-        offset -= floor(offset / length) * length;
-
-      double curLen = 0;
-
-      /// shifting pattern
-      while (true)
-      {
-        if (curLen + tmpV[i] > offset)
+        /// ensuring that a minimal element has a length of 2px
+        for (size_t i = 0; i < tmpV.size(); ++i)
         {
-          //we're inside, let's split the pattern
-
-          if (i % 2 == 1)
-            vec.push_back(0);
-
-          vec.push_back(curLen + tmpV[i] - offset);
-          copy(tmpV.begin() + i + 1, tmpV.end(), back_inserter(vec));
-          copy(tmpV.begin(), tmpV.begin() + i, back_inserter(vec));
-          vec.push_back(offset - curLen);
-
-          if (i % 2 == 0)
-            vec.push_back(0);
-
-          break;
+          if ((tmpV[i] < 2) && (tmpV[i] > 0))
+            tmpV[i] = 2;
+          length += tmpV[i];
         }
-        else
-          curLen += tmpV[i++];
-      }
 
-      int periods = max(int((256 - 4) / length), 1);
-      m_pat.reserve(periods * vec.size());
-      for (int i = 0; i < periods; ++i)
-        copy(vec.begin(), vec.end(), back_inserter(m_pat));
+        int i = 0;
+
+        buffer_vector<double, 4> vec;
+
+        if ((offset >= length) || (offset < 0))
+          offset -= floor(offset / length) * length;
+
+        double curLen = 0;
+
+        /// shifting pattern
+        while (true)
+        {
+          if (curLen + tmpV[i] > offset)
+          {
+            //we're inside, let's split the pattern
+
+            if (i % 2 == 1)
+              vec.push_back(0);
+
+            vec.push_back(curLen + tmpV[i] - offset);
+            copy(tmpV.begin() + i + 1, tmpV.end(), back_inserter(vec));
+            copy(tmpV.begin(), tmpV.begin() + i, back_inserter(vec));
+            vec.push_back(offset - curLen);
+
+            if (i % 2 == 0)
+              vec.push_back(0);
+
+            break;
+          }
+          else
+            curLen += tmpV[i++];
+        }
+
+        int periods = max(int((256 - 4) / length), 1);
+        m_pat.reserve(periods * vec.size());
+        for (int i = 0; i < periods; ++i)
+          copy(vec.begin(), vec.end(), back_inserter(m_pat));
+      }
     }
   }
 
@@ -158,6 +171,14 @@ namespace graphics
     for (size_t i = 0; i < m_pat.size(); ++i)
       if (m_pat[i] != rp->m_pat[i])
         return m_pat[i] < rp->m_pat[i];
+    if (m_join != rp->m_join)
+      return m_join < rp->m_join;
+    if (m_cap != rp->m_cap)
+      return m_cap < rp->m_cap;
+    if (m_symbol != rp->m_symbol)
+      return m_symbol < rp->m_symbol;
+    if (m_step != rp->m_step)
+      return m_step < rp->m_step;
 
     return false;
   }

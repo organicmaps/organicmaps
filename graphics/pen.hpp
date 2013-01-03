@@ -15,20 +15,39 @@ namespace graphics
     /// used as a texture-cache-key
     struct Info : public Resource::Info
     {
+      enum ELineJoin
+      {
+        ERoundJoin,
+        EBevelJoin
+      };
+
+      enum ELineCap
+      {
+        ERoundCap,
+        EButtCap
+      };
+
       typedef buffer_vector<double, 16> TPattern;
       Color m_color;
       double m_w;
       TPattern m_pat;
       double m_offset;
+      string m_symbol;
+      double m_step;
+      ELineJoin m_join;
+      ELineCap m_cap;
 
       bool m_isSolid;
 
-      Info();
-      Info(Color const & color,
-           double width,
-           double const * pattern,
-           size_t patternSize,
-           double offset);
+      Info(Color const & color = Color(0, 0, 0, 255),
+           double width = 1.0,
+           double const * pattern = 0,
+           size_t patternSize = 0,
+           double offset = 0,
+           char const * symbol = 0,
+           double step = 0,
+           ELineJoin join = ERoundJoin,
+           ELineCap cap = ERoundCap);
 
       double firstDashOffset() const;
       bool atDashOffset(double offset) const;

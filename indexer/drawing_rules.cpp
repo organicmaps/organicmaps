@@ -184,6 +184,12 @@ namespace
         m_line.set_width(r.width());
         if (r.has_dashdot())
           *(m_line.mutable_dashdot()) = r.dashdot();
+        if (r.has_pathsym())
+          *(m_line.mutable_pathsym()) = r.pathsym();
+        if (r.has_join())
+          m_line.set_join(r.join());
+        if (r.has_cap())
+          m_line.set_cap(r.cap());
       }
 
       virtual LineDefProto const * GetLine() const { return &m_line; }

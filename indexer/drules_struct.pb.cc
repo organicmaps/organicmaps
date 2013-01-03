@@ -18,6 +18,9 @@ namespace {
 const ::google::protobuf::Descriptor* DashDotProto_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   DashDotProto_reflection_ = NULL;
+const ::google::protobuf::Descriptor* PathSymProto_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  PathSymProto_reflection_ = NULL;
 const ::google::protobuf::Descriptor* LineRuleProto_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   LineRuleProto_reflection_ = NULL;
@@ -51,6 +54,8 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* ContainerProto_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   ContainerProto_reflection_ = NULL;
+const ::google::protobuf::EnumDescriptor* LineJoin_descriptor_ = NULL;
+const ::google::protobuf::EnumDescriptor* LineCap_descriptor_ = NULL;
 
 }  // namespace
 
@@ -77,12 +82,32 @@ void protobuf_AssignDesc_drules_5fstruct_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(DashDotProto));
-  LineRuleProto_descriptor_ = file->message_type(1);
-  static const int LineRuleProto_offsets_[4] = {
+  PathSymProto_descriptor_ = file->message_type(1);
+  static const int PathSymProto_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathSymProto, name_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathSymProto, step_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathSymProto, offset_),
+  };
+  PathSymProto_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      PathSymProto_descriptor_,
+      PathSymProto::default_instance_,
+      PathSymProto_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathSymProto, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathSymProto, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(PathSymProto));
+  LineRuleProto_descriptor_ = file->message_type(2);
+  static const int LineRuleProto_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineRuleProto, width_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineRuleProto, color_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineRuleProto, dashdot_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineRuleProto, priority_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineRuleProto, pathsym_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineRuleProto, join_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineRuleProto, cap_),
   };
   LineRuleProto_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -95,11 +120,14 @@ void protobuf_AssignDesc_drules_5fstruct_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(LineRuleProto));
-  LineDefProto_descriptor_ = file->message_type(2);
-  static const int LineDefProto_offsets_[3] = {
+  LineDefProto_descriptor_ = file->message_type(3);
+  static const int LineDefProto_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineDefProto, width_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineDefProto, color_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineDefProto, dashdot_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineDefProto, pathsym_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineDefProto, join_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineDefProto, cap_),
   };
   LineDefProto_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -112,7 +140,7 @@ void protobuf_AssignDesc_drules_5fstruct_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(LineDefProto));
-  AreaRuleProto_descriptor_ = file->message_type(3);
+  AreaRuleProto_descriptor_ = file->message_type(4);
   static const int AreaRuleProto_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AreaRuleProto, color_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AreaRuleProto, border_),
@@ -129,7 +157,7 @@ void protobuf_AssignDesc_drules_5fstruct_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(AreaRuleProto));
-  SymbolRuleProto_descriptor_ = file->message_type(4);
+  SymbolRuleProto_descriptor_ = file->message_type(5);
   static const int SymbolRuleProto_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SymbolRuleProto, name_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SymbolRuleProto, apply_for_type_),
@@ -146,7 +174,7 @@ void protobuf_AssignDesc_drules_5fstruct_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SymbolRuleProto));
-  CaptionDefProto_descriptor_ = file->message_type(5);
+  CaptionDefProto_descriptor_ = file->message_type(6);
   static const int CaptionDefProto_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionDefProto, height_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionDefProto, color_),
@@ -163,7 +191,7 @@ void protobuf_AssignDesc_drules_5fstruct_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CaptionDefProto));
-  CaptionRuleProto_descriptor_ = file->message_type(6);
+  CaptionRuleProto_descriptor_ = file->message_type(7);
   static const int CaptionRuleProto_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionRuleProto, primary_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionRuleProto, secondary_),
@@ -180,7 +208,7 @@ void protobuf_AssignDesc_drules_5fstruct_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CaptionRuleProto));
-  CircleRuleProto_descriptor_ = file->message_type(7);
+  CircleRuleProto_descriptor_ = file->message_type(8);
   static const int CircleRuleProto_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CircleRuleProto, radius_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CircleRuleProto, color_),
@@ -198,7 +226,7 @@ void protobuf_AssignDesc_drules_5fstruct_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CircleRuleProto));
-  PathTextRuleProto_descriptor_ = file->message_type(8);
+  PathTextRuleProto_descriptor_ = file->message_type(9);
   static const int PathTextRuleProto_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathTextRuleProto, primary_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathTextRuleProto, secondary_),
@@ -215,7 +243,7 @@ void protobuf_AssignDesc_drules_5fstruct_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(PathTextRuleProto));
-  DrawElementProto_descriptor_ = file->message_type(9);
+  DrawElementProto_descriptor_ = file->message_type(10);
   static const int DrawElementProto_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, scale_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, lines_),
@@ -236,7 +264,7 @@ void protobuf_AssignDesc_drules_5fstruct_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(DrawElementProto));
-  ClassifElementProto_descriptor_ = file->message_type(10);
+  ClassifElementProto_descriptor_ = file->message_type(11);
   static const int ClassifElementProto_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ClassifElementProto, name_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ClassifElementProto, element_),
@@ -252,7 +280,7 @@ void protobuf_AssignDesc_drules_5fstruct_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ClassifElementProto));
-  ContainerProto_descriptor_ = file->message_type(11);
+  ContainerProto_descriptor_ = file->message_type(12);
   static const int ContainerProto_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ContainerProto, cont_),
   };
@@ -267,6 +295,8 @@ void protobuf_AssignDesc_drules_5fstruct_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ContainerProto));
+  LineJoin_descriptor_ = file->enum_type(0);
+  LineCap_descriptor_ = file->enum_type(1);
 }
 
 namespace {
@@ -281,6 +311,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     DashDotProto_descriptor_, &DashDotProto::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    PathSymProto_descriptor_, &PathSymProto::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     LineRuleProto_descriptor_, &LineRuleProto::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
@@ -310,6 +342,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
 void protobuf_ShutdownFile_drules_5fstruct_2eproto() {
   delete DashDotProto::default_instance_;
   delete DashDotProto_reflection_;
+  delete PathSymProto::default_instance_;
+  delete PathSymProto_reflection_;
   delete LineRuleProto::default_instance_;
   delete LineRuleProto_reflection_;
   delete LineDefProto::default_instance_;
@@ -342,37 +376,46 @@ void protobuf_AddDesc_drules_5fstruct_2eproto() {
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\023drules_struct.proto\"*\n\014DashDotProto\022\n\n"
-    "\002dd\030\001 \003(\001\022\016\n\006offset\030\002 \001(\001\"_\n\rLineRulePro"
-    "to\022\r\n\005width\030\001 \002(\001\022\r\n\005color\030\002 \002(\r\022\036\n\007dash"
-    "dot\030\003 \001(\0132\r.DashDotProto\022\020\n\010priority\030\004 \002"
-    "(\005\"L\n\014LineDefProto\022\r\n\005width\030\001 \002(\001\022\r\n\005col"
-    "or\030\002 \002(\r\022\036\n\007dashdot\030\003 \001(\0132\r.DashDotProto"
-    "\"O\n\rAreaRuleProto\022\r\n\005color\030\001 \002(\r\022\035\n\006bord"
-    "er\030\002 \001(\0132\r.LineDefProto\022\020\n\010priority\030\003 \002("
-    "\005\"I\n\017SymbolRuleProto\022\014\n\004name\030\001 \002(\t\022\026\n\016ap"
-    "ply_for_type\030\002 \001(\005\022\020\n\010priority\030\003 \002(\005\"F\n\017"
-    "CaptionDefProto\022\016\n\006height\030\001 \002(\005\022\r\n\005color"
-    "\030\002 \002(\r\022\024\n\014stroke_color\030\003 \001(\r\"l\n\020CaptionR"
-    "uleProto\022!\n\007primary\030\001 \002(\0132\020.CaptionDefPr"
-    "oto\022#\n\tsecondary\030\002 \001(\0132\020.CaptionDefProto"
-    "\022\020\n\010priority\030\003 \002(\005\"a\n\017CircleRuleProto\022\016\n"
-    "\006radius\030\001 \002(\001\022\r\n\005color\030\002 \002(\r\022\035\n\006border\030\003"
-    " \001(\0132\r.LineDefProto\022\020\n\010priority\030\004 \002(\005\"m\n"
-    "\021PathTextRuleProto\022!\n\007primary\030\001 \002(\0132\020.Ca"
-    "ptionDefProto\022#\n\tsecondary\030\002 \001(\0132\020.Capti"
-    "onDefProto\022\020\n\010priority\030\003 \002(\005\"\355\001\n\020DrawEle"
-    "mentProto\022\r\n\005scale\030\001 \002(\005\022\035\n\005lines\030\002 \003(\0132"
-    "\016.LineRuleProto\022\034\n\004area\030\003 \001(\0132\016.AreaRule"
-    "Proto\022 \n\006symbol\030\004 \001(\0132\020.SymbolRuleProto\022"
-    "\"\n\007caption\030\005 \001(\0132\021.CaptionRuleProto\022 \n\006c"
-    "ircle\030\006 \001(\0132\020.CircleRuleProto\022%\n\tpath_te"
-    "xt\030\007 \001(\0132\022.PathTextRuleProto\"G\n\023ClassifE"
-    "lementProto\022\014\n\004name\030\001 \002(\t\022\"\n\007element\030\002 \003"
-    "(\0132\021.DrawElementProto\"4\n\016ContainerProto\022"
-    "\"\n\004cont\030\001 \003(\0132\024.ClassifElementProto", 1155);
+    "\002dd\030\001 \003(\001\022\016\n\006offset\030\002 \001(\001\":\n\014PathSymProt"
+    "o\022\014\n\004name\030\001 \002(\t\022\014\n\004step\030\002 \002(\001\022\016\n\006offset\030"
+    "\003 \001(\001\"\257\001\n\rLineRuleProto\022\r\n\005width\030\001 \002(\001\022\r"
+    "\n\005color\030\002 \002(\r\022\036\n\007dashdot\030\003 \001(\0132\r.DashDot"
+    "Proto\022\020\n\010priority\030\004 \002(\005\022\036\n\007pathsym\030\005 \001(\013"
+    "2\r.PathSymProto\022\027\n\004join\030\006 \001(\0162\t.LineJoin"
+    "\022\025\n\003cap\030\007 \001(\0162\010.LineCap\"\234\001\n\014LineDefProto"
+    "\022\r\n\005width\030\001 \002(\001\022\r\n\005color\030\002 \002(\r\022\036\n\007dashdo"
+    "t\030\003 \001(\0132\r.DashDotProto\022\036\n\007pathsym\030\004 \001(\0132"
+    "\r.PathSymProto\022\027\n\004join\030\006 \001(\0162\t.LineJoin\022"
+    "\025\n\003cap\030\007 \001(\0162\010.LineCap\"O\n\rAreaRuleProto\022"
+    "\r\n\005color\030\001 \002(\r\022\035\n\006border\030\002 \001(\0132\r.LineDef"
+    "Proto\022\020\n\010priority\030\003 \002(\005\"I\n\017SymbolRulePro"
+    "to\022\014\n\004name\030\001 \002(\t\022\026\n\016apply_for_type\030\002 \001(\005"
+    "\022\020\n\010priority\030\003 \002(\005\"F\n\017CaptionDefProto\022\016\n"
+    "\006height\030\001 \002(\005\022\r\n\005color\030\002 \002(\r\022\024\n\014stroke_c"
+    "olor\030\003 \001(\r\"l\n\020CaptionRuleProto\022!\n\007primar"
+    "y\030\001 \002(\0132\020.CaptionDefProto\022#\n\tsecondary\030\002"
+    " \001(\0132\020.CaptionDefProto\022\020\n\010priority\030\003 \002(\005"
+    "\"a\n\017CircleRuleProto\022\016\n\006radius\030\001 \002(\001\022\r\n\005c"
+    "olor\030\002 \002(\r\022\035\n\006border\030\003 \001(\0132\r.LineDefProt"
+    "o\022\020\n\010priority\030\004 \002(\005\"m\n\021PathTextRuleProto"
+    "\022!\n\007primary\030\001 \002(\0132\020.CaptionDefProto\022#\n\ts"
+    "econdary\030\002 \001(\0132\020.CaptionDefProto\022\020\n\010prio"
+    "rity\030\003 \002(\005\"\355\001\n\020DrawElementProto\022\r\n\005scale"
+    "\030\001 \002(\005\022\035\n\005lines\030\002 \003(\0132\016.LineRuleProto\022\034\n"
+    "\004area\030\003 \001(\0132\016.AreaRuleProto\022 \n\006symbol\030\004 "
+    "\001(\0132\020.SymbolRuleProto\022\"\n\007caption\030\005 \001(\0132\021"
+    ".CaptionRuleProto\022 \n\006circle\030\006 \001(\0132\020.Circ"
+    "leRuleProto\022%\n\tpath_text\030\007 \001(\0132\022.PathTex"
+    "tRuleProto\"G\n\023ClassifElementProto\022\014\n\004nam"
+    "e\030\001 \002(\t\022\"\n\007element\030\002 \003(\0132\021.DrawElementPr"
+    "oto\"4\n\016ContainerProto\022\"\n\004cont\030\001 \003(\0132\024.Cl"
+    "assifElementProto*(\n\010LineJoin\022\r\n\tROUNDJO"
+    "IN\020\000\022\r\n\tBEVELJOIN\020\001*$\n\007LineCap\022\014\n\010ROUNDC"
+    "AP\020\000\022\013\n\007BUTTCAP\020\001", 1457);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "drules_struct.proto", &protobuf_RegisterTypes);
   DashDotProto::default_instance_ = new DashDotProto();
+  PathSymProto::default_instance_ = new PathSymProto();
   LineRuleProto::default_instance_ = new LineRuleProto();
   LineDefProto::default_instance_ = new LineDefProto();
   AreaRuleProto::default_instance_ = new AreaRuleProto();
@@ -385,6 +428,7 @@ void protobuf_AddDesc_drules_5fstruct_2eproto() {
   ClassifElementProto::default_instance_ = new ClassifElementProto();
   ContainerProto::default_instance_ = new ContainerProto();
   DashDotProto::default_instance_->InitAsDefaultInstance();
+  PathSymProto::default_instance_->InitAsDefaultInstance();
   LineRuleProto::default_instance_->InitAsDefaultInstance();
   LineDefProto::default_instance_->InitAsDefaultInstance();
   AreaRuleProto::default_instance_->InitAsDefaultInstance();
@@ -405,6 +449,34 @@ struct StaticDescriptorInitializer_drules_5fstruct_2eproto {
     protobuf_AddDesc_drules_5fstruct_2eproto();
   }
 } static_descriptor_initializer_drules_5fstruct_2eproto_;
+
+const ::google::protobuf::EnumDescriptor* LineJoin_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return LineJoin_descriptor_;
+}
+bool LineJoin_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::google::protobuf::EnumDescriptor* LineCap_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return LineCap_descriptor_;
+}
+bool LineCap_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
 
 
 // ===================================================================
@@ -661,10 +733,314 @@ void DashDotProto::Swap(DashDotProto* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
+const int PathSymProto::kNameFieldNumber;
+const int PathSymProto::kStepFieldNumber;
+const int PathSymProto::kOffsetFieldNumber;
+#endif  // !_MSC_VER
+
+PathSymProto::PathSymProto()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void PathSymProto::InitAsDefaultInstance() {
+}
+
+PathSymProto::PathSymProto(const PathSymProto& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void PathSymProto::SharedCtor() {
+  _cached_size_ = 0;
+  name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  step_ = 0;
+  offset_ = 0;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+PathSymProto::~PathSymProto() {
+  SharedDtor();
+}
+
+void PathSymProto::SharedDtor() {
+  if (name_ != &::google::protobuf::internal::kEmptyString) {
+    delete name_;
+  }
+  if (this != default_instance_) {
+  }
+}
+
+void PathSymProto::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* PathSymProto::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return PathSymProto_descriptor_;
+}
+
+const PathSymProto& PathSymProto::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();  return *default_instance_;
+}
+
+PathSymProto* PathSymProto::default_instance_ = NULL;
+
+PathSymProto* PathSymProto::New() const {
+  return new PathSymProto;
+}
+
+void PathSymProto::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (has_name()) {
+      if (name_ != &::google::protobuf::internal::kEmptyString) {
+        name_->clear();
+      }
+    }
+    step_ = 0;
+    offset_ = 0;
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool PathSymProto::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required string name = 1;
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_name()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->name().data(), this->name().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(17)) goto parse_step;
+        break;
+      }
+      
+      // required double step = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED64) {
+         parse_step:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &step_)));
+          set_has_step();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(25)) goto parse_offset;
+        break;
+      }
+      
+      // optional double offset = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED64) {
+         parse_offset:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &offset_)));
+          set_has_offset();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+      
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void PathSymProto::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // required string name = 1;
+  if (has_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      1, this->name(), output);
+  }
+  
+  // required double step = 2;
+  if (has_step()) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(2, this->step(), output);
+  }
+  
+  // optional double offset = 3;
+  if (has_offset()) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(3, this->offset(), output);
+  }
+  
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* PathSymProto::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required string name = 1;
+  if (has_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->name(), target);
+  }
+  
+  // required double step = 2;
+  if (has_step()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(2, this->step(), target);
+  }
+  
+  // optional double offset = 3;
+  if (has_offset()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(3, this->offset(), target);
+  }
+  
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int PathSymProto::ByteSize() const {
+  int total_size = 0;
+  
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required string name = 1;
+    if (has_name()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->name());
+    }
+    
+    // required double step = 2;
+    if (has_step()) {
+      total_size += 1 + 8;
+    }
+    
+    // optional double offset = 3;
+    if (has_offset()) {
+      total_size += 1 + 8;
+    }
+    
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void PathSymProto::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const PathSymProto* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const PathSymProto*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void PathSymProto::MergeFrom(const PathSymProto& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_name()) {
+      set_name(from.name());
+    }
+    if (from.has_step()) {
+      set_step(from.step());
+    }
+    if (from.has_offset()) {
+      set_offset(from.offset());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void PathSymProto::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void PathSymProto::CopyFrom(const PathSymProto& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PathSymProto::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  
+  return true;
+}
+
+void PathSymProto::Swap(PathSymProto* other) {
+  if (other != this) {
+    std::swap(name_, other->name_);
+    std::swap(step_, other->step_);
+    std::swap(offset_, other->offset_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata PathSymProto::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = PathSymProto_descriptor_;
+  metadata.reflection = PathSymProto_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
 const int LineRuleProto::kWidthFieldNumber;
 const int LineRuleProto::kColorFieldNumber;
 const int LineRuleProto::kDashdotFieldNumber;
 const int LineRuleProto::kPriorityFieldNumber;
+const int LineRuleProto::kPathsymFieldNumber;
+const int LineRuleProto::kJoinFieldNumber;
+const int LineRuleProto::kCapFieldNumber;
 #endif  // !_MSC_VER
 
 LineRuleProto::LineRuleProto()
@@ -674,6 +1050,7 @@ LineRuleProto::LineRuleProto()
 
 void LineRuleProto::InitAsDefaultInstance() {
   dashdot_ = const_cast< ::DashDotProto*>(&::DashDotProto::default_instance());
+  pathsym_ = const_cast< ::PathSymProto*>(&::PathSymProto::default_instance());
 }
 
 LineRuleProto::LineRuleProto(const LineRuleProto& from)
@@ -688,6 +1065,9 @@ void LineRuleProto::SharedCtor() {
   color_ = 0u;
   dashdot_ = NULL;
   priority_ = 0;
+  pathsym_ = NULL;
+  join_ = 0;
+  cap_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -698,6 +1078,7 @@ LineRuleProto::~LineRuleProto() {
 void LineRuleProto::SharedDtor() {
   if (this != default_instance_) {
     delete dashdot_;
+    delete pathsym_;
   }
 }
 
@@ -729,6 +1110,11 @@ void LineRuleProto::Clear() {
       if (dashdot_ != NULL) dashdot_->::DashDotProto::Clear();
     }
     priority_ = 0;
+    if (has_pathsym()) {
+      if (pathsym_ != NULL) pathsym_->::PathSymProto::Clear();
+    }
+    join_ = 0;
+    cap_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -797,6 +1183,62 @@ bool LineRuleProto::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(42)) goto parse_pathsym;
+        break;
+      }
+      
+      // optional .PathSymProto pathsym = 5;
+      case 5: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_pathsym:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_pathsym()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(48)) goto parse_join;
+        break;
+      }
+      
+      // optional .LineJoin join = 6;
+      case 6: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_join:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (LineJoin_IsValid(value)) {
+            set_join(static_cast< LineJoin >(value));
+          } else {
+            mutable_unknown_fields()->AddVarint(6, value);
+          }
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(56)) goto parse_cap;
+        break;
+      }
+      
+      // optional .LineCap cap = 7;
+      case 7: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_cap:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (LineCap_IsValid(value)) {
+            set_cap(static_cast< LineCap >(value));
+          } else {
+            mutable_unknown_fields()->AddVarint(7, value);
+          }
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -840,6 +1282,24 @@ void LineRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->priority(), output);
   }
   
+  // optional .PathSymProto pathsym = 5;
+  if (has_pathsym()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, this->pathsym(), output);
+  }
+  
+  // optional .LineJoin join = 6;
+  if (has_join()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      6, this->join(), output);
+  }
+  
+  // optional .LineCap cap = 7;
+  if (has_cap()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      7, this->cap(), output);
+  }
+  
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -868,6 +1328,25 @@ void LineRuleProto::SerializeWithCachedSizes(
   // required int32 priority = 4;
   if (has_priority()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->priority(), target);
+  }
+  
+  // optional .PathSymProto pathsym = 5;
+  if (has_pathsym()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        5, this->pathsym(), target);
+  }
+  
+  // optional .LineJoin join = 6;
+  if (has_join()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      6, this->join(), target);
+  }
+  
+  // optional .LineCap cap = 7;
+  if (has_cap()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      7, this->cap(), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -905,6 +1384,25 @@ int LineRuleProto::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->priority());
+    }
+    
+    // optional .PathSymProto pathsym = 5;
+    if (has_pathsym()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->pathsym());
+    }
+    
+    // optional .LineJoin join = 6;
+    if (has_join()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->join());
+    }
+    
+    // optional .LineCap cap = 7;
+    if (has_cap()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->cap());
     }
     
   }
@@ -946,6 +1444,15 @@ void LineRuleProto::MergeFrom(const LineRuleProto& from) {
     if (from.has_priority()) {
       set_priority(from.priority());
     }
+    if (from.has_pathsym()) {
+      mutable_pathsym()->::PathSymProto::MergeFrom(from.pathsym());
+    }
+    if (from.has_join()) {
+      set_join(from.join());
+    }
+    if (from.has_cap()) {
+      set_cap(from.cap());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -965,6 +1472,9 @@ void LineRuleProto::CopyFrom(const LineRuleProto& from) {
 bool LineRuleProto::IsInitialized() const {
   if ((_has_bits_[0] & 0x0000000b) != 0x0000000b) return false;
   
+  if (has_pathsym()) {
+    if (!this->pathsym().IsInitialized()) return false;
+  }
   return true;
 }
 
@@ -974,6 +1484,9 @@ void LineRuleProto::Swap(LineRuleProto* other) {
     std::swap(color_, other->color_);
     std::swap(dashdot_, other->dashdot_);
     std::swap(priority_, other->priority_);
+    std::swap(pathsym_, other->pathsym_);
+    std::swap(join_, other->join_);
+    std::swap(cap_, other->cap_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
@@ -995,6 +1508,9 @@ void LineRuleProto::Swap(LineRuleProto* other) {
 const int LineDefProto::kWidthFieldNumber;
 const int LineDefProto::kColorFieldNumber;
 const int LineDefProto::kDashdotFieldNumber;
+const int LineDefProto::kPathsymFieldNumber;
+const int LineDefProto::kJoinFieldNumber;
+const int LineDefProto::kCapFieldNumber;
 #endif  // !_MSC_VER
 
 LineDefProto::LineDefProto()
@@ -1004,6 +1520,7 @@ LineDefProto::LineDefProto()
 
 void LineDefProto::InitAsDefaultInstance() {
   dashdot_ = const_cast< ::DashDotProto*>(&::DashDotProto::default_instance());
+  pathsym_ = const_cast< ::PathSymProto*>(&::PathSymProto::default_instance());
 }
 
 LineDefProto::LineDefProto(const LineDefProto& from)
@@ -1017,6 +1534,9 @@ void LineDefProto::SharedCtor() {
   width_ = 0;
   color_ = 0u;
   dashdot_ = NULL;
+  pathsym_ = NULL;
+  join_ = 0;
+  cap_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -1027,6 +1547,7 @@ LineDefProto::~LineDefProto() {
 void LineDefProto::SharedDtor() {
   if (this != default_instance_) {
     delete dashdot_;
+    delete pathsym_;
   }
 }
 
@@ -1057,6 +1578,11 @@ void LineDefProto::Clear() {
     if (has_dashdot()) {
       if (dashdot_ != NULL) dashdot_->::DashDotProto::Clear();
     }
+    if (has_pathsym()) {
+      if (pathsym_ != NULL) pathsym_->::PathSymProto::Clear();
+    }
+    join_ = 0;
+    cap_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -1109,6 +1635,62 @@ bool LineDefProto::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(34)) goto parse_pathsym;
+        break;
+      }
+      
+      // optional .PathSymProto pathsym = 4;
+      case 4: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_pathsym:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_pathsym()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(48)) goto parse_join;
+        break;
+      }
+      
+      // optional .LineJoin join = 6;
+      case 6: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_join:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (LineJoin_IsValid(value)) {
+            set_join(static_cast< LineJoin >(value));
+          } else {
+            mutable_unknown_fields()->AddVarint(6, value);
+          }
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(56)) goto parse_cap;
+        break;
+      }
+      
+      // optional .LineCap cap = 7;
+      case 7: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_cap:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (LineCap_IsValid(value)) {
+            set_cap(static_cast< LineCap >(value));
+          } else {
+            mutable_unknown_fields()->AddVarint(7, value);
+          }
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -1147,6 +1729,24 @@ void LineDefProto::SerializeWithCachedSizes(
       3, this->dashdot(), output);
   }
   
+  // optional .PathSymProto pathsym = 4;
+  if (has_pathsym()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->pathsym(), output);
+  }
+  
+  // optional .LineJoin join = 6;
+  if (has_join()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      6, this->join(), output);
+  }
+  
+  // optional .LineCap cap = 7;
+  if (has_cap()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      7, this->cap(), output);
+  }
+  
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -1170,6 +1770,25 @@ void LineDefProto::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         3, this->dashdot(), target);
+  }
+  
+  // optional .PathSymProto pathsym = 4;
+  if (has_pathsym()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, this->pathsym(), target);
+  }
+  
+  // optional .LineJoin join = 6;
+  if (has_join()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      6, this->join(), target);
+  }
+  
+  // optional .LineCap cap = 7;
+  if (has_cap()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      7, this->cap(), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -1200,6 +1819,25 @@ int LineDefProto::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->dashdot());
+    }
+    
+    // optional .PathSymProto pathsym = 4;
+    if (has_pathsym()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->pathsym());
+    }
+    
+    // optional .LineJoin join = 6;
+    if (has_join()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->join());
+    }
+    
+    // optional .LineCap cap = 7;
+    if (has_cap()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->cap());
     }
     
   }
@@ -1238,6 +1876,15 @@ void LineDefProto::MergeFrom(const LineDefProto& from) {
     if (from.has_dashdot()) {
       mutable_dashdot()->::DashDotProto::MergeFrom(from.dashdot());
     }
+    if (from.has_pathsym()) {
+      mutable_pathsym()->::PathSymProto::MergeFrom(from.pathsym());
+    }
+    if (from.has_join()) {
+      set_join(from.join());
+    }
+    if (from.has_cap()) {
+      set_cap(from.cap());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -1257,6 +1904,9 @@ void LineDefProto::CopyFrom(const LineDefProto& from) {
 bool LineDefProto::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
   
+  if (has_pathsym()) {
+    if (!this->pathsym().IsInitialized()) return false;
+  }
   return true;
 }
 
@@ -1265,6 +1915,9 @@ void LineDefProto::Swap(LineDefProto* other) {
     std::swap(width_, other->width_);
     std::swap(color_, other->color_);
     std::swap(dashdot_, other->dashdot_);
+    std::swap(pathsym_, other->pathsym_);
+    std::swap(join_, other->join_);
+    std::swap(cap_, other->cap_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

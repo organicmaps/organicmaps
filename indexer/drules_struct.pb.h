@@ -31,6 +31,7 @@ void protobuf_AssignDesc_drules_5fstruct_2eproto();
 void protobuf_ShutdownFile_drules_5fstruct_2eproto();
 
 class DashDotProto;
+class PathSymProto;
 class LineRuleProto;
 class LineDefProto;
 class AreaRuleProto;
@@ -43,6 +44,44 @@ class DrawElementProto;
 class ClassifElementProto;
 class ContainerProto;
 
+enum LineJoin {
+  ROUNDJOIN = 0,
+  BEVELJOIN = 1
+};
+bool LineJoin_IsValid(int value);
+const LineJoin LineJoin_MIN = ROUNDJOIN;
+const LineJoin LineJoin_MAX = BEVELJOIN;
+const int LineJoin_ARRAYSIZE = LineJoin_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* LineJoin_descriptor();
+inline const ::std::string& LineJoin_Name(LineJoin value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    LineJoin_descriptor(), value);
+}
+inline bool LineJoin_Parse(
+    const ::std::string& name, LineJoin* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<LineJoin>(
+    LineJoin_descriptor(), name, value);
+}
+enum LineCap {
+  ROUNDCAP = 0,
+  BUTTCAP = 1
+};
+bool LineCap_IsValid(int value);
+const LineCap LineCap_MIN = ROUNDCAP;
+const LineCap LineCap_MAX = BUTTCAP;
+const int LineCap_ARRAYSIZE = LineCap_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* LineCap_descriptor();
+inline const ::std::string& LineCap_Name(LineCap value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    LineCap_descriptor(), value);
+}
+inline bool LineCap_Parse(
+    const ::std::string& name, LineCap* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<LineCap>(
+    LineCap_descriptor(), name, value);
+}
 // ===================================================================
 
 class DashDotProto : public ::google::protobuf::Message {
@@ -140,6 +179,112 @@ class DashDotProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
+class PathSymProto : public ::google::protobuf::Message {
+ public:
+  PathSymProto();
+  virtual ~PathSymProto();
+  
+  PathSymProto(const PathSymProto& from);
+  
+  inline PathSymProto& operator=(const PathSymProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+  
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+  
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PathSymProto& default_instance();
+  
+  void Swap(PathSymProto* other);
+  
+  // implements Message ----------------------------------------------
+  
+  PathSymProto* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PathSymProto& from);
+  void MergeFrom(const PathSymProto& from);
+  void Clear();
+  bool IsInitialized() const;
+  
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  
+  ::google::protobuf::Metadata GetMetadata() const;
+  
+  // nested types ----------------------------------------------------
+  
+  // accessors -------------------------------------------------------
+  
+  // required string name = 1;
+  inline bool has_name() const;
+  inline void clear_name();
+  static const int kNameFieldNumber = 1;
+  inline const ::std::string& name() const;
+  inline void set_name(const ::std::string& value);
+  inline void set_name(const char* value);
+  inline void set_name(const char* value, size_t size);
+  inline ::std::string* mutable_name();
+  inline ::std::string* release_name();
+  
+  // required double step = 2;
+  inline bool has_step() const;
+  inline void clear_step();
+  static const int kStepFieldNumber = 2;
+  inline double step() const;
+  inline void set_step(double value);
+  
+  // optional double offset = 3;
+  inline bool has_offset() const;
+  inline void clear_offset();
+  static const int kOffsetFieldNumber = 3;
+  inline double offset() const;
+  inline void set_offset(double value);
+  
+  // @@protoc_insertion_point(class_scope:PathSymProto)
+ private:
+  inline void set_has_name();
+  inline void clear_has_name();
+  inline void set_has_step();
+  inline void clear_has_step();
+  inline void set_has_offset();
+  inline void clear_has_offset();
+  
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+  
+  ::std::string* name_;
+  double step_;
+  double offset_;
+  
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+  
+  friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
+  friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
+  friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
+  
+  void InitAsDefaultInstance();
+  static PathSymProto* default_instance_;
+};
+// -------------------------------------------------------------------
+
 class LineRuleProto : public ::google::protobuf::Message {
  public:
   LineRuleProto();
@@ -223,6 +368,28 @@ class LineRuleProto : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 priority() const;
   inline void set_priority(::google::protobuf::int32 value);
   
+  // optional .PathSymProto pathsym = 5;
+  inline bool has_pathsym() const;
+  inline void clear_pathsym();
+  static const int kPathsymFieldNumber = 5;
+  inline const ::PathSymProto& pathsym() const;
+  inline ::PathSymProto* mutable_pathsym();
+  inline ::PathSymProto* release_pathsym();
+  
+  // optional .LineJoin join = 6;
+  inline bool has_join() const;
+  inline void clear_join();
+  static const int kJoinFieldNumber = 6;
+  inline LineJoin join() const;
+  inline void set_join(LineJoin value);
+  
+  // optional .LineCap cap = 7;
+  inline bool has_cap() const;
+  inline void clear_cap();
+  static const int kCapFieldNumber = 7;
+  inline LineCap cap() const;
+  inline void set_cap(LineCap value);
+  
   // @@protoc_insertion_point(class_scope:LineRuleProto)
  private:
   inline void set_has_width();
@@ -233,6 +400,12 @@ class LineRuleProto : public ::google::protobuf::Message {
   inline void clear_has_dashdot();
   inline void set_has_priority();
   inline void clear_has_priority();
+  inline void set_has_pathsym();
+  inline void clear_has_pathsym();
+  inline void set_has_join();
+  inline void clear_has_join();
+  inline void set_has_cap();
+  inline void clear_has_cap();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
@@ -240,9 +413,12 @@ class LineRuleProto : public ::google::protobuf::Message {
   ::DashDotProto* dashdot_;
   ::google::protobuf::uint32 color_;
   ::google::protobuf::int32 priority_;
+  ::PathSymProto* pathsym_;
+  int join_;
+  int cap_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(7 + 31) / 32];
   
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
@@ -329,6 +505,28 @@ class LineDefProto : public ::google::protobuf::Message {
   inline ::DashDotProto* mutable_dashdot();
   inline ::DashDotProto* release_dashdot();
   
+  // optional .PathSymProto pathsym = 4;
+  inline bool has_pathsym() const;
+  inline void clear_pathsym();
+  static const int kPathsymFieldNumber = 4;
+  inline const ::PathSymProto& pathsym() const;
+  inline ::PathSymProto* mutable_pathsym();
+  inline ::PathSymProto* release_pathsym();
+  
+  // optional .LineJoin join = 6;
+  inline bool has_join() const;
+  inline void clear_join();
+  static const int kJoinFieldNumber = 6;
+  inline LineJoin join() const;
+  inline void set_join(LineJoin value);
+  
+  // optional .LineCap cap = 7;
+  inline bool has_cap() const;
+  inline void clear_cap();
+  static const int kCapFieldNumber = 7;
+  inline LineCap cap() const;
+  inline void set_cap(LineCap value);
+  
   // @@protoc_insertion_point(class_scope:LineDefProto)
  private:
   inline void set_has_width();
@@ -337,15 +535,24 @@ class LineDefProto : public ::google::protobuf::Message {
   inline void clear_has_color();
   inline void set_has_dashdot();
   inline void clear_has_dashdot();
+  inline void set_has_pathsym();
+  inline void clear_has_pathsym();
+  inline void set_has_join();
+  inline void clear_has_join();
+  inline void set_has_cap();
+  inline void clear_has_cap();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
   double width_;
   ::DashDotProto* dashdot_;
   ::google::protobuf::uint32 color_;
+  int join_;
+  ::PathSymProto* pathsym_;
+  int cap_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(6 + 31) / 32];
   
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
@@ -1376,6 +1583,112 @@ inline void DashDotProto::set_offset(double value) {
 
 // -------------------------------------------------------------------
 
+// PathSymProto
+
+// required string name = 1;
+inline bool PathSymProto::has_name() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void PathSymProto::set_has_name() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void PathSymProto::clear_has_name() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void PathSymProto::clear_name() {
+  if (name_ != &::google::protobuf::internal::kEmptyString) {
+    name_->clear();
+  }
+  clear_has_name();
+}
+inline const ::std::string& PathSymProto::name() const {
+  return *name_;
+}
+inline void PathSymProto::set_name(const ::std::string& value) {
+  set_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    name_ = new ::std::string;
+  }
+  name_->assign(value);
+}
+inline void PathSymProto::set_name(const char* value) {
+  set_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    name_ = new ::std::string;
+  }
+  name_->assign(value);
+}
+inline void PathSymProto::set_name(const char* value, size_t size) {
+  set_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    name_ = new ::std::string;
+  }
+  name_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* PathSymProto::mutable_name() {
+  set_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    name_ = new ::std::string;
+  }
+  return name_;
+}
+inline ::std::string* PathSymProto::release_name() {
+  clear_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = name_;
+    name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+
+// required double step = 2;
+inline bool PathSymProto::has_step() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void PathSymProto::set_has_step() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void PathSymProto::clear_has_step() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void PathSymProto::clear_step() {
+  step_ = 0;
+  clear_has_step();
+}
+inline double PathSymProto::step() const {
+  return step_;
+}
+inline void PathSymProto::set_step(double value) {
+  set_has_step();
+  step_ = value;
+}
+
+// optional double offset = 3;
+inline bool PathSymProto::has_offset() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void PathSymProto::set_has_offset() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void PathSymProto::clear_has_offset() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void PathSymProto::clear_offset() {
+  offset_ = 0;
+  clear_has_offset();
+}
+inline double PathSymProto::offset() const {
+  return offset_;
+}
+inline void PathSymProto::set_offset(double value) {
+  set_has_offset();
+  offset_ = value;
+}
+
+// -------------------------------------------------------------------
+
 // LineRuleProto
 
 // required double width = 1;
@@ -1473,6 +1786,81 @@ inline void LineRuleProto::set_priority(::google::protobuf::int32 value) {
   priority_ = value;
 }
 
+// optional .PathSymProto pathsym = 5;
+inline bool LineRuleProto::has_pathsym() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void LineRuleProto::set_has_pathsym() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void LineRuleProto::clear_has_pathsym() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void LineRuleProto::clear_pathsym() {
+  if (pathsym_ != NULL) pathsym_->::PathSymProto::Clear();
+  clear_has_pathsym();
+}
+inline const ::PathSymProto& LineRuleProto::pathsym() const {
+  return pathsym_ != NULL ? *pathsym_ : *default_instance_->pathsym_;
+}
+inline ::PathSymProto* LineRuleProto::mutable_pathsym() {
+  set_has_pathsym();
+  if (pathsym_ == NULL) pathsym_ = new ::PathSymProto;
+  return pathsym_;
+}
+inline ::PathSymProto* LineRuleProto::release_pathsym() {
+  clear_has_pathsym();
+  ::PathSymProto* temp = pathsym_;
+  pathsym_ = NULL;
+  return temp;
+}
+
+// optional .LineJoin join = 6;
+inline bool LineRuleProto::has_join() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void LineRuleProto::set_has_join() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void LineRuleProto::clear_has_join() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void LineRuleProto::clear_join() {
+  join_ = 0;
+  clear_has_join();
+}
+inline LineJoin LineRuleProto::join() const {
+  return static_cast< LineJoin >(join_);
+}
+inline void LineRuleProto::set_join(LineJoin value) {
+  GOOGLE_DCHECK(LineJoin_IsValid(value));
+  set_has_join();
+  join_ = value;
+}
+
+// optional .LineCap cap = 7;
+inline bool LineRuleProto::has_cap() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void LineRuleProto::set_has_cap() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void LineRuleProto::clear_has_cap() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void LineRuleProto::clear_cap() {
+  cap_ = 0;
+  clear_has_cap();
+}
+inline LineCap LineRuleProto::cap() const {
+  return static_cast< LineCap >(cap_);
+}
+inline void LineRuleProto::set_cap(LineCap value) {
+  GOOGLE_DCHECK(LineCap_IsValid(value));
+  set_has_cap();
+  cap_ = value;
+}
+
 // -------------------------------------------------------------------
 
 // LineDefProto
@@ -1548,6 +1936,81 @@ inline ::DashDotProto* LineDefProto::release_dashdot() {
   ::DashDotProto* temp = dashdot_;
   dashdot_ = NULL;
   return temp;
+}
+
+// optional .PathSymProto pathsym = 4;
+inline bool LineDefProto::has_pathsym() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void LineDefProto::set_has_pathsym() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void LineDefProto::clear_has_pathsym() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void LineDefProto::clear_pathsym() {
+  if (pathsym_ != NULL) pathsym_->::PathSymProto::Clear();
+  clear_has_pathsym();
+}
+inline const ::PathSymProto& LineDefProto::pathsym() const {
+  return pathsym_ != NULL ? *pathsym_ : *default_instance_->pathsym_;
+}
+inline ::PathSymProto* LineDefProto::mutable_pathsym() {
+  set_has_pathsym();
+  if (pathsym_ == NULL) pathsym_ = new ::PathSymProto;
+  return pathsym_;
+}
+inline ::PathSymProto* LineDefProto::release_pathsym() {
+  clear_has_pathsym();
+  ::PathSymProto* temp = pathsym_;
+  pathsym_ = NULL;
+  return temp;
+}
+
+// optional .LineJoin join = 6;
+inline bool LineDefProto::has_join() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void LineDefProto::set_has_join() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void LineDefProto::clear_has_join() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void LineDefProto::clear_join() {
+  join_ = 0;
+  clear_has_join();
+}
+inline LineJoin LineDefProto::join() const {
+  return static_cast< LineJoin >(join_);
+}
+inline void LineDefProto::set_join(LineJoin value) {
+  GOOGLE_DCHECK(LineJoin_IsValid(value));
+  set_has_join();
+  join_ = value;
+}
+
+// optional .LineCap cap = 7;
+inline bool LineDefProto::has_cap() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void LineDefProto::set_has_cap() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void LineDefProto::clear_has_cap() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void LineDefProto::clear_cap() {
+  cap_ = 0;
+  clear_has_cap();
+}
+inline LineCap LineDefProto::cap() const {
+  return static_cast< LineCap >(cap_);
+}
+inline void LineDefProto::set_cap(LineCap value) {
+  GOOGLE_DCHECK(LineCap_IsValid(value));
+  set_has_cap();
+  cap_ = value;
 }
 
 // -------------------------------------------------------------------
@@ -2389,6 +2852,14 @@ ContainerProto::mutable_cont() {
 namespace google {
 namespace protobuf {
 
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< LineJoin>() {
+  return LineJoin_descriptor();
+}
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< LineCap>() {
+  return LineCap_descriptor();
+}
 
 }  // namespace google
 }  // namespace protobuf

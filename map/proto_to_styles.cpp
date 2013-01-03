@@ -23,7 +23,6 @@ namespace
   }
 }
 
-
 void ConvertStyle(LineDefProto const * pSrc, double scale, graphics::Pen::Info & dest)
 {
   double offset = 0.0;
@@ -46,6 +45,45 @@ void ConvertStyle(LineDefProto const * pSrc, double scale, graphics::Pen::Info &
         ConvertColor(pSrc->color()),
         ConvertWidth(pSrc->width(), scale),
         v.empty() ? 0 : &v[0], v.size(), offset);
+
+  if (pSrc->has_pathsym())
+  {
+    PathSymProto const & ps = pSrc->pathsym();
+
+    dest.m_step = ps.step();
+    dest.m_symbol = ps.name();
+    dest.m_offset = ps.offset();
+  }
+
+  if (pSrc->has_join())
+  {
+    switch (pSrc->join())
+    {
+    case ROUNDJOIN:
+      dest.m_join = graphics::Pen::Info::ERoundJoin;
+      break;
+    case BEVELJOIN:
+      dest.m_join = graphics::Pen::Info::EBevelJoin;
+      break;
+    default:
+      break;
+    }
+  }
+
+  if (pSrc->has_cap())
+  {
+    switch (pSrc->cap())
+    {
+    case ROUNDCAP:
+      dest.m_cap = graphics::Pen::Info::ERoundCap;
+      break;
+    case BUTTCAP:
+      dest.m_cap = graphics::Pen::Info::EButtCap;
+      break;
+    default:
+      break;
+    }
+  }
 }
 
 void ConvertStyle(AreaRuleProto const * pSrc, graphics::Brush::Info & dest)

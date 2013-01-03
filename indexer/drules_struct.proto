@@ -6,12 +6,34 @@ message DashDotProto
   optional double offset = 2;
 }
 
+message PathSymProto
+{
+  required string name = 1;
+  required double step = 2;
+  optional double offset = 3;
+}
+
+enum LineJoin
+{
+  ROUNDJOIN = 0;
+  BEVELJOIN = 1;
+}
+
+enum LineCap
+{
+  ROUNDCAP = 0;
+  BUTTCAP = 1;
+}
+
 message LineRuleProto
 {
   required double width = 1;
   required uint32 color = 2;
   optional DashDotProto dashdot = 3;
   required int32 priority = 4;
+  optional PathSymProto pathsym = 5;
+  optional LineJoin join = 6;
+  optional LineCap cap = 7;
 }
 
 message LineDefProto
@@ -19,6 +41,9 @@ message LineDefProto
   required double width = 1;
   required uint32 color = 2;
   optional DashDotProto dashdot = 3;
+  optional PathSymProto pathsym = 4;
+  optional LineJoin join = 6;
+  optional LineCap cap = 7;
 }
 
 message AreaRuleProto

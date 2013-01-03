@@ -30,6 +30,7 @@ void protobuf_AssignDesc_drules_5fstruct_2eproto();
 void protobuf_ShutdownFile_drules_5fstruct_2eproto();
 
 class DashDotProto;
+class PathSymProto;
 class LineRuleProto;
 class LineDefProto;
 class AreaRuleProto;
@@ -42,33 +43,51 @@ class DrawElementProto;
 class ClassifElementProto;
 class ContainerProto;
 
+enum LineJoin {
+  ROUNDJOIN = 0,
+  BEVELJOIN = 1
+};
+bool LineJoin_IsValid(int value);
+const LineJoin LineJoin_MIN = ROUNDJOIN;
+const LineJoin LineJoin_MAX = BEVELJOIN;
+const int LineJoin_ARRAYSIZE = LineJoin_MAX + 1;
+
+enum LineCap {
+  ROUNDCAP = 0,
+  BUTTCAP = 1
+};
+bool LineCap_IsValid(int value);
+const LineCap LineCap_MIN = ROUNDCAP;
+const LineCap LineCap_MAX = BUTTCAP;
+const int LineCap_ARRAYSIZE = LineCap_MAX + 1;
+
 // ===================================================================
 
 class DashDotProto : public ::google::protobuf::MessageLite {
  public:
   DashDotProto();
   virtual ~DashDotProto();
-
+  
   DashDotProto(const DashDotProto& from);
-
+  
   inline DashDotProto& operator=(const DashDotProto& from) {
     CopyFrom(from);
     return *this;
   }
-
+  
   static const DashDotProto& default_instance();
-
+  
   void Swap(DashDotProto* other);
-
+  
   // implements Message ----------------------------------------------
-
+  
   DashDotProto* New() const;
   void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const DashDotProto& from);
   void MergeFrom(const DashDotProto& from);
   void Clear();
   bool IsInitialized() const;
-
+  
   int ByteSize() const;
   bool MergePartialFromCodedStream(
       ::google::protobuf::io::CodedInputStream* input);
@@ -80,13 +99,13 @@ class DashDotProto : public ::google::protobuf::MessageLite {
   void SharedDtor();
   void SetCachedSize(int size) const;
   public:
-
+  
   ::std::string GetTypeName() const;
-
+  
   // nested types ----------------------------------------------------
-
+  
   // accessors -------------------------------------------------------
-
+  
   // repeated double dd = 1;
   inline int dd_size() const;
   inline void clear_dd();
@@ -98,59 +117,59 @@ class DashDotProto : public ::google::protobuf::MessageLite {
       dd() const;
   inline ::google::protobuf::RepeatedField< double >*
       mutable_dd();
-
+  
   // optional double offset = 2;
   inline bool has_offset() const;
   inline void clear_offset();
   static const int kOffsetFieldNumber = 2;
   inline double offset() const;
   inline void set_offset(double value);
-
+  
   // @@protoc_insertion_point(class_scope:DashDotProto)
  private:
   inline void set_has_offset();
   inline void clear_has_offset();
-
+  
   ::google::protobuf::RepeatedField< double > dd_;
   double offset_;
-
+  
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
-
+  
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
   friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
-
+  
   void InitAsDefaultInstance();
   static DashDotProto* default_instance_;
 };
 // -------------------------------------------------------------------
 
-class LineRuleProto : public ::google::protobuf::MessageLite {
+class PathSymProto : public ::google::protobuf::MessageLite {
  public:
-  LineRuleProto();
-  virtual ~LineRuleProto();
-
-  LineRuleProto(const LineRuleProto& from);
-
-  inline LineRuleProto& operator=(const LineRuleProto& from) {
+  PathSymProto();
+  virtual ~PathSymProto();
+  
+  PathSymProto(const PathSymProto& from);
+  
+  inline PathSymProto& operator=(const PathSymProto& from) {
     CopyFrom(from);
     return *this;
   }
-
-  static const LineRuleProto& default_instance();
-
-  void Swap(LineRuleProto* other);
-
+  
+  static const PathSymProto& default_instance();
+  
+  void Swap(PathSymProto* other);
+  
   // implements Message ----------------------------------------------
-
-  LineRuleProto* New() const;
+  
+  PathSymProto* New() const;
   void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const LineRuleProto& from);
-  void MergeFrom(const LineRuleProto& from);
+  void CopyFrom(const PathSymProto& from);
+  void MergeFrom(const PathSymProto& from);
   void Clear();
   bool IsInitialized() const;
-
+  
   int ByteSize() const;
   bool MergePartialFromCodedStream(
       ::google::protobuf::io::CodedInputStream* input);
@@ -162,293 +181,13 @@ class LineRuleProto : public ::google::protobuf::MessageLite {
   void SharedDtor();
   void SetCachedSize(int size) const;
   public:
-
+  
   ::std::string GetTypeName() const;
-
+  
   // nested types ----------------------------------------------------
-
+  
   // accessors -------------------------------------------------------
-
-  // required double width = 1;
-  inline bool has_width() const;
-  inline void clear_width();
-  static const int kWidthFieldNumber = 1;
-  inline double width() const;
-  inline void set_width(double value);
-
-  // required uint32 color = 2;
-  inline bool has_color() const;
-  inline void clear_color();
-  static const int kColorFieldNumber = 2;
-  inline ::google::protobuf::uint32 color() const;
-  inline void set_color(::google::protobuf::uint32 value);
-
-  // optional .DashDotProto dashdot = 3;
-  inline bool has_dashdot() const;
-  inline void clear_dashdot();
-  static const int kDashdotFieldNumber = 3;
-  inline const ::DashDotProto& dashdot() const;
-  inline ::DashDotProto* mutable_dashdot();
-  inline ::DashDotProto* release_dashdot();
-
-  // required int32 priority = 4;
-  inline bool has_priority() const;
-  inline void clear_priority();
-  static const int kPriorityFieldNumber = 4;
-  inline ::google::protobuf::int32 priority() const;
-  inline void set_priority(::google::protobuf::int32 value);
-
-  // @@protoc_insertion_point(class_scope:LineRuleProto)
- private:
-  inline void set_has_width();
-  inline void clear_has_width();
-  inline void set_has_color();
-  inline void clear_has_color();
-  inline void set_has_dashdot();
-  inline void clear_has_dashdot();
-  inline void set_has_priority();
-  inline void clear_has_priority();
-
-  double width_;
-  ::DashDotProto* dashdot_;
-  ::google::protobuf::uint32 color_;
-  ::google::protobuf::int32 priority_;
-
-  mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
-
-  friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
-  friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
-  friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
-
-  void InitAsDefaultInstance();
-  static LineRuleProto* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class LineDefProto : public ::google::protobuf::MessageLite {
- public:
-  LineDefProto();
-  virtual ~LineDefProto();
-
-  LineDefProto(const LineDefProto& from);
-
-  inline LineDefProto& operator=(const LineDefProto& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const LineDefProto& default_instance();
-
-  void Swap(LineDefProto* other);
-
-  // implements Message ----------------------------------------------
-
-  LineDefProto* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const LineDefProto& from);
-  void MergeFrom(const LineDefProto& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-
-  ::std::string GetTypeName() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required double width = 1;
-  inline bool has_width() const;
-  inline void clear_width();
-  static const int kWidthFieldNumber = 1;
-  inline double width() const;
-  inline void set_width(double value);
-
-  // required uint32 color = 2;
-  inline bool has_color() const;
-  inline void clear_color();
-  static const int kColorFieldNumber = 2;
-  inline ::google::protobuf::uint32 color() const;
-  inline void set_color(::google::protobuf::uint32 value);
-
-  // optional .DashDotProto dashdot = 3;
-  inline bool has_dashdot() const;
-  inline void clear_dashdot();
-  static const int kDashdotFieldNumber = 3;
-  inline const ::DashDotProto& dashdot() const;
-  inline ::DashDotProto* mutable_dashdot();
-  inline ::DashDotProto* release_dashdot();
-
-  // @@protoc_insertion_point(class_scope:LineDefProto)
- private:
-  inline void set_has_width();
-  inline void clear_has_width();
-  inline void set_has_color();
-  inline void clear_has_color();
-  inline void set_has_dashdot();
-  inline void clear_has_dashdot();
-
-  double width_;
-  ::DashDotProto* dashdot_;
-  ::google::protobuf::uint32 color_;
-
-  mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
-
-  friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
-  friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
-  friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
-
-  void InitAsDefaultInstance();
-  static LineDefProto* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class AreaRuleProto : public ::google::protobuf::MessageLite {
- public:
-  AreaRuleProto();
-  virtual ~AreaRuleProto();
-
-  AreaRuleProto(const AreaRuleProto& from);
-
-  inline AreaRuleProto& operator=(const AreaRuleProto& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const AreaRuleProto& default_instance();
-
-  void Swap(AreaRuleProto* other);
-
-  // implements Message ----------------------------------------------
-
-  AreaRuleProto* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const AreaRuleProto& from);
-  void MergeFrom(const AreaRuleProto& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-
-  ::std::string GetTypeName() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required uint32 color = 1;
-  inline bool has_color() const;
-  inline void clear_color();
-  static const int kColorFieldNumber = 1;
-  inline ::google::protobuf::uint32 color() const;
-  inline void set_color(::google::protobuf::uint32 value);
-
-  // optional .LineDefProto border = 2;
-  inline bool has_border() const;
-  inline void clear_border();
-  static const int kBorderFieldNumber = 2;
-  inline const ::LineDefProto& border() const;
-  inline ::LineDefProto* mutable_border();
-  inline ::LineDefProto* release_border();
-
-  // required int32 priority = 3;
-  inline bool has_priority() const;
-  inline void clear_priority();
-  static const int kPriorityFieldNumber = 3;
-  inline ::google::protobuf::int32 priority() const;
-  inline void set_priority(::google::protobuf::int32 value);
-
-  // @@protoc_insertion_point(class_scope:AreaRuleProto)
- private:
-  inline void set_has_color();
-  inline void clear_has_color();
-  inline void set_has_border();
-  inline void clear_has_border();
-  inline void set_has_priority();
-  inline void clear_has_priority();
-
-  ::LineDefProto* border_;
-  ::google::protobuf::uint32 color_;
-  ::google::protobuf::int32 priority_;
-
-  mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
-
-  friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
-  friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
-  friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
-
-  void InitAsDefaultInstance();
-  static AreaRuleProto* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class SymbolRuleProto : public ::google::protobuf::MessageLite {
- public:
-  SymbolRuleProto();
-  virtual ~SymbolRuleProto();
-
-  SymbolRuleProto(const SymbolRuleProto& from);
-
-  inline SymbolRuleProto& operator=(const SymbolRuleProto& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const SymbolRuleProto& default_instance();
-
-  void Swap(SymbolRuleProto* other);
-
-  // implements Message ----------------------------------------------
-
-  SymbolRuleProto* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const SymbolRuleProto& from);
-  void MergeFrom(const SymbolRuleProto& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-
-  ::std::string GetTypeName() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
+  
   // required string name = 1;
   inline bool has_name() const;
   inline void clear_name();
@@ -459,21 +198,456 @@ class SymbolRuleProto : public ::google::protobuf::MessageLite {
   inline void set_name(const char* value, size_t size);
   inline ::std::string* mutable_name();
   inline ::std::string* release_name();
+  
+  // required double step = 2;
+  inline bool has_step() const;
+  inline void clear_step();
+  static const int kStepFieldNumber = 2;
+  inline double step() const;
+  inline void set_step(double value);
+  
+  // optional double offset = 3;
+  inline bool has_offset() const;
+  inline void clear_offset();
+  static const int kOffsetFieldNumber = 3;
+  inline double offset() const;
+  inline void set_offset(double value);
+  
+  // @@protoc_insertion_point(class_scope:PathSymProto)
+ private:
+  inline void set_has_name();
+  inline void clear_has_name();
+  inline void set_has_step();
+  inline void clear_has_step();
+  inline void set_has_offset();
+  inline void clear_has_offset();
+  
+  ::std::string* name_;
+  double step_;
+  double offset_;
+  
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+  
+  friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
+  friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
+  friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
+  
+  void InitAsDefaultInstance();
+  static PathSymProto* default_instance_;
+};
+// -------------------------------------------------------------------
 
-  // optional int32 apply_for_type = 2;
-  inline bool has_apply_for_type() const;
-  inline void clear_apply_for_type();
-  static const int kApplyForTypeFieldNumber = 2;
-  inline ::google::protobuf::int32 apply_for_type() const;
-  inline void set_apply_for_type(::google::protobuf::int32 value);
+class LineRuleProto : public ::google::protobuf::MessageLite {
+ public:
+  LineRuleProto();
+  virtual ~LineRuleProto();
+  
+  LineRuleProto(const LineRuleProto& from);
+  
+  inline LineRuleProto& operator=(const LineRuleProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  
+  static const LineRuleProto& default_instance();
+  
+  void Swap(LineRuleProto* other);
+  
+  // implements Message ----------------------------------------------
+  
+  LineRuleProto* New() const;
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const LineRuleProto& from);
+  void MergeFrom(const LineRuleProto& from);
+  void Clear();
+  bool IsInitialized() const;
+  
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  
+  ::std::string GetTypeName() const;
+  
+  // nested types ----------------------------------------------------
+  
+  // accessors -------------------------------------------------------
+  
+  // required double width = 1;
+  inline bool has_width() const;
+  inline void clear_width();
+  static const int kWidthFieldNumber = 1;
+  inline double width() const;
+  inline void set_width(double value);
+  
+  // required uint32 color = 2;
+  inline bool has_color() const;
+  inline void clear_color();
+  static const int kColorFieldNumber = 2;
+  inline ::google::protobuf::uint32 color() const;
+  inline void set_color(::google::protobuf::uint32 value);
+  
+  // optional .DashDotProto dashdot = 3;
+  inline bool has_dashdot() const;
+  inline void clear_dashdot();
+  static const int kDashdotFieldNumber = 3;
+  inline const ::DashDotProto& dashdot() const;
+  inline ::DashDotProto* mutable_dashdot();
+  inline ::DashDotProto* release_dashdot();
+  
+  // required int32 priority = 4;
+  inline bool has_priority() const;
+  inline void clear_priority();
+  static const int kPriorityFieldNumber = 4;
+  inline ::google::protobuf::int32 priority() const;
+  inline void set_priority(::google::protobuf::int32 value);
+  
+  // optional .PathSymProto pathsym = 5;
+  inline bool has_pathsym() const;
+  inline void clear_pathsym();
+  static const int kPathsymFieldNumber = 5;
+  inline const ::PathSymProto& pathsym() const;
+  inline ::PathSymProto* mutable_pathsym();
+  inline ::PathSymProto* release_pathsym();
+  
+  // optional .LineJoin join = 6;
+  inline bool has_join() const;
+  inline void clear_join();
+  static const int kJoinFieldNumber = 6;
+  inline LineJoin join() const;
+  inline void set_join(LineJoin value);
+  
+  // optional .LineCap cap = 7;
+  inline bool has_cap() const;
+  inline void clear_cap();
+  static const int kCapFieldNumber = 7;
+  inline LineCap cap() const;
+  inline void set_cap(LineCap value);
+  
+  // @@protoc_insertion_point(class_scope:LineRuleProto)
+ private:
+  inline void set_has_width();
+  inline void clear_has_width();
+  inline void set_has_color();
+  inline void clear_has_color();
+  inline void set_has_dashdot();
+  inline void clear_has_dashdot();
+  inline void set_has_priority();
+  inline void clear_has_priority();
+  inline void set_has_pathsym();
+  inline void clear_has_pathsym();
+  inline void set_has_join();
+  inline void clear_has_join();
+  inline void set_has_cap();
+  inline void clear_has_cap();
+  
+  double width_;
+  ::DashDotProto* dashdot_;
+  ::google::protobuf::uint32 color_;
+  ::google::protobuf::int32 priority_;
+  ::PathSymProto* pathsym_;
+  int join_;
+  int cap_;
+  
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(7 + 31) / 32];
+  
+  friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
+  friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
+  friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
+  
+  void InitAsDefaultInstance();
+  static LineRuleProto* default_instance_;
+};
+// -------------------------------------------------------------------
 
+class LineDefProto : public ::google::protobuf::MessageLite {
+ public:
+  LineDefProto();
+  virtual ~LineDefProto();
+  
+  LineDefProto(const LineDefProto& from);
+  
+  inline LineDefProto& operator=(const LineDefProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  
+  static const LineDefProto& default_instance();
+  
+  void Swap(LineDefProto* other);
+  
+  // implements Message ----------------------------------------------
+  
+  LineDefProto* New() const;
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const LineDefProto& from);
+  void MergeFrom(const LineDefProto& from);
+  void Clear();
+  bool IsInitialized() const;
+  
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  
+  ::std::string GetTypeName() const;
+  
+  // nested types ----------------------------------------------------
+  
+  // accessors -------------------------------------------------------
+  
+  // required double width = 1;
+  inline bool has_width() const;
+  inline void clear_width();
+  static const int kWidthFieldNumber = 1;
+  inline double width() const;
+  inline void set_width(double value);
+  
+  // required uint32 color = 2;
+  inline bool has_color() const;
+  inline void clear_color();
+  static const int kColorFieldNumber = 2;
+  inline ::google::protobuf::uint32 color() const;
+  inline void set_color(::google::protobuf::uint32 value);
+  
+  // optional .DashDotProto dashdot = 3;
+  inline bool has_dashdot() const;
+  inline void clear_dashdot();
+  static const int kDashdotFieldNumber = 3;
+  inline const ::DashDotProto& dashdot() const;
+  inline ::DashDotProto* mutable_dashdot();
+  inline ::DashDotProto* release_dashdot();
+  
+  // optional .PathSymProto pathsym = 4;
+  inline bool has_pathsym() const;
+  inline void clear_pathsym();
+  static const int kPathsymFieldNumber = 4;
+  inline const ::PathSymProto& pathsym() const;
+  inline ::PathSymProto* mutable_pathsym();
+  inline ::PathSymProto* release_pathsym();
+  
+  // optional .LineJoin join = 6;
+  inline bool has_join() const;
+  inline void clear_join();
+  static const int kJoinFieldNumber = 6;
+  inline LineJoin join() const;
+  inline void set_join(LineJoin value);
+  
+  // optional .LineCap cap = 7;
+  inline bool has_cap() const;
+  inline void clear_cap();
+  static const int kCapFieldNumber = 7;
+  inline LineCap cap() const;
+  inline void set_cap(LineCap value);
+  
+  // @@protoc_insertion_point(class_scope:LineDefProto)
+ private:
+  inline void set_has_width();
+  inline void clear_has_width();
+  inline void set_has_color();
+  inline void clear_has_color();
+  inline void set_has_dashdot();
+  inline void clear_has_dashdot();
+  inline void set_has_pathsym();
+  inline void clear_has_pathsym();
+  inline void set_has_join();
+  inline void clear_has_join();
+  inline void set_has_cap();
+  inline void clear_has_cap();
+  
+  double width_;
+  ::DashDotProto* dashdot_;
+  ::google::protobuf::uint32 color_;
+  int join_;
+  ::PathSymProto* pathsym_;
+  int cap_;
+  
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(6 + 31) / 32];
+  
+  friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
+  friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
+  friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
+  
+  void InitAsDefaultInstance();
+  static LineDefProto* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class AreaRuleProto : public ::google::protobuf::MessageLite {
+ public:
+  AreaRuleProto();
+  virtual ~AreaRuleProto();
+  
+  AreaRuleProto(const AreaRuleProto& from);
+  
+  inline AreaRuleProto& operator=(const AreaRuleProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  
+  static const AreaRuleProto& default_instance();
+  
+  void Swap(AreaRuleProto* other);
+  
+  // implements Message ----------------------------------------------
+  
+  AreaRuleProto* New() const;
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const AreaRuleProto& from);
+  void MergeFrom(const AreaRuleProto& from);
+  void Clear();
+  bool IsInitialized() const;
+  
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  
+  ::std::string GetTypeName() const;
+  
+  // nested types ----------------------------------------------------
+  
+  // accessors -------------------------------------------------------
+  
+  // required uint32 color = 1;
+  inline bool has_color() const;
+  inline void clear_color();
+  static const int kColorFieldNumber = 1;
+  inline ::google::protobuf::uint32 color() const;
+  inline void set_color(::google::protobuf::uint32 value);
+  
+  // optional .LineDefProto border = 2;
+  inline bool has_border() const;
+  inline void clear_border();
+  static const int kBorderFieldNumber = 2;
+  inline const ::LineDefProto& border() const;
+  inline ::LineDefProto* mutable_border();
+  inline ::LineDefProto* release_border();
+  
   // required int32 priority = 3;
   inline bool has_priority() const;
   inline void clear_priority();
   static const int kPriorityFieldNumber = 3;
   inline ::google::protobuf::int32 priority() const;
   inline void set_priority(::google::protobuf::int32 value);
+  
+  // @@protoc_insertion_point(class_scope:AreaRuleProto)
+ private:
+  inline void set_has_color();
+  inline void clear_has_color();
+  inline void set_has_border();
+  inline void clear_has_border();
+  inline void set_has_priority();
+  inline void clear_has_priority();
+  
+  ::LineDefProto* border_;
+  ::google::protobuf::uint32 color_;
+  ::google::protobuf::int32 priority_;
+  
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+  
+  friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
+  friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
+  friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
+  
+  void InitAsDefaultInstance();
+  static AreaRuleProto* default_instance_;
+};
+// -------------------------------------------------------------------
 
+class SymbolRuleProto : public ::google::protobuf::MessageLite {
+ public:
+  SymbolRuleProto();
+  virtual ~SymbolRuleProto();
+  
+  SymbolRuleProto(const SymbolRuleProto& from);
+  
+  inline SymbolRuleProto& operator=(const SymbolRuleProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  
+  static const SymbolRuleProto& default_instance();
+  
+  void Swap(SymbolRuleProto* other);
+  
+  // implements Message ----------------------------------------------
+  
+  SymbolRuleProto* New() const;
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const SymbolRuleProto& from);
+  void MergeFrom(const SymbolRuleProto& from);
+  void Clear();
+  bool IsInitialized() const;
+  
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  
+  ::std::string GetTypeName() const;
+  
+  // nested types ----------------------------------------------------
+  
+  // accessors -------------------------------------------------------
+  
+  // required string name = 1;
+  inline bool has_name() const;
+  inline void clear_name();
+  static const int kNameFieldNumber = 1;
+  inline const ::std::string& name() const;
+  inline void set_name(const ::std::string& value);
+  inline void set_name(const char* value);
+  inline void set_name(const char* value, size_t size);
+  inline ::std::string* mutable_name();
+  inline ::std::string* release_name();
+  
+  // optional int32 apply_for_type = 2;
+  inline bool has_apply_for_type() const;
+  inline void clear_apply_for_type();
+  static const int kApplyForTypeFieldNumber = 2;
+  inline ::google::protobuf::int32 apply_for_type() const;
+  inline void set_apply_for_type(::google::protobuf::int32 value);
+  
+  // required int32 priority = 3;
+  inline bool has_priority() const;
+  inline void clear_priority();
+  static const int kPriorityFieldNumber = 3;
+  inline ::google::protobuf::int32 priority() const;
+  inline void set_priority(::google::protobuf::int32 value);
+  
   // @@protoc_insertion_point(class_scope:SymbolRuleProto)
  private:
   inline void set_has_name();
@@ -482,18 +656,18 @@ class SymbolRuleProto : public ::google::protobuf::MessageLite {
   inline void clear_has_apply_for_type();
   inline void set_has_priority();
   inline void clear_has_priority();
-
+  
   ::std::string* name_;
   ::google::protobuf::int32 apply_for_type_;
   ::google::protobuf::int32 priority_;
-
+  
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
-
+  
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
   friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
-
+  
   void InitAsDefaultInstance();
   static SymbolRuleProto* default_instance_;
 };
@@ -503,27 +677,27 @@ class CaptionDefProto : public ::google::protobuf::MessageLite {
  public:
   CaptionDefProto();
   virtual ~CaptionDefProto();
-
+  
   CaptionDefProto(const CaptionDefProto& from);
-
+  
   inline CaptionDefProto& operator=(const CaptionDefProto& from) {
     CopyFrom(from);
     return *this;
   }
-
+  
   static const CaptionDefProto& default_instance();
-
+  
   void Swap(CaptionDefProto* other);
-
+  
   // implements Message ----------------------------------------------
-
+  
   CaptionDefProto* New() const;
   void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const CaptionDefProto& from);
   void MergeFrom(const CaptionDefProto& from);
   void Clear();
   bool IsInitialized() const;
-
+  
   int ByteSize() const;
   bool MergePartialFromCodedStream(
       ::google::protobuf::io::CodedInputStream* input);
@@ -535,34 +709,34 @@ class CaptionDefProto : public ::google::protobuf::MessageLite {
   void SharedDtor();
   void SetCachedSize(int size) const;
   public:
-
+  
   ::std::string GetTypeName() const;
-
+  
   // nested types ----------------------------------------------------
-
+  
   // accessors -------------------------------------------------------
-
+  
   // required int32 height = 1;
   inline bool has_height() const;
   inline void clear_height();
   static const int kHeightFieldNumber = 1;
   inline ::google::protobuf::int32 height() const;
   inline void set_height(::google::protobuf::int32 value);
-
+  
   // required uint32 color = 2;
   inline bool has_color() const;
   inline void clear_color();
   static const int kColorFieldNumber = 2;
   inline ::google::protobuf::uint32 color() const;
   inline void set_color(::google::protobuf::uint32 value);
-
+  
   // optional uint32 stroke_color = 3;
   inline bool has_stroke_color() const;
   inline void clear_stroke_color();
   static const int kStrokeColorFieldNumber = 3;
   inline ::google::protobuf::uint32 stroke_color() const;
   inline void set_stroke_color(::google::protobuf::uint32 value);
-
+  
   // @@protoc_insertion_point(class_scope:CaptionDefProto)
  private:
   inline void set_has_height();
@@ -571,18 +745,18 @@ class CaptionDefProto : public ::google::protobuf::MessageLite {
   inline void clear_has_color();
   inline void set_has_stroke_color();
   inline void clear_has_stroke_color();
-
+  
   ::google::protobuf::int32 height_;
   ::google::protobuf::uint32 color_;
   ::google::protobuf::uint32 stroke_color_;
-
+  
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
-
+  
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
   friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
-
+  
   void InitAsDefaultInstance();
   static CaptionDefProto* default_instance_;
 };
@@ -592,27 +766,27 @@ class CaptionRuleProto : public ::google::protobuf::MessageLite {
  public:
   CaptionRuleProto();
   virtual ~CaptionRuleProto();
-
+  
   CaptionRuleProto(const CaptionRuleProto& from);
-
+  
   inline CaptionRuleProto& operator=(const CaptionRuleProto& from) {
     CopyFrom(from);
     return *this;
   }
-
+  
   static const CaptionRuleProto& default_instance();
-
+  
   void Swap(CaptionRuleProto* other);
-
+  
   // implements Message ----------------------------------------------
-
+  
   CaptionRuleProto* New() const;
   void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const CaptionRuleProto& from);
   void MergeFrom(const CaptionRuleProto& from);
   void Clear();
   bool IsInitialized() const;
-
+  
   int ByteSize() const;
   bool MergePartialFromCodedStream(
       ::google::protobuf::io::CodedInputStream* input);
@@ -624,13 +798,13 @@ class CaptionRuleProto : public ::google::protobuf::MessageLite {
   void SharedDtor();
   void SetCachedSize(int size) const;
   public:
-
+  
   ::std::string GetTypeName() const;
-
+  
   // nested types ----------------------------------------------------
-
+  
   // accessors -------------------------------------------------------
-
+  
   // required .CaptionDefProto primary = 1;
   inline bool has_primary() const;
   inline void clear_primary();
@@ -638,7 +812,7 @@ class CaptionRuleProto : public ::google::protobuf::MessageLite {
   inline const ::CaptionDefProto& primary() const;
   inline ::CaptionDefProto* mutable_primary();
   inline ::CaptionDefProto* release_primary();
-
+  
   // optional .CaptionDefProto secondary = 2;
   inline bool has_secondary() const;
   inline void clear_secondary();
@@ -646,14 +820,14 @@ class CaptionRuleProto : public ::google::protobuf::MessageLite {
   inline const ::CaptionDefProto& secondary() const;
   inline ::CaptionDefProto* mutable_secondary();
   inline ::CaptionDefProto* release_secondary();
-
+  
   // required int32 priority = 3;
   inline bool has_priority() const;
   inline void clear_priority();
   static const int kPriorityFieldNumber = 3;
   inline ::google::protobuf::int32 priority() const;
   inline void set_priority(::google::protobuf::int32 value);
-
+  
   // @@protoc_insertion_point(class_scope:CaptionRuleProto)
  private:
   inline void set_has_primary();
@@ -662,18 +836,18 @@ class CaptionRuleProto : public ::google::protobuf::MessageLite {
   inline void clear_has_secondary();
   inline void set_has_priority();
   inline void clear_has_priority();
-
+  
   ::CaptionDefProto* primary_;
   ::CaptionDefProto* secondary_;
   ::google::protobuf::int32 priority_;
-
+  
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
-
+  
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
   friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
-
+  
   void InitAsDefaultInstance();
   static CaptionRuleProto* default_instance_;
 };
@@ -683,27 +857,27 @@ class CircleRuleProto : public ::google::protobuf::MessageLite {
  public:
   CircleRuleProto();
   virtual ~CircleRuleProto();
-
+  
   CircleRuleProto(const CircleRuleProto& from);
-
+  
   inline CircleRuleProto& operator=(const CircleRuleProto& from) {
     CopyFrom(from);
     return *this;
   }
-
+  
   static const CircleRuleProto& default_instance();
-
+  
   void Swap(CircleRuleProto* other);
-
+  
   // implements Message ----------------------------------------------
-
+  
   CircleRuleProto* New() const;
   void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const CircleRuleProto& from);
   void MergeFrom(const CircleRuleProto& from);
   void Clear();
   bool IsInitialized() const;
-
+  
   int ByteSize() const;
   bool MergePartialFromCodedStream(
       ::google::protobuf::io::CodedInputStream* input);
@@ -715,27 +889,27 @@ class CircleRuleProto : public ::google::protobuf::MessageLite {
   void SharedDtor();
   void SetCachedSize(int size) const;
   public:
-
+  
   ::std::string GetTypeName() const;
-
+  
   // nested types ----------------------------------------------------
-
+  
   // accessors -------------------------------------------------------
-
+  
   // required double radius = 1;
   inline bool has_radius() const;
   inline void clear_radius();
   static const int kRadiusFieldNumber = 1;
   inline double radius() const;
   inline void set_radius(double value);
-
+  
   // required uint32 color = 2;
   inline bool has_color() const;
   inline void clear_color();
   static const int kColorFieldNumber = 2;
   inline ::google::protobuf::uint32 color() const;
   inline void set_color(::google::protobuf::uint32 value);
-
+  
   // optional .LineDefProto border = 3;
   inline bool has_border() const;
   inline void clear_border();
@@ -743,14 +917,14 @@ class CircleRuleProto : public ::google::protobuf::MessageLite {
   inline const ::LineDefProto& border() const;
   inline ::LineDefProto* mutable_border();
   inline ::LineDefProto* release_border();
-
+  
   // required int32 priority = 4;
   inline bool has_priority() const;
   inline void clear_priority();
   static const int kPriorityFieldNumber = 4;
   inline ::google::protobuf::int32 priority() const;
   inline void set_priority(::google::protobuf::int32 value);
-
+  
   // @@protoc_insertion_point(class_scope:CircleRuleProto)
  private:
   inline void set_has_radius();
@@ -761,19 +935,19 @@ class CircleRuleProto : public ::google::protobuf::MessageLite {
   inline void clear_has_border();
   inline void set_has_priority();
   inline void clear_has_priority();
-
+  
   double radius_;
   ::LineDefProto* border_;
   ::google::protobuf::uint32 color_;
   ::google::protobuf::int32 priority_;
-
+  
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
-
+  
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
   friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
-
+  
   void InitAsDefaultInstance();
   static CircleRuleProto* default_instance_;
 };
@@ -783,27 +957,27 @@ class PathTextRuleProto : public ::google::protobuf::MessageLite {
  public:
   PathTextRuleProto();
   virtual ~PathTextRuleProto();
-
+  
   PathTextRuleProto(const PathTextRuleProto& from);
-
+  
   inline PathTextRuleProto& operator=(const PathTextRuleProto& from) {
     CopyFrom(from);
     return *this;
   }
-
+  
   static const PathTextRuleProto& default_instance();
-
+  
   void Swap(PathTextRuleProto* other);
-
+  
   // implements Message ----------------------------------------------
-
+  
   PathTextRuleProto* New() const;
   void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const PathTextRuleProto& from);
   void MergeFrom(const PathTextRuleProto& from);
   void Clear();
   bool IsInitialized() const;
-
+  
   int ByteSize() const;
   bool MergePartialFromCodedStream(
       ::google::protobuf::io::CodedInputStream* input);
@@ -815,13 +989,13 @@ class PathTextRuleProto : public ::google::protobuf::MessageLite {
   void SharedDtor();
   void SetCachedSize(int size) const;
   public:
-
+  
   ::std::string GetTypeName() const;
-
+  
   // nested types ----------------------------------------------------
-
+  
   // accessors -------------------------------------------------------
-
+  
   // required .CaptionDefProto primary = 1;
   inline bool has_primary() const;
   inline void clear_primary();
@@ -829,7 +1003,7 @@ class PathTextRuleProto : public ::google::protobuf::MessageLite {
   inline const ::CaptionDefProto& primary() const;
   inline ::CaptionDefProto* mutable_primary();
   inline ::CaptionDefProto* release_primary();
-
+  
   // optional .CaptionDefProto secondary = 2;
   inline bool has_secondary() const;
   inline void clear_secondary();
@@ -837,14 +1011,14 @@ class PathTextRuleProto : public ::google::protobuf::MessageLite {
   inline const ::CaptionDefProto& secondary() const;
   inline ::CaptionDefProto* mutable_secondary();
   inline ::CaptionDefProto* release_secondary();
-
+  
   // required int32 priority = 3;
   inline bool has_priority() const;
   inline void clear_priority();
   static const int kPriorityFieldNumber = 3;
   inline ::google::protobuf::int32 priority() const;
   inline void set_priority(::google::protobuf::int32 value);
-
+  
   // @@protoc_insertion_point(class_scope:PathTextRuleProto)
  private:
   inline void set_has_primary();
@@ -853,18 +1027,18 @@ class PathTextRuleProto : public ::google::protobuf::MessageLite {
   inline void clear_has_secondary();
   inline void set_has_priority();
   inline void clear_has_priority();
-
+  
   ::CaptionDefProto* primary_;
   ::CaptionDefProto* secondary_;
   ::google::protobuf::int32 priority_;
-
+  
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
-
+  
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
   friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
-
+  
   void InitAsDefaultInstance();
   static PathTextRuleProto* default_instance_;
 };
@@ -874,27 +1048,27 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
  public:
   DrawElementProto();
   virtual ~DrawElementProto();
-
+  
   DrawElementProto(const DrawElementProto& from);
-
+  
   inline DrawElementProto& operator=(const DrawElementProto& from) {
     CopyFrom(from);
     return *this;
   }
-
+  
   static const DrawElementProto& default_instance();
-
+  
   void Swap(DrawElementProto* other);
-
+  
   // implements Message ----------------------------------------------
-
+  
   DrawElementProto* New() const;
   void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const DrawElementProto& from);
   void MergeFrom(const DrawElementProto& from);
   void Clear();
   bool IsInitialized() const;
-
+  
   int ByteSize() const;
   bool MergePartialFromCodedStream(
       ::google::protobuf::io::CodedInputStream* input);
@@ -906,20 +1080,20 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
   void SharedDtor();
   void SetCachedSize(int size) const;
   public:
-
+  
   ::std::string GetTypeName() const;
-
+  
   // nested types ----------------------------------------------------
-
+  
   // accessors -------------------------------------------------------
-
+  
   // required int32 scale = 1;
   inline bool has_scale() const;
   inline void clear_scale();
   static const int kScaleFieldNumber = 1;
   inline ::google::protobuf::int32 scale() const;
   inline void set_scale(::google::protobuf::int32 value);
-
+  
   // repeated .LineRuleProto lines = 2;
   inline int lines_size() const;
   inline void clear_lines();
@@ -931,7 +1105,7 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
       lines() const;
   inline ::google::protobuf::RepeatedPtrField< ::LineRuleProto >*
       mutable_lines();
-
+  
   // optional .AreaRuleProto area = 3;
   inline bool has_area() const;
   inline void clear_area();
@@ -939,7 +1113,7 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
   inline const ::AreaRuleProto& area() const;
   inline ::AreaRuleProto* mutable_area();
   inline ::AreaRuleProto* release_area();
-
+  
   // optional .SymbolRuleProto symbol = 4;
   inline bool has_symbol() const;
   inline void clear_symbol();
@@ -947,7 +1121,7 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
   inline const ::SymbolRuleProto& symbol() const;
   inline ::SymbolRuleProto* mutable_symbol();
   inline ::SymbolRuleProto* release_symbol();
-
+  
   // optional .CaptionRuleProto caption = 5;
   inline bool has_caption() const;
   inline void clear_caption();
@@ -955,7 +1129,7 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
   inline const ::CaptionRuleProto& caption() const;
   inline ::CaptionRuleProto* mutable_caption();
   inline ::CaptionRuleProto* release_caption();
-
+  
   // optional .CircleRuleProto circle = 6;
   inline bool has_circle() const;
   inline void clear_circle();
@@ -963,7 +1137,7 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
   inline const ::CircleRuleProto& circle() const;
   inline ::CircleRuleProto* mutable_circle();
   inline ::CircleRuleProto* release_circle();
-
+  
   // optional .PathTextRuleProto path_text = 7;
   inline bool has_path_text() const;
   inline void clear_path_text();
@@ -971,7 +1145,7 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
   inline const ::PathTextRuleProto& path_text() const;
   inline ::PathTextRuleProto* mutable_path_text();
   inline ::PathTextRuleProto* release_path_text();
-
+  
   // @@protoc_insertion_point(class_scope:DrawElementProto)
  private:
   inline void set_has_scale();
@@ -986,7 +1160,7 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
   inline void clear_has_circle();
   inline void set_has_path_text();
   inline void clear_has_path_text();
-
+  
   ::google::protobuf::RepeatedPtrField< ::LineRuleProto > lines_;
   ::AreaRuleProto* area_;
   ::SymbolRuleProto* symbol_;
@@ -994,14 +1168,14 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
   ::CircleRuleProto* circle_;
   ::PathTextRuleProto* path_text_;
   ::google::protobuf::int32 scale_;
-
+  
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(7 + 31) / 32];
-
+  
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
   friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
-
+  
   void InitAsDefaultInstance();
   static DrawElementProto* default_instance_;
 };
@@ -1011,27 +1185,27 @@ class ClassifElementProto : public ::google::protobuf::MessageLite {
  public:
   ClassifElementProto();
   virtual ~ClassifElementProto();
-
+  
   ClassifElementProto(const ClassifElementProto& from);
-
+  
   inline ClassifElementProto& operator=(const ClassifElementProto& from) {
     CopyFrom(from);
     return *this;
   }
-
+  
   static const ClassifElementProto& default_instance();
-
+  
   void Swap(ClassifElementProto* other);
-
+  
   // implements Message ----------------------------------------------
-
+  
   ClassifElementProto* New() const;
   void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const ClassifElementProto& from);
   void MergeFrom(const ClassifElementProto& from);
   void Clear();
   bool IsInitialized() const;
-
+  
   int ByteSize() const;
   bool MergePartialFromCodedStream(
       ::google::protobuf::io::CodedInputStream* input);
@@ -1043,13 +1217,13 @@ class ClassifElementProto : public ::google::protobuf::MessageLite {
   void SharedDtor();
   void SetCachedSize(int size) const;
   public:
-
+  
   ::std::string GetTypeName() const;
-
+  
   // nested types ----------------------------------------------------
-
+  
   // accessors -------------------------------------------------------
-
+  
   // required string name = 1;
   inline bool has_name() const;
   inline void clear_name();
@@ -1060,7 +1234,7 @@ class ClassifElementProto : public ::google::protobuf::MessageLite {
   inline void set_name(const char* value, size_t size);
   inline ::std::string* mutable_name();
   inline ::std::string* release_name();
-
+  
   // repeated .DrawElementProto element = 2;
   inline int element_size() const;
   inline void clear_element();
@@ -1072,22 +1246,22 @@ class ClassifElementProto : public ::google::protobuf::MessageLite {
       element() const;
   inline ::google::protobuf::RepeatedPtrField< ::DrawElementProto >*
       mutable_element();
-
+  
   // @@protoc_insertion_point(class_scope:ClassifElementProto)
  private:
   inline void set_has_name();
   inline void clear_has_name();
-
+  
   ::std::string* name_;
   ::google::protobuf::RepeatedPtrField< ::DrawElementProto > element_;
-
+  
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
-
+  
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
   friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
-
+  
   void InitAsDefaultInstance();
   static ClassifElementProto* default_instance_;
 };
@@ -1097,27 +1271,27 @@ class ContainerProto : public ::google::protobuf::MessageLite {
  public:
   ContainerProto();
   virtual ~ContainerProto();
-
+  
   ContainerProto(const ContainerProto& from);
-
+  
   inline ContainerProto& operator=(const ContainerProto& from) {
     CopyFrom(from);
     return *this;
   }
-
+  
   static const ContainerProto& default_instance();
-
+  
   void Swap(ContainerProto* other);
-
+  
   // implements Message ----------------------------------------------
-
+  
   ContainerProto* New() const;
   void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const ContainerProto& from);
   void MergeFrom(const ContainerProto& from);
   void Clear();
   bool IsInitialized() const;
-
+  
   int ByteSize() const;
   bool MergePartialFromCodedStream(
       ::google::protobuf::io::CodedInputStream* input);
@@ -1129,13 +1303,13 @@ class ContainerProto : public ::google::protobuf::MessageLite {
   void SharedDtor();
   void SetCachedSize(int size) const;
   public:
-
+  
   ::std::string GetTypeName() const;
-
+  
   // nested types ----------------------------------------------------
-
+  
   // accessors -------------------------------------------------------
-
+  
   // repeated .ClassifElementProto cont = 1;
   inline int cont_size() const;
   inline void clear_cont();
@@ -1147,19 +1321,19 @@ class ContainerProto : public ::google::protobuf::MessageLite {
       cont() const;
   inline ::google::protobuf::RepeatedPtrField< ::ClassifElementProto >*
       mutable_cont();
-
+  
   // @@protoc_insertion_point(class_scope:ContainerProto)
  private:
-
+  
   ::google::protobuf::RepeatedPtrField< ::ClassifElementProto > cont_;
-
+  
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
-
+  
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
   friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
-
+  
   void InitAsDefaultInstance();
   static ContainerProto* default_instance_;
 };
@@ -1213,6 +1387,112 @@ inline double DashDotProto::offset() const {
   return offset_;
 }
 inline void DashDotProto::set_offset(double value) {
+  set_has_offset();
+  offset_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// PathSymProto
+
+// required string name = 1;
+inline bool PathSymProto::has_name() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void PathSymProto::set_has_name() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void PathSymProto::clear_has_name() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void PathSymProto::clear_name() {
+  if (name_ != &::google::protobuf::internal::kEmptyString) {
+    name_->clear();
+  }
+  clear_has_name();
+}
+inline const ::std::string& PathSymProto::name() const {
+  return *name_;
+}
+inline void PathSymProto::set_name(const ::std::string& value) {
+  set_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    name_ = new ::std::string;
+  }
+  name_->assign(value);
+}
+inline void PathSymProto::set_name(const char* value) {
+  set_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    name_ = new ::std::string;
+  }
+  name_->assign(value);
+}
+inline void PathSymProto::set_name(const char* value, size_t size) {
+  set_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    name_ = new ::std::string;
+  }
+  name_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* PathSymProto::mutable_name() {
+  set_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    name_ = new ::std::string;
+  }
+  return name_;
+}
+inline ::std::string* PathSymProto::release_name() {
+  clear_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = name_;
+    name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+
+// required double step = 2;
+inline bool PathSymProto::has_step() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void PathSymProto::set_has_step() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void PathSymProto::clear_has_step() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void PathSymProto::clear_step() {
+  step_ = 0;
+  clear_has_step();
+}
+inline double PathSymProto::step() const {
+  return step_;
+}
+inline void PathSymProto::set_step(double value) {
+  set_has_step();
+  step_ = value;
+}
+
+// optional double offset = 3;
+inline bool PathSymProto::has_offset() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void PathSymProto::set_has_offset() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void PathSymProto::clear_has_offset() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void PathSymProto::clear_offset() {
+  offset_ = 0;
+  clear_has_offset();
+}
+inline double PathSymProto::offset() const {
+  return offset_;
+}
+inline void PathSymProto::set_offset(double value) {
   set_has_offset();
   offset_ = value;
 }
@@ -1316,6 +1596,81 @@ inline void LineRuleProto::set_priority(::google::protobuf::int32 value) {
   priority_ = value;
 }
 
+// optional .PathSymProto pathsym = 5;
+inline bool LineRuleProto::has_pathsym() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void LineRuleProto::set_has_pathsym() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void LineRuleProto::clear_has_pathsym() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void LineRuleProto::clear_pathsym() {
+  if (pathsym_ != NULL) pathsym_->::PathSymProto::Clear();
+  clear_has_pathsym();
+}
+inline const ::PathSymProto& LineRuleProto::pathsym() const {
+  return pathsym_ != NULL ? *pathsym_ : *default_instance_->pathsym_;
+}
+inline ::PathSymProto* LineRuleProto::mutable_pathsym() {
+  set_has_pathsym();
+  if (pathsym_ == NULL) pathsym_ = new ::PathSymProto;
+  return pathsym_;
+}
+inline ::PathSymProto* LineRuleProto::release_pathsym() {
+  clear_has_pathsym();
+  ::PathSymProto* temp = pathsym_;
+  pathsym_ = NULL;
+  return temp;
+}
+
+// optional .LineJoin join = 6;
+inline bool LineRuleProto::has_join() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void LineRuleProto::set_has_join() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void LineRuleProto::clear_has_join() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void LineRuleProto::clear_join() {
+  join_ = 0;
+  clear_has_join();
+}
+inline LineJoin LineRuleProto::join() const {
+  return static_cast< LineJoin >(join_);
+}
+inline void LineRuleProto::set_join(LineJoin value) {
+  GOOGLE_DCHECK(LineJoin_IsValid(value));
+  set_has_join();
+  join_ = value;
+}
+
+// optional .LineCap cap = 7;
+inline bool LineRuleProto::has_cap() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void LineRuleProto::set_has_cap() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void LineRuleProto::clear_has_cap() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void LineRuleProto::clear_cap() {
+  cap_ = 0;
+  clear_has_cap();
+}
+inline LineCap LineRuleProto::cap() const {
+  return static_cast< LineCap >(cap_);
+}
+inline void LineRuleProto::set_cap(LineCap value) {
+  GOOGLE_DCHECK(LineCap_IsValid(value));
+  set_has_cap();
+  cap_ = value;
+}
+
 // -------------------------------------------------------------------
 
 // LineDefProto
@@ -1391,6 +1746,81 @@ inline ::DashDotProto* LineDefProto::release_dashdot() {
   ::DashDotProto* temp = dashdot_;
   dashdot_ = NULL;
   return temp;
+}
+
+// optional .PathSymProto pathsym = 4;
+inline bool LineDefProto::has_pathsym() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void LineDefProto::set_has_pathsym() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void LineDefProto::clear_has_pathsym() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void LineDefProto::clear_pathsym() {
+  if (pathsym_ != NULL) pathsym_->::PathSymProto::Clear();
+  clear_has_pathsym();
+}
+inline const ::PathSymProto& LineDefProto::pathsym() const {
+  return pathsym_ != NULL ? *pathsym_ : *default_instance_->pathsym_;
+}
+inline ::PathSymProto* LineDefProto::mutable_pathsym() {
+  set_has_pathsym();
+  if (pathsym_ == NULL) pathsym_ = new ::PathSymProto;
+  return pathsym_;
+}
+inline ::PathSymProto* LineDefProto::release_pathsym() {
+  clear_has_pathsym();
+  ::PathSymProto* temp = pathsym_;
+  pathsym_ = NULL;
+  return temp;
+}
+
+// optional .LineJoin join = 6;
+inline bool LineDefProto::has_join() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void LineDefProto::set_has_join() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void LineDefProto::clear_has_join() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void LineDefProto::clear_join() {
+  join_ = 0;
+  clear_has_join();
+}
+inline LineJoin LineDefProto::join() const {
+  return static_cast< LineJoin >(join_);
+}
+inline void LineDefProto::set_join(LineJoin value) {
+  GOOGLE_DCHECK(LineJoin_IsValid(value));
+  set_has_join();
+  join_ = value;
+}
+
+// optional .LineCap cap = 7;
+inline bool LineDefProto::has_cap() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void LineDefProto::set_has_cap() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void LineDefProto::clear_has_cap() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void LineDefProto::clear_cap() {
+  cap_ = 0;
+  clear_has_cap();
+}
+inline LineCap LineDefProto::cap() const {
+  return static_cast< LineCap >(cap_);
+}
+inline void LineDefProto::set_cap(LineCap value) {
+  GOOGLE_DCHECK(LineCap_IsValid(value));
+  set_has_cap();
+  cap_ = value;
 }
 
 // -------------------------------------------------------------------

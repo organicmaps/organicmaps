@@ -12,6 +12,7 @@
 
 void protobuf_ShutdownFile_drules_5fstruct_2eproto() {
   delete DashDotProto::default_instance_;
+  delete PathSymProto::default_instance_;
   delete LineRuleProto::default_instance_;
   delete LineDefProto::default_instance_;
   delete AreaRuleProto::default_instance_;
@@ -32,6 +33,7 @@ void protobuf_AddDesc_drules_5fstruct_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   DashDotProto::default_instance_ = new DashDotProto();
+  PathSymProto::default_instance_ = new PathSymProto();
   LineRuleProto::default_instance_ = new LineRuleProto();
   LineDefProto::default_instance_ = new LineDefProto();
   AreaRuleProto::default_instance_ = new AreaRuleProto();
@@ -44,6 +46,7 @@ void protobuf_AddDesc_drules_5fstruct_2eproto() {
   ClassifElementProto::default_instance_ = new ClassifElementProto();
   ContainerProto::default_instance_ = new ContainerProto();
   DashDotProto::default_instance_->InitAsDefaultInstance();
+  PathSymProto::default_instance_->InitAsDefaultInstance();
   LineRuleProto::default_instance_->InitAsDefaultInstance();
   LineDefProto::default_instance_->InitAsDefaultInstance();
   AreaRuleProto::default_instance_->InitAsDefaultInstance();
@@ -64,6 +67,26 @@ struct StaticDescriptorInitializer_drules_5fstruct_2eproto {
     protobuf_AddDesc_drules_5fstruct_2eproto();
   }
 } static_descriptor_initializer_drules_5fstruct_2eproto_;
+
+bool LineJoin_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
+bool LineCap_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
 
 
 // ===================================================================
@@ -152,7 +175,7 @@ bool DashDotProto::MergePartialFromCodedStream(
         if (input->ExpectTag(17)) goto parse_offset;
         break;
       }
-
+      
       // optional double offset = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -168,7 +191,7 @@ bool DashDotProto::MergePartialFromCodedStream(
         if (input->ExpectAtEnd()) return true;
         break;
       }
-
+      
       default: {
       handle_uninterpreted:
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -191,23 +214,23 @@ void DashDotProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteDouble(
       1, this->dd(i), output);
   }
-
+  
   // optional double offset = 2;
   if (has_offset()) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(2, this->offset(), output);
   }
-
+  
 }
 
 int DashDotProto::ByteSize() const {
   int total_size = 0;
-
+  
   if (_has_bits_[1 / 32] & (0xffu << (1 % 32))) {
     // optional double offset = 2;
     if (has_offset()) {
       total_size += 1 + 8;
     }
-
+    
   }
   // repeated double dd = 1;
   {
@@ -215,7 +238,7 @@ int DashDotProto::ByteSize() const {
     data_size = 8 * this->dd_size();
     total_size += 1 * this->dd_size() + data_size;
   }
-
+  
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
@@ -244,7 +267,7 @@ void DashDotProto::CopyFrom(const DashDotProto& from) {
 }
 
 bool DashDotProto::IsInitialized() const {
-
+  
   return true;
 }
 
@@ -265,10 +288,244 @@ void DashDotProto::Swap(DashDotProto* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
+const int PathSymProto::kNameFieldNumber;
+const int PathSymProto::kStepFieldNumber;
+const int PathSymProto::kOffsetFieldNumber;
+#endif  // !_MSC_VER
+
+PathSymProto::PathSymProto()
+  : ::google::protobuf::MessageLite() {
+  SharedCtor();
+}
+
+void PathSymProto::InitAsDefaultInstance() {
+}
+
+PathSymProto::PathSymProto(const PathSymProto& from)
+  : ::google::protobuf::MessageLite() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void PathSymProto::SharedCtor() {
+  _cached_size_ = 0;
+  name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  step_ = 0;
+  offset_ = 0;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+PathSymProto::~PathSymProto() {
+  SharedDtor();
+}
+
+void PathSymProto::SharedDtor() {
+  if (name_ != &::google::protobuf::internal::kEmptyString) {
+    delete name_;
+  }
+  if (this != default_instance_) {
+  }
+}
+
+void PathSymProto::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const PathSymProto& PathSymProto::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();  return *default_instance_;
+}
+
+PathSymProto* PathSymProto::default_instance_ = NULL;
+
+PathSymProto* PathSymProto::New() const {
+  return new PathSymProto;
+}
+
+void PathSymProto::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (has_name()) {
+      if (name_ != &::google::protobuf::internal::kEmptyString) {
+        name_->clear();
+      }
+    }
+    step_ = 0;
+    offset_ = 0;
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+bool PathSymProto::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required string name = 1;
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_name()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(17)) goto parse_step;
+        break;
+      }
+      
+      // required double step = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED64) {
+         parse_step:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &step_)));
+          set_has_step();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(25)) goto parse_offset;
+        break;
+      }
+      
+      // optional double offset = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED64) {
+         parse_offset:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &offset_)));
+          set_has_offset();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+      
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void PathSymProto::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // required string name = 1;
+  if (has_name()) {
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      1, this->name(), output);
+  }
+  
+  // required double step = 2;
+  if (has_step()) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(2, this->step(), output);
+  }
+  
+  // optional double offset = 3;
+  if (has_offset()) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(3, this->offset(), output);
+  }
+  
+}
+
+int PathSymProto::ByteSize() const {
+  int total_size = 0;
+  
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required string name = 1;
+    if (has_name()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->name());
+    }
+    
+    // required double step = 2;
+    if (has_step()) {
+      total_size += 1 + 8;
+    }
+    
+    // optional double offset = 3;
+    if (has_offset()) {
+      total_size += 1 + 8;
+    }
+    
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void PathSymProto::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const PathSymProto*>(&from));
+}
+
+void PathSymProto::MergeFrom(const PathSymProto& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_name()) {
+      set_name(from.name());
+    }
+    if (from.has_step()) {
+      set_step(from.step());
+    }
+    if (from.has_offset()) {
+      set_offset(from.offset());
+    }
+  }
+}
+
+void PathSymProto::CopyFrom(const PathSymProto& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PathSymProto::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  
+  return true;
+}
+
+void PathSymProto::Swap(PathSymProto* other) {
+  if (other != this) {
+    std::swap(name_, other->name_);
+    std::swap(step_, other->step_);
+    std::swap(offset_, other->offset_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::std::string PathSymProto::GetTypeName() const {
+  return "PathSymProto";
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
 const int LineRuleProto::kWidthFieldNumber;
 const int LineRuleProto::kColorFieldNumber;
 const int LineRuleProto::kDashdotFieldNumber;
 const int LineRuleProto::kPriorityFieldNumber;
+const int LineRuleProto::kPathsymFieldNumber;
+const int LineRuleProto::kJoinFieldNumber;
+const int LineRuleProto::kCapFieldNumber;
 #endif  // !_MSC_VER
 
 LineRuleProto::LineRuleProto()
@@ -278,6 +535,7 @@ LineRuleProto::LineRuleProto()
 
 void LineRuleProto::InitAsDefaultInstance() {
   dashdot_ = const_cast< ::DashDotProto*>(&::DashDotProto::default_instance());
+  pathsym_ = const_cast< ::PathSymProto*>(&::PathSymProto::default_instance());
 }
 
 LineRuleProto::LineRuleProto(const LineRuleProto& from)
@@ -292,6 +550,9 @@ void LineRuleProto::SharedCtor() {
   color_ = 0u;
   dashdot_ = NULL;
   priority_ = 0;
+  pathsym_ = NULL;
+  join_ = 0;
+  cap_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -302,6 +563,7 @@ LineRuleProto::~LineRuleProto() {
 void LineRuleProto::SharedDtor() {
   if (this != default_instance_) {
     delete dashdot_;
+    delete pathsym_;
   }
 }
 
@@ -328,6 +590,11 @@ void LineRuleProto::Clear() {
       if (dashdot_ != NULL) dashdot_->::DashDotProto::Clear();
     }
     priority_ = 0;
+    if (has_pathsym()) {
+      if (pathsym_ != NULL) pathsym_->::PathSymProto::Clear();
+    }
+    join_ = 0;
+    cap_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -352,7 +619,7 @@ bool LineRuleProto::MergePartialFromCodedStream(
         if (input->ExpectTag(16)) goto parse_color;
         break;
       }
-
+      
       // required uint32 color = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -368,7 +635,7 @@ bool LineRuleProto::MergePartialFromCodedStream(
         if (input->ExpectTag(26)) goto parse_dashdot;
         break;
       }
-
+      
       // optional .DashDotProto dashdot = 3;
       case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -382,7 +649,7 @@ bool LineRuleProto::MergePartialFromCodedStream(
         if (input->ExpectTag(32)) goto parse_priority;
         break;
       }
-
+      
       // required int32 priority = 4;
       case 4: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -395,10 +662,62 @@ bool LineRuleProto::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(42)) goto parse_pathsym;
+        break;
+      }
+      
+      // optional .PathSymProto pathsym = 5;
+      case 5: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_pathsym:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_pathsym()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(48)) goto parse_join;
+        break;
+      }
+      
+      // optional .LineJoin join = 6;
+      case 6: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_join:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (LineJoin_IsValid(value)) {
+            set_join(static_cast< LineJoin >(value));
+          }
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(56)) goto parse_cap;
+        break;
+      }
+      
+      // optional .LineCap cap = 7;
+      case 7: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_cap:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (LineCap_IsValid(value)) {
+            set_cap(static_cast< LineCap >(value));
+          }
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
-
+      
       default: {
       handle_uninterpreted:
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -420,55 +739,92 @@ void LineRuleProto::SerializeWithCachedSizes(
   if (has_width()) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(1, this->width(), output);
   }
-
+  
   // required uint32 color = 2;
   if (has_color()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->color(), output);
   }
-
+  
   // optional .DashDotProto dashdot = 3;
   if (has_dashdot()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessage(
       3, this->dashdot(), output);
   }
-
+  
   // required int32 priority = 4;
   if (has_priority()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->priority(), output);
   }
-
+  
+  // optional .PathSymProto pathsym = 5;
+  if (has_pathsym()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+      5, this->pathsym(), output);
+  }
+  
+  // optional .LineJoin join = 6;
+  if (has_join()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      6, this->join(), output);
+  }
+  
+  // optional .LineCap cap = 7;
+  if (has_cap()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      7, this->cap(), output);
+  }
+  
 }
 
 int LineRuleProto::ByteSize() const {
   int total_size = 0;
-
+  
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     // required double width = 1;
     if (has_width()) {
       total_size += 1 + 8;
     }
-
+    
     // required uint32 color = 2;
     if (has_color()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->color());
     }
-
+    
     // optional .DashDotProto dashdot = 3;
     if (has_dashdot()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->dashdot());
     }
-
+    
     // required int32 priority = 4;
     if (has_priority()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->priority());
     }
-
+    
+    // optional .PathSymProto pathsym = 5;
+    if (has_pathsym()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->pathsym());
+    }
+    
+    // optional .LineJoin join = 6;
+    if (has_join()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->join());
+    }
+    
+    // optional .LineCap cap = 7;
+    if (has_cap()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->cap());
+    }
+    
   }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
@@ -496,6 +852,15 @@ void LineRuleProto::MergeFrom(const LineRuleProto& from) {
     if (from.has_priority()) {
       set_priority(from.priority());
     }
+    if (from.has_pathsym()) {
+      mutable_pathsym()->::PathSymProto::MergeFrom(from.pathsym());
+    }
+    if (from.has_join()) {
+      set_join(from.join());
+    }
+    if (from.has_cap()) {
+      set_cap(from.cap());
+    }
   }
 }
 
@@ -507,7 +872,10 @@ void LineRuleProto::CopyFrom(const LineRuleProto& from) {
 
 bool LineRuleProto::IsInitialized() const {
   if ((_has_bits_[0] & 0x0000000b) != 0x0000000b) return false;
-
+  
+  if (has_pathsym()) {
+    if (!this->pathsym().IsInitialized()) return false;
+  }
   return true;
 }
 
@@ -517,6 +885,9 @@ void LineRuleProto::Swap(LineRuleProto* other) {
     std::swap(color_, other->color_);
     std::swap(dashdot_, other->dashdot_);
     std::swap(priority_, other->priority_);
+    std::swap(pathsym_, other->pathsym_);
+    std::swap(join_, other->join_);
+    std::swap(cap_, other->cap_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     std::swap(_cached_size_, other->_cached_size_);
   }
@@ -533,6 +904,9 @@ void LineRuleProto::Swap(LineRuleProto* other) {
 const int LineDefProto::kWidthFieldNumber;
 const int LineDefProto::kColorFieldNumber;
 const int LineDefProto::kDashdotFieldNumber;
+const int LineDefProto::kPathsymFieldNumber;
+const int LineDefProto::kJoinFieldNumber;
+const int LineDefProto::kCapFieldNumber;
 #endif  // !_MSC_VER
 
 LineDefProto::LineDefProto()
@@ -542,6 +916,7 @@ LineDefProto::LineDefProto()
 
 void LineDefProto::InitAsDefaultInstance() {
   dashdot_ = const_cast< ::DashDotProto*>(&::DashDotProto::default_instance());
+  pathsym_ = const_cast< ::PathSymProto*>(&::PathSymProto::default_instance());
 }
 
 LineDefProto::LineDefProto(const LineDefProto& from)
@@ -555,6 +930,9 @@ void LineDefProto::SharedCtor() {
   width_ = 0;
   color_ = 0u;
   dashdot_ = NULL;
+  pathsym_ = NULL;
+  join_ = 0;
+  cap_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -565,6 +943,7 @@ LineDefProto::~LineDefProto() {
 void LineDefProto::SharedDtor() {
   if (this != default_instance_) {
     delete dashdot_;
+    delete pathsym_;
   }
 }
 
@@ -590,6 +969,11 @@ void LineDefProto::Clear() {
     if (has_dashdot()) {
       if (dashdot_ != NULL) dashdot_->::DashDotProto::Clear();
     }
+    if (has_pathsym()) {
+      if (pathsym_ != NULL) pathsym_->::PathSymProto::Clear();
+    }
+    join_ = 0;
+    cap_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -614,7 +998,7 @@ bool LineDefProto::MergePartialFromCodedStream(
         if (input->ExpectTag(16)) goto parse_color;
         break;
       }
-
+      
       // required uint32 color = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -630,7 +1014,7 @@ bool LineDefProto::MergePartialFromCodedStream(
         if (input->ExpectTag(26)) goto parse_dashdot;
         break;
       }
-
+      
       // optional .DashDotProto dashdot = 3;
       case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -641,10 +1025,62 @@ bool LineDefProto::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(34)) goto parse_pathsym;
+        break;
+      }
+      
+      // optional .PathSymProto pathsym = 4;
+      case 4: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_pathsym:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_pathsym()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(48)) goto parse_join;
+        break;
+      }
+      
+      // optional .LineJoin join = 6;
+      case 6: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_join:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (LineJoin_IsValid(value)) {
+            set_join(static_cast< LineJoin >(value));
+          }
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(56)) goto parse_cap;
+        break;
+      }
+      
+      // optional .LineCap cap = 7;
+      case 7: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_cap:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (LineCap_IsValid(value)) {
+            set_cap(static_cast< LineCap >(value));
+          }
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
-
+      
       default: {
       handle_uninterpreted:
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -666,43 +1102,80 @@ void LineDefProto::SerializeWithCachedSizes(
   if (has_width()) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(1, this->width(), output);
   }
-
+  
   // required uint32 color = 2;
   if (has_color()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->color(), output);
   }
-
+  
   // optional .DashDotProto dashdot = 3;
   if (has_dashdot()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessage(
       3, this->dashdot(), output);
   }
-
+  
+  // optional .PathSymProto pathsym = 4;
+  if (has_pathsym()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+      4, this->pathsym(), output);
+  }
+  
+  // optional .LineJoin join = 6;
+  if (has_join()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      6, this->join(), output);
+  }
+  
+  // optional .LineCap cap = 7;
+  if (has_cap()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      7, this->cap(), output);
+  }
+  
 }
 
 int LineDefProto::ByteSize() const {
   int total_size = 0;
-
+  
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     // required double width = 1;
     if (has_width()) {
       total_size += 1 + 8;
     }
-
+    
     // required uint32 color = 2;
     if (has_color()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->color());
     }
-
+    
     // optional .DashDotProto dashdot = 3;
     if (has_dashdot()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->dashdot());
     }
-
+    
+    // optional .PathSymProto pathsym = 4;
+    if (has_pathsym()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->pathsym());
+    }
+    
+    // optional .LineJoin join = 6;
+    if (has_join()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->join());
+    }
+    
+    // optional .LineCap cap = 7;
+    if (has_cap()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->cap());
+    }
+    
   }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
@@ -727,6 +1200,15 @@ void LineDefProto::MergeFrom(const LineDefProto& from) {
     if (from.has_dashdot()) {
       mutable_dashdot()->::DashDotProto::MergeFrom(from.dashdot());
     }
+    if (from.has_pathsym()) {
+      mutable_pathsym()->::PathSymProto::MergeFrom(from.pathsym());
+    }
+    if (from.has_join()) {
+      set_join(from.join());
+    }
+    if (from.has_cap()) {
+      set_cap(from.cap());
+    }
   }
 }
 
@@ -738,7 +1220,10 @@ void LineDefProto::CopyFrom(const LineDefProto& from) {
 
 bool LineDefProto::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
-
+  
+  if (has_pathsym()) {
+    if (!this->pathsym().IsInitialized()) return false;
+  }
   return true;
 }
 
@@ -747,6 +1232,9 @@ void LineDefProto::Swap(LineDefProto* other) {
     std::swap(width_, other->width_);
     std::swap(color_, other->color_);
     std::swap(dashdot_, other->dashdot_);
+    std::swap(pathsym_, other->pathsym_);
+    std::swap(join_, other->join_);
+    std::swap(cap_, other->cap_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     std::swap(_cached_size_, other->_cached_size_);
   }
@@ -844,7 +1332,7 @@ bool AreaRuleProto::MergePartialFromCodedStream(
         if (input->ExpectTag(18)) goto parse_border;
         break;
       }
-
+      
       // optional .LineDefProto border = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -858,7 +1346,7 @@ bool AreaRuleProto::MergePartialFromCodedStream(
         if (input->ExpectTag(24)) goto parse_priority;
         break;
       }
-
+      
       // required int32 priority = 3;
       case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -874,7 +1362,7 @@ bool AreaRuleProto::MergePartialFromCodedStream(
         if (input->ExpectAtEnd()) return true;
         break;
       }
-
+      
       default: {
       handle_uninterpreted:
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -896,23 +1384,23 @@ void AreaRuleProto::SerializeWithCachedSizes(
   if (has_color()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->color(), output);
   }
-
+  
   // optional .LineDefProto border = 2;
   if (has_border()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessage(
       2, this->border(), output);
   }
-
+  
   // required int32 priority = 3;
   if (has_priority()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->priority(), output);
   }
-
+  
 }
 
 int AreaRuleProto::ByteSize() const {
   int total_size = 0;
-
+  
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     // required uint32 color = 1;
     if (has_color()) {
@@ -920,21 +1408,21 @@ int AreaRuleProto::ByteSize() const {
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->color());
     }
-
+    
     // optional .LineDefProto border = 2;
     if (has_border()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->border());
     }
-
+    
     // required int32 priority = 3;
     if (has_priority()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->priority());
     }
-
+    
   }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
@@ -970,7 +1458,7 @@ void AreaRuleProto::CopyFrom(const AreaRuleProto& from) {
 
 bool AreaRuleProto::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000005) != 0x00000005) return false;
-
+  
   if (has_border()) {
     if (!this->border().IsInitialized()) return false;
   }
@@ -1080,7 +1568,7 @@ bool SymbolRuleProto::MergePartialFromCodedStream(
         if (input->ExpectTag(16)) goto parse_apply_for_type;
         break;
       }
-
+      
       // optional int32 apply_for_type = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -1096,7 +1584,7 @@ bool SymbolRuleProto::MergePartialFromCodedStream(
         if (input->ExpectTag(24)) goto parse_priority;
         break;
       }
-
+      
       // required int32 priority = 3;
       case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -1112,7 +1600,7 @@ bool SymbolRuleProto::MergePartialFromCodedStream(
         if (input->ExpectAtEnd()) return true;
         break;
       }
-
+      
       default: {
       handle_uninterpreted:
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -1135,22 +1623,22 @@ void SymbolRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteString(
       1, this->name(), output);
   }
-
+  
   // optional int32 apply_for_type = 2;
   if (has_apply_for_type()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->apply_for_type(), output);
   }
-
+  
   // required int32 priority = 3;
   if (has_priority()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->priority(), output);
   }
-
+  
 }
 
 int SymbolRuleProto::ByteSize() const {
   int total_size = 0;
-
+  
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     // required string name = 1;
     if (has_name()) {
@@ -1158,21 +1646,21 @@ int SymbolRuleProto::ByteSize() const {
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->name());
     }
-
+    
     // optional int32 apply_for_type = 2;
     if (has_apply_for_type()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->apply_for_type());
     }
-
+    
     // required int32 priority = 3;
     if (has_priority()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->priority());
     }
-
+    
   }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
@@ -1208,7 +1696,7 @@ void SymbolRuleProto::CopyFrom(const SymbolRuleProto& from) {
 
 bool SymbolRuleProto::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000005) != 0x00000005) return false;
-
+  
   return true;
 }
 
@@ -1310,7 +1798,7 @@ bool CaptionDefProto::MergePartialFromCodedStream(
         if (input->ExpectTag(16)) goto parse_color;
         break;
       }
-
+      
       // required uint32 color = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -1326,7 +1814,7 @@ bool CaptionDefProto::MergePartialFromCodedStream(
         if (input->ExpectTag(24)) goto parse_stroke_color;
         break;
       }
-
+      
       // optional uint32 stroke_color = 3;
       case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -1342,7 +1830,7 @@ bool CaptionDefProto::MergePartialFromCodedStream(
         if (input->ExpectAtEnd()) return true;
         break;
       }
-
+      
       default: {
       handle_uninterpreted:
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -1364,22 +1852,22 @@ void CaptionDefProto::SerializeWithCachedSizes(
   if (has_height()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->height(), output);
   }
-
+  
   // required uint32 color = 2;
   if (has_color()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->color(), output);
   }
-
+  
   // optional uint32 stroke_color = 3;
   if (has_stroke_color()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->stroke_color(), output);
   }
-
+  
 }
 
 int CaptionDefProto::ByteSize() const {
   int total_size = 0;
-
+  
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     // required int32 height = 1;
     if (has_height()) {
@@ -1387,21 +1875,21 @@ int CaptionDefProto::ByteSize() const {
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->height());
     }
-
+    
     // required uint32 color = 2;
     if (has_color()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->color());
     }
-
+    
     // optional uint32 stroke_color = 3;
     if (has_stroke_color()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->stroke_color());
     }
-
+    
   }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
@@ -1437,7 +1925,7 @@ void CaptionDefProto::CopyFrom(const CaptionDefProto& from) {
 
 bool CaptionDefProto::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
-
+  
   return true;
 }
 
@@ -1545,7 +2033,7 @@ bool CaptionRuleProto::MergePartialFromCodedStream(
         if (input->ExpectTag(18)) goto parse_secondary;
         break;
       }
-
+      
       // optional .CaptionDefProto secondary = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -1559,7 +2047,7 @@ bool CaptionRuleProto::MergePartialFromCodedStream(
         if (input->ExpectTag(24)) goto parse_priority;
         break;
       }
-
+      
       // required int32 priority = 3;
       case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -1575,7 +2063,7 @@ bool CaptionRuleProto::MergePartialFromCodedStream(
         if (input->ExpectAtEnd()) return true;
         break;
       }
-
+      
       default: {
       handle_uninterpreted:
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -1598,23 +2086,23 @@ void CaptionRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteMessage(
       1, this->primary(), output);
   }
-
+  
   // optional .CaptionDefProto secondary = 2;
   if (has_secondary()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessage(
       2, this->secondary(), output);
   }
-
+  
   // required int32 priority = 3;
   if (has_priority()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->priority(), output);
   }
-
+  
 }
 
 int CaptionRuleProto::ByteSize() const {
   int total_size = 0;
-
+  
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     // required .CaptionDefProto primary = 1;
     if (has_primary()) {
@@ -1622,21 +2110,21 @@ int CaptionRuleProto::ByteSize() const {
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->primary());
     }
-
+    
     // optional .CaptionDefProto secondary = 2;
     if (has_secondary()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->secondary());
     }
-
+    
     // required int32 priority = 3;
     if (has_priority()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->priority());
     }
-
+    
   }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
@@ -1672,7 +2160,7 @@ void CaptionRuleProto::CopyFrom(const CaptionRuleProto& from) {
 
 bool CaptionRuleProto::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000005) != 0x00000005) return false;
-
+  
   if (has_primary()) {
     if (!this->primary().IsInitialized()) return false;
   }
@@ -1787,7 +2275,7 @@ bool CircleRuleProto::MergePartialFromCodedStream(
         if (input->ExpectTag(16)) goto parse_color;
         break;
       }
-
+      
       // required uint32 color = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -1803,7 +2291,7 @@ bool CircleRuleProto::MergePartialFromCodedStream(
         if (input->ExpectTag(26)) goto parse_border;
         break;
       }
-
+      
       // optional .LineDefProto border = 3;
       case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -1817,7 +2305,7 @@ bool CircleRuleProto::MergePartialFromCodedStream(
         if (input->ExpectTag(32)) goto parse_priority;
         break;
       }
-
+      
       // required int32 priority = 4;
       case 4: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -1833,7 +2321,7 @@ bool CircleRuleProto::MergePartialFromCodedStream(
         if (input->ExpectAtEnd()) return true;
         break;
       }
-
+      
       default: {
       handle_uninterpreted:
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -1855,55 +2343,55 @@ void CircleRuleProto::SerializeWithCachedSizes(
   if (has_radius()) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(1, this->radius(), output);
   }
-
+  
   // required uint32 color = 2;
   if (has_color()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->color(), output);
   }
-
+  
   // optional .LineDefProto border = 3;
   if (has_border()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessage(
       3, this->border(), output);
   }
-
+  
   // required int32 priority = 4;
   if (has_priority()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->priority(), output);
   }
-
+  
 }
 
 int CircleRuleProto::ByteSize() const {
   int total_size = 0;
-
+  
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     // required double radius = 1;
     if (has_radius()) {
       total_size += 1 + 8;
     }
-
+    
     // required uint32 color = 2;
     if (has_color()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->color());
     }
-
+    
     // optional .LineDefProto border = 3;
     if (has_border()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->border());
     }
-
+    
     // required int32 priority = 4;
     if (has_priority()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->priority());
     }
-
+    
   }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
@@ -1942,7 +2430,7 @@ void CircleRuleProto::CopyFrom(const CircleRuleProto& from) {
 
 bool CircleRuleProto::IsInitialized() const {
   if ((_has_bits_[0] & 0x0000000b) != 0x0000000b) return false;
-
+  
   if (has_border()) {
     if (!this->border().IsInitialized()) return false;
   }
@@ -2054,7 +2542,7 @@ bool PathTextRuleProto::MergePartialFromCodedStream(
         if (input->ExpectTag(18)) goto parse_secondary;
         break;
       }
-
+      
       // optional .CaptionDefProto secondary = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -2068,7 +2556,7 @@ bool PathTextRuleProto::MergePartialFromCodedStream(
         if (input->ExpectTag(24)) goto parse_priority;
         break;
       }
-
+      
       // required int32 priority = 3;
       case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -2084,7 +2572,7 @@ bool PathTextRuleProto::MergePartialFromCodedStream(
         if (input->ExpectAtEnd()) return true;
         break;
       }
-
+      
       default: {
       handle_uninterpreted:
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -2107,23 +2595,23 @@ void PathTextRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteMessage(
       1, this->primary(), output);
   }
-
+  
   // optional .CaptionDefProto secondary = 2;
   if (has_secondary()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessage(
       2, this->secondary(), output);
   }
-
+  
   // required int32 priority = 3;
   if (has_priority()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->priority(), output);
   }
-
+  
 }
 
 int PathTextRuleProto::ByteSize() const {
   int total_size = 0;
-
+  
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     // required .CaptionDefProto primary = 1;
     if (has_primary()) {
@@ -2131,21 +2619,21 @@ int PathTextRuleProto::ByteSize() const {
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->primary());
     }
-
+    
     // optional .CaptionDefProto secondary = 2;
     if (has_secondary()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->secondary());
     }
-
+    
     // required int32 priority = 3;
     if (has_priority()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->priority());
     }
-
+    
   }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
@@ -2181,7 +2669,7 @@ void PathTextRuleProto::CopyFrom(const PathTextRuleProto& from) {
 
 bool PathTextRuleProto::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000005) != 0x00000005) return false;
-
+  
   if (has_primary()) {
     if (!this->primary().IsInitialized()) return false;
   }
@@ -2320,7 +2808,7 @@ bool DrawElementProto::MergePartialFromCodedStream(
         if (input->ExpectTag(18)) goto parse_lines;
         break;
       }
-
+      
       // repeated .LineRuleProto lines = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -2335,7 +2823,7 @@ bool DrawElementProto::MergePartialFromCodedStream(
         if (input->ExpectTag(26)) goto parse_area;
         break;
       }
-
+      
       // optional .AreaRuleProto area = 3;
       case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -2349,7 +2837,7 @@ bool DrawElementProto::MergePartialFromCodedStream(
         if (input->ExpectTag(34)) goto parse_symbol;
         break;
       }
-
+      
       // optional .SymbolRuleProto symbol = 4;
       case 4: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -2363,7 +2851,7 @@ bool DrawElementProto::MergePartialFromCodedStream(
         if (input->ExpectTag(42)) goto parse_caption;
         break;
       }
-
+      
       // optional .CaptionRuleProto caption = 5;
       case 5: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -2377,7 +2865,7 @@ bool DrawElementProto::MergePartialFromCodedStream(
         if (input->ExpectTag(50)) goto parse_circle;
         break;
       }
-
+      
       // optional .CircleRuleProto circle = 6;
       case 6: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -2391,7 +2879,7 @@ bool DrawElementProto::MergePartialFromCodedStream(
         if (input->ExpectTag(58)) goto parse_path_text;
         break;
       }
-
+      
       // optional .PathTextRuleProto path_text = 7;
       case 7: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -2405,7 +2893,7 @@ bool DrawElementProto::MergePartialFromCodedStream(
         if (input->ExpectAtEnd()) return true;
         break;
       }
-
+      
       default: {
       handle_uninterpreted:
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -2427,48 +2915,48 @@ void DrawElementProto::SerializeWithCachedSizes(
   if (has_scale()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->scale(), output);
   }
-
+  
   // repeated .LineRuleProto lines = 2;
   for (int i = 0; i < this->lines_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessage(
       2, this->lines(i), output);
   }
-
+  
   // optional .AreaRuleProto area = 3;
   if (has_area()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessage(
       3, this->area(), output);
   }
-
+  
   // optional .SymbolRuleProto symbol = 4;
   if (has_symbol()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessage(
       4, this->symbol(), output);
   }
-
+  
   // optional .CaptionRuleProto caption = 5;
   if (has_caption()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessage(
       5, this->caption(), output);
   }
-
+  
   // optional .CircleRuleProto circle = 6;
   if (has_circle()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessage(
       6, this->circle(), output);
   }
-
+  
   // optional .PathTextRuleProto path_text = 7;
   if (has_path_text()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessage(
       7, this->path_text(), output);
   }
-
+  
 }
 
 int DrawElementProto::ByteSize() const {
   int total_size = 0;
-
+  
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     // required int32 scale = 1;
     if (has_scale()) {
@@ -2476,42 +2964,42 @@ int DrawElementProto::ByteSize() const {
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->scale());
     }
-
+    
     // optional .AreaRuleProto area = 3;
     if (has_area()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->area());
     }
-
+    
     // optional .SymbolRuleProto symbol = 4;
     if (has_symbol()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->symbol());
     }
-
+    
     // optional .CaptionRuleProto caption = 5;
     if (has_caption()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->caption());
     }
-
+    
     // optional .CircleRuleProto circle = 6;
     if (has_circle()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->circle());
     }
-
+    
     // optional .PathTextRuleProto path_text = 7;
     if (has_path_text()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->path_text());
     }
-
+    
   }
   // repeated .LineRuleProto lines = 2;
   total_size += 1 * this->lines_size();
@@ -2520,7 +3008,7 @@ int DrawElementProto::ByteSize() const {
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         this->lines(i));
   }
-
+  
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
@@ -2565,7 +3053,7 @@ void DrawElementProto::CopyFrom(const DrawElementProto& from) {
 
 bool DrawElementProto::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
-
+  
   for (int i = 0; i < lines_size(); i++) {
     if (!this->lines(i).IsInitialized()) return false;
   }
@@ -2690,7 +3178,7 @@ bool ClassifElementProto::MergePartialFromCodedStream(
         if (input->ExpectTag(18)) goto parse_element;
         break;
       }
-
+      
       // repeated .DrawElementProto element = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -2705,7 +3193,7 @@ bool ClassifElementProto::MergePartialFromCodedStream(
         if (input->ExpectAtEnd()) return true;
         break;
       }
-
+      
       default: {
       handle_uninterpreted:
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -2728,18 +3216,18 @@ void ClassifElementProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteString(
       1, this->name(), output);
   }
-
+  
   // repeated .DrawElementProto element = 2;
   for (int i = 0; i < this->element_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessage(
       2, this->element(i), output);
   }
-
+  
 }
 
 int ClassifElementProto::ByteSize() const {
   int total_size = 0;
-
+  
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     // required string name = 1;
     if (has_name()) {
@@ -2747,7 +3235,7 @@ int ClassifElementProto::ByteSize() const {
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->name());
     }
-
+    
   }
   // repeated .DrawElementProto element = 2;
   total_size += 1 * this->element_size();
@@ -2756,7 +3244,7 @@ int ClassifElementProto::ByteSize() const {
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         this->element(i));
   }
-
+  
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
@@ -2786,7 +3274,7 @@ void ClassifElementProto::CopyFrom(const ClassifElementProto& from) {
 
 bool ClassifElementProto::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
-
+  
   for (int i = 0; i < element_size(); i++) {
     if (!this->element(i).IsInitialized()) return false;
   }
@@ -2881,7 +3369,7 @@ bool ContainerProto::MergePartialFromCodedStream(
         if (input->ExpectAtEnd()) return true;
         break;
       }
-
+      
       default: {
       handle_uninterpreted:
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -2904,12 +3392,12 @@ void ContainerProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteMessage(
       1, this->cont(i), output);
   }
-
+  
 }
 
 int ContainerProto::ByteSize() const {
   int total_size = 0;
-
+  
   // repeated .ClassifElementProto cont = 1;
   total_size += 1 * this->cont_size();
   for (int i = 0; i < this->cont_size(); i++) {
@@ -2917,7 +3405,7 @@ int ContainerProto::ByteSize() const {
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         this->cont(i));
   }
-
+  
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
@@ -2941,7 +3429,7 @@ void ContainerProto::CopyFrom(const ContainerProto& from) {
 }
 
 bool ContainerProto::IsInitialized() const {
-
+  
   for (int i = 0; i < cont_size(); i++) {
     if (!this->cont(i).IsInitialized()) return false;
   }
