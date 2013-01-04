@@ -7,7 +7,7 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 DEPENDENCIES = map gui search storage graphics indexer platform anim geometry coding base \
-               freetype fribidi expat protobuf tomcrypt jansson
+               freetype fribidi expat protobuf tomcrypt jansson zlib
 
 include($$ROOT_DIR/common.pri)
 
@@ -21,6 +21,7 @@ macx*: LIBS *= "-framework Foundation" "-framework IOKit"
 
 SOURCES += \
   ../../testing/testingmain.cpp \
+  kmz_unarchive_test.cpp \
   navigator_test.cpp \
   map_foreach_test.cpp \
   draw_processor_test.cpp \
