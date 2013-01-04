@@ -378,13 +378,14 @@ static void OnSearchResultCallback(search::Results const & res)
   //No search results
   if ([m_searchBar.text length] != 0 && ![[_searchResults objectAtIndex:scopeSection] getCount])
   {      
-      UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NoResultsCell"];
-      if (cell == nil)
-      {
-          cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NoResultsCell"] autorelease];
-      }
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"NoResultsCell"];
+    if (cell == nil)
+    {
+      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NoResultsCell"] autorelease];
+      [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
       cell.textLabel.text =  NSLocalizedString(@"no_search_results_found", nil);
-      return cell;
+    }
+    return cell;
   }
 
   if ([_searchResults objectAtIndex:scopeSection] == nil || realRowIndex >= (NSInteger)[[_searchResults objectAtIndex:scopeSection] getCount])
@@ -485,12 +486,6 @@ static void OnSearchResultCallback(search::Results const & res)
     [self setSearchBoxText:[NSLocalizedString([categoriesNames objectAtIndex:realRowIndex], Search Suggestion) stringByAppendingString:@" "]];
     [m_table scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     return;
-  }
-  //row that says that there is no results
-  if ([m_searchBar.text length] != 0 && ![[_searchResults objectAtIndex:scopeSection] getCount])
-  {
-      [m_table deselectRowAtIndexPath:indexPath animated:YES];
-      return;
   }
 
   if (realRowIndex < (NSInteger)[[_searchResults objectAtIndex:scopeSection] getCount])
