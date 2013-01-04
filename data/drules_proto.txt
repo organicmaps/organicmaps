@@ -586,74 +586,6 @@ cont {
 cont {
   name: "aeroway-runway"
   element {
-    scale: 6
-    lines {
-      width: 0.02734375
-      color: 0x202020
-      priority: 137
-    }
-    lines {
-      width: 0.01953125
-      color: 0xD4DCBD
-      priority: 139
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.0546875
-      color: 0x202020
-      priority: 138
-    }
-    lines {
-      width: 0.0390625
-      color: 0xD4DCBD
-      priority: 140
-    }
-  }
-  element {
-    scale: 8
-    lines {
-      width: 0.078125
-      color: 0xD4DCBD
-      priority: 60
-    }
-  }
-  element {
-    scale: 9
-    lines {
-      width: 0.15625
-      color: 0xD4DCBD
-      priority: 60
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.4375
-      color: 0x202020
-      priority: 147
-    }
-    lines {
-      width: 0.3125
-      color: 0xD4DCBD
-      priority: 149
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.875
-      color: 0x202020
-      priority: 147
-    }
-    lines {
-      width: 0.625
-      color: 0xD4DCBD
-      priority: 149
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 1.75
@@ -734,58 +666,6 @@ cont {
 }
 cont {
   name: "aeroway-taxiway"
-  element {
-    scale: 6
-    lines {
-      width: 0.01171875
-      color: 0x202020
-      priority: 138
-    }
-    lines {
-      width: 0.0078125
-      color: 0xD4DCBD
-      priority: 140
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.0234375
-      color: 0x202020
-      priority: 139
-    }
-    lines {
-      width: 0.015625
-      color: 0xD4DCBD
-      priority: 141
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.1875
-      color: 0x202020
-      priority: 148
-    }
-    lines {
-      width: 0.125
-      color: 0xD4DCBD
-      priority: 150
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.375
-      color: 0x202020
-      priority: 148
-    }
-    lines {
-      width: 0.25
-      color: 0xD4DCBD
-      priority: 150
-    }
-  }
   element {
     scale: 12
     lines {
@@ -4466,44 +4346,6 @@ cont {
 cont {
   name: "boundary-administrative-state"
   element {
-    scale: 6
-    lines {
-      width: 0.3125
-      color: 0xFFFF00
-      priority: 55
-    }
-    lines {
-      width: 0.0625
-      color: 0xF9574B
-      dashdot {
-        dd: 0.3125
-        dd: 0.0625
-        dd: 0.0625
-        dd: 0.0625
-      }
-      priority: 56
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.625
-      color: 0xFFFF00
-      priority: 56
-    }
-    lines {
-      width: 0.125
-      color: 0xF9574B
-      dashdot {
-        dd: 0.625
-        dd: 0.125
-        dd: 0.125
-        dd: 0.125
-      }
-      priority: 57
-    }
-  }
-  element {
     scale: 8
     lines {
       width: 1.25
@@ -4828,10 +4670,10 @@ cont {
     }
     caption {
       primary {
-        height: 10
+        height: 8
         color: 0x808070
       }
-      priority: 11832
+      priority: 132
     }
   }
   element {
@@ -4847,7 +4689,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 0x808070
       }
       secondary {
@@ -5844,54 +5686,6 @@ cont {
 cont {
   name: "highway-bridleway-tunnel"
   element {
-    scale: 6
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.00078125
-        dd: 0.00078125
-      }
-      priority: 79
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.0015625
-        dd: 0.0015625
-      }
-      priority: 80
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.0125
-        dd: 0.0125
-      }
-      priority: 84
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.025
-        dd: 0.025
-      }
-      priority: 84
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 1
@@ -6041,22 +5835,6 @@ cont {
 }
 cont {
   name: "highway-byway"
-  element {
-    scale: 6
-    lines {
-      width: 0.00390625
-      color: 0xC0A87C
-      priority: 86
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.0078125
-      color: 0xC0A87C
-      priority: 87
-    }
-  }
   element {
     scale: 10
     lines {
@@ -6432,105 +6210,6 @@ cont {
 cont {
   name: "highway-byway-tunnel"
   element {
-    scale: 6
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.00078125
-        dd: 0.00078125
-      }
-      priority: 80
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.0015625
-        dd: 0.0015625
-      }
-      priority: 81
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.0125
-        dd: 0.0125
-      }
-      priority: 85
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.025
-        dd: 0.025
-      }
-      priority: 85
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 0
-      color: 0xFFFFFFFF
-      dashdot {
-        dd: 1.5
-        dd: 1.5
-      }
-      priority: 277
-    }
-    lines {
-      width: 0
-      color: 0xFFFFFF
-      priority: 278
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 0
-      color: 0xFFFFFFFF
-      dashdot {
-        dd: 1.85
-        dd: 1.85
-      }
-      priority: 288
-    }
-    lines {
-      width: 0
-      color: 0xFFFFFF
-      priority: 289
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 0
-      color: 0xFFFFFFFF
-      dashdot {
-        dd: 2.2
-        dd: 2.2
-      }
-      priority: 368
-    }
-    lines {
-      width: 0
-      color: 0xFFFFFF
-      priority: 369
-    }
-  }
-  element {
     scale: 15
     lines {
       width: 4
@@ -6584,18 +6263,6 @@ cont {
 }
 cont {
   name: "highway-construction"
-  element {
-    scale: 12
-    lines {
-      width: 0
-      color: 0xFFFFFFFF
-      dashdot {
-        dd: 4
-        dd: 6.5
-      }
-      priority: 403
-    }
-  }
   element {
     scale: 13
     lines {
@@ -6680,22 +6347,6 @@ cont {
 }
 cont {
   name: "highway-cycleroad"
-  element {
-    scale: 10
-    lines {
-      width: 0.075
-      color: 0xFFFFFF
-      priority: 102
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.15
-      color: 0xFFFFFF
-      priority: 102
-    }
-  }
   element {
     scale: 12
     lines {
@@ -7855,54 +7506,6 @@ cont {
 cont {
   name: "highway-cycleway-tunnel"
   element {
-    scale: 6
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.00078125
-        dd: 0.00078125
-      }
-      priority: 78
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.0015625
-        dd: 0.0015625
-      }
-      priority: 79
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.0125
-        dd: 0.0125
-      }
-      priority: 83
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.025
-        dd: 0.025
-      }
-      priority: 83
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 1
@@ -8182,11 +7785,6 @@ cont {
   name: "highway-footpath-bridge"
   element {
     scale: 16
-    lines {
-      width: 7
-      color: 0x707070
-      priority: 402
-    }
     lines {
       width: 9
       color: 0xF0F0F0
@@ -8540,58 +8138,18 @@ cont {
 cont {
   name: "highway-footway"
   element {
-    scale: 6
-    lines {
-      width: 0.001953125
-      color: 0xD79331
-      priority: 81
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.00390625
-      color: 0xD79331
-      priority: 82
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.03125
-      color: 0xD79331
-      priority: 86
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.0625
-      color: 0xD79331
-      priority: 86
-    }
-  }
-  element {
     scale: 12
     lines {
-      width: 0.7
+      width: 0.3
       color: 0xD0CCAC
-      dashdot {
-        dd: 2.25
-        dd: 3
-      }
       priority: 194
     }
   }
   element {
     scale: 13
     lines {
-      width: 1
+      width: 0.5
       color: 0xD0CCAC
-      dashdot {
-        dd: 2.25
-        dd: 3
-      }
       priority: 205
     }
   }
@@ -9733,19 +9291,6 @@ cont {
 cont {
   name: "highway-ford"
   element {
-    scale: 12
-    lines {
-      width: 1
-      color: 0xE6E6E6
-      priority: 129
-    }
-    lines {
-      width: 0
-      color: 0xFFFFFFFF
-      priority: 189
-    }
-  }
-  element {
     scale: 13
     lines {
       width: 3
@@ -9855,19 +9400,6 @@ cont {
 }
 cont {
   name: "highway-living_street"
-  element {
-    scale: 10
-    lines {
-      width: 0.3125
-      color: 0xC0C0C0
-      priority: 68
-    }
-    lines {
-      width: 0.075
-      color: 0xFFFFFF
-      priority: 101
-    }
-  }
   element {
     scale: 11
     lines {
@@ -10427,38 +9959,6 @@ cont {
 }
 cont {
   name: "highway-minor"
-  element {
-    scale: 6
-    lines {
-      width: 0.0046875
-      color: 0xFFFFFF
-      priority: 94
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.009375
-      color: 0xFFFFFF
-      priority: 95
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.075
-      color: 0xFFFFFF
-      priority: 100
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.15
-      color: 0xFFFFFF
-      priority: 100
-    }
-  }
   element {
     scale: 12
     lines {
@@ -11094,22 +10594,6 @@ cont {
 }
 cont {
   name: "highway-minor-tunnel"
-  element {
-    scale: 6
-    lines {
-      width: 0.0078125
-      color: 0xFFFFFFFF
-      priority: 110
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.015625
-      color: 0xFFFFFFFF
-      priority: 111
-    }
-  }
   element {
     scale: 10
     lines {
@@ -12379,22 +11863,6 @@ cont {
 cont {
   name: "highway-motorway-tunnel"
   element {
-    scale: 6
-    lines {
-      width: 0.015625
-      color: 0xFFFFFFFF
-      priority: 120
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.03125
-      color: 0xFFFFFFFF
-      priority: 121
-    }
-  }
-  element {
     scale: 8
     lines {
       width: 0.625
@@ -12589,46 +12057,6 @@ cont {
 }
 cont {
   name: "highway-motorway_link"
-  element {
-    scale: 6
-    lines {
-      width: 0.033203125
-      color: 0xf08800
-      priority: 104
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.06640625
-      color: 0xf08800
-      priority: 105
-    }
-  }
-  element {
-    scale: 8
-    lines {
-      width: 0.78125
-      color: 0xf08800
-      priority: 46
-    }
-  }
-  element {
-    scale: 9
-    lines {
-      width: 1.5625
-      color: 0xf08800
-      priority: 46
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.53125
-      color: 0xf08800
-      priority: 112
-    }
-  }
   element {
     scale: 11
     lines {
@@ -13279,30 +12707,6 @@ cont {
 }
 cont {
   name: "highway-motorway_link-tunnel"
-  element {
-    scale: 6
-    lines {
-      width: 0.015625
-      color: 0xFFFFFFFF
-      priority: 121
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.03125
-      color: 0xFFFFFFFF
-      priority: 122
-    }
-  }
-  element {
-    scale: 8
-    lines {
-      width: 0.625
-      color: 0xf08800
-      priority: 55
-    }
-  }
   element {
     scale: 9
     lines {
@@ -15582,38 +14986,6 @@ cont {
 cont {
   name: "highway-pedestrian-tunnel"
   element {
-    scale: 6
-    lines {
-      width: 0.0078125
-      color: 0xFFFFFFFF
-      priority: 106
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.015625
-      color: 0xFFFFFFFF
-      priority: 107
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.125
-      color: 0xFFFFFFFF
-      priority: 114
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.25
-      color: 0xFFFFFFFF
-      priority: 114
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 1
@@ -16665,54 +16037,6 @@ cont {
 cont {
   name: "highway-primary-tunnel"
   element {
-    scale: 6
-    lines {
-      width: 0.01171875
-      color: 0xFFFFFFFF
-      priority: 116
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.0234375
-      color: 0xFFFFFFFF
-      priority: 117
-    }
-  }
-  element {
-    scale: 8
-    lines {
-      width: 0.46875
-      color: 0xFFC444
-      priority: 50
-    }
-  }
-  element {
-    scale: 9
-    lines {
-      width: 0.9375
-      color: 0xFFC444
-      priority: 50
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.1875
-      color: 0xFFFFFFFF
-      priority: 126
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.375
-      color: 0xFFFFFFFF
-      priority: 126
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 3.5
@@ -16817,38 +16141,6 @@ cont {
 }
 cont {
   name: "highway-primary_link"
-  element {
-    scale: 6
-    lines {
-      width: 0.05078125
-      color: 0xFFC444
-      priority: 101
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.1015625
-      color: 0xFFC444
-      priority: 102
-    }
-  }
-  element {
-    scale: 9
-    lines {
-      width: 0.625
-      color: 0xFFC444
-      priority: 43
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.8125
-      color: 0xFFC444
-      priority: 109
-    }
-  }
   element {
     scale: 11
     lines {
@@ -17623,54 +16915,6 @@ cont {
 cont {
   name: "highway-primary_link-tunnel"
   element {
-    scale: 6
-    lines {
-      width: 0.01171875
-      color: 0xFFFFFFFF
-      priority: 117
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.0234375
-      color: 0xFFFFFFFF
-      priority: 118
-    }
-  }
-  element {
-    scale: 8
-    lines {
-      width: 0.46875
-      color: 0xFFC444
-      priority: 51
-    }
-  }
-  element {
-    scale: 9
-    lines {
-      width: 0.9375
-      color: 0xFFC444
-      priority: 51
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.1875
-      color: 0xFFFFFFFF
-      priority: 127
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.375
-      color: 0xFFFFFFFF
-      priority: 127
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 1.75
@@ -17776,54 +17020,6 @@ cont {
 cont {
   name: "highway-raceway"
   element {
-    scale: 6
-    lines {
-      width: 0.005859375
-      color: 0xE8E4D4
-      priority: 87
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.01171875
-      color: 0xE8E4D4
-      priority: 88
-    }
-  }
-  element {
-    scale: 8
-    lines {
-      width: 0.0234375
-      color: 0xE8E4D4
-      priority: 40
-    }
-  }
-  element {
-    scale: 9
-    lines {
-      width: 0.046875
-      color: 0xE8E4D4
-      priority: 40
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.09375
-      color: 0xE8E4D4
-      priority: 92
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.1875
-      color: 0xE8E4D4
-      priority: 92
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 0.375
@@ -17874,90 +17070,6 @@ cont {
 }
 cont {
   name: "highway-raceway-dismantled"
-  element {
-    scale: 6
-    lines {
-      width: 0.0078125
-      color: 0x808080
-      dashdot {
-        dd: 0.001171875
-        dd: 0.006640625
-      }
-      priority: 59
-    }
-    lines {
-      width: 0.005859375
-      color: 0xFBFBFB
-      dashdot {
-        dd: 0.001171875
-        dd: 0.006640625
-      }
-      priority: 89
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.015625
-      color: 0x808080
-      dashdot {
-        dd: 0.00234375
-        dd: 0.01328125
-      }
-      priority: 60
-    }
-    lines {
-      width: 0.01171875
-      color: 0xFBFBFB
-      dashdot {
-        dd: 0.00234375
-        dd: 0.01328125
-      }
-      priority: 90
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.125
-      color: 0x808080
-      dashdot {
-        dd: 0.01875
-        dd: 0.10625
-      }
-      priority: 62
-    }
-    lines {
-      width: 0.09375
-      color: 0xFBFBFB
-      dashdot {
-        dd: 0.01875
-        dd: 0.10625
-      }
-      priority: 94
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.25
-      color: 0x808080
-      dashdot {
-        dd: 0.0375
-        dd: 0.2125
-      }
-      priority: 62
-    }
-    lines {
-      width: 0.1875
-      color: 0xFBFBFB
-      dashdot {
-        dd: 0.0375
-        dd: 0.2125
-      }
-      priority: 94
-    }
-  }
   element {
     scale: 12
     lines {
@@ -18087,69 +17199,6 @@ cont {
 }
 cont {
   name: "highway-raceway-disused"
-  element {
-    scale: 6
-    lines {
-      width: 0.0078125
-      color: 0x808080
-      dashdot {
-        dd: 0.00390625
-        dd: 0.00390625
-      }
-      priority: 58
-    }
-    lines {
-      width: 0.005859375
-      color: 0xF7F7F7
-      dashdot {
-        dd: 0.00390625
-        dd: 0.00390625
-      }
-      priority: 88
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.015625
-      color: 0x808080
-      dashdot {
-        dd: 0.0078125
-        dd: 0.0078125
-      }
-      priority: 59
-    }
-    lines {
-      width: 0.01171875
-      color: 0xF7F7F7
-      dashdot {
-        dd: 0.0078125
-        dd: 0.0078125
-      }
-      priority: 89
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.125
-      color: 0x808080
-      dashdot {
-        dd: 0.0625
-        dd: 0.0625
-      }
-      priority: 61
-    }
-    lines {
-      width: 0.09375
-      color: 0xF7F7F7
-      dashdot {
-        dd: 0.0625
-        dd: 0.0625
-      }
-      priority: 93
-    }
-  }
   element {
     scale: 11
     lines {
@@ -19027,38 +18076,6 @@ cont {
 cont {
   name: "highway-residential-tunnel"
   element {
-    scale: 6
-    lines {
-      width: 0.0078125
-      color: 0xFFFFFFFF
-      priority: 109
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.015625
-      color: 0xFFFFFFFF
-      priority: 110
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.125
-      color: 0xFFFFFFFF
-      priority: 117
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.25
-      color: 0xFFFFFFFF
-      priority: 117
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 1
@@ -19190,38 +18207,6 @@ cont {
 }
 cont {
   name: "highway-road"
-  element {
-    scale: 6
-    lines {
-      width: 0.0046875
-      color: 0xD0D0D0
-      priority: 95
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0
-      color: 0xFFFFFFFF
-      priority: 96
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.075
-      color: 0xD0D0D0
-      priority: 103
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.15
-      color: 0xD0D0D0
-      priority: 103
-    }
-  }
   element {
     scale: 12
     lines {
@@ -19748,55 +18733,6 @@ cont {
 }
 cont {
   name: "highway-road-tunnel"
-  element {
-    scale: 6
-    lines {
-      width: 0.0078125
-      color: 0xFFFFFFFF
-      priority: 111
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.015625
-      color: 0xFFFFFFFF
-      priority: 112
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.125
-      color: 0xFFFFFFFF
-      priority: 121
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.25
-      color: 0xFFFFFFFF
-      priority: 121
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 1
-      color: 0xE6E6E6
-      dashdot {
-        dd: 1.5
-        dd: 1.5
-      }
-      priority: 307
-    }
-    lines {
-      width: 0
-      color: 0xFFFFFF
-      priority: 308
-    }
-  }
   element {
     scale: 13
     lines {
@@ -20739,54 +19675,6 @@ cont {
 }
 cont {
   name: "highway-secondary-tunnel"
-  element {
-    scale: 6
-    lines {
-      width: 0.01171875
-      color: 0xFFFFFFFF
-      priority: 115
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.0234375
-      color: 0xFFFFFFFF
-      priority: 116
-    }
-  }
-  element {
-    scale: 8
-    lines {
-      width: 0.46875
-      color: 0xfffb80
-      priority: 49
-    }
-  }
-  element {
-    scale: 9
-    lines {
-      width: 0.9375
-      color: 0xfffb80
-      priority: 49
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.1875
-      color: 0xFFFFFFFF
-      priority: 125
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.375
-      color: 0xFFFFFFFF
-      priority: 125
-    }
-  }
   element {
     scale: 12
     lines {
@@ -22930,54 +21818,6 @@ cont {
 cont {
   name: "highway-service-tunnel"
   element {
-    scale: 6
-    lines {
-      width: 0.00390625
-      color: 0xFFFFFFFF
-      priority: 113
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.0078125
-      color: 0xFFFFFFFF
-      priority: 114
-    }
-  }
-  element {
-    scale: 8
-    lines {
-      width: 0.15625
-      color: 0xFFFFFF
-      priority: 48
-    }
-  }
-  element {
-    scale: 9
-    lines {
-      width: 0.3125
-      color: 0xFFFFFF
-      priority: 48
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.0625
-      color: 0xFFFFFFFF
-      priority: 123
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.125
-      color: 0xFFFFFFFF
-      priority: 123
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 1
@@ -23732,54 +22572,6 @@ cont {
 cont {
   name: "highway-steps-tunnel"
   element {
-    scale: 6
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.00078125
-        dd: 0.00078125
-      }
-      priority: 77
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.0015625
-        dd: 0.0015625
-      }
-      priority: 78
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.0125
-        dd: 0.0125
-      }
-      priority: 82
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.025
-        dd: 0.025
-      }
-      priority: 82
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 1
@@ -24170,25 +22962,7 @@ cont {
 cont {
   name: "highway-tertiary-cycleway"
   element {
-    scale: 15
-    lines {
-      width: 13.8
-      color: 0x707070
-      priority: 236
-    }
-    lines {
-      width: 12.6
-      color: 0x90BC90
-      priority: 237
-    }
-  }
-  element {
     scale: 16
-    lines {
-      width: 18
-      color: 0x707070
-      priority: 570
-    }
     lines {
       width: 16.8
       color: 0x90BC90
@@ -24682,38 +23456,6 @@ cont {
 }
 cont {
   name: "highway-tertiary-tunnel"
-  element {
-    scale: 6
-    lines {
-      width: 0.0078125
-      color: 0xFFFFFFFF
-      priority: 114
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.015625
-      color: 0xFFFFFFFF
-      priority: 115
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.125
-      color: 0xFFFFFFFF
-      priority: 124
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.25
-      color: 0xFFFFFFFF
-      priority: 124
-    }
-  }
   element {
     scale: 12
     lines {
@@ -27751,30 +26493,6 @@ cont {
 cont {
   name: "highway-track-tunnel"
   element {
-    scale: 6
-    lines {
-      width: 0.0078125
-      color: 0xFFFFFFFF
-      priority: 107
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.015625
-      color: 0xFFFFFFFF
-      priority: 108
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.125
-      color: 0xFFFFFFFF
-      priority: 115
-    }
-  }
-  element {
     scale: 11
     lines {
       width: 0.25
@@ -29276,30 +27994,6 @@ cont {
 cont {
   name: "highway-trunk-tunnel"
   element {
-    scale: 6
-    lines {
-      width: 0.015625
-      color: 0xFFFFFFFF
-      priority: 118
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.03125
-      color: 0xFFFFFFFF
-      priority: 119
-    }
-  }
-  element {
-    scale: 8
-    lines {
-      width: 0.625
-      color: 0xFFC444
-      priority: 52
-    }
-  }
-  element {
     scale: 9
     lines {
       width: 1.25
@@ -29428,22 +28122,6 @@ cont {
 }
 cont {
   name: "highway-trunk_link"
-  element {
-    scale: 6
-    lines {
-      width: 0.0625
-      color: 0xFFC444
-      priority: 103
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.125
-      color: 0xFFC444
-      priority: 104
-    }
-  }
   element {
     scale: 9
     lines {
@@ -30294,46 +28972,6 @@ cont {
 cont {
   name: "highway-trunk_link-tunnel"
   element {
-    scale: 6
-    lines {
-      width: 0.015625
-      color: 0xFFFFFFFF
-      priority: 119
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.03125
-      color: 0xFFFFFFFF
-      priority: 120
-    }
-  }
-  element {
-    scale: 8
-    lines {
-      width: 0.625
-      color: 0xFFC444
-      priority: 53
-    }
-  }
-  element {
-    scale: 9
-    lines {
-      width: 1.25
-      color: 0xFFC444
-      priority: 53
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.25
-      color: 0xFFFFFFFF
-      priority: 129
-    }
-  }
-  element {
     scale: 11
     lines {
       width: 0.5
@@ -31094,30 +29732,6 @@ cont {
 cont {
   name: "highway-unclassified-tunnel"
   element {
-    scale: 6
-    lines {
-      width: 0.0078125
-      color: 0xFFFFFFFF
-      priority: 108
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.015625
-      color: 0xFFFFFFFF
-      priority: 109
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.125
-      color: 0xFFFFFFFF
-      priority: 116
-    }
-  }
-  element {
     scale: 11
     lines {
       width: 0.25
@@ -31257,38 +29871,6 @@ cont {
 }
 cont {
   name: "highway-unsurfaced"
-  element {
-    scale: 6
-    lines {
-      width: 0.0046875
-      color: 0xFFFFFF
-      priority: 96
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.009375
-      color: 0xFFFFFF
-      priority: 97
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.075
-      color: 0xFFFFFF
-      priority: 104
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.15
-      color: 0xFFFFFF
-      priority: 104
-    }
-  }
   element {
     scale: 12
     lines {
@@ -32032,22 +30614,6 @@ cont {
 }
 cont {
   name: "highway-unsurfaced-tunnel"
-  element {
-    scale: 6
-    lines {
-      width: 0.0078125
-      color: 0xFFFFFFFF
-      priority: 112
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.015625
-      color: 0xFFFFFFFF
-      priority: 113
-    }
-  }
   element {
     scale: 10
     lines {
@@ -41523,11 +40089,6 @@ cont {
       color: 0xd0e8c4
       priority: 36
     }
-    lines {
-      width: 0.625
-      color: 0xd0e8c4
-      priority: 37
-    }
   }
   element {
     scale: 13
@@ -41535,11 +40096,6 @@ cont {
       width: 0.9
       color: 0xd0e8c4
       priority: 42
-    }
-    lines {
-      width: 0.8
-      color: 0xd0e8c4
-      priority: 43
     }
   }
   element {
@@ -41549,11 +40105,6 @@ cont {
       color: 0xd0e8c4
       priority: 63
     }
-    lines {
-      width: 1.5
-      color: 0xd0e8c4
-      priority: 64
-    }
   }
   element {
     scale: 15
@@ -41561,11 +40112,6 @@ cont {
       width: 2.9
       color: 0xd0e8c4
       priority: 63
-    }
-    lines {
-      width: 2.8
-      color: 0xd0e8c4
-      priority: 64
     }
   }
   element {
@@ -41575,11 +40121,6 @@ cont {
       color: 0xd0e8c4
       priority: 64
     }
-    lines {
-      width: 5.6
-      color: 0xd0e8c4
-      priority: 65
-    }
   }
   element {
     scale: 17
@@ -41587,11 +40128,6 @@ cont {
       width: 6
       color: 0xd0e8c4
       priority: 68
-    }
-    lines {
-      width: 5.6
-      color: 0xd0e8c4
-      priority: 69
     }
   }
 }
@@ -42642,150 +41178,6 @@ cont {
 }
 cont {
   name: "mapswithme-grid"
-  element {
-    scale: 0
-    lines {
-      width: 0.0006103515625
-      color: 0x202020
-      dashdot {
-        dd: 6.103515625e-05
-        dd: 6.103515625e-05
-      }
-      priority: 0
-    }
-  }
-  element {
-    scale: 1
-    lines {
-      width: 0.001220703125
-      color: 0x202020
-      dashdot {
-        dd: 0.0001220703125
-        dd: 0.0001220703125
-      }
-      priority: 0
-    }
-  }
-  element {
-    scale: 2
-    lines {
-      width: 0.00244140625
-      color: 0x202020
-      dashdot {
-        dd: 0.000244140625
-        dd: 0.000244140625
-      }
-      priority: 0
-    }
-  }
-  element {
-    scale: 3
-    lines {
-      width: 0.0048828125
-      color: 0x202020
-      dashdot {
-        dd: 0.00048828125
-        dd: 0.00048828125
-      }
-      priority: 0
-    }
-  }
-  element {
-    scale: 4
-    lines {
-      width: 0.009765625
-      color: 0x202020
-      dashdot {
-        dd: 0.0009765625
-        dd: 0.0009765625
-      }
-      priority: 0
-    }
-  }
-  element {
-    scale: 5
-    lines {
-      width: 0.01953125
-      color: 0x202020
-      dashdot {
-        dd: 0.001953125
-        dd: 0.001953125
-      }
-      priority: 0
-    }
-  }
-  element {
-    scale: 6
-    lines {
-      width: 0.0390625
-      color: 0x202020
-      dashdot {
-        dd: 0.00390625
-        dd: 0.00390625
-      }
-      priority: 0
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.078125
-      color: 0x202020
-      dashdot {
-        dd: 0.0078125
-        dd: 0.0078125
-      }
-      priority: 0
-    }
-  }
-  element {
-    scale: 8
-    lines {
-      width: 0.15625
-      color: 0x202020
-      dashdot {
-        dd: 0.015625
-        dd: 0.015625
-      }
-      priority: 0
-    }
-  }
-  element {
-    scale: 9
-    lines {
-      width: 0.3125
-      color: 0x202020
-      dashdot {
-        dd: 0.03125
-        dd: 0.03125
-      }
-      priority: 0
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.625
-      color: 0x202020
-      dashdot {
-        dd: 0.0625
-        dd: 0.0625
-      }
-      priority: 0
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 1.25
-      color: 0x202020
-      dashdot {
-        dd: 0.125
-        dd: 0.125
-      }
-      priority: 0
-    }
-  }
   element {
     scale: 12
     lines {
@@ -44147,54 +42539,6 @@ cont {
 }
 cont {
   name: "natural-glacier"
-  element {
-    scale: 7
-    lines {
-      width: 0.01171875
-      color: 0xADD8E6
-      priority: 8
-    }
-  }
-  element {
-    scale: 8
-    lines {
-      width: 0.234375
-      color: 0xADD8E6
-      priority: 8
-    }
-  }
-  element {
-    scale: 9
-    lines {
-      width: 0.46875
-      color: 0xADD8E6
-      priority: 8
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.09375
-      color: 0xADD8E6
-      priority: 8
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.1875
-      color: 0xADD8E6
-      priority: 8
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 0.375
-      color: 0xADD8E6
-      priority: 2
-    }
-  }
   element {
     scale: 13
     lines {
@@ -45582,11 +43926,6 @@ cont {
     scale: 14
     lines {
       width: 4
-      color: 0xB0B0B0
-      priority: 89
-    }
-    lines {
-      width: 4
       color: 0xcde5ea
       priority: 99
     }
@@ -45600,11 +43939,6 @@ cont {
   }
   element {
     scale: 15
-    lines {
-      width: 5
-      color: 0xB0B0B0
-      priority: 94
-    }
     lines {
       width: 5
       color: 0xcde5ea
@@ -45622,11 +43956,6 @@ cont {
     scale: 16
     lines {
       width: 8
-      color: 0xB0B0B0
-      priority: 96
-    }
-    lines {
-      width: 8
       color: 0xcde5ea
       priority: 106
     }
@@ -45640,11 +43969,6 @@ cont {
   }
   element {
     scale: 17
-    lines {
-      width: 16
-      color: 0xB0B0B0
-      priority: 98
-    }
     lines {
       width: 16
       color: 0xcde5ea
@@ -46717,14 +45041,6 @@ cont {
 cont {
   name: "piste:lift-magic_carpet"
   element {
-    scale: 14
-    lines {
-      width: 0
-      color: 0xFFFFFFFF
-      priority: 540
-    }
-  }
-  element {
     scale: 15
     lines {
       width: 1.6
@@ -46829,14 +45145,6 @@ cont {
 }
 cont {
   name: "piste:lift-rope_tow"
-  element {
-    scale: 14
-    lines {
-      width: 0
-      color: 0xFFFFFFFF
-      priority: 539
-    }
-  }
   element {
     scale: 15
     lines {
@@ -50396,15 +48704,6 @@ cont {
       priority: 379
     }
     lines {
-      width: 0
-      color: 0xFFFFFFFF
-      dashdot {
-        dd: 1.5
-        dd: 1.5
-      }
-      priority: 381
-    }
-    lines {
       width: 1
       color: 0xCC800000
       dashdot {
@@ -50429,15 +48728,6 @@ cont {
       width: 1.35
       color: 0xFFFFFF
       priority: 390
-    }
-    lines {
-      width: 0
-      color: 0xFFFFFFFF
-      dashdot {
-        dd: 1.85
-        dd: 1.85
-      }
-      priority: 392
     }
     lines {
       width: 1.35
@@ -50800,15 +49090,6 @@ cont {
       priority: 377
     }
     lines {
-      width: 0
-      color: 0xFFFFFFFF
-      dashdot {
-        dd: 1.5
-        dd: 1.5
-      }
-      priority: 380
-    }
-    lines {
       width: 1
       color: 0xCC800000
       dashdot {
@@ -50833,15 +49114,6 @@ cont {
       width: 1.35
       color: 0xFFFFFF
       priority: 388
-    }
-    lines {
-      width: 0
-      color: 0xFFFFFFFF
-      dashdot {
-        dd: 1.85
-        dd: 1.85
-      }
-      priority: 391
     }
     lines {
       width: 1.35
@@ -51149,54 +49421,6 @@ cont {
 }
 cont {
   name: "railway-light_rail-tunnel"
-  element {
-    scale: 6
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.00390625
-        dd: 0.0078125
-      }
-      priority: 133
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.0078125
-        dd: 0.015625
-      }
-      priority: 134
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.0625
-        dd: 0.125
-      }
-      priority: 143
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.125
-        dd: 0.25
-      }
-      priority: 143
-    }
-  }
   element {
     scale: 12
     lines {
@@ -52309,22 +50533,6 @@ cont {
 cont {
   name: "railway-preserved"
   element {
-    scale: 6
-    lines {
-      width: 0.03125
-      color: 0xC0C0C0
-      priority: 131
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.0625
-      color: 0xC0C0C0
-      priority: 132
-    }
-  }
-  element {
     scale: 10
     lines {
       width: 0.5
@@ -52476,38 +50684,6 @@ cont {
 }
 cont {
   name: "railway-preserved-tunnel"
-  element {
-    scale: 6
-    lines {
-      width: 0.00390625
-      color: 0x666666
-      priority: 136
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.0078125
-      color: 0x666666
-      priority: 137
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.0625
-      color: 0x666666
-      priority: 146
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.125
-      color: 0x666666
-      priority: 146
-    }
-  }
   element {
     scale: 12
     lines {
@@ -53214,30 +51390,6 @@ cont {
 }
 cont {
   name: "railway-rail-tunnel"
-  element {
-    scale: 6
-    lines {
-      width: 0.00390625
-      color: 0x666666
-      priority: 132
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.0078125
-      color: 0x666666
-      priority: 133
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.0625
-      color: 0x666666
-      priority: 142
-    }
-  }
   element {
     scale: 11
     lines {
@@ -54129,54 +52281,6 @@ cont {
 cont {
   name: "railway-subway-tunnel"
   element {
-    scale: 6
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.00390625
-        dd: 0.0078125
-      }
-      priority: 134
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.0078125
-        dd: 0.015625
-      }
-      priority: 135
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.0625
-        dd: 0.125
-      }
-      priority: 144
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.125
-        dd: 0.25
-      }
-      priority: 144
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 1.875
@@ -54472,54 +52576,6 @@ cont {
 }
 cont {
   name: "railway-tram-tunnel"
-  element {
-    scale: 6
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.00390625
-        dd: 0.0078125
-      }
-      priority: 135
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.0078125
-        dd: 0.015625
-      }
-      priority: 136
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.0625
-        dd: 0.125
-      }
-      priority: 145
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0
-      color: 0x202020
-      dashdot {
-        dd: 0.125
-        dd: 0.25
-      }
-      priority: 145
-    }
-  }
   element {
     scale: 12
     lines {
@@ -56375,80 +54431,7 @@ cont {
 cont {
   name: "waterway-canal"
   element {
-    scale: 6
-    lines {
-      width: 0.0078125
-      color: 0xAAAAAA
-      priority: 43
-    }
-    lines {
-      width: 0.00390625
-      color: 0xcde5ea
-      priority: 47
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.015625
-      color: 0xAAAAAA
-      priority: 44
-    }
-    lines {
-      width: 0.0078125
-      color: 0xcde5ea
-      priority: 48
-    }
-  }
-  element {
-    scale: 8
-    lines {
-      width: 0.46875
-      color: 0xcde5ea
-      priority: 33
-    }
-  }
-  element {
-    scale: 9
-    lines {
-      width: 0.375
-      color: 0xcde5ea
-      priority: 33
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.125
-      color: 0xAAAAAA
-      priority: 48
-    }
-    lines {
-      width: 0.0625
-      color: 0xcde5ea
-      priority: 52
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.25
-      color: 0xAAAAAA
-      priority: 48
-    }
-    lines {
-      width: 0.125
-      color: 0xcde5ea
-      priority: 52
-    }
-  }
-  element {
     scale: 12
-    lines {
-      width: 2.5
-      color: 0xB0B0B0
-      priority: 56
-    }
     lines {
       width: 2.5
       color: 0xcde5ea
@@ -56459,22 +54442,12 @@ cont {
     scale: 13
     lines {
       width: 3
-      color: 0xB0B0B0
-      priority: 64
-    }
-    lines {
-      width: 3
       color: 0xcde5ea
       priority: 76
     }
   }
   element {
     scale: 14
-    lines {
-      width: 4
-      color: 0xB0B0B0
-      priority: 91
-    }
     lines {
       width: 4
       color: 0xcde5ea
@@ -56491,11 +54464,6 @@ cont {
   element {
     scale: 15
     lines {
-      width: 5
-      color: 0xB0B0B0
-      priority: 96
-    }
-    lines {
       width: 4
       color: 0xcde5ea
       priority: 108
@@ -56510,11 +54478,6 @@ cont {
   }
   element {
     scale: 16
-    lines {
-      width: 6
-      color: 0xB0B0B0
-      priority: 98
-    }
     lines {
       width: 4.8
       color: 0xcde5ea
@@ -56665,22 +54628,12 @@ cont {
     scale: 12
     lines {
       width: 0.3
-      color: 0xB0B0B0
-      priority: 58
-    }
-    lines {
-      width: 0.3
       color: 0xcde5ea
       priority: 68
     }
   }
   element {
     scale: 13
-    lines {
-      width: 0.4
-      color: 0xB0B0B0
-      priority: 66
-    }
     lines {
       width: 0.4
       color: 0xcde5ea
@@ -56691,11 +54644,6 @@ cont {
     scale: 14
     lines {
       width: 0.3
-      color: 0xB0B0B0
-      priority: 93
-    }
-    lines {
-      width: 0.3
       color: 0xcde5ea
       priority: 105
     }
@@ -56704,22 +54652,12 @@ cont {
     scale: 15
     lines {
       width: 0.6
-      color: 0xB0B0B0
-      priority: 98
-    }
-    lines {
-      width: 0.6
       color: 0xcde5ea
       priority: 110
     }
   }
   element {
     scale: 16
-    lines {
-      width: 0.6
-      color: 0xB0B0B0
-      priority: 100
-    }
     lines {
       width: 0.6
       color: 0xcde5ea
@@ -56735,11 +54673,6 @@ cont {
   }
   element {
     scale: 17
-    lines {
-      width: 0.8
-      color: 0xB0B0B0
-      priority: 102
-    }
     lines {
       width: 0.8
       color: 0xcde5ea
@@ -56967,64 +54900,7 @@ cont {
 cont {
   name: "waterway-drain"
   element {
-    scale: 6
-    lines {
-      width: 0.00390625
-      color: 0xAAAAAA
-      priority: 44
-    }
-    lines {
-      width: 0.001953125
-      color: 0xcde5ea
-      priority: 48
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.0078125
-      color: 0xAAAAAA
-      priority: 45
-    }
-    lines {
-      width: 0.00390625
-      color: 0xcde5ea
-      priority: 49
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.0625
-      color: 0xAAAAAA
-      priority: 49
-    }
-    lines {
-      width: 0.03125
-      color: 0xcde5ea
-      priority: 53
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.125
-      color: 0xAAAAAA
-      priority: 49
-    }
-    lines {
-      width: 0.0625
-      color: 0xcde5ea
-      priority: 53
-    }
-  }
-  element {
     scale: 12
-    lines {
-      width: 1
-      color: 0xB0B0B0
-      priority: 57
-    }
     lines {
       width: 1
       color: 0xcde5ea
@@ -57035,22 +54911,12 @@ cont {
     scale: 13
     lines {
       width: 1.5
-      color: 0xB0B0B0
-      priority: 65
-    }
-    lines {
-      width: 1.5
       color: 0xcde5ea
       priority: 77
     }
   }
   element {
     scale: 14
-    lines {
-      width: 2.3
-      color: 0xB0B0B0
-      priority: 92
-    }
     lines {
       width: 2.3
       color: 0xcde5ea
@@ -57246,38 +55112,6 @@ cont {
 }
 cont {
   name: "waterway-river"
-  element {
-    scale: 6
-    lines {
-      width: 0.03125
-      color: 0xcde5ea
-      priority: 45
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.0625
-      color: 0xcde5ea
-      priority: 46
-    }
-  }
-  element {
-    scale: 8
-    lines {
-      width: 0.46875
-      color: 0xcde5ea
-      priority: 32
-    }
-  }
-  element {
-    scale: 9
-    lines {
-      width: 0.375
-      color: 0xcde5ea
-      priority: 32
-    }
-  }
   element {
     scale: 10
     lines {
@@ -57536,64 +55370,7 @@ cont {
 cont {
   name: "waterway-stream"
   element {
-    scale: 6
-    lines {
-      width: 0.001953125
-      color: 0xAAAAAA
-      priority: 42
-    }
-    lines {
-      width: 0.0015625
-      color: 0xcde5ea
-      priority: 46
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.00390625
-      color: 0xAAAAAA
-      priority: 43
-    }
-    lines {
-      width: 0.003125
-      color: 0xcde5ea
-      priority: 47
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.03125
-      color: 0xAAAAAA
-      priority: 47
-    }
-    lines {
-      width: 0.025
-      color: 0xcde5ea
-      priority: 51
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.0625
-      color: 0xAAAAAA
-      priority: 47
-    }
-    lines {
-      width: 0.05
-      color: 0xcde5ea
-      priority: 51
-    }
-  }
-  element {
     scale: 12
-    lines {
-      width: 0.75
-      color: 0xB0B0B0
-      priority: 55
-    }
     lines {
       width: 0.75
       color: 0xcde5ea
@@ -57604,22 +55381,12 @@ cont {
     scale: 13
     lines {
       width: 1
-      color: 0xB0B0B0
-      priority: 63
-    }
-    lines {
-      width: 1
       color: 0xcde5ea
       priority: 75
     }
   }
   element {
     scale: 14
-    lines {
-      width: 1
-      color: 0xB0B0B0
-      priority: 90
-    }
     lines {
       width: 1
       color: 0xcde5ea
@@ -57630,22 +55397,12 @@ cont {
     scale: 15
     lines {
       width: 2
-      color: 0xB0B0B0
-      priority: 95
-    }
-    lines {
-      width: 2
       color: 0xcde5ea
       priority: 107
     }
   }
   element {
     scale: 16
-    lines {
-      width: 2
-      color: 0xB0B0B0
-      priority: 97
-    }
     lines {
       width: 2
       color: 0xcde5ea
@@ -57663,11 +55420,6 @@ cont {
     scale: 17
     lines {
       width: 2.2
-      color: 0xB0B0B0
-      priority: 99
-    }
-    lines {
-      width: 2.2
       color: 0xcde5ea
       priority: 111
     }
@@ -57682,14 +55434,6 @@ cont {
 }
 cont {
   name: "waterway-stream-ephemeral"
-  element {
-    scale: 13
-    lines {
-      width: 0
-      color: 0xcde5ea
-      priority: 73
-    }
-  }
   element {
     scale: 14
     lines {
@@ -57741,14 +55485,6 @@ cont {
 }
 cont {
   name: "waterway-stream-intermittent"
-  element {
-    scale: 13
-    lines {
-      width: 0
-      color: 0xcde5ea
-      priority: 74
-    }
-  }
   element {
     scale: 14
     lines {
