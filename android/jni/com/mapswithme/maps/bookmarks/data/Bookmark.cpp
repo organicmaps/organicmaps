@@ -23,6 +23,26 @@ extern "C"
   }
 
   JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGetBookmarkDescription(
+       JNIEnv * env, jobject thiz, jint cat, jlong bmk)
+  {
+    //std::string descr = frm()->GetBmCategory(cat)->GetBookmark(bmk)->GetDescription();
+    /*if (descr == 0)
+      return jni::ToJavaString(env, "");
+    else
+      return jni::ToJavaString(env, descr);*/
+  //  LOG(LDEBUG,("Description ",descr));
+    return jni::ToJavaString(env, "");
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_Bookmark_nSetBookmarkDescription(
+       JNIEnv * env, jobject thiz, jint cat, jlong bmk, jstring newDescr)
+  {
+    //frm()->GetBmCategory(cat)->GetBookmark(bmk)->SetDescription(jni::ToNativeString(env, newDescr));
+  }
+
+  JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGetNamePos(
          JNIEnv * env, jobject thiz, jint x, jint y)
   {

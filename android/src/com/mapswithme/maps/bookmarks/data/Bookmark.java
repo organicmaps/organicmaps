@@ -17,28 +17,13 @@ public class Bookmark
   private double mLon = Double.NaN;
   private String m_previewString;
 
+  // For bookmark preview
   Bookmark(Context context, Point pos)
   {
     mContext = context.getApplicationContext();
     mPosition = pos;
     getPOIData();
     getLatLon(mPosition);
-  }
-
-  private void getPOIData()
-  {
-    BookmarkManager manager = BookmarkManager.getBookmarkManager(mContext);
-    m_previewString = manager.getNameForPOI(mPosition);
-    if (TextUtils.isEmpty(m_previewString))
-    {
-      m_previewString = manager.getNameForPlace(mPosition);
-    }
-    else
-    {
-      mPosition = manager.getBmkPositionForPOI(mPosition);
-    }
-    if (TextUtils.isEmpty(m_previewString))
-      m_previewString = mContext.getString(R.string.dropped_pin);
   }
 
   Bookmark(Context context, Point position, int nextCat, int b)
@@ -66,6 +51,22 @@ public class Bookmark
     getLatLon();
   }
 
+  private void getPOIData()
+  {
+    BookmarkManager manager = BookmarkManager.getBookmarkManager(mContext);
+    m_previewString = manager.getNameForPOI(mPosition);
+    if (TextUtils.isEmpty(m_previewString))
+    {
+      m_previewString = manager.getNameForPlace(mPosition);
+    }
+    else
+    {
+      mPosition = manager.getBmkPositionForPOI(mPosition);
+    }
+    if (TextUtils.isEmpty(m_previewString))
+      m_previewString = mContext.getString(R.string.dropped_pin);
+  }
+
   private void getLatLon(Point position)
   {
     ParcelablePointD ll = nPtoG(position.x, position.y);
@@ -82,6 +83,9 @@ public class Bookmark
   private native String nGetIconPos(int x, int y);
   private native String nGetIcon(int c, long b);
   private native void nChangeBookmark(double lat, double lon, String category, String name, String type);
+  private native String nGetBookmarkDescription(int categoryId, int bookmark);
+  private native String nSetBookmarkDescription(int categoryId, int bookmark, String newDescr);
+  private native String nGetBookmarkDescriptionPos(int categoryId, int bookmark);
 
   void getLatLon()
   {
@@ -214,6 +218,37 @@ public class Bookmark
   public int getBookmarkId()
   {
     return mBookmark;
+  }
+
+  public String getBookmarkDescription()
+  {
+    if (mCategoryId > -1)
+    {
+      String name = null;
+      if (mPosition != null)
+      {
+        throw new RuntimeException("Please, tell me how you get this exception");
+        //name = nGetBookmarkDescriptionPos(mPosition.x, mPosition.y);
+      }
+      else if(mLat != Double.NaN && mLon != Double.NaN)
+      {
+        name = nGetBookmarkDescription(mCategoryId, mBookmark);
+      }
+      if (name == null)
+      {
+        throw new NullPointerException("Congratulations! You find a third way to specify bookmark!");
+      }
+      return name;
+    }
+    else
+    {
+      return m_previewString;
+    }
+  }
+
+  public void setDescription(String n)
+  {
+    nSetBookmarkDescription(mCategoryId, mBookmark, n);
   }
 
   //TODO stub

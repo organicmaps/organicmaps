@@ -94,7 +94,8 @@ public class BookmarkManager
     Point bookmark = nGetBookmark(p.x, p.y);
     if (bookmark.x == -1 && bookmark.y == -1)
     {
-      return new Bookmark(mContext, p, getCategoriesCount() - 1, 0);
+      throw new RuntimeException("Please, tell me how you get this exception");
+      //return new Bookmark(mContext, p, getCategoriesCount() - 1, 0);
     }
     else
     {

@@ -133,6 +133,28 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       {
       }
     });
+
+    EditText descr = (EditText)findViewById(R.id.pin_description);
+    descr.setText(mPin.getBookmarkDescription());
+    descr.addTextChangedListener(new TextWatcher()
+    {
+
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count)
+      {
+        mPin.setDescription(s.toString());
+      }
+
+      @Override
+      public void beforeTextChanged(CharSequence s, int start, int count, int after)
+      {
+      }
+
+      @Override
+      public void afterTextChanged(Editable s)
+      {
+      }
+    });
   }
 
   @Override

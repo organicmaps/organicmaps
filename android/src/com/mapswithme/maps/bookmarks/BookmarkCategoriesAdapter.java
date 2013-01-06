@@ -31,8 +31,8 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
     }
     PinSetHolder psh = (PinSetHolder) convertView.getTag();
     BookmarkCategory set = getItem(position);
-    psh.name.setText(set.getName());
-    psh.size.setText(String.valueOf(set.getSize()));
+    psh.name.setText(set.getName() + " ("+String.valueOf(set.getSize())+")");
+    //psh.size.setText();
     return convertView;
   }
 

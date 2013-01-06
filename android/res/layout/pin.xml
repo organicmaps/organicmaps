@@ -87,6 +87,17 @@
                 android:layout_width="fill_parent"
                 android:layout_height="1px"
                 android:background="@android:drawable/divider_horizontal_dark" />
+
+            <EditText
+                android:id="@+id/pin_description"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:layout_margin="5dp"
+                android:imeOptions="actionDone"
+                android:paddingBottom="20dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="20dp" />
         </LinearLayout>
     </ScrollView>
 
