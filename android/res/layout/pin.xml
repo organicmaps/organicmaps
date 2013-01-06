@@ -29,7 +29,7 @@
             <EditText
                 android:id="@+id/pin_name"
                 android:layout_width="fill_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:hint="@string/name"
                 android:imeOptions="actionDone"
@@ -91,22 +91,23 @@
             <EditText
                 android:id="@+id/pin_description"
                 android:layout_width="fill_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:imeOptions="actionDone"
                 android:paddingBottom="20dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="20dp" />
+
+            <Button
+                android:id="@+id/bmk_delete"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:onClick="onDeleteClick"
+                android:text="@string/remove_pin" />
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/bmk_delete"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:onClick="onDeleteClick"
-        android:text="@string/remove_pin" />
 
 </RelativeLayout>
