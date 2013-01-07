@@ -35,7 +35,8 @@ public class Bookmark
     mBookmark = b;
     mIcon = getIconInternal();
     mCategoryId = nextCat;
-    changeBookmark(getCategoryName(), getName(), mIcon.getType());
+    String name = getName();
+    changeBookmark(getCategoryName(), name, mIcon.getType());
   }
 
 

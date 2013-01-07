@@ -73,10 +73,13 @@ extern "C"
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nChangeBookmark(
          JNIEnv * env, jobject thiz, jdouble lan, jdouble lon, jstring cat, jstring name, jstring type)
   {
-    BookmarkAndCategory bak= frm()->GetBookmark(frm()->GtoP(m2::PointD(lan, lon)));
-    const Bookmark bp = * frm()->GetBmCategory(bak.first)->GetBookmark(bak.second);
+    BookmarkAndCategory bac = frm()->GetBookmark(frm()->GtoP(m2::PointD(lan, lon)));
     Bookmark b = Bookmark( m2::PointD(lan, lon), jni::ToNativeString(env, name), jni::ToNativeString(env, type));
-    b.SetDescription(bp.GetDescription());
+    if (bac.first > -1 && bac.second > -1)
+    {
+      const Bookmark bp = * frm()->GetBmCategory(bac.first)->GetBookmark(bac.second);
+      b.SetDescription(bp.GetDescription());
+    }
     frm()->AddBookmark(jni::ToNativeString(env, cat), b)->SaveToKMLFile();
   }
 
