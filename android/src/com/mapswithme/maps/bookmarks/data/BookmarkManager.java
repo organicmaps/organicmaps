@@ -50,13 +50,7 @@ public class BookmarkManager
     nDeleteBookmark(cat, bmk);
   }
 
-  private native void putBookmark(int x, int y, String bokmarkName, String categoryName);
   private native void nDeleteBookmark(int x, int y);
-
-  public void addBookmark(int x, int y, String bokmarkName, String categoryName)
-  {
-    putBookmark(x, y, bokmarkName, categoryName);
-  }
 
   public BookmarkCategory getCategoryById(int id)
   {
@@ -94,8 +88,7 @@ public class BookmarkManager
     Point bookmark = nGetBookmark(p.x, p.y);
     if (bookmark.x == -1 && bookmark.y == -1)
     {
-      throw new RuntimeException("Please, tell me how you get this exception");
-      //return new Bookmark(mContext, p, getCategoriesCount() - 1, 0);
+      return new Bookmark(mContext, p, getCategoriesCount() - 1, getCategoriesCount() - 1 >= 0 ? getCategoryById(getCategoriesCount() - 1).getSize() : 0);
     }
     else
     {

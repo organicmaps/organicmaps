@@ -1,6 +1,7 @@
 package com.mapswithme.maps.bookmarks.data;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.util.Utils;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -15,7 +16,7 @@ public class Bookmark
   private int mBookmark;
   private double mLat = Double.NaN;
   private double mLon = Double.NaN;
-  private String m_previewString;
+  private String m_previewString = "";
 
   // For bookmark preview
   Bookmark(Context context, Point pos)
@@ -33,12 +34,8 @@ public class Bookmark
     getLatLon(position);
     mBookmark = b;
     mIcon = getIconInternal();
-    changeBookmark(getCategoryName(), getName(), mIcon.getType());
-    if (nextCat == -1)
-    {
-      nextCat++;
-    }
     mCategoryId = nextCat;
+    changeBookmark(getCategoryName(), getName(), mIcon.getType());
   }
 
 
@@ -54,10 +51,10 @@ public class Bookmark
   private void getPOIData()
   {
     BookmarkManager manager = BookmarkManager.getBookmarkManager(mContext);
-    m_previewString = manager.getNameForPOI(mPosition);
+    m_previewString = Utils.toTitleCase(manager.getNameForPOI(mPosition));
     if (TextUtils.isEmpty(m_previewString))
     {
-      m_previewString = manager.getNameForPlace(mPosition);
+      m_previewString = Utils.toTitleCase(manager.getNameForPlace(mPosition));
     }
     else
     {
@@ -83,8 +80,8 @@ public class Bookmark
   private native String nGetIconPos(int x, int y);
   private native String nGetIcon(int c, long b);
   private native void nChangeBookmark(double lat, double lon, String category, String name, String type);
-  private native String nGetBookmarkDescription(int categoryId, int bookmark);
-  private native String nSetBookmarkDescription(int categoryId, int bookmark, String newDescr);
+  private native String nGetBookmarkDescription(int categoryId, long bookmark);
+  private native String nSetBookmarkDescription(int categoryId, long bookmark, String newDescr);
   private native String nGetBookmarkDescriptionPos(int categoryId, int bookmark);
 
   void getLatLon()
@@ -146,14 +143,10 @@ public class Bookmark
   }
 
   public String getName(){
-    if (mCategoryId > -1)
+    if (mCategoryId > -1 && BookmarkManager.getBookmarkManager(mContext).getCategoryById(mCategoryId).getSize() > mBookmark)
     {
       String name = null;
-      if (mPosition != null)
-      {
-        name = nGetNamePos(mPosition.x, mPosition.y);
-      }
-      else if(mLat != Double.NaN && mLon != Double.NaN)
+      if(mLat != Double.NaN && mLon != Double.NaN)
       {
         name = nGetName(mCategoryId, mBookmark);
       }
@@ -178,6 +171,7 @@ public class Bookmark
     else
     {
       //TODO change string resources
+      mCategoryId++;
       return "My Places";
     }
   }
@@ -225,12 +219,7 @@ public class Bookmark
     if (mCategoryId > -1)
     {
       String name = null;
-      if (mPosition != null)
-      {
-        throw new RuntimeException("Please, tell me how you get this exception");
-        //name = nGetBookmarkDescriptionPos(mPosition.x, mPosition.y);
-      }
-      else if(mLat != Double.NaN && mLon != Double.NaN)
+      if(mLat != Double.NaN && mLon != Double.NaN)
       {
         name = nGetBookmarkDescription(mCategoryId, mBookmark);
       }

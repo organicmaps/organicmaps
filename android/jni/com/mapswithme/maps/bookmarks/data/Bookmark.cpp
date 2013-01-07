@@ -26,20 +26,20 @@ extern "C"
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGetBookmarkDescription(
        JNIEnv * env, jobject thiz, jint cat, jlong bmk)
   {
-    //std::string descr = frm()->GetBmCategory(cat)->GetBookmark(bmk)->GetDescription();
-    /*if (descr == 0)
-      return jni::ToJavaString(env, "");
-    else
-      return jni::ToJavaString(env, descr);*/
-  //  LOG(LDEBUG,("Description ",descr));
-    return jni::ToJavaString(env, "");
+    string descr = frm()->GetBmCategory(cat)->GetBookmark(bmk)->GetDescription();
+    LOG(LDEBUG,("Description get ",descr));
+    return jni::ToJavaString(env, descr);
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nSetBookmarkDescription(
        JNIEnv * env, jobject thiz, jint cat, jlong bmk, jstring newDescr)
   {
-    //frm()->GetBmCategory(cat)->GetBookmark(bmk)->SetDescription(jni::ToNativeString(env, newDescr));
+    Bookmark b(* (frm()->GetBmCategory(cat)->GetBookmark(bmk)) );
+    b.SetDescription(jni::ToNativeString(env, newDescr));
+    LOG(LDEBUG,("Description ",b.GetDescription()));
+    frm()->AddBookmark(frm()->GetBmCategory(cat)->GetName(), b);
+    frm()->GetBmCategory(frm()->GetBmCategory(cat)->GetName())->SaveToKMLFile();
   }
 
   JNIEXPORT jstring JNICALL
@@ -73,7 +73,10 @@ extern "C"
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nChangeBookmark(
          JNIEnv * env, jobject thiz, jdouble lan, jdouble lon, jstring cat, jstring name, jstring type)
   {
+    BookmarkAndCategory bak= frm()->GetBookmark(frm()->GtoP(m2::PointD(lan, lon)));
+    const Bookmark bp = * frm()->GetBmCategory(bak.first)->GetBookmark(bak.second);
     Bookmark b = Bookmark( m2::PointD(lan, lon), jni::ToNativeString(env, name), jni::ToNativeString(env, type));
+    b.SetDescription(bp.GetDescription());
     frm()->AddBookmark(jni::ToNativeString(env, cat), b)->SaveToKMLFile();
   }
 
