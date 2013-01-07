@@ -33,10 +33,6 @@
                 android:layout_margin="5dp"
                 android:hint="@string/name"
                 android:imeOptions="actionDone"
-                android:paddingBottom="20dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="20dp"
                 android:singleLine="true" />
 
             <View
@@ -93,11 +89,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:imeOptions="actionDone"
-                android:paddingBottom="20dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="20dp" />
+                android:imeOptions="actionDone" />
 
             <Button
                 android:id="@+id/bmk_delete"
