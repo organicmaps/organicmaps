@@ -28,7 +28,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/pi_arrow" />
+        android:layout_toLeftOf="@id/pi_arrow"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/pi_name"
@@ -39,6 +40,6 @@
         android:layout_toRightOf="@id/pi_pin_color"
         android:singleLine="true"
         android:text="sdkfjsdokfjsdfosdjfisdofjsdoifjsdofji"
-        android:textSize="25sp" />
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

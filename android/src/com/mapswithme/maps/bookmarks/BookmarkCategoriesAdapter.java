@@ -27,25 +27,22 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
     if (convertView == null)
     {
       convertView = LayoutInflater.from(getContext()).inflate(R.layout.bmk_category_item, null);
-      convertView.setTag(new PinSetHolder((TextView) convertView.findViewById(R.id.psi_name), (TextView) convertView.findViewById(R.id.psi_set_size)));
+      convertView.setTag(new PinSetHolder((TextView) convertView.findViewById(R.id.psi_name)));
     }
     PinSetHolder psh = (PinSetHolder) convertView.getTag();
     BookmarkCategory set = getItem(position);
     psh.name.setText(set.getName() + " ("+String.valueOf(set.getSize())+")");
-    //psh.size.setText();
     return convertView;
   }
 
   static class PinSetHolder
   {
     TextView name;
-    TextView size;
 
-    public PinSetHolder(TextView name, TextView size)
+    public PinSetHolder(TextView name)
     {
       super();
       this.name = name;
-      this.size = size;
     }
 
   }
