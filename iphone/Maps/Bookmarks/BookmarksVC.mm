@@ -99,6 +99,7 @@
           f.font = [cell.detailTextLabel.font fontWithSize:[cell.detailTextLabel.font pointSize]];
           f.tag = TEXTFIELD_TAG;
           f.delegate = self;
+          f.autocapitalizationType = UITextAutocapitalizationTypeWords;
           // Reset temporary font
           cell.detailTextLabel.text = nil;
           [cell.contentView addSubview:f];

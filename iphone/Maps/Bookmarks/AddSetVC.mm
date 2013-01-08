@@ -76,6 +76,7 @@
   f.autocorrectionType = UITextAutocorrectionTypeNo;
   f.delegate = self;
   f.placeholder = NSLocalizedString(@"bookmark_set_name", @"Add Bookmark Set dialog - hint when set name is empty");
+  f.autocapitalizationType = UITextAutocapitalizationTypeWords;
   cell.accessoryView = f;
   cell.selectionStyle = UITableViewCellSelectionStyleNone;
   return cell;
