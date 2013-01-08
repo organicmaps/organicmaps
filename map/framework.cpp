@@ -27,11 +27,14 @@
 
 #include "../coding/internal/file_data.hpp"
 
+#include "../coding/zip_reader.hpp"
+
 #include "../geometry/angles.hpp"
 #include "../geometry/distance_on_sphere.hpp"
 
 #include "../base/math.hpp"
 #include "../base/timer.hpp"
+#include "../base/scope_guard.hpp"
 
 #include "../std/algorithm.hpp"
 #include "../std/target_os.hpp"
@@ -40,6 +43,9 @@
 
 /// How many pixels around touch point are used to get bookmark or POI
 #define TOUCH_PIXEL_RADIUS 20
+
+#define KML_EXTENSION ".kml"
+#define KMZ_EXTENSION ".kmz"
 
 using namespace storage;
 
@@ -349,7 +355,7 @@ void Framework::LoadBookmarks()
 
   string const dir = GetPlatform().WritableDir();
   Platform::FilesList files;
-  Platform::GetFilesByExt(dir, ".kml", files);
+  Platform::GetFilesByExt(dir, KML_EXTENSION, files);
   for (size_t i = 0; i < files.size(); ++i)
   {
     BookmarkCategory * cat = BookmarkCategory::CreateFromKMLFile(dir + files[i]);
@@ -523,6 +529,84 @@ void Framework::ClearBookmarks()
 {
   for_each(m_bookmarks.begin(), m_bookmarks.end(), DeleteFunctor());
   m_bookmarks.clear();
+}
+
+namespace
+{
+// @return extension with a dot (or empty string if no extension is present)
+string const GetFileExt(string const & filePath)
+{
+  size_t const pos = filePath.rfind('.');
+  if (pos == string::npos)
+    return string();
+  string lowerCaseExtension = string(filePath, pos, filePath.size() - pos);
+  transform(lowerCaseExtension.begin(), lowerCaseExtension.end(), lowerCaseExtension.begin(), ::tolower);
+  return lowerCaseExtension;
+}
+
+string const GetFileName(string const & filePath)
+{
+  size_t pos = filePath.rfind('/');
+  if (pos == string::npos)
+    return filePath;
+  ++pos;
+  return string(filePath, pos, filePath.size() - pos);
+}
+
+string const GenerateValidandUniqFilePathForKLM(string const & filename)
+{
+  string filePath = BookmarkCategory::RemoveInvalidSymbols(filename);
+  filePath = BookmarkCategory::GenerateUniqueFileName(GetPlatform().WritableDir(), filePath);
+  return filePath;
+}
+}
+
+bool Framework::AddBookmarksFile(string const & filePath)
+{
+  string const fileExt = GetFileExt(filePath);
+  if (fileExt == KML_EXTENSION)
+  {
+    string savePath = GenerateValidandUniqFilePathForKLM( GetFileName(filePath) );
+    if (!my::CopyFile(filePath, savePath))
+      return false;
+  }
+  else if (fileExt == KMZ_EXTENSION)
+  {
+    try
+    {
+      string const filename = GetFileName(filePath);
+      vector<string> files;
+      ZipFileReader::FilesList(filePath, files);
+      string kmlFileName;
+      for (size_t i = 0; i < files.size();++i)
+      {
+        if (GetFileExt(files[i]) == KML_EXTENSION)
+        {
+          kmlFileName = files[i];
+          break;
+        }
+      }
+      if (kmlFileName.empty())
+        return false;
+      string const savePath = GenerateValidandUniqFilePathForKLM(kmlFileName);
+      ZipFileReader::UnzipFile(filePath, kmlFileName, savePath);
+    }
+    catch (RootException const & e)
+    {
+      LOG(LWARNING, ("Error unzipping file", filePath, e.Msg()));
+      return false;
+    }
+  }
+  else
+  {
+    LOG(LWARNING, ("Unknown file type", filePath));
+    return false;
+  }
+
+  // Update freshly added bookmarks
+  LoadBookmarks();
+
+  return true;
 }
 
 void Framework::GetLocalMaps(vector<string> & outMaps) const

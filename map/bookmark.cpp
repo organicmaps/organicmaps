@@ -433,7 +433,7 @@ namespace
   }
 }
 
-string BookmarkCategory::GetValidFileName(string const & name)
+string BookmarkCategory::RemoveInvalidSymbols(string const & name)
 {
   // Remove not allowed symbols
   strings::UniString uniName = strings::MakeUniString(name);
@@ -447,8 +447,14 @@ string BookmarkCategory::GetValidFileName(string const & name)
   return (uniName.empty() ? "Bookmarks" : strings::ToUtf8(uniName));
 }
 
-string BookmarkCategory::GenerateUniqueFileName(const string & path, string const & name)
+string BookmarkCategory::GenerateUniqueFileName(const string & path, string name)
 {
+  string const kmlExt(".kml");
+  // check if file name already contains .kml extension
+  size_t const extPos = name.rfind(kmlExt);
+  if (extPos == name.size() - kmlExt.size())
+    name.resize(name.size() - kmlExt.size());
+
   size_t counter = 1;
   string suffix;
   while (Platform::IsFileExistsByFullPath(path + name + suffix + ".kml"))
@@ -461,18 +467,21 @@ bool BookmarkCategory::SaveToKMLFile()
   string oldFile;
 
   // Get valid file name from category name
-  string const name = GetValidFileName(m_name);
+  string const name = RemoveInvalidSymbols(m_name);
 
   if (!m_file.empty())
   {
     size_t i2 = m_file.find_last_of('.');
-    if (i2 == string::npos) i2 = m_file.size();
+    if (i2 == string::npos)
+      i2 = m_file.size();
     size_t i1 = m_file.find_last_of("\\/");
-    if (i1 == string::npos) i1 = 0;
-    else ++i1;
+    if (i1 == string::npos)
+      i1 = 0;
+    else
+      ++i1;
 
     // If m_file doesn't match name, assign new m_file for this category and save old file name.
-    if (m_file.substr(i1, i2-i1).find(name) != 0)
+    if (m_file.substr(i1, i2 - i1).find(name) != 0)
     {
       oldFile = GenerateUniqueFileName(GetPlatform().WritableDir(), name);
       m_file.swap(oldFile);

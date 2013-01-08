@@ -211,6 +211,8 @@ public:
 
   void ClearBookmarks();
 
+  bool AddBookmarksFile(string const & filePath);
+
   inline m2::PointD PtoG(m2::PointD const & p) const { return m_navigator.PtoG(p); }
   inline m2::PointD GtoP(m2::PointD const & p) const { return m_navigator.GtoP(p); }
 

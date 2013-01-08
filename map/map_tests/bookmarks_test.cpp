@@ -324,7 +324,7 @@ UNIT_TEST(Bookmarks_IllegalFileName)
 
   for (size_t i = 0; i < ARRAY_SIZE(arrIllegal); ++i)
   {
-    string const name = BookmarkCategory::GetValidFileName(arrIllegal[i]);
+    string const name = BookmarkCategory::RemoveInvalidSymbols(arrIllegal[i]);
 
     if (strlen(arrLegal[i]) == 0)
     {

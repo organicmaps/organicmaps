@@ -246,9 +246,8 @@ bool CopyFile(string const & fOld, string const & fNew)
 
       if (ofs.fail())
       {
-        // Well, specification says that exception is thrown for critical errors.
-        // So just log stream fail state and continue.
         LOG(LWARNING, ("Bad or Fail bit is set while writing file:", fNew));
+        return false;
       }
 
       return true;

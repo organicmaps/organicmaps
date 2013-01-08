@@ -103,9 +103,9 @@ public:
   static BookmarkCategory * CreateFromKMLFile(string const & file);
 
   /// Get valid file name from input (remove illegal symbols).
-  static string GetValidFileName(string const & name);
-  /// Get unique file name from path and valid file name.
-  static string GenerateUniqueFileName(const string & path, string const & name);
+  static string RemoveInvalidSymbols(string const & name);
+  /// Get unique bookmark file name from path and valid file name.
+  static string GenerateUniqueFileName(const string & path, string name);
   //@}
 };
 
