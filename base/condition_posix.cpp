@@ -6,8 +6,7 @@
 #include "mutex.hpp"
 
 #include "../std/stdint.hpp"
-#include <sys/time.h>
-#include <sys/errno.h>
+#include "../std/systime.hpp"
 
 #include <pthread.h>
 
