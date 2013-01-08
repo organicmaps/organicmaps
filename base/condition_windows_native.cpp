@@ -53,6 +53,7 @@ namespace threads
 
       void Wait()
       {
+        /// TODO: Use MS parameter.
         m_pSleep(&m_Condition, &m_mutex.m_Mutex, INFINITE);
       }
 
@@ -159,6 +160,8 @@ namespace threads
 
       void Wait()
       {
+        // TODO : Use MS parameter.
+
         // Avoid race conditions
         ::EnterCriticalSection(&waiters_count_lock_);
         ++waiters_count_;
@@ -228,9 +231,9 @@ namespace threads
     m_pImpl->Signal(broadcast);
   }
 
-  void Condition::Wait()
+  void Condition::Wait(unsigned ms)
   {
-    m_pImpl->Wait();
+    m_pImpl->Wait(ms);
   }
 
   void Condition::Lock()

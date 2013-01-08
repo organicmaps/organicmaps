@@ -21,9 +21,9 @@ namespace threads
     m_Condition.Unlock();
   }
 
-  void ConditionGuard::Wait()
+  void ConditionGuard::Wait(unsigned ms)
   {
-    m_Condition.Wait();
+    m_Condition.Wait(ms);
   }
 
   void ConditionGuard::Signal(bool broadcast)

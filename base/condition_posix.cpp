@@ -5,6 +5,10 @@
 #include "condition.hpp"
 #include "mutex.hpp"
 
+#include "../std/stdint.hpp"
+#include <sys/time.h>
+#include <sys/errno.h>
+
 #include <pthread.h>
 
 namespace threads
@@ -38,9 +42,24 @@ namespace threads
       ::pthread_cond_signal(&m_pImpl->m_Condition);
   }
 
-  void Condition::Wait()
+  void Condition::Wait(unsigned ms)
   {
-    ::pthread_cond_wait(&m_pImpl->m_Condition, &m_pImpl->m_Mutex.m_Mutex);
+    if (ms == -1)
+      ::pthread_cond_wait(&m_pImpl->m_Condition, &m_pImpl->m_Mutex.m_Mutex);
+    else
+    {
+      ::timeval curtv;
+      ::gettimeofday(&curtv, 0);
+
+      ::timespec ts;
+
+      uint64_t deltaNanoSec = curtv.tv_usec * 1000 + ms * 1000000;
+
+      ts.tv_sec = curtv.tv_sec + deltaNanoSec / 1000000000;
+      ts.tv_nsec = deltaNanoSec % 1000000000;
+
+      ::pthread_cond_timedwait(&m_pImpl->m_Condition, &m_pImpl->m_Mutex.m_Mutex, &ts);
+    }
   }
 
   void Condition::Lock()

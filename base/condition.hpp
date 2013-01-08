@@ -20,7 +20,7 @@ namespace threads
     ~Condition();
 
     void Signal(bool broadcast = false);
-    void Wait();
+    void Wait(unsigned ms = -1);
     void Lock();
     void Unlock();
   };
@@ -33,7 +33,7 @@ namespace threads
   public:
     ConditionGuard(Condition & condition);
     ~ConditionGuard();
-    void Wait();
+    void Wait(unsigned ms = -1);
     void Signal(bool broadcast = false);
   };
 }
