@@ -1,0 +1,48 @@
+#include "../scheduled_task.hpp"
+#include "../thread.hpp"
+#include "../../testing/testing.hpp"
+#include "../../std/bind.hpp"
+
+namespace
+{
+  void add_int(int & val, int a)
+  {
+    val += a;
+  }
+
+  void mul_int(int & val, int b)
+  {
+    val *= b;
+  }
+}
+
+
+UNIT_TEST(ScheduledTask_Smoke)
+{
+  int val = 0;
+
+  ScheduledTask t(bind(&add_int, ref(val), 10), 1000);
+
+  CHECK(val == 0, ());
+
+  threads::Sleep(1100);
+
+  CHECK(val == 10, ());
+}
+
+UNIT_TEST(ScheduledTask_Cancel)
+{
+  int val = 2;
+
+  ScheduledTask t0(bind(&add_int, ref(val), 10), 500);
+  ScheduledTask t1(bind(&mul_int, ref(val), 2), 1000);
+
+  CHECK(val == 2, ());
+
+  t0.Cancel();
+
+  threads::Sleep(1100);
+
+  CHECK(val == 4, ());
+}
+

@@ -35,7 +35,8 @@ SOURCES += \
   containers_test.cpp \
   fence_manager_test.cpp \
   string_format_test.cpp \
-    regexp_test.cpp
+  regexp_test.cpp \
+  scheduled_task_test.cpp \
 
 HEADERS +=
 

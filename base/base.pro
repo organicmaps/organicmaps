@@ -29,6 +29,7 @@ SOURCES += \
     strings_bundle.cpp \
     string_format.cpp \
     object_tracker.cpp \
+    scheduled_task.cpp \
 
 HEADERS += \
     SRC_FIRST.hpp \
@@ -79,4 +80,5 @@ HEADERS += \
     strings_bundle.hpp \
     string_format.hpp \
     object_tracker.hpp \
-    regexp.hpp
+    regexp.hpp \
+    scheduled_task.hpp \
