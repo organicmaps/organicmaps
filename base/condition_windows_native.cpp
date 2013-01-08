@@ -51,10 +51,9 @@ namespace threads
           m_pWake(&m_Condition);
       }
 
-      void Wait()
+      void Wait(unsigned ms)
       {
-        /// TODO: Use MS parameter.
-        m_pSleep(&m_Condition, &m_mutex.m_Mutex, INFINITE);
+        m_pSleep(&m_Condition, &m_mutex.m_Mutex, ms);
       }
 
       void Lock()
@@ -158,10 +157,8 @@ namespace threads
         }
       }
 
-      void Wait()
+      void Wait(unsigned ms)
       {
-        // TODO : Use MS parameter.
-
         // Avoid race conditions
         ::EnterCriticalSection(&waiters_count_lock_);
         ++waiters_count_;
@@ -170,7 +167,7 @@ namespace threads
         // This call atomically releases the mutex and waits on the
         // semaphore until <pthread_cond_signal> or <pthread_cond_broadcast>
         // are called by another thread
-        ::SignalObjectAndWait(m_mutex, sema_, INFINITE, FALSE);
+        ::SignalObjectAndWait(m_mutex, sema_, ms, FALSE);
 
         // Reacquire lock to avoid race conditions
         ::EnterCriticalSection(&waiters_count_lock_);
