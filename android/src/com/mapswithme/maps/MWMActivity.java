@@ -272,7 +272,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
               return;
             }
             else
-              state.stopCompassFollowing();
+              state.stopCompassFollowingAndRotateMap();
           }
         }
     }

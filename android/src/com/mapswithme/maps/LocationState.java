@@ -22,6 +22,8 @@ public class LocationState
   public native void startCompassFollowing();
   public native void stopCompassFollowing();
 
+  public native void stopCompassFollowingAndRotateMap();
+
   public native int addCompassStatusListener(Object l);
   public native void removeCompassStatusListener(int slotID);
 

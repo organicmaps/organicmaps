@@ -1,6 +1,7 @@
 #include "Framework.hpp"
 
 #include "../core/jni_helper.hpp"
+#include "../../../../../anim/controller.hpp"
 
 extern "C"
 {
@@ -55,6 +56,28 @@ extern "C"
   {
     shared_ptr<location::State> ls = g_framework->NativeFramework()->GetInformationDisplay().locationState();
     ls->AnimateToPositionAndEnqueueLocationProcessMode(static_cast<location::ELocationProcessMode>(mode));
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_LocationState_stopCompassFollowingAndRotateMap(JNIEnv * env,
+                                                                          jobject thiz)
+  {
+    ::Framework * f = g_framework->NativeFramework();
+    shared_ptr<location::State> ls = f->GetInformationDisplay().locationState();
+
+    anim::Controller * animController = f->GetAnimController();
+    animController->Lock();
+
+    ls->StopCompassFollowing();
+
+    double startAngle = f->GetNavigator().Screen().GetAngle();
+    double endAngle = 0;
+
+    f->GetAnimator().RotateScreen(startAngle, endAngle);
+
+    animController->Unlock();
+
+    f->Invalidate();
   }
 
   JNIEXPORT void JNICALL
