@@ -161,6 +161,7 @@ namespace location
 
     void AnimateToPosition();
     void AnimateToPositionAndEnqueueFollowing();
+    void AnimateToPositionAndEnqueueLocationProcessMode(location::ELocationProcessMode mode);
 
     void CheckCompassRotation();
     void CheckCompassFollowing();

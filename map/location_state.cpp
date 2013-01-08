@@ -567,6 +567,28 @@ namespace location
     controller->Unlock();
   }
 
+  void State::AnimateToPositionAndEnqueueLocationProcessMode(location::ELocationProcessMode mode)
+  {
+    anim::Controller * controller = m_framework->GetAnimController();
+
+    controller->Lock();
+
+    m2::PointD startPt = m_framework->GetNavigator().Screen().GetOrg();
+    m2::PointD endPt = Position();
+
+    ScreenBase const & s = m_framework->GetNavigator().Screen();
+    double speed = ComputeMoveSpeed(startPt, endPt, s);
+
+    shared_ptr<MoveScreenTask> const & t = m_framework->GetAnimator().MoveScreen(startPt, endPt, speed);
+
+    t->Lock();
+    t->AddCallback(anim::Task::EEnded, bind(&State::SetIsCentered, this, true));
+    t->AddCallback(anim::Task::EEnded, bind(&State::SetLocationProcessMode, this, mode));
+    t->Unlock();
+
+    controller->Unlock();
+  }
+
   void State::StartCompassFollowing()
   {
     SetCompassProcessMode(ECompassFollow);

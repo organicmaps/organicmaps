@@ -43,6 +43,20 @@ extern "C"
       ls->StartCompassFollowing();
   }
 
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_LocationState_isCentered(JNIEnv * env, jobject thiz)
+  {
+    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetInformationDisplay().locationState();
+    return ls->IsCentered();
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_LocationState_animateToPositionAndEnqueueLocationProcessMode(JNIEnv * env, jobject thiz, jint mode)
+  {
+    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetInformationDisplay().locationState();
+    ls->AnimateToPositionAndEnqueueLocationProcessMode(static_cast<location::ELocationProcessMode>(mode));
+  }
+
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_LocationState_stopCompassFollowing(JNIEnv * env,
                                                               jobject thiz)

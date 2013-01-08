@@ -32,6 +32,9 @@ public class LocationState
   public native boolean hasCompass();
 
   public native boolean isFirstPosition();
+  public native boolean isCentered();
+
+  public native void animateToPositionAndEnqueueLocationProcessMode(int mode);
 
   public native void turnOff();
   public native boolean isVisible();

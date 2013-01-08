@@ -130,38 +130,45 @@
   }
   else
   {
-    if (GetPlatform().IsPro())
+    if (!ls->IsCentered())
     {
-      if (ls->HasCompass())
+      ls->AnimateToPositionAndEnqueueLocationProcessMode(location::ELocationCenterOnly);
+      m_myPositionButton.selected = YES;
+      return;
+    }
+    else
+      if (GetPlatform().IsPro())
       {
-        if (ls->GetCompassProcessMode() != location::ECompassFollow)
+        if (ls->HasCompass())
         {
-          if (ls->IsCentered())
-            ls->StartCompassFollowing();
+          if (ls->GetCompassProcessMode() != location::ECompassFollow)
+          {
+            if (ls->IsCentered())
+              ls->StartCompassFollowing();
+            else
+              ls->AnimateToPositionAndEnqueueFollowing();
+
+            m_myPositionButton.selected = YES;
+            [m_myPositionButton setImage:[UIImage imageNamed:@"location-follow.png"] forState:UIControlStateSelected];
+
+            return;
+          }
           else
-            ls->AnimateToPositionAndEnqueueFollowing();
+          {
+            anim::Controller *animController = f.GetAnimController();
+            animController->Lock();
 
-          m_myPositionButton.selected = YES;
-          [m_myPositionButton setImage:[UIImage imageNamed:@"location-follow.png"] forState:UIControlStateSelected];
-
-          return;
-        }
-        else
-        {
-          anim::Controller *animController = f.GetAnimController();
-          animController->Lock();
-
-          f.GetInformationDisplay().locationState()->StopCompassFollowing();
+            f.GetInformationDisplay().locationState()->StopCompassFollowing();
         
-          double startAngle = f.GetNavigator().Screen().GetAngle();
-          double endAngle = 0;
+            double startAngle = f.GetNavigator().Screen().GetAngle();
+            double endAngle = 0;
        
-          f.GetAnimator().RotateScreen(startAngle, endAngle);
+            f.GetAnimator().RotateScreen(startAngle, endAngle);
         
-          animController->Unlock();
+            animController->Unlock();
         
-          f.Invalidate();
-        }
+            f.Invalidate();
+          }
       }
     }
   }
