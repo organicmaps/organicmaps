@@ -4346,6 +4346,44 @@ cont {
 cont {
   name: "boundary-administrative-state"
   element {
+    scale: 6
+    lines {
+      width: 0.3125
+      color: 0xFFFF00
+      priority: 55
+    }
+    lines {
+      width: 0.0625
+      color: 0xF9574B
+      dashdot {
+        dd: 0.3125
+        dd: 0.0625
+        dd: 0.0625
+        dd: 0.0625
+      }
+      priority: 56
+    }
+  }
+  element {
+    scale: 7
+    lines {
+      width: 0.625
+      color: 0xFFFF00
+      priority: 56
+    }
+    lines {
+      width: 0.125
+      color: 0xF9574B
+      dashdot {
+        dd: 0.625
+        dd: 0.125
+        dd: 0.125
+        dd: 0.125
+      }
+      priority: 57
+    }
+  }
+  element {
     scale: 8
     lines {
       width: 1.25
@@ -41564,105 +41602,105 @@ cont {
     scale: 0
     area {
       color: 0xcde5ea
-      priority: 0
+      priority: 15000
     }
   }
   element {
     scale: 1
     area {
       color: 0xcde5ea
-      priority: 0
+      priority: 15000
     }
   }
   element {
     scale: 2
     area {
       color: 0xcde5ea
-      priority: 0
+      priority: 15000
     }
   }
   element {
     scale: 3
     area {
       color: 0xcde5ea
-      priority: 0
+      priority: 15000
     }
   }
   element {
     scale: 4
     area {
       color: 0xcde5ea
-      priority: 0
+      priority: 15000
     }
   }
   element {
     scale: 5
     area {
       color: 0xcde5ea
-      priority: 0
+      priority: 15000
     }
   }
   element {
     scale: 6
     area {
       color: 0xcde5ea
-      priority: 0
+      priority: 15000
     }
   }
   element {
     scale: 7
     area {
       color: 0xcde5ea
-      priority: 0
+      priority: 15000
     }
   }
   element {
     scale: 8
     area {
       color: 0xcde5ea
-      priority: 0
+      priority: 15000
     }
   }
   element {
     scale: 9
     area {
       color: 0xcde5ea
-      priority: 0
+      priority: 15000
     }
   }
   element {
     scale: 10
     area {
       color: 0xcde5ea
-      priority: 0
+      priority: 15000
     }
   }
   element {
     scale: 11
     area {
       color: 0xcde5ea
-      priority: 0
+      priority: 15000
     }
   }
   element {
     scale: 12
     area {
       color: 0xcde5ea
-      priority: 0
+      priority: 15000
     }
   }
   element {
     scale: 13
     area {
       color: 0xcde5ea
-      priority: 0
+      priority: 15000
     }
   }
   element {
     scale: 14
     area {
       color: 0xcde5ea
-      priority: 0
+      priority: 15000
     }
   }
   element {
