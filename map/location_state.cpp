@@ -517,22 +517,18 @@ namespace location
       return;
 
     anim::Controller * controller = m_framework->GetAnimController();
-
-    controller->Lock();
+    anim::Controller::Guard guard(controller);
 
     double startAngle = m_framework->GetNavigator().Screen().GetAngle();
     double endAngle = -m_compassFilter.GetHeadingRad();
 
     m_framework->GetAnimator().RotateScreen(startAngle, endAngle);
-
-    controller->Unlock();
   }
 
   void State::AnimateToPosition()
   {
     anim::Controller * controller = m_framework->GetAnimController();
-
-    controller->Lock();
+    anim::Controller::Guard guard(controller);
 
     m2::PointD startPt = m_framework->GetNavigator().Screen().GetOrg();
     m2::PointD endPt = Position();
@@ -541,21 +537,18 @@ namespace location
     double speed = ComputeMoveSpeed(startPt, endPt, s);
 
     m_framework->GetAnimator().MoveScreen(startPt, endPt, speed);
-
-    controller->Unlock();
   }
 
   void State::AnimateToPositionAndEnqueueFollowing()
   {
     anim::Controller * controller = m_framework->GetAnimController();
+    anim::Controller::Guard guard(controller);
 
-    controller->Lock();
-
-    m2::PointD startPt = m_framework->GetNavigator().Screen().GetOrg();
-    m2::PointD endPt = Position();
+    m2::PointD const startPt = m_framework->GetNavigator().Screen().GetOrg();
+    m2::PointD const endPt = Position();
     ScreenBase const & s = m_framework->GetNavigator().Screen();
 
-    double speed = ComputeMoveSpeed(startPt, endPt, s);
+    double const speed = ComputeMoveSpeed(startPt, endPt, s);
 
     shared_ptr<MoveScreenTask> const & t = m_framework->GetAnimator().MoveScreen(startPt, endPt, speed);
 
@@ -563,21 +556,18 @@ namespace location
     t->AddCallback(anim::Task::EEnded, bind(&State::SetIsCentered, this, true));
     t->AddCallback(anim::Task::EEnded, bind(&State::StartCompassFollowing, this));
     t->Unlock();
-
-    controller->Unlock();
   }
 
   void State::AnimateToPositionAndEnqueueLocationProcessMode(location::ELocationProcessMode mode)
   {
     anim::Controller * controller = m_framework->GetAnimController();
+    anim::Controller::Guard guard(controller);
 
-    controller->Lock();
-
-    m2::PointD startPt = m_framework->GetNavigator().Screen().GetOrg();
-    m2::PointD endPt = Position();
+    m2::PointD const startPt = m_framework->GetNavigator().Screen().GetOrg();
+    m2::PointD const endPt = Position();
 
     ScreenBase const & s = m_framework->GetNavigator().Screen();
-    double speed = ComputeMoveSpeed(startPt, endPt, s);
+    double const speed = ComputeMoveSpeed(startPt, endPt, s);
 
     shared_ptr<MoveScreenTask> const & t = m_framework->GetAnimator().MoveScreen(startPt, endPt, speed);
 
@@ -585,8 +575,6 @@ namespace location
     t->AddCallback(anim::Task::EEnded, bind(&State::SetIsCentered, this, true));
     t->AddCallback(anim::Task::EEnded, bind(&State::SetLocationProcessMode, this, mode));
     t->Unlock();
-
-    controller->Unlock();
   }
 
   void State::StartCompassFollowing()
@@ -657,9 +645,7 @@ namespace location
     if (!m_framework->GetNavigator().DoSupportRotation())
       return false;
 
-    anim::Controller * controller = m_framework->GetAnimController();
-
-    controller->Lock();
+    anim::Controller::Guard guard(m_framework->GetAnimController());
 
     switch (state())
     {
@@ -683,8 +669,6 @@ namespace location
       /// - place ASSERT, if other states are impossible;
       break;
     };
-
-    controller->Unlock();
 
     invalidate();
     return true;

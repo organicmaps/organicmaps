@@ -31,6 +31,14 @@ namespace anim
     static void MergeTasks(list<shared_ptr<Task> > & from, list<shared_ptr<Task> > & to);
 
   public:
+
+    struct Guard
+    {
+      Controller * m_controller;
+      Guard(Controller * controller);
+      ~Guard();
+    };
+
     // Constructor
     Controller();
     // Destructor

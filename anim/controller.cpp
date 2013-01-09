@@ -7,6 +7,17 @@
 
 namespace anim
 {
+  Controller::Guard::Guard(Controller * controller)
+    : m_controller(controller)
+  {
+    m_controller->Lock();
+  }
+
+  Controller::Guard::~Guard()
+  {
+    m_controller->Unlock();
+  }
+
   Controller::Controller()
   {
     m_LockCount = 0;

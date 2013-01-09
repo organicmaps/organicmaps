@@ -144,7 +144,7 @@ void CompassArrow::purge()
 bool CompassArrow::onTapEnded(m2::PointD const & pt)
 {
   anim::Controller * animController = m_framework->GetAnimController();
-  animController->Lock();
+  anim::Controller::Guard guard(animController);
 
   /// switching off compass follow mode
   m_framework->GetInformationDisplay().locationState()->StopCompassFollowing();
@@ -153,8 +153,6 @@ bool CompassArrow::onTapEnded(m2::PointD const & pt)
   double endAngle = 0;
 
   m_framework->GetAnimator().RotateScreen(startAngle, endAngle);
-
-  animController->Unlock();
 
   m_framework->Invalidate();
 
