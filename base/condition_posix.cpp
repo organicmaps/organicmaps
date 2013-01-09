@@ -8,6 +8,8 @@
 #include "../std/stdint.hpp"
 #include "../std/systime.hpp"
 
+#include <sys/errno.h>
+
 #include <pthread.h>
 
 namespace threads
@@ -41,24 +43,32 @@ namespace threads
       ::pthread_cond_signal(&m_pImpl->m_Condition);
   }
 
-  void Condition::Wait(unsigned ms)
+  void Condition::Wait()
+  {
+    ::pthread_cond_wait(&m_pImpl->m_Condition, &m_pImpl->m_Mutex.m_Mutex);
+  }
+
+  bool Condition::Wait(unsigned ms)
   {
     if (ms == -1)
-      ::pthread_cond_wait(&m_pImpl->m_Condition, &m_pImpl->m_Mutex.m_Mutex);
-    else
     {
-      ::timeval curtv;
-      ::gettimeofday(&curtv, 0);
-
-      ::timespec ts;
-
-      uint64_t deltaNanoSec = curtv.tv_usec * 1000 + ms * 1000000;
-
-      ts.tv_sec = curtv.tv_sec + deltaNanoSec / 1000000000;
-      ts.tv_nsec = deltaNanoSec % 1000000000;
-
-      ::pthread_cond_timedwait(&m_pImpl->m_Condition, &m_pImpl->m_Mutex.m_Mutex, &ts);
+      Wait();
+      return false;
     }
+
+    ::timeval curtv;
+    ::gettimeofday(&curtv, 0);
+
+    ::timespec ts;
+
+    uint64_t deltaNanoSec = curtv.tv_usec * 1000 + ms * 1000000;
+
+    ts.tv_sec = curtv.tv_sec + deltaNanoSec / 1000000000;
+    ts.tv_nsec = deltaNanoSec % 1000000000;
+
+    int res = ::pthread_cond_timedwait(&m_pImpl->m_Condition, &m_pImpl->m_Mutex.m_Mutex, &ts);
+
+    return (res == ETIMEDOUT);
   }
 
   void Condition::Lock()

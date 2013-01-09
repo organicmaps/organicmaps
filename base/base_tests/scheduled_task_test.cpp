@@ -30,6 +30,15 @@ UNIT_TEST(ScheduledTask_Smoke)
   CHECK(val == 10, ());
 }
 
+UNIT_TEST(ScheduledTask_CancelInfinite)
+{
+  int val = 2;
+
+  ScheduledTask t0(bind(&add_int, ref(val), 10), -1);
+
+  t0.Cancel();
+}
+
 UNIT_TEST(ScheduledTask_Cancel)
 {
   int val = 2;
@@ -46,3 +55,18 @@ UNIT_TEST(ScheduledTask_Cancel)
   CHECK(val == 4, ());
 }
 
+UNIT_TEST(ScheduledTask_NoWaitInCancel)
+{
+  int val = 2;
+
+  ScheduledTask t0(bind(&add_int, ref(val), 10), 1000);
+  ScheduledTask t1(bind(&mul_int, ref(val), 3), 500);
+
+  t0.Cancel();
+
+  val += 3;
+
+  threads::Sleep(600);
+
+  CHECK(val == 15, (val));
+}

@@ -22,6 +22,7 @@ namespace threads
       virtual ~ConditionImpl() {}
       virtual void Signal(bool broadcast) = 0;
       virtual void Wait() = 0;
+      virtual bool Wait(unsigned ms) = 0;
       virtual void Lock() = 0;
       virtual void Unlock() = 0;
     };
@@ -51,9 +52,16 @@ namespace threads
           m_pWake(&m_Condition);
       }
 
-      void Wait(unsigned ms)
+      void Wait()
       {
-        m_pSleep(&m_Condition, &m_mutex.m_Mutex, ms);
+        m_pSleep(&m_Condition, &m_mutex.m_Mutex, INFINITE);
+      }
+
+      bool Wait(unsigned ms)
+      {
+        if (!m_pSleep(&m_Condition, &m_mutex.m_Mutex, ms))
+          return GetLastError() == ERROR_TIMEOUT;
+        return false;
       }
 
       void Lock()
@@ -157,7 +165,13 @@ namespace threads
         }
       }
 
-      void Wait(unsigned ms)
+      void Wait()
+      {
+        Wait(-1);
+        return false;
+      }
+
+      bool Wait(unsigned ms)
       {
         // Avoid race conditions
         ::EnterCriticalSection(&waiters_count_lock_);
@@ -167,7 +181,13 @@ namespace threads
         // This call atomically releases the mutex and waits on the
         // semaphore until <pthread_cond_signal> or <pthread_cond_broadcast>
         // are called by another thread
-        ::SignalObjectAndWait(m_mutex, sema_, ms, FALSE);
+
+        DWORD toWait = (ms == -1) ? INFINITE : ms;
+
+        bool res = false;
+
+        if (::SignalObjectAndWait(m_mutex, sema_, toWait, FALSE) == WAIT_TIMEOUT)
+          res = true;
 
         // Reacquire lock to avoid race conditions
         ::EnterCriticalSection(&waiters_count_lock_);
@@ -190,6 +210,8 @@ namespace threads
           // Always regain the external mutex since that's the guarantee we
           // give to our callers.
           ::WaitForSingleObject(m_mutex, INFINITE);
+
+        return res;
       }
 
       void Lock()
@@ -228,9 +250,14 @@ namespace threads
     m_pImpl->Signal(broadcast);
   }
 
-  void Condition::Wait(unsigned ms)
+  void Condition::Wait()
   {
-    m_pImpl->Wait(ms);
+    return m_pImpl->Wait();
+  }
+
+  bool Condition::Wait(unsigned ms)
+  {
+    return m_pImpl->Wait(ms);
   }
 
   void Condition::Lock()

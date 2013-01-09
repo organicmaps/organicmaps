@@ -20,7 +20,9 @@ namespace threads
     ~Condition();
 
     void Signal(bool broadcast = false);
-    void Wait(unsigned ms = -1);
+    void Wait();
+    /// @return whether we are exiting by timeout.
+    bool Wait(unsigned ms);
     void Lock();
     void Unlock();
   };

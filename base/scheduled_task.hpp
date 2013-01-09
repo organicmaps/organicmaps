@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../std/function.hpp"
+
 #include "thread.hpp"
 #include "condition.hpp"
 
@@ -15,24 +16,26 @@ public:
   class Routine : public threads::IRoutine
   {
   private:
-    fn_t m_Fn;
-    size_t m_Interval;
-    threads::Condition m_Cond;
+    fn_t m_fn;
+    unsigned m_ms;
+    threads::Condition * m_pCond;
   public:
 
-    Routine(fn_t const & fn, size_t ms);
+    Routine(fn_t const & fn, unsigned ms, threads::Condition * cond);
 
     void Do();
+    void Cancel();
   };
 
 private:
 
-  threads::Thread m_Thread;
+  threads::Thread m_thread;
+  threads::Condition m_cond;
 
 public:
 
   /// Constructor by function and time in miliseconds.
-  ScheduledTask(fn_t const& fn, size_t ms);
+  ScheduledTask(fn_t const & fn, unsigned ms);
   /// Task could be cancelled before time elapses.
   void Cancel();
 };
