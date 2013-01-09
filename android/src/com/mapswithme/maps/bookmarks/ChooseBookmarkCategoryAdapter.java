@@ -35,8 +35,17 @@ public class ChooseBookmarkCategoryAdapter extends AbstractBookmarkCategoryAdapt
           (RadioButton) convertView.findViewById(R.id.sci_checkbox)));
     }
     SingleChoiceHolder holder = (SingleChoiceHolder) convertView.getTag();
+    boolean checked = mCheckedPosition == position;
     holder.name.setText(getItem(position).getName());
-    holder.checked.setChecked(mCheckedPosition == position);
+    if (checked)
+    {
+      holder.name.setTextAppearance(getContext(), android.R.style.TextAppearance_Large);
+    }
+    else
+    {
+      holder.name.setTextAppearance(getContext(), android.R.style.TextAppearance_Medium);
+    }
+    holder.checked.setChecked(checked);
     return convertView;
   }
 
@@ -47,13 +56,11 @@ public class ChooseBookmarkCategoryAdapter extends AbstractBookmarkCategoryAdapt
 
     public SingleChoiceHolder(TextView name, RadioButton checked)
     {
-      super();
       this.name = name;
       this.checked = checked;
     }
   }
 
-  /// I'm ashamed, but i don't know how make it better
   public void chooseItem(int position)
   {
     mCheckedPosition = position;
@@ -68,6 +75,6 @@ public class ChooseBookmarkCategoryAdapter extends AbstractBookmarkCategoryAdapt
   @Override
   public void onItemClick(AdapterView<?> parent, View view, int position, long id)
   {
-    mCheckedPosition = position;
+    chooseItem(position);
   }
 }

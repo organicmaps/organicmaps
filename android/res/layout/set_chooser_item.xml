@@ -11,8 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:focusable="false"
-        android:clickable="false" />
+        android:clickable="false"
+        android:focusable="false" />
 
     <TextView
         android:id="@+id/sci_set_name"
@@ -22,6 +22,6 @@
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/sci_checkbox"
         android:singleLine="true"
-        android:textSize="25sp" />
+        android:text="texttext" />
 
 </RelativeLayout>

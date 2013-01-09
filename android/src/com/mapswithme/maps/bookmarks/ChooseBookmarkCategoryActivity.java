@@ -25,9 +25,6 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
     setContentView(R.layout.activity_bmk_categories);
     mList = (ListView) findViewById(android.R.id.list);
     mList.setAdapter(mAdapter = new ChooseBookmarkCategoryAdapter(this, getIntent().getIntExtra(BookmarkActivity.PIN_SET, -1)));
-    int checked = getIntent().getIntExtra(BookmarkActivity.PIN_SET, -1);
-    mList.setItemChecked(checked, true);
-    mList.setSelection(checked);
     mList.setOnItemClickListener(mAdapter);
     registerForContextMenu(getListView());
   }
