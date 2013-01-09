@@ -63,7 +63,7 @@ public class PopupLayout extends View
 
     m_thriangleHeight = (int) (10 * getResources().getDisplayMetrics().density);
     m_backgroundPaint = new Paint();
-    m_backgroundPaint.setColor(0x50677800);
+    m_backgroundPaint.setColor(Color.BLACK);
     m_backgroundPaint.setStyle(Paint.Style.FILL);
     m_borderPaint = new Paint();
     m_borderPaint.setStyle(Style.STROKE);
@@ -75,6 +75,7 @@ public class PopupLayout extends View
     m_textPaint = new TextPaint();
     m_textPaint.setTextSize(20 * getResources().getDisplayMetrics().density);
     m_textPaint.setAntiAlias(true);
+    m_textPaint.setColor(Color.WHITE);
   }
 
   public synchronized void activate(final Bookmark bmk)
