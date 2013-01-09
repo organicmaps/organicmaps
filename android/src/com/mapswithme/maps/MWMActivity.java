@@ -598,18 +598,17 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     @Override
     public void onLongClick(int x, int y)
     {
-      if(!handleOnSmthClick(x, y))
-        m_PopupLayout.activate(m_BookmarkManager.previewBookmark(new Point(x, y)));
+      handleOnSmthClick(x, y, true);
     }
 
     @Override
     public void onClick(int x, int y)
     {
       if(!m_PopupLayout.handleClick(x, y))
-        handleOnSmthClick(x, y);
+        handleOnSmthClick(x, y, false);
     }
 
-    private boolean handleOnSmthClick(int x, int y)
+    private boolean handleOnSmthClick(int x, int y, boolean longClick)
     {
       ParcelablePoint b = m_BookmarkManager.findBookmark(new Point(x, y));
       if (b != null)
@@ -617,16 +616,29 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         m_PopupLayout.activate(m_BookmarkManager.getBookmark(b.getPoint().x, b.getPoint().y));
         return true;
       }
-      else if (!TextUtils.isEmpty(m_BookmarkManager.getNameForPOI(new Point(x, y))))
-      {
-        m_PopupLayout.activate(m_BookmarkManager.previewBookmark(new Point(x, y)));
-        return true;
-      }
       else
-      {
-        m_PopupLayout.deactivate();
-        return false;
-      }
+        if (m_BookmarkManager.findVisiblePOI(new Point(x, y)))
+        {
+          m_PopupLayout.activate(
+            m_BookmarkManager.previewBookmark(
+              m_BookmarkManager.getBmkPositionForPOI(new Point(x, y)),
+              m_BookmarkManager.getNameForPOI(new Point(x, y)) ));
+          return true;
+        }
+        else
+          if (longClick)
+          {
+            m_PopupLayout.activate(
+                                   m_BookmarkManager.previewBookmark(
+                                     m_BookmarkManager.getBmkPositionForPOI(new Point(x, y)),
+                                     m_BookmarkManager.getNameForPOI(new Point(x, y)) ));
+            return true;
+          }
+          else
+          {
+            m_PopupLayout.deactivate();
+            return false;
+          }
     }
   }
 

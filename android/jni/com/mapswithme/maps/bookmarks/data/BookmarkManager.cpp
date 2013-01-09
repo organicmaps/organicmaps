@@ -9,12 +9,24 @@ namespace {
 extern "C"
 {
 
+  jstring getFormattedNameForPlace(JNIEnv * env, Framework::AddressInfo const & adInfo)
+  {
+    if (adInfo.m_name.length() == 0)
+      return jni::ToJavaString(env, adInfo.GetBestType());
+    else
+    {
+      std::ostringstream stringStream;
+      stringStream << adInfo.m_name << " (" << adInfo.GetBestType() << ")";
+      return jni::ToJavaString(env, stringStream.str());
+    }
+  }
+
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetNameForPlace(JNIEnv * env, jobject thiz, jint x, jint y)
   {
     Framework::AddressInfo adInfo;
     frm()->GetAddressInfo(m2::PointD(x, y), adInfo);
-    return jni::ToJavaString(env, adInfo.m_name);
+    return getFormattedNameForPlace(env, adInfo);
   }
 
   JNIEXPORT jstring JNICALL
@@ -23,17 +35,27 @@ extern "C"
     Framework::AddressInfo adInfo;
     m2::PointD pxPivot;
     frm()->GetVisiblePOI(m2::PointD(x, y), pxPivot, adInfo);
-    return jni::ToJavaString(env, adInfo.m_name);
+    return getFormattedNameForPlace(env, adInfo);
+  }
+
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nFindVisiblePOI(JNIEnv * env, jobject thiz, jint x, jint y)
+  {
+    Framework::AddressInfo adInfo;
+    m2::PointD pxPivot;
+    return frm()->GetVisiblePOI(m2::PointD(x, y), pxPivot, adInfo);
   }
 
   JNIEXPORT jobject JNICALL
-    Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetBmkPositionForPOI(JNIEnv * env, jobject thiz, jint x, jint y)
-    {
-      Framework::AddressInfo adInfo;
-      m2::PointD pxPivot;
-      frm()->GetVisiblePOI(m2::PointD(x, y), pxPivot, adInfo);
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetBmkPositionForPOI(JNIEnv * env, jobject thiz, jint x, jint y)
+  {
+    Framework::AddressInfo adInfo;
+    m2::PointD pxPivot;
+    if (frm()->GetVisiblePOI(m2::PointD(x, y), pxPivot, adInfo))
       return jni::GetNewPoint(env, pxPivot);
-    }
+    else
+      return jni::GetNewPoint(env, m2::PointI(x, y));
+  }
 
 
   JNIEXPORT jint JNICALL

@@ -5,8 +5,10 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.text.TextUtils;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.util.Utils;
 
 public class BookmarkManager
 {
@@ -137,9 +139,9 @@ public class BookmarkManager
 
   private native boolean nGetCategoryByName(String name);
 
-  public Bookmark previewBookmark(Point point)
+  public Bookmark previewBookmark(Point point, String name)
   {
-    return new Bookmark(mContext, point);
+    return new Bookmark(mContext, point, name);
   }
 
   private native void nShowBookmark(int x, int y);
@@ -153,17 +155,34 @@ public class BookmarkManager
 
   public String getNameForPOI(Point p)
   {
-    return nGetNameForPOI(p.x,p.y);
+    String name = nGetNameForPOI(p.x,p.y);
+    if (!TextUtils.isEmpty(name))
+    {
+      return Utils.toTitleCase(name);
+    }
+    name = getNameForPlace(p);
+    if (!TextUtils.isEmpty(name))
+    {
+      return Utils.toTitleCase(name);
+    }
+    return Utils.toTitleCase(mContext.getString(R.string.dropped_pin));
   }
 
   private native String nGetNameForPlace(int x, int y);
 
   public String getNameForPlace(Point p)
   {
-    return nGetNameForPlace(p.x,p.y);
+    return Utils.toTitleCase(nGetNameForPlace(p.x,p.y));
   }
 
   private native Point nGetBmkPositionForPOI(int x, int y);
+
+  public boolean findVisiblePOI(Point p)
+  {
+    return nFindVisiblePOI(p.x, p.y);
+  }
+
+  private native boolean nFindVisiblePOI(int x, int y);
 
   public Point getBmkPositionForPOI(Point p)
   {

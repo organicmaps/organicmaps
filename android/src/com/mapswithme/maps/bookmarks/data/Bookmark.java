@@ -1,11 +1,7 @@
 package com.mapswithme.maps.bookmarks.data;
 
-import com.mapswithme.maps.R;
-import com.mapswithme.util.Utils;
-
 import android.content.Context;
 import android.graphics.Point;
-import android.text.TextUtils;
 
 public class Bookmark
 {
@@ -17,18 +13,21 @@ public class Bookmark
   private double mLat = Double.NaN;
   private double mLon = Double.NaN;
   private String m_previewString = "";
+  private final boolean mIsPreviewBookmark;
 
   // For bookmark preview
-  Bookmark(Context context, Point pos)
+  Bookmark(Context context, Point pos, String name)
   {
+    mIsPreviewBookmark = true;
     mContext = context.getApplicationContext();
     mPosition = pos;
-    getPOIData();
+    m_previewString = name;
     getLatLon(mPosition);
   }
 
   Bookmark(Context context, Point position, int nextCat, int b)
   {
+    mIsPreviewBookmark = false;
     mContext = context.getApplicationContext();
     mPosition = position;
     getLatLon(position);
@@ -42,27 +41,12 @@ public class Bookmark
 
   Bookmark(Context context, int c, int b)
   {
+    mIsPreviewBookmark = false;
     mContext = context.getApplicationContext();
     mCategoryId = c;
     mBookmark = b;
     mIcon = getIconInternal();// BookmarkManager.getBookmarkManager(mContext).getIconByName(nGetIcon(c, b));
     getLatLon();
-  }
-
-  private void getPOIData()
-  {
-    BookmarkManager manager = BookmarkManager.getBookmarkManager(mContext);
-    m_previewString = Utils.toTitleCase(manager.getNameForPOI(mPosition));
-    if (TextUtils.isEmpty(m_previewString))
-    {
-      m_previewString = Utils.toTitleCase(manager.getNameForPlace(mPosition));
-    }
-    else
-    {
-      mPosition = manager.getBmkPositionForPOI(mPosition);
-    }
-    if (TextUtils.isEmpty(m_previewString))
-      m_previewString = mContext.getString(R.string.dropped_pin);
   }
 
   private void getLatLon(Point position)
@@ -90,6 +74,7 @@ public class Bookmark
     ParcelablePointD ll = nGetLatLon(mCategoryId, mBookmark);
     mLat = ll.x;
     mLon = ll.y;
+    mPosition = nGtoP(mLat, mLon);
   }
 
   public DistanceAndAthimuth getDistanceAndAthimuth(double cLat, double cLon, double north)
@@ -244,6 +229,6 @@ public class Bookmark
   //TODO stub
   public boolean isPreviewBookmark()
   {
-    return mCategoryId < 0;
+    return mIsPreviewBookmark;
   }
 }
