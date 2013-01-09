@@ -41658,49 +41658,49 @@ cont {
     scale: 8
     area {
       color: 0xcde5ea
-      priority: 15000
+      priority: 0
     }
   }
   element {
     scale: 9
     area {
       color: 0xcde5ea
-      priority: 15000
+      priority: 0
     }
   }
   element {
     scale: 10
     area {
       color: 0xcde5ea
-      priority: 15000
+      priority: 0
     }
   }
   element {
     scale: 11
     area {
       color: 0xcde5ea
-      priority: 15000
+      priority: 0
     }
   }
   element {
     scale: 12
     area {
       color: 0xcde5ea
-      priority: 15000
+      priority: 0
     }
   }
   element {
     scale: 13
     area {
       color: 0xcde5ea
-      priority: 15000
+      priority: 0
     }
   }
   element {
     scale: 14
     area {
       color: 0xcde5ea
-      priority: 15000
+      priority: 0
     }
   }
   element {
