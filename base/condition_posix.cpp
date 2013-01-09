@@ -7,8 +7,7 @@
 
 #include "../std/stdint.hpp"
 #include "../std/systime.hpp"
-
-#include <sys/errno.h>
+#include "../std/errno.hpp"
 
 #include <pthread.h>
 
