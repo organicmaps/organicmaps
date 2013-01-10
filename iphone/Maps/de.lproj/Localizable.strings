@@ -382,3 +382,12 @@
 
 /* Search Suggestion */
 "share_bookmarks_email_body" = "In der angefügten „%@.kml“-Datei befinden sich die Lesezeichen meiner Offline-Karten von MapsWithMe. Falls Sie MapsWithMe Pro bereits installiert haben, müssen Sie diese nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://www.mapswithme.com/get?kml herunterladen.\n\nIch wünsche viel Vergnügen mit MapsWithMe!";
+
+/* message title of loading file */
+"load_kml_title" = "Bookmarks Loading";
+
+/* Kml file successful loading */
+"load_kml_successful" = "Bookmarks were loading successfully! You can see them on bookmarks manager screen.";
+
+/* Kml file loading failed */
+"load_kml_failed" = "File with bookmarks wasn't uploaded. The reason of this can be that file was corrupted or  faulty.";

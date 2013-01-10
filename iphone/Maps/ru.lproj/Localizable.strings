@@ -382,3 +382,12 @@
 
 /* Search Suggestion */
 "share_bookmarks_email_body" = "Мои закладки из офлайн карт MapsWithMe находятся в прикрепленном файле\"%@.kml\". Если у вас уже установлено приложение MapsWithMe Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  MapsWithMe Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.mapswithme.com/get?kml\n\nСпасибо!";
+
+/* message title of loading file */
+"load_kml_title" = "Загрузка Закладок";
+
+/* Kml file successful loading */
+"load_kml_successful" = "Закладки успешно загружены. Вы можете их увидеть на экране менеджера закладок.";
+
+/* Kml file loading failed */
+"load_kml_failed" = "Файл с закладками не был загружен. Возможно, файл поврежден или неисправен.";
