@@ -28,8 +28,8 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
   private static class SearchAdapter extends BaseAdapter
   {
-    private SearchActivity m_context;
-    private LayoutInflater m_inflater;
+    private final SearchActivity m_context;
+    private final LayoutInflater m_inflater;
 
     int m_count = 0;
     int m_resultID = 0;
@@ -259,7 +259,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
     m_progress = (ProgressBar) findViewById(R.id.search_progress);
 
-    EditText v = getSearchBox();
+    final EditText v = getSearchBox();
     v.addTextChangedListener(new TextWatcher()
     {
       @Override
@@ -348,6 +348,11 @@ public class SearchActivity extends ListActivity implements LocationService.List
   //@}
   private int m_flags = 0;
 
+  private void updateDistance()
+  {
+    getSA().updateDistance();
+  }
+
   @Override
   public void onLocationUpdated(long time, double lat, double lon, float accuracy)
   {
@@ -356,7 +361,8 @@ public class SearchActivity extends ListActivity implements LocationService.List
     m_lat = lat;
     m_lon = lon;
 
-    runSearch();
+    if (!runSearch())
+      updateDistance();
   }
 
   @Override
@@ -374,7 +380,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
       m_north = north;
       //Log.d(TAG, "Compass updated, north = " + m_north);
 
-      getSA().updateDistance();
+      updateDistance();
     }
   }
 
@@ -434,7 +440,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
   private void runSearch(String s)
   {
-    EditText box = getSearchBox();
+    final EditText box = getSearchBox();
 
     // this call invokes runSearch
     box.setText(s);
@@ -458,7 +464,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
     runSearch();
   }
 
-  private void runSearch()
+  private boolean runSearch()
   {
     // TODO Need to get input language
     final String lang = Locale.getDefault().getLanguage();
@@ -487,7 +493,11 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
       // show search progress
       m_progress.setVisibility(View.VISIBLE);
+
+      return true;
     }
+    else
+      return false;
   }
 
   public SearchAdapter.SearchResult getResult(int position, int queryID)
