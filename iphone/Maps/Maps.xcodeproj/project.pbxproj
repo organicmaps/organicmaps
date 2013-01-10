@@ -1343,6 +1343,7 @@
 		FAFB0911151215EE0041901D /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF29846146EEF4A00FF0057 /* libprotobuf.a */; };
 		FAFCB63613366E78001A5C59 /* WebViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAFCB63513366E78001A5C59 /* WebViewController.mm */; };
 		FAFCB63813367AD1001A5C59 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = FAFCB63713367AD1001A5C59 /* about.html */; };
+		FAFCF64F169C9E8100BD77D2 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED8B1A2016772AB4003CAD0A /* MessageUI.framework */; };
 		FAFF422A1347F101009BBB14 /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FAFF42291347F101009BBB14 /* World.mwm */; };
 /* End PBXBuildFile section */
 
@@ -2118,6 +2119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAFCF64F169C9E8100BD77D2 /* MessageUI.framework in Frameworks */,
 				FAFB08FB151215EE0041901D /* libfreetype.a in Frameworks */,
 				FAFB08FC151215EE0041901D /* Foundation.framework in Frameworks */,
 				FAFB08FD151215EE0041901D /* UIKit.framework in Frameworks */,
@@ -2190,7 +2192,6 @@
 		29B97314FDCFA39411CA2CEA /* Maps */ = {
 			isa = PBXGroup;
 			children = (
-				ED8B1A2016772AB4003CAD0A /* MessageUI.framework */,
 				FA36B8011540388B004560CC /* Bookmarks */,
 				FA34BEC71338D6DB00FFB2A7 /* Common */,
 				FA6E1F1B124E6B2800F59149 /* Platform */,
@@ -2272,6 +2273,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ED8B1A2016772AB4003CAD0A /* MessageUI.framework */,
 				EEB7E22111E9079400080A68 /* CoreLocation.framework */,
 				46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */,
 				46F26C7210F61FD600ECCA39 /* OpenGLES.framework */,
