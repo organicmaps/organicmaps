@@ -8,7 +8,7 @@ namespace search
 
 SearchParams::SearchParams()
 : m_inputLanguageCode(StringUtf8Multilang::UNSUPPORTED_LANGUAGE_CODE),
-  m_searchMode(ALL), m_validPos(false)
+  m_searchMode(ALL), m_forceSearch(false), m_validPos(false)
 {
 }
 
@@ -43,8 +43,9 @@ bool SearchParams::IsEqualCommon(SearchParams const & rhs) const
 
 string DebugPrint(SearchParams const & params)
 {
-  string s("search::SearchParams: ");
-  s = s + "Query = " + params.m_query;
+  string s = ("search::SearchParams: ");
+  s += "Query = " + params.m_query;
+  s += "Mode = " + params.m_searchMode;
   return s;
 }
 

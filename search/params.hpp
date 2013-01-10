@@ -56,11 +56,11 @@ namespace search
 
     double m_lat, m_lon;
 
+    friend string DebugPrint(SearchParams const & params);
+
   private:
     int m_searchMode;
     bool m_forceSearch, m_validPos;
   };
-
-  string DebugPrint(SearchParams const & params);
 
 } // namespace search
