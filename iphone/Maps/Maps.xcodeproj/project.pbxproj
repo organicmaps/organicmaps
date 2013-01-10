@@ -24,6 +24,8 @@
 		573D1AF4165252760093A55D /* location-follow.png in Resources */ = {isa = PBXBuildFile; fileRef = 573D1AF2165252760093A55D /* location-follow.png */; };
 		573D1AF5165252760093A55D /* location-follow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 573D1AF3165252760093A55D /* location-follow@2x.png */; };
 		ED8B1A2116772AB4003CAD0A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED8B1A2016772AB4003CAD0A /* MessageUI.framework */; };
+		EDBB18B816972B0600AF0742 /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EDBB18B716972B0600AF0742 /* libzlib.a */; };
+		EDBB18B916972B3000AF0742 /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EDBB18B716972B0600AF0742 /* libzlib.a */; };
 		EE026F0611D6AC0D00645242 /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
 		EE026F0D11D6AC2800645242 /* basic_mdpi.skn in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0811D6AC2800645242 /* basic_mdpi.skn */; };
 		EE12020911CD464100ABDD5D /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1201FF11CD464100ABDD5D /* libbase.a */; };
@@ -1371,6 +1373,7 @@
 		573D1AF3165252760093A55D /* location-follow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-follow@2x.png"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MapsWithMe-Pro.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MapsWithMe-Pro.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		ED8B1A2016772AB4003CAD0A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		EDBB18B716972B0600AF0742 /* libzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libzlib.a; path = libzlib.a; sourceTree = "<group>"; };
 		EE026F0511D6AC0D00645242 /* classificator.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = classificator.txt; path = ../../data/classificator.txt; sourceTree = SOURCE_ROOT; };
 		EE026F0811D6AC2800645242 /* basic_mdpi.skn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = basic_mdpi.skn; path = ../../data/basic_mdpi.skn; sourceTree = SOURCE_ROOT; };
 		EE1201FF11CD464100ABDD5D /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbase.a; sourceTree = SOURCE_ROOT; };
@@ -2086,6 +2089,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDBB18B816972B0600AF0742 /* libzlib.a in Frameworks */,
 				ED8B1A2116772AB4003CAD0A /* MessageUI.framework in Frameworks */,
 				EEFC0BBF12B5656A002914FF /* libfreetype.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
@@ -2120,6 +2124,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAFCF64F169C9E8100BD77D2 /* MessageUI.framework in Frameworks */,
+				EDBB18B916972B3000AF0742 /* libzlib.a in Frameworks */,
 				FAFB08FB151215EE0041901D /* libfreetype.a in Frameworks */,
 				FAFB08FC151215EE0041901D /* Foundation.framework in Frameworks */,
 				FAFB08FD151215EE0041901D /* UIKit.framework in Frameworks */,
@@ -2192,6 +2197,8 @@
 		29B97314FDCFA39411CA2CEA /* Maps */ = {
 			isa = PBXGroup;
 			children = (
+				EDBB18B716972B0600AF0742 /* libzlib.a */,
+				ED8B1A2016772AB4003CAD0A /* MessageUI.framework */,
 				FA36B8011540388B004560CC /* Bookmarks */,
 				FA34BEC71338D6DB00FFB2A7 /* Common */,
 				FA6E1F1B124E6B2800F59149 /* Platform */,
