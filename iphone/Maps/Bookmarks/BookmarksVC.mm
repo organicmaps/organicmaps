@@ -30,7 +30,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return YES;
+  return YES;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
