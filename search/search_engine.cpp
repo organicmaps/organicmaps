@@ -110,7 +110,6 @@ namespace
 
   // X metres in mercator (lon, lat) units.
   double const epsEqualRects = 100.0 * MercatorBounds::degreeInMetres;
-  double const epsEqualPoints = 500.0 * MercatorBounds::degreeInMetres;
 
   /// Check rects for optimal search (avoid duplicating).
   void AnalyzeRects(m2::RectD arrRects[2])
@@ -153,10 +152,8 @@ bool Engine::Search(SearchParams const & params, m2::RectD const & viewport)
     if (!m_params.IsValidPosition())
       return false;
 
-    m2::PointD const p1 = GetViewportXY(m_params.m_lat, m_params.m_lon);
-    m2::PointD const p2 = GetViewportXY(params.m_lat, params.m_lon);
-
-    if (p1.EqualDxDy(p2, epsEqualPoints))
+    // Check distance between previous and current user's position.
+    if (ms::DistanceOnEarth(m_params.m_lat, m_params.m_lon, params.m_lat, params.m_lon) < 500.0)
       return false;
   }
 
