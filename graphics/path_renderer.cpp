@@ -280,20 +280,29 @@ namespace graphics
       m2::PointF const fNorm = norm * geomHalfWidth;  // enough to calc it once
       m2::PointF const fDir(fNorm.y, -fNorm.x);
 
-      m2::PointF coords[8] =
+      int numPoints = 4;
+      bool const hasLeftRoundCap  = (pen->m_info.m_cap == pen->m_info.ERoundCap) || (i != 0);
+      bool const hasRightRoundCap = (pen->m_info.m_cap == pen->m_info.ERoundCap) || (i != (pointsCount - 2));
+      if (hasLeftRoundCap)  {numPoints += 2;};
+      if (hasRightRoundCap) {numPoints += 2;};
+
+      int j = 0;
+
+      m2::PointF coords[numPoints];
+      if (hasLeftRoundCap)
       {
-        /// left round cap
-        points[i] - fDir + fNorm,
-        points[i] - fDir - fNorm,
-        points[i] + fNorm,
-        /// inner part
-        points[i] - fNorm,
-        nextPt + fNorm,
-        nextPt - fNorm,
-        /// right round cap
-        nextPt + fDir + fNorm,
-        nextPt + fDir - fNorm
-      };
+        coords[j] = points[i] - fDir + fNorm; j++;
+        coords[j] = points[i] - fDir - fNorm; j++;
+      }
+      coords[j] = points[i] + fNorm; j++;
+      coords[j] = points[i] - fNorm; j++;
+      coords[j] = nextPt + fNorm; j++;
+      coords[j] = nextPt - fNorm; j++;
+      if (hasRightRoundCap)
+      {
+        coords[j] = nextPt + fDir + fNorm; j++;
+        coords[j] = nextPt + fDir - fNorm; j++;
+      }
 
       GeometryPipeline & p = pipeline(pen->m_pipelineID);
 
@@ -305,24 +314,28 @@ namespace graphics
         return;
       }
 
-      m2::PointF texCoords[8] =
+      j = 0;
+      m2::PointF texCoords[numPoints];
+      if (hasLeftRoundCap)
       {
-        texture->mapPixel(m2::PointF(texMinX, texMinY)),
-        texture->mapPixel(m2::PointF(texMinX, texMaxY)),
-        texture->mapPixel(m2::PointF(texCenterX, texMinY)),
-        texture->mapPixel(m2::PointF(texCenterX, texMaxY)),
-        texture->mapPixel(m2::PointF(texCenterX, texMinY)),
-        texture->mapPixel(m2::PointF(texCenterX, texMaxY)),
-        texture->mapPixel(m2::PointF(texMaxX, texMinY)),
-        texture->mapPixel(m2::PointF(texMaxX, texMaxY))
-      };
-
+        texCoords[j] = texture->mapPixel(m2::PointF(texMinX, texMinY)); j++;
+        texCoords[j] = texture->mapPixel(m2::PointF(texMinX, texMaxY)); j++;
+      }
+      texCoords[j] = texture->mapPixel(m2::PointF(texCenterX, texMinY)); j++;
+      texCoords[j] = texture->mapPixel(m2::PointF(texCenterX, texMaxY)); j++;
+      texCoords[j] = texture->mapPixel(m2::PointF(texCenterX, texMinY)); j++;
+      texCoords[j] = texture->mapPixel(m2::PointF(texCenterX, texMaxY)); j++;
+      if (hasRightRoundCap)
+      {
+        texCoords[j] = texture->mapPixel(m2::PointF(texMaxX, texMinY)); j++;
+        texCoords[j] = texture->mapPixel(m2::PointF(texMaxX, texMaxY)); j++;
+      }
       m2::PointF normal(0, 0);
 
       addTexturedStripStrided(coords, sizeof(m2::PointF),
                               &normal, 0,
                               texCoords, sizeof(m2::PointF),
-                              8,
+                              numPoints,
                               depth,
                               pen->m_pipelineID);
     }
