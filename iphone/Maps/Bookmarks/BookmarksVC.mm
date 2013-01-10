@@ -35,8 +35,9 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  if ([MFMailComposeViewController canSendMail])
-   return 3;
+// @TODO uncomment in the next release
+//  if ([MFMailComposeViewController canSendMail])
+//   return 3;
   return 2;
 }
 
