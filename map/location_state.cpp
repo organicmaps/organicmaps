@@ -440,15 +440,16 @@ namespace location
 
   bool State::roughHitTest(m2::PointD const & pt) const
   {
-    return hitTest(pt);
+    return false;
   }
 
   bool State::hitTest(m2::PointD const & pt) const
   {
-    if (!m_framework->GetNavigator().DoSupportRotation())
-      return false;
-    double radius = m_arrowHeight * m_controller->GetVisualScale();
-    return m_hasCompass && (pt.SquareLength(pivot()) <= my::sq(radius));
+//    if (!m_framework->GetNavigator().DoSupportRotation())
+//      return false;
+//    double radius = m_arrowHeight * m_controller->GetVisualScale();
+//    return m_hasCompass && (pt.SquareLength(pivot()) <= my::sq(radius));
+    return false;
   }
 
   void State::CheckCompassRotation()
