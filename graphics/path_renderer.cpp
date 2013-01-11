@@ -266,7 +266,6 @@ namespace graphics
 
     float geomHalfWidth = (pen->m_info.m_w + 4 - aaShift() * 2) / 2.0;
 
-
     m2::PointD dir = points[1] - points[0];
     double len = dir.Length(m2::PointD(0, 0));
     dir *= 1.0 / len;
@@ -318,7 +317,8 @@ namespace graphics
 
       int cur = 0;
 
-      m2::PointF coords[numPoints];
+      ASSERT(numPoints <= 8, ("numPoints is more than 8, won't fit in array"));
+      m2::PointF coords[8];
 
       if (leftIsCap && (hasRoundCap || hasSquareCap))
       {
@@ -353,7 +353,7 @@ namespace graphics
         return;
       }
 
-      m2::PointF texCoords[numPoints];
+      m2::PointF texCoords[8];
       cur = 0;
 
       if (leftIsCap && hasRoundCap)
