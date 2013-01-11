@@ -185,6 +185,35 @@ void Engine::SetViewportAsync(m2::RectD const & viewport, m2::RectD const & near
   m_pQuery->SetViewport(arrRects, ARRAY_SIZE(arrRects));
 }
 
+namespace
+{
+  bool LessByDistance(Result const & r1, Result const & r2)
+  {
+    Result::ResultType const t1 = r1.GetResultType();
+
+    if (t1 == r2.GetResultType() && t1 == Result::RESULT_FEATURE)
+      return (r1.GetDistanceFromCenter() < r2.GetDistanceFromCenter());
+    else if (t1 == Result::RESULT_SUGGESTION)
+      return true;
+    else
+      return false;
+  }
+
+  /// @todo Temporary solution to ensure that results are sorted by distance only for AROUND_POSITION mode.
+  void EmitResults(SearchParams const & params, Results & res)
+  {
+    if (params.IsValidPosition() &&
+        params.NeedSearch(SearchParams::AROUND_POSITION) &&
+        !params.NeedSearch(SearchParams::IN_VIEWPORT) &&
+        !params.NeedSearch(SearchParams::SEARCH_WORLD))
+    {
+      res.Sort(&LessByDistance);
+    }
+
+    params.m_callback(res);
+  }
+}
+
 void Engine::SearchAsync()
 {
   {
@@ -287,7 +316,7 @@ void Engine::SearchAsync()
   // Emit results even if search was canceled and we have something.
   size_t const count = res.GetCount();
   if (!m_pQuery->IsCanceled() || count > 0)
-    params.m_callback(res);
+    EmitResults(params, res);
 
   // Make additional search in whole mwm when not enough results (only for non-empty query).
   if (!emptyQuery && !m_pQuery->IsCanceled() && count < RESULTS_COUNT)
@@ -304,7 +333,7 @@ void Engine::SearchAsync()
 
     // Emit if we have more results.
     if (res.GetCount() > count)
-      params.m_callback(res);
+      EmitResults(params, res);
   }
 
   // Emit finish marker to client.

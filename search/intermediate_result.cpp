@@ -133,25 +133,31 @@ bool PreResult1::LessViewportDistance(PreResult1 const & r1, PreResult1 const & 
 }
 
 
+void PreResult2::CalcParams(m2::RectD const & viewport, m2::PointD const & pos)
+{
+  // dummy object to avoid copy-paste
+  PreResult1 res(0, 0, m_center, 0, pos, viewport);
 
-PreResult2::PreResult2(FeatureType const & f, PreResult1 const & res,
+  m_distance = res.m_distance;
+  m_distanceFromViewportCenter = res.m_distanceFromViewportCenter;
+  m_viewportDistance = res.m_viewportDistance;
+}
+
+PreResult2::PreResult2(FeatureType const & f, uint8_t rank,
+                       m2::RectD const & viewport, m2::PointD const & pos,
                        string const & displayName, string const & fileName)
   : m_types(f),
     m_str(displayName),
-    m_featureRect(f.GetLimitRect(FeatureType::WORST_GEOMETRY)),
-    m_center(res.m_center),
-    m_distance(res.m_distance),
-    m_distanceFromViewportCenter(res.m_distanceFromViewportCenter),
     m_resultType(RESULT_FEATURE),
-    m_rank(res.m_rank),
-    m_viewportDistance(res.m_viewportDistance)
+    m_rank(rank)
 {
   ASSERT ( !m_types.Empty(), () );
   m_types.SortBySpec();
 
-  // It's better to get exact center for point feature.
-  if (f.GetFeatureType() == feature::GEOM_POINT)
-    m_center = m_featureRect.Center();
+  m_featureRect = f.GetLimitRect(FeatureType::WORST_GEOMETRY);
+  m_center = m_featureRect.Center();
+
+  CalcParams(viewport, pos);
 
   // get region info
   if (!fileName.empty())
@@ -160,19 +166,16 @@ PreResult2::PreResult2(FeatureType const & f, PreResult1 const & res,
     m_region.SetPoint(m_center);
 }
 
-PreResult2::PreResult2(m2::RectD const & viewport, m2::PointD const & pos,
-                       double lat, double lon)
+PreResult2::PreResult2(m2::RectD const & viewport, m2::PointD const & pos, double lat, double lon)
   : m_str("(" + strings::to_string(lat) + ", " + strings::to_string(lon) + ")"),
-    m_resultType(RESULT_LATLON), m_rank(255)
+    m_resultType(RESULT_LATLON),
+    m_rank(255)
 {
-  // dummy object to avoid copy-paste
-  PreResult1 res(0, 0, m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat)),
-                 0, pos, viewport);
+  m_center.x = MercatorBounds::LonToX(lon);
+  m_center.y = MercatorBounds::LatToY(lat);
+  m_featureRect.Add(m_center);
 
-  m_center = res.m_center;
-  m_distance = res.m_distance;
-  m_distanceFromViewportCenter = res.m_distanceFromViewportCenter;
-  m_viewportDistance = res.m_viewportDistance;
+  CalcParams(viewport, pos);
 
   // get region info
   m_region.SetPoint(m_center);

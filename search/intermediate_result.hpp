@@ -53,12 +53,15 @@ public:
   static bool LessViewportDistance(PreResult1 const & r1, PreResult1 const & r2);
 
   inline pair<size_t, uint32_t> GetID() const { return make_pair(m_mwmID, m_featureID); }
+  uint8_t GetRank() const { return m_rank; }
 };
 
 
 /// Second result class. Objects are creating during reading of features.
 class PreResult2
 {
+  void CalcParams(m2::RectD const & viewport, m2::PointD const & pos);
+
 public:
   enum ResultType
   {
@@ -68,7 +71,8 @@ public:
   };
 
   // For RESULT_FEATURE.
-  PreResult2(FeatureType const & f, PreResult1 const & res,
+  PreResult2(FeatureType const & f, uint8_t rank,
+             m2::RectD const & viewport, m2::PointD const & pos,
              string const & displayName, string const & fileName);
 
   // For RESULT_LATLON.

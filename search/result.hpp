@@ -100,6 +100,11 @@ public:
   {
     m_vec.swap(rhs.m_vec);
   }
+
+  template <class LessT> void Sort(LessT lessFn)
+  {
+    sort(m_vec.begin(), m_vec.end(), lessFn);
+  }
 };
 
 }

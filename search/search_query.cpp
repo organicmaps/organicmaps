@@ -462,7 +462,9 @@ namespace impl
       string name, country;
       LoadFeature(res.GetID(), feature, name, country);
 
-      return new impl::PreResult2(feature, res, name, country);
+      return new impl::PreResult2(feature, res.GetRank(),
+                                  m_query.GetViewport(), m_query.GetPosition(),
+                                  name, country);
     }
 
     impl::PreResult2 * operator() (pair<size_t, uint32_t> const & id)
@@ -473,10 +475,10 @@ namespace impl
 
       if (!name.empty() && !country.empty())
       {
-        // this results will be with equal rank
-        impl::PreResult1 res(0, 0, feature.GetLimitRect(FeatureType::WORST_GEOMETRY).Center(),
-                             0, m_query.m_position, m_query.GetViewport());
-        return new impl::PreResult2(feature, res, name, country);
+        // this results will be with equal rank == 0
+        return new impl::PreResult2(feature, 0,
+                                    m_query.GetViewport(), m_query.GetPosition(),
+                                    name, country);
       }
       else
         return 0;

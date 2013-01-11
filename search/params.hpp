@@ -34,7 +34,7 @@ namespace search
     };
 
     void SetSearchMode(int mode) { m_searchMode = mode; }
-    bool NeedSearch(SearchModeT mode) const { return ((m_searchMode & mode) != 0);}
+    bool NeedSearch(SearchModeT mode) const { return ((m_searchMode & mode) != 0); }
     //@}
 
     void SetPosition(double lat, double lon);
