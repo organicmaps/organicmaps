@@ -24,7 +24,8 @@ namespace graphics
       enum ELineCap
       {
         ERoundCap,
-        EButtCap
+        EButtCap,
+        ESquareCap
       };
 
       typedef buffer_vector<double, 16> TPattern;

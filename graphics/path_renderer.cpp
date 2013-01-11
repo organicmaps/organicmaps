@@ -140,11 +140,10 @@ namespace graphics
 
         m2::PointF coords[4] =
         {
-          // vng: i think this "rawTileStartPt + fNorm" reading better, isn't it?
-          m2::PointF(rawTileStartPt.x + fNorm.x, rawTileStartPt.y + fNorm.y),
-          m2::PointF(rawTileStartPt.x - fNorm.x, rawTileStartPt.y - fNorm.y),
-          m2::PointF(rawTileEndPt.x - fNorm.x, rawTileEndPt.y - fNorm.y),
-          m2::PointF(rawTileEndPt.x + fNorm.x, rawTileEndPt.y + fNorm.y)
+          rawTileStartPt + fNorm,
+          rawTileStartPt - fNorm,
+          rawTileEndPt - fNorm,
+          rawTileEndPt + fNorm
         };
 
         m2::PointF texCoords[4] =
@@ -255,9 +254,16 @@ namespace graphics
     }
   }
 
+
   void PathRenderer::drawSolidPath(m2::PointD const * points, size_t pointsCount, double offset, Pen const * pen, double depth)
   {
     ASSERT(pen->m_isSolid, ());
+
+    bool const hasRoundCap = (pen->m_info.m_cap == pen->m_info.ERoundCap);
+    bool const hasSquareCap = (pen->m_info.m_cap == pen->m_info.ESquareCap);
+    bool const hasRoundJoin = (pen->m_info.m_join == pen->m_info.ERoundJoin);
+    bool const hasBevelJoin = (pen->m_info.m_join == pen->m_info.EBevelJoin);
+
 
     for (size_t i = 0; i < pointsCount - 1; ++i)
     {
@@ -281,27 +287,46 @@ namespace graphics
       m2::PointF const fDir(fNorm.y, -fNorm.x);
 
       int numPoints = 4;
-      bool const hasLeftRoundCap  = (pen->m_info.m_cap == pen->m_info.ERoundCap) || (i != 0);
-      bool const hasRightRoundCap = (pen->m_info.m_cap == pen->m_info.ERoundCap) || (i != (pointsCount - 2));
-      if (hasLeftRoundCap)  {numPoints += 2;};
-      if (hasRightRoundCap) {numPoints += 2;};
 
-      int j = 0;
+      bool const leftIsCap  = i == 0;
+      bool const rightIsCap = i == (pointsCount - 2);
+
+      if (leftIsCap && (hasRoundCap || hasSquareCap))
+        numPoints += 2;
+      if ((rightIsCap && (hasRoundCap || hasSquareCap)) || (!rightIsCap && (hasRoundJoin || hasBevelJoin)))
+        numPoints += 2;
+
+
+      int cur = 0;
 
       m2::PointF coords[numPoints];
-      if (hasLeftRoundCap)
+
+      if (leftIsCap && (hasRoundCap || hasSquareCap))
       {
-        coords[j] = points[i] - fDir + fNorm; j++;
-        coords[j] = points[i] - fDir - fNorm; j++;
+        coords[cur++] = points[i] - fDir + fNorm;
+        coords[cur++] = points[i] - fDir - fNorm;
       }
-      coords[j] = points[i] + fNorm; j++;
-      coords[j] = points[i] - fNorm; j++;
-      coords[j] = nextPt + fNorm; j++;
-      coords[j] = nextPt - fNorm; j++;
-      if (hasRightRoundCap)
+
+      coords[cur++] = points[i] + fNorm;
+      coords[cur++] = points[i] - fNorm;
+      coords[cur++] = nextPt + fNorm;
+      coords[cur++] = nextPt - fNorm;
+
+      if ((rightIsCap && (hasRoundCap || hasSquareCap)) || (!rightIsCap && hasRoundJoin))
       {
-        coords[j] = nextPt + fDir + fNorm; j++;
-        coords[j] = nextPt + fDir - fNorm; j++;
+        coords[cur++] = nextPt + fDir + fNorm;
+        coords[cur++] = nextPt + fDir - fNorm;
+      }
+      else if (!rightIsCap && hasBevelJoin)
+      {
+        m2::PointD dirNextSeg = points[i + 2] - points[i + 1];
+        double lenNextSeg = dirNextSeg.Length(m2::PointD(0, 0));
+        dirNextSeg *= 1.0 / lenNextSeg;
+        m2::PointD normNextSeg(-dirNextSeg.y, dirNextSeg.x);
+        m2::PointF const fNormNextSeg = normNextSeg * geomHalfWidth;
+
+        coords[cur++] = points[i + 1] + fNormNextSeg;
+        coords[cur++] = points[i + 1] - fNormNextSeg;
       }
 
       GeometryPipeline & p = pipeline(pen->m_pipelineID);
@@ -314,22 +339,36 @@ namespace graphics
         return;
       }
 
-      j = 0;
       m2::PointF texCoords[numPoints];
-      if (hasLeftRoundCap)
+      cur = 0;
+
+      if ((leftIsCap && hasRoundCap))// || (!leftIsCap && hasRoundJoin))
       {
-        texCoords[j] = texture->mapPixel(m2::PointF(texMinX, texMinY)); j++;
-        texCoords[j] = texture->mapPixel(m2::PointF(texMinX, texMaxY)); j++;
+        texCoords[cur++] = texture->mapPixel(m2::PointF(texMinX, texMinY));
+        texCoords[cur++] = texture->mapPixel(m2::PointF(texMinX, texMaxY));
       }
-      texCoords[j] = texture->mapPixel(m2::PointF(texCenterX, texMinY)); j++;
-      texCoords[j] = texture->mapPixel(m2::PointF(texCenterX, texMaxY)); j++;
-      texCoords[j] = texture->mapPixel(m2::PointF(texCenterX, texMinY)); j++;
-      texCoords[j] = texture->mapPixel(m2::PointF(texCenterX, texMaxY)); j++;
-      if (hasRightRoundCap)
+      else if (leftIsCap && hasSquareCap)
       {
-        texCoords[j] = texture->mapPixel(m2::PointF(texMaxX, texMinY)); j++;
-        texCoords[j] = texture->mapPixel(m2::PointF(texMaxX, texMaxY)); j++;
+        texCoords[cur++] = texture->mapPixel(m2::PointF(texCenterX, texMinY));
+        texCoords[cur++] = texture->mapPixel(m2::PointF(texCenterX, texMaxY));
       }
+
+      texCoords[cur++] = texture->mapPixel(m2::PointF(texCenterX, texMinY));
+      texCoords[cur++] = texture->mapPixel(m2::PointF(texCenterX, texMaxY));
+      texCoords[cur++] = texture->mapPixel(m2::PointF(texCenterX, texMinY));
+      texCoords[cur++] = texture->mapPixel(m2::PointF(texCenterX, texMaxY));
+
+      if ((rightIsCap && hasRoundCap) || (!rightIsCap && hasRoundJoin))
+      {
+        texCoords[cur++] = texture->mapPixel(m2::PointF(texMaxX, texMinY));
+        texCoords[cur++] = texture->mapPixel(m2::PointF(texMaxX, texMaxY));
+      }
+      else if ((rightIsCap && hasSquareCap) || (!rightIsCap && hasBevelJoin))
+      {
+        texCoords[cur++] = texture->mapPixel(m2::PointF(texCenterX, texMinY));
+        texCoords[cur++] = texture->mapPixel(m2::PointF(texCenterX, texMaxY));
+      }
+
       m2::PointF normal(0, 0);
 
       addTexturedStripStrided(coords, sizeof(m2::PointF),
