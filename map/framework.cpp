@@ -490,9 +490,12 @@ BookmarkAndCategory Framework::GetBookmark(m2::PointD const & pxPoint, double vi
   int retBookmarkCategory = -1;
   int retBookmark = -1;
   double minD = numeric_limits<double>::max();
-
+  bool returnBookmarkIsVisible = false;
   for (size_t i = 0; i < m_bookmarks.size(); ++i)
   {
+    bool currentCategoryIsVisible = m_bookmarks[i]->IsVisible();
+    if (!currentCategoryIsVisible && returnBookmarkIsVisible)
+      continue;
     size_t const count = m_bookmarks[i]->GetBookmarksCount();
     for (size_t j = 0; j < count; ++j)
     {
@@ -502,11 +505,13 @@ BookmarkAndCategory Framework::GetBookmark(m2::PointD const & pxPoint, double vi
       if (rect.IsPointInside(pt))
       {
         double const d = rect.Center().SquareLength(pt);
-        if (d < minD)
+        if ((currentCategoryIsVisible && !returnBookmarkIsVisible) ||
+            (d < minD))
         {
           retBookmarkCategory = static_cast<int>(i);
           retBookmark = static_cast<int>(j);
           minD = d;
+          returnBookmarkIsVisible = m_bookmarks[i]->IsVisible();
         }
       }
     }
