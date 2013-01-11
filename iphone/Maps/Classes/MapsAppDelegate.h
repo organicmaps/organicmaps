@@ -4,13 +4,14 @@
 @class SettingsManager;
 @class LocationManager;
 
-@interface MapsAppDelegate : NSObject <UIApplicationDelegate>
+@interface MapsAppDelegate : NSObject <UIApplicationDelegate, UIAlertViewDelegate>
 {
   SettingsManager * m_settingsManager;
   NSInteger m_standbyCounter;
   NSInteger m_activeDownloadsCounter;
   UINavigationController * m_navController;
   UIWindow * m_window;
+  UIAlertView * m_loadingAlertView;
 }
 
 @property (nonatomic, retain) IBOutlet MapViewController * m_mapViewController;

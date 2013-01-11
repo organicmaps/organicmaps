@@ -25,6 +25,10 @@
         target:self
         action:@selector(onCloseButton:)] autorelease];
     self.tableView.allowsSelectionDuringEditing = YES;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(newCategoryAdded)
+                                                 name:@"KML file added"
+                                               object:nil];
   }
   return self;
 }
@@ -287,6 +291,17 @@
   // Exit from edit mode
   [self setEditing:NO animated:YES];
   return NO;
+}
+
+-(void)newCategoryAdded
+{
+  [self.tableView reloadData];
+}
+
+-(void)dealloc
+{
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+  [super dealloc];
 }
 
 @end

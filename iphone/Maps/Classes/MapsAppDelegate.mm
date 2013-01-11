@@ -137,17 +137,50 @@ void InitLocalizedStrings()
          annotation:(id)annotation
 {
   NSString * scheme = url.scheme;
-  NSLog(@"Launched with URL Scheme %@ from the app %@", url.scheme, sourceApplication);
-
   // geo scheme support, see http://tools.ietf.org/html/rfc5870
   if ([scheme isEqualToString:@"geo"])
   {
     GetFramework().SetViewportByURL([[url.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] UTF8String]);
     return YES;
   }
-
+  if ([scheme isEqualToString:@"file"])
+  {
+     if (!GetFramework().AddBookmarksFile([[url relativePath] UTF8String]))
+     {
+       [self showLoadFileAlertIsSuccessful:NO];
+       return NO;
+     }
+     [[NSNotificationCenter defaultCenter] postNotificationName:@"KML file added" object:nil];
+     [self showLoadFileAlertIsSuccessful:YES];
+     return YES;
+  }
   NSLog(@"Scheme %@ is not supported", scheme);
   return NO;
+}
+
+-(void)showLoadFileAlertIsSuccessful:(BOOL) successful
+{
+  m_loadingAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"load_kml_title", nil)
+                                                  message:
+                        (successful ? NSLocalizedString(@"load_kml_successful", nil) : NSLocalizedString(@"load_kml_failed", nil))
+                                                 delegate:nil
+                                      cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil];
+  m_loadingAlertView.delegate = self;
+  [m_loadingAlertView show];
+  [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(dismissAlert) userInfo:nil repeats:NO];
+  [m_loadingAlertView release];
+}
+
+-(void)dismissAlert
+{
+  if (m_loadingAlertView)
+  {
+   [m_loadingAlertView dismissWithClickedButtonIndex:0 animated:YES];
+  }
+}
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+  m_loadingAlertView = nil;
 }
 
 @end
