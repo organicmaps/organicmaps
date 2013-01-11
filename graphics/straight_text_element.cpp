@@ -259,10 +259,10 @@ namespace graphics
       if (isNeedRedraw())
         c = graphics::Color(255, 0, 0, 64);
 
-      screen->drawRectangle(roughBoundRect(), graphics::Color(255, 255, 0, 64), graphics::maxDepth - 3);
+      screen->drawRectangle(roughBoundRect(), graphics::Color(255, 255, 0, 64), graphics::maxDepth - 10);
 
       for (unsigned i = 0 ; i < boundRects().size(); ++i)
-        screen->drawRectangle(boundRects()[i], c, graphics::maxDepth - 3);
+        screen->drawRectangle(boundRects()[i], c, graphics::maxDepth - 10);
     }
 
     if (!isNeedRedraw())
@@ -271,14 +271,14 @@ namespace graphics
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
     {
       if (m_glyphLayouts[i].fontDesc().m_isMasked)
-        drawTextImpl(m_glyphLayouts[i], screen, m, true, true, m_glyphLayouts[i].fontDesc(), graphics::maxDepth - 2);
+        drawTextImpl(m_glyphLayouts[i], screen, m, true, true, m_glyphLayouts[i].fontDesc(), graphics::maxDepth - 9);
     }
 
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
     {
       graphics::FontDesc fontDesc = m_glyphLayouts[i].fontDesc();
       fontDesc.m_isMasked = false;
-      drawTextImpl(m_glyphLayouts[i], screen, m, true, true, fontDesc, graphics::maxDepth - 1);
+      drawTextImpl(m_glyphLayouts[i], screen, m, true, true, fontDesc, graphics::maxDepth - 8);
     }
   }
 
