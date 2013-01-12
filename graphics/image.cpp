@@ -65,6 +65,11 @@ namespace graphics
     return false;
   }
 
+  Resource::Info const & Image::Info::cacheKey() const
+  {
+    return *this;
+  }
+
   m2::PointU const Image::Info::resourceSize() const
   {
     return m2::PointU(m_size.x + 4, m_size.y + 4);

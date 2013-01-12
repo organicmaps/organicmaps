@@ -729,9 +729,20 @@ namespace graphics
 
     for (uint8_t i = 0; i < pipelinesCount(); ++i)
     {
-      res = pipeline(i).cache()->findInfo(info);
+      ResourceCache * cache = pipeline(i).cache().get();
+      res = cache->findInfo(info);
       if (res != invalidPageHandle())
         return packID(i, res);
+      else
+      {
+        /// trying to find cacheKey
+        res = cache->findInfo(info.cacheKey());
+        if (res != invalidPageHandle())
+        {
+          cache->addParentInfo(info);
+          return packID(i, res);
+        }
+      }
     }
 
     if (!pipeline(m_dynamicPage).cache()->hasRoom(info))

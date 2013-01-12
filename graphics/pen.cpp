@@ -30,12 +30,12 @@ namespace graphics
       m_isSolid(false)
   {
     if (symbol != 0)
-      m_symbol = string(symbol);
+      m_icon = Icon::Info(symbol);
 
     if (m_w < 1.0)
       m_w = 1.0;
 
-    if (!m_symbol.empty())
+    if (!m_icon.m_name.empty())
     {
       m_isSolid = false;
     }
@@ -130,8 +130,19 @@ namespace graphics
     return false;
   }
 
+  Resource::Info const & Pen::Info::cacheKey() const
+  {
+    if (!m_icon.m_name.empty())
+      return m_icon;
+    else
+      return *this;
+  }
+
   m2::PointU const Pen::Info::resourceSize() const
   {
+    if (!m_icon.m_name.empty())
+      return m_icon.resourceSize();
+
     if (m_isSolid)
       return m2::PointU(static_cast<uint32_t>(ceil(m_w / 2)) * 2 + 4,
                         static_cast<uint32_t>(ceil(m_w / 2)) * 2 + 4);
@@ -175,8 +186,8 @@ namespace graphics
       return m_join < rp->m_join;
     if (m_cap != rp->m_cap)
       return m_cap < rp->m_cap;
-    if (m_symbol != rp->m_symbol)
-      return m_symbol < rp->m_symbol;
+    if (m_icon.m_name != rp->m_icon.m_name)
+      return m_icon.m_name < rp->m_icon.m_name;
     if (m_step != rp->m_step)
       return m_step < rp->m_step;
 

@@ -51,7 +51,7 @@ void ConvertStyle(LineDefProto const * pSrc, double scale, graphics::Pen::Info &
     PathSymProto const & ps = pSrc->pathsym();
 
     dest.m_step = ps.step();
-    dest.m_symbol = ps.name();
+    dest.m_icon.m_name = ps.name();
     dest.m_offset = ps.offset();
   }
 

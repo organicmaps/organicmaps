@@ -25,6 +25,8 @@ namespace graphics
       Category m_category;
 
       Info(Category cat);
+
+      virtual Info const & cacheKey() const = 0;
       /// returns the size of this resource info which will
       /// be occupied in texture cache.
       virtual m2::PointU const resourceSize() const = 0;
@@ -38,10 +40,6 @@ namespace graphics
     Category m_cat;
     m2::RectU m_texRect;
     int m_pipelineID;
-
-    Resource();
-    Resource(m2::RectU const & texRect,
-             int pipelineID);
 
     virtual ~Resource();
     virtual void render(void * dst) = 0;

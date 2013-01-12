@@ -9,14 +9,6 @@ namespace graphics
   {}
 
   Resource::Resource(
-      m2::RectU const & texRect,
-      int pipelineID
-      ) : m_cat(EUnknown),
-      m_texRect(texRect),
-      m_pipelineID(pipelineID)
-  {}
-
-  Resource::Resource(
       Category cat,
       m2::RectU const & texRect,
       int pipelineID)

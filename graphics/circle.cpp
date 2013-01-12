@@ -52,6 +52,11 @@ namespace graphics
     return false;
   }
 
+  Resource::Info const & Circle::Info::cacheKey() const
+  {
+    return *this;
+  }
+
   m2::PointU const Circle::Info::resourceSize() const
   {
     unsigned r = m_isOutlined ? m_radius + m_outlineWidth : m_radius;

@@ -31,7 +31,9 @@ namespace graphics
   private:
 
     typedef map<uint32_t, shared_ptr<Resource> > TResources;
+
     TResources m_resources;
+    TResources m_parentResources;
 
     struct LessThan
     {
@@ -95,6 +97,7 @@ namespace graphics
 
     uint32_t findInfo(Resource::Info const & info) const;
     uint32_t mapInfo(Resource::Info const & info);
+    void addParentInfo(Resource::Info const & fullInfo);
     bool hasRoom(Resource::Info const & info) const;
 
     Resource * fromID(uint32_t idx) const;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "resource.hpp"
+#include "icon.hpp"
 #include "color.hpp"
 
 #include "../geometry/point2d.hpp"
@@ -34,7 +35,7 @@ namespace graphics
       double m_w;
       TPattern m_pat;
       double m_offset;
-      string m_symbol;
+      Icon::Info m_icon;
       double m_step;
       ELineJoin m_join;
       ELineCap m_cap;
@@ -54,6 +55,7 @@ namespace graphics
       double firstDashOffset() const;
       bool atDashOffset(double offset) const;
 
+      Resource::Info const & cacheKey() const;
       m2::PointU const resourceSize() const;
       Resource * createResource(m2::RectU const & texRect,
                                 uint8_t pipelineID) const;

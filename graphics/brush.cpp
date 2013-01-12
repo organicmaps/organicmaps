@@ -12,6 +12,11 @@ namespace graphics
       m_color(color)
   {}
 
+  Resource::Info const & Brush::Info::cacheKey() const
+  {
+    return *this;
+  }
+
   m2::PointU const Brush::Info::resourceSize() const
   {
     return m2::PointU(2, 2);

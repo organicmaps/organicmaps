@@ -11,6 +11,11 @@ namespace graphics
       m_name(name)
   {}
 
+  Resource::Info const & Icon::Info::cacheKey() const
+  {
+    return *this;
+  }
+
   m2::PointU const Icon::Info::resourceSize() const
   {
     return m2::PointU(0, 0);

@@ -19,6 +19,11 @@ namespace graphics
     m_metrics = m_cache->getGlyphMetrics(m_key);
   }
 
+  Resource::Info const & Glyph::Info::cacheKey() const
+  {
+    return *this;
+  }
+
   m2::PointU const Glyph::Info::resourceSize() const
   {
     return m2::PointU(m_metrics.m_width + 4,

@@ -43,7 +43,7 @@ namespace graphics
 
     Pen const * pen = static_cast<Pen const *>(res);
 
-    if (!pen->m_info.m_symbol.empty())
+    if (!pen->m_info.m_icon.m_name.empty())
       drawSymbolPath(pts, ptsCount, offset, pen, depth);
     else
       if (m_fastSolidPath && pen->m_isSolid)

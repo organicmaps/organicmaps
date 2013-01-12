@@ -17,6 +17,7 @@ namespace graphics
       Info(GlyphKey const & key,
            GlyphCache * cache);
 
+      Resource::Info const & cacheKey() const;
       m2::PointU const resourceSize() const;
       Resource * createResource(m2::RectU const & texRect,
                                 uint8_t pipelineID) const;

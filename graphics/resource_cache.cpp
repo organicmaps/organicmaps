@@ -106,6 +106,18 @@ namespace graphics
     return h;
   }
 
+  void ResourceCache::addParentInfo(Resource::Info const & fullInfo)
+  {
+    uint32_t id = findInfo(fullInfo.cacheKey());
+
+    Resource * r = fromID(id);
+
+    shared_ptr<Resource> resource(fullInfo.createResource(r->m_texRect, r->m_pipelineID));
+
+    m_parentResources[id] = resource;
+    m_infos[resource->info()] = id;
+  }
+
   bool ResourceCache::hasRoom(Resource::Info const & info) const
   {
     m2::PointU sz = info.resourceSize();
@@ -157,12 +169,19 @@ namespace graphics
 
   Resource * ResourceCache::fromID(uint32_t idx) const
   {
-    TResources::const_iterator it = m_resources.find(idx);
+    TResources::const_iterator it = m_parentResources.find(idx);
 
-    if (it == m_resources.end())
-      return 0;
-    else
+    it = m_parentResources.find(idx);
+
+    if (it != m_parentResources.end())
       return it->second.get();
+
+    it = m_resources.find(idx);
+
+    if (it != m_resources.end())
+      return it->second.get();
+
+    return 0;
   }
 
   shared_ptr<gl::BaseTexture> const & ResourceCache::texture() const
