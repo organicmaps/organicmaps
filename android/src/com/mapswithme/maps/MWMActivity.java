@@ -605,7 +605,10 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         }
         else
         {
-          showProVersionBanner(getString(R.string.bookmarks_in_pro_version));
+          if (!mApplication.isProVersion())
+          {
+            showProVersionBanner(getString(R.string.bookmarks_in_pro_version));
+          }
         }
       }
       else
