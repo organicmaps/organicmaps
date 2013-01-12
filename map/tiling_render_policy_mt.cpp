@@ -23,6 +23,8 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
   ResourceManager::TexturePoolParams tpp;
   ResourceManager::StoragePoolParams spp;
 
+  int k = int(ceil(VisualScale()));
+
   tpp = ResourceManager::TexturePoolParams(512,
                                            512,
                                            1,
@@ -32,8 +34,8 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
 
   rmp.m_textureParams[tpp.m_textureType] = tpp;
 
-  tpp = ResourceManager::TexturePoolParams(256,
-                                           256,
+  tpp = ResourceManager::TexturePoolParams(256 * k,
+                                           256 * k,
                                            1,
                                            rmp.m_texFormat,
                                            EMediumTexture,
@@ -50,8 +52,8 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
 
   rmp.m_textureParams[tpp.m_textureType] = tpp;
 
-  tpp = ResourceManager::TexturePoolParams(128,
-                                           128,
+  tpp = ResourceManager::TexturePoolParams(128 * k,
+                                           128 * k,
                                            4,
                                            rmp.m_texFormat,
                                            ESmallTexture,

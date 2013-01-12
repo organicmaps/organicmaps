@@ -119,10 +119,14 @@ namespace graphics
       resInfos[i] = &glyphInfos[i];
     }
 
-    if (firstVis != lastVis)
-      screen->mapInfo(&resInfos[firstVis],
-                      &glyphIDs[firstVis],
-                      lastVis - firstVis);
+    if ((firstVis != lastVis)
+    && !screen->mapInfo(&resInfos[firstVis],
+                            &glyphIDs[firstVis],
+                            lastVis - firstVis))
+    {
+      LOG(LINFO, ("cannot render string", lastVis - firstVis, "characters long"));
+      return;
+    }
 
     for (unsigned i = firstVis; i < lastVis; ++i)
     {
