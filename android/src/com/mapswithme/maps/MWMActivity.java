@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -48,6 +49,8 @@ import com.nvidia.devtech.NvEventQueueActivity;
 
 public class MWMActivity extends NvEventQueueActivity implements LocationService.Listener
 {
+  private static final int PRO_VERSION_DIALOG = 110001;
+  private static final String PRO_VERSION_DIALOG_MSG = "pro_version_dialog_msg";
   //VideoTimer m_timer;
 
   private static String TAG = "MWMActivity";
@@ -56,6 +59,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   private BroadcastReceiver m_externalStorageReceiver = null;
   private AlertDialog m_storageDisconnectedDialog = null;
   private BookmarkManager m_BookmarkManager;
+
+  //showDialog(int, Bundle) available only form API 8
+  private String mProDialogMessage;
 
   private interface OnLongClickListener
   {
@@ -441,29 +447,16 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
   private void showProVersionBanner(final String message)
   {
-    new AlertDialog.Builder(getActivity())
-    .setMessage(message)
-    .setCancelable(false)
-    .setPositiveButton(getString(R.string.get_it_now), new DialogInterface.OnClickListener()
+    mProDialogMessage = message;
+    runOnUiThread(new Runnable()
     {
+
       @Override
-      public void onClick(DialogInterface dlg, int which)
+      public void run()
       {
-        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(mApplication.getProVersionURL()));
-        dlg.dismiss();
-        startActivity(i);
+        showDialog(PRO_VERSION_DIALOG);
       }
-    })
-    .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener()
-    {
-      @Override
-      public void onClick(DialogInterface dlg, int which)
-      {
-        dlg.dismiss();
-      }
-    })
-    .create()
-    .show();
+    });
   }
 
   private void checkBuyProDialog()
@@ -566,12 +559,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     alignZoomButtons();
 
     BookmarkTouchHandler handler = new BookmarkTouchHandler(m_popupLayout = (PopupLayout)findViewById(R.id.map_popup));
-    if (mApplication.isProVersion())
-    {
-      m_BookmarkManager = BookmarkManager.getBookmarkManager(getApplicationContext());
-      addOnLongClickListener(handler);
-      addOnClickListener(handler);
-    }
+    m_BookmarkManager = BookmarkManager.getBookmarkManager(getApplicationContext());
+    addOnLongClickListener(handler);
+    addOnClickListener(handler);
   }
 
   @Override
@@ -602,10 +592,27 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     }
 
     @Override
-    public void onClick(int x, int y)
+    public void onClick(final int x, final int y)
     {
-      if(!m_PopupLayout.handleClick(x, y))
+      if (m_popupLayout.isActive())
+      {
+        if(!m_PopupLayout.handleClick(x, y, mApplication.isProVersion()))
+        {
+          if (mApplication.isProVersion())
+          {
+            handleOnSmthClick(x, y, false);
+          }
+        }
+        else
+        {
+          showProVersionBanner(getString(R.string.bookmarks_in_pro_version));
+        }
+      }
+      else
+      {
         handleOnSmthClick(x, y, false);
+      }
+
     }
 
     private boolean handleOnSmthClick(int x, int y, boolean longClick)
@@ -939,6 +946,52 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     registerReceiver(m_externalStorageReceiver, filter);
 
     updateExternalStorageState();
+  }
+
+  @Override
+  @Deprecated
+  protected void onPrepareDialog(int id, Dialog dialog, Bundle args)
+  {
+    if (id == PRO_VERSION_DIALOG)
+    {
+      ((AlertDialog)dialog).setMessage(mProDialogMessage);
+    }
+    else
+    {
+      super.onPrepareDialog(id, dialog, args);
+    }
+  }
+
+  @Override
+  @Deprecated
+  protected Dialog onCreateDialog(int id)
+  {
+    if (id == PRO_VERSION_DIALOG)
+    {
+      return new AlertDialog.Builder(getActivity())
+      .setMessage("")
+      .setPositiveButton(getString(R.string.get_it_now), new DialogInterface.OnClickListener()
+      {
+        @Override
+        public void onClick(DialogInterface dlg, int which)
+        {
+          Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(mApplication.getProVersionURL()));
+          dlg.dismiss();
+          startActivity(i);
+        }
+      })
+      .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener()
+      {
+        @Override
+        public void onClick(DialogInterface dlg, int which)
+        {
+          dlg.dismiss();
+        }
+      })
+      .create();
+    }
+    else
+      return super.onCreateDialog(id);
   }
 
   private void stopWatchingExternalStorage()

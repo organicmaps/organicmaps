@@ -224,22 +224,25 @@ public class PopupLayout extends View
    * @param y
    * @return true if we start {@link BookmarkActivity}, false otherwise
    */
-  public synchronized boolean handleClick(int x, int y)
+  public synchronized boolean handleClick(int x, int y, boolean ispro)
   {
     if (m_bmk != null)
     {
       if ( m_popupRect.contains(x, y) )
       {
-        if (m_bmk.isPreviewBookmark())
+        if (ispro)
         {
-          //m_bmk.setCategoryId(BookmarkManager.getBookmarkManager(getContext()).getCategoriesCount()-1);
-          getContext().startActivity(new Intent(getContext(), BookmarkActivity.class).
-                        putExtra(BookmarkActivity.BOOKMARK_POSITION, new ParcelablePoint(m_bmk.getPosition())).
-                        putExtra(BookmarkActivity.BOOKMARK_NAME, m_bmk.getName()));
-        }
-        else
-        {
-          getContext().startActivity(new Intent(getContext(), BookmarkActivity.class).putExtra(BookmarkActivity.PIN, new ParcelablePoint(m_bmk.getCategoryId(), m_bmk.getBookmarkId())));
+          if (m_bmk.isPreviewBookmark())
+          {
+            //m_bmk.setCategoryId(BookmarkManager.getBookmarkManager(getContext()).getCategoriesCount()-1);
+            getContext().startActivity(new Intent(getContext(), BookmarkActivity.class).
+                          putExtra(BookmarkActivity.BOOKMARK_POSITION, new ParcelablePoint(m_bmk.getPosition())).
+                          putExtra(BookmarkActivity.BOOKMARK_NAME, m_bmk.getName()));
+          }
+          else
+          {
+            getContext().startActivity(new Intent(getContext(), BookmarkActivity.class).putExtra(BookmarkActivity.PIN, new ParcelablePoint(m_bmk.getCategoryId(), m_bmk.getBookmarkId())));
+          }
         }
         return true;
       }
