@@ -546,102 +546,43 @@ namespace
 
       std::vector<m2::PointD> testPoints;
       std::vector<double> testPattern;
+
+      graphics::Pen::Info::ELineJoin joins[] = {
+        graphics::Pen::Info::ERoundJoin,
+        graphics::Pen::Info::EBevelJoin,
+        graphics::Pen::Info::ENoJoin
+      };
+
+      graphics::Pen::Info::ELineCap caps[] = {
+        graphics::Pen::Info::EButtCap,
+        graphics::Pen::Info::ESquareCap,
+        graphics::Pen::Info::ERoundCap
+      };
+
       double dx = 0, dy = 0, width = 30;
-      for (int i = 0; i < 2; ++i)
+      for (int dashed = 0; dashed < 2; ++dashed)
       {
+        for (int join = 0; join < ARRAY_SIZE(joins); join++)
+        {
+          for (int cap = 0; cap < ARRAY_SIZE(caps); cap++)
+          {
 
-        testPoints.clear();
-        testPoints.push_back(m2::PointD(dx + 20, dy + 100));
-        testPoints.push_back(m2::PointD(dx + 80, dy + 40));
-        testPoints.push_back(m2::PointD(dx + 120, dy + 169));
-        testPoints.push_back(m2::PointD(dx + 220, dy + 170));
-        AddTest(testPoints, testPattern, graphics::Color(0, 255, 0, 255), width, 0, 0, 0, graphics::Pen::Info::EButtCap, graphics::Pen::Info::ERoundJoin);
+            testPoints.clear();
+            testPoints.push_back(m2::PointD(dx + 20, dy + 100));
+            testPoints.push_back(m2::PointD(dx + 80, dy + 40));
+            testPoints.push_back(m2::PointD(dx + 120, dy + 169));
+            testPoints.push_back(m2::PointD(dx + 220, dy + 170));
+            AddTest(testPoints, testPattern, graphics::Color(0, 255, 0, 255), width, 0, 0, 0, caps[cap], joins[join]);
 
-
-        dy += 130;
-
-        testPoints.clear();
-        testPoints.push_back(m2::PointD(dx + 20, dy + 100));
-        testPoints.push_back(m2::PointD(dx + 80, dy + 40));
-        testPoints.push_back(m2::PointD(dx + 120, dy + 169));
-        testPoints.push_back(m2::PointD(dx + 220, dy + 170));
-        AddTest(testPoints, testPattern, graphics::Color(0, 255, 0, 255), width, 0, 0, 0, graphics::Pen::Info::ESquareCap, graphics::Pen::Info::ERoundJoin);
-
-        dy += 130;
-
-        testPoints.clear();
-        testPoints.push_back(m2::PointD(dx + 20, dy + 100));
-        testPoints.push_back(m2::PointD(dx + 80, dy + 40));
-        testPoints.push_back(m2::PointD(dx + 120, dy + 169));
-        testPoints.push_back(m2::PointD(dx + 220, dy + 170));
-        AddTest(testPoints, testPattern, graphics::Color(0, 255, 0, 255), width, 0, 0, 0, graphics::Pen::Info::ERoundCap, graphics::Pen::Info::ERoundJoin);
-
-
-        dy = 0;
-        dx += 200;
-
-        testPoints.clear();
-        testPoints.push_back(m2::PointD(dx + 20, dy + 100));
-        testPoints.push_back(m2::PointD(dx + 80, dy + 40));
-        testPoints.push_back(m2::PointD(dx + 120, dy + 169));
-        testPoints.push_back(m2::PointD(dx + 220, dy + 170));
-        AddTest(testPoints, testPattern, graphics::Color(0, 255, 0, 255), width, 0, 0, 0, graphics::Pen::Info::EButtCap, graphics::Pen::Info::EBevelJoin);
-
-
-        dy += 130;
-
-        testPoints.clear();
-        testPoints.push_back(m2::PointD(dx + 20, dy + 100));
-        testPoints.push_back(m2::PointD(dx + 80, dy + 40));
-        testPoints.push_back(m2::PointD(dx + 120, dy + 169));
-        testPoints.push_back(m2::PointD(dx + 220, dy + 170));
-        AddTest(testPoints, testPattern, graphics::Color(0, 255, 0, 255), width, 0, 0, 0, graphics::Pen::Info::ESquareCap, graphics::Pen::Info::EBevelJoin);
-
-        dy += 130;
-
-        testPoints.clear();
-        testPoints.push_back(m2::PointD(dx + 20, dy + 100));
-        testPoints.push_back(m2::PointD(dx + 80, dy + 40));
-        testPoints.push_back(m2::PointD(dx + 120, dy + 169));
-        testPoints.push_back(m2::PointD(dx + 220, dy + 170));
-        AddTest(testPoints, testPattern, graphics::Color(0, 255, 0, 255), width, 0, 0, 0, graphics::Pen::Info::ERoundCap, graphics::Pen::Info::EBevelJoin);
-
-        dy = 0;
-        dx += 200;
-
-        testPoints.clear();
-        testPoints.push_back(m2::PointD(dx + 20, dy + 100));
-        testPoints.push_back(m2::PointD(dx + 80, dy + 40));
-        testPoints.push_back(m2::PointD(dx + 120, dy + 169));
-        testPoints.push_back(m2::PointD(dx + 220, dy + 170));
-        AddTest(testPoints, testPattern, graphics::Color(0, 255, 0, 255), width, 0, 0, 0, graphics::Pen::Info::EButtCap, graphics::Pen::Info::ENoJoin);
-
-
-        dy += 130;
-
-        testPoints.clear();
-        testPoints.push_back(m2::PointD(dx + 20, dy + 100));
-        testPoints.push_back(m2::PointD(dx + 80, dy + 40));
-        testPoints.push_back(m2::PointD(dx + 120, dy + 169));
-        testPoints.push_back(m2::PointD(dx + 220, dy + 170));
-        AddTest(testPoints, testPattern, graphics::Color(0, 255, 0, 255), width, 0, 0, 0, graphics::Pen::Info::ESquareCap, graphics::Pen::Info::ENoJoin);
-
-        dy += 130;
-
-        testPoints.clear();
-        testPoints.push_back(m2::PointD(dx + 20, dy + 100));
-        testPoints.push_back(m2::PointD(dx + 80, dy + 40));
-        testPoints.push_back(m2::PointD(dx + 120, dy + 169));
-        testPoints.push_back(m2::PointD(dx + 220, dy + 170));
-        AddTest(testPoints, testPattern, graphics::Color(0, 255, 0, 255), width, 0, 0, 0, graphics::Pen::Info::ERoundCap, graphics::Pen::Info::ENoJoin);
-
-        testPattern.push_back(20);
-        testPattern.push_back(20);
-        testPattern.push_back(20);
-        testPattern.push_back(20);
-
-        dx += 200;
-        dy = 0;
+            dy += 130;
+          }
+          dx += 200;
+          dy = 0;
+        }
+      testPattern.push_back(20);
+      testPattern.push_back(20);
+      testPattern.push_back(10);
+      testPattern.push_back(20);
       }
     }
   };
