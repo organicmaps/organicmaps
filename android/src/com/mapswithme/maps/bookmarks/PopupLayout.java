@@ -183,7 +183,7 @@ public class PopupLayout extends View
     Bookmark bmk = m_bmk;
     if (bmk != null)
     {
-      int pinHeight = 35;
+      int pinHeight = Math.round(35/1.5f * getResources().getDisplayMetrics().density);
       m_popupAnchor.x = bmk.getPosition().x - m_width / 2;
       m_popupAnchor.y = bmk.getPosition().y - pinHeight - m_thriangleHeight - m_height;
 
