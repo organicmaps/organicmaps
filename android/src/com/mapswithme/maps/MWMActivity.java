@@ -636,7 +636,6 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
           }
           else
           {
-            m_PopupLayout.deactivate();
             return false;
           }
     }

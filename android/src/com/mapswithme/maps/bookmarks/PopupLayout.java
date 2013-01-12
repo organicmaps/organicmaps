@@ -16,22 +16,25 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.Point;
+import android.graphics.PorterDuff.Mode;
 import android.graphics.Rect;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 public class PopupLayout extends View
 {
+  private static final String DEACTIVATION = "deactivation";
   private final int m_thriangleHeight;
   private Bitmap m_AddButton;
   private Bitmap m_editButton;
   private Bitmap m_pin;
   private Bitmap m_popup;
 
-  private Bookmark m_bmk;
+  volatile private Bookmark m_bmk;
   private Paint m_backgroundPaint;
   private Paint m_borderPaint;
   private Paint m_buttonPaint = new Paint();
@@ -95,6 +98,7 @@ public class PopupLayout extends View
       m_popup = null;
       b.recycle();
     }
+    Log.d(DEACTIVATION, "deactivated");
     postInvalidate();
   }
 
@@ -181,8 +185,14 @@ public class PopupLayout extends View
   protected void onDraw(Canvas canvas)
   {
     Bookmark bmk = m_bmk;
+    Log.d(DEACTIVATION, "invalidate");
+    Log.d(DEACTIVATION, "invalidate");
+    Log.d(DEACTIVATION, "invalidate");
+    Log.d(DEACTIVATION, "invalidate");
+    Log.d(DEACTIVATION, "" + (bmk == null));
     if (bmk != null)
     {
+      Log.d(DEACTIVATION, "i'm still drawing");
       int pinHeight = Math.round(35/1.5f * getResources().getDisplayMetrics().density);
       m_popupAnchor.x = bmk.getPosition().x - m_width / 2;
       m_popupAnchor.y = bmk.getPosition().y - pinHeight - m_thriangleHeight - m_height;
@@ -199,6 +209,7 @@ public class PopupLayout extends View
     }
     else
     {
+      canvas.drawColor(0, Mode.CLEAR);
       super.onDraw(canvas);
     }
 
@@ -216,6 +227,7 @@ public class PopupLayout extends View
   public synchronized boolean handleClick(int x, int y)
   {
     if (m_bmk != null)
+    {
       if ( m_popupRect.contains(x, y) )
       {
         if (m_bmk.isPreviewBookmark())
@@ -229,9 +241,10 @@ public class PopupLayout extends View
         {
           getContext().startActivity(new Intent(getContext(), BookmarkActivity.class).putExtra(BookmarkActivity.PIN, new ParcelablePoint(m_bmk.getCategoryId(), m_bmk.getBookmarkId())));
         }
-        m_bmk = null;
         return true;
       }
+      deactivate();
+    }
     return false;
   }
 
