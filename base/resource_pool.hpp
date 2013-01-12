@@ -194,8 +194,18 @@ struct AllocateOnDemandMultiThreadedPoolTraits : TBase
 
   elem_t const Reserve()
   {
-    base_t::m_pool.ProcessList(bind(&self_t::AllocateIfNeeded, this, _1));
-    return base_t::Reserve();
+    elem_t res;
+    base_t::m_pool.ProcessList(bind(&self_t::AllocateAndReserve, this, _1, ref(res)));
+    return res;
+  }
+
+  void AllocateAndReserve(list<elem_t> & l, elem_t & res)
+  {
+    AllocateIfNeeded(l);
+    ASSERT ( !l.empty(), () );
+
+    res = l.front();
+    l.pop_front();
   }
 };
 
