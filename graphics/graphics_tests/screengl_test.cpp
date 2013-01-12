@@ -78,7 +78,7 @@ namespace
 
       m_axisPattern.push_back(2);
       m_axisPattern.push_back(2);
-      m_axisPenInfo = graphics::Pen::Info(graphics::Color(0xFF, 0, 0, 0xFF), 2, &m_axisPattern[0], m_axisPattern.size(), 0);
+      m_axisPenInfo = graphics::Pen::Info(graphics::Color(0xFF, 0, 0, 0xFF), 2, &m_axisPattern[0], m_axisPattern.size(), 0, 0, 0, graphics::Pen::Info::ENoJoin, graphics::Pen::Info::EButtCap);
     }
 
     void AddTest(std::vector<m2::PointD> const & points,
@@ -605,6 +605,35 @@ namespace
         testPoints.push_back(m2::PointD(dx + 120, dy + 169));
         testPoints.push_back(m2::PointD(dx + 220, dy + 170));
         AddTest(testPoints, testPattern, graphics::Color(0, 255, 0, 255), width, 0, 0, 0, graphics::Pen::Info::ERoundCap, graphics::Pen::Info::EBevelJoin);
+
+        dy = 0;
+        dx += 200;
+
+        testPoints.clear();
+        testPoints.push_back(m2::PointD(dx + 20, dy + 100));
+        testPoints.push_back(m2::PointD(dx + 80, dy + 40));
+        testPoints.push_back(m2::PointD(dx + 120, dy + 169));
+        testPoints.push_back(m2::PointD(dx + 220, dy + 170));
+        AddTest(testPoints, testPattern, graphics::Color(0, 255, 0, 255), width, 0, 0, 0, graphics::Pen::Info::EButtCap, graphics::Pen::Info::ENoJoin);
+
+
+        dy += 130;
+
+        testPoints.clear();
+        testPoints.push_back(m2::PointD(dx + 20, dy + 100));
+        testPoints.push_back(m2::PointD(dx + 80, dy + 40));
+        testPoints.push_back(m2::PointD(dx + 120, dy + 169));
+        testPoints.push_back(m2::PointD(dx + 220, dy + 170));
+        AddTest(testPoints, testPattern, graphics::Color(0, 255, 0, 255), width, 0, 0, 0, graphics::Pen::Info::ESquareCap, graphics::Pen::Info::ENoJoin);
+
+        dy += 130;
+
+        testPoints.clear();
+        testPoints.push_back(m2::PointD(dx + 20, dy + 100));
+        testPoints.push_back(m2::PointD(dx + 80, dy + 40));
+        testPoints.push_back(m2::PointD(dx + 120, dy + 169));
+        testPoints.push_back(m2::PointD(dx + 220, dy + 170));
+        AddTest(testPoints, testPattern, graphics::Color(0, 255, 0, 255), width, 0, 0, 0, graphics::Pen::Info::ERoundCap, graphics::Pen::Info::ENoJoin);
 
         testPattern.push_back(20);
         testPattern.push_back(20);

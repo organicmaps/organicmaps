@@ -18,7 +18,8 @@ namespace graphics
       enum ELineJoin
       {
         ERoundJoin,
-        EBevelJoin
+        EBevelJoin,
+        ENoJoin
       };
 
       enum ELineCap

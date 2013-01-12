@@ -59,6 +59,10 @@ namespace graphics
 
   void PathRenderer::drawStipplePath(m2::PointD const * points, size_t pointsCount, double offset, Pen const * pen, double depth)
   {
+    bool const hasRoundJoin = (pen->m_info.m_join == pen->m_info.ERoundJoin);
+    bool const hasBevelJoin = (pen->m_info.m_join == pen->m_info.EBevelJoin);
+    bool const hasJoin = (pen->m_info.m_join != pen->m_info.ENoJoin);
+
     float rawTileStartLen = 0;
 
     float rawTileLen = (float)pen->rawTileLen();
@@ -174,10 +178,10 @@ namespace graphics
         rawTileStartPt = rawTileEndPt;
       }
 
-      bool isColorJoin = pen->m_isSolid ? true : pen->m_info.atDashOffset(rawTileLen);
+      bool isColorJoin = hasJoin && pen->m_info.atDashOffset(rawTileLen);
 
       /// Adding geometry for a line join between previous and current segment.
-      if ((i != pointsCount - 2) && (isColorJoin))
+      if ((i != pointsCount - 2) && isColorJoin)
       {
         m2::PointD nextDir = points[i + 2] - points[i + 1];
         nextDir *= 1.0 / nextDir.Length(m2::PointD(0, 0));
@@ -187,19 +191,23 @@ namespace graphics
         double alphaSin = dir.x * nextDir.y - dir.y * nextDir.x;
         double alphaCos = dir.x * nextDir.x + dir.y * nextDir.y;
         double alpha = atan2(alphaSin, alphaCos);
-        int angleSegCount = int(ceil(fabs(alpha) / (math::pi / 6)));
+
+        int angleSegCount = 1; // bevel join - 1 segment
+        if (hasRoundJoin)
+          angleSegCount= int(ceil(fabs(alpha) / (math::pi / 6)));
+
         double angleStep = alpha / angleSegCount;
 
         m2::PointD startVec;
 
         if (alpha > 0)
         {
-          /// The outer site is on the prevNorm direction.
+          /// The outer side is on the prevNorm direction.
           startVec = -norm;
         }
         else
         {
-          /// The outer site is on the -prevNorm direction
+          /// The outer side is on the -prevNorm direction
           startVec = norm;
         }
 
