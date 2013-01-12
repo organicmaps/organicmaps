@@ -182,7 +182,7 @@ public class Bookmark
   {
     changeBookmark(category, getName(), mIcon.getType());
     mCategoryId = catId;
-    mBookmark = BookmarkManager.getBookmarkManager(mContext).getCategoryById(mCategoryId).getSize();
+    mBookmark = BookmarkManager.getBookmarkManager(mContext).getCategoryById(mCategoryId).getSize() - 1;
   }
 
   private void changeBookmark(String category, String name, String type)

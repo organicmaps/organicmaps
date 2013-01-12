@@ -230,20 +230,6 @@ public class BookmarkActivity extends AbstractBookmarkActivity
     });
     return builder.create();
   }
-  /*
-  @Override
-  @Deprecated
-  protected void onPrepareDialog(int id, Dialog dialog, Bundle args)
-  {
-    if (id == BOOKMARK_COLOR_DIALOG)
-    {
-      if (mIconsAdapter != null)
-      {
-        mIconsAdapter.chooseItem();
-      }
-    }
-    super.onPrepareDialog(id, dialog, args);
-  }*/
 
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data)

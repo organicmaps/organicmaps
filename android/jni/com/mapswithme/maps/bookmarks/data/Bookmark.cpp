@@ -81,7 +81,8 @@ extern "C"
       b.SetDescription(bp.GetDescription());
     }
     frm()->AddBookmark(jni::ToNativeString(env, cat), b)->SaveToKMLFile();
-    frm()->GetBmCategory(bac.first)->SaveToKMLFile();
+    if (bac.first >= 0)
+      frm()->GetBmCategory(bac.first)->SaveToKMLFile();
   }
 
   JNIEXPORT jobject JNICALL
