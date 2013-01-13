@@ -84,6 +84,7 @@ public class PopupLayout extends View
   public synchronized void activate(final Bookmark bmk)
   {
     m_bmk = bmk;
+    nDrawBookmark(bmk.getPosition().x, bmk.getPosition().y);
     m_popup = prepareBitmap(m_bmk);
     postInvalidate();
   }
@@ -130,7 +131,6 @@ public class PopupLayout extends View
     if (bmk.isPreviewBookmark())
     {
       btn = m_AddButton;
-      nDrawBookmark(bmk.getPosition().x, bmk.getPosition().y);
     }
     else
     {
