@@ -252,6 +252,8 @@ namespace android
     {
       if (eventType == NV_MULTITOUCH_DOWN)
       {
+        m_scheduledTask.reset(new ScheduledTask(bind(
+            & android::Framework::CallLongClickListener, this, static_cast<int>(x1), static_cast<int>(y1)), static_cast<int>(LONG_CLICK_LENGTH_SEC * 1000)));
         m_longClickTimer.Reset();
         m_isCleanSingleClick = true;
         m_lastX1 = x1;
@@ -267,7 +269,11 @@ namespace android
         ||  (fabs(y1 - m_lastY1) > 10))
         {
           m_isCleanSingleClick = false;
-          //TODO stop timer
+          if (m_scheduledTask)
+          {
+            m_scheduledTask->Cancel();
+            m_scheduledTask.reset();
+          }
         }
 
         if (m_work.GetGuiController()->OnTapMoved(m2::PointD(x1, y1)))
@@ -279,7 +285,19 @@ namespace android
 
       if ((eventType == NV_MULTITOUCH_UP) && (m_isCleanSingleClick))
       {
-        CallClickListeners(static_cast<int>(x1), static_cast<int>(y1), m_longClickTimer.ElapsedSeconds());
+        double timerTime = m_longClickTimer.ElapsedSeconds();
+        if (timerTime < LONG_CLICK_LENGTH_SEC)
+        {
+          if (m_scheduledTask)
+          {
+            m_scheduledTask->Cancel();
+            m_scheduledTask.reset();
+          }
+        }
+        if (timerTime < SHORT_CLICK_LENGTH_SEC)
+        {
+          CallClickListener(static_cast<int>(x1), static_cast<int>(y1));
+        }
         if (m_work.GetGuiController()->OnTapEnded(m2::PointD(x1, y1)))
           return;
 
@@ -529,23 +547,19 @@ namespace android
     return &m_work;
   }
 
-  void Framework::CallClickListeners(int x, int y, double time)
+  void Framework::CallClickListener(int x, int y)
   {
-
-    if (time > LONG_CLICK_LENGTH_SEC)
+    if (!m_onClickListener.empty())
     {
-
-      if (!m_onLongClickListener.empty())
-      {
-        m_onLongClickListener(x, y);
-      }
+      m_onClickListener(x, y);
     }
-    else if(time <= SHORT_CLICK_LENGTH_SEC)
+  }
+
+  void Framework::CallLongClickListener(int x, int y)
+  {
+    if (!m_onLongClickListener.empty())
     {
-      if (!m_onClickListener.empty())
-      {
-        m_onClickListener(x, y);
-      }
+      m_onLongClickListener(x, y);
     }
   }
 

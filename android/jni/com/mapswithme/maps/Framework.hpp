@@ -10,6 +10,7 @@
 #include "../../../../../geometry/avg_vector.hpp"
 
 #include "../../../../../base/timer.hpp"
+#include "../../../../../base/scheduled_task.hpp"
 #include "../../../../../base/strings_bundle.hpp"
 
 #include "../../../nv_event/nv_event.hpp"
@@ -31,6 +32,7 @@ namespace android
 
     TOnClickListener m_onClickListener;
     TOnLongClickListener m_onLongClickListener;
+    boost::shared_ptr<ScheduledTask> m_scheduledTask;
 
     int m_onClickFnsHandler;
     NVMultiTouchEventType m_eventType; //< multitouch action
@@ -57,7 +59,8 @@ namespace android
 
     math::AvgVector<float, 3> m_sensors[2];
 
-    void CallClickListeners(int x, int y, double time);
+    void CallClickListener(int x, int y);
+    void CallLongClickListener(int x, int y);
 
   public:
     Framework();
