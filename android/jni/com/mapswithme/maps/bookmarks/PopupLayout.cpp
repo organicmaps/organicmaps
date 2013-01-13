@@ -16,9 +16,9 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-    Java_com_mapswithme_maps_bookmarks_PopupLayout_nRemoveBookmark(JNIEnv * env, jobject thiz)
-    {
-      frm()->DisablePlacemark();
-      frm()->Invalidate();
-    }
+  Java_com_mapswithme_maps_bookmarks_PopupLayout_nRemoveBookmark(JNIEnv * env, jobject thiz)
+  {
+    frm()->DisablePlacemark();
+    frm()->Invalidate();
+  }
 }
