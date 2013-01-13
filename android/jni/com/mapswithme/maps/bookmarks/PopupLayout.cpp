@@ -12,11 +12,13 @@ extern "C"
   Java_com_mapswithme_maps_bookmarks_PopupLayout_nDrawBookmark(JNIEnv * env, jobject thiz, jdouble x, jdouble y)
   {
     frm()->DrawPlacemark(frm()->PtoG(m2::PointD(x, y)));
+    frm()->Invalidate();
   }
 
   JNIEXPORT void JNICALL
     Java_com_mapswithme_maps_bookmarks_PopupLayout_nRemoveBookmark(JNIEnv * env, jobject thiz)
     {
       frm()->DisablePlacemark();
+      frm()->Invalidate();
     }
 }
