@@ -17,6 +17,7 @@ UNIT_TEST(MapApiSmoke)
   TEST_EQUAL(api.GetPoints()[0].m_lat, 38.970559, ());
   TEST_EQUAL(api.GetPoints()[0].m_lon, -9.419289, ());
   TEST_EQUAL(api.GetPoints()[0].m_title, "Point Name", ());
+  TEST_EQUAL(api.GetPoints()[0].m_url, "", ());
 }
 
 UNIT_TEST(MapApiInvalidUrl)
@@ -77,12 +78,13 @@ UNIT_TEST(MapApiInvalidPointLatLonButValidOtherParts)
   TEST_EQUAL(api.GetPoints()[0].m_lat, 2, ());
   TEST_EQUAL(api.GetPoints()[0].m_lon, 2, ());
   TEST_EQUAL(api.GetPoints()[0].m_title, "B", ());
- }
+}
 
-UNIT_TEST(MapApiPointNameUTF8)
+UNIT_TEST(MapApiPointURLEncoded)
 {
-  ParsedMapApi api(Uri("mapswithme://map?ll=1,2&n=%D0%9C%D0%B8%D0%BD%D1%81%D0%BA&u=someurl"));
+  ParsedMapApi api(Uri("mapswithme://map?ll=1,2&n=%D0%9C%D0%B8%D0%BD%D1%81%D0%BA&u=http%3A%2F%2Fmap%3Fll%3D1%2C2%26n%3Dtest"));
   TEST(api.IsValid(), ());
   TEST_EQUAL(api.GetPoints().size(), 1, ());
   TEST_EQUAL(api.GetPoints()[0].m_title, "\xd0\x9c\xd0\xb8\xd0\xbd\xd1\x81\xd0\xba", ());
+  TEST_EQUAL(api.GetPoints()[0].m_url, "http://map?ll=1,2&n=test", ());
 }
