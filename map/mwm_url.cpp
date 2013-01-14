@@ -36,7 +36,8 @@ bool ParsedMapApi::IsValid() const
 
 bool ParsedMapApi::Parse(Uri const & uri)
 {
-  if (uri.GetScheme() != "mapswithme" || uri.GetPath() != "map")
+  string const & scheme = uri.GetScheme();
+  if ((scheme != "mapswithme" && scheme != "mwm") || uri.GetPath() != "map")
     return false;
 
   uri.ForEachKeyValue(bind(&ParsedMapApi::AddKeyValue, this, _1, _2));

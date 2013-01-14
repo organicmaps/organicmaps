@@ -14,7 +14,7 @@ struct ApiPoint
   string m_url;
 };
 
-/// Handles mapswithme://map?params - everything related to displaying info on a map
+/// Handles [mapswithme|mwm]://map?params - everything related to displaying info on a map
 class ParsedMapApi
 {
 public:

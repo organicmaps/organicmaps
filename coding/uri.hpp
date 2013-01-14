@@ -16,8 +16,8 @@ public:
   explicit Uri(string const & uri) : m_url(uri) { Init(); }
   Uri(char const * uri, size_t size) : m_url(uri, uri + size) { Init(); }
 
-  string GetScheme() const { return m_scheme; }
-  string GetPath() const { return m_path; }
+  string const & GetScheme() const { return m_scheme; }
+  string const & GetPath() const { return m_path; }
   bool IsValid() const { return !m_scheme.empty(); }
 
   void ForEachKeyValue(CallbackT const & callback) const;
