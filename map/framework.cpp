@@ -47,6 +47,8 @@
 #define KML_EXTENSION ".kml"
 #define KMZ_EXTENSION ".kmz"
 
+#define DEFAULT_BOOKMARK_TYPE "placemark-red"
+
 using namespace storage;
 
 
@@ -819,7 +821,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   m_informationDisplay.doDraw(pDrawer);
 
   if (m_drawPlacemark)
-    m_informationDisplay.drawPlacemark(pDrawer, "placemark-red", m_navigator.GtoP(m_placemark));
+    m_informationDisplay.drawPlacemark(pDrawer, DEFAULT_BOOKMARK_TYPE, m_navigator.GtoP(m_placemark));
 
   // get viewport limit rect
   m2::AnyRectD const & glbRect = m_navigator.Screen().GlobalRect();
