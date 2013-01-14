@@ -2,8 +2,10 @@ package com.mapswithme.maps;
 
 import java.util.Locale;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -229,11 +231,6 @@ public class SearchActivity extends ListActivity implements LocationService.List
     return (LinearLayout) findViewById(R.id.search_toolbar);
   }
 
-  private LinearLayout getModeToolbar()
-  {
-    return (LinearLayout) findViewById(R.id.search_mode_toolbar);
-  }
-
   private String getSearchString()
   {
     final String s = getSearchBox().getText().toString();
@@ -433,9 +430,42 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
   /// @name Search mode buttons listeners.
   //@{
-  public void onSearchModeAll(View v) { runSearch(ALL); }
-  public void onSearchModeNearMe(View v) { runSearch(AROUND_POSITION); }
-  public void onSearchModeViewport(View v) { runSearch(IN_VIEWPORT); }
+  public void onSearchMode(View v)
+  {
+    final CharSequence items[] = {
+        getString(R.string.search_mode_all),
+        getString(R.string.search_mode_nearme),
+        getString(R.string.search_mode_viewport)
+    };
+
+    int selected = 0;
+    switch (m_searchMode)
+    {
+    case AROUND_POSITION: selected = 1; break;
+    case IN_VIEWPORT: selected = 2; break;
+    }
+
+    new AlertDialog.Builder(this)
+    .setTitle(R.string.search)
+    .setSingleChoiceItems(items, selected, new DialogInterface.OnClickListener()
+    {
+      @Override
+      public void onClick(DialogInterface dlg, int which)
+      {
+        int mode = ALL;
+        switch (which)
+        {
+        case 1: mode = AROUND_POSITION; break;
+        case 2: mode = IN_VIEWPORT; break;
+        }
+
+        dlg.dismiss();
+        runSearch(mode);
+      }
+    })
+    .create()
+    .show();
+  }
   //@}
 
   private void runSearch(String s)
@@ -485,11 +515,8 @@ public class SearchActivity extends ListActivity implements LocationService.List
       // set toolbar visible only for empty search string
       final boolean emptyQuery = s.length() == 0;
 
-      LinearLayout bar = getSearchToolbar();
+      final LinearLayout bar = getSearchToolbar();
       bar.setVisibility(emptyQuery ? View.VISIBLE : View.GONE);
-
-      bar = getModeToolbar();
-      bar.setVisibility(emptyQuery ? View.GONE : View.VISIBLE);
 
       // show search progress
       m_progress.setVisibility(View.VISIBLE);

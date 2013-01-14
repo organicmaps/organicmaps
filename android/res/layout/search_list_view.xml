@@ -10,13 +10,25 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        
+
+       		<ImageButton android:id="@+id/search_mode_button"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignParentLeft="true"
+		        android:layout_centerVertical="true"
+		        android:onClick="onSearchMode"
+		        android:src="@drawable/cell_arrow_white"
+		        android:background="#000000"
+		        android:paddingLeft="8dp"
+    			android:paddingRight="8dp" />
+
 		    <EditText android:id="@+id/search_string"
                   android:inputType="text"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
+                  android:layout_toRightOf="@+id/search_mode_button"
                   android:hint="@string/search_map" />
-		    
+
 		    <ProgressBar android:id="@+id/search_progress"
 						         android:layout_width="wrap_content"
 						         android:layout_height="wrap_content"
@@ -24,7 +36,7 @@
 						         android:layout_alignParentRight="true"
 						         style="@android:style/Widget.ProgressBar.Small"
 						         android:layout_marginRight="8dp" />
-		    
+
     </RelativeLayout>
 
     <LinearLayout android:id="@+id/search_toolbar" 
@@ -82,39 +94,6 @@
 			                android:onClick="onSearchTourism"/>
 
     </LinearLayout>
-
-    <LinearLayout android:id="@+id/search_mode_toolbar"
-                  android:orientation="horizontal"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:visibility="gone"
-                  android:weightSum="3.0">
-
-        <Button
-                 android:layout_weight="1.0"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:text="@string/search_mode_all"
-                 android:background="@drawable/ltgray_button"
-                 android:onClick="onSearchModeAll"/>
-
-        <Button
-                 android:layout_weight="1.0"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:text="@string/search_mode_nearme"
-                 android:background="@drawable/ltgray_button"
-                 android:onClick="onSearchModeNearMe"/>
-
-        <Button
-                 android:layout_weight="1.0"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:text="@string/search_mode_viewport"
-                 android:background="@drawable/ltgray_button"
-                 android:onClick="onSearchModeViewport"/>
-
-     </LinearLayout>
 
     <ListView android:id="@android:id/list"
               android:layout_width="match_parent"
