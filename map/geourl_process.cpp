@@ -18,12 +18,13 @@ namespace url_scheme
   {
     ASSERT ( IsValid(), () );
 
-    return scales::GetRectForLevel(m_zoom,
-                                   m2::PointD(MercatorBounds::LonToX(m_lon),
-                                              MercatorBounds::LatToY(m_lat)),
-                                   1.0);
+    return scales::GetRectForLevel(m_zoom, GetMercatorPoint(), 1.0);
   }
 
+  m2::PointD Info::GetMercatorPoint() const
+  {
+    return m2::PointD(MercatorBounds::LonToX(m_lon), MercatorBounds::LatToY(m_lat));
+  }
 
   class DoGeoParse
   {

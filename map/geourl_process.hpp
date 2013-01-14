@@ -26,6 +26,8 @@ namespace url_scheme
     }
 
     m2::RectD GetViewport() const;
+    // @return lat and lon in Mercator projection
+    m2::PointD GetMercatorPoint() const;
   };
 
   void ParseGeoURL(string const & s, Info & info);
