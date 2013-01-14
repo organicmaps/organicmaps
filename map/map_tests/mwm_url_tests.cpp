@@ -33,8 +33,8 @@ UNIT_TEST(MapApiLatLonLimits)
 {
   TEST(!ParsedMapApi(Uri("mapswithme://map?ll=-91,10")).IsValid(), ("Invalid latitude"));
   TEST(!ParsedMapApi(Uri("mapswithme://map?ll=523.55,10")).IsValid(), ("Invalid latitude"));
-  TEST(ParsedMapApi(Uri("mapswithme://map?ll=23.55,450")).IsValid(), ("But valid longtitude"));
-  TEST(ParsedMapApi(Uri("mapswithme://map?ll=23.55,-450")).IsValid(), ("But valid longtitude"));
+  TEST(!ParsedMapApi(Uri("mapswithme://map?ll=23.55,450")).IsValid(), ("Invalid longtitude"));
+  TEST(!ParsedMapApi(Uri("mapswithme://map?ll=23.55,-450")).IsValid(), ("Invalid longtitude"));
 }
 
 UNIT_TEST(MapApiPointNameBeforeLatLon)
@@ -78,3 +78,11 @@ UNIT_TEST(MapApiInvalidPointLatLonButValidOtherParts)
   TEST_EQUAL(api.GetPoints()[0].m_lon, 2, ());
   TEST_EQUAL(api.GetPoints()[0].m_title, "B", ());
  }
+
+UNIT_TEST(MapApiPointNameUTF8)
+{
+  ParsedMapApi api(Uri("mapswithme://map?ll=1,2&n=%D0%9C%D0%B8%D0%BD%D1%81%D0%BA&u=someurl"));
+  TEST(api.IsValid(), ());
+  TEST_EQUAL(api.GetPoints().size(), 1, ());
+  TEST_EQUAL(api.GetPoints()[0].m_title, "\xd0\x9c\xd0\xb8\xd0\xbd\xd1\x81\xd0\xba", ());
+}

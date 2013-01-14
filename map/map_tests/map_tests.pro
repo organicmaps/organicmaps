@@ -29,3 +29,4 @@ SOURCES += \
   bookmarks_test.cpp \
   geourl_test.cpp \
   measurement_tests.cpp \
+  mwm_url_tests.cpp \
