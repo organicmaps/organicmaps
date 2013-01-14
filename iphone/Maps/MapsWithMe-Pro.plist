@@ -10,7 +10,12 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeIconFiles</key>
-			<array/>
+			<array>
+				<string>320-pro.png</string>
+				<string>64-pro.png</string>
+				<string>44x58-pro.png</string>
+				<string>22x29-pro.png</string>
+			</array>
 			<key>CFBundleTypeName</key>
 			<string>Google Earth KML Document</string>
 			<key>LSItemContentTypes</key>
@@ -20,7 +25,12 @@
 		</dict>
 		<dict>
 			<key>CFBundleTypeIconFiles</key>
-			<array/>
+			<array>
+				<string>320-pro.png</string>
+				<string>64-pro.png</string>
+				<string>44x58-pro.png</string>
+				<string>22x29-pro.png</string>
+			</array>
 			<key>CFBundleTypeName</key>
 			<string>Google Earth KMZ Document</string>
 			<key>LSItemContentTypes</key>
