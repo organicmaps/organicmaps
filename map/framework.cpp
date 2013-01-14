@@ -201,6 +201,9 @@ Framework::Framework()
   m_stringsBundle.SetDefaultString("try_again", "Try Again");
   m_stringsBundle.SetDefaultString("not_enough_free_space_on_sdcard", "Not enough space for downloading");
 
+  m_stringsBundle.SetDefaultString("dropped_pin", "Dropped Pin");
+  m_stringsBundle.SetDefaultString("my_places", "My Places");
+
   m_animController.reset(new anim::Controller());
 
   // Init GUI controller.
@@ -1461,7 +1464,9 @@ bool Framework::SetViewportByURL(string const & url)
 
   if (info.IsValid())
   {
-    ShowRectEx(info.GetViewport());
+    ShowRectExVisibleScale(info.GetViewport());
+    Bookmark bm(info.GetMercatorPoint(), m_stringsBundle.GetString("dropped_pin"), DEFAULT_BOOKMARK_TYPE);
+    AddBookmark(m_stringsBundle.GetString("my_places"), bm);
     Invalidate();
     return true;
   }

@@ -20,6 +20,9 @@ void InitLocalizedStrings()
   f.AddString("country_status_download", [NSLocalizedString(@"country_status_download", @"Button text for the button at the center of the screen when the country is not downloaded") UTF8String]);
   f.AddString("country_status_download_failed", [NSLocalizedString(@"country_status_download_failed", @"Message to display at the center of the screen when the country download has failed") UTF8String]);
   f.AddString("try_again", [NSLocalizedString(@"try_again", @"Button text for the button under the country_status_download_failed message") UTF8String]);
+  // Default texts for bookmarks added in C++ code (by URL Scheme API)
+  f.AddString("dropped_pin", [NSLocalizedString(@"dropped_pin", nil) UTF8String]);
+  f.AddString("my_places", [NSLocalizedString(@"my_places", nil) UTF8String]);
 }
 
 @implementation MapsAppDelegate
