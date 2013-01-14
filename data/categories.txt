@@ -1143,16 +1143,16 @@ cs:oblečení|obchod
 nl:kledingwinkel|4kleding
 
 shop-car_repair
-en:3car repair shop
-ru:4автозапчасти|магазин
-de:Teile|Laden
-fr:parties|magasin
-it:parti|negozio
-es:Piezas|tienda
-ko:부품|쇼핑
-ja:パーツ|店
-cs:autodílna|obchod
-nl:3auto reparatie
+en:3car repair shop|4service station|auto
+ru:3СТО|3автомастерская|автосервис|авто
+de:3Autowerkstatt|Car|Auto
+fr:3réparation automobile|3voiture
+it:3riparazione auto|auto|macchina|3automobile|vettura
+es:3reparaciones auto|coche|automóvil|3auto|carro
+ko:자동차 수리|자동차|차|차량
+ja:自動車修理|カー|車|自動車
+cs:3auto oprava|auto|auta|Půjčení
+nl:3auto reparatie|auto|wagen
 
 shop-car
 en:car shop
