@@ -72,7 +72,8 @@ SOURCES += \
     icon.cpp \
     brush.cpp \
     geometry_pipeline.cpp \
-    pipeline_manager.cpp
+    pipeline_manager.cpp \
+    path_view.cpp \
 
 HEADERS += \
     opengl/opengl.hpp \
@@ -140,7 +141,8 @@ HEADERS += \
     brush.hpp \
     geometry_pipeline.hpp \
     pipeline_manager.hpp \
-    vertex_stream.hpp
+    vertex_stream.hpp \
+    path_view.hpp \
 
 win32* {
   SOURCES += opengl/opengl_win32.cpp

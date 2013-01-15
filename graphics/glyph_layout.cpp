@@ -223,7 +223,7 @@ namespace graphics
     if (m_path.fullLength() < strLength)
       return;
 
-    PathPoint arrPathStart(0, ang::AngleD(ang::AngleTo(m_path.get(0), m_path.get(1))), m_path.get(0));
+    PathPoint arrPathStart = m_path.front();
 
     m_pivot = m_path.offsetPoint(arrPathStart, m_path.fullLength() / 2.0).m_pt;
 
