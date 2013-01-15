@@ -38,37 +38,26 @@ namespace feature
     f.GetPreferredDrawableNames(m_primaryText, m_secondaryText);
     m_refText = f.GetRoadNumber();
 
-
-
-
     double const population = static_cast<double>(f.GetPopulation());
     if (population == 1)
       m_popRank =  0.0;
     else
     {
       double const upperBound = 3.0E6;
-      m_popRank = min(upperBound, population) / upperBound;
+      m_popRank = min(upperBound, population) / upperBound / 4;
     }
 
     // low zoom heuristics
     if (zoom <= 5)
     {
-      // draw country names and capitals on native language only
-      if (!m_secondaryText.empty())
-      {
-        m_primaryText.swap(m_secondaryText);
-        m_secondaryText.clear();
-      }
-
-      // don't use population rank on low zoom
-      m_popRank = 0.0;
-
       // hide superlong names on low zoom
-      if (m_primaryText.size() > 70)
+      if (m_primaryText.size() > 50)
         m_primaryText.clear();
     }
 
     m_priorityModifier = 0;
+
+    //m_secondaryText = strings::to_string(population);
 
     if (population != 0){
       // dividing by planet population to get m_priorityModifier < 1
