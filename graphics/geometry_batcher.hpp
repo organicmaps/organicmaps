@@ -141,6 +141,16 @@ namespace graphics
                                  double depth,
                                  int pipelineID);
 
+    void addTexturedStripStrided(m2::PointD const * coords,
+                                 size_t coordsStride,
+                                 m2::PointF const * normals,
+                                 size_t normalsStride,
+                                 m2::PointF const * texCoords,
+                                 size_t texCoordsStride,
+                                 unsigned size,
+                                 double depth,
+                                 int pipelineID);
+
     void addTexturedList(m2::PointF const * coords,
                          m2::PointF const * texCoords,
                          m2::PointF const * normalCoords,

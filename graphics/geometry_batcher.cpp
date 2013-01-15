@@ -510,6 +510,37 @@ namespace graphics
     addTriangleStrip(&vs, size, pipelineID);
   }
 
+  void GeometryBatcher::addTexturedStripStrided(
+      m2::PointD const * coords,
+      size_t coordsStride,
+      m2::PointF const * normals,
+      size_t normalsStride,
+      m2::PointF const * texCoords,
+      size_t texCoordsStride,
+      unsigned size,
+      double depth,
+      int pipelineID)
+  {
+    VertexStream vs;
+
+    vs.m_dPos.m_x = (double*)(coords);
+    vs.m_dPos.m_xStride = coordsStride;
+    vs.m_dPos.m_y = (double*)(coords) + 1;
+    vs.m_dPos.m_yStride = coordsStride;
+    vs.m_dPos.m_z = (double*)(&depth);
+    vs.m_dPos.m_zStride = 0;
+    vs.m_fNormal.m_x = (float*)(normals);
+    vs.m_fNormal.m_xStride = normalsStride;
+    vs.m_fNormal.m_y = (float*)(normals) + 1;
+    vs.m_fNormal.m_yStride = normalsStride;
+    vs.m_fTex.m_u = (float*)(texCoords);
+    vs.m_fTex.m_uStride = texCoordsStride;
+    vs.m_fTex.m_v = (float*)(texCoords) + 1;
+    vs.m_fTex.m_vStride = texCoordsStride;
+
+    addTriangleStrip(&vs, size, pipelineID);
+  }
+
   void GeometryBatcher::addTexturedListStrided(
       m2::PointD const * coords,
       size_t coordsStride,
