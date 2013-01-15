@@ -801,47 +801,53 @@ namespace graphics
                                  uint32_t * ids,
                                  size_t count)
   {
-    int startDynamicPage = m_dynamicPage;
-    int cycles = 0;
-
-    int i = 0;
-
-    do
+    for (unsigned cycles = 0; cycles < 2; ++cycles)
     {
-      ids[i] = pipeline(m_dynamicPage).cache()->findInfo(*infos[i]);
-
-      if ((ids[i] == invalidPageHandle())
-       || (unpackID(ids[i]).first != m_dynamicPage))
+      bool packed = true;
+      for (unsigned i = 0; i < count; ++i)
       {
-        /// try to pack on the currentDynamicPage
-        while (!pipeline(m_dynamicPage).cache()->hasRoom(*infos[i]))
+        ResourceCache * staticCache = pipeline(m_startStaticPage).cache().get();
+        ResourceCache * dynamicCache = pipeline(m_dynamicPage).cache().get();
+
+        uint32_t res;
+        ids[i] = staticCache->findInfo(*infos[i]);
+
+        if (ids[i] == invalidPageHandle())
         {
-          /// no room - flush the page
-          flushDynamicPage();
-
-          if (startDynamicPage == m_dynamicPage)
-            cycles += 1;
-
-          /// there could be maximum 2 cycles to
-          /// pack the sequence as a whole.
-          /// second cycle is necessary as the first one
-          /// could possibly run on partially packed skin pages.
-          if (cycles == 2)
-            return false;
-
-          /// re-start packing
-          i = 0;
+          ids[i] = staticCache->findInfo(infos[i]->cacheKey());
+          if (ids[i] == invalidPageHandle())
+          {
+            ids[i] = dynamicCache->findInfo(*infos[i]);
+            if (ids[i] == invalidPageHandle())
+            {
+              if (dynamicCache->hasRoom(*infos[i]))
+                ids[i] = packID(m_dynamicPage, dynamicCache->mapInfo(*infos[i]));
+              else
+              {
+                packed = false;
+                break;
+              }
+            }
+            else
+              ids[i] = packID(m_dynamicPage, ids[i]);
+          }
+          else
+          {
+            staticCache->addParentInfo(*infos[i]);
+            ids[i] = packID(m_startStaticPage, ids[i]);
+          }
         }
-
-        ids[i] = packID(m_dynamicPage,
-                        pipeline(m_dynamicPage).cache()->mapInfo(*infos[i]));
+        else
+          ids[i] = packID(m_startStaticPage, ids[i]);
       }
 
-      ++i;
+      if (packed)
+        return packed;
+      else
+        flushDynamicPage();
     }
-    while (i != count);
 
-    return true;
+    return false;
   }
 
 } // namespace graphics

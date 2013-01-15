@@ -13,7 +13,7 @@ namespace m2
     m_height(0),
     m_currentHandle(0),
     m_maxHandle(0),
-    m_invalidHandle(static_cast<uint32_t>(-1))
+    m_invalidHandle(0x00FFFFFF)
   {}
 
   Packer::Packer(unsigned width, unsigned height, uint32_t maxHandle)
@@ -24,7 +24,7 @@ namespace m2
     m_height(height),
     m_currentHandle(0),
     m_maxHandle(maxHandle),
-    m_invalidHandle(maxHandle + 1)
+    m_invalidHandle(0x00FFFFFF)
   {
   }
 
