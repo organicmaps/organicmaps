@@ -404,43 +404,6 @@ pair<int, int> GetDrawableScaleRangeForRules(FeatureBase const & f, int rules)
   return GetDrawableScaleRangeForRules(TypesHolder(f), rules);
 }
 
-bool UsePopulationRank(uint32_t type)
-{
-  class CheckerT
-  {
-     uint32_t m_types[3];
-
-  public:
-    CheckerT()
-    {
-      Classificator & c = classif();
-
-      vector<string> vec;
-      vec.push_back("place");
-      vec.push_back("city");
-      m_types[0] = c.GetTypeByPath(vec);
-
-      vec.push_back("capital");
-      m_types[1] = c.GetTypeByPath(vec);
-
-      vec.clear();
-      vec.push_back("place");
-      vec.push_back("town");
-      m_types[2] = c.GetTypeByPath(vec);
-    }
-
-    bool IsMyType(uint32_t t) const
-    {
-      uint32_t const * e = m_types + ARRAY_SIZE(m_types);
-      return (find(m_types, e, t) != e);
-    }
-  };
-
-  static CheckerT checker;
-  return (checker.IsMyType(type));
-}
-
-
 void TypeSetChecker::SetType(StringT * beg, StringT * end)
 {
   m_type = classif().GetTypeByPath(vector<string>(beg, end));

@@ -41,7 +41,7 @@ namespace graphics
     void drawCircle(m2::PointD const & pt,
                     Circle::Info const & ci,
                     EPosition pos,
-                    int depth);
+                    double depth);
 
     /// drawing straight text
     void drawText(FontDesc const & fontDesc,

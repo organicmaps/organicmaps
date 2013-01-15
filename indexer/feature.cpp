@@ -311,21 +311,6 @@ uint32_t FeatureType::GetPopulation() const
   return (r == 0 ? 1 : static_cast<uint32_t>(pow(1.1, r)));
 }
 
-double FeatureType::GetPopulationDrawRank() const
-{
-  uint32_t const n = GetPopulation();
-  if (n == 1) return 0.0;
-
-  // Do not return rank for countries.
-  if (feature::UsePopulationRank(m_Types, m_Types + GetTypesCount()))
-  {
-    double const upperBound = 3.0E6;
-    return min(upperBound, static_cast<double>(n)) / upperBound;
-  }
-  else
-    return 0.0;
-}
-
 namespace
 {
   class DoCalcDistance

@@ -57,19 +57,6 @@ namespace feature
   pair<int, bool> GetDrawRule(FeatureBase const & f, int level,
                               vector<drule::Key> & keys, string & names);
 
-  bool UsePopulationRank(uint32_t type);
-
-  template <class IterT>
-  inline bool UsePopulationRank(IterT beg, IterT end)
-  {
-    while (beg != end)
-    {
-      if (UsePopulationRank(*beg++))
-        return true;
-    }
-    return false;
-  }
-
   /// Used to check whether user types belong to particular classificator set.
   class TypeSetChecker
   {

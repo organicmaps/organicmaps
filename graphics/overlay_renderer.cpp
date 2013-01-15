@@ -56,7 +56,7 @@ namespace graphics
   void OverlayRenderer::drawCircle(m2::PointD const & pt,
                                    graphics::Circle::Info const & ci,
                                    EPosition pos,
-                                   int depth)
+                                   double depth)
   {
     CircleElement::Params params;
 

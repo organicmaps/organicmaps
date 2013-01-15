@@ -1,6 +1,8 @@
 #include "draw_processor.hpp"
 #include "drawer.hpp"
 
+#include "feature_styler.hpp"
+
 #include "../platform/preferred_languages.hpp"
 
 #include "../geometry/screenbase.hpp"
@@ -222,22 +224,6 @@ namespace fwork
     GetDrawer()->SetScale(m_zoom);
   }
 
-  namespace
-  {
-    struct less_depth
-    {
-      bool operator() (di::DrawRule const & r1, di::DrawRule const & r2) const
-      {
-        return (r1.m_depth < r2.m_depth);
-      }
-    };
-  }
-
-  void DrawProcessor::PreProcessKeys(vector<drule::Key> & keys) const
-  {
-    drule::MakeUnique(keys);
-  }
-
 #define GET_POINTS(f, for_each_fun, fun, assign_fun)       \
   {                                                        \
     f.for_each_fun(fun, m_zoom);                           \
@@ -253,84 +239,39 @@ namespace fwork
     if (m_paintEvent->isCancelled())
       throw redraw_operation_cancelled();
 
-    // get drawing rules
-    vector<drule::Key> keys;
-    string names;       // for debug use only, in release it's empty
-    pair<int, bool> type = feature::GetDrawRule(f, m_zoom, keys, names);
+    feature::StylesContainer styles;
+    styles.GetStyles(f, m_zoom);
 
-    if (keys.empty())
-    {
-      // Index can pass here invisible features.
-      // During indexing, features are placed at first visible scale bucket.
-      // At higher scales it can become invisible - it depends on classificator.
+    if (styles.empty())
       return true;
-    }
 
-    if (type.second)
+    // Draw coastlines features only once.
+    if (styles.m_isCoastline)
     {
-      // Draw coastlines features only once.
-      string s1, s2;
-      f.GetPreferredDrawableNames(s1, s2);
-      if (!m_coasts.insert(s1).second)
+      if (!m_coasts.insert(styles.m_primaryText).second)
         return true;
     }
     else
       m_hasNonCoast = true;
 
-    // remove duplicating identical drawing keys
-    PreProcessKeys(keys);
+    size_t count = styles.m_count;
 
-    // get drawing rules for the m_keys array
-    size_t const count = keys.size();
 #ifdef PROFILER_DRAWING
     m_drawCount += count;
 #endif
 
-    buffer_vector<di::DrawRule, 16> rules;
-    rules.resize(count);
-
-    int layer = f.GetLayer();
-    bool isTransparent = false;
-    if (layer == feature::LAYER_TRANSPARENT_TUNNEL)
-    {
-      layer = 0;
-      isTransparent = true;
-    }
-
-    for (size_t i = 0; i < count; ++i)
-    {
-      int depth = keys[i].m_priority;
-      if (layer != 0)
-        depth = (layer * drule::layer_base_priority) + (depth % drule::layer_base_priority);
-
-      rules[i] = di::DrawRule(drule::rules().Find(keys[i]), depth, isTransparent);
-    }
-
-    sort(rules.begin(), rules.end(), less_depth());
-
-    string defaultName, intName;
-    f.GetPreferredDrawableNames(defaultName, intName);
-
-    // draw country names and capitals on native language only
-    int const worldZoom = 5;
-    if (m_zoom <= worldZoom && !intName.empty())
-    {
-      defaultName.swap(intName);
-      intName.clear();
-    }
-
     scoped_ptr<di::DrawInfo> ptr(new di::DrawInfo(
-        defaultName,
-        intName,
-        f.GetRoadNumber(),
-        (m_zoom > worldZoom) ? f.GetPopulationDrawRank() : 0.0));
+        styles.m_primaryText,
+        styles.m_secondaryText,
+        styles.m_refText,
+        styles.m_popRank)); // FIXME
 
     Drawer * pDrawer = GetDrawer();
 
     using namespace get_pts;
 
     bool isExist = false;
-    switch (type.first)
+    switch (styles.m_geometryType)
     {
     case feature::GEOM_POINT:
     {
@@ -356,14 +297,11 @@ namespace fwork
       functor_t fun(p);
       GET_POINTS(f, ForEachTriangleExRef, fun, assign_area)
       {
-        // if area feature has any line-drawing-rules, than draw it like line
-        for (size_t i = 0; i < keys.size(); ++i)
-          if (keys[i].m_type == drule::line)
-            goto draw_line;
-        break;
+        // continue rendering as line if feature has linear styles too
+        if (!styles.m_hasLineStyles)
+          break;
       }
     }
-    draw_line:
     case feature::GEOM_LINE:
       {
         typedef filter_screenpts_adapter<path_points> functor_t;
@@ -371,13 +309,14 @@ namespace fwork
         p.m_convertor = &m_convertor;
         p.m_rect = &m_rect;
 
-        if (!ptr->m_name.empty())
+        if (styles.m_hasPathText)
         {
           uint8_t fontSize = 0;
-          for (size_t i = 0; i < count; ++i)
+          for (size_t i = 0; i < count; i++)
           {
-            if (!pDrawer->filter_text_size(rules[i].m_rule))
-              fontSize = max(fontSize, pDrawer->get_text_font_size(rules[i].m_rule));
+            if (!pDrawer->filter_text_size(styles.m_rules[i].m_rule))
+              fontSize = max(fontSize, pDrawer->get_text_font_size(styles.m_rules[i].m_rule));
+
           }
 
           if (fontSize != 0)
@@ -391,7 +330,7 @@ namespace fwork
 
             f.ForEachPointRef(fun, m_zoom);
 
-            textLength += 50;
+            textLength += 30;
 
             if ((fun.IsExist()) && (fun.m_length > textLength))
             {
@@ -410,7 +349,7 @@ namespace fwork
     }
 
     if (isExist)
-      pDrawer->Draw(ptr.get(), rules.data(), count, f.GetID());
+      pDrawer->Draw(ptr.get(), styles.m_rules.data(), count, f.GetID());
 
     return true;
   }

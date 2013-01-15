@@ -54,11 +54,11 @@ namespace di
     typedef drule::BaseRule const * rule_ptr_t;
 
     rule_ptr_t m_rule;
-    int m_depth;
+    double m_depth;
     bool m_transparent;
 
     DrawRule() : m_rule(0) {}
-    DrawRule(rule_ptr_t p, int d, bool tr) : m_rule(p), m_depth(d), m_transparent(tr) {}
+    DrawRule(rule_ptr_t p, double d, bool tr) : m_rule(p), m_depth(d), m_transparent(tr) {}
 
     uint32_t GetID(size_t threadSlot) const;
     void SetID(size_t threadSlot, uint32_t id) const;
@@ -81,15 +81,15 @@ class Drawer
 
 protected:
   void drawSymbol(m2::PointD const & pt, rule_ptr_t pRule,
-                  graphics::EPosition pos, int depth, FeatureID const & id);
+                  graphics::EPosition pos, double depth, FeatureID const & id);
   void drawCircle(m2::PointD const & pt, rule_ptr_t pRule,
-                  graphics::EPosition pos, int depth, FeatureID const & id);
+                  graphics::EPosition pos, double depth, FeatureID const & id);
   void drawPath(di::PathInfo const & info, di::DrawRule const * rules, size_t count);
-  void drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth);
+  void drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, double depth);
 
   void drawText(m2::PointD const & pt, di::DrawInfo const * pInfo, rule_ptr_t pRule,
-                graphics::EPosition pos, int depth, FeatureID const & id);
-  bool drawPathText(di::PathInfo const & info, di::DrawInfo const * pInfo, rule_ptr_t pRule, int depth);
+                graphics::EPosition pos, double depth, FeatureID const & id);
+  bool drawPathText(di::PathInfo const & info, di::DrawInfo const * pInfo, rule_ptr_t pRule, double depth);
   void drawPathNumber(di::PathInfo const & path, di::DrawInfo const * pInfo);
 
   typedef shared_ptr<graphics::gl::BaseTexture> texture_t;
@@ -105,7 +105,7 @@ public:
 
   Drawer(Params const & params = Params());
 
-  void drawSymbol(m2::PointD const & pt, string const & symbolName, graphics::EPosition pos, int depth);
+  void drawSymbol(m2::PointD const & pt, string const & symbolName, graphics::EPosition pos, double depth);
 
   void beginFrame();
   void endFrame();

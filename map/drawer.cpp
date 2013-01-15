@@ -106,13 +106,13 @@ void Drawer::onSize(int w, int h)
 void Drawer::drawSymbol(m2::PointD const & pt,
                         string const & symbolName,
                         graphics::EPosition pos,
-                        int depth)
+                        double depth)
 {
   m_pScreen->drawSymbol(pt, symbolName, pos, depth);
 }
 
 void Drawer::drawCircle(m2::PointD const & pt, rule_ptr_t pRule,
-                          graphics::EPosition pos, int depth, FeatureID const & id)
+                          graphics::EPosition pos, double depth, FeatureID const & id)
 {
   graphics::Circle::Info ci;
   ConvertStyle(pRule->GetCircle(), m_visualScale, ci);
@@ -123,7 +123,7 @@ void Drawer::drawCircle(m2::PointD const & pt, rule_ptr_t pRule,
 void Drawer::drawSymbol(m2::PointD const & pt,
                         rule_ptr_t pRule,
                         graphics::EPosition pos,
-                        int depth,
+                        double depth,
                         FeatureID const & id)
 {
   graphics::Icon::Info info;
@@ -191,7 +191,7 @@ void Drawer::drawPath(di::PathInfo const & info, di::DrawRule const * rules, siz
     m_pScreen->drawPath(&info.m_path[0], info.m_path.size(), -info.GetOffset(), rules[i].GetID(ThreadSlot()), rules[i].m_depth);
 }
 
-void Drawer::drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth)
+void Drawer::drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, double depth)
 {
   // DO NOT cache 'id' in pRule, because one rule can use in drawPath and drawArea.
   // Leave CBaseRule::m_id for drawPath. mapColor working fast enough.
@@ -222,7 +222,7 @@ bool Drawer::filter_text_size(rule_ptr_t pRule) const
 }
 
 void Drawer::drawText(m2::PointD const & pt, di::DrawInfo const * pInfo, rule_ptr_t pRule,
-                        graphics::EPosition pos, int depth, FeatureID const & id)
+                        graphics::EPosition pos, double depth, FeatureID const & id)
 {
   graphics::FontDesc font;
   ConvertStyle(pRule->GetCaption(0), m_visualScale, font);
@@ -240,7 +240,7 @@ void Drawer::drawText(m2::PointD const & pt, di::DrawInfo const * pInfo, rule_pt
                         depth, true, true);
 }
 
-bool Drawer::drawPathText(di::PathInfo const & info, di::DrawInfo const * pInfo, rule_ptr_t pRule, int depth)
+bool Drawer::drawPathText(di::PathInfo const & info, di::DrawInfo const * pInfo, rule_ptr_t pRule, double depth)
 {
   graphics::FontDesc font;
   ConvertStyle(pRule->GetCaption(0), m_visualScale, font);
@@ -326,7 +326,7 @@ void Drawer::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size_t
   for (size_t i = 0; i < count; ++i)
   {
     rule_ptr_t pRule = rules[i].m_rule;
-    int const depth = rules[i].m_depth;
+    double const depth = rules[i].m_depth;
 
     bool const isCaption = pRule->GetCaption(0) != 0;
     bool const hasSymbol = pRule->GetSymbol() != 0;
