@@ -99,6 +99,17 @@ namespace
       m_depthes.push_back(depth);
     }
 
+    void AddTest(vector<m2::PointD> const & pts,
+                 graphics::Pen::Info const & info,
+                 double depth,
+                 double pathOffset)
+    {
+      m_pathes.push_back(pts);
+      m_pathOffsets.push_back(pathOffset);
+      m_depthes.push_back(depth);
+      m_penInfos.push_back(info);
+    }
+
     std::vector<m2::PointD> & GetTestPoints(size_t i)
     {
       return m_pathes[i];
@@ -584,6 +595,57 @@ namespace
       testPattern.push_back(10);
       testPattern.push_back(20);
       }
+    }
+  };
+
+  struct TestDrawPathSymbol : TestDrawPathBase
+  {
+    typedef TestDrawPathBase base_t;
+
+    void Init()
+    {
+      base_t::Init();
+
+      m_drawAxis = true;
+
+      vector<m2::PointD> pts;
+
+      graphics::Pen::Info info;
+      graphics::Pen::Info info1;
+
+      info.m_icon.m_name = "theatre";
+      info.m_step = 15;
+
+      pts.clear();
+      pts.push_back(m2::PointD(100, 100));
+      pts.push_back(m2::PointD(200, 100));
+
+      AddTest(pts, info, graphics::maxDepth, 0);
+
+      pts.clear();
+      pts.push_back(m2::PointD(100, 200));
+      pts.push_back(m2::PointD(200, 200));
+
+      AddTest(pts, info, graphics::maxDepth, 30);
+
+      pts.clear();
+      pts.push_back(m2::PointD(100, 300));
+      pts.push_back(m2::PointD(200, 300));
+
+      vector<double> pat;
+
+      pat.push_back(20);
+      pat.push_back(20);
+
+      info1 = graphics::Pen::Info(graphics::Color(0, 0, 0, 255), 20, &pat[0], pat.size());
+      AddTest(pts, info1, graphics::maxDepth, 30);
+
+      pts.clear();
+      pts.push_back(m2::PointD(300, 100));
+      pts.push_back(m2::PointD(400, 160));
+      pts.push_back(m2::PointD(300, 240));
+
+      AddTest(pts, info, graphics::maxDepth, 0);
     }
   };
 
@@ -1433,7 +1495,8 @@ namespace
    UNIT_TEST_GL(TestDrawPathJoin);
    UNIT_TEST_GL(TestDrawPathSolid1PX);
    UNIT_TEST_GL(TestDrawPathSolid2PX);*/
-   UNIT_TEST_GL(TestDrawPathSolid);
+//   UNIT_TEST_GL(TestDrawPathSolid);
+   UNIT_TEST_GL(TestDrawPathSymbol);
    /*UNIT_TEST_GL(TestDrawOverlappedSymbolWithText);
    UNIT_TEST_GL(TestDrawAnyRect);
    UNIT_TEST_GL(TestDrawSector);

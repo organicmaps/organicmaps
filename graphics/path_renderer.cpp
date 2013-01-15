@@ -2,6 +2,7 @@
 #include "resource.hpp"
 #include "pen.hpp"
 #include "resource_cache.hpp"
+#include "path_view.hpp"
 
 #include "opengl/base_texture.hpp"
 
@@ -54,7 +55,63 @@ namespace graphics
 
   void PathRenderer::drawSymbolPath(m2::PointD const * pts, size_t ptsCount, double offset, Pen const * pen, double depth)
   {
-    LOG(LINFO, ("drawSymbolPath is unimplemented. symbolName=", pen->m_info.m_symbol));
+    PathView pv(pts, ptsCount);
+
+    PathPoint pt = pv.front();
+
+    pt = pv.offsetPoint(pt, offset);
+
+    m2::RectU texRect = pen->m_texRect;
+    texRect.Inflate(-1, -1);
+
+    double const w = texRect.SizeX();
+    double const h = texRect.SizeY();
+
+    double const hw = w / 2.0;
+    double const hh = h / 2.0;
+
+    shared_ptr<gl::BaseTexture> tex = pipeline(pen->m_pipelineID).texture();
+
+    while (true)
+    {
+      PivotPoint pvPt = pv.findPivotPoint(pt, hw - 1, 0);
+
+      if (pvPt.m_pp.m_i == -1)
+        break;
+
+      ang::AngleD ang = pvPt.m_angle;
+
+      m2::PointD pts[4];
+
+      pts[0] = pvPt.m_pp.m_pt.Move(-hw, ang.sin(), ang.cos());
+      pts[0] = pts[0].Move(hh + 1, -ang.cos(), ang.sin());
+
+      pts[1] = pts[0].Move(w, ang.sin(), ang.cos());
+      pts[2] = pts[0].Move(-h, -ang.cos(), ang.sin());
+      pts[3] = pts[2].Move(w, ang.sin(), ang.cos());
+
+      m2::PointF texPts[4] =
+      {
+        tex->mapPixel(m2::PointF(texRect.minX(), texRect.minY())),
+        tex->mapPixel(m2::PointF(texRect.maxX(), texRect.minY())),
+        tex->mapPixel(m2::PointF(texRect.minX(), texRect.maxY())),
+        tex->mapPixel(m2::PointF(texRect.maxX(), texRect.maxY()))
+      };
+
+      m2::PointF normal(0, 0);
+
+      addTexturedStripStrided(pts, sizeof(m2::PointD),
+                              &normal, 0,
+                              texPts, sizeof(m2::PointF),
+                              4,
+                              depth,
+                              pen->m_pipelineID);
+
+      pt = pv.offsetPoint(pvPt.m_pp, pen->m_info.m_step);
+
+      if (pt.m_i == -1)
+        break;
+    }
   }
 
   void PathRenderer::drawStipplePath(m2::PointD const * points, size_t pointsCount, double offset, Pen const * pen, double depth)
