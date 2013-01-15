@@ -246,8 +246,6 @@ namespace graphics
 
     Params const & params() const;
 
-    shared_ptr<GlyphInfo> const getGlyphInfo(GlyphKey const & key);
-    GlyphMetrics const getGlyphMetrics(GlyphKey const & key);
     GlyphCache * glyphCache(int threadSlot = 0);
 
     int renderThreadSlot(int threadNum) const;
