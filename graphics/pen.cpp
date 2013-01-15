@@ -156,8 +156,7 @@ namespace graphics
   Resource * Pen::Info::createResource(m2::RectU const & texRect,
                                        uint8_t pipelineID) const
   {
-    return new Pen(false,
-                   texRect,
+    return new Pen(texRect,
                    pipelineID,
                    *this);
   }
@@ -194,13 +193,11 @@ namespace graphics
     return false;
   }
 
-  Pen::Pen(bool isWrapped,
-           m2::RectU const & texRect,
+  Pen::Pen(m2::RectU const & texRect,
            int pipelineID,
            Info const & info)
   : Resource(EPen, texRect, pipelineID),
     m_info(info),
-    m_isWrapped(isWrapped),
     m_isSolid(info.m_isSolid)
   {
     if (m_isSolid)

@@ -65,14 +65,12 @@ namespace graphics
 
     Info m_info;
 
-    bool m_isWrapped;
     bool m_isSolid;
 
     m2::PointU m_centerColorPixel;
     m2::PointU m_borderColorPixel;
 
-    Pen(bool isWrapped,
-        m2::RectU const & texRect,
+    Pen(m2::RectU const & texRect,
         int pipelineID,
         Info const & info);
 

@@ -67,7 +67,7 @@ namespace graphics
 
     float rawTileLen = (float)pen->rawTileLen();
 
-    if ((offset < 0) && (!pen->m_isWrapped))
+    if (offset < 0)
       offset = offset - rawTileLen * ceil(offset / rawTileLen);
 
     bool skipToOffset = true;
@@ -127,12 +127,9 @@ namespace graphics
 
       while (segLenRemain > 0)
       {
-        rawTileLen = pen->m_isWrapped
-            ? segLen
-            : std::min(((float)pen->rawTileLen() - rawTileStartLen), segLenRemain);
+        rawTileLen = std::min(((float)pen->rawTileLen() - rawTileStartLen), segLenRemain);
 
-
-        float texMinX = pen->m_isWrapped ? 0 : pen->m_texRect.minX() + 2 + rawTileStartLen;
+        float texMinX = pen->m_texRect.minX() + 2 + rawTileStartLen;
         float texMaxX = texMinX + rawTileLen;
 
         rawTileStartLen += rawTileLen;
