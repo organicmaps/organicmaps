@@ -50,9 +50,11 @@ void ConvertStyle(LineDefProto const * pSrc, double scale, graphics::Pen::Info &
   {
     PathSymProto const & ps = pSrc->pathsym();
 
-    dest.m_step = ps.step();
+    dest.m_step = ps.step() * scale;
     dest.m_icon.m_name = ps.name();
-    dest.m_offset = ps.offset();
+
+    if (ps.has_offset())
+      dest.m_offset = ps.offset() * scale;
   }
 
   if (pSrc->has_join())
