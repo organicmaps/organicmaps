@@ -9,6 +9,7 @@
   SettingsManager * m_settingsManager;
   NSInteger m_standbyCounter;
   NSInteger m_activeDownloadsCounter;
+  UIBackgroundTaskIdentifier m_backgroundTask;
   UINavigationController * m_navController;
   UIWindow * m_window;
   UIAlertView * m_loadingAlertView;

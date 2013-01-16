@@ -44,6 +44,13 @@ void InitLocalizedStrings()
 - (void) applicationDidEnterBackground: (UIApplication *) application
 {
 	[m_mapViewController OnEnterBackground];
+  if(m_activeDownloadsCounter)
+  {
+    m_backgroundTask = [application beginBackgroundTaskWithExpirationHandler:^{
+      [application endBackgroundTask:m_backgroundTask];
+      m_backgroundTask = UIBackgroundTaskInvalid;
+    }];
+  }
 }
 
 - (void) applicationWillEnterForeground: (UIApplication *) application
@@ -94,6 +101,11 @@ void InitLocalizedStrings()
   {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     m_activeDownloadsCounter = 0;
+    if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground)
+    {
+      [[UIApplication sharedApplication] endBackgroundTask:m_backgroundTask];
+      m_backgroundTask = UIBackgroundTaskInvalid;
+    }
   }
 }
 
