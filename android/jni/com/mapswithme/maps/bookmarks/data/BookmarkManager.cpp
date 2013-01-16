@@ -61,7 +61,9 @@ extern "C"
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nShowBookmark(JNIEnv * env, jobject thiz, jint c, jint b)
   {
-    frm()->ShowBookmark(*g_framework->NativeFramework()->GetBmCategory(c)->GetBookmark(b));
+    ::Framework * f = frm();
+    f->ShowBookmark(*g_framework->NativeFramework()->GetBmCategory(c)->GetBookmark(b));
+    f->SaveState();
   }
 
   JNIEXPORT void JNICALL
@@ -104,8 +106,12 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nDeleteBookmark(JNIEnv * env, jobject thiz, jint cat, jint bmk)
   {
-    frm()->GetBmCategory(cat)->DeleteBookmark(bmk);
-    frm()->GetBmCategory(cat)->SaveToKMLFile();
+    BookmarkCategory * pCat = frm()->GetBmCategory(cat);
+    if (pCat)
+    {
+      pCat->DeleteBookmark(bmk);
+      pCat->SaveToKMLFile();
+    }
   }
 
   JNIEXPORT jobject JNICALL
