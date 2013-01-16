@@ -100,6 +100,7 @@ public class Bookmark
   */
   public void setIcon(Icon icon)
   {
+    mIcon = icon;
     nChangeBookamark(mLat, mLon,
                      getCategoryName(),
                      getName(), icon.getType());

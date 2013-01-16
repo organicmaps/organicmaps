@@ -19,13 +19,13 @@ public class BookmarkIconManager
              "placemark-red", "placemark-blue", "placemark-purple",
              "placemark-pink", "placemark-brown", "placemark-green", "placemark-orange"
          };
-  private WeakHashMap<Integer, Bitmap> mIcons;
+  private WeakHashMap<String, Bitmap> mIcons;
 
   public BookmarkIconManager(Context context)
   {
     mContext = context.getApplicationContext();
     mDrawables = new R.drawable();
-    mIcons = new WeakHashMap<Integer, Bitmap>();
+    mIcons = new WeakHashMap<String, Bitmap>();
     mEmptyBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.placemark_red);
   }
 
@@ -50,49 +50,20 @@ public class BookmarkIconManager
     return all;
   }
 
-  private int getIconDrawableId(String type)
-  {
-    try{
-      Log.d("drawables ids", ""+mDrawables.getClass().getFields());
-      Log.d("drawables type", ""+type);
-    return mDrawables.getClass().getField(type.replace("-", "_")).getInt(mDrawables);
-    }
-    catch (IllegalAccessException e)
-    {
-      e.printStackTrace();
-      return -1;
-    }
-    catch (NoSuchFieldException e)
-    {
-      e.printStackTrace();
-      return -1;
-    }
-  }
-
   private Bitmap getIconBitmap(String type)
   {
-    return Bitmap.createBitmap(mEmptyBitmap);
-    /*
-    try
+    Bitmap icon = null;
+    icon = mIcons.get(type);
+    if (icon==null)
     {
-      int iconID = getIconDrawableId(type);
-      if (iconID == -1)
-      {
-        return mEmptyBitmap;
-      }
-      Bitmap icon = null;
-      icon = mIcons.get(iconID);
-      if (icon==null)
-      {
-        //It's not take a lot of time to load this icon, so, now i'm not implementing icon loading in background thread.
-        icon = mIcons.put(iconID, BitmapFactory.decodeResource(mContext.getResources(), iconID));
-      }
-      return icon;
+      //It's not take a lot of time to load this icon, so, now i'm not implementing icon loading in background thread.
+      mIcons.put(type, icon = BitmapFactory.decodeResource(
+                                      mContext.getResources(),
+                                      mContext.getResources().
+                                        getIdentifier(type.replace("-", "_"), "drawable", mContext.getPackageName())
+                                        )
+                       );
     }
-    catch (IllegalArgumentException e)
-    {
-      e.printStackTrace();
-      return mEmptyBitmap;
-    }*/
+    return icon;
   }
 }
