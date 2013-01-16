@@ -1,18 +1,14 @@
 #pragma once
 
 #include "../std/vector.hpp"
-#include "../indexer/drawing_rules.hpp"
 #include "drawer.hpp"
-#include "../indexer/feature.hpp"
-#include "../indexer/feature_visibility.hpp"
+
+class FeatureType;
 
 namespace feature
 {
   class StylesContainer
   {
-
-    //buffer_vector<di::DrawRule, 16> rules;
-
 
   public:
     StylesContainer();
@@ -31,14 +27,11 @@ namespace feature
     string m_refText;
 
     double m_popRank;
-    double m_priorityModifier;
 
     void GetStyles(FeatureType const & f, int const zoom);
-    bool empty()
+    inline bool IsEmpty() const
     {
       return m_rules.empty();
     }
-
-//    void Assign(buffer_vector<di::DrawRule, 16> & rules);
   };
 }

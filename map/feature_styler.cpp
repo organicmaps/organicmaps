@@ -1,5 +1,7 @@
 #include "feature_styler.hpp"
-
+#include "../indexer/drawing_rules.hpp"
+#include "../indexer/feature.hpp"
+#include "../indexer/feature_visibility.hpp"
 
 namespace
 {
@@ -12,8 +14,6 @@ namespace
   };
 }
 
-
-
 namespace feature
 {
   StylesContainer::StylesContainer() {}
@@ -25,10 +25,13 @@ namespace feature
 
   void StylesContainer::GetStyles(FeatureType const & f, int const zoom)
   {
-    // do special stuff
     vector<drule::Key> keys;
     string names;       // for debug use only, in release it's empty
     pair<int, bool> type = feature::GetDrawRule(f, zoom, keys, names);
+
+    // don't try to do anything to invisible feature
+    if (keys.empty())
+      return;
 
     m_hasLineStyles = false;
 
@@ -55,14 +58,14 @@ namespace feature
         m_primaryText.clear();
     }
 
-    m_priorityModifier = 0;
+    m2::RectD const bbox = f.GetLimitRect(zoom);
+    double const area = bbox.SizeX() * bbox.SizeY();
+    double priorityModifier;
 
-    //m_secondaryText = strings::to_string(population);
-
-    if (population != 0){
-      // dividing by planet population to get m_priorityModifier < 1
-      m_priorityModifier = static_cast<double>(population) / 7E9;
-    }
+    if (area != 0)
+      priorityModifier = min(1., area*10000.); // making area larger so it's not lost on double conversions
+    else
+      priorityModifier = static_cast<double>(population) / 7E9;  // dividing by planet population to get priorityModifier < 1
 
     drule::MakeUnique(keys);
     size_t const count = keys.size();
@@ -82,17 +85,28 @@ namespace feature
       double depth = keys[i].m_priority;
       if (layer != 0)
         depth = (layer * drule::layer_base_priority) + fmod(depth, drule::layer_base_priority);
-      depth += m_priorityModifier;
 
-      m_rules[i] = ( di::DrawRule( drule::rules().Find(keys[i]), depth, isTransparent) );
+      if ((keys[i].m_type == drule::caption)
+       || (keys[i].m_type == drule::symbol)
+       || (keys[i].m_type == drule::circle))
+      {
+        // show labels of larger objects first
+        depth += priorityModifier;
+      }
+      else
+      {
+        // show smaller polygons on top
+        depth += (1 - priorityModifier);
+      }
 
       if (!m_hasLineStyles && (keys[i].m_type == drule::line))
         m_hasLineStyles = true;
 
+      m_rules[i] = di::DrawRule( drule::rules().Find(keys[i]), depth, isTransparent);
+
       if (m_hasLineStyles && !m_hasPathText && !m_primaryText.empty())
         if (m_rules[i].m_rule->GetCaption(0) != 0)
           m_hasPathText = true;
-
     }
 
     sort(m_rules.begin(), m_rules.end(), less_depth());

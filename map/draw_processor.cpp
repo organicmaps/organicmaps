@@ -242,7 +242,7 @@ namespace fwork
     feature::StylesContainer styles;
     styles.GetStyles(f, m_zoom);
 
-    if (styles.empty())
+    if (styles.IsEmpty())
       return true;
 
     // Draw coastlines features only once.
@@ -312,11 +312,10 @@ namespace fwork
         if (styles.m_hasPathText)
         {
           uint8_t fontSize = 0;
-          for (size_t i = 0; i < count; i++)
+          for (size_t i = 0; i < count; ++i)
           {
             if (!pDrawer->filter_text_size(styles.m_rules[i].m_rule))
               fontSize = max(fontSize, pDrawer->get_text_font_size(styles.m_rules[i].m_rule));
-
           }
 
           if (fontSize != 0)
@@ -329,8 +328,6 @@ namespace fwork
             functor_t fun(p1);
 
             f.ForEachPointRef(fun, m_zoom);
-
-            textLength += 30;
 
             if ((fun.IsExist()) && (fun.m_length > textLength))
             {
