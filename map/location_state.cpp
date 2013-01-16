@@ -52,7 +52,7 @@ namespace location
 
     /// @todo Probably we can make this like static const int.
     /// It's not a class state, so no need to store it in memory.
-    m_arrowScale = 0.6;
+    m_arrowScale = 0.5;
     m_arrowWidth = 40 * m_arrowScale;
     m_arrowHeight = 50 * m_arrowScale;
     m_arrowBackHeight = 11 * m_arrowScale;
