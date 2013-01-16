@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -13,9 +14,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -28,6 +31,7 @@ import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 public class BookmarkActivity extends AbstractBookmarkActivity
 {
   private static final int CONFIRMATION_DIALOG = 11001;
+  private static final int BOOKMARK_COLOR_DIALOG = 11002;
 
   public static final String BOOKMARK_POSITION = "bookmark_position";
   public static final String PIN = "pin";
@@ -35,11 +39,16 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   public static final String PIN_SET = "pin_set";
   public static final int REQUEST_CODE_SET = 567890;
   public static final String BOOKMARK_NAME = "bookmark_name";
+  private static final String ICON_INDEX = "icon_index";
   private Spinner mSpinner;
   private Bookmark mPin;
   private EditText mName;
   private TextView mSetName;
   private int mCurrentCategoryId = -1;
+  private List<Icon> mIcons;
+  private ImageView mChooserImage;
+  private TextView mChooserName;
+  private IconsAdapter mIconsAdapter;
 
   @Override
   public void onCreate(Bundle savedInstanceState)
@@ -71,30 +80,28 @@ public class BookmarkActivity extends AbstractBookmarkActivity
     setUpViews();
   }
 
+  private void updateColorChooser(int position)
+  {
+    mChooserImage.setImageBitmap(mIcons.get(position).getIcon());
+    //mChooserName.setText(mIcons.get(position).getName());
+  }
+
   private void setUpViews()
   {
-    (mSpinner = (Spinner) findViewById(R.id.pin_color)).setAdapter(new SpinnerAdapter(this, mManager.getIcons()));
-    mSpinner.setOnItemSelectedListener(new OnItemSelectedListener()
+    View colorChooser = findViewById(R.id.pin_color_chooser);
+    mChooserImage = (ImageView)colorChooser.findViewById(R.id.row_color_image);
+
+    mIcons = mManager.getIcons();
+    updateColorChooser(mIcons.indexOf(mPin.getIcon()));
+    colorChooser.setOnClickListener(new OnClickListener()
     {
 
       @Override
-      public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3)
+      public void onClick(View v)
       {
-        mPin.setIcon(((SpinnerAdapter) arg0.getAdapter()).getItem(arg2));
-      }
-
-      @Override
-      public void onNothingSelected(AdapterView<?> arg0)
-      {
-
+        showDialog(BOOKMARK_COLOR_DIALOG);
       }
     });
-    int i = 0;
-    String type = mPin.getIcon().getType();
-    List<Icon> icons = mManager.getIcons();
-    for (i = 0; i < icons.size() && !icons.get(i).getType().equals(type); i++)
-    {}
-    mSpinner.setSelection(i);
     findViewById(R.id.pin_sets).setOnClickListener(new OnClickListener()
     {
 
@@ -187,8 +194,56 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       return builder.create();
     }
     else
+      if (id == BOOKMARK_COLOR_DIALOG)
+      {
+        return createColorChooser();
+      }
+      else
       return super.onCreateDialog(id);
   }
+
+  private Dialog createColorChooser()
+  {
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    builder.setTitle(R.string.bookmark_color);
+    builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
+    {
+
+      @Override
+      public void onClick(DialogInterface dialog, int which)
+      {
+        updateColorChooser(mIconsAdapter.getChechedItemPosition());
+        dialog.dismiss();
+      }
+    });
+    mIconsAdapter = new IconsAdapter(this, mIcons);
+    mIconsAdapter.chooseItem(mIcons.indexOf(mPin.getIcon()));
+    builder.setSingleChoiceItems(mIconsAdapter, mIconsAdapter.getChechedItemPosition(), new DialogInterface.OnClickListener()
+    {
+
+      @Override
+      public void onClick(DialogInterface dialog, int which)
+      {
+        mPin.setIcon(mIcons.get(which));
+        mIconsAdapter.chooseItem(which);
+      }
+    });
+    return builder.create();
+  }
+  /*
+  @Override
+  @Deprecated
+  protected void onPrepareDialog(int id, Dialog dialog, Bundle args)
+  {
+    if (id == BOOKMARK_COLOR_DIALOG)
+    {
+      if (mIconsAdapter != null)
+      {
+        mIconsAdapter.chooseItem();
+      }
+    }
+    super.onPrepareDialog(id, dialog, args);
+  }*/
 
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data)

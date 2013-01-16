@@ -30,4 +30,10 @@ public class Icon
   {
     return mName;
   }
+
+  @Override
+  public boolean equals(Object o)
+  {
+    return mType.equals(((Icon)o).getType());
+  }
 }
