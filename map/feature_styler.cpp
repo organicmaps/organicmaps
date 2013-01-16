@@ -58,8 +58,13 @@ namespace feature
         m_primaryText.clear();
     }
 
-    m2::RectD const bbox = f.GetLimitRect(zoom);
-    double const area = bbox.SizeX() * bbox.SizeY();
+    double area = 0.0;
+    if (m_geometryType != GEOM_POINT)
+    {
+      m2::RectD const bbox = f.GetLimitRect(zoom);
+      area = bbox.SizeX() * bbox.SizeY();
+    }
+
     double priorityModifier;
 
     if (area != 0)
@@ -88,7 +93,9 @@ namespace feature
 
       if ((keys[i].m_type == drule::caption)
        || (keys[i].m_type == drule::symbol)
-       || (keys[i].m_type == drule::circle))
+       || (keys[i].m_type == drule::circle)
+       || (keys[i].m_type == drule::pathtext)
+       || (keys[i].m_type == drule::waymarker))
       {
         // show labels of larger objects first
         depth += priorityModifier;
