@@ -39,7 +39,7 @@ public class SpinnerAdapter extends ArrayAdapter<Icon>
     if (convertView == null)
     {
       LayoutInflater inflater = LayoutInflater.from(getContext());
-      convertView = inflater.inflate(R.layout.pins_row, parent, false);
+      convertView = inflater.inflate(R.layout.color_row, parent, false);
       convertView.setTag(new SpinnerViewHolder((TextView) convertView.findViewById(R.id.row_color_name),
                                                ((ImageView) convertView.findViewById(R.id.row_image))));
     }

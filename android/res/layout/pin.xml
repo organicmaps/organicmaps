@@ -72,12 +72,8 @@
                 android:layout_height="1px"
                 android:background="@android:drawable/divider_horizontal_dark" />
 
-            <Spinner
-                android:id="@+id/pin_color"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:paddingLeft="5dp" />
+            <include layout="@layout/color_row"
+                android:id="@+id/pin_color_chooser"/>
 
             <View
                 android:layout_width="fill_parent"
