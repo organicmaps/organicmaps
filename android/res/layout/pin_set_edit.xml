@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/pin_set_name"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:background="@null"
+                android:hint="@string/name"
+                android:paddingBottom="20dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="20dp"
+                android:textColor="@android:color/white" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:background="@android:drawable/divider_horizontal_dark" />
+
+            <CheckBox
+                android:id="@+id/pin_set_visible"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:text="@string/visible"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

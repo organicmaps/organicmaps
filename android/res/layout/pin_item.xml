@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/pi_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:padding="10dp"
+        android:src="@drawable/arrow" />
+
+    <ImageView
+        android:id="@+id/pi_pin_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:padding="10dp"
+        android:src="@drawable/pin_red" />
+
+    <TextView
+        android:id="@+id/pi_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/pi_arrow"
+        android:text="5.2 km" />
+
+    <TextView
+        android:id="@+id/pi_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/pi_distance"
+        android:layout_toRightOf="@id/pi_pin_color"
+        android:singleLine="true"
+        android:text="sdkfjsdokfjsdfosdjfisdofjsdoifjsdofji"
+        android:textSize="25sp" />
+
+</RelativeLayout>

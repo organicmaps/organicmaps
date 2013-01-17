@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:paddingRight="5dp" >
+
+    <ImageView
+        android:id="@+id/psi_visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/eye"
+        android:padding="5dp"/>
+
+    <TextView
+        android:id="@+id/psi_set_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/psi_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/psi_set_size"
+        android:layout_toRightOf="@id/psi_visible"
+        android:singleLine="true"
+        android:textSize="25sp" />
+
+</RelativeLayout>

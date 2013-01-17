@@ -73,6 +73,15 @@
             android:onClick="onSearchClicked"
             android:contentDescription="@string/search_map"/>
 
+        <Button
+            android:id="@+id/map_button_bookmarks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_button"
+            android:layout_marginLeft="10dip"
+            android:onClick="onBookmarksClicked"
+            android:contentDescription="@string/bookmarks"/>
+
     </LinearLayout>
 
 </merge>
