@@ -1586,18 +1586,28 @@
     cs = Zde jsou mé záložky z offline map MapsWithMe v přiloženém "%@.kml" souboru. Pokud máte již nainstalované MapsWithMe, otevřete tento soubor, prosím. V opačném případě si nejprve nainstalujte aplikaci pro vaše iOS nebo Android zařízení z tohoto odkazu http://www.mapswithme.com/get?kml.\n\nSkvěle se bavte s MapsWithMe!
     nl = Hier zijn mijn bladwijzers uit de MapsWithMe offline kaarten, in het bijgevoegde "%@.kml"-bestand. Open het bestand als u MapsWithMe Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://www.mapswithme.com/get?kml.\n\nVeel plezier met MapsWithMe!
     it = Questi sono i miei "preferiti" fra le mappe offline di MapsWithMe, che si trovano nel file allegato "%@.kml". Il file può essere aperto se l'app MapsWithMe Pro è già stata installata. In caso contrario, occorre scaricare l'app per il tuo iOS o dispositivo Android dal link http://www.mapswithme.com/get?kml.\n\nBuon divertimento con MapsWithMe!
- [load_kml_title]
+  [load_kml_title]
     en = Bookmarks Loading
     tags = ios, android
     comment = message title of loading file
     ru = Загрузка Закладок
- [load_kml_successful]
+  [load_kml_successful]
     en = Bookmarks were loading successfully! You can see them on bookmarks manager screen.
     tags = ios, android
     comment = Kml file successful loading
     ru = Закладки успешно загружены. Вы можете их увидеть на экране менеджера закладок.
- [load_kml_failed]
+  [load_kml_failed]
     en = File with bookmarks wasn't uploaded. The reason of this can be that file was corrupted or  faulty.
     tags = ios, android
     comment = Kml file loading failed
     ru = Файл с закладками не был загружен. Возможно, файл поврежден или неисправен.
+  [edit]
+    en = Edit
+    tags = android
+    comment = resource for context menu
+    ru = Редактировать
+  [are_you_sure]
+    en = Are you sure?
+    tags = android
+    comment = Title for Confirm dialog
+    ru = Вы уверены?

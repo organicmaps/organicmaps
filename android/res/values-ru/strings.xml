@@ -249,4 +249,8 @@
 	<string name="load_kml_successful">Закладки успешно загружены. Вы можете их увидеть на экране менеджера закладок.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kml_failed">Файл с закладками не был загружен. Возможно, файл поврежден или неисправен.</string>
+	<!-- resource for context menu -->
+	<string name="edit">Редактировать</string>
+	<!-- Title for Confirm dialog -->
+	<string name="are_you_sure">Вы уверены?</string>
 </resources>
