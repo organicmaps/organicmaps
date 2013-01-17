@@ -308,7 +308,7 @@ namespace
       static const int visible[3][drule::count_of_rules] = {
         {0, 0, 1, 1, 1, 0, 0},   // fpoint
         {1, 0, 0, 0, 0, 1, 0},   // fline
-        {1, 1, 1, 1, 0, 0, 0}    // farea
+        {1, 1, 1, 1, 0, 1, 0}    // farea
       };
 
       if (visible[ft][i->m_type] == 1)
@@ -327,20 +327,6 @@ namespace
         add_rule(ft, i);
         ++i;
       } while (i != m_rules.end() && i->m_scale == m_scales[0]);
-    }
-
-    void look_backward(int ft)
-    {
-      if (m_scales[1] < 0) return;
-      iter_t i = m_iters[1];
-      do
-      {
-        add_rule(ft, i);
-        if (i == m_rules.begin())
-          break;
-        else
-          --i;
-      } while (i->m_scale == m_scales[1]);
     }
 
   public:
@@ -363,31 +349,6 @@ namespace
       {
         look_forward(ft);
         return;
-      }
-
-      // find less or equal scale
-      m_iters[1] = upper_bound(m_rules.begin(), m_rules.end(), scale, less_scales());
-      if (m_iters[1] != m_rules.begin())
-      {
-        --m_iters[1];
-        m_scales[1] = m_iters[1]->m_scale;
-      }
-      else
-        m_scales[1] = -1000;
-
-      // choose the nearest scale to process first
-      m_added = false;
-      if (abs(m_scales[0] - scale) > abs(m_scales[1] - scale))
-      {
-        look_backward(ft);
-        if (!m_added)
-          look_forward(ft);
-      }
-      else
-      {
-        look_forward(ft);
-        if (!m_added)
-          look_backward(ft);
       }
     }
   };
