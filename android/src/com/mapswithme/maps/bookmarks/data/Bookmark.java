@@ -1,5 +1,7 @@
 package com.mapswithme.maps.bookmarks.data;
 
+import com.mapswithme.maps.R;
+
 import android.content.Context;
 import android.graphics.Point;
 import android.text.TextUtils;
@@ -29,12 +31,14 @@ public class Bookmark
     m_previewString = manager.getNameForPOI(mPosition);
     if (TextUtils.isEmpty(m_previewString))
     {
-      m_previewString = "New Bookmark";
+      m_previewString = manager.getNameForPlace(mPosition);
     }
     else
     {
       mPosition = manager.getBmkPositionForPOI(mPosition);
     }
+    if (TextUtils.isEmpty(m_previewString))
+      m_previewString = mContext.getString(R.string.dropped_pin);
   }
 
   Bookmark(Context context, Point position, int nextCat, int b)

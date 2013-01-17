@@ -10,6 +10,14 @@ extern "C"
 {
 
   JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetNameForPlace(JNIEnv * env, jobject thiz, jint x, jint y)
+  {
+    Framework::AddressInfo adInfo;
+    frm()->GetAddressInfo(m2::PointD(x, y), adInfo);
+    return jni::ToJavaString(env, adInfo.m_name);
+  }
+
+  JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetNameForPOI(JNIEnv * env, jobject thiz, jint x, jint y)
   {
     Framework::AddressInfo adInfo;
