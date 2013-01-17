@@ -84,8 +84,7 @@ namespace m2
       m_currentHandle = 0;
     }
 
-    handle_t res = m_currentHandle++;
-    return res;
+    return m_currentHandle++;
   }
 
   bool Packer::hasRoom(unsigned width, unsigned height) const

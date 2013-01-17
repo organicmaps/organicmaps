@@ -47,7 +47,7 @@ namespace graphics
     return m_isReverse;
   }
 
-  PathPoint const PathView::offsetPoint(PathPoint const & pp, double offset)
+  PathPoint const PathView::offsetPoint(PathPoint const & pp, double offset) const
   {
     PathPoint res = pp;
 
@@ -86,7 +86,7 @@ namespace graphics
     return res;
   }
 
-  PivotPoint PathView::findPivotPoint(PathPoint const & pp, double advance, double kern)
+  PivotPoint PathView::findPivotPoint(PathPoint const & pp, double advance, double kern) const
   {
     PathPoint startPt = offsetPoint(pp, kern);
 
@@ -103,7 +103,7 @@ namespace graphics
     while (advance > 0)
     {
       if (j + 1 == size())
-      return res;
+        return res;
 
       double l = get(j + 1).Length(pt1);
 

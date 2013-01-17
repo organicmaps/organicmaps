@@ -110,12 +110,12 @@ namespace graphics
     return get(i);
   }
 
-  PathPoint const TextPath::offsetPoint(PathPoint const & pp, double offset)
+  PathPoint const TextPath::offsetPoint(PathPoint const & pp, double offset) const
   {
     return m_pv.offsetPoint(pp, offset);
   }
 
-  PivotPoint TextPath::findPivotPoint(PathPoint const & pp, GlyphMetrics const & sym, double kern)
+  PivotPoint TextPath::findPivotPoint(PathPoint const & pp, GlyphMetrics const & sym, double kern) const
   {
     return m_pv.findPivotPoint(pp, sym.m_xOffset + sym.m_width / 2.0, kern);
   }
