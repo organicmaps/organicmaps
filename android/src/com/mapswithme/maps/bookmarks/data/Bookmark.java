@@ -66,7 +66,7 @@ public class Bookmark
   private native String nGetIcon(int c, long b);
   private native void nChangeBookmark(double lat, double lon, String category, String name, String type);
   private native String nGetBookmarkDescription(int categoryId, long bookmark);
-  private native String nSetBookmarkDescription(int categoryId, long bookmark, String newDescr);
+  private native void nSetBookmarkDescription(int categoryId, long bookmark, String newDescr);
   private native String nGetBookmarkDescriptionPos(int categoryId, int bookmark);
 
   void getLatLon()
