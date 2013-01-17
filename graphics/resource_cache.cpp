@@ -106,16 +106,19 @@ namespace graphics
     return h;
   }
 
-  void ResourceCache::addParentInfo(Resource::Info const & fullInfo)
+  uint32_t ResourceCache::addParentInfo(Resource::Info const & fullInfo)
   {
     uint32_t id = findInfo(fullInfo.cacheKey());
-
     Resource * r = fromID(id);
 
     shared_ptr<Resource> resource(fullInfo.createResource(r->m_texRect, r->m_pipelineID));
 
-    m_parentResources[id] = resource;
-    m_infos[resource->info()] = id;
+    uint32_t newID = m_packer.freeHandle();
+
+    m_parentResources[newID] = resource;
+    m_infos[resource->info()] = newID;
+
+    return newID;
   }
 
   bool ResourceCache::hasRoom(Resource::Info const & info) const

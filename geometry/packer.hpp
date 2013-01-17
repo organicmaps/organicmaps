@@ -74,6 +74,9 @@ namespace m2
     /// the simplest one will just clear the whole rect and start the packing process again).
     handle_t pack(unsigned width, unsigned height);
 
+    /// return free handle
+    handle_t freeHandle();
+
     /// Does we have room to pack another rectangle?
     bool hasRoom(unsigned width, unsigned height) const;
 

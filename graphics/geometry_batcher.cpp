@@ -770,7 +770,7 @@ namespace graphics
         res = cache->findInfo(info.cacheKey());
         if (res != invalidPageHandle())
         {
-          cache->addParentInfo(info);
+          res = cache->addParentInfo(info);
           return packID(i, res);
         }
       }
@@ -833,7 +833,7 @@ namespace graphics
           }
           else
           {
-            staticCache->addParentInfo(*infos[i]);
+            ids[i] = staticCache->addParentInfo(*infos[i]);
             ids[i] = packID(m_startStaticPage, ids[i]);
           }
         }

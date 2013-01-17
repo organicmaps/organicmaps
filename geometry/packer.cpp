@@ -75,6 +75,19 @@ namespace m2
     return curHandle;
   }
 
+  Packer::handle_t Packer::freeHandle()
+  {
+    if (m_currentHandle == m_maxHandle)
+    {
+      callOverflowFns();
+      reset();
+      m_currentHandle = 0;
+    }
+
+    handle_t res = m_currentHandle++;
+    return res;
+  }
+
   bool Packer::hasRoom(unsigned width, unsigned height) const
   {
     return ((m_width >= width) && (m_height - m_currentY - m_yStep >= height))

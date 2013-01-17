@@ -97,7 +97,7 @@ namespace graphics
 
     uint32_t findInfo(Resource::Info const & info) const;
     uint32_t mapInfo(Resource::Info const & info);
-    void addParentInfo(Resource::Info const & fullInfo);
+    uint32_t addParentInfo(Resource::Info const & fullInfo);
     bool hasRoom(Resource::Info const & info) const;
 
     Resource * fromID(uint32_t idx) const;
