@@ -28,6 +28,7 @@ import android.view.View;
 public class PopupLayout extends View
 {
   private static final String DEACTIVATION = "deactivation";
+  private static final int VERTICAL_MARGIN = 10;
   private final int m_thriangleHeight;
   private Bitmap m_AddButton;
   private Bitmap m_editButton;
@@ -139,7 +140,7 @@ public class PopupLayout extends View
     }
 
     String bmkName = bmk.getName();
-    int pWidth = getWidth() / 2;
+    int pWidth = Math.min(getWidth(), getHeight()) - VERTICAL_MARGIN;
     int pHeight = m_height = btn.getHeight() + 10;
     int maxTextWidth = pWidth - btn.getWidth() - 10;
     int currentTextWidth = Math.round(m_textPaint.measureText(bmkName));
