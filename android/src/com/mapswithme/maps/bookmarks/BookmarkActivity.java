@@ -2,6 +2,10 @@ package com.mapswithme.maps.bookmarks;
 
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -25,6 +29,8 @@ import com.mapswithme.maps.bookmarks.data.ParcelablePointD;
 
 public class BookmarkActivity extends AbstractBookmarkActivity
 {
+  private static final int CONFIRMATION_DIALOG = 11001;
+
   public static final String BOOKMARK_POSITION = "bookmark_position";
   public static final String PIN = "pin";
   public static final String PIN_ICON_ID = "pin";
@@ -127,6 +133,41 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   }
 
   @Override
+  @Deprecated
+  protected Dialog onCreateDialog(int id)
+  {
+    if (CONFIRMATION_DIALOG == id)
+    {
+      AlertDialog.Builder builder = new Builder(this);
+      builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener()
+      {
+
+        @Override
+        public void onClick(DialogInterface dialog, int which)
+        {
+          dialog.dismiss();
+        }
+      });
+      builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
+      {
+
+        @Override
+        public void onClick(DialogInterface dialog, int which)
+        {
+          mManager.deleteBookmark(mPin);
+          dialog.dismiss();
+          finish();
+        }
+      });
+      builder.setTitle(R.string.are_you_sure);
+      builder.setMessage(getString(R.string.delete)+ " " + mPin.getName() + "?");
+      return builder.create();
+    }
+    else
+      return super.onCreateDialog(id);
+  }
+
+  @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data)
   {
     if (requestCode == REQUEST_CODE_SET && resultCode == RESULT_OK)
@@ -143,5 +184,10 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       }
     }
     super.onActivityResult(requestCode, resultCode, data);
+  }
+
+  public void onDeleteClick(View v)
+  {
+    showDialog(CONFIRMATION_DIALOG);
   }
 }

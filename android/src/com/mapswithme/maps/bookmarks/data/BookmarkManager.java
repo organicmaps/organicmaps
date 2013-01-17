@@ -40,6 +40,11 @@ public class BookmarkManager
 
   private native void nLoadBookmarks();
 
+  public void deleteBookmark(Bookmark bmk)
+  {
+    nDeleteBookmark(bmk.getCategoryId(), bmk.getBookmarkId());
+  }
+
   public void deleteBookmark(int cat, int bmk)
   {
     nDeleteBookmark(cat, bmk);
