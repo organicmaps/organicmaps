@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.mapswithme.maps.location.LocationService;
+import com.mapswithme.maps.pins.PinSetsActivity;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Utils;
@@ -215,6 +216,11 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   public void onMinusClicked(View v)
   {
     nativeScale(2.0 / 3);
+  }
+
+  public void onBookmarksClicked(View v)
+  {
+    startActivity(new Intent(this, PinSetsActivity.class));
   }
 
   public void onBookmarksClicked(View v)
