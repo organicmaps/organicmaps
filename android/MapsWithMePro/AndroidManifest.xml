@@ -66,5 +66,25 @@
                   android:screenOrientation="behind"
                   android:configChanges="orientation|screenLayout|screenSize">
         </activity>
+        <activity android:name="com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryActivity"
+                  android:label="@string/bookmark_sets"
+                  android:screenOrientation="behind"
+                  android:configChanges="orientation|screenLayout|screenSize">
+        </activity>
+        <activity android:name="com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity"
+                  android:label="@string/bookmarks"
+                  android:screenOrientation="behind"
+                  android:configChanges="orientation|screenLayout|screenSize">
+        </activity>
+        <activity android:name="com.mapswithme.maps.bookmarks.BookmarkListActivity"
+                  android:label="@string/bookmarks"
+                  android:screenOrientation="behind"
+                  android:configChanges="orientation|screenLayout|screenSize">
+        </activity>
+        <activity android:name="com.mapswithme.maps.bookmarks.BookmarkActivity"
+                  android:label="@string/bookmarks"
+                  android:screenOrientation="behind"
+                  android:configChanges="orientation|screenLayout|screenSize">
+        </activity>
     </application>
 </manifest>
