@@ -1,6 +1,4 @@
-package com.mapswithme.maps.pins;
-
-import java.util.List;
+package com.mapswithme.maps.bookmarks;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,27 +17,26 @@ import android.widget.EditText;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.pins.pins.Pin;
-import com.mapswithme.maps.pins.pins.PinSet;
+import com.mapswithme.maps.bookmarks.data.Bookmark;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 
-public class PinListActivity extends AbstractPinListActivity
+public class BookmarkListActivity extends AbstractBookmarkListActivity
 {
 
   private EditText mSetName;
   private CheckBox mIsVisible;
-  private PinSet mEditedSet;
+  private BookmarkCategory mEditedSet;
   private int mSelectedPosition;
-  private PinAdapter mPinAdapter;
+  private BookmarkAdapter mPinAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.pins);
-    if ((mEditedSet = mManager.getSet(getIntent().getIntExtra(PinActivity.PIN_SET, -1))) != null)
+    if ((mEditedSet = mManager.getCategoryById(getIntent().getIntExtra(BookmarkActivity.PIN_SET, -1))) != null)
     {
-      List<Pin> pins = mEditedSet.getPins();
-      setListAdapter(mPinAdapter = new PinAdapter(this, pins));
+      setListAdapter(mPinAdapter = new BookmarkAdapter(this, mEditedSet));
       setUpViews();
       getListView().setOnItemClickListener(new OnItemClickListener()
       {
@@ -47,7 +44,7 @@ public class PinListActivity extends AbstractPinListActivity
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id)
         {
-          startPinActivity((Pin) (getListView().getAdapter()).getItem(mSelectedPosition));
+          startPinActivity((Bookmark) (getListView().getAdapter()).getItem(mSelectedPosition));
         }
       });
     }
@@ -103,15 +100,15 @@ public class PinListActivity extends AbstractPinListActivity
     super.onCreateContextMenu(menu, v, menuInfo);
   }
 
-  private void startPinActivity(Pin pin)
+  private void startPinActivity(Bookmark pin)
   {
-    startActivity(new Intent(this, PinActivity.class).putExtra(PinActivity.PIN, mManager.getPinId(pin)));
+    startActivity(new Intent(this, BookmarkActivity.class).putExtra(BookmarkActivity.PIN, mManager.getPinId(pin)));
   }
 
   @Override
   public boolean onContextItemSelected(MenuItem item)
   {
-    Pin pin = (Pin) (getListView().getAdapter()).getItem(mSelectedPosition);
+    Bookmark pin = (Bookmark) (getListView().getAdapter()).getItem(mSelectedPosition);
     int itemId = item.getItemId();
     if (itemId == R.id.set_edit)
     {
@@ -119,9 +116,8 @@ public class PinListActivity extends AbstractPinListActivity
     }
     else if (itemId == R.id.set_delete)
     {
-      mManager.deletePin(pin);
-      ((PinAdapter) getListView().getAdapter()).remove(pin);
-      ((PinAdapter) getListView().getAdapter()).notifyDataSetChanged();
+     // mManager.deletePin(pin);
+      ((BookmarkAdapter) getListView().getAdapter()).notifyDataSetChanged();
     }
     else
     {

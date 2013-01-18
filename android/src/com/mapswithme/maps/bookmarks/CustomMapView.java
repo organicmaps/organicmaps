@@ -1,4 +1,4 @@
-package com.mapswithme.maps.pins;
+package com.mapswithme.maps.bookmarks;
 
 import java.util.ArrayList;
 import java.util.List;

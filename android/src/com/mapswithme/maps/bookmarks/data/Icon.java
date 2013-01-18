@@ -1,24 +1,24 @@
-package com.mapswithme.maps.pins.pins;
+package com.mapswithme.maps.bookmarks.data;
 
 import android.graphics.Bitmap;
 
 public class Icon
 {
-  private int mDrawableId;
   private String mName;
+  private String mType;
   private Bitmap mIcon;
 
-  public Icon(String Name, Bitmap Icon, int id)
+  public Icon(String Name, String type, Bitmap Icon)
   {
     super();
     this.mName = Name;
     this.mIcon = Icon;
-    mDrawableId = id;
+    mType = type;
   }
 
-  public int getDrawableId()
+  public String getType()
   {
-    return mDrawableId;
+    return mType;
   }
 
   public Bitmap getIcon()

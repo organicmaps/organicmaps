@@ -1,4 +1,4 @@
-package com.mapswithme.maps.pins;
+package com.mapswithme.maps.bookmarks;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.pins.pins.Icon;
+import com.mapswithme.maps.bookmarks.data.Icon;
 
 public class SpinnerAdapter extends ArrayAdapter<Icon>
 {

@@ -1,4 +1,4 @@
-package com.mapswithme.maps.pins;
+package com.mapswithme.maps.bookmarks;
 
 import com.mapswithme.maps.R;
 
@@ -45,7 +45,7 @@ public class MapActivity extends Activity
     int itemId = item.getItemId();
     if (itemId == R.id.menu_settings)
     {
-      startActivity(new Intent(this, PinSetsActivity.class));
+      startActivity(new Intent(this, BookmarkCategoriesActivity.class));
     }
     else
     {
@@ -98,7 +98,7 @@ public class MapActivity extends Activity
         mPopup = new PinPopup(MapActivity.this);
         mPopup.getContentView().measure(v.getWidth(), v.getHeight());
         mPopup.showAtLocation(v, Gravity.NO_GRAVITY, x - mPopup.getContentView().getMeasuredWidth() / 2, y);
-        mMap.drawPin(x, y, BitmapFactory.decodeResource(getResources(), R.drawable.pin_red));
+        mMap.drawPin(x, y, BitmapFactory.decodeResource(getResources(), R.drawable.placemark_red));
         mMap.invalidate();
         mPopup.update();
       }

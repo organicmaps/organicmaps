@@ -1,4 +1,4 @@
-package com.mapswithme.maps.pins;
+package com.mapswithme.maps.bookmarks;
 
 import com.mapswithme.maps.R;
 
@@ -30,8 +30,8 @@ public class PinPopup extends PopupWindow
       @Override
       public void onClick(View v)
       {
-        context.startActivity(new Intent(context, PinActivity.class).putExtra(PinActivity.PIN_ICON_ID,
-                                                                              R.drawable.pin_red));
+        context.startActivity(new Intent(context, BookmarkActivity.class).putExtra(BookmarkActivity.PIN_ICON_ID,
+                                                                              R.drawable.placemark_red));
       }
     });
     setFocusable(false);

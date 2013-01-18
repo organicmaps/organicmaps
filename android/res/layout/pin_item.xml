@@ -19,7 +19,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:padding="10dp"
-        android:src="@drawable/pin_red" />
+        android:src="@drawable/placemark_red" />
 
     <TextView
         android:id="@+id/pi_distance"

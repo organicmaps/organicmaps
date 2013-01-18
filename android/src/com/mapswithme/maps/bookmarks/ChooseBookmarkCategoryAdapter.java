@@ -1,4 +1,4 @@
-package com.mapswithme.maps.pins;
+package com.mapswithme.maps.bookmarks;
 
 import java.util.List;
 
@@ -12,16 +12,16 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.pins.pins.PinSet;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 
-public class ChoosePinSetAdapter extends AbstractPinSetAdapter implements OnItemClickListener
+public class ChooseBookmarkCategoryAdapter extends AbstractBookmarkCategoryAdapter implements OnItemClickListener
 {
 
   private int mCheckedPosition = -1;
 
-  public ChoosePinSetAdapter(Context context, List<PinSet> set, int pos)
+  public ChooseBookmarkCategoryAdapter(Context context, int pos)
   {
-    super(context, set);
+    super(context);
     mCheckedPosition = pos;
   }
 

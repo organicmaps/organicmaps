@@ -1,7 +1,7 @@
-package com.mapswithme.maps.pins;
+package com.mapswithme.maps.bookmarks;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.pins.pins.PinSet;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 
-public class AbstractPinSetsActivity extends AbstractPinListActivity
+public class AbstractBookmarkCategoryActivity extends AbstractBookmarkListActivity
 {
   private int mSelectedPosition;
 
@@ -38,17 +38,16 @@ public class AbstractPinSetsActivity extends AbstractPinListActivity
   @Override
   public boolean onContextItemSelected(MenuItem item)
   {
-    PinSet set = ((AbstractPinSetAdapter) getListView().getAdapter()).getItem(mSelectedPosition);
     int itemId = item.getItemId();
     if (itemId == R.id.set_edit)
     {
-      startActivity(new Intent(this, PinListActivity.class).putExtra(PinActivity.PIN_SET, mManager.getSetId(set)));
+      //startActivity(new Intent(this, PinListActivity.class).putExtra(PinActivity.PIN_SET, mManager.getSetId(set)));
     }
     else if (itemId == R.id.set_delete)
     {
-      mManager.deleteSet(set);
-      ((AbstractPinSetAdapter) getListView().getAdapter()).remove(set);
-      ((AbstractPinSetAdapter) getListView().getAdapter()).notifyDataSetChanged();
+      mManager.deleteCategory(mSelectedPosition);
+     // ((AbstractPinSetAdapter) getListView().getAdapter()).remove(set);
+      ((AbstractBookmarkCategoryAdapter) getListView().getAdapter()).notifyDataSetChanged();
     }
     return super.onContextItemSelected(item);
   }
@@ -57,6 +56,6 @@ public class AbstractPinSetsActivity extends AbstractPinListActivity
   protected void onStart()
   {
     super.onStart();
-    ((AbstractPinSetAdapter) getListView().getAdapter()).notifyDataSetChanged();
+    ((AbstractBookmarkCategoryAdapter) getListView().getAdapter()).notifyDataSetChanged();
   }
 }

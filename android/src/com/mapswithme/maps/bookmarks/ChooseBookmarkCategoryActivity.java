@@ -1,16 +1,16 @@
-package com.mapswithme.maps.pins;
+package com.mapswithme.maps.bookmarks;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.pins.pins.PinManager;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.Menu;
 import android.widget.ListView;
 
-public class ChoosePinSetActivity extends AbstractPinSetsActivity
+public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActivity
 {
-  private ChoosePinSetAdapter mAdapter;
+  private ChooseBookmarkCategoryAdapter mAdapter;
   private ListView mList;
 
   @Override
@@ -19,9 +19,8 @@ public class ChoosePinSetActivity extends AbstractPinSetsActivity
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_pin_sets);
     mList = (ListView) findViewById(android.R.id.list);
-    mList.setAdapter(mAdapter = new ChoosePinSetAdapter(this, PinManager.getPinManager(getApplicationContext())
-        .getPinSets(), getIntent().getIntExtra(PinActivity.PIN_SET, -1)));
-    int checked = getIntent().getIntExtra(PinActivity.PIN_SET, -1);
+    mList.setAdapter(mAdapter = new ChooseBookmarkCategoryAdapter(this, getIntent().getIntExtra(BookmarkActivity.PIN_SET, -1)));
+    int checked = getIntent().getIntExtra(BookmarkActivity.PIN_SET, -1);
     mList.setItemChecked(checked, true);
     mList.setSelection(checked);
     mList.setOnItemClickListener(mAdapter);
@@ -31,7 +30,7 @@ public class ChoosePinSetActivity extends AbstractPinSetsActivity
   @Override
   public void onBackPressed()
   {
-    setResult(RESULT_OK, new Intent().putExtra(PinActivity.PIN_SET, mList.getCheckedItemPosition()));
+    setResult(RESULT_OK, new Intent().putExtra(BookmarkActivity.PIN_SET, mList.getCheckedItemPosition()));
     super.onBackPressed();
   }
 

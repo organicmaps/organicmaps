@@ -1,9 +1,9 @@
-package com.mapswithme.maps.pins;
+package com.mapswithme.maps.bookmarks;
 
 import java.util.List;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.pins.pins.PinSet;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,12 +13,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class PinSetsAdapter extends AbstractPinSetAdapter
+public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
 {
 
-  public PinSetsAdapter(Context context, List<PinSet> objects)
+  public BookmarkCategoriesAdapter(Context context)
   {
-    super(context, objects);
+    super(context);
   }
 
   @Override
@@ -31,7 +31,7 @@ public class PinSetsAdapter extends AbstractPinSetAdapter
           (TextView) convertView.findViewById(R.id.psi_name), (TextView) convertView.findViewById(R.id.psi_set_size)));
     }
     PinSetHolder psh = (PinSetHolder) convertView.getTag();
-    PinSet set = getItem(position);
+    BookmarkCategory set = getItem(position);
     if (set.isVisible())
     {
 
@@ -40,7 +40,7 @@ public class PinSetsAdapter extends AbstractPinSetAdapter
 
     }
     psh.name.setText(set.getName());
-    psh.size.setText(String.valueOf(set.getPins().size()));
+    //psh.size.setText(String.valueOf(set.getPins().size()));
     if (getItem(position).isVisible())
     {
       psh.visibility.setImageResource(R.drawable.eye);

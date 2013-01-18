@@ -1,4 +1,4 @@
-package com.mapswithme.maps.pins;
+package com.mapswithme.maps.bookmarks;
 
 import com.mapswithme.maps.R;
 
@@ -12,25 +12,25 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class PinSetsActivity extends AbstractPinSetsActivity
+public class BookmarkCategoriesActivity extends AbstractBookmarkCategoryActivity
 {
   private ListView mListView;
-  private PinSetsAdapter mAdapter;
+  private BookmarkCategoriesAdapter mAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
     mListView = getListView();
-    mListView.setAdapter(mAdapter = new PinSetsAdapter(this, mManager.getPinSets()));
+    mListView.setAdapter(mAdapter = new BookmarkCategoriesAdapter(this));
     mListView.setOnItemClickListener(new OnItemClickListener()
     {
 
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id)
       {
-        startActivity(new Intent(PinSetsActivity.this, PinListActivity.class).putExtra(PinActivity.PIN_SET,
-            mManager.getSetId(mAdapter.getItem(position))));
+        startActivity(new Intent(BookmarkCategoriesActivity.this, BookmarkListActivity.class).putExtra(BookmarkActivity.PIN_SET,
+            position));
       }
     });
     registerForContextMenu(getListView());

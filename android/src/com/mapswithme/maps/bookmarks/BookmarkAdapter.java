@@ -1,25 +1,25 @@
-package com.mapswithme.maps.pins;
-
-import java.util.List;
-import java.util.jar.Attributes.Name;
-
-import com.mapswithme.maps.R;
-import com.mapswithme.maps.pins.pins.Pin;
+package com.mapswithme.maps.bookmarks;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class PinAdapter extends ArrayAdapter<Pin>
-{
+import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.data.Bookmark;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 
-  public PinAdapter(Context context, List<Pin> objects)
+public class BookmarkAdapter extends BaseAdapter
+{
+  Context mContext;
+  BookmarkCategory mCategory;
+  public BookmarkAdapter(Context context, BookmarkCategory cat)
   {
-    super(context, 0, objects);
+    mContext = context;
+    mCategory = cat;
   }
 
   @Override
@@ -27,14 +27,14 @@ public class PinAdapter extends ArrayAdapter<Pin>
   {
     if (convertView == null)
     {
-      convertView = LayoutInflater.from(getContext()).inflate(R.layout.pin_item, null);
+      convertView = LayoutInflater.from(mContext).inflate(R.layout.pin_item, null);
       convertView.setTag(new PinHolder((ImageView) convertView.findViewById(R.id.pi_arrow), (ImageView) convertView
           .findViewById(R.id.pi_pin_color), (TextView) convertView.findViewById(R.id.pi_name), (TextView) convertView
           .findViewById(R.id.pi_distance)));
     }
-    Pin item = getItem(position);
+    Bookmark item = mCategory.getBookmark(position);
     PinHolder holder = (PinHolder) convertView.getTag();
-    holder.name.setText(item.getName());
+ //   holder.name.setText(item.getName());
     holder.icon.setImageBitmap(item.getIcon().getIcon());
     return convertView;
   }
@@ -54,5 +54,23 @@ public class PinAdapter extends ArrayAdapter<Pin>
       this.name = name;
       this.distance = distance;
     }
+  }
+
+  @Override
+  public int getCount()
+  {
+    return mCategory.getSize();
+  }
+
+  @Override
+  public Bookmark getItem(int position)
+  {
+    return mCategory.getBookmark(position);
+  }
+
+  @Override
+  public long getItemId(int position)
+  {
+    return position;
   }
 }
