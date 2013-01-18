@@ -59,6 +59,11 @@ namespace graphics
 
     PathPoint pt = pv.front();
 
+    double step = pen->m_info.m_step;
+
+    if (offset < 0)
+      offset = fmod(offset, step);
+
     pt = pv.offsetPoint(pt, offset);
 
     m2::RectU texRect = pen->m_texRect;
@@ -69,6 +74,14 @@ namespace graphics
 
     double const hw = w / 2.0;
     double const hh = h / 2.0;
+
+    /// do not render start symbol if it's
+    /// completely outside the first segment.
+    if (offset + w < 0)
+    {
+      pv.offsetPoint(pt, step);
+      offset += step;
+    }
 
     shared_ptr<gl::BaseTexture> tex = pipeline(pen->m_pipelineID).texture();
 
