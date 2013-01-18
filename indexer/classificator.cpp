@@ -308,7 +308,7 @@ namespace
       static const int visible[3][drule::count_of_rules] = {
         {0, 0, 1, 1, 1, 0, 0},   // fpoint
         {1, 0, 0, 0, 0, 1, 0},   // fline
-        {1, 1, 1, 1, 0, 1, 0}    // farea
+        {1, 1, 1, 1, 0, 0, 0}    // farea
       };
 
       if (visible[ft][i->m_type] == 1)
@@ -316,17 +316,6 @@ namespace
         m_keys.push_back(*i);
         m_added = true;
       }
-    }
-
-    void look_forward(int ft)
-    {
-      if (m_scales[0] < 0) return;
-      iter_t i = m_iters[0];
-      do
-      {
-        add_rule(ft, i);
-        ++i;
-      } while (i != m_rules.end() && i->m_scale == m_scales[0]);
     }
 
   public:
@@ -344,11 +333,15 @@ namespace
       else
         m_scales[0] = -1000;
 
-      // if drawing rules exist for 'scale', than process and exit
+      // if drawing rules exist for 'scale', then process and exit
       if (scale == m_scales[0])
       {
-        look_forward(ft);
-        return;
+        if (m_scales[0] < 0) return;
+        iter_t i = m_iters[0];
+        do
+        {
+          add_rule(ft, i++);
+        } while (i != m_rules.end() && i->m_scale == m_scales[0]);
       }
     }
   };
@@ -362,8 +355,7 @@ void ClassifObject::GetSuitable(int scale, FeatureGeoType ft, vector<drule::Key>
   if (!m_visibility[scale])
     return;
 
-  // special for AlexZ
-  // find rules for 'scale' or if no - for nearest to 'scale' scale
+  // find rules for 'scale'
   suitable_getter rulesGetter(m_drawRule, keys);
   rulesGetter.find(ft, scale);
 }
