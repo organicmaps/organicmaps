@@ -61,6 +61,8 @@ namespace graphics
 
     double step = pen->m_info.m_step;
 
+    offset += pen->m_info.m_offset;
+
     if (offset < 0)
       offset = fmod(offset, step);
 
