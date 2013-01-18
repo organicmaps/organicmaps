@@ -280,8 +280,9 @@ namespace android
 
       if (eventType == NV_MULTITOUCH_MOVE)
       {
-        if ((fabs(x1 - m_lastX1) > 10)
-        ||  (fabs(y1 - m_lastY1) > 10))
+        double k = m_work.GetRenderPolicy()->VisualScale();
+        if ((fabs(x1 - m_lastX1) > 10 * k)
+        ||  (fabs(y1 - m_lastY1) > 10 * k))
         {
           m_isCleanSingleClick = false;
           KillLongTouchTask();
