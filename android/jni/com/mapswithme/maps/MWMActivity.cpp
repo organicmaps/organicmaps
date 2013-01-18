@@ -5,6 +5,7 @@
 #include "../platform/Platform.hpp"
 
 #include "../../../nv_event/nv_event.hpp"
+#include "../../../../../base/logging.hpp"
 
 #include "../../../../../map/country_status_display.hpp"
 #define LONG_CLICK_LENGTH_SEC 1.0
@@ -15,6 +16,7 @@ extern "C"
 
   void CallClickListener(shared_ptr<jobject> obj, int x, int y, double seconds)
   {
+    LOG(LDEBUG, ("seconds", seconds));
     JNIEnv * env = jni::GetEnv();
     jmethodID methodID = 0;
     if (seconds > LONG_CLICK_LENGTH_SEC)

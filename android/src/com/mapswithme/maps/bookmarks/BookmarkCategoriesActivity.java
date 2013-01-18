@@ -4,10 +4,12 @@ import com.mapswithme.maps.R;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -37,10 +39,11 @@ public class BookmarkCategoriesActivity extends AbstractBookmarkCategoryActivity
   }
 
   @Override
-  public boolean onCreateOptionsMenu(Menu menu)
+  public void onCreateContextMenu(ContextMenu menu, View v,
+                                  ContextMenuInfo menuInfo)
   {
-    getMenuInflater().inflate(R.menu.activity_pin_sets, menu);
-    return super.onCreateOptionsMenu(menu);
+    getMenuInflater().inflate(R.menu.pin_sets_context_menu, menu);
+    super.onCreateContextMenu(menu, v, menuInfo);
   }
 
   @Override

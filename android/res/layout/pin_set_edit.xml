@@ -23,6 +23,8 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="20dp"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
                 android:textColor="@android:color/white" />
 
             <View

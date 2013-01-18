@@ -45,6 +45,11 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
                 new Intent().putExtra(BookmarkActivity.PIN_SET, mManager.getCategoriesCount()-1).
                 putExtra(BookmarkActivity.PIN, new ParcelablePoint(mManager.getCategoriesCount()-1, mEditedSet.getSize()-1))
                 );
+      setTitle(R.string.add_new_set);
+    }
+    else
+    {
+      setTitle(mEditedSet.getName());
     }
     setListAdapter(mPinAdapter = new BookmarkListAdapter(this, mEditedSet));
     setUpViews();

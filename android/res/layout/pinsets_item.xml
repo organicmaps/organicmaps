@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/eye"
         android:padding="5dp"/>
 
     <TextView

@@ -13,6 +13,13 @@ public class Bookmark
   private double mLat = Double.NaN;
   private double mLon = Double.NaN;
 
+  Bookmark(Context context, Point pos)
+  {
+    mContext = context.getApplicationContext();
+    mPosition = pos;
+    getLatLon(pos);
+  }
+
   Bookmark(Context context, Point position, int nextCat, int b)
   {
     mContext = context.getApplicationContext();
@@ -39,10 +46,12 @@ public class Bookmark
     mContext = context.getApplicationContext();
     mCategoryId = c;
     mBookmark = b;
-    mIcon = BookmarkManager.getPinManager(mContext).getIconByName(nGetIcon(c, b));
+    mIcon = BookmarkManager.getBookmarkManager(mContext).getIconByName(nGetIcon(c, b));
     getLatLon();
   }
 
+
+  private native void nGtoP(double lat, double lon, Point p);
   private native double[] nPtoG(int x, int y);
   private native double[] nGetLatLon(int c, long b);
   private native String nGetNamePos(int x, int y);
@@ -56,6 +65,13 @@ public class Bookmark
     double [] ll = nGetLatLon(mCategoryId, mBookmark);
     mLat = ll[0];
     mLon = ll[1];
+  }
+
+  public Point getPosition()
+  {
+    Point pos = new Point();
+    nGtoP(mLat, mLon, pos);
+    return pos;
   }
 
   public double getLat()
@@ -85,11 +101,11 @@ public class Bookmark
       {
         throw new NullPointerException("Congratulations! You find a third way to specify bookmark!");
       }
-      return BookmarkManager.getPinManager(mContext).getIconByName(type);
+      return BookmarkManager.getBookmarkManager(mContext).getIconByName(type);
     }
     else
     {
-      return BookmarkManager.getPinManager(mContext).getIconByName("");
+      return BookmarkManager.getBookmarkManager(mContext).getIconByName("");
     }
 
   }
@@ -122,7 +138,7 @@ public class Bookmark
   {
     if (mCategoryId >= 0)
     {
-      return BookmarkManager.getPinManager(mContext).getCategoryById(mCategoryId).getName();
+      return BookmarkManager.getBookmarkManager(mContext).getCategoryById(mCategoryId).getName();
     }
     else
     {
@@ -146,7 +162,7 @@ public class Bookmark
   {
     changeBookmark(category, getName(), mIcon.getType());
     mCategoryId = catId;
-    mBookmark = BookmarkManager.getPinManager(mContext).getCategoryById(mCategoryId).getSize();
+    mBookmark = BookmarkManager.getBookmarkManager(mContext).getCategoryById(mCategoryId).getSize();
   }
 
   private void changeBookmark(String category, String name, String type)
@@ -162,5 +178,11 @@ public class Bookmark
   public int getBookmarkId()
   {
     return mBookmark;
+  }
+
+  //TODO stub
+  public boolean isPreviewBookmark()
+  {
+    return mCategoryId < 0;
   }
 }

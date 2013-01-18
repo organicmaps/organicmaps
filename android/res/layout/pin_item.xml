@@ -10,7 +10,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:padding="10dp"
-        android:src="@drawable/arrow" />
+        android:src="@drawable/add" />
 
     <ImageView
         android:id="@+id/pi_pin_color"

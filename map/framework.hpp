@@ -157,7 +157,7 @@ public:
 
   void AddMap(string const & file);
   void RemoveMap(string const & datFile);
-
+  bool IsCategoryExist(string const & name);
   /// @name Process storage connecting/disconnecting.
   //@{
   void AddLocalMaps();

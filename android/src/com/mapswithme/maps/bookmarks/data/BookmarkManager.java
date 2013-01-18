@@ -1,17 +1,12 @@
 package com.mapswithme.maps.bookmarks.data;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import com.mapswithme.maps.R;
-import com.mapswithme.maps.R.drawable;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.graphics.Point;
+
+import com.mapswithme.maps.R;
 
 public class BookmarkManager
 {
@@ -28,7 +23,7 @@ public class BookmarkManager
     mIconManager = new BookmarkIconManager(context);
   }
 
-  public static BookmarkManager getPinManager(Context context)
+  public static BookmarkManager getBookmarkManager(Context context)
   {
     if (sManager == null)
     {
@@ -39,30 +34,11 @@ public class BookmarkManager
   }
 
   private void refreshList()
-  {/*
-    for (int i = 0; i < 10; i++)
-    {
-      putBookmark(50*i, 25*i, "name " + i, "category "+i);
-    }*/
-    /*
-    mPins = new ArrayList<Bookmark>();
-    mPinSets = new ArrayList<BookmarkCategory>();
-    mIcons = loadIcons();
-    for (int i = 0; i < 25; i++)
-    {
-      BookmarkCategory set = new BookmarkCategory("Set " + (i + 1));
-      mPinSets.add(set);
-      for (Icon icon : mIcons.values())
-      {
-        Bookmark p = new Bookmark(set.getName() + " pin #" + icon.getDrawableId(), icon);
-        p.setPinSet(set);
-        mPins.add(p);
-      }
-    }*/
+  {
+    nLoadBookmarks();
   }
 
-
-  /// All method below it implemented in jni
+  private native void nLoadBookmarks();
 
   public void deleteBookmark(int cat, int bmk)
   {
@@ -142,8 +118,28 @@ public class BookmarkManager
 
   public BookmarkCategory createCategory(Bookmark bookmark)
   {
-    bookmark.setCategory("Category " + (getCategoriesCount()), getCategoriesCount());
+    String pattern;
+    String name = pattern = mContext.getResources().getString(R.string.new_places);
+    int i = 0;
+    while (getCategoryByName(name))
+    {
+      name = pattern + " " + (++i);
+    }
+    bookmark.setCategory(name, getCategoriesCount());
     BookmarkCategory cat = new BookmarkCategory(mContext, getCategoriesCount()-1);
     return cat;
+  }
+
+  //TODO
+  public boolean getCategoryByName(String name)
+  {
+    return nGetCategoryByName(name);
+  }
+
+  private native boolean nGetCategoryByName(String name);
+
+  public Bookmark previewBookmark(Point point)
+  {
+    return new Bookmark(mContext, point);
   }
 }

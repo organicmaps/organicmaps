@@ -9,6 +9,18 @@ namespace {
 
 extern "C"
 {
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGtoP(JNIEnv * env, jobject thiz, jdouble lat, jdouble lon, jobject point)
+  {
+    m2::PointD pos = frm()->GtoP(m2::PointD(lat, lon));
+
+    jclass javaDataClass = env->FindClass("android/graphics/Point");
+    jfieldID field = env->GetFieldID(javaDataClass, "x", "I");
+    env->SetIntField(point, field, static_cast<jint>(pos.x));
+
+    field = env->GetFieldID(javaDataClass, "y", "I");
+    env->SetIntField(point, field, static_cast<jint>(pos.y));
+  }
 
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGetName(
@@ -49,7 +61,8 @@ extern "C"
          JNIEnv * env, jobject thiz, jdouble lan, jdouble lon, jstring cat, jstring name, jstring type)
   {
     LOG(LDEBUG, ("lan lon change", lan, lon));
-    frm()->AddBookmark(jni::ToNativeString(env, cat), Bookmark( m2::PointD(lan, lon), jni::ToNativeString(env, name), jni::ToNativeString(env, type)));
+    Bookmark b = Bookmark( m2::PointD(lan, lon), jni::ToNativeString(env, name), jni::ToNativeString(env, type));
+    frm()->AddBookmark(jni::ToNativeString(env, cat), b)->SaveToKMLFile();
   }
 
   JNIEXPORT jdoubleArray JNICALL

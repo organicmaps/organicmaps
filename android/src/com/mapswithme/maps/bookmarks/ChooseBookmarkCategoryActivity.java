@@ -45,6 +45,7 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
                                   ContextMenuInfo menuInfo)
   {
     getMenuInflater().inflate(R.menu.choose_pin_sets_context_menu, menu);
+    super.onCreateContextMenu(menu, v, menuInfo);
   }
 
   @Override

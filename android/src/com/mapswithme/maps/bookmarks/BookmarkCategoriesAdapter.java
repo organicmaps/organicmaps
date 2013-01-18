@@ -34,20 +34,14 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
     BookmarkCategory set = getItem(position);
     if (set.isVisible())
     {
-
-    } else
+      psh.visibility.setBackgroundResource(R.drawable.eye_on);
+    }
+    else
     {
-
+      psh.visibility.setBackgroundResource(R.drawable.eye_off);
     }
     psh.name.setText(set.getName());
     psh.size.setText(String.valueOf(set.getSize()));
-    if (getItem(position).isVisible())
-    {
-      psh.visibility.setImageResource(R.drawable.eye);
-    } else
-    {
-      psh.visibility.setImageDrawable(null);
-    }
     return convertView;
   }
 

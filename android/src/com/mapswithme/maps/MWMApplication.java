@@ -14,6 +14,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.mapswithme.maps.MapStorage.Index;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.Utils;
 
@@ -103,6 +104,11 @@ public class MWMApplication extends android.app.Application implements MapStorag
                m_isProVersion);
 
     m_slotID = getMapStorage().subscribe(this);
+    //init bmManager (automatically load bookmarks)
+    if (isProVersion())
+    {
+      BookmarkManager.getBookmarkManager(getApplicationContext());
+    }
   }
 
   public LocationService getLocationService()

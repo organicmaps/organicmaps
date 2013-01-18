@@ -37,6 +37,11 @@ public class ParcelablePoint implements Parcelable
     mInternalPoint = new Point(x, y);
   }
 
+  public ParcelablePoint(Point position)
+  {
+    mInternalPoint = new Point(position);
+  }
+
   public static final Parcelable.Creator<ParcelablePoint> CREATOR = new Parcelable.Creator<ParcelablePoint>()
   {
     public ParcelablePoint createFromParcel(Parcel in)

@@ -29,8 +29,6 @@ public class AbstractBookmarkCategoryActivity extends AbstractBookmarkListActivi
     {
       AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
       mSelectedPosition = info.position;
-      MenuInflater inflater = getMenuInflater();
-      inflater.inflate(R.menu.pin_sets_context_menu, menu);
     }
     super.onCreateContextMenu(menu, v, menuInfo);
   }
@@ -41,7 +39,7 @@ public class AbstractBookmarkCategoryActivity extends AbstractBookmarkListActivi
     int itemId = item.getItemId();
     if (itemId == R.id.set_edit)
     {
-      //startActivity(new Intent(this, PinListActivity.class).putExtra(PinActivity.PIN_SET, mManager.getSetId(set)));
+      startActivity(new Intent(this, BookmarkListActivity.class).putExtra(BookmarkActivity.PIN_SET, mSelectedPosition));
     }
     else if (itemId == R.id.set_delete)
     {

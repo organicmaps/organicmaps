@@ -446,6 +446,11 @@ Framework::CategoryIter Framework::FindBmCategory(string const & name)
   return find_if(m_bookmarks.begin(), m_bookmarks.end(), EqualCategoryName(name));
 }
 
+bool Framework::IsCategoryExist(string const & name)
+{
+  return (m_bookmarks.end() != find_if(m_bookmarks.begin(), m_bookmarks.end(), EqualCategoryName(name)));
+}
+
 BookmarkCategory * Framework::GetBmCategory(size_t index) const
 {
   return (index < m_bookmarks.size() ? m_bookmarks[index] : 0);

@@ -10,6 +10,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.location.Location;
 import android.net.Uri;
@@ -20,12 +25,17 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.SurfaceHolder;
+import android.view.SurfaceHolder.Callback;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.mapswithme.maps.bookmarks.BookmarkActivity;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
+import com.mapswithme.maps.bookmarks.PopupLayout;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
@@ -222,7 +232,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   {
     if (!mApplication.isProVersion())
     {
-      showProVersionBanner(getString(R.string.search_available_in_pro_version));
+      showProVersionBanner(getString(R.string.bookmarks_in_pro_version));
     }
     else
     {
@@ -289,6 +299,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   }
 
   private boolean m_needCheckUpdate = true;
+
+  private PopupLayout m_popupLayout;
 
   private void checkUpdateMaps()
   {
@@ -553,41 +565,65 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     nativeConnectDownloadButton();
 
     alignZoomButtons();
-    m_longClickHandler = addOnLongClickListener(new OnLongClickListener()
-    {
 
-      @Override
-      public void onLongClick(int x, int y)
+    BookmarkTouchHandler handler = new BookmarkTouchHandler(m_popupLayout = (PopupLayout)findViewById(R.id.map_popup));
+    if (mApplication.isProVersion())
+    {
+      m_longClickHandler = addOnLongClickListener(handler);
+    }
+    //m_clickHandler = addOnClickListener(handler);
+  }
+
+  private class BookmarkTouchHandler implements OnClickListenter, OnLongClickListener
+  {
+    private PopupLayout m_PopupLayout;
+
+    BookmarkTouchHandler(PopupLayout pop)
+    {
+      m_PopupLayout = pop;
+    }
+    @Override
+    public void onLongClick(int x, int y)
+    {
+      m_PopupLayout.activate(BookmarkManager.getBookmarkManager(MWMActivity.this).previewBookmark(new Point(x, y)));
+    }
+
+    @Override
+    public void onClick(int x, int y)
+    {
+      if (m_PopupLayout.isActive())
       {
-        startActivity(new Intent(MWMActivity.this, BookmarkActivity.class).
-                      putExtra(BookmarkActivity.BOOKMARK_POSITION, new ParcelablePoint(x, y)));
+        m_PopupLayout.handleClick(x, y);
+        m_PopupLayout.deactivate();
       }
-    });
-    m_clickHandler = addOnClickListener(new OnClickListenter()
-    {
-
-      @Override
-      public void onClick(int x, int y)
+      else
       {
         handleOnBookmarkClick(x, y);
       }
-    });
-    //m_timer = new VideoTimer();
-  }
+    }
 
-  private void handleOnBookmarkClick(int x, int y)
-  {
-    ParcelablePoint b = BookmarkManager.getPinManager(this).findBookmark(new Point(x, y));
-    if (b != null)
+    private void handleOnBookmarkClick(int x, int y)
     {
-      startActivity(new Intent(this, BookmarkActivity.class).putExtra(BookmarkActivity.PIN, b));
+      ParcelablePoint b = BookmarkManager.getBookmarkManager(MWMActivity.this).findBookmark(new Point(x, y));
+      if (b != null)
+      {
+        m_PopupLayout.activate(BookmarkManager.getBookmarkManager(MWMActivity.this).getBookmark(b.getPoint().x, b.getPoint().y));
+      }
     }
   }
+
+  @Override
+  public boolean onTouchEvent(MotionEvent event)
+  {
+    m_popupLayout.requestInvalidation();
+    return super.onTouchEvent(event);
+  }
+
   @Override
   public void onDestroy()
   {
-    removeOnClickListener(m_clickHandler);
-    removeOnLongClickListener(m_longClickHandler);
+    if (mApplication.isProVersion())
+      removeOnLongClickListener(m_longClickHandler);
     super.onDestroy();
   }
 
@@ -751,7 +787,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
     startWatchingCompassStatusUpdate();
 
     startWatchingExternalStorage();
-
+    m_popupLayout.requestInvalidation();
     super.onResume();
   }
 

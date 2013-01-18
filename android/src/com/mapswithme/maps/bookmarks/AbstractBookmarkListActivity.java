@@ -13,6 +13,6 @@ public abstract class AbstractBookmarkListActivity extends ListActivity
   protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    mManager = BookmarkManager.getPinManager(getApplicationContext());
+    mManager = BookmarkManager.getBookmarkManager(getApplicationContext());
   }
 }
