@@ -262,20 +262,20 @@ namespace android
     {
       if (eventType == NV_MULTITOUCH_DOWN)
       {
-        m_scheduledTask.reset(new ScheduledTask(bind(
-            & android::Framework::CallLongClickListener,
-            this,
-            static_cast<int>(x1),
-            static_cast<int>(y1)),
-            static_cast<int>(LONG_CLICK_LENGTH_SEC * 1000)
-            ));
-        m_longClickTimer.Reset();
         m_isCleanSingleClick = true;
         m_lastX1 = x1;
         m_lastY1 = y1;
 
         if (m_work.GetGuiController()->OnTapStarted(m2::PointD(x1, y1)))
           return;
+        m_scheduledTask.reset(new ScheduledTask(bind(
+                    & android::Framework::CallLongClickListener,
+                    this,
+                    static_cast<int>(x1),
+                    static_cast<int>(y1)),
+                    static_cast<int>(LONG_CLICK_LENGTH_SEC * 1000)
+                    ));
+        m_longClickTimer.Reset();
       }
 
       if (eventType == NV_MULTITOUCH_MOVE)
