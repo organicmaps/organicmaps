@@ -234,6 +234,15 @@ namespace android
     }
   }
 
+  void Framework::KillLongTouchTask()
+  {
+    if (m_scheduledTask)
+    {
+      m_scheduledTask->Cancel();
+      m_scheduledTask.reset();
+    }
+  }
+
   void Framework::Touch(int action, int mask, double x1, double y1, double x2, double y2)
   {
     NVMultiTouchEventType eventType = (NVMultiTouchEventType)action;
@@ -247,13 +256,19 @@ namespace android
       // cancelling double click
       m_isInsideDoubleClick = false;
       m_isCleanSingleClick = false;
+      KillLongTouchTask();
     }
     else
     {
       if (eventType == NV_MULTITOUCH_DOWN)
       {
         m_scheduledTask.reset(new ScheduledTask(bind(
-            & android::Framework::CallLongClickListener, this, static_cast<int>(x1), static_cast<int>(y1)), static_cast<int>(LONG_CLICK_LENGTH_SEC * 1000)));
+            & android::Framework::CallLongClickListener,
+            this,
+            static_cast<int>(x1),
+            static_cast<int>(y1)),
+            static_cast<int>(LONG_CLICK_LENGTH_SEC * 1000)
+            ));
         m_longClickTimer.Reset();
         m_isCleanSingleClick = true;
         m_lastX1 = x1;
@@ -269,11 +284,7 @@ namespace android
         ||  (fabs(y1 - m_lastY1) > 10))
         {
           m_isCleanSingleClick = false;
-          if (m_scheduledTask)
-          {
-            m_scheduledTask->Cancel();
-            m_scheduledTask.reset();
-          }
+          KillLongTouchTask();
         }
 
         if (m_work.GetGuiController()->OnTapMoved(m2::PointD(x1, y1)))
@@ -286,14 +297,7 @@ namespace android
       if ((eventType == NV_MULTITOUCH_UP) && (m_isCleanSingleClick))
       {
         double timerTime = m_longClickTimer.ElapsedSeconds();
-        if (timerTime < LONG_CLICK_LENGTH_SEC)
-        {
-          if (m_scheduledTask)
-          {
-            m_scheduledTask->Cancel();
-            m_scheduledTask.reset();
-          }
-        }
+        KillLongTouchTask();
         if (timerTime < SHORT_CLICK_LENGTH_SEC)
         {
           CallClickListener(static_cast<int>(x1), static_cast<int>(y1));

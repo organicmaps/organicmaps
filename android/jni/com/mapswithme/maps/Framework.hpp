@@ -61,7 +61,7 @@ namespace android
 
     void CallClickListener(int x, int y);
     void CallLongClickListener(int x, int y);
-
+    void KillLongTouchTask();
   public:
     Framework();
     ~Framework();
