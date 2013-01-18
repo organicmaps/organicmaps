@@ -18253,7 +18253,7 @@ cont {
         width: 0.7
         color: 0x909090
       }
-      priority: 168
+      priority: 461
     }
   }
   element {
@@ -18264,35 +18264,35 @@ cont {
         width: 0.9
         color: 0x909090
       }
-      priority: 178
+      priority: 461
     }
   }
   element {
     scale: 14
     area {
       color: 0xFFFFFF
-      priority: 240
+      priority: 461
     }
   }
   element {
     scale: 15
     area {
       color: 0xFFFFFF
-      priority: 330
+      priority: 461
     }
   }
   element {
     scale: 16
     area {
       color: 0xFFFFFF
-      priority: 330
+      priority: 461
     }
   }
   element {
     scale: 17
     area {
       color: 0xFFFFFF
-      priority: 330
+      priority: 461
     }
   }
 }
@@ -24568,42 +24568,42 @@ cont {
         width: 0.7
         color: 0x909090
       }
-      priority: 172
+      priority: 450
     }
   }
   element {
     scale: 13
     area {
       color: 0xFFFFFF
-      priority: 182
+      priority: 450
     }
   }
   element {
     scale: 14
     area {
       color: 0xFFFFFF
-      priority: 245
+      priority: 450
     }
   }
   element {
     scale: 15
     area {
       color: 0xFFFFFF
-      priority: 345
+      priority: 450
     }
   }
   element {
     scale: 16
     area {
       color: 0xFFFFFF
-      priority: 660
+      priority: 450
     }
   }
   element {
     scale: 17
     area {
       color: 0xFFFFFF
-      priority: 701
+      priority: 450
     }
   }
 }
@@ -40888,6 +40888,10 @@ cont {
   name: "place-hamlet"
   element {
     scale: 14
+    area {
+      color: 0xDDDAC9
+      priority: 1
+    }
     caption {
       primary {
         height: 12
@@ -40898,6 +40902,10 @@ cont {
   }
   element {
     scale: 15
+    area {
+      color: 0xDDDAC9
+      priority: 1
+    }
     caption {
       primary {
         height: 12
@@ -40908,6 +40916,10 @@ cont {
   }
   element {
     scale: 16
+    area {
+      color: 0xDDDAC9
+      priority: 1
+    }
     caption {
       primary {
         height: 16
@@ -40918,6 +40930,10 @@ cont {
   }
   element {
     scale: 17
+    area {
+      color: 0xDDDAC9
+      priority: 1
+    }
     caption {
       primary {
         height: 16
@@ -41423,6 +41439,10 @@ cont {
   name: "place-village"
   element {
     scale: 13
+    area {
+      color: 0xDDDAC9
+      priority: 1
+    }
     caption {
       primary {
         height: 12
@@ -41439,6 +41459,10 @@ cont {
   }
   element {
     scale: 14
+    area {
+      color: 0xDDDAC9
+      priority: 1
+    }
     caption {
       primary {
         height: 12
@@ -41455,6 +41479,10 @@ cont {
   }
   element {
     scale: 15
+    area {
+      color: 0xDDDAC9
+      priority: 1
+    }
     caption {
       primary {
         height: 16
@@ -41471,6 +41499,10 @@ cont {
   }
   element {
     scale: 16
+    area {
+      color: 0xDDDAC9
+      priority: 1
+    }
     caption {
       primary {
         height: 16
@@ -41487,6 +41519,10 @@ cont {
   }
   element {
     scale: 17
+    area {
+      color: 0xDDDAC9
+      priority: 1
+    }
     caption {
       primary {
         height: 18
