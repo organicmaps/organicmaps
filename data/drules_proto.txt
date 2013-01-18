@@ -10392,307 +10392,27 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
       priority: 1088
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1090
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1092
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1094
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1096
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1098
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1100
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1102
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1104
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1106
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1108
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1110
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1112
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1114
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1116
     }
   }
   element {
     scale: 17
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
-      priority: 1241
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1243
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1245
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1247
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1249
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1251
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1253
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1255
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1257
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1259
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1261
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1263
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1265
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1267
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1269
+      priority: 1088
     }
   }
 }
@@ -11675,307 +11395,27 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.4
-      color: 0x505050
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
       priority: 1088
-    }
-    lines {
-      width: 4.6
-      color: 0x505050
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1090
-    }
-    lines {
-      width: 4
-      color: 0x505050
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1092
-    }
-    lines {
-      width: 3.4
-      color: 0x505050
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1094
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1096
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1098
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1100
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1102
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1104
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1106
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1108
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1110
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1112
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1114
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1116
     }
   }
   element {
     scale: 17
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
-      priority: 1241
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1243
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1245
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1247
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1249
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1251
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1253
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1255
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1257
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1259
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1261
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1263
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1265
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1267
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1269
+      priority: 1088
     }
   }
 }
@@ -12176,30 +11616,6 @@ cont {
 }
 cont {
   name: "highway-motorway_link"
-  element {
-    scale: 11
-    lines {
-      width: 1.0625
-      color: 0xf08800
-      priority: 112
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 2.875
-      color: 0xf08800
-      priority: 226
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 3.75
-      color: 0xf08800
-      priority: 237
-    }
-  }
   element {
     scale: 14
     lines {
@@ -12524,307 +11940,27 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
       priority: 1088
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1090
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1092
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1094
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1096
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1098
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1100
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1102
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1104
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1106
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1108
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1110
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1112
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1114
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1116
     }
   }
   element {
     scale: 17
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
-      priority: 1241
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1243
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1245
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1247
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1249
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1251
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1253
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1255
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1257
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1259
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1261
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1263
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1265
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1267
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1269
+      priority: 1088
     }
   }
 }
@@ -15812,307 +14948,27 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
       priority: 1088
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1090
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1092
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1094
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1096
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1098
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1100
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1102
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1104
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1106
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1108
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1110
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1112
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1114
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1116
     }
   }
   element {
     scale: 17
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
-      priority: 1241
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1243
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1245
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1247
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1249
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1251
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1253
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1255
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1257
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1259
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1261
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1263
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1265
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1267
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1269
+      priority: 1088
     }
   }
 }
@@ -16694,307 +15550,27 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
       priority: 1088
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1090
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1092
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1094
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1096
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1098
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1100
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1102
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1104
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1106
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1108
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1110
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1112
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1114
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1116
     }
   }
   element {
     scale: 17
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
-      priority: 1241
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1243
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1245
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1247
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1249
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1251
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1253
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1255
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1257
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1259
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1261
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1263
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1265
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1267
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1269
+      priority: 1088
     }
   }
 }
@@ -17776,307 +16352,27 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
       priority: 1088
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1090
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1092
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1094
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1096
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1098
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1100
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1102
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1104
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1106
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1108
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1110
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1112
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1114
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1116
     }
   }
   element {
     scale: 17
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
-      priority: 1241
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1243
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1245
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1247
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1249
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1251
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1253
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1255
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1257
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1259
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1261
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1263
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1265
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1267
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1269
+      priority: 1088
     }
   }
 }
@@ -18525,307 +16821,27 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
       priority: 1088
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1090
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1092
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1094
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1096
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1098
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1100
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1102
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1104
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1106
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1108
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1110
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1112
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1114
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1116
     }
   }
   element {
     scale: 17
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
-      priority: 1241
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1243
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1245
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1247
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1249
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1251
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1253
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1255
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1257
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1259
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1261
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1263
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1265
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1267
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1269
+      priority: 1088
     }
   }
 }
@@ -19477,307 +17493,27 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
       priority: 1088
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1090
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1092
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1094
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1096
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1098
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1100
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1102
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1104
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1106
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1108
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1110
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1112
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1114
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1116
     }
   }
   element {
     scale: 17
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
-      priority: 1241
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1243
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1245
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1247
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1249
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1251
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1253
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1255
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1257
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1259
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1261
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1263
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1265
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1267
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1269
+      priority: 1088
     }
   }
 }
@@ -19888,22 +17624,6 @@ cont {
 }
 cont {
   name: "highway-secondary_link"
-  element {
-    scale: 12
-    lines {
-      width: 1.6875
-      color: 0xfffb80
-      priority: 510
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 2.75
-      color: 0xfffb80
-      priority: 510
-    }
-  }
   element {
     scale: 14
     lines {
@@ -20351,307 +18071,27 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
       priority: 1088
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1090
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1092
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1094
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1096
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1098
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1100
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1102
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1104
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1106
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1108
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1110
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1112
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1114
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1116
     }
   }
   element {
     scale: 17
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
-      priority: 1241
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1243
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1245
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1247
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1249
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1251
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1253
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1255
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1257
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1259
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1261
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1263
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1265
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1267
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1269
+      priority: 1088
     }
   }
 }
@@ -21504,334 +18944,27 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
       priority: 1088
     }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1090
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1092
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1094
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1096
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1098
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1100
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1102
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1104
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1106
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1108
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1110
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1112
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1114
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1116
-    }
   }
   element {
     scale: 17
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
-      priority: 1241
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1243
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1245
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1247
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1249
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1251
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1253
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1255
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1257
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1259
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1261
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1263
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1265
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1267
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1269
-    }
-  }
-}
-cont {
-  name: "highway-service-parking_aisle"
-  element {
-    scale: 15
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      priority: 391
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 2
-      color: 0xFFFFFF
-      priority: 706
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 4
-      color: 0xFFFFFF
-      priority: 747
+      priority: 1088
     }
   }
 }
@@ -23272,307 +20405,27 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
       priority: 1088
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1090
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1092
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1094
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1096
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1098
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1100
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1102
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1104
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1106
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1108
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1110
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1112
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1114
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1116
     }
   }
   element {
     scale: 17
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
-      priority: 1241
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1243
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1245
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1247
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1249
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1251
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1253
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1255
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1257
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1259
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1261
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1263
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1265
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1267
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1269
+      priority: 1088
     }
   }
 }
@@ -24150,412 +21003,27 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
       priority: 1088
     }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1090
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1092
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1094
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1096
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1098
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1100
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1102
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1104
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1106
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1108
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1110
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1112
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1114
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1116
-    }
   }
   element {
     scale: 17
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
-      priority: 1241
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1243
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1245
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1247
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1249
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1251
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1253
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1255
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1257
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1259
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1261
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1263
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1265
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1267
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1269
-    }
-  }
-}
-cont {
-  name: "highway-tertiary_link-tunnel"
-  element {
-    scale: 12
-    lines {
-      width: 1.625
-      color: 0x202020
-      dashdot {
-        dd: 1.5
-        dd: 1.5
-      }
-      priority: 310
-    }
-    lines {
-      width: 1.4375
-      color: 0xFFFFFF
-      priority: 311
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 3.125
-      color: 0x202020
-      dashdot {
-        dd: 1.85
-        dd: 1.85
-      }
-      priority: 321
-    }
-    lines {
-      width: 2.75
-      color: 0xFFFFFF
-      priority: 322
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 5.5
-      color: 0x202020
-      dashdot {
-        dd: 2.2
-        dd: 2.2
-      }
-      priority: 398
-    }
-    lines {
-      width: 4.5
-      color: 0xFFFFFF
-      priority: 399
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 10.4
-      color: 0x707070
-      dashdot {
-        dd: 2.8
-        dd: 2.8
-      }
-      priority: 506
-    }
-    lines {
-      width: 9
-      color: 0xFFFFFF
-      priority: 507
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 13.6
-      color: 0x707070
-      dashdot {
-        dd: 3.2
-        dd: 3.2
-      }
-      priority: 826
-    }
-    lines {
-      width: 12
-      color: 0xFFFFFF
-      priority: 827
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 14.4
-      color: 0x707070
-      dashdot {
-        dd: 3.2
-        dd: 3.2
-      }
-      priority: 871
-    }
-    lines {
-      width: 12
-      color: 0xFFFFFF
-      priority: 872
+      priority: 1088
     }
   }
 }
@@ -26187,334 +22655,27 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
       priority: 1088
     }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1090
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1092
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1094
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1096
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1098
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1100
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1102
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1104
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1106
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1108
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1110
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1112
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1114
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1116
-    }
   }
   element {
     scale: 17
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
-      priority: 1241
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1243
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1245
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1247
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1249
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1251
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1253
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1255
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1257
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1259
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1261
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1263
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1265
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1267
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1269
-    }
-  }
-}
-cont {
-  name: "highway-track-permissive"
-  element {
-    scale: 15
-    lines {
-      width: 8
-      color: 0xFFFFFFFF
-      priority: 669
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 8
-      color: 0xFFFFFFFF
-      priority: 989
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 12
-      color: 0xFFFFFFFF
-      priority: 1118
+      priority: 1088
     }
   }
 }
@@ -27828,610 +23989,71 @@ cont {
   }
 }
 cont {
-  name: "highway-trunk-oneway"
-  element {
-    scale: 16
-    lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
-      }
-      priority: 1088
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1090
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1092
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1094
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1096
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1098
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1100
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1102
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1104
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1106
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1108
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1110
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1112
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1114
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1116
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
-      }
-      priority: 1241
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1243
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1245
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1247
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1249
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1251
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1253
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1255
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1257
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1259
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1261
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1263
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1265
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1267
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1269
-    }
-  }
-}
-cont {
-  name: "highway-trunk-tunnel"
-  element {
-    scale: 9
-    lines {
-      width: 1.25
-      color: 0xFFC444
-      priority: 52
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.25
-      color: 0xFFFFFFFF
-      priority: 128
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.5
-      color: 0xFFFFFFFF
-      priority: 128
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 4.5
-      color: 0x202020
-      dashdot {
-        dd: 1.5
-        dd: 1.5
-      }
-      priority: 334
-    }
-    lines {
-      width: 4.25
-      color: 0xFFFFFF
-      priority: 335
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 7
-      color: 0x202020
-      dashdot {
-        dd: 1.85
-        dd: 1.85
-      }
-      priority: 345
-    }
-    lines {
-      width: 6.5
-      color: 0xFFFFFF
-      priority: 346
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 9
-      color: 0x202020
-      dashdot {
-        dd: 2.2
-        dd: 2.2
-      }
-      priority: 422
-    }
-    lines {
-      width: 8
-      color: 0xFFFFFF
-      priority: 423
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 10.4
-      color: 0x707070
-      dashdot {
-        dd: 2.8
-        dd: 2.8
-      }
-      priority: 530
-    }
-    lines {
-      width: 9
-      color: 0xFFFFFF
-      priority: 531
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 13.6
-      color: 0x707070
-      dashdot {
-        dd: 3.2
-        dd: 3.2
-      }
-      priority: 850
-    }
-    lines {
-      width: 12
-      color: 0xFFFFFF
-      priority: 851
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 14.4
-      color: 0x707070
-      dashdot {
-        dd: 3.2
-        dd: 3.2
-      }
-      priority: 895
-    }
-    lines {
-      width: 12
-      color: 0xFFFFFF
-      priority: 896
-    }
-  }
-}
-cont {
   name: "highway-trunk_link"
   element {
-    scale: 9
-    lines {
-      width: 1.125
-      color: 0xFFC444
-      priority: 45
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 1
-      color: 0xFFC444
-      priority: 111
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 2
-      color: 0xFFC444
-      priority: 111
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 2.375
-      color: 0xFFC444
-      priority: 225
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 3.25
-      color: 0xFFC444
-      priority: 236
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 4.5
-      color: 0xFFC444
-      priority: 298
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0x202020
-        stroke_color: 0xFFFFFF
-      }
-      priority: 10616
-    }
-  }
-  element {
     scale: 15
     lines {
-      width: 12
-      color: 0xfffb80
-      priority: 284
-      cap: BUTTCAP
-    }
-    lines {
-      width: 9
+      width: 8
       color: 0xFFC444
       priority: 540
     }
+    lines {
+      width: 12
+      color: 0xD8A050
+      priority: 530
+      cap: BUTTCAP
+    }
     path_text {
       primary {
-        height: 12
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        height: 16
+        color: 0x303030
+        stroke_color: 0xFFC444
       }
-      priority: 10827
+      priority: 1180
     }
   }
   element {
     scale: 16
     lines {
-      width: 15.6
-      color: 0xfffb80
-      priority: 490
-      cap: BUTTCAP
-    }
-    lines {
-      width: 12
+      width: 14
       color: 0xFFC444
       priority: 540
     }
+    lines {
+      width: 18
+      color: 0xD8A050
+      priority: 530
+      cap: BUTTCAP
+    }
     path_text {
       primary {
-        height: 12
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        height: 17
+        color: 0x404040
+        stroke_color: 0xFFC444
       }
-      priority: 11458
+      priority: 1180
     }
   }
   element {
     scale: 17
     lines {
-      width: 17.2
-      color: 0xfffb80
-      priority: 490
-      cap: BUTTCAP
-    }
-    lines {
-      width: 12
+      width: 16
       color: 0xFFC444
       priority: 540
     }
+    lines {
+      width: 20
+      color: 0xD8A050
+      priority: 530
+      cap: BUTTCAP
+    }
     path_text {
       primary {
-        height: 12
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        height: 17
+        color: 0x404040
+        stroke_color: 0xFFC444
       }
-      priority: 11736
-    }
-  }
-}
-cont {
-  name: "highway-trunk_link-area"
-  element {
-    scale: 12
-    area {
-      color: 0xFFC444
-      priority: 182
-    }
-  }
-  element {
-    scale: 13
-    area {
-      color: 0xFFC444
-      priority: 192
-    }
-  }
-  element {
-    scale: 14
-    area {
-      color: 0xFFC444
-      priority: 254
-    }
-  }
-  element {
-    scale: 15
-    area {
-      color: 0xFFC444
-      priority: 358
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 0xFFC444
-      priority: 673
-    }
-  }
-  element {
-    scale: 17
-    area {
-      color: 0xFFC444
-      priority: 714
+      priority: 1180
     }
   }
 }
@@ -28817,420 +24439,27 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
       priority: 1088
     }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1090
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1092
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1094
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1096
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1098
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1100
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1102
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1104
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1106
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1108
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1110
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1112
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1114
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1116
-    }
   }
   element {
     scale: 17
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
-      priority: 1241
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1243
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1245
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1247
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1249
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1251
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1253
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1255
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1257
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1259
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1261
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1263
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1265
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1267
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1269
-    }
-  }
-}
-cont {
-  name: "highway-trunk_link-tunnel"
-  element {
-    scale: 11
-    lines {
-      width: 0.5
-      color: 0xFFFFFFFF
-      priority: 129
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 2.5
-      color: 0x202020
-      dashdot {
-        dd: 1.5
-        dd: 1.5
-      }
-      priority: 325
-    }
-    lines {
-      width: 2.375
-      color: 0xFFFFFF
-      priority: 326
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 3.5
-      color: 0x202020
-      dashdot {
-        dd: 1.85
-        dd: 1.85
-      }
-      priority: 336
-    }
-    lines {
-      width: 3.25
-      color: 0xFFFFFF
-      priority: 337
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 5.5
-      color: 0x202020
-      dashdot {
-        dd: 2.2
-        dd: 2.2
-      }
-      priority: 413
-    }
-    lines {
-      width: 4.5
-      color: 0xFFFFFF
-      priority: 414
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 10.4
-      color: 0x707070
-      dashdot {
-        dd: 2.8
-        dd: 2.8
-      }
-      priority: 521
-    }
-    lines {
-      width: 9
-      color: 0xFFFFFF
-      priority: 522
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 13.6
-      color: 0x707070
-      dashdot {
-        dd: 3.2
-        dd: 3.2
-      }
-      priority: 841
-    }
-    lines {
-      width: 12
-      color: 0xFFFFFF
-      priority: 842
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 14.4
-      color: 0x707070
-      dashdot {
-        dd: 3.2
-        dd: 3.2
-      }
-      priority: 886
-    }
-    lines {
-      width: 12
-      color: 0xFFFFFF
-      priority: 887
+      priority: 1088
     }
   }
 }
@@ -29581,307 +24810,27 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
       priority: 1088
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1090
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1092
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1094
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1096
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1098
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1100
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1102
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1104
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1106
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1108
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1110
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1112
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1114
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1116
     }
   }
   element {
     scale: 17
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
-      priority: 1241
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1243
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1245
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1247
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1249
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1251
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1253
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1255
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1257
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1259
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1261
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1263
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1265
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1267
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1269
+      priority: 1088
     }
   }
 }
@@ -30414,334 +25363,27 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
       priority: 1088
     }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1090
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1092
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1094
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1096
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1098
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1100
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1102
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1104
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1106
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1108
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1110
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1112
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1114
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1116
-    }
   }
   element {
     scale: 17
     lines {
-      width: 2.4
-      color: 0xA0
-      dashdot {
-        dd: 16.8
-        dd: 223.2
-        offset: 184.8
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
       }
-      priority: 1241
-    }
-    lines {
-      width: 4.6
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.6
-      }
-      priority: 1243
-    }
-    lines {
-      width: 4
-      color: 0xA0
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 172.8
-      }
-      priority: 1245
-    }
-    lines {
-      width: 3.4
-      color: 0xA0
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 172.8
-      }
-      priority: 1247
-    }
-    lines {
-      width: 2.8
-      color: 0xA0
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 172.8
-      }
-      priority: 1249
-    }
-    lines {
-      width: 2.2
-      color: 0xA0
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 172.8
-      }
-      priority: 1251
-    }
-    lines {
-      width: 1.6
-      color: 0xA0
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 172.8
-      }
-      priority: 1253
-    }
-    lines {
-      width: 0.8
-      color: 0xA0
-      dashdot {
-        dd: 6.4
-        dd: 233.6
-        offset: 172.8
-      }
-      priority: 1255
-    }
-    lines {
-      width: 0.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 16
-        dd: 224
-        offset: 184.4
-      }
-      priority: 1257
-    }
-    lines {
-      width: 3.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 1.6
-        dd: 238.4
-        offset: 173.2
-      }
-      priority: 1259
-    }
-    lines {
-      width: 2.8
-      color: 0xFFFFFF
-      dashdot {
-        dd: 2.4
-        dd: 237.6
-        offset: 173.2
-      }
-      priority: 1261
-    }
-    lines {
-      width: 2.2
-      color: 0xFFFFFF
-      dashdot {
-        dd: 3.2
-        dd: 236.8
-        offset: 173.2
-      }
-      priority: 1263
-    }
-    lines {
-      width: 1.6
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4
-        dd: 236
-        offset: 173.2
-      }
-      priority: 1265
-    }
-    lines {
-      width: 1
-      color: 0xFFFFFF
-      dashdot {
-        dd: 4.8
-        dd: 235.2
-        offset: 173.2
-      }
-      priority: 1267
-    }
-    lines {
-      width: 0.4
-      color: 0xFFFFFF
-      dashdot {
-        dd: 5.6
-        dd: 234.4
-        offset: 173.2
-      }
-      priority: 1269
-    }
-  }
-}
-cont {
-  name: "highway-unsurfaced-permissive"
-  element {
-    scale: 15
-    lines {
-      width: 8
-      color: 0xFFFFFFFF
-      priority: 641
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 8
-      color: 0xFFFFFFFF
-      priority: 961
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 12
-      color: 0xFFFFFFFF
-      priority: 1090
+      priority: 1088
     }
   }
 }
@@ -38478,7 +33120,7 @@ cont {
       primary {
         height: 12
         color: 0x5ca800
-	stroke_color: 0xFFFFFF
+        stroke_color: 0xFFFFFF
       }
       priority: 11829
     }
@@ -38497,7 +33139,7 @@ cont {
       primary {
         height: 12
         color: 0x5ca800
-	stroke_color: 0xFFFFFF
+        stroke_color: 0xFFFFFF
       }
       priority: 11829
     }
@@ -38516,7 +33158,7 @@ cont {
       primary {
         height: 12
         color: 0x5ca800
-	stroke_color: 0xFFFFFF
+        stroke_color: 0xFFFFFF
       }
       priority: 11829
     }
@@ -45725,12 +40367,12 @@ cont {
       primary {
         height: 12
         color: 0x606060
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       secondary {
         height: 12
         color: 0x909090
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       priority: 5
     }
@@ -45741,12 +40383,12 @@ cont {
       primary {
         height: 14
         color: 0x505050
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       secondary {
         height: 12
         color: 0x808080
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       priority: 5
     }
@@ -45757,12 +40399,12 @@ cont {
       primary {
         height: 14
         color: 0x505050
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       secondary {
         height: 12
         color: 0x808080
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       priority: 5
     }
@@ -45773,12 +40415,12 @@ cont {
       primary {
         height: 17
         color: 0x505050
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       secondary {
         height: 14
         color: 0x808080
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       priority: 5
     }
@@ -45789,12 +40431,12 @@ cont {
       primary {
         height: 18
         color: 0x505050
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       secondary {
         height: 14
         color: 0x808080
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       priority: 5
     }
@@ -45805,12 +40447,12 @@ cont {
       primary {
         height: 18
         color: 0x505050
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       secondary {
         height: 14
         color: 0x808080
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       priority: 5
     }
@@ -45821,7 +40463,7 @@ cont {
       primary {
         height: 20
         color: 0x505050
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       secondary {
         height: 16
@@ -45836,12 +40478,12 @@ cont {
       primary {
         height: 20
         color: 0x404040
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       secondary {
         height: 16
         color: 0x808080
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       priority: 10500
     }
@@ -45852,12 +40494,12 @@ cont {
       primary {
         height: 22
         color: 0x404040
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       secondary {
         height: 16
         color: 0x808080
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       priority: 10650
     }
@@ -45868,12 +40510,12 @@ cont {
       primary {
         height: 22
         color: 0x404040
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       secondary {
         height: 16
         color: 0x808080
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       priority: 10650
     }
@@ -46070,12 +40712,12 @@ cont {
       primary {
         height: 14
         color: 0x404040
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       secondary {
         height: 12
         color: 0x606060
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       priority: 1
     }
@@ -46539,7 +41181,7 @@ cont {
       primary {
         height: 14
         color: 0xB0B0A8
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       priority: 70
     }
@@ -46550,7 +41192,7 @@ cont {
       primary {
         height: 14
         color: 0xC0C0B0
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       priority: 70
     }
@@ -46574,7 +41216,7 @@ cont {
       primary {
         height: 14
         color: 0xB0B0A8
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       priority: 70
     }
@@ -46585,7 +41227,7 @@ cont {
       primary {
         height: 14
         color: 0xC0C0B0
-	stroke_color: 0xEEEEDD
+        stroke_color: 0xEEEEDD
       }
       priority: 70
     }
@@ -52283,7 +46925,7 @@ cont {
       primary {
         height: 12
         color: 0x3050D8
-	stroke_color: 0xF8FCFF
+        stroke_color: 0xF8FCFF
       }
       priority: 15567
     }
@@ -52298,7 +46940,7 @@ cont {
       primary {
         height: 12
         color: 0x3050D8
-	stroke_color: 0xF8FCFF
+        stroke_color: 0xF8FCFF
       }
       priority: 15567
     }
