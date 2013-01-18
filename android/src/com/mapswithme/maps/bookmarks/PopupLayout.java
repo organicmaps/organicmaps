@@ -29,24 +29,24 @@ public class PopupLayout extends View
 {
   private static final String DEACTIVATION = "deactivation";
   private static final int VERTICAL_MARGIN = 10;
-  private final int m_thriangleHeight;
-  private Bitmap m_AddButton;
-  private Bitmap m_editButton;
-  private Bitmap m_pin;
-  private Bitmap m_popup;
+  private final int mThriangleHeight;
+  private Bitmap mAddButton;
+  private Bitmap mEditButton;
+  private Bitmap mPin;
+  private Bitmap mPopup;
 
-  volatile private Bookmark m_bmk;
-  private Paint m_backgroundPaint;
-  private Paint m_borderPaint;
-  private Paint m_buttonPaint = new Paint();
-  private Path m_popupPath;
-  private TextPaint m_textPaint;
-  private Rect m_textBounds = new Rect();
-  private Rect m_popupRect = new Rect();
-  private Point m_popupAnchor = new Point();
+  volatile private Bookmark mBmk;
+  private Paint mBackgroundPaint;
+  private Paint mBorderPaint;
+  private Paint mButtonPaint = new Paint();
+  private Path mPopupPath;
+  private TextPaint mTextPaint;
+  private Rect mTextBounds = new Rect();
+  private Rect mPopupRect = new Rect();
+  private Point mPopupAnchor = new Point();
 
-  private int m_width;
-  private int m_height;
+  private int mWidth;
+  private int mHeight;
 
   public PopupLayout(Context context)
   {
@@ -61,52 +61,51 @@ public class PopupLayout extends View
   public PopupLayout(Context context, AttributeSet attrs, int defStyle)
   {
     super(context, attrs, defStyle);
-    m_AddButton = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.add);
-    m_editButton = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.arrow);
-    m_pin = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.placemark_red);
+    mAddButton = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.add);
+    mEditButton = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.arrow);
+    mPin = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.placemark_red);
 
-    m_thriangleHeight = (int) (10 * getResources().getDisplayMetrics().density);
-    m_backgroundPaint = new Paint();
-    m_backgroundPaint.setColor(Color.BLACK);
-    m_backgroundPaint.setStyle(Paint.Style.FILL);
-    m_borderPaint = new Paint();
-    m_borderPaint.setStyle(Style.STROKE);
-    m_borderPaint.setColor(Color.GRAY);
-    m_borderPaint.setStrokeWidth(2);
-    m_borderPaint.setAntiAlias(true);
-    m_popupPath = new Path();
+    mThriangleHeight = (int) (10 * getResources().getDisplayMetrics().density);
+    mBackgroundPaint = new Paint();
+    mBackgroundPaint.setColor(Color.BLACK);
+    mBackgroundPaint.setStyle(Paint.Style.FILL);
+    mBorderPaint = new Paint();
+    mBorderPaint.setStyle(Style.STROKE);
+    mBorderPaint.setColor(Color.GRAY);
+    mBorderPaint.setStrokeWidth(2);
+    mBorderPaint.setAntiAlias(true);
+    mPopupPath = new Path();
 
-    m_textPaint = new TextPaint();
-    m_textPaint.setTextSize(20 * getResources().getDisplayMetrics().density);
-    m_textPaint.setAntiAlias(true);
-    m_textPaint.setColor(Color.WHITE);
+    mTextPaint = new TextPaint();
+    mTextPaint.setTextSize(20 * getResources().getDisplayMetrics().density);
+    mTextPaint.setAntiAlias(true);
+    mTextPaint.setColor(Color.WHITE);
   }
 
   public synchronized void activate(final Bookmark bmk)
   {
-    m_bmk = bmk;
+    mBmk = bmk;
     nDrawBookmark(bmk.getPosition().x, bmk.getPosition().y);
-    m_popup = prepareBitmap(m_bmk);
+    mPopup = prepareBitmap(mBmk);
     postInvalidate();
   }
 
   public synchronized void deactivate()
   {
-    m_bmk = null;
+    mBmk = null;
     nRemoveBookmark();
-    if(m_popup != null)
+    if(mPopup != null)
     {
-      Bitmap b = m_popup;
-      m_popup = null;
+      Bitmap b = mPopup;
+      mPopup = null;
       b.recycle();
     }
-    Log.d(DEACTIVATION, "deactivated");
     postInvalidate();
   }
 
   public synchronized boolean isActive()
   {
-    return m_bmk != null;
+    return mBmk != null;
   }
 
   private Point anchor;
@@ -131,53 +130,53 @@ public class PopupLayout extends View
     Bitmap btn;
     if (bmk.isPreviewBookmark())
     {
-      btn = m_AddButton;
+      btn = mAddButton;
     }
     else
     {
-      btn = m_editButton;
+      btn = mEditButton;
       BookmarkManager.getBookmarkManager(getContext()).getCategoryById(bmk.getCategoryId()).setVisibility(true);
     }
 
     String bmkName = bmk.getName();
     int pWidth = Math.min(getWidth(), getHeight()) - VERTICAL_MARGIN;
-    int pHeight = m_height = btn.getHeight() + 10;
+    int pHeight = mHeight = btn.getHeight() + 10;
     int maxTextWidth = pWidth - btn.getWidth() - 10;
-    int currentTextWidth = Math.round(m_textPaint.measureText(bmkName));
+    int currentTextWidth = Math.round(mTextPaint.measureText(bmkName));
     String text;
     if (currentTextWidth > maxTextWidth)
     {
-      text = TextUtils.ellipsize(bmkName, m_textPaint, maxTextWidth, TruncateAt.END).toString();
-      currentTextWidth = Math.round(m_textPaint.measureText(text));;
+      text = TextUtils.ellipsize(bmkName, mTextPaint, maxTextWidth, TruncateAt.END).toString();
+      currentTextWidth = Math.round(mTextPaint.measureText(text));;
     }
     else
     {
       text = bmkName;
     }
-    pWidth = m_width = currentTextWidth + btn.getWidth() + 10;
+    pWidth = mWidth = currentTextWidth + btn.getWidth() + 10;
 
 
-    m_popupPath.reset();
-    m_popupPath.moveTo(0, 0);
-    m_popupPath.lineTo(pWidth, 0);
-    m_popupPath.lineTo(pWidth, 0 + pHeight);
-    m_popupPath.lineTo(m_width/2 + m_thriangleHeight, pHeight);
-    m_popupPath.lineTo(m_width/2, pHeight + m_thriangleHeight);
-    m_popupPath.lineTo(m_width/2 - m_thriangleHeight, pHeight);
-    m_popupPath.lineTo(0, pHeight);
-    m_popupPath.lineTo(0, 0);
+    mPopupPath.reset();
+    mPopupPath.moveTo(0, 0);
+    mPopupPath.lineTo(pWidth, 0);
+    mPopupPath.lineTo(pWidth, 0 + pHeight);
+    mPopupPath.lineTo(mWidth/2 + mThriangleHeight, pHeight);
+    mPopupPath.lineTo(mWidth/2, pHeight + mThriangleHeight);
+    mPopupPath.lineTo(mWidth/2 - mThriangleHeight, pHeight);
+    mPopupPath.lineTo(0, pHeight);
+    mPopupPath.lineTo(0, 0);
 
-    Bitmap b = Bitmap.createBitmap(pWidth, pHeight + m_thriangleHeight, Config.ARGB_8888);
+    Bitmap b = Bitmap.createBitmap(pWidth, pHeight + mThriangleHeight, Config.ARGB_8888);
     Canvas canvas = new Canvas(b);
-    canvas.drawPath(m_popupPath, m_backgroundPaint);
-    canvas.drawBitmap(btn, pWidth - btn.getWidth()-5, + 5, m_buttonPaint);
-    canvas.drawPath(m_popupPath, m_borderPaint);
-    m_textPaint.getTextBounds(text, 0, text.length(), m_textBounds);
+    canvas.drawPath(mPopupPath, mBackgroundPaint);
+    canvas.drawBitmap(btn, pWidth - btn.getWidth()-5, + 5, mButtonPaint);
+    canvas.drawPath(mPopupPath, mBorderPaint);
+    mTextPaint.getTextBounds(text, 0, text.length(), mTextBounds);
 
-    int textHeight = m_textBounds.bottom - m_textBounds.top;
+    int textHeight = mTextBounds.bottom - mTextBounds.top;
     canvas.drawText(text, 2,
                     - (pHeight - textHeight) / 2 + pHeight,
-                    m_textPaint);
+                    mTextPaint);
 
     return b;
   }
@@ -185,32 +184,27 @@ public class PopupLayout extends View
   @Override
   protected void onDraw(Canvas canvas)
   {
-    Bookmark bmk = m_bmk;
-    Log.d(DEACTIVATION, "invalidate");
-    Log.d(DEACTIVATION, "invalidate");
-    Log.d(DEACTIVATION, "invalidate");
-    Log.d(DEACTIVATION, "invalidate");
-    Log.d(DEACTIVATION, "" + (bmk == null));
+    Bookmark bmk = mBmk;
     if (bmk != null)
     {
       Log.d(DEACTIVATION, "i'm still drawing");
       int pinHeight = Math.round(35/1.5f * getResources().getDisplayMetrics().density);
-      m_popupAnchor.x = bmk.getPosition().x - m_width / 2;
-      m_popupAnchor.y = bmk.getPosition().y - pinHeight - m_thriangleHeight - m_height;
+      mPopupAnchor.x = bmk.getPosition().x - mWidth / 2;
+      mPopupAnchor.y = bmk.getPosition().y - pinHeight - mThriangleHeight - mHeight;
 
-      m_popupRect.left = m_popupAnchor.x;
-      m_popupRect.top = m_popupAnchor.y;
-      m_popupRect.right = m_popupAnchor.x + m_width;
-      m_popupRect.bottom = m_popupAnchor.y + m_height;
+      mPopupRect.left = mPopupAnchor.x;
+      mPopupRect.top = mPopupAnchor.y;
+      mPopupRect.right = mPopupAnchor.x + mWidth;
+      mPopupRect.bottom = mPopupAnchor.y + mHeight;
 
-      if (m_popup != null)
+      if (mPopup != null)
       {
-        canvas.drawBitmap(m_popup, m_popupAnchor.x, m_popupAnchor.y, m_buttonPaint);
+        canvas.drawBitmap(mPopup, mPopupAnchor.x, mPopupAnchor.y, mButtonPaint);
       }
     }
     else
     {
-      canvas.drawColor(0, Mode.CLEAR);
+      canvas.drawColor(Color.RED);
       super.onDraw(canvas);
     }
 
@@ -227,22 +221,27 @@ public class PopupLayout extends View
    */
   public synchronized boolean handleClick(int x, int y, boolean ispro)
   {
-    if (m_bmk != null)
+    if (mBmk != null)
     {
-      if ( m_popupRect.contains(x, y) )
+      if ( mPopupRect.contains(x, y) )
       {
         if (ispro)
         {
-          if (m_bmk.isPreviewBookmark())
+          if (mBmk.isPreviewBookmark())
           {
-            //m_bmk.setCategoryId(BookmarkManager.getBookmarkManager(getContext()).getCategoriesCount()-1);
             getContext().startActivity(new Intent(getContext(), BookmarkActivity.class).
-                          putExtra(BookmarkActivity.BOOKMARK_POSITION, new ParcelablePoint(m_bmk.getPosition())).
-                          putExtra(BookmarkActivity.BOOKMARK_NAME, m_bmk.getName()));
+                          putExtra(BookmarkActivity.BOOKMARK_POSITION, new ParcelablePoint(mBmk.getPosition())).
+                          putExtra(BookmarkActivity.BOOKMARK_NAME, mBmk.getName()));
           }
           else
           {
-            getContext().startActivity(new Intent(getContext(), BookmarkActivity.class).putExtra(BookmarkActivity.PIN, new ParcelablePoint(m_bmk.getCategoryId(), m_bmk.getBookmarkId())));
+            getContext().startActivity(
+                                       new Intent(getContext(), BookmarkActivity.class)
+                                       .putExtra(
+                                                 BookmarkActivity.PIN,
+                                                 new ParcelablePoint(mBmk.getCategoryId(), mBmk.getBookmarkId()
+                                               )
+                                       ));
           }
         }
         return true;
