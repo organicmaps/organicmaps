@@ -41,6 +41,7 @@ import com.mapswithme.maps.bookmarks.PopupLayout;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
+import com.mapswithme.maps.bookmarks.data.ParcelablePointD;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.util.ConnectionState;
@@ -620,19 +621,19 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
 
     private boolean handleOnSmthClick(int x, int y, boolean longClick)
     {
-      ParcelablePoint b = m_BookmarkManager.findBookmark(new Point(x, y));
+      ParcelablePoint b = m_BookmarkManager.findBookmark(new ParcelablePointD(x, y));
       if (b != null)
       {
         m_PopupLayout.activate(m_BookmarkManager.getBookmark(b.getPoint().x, b.getPoint().y));
         return true;
       }
       else
-        if (m_BookmarkManager.findVisiblePOI(new Point(x, y)))
+        if (m_BookmarkManager.findVisiblePOI(new ParcelablePointD(x, y)))
         {
           m_PopupLayout.activate(
             m_BookmarkManager.previewBookmark(
-              m_BookmarkManager.getBmkPositionForPOI(new Point(x, y)),
-              m_BookmarkManager.getNameForPOI(new Point(x, y)) ));
+              m_BookmarkManager.getBmkPositionForPOI(new ParcelablePointD(x, y)),
+              m_BookmarkManager.getNameForPOI(new ParcelablePointD(x, y)) ));
           return true;
         }
         else
@@ -640,8 +641,8 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
           {
             m_PopupLayout.activate(
                                    m_BookmarkManager.previewBookmark(
-                                     m_BookmarkManager.getBmkPositionForPOI(new Point(x, y)),
-                                     m_BookmarkManager.getNameForPOI(new Point(x, y)) ));
+                                     m_BookmarkManager.getBmkPositionForPOI(new ParcelablePointD(x, y)),
+                                     m_BookmarkManager.getNameForPOI(new ParcelablePointD(x, y)) ));
             return true;
           }
           else

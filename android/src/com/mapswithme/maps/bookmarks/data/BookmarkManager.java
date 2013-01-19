@@ -52,7 +52,7 @@ public class BookmarkManager
     nDeleteBookmark(cat, bmk);
   }
 
-  private native void nDeleteBookmark(int x, int y);
+  private native void nDeleteBookmark(int c, int b);
 
   public BookmarkCategory getCategoryById(int id)
   {
@@ -85,7 +85,7 @@ public class BookmarkManager
     return new ArrayList<Icon>(mIconManager.getAll().values());
   }
 
-  public Bookmark getBookmark(Point p)
+  public Bookmark getBookmark(ParcelablePointD p)
   {
     Point bookmark = nGetBookmark(p.x, p.y);
     if (bookmark.x == -1 && bookmark.y == -1)
@@ -98,7 +98,7 @@ public class BookmarkManager
     }
   }
 
-  public ParcelablePoint findBookmark(Point p)
+  public ParcelablePoint findBookmark(ParcelablePointD p)
   {
     Point bookmark = nGetBookmark(p.x, p.y);
     if (bookmark.x>=0 && bookmark.y>=0)
@@ -109,7 +109,7 @@ public class BookmarkManager
       return null;
   }
 
-  private native Point nGetBookmark(int px, int py);
+  private native Point nGetBookmark(double px, double py);
 
   public Bookmark getBookmark(int cat, int bmk)
   {
@@ -139,21 +139,21 @@ public class BookmarkManager
 
   private native boolean nGetCategoryByName(String name);
 
-  public Bookmark previewBookmark(Point point, String name)
+  public Bookmark previewBookmark(ParcelablePointD point, String name)
   {
     return new Bookmark(mContext, point, name);
   }
 
-  private native void nShowBookmark(int px, int py);
+  private native void nShowBookmark(int c, int b);
 
   public void showBookmarkOnMap(int c, int b)
   {
     nShowBookmark(c, b);
   }
 
-  private native String nGetNameForPOI(int px, int py);
+  private native String nGetNameForPOI(double px, double py);
 
-  public String getNameForPOI(Point p)
+  public String getNameForPOI(ParcelablePointD p)
   {
     String name = nGetNameForPOI(p.x,p.y);
     if (!TextUtils.isEmpty(name))
@@ -168,23 +168,23 @@ public class BookmarkManager
     return Utils.toTitleCase(mContext.getString(R.string.dropped_pin));
   }
 
-  private native String nGetNameForPlace(int px, int py);
+  private native String nGetNameForPlace(double px, double py);
 
-  public String getNameForPlace(Point p)
+  public String getNameForPlace(ParcelablePointD p)
   {
     return Utils.toTitleCase(nGetNameForPlace(p.x,p.y));
   }
 
-  private native Point nGetBmkPositionForPOI(int px, int py);
+  private native ParcelablePointD nGetBmkPositionForPOI(double px, double py);
 
-  public boolean findVisiblePOI(Point p)
+  public boolean findVisiblePOI(ParcelablePointD p)
   {
     return nFindVisiblePOI(p.x, p.y);
   }
 
-  private native boolean nFindVisiblePOI(int px, int py);
+  private native boolean nFindVisiblePOI(double px, double py);
 
-  public Point getBmkPositionForPOI(Point p)
+  public ParcelablePointD getBmkPositionForPOI(ParcelablePointD p)
   {
     return nGetBmkPositionForPOI(p.x, p.y);
   }

@@ -22,6 +22,7 @@ import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.Icon;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
+import com.mapswithme.maps.bookmarks.data.ParcelablePointD;
 
 public class BookmarkActivity extends AbstractBookmarkActivity
 {
@@ -52,7 +53,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
     if (getIntent().getExtras().containsKey(BOOKMARK_POSITION))
     {
       // create new bookmark
-      mPin = mManager.getBookmark(((ParcelablePoint)getIntent().getExtras().getParcelable(BOOKMARK_POSITION)).getPoint());
+      mPin = mManager.getBookmark(((ParcelablePointD)getIntent().getExtras().getParcelable(BOOKMARK_POSITION)));
       mPin.setName(getIntent().getExtras().getString(BOOKMARK_NAME));
       findViewById(R.id.pin_name).requestFocus();
     }

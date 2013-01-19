@@ -1,5 +1,6 @@
 package com.mapswithme.maps.bookmarks.data;
 
+import android.graphics.Point;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -7,6 +8,21 @@ public class ParcelablePointD implements Parcelable
 {
   public double x;
   public double y;
+
+  public int getRoundX()
+  {
+    return (int) Math.round(x);
+  }
+
+  public int getRoundY()
+  {
+    return (int) Math.round(y);
+  }
+
+  public Point getRoundedPoint()
+  {
+    return new Point(getRoundX(), getRoundY());
+  }
 
   @Override
   public int describeContents()

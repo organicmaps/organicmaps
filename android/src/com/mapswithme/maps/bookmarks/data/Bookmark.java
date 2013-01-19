@@ -1,13 +1,12 @@
 package com.mapswithme.maps.bookmarks.data;
 
 import android.content.Context;
-import android.graphics.Point;
 
 public class Bookmark
 {
   private Icon mIcon;
   private Context mContext;
-  private Point mPosition;
+  private ParcelablePointD mPosition;
   private int mCategoryId = -1;
   private int mBookmark;
   private double mMercatorX = Double.NaN;
@@ -16,7 +15,7 @@ public class Bookmark
   private final boolean mIsPreviewBookmark;
 
   // For bookmark preview
-  Bookmark(Context context, Point pos, String name)
+  Bookmark(Context context, ParcelablePointD pos, String name)
   {
     mIsPreviewBookmark = true;
     mContext = context.getApplicationContext();
@@ -25,7 +24,7 @@ public class Bookmark
     getXY(mPosition);
   }
 
-  Bookmark(Context context, Point position, int nextCat, int b)
+  Bookmark(Context context, ParcelablePointD position, int nextCat, int b)
   {
     mIsPreviewBookmark = false;
     mContext = context.getApplicationContext();
@@ -49,7 +48,7 @@ public class Bookmark
     getXY();
   }
 
-  private void getXY(Point position)
+  private void getXY(ParcelablePointD position)
   {
     ParcelablePointD ll = nPtoG(position.x, position.y);
     mMercatorX = ll.x;
@@ -57,12 +56,12 @@ public class Bookmark
   }
 
   private native DistanceAndAthimuth nGetDistanceAndAzimuth(double x, double y, double cLat, double cLon, double north);
-  private native Point nGtoP(double lat, double lon);
-  private native ParcelablePointD nPtoG(int x, int y);
+  private native ParcelablePointD nGtoP(double lat, double lon);
+  private native ParcelablePointD nPtoG(double px, double py);
   private native ParcelablePointD nGetXY(int c, long b);
-  private native String nGetNamePos(int x, int y);
+  private native String nGetNamePos(double px, double py);
   private native String nGetName(int c, long b);
-  private native String nGetIconPos(int x, int y);
+  private native String nGetIconPos(double px, double py);
   private native String nGetIcon(int c, long b);
   private native void nChangeBookmark(double x, double y, String category, String name, String type);
   private native String nGetBookmarkDescription(int categoryId, long bookmark);
@@ -82,7 +81,7 @@ public class Bookmark
     return nGetDistanceAndAzimuth(mMercatorX, mMercatorY, cLat, cLon, north);
   }
 
-  public Point getPosition()
+  public ParcelablePointD getPosition()
   {
     return nGtoP(mMercatorX, mMercatorY);
   }

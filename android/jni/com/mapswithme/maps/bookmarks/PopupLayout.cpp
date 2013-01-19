@@ -10,9 +10,9 @@ namespace
 extern "C"
 {
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_bookmarks_PopupLayout_nDrawBookmark(JNIEnv * env, jobject thiz, jdouble x, jdouble y)
+  Java_com_mapswithme_maps_bookmarks_PopupLayout_nDrawBookmark(JNIEnv * env, jobject thiz, jdouble px, jdouble py)
   {
-    frm()->DrawPlacemark(frm()->PtoG(m2::PointD(x, y)));
+    frm()->DrawPlacemark(frm()->PtoG(m2::PointD(px, py)));
     frm()->Invalidate();
   }
 

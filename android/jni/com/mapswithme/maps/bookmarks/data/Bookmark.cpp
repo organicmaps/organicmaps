@@ -22,7 +22,7 @@ extern "C"
   JNIEXPORT jobject JNICALL
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGtoP(JNIEnv * env, jobject thiz, jdouble x, jdouble y)
   {
-    return jni::GetNewPoint(env, frm()->GtoP(m2::PointD(x, y)));
+    return jni::GetNewParcelablePointD(env, frm()->GtoP(m2::PointD(x, y)));
   }
 
   JNIEXPORT jstring JNICALL
@@ -52,9 +52,9 @@ extern "C"
 
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGetNamePos(
-         JNIEnv * env, jobject thiz, jint x, jint y)
+         JNIEnv * env, jobject thiz, jint px, jint py)
   {
-    BookmarkAndCategory bc = frm()->GetBookmark(m2::PointD(x, y));
+    BookmarkAndCategory bc = frm()->GetBookmark(m2::PointD(px, py));
     return jni::ToJavaString(env, getBookmark(bc.first, bc.second)->GetName());
   }
 
@@ -67,9 +67,9 @@ extern "C"
 
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nGetIconPos(
-         JNIEnv * env, jobject thiz, jint x, jint y)
+         JNIEnv * env, jobject thiz, jint px, jint py)
   {
-    BookmarkAndCategory bc = frm()->GetBookmark(m2::PointD(x, y));
+    BookmarkAndCategory bc = frm()->GetBookmark(m2::PointD(px, py));
     return jni::ToJavaString(env, getBookmark(bc.first, bc.second)->GetType());
   }
 
@@ -90,7 +90,7 @@ extern "C"
 
   JNIEXPORT jobject JNICALL
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_nPtoG(
-       JNIEnv * env, jobject thiz, jint px, jint py)
+       JNIEnv * env, jobject thiz, jdouble px, jdouble py)
   {
     return jni::GetNewParcelablePointD(env, frm()->PtoG(m2::PointD(px, py)));
   }

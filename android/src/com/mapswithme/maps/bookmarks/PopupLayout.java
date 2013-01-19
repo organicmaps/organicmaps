@@ -85,7 +85,10 @@ public class PopupLayout extends View
   public synchronized void activate(final Bookmark bmk)
   {
     mBmk = bmk;
-    nDrawBookmark(bmk.getPosition().x, bmk.getPosition().y);
+    if (bmk.isPreviewBookmark())
+    {
+      nDrawBookmark(bmk.getPosition().x, bmk.getPosition().y);
+    }
     mPopup = prepareBitmap(mBmk);
     postInvalidate();
   }
@@ -125,7 +128,7 @@ public class PopupLayout extends View
 
   private Bitmap prepareBitmap(Bookmark bmk)
   {
-    anchor = bmk.getPosition();
+    anchor = bmk.getPosition().getRoundedPoint();
 
     Bitmap btn;
     if (bmk.isPreviewBookmark())
@@ -187,10 +190,9 @@ public class PopupLayout extends View
     Bookmark bmk = mBmk;
     if (bmk != null)
     {
-      Log.d(DEACTIVATION, "i'm still drawing");
       int pinHeight = Math.round(35/1.5f * getResources().getDisplayMetrics().density);
-      mPopupAnchor.x = bmk.getPosition().x - mWidth / 2;
-      mPopupAnchor.y = bmk.getPosition().y - pinHeight - mThriangleHeight - mHeight;
+      mPopupAnchor.x = bmk.getPosition().getRoundX() - mWidth / 2;
+      mPopupAnchor.y = bmk.getPosition().getRoundY() - pinHeight - mThriangleHeight - mHeight;
 
       mPopupRect.left = mPopupAnchor.x;
       mPopupRect.top = mPopupAnchor.y;
@@ -229,7 +231,7 @@ public class PopupLayout extends View
           if (mBmk.isPreviewBookmark())
           {
             getContext().startActivity(new Intent(getContext(), BookmarkActivity.class).
-                          putExtra(BookmarkActivity.BOOKMARK_POSITION, new ParcelablePoint(mBmk.getPosition())).
+                          putExtra(BookmarkActivity.BOOKMARK_POSITION, (mBmk.getPosition())).
                           putExtra(BookmarkActivity.BOOKMARK_NAME, mBmk.getName()));
           }
           else

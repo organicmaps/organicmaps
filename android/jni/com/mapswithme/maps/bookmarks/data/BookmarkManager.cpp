@@ -23,7 +23,7 @@ extern "C"
   }
 
   JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetNameForPlace(JNIEnv * env, jobject thiz, jint px, jint py)
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetNameForPlace(JNIEnv * env, jobject thiz, jdouble px, jdouble py)
   {
     Framework::AddressInfo adInfo;
     frm()->GetAddressInfo(m2::PointD(px, py), adInfo);
@@ -31,7 +31,7 @@ extern "C"
   }
 
   JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetNameForPOI(JNIEnv * env, jobject thiz, jint px, jint py)
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetNameForPOI(JNIEnv * env, jobject thiz, jdouble px, jdouble py)
   {
     Framework::AddressInfo adInfo;
     m2::PointD pxPivot;
@@ -40,7 +40,7 @@ extern "C"
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nFindVisiblePOI(JNIEnv * env, jobject thiz, jint px, jint py)
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nFindVisiblePOI(JNIEnv * env, jobject thiz, jdouble px, jdouble py)
   {
     Framework::AddressInfo adInfo;
     m2::PointD pxPivot;
@@ -48,14 +48,14 @@ extern "C"
   }
 
   JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetBmkPositionForPOI(JNIEnv * env, jobject thiz, jint px, jint py)
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetBmkPositionForPOI(JNIEnv * env, jobject thiz, jdouble px, jdouble py)
   {
     Framework::AddressInfo adInfo;
     m2::PointD pxPivot;
     if (frm()->GetVisiblePOI(m2::PointD(px, py), pxPivot, adInfo))
-      return jni::GetNewPoint(env, pxPivot);
+      return jni::GetNewParcelablePointD(env, pxPivot);
     else
-      return jni::GetNewPoint(env, m2::PointI(px, py));
+      return jni::GetNewParcelablePointD(env, m2::PointI(px, py));
   }
 
 
@@ -116,7 +116,7 @@ extern "C"
   }
 
   JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetBookmark(JNIEnv * env, jobject thiz, jint px, jint py)
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetBookmark(JNIEnv * env, jobject thiz, jdouble px, jdouble py)
   {
     BookmarkAndCategory bac = frm()->GetBookmark(m2::PointD(px, py));
 
