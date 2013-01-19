@@ -200,14 +200,18 @@ UNIT_TEST(Bookmarks_ExportKML)
 
 namespace
 {
-  // Call this function to delete test category files.
-  void DeleteCategoryFiles()
+  template <size_t N> void DeleteCategoryFiles(char const * (&arrFiles)[N])
   {
     string const path = GetPlatform().WritableDir();
-    char const * arrFiles[] = { "cat1", "cat2", "cat3" };
-
-    for (size_t i = 0; i < ARRAY_SIZE(arrFiles); ++i)
+    for (size_t i = 0; i < N; ++i)
       FileWriter::DeleteFileX(path + arrFiles[i] + ".kml");
+  }
+
+  // Call this function to delete test category files.
+  void DeleteDefCategoryFiles()
+  {
+    char const * arrFiles[] = { "cat1", "cat2", "cat3" };
+    DeleteCategoryFiles(arrFiles);
   }
 }
 
@@ -297,7 +301,7 @@ UNIT_TEST(Bookmarks_Getting)
   cat->DeleteBookmark(0);
   TEST_EQUAL(cat->GetBookmarksCount(), 0, ());
 
-  DeleteCategoryFiles();
+  DeleteDefCategoryFiles();
 }
 
 UNIT_TEST(Bookmarks_AddressInfo)
@@ -413,7 +417,7 @@ UNIT_TEST(Bookmarks_AddingMoving)
   TEST_EQUAL(pBm->GetName(), "name3", ());
   TEST_EQUAL(pBm->GetType(), "placemark-green", ());
 
-  DeleteCategoryFiles();
+  DeleteDefCategoryFiles();
 }
 
 namespace
@@ -451,4 +455,17 @@ UNIT_TEST(Bookmarks_InnerFolder)
   cat.LoadFromKML(new MemReader(kmlString2, strlen(kmlString2)));
 
   TEST_EQUAL(cat.GetBookmarksCount(), 1, ());
+}
+
+UNIT_TEST(BookmarkCategory_EmptyName)
+{
+  BookmarkCategory * pCat = new BookmarkCategory("");
+  pCat->AddBookmark(Bookmark(m2::PointD(0, 0), "", "placemark-red"), 17);
+  pCat->SaveToKMLFile();
+
+  pCat->SetName("xxx");
+  pCat->SaveToKMLFile();
+
+  char const * arrFiles[] = { "Bookmarks", "xxx" };
+  DeleteCategoryFiles(arrFiles);
 }

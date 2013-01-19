@@ -450,16 +450,23 @@ string BookmarkCategory::RemoveInvalidSymbols(string const & name)
 string BookmarkCategory::GenerateUniqueFileName(const string & path, string name)
 {
   string const kmlExt(".kml");
+
   // check if file name already contains .kml extension
   size_t const extPos = name.rfind(kmlExt);
-  if (extPos == name.size() - kmlExt.size())
-    name.resize(name.size() - kmlExt.size());
+  if (extPos != string::npos)
+  {
+    // remove extension
+    ASSERT_GREATER_OR_EQUAL(name.size(), kmlExt.size(), ());
+    size_t const expectedPos = name.size() - kmlExt.size();
+    if (extPos == expectedPos)
+      name.resize(expectedPos);
+  }
 
   size_t counter = 1;
   string suffix;
-  while (Platform::IsFileExistsByFullPath(path + name + suffix + ".kml"))
+  while (Platform::IsFileExistsByFullPath(path + name + suffix + kmlExt))
     suffix = strings::to_string(counter++);
-  return (path + name + suffix + ".kml");
+  return (path + name + suffix + kmlExt);
 }
 
 bool BookmarkCategory::SaveToKMLFile()
