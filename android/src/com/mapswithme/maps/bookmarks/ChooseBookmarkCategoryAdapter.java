@@ -1,7 +1,5 @@
 package com.mapswithme.maps.bookmarks;
 
-import java.util.List;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +10,9 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 
-public class ChooseBookmarkCategoryAdapter extends AbstractBookmarkCategoryAdapter implements OnItemClickListener
+public class ChooseBookmarkCategoryAdapter extends AbstractBookmarkCategoryAdapter implements OnItemClickListener, Chooseable
 {
-
   private int mCheckedPosition = -1;
 
   public ChooseBookmarkCategoryAdapter(Context context, int pos)
@@ -37,14 +33,7 @@ public class ChooseBookmarkCategoryAdapter extends AbstractBookmarkCategoryAdapt
     SingleChoiceHolder holder = (SingleChoiceHolder) convertView.getTag();
     boolean checked = mCheckedPosition == position;
     holder.name.setText(getItem(position).getName());
-    if (checked)
-    {
-      holder.name.setTextAppearance(getContext(), android.R.style.TextAppearance_Large);
-    }
-    else
-    {
-      holder.name.setTextAppearance(getContext(), android.R.style.TextAppearance_Medium);
-    }
+    holder.name.setTextAppearance(getContext(), checked ? android.R.style.TextAppearance_Large : android.R.style.TextAppearance_Medium);
     holder.checked.setChecked(checked);
     return convertView;
   }
@@ -61,13 +50,15 @@ public class ChooseBookmarkCategoryAdapter extends AbstractBookmarkCategoryAdapt
     }
   }
 
+  @Override
   public void chooseItem(int position)
   {
     mCheckedPosition = position;
     notifyDataSetChanged();
   }
 
-  public int getChechedItemPosition()
+  @Override
+  public int getCheckedItemPosition()
   {
     return mCheckedPosition;
   }

@@ -109,7 +109,7 @@ public class BookmarkManager
       return null;
   }
 
-  private native Point nGetBookmark(int x, int y);
+  private native Point nGetBookmark(int px, int py);
 
   public Bookmark getBookmark(int cat, int bmk)
   {
@@ -144,14 +144,14 @@ public class BookmarkManager
     return new Bookmark(mContext, point, name);
   }
 
-  private native void nShowBookmark(int x, int y);
+  private native void nShowBookmark(int px, int py);
 
   public void showBookmarkOnMap(int c, int b)
   {
     nShowBookmark(c, b);
   }
 
-  private native String nGetNameForPOI(int x, int y);
+  private native String nGetNameForPOI(int px, int py);
 
   public String getNameForPOI(Point p)
   {
@@ -168,21 +168,21 @@ public class BookmarkManager
     return Utils.toTitleCase(mContext.getString(R.string.dropped_pin));
   }
 
-  private native String nGetNameForPlace(int x, int y);
+  private native String nGetNameForPlace(int px, int py);
 
   public String getNameForPlace(Point p)
   {
     return Utils.toTitleCase(nGetNameForPlace(p.x,p.y));
   }
 
-  private native Point nGetBmkPositionForPOI(int x, int y);
+  private native Point nGetBmkPositionForPOI(int px, int py);
 
   public boolean findVisiblePOI(Point p)
   {
     return nFindVisiblePOI(p.x, p.y);
   }
 
-  private native boolean nFindVisiblePOI(int x, int y);
+  private native boolean nFindVisiblePOI(int px, int py);
 
   public Point getBmkPositionForPOI(Point p)
   {

@@ -36,9 +36,8 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   private Bookmark mBookmark;
   private int mSelectedPosition;
   private BookmarkListAdapter mPinAdapter;
-  private double m_north = -1;
-  private LocationService m_location;
-  private boolean m_calledFromChooser;
+  private LocationService mLocation;
+  private boolean mEditContent;
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
@@ -46,7 +45,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
     super.onCreate(savedInstanceState);
     setContentView(R.layout.pins);
     final int setIndex = getIntent().getIntExtra(BookmarkActivity.PIN_SET, -1);
-    m_calledFromChooser = getIntent().getBooleanExtra(EDIT_CONTENT, false);
+    mEditContent = getIntent().getBooleanExtra(EDIT_CONTENT, true);
     if ((mEditedSet = mManager.getCategoryById(setIndex)) == null)
     {
       Point bmk = ((ParcelablePoint)getIntent().getParcelableExtra(BookmarkActivity.PIN)).getPoint();
@@ -57,21 +56,15 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
     {
       setTitle(mEditedSet.getName());
     }
-    if(mEditedSet != null)
-      setListAdapter(mPinAdapter = new BookmarkListAdapter(this, mEditedSet, new DataChangedListener()
-      {
 
-        @Override
-        public void onDataChanged(int vis)
-        {
-          findViewById(R.id.bookmark_usage_hint).setVisibility(vis);
-        }
-      }));
+    mLocation = ((MWMApplication) getApplication()).getLocationService();
+
+    if (mEditedSet != null)
+      createListAdapter();
 
     setUpViews();
     getListView().setOnItemClickListener(new OnItemClickListener()
     {
-
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id)
       {
@@ -81,34 +74,37 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
         startActivity(i);
       }
     });
-
-    m_location = ((MWMApplication) getApplication()).getLocationService();
     registerForContextMenu(getListView());
+  }
+
+  private void createListAdapter()
+  {
+    setListAdapter(mPinAdapter = new BookmarkListAdapter(BookmarkListActivity.this, mEditedSet, new DataChangedListener()
+    {
+      @Override
+      public void onDataChanged(int vis)
+      {
+        findViewById(R.id.bookmark_usage_hint).setVisibility(vis);
+      }
+    }));
+    mLocation.startUpdate(mPinAdapter);
   }
 
   private void setUpViews()
   {
     mSetName = (EditText) findViewById(R.id.pin_set_name);
-    if(mEditedSet != null)
+    if (mEditedSet != null)
       mSetName.setText(mEditedSet.getName());
+
     mSetName.addTextChangedListener(new TextWatcher()
     {
-
       @Override
       public void onTextChanged(CharSequence s, int start, int before, int count)
       {
         if (mEditedSet == null)
         {
           mEditedSet = mManager.createCategory(mBookmark, s.toString());
-          setListAdapter(mPinAdapter = new BookmarkListAdapter(BookmarkListActivity.this, mEditedSet, new DataChangedListener()
-          {
-
-            @Override
-            public void onDataChanged(int vis)
-            {
-              findViewById(R.id.bookmark_usage_hint).setVisibility(vis);
-            }
-          }));
+          createListAdapter();
           setResult(RESULT_OK,
                     new Intent().putExtra(BookmarkActivity.PIN_SET, mManager.getCategoriesCount()-1).
                     putExtra(BookmarkActivity.PIN, new ParcelablePoint(mManager.getCategoriesCount()-1, mEditedSet.getSize()-1))
@@ -132,16 +128,16 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
       {
       }
     });
+
     mIsVisible = (CheckBox) findViewById(R.id.pin_set_visible);
-    if(mEditedSet != null)
+    if (mEditedSet != null)
       mIsVisible.setChecked(mEditedSet.isVisible());
     mIsVisible.setOnCheckedChangeListener(new OnCheckedChangeListener()
     {
-
       @Override
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
       {
-        if(mEditedSet != null)
+        if (mEditedSet != null)
           mEditedSet.setVisibility(isChecked);
       }
     });
@@ -150,7 +146,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   @Override
   public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
   {
-    if (!m_calledFromChooser)
+    if (mEditContent)
     {
       if (menuInfo instanceof AdapterView.AdapterContextMenuInfo)
       {
@@ -183,9 +179,6 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
       mManager.deleteBookmark(mEditedSet.getId(), mSelectedPosition);
       ((BookmarkListAdapter) getListView().getAdapter()).notifyDataSetChanged();
     }
-    else
-    {
-    }
     return super.onContextItemSelected(item);
   }
 
@@ -193,15 +186,15 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   protected void onStart()
   {
     super.onStart();
-    if(mPinAdapter != null)
+    if (mPinAdapter != null)
       mPinAdapter.notifyDataSetChanged();
   }
 
   @Override
   protected void onPause()
   {
-    if(mPinAdapter != null)
-      m_location.stopUpdate(mPinAdapter);
+    if (mPinAdapter != null)
+      mLocation.stopUpdate(mPinAdapter);
     super.onPause();
   }
 
@@ -209,7 +202,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
   protected void onResume()
   {
     super.onResume();
-    if(mPinAdapter != null)
-      m_location.startUpdate(mPinAdapter);
+    if (mPinAdapter != null)
+      mLocation.startUpdate(mPinAdapter);
   }
 }

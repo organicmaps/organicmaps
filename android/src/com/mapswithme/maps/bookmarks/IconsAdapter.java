@@ -1,6 +1,5 @@
 package com.mapswithme.maps.bookmarks;
 
-import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -15,6 +14,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Icon;
 
+//SingleChoise list view don't add radiobutton to custom view
 public class IconsAdapter extends ArrayAdapter<Icon> implements Chooseable
 {
   private int mCheckedPosition = 0;
@@ -24,18 +24,7 @@ public class IconsAdapter extends ArrayAdapter<Icon> implements Chooseable
   }
 
   @Override
-  public View getDropDownView(int position, View convertView, ViewGroup parent)
-  {
-    return getCustomView(position, convertView, parent);
-  }
-
-  @Override
   public View getView(int position, View convertView, ViewGroup parent)
-  {
-    return getCustomView(position, convertView, parent);
-  }
-
-  public View getCustomView(int position, View convertView, ViewGroup parent)
   {
     if (convertView == null)
     {
@@ -77,7 +66,7 @@ public class IconsAdapter extends ArrayAdapter<Icon> implements Chooseable
   }
 
   @Override
-  public int getChechedItemPosition()
+  public int getCheckedItemPosition()
   {
     return mCheckedPosition;
   }

@@ -1,39 +1,34 @@
 package com.mapswithme.maps.bookmarks;
 
-import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-
-import android.os.Bundle;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.ListView;
+
+import com.mapswithme.maps.R;
 
 public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActivity
 {
   private static final int REQUEST_CREATE_CATEGORY = 1000;
   private ChooseBookmarkCategoryAdapter mAdapter;
-  private ListView mList;
 
   @Override
   public void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_bmk_categories);
-    mList = (ListView) findViewById(android.R.id.list);
-    mList.setAdapter(mAdapter = new ChooseBookmarkCategoryAdapter(this, getIntent().getIntExtra(BookmarkActivity.PIN_SET, -1)));
-    mList.setOnItemClickListener(mAdapter);
+    setListAdapter(mAdapter = new ChooseBookmarkCategoryAdapter(this, getIntent().getIntExtra(BookmarkActivity.PIN_SET, -1)));
+    getListView().setOnItemClickListener(mAdapter);
     registerForContextMenu(getListView());
   }
 
   @Override
   public void onBackPressed()
   {
-    setResult(RESULT_OK, new Intent().putExtra(BookmarkActivity.PIN_SET, mAdapter.getChechedItemPosition()).
-              putExtra(BookmarkActivity.PIN, getIntent().getParcelableExtra(BookmarkActivity.PIN)));
+    setResult(RESULT_OK, new Intent().putExtra(BookmarkActivity.PIN_SET, mAdapter.getCheckedItemPosition()));
     super.onBackPressed();
   }
 
@@ -61,7 +56,7 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
                     new Intent(this, BookmarkListActivity.class).
                     putExtra(BookmarkActivity.PIN_SET, mManager.getCategoriesCount()).
                     putExtra(BookmarkActivity.PIN, getIntent().getParcelableExtra(BookmarkActivity.PIN)).
-                    putExtra(BookmarkListActivity.EDIT_CONTENT, false),
+                    putExtra(BookmarkListActivity.EDIT_CONTENT, enableEditing()),
                     REQUEST_CREATE_CATEGORY);
     }
     return super.onOptionsItemSelected(item);
@@ -76,5 +71,11 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
       getIntent().putExtra(BookmarkActivity.PIN, data.getParcelableExtra(BookmarkActivity.PIN));
     }
     super.onActivityResult(requestCode, resultCode, data);
+  }
+
+  @Override
+  protected boolean enableEditing()
+  {
+    return false;
   }
 }

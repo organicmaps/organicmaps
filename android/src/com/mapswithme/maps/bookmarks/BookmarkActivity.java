@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -14,12 +13,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
@@ -39,8 +34,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   public static final String PIN_SET = "pin_set";
   public static final int REQUEST_CODE_SET = 567890;
   public static final String BOOKMARK_NAME = "bookmark_name";
-  private static final String ICON_INDEX = "icon_index";
-  private Spinner mSpinner;
+
   private Bookmark mPin;
   private EditText mName;
   private TextView mSetName;
@@ -68,15 +62,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       mCurrentCategoryId = mPinPair.x;
       mPin = mManager.getBookmark(mPinPair.x, mPinPair.y);
     }
-    if (mPin == null)
-    {
-     // mPin = mManager.createNewBookmark();
-    }
-    else
-    {
-      mCurrentCategoryId = mPin.getCategoryId();
-    }
-
+    mCurrentCategoryId = mPin.getCategoryId();
     setUpViews();
   }
 
@@ -110,13 +96,14 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       {
         startActivityForResult(
             new Intent(BookmarkActivity.this, ChooseBookmarkCategoryActivity.class).putExtra(PIN_SET,
-                mCurrentCategoryId).putExtra(PIN, new ParcelablePoint(mPin.getCategoryId(), mPin.getBookmarkId())),
-                REQUEST_CODE_SET);
+                mCurrentCategoryId).
+                putExtra(PIN, new ParcelablePoint(mPin.getCategoryId(), mPin.getBookmarkId())), REQUEST_CODE_SET);
       }
     });
     mSetName = (TextView) findViewById(R.id.pin_button_set_name);
-    mSetName.setText(mPin.getCategoryName() != null ? mPin.getCategoryName() : getString(android.R.string.unknownName));
+    mSetName.setText(mPin.getCategoryName());
     mName = (EditText) findViewById(R.id.pin_name);
+    // This hack move cursor to the end of bookmark name
     mName.setText("");
     mName.append(mPin.getName());
     mName.addTextChangedListener(new TextWatcher()
@@ -199,7 +186,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
         return createColorChooser();
       }
       else
-      return super.onCreateDialog(id);
+        return super.onCreateDialog(id);
   }
 
   private Dialog createColorChooser()
@@ -212,13 +199,13 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       @Override
       public void onClick(DialogInterface dialog, int which)
       {
-        updateColorChooser(mIconsAdapter.getChechedItemPosition());
+        updateColorChooser(mIconsAdapter.getCheckedItemPosition());
         dialog.dismiss();
       }
     });
     mIconsAdapter = new IconsAdapter(this, mIcons);
     mIconsAdapter.chooseItem(mIcons.indexOf(mPin.getIcon()));
-    builder.setSingleChoiceItems(mIconsAdapter, mIconsAdapter.getChechedItemPosition(), new DialogInterface.OnClickListener()
+    builder.setSingleChoiceItems(mIconsAdapter, mIconsAdapter.getCheckedItemPosition(), new DialogInterface.OnClickListener()
     {
 
       @Override

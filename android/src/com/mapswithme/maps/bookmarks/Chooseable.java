@@ -5,5 +5,5 @@ public interface Chooseable
 {
   public void chooseItem(int position);
 
-  public int getChechedItemPosition();
+  public int getCheckedItemPosition();
 }

@@ -1,7 +1,6 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.app.Activity;
-import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,16 +21,16 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
 {
   Activity mContext;
   BookmarkCategory mCategory;
-  private double m_north = -1;
-  private boolean m_hasPosition;
-  private ParcelablePointD m_currentPosition;
-  private DataChangedListener m_DataChangedListener;
+  private double mNorth = -1;
+  private boolean mHasPosition;
+  private ParcelablePointD mCurrentPosition;
+  private DataChangedListener mDataChangedListener;
 
   public BookmarkListAdapter(Activity context, BookmarkCategory cat, DataChangedListener dcl)
   {
     mContext = context;
     mCategory = cat;
-    m_DataChangedListener = dcl;
+    mDataChangedListener = dcl;
   }
 
   @Override
@@ -48,9 +47,9 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
     PinHolder holder = (PinHolder) convertView.getTag();
     holder.name.setText(item.getName());
     holder.icon.setImageBitmap(item.getIcon().getIcon());
-    if (m_hasPosition)
+    if (mHasPosition)
     {
-      DistanceAndAthimuth daa = item.getDistanceAndAthimuth(m_currentPosition.x, m_currentPosition.y, m_north);
+      DistanceAndAthimuth daa = item.getDistanceAndAthimuth(mCurrentPosition.x, mCurrentPosition.y, mNorth);
       holder.distance.setText(daa.getDistance());
       holder.arrow.setAzimut(daa.getAthimuth());
     }
@@ -59,7 +58,7 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
       holder.distance.setText("");
       holder.arrow.setImageDrawable(null);
     }
-    Log.d("lat lot", item.getLat() + " " + item.getLon());
+    //Log.d("lat lot", item.getLat() + " " + item.getLon());
     return convertView;
   }
 
@@ -67,16 +66,9 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
   public void notifyDataSetChanged()
   {
     super.notifyDataSetChanged();
-    if (m_DataChangedListener != null)
+    if (mDataChangedListener != null)
     {
-      if (isEmpty())
-      {
-        m_DataChangedListener.onDataChanged(View.VISIBLE);
-      }
-      else
-      {
-        m_DataChangedListener.onDataChanged(View.GONE);
-      }
+      mDataChangedListener.onDataChanged(isEmpty() ? View.VISIBLE : View.GONE);
     }
   }
 
@@ -102,8 +94,8 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
   public void onLocationUpdated(long time, double lat, double lon,
                                 float accuracy)
   {
-    m_currentPosition = new ParcelablePointD(lat, lon);
-    m_hasPosition = true;
+    mCurrentPosition = new ParcelablePointD(lat, lon);
+    mHasPosition = true;
     notifyDataSetChanged();
   }
 
@@ -117,9 +109,9 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
     final double north = LocationService.correctAngle(trueNorth, correction);
 
     // if difference is more than 1 degree
-    if (m_north  == -1 || Math.abs(m_north - north) > 0.02)
+    if (mNorth  == -1 || Math.abs(mNorth - north) > 0.02)
     {
-      m_north = north;
+      mNorth = north;
       //Log.d(TAG, "Compass updated, north = " + m_north);
 
       notifyDataSetChanged();
@@ -129,7 +121,8 @@ public class BookmarkListAdapter extends BaseAdapter implements LocationService.
   @Override
   public void onLocationError(int errorCode)
   {
-    m_hasPosition = false;
+    /// @TODO handle it in location service.
+    mHasPosition = false;
     notifyDataSetChanged();
   }
 

@@ -1,31 +1,26 @@
 package com.mapswithme.maps.bookmarks;
 
-import com.mapswithme.maps.R;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.mapswithme.maps.R;
+
 public class BookmarkCategoriesActivity extends AbstractBookmarkCategoryActivity
 {
-  private ListView mListView;
-  private BookmarkCategoriesAdapter mAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    mListView = getListView();
-    mListView.setAdapter(mAdapter = new BookmarkCategoriesAdapter(this));
-    mListView.setOnItemClickListener(new OnItemClickListener()
+    ListView listView = getListView();
+    listView.setAdapter(new BookmarkCategoriesAdapter(this));
+    listView.setOnItemClickListener(new OnItemClickListener()
     {
 
       @Override
@@ -47,11 +42,8 @@ public class BookmarkCategoriesActivity extends AbstractBookmarkCategoryActivity
   }
 
   @Override
-  public boolean onOptionsItemSelected(MenuItem item)
+  protected boolean enableEditing()
   {
-    if(item.getItemId() == R.id.pinsets_add){
-      //TODO create new set
-    }
-    return super.onOptionsItemSelected(item);
+    return true;
   }
 }

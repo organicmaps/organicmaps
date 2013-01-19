@@ -204,7 +204,6 @@ public class PopupLayout extends View
     }
     else
     {
-      canvas.drawColor(Color.RED);
       super.onDraw(canvas);
     }
 

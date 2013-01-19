@@ -10,9 +10,9 @@ public class Bookmark
   private Point mPosition;
   private int mCategoryId = -1;
   private int mBookmark;
-  private double mLat = Double.NaN;
-  private double mLon = Double.NaN;
-  private String m_previewString = "";
+  private double mMercatorX = Double.NaN;
+  private double mMercatorY = Double.NaN;
+  private String mPreviewString = "";
   private final boolean mIsPreviewBookmark;
 
   // For bookmark preview
@@ -21,8 +21,8 @@ public class Bookmark
     mIsPreviewBookmark = true;
     mContext = context.getApplicationContext();
     mPosition = pos;
-    m_previewString = name;
-    getLatLon(mPosition);
+    mPreviewString = name;
+    getXY(mPosition);
   }
 
   Bookmark(Context context, Point position, int nextCat, int b)
@@ -30,7 +30,7 @@ public class Bookmark
     mIsPreviewBookmark = false;
     mContext = context.getApplicationContext();
     mPosition = position;
-    getLatLon(position);
+    getXY(position);
     mBookmark = b;
     mIcon = getIconInternal();
     mCategoryId = nextCat;
@@ -46,55 +46,55 @@ public class Bookmark
     mCategoryId = c;
     mBookmark = b;
     mIcon = getIconInternal();// BookmarkManager.getBookmarkManager(mContext).getIconByName(nGetIcon(c, b));
-    getLatLon();
+    getXY();
   }
 
-  private void getLatLon(Point position)
+  private void getXY(Point position)
   {
     ParcelablePointD ll = nPtoG(position.x, position.y);
-    mLat = ll.x;
-    mLon = ll.y;
+    mMercatorX = ll.x;
+    mMercatorY = ll.y;
   }
 
-  private native DistanceAndAthimuth nGetDistanceAndAzimuth(double lat, double lon, double cLat, double cLon, double north);
+  private native DistanceAndAthimuth nGetDistanceAndAzimuth(double x, double y, double cLat, double cLon, double north);
   private native Point nGtoP(double lat, double lon);
   private native ParcelablePointD nPtoG(int x, int y);
-  private native ParcelablePointD nGetLatLon(int c, long b);
+  private native ParcelablePointD nGetXY(int c, long b);
   private native String nGetNamePos(int x, int y);
   private native String nGetName(int c, long b);
   private native String nGetIconPos(int x, int y);
   private native String nGetIcon(int c, long b);
-  private native void nChangeBookmark(double lat, double lon, String category, String name, String type);
+  private native void nChangeBookmark(double x, double y, String category, String name, String type);
   private native String nGetBookmarkDescription(int categoryId, long bookmark);
   private native void nSetBookmarkDescription(int categoryId, long bookmark, String newDescr);
   private native String nGetBookmarkDescriptionPos(int categoryId, int bookmark);
 
-  void getLatLon()
+  void getXY()
   {
-    ParcelablePointD ll = nGetLatLon(mCategoryId, mBookmark);
-    mLat = ll.x;
-    mLon = ll.y;
-    mPosition = nGtoP(mLat, mLon);
+    ParcelablePointD ll = nGetXY(mCategoryId, mBookmark);
+    mMercatorX = ll.x;
+    mMercatorY = ll.y;
+    mPosition = nGtoP(mMercatorX, mMercatorY);
   }
 
   public DistanceAndAthimuth getDistanceAndAthimuth(double cLat, double cLon, double north)
   {
-    return nGetDistanceAndAzimuth(mLat, mLon, cLat, cLon, north);
+    return nGetDistanceAndAzimuth(mMercatorX, mMercatorY, cLat, cLon, north);
   }
 
   public Point getPosition()
   {
-    return nGtoP(mLat, mLon);
+    return nGtoP(mMercatorX, mMercatorY);
   }
 
   public double getLat()
   {
-    return mLat;
+    return mMercatorX;
   }
 
   public double getLon()
   {
-    return mLon;
+    return mMercatorY;
   }
 
   private Icon getIconInternal()
@@ -106,7 +106,7 @@ public class Bookmark
       {
         type = nGetIconPos(mPosition.x, mPosition.y);
       }
-      else if(mLat != Double.NaN && mLon != Double.NaN)
+      else if(mMercatorX != Double.NaN && mMercatorY != Double.NaN)
       {
         type = nGetIcon(mCategoryId, mBookmark);
       }
@@ -132,7 +132,7 @@ public class Bookmark
     if (mCategoryId > -1 && BookmarkManager.getBookmarkManager(mContext).getCategoryById(mCategoryId).getSize() > mBookmark)
     {
       String name = null;
-      if(mLat != Double.NaN && mLon != Double.NaN)
+      if(mMercatorX != Double.NaN && mMercatorY != Double.NaN)
       {
         name = nGetName(mCategoryId, mBookmark);
       }
@@ -144,7 +144,7 @@ public class Bookmark
     }
     else
     {
-      return m_previewString;
+      return mPreviewString;
     }
   }
 
@@ -187,7 +187,7 @@ public class Bookmark
 
   private void changeBookmark(String category, String name, String type)
   {
-    nChangeBookmark(mLat, mLon, category, name, type);
+    nChangeBookmark(mMercatorX, mMercatorY, category, name, type);
   }
 
   public int getCategoryId()
@@ -205,7 +205,7 @@ public class Bookmark
     if (mCategoryId > -1)
     {
       String name = null;
-      if(mLat != Double.NaN && mLon != Double.NaN)
+      if(mMercatorX != Double.NaN && mMercatorY != Double.NaN)
       {
         name = nGetBookmarkDescription(mCategoryId, mBookmark);
       }
@@ -217,7 +217,7 @@ public class Bookmark
     }
     else
     {
-      return m_previewString;
+      return mPreviewString;
     }
   }
 

@@ -1,12 +1,11 @@
 package com.mapswithme.maps.bookmarks;
 
-import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
+
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 
 public abstract class AbstractBookmarkActivity extends Activity
 {

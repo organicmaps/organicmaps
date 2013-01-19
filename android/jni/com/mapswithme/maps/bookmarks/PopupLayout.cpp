@@ -2,7 +2,8 @@
 
 #include "../../core/jni_helper.hpp"
 
-namespace {
+namespace
+{
   ::Framework * frm() { return g_framework->NativeFramework(); }
 }
 

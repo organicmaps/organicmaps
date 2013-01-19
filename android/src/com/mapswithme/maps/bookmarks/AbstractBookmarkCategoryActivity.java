@@ -1,18 +1,16 @@
 package com.mapswithme.maps.bookmarks;
 
-import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
-import android.view.MenuInflater;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 
-public class AbstractBookmarkCategoryActivity extends AbstractBookmarkListActivity
+import com.mapswithme.maps.R;
+
+public abstract class AbstractBookmarkCategoryActivity extends AbstractBookmarkListActivity
 {
   private int mSelectedPosition;
 
@@ -42,22 +40,27 @@ public class AbstractBookmarkCategoryActivity extends AbstractBookmarkListActivi
     {
       startActivity(new Intent(this, BookmarkListActivity.class).
                     putExtra(BookmarkActivity.PIN_SET, mSelectedPosition).
-                    // o_0
-                    putExtra(BookmarkListActivity.EDIT_CONTENT, this instanceof ChooseBookmarkCategoryActivity));
+                    putExtra(BookmarkListActivity.EDIT_CONTENT, enableEditing()));
     }
     else if (itemId == R.id.set_delete)
     {
       mManager.deleteCategory(mSelectedPosition);
-     // ((AbstractPinSetAdapter) getListView().getAdapter()).remove(set);
-      ((AbstractBookmarkCategoryAdapter) getListView().getAdapter()).notifyDataSetChanged();
+      getAdapter().notifyDataSetChanged();
     }
     return super.onContextItemSelected(item);
+  }
+
+  protected abstract boolean enableEditing();
+
+  protected AbstractBookmarkCategoryAdapter getAdapter()
+  {
+    return ((AbstractBookmarkCategoryAdapter) getListView().getAdapter());
   }
 
   @Override
   protected void onStart()
   {
     super.onStart();
-    ((AbstractBookmarkCategoryAdapter) getListView().getAdapter()).notifyDataSetChanged();
+    getAdapter().notifyDataSetChanged();
   }
 }
