@@ -55,9 +55,19 @@ public class Bookmark
     mMercatorY = ll.y;
   }
 
+  public static ParcelablePointD GtoP(ParcelablePointD p)
+  {
+    return nGtoP(p.x, p.y);
+  }
+
+  public static ParcelablePointD PtoG(ParcelablePointD p)
+  {
+    return nPtoG(p.x, p.y);
+  }
+
   private native DistanceAndAthimuth nGetDistanceAndAzimuth(double x, double y, double cLat, double cLon, double north);
-  private native ParcelablePointD nGtoP(double lat, double lon);
-  private native ParcelablePointD nPtoG(double px, double py);
+  private static native ParcelablePointD nGtoP(double x, double y);
+  private static native ParcelablePointD nPtoG(double px, double py);
   private native ParcelablePointD nGetXY(int c, long b);
   private native String nGetNamePos(double px, double py);
   private native String nGetName(int c, long b);

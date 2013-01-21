@@ -567,6 +567,18 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   }
 
   @Override
+  protected void onStart()
+  {
+    super.onStart();
+    if (getIntent().hasExtra(SearchActivity.SEARCH_RESULT))
+    {
+      m_popupLayout.activate(m_BookmarkManager.previewBookmark((AddressInfo)getIntent().getParcelableExtra(SearchActivity.SEARCH_RESULT)),
+                             getWindowManager());
+      getIntent().removeExtra(SearchActivity.SEARCH_RESULT);
+    }
+  }
+
+  @Override
   protected void onStop()
   {
     if (m_popupLayout != null)
@@ -622,7 +634,7 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
       ParcelablePoint b = m_BookmarkManager.findBookmark(new ParcelablePointD(x, y));
       if (b != null)
       {
-        m_PopupLayout.activate(m_BookmarkManager.getBookmark(b.getPoint().x, b.getPoint().y));
+        m_PopupLayout.activate(m_BookmarkManager.getBookmark(b.getPoint().x, b.getPoint().y), getWindowManager());
         return true;
       }
       else
@@ -630,14 +642,14 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         AddressInfo info = null;
         if ((info = m_BookmarkManager.getPOI(new ParcelablePointD(x, y))) != null)
         {
-          m_PopupLayout.activate(m_BookmarkManager.previewBookmark(info));
+          m_PopupLayout.activate(m_BookmarkManager.previewBookmark(info), getWindowManager());
           return true;
         }
         else
           if (longClick)
           {
             info = m_BookmarkManager.getAddressInfo(new ParcelablePointD(x, y));
-            m_PopupLayout.activate(m_BookmarkManager.previewBookmark(info));
+            m_PopupLayout.activate(m_BookmarkManager.previewBookmark(info), getWindowManager());
             return true;
           }
           else

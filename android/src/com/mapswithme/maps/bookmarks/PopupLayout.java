@@ -24,6 +24,7 @@ import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 
 public class PopupLayout extends View
 {
@@ -82,14 +83,14 @@ public class PopupLayout extends View
     mTextPaint.setColor(Color.WHITE);
   }
 
-  public synchronized void activate(final Bookmark bmk)
+  public synchronized void activate(final Bookmark bmk, WindowManager manager)
   {
     mBmk = bmk;
     if (bmk.isPreviewBookmark())
     {
       nDrawBookmark(bmk.getPosition().x, bmk.getPosition().y);
     }
-    mPopup = prepareBitmap(mBmk);
+    mPopup = prepareBitmap(mBmk, manager);
     postInvalidate();
   }
 
@@ -126,7 +127,7 @@ public class PopupLayout extends View
       postInvalidate();
   }
 
-  private Bitmap prepareBitmap(Bookmark bmk)
+  private Bitmap prepareBitmap(Bookmark bmk, WindowManager manager)
   {
     anchor = bmk.getPosition().getRoundedPoint();
 
@@ -142,7 +143,7 @@ public class PopupLayout extends View
     }
 
     String bmkName = bmk.getName();
-    int pWidth = Math.min(getWidth(), getHeight()) - VERTICAL_MARGIN;
+    int pWidth = Math.min(manager.getDefaultDisplay().getWidth(), manager.getDefaultDisplay().getHeight()) - VERTICAL_MARGIN;
     int pHeight = mHeight = btn.getHeight() + 10;
     int maxTextWidth = pWidth - btn.getWidth() - 10;
     int currentTextWidth = Math.round(mTextPaint.measureText(bmkName));
