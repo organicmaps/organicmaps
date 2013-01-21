@@ -298,9 +298,6 @@ namespace
     vec_t const & m_rules;
     vec_t & m_keys;
 
-    iter_t m_iters[2];
-    int m_scales[2];
-
     bool m_added;
 
     void add_rule(int ft, iter_t i)
@@ -326,22 +323,10 @@ namespace
 
     void find(int ft, int scale)
     {
-      // find greater or equal scale
-      m_iters[0] = lower_bound(m_rules.begin(), m_rules.end(), scale, less_scales());
-      if (m_iters[0] != m_rules.end())
-        m_scales[0] = m_iters[0]->m_scale;
-      else
-        m_scales[0] = -1000;
-
-      // if drawing rules exist for 'scale', then process and exit
-      if (scale == m_scales[0])
+      iter_t i = lower_bound(m_rules.begin(), m_rules.end(), scale, less_scales());
+      while (i != m_rules.end() && i->m_scale == scale)
       {
-        if (m_scales[0] < 0) return;
-        iter_t i = m_iters[0];
-        do
-        {
-          add_rule(ft, i++);
-        } while (i != m_rules.end() && i->m_scale == m_scales[0]);
+        add_rule(ft, i++);
       }
     }
   };

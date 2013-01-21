@@ -23989,6 +23989,164 @@ cont {
   }
 }
 cont {
+  name: "highway-trunk-oneway"
+  element {
+    scale: 16
+    lines {
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
+      }
+      priority: 1088
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 0.0
+      color: 0
+      pathsym {
+        name: "arrow"
+        step: 250
+        offset: 200
+      }
+      priority: 1088
+    }
+  }
+}
+cont {
+  name: "highway-trunk-tunnel"
+  element {
+    scale: 9
+    lines {
+      width: 1.25
+      color: 0xFFC444
+      priority: 52
+    }
+  }
+  element {
+    scale: 10
+    lines {
+      width: 0.25
+      color: 0xFFFFFFFF
+      priority: 128
+    }
+  }
+  element {
+    scale: 11
+    lines {
+      width: 0.5
+      color: 0xFFFFFFFF
+      priority: 128
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 4.5
+      color: 0x202020
+      dashdot {
+        dd: 1.5
+        dd: 1.5
+      }
+      priority: 334
+    }
+    lines {
+      width: 4.25
+      color: 0xFFFFFF
+      priority: 335
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 7
+      color: 0x202020
+      dashdot {
+        dd: 1.85
+        dd: 1.85
+      }
+      priority: 345
+    }
+    lines {
+      width: 6.5
+      color: 0xFFFFFF
+      priority: 346
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 9
+      color: 0x202020
+      dashdot {
+        dd: 2.2
+        dd: 2.2
+      }
+      priority: 422
+    }
+    lines {
+      width: 8
+      color: 0xFFFFFF
+      priority: 423
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 10.4
+      color: 0x707070
+      dashdot {
+        dd: 2.8
+        dd: 2.8
+      }
+      priority: 530
+    }
+    lines {
+      width: 9
+      color: 0xFFFFFF
+      priority: 531
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 13.6
+      color: 0x707070
+      dashdot {
+        dd: 3.2
+        dd: 3.2
+      }
+      priority: 850
+    }
+    lines {
+      width: 12
+      color: 0xFFFFFF
+      priority: 851
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 14.4
+      color: 0x707070
+      dashdot {
+        dd: 3.2
+        dd: 3.2
+      }
+      priority: 895
+    }
+    lines {
+      width: 12
+      color: 0xFFFFFF
+      priority: 896
+    }
+  }
+}
+cont {
   name: "highway-trunk_link"
   element {
     scale: 15
