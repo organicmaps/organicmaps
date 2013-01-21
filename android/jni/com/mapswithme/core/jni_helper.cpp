@@ -195,4 +195,20 @@ namespace jni
                               static_cast<jint>(point.x),
                               static_cast<jint>(point.y));
   }
+
+  jobject GetNewAddressInfo(JNIEnv * env, string name, string type, m2::PointD px)
+  {
+    jclass klass = env->FindClass("com/mapswithme/maps/bookmarks/data/AddressInfo");
+    ASSERT ( klass, () );
+    jmethodID methodID = env->GetMethodID(
+        klass, "<init>",
+        "(Ljava/lang/String;Ljava/lang/String;DD)V");
+    ASSERT ( methodID, () );
+
+    return env->NewObject(klass, methodID,
+                          jni::ToJavaString(env, name),
+                          jni::ToJavaString(env, type),
+                          px.x,
+                          px.y);
+  }
 } // namespace jni

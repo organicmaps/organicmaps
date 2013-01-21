@@ -41,4 +41,5 @@ namespace jni
 
   jobject GetNewPoint(JNIEnv * env, m2::PointD point);
   jobject GetNewPoint(JNIEnv * env, m2::PointI point);
+  jobject GetNewAddressInfo(JNIEnv * env, string name, string type, m2::PointD px);
 }

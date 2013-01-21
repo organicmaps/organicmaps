@@ -9,55 +9,29 @@ namespace
 
 extern "C"
 {
-
-  jstring getFormattedNameForPlace(JNIEnv * env, Framework::AddressInfo const & adInfo)
-  {
-    if (adInfo.m_name.empty())
-      return jni::ToJavaString(env, adInfo.GetBestType());
-    else
-    {
-      std::ostringstream stringStream;
-      stringStream << adInfo.m_name << " (" << adInfo.GetBestType() << ")";
-      return jni::ToJavaString(env, stringStream.str());
-    }
-  }
-
-  JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetNameForPlace(JNIEnv * env, jobject thiz, jdouble px, jdouble py)
-  {
-    Framework::AddressInfo adInfo;
-    frm()->GetAddressInfo(m2::PointD(px, py), adInfo);
-    return getFormattedNameForPlace(env, adInfo);
-  }
-
-  JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetNameForPOI(JNIEnv * env, jobject thiz, jdouble px, jdouble py)
-  {
-    Framework::AddressInfo adInfo;
-    m2::PointD pxPivot;
-    frm()->GetVisiblePOI(m2::PointD(px, py), pxPivot, adInfo);
-    return getFormattedNameForPlace(env, adInfo);
-  }
-
-  JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nFindVisiblePOI(JNIEnv * env, jobject thiz, jdouble px, jdouble py)
-  {
-    Framework::AddressInfo adInfo;
-    m2::PointD pxPivot;
-    return frm()->GetVisiblePOI(m2::PointD(px, py), pxPivot, adInfo);
-  }
-
   JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetBmkPositionForPOI(JNIEnv * env, jobject thiz, jdouble px, jdouble py)
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetPOI(JNIEnv * env, jobject thiz, jdouble px, jdouble py)
   {
     Framework::AddressInfo adInfo;
     m2::PointD pxPivot;
     if (frm()->GetVisiblePOI(m2::PointD(px, py), pxPivot, adInfo))
-      return jni::GetNewParcelablePointD(env, pxPivot);
+    {
+      return jni::GetNewAddressInfo(env, adInfo.m_name, adInfo.GetBestType(), pxPivot);
+    }
     else
-      return jni::GetNewParcelablePointD(env, m2::PointI(px, py));
+    {
+      return env->NewGlobalRef(NULL);
+    }
   }
 
+  JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nGetAddressInfo(JNIEnv * env, jobject thiz, jdouble px, jdouble py)
+  {
+    m2::PointD point(px, py);
+    Framework::AddressInfo adInfo;
+    frm()->GetAddressInfo(point, adInfo);
+    return jni::GetNewAddressInfo(env, adInfo.m_name, adInfo.GetBestType() == 0 ? "" : adInfo.GetBestType(), point);
+  }
 
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nShowBookmark(JNIEnv * env, jobject thiz, jint c, jint b)

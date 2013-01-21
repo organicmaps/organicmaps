@@ -38,6 +38,7 @@ import android.widget.Toast;
 import com.mapswithme.maps.bookmarks.BookmarkActivity;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.PopupLayout;
+import com.mapswithme.maps.bookmarks.data.AddressInfo;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
@@ -568,12 +569,9 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
   @Override
   protected void onStop()
   {
-    if (mApplication.isProVersion())
+    if (m_popupLayout != null)
     {
-      if (m_popupLayout != null)
-      {
-        m_popupLayout.deactivate();
-      }
+      m_popupLayout.deactivate();
     }
     super.onStop();
   }
@@ -628,27 +626,25 @@ public class MWMActivity extends NvEventQueueActivity implements LocationService
         return true;
       }
       else
-        if (m_BookmarkManager.findVisiblePOI(new ParcelablePointD(x, y)))
+      {
+        AddressInfo info = null;
+        if ((info = m_BookmarkManager.getPOI(new ParcelablePointD(x, y))) != null)
         {
-          m_PopupLayout.activate(
-            m_BookmarkManager.previewBookmark(
-              m_BookmarkManager.getBmkPositionForPOI(new ParcelablePointD(x, y)),
-              m_BookmarkManager.getNameForPOI(new ParcelablePointD(x, y)) ));
+          m_PopupLayout.activate(m_BookmarkManager.previewBookmark(info));
           return true;
         }
         else
           if (longClick)
           {
-            m_PopupLayout.activate(
-                                   m_BookmarkManager.previewBookmark(
-                                     m_BookmarkManager.getBmkPositionForPOI(new ParcelablePointD(x, y)),
-                                     m_BookmarkManager.getNameForPOI(new ParcelablePointD(x, y)) ));
+            info = m_BookmarkManager.getAddressInfo(new ParcelablePointD(x, y));
+            m_PopupLayout.activate(m_BookmarkManager.previewBookmark(info));
             return true;
           }
           else
           {
             return false;
           }
+      }
     }
   }
 

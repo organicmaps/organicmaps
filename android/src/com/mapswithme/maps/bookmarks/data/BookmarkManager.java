@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.text.TextUtils;
 
+import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
 
@@ -139,9 +140,9 @@ public class BookmarkManager
 
   private native boolean nGetCategoryByName(String name);
 
-  public Bookmark previewBookmark(ParcelablePointD point, String name)
+  public Bookmark previewBookmark(AddressInfo info)
   {
-    return new Bookmark(mContext, point, name);
+    return new Bookmark(mContext, info.getPosition(), info.getBookmarkName(mContext));
   }
 
   private native void nShowBookmark(int c, int b);
@@ -151,23 +152,6 @@ public class BookmarkManager
     nShowBookmark(c, b);
   }
 
-  private native String nGetNameForPOI(double px, double py);
-
-  public String getNameForPOI(ParcelablePointD p)
-  {
-    String name = nGetNameForPOI(p.x,p.y);
-    if (!TextUtils.isEmpty(name))
-    {
-      return Utils.toTitleCase(name);
-    }
-    name = getNameForPlace(p);
-    if (!TextUtils.isEmpty(name))
-    {
-      return Utils.toTitleCase(name);
-    }
-    return Utils.toTitleCase(mContext.getString(R.string.dropped_pin));
-  }
-
   private native String nGetNameForPlace(double px, double py);
 
   public String getNameForPlace(ParcelablePointD p)
@@ -175,17 +159,15 @@ public class BookmarkManager
     return Utils.toTitleCase(nGetNameForPlace(p.x,p.y));
   }
 
-  private native ParcelablePointD nGetBmkPositionForPOI(double px, double py);
-
-  public boolean findVisiblePOI(ParcelablePointD p)
+  public AddressInfo getPOI(ParcelablePointD px)
   {
-    return nFindVisiblePOI(p.x, p.y);
+    return nGetPOI(px.x, px.y);
   }
+  private native AddressInfo nGetPOI(double px, double py);
 
-  private native boolean nFindVisiblePOI(double px, double py);
-
-  public ParcelablePointD getBmkPositionForPOI(ParcelablePointD p)
+  public AddressInfo getAddressInfo(ParcelablePointD px)
   {
-    return nGetBmkPositionForPOI(p.x, p.y);
+    return nGetAddressInfo(px.x, px.y);
   }
+  private native AddressInfo nGetAddressInfo(double px, double py);
 }
