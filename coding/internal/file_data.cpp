@@ -282,8 +282,8 @@ bool IsEqualFiles(string const & firstFile, string const & secondFile)
     size_t toRead = fileSize - currSize;
     if (toRead > bufSize)
       toRead = bufSize;
-    first.Read(step * bufSize, &buf1[0], readingLength);
-    second.Read(step * bufSize, &buf2[0], readingLength);
+    first.Read(currSize, &buf1[0], toRead);
+    second.Read(currSize, &buf2[0], toRead);
     if (buf1 != buf2)
       return false;
     currSize += toRead;
