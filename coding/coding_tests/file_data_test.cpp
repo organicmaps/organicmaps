@@ -17,6 +17,12 @@ namespace
     f.Write(name.c_str(), name.size());
   }
 
+  void MakeFile(string const & name, size_t const size, const char c)
+  {
+    my::FileData f(name, my::FileData::OP_WRITE_TRUNCATE);
+    f.Write(string(size, c).c_str(), size);
+  }
+
   void CheckFileOK(string const & name)
   {
     my::FileData f(name, my::FileData::OP_READ);
@@ -106,3 +112,58 @@ UNIT_TEST(FileData_SharingAV_Windows)
   TEST(my::DeleteFileX(name2), ());
 }
 #endif
+
+UNIT_TEST(Equal_Function_Test)
+{
+  MakeFile(name1);
+  MakeFile(name2);
+  TEST(my::IsEqualFiles(name1, name1), ());
+  TEST(my::IsEqualFiles(name2, name2), ());
+  TEST(!my::IsEqualFiles(name1, name2), ());
+
+  TEST(my::DeleteFileX(name1), ());
+  TEST(my::DeleteFileX(name2), ());
+}
+
+UNIT_TEST(Equal_Function_Test_For_Big_Files)
+{
+  {
+    MakeFile(name1, 1024 * 1024, 'a');
+    MakeFile(name2, 1024 * 1024, 'a');
+    TEST(my::IsEqualFiles(name1, name2), ());
+    TEST(my::DeleteFileX(name1), ());
+    TEST(my::DeleteFileX(name2), ());
+  }
+  {
+    MakeFile(name1, 1024 * 1024 + 512, 'a');
+    MakeFile(name2, 1024 * 1024 + 512, 'a');
+    TEST(my::IsEqualFiles(name1, name2), ());
+    TEST(my::DeleteFileX(name1), ());
+    TEST(my::DeleteFileX(name2), ());
+  }
+  {
+    MakeFile(name1, 1024 * 1024 + 1, 'a');
+    MakeFile(name2, 1024 * 1024 + 1, 'b');
+    TEST(my::IsEqualFiles(name1, name1), ());
+    TEST(my::IsEqualFiles(name2, name2), ());
+    TEST(!my::IsEqualFiles(name1, name2), ());
+    TEST(my::DeleteFileX(name1), ());
+    TEST(my::DeleteFileX(name2), ());
+  }
+  {
+    MakeFile(name1, 1024 * 1024, 'a');
+    MakeFile(name2, 1024 * 1024, 'b');
+    TEST(my::IsEqualFiles(name1, name1), ());
+    TEST(my::IsEqualFiles(name2, name2), ());
+    TEST(!my::IsEqualFiles(name1, name2), ());
+    TEST(my::DeleteFileX(name1), ());
+    TEST(my::DeleteFileX(name2), ());
+  }
+  {
+    MakeFile(name1, 1024 * 1024, 'a');
+    MakeFile(name2, 1024 * 1024 + 1, 'b');
+    TEST(!my::IsEqualFiles(name1, name2), ());
+    TEST(my::DeleteFileX(name1), ());
+    TEST(my::DeleteFileX(name2), ());
+  }
+}

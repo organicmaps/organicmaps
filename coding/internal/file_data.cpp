@@ -263,4 +263,32 @@ bool CopyFile(string const & fOld, string const & fNew)
   return false;
 }
 
+bool IsEqualFiles(string const & firstFile, string const & secondFile)
+{
+  my::FileData first(firstFile, my::FileData::OP_READ);
+  my::FileData second(secondFile, my::FileData::OP_READ);
+  if (first.Size() != second.Size())
+    return false;
+
+  size_t const bufSize = 512 * 1024;
+  vector<char> buf1, buf2;
+  buf1.resize(bufSize);
+  buf2.resize(bufSize);
+  size_t const fileSize = first.Size();
+  size_t currSize = 0;
+
+  while (currSize < fileSize)
+  {
+    size_t toRead = fileSize - currSize;
+    if (toRead > bufSize)
+      toRead = bufSize;
+    first.Read(step * bufSize, &buf1[0], readingLength);
+    second.Read(step * bufSize, &buf2[0], readingLength);
+    if (buf1 != buf2)
+      return false;
+    currSize += toRead;
+  }
+  return true;
+}
+
 }

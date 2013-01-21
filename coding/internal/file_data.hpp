@@ -49,5 +49,6 @@ bool DeleteFileX(string const & fName);
 bool RenameFileX(string const & fOld, string const & fNew);
 /// @return false if copy fails. DO NOT THROWS exceptions
 bool CopyFile(string const & fOld, string const & fNew);
+bool IsEqualFiles(string const & firstFile, string const & secondFile);
 
 }
