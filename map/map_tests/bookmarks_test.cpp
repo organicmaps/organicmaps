@@ -206,13 +206,6 @@ namespace
     for (size_t i = 0; i < N; ++i)
       FileWriter::DeleteFileX(path + arrFiles[i] + ".kml");
   }
-
-  // Call this function to delete test category files.
-  void DeleteDefCategoryFiles()
-  {
-    char const * arrFiles[] = { "cat1", "cat2", "cat3" };
-    DeleteCategoryFiles(arrFiles);
-  }
 }
 
 UNIT_TEST(Bookmarks_Timestamp)
@@ -253,9 +246,11 @@ UNIT_TEST(Bookmarks_Getting)
   // This is not correct because Framework::OnSize doesn't work until SetRenderPolicy is called.
   //TEST(m2::AlmostEqual(m2::PointD(400, 200), pixC), (pixC));
 
-  BookmarkCategory const * c1 = fm.AddBookmark("cat1", Bookmark(m2::PointD(38, 20), "1", "placemark-red"));
-  BookmarkCategory const * c2 = fm.AddBookmark("cat2", Bookmark(m2::PointD(41, 20), "2", "placemark-red"));
-  BookmarkCategory const * c3 = fm.AddBookmark("cat3", Bookmark(m2::PointD(41, 40), "3", "placemark-red"));
+  char const * arrCat[] = { "cat1", "cat2", "cat3" };
+
+  BookmarkCategory const * c1 = fm.AddBookmark(arrCat[0], Bookmark(m2::PointD(38, 20), "1", "placemark-red"));
+  BookmarkCategory const * c2 = fm.AddBookmark(arrCat[1], Bookmark(m2::PointD(41, 20), "2", "placemark-red"));
+  BookmarkCategory const * c3 = fm.AddBookmark(arrCat[2], Bookmark(m2::PointD(41, 40), "3", "placemark-red"));
 
   TEST_NOT_EQUAL(c1, c2, ());
   TEST_NOT_EQUAL(c2, c3, ());
@@ -268,7 +263,7 @@ UNIT_TEST(Bookmarks_Getting)
   TEST(IsValid(res), ());
   TEST_EQUAL(res.second, 0, ());
   TEST_EQUAL(res.first, 1 , ());
-  TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), "cat2", ());
+  TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), arrCat[1], ());
 
   res = fm.GetBookmark(fm.GtoP(m2::PointD(0, 0)), 1.0);
   TEST(!IsValid(res), ());
@@ -278,13 +273,13 @@ UNIT_TEST(Bookmarks_Getting)
   res = fm.GetBookmark(fm.GtoP(m2::PointD(41, 40)), 1.0);
   TEST(IsValid(res), ());
   TEST_EQUAL(res.first, 2, ());
-  TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), "cat3", ());
+  TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), arrCat[2], ());
   Bookmark const * bm = fm.GetBmCategory(res.first)->GetBookmark(res.second);
   TEST_EQUAL(bm->GetName(), "3", ());
   TEST_EQUAL(bm->GetType(), "placemark-red", ());
 
   // This one should replace previous bookmark
-  BookmarkCategory const * c33 = fm.AddBookmark("cat3", Bookmark(m2::PointD(41, 40), "4", "placemark-blue"));
+  BookmarkCategory const * c33 = fm.AddBookmark(arrCat[2], Bookmark(m2::PointD(41, 40), "4", "placemark-blue"));
 
   TEST_EQUAL(c33, c3, ());
 
@@ -301,7 +296,7 @@ UNIT_TEST(Bookmarks_Getting)
   cat->DeleteBookmark(0);
   TEST_EQUAL(cat->GetBookmarksCount(), 0, ());
 
-  DeleteDefCategoryFiles();
+  DeleteCategoryFiles(arrCat);
 }
 
 UNIT_TEST(Bookmarks_AddressInfo)
@@ -378,46 +373,46 @@ UNIT_TEST(Bookmarks_AddingMoving)
   fm.OnSize(800, 400);
   fm.ShowRect(m2::RectD(0, 0, 80, 40));
 
-  string const categoryOne = "cat1";
-  string const categoryTwo = "cat2";
+  char const * arrCat[] = { "cat1", "cat2" };
+
   m2::PointD const globalPoint = m2::PointD(40, 20);
   m2::PointD const pixelPoint = fm.GtoP(globalPoint);
 
-  BookmarkCategory const * c1 = fm.AddBookmark(categoryOne, Bookmark(globalPoint, "name", "placemark-red"));
+  BookmarkCategory const * c1 = fm.AddBookmark(arrCat[0], Bookmark(globalPoint, "name", "placemark-red"));
   BookmarkAndCategory res = fm.GetBookmark(pixelPoint, 1.0);
   TEST(IsValid(res), ());
   TEST_EQUAL(res.second, 0, ());
   TEST_EQUAL(res.first, 0, ());
-  TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), categoryOne, ());
+  TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), arrCat[0], ());
 
   // Edit the name and type of bookmark
-  BookmarkCategory const * c11 = fm.AddBookmark(categoryOne, Bookmark(globalPoint, "name2", "placemark-blue"));
+  BookmarkCategory const * c11 = fm.AddBookmark(arrCat[0], Bookmark(globalPoint, "name2", "placemark-blue"));
   TEST_EQUAL(c1, c11, ());
   res = fm.GetBookmark(pixelPoint, 1.0);
   TEST(IsValid(res), ());
   TEST_EQUAL(res.second, 0, ());
   TEST_EQUAL(res.first, 0, ());
-  TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), categoryOne, ());
+  TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), arrCat[0], ());
   Bookmark const * pBm = fm.GetBmCategory(res.first)->GetBookmark(res.second);
   TEST_EQUAL(pBm->GetName(), "name2", ());
   TEST_EQUAL(pBm->GetType(), "placemark-blue", ());
 
   // Edit name, type and category of bookmark
-  BookmarkCategory const * c2 = fm.AddBookmark(categoryTwo, Bookmark(globalPoint, "name3", "placemark-green"));
+  BookmarkCategory const * c2 = fm.AddBookmark(arrCat[1], Bookmark(globalPoint, "name3", "placemark-green"));
   TEST_NOT_EQUAL(c1, c2, ());
   TEST_EQUAL(fm.GetBmCategoriesCount(), 2, ());
   res = fm.GetBookmark(pixelPoint, 1.0);
   TEST(IsValid(res), ());
   TEST_EQUAL(res.second, 0, ());
   TEST_EQUAL(res.first, 1, ());
-  TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), categoryTwo, ());
-  TEST_EQUAL(fm.GetBmCategory(categoryOne)->GetBookmarksCount(), 0,
+  TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), arrCat[1], ());
+  TEST_EQUAL(fm.GetBmCategory(arrCat[0])->GetBookmarksCount(), 0,
              ("Bookmark wasn't moved from one category to another"));
   pBm = fm.GetBmCategory(res.first)->GetBookmark(res.second);
   TEST_EQUAL(pBm->GetName(), "name3", ());
   TEST_EQUAL(pBm->GetType(), "placemark-green", ());
 
-  DeleteDefCategoryFiles();
+  DeleteCategoryFiles(arrCat);
 }
 
 namespace
