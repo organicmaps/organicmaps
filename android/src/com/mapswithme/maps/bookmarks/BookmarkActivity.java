@@ -224,12 +224,12 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   {
     if (requestCode == REQUEST_CODE_SET && resultCode == RESULT_OK)
     {
-      mCurrentCategoryId = data.getIntExtra(PIN_SET, -1);
-      BookmarkCategory set = mManager.getCategoryById(mCurrentCategoryId);
+      int candidate  = data.getIntExtra(PIN_SET, -1);
+      BookmarkCategory set = mManager.getCategoryById(candidate);
       if (set != null)
       {
-        if (data.getIntExtra(PIN_SET, -1) != mCurrentCategoryId)
-          mPin.setCategory(set.getName(), mCurrentCategoryId);
+        if (mCurrentCategoryId != candidate)
+          mPin.setCategory(set.getName(), mCurrentCategoryId = candidate);
         mSetName.setText(set.getName());
       }
     }
