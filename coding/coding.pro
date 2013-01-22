@@ -31,6 +31,7 @@ SOURCES += \
     blob_indexer.cpp \
     blob_storage.cpp \
     uri.cpp \
+    zip_creator.cpp \
 
 HEADERS += \
     internal/xmlparser.h \
@@ -89,3 +90,4 @@ HEADERS += \
     blob_indexer.hpp \
     blob_storage.hpp \
     uri.hpp \
+    zip_creator.hpp \
