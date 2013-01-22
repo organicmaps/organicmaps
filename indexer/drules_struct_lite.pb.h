@@ -22,7 +22,6 @@
 #include <google/protobuf/generated_message_util.h>
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
-#include <google/protobuf/generated_message_reflection.h>
 // @@protoc_insertion_point(includes)
 
 // Internal implementation detail -- do not call these.
@@ -54,16 +53,6 @@ const LineJoin LineJoin_MIN = ROUNDJOIN;
 const LineJoin LineJoin_MAX = NOJOIN;
 const int LineJoin_ARRAYSIZE = LineJoin_MAX + 1;
 
-const ::google::protobuf::EnumDescriptor* LineJoin_descriptor();
-inline const ::std::string& LineJoin_Name(LineJoin value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    LineJoin_descriptor(), value);
-}
-inline bool LineJoin_Parse(
-    const ::std::string& name, LineJoin* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<LineJoin>(
-    LineJoin_descriptor(), name, value);
-}
 enum LineCap {
   ROUNDCAP = 0,
   BUTTCAP = 1,
@@ -74,19 +63,9 @@ const LineCap LineCap_MIN = ROUNDCAP;
 const LineCap LineCap_MAX = SQUARECAP;
 const int LineCap_ARRAYSIZE = LineCap_MAX + 1;
 
-const ::google::protobuf::EnumDescriptor* LineCap_descriptor();
-inline const ::std::string& LineCap_Name(LineCap value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    LineCap_descriptor(), value);
-}
-inline bool LineCap_Parse(
-    const ::std::string& name, LineCap* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<LineCap>(
-    LineCap_descriptor(), name, value);
-}
 // ===================================================================
 
-class DashDotProto : public ::google::protobuf::Message {
+class DashDotProto : public ::google::protobuf::MessageLite {
  public:
   DashDotProto();
   virtual ~DashDotProto();
@@ -98,15 +77,6 @@ class DashDotProto : public ::google::protobuf::Message {
     return *this;
   }
   
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-  
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-  
-  static const ::google::protobuf::Descriptor* descriptor();
   static const DashDotProto& default_instance();
   
   void Swap(DashDotProto* other);
@@ -114,8 +84,7 @@ class DashDotProto : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
   
   DashDotProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const DashDotProto& from);
   void MergeFrom(const DashDotProto& from);
   void Clear();
@@ -126,7 +95,6 @@ class DashDotProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -134,7 +102,7 @@ class DashDotProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
   
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
   
   // nested types ----------------------------------------------------
   
@@ -164,8 +132,6 @@ class DashDotProto : public ::google::protobuf::Message {
   inline void set_has_offset();
   inline void clear_has_offset();
   
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-  
   ::google::protobuf::RepeatedField< double > dd_;
   double offset_;
   
@@ -181,7 +147,7 @@ class DashDotProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class PathSymProto : public ::google::protobuf::Message {
+class PathSymProto : public ::google::protobuf::MessageLite {
  public:
   PathSymProto();
   virtual ~PathSymProto();
@@ -193,15 +159,6 @@ class PathSymProto : public ::google::protobuf::Message {
     return *this;
   }
   
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-  
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-  
-  static const ::google::protobuf::Descriptor* descriptor();
   static const PathSymProto& default_instance();
   
   void Swap(PathSymProto* other);
@@ -209,8 +166,7 @@ class PathSymProto : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
   
   PathSymProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const PathSymProto& from);
   void MergeFrom(const PathSymProto& from);
   void Clear();
@@ -221,7 +177,6 @@ class PathSymProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -229,7 +184,7 @@ class PathSymProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
   
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
   
   // nested types ----------------------------------------------------
   
@@ -269,8 +224,6 @@ class PathSymProto : public ::google::protobuf::Message {
   inline void set_has_offset();
   inline void clear_has_offset();
   
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-  
   ::std::string* name_;
   double step_;
   double offset_;
@@ -287,7 +240,7 @@ class PathSymProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class LineRuleProto : public ::google::protobuf::Message {
+class LineRuleProto : public ::google::protobuf::MessageLite {
  public:
   LineRuleProto();
   virtual ~LineRuleProto();
@@ -299,15 +252,6 @@ class LineRuleProto : public ::google::protobuf::Message {
     return *this;
   }
   
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-  
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-  
-  static const ::google::protobuf::Descriptor* descriptor();
   static const LineRuleProto& default_instance();
   
   void Swap(LineRuleProto* other);
@@ -315,8 +259,7 @@ class LineRuleProto : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
   
   LineRuleProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const LineRuleProto& from);
   void MergeFrom(const LineRuleProto& from);
   void Clear();
@@ -327,7 +270,6 @@ class LineRuleProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -335,7 +277,7 @@ class LineRuleProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
   
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
   
   // nested types ----------------------------------------------------
   
@@ -409,8 +351,6 @@ class LineRuleProto : public ::google::protobuf::Message {
   inline void set_has_cap();
   inline void clear_has_cap();
   
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-  
   double width_;
   ::DashDotProto* dashdot_;
   ::google::protobuf::uint32 color_;
@@ -431,7 +371,7 @@ class LineRuleProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class LineDefProto : public ::google::protobuf::Message {
+class LineDefProto : public ::google::protobuf::MessageLite {
  public:
   LineDefProto();
   virtual ~LineDefProto();
@@ -443,15 +383,6 @@ class LineDefProto : public ::google::protobuf::Message {
     return *this;
   }
   
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-  
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-  
-  static const ::google::protobuf::Descriptor* descriptor();
   static const LineDefProto& default_instance();
   
   void Swap(LineDefProto* other);
@@ -459,8 +390,7 @@ class LineDefProto : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
   
   LineDefProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const LineDefProto& from);
   void MergeFrom(const LineDefProto& from);
   void Clear();
@@ -471,7 +401,6 @@ class LineDefProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -479,7 +408,7 @@ class LineDefProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
   
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
   
   // nested types ----------------------------------------------------
   
@@ -544,8 +473,6 @@ class LineDefProto : public ::google::protobuf::Message {
   inline void set_has_cap();
   inline void clear_has_cap();
   
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-  
   double width_;
   ::DashDotProto* dashdot_;
   ::google::protobuf::uint32 color_;
@@ -565,7 +492,7 @@ class LineDefProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class AreaRuleProto : public ::google::protobuf::Message {
+class AreaRuleProto : public ::google::protobuf::MessageLite {
  public:
   AreaRuleProto();
   virtual ~AreaRuleProto();
@@ -577,15 +504,6 @@ class AreaRuleProto : public ::google::protobuf::Message {
     return *this;
   }
   
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-  
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-  
-  static const ::google::protobuf::Descriptor* descriptor();
   static const AreaRuleProto& default_instance();
   
   void Swap(AreaRuleProto* other);
@@ -593,8 +511,7 @@ class AreaRuleProto : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
   
   AreaRuleProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const AreaRuleProto& from);
   void MergeFrom(const AreaRuleProto& from);
   void Clear();
@@ -605,7 +522,6 @@ class AreaRuleProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -613,7 +529,7 @@ class AreaRuleProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
   
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
   
   // nested types ----------------------------------------------------
   
@@ -650,8 +566,6 @@ class AreaRuleProto : public ::google::protobuf::Message {
   inline void set_has_priority();
   inline void clear_has_priority();
   
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-  
   ::LineDefProto* border_;
   ::google::protobuf::uint32 color_;
   ::google::protobuf::int32 priority_;
@@ -668,7 +582,7 @@ class AreaRuleProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class SymbolRuleProto : public ::google::protobuf::Message {
+class SymbolRuleProto : public ::google::protobuf::MessageLite {
  public:
   SymbolRuleProto();
   virtual ~SymbolRuleProto();
@@ -680,15 +594,6 @@ class SymbolRuleProto : public ::google::protobuf::Message {
     return *this;
   }
   
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-  
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-  
-  static const ::google::protobuf::Descriptor* descriptor();
   static const SymbolRuleProto& default_instance();
   
   void Swap(SymbolRuleProto* other);
@@ -696,8 +601,7 @@ class SymbolRuleProto : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
   
   SymbolRuleProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const SymbolRuleProto& from);
   void MergeFrom(const SymbolRuleProto& from);
   void Clear();
@@ -708,7 +612,6 @@ class SymbolRuleProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -716,7 +619,7 @@ class SymbolRuleProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
   
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
   
   // nested types ----------------------------------------------------
   
@@ -756,8 +659,6 @@ class SymbolRuleProto : public ::google::protobuf::Message {
   inline void set_has_priority();
   inline void clear_has_priority();
   
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-  
   ::std::string* name_;
   ::google::protobuf::int32 apply_for_type_;
   ::google::protobuf::int32 priority_;
@@ -774,7 +675,7 @@ class SymbolRuleProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class CaptionDefProto : public ::google::protobuf::Message {
+class CaptionDefProto : public ::google::protobuf::MessageLite {
  public:
   CaptionDefProto();
   virtual ~CaptionDefProto();
@@ -786,15 +687,6 @@ class CaptionDefProto : public ::google::protobuf::Message {
     return *this;
   }
   
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-  
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-  
-  static const ::google::protobuf::Descriptor* descriptor();
   static const CaptionDefProto& default_instance();
   
   void Swap(CaptionDefProto* other);
@@ -802,8 +694,7 @@ class CaptionDefProto : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
   
   CaptionDefProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const CaptionDefProto& from);
   void MergeFrom(const CaptionDefProto& from);
   void Clear();
@@ -814,7 +705,6 @@ class CaptionDefProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -822,7 +712,7 @@ class CaptionDefProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
   
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
   
   // nested types ----------------------------------------------------
   
@@ -876,8 +766,6 @@ class CaptionDefProto : public ::google::protobuf::Message {
   inline void set_has_offset_y();
   inline void clear_has_offset_y();
   
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-  
   ::google::protobuf::int32 height_;
   ::google::protobuf::uint32 color_;
   ::google::protobuf::uint32 stroke_color_;
@@ -896,7 +784,7 @@ class CaptionDefProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class CaptionRuleProto : public ::google::protobuf::Message {
+class CaptionRuleProto : public ::google::protobuf::MessageLite {
  public:
   CaptionRuleProto();
   virtual ~CaptionRuleProto();
@@ -908,15 +796,6 @@ class CaptionRuleProto : public ::google::protobuf::Message {
     return *this;
   }
   
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-  
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-  
-  static const ::google::protobuf::Descriptor* descriptor();
   static const CaptionRuleProto& default_instance();
   
   void Swap(CaptionRuleProto* other);
@@ -924,8 +803,7 @@ class CaptionRuleProto : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
   
   CaptionRuleProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const CaptionRuleProto& from);
   void MergeFrom(const CaptionRuleProto& from);
   void Clear();
@@ -936,7 +814,6 @@ class CaptionRuleProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -944,7 +821,7 @@ class CaptionRuleProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
   
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
   
   // nested types ----------------------------------------------------
   
@@ -982,8 +859,6 @@ class CaptionRuleProto : public ::google::protobuf::Message {
   inline void set_has_priority();
   inline void clear_has_priority();
   
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-  
   ::CaptionDefProto* primary_;
   ::CaptionDefProto* secondary_;
   ::google::protobuf::int32 priority_;
@@ -1000,7 +875,7 @@ class CaptionRuleProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class CircleRuleProto : public ::google::protobuf::Message {
+class CircleRuleProto : public ::google::protobuf::MessageLite {
  public:
   CircleRuleProto();
   virtual ~CircleRuleProto();
@@ -1012,15 +887,6 @@ class CircleRuleProto : public ::google::protobuf::Message {
     return *this;
   }
   
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-  
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-  
-  static const ::google::protobuf::Descriptor* descriptor();
   static const CircleRuleProto& default_instance();
   
   void Swap(CircleRuleProto* other);
@@ -1028,8 +894,7 @@ class CircleRuleProto : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
   
   CircleRuleProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const CircleRuleProto& from);
   void MergeFrom(const CircleRuleProto& from);
   void Clear();
@@ -1040,7 +905,6 @@ class CircleRuleProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1048,7 +912,7 @@ class CircleRuleProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
   
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
   
   // nested types ----------------------------------------------------
   
@@ -1094,8 +958,6 @@ class CircleRuleProto : public ::google::protobuf::Message {
   inline void set_has_priority();
   inline void clear_has_priority();
   
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-  
   double radius_;
   ::LineDefProto* border_;
   ::google::protobuf::uint32 color_;
@@ -1113,7 +975,7 @@ class CircleRuleProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class PathTextRuleProto : public ::google::protobuf::Message {
+class PathTextRuleProto : public ::google::protobuf::MessageLite {
  public:
   PathTextRuleProto();
   virtual ~PathTextRuleProto();
@@ -1125,15 +987,6 @@ class PathTextRuleProto : public ::google::protobuf::Message {
     return *this;
   }
   
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-  
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-  
-  static const ::google::protobuf::Descriptor* descriptor();
   static const PathTextRuleProto& default_instance();
   
   void Swap(PathTextRuleProto* other);
@@ -1141,8 +994,7 @@ class PathTextRuleProto : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
   
   PathTextRuleProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const PathTextRuleProto& from);
   void MergeFrom(const PathTextRuleProto& from);
   void Clear();
@@ -1153,7 +1005,6 @@ class PathTextRuleProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1161,7 +1012,7 @@ class PathTextRuleProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
   
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
   
   // nested types ----------------------------------------------------
   
@@ -1199,8 +1050,6 @@ class PathTextRuleProto : public ::google::protobuf::Message {
   inline void set_has_priority();
   inline void clear_has_priority();
   
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-  
   ::CaptionDefProto* primary_;
   ::CaptionDefProto* secondary_;
   ::google::protobuf::int32 priority_;
@@ -1217,7 +1066,7 @@ class PathTextRuleProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class DrawElementProto : public ::google::protobuf::Message {
+class DrawElementProto : public ::google::protobuf::MessageLite {
  public:
   DrawElementProto();
   virtual ~DrawElementProto();
@@ -1229,15 +1078,6 @@ class DrawElementProto : public ::google::protobuf::Message {
     return *this;
   }
   
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-  
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-  
-  static const ::google::protobuf::Descriptor* descriptor();
   static const DrawElementProto& default_instance();
   
   void Swap(DrawElementProto* other);
@@ -1245,8 +1085,7 @@ class DrawElementProto : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
   
   DrawElementProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const DrawElementProto& from);
   void MergeFrom(const DrawElementProto& from);
   void Clear();
@@ -1257,7 +1096,6 @@ class DrawElementProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1265,7 +1103,7 @@ class DrawElementProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
   
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
   
   // nested types ----------------------------------------------------
   
@@ -1345,8 +1183,6 @@ class DrawElementProto : public ::google::protobuf::Message {
   inline void set_has_path_text();
   inline void clear_has_path_text();
   
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-  
   ::google::protobuf::RepeatedPtrField< ::LineRuleProto > lines_;
   ::AreaRuleProto* area_;
   ::SymbolRuleProto* symbol_;
@@ -1367,7 +1203,7 @@ class DrawElementProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class ClassifElementProto : public ::google::protobuf::Message {
+class ClassifElementProto : public ::google::protobuf::MessageLite {
  public:
   ClassifElementProto();
   virtual ~ClassifElementProto();
@@ -1379,15 +1215,6 @@ class ClassifElementProto : public ::google::protobuf::Message {
     return *this;
   }
   
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-  
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-  
-  static const ::google::protobuf::Descriptor* descriptor();
   static const ClassifElementProto& default_instance();
   
   void Swap(ClassifElementProto* other);
@@ -1395,8 +1222,7 @@ class ClassifElementProto : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
   
   ClassifElementProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const ClassifElementProto& from);
   void MergeFrom(const ClassifElementProto& from);
   void Clear();
@@ -1407,7 +1233,6 @@ class ClassifElementProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1415,7 +1240,7 @@ class ClassifElementProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
   
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
   
   // nested types ----------------------------------------------------
   
@@ -1449,8 +1274,6 @@ class ClassifElementProto : public ::google::protobuf::Message {
   inline void set_has_name();
   inline void clear_has_name();
   
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-  
   ::std::string* name_;
   ::google::protobuf::RepeatedPtrField< ::DrawElementProto > element_;
   
@@ -1466,7 +1289,7 @@ class ClassifElementProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class ContainerProto : public ::google::protobuf::Message {
+class ContainerProto : public ::google::protobuf::MessageLite {
  public:
   ContainerProto();
   virtual ~ContainerProto();
@@ -1478,15 +1301,6 @@ class ContainerProto : public ::google::protobuf::Message {
     return *this;
   }
   
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-  
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-  
-  static const ::google::protobuf::Descriptor* descriptor();
   static const ContainerProto& default_instance();
   
   void Swap(ContainerProto* other);
@@ -1494,8 +1308,7 @@ class ContainerProto : public ::google::protobuf::Message {
   // implements Message ----------------------------------------------
   
   ContainerProto* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
   void CopyFrom(const ContainerProto& from);
   void MergeFrom(const ContainerProto& from);
   void Clear();
@@ -1506,7 +1319,6 @@ class ContainerProto : public ::google::protobuf::Message {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -1514,7 +1326,7 @@ class ContainerProto : public ::google::protobuf::Message {
   void SetCachedSize(int size) const;
   public:
   
-  ::google::protobuf::Metadata GetMetadata() const;
+  ::std::string GetTypeName() const;
   
   // nested types ----------------------------------------------------
   
@@ -1534,8 +1346,6 @@ class ContainerProto : public ::google::protobuf::Message {
   
   // @@protoc_insertion_point(class_scope:ContainerProto)
  private:
-  
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
   ::google::protobuf::RepeatedPtrField< ::ClassifElementProto > cont_;
   
@@ -2913,23 +2723,6 @@ ContainerProto::mutable_cont() {
 
 
 // @@protoc_insertion_point(namespace_scope)
-
-#ifndef SWIG
-namespace google {
-namespace protobuf {
-
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< LineJoin>() {
-  return LineJoin_descriptor();
-}
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< LineCap>() {
-  return LineCap_descriptor();
-}
-
-}  // namespace google
-}  // namespace protobuf
-#endif  // SWIG
 
 // @@protoc_insertion_point(global_scope)
 
