@@ -46,11 +46,12 @@ class ContainerProto;
 
 enum LineJoin {
   ROUNDJOIN = 0,
-  BEVELJOIN = 1
+  BEVELJOIN = 1,
+  NOJOIN = 2
 };
 bool LineJoin_IsValid(int value);
 const LineJoin LineJoin_MIN = ROUNDJOIN;
-const LineJoin LineJoin_MAX = BEVELJOIN;
+const LineJoin LineJoin_MAX = NOJOIN;
 const int LineJoin_ARRAYSIZE = LineJoin_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* LineJoin_descriptor();
@@ -65,11 +66,12 @@ inline bool LineJoin_Parse(
 }
 enum LineCap {
   ROUNDCAP = 0,
-  BUTTCAP = 1
+  BUTTCAP = 1,
+  SQUARECAP = 2
 };
 bool LineCap_IsValid(int value);
 const LineCap LineCap_MIN = ROUNDCAP;
-const LineCap LineCap_MAX = BUTTCAP;
+const LineCap LineCap_MAX = SQUARECAP;
 const int LineCap_ARRAYSIZE = LineCap_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* LineCap_descriptor();
@@ -847,6 +849,20 @@ class CaptionDefProto : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 stroke_color() const;
   inline void set_stroke_color(::google::protobuf::uint32 value);
   
+  // optional int32 offset_x = 4;
+  inline bool has_offset_x() const;
+  inline void clear_offset_x();
+  static const int kOffsetXFieldNumber = 4;
+  inline ::google::protobuf::int32 offset_x() const;
+  inline void set_offset_x(::google::protobuf::int32 value);
+  
+  // optional int32 offset_y = 5;
+  inline bool has_offset_y() const;
+  inline void clear_offset_y();
+  static const int kOffsetYFieldNumber = 5;
+  inline ::google::protobuf::int32 offset_y() const;
+  inline void set_offset_y(::google::protobuf::int32 value);
+  
   // @@protoc_insertion_point(class_scope:CaptionDefProto)
  private:
   inline void set_has_height();
@@ -855,15 +871,21 @@ class CaptionDefProto : public ::google::protobuf::Message {
   inline void clear_has_color();
   inline void set_has_stroke_color();
   inline void clear_has_stroke_color();
+  inline void set_has_offset_x();
+  inline void clear_has_offset_x();
+  inline void set_has_offset_y();
+  inline void clear_has_offset_y();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
   ::google::protobuf::int32 height_;
   ::google::protobuf::uint32 color_;
   ::google::protobuf::uint32 stroke_color_;
+  ::google::protobuf::int32 offset_x_;
+  ::google::protobuf::int32 offset_y_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
   
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
@@ -2264,6 +2286,50 @@ inline ::google::protobuf::uint32 CaptionDefProto::stroke_color() const {
 inline void CaptionDefProto::set_stroke_color(::google::protobuf::uint32 value) {
   set_has_stroke_color();
   stroke_color_ = value;
+}
+
+// optional int32 offset_x = 4;
+inline bool CaptionDefProto::has_offset_x() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void CaptionDefProto::set_has_offset_x() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void CaptionDefProto::clear_has_offset_x() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void CaptionDefProto::clear_offset_x() {
+  offset_x_ = 0;
+  clear_has_offset_x();
+}
+inline ::google::protobuf::int32 CaptionDefProto::offset_x() const {
+  return offset_x_;
+}
+inline void CaptionDefProto::set_offset_x(::google::protobuf::int32 value) {
+  set_has_offset_x();
+  offset_x_ = value;
+}
+
+// optional int32 offset_y = 5;
+inline bool CaptionDefProto::has_offset_y() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void CaptionDefProto::set_has_offset_y() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void CaptionDefProto::clear_has_offset_y() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void CaptionDefProto::clear_offset_y() {
+  offset_y_ = 0;
+  clear_has_offset_y();
+}
+inline ::google::protobuf::int32 CaptionDefProto::offset_y() const {
+  return offset_y_;
+}
+inline void CaptionDefProto::set_offset_y(::google::protobuf::int32 value) {
+  set_has_offset_y();
+  offset_y_ = value;
 }
 
 // -------------------------------------------------------------------

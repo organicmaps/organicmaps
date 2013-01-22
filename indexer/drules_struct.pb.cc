@@ -175,10 +175,12 @@ void protobuf_AssignDesc_drules_5fstruct_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SymbolRuleProto));
   CaptionDefProto_descriptor_ = file->message_type(6);
-  static const int CaptionDefProto_offsets_[3] = {
+  static const int CaptionDefProto_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionDefProto, height_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionDefProto, color_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionDefProto, stroke_color_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionDefProto, offset_x_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionDefProto, offset_y_),
   };
   CaptionDefProto_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -390,28 +392,29 @@ void protobuf_AddDesc_drules_5fstruct_2eproto() {
     "\r\n\005color\030\001 \002(\r\022\035\n\006border\030\002 \001(\0132\r.LineDef"
     "Proto\022\020\n\010priority\030\003 \002(\005\"I\n\017SymbolRulePro"
     "to\022\014\n\004name\030\001 \002(\t\022\026\n\016apply_for_type\030\002 \001(\005"
-    "\022\020\n\010priority\030\003 \002(\005\"F\n\017CaptionDefProto\022\016\n"
+    "\022\020\n\010priority\030\003 \002(\005\"j\n\017CaptionDefProto\022\016\n"
     "\006height\030\001 \002(\005\022\r\n\005color\030\002 \002(\r\022\024\n\014stroke_c"
-    "olor\030\003 \001(\r\"l\n\020CaptionRuleProto\022!\n\007primar"
-    "y\030\001 \002(\0132\020.CaptionDefProto\022#\n\tsecondary\030\002"
-    " \001(\0132\020.CaptionDefProto\022\020\n\010priority\030\003 \002(\005"
-    "\"a\n\017CircleRuleProto\022\016\n\006radius\030\001 \002(\001\022\r\n\005c"
-    "olor\030\002 \002(\r\022\035\n\006border\030\003 \001(\0132\r.LineDefProt"
-    "o\022\020\n\010priority\030\004 \002(\005\"m\n\021PathTextRuleProto"
-    "\022!\n\007primary\030\001 \002(\0132\020.CaptionDefProto\022#\n\ts"
-    "econdary\030\002 \001(\0132\020.CaptionDefProto\022\020\n\010prio"
-    "rity\030\003 \002(\005\"\355\001\n\020DrawElementProto\022\r\n\005scale"
-    "\030\001 \002(\005\022\035\n\005lines\030\002 \003(\0132\016.LineRuleProto\022\034\n"
-    "\004area\030\003 \001(\0132\016.AreaRuleProto\022 \n\006symbol\030\004 "
-    "\001(\0132\020.SymbolRuleProto\022\"\n\007caption\030\005 \001(\0132\021"
-    ".CaptionRuleProto\022 \n\006circle\030\006 \001(\0132\020.Circ"
-    "leRuleProto\022%\n\tpath_text\030\007 \001(\0132\022.PathTex"
-    "tRuleProto\"G\n\023ClassifElementProto\022\014\n\004nam"
-    "e\030\001 \002(\t\022\"\n\007element\030\002 \003(\0132\021.DrawElementPr"
-    "oto\"4\n\016ContainerProto\022\"\n\004cont\030\001 \003(\0132\024.Cl"
-    "assifElementProto*(\n\010LineJoin\022\r\n\tROUNDJO"
-    "IN\020\000\022\r\n\tBEVELJOIN\020\001*$\n\007LineCap\022\014\n\010ROUNDC"
-    "AP\020\000\022\013\n\007BUTTCAP\020\001", 1457);
+    "olor\030\003 \001(\r\022\020\n\010offset_x\030\004 \001(\005\022\020\n\010offset_y"
+    "\030\005 \001(\005\"l\n\020CaptionRuleProto\022!\n\007primary\030\001 "
+    "\002(\0132\020.CaptionDefProto\022#\n\tsecondary\030\002 \001(\013"
+    "2\020.CaptionDefProto\022\020\n\010priority\030\003 \002(\005\"a\n\017"
+    "CircleRuleProto\022\016\n\006radius\030\001 \002(\001\022\r\n\005color"
+    "\030\002 \002(\r\022\035\n\006border\030\003 \001(\0132\r.LineDefProto\022\020\n"
+    "\010priority\030\004 \002(\005\"m\n\021PathTextRuleProto\022!\n\007"
+    "primary\030\001 \002(\0132\020.CaptionDefProto\022#\n\tsecon"
+    "dary\030\002 \001(\0132\020.CaptionDefProto\022\020\n\010priority"
+    "\030\003 \002(\005\"\355\001\n\020DrawElementProto\022\r\n\005scale\030\001 \002"
+    "(\005\022\035\n\005lines\030\002 \003(\0132\016.LineRuleProto\022\034\n\004are"
+    "a\030\003 \001(\0132\016.AreaRuleProto\022 \n\006symbol\030\004 \001(\0132"
+    "\020.SymbolRuleProto\022\"\n\007caption\030\005 \001(\0132\021.Cap"
+    "tionRuleProto\022 \n\006circle\030\006 \001(\0132\020.CircleRu"
+    "leProto\022%\n\tpath_text\030\007 \001(\0132\022.PathTextRul"
+    "eProto\"G\n\023ClassifElementProto\022\014\n\004name\030\001 "
+    "\002(\t\022\"\n\007element\030\002 \003(\0132\021.DrawElementProto\""
+    "4\n\016ContainerProto\022\"\n\004cont\030\001 \003(\0132\024.Classi"
+    "fElementProto*4\n\010LineJoin\022\r\n\tROUNDJOIN\020\000"
+    "\022\r\n\tBEVELJOIN\020\001\022\n\n\006NOJOIN\020\002*3\n\007LineCap\022\014"
+    "\n\010ROUNDCAP\020\000\022\013\n\007BUTTCAP\020\001\022\r\n\tSQUARECAP\020\002", 1520);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "drules_struct.proto", &protobuf_RegisterTypes);
   DashDotProto::default_instance_ = new DashDotProto();
@@ -458,6 +461,7 @@ bool LineJoin_IsValid(int value) {
   switch(value) {
     case 0:
     case 1:
+    case 2:
       return true;
     default:
       return false;
@@ -472,6 +476,7 @@ bool LineCap_IsValid(int value) {
   switch(value) {
     case 0:
     case 1:
+    case 2:
       return true;
     default:
       return false;
@@ -2540,6 +2545,8 @@ void SymbolRuleProto::Swap(SymbolRuleProto* other) {
 const int CaptionDefProto::kHeightFieldNumber;
 const int CaptionDefProto::kColorFieldNumber;
 const int CaptionDefProto::kStrokeColorFieldNumber;
+const int CaptionDefProto::kOffsetXFieldNumber;
+const int CaptionDefProto::kOffsetYFieldNumber;
 #endif  // !_MSC_VER
 
 CaptionDefProto::CaptionDefProto()
@@ -2561,6 +2568,8 @@ void CaptionDefProto::SharedCtor() {
   height_ = 0;
   color_ = 0u;
   stroke_color_ = 0u;
+  offset_x_ = 0;
+  offset_y_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -2598,6 +2607,8 @@ void CaptionDefProto::Clear() {
     height_ = 0;
     color_ = 0u;
     stroke_color_ = 0u;
+    offset_x_ = 0;
+    offset_y_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -2652,6 +2663,38 @@ bool CaptionDefProto::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(32)) goto parse_offset_x;
+        break;
+      }
+      
+      // optional int32 offset_x = 4;
+      case 4: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_offset_x:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &offset_x_)));
+          set_has_offset_x();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(40)) goto parse_offset_y;
+        break;
+      }
+      
+      // optional int32 offset_y = 5;
+      case 5: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_offset_y:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &offset_y_)));
+          set_has_offset_y();
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -2689,6 +2732,16 @@ void CaptionDefProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->stroke_color(), output);
   }
   
+  // optional int32 offset_x = 4;
+  if (has_offset_x()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->offset_x(), output);
+  }
+  
+  // optional int32 offset_y = 5;
+  if (has_offset_y()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->offset_y(), output);
+  }
+  
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -2710,6 +2763,16 @@ void CaptionDefProto::SerializeWithCachedSizes(
   // optional uint32 stroke_color = 3;
   if (has_stroke_color()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->stroke_color(), target);
+  }
+  
+  // optional int32 offset_x = 4;
+  if (has_offset_x()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->offset_x(), target);
+  }
+  
+  // optional int32 offset_y = 5;
+  if (has_offset_y()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->offset_y(), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -2742,6 +2805,20 @@ int CaptionDefProto::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->stroke_color());
+    }
+    
+    // optional int32 offset_x = 4;
+    if (has_offset_x()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->offset_x());
+    }
+    
+    // optional int32 offset_y = 5;
+    if (has_offset_y()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->offset_y());
     }
     
   }
@@ -2780,6 +2857,12 @@ void CaptionDefProto::MergeFrom(const CaptionDefProto& from) {
     if (from.has_stroke_color()) {
       set_stroke_color(from.stroke_color());
     }
+    if (from.has_offset_x()) {
+      set_offset_x(from.offset_x());
+    }
+    if (from.has_offset_y()) {
+      set_offset_y(from.offset_y());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -2807,6 +2890,8 @@ void CaptionDefProto::Swap(CaptionDefProto* other) {
     std::swap(height_, other->height_);
     std::swap(color_, other->color_);
     std::swap(stroke_color_, other->stroke_color_);
+    std::swap(offset_x_, other->offset_x_);
+    std::swap(offset_y_, other->offset_y_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

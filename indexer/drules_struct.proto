@@ -17,12 +17,14 @@ enum LineJoin
 {
   ROUNDJOIN = 0;
   BEVELJOIN = 1;
+  NOJOIN = 2;
 }
 
 enum LineCap
 {
   ROUNDCAP = 0;
   BUTTCAP = 1;
+  SQUARECAP = 2;
 }
 
 message LineRuleProto
@@ -65,6 +67,8 @@ message CaptionDefProto
   required int32 height = 1;
   required uint32 color = 2;
   optional uint32 stroke_color = 3;
+  optional int32 offset_x = 4;
+  optional int32 offset_y = 5;
 }
 
 message CaptionRuleProto
