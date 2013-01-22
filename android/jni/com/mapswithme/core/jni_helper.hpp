@@ -37,9 +37,9 @@ namespace jni
 
   shared_ptr<jobject> make_global_ref(jobject obj);
 
-  jobject GetNewParcelablePointD(JNIEnv * env, m2::PointD point);
+  jobject GetNewParcelablePointD(JNIEnv * env, m2::PointD const & point);
 
-  jobject GetNewPoint(JNIEnv * env, m2::PointD point);
-  jobject GetNewPoint(JNIEnv * env, m2::PointI point);
-  jobject GetNewAddressInfo(JNIEnv * env, string name, string type, m2::PointD px);
+  jobject GetNewPoint(JNIEnv * env, m2::PointD const & point);
+  jobject GetNewPoint(JNIEnv * env, m2::PointI const & point);
+  jobject GetNewAddressInfo(JNIEnv * env, string const & name, string const & type, m2::PointD const & px);
 }

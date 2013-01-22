@@ -163,7 +163,7 @@ namespace jni
     return "";
   }
 
-  jobject GetNewParcelablePointD(JNIEnv * env, m2::PointD point)
+  jobject GetNewParcelablePointD(JNIEnv * env, m2::PointD const & point)
   {
     jclass klass = env->FindClass("com/mapswithme/maps/bookmarks/data/ParcelablePointD");
     ASSERT ( klass, () );
@@ -177,12 +177,12 @@ namespace jni
                               static_cast<jdouble>(point.y));
   }
 
-  jobject GetNewPoint(JNIEnv * env, m2::PointD point)
+  jobject GetNewPoint(JNIEnv * env, m2::PointD const & point)
   {
     return GetNewPoint(env, m2::PointI(static_cast<int>(point.x), static_cast<int>(point.y)));
   }
 
-  jobject GetNewPoint(JNIEnv * env, m2::PointI point)
+  jobject GetNewPoint(JNIEnv * env, m2::PointI const & point)
   {
     jclass klass = env->FindClass("android/graphics/Point");
     ASSERT ( klass, () );
@@ -196,7 +196,7 @@ namespace jni
                               static_cast<jint>(point.y));
   }
 
-  jobject GetNewAddressInfo(JNIEnv * env, string name, string type, m2::PointD px)
+  jobject GetNewAddressInfo(JNIEnv * env, string const & name, string const & type, m2::PointD const & px)
   {
     jclass klass = env->FindClass("com/mapswithme/maps/bookmarks/data/AddressInfo");
     ASSERT ( klass, () );

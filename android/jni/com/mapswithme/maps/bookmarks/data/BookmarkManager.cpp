@@ -33,7 +33,7 @@ extern "C"
     return jni::GetNewAddressInfo(env, adInfo.m_name, adInfo.GetBestType() == 0 ? "" : adInfo.GetBestType(), point);
   }
 
-  JNIEXPORT jint JNICALL
+  JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nShowBookmark(JNIEnv * env, jobject thiz, jint c, jint b)
   {
     frm()->ShowBookmark(*(frm()->GetBmCategory(c)->GetBookmark(b)));
