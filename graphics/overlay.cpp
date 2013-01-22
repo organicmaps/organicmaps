@@ -223,13 +223,8 @@ namespace graphics
       if (*m_isIntersect)
         return;
 
-      //LOG(LINFO, (r->m_userInfo.IsValid(), r->m_userInfo.m_mwmID, l->m_userInfo.m_mwmID, r->m_userInfo.m_offset, l->m_userInfo.m_offset ) );
-
-      if (m_oe->m_userInfo.IsValid() && e->m_userInfo.IsValid()
-       && (m_oe->m_userInfo.m_offset == e->m_userInfo.m_offset)
-       && (m_oe->m_userInfo.m_mwmID == e->m_userInfo.m_mwmID))
+      if (m_oe->m_userInfo == e->m_userInfo)
         return;
-
 
       vector<m2::AnyRectD> const & lr = m_oe->boundRects();
       vector<m2::AnyRectD> const & rr = e->boundRects();

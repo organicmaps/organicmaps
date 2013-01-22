@@ -21,6 +21,10 @@ namespace graphics
 
       UserInfo() : m_mwmID(size_t(-1)) {}
       inline bool IsValid() const { return (m_mwmID != size_t(-1)); }
+      inline bool operator== (UserInfo const & a) const
+      {
+        return IsValid() && (a.m_mwmID == m_mwmID) && (a.m_offset == m_offset);
+      }
     };
 
   private:
