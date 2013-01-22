@@ -83,11 +83,6 @@ namespace graphics
     m_glyphLayout.setPivot(pivot);
   }
 
-  int PathTextElement::priority() const
-  {
-    return OverlayElement::priority() + m_fontDesc.m_size;
-  }
-
   OverlayElement * PathTextElement::clone(math::Matrix<double, 3, 3> const & m) const
   {
     return new PathTextElement(*this, m);

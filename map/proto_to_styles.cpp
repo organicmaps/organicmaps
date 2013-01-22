@@ -67,6 +67,9 @@ void ConvertStyle(LineDefProto const * pSrc, double scale, graphics::Pen::Info &
     case BEVELJOIN:
       dest.m_join = graphics::Pen::Info::EBevelJoin;
       break;
+    case NOJOIN:
+      dest.m_join = graphics::Pen::Info::ENoJoin;
+      break;
     default:
       break;
     }
@@ -81,6 +84,9 @@ void ConvertStyle(LineDefProto const * pSrc, double scale, graphics::Pen::Info &
       break;
     case BUTTCAP:
       dest.m_cap = graphics::Pen::Info::EButtCap;
+      break;
+    case SQUARECAP:
+      dest.m_cap = graphics::Pen::Info::ESquareCap;
       break;
     default:
       break;
@@ -114,10 +120,16 @@ void ConvertStyle(CircleRuleProto const * pSrc, double scale, graphics::Circle::
   }
 }
 
-void ConvertStyle(CaptionDefProto const * pSrc, double scale, graphics::FontDesc & dest)
+void ConvertStyle(CaptionDefProto const * pSrc, double scale, graphics::FontDesc & dest, m2::PointD & offset)
 {
   uint8_t const h = max(static_cast<int>(pSrc->height() * scale),
                         static_cast<int>(8 * scale));    // replace 12 to 8 as it defined in drawing rules
+
+  offset = m2::PointD(0,0);
+  if (pSrc->has_offset_x())
+    offset.x = pSrc->offset_x();
+  if (pSrc->has_offset_y())
+    offset.y = pSrc->offset_y();
 
   dest = graphics::FontDesc(h, ConvertColor(pSrc->color()));
 

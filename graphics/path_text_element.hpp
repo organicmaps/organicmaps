@@ -30,7 +30,5 @@ namespace graphics
     void setPivot(m2::PointD const & pivot);
 
     OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
-
-    int priority() const;
   };
 }

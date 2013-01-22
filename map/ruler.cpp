@@ -303,7 +303,7 @@ void Ruler::draw(graphics::OverlayRenderer * s, math::Matrix<double, 3, 3> const
   }
 }
 
-int Ruler::priority() const
+double Ruler::priority() const
 {
   return 0;
 }

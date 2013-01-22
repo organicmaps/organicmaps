@@ -9,6 +9,13 @@
 #include "../graphics/defines.hpp"
 #include "../graphics/screen.hpp"
 #include "../graphics/resource_manager.hpp"
+#include "../graphics/straight_text_element.hpp"
+
+#ifdef OMIM_PRODUCTION
+  #include "../indexer/drules_struct_lite.pb.h"
+#else
+  #include "../indexer/drules_struct.pb.h"
+#endif
 
 #include "../geometry/screenbase.hpp"
 
@@ -224,26 +231,42 @@ bool Drawer::filter_text_size(rule_ptr_t pRule) const
 void Drawer::drawText(m2::PointD const & pt, di::DrawInfo const * pInfo, rule_ptr_t pRule,
                         graphics::EPosition pos, double depth, FeatureID const & id)
 {
-  graphics::FontDesc font;
-  ConvertStyle(pRule->GetCaption(0), m_visualScale, font);
-  font.SetRank(pInfo->m_rank);
+  graphics::FontDesc primaryFont;
+  m2::PointD primaryOffset;
+  ConvertStyle(pRule->GetCaption(0), m_visualScale, primaryFont, primaryOffset);
+  primaryFont.SetRank(pInfo->m_rank);
 
-  graphics::FontDesc smallFont;
+  graphics::FontDesc secondaryFont;
+  m2::PointD secondaryOffset;
   if (pRule->GetCaption(1))
   {
-    ConvertStyle(pRule->GetCaption(1), m_visualScale, smallFont);
-    smallFont.SetRank(pInfo->m_rank);
+    ConvertStyle(pRule->GetCaption(1), m_visualScale, secondaryFont, secondaryOffset);
+    secondaryFont.SetRank(pInfo->m_rank);
   }
 
-  m_pScreen->drawTextEx(font, smallFont, pt, pos,
-                        pInfo->m_name, pInfo->m_secondaryName,
-                        depth, true, true);
+  graphics::StraightTextElement::Params params;
+  params.m_depth = depth;
+  params.m_fontDesc = primaryFont;
+  params.m_auxFontDesc = secondaryFont;
+  params.m_offset = primaryOffset;
+  params.m_log2vis = true;
+  params.m_pivot = pt;
+  params.m_position = pos;
+  params.m_logText = strings::MakeUniString(pInfo->m_name);
+  params.m_auxLogText = strings::MakeUniString(pInfo->m_secondaryName);
+  params.m_doSplit = true;
+  params.m_useAllParts = false;
+  params.m_userInfo.m_mwmID = id.first;
+  params.m_userInfo.m_offset = id.second;
+
+  m_pScreen->drawTextEx(params);
 }
 
 bool Drawer::drawPathText(di::PathInfo const & info, di::DrawInfo const * pInfo, rule_ptr_t pRule, double depth)
 {
   graphics::FontDesc font;
-  ConvertStyle(pRule->GetCaption(0), m_visualScale, font);
+  m2::PointD offset;
+  ConvertStyle(pRule->GetCaption(0), m_visualScale, font, offset);
 
   return m_pScreen->drawPathText(font,
                                  &info.m_path[0],
@@ -334,7 +357,6 @@ void Drawer::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size_t
 
     if (!isCaption)
     {
-      double const sm = 2.0 * m_visualScale;
 
       // draw area
       if (isArea)
@@ -347,7 +369,7 @@ void Drawer::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size_t
           if (isFill)
             drawArea(i->m_path, pRule, depth);
           else if (hasSym)
-            drawSymbol(i->GetCenter() + m2::PointD(0.0, sm), pRule, graphics::EPosUnder, depth, id);
+            drawSymbol(i->GetCenter(), pRule, graphics::EPosCenter, depth, id);
         }
       }
 
@@ -355,22 +377,32 @@ void Drawer::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size_t
       if (!isPath && !isArea && ((pRule->GetType() & drule::node) != 0))
       {
         if (hasSymbol)
-          drawSymbol(pInfo->m_point + m2::PointD(0.0, sm), pRule, graphics::EPosUnder, depth, id);
+          drawSymbol(pInfo->m_point, pRule, graphics::EPosCenter, depth, id);
         else if (isCircle)
-          drawCircle(pInfo->m_point + m2::PointD(0.0, sm), pRule, graphics::EPosUnder, depth, id);
+          drawCircle(pInfo->m_point, pRule, graphics::EPosCenter, depth, id);
       }
     }
     else
     {
-      if (!pInfo->m_name.empty())
+      if (!pInfo->m_name.empty() && (pRule->GetCaption(0) != 0))
       {
         bool isN = ((pRule->GetType() & drule::way) != 0);
+
+        graphics::EPosition textPosition = graphics::EPosCenter;
+        if (pRule->GetCaption(0)->has_offset_y())
+        {
+          if (pRule->GetCaption(0)->offset_y() > 0)
+            textPosition = graphics::EPosUnder;
+          else
+            textPosition = graphics::EPosAbove;
+        }
+
 
         // draw area text
         if (isArea/* && isN*/)
         {
           for (list<di::AreaInfo>::const_iterator i = pInfo->m_areas.begin(); i != pInfo->m_areas.end(); ++i)
-            drawText(i->GetCenter(), pInfo, pRule, graphics::EPosCenter, depth, id);
+            drawText(i->GetCenter(), pInfo, pRule, textPosition, depth, id);
         }
 
         // draw way name
@@ -383,7 +415,7 @@ void Drawer::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size_t
         // draw point text
         isN = ((pRule->GetType() & drule::node) != 0);
         if (!isPath && !isArea && isN)
-          drawText(pInfo->m_point, pInfo, pRule, graphics::EPosAbove, depth, id);
+          drawText(pInfo->m_point, pInfo, pRule, textPosition, depth, id);
       }
     }
   }

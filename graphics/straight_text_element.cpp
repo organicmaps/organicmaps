@@ -172,7 +172,6 @@ namespace graphics
       }
     }
 
-
     double curShift = allElemHeight / 2;
 
     /// performing aligning of glyphLayouts as for the center position
@@ -180,7 +179,7 @@ namespace graphics
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
     {
       double elemSize = m_glyphLayouts[i].boundRects().back().GetGlobalRect().SizeY();
-      m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + m2::PointD(0, -curShift + elemSize / 2));
+      m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + m2::PointD(0, -curShift + elemSize / 2) + p.m_offset);
       curShift -= elemSize;
     }
 
@@ -259,10 +258,10 @@ namespace graphics
       if (isNeedRedraw())
         c = graphics::Color(255, 0, 0, 64);
 
-      screen->drawRectangle(roughBoundRect(), graphics::Color(255, 255, 0, 64), graphics::maxDepth - 10);
+      screen->drawRectangle(roughBoundRect(), graphics::Color(255, 255, 0, 64), depth() - 0.2);
 
       for (unsigned i = 0 ; i < boundRects().size(); ++i)
-        screen->drawRectangle(boundRects()[i], c, graphics::maxDepth - 10);
+        screen->drawRectangle(boundRects()[i], c, depth() - 0.2);
     }
 
     if (!isNeedRedraw())
@@ -271,14 +270,14 @@ namespace graphics
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
     {
       if (m_glyphLayouts[i].fontDesc().m_isMasked)
-        drawTextImpl(m_glyphLayouts[i], screen, m, true, true, m_glyphLayouts[i].fontDesc(), graphics::maxDepth - 9);
+        drawTextImpl(m_glyphLayouts[i], screen, m, true, true, m_glyphLayouts[i].fontDesc(), depth() - 0.1);
     }
 
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
     {
       graphics::FontDesc fontDesc = m_glyphLayouts[i].fontDesc();
       fontDesc.m_isMasked = false;
-      drawTextImpl(m_glyphLayouts[i], screen, m, true, true, fontDesc, graphics::maxDepth - 8);
+      drawTextImpl(m_glyphLayouts[i], screen, m, true, true, fontDesc, depth());
     }
   }
 
@@ -291,11 +290,6 @@ namespace graphics
 
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
       m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + offs);
-  }
-
-  int StraightTextElement::priority() const
-  {
-    return OverlayElement::priority() + m_fontDesc.m_size;
   }
 
   OverlayElement * StraightTextElement::clone(math::Matrix<double, 3, 3> const & m) const

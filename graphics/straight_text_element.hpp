@@ -22,6 +22,7 @@ namespace graphics
       unsigned m_maxSymInRow;
       bool m_doSplit;
       bool m_useAllParts;
+      m2::PointD m_offset;
       string m_delimiters;
       Params();
     };
@@ -32,8 +33,6 @@ namespace graphics
     vector<m2::AnyRectD> const & boundRects() const;
 
     void draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
-
-    int priority() const;
 
     void setPivot(m2::PointD const & pv);
 

@@ -83,7 +83,7 @@ namespace graphics
     r->drawStraightTexturedPolygon(pivot(),
                                    texRect.minX(), texRect.minY(), texRect.maxX(), texRect.maxY(),
                                    posPt.x, posPt.y, posPt.x + texRect.SizeX(), posPt.y + texRect.SizeY(),
-                                   graphics::maxDepth - 2,
+                                   depth(),
                                    res->m_pipelineID);
   }
 

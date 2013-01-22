@@ -88,8 +88,21 @@ namespace feature
     for (size_t i = 0; i < count; ++i)
     {
       double depth = keys[i].m_priority;
+
+
       if (layer != 0)
         depth = (layer * drule::layer_base_priority) + fmod(depth, drule::layer_base_priority);
+
+      if (keys[i].m_type == drule::symbol)
+        depth = 16000;
+      if (keys[i].m_type == drule::caption)
+      {
+        depth = 15000;
+        if (m_geometryType == GEOM_POINT)
+          depth = 15500;
+      }
+      if (keys[i].m_type == drule::pathtext)
+        depth = 17000;
 
       if ((keys[i].m_type == drule::caption)
        || (keys[i].m_type == drule::symbol)

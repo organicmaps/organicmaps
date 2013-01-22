@@ -27,8 +27,7 @@ namespace graphics
 
     m2::PointD m_pivot;
     graphics::EPosition m_position;
-    double m_depth;
-    UserInfo m_userInfo;
+    double m_depth;    
 
     bool m_isNeedRedraw;
     bool m_isFrozen;
@@ -41,6 +40,8 @@ namespace graphics
     mutable m2::RectD m_roughBoundRect;
 
   public:
+
+    UserInfo m_userInfo;
 
     m2::PointD const tieRect(m2::RectD const & r, math::Matrix<double, 3, 3> const & m) const;
 
@@ -61,7 +62,8 @@ namespace graphics
     /// PLEASE, REMEMBER THE REFERENCE!!!
     virtual vector<m2::AnyRectD> const & boundRects() const = 0;
     virtual void draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const = 0;
-    virtual int priority() const;
+
+    virtual double priority() const;
 
     m2::PointD const & pivot() const;
     virtual void setPivot(m2::PointD const & pv);
@@ -93,6 +95,9 @@ namespace graphics
 
     bool isValid() const;
     void setIsValid(bool flag);
+
+    m2::PointD getOffset() const;
+    void setOffset(m2::PointD offset);
 
     UserInfo const & userInfo() const;
 

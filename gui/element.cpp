@@ -92,7 +92,7 @@ namespace gui
       r->drawRectangle(boundRects()[i], color(state()), depth());
   }
 
-  int Element::priority() const
+  double Element::priority() const
   {
     return 0;
   }

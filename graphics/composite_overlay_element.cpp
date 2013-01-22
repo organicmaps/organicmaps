@@ -48,9 +48,9 @@ namespace graphics
       m_elements[i]->draw(r, m);
   }
 
-  int CompositeOverlayElement::priority() const
+  double CompositeOverlayElement::priority() const
   {
-    int res = numeric_limits<int>::min();
+    double res = numeric_limits<double>::min();
 
     for (unsigned i = 0; i < m_elements.size(); ++i)
       res = max(res, m_elements[i]->priority());

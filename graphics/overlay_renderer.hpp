@@ -6,6 +6,7 @@
 #include "text_renderer.hpp"
 #include "overlay.hpp"
 #include "circle.hpp"
+#include "straight_text_element.hpp"
 
 namespace graphics
 {
@@ -51,6 +52,8 @@ namespace graphics
                   double depth,
                   bool log2vis,
                   bool doSplit = false);
+
+    void drawTextEx(StraightTextElement::Params & params);
 
     void drawTextEx(FontDesc const & primaryFont,
                     FontDesc const & secondaryFont,

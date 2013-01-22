@@ -16,6 +16,6 @@ void ConvertStyle(LineDefProto const * pSrc, double scale, graphics::Pen::Info &
 void ConvertStyle(AreaRuleProto const * pSrc, graphics::Brush::Info & dest);
 void ConvertStyle(SymbolRuleProto const * pSrc, graphics::Icon::Info & dest);
 void ConvertStyle(CircleRuleProto const * pSrc, double scale, graphics::Circle::Info & dest);
-void ConvertStyle(CaptionDefProto const * pSrc, double scale, graphics::FontDesc & dest);
+void ConvertStyle(CaptionDefProto const * pSrc, double scale, graphics::FontDesc & dest, m2::PointD & offset);
 
 uint8_t GetFontSize(CaptionDefProto const * pSrc);

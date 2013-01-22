@@ -92,10 +92,27 @@ namespace graphics
     params.m_log2vis = log2vis;
     params.m_pivot = pt;
     params.m_position = pos;
-    params.m_glyphCache = glyphCache();
     params.m_logText = strings::MakeUniString(utf8Text);
     params.m_doSplit = doSplit;
     params.m_useAllParts = false;
+    params.m_glyphCache = glyphCache();
+
+    shared_ptr<OverlayElement> oe(new StraightTextElement(params));
+
+    math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
+
+    if (!m_overlay.get())
+      oe->draw(this, id);
+    else
+      m_overlay->processOverlayElement(oe);
+  }
+
+  void OverlayRenderer::drawTextEx(StraightTextElement::Params & params)
+  {
+    if (!m_drawTexts)
+      return;
+
+    params.m_glyphCache = glyphCache();
 
     shared_ptr<OverlayElement> oe(new StraightTextElement(params));
 
@@ -127,21 +144,15 @@ namespace graphics
     params.m_log2vis = log2vis;
     params.m_pivot = pt;
     params.m_position = pos;
-    params.m_glyphCache = glyphCache();
     params.m_logText = strings::MakeUniString(text);
     params.m_auxLogText = strings::MakeUniString(secondaryText);
     params.m_doSplit = doSplit;
     params.m_useAllParts = false;
 
-    shared_ptr<OverlayElement> oe(new StraightTextElement(params));
-
-    math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
-
-    if (!m_overlay.get())
-      oe->draw(this, id);
-    else
-      m_overlay->processOverlayElement(oe);
+    drawTextEx(params);
   }
+
+
 
   bool OverlayRenderer::drawPathText(
       FontDesc const & fontDesc, m2::PointD const * path, size_t s, string const & utf8Text,

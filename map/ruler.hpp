@@ -80,6 +80,6 @@ public:
 
   void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
-  int priority() const;
+  double priority() const;
   graphics::OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
 };
