@@ -6378,8 +6378,8 @@ cont {
       width: 2.75
       color: 0xD0D0D0
       dashdot {
-        dd: 6
-        dd: 9
+        dd: 4
+        dd: 4
       }
       priority: 414
     }
@@ -6390,8 +6390,8 @@ cont {
       width: 3.5
       color: 0xD0D0D0
       dashdot {
-        dd: 8
-        dd: 10
+        dd: 4
+        dd: 4
       }
       priority: 502
     }
@@ -6402,8 +6402,8 @@ cont {
       width: 7
       color: 0xD0D0D0
       dashdot {
-        dd: 16
-        dd: 20
+        dd: 4
+        dd: 4
       }
       priority: 613
     }
@@ -6414,8 +6414,8 @@ cont {
       width: 9
       color: 0xD0D0D0
       dashdot {
-        dd: 32
-        dd: 40
+        dd: 4
+        dd: 4
       }
       priority: 933
     }
@@ -6423,20 +6423,11 @@ cont {
   element {
     scale: 17
     lines {
-      width: 0.8
-      color: 0x707070
-      dashdot {
-        dd: 4
-        dd: 4
-      }
-      priority: 993
-    }
-    lines {
       width: 10
       color: 0xD0D0D0
       dashdot {
-        dd: 32
-        dd: 32
+        dd: 4
+        dd: 4
       }
       priority: 994
     }
@@ -7631,7 +7622,7 @@ cont {
         dd: 1.5
         dd: 1.5
       }
-      priority: 262
+      priority: 100
     }
     lines {
       width: 0.7
@@ -7640,7 +7631,7 @@ cont {
         dd: 2.25
         dd: 3
       }
-      priority: 263
+      priority: 101
     }
   }
   element {
@@ -7652,7 +7643,7 @@ cont {
         dd: 1.85
         dd: 1.85
       }
-      priority: 273
+      priority: 100
     }
     lines {
       width: 0.9
@@ -7661,7 +7652,7 @@ cont {
         dd: 2.25
         dd: 3
       }
-      priority: 274
+      priority: 101
     }
   }
   element {
@@ -7673,7 +7664,7 @@ cont {
         dd: 2.2
         dd: 2.2
       }
-      priority: 353
+      priority: 100
     }
     lines {
       width: 1.6
@@ -7682,7 +7673,7 @@ cont {
         dd: 3
         dd: 4
       }
-      priority: 354
+      priority: 101
     }
   }
   element {
@@ -7694,12 +7685,12 @@ cont {
         dd: 2.8
         dd: 2.8
       }
-      priority: 461
+      priority: 100
     }
     lines {
       width: 3.2
       color: 0xFFFFFF
-      priority: 462
+      priority: 101
     }
   }
   element {
@@ -7711,12 +7702,12 @@ cont {
         dd: 3.2
         dd: 3.2
       }
-      priority: 778
+      priority: 100
     }
     lines {
       width: 6.4
       color: 0xFFFFFF
-      priority: 779
+      priority: 101
     }
   }
   element {
@@ -7728,12 +7719,12 @@ cont {
         dd: 3.2
         dd: 3.2
       }
-      priority: 820
+      priority: 100
     }
     lines {
       width: 6.8
       color: 0xFFFFFF
-      priority: 821
+      priority: 101
     }
   }
 }
@@ -14566,7 +14557,7 @@ cont {
       color: 0xFFC444
       dashdot {
         dd: 4
-        dd: 6.5
+        dd: 4
       }
       priority: 411
     }
@@ -14577,8 +14568,8 @@ cont {
       width: 5
       color: 0xFFC444
       dashdot {
-        dd: 6
-        dd: 9
+        dd: 4
+        dd: 4
       }
       priority: 422
     }
@@ -14589,8 +14580,8 @@ cont {
       width: 6
       color: 0xFFC444
       dashdot {
-        dd: 8
-        dd: 10
+        dd: 4
+        dd: 4
       }
       priority: 510
     }
@@ -14601,8 +14592,8 @@ cont {
       width: 9
       color: 0xFFC444
       dashdot {
-        dd: 16
-        dd: 20
+        dd: 4
+        dd: 4
       }
       priority: 621
     }
@@ -14613,8 +14604,8 @@ cont {
       width: 12
       color: 0xFFC444
       dashdot {
-        dd: 32
-        dd: 40
+        dd: 4
+        dd: 4
       }
       priority: 941
     }
@@ -14622,20 +14613,11 @@ cont {
   element {
     scale: 17
     lines {
-      width: 0.8
-      color: 0x707070
-      dashdot {
-        dd: 4
-        dd: 4
-      }
-      priority: 1009
-    }
-    lines {
       width: 12
       color: 0xFFC444
       dashdot {
-        dd: 32
-        dd: 32
+        dd: 4
+        dd: 4
       }
       priority: 1010
     }
@@ -24629,6 +24611,7 @@ cont {
       width: 1
       color: 0x909090
       priority: 460
+      cap: BUTTCAP
     }
   }
   element {
@@ -24637,6 +24620,7 @@ cont {
       width: 1
       color: 0xFFFFFF
       priority: 460
+      cap: BUTTCAP
     }
   }
   element {
@@ -24650,6 +24634,7 @@ cont {
       width: 5
       color: 0xC8C8AF
       priority: 440
+      cap: BUTTCAP
     }
   }
   element {
@@ -24663,6 +24648,7 @@ cont {
       width: 6
       color: 0xC8C8AF
       priority: 440
+      cap: BUTTCAP
     }
     path_text {
       primary {
@@ -24684,6 +24670,7 @@ cont {
       width: 10
       color: 0xC8C8AF
       priority: 440
+      cap: BUTTCAP
     }
     path_text {
       primary {
@@ -24705,6 +24692,7 @@ cont {
       width: 12
       color: 0xC8C8AF
       priority: 440
+      cap: BUTTCAP
     }
     path_text {
       primary {
@@ -24999,7 +24987,7 @@ cont {
     lines {
       width: 0.25
       color: 0xFFFFFFFF
-      priority: 116
+      priority: 100
     }
   }
   element {
@@ -25011,12 +24999,12 @@ cont {
         dd: 1.5
         dd: 1.5
       }
-      priority: 289
+      priority: 100
     }
     lines {
       width: 0.7
       color: 0xFFFFFF
-      priority: 290
+      priority: 101
     }
   }
   element {
@@ -25028,12 +25016,12 @@ cont {
         dd: 1.85
         dd: 1.85
       }
-      priority: 300
+      priority: 100
     }
     lines {
       width: 2.75
       color: 0xFFFFFF
-      priority: 301
+      priority: 101
     }
   }
   element {
@@ -25045,12 +25033,12 @@ cont {
         dd: 2.2
         dd: 2.2
       }
-      priority: 380
+      priority: 100
     }
     lines {
       width: 3.5
       color: 0xFFFFFF
-      priority: 381
+      priority: 101
     }
   }
   element {
@@ -25062,12 +25050,12 @@ cont {
         dd: 2.8
         dd: 2.8
       }
-      priority: 488
+      priority: 100
     }
     lines {
       width: 7
       color: 0xFFFFFF
-      priority: 489
+      priority: 101
     }
   }
   element {
@@ -25079,12 +25067,12 @@ cont {
         dd: 3.2
         dd: 3.2
       }
-      priority: 808
+      priority: 100
     }
     lines {
       width: 8.8
       color: 0xFFFFFF
-      priority: 809
+      priority: 101
     }
   }
   element {
@@ -25096,12 +25084,12 @@ cont {
         dd: 3.2
         dd: 3.2
       }
-      priority: 853
+      priority: 100
     }
     lines {
       width: 10.8
       color: 0xFFFFFF
-      priority: 854
+      priority: 101
     }
   }
 }
