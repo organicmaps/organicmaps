@@ -323,6 +323,7 @@ cont {
       primary {
         height: 12
         color: 0x808080
+        offset_y: 10
       }
       priority: 10640
     }
@@ -407,6 +408,7 @@ cont {
         height: 12
         color: 0x202020
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 10485
     }
@@ -422,6 +424,7 @@ cont {
         height: 12
         color: 0x202020
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 10485
     }
@@ -437,6 +440,7 @@ cont {
         height: 12
         color: 0x202020
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 10485
     }
@@ -885,6 +889,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -903,6 +908,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -921,6 +927,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -936,6 +943,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -954,6 +962,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -972,6 +981,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -990,6 +1000,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1015,6 +1026,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1033,6 +1045,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1048,6 +1061,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1066,6 +1080,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1081,6 +1096,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1099,6 +1115,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1114,6 +1131,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1132,6 +1150,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1261,6 +1280,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1279,6 +1299,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1297,6 +1318,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1312,6 +1334,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1330,6 +1353,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1348,6 +1372,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1389,6 +1414,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1407,6 +1433,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1544,6 +1571,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1562,6 +1590,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1691,6 +1720,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1706,6 +1736,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1724,6 +1755,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1739,6 +1771,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1757,6 +1790,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -1772,6 +1806,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -2097,6 +2132,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -2115,6 +2151,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -2133,6 +2170,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -2151,6 +2189,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -2169,6 +2208,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -2187,6 +2227,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -2202,6 +2243,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -2220,6 +2262,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -2238,6 +2281,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -2253,6 +2297,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -2271,6 +2316,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -2448,6 +2494,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -2466,6 +2513,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -2481,6 +2529,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -2499,6 +2548,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -2517,6 +2567,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -2532,6 +2583,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -2550,6 +2602,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 14829
     }
@@ -2565,6 +2618,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -5918,6 +5972,7 @@ cont {
         height: 10
         color: 0x3050D8
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11807
     }
@@ -5933,6 +5988,7 @@ cont {
         height: 11
         color: 0x3050D8
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11807
     }
@@ -25702,6 +25758,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -25717,6 +25774,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -25735,6 +25793,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -25750,6 +25809,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -25768,6 +25828,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -25783,6 +25844,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -25801,6 +25863,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -25816,6 +25879,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -25834,6 +25898,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -25849,6 +25914,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -25867,6 +25933,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -25882,6 +25949,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -25900,6 +25968,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -25915,6 +25984,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -36316,6 +36386,7 @@ cont {
       primary {
         height: 12
         color: 0x202020
+        offset_y: 10
       }
       priority: 10629
     }
@@ -36330,6 +36401,7 @@ cont {
       primary {
         height: 12
         color: 0x202020
+        offset_y: 10
       }
       priority: 10893
     }
@@ -36344,6 +36416,7 @@ cont {
       primary {
         height: 16
         color: 0x202020
+        offset_y: 10
       }
       priority: 11553
     }
@@ -36358,6 +36431,7 @@ cont {
       primary {
         height: 16
         color: 0x202020
+        offset_y: 10
       }
       priority: 11787
     }
@@ -38115,6 +38189,7 @@ cont {
       primary {
         height: 12
         color: 0x404040
+        offset_y: 10
       }
       priority: 10893
     }
@@ -38129,6 +38204,7 @@ cont {
       primary {
         height: 12
         color: 0x404040
+        offset_y: 10
       }
       priority: 10629
     }
@@ -38143,6 +38219,7 @@ cont {
       primary {
         height: 12
         color: 0x404040
+        offset_y: 10
       }
       priority: 10893
     }
@@ -38157,6 +38234,7 @@ cont {
       primary {
         height: 16
         color: 0x404040
+        offset_y: 10
       }
       priority: 11553
     }
@@ -38171,6 +38249,7 @@ cont {
       primary {
         height: 16
         color: 0x404040
+        offset_y: 10
       }
       priority: 11787
     }
@@ -38963,6 +39042,7 @@ cont {
       primary {
         height: 12
         color: 0x202020
+        offset_y: 10
       }
       priority: 10629
     }
@@ -38977,6 +39057,7 @@ cont {
       primary {
         height: 12
         color: 0x202020
+        offset_y: 10
       }
       priority: 10893
     }
@@ -38991,6 +39072,7 @@ cont {
       primary {
         height: 16
         color: 0x202020
+        offset_y: 10
       }
       priority: 11553
     }
@@ -39005,6 +39087,7 @@ cont {
       primary {
         height: 16
         color: 0x202020
+        offset_y: 10
       }
       priority: 11787
     }
@@ -43790,6 +43873,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11569
     }
@@ -43805,6 +43889,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11569
     }
@@ -43820,6 +43905,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11805
     }
@@ -47056,6 +47142,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xF8FCFF
+        offset_y: 10
       }
       priority: 15567
     }
@@ -47071,6 +47158,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xF8FCFF
+        offset_y: 10
       }
       priority: 15567
     }
@@ -47086,6 +47174,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xF8FCFF
+        offset_y: 10
       }
       priority: 15803
     }
@@ -47108,6 +47197,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xF8FCFF
+        offset_y: 10
       }
       priority: 15567
     }
@@ -47123,6 +47213,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xF8FCFF
+        offset_y: 10
       }
       priority: 15567
     }
@@ -47134,6 +47225,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xF8FCFF
+        offset_y: 10
       }
       priority: 15567
     }
@@ -47149,6 +47241,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xF8FCFF
+        offset_y: 10
       }
       priority: 16567
     }
@@ -47164,6 +47257,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xF8FCFF
+        offset_y: 10
       }
       priority: 18803
     }
@@ -47703,6 +47797,7 @@ cont {
         height: 10
         color: 0x3050D8
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11571
     }
@@ -47718,6 +47813,7 @@ cont {
         height: 11
         color: 0x3050D8
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11571
     }
@@ -47733,6 +47829,7 @@ cont {
         height: 12
         color: 0x3050D8
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11807
     }
@@ -48185,6 +48282,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -48200,6 +48298,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -48221,6 +48320,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -48236,6 +48336,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -48254,6 +48355,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -48269,6 +48371,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -48287,6 +48390,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -48302,6 +48406,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -48320,6 +48425,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -48335,6 +48441,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -48353,6 +48460,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -48368,6 +48476,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -48386,6 +48495,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -48401,6 +48511,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -48850,6 +48961,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11842
     }
@@ -48967,6 +49079,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -48982,6 +49095,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -49000,6 +49114,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -49015,6 +49130,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -49033,6 +49149,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -49048,6 +49165,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -49096,6 +49214,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -49111,6 +49230,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -49129,6 +49249,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -49144,6 +49265,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11829
     }
@@ -49247,6 +49369,7 @@ cont {
         height: 12
         color: 0x404040
         stroke_color: 0xFFFFFF
+        offset_y: 10
       }
       priority: 11840
     }
