@@ -127,9 +127,9 @@ void ConvertStyle(CaptionDefProto const * pSrc, double scale, graphics::FontDesc
 
   offset = m2::PointD(0,0);
   if (pSrc->has_offset_x())
-    offset.x = pSrc->offset_x();
+    offset.x = scale * pSrc->offset_x();
   if (pSrc->has_offset_y())
-    offset.y = pSrc->offset_y();
+    offset.y = scale * pSrc->offset_y();
 
   dest = graphics::FontDesc(h, ConvertColor(pSrc->color()));
 
