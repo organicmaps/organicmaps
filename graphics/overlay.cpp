@@ -21,7 +21,7 @@ namespace graphics
       return false;
 
     /// for the composite elements, collected in OverlayRenderer to replace the part elements
-    return l->priority() >= r->priority();
+    return l->priority() > r->priority();
   }
 
   m2::RectD const OverlayElementTraits::LimitRect(shared_ptr<OverlayElement> const & elem)
@@ -222,6 +222,14 @@ namespace graphics
     {
       if (*m_isIntersect)
         return;
+
+      //LOG(LINFO, (r->m_userInfo.IsValid(), r->m_userInfo.m_mwmID, l->m_userInfo.m_mwmID, r->m_userInfo.m_offset, l->m_userInfo.m_offset ) );
+
+      if (m_oe->m_userInfo.IsValid() && e->m_userInfo.IsValid()
+       && (m_oe->m_userInfo.m_offset == e->m_userInfo.m_offset)
+       && (m_oe->m_userInfo.m_mwmID == e->m_userInfo.m_mwmID))
+        return;
+
 
       vector<m2::AnyRectD> const & lr = m_oe->boundRects();
       vector<m2::AnyRectD> const & rr = e->boundRects();
