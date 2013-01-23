@@ -1,6 +1,8 @@
 package com.mapswithme.maps.bookmarks.data;
 
 import android.content.Context;
+import android.graphics.Point;
+import android.util.Log;
 
 public class Bookmark
 {
@@ -32,9 +34,12 @@ public class Bookmark
     getXY(position);
     mBookmark = b;
     mIcon = getIconInternal();
-    mCategoryId = nextCat;
     String name = getName();
+    mCategoryId = nextCat;
     changeBookmark(getCategoryName(), name, mIcon.getType());
+    Point bookmark = BookmarkManager.nGetBookmark(position.x, position.y);
+    mBookmark = bookmark.y;
+    Log.d("Bookmark indices", " " + mCategoryId+ " "+ mBookmark);
   }
 
 
@@ -110,20 +115,7 @@ public class Bookmark
   {
     if (mCategoryId > -1)
     {
-      String type = null;
-      if (mPosition != null)
-      {
-        type = nGetIconPos(mPosition.x, mPosition.y);
-      }
-      else if(mMercatorX != Double.NaN && mMercatorY != Double.NaN)
-      {
-        type = nGetIcon(mCategoryId, mBookmark);
-      }
-      if (type == null)
-      {
-        throw new NullPointerException("Congratulations! You find a third way to specify bookmark!");
-      }
-      return BookmarkManager.getBookmarkManager(mContext).getIconByName(type);
+      return BookmarkManager.getBookmarkManager(mContext).getIconByName(nGetIcon(mCategoryId, mBookmark));
     }
     else
     {
@@ -140,16 +132,7 @@ public class Bookmark
   public String getName(){
     if (mCategoryId > -1 && BookmarkManager.getBookmarkManager(mContext).getCategoryById(mCategoryId).getSize() > mBookmark)
     {
-      String name = null;
-      if(mMercatorX != Double.NaN && mMercatorY != Double.NaN)
-      {
-        name = nGetName(mCategoryId, mBookmark);
-      }
-      if (name == null)
-      {
-        throw new NullPointerException("Congratulations! You find a third way to specify bookmark!");
-      }
-      return name;
+      return nGetName(mCategoryId, mBookmark);
     }
     else
     {
@@ -211,18 +194,9 @@ public class Bookmark
 
   public String getBookmarkDescription()
   {
-    if (mCategoryId > -1)
+    if (!mIsPreviewBookmark)
     {
-      String name = null;
-      if(mMercatorX != Double.NaN && mMercatorY != Double.NaN)
-      {
-        name = nGetBookmarkDescription(mCategoryId, mBookmark);
-      }
-      if (name == null)
-      {
-        throw new NullPointerException("Congratulations! You find a third way to specify bookmark!");
-      }
-      return name;
+      return nGetBookmarkDescription(mCategoryId, mBookmark);
     }
     else
     {

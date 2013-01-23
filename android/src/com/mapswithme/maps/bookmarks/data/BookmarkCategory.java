@@ -13,12 +13,6 @@ public class BookmarkCategory
     mContext = c;
     mId = id;
   }
-  /*
-  BookmarkCategory(Context c, String name)
-  {
-    mContext = c;
-    mName = name;
-  }*/
 
   private native boolean nIsVisible(int id);
   private native void nSetVisibility(int id, boolean v);
@@ -62,15 +56,5 @@ public class BookmarkCategory
   public Bookmark getBookmark(int b)
   {
     return new Bookmark(mContext, mId, b);
-  }
-
-  void addPin(Bookmark pin)
-  {
-    //mPins.add(pin);
-  }
-
-  void removePin(Bookmark pin)
-  {
-    //mPins.remove(pin);
   }
 }

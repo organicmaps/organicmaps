@@ -110,7 +110,7 @@ public class BookmarkManager
       return null;
   }
 
-  private native Point nGetBookmark(double px, double py);
+  static native Point nGetBookmark(double px, double py);
 
   public Bookmark getBookmark(int cat, int bmk)
   {
