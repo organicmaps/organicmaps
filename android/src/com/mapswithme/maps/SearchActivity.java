@@ -2,10 +2,8 @@ package com.mapswithme.maps;
 
 import java.util.Locale;
 
-import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,10 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.mapswithme.maps.location.LocationService;
@@ -297,25 +298,20 @@ public class SearchActivity extends ListActivity implements LocationService.List
     }
   }
 
-  private EditText getSearchBox()
-  {
-    return (EditText) findViewById(R.id.search_string);
-  }
-
   private String getSearchString()
   {
-    final String s = getSearchBox().getText().toString();
-    Log.d(TAG, "Search string = " + s);
-    return s;
+    return m_searchBox.getText().toString();
   }
 
   private boolean isShowCategories()
   {
-    return getSearchString().isEmpty();
+    return (getSearchString().length() == 0);
   }
 
   private LocationService m_location;
+  private EditText m_searchBox;
   private ProgressBar m_progress;
+  private Spinner m_modesSpinner;
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
@@ -332,8 +328,9 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
     m_progress = (ProgressBar) findViewById(R.id.search_progress);
 
-    final EditText v = getSearchBox();
-    v.addTextChangedListener(new TextWatcher()
+    // Initialize search edit box processor.
+    m_searchBox = (EditText) findViewById(R.id.search_string);
+    m_searchBox.addTextChangedListener(new TextWatcher()
     {
       @Override
       public void afterTextChanged(Editable s)
@@ -353,6 +350,36 @@ public class SearchActivity extends ListActivity implements LocationService.List
       }
     });
 
+    // Initialize search modes spinner.
+    m_modesSpinner = (Spinner) findViewById(R.id.search_modes_spinner);
+
+    ArrayAdapter<CharSequence> adapter =
+        ArrayAdapter.createFromResource(this, R.array.search_modes, android.R.layout.simple_spinner_item);
+    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    m_modesSpinner.setAdapter(adapter);
+
+    m_modesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+    {
+      @Override
+      public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+      {
+        int mode = ALL;
+        switch (position)
+        {
+        case 1: mode = AROUND_POSITION; break;
+        case 2: mode = IN_VIEWPORT; break;
+        }
+
+        runSearch(mode);
+      }
+
+      @Override
+      public void onNothingSelected(AdapterView<?> parent)
+      {
+      }
+    });
+
+    // Create search list view adapter.
     setListAdapter(new SearchAdapter(this));
   }
 
@@ -415,7 +442,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
     if (!isShowCategories())
     {
       // invokes runSearch with empty string - adapter will show categories
-      getSearchBox().setText("");
+      m_searchBox.setText("");
     }
     else
       super.onBackPressed();
@@ -516,55 +543,13 @@ public class SearchActivity extends ListActivity implements LocationService.List
     });
   }
 
-  /// @name Search mode buttons listeners.
-  //@{
-  public void onSearchMode(View v)
-  {
-    final CharSequence items[] = {
-        getString(R.string.search_mode_all),
-        getString(R.string.search_mode_nearme),
-        getString(R.string.search_mode_viewport)
-    };
-
-    int selected = 0;
-    switch (m_searchMode)
-    {
-    case AROUND_POSITION: selected = 1; break;
-    case IN_VIEWPORT: selected = 2; break;
-    }
-
-    new AlertDialog.Builder(this)
-    .setTitle(R.string.search)
-    .setSingleChoiceItems(items, selected, new DialogInterface.OnClickListener()
-    {
-      @Override
-      public void onClick(DialogInterface dlg, int which)
-      {
-        int mode = ALL;
-        switch (which)
-        {
-        case 1: mode = AROUND_POSITION; break;
-        case 2: mode = IN_VIEWPORT; break;
-        }
-
-        dlg.dismiss();
-        runSearch(mode);
-      }
-    })
-    .create()
-    .show();
-  }
-  //@}
-
   private void runSearch(String s)
   {
-    final EditText box = getSearchBox();
-
     // this call invokes runSearch
-    box.setText(s);
+    m_searchBox.setText(s);
 
     // put cursor to the end of string
-    box.setSelection(s.length());
+    m_searchBox.setSelection(s.length());
   }
 
   /// @name These constants should be equal with search_params.hpp
@@ -593,8 +578,9 @@ public class SearchActivity extends ListActivity implements LocationService.List
     Log.d(TAG, "Current language = " + lang);
 
     final String s = getSearchString();
-    if (s.isEmpty())
+    if (s.length() == 0)
       return QUERY_EMPTY;
+    Log.d(TAG, "Search query = " + s);
 
     final int id = m_queryID + QUERY_STEP;
     if (nativeRunSearch(s, lang, m_lat, m_lon, m_flags, m_searchMode, id))
