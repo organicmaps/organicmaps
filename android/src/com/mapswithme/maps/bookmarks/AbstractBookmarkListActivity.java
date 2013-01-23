@@ -3,9 +3,12 @@ package com.mapswithme.maps.bookmarks;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ListActivity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 
 public abstract class AbstractBookmarkListActivity extends ListActivity
 {
@@ -28,6 +31,8 @@ public abstract class AbstractBookmarkListActivity extends ListActivity
   {
     if (item.getItemId() == android.R.id.home)
     {
+      InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+      imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
       onBackPressed();
       return true;
     }

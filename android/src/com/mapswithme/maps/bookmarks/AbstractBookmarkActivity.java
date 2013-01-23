@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 
@@ -28,6 +29,8 @@ public abstract class AbstractBookmarkActivity extends Activity
   {
     if (item.getItemId() == android.R.id.home)
     {
+      InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+      imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
       onBackPressed();
       return true;
     }
