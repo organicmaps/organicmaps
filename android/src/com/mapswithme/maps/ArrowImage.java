@@ -19,23 +19,20 @@ public class ArrowImage extends ImageView
   private Path m_path;
   private boolean m_drawArrow;
   private float m_angle;
-  private String m_packageName;
 
   public ArrowImage(Context context, AttributeSet attrs)
   {
     super(context, attrs);
 
-    m_packageName = context.getApplicationContext().getPackageName();
-
     m_paint = new Paint();
     m_paint.setFlags(m_paint.getFlags() | Paint.ANTI_ALIAS_FLAG);
     m_paint.setStyle(Style.FILL);
     m_paint.setColor(Color.WHITE);
-    
+
     m_path = new Path();
   }
 
-  public void setFlag(Resources res, String flag)
+  public void setFlag(Resources res, String packageName, String flag)
   {
     m_drawArrow = false;
 
@@ -43,7 +40,7 @@ public class ArrowImage extends ImageView
     if (flag.equals("do"))
       flag = "do_hack";
 
-    final int id = res.getIdentifier(flag, "drawable", m_packageName);
+    final int id = res.getIdentifier(flag, "drawable", packageName);
     if (id > 0)
       setImageDrawable(res.getDrawable(id));
     else

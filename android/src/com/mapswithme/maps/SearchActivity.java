@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,7 +17,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -33,31 +33,63 @@ public class SearchActivity extends ListActivity implements LocationService.List
     private final SearchActivity m_context;
     private final LayoutInflater m_inflater;
 
-    int m_count = 0;
-    int m_resultID = 0;
+    private final Resources m_resource;
+    private final String m_packageName;
+
+    private static final String m_categories[] = {
+      "food",
+      "shop",
+      "hotel",
+      "tourism",
+      "entertainment",
+      "atm",
+      "bank",
+      "transport",
+      "fuel",
+      "parking",
+      "pharmacy",
+      "hospital",
+      "toilet",
+      "post",
+      "police"
+    };
+
+    private int m_count = 0;
+    private int m_resultID = 0;
 
     public SearchAdapter(SearchActivity context)
     {
       m_context = context;
       m_inflater = (LayoutInflater) m_context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+      m_resource = m_context.getResources();
+      m_packageName = m_context.getApplicationContext().getPackageName();
+    }
+
+    private static final int CATEGORY_TYPE = 0;
+    private static final int RESULT_TYPE = 1;
+
+    boolean isShowCategories()
+    {
+      return m_context.isShowCategories();
     }
 
     @Override
     public int getItemViewType(int position)
     {
-      return 0;
+      return (isShowCategories() ? CATEGORY_TYPE : RESULT_TYPE);
     }
 
     @Override
     public int getViewTypeCount()
     {
-      return 1;
+      return 2;
     }
 
     @Override
     public int getCount()
     {
-      return m_count;
+      return (isShowCategories() ? m_categories.length : m_count);
     }
 
     @Override
@@ -80,13 +112,17 @@ public class SearchActivity extends ListActivity implements LocationService.List
       public TextView m_amenity = null;
       public ArrowImage m_flag = null;
 
-      void initFromView(View v)
+      void initFromView(View v, boolean isResult)
       {
         m_name = (TextView) v.findViewById(R.id.name);
-        m_country = (TextView) v.findViewById(R.id.country);
-        m_distance = (TextView) v.findViewById(R.id.distance);
-        m_amenity = (TextView) v.findViewById(R.id.amenity);
         m_flag = (ArrowImage) v.findViewById(R.id.country_flag);
+
+        if (isResult)
+        {
+          m_country = (TextView) v.findViewById(R.id.country);
+          m_distance = (TextView) v.findViewById(R.id.distance);
+          m_amenity = (TextView) v.findViewById(R.id.amenity);
+        }
       }
     }
 
@@ -131,6 +167,20 @@ public class SearchActivity extends ListActivity implements LocationService.List
       }
     }
 
+    private String getCategoryName(String strID)
+    {
+      final int id = m_resource.getIdentifier(strID, "string", m_packageName);
+      if (id > 0)
+      {
+        return m_context.getString(id);
+      }
+      else
+      {
+        Log.e(TAG, "Failed to get resource id from: " + strID);
+        return null;
+      }
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
@@ -142,9 +192,14 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
         switch (getItemViewType(position))
         {
-        case 0:
+        case CATEGORY_TYPE:
+          convertView = m_inflater.inflate(R.layout.search_category_item, null);
+          holder.initFromView(convertView, false);
+          break;
+
+        case RESULT_TYPE:
           convertView = m_inflater.inflate(R.layout.search_item, null);
-          holder.initFromView(convertView);
+          holder.initFromView(convertView, true);
           break;
         }
 
@@ -155,30 +210,41 @@ public class SearchActivity extends ListActivity implements LocationService.List
         holder = (ViewHolder) convertView.getTag();
       }
 
-      //Log.d(TAG, "Getting result for result ID = " + m_resultID);
-
-      final SearchResult r = m_context.getResult(position, m_resultID);
-      if (r != null)
+      if (isShowCategories())
       {
-        holder.m_name.setText(r.m_name);
-        holder.m_country.setText(r.m_country);
-        holder.m_amenity.setText(r.m_amenity);
-        holder.m_distance.setText(r.m_distance);
+        assert(position < m_categories.length);
+        final String strID = m_categories[position];
 
-        if (r.m_type == 1)
+        holder.m_name.setText(getCategoryName(strID));
+        holder.m_flag.setFlag(m_resource, m_packageName, strID);
+      }
+      else
+      {
+        //Log.d(TAG, "Getting result for result ID = " + m_resultID);
+
+        final SearchResult r = m_context.getResult(position, m_resultID);
+        if (r != null)
         {
-          holder.m_flag.setVisibility(View.VISIBLE);
+          holder.m_name.setText(r.m_name);
+          holder.m_country.setText(r.m_country);
+          holder.m_amenity.setText(r.m_amenity);
+          holder.m_distance.setText(r.m_distance);
 
-          if (r.m_flag != null && r.m_flag.length() > 0 && r.m_azimut < 0.0)
-            holder.m_flag.setFlag(m_context.getResources(), r.m_flag);
+          if (r.m_type == 1)
+          {
+            holder.m_flag.setVisibility(View.VISIBLE);
+
+            if (r.m_flag != null && r.m_flag.length() > 0 && r.m_azimut < 0.0)
+              holder.m_flag.setFlag(m_resource, m_packageName, r.m_flag);
+            else
+              holder.m_flag.setAzimut(r.m_azimut);
+
+            // force invalidate arrow image
+            holder.m_flag.invalidate();
+          }
           else
-            holder.m_flag.setAzimut(r.m_azimut);
-
-          // force invalidate arrow image
-          holder.m_flag.invalidate();
+            holder.m_flag.setVisibility(View.INVISIBLE);
         }
-        else
-          holder.m_flag.setVisibility(View.INVISIBLE);
       }
 
       return convertView;
@@ -189,35 +255,45 @@ public class SearchActivity extends ListActivity implements LocationService.List
     {
       m_count = count;
       m_resultID = resultID;
+
       notifyDataSetChanged();
     }
 
-    public void updateDistance()
+    public void updateData()
     {
       notifyDataSetChanged();
     }
 
-    /// Show tapped country or get suggestion.
-    public String showCountry(int position)
+    /// Show tapped country or get suggestion or get category to search.
+    public String onItemClick(int position)
     {
-      final SearchResult r = m_context.getResult(position, m_resultID);
-      if (r != null)
+      if (isShowCategories())
       {
-        if (r.m_type == 1)
+        assert(position < m_categories.length);
+
+        return getCategoryName(m_categories[position]);
+      }
+      else
+      {
+        final SearchResult r = m_context.getResult(position, m_resultID);
+        if (r != null)
         {
-          // show country and close activity
-          SearchActivity.nativeShowItem(position);
-          return null;
-        }
-        else
-        {
-          // advise suggestion
-          return r.m_name;
+          if (r.m_type == 1)
+          {
+            // show country and close activity
+            SearchActivity.nativeShowItem(position);
+            return null;
+          }
+          else
+          {
+            // advise suggestion
+            return r.m_name;
+          }
         }
       }
 
-      // return an empty string as a suggestion
-      return "";
+      // close activity in case of any error
+      return null;
     }
   }
 
@@ -226,16 +302,16 @@ public class SearchActivity extends ListActivity implements LocationService.List
     return (EditText) findViewById(R.id.search_string);
   }
 
-  private LinearLayout getSearchToolbar()
-  {
-    return (LinearLayout) findViewById(R.id.search_toolbar);
-  }
-
   private String getSearchString()
   {
     final String s = getSearchBox().getText().toString();
     Log.d(TAG, "Search string = " + s);
     return s;
+  }
+
+  private boolean isShowCategories()
+  {
+    return getSearchString().isEmpty();
   }
 
   private LocationService m_location;
@@ -262,7 +338,8 @@ public class SearchActivity extends ListActivity implements LocationService.List
       @Override
       public void afterTextChanged(Editable s)
       {
-        runSearch();
+        if (runSearch() == QUERY_EMPTY)
+          showCategories();
       }
 
       @Override
@@ -319,7 +396,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
   {
     super.onListItemClick(l, v, position, id);
 
-    final String suggestion = getSA().showCountry(position);
+    final String suggestion = getSA().onItemClick(position);
     if (suggestion == null)
     {
       // close activity
@@ -330,6 +407,18 @@ public class SearchActivity extends ListActivity implements LocationService.List
       // set suggestion string and run search (this call invokes runSearch)
       runSearch(suggestion);
     }
+  }
+
+  @Override
+  public void onBackPressed()
+  {
+    if (!isShowCategories())
+    {
+      // invokes runSearch with empty string - adapter will show categories
+      getSearchBox().setText("");
+    }
+    else
+      super.onBackPressed();
   }
 
   /// Current position.
@@ -347,7 +436,16 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
   private void updateDistance()
   {
-    getSA().updateDistance();
+    getSA().updateData();
+  }
+
+  private void showCategories()
+  {
+    assert(isShowCategories());
+
+    m_progress.setVisibility(View.GONE);
+
+    getSA().updateData();
   }
 
   @Override
@@ -358,7 +456,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
     m_lat = lat;
     m_lon = lon;
 
-    if (!runSearch())
+    if (runSearch() == SEARCH_SKIPPED)
       updateDistance();
   }
 
@@ -417,16 +515,6 @@ public class SearchActivity extends ListActivity implements LocationService.List
       }
     });
   }
-
-  /// @name Amenity buttons listeners.
-  //@{
-  public void onSearchFood(View v) { runSearch("food "); }
-  public void onSearchMoney(View v) { runSearch("money "); }
-  public void onSearchFuel(View v) { runSearch("fuel "); }
-  public void onSearchShop(View v) { runSearch("shop "); }
-  public void onSearchTransport(View v) { runSearch("transport "); }
-  public void onSearchTourism(View v) { runSearch("tourism "); }
-  //@}
 
   /// @name Search mode buttons listeners.
   //@{
@@ -494,13 +582,19 @@ public class SearchActivity extends ListActivity implements LocationService.List
     runSearch();
   }
 
-  private boolean runSearch()
+  private static final int SEARCH_LAUNCHED = 0;
+  private static final int QUERY_EMPTY = 1;
+  private static final int SEARCH_SKIPPED = 2;
+
+  private int runSearch()
   {
     // TODO Need to get input language
     final String lang = Locale.getDefault().getLanguage();
     Log.d(TAG, "Current language = " + lang);
 
     final String s = getSearchString();
+    if (s.isEmpty())
+      return QUERY_EMPTY;
 
     final int id = m_queryID + QUERY_STEP;
     if (nativeRunSearch(s, lang, m_lat, m_lon, m_flags, m_searchMode, id))
@@ -512,19 +606,13 @@ public class SearchActivity extends ListActivity implements LocationService.List
       // mark that it's not the first query already
       m_flags |= NOT_FIRST_QUERY;
 
-      // set toolbar visible only for empty search string
-      final boolean emptyQuery = s.length() == 0;
-
-      final LinearLayout bar = getSearchToolbar();
-      bar.setVisibility(emptyQuery ? View.VISIBLE : View.GONE);
-
       // show search progress
       m_progress.setVisibility(View.VISIBLE);
 
-      return true;
+      return SEARCH_LAUNCHED;
     }
     else
-      return false;
+      return SEARCH_SKIPPED;
   }
 
   public SearchAdapter.SearchResult getResult(int position, int queryID)

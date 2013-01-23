@@ -477,12 +477,14 @@ public class DownloadUI extends ListActivity implements MapStorage.Listener
 
     private void setFlag(int position, ImageView v)
     {
-      Resources res = m_context.getResources();
-      final int id = res.getIdentifier(m_items[position].m_flag, "drawable", m_packageName);
+      final Resources res = m_context.getResources();
+
+      final String strID = m_items[position].m_flag;
+      final int id = res.getIdentifier(strID, "drawable", m_packageName);
       if (id > 0)
         v.setImageDrawable(res.getDrawable(id));
       else
-        Log.e(TAG, "Failed to get resource id from: " + m_items[position].m_flag);
+        Log.e(TAG, "Failed to get resource id from: " + strID);
     }
 
     @Override
