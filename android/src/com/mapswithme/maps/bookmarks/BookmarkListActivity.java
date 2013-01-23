@@ -116,6 +116,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
         {
           mEditedSet.setName(s.toString());
         }
+        setTitle(s.toString());
       }
 
       @Override

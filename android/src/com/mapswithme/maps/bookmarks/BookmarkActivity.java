@@ -64,6 +64,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       mPin = mManager.getBookmark(mPinPair.x, mPinPair.y);
     }
     mCurrentCategoryId = mPin.getCategoryId();
+    setTitle(mPin.getName());
     setUpViews();
   }
 
@@ -114,6 +115,7 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       public void onTextChanged(CharSequence s, int start, int before, int count)
       {
         mPin.setName(s.toString());
+        setTitle(s.toString());
       }
 
       @Override
