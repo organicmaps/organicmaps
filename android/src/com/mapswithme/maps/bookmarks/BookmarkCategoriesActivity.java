@@ -10,6 +10,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.BookmarkListAdapter.DataChangedListener;
 
 public class BookmarkCategoriesActivity extends AbstractBookmarkCategoryActivity
 {
@@ -18,8 +19,16 @@ public class BookmarkCategoriesActivity extends AbstractBookmarkCategoryActivity
   protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
+    setContentView(R.layout.categories);
     ListView listView = getListView();
-    listView.setAdapter(new BookmarkCategoriesAdapter(this));
+    listView.setAdapter(new BookmarkCategoriesAdapter(this, new DataChangedListener()
+    {
+      @Override
+      public void onDataChanged(int vis)
+      {
+        findViewById(R.id.bookmark_usage_hint).setVisibility(vis);
+      }
+    }));
     listView.setOnItemClickListener(new OnItemClickListener()
     {
 

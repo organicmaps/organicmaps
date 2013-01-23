@@ -7,14 +7,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.BookmarkListAdapter.DataChangedListener;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 
 public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
 {
-
-  public BookmarkCategoriesAdapter(Context context)
+  private DataChangedListener mListener;
+  public BookmarkCategoriesAdapter(Context context, DataChangedListener dcl)
   {
     super(context);
+    mListener = dcl;
   }
 
   @Override
@@ -40,6 +42,15 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
       super();
       this.name = name;
     }
+  }
 
+  @Override
+  public void notifyDataSetChanged()
+  {
+    super.notifyDataSetChanged();
+    if (mListener != null)
+    {
+      mListener.onDataChanged(isEmpty() ? View.VISIBLE : View.GONE);
+    }
   }
 }
