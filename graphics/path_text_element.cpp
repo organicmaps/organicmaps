@@ -57,10 +57,10 @@ namespace graphics
       if (isNeedRedraw())
         c = graphics::Color(255, 0, 0, 64);
 
-      screen->drawRectangle(roughBoundRect(), graphics::Color(255, 255, 0, 64), graphics::maxDepth - 10);
+      screen->drawRectangle(roughBoundRect(), graphics::Color(255, 255, 0, 64), depth());
 
       for (unsigned i = 0; i < boundRects().size(); ++i)
-        screen->drawRectangle(boundRects()[i], c, graphics::maxDepth - 10);
+        screen->drawRectangle(boundRects()[i], c, depth());
     }
 
     if (!isNeedRedraw() || !isVisible() || !isValid())
@@ -70,11 +70,11 @@ namespace graphics
 
     if (desc.m_isMasked)
     {
-      drawTextImpl(m_glyphLayout, screen, m, false, false, desc, graphics::maxDepth - 9);
+      drawTextImpl(m_glyphLayout, screen, m, false, false, desc, depth());
       desc.m_isMasked = false;
     }
 
-    drawTextImpl(m_glyphLayout, screen, m, false, false, desc, graphics::maxDepth - 8);
+    drawTextImpl(m_glyphLayout, screen, m, false, false, desc, depth());
   }
 
   void PathTextElement::setPivot(m2::PointD const & pivot)
