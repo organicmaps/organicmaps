@@ -95,6 +95,7 @@ namespace graphics
     params.m_logText = strings::MakeUniString(utf8Text);
     params.m_doSplit = doSplit;
     params.m_useAllParts = false;
+    params.m_offset = m2::PointD(0,0);
     params.m_glyphCache = glyphCache();
 
     shared_ptr<OverlayElement> oe(new StraightTextElement(params));
