@@ -30,6 +30,7 @@ SOURCES += \
     zutil.c \
     contrib/minizip/unzip.c \
     contrib/minizip/ioapi.c \
+    contrib/minizip/zip.c \
 
 HEADERS += \
     crc32.h \
@@ -45,3 +46,4 @@ HEADERS += \
     zutil.h \
     contrib/minizip/unzip.h \
     contrib/minizip/ioapi.h \
+    contrib/minizip/zip.h \

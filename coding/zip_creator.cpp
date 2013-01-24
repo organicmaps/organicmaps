@@ -15,7 +15,7 @@ public:
   zipFile m_zipFile;
   ZipHandle(string const & filePath)
   {
-   m_zipFile = zipOpen(filePath.c_str(), 0);
+    m_zipFile = zipOpen(filePath.c_str(), 0);
   }
   ~ZipHandle()
   {
@@ -43,7 +43,6 @@ void CreateTMZip(tm_zip & res)
 
 bool createZipFromPathDeflatedAndDefaultCompression(string const & filePath, string const & zipFilePath)
 {
-
   ZipHandle zip(zipFilePath);
   if (!zip.m_zipFile)
     return false;
