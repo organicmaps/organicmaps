@@ -38,7 +38,7 @@ namespace graphics
     bool m_isVisible;
     bool m_isValid;
     mutable bool m_isDirtyRect;
-    mutable bool m_isDirtyDrawing;
+    mutable bool m_isDirtyLayout;
 
     mutable bool m_isDirtyRoughRect;
     mutable m2::RectD m_roughBoundRect;
@@ -92,8 +92,8 @@ namespace graphics
     bool isDirtyRect() const;
     void setIsDirtyRect(bool flag) const;
 
-    bool isDirtyDrawing() const;
-    void setIsDirtyDrawing(bool flag) const;
+    bool isDirtyLayout() const;
+    void setIsDirtyLayout(bool flag) const;
 
     bool isVisible() const;
     void setIsVisible(bool flag);

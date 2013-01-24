@@ -115,5 +115,7 @@ namespace gui
     void UpdateElements();
     /// Calling gui::Element::purge for every element.
     void PurgeElements();
+    /// Calling gui::Element::performLayout for every element
+    void LayoutElements();
   };
 }

@@ -20,8 +20,7 @@ namespace gui
     if (m_text != text)
     {
       m_text = text;
-      setIsDirtyDrawing(true);
-      setIsDirtyRect(true);
+      setIsDirtyLayout(true);
     }
   }
 

@@ -11,8 +11,7 @@ namespace gui
     : OverlayElement(p),
       m_controller(0),
       m_state(EActive)
-  {
-  }
+  {}
 
   void Element::setState(EState state)
   {
@@ -72,12 +71,16 @@ namespace gui
   void Element::update()
   {}
 
-  void Element::checkDirtyDrawing() const
+  void Element::layout()
+  {}
+
+  void Element::checkDirtyLayout() const
   {
-    if (isDirtyDrawing())
+    if (isDirtyLayout())
     {
+      const_cast<Element*>(this)->layout();
       const_cast<Element*>(this)->cache();
-      setIsDirtyDrawing(false);
+      setIsDirtyLayout(false);
     }
   }
 

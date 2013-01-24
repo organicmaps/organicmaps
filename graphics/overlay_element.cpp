@@ -22,7 +22,7 @@ namespace graphics
       m_isVisible(true),
       m_isValid(true),
       m_isDirtyRect(true),
-      m_isDirtyDrawing(true),
+      m_isDirtyLayout(true),
       m_isDirtyRoughRect(true)
   {}
 
@@ -117,14 +117,16 @@ namespace graphics
     m_isVisible = flag;
   }
 
-  bool OverlayElement::isDirtyDrawing() const
+  bool OverlayElement::isDirtyLayout() const
   {
-    return m_isDirtyDrawing;
+   return m_isDirtyLayout;
   }
 
-  void OverlayElement::setIsDirtyDrawing(bool flag) const
+  void OverlayElement::setIsDirtyLayout(bool flag) const
   {
-    m_isDirtyDrawing = flag;
+    m_isDirtyLayout = flag;
+    if (flag)
+      setIsDirtyRect(true);
   }
 
   bool OverlayElement::isDirtyRect() const

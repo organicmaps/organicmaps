@@ -368,7 +368,7 @@ namespace location
   {
     if (isVisible())
     {
-      checkDirtyDrawing();
+      checkDirtyLayout();
 
       if (m_hasPosition)
       {

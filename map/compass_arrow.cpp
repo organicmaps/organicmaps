@@ -57,7 +57,7 @@ void CompassArrow::draw(graphics::OverlayRenderer * r,
 {
   if (isVisible())
   {
-    checkDirtyDrawing();
+    checkDirtyLayout();
 
     math::Matrix<double, 3, 3> drawM = math::Shift(
                                          math::Rotate(

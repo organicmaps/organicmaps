@@ -114,7 +114,7 @@ void CountryStatusDisplay::CountryStatusChanged(storage::TIndex const & idx)
   {
     UpdateStatusAndProgress();
 
-    setIsDirtyDrawing(true);
+    setIsDirtyLayout(true);
     invalidate();
   }
 }
@@ -124,7 +124,7 @@ void CountryStatusDisplay::CountryProgress(storage::TIndex const & idx, pair<int
   if ((m_countryIdx == idx) && (m_countryStatus == storage::EDownloading))
   {
     m_countryProgress = progress;
-    setIsDirtyDrawing(true);
+    setIsDirtyLayout(true);
     invalidate();
   }
 }
@@ -185,7 +185,7 @@ void CountryStatusDisplay::downloadCountry()
   {
     m_notEnoughSpace = true;
 
-    setIsDirtyDrawing(true);
+    setIsDirtyLayout(true);
     invalidate();
   }
   else
@@ -230,7 +230,7 @@ void CountryStatusDisplay::setCountryIndex(storage::TIndex const & idx)
 
     m_notEnoughSpace = false;
 
-    setIsDirtyDrawing(true);
+    setIsDirtyLayout(true);
     invalidate();
   }
 }
@@ -241,7 +241,7 @@ void CountryStatusDisplay::draw(graphics::OverlayRenderer *r,
   if (!isVisible())
     return;
 
-  checkDirtyDrawing();
+  checkDirtyLayout();
 
   //r->drawRectangle(roughBoundRect(), graphics::Color(0, 0, 255, 64), graphics::maxDepth);
 
@@ -253,7 +253,7 @@ void CountryStatusDisplay::draw(graphics::OverlayRenderer *r,
 
 vector<m2::AnyRectD> const & CountryStatusDisplay::boundRects() const
 {
-  checkDirtyDrawing();
+  checkDirtyLayout();
 
   if (isDirtyRect())
   {

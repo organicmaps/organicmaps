@@ -146,6 +146,8 @@ namespace gui
     m_InvalidateFn = p.m_InvalidateFn;
     m_VisualScale = p.m_VisualScale;
     m_CacheScreen = p.m_CacheScreen;
+
+    LayoutElements();
   }
 
   void Controller::ResetRenderParams()
@@ -190,10 +192,7 @@ namespace gui
     for (elem_list_t::const_iterator it = m_Elements.begin();
          it != m_Elements.end();
          ++it)
-    {
-      (*it)->setIsDirtyRect(true);
-      (*it)->setIsDirtyDrawing(true);
-    }
+      (*it)->setIsDirtyLayout(true);
   }
 
   StringsBundle const * Controller::GetStringsBundle() const
@@ -221,8 +220,15 @@ namespace gui
          ++it)
     {
       (*it)->purge();
-      (*it)->setIsDirtyDrawing(true);
-      (*it)->setIsDirtyRect(true);
+      (*it)->setIsDirtyLayout(true);
     }
+  }
+
+  void Controller::LayoutElements()
+  {
+    for (elem_list_t::const_iterator it = m_Elements.begin();
+         it != m_Elements.end();
+         ++it)
+      (*it)->checkDirtyLayout();
   }
 }

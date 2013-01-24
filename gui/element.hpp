@@ -71,6 +71,8 @@ namespace gui
     void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
     double priority() const;
 
+    /// this method is called to cache visual appearance of gui::Element for fast rendering.
+    /// it should be called when isDirtyDrawing is set to true(visual parameters of object is changed).
     virtual void cache();
     /// this method is called upon renderPolicy destruction and should clean
     /// all rendering-related resources, p.e. displayLists.
@@ -78,9 +80,12 @@ namespace gui
     /// this method is called in each frame and should be overriden if the
     /// element wants to update it's internal state.
     virtual void update();
+    /// this method is called after gui::Controller::SetRenderParams to
+    /// perform layout calculations which might depends on RenderParams.
+    virtual void layout();
 
     virtual void setController(Controller * controller);
 
-    void checkDirtyDrawing() const;
+    void checkDirtyLayout() const;
   };
 }
