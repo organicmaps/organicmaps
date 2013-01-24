@@ -33,8 +33,13 @@ namespace gui
     unsigned m_minHeight;
 
     scoped_ptr<TextView> m_textView;
+    map<EState, shared_ptr<graphics::DisplayList> > m_dls;
+
+    void cacheButtonBody(EState state);
 
     mutable vector<m2::AnyRectD> m_boundRects;
+
+    void cache();
 
   public:
 
@@ -74,6 +79,8 @@ namespace gui
 
     vector<m2::AnyRectD> const & boundRects() const;
     void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
+
+    void purge();
 
     /// @}
   };

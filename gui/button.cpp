@@ -1,5 +1,9 @@
 #include "button.hpp"
-#include "../graphics/overlay_renderer.hpp"
+#include "controller.hpp"
+
+#include "../graphics/screen.hpp"
+
+#include "../geometry/transformations.hpp"
 
 namespace gui
 {
@@ -97,6 +101,45 @@ namespace gui
     Element::setController(controller);
   }
 
+  void Button::cacheButtonBody(EState state)
+  {
+    graphics::Screen * cs = m_controller->GetCacheScreen();
+
+    cs->beginFrame();
+
+    shared_ptr<graphics::DisplayList> & dl = m_dls[state];
+
+    dl.reset();
+    dl.reset(cs->createDisplayList());
+
+    cs->setDisplayList(dl.get());
+
+    double k = visualScale();
+    m2::RectD rr = roughBoundRect();
+
+    cs->drawRoundedRectangle(m2::RectD(-rr.SizeX() / 2,
+                                       -rr.SizeY() / 2,
+                                        rr.SizeX() / 2,
+                                        rr.SizeY() / 2),
+                             10 * k, color(state), depth());
+
+    cs->setDisplayList(0);
+
+    cs->endFrame();
+  }
+
+  void Button::cache()
+  {
+    cacheButtonBody(EActive);
+    cacheButtonBody(EPressed);
+  }
+
+  void Button::purge()
+  {
+    m_dls.clear();
+    m_textView->purge();
+  }
+
   vector<m2::AnyRectD> const & Button::boundRects() const
   {
     if (isDirtyRect())
@@ -137,17 +180,23 @@ namespace gui
     if (!isVisible())
       return;
 
-    double k = visualScale();
+    checkDirtyLayout();
 
-    r->drawRoundedRectangle(roughBoundRect(), 10 * k, color(state()), depth());
+    math::Matrix<double, 3, 3> drawM = math::Shift(math::Identity<double, 3>(),
+                                                   pivot());
 
-    graphics::FontDesc desc = font(state());
-    desc.m_size *= k;
+    map<EState, shared_ptr<graphics::DisplayList> >::const_iterator it;
+    it = m_dls.find(state());
+
+    if (it != m_dls.end())
+      r->drawDisplayList(it->second.get(), drawM * m);
+    else
+      LOG(LWARNING, ("m_dls[state] is not set!"));
 
     m_textView->draw(r, m);
   }
 
-  void Button::setPivot(m2::PointD const &pv)
+  void Button::setPivot(m2::PointD const & pv)
   {
     m_textView->setPivot(pv);
     Element::setPivot(pv);
@@ -165,3 +214,4 @@ namespace gui
     Element::setColor(state, c);
   }
 }
+
