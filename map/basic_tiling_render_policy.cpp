@@ -31,7 +31,7 @@ size_t BasicTilingRenderPolicy::CalculateTileSize(size_t screenWidth, size_t scr
       res = flooredSz;
   }
 
-  return min(max(res / 2, 128), 1024);
+  return min(max(res / 2, 256), 1024);
 }
 
 BasicTilingRenderPolicy::BasicTilingRenderPolicy(Params const & p,
