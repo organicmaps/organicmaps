@@ -10,16 +10,12 @@ include($$ROOT_DIR/common.pri)
 QT *= core gui opengl
 
 HEADERS += \
-  main_tester.hpp \
   tstwidgets.hpp \
-  widgets.hpp \
-  widgets_impl.hpp \
-  screen_qt.hpp \
-  macros.hpp
+  macros.hpp \
+    gl_test_widget.hpp \
+    gui_test_widget.hpp
 
 SOURCES += \
-  main_tester.cpp \
   tstwidgets.cpp \
-  screen_qt.cpp \
 
 

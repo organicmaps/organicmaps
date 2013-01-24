@@ -70,7 +70,6 @@ macx* {
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    widgets.cpp \
     draw_widget.cpp \
     proxystyle.cpp \
     slider_ctrl.cpp \
