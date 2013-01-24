@@ -1,13 +1,14 @@
 #pragma once
 
 #include "../std/vector.hpp"
+#include "../std/shared_ptr.hpp"
 
 #include "../geometry/any_rect2d.hpp"
 
 #include "../graphics/straight_text_element.hpp"
+#include "../graphics/display_list.hpp"
 
 #include "element.hpp"
-
 
 namespace gui
 {
@@ -15,15 +16,21 @@ namespace gui
   {
   private:
 
-    shared_ptr<graphics::StraightTextElement> m_elem;
+    map<EState, shared_ptr<graphics::DisplayList> > m_dls;
+    map<EState, shared_ptr<graphics::StraightTextElement> > m_elems;
 
     string m_text;
 
-    void cache();
-
     mutable vector<m2::AnyRectD> m_boundRects;
 
+    void cacheBody(EState state);
+    void layoutBody(EState state);
+
   public:
+
+    void cache();
+    void purge();
+    void layout();
 
     struct Params : public gui::Element::Params
     {

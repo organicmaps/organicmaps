@@ -1,6 +1,9 @@
 #include "text_view.hpp"
 #include "controller.hpp"
 
+#include "../graphics/display_list.hpp"
+#include "../graphics/screen.hpp"
+
 namespace gui
 {
   TextView::TextView(Params const & p)
@@ -29,11 +32,13 @@ namespace gui
     return m_text;
   }
 
-  void TextView::cache()
+  void TextView::layoutBody(EState state)
   {
+    shared_ptr<graphics::StraightTextElement> & elem = m_elems[state];
+
     graphics::StraightTextElement::Params params;
     params.m_depth = depth();
-    params.m_fontDesc = font(state());
+    params.m_fontDesc = font(state);
     params.m_fontDesc.m_size *= visualScale();
     params.m_log2vis = true;
     params.m_pivot = pivot();
@@ -44,23 +49,80 @@ namespace gui
     params.m_delimiters = "\n";
     params.m_useAllParts = true;
 
-    m_elem.reset(new graphics::StraightTextElement(params));
+    elem.reset(new graphics::StraightTextElement(params));
+  }
+
+  void TextView::layout()
+  {
+    layoutBody(EActive);
+    layoutBody(EPressed);
+  }
+
+  void TextView::cacheBody(EState state)
+  {
+    graphics::Screen * cs = m_controller->GetCacheScreen();
+
+    shared_ptr<graphics::DisplayList> & dl = m_dls[state];
+
+    dl.reset();
+    dl.reset(cs->createDisplayList());
+
+    cs->beginFrame();
+    cs->setDisplayList(dl.get());
+
+    m_elems[state]->draw(cs, math::Identity<double, 3>());
+
+    cs->setDisplayList(0);
+    cs->endFrame();
+  }
+
+  void TextView::cache()
+  {
+    layout();
+
+    cacheBody(EActive);
+    cacheBody(EPressed);
+  }
+
+  void TextView::purge()
+  {
+    m_dls.clear();
   }
 
   void TextView::draw(graphics::OverlayRenderer *r, math::Matrix<double, 3, 3> const & m) const
   {
-    checkDirtyDrawing();
-    m_elem->draw(r, m);
+    if (isVisible())
+    {
+      checkDirtyLayout();
+
+      map<EState, shared_ptr<graphics::DisplayList> >::const_iterator it;
+      it = m_dls.find(state());
+
+      if (it != m_dls.end())
+        r->drawDisplayList(it->second.get(), m);
+      else
+        LOG(LWARNING, ("m_dls[state()] is not set!"));
+    }
   }
 
   vector<m2::AnyRectD> const & TextView::boundRects() const
   {
     if (isDirtyRect())
     {
-      setIsDirtyDrawing(true);
-      checkDirtyDrawing();
+      const_cast<TextView*>(this)->layout();
       m_boundRects.clear();
-      m_boundRects.push_back(m2::AnyRectD(m_elem->roughBoundRect()));
+
+      map<EState, shared_ptr<graphics::StraightTextElement> >::const_iterator it;
+      it = m_elems.find(EActive);
+
+      if (it != m_elems.end())
+        m_boundRects.push_back(m2::AnyRectD(it->second->roughBoundRect()));
+
+      it = m_elems.find(EPressed);
+
+      if (it != m_elems.end())
+        m_boundRects.push_back(m2::AnyRectD(it->second->roughBoundRect()));
+
       setIsDirtyRect(false);
     }
 
