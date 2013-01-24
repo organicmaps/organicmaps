@@ -254,7 +254,7 @@ namespace fwork
     else
       m_hasNonCoast = true;
 
-    size_t count = styles.m_count;
+    size_t count = styles.GetCount();
 
 #ifdef PROFILER_DRAWING
     m_drawCount += count;

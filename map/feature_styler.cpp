@@ -1,7 +1,13 @@
 #include "feature_styler.hpp"
+
 #include "../indexer/drawing_rules.hpp"
 #include "../indexer/feature.hpp"
 #include "../indexer/feature_visibility.hpp"
+#ifdef OMIM_PRODUCTION
+  #include "../indexer/drules_struct_lite.pb.h"
+#else
+  #include "../indexer/drules_struct.pb.h"
+#endif
 
 namespace
 {
@@ -66,14 +72,12 @@ namespace feature
     }
 
     double priorityModifier;
-
     if (area != 0)
       priorityModifier = min(1., area*10000.); // making area larger so it's not lost on double conversions
     else
       priorityModifier = static_cast<double>(population) / 7E9;  // dividing by planet population to get priorityModifier < 1
 
     drule::MakeUnique(keys);
-    size_t const count = keys.size();
 
     int layer = f.GetLayer();
     bool isTransparent = false;
@@ -83,24 +87,31 @@ namespace feature
       isTransparent = true;
     }
 
-    m_rules.resize(count);
+    bool hasIcon = false;
+    bool hasCaptionWithoutOffset = false;
 
+    size_t const count = keys.size();
+    m_rules.resize(count);
     for (size_t i = 0; i < count; ++i)
     {
       double depth = keys[i].m_priority;
-
 
       if (layer != 0)
         depth = (layer * drule::layer_base_priority) + fmod(depth, drule::layer_base_priority);
 
       if (keys[i].m_type == drule::symbol)
+      {
         depth = 16000;
+        hasIcon = true;
+      }
+
       if (keys[i].m_type == drule::caption)
       {
         depth = 15000;
         if (m_geometryType == GEOM_POINT)
           depth = 15500;
       }
+
       if (keys[i].m_type == drule::pathtext)
         depth = 17000;
 
@@ -124,12 +135,26 @@ namespace feature
 
       m_rules[i] = di::DrawRule( drule::rules().Find(keys[i]), depth, isTransparent);
 
-      if (m_hasLineStyles && !m_hasPathText && !m_primaryText.empty())
+      if ((m_geometryType == GEOM_LINE) && !m_hasPathText && !m_primaryText.empty())
         if (m_rules[i].m_rule->GetCaption(0) != 0)
           m_hasPathText = true;
+
+      if (keys[i].m_type == drule::caption)
+        if (m_rules[i].m_rule->GetCaption(0) != 0)
+          if (!m_rules[i].m_rule->GetCaption(0)->has_offset_y())
+            hasCaptionWithoutOffset = true;
     }
 
+    if (hasIcon && hasCaptionWithoutOffset)
+      for (size_t i = 0; i < count; ++i)
+      {
+        if (keys[i].m_type == drule::symbol)
+        {
+          m_rules[i] = m_rules[m_rules.size() - 1];
+          m_rules.pop_back();
+        }
+      }
+
     sort(m_rules.begin(), m_rules.end(), less_depth());
-    m_count = m_rules.size();
   }
 }
