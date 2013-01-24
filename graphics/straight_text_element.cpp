@@ -270,7 +270,7 @@ namespace graphics
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
     {
       if (m_glyphLayouts[i].fontDesc().m_isMasked)
-        drawTextImpl(m_glyphLayouts[i], screen, m, true, true, m_glyphLayouts[i].fontDesc(), depth() - 0.1);
+        drawTextImpl(m_glyphLayouts[i], screen, m, true, true, m_glyphLayouts[i].fontDesc(), depth());
     }
 
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
