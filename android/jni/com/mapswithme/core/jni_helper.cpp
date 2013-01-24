@@ -196,7 +196,7 @@ namespace jni
                               static_cast<jint>(point.y));
   }
 
-  jobject GetNewAddressInfo(JNIEnv * env, string const & name, string const & type, m2::PointD const & px)
+  jobject GetNewAddressInfo(JNIEnv * env, Framework::AddressInfo const & adInfo, m2::PointD const & px)
   {
     jclass klass = env->FindClass("com/mapswithme/maps/bookmarks/data/AddressInfo");
     ASSERT ( klass, () );
@@ -206,8 +206,8 @@ namespace jni
     ASSERT ( methodID, () );
 
     return env->NewObject(klass, methodID,
-                          jni::ToJavaString(env, name),
-                          jni::ToJavaString(env, type),
+                          jni::ToJavaString(env, adInfo.m_name),
+                          jni::ToJavaString(env, adInfo.GetBestType() == 0 ? "" : adInfo.GetBestType()),
                           px.x,
                           px.y);
   }

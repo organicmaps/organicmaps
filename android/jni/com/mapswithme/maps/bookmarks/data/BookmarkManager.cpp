@@ -16,7 +16,7 @@ extern "C"
     m2::PointD pxPivot;
     if (frm()->GetVisiblePOI(m2::PointD(px, py), pxPivot, adInfo))
     {
-      return jni::GetNewAddressInfo(env, adInfo.m_name, adInfo.GetBestType(), pxPivot);
+      return jni::GetNewAddressInfo(env, adInfo, pxPivot);
     }
     else
     {
@@ -30,7 +30,7 @@ extern "C"
     m2::PointD point(px, py);
     Framework::AddressInfo adInfo;
     frm()->GetAddressInfo(point, adInfo);
-    return jni::GetNewAddressInfo(env, adInfo.m_name, adInfo.GetBestType() == 0 ? "" : adInfo.GetBestType(), point);
+    return jni::GetNewAddressInfo(env, adInfo, point);
   }
 
   JNIEXPORT void JNICALL
