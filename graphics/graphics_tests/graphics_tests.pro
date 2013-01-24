@@ -18,13 +18,6 @@ macx*: LIBS *= "-framework Foundation"
 
 SOURCES += \
     ../../testing/testingmain.cpp \
-    texture_test.cpp \
-    resourcemanager_test.cpp \
-    skin_loader_test.cpp \
-    skin_test.cpp \
     screengl_test.cpp \
-    thread_render.cpp \
-    opengl_test.cpp \
     screenglglobal_test.cpp \
-    glyph_cache_test.cpp \
     shape_renderer_test.cpp \
