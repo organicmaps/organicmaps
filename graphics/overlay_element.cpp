@@ -7,7 +7,9 @@ namespace graphics
   {}
 
   OverlayElement::Params::Params()
-    : m_pivot(), m_position(graphics::EPosAboveRight), m_depth(graphics::maxDepth)
+    : m_pivot(),
+      m_position(EPosAboveRight),
+      m_depth(maxDepth)
   {}
 
   OverlayElement::OverlayElement(Params const & p)
@@ -24,26 +26,25 @@ namespace graphics
       m_isDirtyRoughRect(true)
   {}
 
-  m2::PointD const OverlayElement::tieRect(m2::RectD const & r, math::Matrix<double, 3, 3> const & m) const
+  m2::PointD const OverlayElement::computeTopLeft(m2::PointD const & sz,
+                                                  m2::PointD const & pv,
+                                                  EPosition pos)
   {
     m2::PointD res;
 
-    graphics::EPosition pos = position();
-    m2::PointD pt = pivot() * m;
-
     if (pos & EPosLeft)
-      res.x = pt.x - r.SizeX();
+      res.x = pv.x - sz.x;
     else if (pos & EPosRight)
-      res.x = pt.x;
+      res.x = pv.x;
     else
-      res.x = pt.x - r.SizeX() / 2;
+      res.x = pv.x - sz.x / 2;
 
     if (pos & EPosAbove)
-      res.y = pt.y - r.SizeY();
+      res.y = pv.y - sz.y;
     else if (pos & EPosUnder)
-      res.y = pt.y;
+      res.y = pv.y;
     else
-      res.y = pt.y - r.SizeY() / 2;
+      res.y = pv.y - sz.y / 2;
 
     return res;
   }
@@ -204,6 +205,7 @@ namespace graphics
 
     return res;
   }
+
 
   bool OverlayElement::hasSharpGeometry() const
   {

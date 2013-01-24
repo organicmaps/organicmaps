@@ -46,8 +46,9 @@ namespace graphics
   public:
 
     UserInfo m_userInfo;
-
-    m2::PointD const tieRect(m2::RectD const & r, math::Matrix<double, 3, 3> const & m) const;
+    static m2::PointD const computeTopLeft(m2::PointD const & sz,
+                                           m2::PointD const & pv,
+                                           EPosition pos);
 
     struct Params
     {
@@ -72,7 +73,7 @@ namespace graphics
     m2::PointD const & pivot() const;
     virtual void setPivot(m2::PointD const & pv);
 
-    virtual m2::PointD const point(EPosition pos) const;
+    m2::PointD const point(EPosition pos) const;
 
     void offset(m2::PointD const & offs);
 

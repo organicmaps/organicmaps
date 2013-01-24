@@ -48,9 +48,13 @@ namespace graphics
     m2::RectI texRect(m_symbolRect);
     texRect.Inflate(-1, -1);
 
-    m2::PointD posPt = tieRect(m2::RectD(texRect), math::Identity<double, 3>());
+    m2::PointD sz(texRect.SizeX(), texRect.SizeY());
 
-    return m2::AnyRectD(m2::RectD(posPt, posPt + m2::PointD(texRect.SizeX(), texRect.SizeY())));
+    m2::PointD const posPt = computeTopLeft(sz,
+                                            pivot(),
+                                            position());
+
+    return m2::AnyRectD(m2::RectD(posPt, posPt + sz));
   }
 
   void SymbolElement::draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const
@@ -76,13 +80,17 @@ namespace graphics
     m2::RectI texRect(res->m_texRect);
     texRect.Inflate(-1, -1);
 
-    m2::PointD posPt = tieRect(m2::RectD(texRect), m);
+    m2::PointD sz(texRect.SizeX(), texRect.SizeY());
+
+    m2::PointD posPt = computeTopLeft(sz,
+                                      pivot() * m,
+                                      position());
 
     posPt -= pivot();
 
     r->drawStraightTexturedPolygon(pivot(),
                                    texRect.minX(), texRect.minY(), texRect.maxX(), texRect.maxY(),
-                                   posPt.x, posPt.y, posPt.x + texRect.SizeX(), posPt.y + texRect.SizeY(),
+                                   posPt.x, posPt.y, posPt.x + sz.x, posPt.y + sz.y,
                                    depth(),
                                    res->m_pipelineID);
   }

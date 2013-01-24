@@ -35,9 +35,13 @@ namespace graphics
 
     texRect.Inflate(-1, -1);
 
-    m2::PointD posPt = tieRect(m2::RectD(texRect), math::Identity<double, 3>());
+    m2::PointD sz(texRect.SizeX(), texRect.SizeY());
 
-    return m2::AnyRectD(m2::RectD(posPt, posPt + m2::PointD(texRect.SizeX(), texRect.SizeY())));
+    m2::PointD posPt = computeTopLeft(sz,
+                                      pivot(),
+                                      position());
+
+    return m2::AnyRectD(m2::RectD(posPt, posPt + sz));
   }
 
   void CircleElement::draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const
@@ -53,7 +57,9 @@ namespace graphics
     m2::RectI texRect(res->m_texRect);
     texRect.Inflate(-1, -1);
 
-    m2::PointD posPt = tieRect(m2::RectD(texRect), m);
+    m2::PointD posPt = computeTopLeft(m2::PointD(texRect.SizeX(), texRect.SizeY()),
+                                      pivot() * m,
+                                      position());
 
     r->drawTexturedPolygon(m2::PointD(0.0, 0.0), 0.0,
                           texRect.minX(), texRect.minY(), texRect.maxX(), texRect.maxY(),

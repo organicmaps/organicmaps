@@ -120,7 +120,11 @@ namespace gui
       rc.Inflate(dx, dy);
       rc.Offset(-rc.minX(), -rc.minY());
 
-      rc.Offset(tieRect(rc, math::Identity<double, 3>()));
+      m2::PointD pt = computeTopLeft(m2::PointD(rc.SizeX(), rc.SizeY()),
+                                     pivot(),
+                                     position());
+
+      rc.Offset(pt);
       m_boundRects.push_back(m2::AnyRectD(rc));
       setIsDirtyRect(false);
     }
