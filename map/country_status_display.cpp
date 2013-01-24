@@ -45,6 +45,12 @@ void CountryStatusDisplay::SetStatusMessage(string const & msgID, T1 const * t1,
   m_statusMsg->setText(msg);
 }
 
+void CountryStatusDisplay::purge()
+{
+  m_downloadButton->purge();
+  m_statusMsg->purge();
+}
+
 void CountryStatusDisplay::cache()
 {
   m_downloadButton->setIsVisible(false);
