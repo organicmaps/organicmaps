@@ -14,9 +14,11 @@ HEADERS += \
     element.hpp \
     button.hpp \
     text_view.hpp \
+    image_view.hpp \
 
 SOURCES += \
     controller.cpp \
     element.cpp \
     button.cpp \
     text_view.cpp \
+    image_view.cpp \
