@@ -14,6 +14,7 @@ HEADERS += \
     element.hpp \
     button.hpp \
     text_view.hpp \
+    balloon.hpp \
     image_view.hpp \
 
 SOURCES += \
@@ -21,4 +22,5 @@ SOURCES += \
     element.cpp \
     button.cpp \
     text_view.cpp \
+    balloon.cpp \
     image_view.cpp \
