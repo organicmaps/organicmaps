@@ -1035,22 +1035,6 @@ cont {
 cont {
   name: "amenity-cafe"
   element {
-    scale: 16
-    symbol {
-      name: "cafe"
-      priority: 1534
-    }
-    caption {
-      primary {
-        height: 12
-        color: 0x404040
-        stroke_color: 0xFFFFFF
-        offset_y: 10
-      }
-      priority: 11829
-    }
-  }
-  element {
     scale: 17
     symbol {
       name: "cafe"
@@ -40591,6 +40575,22 @@ cont {
 cont {
   name: "place-city"
   element {
+    scale: 5
+    caption {
+      primary {
+        height: 11
+        color: 0x606060
+        stroke_color: 0xEEEEDD
+      }
+      secondary {
+        height: 10
+        color: 0x909090
+        stroke_color: 0xEEEEDD
+      }
+      priority: 5
+    }
+  }
+  element {
     scale: 6
     caption {
       primary {
@@ -40599,7 +40599,7 @@ cont {
         stroke_color: 0xEEEEDD
       }
       secondary {
-        height: 12
+        height: 11
         color: 0x909090
         stroke_color: 0xEEEEDD
       }
@@ -40753,6 +40753,22 @@ cont {
 cont {
   name: "place-city-capital"
   element {
+    scale: 4
+    caption {
+      primary {
+        height: 11
+        color: 0x505050
+        stroke_color: 0xEEEEDD
+      }
+      secondary {
+        height: 10
+        color: 0x808080
+        stroke_color: 0xEEEEDD
+      }
+      priority: 16
+    }
+  }
+  element {
     scale: 5
     caption {
       primary {
@@ -40761,7 +40777,7 @@ cont {
         stroke_color: 0xEEEEDD
       }
       secondary {
-        height: 12
+        height: 11
         color: 0x808080
         stroke_color: 0xEEEEDD
       }
@@ -41445,6 +41461,36 @@ cont {
 }
 cont {
   name: "place-state-USA"
+  element {
+    scale: 4
+    caption {
+      primary {
+        height: 11
+        color: 0xC0C0B0
+      }
+      priority: 70
+    }
+  }
+  element {
+    scale: 5
+    caption {
+      primary {
+        height: 12
+        color: 0xC0C0B0
+      }
+      priority: 70
+    }
+  }
+  element {
+    scale: 6
+    caption {
+      primary {
+        height: 13
+        color: 0xC0C0B0
+      }
+      priority: 70
+    }
+  }
   element {
     scale: 7
     caption {
