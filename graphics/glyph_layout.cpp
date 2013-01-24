@@ -284,6 +284,8 @@ namespace graphics
         double fullKern = 0;
         double kern = 0;
 
+        bool pathIsTooBended = false;
+
         int i = 0;
         for (; i < 100; ++i)
         {
@@ -298,14 +300,15 @@ namespace graphics
                                                           m_entries[symPos].m_angle.sin(),
                                                           m_entries[symPos].m_angle.cos());
 
-//          m_entries[symPos].m_pt = m_entries[symPos].m_pt.Move(blOffset, m_entries[symPos].m_angle - math::pi / 2);
-//        sin(a - pi / 2) == -cos(a)
-//        cos(a - pi / 2) == sin(a)
           m_entries[symPos].m_pt = m_entries[symPos].m_pt.Move(blOffset,
                                                                -m_entries[symPos].m_angle.cos(),
                                                                m_entries[symPos].m_angle.sin());
 
-//          m_entries[symPos].m_pt = m_entries[symPos].m_pt.Move(kernOffset, m_entries[symPos].m_angle - math::pi / 2);
+          // check if angle between letters is too big
+          if (hasPrevElem && (ang::GetShortestDistance(prevElem.m_angle.m_val, m_entries[symPos].m_angle.m_val) > 0.8)){
+            pathIsTooBended = true;
+            break;
+          }
 
           // < check whether we should "kern"
           if (hasPrevElem)
@@ -328,6 +331,8 @@ namespace graphics
         {
           LOG(LINFO, ("100 iteration on computing kerning exceeded. possibly infinite loop occured"));
         }
+        if (pathIsTooBended)
+          break;
 
         /// kerning should be computed for baseline centered glyph
         prevElem = m_entries[symPos];
