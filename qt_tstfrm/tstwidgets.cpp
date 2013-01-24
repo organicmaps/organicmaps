@@ -66,9 +66,9 @@ namespace tst
 
     rmp.m_storageParams[graphics::ESmallStorage] = spp;
 
-    spp = graphics::ResourceManager::StoragePoolParams(500 * sizeof(graphics::gl::Vertex),
+    spp = graphics::ResourceManager::StoragePoolParams(100 * sizeof(graphics::gl::Vertex),
                                                        sizeof(graphics::gl::Vertex),
-                                                       500 * sizeof(unsigned short),
+                                                       200 * sizeof(unsigned short),
                                                        sizeof(unsigned short),
                                                        1,
                                                        graphics::ETinyStorage,

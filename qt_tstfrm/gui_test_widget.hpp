@@ -45,7 +45,7 @@ public:
 
     cp.m_doUnbindRT = false;
     cp.m_threadSlot = 0;
-    cp.m_storageType = graphics::ESmallStorage;
+    cp.m_storageType = graphics::ETinyStorage;
     cp.m_textureType = graphics::ESmallTexture;
     cp.m_skinName = "basic_mdpi.skn";
     cp.m_isSynchronized = false;
