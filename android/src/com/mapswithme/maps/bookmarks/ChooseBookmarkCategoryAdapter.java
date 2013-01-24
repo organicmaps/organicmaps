@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 
-public class ChooseBookmarkCategoryAdapter extends AbstractBookmarkCategoryAdapter implements OnItemClickListener, Chooseable
+public class ChooseBookmarkCategoryAdapter extends AbstractBookmarkCategoryAdapter implements Chooseable
 {
   private int mCheckedPosition = -1;
 
@@ -61,11 +61,5 @@ public class ChooseBookmarkCategoryAdapter extends AbstractBookmarkCategoryAdapt
   public int getCheckedItemPosition()
   {
     return mCheckedPosition;
-  }
-
-  @Override
-  public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-  {
-    chooseItem(position);
   }
 }

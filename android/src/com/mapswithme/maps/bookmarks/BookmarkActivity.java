@@ -44,6 +44,10 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   private ImageView mChooserImage;
   private TextView mChooserName;
   private IconsAdapter mIconsAdapter;
+  private EditText mDescr;
+
+  private TextWatcher mNameWatcher;
+  private TextWatcher mDescrWatcher;
 
   @Override
   public void onCreate(Bundle savedInstanceState)
@@ -74,13 +78,23 @@ public class BookmarkActivity extends AbstractBookmarkActivity
     //mChooserName.setText(mIcons.get(position).getName());
   }
 
+  private void refreshValuesInViews()
+  {
+    updateColorChooser(mIcons.indexOf(mPin.getIcon()));
+    mSetName.setText(mPin.getCategoryName());
+    // This hack move cursor to the end of bookmark name
+    mName.setText("");
+    mName.append(mPin.getName());
+    mDescr.setText(mPin.getBookmarkDescription());
+  }
+
   private void setUpViews()
   {
     View colorChooser = findViewById(R.id.pin_color_chooser);
     mChooserImage = (ImageView)colorChooser.findViewById(R.id.row_color_image);
 
     mIcons = mManager.getIcons();
-    updateColorChooser(mIcons.indexOf(mPin.getIcon()));
+
     colorChooser.setOnClickListener(new OnClickListener()
     {
 
@@ -103,12 +117,11 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       }
     });
     mSetName = (TextView) findViewById(R.id.pin_button_set_name);
-    mSetName.setText(mPin.getCategoryName());
     mName = (EditText) findViewById(R.id.pin_name);
-    // This hack move cursor to the end of bookmark name
-    mName.setText("");
-    mName.append(mPin.getName());
-    mName.addTextChangedListener(new TextWatcher()
+    mDescr = (EditText)findViewById(R.id.pin_description);
+
+    refreshValuesInViews();
+    mNameWatcher = new TextWatcher()
     {
 
       @Override
@@ -127,11 +140,8 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       public void afterTextChanged(Editable s)
       {
       }
-    });
-
-    EditText descr = (EditText)findViewById(R.id.pin_description);
-    descr.setText(mPin.getBookmarkDescription());
-    descr.addTextChangedListener(new TextWatcher()
+    };
+    mDescrWatcher = new TextWatcher()
     {
 
       @Override
@@ -149,7 +159,34 @@ public class BookmarkActivity extends AbstractBookmarkActivity
       public void afterTextChanged(Editable s)
       {
       }
-    });
+    };
+    // Set up text watchers only after filling text fields
+  }
+
+  private void setUpWatchers()
+  {
+    mName.addTextChangedListener(mNameWatcher);
+    mDescr.addTextChangedListener(mDescrWatcher);
+  }
+
+  private void removeWatchers()
+  {
+    mName.removeTextChangedListener(mNameWatcher);
+    mDescr.removeTextChangedListener(mDescrWatcher);
+  }
+
+  @Override
+  protected void onStart()
+  {
+    super.onStart();
+    setUpWatchers();
+  }
+
+  @Override
+  protected void onStop()
+  {
+    removeWatchers();
+    super.onStop();
   }
 
   @Override
@@ -226,14 +263,10 @@ public class BookmarkActivity extends AbstractBookmarkActivity
   {
     if (requestCode == REQUEST_CODE_SET && resultCode == RESULT_OK)
     {
-      int candidate  = data.getIntExtra(PIN_SET, -1);
-      BookmarkCategory set = mManager.getCategoryById(candidate);
-      if (set != null)
-      {
-        if (mCurrentCategoryId != candidate)
-          mPin.setCategory(set.getName(), mCurrentCategoryId = candidate);
-        mSetName.setText(set.getName());
-      }
+      Point pin = ((ParcelablePoint)data.getParcelableExtra(PIN)).getPoint();
+      mPin = mManager.getBookmark(pin.x, pin.y);
+      refreshValuesInViews();
+      mCurrentCategoryId = mPin.getCategoryId();
     }
     super.onActivityResult(requestCode, resultCode, data);
   }

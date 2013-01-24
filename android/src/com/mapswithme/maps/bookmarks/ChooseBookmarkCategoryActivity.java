@@ -1,14 +1,19 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
+import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 
 public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActivity
 {
@@ -21,14 +26,25 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_bmk_categories);
     setListAdapter(mAdapter = new ChooseBookmarkCategoryAdapter(this, getIntent().getIntExtra(BookmarkActivity.PIN_SET, -1)));
-    getListView().setOnItemClickListener(mAdapter);
+    getListView().setOnItemClickListener(new OnItemClickListener()
+    {
+      @Override
+      public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+      {
+        mAdapter.chooseItem(position);
+        Point cab = ((ParcelablePoint)getIntent().getParcelableExtra(BookmarkActivity.PIN)).getPoint();
+        BookmarkCategory cat = mManager.getCategoryById(position);
+        mManager.getBookmark(cab.x, cab.y).setCategory(cat.getName(), position);
+        getIntent().putExtra(BookmarkActivity.PIN, new ParcelablePoint(position, cat.getSize()-1));
+      }
+    });
     registerForContextMenu(getListView());
   }
 
   @Override
   public void onBackPressed()
   {
-    setResult(RESULT_OK, new Intent().putExtra(BookmarkActivity.PIN_SET, mAdapter.getCheckedItemPosition()));
+    setResult(RESULT_OK, new Intent().putExtra(BookmarkActivity.PIN, getIntent().getParcelableExtra(BookmarkActivity.PIN)));
     super.onBackPressed();
   }
 
