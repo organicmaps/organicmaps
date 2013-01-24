@@ -27,6 +27,7 @@ SUBDIRS = 3party \
           qt_tstfrm \
           indexer/indexer_tests \
           graphics/graphics_tests \
+          gui/gui_tests \
           qt
 } else {
   # libraries which are used on mobile devices

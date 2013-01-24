@@ -1,0 +1,128 @@
+#include "../../qt_tstfrm/gui_test_widget.hpp"
+
+#include "../balloon.hpp"
+#include "../button.hpp"
+#include "../text_view.hpp"
+#include "../image_view.hpp"
+
+struct BalloonTest
+{
+  shared_ptr<gui::Balloon> m_balloon;
+
+  void Init(gui::Controller * c)
+  {
+    gui::Balloon::Params bp;
+
+    bp.m_depth = graphics::maxDepth - 20;
+    bp.m_pivot = m2::PointD(200, 200);
+    bp.m_position = graphics::EPosAbove;
+
+    bp.m_textMarginLeft = 10;
+    bp.m_textMarginRight = 10;
+    bp.m_textMarginTop = 5;
+    bp.m_textMarginBottom = 5;
+
+    bp.m_imageMarginLeft = 0;
+    bp.m_imageMarginRight = 10;
+    bp.m_imageMarginTop = 5;
+    bp.m_imageMarginBottom = 5;
+
+    bp.m_text = "Кирова, 24";
+    bp.m_image = graphics::Image::Info("testing/images/arrow.png");
+
+    m_balloon.reset(new gui::Balloon(bp));
+    m_balloon->setIsVisible(true);
+
+    c->AddElement(m_balloon);
+  }
+
+  void DoDraw(shared_ptr<graphics::Screen> const & p)
+  {}
+};
+
+struct ButtonTest
+{
+  shared_ptr<gui::Button> m_button;
+
+  void Init(gui::Controller * c)
+  {
+    gui::Button::Params bp;
+
+    bp.m_depth = graphics::maxDepth - 10;
+    bp.m_pivot = m2::PointD(200, 200);
+    bp.m_position = graphics::EPosAbove;
+    bp.m_text = "TestButton";
+
+    m_button.reset(new gui::Button(bp));
+
+    c->AddElement(m_button);
+  }
+
+  void DoDraw(shared_ptr<graphics::Screen> const & p)
+  {
+  }
+};
+
+struct TextViewTest
+{
+  shared_ptr<gui::TextView> m_textView;
+
+  void Init(gui::Controller * c)
+  {
+    gui::TextView::Params tp;
+
+    tp.m_pivot = m2::PointD(100, 100);
+    tp.m_depth = graphics::maxDepth;
+    tp.m_position = graphics::EPosRight;
+    tp.m_text = "Simplicity is the ultimate";
+
+    m_textView.reset(new gui::TextView(tp));
+    m_textView->setIsVisible(true);
+
+    c->AddElement(m_textView);
+  }
+
+  void DoDraw(shared_ptr<graphics::Screen> const & p)
+  {
+  }
+};
+
+struct ImageViewTest
+{
+  shared_ptr<gui::ImageView> m_imageView;
+  m2::PointD m_pivot;
+
+  void Init(gui::Controller * c)
+  {
+    gui::ImageView::Params ip;
+
+    m_pivot = m2::PointD(100, 100);
+
+    ip.m_depth = graphics::maxDepth;
+    ip.m_pivot = m_pivot;
+    ip.m_position = graphics::EPosUnder;
+
+    ip.m_image = graphics::Image::Info("testing/images/arrow.png");
+
+    m_imageView.reset(new gui::ImageView(ip));
+
+    c->AddElement(m_imageView);
+
+    m_imageView->setIsVisible(true);
+  }
+
+  void DoDraw(shared_ptr<graphics::Screen> const & p)
+  {
+    m2::RectD r(m_pivot, m_pivot);
+
+    r.Inflate(2, 2);
+
+    p->drawRectangle(r, graphics::Color(255, 0, 0, 255), graphics::maxDepth);
+  }
+};
+
+UNIT_TEST_GUI(BalloonTest);
+UNIT_TEST_GUI(ButtonTest);
+UNIT_TEST_GUI(TextViewTest);
+UNIT_TEST_GUI(ImageViewTest);
+
