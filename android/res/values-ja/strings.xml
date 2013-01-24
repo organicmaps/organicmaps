@@ -231,10 +231,10 @@
 	<string name="no_search_results_found">結果が見つかりませんでした</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">説明</string>
-	<!-- Search Suggestion -->
+	<!-- Button text -->
 	<string name="share_by_email">Eメールでシェアする</string>
-	<!-- Search Suggestion -->
+	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">MapsWithMeブックマークでシェアされました。</string>
-	<!-- Search Suggestion -->
-	<string name="share_bookmarks_email_body">MapsWithMeオフライン地図で作成した私のブックマークを、添付ファイル\&quot;%s.kml\&quot;でお送りします。MapsWithMe Proを既にインストールされている場合は、ファイルを開いてみてください。インストールがまだの場合は、まずはこちらのリンク http://www.mapswithme.com/get?kml から、お使いのiOSまたはAndroid端末用のアプリをダウンロードしてください。\n\nMapsWithMeで楽しい時間をお過ごしください！</string>
+	<!-- Email text when sharing bookmarks category -->
+	<string name="share_bookmarks_email_body">もしもし\n\nMapsWithMeオフライン地図で作成した私のブックマークを、添付ファイル\&quot;%s.kml\&quot;でお送りします。MapsWithMe Proを既にインストールされている場合は、ファイルを開いてみてください。インストールがまだの場合は、まずはこちらのリンク http://www.mapswithme.com/get?kml から、お使いのiOSまたはAndroid端末用のアプリをダウンロードしてください。\n\nMapsWithMeで楽しい時間をお過ごしください！</string>
 </resources>

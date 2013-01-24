@@ -237,12 +237,12 @@
 	<string name="no_search_results_found">Нет результатов поиска</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Описание</string>
-	<!-- Search Suggestion -->
+	<!-- Button text -->
 	<string name="share_by_email">Послать по email</string>
-	<!-- Search Suggestion -->
+	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">С вами поделились закладками MapsWithMe</string>
-	<!-- Search Suggestion -->
-	<string name="share_bookmarks_email_body">Мои закладки из офлайн карт MapsWithMe находятся в прикрепленном файле\&quot;%s.kml\&quot;. Если у вас уже установлено приложение MapsWithMe Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  MapsWithMe Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.mapswithme.com/get?kml\n\nСпасибо!</string>
+	<!-- Email text when sharing bookmarks category -->
+	<string name="share_bookmarks_email_body">Здравствуйте!\n\nМои закладки из офлайн карт MapsWithMe находятся в прикрепленном файле\&quot;%s.kml\&quot;. Если у вас уже установлено приложение MapsWithMe Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  MapsWithMe Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.mapswithme.com/get?kml\n\nСпасибо!</string>
 	<!-- message title of loading file -->
 	<string name="load_kml_title">Загрузка Закладок</string>
 	<!-- Kml file successful loading -->

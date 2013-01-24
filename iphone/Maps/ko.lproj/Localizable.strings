@@ -374,14 +374,14 @@
 /* Notes field in Bookmarks view */
 "description" = "설명";
 
-/* Search Suggestion */
+/* Button text */
 "share_by_email" = "이메일로 공유";
 
-/* Search Suggestion */
+/* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "귀하와 공유된 MapsWithMe 즐겨찾기";
 
-/* Search Suggestion */
-"share_bookmarks_email_body" = "첨부된 \"%@.kml\" 파일에 MapsWithMe 오프라인 지도로부터의 제 즐겨찾기가 있습니다. MapsWithMe 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://www.mapswithme.com/get?kml 링크에서 다운로드하시기 바랍니다.\n\nMapsWithMe와 함께 즐거운 시간 되시기 바랍니다!";
+/* Email text when sharing bookmarks category */
+"share_bookmarks_email_body" = "안녕하세요.\n\n첨부된 \"%@.kml\" 파일에 MapsWithMe 오프라인 지도로부터의 제 즐겨찾기가 있습니다. MapsWithMe 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://www.mapswithme.com/get?kml 링크에서 다운로드하시기 바랍니다.\n\nMapsWithMe와 함께 즐거운 시간 되시기 바랍니다!";
 
 /* message title of loading file */
 "load_kml_title" = "Bookmarks Loading";
@@ -391,3 +391,9 @@
 
 /* Kml file loading failed */
 "load_kml_failed" = "File with bookmarks wasn't uploaded. The reason of this can be that file was corrupted or  faulty.";
+
+/* resource for context menu */
+"edit" = "Edit";
+
+/* Title for Confirm dialog */
+"are_you_sure" = "Are you sure?";

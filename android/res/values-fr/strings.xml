@@ -225,10 +225,10 @@
 	<string name="no_search_results_found">Aucun résultat trouvé</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Description</string>
-	<!-- Search Suggestion -->
+	<!-- Button text -->
 	<string name="share_by_email">Partager par e-mail</string>
-	<!-- Search Suggestion -->
+	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Signets MapsWithMe partagés avec vous</string>
-	<!-- Search Suggestion -->
-	<string name="share_bookmarks_email_body">Vous trouverez mes favoris des cartes hors-ligne MapsWithMe dans le fichier \&quot;%s.km:\&quot; ci-joint. Veuillez l\'ouvrir si vous avez déjà installé MapsWithMe Pro. Sinon, téléchargez d\'abord l\'application pour appareil iOS ou Android depuis le lien http://www.mapswithme.com/get?kml.\n\nAmusez-vous bien avec MapsWithMe!</string>
+	<!-- Email text when sharing bookmarks category -->
+	<string name="share_bookmarks_email_body">Bonjour,\n\nVous trouverez mes favoris des cartes hors-ligne MapsWithMe dans le fichier \&quot;%s.km:\&quot; ci-joint. Veuillez l\'ouvrir si vous avez déjà installé MapsWithMe Pro. Sinon, téléchargez d\'abord l\'application pour appareil iOS ou Android depuis le lien http://www.mapswithme.com/get?kml.\n\nAmusez-vous bien avec MapsWithMe!</string>
 </resources>

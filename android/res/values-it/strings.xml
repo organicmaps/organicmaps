@@ -31,6 +31,6 @@
 	<string name="post">posta</string>
 	<!-- Search Suggestion -->
 	<string name="police">posto di polizia</string>
-	<!-- Search Suggestion -->
-	<string name="share_bookmarks_email_body">Questi sono i miei \&quot;preferiti\&quot; fra le mappe offline di MapsWithMe, che si trovano nel file allegato \&quot;%s.kml\&quot;. Il file può essere aperto se l\'app MapsWithMe Pro è già stata installata. In caso contrario, occorre scaricare l\'app per il tuo iOS o dispositivo Android dal link http://www.mapswithme.com/get?kml.\n\nBuon divertimento con MapsWithMe!</string>
+	<!-- Email text when sharing bookmarks category -->
+	<string name="share_bookmarks_email_body">Ciao,\n\nQuesti sono i miei \&quot;preferiti\&quot; fra le mappe offline di MapsWithMe, che si trovano nel file allegato \&quot;%s.kml\&quot;. Il file può essere aperto se l\'app MapsWithMe Pro è già stata installata. In caso contrario, occorre scaricare l\'app per il tuo iOS o dispositivo Android dal link http://www.mapswithme.com/get?kml.\n\nBuon divertimento con MapsWithMe!</string>
 </resources>

@@ -237,10 +237,10 @@
 	<string name="no_search_results_found">Geen resultaten gevonden</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Beschrijving</string>
-	<!-- Search Suggestion -->
+	<!-- Button text -->
 	<string name="share_by_email">Delen via e-mail</string>
-	<!-- Search Suggestion -->
+	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Bladwijzers van MapsWithMe met u gedeeld</string>
-	<!-- Search Suggestion -->
-	<string name="share_bookmarks_email_body">Hier zijn mijn bladwijzers uit de MapsWithMe offline kaarten, in het bijgevoegde \&quot;%s.kml\&quot;-bestand. Open het bestand als u MapsWithMe Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://www.mapswithme.com/get?kml.\n\nVeel plezier met MapsWithMe!</string>
+	<!-- Email text when sharing bookmarks category -->
+	<string name="share_bookmarks_email_body">Hallo,\n\nHier zijn mijn bladwijzers uit de MapsWithMe offline kaarten, in het bijgevoegde \&quot;%s.kml\&quot;-bestand. Open het bestand als u MapsWithMe Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://www.mapswithme.com/get?kml.\n\nVeel plezier met MapsWithMe!</string>
 </resources>

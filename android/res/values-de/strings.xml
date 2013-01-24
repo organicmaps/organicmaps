@@ -233,10 +233,10 @@
 	<string name="no_search_results_found">Keine Ergebnisse gefunden</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Beschreibung</string>
-	<!-- Search Suggestion -->
+	<!-- Button text -->
 	<string name="share_by_email">Per E-Mail teilen</string>
-	<!-- Search Suggestion -->
+	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">MapsWithMe Lesezeichen mit Ihnen geteilt</string>
-	<!-- Search Suggestion -->
-	<string name="share_bookmarks_email_body">In der angefügten „%s.kml“-Datei befinden sich die Lesezeichen meiner Offline-Karten von MapsWithMe. Falls Sie MapsWithMe Pro bereits installiert haben, müssen Sie diese nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://www.mapswithme.com/get?kml herunterladen.\n\nIch wünsche viel Vergnügen mit MapsWithMe!</string>
+	<!-- Email text when sharing bookmarks category -->
+	<string name="share_bookmarks_email_body">Hallo,\n\nIn der angefügten „%s.kml“-Datei befinden sich die Lesezeichen meiner Offline-Karten von MapsWithMe. Falls Sie MapsWithMe Pro bereits installiert haben, müssen Sie diese nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://www.mapswithme.com/get?kml herunterladen.\n\nIch wünsche viel Vergnügen mit MapsWithMe!</string>
 </resources>

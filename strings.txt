@@ -1549,7 +1549,7 @@
   [share_by_email]
     en = Share by email
     tags = ios, android
-    comment = Search Suggestion
+    comment = Button text
     de = Per E-Mail teilen
     uk = Поділитися по електронній пошті
     es = Enviar por e-mail
@@ -1562,7 +1562,7 @@
   [share_bookmarks_email_subject]
     en = MapsWithMe bookmarks has been shared with you
     tags = ios, android
-    comment = Search Suggestion
+    comment = Email Subject when sharing bookmarks category
     de = MapsWithMe Lesezeichen mit Ihnen geteilt
     uk = Вам надаються закладки MapsWithMe
     es = Marcapáginas de MapsWithMe compartidos contigo
@@ -1573,19 +1573,19 @@
     cs = Sdílené záložky MapsWithMe
     nl = Bladwijzers van MapsWithMe met u gedeeld
   [share_bookmarks_email_body]
-    en = Here are my bookmarks from MapsWithMe offline maps in the attached "%@.kml" file. Please open it if you have MapsWithMe Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://www.mapswithme.com/get?kml.\n\nHave a good time with MapsWithMe!
+    en = Hello,\n\nHere are my bookmarks from MapsWithMe offline maps in the attached "%@.kml" file. Please open it if you have MapsWithMe Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://www.mapswithme.com/get?kml.\n\nHave a good time with MapsWithMe!
     tags = ios, android
-    comment = Search Suggestion
-    de = In der angefügten „%@.kml“-Datei befinden sich die Lesezeichen meiner Offline-Karten von MapsWithMe. Falls Sie MapsWithMe Pro bereits installiert haben, müssen Sie diese nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://www.mapswithme.com/get?kml herunterladen.\n\nIch wünsche viel Vergnügen mit MapsWithMe!
-    uk = Ось мої закладки з автономних карт MapsWithMe у доданому файлі "%@.kml". Прошу відкрти його, якщо у вас MapsWithMe Pro вже встановлено. Якщо ні, тоді спочатку завантажте застосунок для пристроїв IOS або Android за цим посиланням http://www.mapswithme.com/get?kml.\n\nПриємних розваг з MapsWithMe!
-    es = En el archivo adjunto "%@.kml", están mis marcadores de los mapas offline MapsWithMe. Por favor, ábrelo con MapsWithMe Pro si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://www.mapswithme.com/get?kml.\n\n¡Que disfrutes de MapsWithMe!
-    fr = Vous trouverez mes favoris des cartes hors-ligne MapsWithMe dans le fichier "%@.km:" ci-joint. Veuillez l'ouvrir si vous avez déjà installé MapsWithMe Pro. Sinon, téléchargez d'abord l'application pour appareil iOS ou Android depuis le lien http://www.mapswithme.com/get?kml.\n\nAmusez-vous bien avec MapsWithMe!
-    ja = MapsWithMeオフライン地図で作成した私のブックマークを、添付ファイル"%@.kml"でお送りします。MapsWithMe Proを既にインストールされている場合は、ファイルを開いてみてください。インストールがまだの場合は、まずはこちらのリンク http://www.mapswithme.com/get?kml から、お使いのiOSまたはAndroid端末用のアプリをダウンロードしてください。\n\nMapsWithMeで楽しい時間をお過ごしください！
-    ko = 첨부된 "%@.kml" 파일에 MapsWithMe 오프라인 지도로부터의 제 즐겨찾기가 있습니다. MapsWithMe 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://www.mapswithme.com/get?kml 링크에서 다운로드하시기 바랍니다.\n\nMapsWithMe와 함께 즐거운 시간 되시기 바랍니다!
-    ru = Мои закладки из офлайн карт MapsWithMe находятся в прикрепленном файле"%@.kml". Если у вас уже установлено приложение MapsWithMe Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  MapsWithMe Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.mapswithme.com/get?kml\n\nСпасибо!
-    cs = Zde jsou mé záložky z offline map MapsWithMe v přiloženém "%@.kml" souboru. Pokud máte již nainstalované MapsWithMe, otevřete tento soubor, prosím. V opačném případě si nejprve nainstalujte aplikaci pro vaše iOS nebo Android zařízení z tohoto odkazu http://www.mapswithme.com/get?kml.\n\nSkvěle se bavte s MapsWithMe!
-    nl = Hier zijn mijn bladwijzers uit de MapsWithMe offline kaarten, in het bijgevoegde "%@.kml"-bestand. Open het bestand als u MapsWithMe Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://www.mapswithme.com/get?kml.\n\nVeel plezier met MapsWithMe!
-    it = Questi sono i miei "preferiti" fra le mappe offline di MapsWithMe, che si trovano nel file allegato "%@.kml". Il file può essere aperto se l'app MapsWithMe Pro è già stata installata. In caso contrario, occorre scaricare l'app per il tuo iOS o dispositivo Android dal link http://www.mapswithme.com/get?kml.\n\nBuon divertimento con MapsWithMe!
+    comment = Email text when sharing bookmarks category
+    de = Hallo,\n\nIn der angefügten „%@.kml“-Datei befinden sich die Lesezeichen meiner Offline-Karten von MapsWithMe. Falls Sie MapsWithMe Pro bereits installiert haben, müssen Sie diese nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://www.mapswithme.com/get?kml herunterladen.\n\nIch wünsche viel Vergnügen mit MapsWithMe!
+    uk = Вітаю!\n\nОсь мої закладки з автономних карт MapsWithMe у доданому файлі "%@.kml". Прошу відкрти його, якщо у вас MapsWithMe Pro вже встановлено. Якщо ні, тоді спочатку завантажте застосунок для пристроїв IOS або Android за цим посиланням http://www.mapswithme.com/get?kml.\n\nПриємних розваг з MapsWithMe!
+    es = ¡Hola!\n\nEn el archivo adjunto "%@.kml", están mis marcadores de los mapas offline MapsWithMe. Por favor, ábrelo con MapsWithMe Pro si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://www.mapswithme.com/get?kml.\n\n¡Que disfrutes de MapsWithMe!
+    fr = Bonjour,\n\nVous trouverez mes favoris des cartes hors-ligne MapsWithMe dans le fichier "%@.km:" ci-joint. Veuillez l'ouvrir si vous avez déjà installé MapsWithMe Pro. Sinon, téléchargez d'abord l'application pour appareil iOS ou Android depuis le lien http://www.mapswithme.com/get?kml.\n\nAmusez-vous bien avec MapsWithMe!
+    ja = もしもし\n\nMapsWithMeオフライン地図で作成した私のブックマークを、添付ファイル"%@.kml"でお送りします。MapsWithMe Proを既にインストールされている場合は、ファイルを開いてみてください。インストールがまだの場合は、まずはこちらのリンク http://www.mapswithme.com/get?kml から、お使いのiOSまたはAndroid端末用のアプリをダウンロードしてください。\n\nMapsWithMeで楽しい時間をお過ごしください！
+    ko = 안녕하세요.\n\n첨부된 "%@.kml" 파일에 MapsWithMe 오프라인 지도로부터의 제 즐겨찾기가 있습니다. MapsWithMe 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://www.mapswithme.com/get?kml 링크에서 다운로드하시기 바랍니다.\n\nMapsWithMe와 함께 즐거운 시간 되시기 바랍니다!
+    ru = Здравствуйте!\n\nМои закладки из офлайн карт MapsWithMe находятся в прикрепленном файле"%@.kml". Если у вас уже установлено приложение MapsWithMe Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  MapsWithMe Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.mapswithme.com/get?kml\n\nСпасибо!
+    cs = Dobrý den!\n\nZde jsou mé záložky z offline map MapsWithMe v přiloženém "%@.kml" souboru. Pokud máte již nainstalované MapsWithMe, otevřete tento soubor, prosím. V opačném případě si nejprve nainstalujte aplikaci pro vaše iOS nebo Android zařízení z tohoto odkazu http://www.mapswithme.com/get?kml.\n\nSkvěle se bavte s MapsWithMe!
+    nl = Hallo,\n\nHier zijn mijn bladwijzers uit de MapsWithMe offline kaarten, in het bijgevoegde "%@.kml"-bestand. Open het bestand als u MapsWithMe Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://www.mapswithme.com/get?kml.\n\nVeel plezier met MapsWithMe!
+    it = Ciao,\n\nQuesti sono i miei "preferiti" fra le mappe offline di MapsWithMe, che si trovano nel file allegato "%@.kml". Il file può essere aperto se l'app MapsWithMe Pro è già stata installata. In caso contrario, occorre scaricare l'app per il tuo iOS o dispositivo Android dal link http://www.mapswithme.com/get?kml.\n\nBuon divertimento con MapsWithMe!
   [load_kml_title]
     en = Bookmarks Loading
     tags = ios, android

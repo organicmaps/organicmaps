@@ -227,10 +227,10 @@
 	<string name="no_search_results_found">결과 없음</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">설명</string>
-	<!-- Search Suggestion -->
+	<!-- Button text -->
 	<string name="share_by_email">이메일로 공유</string>
-	<!-- Search Suggestion -->
+	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">귀하와 공유된 MapsWithMe 즐겨찾기</string>
-	<!-- Search Suggestion -->
-	<string name="share_bookmarks_email_body">첨부된 \&quot;%s.kml\&quot; 파일에 MapsWithMe 오프라인 지도로부터의 제 즐겨찾기가 있습니다. MapsWithMe 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://www.mapswithme.com/get?kml 링크에서 다운로드하시기 바랍니다.\n\nMapsWithMe와 함께 즐거운 시간 되시기 바랍니다!</string>
+	<!-- Email text when sharing bookmarks category -->
+	<string name="share_bookmarks_email_body">안녕하세요.\n\n첨부된 \&quot;%s.kml\&quot; 파일에 MapsWithMe 오프라인 지도로부터의 제 즐겨찾기가 있습니다. MapsWithMe 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://www.mapswithme.com/get?kml 링크에서 다운로드하시기 바랍니다.\n\nMapsWithMe와 함께 즐거운 시간 되시기 바랍니다!</string>
 </resources>

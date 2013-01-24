@@ -374,14 +374,14 @@
 /* Notes field in Bookmarks view */
 "description" = "Description";
 
-/* Search Suggestion */
+/* Button text */
 "share_by_email" = "Share by email";
 
-/* Search Suggestion */
+/* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "MapsWithMe bookmarks has been shared with you";
 
-/* Search Suggestion */
-"share_bookmarks_email_body" = "Here are my bookmarks from MapsWithMe offline maps in the attached \"%@.kml\" file. Please open it if you have MapsWithMe Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://www.mapswithme.com/get?kml.\n\nHave a good time with MapsWithMe!";
+/* Email text when sharing bookmarks category */
+"share_bookmarks_email_body" = "Hello,\n\nHere are my bookmarks from MapsWithMe offline maps in the attached \"%@.kml\" file. Please open it if you have MapsWithMe Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://www.mapswithme.com/get?kml.\n\nHave a good time with MapsWithMe!";
 
 /* message title of loading file */
 "load_kml_title" = "Bookmarks Loading";
@@ -391,3 +391,9 @@
 
 /* Kml file loading failed */
 "load_kml_failed" = "File with bookmarks wasn't uploaded. The reason of this can be that file was corrupted or  faulty.";
+
+/* resource for context menu */
+"edit" = "Edit";
+
+/* Title for Confirm dialog */
+"are_you_sure" = "Are you sure?";
