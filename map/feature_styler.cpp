@@ -146,12 +146,14 @@ namespace feature
     }
 
     if (hasIcon && hasCaptionWithoutOffset)
+      // we need to delete symbol style (single one due to MakeUnique call above)
       for (size_t i = 0; i < count; ++i)
       {
         if (keys[i].m_type == drule::symbol)
         {
           m_rules[i] = m_rules[m_rules.size() - 1];
           m_rules.pop_back();
+          break;
         }
       }
 
