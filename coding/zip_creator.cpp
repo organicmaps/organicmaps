@@ -1,5 +1,6 @@
 #include "zip_creator.hpp"
 
+#include "../../coding/file_name_utils.hpp"
 #include "../../coding/internal/file_data.hpp"
 
 #include "../../std/vector.hpp"
@@ -48,7 +49,9 @@ bool createZipFromPathDeflatedAndDefaultCompression(string const & filePath, str
     return false;
   zip_fileinfo zipInfo = { 0 };
   CreateTMZip(zipInfo.tmz_date);
-  if (zipOpenNewFileInZip (zip.m_zipFile, filePath.c_str(), &zipInfo, NULL, 0, NULL, 0, "ZIP from MapsWithMe", Z_DEFLATED, Z_DEFAULT_COMPRESSION) < 0)
+  string fileName = filePath;
+  my::GetNameFromFullPath(fileName);
+  if (zipOpenNewFileInZip (zip.m_zipFile, fileName.c_str(), &zipInfo, NULL, 0, NULL, 0, "ZIP from MapsWithMe", Z_DEFLATED, Z_DEFAULT_COMPRESSION) < 0)
     return false;
 
   my::FileData f(filePath, my::FileData::OP_READ);
