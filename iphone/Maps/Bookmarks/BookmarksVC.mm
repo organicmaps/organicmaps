@@ -9,6 +9,8 @@
 #include "Framework.h"
 
 #include "../../../geometry/distance_on_sphere.hpp"
+#include "../../../coding/zip_creator.hpp"
+#include "../../../coding/internal/file_data.hpp"
 
 
 #define TEXTFIELD_TAG 999
@@ -232,17 +234,21 @@
       BookmarkCategory const * cat = GetFramework().GetBmCategory(m_categoryIndex);
       if (cat)
       {
-        MFMailComposeViewController * mailVC = [[[MFMailComposeViewController alloc] init] autorelease];
-        mailVC.mailComposeDelegate = self;
-
-        [mailVC setSubject:NSLocalizedString(@"share_bookmarks_email_subject", nil)];
-
         NSString * filePath = [NSString stringWithUTF8String:cat->GetFileName().c_str()];
-        NSData * myData = [[[NSData alloc] initWithContentsOfFile:filePath] autorelease];
-        NSString * catName = [NSString stringWithUTF8String:cat->GetName().c_str()];
-        [mailVC addAttachmentData:myData mimeType:@"application/vnd.google-earth.kml+xml" fileName:[NSString stringWithFormat:@"%@.kml", catName]];
-        [mailVC setMessageBody:[NSString stringWithFormat:NSLocalizedString(@"share_bookmarks_email_body", nil), catName] isHTML:NO];
-        [self presentModalViewController:mailVC animated:YES];
+        NSMutableString * catName = [NSMutableString stringWithUTF8String:cat->GetName().c_str()];
+        if (![catName length])
+          [catName setString:@"MapsWithMe"];
+        NSMutableString * kmzFile = [NSMutableString stringWithString:filePath];
+        [kmzFile replaceCharactersInRange:NSMakeRange([filePath length] - 1, 1) withString:@"z"];
+        if (createZipFromPathDeflatedAndDefaultCompression([filePath UTF8String], [kmzFile UTF8String]))
+        {
+          [self sendBookmarksWithExtension:@".kmz" andType:@"application/vnd.google-earth.kmz" andFile:kmzFile andCategory:catName];
+        }
+        else
+        {
+          [self sendBookmarksWithExtension:@".kml" andType:@"application/vnd.google-earth.kml+xml" andFile:filePath andCategory:catName];
+        }
+        my::DeleteFileX([kmzFile UTF8String]);
       }
     }
     break;
@@ -407,6 +413,17 @@
   [textField resignFirstResponder];
   [self renameBMCategoryIfChanged:textField.text];
   return NO;
+}
+
+- (void) sendBookmarksWithExtension:(NSString *) fileExtension andType:(NSString *)mimeType andFile:(NSString *)filePath andCategory:(NSString *)catName
+{
+  MFMailComposeViewController * mailVC = [[[MFMailComposeViewController alloc] init] autorelease];
+  mailVC.mailComposeDelegate = self;
+  [mailVC setSubject:NSLocalizedString(@"share_bookmarks_email_subject", nil)];
+  NSData * myData = [[[NSData alloc] initWithContentsOfFile:filePath] autorelease];
+  [mailVC addAttachmentData:myData mimeType:mimeType fileName:[NSString stringWithFormat:@"%@%@", catName, fileExtension]];
+  [mailVC setMessageBody:[NSString stringWithFormat:NSLocalizedString(@"share_bookmarks_email_body", nil), catName] isHTML:NO];
+  [self presentModalViewController:mailVC animated:YES];
 }
 
 @end
