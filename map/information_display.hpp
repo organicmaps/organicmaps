@@ -50,7 +50,7 @@ private:
   m2::PointD m_DebugPts[10];
 
   bool m_isRulerEnabled;
-  Ruler m_ruler;
+  shared_ptr<Ruler> m_ruler;
 
   bool m_isCenterEnabled;
   m2::PointD m_centerPtLonLat;
@@ -106,7 +106,6 @@ public:
   void drawDebugPoints(Drawer * pDrawer);
 
   void enableRuler(bool doEnable);
-  void drawRuler(Drawer * pDrawer);
   void setRulerParams(unsigned pxMinWidth, double metresMinWidth, double metresMaxWidth);
   void setupRuler();
 

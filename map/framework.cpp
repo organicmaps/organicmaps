@@ -1356,14 +1356,6 @@ bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
 
 void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 {
-  if (renderPolicy)
-  {
-    m_informationDisplay.setVisualScale(renderPolicy->VisualScale());
-
-    m_navigator.SetMinScreenParams(static_cast<unsigned>(m_minRulerWidth * renderPolicy->VisualScale()),
-                                   m_metresMinWidth);
-  }
-
   m_guiController->ResetRenderParams();
   m_renderPolicy.reset();
   m_renderPolicy.reset(renderPolicy);
@@ -1387,9 +1379,13 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
     m_renderPolicy->SetAnimController(m_animController.get());
 
     m_navigator.SetSupportRotation(m_renderPolicy->DoSupportRotation());
+    m_navigator.SetMinScreenParams(static_cast<unsigned>(m_minRulerWidth * m_renderPolicy->VisualScale()),
+                                   m_metresMinWidth);
 
     if (m_width != 0 && m_height != 0)
       OnSize(m_width, m_height);
+
+    m_informationDisplay.setVisualScale(m_renderPolicy->VisualScale());
 
     // Do full invalidate instead of any "pending" stuff.
     Invalidate();

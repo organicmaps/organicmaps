@@ -1,9 +1,9 @@
 #pragma once
 
+#include "../gui/element.hpp"
 #include "../geometry/screenbase.hpp"
 #include "../geometry/point2d.hpp"
 #include "../geometry/any_rect2d.hpp"
-#include "../graphics/overlay_element.hpp"
 #include "../graphics/font_desc.hpp"
 
 namespace graphics
@@ -15,7 +15,7 @@ namespace graphics
   }
 }
 
-class Ruler : public graphics::OverlayElement
+class Ruler : public gui::Element
 {
 private:
 
@@ -44,7 +44,7 @@ private:
 
   m2::RectD m_boundRect;
 
-  typedef OverlayElement base_t;
+  typedef gui::Element base_t;
 
   mutable vector<m2::AnyRectD> m_boundRects;
 
@@ -60,9 +60,7 @@ private:
 public:
   void update(); //< update internal params after some other params changed.
 
-  struct Params : public base_t::Params
-  {
-  };
+  typedef base_t::Params Params;
 
   Ruler(Params const & p);
   void setup();

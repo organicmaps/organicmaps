@@ -27,19 +27,21 @@
 
 namespace
 {
-
-static int const FONT_SIZE = 10;
-
+  static int const FONT_SIZE = 10;
 }
 
 InformationDisplay::InformationDisplay(Framework * framework)
-  : m_ruler(Ruler::Params()),
-    m_bottomShift(0),
+  : m_bottomShift(0),
     m_visualScale(1)
 {
   m_fontDesc.m_color = graphics::Color(0x44, 0x44, 0x44, 0xFF);
 
-  m_ruler.setDepth(graphics::maxDepth);
+  Ruler::Params rp;
+
+  rp.m_depth = graphics::maxDepth - 10;
+  rp.m_position = graphics::EPosAboveLeft;
+
+  m_ruler.reset(new Ruler(rp));
 
   CountryStatusDisplay::Params p;
 
@@ -94,12 +96,13 @@ void InformationDisplay::setController(gui::Controller *controller)
   m_controller->AddElement(m_countryStatusDisplay);
   m_controller->AddElement(m_compassArrow);
   m_controller->AddElement(m_locationState);
+  m_controller->AddElement(m_ruler);
 }
 
 void InformationDisplay::setScreen(ScreenBase const & screen)
 {
   m_screen = screen;
-  m_ruler.setScreen(screen);
+  m_ruler->setScreen(screen);
 
   if (m_countryStatusDisplay->isVisible())
   {
@@ -123,6 +126,11 @@ void InformationDisplay::setBottomShift(double bottomShift)
 void InformationDisplay::setDisplayRect(m2::RectI const & rect)
 {
   m_displayRect = rect;
+
+  m2::PointD pt(m2::PointD(m_displayRect.maxX() - 5 * m_visualScale,
+                           m_displayRect.maxY() - 4 * m_visualScale));
+
+  m_ruler->setPivot(pt);
 }
 
 void InformationDisplay::enableDebugPoints(bool doEnable)
@@ -140,44 +148,36 @@ void InformationDisplay::drawDebugPoints(Drawer * pDrawer)
   for (int i = 0; i < sizeof(m_DebugPts) / sizeof(m2::PointD); ++i)
     if (m_DebugPts[i] != m2::PointD(0, 0))
     {
-    pDrawer->screen()->drawArc(m_DebugPts[i], 0, math::pi * 2, 30, graphics::Color(0, 0, 255, 32), graphics::maxDepth);
-    pDrawer->screen()->fillSector(m_DebugPts[i], 0, math::pi * 2, 30, graphics::Color(0, 0, 255, 32), graphics::maxDepth);
-  }
+      pDrawer->screen()->drawArc(m_DebugPts[i], 0, math::pi * 2, 30, graphics::Color(0, 0, 255, 32), graphics::maxDepth);
+      pDrawer->screen()->fillSector(m_DebugPts[i], 0, math::pi * 2, 30, graphics::Color(0, 0, 255, 32), graphics::maxDepth);
+    }
 }
 
 void InformationDisplay::enableRuler(bool doEnable)
 {
-  m_isRulerEnabled = doEnable;
+  m_ruler->setIsVisible(doEnable);
 }
 
 void InformationDisplay::setRulerParams(unsigned pxMinWidth, double metresMinWidth, double metresMaxWidth)
 {
-  m_ruler.setMinPxWidth(pxMinWidth);
-  m_ruler.setMinMetersWidth(metresMinWidth);
-  m_ruler.setMaxMetersWidth(metresMaxWidth);
-}
-
-void InformationDisplay::drawRuler(Drawer * pDrawer)
-{
-  graphics::FontDesc rulerFont = m_fontDesc;
-
-  m_ruler.setFontDesc(rulerFont);
-  m_ruler.setVisualScale(m_visualScale);
-
-  m2::PointD pivot(m2::PointD(m_displayRect.maxX() - 5 * m_visualScale,
-                              m_displayRect.maxY() - 4 * m_visualScale));
-  m_ruler.setPosition(graphics::EPosAboveLeft);
-  m_ruler.setPivot(pivot);
-  m_ruler.update();
-
-  m_ruler.draw(pDrawer->screen().get(), math::Identity<double, 3>());
+  m_ruler->setMinPxWidth(pxMinWidth);
+  m_ruler->setMinMetersWidth(metresMinWidth);
+  m_ruler->setMaxMetersWidth(metresMaxWidth);
 }
 
 void InformationDisplay::setVisualScale(double visualScale)
 {
   m_visualScale = visualScale;
 
-  m_fontDesc.m_size = static_cast<uint32_t>(FONT_SIZE * visualScale);
+  m_fontDesc.m_size = static_cast<uint32_t>(FONT_SIZE * m_visualScale);
+
+  m_ruler->setFontDesc(m_fontDesc);
+  m_ruler->setVisualScale(m_visualScale);
+
+  m2::PointD pt(m2::PointD(m_displayRect.maxX() - 5 * m_visualScale,
+                           m_displayRect.maxY() - 4 * m_visualScale));
+
+  m_ruler->setPivot(pt);
 }
 
 void InformationDisplay::enableCenter(bool doEnable)
@@ -467,7 +467,7 @@ void InformationDisplay::drawBenchmarkInfo(Drawer * pDrawer)
 
 void InformationDisplay::setupRuler()
 {
-  m_ruler.setup();
+  m_ruler->setup();
 }
 
 void InformationDisplay::doDraw(Drawer *drawer)
@@ -475,8 +475,6 @@ void InformationDisplay::doDraw(Drawer *drawer)
   m_yOffset = 0;
   if (m_isDebugPointsEnabled)
     drawDebugPoints(drawer);
-  if (m_isRulerEnabled)
-    drawRuler(drawer);
   if (m_isCenterEnabled)
     drawCenter(drawer);
   if (m_isDebugInfoEnabled)
