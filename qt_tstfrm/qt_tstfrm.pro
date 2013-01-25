@@ -12,8 +12,8 @@ QT *= core gui opengl
 HEADERS += \
   tstwidgets.hpp \
   macros.hpp \
-    gl_test_widget.hpp \
-    gui_test_widget.hpp
+  gl_test_widget.hpp \
+  gui_test_widget.hpp \
 
 SOURCES += \
   tstwidgets.cpp \

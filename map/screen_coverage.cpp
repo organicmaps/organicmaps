@@ -197,7 +197,7 @@ bool ScreenCoverage::Cache(core::CommandsQueue::Environment const & env)
   }
 
   if (!infos.empty())
-    m_cacheScreen->blit(&infos[0], infos.size(), true);
+    m_cacheScreen->blit(&infos[0], infos.size(), true, graphics::minDepth);
 
   math::Matrix<double, 3, 3> idM = math::Identity<double, 3>();
 

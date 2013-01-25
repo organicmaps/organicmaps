@@ -26,7 +26,7 @@ namespace gui
 
     enum EState
     {
-      EInactive,
+      EInactive = 0,
       EActive,
       EPressed,
       ESelected

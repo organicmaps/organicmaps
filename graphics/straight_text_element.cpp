@@ -277,7 +277,7 @@ namespace graphics
     {
       graphics::FontDesc fontDesc = m_glyphLayouts[i].fontDesc();
       fontDesc.m_isMasked = false;
-      drawTextImpl(m_glyphLayouts[i], screen, m, true, true, fontDesc, depth());
+      drawTextImpl(m_glyphLayouts[i], screen, m, true, true, fontDesc, depth() + 0.1);
     }
   }
 

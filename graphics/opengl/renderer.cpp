@@ -67,7 +67,7 @@ namespace graphics
                      0, m_width,
                      m_height, 0,
                     -graphics::maxDepth,
-                     graphics::maxDepth);
+                     graphics::maxDepth + 1);
 
 
       if (m_frameBuffer)

@@ -54,7 +54,8 @@ namespace graphics
 
     void blit(BlitInfo const * blitInfo,
               size_t s,
-              bool isSubPixel);
+              bool isSubPixel,
+              double depth);
 
     void immDrawSolidRect(m2::RectF const & rect,
                           Color const & color);

@@ -24,7 +24,8 @@ namespace graphics
 
   void Blitter::blit(BlitInfo const * blitInfo,
                      size_t s,
-                     bool isSubPixel)
+                     bool isSubPixel,
+                     double depth)
   {
     vector<m2::PointF> geomPts(4 * s);
     vector<m2::PointF> texPts(4 * s);
@@ -67,7 +68,7 @@ namespace graphics
     {
       pointsData[i].pt.x = geomPts[i].x;
       pointsData[i].pt.y = geomPts[i].y;
-      pointsData[i].depth = graphics::maxDepth;
+      pointsData[i].depth = depth;
       pointsData[i].tex.x = texPts[i].x;
       pointsData[i].tex.y = texPts[i].y;
       pointsData[i].normal.x = 0;

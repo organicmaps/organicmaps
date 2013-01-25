@@ -3,6 +3,7 @@
 namespace graphics
 {
   static const int maxDepth = 20000;
+  static const int minDepth = -20000;
 
   /// When adding values here,
   /// please check constructor of ResourceManager,

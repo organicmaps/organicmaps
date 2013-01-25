@@ -74,7 +74,7 @@ namespace graphics
       desc.m_isMasked = false;
     }
 
-    drawTextImpl(m_glyphLayout, screen, m, false, false, desc, depth());
+    drawTextImpl(m_glyphLayout, screen, m, false, false, desc, depth() + 0.1);
   }
 
   void PathTextElement::setPivot(m2::PointD const & pivot)

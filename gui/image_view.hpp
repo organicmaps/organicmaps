@@ -3,11 +3,12 @@
 #include "element.hpp"
 
 #include "../graphics/image.hpp"
-#include "../std/shared_ptr.hpp"
+#include "../graphics/display_list.hpp"
+
+#include "../std/scoped_ptr.hpp"
 
 namespace graphics
 {
-  class DisplayList;
   class OverlayRenderer;
 }
 
@@ -21,7 +22,7 @@ namespace gui
 
     graphics::Image::Info m_image;
     m2::RectU m_margin;
-    shared_ptr<graphics::DisplayList> m_displayList;
+    scoped_ptr<graphics::DisplayList> m_displayList;
 
   public:
 
