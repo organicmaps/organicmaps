@@ -441,11 +441,16 @@ public class SearchActivity extends ListActivity implements LocationService.List
   {
     if (!isShowCategories())
     {
+      //Log.d(TAG, "onBackPressed set empty text");
+
       // invokes runSearch with empty string - adapter will show categories
       m_searchBox.setText("");
     }
     else
+    {
+      //Log.d(TAG, "super.onBackPressed");
       super.onBackPressed();
+    }
   }
 
   /// Current position.
@@ -463,6 +468,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
   private void updateDistance()
   {
+    //Log.d(TAG, ("From updateDistance()"));
     getSA().updateData();
   }
 
@@ -472,6 +478,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
     m_progress.setVisibility(View.GONE);
 
+    //Log.d(TAG, ("From showCategories()"));
     getSA().updateData();
   }
 
@@ -490,6 +497,9 @@ public class SearchActivity extends ListActivity implements LocationService.List
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
+    if (isShowCategories())
+      return;
+
     @SuppressWarnings("deprecation")
     final int orientation = getWindowManager().getDefaultDisplay().getOrientation();
     final double correction = LocationService.getAngleCorrection(orientation);
@@ -534,11 +544,16 @@ public class SearchActivity extends ListActivity implements LocationService.List
         if (isCurrentResult(resultID))
           m_progress.setVisibility(View.GONE);
 
-        // update list view content
-        getSA().updateData(count, resultID);
+        if (!isShowCategories())
+        {
+          //Log.d(TAG, ("From runUI-updateData()"));
 
-        // scroll list view to the top
-        setSelection(0);
+          // update list view with results if we are not in categories mode
+          getSA().updateData(count, resultID);
+
+          // scroll list view to the top
+          setSelection(0);
+        }
       }
     });
   }
@@ -573,14 +588,19 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
   private int runSearch()
   {
-    // TODO Need to get input language
-    final String lang = Locale.getDefault().getLanguage();
-    Log.d(TAG, "Current language = " + lang);
-
     final String s = getSearchString();
     if (s.length() == 0)
+    {
+      // do force search next time from categories list
+      m_flags &= (~NOT_FIRST_QUERY);
       return QUERY_EMPTY;
+    }
+
     Log.d(TAG, "Search query = " + s);
+
+    /// @todo Need to get input language
+    final String lang = Locale.getDefault().getLanguage();
+    Log.d(TAG, "Current language = " + lang);
 
     final int id = m_queryID + QUERY_STEP;
     if (nativeRunSearch(s, lang, m_lat, m_lon, m_flags, m_searchMode, id))
@@ -589,7 +609,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
       m_queryID = id;
       //Log.d(TAG, "Current search query id =" + m_queryID);
 
-      // mark that it's not the first query already
+      // mark that it's not the first query already - don't do force search
       m_flags |= NOT_FIRST_QUERY;
 
       // show search progress
