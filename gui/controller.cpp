@@ -166,10 +166,7 @@ namespace gui
 
     math::Matrix<double, 3, 3> m = math::Identity<double, 3>();
 
-    for (elem_list_t::const_iterator it = m_Elements.begin();
-         it != m_Elements.end();
-         ++it)
-      (*it)->draw(screen, m);
+    for_each(m_Elements.begin(), m_Elements.end(), bind(&Element::draw, _1, screen, m));
 
     screen->endFrame();
   }
@@ -188,11 +185,7 @@ namespace gui
   void Controller::SetStringsBundle(StringsBundle const * bundle)
   {
     m_bundle = bundle;
-
-    for (elem_list_t::const_iterator it = m_Elements.begin();
-         it != m_Elements.end();
-         ++it)
-      (*it)->setIsDirtyLayout(true);
+    for_each(m_Elements.begin(), m_Elements.end(), bind(&Element::setIsDirtyLayout, _1, true));
   }
 
   StringsBundle const * Controller::GetStringsBundle() const
@@ -207,28 +200,17 @@ namespace gui
 
   void Controller::UpdateElements()
   {
-    for (elem_list_t::const_iterator it = m_Elements.begin();
-         it != m_Elements.end();
-         ++it)
-      (*it)->update();
+    for_each(m_Elements.begin(), m_Elements.end(), bind(&Element::update, _1));
   }
 
   void Controller::PurgeElements()
   {
-    for (elem_list_t::const_iterator it = m_Elements.begin();
-         it != m_Elements.end();
-         ++it)
-    {
-      (*it)->purge();
-      (*it)->setIsDirtyLayout(true);
-    }
+    for_each(m_Elements.begin(), m_Elements.end(), bind(&Element::purge, _1));
+    for_each(m_Elements.begin(), m_Elements.end(), bind(&Element::setIsDirtyLayout, _1, true));
   }
 
   void Controller::LayoutElements()
   {
-    for (elem_list_t::const_iterator it = m_Elements.begin();
-         it != m_Elements.end();
-         ++it)
-      (*it)->checkDirtyLayout();
+    for_each(m_Elements.begin(), m_Elements.end(), bind(&Element::checkDirtyLayout, _1));
   }
 }

@@ -49,7 +49,6 @@ private:
   bool m_isDebugPointsEnabled;
   m2::PointD m_DebugPts[10];
 
-  bool m_isRulerEnabled;
   shared_ptr<Ruler> m_ruler;
 
   bool m_isCenterEnabled;
@@ -107,7 +106,6 @@ public:
 
   void enableRuler(bool doEnable);
   void setRulerParams(unsigned pxMinWidth, double metresMinWidth, double metresMaxWidth);
-  void setupRuler();
 
   void enableCenter(bool doEnable);
   void setCenter(m2::PointD const & latLongPt);
@@ -143,6 +141,8 @@ public:
   void setEmptyCountryIndex(storage::TIndex const & idx);
 
   shared_ptr<CountryStatusDisplay> const & countryStatusDisplay() const;
+  shared_ptr<Ruler> const & ruler() const;
+
 
   static void logMessage(my::LogLevel, my::SrcPoint const &, string const &);
 };

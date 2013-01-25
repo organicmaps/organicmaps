@@ -28,9 +28,6 @@ private:
   double m_maxMetersWidth;
   //@}
 
-  double m_visualScale;
-
-  graphics::FontDesc m_fontDesc;
   ScreenBase m_screen;
 
   /// Current diff in units between two endpoints of the ruler.
@@ -54,16 +51,11 @@ private:
   int m_currSystem;
   void CalcMetresDiff(double v);
 
-  bool m_isInitialized;
-  bool m_hasPendingUpdate;
-
 public:
-  void update(); //< update internal params after some other params changed.
 
   typedef base_t::Params Params;
 
   Ruler(Params const & p);
-  void setup();
 
   void setScreen(ScreenBase const & screen);
   ScreenBase const & screen() const;
@@ -71,13 +63,12 @@ public:
   void setMinPxWidth(unsigned minPxWidth);
   void setMinMetersWidth(double v);
   void setMaxMetersWidth(double v);
-  void setVisualScale(double visualScale);
   void setFontDesc(graphics::FontDesc const & fontDesc);
 
   vector<m2::AnyRectD> const & boundRects() const;
 
   void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
-  double priority() const;
-  graphics::OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
+  void layout();
+  void update();
 };

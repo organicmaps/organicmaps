@@ -64,12 +64,10 @@ namespace gui
     virtual bool onTapEnded(m2::PointD const & pt);
     virtual bool onTapCancelled(m2::PointD const & pt);
 
+    /// invalidate the rendering system to redraw the gui elements.
     void invalidate();
+    /// obtain @see VisualScale
     double visualScale() const;
-
-    graphics::OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
-    void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
-    double priority() const;
 
     /// this method is called to cache visual appearance of gui::Element for fast rendering.
     /// it should be called when isDirtyDrawing is set to true(visual parameters of object is changed).
@@ -83,9 +81,14 @@ namespace gui
     /// this method is called after gui::Controller::SetRenderParams to
     /// perform layout calculations which might depends on RenderParams.
     virtual void layout();
-
+    /// set the parent controller for this element.
     virtual void setController(Controller * controller);
-
+    /// check if the layout of element is dirty and re-layout element if needed.
     void checkDirtyLayout() const;
+
+    graphics::OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
+    void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
+    double priority() const;
+
   };
 }

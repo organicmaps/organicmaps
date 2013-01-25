@@ -171,13 +171,7 @@ void InformationDisplay::setVisualScale(double visualScale)
 
   m_fontDesc.m_size = static_cast<uint32_t>(FONT_SIZE * m_visualScale);
 
-  m_ruler->setFontDesc(m_fontDesc);
-  m_ruler->setVisualScale(m_visualScale);
-
-  m2::PointD pt(m2::PointD(m_displayRect.maxX() - 5 * m_visualScale,
-                           m_displayRect.maxY() - 4 * m_visualScale));
-
-  m_ruler->setPivot(pt);
+  m_ruler->setFont(gui::Element::EActive, m_fontDesc);
 }
 
 void InformationDisplay::enableCenter(bool doEnable)
@@ -194,16 +188,14 @@ void InformationDisplay::drawCenter(Drawer * drawer)
 {
   ostringstream out;
 
-  out
-      << fixed << setprecision(4)
+  out << fixed << setprecision(4)
       << m_centerPtLonLat.y
       << ", "
-      << m_centerPtLonLat.x
-         ;
+      << m_centerPtLonLat.x;
 
   graphics::StraightTextElement::Params params;
 
-  params.m_depth = graphics::maxDepth;
+  params.m_depth = graphics::maxDepth - 10;
   params.m_fontDesc = m_fontDesc;
   params.m_log2vis = false;
 
@@ -256,7 +248,7 @@ void InformationDisplay::drawDebugInfo(Drawer * drawer)
                              pos,
                              graphics::EPosAboveRight,
                              out.str(),
-                             graphics::maxDepth,
+                             graphics::maxDepth - 10,
                              false);
 }
 
@@ -283,7 +275,7 @@ void InformationDisplay::drawMemoryWarning(Drawer * drawer)
                              pos,
                              graphics::EPosAboveRight,
                              out.str(),
-                             graphics::maxDepth,
+                             graphics::maxDepth - 10,
                              false);
 
   if (m_lastMemoryWarning.ElapsedSeconds() > 5)
@@ -465,11 +457,6 @@ void InformationDisplay::drawBenchmarkInfo(Drawer * pDrawer)
 
 }
 
-void InformationDisplay::setupRuler()
-{
-  m_ruler->setup();
-}
-
 void InformationDisplay::doDraw(Drawer *drawer)
 {
   m_yOffset = 0;
@@ -495,4 +482,9 @@ shared_ptr<CountryStatusDisplay> const & InformationDisplay::countryStatusDispla
 shared_ptr<location::State> const & InformationDisplay::locationState() const
 {
   return m_locationState;
+}
+
+shared_ptr<Ruler> const & InformationDisplay::ruler() const
+{
+  return m_ruler;
 }

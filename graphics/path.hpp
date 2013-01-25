@@ -21,6 +21,7 @@ namespace graphics
 
     void lineRel(m2::Point<T> const & pt)
     {
+      ASSERT(!m_pts.empty(), ());
       m2::Point<T> const & p = m_pts.back();
       m_pts.push_back(p + pt);
     }

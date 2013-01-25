@@ -1382,10 +1382,10 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
     m_navigator.SetMinScreenParams(static_cast<unsigned>(m_minRulerWidth * m_renderPolicy->VisualScale()),
                                    m_metresMinWidth);
 
+    m_informationDisplay.setVisualScale(m_renderPolicy->VisualScale());
+
     if (m_width != 0 && m_height != 0)
       OnSize(m_width, m_height);
-
-    m_informationDisplay.setVisualScale(m_renderPolicy->VisualScale());
 
     // Do full invalidate instead of any "pending" stuff.
     Invalidate();
@@ -1402,7 +1402,7 @@ RenderPolicy * Framework::GetRenderPolicy() const
 
 void Framework::SetupMeasurementSystem()
 {
-  m_informationDisplay.setupRuler();
+  m_informationDisplay.ruler()->setIsDirtyLayout(true);
   Invalidate();
 }
 
