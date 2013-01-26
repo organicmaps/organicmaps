@@ -26,8 +26,11 @@ public abstract class AbstractBookmarkCategoryActivity extends AbstractBookmarkL
     if (menuInfo instanceof AdapterView.AdapterContextMenuInfo)
     {
       AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-      mSelectedPosition = info.position;
-      menu.setHeaderTitle(mManager.getCategoryById(mSelectedPosition).getName());
+      if (info.position < getAdapter().getCount())
+      {
+        mSelectedPosition = info.position;
+        menu.setHeaderTitle(mManager.getCategoryById(mSelectedPosition).getName());
+      }
     }
     super.onCreateContextMenu(menu, v, menuInfo);
   }

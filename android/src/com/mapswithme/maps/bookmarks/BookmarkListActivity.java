@@ -46,16 +46,8 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
     setContentView(R.layout.pins);
     final int setIndex = getIntent().getIntExtra(BookmarkActivity.PIN_SET, -1);
     mEditContent = getIntent().getBooleanExtra(EDIT_CONTENT, true);
-    if ((mEditedSet = mManager.getCategoryById(setIndex)) == null)
-    {
-      Point bmk = ((ParcelablePoint)getIntent().getParcelableExtra(BookmarkActivity.PIN)).getPoint();
-      mBookmark = mManager.getBookmark(bmk.x, bmk.y);
-      setTitle(R.string.add_new_set);
-    }
-    else
-    {
-      setTitle(mEditedSet.getName());
-    }
+    mEditedSet = mManager.getCategoryById(setIndex);
+    setTitle(mEditedSet.getName());
 
     mLocation = ((MWMApplication) getApplication()).getLocationService();
 
@@ -101,21 +93,7 @@ public class BookmarkListActivity extends AbstractBookmarkListActivity
       @Override
       public void onTextChanged(CharSequence s, int start, int before, int count)
       {
-        if (mEditedSet == null)
-        {
-          mEditedSet = mManager.createCategory(mBookmark, s.toString());
-          createListAdapter();
-          setResult(RESULT_OK,
-                    new Intent().putExtra(BookmarkActivity.PIN_SET, mManager.getCategoriesCount()-1).
-                    putExtra(BookmarkActivity.PIN, new ParcelablePoint(mManager.getCategoriesCount()-1, mEditedSet.getSize()-1))
-                    );
-          mIsVisible.setChecked(true);
-          mPinAdapter.notifyDataSetChanged();
-        }
-        else
-        {
-          mEditedSet.setName(s.toString());
-        }
+        mEditedSet.setName(s.toString());
         setTitle(s.toString());
       }
 
