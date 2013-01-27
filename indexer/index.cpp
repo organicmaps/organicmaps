@@ -20,7 +20,7 @@ MwmValue::MwmValue(string const & name)
 string MwmValue::GetFileName() const
 {
   string s = m_cont.GetFileName();
-  pl::GetNameFromURLRequest(s);
+  pl::GetNameFromPath(s);
   pl::GetNameWithoutExt(s);
   return s;
 }

@@ -18,4 +18,9 @@ void GetNameFromURLRequest(string & name)
     name = name.substr(i+1);
 }
 
+void GetNameFromPath(string & name)
+{
+  GetNameFromURLRequest(name);
+}
+
 }
