@@ -67,7 +67,6 @@ HEADERS += \
     chunks_download_strategy.hpp \
     servers_list.hpp \
     constants.hpp \
-    file_name_utils.hpp \
 
 SOURCES += \
     preferred_languages.cpp \
@@ -77,4 +76,3 @@ SOURCES += \
     chunks_download_strategy.cpp \
     platform.cpp \
     servers_list.cpp \
-    file_name_utils.cpp \

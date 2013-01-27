@@ -44,6 +44,7 @@ SOURCES += ../../testing/testingmain.cpp \
     blob_storage_test.cpp \
     uri_test.cpp \
     zip_creator_test.cpp \
+    file_utils_test.cpp \
 
 HEADERS += \
     reader_test.hpp \

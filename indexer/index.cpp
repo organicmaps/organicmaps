@@ -2,8 +2,8 @@
 #include "data_header.hpp"
 
 #include "../platform/platform.hpp"
-#include "../platform/file_name_utils.hpp"
 
+#include "../coding/file_name_utils.hpp"
 #include "../coding/internal/file_data.hpp"
 
 
@@ -20,8 +20,8 @@ MwmValue::MwmValue(string const & name)
 string MwmValue::GetFileName() const
 {
   string s = m_cont.GetFileName();
-  pl::GetNameFromPath(s);
-  pl::GetNameWithoutExt(s);
+  my::GetNameFromFullPath(s);
+  my::GetNameWithoutExt(s);
   return s;
 }
 

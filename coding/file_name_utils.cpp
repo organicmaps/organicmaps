@@ -1,7 +1,7 @@
 #include "file_name_utils.hpp"
 
 
-namespace pl
+namespace my
 {
 
 void GetNameWithoutExt(string & name)
@@ -11,16 +11,11 @@ void GetNameWithoutExt(string & name)
     name.erase(i);
 }
 
-void GetNameFromURLRequest(string & name)
+void GetNameFromFullPath(string & name)
 {
   string::size_type const i = name.find_last_of("/\\");
   if (i != string::npos)
     name = name.substr(i+1);
-}
-
-void GetNameFromPath(string & name)
-{
-  GetNameFromURLRequest(name);
 }
 
 }
