@@ -179,13 +179,25 @@ public class LocationService implements LocationListener, SensorEventListener, W
             m_sensorManager.registerListener(this, m_magnetometer, COMPASS_REFRESH_MKS);
         }
 
+        // Select better location between last known from providers or last save in the application.
+        final long currTime = System.currentTimeMillis();
+
+        if (lastKnown != null)
+          Log.d(TAG, "Last known provider's location (" + lastKnown.getProvider() +
+                ") delta = " + (currTime - lastKnown.getTime()));
+
+        if (m_lastLocation != null)
+        {
+          Log.d(TAG, "Last saved app location (" + m_lastLocation.getProvider() +
+                ") delta = " + (currTime - m_lastTime));
+
+          lastKnown = getBestLastKnownLocation(m_lastLocation, lastKnown);
+        }
+
         // Pass last known location only in the end of all registerListener
         // in case, when we want to disconnect in listener.
         if (lastKnown != null)
-        {
-          Log.d(TAG, "Last known location:");
-          onLocationChanged(lastKnown);
-        }
+          emitLocation(lastKnown, currTime);
       }
 
       if (isGPSOff)
@@ -205,30 +217,25 @@ public class LocationService implements LocationListener, SensorEventListener, W
         m_sensorManager.unregisterListener(this);
       m_magneticField = null;
 
-      m_lastLocation = null;
+      //m_lastLocation = null;
 
       m_isActive = false;
     }
   }
 
-  private static final int ONE_MINUTE = 1000 * 60 * 1;
-  private static final int FIVE_MINUTES = 1000 * 60 * 5;
-  private static final int TEN_SECONDS = 1000 * 10;
+  private static final int MAXTIME_COMPARE_LOCATIONS = 1000 * 60 * 1;
+  private static final int MAXTIME_CALC_DIRECTIONS = 1000 * 10;
 
   /// Choose better last known location from previous (saved) and current (to check).
   private static Location getBestLastKnownLocation(Location prev, Location curr)
   {
     if (curr == null)
       return prev;
-
-    if (System.currentTimeMillis() - curr.getTime() >= FIVE_MINUTES)
-      return prev;
-
-    if (prev == null)
+    else if (prev == null)
       return curr;
 
     final long delta = curr.getTime() - prev.getTime();
-    if (Math.abs(delta) < ONE_MINUTE)
+    if (Math.abs(delta) < 5 * MAXTIME_COMPARE_LOCATIONS)
     {
       return (curr.getAccuracy() < prev.getAccuracy() ? curr : prev);
     }
@@ -258,12 +265,12 @@ public class LocationService implements LocationListener, SensorEventListener, W
       final long delta = currTime - m_lastTime;
       assert(delta >= 0);
 
-      if ((delta < ONE_MINUTE) &&
+      if ((delta < MAXTIME_COMPARE_LOCATIONS) &&
           !isSameProvider(m_lastLocation.getProvider(), curr.getProvider()) &&
           (curr.getAccuracy() > m_lastLocation.getAccuracy()))
       {
-        // Just filter middle locations from different sources
-        // while we have stable GPS locations set.
+        // Just filter middle locations from different sources,
+        // while we have stable (in one minute range) locations with better accuracy.
         return 0;
       }
     }
@@ -275,7 +282,7 @@ public class LocationService implements LocationListener, SensorEventListener, W
   {
     // Try to calculate user direction if he is moving and
     // we have previous close position.
-    if ((l.getSpeed() >= 1.0) && (t - m_lastTime <= TEN_SECONDS))
+    if ((l.getSpeed() >= 1.0) && (t - m_lastTime <= MAXTIME_CALC_DIRECTIONS))
     {
       if (l.hasBearing())
         m_drivingHeading = bearingToHeading(l.getBearing());
@@ -286,7 +293,16 @@ public class LocationService implements LocationListener, SensorEventListener, W
       m_drivingHeading = -1.0;
   }
 
-  private final static float HUNDRED_METRES = 100.0f;
+  private void emitLocation(Location l, long currTime)
+  {
+    //Log.d(TAG, "Location accepted");
+    notifyLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy());
+    m_lastLocation = l;
+    m_lastTime = currTime;
+  }
+
+  /// Delta distance when we need to recreate GeomagneticField (to calculate declination).
+  private final static float DISTANCE_TO_RECREATE_MAGNETIC_FIELD = 1000.0f;
 
   @Override
   public void onLocationChanged(Location l)
@@ -304,17 +320,14 @@ public class LocationService implements LocationListener, SensorEventListener, W
       {
         // Recreate magneticField if location has changed significantly
         if (m_magneticField == null ||
-            (m_lastLocation == null || l.distanceTo(m_lastLocation) > HUNDRED_METRES))
+            (m_lastLocation == null || l.distanceTo(m_lastLocation) > DISTANCE_TO_RECREATE_MAGNETIC_FIELD))
         {
           m_magneticField = new GeomagneticField((float)l.getLatitude(), (float)l.getLongitude(),
                                                  (float)l.getAltitude(), l.getTime());
         }
       }
 
-      //Log.d(TAG, "Location accepted");
-      notifyLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy());
-      m_lastLocation = l;
-      m_lastTime = currTime;
+      emitLocation(l, currTime);
     }
   }
 
