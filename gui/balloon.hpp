@@ -11,6 +11,7 @@
 #include "../base/matrix.hpp"
 
 #include "../std/scoped_ptr.hpp"
+#include "../std/function.hpp"
 
 namespace graphics
 {
@@ -22,6 +23,8 @@ namespace gui
   class Balloon : public Element
   {
   private:
+
+    typedef function<void (Element *)> TOnClickListener;
 
     mutable vector<m2::AnyRectD> m_boundRects;
 
@@ -50,9 +53,13 @@ namespace gui
     double m_arrowWidth;
     double m_arrowAngle;
 
+    TOnClickListener m_onClickListener;
+
+    typedef Element base_t;
+
   public:
 
-    struct Params : public Element::Params
+    struct Params : public base_t::Params
     {
       string m_text;
       graphics::Image::Info m_image;
@@ -74,5 +81,14 @@ namespace gui
 
     void setController(Controller * controller);
     void setPivot(m2::PointD const & pv);
+
+    void setOnClickListener(TOnClickListener const & fn);
+
+    void setText(string const & s);
+
+    bool onTapStarted(m2::PointD const & pt);
+    bool onTapMoved(m2::PointD const & pt);
+    bool onTapEnded(m2::PointD const & pt);
+    bool onTapCancelled(m2::PointD const & pt);
   };
 }

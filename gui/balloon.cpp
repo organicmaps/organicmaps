@@ -245,4 +245,45 @@ namespace gui
       r->drawRectangle(r1, graphics::Color(255, 0, 0, 255), graphics::maxDepth);
     }
   }
+
+  void Balloon::setOnClickListener(TOnClickListener const & fn)
+  {
+    m_onClickListener = fn;
+  }
+
+  bool Balloon::onTapStarted(m2::PointD const & pt)
+  {
+    setState(EPressed);
+    invalidate();
+    return false;
+  }
+
+  bool Balloon::onTapCancelled(m2::PointD const & pt)
+  {
+    setState(EActive);
+    invalidate();
+    return false;
+  }
+
+  bool Balloon::onTapEnded(m2::PointD const & pt)
+  {
+    setState(EActive);
+    if (m_onClickListener)
+      m_onClickListener(this);
+    invalidate();
+    return false;
+  }
+
+  bool Balloon::onTapMoved(m2::PointD const & pt)
+  {
+    invalidate();
+    return false;
+  }
+
+  void Balloon::setText(string const & s)
+  {
+    m_textView->setText(s);
+    setIsDirtyLayout(true);
+    invalidate();
+  }
 }

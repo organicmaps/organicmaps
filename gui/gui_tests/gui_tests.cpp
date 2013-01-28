@@ -9,8 +9,11 @@ struct BalloonTest
 {
   shared_ptr<gui::Balloon> m_balloon;
 
+  bool m_flag;
+
   void Init(gui::Controller * c)
   {
+    m_flag = false;
     gui::Balloon::Params bp;
 
     bp.m_depth = graphics::maxDepth - 20;
@@ -27,13 +30,32 @@ struct BalloonTest
     bp.m_imageMarginTop = 5;
     bp.m_imageMarginBottom = 5;
 
-    bp.m_text = "Кирова, 24";
+    bp.m_text = "Active";
     bp.m_image = graphics::Image::Info("testing/images/arrow.png");
 
     m_balloon.reset(new gui::Balloon(bp));
     m_balloon->setIsVisible(true);
 
+    m_balloon->setOnClickListener(bind(&BalloonTest::OnClick, this, _1));
+
     c->AddElement(m_balloon);
+  }
+
+  void OnClick(gui::Element * e)
+  {
+    gui::Balloon * b = static_cast<gui::Balloon *>(e);
+
+    SetText(b);
+
+    m_flag = !m_flag;
+  }
+
+  void SetText(gui::Balloon * b)
+  {
+    if (m_flag)
+      b->setText("Arrow");
+    else
+      b->setText("Cinema");
   }
 
   void DoDraw(shared_ptr<graphics::Screen> const & p)

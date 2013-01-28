@@ -2,6 +2,7 @@
 
 #include "gl_test_widget.hpp"
 #include "../../gui/controller.hpp"
+#include <QMouseEvent>
 
 template <class T, void (T::*)(gui::Controller*)>
 struct init_with_controller_fn_bind
@@ -33,6 +34,11 @@ private:
 
 public:
 
+  void invalidate()
+  {
+    base_t::updateGL();
+  }
+
   void initializeGL()
   {
     base_t::initializeGL();
@@ -56,7 +62,7 @@ public:
 
     rp.m_CacheScreen = m_cacheScreen.get();
     rp.m_GlyphCache = base_t::m_resourceManager->glyphCache(0);
-    rp.m_InvalidateFn = bind(&QGLWidget::update, this);
+    rp.m_InvalidateFn = bind(&GUITestWidget<TTest>::invalidate, this);
     rp.m_VisualScale = 1.0;
 
     InitImpl(m_controller, bool_tag<has_init_with_controller<TTest, TTest>::value >());
@@ -77,6 +83,29 @@ public:
     base_t::DoDraw(s);
     m_controller->UpdateElements();
     m_controller->DrawFrame(s.get());
+  }
+
+  void mousePressEvent(QMouseEvent * e)
+  {
+    base_t::mousePressEvent(e);
+
+    if (e->button() == Qt::LeftButton)
+      m_controller->OnTapStarted(m2::PointU(e->pos().x(), e->pos().y()));
+  }
+
+  void mouseReleaseEvent(QMouseEvent * e)
+  {
+    base_t::mouseReleaseEvent(e);
+
+    if (e->button() == Qt::LeftButton)
+      m_controller->OnTapEnded(m2::PointU(e->pos().x(), e->pos().y()));
+  }
+
+  void mouseMoveEvent(QMouseEvent * e)
+  {
+    base_t::mouseMoveEvent(e);
+
+    m_controller->OnTapMoved(m2::PointU(e->pos().x(), e->pos().y()));
   }
 };
 
