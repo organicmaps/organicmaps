@@ -55,7 +55,7 @@ public class SearchActivity extends ListActivity implements LocationService.List
       "police"
     };
 
-    private int m_count = 0;
+    private int m_count = -1;
     private int m_resultID = 0;
 
     public SearchAdapter(SearchActivity context)
@@ -69,28 +69,50 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
     private static final int CATEGORY_TYPE = 0;
     private static final int RESULT_TYPE = 1;
+    private static final int MESSAGE_TYPE = 2;
 
-    boolean isShowCategories()
+
+    private boolean isShowCategories()
     {
       return m_context.isShowCategories();
+    }
+
+    private boolean isShowPositionWarning()
+    {
+      return (m_context.m_location.getLastKnown() == null && m_context.m_searchMode == AROUND_POSITION);
+    }
+
+
+    @Override
+    public boolean isEnabled(int position)
+    {
+      return (isShowCategories() || m_count > 0);
     }
 
     @Override
     public int getItemViewType(int position)
     {
-      return (isShowCategories() ? CATEGORY_TYPE : RESULT_TYPE);
+      if (isShowCategories())
+        return CATEGORY_TYPE;
+      else
+        return (m_count == 0 ? MESSAGE_TYPE : RESULT_TYPE);
     }
 
     @Override
     public int getViewTypeCount()
     {
-      return 2;
+      return 3;
     }
 
     @Override
     public int getCount()
     {
-      return (isShowCategories() ? m_categories.length : m_count);
+      if (isShowCategories())
+        return m_categories.length;
+      else if (m_count < 0)
+        return 0;
+      else
+        return (m_count == 0 ? 1 : m_count);
     }
 
     @Override
@@ -113,14 +135,18 @@ public class SearchActivity extends ListActivity implements LocationService.List
       public TextView m_amenity = null;
       public ArrowImage m_flag = null;
 
-      void initFromView(View v, boolean isResult)
+      void initFromView(View v, int type)
       {
         m_name = (TextView) v.findViewById(R.id.name);
-        m_flag = (ArrowImage) v.findViewById(R.id.country_flag);
 
-        if (isResult)
-        {
+        if (type != MESSAGE_TYPE)
+          m_flag = (ArrowImage) v.findViewById(R.id.country_flag);
+
+        if (type != CATEGORY_TYPE)
           m_country = (TextView) v.findViewById(R.id.country);
+
+        if (type == RESULT_TYPE)
+        {
           m_distance = (TextView) v.findViewById(R.id.distance);
           m_amenity = (TextView) v.findViewById(R.id.amenity);
         }
@@ -195,12 +221,17 @@ public class SearchActivity extends ListActivity implements LocationService.List
         {
         case CATEGORY_TYPE:
           convertView = m_inflater.inflate(R.layout.search_category_item, null);
-          holder.initFromView(convertView, false);
+          holder.initFromView(convertView, CATEGORY_TYPE);
           break;
 
         case RESULT_TYPE:
           convertView = m_inflater.inflate(R.layout.search_item, null);
-          holder.initFromView(convertView, true);
+          holder.initFromView(convertView, RESULT_TYPE);
+          break;
+
+        case MESSAGE_TYPE:
+          convertView = m_inflater.inflate(R.layout.search_message_item, null);
+          holder.initFromView(convertView, MESSAGE_TYPE);
           break;
         }
 
@@ -213,14 +244,32 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
       if (isShowCategories())
       {
+        // Show categories list.
+
         assert(position < m_categories.length);
         final String strID = m_categories[position];
 
         holder.m_name.setText(getCategoryName(strID));
         holder.m_flag.setFlag(m_resource, m_packageName, strID);
       }
+      else if (m_count == 0)
+      {
+        // Show warning message.
+        assert(position == 0);
+
+        holder.m_name.setText(m_context.getString(R.string.no_search_results_found));
+
+        if (isShowPositionWarning())
+        {
+          holder.m_country.setVisibility(View.VISIBLE);
+          holder.m_country.setText(R.string.unknown_current_position);
+        }
+        else
+          holder.m_country.setVisibility(View.GONE);
+      }
       else
       {
+        // Show search results.
         //Log.d(TAG, "Getting result for result ID = " + m_resultID);
 
         final SearchResult r = m_context.getResult(position, m_resultID);
@@ -263,6 +312,13 @@ public class SearchActivity extends ListActivity implements LocationService.List
     public void updateData()
     {
       notifyDataSetChanged();
+    }
+
+    public void updateCategories()
+    {
+      assert(isShowCategories());
+      m_count = -1;
+      updateData();
     }
 
     /// Show tapped country or get suggestion or get category to search.
@@ -474,12 +530,10 @@ public class SearchActivity extends ListActivity implements LocationService.List
 
   private void showCategories()
   {
-    assert(isShowCategories());
-
     m_progress.setVisibility(View.GONE);
 
     //Log.d(TAG, ("From showCategories()"));
-    getSA().updateData();
+    getSA().updateCategories();
   }
 
   @Override

@@ -1638,3 +1638,8 @@
     tags = android
     comment = Title for Confirm dialog
     ru = Вы уверены?
+  [unknown_current_position]
+    en = Current postion is not available
+    tags = ios, android
+    comment = Warning message when searching around current position
+    ru = Текущая позиция недоступна

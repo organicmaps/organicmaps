@@ -257,4 +257,6 @@
 	<string name="edit">Edit</string>
 	<!-- Title for Confirm dialog -->
 	<string name="are_you_sure">Are you sure?</string>
+	<!-- Warning message when searching around current position -->
+	<string name="unknown_current_position">Current postion is not available</string>
 </resources>

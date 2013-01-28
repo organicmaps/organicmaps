@@ -253,4 +253,6 @@
 	<string name="edit">Редактировать</string>
 	<!-- Title for Confirm dialog -->
 	<string name="are_you_sure">Вы уверены?</string>
+	<!-- Warning message when searching around current position -->
+	<string name="unknown_current_position">Текущая позиция недоступна</string>
 </resources>
