@@ -10,7 +10,8 @@
         android:id="@+id/country_flag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dip"
+        android:paddingLeft="2dip"
+        android:paddingRight="8dip"
         android:scaleType="center"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"/>
