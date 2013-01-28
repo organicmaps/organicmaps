@@ -11,13 +11,13 @@
 #include "../../../../../indexer/drawing_rules.hpp"
 
 #include "../../../../../coding/file_container.hpp"
+#include "../../../../../coding/file_name_utils.hpp"
 
 #include "../../../../../graphics/opengl/framebuffer.hpp"
 #include "../../../../../graphics/opengl/opengl.hpp"
 
 #include "../../../../../platform/platform.hpp"
 #include "../../../../../platform/location.hpp"
-#include "../../../../../platform/file_name_utils.hpp"
 
 #include "../../../../../base/math.hpp"
 
@@ -476,7 +476,7 @@ namespace android
           FilesContainerR cont(pl.GetReader(v[i]));
           if (!cont.IsReaderExist(SEARCH_INDEX_FILE_TAG))
           {
-            pl::GetNameWithoutExt(v[i]);
+            my::GetNameWithoutExt(v[i]);
             out.push_back(v[i]);
           }
         }
